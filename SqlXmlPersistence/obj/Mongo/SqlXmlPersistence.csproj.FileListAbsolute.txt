@@ -1,0 +1,8 @@
+C:\SVN\LIS\SqlXmlPersistence\bin\Mongo\SqlXmlPersistence.dll.config
+C:\SVN\LIS\SqlXmlPersistence\bin\Mongo\SqlXmlPersistence.dll
+C:\SVN\LIS\SqlXmlPersistence\bin\Mongo\SqlXmlPersistence.pdb
+C:\SVN\LIS\SqlXmlPersistence\bin\Mongo\DomainPersistence.dll
+C:\SVN\LIS\SqlXmlPersistence\bin\Mongo\DomainPersistence.pdb
+C:\SVN\LIS\SqlXmlPersistence\obj\Mongo\SqlXmlPersistence.csprojResolveAssemblyReference.cache
+C:\SVN\LIS\SqlXmlPersistence\obj\Mongo\SqlXmlPersistence.dll
+C:\SVN\LIS\SqlXmlPersistence\obj\Mongo\SqlXmlPersistence.pdb

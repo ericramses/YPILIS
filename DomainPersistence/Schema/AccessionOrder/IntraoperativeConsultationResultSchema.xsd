@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:ms="urn:schemas-microsoft-com:mapping-schema"
+			xmlns:sql="urn:schemas-microsoft-com:xml-sql" id="InlineSchema" sql:is-mapping-schema="1">
+
+	<xsd:element name="IntraoperativeConsultationResultItem" type="IntraoperativeConsultationResultItemType" ms:relation="tblIntraoperativeConsultationResult" ms:key-fields="IntraoperativeConsultationResultId" />
+	<xsd:complexType name="IntraoperativeConsultationResultItemType">
+		<xsd:sequence>
+			<xsd:element name="IntraoperativeConsultationResultId" type="xsd:string" />
+			<xsd:element name="SurgicalSpecimenResultId" type="xsd:string" />
+			<xsd:element name="StartDate" type="xsd:dateTime" ms:datatype="dateTime" nillable="true" />
+			<xsd:element name="EndDate" type="xsd:dateTime" ms:datatype="dateTime" nillable="true" />
+			<xsd:element name="TestOrderId" type="xsd:string" />
+			<xsd:element name="PerformedById" type="xsd:int" />
+			<xsd:element name="Result" type="xsd:string" />
+			<xsd:element name="Correlation" type="xsd:string" />
+			<xsd:element name="CorrelationDiscrepancyType" type="xsd:string" />
+			<xsd:element name="CorrelationAffectsPatientCare" type="xsd:boolean" />
+			<!--To be removed-->
+			<xsd:element name="CorrelationEffectOnPatientCare" type="xsd:string" />
+			<xsd:element name="CallbackContact" type="xsd:string" />
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

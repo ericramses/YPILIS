@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:ms="urn:schemas-microsoft-com:mapping-schema"
+			xmlns:sql="urn:schemas-microsoft-com:xml-sql" id="InlineSchema" sql:is-mapping-schema="1">
+
+	<xsd:element name="StainResultItem" type="StainResultItemType" ms:relation="tblStainResult" ms:key-fields="StainResultId" />
+	<xsd:complexType name="StainResultItemType">
+		<xsd:sequence>
+			<xsd:element name="StainResultId" type="xsd:string" />
+			<xsd:element name="SurgicalSpecimenResultId" type="xsd:string" />
+			<xsd:element name="Billable" type="xsd:boolean" />
+			<xsd:element name="Reportable" type="xsd:boolean" />
+			<xsd:element name="TestOrderId" type="xsd:string" />
+			<xsd:element name="Result" type="xsd:string" />
+			<xsd:element name="ProcedureName" type="xsd:string" />
+			<xsd:element name="ProcedureComment" type="xsd:string" />
+			<xsd:element name="ReportComment" type="xsd:string" />
+			<xsd:element name="ControlComment" type="xsd:string" />
+			<xsd:element name="CptCode" type="xsd:string" />
+			<xsd:element name="CptCodeQuantity" type="xsd:int" />
+			<xsd:element name="ImmunoComment" type="xsd:string" />
+			<xsd:element name="ImmunoCommentRptSeq" type="xsd:int" />
+			<xsd:element name="StainType" type="xsd:string" />
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

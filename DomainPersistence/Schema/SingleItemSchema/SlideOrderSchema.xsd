@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:ms="urn:schemas-microsoft-com:mapping-schema"
+			xmlns:sql="urn:schemas-microsoft-com:xml-sql" id="InlineSchema" sql:is-mapping-schema="1">
+
+	<xsd:element name="SlideOrder" type="SlideOrderType" ms:relation="tblSlideOrder" ms:key-fields="SpecimenOrderId"/>
+	<xsd:complexType name="SlideOrderType">
+		<xsd:sequence>
+			<xsd:element name="SpecimenOrderId" ms:identity="ignore" type="xsd:int"/>
+			<xsd:element name="OrderDate" type="xsd:dateTime" ms:datatype="dateTime"/>
+			<xsd:element name="Description" type="xsd:string"/>
+			<xsd:element name="AliquotType" type="xsd:string"/>
+			<xsd:element name="Label" type="xsd:string"/>
+			<xsd:element name="AliquotOrderId" type="xsd:int"/>
+			<xsd:element name="OrderedById" type="xsd:int"/>
+			<xsd:element name="OrderedBy" type="xsd:string"/>
+			<xsd:element name="OrderedFrom" type="xsd:string"/>
+			<xsd:element name="ValidationDate" type="xsd:dateTime" ms:datatype="dateTime" nillable="true"/>
+			<xsd:element name="Status" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

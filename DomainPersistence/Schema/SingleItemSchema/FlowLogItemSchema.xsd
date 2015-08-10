@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:ms="urn:schemas-microsoft-com:mapping-schema"
+			xmlns:sql="urn:schemas-microsoft-com:xml-sql" id="InlineSchema" sql:is-mapping-schema="1">
+
+	<xsd:element name="FlowLogItem" type="FlowLogItemType" ms:relation="tblFlowLog" ms:key-fields="ReportNo" />
+	<xsd:complexType name="FlowLogItemType">
+		<xsd:sequence>
+			<xsd:element name="ReportNo" type="xsd:string" />
+			<xsd:element name="MasterAccessionNo" type="xsd:int" />
+			<xsd:element name="PatientId" type="xsd:string" />
+			<xsd:element name="AccessionDate" type="xsd:dateTime" ms:datatype="dateTime" nillable="true" />
+			<xsd:element name="AccessionTime" type="xsd:dateTime" ms:datatype="dateTime" nillable="true" />
+			<xsd:element name="CollectionDate" type="xsd:dateTime" ms:datatype="dateTime" nillable="true" />
+			<xsd:element name="CollectionTime" type="xsd:dateTime" ms:datatype="dateTime" nillable="true" />
+			<xsd:element name="PFirstName" type="xsd:string" />
+			<xsd:element name="PLastName" type="xsd:string" />
+			<xsd:element name="PMiddleInitial" type="xsd:string" />
+			<xsd:element name="PBirthdate" type="xsd:dateTime" ms:datatype="dateTime" nillable="true" />
+			<xsd:element name="PSSN" type="xsd:string" />
+			<xsd:element name="PSex" type="xsd:string" />
+			<xsd:element name="MedTech" type="xsd:string" />
+			<xsd:element name="MedTechId" type="xsd:int" />
+			<xsd:element name="TestPerformed" type="xsd:string" />
+			<xsd:element name="TestId" type="xsd:int" />
+			<xsd:element name="SpecimenType" type="xsd:string" />
+			<xsd:element name="DocStatus" type="xsd:string" />
+			<xsd:element name="ClientName" type="xsd:string" />
+			<xsd:element name="ClientId" type="xsd:int" />
+			<xsd:element name="PhysicianName" type="xsd:string" />
+			<xsd:element name="PhysicianId" type="xsd:int" />
+			<xsd:element name="ReportCopyTo" type="xsd:string" />
+			<xsd:element name="ReportCopyToId" type="xsd:int" />
+			<xsd:element name="Pathologist" type="xsd:string" />
+			<xsd:element name="PathologistId" type="xsd:int" />
+			<xsd:element name="BillingCode" type="xsd:int" />
+			<xsd:element name="FinalDate" type="xsd:dateTime" ms:datatype="dateTime" nillable="true" />
+			<xsd:element name="FinalTime" type="xsd:dateTime" ms:datatype="dateTime" nillable="true" />
+			<xsd:element name="Final" type="xsd:boolean" />
+			<xsd:element name="QtyHistograms" type="xsd:int" />
+			<xsd:element name="NoCharge" type="xsd:int" />
+			<xsd:element name="CaseStatus" type="xsd:string" />
+			<xsd:element name="AmmendedReport" type="xsd:boolean" />
+			<xsd:element name="Medicare" type="xsd:boolean" />
+			<xsd:element name="Published" type="xsd:boolean" />
+			<xsd:element name="PublishedDate" type="xsd:dateTime" ms:datatype="dateTime" nillable="true" />
+			<xsd:element name="Survey" type="xsd:boolean" />
+			<xsd:element name="MedicalRecordNo" type="xsd:string" />
+			<xsd:element name="PatientType" type="xsd:string" />
+			<xsd:element name="MedicareBillingCode" type="xsd:int" />
+			<xsd:element name="NonMedicareBillingCode" type="xsd:int" />
+			<xsd:element name="EOMBilling" type="xsd:boolean" />
+			<xsd:element name="ClinicalHistory" type="xsd:string" />
+			<xsd:element name="PrimaryInsurance" type="xsd:string" />
+			<xsd:element name="SecondaryInsurance" type="xsd:string" />
+			<xsd:element name="PCAN" type="xsd:string" />
+			<xsd:element name="SvhMedicalRecord" type="xsd:string" />
+			<xsd:element name="SvhAccount" type="xsd:string" />
+			<xsd:element name="PathologistSignature" type="xsd:string" />
+			<xsd:element name="DateTimeReceived" type="xsd:dateTime" ms:datatype="dateTime" nillable="true" />
+			<xsd:element name="TechFinal" type="xsd:boolean" />
+			<xsd:element name="TechFinalDate" type="xsd:dateTime" ms:datatype="dateTime" nillable="true" />
+			<xsd:element name="TechFinalTime" type="xsd:dateTime" ms:datatype="dateTime" nillable="true" />
+			<xsd:element name="TestCancelled" type="xsd:boolean" />
+			<xsd:element name="TestCancelledComment" type="xsd:string" />
+			<xsd:element name="CaseDistributed" type="xsd:boolean" />
+			<xsd:element name="SpecimenAdequacy" type="xsd:string" />
+			<xsd:element name="ReportComment" type="xsd:string" />
+			<xsd:element name="Audited" type="xsd:boolean" />
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

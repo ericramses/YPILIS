@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:ms="urn:schemas-microsoft-com:mapping-schema"
+			xmlns:sql="urn:schemas-microsoft-com:xml-sql" id="InlineSchema" sql:is-mapping-schema="1">
+
+	<xsd:element name="Lock" type="LockType" ms:relation="tblLock" ms:key-fields="KeyString" />
+	<xsd:complexType name="LockType">
+		<xsd:sequence>
+			<xsd:element name="KeyString" type="xsd:string" />
+			<xsd:element name="LockDate" type="xsd:dateTime" ms:datatype="dateTime" />
+			<xsd:element name="LockedBy" type="xsd:string" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:element name="LockItem" type="LockItemType" ms:relation="tblLock" ms:key-fields="KeyString" />
+	<xsd:complexType name="LockItemType">
+		<xsd:sequence>
+			<xsd:element name="KeyString" type="xsd:string" />
+			<xsd:element name="LockDate" type="xsd:dateTime" ms:datatype="dateTime" />
+			<xsd:element name="LockedBy" type="xsd:string" />
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:ms="urn:schemas-microsoft-com:mapping-schema"
+			xmlns:sql="urn:schemas-microsoft-com:xml-sql" id="InlineSchema" sql:is-mapping-schema="1">
+
+	<xsd:element name="Her2Result" type="Her2ResultType" ms:relation="tblHer2Result" ms:relationship="PanelSetResultHer2Result" ms:key-fields="Her2ResultId" />
+	<xsd:complexType name="Her2ResultType">
+		<xsd:sequence>
+			<xsd:element name="Her2ResultId" type="xsd:int" ms:identity="ignore" />
+			<xsd:element name="PanelSetResultOrderId" type="xsd:int" />
+			<xsd:element name="IncludeImmunoRecommendedComment" type="xsd:boolean" />
+			<xsd:element name="IncludeResultComment" type="xsd:boolean" />
+			<xsd:element name="IncludePolysomyComment" type="xsd:boolean" />
+			<xsd:element name="CellsCounted" type="xsd:int" />
+			<xsd:element name="TotalChr17SignalsCounted" type="xsd:int" />
+			<xsd:element name="TotalHer2SignalsCounted" type="xsd:int" />
+			<xsd:element name="Her2byIHCOrder" type="xsd:int" />
+			<xsd:element name="NumberOfObservers" type="xsd:int" />
+			<xsd:element name="Result" type="xsd:string" />
+			<xsd:element name="PolysomyPercent" type="xsd:string" />
+			<xsd:element name="Chr17SignalRangeLow" type="xsd:string" />
+			<xsd:element name="Chr17SignalRangeHigh" type="xsd:string" />
+			<xsd:element name="Her2SignalRangeLow" type="xsd:string" />
+			<xsd:element name="Her2SignalRangeHigh" type="xsd:string" />
+			<xsd:element name="CommentLabel" type="xsd:string" />
+			<xsd:element name="ResultDescription" type="xsd:string" />
+			<xsd:element name="ReportNo" type="xsd:string" />
+			<xsd:element name="SampleAdequacy" type="xsd:string" />
+			<xsd:element name="ProbeSignalIntensity" type="xsd:string" />
+			<xsd:element name="TechComment" type="xsd:string" />
+			<xsd:element name="ResultComment" type="xsd:string" />
+			<xsd:element name="InterpretiveComment" type="xsd:string" />
+			<xsd:element name="GeneticHeterogeneity" type="xsd:string" />
+			<xsd:element name="Her2Chr17ClusterRatio" type="xsd:string" />
+			<xsd:element name="ReportReference" type="xsd:string" />
+			<xsd:element name="SourceBlock" type="xsd:string" />
+			<xsd:element name="Indicator" type="xsd:string" />
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

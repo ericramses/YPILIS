@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:ms="urn:schemas-microsoft-com:mapping-schema"
+			xmlns:sql="urn:schemas-microsoft-com:xml-sql" id="InlineSchema" sql:is-mapping-schema="1"
+			xmlns:ypi="http://www.yellowstonepathology.com">
+
+	<xsd:element name="BoneMarrowResult" type="BoneMarrowResultType" ms:relation="tblBoneMarrowResult" ms:key-fields="BoneMarrowResultId" />
+	<xsd:complexType name="BoneMarrowResultType">
+		<xsd:sequence>
+			<xsd:element name="BoneMarrowResultId" type="xsd:int" />
+			<xsd:element name="PanelSetResultOrderId" type="xsd:string" />
+			<xsd:element name="GrossX" type="xsd:string" />
+			<xsd:element name="MicroscopicX" type="xsd:string" />
+			<xsd:element name="PeripheralSmearDiagnosis" type="xsd:string" />
+			<xsd:element name="BoneMarrowAspirate" type="xsd:string" />
+			<xsd:element name="Comment" type="xsd:string" />
+			<xsd:element name="ClinicalInfo" type="xsd:string" />
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

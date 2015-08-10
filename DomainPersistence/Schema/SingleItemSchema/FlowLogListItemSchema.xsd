@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:ms="urn:schemas-microsoft-com:mapping-schema"
+			xmlns:sql="urn:schemas-microsoft-com:xml-sql" id="InlineSchema" sql:is-mapping-schema="1">
+
+	<xsd:element name="FlowLogListItem" type="FlowLogListItemType" ms:relation="tblFlowLog" ms:key-fields="ReportNo" />
+	<xsd:complexType name="FlowLogListItemType">
+		<xsd:sequence>
+			<xsd:element name="ReportNo" type="xsd:string" />
+			<xsd:element name="PLastName" type="xsd:string" />
+			<xsd:element name="PFirstName" type="xsd:string" />
+			<xsd:element name="AccessionDate" type="xsd:dateTime" ms:datatype="dateTime" nillable="true" />
+			<xsd:element name="FinalDate" type="xsd:dateTime" ms:datatype="dateTime" nillable="true" />
+			<xsd:element name="TestName" type="xsd:string" />
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

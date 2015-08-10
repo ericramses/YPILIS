@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:ms="urn:schemas-microsoft-com:mapping-schema"
+			xmlns:sql="urn:schemas-microsoft-com:xml-sql" id="InlineSchema" sql:is-mapping-schema="1"
+			xmlns:ypi="http://www.yellowstonepathology.com">
+
+	<xsd:element name="ClientOrderDetailFNAProperty" type="ClientOrderDetailFNAPropertyType" ms:relation="tblClientOrderDetailFNAProperty" ms:key-fields="ClientOrderDetailFNAPropertyId" />
+	<xsd:complexType name="ClientOrderDetailFNAPropertyType">
+		<xsd:sequence>
+			<xsd:annotation>
+				<xsd:documentation>DataMemberAttributeRequired</xsd:documentation>
+			</xsd:annotation>
+			<xsd:element name="ClientOrderDetailFNAPropertyId" type="xsd:string" />
+			<xsd:element name="ClientOrderFNAPropertyId" type="xsd:string" />
+			<xsd:element name="PassNo" type="xsd:int" />
+			<xsd:element name="DiffQuikSlideCount" type="xsd:int" />
+      <xsd:element name="WrightsStainSlideCount" type="xsd:int" />
+			<xsd:element name="PapSlideCount" type="xsd:int" />
+			<xsd:element name="TimeReceived" type="xsd:dateTime" ms:datatype="dateTime" nillable="true" />
+			<xsd:element name="TimeCalledToProvider" type="xsd:dateTime" ms:datatype="dateTime" nillable="true" />
+			<xsd:element name="AdaquacyDetermination" type="xsd:string" />
+      <xsd:element name="SufficientForDetermination" type="xsd:boolean" />
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

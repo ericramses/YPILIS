@@ -1,0 +1,4 @@
+C:\SVN\LIS\DomainPersistence\bin\Debug\DomainPersistence.dll
+C:\SVN\LIS\DomainPersistence\bin\Debug\DomainPersistence.pdb
+C:\SVN\LIS\DomainPersistence\obj\Debug\DomainPersistence.dll
+C:\SVN\LIS\DomainPersistence\obj\Debug\DomainPersistence.pdb

@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:ms="urn:schemas-microsoft-com:mapping-schema"
+			xmlns:sql="urn:schemas-microsoft-com:xml-sql" id="InlineSchema" sql:is-mapping-schema="1">
+
+	<xsd:element name="BillingRuleSet" type="BillingRuleSetType" ms:relation="tblBillingRuleSEt" ms:key-fields="BillingRuleSetId" />
+	<xsd:complexType name="BillingRuleSetType">
+		<xsd:sequence>
+			<xsd:element name="BillingRuleSetId" type="xsd:string" />
+			<xsd:element name="BillingRuleSetName" type="xsd:string" />
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

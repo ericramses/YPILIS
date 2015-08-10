@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:ms="urn:schemas-microsoft-com:mapping-schema"
+			xmlns:sql="urn:schemas-microsoft-com:xml-sql" id="InlineSchema" sql:is-mapping-schema="1">
+
+	<xsd:element name="SlideTrackingLog" type="SlideTrackingLogType" ms:relation="tblSlideTrackingLog" ms:key-fields="SlideTrackingLogId" />
+	<xsd:complexType name="SlideTrackingLogType">
+		<xsd:sequence>
+			<xsd:element name="SlideTrackingLogId" type="xsd:int" ms:identity="ignore" />
+			<xsd:element name="MaterialTrackingBatchId" type="xsd:string" />
+			<xsd:element name="SlideOrderId" type="xsd:int" />
+			<xsd:element name="LocationId" type="xsd:int" />
+			<xsd:element name="LocationName" type="xsd:string" />
+			<xsd:element name="LogDate" type="xsd:dateTime" ms:datatype="dateTime" />
+			<xsd:element name="LoggedById" type="xsd:int" />
+			<xsd:element name="LoggedBy" type="xsd:string" />
+			<xsd:element name="Action" type="xsd:string" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:element name="MaterialTrackingBatch" type="MaterialTrackingBatchType" ms:relation="tblMaterialTrackingBatch" ms:key-fields="MaterialTrackingBatchId" />
+	<xsd:complexType name="MaterialTrackingBatchType">
+		<xsd:sequence>
+			<xsd:element name="MaterialTrackingBatchId" type="xsd:string" />
+			<xsd:element name="BatchDate" type="xsd:dateTime" ms:datatype="dateTime" />
+			<xsd:element name="Name" type="xsd:string" />
+			<xsd:element name="Action" type="xsd:string" />
+			<xsd:element name="LocationId" type="xsd:int" />
+			<xsd:element name="LocationName" type="xsd:string" />
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:ms="urn:schemas-microsoft-com:mapping-schema"
+			xmlns:sql="urn:schemas-microsoft-com:xml-sql" id="InlineSchema" sql:is-mapping-schema="1"
+			xmlns:ypi="http://www.yellowstonepathology.com">
+
+	<xsd:element name="ClientOrderFNAProperty" type="ClientOrderFNAPropertyType" ms:relation="tblClientOrderFNAProperty" ms:key-fields="ClientOrderFNAPropertyId" />
+	<xsd:complexType name="ClientOrderFNAPropertyType">
+		<xsd:sequence>
+			<xsd:annotation>
+				<xsd:documentation>DataMemberAttributeRequired</xsd:documentation>
+			</xsd:annotation>
+			<xsd:element name="ClientOrderFNAPropertyId" type="xsd:string" />
+			<xsd:element name="ClientOrderId" type="xsd:string" />
+			<xsd:element name="SpecimenSource" type="xsd:string" />
+			<xsd:element name="DocumentId" type="xsd:string" />
+			<xsd:element name="StartTime" type="xsd:dateTime" ms:datatype="dateTime" nillable="true" />
+			<xsd:element name="EndTime" type="xsd:dateTime" ms:datatype="dateTime" nillable="true" />
+			<xsd:element name="GrossDescription" type="xsd:string" />
+			<xsd:element name="OrderCellBlock" type="xsd:boolean" />
+      <xsd:element name="OrderImmediateExam" type="xsd:boolean" />
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

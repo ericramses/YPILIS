@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:ms="urn:schemas-microsoft-com:mapping-schema"
+			xmlns:sql="urn:schemas-microsoft-com:xml-sql" id="InlineSchema" sql:is-mapping-schema="1">
+  
+	<xsd:element name="OrderCommentLog" type="OrderCommentLogType" ms:relation="tblOrderCommentLog" ms:key-fields="OrderCommentLogId"></xsd:element>
+	<xsd:complexType name="OrderCommentLogType">
+		<xsd:sequence>
+			<xsd:annotation>
+				<xsd:documentation>LinqColumnAttributeRequired</xsd:documentation>
+				<xsd:documentation>LinqDBGeneratedAttributeRequired</xsd:documentation>
+			</xsd:annotation>
+			<xsd:element name="OrderCommentLogId" ms:identity="ignore" type="xsd:int"></xsd:element>
+			<xsd:element name="OrderCommentId" type="xsd:int"></xsd:element>
+			<xsd:element name="SpecimenLogId" type="xsd:int"></xsd:element>
+			<xsd:element name="MasterAccessionNo" type="xsd:string"></xsd:element>
+			<xsd:element name="AliquotOrderId" type="xsd:int"></xsd:element>
+			<xsd:element name="Category" type="xsd:string"></xsd:element>
+			<xsd:element name="Action" type="xsd:string"></xsd:element>
+			<xsd:element name="LogDate" type="xsd:dateTime" ms:datatype="dateTime"></xsd:element>
+			<xsd:element name="ClientId" type="xsd:int"></xsd:element>
+			<xsd:element name="Description" type="xsd:string"></xsd:element>
+			<xsd:element name="Comment" type="xsd:string"></xsd:element>
+			<xsd:element name="LoggedById" type="xsd:int"></xsd:element>
+			<xsd:element name="LoggedBy" type="xsd:string"></xsd:element>
+			<xsd:element name="ClientOrderId" type="xsd:string"></xsd:element>
+			<xsd:element name="RequiresResponse" type="xsd:boolean"></xsd:element>
+			<xsd:element name="RequiresNotification" type="xsd:boolean"></xsd:element>
+			<xsd:element name="Response" type="xsd:string"></xsd:element>
+			<xsd:element name="NotificationAddress" type="xsd:string"></xsd:element>
+			<xsd:element name="StationName" type="xsd:string"></xsd:element>
+			<xsd:element name="ContainerId" type="xsd:string"></xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+  
+	<xsd:element name="Temp" type="TempType" ms:relation="tblTemp" ms:key-fields="TempId"></xsd:element>
+	<xsd:complexType name="TempType">
+		<xsd:sequence>
+			<xsd:element name="TempId" ms:identity="ignore" type="xsd:int"></xsd:element>
+			<xsd:element name="TempDate" type="xsd:dateTime" ms:datatype="dateTime" nillable="true"></xsd:element>
+			<xsd:element name="Hello" type="xsd:int"></xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

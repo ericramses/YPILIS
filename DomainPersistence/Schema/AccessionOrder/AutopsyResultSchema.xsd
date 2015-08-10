@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:ms="urn:schemas-microsoft-com:mapping-schema"
+			xmlns:sql="urn:schemas-microsoft-com:xml-sql" id="InlineSchema" sql:is-mapping-schema="1">
+
+	<xsd:element name="AutopsyResult" type="AutopsyResultType" ms:relation="tblAutopsyResult" ms:key-fields="AutopsyResultId" />
+	<xsd:complexType name="AutopsyResultType">
+		<xsd:sequence>
+			<xsd:element name="AutopsyResultId" type="xsd:int" ms:identity="ignore" />
+			<xsd:element name="PanelSetResultOrderId" type="xsd:int" />
+			<xsd:element name="Findings" type="xsd:string" />
+			<xsd:element name="CauseOfDeath" type="xsd:string" />
+			<xsd:element name="MannerOfDeath" type="xsd:string" />
+			<xsd:element name="DateTimeOfDeath"  type="xsd:dateTime" ms:datatype="dateTime" nillable="true" />
+			<xsd:element name="LocationOfAutopsy" type="xsd:string" />
+			<xsd:element name="RequestingProvider" type="xsd:string" />
+			<xsd:element name="AutopsyAssistants" type="xsd:string" />
+			<xsd:element name="LimitsOfExamination" type="xsd:string" />
+			<xsd:element name="CassetteSummary" type="xsd:string" />
+			<xsd:element name="Microscopic" type="xsd:string" />
+			<xsd:element name="AncillaryTests" type="xsd:string" />
+			<xsd:element name="PlaceOfDeath" type="xsd:string" />
+			<xsd:element name="AutopsyLocation" type="xsd:string" />
+			<xsd:element name="Diagnosis" type="xsd:string" />
+			<xsd:element name="ClinicalHistory" type="xsd:string" />
+			<xsd:element name="GrossExamination" type="xsd:string" />
+			<xsd:element name="InternalExamination" type="xsd:string" />
+			<xsd:element name="ExternalExamination" type="xsd:string" />
+			<xsd:element name="MicroscopicExamination" type="xsd:string" />
+			<xsd:element name="SummaryComment" type="xsd:string" />
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

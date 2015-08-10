@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:ms="urn:schemas-microsoft-com:mapping-schema"
+			xmlns:sql="urn:schemas-microsoft-com:xml-sql" id="InlineSchema" sql:is-mapping-schema="1">
+
+	<xsd:element name="UserPreference" type="UserPreferenceType" ms:relation="tblUserPreference" ms:key-fields="UserPreferenceId" />
+	<xsd:complexType name="UserPreferenceType">
+		<xsd:sequence>
+			<xsd:element name="UserPreferenceId" ms:identity="ignore" type="xsd:int"></xsd:element>
+			<xsd:element name="BarcodeScanEnabled" type="xsd:boolean"></xsd:element>
+			<xsd:element name="BarcodeScanPort" type="xsd:string"></xsd:element>
+			<xsd:element name="LastLocalDataUpdate" type="xsd:dateTime" ms:datatype="dateTime"></xsd:element>
+			<xsd:element name="LockMode" type="xsd:string"></xsd:element>
+			<xsd:element name="ContainerLabelPrinter" type="xsd:string"></xsd:element>
+			<xsd:element name="HistologySlideLabelPrinter" type="xsd:string"></xsd:element>
+			<xsd:element name="CytologySlideLabelPrinter" type="xsd:string"></xsd:element>
+			<xsd:element name="RequisitionPrinter" type="xsd:string"></xsd:element>
+			<xsd:element name="CassettePrinter" type="xsd:string"></xsd:element>
+			<xsd:element name="AskIntent" type="xsd:boolean"></xsd:element>
+			<xsd:element name="DefaultContainerScanIntent" type="xsd:string"></xsd:element>
+			<xsd:element name="SpecialStainAcknowledgementPrinter" type="xsd:string"></xsd:element>
+			<xsd:element name="StartupPage" type="xsd:string"></xsd:element>
+			<xsd:element name="MolecularLabelPrinter" type="xsd:string"></xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

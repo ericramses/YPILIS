@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:ms="urn:schemas-microsoft-com:mapping-schema"
+			xmlns:sql="urn:schemas-microsoft-com:xml-sql" id="InlineSchema" sql:is-mapping-schema="1">
+
+	<xsd:element name="PathologistSearchResult" type="PathologistSearchResultType" />
+	<xsd:complexType name="PathologistSearchResultType">
+		<xsd:sequence>
+			<xsd:element name="MasterAccessionNo" type="xsd:string" />
+			<xsd:element name="ReportNo" type="xsd:string" />
+			<xsd:element name="AccessionDate" type="xsd:dateTime" ms:datatype="dateTime" />
+			<xsd:element name="FinalDate" type="xsd:dateTime" ms:datatype="dateTime" nillable="true" />
+			<xsd:element name="TypingFinalTime" type="xsd:dateTime" ms:datatype="dateTime" nillable="true" />
+			<xsd:element name="PanelSetId" type="xsd:int" />
+			<xsd:element name="PatientName" type="xsd:string" />
+			<xsd:element name="PBirthdate" type="xsd:dateTime" ms:datatype="dateTime" nillable="true" />
+			<xsd:element name="PatientId" type="xsd:string" />
+			<xsd:element name="PathologistName" type="xsd:string" />
+			<xsd:element name="TypedByInitials" type="xsd:string" />
+			<xsd:element name="GroupType" type="xsd:string" />
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

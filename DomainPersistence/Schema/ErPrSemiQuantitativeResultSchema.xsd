@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:ms="urn:schemas-microsoft-com:mapping-schema"
+			xmlns:sql="urn:schemas-microsoft-com:xml-sql" id="InlineSchema" sql:is-mapping-schema="1">
+
+	<xsd:element name="ErPrSemiQuantitativeResult" type="ErPrSemiQuantitativeResultType" ms:relation="tblErPrSemiQuantitativeResult" ms:key-fields="ErPrSemiQuantitativeResultId" />
+	<xsd:complexType name="ErPrSemiQuantitativeResultType">
+    <xsd:sequence>
+      <xsd:element name="ErPrSemiQuantitativeResultId" type="xsd:string"></xsd:element>
+      <xsd:element name="ErResult" type="xsd:string" />
+      <xsd:element name="ErIntensity" type="xsd:string" />
+      <xsd:element name="ErPercentageOfCells" type="xsd:string" />
+      <xsd:element name="PrResult" type="xsd:string" />
+      <xsd:element name="PrIntensity" type="xsd:string" />
+      <xsd:element name="PrPercentageOfCells" type="xsd:string" />
+      <xsd:element name="SpecimenAdequacy" type="xsd:string" />
+      <xsd:element name="InternalControls" type="xsd:string" />
+      <xsd:element name="ExternalControls" type="xsd:string" />
+      <xsd:element name="Interpretation" type="xsd:string" />
+      <xsd:element name="ReportReferences" type="xsd:string" />
+      <xsd:element name="ResultComment" type="xsd:string" />
+      <xsd:element name="SpecimenSiteAndType" type="xsd:string" />
+      <xsd:element name="SpecimenIdentification" type="xsd:string" />
+    </xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

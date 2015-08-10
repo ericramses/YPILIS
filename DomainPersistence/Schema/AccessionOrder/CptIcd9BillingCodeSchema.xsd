@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:ms="urn:schemas-microsoft-com:mapping-schema"
+			xmlns:sql="urn:schemas-microsoft-com:xml-sql" id="InlineSchema" sql:is-mapping-schema="1">
+
+	<xsd:element name="CptIcd9BillingCode" type="CptIcd9BillingCodeType" ms:relation="tblCptIcd9BillingCode" ms:key-fields="CptIcd9BillingCodeId" />
+	<xsd:complexType name="CptIcd9BillingCodeType">
+		<xsd:sequence>
+			<xsd:element name="CptIcd9BillingCodeId" type="xsd:int" ms:identity="ignore" />
+			<xsd:element name="MasterAccessionNo" type="xsd:string" />
+			<xsd:element name="CptBillingCodeId" type="xsd:int" />
+			<xsd:element name="Icd9BillingCodeId" type="xsd:int" />
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

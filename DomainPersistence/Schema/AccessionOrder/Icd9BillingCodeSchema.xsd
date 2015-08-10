@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:ms="urn:schemas-microsoft-com:mapping-schema"
+			xmlns:sql="urn:schemas-microsoft-com:xml-sql" id="InlineSchema" sql:is-mapping-schema="1">
+
+	<xsd:element name="ICD9BillingCode" type="ICD9BillingCodeType" ms:relation="tblICD9BillingCode" ms:key-fields="Icd9BillingId" />
+	<xsd:complexType name="ICD9BillingCodeType">
+		<xsd:sequence>
+			<xsd:element name="Icd9BillingId" type="xsd:string" />
+			<xsd:element name="SpecimenOrderId" type="xsd:string" />
+			<xsd:element name="SurgicalSpecimenResultId" type="xsd:string" />
+			<xsd:element name="BillingDate" type="xsd:dateTime" ms:datatype="dateTime" nillable="true" />
+			<xsd:element name="ModifiedDate" type="xsd:dateTime" ms:datatype="dateTime" nillable="true" />
+			<xsd:element name="Quantity" type="xsd:int" />
+			<xsd:element name="SpecimenId" type="xsd:int" />
+			<xsd:element name="UserId" type="xsd:int" />
+			<xsd:element name="Icd9Code" type="xsd:string" />
+			<xsd:element name="ReportNo" type="xsd:string" />
+			<xsd:element name="SpecimenLogId" type="xsd:int" />
+			<xsd:element name="MasterAccessionNo" type="xsd:string" />
+			<xsd:element name="DesignatedFor" type="xsd:string" />
+			<xsd:element name="Source" type="xsd:string" />
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

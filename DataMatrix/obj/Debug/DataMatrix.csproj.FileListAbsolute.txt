@@ -1,0 +1,4 @@
+C:\SVN\LIS\DataMatrix\bin\Debug\DataMatrix.dll
+C:\SVN\LIS\DataMatrix\bin\Debug\DataMatrix.pdb
+C:\SVN\LIS\DataMatrix\obj\Debug\DataMatrix.dll
+C:\SVN\LIS\DataMatrix\obj\Debug\DataMatrix.pdb

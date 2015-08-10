@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:ms="urn:schemas-microsoft-com:mapping-schema"
+			xmlns:sql="urn:schemas-microsoft-com:xml-sql" id="InlineSchema" sql:is-mapping-schema="1">
+
+	<xsd:element name="FlowMarkerItem" type="FlowMarkerItemType" ms:relation="tblFlowMarkers" ms:key-fields="MarkerId" />
+	<xsd:complexType name="FlowMarkerItemType">
+		<xsd:sequence>
+			<xsd:element name="MarkerId" ms:identity="ignore" type="xsd:int" />
+			<xsd:element name="ReportNo" type="xsd:string" />
+			<xsd:element name="Name" type="xsd:string" />
+			<xsd:element name="Percentage" type="xsd:float" />
+			<xsd:element name="Intensity" type="xsd:string" />
+			<xsd:element name="Report" type="xsd:boolean" />
+			<xsd:element name="MarkerUsed" type="xsd:boolean" />
+			<xsd:element name="MarkerType" type="xsd:string" />
+			<xsd:element name="Interpretation" type="xsd:string" />
+			<xsd:element name="Predictive" type="xsd:boolean" />
+			<xsd:element name="Expresses" type="xsd:int" />
+			<xsd:element name="OrderFlag" type="xsd:int" />
+			<xsd:element name="Result" type="xsd:string" />
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

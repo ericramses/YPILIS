@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:ms="urn:schemas-microsoft-com:mapping-schema"
+			xmlns:sql="urn:schemas-microsoft-com:xml-sql" id="InlineSchema" sql:is-mapping-schema="1">
+
+	<xsd:element name="CptCodeGroupCode" type="CptCodeGroupCodeType" ms:relation="tblCptCodeGroupCode" ms:key-fields="CptCodeGroupCodeId" />
+	<xsd:complexType name="CptCodeGroupCodeType">
+		<xsd:sequence>
+			<xsd:element name="CptCodeGroupCodeId" type="xsd:string"></xsd:element>
+			<xsd:element name="CptCodeGroupId" type="xsd:string"></xsd:element>
+			<xsd:element name="CptCode" type="xsd:string" />
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:ms="urn:schemas-microsoft-com:mapping-schema"
+			xmlns:sql="urn:schemas-microsoft-com:xml-sql" id="InlineSchema" sql:is-mapping-schema="1">
+
+	<xsd:element name="ClientLocation" type="ClientLocationType" ms:relation="tblClientLocation" ms:key-fields="ClientLocationId" />
+	<xsd:complexType name="ClientLocationType">
+		<xsd:sequence>
+			<xsd:annotation>
+				<xsd:documentation>LinqColumnAttributeRequired</xsd:documentation>
+			</xsd:annotation>
+			<xsd:element name="ClientLocationId" ms:identity="ignore" type="xsd:int" />
+			<xsd:element name="ClientId" type="xsd:int" />
+			<xsd:element name="Location" type="xsd:string" />
+			<xsd:element name="OrderType" type="xsd:string" />
+			<xsd:element name="SpecimenTrackingInitiated" type="xsd:string" />
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:ms="urn:schemas-microsoft-com:mapping-schema"
+			xmlns:sql="urn:schemas-microsoft-com:xml-sql" id="InlineSchema" sql:is-mapping-schema="1">
+
+	<xsd:element name="SurgicalSpecimenResultAuditItem" type="SurgicalSpecimenResultAuditItemType" ms:relation="tblSurgicalSpecimenResultAudit" ms:key-fields="SurgicalSpecimenResultAuditId" />
+	<xsd:complexType name="SurgicalSpecimenResultAuditItemType">
+		<xsd:sequence>
+			<xsd:element name="SurgicalSpecimenResultAuditId" type="xsd:string" />
+			<xsd:element name="SurgicalResultAuditId" type="xsd:string" />
+			<xsd:element name="Report" type="xsd:boolean" />
+			<xsd:element name="ImmediatePerformed" type="xsd:boolean" />
+			<xsd:element name="ImmediateStartTime" type="xsd:dateTime" ms:datatype="dateTime" nillable="true" />
+			<xsd:element name="ImmediateEndTime" type="xsd:dateTime" ms:datatype="dateTime" nillable="true" />
+			<xsd:element name="AmendmentId" type="xsd:string" />
+			<xsd:element name="SurgicalSpecimenResultId" type="xsd:string" />
+			<xsd:element name="SurgicalResultId" type="xsd:string" />
+			<xsd:element name="SpecimenOrderId" type="xsd:int" />
+			<xsd:element name="DiagnosisId" type="xsd:int" />
+			<xsd:element name="ImmediateCorrelation" type="xsd:int" />
+			<xsd:element name="ImmediatePerformedById" type="xsd:int" />
+			<xsd:element name="Diagnosis" type="xsd:string" ms:datatype="ntext" />
+			<xsd:element name="SpecimenType" type="xsd:string" />
+			<xsd:element name="RescreenStatus" type="xsd:string" />
+			<xsd:element name="ImmediatePerformedBy" type="xsd:string" />
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

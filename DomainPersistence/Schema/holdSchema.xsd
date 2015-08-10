@@ -1,0 +1,212 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:ms="urn:schemas-microsoft-com:mapping-schema"
+			xmlns:sql="urn:schemas-microsoft-com:xml-sql" id="InlineSchema" sql:is-mapping-schema="1">
+
+	<xsd:annotation>
+		<xsd:appinfo>
+			<ms:relationship name="AccessionOrderSpecimenOrder"
+							  parent="tblAccessionOrder"
+							  parent-key="MasterAccessionNo"
+							  child="tblSpecimenOrderLevel"
+							  child-key="MasterAccessionNo" />
+
+			<ms:relationship name="SpecimenOrderSpecimenOrder"
+							  parent="tblSpecimenOrderLevel"
+							  parent-key="SpecimenOrderId"
+							  child="tblSpecimenOrderLevel"
+							  child-key="ParentId" />
+
+			<ms:relationship name="AccessionOrderPanelSetOrder"
+							  parent="tblAccessionOrder"
+							  parent-key="MasterAccessionNo"
+							  child="tblPanelSetOrderTemp"
+							  child-key="MasterAccessionNo" />
+
+			<ms:relationship name="PanelSetOrderPanelOrder"
+							  parent="tblPanelSetOrderTemp"
+							  parent-key="ReportNo"
+							  child="tblPanelOrderTemp"
+							  child-key="ReportNo" />
+
+			<ms:relationship name="PanelOrderTestOrder"
+							  parent="tblPanelOrder"
+							  parent-key="PanelOrderId"
+							  child="tblTestOrder"
+							  child-key="PanelOrderId" />
+
+			<ms:relationship name="PanelSetOrderDnaResult"
+							 parent="tblPanelSetOrderTemp"
+							 parent-key="ReportNo"
+							 child="tblDnaResultComplex"
+							 child-key="ReportNo" />
+
+			<ms:relationship name="PanelSetOrderDnaCellCycle"
+							 parent="tblPanelSetOrderTemp"
+							 parent-key="ReportNo"
+							 child="tblDnaCellCycle"
+							 child-key="ReportNo" />
+
+			<ms:relationship name="PanelOrderDnaResultPanelOrder" inverse="true"
+							 parent="tblPanelOrderTemp"
+							 parent-key="PanelOrderId"
+							 child="tblDnaResultPanelOrder"
+							 child-key="PanelOrderId" />
+
+			<ms:relationship name="PanelOrderDnaCellCyclePanelOrder" inverse="true"
+							 parent="tblPanelOrderTemp"
+							 parent-key="PanelOrderId"
+							 child="tblDnaCellCyclePanelOrder"
+							 child-key="PanelOrderId" />
+		</xsd:appinfo>
+	</xsd:annotation>
+
+	<xsd:element name="AccessionOrder" type="AccessionOrderType" ms:relation="tblAccessionOrder" ms:key-fields="MasterAccessionNo" />
+	<xsd:complexType name="AccessionOrderType">
+		<xsd:sequence>			
+			<xsd:element name="PanelSetOrderCollection" type="PanelSetOrderCollectionType" ms:is-constant="1"></xsd:element>
+			<xsd:element name="MasterAccessionNo" ms:field="MasterAccessionNo" ms:identity="ignore" type="xsd:string"></xsd:element>			
+		</xsd:sequence>
+	</xsd:complexType>	
+
+	<xsd:complexType name="PanelSetOrderCollectionType">
+		<xsd:sequence>
+			<xsd:element name="PanelSetOrder" type="PanelSetOrderType" ms:relation="tblPanelSetOrderTemp" ms:relationship="AccessionOrderPanelSetOrder" ms:key-fields="ReportNo"></xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:element name="PanelSetOrder" type="PanelSetOrderType" ms:relation="tblPanelSetOrderTemp" ms:key-fields="ReportNo" />
+	<xsd:complexType name="PanelSetOrderType">
+		<xsd:sequence>
+			<xsd:element name="PanelOrderCollection" type="PanelOrderCollectionType" ms:is-constant="1" />
+			<xsd:element name="DnaResult" type="DnaResultType"  ms:is-constant="1" />
+			<xsd:element name="DnaCellCycleCollection" type="DnaCellCycleCollectionType" ms:is-constant="1" />
+			<xsd:element name="ReportNo" type="xsd:string" ms:identity="ignore" />
+			<xsd:element name="PanelSetId" type="xsd:int" />
+			<xsd:element name="PanelSetName" type="xsd:string" />
+			<xsd:element name="FinaledById" type="xsd:int" />
+			<xsd:element name="Final" type="xsd:boolean" />
+			<xsd:element name="FinalDate" type="xsd:dateTime" ms:datatype="dateTime" nillable="true" />
+			<xsd:element name="FinalTime" type="xsd:dateTime" ms:datatype="dateTime" nillable="true" />
+			<xsd:element name="OrderedById" type="xsd:int" />
+			<xsd:element name="OrderDate" type="xsd:dateTime" ms:datatype="dateTime" nillable="true" />
+			<xsd:element name="OrderTime" type="xsd:dateTime" ms:datatype="dateTime" nillable="true" />
+			<xsd:element name="Signature" type="xsd:string" />
+			<xsd:element name="AssignedToId" type="xsd:int" />
+			<xsd:element name="TemplateId" type="xsd:int" />
+			<xsd:element name="MasterAccessionNo" type="xsd:string" />
+			<xsd:element name="OriginatingLocation" type="xsd:string" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:element name="DnaResult" type="DnaResultType" ms:relation="tblDnaResultComplex" ms:relationship="PanelSetOrderDnaResult" ms:key-fields="DnaResultId" />
+	<xsd:complexType name="DnaResultType">
+		<xsd:sequence>
+			<xsd:element name="DnaResultId" type="xsd:int" ms:identity="ignore" />
+			<xsd:element name="ReportNo" type="xsd:string" />
+			<xsd:element name="m_Result" type="xsd:string" />
+			<xsd:element name="Interpretation" type="xsd:string" />
+			<xsd:element name="Comment" type="xsd:string" />
+			<xsd:element name="DnaReferenceId" type="xsd:int" nillable="true"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="DnaCellCycleCollectionType">
+		<xsd:sequence>
+			<xsd:element name="DnaCellCycle" type="DnaCellCycleType" ms:relation="tblDnaCellCycle" ms:relationship="PanelSetOrderDnaCellCycle" ms:key-fields="DnaCellCycleId"></xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:element name="DnaCellCycle" type="DnaCellCycleType" ms:relation="tblDnaCellCycle" ms:relationship="PanelSetOrderDnaCellCycle" ms:key-fields="DnaCellCycleId" />
+	<xsd:complexType name="DnaCellCycleType">
+		<xsd:sequence>
+			<xsd:element name="DnaCellCycleId" type="xsd:int" ms:identity="ignore" />
+			<xsd:element name="ReportNo" type="xsd:string" />
+			<xsd:element name="CycleType" type="xsd:string" />
+			<xsd:element name="CycleNumber" type="xsd:int" nillable="true" />
+			<xsd:element name="BAD" type="xsd:string" />
+			<xsd:element name="CV" type="xsd:string" />
+			<xsd:element name="DI" type="xsd:string" />
+			<xsd:element name="G1" type="xsd:string" />
+			<xsd:element name="G1Mean" type="xsd:string" />
+			<xsd:element name="G2" type="xsd:string" />
+			<xsd:element name="G2G1Ratio" type="xsd:string" />
+			<xsd:element name="G2Mean" type="xsd:string" />
+			<xsd:element name="S" type="xsd:string" />
+			<xsd:element name="PercentOfCells" type="xsd:string" />
+			<xsd:element name="RCS" type="xsd:string" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="PanelOrderCollectionType">
+		<xsd:sequence>
+			<xsd:element name="PanelOrder" type="PanelOrderType" ms:relation="tblPanelOrderTemp" ms:relationship="PanelSetOrderPanelOrder" ms:key-fields="PanelOrderId" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:element name="PanelOrder" type="PanelOrderType" ms:relation="tblPanelOrderTemp" ms:key-fields="PanelOrderId" />
+	<xsd:complexType name="PanelOrderType">
+		<xsd:sequence>
+			<!--			<xsd:element name="TestOrderCollection" type="TestOrderCollectionType" ms:is-constant="1"></xsd:element>-->
+			<xsd:element name="DnaResultPanelOrder" type="DnaResultPanelOrderType" ms:is-constant="1" />
+			<xsd:element name="DnaCellCyclePanelOrderCollection" type="DnaCellCyclePanelOrderCollectionType" ms:is-constant="1" />
+			<xsd:element name="PanelOrderId" type="xsd:int" ms:identity="ignore" />
+			<xsd:element name="ReportNo" type="xsd:string" />
+			<xsd:element name="PanelId" type="xsd:int" />
+			<xsd:element name="PanelName" type="xsd:string" />
+			<xsd:element name="PanelOrderBatchId" type="xsd:int" />
+			<xsd:element name="Acknowledged" type="xsd:boolean" />
+			<xsd:element name="AcknowledgedDate" type="xsd:dateTime" ms:datatype="dateTime" nillable="true" />
+			<xsd:element name="AcknowledgedTime" type="xsd:dateTime" ms:datatype="dateTime" nillable="true" />
+			<xsd:element name="AcceptedById" type="xsd:int" />
+			<xsd:element name="Accepted" type="xsd:boolean" />
+			<xsd:element name="AcceptedDate" type="xsd:dateTime" ms:datatype="dateTime" nillable="true" />
+			<xsd:element name="AcceptedTime" type="xsd:dateTime" ms:datatype="dateTime" nillable="true" />
+			<xsd:element name="AcknowledgedById" type="xsd:int" />
+			<xsd:element name="OrderedById" type="xsd:int" />
+			<xsd:element name="OrderDate" type="xsd:dateTime" ms:datatype="dateTime" nillable="true" />
+			<xsd:element name="OrderTime" type="xsd:dateTime" ms:datatype="dateTime" nillable="true" />
+			<xsd:element name="Comment" type="xsd:string" />
+			<xsd:element name="AssignedToId" type="xsd:int" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:element name="DnaResultPanelOrder" type="DnaResultPanelOrderType" ms:relation="tblDnaResultPanelOrder" ms:relationship="PanelOrderDnaResultPanelOrder" ms:key-fields="DnaResultPanelOrderId" />
+	<xsd:complexType name="DnaResultPanelOrderType">
+		<xsd:sequence>
+			<xsd:element name="DnaResultPanelOrderId" type="xsd:int" ms:identity="ignore" />
+			<xsd:element name="PanelOrderId" type="xsd:string" />
+			<xsd:element name="m_Result" type="xsd:string" />
+			<xsd:element name="Interpretation" type="xsd:string" />
+			<xsd:element name="Comment" type="xsd:string" />
+			<xsd:element name="DnaReferenceId" type="xsd:int" nillable="true"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="DnaCellCyclePanelOrderCollectionType">
+		<xsd:sequence>
+			<xsd:element name="DnaCellCyclePanelOrder" type="DnaCellCyclePanelOrderType" ms:relation="tblDnaCellCyclePanelOrder" ms:relationship="PanelOrderDnaCellCyclePanelOrder" ms:key-fields="DnaCellCyclePanelOrderId"></xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:element name="DnaCellCyclePanelOrder" type="DnaCellCyclePanelOrderType" ms:relation="tblDnaCellCyclePanelOrder" ms:relationship="PanelOrderDnaCellCyclePanelOrder" ms:key-fields="DnaCellCyclePanelOrderId" />
+	<xsd:complexType name="DnaCellCyclePanelOrderType">
+		<xsd:sequence>
+			<xsd:element name="DnaCellCyclePanelOrderId" type="xsd:int" ms:identity="ignore" />
+			<xsd:element name="PanelOrderd" type="xsd:int" />
+			<xsd:element name="CycleType" type="xsd:string" />
+			<xsd:element name="CycleNumber" type="xsd:int" nillable="true" />
+			<xsd:element name="BAD" type="xsd:string" />
+			<xsd:element name="CV" type="xsd:string" />
+			<xsd:element name="DI" type="xsd:string" />
+			<xsd:element name="G1" type="xsd:string" />
+			<xsd:element name="G1Mean" type="xsd:string" />
+			<xsd:element name="G2" type="xsd:string" />
+			<xsd:element name="G2G1Ratio" type="xsd:string" />
+			<xsd:element name="G2Mean" type="xsd:string" />
+			<xsd:element name="S" type="xsd:string" />
+			<xsd:element name="PercentOfCells" type="xsd:string" />
+			<xsd:element name="RCS" type="xsd:string" />
+		</xsd:sequence>
+	</xsd:complexType>	
+</xsd:schema>

@@ -1,0 +1,8 @@
+C:\SVN\LIS\SqlXmlPersistence\bin\Debug\SqlXmlPersistence.dll.config
+C:\SVN\LIS\SqlXmlPersistence\bin\Debug\SqlXmlPersistence.dll
+C:\SVN\LIS\SqlXmlPersistence\bin\Debug\SqlXmlPersistence.pdb
+C:\SVN\LIS\SqlXmlPersistence\bin\Debug\DomainPersistence.dll
+C:\SVN\LIS\SqlXmlPersistence\bin\Debug\DomainPersistence.pdb
+C:\SVN\LIS\SqlXmlPersistence\obj\Debug\SqlXmlPersistence.csprojResolveAssemblyReference.cache
+C:\SVN\LIS\SqlXmlPersistence\obj\Debug\SqlXmlPersistence.dll
+C:\SVN\LIS\SqlXmlPersistence\obj\Debug\SqlXmlPersistence.pdb

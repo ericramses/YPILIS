@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:ms="urn:schemas-microsoft-com:mapping-schema"
+			xmlns:sql="urn:schemas-microsoft-com:xml-sql" id="InlineSchema" sql:is-mapping-schema="1">
+
+	<xsd:element name="AliquotOrderItem" type="AliquotOrderItemType" ms:relation="tblAliquotOrder" ms:key-fields="AliquotOrderId" />
+	<xsd:complexType name="AliquotOrderItemType">
+		<xsd:sequence>
+			<xsd:element name="AliquotOrderId" type="xsd:string" />
+			<xsd:element name="SpecimenOrderId" type="xsd:int" />
+			<xsd:element name="AliquotType" type="xsd:string" />
+			<xsd:element name="Description" type="xsd:string" />
+			<xsd:element name="PrintRequested" type="xsd:boolean" />
+			<xsd:element name="Label" type="xsd:string" />
+			<xsd:element name="LabelPrefix" type="xsd:string" />
+			<xsd:element name="GrossVerified" type="xsd:boolean" />
+			<xsd:element name="GrossVerifiedById" type="xsd:int" />
+			<xsd:element name="GrossVerifiedDate" type="xsd:dateTime" ms:datatype="dateTime" nillable="true" />
+      <xsd:element name="LabelType" type="xsd:string" />
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

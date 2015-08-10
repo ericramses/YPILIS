@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:ms="urn:schemas-microsoft-com:mapping-schema"
+			xmlns:sql="urn:schemas-microsoft-com:xml-sql" id="InlineSchema" sql:is-mapping-schema="1">
+	
+	<xsd:element name="TestSpecimenOrderItem" type="TestSpecimenOrderItemType" ms:is-constant="1" />
+	<xsd:complexType name="TestSpecimenOrderItemType">
+		<xsd:sequence>
+			<xsd:element name="TestSpecimenOrderId" type="xsd:int" />
+			<xsd:element name="TestOrderId" type="xsd:string" />
+			<xsd:element name="SpecimenOrderId" type="xsd:int" />
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

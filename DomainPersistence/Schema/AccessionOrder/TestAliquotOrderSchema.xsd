@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:ms="urn:schemas-microsoft-com:mapping-schema"
+			xmlns:sql="urn:schemas-microsoft-com:xml-sql" id="InlineSchema" sql:is-mapping-schema="1">
+
+	<xsd:element name="TestAliquotOrderItem" type="TestAliquotOrderItemType" ms:relation="tblTestAliquotOrder" ms:key-fields="TestAliquotOrderId" />
+	<xsd:complexType name="TestAliquotOrderItemType">
+		<xsd:sequence>
+			<xsd:element name="TestAliquotOrderId" type="xsd:string" />
+			<xsd:element name="TestOrderId" type="xsd:string" />
+			<xsd:element name="AliquotOrderId" type="xsd:string" />
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>
+

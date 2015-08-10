@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:ms="urn:schemas-microsoft-com:mapping-schema"
+			xmlns:sql="urn:schemas-microsoft-com:xml-sql" id="InlineSchema" sql:is-mapping-schema="1">
+
+	<xsd:element name="SurgicalResultAuditItem" type="SurgicalResultAuditItemType" ms:relation="tblSurgicalResultAudit" ms:key-fields="SurgicalResultAuditId" />
+	<xsd:complexType name="SurgicalResultAuditItemType">
+		<xsd:sequence>
+			<xsd:element name="SurgicalResultAuditId" type="xsd:string" />
+			<xsd:element name="SurgicalResultId" type="xsd:string" />
+			<xsd:element name="Final" type="xsd:boolean" />
+			<xsd:element name="Published" type="xsd:boolean" />
+			<xsd:element name="PapCorrelationRequired" type="xsd:boolean" />
+			<xsd:element name="ReportableCase" type="xsd:boolean" />
+			<xsd:element name="PQRIRequired" type="xsd:boolean" />
+			<xsd:element name="FinalDate" type="xsd:dateTime" ms:datatype="dateTime" nillable="true" />
+			<xsd:element name="FinalTime" type="xsd:dateTime" ms:datatype="dateTime" nillable="true" />
+			<xsd:element name="PublishedTime" type="xsd:dateTime" ms:datatype="dateTime" nillable="true" />
+			<xsd:element name="AmendmentId" type="xsd:string" />
+			<xsd:element name="PanelSetResultOrderId" type="xsd:int" />
+			<xsd:element name="PhysicianId" type="xsd:int" />
+			<xsd:element name="PathologistId" type="xsd:int" />
+			<xsd:element name="ImmediateCorrelation" type="xsd:int" />
+			<xsd:element name="PapCorrelation" type="xsd:int" />
+			<xsd:element name="PQRIInstructions" type="xsd:int" />
+			<xsd:element name="ClinicalInfo" type="xsd:string" ms:datatype="ntext" />
+			<xsd:element name="GrossX" type="xsd:string" ms:datatype="ntext" />
+			<xsd:element name="ImmediateX" type="xsd:string" ms:datatype="ntext" />
+			<xsd:element name="MicroscopicX" type="xsd:string" ms:datatype="ntext" />
+			<xsd:element name="Comment" type="xsd:string" ms:datatype="ntext" />
+			<xsd:element name="CancerSummary" type="xsd:string" ms:datatype="ntext" />
+			<xsd:element name="Status" type="xsd:string" />
+			<xsd:element name="CaseType" type="xsd:string" />
+			<xsd:element name="ImmunoComment" type="xsd:string" />
+			<xsd:element name="LocumPerformedForInitials" type="xsd:string" />
+			<xsd:element name="AJCCStage" type="xsd:string" />
+			<xsd:element name="ImmediateCorrelationComment" type="xsd:string" />
+			<xsd:element name="PapCorrelationComment" type="xsd:string" />
+			<xsd:element name="PapCorrelationAccessionNo" type="xsd:string" />
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

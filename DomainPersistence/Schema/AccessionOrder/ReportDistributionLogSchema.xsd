@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:ms="urn:schemas-microsoft-com:mapping-schema"
+			xmlns:sql="urn:schemas-microsoft-com:xml-sql" id="InlineSchema" sql:is-mapping-schema="1">
+
+  <xsd:element name="ReportDistributionLogItem" type="ReportDistributionLogItemType" ms:relation="tblReportDistributionLog" ms:key-fields="ReportDistributionLogId" />
+	<xsd:complexType name="ReportDistributionLogItemType">
+		<xsd:sequence>
+			<xsd:element name="ReportDistributionLogId" type="xsd:string"/>      
+      <xsd:element name="ReportDistributionId" type="xsd:string"/>
+			<xsd:element name="ReportNo" type="xsd:string" />
+			<xsd:element name="MasterAccessionNo" type="xsd:string" />
+			<xsd:element name="AmendmentId" type="xsd:string" />			
+			<xsd:element name="Published" type="xsd:boolean" />
+			<xsd:element name="DatePublished" type="xsd:dateTime" ms:datatype="dateTime" nillable="true" />
+			<xsd:element name="DateDistributed" type="xsd:dateTime" ms:datatype="dateTime" nillable="true" />
+			<xsd:element name="CaseDistributed" type="xsd:boolean"/>
+			<xsd:element name="DateEntered" type="xsd:dateTime" ms:datatype="dateTime" nillable="true" />
+			<xsd:element name="DateCompleted" type="xsd:dateTime" ms:datatype="dateTime" nillable="true" />
+			<xsd:element name="Comment" type="xsd:string" />
+			<xsd:element name="PhysicianId" type="xsd:int" />
+			<xsd:element name="ClientId" type="xsd:int" />
+			<xsd:element name="PhysicianName" type="xsd:string" />
+			<xsd:element name="ClientName" type="xsd:string" />
+			<xsd:element name="DistributionType" type="xsd:string" />
+			<xsd:element name="FaxNumber" type="xsd:string" />
+			<xsd:element name="LongDistance" type="xsd:boolean" />						
+			<xsd:element name="ErrorInDistribution" type="xsd:boolean" />			
+      <xsd:element name="Priority" type="xsd:string" />
+    </xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

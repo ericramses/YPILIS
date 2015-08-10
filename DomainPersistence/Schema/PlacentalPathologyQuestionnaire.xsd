@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:ms="urn:schemas-microsoft-com:mapping-schema"
+			xmlns:sql="urn:schemas-microsoft-com:xml-sql" id="InlineSchema" sql:is-mapping-schema="1">
+  
+	<xsd:element name="PlacentalPathologyQuestionnaire" type="PlacentalPathologyQuestionnaireType" ms:relation="tblPlacentalPathologyQuestionnaire" ms:key-fields="PlacentalPathologyQuestionnaireId"></xsd:element>
+	<xsd:complexType name="PlacentalPathologyQuestionnaireType">
+		<xsd:sequence>
+			<xsd:annotation>
+				<xsd:documentation>DataMemberAttributeRequired</xsd:documentation>
+			</xsd:annotation>
+			<xsd:element name="PlacentalPathologyQuestionnaireId" type="xsd:string"></xsd:element>
+			<xsd:element name="ClientOrderId" type="xsd:string"></xsd:element>
+			<xsd:element name="Birthdate" type="xsd:string" />
+			<xsd:element name="BirthTime" type="xsd:string" />
+			<xsd:element name="PlacentaDeliveryTime" type="xsd:string" />
+			<xsd:element name="GestationalAge" type="xsd:string" />
+			<xsd:element name="Gravida" type="xsd:string" />
+			<xsd:element name="Para" type="xsd:string" />
+			<xsd:element name="Abortion" type="xsd:boolean" />
+			<xsd:element name="Apgar1Min" type="xsd:string" />
+			<xsd:element name="Apgar5Min" type="xsd:string" />
+			<xsd:element name="Apgar10Min" type="xsd:string" />
+			<xsd:element name="InfantWeight" type="xsd:string" />
+			<xsd:element name="SpecificQuestions" type="xsd:string" />
+			<xsd:element name="GrossExam" type="xsd:boolean" />
+			<xsd:element name="CompleteExam" type="xsd:boolean" />
+			<xsd:element name="Cytogenetics" type="xsd:boolean" />
+			<xsd:element name="OtherExam" type="xsd:string" />
+			<xsd:element name="DiabetesMellitus" type="xsd:boolean" />
+			<xsd:element name="PregnancyInducedHypertension" type="xsd:boolean" />
+			<xsd:element name="UnexplainedFever" type="xsd:boolean" />
+			<xsd:element name="PrematureRuptureOfMembranes" type="xsd:boolean" />
+			<xsd:element name="PoorOrLimitedPrenatalCare" type="xsd:boolean" />
+			<xsd:element name="Polyhydramnios" type="xsd:boolean" />
+			<xsd:element name="Oligohydramnios" type="xsd:boolean" />
+			<xsd:element name="PretermDeliveryLessThan36Weeks" type="xsd:boolean" />
+			<xsd:element name="PostTermDeliveryMoreThan42Weeks" type="xsd:boolean" />
+			<xsd:element name="Infection" type="xsd:boolean" />
+			<xsd:element name="PostpartumHemorrhage" type="xsd:boolean" />
+			<xsd:element name="MaternalHistoryOfReproductiveFailure" type="xsd:boolean" />
+			<xsd:element name="SeverePreeclampsia" type="xsd:boolean" />
+			<xsd:element name="SuspectedDrugUse" type="xsd:boolean" />
+			<xsd:element name="Other1" type="xsd:string" />
+			<xsd:element name="SuspectedInfection" type="xsd:boolean" />
+			<xsd:element name="Stillborn" type="xsd:boolean" />
+			<xsd:element name="ErythroblastosisFetalis" type="xsd:boolean" />
+			<xsd:element name="NeonatalDeath" type="xsd:boolean" />
+			<xsd:element name="TransferToNICU" type="xsd:boolean" />
+			<xsd:element name="ViscidOrThickMeconium" type="xsd:boolean" />
+			<xsd:element name="MultipleGestation" type="xsd:boolean" />
+			<xsd:element name="OminousFHRTracing" type="xsd:boolean" />
+			<xsd:element name="Prematurity" type="xsd:boolean" />
+			<xsd:element name="IUGR" type="xsd:boolean" />
+			<xsd:element name="ApgarLessThan7at5Min" type="xsd:boolean" />
+			<xsd:element name="CordpHLessThan7dot10" type="xsd:boolean" />
+			<xsd:element name="CongenitalAnomalies" type="xsd:boolean" />
+			<xsd:element name="NeonatalSeizures" type="xsd:boolean" />
+			<xsd:element name="Other2" type="xsd:string" />
+			<xsd:element name="Infarcts" type="xsd:boolean" />
+			<xsd:element name="AbnormalCalcifications" type="xsd:boolean" />
+			<xsd:element name="Abruption" type="xsd:boolean" />
+			<xsd:element name="PlacentaPrevia" type="xsd:boolean" />
+			<xsd:element name="VasaPrevia" type="xsd:boolean" />
+			<xsd:element name="AbnormalCordAppearance" type="xsd:boolean" />
+			<xsd:element name="Mass" type="xsd:boolean" />
+			<xsd:element name="Other3" type="xsd:string" />      
+			<xsd:element name="DateSubmitted" type="xsd:dateTime" ms:datatype="dateTime" nillable="true" />
+			<xsd:element name="SubmittedBy" type="xsd:string" />
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

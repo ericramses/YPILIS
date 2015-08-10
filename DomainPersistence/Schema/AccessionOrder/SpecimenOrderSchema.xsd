@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:ms="urn:schemas-microsoft-com:mapping-schema"
+			xmlns:sql="urn:schemas-microsoft-com:xml-sql" id="InlineSchema" sql:is-mapping-schema="1">
+
+	<xsd:element name="SpecimenOrderItem" type="SpecimenOrderItemType" ms:relation="tblSpecimenOrder" ms:key-fields="SpecimenOrderId" />
+	<xsd:complexType name="SpecimenOrderItemType">
+		<xsd:sequence>
+			<xsd:element name="SpecimenOrderId" type="xsd:int"/>
+			<xsd:element name="SpecimenType" type="xsd:string" />
+			<xsd:element name="CollectionDate" type="xsd:dateTime" ms:datatype="dateTime" nillable="true" />
+			<xsd:element name="CollectionTime" type="xsd:dateTime" ms:datatype="dateTime" nillable="true" />
+			<xsd:element name="SpecimenSite" type="xsd:string" />
+			<xsd:element name="FixationType" type="xsd:string" />
+			<xsd:element name="FixationStartTime" type="xsd:dateTime" ms:datatype="dateTime" nillable="true" />
+			<xsd:element name="FixationEndTime" type="xsd:dateTime" ms:datatype="dateTime" nillable="true" />
+			<xsd:element name="Description" type="xsd:string" />
+			<xsd:element name="AliquotRequestCount" type="xsd:int" />
+			<xsd:element name="AccessionTime" type="xsd:dateTime" ms:datatype="dateTime" nillable="true" />
+			<xsd:element name="ClientFixation" type="xsd:string" />
+			<xsd:element name="LabFixation" type="xsd:string" />			
+			<xsd:element name="ExactFixationStartTimeUnknown" type="xsd:boolean" />
+			<xsd:element name="MasterAccessionNo" type="xsd:string" />
+			<xsd:element name="FixationComment" type="xsd:string" />
+			<xsd:element name="SpecimenNumber" type="xsd:int" />
+			<xsd:element name="Accepted" type="xsd:boolean" />
+			<xsd:element name="SpecialInstructions" type="xsd:string" />
+			<xsd:element name="ContainerId" type="xsd:string" />
+			<xsd:element name="Verified" type="xsd:boolean" />
+			<xsd:element name="VerifiedById" type="xsd:int" />
+			<xsd:element name="VerifiedDate" type="xsd:dateTime" ms:datatype="dateTime" nillable="true" />
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

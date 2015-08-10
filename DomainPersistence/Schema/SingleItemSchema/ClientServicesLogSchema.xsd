@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:ms="urn:schemas-microsoft-com:mapping-schema"
+			xmlns:sql="urn:schemas-microsoft-com:xml-sql" id="InlineSchema" sql:is-mapping-schema="1"
+			xmlns:ypi="http://www.yellowstonepathology.com">
+
+	<xsd:element name="ClientServicesLog" type="ClientServicesLogType" ms:relation="tblClientServicesLog" ms:key-fields="ClientServicesLogId" />
+	<xsd:complexType name="ClientServicesLogType">
+		<xsd:sequence>
+			<xsd:element name="ClientServicesLogId" type="xsd:int"/>
+			<xsd:element name="LogDate" type="xsd:dateTime" ms:datatype="dateTime" nillable="false" />
+			<xsd:element name="EventId" type="xsd:int"/>
+			<xsd:element name="LoggedBy" type="xsd:string"></xsd:element>
+			<xsd:element name="Description" type="xsd:string"></xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>
