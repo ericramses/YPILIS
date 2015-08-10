@@ -1,0 +1,10 @@
+﻿<Application x:Class="YellowstonePathology.YpiConnect.Client.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:sharedConversions="clr-namespace:YellowstonePathology.Shared.Converter;assembly=YellowstonePathology.Shared"
+    StartupUri="MainWindow.xaml">
+    <Application.Resources>
+		<sharedConversions:GatingPercentConverter x:Key="GatingPercentConverter"/>
+		<sharedConversions:PanelSetIdConverter x:Key="PanelSetIdConverter"/>
+	</Application.Resources>
+</Application>
