@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<publishData>
+  <publishProfile publishUrl="\\ypiiwebserver2\ClientServices" deleteExistingFiles="False" ftpAnonymousLogin="False" ftpPassiveMode="True" msdeploySite="" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="False" msdeploySkipExtraFilesOnServer="True" msdeployMarkAsApp="False" profileName="WebServiceLive" publishMethod="FileSystem" replaceMatchingFiles="True" userName="" savePWD="False" userPWD="" SelectedForPublish="True">
+    <file relUrl="Web.config" publishTime="10/18/2011 09:26:19" />
+    <file relUrl="bin/BusinessRules.pdb" publishTime="01/05/2012 17:00:56" />
+    <file relUrl="Services.svc" publishTime="09/22/2010 09:19:14" />
+    <file relUrl="bin/ClientWebServices.pdb" publishTime="01/06/2012 09:18:11" />
+    <file relUrl="bin/SqlXmlPersistence.dll" publishTime="01/05/2012 17:00:57" />
+    <file relUrl="bin/BusinessRules.dll" publishTime="01/05/2012 17:00:56" />
+    <file relUrl="bin/YpiConnectContract.dll" publishTime="01/05/2012 17:00:58" />
+    <file relUrl="bin/YellowstonePathology.Domain.pdb" publishTime="01/05/2012 17:00:57" />
+    <file relUrl="bin/DomainPersistence.pdb" publishTime="01/05/2012 17:00:56" />
+    <file relUrl="bin/DomainPersistence.dll" publishTime="01/05/2012 17:00:56" />
+    <file relUrl="bin/YpiConnectContract.pdb" publishTime="01/05/2012 17:00:58" />
+    <file relUrl="bin/ClientWebServices.dll" publishTime="01/06/2012 09:18:12" />
+    <file relUrl="bin/SqlXmlPersistence.pdb" publishTime="01/05/2012 17:00:57" />
+    <file relUrl="bin/YellowstonePathology.Domain.dll" publishTime="01/05/2012 17:00:57" />
+  </publishProfile>
+  <publishProfile publishUrl="\\ypiiwebserver2\YpiConnect\Testing\Services" deleteExistingFiles="False" ftpAnonymousLogin="False" ftpPassiveMode="True" msdeploySite="" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="False" msdeploySkipExtraFilesOnServer="True" msdeployMarkAsApp="False" profileName="WebServiceTest" publishMethod="FileSystem" replaceMatchingFiles="True" userName="" savePWD="False" userPWD="" SelectedForPublish="False">
+    <file relUrl="bin/YellowstonePathology.Helper.pdb" publishTime="10/04/2011 11:00:36" />
+    <file relUrl="Web.config" publishTime="10/12/2011 21:42:43" />
+    <file relUrl="bin/BusinessRules.pdb" publishTime="10/04/2011 11:00:37" />
+    <file relUrl="Services.svc" publishTime="09/22/2010 09:19:14" />
+    <file relUrl="bin/ClientWebServices.pdb" publishTime="10/12/2011 09:04:49" />
+    <file relUrl="bin/SqlXmlPersistence.dll" publishTime="10/12/2011 09:04:17" />
+    <file relUrl="bin/BusinessRules.dll" publishTime="10/04/2011 11:00:37" />
+    <file relUrl="bin/YpiConnectContract.dll" publishTime="10/12/2011 09:04:17" />
+    <file relUrl="bin/DomainPersistence.pdb" publishTime="10/12/2011 09:04:16" />
+    <file relUrl="bin/YellowstonePathology.Helper.dll" publishTime="10/04/2011 11:00:36" />
+    <file relUrl="bin/DomainPersistence.dll" publishTime="10/12/2011 09:04:16" />
+    <file relUrl="bin/YpiConnectContract.pdb" publishTime="10/12/2011 09:04:17" />
+    <file relUrl="bin/ClientWebServices.dll" publishTime="10/12/2011 09:04:49" />
+    <file relUrl="bin/SqlXmlPersistence.pdb" publishTime="10/12/2011 09:04:16" />
+  </publishProfile>
+</publishData>

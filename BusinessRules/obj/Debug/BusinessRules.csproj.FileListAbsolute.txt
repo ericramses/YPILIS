@@ -1,0 +1,8 @@
+C:\SVN\LIS\BusinessRules\bin\Debug\BusinessRules.dll
+C:\SVN\LIS\BusinessRules\bin\Debug\BusinessRules.pdb
+C:\SVN\LIS\BusinessRules\obj\Debug\ExecutionStatusDialog.baml
+C:\SVN\LIS\BusinessRules\obj\Debug\ExecutionStatusDialog.g.cs
+C:\SVN\LIS\BusinessRules\obj\Debug\BusinessRules_MarkupCompile.cache
+C:\SVN\LIS\BusinessRules\obj\Debug\BusinessRules.g.resources
+C:\SVN\LIS\BusinessRules\obj\Debug\BusinessRules.dll
+C:\SVN\LIS\BusinessRules\obj\Debug\BusinessRules.pdb

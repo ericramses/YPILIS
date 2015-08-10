@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?><RuleSet Description="{p1:Null}" Name="{p1:Null}" ChainingBehavior="UpdateOnly" xmlns:p1="http://schemas.microsoft.com/winfx/2006/xaml" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/workflow">
+	<RuleSet.Rules>
+		<Rule ReevaluationBehavior="Never" Priority="1000" Description="{p1:Null}" Active="True" Name="AddItems">
+			<Rule.ThenActions>
+				<RuleStatementAction>
+					<RuleStatementAction.CodeDomStatement>
+						<ns0:CodeExpressionStatement LinePragma="{p1:Null}" xmlns:ns0="clr-namespace:System.CodeDom;Assembly=System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+							<ns0:CodeExpressionStatement.Expression>
+								<ns0:CodeMethodInvokeExpression>
+									<ns0:CodeMethodInvokeExpression.Method>
+										<ns0:CodeMethodReferenceExpression MethodName="AddAliquotsToRequested">
+											<ns0:CodeMethodReferenceExpression.TargetObject>
+												<ns0:CodeThisReferenceExpression />
+											</ns0:CodeMethodReferenceExpression.TargetObject>
+										</ns0:CodeMethodReferenceExpression>
+									</ns0:CodeMethodInvokeExpression.Method>
+								</ns0:CodeMethodInvokeExpression>
+							</ns0:CodeExpressionStatement.Expression>
+						</ns0:CodeExpressionStatement>
+					</RuleStatementAction.CodeDomStatement>
+				</RuleStatementAction>
+			</Rule.ThenActions>
+			<Rule.Condition>
+				<RuleExpressionCondition Name="{p1:Null}">
+					<RuleExpressionCondition.Expression>
+						<ns0:CodeBinaryOperatorExpression Operator="GreaterThan" xmlns:ns0="clr-namespace:System.CodeDom;Assembly=System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+							<ns0:CodeBinaryOperatorExpression.Right>
+								<ns0:CodePrimitiveExpression>
+									<ns0:CodePrimitiveExpression.Value>
+										<ns1:Int32 xmlns:ns1="clr-namespace:System;Assembly=mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">0</ns1:Int32>
+									</ns0:CodePrimitiveExpression.Value>
+								</ns0:CodePrimitiveExpression>
+							</ns0:CodeBinaryOperatorExpression.Right>
+							<ns0:CodeBinaryOperatorExpression.Left>
+								<ns0:CodeMethodInvokeExpression>
+									<ns0:CodeMethodInvokeExpression.Method>
+										<ns0:CodeMethodReferenceExpression MethodName="Difference">
+											<ns0:CodeMethodReferenceExpression.TargetObject>
+												<ns0:CodeThisReferenceExpression />
+											</ns0:CodeMethodReferenceExpression.TargetObject>
+										</ns0:CodeMethodReferenceExpression>
+									</ns0:CodeMethodInvokeExpression.Method>
+								</ns0:CodeMethodInvokeExpression>
+							</ns0:CodeBinaryOperatorExpression.Left>
+						</ns0:CodeBinaryOperatorExpression>
+					</RuleExpressionCondition.Expression>
+				</RuleExpressionCondition>
+			</Rule.Condition>
+		</Rule>
+		<Rule ReevaluationBehavior="Never" Priority="900" Description="{p1:Null}" Active="True" Name="RemoveItems">
+			<Rule.ThenActions>
+				<RuleStatementAction>
+					<RuleStatementAction.CodeDomStatement>
+						<ns0:CodeExpressionStatement LinePragma="{p1:Null}" xmlns:ns0="clr-namespace:System.CodeDom;Assembly=System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+							<ns0:CodeExpressionStatement.Expression>
+								<ns0:CodeMethodInvokeExpression>
+									<ns0:CodeMethodInvokeExpression.Method>
+										<ns0:CodeMethodReferenceExpression MethodName="RemoveAliquotsToRequested">
+											<ns0:CodeMethodReferenceExpression.TargetObject>
+												<ns0:CodeThisReferenceExpression />
+											</ns0:CodeMethodReferenceExpression.TargetObject>
+										</ns0:CodeMethodReferenceExpression>
+									</ns0:CodeMethodInvokeExpression.Method>
+								</ns0:CodeMethodInvokeExpression>
+							</ns0:CodeExpressionStatement.Expression>
+						</ns0:CodeExpressionStatement>
+					</RuleStatementAction.CodeDomStatement>
+				</RuleStatementAction>
+			</Rule.ThenActions>
+			<Rule.Condition>
+				<RuleExpressionCondition Name="{p1:Null}">
+					<RuleExpressionCondition.Expression>
+						<ns0:CodeBinaryOperatorExpression Operator="LessThan" xmlns:ns0="clr-namespace:System.CodeDom;Assembly=System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+							<ns0:CodeBinaryOperatorExpression.Right>
+								<ns0:CodePrimitiveExpression>
+									<ns0:CodePrimitiveExpression.Value>
+										<ns1:Int32 xmlns:ns1="clr-namespace:System;Assembly=mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">0</ns1:Int32>
+									</ns0:CodePrimitiveExpression.Value>
+								</ns0:CodePrimitiveExpression>
+							</ns0:CodeBinaryOperatorExpression.Right>
+							<ns0:CodeBinaryOperatorExpression.Left>
+								<ns0:CodeMethodInvokeExpression>
+									<ns0:CodeMethodInvokeExpression.Method>
+										<ns0:CodeMethodReferenceExpression MethodName="Difference">
+											<ns0:CodeMethodReferenceExpression.TargetObject>
+												<ns0:CodeThisReferenceExpression />
+											</ns0:CodeMethodReferenceExpression.TargetObject>
+										</ns0:CodeMethodReferenceExpression>
+									</ns0:CodeMethodInvokeExpression.Method>
+								</ns0:CodeMethodInvokeExpression>
+							</ns0:CodeBinaryOperatorExpression.Left>
+						</ns0:CodeBinaryOperatorExpression>
+					</RuleExpressionCondition.Expression>
+				</RuleExpressionCondition>
+			</Rule.Condition>
+		</Rule>
+	</RuleSet.Rules>
+</RuleSet>

@@ -1,0 +1,4 @@
+C:\SVN\LIS\BarcodeLib\bin\x86\Debug\BarcodeLib.dll
+C:\SVN\LIS\BarcodeLib\bin\x86\Debug\BarcodeLib.pdb
+C:\SVN\LIS\BarcodeLib\obj\x86\Debug\BarcodeLib.dll
+C:\SVN\LIS\BarcodeLib\obj\x86\Debug\BarcodeLib.pdb
