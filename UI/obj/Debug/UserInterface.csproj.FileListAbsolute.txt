@@ -765,3 +765,6 @@ C:\SVN\LIS\UI\obj\Debug\UserInterface.exe.manifest
 C:\SVN\LIS\UI\obj\Debug\UserInterface.application
 C:\SVN\LIS\UI\obj\Debug\UserInterface.exe
 C:\SVN\LIS\UI\obj\Debug\UserInterface.pdb
+C:\Git\YPILIS\UI\bin\Debug\UserInterface.exe.config
+C:\Git\YPILIS\UI\obj\Debug\UserInterface.exe
+C:\Git\YPILIS\UI\obj\Debug\UserInterface.pdb
