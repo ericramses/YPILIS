@@ -1,0 +1,194 @@
+﻿<UserControl x:Class="YellowstonePathology.UI.Login.ICDEntryPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="400" d:DesignWidth="800">
+    <Grid>                
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition></ColumnDefinition>
+		</Grid.ColumnDefinitions>
+
+		<Grid.RowDefinitions>
+			<RowDefinition Height="50"></RowDefinition>
+			<RowDefinition Height="*"></RowDefinition>
+			<RowDefinition Height="50"></RowDefinition>
+		</Grid.RowDefinitions>
+
+		<Border Grid.Row="0" BorderBrush="Transparent" BorderThickness="0" Background="{DynamicResource {x:Static SystemColors.InactiveCaptionBrushKey}}"></Border>
+		<TextBlock Grid.Column="0" Grid.Row="0" Margin="20,2,2,2" Text="{Binding Path=PageHeaderText}" VerticalAlignment="Center" Foreground="White" FontSize="16" FontWeight="Bold"></TextBlock>
+
+		<Grid Grid.Row="1" Margin="5">
+            <Grid.Resources>
+                
+                <XmlDataProvider x:Key="ICDCodes" XPath="Codes/Code">
+                    <x:XData>
+                        <Codes xmlns="">
+                            
+                            <Code ICD9="V76.2" ICD10="Z12.4" Description="Encounter for screening for malignant neoplasm of cervix" Test="Cytology" Quantity="1"/>
+                            <Code ICD9="V72.31" ICD10="Z01.411" Description="Encounter for gynecological examination (general) (routine) with abnormal findings" Test="Cytology" Quantity="1"/>
+                            <Code ICD9="V72.31" ICD10="Z01.419" Description="Encounter for gynecological examination (general) (routine) without abnormal findings" Test="Cytology" Quantity="1"/>
+                            <Code ICD9="V76.47" ICD10="Z12.72" Description="Encounter for screening for malignant neoplasm of vagina" Test="Cytology" Quantity="1"/>                                    
+                            <Code ICD9="V15.89" ICD10="Z77.9" Description="Other contact with and (suspected) exposures hazardous to health" Test="Cytology" Quantity="1"/>
+                            <Code ICD9="V15.89" ICD10="Z92.89" Description="Personal history of other medical treatment" Test="Cytology" Quantity="1"/>
+                            <Code ICD9="V76.49" ICD10="Z12.89" Description="Encounter for screening for malignant neoplasm of other sites" Test="Cytology" Quantity="1"/>
+                            <Code ICD9="V77.6" ICD10="Z13.288" Description="Encounter for screening for other metabolic disorders" Test="Cytology" Quantity="1"/>
+                            <Code ICD9="V70.0" ICD10="Z00.00" Description="Encounter for general adult medical examination without abnormal findings" Test="Cytology" Quantity="1"/>
+                            <Code ICD9="795.01" ICD10="R87.610" Description="Atypical squamous cells of undetermined significance on cytologic smear of cervix (ASC-US)" Test="Cytology" Quantity="1"/>
+                            <Code ICD9="795.02" ICD10="R87.611" Description="Atypical squamous cells cannot exclude high grade squamous intraepithelial lesion on cytologic smear of cervix (ASC-H)" Test="Cytology" Quantity="1"/>
+                            <Code ICD9="795.03" ICD10="R87.612" Description="Low grade squamous intraepithelial lesion on cytologic smear of cervix (LGSIL)" Test="Cytology" Quantity="1"/>
+                            <Code ICD9="795.04" ICD10="R87.613" Description="High grade squamous intraepithelial lesion on cytologic smear of cervix (HGSIL)" Test="Cytology" Quantity="1"/>
+                            <Code ICD9="795.05" ICD10="R87.810" Description="Cervical high risk human papillomavirus (HPV) DNA test positive" Test="Cytology" Quantity="1"/>
+                            <Code ICD9="795.09" ICD10="R87.820" Description="Cervical low risk human papillomavirus (HPV) DNA test positive" Test="Cytology" Quantity="1"/>
+                            <Code ICD9="V22.0" ICD10="Z34.00" Description="Encounter for supervision of normal first pregnancy, unspecified trimester" Test="Cytology/NGCT" Quantity="1"/>
+                            <Code ICD9="V22.1" ICD10="Z34.80" Description="Encounter for supervision of other normal pregnancy, unspecified trimester" Test="Cytology/NGCT" Quantity="1"/>
+                            <Code ICD9="V22.1" ICD10="V34.90" Description="Encounter for supervision of normal pregnancy, unspecified, unspecified trimester" Test="Cytology/NGCT" Quantity="1"/>
+                            <Code ICD9="V24.1" ICD10="Z39.1" Description="Encounter for care and examination of lactating mother" Test="Cytology/NGCT" Quantity="1"/>
+                            <Code ICD9="V24.2" ICD10="Z39.2" Description="Encounter for routine postpartum follow-up" Test="Cytology/NGCT" Quantity="1"/>
+                            <Code ICD9="V73.81" ICD10="Z11.51" Description="Encounter for screening for human papillomavirus (HPV)" Test="Routine HPV" Quantity="1"/>
+                            <Code ICD9="V74.5" ICD10="Z11.3" Description="Encounter for screening for infections with a predominantly sexual mode of transmission" Test="NGCT" Quantity="1"/>
+                            <Code ICD9="V01.6" ICD10="Z20.2" Description="Contact with and (suspected) exposure to infections with a predominantly sexual mode of transmission" Test="NGCT" Quantity="1"/>
+                            <Code ICD9="V73.98" ICD10="Z11.8" Description="Encounter for screening for other infectious and parasitic diseases" Test="NGCT" Quantity="1"/>
+                            <Code ICD9="V73.88" ICD10="Z11.8" Description="Encounter for screening for other infectious and parasitic diseases" Test="NGCT" Quantity="1"/>
+                            <Code ICD9="V73.89" ICD10="Z11.59" Description="Encounter for screening for other viral diseases" Test="NGCT" Quantity="1"/>
+                            <Code ICD9="131.0" ICD10="" Description="Crosswalk indicates this code sucks" Test="Trichomonas/Vag,Vulv" Quantity="1"/>
+                            <Code ICD9="131.09" ICD10="A59.09" Description="Other urogenital trichomoniasis" Test="Trichomonas/Cervx" Quantity="1"/>
+                            <Code ICD9="131.9" ICD10="A59.9" Description=" Trichomoniasis, unspecified" Test="Trichomonas" Quantity="1"/>
+                                
+                            <Code ICD9="172.9" ICD10="" Test="BRAF(Melanoma)" Quantity="1"/>
+                            <Code ICD9="193" ICD10="" Test="BRAF(Thyroid)" Quantity="1"/>
+                            <Code ICD9="238.71" ICD10="" Test="JAK2" Quantity="1"/>
+                            <Code ICD9="174.9" ICD10="" Test="KRAS with BRAF Reflex(Breast)"/>
+                            <Code ICD9="165.9" ICD10="" Test="KRAS with BRAF Reflex(Lung)"/>
+                            <Code ICD9="153.9" ICD10="" Test="KRAS with BRAF Reflex(Colon)"/>
+                            <Code ICD9="193" ICD10="" Test="KRAS with BRAF Reflex(Thyroid)"/>
+                            <Code ICD9="287.5" ICD10="" Test="Thrombocytopenia" Quantity="1"/>
+                            <Code ICD9="453.9" ICD10="" Test="Molecular" Quantity="1"/>
+
+
+                            <Code ICD9="626.6" ICD10="N92.0" Description="Excessive and frequent menstruation (heavy)" Test="Cytology" Quantity="1"/>
+                            <Code ICD9="626.6" ICD10="N92.1" Description="Excessive and frequent menstruation (irregular)" Test="Cytology" Quantity="1"/>
+                            <Code ICD9="626.6" ICD10="N92.4" Description="Excessive bleeding in the premenopausal period" Test="Cytology" Quantity="1"/>
+                            <Code ICD9="625.3" ICD10="N94.6" Description="Dysmenorrhea, unspecified (painful menstruation)" Test="Cytology" Quantity="1"/>
+                            <Code ICD9="626.0" ICD10="N91.2" Description="Amenorrhea, unspecified" Test="Cytology" Quantity="1"/>
+                        </Codes>
+                    </x:XData>
+                </XmlDataProvider>
+
+                <DataTemplate x:Key="CodeListBoxTemplate">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="30"></ColumnDefinition>
+                            <ColumnDefinition Width="70"></ColumnDefinition>
+                            <ColumnDefinition Width="70"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="70"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        
+                        <TextBlock Grid.Column="0" Text="{Binding XPath=@Quantity}" Margin="2,2,2,2"/>
+                        <TextBlock Grid.Column="1" Text="{Binding XPath=@ICD9}" Margin="2,2,2,2" FontWeight="Bold"/>
+                        <TextBlock Grid.Column="2" Text="{Binding XPath=@ICD10}" Margin="2,2,2,2" FontWeight="Bold"/>
+                        <TextBlock Grid.Column="3" Text="{Binding XPath=@Description}" Margin="2,2,2,2" Width="300" TextWrapping="Wrap"/>
+                        <TextBlock Grid.Column="4" Text="{Binding XPath=@Test}" Margin="2,2,2,2"/>
+                    </Grid>
+                </DataTemplate>                              
+
+                <Style x:Key="CodeListBoxStyle" TargetType="ListBoxItem">
+                    <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListBoxItem">
+                                <Border Name="Border" Margin="5,5,5,5" Padding="5" SnapsToDevicePixels="true" BorderBrush="Black" BorderThickness="1" CornerRadius="6" Background="#F5F5F5">
+                                    <ContentPresenter />
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsSelected" Value="true">
+                                        <Setter TargetName="Border" Property="CornerRadius" Value="6"/>
+                                        <Setter TargetName="Border" Property="Background" Value="#DCE6F2"></Setter>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsVisible}" Value="false">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding IsVisible}" Value="true">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+                
+            </Grid.Resources>
+            
+            <Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto"></ColumnDefinition>
+				<ColumnDefinition Width="*"></ColumnDefinition>
+			</Grid.ColumnDefinitions>			
+
+			<Grid Grid.Column="0">
+                <ListBox Name="ListBoxCodeCategories" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Margin="2,2,2,2" ItemTemplate="{StaticResource CodeListBoxTemplate}"
+					ItemsSource="{Binding Source={StaticResource ICDCodes}}" 
+                         ToolTip="Double click to add" SelectedIndex="0" MouseDoubleClick="ListBoxCodes_MouseDoubleClick">
+                </ListBox>                
+            </Grid>
+
+			<Grid Grid.Column="1">
+				<Grid.ColumnDefinitions>					
+					<ColumnDefinition Width="*"></ColumnDefinition>
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"></RowDefinition>					
+					<RowDefinition Height="*"></RowDefinition>
+				</Grid.RowDefinitions>
+
+				<Grid Grid.Column="0" Grid.Row="0" Margin="2,2,2,2">
+                    
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto"></ColumnDefinition>
+						<ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+						<ColumnDefinition Width="*"></ColumnDefinition>						
+					</Grid.ColumnDefinitions>
+                    
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto"></RowDefinition>
+					</Grid.RowDefinitions>
+                    
+					<TextBlock Grid.Column="0" Grid.Row="0" Margin="10,2,2,2" VerticalAlignment="Center" Text="ICD 9/10 Code:" />
+					<TextBox Grid.Column="1" Grid.Row="0" Name="TextBoxICD9Code" Margin="2,2,2,2" Width="130"/>
+                    <TextBox Grid.Column="2" Grid.Row="0" Name="TextBoxICD10Code" Margin="2,2,2,2" Width="130"/>
+                    <TextBlock Grid.Column="3" Grid.Row="0" HorizontalAlignment="Left" TextAlignment="Left">
+				        <Hyperlink Click="HyperlinkAddICDCode_Click">Add</Hyperlink>
+                    </TextBlock>                    
+                    
+				</Grid>
+				
+                <ListView Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" Name="ListViewICD9BillingCodes" ItemsSource="{Binding Path=AccessionOrder.ICD9BillingCodeCollection, Mode=OneWay}"
+						  HorizontalAlignment="Stretch" IsTabStop="False">
+                    <ListView.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Delete ICD Code" Click="MenuItemDeleteICDCode_Click"></MenuItem>
+                        </ContextMenu>
+                    </ListView.ContextMenu>
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=Quantity}" Header="Qty" Width="50"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=ICD9Code}" Header="ICD9 Code" Width="100"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=ICD10Code}" Header="ICD10 Code" Width="100"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=ReportNo}" Header="Report No" Width="100"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
+
+		</Grid>
+
+		<Border Grid.Column="0" Grid.Row="2" BorderBrush="Transparent" BorderThickness="0" Background="{DynamicResource {x:Static SystemColors.InactiveCaptionBrushKey}}"></Border>
+        <Button Grid.Column="0" Grid.Row="2" Width="100" Height="40" HorizontalAlignment="Left" Margin="5,5,5,5" Click="ButtonBack_Click">&lt; Back</Button>
+		<Button Grid.Column="0" Grid.Row="2" Width="100" Height="40" HorizontalAlignment="Right" Margin="5,5,5,5" Click="ButtonNext_Click">Next ></Button>
+
+	</Grid>
+</UserControl>

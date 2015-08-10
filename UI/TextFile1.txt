@@ -1,0 +1,8 @@
+﻿<ComboBox Grid.Column="1" Grid.Row="0" Text="{Binding Path=CurrentAccessionOrder.OrderInstructions.Element[OrderInstructions].Element[Instruction].Element[HPVInstructions].Value}" HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                                  BorderBrush="LightGray" BorderThickness="1" Margin="2,2,2,2" IsEditable="True">
+							<ComboBoxItem>Not Specified</ComboBoxItem>
+							<ComboBoxItem>Reflex If ASCUS</ComboBoxItem>
+                            <ComboBoxItem>Reflex</ComboBoxItem>
+							<ComboBoxItem>Routine</ComboBoxItem>
+							<ComboBoxItem>Do Not Order</ComboBoxItem>
+						</ComboBox>

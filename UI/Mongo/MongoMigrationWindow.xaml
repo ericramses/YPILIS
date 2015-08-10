@@ -1,0 +1,88 @@
+﻿<Window x:Class="YellowstonePathology.UI.Mongo.MongoMigrationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:local="clr-namespace:YellowstonePathology.UI"
+        Title="Mongo Migration" WindowState="Maximized">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>            
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Menu Name="MainMenu" Grid.Column="0" Grid.Row="0" DockPanel.Dock="Top">
+            <MenuItem Header="Transfer">
+                <MenuItem Header="Add Transfers"  Click="MenuItemAddTransfers_Click"></MenuItem>                
+                <MenuItem Header="Transfer Table To Mongo" Click="MenuItemTransferMongoCollection_Click"></MenuItem>
+                <MenuItem Header="Update SQL Index Count" Click="MenuItemUpdateSQLIndexCount_Click"></MenuItem>
+                <MenuItem Header="Update Mongo Index Count" Click="MenuItemUpdateMongoIndexCount_Click"></MenuItem>
+                <MenuItem Header="Create Mongo Indexes" Click="MenuItemCreateMongoIndexes_Click"></MenuItem>
+                <MenuItem Header="Build Accession Order Documents" Click="MenuItemBuildAccessionOrderDocuments_Click"></MenuItem>
+                <MenuItem Header="Build Client Documents" Click="MenuItemBuildClientDocuments_Click"></MenuItem>
+                <MenuItem Header="Build Accession Order Object" Click="MenuItemBuildAccessionOrderObject_Click"></MenuItem>                
+                <MenuItem Header="Update Out Of Sync Count" Click="MenuItemUpdateOutOfSyncCount_Click"></MenuItem>
+                <MenuItem Header="Update Has DBTS Transfer Attribute" Click="MenuItemUpdateHasDBTSTransferAttribute_Click"></MenuItem>
+                <MenuItem Header="Set DBTS Transfer Attribute" Click="MenuItemSetDBTSTransferAttribute_Click"></MenuItem>
+                <MenuItem Header="Delete Transfer"  Click="MenuItemDeleteTransfers_Click"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="ObjectId">
+                <MenuItem Header="Update Has ObjectID Column" Click="MenuItemUpdateHasObjectIDColumn_Click"></MenuItem>
+                <MenuItem Header="Add ObjectId Column" Click="MenuItemAddObjectIdColumn_Click"></MenuItem>
+                <MenuItem Header="Update SQL Null Object ID Count" Click="MenuItemUpdateSQLNullObjectIDCount_Click"></MenuItem>
+                <MenuItem Header="Update SQL Null Object IDs" Click="MenuItemUpdateSQLNullObjectIDs_Click"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Timestamp">
+                <MenuItem Header="Update Has Timestamp Column" Click="MenuItemUpdateHasTimestampColumn_Click"></MenuItem>
+                <MenuItem Header="Add Timestamp Column" Click="MenuItemAddTimestampColumn_Click"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Transfer DBTS">
+                <MenuItem Header="Update Transfer DBTS Attribute" Click="MenuItemUpdateTransferDBTSAttribute_Click"></MenuItem>                
+                <MenuItem Header="Add Transfer DBTS Attribute" Click="MenuItemAddTransferDBTSAttribute_Click"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Row Counts">
+                <MenuItem Header="Update SQL Row Count" Click="MenuItemUpdateSQLRowCount_Click"></MenuItem>
+                <MenuItem Header="Update Mongo Document Count" Click="MenuItemUpdateMongoDocumentCount_Click"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Mongo Collection">
+                <MenuItem Header="Drop Mongo Collection" Click="MenuItemDropMongoCollection_Click"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Transfer Straight Across Attribute">
+                <MenuItem Header="Update" Click="MenuItemUpdateTransferStraightAttribute_Click"></MenuItem>
+                <MenuItem Header="Set True" Click="MenuItemSetTransferStraightAttributeTrue_Click"></MenuItem>
+                <MenuItem Header="Set False" Click="MenuItemSetTransferStraightAttributeFalse_Click"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Synchronization">
+                <MenuItem Header="Update Out Of Sync Count" Click="MenuItemUpdateOutOfSyncCount_Click"></MenuItem>
+                <MenuItem Header="Synchronize" Click="MenuItemSynchronize_Click"></MenuItem>                
+            </MenuItem>
+        </Menu>
+        
+        <ListView Name="ListViewTransferCollection" Grid.Column="0" Grid.Row="1" ItemsSource="{Binding Path=TransferCollection}" 
+                  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5,5,5,5" local:ListViewSorter.IsSortable="true">            
+            <ListView.View>
+                <GridView>                                                                                
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=TableName}" Header="Table" Width="200"/>                    
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=HasSQLObjectId}" Header="Has ObjectId" Width="120"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=HasSQLTimestamp}" Header="Has Timestamp" Width="120"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=HasTransferDBTSAttribute}" Header="Has DBTS Attribute" Width="120"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=SQLNullObjectIdCount}" Header="Null ObjectID Count" Width="120"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=SQLRowCount}" Header="SQL Row Count" Width="120"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=MongoDocumentCount}" Header="Mongo Document Count" Width="120"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=SQLIndexCount}" Header="SQL Index Count" Width="130"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=MongoIndexCount}" Header="Mongo Index Count" Width="130"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=TransferDBTS}" Header="Transfer DBTS" Width="130"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=OutOfSyncCount}" Header="Out Of Sync Count" Width="130"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=HasTransferDBTSAttribute}" Header="Has DBTS Attribute" Width="120"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=HasTransferStraightAcrossAttribute}" Header="Has Transfer Straight" Width="120"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=TransferStraightAcross}" Header="Transfer Straight" Width="120"/>                                                            
+                </GridView>
+            </ListView.View>
+        </ListView>       
+
+        <TextBlock Name="TextBlockStatusMessage" Grid.Column="0" Grid.Row="2" Text="{Binding Path=StatusMessage}"></TextBlock>
+        
+    </Grid>
+</Window>

@@ -1,0 +1,4 @@
+C:\SVN\LIS\YellowstonePathology.Shared\bin\Debug\YellowstonePathology.Shared.dll
+C:\SVN\LIS\YellowstonePathology.Shared\bin\Debug\YellowstonePathology.Shared.pdb
+C:\SVN\LIS\YellowstonePathology.Shared\obj\Debug\YellowstonePathology.Shared.dll
+C:\SVN\LIS\YellowstonePathology.Shared\obj\Debug\YellowstonePathology.Shared.pdb

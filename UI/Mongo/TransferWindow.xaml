@@ -1,0 +1,50 @@
+﻿<Window x:Class="YellowstonePathology.UI.Mongo.TransferWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="TransferWindow" Height="800" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        
+        <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right">Object ID:</TextBlock>
+        <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Path=Transfer.ObjectId}" Margin="2,2,2,2" HorizontalAlignment="Stretch" IsEnabled="False"/>
+
+        <TextBlock Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right">Collection Name:</TextBlock>
+        <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Path=Transfer.CollectionName}" Margin="2,2,2,2" HorizontalAlignment="Stretch" IsEnabled="False"/>
+
+        <TextBlock Grid.Column="0" Grid.Row="2" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right">Table Name:</TextBlock>
+        <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Path=Transfer.TableName}" Margin="2,2,2,2" HorizontalAlignment="Stretch" IsEnabled="False"/>
+
+        <TextBlock Grid.Column="0" Grid.Row="3" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right">Has SQL ObjectId:</TextBlock>
+        <CheckBox Grid.Column="1" Grid.Row="3" IsChecked="{Binding Path=Transfer.HasSQLObjectId}" Margin="2,2,2,2" HorizontalAlignment="Stretch" IsEnabled="false"/>
+
+        <TextBlock Grid.Column="0" Grid.Row="4" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right">Has SQL TimeStamp:</TextBlock>
+        <CheckBox Grid.Column="1" Grid.Row="4" IsChecked="{Binding Path=Transfer.HasSQLTimeStamp}" Margin="2,2,2,2" HorizontalAlignment="Stretch" IsEnabled="false"/>
+
+        <TextBlock Grid.Column="0" Grid.Row="5" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right">Has SQL Transfer TimeStamp:</TextBlock>
+        <CheckBox Grid.Column="1" Grid.Row="5" IsChecked="{Binding Path=Transfer.HasSQLTransferTimeStamp}" Margin="2,2,2,2" HorizontalAlignment="Stretch" IsEnabled="false"/>
+
+        <TextBlock Grid.Column="0" Grid.Row="6" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right">Has Base Class:</TextBlock>
+        <CheckBox Grid.Column="1" Grid.Row="6" IsChecked="{Binding Path=Transfer.HasBaseClass}" Margin="2,2,2,2" HorizontalAlignment="Stretch" IsEnabled="false"/>
+
+        <TextBlock Grid.Column="0" Grid.Row="7" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right">SQL Row Count:</TextBlock>
+        <TextBox Grid.Column="1" Grid.Row="7" Text="{Binding Path=Transfer.SQLRowCount}" Margin="2,2,2,2" HorizontalAlignment="Stretch" IsEnabled="False"/>
+
+        <TextBlock Grid.Column="0" Grid.Row="8" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right">Mongo Document Count:</TextBlock>
+        <TextBox Grid.Column="1" Grid.Row="8" Text="{Binding Path=Transfer.MongoDocumentCount}" Margin="2,2,2,2" HorizontalAlignment="Stretch" IsEnabled="False"/>
+
+    </Grid>
+</Window>

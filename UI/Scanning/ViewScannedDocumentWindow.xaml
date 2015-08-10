@@ -1,0 +1,25 @@
+﻿<Window x:Class="YellowstonePathology.UI.Scanning.ViewScannedDocumentWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Scanned Document Window" WindowState="Maximized">
+    <Grid>
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left">
+            <TextBox Name="TextBoxPrefix" Width="10" Height="25"></TextBox>
+            <TextBlock Name="TextBlockReportNo" Width="50" Height="25"></TextBlock>
+        </StackPanel>
+       
+        <StackPanel Name="StackPanelImage" Grid.Column="0" Grid.Row="1">
+            
+        </StackPanel>
+        
+    </Grid>
+</Window>

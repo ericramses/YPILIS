@@ -1,0 +1,4 @@
+C:\SVN\LIS\YellowstonePathology.Shared\bin\Mongo\YellowstonePathology.Shared.dll
+C:\SVN\LIS\YellowstonePathology.Shared\bin\Mongo\YellowstonePathology.Shared.pdb
+C:\SVN\LIS\YellowstonePathology.Shared\obj\Mongo\YellowstonePathology.Shared.dll
+C:\SVN\LIS\YellowstonePathology.Shared\obj\Mongo\YellowstonePathology.Shared.pdb
