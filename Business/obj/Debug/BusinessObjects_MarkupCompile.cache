@@ -4,7 +4,7 @@
 library
 C#
 .cs
-C:\SVN\LIS\Business\obj\Debug\
+C:\Git\YPILIS\Business\obj\Debug\
 YellowstonePathology.Business
 none
 false
@@ -13,7 +13,7 @@ TRACE;DEBUG
 61657595413
 8940422618
 234085500315
-41-662880217
+41-483687837
 Document\FlowDocumentReport.xaml;Document\CaseReportFooter.xaml;Reports\POCRetensionReport.xaml;Reports\CytologySlideDisposalReport.xaml;Reports\SpecimenDisposalReport.xaml;Reports\SurgicalSpecimenDisposalReport.xaml;
 
 False

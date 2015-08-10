@@ -4,7 +4,7 @@
   <description asmv2:iconFile="YPI.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="YellowstonePathology.YpiConnect.Client" version="2.0.5700.16879" language="neutral" processorArchitecture="x86" />
+    <assemblyIdentity name="YellowstonePathology.YpiConnect.Client" version="2.0.5700.22663" language="neutral" processorArchitecture="x86" />
     <commandLine file="YellowstonePathology.YpiConnect.Client.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -50,19 +50,19 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>rQSC0nMrpVCw1M/N+iaQjUN5t9k=</dsig:DigestValue>
+        <dsig:DigestValue>vacHDDwD+Wm87CdeYpMiF0EgGd0=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="BusinessObjects.dll" size="3374592">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="BusinessObjects.dll" size="3422720">
       <assemblyIdentity name="BusinessObjects" version="1.0.0.0" publicKeyToken="FC34D02CD98EC0F6" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>xnQMIN1Hlaojnvea9bxInrZGtV4=</dsig:DigestValue>
+        <dsig:DigestValue>moM4gxw1hOKTO+OKYM5VSiZOCyc=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -74,7 +74,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>x2PKQGDT/ww6/Olzmv800OyFudM=</dsig:DigestValue>
+        <dsig:DigestValue>M8c5I8lueCZD5eGr62P3VEwDTbY=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -86,7 +86,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>v3o8c+cW/cGZIvvNJc6NQuLXPnM=</dsig:DigestValue>
+        <dsig:DigestValue>ucSTVtycdocP9QeJPVwQwCcoRuw=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -98,7 +98,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>OOixir4gcyF1amtscVNhFZmQxgo=</dsig:DigestValue>
+        <dsig:DigestValue>xVNSbAPd63hVOBrvEzG6f1TQzDE=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -127,18 +127,6 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="YellowstonePathology.Persistence.dll" size="54784">
-      <assemblyIdentity name="YellowstonePathology.Persistence" version="1.0.0.0" publicKeyToken="095EF97A40D5D3F8" language="neutral" processorArchitecture="msil" />
-      <hash>
-        <dsig:Transforms>
-          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-        </dsig:Transforms>
-        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>BqNvdeAjozwIT2nsj7qmRKETyH0=</dsig:DigestValue>
-      </hash>
-    </dependentAssembly>
-  </dependency>
-  <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="YellowstonePathology.Shared.dll" size="25088">
       <assemblyIdentity name="YellowstonePathology.Shared" version="1.0.0.0" publicKeyToken="6BF71DC8CA32F327" language="neutral" processorArchitecture="msil" />
       <hash>
@@ -146,19 +134,19 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>Qd2WuFtOCcSIl1tVYnqOGAVc5j4=</dsig:DigestValue>
+        <dsig:DigestValue>Maw3UhLMfIaQrRcB7cue52q56oI=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="YellowstonePathology.YpiConnect.Client.exe" size="1475584">
-      <assemblyIdentity name="YellowstonePathology.YpiConnect.Client" version="2.0.5700.16879" language="neutral" processorArchitecture="x86" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="YellowstonePathology.YpiConnect.Client.exe" size="1476096">
+      <assemblyIdentity name="YellowstonePathology.YpiConnect.Client" version="2.0.5700.22663" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>Uusb85tOck+SBCoLRHPPXVaYWK8=</dsig:DigestValue>
+        <dsig:DigestValue>5XaTgjqu/Kkr7Ul4Uej7bRCcULo=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -170,7 +158,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>V+9ZtWvzO9/OUaSv+tg2yvmXgBc=</dsig:DigestValue>
+        <dsig:DigestValue>DLdh05Sql5J6HsartDdlBfhAHPQ=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -182,7 +170,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>8eWPZ7/YFZn07p6KCggMWWQmGjE=</dsig:DigestValue>
+        <dsig:DigestValue>V8Ks+/DN00Lz0+HK9IR5Mw7Dsm4=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
