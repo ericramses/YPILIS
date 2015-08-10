@@ -4,7 +4,7 @@
   <description asmv2:iconFile="YPI.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="UserInterface" version="20.0.5700.22667" language="neutral" processorArchitecture="x86" />
+    <assemblyIdentity name="UserInterface" version="20.0.5700.22716" language="neutral" processorArchitecture="x86" />
     <commandLine file="UserInterface.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -176,13 +176,13 @@
   </dependency>
   <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="UserInterface.exe" size="6861312">
-      <assemblyIdentity name="UserInterface" version="20.0.5700.22667" language="neutral" processorArchitecture="x86" />
+      <assemblyIdentity name="UserInterface" version="20.0.5700.22716" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>Dic2Ftb+wEpXiSkY5sWX/i/bpNU=</dsig:DigestValue>
+        <dsig:DigestValue>WC5NHKSLpBDSI3Q+SUECvxmSfPQ=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

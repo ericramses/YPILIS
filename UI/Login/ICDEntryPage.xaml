@@ -25,11 +25,11 @@
                 <XmlDataProvider x:Key="ICDCodes" XPath="Codes/Code">
                     <x:XData>
                         <Codes xmlns="">
-                            
+
                             <Code ICD9="V76.2" ICD10="Z12.4" Description="Encounter for screening for malignant neoplasm of cervix" Test="Cytology" Quantity="1"/>
                             <Code ICD9="V72.31" ICD10="Z01.411" Description="Encounter for gynecological examination (general) (routine) with abnormal findings" Test="Cytology" Quantity="1"/>
                             <Code ICD9="V72.31" ICD10="Z01.419" Description="Encounter for gynecological examination (general) (routine) without abnormal findings" Test="Cytology" Quantity="1"/>
-                            <Code ICD9="V76.47" ICD10="Z12.72" Description="Encounter for screening for malignant neoplasm of vagina" Test="Cytology" Quantity="1"/>                                    
+                            <Code ICD9="V76.47" ICD10="Z12.72" Description="Encounter for screening for malignant neoplasm of vagina" Test="Cytology" Quantity="1"/>
                             <Code ICD9="V15.89" ICD10="Z77.9" Description="Other contact with and (suspected) exposures hazardous to health" Test="Cytology" Quantity="1"/>
                             <Code ICD9="V15.89" ICD10="Z92.89" Description="Personal history of other medical treatment" Test="Cytology" Quantity="1"/>
                             <Code ICD9="V76.49" ICD10="Z12.89" Description="Encounter for screening for malignant neoplasm of other sites" Test="Cytology" Quantity="1"/>
@@ -55,18 +55,15 @@
                             <Code ICD9="131.0" ICD10="" Description="Crosswalk indicates this code sucks" Test="Trichomonas/Vag,Vulv" Quantity="1"/>
                             <Code ICD9="131.09" ICD10="A59.09" Description="Other urogenital trichomoniasis" Test="Trichomonas/Cervx" Quantity="1"/>
                             <Code ICD9="131.9" ICD10="A59.9" Description=" Trichomoniasis, unspecified" Test="Trichomonas" Quantity="1"/>
-                                
-                            <Code ICD9="172.9" ICD10="" Test="BRAF(Melanoma)" Quantity="1"/>
-                            <Code ICD9="193" ICD10="" Test="BRAF(Thyroid)" Quantity="1"/>
-                            <Code ICD9="238.71" ICD10="" Test="JAK2" Quantity="1"/>
-                            <Code ICD9="174.9" ICD10="" Test="KRAS with BRAF Reflex(Breast)"/>
-                            <Code ICD9="165.9" ICD10="" Test="KRAS with BRAF Reflex(Lung)"/>
-                            <Code ICD9="153.9" ICD10="" Test="KRAS with BRAF Reflex(Colon)"/>
-                            <Code ICD9="193" ICD10="" Test="KRAS with BRAF Reflex(Thyroid)"/>
-                            <Code ICD9="287.5" ICD10="" Test="Thrombocytopenia" Quantity="1"/>
-                            <Code ICD9="453.9" ICD10="" Test="Molecular" Quantity="1"/>
-
-
+                            <Code ICD9="172.9" ICD10="C43.9" Test="Malignant melanoma of skin, unspecified" Quantity="1"/>
+                            <Code ICD9="172.9" ICD10="D03.9" Test="Melanoma in situ, unspecified" Quantity="1"/>
+                            <Code ICD9="193" ICD10="C73" Test="Malignant neoplasm of thyroid gland" Quantity="1"/>
+                            <Code ICD9="238.71" ICD10="D47.3" Test="Essential (hemorrhagic) thrombocythemia" Quantity="1"/>
+                            <Code ICD9="174.9" ICD10="C50.919" Test="Malignant neoplasm of unspecified site of unspecified female breast"/>
+                            <Code ICD9="165.9" ICD10="C39.9" Test="Malignant neoplasm of lower respiratory tract, part unspecified"/>
+                            <Code ICD9="153.9" ICD10="C18.9" Test="Malignant neoplasm of colon, unspecified"/>
+                            <Code ICD9="287.5" ICD10="D69.6" Test="Thrombocytopenia, unspecified" Quantity="1"/>
+                            <Code ICD9="453.9" ICD10="I82.91" Test="Chronic embolism and thrombosis of unspecified vein" Quantity="1"/>
                             <Code ICD9="626.6" ICD10="N92.0" Description="Excessive and frequent menstruation (heavy)" Test="Cytology" Quantity="1"/>
                             <Code ICD9="626.6" ICD10="N92.1" Description="Excessive and frequent menstruation (irregular)" Test="Cytology" Quantity="1"/>
                             <Code ICD9="626.6" ICD10="N92.4" Description="Excessive bleeding in the premenopausal period" Test="Cytology" Quantity="1"/>
