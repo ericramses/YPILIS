@@ -359,7 +359,8 @@ namespace YellowstonePathology.Business.PanelSet.Model
 
         public static PanelSetCollection GetPathologistPanelSets()
         {
-            PanelSetCollection panelSetCollection = new PanelSetCollection();            
+            PanelSetCollection panelSetCollection = new PanelSetCollection();
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.Surgical.SurgicalTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTest());
 			panelSetCollection.Add(new YellowstonePathology.Business.Test.BCellClonalityByPCR.BCellClonalityByPCRTest());
 			panelSetCollection.Add(new YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile.ComprehensiveColonCancerProfileTest());
