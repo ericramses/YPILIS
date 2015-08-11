@@ -1532,3 +1532,6 @@ C:\Git\YPILIS\UI\obj\Debug\UserInterface.csproj.GenerateResource.Cache
 C:\Git\YPILIS\UI\obj\Debug\UserInterface.TrustInfo.xml
 C:\Git\YPILIS\UI\obj\Debug\UserInterface.exe.manifest
 C:\Git\YPILIS\UI\obj\Debug\UserInterface.application
+\\CFILESERVER\Data\UserFolders\mark.schuetze\My Documents\GitHub\YPILIS\UI\bin\Debug\UserInterface.exe.config
+\\CFILESERVER\Data\UserFolders\mark.schuetze\My Documents\GitHub\YPILIS\UI\obj\Debug\UserInterface.exe
+\\CFILESERVER\Data\UserFolders\mark.schuetze\My Documents\GitHub\YPILIS\UI\obj\Debug\UserInterface.pdb
