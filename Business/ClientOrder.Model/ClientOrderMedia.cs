@@ -95,7 +95,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 			get
 			{
 				System.Text.StringBuilder result = new System.Text.StringBuilder();
-				result.Append(YellowstonePathology.Shared.Helper.PatientHelper.GetPatientDisplayName(this.m_LastName, this.m_FirstName, string.Empty));
+				result.Append(YellowstonePathology.Business.Helper.PatientHelper.GetPatientDisplayName(this.m_LastName, this.m_FirstName, string.Empty));
 				if (this.m_Birthdate.HasValue)
 				{
 					result.Append(" " + this.m_Birthdate.Value.ToShortDateString());
@@ -109,7 +109,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
         {
             get
             {
-				return YellowstonePathology.Shared.Helper.PatientHelper.GetPatientDisplayName(this.m_LastName, this.m_FirstName, string.Empty);
+				return YellowstonePathology.Business.Helper.PatientHelper.GetPatientDisplayName(this.m_LastName, this.m_FirstName, string.Empty);
             }
         }       
 

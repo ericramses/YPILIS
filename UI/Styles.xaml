@@ -2,7 +2,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     x:Class="ArbitraryNameToEliminateBogusGenericsError"
     xmlns:converter="clr-namespace:YellowstonePathology.UI.Converter"
-    xmlns:sharedConverter="clr-namespace:YellowstonePathology.Shared.Converter;assembly=YellowstonePathology.Shared"
 	xmlns:validationRules="clr-namespace:YellowstonePathology.UI.ValidationRules">
 
     <converter:DotDotDotConverter x:Key="DotDotDotConverter"/>
@@ -14,7 +13,7 @@
     <converter:MilitaryDateTimeConverter x:Key="MilitaryDateTimeConverter"/>
     <converter:PercentConverter x:Key="PercentConverter"/>
     <converter:PercentConverterV2 x:Key="PercentConverterV2"/>
-	<sharedConverter:GatingPercentConverter x:Key="GatingPercentConverter"/>
+	<converter:GatingPercentConverter x:Key="GatingPercentConverter"/>
     <converter:NumberConverter x:Key="NumberConverter"/>
     <converter:ListViewBackgroundConverter x:Key="ListViewBackgroundConverter"/>
     <converter:ComboBoxNullValueConverter x:Key="ComboBoxNullValueConverter"/>

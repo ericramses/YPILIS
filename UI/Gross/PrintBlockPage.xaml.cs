@@ -295,7 +295,7 @@ namespace YellowstonePathology.UI.Gross
 
 		private void AddBlocksToSpecimen(YellowstonePathology.Business.Test.Model.Test test, int quantity, string blockType, string prefix)
 		{
-			string patientInitials = YellowstonePathology.Shared.Helper.PatientHelper.GetPatientInitials(this.m_AccessionOrder.PFirstName, this.m_AccessionOrder.PLastName);            
+			string patientInitials = YellowstonePathology.Business.Helper.PatientHelper.GetPatientInitials(this.m_AccessionOrder.PFirstName, this.m_AccessionOrder.PLastName);            
 
 			for (int i = 0; i < quantity; i++)
 			{
@@ -311,7 +311,7 @@ namespace YellowstonePathology.UI.Gross
 		private void PrintBlocks()
 		{
 			YellowstonePathology.Business.Common.BlockCollection blockCollection = new Business.Common.BlockCollection();
-			string patientInitials = YellowstonePathology.Shared.Helper.PatientHelper.GetPatientInitials(this.m_AccessionOrder.PFirstName, this.m_AccessionOrder.PLastName);            
+			string patientInitials = YellowstonePathology.Business.Helper.PatientHelper.GetPatientInitials(this.m_AccessionOrder.PFirstName, this.m_AccessionOrder.PLastName);            
 			YellowstonePathology.Business.Test.AliquotOrderCollection blocksToPrintCollection = this.m_SpecimenOrder.AliquotOrderCollection.GetUnPrintedBlocks();
 			blockCollection.FromAliquotOrderItemCollection(blocksToPrintCollection, this.m_ReportNoToUse, patientInitials, this.m_AccessionOrder.PrintMateColumnNumber, true);
 

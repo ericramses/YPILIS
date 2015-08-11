@@ -96,7 +96,7 @@ namespace YellowstonePathology.Business.Specimen.Model
 			this.m_Description = clientOrderDetail.DescriptionToAccession;
 			this.m_SpecialInstructions = clientOrderDetail.SpecialInstructions;
 
-            YellowstonePathology.Shared.Helper.DateTimeSplitter dateTimeSplitter = new YellowstonePathology.Shared.Helper.DateTimeSplitter(clientOrderDetail.CollectionDate);
+			YellowstonePathology.Business.Helper.DateTimeSplitter dateTimeSplitter = new YellowstonePathology.Business.Helper.DateTimeSplitter(clientOrderDetail.CollectionDate);
             this.m_CollectionDate = dateTimeSplitter.GetDate();
             this.m_CollectionTime = dateTimeSplitter.GetDateWithTime();
 

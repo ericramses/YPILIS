@@ -2,15 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using YellowstonePathology.Shared.ExtensionMethods;
 
 namespace YellowstonePathology.Business.ClientOrder.Model
 {
 	public partial class ClientOrderCollection
-	{        		
-		public YellowstonePathology.Shared.ValidationResult IsDomainValid()
+	{
+		public YellowstonePathology.Business.Validation.ValidationResult IsDomainValid()
 		{
-			YellowstonePathology.Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			YellowstonePathology.Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
 			validationResult.IsValid = true;
 			return validationResult;
 		}

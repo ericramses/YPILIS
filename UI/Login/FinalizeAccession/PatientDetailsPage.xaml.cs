@@ -99,8 +99,8 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             bool result = true;
 
             /*** this shoulde be moved to the audit namespace *****/
-            Shared.ValidationResult accountNoValidation = this.m_AccessionOrder.IsAccountNoValid();
-            Shared.ValidationResult mrnValidation = this.m_AccessionOrder.IsMedicalRecordNoValid();
+            Business.Validation.ValidationResult accountNoValidation = this.m_AccessionOrder.IsAccountNoValid();
+            Business.Validation.ValidationResult mrnValidation = this.m_AccessionOrder.IsMedicalRecordNoValid();
 
             if (accountNoValidation.IsValid == false)
             {

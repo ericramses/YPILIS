@@ -96,15 +96,15 @@ namespace YellowstonePathology.YpiConnect.Client.OrderEntry
             ApplicationNavigator.ApplicationContentFrame.NavigationService.Navigate(orderTypePage);
         }
 
-        private void OrderTypePage_Return(object sender, Shared.PageNavigationReturnEventArgs e)
+		private void OrderTypePage_Return(object sender, YellowstonePathology.YpiConnect.Client.PageNavigationReturnEventArgs e)
         {            
             switch (e.PageNavigationDirectionEnum)
             {
-                case Shared.PageNavigationDirectionEnum.Next:
+				case YellowstonePathology.YpiConnect.Client.PageNavigationDirectionEnum.Next:
                     YellowstonePathology.Business.ClientOrder.Model.ClientOrder specificClientOrder = (YellowstonePathology.Business.ClientOrder.Model.ClientOrder)e.Data;
 					this.GoToOrderEntryPage(specificClientOrder);
                     break;
-                case Shared.PageNavigationDirectionEnum.Back:
+				case YellowstonePathology.YpiConnect.Client.PageNavigationDirectionEnum.Back:
                     ApplicationNavigator.ApplicationContentFrame.NavigationService.Navigate(this);
                     break;
             }
@@ -153,7 +153,7 @@ namespace YellowstonePathology.YpiConnect.Client.OrderEntry
 		//	ApplicationNavigator.ApplicationContentFrame.NavigationService.Navigate(orderEntryPage);
 		//}
 
-		private void OrderEntryPage_Return(object sender, Shared.PageNavigationReturnEventArgs e)
+		private void OrderEntryPage_Return(object sender, YellowstonePathology.YpiConnect.Client.PageNavigationReturnEventArgs e)
 		{
 			ApplicationNavigator.ApplicationContentFrame.NavigationService.Navigate(this);
 		}        

@@ -25,7 +25,7 @@ namespace YellowstonePathology.UI.Surgical
 				bool pqrsFound = false;
                 foreach (YellowstonePathology.UI.Surgical.PQRSMeasure pqrsMeasure in pqrsCollection)
                 {
-                    int patientAge = YellowstonePathology.Shared.Helper.PatientHelper.GetAge(this.m_AccessionOrder.PBirthdate.Value);
+					int patientAge = YellowstonePathology.Business.Helper.PatientHelper.GetAge(this.m_AccessionOrder.PBirthdate.Value);
                     if (pqrsMeasure.DoesMeasureApply(this.m_PanelSetOrder, surgicalSpecimen, patientAge) == true)
                     {
                         this.m_PQRSMeasureDialog = new PQRSMeasureDialog();

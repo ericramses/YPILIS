@@ -7,7 +7,7 @@ namespace YellowstonePathology.YpiConnect.Client.OrderEntry
 {
 	public class SpecimenOrderEntryPath
 	{
-		public delegate void ReturnEventHandler(object sender, Shared.PageNavigationReturnEventArgs e);
+		public delegate void ReturnEventHandler(object sender, YellowstonePathology.YpiConnect.Client.PageNavigationReturnEventArgs e);
 		public event ReturnEventHandler Return;
 
 		private YellowstonePathology.Business.ClientOrder.Model.ClientOrder m_ClientOrder;		
@@ -78,14 +78,14 @@ namespace YellowstonePathology.YpiConnect.Client.OrderEntry
 		//	thinPrepPapSpecimenPath.Start();
 		//}
 
-		private void Page_Return(object sender, Shared.PageNavigationReturnEventArgs e)
+		private void Page_Return(object sender, YellowstonePathology.YpiConnect.Client.PageNavigationReturnEventArgs e)
 		{
 			switch (e.PageNavigationDirectionEnum)
 			{
-				case Shared.PageNavigationDirectionEnum.Back:
+				case YellowstonePathology.YpiConnect.Client.PageNavigationDirectionEnum.Back:
 					Return(this, e);
 					break;
-				case Shared.PageNavigationDirectionEnum.Next:
+				case YellowstonePathology.YpiConnect.Client.PageNavigationDirectionEnum.Next:
 					Return(this, e);
 					break;
 			}

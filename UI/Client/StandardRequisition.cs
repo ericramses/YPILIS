@@ -41,8 +41,8 @@ namespace YellowstonePathology.UI.Client
             int x = 275;
             int y = 0;
 
-            DataMatrix.DmtxImageEncoder encoder = new DataMatrix.DmtxImageEncoder();
-            DataMatrix.DmtxImageEncoderOptions options = new DataMatrix.DmtxImageEncoderOptions();
+			YellowstonePathology.Business.DataMatrix.DmtxImageEncoder encoder = new YellowstonePathology.Business.DataMatrix.DmtxImageEncoder();
+			YellowstonePathology.Business.DataMatrix.DmtxImageEncoderOptions options = new YellowstonePathology.Business.DataMatrix.DmtxImageEncoderOptions();
             options.ModuleSize = 3;
             options.MarginSize = 2;
             options.BackColor = System.Drawing.Color.White;

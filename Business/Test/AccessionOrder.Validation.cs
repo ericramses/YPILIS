@@ -7,9 +7,9 @@ namespace YellowstonePathology.Business.Test
 {
     public partial class AccessionOrder
     {
-        public YellowstonePathology.Shared.ValidationResult IsMedicalRecordNoValid()
+		public YellowstonePathology.Business.Validation.ValidationResult IsMedicalRecordNoValid()
         {
-            YellowstonePathology.Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			YellowstonePathology.Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
             validationResult.IsValid = true;
 
             YellowstonePathology.Business.Client.Model.WestParkHospitalGroup westParkHospitalGroup = new YellowstonePathology.Business.Client.Model.WestParkHospitalGroup();
@@ -37,9 +37,9 @@ namespace YellowstonePathology.Business.Test
             return validationResult;
         }
 
-        public YellowstonePathology.Shared.ValidationResult IsAccountNoValid()
+		public YellowstonePathology.Business.Validation.ValidationResult IsAccountNoValid()
         {
-            YellowstonePathology.Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			YellowstonePathology.Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
             validationResult.IsValid = true;
 
             YellowstonePathology.Business.Client.Model.WestParkHospitalGroup westParkHospitalGroup = new YellowstonePathology.Business.Client.Model.WestParkHospitalGroup();

@@ -855,7 +855,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 
         public string PatientDisplayName
         {
-            get { return YellowstonePathology.Shared.Helper.PatientHelper.GetPatientDisplayName(PLastName, PFirstName, PMiddleInitial); }
+			get { return YellowstonePathology.Business.Helper.PatientHelper.GetPatientDisplayName(PLastName, PFirstName, PMiddleInitial); }
         }		
 
         [DataMember]

@@ -23,7 +23,7 @@ namespace YellowstonePathology.YpiConnect.Client.OrderEntry
         public delegate void PropertyChangedNotificationHandler(String info);
         public event PropertyChangedEventHandler PropertyChanged;
 
-		public delegate void ReturnEventHandler(object sender, Shared.PageNavigationReturnEventArgs e);
+		public delegate void ReturnEventHandler(object sender, YellowstonePathology.YpiConnect.Client.PageNavigationReturnEventArgs e);
 		public event ReturnEventHandler Return;
 
 		private const string IsNotOwnerInstructions = "To Take ownership click \"Take Ownership\" and then click \"Finish\"; or click \"Back\" to cancel.";
@@ -96,13 +96,13 @@ namespace YellowstonePathology.YpiConnect.Client.OrderEntry
 
 		private void ButtonBack_Click(object sender, RoutedEventArgs e)
         {
-			Shared.PageNavigationReturnEventArgs args = new Shared.PageNavigationReturnEventArgs(Shared.PageNavigationDirectionEnum.Back, null);
+			YellowstonePathology.YpiConnect.Client.PageNavigationReturnEventArgs args = new YellowstonePathology.YpiConnect.Client.PageNavigationReturnEventArgs(YellowstonePathology.YpiConnect.Client.PageNavigationDirectionEnum.Back, null);
 			Return(this, args);
         }
 
 		private void ButtonFinish_Click(object sender, RoutedEventArgs e)
 		{
-			Shared.PageNavigationReturnEventArgs args = new Shared.PageNavigationReturnEventArgs(Shared.PageNavigationDirectionEnum.Next, null);
+			YellowstonePathology.YpiConnect.Client.PageNavigationReturnEventArgs args = new YellowstonePathology.YpiConnect.Client.PageNavigationReturnEventArgs(YellowstonePathology.YpiConnect.Client.PageNavigationDirectionEnum.Next, null);
 			Return(this, args);
 		}
 

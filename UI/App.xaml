@@ -2,7 +2,6 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
     xmlns:converter="clr-namespace:YellowstonePathology.UI.Converter"
-    xmlns:sharedConverter="clr-namespace:YellowstonePathology.Shared.Converter;assembly=YellowstonePathology.Shared"
     xmlns:validationRules="clr-namespace:YellowstonePathology.UI.ValidationRules"
     xmlns:LocalUI="clr-namespace:YellowstonePathology.UI" 
 	xmlns:customControls="clr-namespace:YellowstonePathology.UI.CustomControls">
@@ -22,7 +21,7 @@
         <converter:ShortTimeConverter x:Key="ShortTimeConverter"/>
         <converter:PercentConverter x:Key="PercentConverter"/>
         <converter:PercentConverterV2 x:Key="PercentConverterV2"/>
-		<sharedConverter:GatingPercentConverter x:Key="GatingPercentConverter"/>
+		<converter:GatingPercentConverter x:Key="GatingPercentConverter"/>
         <converter:NumberConverter x:Key="NumberConverter"/>
         <converter:ListViewBackgroundConverter x:Key="ListViewBackgroundConverter"/>
         <converter:ComboBoxNullValueConverter x:Key="ComboBoxNullValueConverter"/>
@@ -57,7 +56,7 @@
 		<converter:Last12CharacterConverter x:Key="Last12CharacterConverter"/>
 		<converter:ResultCodeResultConverter x:Key="ResultCodeResultConverter"/>
 
-		<sharedConverter:PanelSetIdConverter x:Key="PanelSetIdConverter"/>
+		<converter:PanelSetIdConverter x:Key="PanelSetIdConverter"/>
 
 		<validationRules:IntValidation x:Key="IntValidation"/>
         <validationRules:ShortDateTimeValidation x:Key="ShortDateTimeValidation"/>

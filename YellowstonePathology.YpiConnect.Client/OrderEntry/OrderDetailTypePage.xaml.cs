@@ -21,7 +21,7 @@ namespace YellowstonePathology.YpiConnect.Client.OrderEntry
 	public partial class OrderDetailTypePage : Page, INotifyPropertyChanged, YellowstonePathology.Shared.Interface.IPersistPageChanges
     {
         public event PropertyChangedEventHandler PropertyChanged;
-		public delegate void ReturnEventHandler(object sender, Shared.PageNavigationReturnEventArgs e);
+		public delegate void ReturnEventHandler(object sender, YellowstonePathology.YpiConnect.Client.PageNavigationReturnEventArgs e);
 		public event ReturnEventHandler Return;
 
 		private YellowstonePathology.Business.ClientOrder.Model.ClientOrder m_ClientOrder;
@@ -69,7 +69,7 @@ namespace YellowstonePathology.YpiConnect.Client.OrderEntry
 			if (this.ValidateAndUpdateBindingSources(true) == true)
 			{                
 				YellowstonePathology.Business.ClientOrder.Model.ClientOrderDetailType clientOrderDetailType = (YellowstonePathology.Business.ClientOrder.Model.ClientOrderDetailType)this.ListBoxClientOrderDetailType.SelectedItem;
-				Shared.PageNavigationReturnEventArgs args = new Shared.PageNavigationReturnEventArgs(Shared.PageNavigationDirectionEnum.Next, clientOrderDetailType);
+				YellowstonePathology.YpiConnect.Client.PageNavigationReturnEventArgs args = new YellowstonePathology.YpiConnect.Client.PageNavigationReturnEventArgs(YellowstonePathology.YpiConnect.Client.PageNavigationDirectionEnum.Next, clientOrderDetailType);
 				Return(this, args);
 			}
 		}        
@@ -77,7 +77,7 @@ namespace YellowstonePathology.YpiConnect.Client.OrderEntry
 		private void ButtonBack_Click(object sender, RoutedEventArgs e)
         {
 			this.ValidateAndUpdateBindingSources(false);
-			Shared.PageNavigationReturnEventArgs args = new Shared.PageNavigationReturnEventArgs(Shared.PageNavigationDirectionEnum.Back, null);
+			YellowstonePathology.YpiConnect.Client.PageNavigationReturnEventArgs args = new YellowstonePathology.YpiConnect.Client.PageNavigationReturnEventArgs(YellowstonePathology.YpiConnect.Client.PageNavigationDirectionEnum.Back, null);
 			Return(this, args);
 		}
 

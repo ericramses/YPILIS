@@ -7,7 +7,7 @@ namespace YellowstonePathology.YpiConnect.Client.OrderEntry
 {
 	public class GenericSpecimenPath
 	{
-		public delegate void ReturnEventHandler(object sender, Shared.PageNavigationReturnEventArgs e);
+		public delegate void ReturnEventHandler(object sender, YellowstonePathology.YpiConnect.Client.PageNavigationReturnEventArgs e);
 		public event ReturnEventHandler Return;
 		
 		private YellowstonePathology.Business.ClientOrder.Model.ClientOrder m_ClientOrder;
@@ -41,17 +41,17 @@ namespace YellowstonePathology.YpiConnect.Client.OrderEntry
 			ApplicationNavigator.ApplicationContentFrame.NavigationService.Navigate(specimenDescriptionOtherPage);
 		}
 
-		private void SpecimenDescriptionOtherPage_Return(object sender, Shared.PageNavigationReturnEventArgs e)
+		private void SpecimenDescriptionOtherPage_Return(object sender, YellowstonePathology.YpiConnect.Client.PageNavigationReturnEventArgs e)
 		{
 			switch (e.PageNavigationDirectionEnum)
 			{
-				case Shared.PageNavigationDirectionEnum.Back:
+				case YellowstonePathology.YpiConnect.Client.PageNavigationDirectionEnum.Back:
 					if (this.UpdateClientOrderDetailGoingBack() == true)
 					{
 						this.ShowOrderEntryPage(e);
 					}
 					break;
-				case Shared.PageNavigationDirectionEnum.Next:
+				case YellowstonePathology.YpiConnect.Client.PageNavigationDirectionEnum.Next:
 					this.ShowScanContainerPage();
 					break;
 			}
@@ -67,14 +67,14 @@ namespace YellowstonePathology.YpiConnect.Client.OrderEntry
 			ApplicationNavigator.ApplicationContentFrame.NavigationService.Navigate(this.m_ScanContainerPage);
 		}
 
-		private void ScanContainerPage_Return(object sender, Shared.PageNavigationReturnEventArgs e)
+		private void ScanContainerPage_Return(object sender, YellowstonePathology.YpiConnect.Client.PageNavigationReturnEventArgs e)
 		{
 			switch (e.PageNavigationDirectionEnum)
 			{
-				case Shared.PageNavigationDirectionEnum.Back:
+				case YellowstonePathology.YpiConnect.Client.PageNavigationDirectionEnum.Back:
 					ShowSpecimenDescriptionOtherPage();
 					break;
-				case Shared.PageNavigationDirectionEnum.Next:
+				case YellowstonePathology.YpiConnect.Client.PageNavigationDirectionEnum.Next:
 					if (this.UpdateClientOrderDetailGoingForward() == true)
 					{
 						this.ShowOrderEntryPage(e);
@@ -83,7 +83,7 @@ namespace YellowstonePathology.YpiConnect.Client.OrderEntry
 			}
 		}
 
-		private void ShowOrderEntryPage(Shared.PageNavigationReturnEventArgs args)
+		private void ShowOrderEntryPage(YellowstonePathology.YpiConnect.Client.PageNavigationReturnEventArgs args)
 		{
 			Return(this, args);
 		}
@@ -92,13 +92,13 @@ namespace YellowstonePathology.YpiConnect.Client.OrderEntry
 		{
 			bool result = true;
 
-			List<YellowstonePathology.Shared.ValidationResult> validationResults = new List<Shared.ValidationResult>();
+			List<YellowstonePathology.Business.Validation.ValidationResult> validationResults = new List<Business.Validation.ValidationResult>();
 			validationResults.Add(this.m_ClientOrder.ClientOrderDetailCollection.IsDomainValid(this.m_ClientOrderDetailClone));
 			//validationResults.Add(this.m_ClientOrderDetailClone.IsDescriptionDomainValid());
 			//validationResults.Add(this.m_ClientOrderDetailClone.IsCollectionDateDomainValid());
 			//validationResults.Add(this.m_ClientOrderDetailClone.IsContainerIdDomainValid());
 
-			foreach (Shared.ValidationResult validationResult in validationResults)
+			foreach (Business.Validation.ValidationResult validationResult in validationResults)
 			{
 				if (validationResult.IsValid == false)
 				{

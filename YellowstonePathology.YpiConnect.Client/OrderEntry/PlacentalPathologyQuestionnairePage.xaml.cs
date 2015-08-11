@@ -17,7 +17,7 @@ namespace YellowstonePathology.YpiConnect.Client.OrderEntry
 {
 	public partial class PlacentalPathologyQuestionnairePage : Page, YellowstonePathology.Shared.Interface.IPersistPageChanges
     {
-		public delegate void ReturnEventHandler(object sender, Shared.PageNavigationReturnEventArgs e);
+		public delegate void ReturnEventHandler(object sender, YellowstonePathology.YpiConnect.Client.PageNavigationReturnEventArgs e);
 		public event ReturnEventHandler Return;
 		
 		private YellowstonePathology.Business.ClientOrder.Model.PlacentaClientOrderDetail m_PlacentaClientOrderDetail;
@@ -36,13 +36,13 @@ namespace YellowstonePathology.YpiConnect.Client.OrderEntry
 
 		private void ButtonBack_Click(object sender, RoutedEventArgs e)
 		{
-			Shared.PageNavigationReturnEventArgs args = new Shared.PageNavigationReturnEventArgs(Shared.PageNavigationDirectionEnum.Back, null);
+			YellowstonePathology.YpiConnect.Client.PageNavigationReturnEventArgs args = new YellowstonePathology.YpiConnect.Client.PageNavigationReturnEventArgs(YellowstonePathology.YpiConnect.Client.PageNavigationDirectionEnum.Back, null);
 			Return(this, args);
 		}
 
 		private void ButtonNext_Click(object sender, RoutedEventArgs e)
 		{
-			Shared.PageNavigationReturnEventArgs args = new Shared.PageNavigationReturnEventArgs(Shared.PageNavigationDirectionEnum.Next, null);
+			YellowstonePathology.YpiConnect.Client.PageNavigationReturnEventArgs args = new YellowstonePathology.YpiConnect.Client.PageNavigationReturnEventArgs(YellowstonePathology.YpiConnect.Client.PageNavigationDirectionEnum.Next, null);
 			Return(this, args);
 		}
 

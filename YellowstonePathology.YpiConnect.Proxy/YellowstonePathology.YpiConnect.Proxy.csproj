@@ -72,10 +72,6 @@
     <Compile Include="WebServiceAccountServiceProxy.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BusinessRules\BusinessRules.csproj">
-      <Project>{462232D7-81BA-42B5-B4FC-5EC3F876AF38}</Project>
-      <Name>BusinessRules</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Business\BusinessObjects.csproj">
       <Project>{0712F3D4-5C03-4446-B8FE-B8F5BE9495B1}</Project>
       <Name>BusinessObjects</Name>

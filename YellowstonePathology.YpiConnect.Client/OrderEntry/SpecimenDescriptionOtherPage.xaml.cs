@@ -21,7 +21,7 @@ namespace YellowstonePathology.YpiConnect.Client.OrderEntry
 	public partial class SpecimenDescriptionOtherPage : Page, INotifyPropertyChanged, YellowstonePathology.Shared.Interface.IPersistPageChanges
     {
         public event PropertyChangedEventHandler PropertyChanged;
-		public delegate void ReturnEventHandler(object sender, Shared.PageNavigationReturnEventArgs e);
+		public delegate void ReturnEventHandler(object sender, YellowstonePathology.YpiConnect.Client.PageNavigationReturnEventArgs e);
 		public event ReturnEventHandler Return;
 
 		private YellowstonePathology.Business.ClientOrder.Model.ClientOrderDetail m_ClientOrderDetailClone;
@@ -63,25 +63,25 @@ namespace YellowstonePathology.YpiConnect.Client.OrderEntry
 
 		private void ButtonBack_Click(object sender, RoutedEventArgs e)
 		{
-            YellowstonePathology.Shared.DataValidator dataValidator = this.CreateDataValidator(this.m_ClientOrderDetailClone);
+			YellowstonePathology.Business.Validation.DataValidator dataValidator = this.CreateDataValidator(this.m_ClientOrderDetailClone);
 			dataValidator.UpdateValidBindingSources();
-			YellowstonePathology.Shared.ValidationResult validationResult = dataValidator.ValidateDataTypes();
+			YellowstonePathology.Business.Validation.ValidationResult validationResult = dataValidator.ValidateDataTypes();
 			if (validationResult.IsValid == false)
 			{
 				MessageBox.Show(validationResult.Message);
 			}
 			else
 			{
-				Shared.PageNavigationReturnEventArgs args = new Shared.PageNavigationReturnEventArgs(Shared.PageNavigationDirectionEnum.Back, null);
+				YellowstonePathology.YpiConnect.Client.PageNavigationReturnEventArgs args = new YellowstonePathology.YpiConnect.Client.PageNavigationReturnEventArgs(YellowstonePathology.YpiConnect.Client.PageNavigationDirectionEnum.Back, null);
 				Return(this, args);
 			}
 		}
 
 		private void ButtonNext_Click(object sender, RoutedEventArgs e)
 		{
-            YellowstonePathology.Shared.DataValidator dataValidator = this.CreateDataValidator(this.m_ClientOrderDetailClone);
+			YellowstonePathology.Business.Validation.DataValidator dataValidator = this.CreateDataValidator(this.m_ClientOrderDetailClone);
 			dataValidator.UpdateValidBindingSources();
-			YellowstonePathology.Shared.ValidationResult validationResult = dataValidator.ValidateDataTypes();
+			YellowstonePathology.Business.Validation.ValidationResult validationResult = dataValidator.ValidateDataTypes();
 			if (validationResult.IsValid == false)
 			{
 				MessageBox.Show(validationResult.Message);
@@ -95,15 +95,15 @@ namespace YellowstonePathology.YpiConnect.Client.OrderEntry
 				}
 				else
 				{
-					Shared.PageNavigationReturnEventArgs args = new Shared.PageNavigationReturnEventArgs(Shared.PageNavigationDirectionEnum.Next, null);
+					YellowstonePathology.YpiConnect.Client.PageNavigationReturnEventArgs args = new YellowstonePathology.YpiConnect.Client.PageNavigationReturnEventArgs(YellowstonePathology.YpiConnect.Client.PageNavigationDirectionEnum.Next, null);
 					Return(this, args);
 				}
 			}
 		}
 
-        private YellowstonePathology.Shared.DataValidator CreateDataValidator(YellowstonePathology.Business.ClientOrder.Model.ClientOrderDetail clientOrderDetailClone)
+		private YellowstonePathology.Business.Validation.DataValidator CreateDataValidator(YellowstonePathology.Business.ClientOrder.Model.ClientOrderDetail clientOrderDetailClone)
 		{
-            YellowstonePathology.Shared.DataValidator dataValidator = new YellowstonePathology.Shared.DataValidator();
+			YellowstonePathology.Business.Validation.DataValidator dataValidator = new YellowstonePathology.Business.Validation.DataValidator();
 
 			//BindingExpression descriptionBindingExpression = this.TextBoxSpecimenDescription.GetBindingExpression(TextBox.TextProperty);
 			//YellowstonePathology.Shared.ValidationResult descriptionDataTypeValidationResult = YellowstonePathology.Business.ClientOrder.Model.ClientOrderDetail.IsDescriptionDataTypeValid(this.TextBoxSpecimenDescription.Text);
@@ -137,7 +137,7 @@ namespace YellowstonePathology.YpiConnect.Client.OrderEntry
 
 		public void UpdateBindingSources()
 		{
-            YellowstonePathology.Shared.DataValidator dataValidator = this.CreateDataValidator(this.m_ClientOrderDetailClone);
+			YellowstonePathology.Business.Validation.DataValidator dataValidator = this.CreateDataValidator(this.m_ClientOrderDetailClone);
 			dataValidator.UpdateValidBindingSources();
 		}
 	}

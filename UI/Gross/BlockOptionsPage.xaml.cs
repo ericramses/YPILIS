@@ -54,7 +54,7 @@ namespace YellowstonePathology.UI.Gross
 
 			this.m_AliquotOrder.Printed = false;
 			YellowstonePathology.Business.Common.BlockCollection blockCollection = new Business.Common.BlockCollection();
-			string patientInitials = YellowstonePathology.Shared.Helper.PatientHelper.GetPatientInitials(this.m_AccessionOrder.PFirstName, this.m_AccessionOrder.PLastName);
+			string patientInitials = YellowstonePathology.Business.Helper.PatientHelper.GetPatientInitials(this.m_AccessionOrder.PFirstName, this.m_AccessionOrder.PLastName);
 			YellowstonePathology.Business.Test.AliquotOrderCollection blocksToPrintCollection = this.m_SpecimenOrder.AliquotOrderCollection.GetUnPrintedBlocks();
 			blockCollection.FromAliquotOrderItemCollection(blocksToPrintCollection, panelSetOrder.ReportNo, patientInitials, this.m_AccessionOrder.PrintMateColumnNumber, true);
 			YellowstonePathology.Business.Common.PrintMate.Print(blockCollection);
@@ -89,7 +89,7 @@ namespace YellowstonePathology.UI.Gross
 		private void AddIC()
 		{
 			YellowstonePathology.Business.Test.Model.Test iCTest = YellowstonePathology.Business.Test.Model.TestCollection.GetAllTests().GetTest(194);
-			string patientInitials = YellowstonePathology.Shared.Helper.PatientHelper.GetPatientInitials(this.m_AccessionOrder.PFirstName, this.m_AccessionOrder.PLastName);
+			string patientInitials = YellowstonePathology.Business.Helper.PatientHelper.GetPatientInitials(this.m_AccessionOrder.PFirstName, this.m_AccessionOrder.PLastName);
 
             YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = this.m_SpecimenOrder.AliquotOrderCollection.AddBlock(this.m_SpecimenOrder, YellowstonePathology.Business.Specimen.Model.AliquotLabelType.DirectPrint, this.m_AccessionOrder.AccessionDate.Value);
 			YellowstonePathology.Business.Visitor.OrderTestVisitor orderTestVisitor = new Business.Visitor.OrderTestVisitor(this.m_AccessionOrder.PanelSetOrderCollection[0].ReportNo, iCTest, iCTest.OrderComment, null, false, this.m_AliquotOrder, false, false, this.m_AccessionOrder.TaskOrderCollection, this.m_SystemIdentity);

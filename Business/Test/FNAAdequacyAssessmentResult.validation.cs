@@ -6,10 +6,10 @@ using System.Text;
 namespace YellowstonePathology.Business.Test
 {    
     public partial class FNAAdequacyAssessmentResult
-	{        
-        public static YellowstonePathology.Shared.ValidationResult IsDateDataTypeValid(string date)
+	{
+		public static YellowstonePathology.Business.Validation.ValidationResult IsDateDataTypeValid(string date)
         {
-            YellowstonePathology.Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			YellowstonePathology.Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
             validationResult.IsValid = false;
 
             if (string.IsNullOrEmpty(date) == false)
@@ -22,11 +22,11 @@ namespace YellowstonePathology.Business.Test
             }
             
             return validationResult;
-        }       
+        }
 
-        public YellowstonePathology.Shared.ValidationResult IsEndDateGreaterThanStartDate()
+		public YellowstonePathology.Business.Validation.ValidationResult IsEndDateGreaterThanStartDate()
         {
-            YellowstonePathology.Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			YellowstonePathology.Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
             validationResult.IsValid = true;
             
             if (this.m_StartDate.HasValue == true && this.m_EndDate.HasValue == true)
@@ -41,9 +41,9 @@ namespace YellowstonePathology.Business.Test
             return validationResult;
         }
 
-        public YellowstonePathology.Shared.ValidationResult IsStartDateBlank()
+		public YellowstonePathology.Business.Validation.ValidationResult IsStartDateBlank()
         {
-            YellowstonePathology.Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			YellowstonePathology.Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
             validationResult.IsValid = true;
 
             if (this.m_StartDate.HasValue == true && this.m_EndDate.HasValue == true)
@@ -58,9 +58,9 @@ namespace YellowstonePathology.Business.Test
             return validationResult;
         }
 
-        public YellowstonePathology.Shared.ValidationResult IsEndDateBlank()
+		public YellowstonePathology.Business.Validation.ValidationResult IsEndDateBlank()
         {
-            YellowstonePathology.Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			YellowstonePathology.Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
             validationResult.IsValid = true;
 
             if (this.m_StartDate.HasValue == false)
@@ -72,9 +72,9 @@ namespace YellowstonePathology.Business.Test
             return validationResult;
         }
 
-        public YellowstonePathology.Shared.ValidationResult DoesStartDateHaveATime()
+		public YellowstonePathology.Business.Validation.ValidationResult DoesStartDateHaveATime()
         {
-            YellowstonePathology.Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			YellowstonePathology.Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
             validationResult.IsValid = true;
 
             if (YellowstonePathology.Business.Helper.DateTimeExtensions.DoesDateHaveTime(this.m_StartDate) == false)
@@ -86,9 +86,9 @@ namespace YellowstonePathology.Business.Test
             return validationResult;
         }
 
-        public YellowstonePathology.Shared.ValidationResult DoesEndDateHaveATime()
+		public YellowstonePathology.Business.Validation.ValidationResult DoesEndDateHaveATime()
         {
-            YellowstonePathology.Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			YellowstonePathology.Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
             validationResult.IsValid = true;
             
             if (YellowstonePathology.Business.Helper.DateTimeExtensions.DoesDateHaveTime(this.m_EndDate) ==  false)

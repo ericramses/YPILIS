@@ -2,23 +2,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using YellowstonePathology.Shared.ExtensionMethods;
 
 namespace YellowstonePathology.Business.ClientOrder.Model
 {
 	public partial class PlacentaClientOrderDetail
 	{
 		#region GrossExamValidation
-		public static Shared.ValidationResult IsGrossExamDataTypeValid(bool grossExam)
+		public static Business.Validation.ValidationResult IsGrossExamDataTypeValid(bool grossExam)
 		{
-			Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
 			validationResult.IsValid = true;
 			return validationResult;
 		}
 
-		public Shared.ValidationResult IsGrossExamDomainValid()
+		public Business.Validation.ValidationResult IsGrossExamDomainValid()
 		{
-			Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
 			validationResult.IsValid = true;
 			if (this.GrossExam == false &&
 				this.CompleteExam == false &&
@@ -33,16 +32,16 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		#endregion
 
 		#region CompleteExamValidation
-		public static Shared.ValidationResult IsCompleteExamDataTypeValid(bool completeExam)
+		public static Business.Validation.ValidationResult IsCompleteExamDataTypeValid(bool completeExam)
 		{
-			Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
 			validationResult.IsValid = true;
 			return validationResult;
 		}
 
-		public Shared.ValidationResult IsCompleteExamDomainValid()
+		public Business.Validation.ValidationResult IsCompleteExamDomainValid()
 		{
-			Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
 			validationResult.IsValid = true;
 			if (this.GrossExam == false &&
 				this.CompleteExam == false &&
@@ -57,16 +56,16 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		#endregion
 
 		#region CytogeneticsValidation
-		public static Shared.ValidationResult IsCytogeneticsDataTypeValid(bool cytogenetics)
+		public static Business.Validation.ValidationResult IsCytogeneticsDataTypeValid(bool cytogenetics)
 		{
-			Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
 			validationResult.IsValid = true;
 			return validationResult;
 		}
 
-		public Shared.ValidationResult IsCytogeneticsDomainValid()
+		public Business.Validation.ValidationResult IsCytogeneticsDomainValid()
 		{
-			Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
 			validationResult.IsValid = true;
 			if (this.GrossExam == false &&
 				this.CompleteExam == false &&
@@ -81,16 +80,16 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		#endregion
 
 		#region OtherExamValidation
-		public static Shared.ValidationResult IsOtherExamDataTypeValid(string otherExam)
+		public static Business.Validation.ValidationResult IsOtherExamDataTypeValid(string otherExam)
 		{
-			Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
 			validationResult.IsValid = true;
 			return validationResult;
 		}
 
-		public Shared.ValidationResult IsOtherExamDomainValid()
+		public Business.Validation.ValidationResult IsOtherExamDomainValid()
 		{
-			Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
 			validationResult.IsValid = true;
 			if (this.GrossExam == false &&
 				this.CompleteExam == false &&

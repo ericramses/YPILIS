@@ -27,7 +27,7 @@ using System.Reflection;
 using System.Xml.XPath;
 using System.Xml.Linq;
 using System.ServiceModel;
-using YellowstonePathology.Shared.ExtensionMethods;
+using YellowstonePathology.Business.Helper;
 using System.Collections.ObjectModel;
 using MongoDB.Bson;
 using MongoDB.Driver;
