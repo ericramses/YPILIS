@@ -13,14 +13,14 @@ namespace YellowstonePathology.UI.Gross
         }
     }
 
-    public class ProstateTemplate : DictationTemplate
+    public class ProstateNeedleCoreTemplate : DictationTemplate
     {
-        public ProstateTemplate()
+        public ProstateNeedleCoreTemplate()
         {
             this.m_TemplateName = "Prostate Specimen";
             this.m_Text = "Specimen *SPECIMENNUMBER* is received in a B-plus-filled container labeled \"*PATIENTNAME*\"" +
-                " and consists of (*NUMBEROFFRAGMENTS*) tan-pink cylindrical tissue fragments(s) *MEASURING/AGGREGATING*. " +
-                "The specimen is submitted entirely in (*COLOR*) cassette \"*CASSETTENUMBER*\"";
+                " and consists of *NUMBEROFFRAGMENTS* tan-pink cylindrical tissue fragments *MEASURING/AGGREGATING*. " +
+                "The specimen is submitted entirely in *COLOR* cassette \"*CASSETTENUMBER*\".";
 
             this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Specimen Number", "*SPECIMENNUMBER*"));
             this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Patient Name", "*PATIENTNAME*"));
@@ -28,16 +28,52 @@ namespace YellowstonePathology.UI.Gross
             this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Measuring/Agregating", "*MEASURING/AGGREGATING*"));
             this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Cassette Color", "*COLOR*"));
             this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Cassette Number", "*CASSETTENUMBER*"));
+            
+            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ProstateNeedleBiopsy nb = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ProstateNeedleBiopsy();                        
+            this.m_SpecimenCollection.Add(nb);            
+        }
+    }
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ProstateExceptRadicalResection err = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ProstateExceptRadicalResection();
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ProstateNeedleBiopsy nb = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ProstateNeedleBiopsy();
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ProstateRadicalResection rr = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ProstateRadicalResection();
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ProstateTUR tur = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ProstateTUR();
+    public class ProstateTURTemplate : DictationTemplate
+    {
+        public ProstateTURTemplate()
+        {
+            this.m_TemplateName = "Prostate Specimen";
+            this.m_Text = "Specimen *SPECIMENNUMBER* is received fresh container labeled \"*PATIENTNAME*\"" +
+                " and consists of (*NUMBEROFFRAGMENTS*) tan-pink irregularly shaped, rough and ragged tissue fragments(s) weighing in aggregate *WEIGHING*, and measuring/aggregating to *MEASURING/AGGREGATING*. " +
+                "The specimen is submitted *ENTIRELY/PARTIALLY* in (*COLOR*) cassette \"*CASSETTENUMBER*\"";
 
-            this.m_SpecimenCollection.Add(err);
-            this.m_SpecimenCollection.Add(nb);
-            this.m_SpecimenCollection.Add(rr);
+            this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Specimen Number", "*SPECIMENNUMBER*"));
+            this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Patient Name", "*PATIENTNAME*"));
+            this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Weight Of Fragments", "*WEIGHING*"));
+            this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Number Of Fragments", "*NUMBEROFFRAGMENTS*"));
+            this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Measuring/Agregating", "*MEASURING/AGGREGATING*"));
+            this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Cassette Color", "*COLOR*"));
+            this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Cassette Number", "*CASSETTENUMBER*"));
+
+            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ProstateTUR tur = new Business.Specimen.Model.SpecimenDefinition.ProstateTUR();
             this.m_SpecimenCollection.Add(tur);
+        }
+    }
+
+    public class GITemplate : DictationTemplate
+    {
+        public GITemplate()
+        {
+            this.m_TemplateName = "GI Specimen";
+            this.m_Text = "The specimen *SPECIMENNUMBER* is received in one formalin filled container labeled \"*PATIENTNAME*\"" +
+                " and consists of *NUMBEROFFRAGMENTS* fragments of tan-pink tissue measuring in aggregate *MEASURING/AGGREGATING*. " +
+                "The specimen is filtered through a fine mesh bag and entirely submitted in *COLOR* cassette \"*CASSETTENUMBER*\".";
+
+            this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Specimen Number", "*SPECIMENNUMBER*"));
+            this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Patient Name", "*PATIENTNAME*"));
+            this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Number Of Fragments", "*NUMBEROFFRAGMENTS*"));
+            this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Measuring/Agregating", "*MEASURING/AGGREGATING*"));
+            this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Cassette Color", "*COLOR*"));
+            this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Cassette Number", "*CASSETTENUMBER*"));
+            
+            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.GIBiopsy gi = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.GIBiopsy();                        
+            this.m_SpecimenCollection.Add(gi);            
         }
     }
 

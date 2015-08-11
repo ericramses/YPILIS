@@ -28,6 +28,19 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
         }        
     }
 
+    public class GIBiopsy : Specimen
+    {
+        public GIBiopsy()
+        {
+            this.m_SpecimenId = "GISPCMN";
+            this.m_SpecimenName = "GI Biopsy";
+            this.m_Description = "GI Biopsy";
+            this.m_LabFixation = "Formalin";
+            this.m_ClientFixation = "Formalin";
+            this.m_RequiresGrossExamination = true;
+        }
+    }
+
     public class ProstateTUR : Specimen
     {
         public ProstateTUR()

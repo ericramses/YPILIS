@@ -45,6 +45,7 @@ namespace YellowstonePathology.Business.Specimen.Model
         {
             SpecimenCollection result = new SpecimenCollection();
             result.Add(new SpecimenDefinition.NullSpecimen());
+            result.Add(new SpecimenDefinition.GIBiopsy());
             result.Add(new SpecimenDefinition.ThinPrepFluid());
             result.Add(new SpecimenDefinition.ProstateRadicalResection());
             result.Add(new SpecimenDefinition.ProstateExceptRadicalResection());
