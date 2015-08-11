@@ -1,4 +1,0 @@
-C:\SVN\LIS\DomainPersistence\bin\Mongo\DomainPersistence.dll
-C:\SVN\LIS\DomainPersistence\bin\Mongo\DomainPersistence.pdb
-C:\SVN\LIS\DomainPersistence\obj\Mongo\DomainPersistence.dll
-C:\SVN\LIS\DomainPersistence\obj\Mongo\DomainPersistence.pdb

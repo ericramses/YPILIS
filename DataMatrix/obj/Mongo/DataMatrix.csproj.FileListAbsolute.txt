@@ -1,4 +1,0 @@
-C:\SVN\LIS\DataMatrix\bin\Mongo\DataMatrix.dll
-C:\SVN\LIS\DataMatrix\bin\Mongo\DataMatrix.pdb
-C:\SVN\LIS\DataMatrix\obj\Mongo\DataMatrix.dll
-C:\SVN\LIS\DataMatrix\obj\Mongo\DataMatrix.pdb

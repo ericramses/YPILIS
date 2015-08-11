@@ -1,8 +1,0 @@
-C:\SVN\LIS\BusinessRules\bin\Mongo\BusinessRules.dll
-C:\SVN\LIS\BusinessRules\bin\Mongo\BusinessRules.pdb
-C:\SVN\LIS\BusinessRules\obj\Mongo\ExecutionStatusDialog.baml
-C:\SVN\LIS\BusinessRules\obj\Mongo\ExecutionStatusDialog.g.cs
-C:\SVN\LIS\BusinessRules\obj\Mongo\BusinessRules_MarkupCompile.cache
-C:\SVN\LIS\BusinessRules\obj\Mongo\BusinessRules.g.resources
-C:\SVN\LIS\BusinessRules\obj\Mongo\BusinessRules.dll
-C:\SVN\LIS\BusinessRules\obj\Mongo\BusinessRules.pdb
