@@ -136,9 +136,11 @@
     <Compile Include="Converter\BooleanInverseConverter.cs" />
     <Compile Include="Converter\DateValidRule.cs" />
     <Compile Include="Converter\FrozenSectionConverter.cs" />
+    <Compile Include="Converter\GatingPercentConverter.cs" />
     <Compile Include="Converter\MilitaryDateTimeConverter.cs" />
     <Compile Include="Converter\NotFinalConverter.cs" />
     <Compile Include="Converter\OrderTypeConverter.cs" />
+    <Compile Include="Converter\PanelSetIdConverter.cs" />
     <Compile Include="Converter\ShortDateConverter.cs" />
     <Compile Include="Converter\ShortDateTimeConverter.cs" />
     <Compile Include="Converter\ShortTimeConverter.cs" />
@@ -149,6 +151,10 @@
     <Compile Include="BrowserWindow.xaml.cs">
       <DependentUpon>BrowserWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Navigation\NavigatingEventArgs.cs" />
+    <Compile Include="Navigation\PageNavigationDirectionEnum.cs" />
+    <Compile Include="Navigation\PageNavigationReturnEventResult.cs" />
+    <Compile Include="Navigation\PageNavigator.cs" />
     <Compile Include="ViewMessagesPage.xaml.cs">
       <DependentUpon>ViewMessagesPage.xaml</DependentUpon>
     </Compile>
@@ -328,10 +334,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BusinessRules\BusinessRules.csproj">
-      <Project>{462232D7-81BA-42B5-B4FC-5EC3F876AF38}</Project>
-      <Name>BusinessRules</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Business\BusinessObjects.csproj">
       <Project>{0712F3D4-5C03-4446-B8FE-B8F5BE9495B1}</Project>
       <Name>BusinessObjects</Name>
@@ -659,6 +661,7 @@
       <FileType>Assembly</FileType>
     </PublishFile>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

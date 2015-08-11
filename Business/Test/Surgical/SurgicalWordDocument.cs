@@ -351,7 +351,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 				XmlNode rowSpecimenDescriptionClone = rowSpecimenDescriptionNode.Clone();
 				rowSpecimenDescriptionClone.SelectSingleNode("descendant::w:r[w:t='specimen_description']/w:t", this.m_NameSpaceManager).InnerText = specimenOrder.GetSpecimenDescriptionString();
 
-				YellowstonePathology.Shared.Helper.DateTimeJoiner collectionDateTimeJoiner = new YellowstonePathology.Shared.Helper.DateTimeJoiner(specimenOrder.CollectionDate.Value, specimenOrder.CollectionTime);
+				YellowstonePathology.Business.Helper.DateTimeJoiner collectionDateTimeJoiner = new YellowstonePathology.Business.Helper.DateTimeJoiner(specimenOrder.CollectionDate.Value, specimenOrder.CollectionTime);
 				rowSpecimenDescriptionClone.SelectSingleNode("descendant::w:r[w:t='date_time_collected']/w:t", this.m_NameSpaceManager).InnerText = collectionDateTimeJoiner.DisplayString;
 				mainTableNode.InsertAfter(rowSpecimenDescriptionClone, rowInsertSpecimenDescriptionAfterNode);
 				rowInsertSpecimenDescriptionAfterNode = rowSpecimenDescriptionClone;

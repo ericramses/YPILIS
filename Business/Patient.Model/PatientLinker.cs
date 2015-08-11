@@ -13,7 +13,7 @@ namespace YellowstonePathology.Business.Patient.Model
     {
 		private PatientLinkingListItem m_ItemToLink;
 		private ObservableCollection<PatientLinkingListItem> m_LinkingList;
-		private YellowstonePathology.Shared.ValidationResult m_IsOkToLinkValidationResult;
+		private YellowstonePathology.Business.Validation.ValidationResult m_IsOkToLinkValidationResult;
 
 		public PatientLinker(string masterAccessionNo, string reportNo, string pFirstName, string pLastName, string pMiddleInitial, string pSSN, string patientId, DateTime? pBirthdate)
 		{
@@ -41,7 +41,7 @@ namespace YellowstonePathology.Business.Patient.Model
 			get { return this.m_LinkingList; }
 		}
 
-		public YellowstonePathology.Shared.ValidationResult IsOkToLink
+		public YellowstonePathology.Business.Validation.ValidationResult IsOkToLink
 		{
 			get { return m_IsOkToLinkValidationResult; }
 		}

@@ -22,7 +22,7 @@ namespace YellowstonePathology.YpiConnect.Client.OrderEntry
     {
         public delegate void PropertyChangedNotificationHandler(String info);
         public event PropertyChangedEventHandler PropertyChanged;
-		public delegate void ReturnEventHandler(object sender, Shared.PageNavigationReturnEventArgs e);
+		public delegate void ReturnEventHandler(object sender, YellowstonePathology.YpiConnect.Client.PageNavigationReturnEventArgs e);
 		public event ReturnEventHandler Return;
 
         ClientOrderDetailViewCollection m_ClientOrderDetailViewCollection;		
@@ -133,7 +133,7 @@ namespace YellowstonePathology.YpiConnect.Client.OrderEntry
 		private void HyperlinkBack_Click(object sender, RoutedEventArgs e)
         {            
             this.m_ClientOrder.NotifyPropertyChanged("");
-			Shared.PageNavigationReturnEventArgs args = new Shared.PageNavigationReturnEventArgs(Shared.PageNavigationDirectionEnum.Back, null);
+			YellowstonePathology.YpiConnect.Client.PageNavigationReturnEventArgs args = new YellowstonePathology.YpiConnect.Client.PageNavigationReturnEventArgs(YellowstonePathology.YpiConnect.Client.PageNavigationDirectionEnum.Back, null);
 			Return(this, args);
 		}
 
@@ -174,7 +174,7 @@ namespace YellowstonePathology.YpiConnect.Client.OrderEntry
                 this.m_ClientOrder.ClientOrderDetailCollection.MarkAsSubmitted();                
 				Save();
 
-				Shared.PageNavigationReturnEventArgs args = new Shared.PageNavigationReturnEventArgs(Shared.PageNavigationDirectionEnum.Back, null);
+				YellowstonePathology.YpiConnect.Client.PageNavigationReturnEventArgs args = new YellowstonePathology.YpiConnect.Client.PageNavigationReturnEventArgs(YellowstonePathology.YpiConnect.Client.PageNavigationDirectionEnum.Back, null);
 				Return(this, args);
             }
             else
@@ -206,14 +206,14 @@ namespace YellowstonePathology.YpiConnect.Client.OrderEntry
 			ApplicationNavigator.ApplicationContentFrame.NavigationService.Navigate(orderDetailTypePage);
 		}
 
-		private void OrderDetailTypePage_Return(object sender, Shared.PageNavigationReturnEventArgs e)
+		private void OrderDetailTypePage_Return(object sender, YellowstonePathology.YpiConnect.Client.PageNavigationReturnEventArgs e)
 		{
 			switch (e.PageNavigationDirectionEnum)
 			{
-				case Shared.PageNavigationDirectionEnum.Back:
+				case YellowstonePathology.YpiConnect.Client.PageNavigationDirectionEnum.Back:
 					ApplicationNavigator.ApplicationContentFrame.NavigationService.Navigate(this);
 					break;
-				case Shared.PageNavigationDirectionEnum.Next:
+				case YellowstonePathology.YpiConnect.Client.PageNavigationDirectionEnum.Next:
 
 					string orderedBy = YellowstonePathology.YpiConnect.Contract.Identity.ApplicationIdentity.Instance.WebServiceAccount.DisplayName;
 					YellowstonePathology.Business.ClientOrder.Model.ClientOrderDetailType clientOrderDetailType = (YellowstonePathology.Business.ClientOrder.Model.ClientOrderDetailType)e.Data;
@@ -231,15 +231,15 @@ namespace YellowstonePathology.YpiConnect.Client.OrderEntry
 			specimenOrderEntryPath.Start();            
 		}
 
-		private void Path_Return(object sender, Shared.PageNavigationReturnEventArgs e)
+		private void Path_Return(object sender, YellowstonePathology.YpiConnect.Client.PageNavigationReturnEventArgs e)
 		{
 			switch (e.PageNavigationDirectionEnum)
 			{
-				case Shared.PageNavigationDirectionEnum.Back:
+				case YellowstonePathology.YpiConnect.Client.PageNavigationDirectionEnum.Back:
 					this.Save();
 					ApplicationNavigator.ApplicationContentFrame.NavigationService.Navigate(this);
 					break;
-				case Shared.PageNavigationDirectionEnum.Next:
+				case YellowstonePathology.YpiConnect.Client.PageNavigationDirectionEnum.Next:
 					this.Save();
 					ApplicationNavigator.ApplicationContentFrame.NavigationService.Navigate(this);
 					break;
@@ -267,7 +267,7 @@ namespace YellowstonePathology.YpiConnect.Client.OrderEntry
 			ApplicationNavigator.ApplicationContentFrame.Navigate(ownershipPage);
         }
 
-		private void OwnershipPage_Return(object sender, Shared.PageNavigationReturnEventArgs e)
+		private void OwnershipPage_Return(object sender, YellowstonePathology.YpiConnect.Client.PageNavigationReturnEventArgs e)
 		{
 			ApplicationNavigator.ApplicationContentFrame.NavigationService.Navigate(this);
 			YellowstonePathology.Business.Rules.ExecutionStatus executionStatus = new Business.Rules.ExecutionStatus();

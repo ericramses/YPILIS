@@ -39,10 +39,10 @@ namespace YellowstonePathology.UI.Client
         private void PrintDocument_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
         {            
             int x = 45;
-            int y = 150;            
+            int y = 150;
 
-            DataMatrix.DmtxImageEncoder encoder = new DataMatrix.DmtxImageEncoder();
-            DataMatrix.DmtxImageEncoderOptions options = new DataMatrix.DmtxImageEncoderOptions();
+			YellowstonePathology.Business.DataMatrix.DmtxImageEncoder encoder = new YellowstonePathology.Business.DataMatrix.DmtxImageEncoder();
+			YellowstonePathology.Business.DataMatrix.DmtxImageEncoderOptions options = new YellowstonePathology.Business.DataMatrix.DmtxImageEncoderOptions();
             options.ModuleSize = 3;
             options.MarginSize = 3;
             options.BackColor = System.Drawing.Color.White;

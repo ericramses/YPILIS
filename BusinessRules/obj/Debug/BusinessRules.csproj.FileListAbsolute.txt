@@ -14,3 +14,11 @@ C:\Git\YPILIS\BusinessRules\obj\Debug\BusinessRules_MarkupCompile.cache
 C:\Git\YPILIS\BusinessRules\obj\Debug\BusinessRules.g.resources
 C:\Git\YPILIS\BusinessRules\obj\Debug\BusinessRules.dll
 C:\Git\YPILIS\BusinessRules\obj\Debug\BusinessRules.pdb
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\BusinessRules\bin\Debug\BusinessRules.dll
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\BusinessRules\bin\Debug\BusinessRules.pdb
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\BusinessRules\obj\Debug\ExecutionStatusDialog.baml
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\BusinessRules\obj\Debug\ExecutionStatusDialog.g.cs
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\BusinessRules\obj\Debug\BusinessRules_MarkupCompile.cache
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\BusinessRules\obj\Debug\BusinessRules.g.resources
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\BusinessRules\obj\Debug\BusinessRules.dll
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\BusinessRules\obj\Debug\BusinessRules.pdb

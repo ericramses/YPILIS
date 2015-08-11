@@ -6,3 +6,7 @@ C:\Git\YPILIS\DataMatrix\bin\Debug\DataMatrix.dll
 C:\Git\YPILIS\DataMatrix\bin\Debug\DataMatrix.pdb
 C:\Git\YPILIS\DataMatrix\obj\Debug\DataMatrix.dll
 C:\Git\YPILIS\DataMatrix\obj\Debug\DataMatrix.pdb
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\DataMatrix\bin\Debug\DataMatrix.dll
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\DataMatrix\bin\Debug\DataMatrix.pdb
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\DataMatrix\obj\Debug\DataMatrix.dll
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\DataMatrix\obj\Debug\DataMatrix.pdb

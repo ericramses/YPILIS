@@ -21,7 +21,7 @@ namespace YellowstonePathology.YpiConnect.Client.OrderEntry
 	public partial class OrderTypePage : Page, INotifyPropertyChanged, YellowstonePathology.Shared.Interface.IPersistPageChanges
     {
         public event PropertyChangedEventHandler PropertyChanged;
-		public delegate void ReturnEventHandler(object sender, Shared.PageNavigationReturnEventArgs e);
+		public delegate void ReturnEventHandler(object sender, YellowstonePathology.YpiConnect.Client.PageNavigationReturnEventArgs e);
 		public event ReturnEventHandler Return;
 
 		private YellowstonePathology.Business.ClientOrder.Model.ClientOrder m_BaseClientOrder;        
@@ -81,9 +81,9 @@ namespace YellowstonePathology.YpiConnect.Client.OrderEntry
 
 				YellowstonePathology.Business.Persistence.RemoteObjectTransferAgent remoteObjectTransferAgent = new Business.Persistence.RemoteObjectTransferAgent();
                 this.m_ObjectTracker.PrepareRemoteTransferAgent(specificClientOrder, remoteObjectTransferAgent);
-                submitterServiceProxy.Submit(remoteObjectTransferAgent);                
+                submitterServiceProxy.Submit(remoteObjectTransferAgent);
 
-                Shared.PageNavigationReturnEventArgs args = new Shared.PageNavigationReturnEventArgs(Shared.PageNavigationDirectionEnum.Next, specificClientOrder);
+				YellowstonePathology.YpiConnect.Client.PageNavigationReturnEventArgs args = new YellowstonePathology.YpiConnect.Client.PageNavigationReturnEventArgs(YellowstonePathology.YpiConnect.Client.PageNavigationDirectionEnum.Next, specificClientOrder);
                 Return(this, args);
             }
 		}        
@@ -91,7 +91,7 @@ namespace YellowstonePathology.YpiConnect.Client.OrderEntry
 		private void ButtonBack_Click(object sender, RoutedEventArgs e)
         {
 			this.Validate(false);
-			Shared.PageNavigationReturnEventArgs args = new Shared.PageNavigationReturnEventArgs(Shared.PageNavigationDirectionEnum.Back, null);
+			YellowstonePathology.YpiConnect.Client.PageNavigationReturnEventArgs args = new YellowstonePathology.YpiConnect.Client.PageNavigationReturnEventArgs(YellowstonePathology.YpiConnect.Client.PageNavigationDirectionEnum.Back, null);
 			Return(this, args);
 		}
 

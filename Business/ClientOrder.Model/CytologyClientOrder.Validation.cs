@@ -8,64 +8,64 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 	public partial class CytologyClientOrder
 	{
 		#region ValidateReflexHPV
-		public static YellowstonePathology.Shared.ValidationResult IsReflexHPVDataTypeValid(bool orderReflexHPV)
+		public static YellowstonePathology.Business.Validation.ValidationResult IsReflexHPVDataTypeValid(bool orderReflexHPV)
 		{
-			YellowstonePathology.Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			YellowstonePathology.Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
 			validationResult.IsValid = true;
 			return validationResult;
 		}
 
-		public YellowstonePathology.Shared.ValidationResult IsReflexHPVDomainValid()
+		public YellowstonePathology.Business.Validation.ValidationResult IsReflexHPVDomainValid()
 		{
-			YellowstonePathology.Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			YellowstonePathology.Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
 			validationResult.IsValid = true;
 			return validationResult;
 		}
 		#endregion
 
 		#region ValidateRoutineHPVTesting
-		public static YellowstonePathology.Shared.ValidationResult IsRoutineHPVTestingDataTypeValid(bool orderRoutineHPVTesting)
+		public static YellowstonePathology.Business.Validation.ValidationResult IsRoutineHPVTestingDataTypeValid(bool orderRoutineHPVTesting)
 		{
-			YellowstonePathology.Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			YellowstonePathology.Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
 			validationResult.IsValid = true;
 			return validationResult;
 		}
 
-		public YellowstonePathology.Shared.ValidationResult IsRoutineHPVTestingDomainValid()
+		public YellowstonePathology.Business.Validation.ValidationResult IsRoutineHPVTestingDomainValid()
 		{
-			YellowstonePathology.Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			YellowstonePathology.Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
 			validationResult.IsValid = true;
 			return validationResult;
 		}
 		#endregion
 
 		#region ValidateNGCTTesting
-		public static YellowstonePathology.Shared.ValidationResult IsNGCTTestingDataTypeValid(bool orderNGCTTesting)
+		public static YellowstonePathology.Business.Validation.ValidationResult IsNGCTTestingDataTypeValid(bool orderNGCTTesting)
 		{
-			YellowstonePathology.Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			YellowstonePathology.Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
 			validationResult.IsValid = true;
 			return validationResult;
 		}
 
-		public YellowstonePathology.Shared.ValidationResult IsNGCTTestingDomainValid()
+		public YellowstonePathology.Business.Validation.ValidationResult IsNGCTTestingDomainValid()
 		{
-			YellowstonePathology.Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			YellowstonePathology.Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
 			validationResult.IsValid = true;
 			return validationResult;
 		}
 		#endregion
 
 		#region ValidateScreeningType
-		public static YellowstonePathology.Shared.ValidationResult IsScreeningTypeDataTypeValid(string screeningType)
+		public static YellowstonePathology.Business.Validation.ValidationResult IsScreeningTypeDataTypeValid(string screeningType)
 		{
-			YellowstonePathology.Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			YellowstonePathology.Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
 			validationResult.IsValid = true;
 			return validationResult;
 		}
 
-		public YellowstonePathology.Shared.ValidationResult IsScreeningTypeDomainValid()
+		public YellowstonePathology.Business.Validation.ValidationResult IsScreeningTypeDomainValid()
 		{
-			YellowstonePathology.Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			YellowstonePathology.Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
 			validationResult.IsValid = true;
 			if (string.IsNullOrEmpty(this.ScreeningType) == true)
 			{
@@ -77,256 +77,256 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		#endregion
 
 		#region ValidateLMP
-		public static YellowstonePathology.Shared.ValidationResult IsLMPBindingDataTypeValid(string lMP)
+		public static YellowstonePathology.Business.Validation.ValidationResult IsLMPBindingDataTypeValid(string lMP)
 		{
-			YellowstonePathology.Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			YellowstonePathology.Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
 			validationResult.IsValid = true;
 			return validationResult;
 		}
 
-		public YellowstonePathology.Shared.ValidationResult IsLMPDomainValid()
+		public YellowstonePathology.Business.Validation.ValidationResult IsLMPDomainValid()
 		{
-			YellowstonePathology.Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			YellowstonePathology.Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
 			validationResult.IsValid = true;
 			return validationResult;
 		}
 		#endregion
 
 		#region ValidateHysterectomy
-		public static YellowstonePathology.Shared.ValidationResult IsHysterectomyDataTypeValid(bool hysterectomy)
+		public static YellowstonePathology.Business.Validation.ValidationResult IsHysterectomyDataTypeValid(bool hysterectomy)
 		{
-			YellowstonePathology.Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			YellowstonePathology.Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
 			validationResult.IsValid = true;
 			return validationResult;
 		}
 
-		public YellowstonePathology.Shared.ValidationResult IsHysterectomyDomainValid()
+		public YellowstonePathology.Business.Validation.ValidationResult IsHysterectomyDomainValid()
 		{
-			YellowstonePathology.Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			YellowstonePathology.Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
 			validationResult.IsValid = true;
 			return validationResult;
 		}
 		#endregion
 
 		#region ValidateCervixPresent
-		public static YellowstonePathology.Shared.ValidationResult IsCervixPresentDataTypeValid(bool cervixPresent)
+		public static YellowstonePathology.Business.Validation.ValidationResult IsCervixPresentDataTypeValid(bool cervixPresent)
 		{
-			YellowstonePathology.Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			YellowstonePathology.Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
 			validationResult.IsValid = true;
 			return validationResult;
 		}
 
-		public YellowstonePathology.Shared.ValidationResult IsCervixPresentDomainValid()
+		public YellowstonePathology.Business.Validation.ValidationResult IsCervixPresentDomainValid()
 		{
-			YellowstonePathology.Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			YellowstonePathology.Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
 			validationResult.IsValid = true;
 			return validationResult;
 		}
 		#endregion
 
 		#region ValidateAbnormalBleeding
-		public static YellowstonePathology.Shared.ValidationResult IsAbnormalBleedingDataTypeValid(bool abnormalBleeding)
+		public static YellowstonePathology.Business.Validation.ValidationResult IsAbnormalBleedingDataTypeValid(bool abnormalBleeding)
 		{
-			YellowstonePathology.Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			YellowstonePathology.Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
 			validationResult.IsValid = true;
 			return validationResult;
 		}
 
-		public YellowstonePathology.Shared.ValidationResult IsAbnormalBleedingDomainValid()
+		public YellowstonePathology.Business.Validation.ValidationResult IsAbnormalBleedingDomainValid()
 		{
-			YellowstonePathology.Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			YellowstonePathology.Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
 			validationResult.IsValid = true;
 			return validationResult;
 		}
 		#endregion
 
 		#region ValidateBirthControl
-		public static YellowstonePathology.Shared.ValidationResult IsBirthControlDataTypeValid(bool birthControl)
+		public static YellowstonePathology.Business.Validation.ValidationResult IsBirthControlDataTypeValid(bool birthControl)
 		{
-			YellowstonePathology.Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			YellowstonePathology.Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
 			validationResult.IsValid = true;
 			return validationResult;
 		}
 
-		public YellowstonePathology.Shared.ValidationResult IsBirthControlDomainValid()
+		public YellowstonePathology.Business.Validation.ValidationResult IsBirthControlDomainValid()
 		{
-			YellowstonePathology.Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			YellowstonePathology.Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
 			validationResult.IsValid = true;
 			return validationResult;
 		}
 		#endregion
 
 		#region ValidateHormoneTherapy
-		public static YellowstonePathology.Shared.ValidationResult IsHormoneTherapyDataTypeValid(bool hormoneTherapy)
+		public static YellowstonePathology.Business.Validation.ValidationResult IsHormoneTherapyDataTypeValid(bool hormoneTherapy)
 		{
-			YellowstonePathology.Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			YellowstonePathology.Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
 			validationResult.IsValid = true;
 			return validationResult;
 		}
 
-		public YellowstonePathology.Shared.ValidationResult IsHormoneTherapyDomainValid()
+		public YellowstonePathology.Business.Validation.ValidationResult IsHormoneTherapyDomainValid()
 		{
-			YellowstonePathology.Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			YellowstonePathology.Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
 			validationResult.IsValid = true;
 			return validationResult;
 		}
 		#endregion
 
 		#region ValidatePreviousNormalPap
-		public static YellowstonePathology.Shared.ValidationResult IsPreviousNormalPapDataTypeValid(bool previousNormalPap)
+		public static YellowstonePathology.Business.Validation.ValidationResult IsPreviousNormalPapDataTypeValid(bool previousNormalPap)
 		{
-			YellowstonePathology.Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			YellowstonePathology.Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
 			validationResult.IsValid = true;
 			return validationResult;
 		}
 
-		public YellowstonePathology.Shared.ValidationResult IsPreviousNormalPapDomainValid()
+		public YellowstonePathology.Business.Validation.ValidationResult IsPreviousNormalPapDomainValid()
 		{
-			YellowstonePathology.Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			YellowstonePathology.Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
 			validationResult.IsValid = true;
 			return validationResult;
 		}
 		#endregion
 
 		#region ValidatePreviousNormalPapDate
-		public static YellowstonePathology.Shared.ValidationResult IsPreviousNormalPapDateDataTypeValid(string previousNormalPapDate)
+		public static YellowstonePathology.Business.Validation.ValidationResult IsPreviousNormalPapDateDataTypeValid(string previousNormalPapDate)
 		{
-			YellowstonePathology.Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			YellowstonePathology.Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
 			validationResult.IsValid = true;
 			return validationResult;
 		}
 
-		public YellowstonePathology.Shared.ValidationResult IsPreviousNormalPapDateDomainValid()
+		public YellowstonePathology.Business.Validation.ValidationResult IsPreviousNormalPapDateDomainValid()
 		{
-			YellowstonePathology.Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			YellowstonePathology.Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
 			validationResult.IsValid = true;
 			return validationResult;
 		}
 		#endregion
 
 		#region ValidatePreviousAbnormalPap
-		public static YellowstonePathology.Shared.ValidationResult IsPreviousAbnormalPapDataTypeValid(bool previousAbnormalPap)
+		public static YellowstonePathology.Business.Validation.ValidationResult IsPreviousAbnormalPapDataTypeValid(bool previousAbnormalPap)
 		{
-			YellowstonePathology.Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			YellowstonePathology.Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
 			validationResult.IsValid = true;
 			return validationResult;
 		}
 
-		public YellowstonePathology.Shared.ValidationResult IsPreviousAbnormalPapDomainValid()
+		public YellowstonePathology.Business.Validation.ValidationResult IsPreviousAbnormalPapDomainValid()
 		{
-			YellowstonePathology.Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			YellowstonePathology.Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
 			validationResult.IsValid = true;
 			return validationResult;
 		}
 		#endregion
 
 		#region ValidatePreviousAbnormalPapDate
-		public static YellowstonePathology.Shared.ValidationResult IsPreviousAbnormalPapDateDataTypeValid(string previousAbnormalPapDate)
+		public static YellowstonePathology.Business.Validation.ValidationResult IsPreviousAbnormalPapDateDataTypeValid(string previousAbnormalPapDate)
 		{
-			YellowstonePathology.Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			YellowstonePathology.Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
 			validationResult.IsValid = true;
 			return validationResult;
 		}
 
-		public YellowstonePathology.Shared.ValidationResult IsPreviousAbnormalPapDateDomainValid()
+		public YellowstonePathology.Business.Validation.ValidationResult IsPreviousAbnormalPapDateDomainValid()
 		{
-			YellowstonePathology.Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			YellowstonePathology.Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
 			validationResult.IsValid = true;
 			return validationResult;
 		}
 		#endregion
 
 		#region ValidatePreviousBiopsy
-		public static YellowstonePathology.Shared.ValidationResult IsPreviousBiopsyDataTypeValid(bool previousBiopsy)
+		public static YellowstonePathology.Business.Validation.ValidationResult IsPreviousBiopsyDataTypeValid(bool previousBiopsy)
 		{
-			YellowstonePathology.Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			YellowstonePathology.Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
 			validationResult.IsValid = true;
 			return validationResult;
 		}
 
-		public YellowstonePathology.Shared.ValidationResult IsPreviousBiopsyDomainValid()
+		public YellowstonePathology.Business.Validation.ValidationResult IsPreviousBiopsyDomainValid()
 		{
-			YellowstonePathology.Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			YellowstonePathology.Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
 			validationResult.IsValid = true;
 			return validationResult;
 		}
 		#endregion
 
 		#region ValidatePreviousBiopsyDate
-		public static YellowstonePathology.Shared.ValidationResult IsPreviousBiopsyDateDataTypeValid(string previousBiopsyDate)
+		public static YellowstonePathology.Business.Validation.ValidationResult IsPreviousBiopsyDateDataTypeValid(string previousBiopsyDate)
 		{
-			YellowstonePathology.Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			YellowstonePathology.Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
 			validationResult.IsValid = true;
 			return validationResult;
 		}
 
-		public YellowstonePathology.Shared.ValidationResult IsPreviousBiopsyDateDomainValid()
+		public YellowstonePathology.Business.Validation.ValidationResult IsPreviousBiopsyDateDomainValid()
 		{
-			YellowstonePathology.Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			YellowstonePathology.Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
 			validationResult.IsValid = true;
 			return validationResult;
 		}
 		#endregion
 
 		#region ValidatePrenatal
-		public static YellowstonePathology.Shared.ValidationResult IsPrenatalDataTypeValid(bool prenatal)
+		public static YellowstonePathology.Business.Validation.ValidationResult IsPrenatalDataTypeValid(bool prenatal)
 		{
-			YellowstonePathology.Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			YellowstonePathology.Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
 			validationResult.IsValid = true;
 			return validationResult;
 		}
 
-		public YellowstonePathology.Shared.ValidationResult IsPrenatalDomainValid()
+		public YellowstonePathology.Business.Validation.ValidationResult IsPrenatalDomainValid()
 		{
-			YellowstonePathology.Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			YellowstonePathology.Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
 			validationResult.IsValid = true;
 			return validationResult;
 		}
 		#endregion
 
 		#region ValidatePostpartum
-		public static YellowstonePathology.Shared.ValidationResult IsPostpartumDataTypeValid(bool postpartum)
+		public static YellowstonePathology.Business.Validation.ValidationResult IsPostpartumDataTypeValid(bool postpartum)
 		{
-			YellowstonePathology.Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			YellowstonePathology.Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
 			validationResult.IsValid = true;
 			return validationResult;
 		}
 
-		public YellowstonePathology.Shared.ValidationResult IsPostpartumDomainValid()
+		public YellowstonePathology.Business.Validation.ValidationResult IsPostpartumDomainValid()
 		{
-			YellowstonePathology.Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			YellowstonePathology.Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
 			validationResult.IsValid = true;
 			return validationResult;
 		}
 		#endregion
 
 		#region ValidatePostmenopausal
-		public static YellowstonePathology.Shared.ValidationResult IsPostmenopausalDataTypeValid(bool postmenopausal)
+		public static YellowstonePathology.Business.Validation.ValidationResult IsPostmenopausalDataTypeValid(bool postmenopausal)
 		{
-			YellowstonePathology.Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			YellowstonePathology.Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
 			validationResult.IsValid = true;
 			return validationResult;
 		}
 
-		public YellowstonePathology.Shared.ValidationResult IsPostmenopausalDomainValid()
+		public YellowstonePathology.Business.Validation.ValidationResult IsPostmenopausalDomainValid()
 		{
-			YellowstonePathology.Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			YellowstonePathology.Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
 			validationResult.IsValid = true;
 			return validationResult;
 		}
 		#endregion
 
 		#region ValidateIcd9Code
-		public static YellowstonePathology.Shared.ValidationResult IsIcd9CodeDataTypeValid(string icd9Code)
+		public static YellowstonePathology.Business.Validation.ValidationResult IsIcd9CodeDataTypeValid(string icd9Code)
 		{
-			YellowstonePathology.Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			YellowstonePathology.Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
 			validationResult.IsValid = true;
 			return validationResult;
 		}
 
-		public YellowstonePathology.Shared.ValidationResult IsIcd9CodeDomainValid()
+		public YellowstonePathology.Business.Validation.ValidationResult IsIcd9CodeDomainValid()
 		{
-			YellowstonePathology.Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			YellowstonePathology.Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
 			validationResult.IsValid = true;
 			if (string.IsNullOrEmpty(this.m_Icd9Code) == true)
 			{
@@ -338,16 +338,16 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		#endregion
 
 		#region ValidateTrichomonasVaginalis
-		public static YellowstonePathology.Shared.ValidationResult IsTrichomonasVaginalisDataTypeValid(bool trichomonasVaginalis)
+		public static YellowstonePathology.Business.Validation.ValidationResult IsTrichomonasVaginalisDataTypeValid(bool trichomonasVaginalis)
 		{
-			YellowstonePathology.Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			YellowstonePathology.Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
 			validationResult.IsValid = true;
 			return validationResult;
 		}
 
-		public YellowstonePathology.Shared.ValidationResult IsTrichomonasVaginalisDomainValid()
+		public YellowstonePathology.Business.Validation.ValidationResult IsTrichomonasVaginalisDomainValid()
 		{
-			YellowstonePathology.Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			YellowstonePathology.Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
 			validationResult.IsValid = true;
 			return validationResult;
 		}

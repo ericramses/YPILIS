@@ -8,16 +8,16 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 	public partial class SurgicalClientOrder
 	{
 		#region ValidatePreOpDiagnosis
-		public static YellowstonePathology.Shared.ValidationResult IsPreOpDiagnosisDataTypeValid(string preOpDiagnosis)
+		public static YellowstonePathology.Business.Validation.ValidationResult IsPreOpDiagnosisDataTypeValid(string preOpDiagnosis)
 		{
-			YellowstonePathology.Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			YellowstonePathology.Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
 			validationResult.IsValid = true;
 			return validationResult;
 		}
 
-		public YellowstonePathology.Shared.ValidationResult IsPreOpDiagnosisDomainValid()
+		public YellowstonePathology.Business.Validation.ValidationResult IsPreOpDiagnosisDomainValid()
 		{
-			YellowstonePathology.Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			YellowstonePathology.Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
 			validationResult.IsValid = true;
 			if (string.IsNullOrEmpty(this.m_PreOpDiagnosis) == true)
 			{
@@ -29,16 +29,16 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		#endregion
 
 		#region ValidatePostOpDiagnosis
-		public static YellowstonePathology.Shared.ValidationResult IsPostOpDiagnosisDataTypeValid(string postOpDiagnosis)
+		public static YellowstonePathology.Business.Validation.ValidationResult IsPostOpDiagnosisDataTypeValid(string postOpDiagnosis)
 		{
-			YellowstonePathology.Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			YellowstonePathology.Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
 			validationResult.IsValid = true;
 			return validationResult;
 		}
 
-		public YellowstonePathology.Shared.ValidationResult IsPostOpDiagnosisDomainValid()
+		public YellowstonePathology.Business.Validation.ValidationResult IsPostOpDiagnosisDomainValid()
 		{
-			YellowstonePathology.Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			YellowstonePathology.Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
 			validationResult.IsValid = true;
 			return validationResult;
 		}

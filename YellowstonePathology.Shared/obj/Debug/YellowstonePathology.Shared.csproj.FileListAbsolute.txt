@@ -6,3 +6,7 @@ C:\Git\YPILIS\YellowstonePathology.Shared\bin\Debug\YellowstonePathology.Shared.
 C:\Git\YPILIS\YellowstonePathology.Shared\bin\Debug\YellowstonePathology.Shared.pdb
 C:\Git\YPILIS\YellowstonePathology.Shared\obj\Debug\YellowstonePathology.Shared.dll
 C:\Git\YPILIS\YellowstonePathology.Shared\obj\Debug\YellowstonePathology.Shared.pdb
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\YellowstonePathology.Shared\bin\Debug\YellowstonePathology.Shared.dll
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\YellowstonePathology.Shared\bin\Debug\YellowstonePathology.Shared.pdb
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\YellowstonePathology.Shared\obj\Debug\YellowstonePathology.Shared.dll
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\YellowstonePathology.Shared\obj\Debug\YellowstonePathology.Shared.pdb

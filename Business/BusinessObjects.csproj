@@ -303,6 +303,28 @@
     <Compile Include="Cytology.Model\SpecimenAdequacyCollection.cs" />
     <Compile Include="Cytology.Model\SpecimenAdequacyComment.cs" />
     <Compile Include="Cytology.Model\SpecimenAdequacyCommentCollection.cs" />
+    <Compile Include="DataMatrix\C40TextState.cs" />
+    <Compile Include="DataMatrix\DmtxBestLine.cs" />
+    <Compile Include="DataMatrix\DmtxBresLine.cs" />
+    <Compile Include="DataMatrix\DmtxChannel.cs" />
+    <Compile Include="DataMatrix\DmtxCommon.cs" />
+    <Compile Include="DataMatrix\DmtxConstants.cs" />
+    <Compile Include="DataMatrix\DmtxDecode.cs" />
+    <Compile Include="DataMatrix\DmtxEncode.cs" />
+    <Compile Include="DataMatrix\DmtxFollow.cs" />
+    <Compile Include="DataMatrix\DmtxImage.cs" />
+    <Compile Include="DataMatrix\DmtxImageDecoder.cs" />
+    <Compile Include="DataMatrix\DmtxImageEncoder.cs" />
+    <Compile Include="DataMatrix\DmtxImageEncoderOptions.cs" />
+    <Compile Include="DataMatrix\DmtxMatrix3.cs" />
+    <Compile Include="DataMatrix\DmtxMessage.cs" />
+    <Compile Include="DataMatrix\DmtxMultiplet.cs" />
+    <Compile Include="DataMatrix\DmtxPixelLoc.cs" />
+    <Compile Include="DataMatrix\DmtxPointFlow.cs" />
+    <Compile Include="DataMatrix\DmtxRay2.cs" />
+    <Compile Include="DataMatrix\DmtxRegion.cs" />
+    <Compile Include="DataMatrix\DmtxScanGrid.cs" />
+    <Compile Include="DataMatrix\DmtxVector2.cs" />
     <Compile Include="DataTemplateSpecimenOrderEnum.cs" />
     <Compile Include="Document\CaseDocumentPath.cs" />
     <Compile Include="Domain\Core\Comment.cs">
@@ -321,7 +343,14 @@
     <Compile Include="Gateway\PatientLinkingGateway.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Helper\DateTimeJoiner.cs" />
+    <Compile Include="Helper\DateTimeSplitter.cs" />
+    <Compile Include="Helper\EnumDiscriptionValuePair.cs" />
+    <Compile Include="Helper\FlowCommentHelper.cs" />
     <Compile Include="Helper\IDHelper.cs" />
+    <Compile Include="Helper\PatientHelper.cs" />
+    <Compile Include="Helper\SerializationHelper.cs" />
+    <Compile Include="Helper\StringExtensionMethods.cs" />
     <Compile Include="Label.Model\PantherLabel.cs" />
     <Compile Include="Logging\EmailExceptionHandler.cs" />
     <Compile Include="Logging\ScanLogger.cs" />
@@ -388,6 +417,14 @@
     <Compile Include="Reports\ReportUI.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Rules\ExecutionMessage.cs" />
+    <Compile Include="Rules\ExecutionStatus.cs" />
+    <Compile Include="Rules\ExecutionStatusDialog.xaml.cs">
+      <DependentUpon>ExecutionStatusDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Rules\MethodResult.cs" />
+    <Compile Include="Rules\SimpleMessageRule.cs" />
+    <Compile Include="Rules\SimpleRule.cs" />
     <Compile Include="Search\ReportSearchFillEnum.cs" />
     <Compile Include="Search\ReportSearchItem.cs" />
     <Compile Include="Search\ReportSearchList.cs" />
@@ -1329,6 +1366,11 @@
     <Compile Include="User\SystemUserRoleDescriptionList.cs" />
     <Compile Include="User\UserPreference.cs" />
     <Compile Include="User\UserPreferenceInstance.cs" />
+    <Compile Include="Validation\DataValidator.cs" />
+    <Compile Include="Validation\DataValidatorItem.cs" />
+    <Compile Include="Validation\ValidationResult.cs" />
+    <Compile Include="Validation\ValidationResultCollection.cs" />
+    <Compile Include="Validation\ValidationTypeEnum.cs" />
     <Compile Include="View\AccessionSlideOrderView.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -2762,19 +2804,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Rules\ExecutionStatusDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BarcodeLib\BarcodeLib.csproj">
       <Project>{F8646414-0C9C-49BB-9DA3-3923BF78A398}</Project>
       <Name>BarcodeLib</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BusinessRules\BusinessRules.csproj">
-      <Project>{462232D7-81BA-42B5-B4FC-5EC3F876AF38}</Project>
-      <Name>BusinessRules</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DataMatrix\DataMatrix.csproj">
-      <Project>{74E675E8-11CE-46DA-AEF4-AE7C996C4C62}</Project>
-      <Name>DataMatrix</Name>
     </ProjectReference>
     <ProjectReference Include="..\DomainPersistence\DomainPersistence.csproj">
       <Project>{0B68C6D2-6418-4ECD-95D5-93DD6F8E1782}</Project>

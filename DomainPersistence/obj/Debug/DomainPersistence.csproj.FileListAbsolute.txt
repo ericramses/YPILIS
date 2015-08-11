@@ -6,3 +6,7 @@ C:\Git\YPILIS\DomainPersistence\bin\Debug\DomainPersistence.dll
 C:\Git\YPILIS\DomainPersistence\bin\Debug\DomainPersistence.pdb
 C:\Git\YPILIS\DomainPersistence\obj\Debug\DomainPersistence.dll
 C:\Git\YPILIS\DomainPersistence\obj\Debug\DomainPersistence.pdb
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\DomainPersistence\bin\Debug\DomainPersistence.dll
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\DomainPersistence\bin\Debug\DomainPersistence.pdb
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\DomainPersistence\obj\Debug\DomainPersistence.dll
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\DomainPersistence\obj\Debug\DomainPersistence.pdb

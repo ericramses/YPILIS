@@ -689,7 +689,7 @@ namespace YellowstonePathology.Business.Domain
         {
             get
             {
-				return YellowstonePathology.Shared.Helper.PatientHelper.GetPatientName(this.PLastName, this.PFirstName, this.PMiddleInitial);				
+				return YellowstonePathology.Business.Helper.PatientHelper.GetPatientName(this.PLastName, this.PFirstName, this.PMiddleInitial);				
             }
         }
 
@@ -697,7 +697,7 @@ namespace YellowstonePathology.Business.Domain
         {
             get
             {
-				return YellowstonePathology.Shared.Helper.PatientHelper.GetPatientDisplayName(this.PLastName, this.PFirstName, this.PMiddleInitial);				
+				return YellowstonePathology.Business.Helper.PatientHelper.GetPatientDisplayName(this.PLastName, this.PFirstName, this.PMiddleInitial);				
             }
         }
 
@@ -782,7 +782,7 @@ namespace YellowstonePathology.Business.Domain
 
 		public string PatientAccessionAge
 		{
-			get { return YellowstonePathology.Shared.Helper.PatientHelper.GetAccessionAge(this.PBirthdate, this.AccessionDate.Value); }
+			get { return YellowstonePathology.Business.Helper.PatientHelper.GetAccessionAge(this.PBirthdate, this.AccessionDate.Value); }
 		}
 
 		public Nullable<DateTime> AccessionDateTime

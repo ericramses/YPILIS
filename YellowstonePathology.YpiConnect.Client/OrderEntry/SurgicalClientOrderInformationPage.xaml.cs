@@ -21,7 +21,7 @@ namespace YellowstonePathology.YpiConnect.Client.OrderEntry
 	public partial class SurgicalClientOrderInformationPage : Page, INotifyPropertyChanged, YellowstonePathology.Shared.Interface.IPersistPageChanges
     {
         public event PropertyChangedEventHandler PropertyChanged;
-		public delegate void ReturnEventHandler(object sender, Shared.PageNavigationReturnEventArgs e);
+		public delegate void ReturnEventHandler(object sender, YellowstonePathology.YpiConnect.Client.PageNavigationReturnEventArgs e);
 		public event ReturnEventHandler Return;
         
 		private YellowstonePathology.Business.ClientOrder.Model.SurgicalClientOrder m_ClientOrder;
@@ -59,25 +59,25 @@ namespace YellowstonePathology.YpiConnect.Client.OrderEntry
 
 		private void ButtonBack_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Shared.DataValidator dataValidator = this.CreateDataValidator(this.m_ClientOrder);
+			YellowstonePathology.Business.Validation.DataValidator dataValidator = this.CreateDataValidator(this.m_ClientOrder);
 			dataValidator.UpdateValidBindingSources();
-			YellowstonePathology.Shared.ValidationResult validationResult = dataValidator.ValidateDataTypes();
+			YellowstonePathology.Business.Validation.ValidationResult validationResult = dataValidator.ValidateDataTypes();
 			if (validationResult.IsValid == false)
 			{
 				MessageBox.Show(validationResult.Message);
 			}
 			else
 			{
-				Shared.PageNavigationReturnEventArgs args = new Shared.PageNavigationReturnEventArgs(Shared.PageNavigationDirectionEnum.Back, null);
+				YellowstonePathology.YpiConnect.Client.PageNavigationReturnEventArgs args = new YellowstonePathology.YpiConnect.Client.PageNavigationReturnEventArgs(YellowstonePathology.YpiConnect.Client.PageNavigationDirectionEnum.Back, null);
 				Return(this, args);
 			}
 		}
 
 		private void ButtonNext_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Shared.DataValidator dataValidator = this.CreateDataValidator(this.m_ClientOrder);
+			YellowstonePathology.Business.Validation.DataValidator dataValidator = this.CreateDataValidator(this.m_ClientOrder);
 			dataValidator.UpdateValidBindingSources();
-			YellowstonePathology.Shared.ValidationResult validationResult = dataValidator.ValidateDataTypes();
+			YellowstonePathology.Business.Validation.ValidationResult validationResult = dataValidator.ValidateDataTypes();
 			if (validationResult.IsValid == false)
 			{
 				MessageBox.Show(validationResult.Message);
@@ -91,27 +91,27 @@ namespace YellowstonePathology.YpiConnect.Client.OrderEntry
 				}
 				else
 				{
-					Shared.PageNavigationReturnEventArgs args = new Shared.PageNavigationReturnEventArgs(Shared.PageNavigationDirectionEnum.Next, null);
+					YellowstonePathology.YpiConnect.Client.PageNavigationReturnEventArgs args = new YellowstonePathology.YpiConnect.Client.PageNavigationReturnEventArgs(YellowstonePathology.YpiConnect.Client.PageNavigationDirectionEnum.Next, null);
 					Return(this, args);
 				}
 			}
 		}
 
-        private YellowstonePathology.Shared.DataValidator CreateDataValidator(YellowstonePathology.Business.ClientOrder.Model.SurgicalClientOrder clientOrder)
+		private YellowstonePathology.Business.Validation.DataValidator CreateDataValidator(YellowstonePathology.Business.ClientOrder.Model.SurgicalClientOrder clientOrder)
 		{
-            YellowstonePathology.Shared.DataValidator dataValidator = new YellowstonePathology.Shared.DataValidator();
+			YellowstonePathology.Business.Validation.DataValidator dataValidator = new YellowstonePathology.Business.Validation.DataValidator();
 
 			BindingExpression reportCopyToBindingExpression = this.TextBoxReportCopyTo.GetBindingExpression(TextBox.TextProperty);
-			YellowstonePathology.Shared.ValidationResult reportCopyToDataTypeValidationResult = YellowstonePathology.Business.ClientOrder.Model.ClientOrder.IsReportCopyToDataTypeValid(this.TextBoxReportCopyTo.Text);
-            dataValidator.Add(new YellowstonePathology.Shared.DataValidatorItem(reportCopyToDataTypeValidationResult, reportCopyToBindingExpression, clientOrder.IsReportCopyToDomainValid));
+			YellowstonePathology.Business.Validation.ValidationResult reportCopyToDataTypeValidationResult = YellowstonePathology.Business.ClientOrder.Model.ClientOrder.IsReportCopyToDataTypeValid(this.TextBoxReportCopyTo.Text);
+			dataValidator.Add(new YellowstonePathology.Business.Validation.DataValidatorItem(reportCopyToDataTypeValidationResult, reportCopyToBindingExpression, clientOrder.IsReportCopyToDomainValid));
 
 			BindingExpression clinicalHistoryBindingExpression = this.TextBoxClinicalHistory.GetBindingExpression(TextBox.TextProperty);
-			YellowstonePathology.Shared.ValidationResult clinicalHistoryDataTypeValidationResult = YellowstonePathology.Business.ClientOrder.Model.ClientOrder.IsClinicalHistoryDataTypeValid(this.TextBoxClinicalHistory.Text);
-            dataValidator.Add(new YellowstonePathology.Shared.DataValidatorItem(clinicalHistoryDataTypeValidationResult, clinicalHistoryBindingExpression, clientOrder.IsClinicalHistoryDomainValid));
+			YellowstonePathology.Business.Validation.ValidationResult clinicalHistoryDataTypeValidationResult = YellowstonePathology.Business.ClientOrder.Model.ClientOrder.IsClinicalHistoryDataTypeValid(this.TextBoxClinicalHistory.Text);
+			dataValidator.Add(new YellowstonePathology.Business.Validation.DataValidatorItem(clinicalHistoryDataTypeValidationResult, clinicalHistoryBindingExpression, clientOrder.IsClinicalHistoryDomainValid));
 
 			BindingExpression preOpDiagnosisBindingExpression = this.TextBoxPreOpDiagnosis.GetBindingExpression(TextBox.TextProperty);
-			YellowstonePathology.Shared.ValidationResult preOpDiagnosisDataTypeValidationResult = YellowstonePathology.Business.ClientOrder.Model.SurgicalClientOrder.IsPreOpDiagnosisDataTypeValid(this.TextBoxPreOpDiagnosis.Text);
-            dataValidator.Add(new YellowstonePathology.Shared.DataValidatorItem(preOpDiagnosisDataTypeValidationResult, preOpDiagnosisBindingExpression, clientOrder.IsPreOpDiagnosisDomainValid));
+			YellowstonePathology.Business.Validation.ValidationResult preOpDiagnosisDataTypeValidationResult = YellowstonePathology.Business.ClientOrder.Model.SurgicalClientOrder.IsPreOpDiagnosisDataTypeValid(this.TextBoxPreOpDiagnosis.Text);
+			dataValidator.Add(new YellowstonePathology.Business.Validation.DataValidatorItem(preOpDiagnosisDataTypeValidationResult, preOpDiagnosisBindingExpression, clientOrder.IsPreOpDiagnosisDomainValid));
 
 			return dataValidator;
 		}
@@ -141,7 +141,7 @@ namespace YellowstonePathology.YpiConnect.Client.OrderEntry
 
 		public void UpdateBindingSources()
 		{
-            YellowstonePathology.Shared.DataValidator dataValidator = this.CreateDataValidator(this.m_ClientOrder);
+			YellowstonePathology.Business.Validation.DataValidator dataValidator = this.CreateDataValidator(this.m_ClientOrder);
 			dataValidator.UpdateValidBindingSources();
 		}
 	}

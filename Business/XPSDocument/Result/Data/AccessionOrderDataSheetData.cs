@@ -146,7 +146,7 @@ namespace YellowstonePathology.Document.Result.Data
                 
                 string collectionDate = element.Element("CollectionDate").Value;
                 string collectionTime = element.Element("CollectionTime").Value;
-                YellowstonePathology.Shared.Helper.DateTimeJoiner dateTimeJoiner = new Shared.Helper.DateTimeJoiner(collectionDate, collectionTime);
+				YellowstonePathology.Business.Helper.DateTimeJoiner dateTimeJoiner = new Business.Helper.DateTimeJoiner(collectionDate, collectionTime);
                 XElement specimenCollectionTimeElement = new XElement("CollectionTime", dateTimeJoiner.DisplayString);
                 specimenAccessionElement.Add(specimenCollectionTimeElement);
 

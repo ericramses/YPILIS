@@ -78,3 +78,41 @@ C:\Git\YPILIS\Business\bin\Debug\MongoDB.Bson.pdb
 C:\Git\YPILIS\Business\bin\Debug\MongoDB.Bson.xml
 C:\Git\YPILIS\Business\bin\Debug\MongoDB.Driver.pdb
 C:\Git\YPILIS\Business\bin\Debug\MongoDB.Driver.xml
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\Business\bin\Debug\BusinessObjects.dll.config
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\Business\bin\Debug\BusinessObjects.dll
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\Business\bin\Debug\BusinessObjects.pdb
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\Business\bin\Debug\BarcodeLib.dll
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\Business\bin\Debug\DomainPersistence.dll
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\Business\bin\Debug\MongoDB.Bson.dll
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\Business\bin\Debug\MongoDB.Driver.dll
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\Business\bin\Debug\SqlXmlPersistence.dll
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\Business\bin\Debug\YellowstonePathology.Shared.dll
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\Business\bin\Debug\BarcodeLib.pdb
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\Business\bin\Debug\DomainPersistence.pdb
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\Business\bin\Debug\SqlXmlPersistence.pdb
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\Business\bin\Debug\YellowstonePathology.Shared.pdb
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\Business\bin\Debug\MongoDB.Bson.pdb
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\Business\bin\Debug\MongoDB.Bson.xml
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\Business\bin\Debug\MongoDB.Driver.pdb
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\Business\bin\Debug\MongoDB.Driver.xml
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\Business\obj\Debug\BusinessObjects.csprojResolveAssemblyReference.cache
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\Business\obj\Debug\Document\FlowDocumentReport.baml
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\Business\obj\Debug\Document\CaseReportFooter.baml
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\Business\obj\Debug\Reports\POCRetensionReport.baml
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\Business\obj\Debug\Reports\CytologySlideDisposalReport.baml
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\Business\obj\Debug\Reports\SpecimenDisposalReport.baml
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\Business\obj\Debug\Reports\SurgicalSpecimenDisposalReport.baml
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\Business\obj\Debug\Document\FlowDocumentReport.g.cs
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\Business\obj\Debug\Document\CaseReportFooter.g.cs
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\Business\obj\Debug\Reports\POCRetensionReport.g.cs
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\Business\obj\Debug\Reports\CytologySlideDisposalReport.g.cs
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\Business\obj\Debug\Reports\SpecimenDisposalReport.g.cs
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\Business\obj\Debug\Reports\SurgicalSpecimenDisposalReport.g.cs
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\Business\obj\Debug\BusinessObjects_MarkupCompile.cache
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\Business\obj\Debug\BusinessObjects.g.resources
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\Business\obj\Debug\YellowstonePathology.Business.Properties.Resources.resources
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\Business\obj\Debug\BusinessObjects.csproj.GenerateResource.Cache
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\Business\obj\Debug\BusinessObjects.dll
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\Business\obj\Debug\BusinessObjects.pdb
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\Business\obj\Debug\Rules\ExecutionStatusDialog.baml
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\Business\obj\Debug\Rules\ExecutionStatusDialog.g.cs

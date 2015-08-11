@@ -6,3 +6,7 @@ C:\Git\YPILIS\BarcodeLib\bin\x86\Debug\BarcodeLib.dll
 C:\Git\YPILIS\BarcodeLib\bin\x86\Debug\BarcodeLib.pdb
 C:\Git\YPILIS\BarcodeLib\obj\x86\Debug\BarcodeLib.dll
 C:\Git\YPILIS\BarcodeLib\obj\x86\Debug\BarcodeLib.pdb
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\BarcodeLib\bin\x86\Debug\BarcodeLib.dll
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\BarcodeLib\bin\x86\Debug\BarcodeLib.pdb
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\BarcodeLib\obj\x86\Debug\BarcodeLib.dll
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\BarcodeLib\obj\x86\Debug\BarcodeLib.pdb

@@ -55,6 +55,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>false</DebugSymbols>
@@ -235,7 +236,10 @@
       <DependentUpon>ReportDistribution.cs</DependentUpon>
     </Compile>
     <Compile Include="Common\OrderItemView.cs" />
+    <Compile Include="Converter\GatingPercentConverter.cs" />
+    <Compile Include="Converter\GatingPopulationConverter.cs" />
     <Compile Include="Converter\MilitaryDateTimeConverterV2.cs" />
+    <Compile Include="Converter\PanelSetIdConverter.cs" />
     <Compile Include="Converter\ResultCodeResultConverter.cs" />
     <Compile Include="CustomEventArgs\AcknowledgeStainOrderEventArgs.cs" />
     <Compile Include="CustomEventArgs\AddPQRSCodeReturnEventArgs.cs" />
@@ -3629,17 +3633,9 @@
     <Resource Include="Resources\Reassign.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BusinessRules\BusinessRules.csproj">
-      <Project>{462232D7-81BA-42B5-B4FC-5EC3F876AF38}</Project>
-      <Name>BusinessRules</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Business\BusinessObjects.csproj">
       <Project>{0712F3D4-5C03-4446-B8FE-B8F5BE9495B1}</Project>
       <Name>BusinessObjects</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DataMatrix\DataMatrix.csproj">
-      <Project>{74E675E8-11CE-46DA-AEF4-AE7C996C4C62}</Project>
-      <Name>DataMatrix</Name>
     </ProjectReference>
     <ProjectReference Include="..\DomainPersistence\DomainPersistence.csproj">
       <Project>{0B68C6D2-6418-4ECD-95D5-93DD6F8E1782}</Project>

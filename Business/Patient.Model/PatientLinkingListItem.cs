@@ -152,9 +152,9 @@ namespace YellowstonePathology.Business.Patient.Model
             }
         }
 
-		public YellowstonePathology.Shared.ValidationResult IsOkToLink()
+		public YellowstonePathology.Business.Validation.ValidationResult IsOkToLink()
 		{
-			YellowstonePathology.Shared.ValidationResult result = new Shared.ValidationResult();
+			YellowstonePathology.Business.Validation.ValidationResult result = new Business.Validation.ValidationResult();
 			result.IsValid = true;
 			result.Message = string.Empty;
 			if (string.IsNullOrEmpty(this.m_PLastName) == true)

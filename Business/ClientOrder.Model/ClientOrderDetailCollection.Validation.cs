@@ -6,10 +6,10 @@ using System.Text;
 namespace YellowstonePathology.Business.ClientOrder.Model
 {
 	public partial class ClientOrderDetailCollection
-	{        
-		public YellowstonePathology.Shared.ValidationResult IsContainerIdNotADuplicate(string clientOrderDetailId, string containerId)
+	{
+		public YellowstonePathology.Business.Validation.ValidationResult IsContainerIdNotADuplicate(string clientOrderDetailId, string containerId)
 		{
-			YellowstonePathology.Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			YellowstonePathology.Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
 			validationResult.IsValid = true;
 			if (ExistsByContainerId(containerId) == true)
 			{
@@ -27,14 +27,14 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 			return validationResult;
 		}
 
-		public static YellowstonePathology.Shared.ValidationResult IsDataTypeValid(ClientOrderDetail clientOrderDetail, ClientOrderDetailCollection clientOrderDetailCollection)
+		public static YellowstonePathology.Business.Validation.ValidationResult IsDataTypeValid(ClientOrderDetail clientOrderDetail, ClientOrderDetailCollection clientOrderDetailCollection)
 		{
-			Shared.ValidationResult result = new Shared.ValidationResult();
+			Business.Validation.ValidationResult result = new Business.Validation.ValidationResult();
 			result.IsValid = true;
-			List<YellowstonePathology.Shared.ValidationResult> validationResults = new List<Shared.ValidationResult>();
+			List<YellowstonePathology.Business.Validation.ValidationResult> validationResults = new List<Business.Validation.ValidationResult>();
 			validationResults.Add(clientOrderDetailCollection.IsContainerIdNotADuplicate(clientOrderDetail.ClientOrderDetailId, clientOrderDetail.ContainerId));
 
-			foreach (Shared.ValidationResult validationResult in validationResults)
+			foreach (Business.Validation.ValidationResult validationResult in validationResults)
 			{
 				if (validationResult.IsValid == false)
 				{
@@ -45,9 +45,9 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 			return result;
 		}
 
-		public YellowstonePathology.Shared.ValidationResult IsDomainValid()
+		public YellowstonePathology.Business.Validation.ValidationResult IsDomainValid()
 		{
-			Shared.ValidationResult result = new Shared.ValidationResult();
+			Business.Validation.ValidationResult result = new Business.Validation.ValidationResult();
 			result.IsValid = true;
 
             /*
@@ -70,14 +70,14 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 			return result;
 		}
 
-		public YellowstonePathology.Shared.ValidationResult IsDomainValid(ClientOrderDetail clientOrderDetail)
+		public YellowstonePathology.Business.Validation.ValidationResult IsDomainValid(ClientOrderDetail clientOrderDetail)
 		{
-			Shared.ValidationResult result = new Shared.ValidationResult();
+			Business.Validation.ValidationResult result = new Business.Validation.ValidationResult();
 			result.IsValid = true;
-			List<YellowstonePathology.Shared.ValidationResult> validationResults = new List<Shared.ValidationResult>();
+			List<YellowstonePathology.Business.Validation.ValidationResult> validationResults = new List<Business.Validation.ValidationResult>();
 			validationResults.Add(this.IsContainerIdNotADuplicate(clientOrderDetail.ClientOrderDetailId, clientOrderDetail.ContainerId));
 
-			foreach (Shared.ValidationResult validationResult in validationResults)
+			foreach (Business.Validation.ValidationResult validationResult in validationResults)
 			{
 				if (validationResult.IsValid == false)
 				{

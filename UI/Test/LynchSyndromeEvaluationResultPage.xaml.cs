@@ -129,7 +129,7 @@ namespace YellowstonePathology.UI.Test
 			get
 			{
 				string result = string.Empty;
-				if (this.m_LSEResult != null) result = YellowstonePathology.Shared.ExtensionMethods.StringExtensionMethods.SplitCapitalizedWords(this.m_LSEResult.MLH1Result.ToString("g"));
+				if (this.m_LSEResult != null) result = YellowstonePathology.Business.Helper.StringExtensionMethods.SplitCapitalizedWords(this.m_LSEResult.MLH1Result.ToString("g"));
 				return result;
 			}
 		}
@@ -139,7 +139,7 @@ namespace YellowstonePathology.UI.Test
 			get
 			{
 				string result = string.Empty;
-				if(this.m_LSEResult != null) result = YellowstonePathology.Shared.ExtensionMethods.StringExtensionMethods.SplitCapitalizedWords(this.m_LSEResult.MSH2Result.ToString("g"));
+				if (this.m_LSEResult != null) result = YellowstonePathology.Business.Helper.StringExtensionMethods.SplitCapitalizedWords(this.m_LSEResult.MSH2Result.ToString("g"));
 				return result;
 			}
 		}
@@ -149,7 +149,7 @@ namespace YellowstonePathology.UI.Test
 			get
 			{
 				string result = string.Empty;
-				if (this.m_LSEResult != null) result = YellowstonePathology.Shared.ExtensionMethods.StringExtensionMethods.SplitCapitalizedWords(this.m_LSEResult.MSH6Result.ToString("g"));
+				if (this.m_LSEResult != null) result = YellowstonePathology.Business.Helper.StringExtensionMethods.SplitCapitalizedWords(this.m_LSEResult.MSH6Result.ToString("g"));
 				return result;
 			}
 		}
@@ -159,7 +159,7 @@ namespace YellowstonePathology.UI.Test
 			get
 			{
 				string result = string.Empty;
-				if (this.m_LSEResult != null) result = YellowstonePathology.Shared.ExtensionMethods.StringExtensionMethods.SplitCapitalizedWords(this.m_LSEResult.PMS2Result.ToString("g"));
+				if (this.m_LSEResult != null) result = YellowstonePathology.Business.Helper.StringExtensionMethods.SplitCapitalizedWords(this.m_LSEResult.PMS2Result.ToString("g"));
 				return result;
 			}
 		}
@@ -169,7 +169,7 @@ namespace YellowstonePathology.UI.Test
 			get
 			{
 				string result = string.Empty;
-				if (this.m_LSEResult != null) result = YellowstonePathology.Shared.ExtensionMethods.StringExtensionMethods.SplitCapitalizedWords(this.m_LSEResult.BrafResult.ToString("g"));
+				if (this.m_LSEResult != null) result = YellowstonePathology.Business.Helper.StringExtensionMethods.SplitCapitalizedWords(this.m_LSEResult.BrafResult.ToString("g"));
 				return result;
 			}
 		}
@@ -179,7 +179,7 @@ namespace YellowstonePathology.UI.Test
 			get
 			{
 				string result = string.Empty;
-				if (this.m_LSEResult != null) result = YellowstonePathology.Shared.ExtensionMethods.StringExtensionMethods.SplitCapitalizedWords(this.m_LSEResult.MethResult.ToString("g"));
+				if (this.m_LSEResult != null) result = YellowstonePathology.Business.Helper.StringExtensionMethods.SplitCapitalizedWords(this.m_LSEResult.MethResult.ToString("g"));
 				return result;
 			}
 		}

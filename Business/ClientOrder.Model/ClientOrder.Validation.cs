@@ -8,32 +8,32 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 	public partial class ClientOrder
 	{
 		#region ValidateReportCopyTo
-		public static YellowstonePathology.Shared.ValidationResult IsReportCopyToDataTypeValid(string preOpDiagnosis)
+		public static YellowstonePathology.Business.Validation.ValidationResult IsReportCopyToDataTypeValid(string preOpDiagnosis)
 		{
-			YellowstonePathology.Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			YellowstonePathology.Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
 			validationResult.IsValid = true;
 			return validationResult;
 		}
 
-		public YellowstonePathology.Shared.ValidationResult IsReportCopyToDomainValid()
+		public YellowstonePathology.Business.Validation.ValidationResult IsReportCopyToDomainValid()
 		{
-			YellowstonePathology.Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			YellowstonePathology.Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
 			validationResult.IsValid = true;
 			return validationResult;
 		}
 		#endregion
 
 		#region ValidateClinicalHistory
-		public static YellowstonePathology.Shared.ValidationResult IsClinicalHistoryDataTypeValid(string postOpDiagnosis)
+		public static YellowstonePathology.Business.Validation.ValidationResult IsClinicalHistoryDataTypeValid(string postOpDiagnosis)
 		{
-			YellowstonePathology.Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			YellowstonePathology.Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
 			validationResult.IsValid = true;
 			return validationResult;
 		}
 
-		public YellowstonePathology.Shared.ValidationResult IsClinicalHistoryDomainValid()
+		public YellowstonePathology.Business.Validation.ValidationResult IsClinicalHistoryDomainValid()
 		{
-			YellowstonePathology.Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			YellowstonePathology.Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
 			validationResult.IsValid = true;
 			return validationResult;
 		}

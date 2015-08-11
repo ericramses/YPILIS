@@ -1252,7 +1252,7 @@ namespace YellowstonePathology.Business.Test
         {
             get
             {
-				return YellowstonePathology.Shared.Helper.PatientHelper.GetPatientDisplayName(PLastName, PFirstName, PMiddleInitial);
+				return YellowstonePathology.Business.Helper.PatientHelper.GetPatientDisplayName(PLastName, PFirstName, PMiddleInitial);
             }
         }
 
@@ -1260,7 +1260,7 @@ namespace YellowstonePathology.Business.Test
 		{			
             get
             {
-				return YellowstonePathology.Shared.Helper.PatientHelper.GetPatientName(this.PLastName, this.PFirstName, this.PMiddleInitial);
+				return YellowstonePathology.Business.Helper.PatientHelper.GetPatientName(this.PLastName, this.PFirstName, this.PMiddleInitial);
             }
 		}
 
@@ -1270,7 +1270,7 @@ namespace YellowstonePathology.Business.Test
 			{
                 if (this.AccessionDate.HasValue)
                 {
-					return YellowstonePathology.Shared.Helper.PatientHelper.GetAccessionAge(this.PBirthdate, this.AccessionDate.Value);
+					return YellowstonePathology.Business.Helper.PatientHelper.GetAccessionAge(this.PBirthdate, this.AccessionDate.Value);
                 }
                 return string.Empty;
 			}

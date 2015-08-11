@@ -65,7 +65,7 @@ namespace YellowstonePathology.Business.HL7View.ECW
 
             obrElement.Add(obr04Element);
 
-            YellowstonePathology.Shared.Helper.DateTimeJoiner collectionDateJoiner = new Shared.Helper.DateTimeJoiner(this.m_CollectionDate.Value, "yyyyMMddHHmm", this.m_CollectionTime, "yyyyMMddHHmm");
+			YellowstonePathology.Business.Helper.DateTimeJoiner collectionDateJoiner = new Business.Helper.DateTimeJoiner(this.m_CollectionDate.Value, "yyyyMMddHHmm", this.m_CollectionTime, "yyyyMMddHHmm");
             XElement obr07Element = new XElement("OBR.7");            
             YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("OBR.7.1", collectionDateJoiner.DisplayString, obr07Element);
             obrElement.Add(obr07Element);

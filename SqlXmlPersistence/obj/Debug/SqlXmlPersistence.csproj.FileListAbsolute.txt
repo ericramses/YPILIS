@@ -14,3 +14,11 @@ C:\Git\YPILIS\SqlXmlPersistence\bin\Debug\DomainPersistence.pdb
 C:\Git\YPILIS\SqlXmlPersistence\obj\Debug\SqlXmlPersistence.csprojResolveAssemblyReference.cache
 C:\Git\YPILIS\SqlXmlPersistence\obj\Debug\SqlXmlPersistence.dll
 C:\Git\YPILIS\SqlXmlPersistence\obj\Debug\SqlXmlPersistence.pdb
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\SqlXmlPersistence\bin\Debug\SqlXmlPersistence.dll.config
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\SqlXmlPersistence\bin\Debug\SqlXmlPersistence.dll
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\SqlXmlPersistence\bin\Debug\SqlXmlPersistence.pdb
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\SqlXmlPersistence\bin\Debug\DomainPersistence.dll
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\SqlXmlPersistence\bin\Debug\DomainPersistence.pdb
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\SqlXmlPersistence\obj\Debug\SqlXmlPersistence.csprojResolveAssemblyReference.cache
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\SqlXmlPersistence\obj\Debug\SqlXmlPersistence.dll
+\\CFILESERVER\Data\UserFolders\william.copland\My Documents\GitHub\YPILIS\SqlXmlPersistence\obj\Debug\SqlXmlPersistence.pdb

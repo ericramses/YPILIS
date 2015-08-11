@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
-  <asmv1:assemblyIdentity name="UserInterface.exe" version="10.1.1.172" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="x86" type="win32" />
+  <asmv1:assemblyIdentity name="UserInterface.exe" version="10.1.1.173" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="x86" type="win32" />
   <description asmv2:iconFile="YPI.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="UserInterface" version="20.0.5700.22667" language="neutral" processorArchitecture="x86" />
+    <assemblyIdentity name="UserInterface" version="20.0.5701.15555" language="neutral" processorArchitecture="x86" />
     <commandLine file="UserInterface.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -50,19 +50,19 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>vacHDDwD+Wm87CdeYpMiF0EgGd0=</dsig:DigestValue>
+        <dsig:DigestValue>tAf3RmxyCJ0O5ZvDXjve57ymsK4=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="BusinessObjects.dll" size="3422720">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="BusinessObjects.dll" size="3422208">
       <assemblyIdentity name="BusinessObjects" version="1.0.0.0" publicKeyToken="FC34D02CD98EC0F6" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>moM4gxw1hOKTO+OKYM5VSiZOCyc=</dsig:DigestValue>
+        <dsig:DigestValue>xOb174AXjeIPCVsSCnqoEoMJxIw=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -74,7 +74,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>M8c5I8lueCZD5eGr62P3VEwDTbY=</dsig:DigestValue>
+        <dsig:DigestValue>0KiGUKhnXbHqw6Fv8IhHdn2SKh8=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -110,7 +110,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>ucSTVtycdocP9QeJPVwQwCcoRuw=</dsig:DigestValue>
+        <dsig:DigestValue>w+Mxz7GXf7QY2o+Xw2t5YCSO3yg=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -122,19 +122,19 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>xVNSbAPd63hVOBrvEzG6f1TQzDE=</dsig:DigestValue>
+        <dsig:DigestValue>IVwNyPKa/VeUgRSBWLZJX8lF9X8=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Microsoft.Data.SqlXml.dll" size="22376">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Microsoft.Data.SqlXml.dll" size="23392">
       <assemblyIdentity name="Microsoft.Data.SqlXml" version="10.0.0.0" publicKeyToken="89845DCD8080CC91" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>LX+wOfNuG7VFVjHlfPRbAUR68EE=</dsig:DigestValue>
+        <dsig:DigestValue>UThYSwMSv+AVhZgJWzeGM9LmXPM=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -163,26 +163,26 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SqlXmlPersistence.dll" size="13312">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SqlXmlPersistence.dll" size="13824">
       <assemblyIdentity name="SqlXmlPersistence" version="1.0.0.0" publicKeyToken="5BD5DCF287744981" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>1ULGzlHhbiew4NeaUfS6TyTDu/M=</dsig:DigestValue>
+        <dsig:DigestValue>lR4NFunXGbghR55DF4hw2F7rppI=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="UserInterface.exe" size="6861312">
-      <assemblyIdentity name="UserInterface" version="20.0.5700.22667" language="neutral" processorArchitecture="x86" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="UserInterface.exe" size="6861824">
+      <assemblyIdentity name="UserInterface" version="20.0.5701.15555" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>Dic2Ftb+wEpXiSkY5sWX/i/bpNU=</dsig:DigestValue>
+        <dsig:DigestValue>1Hdpws/1nmFQalnIqtz0dTdimpE=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -242,7 +242,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>Maw3UhLMfIaQrRcB7cue52q56oI=</dsig:DigestValue>
+        <dsig:DigestValue>urCNOA8eioSFFBl+E8oZ7YseT5k=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -254,7 +254,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>DLdh05Sql5J6HsartDdlBfhAHPQ=</dsig:DigestValue>
+        <dsig:DigestValue>JbvaiUg3Bvn9bGI6nh0gRGE3XsA=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -266,7 +266,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>OaiuRnk6GkAUAVBfKpaJRZ+NpwI=</dsig:DigestValue>
+        <dsig:DigestValue>iw3otDQhAYUBd/VmNvTOGEqKZpU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

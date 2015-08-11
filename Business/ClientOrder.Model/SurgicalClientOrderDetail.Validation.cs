@@ -8,16 +8,16 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 	public partial class SurgicalClientOrderDetail
 	{
 		#region OrderImmediateExamValidation
-		public static Shared.ValidationResult IsOrderImmediateExamDataTypeValid(bool? orderImmediateExam)
+		public static Business.Validation.ValidationResult IsOrderImmediateExamDataTypeValid(bool? orderImmediateExam)
 		{
-			Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
 			validationResult.IsValid = true;
 			return validationResult;
 		}
 
-		public Shared.ValidationResult IsOrderImmediateExamDomainValid()
+		public Business.Validation.ValidationResult IsOrderImmediateExamDomainValid()
 		{
-			Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
 			if (this.OrderImmediateExam.HasValue)
 			{
 				validationResult.IsValid = true;
@@ -32,16 +32,16 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		#endregion
 
 		#region OrderFrozenSectionValidation
-		public static Shared.ValidationResult IsOrderFrozenSectionDataTypeValid(bool? orderFrozenSection)
+		public static Business.Validation.ValidationResult IsOrderFrozenSectionDataTypeValid(bool? orderFrozenSection)
 		{
-			Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
 			validationResult.IsValid = true;
 			return validationResult;
 		}
 
-		public Shared.ValidationResult IsOrderFrozenSectionDomainValid()
+		public Business.Validation.ValidationResult IsOrderFrozenSectionDomainValid()
 		{
-			Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
 			validationResult.IsValid = true;
 			if (this.OrderImmediateExam.HasValue &&
 				this.OrderImmediateExam.Value == true)
@@ -57,16 +57,16 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		#endregion
 
 		#region CallbackNumberValidation
-		public static YellowstonePathology.Shared.ValidationResult IsCallbackNumberDataTypeValid(string callbackNumber)
+		public static YellowstonePathology.Business.Validation.ValidationResult IsCallbackNumberDataTypeValid(string callbackNumber)
 		{
-			YellowstonePathology.Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			YellowstonePathology.Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
 			validationResult.IsValid = true;
 			return validationResult;
 		}
 
-		public YellowstonePathology.Shared.ValidationResult IsCallbackNumberDomainValid()
+		public YellowstonePathology.Business.Validation.ValidationResult IsCallbackNumberDomainValid()
 		{
-			YellowstonePathology.Shared.ValidationResult validationResult = new Shared.ValidationResult();
+			YellowstonePathology.Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
 			validationResult.IsValid = true;
 			if (this.OrderImmediateExam.HasValue &&
 				this.OrderImmediateExam.Value == true)

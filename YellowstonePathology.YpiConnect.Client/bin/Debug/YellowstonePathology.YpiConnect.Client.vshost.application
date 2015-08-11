@@ -3,15 +3,18 @@
   <assemblyIdentity name="YellowstonePathology.YpiConnect.Client.application" version="3.0.1.19" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="x86" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <description asmv2:publisher="Yellowstone Pathology Institute" co.v1:suiteName="YPI Connect" asmv2:product="YPI Connect" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <deployment install="false" mapFileExtensions="true" />
+  <compatibleFrameworks xmlns="urn:schemas-microsoft-com:clickonce.v2">
+    <framework targetVersion="4.0" profile="Full" supportedRuntime="4.0.30319" />
+  </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="YellowstonePathology.YpiConnect.Client.exe.manifest" size="16098">
+    <dependentAssembly dependencyType="install" codebase="YellowstonePathology.YpiConnect.Client.exe.manifest" size="11538">
       <assemblyIdentity name="YellowstonePathology.YpiConnect.Client.exe" version="3.0.1.19" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="x86" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>E2Go20CIg/7SNs1JHcTj6pzfMkU=</dsig:DigestValue>
+        <dsig:DigestValue>hPhO8u5/vAdZ8qq1JbYOtKf24n0=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
