@@ -36,7 +36,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>YellowstonPathology.SqlXmlPersistence.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>SqlXmlPersistence.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Mongo|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
@@ -50,9 +50,8 @@
     <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Data.SqlXml, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Program Files\SQLXML 4.0\bin\Microsoft.Data.SqlXml.dll</HintPath>
+    <Reference Include="Microsoft.Data.SqlXml">
+      <HintPath>C:\Program Files\SQLXML 4.0\bin\Microsoft.Data.SqlXml.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -85,8 +84,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="YellowstonePathology.SqlXmlPersistence.pfx" />
-    <None Include="YellowstonPathology.SqlXmlPersistence.pfx" />
+    <None Include="SqlXmlPersistence.pfx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

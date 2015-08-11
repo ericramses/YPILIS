@@ -3819,6 +3819,7 @@
   <ItemGroup>
     <Content Include="dll\MongoDB.Bson.dll" />
     <Content Include="dll\MongoDB.Bson.pdb" />
+    <Content Include="dll\MongoDB.Driver.pdb" />
     <Content Include="dll\WPFToolkit.dll" />
     <Content Include="dll\WPFToolkit.Extended.dll" />
     <Content Include="dll\Xceed.Wpf.DataGrid.dll" />
@@ -3827,7 +3828,6 @@
     <Resource Include="Resources\out1.png" />
     <Resource Include="dll\MongoDB.Bson.xml" />
     <Content Include="dll\MongoDB.Driver.dll" />
-    <Content Include="dll\MongoDB.Driver.pdb" />
     <Resource Include="dll\MongoDB.Driver.xml" />
   </ItemGroup>
   <ItemGroup>
