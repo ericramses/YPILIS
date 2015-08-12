@@ -282,14 +282,14 @@ namespace YellowstonePathology.UI.Login.Receiving
         }
 
         private void HyperLinkReceivedFresh_Click(object sender, RoutedEventArgs e)
-        {
+        {            
             this.m_ClientOrderDetail.ClientFixationBinding = YellowstonePathology.Business.Specimen.Model.FixationType.Fresh;
-            this.m_ClientOrderDetail.LabFixationBinding = YellowstonePathology.Business.Specimen.Model.FixationType.Formalin;
+            this.m_ClientOrderDetail.LabFixationBinding = YellowstonePathology.Business.Specimen.Model.FixationType.Formalin;            
             this.m_ClientOrderDetail.SetFixationStartTime();
         }
 
         private void HyperLinkReceivedInFormalin_Click(object sender, RoutedEventArgs e)
-        {
+        {            
             this.m_ClientOrderDetail.ClientFixationBinding = YellowstonePathology.Business.Specimen.Model.FixationType.Formalin;
             this.m_ClientOrderDetail.LabFixationBinding = YellowstonePathology.Business.Specimen.Model.FixationType.Formalin;
             this.m_ClientOrderDetail.SetFixationStartTime();
@@ -343,8 +343,7 @@ namespace YellowstonePathology.UI.Login.Receiving
         }
 
         private void CheckBoxClientAccessioned_Unchecked(object sender, RoutedEventArgs e)
-        {
-            this.TextBoxFixationStartTime.IsEnabled = true;
+        {            
             this.m_ClientOrderDetail.SetFixationStartTime();
         }
 
