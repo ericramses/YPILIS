@@ -176,7 +176,7 @@ namespace YellowstonePathology.Business.HL7View.EPIC
 					view = new EpicMDSByFishObxView(accessionOrder, reportNo, obxCount);
 					break;
 				case 159:
-					view = new EpicMPLObxView(accessionOrder, reportNo, obxCount);
+					view = new YellowstonePathology.Business.Test.MPL.MPLEpicObxView(accessionOrder, reportNo, obxCount);
 					break;
 				case 160:
 					view = new EpicMultipleFISHProbePanelObxView(accessionOrder, reportNo, obxCount);
@@ -188,10 +188,10 @@ namespace YellowstonePathology.Business.HL7View.EPIC
 					view = new YellowstonePathology.Business.Test.BCRABLByPCR.BCRABLByPCREpicObxView(accessionOrder, reportNo, obxCount);
 					break;
 				case 163:
-					view = new EpicHer2AmplificationByFishObxView(accessionOrder, reportNo, obxCount);
+					view = new YellowstonePathology.Business.Test.Her2AmplificationByFish.Her2AmplificationByFishEpicObxView(accessionOrder, reportNo, obxCount);
 					break;
 				case 164:
-					view = new EpicMDSExtendedPanelByFishObxView(accessionOrder, reportNo, obxCount);
+					view = new YellowstonePathology.Business.Test.MDSExtendedByFish.MDSExtendedByFishEpicObxView(accessionOrder, reportNo, obxCount);
 					break;
 				case 168:
 					view = new YellowstonePathology.Business.Test.AMLStandardByFish.AMLStandardByFishEpicObxView(accessionOrder, reportNo, obxCount);
@@ -203,7 +203,7 @@ namespace YellowstonePathology.Business.HL7View.EPIC
 					view = new YellowstonePathology.Business.Test.NonHodgkinsLymphomaFISHPanel.NonHodgkinsLymphomaFISHPanelEpicObxView(accessionOrder, reportNo, obxCount);
 					break;
 				case 171:
-					view = new EpicHer2AmplificationByIHCObxView(accessionOrder, reportNo, obxCount);
+					view = new YellowstonePathology.Business.Test.Her2AmplificationByIHC.Her2AmplificationByIHCEpicObxView(accessionOrder, reportNo, obxCount);
 					break;
 				case 172:
 					view = new YellowstonePathology.Business.Test.EosinophiliaByFISH.EosinophiliaByFISHEpicObxView(accessionOrder, reportNo, obxCount);

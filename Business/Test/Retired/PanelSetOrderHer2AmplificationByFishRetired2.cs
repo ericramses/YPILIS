@@ -4,7 +4,7 @@ using System.Text;
 using System.Data;
 using YellowstonePathology.Business.Persistence;
 
-namespace YellowstonePathology.Business.Test
+namespace YellowstonePathology.Business.Test.Retired
 {
 	[PersistentClass("tblPanelSetOrderHer2ByFishRetired", "tblPanelSetOrder", "YPIDATA")]
 	public class PanelSetOrderHer2AmplificationByFishRetired2 : PanelSetOrder

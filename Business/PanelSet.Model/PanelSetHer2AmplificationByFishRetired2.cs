@@ -19,7 +19,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
             this.m_Active = false;
             
 			this.m_SurgicalAmendmentRequired = true;
-			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.PanelSetOrderHer2AmplificationByFishRetired2).AssemblyQualifiedName;
+			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.Retired.PanelSetOrderHer2AmplificationByFishRetired2).AssemblyQualifiedName;
             
 			this.m_AllowMultiplePerAccession = true;           			
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceMiscellaneous());

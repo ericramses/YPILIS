@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 
-namespace YellowstonePathology.Business.Test
+namespace YellowstonePathology.Business.Test.MPL
 {
 	public class MPLResultCollection : TestResultCollection
 	{

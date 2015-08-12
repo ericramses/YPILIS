@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace YellowstonePathology.Business.PanelSet.Model
+namespace YellowstonePathology.Business.Test.Her2AmplificationByFish
 {
-	public class PanelSetHer2AmplificationByFish : PanelSet
+	public class Her2AmplificationByFishTest : YellowstonePathology.Business.PanelSet.Model.PanelSet
 	{
-		public PanelSetHer2AmplificationByFish()
+		public Her2AmplificationByFishTest()
 		{
 			this.m_PanelSetId = 163;
 			this.m_PanelSetName = "HER2 Amplification by FISH";
@@ -15,12 +15,12 @@ namespace YellowstonePathology.Business.PanelSet.Model
             this.m_CaseType = YellowstonePathology.Business.CaseType.FISH;
 			this.m_HasTechnicalComponent = true;			
 			this.m_HasProfessionalComponent = true;
-			this.m_ResultDocumentSource = ResultDocumentSourceEnum.YPIDatabase;
+			this.m_ResultDocumentSource = YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.YPIDatabase;
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterR();
             this.m_Active = true;
 
 
-			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.PanelSetOrderHer2AmplificationByFish).AssemblyQualifiedName;
+			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.Her2AmplificationByFish.Her2AmplificationByFishTestOrder).AssemblyQualifiedName;
             
 			this.m_AllowMultiplePerAccession = true;
 

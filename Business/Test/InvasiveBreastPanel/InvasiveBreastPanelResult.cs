@@ -70,7 +70,7 @@ namespace YellowstonePathology.Business.Test.InvasiveBreastPanel
 			if (this.m_HER2ResultString == YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHTestOrder.EquivocalResult) this.m_IsHER2ByFISHRequired = true;
 
 			YellowstonePathology.Business.PanelSet.Model.PanelSetHer2AmplificationByFishRetired3 panelSetHer2AmplificationByFishRetired3 = new YellowstonePathology.Business.PanelSet.Model.PanelSetHer2AmplificationByFishRetired3();
-			YellowstonePathology.Business.PanelSet.Model.PanelSetHer2AmplificationByFish panelSetHer2AmplificationByFish = new YellowstonePathology.Business.PanelSet.Model.PanelSetHer2AmplificationByFish();
+			YellowstonePathology.Business.Test.Her2AmplificationByFish.Her2AmplificationByFishTest panelSetHer2AmplificationByFish = new YellowstonePathology.Business.Test.Her2AmplificationByFish.Her2AmplificationByFishTest();
 			if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(panelSetHer2AmplificationByFishRetired3.PanelSetId) == true)
 			{
 				this.m_HER2ByFISHHasBeenOrdered = true;
@@ -80,7 +80,7 @@ namespace YellowstonePathology.Business.Test.InvasiveBreastPanel
 			else if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(panelSetHer2AmplificationByFish.PanelSetId) == true)
 			{
 				this.m_HER2ByFISHHasBeenOrdered = true;
-				YellowstonePathology.Business.Test.PanelSetOrderHer2AmplificationByFish panelSetOrderHer2AmplificationByFish = (YellowstonePathology.Business.Test.PanelSetOrderHer2AmplificationByFish)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetHer2AmplificationByFish.PanelSetId);
+				YellowstonePathology.Business.Test.Her2AmplificationByFish.Her2AmplificationByFishTestOrder panelSetOrderHer2AmplificationByFish = (YellowstonePathology.Business.Test.Her2AmplificationByFish.Her2AmplificationByFishTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetHer2AmplificationByFish.PanelSetId);
 				this.m_HER2ByFISHResultString = panelSetOrderHer2AmplificationByFish.Result;
 			}
 			else this.m_HER2ByFISHResultString = "Not Required.";

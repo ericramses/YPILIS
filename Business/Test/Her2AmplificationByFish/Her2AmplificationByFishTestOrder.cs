@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using YellowstonePathology.Business.Persistence;
 
-namespace YellowstonePathology.Business.Test
+namespace YellowstonePathology.Business.Test.Her2AmplificationByFish
 {
 	[PersistentClass("tblPanelSetOrderHer2AmplificationByFish", "tblPanelSetOrder", "YPIDATA")]
-	public class PanelSetOrderHer2AmplificationByFish : PanelSetOrder
+	public class Her2AmplificationByFishTestOrder : PanelSetOrder
 	{
 		private string m_Result;
 		private string m_Indicator;
@@ -21,12 +21,12 @@ namespace YellowstonePathology.Business.Test
 		private string m_Reference;
         private bool m_NonBreast;
 
-		public PanelSetOrderHer2AmplificationByFish()
+		public Her2AmplificationByFishTestOrder()
         {
 
         }
 
-		public PanelSetOrderHer2AmplificationByFish(string masterAccessionNo, string reportNo, string objectId,
+		public Her2AmplificationByFishTestOrder(string masterAccessionNo, string reportNo, string objectId,
              YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
             YellowstonePathology.Business.Interface.IOrderTarget orderTarget,
 			bool distribute,

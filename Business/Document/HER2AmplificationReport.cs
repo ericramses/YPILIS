@@ -15,7 +15,7 @@ namespace YellowstonePathology.Business.Document
 
 			this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByMasterAccessionNo(masterAccessionNo);
             this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
-			YellowstonePathology.Business.Test.PanelSetOrderHer2AmplificationByFishRetired2 panelSetOrderHer2AmplificationByFishRetired2 = (YellowstonePathology.Business.Test.PanelSetOrderHer2AmplificationByFishRetired2)this.m_PanelSetOrder;
+			YellowstonePathology.Business.Test.Retired.PanelSetOrderHer2AmplificationByFishRetired2 panelSetOrderHer2AmplificationByFishRetired2 = (YellowstonePathology.Business.Test.Retired.PanelSetOrderHer2AmplificationByFishRetired2)this.m_PanelSetOrder;
 			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\HER2AmplificationByFish.5.xml";
 
 			base.OpenTemplate();
