@@ -17,7 +17,7 @@ namespace YellowstonePathology.UI.Login
 	/// <summary>
 	/// Interaction logic for CaseNoteDetails.xaml
 	/// </summary>
-	public partial class CaseNoteDetailsPage : UserControl, YellowstonePathology.Shared.Interface.IPersistPageChanges
+	public partial class CaseNoteDetailsPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
 	{
 		public delegate void ReturnEventHandler(object sender, UI.Navigation.PageNavigationReturnEventArgs e);
 		public event ReturnEventHandler Return;

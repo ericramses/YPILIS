@@ -7,10 +7,10 @@ namespace YellowstonePathology.Business.Helper
     public class FlowCommentHelper
     {                
 		string m_SpecimenDescription;
-		YellowstonePathology.Shared.Interface.ILeukemiaLymphomaResult m_LeukemiaLymphomaResult;
-		List<YellowstonePathology.Shared.Interface.IFlowMarker> m_FlowMarkers;
+		YellowstonePathology.Business.Interface.ILeukemiaLymphomaResult m_LeukemiaLymphomaResult;
+		List<YellowstonePathology.Business.Interface.IFlowMarker> m_FlowMarkers;
 
-		public FlowCommentHelper(string specimenDescription, YellowstonePathology.Shared.Interface.ILeukemiaLymphomaResult leukemiaLymphomaResult, List<YellowstonePathology.Shared.Interface.IFlowMarker> flowMarkers)
+		public FlowCommentHelper(string specimenDescription, YellowstonePathology.Business.Interface.ILeukemiaLymphomaResult leukemiaLymphomaResult, List<YellowstonePathology.Business.Interface.IFlowMarker> flowMarkers)
         {
             this.m_SpecimenDescription = specimenDescription;
 			this.m_LeukemiaLymphomaResult = leukemiaLymphomaResult;
@@ -111,7 +111,7 @@ namespace YellowstonePathology.Business.Helper
         private void SetMarkerExpressionFragment(List<string> sentences)
         {
             string expressesFragment = " that express ";
-			foreach (YellowstonePathology.Shared.Interface.IFlowMarker marker in this.m_FlowMarkers)
+			foreach (YellowstonePathology.Business.Interface.IFlowMarker marker in this.m_FlowMarkers)
             {
                 if (marker.Name != "Kappa" & marker.Name != "Lambda")
                 {
@@ -129,7 +129,7 @@ namespace YellowstonePathology.Business.Helper
                 expressesFragment = expressesFragment.Replace(replaceText, " and " + expressionSplit[expressionSplit.Length - 1].Trim());
             }
 
-			foreach (YellowstonePathology.Shared.Interface.IFlowMarker marker in this.m_FlowMarkers)
+			foreach (YellowstonePathology.Business.Interface.IFlowMarker marker in this.m_FlowMarkers)
             {
                 if (marker.Name == "Kappa")
                 {
@@ -148,7 +148,7 @@ namespace YellowstonePathology.Business.Helper
             }            
                         
             List<string> butNotMarkers = new List<string>();
-			foreach (YellowstonePathology.Shared.Interface.IFlowMarker marker in this.m_FlowMarkers)
+			foreach (YellowstonePathology.Business.Interface.IFlowMarker marker in this.m_FlowMarkers)
             {
                 if (marker.Name != "Kappa" & marker.Name != "Lambda")
                 {
@@ -181,7 +181,7 @@ namespace YellowstonePathology.Business.Helper
         private void SetSurfaceImmunoglobulinSentence(List<string> sentences)
         {
             string sentence = string.Empty;
-			foreach (YellowstonePathology.Shared.Interface.IFlowMarker marker in this.m_FlowMarkers)
+			foreach (YellowstonePathology.Business.Interface.IFlowMarker marker in this.m_FlowMarkers)
             {
                 if (marker.Name == "Lambda" | marker.Name == "Kappa")
                 {
@@ -197,7 +197,7 @@ namespace YellowstonePathology.Business.Helper
         private void SetEquivocalSentence(List<string> sentences)
         {            
             List<string> markers = new List<string>();
-			foreach (YellowstonePathology.Shared.Interface.IFlowMarker marker in this.m_FlowMarkers)
+			foreach (YellowstonePathology.Business.Interface.IFlowMarker marker in this.m_FlowMarkers)
             {
                 if (marker.Expresses == 3)
                 {

@@ -37,8 +37,8 @@ namespace YellowstonePathology.UI.Navigation
         {            
             YellowstonePathology.UI.Navigation.NavigatingEventArgs eventArgs = new NavigatingEventArgs(this.m_CurrentPage, page);
 
-			YellowstonePathology.Shared.Interface.IPersistPageChanges navigatingFromPage = (YellowstonePathology.Shared.Interface.IPersistPageChanges)this.m_CurrentPage;
-			YellowstonePathology.Shared.Interface.IPersistPageChanges navigatingToPage = (YellowstonePathology.Shared.Interface.IPersistPageChanges)page;
+			YellowstonePathology.Business.Interface.IPersistPageChanges navigatingFromPage = (YellowstonePathology.Business.Interface.IPersistPageChanges)this.m_CurrentPage;
+			YellowstonePathology.Business.Interface.IPersistPageChanges navigatingToPage = (YellowstonePathology.Business.Interface.IPersistPageChanges)page;
 
 			if (navigatingFromPage != null)
             {
@@ -83,7 +83,7 @@ namespace YellowstonePathology.UI.Navigation
 
         public void Close()
         {
-			YellowstonePathology.Shared.Interface.IPersistPageChanges page = (YellowstonePathology.Shared.Interface.IPersistPageChanges)this.m_CurrentPage;
+			YellowstonePathology.Business.Interface.IPersistPageChanges page = (YellowstonePathology.Business.Interface.IPersistPageChanges)this.m_CurrentPage;
 
             if (this.m_SecondMonitorWindow != null)
             {

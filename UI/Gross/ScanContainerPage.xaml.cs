@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Gross
     /// <summary>
 	/// Interaction logic for ScanContainerPage.xaml
     /// </summary>
-	public partial class ScanContainerPage : UserControl, YellowstonePathology.Shared.Interface.IPersistPageChanges, INotifyPropertyChanged 
+	public partial class ScanContainerPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges, INotifyPropertyChanged 
 	{
 		public event PropertyChangedEventHandler PropertyChanged;		
 

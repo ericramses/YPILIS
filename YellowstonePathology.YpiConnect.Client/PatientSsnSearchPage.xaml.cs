@@ -17,7 +17,7 @@ namespace YellowstonePathology.YpiConnect.Client
     /// <summary>
 	/// Interaction logic for PatientSsnSearchPage.xaml
     /// </summary>
-	public partial class PatientSsnSearchPage : Page, YellowstonePathology.Shared.Interface.IPersistPageChanges
+	public partial class PatientSsnSearchPage : Page, YellowstonePathology.Business.Interface.IPersistPageChanges
     {
         public event EventHandler DoSsnSearch;
 

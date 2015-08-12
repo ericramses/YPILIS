@@ -18,7 +18,7 @@ namespace YellowstonePathology.YpiConnect.Client.OrderEntry
     /// <summary>
     /// Interaction logic for OrderEntryWindow.xaml
     /// </summary>
-	public partial class SurgicalOrderEntryPage : Page, INotifyPropertyChanged, YellowstonePathology.Shared.Interface.IPersistPageChanges
+	public partial class SurgicalOrderEntryPage : Page, INotifyPropertyChanged, YellowstonePathology.Business.Interface.IPersistPageChanges
     {
         public delegate void PropertyChangedNotificationHandler(String info);
         public event PropertyChangedEventHandler PropertyChanged;

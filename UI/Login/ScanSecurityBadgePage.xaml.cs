@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Login
 	/// <summary>
 	/// Interaction logic for ScanSecurityBadgePage.xaml
 	/// </summary>
-	public partial class ScanSecurityBadgePage : UserControl, YellowstonePathology.Shared.Interface.IPersistPageChanges, INotifyPropertyChanged
+	public partial class ScanSecurityBadgePage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges, INotifyPropertyChanged
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 

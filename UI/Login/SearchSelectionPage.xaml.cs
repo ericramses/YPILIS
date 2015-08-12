@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Login
 	/// <summary>
 	/// Interaction logic for SearchSelectionPage.xaml
 	/// </summary>
-    public partial class SearchSelectionPage : UserControl, YellowstonePathology.Shared.Interface.IPersistPageChanges, INotifyPropertyChanged
+    public partial class SearchSelectionPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges, INotifyPropertyChanged
 	{
         public event PropertyChangedEventHandler PropertyChanged;
 

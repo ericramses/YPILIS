@@ -21,7 +21,7 @@ namespace YellowstonePathology.UI.Gross
 	/// <summary>
 	/// Interaction logic for PrintBlockPage.xaml
 	/// </summary>
-	public partial class PrintBlockPage : UserControl, YellowstonePathology.Shared.Interface.IPersistPageChanges, INotifyPropertyChanged
+	public partial class PrintBlockPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges, INotifyPropertyChanged
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 

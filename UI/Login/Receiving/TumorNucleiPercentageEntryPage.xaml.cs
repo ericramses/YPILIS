@@ -16,7 +16,7 @@ using System.ComponentModel;
 
 namespace YellowstonePathology.UI.Login.Receiving
 {	
-	public partial class TumorNucleiPercentageEntryPage : UserControl, INotifyPropertyChanged, Shared.Interface.IPersistPageChanges
+	public partial class TumorNucleiPercentageEntryPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 

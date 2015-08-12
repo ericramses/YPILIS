@@ -15,7 +15,7 @@ using System.ComponentModel;
 
 namespace YellowstonePathology.UI.Cutting
 {    
-	public partial class ScanAliquotPage : UserControl, YellowstonePathology.Shared.Interface.IPersistPageChanges, INotifyPropertyChanged 
+	public partial class ScanAliquotPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges, INotifyPropertyChanged 
 	{
 		public event PropertyChangedEventHandler PropertyChanged;		
 

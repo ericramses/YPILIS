@@ -17,7 +17,7 @@ using System.ComponentModel;
 
 namespace YellowstonePathology.YpiConnect.Client
 {
-	public partial class PathologistSignoutPage : Page, YellowstonePathology.Shared.Interface.IPersistPageChanges
+	public partial class PathologistSignoutPage : Page, YellowstonePathology.Business.Interface.IPersistPageChanges
     {
 		private ReportBrowserUI m_ReportBrowserUI;
         

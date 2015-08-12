@@ -15,7 +15,7 @@ using System.ComponentModel;
 
 namespace YellowstonePathology.UI.Login.ReceiveSpecimen
 {   
-    public partial class OrderSelectionPage : UserControl, INotifyPropertyChanged, Shared.Interface.IPersistPageChanges
+    public partial class OrderSelectionPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
     {
         public event PropertyChangedEventHandler PropertyChanged;
 

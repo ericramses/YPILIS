@@ -17,7 +17,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 	/// <summary>
 	/// Interaction logic for TaskOrderListPage.xaml
 	/// </summary>
-	public partial class TaskOrderListPage : UserControl, Shared.Interface.IPersistPageChanges
+	public partial class TaskOrderListPage : UserControl, Business.Interface.IPersistPageChanges
 	{
 
 		public delegate void NextEventHandler(object sender, CustomEventArgs.TaskOrderReturnEventArgs e);

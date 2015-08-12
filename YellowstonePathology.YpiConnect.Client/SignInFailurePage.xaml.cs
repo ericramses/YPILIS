@@ -17,7 +17,7 @@ namespace YellowstonePathology.YpiConnect.Client
     /// <summary>
     /// Interaction logic for SignInFailurePage.xaml
     /// </summary>
-	public partial class SignInFailurePage : Page, YellowstonePathology.Shared.Interface.IPersistPageChanges
+	public partial class SignInFailurePage : Page, YellowstonePathology.Business.Interface.IPersistPageChanges
     {
         public SignInFailurePage()
         {

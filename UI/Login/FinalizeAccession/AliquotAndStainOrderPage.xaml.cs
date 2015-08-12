@@ -18,7 +18,7 @@ using System.Xml.Linq;
 
 namespace YellowstonePathology.UI.Login.FinalizeAccession
 {	
-    public partial class AliquotAndStainOrderPage : UserControl, YellowstonePathology.Shared.Interface.IPersistPageChanges, INotifyPropertyChanged
+    public partial class AliquotAndStainOrderPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges, INotifyPropertyChanged
 	{
         public event PropertyChangedEventHandler PropertyChanged;
 

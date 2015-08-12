@@ -17,7 +17,7 @@ namespace YellowstonePathology.YpiConnect.Client
     /// <summary>
 	/// Interaction logic for ReportNoSearchPage.xaml
     /// </summary>
-	public partial class ReportNoSearchPage : Page, YellowstonePathology.Shared.Interface.IPersistPageChanges
+	public partial class ReportNoSearchPage : Page, YellowstonePathology.Business.Interface.IPersistPageChanges
     {
         public event EventHandler DoReportNoSearch;
 

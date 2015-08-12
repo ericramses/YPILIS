@@ -15,7 +15,7 @@ using System.ComponentModel;
 
 namespace YellowstonePathology.UI.Test
 {
-    public partial class TecanImportExportPage : UserControl, INotifyPropertyChanged, Shared.Interface.IPersistPageChanges
+    public partial class TecanImportExportPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
 	{
         public delegate void PropertyChangedNotificationHandler(String info);
         public event PropertyChangedEventHandler PropertyChanged;

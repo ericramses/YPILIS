@@ -41,7 +41,7 @@ namespace YellowstonePathology.YpiConnect.Client
 
         private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-			YellowstonePathology.Shared.Interface.IPersistPageChanges page = (YellowstonePathology.Shared.Interface.IPersistPageChanges)this.MainFrame.NavigationService.Content;
+			YellowstonePathology.Business.Interface.IPersistPageChanges page = (YellowstonePathology.Business.Interface.IPersistPageChanges)this.MainFrame.NavigationService.Content;
             if (page != null)
             {
 				page.UpdateBindingSources();
@@ -53,8 +53,8 @@ namespace YellowstonePathology.YpiConnect.Client
 		{
             if (this.MainFrame.Content != null)
             {
-				YellowstonePathology.Shared.Interface.IPersistPageChanges navigatingToPage = (YellowstonePathology.Shared.Interface.IPersistPageChanges)e.Content;
-				YellowstonePathology.Shared.Interface.IPersistPageChanges navigatingFromPage = (YellowstonePathology.Shared.Interface.IPersistPageChanges)this.MainFrame.Content;
+				YellowstonePathology.Business.Interface.IPersistPageChanges navigatingToPage = (YellowstonePathology.Business.Interface.IPersistPageChanges)e.Content;
+				YellowstonePathology.Business.Interface.IPersistPageChanges navigatingFromPage = (YellowstonePathology.Business.Interface.IPersistPageChanges)this.MainFrame.Content;
 				navigatingFromPage.UpdateBindingSources();
 				if (navigatingFromPage.OkToSaveOnNavigation(navigatingToPage.GetType()) == true)
                 {

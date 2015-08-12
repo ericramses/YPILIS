@@ -16,7 +16,7 @@ using System.ComponentModel;
 
 namespace YellowstonePathology.UI.Billing
 {	
-	public partial class PatientDetailPage : UserControl, INotifyPropertyChanged, Shared.Interface.IPersistPageChanges
+	public partial class PatientDetailPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 

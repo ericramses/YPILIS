@@ -14,7 +14,7 @@ using System.Windows.Shapes;
 
 namespace YellowstonePathology.UI.MaterialTracking
 {
-	public partial class MaterialTrackingStartPage : UserControl, YellowstonePathology.Shared.Interface.IPersistPageChanges
+	public partial class MaterialTrackingStartPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
 	{		
 		public delegate void FacilitySelectionEventHandler(object sender, CustomEventArgs.FacilitySelectionReturnEventArgs e);
 		public event FacilitySelectionEventHandler FacilitySelection;

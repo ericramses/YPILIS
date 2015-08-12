@@ -137,10 +137,6 @@
       <Project>{0B68C6D2-6418-4ECD-95D5-93DD6F8E1782}</Project>
       <Name>DomainPersistence</Name>
     </ProjectReference>
-    <ProjectReference Include="..\YellowstonePathology.Shared\YellowstonePathology.Shared.csproj">
-      <Project>{9AD489BB-A66D-4FDF-A600-7D5E32DE5D4E}</Project>
-      <Name>YellowstonePathology.Shared</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Identity\WebServiceAccountCollection.xml" />

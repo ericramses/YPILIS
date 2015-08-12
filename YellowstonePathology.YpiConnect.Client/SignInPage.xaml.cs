@@ -17,7 +17,7 @@ namespace YellowstonePathology.YpiConnect.Client
     /// <summary>
 	/// Interaction logic for SignInPage.xaml
     /// </summary>
-	public partial class SignInPage : Page, INotifyPropertyChanged, YellowstonePathology.Shared.Interface.IPersistPageChanges
+	public partial class SignInPage : Page, INotifyPropertyChanged, YellowstonePathology.Business.Interface.IPersistPageChanges
     {
         public delegate void PropertyChangedNotificationHandler(String info);
         public event PropertyChangedEventHandler PropertyChanged;

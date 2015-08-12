@@ -14,7 +14,7 @@ using System.Windows.Shapes;
 
 namespace YellowstonePathology.YpiConnect.Client
 {    
-	public partial class ViewMessagesPage : Page, YellowstonePathology.Shared.Interface.IPersistPageChanges
+	public partial class ViewMessagesPage : Page, YellowstonePathology.Business.Interface.IPersistPageChanges
     {
         public event EventHandler DoSsnSearch;
 

@@ -19,7 +19,7 @@ namespace YellowstonePathology.YpiConnect.Client
     /// <summary>
 	/// Interaction logic for FileDownloadPage.xaml
     /// </summary>
-	public partial class FileDownloadPage : Page, INotifyPropertyChanged, YellowstonePathology.Shared.Interface.IPersistPageChanges
+	public partial class FileDownloadPage : Page, INotifyPropertyChanged, YellowstonePathology.Business.Interface.IPersistPageChanges
 	{
 		public delegate void PropertyChangedNotificationHandler(String info);
 		public event PropertyChangedEventHandler PropertyChanged;
