@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace YellowstonePathology.Business.Document
+namespace YellowstonePathology.Business.Test.Her2AmplificationByIHC
 {
-	public class Her2AmplificationByIHCReport : CaseReportV2
+	public class Her2AmplificationByIHCWordDocument : YellowstonePathology.Business.Document.CaseReportV2
 	{
 		public override void Render(string masterAccessionNo, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveEnum)
 		{
@@ -14,7 +14,7 @@ namespace YellowstonePathology.Business.Document
 			this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByMasterAccessionNo(masterAccessionNo);
 
 			this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
-			YellowstonePathology.Business.Test.PanelSetOrderHer2AmplificationByIHC panelSetOrder = (YellowstonePathology.Business.Test.PanelSetOrderHer2AmplificationByIHC)this.m_PanelSetOrder;
+			Her2AmplificationByIHCTestOrder panelSetOrder = (Her2AmplificationByIHCTestOrder)this.m_PanelSetOrder;
 
 			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\Her2AmplificationByIHC.xml";
 			base.OpenTemplate();
@@ -27,7 +27,7 @@ namespace YellowstonePathology.Business.Document
 			string collectionDateTimeString = YellowstonePathology.Business.Helper.DateTimeExtensions.CombineDateAndTime(specimenOrder.CollectionDate, specimenOrder.CollectionTime);
 			this.SetXmlNodeData("date_time_collected", collectionDateTimeString);
 
-			AmendmentSection amendmentSection = new AmendmentSection();
+			YellowstonePathology.Business.Document.AmendmentSection amendmentSection = new YellowstonePathology.Business.Document.AmendmentSection();
 			amendmentSection.SetAmendment(this.m_PanelSetOrder.AmendmentCollection, this.m_ReportXml, this.m_NameSpaceManager, true);
 
 			base.ReplaceText("report_result", panelSetOrder.Result);

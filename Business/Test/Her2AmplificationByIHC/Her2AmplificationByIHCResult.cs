@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace YellowstonePathology.Business.Test
+namespace YellowstonePathology.Business.Test.Her2AmplificationByIHC
 {
 	public class Her2AmplificationByIHCResult
 	{
@@ -18,7 +18,7 @@ namespace YellowstonePathology.Business.Test
 		{
 		}
 
-		public void SetResults(PanelSetOrderHer2AmplificationByIHC panelSetOrder)
+		public void SetResults(Her2AmplificationByIHCTestOrder panelSetOrder)
 		{
 			panelSetOrder.Method = Method;
 

@@ -4,18 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 
-namespace YellowstonePathology.Business.HL7View.EPIC
+namespace YellowstonePathology.Business.Test.Her2AmplificationByIHC
 {
-	public class EpicHer2AmplificationByIHCObxView: EpicObxView
+	public class Her2AmplificationByIHCEpicObxView : YellowstonePathology.Business.HL7View.EPIC.EpicObxView
 	{
-		public EpicHer2AmplificationByIHCObxView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount)
+		public Her2AmplificationByIHCEpicObxView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount)
 			: base(accessionOrder, reportNo, obxCount)
 		{
 		}
 
 		public override void ToXml(XElement document)
 		{
-			YellowstonePathology.Business.Test.PanelSetOrderHer2AmplificationByIHC panelSetOrder = (YellowstonePathology.Business.Test.PanelSetOrderHer2AmplificationByIHC)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
+			Her2AmplificationByIHCTestOrder panelSetOrder = (Her2AmplificationByIHCTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
 			this.AddHeader(document, panelSetOrder, "FLT3 Mutation Analysis");
 
 			this.AddNextObxElement("", document, "F");

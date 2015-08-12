@@ -4,18 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 
-namespace YellowstonePathology.Business.HL7View.EPIC
+namespace YellowstonePathology.Business.Test.MDSExtendedByFish
 {
-	public class EpicMDSExtendedPanelByFishObxView : EpicObxView
+	public class MDSExtendedByFishEpicObxView : YellowstonePathology.Business.HL7View.EPIC.EpicObxView
 	{
-		public EpicMDSExtendedPanelByFishObxView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount)
+		public MDSExtendedByFishEpicObxView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount)
 			: base(accessionOrder, reportNo, obxCount)
 		{
 		}
 
 		public override void ToXml(XElement document)
 		{
-			YellowstonePathology.Business.Test.PanelSetOrderMDSExtendedByFish panelSetOrder = (YellowstonePathology.Business.Test.PanelSetOrderMDSExtendedByFish)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
+			MDSExtendedByFishTestOrder panelSetOrder = (MDSExtendedByFishTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
 			this.AddHeader(document, panelSetOrder, "MDS Extended By Fish Analysis");
 
 			this.AddNextObxElement("", document, "F");

@@ -3,21 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace YellowstonePathology.Business.PanelSet.Model
+namespace YellowstonePathology.Business.Test.MPL
 {
-	public class PanelSetMPL : PanelSet
+	public class MPLTest : YellowstonePathology.Business.PanelSet.Model.PanelSet
 	{
-		public PanelSetMPL()
+		public MPLTest()
 		{
 			this.m_PanelSetId = 159;
 			this.m_PanelSetName = "MPL Mutation Analysis";
             this.m_CaseType = YellowstonePathology.Business.CaseType.Molecular;
 			this.m_HasTechnicalComponent = true;			
 			this.m_HasProfessionalComponent = false;
-			this.m_ResultDocumentSource = ResultDocumentSourceEnum.YPIDatabase;
+			this.m_ResultDocumentSource = YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.YPIDatabase;
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterR();
             this.m_Active = true;
-			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.PanelSetOrderMPL).AssemblyQualifiedName;            
+			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.MPL.MPLTestOrder).AssemblyQualifiedName;            
 			this.m_AllowMultiplePerAccession = true;
 
             string taskDescription = "Gather materials (Peripheral blood: 5 mL in EDTA tube or Bone marrow: 2 mL in EDTA tube) and send out to Neo.";

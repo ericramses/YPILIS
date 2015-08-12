@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 
-namespace YellowstonePathology.Business.Document
+namespace YellowstonePathology.Business.Test.Her2AmplificationByFish
 {
-	public class Her2AmplificationByFishReport : CaseReportV2
+	public class Her2AmplificationByFishWordDocument : YellowstonePathology.Business.Document.CaseReportV2
 	{
 		public override void Render(string masterAccessionNo, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveEnum)
 		{
@@ -15,7 +15,7 @@ namespace YellowstonePathology.Business.Document
 
 			this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByMasterAccessionNo(masterAccessionNo);
 			this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
-			YellowstonePathology.Business.Test.PanelSetOrderHer2AmplificationByFish panelSetOrderHer2AmplificationByFish = (YellowstonePathology.Business.Test.PanelSetOrderHer2AmplificationByFish)this.m_PanelSetOrder;
+			Her2AmplificationByFishTestOrder panelSetOrderHer2AmplificationByFish = (Her2AmplificationByFishTestOrder)this.m_PanelSetOrder;
 
             if (panelSetOrderHer2AmplificationByFish.NonBreast == false)
             {
@@ -34,7 +34,7 @@ namespace YellowstonePathology.Business.Document
 
 			if (this.m_AccessionOrder.OrderCancelled == false)
 			{
-				Document.AmendmentSection amendmentSection = new AmendmentSection();
+				YellowstonePathology.Business.Document.AmendmentSection amendmentSection = new YellowstonePathology.Business.Document.AmendmentSection();
 				amendmentSection.SetAmendment(m_PanelSetOrder.AmendmentCollection, this.m_ReportXml, this.m_NameSpaceManager, true);
 
 				YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrder.OrderedOn, this.m_PanelSetOrder.OrderedOnId);

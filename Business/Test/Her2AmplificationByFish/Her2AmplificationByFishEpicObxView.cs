@@ -4,18 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 
-namespace YellowstonePathology.Business.HL7View.EPIC
+namespace YellowstonePathology.Business.Test.Her2AmplificationByFish
 {
-	public class EpicHer2AmplificationByFishObxView : EpicObxView
+	public class Her2AmplificationByFishEpicObxView : YellowstonePathology.Business.HL7View.EPIC.EpicObxView
     {
-		public EpicHer2AmplificationByFishObxView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount) 
+		public Her2AmplificationByFishEpicObxView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount) 
             : base(accessionOrder, reportNo, obxCount)
 		{			
 		}
 
         public override void ToXml(XElement document)
         {
-			YellowstonePathology.Business.Test.PanelSetOrderHer2AmplificationByFish panelSetOrder = (YellowstonePathology.Business.Test.PanelSetOrderHer2AmplificationByFish)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);                        
+			Her2AmplificationByFishTestOrder panelSetOrder = (Her2AmplificationByFishTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);                        
 
             this.AddHeader(document, panelSetOrder, "HER2 Gene Amplification");
             this.AddNextObxElement("", document, "F");

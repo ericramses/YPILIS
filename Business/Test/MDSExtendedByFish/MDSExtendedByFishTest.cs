@@ -3,23 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace YellowstonePathology.Business.PanelSet.Model
+namespace YellowstonePathology.Business.Test.MDSExtendedByFish
 {
-	public class PanelSetMDSExtendedByFish : PanelSet
+	public class MDSExtendedByFishTest : YellowstonePathology.Business.PanelSet.Model.PanelSet
 	{
-        public PanelSetMDSExtendedByFish()
+		public MDSExtendedByFishTest()
 		{
 			this.m_PanelSetId = 164;
             this.m_PanelSetName = "MDS Extended By FISH";
             this.m_CaseType = YellowstonePathology.Business.CaseType.FISH;
 			this.m_HasTechnicalComponent = true;			
             this.m_HasProfessionalComponent = true;
-			this.m_ResultDocumentSource = ResultDocumentSourceEnum.YPIDatabase;
+			this.m_ResultDocumentSource = YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.YPIDatabase;
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterR();
             this.m_Active = true;
 
 
-			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.PanelSetOrderMDSExtendedByFish).AssemblyQualifiedName;
+			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.MDSExtendedByFish.MDSExtendedByFishTest).AssemblyQualifiedName;
             
 			this.m_AllowMultiplePerAccession = true;
 
