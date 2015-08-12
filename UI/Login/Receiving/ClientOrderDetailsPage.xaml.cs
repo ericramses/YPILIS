@@ -246,19 +246,22 @@ namespace YellowstonePathology.UI.Login.Receiving
         }
        
         private void ComboBoxSpecimenId_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
+        {            
             if (this.ComboBoxSpecimenId.SelectedItem != null)
             {
                 if (string.IsNullOrEmpty(this.m_ClientOrderDetail.DescriptionToAccession) == true)
-                {                    
-                    YellowstonePathology.Business.Specimen.Model.Specimen specimen = (YellowstonePathology.Business.Specimen.Model.Specimen)this.ComboBoxSpecimenId.SelectedItem;
-                    this.m_ClientOrderDetail.DescriptionToAccessionBinding = specimen.Description;
-                    this.m_ClientOrderDetail.LabFixationBinding = specimen.LabFixation;
-                    this.m_ClientOrderDetail.ClientFixationBinding = specimen.ClientFixation;
-                    this.m_ClientOrderDetail.RequiresGrossExamination = specimen.RequiresGrossExamination;
+                {
+                    if (this.TextBoxAccessionAs != null)
+                    {
+                        YellowstonePathology.Business.Specimen.Model.Specimen specimen = (YellowstonePathology.Business.Specimen.Model.Specimen)this.ComboBoxSpecimenId.SelectedItem;
+                        this.m_ClientOrderDetail.DescriptionToAccessionBinding = specimen.Description;
+                        this.m_ClientOrderDetail.LabFixationBinding = specimen.LabFixation;
+                        this.m_ClientOrderDetail.ClientFixationBinding = specimen.ClientFixation;
+                        this.m_ClientOrderDetail.RequiresGrossExamination = specimen.RequiresGrossExamination;
 
-                    this.HandleTemplatedSpecimen();
-                    this.NotifyPropertyChanged("");                    
+                        this.HandleTemplatedSpecimen();
+                        this.NotifyPropertyChanged("");
+                    }
                 }
             }
         }

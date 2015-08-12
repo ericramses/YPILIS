@@ -240,15 +240,18 @@ namespace YellowstonePathology.UI.Login
         private void ComboBoxSpecimenId_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (this.ComboBoxSpecimenId.SelectedItem != null)
-            {                                   
-                YellowstonePathology.Business.Specimen.Model.Specimen specimen = (YellowstonePathology.Business.Specimen.Model.Specimen)this.ComboBoxSpecimenId.SelectedItem;
-                this.m_SpecimenOrder.Description = specimen.Description;
-                this.m_SpecimenOrder.LabFixation = specimen.LabFixation;
-                this.m_SpecimenOrder.ClientFixation = specimen.ClientFixation;
-                this.m_SpecimenOrder.RequiresGrossExamination = specimen.RequiresGrossExamination;
+            {
+                if (string.IsNullOrEmpty(this.m_SpecimenOrder.Description) == true)
+                {
+                    YellowstonePathology.Business.Specimen.Model.Specimen specimen = (YellowstonePathology.Business.Specimen.Model.Specimen)this.ComboBoxSpecimenId.SelectedItem;
+                    this.m_SpecimenOrder.Description = specimen.Description;
+                    this.m_SpecimenOrder.LabFixation = specimen.LabFixation;
+                    this.m_SpecimenOrder.ClientFixation = specimen.ClientFixation;
+                    this.m_SpecimenOrder.RequiresGrossExamination = specimen.RequiresGrossExamination;
 
-                this.HandleTemplatedSpecimen();
-                this.NotifyPropertyChanged("");                                    
+                    this.HandleTemplatedSpecimen();
+                    this.NotifyPropertyChanged("");
+                }
             }
         }
 
