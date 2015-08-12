@@ -351,6 +351,9 @@
     <Compile Include="Helper\PatientHelper.cs" />
     <Compile Include="Helper\SerializationHelper.cs" />
     <Compile Include="Helper\StringExtensionMethods.cs" />
+    <Compile Include="Interface\IFlowMarker.cs" />
+    <Compile Include="Interface\ILeukemiaLymphomaResult.cs" />
+    <Compile Include="Interface\IPersistPageChanges.cs" />
     <Compile Include="Label.Model\PantherLabel.cs" />
     <Compile Include="Logging\EmailExceptionHandler.cs" />
     <Compile Include="Logging\ScanLogger.cs" />
@@ -454,10 +457,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Document\NothingToPublishReport.cs" />
-    <Compile Include="Document\Her2AmplificationByFishReport.cs" />
-    <Compile Include="Document\Her2AmplificationByIHCReport.cs" />
-    <Compile Include="Document\MDSExtendedByFishReport.cs" />
-    <Compile Include="Document\MPLReport.cs" />
     <Compile Include="Document\MPNFishReport.cs" />
     <Compile Include="Document\MultipleFISHProbePanelReport.cs" />
     <Compile Include="Document\MultipleMyelomaIgHByFishReport.cs" />
@@ -507,8 +506,18 @@
     <Compile Include="Task.Model\TaskOrderSurgicalSpecimenDisposal.cs" />
     <Compile Include="Task.Model\TaskPOCReport.cs" />
     <Compile Include="Task.Model\TaskSurgicalSpecimenDisposal.cs" />
+    <Compile Include="Test.Model\CD3CD20DualStain.cs" />
+    <Compile Include="Test.Model\CDX2VillinDualStain.cs" />
+    <Compile Include="Test.Model\Cytokeratin34P504sRacemaseDualStain.cs" />
+    <Compile Include="Test.Model\DualStain.cs" />
+    <Compile Include="Test.Model\DualStainCollection.cs" />
+    <Compile Include="Test.Model\IgKappaIgLambdaDualStain.cs" />
+    <Compile Include="Test.Model\Ki67MelanADualStain.cs" />
+    <Compile Include="Test.Model\OSCARSmoothMuscleMyosinDualStain.cs" />
+    <Compile Include="Test.Model\PAX5Zap70DualStain.cs" />
     <Compile Include="Test.Model\ResultItem.cs" />
     <Compile Include="Test.Model\ResultItemCollection.cs" />
+    <Compile Include="Test.Model\TTF1NapsinADualStain.cs" />
     <Compile Include="Test\ALKForNSCLCByFISH\ALKForNSCLCByFISHResultFactory.cs" />
     <Compile Include="Test\ALKForNSCLCByFISH\ALKForNSCLCByFISHEPICOBXView.cs" />
     <Compile Include="Test\ALKForNSCLCByFISH\ALKForNSCLCByFISHNegativeWithGeneAmplificationResult.cs" />
@@ -517,6 +526,7 @@
     <Compile Include="Test\AndrogenRecepter\AndrogenReceptorTest.cs" />
     <Compile Include="Test\BCellGeneRearrangement\BCellGeneRearrangemenEpictObxView.cs" />
     <Compile Include="Test\BCellGeneRearrangement\BCellGeneRearrangementWordDocument.cs" />
+    <Compile Include="Test\BRAFV600EK\BRAFResult.cs" />
     <Compile Include="Test\ComprehensiveColonCancerProfile\ComprehensiveColonCancerProfile.cs" />
     <Compile Include="Test\ComprehensiveColonCancerProfile\ComprehensiveColonCancerProfileEpicObxView.cs" />
     <Compile Include="Test\ComprehensiveColonCancerProfile\ComprehensiveColonCancerProfileResult.cs" />
@@ -526,10 +536,6 @@
     <Compile Include="Test\EGFRMutationAnalysis\EGFRMutationAnalysisWordDocument.cs" />
     <Compile Include="Test\EGFRToALKReflexAnalysis\EGFRToALKReflexAnalysisElementStatusEnum.cs" />
     <Compile Include="Test\EGFRToALKReflexAnalysis\EGFRToALKReflexAnalysisEPICOBXView.cs" />
-    <Compile Include="HL7View\EPIC\EpicHer2AmplificationByFishObxView.cs" />
-    <Compile Include="HL7View\EPIC\EpicHer2AmplificationByIHCObxView.cs" />
-    <Compile Include="HL7View\EPIC\EpicMDSExtendedPanelByFishObxView.cs" />
-    <Compile Include="HL7View\EPIC\EpicMPLObxView.cs" />
     <Compile Include="HL7View\EPIC\EpicMPNFishObxView.cs" />
     <Compile Include="HL7View\EPIC\EpicMultipleFISHProbePanelObxView.cs" />
     <Compile Include="HL7View\EPIC\EpicMultipleMyelomaIgHByFishObxView.cs" />
@@ -1106,6 +1112,17 @@
     <Compile Include="Test\FetalHemoglobin\FetalHemoglobinEpicObxView.cs" />
     <Compile Include="Test\FetalHemoglobin\FetalHemoglobinTest.cs" />
     <Compile Include="Test\FetalHemoglobin\FetalHemoglobinWordDocument.cs" />
+    <Compile Include="Test\Her2AmplificationByFish\Her2AmplificationByFishEpicObxView.cs" />
+    <Compile Include="Test\Her2AmplificationByFish\Her2AmplificationByFishPositiveResult.cs" />
+    <Compile Include="Test\Her2AmplificationByFish\Her2AmplificationByFishWordDocument.cs" />
+    <Compile Include="Test\Her2AmplificationByFish\Her2AmplificationByFishResult.cs" />
+    <Compile Include="Test\Her2AmplificationByFish\Her2AmplificationByFishTestOrder.cs" />
+    <Compile Include="Test\Her2AmplificationByFish\Her2AmplificationByFishTest.cs" />
+    <Compile Include="Test\Her2AmplificationByIHC\Her2AmplificationByIHCEpicObxView.cs" />
+    <Compile Include="Test\Her2AmplificationByIHC\Her2AmplificationByIHCWordDocument.cs" />
+    <Compile Include="Test\Her2AmplificationByIHC\Her2AmplificationByIHCResult.cs" />
+    <Compile Include="Test\Her2AmplificationByIHC\Her2AmplificationByIHCTestOrder.cs" />
+    <Compile Include="Test\Her2AmplificationByIHC\Her2AmplificationByIHCTest.cs" />
     <Compile Include="Test\HighGradeLargeBCellLymphoma\HighGradeLargeBCellLymphomaEpicObxView.cs" />
     <Compile Include="Test\HighGradeLargeBCellLymphoma\HighGradeLargeBCellLymphomaWordDocument.cs" />
     <Compile Include="Test\HPV1618\HPV1618EpicObxView.cs" />
@@ -1139,6 +1156,19 @@
     <Compile Include="Test\LynchSyndrome\MLH1MethylationAnalysisWordDocument.cs" />
     <Compile Include="Test\LynchSyndrome\PanelSetOrderLynchSyndromeEvaluation.cs" />
     <Compile Include="Test\MDSCMMLProfile\MDSCMMLProfileTest.cs" />
+    <Compile Include="Test\MDSExtendedByFish\MDSExtendedByFishEpicObxView.cs" />
+    <Compile Include="Test\MDSExtendedByFish\MDSExtendedByFishNormalResult.cs" />
+    <Compile Include="Test\MDSExtendedByFish\MDSExtendedByFishWordDocument.cs" />
+    <Compile Include="Test\MDSExtendedByFish\MDSExtendedByFishResult.cs" />
+    <Compile Include="Test\MDSExtendedByFish\MDSExtendedByFishTest.cs" />
+    <Compile Include="Test\MDSExtendedByFish\MDSExtendedByFishTestOrder.cs" />
+    <Compile Include="Test\MPL\MPLEpicObxView.cs" />
+    <Compile Include="Test\MPL\MPLWordDocument.cs" />
+    <Compile Include="Test\MPL\MPLResultCollection.cs" />
+    <Compile Include="Test\MPL\MPLResultDetected.cs" />
+    <Compile Include="Test\MPL\MPLResultNotDetected.cs" />
+    <Compile Include="Test\MPL\MPLTest.cs" />
+    <Compile Include="Test\MPL\MPLTestOrder.cs" />
     <Compile Include="Test\MPNExtendedReflex\MPNExtendedReflexCALRResult.cs" />
     <Compile Include="Test\MPNExtendedReflex\MPNExtendedReflexEpicObxView.cs" />
     <Compile Include="Test\MPNExtendedReflex\MPNExtendedReflexJAK2Result.cs" />
@@ -1166,6 +1196,7 @@
     <Compile Include="Test\ReticulatedPlateletAnalysis\ReticulatedPlateletAnalysisTest.cs" />
     <Compile Include="Test\ReticulatedPlateletAnalysis\ReticulatedPlateletAnalysisWordDocument.cs" />
     <Compile Include="Test\ReticulatedPlateletAnalysis\RPAEpicObxView.cs" />
+    <Compile Include="Test\Retired\PanelSetOrderHer2AmplificationByFishRetired2.cs" />
     <Compile Include="Test\ReviewForAdditionalTesting\ReviewForAdditionalTestingInsufficientTissueResult.cs" />
     <Compile Include="Test\ReviewForAdditionalTesting\ReviewForAdditionalTestingResult.cs" />
     <Compile Include="Test\ReviewForAdditionalTesting\ReviewForAdditionalTestingSufficientTissueResult.cs" />
@@ -1419,9 +1450,6 @@
     <Compile Include="Test\BladderCancerFISHUrovysion\BladderCancerFISHUrovysionWordDocument.cs" />
     <Compile Include="Test\BlockLabel.cs" />
     <Compile Include="Test\BlockLabelPrinter.cs" />
-    <Compile Include="Test\BRAFResult.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Test\BRAFV600EK\BRAFV600EKCMMCNteView.cs" />
     <Compile Include="Test\BRAFV600EK\BRAFV600EKDetectedCRCResult.cs" />
     <Compile Include="Test\BRAFV600EK\BRAFV600EKDetectedLynchSyndromeResult.cs" />
@@ -1443,8 +1471,6 @@
     <Compile Include="Test\CCNDIBCLIGH\CCNDIBCLIGHResult.cs" />
     <Compile Include="Test\CCNDIBCLIGH\EpicCCNDIBCLIGHObxView.cs" />
     <Compile Include="Test\CCNDIBCLIGH\PanelSetOrderCCNDIBCLIGH.cs" />
-    <Compile Include="Test\CD3CD20DualStain.cs" />
-    <Compile Include="Test\CDX2VillinDualStain.cs" />
     <Compile Include="Test\CEBPA\CEBPANotDetectedResult.cs" />
     <Compile Include="Test\CEBPA\CEBPAReport.cs" />
     <Compile Include="Test\CEBPA\CEBPAResult.cs" />
@@ -1474,9 +1500,6 @@
     <Compile Include="Test\CLLByFish\CLLByFishResultCollection.cs" />
     <Compile Include="Test\CLLByFish\CLLByFishTestOrder.cs" />
     <Compile Include="Test\CLLByFish\CLLByFishWordDocument.cs" />
-    <Compile Include="Test\Cytokeratin34P504sRacemaseDualStain.cs" />
-    <Compile Include="Test\DualStain.cs" />
-    <Compile Include="Test\DualStainCollection.cs" />
     <Compile Include="Test\ErPrSemiQuantitative\ErPrSemiQuantitativeErNegPrNegResult.cs" />
     <Compile Include="Test\ErPrSemiQuantitative\ErPrSemiQuantitativeErNegPrPosResult.cs" />
     <Compile Include="Test\ErPrSemiQuantitative\ErPrSemiQuantitativeErPosPrNegResult.cs" />
@@ -1495,12 +1518,9 @@
     </Compile>
     <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHProbeSignalIntensityCollection.cs" />
     <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHSampleAdequacyCollection.cs" />
-    <Compile Include="Test\IgKappaIgLambdaDualStain.cs" />
-    <Compile Include="Test\Ki67MelanADualStain.cs" />
     <Compile Include="Test\LynchSyndrome\LSEColorectalResult12.cs" />
     <Compile Include="Test\LynchSyndrome\LSEResultStatusMethylationAnalysisRequiredGYN.cs" />
     <Compile Include="Test\LynchSyndrome\LSEResultStatusNotSet.cs" />
-    <Compile Include="Test\OSCARSmoothMuscleMyosinDualStain.cs" />
     <Compile Include="Test\PanelSetOrderView.cs" />
     <Compile Include="Test\CysticFibrosis\CysticFibrosisNullResult.cs" />
     <Compile Include="Test\CysticFibrosis\CysticFibrosisDetectedResult.cs" />
@@ -1581,8 +1601,6 @@
     <Compile Include="Test\MicrosatelliteInstabilityAnalysis\MicrosatelliteInstabilityAnalysisTestOrder.cs" />
     <Compile Include="Test\MicrosatelliteInstabilityAnalysis\MicrosatelliteInstabilityAnalysisWordDocument.cs" />
     <Compile Include="Test\MolecularAnalysisTestOrder.cs" />
-    <Compile Include="Test\MPLResultCollection.cs" />
-    <Compile Include="Test\MPLResultDetected.cs" />
     <Compile Include="Test\MultipleMyelomaIgHByFishNormalResult.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -1626,7 +1644,6 @@
     <Compile Include="Test\NRASMutationAnalysis\NRASMutationAnalysisResultCollection.cs" />
     <Compile Include="Test\NRASMutationAnalysis\NRASMutationAnalysisTestOrder.cs" />
     <Compile Include="Test\NRASMutationAnalysis\NRASMutationAnalysisWordDocument.cs" />
-    <Compile Include="Test\PAX5Zap70DualStain.cs" />
     <Compile Include="Test\PeerReview\PeerReviewTestOrder.cs" />
     <Compile Include="Test\PeerReview\PeerReviewTypeCollection.cs" />
     <Compile Include="Test\PeerReview\PeerReviewTypeEnum.cs" />
@@ -1702,9 +1719,6 @@
     <Compile Include="Test\ErPrSemiQuantitative\ErPrSemiQuantitativeResult.cs" />
     <Compile Include="Test\FNAAdequacyAssessmentResult.cs" />
     <Compile Include="Test\FNAAdequacyAssessmentResult.validation.cs" />
-    <Compile Include="Test\Her2AmplificationByFishPositiveResult.cs" />
-    <Compile Include="Test\Her2AmplificationByFishResult.cs" />
-    <Compile Include="Test\Her2AmplificationByIHCResult.cs" />
     <Compile Include="Test\HighGradeLargeBCellLymphoma\HighGradeLargeBCellLymphomaAbnormalResult1.cs" />
     <Compile Include="Test\HighGradeLargeBCellLymphoma\HighGradeLargeBCellLymphomaAbnormalResult2.cs" />
     <Compile Include="Test\HighGradeLargeBCellLymphoma\HighGradeLargeBCellLymphomaNegativeResult.cs" />
@@ -1812,9 +1826,6 @@
     <Compile Include="Test\LynchSyndrome\MLH1MethylationAnalysisResult.cs" />
     <Compile Include="Test\LynchSyndrome\PanelSetOrderLynchSyndromeIHC.cs" />
     <Compile Include="Test\LynchSyndrome\PanelSetOrderMLH1MethylationAnalysis.cs" />
-    <Compile Include="Test\MDSExtendedByFishNormalResult.cs" />
-    <Compile Include="Test\MDSExtendedByFishResult.cs" />
-    <Compile Include="Test\MPLResultNotDetected.cs" />
     <Compile Include="Test\MPNFishNormalResult.cs" />
     <Compile Include="Test\MPNFishResult.cs" />
     <Compile Include="Test\MultipleFISHProbePanelNormalResult.cs" />
@@ -1839,11 +1850,6 @@
     <Compile Include="Test\PanelSetOrderCytology.cs" />
     <Compile Include="Test\PanelSetOrderDNA.cs" />
     <Compile Include="Test\PanelSetOrderFactory.cs" />
-    <Compile Include="Test\PanelSetOrderHer2AmplificationByFish.cs" />
-    <Compile Include="Test\PanelSetOrderHer2AmplificationByFishRetired2.cs" />
-    <Compile Include="Test\PanelSetOrderHer2AmplificationByIHC.cs" />
-    <Compile Include="Test\PanelSetOrderMDSExtendedByFish.cs" />
-    <Compile Include="Test\PanelSetOrderMPL.cs" />
     <Compile Include="Test\PanelSetOrderMPNFish.cs" />
     <Compile Include="Test\PanelSetOrderMultipleFISHProbePanel.cs" />
     <Compile Include="Test\PanelSetOrderMultipleMyelomaIgHComplexByFish.cs" />
@@ -1878,7 +1884,6 @@
     <Compile Include="Test\Trichomonas\TrichomonasResultCollection.cs" />
     <Compile Include="Test\Trichomonas\TrichomonasTestOrder.cs" />
     <Compile Include="Test\Trichomonas\TrichomonasWordDocument.cs" />
-    <Compile Include="Test\TTF1NapsinADualStain.cs" />
     <Compile Include="Test\WomensHealthProfile\WomensHealthProfileCMMCNteView.cs" />
     <Compile Include="Test\WomensHealthProfile\WomensHealthProfileEpicObxView.cs" />
     <Compile Include="Test\WomensHealthProfile\WomensHealthProfileResult.cs" />
@@ -2243,11 +2248,9 @@
     <Compile Include="PanelSet.Model\PanelSetFNASampleCollection.cs" />
     <Compile Include="PanelSet.Model\PanelSetFoundationOneGeneticTesting.cs" />
     <Compile Include="PanelSet.Model\PanelSetGlycophorinA.cs" />
-    <Compile Include="PanelSet.Model\PanelSetHer2AmplificationByFish.cs" />
     <Compile Include="PanelSet.Model\PanelSetHer2AmplificationByFishRetired1.cs" />
     <Compile Include="PanelSet.Model\PanelSetHer2AmplificationByFishRetired2.cs" />
     <Compile Include="PanelSet.Model\PanelSetHer2AmplificationByFishRetired3.cs" />
-    <Compile Include="PanelSet.Model\PanelSetHer2AmplificationByIHC.cs" />
     <Compile Include="PanelSet.Model\PanelSetHer2AmplificationByIHCRetired.cs" />
     <Compile Include="PanelSet.Model\PanelSetHer2ByIHC.cs" />
     <Compile Include="PanelSet.Model\PanelSetHerpesVirus8ByImmunohistochemistry.cs" />
@@ -2267,10 +2270,8 @@
     <Compile Include="PanelSet.Model\PanelSetJAK2PolycythemiaVeraReflex.cs" />
     <Compile Include="PanelSet.Model\PanelSetJAK2PrimaryMyelofibrosisReflex.cs" />
     <Compile Include="PanelSet.Model\PanelSetMDSByFishRetired.cs" />
-    <Compile Include="PanelSet.Model\PanelSetMDSExtendedByFish.cs" />
     <Compile Include="PanelSet.Model\PanelSetMLH1Retired.cs" />
     <Compile Include="PanelSet.Model\PanelSetMolecularTest.cs" />
-    <Compile Include="PanelSet.Model\PanelSetMPL.cs" />
     <Compile Include="PanelSet.Model\PanelSetMPLRetired.cs" />
     <Compile Include="PanelSet.Model\PanelSetMPNFishPanel.cs" />
     <Compile Include="PanelSet.Model\PanelSetMPNFishPanelRetired.cs" />
@@ -2823,10 +2824,6 @@
     <ProjectReference Include="..\SqlXmlPersistence\SqlXmlPersistence.csproj">
       <Project>{C64F59D1-3A32-40DF-8294-89E0DCD19BE3}</Project>
       <Name>SqlXmlPersistence</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\YellowstonePathology.Shared\YellowstonePathology.Shared.csproj">
-      <Project>{9AD489BB-A66D-4FDF-A600-7D5E32DE5D4E}</Project>
-      <Name>YellowstonePathology.Shared</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

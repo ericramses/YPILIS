@@ -295,18 +295,21 @@ namespace YellowstonePathology.Business.ClientOrder.Model
             }
             else
             {
-                if (this.m_ClientFixation != YellowstonePathology.Business.Specimen.Model.FixationType.NotApplicable)
+                if (this.m_ClientAccessioned == false)
                 {
-                    if (string.IsNullOrEmpty(this.m_FixationStartTimeBinding) == true)
-                    {                    
-                        if (YellowstonePathology.Business.Helper.DateTimeExtensions.DoesDateHaveTime(this.m_CollectionDate) == true)
-                        {
-                            this.m_ValidationErrors.Add("FixationStartTimeBinding", "The Fixation Start Time should not be blank.");
-                        }                 
-                    }
-                    else
+                    if (this.m_ClientFixation != YellowstonePathology.Business.Specimen.Model.FixationType.NotApplicable)
                     {
-                        this.m_ValidationErrors.Add("FixationStartTimeBinding", "The Fixation Start Time is invalid.");
+                        if (string.IsNullOrEmpty(this.m_FixationStartTimeBinding) == true)
+                        {
+                            if (YellowstonePathology.Business.Helper.DateTimeExtensions.DoesDateHaveTime(this.m_CollectionDate) == true)
+                            {
+                                this.m_ValidationErrors.Add("FixationStartTimeBinding", "The Fixation Start Time should not be blank.");
+                            }
+                        }
+                        else
+                        {
+                            this.m_ValidationErrors.Add("FixationStartTimeBinding", "The Fixation Start Time is invalid.");
+                        }
                     }
                 }
             }

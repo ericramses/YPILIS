@@ -16,7 +16,7 @@ using System.Collections.ObjectModel;
 
 namespace YellowstonePathology.UI.Login.Receiving
 {	
-	public partial class ClientOrderDetailsPage : UserControl, INotifyPropertyChanged, YellowstonePathology.Shared.Interface.IPersistPageChanges
+	public partial class ClientOrderDetailsPage : UserControl, INotifyPropertyChanged, YellowstonePathology.Business.Interface.IPersistPageChanges
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -250,18 +250,15 @@ namespace YellowstonePathology.UI.Login.Receiving
             if (this.ComboBoxSpecimenId.SelectedItem != null)
             {
                 if (string.IsNullOrEmpty(this.m_ClientOrderDetail.DescriptionToAccession) == true)
-                {
-                    if (this.TextBoxAccessionAs != null)
-                    {
-                        YellowstonePathology.Business.Specimen.Model.Specimen specimen = (YellowstonePathology.Business.Specimen.Model.Specimen)this.ComboBoxSpecimenId.SelectedItem;
-                        this.m_ClientOrderDetail.DescriptionToAccessionBinding = specimen.Description;
-                        this.m_ClientOrderDetail.LabFixationBinding = specimen.LabFixation;
-                        this.m_ClientOrderDetail.ClientFixationBinding = specimen.ClientFixation;
-                        this.m_ClientOrderDetail.RequiresGrossExamination = specimen.RequiresGrossExamination;
+                {                    
+                    YellowstonePathology.Business.Specimen.Model.Specimen specimen = (YellowstonePathology.Business.Specimen.Model.Specimen)this.ComboBoxSpecimenId.SelectedItem;
+                    this.m_ClientOrderDetail.DescriptionToAccessionBinding = specimen.Description;
+                    this.m_ClientOrderDetail.LabFixationBinding = specimen.LabFixation;
+                    this.m_ClientOrderDetail.ClientFixationBinding = specimen.ClientFixation;
+                    this.m_ClientOrderDetail.RequiresGrossExamination = specimen.RequiresGrossExamination;
 
-                        this.HandleTemplatedSpecimen();
-                        this.NotifyPropertyChanged("");
-                    }
+                    this.HandleTemplatedSpecimen();
+                    this.NotifyPropertyChanged("");                    
                 }
             }
         }
@@ -282,14 +279,14 @@ namespace YellowstonePathology.UI.Login.Receiving
         }
 
         private void HyperLinkReceivedFresh_Click(object sender, RoutedEventArgs e)
-        {
+        {            
             this.m_ClientOrderDetail.ClientFixationBinding = YellowstonePathology.Business.Specimen.Model.FixationType.Fresh;
-            this.m_ClientOrderDetail.LabFixationBinding = YellowstonePathology.Business.Specimen.Model.FixationType.Formalin;
+            this.m_ClientOrderDetail.LabFixationBinding = YellowstonePathology.Business.Specimen.Model.FixationType.Formalin;            
             this.m_ClientOrderDetail.SetFixationStartTime();
         }
 
         private void HyperLinkReceivedInFormalin_Click(object sender, RoutedEventArgs e)
-        {
+        {            
             this.m_ClientOrderDetail.ClientFixationBinding = YellowstonePathology.Business.Specimen.Model.FixationType.Formalin;
             this.m_ClientOrderDetail.LabFixationBinding = YellowstonePathology.Business.Specimen.Model.FixationType.Formalin;
             this.m_ClientOrderDetail.SetFixationStartTime();
@@ -305,7 +302,7 @@ namespace YellowstonePathology.UI.Login.Receiving
         private void HyperLinkReceivedInCytolyt_Click(object sender, RoutedEventArgs e)
         {
             this.m_ClientOrderDetail.ClientFixationBinding = YellowstonePathology.Business.Specimen.Model.FixationType.Cytolyt;
-            this.m_ClientOrderDetail.LabFixationBinding = YellowstonePathology.Business.Specimen.Model.FixationType.Cytolyt;
+            this.m_ClientOrderDetail.LabFixationBinding = YellowstonePathology.Business.Specimen.Model.FixationType.PreservCyt;
             this.m_ClientOrderDetail.SetFixationStartTime();
         }
 
@@ -343,8 +340,7 @@ namespace YellowstonePathology.UI.Login.Receiving
         }
 
         private void CheckBoxClientAccessioned_Unchecked(object sender, RoutedEventArgs e)
-        {
-            this.TextBoxFixationStartTime.IsEnabled = true;
+        {            
             this.m_ClientOrderDetail.SetFixationStartTime();
         }
 

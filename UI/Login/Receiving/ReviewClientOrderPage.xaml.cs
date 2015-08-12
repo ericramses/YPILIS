@@ -15,7 +15,7 @@ using System.ComponentModel;
 
 namespace YellowstonePathology.UI.Login.Receiving
 {	
-	public partial class ReviewClientOrderPage : UserControl, YellowstonePathology.Shared.Interface.IPersistPageChanges, INotifyPropertyChanged
+	public partial class ReviewClientOrderPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges, INotifyPropertyChanged
 	{
 		public delegate void PropertyChangedNotificationHandler(String info);
 		public event PropertyChangedEventHandler PropertyChanged;

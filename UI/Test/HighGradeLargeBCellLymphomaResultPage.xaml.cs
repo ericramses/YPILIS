@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Test
 	/// <summary>
 	/// Interaction logic for HighGradeLargeBCellLymphomaResultPage.xaml
 	/// </summary>
-	public partial class HighGradeLargeBCellLymphomaResultPage : UserControl, INotifyPropertyChanged, Shared.Interface.IPersistPageChanges
+	public partial class HighGradeLargeBCellLymphomaResultPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 

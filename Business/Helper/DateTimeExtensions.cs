@@ -8,6 +8,12 @@ namespace YellowstonePathology.Business.Helper
 {
     public static class DateTimeExtensions
     {
+        public static Nullable<DateTime> DateTimeNowNoSeconds()
+        {
+            Nullable<DateTime> result = DateTime.Parse(DateTime.Now.ToString("MM/dd/yyy HH:mm"));
+            return result;
+        }
+
         public static string AddSlashesSpacesAndColon(string input)
         {
             string result = input;

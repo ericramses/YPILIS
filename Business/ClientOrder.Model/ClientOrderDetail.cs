@@ -108,8 +108,8 @@ namespace YellowstonePathology.Business.ClientOrder.Model
         {
             if (this.m_Received == false)
             {
-                this.m_Received = true;                
-                this.m_DateReceived = DateTime.Now;
+                this.m_Received = true;
+                this.m_DateReceived = YellowstonePathology.Business.Helper.DateTimeExtensions.DateTimeNowNoSeconds();
                 this.NotifyPropertyChanged(string.Empty);
             }
         }

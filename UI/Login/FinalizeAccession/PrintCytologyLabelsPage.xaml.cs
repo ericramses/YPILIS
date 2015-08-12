@@ -17,7 +17,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 	/// <summary>
 	/// Interaction logic for PrintCytologyLabelsPage.xaml
 	/// </summary>
-	public partial class PrintCytologyLabelsPage : UserControl, YellowstonePathology.Shared.Interface.IPersistPageChanges
+	public partial class PrintCytologyLabelsPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
 	{
 		public delegate void BackEventHandler(object sender, EventArgs e);
 		public event BackEventHandler Back;

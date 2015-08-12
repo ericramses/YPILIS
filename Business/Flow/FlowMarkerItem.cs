@@ -8,7 +8,7 @@ using YellowstonePathology.Business.Persistence;
 namespace YellowstonePathology.Business.Flow
 {
 	[PersistentClass("tblFlowMarkers", "YPIDATA")]
-	public partial class FlowMarkerItem : INotifyPropertyChanged, YellowstonePathology.Shared.Interface.IFlowMarker
+	public partial class FlowMarkerItem : INotifyPropertyChanged, YellowstonePathology.Business.Interface.IFlowMarker
     {
 		public event PropertyChangedEventHandler PropertyChanged;
 

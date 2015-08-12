@@ -15,7 +15,7 @@ using System.ComponentModel;
 
 namespace YellowstonePathology.UI.Test
 {	
-	public partial class EGFRToALKReflexPage : UserControl, YellowstonePathology.Shared.Interface.IPersistPageChanges, INotifyPropertyChanged
+	public partial class EGFRToALKReflexPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges, INotifyPropertyChanged
 	{
 		public delegate void PropertyChangedNotificationHandler(String info);
 		public event PropertyChangedEventHandler PropertyChanged;

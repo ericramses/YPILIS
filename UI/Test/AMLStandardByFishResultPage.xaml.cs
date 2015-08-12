@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Test
 	/// <summary>
 	/// Interaction logic for AMLStandardByFishResultPage.xaml
 	/// </summary>
-	public partial class AMLStandardByFishResultPage : UserControl, INotifyPropertyChanged, Shared.Interface.IPersistPageChanges
+	public partial class AMLStandardByFishResultPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 

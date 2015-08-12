@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Test
 	/// <summary>
 	/// Interaction logic for ChromosomeAnalysisResultPage.xaml
 	/// </summary>
-	public partial class ChromosomeAnalysisResultPage : UserControl, INotifyPropertyChanged, Shared.Interface.IPersistPageChanges
+	public partial class ChromosomeAnalysisResultPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 

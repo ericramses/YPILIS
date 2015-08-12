@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Test
 	/// <summary>
 	/// Interaction logic for NGCTResultPage.xaml
 	/// </summary>
-	public partial class NGCTResultPage : UserControl, INotifyPropertyChanged, Shared.Interface.IPersistPageChanges
+	public partial class NGCTResultPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 

@@ -17,7 +17,7 @@ namespace YellowstonePathology.YpiConnect.Client.OrderEntry
     /// <summary>
     /// Interaction logic for OrderBrowserPage.xaml
     /// </summary>
-	public partial class OrderBrowserPage : Page, YellowstonePathology.Shared.Interface.IPersistPageChanges
+	public partial class OrderBrowserPage : Page, YellowstonePathology.Business.Interface.IPersistPageChanges
     {
         private OrderEntryUI m_OrderEntryUI;		
 

@@ -16,7 +16,7 @@ using System.ComponentModel;
 
 namespace YellowstonePathology.UI.Login.SlidePrinting
 {
-	public partial class ScanContainerPage : UserControl, YellowstonePathology.Shared.Interface.IPersistPageChanges, INotifyPropertyChanged
+	public partial class ScanContainerPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges, INotifyPropertyChanged
 	{
         public event PropertyChangedEventHandler PropertyChanged;
 

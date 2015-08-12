@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Test
 	/// <summary>
 	/// Interaction logic for MPNExtendedReflexPage.xaml
 	/// </summary>
-	public partial class MPNExtendedReflexPage : UserControl, YellowstonePathology.Shared.Interface.IPersistPageChanges, INotifyPropertyChanged
+	public partial class MPNExtendedReflexPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges, INotifyPropertyChanged
 	{
 		public delegate void PropertyChangedNotificationHandler(String info);
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -104,7 +104,7 @@ namespace YellowstonePathology.UI.Test
 		
         private void HyperLinkOrderMLP_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.PanelSet.Model.PanelSetMPL panelSet = new Business.PanelSet.Model.PanelSetMPL();
+			YellowstonePathology.Business.Test.MPL.MPLTest panelSet = new Business.Test.MPL.MPLTest();
             if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(panelSet.PanelSetId) == false)
             {
                 YellowstonePathology.Business.Interface.IOrderTarget orderTarget = this.m_AccessionOrder.SpecimenOrderCollection.GetOrderTarget(this.m_MPNExtendedReflexResult.PanelSetOrderMPNExtendedReflex.OrderedOnId);

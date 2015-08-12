@@ -197,7 +197,7 @@ namespace YellowstonePathology.Business.Document
 						document = new MDSByFishReport();
 						break;
 					case 159: // MPL
-						document = new MPLReport();
+						document = new YellowstonePathology.Business.Test.MPL.MPLWordDocument();
 						break;
 					case 160: // MultipleFISHProbePanel
 						document = new MultipleFISHProbePanelReport();
@@ -209,10 +209,10 @@ namespace YellowstonePathology.Business.Document
 						document = new YellowstonePathology.Business.Test.BCRABLByPCR.BCRABLByPCRWordDocument();
 						break;
 					case 163: //Her2AmplificationByFish
-						document = new Her2AmplificationByFishReport();
+						document = new YellowstonePathology.Business.Test.Her2AmplificationByFish.Her2AmplificationByFishWordDocument();
 						break;
 					case 164: // MDS Extended Panel by Fish
-						document = new MDSExtendedByFishReport();
+						document = new YellowstonePathology.Business.Test.MDSExtendedByFish.MDSExtendedByFishWordDocument();
 						break;
 					case 168: // AML Standard By Fish
 						document = new YellowstonePathology.Business.Test.AMLStandardByFish.AMLStandardByFishWordDocument();
@@ -224,7 +224,7 @@ namespace YellowstonePathology.Business.Document
 						document = new YellowstonePathology.Business.Test.NonHodgkinsLymphomaFISHPanel.NonHodgkinsLymphomaFISHPanelWordDocument();
 						break;
 					case 171: // HER2 IHC
-						document = new Her2AmplificationByIHCReport();
+						document = new YellowstonePathology.Business.Test.Her2AmplificationByIHC.Her2AmplificationByIHCWordDocument();
 						break;
 					case 172: // Eosinophilia By FISH
 						document = new YellowstonePathology.Business.Test.EosinophiliaByFISH.EosinophiliaByFISHWordDocument();

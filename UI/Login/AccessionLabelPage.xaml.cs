@@ -15,7 +15,7 @@ using System.ComponentModel;
 
 namespace YellowstonePathology.UI.Login
 {    
-	public partial class AccessionLabelPage : UserControl, INotifyPropertyChanged, YellowstonePathology.Shared.Interface.IPersistPageChanges
+	public partial class AccessionLabelPage : UserControl, INotifyPropertyChanged, YellowstonePathology.Business.Interface.IPersistPageChanges
     {
         public event PropertyChangedEventHandler PropertyChanged;
 

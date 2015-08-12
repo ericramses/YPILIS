@@ -19,7 +19,7 @@ namespace YellowstonePathology.UI
     /// <summary>
     /// Interaction logic for XpsDocumentViewer.xaml
     /// </summary>
-    public partial class XpsDocumentViewerPage : UserControl, YellowstonePathology.Shared.Interface.IPersistPageChanges
+    public partial class XpsDocumentViewerPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
     {
         public delegate void NextEventHandler(object sender, EventArgs e);
         public event NextEventHandler Next;        

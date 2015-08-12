@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Test
 	/// <summary>
 	/// Interaction logic for NeogenomicsResultPage.xaml
 	/// </summary>
-	public partial class NeogenomicsResultPage : UserControl, YellowstonePathology.Shared.Interface.IPersistPageChanges, INotifyPropertyChanged
+	public partial class NeogenomicsResultPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges, INotifyPropertyChanged
 	{        
 		public delegate void PropertyChangedNotificationHandler(String info);
 		public event PropertyChangedEventHandler PropertyChanged;

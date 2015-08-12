@@ -17,7 +17,7 @@ using System.Xml.Linq;
 
 namespace YellowstonePathology.UI.Billing
 {	
-	public partial class BillingPage : UserControl, INotifyPropertyChanged, Shared.Interface.IPersistPageChanges
+	public partial class BillingPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 

@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Login.ReceiveSpecimen
     /// <summary>
     /// Interaction logic for YpiMolecularOrderPage.xaml
     /// </summary>
-    public partial class YpiMolecularOrderPage : UserControl, INotifyPropertyChanged, Shared.Interface.IPersistPageChanges
+    public partial class YpiMolecularOrderPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
     {
         public event PropertyChangedEventHandler PropertyChanged;
         public delegate void ReturnEventHandler(object sender, UI.Navigation.PageNavigationReturnEventArgs e);

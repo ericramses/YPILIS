@@ -17,7 +17,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 	/// <summary>
 	/// Interaction logic for PatientDetailsPage.xaml
 	/// </summary>
-	public partial class GrossEntryPage : UserControl, YellowstonePathology.Shared.Interface.IPersistPageChanges
+	public partial class GrossEntryPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
 	{
 		public delegate void BackEventHandler(object sender, EventArgs e);
 		public event BackEventHandler Back;

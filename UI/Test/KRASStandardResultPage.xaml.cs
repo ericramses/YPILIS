@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Test
 	/// <summary>
 	/// Interaction logic for KRASResultPage.xaml
 	/// </summary>
-	public partial class KRASStandardResultPage : UserControl, INotifyPropertyChanged, Shared.Interface.IPersistPageChanges
+	public partial class KRASStandardResultPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 

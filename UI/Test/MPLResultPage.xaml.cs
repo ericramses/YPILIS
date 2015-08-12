@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Test
 	/// <summary>
 	/// Interaction logic for MPLResultPage.xaml
 	/// </summary>
-	public partial class MPLResultPage : UserControl, INotifyPropertyChanged, Shared.Interface.IPersistPageChanges
+	public partial class MPLResultPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -30,12 +30,12 @@ namespace YellowstonePathology.UI.Test
 		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private string m_PageHeaderText;
 
-		private YellowstonePathology.Business.Test.PanelSetOrderMPL m_PanelSetOrder;
+		private YellowstonePathology.Business.Test.MPL.MPLTestOrder m_PanelSetOrder;
 		private string m_OrderedOnDescription;
 
-        private YellowstonePathology.Business.Test.MPLResultCollection m_MPLResultCollection;
+        private YellowstonePathology.Business.Test.MPL.MPLResultCollection m_MPLResultCollection;
 
-		public MPLResultPage(YellowstonePathology.Business.Test.PanelSetOrderMPL panelSetOrderMPL,
+		public MPLResultPage(YellowstonePathology.Business.Test.MPL.MPLTestOrder panelSetOrderMPL,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
 			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
@@ -50,14 +50,14 @@ namespace YellowstonePathology.UI.Test
 			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrder.OrderedOn, this.m_PanelSetOrder.OrderedOnId);
 			this.m_OrderedOnDescription = specimenOrder.Description;
 
-            this.m_MPLResultCollection = new Business.Test.MPLResultCollection();
+            this.m_MPLResultCollection = new Business.Test.MPL.MPLResultCollection();
 
 			InitializeComponent();
 
 			DataContext = this;
 		}
 
-        public YellowstonePathology.Business.Test.MPLResultCollection MPLResultCollection
+        public YellowstonePathology.Business.Test.MPL.MPLResultCollection MPLResultCollection
         {
             get { return this.m_MPLResultCollection; }
         }
@@ -67,7 +67,7 @@ namespace YellowstonePathology.UI.Test
 			get { return this.m_OrderedOnDescription; }
 		}
 
-		public YellowstonePathology.Business.Test.PanelSetOrderMPL PanelSetOrder
+		public YellowstonePathology.Business.Test.MPL.MPLTestOrder PanelSetOrder
 		{
 			get { return this.m_PanelSetOrder; }
 		}
@@ -108,7 +108,7 @@ namespace YellowstonePathology.UI.Test
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
 		{
 			this.Save();
-			YellowstonePathology.Business.Document.MPLReport report = new Business.Document.MPLReport();
+			YellowstonePathology.Business.Test.MPL.MPLWordDocument report = new Business.Test.MPL.MPLWordDocument();
 			report.Render(this.m_AccessionOrder.MasterAccessionNo, this.m_PanelSetOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft);
 
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);

@@ -19,7 +19,7 @@ namespace YellowstonePathology.UI.Test
 	/// <summary>
 	/// Interaction logic for CalreticulinMutationAnalysisResultPage.xaml
 	/// </summary>
-	public partial class CalreticulinMutationAnalysisResultPage : UserControl, INotifyPropertyChanged, Shared.Interface.IPersistPageChanges
+	public partial class CalreticulinMutationAnalysisResultPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 

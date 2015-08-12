@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Test
 	/// <summary>
 	/// Interaction logic for InvasiveBreastPanelPage.xaml
 	/// </summary>
-	public partial class InvasiveBreastPanelPage : UserControl, YellowstonePathology.Shared.Interface.IPersistPageChanges, INotifyPropertyChanged
+	public partial class InvasiveBreastPanelPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges, INotifyPropertyChanged
 	{
 		public delegate void PropertyChangedNotificationHandler(String info);
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -118,7 +118,7 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkOrderFISH_Click(object sender, RoutedEventArgs e)
 		{
-            YellowstonePathology.Business.PanelSet.Model.PanelSetHer2AmplificationByFish panelSet = new Business.PanelSet.Model.PanelSetHer2AmplificationByFish();
+			YellowstonePathology.Business.Test.Her2AmplificationByFish.Her2AmplificationByFishTest panelSet = new Business.Test.Her2AmplificationByFish.Her2AmplificationByFishTest();
             YellowstonePathology.Business.PanelSet.Model.PanelSetHer2AmplificationByFishRetired3 panelSet3 = new Business.PanelSet.Model.PanelSetHer2AmplificationByFishRetired3();
 			if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(panelSet.PanelSetId) == false)
 			{

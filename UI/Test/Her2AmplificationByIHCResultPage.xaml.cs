@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Test
 	/// <summary>
 	/// Interaction logic for Her2AmplificationByIHCResultPage.xaml
 	/// </summary>
-	public partial class Her2AmplificationByIHCResultPage : UserControl, INotifyPropertyChanged, Shared.Interface.IPersistPageChanges
+	public partial class Her2AmplificationByIHCResultPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -30,10 +30,10 @@ namespace YellowstonePathology.UI.Test
 		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private string m_PageHeaderText;
 
-		private YellowstonePathology.Business.Test.PanelSetOrderHer2AmplificationByIHC m_PanelSetOrder;
+		private YellowstonePathology.Business.Test.Her2AmplificationByIHC.Her2AmplificationByIHCTestOrder m_PanelSetOrder;
 		private string m_OrderedOnDescription;
 
-		public Her2AmplificationByIHCResultPage(YellowstonePathology.Business.Test.PanelSetOrderHer2AmplificationByIHC panelSetOrderHer2AmplificationByIHC,
+		public Her2AmplificationByIHCResultPage(YellowstonePathology.Business.Test.Her2AmplificationByIHC.Her2AmplificationByIHCTestOrder panelSetOrderHer2AmplificationByIHC,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
 			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
@@ -58,7 +58,7 @@ namespace YellowstonePathology.UI.Test
 			get { return this.m_OrderedOnDescription; }
 		}
 
-		public YellowstonePathology.Business.Test.PanelSetOrderHer2AmplificationByIHC PanelSetOrder
+		public YellowstonePathology.Business.Test.Her2AmplificationByIHC.Her2AmplificationByIHCTestOrder PanelSetOrder
 		{
 			get { return this.m_PanelSetOrder; }
 		}
@@ -98,7 +98,7 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkSetResults_Click(object sender, RoutedEventArgs e)
 		{
-			YellowstonePathology.Business.Test.Her2AmplificationByIHCResult result = new Business.Test.Her2AmplificationByIHCResult();
+			YellowstonePathology.Business.Test.Her2AmplificationByIHC.Her2AmplificationByIHCResult result = new Business.Test.Her2AmplificationByIHC.Her2AmplificationByIHCResult();
             result.SetResults(this.m_PanelSetOrder);
 			this.NotifyPropertyChanged("PanelSetOrder");
 		}
@@ -106,7 +106,7 @@ namespace YellowstonePathology.UI.Test
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
 		{
 			this.Save();
-			YellowstonePathology.Business.Document.Her2AmplificationByIHCReport report = new Business.Document.Her2AmplificationByIHCReport();
+			YellowstonePathology.Business.Test.Her2AmplificationByIHC.Her2AmplificationByIHCWordDocument report = new Business.Test.Her2AmplificationByIHC.Her2AmplificationByIHCWordDocument();
 			report.Render(this.m_AccessionOrder.MasterAccessionNo, this.m_PanelSetOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft);
 
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);

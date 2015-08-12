@@ -19,7 +19,7 @@ namespace YellowstonePathology.UI.Test
 	/// <summary>
 	/// Interaction logic for HPV1618ResultPage.xaml
 	/// </summary>
-	public partial class HPV1618ResultPage : UserControl, INotifyPropertyChanged, Shared.Interface.IPersistPageChanges
+	public partial class HPV1618ResultPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 

@@ -17,7 +17,7 @@ namespace YellowstonePathology.YpiConnect.Client
     /// <summary>
 	/// Interaction logic for PatientBirthdateSearchPage.xaml
     /// </summary>
-	public partial class PatientBirthdateSearchPage : Page, YellowstonePathology.Shared.Interface.IPersistPageChanges
+	public partial class PatientBirthdateSearchPage : Page, YellowstonePathology.Business.Interface.IPersistPageChanges
     {
 		public event EventHandler DoBirthdateSearch;
 

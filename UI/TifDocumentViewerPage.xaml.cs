@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI
     /// <summary>
 	/// Interaction logic for TifDocumentViewer.xaml
     /// </summary>
-    public partial class TifDocumentViewerPage : UserControl, YellowstonePathology.Shared.Interface.IPersistPageChanges
+    public partial class TifDocumentViewerPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
     {
         List<BitmapSource> m_BitmapSourceList;
 

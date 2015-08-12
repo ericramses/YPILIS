@@ -14,7 +14,7 @@ using System.Windows.Shapes;
 
 namespace YellowstonePathology.UI.Gross
 {	
-	public partial class BlankPage : UserControl, YellowstonePathology.Shared.Interface.IPersistPageChanges
+	public partial class BlankPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
 	{
         public BlankPage()
 		{            

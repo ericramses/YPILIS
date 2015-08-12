@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Test
 	/// <summary>
 	/// Interaction logic for MDSExtendedByFishResultPage.xaml
 	/// </summary>
-	public partial class MDSExtendedPanelByFishResultPage : UserControl, INotifyPropertyChanged, Shared.Interface.IPersistPageChanges
+	public partial class MDSExtendedPanelByFishResultPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -30,10 +30,10 @@ namespace YellowstonePathology.UI.Test
 		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private string m_PageHeaderText;
 
-		private YellowstonePathology.Business.Test.PanelSetOrderMDSExtendedByFish m_PanelSetOrder;
+		private YellowstonePathology.Business.Test.MDSExtendedByFish.MDSExtendedByFishTestOrder m_PanelSetOrder;
 		private string m_OrderedOnDescription;
 
-		public MDSExtendedPanelByFishResultPage(YellowstonePathology.Business.Test.PanelSetOrderMDSExtendedByFish panelSetOrderMDSExtendedByFish,
+		public MDSExtendedPanelByFishResultPage(YellowstonePathology.Business.Test.MDSExtendedByFish.MDSExtendedByFishTestOrder panelSetOrderMDSExtendedByFish,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
 			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
@@ -58,7 +58,7 @@ namespace YellowstonePathology.UI.Test
 			get { return this.m_OrderedOnDescription; }
 		}
 
-        public YellowstonePathology.Business.Test.PanelSetOrderMDSExtendedByFish PanelSetOrder
+		public YellowstonePathology.Business.Test.MDSExtendedByFish.MDSExtendedByFishTestOrder PanelSetOrder
 		{
 			get { return this.m_PanelSetOrder; }
 		}
@@ -98,7 +98,7 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkNormal_Click(object sender, RoutedEventArgs e)
 		{
-			YellowstonePathology.Business.Test.MDSExtendedByFishNormalResult result = new Business.Test.MDSExtendedByFishNormalResult();
+			YellowstonePathology.Business.Test.MDSExtendedByFish.MDSExtendedByFishNormalResult result = new Business.Test.MDSExtendedByFish.MDSExtendedByFishNormalResult();
 			result.SetResults(this.m_PanelSetOrder);
 			this.NotifyPropertyChanged("PanelSetOrder");
 		}
@@ -111,7 +111,7 @@ namespace YellowstonePathology.UI.Test
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
 		{
 			this.Save();
-			YellowstonePathology.Business.Document.MDSExtendedByFishReport report = new Business.Document.MDSExtendedByFishReport();
+			YellowstonePathology.Business.Test.MDSExtendedByFish.MDSExtendedByFishWordDocument report = new Business.Test.MDSExtendedByFish.MDSExtendedByFishWordDocument();
 			report.Render(this.m_AccessionOrder.MasterAccessionNo, this.m_PanelSetOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft);
 
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);

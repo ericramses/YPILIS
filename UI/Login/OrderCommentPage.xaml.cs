@@ -17,7 +17,7 @@ namespace YellowstonePathology.UI.Login
 	/// <summary>
 	/// Interaction logic for OrderCommentPage.xaml
 	/// </summary>
-	public partial class OrderCommentPage : UserControl, YellowstonePathology.Shared.Interface.IPersistPageChanges
+	public partial class OrderCommentPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
 	{
 		public delegate void BackEventHandler(object sender, EventArgs e);
 		public event BackEventHandler Back;

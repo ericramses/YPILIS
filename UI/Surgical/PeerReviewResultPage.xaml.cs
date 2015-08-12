@@ -16,7 +16,7 @@ using System.Collections.ObjectModel;
 
 namespace YellowstonePathology.UI.Surgical
 {	
-	public partial class PeerReviewResultPage : UserControl, INotifyPropertyChanged, Shared.Interface.IPersistPageChanges
+	public partial class PeerReviewResultPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 

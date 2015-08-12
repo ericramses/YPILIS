@@ -22,8 +22,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YellowstonePathology.YpiCon
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YellowstonePathology.YpiConnect.Service", "YellowstonePathology.YpiConnect.Service\YellowstonePathology.YpiConnect.Service.csproj", "{7F3B40B5-CB0B-4AC0-A2B0-CCCFF9247484}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YellowstonePathology.Shared", "YellowstonePathology.Shared\YellowstonePathology.Shared.csproj", "{9AD489BB-A66D-4FDF-A600-7D5E32DE5D4E}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{44311866-8304-490A-830A-CBEE183082A3}"
 	ProjectSection(SolutionItems) = preProject
 		Local.testsettings = Local.testsettings
@@ -34,7 +32,7 @@ EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "YpiConnectHttpHost", "YpiConnectHttpHost\", "{CB02282C-851D-4428-983F-EE76294B995D}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv3.5"
-		ProjectReferences = "{0B68C6D2-6418-4ECD-95D5-93DD6F8E1782}|DomainPersistence.dll;{C64F59D1-3A32-40DF-8294-89E0DCD19BE3}|SqlXmlPersistence.dll;{9AD489BB-A66D-4FDF-A600-7D5E32DE5D4E}|YellowstonePathology.Shared.dll;{012A95F3-57EE-4ADD-A8D4-5CDE1146812F}|YellowstonePathology.YpiConnect.Contract.dll;{7F3B40B5-CB0B-4AC0-A2B0-CCCFF9247484}|YellowstonePathology.YpiConnect.Service.dll;{0712F3D4-5C03-4446-B8FE-B8F5BE9495B1}|BusinessObjects.dll;{F8646414-0C9C-49BB-9DA3-3923BF78A398}|BarcodeLib.dll;"
+		ProjectReferences = "{0B68C6D2-6418-4ECD-95D5-93DD6F8E1782}|DomainPersistence.dll;{C64F59D1-3A32-40DF-8294-89E0DCD19BE3}|SqlXmlPersistence.dll;{012A95F3-57EE-4ADD-A8D4-5CDE1146812F}|YellowstonePathology.YpiConnect.Contract.dll;{7F3B40B5-CB0B-4AC0-A2B0-CCCFF9247484}|YellowstonePathology.YpiConnect.Service.dll;{0712F3D4-5C03-4446-B8FE-B8F5BE9495B1}|BusinessObjects.dll;{F8646414-0C9C-49BB-9DA3-3923BF78A398}|BarcodeLib.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/YpiConnectHttpHost"
 		Debug.AspNetCompiler.PhysicalPath = "YpiConnectHttpHost\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\YpiConnectHttpHost\"
@@ -227,27 +225,6 @@ Global
 		{7F3B40B5-CB0B-4AC0-A2B0-CCCFF9247484}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{7F3B40B5-CB0B-4AC0-A2B0-CCCFF9247484}.Release|Win32.ActiveCfg = Release|Any CPU
 		{7F3B40B5-CB0B-4AC0-A2B0-CCCFF9247484}.Release|x86.ActiveCfg = Release|Any CPU
-		{9AD489BB-A66D-4FDF-A600-7D5E32DE5D4E}.Debug|.NET.ActiveCfg = Debug|Any CPU
-		{9AD489BB-A66D-4FDF-A600-7D5E32DE5D4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9AD489BB-A66D-4FDF-A600-7D5E32DE5D4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9AD489BB-A66D-4FDF-A600-7D5E32DE5D4E}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{9AD489BB-A66D-4FDF-A600-7D5E32DE5D4E}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{9AD489BB-A66D-4FDF-A600-7D5E32DE5D4E}.Debug|Win32.ActiveCfg = Debug|Any CPU
-		{9AD489BB-A66D-4FDF-A600-7D5E32DE5D4E}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{9AD489BB-A66D-4FDF-A600-7D5E32DE5D4E}.Mongo|.NET.ActiveCfg = Mongo|Any CPU
-		{9AD489BB-A66D-4FDF-A600-7D5E32DE5D4E}.Mongo|Any CPU.ActiveCfg = Mongo|Any CPU
-		{9AD489BB-A66D-4FDF-A600-7D5E32DE5D4E}.Mongo|Any CPU.Build.0 = Mongo|Any CPU
-		{9AD489BB-A66D-4FDF-A600-7D5E32DE5D4E}.Mongo|Mixed Platforms.ActiveCfg = Mongo|Any CPU
-		{9AD489BB-A66D-4FDF-A600-7D5E32DE5D4E}.Mongo|Mixed Platforms.Build.0 = Mongo|Any CPU
-		{9AD489BB-A66D-4FDF-A600-7D5E32DE5D4E}.Mongo|Win32.ActiveCfg = Mongo|Any CPU
-		{9AD489BB-A66D-4FDF-A600-7D5E32DE5D4E}.Mongo|x86.ActiveCfg = Mongo|Any CPU
-		{9AD489BB-A66D-4FDF-A600-7D5E32DE5D4E}.Release|.NET.ActiveCfg = Release|Any CPU
-		{9AD489BB-A66D-4FDF-A600-7D5E32DE5D4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9AD489BB-A66D-4FDF-A600-7D5E32DE5D4E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9AD489BB-A66D-4FDF-A600-7D5E32DE5D4E}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{9AD489BB-A66D-4FDF-A600-7D5E32DE5D4E}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{9AD489BB-A66D-4FDF-A600-7D5E32DE5D4E}.Release|Win32.ActiveCfg = Release|Any CPU
-		{9AD489BB-A66D-4FDF-A600-7D5E32DE5D4E}.Release|x86.ActiveCfg = Release|Any CPU
 		{CB02282C-851D-4428-983F-EE76294B995D}.Debug|.NET.ActiveCfg = Debug|Any CPU
 		{CB02282C-851D-4428-983F-EE76294B995D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CB02282C-851D-4428-983F-EE76294B995D}.Debug|Any CPU.Build.0 = Debug|Any CPU

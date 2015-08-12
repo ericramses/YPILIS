@@ -17,7 +17,7 @@ using System.Xml.Linq;
 
 namespace YellowstonePathology.UI.Login.Receiving
 {
-	public partial class PlacentalPathologyPage : UserControl, YellowstonePathology.Shared.Interface.IPersistPageChanges
+	public partial class PlacentalPathologyPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
 	{
 		public delegate void ReturnEventHandler(object sender, UI.Navigation.PageNavigationReturnEventArgs e);
 		public event ReturnEventHandler Return;

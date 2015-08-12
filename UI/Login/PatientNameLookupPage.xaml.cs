@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Login
 	/// <summary>
 	/// Interaction logic for PatientNameLookupPage.xaml
 	/// </summary>
-	public partial class PatientNameLookupPage : UserControl, YellowstonePathology.Shared.Interface.IPersistPageChanges
+	public partial class PatientNameLookupPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
 	{
 		public delegate void ReturnEventHandler(object sender, UI.Navigation.PageNavigationReturnEventArgs e);
 		public event ReturnEventHandler Return;

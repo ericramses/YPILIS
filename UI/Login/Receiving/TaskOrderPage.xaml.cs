@@ -19,7 +19,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 	/// <summary>
 	/// Interaction logic for TaskOrderPage.xaml
 	/// </summary>
-	public partial class TaskOrderPage : UserControl, INotifyPropertyChanged, Shared.Interface.IPersistPageChanges
+	public partial class TaskOrderPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 

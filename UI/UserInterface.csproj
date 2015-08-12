@@ -41,7 +41,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>173</ApplicationRevision>
+    <ApplicationRevision>179</ApplicationRevision>
     <ApplicationVersion>10.1.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -3640,10 +3640,6 @@
     <ProjectReference Include="..\DomainPersistence\DomainPersistence.csproj">
       <Project>{0B68C6D2-6418-4ECD-95D5-93DD6F8E1782}</Project>
       <Name>DomainPersistence</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\YellowstonePathology.Shared\YellowstonePathology.Shared.csproj">
-      <Project>{9AD489BB-A66D-4FDF-A600-7D5E32DE5D4E}</Project>
-      <Name>YellowstonePathology.Shared</Name>
     </ProjectReference>
     <ProjectReference Include="..\YellowstonePathology.YpiConnect.Service\YellowstonePathology.YpiConnect.Service.csproj">
       <Project>{7F3B40B5-CB0B-4AC0-A2B0-CCCFF9247484}</Project>

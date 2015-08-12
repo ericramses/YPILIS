@@ -17,7 +17,7 @@ namespace YellowstonePathology.UI.Gross
 	/// <summary>
 	/// Interaction logic for BlockColorSelectionPage.xaml
 	/// </summary>
-	public partial class BlockColorSelectionPage : UserControl, YellowstonePathology.Shared.Interface.IPersistPageChanges
+	public partial class BlockColorSelectionPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
 	{
 		public delegate void NextEventHandler(object sender, UI.CustomEventArgs.SpecimenOrderReturnEventArgs e);
 		public event NextEventHandler Next;

@@ -15,7 +15,7 @@ using System.ComponentModel;
 
 namespace YellowstonePathology.UI.Test
 {    
-	public partial class CancelTestWarningPage : UserControl, YellowstonePathology.Shared.Interface.IPersistPageChanges, INotifyPropertyChanged 
+	public partial class CancelTestWarningPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges, INotifyPropertyChanged 
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 

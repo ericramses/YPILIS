@@ -16,7 +16,7 @@ using System.Xml.Linq;
 
 namespace YellowstonePathology.UI.Test
 {
-	public partial class ALKForNSCLCByFISHResultPage : UserControl, INotifyPropertyChanged, Shared.Interface.IPersistPageChanges, IResultPage
+	public partial class ALKForNSCLCByFISHResultPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges, IResultPage
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 

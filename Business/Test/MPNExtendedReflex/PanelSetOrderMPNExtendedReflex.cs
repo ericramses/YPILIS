@@ -109,7 +109,7 @@ namespace YellowstonePathology.Business.Test.MPNExtendedReflex
 
 			YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FTest jak2V617FTest = new YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FTest();
 			YellowstonePathology.Business.Test.CalreticulinMutationAnalysis.CalreticulinMutationAnalysisTest calreticulinMutationAnalysisTest = new YellowstonePathology.Business.Test.CalreticulinMutationAnalysis.CalreticulinMutationAnalysisTest();
-            YellowstonePathology.Business.PanelSet.Model.PanelSetMPL mplTest = new YellowstonePathology.Business.PanelSet.Model.PanelSetMPL();
+			YellowstonePathology.Business.Test.MPL.MPLTest mplTest = new YellowstonePathology.Business.Test.MPL.MPLTest();
 			if(accessionOrder.PanelSetOrderCollection.Exists(jak2V617FTest.PanelSetId) == true)
 			{
 				result.AppendLine("JAK2 V617F");
@@ -129,7 +129,7 @@ namespace YellowstonePathology.Business.Test.MPNExtendedReflex
 			if (accessionOrder.PanelSetOrderCollection.Exists(mplTest.PanelSetId) == true)
 			{
 				result.AppendLine("MPL");
-				YellowstonePathology.Business.Test.PanelSetOrderMPL mplTestOrder = (YellowstonePathology.Business.Test.PanelSetOrderMPL)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(mplTest.PanelSetId);
+				YellowstonePathology.Business.Test.MPL.MPLTestOrder mplTestOrder = (YellowstonePathology.Business.Test.MPL.MPLTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(mplTest.PanelSetId);
 				result.AppendLine(mplTestOrder.ToResultString(accessionOrder));
 				result.AppendLine();
 			}

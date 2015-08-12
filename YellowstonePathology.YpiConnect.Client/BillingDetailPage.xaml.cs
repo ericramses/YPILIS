@@ -19,7 +19,7 @@ namespace YellowstonePathology.YpiConnect.Client
     /// <summary>
 	/// Interaction logic for SearchResultPage.xaml
     /// </summary>
-	public partial class BillingDetailPage : Page, YellowstonePathology.Shared.Interface.IPersistPageChanges
+	public partial class BillingDetailPage : Page, YellowstonePathology.Business.Interface.IPersistPageChanges
     {
 		private YellowstonePathology.YpiConnect.Contract.Billing.BillingAccession m_BillingAccession;
 		private YellowstonePathology.YpiConnect.Contract.Billing.BillingDetail m_BillingDetail;

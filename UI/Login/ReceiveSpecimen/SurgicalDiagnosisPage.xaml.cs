@@ -20,7 +20,7 @@ namespace YellowstonePathology.UI.Login.ReceiveSpecimen
     /// <summary>
     /// 
     /// </summary>
-    public partial class SurgicalDiagnosisPage : UserControl, INotifyPropertyChanged, Shared.Interface.IPersistPageChanges
+    public partial class SurgicalDiagnosisPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
     {
         public event PropertyChangedEventHandler PropertyChanged;
         public delegate void ReturnEventHandler(object sender, UI.Navigation.PageNavigationReturnEventArgs e);

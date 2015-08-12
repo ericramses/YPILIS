@@ -17,7 +17,7 @@ namespace YellowstonePathology.UI.MaterialTracking
 	/// <summary>
 	/// Interaction logic for MaterialTrackingCasePage.xaml
 	/// </summary>
-	public partial class MaterialTrackingCasePage : UserControl, YellowstonePathology.Shared.Interface.IPersistPageChanges
+	public partial class MaterialTrackingCasePage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
 	{
 		private YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort m_BarcodeScanPort;
 		

@@ -19,7 +19,7 @@ namespace YellowstonePathology.YpiConnect.Client
     /// <summary>
 	/// Interaction logic for ShipmentDetailsPage.xaml
     /// </summary>
-	public partial class ShipmentDetailsPage : Page, INotifyPropertyChanged, YellowstonePathology.Shared.Interface.IPersistPageChanges
+	public partial class ShipmentDetailsPage : Page, INotifyPropertyChanged, YellowstonePathology.Business.Interface.IPersistPageChanges
     {
 		public delegate void PropertyChangedNotificationHandler(String info);
 		public event PropertyChangedEventHandler PropertyChanged;		

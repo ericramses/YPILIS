@@ -48,7 +48,7 @@ namespace YellowstonePathology.UI.Test
 
 		private void InvasiveBreastPanelPage_OrderHER2byFISH(object sender, EventArgs e)
 		{
-            YellowstonePathology.Business.PanelSet.Model.PanelSetHer2AmplificationByFish panelSet = new Business.PanelSet.Model.PanelSetHer2AmplificationByFish();
+			YellowstonePathology.Business.Test.Her2AmplificationByFish.Her2AmplificationByFishTest panelSet = new Business.Test.Her2AmplificationByFish.Her2AmplificationByFishTest();
 			this.StartReportOrderPath(panelSet);
 		}
 
