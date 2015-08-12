@@ -7,7 +7,7 @@ using YellowstonePathology.Business.Persistence;
 namespace YellowstonePathology.Business.Test.LLP
 {
 	[PersistentClass("tblFlowLeukemia", "tblPanelSetOrder", "YPIDATA")]
-	public class PanelSetOrderLeukemiaLymphoma : PanelSetOrder, YellowstonePathology.Shared.Interface.ILeukemiaLymphomaResult
+	public class PanelSetOrderLeukemiaLymphoma : PanelSetOrder, YellowstonePathology.Business.Interface.ILeukemiaLymphomaResult
 	{		
         private int m_SpecimenNumber;
 		private int m_GatingPopulation;

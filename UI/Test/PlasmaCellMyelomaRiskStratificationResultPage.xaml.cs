@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Test
 	/// <summary>
 	/// Interaction logic for PlasmaCellMyelomaRiskStratificationResultPage.xaml
 	/// </summary>
-	public partial class PlasmaCellMyelomaRiskStratificationResultPage : UserControl, INotifyPropertyChanged, Shared.Interface.IPersistPageChanges
+	public partial class PlasmaCellMyelomaRiskStratificationResultPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 

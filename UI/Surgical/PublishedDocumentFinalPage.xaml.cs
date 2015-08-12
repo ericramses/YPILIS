@@ -15,7 +15,7 @@ using System.ComponentModel;
 
 namespace YellowstonePathology.UI.Surgical
 {	
-	public partial class PublishedDocumentFinalPage : UserControl, INotifyPropertyChanged, Shared.Interface.IPersistPageChanges
+	public partial class PublishedDocumentFinalPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 

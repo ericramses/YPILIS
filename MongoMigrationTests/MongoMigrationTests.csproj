@@ -56,10 +56,6 @@
       <Project>{0712F3D4-5C03-4446-B8FE-B8F5BE9495B1}</Project>
       <Name>BusinessObjects</Name>
     </ProjectReference>
-    <ProjectReference Include="..\YellowstonePathology.Shared\YellowstonePathology.Shared.csproj">
-      <Project>{9AD489BB-A66D-4FDF-A600-7D5E32DE5D4E}</Project>
-      <Name>YellowstonePathology.Shared</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

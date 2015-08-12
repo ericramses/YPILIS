@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Login.ReceiveSpecimen
 	/// <summary>
 	/// Interaction logic for CreateClientOrderPage.xaml
 	/// </summary>
-	public partial class ClientOrderShortDetailsPage : UserControl, INotifyPropertyChanged, YellowstonePathology.Shared.Interface.IPersistPageChanges
+	public partial class ClientOrderShortDetailsPage : UserControl, INotifyPropertyChanged, YellowstonePathology.Business.Interface.IPersistPageChanges
 	{
         public event PropertyChangedEventHandler PropertyChanged;
 

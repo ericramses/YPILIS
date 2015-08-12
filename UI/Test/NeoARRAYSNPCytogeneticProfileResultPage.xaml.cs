@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Test
 	/// <summary>
 	/// Interaction logic for NeoARRAYSNPCytogeneticProfileResultPage.xaml
 	/// </summary>
-	public partial class NeoARRAYSNPCytogeneticProfileResultPage : UserControl, INotifyPropertyChanged, Shared.Interface.IPersistPageChanges
+	public partial class NeoARRAYSNPCytogeneticProfileResultPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 

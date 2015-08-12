@@ -14,7 +14,7 @@ using System.Windows.Shapes;
 
 namespace YellowstonePathology.UI.Gross
 {	
-	public partial class DictationTemplatePage : UserControl, YellowstonePathology.Shared.Interface.IPersistPageChanges
+	public partial class DictationTemplatePage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
 	{
         private DictationTemplate m_DictationTemplate;
 

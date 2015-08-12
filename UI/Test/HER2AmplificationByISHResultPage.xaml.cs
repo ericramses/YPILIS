@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Test
     /// <summary>
     /// Interaction logic for HER2AmplificationByISHResultPage.xaml
     /// </summary>
-    public partial class HER2AmplificationByISHResultPage : UserControl, INotifyPropertyChanged, Shared.Interface.IPersistPageChanges, IResultPage
+    public partial class HER2AmplificationByISHResultPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges, IResultPage
     {
         public event PropertyChangedEventHandler PropertyChanged;
 

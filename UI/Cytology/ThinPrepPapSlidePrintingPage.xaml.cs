@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Cytology
 	/// <summary>
 	/// Interaction logic for ThinPrepPapSlidePrintingPage.xaml
 	/// </summary>
-	public partial class ThinPrepPapSlidePrintingPage : UserControl, INotifyPropertyChanged, Shared.Interface.IPersistPageChanges
+	public partial class ThinPrepPapSlidePrintingPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 

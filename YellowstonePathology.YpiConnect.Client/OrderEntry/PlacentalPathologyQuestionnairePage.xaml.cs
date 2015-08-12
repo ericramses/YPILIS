@@ -15,7 +15,7 @@ using System.Xml;
 
 namespace YellowstonePathology.YpiConnect.Client.OrderEntry
 {
-	public partial class PlacentalPathologyQuestionnairePage : Page, YellowstonePathology.Shared.Interface.IPersistPageChanges
+	public partial class PlacentalPathologyQuestionnairePage : Page, YellowstonePathology.Business.Interface.IPersistPageChanges
     {
 		public delegate void ReturnEventHandler(object sender, YellowstonePathology.YpiConnect.Client.PageNavigationReturnEventArgs e);
 		public event ReturnEventHandler Return;

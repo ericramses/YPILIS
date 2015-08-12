@@ -17,7 +17,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 	/// <summary>
 	/// Interaction logic for ClientOrderLookupPage.xaml
 	/// </summary>
-	public partial class ClientOrderLookupPage : UserControl, YellowstonePathology.Shared.Interface.IPersistPageChanges
+	public partial class ClientOrderLookupPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
 	{
 		public delegate void ClientOrderFoundEventHandler(object sender, YellowstonePathology.UI.CustomEventArgs.ClientOrderReturnEventArgs e);
         public event ClientOrderFoundEventHandler ClientOrderFound;

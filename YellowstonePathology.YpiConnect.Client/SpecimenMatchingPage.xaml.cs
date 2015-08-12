@@ -18,7 +18,7 @@ namespace YellowstonePathology.YpiConnect.Client
     /// <summary>
 	/// Interaction logic for ReportBrowserNotEnabledPage.xaml
     /// </summary>
-	public partial class SpecimenMatchingPage : Page, YellowstonePathology.Shared.Interface.IPersistPageChanges
+	public partial class SpecimenMatchingPage : Page, YellowstonePathology.Business.Interface.IPersistPageChanges
 	{				
 		private YellowstonePathology.Business.ClientOrder.Model.Shipment m_Shipment;
         private YellowstonePathology.Business.ClientOrder.Model.ClientOrder m_ClientOrder;

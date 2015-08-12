@@ -16,7 +16,7 @@ using System.Xml.Linq;
 
 namespace YellowstonePathology.UI.Test
 {	
-	public partial class StandingOrderPage : UserControl, INotifyPropertyChanged, Shared.Interface.IPersistPageChanges
+	public partial class StandingOrderPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 

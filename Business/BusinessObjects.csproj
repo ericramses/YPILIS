@@ -351,6 +351,9 @@
     <Compile Include="Helper\PatientHelper.cs" />
     <Compile Include="Helper\SerializationHelper.cs" />
     <Compile Include="Helper\StringExtensionMethods.cs" />
+    <Compile Include="Interface\IFlowMarker.cs" />
+    <Compile Include="Interface\ILeukemiaLymphomaResult.cs" />
+    <Compile Include="Interface\IPersistPageChanges.cs" />
     <Compile Include="Label.Model\PantherLabel.cs" />
     <Compile Include="Logging\EmailExceptionHandler.cs" />
     <Compile Include="Logging\ScanLogger.cs" />
@@ -2822,10 +2825,6 @@
     <ProjectReference Include="..\SqlXmlPersistence\SqlXmlPersistence.csproj">
       <Project>{C64F59D1-3A32-40DF-8294-89E0DCD19BE3}</Project>
       <Name>SqlXmlPersistence</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\YellowstonePathology.Shared\YellowstonePathology.Shared.csproj">
-      <Project>{9AD489BB-A66D-4FDF-A600-7D5E32DE5D4E}</Project>
-      <Name>YellowstonePathology.Shared</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

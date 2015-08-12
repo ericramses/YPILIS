@@ -308,7 +308,7 @@ namespace YellowstonePathology.UI.Flow
         public void ButtonCreateComment_Click(object sender, RoutedEventArgs args)
         {
             this.Save();
-            List<YellowstonePathology.Shared.Interface.IFlowMarker> flowMarkers = this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.FlowMarkerCollection.ToList<YellowstonePathology.Shared.Interface.IFlowMarker>();
+            List<YellowstonePathology.Business.Interface.IFlowMarker> flowMarkers = this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.FlowMarkerCollection.ToList<YellowstonePathology.Business.Interface.IFlowMarker>();
 
 			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_FlowUI.AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.OrderedOn, this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.OrderedOnId);
 			YellowstonePathology.Business.Helper.FlowCommentHelper comment = new YellowstonePathology.Business.Helper.FlowCommentHelper(specimenOrder.Description, this.m_FlowUI.PanelSetOrderLeukemiaLymphoma, flowMarkers);
@@ -401,7 +401,7 @@ namespace YellowstonePathology.UI.Flow
 
         public void ListViewComments_MouseDoubleClick(object sender, RoutedEventArgs args)
         {
-            List<YellowstonePathology.Shared.Interface.IFlowMarker> flowMarkers = this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.FlowMarkerCollection.ToList<YellowstonePathology.Shared.Interface.IFlowMarker>();
+            List<YellowstonePathology.Business.Interface.IFlowMarker> flowMarkers = this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.FlowMarkerCollection.ToList<YellowstonePathology.Business.Interface.IFlowMarker>();
 			YellowstonePathology.Business.Helper.FlowCommentHelper comment = new YellowstonePathology.Business.Helper.FlowCommentHelper(this.m_FlowUI.AccessionOrder.SpecimenOrderCollection[0].Description, this.m_FlowUI.PanelSetOrderLeukemiaLymphoma, flowMarkers);
             YellowstonePathology.Business.Flow.FlowCommentItem item = (YellowstonePathology.Business.Flow.FlowCommentItem)this.listViewComments.SelectedItem;
             comment.AddComment(item.Category, item.Impression, item.Comment);

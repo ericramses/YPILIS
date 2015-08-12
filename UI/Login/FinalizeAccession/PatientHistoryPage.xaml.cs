@@ -17,7 +17,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 	/// <summary>
 	/// Interaction logic for AssignmentPage.xaml
 	/// </summary>
-	public partial class PatientHistoryPage : UserControl, YellowstonePathology.Shared.Interface.IPersistPageChanges
+	public partial class PatientHistoryPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
 	{
 		public delegate void ReturnEventHandler(object sender, UI.Navigation.PageNavigationReturnEventArgs e);
 		public event ReturnEventHandler Return;

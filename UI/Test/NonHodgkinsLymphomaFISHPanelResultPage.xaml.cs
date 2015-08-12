@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Test
 	/// <summary>
 	/// Interaction logic for NonHodgkinsLymphomaFISHPanelResultPage.xaml
 	/// </summary>
-	public partial class NonHodgkinsLymphomaFISHPanelResultPage : UserControl, INotifyPropertyChanged, Shared.Interface.IPersistPageChanges
+	public partial class NonHodgkinsLymphomaFISHPanelResultPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 

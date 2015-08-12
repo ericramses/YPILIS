@@ -14,7 +14,7 @@ using System.Windows.Shapes;
 
 namespace YellowstonePathology.UI.Surgical
 {    
-	public partial class PQRSMeasurePage : UserControl, YellowstonePathology.Shared.Interface.IPersistPageChanges
+	public partial class PQRSMeasurePage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
     {
 		public delegate void AddPQRSCodeEventHandler(object sender, CustomEventArgs.AddPQRSReturnEventArgs e);
 		public event AddPQRSCodeEventHandler AddPQRSCode;

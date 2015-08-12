@@ -16,7 +16,7 @@ using System.Xml.Linq;
 
 namespace YellowstonePathology.UI.Login.Receiving
 {	
-	public partial class AccessionOrderPage : UserControl, INotifyPropertyChanged, Shared.Interface.IPersistPageChanges
+	public partial class AccessionOrderPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 

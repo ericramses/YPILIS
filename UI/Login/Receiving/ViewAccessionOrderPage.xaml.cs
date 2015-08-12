@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 	/// <summary>
 	/// Interaction logic for ViewClientOrderPage.xaml
 	/// </summary>
-	public partial class ViewAccessionOrderPage : UserControl, YellowstonePathology.Shared.Interface.IPersistPageChanges
+	public partial class ViewAccessionOrderPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
 	{
         public delegate void UseThisAccessionOrderEventHandler(object sender, YellowstonePathology.UI.CustomEventArgs.AccessionOrderReturnEventArgs e);
         public event UseThisAccessionOrderEventHandler UseThisAccessionOrder;

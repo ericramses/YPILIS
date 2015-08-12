@@ -18,7 +18,7 @@ using System.IO;
 
 namespace YellowstonePathology.UI.Login.FinalizeAccession
 {	
-    public partial class DocumentScanningPage : UserControl, YellowstonePathology.Shared.Interface.IPersistPageChanges, INotifyPropertyChanged
+    public partial class DocumentScanningPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges, INotifyPropertyChanged
 	{
         public event PropertyChangedEventHandler PropertyChanged;
 

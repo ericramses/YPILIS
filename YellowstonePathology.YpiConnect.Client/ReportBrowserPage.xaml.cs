@@ -19,7 +19,7 @@ namespace YellowstonePathology.YpiConnect.Client
     /// <summary>
     /// Interaction logic for ReportBrowser.xaml
     /// </summary>
-	public partial class ReportBrowserPage : Page, YellowstonePathology.Shared.Interface.IPersistPageChanges
+	public partial class ReportBrowserPage : Page, YellowstonePathology.Business.Interface.IPersistPageChanges
     {
 		private ReportBrowserUI m_ReportBrowserUI;
         

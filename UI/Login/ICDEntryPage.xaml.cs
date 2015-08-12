@@ -20,7 +20,7 @@ namespace YellowstonePathology.UI.Login
 	/// <summary>
 	/// Interaction logic for HPV1618ResultPage.xaml
 	/// </summary>
-	public partial class ICDEntryPage : UserControl, INotifyPropertyChanged, Shared.Interface.IPersistPageChanges
+	public partial class ICDEntryPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 

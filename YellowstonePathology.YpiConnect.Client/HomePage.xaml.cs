@@ -17,7 +17,7 @@ namespace YellowstonePathology.YpiConnect.Client
     /// <summary>
 	/// Interaction logic for HomePage.xaml
     /// </summary>
-	public partial class HomePage : Page, YellowstonePathology.Shared.Interface.IPersistPageChanges
+	public partial class HomePage : Page, YellowstonePathology.Business.Interface.IPersistPageChanges
     {        
         public HomePage()
         {

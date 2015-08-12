@@ -105,10 +105,6 @@
       <Project>{C64F59D1-3A32-40DF-8294-89E0DCD19BE3}</Project>
       <Name>SqlXmlPersistence</Name>
     </ProjectReference>
-    <ProjectReference Include="..\YellowstonePathology.Shared\YellowstonePathology.Shared.csproj">
-      <Project>{9AD489BB-A66D-4FDF-A600-7D5E32DE5D4E}</Project>
-      <Name>YellowstonePathology.Shared</Name>
-    </ProjectReference>
     <ProjectReference Include="..\YellowstonePathology.YpiConnect.Contract\YellowstonePathology.YpiConnect.Contract.csproj">
       <Project>{012A95F3-57EE-4ADD-A8D4-5CDE1146812F}</Project>
       <Name>YellowstonePathology.YpiConnect.Contract</Name>

@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Login.ReceiveSpecimen
     /// <summary>
     /// 
     /// </summary>
-    public partial class SpecimenSelectionPage : UserControl, INotifyPropertyChanged, Shared.Interface.IPersistPageChanges
+    public partial class SpecimenSelectionPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
     {
         public event PropertyChangedEventHandler PropertyChanged;
         public delegate void ReturnEventHandler(object sender, UI.Navigation.PageNavigationReturnEventArgs e);

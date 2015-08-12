@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 
 namespace YellowstonePathology.UI.Login.FinalizeAccession
 {	
-	public partial class SpecimenMappingPage : UserControl, YellowstonePathology.Shared.Interface.IPersistPageChanges
+	public partial class SpecimenMappingPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
 	{
 		public delegate void NextEventHandler(object sender, EventArgs e);
 		public event NextEventHandler Next;

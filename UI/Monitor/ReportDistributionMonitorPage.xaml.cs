@@ -16,7 +16,7 @@ using System.Xml.Linq;
 
 namespace YellowstonePathology.UI.Monitor
 {
-	public partial class ReportDistributionMonitorPage : UserControl, INotifyPropertyChanged, YellowstonePathology.Shared.Interface.IPersistPageChanges, IMonitorPage
+	public partial class ReportDistributionMonitorPage : UserControl, INotifyPropertyChanged, YellowstonePathology.Business.Interface.IPersistPageChanges, IMonitorPage
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
