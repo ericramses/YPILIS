@@ -25,10 +25,18 @@ namespace YellowstonePathology.UI.Cytology
 		public delegate void NextEventHandler(object sender, EventArgs e);
 		public event NextEventHandler Next;
 
+        YellowstonePathology.Business.Specimen.Model.SpecimenOrder m_SpecimenOrder;
+        YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
+        YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
+
 		private string m_PageHeaderText;
 
-		public ThinPrepPapSlidePrintingPage()
+		public ThinPrepPapSlidePrintingPage(YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder, YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
+            YellowstonePathology.Business.Persistence.ObjectTracker objectTracker)
 		{
+            this.m_SpecimenOrder = specimenOrder;
+            this.m_AccessionOrder = accessionOrder;
+            this.m_ObjectTracker = objectTracker;
 			this.m_PageHeaderText = "Slide Printing Page ";
 
 			InitializeComponent();
@@ -40,6 +48,16 @@ namespace YellowstonePathology.UI.Cytology
 		{
 			get { return this.m_PageHeaderText; }
 		}
+
+        public YellowstonePathology.Business.Specimen.Model.SpecimenOrder SpecimenOrder
+        {
+            get { return this.m_SpecimenOrder; }
+        }
+
+        public YellowstonePathology.Business.Test.AccessionOrder AccessionOrder
+        {
+            get { return this.m_AccessionOrder; }
+        }
 
 		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
 		{
@@ -71,6 +89,6 @@ namespace YellowstonePathology.UI.Cytology
 		private void ButtonNext_Click(object sender, RoutedEventArgs e)
 		{
 			if (this.Next != null) this.Next(this, new EventArgs());
-		}
+		}        
 	}
 }

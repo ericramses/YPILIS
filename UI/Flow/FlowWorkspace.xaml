@@ -52,6 +52,7 @@
                     <ICDCode ICD9="202.80" ICD10="C85.89" Description="Other specified types of non-Hodgkin lymphoma, extranodal and solid organ sites" />
                     <ICDCode ICD9="202.80" ICD10="C85.80" Description="Other specified types of non-Hodgkin lymphoma, unspecified site" />
                     <ICDCode ICD9="288.64" ICD10="D72.822" Description="Plasmacytosis" />
+                    <ICDCode ICD9="511.9" ICD10="J91.8" Description="Pleural effusion in other conditions classified elsewhere" />
                     <ICDCode ICD9="207.10" ICD10="D45" Description="Polycythemia vera" />
                     <ICDCode ICD9="238.72" ICD10="D46.21" Description="Refractory anemia with excess of blasts 1" />
                     <ICDCode ICD9="238.73" ICD10="D46.22" Description="Refractory anemia with excess of blasts 2" />
@@ -62,7 +63,7 @@
                     <ICDCode ICD9="238.72" ICD10="D46.B" Description="Refractory cytopenia with multilineage dysplasia and ring sideroblasts" />
                     <ICDCode ICD9="196.9" ICD10="C77.9" Description="Secondary and unspecified malignant neoplasm of lymph node, unspecified" />
                     <ICDCode ICD9="202.20" ICD10="C84.19" Description="Sezary disease, extranodal and solid organ sites" />
-                    <ICDCode ICD9="202.20" ICD10="C84.10" Description="Sezary disease, unspecified site" />
+                    <ICDCode ICD9="202.20" ICD10="C84.10" Description="Sezary disease, unspecified site" />                    
                     <ICDCode ICD9="757.33" ICD10="Q82.1" Description="Xeroderma pigmentosum" />
                 </ICDCodeCollection>
             </x:XData>

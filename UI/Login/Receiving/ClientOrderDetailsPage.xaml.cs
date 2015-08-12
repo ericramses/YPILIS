@@ -250,18 +250,15 @@ namespace YellowstonePathology.UI.Login.Receiving
             if (this.ComboBoxSpecimenId.SelectedItem != null)
             {
                 if (string.IsNullOrEmpty(this.m_ClientOrderDetail.DescriptionToAccession) == true)
-                {
-                    if (this.TextBoxAccessionAs != null)
-                    {
-                        YellowstonePathology.Business.Specimen.Model.Specimen specimen = (YellowstonePathology.Business.Specimen.Model.Specimen)this.ComboBoxSpecimenId.SelectedItem;
-                        this.m_ClientOrderDetail.DescriptionToAccessionBinding = specimen.Description;
-                        this.m_ClientOrderDetail.LabFixationBinding = specimen.LabFixation;
-                        this.m_ClientOrderDetail.ClientFixationBinding = specimen.ClientFixation;
-                        this.m_ClientOrderDetail.RequiresGrossExamination = specimen.RequiresGrossExamination;
+                {                    
+                    YellowstonePathology.Business.Specimen.Model.Specimen specimen = (YellowstonePathology.Business.Specimen.Model.Specimen)this.ComboBoxSpecimenId.SelectedItem;
+                    this.m_ClientOrderDetail.DescriptionToAccessionBinding = specimen.Description;
+                    this.m_ClientOrderDetail.LabFixationBinding = specimen.LabFixation;
+                    this.m_ClientOrderDetail.ClientFixationBinding = specimen.ClientFixation;
+                    this.m_ClientOrderDetail.RequiresGrossExamination = specimen.RequiresGrossExamination;
 
-                        this.HandleTemplatedSpecimen();
-                        this.NotifyPropertyChanged("");
-                    }
+                    this.HandleTemplatedSpecimen();
+                    this.NotifyPropertyChanged("");                    
                 }
             }
         }
@@ -305,7 +302,7 @@ namespace YellowstonePathology.UI.Login.Receiving
         private void HyperLinkReceivedInCytolyt_Click(object sender, RoutedEventArgs e)
         {
             this.m_ClientOrderDetail.ClientFixationBinding = YellowstonePathology.Business.Specimen.Model.FixationType.Cytolyt;
-            this.m_ClientOrderDetail.LabFixationBinding = YellowstonePathology.Business.Specimen.Model.FixationType.Cytolyt;
+            this.m_ClientOrderDetail.LabFixationBinding = YellowstonePathology.Business.Specimen.Model.FixationType.PreservCyt;
             this.m_ClientOrderDetail.SetFixationStartTime();
         }
 
