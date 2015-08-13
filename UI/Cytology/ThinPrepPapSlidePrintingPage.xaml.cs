@@ -128,6 +128,25 @@ namespace YellowstonePathology.UI.Cytology
             {
                 MessageBox.Show("Cannot add another Panther Aliquot as one already exists.");
             }
+        }
+
+        private void ButtonReprintSelected_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.ListBoxAliquots.SelectedItem != null)
+            {
+                YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = (YellowstonePathology.Business.Test.AliquotOrder)this.ListBoxAliquots.SelectedItem;
+                YellowstonePathology.Business.Specimen.Model.ThinPrepSlide thinPrepSlide = new Business.Specimen.Model.ThinPrepSlide();
+                YellowstonePathology.Business.Specimen.Model.PantherAliquot pantherAliquot = new Business.Specimen.Model.PantherAliquot();
+
+                if (aliquotOrder.AliquotType == thinPrepSlide.AliquotType)
+                {
+                    this.PrintThinPrepSlide(aliquotOrder);
+                }
+                else if (aliquotOrder.AliquotType == pantherAliquot.AliquotType)
+                {
+                    
+                }
+            }
         }        
 	}
 }

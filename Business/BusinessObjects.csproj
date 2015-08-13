@@ -482,6 +482,7 @@
     <Compile Include="HL7View\ECW\ECWOBXViewFactory.cs" />
     <Compile Include="HL7View\ECW\ECWPIDView.cs" />
     <Compile Include="HL7View\ECW\ECWORCView.cs" />
+    <Compile Include="Specimen.Model\AliquotCollection.cs" />
     <Compile Include="Specimen.Model\BlockMedium.cs" />
     <Compile Include="Specimen.Model\CellBlockMedium.cs" />
     <Compile Include="Specimen.Model\PantherAliquot.cs" />

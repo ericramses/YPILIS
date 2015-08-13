@@ -21,8 +21,25 @@
                     <TextBlock Grid.Column="2" Grid.Row="0" Margin="2,2,2,2" Text="{Binding Path=Label}"></TextBlock>                    
 
                 </Grid>
-            </HierarchicalDataTemplate>                       
-            
+            </HierarchicalDataTemplate>
+
+            <DataTemplate x:Key="ListBoxDataTemplate">
+                <Grid Margin="2,2,2,2" Width="200" Height="50">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" Text="{Binding Path=AliquotType}" VerticalAlignment="Center"></TextBlock>
+                    <TextBlock Grid.Column="2" Grid.Row="0" Margin="2,2,2,2" Text="{Binding Path=Label}" VerticalAlignment="Center"></TextBlock>
+
+                </Grid>
+            </DataTemplate>
+        
         </Grid.Resources>
         
 		<Grid.ColumnDefinitions>
@@ -66,9 +83,7 @@
                 <TextBlock Grid.Column="0" Grid.Row="2" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right">Specimen:</TextBlock>
                 <TextBlock Grid.Column="1" Grid.Row="2" Margin="2,2,2,2" HorizontalAlignment="Stretch" Text="{Binding Path=SpecimenOrder.SpecimenDescriptionString}"></TextBlock>
 
-                <TreeView Name="TreeViewAliquotOrder" Grid.Column="0" Grid.Row="3" ItemsSource="{Binding Path=SpecimenOrder.AliquotOrderCollection}"
-							ItemTemplate="{StaticResource DataTemplateAliquotOrder}" Margin="2,2,2,2" BorderThickness="0">
-                </TreeView>
+                <ListBox Name="ListBoxAliquots" Grid.Column="0" Grid.Row="3" ItemsSource="{Binding Path=SpecimenOrder.AliquotOrderCollection}" HorizontalAlignment="Stretch" ItemTemplate="{StaticResource ListBoxDataTemplate}"></ListBox>                               
 
             </Grid>
 
@@ -79,11 +94,14 @@
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"></RowDefinition>
-                    <RowDefinition Height="*"></RowDefinition>                    
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
 
                 <Button Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" Width="200" Height="100" Click="ButtonAddThinPrepSlide_Click">Add Thin Prep Slide</Button>
                 <Button Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" Width="200" Height="100" Click="ButtonAddPantherTube_Click">Add Panther Tube</Button>
+                <Button Grid.Column="0" Grid.Row="2" Margin="2,2,2,2" Width="200" Height="100" Click="ButtonReprintSelected_Click">Reprint Selected Item</Button>
+                
             </Grid>
             
         </Grid>
