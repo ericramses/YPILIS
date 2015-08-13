@@ -1073,7 +1073,7 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Label.Model.PantherLabel pantherLabel = new Business.Label.Model.PantherLabel("15-12345", "PNTH123456", "MICKEY", "MOUSE", "Thin Prep Fluid");
+            YellowstonePathology.Business.Label.Model.PantherLabel pantherLabel = new Business.Label.Model.PantherLabel("15-12345.1.1", "Mouse, Micki E", DateTime.Parse("8/10/1966"), "Thin Prep Fluid");
             YellowstonePathology.Business.Label.Model.MolecularLabelPrinter printer = new Business.Label.Model.MolecularLabelPrinter();
             printer.Queue.Enqueue(pantherLabel);
             printer.Print();
