@@ -356,7 +356,7 @@ namespace YellowstonePathology.Business.Gateway
 		public static Test.AccessionOrder GetAccessionOrderByAliquotOrderId(string aliquotOrderId)
 		{
 			SqlCommand cmd = new SqlCommand();
-			cmd.CommandText = "gwGetAccessionByAliquotOrderId_A5";
+			cmd.CommandText = "gwGetAccessionByAliquotOrderId_A6";
 			cmd.CommandType = CommandType.StoredProcedure;
 			cmd.Parameters.Add("@AliquotOrderId", SqlDbType.VarChar).Value = aliquotOrderId;
 			AccessionOrderBuilder accessionOrderBuilder = new AccessionOrderBuilder();
@@ -368,7 +368,7 @@ namespace YellowstonePathology.Business.Gateway
 		public static Test.AccessionOrder GetAccessionOrderByContainerId(string containerId)
 		{
 			SqlCommand cmd = new SqlCommand();
-			cmd.CommandText = "gwGetAccessionByContainerId_A5";
+			cmd.CommandText = "gwGetAccessionByContainerId_A6";
 			cmd.CommandType = CommandType.StoredProcedure;
 			cmd.Parameters.Add("@ContainerId", SqlDbType.VarChar).Value = containerId;
 			AccessionOrderBuilder accessionOrderBuilder = new AccessionOrderBuilder();
@@ -383,7 +383,7 @@ namespace YellowstonePathology.Business.Gateway
 			return AccessionOrderGatewayMongo.GetAccessionOrderByMasterAccessionNo(masterAccessionNo);
 #else
 			SqlCommand cmd = new SqlCommand();
-			cmd.CommandText = "gwGetAccessionByMasterAccessionNo_A5";
+			cmd.CommandText = "gwGetAccessionByMasterAccessionNo_A6";
 			cmd.CommandType = CommandType.StoredProcedure;
 			cmd.Parameters.Add("@MasterAccessionNo", SqlDbType.VarChar).Value = masterAccessionNo;
 			AccessionOrderBuilder accessionOrderBuilder = new AccessionOrderBuilder();
@@ -399,7 +399,7 @@ namespace YellowstonePathology.Business.Gateway
 			return AccessionOrderGatewayMongo.GetAccessionOrderByReportNo(reportNo);
 #else
 			SqlCommand cmd = new SqlCommand();
-			cmd.CommandText = "gwGetAccessionByReportNo_A5";
+			cmd.CommandText = "gwGetAccessionByReportNo_A6";
 			cmd.CommandType = CommandType.StoredProcedure;
 			cmd.Parameters.Add("@ReportNo", SqlDbType.VarChar).Value = reportNo;
 			AccessionOrderBuilder accessionOrderBuilder = new AccessionOrderBuilder();
@@ -412,7 +412,7 @@ namespace YellowstonePathology.Business.Gateway
 		public static Test.AccessionOrder GetAccessionOrderBySlideOrderId(string slideOrderId)
 		{
 			SqlCommand cmd = new SqlCommand();
-			cmd.CommandText = "gwGetAccessionBySlideOrderId_A5";
+			cmd.CommandText = "gwGetAccessionBySlideOrderId_A6";
 			cmd.CommandType = CommandType.StoredProcedure;
 			cmd.Parameters.Add("@SlideOrderId", SqlDbType.VarChar).Value = slideOrderId;
 			AccessionOrderBuilder accessionOrderBuilder = new AccessionOrderBuilder();
@@ -424,7 +424,7 @@ namespace YellowstonePathology.Business.Gateway
 		public static XElement GetAccessionOrderDocumentByReportNo(string reportNo)
 		{
 			SqlCommand cmd = new SqlCommand();
-			cmd.CommandText = "gwGetAccessionByReportNo_A5";
+			cmd.CommandText = "gwGetAccessionByReportNo_A6";
 			cmd.CommandType = CommandType.StoredProcedure;
 			cmd.Parameters.Add("@ReportNo", SqlDbType.VarChar).Value = reportNo;
 			XElement document = AccessionOrderGateway.GetAccessionOrderElement(cmd);
