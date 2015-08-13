@@ -7,7 +7,8 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="800"
 			 FontSize="14" Name="UserControlAssignmentPage">
-    <UserControl.Resources>                
+    <UserControl.Resources>   
+        
         <HierarchicalDataTemplate x:Key="DataTemplateSlideOrder">
             <Grid Margin="2,2,2,2">
 
@@ -25,9 +26,10 @@
                 <CheckBox Grid.Column="0" Grid.Row="0" IsChecked="{Binding Path=ClientAccessioned}" Margin="2,2,2,2" Tag="{Binding Path=.}" 
                           Checked="CheckBoxSlideClientAccessioned_Checked" Unchecked="CheckBoxSlideClientAccessioned_Unchecked"></CheckBox>
                 <TextBlock Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" Text="Slide"></TextBlock>
-                <TextBlock Grid.Column="2" Grid.Row="0" Margin="2,2,2,2" Text="{Binding Path=Label}"></TextBlock>
+                <TextBlock Grid.Column="2" Grid.Row="0" Margin="2,2,2,2" Text="{Binding Path=Label}"></TextBlock>                
                 <TextBox Grid.Column="3" Grid.Row="0" Margin="2,2,2,2" Text="{Binding Path=ClientLabel}" Width="50"></TextBox>
-
+                <TextBlock Grid.Column="4" Grid.Row="0" Margin="2,2,2,2" Text="{Binding Path=TestName}" Width="150"></TextBlock>
+                
             </Grid>
         </HierarchicalDataTemplate>
         
@@ -113,17 +115,17 @@
                 <RowDefinition Height="Auto"></RowDefinition>
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2">Client Accessioned:</TextBlock>
+            <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right">Client Accessioned:</TextBlock>
             <CheckBox Grid.Column="1" Grid.Row="0" IsChecked="{Binding Path=AccessionOrder.ClientAccessioned}" Margin="2,2,2,2"></CheckBox>
-            
-            <TextBlock Grid.Column="0" Grid.Row="1" Margin="2,2,2,2">Master Accession No:</TextBlock>
+
+            <TextBlock Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right">Master Accession No:</TextBlock>
             <TextBlock Grid.Column="1" Grid.Row="1" Margin="2,2,2,2" HorizontalAlignment="Stretch" Text="{Binding Path=AccessionOrder.MasterAccessionNo}"></TextBlock>
 
-            <TextBlock Grid.Column="0" Grid.Row="2" Margin="2,2,2,2">Client Accession No:</TextBlock>
+            <TextBlock Grid.Column="0" Grid.Row="2" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right">Client Accession No:</TextBlock>
             <TextBox Grid.Column="1" Grid.Row="2" Margin="2,2,2,2" HorizontalAlignment="Stretch" Text="{Binding Path=AccessionOrder.ClientAccessionNo}"></TextBox>                        
            
             <TreeView Name="TreeViewSpecimenOrder" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="3" ItemsSource="{Binding Path=AccessionOrder.SpecimenOrderCollection}"
-							ItemTemplate="{StaticResource DataTemplateSpecimenOrder}" Margin="2,2,2,2" BorderThickness="0">
+							ItemTemplate="{StaticResource DataTemplateSpecimenOrder}" Margin="2,10,2,2" BorderThickness="1">
             </TreeView>
             
             <Button Grid.Column="3" Grid.Row="4" Click="ButtonPrint_Click" Width="80" Height="50" HorizontalAlignment="Right" Margin="2,2,2,2">Print</Button>

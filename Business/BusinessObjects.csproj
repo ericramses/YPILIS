@@ -17,7 +17,7 @@
     <OldToolsVersion>3.5</OldToolsVersion>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>YellowstonePathology.Buisness.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>YellowstonePathology.Business.pfx</AssemblyOriginatorKeyFile>
     <ProjectGuid>{0712F3D4-5C03-4446-B8FE-B8F5BE9495B1}</ProjectGuid>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
@@ -354,6 +354,8 @@
     <Compile Include="Interface\IFlowMarker.cs" />
     <Compile Include="Interface\ILeukemiaLymphomaResult.cs" />
     <Compile Include="Interface\IPersistPageChanges.cs" />
+    <Compile Include="Label.Model\ThinPrepSlidePrinter.cs" />
+    <Compile Include="Label.Model\ThinPrepSlide.cs" />
     <Compile Include="Label.Model\PantherLabel.cs" />
     <Compile Include="Logging\EmailExceptionHandler.cs" />
     <Compile Include="Logging\ScanLogger.cs" />
@@ -482,6 +484,8 @@
     <Compile Include="HL7View\ECW\ECWORCView.cs" />
     <Compile Include="Specimen.Model\BlockMedium.cs" />
     <Compile Include="Specimen.Model\CellBlockMedium.cs" />
+    <Compile Include="Specimen.Model\PantherAliquot.cs" />
+    <Compile Include="Specimen.Model\ThinPrepSlide.cs" />
     <Compile Include="Specimen.Model\TimeToFixationType.cs" />
     <Compile Include="Specimen.Model\FixationType.cs" />
     <Compile Include="Specimen.Model\FrozenBlockMedium.cs" />
@@ -2615,7 +2619,6 @@
     <EmbeddedResource Include="XmlSchema\LabEventLogSchema.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <None Include="YellowstonePathology.Buisness.pfx" />
     <None Include="YellowstonePathology.Business.pfx" />
     <None Include="YellowstonePathology.Business.snk" />
   </ItemGroup>
