@@ -354,6 +354,8 @@
     <Compile Include="Interface\IFlowMarker.cs" />
     <Compile Include="Interface\ILeukemiaLymphomaResult.cs" />
     <Compile Include="Interface\IPersistPageChanges.cs" />
+    <Compile Include="Label.Model\ThinPrepSlidePrinter.cs" />
+    <Compile Include="Label.Model\ThinPrepSlide.cs" />
     <Compile Include="Label.Model\PantherLabel.cs" />
     <Compile Include="Logging\EmailExceptionHandler.cs" />
     <Compile Include="Logging\ScanLogger.cs" />
@@ -482,6 +484,8 @@
     <Compile Include="HL7View\ECW\ECWORCView.cs" />
     <Compile Include="Specimen.Model\BlockMedium.cs" />
     <Compile Include="Specimen.Model\CellBlockMedium.cs" />
+    <Compile Include="Specimen.Model\PantherAliquot.cs" />
+    <Compile Include="Specimen.Model\ThinPrepSlide.cs" />
     <Compile Include="Specimen.Model\TimeToFixationType.cs" />
     <Compile Include="Specimen.Model\FixationType.cs" />
     <Compile Include="Specimen.Model\FrozenBlockMedium.cs" />

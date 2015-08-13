@@ -33,7 +33,10 @@ namespace YellowstonePathology.UI.Gross
         public static DictationTemplateCollection GetAll()
         {
             DictationTemplateCollection result = new DictationTemplateCollection();
-            result.Add(new ProstateTURTemplate());            
+            result.Add(new AppendixExcisionTemplate());
+            result.Add(new ProstateNeedleCoreTemplate());
+            result.Add(new ProstateTURTemplate());
+            result.Add(new GITemplate());            
             return result;
         }               
     }

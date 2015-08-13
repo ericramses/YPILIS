@@ -246,7 +246,7 @@ namespace YellowstonePathology.UI.Login.Receiving
         }
        
         private void ComboBoxSpecimenId_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
+        {            
             if (this.ComboBoxSpecimenId.SelectedItem != null)
             {
                 if (string.IsNullOrEmpty(this.m_ClientOrderDetail.DescriptionToAccession) == true)
@@ -305,7 +305,7 @@ namespace YellowstonePathology.UI.Login.Receiving
         private void HyperLinkReceivedInCytolyt_Click(object sender, RoutedEventArgs e)
         {
             this.m_ClientOrderDetail.ClientFixationBinding = YellowstonePathology.Business.Specimen.Model.FixationType.Cytolyt;
-            this.m_ClientOrderDetail.LabFixationBinding = YellowstonePathology.Business.Specimen.Model.FixationType.Cytolyt;
+            this.m_ClientOrderDetail.LabFixationBinding = YellowstonePathology.Business.Specimen.Model.FixationType.PreservCyt;
             this.m_ClientOrderDetail.SetFixationStartTime();
         }
 

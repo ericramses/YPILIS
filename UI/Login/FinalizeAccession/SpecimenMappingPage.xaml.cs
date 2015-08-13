@@ -70,11 +70,42 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
 		private void ButtonNext_Click(object sender, RoutedEventArgs e)
 		{
+            this.HandleClientAccessionedStainResult();
             if (this.IsOkToGoNext() == true)
             {
                 this.Next(this, new EventArgs());
             }
 		}
+
+        private void HandleClientAccessionedStainResult()
+        {
+            if (this.m_AccessionOrder.PanelSetOrderCollection.HasSurgical() == true)
+            {
+                YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetSurgical();
+                foreach (YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen in surgicalTestOrder.SurgicalSpecimenCollection)
+                {
+                    foreach (YellowstonePathology.Business.SpecialStain.StainResultItem stainResult in surgicalSpecimen.StainResultItemCollection)
+                    {
+                        if (this.m_AccessionOrder.SpecimenOrderCollection.SlideOrderExists(stainResult.TestOrderId) == true)
+                        {
+                            YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSlideOrderByTestOrderId(stainResult.TestOrderId);
+                            if (slideOrder.ClientAccessioned == true)
+                            {
+                                stainResult.ClientAccessioned = true;
+                                stainResult.Billable = false;
+                                stainResult.NoCharge = true;
+                            }
+                            else
+                            {
+                                stainResult.ClientAccessioned = false;
+                                stainResult.Billable = true;
+                                stainResult.NoCharge = false;
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
         private bool IsOkToGoNext()
         {

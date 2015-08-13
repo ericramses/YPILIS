@@ -34,7 +34,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
         {
             this.m_SpecimenId = "GISPCMN";
             this.m_SpecimenName = "GI Biopsy";
-            this.m_Description = "GI Biopsy";
+            this.m_Description = null;
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = "Formalin";
             this.m_RequiresGrossExamination = true;

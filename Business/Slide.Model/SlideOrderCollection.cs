@@ -60,7 +60,21 @@ namespace YellowstonePathology.Business.Slide.Model
             {
                 if (slideOrder.AliquotOrderId == aliquotOrderId)
                 {
-                    result.Add(slideOrder);
+                    result.Add(slideOrder);                    
+                }
+            }
+            return result;
+        }
+
+        public SlideOrder GetSlideOrderByTestOrderId(string testOrderId)
+        {
+            SlideOrder result = null;
+            foreach (SlideOrder slideOrder in this)
+            {
+                if (slideOrder.TestOrderId == testOrderId)
+                {
+                    result = slideOrder;
+                    break;
                 }
             }
             return result;

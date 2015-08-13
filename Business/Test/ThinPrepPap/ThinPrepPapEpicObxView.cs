@@ -22,8 +22,10 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
             this.AddHeader(document, panelSetOrderCytology, "Thin Prep Pap Report");
             this.AddNextObxElement("", document, "F");
 
-            this.AddNextObxElement("Epithelial Cell Description:", document, "F");
-            this.AddNextObxElement(panelSetOrderCytology.ScreeningImpression, document, "F");
+            this.AddNextObxElement("**********************************************", document, "F");
+            this.AddNextObxElement("Epithelial Cell Description:", document, "F");            
+            this.AddNextObxElement(panelSetOrderCytology.ScreeningImpression.ToUpper(), document, "F");
+            this.AddNextObxElement("**********************************************", document, "F");
             this.AddNextObxElement(string.Empty, document, "F");
 
             this.AddNextObxElement("Specimen Description:", document, "F");

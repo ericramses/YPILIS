@@ -242,7 +242,7 @@ namespace YellowstonePathology.UI.Login
             if (this.ComboBoxSpecimenId.SelectedItem != null)
             {
                 if (string.IsNullOrEmpty(this.m_SpecimenOrder.Description) == true)
-                {                    
+                {
                     YellowstonePathology.Business.Specimen.Model.Specimen specimen = (YellowstonePathology.Business.Specimen.Model.Specimen)this.ComboBoxSpecimenId.SelectedItem;
                     this.m_SpecimenOrder.Description = specimen.Description;
                     this.m_SpecimenOrder.LabFixation = specimen.LabFixation;
@@ -250,7 +250,7 @@ namespace YellowstonePathology.UI.Login
                     this.m_SpecimenOrder.RequiresGrossExamination = specimen.RequiresGrossExamination;
 
                     this.HandleTemplatedSpecimen();
-                    this.NotifyPropertyChanged("");                    
+                    this.NotifyPropertyChanged("");
                 }
             }
         }
