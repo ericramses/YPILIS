@@ -661,6 +661,40 @@ namespace YellowstonePathology.Business.Specimen.Model
                 }
             }
             return result;
+        }
+
+        public bool SlideOrderExists(string testOrderId)
+        {
+            bool result = false;
+            foreach (SpecimenOrder specimenOrder in this)
+            {
+                foreach (YellowstonePathology.Business.Test.AliquotOrder aliquotOrder in specimenOrder.AliquotOrderCollection)
+                {
+                    if (aliquotOrder.SlideOrderCollection.TestOrderExists(testOrderId) == true)
+                    {
+                        result = true;
+                        break;
+                    }
+                }                
+            }
+            return result;
+        }
+
+        public YellowstonePathology.Business.Slide.Model.SlideOrder GetSlideOrderByTestOrderId(string testOrderId)
+        {
+            YellowstonePathology.Business.Slide.Model.SlideOrder result = null;
+            foreach (SpecimenOrder specimenOrder in this)
+            {
+                foreach (YellowstonePathology.Business.Test.AliquotOrder aliquotOrder in specimenOrder.AliquotOrderCollection)
+                {
+                    if (aliquotOrder.SlideOrderCollection.TestOrderExists(testOrderId) == true)
+                    {
+                        result = aliquotOrder.SlideOrderCollection.GetSlideOrderByTestOrderId(testOrderId);
+                        break;
+                    }
+                }
+            }
+            return result;
         }        
 
         public virtual void PullOver(YellowstonePathology.Business.Visitor.AccessionTreeVisitor accessionTreeVisitor)

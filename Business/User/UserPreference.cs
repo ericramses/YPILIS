@@ -40,6 +40,7 @@ namespace YellowstonePathology.Business.User
         private string m_SlideMatePrinterPath;
 		private string m_WeekdayProcessorRunId;
 		private string m_WeekendProcessorRunId;
+        private string m_CytologySlidePrinter;
 
         public UserPreference()
         {
@@ -389,6 +390,20 @@ namespace YellowstonePathology.Business.User
 				}
 			}
 		}
+
+        [PersistentProperty()]
+        public string CytologySlidePrinter
+        {
+            get { return this.m_CytologySlidePrinter; }
+            set
+            {
+                if (this.m_CytologySlidePrinter != value)
+                {
+                    this.m_CytologySlidePrinter = value;
+                    this.NotifyPropertyChanged("CytologySlidePrinter");
+                }
+            }
+        }
 
         public void NotifyPropertyChanged(String info)
         {

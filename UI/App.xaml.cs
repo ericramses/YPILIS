@@ -47,14 +47,14 @@ namespace YellowstonePathology.UI
             {                
                 YellowstonePathology.UI.Cutting.CuttingStationPath cuttingStationPath = new Cutting.CuttingStationPath();
                 cuttingStationPath.Start();
-            }     
-            /*
-			else if (System.Environment.MachineName.ToUpper() == "SIDHARDERWIN8")
+            } 
+            
+            else if (System.Environment.MachineName.ToUpper() == "SIDHARDERWIN8")
 			{
 				YellowstonePathology.UI.Cytology.ThinPrepPapSlidePrintingPath thinPrepPapSlidePrintingPath = new Cytology.ThinPrepPapSlidePrintingPath();
 				thinPrepPapSlidePrintingPath.Start();
 			} 
-            */
+            
 			else
 			{
 				startUpWindow = "MainWindow.xaml";
