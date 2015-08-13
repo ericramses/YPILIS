@@ -323,7 +323,7 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
         {
             this.m_Code = "81310";
             this.m_FeeSchedule = FeeScheduleEnum.Clinical;
-            this.m_HasProfessionalComponent = true;
+            this.m_HasProfessionalComponent = false;
             this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.Global;
@@ -362,7 +362,7 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
         {
             this.m_Code = "81245";
             this.m_FeeSchedule = FeeScheduleEnum.Clinical;
-            this.m_HasProfessionalComponent = true;
+            this.m_HasProfessionalComponent = false;
             this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.Global;

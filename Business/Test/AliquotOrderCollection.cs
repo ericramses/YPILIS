@@ -228,6 +228,18 @@ namespace YellowstonePathology.Business.Test
             return aliquotOrder;
         }
 
+        public AliquotOrder AddAliquot(YellowstonePathology.Business.Specimen.Model.Aliquot aliquot, YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder, DateTime accessionDate)
+        {
+            AliquotOrder aliquotOrder = this.GetNextItem(specimenOrder, AliquotType.Slide, accessionDate);
+            aliquotOrder.SpecimenOrderId = specimenOrder.SpecimenOrderId;
+            aliquotOrder.Description = string.Empty;
+            aliquotOrder.AliquotType = aliquot.AliquotType;
+            aliquotOrder.LabelPrefix = string.Empty;            
+            this.Add(aliquotOrder);
+            this.SetSlideLabels(specimenOrder.SpecimenNumber);
+            return aliquotOrder;
+        }
+
 
 		public AliquotOrder AddSpecimen(YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder, string aliquotLabelType, DateTime accessiondate)
 		{
@@ -484,7 +496,21 @@ namespace YellowstonePathology.Business.Test
 				}
 			}
 			return result;
-		}        
+		}
+
+        public bool Exists(YellowstonePathology.Business.Specimen.Model.Aliquot aliquot)
+        {
+            bool result = false;
+            foreach (AliquotOrder aliquotOrder in this)
+            {
+                if (aliquotOrder.AliquotType == aliquot.AliquotType)
+                {
+                    result = true;
+                    break;
+                }
+            }
+            return result;
+        }    
 
         public virtual void PullOver(YellowstonePathology.Business.Visitor.AccessionTreeVisitor accessionTreeVisitor)
         {

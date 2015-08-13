@@ -16,7 +16,7 @@ namespace YellowstonePathology.Business.Test.MDSExtendedByFish
 
 		public MDSExtendedByFishTestOrder()
 		{
-		}
+		}        
 
 		public MDSExtendedByFishTestOrder(string masterAccessionNo, string reportNo, string objectId,
 			YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
@@ -25,6 +25,7 @@ namespace YellowstonePathology.Business.Test.MDSExtendedByFish
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 			: base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute, systemIdentity)
 		{
+
 		}
 
 		[PersistentProperty()]
