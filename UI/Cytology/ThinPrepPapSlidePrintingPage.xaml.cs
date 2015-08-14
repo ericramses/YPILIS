@@ -22,8 +22,8 @@ namespace YellowstonePathology.UI.Cytology
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		public delegate void NextEventHandler(object sender, EventArgs e);
-		public event NextEventHandler Next;
+		public delegate void FinishedEventHandler(object sender, EventArgs e);
+		public event FinishedEventHandler Finished;
 
         YellowstonePathology.Business.Specimen.Model.SpecimenOrder m_SpecimenOrder;
         YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
@@ -84,12 +84,7 @@ namespace YellowstonePathology.UI.Cytology
 			{
 				PropertyChanged(this, new PropertyChangedEventArgs(info));
 			}
-		}
-
-		private void ButtonNext_Click(object sender, RoutedEventArgs e)
-		{
-			if (this.Next != null) this.Next(this, new EventArgs());
-		}
+		}		
 
         private void ButtonAddThinPrepSlide_Click(object sender, RoutedEventArgs e)
         {            
@@ -116,7 +111,7 @@ namespace YellowstonePathology.UI.Cytology
             thinPrepSlidePrinter.Print();
         }
 
-        private void ButtonAddPantherTube_Click(object sender, RoutedEventArgs e)
+        private void ButtonAddPantherAliquot_Click(object sender, RoutedEventArgs e)
         {
             YellowstonePathology.Business.Specimen.Model.PantherAliquot pantherAliquot = new Business.Specimen.Model.PantherAliquot();
             if (this.m_SpecimenOrder.AliquotOrderCollection.Exists(pantherAliquot) == false)
@@ -147,6 +142,11 @@ namespace YellowstonePathology.UI.Cytology
                     
                 }
             }
+        }
+
+        private void ButtonFinished_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.Finished != null) this.Finished(this, new EventArgs());
         }        
 	}
 }

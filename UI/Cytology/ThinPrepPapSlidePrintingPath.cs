@@ -115,11 +115,11 @@ namespace YellowstonePathology.UI.Cytology
 		private void ShowThinPrepPapSlidePrintingPage(YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder)
 		{
 			ThinPrepPapSlidePrintingPage thinPrepPapSlidePrintingPage = new ThinPrepPapSlidePrintingPage(specimenOrder, this.m_AccessionOrder, this.m_ObjectTracker);
-			thinPrepPapSlidePrintingPage.Next += new ThinPrepPapSlidePrintingPage.NextEventHandler(ThinPrepPapSlidePrintingPage_Next);
+			thinPrepPapSlidePrintingPage.Finished += new ThinPrepPapSlidePrintingPage.FinishedEventHandler(ThinPrepPapSlidePrintingPage_Finished);
 			this.m_PrintSlideDialog.PageNavigator.Navigate(thinPrepPapSlidePrintingPage);
 		}
 
-		private void ThinPrepPapSlidePrintingPage_Next(object sender, EventArgs e)
+        private void ThinPrepPapSlidePrintingPage_Finished(object sender, EventArgs e)
 		{
 			this.ShowScanContainerPage();
 		}
