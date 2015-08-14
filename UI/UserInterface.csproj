@@ -41,7 +41,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>184</ApplicationRevision>
+    <ApplicationRevision>186</ApplicationRevision>
     <ApplicationVersion>10.1.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -3775,7 +3775,6 @@
     <Resource Include="Resources\TwoDBarcode.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="CEFSharp\" />
     <Folder Include="PatientLinking\" />
   </ItemGroup>
   <ItemGroup>

@@ -105,6 +105,7 @@ namespace YellowstonePathology.Business.Specimen.Model
 			this.m_ClientFixation = clientOrderDetail.ClientFixation;
             this.m_FixationStartTime = clientOrderDetail.FixationStartTime;
             this.m_TimeToFixation = clientOrderDetail.TimeToFixation;
+            this.m_TimeToFixationHourString = clientOrderDetail.TimeToFixationHourString;
             this.m_FixationComment = clientOrderDetail.FixationComment;            
 			this.m_LabFixation = clientOrderDetail.LabFixation;
             this.m_SpecimenSource = clientOrderDetail.SpecimenSource;

@@ -757,6 +757,31 @@ namespace YellowstonePathology.Business.ClientOrder.Model
             }  
         }
 
+        public string TimeToFixationHourString
+        {
+            get
+            {
+                string result = null;
+                if (this.TimeToFixation.HasValue == true)
+                {
+                    TimeSpan timeSpan = new TimeSpan(0, this.TimeToFixation.Value, 0);
+                    if (timeSpan.TotalMinutes < 60)
+                    {
+                        result = "< 1 hr";
+                    }
+                    else
+                    {
+                        result = "> 1 hr";
+                    }
+                }
+                else
+                {
+                    result = "Unknown";
+                }
+                return result;
+            }
+        }
+
         public void SetFixationStartTime()
         {
             if (this.m_ClientAccessioned == false)

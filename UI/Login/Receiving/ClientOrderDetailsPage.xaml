@@ -111,6 +111,7 @@
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>                    
                 </Grid.RowDefinitions>
@@ -251,9 +252,12 @@
 
                 <TextBlock Grid.Column="0" Grid.Row="11" Margin="2" FontSize="14" HorizontalAlignment="Right">Time To Fixation:</TextBlock>
                 <TextBox Grid.Column="1" Grid.Row="11" Margin="2,2,2,2" Text="{Binding Path=ClientOrderDetail.TimeToFixationString, Mode=OneWay}" IsEnabled="False" FontSize="14"></TextBox>
+
+                <TextBlock Grid.Column="0" Grid.Row="12" Margin="2,2,2,2" HorizontalAlignment="Right">Reported As:</TextBlock>
+                <TextBox Grid.Column="1" Grid.Row="12" Margin="2,2,2,2" Text="{Binding Path=ClientOrderDetail.TimeToFixationHourString, Mode=OneWay}" FontSize="14" IsEnabled="False"></TextBox>
                 
-                <TextBlock Grid.Column="0" Grid.Row="12" Margin="2,2,2,2" HorizontalAlignment="Right">Comment:</TextBlock>
-                <TextBox Grid.Column="1" Grid.Row="12" Margin="2,2,2,2" Text="{Binding Path=ClientOrderDetail.FixationCommentBinding, ValidatesOnDataErrors=True}" TextWrapping="Wrap" FontSize="14" AcceptsReturn="True">
+                <TextBlock Grid.Column="0" Grid.Row="13" Margin="2,2,2,2" HorizontalAlignment="Right">Comment:</TextBlock>
+                <TextBox Grid.Column="1" Grid.Row="13" Margin="2,2,2,2" Text="{Binding Path=ClientOrderDetail.FixationCommentBinding, ValidatesOnDataErrors=True}" TextWrapping="Wrap" FontSize="14" AcceptsReturn="True">
                     <TextBox.Style>
                         <Style TargetType="{x:Type Control}">
                             <Setter Property="Validation.ErrorTemplate">
@@ -274,8 +278,8 @@
                     </TextBox.Style>
                 </TextBox>
 
-                <TextBlock Grid.Column="0" Grid.Row="13" Margin="2" FontSize="14" HorizontalAlignment="Right">Container Id:</TextBlock>
-                <TextBox Name="TextBoxContainerId" Grid.Column="1" Grid.Row="13" Margin="2,2,2,2" Text="{Binding Path=ClientOrderDetail.ContainerIdBinding, ValidatesOnDataErrors=True}" FontSize="14" IsEnabled="False" ToolTipService.ShowOnDisabled="True">
+                <TextBlock Grid.Column="0" Grid.Row="14" Margin="2" FontSize="14" HorizontalAlignment="Right">Container Id:</TextBlock>
+                <TextBox Name="TextBoxContainerId" Grid.Column="1" Grid.Row="14" Margin="2,2,2,2" Text="{Binding Path=ClientOrderDetail.ContainerIdBinding, ValidatesOnDataErrors=True}" FontSize="14" IsEnabled="False" ToolTipService.ShowOnDisabled="True">
                     <TextBox.Style>
                         <Style TargetType="{x:Type Control}">
                             <Setter Property="Validation.ErrorTemplate">
@@ -296,13 +300,13 @@
                     </TextBox.Style>
                 </TextBox>                
 
-                <TextBlock Grid.Column="0" Grid.Row="14" Margin="2" FontSize="14" HorizontalAlignment="Right">Requires Gross:</TextBlock>
-                <CheckBox Name="CheckBoxRequiresGrossExamination" Grid.Column="1" Grid.Row="14" Margin="2,2,2,2" IsChecked="{Binding Path=ClientOrderDetail.RequiresGrossExamination}" FontSize="14"></CheckBox>
+                <TextBlock Grid.Column="0" Grid.Row="15" Margin="2" FontSize="14" HorizontalAlignment="Right">Requires Gross:</TextBlock>
+                <CheckBox Name="CheckBoxRequiresGrossExamination" Grid.Column="1" Grid.Row="15" Margin="2,2,2,2" IsChecked="{Binding Path=ClientOrderDetail.RequiresGrossExamination}" FontSize="14"></CheckBox>
                 
-                <TextBlock Grid.Column="0" Grid.Row="15" Margin="2" FontSize="14" HorizontalAlignment="Right">YPI Accessioned:</TextBlock>
-                <CheckBox Name="CheckBoxAccession" Grid.Column="1" Grid.Row="15" Margin="2,2,2,2" IsChecked="{Binding Path=ClientOrderDetail.Accessioned}" FontSize="14"></CheckBox>
+                <TextBlock Grid.Column="0" Grid.Row="16" Margin="2" FontSize="14" HorizontalAlignment="Right">YPI Accessioned:</TextBlock>
+                <CheckBox Name="CheckBoxAccession" Grid.Column="1" Grid.Row="16" Margin="2,2,2,2" IsChecked="{Binding Path=ClientOrderDetail.Accessioned}" FontSize="14"></CheckBox>
 
-                <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="17" Orientation="Horizontal">
+                <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="18" Orientation="Horizontal">
                     <CheckBox Margin="2,2,2,2" IsChecked="{Binding Path=ClientOrderDetail.FixationStartTimeManuallyEntered}" FontSize="12"></CheckBox>
                     <TextBlock Margin="2,2,2,2" FontSize="12">Manually enter fixation start time</TextBlock>
                 </StackPanel>                                
