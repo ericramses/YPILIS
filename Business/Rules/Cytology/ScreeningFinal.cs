@@ -10,7 +10,7 @@ namespace YellowstonePathology.Business.Rules.Cytology
         YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology m_PanelOrderToFinal;
 		YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;        
 		YellowstonePathology.Business.User.SystemUser m_UserPerformingFinal;
-		YellowstonePathology.Business.Test.PanelSetOrderCytology m_PanelSetOrderCytology;
+		YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology m_PanelSetOrderCytology;
 
         ProcessingModeEnum m_ProcessingMode;
 
@@ -395,7 +395,7 @@ namespace YellowstonePathology.Business.Rules.Cytology
             this.m_ExecutionStatus = executionStatus;
 			this.m_AccessionOrder = accessionOrder;
             this.m_PanelOrderToFinal = panelOrderToFinal;
-			this.m_PanelSetOrderCytology = (YellowstonePathology.Business.Test.PanelSetOrderCytology)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_PanelOrderToFinal.ReportNo);
+			this.m_PanelSetOrderCytology = (YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_PanelOrderToFinal.ReportNo);
 			this.m_Rule.Execute(executionStatus);            
         }
 	}

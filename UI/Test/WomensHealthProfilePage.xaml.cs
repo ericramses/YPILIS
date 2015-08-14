@@ -30,7 +30,7 @@ namespace YellowstonePathology.UI.Test
         private YellowstonePathology.Business.Domain.Physician m_Physician;
 		private DateTime? m_DateOfLastHPV;
 
-        private YellowstonePathology.Business.Test.PanelSetOrderCytology m_PanelSetOrderCytology;
+		private YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology m_PanelSetOrderCytology;
 		private YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder m_WomensHealthProfileTestOrder;                       
 
         private YellowstonePathology.Business.Client.Model.ReflexOrderCollection m_HPV1618ReflexOrderCollection;
@@ -60,7 +60,7 @@ namespace YellowstonePathology.UI.Test
 
 			this.m_Physician = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianByPhysicianId(this.m_AccessionOrder.PhysicianId);
 
-            this.m_PanelSetOrderCytology = (YellowstonePathology.Business.Test.PanelSetOrderCytology)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(15);
+			this.m_PanelSetOrderCytology = (YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(15);
 
             this.m_AuditCollection = new Business.Audit.Model.IsWHPAllDoneAuditCollection(this.m_AccessionOrder); 
             this.m_AuditCollection.Run();
@@ -113,9 +113,9 @@ namespace YellowstonePathology.UI.Test
 		public YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder WomensHealthProfileTestOrder
         {
             get { return this.m_WomensHealthProfileTestOrder; }
-        }        
+        }
 
-        public YellowstonePathology.Business.Test.PanelSetOrderCytology PanelSetOrderCytology
+		public YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology PanelSetOrderCytology
         {
             get { return this.m_PanelSetOrderCytology; }
         }

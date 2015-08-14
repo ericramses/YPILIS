@@ -369,6 +369,9 @@
     <Compile Include="MaterialTracking.Model\MaterialTrackingScannedItemViewCollection.cs" />
     <Compile Include="NeogenomicsResult.cs" />
     <Compile Include="NeogenomicsResultCollection.cs" />
+    <Compile Include="PanelSet.Model\PanelSetTCellClonalityByPCRRetired.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Persistence\BooleanPropertyBridge.cs" />
     <Compile Include="Persistence\BuildTypeEnum.cs" />
     <Compile Include="Persistence\DateTimePropertyBridge.cs" />
@@ -459,14 +462,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Document\NothingToPublishReport.cs" />
-    <Compile Include="Document\MPNFishReport.cs" />
-    <Compile Include="Document\MultipleFISHProbePanelReport.cs" />
-    <Compile Include="Document\MultipleMyelomaIgHByFishReport.cs" />
-    <Compile Include="Document\NPM1Report.cs" />
     <Compile Include="Document\DoNotPublishReport.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Document\TCellClonalityByPCRReport.cs" />
     <Compile Include="Domain\Billing\BillableObjectFactory.cs" />
     <Compile Include="Domain\Billing\BillableObjectMountainViewNeo.cs" />
     <Compile Include="Domain\Billing\BillableObjectMedicareProstateNeedleBiopsy.cs" />
@@ -541,13 +539,8 @@
     <Compile Include="Test\EGFRMutationAnalysis\EGFRMutationAnalysisWordDocument.cs" />
     <Compile Include="Test\EGFRToALKReflexAnalysis\EGFRToALKReflexAnalysisElementStatusEnum.cs" />
     <Compile Include="Test\EGFRToALKReflexAnalysis\EGFRToALKReflexAnalysisEPICOBXView.cs" />
-    <Compile Include="HL7View\EPIC\EpicMPNFishObxView.cs" />
-    <Compile Include="HL7View\EPIC\EpicMultipleFISHProbePanelObxView.cs" />
-    <Compile Include="HL7View\EPIC\EpicMultipleMyelomaIgHByFishObxView.cs" />
-    <Compile Include="HL7View\EPIC\EpicNPM1ObxView.cs" />
     <Compile Include="HL7View\EPIC\EpicSummaryHeaderObxView.cs" />
     <Compile Include="HL7View\EPIC\EpicStatusObrView.cs" />
-    <Compile Include="HL7View\EPIC\EpicTCellClonalityByPCRObxView.cs" />
     <Compile Include="Mongo\DocumentCollectionTracker.cs" />
     <Compile Include="Mongo\DocumentTracker.cs" />
     <Compile Include="Mongo\BSONBuilder.cs" />
@@ -671,7 +664,6 @@
     <Compile Include="Document\MolecularAnalysisReport.cs" />
     <Compile Include="Document\HER2AmplificationReport.cs" />
     <Compile Include="Document\PlacentalPathologyCaseDocument.cs" />
-    <Compile Include="Document\TechnicalOnly.cs" />
     <Compile Include="Domain\AccessionDate.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -1117,6 +1109,9 @@
     <Compile Include="Test\FetalHemoglobin\FetalHemoglobinEpicObxView.cs" />
     <Compile Include="Test\FetalHemoglobin\FetalHemoglobinTest.cs" />
     <Compile Include="Test\FetalHemoglobin\FetalHemoglobinWordDocument.cs" />
+    <Compile Include="Test\FNAAdequacyAssessment\FNAAdequacyAssessmentTestOrder.cs" />
+    <Compile Include="Test\FNAAdequacyAssessment\FNAAdequacyAssessmentTestOrder.validation.cs" />
+    <Compile Include="Test\FNAAdequacyAssessment\FNAAdequacyAssessmentTest.cs" />
     <Compile Include="Test\Her2AmplificationByFish\Her2AmplificationByFishEpicObxView.cs" />
     <Compile Include="Test\Her2AmplificationByFish\Her2AmplificationByFishPositiveResult.cs" />
     <Compile Include="Test\Her2AmplificationByFish\Her2AmplificationByFishWordDocument.cs" />
@@ -1182,13 +1177,37 @@
     <Compile Include="Test\MPNExtendedReflex\MPNExtendedReflexTest.cs" />
     <Compile Include="Test\MPNExtendedReflex\MPNExtendedReflexWordDocument.cs" />
     <Compile Include="Test\MPNExtendedReflex\PanelSetOrderMPNExtendedReflex.cs" />
+    <Compile Include="Test\MPNFish\MPNFishEpicObxView.cs" />
+    <Compile Include="Test\MPNFish\MPNFishNormalResult.cs" />
+    <Compile Include="Test\MPNFish\MPNFishWordDocument.cs" />
+    <Compile Include="Test\MPNFish\MPNFishResult.cs" />
+    <Compile Include="Test\MPNFish\MPNFishTest.cs" />
+    <Compile Include="Test\MPNFish\MPNFishTestOrder.cs" />
     <Compile Include="Test\MPNStandardReflex\MPNStandardReflexEpicObxView.cs" />
     <Compile Include="Test\MPNStandardReflex\MPNStandardReflexResult.cs" />
     <Compile Include="Test\MPNStandardReflex\MPNStandardReflexTest.cs" />
     <Compile Include="Test\MPNStandardReflex\MPNStandardReflexWordDocument.cs" />
     <Compile Include="Test\MPNStandardReflex\PanelSetOrderMPNStandardReflex.cs" />
+    <Compile Include="Test\MultipleFISHProbe\MultipleFISHProbeEpicObxView.cs" />
+    <Compile Include="Test\MultipleFISHProbe\MultipleFISHProbeNormalResult.cs" />
+    <Compile Include="Test\MultipleFISHProbe\MultipleFISHProbeWordDocument.cs" />
+    <Compile Include="Test\MultipleFISHProbe\MultipleFISHProbePanelResult.cs" />
+    <Compile Include="Test\MultipleFISHProbe\MultipleFISHProbeTest.cs" />
+    <Compile Include="Test\MultipleFISHProbe\MultipleFISHProbeTestOrder.cs" />
+    <Compile Include="Test\MultipleMyelomaIgHByFish\MultipleMyelomaIgHByFishEpicObxView.cs" />
+    <Compile Include="Test\MultipleMyelomaIgHByFish\MultipleMyelomaIgHByFishNormalResult.cs" />
+    <Compile Include="Test\MultipleMyelomaIgHByFish\MultipleMyelomaIgHByFishWordDocument.cs" />
+    <Compile Include="Test\MultipleMyelomaIgHByFish\MultipleMyelomaIgHByFishResult.cs" />
+    <Compile Include="Test\MultipleMyelomaIgHByFish\MultipleMyelomaIgHByFishTest.cs" />
+    <Compile Include="Test\MultipleMyelomaIgHByFish\MultipleMyelomaIgHByFishTestOrder.cs" />
     <Compile Include="Test\NonHodgkinsLymphomaFISHPanel\NonHodgkinsLymphomaFISHPanelEpicObxView.cs" />
     <Compile Include="Test\NonHodgkinsLymphomaFISHPanel\NonHodgkinsLymphomaFISHPanelWordDocument.cs" />
+    <Compile Include="Test\NPM1\NPM1EpicObxView.cs" />
+    <Compile Include="Test\NPM1\NPM1DetectedResult.cs" />
+    <Compile Include="Test\NPM1\NPM1WordDocument.cs" />
+    <Compile Include="Test\NPM1\NPM1Result.cs" />
+    <Compile Include="Test\NPM1\NPM1Test.cs" />
+    <Compile Include="Test\NPM1\NPM1TestOrder.cs" />
     <Compile Include="Test\OkToUnfinalizeResult.cs" />
     <Compile Include="Test\EGFRMutationAnalysis\EGFRMutationAnalysisPanel.cs" />
     <Compile Include="Test\HPV1618\HPV1618NoResult.cs" />
@@ -1220,6 +1239,15 @@
     <Compile Include="Test\StemCellEnumeration\StemCellEnumerationEpicObxView.cs" />
     <Compile Include="Test\StemCellEnumeration\StemCellEnumerationTest.cs" />
     <Compile Include="Test\StemCellEnumeration\StemCellEnumerationWordDocument.cs" />
+    <Compile Include="Test\TCellClonalityByPCR\TCellClonalityByPCREpicObxView.cs" />
+    <Compile Include="Test\TCellClonalityByPCR\TCellClonalityByPCRTestOrder.cs" />
+    <Compile Include="Test\TCellClonalityByPCR\TCellClonalityByPCRTest.cs" />
+    <Compile Include="Test\TCellClonalityByPCR\TCellClonalityByPCRNegativeResult.cs" />
+    <Compile Include="Test\TCellClonalityByPCR\TCellClonalityByPCRWordDocument.cs" />
+    <Compile Include="Test\TCellClonalityByPCR\TCellClonalityByPCRResult.cs" />
+    <Compile Include="Test\TechnicalOnly\TechnicalOnlyTestOrder.cs" />
+    <Compile Include="Test\TechnicalOnly\TechnicalOnlyTest.cs" />
+    <Compile Include="Test\TechnicalOnly\TechnicalOnlyWordDocument.cs" />
     <Compile Include="Test\TestCancelled\TestCancelledEpicObxView.cs" />
     <Compile Include="Test\TestCancelled\TestCancelledWordDocument.cs" />
     <Compile Include="Test\TestOrder_Base.cs" />
@@ -1319,6 +1347,7 @@
     <Compile Include="Test\TestOrderInfo.cs" />
     <Compile Include="Test\Surgical\SurgicalTest.cs" />
     <Compile Include="Test\TestCancelled\TestCancelledTest.cs" />
+    <Compile Include="Test\ThinPrepPap\PanelSetOrderCytology.cs" />
     <Compile Include="Test\ThinPrepPap\ThinPrepPapEpicObxView.cs" />
     <Compile Include="Test\ThinPrepPap\ThinPrepPapTest.cs" />
     <Compile Include="Test\ThinPrepPap\ThinPrepPapWordDocument.cs" />
@@ -1606,12 +1635,6 @@
     <Compile Include="Test\MicrosatelliteInstabilityAnalysis\MicrosatelliteInstabilityAnalysisTestOrder.cs" />
     <Compile Include="Test\MicrosatelliteInstabilityAnalysis\MicrosatelliteInstabilityAnalysisWordDocument.cs" />
     <Compile Include="Test\MolecularAnalysisTestOrder.cs" />
-    <Compile Include="Test\MultipleMyelomaIgHByFishNormalResult.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Test\MultipleMyelomaIgHByFishResult.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Test\MultipleMyelomaMGUSByFish\MultipleMyelomaMGUSByFishEpicObxView.cs" />
     <Compile Include="Test\MultipleMyelomaMGUSByFish\MultipleMyelomaMGUSByFishNormalResult.cs" />
     <Compile Include="Test\MultipleMyelomaMGUSByFish\MultipleMyelomaMGUSByFishResult.cs" />
@@ -1722,8 +1745,6 @@
     <Compile Include="Test\EosinophiliaByFISH\EosinophiliaByFISHResult.cs" />
     <Compile Include="Test\EosinophiliaByFISH\EosinophiliaByFISHTestOrder.cs" />
     <Compile Include="Test\ErPrSemiQuantitative\ErPrSemiQuantitativeResult.cs" />
-    <Compile Include="Test\FNAAdequacyAssessmentResult.cs" />
-    <Compile Include="Test\FNAAdequacyAssessmentResult.validation.cs" />
     <Compile Include="Test\HighGradeLargeBCellLymphoma\HighGradeLargeBCellLymphomaAbnormalResult1.cs" />
     <Compile Include="Test\HighGradeLargeBCellLymphoma\HighGradeLargeBCellLymphomaAbnormalResult2.cs" />
     <Compile Include="Test\HighGradeLargeBCellLymphoma\HighGradeLargeBCellLymphomaNegativeResult.cs" />
@@ -1831,14 +1852,8 @@
     <Compile Include="Test\LynchSyndrome\MLH1MethylationAnalysisResult.cs" />
     <Compile Include="Test\LynchSyndrome\PanelSetOrderLynchSyndromeIHC.cs" />
     <Compile Include="Test\LynchSyndrome\PanelSetOrderMLH1MethylationAnalysis.cs" />
-    <Compile Include="Test\MPNFishNormalResult.cs" />
-    <Compile Include="Test\MPNFishResult.cs" />
-    <Compile Include="Test\MultipleFISHProbePanelNormalResult.cs" />
-    <Compile Include="Test\MultipleFISHProbePanelResult.cs" />
     <Compile Include="Test\NonHodgkinsLymphomaFISHPanel\NonHodgkinsLymphomaFISHPanelResult.cs" />
     <Compile Include="Test\NonHodgkinsLymphomaFISHPanel\NonHodgkinsLymphomaFISHPanelTestOrder.cs" />
-    <Compile Include="Test\NPM1DetectedResult.cs" />
-    <Compile Include="Test\NPM1Result.cs" />
     <Compile Include="Test\PanelOrder.cs" />
     <Compile Include="Test\ThinPrepPap\PanelOrderAcidWash.cs" />
     <Compile Include="Test\PanelOrderCollection.cs" />
@@ -1852,15 +1867,8 @@
     <Compile Include="Test\PanelSetOrderCPTCodeBill.cs" />
     <Compile Include="Test\PanelSetOrderCPTCodeBillCollection.cs" />
     <Compile Include="Test\PanelSetOrderCPTCodeCollection.cs" />
-    <Compile Include="Test\PanelSetOrderCytology.cs" />
     <Compile Include="Test\PanelSetOrderDNA.cs" />
     <Compile Include="Test\PanelSetOrderFactory.cs" />
-    <Compile Include="Test\PanelSetOrderMPNFish.cs" />
-    <Compile Include="Test\PanelSetOrderMultipleFISHProbePanel.cs" />
-    <Compile Include="Test\PanelSetOrderMultipleMyelomaIgHComplexByFish.cs" />
-    <Compile Include="Test\PanelSetOrderNPM1.cs" />
-    <Compile Include="Test\PanelSetOrderTCellClonalityByPCR.cs" />
-    <Compile Include="Test\PanelSetOrderTechnicalOnly.cs" />
     <Compile Include="Test\PathologistTestOrderItemList.cs" />
     <Compile Include="Test\PathologistTestOrderListItem.cs" />
     <Compile Include="Test\PlasmaCellMyelomaRiskStratification\PlasmaCellMyelomaRiskStratificationResult.cs" />
@@ -1877,8 +1885,6 @@
     <Compile Include="Test\SearchEngine.cs" />
     <Compile Include="Test\SlideLabel.cs" />
     <Compile Include="Test\SlideLabelPrinter.cs" />
-    <Compile Include="Test\TCellClonalityByPCRNegativeResult.cs" />
-    <Compile Include="Test\TCellClonalityByPCRResult.cs" />
     <Compile Include="Test\TestCancelled\TestCancelledResult.cs" />
     <Compile Include="Test\ThinPrepPap\ThinPrepPapResult.cs" />
     <Compile Include="Test\Trichomonas\TrichomonasCMMCNteView.cs" />
@@ -2249,7 +2255,6 @@
     <Compile Include="PanelSet.Model\PanelSetFishAnalysisForSYTGeneRearrangement.cs" />
     <Compile Include="PanelSet.Model\PanelSetFlowCytometry.cs" />
     <Compile Include="PanelSet.Model\PanelSetFLT3Retired.cs" />
-    <Compile Include="PanelSet.Model\PanelSetFNAAdequacyAssessment.cs" />
     <Compile Include="PanelSet.Model\PanelSetFNASampleCollection.cs" />
     <Compile Include="PanelSet.Model\PanelSetFoundationOneGeneticTesting.cs" />
     <Compile Include="PanelSet.Model\PanelSetGlycophorinA.cs" />
@@ -2278,12 +2283,9 @@
     <Compile Include="PanelSet.Model\PanelSetMLH1Retired.cs" />
     <Compile Include="PanelSet.Model\PanelSetMolecularTest.cs" />
     <Compile Include="PanelSet.Model\PanelSetMPLRetired.cs" />
-    <Compile Include="PanelSet.Model\PanelSetMPNFishPanel.cs" />
     <Compile Include="PanelSet.Model\PanelSetMPNFishPanelRetired.cs" />
     <Compile Include="PanelSet.Model\PanelSetMthfr.cs" />
-    <Compile Include="PanelSet.Model\PanelSetMultipleFISHProbePanel.cs" />
     <Compile Include="PanelSet.Model\PanelSetMultipleFISHProbePanelRetired.cs" />
-    <Compile Include="PanelSet.Model\PanelSetMultipleMyelomaIgHComplexByFish.cs" />
     <Compile Include="PanelSet.Model\PanelSetMultipleMyelomaMGUSByFishRetired.cs" />
     <Compile Include="PanelSet.Model\PanelSetMusclePathologyAnalysis.cs" />
     <Compile Include="PanelSet.Model\PanelSetMYC.cs" />
@@ -2292,7 +2294,6 @@
     <Compile Include="PanelSet.Model\PanelSetNervePathologyAnalysis.cs" />
     <Compile Include="PanelSet.Model\PanelSetNextGenMyeloidDisordersProfile.cs" />
     <Compile Include="PanelSet.Model\PanelSetNonGYNCytology.cs" />
-    <Compile Include="PanelSet.Model\PanelSetNPM1.cs" />
     <Compile Include="PanelSet.Model\PanelSetNPM1Retired.cs" />
     <Compile Include="PanelSet.Model\PanelSetOncoTypeDX.cs" />
     <Compile Include="PanelSet.Model\PanelSetP53ByFish.cs" />
@@ -2301,9 +2302,6 @@
     <Compile Include="PanelSet.Model\PanelSetPMLRARAByFish.cs" />
     <Compile Include="PanelSet.Model\PanelSetPMLRARAByPCR.cs" />
     <Compile Include="PanelSet.Model\PanelSetRenalBiopsyPanel.cs" />
-    <Compile Include="PanelSet.Model\PanelSetTCellClonalityByPCR.cs" />
-    <Compile Include="PanelSet.Model\PanelSetTCellClonalityByPCRRetired.cs" />
-    <Compile Include="PanelSet.Model\PanelSetTechnicalOnly.cs" />
     <Compile Include="PanelSet.Model\PanelSetTestResultList.cs" />
     <Compile Include="PanelSet.Model\PanelSetUniversalOrganismByPCR.cs" />
     <Compile Include="PanelSet.Model\PreparationProcedure.cs" />

@@ -213,7 +213,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 		{
             bool result = false;
 
-            YellowstonePathology.Business.PanelSet.Model.PanelSetTechnicalOnly panelSetTechnicalOnly = new Business.PanelSet.Model.PanelSetTechnicalOnly();
+			YellowstonePathology.Business.Test.TechnicalOnly.TechnicalOnlyTest panelSetTechnicalOnly = new Business.Test.TechnicalOnly.TechnicalOnlyTest();
             YellowstonePathology.Business.Test.ReviewForAdditionalTesting.ReviewForAdditionalTestingTest reviewForAdditionalTestingTest = new Business.Test.ReviewForAdditionalTesting.ReviewForAdditionalTestingTest();
             YellowstonePathology.Business.Test.IHCQC.IHCQCTest ihcQCTest = new Business.Test.IHCQC.IHCQCTest();
 

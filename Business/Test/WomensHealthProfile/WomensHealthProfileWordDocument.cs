@@ -54,7 +54,7 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
 
 		private void SetCurrentPapResults()
 		{
-			YellowstonePathology.Business.Test.PanelSetOrderCytology panelSetOrderCytology = (YellowstonePathology.Business.Test.PanelSetOrderCytology)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(15);
+			YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology panelSetOrderCytology = (YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(15);
 			string sceeningImpression = panelSetOrderCytology.ScreeningImpression;
 			if (string.IsNullOrEmpty(sceeningImpression) == false)
 			{

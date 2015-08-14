@@ -76,7 +76,7 @@ namespace YellowstonePathology.Business.Domain.Billing
             {
                 result = new BillableObjectSurgicalPathology(accessionOrder, reportNo);
             }
-            else if (panelSetOrder is YellowstonePathology.Business.Test.PanelSetOrderCytology == true)
+			else if (panelSetOrder is YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology == true)
             {
                 if (accessionOrder.PrimaryInsurance == "Medicare")
                 {
@@ -99,7 +99,7 @@ namespace YellowstonePathology.Business.Domain.Billing
             {
                 result = new BillableObjectLeukemiaLymphoma(accessionOrder, reportNo);
             }
-            else if (panelSet is YellowstonePathology.Business.PanelSet.Model.PanelSetTechnicalOnly == true || panelSet is YellowstonePathology.Business.Test.IHCQC.IHCQCTest == true)
+            else if (panelSet is YellowstonePathology.Business.Test.TechnicalOnly.TechnicalOnlyTest == true || panelSet is YellowstonePathology.Business.Test.IHCQC.IHCQCTest == true)
             {
                 result = new BillableObjectTechnicalOnly(accessionOrder, reportNo);
             }

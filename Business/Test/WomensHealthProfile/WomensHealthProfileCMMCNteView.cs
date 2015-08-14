@@ -32,7 +32,7 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
 
 			this.AddNextNteElement("PAP TEST RESULT: ", document);
 
-			YellowstonePathology.Business.Test.PanelSetOrderCytology panelSetOrderCytology = (YellowstonePathology.Business.Test.PanelSetOrderCytology)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(15);
+			YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology panelSetOrderCytology = (YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(15);
 			if (string.IsNullOrEmpty(panelSetOrderCytology.ScreeningImpression) == false)
 			{
 				this.AddNextNteElement("Epithelial Cell Description: ", document);

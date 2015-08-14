@@ -93,7 +93,7 @@ namespace YellowstonePathology.UI.Cytology
 
         public void SelectAppropriatePanel()
         {
-            YellowstonePathology.Business.Test.PanelSetOrderCytology panelSetOrderCytology = (YellowstonePathology.Business.Test.PanelSetOrderCytology)this.m_CytologyUI.AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(15);
+			YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology panelSetOrderCytology = (YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology)this.m_CytologyUI.AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(15);
 			if (this.m_SystemIdentity.User.IsUserInRole(Business.User.SystemUserRoleDescriptionEnum.Pathologist) == true)
             {                
                 if (panelSetOrderCytology.PanelOrderCollection.HasPathologistReview() == true)

@@ -63,7 +63,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
 		private void ButtonNext_Click(object sender, RoutedEventArgs e)
 		{
-            YellowstonePathology.Business.PanelSet.Model.PanelSetTechnicalOnly panelSetTechnicalOnly = new Business.PanelSet.Model.PanelSetTechnicalOnly();
+			YellowstonePathology.Business.Test.TechnicalOnly.TechnicalOnlyTest panelSetTechnicalOnly = new Business.Test.TechnicalOnly.TechnicalOnlyTest();
             if (this.m_AccessionOrder.PanelSetOrderCollection.HasGrossBeenOrdered() == true)
             {
                 YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrderByTestId(48);

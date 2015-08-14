@@ -158,19 +158,19 @@ namespace YellowstonePathology.Business.HL7View.EPIC
 					view = new YellowstonePathology.Business.Test.CLLByFish.CLLByFishEpicObxView(accessionOrder, reportNo, obxCount);
 					break;
 				case 152:
-					view = new EpicTCellClonalityByPCRObxView(accessionOrder, reportNo, obxCount);
+					view = new YellowstonePathology.Business.Test.TCellClonalityByPCR.TCellClonalityByPCREpicObxView(accessionOrder, reportNo, obxCount);
 					break;
 				case 153:
 					view = new EpicFLT3ObxView(accessionOrder, reportNo, obxCount);
 					break;
 				case 155:
-					view = new EpicNPM1ObxView(accessionOrder, reportNo, obxCount);
+					view = new YellowstonePathology.Business.Test.NPM1.NPM1EpicObxView(accessionOrder, reportNo, obxCount);
 					break;
 				case 156:
 					view = new YellowstonePathology.Business.Test.BCRABLByFish.BCRABLByFishEpicObxView(accessionOrder, reportNo, obxCount);
 					break;
 				case 157:
-					view = new EpicMPNFishObxView(accessionOrder, reportNo, obxCount);
+					view = new YellowstonePathology.Business.Test.MPNFish.MPNFishEpicObxView(accessionOrder, reportNo, obxCount);
 					break;
 				case 158:
 					view = new EpicMDSByFishObxView(accessionOrder, reportNo, obxCount);
@@ -179,10 +179,10 @@ namespace YellowstonePathology.Business.HL7View.EPIC
 					view = new YellowstonePathology.Business.Test.MPL.MPLEpicObxView(accessionOrder, reportNo, obxCount);
 					break;
 				case 160:
-					view = new EpicMultipleFISHProbePanelObxView(accessionOrder, reportNo, obxCount);
+					view = new YellowstonePathology.Business.Test.MultipleFISHProbe.MultipleFISHProbeEpicObxView(accessionOrder, reportNo, obxCount);
 					break;
 				case 161:
-					view = new EpicMultipleMyelomaIgHByFishObxView(accessionOrder, reportNo, obxCount);
+					view = new YellowstonePathology.Business.Test.MultipleMyelomaIgHByFish.MultipleMyelomaIgHByFishEpicObxView(accessionOrder, reportNo, obxCount);
 					break;
 				case 162:
 					view = new YellowstonePathology.Business.Test.BCRABLByPCR.BCRABLByPCREpicObxView(accessionOrder, reportNo, obxCount);

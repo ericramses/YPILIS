@@ -20,7 +20,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
             panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetHer2AmplificationByFishRetired3()); 
 			panelSetCollection.Add(new YellowstonePathology.Business.Test.Her2AmplificationByFish.Her2AmplificationByFishTest()); 
 			panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetMultipleFISHProbePanelRetired());
-			panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetMultipleFISHProbePanel());
+			panelSetCollection.Add(new YellowstonePathology.Business.Test.MultipleFISHProbe.MultipleFISHProbeTest());
 			panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetALKRetired());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.ALKForNSCLCByFISH.ALKForNSCLCByFISHTest()); 
             panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetPMLRARAByFish()); 
@@ -38,7 +38,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
 			panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetMPLRetired());
 			panelSetCollection.Add(new YellowstonePathology.Business.Test.MPL.MPLTest());
 			panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetNPM1Retired());
-			panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetNPM1());
+			panelSetCollection.Add(new YellowstonePathology.Business.Test.NPM1.NPM1Test());
 			panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetHer2AmplificationByIHCRetired());
 			panelSetCollection.Add(new YellowstonePathology.Business.Test.Her2AmplificationByIHC.Her2AmplificationByIHCTest());
 			panelSetCollection.Add(new YellowstonePathology.Business.Test.ChromosomeAnalysis.ChromosomeAnalysisTest());  
@@ -46,7 +46,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
             panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetPDGFRb());  
             panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetFIP1L1());  
             panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetTCellClonalityByPCRRetired());  
-			panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetTCellClonalityByPCR());  
+			panelSetCollection.Add(new YellowstonePathology.Business.Test.TCellClonalityByPCR.TCellClonalityByPCRTest());  
 			panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetMDSByFishRetired());  
 			panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetMDSByFish());
 			panelSetCollection.Add(new YellowstonePathology.Business.Test.MDSExtendedByFish.MDSExtendedByFishTest());
@@ -60,7 +60,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
             panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetAMLPanelRetired());
 			panelSetCollection.Add(new YellowstonePathology.Business.Test.AMLStandardByFish.AMLStandardByFishTest());
 			panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetMPNFishPanelRetired());         
-			panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetMPNFishPanel());         
+			panelSetCollection.Add(new YellowstonePathology.Business.Test.MPNFish.MPNFishTest());         
 			panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetJAK2Exon1214Retired());
 			panelSetCollection.Add(new YellowstonePathology.Business.Test.JAK2Exon1214.JAK2Exon1214Test());  
 			panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetNeoTypeAMLPrognosticPanel());  
@@ -84,7 +84,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
             panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetHighRiskMultipleMyelomaMGUSByFish());
 			panelSetCollection.Add(new YellowstonePathology.Business.Test.ZAP70LymphoidPanel.ZAP70LymphoidPanelTest());
             panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetCCNDIBCLIGH());
-			panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetMultipleMyelomaIgHComplexByFish());
+			panelSetCollection.Add(new YellowstonePathology.Business.Test.MultipleMyelomaIgHByFish.MultipleMyelomaIgHByFishTest());
             panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetIgHMAFByFish());
             panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetP53ByFish());
 			panelSetCollection.Add(new YellowstonePathology.Business.Test.PlasmaCellMyelomaRiskStratification.PlasmaCellMyelomaRiskStratificationTest());
@@ -145,7 +145,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
 			panelSetCollection.Add(new YellowstonePathology.Business.Test.ErPrSemiQuantitative.ErPrSemiQuantitativeTest());
             panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetERPRForDCIS());
 			panelSetCollection.Add(new YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapTest());
-            panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetFNAAdequacyAssessment());
+			panelSetCollection.Add(new YellowstonePathology.Business.Test.FNAAdequacyAssessment.FNAAdequacyAssessmentTest());
             panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetFNASampleCollection());
 			panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetHer2AmplificationByFishRetired1());
 			panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetHer2AmplificationByFishRetired2());
@@ -159,7 +159,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
 			panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetMthfr());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.NGCT.NGCTTest());
 			panelSetCollection.Add(new YellowstonePathology.Business.Test.Surgical.SurgicalTest());
-            panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetTechnicalOnly());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.TechnicalOnly.TechnicalOnlyTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.Trichomonas.TrichomonasTest());
             panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.ReportSummary());
 			panelSetCollection.Add(new YellowstonePathology.Business.Test.TestCancelled.TestCancelledTest());
@@ -345,7 +345,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
 			panelSetCollection.Add(new YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTest());            
 			panelSetCollection.Add(new YellowstonePathology.Business.Test.ErPrSemiQuantitative.ErPrSemiQuantitativeTest());
             panelSetCollection.Add(new PanelSetERPRForDCIS());
-            panelSetCollection.Add(new PanelSetFNAAdequacyAssessment());
+			panelSetCollection.Add(new YellowstonePathology.Business.Test.FNAAdequacyAssessment.FNAAdequacyAssessmentTest());
             panelSetCollection.Add(new PanelSetFNASampleCollection());
 			panelSetCollection.Add(new YellowstonePathology.Business.Test.LLP.LeukemiaLymphomaTest());
 			panelSetCollection.Add(new YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeEvaluationTest());

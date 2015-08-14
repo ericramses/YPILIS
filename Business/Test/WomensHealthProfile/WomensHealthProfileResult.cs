@@ -36,7 +36,7 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
         {   
             if(this.m_HasThinPrepPap == true)
             {
-                YellowstonePathology.Business.Test.PanelSetOrderCytology panelSetOrderCytology = (YellowstonePathology.Business.Test.PanelSetOrderCytology)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_PanelSetThinPrepPap.PanelSetId);
+				YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology panelSetOrderCytology = (YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_PanelSetThinPrepPap.PanelSetId);
                 this.m_Method.Append("Thin Prep Pap: " + panelSetOrderCytology.Method);                
                 this.m_References.Append("Thin Prep Pap: " + panelSetOrderCytology.References);
             }

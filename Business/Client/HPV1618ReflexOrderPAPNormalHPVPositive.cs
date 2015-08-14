@@ -23,8 +23,8 @@ namespace YellowstonePathology.Business.Client.Model
 			YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapTest panelSetThinPrepPap = new YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapTest();            
 
             if(accessionOrder.PanelSetOrderCollection.Exists(panelSetThinPrepPap.PanelSetId) == true)
-            {                
-                YellowstonePathology.Business.Test.PanelSetOrderCytology panelsetOrderCytology = (YellowstonePathology.Business.Test.PanelSetOrderCytology)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetThinPrepPap.PanelSetId);
+            {
+				YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology panelsetOrderCytology = (YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetThinPrepPap.PanelSetId);
                 if (panelsetOrderCytology.Final == true)
                 {
                     string papResultCode = panelsetOrderCytology.ResultCode;

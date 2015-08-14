@@ -30,10 +30,10 @@ namespace YellowstonePathology.UI.Test
 		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private string m_PageHeaderText;
 
-		private YellowstonePathology.Business.Test.PanelSetOrderMultipleMyelomaIgHComplexByFish m_PanelSetOrder;
+		private YellowstonePathology.Business.Test.MultipleMyelomaIgHByFish.MultipleMyelomaIgHByFishTestOrder m_PanelSetOrder;
 		private string m_OrderedOnDescription;
 
-		public MultipleMyelomaIgHByFishResultPage(YellowstonePathology.Business.Test.PanelSetOrderMultipleMyelomaIgHComplexByFish panelSetOrderMultipleMyelomaIgHComplexByFish,
+		public MultipleMyelomaIgHByFishResultPage(YellowstonePathology.Business.Test.MultipleMyelomaIgHByFish.MultipleMyelomaIgHByFishTestOrder panelSetOrderMultipleMyelomaIgHComplexByFish,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
 			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
@@ -58,7 +58,7 @@ namespace YellowstonePathology.UI.Test
 			get { return this.m_OrderedOnDescription; }
 		}
 
-		public YellowstonePathology.Business.Test.PanelSetOrderMultipleMyelomaIgHComplexByFish PanelSetOrder
+		public YellowstonePathology.Business.Test.MultipleMyelomaIgHByFish.MultipleMyelomaIgHByFishTestOrder PanelSetOrder
 		{
 			get { return this.m_PanelSetOrder; }
 		}
@@ -98,7 +98,7 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkNormal_Click(object sender, RoutedEventArgs e)
 		{
-			YellowstonePathology.Business.Test.MultipleMyelomaIgHByFishNormalResult result = new Business.Test.MultipleMyelomaIgHByFishNormalResult();
+			YellowstonePathology.Business.Test.MultipleMyelomaIgHByFish.MultipleMyelomaIgHByFishNormalResult result = new Business.Test.MultipleMyelomaIgHByFish.MultipleMyelomaIgHByFishNormalResult();
 			result.SetResults(this.m_PanelSetOrder);
 			this.NotifyPropertyChanged("PanelSetOrder");
 		}
@@ -111,7 +111,7 @@ namespace YellowstonePathology.UI.Test
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
 		{
 			this.Save();
-			YellowstonePathology.Business.Document.MultipleMyelomaIgHByFishReport report = new Business.Document.MultipleMyelomaIgHByFishReport();
+			YellowstonePathology.Business.Test.MultipleMyelomaIgHByFish.MultipleMyelomaIgHByFishWordDocument report = new Business.Test.MultipleMyelomaIgHByFish.MultipleMyelomaIgHByFishWordDocument();
 			report.Render(this.m_AccessionOrder.MasterAccessionNo, this.m_PanelSetOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft);
 
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);

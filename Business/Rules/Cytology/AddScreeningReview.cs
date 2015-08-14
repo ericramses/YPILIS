@@ -16,7 +16,7 @@ namespace YellowstonePathology.Business.Rules.Cytology
         string m_ScreeningType;
 		YellowstonePathology.Business.Test.AccessionOrder m_CytologyAccessionOrder;
 		YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology m_InitiatingPanelOrder;
-		YellowstonePathology.Business.Test.PanelSetOrderCytology m_PanelSetOrderCytology;
+		YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology m_PanelSetOrderCytology;
 
         ProcessingModeEnum m_ProcessingMode;
 
@@ -51,7 +51,7 @@ namespace YellowstonePathology.Business.Rules.Cytology
             this.m_ScreeningType = screeningType;
             this.m_CytologyAccessionOrder = cytologyAccessionOrder;
             this.m_InitiatingPanelOrder = initiatingPanelOrder;
-			this.m_PanelSetOrderCytology = (YellowstonePathology.Business.Test.PanelSetOrderCytology)cytologyAccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(initiatingPanelOrder.ReportNo);
+			this.m_PanelSetOrderCytology = (YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology)cytologyAccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(initiatingPanelOrder.ReportNo);
             this.m_ProcessingMode = processingMode;
 
             this.m_ExecutionStatus = executionStatus;
