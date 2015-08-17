@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace YellowstonePathology.Business.Test
+namespace YellowstonePathology.Business.Test.CCNDIBCLIGH
 {
 	public class CCNDIBCLIGHResult
 	{
@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Test
 		{
 		}
 
-		public void SetResults(PanelSetOrderCCNDIBCLIGH panelSetOrder)
+		public void SetResults(CCNDIBCLIGHTestOrder panelSetOrder)
 		{
 			panelSetOrder.Result = this.m_Result;
 			panelSetOrder.Interpretation = this.m_Interpretation;

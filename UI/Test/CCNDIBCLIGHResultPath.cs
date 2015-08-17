@@ -9,7 +9,7 @@ namespace YellowstonePathology.UI.Test
 	{
 		CCNDIBCLIGHResultPage m_ResultPage;
 		YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-		YellowstonePathology.Business.Test.PanelSetOrderCCNDIBCLIGH m_PanelSetOrder;
+		YellowstonePathology.Business.Test.CCNDIBCLIGH.CCNDIBCLIGHTestOrder m_PanelSetOrder;
 		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 
 		public CCNDIBCLIGHResultPath(string reportNo,
@@ -19,7 +19,7 @@ namespace YellowstonePathology.UI.Test
 			: base(pageNavigator)
 		{
 			this.m_AccessionOrder = accessionOrder;
-			this.m_PanelSetOrder = (YellowstonePathology.Business.Test.PanelSetOrderCCNDIBCLIGH)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
+			this.m_PanelSetOrder = (YellowstonePathology.Business.Test.CCNDIBCLIGH.CCNDIBCLIGHTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 			this.m_ObjectTracker = objectTracker;
 			this.Authenticated += new AuthenticatedEventHandler(ResultPath_Authenticated);
 		}

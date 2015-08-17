@@ -146,13 +146,13 @@ namespace YellowstonePathology.Business.HL7View.EPIC
 					view = new YellowstonePathology.Business.Test.MultipleMyelomaMGUSByFish.MultipleMyelomaMGUSByFishEpicObxView(accessionOrder, reportNo, obxCount);
 					break;
 				case 148:
-					view = new EpicCCNDIBCLIGHObxView(accessionOrder, reportNo, obxCount);
+					view = new YellowstonePathology.Business.Test.CCNDIBCLIGH.CCNDIBCLIGHEpicObxView(accessionOrder, reportNo, obxCount);
 					break;
 				case 149:
 					view = new YellowstonePathology.Business.Test.HighGradeLargeBCellLymphoma.HighGradeLargeBCellLymphomaEpicObxView(accessionOrder, reportNo, obxCount);
 					break;
 				case 150:
-					view = new EpicCEBPAObxView(accessionOrder, reportNo, obxCount);
+					view = new YellowstonePathology.Business.Test.CEBPA.CEBPAEpicObxView(accessionOrder, reportNo, obxCount);
 					break;
 				case 151:
 					view = new YellowstonePathology.Business.Test.CLLByFish.CLLByFishEpicObxView(accessionOrder, reportNo, obxCount);
@@ -161,7 +161,7 @@ namespace YellowstonePathology.Business.HL7View.EPIC
 					view = new YellowstonePathology.Business.Test.TCellClonalityByPCR.TCellClonalityByPCREpicObxView(accessionOrder, reportNo, obxCount);
 					break;
 				case 153:
-					view = new EpicFLT3ObxView(accessionOrder, reportNo, obxCount);
+					view = new YellowstonePathology.Business.Test.FLT3.FLT3EpicObxView(accessionOrder, reportNo, obxCount);
 					break;
 				case 155:
 					view = new YellowstonePathology.Business.Test.NPM1.NPM1EpicObxView(accessionOrder, reportNo, obxCount);
@@ -173,7 +173,7 @@ namespace YellowstonePathology.Business.HL7View.EPIC
 					view = new YellowstonePathology.Business.Test.MPNFish.MPNFishEpicObxView(accessionOrder, reportNo, obxCount);
 					break;
 				case 158:
-					view = new EpicMDSByFishObxView(accessionOrder, reportNo, obxCount);
+					view = new YellowstonePathology.Business.Test.MDSByFish.MDSByFishEpicObxView(accessionOrder, reportNo, obxCount);
 					break;
 				case 159:
 					view = new YellowstonePathology.Business.Test.MPL.MPLEpicObxView(accessionOrder, reportNo, obxCount);

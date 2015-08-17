@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace YellowstonePathology.Business.Test
+namespace YellowstonePathology.Business.Test.CEBPA
 {
 	public class CEBPAResult
 	{
@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Test
 		{
 		}
 
-		public void SetResults(PanelSetOrderCEBPA panelSetOrderCEBPA)
+		public void SetResults(CEBPATestOrder panelSetOrderCEBPA)
 		{
 			panelSetOrderCEBPA.Result = this.m_Result;
 			panelSetOrderCEBPA.SNPResult = this.m_SNPResult;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace YellowstonePathology.Business.Test
+namespace YellowstonePathology.Business.Test.FLT3
 {
 	public class FLT3NotDetectedResult : FLT3Result
 	{

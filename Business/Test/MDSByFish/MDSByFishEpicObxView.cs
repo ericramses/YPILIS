@@ -4,28 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 
-namespace YellowstonePathology.Business.HL7View.EPIC
+namespace YellowstonePathology.Business.Test.MDSByFish
 {
-	public class EpicFLT3ObxView : EpicObxView
+	public class MDSByFishEpicObxView : YellowstonePathology.Business.HL7View.EPIC.EpicObxView
 	{
-		public EpicFLT3ObxView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount)
+		public MDSByFishEpicObxView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount)
 			: base(accessionOrder, reportNo, obxCount)
 		{
 		}
 
 		public override void ToXml(XElement document)
 		{
-			YellowstonePathology.Business.Test.PanelSetOrderFLT3 panelSetOrder = (YellowstonePathology.Business.Test.PanelSetOrderFLT3)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
-			this.AddHeader(document, panelSetOrder, "FLT3 Mutation Analysis");
+			MDSByFishTestOrder panelSetOrder = (MDSByFishTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
+			this.AddHeader(document, panelSetOrder, "MDS Panel By Fish Analysis");
 
 			this.AddNextObxElement("", document, "F");
 			string result = "Result: " + panelSetOrder.Result;
-			this.AddNextObxElement(result, document, "F");
-			result = "  ITD Mutation " + panelSetOrder.ITDMutation;
-			this.AddNextObxElement(result, document, "F");
-			result = "  ITD Percentage " + panelSetOrder.ITDPercentage;
-			this.AddNextObxElement(result, document, "F");
-			result = "  TKD Mutation " + panelSetOrder.TKDMutation;
 			this.AddNextObxElement(result, document, "F");
 
 			this.AddNextObxElement("", document, "F");
@@ -47,12 +41,12 @@ namespace YellowstonePathology.Business.HL7View.EPIC
 			this.HandleLongString(panelSetOrder.Interpretation, document, "F");
 
 			this.AddNextObxElement("", document, "F");
-			this.AddNextObxElement("Method:", document, "F");
-			this.HandleLongString(panelSetOrder.Method, document, "F");
+			this.AddNextObxElement("Probe Set Details:", document, "F");
+			this.HandleLongString(panelSetOrder.ProbeSetDetail, document, "F");
 
 			this.AddNextObxElement("", document, "F");
-			this.AddNextObxElement("References:", document, "F");
-			this.HandleLongString(panelSetOrder.References, document, "F");			
+			this.AddNextObxElement("Nuclei Scored:", document, "F");
+			this.HandleLongString(panelSetOrder.NucleiScored, document, "F");			
 
 			this.AddNextObxElement("", document, "F");
             string locationPerformed = panelSetOrder.GetLocationPerformedComment();

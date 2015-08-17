@@ -4,22 +4,24 @@ using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 
-namespace YellowstonePathology.Business.HL7View.EPIC
+namespace YellowstonePathology.Business.Test.CEBPA
 {
-	public class EpicMDSByFishObxView : EpicObxView
+	public class CEBPAEpicObxView : YellowstonePathology.Business.HL7View.EPIC.EpicObxView
 	{
-		public EpicMDSByFishObxView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount)
+		public CEBPAEpicObxView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount)
 			: base(accessionOrder, reportNo, obxCount)
 		{
 		}
 
 		public override void ToXml(XElement document)
 		{
-			YellowstonePathology.Business.Test.PanelSetOrderMDSByFish panelSetOrder = (YellowstonePathology.Business.Test.PanelSetOrderMDSByFish)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
-			this.AddHeader(document, panelSetOrder, "MDS Panel By Fish Analysis");
+			CEBPATestOrder panelSetOrder = (CEBPATestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
+			this.AddHeader(document, panelSetOrder, "CEBPA Mutation Analysis");
 
 			this.AddNextObxElement("", document, "F");
 			string result = "Result: " + panelSetOrder.Result;
+			this.AddNextObxElement(result, document, "F");
+			result = "  SNP rs34529039 " + panelSetOrder.SNPResult;
 			this.AddNextObxElement(result, document, "F");
 
 			this.AddNextObxElement("", document, "F");
@@ -41,12 +43,12 @@ namespace YellowstonePathology.Business.HL7View.EPIC
 			this.HandleLongString(panelSetOrder.Interpretation, document, "F");
 
 			this.AddNextObxElement("", document, "F");
-			this.AddNextObxElement("Probe Set Details:", document, "F");
-			this.HandleLongString(panelSetOrder.ProbeSetDetail, document, "F");
+			this.AddNextObxElement("Method:", document, "F");
+			this.HandleLongString(panelSetOrder.Method, document, "F");
 
 			this.AddNextObxElement("", document, "F");
-			this.AddNextObxElement("Nuclei Scored:", document, "F");
-			this.HandleLongString(panelSetOrder.NucleiScored, document, "F");			
+			this.AddNextObxElement("References:", document, "F");
+			this.HandleLongString(panelSetOrder.References, document, "F");			
 
 			this.AddNextObxElement("", document, "F");
             string locationPerformed = panelSetOrder.GetLocationPerformedComment();

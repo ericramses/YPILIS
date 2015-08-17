@@ -30,10 +30,10 @@ namespace YellowstonePathology.UI.Test
 		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private string m_PageHeaderText;
 
-		private YellowstonePathology.Business.Test.PanelSetOrderCCNDIBCLIGH m_PanelSetOrder;
+		private YellowstonePathology.Business.Test.CCNDIBCLIGH.CCNDIBCLIGHTestOrder m_PanelSetOrder;
 		private string m_OrderedOnDescription;
 
-		public CCNDIBCLIGHResultPage(YellowstonePathology.Business.Test.PanelSetOrderCCNDIBCLIGH panelSetOrderCCNDIBCLIGH,
+		public CCNDIBCLIGHResultPage(YellowstonePathology.Business.Test.CCNDIBCLIGH.CCNDIBCLIGHTestOrder panelSetOrderCCNDIBCLIGH,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
 			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
@@ -58,7 +58,7 @@ namespace YellowstonePathology.UI.Test
 			get { return this.m_OrderedOnDescription; }
 		}
 
-		public YellowstonePathology.Business.Test.PanelSetOrderCCNDIBCLIGH PanelSetOrder
+		public YellowstonePathology.Business.Test.CCNDIBCLIGH.CCNDIBCLIGHTestOrder PanelSetOrder
 		{
 			get { return this.m_PanelSetOrder; }
 		}
@@ -103,7 +103,7 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkAbnormal_Click(object sender, RoutedEventArgs e)
 		{
-			YellowstonePathology.Business.Test.CCNDIBCLIGHAbnormalResult result = new Business.Test.CCNDIBCLIGHAbnormalResult();
+			YellowstonePathology.Business.Test.CCNDIBCLIGH.CCNDIBCLIGHAbnormalResult result = new Business.Test.CCNDIBCLIGH.CCNDIBCLIGHAbnormalResult();
 			result.SetResults(this.m_PanelSetOrder);
 			this.NotifyPropertyChanged("PanelSetOrder");
 		}
@@ -111,7 +111,7 @@ namespace YellowstonePathology.UI.Test
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
 		{
 			this.Save();
-			YellowstonePathology.Business.Document.CCNDIBCLIGHReport report = new Business.Document.CCNDIBCLIGHReport();
+			YellowstonePathology.Business.Test.CCNDIBCLIGH.CCNDIBCLIGHWordDocument report = new Business.Test.CCNDIBCLIGH.CCNDIBCLIGHWordDocument();
 			report.Render(this.m_AccessionOrder.MasterAccessionNo, this.m_PanelSetOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft);
 
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);

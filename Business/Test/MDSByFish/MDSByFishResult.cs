@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace YellowstonePathology.Business.Test
+namespace YellowstonePathology.Business.Test.MDSByFish
 {
 	public class MDSByFishResult
 	{
@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Test
 		{
 		}
 
-		public void SetResults(PanelSetOrderMDSByFish panelSetOrder)
+		public void SetResults(MDSByFishTestOrder panelSetOrder)
 		{
 			panelSetOrder.Result = this.m_Result;
 			panelSetOrder.Interpretation = this.m_Interpretation;
