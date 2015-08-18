@@ -13,7 +13,7 @@ namespace YellowstonePathology.Business.Test.MPNFish
 			this.m_ReportSaveEnum = reportSaveEnum;
 			this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByMasterAccessionNo(masterAccessionNo);
 			this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
-			MPNFishTestOrder panelSetOrderMPNFish = (MPNFishTestOrder)this.m_PanelSetOrder;
+			PanelSetOrderMPNFish panelSetOrderMPNFish = (PanelSetOrderMPNFish)this.m_PanelSetOrder;
 
 			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\MPNFish.xml";
 			base.OpenTemplate();

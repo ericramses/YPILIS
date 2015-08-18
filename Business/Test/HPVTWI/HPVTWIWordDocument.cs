@@ -27,7 +27,7 @@ namespace YellowstonePathology.Business.Test.HPVTWI
             string collectionDateTimeString = YellowstonePathology.Business.Helper.DateTimeExtensions.CombineDateAndTime(specimenOrder.CollectionDate, specimenOrder.CollectionTime);
             this.SetXmlNodeData("date_time_collected", collectionDateTimeString);
 
-			YellowstonePathology.Business.Test.HPVTWI.HPVTWITestOrder panelSetOrder = (YellowstonePathology.Business.Test.HPVTWI.HPVTWITestOrder)this.m_PanelSetOrder;
+			YellowstonePathology.Business.Test.HPVTWI.PanelSetOrderHPVTWI panelSetOrder = (YellowstonePathology.Business.Test.HPVTWI.PanelSetOrderHPVTWI)this.m_PanelSetOrder;
 			
 			if(string.IsNullOrEmpty(panelSetOrder.Result) == false) base.ReplaceText("test_result", panelSetOrder.Result);            
 

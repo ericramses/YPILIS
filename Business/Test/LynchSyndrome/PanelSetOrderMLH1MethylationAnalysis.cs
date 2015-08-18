@@ -7,7 +7,7 @@ using YellowstonePathology.Business.Persistence;
 namespace YellowstonePathology.Business.Test.LynchSyndrome
 {
 	[PersistentClass("tblPanelSetOrderMLH1MethylationAnalysis", "tblPanelSetOrder", "YPIDATA")]
-    public class MLH1MethylationAnalysisTestOrder : PanelSetOrder
+    public class PanelSetOrderMLH1MethylationAnalysis : PanelSetOrder
     {
         private string m_Result;
 		private string m_Interpretation;
@@ -15,12 +15,12 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 		private string m_References;
 		private string m_MLH1MethylationPercent;
 
-        public MLH1MethylationAnalysisTestOrder()
+        public PanelSetOrderMLH1MethylationAnalysis()
         {
 
         }
 
-		public MLH1MethylationAnalysisTestOrder(string masterAccessionNo, string reportNo, string objectId,
+		public PanelSetOrderMLH1MethylationAnalysis(string masterAccessionNo, string reportNo, string objectId,
 			YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
             YellowstonePathology.Business.Interface.IOrderTarget orderTarget,
 			bool distribute,

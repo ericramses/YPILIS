@@ -18,7 +18,7 @@ namespace YellowstonePathology.Business.Audit.Model
 			YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeEvaluationTest panelSetLSE = new YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeEvaluationTest();
             if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(panelSetLSE.PanelSetId) == true)
             {
-				YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeEvaluationTestOrder panelSetOrderLSE = (YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeEvaluationTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetLSE.PanelSetId);
+				YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLSE = (YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetLSE.PanelSetId);
                 if (panelSetOrderLSE.LynchSyndromeEvaluationType == YellowstonePathology.Business.Test.LynchSyndrome.LSEType.NOTSET)
                 {
                     this.m_ActionRequired = true;

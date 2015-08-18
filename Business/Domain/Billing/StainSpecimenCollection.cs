@@ -183,7 +183,7 @@ namespace YellowstonePathology.Business.Domain.Billing
                 }
                 else
                 {
-					if (panelSetOrder is YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeEvaluationTestOrder)
+					if (panelSetOrder is YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation)
                     {
                         if (result.HasLSEIHCSpecimen() == false)
                         {

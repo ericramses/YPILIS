@@ -33,7 +33,7 @@ namespace YellowstonePathology.UI.Test
 		public event OrderTestEventHandler OrderTest;
 
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-		private YellowstonePathology.Business.Test.MPNStandardReflex.MPNStandardReflexTestOrder m_PanelSetOrderMPNStandardReflex;
+		private YellowstonePathology.Business.Test.MPNStandardReflex.PanelSetOrderMPNStandardReflex m_PanelSetOrderMPNStandardReflex;
         private YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FTestOrder m_PanelSetOrderJAK2V617F;
 		private YellowstonePathology.Business.Test.JAK2Exon1214.JAK2Exon1214TestOrder m_PanelSetOrderJAK2Exon1214;
         private string m_JAK2V617FResult;
@@ -57,7 +57,7 @@ namespace YellowstonePathology.UI.Test
 			YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FTest panelSetJAK2V617F = new YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FTest();
 			YellowstonePathology.Business.Test.JAK2Exon1214.JAK2Exon1214Test panelSetJAK2Exon1214 = new YellowstonePathology.Business.Test.JAK2Exon1214.JAK2Exon1214Test();
 
-			this.m_PanelSetOrderMPNStandardReflex = (YellowstonePathology.Business.Test.MPNStandardReflex.MPNStandardReflexTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetMPNStandardReflex.PanelSetId);
+			this.m_PanelSetOrderMPNStandardReflex = (YellowstonePathology.Business.Test.MPNStandardReflex.PanelSetOrderMPNStandardReflex)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetMPNStandardReflex.PanelSetId);
 			this.m_PanelSetOrderJAK2V617F = (YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetJAK2V617F.PanelSetId);
 			this.m_JAK2V617FResult = this.m_PanelSetOrderJAK2V617F.Result;
 
@@ -76,7 +76,7 @@ namespace YellowstonePathology.UI.Test
             get { return this.m_SpecimenOrder; }
         }
 
-		public YellowstonePathology.Business.Test.MPNStandardReflex.MPNStandardReflexTestOrder PanelSetOrderMPNStandardReflex
+		public YellowstonePathology.Business.Test.MPNStandardReflex.PanelSetOrderMPNStandardReflex PanelSetOrderMPNStandardReflex
         {
             get { return this.m_PanelSetOrderMPNStandardReflex; }
         }

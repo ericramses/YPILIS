@@ -7,19 +7,19 @@ using YellowstonePathology.Business.Persistence;
 namespace YellowstonePathology.Business.Test.LynchSyndrome
 {
 	[PersistentClass("tblPanelSetOrderLynchSyndromeIHC", "tblPanelSetOrder", "YPIDATA")]
-    public class LynchSyndromeIHCPanelTestOrder : PanelSetOrder
+    public class PanelSetOrderLynchSyndromeIHC : PanelSetOrder
     {        
         private string m_MLH1Result;
         private string m_MSH2Result;
         private string m_MSH6Result;
         private string m_PMS2Result;        
 
-        public LynchSyndromeIHCPanelTestOrder()
+        public PanelSetOrderLynchSyndromeIHC()
         {
 
         }
 
-		public LynchSyndromeIHCPanelTestOrder(string masterAccessionNo, string reportNo, string objectId,
+		public PanelSetOrderLynchSyndromeIHC(string masterAccessionNo, string reportNo, string objectId,
 			YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
             YellowstonePathology.Business.Interface.IOrderTarget orderTarget,
 			bool distribute,

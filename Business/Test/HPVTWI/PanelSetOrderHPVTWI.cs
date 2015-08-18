@@ -7,19 +7,19 @@ using YellowstonePathology.Business.Persistence;
 namespace YellowstonePathology.Business.Test.HPVTWI
 {
 	[PersistentClass("tblPanelSetOrderHPVTWI", "tblPanelSetOrder", "YPIDATA")]
-	public class HPVTWITestOrder : PanelSetOrder
+	public class PanelSetOrderHPVTWI : PanelSetOrder
 	{        
 		private string m_Result;
 		private string m_Comment;
 		private string m_References;
 		private string m_TestInformation;
 
-		public HPVTWITestOrder()
+		public PanelSetOrderHPVTWI()
 		{
 
 		}
 
-		public HPVTWITestOrder(string masterAccessionNo, string reportNo, string objectId,
+		public PanelSetOrderHPVTWI(string masterAccessionNo, string reportNo, string objectId,
 			YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
             YellowstonePathology.Business.Interface.IOrderTarget orderTarget,
 			bool distribute,

@@ -51,10 +51,10 @@ namespace YellowstonePathology.Business.Test.MPNExtendedReflex
 		private YellowstonePathology.Business.Test.CalreticulinMutationAnalysis.CalreticulinMutationAnalysisTest m_PanelSetCalreticulinMutationAnalysis;
         private YellowstonePathology.Business.Test.MPL.MPLTest m_PanelSetMPL;
 
-		private YellowstonePathology.Business.Test.MPNExtendedReflex.MPNExtendedReflexTestOrder m_PanelSetOrderMPNExtendedReflex;
+		private YellowstonePathology.Business.Test.MPNExtendedReflex.PanelSetOrderMPNExtendedReflex m_PanelSetOrderMPNExtendedReflex;
 		private YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FTestOrder m_PanelSetOrderJAK2V617F;
 		private YellowstonePathology.Business.Test.CalreticulinMutationAnalysis.CalreticulinMutationAnalysisTestOrder m_PanelSetOrderCalreticulinMutationAnalysis;
-		private YellowstonePathology.Business.Test.MPL.MPLTestOrder m_PanelSetOrderMPL;
+		private YellowstonePathology.Business.Test.MPL.PanelSetOrderMPL m_PanelSetOrderMPL;
 
 		private YellowstonePathology.Business.Specimen.Model.SpecimenOrder m_SpecimenOrder;
 
@@ -77,7 +77,7 @@ namespace YellowstonePathology.Business.Test.MPNExtendedReflex
 			this.m_AccessionOrder = accessionOrder;
 
 			YellowstonePathology.Business.Test.MPNExtendedReflex.MPNExtendedReflexTest panelSetMPNExtendedReflex = new YellowstonePathology.Business.Test.MPNExtendedReflex.MPNExtendedReflexTest();
-			this.m_PanelSetOrderMPNExtendedReflex = (YellowstonePathology.Business.Test.MPNExtendedReflex.MPNExtendedReflexTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetMPNExtendedReflex.PanelSetId);
+			this.m_PanelSetOrderMPNExtendedReflex = (YellowstonePathology.Business.Test.MPNExtendedReflex.PanelSetOrderMPNExtendedReflex)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetMPNExtendedReflex.PanelSetId);
 			
 			this.m_SpecimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrderMPNExtendedReflex.OrderedOn, this.m_PanelSetOrderMPNExtendedReflex.OrderedOnId);
 
@@ -96,7 +96,7 @@ namespace YellowstonePathology.Business.Test.MPNExtendedReflex
             this.m_HasMPL = this.m_AccessionOrder.PanelSetOrderCollection.Exists(this.m_PanelSetMPL.PanelSetId);
             if(this.m_HasMPL == true)
             {
-                this.m_PanelSetOrderMPL = (YellowstonePathology.Business.Test.MPL.MPLTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_PanelSetMPL.PanelSetId);
+                this.m_PanelSetOrderMPL = (YellowstonePathology.Business.Test.MPL.PanelSetOrderMPL)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_PanelSetMPL.PanelSetId);
             }
 
             this.m_AuditCollection = new Audit.Model.AuditCollection();
@@ -246,7 +246,7 @@ namespace YellowstonePathology.Business.Test.MPNExtendedReflex
             get { return this.m_MPLResult; }
         }
 
-		public YellowstonePathology.Business.Test.MPNExtendedReflex.MPNExtendedReflexTestOrder PanelSetOrderMPNExtendedReflex
+		public YellowstonePathology.Business.Test.MPNExtendedReflex.PanelSetOrderMPNExtendedReflex PanelSetOrderMPNExtendedReflex
 		{
 			get { return this.m_PanelSetOrderMPNExtendedReflex; }
 		}

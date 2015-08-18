@@ -4,23 +4,24 @@ using System.Linq;
 using System.Text;
 using YellowstonePathology.Business.Persistence;
 
-namespace YellowstonePathology.Business.Test.MultipleFISHProbe
+namespace YellowstonePathology.Business.Test.CCNDIBCLIGH
 {
-	[PersistentClass("tblPanelSetOrderMultipleFISHProbePanel", "tblPanelSetOrder", "YPIDATA")]
-	public class MultipleFISHProbeTestOrder : PanelSetOrder
+	[PersistentClass("tblPanelSetOrderCCNDIBCLIGH", "tblPanelSetOrder", "YPIDATA")]
+	public class PanelSetOrderCCNDIBCLIGH : PanelSetOrder
 	{
 		private string m_Result;
 		private string m_Interpretation;
 		private string m_ProbeSetDetail;
 		private string m_NucleiScored;
-		
-		public MultipleFISHProbeTestOrder()
-        {
-        }
+		private string m_References;
 
-		public MultipleFISHProbeTestOrder(string masterAccessionNo, string reportNo, string objectId,
-            YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
-            YellowstonePathology.Business.Interface.IOrderTarget orderTarget,
+		public PanelSetOrderCCNDIBCLIGH()
+		{
+		}
+
+		public PanelSetOrderCCNDIBCLIGH(string masterAccessionNo, string reportNo, string objectId,
+			YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
+			YellowstonePathology.Business.Interface.IOrderTarget orderTarget,
 			bool distribute,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 			: base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute, systemIdentity)
@@ -83,23 +84,31 @@ namespace YellowstonePathology.Business.Test.MultipleFISHProbe
 			}
 		}
 
-		public override string ToResultString(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
+		[PersistentProperty()]
+		public string References
 		{
-			StringBuilder result = new StringBuilder();
-
-			result.AppendLine("Result: " + this.m_Result);
-			result.AppendLine();
-
-			result.AppendLine("Interpretation: " + this.m_Interpretation);
-			result.AppendLine();
-
-			result.AppendLine("Probeset Detail: " + this.m_ProbeSetDetail);
-			result.AppendLine();
-
-			result.AppendLine("Nuclei Scored: " + this.m_NucleiScored);
-			result.AppendLine();
-
-			return result.ToString();
+			get { return this.m_References; }
+			set
+			{
+				if (this.m_References != value)
+				{
+					this.m_References = value;
+					this.NotifyPropertyChanged("References");
+				}
+			}
 		}
+
+		public override string ToResultString(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
+        {
+            StringBuilder result = new StringBuilder();
+
+            result.AppendLine("Result: " + this.m_Result);
+            result.AppendLine();            
+
+            result.AppendLine("Interpretation: " + this.m_Interpretation);
+            result.AppendLine();
+
+            return result.ToString();
+        }
 	}
 }

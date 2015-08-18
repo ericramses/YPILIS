@@ -7,7 +7,7 @@ namespace YellowstonePathology.Business.ReflexTestingPlan.Model
 {
     public class LynchIHCStep : ReflexTestingStep
     {        
-        private YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeIHCPanelTestOrder m_PanelSetOrderLynchSyndromeIHC;
+        private YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeIHC m_PanelSetOrderLynchSyndromeIHC;
 
         public LynchIHCStep()
         {
@@ -22,7 +22,7 @@ namespace YellowstonePathology.Business.ReflexTestingPlan.Model
             if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(this.m_PanelSet.PanelSetId) == true)
             {
                 this.m_HasPanelSetBeenOrdered = true;
-                this.m_PanelSetOrderLynchSyndromeIHC = (YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeIHCPanelTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_PanelSet.PanelSetId);                                
+                this.m_PanelSetOrderLynchSyndromeIHC = (YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeIHC)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_PanelSet.PanelSetId);                                
                 if (this.m_PanelSetOrderLynchSyndromeIHC.Final == true)
                 {
                     while (true)

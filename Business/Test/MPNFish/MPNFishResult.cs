@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Test.MPNFish
 		{
 		}
 
-		public void SetResults(MPNFishTestOrder panelSetOrder)
+		public void SetResults(PanelSetOrderMPNFish panelSetOrder)
 		{
 			panelSetOrder.Result = this.m_Result;
 			panelSetOrder.Interpretation = this.m_Interpretation;

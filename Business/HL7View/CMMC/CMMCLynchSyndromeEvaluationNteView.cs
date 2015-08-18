@@ -20,7 +20,7 @@ namespace YellowstonePathology.Business.HL7View.CMMC
 
         public override void ToXml(XElement document)
         {
-			YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeEvaluationTestOrder panelSetOrder = (YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeEvaluationTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(106);
+			YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrder = (YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(106);
 
             this.AddCompanyHeader(document);
             this.AddBlankNteElement(document);
@@ -38,7 +38,7 @@ namespace YellowstonePathology.Business.HL7View.CMMC
 			this.HandleLongString(panelSetOrder.Comment, document);
 			this.AddBlankNteElement(document);
 
-			YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeIHCPanelTestOrder panelSetOrderLynchSyndromeIHC = (YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeIHCPanelTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(102);
+			YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeIHC panelSetOrderLynchSyndromeIHC = (YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeIHC)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(102);
 			if (panelSetOrderLynchSyndromeIHC != null)
 			{
 				this.AddNextNteElement("Mismatch Repair Protein Expression by Immunohistochemistry: ", document);

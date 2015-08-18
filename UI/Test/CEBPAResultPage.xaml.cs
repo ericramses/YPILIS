@@ -30,10 +30,10 @@ namespace YellowstonePathology.UI.Test
 		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private string m_PageHeaderText;
 
-		private YellowstonePathology.Business.Test.CEBPA.CEBPATestOrder m_PanelSetOrder;
+		private YellowstonePathology.Business.Test.CEBPA.PanelSetOrderCEBPA m_PanelSetOrder;
 		private string m_OrderedOnDescription;
 
-		public CEBPAResultPage(YellowstonePathology.Business.Test.CEBPA.CEBPATestOrder panelSetOrderCEBPA,
+		public CEBPAResultPage(YellowstonePathology.Business.Test.CEBPA.PanelSetOrderCEBPA panelSetOrderCEBPA,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
 			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
@@ -58,7 +58,7 @@ namespace YellowstonePathology.UI.Test
 			get { return this.m_OrderedOnDescription; }
 		}
 
-		public YellowstonePathology.Business.Test.CEBPA.CEBPATestOrder PanelSetOrder
+		public YellowstonePathology.Business.Test.CEBPA.PanelSetOrderCEBPA PanelSetOrder
 		{
 			get { return this.m_PanelSetOrder; }
 		}

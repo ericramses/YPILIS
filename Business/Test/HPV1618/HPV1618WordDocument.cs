@@ -14,7 +14,7 @@ namespace YellowstonePathology.Business.Test.HPV1618
 			this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByMasterAccessionNo(masterAccessionNo);
 
 			this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
-			YellowstonePathology.Business.Test.HPV1618.HPV1618TestOrder panelSetOrderHPV1618 = (YellowstonePathology.Business.Test.HPV1618.HPV1618TestOrder)this.m_PanelSetOrder;
+			YellowstonePathology.Business.Test.HPV1618.PanelSetOrderHPV1618 panelSetOrderHPV1618 = (YellowstonePathology.Business.Test.HPV1618.PanelSetOrderHPV1618)this.m_PanelSetOrder;
 
 			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\HPV1618Genotyping.6.xml";
 			base.OpenTemplate();

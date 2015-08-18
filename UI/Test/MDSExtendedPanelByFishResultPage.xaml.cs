@@ -30,10 +30,10 @@ namespace YellowstonePathology.UI.Test
 		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private string m_PageHeaderText;
 
-		private YellowstonePathology.Business.Test.MDSExtendedByFish.MDSExtendedByFishTestOrder m_PanelSetOrder;
+		private YellowstonePathology.Business.Test.MDSExtendedByFish.PanelSetOrderMDSExtendedByFish m_PanelSetOrder;
 		private string m_OrderedOnDescription;
 
-		public MDSExtendedPanelByFishResultPage(YellowstonePathology.Business.Test.MDSExtendedByFish.MDSExtendedByFishTestOrder panelSetOrderMDSExtendedByFish,
+		public MDSExtendedPanelByFishResultPage(YellowstonePathology.Business.Test.MDSExtendedByFish.PanelSetOrderMDSExtendedByFish panelSetOrderMDSExtendedByFish,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
 			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
@@ -58,7 +58,7 @@ namespace YellowstonePathology.UI.Test
 			get { return this.m_OrderedOnDescription; }
 		}
 
-		public YellowstonePathology.Business.Test.MDSExtendedByFish.MDSExtendedByFishTestOrder PanelSetOrder
+		public YellowstonePathology.Business.Test.MDSExtendedByFish.PanelSetOrderMDSExtendedByFish PanelSetOrder
 		{
 			get { return this.m_PanelSetOrder; }
 		}

@@ -19,7 +19,7 @@ namespace YellowstonePathology.Business.Test.FLT3
             this.m_Active = true;
 
 
-			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.FLT3.FLT3TestOrder).AssemblyQualifiedName;
+			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.FLT3.PanelSetOrderFLT3).AssemblyQualifiedName;
             
 			this.m_AllowMultiplePerAccession = true;
 

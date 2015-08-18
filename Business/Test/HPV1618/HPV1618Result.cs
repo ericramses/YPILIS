@@ -33,7 +33,7 @@ namespace YellowstonePathology.Business.Test.HPV1618
 			get { return this.m_ResultCode; }
 		}
 
-		public void SetResult(YellowstonePathology.Business.Test.HPV1618.HPV1618TestOrder panelSetOrder)
+		public void SetResult(YellowstonePathology.Business.Test.HPV1618.PanelSetOrderHPV1618 panelSetOrder)
 		{            
 			YellowstonePathology.Business.Test.HPV1618.PanelOrderHPV1618 panelOrder = (YellowstonePathology.Business.Test.HPV1618.PanelOrderHPV1618)panelSetOrder.PanelOrderCollection.GetUnacceptedPanelOrder();
 			panelOrder.HPV16Result = this.m_HPV16Result;
@@ -56,7 +56,7 @@ namespace YellowstonePathology.Business.Test.HPV1618
             }
 		}
 
-		public virtual void AcceptResults(YellowstonePathology.Business.Test.HPV1618.HPV1618TestOrder panelSetOrder,
+		public virtual void AcceptResults(YellowstonePathology.Business.Test.HPV1618.PanelSetOrderHPV1618 panelSetOrder,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 		{
 			YellowstonePathology.Business.Test.PanelOrder panelOrder = panelSetOrder.PanelOrderCollection.GetUnacceptedPanelOrder();
@@ -64,7 +64,7 @@ namespace YellowstonePathology.Business.Test.HPV1618
 			panelSetOrder.Accept(systemIdentity.User);
 		}
 
-		public virtual void UnacceptResults(YellowstonePathology.Business.Test.HPV1618.HPV1618TestOrder panelSetOrder)
+		public virtual void UnacceptResults(YellowstonePathology.Business.Test.HPV1618.PanelSetOrderHPV1618 panelSetOrder)
 		{
 			YellowstonePathology.Business.Test.PanelOrder acceptedPanelOrder = panelSetOrder.PanelOrderCollection.GetLastAcceptedPanelOrder();
 			acceptedPanelOrder.UnacceptResults();
@@ -72,7 +72,7 @@ namespace YellowstonePathology.Business.Test.HPV1618
             panelSetOrder.Unaccept();
 		}
 
-		public void Clear(HPV1618TestOrder panelSetOrderHPV1618)
+		public void Clear(PanelSetOrderHPV1618 panelSetOrderHPV1618)
         {
             panelSetOrderHPV1618.Method = null;
             panelSetOrderHPV1618.References = null;
@@ -81,17 +81,17 @@ namespace YellowstonePathology.Business.Test.HPV1618
             panelSetOrderHPV1618.HPV18Result = null;
         }
 
-		public virtual void FinalizeResults(YellowstonePathology.Business.Test.HPV1618.HPV1618TestOrder panelSetOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+		public virtual void FinalizeResults(YellowstonePathology.Business.Test.HPV1618.PanelSetOrderHPV1618 panelSetOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 		{
 			panelSetOrder.Finalize(systemIdentity.User);
 		}
 
-		public virtual void UnFinalizeResults(YellowstonePathology.Business.Test.HPV1618.HPV1618TestOrder panelSetOrder)
+		public virtual void UnFinalizeResults(YellowstonePathology.Business.Test.HPV1618.PanelSetOrderHPV1618 panelSetOrder)
 		{
 			panelSetOrder.Unfinalize();
 		}
 
-		public static YellowstonePathology.Business.Rules.MethodResult IsOkToAccept(YellowstonePathology.Business.Test.HPV1618.HPV1618TestOrder panelSetOrder)
+		public static YellowstonePathology.Business.Rules.MethodResult IsOkToAccept(YellowstonePathology.Business.Test.HPV1618.PanelSetOrderHPV1618 panelSetOrder)
 		{
 			YellowstonePathology.Business.Rules.MethodResult result = panelSetOrder.IsOkToAccept();
 
@@ -106,7 +106,7 @@ namespace YellowstonePathology.Business.Test.HPV1618
 			return result;
 		}
 
-		public static YellowstonePathology.Business.Rules.MethodResult IsOkToSetResult(YellowstonePathology.Business.Test.HPV1618.HPV1618TestOrder panelSetOrder)
+		public static YellowstonePathology.Business.Rules.MethodResult IsOkToSetResult(YellowstonePathology.Business.Test.HPV1618.PanelSetOrderHPV1618 panelSetOrder)
 		{
 			YellowstonePathology.Business.Rules.MethodResult result = new Rules.MethodResult();
 

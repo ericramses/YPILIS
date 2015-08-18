@@ -30,10 +30,10 @@ namespace YellowstonePathology.UI.Test
 		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private string m_PageHeaderText;
 
-		private YellowstonePathology.Business.Test.Her2AmplificationByIHC.Her2AmplificationByIHCTestOrder m_PanelSetOrder;
+		private YellowstonePathology.Business.Test.Her2AmplificationByIHC.PanelSetOrderHer2AmplificationByIHC m_PanelSetOrder;
 		private string m_OrderedOnDescription;
 
-		public Her2AmplificationByIHCResultPage(YellowstonePathology.Business.Test.Her2AmplificationByIHC.Her2AmplificationByIHCTestOrder panelSetOrderHer2AmplificationByIHC,
+		public Her2AmplificationByIHCResultPage(YellowstonePathology.Business.Test.Her2AmplificationByIHC.PanelSetOrderHer2AmplificationByIHC panelSetOrderHer2AmplificationByIHC,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
 			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
@@ -58,7 +58,7 @@ namespace YellowstonePathology.UI.Test
 			get { return this.m_OrderedOnDescription; }
 		}
 
-		public YellowstonePathology.Business.Test.Her2AmplificationByIHC.Her2AmplificationByIHCTestOrder PanelSetOrder
+		public YellowstonePathology.Business.Test.Her2AmplificationByIHC.PanelSetOrderHer2AmplificationByIHC PanelSetOrder
 		{
 			get { return this.m_PanelSetOrder; }
 		}

@@ -45,13 +45,13 @@ namespace YellowstonePathology.UI.Test
 		private string m_OrderedOnDescription;
 
 		private YellowstonePathology.Business.Test.LynchSyndrome.LSEResult m_LSEResult;
-		private YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeEvaluationTestOrder m_PanelSetOrderLynchSyndromeEvaluation;
+		private YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation m_PanelSetOrderLynchSyndromeEvaluation;
         private YellowstonePathology.Business.Test.LynchSyndrome.LSEResultStatus m_LSEResultStatus;
         private YellowstonePathology.Business.Test.LynchSyndrome.LSETypeCollection m_LSETypeCollection;
 
         private System.Windows.Visibility m_BackButtonVisibility;
 
-		public LynchSyndromeEvaluationResultPage(YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeEvaluationTestOrder panelSetOrderLynchSyndromeEvaluation,
+		public LynchSyndromeEvaluationResultPage(YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromeEvaluation,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
 			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity,
@@ -96,7 +96,7 @@ namespace YellowstonePathology.UI.Test
             get { return this.m_LSEResultStatus; }
         }
 
-		public YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeEvaluationTestOrder PanelSetOrder
+		public YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation PanelSetOrder
 		{
 			get { return this.m_PanelSetOrderLynchSyndromeEvaluation; }
 		}

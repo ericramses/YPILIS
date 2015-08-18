@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Test.MPL
 			this.m_ResultDocumentSource = YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.YPIDatabase;
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterR();
             this.m_Active = true;
-			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.MPL.MPLTestOrder).AssemblyQualifiedName;            
+			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.MPL.PanelSetOrderMPL).AssemblyQualifiedName;            
 			this.m_AllowMultiplePerAccession = true;
 
             string taskDescription = "Gather materials (Peripheral blood: 5 mL in EDTA tube or Bone marrow: 2 mL in EDTA tube) and send out to Neo.";

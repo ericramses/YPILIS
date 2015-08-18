@@ -13,7 +13,7 @@ namespace YellowstonePathology.Business.Test.MultipleMyelomaIgHByFish
 			this.m_ReportSaveEnum = reportSaveEnum;
 			this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByMasterAccessionNo(masterAccessionNo);
 			this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
-			MultipleMyelomaIgHByFishTestOrder panelSetOrderMultipleMyelomaIgHByFish = (MultipleMyelomaIgHByFishTestOrder)this.m_PanelSetOrder;
+			PanelSetOrderMultipleMyelomaIgHComplexByFish panelSetOrderMultipleMyelomaIgHByFish = (PanelSetOrderMultipleMyelomaIgHComplexByFish)this.m_PanelSetOrder;
 
 			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\MultipleMyelomaIgHComplexByFish.xml";
 			base.OpenTemplate();

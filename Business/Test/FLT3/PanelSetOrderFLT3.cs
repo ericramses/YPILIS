@@ -7,7 +7,7 @@ using YellowstonePathology.Business.Persistence;
 namespace YellowstonePathology.Business.Test.FLT3
 {
 	[PersistentClass("tblPanelSetOrderFLT3", "tblPanelSetOrder", "YPIDATA")]
-	public class FLT3TestOrder : PanelSetOrder
+	public class PanelSetOrderFLT3 : PanelSetOrder
 	{
 		private string m_Result;
 		private string m_ITDMutation;
@@ -17,11 +17,11 @@ namespace YellowstonePathology.Business.Test.FLT3
 		private string m_Method;
 		private string m_References;
 
-        public FLT3TestOrder()
+        public PanelSetOrderFLT3()
         {
         }
 
-		public FLT3TestOrder(string masterAccessionNo, string reportNo, string objectId,
+		public PanelSetOrderFLT3(string masterAccessionNo, string reportNo, string objectId,
             YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
             YellowstonePathology.Business.Interface.IOrderTarget orderTarget,
 			bool distribute,

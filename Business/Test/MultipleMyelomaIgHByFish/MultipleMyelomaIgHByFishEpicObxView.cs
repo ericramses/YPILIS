@@ -15,7 +15,7 @@ namespace YellowstonePathology.Business.Test.MultipleMyelomaIgHByFish
 
 		public override void ToXml(XElement document)
 		{
-			MultipleMyelomaIgHByFishTestOrder panelSetOrder = (MultipleMyelomaIgHByFishTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
+			PanelSetOrderMultipleMyelomaIgHComplexByFish panelSetOrder = (PanelSetOrderMultipleMyelomaIgHComplexByFish)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
 			this.AddHeader(document, panelSetOrder, "Multiple Myeloma IgH by FISH");
 
 			this.AddNextObxElement("", document, "F");

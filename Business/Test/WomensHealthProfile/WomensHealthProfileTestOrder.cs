@@ -198,14 +198,14 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
 
 			if (accessionOrder.PanelSetOrderCollection.Exists(panelSetHPVTWI.PanelSetId) == true)
 			{
-				YellowstonePathology.Business.Test.HPVTWI.HPVTWITestOrder panelSetOrderHPVTWI = (YellowstonePathology.Business.Test.HPVTWI.HPVTWITestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetHPVTWI.PanelSetId);
+				YellowstonePathology.Business.Test.HPVTWI.PanelSetOrderHPVTWI panelSetOrderHPVTWI = (YellowstonePathology.Business.Test.HPVTWI.PanelSetOrderHPVTWI)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetHPVTWI.PanelSetId);
 				result.AppendLine(panelSetOrderHPVTWI.ToResultString(accessionOrder));
 				result.AppendLine();
 			}
 
 			if (accessionOrder.PanelSetOrderCollection.Exists(panelSetHPV1618.PanelSetId) == true)
 			{
-				YellowstonePathology.Business.Test.HPV1618.HPV1618TestOrder panelSetOrderHPV1618 = (YellowstonePathology.Business.Test.HPV1618.HPV1618TestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetHPV1618.PanelSetId);
+				YellowstonePathology.Business.Test.HPV1618.PanelSetOrderHPV1618 panelSetOrderHPV1618 = (YellowstonePathology.Business.Test.HPV1618.PanelSetOrderHPV1618)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetHPV1618.PanelSetId);
 				result.AppendLine(panelSetOrderHPV1618.ToResultString(accessionOrder));
 				result.AppendLine();
 			}

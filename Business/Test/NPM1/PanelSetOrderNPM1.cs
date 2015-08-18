@@ -4,21 +4,22 @@ using System.Linq;
 using System.Text;
 using YellowstonePathology.Business.Persistence;
 
-namespace YellowstonePathology.Business.Test.TCellClonalityByPCR
+namespace YellowstonePathology.Business.Test.NPM1
 {
-	[PersistentClass("tblPanelSetOrderTCellClonalityByPCR", "tblPanelSetOrder", "YPIDATA")]
-	public class TCellClonalityByPCRTestOrder : PanelSetOrder
+	[PersistentClass("tblPanelSetOrderNPM1", "tblPanelSetOrder", "YPIDATA")]
+	public class PanelSetOrderNPM1 : PanelSetOrder
 	{
 		private string m_Result;
+		private string m_PercentageNPM1Mutation;
 		private string m_Interpretation;
 		private string m_Method;
 		private string m_References;
-
-        public TCellClonalityByPCRTestOrder()
+		
+		public PanelSetOrderNPM1()
         {
         }
 
-		public TCellClonalityByPCRTestOrder(string masterAccessionNo, string reportNo, string objectId,
+		public PanelSetOrderNPM1(string masterAccessionNo, string reportNo, string objectId,
 			YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
 			YellowstonePathology.Business.Interface.IOrderTarget orderTarget,
 			bool distribute,
@@ -37,6 +38,20 @@ namespace YellowstonePathology.Business.Test.TCellClonalityByPCR
 				{
 					this.m_Result = value;
 					this.NotifyPropertyChanged("Result");
+				}
+			}
+		}
+
+		[PersistentProperty()]
+		public string PercentageNPM1Mutation
+		{
+			get { return this.m_PercentageNPM1Mutation; }
+			set
+			{
+				if (this.m_PercentageNPM1Mutation != value)
+				{
+					this.m_PercentageNPM1Mutation = value;
+					this.NotifyPropertyChanged("PercentageNPM1Mutation");
 				}
 			}
 		}
@@ -84,16 +99,19 @@ namespace YellowstonePathology.Business.Test.TCellClonalityByPCR
 		}
 
 		public override string ToResultString(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
-		{
-			StringBuilder result = new StringBuilder();
+        {
+            StringBuilder result = new StringBuilder();
 
-			result.AppendLine("Result: " + this.m_Result);
-			result.AppendLine();
+            result.AppendLine("Result: " + this.m_Result);
+            result.AppendLine();
 
-			result.AppendLine("Interpretation: " + this.m_Interpretation);
-			result.AppendLine();
+            result.AppendLine("Mutation Percentage: " + this.m_PercentageNPM1Mutation);
+            result.AppendLine();
 
-			return result.ToString();
-		}
+            result.AppendLine("Interpretation: " + this.m_Interpretation);
+            result.AppendLine();           
+
+            return result.ToString();
+        }
 	}
 }

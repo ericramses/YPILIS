@@ -31,7 +31,7 @@ namespace YellowstonePathology.Business.Test.HighGradeLargeBCellLymphoma
 			get { return this.m_ProbeSetDetail; }
 		}
 
-		public void SetResults(HighGradeLargeBCellLymphomaTestOrder panelSetOrderHighGradeLargeBCellLymphoma)
+		public void SetResults(PanelSetOrderHighGradeLargeBCellLymphoma panelSetOrderHighGradeLargeBCellLymphoma)
 		{
 			panelSetOrderHighGradeLargeBCellLymphoma.Result = this.m_Result;
 			panelSetOrderHighGradeLargeBCellLymphoma.Interpretation = this.m_Interpretation;

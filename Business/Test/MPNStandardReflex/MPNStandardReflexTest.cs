@@ -18,7 +18,7 @@ namespace YellowstonePathology.Business.Test.MPNStandardReflex
 			this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterY();
 			this.m_Active = true;
 
-			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.MPNStandardReflex.MPNStandardReflexTestOrder).AssemblyQualifiedName;
+			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.MPNStandardReflex.PanelSetOrderMPNStandardReflex).AssemblyQualifiedName;
 			
 			this.m_ReflexTestingComment = string.Empty;
 			this.m_EnforceOrderTarget = false;

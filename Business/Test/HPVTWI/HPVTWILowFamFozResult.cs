@@ -19,7 +19,7 @@ namespace YellowstonePathology.Business.Test.HPVTWI
             this.m_Comment = HPVTWI.HPVTWIResult.IndeterminateComment;            
 		}
 
-		public override void SetResult(YellowstonePathology.Business.Test.HPVTWI.HPVTWITestOrder panelSetOrder,
+		public override void SetResult(YellowstonePathology.Business.Test.HPVTWI.PanelSetOrderHPVTWI panelSetOrder,
 			YellowstonePathology.Business.Test.HPVTWI.PanelOrderHPVTWI panelOrder,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 		{
@@ -48,7 +48,7 @@ namespace YellowstonePathology.Business.Test.HPVTWI
 			}
 		}
 
-		public override void AcceptResults(YellowstonePathology.Business.Test.HPVTWI.HPVTWITestOrder panelSetOrder,
+		public override void AcceptResults(YellowstonePathology.Business.Test.HPVTWI.PanelSetOrderHPVTWI panelSetOrder,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 		{
 			if (panelSetOrder.PanelOrderCollection.Count == 2 && panelSetOrder.PanelOrderCollection[0].Accepted == false)

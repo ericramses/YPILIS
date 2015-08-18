@@ -13,7 +13,7 @@ namespace YellowstonePathology.Business.Test.MultipleFISHProbe
 			this.m_ReportSaveEnum = reportSaveEnum;
 			this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByMasterAccessionNo(masterAccessionNo);
 			this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
-			MultipleFISHProbeTestOrder panelSetOrderMultipleFISHProbePanel = (MultipleFISHProbeTestOrder)this.m_PanelSetOrder;
+			PanelSetOrderMultipleFISHProbePanel panelSetOrderMultipleFISHProbePanel = (PanelSetOrderMultipleFISHProbePanel)this.m_PanelSetOrder;
 
 			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\MultipleFISHProbePanel.xml";
 			base.OpenTemplate();

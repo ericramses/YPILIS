@@ -32,7 +32,7 @@ namespace YellowstonePathology.Business.Client.Model
                     {
                         if (accessionOrder.PanelSetOrderCollection.Exists(panelSetHPVTWI.PanelSetId) == true)
                         {
-                            YellowstonePathology.Business.Test.HPVTWI.HPVTWITestOrder panelSetOrderHPVTWI = (YellowstonePathology.Business.Test.HPVTWI.HPVTWITestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetHPVTWI.PanelSetId);
+                            YellowstonePathology.Business.Test.HPVTWI.PanelSetOrderHPVTWI panelSetOrderHPVTWI = (YellowstonePathology.Business.Test.HPVTWI.PanelSetOrderHPVTWI)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetHPVTWI.PanelSetId);
                             if (panelSetOrderHPVTWI.ResultCode == YellowstonePathology.Business.Test.HPVTWI.HPVTWIResult.OveralResultCodePositive)
                             {
                                 result = true;                             

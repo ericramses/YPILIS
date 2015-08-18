@@ -19,7 +19,7 @@ namespace YellowstonePathology.Business.Test.MultipleMyelomaIgHByFish
             this.m_Active = true;
 
 
-			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.MultipleMyelomaIgHByFish.MultipleMyelomaIgHByFishTestOrder).AssemblyQualifiedName;
+			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.MultipleMyelomaIgHByFish.PanelSetOrderMultipleMyelomaIgHComplexByFish).AssemblyQualifiedName;
             
 			this.m_AllowMultiplePerAccession = true;
 

@@ -18,7 +18,7 @@ namespace YellowstonePathology.Business.Test.Her2AmplificationByIHC
 		{
 		}
 
-		public void SetResults(Her2AmplificationByIHCTestOrder panelSetOrder)
+		public void SetResults(PanelSetOrderHer2AmplificationByIHC panelSetOrder)
 		{
 			panelSetOrder.Method = Method;
 

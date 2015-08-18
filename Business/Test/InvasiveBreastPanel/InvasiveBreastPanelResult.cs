@@ -80,7 +80,7 @@ namespace YellowstonePathology.Business.Test.InvasiveBreastPanel
 			else if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(panelSetHer2AmplificationByFish.PanelSetId) == true)
 			{
 				this.m_HER2ByFISHHasBeenOrdered = true;
-				YellowstonePathology.Business.Test.Her2AmplificationByFish.Her2AmplificationByFishTestOrder panelSetOrderHer2AmplificationByFish = (YellowstonePathology.Business.Test.Her2AmplificationByFish.Her2AmplificationByFishTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetHer2AmplificationByFish.PanelSetId);
+				YellowstonePathology.Business.Test.Her2AmplificationByFish.PanelSetOrderHer2AmplificationByFish panelSetOrderHer2AmplificationByFish = (YellowstonePathology.Business.Test.Her2AmplificationByFish.PanelSetOrderHer2AmplificationByFish)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetHer2AmplificationByFish.PanelSetId);
 				this.m_HER2ByFISHResultString = panelSetOrderHer2AmplificationByFish.Result;
 			}
 			else this.m_HER2ByFISHResultString = "Not Required.";

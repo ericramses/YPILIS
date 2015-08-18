@@ -34,7 +34,7 @@ namespace YellowstonePathology.Business.Test.MPNStandardReflex
 
         private bool m_HasJAK2Exon1214;
 
-		private YellowstonePathology.Business.Test.MPNStandardReflex.MPNStandardReflexTestOrder m_PanelSetOrderMPNStandardReflex;
+		private YellowstonePathology.Business.Test.MPNStandardReflex.PanelSetOrderMPNStandardReflex m_PanelSetOrderMPNStandardReflex;
 		private YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FTestOrder m_PanelSetOrderJAK2V617F;
 		private YellowstonePathology.Business.Test.JAK2Exon1214.JAK2Exon1214TestOrder m_PanelSetOrderJAK2Exon1214;
 		private YellowstonePathology.Business.Specimen.Model.SpecimenOrder m_SpecimenOrder;
@@ -52,7 +52,7 @@ namespace YellowstonePathology.Business.Test.MPNStandardReflex
 			this.m_AccessionOrder = accessionOrder;
 
 			YellowstonePathology.Business.Test.MPNStandardReflex.MPNStandardReflexTest panelSetMPNStandardReflex = new YellowstonePathology.Business.Test.MPNStandardReflex.MPNStandardReflexTest();
-			this.m_PanelSetOrderMPNStandardReflex = (YellowstonePathology.Business.Test.MPNStandardReflex.MPNStandardReflexTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetMPNStandardReflex.PanelSetId);
+			this.m_PanelSetOrderMPNStandardReflex = (YellowstonePathology.Business.Test.MPNStandardReflex.PanelSetOrderMPNStandardReflex)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetMPNStandardReflex.PanelSetId);
 			YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FTest panelSetJAK2V617F = new YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FTest();
 			YellowstonePathology.Business.Test.JAK2Exon1214.JAK2Exon1214Test panelSetExon1214 = new YellowstonePathology.Business.Test.JAK2Exon1214.JAK2Exon1214Test();
 
@@ -121,7 +121,7 @@ namespace YellowstonePathology.Business.Test.MPNStandardReflex
             }
         }
 
-		public void SetResults(MPNStandardReflexTestOrder panelSetOrder)
+		public void SetResults(PanelSetOrderMPNStandardReflex panelSetOrder)
         {
             panelSetOrder.Comment = this.m_Comment;
             panelSetOrder.Interpretation = this.m_Interpretation;
@@ -139,7 +139,7 @@ namespace YellowstonePathology.Business.Test.MPNStandardReflex
             get { return this.m_JAK2Exon1214Result; }
         }
 
-		public YellowstonePathology.Business.Test.MPNStandardReflex.MPNStandardReflexTestOrder PanelSetOrderMPNStandardReflex
+		public YellowstonePathology.Business.Test.MPNStandardReflex.PanelSetOrderMPNStandardReflex PanelSetOrderMPNStandardReflex
 		{
 			get { return this.m_PanelSetOrderMPNStandardReflex; }
 		}

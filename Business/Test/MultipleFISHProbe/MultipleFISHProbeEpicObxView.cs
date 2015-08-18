@@ -15,7 +15,7 @@ namespace YellowstonePathology.Business.Test.MultipleFISHProbe
 
 		public override void ToXml(XElement document)
 		{
-			MultipleFISHProbeTestOrder panelSetOrder = (MultipleFISHProbeTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
+			PanelSetOrderMultipleFISHProbePanel panelSetOrder = (PanelSetOrderMultipleFISHProbePanel)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
 			this.AddHeader(document, panelSetOrder, "Multiple FISH Probe Panel Analysis");
 
 			this.AddNextObxElement("", document, "F");

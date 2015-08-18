@@ -31,10 +31,10 @@ namespace YellowstonePathology.UI.Test
 		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private string m_PageHeaderText;
 
-		private YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeIHCPanelTestOrder m_PanelSetOrderLynchSyndromeIHC;
+		private YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeIHC m_PanelSetOrderLynchSyndromeIHC;
 		private string m_OrderedOnDescription;
 
-        public LynchSyndromeIHCPanelResultPage(YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeIHCPanelTestOrder panelSetOrderLynchSyndromeIHC,
+        public LynchSyndromeIHCPanelResultPage(YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeIHC panelSetOrderLynchSyndromeIHC,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
 			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
@@ -60,7 +60,7 @@ namespace YellowstonePathology.UI.Test
 			get { return this.m_OrderedOnDescription; }
 		}
 
-		public YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeIHCPanelTestOrder PanelSetOrder
+		public YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeIHC PanelSetOrder
 		{
 			get { return this.m_PanelSetOrderLynchSyndromeIHC; }
 		}

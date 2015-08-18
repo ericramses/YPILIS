@@ -7,7 +7,7 @@ using YellowstonePathology.Business.Persistence;
 namespace YellowstonePathology.Business.Test.LynchSyndrome
 {
 	[PersistentClass("tblPanelSetOrderLynchSyndromeEvaluation", "tblPanelSetOrder", "YPIDATA")]
-	public class LynchSyndromeEvaluationTestOrder : YellowstonePathology.Business.Test.ReflexTesting.ReflexTestingPlan
+	public class PanelSetOrderLynchSyndromeEvaluation : YellowstonePathology.Business.Test.ReflexTesting.ReflexTestingPlan
 	{
         private string m_LynchSyndromeEvaluationType;
 		private string m_Interpretation;
@@ -16,12 +16,12 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
         private string m_References;
         private bool m_BRAFIsIndicated;
 
-		public LynchSyndromeEvaluationTestOrder()
+		public PanelSetOrderLynchSyndromeEvaluation()
 		{
 
 		}
 
-		public LynchSyndromeEvaluationTestOrder(string masterAccessionNo, string reportNo, string objectId,
+		public PanelSetOrderLynchSyndromeEvaluation(string masterAccessionNo, string reportNo, string objectId,
 			YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
 			YellowstonePathology.Business.Interface.IOrderTarget orderTarget,
 			bool distribute,

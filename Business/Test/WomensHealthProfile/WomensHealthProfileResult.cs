@@ -43,7 +43,7 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
 
             if (this.m_HasHighRiskHPV == true)
             {
-                YellowstonePathology.Business.Test.HPVTWI.HPVTWITestOrder panelSetOrderHPVTWI = (YellowstonePathology.Business.Test.HPVTWI.HPVTWITestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_PanelSetHPVTWI.PanelSetId);
+                YellowstonePathology.Business.Test.HPVTWI.PanelSetOrderHPVTWI panelSetOrderHPVTWI = (YellowstonePathology.Business.Test.HPVTWI.PanelSetOrderHPVTWI)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_PanelSetHPVTWI.PanelSetId);
                 if (this.m_HasThinPrepPap == true)
                 {
                     this.m_Method.AppendLine();

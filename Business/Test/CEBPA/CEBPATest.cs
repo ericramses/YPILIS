@@ -18,7 +18,7 @@ namespace YellowstonePathology.Business.Test.CEBPA
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterR();
             this.m_Active = true;
 
-			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.CEBPA.CEBPATestOrder).AssemblyQualifiedName;
+			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.CEBPA.PanelSetOrderCEBPA).AssemblyQualifiedName;
             
 			this.m_AllowMultiplePerAccession = true;
 

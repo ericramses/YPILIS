@@ -16,7 +16,7 @@ namespace YellowstonePathology.Business.Test.MultipleMyelomaIgHByFish
 		{
 		}
 
-		public void SetResults(MultipleMyelomaIgHByFishTestOrder panelSetOrder)
+		public void SetResults(PanelSetOrderMultipleMyelomaIgHComplexByFish panelSetOrder)
 		{
 			panelSetOrder.Result = this.m_Result;
 			panelSetOrder.Interpretation = this.m_Interpretation;

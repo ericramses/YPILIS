@@ -19,7 +19,7 @@ namespace YellowstonePathology.Business.Test.HPVTWI
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterM();
             this.m_Active = true;
 
-			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.HPVTWI.HPVTWITestOrder).AssemblyQualifiedName;                        
+			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.HPVTWI.PanelSetOrderHPVTWI).AssemblyQualifiedName;                        
 			this.m_AcceptOnFinal = true;
 			this.m_AllowMultiplePerAccession = true;
             this.m_ExpectedDuration = new TimeSpan(4, 0, 0, 0);

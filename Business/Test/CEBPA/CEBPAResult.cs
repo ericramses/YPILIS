@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Test.CEBPA
 		{
 		}
 
-		public void SetResults(CEBPATestOrder panelSetOrderCEBPA)
+		public void SetResults(PanelSetOrderCEBPA panelSetOrderCEBPA)
 		{
 			panelSetOrderCEBPA.Result = this.m_Result;
 			panelSetOrderCEBPA.SNPResult = this.m_SNPResult;

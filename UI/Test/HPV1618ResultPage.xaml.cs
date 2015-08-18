@@ -31,11 +31,11 @@ namespace YellowstonePathology.UI.Test
 		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private string m_PageHeaderText;
 
-		private YellowstonePathology.Business.Test.HPV1618.HPV1618TestOrder m_PanelSetOrderHPV1618;
+		private YellowstonePathology.Business.Test.HPV1618.PanelSetOrderHPV1618 m_PanelSetOrderHPV1618;
 		private YellowstonePathology.UI.Navigation.PageNavigator m_PageNavigator;
         private List<string> m_IndicationList;
 
-		public HPV1618ResultPage(YellowstonePathology.Business.Test.HPV1618.HPV1618TestOrder panelSetOrderHPV1618,
+		public HPV1618ResultPage(YellowstonePathology.Business.Test.HPV1618.PanelSetOrderHPV1618 panelSetOrderHPV1618,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
 			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity,
@@ -60,7 +60,7 @@ namespace YellowstonePathology.UI.Test
             get { return this.m_IndicationList; }
         }
 
-		public YellowstonePathology.Business.Test.HPV1618.HPV1618TestOrder PanelSetOrder
+		public YellowstonePathology.Business.Test.HPV1618.PanelSetOrderHPV1618 PanelSetOrder
 		{
 			get { return this.m_PanelSetOrderHPV1618; }
 		}

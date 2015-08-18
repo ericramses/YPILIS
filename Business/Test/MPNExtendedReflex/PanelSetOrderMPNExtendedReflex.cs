@@ -7,19 +7,19 @@ using YellowstonePathology.Business.Persistence;
 namespace YellowstonePathology.Business.Test.MPNExtendedReflex
 {
 	[PersistentClass("tblPanelSetOrderMPNExtendedReflex", "tblPanelSetOrder", "YPIDATA")]
-	public class MPNExtendedReflexTestOrder : YellowstonePathology.Business.Test.ReflexTesting.ReflexTestingPlan
+	public class PanelSetOrderMPNExtendedReflex : YellowstonePathology.Business.Test.ReflexTesting.ReflexTestingPlan
 	{
 		private string m_Comment;
 		private string m_Interpretation;
 		private string m_Method;
 		private string m_References;
 
-		public MPNExtendedReflexTestOrder()
+		public PanelSetOrderMPNExtendedReflex()
 		{
 
 		}
 
-		public MPNExtendedReflexTestOrder(string masterAccessionNo, string reportNo, string objectId,
+		public PanelSetOrderMPNExtendedReflex(string masterAccessionNo, string reportNo, string objectId,
 			YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
 			YellowstonePathology.Business.Interface.IOrderTarget orderTarget,
 			bool distribute,
@@ -129,7 +129,7 @@ namespace YellowstonePathology.Business.Test.MPNExtendedReflex
 			if (accessionOrder.PanelSetOrderCollection.Exists(mplTest.PanelSetId) == true)
 			{
 				result.AppendLine("MPL");
-				YellowstonePathology.Business.Test.MPL.MPLTestOrder mplTestOrder = (YellowstonePathology.Business.Test.MPL.MPLTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(mplTest.PanelSetId);
+				YellowstonePathology.Business.Test.MPL.PanelSetOrderMPL mplTestOrder = (YellowstonePathology.Business.Test.MPL.PanelSetOrderMPL)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(mplTest.PanelSetId);
 				result.AppendLine(mplTestOrder.ToResultString(accessionOrder));
 				result.AppendLine();
 			}

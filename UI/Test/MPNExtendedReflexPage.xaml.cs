@@ -57,7 +57,7 @@ namespace YellowstonePathology.UI.Test
 			this.DataContext = this;
 		}
 
-		public YellowstonePathology.Business.Test.MPNExtendedReflex.MPNExtendedReflexTestOrder PanelSetOrder
+		public YellowstonePathology.Business.Test.MPNExtendedReflex.PanelSetOrderMPNExtendedReflex PanelSetOrder
 		{
 			get { return this.m_MPNExtendedReflexResult.PanelSetOrderMPNExtendedReflex; }
 		}

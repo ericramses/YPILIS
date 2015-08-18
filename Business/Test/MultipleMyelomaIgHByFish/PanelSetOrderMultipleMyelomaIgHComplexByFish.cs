@@ -4,22 +4,21 @@ using System.Linq;
 using System.Text;
 using YellowstonePathology.Business.Persistence;
 
-namespace YellowstonePathology.Business.Test.CCNDIBCLIGH
+namespace YellowstonePathology.Business.Test.MultipleMyelomaIgHByFish
 {
-	[PersistentClass("tblPanelSetOrderCCNDIBCLIGH", "tblPanelSetOrder", "YPIDATA")]
-	public class CCNDIBCLIGHTestOrder : PanelSetOrder
+	[PersistentClass("tblPanelSetOrderMultipleMyelomaIgHComplexByFish", "tblPanelSetOrder", "YPIDATA")]
+	public class PanelSetOrderMultipleMyelomaIgHComplexByFish :PanelSetOrder
 	{
 		private string m_Result;
 		private string m_Interpretation;
 		private string m_ProbeSetDetail;
 		private string m_NucleiScored;
-		private string m_References;
+		
+		public PanelSetOrderMultipleMyelomaIgHComplexByFish()
+        {
+        }
 
-		public CCNDIBCLIGHTestOrder()
-		{
-		}
-
-		public CCNDIBCLIGHTestOrder(string masterAccessionNo, string reportNo, string objectId,
+		public PanelSetOrderMultipleMyelomaIgHComplexByFish(string masterAccessionNo, string reportNo, string objectId,
 			YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
 			YellowstonePathology.Business.Interface.IOrderTarget orderTarget,
 			bool distribute,
@@ -84,31 +83,23 @@ namespace YellowstonePathology.Business.Test.CCNDIBCLIGH
 			}
 		}
 
-		[PersistentProperty()]
-		public string References
-		{
-			get { return this.m_References; }
-			set
-			{
-				if (this.m_References != value)
-				{
-					this.m_References = value;
-					this.NotifyPropertyChanged("References");
-				}
-			}
-		}
-
 		public override string ToResultString(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
-        {
-            StringBuilder result = new StringBuilder();
+		{
+			StringBuilder result = new StringBuilder();
 
-            result.AppendLine("Result: " + this.m_Result);
-            result.AppendLine();            
+			result.AppendLine("Result: " + this.m_Result);
+			result.AppendLine();
 
-            result.AppendLine("Interpretation: " + this.m_Interpretation);
-            result.AppendLine();
+			result.AppendLine("Interpretation: " + this.m_Interpretation);
+			result.AppendLine();
 
-            return result.ToString();
-        }
+			result.AppendLine("Probeset Detail: " + this.m_ProbeSetDetail);
+			result.AppendLine();
+
+			result.AppendLine("Nuclei Scored: " + this.m_NucleiScored);
+			result.AppendLine();
+
+			return result.ToString();
+		}
 	}
 }

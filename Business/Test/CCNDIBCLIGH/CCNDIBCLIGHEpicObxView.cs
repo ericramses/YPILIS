@@ -15,7 +15,7 @@ namespace YellowstonePathology.Business.Test.CCNDIBCLIGH
 
 		public override void ToXml(XElement document)
 		{
-			CCNDIBCLIGHTestOrder panelSetOrder = (CCNDIBCLIGHTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
+			PanelSetOrderCCNDIBCLIGH panelSetOrder = (PanelSetOrderCCNDIBCLIGH)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
 			this.AddHeader(document, panelSetOrder, "CCND1/IgH t(11;14) by Fish");
 
 			this.AddNextObxElement("", document, "F");

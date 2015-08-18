@@ -12,7 +12,7 @@ namespace YellowstonePathology.UI.Test
 
 		private LynchSyndromeEvaluationResultPage m_LynchSyndromeEvaluationResultPage;
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-		private YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeEvaluationTestOrder m_PanelSetOrderLynchSyndromeEvaluation;
+		private YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation m_PanelSetOrderLynchSyndromeEvaluation;
 		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 
         private System.Windows.Visibility m_BackButtonVisibility;
@@ -25,7 +25,7 @@ namespace YellowstonePathology.UI.Test
             : base(pageNavigator)
         {
             this.m_AccessionOrder = accessionOrder;
-			this.m_PanelSetOrderLynchSyndromeEvaluation = (YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeEvaluationTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
+			this.m_PanelSetOrderLynchSyndromeEvaluation = (YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 			this.m_ObjectTracker = objectTracker;
             this.m_BackButtonVisibility = backButtonVisibility;
 			this.Authenticated += new AuthenticatedEventHandler(ResultPath_Authenticated);

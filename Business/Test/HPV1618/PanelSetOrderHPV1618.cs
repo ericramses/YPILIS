@@ -7,7 +7,7 @@ using YellowstonePathology.Business.Persistence;
 namespace YellowstonePathology.Business.Test.HPV1618
 {
 	[PersistentClass("tblPanelSetOrderHPV1618", "tblPanelSetOrder", "YPIDATA")]
-	public class HPV1618TestOrder : PanelSetOrder
+	public class PanelSetOrderHPV1618 : PanelSetOrder
 	{
         private string m_Indication;
 		private string m_HPV16Result;
@@ -16,12 +16,12 @@ namespace YellowstonePathology.Business.Test.HPV1618
 		private string m_Method;		
         private string m_Interpretation;
 
-		public HPV1618TestOrder()
+		public PanelSetOrderHPV1618()
 		{
 
 		}
 
-		public HPV1618TestOrder(string masterAccessionNo, string reportNo, string objectId,
+		public PanelSetOrderHPV1618(string masterAccessionNo, string reportNo, string objectId,
 			YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
 			YellowstonePathology.Business.Interface.IOrderTarget orderTarget,
 			bool distribute,

@@ -7,18 +7,18 @@ using YellowstonePathology.Business.Persistence;
 namespace YellowstonePathology.Business.Test.MDSByFish
 {
 	[PersistentClass("tblPanelSetOrderMDSByFish", "tblPanelSetOrder", "YPIDATA")]
-	public class MDSByFishTestOrder : PanelSetOrder
+	public class PanelSetOrderMDSByFish : PanelSetOrder
 	{
 		private string m_Result;
 		private string m_Interpretation;
 		private string m_ProbeSetDetail;
 		private string m_NucleiScored;
 
-		public MDSByFishTestOrder()
+		public PanelSetOrderMDSByFish()
 		{
 		}
 
-		public MDSByFishTestOrder(string masterAccessionNo, string reportNo, string objectId,
+		public PanelSetOrderMDSByFish(string masterAccessionNo, string reportNo, string objectId,
 			YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
 			YellowstonePathology.Business.Interface.IOrderTarget orderTarget,
 			bool distribute,

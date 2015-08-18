@@ -13,7 +13,7 @@ namespace YellowstonePathology.Business.Test.FLT3
 			this.m_ReportSaveEnum = reportSaveEnum;
 			this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByMasterAccessionNo(masterAccessionNo);
 			this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
-			FLT3TestOrder panelSetOrderFLT3 = (FLT3TestOrder)this.m_PanelSetOrder;
+			PanelSetOrderFLT3 panelSetOrderFLT3 = (PanelSetOrderFLT3)this.m_PanelSetOrder;
 
 			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\FLT3.xml";
 			base.OpenTemplate();

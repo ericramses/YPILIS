@@ -14,7 +14,7 @@ namespace YellowstonePathology.UI.Test
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         private Microsoft.Office.Interop.Excel.Application m_ExcelApplication;
         private Microsoft.Office.Interop.Excel.Workbook m_WorkBook;
-		private YellowstonePathology.Business.Test.HPVTWI.HPVTWITestOrder m_PanelSetOrderHPVTWI;
+		private YellowstonePathology.Business.Test.HPVTWI.PanelSetOrderHPVTWI m_PanelSetOrderHPVTWI;
 		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 
         public HPVTWIResultPath(string reportNo, YellowstonePathology.Business.Test.AccessionOrder accessionOrder,            
@@ -23,7 +23,7 @@ namespace YellowstonePathology.UI.Test
             : base(pageNavigator)
         {
             this.m_AccessionOrder = accessionOrder;            
-            this.m_PanelSetOrderHPVTWI = (YellowstonePathology.Business.Test.HPVTWI.HPVTWITestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
+            this.m_PanelSetOrderHPVTWI = (YellowstonePathology.Business.Test.HPVTWI.PanelSetOrderHPVTWI)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
             this.m_ObjectTracker = objectTracker;
             this.Authenticated += new AuthenticatedEventHandler(ResultPath_Authenticated);
         }        
@@ -38,7 +38,7 @@ namespace YellowstonePathology.UI.Test
 			this.m_AccessionOrder = accessionOrder;
             this.m_ExcelApplication = excelApplication;
             this.m_WorkBook = workBook;
-			this.m_PanelSetOrderHPVTWI = (YellowstonePathology.Business.Test.HPVTWI.HPVTWITestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
+			this.m_PanelSetOrderHPVTWI = (YellowstonePathology.Business.Test.HPVTWI.PanelSetOrderHPVTWI)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 			this.m_ObjectTracker = objectTracker;
 			this.Authenticated += new AuthenticatedEventHandler(ResultPath_Authenticated);
 		}        

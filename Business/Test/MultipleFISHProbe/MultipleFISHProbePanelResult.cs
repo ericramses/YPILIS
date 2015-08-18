@@ -16,7 +16,7 @@ namespace YellowstonePathology.Business.Test.MultipleFISHProbe
 		{
 		}
 
-		public void SetResults(MultipleFISHProbeTestOrder panelSetOrder)
+		public void SetResults(PanelSetOrderMultipleFISHProbePanel panelSetOrder)
 		{
 			panelSetOrder.Result = this.m_Result;
 			panelSetOrder.Interpretation = this.m_Interpretation;

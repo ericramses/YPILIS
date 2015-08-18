@@ -31,7 +31,7 @@ namespace YellowstonePathology.UI.Test
 			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
 			objectTracker.RegisterObject(accessionOrder);
 
-			YellowstonePathology.Business.Test.HPV1618.HPV1618TestOrder panelSetOrder = (YellowstonePathology.Business.Test.HPV1618.HPV1618TestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportSearchItem.ReportNo);
+			YellowstonePathology.Business.Test.HPV1618.PanelSetOrderHPV1618 panelSetOrder = (YellowstonePathology.Business.Test.HPV1618.PanelSetOrderHPV1618)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportSearchItem.ReportNo);
 			YellowstonePathology.UI.Test.HPV1618ResultPath resultPath = new HPV1618ResultPath(panelSetOrder.ReportNo, accessionOrder, objectTracker, this.m_PageNavigator);
 			resultPath.Finish += new FinishEventHandler(ResultPath_Finish);
 			resultPath.Start();
