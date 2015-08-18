@@ -26,8 +26,9 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
 			WomensHealthProfileTestOrder womensHealthProfileTestOrder = (WomensHealthProfileTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 			WomensHealthProfileResult womensHealthProfileResult = new WomensHealthProfileResult(this.m_AccessionOrder);
 
-			this.SetXmlNodeData("specimen_source", this.m_AccessionOrder.SpecimenOrderCollection[0].SpecimenSource);
-			string collectionDateTimeString = this.m_AccessionOrder.SpecimenOrderCollection[0].GetCollectionDateTimeString();
+			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByOrderTarget(womensHealthProfileTestOrder.OrderedOnId);
+			this.SetXmlNodeData("specimen_source", specimenOrder.SpecimenSource);
+			string collectionDateTimeString = specimenOrder.GetCollectionDateTimeString();
 			this.SetXmlNodeData("collection_date_time", collectionDateTimeString);
 
             if (this.m_PanelSetOrder.FinalTime.HasValue == true)
