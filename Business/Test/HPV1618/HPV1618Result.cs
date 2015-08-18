@@ -72,7 +72,7 @@ namespace YellowstonePathology.Business.Test.HPV1618
             panelSetOrder.Unaccept();
 		}
 
-        public void Clear(PanelSetOrderHPV1618 panelSetOrderHPV1618)
+		public void Clear(PanelSetOrderHPV1618 panelSetOrderHPV1618)
         {
             panelSetOrderHPV1618.Method = null;
             panelSetOrderHPV1618.References = null;

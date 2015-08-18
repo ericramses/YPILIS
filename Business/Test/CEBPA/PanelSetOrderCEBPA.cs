@@ -7,7 +7,7 @@ using YellowstonePathology.Business.Persistence;
 namespace YellowstonePathology.Business.Test.CEBPA
 {
 	[PersistentClass("tblPanelSetOrderCEBPA", "tblPanelSetOrder", "YPIDATA")]
-	public class CEBPATestOrder : PanelSetOrder
+	public class PanelSetOrderCEBPA : PanelSetOrder
 	{
 		private string m_Result;
 		private string m_SNPResult;
@@ -15,11 +15,11 @@ namespace YellowstonePathology.Business.Test.CEBPA
 		private string m_Method;
 		private string m_References;
 		
-		public CEBPATestOrder()
+		public PanelSetOrderCEBPA()
         {
         }
 
-		public CEBPATestOrder(string masterAccessionNo, string reportNo, string objectId,
+		public PanelSetOrderCEBPA(string masterAccessionNo, string reportNo, string objectId,
 			YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
 			YellowstonePathology.Business.Interface.IOrderTarget orderTarget,
 			bool distribute,

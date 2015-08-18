@@ -14,7 +14,7 @@ namespace YellowstonePathology.Business.Test.Her2AmplificationByIHC
 			this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByMasterAccessionNo(masterAccessionNo);
 
 			this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
-			Her2AmplificationByIHCTestOrder panelSetOrder = (Her2AmplificationByIHCTestOrder)this.m_PanelSetOrder;
+			PanelSetOrderHer2AmplificationByIHC panelSetOrder = (PanelSetOrderHer2AmplificationByIHC)this.m_PanelSetOrder;
 
 			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\Her2AmplificationByIHC.xml";
 			base.OpenTemplate();

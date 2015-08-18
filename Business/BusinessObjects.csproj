@@ -1117,12 +1117,12 @@
     <Compile Include="Test\Her2AmplificationByFish\Her2AmplificationByFishPositiveResult.cs" />
     <Compile Include="Test\Her2AmplificationByFish\Her2AmplificationByFishWordDocument.cs" />
     <Compile Include="Test\Her2AmplificationByFish\Her2AmplificationByFishResult.cs" />
-    <Compile Include="Test\Her2AmplificationByFish\Her2AmplificationByFishTestOrder.cs" />
+    <Compile Include="Test\Her2AmplificationByFish\PanelSetOrderHer2AmplificationByFish.cs" />
     <Compile Include="Test\Her2AmplificationByFish\Her2AmplificationByFishTest.cs" />
     <Compile Include="Test\Her2AmplificationByIHC\Her2AmplificationByIHCEpicObxView.cs" />
     <Compile Include="Test\Her2AmplificationByIHC\Her2AmplificationByIHCWordDocument.cs" />
     <Compile Include="Test\Her2AmplificationByIHC\Her2AmplificationByIHCResult.cs" />
-    <Compile Include="Test\Her2AmplificationByIHC\Her2AmplificationByIHCTestOrder.cs" />
+    <Compile Include="Test\Her2AmplificationByIHC\PanelSetOrderHer2AmplificationByIHC.cs" />
     <Compile Include="Test\Her2AmplificationByIHC\Her2AmplificationByIHCTest.cs" />
     <Compile Include="Test\HighGradeLargeBCellLymphoma\HighGradeLargeBCellLymphomaEpicObxView.cs" />
     <Compile Include="Test\HighGradeLargeBCellLymphoma\HighGradeLargeBCellLymphomaWordDocument.cs" />
@@ -1162,14 +1162,14 @@
     <Compile Include="Test\MDSExtendedByFish\MDSExtendedByFishWordDocument.cs" />
     <Compile Include="Test\MDSExtendedByFish\MDSExtendedByFishResult.cs" />
     <Compile Include="Test\MDSExtendedByFish\MDSExtendedByFishTest.cs" />
-    <Compile Include="Test\MDSExtendedByFish\MDSExtendedByFishTestOrder.cs" />
+    <Compile Include="Test\MDSExtendedByFish\PanelSetOrderMDSExtendedByFish.cs" />
     <Compile Include="Test\MPL\MPLEpicObxView.cs" />
     <Compile Include="Test\MPL\MPLWordDocument.cs" />
     <Compile Include="Test\MPL\MPLResultCollection.cs" />
     <Compile Include="Test\MPL\MPLResultDetected.cs" />
     <Compile Include="Test\MPL\MPLResultNotDetected.cs" />
     <Compile Include="Test\MPL\MPLTest.cs" />
-    <Compile Include="Test\MPL\MPLTestOrder.cs" />
+    <Compile Include="Test\MPL\PanelSetOrderMPL.cs" />
     <Compile Include="Test\MPNExtendedReflex\MPNExtendedReflexCALRResult.cs" />
     <Compile Include="Test\MPNExtendedReflex\MPNExtendedReflexEpicObxView.cs" />
     <Compile Include="Test\MPNExtendedReflex\MPNExtendedReflexJAK2Result.cs" />
@@ -1183,7 +1183,7 @@
     <Compile Include="Test\MPNFish\MPNFishWordDocument.cs" />
     <Compile Include="Test\MPNFish\MPNFishResult.cs" />
     <Compile Include="Test\MPNFish\MPNFishTest.cs" />
-    <Compile Include="Test\MPNFish\MPNFishTestOrder.cs" />
+    <Compile Include="Test\MPNFish\PanelSetOrderMPNFish.cs" />
     <Compile Include="Test\MPNStandardReflex\MPNStandardReflexEpicObxView.cs" />
     <Compile Include="Test\MPNStandardReflex\MPNStandardReflexResult.cs" />
     <Compile Include="Test\MPNStandardReflex\MPNStandardReflexTest.cs" />
@@ -1194,13 +1194,13 @@
     <Compile Include="Test\MultipleFISHProbe\MultipleFISHProbeWordDocument.cs" />
     <Compile Include="Test\MultipleFISHProbe\MultipleFISHProbePanelResult.cs" />
     <Compile Include="Test\MultipleFISHProbe\MultipleFISHProbeTest.cs" />
-    <Compile Include="Test\MultipleFISHProbe\MultipleFISHProbeTestOrder.cs" />
+    <Compile Include="Test\MultipleFISHProbe\PanelSetOrderMultipleFISHProbePanel.cs" />
     <Compile Include="Test\MultipleMyelomaIgHByFish\MultipleMyelomaIgHByFishEpicObxView.cs" />
     <Compile Include="Test\MultipleMyelomaIgHByFish\MultipleMyelomaIgHByFishNormalResult.cs" />
     <Compile Include="Test\MultipleMyelomaIgHByFish\MultipleMyelomaIgHByFishWordDocument.cs" />
     <Compile Include="Test\MultipleMyelomaIgHByFish\MultipleMyelomaIgHByFishResult.cs" />
     <Compile Include="Test\MultipleMyelomaIgHByFish\MultipleMyelomaIgHByFishTest.cs" />
-    <Compile Include="Test\MultipleMyelomaIgHByFish\MultipleMyelomaIgHByFishTestOrder.cs" />
+    <Compile Include="Test\MultipleMyelomaIgHByFish\PanelSetOrderMultipleMyelomaIgHComplexByFish.cs" />
     <Compile Include="Test\NonHodgkinsLymphomaFISHPanel\NonHodgkinsLymphomaFISHPanelEpicObxView.cs" />
     <Compile Include="Test\NonHodgkinsLymphomaFISHPanel\NonHodgkinsLymphomaFISHPanelWordDocument.cs" />
     <Compile Include="Test\NPM1\NPM1EpicObxView.cs" />
@@ -1208,7 +1208,7 @@
     <Compile Include="Test\NPM1\NPM1WordDocument.cs" />
     <Compile Include="Test\NPM1\NPM1Result.cs" />
     <Compile Include="Test\NPM1\NPM1Test.cs" />
-    <Compile Include="Test\NPM1\NPM1TestOrder.cs" />
+    <Compile Include="Test\NPM1\PanelSetOrderNPM1.cs" />
     <Compile Include="Test\OkToUnfinalizeResult.cs" />
     <Compile Include="Test\EGFRMutationAnalysis\EGFRMutationAnalysisPanel.cs" />
     <Compile Include="Test\HPV1618\HPV1618NoResult.cs" />
@@ -1241,7 +1241,7 @@
     <Compile Include="Test\StemCellEnumeration\StemCellEnumerationTest.cs" />
     <Compile Include="Test\StemCellEnumeration\StemCellEnumerationWordDocument.cs" />
     <Compile Include="Test\TCellClonalityByPCR\TCellClonalityByPCREpicObxView.cs" />
-    <Compile Include="Test\TCellClonalityByPCR\TCellClonalityByPCRTestOrder.cs" />
+    <Compile Include="Test\TCellClonalityByPCR\PanelSetOrderTCellClonalityByPCR.cs" />
     <Compile Include="Test\TCellClonalityByPCR\TCellClonalityByPCRTest.cs" />
     <Compile Include="Test\TCellClonalityByPCR\TCellClonalityByPCRNegativeResult.cs" />
     <Compile Include="Test\TCellClonalityByPCR\TCellClonalityByPCRWordDocument.cs" />
@@ -1323,7 +1323,7 @@
     <Compile Include="Test\ErPrSemiQuantitative\ErPrSemiQuantitativeTest.cs" />
     <Compile Include="Test\FactorVLeiden\FactorVLeidenTest.cs" />
     <Compile Include="Test\FLT3\FLT3Test.cs" />
-    <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHTest.cs" />
+    <Compile Include="Test\HighGradeLargeBCellLymphoma\HER2AmplificationByISH\HER2AmplificationByISHTest.cs" />
     <Compile Include="Test\HighGradeLargeBCellLymphoma\HighGradeLargeBCellLymphomaPanelTest.cs" />
     <Compile Include="Test\HPV1618\HPV1618Test.cs" />
     <Compile Include="Test\HPVTWI\PanelOrderHPVTWI.cs" />
@@ -1505,12 +1505,12 @@
     <Compile Include="Test\CCNDIBCLIGH\CCNDIBCLIGHWordDocument.cs" />
     <Compile Include="Test\CCNDIBCLIGH\CCNDIBCLIGHResult.cs" />
     <Compile Include="Test\CCNDIBCLIGH\CCNDIBCLIGHEpicObxView.cs" />
-    <Compile Include="Test\CCNDIBCLIGH\CCNDIBCLIGHTestOrder.cs" />
+    <Compile Include="Test\CCNDIBCLIGH\PanelSetOrderCCNDIBCLIGH.cs" />
     <Compile Include="Test\CEBPA\CEBPANotDetectedResult.cs" />
     <Compile Include="Test\CEBPA\CEBPAWordDocument.cs" />
     <Compile Include="Test\CEBPA\CEBPAResult.cs" />
     <Compile Include="Test\CEBPA\CEBPAEpicObxView.cs" />
-    <Compile Include="Test\CEBPA\CEBPATestOrder.cs" />
+    <Compile Include="Test\CEBPA\PanelSetOrderCEBPA.cs" />
     <Compile Include="Test\ChromosomeAnalysisForFetalAnomaly\ChromosomeAnalysisForFetalAnomalyAbnormalResult.cs" />
     <Compile Include="Test\ChromosomeAnalysisForFetalAnomaly\ChromosomeAnalysisForFetalAnomalyEpicObxView.cs" />
     <Compile Include="Test\ChromosomeAnalysisForFetalAnomaly\ChromosomeAnalysisForFetalAnomalyNormalResult.cs" />
@@ -1544,15 +1544,15 @@
     <Compile Include="Test\ErPrSemiQuantitative\ErPrSemiQuantitativeResultCollection.cs" />
     <Compile Include="Test\ErPrSemiQuantitative\ErPrSemiQuantitativeTestOrder.cs" />
     <Compile Include="Test\ErPrSemiQuantitative\ErPrSemiQuantitativeWordDocument.cs" />
-    <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHBreastResult.cs">
+    <Compile Include="Test\HighGradeLargeBCellLymphoma\HER2AmplificationByISH\HER2AmplificationByISHBreastResult.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHGeneticHeterogeneityCollection.cs" />
-    <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHIndicatorCollection.cs">
+    <Compile Include="Test\HighGradeLargeBCellLymphoma\HER2AmplificationByISH\HER2AmplificationByISHGeneticHeterogeneityCollection.cs" />
+    <Compile Include="Test\HighGradeLargeBCellLymphoma\HER2AmplificationByISH\HER2AmplificationByISHIndicatorCollection.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHProbeSignalIntensityCollection.cs" />
-    <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHSampleAdequacyCollection.cs" />
+    <Compile Include="Test\HighGradeLargeBCellLymphoma\HER2AmplificationByISH\HER2AmplificationByISHProbeSignalIntensityCollection.cs" />
+    <Compile Include="Test\HighGradeLargeBCellLymphoma\HER2AmplificationByISH\HER2AmplificationByISHSampleAdequacyCollection.cs" />
     <Compile Include="Test\LynchSyndrome\LSEColorectalResult12.cs" />
     <Compile Include="Test\LynchSyndrome\LSEResultStatusMethylationAnalysisRequiredGYN.cs" />
     <Compile Include="Test\LynchSyndrome\LSEResultStatusNotSet.cs" />
@@ -1601,14 +1601,14 @@
     <Compile Include="Test\FLT3\FLT3NotDetectedResult.cs" />
     <Compile Include="Test\FLT3\FLT3WordDocument.cs" />
     <Compile Include="Test\FLT3\FLT3Result.cs" />
-    <Compile Include="Test\FLT3\FLT3TestOrder.cs" />
-    <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHCMMCNteView.cs" />
-    <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHEpicObxView.cs" />
-    <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHGastricAdenocarcinomaResult.cs" />
-    <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHResult.cs" />
-    <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHResultCollection.cs" />
-    <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHTestOrder.cs" />
-    <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHWordDocument.cs" />
+    <Compile Include="Test\FLT3\PanelSetOrderFLT3.cs" />
+    <Compile Include="Test\HighGradeLargeBCellLymphoma\HER2AmplificationByISH\HER2AmplificationByISHCMMCNteView.cs" />
+    <Compile Include="Test\HighGradeLargeBCellLymphoma\HER2AmplificationByISH\HER2AmplificationByISHEpicObxView.cs" />
+    <Compile Include="Test\HighGradeLargeBCellLymphoma\HER2AmplificationByISH\HER2AmplificationByISHGastricAdenocarcinomaResult.cs" />
+    <Compile Include="Test\HighGradeLargeBCellLymphoma\HER2AmplificationByISH\HER2AmplificationByISHResult.cs" />
+    <Compile Include="Test\HighGradeLargeBCellLymphoma\HER2AmplificationByISH\HER2AmplificationByISHResultCollection.cs" />
+    <Compile Include="Test\HighGradeLargeBCellLymphoma\HER2AmplificationByISH\HER2AmplificationByISHTestOrder.cs" />
+    <Compile Include="Test\HighGradeLargeBCellLymphoma\HER2AmplificationByISH\HER2AmplificationByISHWordDocument.cs" />
     <Compile Include="Test\IndicationLynchSymdrome.cs" />
     <Compile Include="Test\JAK2Exon1214\JAK2Exon1214DetectedResult.cs" />
     <Compile Include="Test\JAK2Exon1214\JAK2Exon1214EpicObxView.cs" />
@@ -1628,7 +1628,7 @@
     <Compile Include="Test\MDSByFish\MDSByFishNormalResult.cs" />
     <Compile Include="Test\MDSByFish\MDSByFishWordDocument.cs" />
     <Compile Include="Test\MDSByFish\MDSByFishResult.cs" />
-    <Compile Include="Test\MDSByFish\MDSByFishTestOrder.cs" />
+    <Compile Include="Test\MDSByFish\PanelSetOrderMDSByFish.cs" />
     <Compile Include="Test\MicrosatelliteInstabilityAnalysis\MicrosatelliteInstabilityAnalysisDetectedResult.cs" />
     <Compile Include="Test\MicrosatelliteInstabilityAnalysis\MicrosatelliteInstabilityAnalysisEpicObxView.cs" />
     <Compile Include="Test\MicrosatelliteInstabilityAnalysis\MicrosatelliteInstabilityAnalysisNotDetectedResult.cs" />
@@ -2176,7 +2176,7 @@
     <Compile Include="Test\ThinPrepPap\ThinPrepPapScreeningPanel.cs" />
     <Compile Include="Test\ThinPrepPap\ThinPrepPapQCPanel.cs" />
     <Compile Include="Test\ErPrSemiQuantitative\ERPRSemiQuanititativePanel.cs" />
-    <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHPanel.cs" />
+    <Compile Include="Test\HighGradeLargeBCellLymphoma\HER2AmplificationByISH\HER2AmplificationByISHPanel.cs" />
     <Compile Include="Test\HPV1618\HPV1618Panel.cs" />
     <Compile Include="Test\HPVTWI\HPVTWIPanel.cs" />
     <Compile Include="Test\JAK2V617F\JAK2V617FPanel.cs" />
@@ -2269,7 +2269,7 @@
     <Compile Include="PanelSet.Model\PanelSetHighRiskMultipleMyelomaByFISH Fish.cs" />
     <Compile Include="PanelSet.Model\PanelSetHPV16.cs" />
     <Compile Include="PanelSet.Model\PanelSetHPVLowRiskByInSituHybridization.cs" />
-    <Compile Include="Test\HPVTWI\PanelSetHPVTWI.cs" />
+    <Compile Include="Test\HPVTWI\HPVTWITest.cs" />
     <Compile Include="PanelSet.Model\PanelSetIgHBCL2ByFish.cs" />
     <Compile Include="PanelSet.Model\PanelSetIgHMAFBByFish.cs" />
     <Compile Include="PanelSet.Model\PanelSetIgHMAFByFish.cs" />

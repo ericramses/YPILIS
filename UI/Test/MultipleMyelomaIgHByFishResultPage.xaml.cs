@@ -30,10 +30,10 @@ namespace YellowstonePathology.UI.Test
 		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private string m_PageHeaderText;
 
-		private YellowstonePathology.Business.Test.MultipleMyelomaIgHByFish.MultipleMyelomaIgHByFishTestOrder m_PanelSetOrder;
+		private YellowstonePathology.Business.Test.MultipleMyelomaIgHByFish.PanelSetOrderMultipleMyelomaIgHComplexByFish m_PanelSetOrder;
 		private string m_OrderedOnDescription;
 
-		public MultipleMyelomaIgHByFishResultPage(YellowstonePathology.Business.Test.MultipleMyelomaIgHByFish.MultipleMyelomaIgHByFishTestOrder panelSetOrderMultipleMyelomaIgHComplexByFish,
+		public MultipleMyelomaIgHByFishResultPage(YellowstonePathology.Business.Test.MultipleMyelomaIgHByFish.PanelSetOrderMultipleMyelomaIgHComplexByFish panelSetOrderMultipleMyelomaIgHComplexByFish,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
 			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
@@ -58,7 +58,7 @@ namespace YellowstonePathology.UI.Test
 			get { return this.m_OrderedOnDescription; }
 		}
 
-		public YellowstonePathology.Business.Test.MultipleMyelomaIgHByFish.MultipleMyelomaIgHByFishTestOrder PanelSetOrder
+		public YellowstonePathology.Business.Test.MultipleMyelomaIgHByFish.PanelSetOrderMultipleMyelomaIgHComplexByFish PanelSetOrder
 		{
 			get { return this.m_PanelSetOrder; }
 		}

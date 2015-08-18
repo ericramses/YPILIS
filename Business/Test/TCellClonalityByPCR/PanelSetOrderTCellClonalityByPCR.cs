@@ -4,21 +4,21 @@ using System.Linq;
 using System.Text;
 using YellowstonePathology.Business.Persistence;
 
-namespace YellowstonePathology.Business.Test.MPL
+namespace YellowstonePathology.Business.Test.TCellClonalityByPCR
 {
-	[PersistentClass("tblPanelSetOrderMPL", "tblPanelSetOrder", "YPIDATA")]
-	public class MPLTestOrder : PanelSetOrder
+	[PersistentClass("tblPanelSetOrderTCellClonalityByPCR", "tblPanelSetOrder", "YPIDATA")]
+	public class PanelSetOrderTCellClonalityByPCR : PanelSetOrder
 	{
 		private string m_Result;
 		private string m_Interpretation;
 		private string m_Method;
 		private string m_References;
-		
-		public MPLTestOrder()
+
+        public PanelSetOrderTCellClonalityByPCR()
         {
         }
 
-		public MPLTestOrder(string masterAccessionNo, string reportNo, string objectId,
+		public PanelSetOrderTCellClonalityByPCR(string masterAccessionNo, string reportNo, string objectId,
 			YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
 			YellowstonePathology.Business.Interface.IOrderTarget orderTarget,
 			bool distribute,

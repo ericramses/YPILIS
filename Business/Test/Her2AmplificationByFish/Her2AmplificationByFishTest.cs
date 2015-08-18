@@ -20,7 +20,7 @@ namespace YellowstonePathology.Business.Test.Her2AmplificationByFish
             this.m_Active = true;
 
 
-			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.Her2AmplificationByFish.Her2AmplificationByFishTestOrder).AssemblyQualifiedName;
+			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.Her2AmplificationByFish.PanelSetOrderHer2AmplificationByFish).AssemblyQualifiedName;
             
 			this.m_AllowMultiplePerAccession = true;
 

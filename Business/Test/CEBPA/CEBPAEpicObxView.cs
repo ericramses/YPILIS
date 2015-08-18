@@ -15,7 +15,7 @@ namespace YellowstonePathology.Business.Test.CEBPA
 
 		public override void ToXml(XElement document)
 		{
-			CEBPATestOrder panelSetOrder = (CEBPATestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
+			PanelSetOrderCEBPA panelSetOrder = (PanelSetOrderCEBPA)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
 			this.AddHeader(document, panelSetOrder, "CEBPA Mutation Analysis");
 
 			this.AddNextObxElement("", document, "F");

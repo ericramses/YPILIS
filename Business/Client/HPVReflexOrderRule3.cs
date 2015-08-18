@@ -12,7 +12,7 @@ namespace YellowstonePathology.Business.Client.Model
             this.m_RuleNumber = 3;
             this.m_ReflexOrderCode = "RFLXHPVRL3";
             this.m_Description = "Perform reflex HPV testing on patients greater than 20 years old with a PAP result of ASCUS, AGUS, LSIL or HSIL and have not had an HPV within the past year.";
-            this.m_PanelSet = new YellowstonePathology.Business.Test.HPVTWI.PanelSetHPVTWI();
+			this.m_PanelSet = new YellowstonePathology.Business.Test.HPVTWI.HPVTWITest();
         }
 
         public override bool IsRequired(Business.Test.AccessionOrder accessionOrder)

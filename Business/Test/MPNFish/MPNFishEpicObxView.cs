@@ -15,7 +15,7 @@ namespace YellowstonePathology.Business.Test.MPNFish
 
 		public override void ToXml(XElement document)
 		{
-			MPNFishTestOrder panelSetOrder = (MPNFishTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
+			PanelSetOrderMPNFish panelSetOrder = (PanelSetOrderMPNFish)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
 			this.AddHeader(document, panelSetOrder, "MPN Fish Analysis");
 
 			this.AddNextObxElement("", document, "F");

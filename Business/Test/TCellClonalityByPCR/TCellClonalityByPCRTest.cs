@@ -18,7 +18,7 @@ namespace YellowstonePathology.Business.Test.TCellClonalityByPCR
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterR();
             this.m_Active = true;
 
-			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.TCellClonalityByPCR.TCellClonalityByPCRTestOrder).AssemblyQualifiedName;
+			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.TCellClonalityByPCR.PanelSetOrderTCellClonalityByPCR).AssemblyQualifiedName;
             
 			this.m_AllowMultiplePerAccession = true;            
 

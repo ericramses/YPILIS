@@ -13,7 +13,7 @@ namespace YellowstonePathology.Business.Test.CCNDIBCLIGH
 			this.m_ReportSaveEnum = reportSaveEnum;
 			this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByMasterAccessionNo(masterAccessionNo);
 			this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
-			CCNDIBCLIGHTestOrder panelSetOrderCCNDIBCLIGH = (CCNDIBCLIGHTestOrder)this.m_PanelSetOrder;
+			PanelSetOrderCCNDIBCLIGH panelSetOrderCCNDIBCLIGH = (PanelSetOrderCCNDIBCLIGH)this.m_PanelSetOrder;
 
 			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\CCNDIBCLIGH.xml";
 			base.OpenTemplate();

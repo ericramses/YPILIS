@@ -108,7 +108,7 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
 
 			this.AddNextObxElement("CURRENT MOLECULAR TEST SUMMARY", document, "F");
 
-			YellowstonePathology.Business.Test.HPVTWI.PanelSetHPVTWI panelSetHPVTWI = new YellowstonePathology.Business.Test.HPVTWI.PanelSetHPVTWI();
+			YellowstonePathology.Business.Test.HPVTWI.HPVTWITest panelSetHPVTWI = new YellowstonePathology.Business.Test.HPVTWI.HPVTWITest();
 			YellowstonePathology.Business.Test.HPV1618.HPV1618Test panelSetHPV1618 = new YellowstonePathology.Business.Test.HPV1618.HPV1618Test();
             YellowstonePathology.Business.Test.NGCT.NGCTTest panelSetNGCT = new YellowstonePathology.Business.Test.NGCT.NGCTTest();
 			YellowstonePathology.Business.Test.Trichomonas.TrichomonasTest panelSetTrichomonas = new YellowstonePathology.Business.Test.Trichomonas.TrichomonasTest();

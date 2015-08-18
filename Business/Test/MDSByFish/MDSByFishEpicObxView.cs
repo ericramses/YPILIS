@@ -15,7 +15,7 @@ namespace YellowstonePathology.Business.Test.MDSByFish
 
 		public override void ToXml(XElement document)
 		{
-			MDSByFishTestOrder panelSetOrder = (MDSByFishTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
+			PanelSetOrderMDSByFish panelSetOrder = (PanelSetOrderMDSByFish)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
 			this.AddHeader(document, panelSetOrder, "MDS Panel By Fish Analysis");
 
 			this.AddNextObxElement("", document, "F");

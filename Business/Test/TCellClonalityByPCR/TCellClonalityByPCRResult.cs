@@ -21,7 +21,7 @@ namespace YellowstonePathology.Business.Test.TCellClonalityByPCR
 		{
 		}
 
-		public void SetResults(TCellClonalityByPCRTestOrder panelSetOrderTCellClonalityByPCR)
+		public void SetResults(PanelSetOrderTCellClonalityByPCR panelSetOrderTCellClonalityByPCR)
 		{
 			panelSetOrderTCellClonalityByPCR.Result = this.m_Result;
 			panelSetOrderTCellClonalityByPCR.Interpretation = this.m_Interpretation;

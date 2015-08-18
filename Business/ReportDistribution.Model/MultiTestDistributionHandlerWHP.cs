@@ -8,7 +8,7 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
     public class MultiTestDistributionHandlerWHP : MultiTestDistributionHandler
     {
 		private YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapTest m_PanelSetThinPrepPap;
-        private YellowstonePathology.Business.Test.HPVTWI.PanelSetHPVTWI m_PanelSetHPVTWI;
+		private YellowstonePathology.Business.Test.HPVTWI.HPVTWITest m_PanelSetHPVTWI;
 		private YellowstonePathology.Business.Test.HPV1618.HPV1618Test m_PanelSetHPV1618;
         private YellowstonePathology.Business.Test.NGCT.NGCTTest m_NGCTTest;
         private YellowstonePathology.Business.Test.Trichomonas.TrichomonasTest m_TrichomonasTest;
@@ -33,7 +33,7 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
             this.m_PanelSetOrderList = new List<Test.PanelSetOrder>();
 
 			this.m_PanelSetThinPrepPap = new YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapTest();
-            this.m_PanelSetHPVTWI = new Test.HPVTWI.PanelSetHPVTWI();
+			this.m_PanelSetHPVTWI = new Test.HPVTWI.HPVTWITest();
 			this.m_PanelSetHPV1618 = new YellowstonePathology.Business.Test.HPV1618.HPV1618Test();
             this.m_NGCTTest = new YellowstonePathology.Business.Test.NGCT.NGCTTest();
             this.m_TrichomonasTest = new YellowstonePathology.Business.Test.Trichomonas.TrichomonasTest();

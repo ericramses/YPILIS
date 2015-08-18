@@ -18,7 +18,7 @@ namespace YellowstonePathology.Business.Test.CCNDIBCLIGH
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterR();
             this.m_Active = true;
 
-			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.CCNDIBCLIGH.CCNDIBCLIGHTestOrder).AssemblyQualifiedName;
+			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.CCNDIBCLIGH.PanelSetOrderCCNDIBCLIGH).AssemblyQualifiedName;
             
 			this.m_AllowMultiplePerAccession = true;
 

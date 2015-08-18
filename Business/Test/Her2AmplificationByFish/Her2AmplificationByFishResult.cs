@@ -22,7 +22,7 @@ namespace YellowstonePathology.Business.Test.Her2AmplificationByFish
 		{
 		}
 
-		public void SetResults(Her2AmplificationByFishTestOrder panelSetOrderHer2AmplificationByFish)
+		public void SetResults(PanelSetOrderHer2AmplificationByFish panelSetOrderHer2AmplificationByFish)
 		{
 			panelSetOrderHer2AmplificationByFish.Result = this.m_Result;
 			if (string.IsNullOrEmpty(panelSetOrderHer2AmplificationByFish.AverageHER2SignalsPerNucleus) == false) this.m_Interpretation = this.m_Interpretation.Replace("$AVGHER2SIGNALS$", panelSetOrderHer2AmplificationByFish.AverageHER2SignalsPerNucleus);

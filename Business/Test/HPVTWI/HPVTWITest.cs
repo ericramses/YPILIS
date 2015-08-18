@@ -5,9 +5,9 @@ using System.Text;
 
 namespace YellowstonePathology.Business.Test.HPVTWI
 {
-	public class PanelSetHPVTWI : YellowstonePathology.Business.PanelSet.Model.PanelSetMolecularTest
+	public class HPVTWITest : YellowstonePathology.Business.PanelSet.Model.PanelSetMolecularTest
 	{
-		public PanelSetHPVTWI()
+		public HPVTWITest()
 		{
 			this.m_PanelSetId = 14;
 			this.m_PanelSetName = "High Risk HPV TWI";

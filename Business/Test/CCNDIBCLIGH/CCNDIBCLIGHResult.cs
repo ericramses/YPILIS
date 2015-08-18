@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Test.CCNDIBCLIGH
 		{
 		}
 
-		public void SetResults(CCNDIBCLIGHTestOrder panelSetOrder)
+		public void SetResults(PanelSetOrderCCNDIBCLIGH panelSetOrder)
 		{
 			panelSetOrder.Result = this.m_Result;
 			panelSetOrder.Interpretation = this.m_Interpretation;

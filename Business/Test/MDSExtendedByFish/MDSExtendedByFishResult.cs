@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Test.MDSExtendedByFish
 		{
 		}
 
-		public void SetResults(MDSExtendedByFishTestOrder panelSetOrder)
+		public void SetResults(PanelSetOrderMDSExtendedByFish panelSetOrder)
 		{
 			panelSetOrder.Result = this.m_Result;
 			panelSetOrder.Interpretation = this.m_Interpretation;

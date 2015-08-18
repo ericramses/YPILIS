@@ -22,7 +22,7 @@ namespace YellowstonePathology.Business.Test.NPM1
 		{
 		}
 
-		public void SetResults(NPM1TestOrder panelSetOrderNPM1)
+		public void SetResults(PanelSetOrderNPM1 panelSetOrderNPM1)
 		{
 			panelSetOrderNPM1.Result = this.m_Result;
 			panelSetOrderNPM1.PercentageNPM1Mutation = this.m_PercentageNPM1Mutation;

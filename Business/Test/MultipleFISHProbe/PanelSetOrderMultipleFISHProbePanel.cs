@@ -4,23 +4,23 @@ using System.Linq;
 using System.Text;
 using YellowstonePathology.Business.Persistence;
 
-namespace YellowstonePathology.Business.Test.MultipleMyelomaIgHByFish
+namespace YellowstonePathology.Business.Test.MultipleFISHProbe
 {
-	[PersistentClass("tblPanelSetOrderMultipleMyelomaIgHComplexByFish", "tblPanelSetOrder", "YPIDATA")]
-	public class MultipleMyelomaIgHByFishTestOrder :PanelSetOrder
+	[PersistentClass("tblPanelSetOrderMultipleFISHProbePanel", "tblPanelSetOrder", "YPIDATA")]
+	public class PanelSetOrderMultipleFISHProbePanel : PanelSetOrder
 	{
 		private string m_Result;
 		private string m_Interpretation;
 		private string m_ProbeSetDetail;
 		private string m_NucleiScored;
 		
-		public MultipleMyelomaIgHByFishTestOrder()
+		public PanelSetOrderMultipleFISHProbePanel()
         {
         }
 
-		public MultipleMyelomaIgHByFishTestOrder(string masterAccessionNo, string reportNo, string objectId,
-			YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
-			YellowstonePathology.Business.Interface.IOrderTarget orderTarget,
+		public PanelSetOrderMultipleFISHProbePanel(string masterAccessionNo, string reportNo, string objectId,
+            YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
+            YellowstonePathology.Business.Interface.IOrderTarget orderTarget,
 			bool distribute,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 			: base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute, systemIdentity)

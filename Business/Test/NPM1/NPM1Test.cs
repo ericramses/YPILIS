@@ -19,7 +19,7 @@ namespace YellowstonePathology.Business.Test.NPM1
             this.m_Active = true;
 
 
-			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.NPM1.NPM1TestOrder).AssemblyQualifiedName;
+			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.NPM1.PanelSetOrderNPM1).AssemblyQualifiedName;
             
 			this.m_AllowMultiplePerAccession = true;
 

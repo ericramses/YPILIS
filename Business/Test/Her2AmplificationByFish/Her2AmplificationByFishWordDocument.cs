@@ -15,7 +15,7 @@ namespace YellowstonePathology.Business.Test.Her2AmplificationByFish
 
 			this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByMasterAccessionNo(masterAccessionNo);
 			this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
-			Her2AmplificationByFishTestOrder panelSetOrderHer2AmplificationByFish = (Her2AmplificationByFishTestOrder)this.m_PanelSetOrder;
+			PanelSetOrderHer2AmplificationByFish panelSetOrderHer2AmplificationByFish = (PanelSetOrderHer2AmplificationByFish)this.m_PanelSetOrder;
 
             if (panelSetOrderHer2AmplificationByFish.NonBreast == false)
             {

@@ -12,7 +12,7 @@ namespace YellowstonePathology.Business.Client.Model
             this.m_StandingOrderCode = "STNDHPVCMPRL2";
             this.m_Description = "Combines Rule 4 and Rule 13";
             this.m_ReflexOrder = new ReflexOrder();
-            this.m_ReflexOrder.PanelSet = new YellowstonePathology.Business.Test.HPVTWI.PanelSetHPVTWI();
+			this.m_ReflexOrder.PanelSet = new YellowstonePathology.Business.Test.HPVTWI.HPVTWITest();
         }
 
         public override bool IsRequired(Business.Test.AccessionOrder accessionOrder)

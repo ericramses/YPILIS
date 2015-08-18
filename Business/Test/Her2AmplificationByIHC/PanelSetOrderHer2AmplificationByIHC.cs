@@ -7,7 +7,7 @@ using YellowstonePathology.Business.Persistence;
 namespace YellowstonePathology.Business.Test.Her2AmplificationByIHC
 {
 	[PersistentClass("tblPanelSetOrderHer2AmplificationByIHC", "tblPanelSetOrder", "YPIDATA")]
-    public class Her2AmplificationByIHCTestOrder : PanelSetOrder
+    public class PanelSetOrderHer2AmplificationByIHC : PanelSetOrder
 	{
 		private string m_Result;
 		private string m_Score;
@@ -18,12 +18,12 @@ namespace YellowstonePathology.Business.Test.Her2AmplificationByIHC
 		private string m_ReportDisclaimer;
 		private string m_Reference;
 
-        public Her2AmplificationByIHCTestOrder()
+        public PanelSetOrderHer2AmplificationByIHC()
         {
 
         }
 
-		public Her2AmplificationByIHCTestOrder(string masterAccessionNo, string reportNo, string objectId,
+		public PanelSetOrderHer2AmplificationByIHC(string masterAccessionNo, string reportNo, string objectId,
 			YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
 			YellowstonePathology.Business.Interface.IOrderTarget orderTarget,
 			bool distribute,

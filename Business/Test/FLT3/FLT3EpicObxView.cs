@@ -15,7 +15,7 @@ namespace YellowstonePathology.Business.Test.FLT3
 
 		public override void ToXml(XElement document)
 		{
-			FLT3TestOrder panelSetOrder = (FLT3TestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
+			PanelSetOrderFLT3 panelSetOrder = (PanelSetOrderFLT3)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
 			this.AddHeader(document, panelSetOrder, "FLT3 Mutation Analysis");
 
 			this.AddNextObxElement("", document, "F");

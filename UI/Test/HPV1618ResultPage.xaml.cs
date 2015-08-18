@@ -29,7 +29,7 @@ namespace YellowstonePathology.UI.Test
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
-		private string m_PageHeaderText;		
+		private string m_PageHeaderText;
 
 		private YellowstonePathology.Business.Test.HPV1618.PanelSetOrderHPV1618 m_PanelSetOrderHPV1618;
 		private YellowstonePathology.UI.Navigation.PageNavigator m_PageNavigator;

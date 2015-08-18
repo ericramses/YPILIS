@@ -121,7 +121,7 @@ namespace YellowstonePathology.Business.Test.MPNStandardReflex
             }
         }
 
-        public void SetResults(PanelSetOrderMPNStandardReflex panelSetOrder)
+		public void SetResults(PanelSetOrderMPNStandardReflex panelSetOrder)
         {
             panelSetOrder.Comment = this.m_Comment;
             panelSetOrder.Interpretation = this.m_Interpretation;

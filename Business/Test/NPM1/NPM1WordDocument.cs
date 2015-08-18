@@ -13,7 +13,7 @@ namespace YellowstonePathology.Business.Test.NPM1
 			this.m_ReportSaveEnum = reportSaveEnum;
 			this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByMasterAccessionNo(masterAccessionNo);
 			this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
-			NPM1TestOrder panelSetOrderNPM1 = (NPM1TestOrder)this.m_PanelSetOrder;
+			PanelSetOrderNPM1 panelSetOrderNPM1 = (PanelSetOrderNPM1)this.m_PanelSetOrder;
 
 			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\NPM1.xml";
 			base.OpenTemplate();

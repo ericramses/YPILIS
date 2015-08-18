@@ -15,7 +15,7 @@ namespace YellowstonePathology.Business.Test.NPM1
 
 		public override void ToXml(XElement document)
 		{
-			NPM1TestOrder panelSetOrder = (NPM1TestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
+			PanelSetOrderNPM1 panelSetOrder = (PanelSetOrderNPM1)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
 			this.AddHeader(document, panelSetOrder, "NPM1 Mutation Analysis");
 
 			this.AddNextObxElement("", document, "F");

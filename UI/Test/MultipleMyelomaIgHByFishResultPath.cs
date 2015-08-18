@@ -9,7 +9,7 @@ namespace YellowstonePathology.UI.Test
 	{
 		MultipleMyelomaIgHByFishResultPage m_ResultPage;
 		YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-		YellowstonePathology.Business.Test.MultipleMyelomaIgHByFish.MultipleMyelomaIgHByFishTestOrder m_PanelSetOrder;
+		YellowstonePathology.Business.Test.MultipleMyelomaIgHByFish.PanelSetOrderMultipleMyelomaIgHComplexByFish m_PanelSetOrder;
 		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 
 		public MultipleMyelomaIgHByFishResultPath(string reportNo,
@@ -19,7 +19,7 @@ namespace YellowstonePathology.UI.Test
             : base(pageNavigator)
         {
             this.m_AccessionOrder = accessionOrder;
-			this.m_PanelSetOrder = (YellowstonePathology.Business.Test.MultipleMyelomaIgHByFish.MultipleMyelomaIgHByFishTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
+			this.m_PanelSetOrder = (YellowstonePathology.Business.Test.MultipleMyelomaIgHByFish.PanelSetOrderMultipleMyelomaIgHComplexByFish)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 			this.m_ObjectTracker = objectTracker;
 			this.Authenticated += new AuthenticatedEventHandler(ResultPath_Authenticated);
 		}

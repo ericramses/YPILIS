@@ -28,7 +28,7 @@ namespace YellowstonePathology.Business.Audit.Model
 				YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder womensHealthProfileTestOrder = (YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(womensHealthProfileTest.PanelSetId);
 				if (womensHealthProfileTestOrder.OrderHPV == true)
                 {
-                    YellowstonePathology.Business.Test.HPVTWI.PanelSetHPVTWI panelSetHPVTWI = new YellowstonePathology.Business.Test.HPVTWI.PanelSetHPVTWI();
+					YellowstonePathology.Business.Test.HPVTWI.HPVTWITest panelSetHPVTWI = new YellowstonePathology.Business.Test.HPVTWI.HPVTWITest();
                     if (accessionOrder.PanelSetOrderCollection.Exists(panelSetHPVTWI.PanelSetId) == false)
                     {
                         this.m_ActionRequired = true;
@@ -47,7 +47,7 @@ namespace YellowstonePathology.Business.Audit.Model
 				YellowstonePathology.Business.Client.Model.StandingOrder standingOrder = YellowstonePathology.Business.Client.Model.StandingOrderCollection.GetByStandingOrderCode(womensHealthProfileTestOrder.HPVStandingOrderCode);
                 if (standingOrder.IsRequired(accessionOrder) == true)
                 {
-                   YellowstonePathology.Business.Test.HPVTWI.PanelSetHPVTWI panelSetHPVTWI = new YellowstonePathology.Business.Test.HPVTWI.PanelSetHPVTWI();
+					YellowstonePathology.Business.Test.HPVTWI.HPVTWITest panelSetHPVTWI = new YellowstonePathology.Business.Test.HPVTWI.HPVTWITest();
                     if (accessionOrder.PanelSetOrderCollection.Exists(panelSetHPVTWI.PanelSetId) == false)
                     {
                         this.m_ActionRequired = true;
@@ -67,7 +67,7 @@ namespace YellowstonePathology.Business.Audit.Model
 
                 if (reflexOrder.IsRequired(accessionOrder) == true)
                 {
-                   YellowstonePathology.Business.Test.HPVTWI.PanelSetHPVTWI panelSetHPVTWI = new YellowstonePathology.Business.Test.HPVTWI.PanelSetHPVTWI();
+					YellowstonePathology.Business.Test.HPVTWI.HPVTWITest panelSetHPVTWI = new YellowstonePathology.Business.Test.HPVTWI.HPVTWITest();
                     if (accessionOrder.PanelSetOrderCollection.Exists(panelSetHPVTWI.PanelSetId) == false)
                     {
                         this.m_ActionRequired = true;

@@ -12,7 +12,7 @@ namespace YellowstonePathology.Business.Test.MPNExtendedReflex
 			YellowstonePathology.Business.Test.MPL.MPLTest panelSetMPL = new YellowstonePathology.Business.Test.MPL.MPLTest();
             if (accessionOrder.PanelSetOrderCollection.Exists(panelSetMPL.PanelSetId) == true)
             {
-				YellowstonePathology.Business.Test.MPL.MPLTestOrder panelSetOrderMPL = (YellowstonePathology.Business.Test.MPL.MPLTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetMPL.PanelSetId);
+				YellowstonePathology.Business.Test.MPL.PanelSetOrderMPL panelSetOrderMPL = (YellowstonePathology.Business.Test.MPL.PanelSetOrderMPL)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetMPL.PanelSetId);
                 if (panelSetOrderMPL.Final == true)
                 {
                     this.m_Message = new StringBuilder(panelSetOrderMPL.Result);

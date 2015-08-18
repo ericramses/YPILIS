@@ -13,7 +13,7 @@ namespace YellowstonePathology.Business.Test.HighGradeLargeBCellLymphoma
 			this.m_ReportSaveEnum = reportSaveEnum;
 			this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByMasterAccessionNo(masterAccessionNo);
 			this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
-			YellowstonePathology.Business.Test.HighGradeLargeBCellLymphoma.PanelSetOrderHighGradeLargeBCellLymphoma panelSetOrderHighGradeLargeBCellLymphoma = (YellowstonePathology.Business.Test.HighGradeLargeBCellLymphoma.PanelSetOrderHighGradeLargeBCellLymphoma)this.m_PanelSetOrder;
+			PanelSetOrderHighGradeLargeBCellLymphoma panelSetOrderHighGradeLargeBCellLymphoma = (PanelSetOrderHighGradeLargeBCellLymphoma)this.m_PanelSetOrder;
 
 			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\HighGradeLargeBCellLymphoma.xml";
 			base.OpenTemplate();

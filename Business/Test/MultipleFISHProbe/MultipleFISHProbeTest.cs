@@ -19,7 +19,7 @@ namespace YellowstonePathology.Business.Test.MultipleFISHProbe
             this.m_Active = true;
 
 
-			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.MultipleFISHProbe.MultipleFISHProbeTestOrder).AssemblyQualifiedName;
+			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.MultipleFISHProbe.PanelSetOrderMultipleFISHProbePanel).AssemblyQualifiedName;
             
 			this.m_AllowMultiplePerAccession = true;
 

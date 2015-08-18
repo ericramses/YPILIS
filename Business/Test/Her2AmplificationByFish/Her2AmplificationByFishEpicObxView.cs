@@ -15,7 +15,7 @@ namespace YellowstonePathology.Business.Test.Her2AmplificationByFish
 
         public override void ToXml(XElement document)
         {
-			Her2AmplificationByFishTestOrder panelSetOrder = (Her2AmplificationByFishTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);                        
+			PanelSetOrderHer2AmplificationByFish panelSetOrder = (PanelSetOrderHer2AmplificationByFish)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);                        
 
             this.AddHeader(document, panelSetOrder, "HER2 Gene Amplification");
             this.AddNextObxElement("", document, "F");

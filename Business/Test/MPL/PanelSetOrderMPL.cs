@@ -4,21 +4,21 @@ using System.Linq;
 using System.Text;
 using YellowstonePathology.Business.Persistence;
 
-namespace YellowstonePathology.Business.Test.MPNFish
+namespace YellowstonePathology.Business.Test.MPL
 {
-	[PersistentClass("tblPanelSetOrderMPNFish", "tblPanelSetOrder", "YPIDATA")]
-	public class MPNFishTestOrder : PanelSetOrder
+	[PersistentClass("tblPanelSetOrderMPL", "tblPanelSetOrder", "YPIDATA")]
+	public class PanelSetOrderMPL : PanelSetOrder
 	{
 		private string m_Result;
 		private string m_Interpretation;
-		private string m_ProbeSetDetail;
-		private string m_NucleiScored;
+		private string m_Method;
+		private string m_References;
+		
+		public PanelSetOrderMPL()
+        {
+        }
 
-		public MPNFishTestOrder()
-		{
-		}
-
-		public MPNFishTestOrder(string masterAccessionNo, string reportNo, string objectId,
+		public PanelSetOrderMPL(string masterAccessionNo, string reportNo, string objectId,
 			YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
 			YellowstonePathology.Business.Interface.IOrderTarget orderTarget,
 			bool distribute,
@@ -56,29 +56,29 @@ namespace YellowstonePathology.Business.Test.MPNFish
 		}
 
 		[PersistentProperty()]
-		public string ProbeSetDetail
+		public string Method
 		{
-			get { return this.m_ProbeSetDetail; }
+			get { return this.m_Method; }
 			set
 			{
-				if (this.m_ProbeSetDetail != value)
+				if (this.m_Method != value)
 				{
-					this.m_ProbeSetDetail = value;
-					this.NotifyPropertyChanged("ProbeSetDetail");
+					this.m_Method = value;
+					this.NotifyPropertyChanged("Method");
 				}
 			}
 		}
 
 		[PersistentProperty()]
-		public string NucleiScored
+		public string References
 		{
-			get { return this.m_NucleiScored; }
+			get { return this.m_References; }
 			set
 			{
-				if (this.m_NucleiScored != value)
+				if (this.m_References != value)
 				{
-					this.m_NucleiScored = value;
-					this.NotifyPropertyChanged("NucleiScored");
+					this.m_References = value;
+					this.NotifyPropertyChanged("References");
 				}
 			}
 		}
@@ -91,12 +91,6 @@ namespace YellowstonePathology.Business.Test.MPNFish
 			result.AppendLine();
 
 			result.AppendLine("Interpretation: " + this.m_Interpretation);
-			result.AppendLine();
-
-			result.AppendLine("Probeset Detail: " + this.m_ProbeSetDetail);
-			result.AppendLine();
-
-			result.AppendLine("Nuclei Scored: " + this.m_NucleiScored);
 			result.AppendLine();
 
 			return result.ToString();

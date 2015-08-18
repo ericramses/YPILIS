@@ -12,7 +12,7 @@ namespace YellowstonePathology.Business.Client.Model
             this.m_RuleNumber = 6;
             this.m_ReflexOrderCode = "RFLXHPVRL6";
             this.m_Description = "Perform reflex HPV testing on patients who have a PAP result of ASCUS, LSIL or HSIL.";
-            this.m_PanelSet = new YellowstonePathology.Business.Test.HPVTWI.PanelSetHPVTWI();
+			this.m_PanelSet = new YellowstonePathology.Business.Test.HPVTWI.HPVTWITest();
         }
 
         public override bool IsRequired(Business.Test.AccessionOrder accessionOrder)

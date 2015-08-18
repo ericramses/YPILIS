@@ -129,7 +129,7 @@ namespace YellowstonePathology.Business.Test.MPNExtendedReflex
 			if (accessionOrder.PanelSetOrderCollection.Exists(mplTest.PanelSetId) == true)
 			{
 				result.AppendLine("MPL");
-				YellowstonePathology.Business.Test.MPL.MPLTestOrder mplTestOrder = (YellowstonePathology.Business.Test.MPL.MPLTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(mplTest.PanelSetId);
+				YellowstonePathology.Business.Test.MPL.PanelSetOrderMPL mplTestOrder = (YellowstonePathology.Business.Test.MPL.PanelSetOrderMPL)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(mplTest.PanelSetId);
 				result.AppendLine(mplTestOrder.ToResultString(accessionOrder));
 				result.AppendLine();
 			}

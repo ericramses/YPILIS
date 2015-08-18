@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Client.Model
         public override bool IsRequired(Business.Test.AccessionOrder accessionOrder)
         {
             bool result = false;
-           YellowstonePathology.Business.Test.HPVTWI.PanelSetHPVTWI panelSetHPVTWI = new YellowstonePathology.Business.Test.HPVTWI.PanelSetHPVTWI();
+			YellowstonePathology.Business.Test.HPVTWI.HPVTWITest panelSetHPVTWI = new YellowstonePathology.Business.Test.HPVTWI.HPVTWITest();
 		   YellowstonePathology.Business.Test.HPV1618.HPV1618Test panelSetHPV1618 = new YellowstonePathology.Business.Test.HPV1618.HPV1618Test();            
 
             if (accessionOrder.PanelSetOrderCollection.Exists(panelSetHPVTWI.PanelSetId) == true)

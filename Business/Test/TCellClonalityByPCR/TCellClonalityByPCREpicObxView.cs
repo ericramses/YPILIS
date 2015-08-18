@@ -15,7 +15,7 @@ namespace YellowstonePathology.Business.Test.TCellClonalityByPCR
 
 		public override void ToXml(XElement document)
 		{
-			TCellClonalityByPCRTestOrder panelSetOrder = (TCellClonalityByPCRTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
+			PanelSetOrderTCellClonalityByPCR panelSetOrder = (PanelSetOrderTCellClonalityByPCR)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
 			this.AddHeader(document, panelSetOrder, "T-Cell Gene Rearrangement by PCR");
 
 			this.AddNextObxElement("", document, "F");

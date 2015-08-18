@@ -95,7 +95,7 @@ namespace YellowstonePathology.Business.Test
                         accessionOrder.PanelSetOrderCollection.Add(womensHealthProfileTestOrder);
 
 						YellowstonePathology.Business.Specimen.Model.SpecimenOrder hpvSpecimen = accessionOrder.SpecimenOrderCollection.GetThinPrep();
-                        YellowstonePathology.Business.Test.HPVTWI.PanelSetHPVTWI panelSetHPVTWI = new YellowstonePathology.Business.Test.HPVTWI.PanelSetHPVTWI();
+						YellowstonePathology.Business.Test.HPVTWI.HPVTWITest panelSetHPVTWI = new YellowstonePathology.Business.Test.HPVTWI.HPVTWITest();
                         YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new TestOrderInfo(panelSetHPVTWI, hpvSpecimen, true);
                         YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Visitor.OrderTestOrderVisitor(testOrderInfo, systemIdentity);
                         accessionOrder.TakeATrip(orderTestOrderVisitor); 
@@ -133,7 +133,7 @@ namespace YellowstonePathology.Business.Test
                         accessionOrder.PanelSetOrderCollection.Add(womensHealthProfileTestOrder);
 
 						YellowstonePathology.Business.Specimen.Model.SpecimenOrder hpvSpecimen = accessionOrder.SpecimenOrderCollection.GetThinPrep();
-                        YellowstonePathology.Business.Test.HPVTWI.PanelSetHPVTWI panelSetHPVTWI = new YellowstonePathology.Business.Test.HPVTWI.PanelSetHPVTWI();
+						YellowstonePathology.Business.Test.HPVTWI.HPVTWITest panelSetHPVTWI = new YellowstonePathology.Business.Test.HPVTWI.HPVTWITest();
                         YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new TestOrderInfo(panelSetHPVTWI, hpvSpecimen, true);
                         YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Visitor.OrderTestOrderVisitor(testOrderInfo, systemIdentity);
                         accessionOrder.TakeATrip(orderTestOrderVisitor); 

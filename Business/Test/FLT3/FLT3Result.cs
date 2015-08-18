@@ -26,7 +26,7 @@ namespace YellowstonePathology.Business.Test.FLT3
 		{
 		}
 
-		public void SetResults(FLT3TestOrder panelSetOrderFLT3)
+		public void SetResults(PanelSetOrderFLT3 panelSetOrderFLT3)
 		{
 			panelSetOrderFLT3.Result = this.m_Result;
 			panelSetOrderFLT3.ITDMutation = this.m_ITDMutation;
