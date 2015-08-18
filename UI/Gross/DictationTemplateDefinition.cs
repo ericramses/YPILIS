@@ -106,4 +106,32 @@ namespace YellowstonePathology.UI.Gross
             this.m_SpecimenCollection.Add(appendixExcision);            
         }
     }
+   
+    public class SkinShaveTemplate : DictationTemplate
+    {
+        public SkinShaveTemplate()
+        {
+            this.m_TemplateName = "Skin Shave Biopsy";
+            this.m_Text = "Specimen *SPECIMENNUMBER* is received *RECEIVEDIN* in a container labeled \"*PATIENTNAME*\" and consists of *NUMBER/DESCRIPTION* shave biopsy of" +
+                " skin measuring *MEASUREMENT* in greatest dimension. A *LESIONDESCRIPTION* lesion is located *LESIONLOCATION* on the skin surface and measures up to" +
+                "*LESIONMEASURMENT* in greatest dimension, coming withing *MEASUREMENT* of the nearest margin. The specimen is *SECTIONED* and submitted in *COLOR* cassette \"*CASSETTENUMBER*\".";
+
+            this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Specimen Number", ""));
+            this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Recieved In", ""));
+            this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Container Labeling", ""));
+            this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Number and Description", ""));
+            this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Measurements", ""));
+            this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Lesion Description", ""));            
+            this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Lesion Location", ""));
+            this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Lesion Measurements", ""));
+            this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Lesion Measurement to Margin", ""));
+            this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Specimen Sectioning", ""));
+            this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Cassette Color", ""));
+            this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Cassette Number", ""));
+
+            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinShaveBiopsy appendixExcision = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinShaveBiopsy();
+            this.m_SpecimenCollection.Add(appendixExcision); 
+
+        }
+    }
 }
