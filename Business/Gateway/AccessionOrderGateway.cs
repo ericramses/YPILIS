@@ -827,7 +827,7 @@ namespace YellowstonePathology.Business.Gateway
                 "FROM tblAccessionOrder a JOIN tblPanelSetOrder pso ON a.MasterAccessionNo = pso.MasterAccessionNo " +
                 "JOIN tblSurgicalTestOrder sto ON pso.ReportNo = sto.ReportNo " +
                 "JOIN tblSystemUser su on pso.AssignedToId = su.UserId " +
-                "WHERE convert(varchar(max), sto.Grossx) = '???' and a.AccessionDate >= dateadd(dd, -10, getdate())) T1 " +
+                "WHERE charindex('???', convert(varchar(max), sto.Grossx)) > 0 and a.AccessionDate >= dateadd(dd, -10, getdate())) T1 " +
                 "ORDER BY AccessionTime";
             cmd.CommandType = CommandType.Text;
 

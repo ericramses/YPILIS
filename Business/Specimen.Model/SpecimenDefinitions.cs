@@ -40,6 +40,20 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_RequiresGrossExamination = true;
         }
     }
+ 
+    public class SkinShaveBiopsy : Specimen
+    {
+        public SkinShaveBiopsy()
+        {
+            this.m_SpecimenId = "SKSHSPCMN";
+            this.m_SpecimenName = "Skin Shave Biopsy";
+            this.m_Description = null;
+            this.m_LabFixation = "Formalin";
+            this.m_ClientFixation = "Formalin";
+            this.m_RequiresGrossExamination = true;
+        }
+    }
+
 
     public class ProstateTUR : Specimen
     {

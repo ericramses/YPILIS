@@ -63,7 +63,8 @@
                     <ICDCode ICD9="238.72" ICD10="D46.B" Description="Refractory cytopenia with multilineage dysplasia and ring sideroblasts" />
                     <ICDCode ICD9="196.9" ICD10="C77.9" Description="Secondary and unspecified malignant neoplasm of lymph node, unspecified" />
                     <ICDCode ICD9="202.20" ICD10="C84.19" Description="Sezary disease, extranodal and solid organ sites" />
-                    <ICDCode ICD9="202.20" ICD10="C84.10" Description="Sezary disease, unspecified site" />                    
+                    <ICDCode ICD9="202.20" ICD10="C84.10" Description="Sezary disease, unspecified site" />
+                    <ICDCode ICD9="287.5" ICD10="D69.6" Description="Thrombocytopenia, unspecified" />
                     <ICDCode ICD9="757.33" ICD10="Q82.1" Description="Xeroderma pigmentosum" />
                 </ICDCodeCollection>
             </x:XData>

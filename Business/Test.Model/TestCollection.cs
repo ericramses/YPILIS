@@ -122,6 +122,7 @@ namespace YellowstonePathology.Business.Test.Model
             result.Add(new AcidFast());
             result.Add(new Giemsa());
             result.Add(new GMS());
+            result.Add(new Gout());
             result.Add(new HuckerTwordt());
             result.Add(new PASforFungus());
             result.Add(new SteinerandSteiner());

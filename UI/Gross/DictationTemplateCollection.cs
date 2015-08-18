@@ -36,7 +36,8 @@ namespace YellowstonePathology.UI.Gross
             result.Add(new AppendixExcisionTemplate());
             result.Add(new ProstateNeedleCoreTemplate());
             result.Add(new ProstateTURTemplate());
-            result.Add(new GITemplate());            
+            result.Add(new GITemplate());
+            result.Add(new SkinShaveTemplate());    
             return result;
         }               
     }
