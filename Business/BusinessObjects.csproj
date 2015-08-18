@@ -511,6 +511,7 @@
     <Compile Include="Task.Model\TaskSurgicalSpecimenDisposal.cs" />
     <Compile Include="Test.Model\CD3CD20DualStain.cs" />
     <Compile Include="Test.Model\CDX2VillinDualStain.cs" />
+    <Compile Include="Test.Model\Gout.cs" />
     <Compile Include="Test.Model\Cytokeratin34P504sRacemaseDualStain.cs" />
     <Compile Include="Test.Model\DualStain.cs" />
     <Compile Include="Test.Model\DualStainCollection.cs" />

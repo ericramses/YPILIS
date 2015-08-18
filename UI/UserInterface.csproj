@@ -41,7 +41,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>186</ApplicationRevision>
+    <ApplicationRevision>189</ApplicationRevision>
     <ApplicationVersion>10.1.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -1667,6 +1667,65 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="CEFSharp\CefSharp.WinForms.Example.exe.config" />
+    <None Include="CEFSharp\CefSharp.WinForms.Example.vshost.exe.config" />
+    <None Include="CEFSharp\CefSharp.WinForms.Example.vshost.exe.manifest" />
+    <None Include="CEFSharp\CefSharp.Wpf.Example.exe.config" />
+    <None Include="CEFSharp\CefSharp.Wpf.Example.vshost.exe.config" />
+    <None Include="CEFSharp\devtools_resources.pak" />
+    <None Include="CEFSharp\locales\am.pak" />
+    <None Include="CEFSharp\locales\ar.pak" />
+    <None Include="CEFSharp\locales\bg.pak" />
+    <None Include="CEFSharp\locales\bn.pak" />
+    <None Include="CEFSharp\locales\ca.pak" />
+    <None Include="CEFSharp\locales\cs.pak" />
+    <None Include="CEFSharp\locales\da.pak" />
+    <None Include="CEFSharp\locales\de.pak" />
+    <None Include="CEFSharp\locales\el.pak" />
+    <None Include="CEFSharp\locales\en-GB.pak" />
+    <None Include="CEFSharp\locales\en-US.pak" />
+    <None Include="CEFSharp\locales\es-419.pak" />
+    <None Include="CEFSharp\locales\es.pak" />
+    <None Include="CEFSharp\locales\et.pak" />
+    <None Include="CEFSharp\locales\fa.pak" />
+    <None Include="CEFSharp\locales\fi.pak" />
+    <None Include="CEFSharp\locales\fil.pak" />
+    <None Include="CEFSharp\locales\fr.pak" />
+    <None Include="CEFSharp\locales\gu.pak" />
+    <None Include="CEFSharp\locales\he.pak" />
+    <None Include="CEFSharp\locales\hi.pak" />
+    <None Include="CEFSharp\locales\hr.pak" />
+    <None Include="CEFSharp\locales\hu.pak" />
+    <None Include="CEFSharp\locales\id.pak" />
+    <None Include="CEFSharp\locales\it.pak" />
+    <None Include="CEFSharp\locales\ja.pak" />
+    <None Include="CEFSharp\locales\kn.pak" />
+    <None Include="CEFSharp\locales\ko.pak" />
+    <None Include="CEFSharp\locales\lt.pak" />
+    <None Include="CEFSharp\locales\lv.pak" />
+    <None Include="CEFSharp\locales\ml.pak" />
+    <None Include="CEFSharp\locales\mr.pak" />
+    <None Include="CEFSharp\locales\ms.pak" />
+    <None Include="CEFSharp\locales\nb.pak" />
+    <None Include="CEFSharp\locales\nl.pak" />
+    <None Include="CEFSharp\locales\pl.pak" />
+    <None Include="CEFSharp\locales\pt-BR.pak" />
+    <None Include="CEFSharp\locales\pt-PT.pak" />
+    <None Include="CEFSharp\locales\ro.pak" />
+    <None Include="CEFSharp\locales\ru.pak" />
+    <None Include="CEFSharp\locales\sk.pak" />
+    <None Include="CEFSharp\locales\sl.pak" />
+    <None Include="CEFSharp\locales\sr.pak" />
+    <None Include="CEFSharp\locales\sv.pak" />
+    <None Include="CEFSharp\locales\sw.pak" />
+    <None Include="CEFSharp\locales\ta.pak" />
+    <None Include="CEFSharp\locales\te.pak" />
+    <None Include="CEFSharp\locales\th.pak" />
+    <None Include="CEFSharp\locales\tr.pak" />
+    <None Include="CEFSharp\locales\uk.pak" />
+    <None Include="CEFSharp\locales\vi.pak" />
+    <None Include="CEFSharp\locales\zh-CN.pak" />
+    <None Include="CEFSharp\locales\zh-TW.pak" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -3812,6 +3871,24 @@
     <Resource Include="Resources\Circle.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="CEFSharp\avcodec-54.dll" />
+    <Content Include="CEFSharp\avformat-54.dll" />
+    <Content Include="CEFSharp\avutil-51.dll" />
+    <Content Include="CEFSharp\CefSharp.dll" />
+    <Content Include="CEFSharp\CefSharp.Example.dll" />
+    <Content Include="CEFSharp\CefSharp.WinForms.dll" />
+    <Content Include="CEFSharp\CefSharp.WinForms.Example.exe" />
+    <Content Include="CEFSharp\CefSharp.WinForms.Example.vshost.exe" />
+    <Content Include="CEFSharp\CefSharp.Wpf.dll" />
+    <Content Include="CEFSharp\CefSharp.Wpf.Example.exe" />
+    <Content Include="CEFSharp\CefSharp.Wpf.Example.vshost.exe" />
+    <Resource Include="CEFSharp\CefSharp.Wpf.xml" />
+    <Resource Include="CEFSharp\CefSharp.xml" />
+    <Content Include="CEFSharp\icudt.dll" />
+    <Content Include="CEFSharp\libcef.dll" />
+    <Content Include="CEFSharp\libEGL.dll" />
+    <Content Include="CEFSharp\libGLESv2.dll" />
+    <Content Include="CEFSharp\nunit.framework.dll" />
     <Content Include="dll\MongoDB.Bson.dll" />
     <Content Include="dll\MongoDB.Bson.pdb" />
     <Content Include="dll\MongoDB.Driver.pdb" />

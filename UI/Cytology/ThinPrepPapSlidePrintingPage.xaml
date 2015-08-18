@@ -5,40 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008">
     <Grid>        
         <Grid.Resources>
+                       
             
-            <HierarchicalDataTemplate x:Key="DataTemplateAliquotOrder" ItemsSource="{Binding Path=SlideOrderCollection}">
-                <Grid Margin="2,2,2,2">
-
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"></ColumnDefinition>                                                
-                        <ColumnDefinition Width="*"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"></RowDefinition>
-                    </Grid.RowDefinitions>
-
-                    <TextBlock Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" Text="{Binding Path=AliquotType}"></TextBlock>
-                    <TextBlock Grid.Column="2" Grid.Row="0" Margin="2,2,2,2" Text="{Binding Path=Label}"></TextBlock>                    
-
-                </Grid>
-            </HierarchicalDataTemplate>
-
-            <DataTemplate x:Key="ListBoxDataTemplate">
-                <Grid Margin="2,2,2,2" Width="200" Height="50">
-
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"></ColumnDefinition>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"></RowDefinition>
-                    </Grid.RowDefinitions>
-
-                    <TextBlock Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" Text="{Binding Path=AliquotType}" VerticalAlignment="Center"></TextBlock>
-                    <TextBlock Grid.Column="2" Grid.Row="0" Margin="2,2,2,2" Text="{Binding Path=Label}" VerticalAlignment="Center"></TextBlock>
-
-                </Grid>
-            </DataTemplate>
         
         </Grid.Resources>
         
@@ -46,26 +14,25 @@
 			<ColumnDefinition></ColumnDefinition>
 		</Grid.ColumnDefinitions>
 
-		<Grid.RowDefinitions>
-			<RowDefinition Height="50"></RowDefinition>
-			<RowDefinition Height="*"></RowDefinition>
-			<RowDefinition Height="50"></RowDefinition>
-		</Grid.RowDefinitions>
+        <Button Grid.Column="0" Margin="2,2,2,2" Width="200" Height="100" Click="ButtonFinished_Click" HorizontalAlignment="Right" VerticalAlignment="Top">Finished</Button>
+        
+        <Grid Grid.Column="0" Margin="2,2,2,2" HorizontalAlignment="Center" VerticalAlignment="Center">
 
-		<Border Grid.Row="0" BorderBrush="Transparent" BorderThickness="0" Background="{DynamicResource {x:Static SystemColors.InactiveCaptionBrushKey}}"></Border>
-		<TextBlock Grid.Column="0" Grid.Row="0" Margin="20,2,2,2" Text="{Binding Path=PageHeaderText}" VerticalAlignment="Center" Foreground="White" FontSize="16" FontWeight="Bold"></TextBlock>
-
-        <Grid Grid.Row="1" Margin="5">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
+            <Grid.ColumnDefinitions>                
+                <ColumnDefinition Width="*"></ColumnDefinition>                
             </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>                
+            </Grid.RowDefinitions>
 
-            <Grid Grid.Column="0" Grid.Row="0" Margin="2,2,2,2">
+            <Grid Grid.Column="0" Grid.Row="0" Margin="10,10,10,10">
 
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"></RowDefinition>
@@ -75,39 +42,50 @@
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
 
-                <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right">Master Accession No:</TextBlock>
-                <TextBlock Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" HorizontalAlignment="Stretch" Text="{Binding Path=AccessionOrder.MasterAccessionNo}"></TextBlock>
+                <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right" FontSize="20">Master Accession No:</TextBlock>
+                <TextBlock Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" HorizontalAlignment="Stretch" Text="{Binding Path=AccessionOrder.MasterAccessionNo}" FontSize="20"></TextBlock>
 
-                <TextBlock Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right">Patient Name:</TextBlock>
-                <TextBlock Grid.Column="1" Grid.Row="1" Margin="2,2,2,2" HorizontalAlignment="Stretch" Text="{Binding Path=AccessionOrder.PatientDisplayName}"></TextBlock>
+                <TextBlock Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right" FontSize="20">Patient Name:</TextBlock>
+                <TextBlock Grid.Column="1" Grid.Row="1" Margin="2,2,2,2" HorizontalAlignment="Stretch" Text="{Binding Path=AccessionOrder.PatientDisplayName}" FontSize="20"></TextBlock>
 
-                <TextBlock Grid.Column="0" Grid.Row="2" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right">Specimen:</TextBlock>
-                <TextBlock Grid.Column="1" Grid.Row="2" Margin="2,2,2,2" HorizontalAlignment="Stretch" Text="{Binding Path=SpecimenOrder.SpecimenDescriptionString}"></TextBlock>
+                <TextBlock Grid.Column="0" Grid.Row="2" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right" FontSize="20">Specimen:</TextBlock>
+                <TextBlock Grid.Column="1" Grid.Row="2" Margin="2,2,2,2" HorizontalAlignment="Stretch" Text="{Binding Path=SpecimenOrder.SpecimenDescriptionString}" FontSize="20"></TextBlock>                
 
-                <ListBox Name="ListBoxAliquots" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" ItemsSource="{Binding Path=SpecimenOrder.AliquotOrderCollection}" HorizontalAlignment="Stretch" ItemTemplate="{StaticResource ListBoxDataTemplate}"></ListBox>                               
-                <Button Grid.Column="0" Grid.Row="4" Margin="2,2,2,2" Width="200" Height="100" Click="ButtonReprintSelected_Click" HorizontalAlignment="Left">Reprint Selected Item</Button>
-            </Grid>
+            </Grid>                       
 
-            <Grid Grid.Column="1" Grid.Row="0" Margin="2,2,2,2">
+            <ListBox Name="ListBoxAliquots" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Margin="0,20,0,20" ItemsSource="{Binding Path=SpecimenOrder.AliquotOrderCollection}" 
+                     HorizontalAlignment="Center" BorderThickness="0">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal" IsItemsHost="True"></WrapPanel>
+                    </ItemsPanelTemplate>                    
+                </ListBox.ItemsPanel>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="2,2,2,2" Width="200" Height="200" Background="#f033d0">
 
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"></RowDefinition>
-                    <RowDefinition Height="*"></RowDefinition>
-                    <RowDefinition Height="*"></RowDefinition>
-                </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>                                
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"></RowDefinition>
+                            </Grid.RowDefinitions>
 
-                <Button Grid.Column="2" Grid.Row="0" Margin="2,2,2,2" Width="200" Height="100" Click="ButtonFinished_Click" HorizontalAlignment="Right" VerticalAlignment="Top">Finished</Button>
-                <Button Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" Width="200" Height="100" Click="ButtonAddThinPrepSlide_Click">Add Thin Prep Slide</Button>
-                <Button Grid.Column="1" Grid.Row="1" Margin="2,2,2,2" Width="200" Height="100" Click="ButtonAddPantherAliquot_Click">Add Panther Aliquot</Button>
-                
-                
-            </Grid>
-            
-        </Grid>               
+                            <Border Grid.Column="0" Grid.Row="0" BorderBrush="Black" BorderThickness="1"></Border>
+                            <TextBlock Grid.Column="1" Grid.Row="0" Margin="10,10,10,10" Text="{Binding Path=AliquotType}" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center"></TextBlock>                            
+
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+            <StackPanel Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">                    
+                <Button Margin="2,2,2,2" Width="200" Height="100" Click="ButtonAddThinPrepSlide_Click">Add/Print Thin Prep Slide</Button>
+                <Button Margin="2,2,2,2" Width="200" Height="100" Click="ButtonAddPantherAliquot_Click">Add/Print Panther Aliquot</Button>
+                <Button Margin="2,2,2,2" Width="200" Height="100" Click="ButtonReprintSelected_Click">Reprint</Button>
+            </StackPanel>
+                                
+        </Grid>                                       
 
 	</Grid>
 </UserControl>
