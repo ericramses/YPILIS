@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+
 namespace YellowstonePathology.Business.Test.Her2AmplificationByFish
 {
 	public class Her2AmplificationByFishTest : YellowstonePathology.Business.PanelSet.Model.PanelSet
