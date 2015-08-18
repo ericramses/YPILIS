@@ -108,7 +108,7 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
 
 			this.AddNextObxElement("CURRENT MOLECULAR TEST SUMMARY", document, "F");
 
-			YellowstonePathology.Business.Test.HPVTWI.PanelSetHPVTWI panelSetHPVTWI = new YellowstonePathology.Business.Test.HPVTWI.PanelSetHPVTWI();
+			YellowstonePathology.Business.Test.HPVTWI.HPVTWITest panelSetHPVTWI = new YellowstonePathology.Business.Test.HPVTWI.HPVTWITest();
 			YellowstonePathology.Business.Test.HPV1618.HPV1618Test panelSetHPV1618 = new YellowstonePathology.Business.Test.HPV1618.HPV1618Test();
             YellowstonePathology.Business.Test.NGCT.NGCTTest panelSetNGCT = new YellowstonePathology.Business.Test.NGCT.NGCTTest();
 			YellowstonePathology.Business.Test.Trichomonas.TrichomonasTest panelSetTrichomonas = new YellowstonePathology.Business.Test.Trichomonas.TrichomonasTest();
@@ -125,7 +125,7 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
 			{
 				if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(panelSetHPVTWI.PanelSetId) == true)
 				{
-					YellowstonePathology.Business.Test.HPVTWI.PanelSetOrderHPVTWI panelSetOrderHPVTWI = (YellowstonePathology.Business.Test.HPVTWI.PanelSetOrderHPVTWI)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetHPVTWI.PanelSetId);
+					YellowstonePathology.Business.Test.HPVTWI.HPVTWITestOrder panelSetOrderHPVTWI = (YellowstonePathology.Business.Test.HPVTWI.HPVTWITestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetHPVTWI.PanelSetId);
 					this.AddNextObxElement("High Risk HPV: " + panelSetOrderHPVTWI.Result, document, "F");
 					this.AddNextObxElement("Reference: Negative", document, "F");
 					string hpvFinal = YellowstonePathology.Business.Helper.DateTimeExtensions.DateStringFromNullable(panelSetOrderHPVTWI.FinalDate);
@@ -135,7 +135,7 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
 
 				if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(panelSetHPV1618.PanelSetId) == true)
 				{
-					YellowstonePathology.Business.Test.HPV1618.PanelSetOrderHPV1618 panelSetOrderHPV1618 = (YellowstonePathology.Business.Test.HPV1618.PanelSetOrderHPV1618)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetHPV1618.PanelSetId);
+					YellowstonePathology.Business.Test.HPV1618.HPV1618TestOrder panelSetOrderHPV1618 = (YellowstonePathology.Business.Test.HPV1618.HPV1618TestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetHPV1618.PanelSetId);
 					this.AddNextObxElement("HPV type 16: " + panelSetOrderHPV1618.HPV16Result, document, "F");
 					this.AddNextObxElement("Reference: Negative", document, "F");
 

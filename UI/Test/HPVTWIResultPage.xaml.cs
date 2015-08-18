@@ -34,10 +34,10 @@ namespace YellowstonePathology.UI.Test
 		private string m_PageHeaderText;
         private YellowstonePathology.UI.Test.TecanSample m_TecanSample;
 
-		private YellowstonePathology.Business.Test.HPVTWI.PanelSetOrderHPVTWI m_PanelSetOrderHPVTWI;
+		private YellowstonePathology.Business.Test.HPVTWI.HPVTWITestOrder m_PanelSetOrderHPVTWI;
 		private YellowstonePathology.UI.Navigation.PageNavigator m_PageNavigator;
 
-		public HPVTWIResultPage(YellowstonePathology.Business.Test.HPVTWI.PanelSetOrderHPVTWI panelSetOrderHPVTWI,
+		public HPVTWIResultPage(YellowstonePathology.Business.Test.HPVTWI.HPVTWITestOrder panelSetOrderHPVTWI,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
             Microsoft.Office.Interop.Excel.Application excelApplication,
             Microsoft.Office.Interop.Excel.Workbook workBook,
@@ -115,7 +115,7 @@ namespace YellowstonePathology.UI.Test
             }            
         }
 
-		public YellowstonePathology.Business.Test.HPVTWI.PanelSetOrderHPVTWI PanelSetOrder
+		public YellowstonePathology.Business.Test.HPVTWI.HPVTWITestOrder PanelSetOrder
 		{
 			get { return this.m_PanelSetOrderHPVTWI; }
 		}

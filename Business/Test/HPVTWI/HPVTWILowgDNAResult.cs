@@ -19,7 +19,7 @@ namespace YellowstonePathology.Business.Test.HPVTWI
             this.m_Comment = HPVTWIResult.InsufficientComment;
 		}
 
-		public override void AcceptResults(YellowstonePathology.Business.Test.HPVTWI.PanelSetOrderHPVTWI panelSetOrder,
+		public override void AcceptResults(YellowstonePathology.Business.Test.HPVTWI.HPVTWITestOrder panelSetOrder,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 		{
 			if (panelSetOrder.PanelOrderCollection.Count == 2 && panelSetOrder.PanelOrderCollection[0].Accepted == false)

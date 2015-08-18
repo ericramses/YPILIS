@@ -10,7 +10,7 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 
 		private YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapTest m_PanelSetThinPrepPap;
-        private YellowstonePathology.Business.Test.HPVTWI.PanelSetHPVTWI m_PanelSetHPVTWI;
+		private YellowstonePathology.Business.Test.HPVTWI.HPVTWITest m_PanelSetHPVTWI;
 
         private bool m_HasThinPrepPap;
         private bool m_HasHighRiskHPV;
@@ -24,7 +24,7 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
 
             this.m_AccessionOrder = accessionOrder;
 			this.m_PanelSetThinPrepPap = new YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapTest();
-            this.m_PanelSetHPVTWI = new Business.Test.HPVTWI.PanelSetHPVTWI();
+			this.m_PanelSetHPVTWI = new Business.Test.HPVTWI.HPVTWITest();
 
             this.m_HasThinPrepPap = this.m_AccessionOrder.PanelSetOrderCollection.Exists(this.m_PanelSetThinPrepPap.PanelSetId);
             this.m_HasHighRiskHPV = this.m_AccessionOrder.PanelSetOrderCollection.Exists(this.m_PanelSetHPVTWI.PanelSetId);
@@ -43,7 +43,7 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
 
             if (this.m_HasHighRiskHPV == true)
             {
-                YellowstonePathology.Business.Test.HPVTWI.PanelSetOrderHPVTWI panelSetOrderHPVTWI = (YellowstonePathology.Business.Test.HPVTWI.PanelSetOrderHPVTWI)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_PanelSetHPVTWI.PanelSetId);
+                YellowstonePathology.Business.Test.HPVTWI.HPVTWITestOrder panelSetOrderHPVTWI = (YellowstonePathology.Business.Test.HPVTWI.HPVTWITestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_PanelSetHPVTWI.PanelSetId);
                 if (this.m_HasThinPrepPap == true)
                 {
                     this.m_Method.AppendLine();

@@ -10,9 +10,9 @@ namespace YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile
 		private YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen m_SurgicalSpecimen;
 		private YellowstonePathology.Business.Specimen.Model.SpecimenOrder m_SpecimenOrder;
 		private YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder m_PanelSetOrderSurgical;
-		private YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeIHC m_PanelSetOrderLynchSyndromeIHC;
+		private YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeIHCPanelTestOrder m_PanelSetOrderLynchSyndromeIHC;
 		private YellowstonePathology.Business.Test.LynchSyndrome.IHCResult m_IHCResult;
-		private YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderMLH1MethylationAnalysis m_PanelSetOrderMLH1MethylationAnalysis;				
+		private YellowstonePathology.Business.Test.LynchSyndrome.MLH1MethylationAnalysisTestOrder m_PanelSetOrderMLH1MethylationAnalysis;				
         
         private YellowstonePathology.Business.Test.KRASStandard.KRASStandardTestOrder m_KRASStandardTestOrder;
         private YellowstonePathology.Business.Test.KRASStandard.KRASStandardTest m_KRASStandardTest;
@@ -38,7 +38,7 @@ namespace YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile
             if (accessionOrder.PanelSetOrderCollection.Exists(panelSetLynchSyndromeIHCPanel.PanelSetId, comprehensiveColonCancerProfile.OrderedOnId, restrictToOrderedOn) == true)
 			{
                 this.m_LSEIHCIsOrdered = true;
-                this.m_PanelSetOrderLynchSyndromeIHC = (YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeIHC)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetLynchSyndromeIHCPanel.PanelSetId, comprehensiveColonCancerProfile.OrderedOnId, restrictToOrderedOn);
+                this.m_PanelSetOrderLynchSyndromeIHC = (YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeIHCPanelTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetLynchSyndromeIHCPanel.PanelSetId, comprehensiveColonCancerProfile.OrderedOnId, restrictToOrderedOn);
 				this.m_IHCResult = YellowstonePathology.Business.Test.LynchSyndrome.IHCResult.CreateResultFromResultCode(this.m_PanelSetOrderLynchSyndromeIHC.ResultCode);
 			}
 
@@ -46,7 +46,7 @@ namespace YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile
             if (accessionOrder.PanelSetOrderCollection.Exists(panelSetMLH1.PanelSetId, comprehensiveColonCancerProfile.OrderedOnId, restrictToOrderedOn) == true)
 			{
                 this.m_MLHIsOrdered = true;
-				this.m_PanelSetOrderMLH1MethylationAnalysis = (YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderMLH1MethylationAnalysis)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetMLH1.PanelSetId, comprehensiveColonCancerProfile.OrderedOnId, restrictToOrderedOn);
+				this.m_PanelSetOrderMLH1MethylationAnalysis = (YellowstonePathology.Business.Test.LynchSyndrome.MLH1MethylationAnalysisTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetMLH1.PanelSetId, comprehensiveColonCancerProfile.OrderedOnId, restrictToOrderedOn);
 			}
 
             this.m_BRAFV600EKTest = new YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTest();
@@ -84,7 +84,7 @@ namespace YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile
             get { return this.m_LSEIHCIsOrdered; }
         }
 
-		public YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeIHC PanelSetOrderLynchSyndromeIHC
+		public YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeIHCPanelTestOrder PanelSetOrderLynchSyndromeIHC
 		{
 			get{ return this.m_PanelSetOrderLynchSyndromeIHC; }
 		}
@@ -99,7 +99,7 @@ namespace YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile
             get { return this.m_MLHIsOrdered; }
         }
 
-		public YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderMLH1MethylationAnalysis PanelSetOrderMLH1MethylationAnalysis
+		public YellowstonePathology.Business.Test.LynchSyndrome.MLH1MethylationAnalysisTestOrder PanelSetOrderMLH1MethylationAnalysis
 		{
 			get { return this.m_PanelSetOrderMLH1MethylationAnalysis; }
 		}

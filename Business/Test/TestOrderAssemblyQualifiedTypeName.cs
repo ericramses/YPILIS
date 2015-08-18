@@ -16,7 +16,7 @@ namespace YellowstonePathology.Business.Test
             this.m_TypeList.Add(typeof(YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology));            
             //this.m_TypeList.Add(typeof(YellowstonePathology.Business.Test.PanelOrderErPr));
             this.m_TypeList.Add(typeof(YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTestOrder));
-            this.m_TypeList.Add(typeof(YellowstonePathology.Business.Test.HPVTWI.PanelSetOrderHPVTWI));
+            this.m_TypeList.Add(typeof(YellowstonePathology.Business.Test.HPVTWI.HPVTWITestOrder));
         }
     }
 }

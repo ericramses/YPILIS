@@ -16,7 +16,7 @@ namespace YellowstonePathology.Business.Test.HPVTWI
 
         public override void ToXml(XElement document)
         {            
-            PanelSetOrderHPVTWI panelSetOrder = (PanelSetOrderHPVTWI)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
+            HPVTWITestOrder panelSetOrder = (HPVTWITestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
             this.AddHeader(document, panelSetOrder, "High Risk HPV Report");
             this.AddNextObxElement("", document, "F");            
 

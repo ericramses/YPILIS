@@ -37,7 +37,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 			get { return this.m_Interpretation; }
 		}
 
-		public void SetResults(PanelSetOrderMLH1MethylationAnalysis panelSetOrderMLH1MethylationAnalysis)
+		public void SetResults(MLH1MethylationAnalysisTestOrder panelSetOrderMLH1MethylationAnalysis)
 		{
 			panelSetOrderMLH1MethylationAnalysis.Result = this.m_Result;
             panelSetOrderMLH1MethylationAnalysis.ResultCode = this.m_ResultCode;

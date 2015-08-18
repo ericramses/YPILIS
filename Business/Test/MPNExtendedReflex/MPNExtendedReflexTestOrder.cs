@@ -7,19 +7,19 @@ using YellowstonePathology.Business.Persistence;
 namespace YellowstonePathology.Business.Test.MPNExtendedReflex
 {
 	[PersistentClass("tblPanelSetOrderMPNExtendedReflex", "tblPanelSetOrder", "YPIDATA")]
-	public class PanelSetOrderMPNExtendedReflex : YellowstonePathology.Business.Test.ReflexTesting.ReflexTestingPlan
+	public class MPNExtendedReflexTestOrder : YellowstonePathology.Business.Test.ReflexTesting.ReflexTestingPlan
 	{
 		private string m_Comment;
 		private string m_Interpretation;
 		private string m_Method;
 		private string m_References;
 
-		public PanelSetOrderMPNExtendedReflex()
+		public MPNExtendedReflexTestOrder()
 		{
 
 		}
 
-		public PanelSetOrderMPNExtendedReflex(string masterAccessionNo, string reportNo, string objectId,
+		public MPNExtendedReflexTestOrder(string masterAccessionNo, string reportNo, string objectId,
 			YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
 			YellowstonePathology.Business.Interface.IOrderTarget orderTarget,
 			bool distribute,

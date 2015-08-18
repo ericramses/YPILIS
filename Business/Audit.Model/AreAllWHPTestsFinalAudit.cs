@@ -16,7 +16,7 @@ namespace YellowstonePathology.Business.Audit.Model
         public override void Run()
         {
             YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapTest thinPrepPapTest = new Test.ThinPrepPap.ThinPrepPapTest();
-            YellowstonePathology.Business.Test.HPVTWI.PanelSetHPVTWI panelSetHPVTWI = new Test.HPVTWI.PanelSetHPVTWI();
+			YellowstonePathology.Business.Test.HPVTWI.HPVTWITest panelSetHPVTWI = new Test.HPVTWI.HPVTWITest();
             YellowstonePathology.Business.Test.HPV1618.HPV1618Test hpv1618Test = new Test.HPV1618.HPV1618Test();
             YellowstonePathology.Business.Test.NGCT.NGCTTest ngctTest = new Test.NGCT.NGCTTest();
 

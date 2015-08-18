@@ -15,7 +15,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 
 		public override void ToXml(XElement document)
 		{
-			PanelSetOrderMLH1MethylationAnalysis panelSetOrder = (PanelSetOrderMLH1MethylationAnalysis)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
+			MLH1MethylationAnalysisTestOrder panelSetOrder = (MLH1MethylationAnalysisTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
 			this.AddHeader(document, panelSetOrder, "MLH1 Promoter Methylation Analysis");
 
 			this.AddNextObxElement("", document, "F");

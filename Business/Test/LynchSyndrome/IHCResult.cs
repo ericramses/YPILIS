@@ -21,7 +21,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 
         }
 
-        public virtual void SetResults(YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeIHC panelSetOrder)
+        public virtual void SetResults(YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeIHCPanelTestOrder panelSetOrder)
         {
             panelSetOrder.ResultCode = this.m_ResultCode;
             panelSetOrder.MLH1Result = this.m_MLH1Result.Description;

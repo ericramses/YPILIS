@@ -16,7 +16,7 @@ namespace YellowstonePathology.Business.Test.HPV1618
 
         public override void ToXml(XElement document)
         {
-            PanelSetOrderHPV1618 panelSetOrder = (PanelSetOrderHPV1618)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
+			HPV1618TestOrder panelSetOrder = (HPV1618TestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
             this.AddHeader(document, panelSetOrder, "HPV-16/18 Genotyping");
             this.AddNextObxElement("", document, "F");
 

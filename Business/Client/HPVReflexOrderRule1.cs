@@ -11,8 +11,8 @@ namespace YellowstonePathology.Business.Client.Model
         {
             this.m_RuleNumber = 1;
             this.m_ReflexOrderCode = "RFLXHPVRL1";
-            this.m_Description = "Perform reflex HPV testing on patients who are reported with ASCUS results and have not had HPV testing within the past year.";                        
-            this.m_PanelSet = new YellowstonePathology.Business.Test.HPVTWI.PanelSetHPVTWI();
+            this.m_Description = "Perform reflex HPV testing on patients who are reported with ASCUS results and have not had HPV testing within the past year.";
+			this.m_PanelSet = new YellowstonePathology.Business.Test.HPVTWI.HPVTWITest();
         }
 
         public override bool IsRequired(Business.Test.AccessionOrder accessionOrder)

@@ -19,7 +19,7 @@ namespace YellowstonePathology.Business.Test.HPV1618
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterM();
             this.m_Active = true;
 
-			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.HPV1618.PanelSetOrderHPV1618).AssemblyQualifiedName;
+			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.HPV1618.HPV1618TestOrder).AssemblyQualifiedName;
             this.m_RequiresPathologistSignature = false;
             this.m_AcceptOnFinal = false;
 			this.m_AllowMultiplePerAccession = true;

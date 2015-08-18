@@ -16,7 +16,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 
         public override void ToXml(XElement document)
         {
-            PanelSetOrderLynchSyndromeIHC panelSetOrder = (PanelSetOrderLynchSyndromeIHC)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
+            LynchSyndromeIHCPanelTestOrder panelSetOrder = (LynchSyndromeIHCPanelTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
             this.AddHeader(document, panelSetOrder, "Lynch Syndrome IHC Panel");
 
             this.AddNextObxElement("", document, "F");            

@@ -19,7 +19,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterM();
             this.m_Active = true;
 
-			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeIHC).AssemblyQualifiedName;
+			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeIHCPanelTestOrder).AssemblyQualifiedName;
             this.m_EnforceOrderTarget = true;            
             
 			this.m_RequiresPathologistSignature = true;

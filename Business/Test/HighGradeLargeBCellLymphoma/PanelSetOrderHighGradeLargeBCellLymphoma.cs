@@ -7,18 +7,18 @@ using YellowstonePathology.Business.Persistence;
 namespace YellowstonePathology.Business.Test.HighGradeLargeBCellLymphoma
 {
 	[PersistentClass("tblPanelSetOrderHighGradeLargeBCellLymphoma", "tblPanelSetOrder", "YPIDATA")]
-	public class PanelSetOrderHighGradeLargeBCellLymphoma : PanelSetOrder
+	public class HighGradeLargeBCellLymphomaTestOrder : PanelSetOrder
 	{
 		private string m_Result;
 		private string m_Interpretation;
 		private string m_ProbeSetDetail;
 		private string m_NucleiScored;
 
-		public PanelSetOrderHighGradeLargeBCellLymphoma()
+		public HighGradeLargeBCellLymphomaTestOrder()
 		{
 		}
 
-		public PanelSetOrderHighGradeLargeBCellLymphoma(string masterAccessionNo, string reportNo, string objectId,
+		public HighGradeLargeBCellLymphomaTestOrder(string masterAccessionNo, string reportNo, string objectId,
 			YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
 			YellowstonePathology.Business.Interface.IOrderTarget orderTarget,
 			bool distribute,

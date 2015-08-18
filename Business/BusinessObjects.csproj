@@ -1154,7 +1154,7 @@
     <Compile Include="Test\LynchSyndrome\LynchSyndromeIHCPanelWordDocument.cs" />
     <Compile Include="Test\LynchSyndrome\MLH1MethylationAnalysisEpicObxView.cs" />
     <Compile Include="Test\LynchSyndrome\MLH1MethylationAnalysisWordDocument.cs" />
-    <Compile Include="Test\LynchSyndrome\PanelSetOrderLynchSyndromeEvaluation.cs" />
+    <Compile Include="Test\LynchSyndrome\LynchSyndromeEvaluationTestOrder.cs" />
     <Compile Include="Test\MDSCMMLProfile\MDSCMMLProfileTest.cs" />
     <Compile Include="Test\MDSExtendedByFish\MDSExtendedByFishEpicObxView.cs" />
     <Compile Include="Test\MDSExtendedByFish\MDSExtendedByFishNormalResult.cs" />
@@ -1176,7 +1176,7 @@
     <Compile Include="Test\MPNExtendedReflex\MPNExtendedReflexResult.cs" />
     <Compile Include="Test\MPNExtendedReflex\MPNExtendedReflexTest.cs" />
     <Compile Include="Test\MPNExtendedReflex\MPNExtendedReflexWordDocument.cs" />
-    <Compile Include="Test\MPNExtendedReflex\PanelSetOrderMPNExtendedReflex.cs" />
+    <Compile Include="Test\MPNExtendedReflex\MPNExtendedReflexTestOrder.cs" />
     <Compile Include="Test\MPNFish\MPNFishEpicObxView.cs" />
     <Compile Include="Test\MPNFish\MPNFishNormalResult.cs" />
     <Compile Include="Test\MPNFish\MPNFishWordDocument.cs" />
@@ -1187,7 +1187,7 @@
     <Compile Include="Test\MPNStandardReflex\MPNStandardReflexResult.cs" />
     <Compile Include="Test\MPNStandardReflex\MPNStandardReflexTest.cs" />
     <Compile Include="Test\MPNStandardReflex\MPNStandardReflexWordDocument.cs" />
-    <Compile Include="Test\MPNStandardReflex\PanelSetOrderMPNStandardReflex.cs" />
+    <Compile Include="Test\MPNStandardReflex\MPNStandardReflexTestOrder.cs" />
     <Compile Include="Test\MultipleFISHProbe\MultipleFISHProbeEpicObxView.cs" />
     <Compile Include="Test\MultipleFISHProbe\MultipleFISHProbeNormalResult.cs" />
     <Compile Include="Test\MultipleFISHProbe\MultipleFISHProbeWordDocument.cs" />
@@ -1761,7 +1761,7 @@
     <Compile Include="Test\HPV1618\HPV16NegativeHPV18PositiveResult.cs" />
     <Compile Include="Test\HPV1618\HPV16PositiveHPV18NegativeResult.cs" />
     <Compile Include="Test\HPV1618\PanelOrderHPV1618.cs" />
-    <Compile Include="Test\HPV1618\PanelSetOrderHPV1618.cs" />
+    <Compile Include="Test\HPV1618\HPV1618TestOrder.cs" />
     <Compile Include="Test\HPVTWI\HPVTWIA5679PositiveResult.cs" />
     <Compile Include="Test\HPVTWI\HPVTWIA567PositiveResult.cs" />
     <Compile Include="Test\HPVTWI\HPVTWIA569PositiveResult.cs" />
@@ -1776,7 +1776,7 @@
     <Compile Include="Test\HPVTWI\HPVTWIQnsResult.cs" />
     <Compile Include="Test\HPVTWI\HPVTWIResult.cs" />
     <Compile Include="Test\HPVTWI\HPVTWIResultCollection.cs" />
-    <Compile Include="Test\HPVTWI\PanelSetOrderHPVTWI.cs" />
+    <Compile Include="Test\HPVTWI\HPVTWITestOrder.cs" />
     <Compile Include="Test\KRASStandardReflex\KRASStandardReflexEpicObxView.cs" />
     <Compile Include="Test\KRASStandardReflex\KRASStandardReflexKRASNotDetecedBRAFDetectedResult.cs" />
     <Compile Include="Test\KRASStandardReflex\KRASStandardReflexBothNotDetectedResult.cs" />
@@ -1850,8 +1850,8 @@
     <Compile Include="Test\LynchSyndrome\MLH1MethylationAnalysisDetectedResult.cs" />
     <Compile Include="Test\LynchSyndrome\MLH1MethylationAnalysisNotDetectedResult.cs" />
     <Compile Include="Test\LynchSyndrome\MLH1MethylationAnalysisResult.cs" />
-    <Compile Include="Test\LynchSyndrome\PanelSetOrderLynchSyndromeIHC.cs" />
-    <Compile Include="Test\LynchSyndrome\PanelSetOrderMLH1MethylationAnalysis.cs" />
+    <Compile Include="Test\LynchSyndrome\LynchSyndromeIHCPanelTestOrder.cs" />
+    <Compile Include="Test\LynchSyndrome\MLH1MethylationAnalysisTestOrder.cs" />
     <Compile Include="Test\NonHodgkinsLymphomaFISHPanel\NonHodgkinsLymphomaFISHPanelResult.cs" />
     <Compile Include="Test\NonHodgkinsLymphomaFISHPanel\NonHodgkinsLymphomaFISHPanelTestOrder.cs" />
     <Compile Include="Test\PanelOrder.cs" />
@@ -2268,7 +2268,7 @@
     <Compile Include="PanelSet.Model\PanelSetHighRiskMultipleMyelomaByFISH Fish.cs" />
     <Compile Include="PanelSet.Model\PanelSetHPV16.cs" />
     <Compile Include="PanelSet.Model\PanelSetHPVLowRiskByInSituHybridization.cs" />
-    <Compile Include="Test\HPVTWI\PanelSetHPVTWI.cs" />
+    <Compile Include="Test\HPVTWI\HPVTWITest.cs" />
     <Compile Include="PanelSet.Model\PanelSetIgHBCL2ByFish.cs" />
     <Compile Include="PanelSet.Model\PanelSetIgHMAFBByFish.cs" />
     <Compile Include="PanelSet.Model\PanelSetIgHMAFByFish.cs" />
