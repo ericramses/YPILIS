@@ -13,7 +13,7 @@ namespace YellowstonePathology.Business.Rules.Cytology
 
 		YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		YellowstonePathology.Business.User.SystemUser m_CurrentUser;
-		YellowstonePathology.Business.Test.PanelSetOrderCytology m_PanelSetOrderCytology;
+		YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology m_PanelSetOrderCytology;
 
         YellowstonePathology.Business.Rules.Rule m_Rule;
         YellowstonePathology.Business.Rules.ExecutionStatus m_ExecutionStatus;
@@ -62,7 +62,7 @@ namespace YellowstonePathology.Business.Rules.Cytology
 			this.m_ExecutionStatus = executionStatus;
 			this.m_AccessionOrder = accessionOrder;
 			this.m_PanelOrderToDelete = panelOrderToDelete;
-			this.m_PanelSetOrderCytology = (YellowstonePathology.Business.Test.PanelSetOrderCytology)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_PanelOrderToDelete.ReportNo);
+			this.m_PanelSetOrderCytology = (YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_PanelOrderToDelete.ReportNo);
             this.m_CurrentUser = systemIdentity.User;
 			this.m_Rule.Execute(executionStatus);
 		}

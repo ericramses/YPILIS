@@ -18,7 +18,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterT();
             this.m_Active = true;            
 			
-            this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.FNAAdequacyAssessmentResult).AssemblyQualifiedName;
+            this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.FNAAdequacyAssessment.FNAAdequacyAssessmentTestOrder).AssemblyQualifiedName;
 			this.m_AllowMultiplePerAccession = true;
             this.IsBillable = false;
             this.m_NeverDistribute = true;

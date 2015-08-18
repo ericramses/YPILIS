@@ -6,8 +6,8 @@ using System.Text;
 namespace YellowstonePathology.Business.Rules.Cytology
 {
 	public class ClearCase
-	{		
-        YellowstonePathology.Business.Test.PanelSetOrderCytology m_PanelSetOrderCytology;
+	{
+		YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology m_PanelSetOrderCytology;
 		YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology m_PanelOrderCytology;
 
         YellowstonePathology.Business.Rules.Rule m_Rule;
@@ -61,7 +61,7 @@ namespace YellowstonePathology.Business.Rules.Cytology
             }
 		}
 
-        public void Execute(YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology panelOrderCytology, YellowstonePathology.Business.Test.PanelSetOrderCytology panelSetOrderCytology, YellowstonePathology.Business.Rules.ExecutionStatus executionStatus)
+		public void Execute(YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology panelOrderCytology, YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology panelSetOrderCytology, YellowstonePathology.Business.Rules.ExecutionStatus executionStatus)
 		{
             this.m_PanelSetOrderCytology = panelSetOrderCytology;
 			this.m_PanelOrderCytology = panelOrderCytology;            

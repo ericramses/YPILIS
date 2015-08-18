@@ -11,7 +11,7 @@ namespace YellowstonePathology.UI.Test
         private FNAResultPage m_ResultPage;
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
-		private YellowstonePathology.Business.Test.FNAAdequacyAssessmentResult m_FNAAdequacyAssessmentResult;
+		private YellowstonePathology.Business.Test.FNAAdequacyAssessment.FNAAdequacyAssessmentTestOrder m_FNAAdequacyAssessmentResult;
 
         public FNAResultPath(string reportNo, YellowstonePathology.Business.Test.AccessionOrder accessionOrder,            
             YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
@@ -21,7 +21,7 @@ namespace YellowstonePathology.UI.Test
             this.m_AccessionOrder = accessionOrder;
             this.m_ObjectTracker = objectTracker;
             this.m_SystemIdentity = new YellowstonePathology.Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
-			this.m_FNAAdequacyAssessmentResult = (YellowstonePathology.Business.Test.FNAAdequacyAssessmentResult)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
+			this.m_FNAAdequacyAssessmentResult = (YellowstonePathology.Business.Test.FNAAdequacyAssessment.FNAAdequacyAssessmentTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 		}
 
         public override void Start()

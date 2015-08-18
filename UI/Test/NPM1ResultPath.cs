@@ -9,7 +9,7 @@ namespace YellowstonePathology.UI.Test
 	{
 		NPM1ResultPage m_ResultPage;
 		YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-		YellowstonePathology.Business.Test.PanelSetOrderNPM1 m_PanelSetOrder;
+		YellowstonePathology.Business.Test.NPM1.NPM1TestOrder m_PanelSetOrder;
 		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 
 		public NPM1ResultPath(string reportNo,
@@ -19,7 +19,7 @@ namespace YellowstonePathology.UI.Test
             : base(pageNavigator)
         {
             this.m_AccessionOrder = accessionOrder;
-			this.m_PanelSetOrder = (YellowstonePathology.Business.Test.PanelSetOrderNPM1)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
+			this.m_PanelSetOrder = (YellowstonePathology.Business.Test.NPM1.NPM1TestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 			this.m_ObjectTracker = objectTracker;
 			this.Authenticated += new AuthenticatedEventHandler(ResultPath_Authenticated);
 		}

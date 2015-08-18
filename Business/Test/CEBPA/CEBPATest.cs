@@ -3,22 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace YellowstonePathology.Business.PanelSet.Model
+namespace YellowstonePathology.Business.Test.CEBPA
 {
-	public class PanelSetCEBPA : PanelSet
+	public class CEBPATest : YellowstonePathology.Business.PanelSet.Model.PanelSet
 	{
-		public PanelSetCEBPA()
+		public CEBPATest()
 		{
 			this.m_PanelSetId = 150;
 			this.m_PanelSetName = "CEBPA Mutation Analysis";
 			this.m_CaseType = YellowstonePathology.Business.CaseType.Molecular;
 			this.m_HasTechnicalComponent = true;			
-            this.m_HasProfessionalComponent = false;            
-            this.m_ResultDocumentSource = ResultDocumentSourceEnum.YPIDatabase;
+            this.m_HasProfessionalComponent = false;
+			this.m_ResultDocumentSource = YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.YPIDatabase;
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterR();
             this.m_Active = true;
 
-			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.PanelSetOrderCEBPA).AssemblyQualifiedName;
+			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.CEBPA.CEBPATestOrder).AssemblyQualifiedName;
             
 			this.m_AllowMultiplePerAccession = true;
 

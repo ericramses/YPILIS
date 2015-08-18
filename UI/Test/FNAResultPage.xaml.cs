@@ -28,9 +28,9 @@ namespace YellowstonePathology.UI.Test
         private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
         private string m_PageHeaderText;
 
-        private YellowstonePathology.Business.Test.FNAAdequacyAssessmentResult m_FNAAdequacyAssessmentResult;
+        private YellowstonePathology.Business.Test.FNAAdequacyAssessment.FNAAdequacyAssessmentTestOrder m_FNAAdequacyAssessmentResult;
 
-        public FNAResultPage(YellowstonePathology.Business.Test.FNAAdequacyAssessmentResult fnaAdequacyAssessmentResult,
+        public FNAResultPage(YellowstonePathology.Business.Test.FNAAdequacyAssessment.FNAAdequacyAssessmentTestOrder fnaAdequacyAssessmentResult,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
 			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
@@ -48,7 +48,7 @@ namespace YellowstonePathology.UI.Test
 			this.DataContext = this;				
 		}
 
-        public YellowstonePathology.Business.Test.FNAAdequacyAssessmentResult FNAAdequacyAssessmentResult
+		public YellowstonePathology.Business.Test.FNAAdequacyAssessment.FNAAdequacyAssessmentTestOrder FNAAdequacyAssessmentResult
         {
             get { return this.m_FNAAdequacyAssessmentResult; }
         }
@@ -119,7 +119,7 @@ namespace YellowstonePathology.UI.Test
             StringBuilder resultMessage = new StringBuilder();
 
             BindingExpression startDateBindingExpression = this.TextBoxStartDate.GetBindingExpression(TextBox.TextProperty);
-            YellowstonePathology.Business.Validation.ValidationResult startDateDataTypeValidationResult = YellowstonePathology.Business.Test.FNAAdequacyAssessmentResult.IsDateDataTypeValid(this.TextBoxStartDate.Text);
+			YellowstonePathology.Business.Validation.ValidationResult startDateDataTypeValidationResult = YellowstonePathology.Business.Test.FNAAdequacyAssessment.FNAAdequacyAssessmentTestOrder.IsDateDataTypeValid(this.TextBoxStartDate.Text);
             if (startDateDataTypeValidationResult.IsValid == true)
             {
                 startDateBindingExpression.UpdateSource();                
@@ -131,7 +131,7 @@ namespace YellowstonePathology.UI.Test
             }
 
             BindingExpression endDateBindingExpression = this.TextBoxEndDate.GetBindingExpression(TextBox.TextProperty);
-            YellowstonePathology.Business.Validation.ValidationResult endDateDataTypeValidationResult = YellowstonePathology.Business.Test.FNAAdequacyAssessmentResult.IsDateDataTypeValid(this.TextBoxEndDate.Text);
+			YellowstonePathology.Business.Validation.ValidationResult endDateDataTypeValidationResult = YellowstonePathology.Business.Test.FNAAdequacyAssessment.FNAAdequacyAssessmentTestOrder.IsDateDataTypeValid(this.TextBoxEndDate.Text);
             if (endDateDataTypeValidationResult.IsValid == true)
             {
                 endDateBindingExpression.UpdateSource();

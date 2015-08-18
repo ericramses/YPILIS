@@ -80,7 +80,7 @@ namespace YellowstonePathology.Business.Document
 						document = new YellowstonePathology.Business.Test.KRASStandardReflex.KRASStandardReflexWordDocument();
 						break;
 					case 31: //TechnicalOnly
-						document = new YellowstonePathology.Business.Document.TechnicalOnly();
+						document = new YellowstonePathology.Business.Test.TechnicalOnly.TechnicalOnlyWordDocument();
 						break;
 					case 32: //FactorVLeiden
 						document = new YellowstonePathology.Business.Test.FactorVLeiden.FactorVLeidenWordDocument();
@@ -167,43 +167,43 @@ namespace YellowstonePathology.Business.Document
 						document = new YellowstonePathology.Business.Test.MultipleMyelomaMGUSByFish.MultipleMyelomaMGUSByFishWordDocument();
 						break;
 					case 148: //CCNDI
-						document = new CCNDIBCLIGHReport();
+						document = new YellowstonePathology.Business.Test.CCNDIBCLIGH.CCNDIBCLIGHWordDocument();
 						break;
 					case 149: //High Grade Large B Cell Lymphoma
 						document = new YellowstonePathology.Business.Test.HighGradeLargeBCellLymphoma.HighGradeLargeBCellLymphomaWordDocument();
 						break;
 					case 150: // CEBPA
-						document = new CEBPAReport();
+						document = new YellowstonePathology.Business.Test.CEBPA.CEBPAWordDocument();
 						break;
 					case 151: // CLL by Fish
 						document = new YellowstonePathology.Business.Test.CLLByFish.CLLByFishWordDocument();
 						break;
 					case 152: // T Cell Clonality By PCR
-						document = new TCellClonalityByPCRReport();
+						document = new YellowstonePathology.Business.Test.TCellClonalityByPCR.TCellClonalityByPCRWordDocument();
 						break;
 					case 153: // FLT3
-						document = new FLT3Report();
+						document = new YellowstonePathology.Business.Test.FLT3.FLT3WordDocument();
 						break;
 					case 155: // NPM1
-						document = new NPM1Report();
+						document = new YellowstonePathology.Business.Test.NPM1.NPM1WordDocument();
 						break;
 					case 156: // BCRABL Fish
 						document = new YellowstonePathology.Business.Test.BCRABLByFish.BCRABLByFishWordDocument();
 						break;
 					case 157: // MPN Fish
-						document = new MPNFishReport();
+						document = new YellowstonePathology.Business.Test.MPNFish.MPNFishWordDocument();
 						break;
 					case 158: // MDS by Fish
-						document = new MDSByFishReport();
+						document = new YellowstonePathology.Business.Test.MDSByFish.MDSByFishWordDocument();
 						break;
 					case 159: // MPL
 						document = new YellowstonePathology.Business.Test.MPL.MPLWordDocument();
 						break;
 					case 160: // MultipleFISHProbePanel
-						document = new MultipleFISHProbePanelReport();
+						document = new YellowstonePathology.Business.Test.MultipleFISHProbe.MultipleFISHProbeWordDocument();
 						break;
 					case 161: // MultipleMyelomaIgHByFish
-						document = new MultipleMyelomaIgHByFishReport();
+						document = new YellowstonePathology.Business.Test.MultipleMyelomaIgHByFish.MultipleMyelomaIgHByFishWordDocument();
 						break;
 					case 162: // BCRABLByPCR
 						document = new YellowstonePathology.Business.Test.BCRABLByPCR.BCRABLByPCRWordDocument();

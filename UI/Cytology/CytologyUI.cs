@@ -27,7 +27,7 @@ namespace YellowstonePathology.UI.Cytology
         YellowstonePathology.Business.Search.CytologyScreeningSearch m_Search;
 		YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		YellowstonePathology.Business.Specimen.Model.SpecimenOrder m_SpecimenOrder;
-		YellowstonePathology.Business.Test.PanelSetOrderCytology m_PanelSetOrderCytology;
+		YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology m_PanelSetOrderCytology;
 
 		YellowstonePathology.Business.Domain.Lock m_Lock;
 
@@ -288,7 +288,7 @@ namespace YellowstonePathology.UI.Cytology
         {			
 			this.Save();
 			this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(searchResult.ReportNo);
-			this.m_PanelSetOrderCytology = (YellowstonePathology.Business.Test.PanelSetOrderCytology)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(searchResult.ReportNo);
+			this.m_PanelSetOrderCytology = (YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(searchResult.ReportNo);
             this.m_SpecimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByOrderTarget(this.m_PanelSetOrderCytology.OrderedOnId);
 			this.m_ObjectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
             this.m_ObjectTracker.RegisterObject(this.m_AccessionOrder);
@@ -312,7 +312,7 @@ namespace YellowstonePathology.UI.Cytology
 		public void SetAccessionOrder(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo)
 		{
 			this.m_AccessionOrder = accessionOrder;
-			this.m_PanelSetOrderCytology = (YellowstonePathology.Business.Test.PanelSetOrderCytology)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
+			this.m_PanelSetOrderCytology = (YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 		}
 
 		public void ScreeningUnfinal(YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology cytologyPanelOrderToUnfinal, YellowstonePathology.Business.Rules.ExecutionStatus executionStatus)
@@ -346,7 +346,7 @@ namespace YellowstonePathology.UI.Cytology
             set { this.m_SpecimenOrder = value; }
         }
 
-		public YellowstonePathology.Business.Test.PanelSetOrderCytology PanelSetOrderCytology
+		public YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology PanelSetOrderCytology
 		{
 			get { return this.m_PanelSetOrderCytology; }
 		}
@@ -514,7 +514,7 @@ namespace YellowstonePathology.UI.Cytology
 			this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(reportNo);
             if (this.m_AccessionOrder != null)
             {
-                this.m_PanelSetOrderCytology = (YellowstonePathology.Business.Test.PanelSetOrderCytology)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
+				this.m_PanelSetOrderCytology = (YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
             }
             this.LoadData();            
         }
@@ -523,7 +523,7 @@ namespace YellowstonePathology.UI.Cytology
         {
 			this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByAliquotOrderId(aliquotOrderId);
 			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByOrderTarget(aliquotOrderId);
-            this.m_PanelSetOrderCytology = (YellowstonePathology.Business.Test.PanelSetOrderCytology)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(15, specimenOrder.SpecimenOrderId, true);
+			this.m_PanelSetOrderCytology = (YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(15, specimenOrder.SpecimenOrderId, true);
             this.LoadData();
         }
 

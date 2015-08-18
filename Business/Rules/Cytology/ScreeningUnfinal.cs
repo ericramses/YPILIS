@@ -9,7 +9,7 @@ namespace YellowstonePathology.Business.Rules.Cytology
 	{
 		YellowstonePathology.Business.Test.AccessionOrder m_CytologyAccessionOrder;
         YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology m_PanelOrderToUnfinal;
-		YellowstonePathology.Business.Test.PanelSetOrderCytology m_PanelSetOrderCytology;
+		YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology m_PanelSetOrderCytology;
 
         YellowstonePathology.Business.Rules.Rule m_Rule;
         YellowstonePathology.Business.Rules.ExecutionStatus m_ExecutionStatus;
@@ -68,7 +68,7 @@ namespace YellowstonePathology.Business.Rules.Cytology
 		{
 			this.m_CytologyAccessionOrder = cytologyAccessionOrder;
 			this.m_PanelOrderToUnfinal = cytologyPanelOrderToUnfinal;
-			this.m_PanelSetOrderCytology = (YellowstonePathology.Business.Test.PanelSetOrderCytology)this.m_CytologyAccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_PanelOrderToUnfinal.ReportNo);
+			this.m_PanelSetOrderCytology = (YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology)this.m_CytologyAccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_PanelOrderToUnfinal.ReportNo);
 			this.m_ExecutionStatus = executionStatus;
 			this.m_Rule.Execute(executionStatus);
 		}

@@ -26,7 +26,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
         protected YellowstonePathology.Business.Document.ReportSaveModeEnum m_ReportSaveEnum;
         protected string m_ReportNo;
         protected YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-        protected YellowstonePathology.Business.Test.PanelSetOrderCytology m_PanelSetOrderCytology;
+		protected YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology m_PanelSetOrderCytology;
 
         protected YellowstonePathology.Business.Document.NativeDocumentFormatEnum m_NativeDocumentFormat;
 
@@ -54,7 +54,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
             this.m_ReportNo = reportNo;
             this.m_ReportSaveEnum = reportSaveEnum;
 			this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(reportNo);
-			this.m_PanelSetOrderCytology = (YellowstonePathology.Business.Test.PanelSetOrderCytology)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
+			this.m_PanelSetOrderCytology = (YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 
             this.m_TemplateName = m_ThinPrepTemplateName;
             this.OpenTemplate();

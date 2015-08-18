@@ -109,7 +109,7 @@ namespace YellowstonePathology.Business.Domain.Billing
 
         private void SetICD9Codes()
         {
-            string resultCode = ((YellowstonePathology.Business.Test.PanelSetOrderCytology)this.m_PanelSetOrder).ResultCode;
+			string resultCode = ((YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology)this.m_PanelSetOrder).ResultCode;
             string icd9Code = string.Empty;
             string icd10Code = string.Empty;
 
@@ -162,7 +162,7 @@ namespace YellowstonePathology.Business.Domain.Billing
 			if (this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.Exists("88175", 1) == false &&
 				this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.Exists("88142", 1) == false)
 			{
-				YellowstonePathology.Business.Test.PanelSetOrderCytology panelSetOrderCytology = (YellowstonePathology.Business.Test.PanelSetOrderCytology)this.m_PanelSetOrder;
+				YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology panelSetOrderCytology = (YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology)this.m_PanelSetOrder;
 				YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology panelOrderCytology = panelSetOrderCytology.GetPrimaryScreening();
 				YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByOrderTarget(this.m_PanelSetOrder.OrderedOnId);
 
@@ -197,7 +197,7 @@ namespace YellowstonePathology.Business.Domain.Billing
             YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88141 cptCode = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88141();
 			if (this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.Exists(cptCode.Code, 1) == false)
 			{
-                YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology panelOrderCytology = ((YellowstonePathology.Business.Test.PanelSetOrderCytology)this.m_PanelSetOrder).GetPhysicianInterp();
+				YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology panelOrderCytology = ((YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology)this.m_PanelSetOrder).GetPhysicianInterp();
 				YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByOrderTarget(this.m_PanelSetOrder.OrderedOnId);
 
 				if (panelOrderCytology != null)
@@ -220,7 +220,7 @@ namespace YellowstonePathology.Business.Domain.Billing
 		protected bool CanPostProfessionalCode()
 		{
 			bool result = false;
-            YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology panelOrderCytology = ((YellowstonePathology.Business.Test.PanelSetOrderCytology)this.m_PanelSetOrder).GetPhysicianInterp();
+			YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology panelOrderCytology = ((YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology)this.m_PanelSetOrder).GetPhysicianInterp();
 			if (panelOrderCytology != null && panelOrderCytology.NoCharge == false) result = true;
 
 			return result;

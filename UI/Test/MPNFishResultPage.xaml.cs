@@ -30,10 +30,10 @@ namespace YellowstonePathology.UI.Test
 		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private string m_PageHeaderText;
 
-		private YellowstonePathology.Business.Test.PanelSetOrderMPNFish m_PanelSetOrder;
+		private YellowstonePathology.Business.Test.MPNFish.MPNFishTestOrder m_PanelSetOrder;
 		private string m_OrderedOnDescription;
 
-		public MPNFishResultPage(YellowstonePathology.Business.Test.PanelSetOrderMPNFish panelSetOrderMPNFish,
+		public MPNFishResultPage(YellowstonePathology.Business.Test.MPNFish.MPNFishTestOrder panelSetOrderMPNFish,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
 			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
@@ -58,7 +58,7 @@ namespace YellowstonePathology.UI.Test
 			get { return this.m_OrderedOnDescription; }
 		}
 
-		public YellowstonePathology.Business.Test.PanelSetOrderMPNFish PanelSetOrder
+		public YellowstonePathology.Business.Test.MPNFish.MPNFishTestOrder PanelSetOrder
 		{
 			get { return this.m_PanelSetOrder; }
 		}
@@ -98,7 +98,7 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkNormal_Click(object sender, RoutedEventArgs e)
 		{
-			YellowstonePathology.Business.Test.MPNFishNormalResult result = new Business.Test.MPNFishNormalResult();
+			YellowstonePathology.Business.Test.MPNFish.MPNFishNormalResult result = new Business.Test.MPNFish.MPNFishNormalResult();
 			result.SetResults(this.m_PanelSetOrder);
 			this.NotifyPropertyChanged("PanelSetOrder");
 		}
@@ -111,7 +111,7 @@ namespace YellowstonePathology.UI.Test
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
 		{
 			this.Save();
-			YellowstonePathology.Business.Document.MPNFishReport report = new Business.Document.MPNFishReport();
+			YellowstonePathology.Business.Test.MPNFish.MPNFishWordDocument report = new Business.Test.MPNFish.MPNFishWordDocument();
 			report.Render(this.m_AccessionOrder.MasterAccessionNo, this.m_PanelSetOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft);
 
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);

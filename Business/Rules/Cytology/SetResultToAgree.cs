@@ -29,7 +29,7 @@ namespace YellowstonePathology.Business.Rules.Cytology
 
         private void SetResults()
         {
-			YellowstonePathology.Business.Test.PanelSetOrderCytology panelSetOrderCytology = (YellowstonePathology.Business.Test.PanelSetOrderCytology)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_PanelOrderToSet.ReportNo);
+			YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology panelSetOrderCytology = (YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_PanelOrderToSet.ReportNo);
             YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology panelOrderResult = (YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology)panelSetOrderCytology.PanelOrderCollection[0];
             this.m_PanelOrderToSet.ScreeningImpression = panelOrderResult.ScreeningImpression;
             this.m_PanelOrderToSet.SpecimenAdequacy = panelOrderResult.SpecimenAdequacy;

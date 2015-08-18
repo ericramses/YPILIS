@@ -3,22 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace YellowstonePathology.Business.PanelSet.Model
+namespace YellowstonePathology.Business.Test.CCNDIBCLIGH
 {
-    public class PanelSetCCNDIBCLIGH : PanelSet
+	public class CCNDIBCLIGHTest : YellowstonePathology.Business.PanelSet.Model.PanelSet
 	{
-        public PanelSetCCNDIBCLIGH()
+		public CCNDIBCLIGHTest()
 		{
 			this.m_PanelSetId = 148;
             this.m_PanelSetName = "CCNDI(BCL1)/IgH t(11;14)";
 			this.m_CaseType = YellowstonePathology.Business.CaseType.FISH;
 			this.m_HasTechnicalComponent = true;			
             this.m_HasProfessionalComponent = true;
-			this.m_ResultDocumentSource = ResultDocumentSourceEnum.YPIDatabase;
+			this.m_ResultDocumentSource = YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.YPIDatabase;
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterR();
             this.m_Active = true;
 
-			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.PanelSetOrderCCNDIBCLIGH).AssemblyQualifiedName;
+			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.CCNDIBCLIGH.CCNDIBCLIGHTestOrder).AssemblyQualifiedName;
             
 			this.m_AllowMultiplePerAccession = true;
 

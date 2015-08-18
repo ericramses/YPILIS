@@ -9,7 +9,7 @@ namespace YellowstonePathology.UI.Test
 	{
 		TCellClonalityByPCRResultPage m_TCellClonalityByPCRResultPage;
 		YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-		YellowstonePathology.Business.Test.PanelSetOrderTCellClonalityByPCR m_PanelSetOrderTCellClonalityByPCR;
+		YellowstonePathology.Business.Test.TCellClonalityByPCR.TCellClonalityByPCRTestOrder m_PanelSetOrderTCellClonalityByPCR;
 		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 
 		public TCellClonalityByPCRResultPath(string reportNo,
@@ -19,7 +19,7 @@ namespace YellowstonePathology.UI.Test
 			: base(pageNavigator)
 		{
 			this.m_AccessionOrder = accessionOrder;
-			this.m_PanelSetOrderTCellClonalityByPCR = (YellowstonePathology.Business.Test.PanelSetOrderTCellClonalityByPCR)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
+			this.m_PanelSetOrderTCellClonalityByPCR = (YellowstonePathology.Business.Test.TCellClonalityByPCR.TCellClonalityByPCRTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 			this.m_ObjectTracker = objectTracker;
 			this.Authenticated += new AuthenticatedEventHandler(ResultPath_Authenticated);
 		}

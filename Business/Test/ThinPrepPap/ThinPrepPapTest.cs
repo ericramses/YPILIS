@@ -17,9 +17,9 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 			this.m_HasProfessionalComponent = false;
 			this.m_ResultDocumentSource = YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.YPIDatabase;
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterP();
-            this.m_Active = true;            
+            this.m_Active = true;
 
-			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.PanelSetOrderCytology).AssemblyQualifiedName;
+			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology).AssemblyQualifiedName;
 			this.m_AllowMultiplePerAccession = false;            
             this.m_ExpectedDuration = new TimeSpan(30, 0, 0);
 			this.m_AcceptOnFinal = true;

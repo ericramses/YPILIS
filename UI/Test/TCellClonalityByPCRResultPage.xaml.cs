@@ -30,10 +30,10 @@ namespace YellowstonePathology.UI.Test
         private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
         private string m_PageHeaderText;
 
-		private YellowstonePathology.Business.Test.PanelSetOrderTCellClonalityByPCR m_PanelSetOrder;
+		private YellowstonePathology.Business.Test.TCellClonalityByPCR.TCellClonalityByPCRTestOrder m_PanelSetOrder;
         private string m_OrderedOnDescription;
 
-		public TCellClonalityByPCRResultPage(YellowstonePathology.Business.Test.PanelSetOrderTCellClonalityByPCR panelSetOrderTCellClonalityByPCR,
+		public TCellClonalityByPCRResultPage(YellowstonePathology.Business.Test.TCellClonalityByPCR.TCellClonalityByPCRTestOrder panelSetOrderTCellClonalityByPCR,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
 			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
@@ -60,7 +60,7 @@ namespace YellowstonePathology.UI.Test
             get { return this.m_OrderedOnDescription; }
         }
 
-		public YellowstonePathology.Business.Test.PanelSetOrderTCellClonalityByPCR PanelSetOrder
+		public YellowstonePathology.Business.Test.TCellClonalityByPCR.TCellClonalityByPCRTestOrder PanelSetOrder
         {
 			get { return this.m_PanelSetOrder; }
         }
@@ -105,7 +105,7 @@ namespace YellowstonePathology.UI.Test
 
         private void HyperLinkNegative_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Test.TCellClonalityByPCRNegativeResult result = new Business.Test.TCellClonalityByPCRNegativeResult();
+            YellowstonePathology.Business.Test.TCellClonalityByPCR.TCellClonalityByPCRNegativeResult result = new Business.Test.TCellClonalityByPCR.TCellClonalityByPCRNegativeResult();
 			result.SetResults(this.m_PanelSetOrder);
 			this.NotifyPropertyChanged("PanelSetOrder");
         }
@@ -113,7 +113,7 @@ namespace YellowstonePathology.UI.Test
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
 		{
             this.Save();
-			YellowstonePathology.Business.Document.TCellClonalityByPCRReport report = new Business.Document.TCellClonalityByPCRReport();
+			YellowstonePathology.Business.Test.TCellClonalityByPCR.TCellClonalityByPCRWordDocument report = new Business.Test.TCellClonalityByPCR.TCellClonalityByPCRWordDocument();
 			report.Render(this.m_AccessionOrder.MasterAccessionNo, this.m_PanelSetOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft);
 
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);

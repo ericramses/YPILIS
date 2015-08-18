@@ -30,10 +30,10 @@ namespace YellowstonePathology.UI.Test
 		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private string m_PageHeaderText;
 
-		private YellowstonePathology.Business.Test.PanelSetOrderMultipleFISHProbePanel m_PanelSetOrder;
+		private YellowstonePathology.Business.Test.MultipleFISHProbe.MultipleFISHProbeTestOrder m_PanelSetOrder;
 		private string m_OrderedOnDescription;
 
-		public MultipleFISHProbePanelResultPage(YellowstonePathology.Business.Test.PanelSetOrderMultipleFISHProbePanel panelSetOrderMultipleFISHProbePanel,
+		public MultipleFISHProbePanelResultPage(YellowstonePathology.Business.Test.MultipleFISHProbe.MultipleFISHProbeTestOrder panelSetOrderMultipleFISHProbePanel,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
 			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
@@ -58,7 +58,7 @@ namespace YellowstonePathology.UI.Test
 			get { return this.m_OrderedOnDescription; }
 		}
 
-		public YellowstonePathology.Business.Test.PanelSetOrderMultipleFISHProbePanel PanelSetOrder
+		public YellowstonePathology.Business.Test.MultipleFISHProbe.MultipleFISHProbeTestOrder PanelSetOrder
 		{
 			get { return this.m_PanelSetOrder; }
 		}
@@ -98,7 +98,7 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkNormal_Click(object sender, RoutedEventArgs e)
 		{
-			YellowstonePathology.Business.Test.MultipleFISHProbePanelNormalResult result = new Business.Test.MultipleFISHProbePanelNormalResult();
+			YellowstonePathology.Business.Test.MultipleFISHProbe.MultipleFISHProbeNormalResult result = new Business.Test.MultipleFISHProbe.MultipleFISHProbeNormalResult();
 			result.SetResults(this.m_PanelSetOrder);
 			this.NotifyPropertyChanged("PanelSetOrder");
 		}
@@ -111,7 +111,7 @@ namespace YellowstonePathology.UI.Test
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
 		{
 			this.Save();
-			YellowstonePathology.Business.Document.MultipleFISHProbePanelReport report = new Business.Document.MultipleFISHProbePanelReport();
+			YellowstonePathology.Business.Test.MultipleFISHProbe.MultipleFISHProbeWordDocument report = new Business.Test.MultipleFISHProbe.MultipleFISHProbeWordDocument();
 			report.Render(this.m_AccessionOrder.MasterAccessionNo, this.m_PanelSetOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft);
 
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
