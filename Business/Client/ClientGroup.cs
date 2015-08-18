@@ -9,6 +9,7 @@ using System.Windows;
 using System.Windows.Data;
 using YellowstonePathology.Business.Persistence;
 
+
 namespace YellowstonePathology.Business.Client
 {
     [PersistentClass("tblClientGroup", "YPIDATA")]
