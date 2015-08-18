@@ -2847,7 +2847,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Document\Old\Routines\" />
     <Folder Include="MessageQueues\" />
     <Folder Include="Reports\Billing\" />
     <Folder Include="Rules\Creation\" />
