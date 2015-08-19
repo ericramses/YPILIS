@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace BarcodeLib
+namespace YellowstonePathology.Business.BarcodeLib
 {
     abstract class BarcodeCommon
     {

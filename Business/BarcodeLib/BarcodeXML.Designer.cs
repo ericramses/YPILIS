@@ -10,7 +10,8 @@
 
 #pragma warning disable 1591
 
-namespace BarcodeLib {
+namespace YellowstonePathology.Business.BarcodeLib
+{
     
     
     /// <summary>

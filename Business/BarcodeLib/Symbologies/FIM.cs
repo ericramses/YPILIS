@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BarcodeLib.Symbologies
+namespace YellowstonePathology.Business.BarcodeLib.Symbologies
 {
     /// <summary>
     ///  FIM encoding
