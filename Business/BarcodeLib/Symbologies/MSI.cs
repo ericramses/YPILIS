@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace BarcodeLib.Symbologies
+namespace YellowstonePathology.Business.BarcodeLib.Symbologies
 {
     class MSI : BarcodeCommon, IBarcode
     {
@@ -11,9 +11,9 @@ namespace BarcodeLib.Symbologies
         ///  Written by: Brad Barnhill
         /// </summary>
         private string[] MSI_Code = { "100100100100", "100100100110", "100100110100", "100100110110", "100110100100", "100110100110", "100110110100", "100110110110", "110100100100", "110100100110" };
-        private TYPE Encoded_Type = TYPE.UNSPECIFIED;
+		private TYPE Encoded_Type = TYPE.UNSPECIFIED;
 
-        public MSI(string input, TYPE EncodedType)
+		public MSI(string input, TYPE EncodedType)
         {
             Encoded_Type = EncodedType;
             Raw_Data = input;

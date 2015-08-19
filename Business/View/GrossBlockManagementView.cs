@@ -87,8 +87,8 @@ namespace YellowstonePathology.Business.View
             YellowstonePathology.Business.Common.PrintMateColumn printMateColumn = printMate.Carousel.GetColumn(this.m_AccessionOrder.PrintMateColumnNumber);            
 			
 			string status = "Created";
-			if(aliquotOrder.Status == YellowstonePathology.Business.Slide.Model.SlideStatusEnum.Printed) status = "Printed";
-			if(aliquotOrder.Status == YellowstonePathology.Business.Slide.Model.SlideStatusEnum.Validated) status = "Validated";
+			if(aliquotOrder.StatusDepricated == YellowstonePathology.Business.Slide.Model.SlideStatusEnum.Printed) status = "Printed";
+            if (aliquotOrder.StatusDepricated == YellowstonePathology.Business.Slide.Model.SlideStatusEnum.Validated) status = "Validated";
 			XElement result = new XElement("AliquotOrder",
 					new XElement("AliquotType",aliquotOrder.AliquotType),
 					new XElement("AliquotOrderId",aliquotOrder.AliquotOrderId),

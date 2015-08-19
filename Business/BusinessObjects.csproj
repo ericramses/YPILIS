@@ -96,6 +96,7 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -175,6 +176,32 @@
     <Compile Include="Audit.Model\WHPStandingOrderMismatchAudit.cs" />
     <Compile Include="Audit.Model\WHPStandingOrderNotSetAudit.cs" />
     <Compile Include="Audit.Model\ShouldWomensHealthProfileBeFinaledAudit.cs" />
+    <Compile Include="BarcodeLib\BarcodeCommon.cs" />
+    <Compile Include="BarcodeLib\BarcodeLib.cs" />
+    <Compile Include="BarcodeLib\BarcodeXML.Designer.cs" />
+    <Compile Include="BarcodeLib\IBarcode.cs" />
+    <Compile Include="BarcodeLib\Symbologies\Blank.cs" />
+    <Compile Include="BarcodeLib\Symbologies\Codabar.cs" />
+    <Compile Include="BarcodeLib\Symbologies\Code11.cs" />
+    <Compile Include="BarcodeLib\Symbologies\Code128.cs" />
+    <Compile Include="BarcodeLib\Symbologies\Code39.cs" />
+    <Compile Include="BarcodeLib\Symbologies\Code93.cs" />
+    <Compile Include="BarcodeLib\Symbologies\EAN13.cs" />
+    <Compile Include="BarcodeLib\Symbologies\EAN8.cs" />
+    <Compile Include="BarcodeLib\Symbologies\FIM.cs" />
+    <Compile Include="BarcodeLib\Symbologies\Interleaved2of5.cs" />
+    <Compile Include="BarcodeLib\Symbologies\ISBN.cs" />
+    <Compile Include="BarcodeLib\Symbologies\ITF14.cs" />
+    <Compile Include="BarcodeLib\Symbologies\JAN13.cs" />
+    <Compile Include="BarcodeLib\Symbologies\MSI.cs" />
+    <Compile Include="BarcodeLib\Symbologies\Pharmacode.cs" />
+    <Compile Include="BarcodeLib\Symbologies\Postnet.cs" />
+    <Compile Include="BarcodeLib\Symbologies\Standard2of5.cs" />
+    <Compile Include="BarcodeLib\Symbologies\Telepen.cs" />
+    <Compile Include="BarcodeLib\Symbologies\UPCA.cs" />
+    <Compile Include="BarcodeLib\Symbologies\UPCE.cs" />
+    <Compile Include="BarcodeLib\Symbologies\UPCSupplement2.cs" />
+    <Compile Include="BarcodeLib\Symbologies\UPCSupplement5.cs" />
     <Compile Include="BarcodeScanning\Barcode.cs" />
     <Compile Include="BarcodeScanning\BarcodePrefixEnum.cs" />
     <Compile Include="BarcodeScanning\BarcodeScan.cs" />
@@ -1324,7 +1351,7 @@
     <Compile Include="Test\ErPrSemiQuantitative\ErPrSemiQuantitativeTest.cs" />
     <Compile Include="Test\FactorVLeiden\FactorVLeidenTest.cs" />
     <Compile Include="Test\FLT3\FLT3Test.cs" />
-    <Compile Include="Test\HighGradeLargeBCellLymphoma\HER2AmplificationByISH\HER2AmplificationByISHTest.cs" />
+    <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHTest.cs" />
     <Compile Include="Test\HighGradeLargeBCellLymphoma\HighGradeLargeBCellLymphomaPanelTest.cs" />
     <Compile Include="Test\HPV1618\HPV1618Test.cs" />
     <Compile Include="Test\HPVTWI\PanelOrderHPVTWI.cs" />
@@ -1545,15 +1572,15 @@
     <Compile Include="Test\ErPrSemiQuantitative\ErPrSemiQuantitativeResultCollection.cs" />
     <Compile Include="Test\ErPrSemiQuantitative\ErPrSemiQuantitativeTestOrder.cs" />
     <Compile Include="Test\ErPrSemiQuantitative\ErPrSemiQuantitativeWordDocument.cs" />
-    <Compile Include="Test\HighGradeLargeBCellLymphoma\HER2AmplificationByISH\HER2AmplificationByISHBreastResult.cs">
+    <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHBreastResult.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Test\HighGradeLargeBCellLymphoma\HER2AmplificationByISH\HER2AmplificationByISHGeneticHeterogeneityCollection.cs" />
-    <Compile Include="Test\HighGradeLargeBCellLymphoma\HER2AmplificationByISH\HER2AmplificationByISHIndicatorCollection.cs">
+    <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHGeneticHeterogeneityCollection.cs" />
+    <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHIndicatorCollection.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Test\HighGradeLargeBCellLymphoma\HER2AmplificationByISH\HER2AmplificationByISHProbeSignalIntensityCollection.cs" />
-    <Compile Include="Test\HighGradeLargeBCellLymphoma\HER2AmplificationByISH\HER2AmplificationByISHSampleAdequacyCollection.cs" />
+    <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHProbeSignalIntensityCollection.cs" />
+    <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHSampleAdequacyCollection.cs" />
     <Compile Include="Test\LynchSyndrome\LSEColorectalResult12.cs" />
     <Compile Include="Test\LynchSyndrome\LSEResultStatusMethylationAnalysisRequiredGYN.cs" />
     <Compile Include="Test\LynchSyndrome\LSEResultStatusNotSet.cs" />
@@ -1603,13 +1630,13 @@
     <Compile Include="Test\FLT3\FLT3WordDocument.cs" />
     <Compile Include="Test\FLT3\FLT3Result.cs" />
     <Compile Include="Test\FLT3\PanelSetOrderFLT3.cs" />
-    <Compile Include="Test\HighGradeLargeBCellLymphoma\HER2AmplificationByISH\HER2AmplificationByISHCMMCNteView.cs" />
-    <Compile Include="Test\HighGradeLargeBCellLymphoma\HER2AmplificationByISH\HER2AmplificationByISHEpicObxView.cs" />
-    <Compile Include="Test\HighGradeLargeBCellLymphoma\HER2AmplificationByISH\HER2AmplificationByISHGastricAdenocarcinomaResult.cs" />
-    <Compile Include="Test\HighGradeLargeBCellLymphoma\HER2AmplificationByISH\HER2AmplificationByISHResult.cs" />
-    <Compile Include="Test\HighGradeLargeBCellLymphoma\HER2AmplificationByISH\HER2AmplificationByISHResultCollection.cs" />
-    <Compile Include="Test\HighGradeLargeBCellLymphoma\HER2AmplificationByISH\HER2AmplificationByISHTestOrder.cs" />
-    <Compile Include="Test\HighGradeLargeBCellLymphoma\HER2AmplificationByISH\HER2AmplificationByISHWordDocument.cs" />
+    <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHCMMCNteView.cs" />
+    <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHEpicObxView.cs" />
+    <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHGastricAdenocarcinomaResult.cs" />
+    <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHResult.cs" />
+    <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHResultCollection.cs" />
+    <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHTestOrder.cs" />
+    <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHWordDocument.cs" />
     <Compile Include="Test\IndicationLynchSymdrome.cs" />
     <Compile Include="Test\JAK2Exon1214\JAK2Exon1214DetectedResult.cs" />
     <Compile Include="Test\JAK2Exon1214\JAK2Exon1214EpicObxView.cs" />
@@ -2177,7 +2204,7 @@
     <Compile Include="Test\ThinPrepPap\ThinPrepPapScreeningPanel.cs" />
     <Compile Include="Test\ThinPrepPap\ThinPrepPapQCPanel.cs" />
     <Compile Include="Test\ErPrSemiQuantitative\ERPRSemiQuanititativePanel.cs" />
-    <Compile Include="Test\HighGradeLargeBCellLymphoma\HER2AmplificationByISH\HER2AmplificationByISHPanel.cs" />
+    <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHPanel.cs" />
     <Compile Include="Test\HPV1618\HPV1618Panel.cs" />
     <Compile Include="Test\HPVTWI\HPVTWIPanel.cs" />
     <Compile Include="Test\JAK2V617F\JAK2V617FPanel.cs" />
@@ -2620,6 +2647,17 @@
     <EmbeddedResource Include="XmlSchema\LabEventLogSchema.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <None Include="BarcodeLib\BarcodeXML.xsc">
+      <DependentUpon>BarcodeXML.xsd</DependentUpon>
+    </None>
+    <None Include="BarcodeLib\BarcodeXML.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>BarcodeXML1.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="BarcodeLib\BarcodeXML.xss">
+      <DependentUpon>BarcodeXML.xsd</DependentUpon>
+    </None>
     <None Include="YellowstonePathology.Business.pfx" />
     <None Include="YellowstonePathology.Business.snk" />
   </ItemGroup>
@@ -2817,10 +2855,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BarcodeLib\BarcodeLib.csproj">
-      <Project>{F8646414-0C9C-49BB-9DA3-3923BF78A398}</Project>
-      <Name>BarcodeLib</Name>
-    </ProjectReference>
     <ProjectReference Include="..\DomainPersistence\DomainPersistence.csproj">
       <Project>{0B68C6D2-6418-4ECD-95D5-93DD6F8E1782}</Project>
       <Name>DomainPersistence</Name>

@@ -1324,7 +1324,11 @@ namespace YellowstonePathology.Business.Gateway
 		{
 			YellowstonePathology.Business.Task.Model.TaskOrderCollection result = new YellowstonePathology.Business.Task.Model.TaskOrderCollection();
 			XElement collectionElement = new XElement("Document");
-			SqlCommand cmd = new SqlCommand("Select * from tblTaskOrder where AcknowledgementType = @AcknowledgementType and TaskDate between dateadd(dd, -30, GetDate()) and GetDate() order by TaskDate desc");
+			//SqlCommand cmd = new SqlCommand("Select * from tblTaskOrder where AcknowledgementType = @AcknowledgementType and TaskDate between dateadd(dd, -30, GetDate()) and GetDate() order by TaskDate desc");
+            string sql = "Select * from tblTaskOrder where AcknowledgementType = 'Daily' " +
+	            "and Acknowledged = 0 " +
+	            "and TaskDate <= GetDate() order by TaskDate desc";
+            SqlCommand cmd = new SqlCommand(sql);	
 			cmd.CommandType = CommandType.Text;
 			cmd.Parameters.Add("@AcknowledgementType", SqlDbType.VarChar).Value = Task.Model.TaskAcknowledgementType.Daily;
 

@@ -66,11 +66,16 @@
                                 <ColumnDefinition Width="*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
                                 <RowDefinition Height="*"></RowDefinition>
                             </Grid.RowDefinitions>
 
                             <Border Grid.Column="0" Grid.Row="0" BorderBrush="Black" BorderThickness="1"></Border>
-                            <TextBlock Grid.Column="1" Grid.Row="0" Margin="10,10,10,10" Text="{Binding Path=AliquotType}" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center"></TextBlock>                            
+                            <TextBlock Grid.Column="1" Grid.Row="0" Margin="5,5,5,5" Text="{Binding Path=AliquotType}" FontSize="14" HorizontalAlignment="Center"></TextBlock>
+                            <TextBlock Grid.Column="1" Grid.Row="0" Margin="5,5,5,5" Text="{Binding Path=ValidatedBy}" FontSize="14" HorizontalAlignment="Center"></TextBlock>
+                            <TextBlock Grid.Column="1" Grid.Row="0" Margin="5,5,5,5" Text="{Binding Path=ValidationDate}" FontSize="14" HorizontalAlignment="Center"></TextBlock>
 
                         </Grid>
                     </DataTemplate>
