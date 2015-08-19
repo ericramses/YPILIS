@@ -41,12 +41,12 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
         }
     }
  
-    public class SkinShaveBiopsy : Specimen
+    public class SkinShavePunchMiscBiopsy : Specimen
     {
-        public SkinShaveBiopsy()
+        public SkinShavePunchMiscBiopsy()
         {
-            this.m_SpecimenId = "SKSHSPCMN";
-            this.m_SpecimenName = "Skin Shave Biopsy";
+            this.m_SpecimenId = "SKEXSPCMN";
+            this.m_SpecimenName = "Skin Excision Biopsy";
             this.m_Description = null;
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = "Formalin";
@@ -54,6 +54,18 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
         }
     }
 
+    public class SkinExcisionBiopsy : Specimen
+    {
+        public SkinExcisionBiopsy()
+        {
+            this.m_SpecimenId = "SKSHPHMSSPCMN";
+            this.m_SpecimenName = "Skin Shave Punch and Misc Biopsy";
+            this.m_Description = null;
+            this.m_LabFixation = "Formalin";
+            this.m_ClientFixation = "Formalin";
+            this.m_RequiresGrossExamination = true;
+        }
+    }
 
     public class ProstateTUR : Specimen
     {

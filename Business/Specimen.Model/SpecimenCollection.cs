@@ -51,7 +51,8 @@ namespace YellowstonePathology.Business.Specimen.Model
             result.Add(new SpecimenDefinition.ProstateExceptRadicalResection());
             result.Add(new SpecimenDefinition.ProstateNeedleBiopsy());
             result.Add(new SpecimenDefinition.ProstateTUR());
-            result.Add(new SpecimenDefinition.SkinShaveBiopsy());
+            result.Add(new SpecimenDefinition.SkinExcisionBiopsy());
+            result.Add(new SpecimenDefinition.SkinShavePunchMiscBiopsy());
             result.Add(new SpecimenDefinition.AppendixExcision());
 
             return result;
