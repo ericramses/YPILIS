@@ -16,7 +16,7 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
 			this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByMasterAccessionNo(masterAccessionNo);
 			this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 
-			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\WomensHealthProfile.xml";
+			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\WomensHealthProfile.1.xml";
 			this.OpenTemplate();
 
 			this.SetCurrentPapResults();
@@ -30,6 +30,7 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
 			this.SetXmlNodeData("specimen_source", specimenOrder.SpecimenSource);
 			string collectionDateTimeString = specimenOrder.GetCollectionDateTimeString();
 			this.SetXmlNodeData("collection_date_time", collectionDateTimeString);
+			this.SetXmlNodeData("specimen_description", specimenOrder.Description);
 
             if (this.m_PanelSetOrder.FinalTime.HasValue == true)
             {
@@ -61,7 +62,7 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
 			{
 				this.SetXmlNodeData("screening_impression", sceeningImpression);
 			}
-
+			
 			string specimenAdequacy = panelSetOrderCytology.SpecimenAdequacy;
 			this.SetXmlNodeData("specimen_adequacy", specimenAdequacy);
 
