@@ -1350,7 +1350,7 @@
     <Compile Include="Test\ErPrSemiQuantitative\ErPrSemiQuantitativeTest.cs" />
     <Compile Include="Test\FactorVLeiden\FactorVLeidenTest.cs" />
     <Compile Include="Test\FLT3\FLT3Test.cs" />
-    <Compile Include="Test\HighGradeLargeBCellLymphoma\HER2AmplificationByISH\HER2AmplificationByISHTest.cs" />
+    <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHTest.cs" />
     <Compile Include="Test\HighGradeLargeBCellLymphoma\HighGradeLargeBCellLymphomaPanelTest.cs" />
     <Compile Include="Test\HPV1618\HPV1618Test.cs" />
     <Compile Include="Test\HPVTWI\PanelOrderHPVTWI.cs" />
@@ -1571,15 +1571,15 @@
     <Compile Include="Test\ErPrSemiQuantitative\ErPrSemiQuantitativeResultCollection.cs" />
     <Compile Include="Test\ErPrSemiQuantitative\ErPrSemiQuantitativeTestOrder.cs" />
     <Compile Include="Test\ErPrSemiQuantitative\ErPrSemiQuantitativeWordDocument.cs" />
-    <Compile Include="Test\HighGradeLargeBCellLymphoma\HER2AmplificationByISH\HER2AmplificationByISHBreastResult.cs">
+    <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHBreastResult.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Test\HighGradeLargeBCellLymphoma\HER2AmplificationByISH\HER2AmplificationByISHGeneticHeterogeneityCollection.cs" />
-    <Compile Include="Test\HighGradeLargeBCellLymphoma\HER2AmplificationByISH\HER2AmplificationByISHIndicatorCollection.cs">
+    <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHGeneticHeterogeneityCollection.cs" />
+    <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHIndicatorCollection.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Test\HighGradeLargeBCellLymphoma\HER2AmplificationByISH\HER2AmplificationByISHProbeSignalIntensityCollection.cs" />
-    <Compile Include="Test\HighGradeLargeBCellLymphoma\HER2AmplificationByISH\HER2AmplificationByISHSampleAdequacyCollection.cs" />
+    <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHProbeSignalIntensityCollection.cs" />
+    <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHSampleAdequacyCollection.cs" />
     <Compile Include="Test\LynchSyndrome\LSEColorectalResult12.cs" />
     <Compile Include="Test\LynchSyndrome\LSEResultStatusMethylationAnalysisRequiredGYN.cs" />
     <Compile Include="Test\LynchSyndrome\LSEResultStatusNotSet.cs" />
@@ -1629,13 +1629,13 @@
     <Compile Include="Test\FLT3\FLT3WordDocument.cs" />
     <Compile Include="Test\FLT3\FLT3Result.cs" />
     <Compile Include="Test\FLT3\PanelSetOrderFLT3.cs" />
-    <Compile Include="Test\HighGradeLargeBCellLymphoma\HER2AmplificationByISH\HER2AmplificationByISHCMMCNteView.cs" />
-    <Compile Include="Test\HighGradeLargeBCellLymphoma\HER2AmplificationByISH\HER2AmplificationByISHEpicObxView.cs" />
-    <Compile Include="Test\HighGradeLargeBCellLymphoma\HER2AmplificationByISH\HER2AmplificationByISHGastricAdenocarcinomaResult.cs" />
-    <Compile Include="Test\HighGradeLargeBCellLymphoma\HER2AmplificationByISH\HER2AmplificationByISHResult.cs" />
-    <Compile Include="Test\HighGradeLargeBCellLymphoma\HER2AmplificationByISH\HER2AmplificationByISHResultCollection.cs" />
-    <Compile Include="Test\HighGradeLargeBCellLymphoma\HER2AmplificationByISH\HER2AmplificationByISHTestOrder.cs" />
-    <Compile Include="Test\HighGradeLargeBCellLymphoma\HER2AmplificationByISH\HER2AmplificationByISHWordDocument.cs" />
+    <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHCMMCNteView.cs" />
+    <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHEpicObxView.cs" />
+    <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHGastricAdenocarcinomaResult.cs" />
+    <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHResult.cs" />
+    <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHResultCollection.cs" />
+    <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHTestOrder.cs" />
+    <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHWordDocument.cs" />
     <Compile Include="Test\IndicationLynchSymdrome.cs" />
     <Compile Include="Test\JAK2Exon1214\JAK2Exon1214DetectedResult.cs" />
     <Compile Include="Test\JAK2Exon1214\JAK2Exon1214EpicObxView.cs" />
@@ -2203,7 +2203,7 @@
     <Compile Include="Test\ThinPrepPap\ThinPrepPapScreeningPanel.cs" />
     <Compile Include="Test\ThinPrepPap\ThinPrepPapQCPanel.cs" />
     <Compile Include="Test\ErPrSemiQuantitative\ERPRSemiQuanititativePanel.cs" />
-    <Compile Include="Test\HighGradeLargeBCellLymphoma\HER2AmplificationByISH\HER2AmplificationByISHPanel.cs" />
+    <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHPanel.cs" />
     <Compile Include="Test\HPV1618\HPV1618Panel.cs" />
     <Compile Include="Test\HPVTWI\HPVTWIPanel.cs" />
     <Compile Include="Test\JAK2V617F\JAK2V617FPanel.cs" />

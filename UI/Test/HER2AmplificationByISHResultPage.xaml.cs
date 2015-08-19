@@ -24,6 +24,9 @@ namespace YellowstonePathology.UI.Test
 
         public event YellowstonePathology.UI.CustomEventArgs.EventHandlerDefinitions.CancelTestEventHandler CancelTest;
 
+		public delegate void SpecimenDetailEventHandler(object sender, EventArgs e);
+		public event SpecimenDetailEventHandler SpecimenDetail;
+
         public delegate void NextEventHandler(object sender, EventArgs e);
         public event NextEventHandler Next;
 
@@ -288,5 +291,13 @@ namespace YellowstonePathology.UI.Test
         {
             this.m_PageNavigator.Navigate(this);
         }
+
+		private void HyperlinkSpecimen_Click(object sender, RoutedEventArgs e)
+		{
+			if (this.SpecimenDetail != null)
+			{
+				this.SpecimenDetail(this, new EventArgs());
+			}
+		}
     }
 }

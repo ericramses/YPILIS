@@ -33,6 +33,7 @@ namespace YellowstonePathology.UI.Test
         {
 			this.m_ResultPage = new HER2AmplificationByISHResultPage(this.m_PanelSetOrder, this.m_AccessionOrder, this.m_ObjectTracker, this.m_SystemIdentity, this.m_PageNavigator);
 			this.m_ResultPage.Next += new HER2AmplificationByISHResultPage.NextEventHandler(ResultPage_Next);
+			this.m_ResultPage.SpecimenDetail += new HER2AmplificationByISHResultPage.SpecimenDetailEventHandler(ResultPage_SpecimenDetail);
 
             this.RegisterCancelATest(this.m_ResultPage);
 			this.m_PageNavigator.Navigate(this.m_ResultPage);
@@ -44,6 +45,19 @@ namespace YellowstonePathology.UI.Test
 			{
 				this.Finished();
 			}
+		}
+
+		private void ResultPage_SpecimenDetail(object sender, EventArgs e)
+		{
+			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByOrderTarget(this.m_PanelSetOrder.OrderedOnId);
+            Login.SpecimenOrderDetailsPath specimenOrderDetailsPath = new Login.SpecimenOrderDetailsPath(specimenOrder, this.m_AccessionOrder, this.m_ObjectTracker, this.m_PageNavigator);
+			specimenOrderDetailsPath.Finish += new Login.SpecimenOrderDetailsPath.FinishEventHandler(SpecimenOrderDetailsPath_Finish);
+            specimenOrderDetailsPath.Start(this.m_SystemIdentity);
+        }
+
+        private void SpecimenOrderDetailsPath_Finish(object sender, EventArgs e)
+        {
+			this.ShowResultPage();
 		}
 
 		private bool ShowReflexTestPage()
