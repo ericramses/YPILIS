@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
             this.ValidateCollectionDate();
             this.ValidateFixationComment();
             this.ValidateContainerId();
-            this.ValidateDescriptionToAccession();
+            this.ValidateDescriptionToAccession();            
             this.ValidateFixationStartTime();
             this.ValidateClientFixation();
             this.ValidateLabFixation();
@@ -98,8 +98,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
             get { return this.m_DescriptionToAccession; }
             set
             {
-                this.m_DescriptionToAccession = value;
-                this.ValidateDescriptionToAccession();
+                this.m_DescriptionToAccession = value;                
             }
         }
 
