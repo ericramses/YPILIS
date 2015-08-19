@@ -54,6 +54,7 @@ namespace YellowstonePathology.Business.Specimen.Model
             result.Add(new SpecimenDefinition.SkinExcisionBiopsy());
             result.Add(new SpecimenDefinition.SkinShavePunchMiscBiopsy());
             result.Add(new SpecimenDefinition.AppendixExcision());
+            result.Add(new SpecimenDefinition.GallbladderExcision());
 
             return result;
         }

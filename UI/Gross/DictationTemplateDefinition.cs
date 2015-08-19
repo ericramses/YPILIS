@@ -158,4 +158,36 @@ namespace YellowstonePathology.UI.Gross
 
         }
     }
+
+    public class GallbladderExcisionTemplate : DictationTemplate
+    {
+        public GallbladderExcisionTemplate()
+        {
+            this.m_TemplateName = "Gallbladder Excision";
+            this.m_Text = "Specimen: *SPECIMENNUMBER* Received: *INFORMALIN/FRESH* Labeled: \"*PATIENTNAME*\"" + Environment.NewLine +
+                          "Received: *OPENED/UNOPENED*" + Environment.NewLine +
+                          "Measurements: *MEASUREMENTS*" + Environment.NewLine +
+                          "Serosal Surface: *SEROSALDESCRIPTION*" + Environment.NewLine +
+                          "Adventitial Surface: *ADVENTITIALDESCRIPTION*" + Environment.NewLine +
+                          "Mural Defects: *HOLES/PERFORATIONS/DIMENSIONS*" + Environment.NewLine +
+                          "Luminal Contents: *BILE/BLOOD/STONES/ETC*" + Environment.NewLine +
+                          "Loose Stones: *YES/NO/QUANTITY/DESCRIPTION*" + Environment.NewLine +
+                          "Mucosal Surface: *DESCRIPTION*, Wall Thickness: *MEASUREMENTS*" + Environment.NewLine +
+                          "Submitted: *SUBMISSIONKEY* Cassette: *COLOR/NUMBER*";
+
+
+            this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Specimen Number", ""));
+            this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Recieved In", ""));
+            this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Container Labeling", ""));
+            this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Number and Description with inking", ""));
+            this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Measurements", ""));
+            this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Specimen Sectioning", ""));
+            this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Cassette Color", ""));
+            this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Cassette Number", ""));
+
+            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.GallbladderExcision appendixExcision = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.GallbladderExcision();
+            this.m_SpecimenCollection.Add(appendixExcision);
+
+        }
+    }
 }
