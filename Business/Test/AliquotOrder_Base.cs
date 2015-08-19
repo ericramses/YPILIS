@@ -33,6 +33,13 @@ namespace YellowstonePathology.Business.Test
         private string m_LocationId;
         private string m_FacilityId;
 
+        protected bool m_Validated;
+        protected string m_ValidationStation;
+        protected int m_ValidatedById;
+        protected string m_ValidatedBy;
+        protected Nullable<DateTime> m_ValidationDate;
+        
+
         public AliquotOrder_Base()
         {
 
@@ -275,6 +282,68 @@ namespace YellowstonePathology.Business.Test
                 }
             }
         }
+
+        [PersistentProperty()]
+        public bool Validated
+        {
+            get { return this.m_Validated; }
+            set
+            {
+                if (this.m_Validated != value)
+                {
+                    this.m_Validated = value;
+                    this.NotifyPropertyChanged("Validated");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public int ValidatedById
+        {
+            get
+            {
+                return this.m_ValidatedById;
+            }
+            set
+            {
+                if (this.m_ValidatedById != value)
+                {
+                    this.m_ValidatedById = value;
+                    this.NotifyPropertyChanged("ValidatedById");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string ValidatedBy
+        {
+            get
+            {
+                return this.m_ValidatedBy;
+            }
+            set
+            {
+                if (this.m_ValidatedBy != value)
+                {
+                    this.m_ValidatedBy = value;
+                    this.NotifyPropertyChanged("ValidatedBy");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public Nullable<DateTime> ValidationDate
+        {
+            get { return this.m_ValidationDate; }
+            set
+            {
+                if (this.m_ValidationDate != value)
+                {
+                    this.m_ValidationDate = value;
+                    this.NotifyPropertyChanged("ValidationDate");
+                }
+            }
+        }        
 
         public bool IsNotIntraoperative
         {
