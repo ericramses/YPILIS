@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
-namespace BarcodeLib.Symbologies
+namespace YellowstonePathology.Business.BarcodeLib.Symbologies
 {
     /// <summary>
     ///  Telepen encoding

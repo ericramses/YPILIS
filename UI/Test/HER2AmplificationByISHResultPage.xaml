@@ -33,7 +33,8 @@
 					<RowDefinition Height="Auto"></RowDefinition>
 					<RowDefinition Height="Auto"></RowDefinition>
 					<RowDefinition Height="Auto"></RowDefinition>                    
-					<RowDefinition Height="*"></RowDefinition>                    
+					<RowDefinition Height="*"></RowDefinition>
+					<RowDefinition Height="Auto"></RowDefinition>
 					<RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
 					<RowDefinition Height="Auto"></RowDefinition>
@@ -60,25 +61,29 @@
 					</Hyperlink>
 				</TextBlock>
 
-                <TextBlock Grid.Column="0" Grid.Row="7" Margin="5,3,0,0">                    
+				<TextBlock Grid.Column="0" Grid.Row="7" Margin="5,3,0,0">                    
+                    <Hyperlink Click ="HyperlinkSpecimen_Click">Specimen</Hyperlink>
+				</TextBlock>
+
+				<TextBlock Grid.Column="0" Grid.Row="8" Margin="5,3,0,0">                    
                     <Hyperlink Click="HyperLinkCancelTestUniterpretable_Click">
 						<TextBlock Text="Cancel (Uninterpretable)" />
 					</Hyperlink>
 				</TextBlock>
 
-                <TextBlock Grid.Column="0" Grid.Row="8" Margin="5,3,0,0">                    
+                <TextBlock Grid.Column="0" Grid.Row="9" Margin="5,3,0,0">                    
                     <Hyperlink Click="HyperLinkCancelTestInsufficient_Click">
 						<TextBlock Text="Cancel (Insufficient)" />
 					</Hyperlink>
 				</TextBlock>
 
-                <TextBlock Grid.Column="0" Grid.Row="9" Margin="5,3,0,0">                    
+                <TextBlock Grid.Column="0" Grid.Row="10" Margin="5,3,0,0">                    
                     <Hyperlink Click="HyperLinkUnacceptResults_Click">
 						<TextBlock Text="Unaccept Results" />
 					</Hyperlink>
 				</TextBlock>
 
-				<TextBlock Grid.Column="0" Grid.Row="10" Margin="5,3,0,0">                    
+				<TextBlock Grid.Column="0" Grid.Row="11" Margin="5,3,0,0">                    
                     <Hyperlink Click="HyperLinkUnfinalResults_Click">
 						<TextBlock Text="Unfinalize Results" />
 					</Hyperlink>

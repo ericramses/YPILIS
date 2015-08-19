@@ -7,7 +7,7 @@ using System.Drawing.Drawing2D;
 using System.Data;
 using System.IO;
 using System.Drawing.Imaging;
-using BarcodeLib.Symbologies;
+using YellowstonePathology.Business.BarcodeLib.Symbologies;
 
 /* 
  * ***************************************************
@@ -22,7 +22,7 @@ using BarcodeLib.Symbologies;
  *  barcode images from a string of data.            *
  * ***************************************************
  */
-namespace BarcodeLib
+namespace YellowstonePathology.Business.BarcodeLib
 {
     #region Enums
     public enum TYPE : int { UNSPECIFIED, UPCA, UPCE, UPC_SUPPLEMENTAL_2DIGIT, UPC_SUPPLEMENTAL_5DIGIT, EAN13, EAN8, Interleaved2of5, Standard2of5, Industrial2of5, CODE39, CODE39Extended, CODE39_Mod43, Codabar, PostNet, BOOKLAND, ISBN, JAN13, MSI_Mod10, MSI_2Mod10, MSI_Mod11, MSI_Mod11_Mod10, Modified_Plessey, CODE11, USD8, UCC12, UCC13, LOGMARS, CODE128, CODE128A, CODE128B, CODE128C, ITF14, CODE93, TELEPEN, FIM, PHARMACODE };
@@ -36,7 +36,7 @@ namespace BarcodeLib
     public class Barcode: IDisposable
     {
         #region Variables
-        private IBarcode ibarcode = new BarcodeLib.Symbologies.Blank();
+		private IBarcode ibarcode = new Symbologies.Blank();
         private string Raw_Data = "";
         private string Encoded_Value = "";
         private string _Country_Assigning_Manufacturer_Code = "N/A";

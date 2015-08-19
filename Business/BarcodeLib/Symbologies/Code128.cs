@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Data;
 
-namespace BarcodeLib.Symbologies
+namespace YellowstonePathology.Business.BarcodeLib.Symbologies
 {
     /// <summary>
     ///  Code 128 encoding

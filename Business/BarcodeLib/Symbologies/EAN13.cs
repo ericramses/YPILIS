@@ -3,81 +3,100 @@ using System.Collections.Generic;
 using System.Text;
 using System.Collections;
 
-namespace BarcodeLib.Symbologies
+namespace YellowstonePathology.Business.BarcodeLib.Symbologies
 {
     /// <summary>
-    ///  UPC-A encoding
+    ///  EAN-13 encoding
     ///  Written by: Brad Barnhill
     /// </summary>
-    class UPCA : BarcodeCommon, IBarcode
+    class EAN13 : BarcodeCommon, IBarcode
     {
-        private string[] UPC_CodeA = { "0001101", "0011001", "0010011", "0111101", "0100011", "0110001", "0101111", "0111011", "0110111", "0001011" };
-        private string[] UPC_CodeB = { "1110010", "1100110", "1101100", "1000010", "1011100", "1001110", "1010000", "1000100", "1001000", "1110100" };
-        private string _Country_Assigning_Manufacturer_Code = "N/A";
+        private string[] EAN_CodeA = { "0001101", "0011001", "0010011", "0111101", "0100011", "0110001", "0101111", "0111011", "0110111", "0001011" };
+        private string[] EAN_CodeB = { "0100111", "0110011", "0011011", "0100001", "0011101", "0111001", "0000101", "0010001", "0001001", "0010111" };
+        private string[] EAN_CodeC = { "1110010", "1100110", "1101100", "1000010", "1011100", "1001110", "1010000", "1000100", "1001000", "1110100" };
+        private string[] EAN_Pattern = { "aaaaaa", "aababb", "aabbab", "aabbba", "abaabb", "abbaab", "abbbaa", "ababab", "ababba", "abbaba" };
         private Hashtable CountryCodes = new Hashtable(); //is initialized by init_CountryCodes()
+        private string _Country_Assigning_Manufacturer_Code = "N/A";
 
-        public UPCA(string input)
+        public EAN13(string input)
         {
             Raw_Data = input;
-        }
-        /// <summary>
-        /// Encode the raw data using the UPC-A algorithm.
-        /// </summary>
-        private string Encode_UPCA()
-        {
-            //check length of input
-            if (Raw_Data.Length != 11 && Raw_Data.Length != 12)
-                Error("EUPCA-1: Data length invalid. (Length must be 11 or 12)");
-
-            if (!CheckNumericOnly(Raw_Data))
-                Error("EUPCA-2: Numeric Data Only");
 
             CheckDigit();
-            
-            string result = "101"; //start with guard bars
+        }
+        /// <summary>
+        /// Encode the raw data using the EAN-13 algorithm. (Can include the checksum already.  If it doesnt exist in the data then it will calculate it for you.  Accepted data lengths are 12 + 1 checksum or just the 12 data digits)
+        /// </summary>
+        private string Encode_EAN13()
+        {
+            //check length of input
+            if (Raw_Data.Length < 12 || Raw_Data.Length > 13)
+                Error("EEAN13-1: Data length invalid. (Length must be 12 or 13)");
 
-            //first number
-            result += UPC_CodeA[Int32.Parse(Raw_Data[0].ToString())];
+            if (!CheckNumericOnly(Raw_Data))
+                Error("EEAN13-2: Numeric Data Only");
 
-            //second (group) of numbers
+            string patterncode = EAN_Pattern[Int32.Parse(Raw_Data[0].ToString())];
+            string result = "101";
+
+            //first
+            //result += EAN_CodeA[Int32.Parse(RawData[0].ToString())];
+
+            //second
             int pos = 0;
-            while (pos < 5)
+            while (pos < 6)
             {
-                result += UPC_CodeA[Int32.Parse(Raw_Data[pos + 1].ToString())];
+                if (patterncode[pos] == 'a')
+                    result += EAN_CodeA[Int32.Parse(Raw_Data[pos + 1].ToString())];
+                if (patterncode[pos] == 'b')
+                    result += EAN_CodeB[Int32.Parse(Raw_Data[pos + 1].ToString())];
                 pos++;
             }//while
+
 
             //add divider bars
             result += "01010";
 
-            //third (group) of numbers
-            pos = 0;
-            while (pos < 5)
+            //get the third
+            pos = 1;
+            while (pos <= 5)
             {
-                result += UPC_CodeB[Int32.Parse(Raw_Data[(pos++) + 6].ToString())];
+                result += EAN_CodeC[Int32.Parse(Raw_Data[(pos++) + 6].ToString())];
             }//while
 
-            //forth
-            result += UPC_CodeB[Int32.Parse(Raw_Data[Raw_Data.Length - 1].ToString())];
+            //checksum digit
+            int cs = Int32.Parse(Raw_Data[Raw_Data.Length - 1].ToString());
+            
+            //add checksum
+            result += EAN_CodeC[cs];
 
-            //add ending guard bars
+            //add ending bars
             result += "101";
 
             //get the manufacturer assigning country
-            this.init_CountryCodes();
-            string twodigitCode = "0" + Raw_Data.Substring(0, 1);
+            init_CountryCodes();
+            _Country_Assigning_Manufacturer_Code = "N/A";
+            string twodigitCode = Raw_Data.Substring(0, 2);
+            string threedigitCode = Raw_Data.Substring(0, 3);
             try
             {
-                _Country_Assigning_Manufacturer_Code = CountryCodes[twodigitCode].ToString();
+                _Country_Assigning_Manufacturer_Code = CountryCodes[threedigitCode].ToString();
             }//try
             catch
             {
-                Error("EUPCA-3: Country assigning manufacturer code not found.");
+                try
+                {
+                    _Country_Assigning_Manufacturer_Code = CountryCodes[twodigitCode].ToString();
+                }//try
+                catch
+                {
+                    Error("EEAN13-3: Country assigning manufacturer code not found.");
+                }//catch 
             }//catch
             finally { CountryCodes.Clear(); }
 
             return result;
-        }//Encode_UPCA
+        }//Encode_EAN13
         private void init_CountryCodes()
         {
             CountryCodes.Clear();
@@ -149,6 +168,22 @@ namespace BarcodeLib.Symbologies
             CountryCodes.Add("94", "NEW ZEALAND");
             CountryCodes.Add("99", "COUPONS");
 
+            CountryCodes.Add("380", "BULGARIA");
+            CountryCodes.Add("383", "SLOVENIJA");
+            CountryCodes.Add("385", "CROATIA");
+            CountryCodes.Add("387", "BOSNIA-HERZEGOVINA");
+
+            CountryCodes.Add("460", "RUSSIA");
+            CountryCodes.Add("461", "RUSSIA");
+            CountryCodes.Add("462", "RUSSIA");
+            CountryCodes.Add("463", "RUSSIA");
+            CountryCodes.Add("464", "RUSSIA");
+            CountryCodes.Add("465", "RUSSIA");
+            CountryCodes.Add("466", "RUSSIA");
+            CountryCodes.Add("467", "RUSSIA");
+            CountryCodes.Add("468", "RUSSIA");
+            CountryCodes.Add("469", "RUSSIA");
+
             CountryCodes.Add("471", "TAIWAN");
             CountryCodes.Add("474", "ESTONIA");
             CountryCodes.Add("475", "LATVIA");
@@ -179,13 +214,22 @@ namespace BarcodeLib.Symbologies
             CountryCodes.Add("609", "MAURITIUS");
             CountryCodes.Add("611", "MOROCCO");
             CountryCodes.Add("613", "ALGERIA");
+            CountryCodes.Add("615", "NIGERIA");
+            CountryCodes.Add("616", "KENYA");
+            CountryCodes.Add("618", "IVORY COAST");
             CountryCodes.Add("619", "TUNISIA");
             CountryCodes.Add("622", "EGYPT");
             CountryCodes.Add("625", "JORDAN");
             CountryCodes.Add("626", "IRAN");
+            CountryCodes.Add("627", "KUWAIT");
+            CountryCodes.Add("628", "SAUDI ARABIA");
+            CountryCodes.Add("629", "EMIRATES");
             CountryCodes.Add("690", "CHINA");
             CountryCodes.Add("691", "CHINA");
             CountryCodes.Add("692", "CHINA");
+            CountryCodes.Add("693", "CHINA");
+            CountryCodes.Add("694", "CHINA");
+            CountryCodes.Add("695", "CHINA");
 
             CountryCodes.Add("729", "ISRAEL");
             CountryCodes.Add("740", "GUATEMALA");
@@ -211,6 +255,7 @@ namespace BarcodeLib.Symbologies
             CountryCodes.Add("858", "SLOVAKIA");
             CountryCodes.Add("859", "CZECH REPUBLIC");
             CountryCodes.Add("860", "YUGLOSLAVIA");
+            CountryCodes.Add("867", "NORTH KOREA");
             CountryCodes.Add("869", "TURKEY");
             CountryCodes.Add("880", "SOUTH KOREA");
             CountryCodes.Add("885", "THAILAND");
@@ -220,6 +265,7 @@ namespace BarcodeLib.Symbologies
             CountryCodes.Add("899", "INDONESIA");
 
             CountryCodes.Add("955", "MALAYSIA");
+            CountryCodes.Add("958", "MACAU");
             CountryCodes.Add("977", "INTERNATIONAL STANDARD SERIAL NUMBER FOR PERIODICALS (ISSN)");
             CountryCodes.Add("978", "INTERNATIONAL STANDARD BOOK NUMBERING (ISBN)");
             CountryCodes.Add("979", "INTERNATIONAL STANDARD MUSIC NUMBER (ISMN)");
@@ -231,18 +277,17 @@ namespace BarcodeLib.Symbologies
         {
             try
             {
-                string RawDataHolder = Raw_Data.Substring(0, 11);
+                string RawDataHolder = Raw_Data.Substring(0, 12);
 
-                //calculate check digit
                 int even = 0;
                 int odd = 0;
 
                 for (int i = 0; i < RawDataHolder.Length; i++)
                 {
                     if (i % 2 == 0)
-                        odd += Int32.Parse(RawDataHolder.Substring(i, 1)) * 3;
+                        odd += Int32.Parse(RawDataHolder.Substring(i, 1));
                     else
-                        even += Int32.Parse(RawDataHolder.Substring(i, 1));
+                        even += Int32.Parse(RawDataHolder.Substring(i, 1)) * 3;
                 }//for
 
                 int total = even + odd;
@@ -255,15 +300,15 @@ namespace BarcodeLib.Symbologies
             }//try
             catch
             {
-                Error("EUPCA-4: Error calculating check digit.");
+                Error("EEAN13-4: Error calculating check digit.");
             }//catch
-        }//CheckDigit
+        }
 
         #region IBarcode Members
 
         public string Encoded_Value
         {
-            get { return this.Encode_UPCA(); }
+            get { return this.Encode_EAN13(); }
         }
 
         #endregion
