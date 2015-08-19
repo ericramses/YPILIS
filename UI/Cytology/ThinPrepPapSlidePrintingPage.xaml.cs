@@ -25,24 +25,79 @@ namespace YellowstonePathology.UI.Cytology
 		public delegate void FinishedEventHandler(object sender, EventArgs e);
 		public event FinishedEventHandler Finished;
 
-        YellowstonePathology.Business.Specimen.Model.SpecimenOrder m_SpecimenOrder;
-        YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-        YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
+        private YellowstonePathology.Business.Specimen.Model.SpecimenOrder m_SpecimenOrder;
+        private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
+        private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
+        private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 
+        private YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort m_BarcodeScanPort;
 		private string m_PageHeaderText;
 
-		public ThinPrepPapSlidePrintingPage(YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder, YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-            YellowstonePathology.Business.Persistence.ObjectTracker objectTracker)
+		public ThinPrepPapSlidePrintingPage(YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder, 
+            YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
+            YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
+            YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 		{
             this.m_SpecimenOrder = specimenOrder;
             this.m_AccessionOrder = accessionOrder;
             this.m_ObjectTracker = objectTracker;
+            this.m_SystemIdentity = systemIdentity;
 			this.m_PageHeaderText = "Slide Printing Page ";
 
 			InitializeComponent();
 
-			DataContext = this;
+			DataContext = this;            
+
+            this.Loaded += new RoutedEventHandler(ThinPrepPapSlidePrintingPage_Loaded);
+            this.Unloaded += new RoutedEventHandler(ThinPrepPapSlidePrintingPage_Unloaded);
 		}
+
+        private void ThinPrepPapSlidePrintingPage_Unloaded(object sender, RoutedEventArgs e)
+        {
+            this.m_BarcodeScanPort.ThinPrepSlideScanReceived += new Business.BarcodeScanning.BarcodeScanPort.ThinPrepSlideScanReceivedHandler(BarcodeScanPort_ThinPrepSlideScanReceived);
+        }
+
+        private void ThinPrepPapSlidePrintingPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            this.m_BarcodeScanPort.ThinPrepSlideScanReceived -= BarcodeScanPort_ThinPrepSlideScanReceived;
+        }
+
+        private void BarcodeScanPort_ThinPrepSlideScanReceived(Business.BarcodeScanning.Barcode barcode)
+        {
+            this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal,
+                new Action(
+                    delegate()
+                    {
+                        if (barcode.IsValidated == true)
+                        {
+                            if (this.m_SpecimenOrder.AliquotOrderCollection.Exists(barcode.ID) == true)
+                            {
+                                YellowstonePathology.Business.Facility.Model.FacilityCollection facilityCollection = Business.Facility.Model.FacilityCollection.GetAllFacilities();
+                                YellowstonePathology.Business.Facility.Model.LocationCollection locationCollection = YellowstonePathology.Business.Facility.Model.LocationCollection.GetAllLocations();
+                                YellowstonePathology.Business.Facility.Model.Facility thisFacility = facilityCollection.GetByFacilityId(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId);
+                                YellowstonePathology.Business.Facility.Model.Location thisLocation = locationCollection.GetLocation(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.LocationId);                                
+
+                                YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = this.m_SpecimenOrder.AliquotOrderCollection.GetByAliquotOrderId(barcode.ID);
+                                aliquotOrder.Validate(this.m_SystemIdentity);
+
+                                string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
+                                YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog materialTrackingLog = new Business.MaterialTracking.Model.MaterialTrackingLog(objectId, barcode.ID, null, thisFacility.FacilityId, thisFacility.FacilityName,
+                                    thisLocation.LocationId, thisLocation.Description, this.m_SystemIdentity.User.UserId, this.m_SystemIdentity.User.UserName, "Slide Scanned", "Slide scanned at cytology aliquoting", "Aliquot", this.m_AccessionOrder.MasterAccessionNo, aliquotOrder.Label, aliquotOrder.ClientAccessioned);
+                                YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
+                                objectTracker.RegisterRootInsert(materialTrackingLog);
+                                objectTracker.SubmitChanges(materialTrackingLog);					
+                            }
+                            else
+                            {
+                                System.Windows.MessageBox.Show("The aliquot scanned does not appear to belong to this specimen.");
+                            }
+                        }
+                        else
+                        {
+                            System.Windows.MessageBox.Show("The scanner did not read the label correctly.", "Scan not successful.", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                        }
+                    }));    
+        }
 
 		public string PageHeaderText
 		{

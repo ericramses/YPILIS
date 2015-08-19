@@ -38,6 +38,7 @@ namespace YellowstonePathology.Business.Test
         protected int m_ValidatedById;
         protected string m_ValidatedBy;
         protected Nullable<DateTime> m_ValidationDate;
+        protected string m_Status;
         
 
         public AliquotOrder_Base()
@@ -343,7 +344,24 @@ namespace YellowstonePathology.Business.Test
                     this.NotifyPropertyChanged("ValidationDate");
                 }
             }
-        }        
+        }
+
+        [PersistentProperty()]
+        public string Status
+        {
+            get
+            {
+                return this.m_Status;
+            }
+            set
+            {
+                if (this.m_Status != value)
+                {
+                    this.m_Status = value;
+                    this.NotifyPropertyChanged("Status");
+                }
+            }
+        }
 
         public bool IsNotIntraoperative
         {
@@ -470,7 +488,21 @@ namespace YellowstonePathology.Business.Test
             return result;
         }
 
-        public YellowstonePathology.Business.Slide.Model.SlideStatusEnum Status
+        public void Validate(YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        {
+            if (this.m_Validated == false)
+            {
+                this.m_ValidationStation = systemIdentity.StationName;
+                this.m_ValidatedBy = systemIdentity.User.UserName;
+                this.m_ValidatedById = systemIdentity.User.UserId;
+                this.m_ValidationDate = DateTime.Now;
+                this.m_Validated = true;
+                this.m_Status = YellowstonePathology.Business.Slide.Model.SlideStatusEnum.Validated.ToString();
+                this.NotifyPropertyChanged(string.Empty);
+            }
+        }
+
+        public YellowstonePathology.Business.Slide.Model.SlideStatusEnum StatusDepricated
         {
             get
             {

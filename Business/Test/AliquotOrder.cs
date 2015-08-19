@@ -60,6 +60,6 @@ namespace YellowstonePathology.Business.Test
         public virtual void PullOver(YellowstonePathology.Business.Visitor.AccessionTreeVisitor accessionTreeVisitor)
         {
             accessionTreeVisitor.Visit(this);
-        }           
+        }        
 	}
 }
