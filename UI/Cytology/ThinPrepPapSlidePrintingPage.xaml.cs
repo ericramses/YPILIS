@@ -44,6 +44,8 @@ namespace YellowstonePathology.UI.Cytology
             this.m_SystemIdentity = systemIdentity;
 			this.m_PageHeaderText = "Slide Printing Page ";
 
+            this.m_BarcodeScanPort = Business.BarcodeScanning.BarcodeScanPort.Instance;
+
 			InitializeComponent();
 
 			DataContext = this;            
@@ -54,12 +56,12 @@ namespace YellowstonePathology.UI.Cytology
 
         private void ThinPrepPapSlidePrintingPage_Unloaded(object sender, RoutedEventArgs e)
         {
-            this.m_BarcodeScanPort.ThinPrepSlideScanReceived += new Business.BarcodeScanning.BarcodeScanPort.ThinPrepSlideScanReceivedHandler(BarcodeScanPort_ThinPrepSlideScanReceived);
+            this.m_BarcodeScanPort.ThinPrepSlideScanReceived -= BarcodeScanPort_ThinPrepSlideScanReceived;   
         }
 
         private void ThinPrepPapSlidePrintingPage_Loaded(object sender, RoutedEventArgs e)
-        {
-            this.m_BarcodeScanPort.ThinPrepSlideScanReceived -= BarcodeScanPort_ThinPrepSlideScanReceived;
+        {            
+            this.m_BarcodeScanPort.ThinPrepSlideScanReceived += new Business.BarcodeScanning.BarcodeScanPort.ThinPrepSlideScanReceivedHandler(BarcodeScanPort_ThinPrepSlideScanReceived);
         }
 
         private void BarcodeScanPort_ThinPrepSlideScanReceived(Business.BarcodeScanning.Barcode barcode)

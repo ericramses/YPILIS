@@ -38,8 +38,7 @@ namespace YellowstonePathology.Business.Test
         protected int m_ValidatedById;
         protected string m_ValidatedBy;
         protected Nullable<DateTime> m_ValidationDate;
-        protected string m_Status;
-        
+        protected string m_Status;        
 
         public AliquotOrder_Base()
         {
