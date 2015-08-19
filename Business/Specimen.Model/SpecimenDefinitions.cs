@@ -53,7 +53,19 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_RequiresGrossExamination = true;
         }
     }
-
+    
+    public class GallbladderExcision : Specimen
+    {
+        public GallbladderExcision()
+        {
+            this.m_SpecimenId = "GBSPCMN";
+            this.m_SpecimenName = "Skin Excision Biopsy";
+            this.m_Description = null;
+            this.m_LabFixation = "Formalin";
+            this.m_ClientFixation = "Formalin";
+            this.m_RequiresGrossExamination = true;
+        }
+    }
     public class SkinExcisionBiopsy : Specimen
     {
         public SkinExcisionBiopsy()
