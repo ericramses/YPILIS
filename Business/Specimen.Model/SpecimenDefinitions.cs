@@ -59,7 +59,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
         public GallbladderExcision()
         {
             this.m_SpecimenId = "GBSPCMN";
-            this.m_SpecimenName = "Skin Excision Biopsy";
+            this.m_SpecimenName = "Gallbladder Excision";
             this.m_Description = null;
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = "Formalin";
