@@ -49,9 +49,6 @@ namespace YellowstonePathology.Business
 		private static readonly string Icd9BillingCodeIdPattern = @"^\d\d-\d+.ICD\d+";
 		private static readonly string Icd9BillingCodeNoPattern = @"^\d\d-\d+.ICD(?<IcdBillingCodeNo>\d+)";
 
-		private static readonly string PanelSetOrderCommentIdPattern = @"^\d\d-\d+.[AaBbFfMmPpRrSsTtYy]{1}\d*\.PSOC\d+";
-		private static readonly string PanelSetOrderCommentNoPattern = @"^\d\d-\d+.[AaBbFfMmPpRrSsTtYy]{1}\d*\.PSOC(?<PanelSetOrderCommentNo>\d+)";
-
 		private static readonly string TaskOrderIdPattern = @"^\d\d-\d+.TSKO\d+";
 		private static readonly string TaskOrderNoPattern = @"^\d\d-\d+.TSKO(?<TaskOrderNo>\d+)";
 
@@ -1251,54 +1248,6 @@ namespace YellowstonePathology.Business
 				}
 			}
 			return surgicalAuditId + "." + YellowstonePathology.Business.Test.Surgical.SurgicalSpecimenAuditCollection.PREFIXID + (largestId + 1).ToString();
-		}
-		#endregion
-
-		#region PanelSetOrderComment
-		public string PanelSetOrderCommentId
-		{
-			get
-			{
-				string result = null;
-				System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex(PanelSetOrderCommentIdPattern);
-				System.Text.RegularExpressions.Match match = regex.Match(this.m_IdToParse);
-				if (match.Captures.Count != 0) result = match.Value;
-				return result;
-			}
-		}
-
-		public int? PanelSetOrderCommentNo
-		{
-			get
-			{
-				int? result = null;
-				System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex(PanelSetOrderCommentNoPattern);
-				System.Text.RegularExpressions.Match match = regex.Match(this.m_IdToParse);
-				if (match.Groups["PanelSetOrderCommentNo"].Captures.Count != 0)
-					result = Convert.ToInt32(match.Groups["PanelSetOrderCommentNo"].Captures[0].Value);
-				return result;
-			}
-		}
-
-		public static string GetNextPanelSetOrderCommentId(Test.PanelSetOrderCommentCollection panelSetOrderCommentCollection, string reportNo)
-		{
-			string result = string.Empty;
-			int largestId = 0;
-			foreach (Test.PanelSetOrderComment panelSetOrderComment in panelSetOrderCommentCollection)
-			{
-				OrderIdParser orderIdParser = new OrderIdParser(panelSetOrderComment.PanelSetOrderCommentId);
-				int? panelSetOrderCommentNo = orderIdParser.PanelSetOrderCommentNo;
-				if (panelSetOrderCommentNo == null)
-				{
-					int currentId = GetIdNumber(panelSetOrderComment.PanelSetOrderCommentId, Test.PanelSetOrderCommentCollection.PREFIXID);
-					if (currentId > largestId) largestId = currentId;
-				}
-				else
-				{
-					if (panelSetOrderCommentNo.Value > largestId) largestId = panelSetOrderCommentNo.Value;
-				}
-			}
-			return reportNo + "." + Test.PanelSetOrderCommentCollection.PREFIXID + (largestId + 1).ToString();
 		}
 		#endregion
 

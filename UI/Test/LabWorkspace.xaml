@@ -740,7 +740,7 @@
 					</Grid>
 				</TabItem>				
 
-				<TabItem Name="TabItemTestComments">
+				<!--<TabItem Name="TabItemTestComments">
 					<TabItem.Header>
 						<StackPanel Orientation="Horizontal">
 							<Image Source="/Resources/Comments.ico"></Image>
@@ -790,7 +790,7 @@
 							</ItemsControl>
 						</Grid>
 					</ScrollViewer>
-				</TabItem>
+				</TabItem>-->
 
 				<TabItem Name="TabItemFinal">
 					<TabItem.Header>

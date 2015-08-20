@@ -54,11 +54,6 @@ namespace YellowstonePathology.Business.Test.BRAFV600EK
             string collectionDateTimeString = YellowstonePathology.Business.Helper.DateTimeExtensions.CombineDateAndTime(specimenOrder.CollectionDate, specimenOrder.CollectionTime);
             this.SetXmlNodeData("date_time_collected", collectionDateTimeString);
 
-			foreach (YellowstonePathology.Business.Test.PanelSetOrderComment panelSetOrderComment in m_PanelSetOrder.PanelSetOrderCommentCollection)
-			{
-				this.ReplaceText(panelSetOrderComment.PlaceHolder, panelSetOrderComment.Comment);
-			}
-
 			this.ReplaceText("report_date", YellowstonePathology.Business.BaseData.GetShortDateString(this.m_PanelSetOrder.FinalDate));
 
 			this.SetXmlNodeData("pathologist_signature", m_PanelSetOrder.Signature);
