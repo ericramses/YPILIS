@@ -127,8 +127,13 @@ namespace YellowstonePathology.UI.Gross
             this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Cassette Color", ""));
             this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Cassette Number", ""));
 
+<<<<<<< HEAD
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinShavePunchMiscBiopsy SkinShavePunchMiscBiopsy = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinShavePunchMiscBiopsy();
             this.m_SpecimenCollection.Add(SkinShavePunchMiscBiopsy); 
+=======
+            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinShavePunchMiscBiopsy skinShavePunchMiscBiopsy = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinShavePunchMiscBiopsy();
+            this.m_SpecimenCollection.Add(skinShavePunchMiscBiopsy); 
+>>>>>>> YPII/master
 
         }
     }
@@ -153,9 +158,14 @@ namespace YellowstonePathology.UI.Gross
             this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Cassette Color", ""));
             this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Cassette Number", ""));
 
+<<<<<<< HEAD
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinExcisionBiopsy skinexcisionBiopsy = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinExcisionBiopsy();
             this.m_SpecimenCollection.Add(skinexcisionBiopsy);
 
+=======
+            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinExcisionBiopsy skinExcisionBiopsy = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinExcisionBiopsy();
+            this.m_SpecimenCollection.Add(skinExcisionBiopsy);
+>>>>>>> YPII/master
         }
     }
 
