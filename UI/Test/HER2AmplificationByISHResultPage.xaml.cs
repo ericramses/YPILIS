@@ -292,7 +292,7 @@ namespace YellowstonePathology.UI.Test
             this.m_PageNavigator.Navigate(this);
         }
 
-		private void HyperlinkSpecimen_Click(object sender, RoutedEventArgs e)
+		private void HyperlinkSpecimenDetails_Click(object sender, RoutedEventArgs e)
 		{
 			if (this.SpecimenDetail != null)
 			{
