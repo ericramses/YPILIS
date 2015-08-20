@@ -866,6 +866,11 @@ namespace YellowstonePathology.UI.Login
 			}
 		}
 
+		private void ButtonDailyTaskOrderHistory_Click(object sender, RoutedEventArgs e)
+		{
+			this.m_LoginUI.GetDailyTaskOrderHistoryCollection();
+		}
+
 		private void ButtonDailyTaskOrderAddDays_Click(object sender, RoutedEventArgs e)
 		{
 			StringBuilder message = new StringBuilder();
