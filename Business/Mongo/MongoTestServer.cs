@@ -12,7 +12,7 @@ namespace YellowstonePathology.Business.Mongo
         public static string LISDatabaseName = "LIS";
         public static string SQLTransferDatabasename = "SQLTransfer";
 
-        private const string ConnectionString = "mongodb://10.1.2.33";
+        private const string ConnectionString = "mongodb://10.1.2.18";
 
         private static readonly MongoTestServer _instance = new MongoTestServer();
                 

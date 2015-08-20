@@ -81,14 +81,14 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             {
 				YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetThinPrep();
                 YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = null;
-                if (specimenOrder.AliquotOrderCollection.HasCytycSlide() == false)
+                if (specimenOrder.AliquotOrderCollection.HasThinPrepSlide()== false)
                 {
-                    aliquotOrder = specimenOrder.AliquotOrderCollection.AddCytycSlide(specimenOrder, this.m_AccessionOrder.AccessionDate.Value);
+                    aliquotOrder = specimenOrder.AliquotOrderCollection.AddThinPrepSlide(specimenOrder, this.m_AccessionOrder.AccessionDate.Value);
                     this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
                 }
                 else
                 {
-                    aliquotOrder = specimenOrder.AliquotOrderCollection.GetCytycSlide();
+                    aliquotOrder = specimenOrder.AliquotOrderCollection.GetThinPrepSlide();
                 }
 
                 YellowstonePathology.Business.BarcodeScanning.BarcodeVersion2 barcode = new YellowstonePathology.Business.BarcodeScanning.BarcodeVersion2(Business.BarcodeScanning.BarcodePrefixEnum.PSLD, aliquotOrder.AliquotOrderId);

@@ -41,7 +41,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>191</ApplicationRevision>
+    <ApplicationRevision>195</ApplicationRevision>
     <ApplicationVersion>10.1.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -274,6 +274,7 @@
     <Compile Include="Cytology\PrintSlideDialog.xaml.cs">
       <DependentUpon>PrintSlideDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Cytology\TrackedItemStatusColorConverter.cs" />
     <Compile Include="Cytology\ThinPrepPapSlidePrintingPage.xaml.cs">
       <DependentUpon>ThinPrepPapSlidePrintingPage.xaml</DependentUpon>
     </Compile>

@@ -64,12 +64,13 @@ namespace YellowstonePathology.Business.Test
             return null;
         }
 
-        public AliquotOrder GetCytycSlide()
+        public AliquotOrder GetThinPrepSlide()
         {
+            YellowstonePathology.Business.Specimen.Model.ThinPrepSlide thinPrepSlide = new Specimen.Model.ThinPrepSlide();
             AliquotOrder result = null;
             foreach (AliquotOrder item in this)
             {
-                if (item.AliquotType == "Cytyc Slide")
+                if (item.AliquotType == thinPrepSlide.Name)
                 {
                     result = item;
                 }
@@ -215,14 +216,15 @@ namespace YellowstonePathology.Business.Test
 			return aliquotOrder;
 		}
 
-		public AliquotOrder AddCytycSlide(YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder, DateTime accessionDate)
+		public AliquotOrder AddThinPrepSlide(YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder, DateTime accessionDate)
         {
+            YellowstonePathology.Business.Specimen.Model.ThinPrepSlide thinPrepSlide = new Specimen.Model.ThinPrepSlide();
             AliquotOrder aliquotOrder = this.GetNextItem(specimenOrder, AliquotType.Slide, accessionDate);
             aliquotOrder.SpecimenOrderId = specimenOrder.SpecimenOrderId;
             aliquotOrder.Description = string.Empty;
-            aliquotOrder.AliquotType = "Cytyc Slide";
+            aliquotOrder.AliquotType = thinPrepSlide.Name;
             aliquotOrder.LabelPrefix = string.Empty;
-            aliquotOrder.LabelType = "Slide";
+            aliquotOrder.LabelType = thinPrepSlide.AliquotType;
             this.Add(aliquotOrder);
             this.SetSlideLabels(specimenOrder.SpecimenNumber);
             return aliquotOrder;
@@ -234,7 +236,8 @@ namespace YellowstonePathology.Business.Test
             aliquotOrder.SpecimenOrderId = specimenOrder.SpecimenOrderId;
             aliquotOrder.Description = string.Empty;
             aliquotOrder.AliquotType = aliquot.AliquotType;
-            aliquotOrder.LabelPrefix = string.Empty;            
+            aliquotOrder.LabelPrefix = string.Empty;
+            aliquotOrder.Status = YellowstonePathology.Business.TrackedItemStatusEnum.Created.ToString();
             this.Add(aliquotOrder);
             this.SetSlideLabels(specimenOrder.SpecimenNumber);
             return aliquotOrder;
@@ -400,12 +403,13 @@ namespace YellowstonePathology.Business.Test
             return result;
         }
 
-        public bool HasCytycSlide()
+        public bool HasThinPrepSlide()
         {
+            YellowstonePathology.Business.Specimen.Model.ThinPrepSlide thinPrepSlide = new Specimen.Model.ThinPrepSlide();
             bool result = false;
             foreach (AliquotOrder aliquotOrder in this)
             {
-                if (aliquotOrder.AliquotType == "Cytyc Slide")
+                if (aliquotOrder.AliquotType == thinPrepSlide.Name)
                 {
                     result = true;
                     break;
