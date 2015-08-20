@@ -62,7 +62,7 @@
 				</TextBlock>
 
 				<TextBlock Grid.Column="0" Grid.Row="7" Margin="5,3,0,0">                    
-                    <Hyperlink Click ="HyperlinkSpecimen_Click">Specimen</Hyperlink>
+                    <Hyperlink Click ="HyperlinkSpecimenDetails_Click">Specimen Details</Hyperlink>
 				</TextBlock>
 
 				<TextBlock Grid.Column="0" Grid.Row="8" Margin="5,3,0,0">                    
