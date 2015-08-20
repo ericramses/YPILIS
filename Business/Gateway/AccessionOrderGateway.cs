@@ -1454,7 +1454,7 @@ namespace YellowstonePathology.Business.Gateway
 				"where tskd.TaskOrderId = tsk.TaskOrderId " +
 				"for xml Path('TaskOrderDetail'), type) [TaskOrderDetailCollection] " +
 				"from tblTaskOrder tsk where AcknowledgementType = @AcknowledgementType and TaskOrderId in " +
-				"(Select TaskOrderId from tblTaskOrderDetail where Acknowledged = 0 and AssignedTo = @AssignedTo) " +
+				"(Select TaskOrderId from tblTaskOrderDetail where Acknowledged = 0 and AssignedTo = @AssignedTo) order by tsk.OrderDate desc " +
 				"for xml Path('TaskOrder'), type, root('TaskOrderCollection')");
 			cmd.CommandType = CommandType.Text;
 			cmd.Parameters.Add("@AssignedTo", SqlDbType.VarChar).Value = assignedTo;
