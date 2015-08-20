@@ -31,7 +31,7 @@ namespace YellowstonePathology.UI.Cytology
         private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 
         private YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort m_BarcodeScanPort;
-		private string m_PageHeaderText;
+		private string m_PageHeaderText;        
 
 		public ThinPrepPapSlidePrintingPage(YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder, 
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
@@ -44,7 +44,7 @@ namespace YellowstonePathology.UI.Cytology
             this.m_SystemIdentity = systemIdentity;
 			this.m_PageHeaderText = "Slide Printing Page ";
 
-            this.m_BarcodeScanPort = Business.BarcodeScanning.BarcodeScanPort.Instance;
+            this.m_BarcodeScanPort = Business.BarcodeScanning.BarcodeScanPort.Instance;            
 
 			InitializeComponent();
 
@@ -87,7 +87,13 @@ namespace YellowstonePathology.UI.Cytology
                                     thisLocation.LocationId, thisLocation.Description, this.m_SystemIdentity.User.UserId, this.m_SystemIdentity.User.UserName, "Slide Scanned", "Slide scanned at cytology aliquoting", "Aliquot", this.m_AccessionOrder.MasterAccessionNo, aliquotOrder.Label, aliquotOrder.ClientAccessioned);
                                 YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
                                 objectTracker.RegisterRootInsert(materialTrackingLog);
-                                objectTracker.SubmitChanges(materialTrackingLog);					
+                                objectTracker.SubmitChanges(materialTrackingLog);
+
+                                if (this.m_SpecimenOrder.AliquotOrderCollection.HasUnvalidatedItems() == false)
+                                {
+                                    this.Save();
+                                    this.Finished(this, new EventArgs());
+                                }
                             }
                             else
                             {
@@ -150,8 +156,7 @@ namespace YellowstonePathology.UI.Cytology
             if (this.m_SpecimenOrder.AliquotOrderCollection.Exists(thinPrepSlide) == false)
             {
                 YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = this.m_SpecimenOrder.AliquotOrderCollection.AddAliquot(thinPrepSlide, this.m_SpecimenOrder, this.m_AccessionOrder.AccessionDate.Value);
-                this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
-                this.PrintThinPrepSlide(aliquotOrder);
+                this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);            
             }
             else
             {
@@ -174,8 +179,7 @@ namespace YellowstonePathology.UI.Cytology
             YellowstonePathology.Business.Specimen.Model.PantherAliquot pantherAliquot = new Business.Specimen.Model.PantherAliquot();
             if (this.m_SpecimenOrder.AliquotOrderCollection.Exists(pantherAliquot) == false)
             {
-                YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = this.m_SpecimenOrder.AliquotOrderCollection.AddAliquot(pantherAliquot, this.m_SpecimenOrder, this.m_AccessionOrder.AccessionDate.Value);
-                this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
+                YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = this.m_SpecimenOrder.AliquotOrderCollection.AddAliquot(pantherAliquot, this.m_SpecimenOrder, this.m_AccessionOrder.AccessionDate.Value);                
             }
             else
             {
@@ -207,5 +211,20 @@ namespace YellowstonePathology.UI.Cytology
             this.Save();
             if (this.Finished != null) this.Finished(this, new EventArgs());
         }        
+
+        private void ListBoxAliquots_MouseUp(object sender, MouseButtonEventArgs e)
+        {         
+            if (this.ListBoxAliquots.SelectedItems.Count != 0)
+            {
+                YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = (YellowstonePathology.Business.Test.AliquotOrder)this.ListBoxAliquots.SelectedItem;
+                if (aliquotOrder.Status == YellowstonePathology.Business.Slide.Model.SlideStatusEnum.Created.ToString())
+                {
+                    this.PrintThinPrepSlide(aliquotOrder);
+                    aliquotOrder.Status = YellowstonePathology.Business.TrackedItemStatusEnum.Printed.ToString();                    
+                }                
+             
+                this.NotifyPropertyChanged(string.Empty);
+            }
+        }
 	}
 }

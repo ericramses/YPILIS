@@ -93,8 +93,7 @@ namespace YellowstonePathology.UI.Login.SlidePrinting
 
         private void HyperLinkAddSlide_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = this.m_SpecimenOrder.AliquotOrderCollection.AddCytycSlide(this.m_SpecimenOrder, this.m_AccessionOrder.AccessionDate.Value);
-            this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
+            
         }
 
         private void HyperLinkPrintSlide_Click(object sender, RoutedEventArgs e)

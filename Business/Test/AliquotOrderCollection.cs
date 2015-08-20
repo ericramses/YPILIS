@@ -389,6 +389,20 @@ namespace YellowstonePathology.Business.Test
 			return result;
 		}
 
+        public bool HasUnvalidatedItems()
+        {
+            bool result = false;            
+            foreach (AliquotOrder aliquotOrder in this)
+            {
+                if (aliquotOrder.Validated == false)
+                {
+                    result = true;
+                    break;
+                }
+            }
+            return result;
+        }
+
         public bool HasBlocks()
         {
             bool result = false;            
