@@ -4,6 +4,10 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 
+<<<<<<< HEAD
+=======
+///test comment 2
+>>>>>>> origin/master
 namespace YellowstonePathology.UI.Billing
 {
     public class CodeSelection
