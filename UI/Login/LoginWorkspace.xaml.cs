@@ -875,8 +875,8 @@ namespace YellowstonePathology.UI.Login
 			result = YellowstonePathology.Business.Task.Model.TaskOrderCollection.AddDailyTaskOrderSurgicalSpecimenDisposal(30);
 			message.AppendLine(result.Message);
 
-			result = YellowstonePathology.Business.Task.Model.TaskOrderCollection.AddDailyTaskOrderPOCReport(4);
-			message.AppendLine(result.Message);
+			//result = YellowstonePathology.Business.Task.Model.TaskOrderCollection.AddDailyTaskOrderPOCReport(4);
+			//message.AppendLine(result.Message);
 			MessageBox.Show(message.ToString());
 		}
 
