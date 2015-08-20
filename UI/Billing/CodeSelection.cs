@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 
 
-//This is Sid's comment
 namespace YellowstonePathology.UI.Billing
 {
     public class CodeSelection
