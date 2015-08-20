@@ -22,7 +22,6 @@ namespace YellowstonePathology.Business.Test
 
 		protected PanelOrderCollection m_PanelOrderCollection;
         protected YellowstonePathology.Business.Amendment.Model.AmendmentCollection m_AmendmentCollection;
-		protected PanelSetOrderCommentCollection m_PanelSetOrderCommentCollection;
 		protected YellowstonePathology.Business.Test.PanelSetOrderCPTCodeCollection m_PanelSetOrderCPTCodeCollection;
 		protected YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBillCollection m_PanelSetOrderCPTCodeBillCollection;
         protected YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistributionCollection m_TestOrderReportDistributionCollection;
@@ -100,7 +99,6 @@ namespace YellowstonePathology.Business.Test
 		public PanelSetOrder()
 		{
 			this.m_PanelOrderCollection = new PanelOrderCollection();
-			this.m_PanelSetOrderCommentCollection = new YellowstonePathology.Business.Test.PanelSetOrderCommentCollection();
 			this.m_PanelSetOrderCPTCodeCollection = new PanelSetOrderCPTCodeCollection();
 			this.m_PanelSetOrderCPTCodeBillCollection = new PanelSetOrderCPTCodeBillCollection();
             this.m_TestOrderReportDistributionCollection = new YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistributionCollection();
@@ -148,7 +146,6 @@ namespace YellowstonePathology.Business.Test
 			}
 
 			this.m_PanelOrderCollection = new PanelOrderCollection();
-			this.m_PanelSetOrderCommentCollection = new YellowstonePathology.Business.Test.PanelSetOrderCommentCollection();
 			this.m_PanelSetOrderCPTCodeCollection = new PanelSetOrderCPTCodeCollection();
 			this.m_PanelSetOrderCPTCodeBillCollection = new PanelSetOrderCPTCodeBillCollection();
             this.m_TestOrderReportDistributionCollection = new YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistributionCollection();
@@ -205,7 +202,6 @@ namespace YellowstonePathology.Business.Test
 			}
 
 			this.m_PanelOrderCollection = new PanelOrderCollection();
-			this.m_PanelSetOrderCommentCollection = new YellowstonePathology.Business.Test.PanelSetOrderCommentCollection();
 			this.m_PanelSetOrderCPTCodeCollection = new PanelSetOrderCPTCodeCollection();
 			this.m_PanelSetOrderCPTCodeBillCollection = new PanelSetOrderCPTCodeBillCollection();
             this.m_TestOrderReportDistributionCollection = new YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistributionCollection();
@@ -1284,13 +1280,6 @@ namespace YellowstonePathology.Business.Test
 		{
 			get { return this.m_AmendmentCollection; }
 			set { this.m_AmendmentCollection = value; }
-		}
-
-		[PersistentCollection()]
-		public YellowstonePathology.Business.Test.PanelSetOrderCommentCollection PanelSetOrderCommentCollection
-		{
-			get { return this.m_PanelSetOrderCommentCollection; }
-			set { this.m_PanelSetOrderCommentCollection = value; }
 		}
 
 		public bool ColorCodeVisible

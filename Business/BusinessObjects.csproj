@@ -1890,8 +1890,6 @@
     <Compile Include="Test\PanelOrderFactory.cs" />
     <Compile Include="Test\PanelSetOrder.cs" />
     <Compile Include="Test\PanelSetOrderCollection.cs" />
-    <Compile Include="Test\PanelSetOrderComment.cs" />
-    <Compile Include="Test\PanelSetOrderCommentCollection.cs" />
     <Compile Include="Test\PanelSetOrderCPTCode.cs" />
     <Compile Include="Test\PanelSetOrderCPTCodeBill.cs" />
     <Compile Include="Test\PanelSetOrderCPTCodeBillCollection.cs" />

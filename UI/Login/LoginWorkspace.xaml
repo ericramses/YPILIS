@@ -279,10 +279,10 @@
 								</StackPanel>
 							</Button>
 
-							<Button Margin="2" Click="ButtonDailyTaskOrderAddDays_Click">
+							<Button Margin="2" Click="ButtonDailyTaskOrderHistory_Click">
 								<StackPanel Orientation="Horizontal">
-									<Image Source="/Resources/add.gif" Width="18" Height="18"></Image>
-									<TextBlock Margin="2,0,0,0">Add Daily Tasks</TextBlock>
+									<Image Source="/Resources/Batch.ico"></Image>
+									<TextBlock Margin="2,0,0,0">History</TextBlock>
 								</StackPanel>
 							</Button>
 

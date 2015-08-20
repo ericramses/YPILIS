@@ -261,12 +261,12 @@ namespace YellowstonePathology.YpiConnect.Contract.Billing
         
         public void FromXml(XElement xml)
         {
-            throw new NotImplementedException("FromXml not implemented in PanelSetOrderComment");
+			throw new NotImplementedException("FromXml not implemented in PanelSetOrderCPTCode");
         }
 
         public XElement ToXml()
         {
-            throw new NotImplementedException("ToXml not implemented in PanelSetOrderComment");
+			throw new NotImplementedException("ToXml not implemented in PanelSetOrderCPTCode");
         }
 	}
 }

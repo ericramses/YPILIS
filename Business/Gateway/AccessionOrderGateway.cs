@@ -1351,6 +1351,36 @@ namespace YellowstonePathology.Business.Gateway
 			return result;
 		}
 
+		public static YellowstonePathology.Business.Task.Model.TaskOrderCollection GetDailyTaskOrderHistoryCollection(int daysBack)
+		{
+			YellowstonePathology.Business.Task.Model.TaskOrderCollection result = new YellowstonePathology.Business.Task.Model.TaskOrderCollection();
+			XElement collectionElement = new XElement("Document");
+			string sql = "Select * from tblTaskOrder where AcknowledgementType = 'Daily' " +
+				"and TaskDate between @StartDate and @EndDate order by TaskDate desc";
+			SqlCommand cmd = new SqlCommand(sql);
+			cmd.CommandType = CommandType.Text;
+			cmd.Parameters.Add("@StartDate", SqlDbType.DateTime).Value = DateTime.Today.AddDays(-daysBack);
+			cmd.Parameters.Add("@EndDate", SqlDbType.DateTime).Value = DateTime.Today;
+
+			using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+			{
+				cn.Open();
+				cmd.Connection = cn;
+				using (SqlDataReader dr = cmd.ExecuteReader())
+				{
+					while (dr.Read() == true)
+					{
+						YellowstonePathology.Business.Task.Model.TaskOrder taskOrder = new Task.Model.TaskOrder();
+						YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(taskOrder, dr);
+						sqlDataReaderPropertyWriter.WriteProperties();
+						result.Add(taskOrder);
+					}
+				}
+			}
+
+			return result;
+		}
+
 		public static DateTime GetNewestDailyTaskOrderTaskDate(string taskId)
 		{
 			DateTime result = DateTime.Today;
@@ -1424,7 +1454,7 @@ namespace YellowstonePathology.Business.Gateway
 				"where tskd.TaskOrderId = tsk.TaskOrderId " +
 				"for xml Path('TaskOrderDetail'), type) [TaskOrderDetailCollection] " +
 				"from tblTaskOrder tsk where AcknowledgementType = @AcknowledgementType and TaskOrderId in " +
-				"(Select TaskOrderId from tblTaskOrderDetail where Acknowledged = 0 and AssignedTo = @AssignedTo) " +
+				"(Select TaskOrderId from tblTaskOrderDetail where Acknowledged = 0 and AssignedTo = @AssignedTo) order by tsk.OrderDate desc " +
 				"for xml Path('TaskOrder'), type, root('TaskOrderCollection')");
 			cmd.CommandType = CommandType.Text;
 			cmd.Parameters.Add("@AssignedTo", SqlDbType.VarChar).Value = assignedTo;

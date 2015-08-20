@@ -670,18 +670,6 @@ namespace YellowstonePathology.UI.Test
 			m_Comment = (YellowstonePathology.Business.Domain.Core.Comment)(menuItem.Tag);
 		}
 
-		private void MenuItemSelect_Click(object sender, RoutedEventArgs e)
-		{
-			MenuItem menuItem = (MenuItem)sender;
-			YellowstonePathology.Business.Test.PanelSetOrderComment panelSetOrderComment = (YellowstonePathology.Business.Test.PanelSetOrderComment)(menuItem.Tag);
-
-			if (m_Comment != null)
-			{
-				panelSetOrderComment.Comment = m_Comment.ActualComment;
-			}
-			m_Comment = null;
-		}		
-
 		public void ListViewBatchList_SelectionChanged(object sender, RoutedEventArgs args)
 		{
 			if (listViewBatchList.SelectedItem != null)

@@ -866,6 +866,11 @@ namespace YellowstonePathology.UI.Login
 			}
 		}
 
+		private void ButtonDailyTaskOrderHistory_Click(object sender, RoutedEventArgs e)
+		{
+			this.m_LoginUI.GetDailyTaskOrderHistoryCollection();
+		}
+
 		private void ButtonDailyTaskOrderAddDays_Click(object sender, RoutedEventArgs e)
 		{
 			StringBuilder message = new StringBuilder();
@@ -875,8 +880,8 @@ namespace YellowstonePathology.UI.Login
 			result = YellowstonePathology.Business.Task.Model.TaskOrderCollection.AddDailyTaskOrderSurgicalSpecimenDisposal(30);
 			message.AppendLine(result.Message);
 
-			result = YellowstonePathology.Business.Task.Model.TaskOrderCollection.AddDailyTaskOrderPOCReport(4);
-			message.AppendLine(result.Message);
+			//result = YellowstonePathology.Business.Task.Model.TaskOrderCollection.AddDailyTaskOrderPOCReport(4);
+			//message.AppendLine(result.Message);
 			MessageBox.Show(message.ToString());
 		}
 

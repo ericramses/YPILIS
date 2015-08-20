@@ -294,6 +294,12 @@ namespace YellowstonePathology.UI.Login
 			this.NotifyPropertyChanged("DailyTaskOrderCollection");
 		}
 
+		public void GetDailyTaskOrderHistoryCollection()
+		{
+			this.m_DailyTaskOrderCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetDailyTaskOrderHistoryCollection(30);
+			this.NotifyPropertyChanged("DailyTaskOrderCollection");
+		}
+
 		public void ViewLabOrderLog(DateTime orderDate)
 		{
 			string rptpath = @"\\CFileServer\documents\Reports\Lab\LabOrdersLog\YEAR\MONTH\LabOrdersLog.FILEDATE.v1.xml";

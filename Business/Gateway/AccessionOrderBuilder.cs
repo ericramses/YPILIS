@@ -157,7 +157,6 @@ namespace YellowstonePathology.Business.Gateway
 				builder.Build(panelSetOrder, panelSetOrderElement);
                 this.SetOrderedOnDescription(panelSetOrder, accessionOrder);
 				BuildAmendment(panelSetOrder, panelSetOrderElement);
-				BuildPanelSetOrderComment(panelSetOrder, panelSetOrderElement);
                 BuildPanelSetOrderCPTCode(panelSetOrder, panelSetOrderElement);
                 BuildPanelSetOrderCPTCodeBill(panelSetOrder, panelSetOrderElement);
                 BuildTestOrderReportDistribution(panelSetOrder, panelSetOrderElement);
@@ -202,19 +201,6 @@ namespace YellowstonePathology.Business.Gateway
 				YellowstonePathology.Business.Persistence.XmlPropertyWriter xmlPropertyWriter = new YellowstonePathology.Business.Persistence.XmlPropertyWriter(amendmentElement, amendment);
 				xmlPropertyWriter.Write();
 				panelSetOrder.AmendmentCollection.Add(amendment);
-			}
-		}
-
-		private void BuildPanelSetOrderComment(Test.PanelSetOrder panelSetOrder, XElement panelSetOrderElement)
-		{
-			List<XElement> panelSetOrderCommentElements = (from item in panelSetOrderElement.Elements("PanelSetOrderCommentCollection")
-														   select item).ToList<XElement>();
-			foreach (XElement panelSetOrderCommentElement in panelSetOrderCommentElements.Elements("PanelSetOrderComment"))
-			{
-				YellowstonePathology.Business.Test.PanelSetOrderComment panelSetOrderComment = new Test.PanelSetOrderComment();
-				YellowstonePathology.Business.Persistence.XmlPropertyWriter xmlPropertyWriter = new YellowstonePathology.Business.Persistence.XmlPropertyWriter(panelSetOrderCommentElement, panelSetOrderComment);
-				xmlPropertyWriter.Write();
-				panelSetOrder.PanelSetOrderCommentCollection.Add(panelSetOrderComment);                
 			}
 		}
 
