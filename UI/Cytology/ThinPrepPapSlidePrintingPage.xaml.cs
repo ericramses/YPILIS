@@ -123,11 +123,12 @@ namespace YellowstonePathology.UI.Cytology
 
 		public bool OkToSaveOnClose()
 		{
-			return false;
+			return true;
 		}
 
 		public void Save()
 		{
+            this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
 		}
 
 		public void UpdateBindingSources()
@@ -203,6 +204,7 @@ namespace YellowstonePathology.UI.Cytology
 
         private void ButtonFinished_Click(object sender, RoutedEventArgs e)
         {
+            this.Save();
             if (this.Finished != null) this.Finished(this, new EventArgs());
         }        
 	}

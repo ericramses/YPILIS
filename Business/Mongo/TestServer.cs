@@ -14,7 +14,7 @@ namespace YellowstonePathology.Business.Mongo
         public const string SQLTransferDatabasename = "SQLTransfer";
 
         public TestServer(string databaseName)
-            : base("mongodb://10.1.2.33", databaseName)
+            : base("mongodb://10.1.2.18", databaseName)
         {
             
         }        
