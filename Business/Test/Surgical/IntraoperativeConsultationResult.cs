@@ -10,7 +10,7 @@ using YellowstonePathology.Business.Persistence;
 namespace YellowstonePathology.Business.Test.Surgical
 {
 	[PersistentClass("tblIntraoperativeConsultationResult", true, "YPIDATA")]
-	public partial class IntraoperativeConsultationResult : INotifyPropertyChanged
+	public partial class IntraoperativeConsultationResult : INotifyPropertyChanged, System.ComponentModel.IDataErrorInfo
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 

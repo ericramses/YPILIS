@@ -95,6 +95,7 @@ namespace YellowstonePathology.UI.Test
 
 			if (result == MessageBoxResult.OK)
 			{
+				this.m_IntraoperativeConsultation.ClearDateValidationErrors();
 				this.m_IntraoperativeConsultation.StartDate = this.m_SpecimenOrder.DateReceived;
 				this.m_IntraoperativeConsultation.EndDate = DateTime.Now;
 				this.NotifyPropertyChanged("");

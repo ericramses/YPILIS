@@ -23,13 +23,6 @@ namespace YellowstonePathology.Business.Test.Surgical
 			get
 			{
 				System.Windows.Media.SolidColorBrush brush = System.Windows.Media.Brushes.White;
-
-				if (this.m_ValidationErrors.ContainsKey("StartDateBinding") == true)
-				{
-					System.Windows.Media.BrushConverter brushConverter = new System.Windows.Media.BrushConverter();
-					brush = brushConverter.ConvertFromString("#F35364") as System.Windows.Media.SolidColorBrush;
-				}
-
 				return brush;
 			}
 		}
@@ -119,13 +112,6 @@ namespace YellowstonePathology.Business.Test.Surgical
 			get
 			{
 				System.Windows.Media.SolidColorBrush brush = System.Windows.Media.Brushes.White;
-
-				if (this.m_ValidationErrors.ContainsKey("EndDateBinding") == true)
-				{
-					System.Windows.Media.BrushConverter brushConverter = new System.Windows.Media.BrushConverter();
-					brush = brushConverter.ConvertFromString("#F35364") as System.Windows.Media.SolidColorBrush;
-				}
-
 				return brush;
 			}
 		}
@@ -215,6 +201,54 @@ namespace YellowstonePathology.Business.Test.Surgical
 			this.NotifyPropertyChanged("EndDateBinding");
 			this.NotifyPropertyChanged("EndDate");
 			this.NotifyPropertyChanged("EndDateBackgroundColorBinding");
+		}
+
+		public void ClearDateValidationErrors()
+		{
+			if (this.m_ValidationErrors.ContainsKey("StartDateBinding") == true) this.m_ValidationErrors.Remove("StartDateBinding");
+			if (this.m_ValidationErrors.ContainsKey("EndDateBinding") == true) this.m_ValidationErrors.Remove("EndDateBinding");
+		}
+
+		public string this[string columnName]
+		{
+			get
+			{
+				string result = null;
+				if (this.m_ValidationErrors.ContainsKey(columnName) == true)
+				{
+					result = this.m_ValidationErrors[columnName];
+				}
+				return result;
+			}
+		}
+
+		public string Error
+		{
+			get
+			{
+				string result = null;
+				if (this.m_ValidationErrors.Count > 0)
+				{
+					result = "There are errors that need to handled.";
+				}
+				return result;
+			}
+		}
+
+		public void AddError(string proteryName, string message)
+		{
+			if (this.m_ValidationErrors.ContainsKey(proteryName) == false)
+			{
+				this.m_ValidationErrors.Add(proteryName, message);
+			}
+		}
+
+		private void RemoveError(string propertyName)
+		{
+			if (this.m_ValidationErrors.ContainsKey(propertyName) == true)
+			{
+				this.m_ValidationErrors.Remove(propertyName);
+			}
 		}
 
 		public Dictionary<string, string> ValidationErrors
