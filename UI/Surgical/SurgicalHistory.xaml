@@ -28,7 +28,7 @@
 		</DataTemplate>
 
 		<HierarchicalDataTemplate x:Key="DataTemplateIntraoperativeHeader">
-			<ItemsControl ItemsSource="{Binding Path=IntraoperativeConsultationResultItemCollection}"
+			<ItemsControl ItemsSource="{Binding Path=IntraoperativeConsultationResultCollection}"
 							  Template="{StaticResource HistoryControlTemplate}"
 							  ItemTemplate="{StaticResource DataTemplateIntraoperativeList}">
 				<ItemsControl.ItemsPanel>

@@ -45,10 +45,8 @@ namespace YellowstonePathology.UI.Test
 
 		private void FrozenFinalDialog_Closing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
-			DependencyObject obj = sender as DependencyObject;
-			((MainWindow)Application.Current.MainWindow).MoveKeyboardInputToNext();
-            bool okToClose = this.IsDependencyObjectValid(obj);
-			if (okToClose == false)
+			this.m_IntraoperativeConsultation.ValidateObject();
+			if (this.m_IntraoperativeConsultation.ValidationErrors.Count > 0)
 			{
 				MessageBoxResult result = MessageBox.Show("There are validation errors on this form." + Environment.NewLine + "If you continue you may lose data." +
 					Environment.NewLine + Environment.NewLine + "Do you want to continue?", "Close?", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
@@ -57,14 +55,6 @@ namespace YellowstonePathology.UI.Test
 					e.Cancel = true;
 				}
 			}
-		}
-
-		private bool IsDependencyObjectValid(DependencyObject obj)
-		{			
-			return !Validation.GetHasError(obj) &&
-			LogicalTreeHelper.GetChildren(obj)
-			.OfType<DependencyObject>()
-            .All(IsDependencyObjectValid);
 		}
 
 		public void NotifyPropertyChanged(String info)
