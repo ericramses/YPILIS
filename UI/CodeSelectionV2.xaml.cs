@@ -125,7 +125,7 @@ namespace YellowstonePathology.UI
 		{
 			YellowstonePathology.Business.Test.PanelSetOrderCPTCode panelSetOrderCPTCode = this.m_SurgicalTestOrder.PanelSetOrderCPTCodeCollection.GetNextItem(this.m_SurgicalTestOrder.ReportNo);
 			panelSetOrderCPTCode.Quantity = cptItem.Quantity;
-			panelSetOrderCPTCode.CPTCode = cptItem.CptCode;
+			panelSetOrderCPTCode.CPTCode = cptItem.CptCode.Code;
 			panelSetOrderCPTCode.Modifier = null;
 			panelSetOrderCPTCode.CodeableDescription = "Specimen " + specimenOrder.SpecimenNumber + ": " + this.m_SurgicalTestOrder.PanelSetName;
 			panelSetOrderCPTCode.CodeableType = "Surgical Diagnosis";
