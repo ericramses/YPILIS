@@ -2,31 +2,34 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.ComponentModel;
 
 namespace YellowstonePathology.Business.Billing
 {
-    public class TypingCptCodeListItem : ListItem
+	public class TypingCptCodeListItem : INotifyPropertyChanged
     {
-        string m_CptCode;        
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		YellowstonePathology.Business.Billing.Model.CptCode m_CptCode;        
         int m_Quantity;
 
-        public TypingCptCodeListItem(string cptCode)
+		public TypingCptCodeListItem(YellowstonePathology.Business.Billing.Model.CptCode cptCode)
         {
             this.m_CptCode = cptCode;            
             this.m_Quantity = 1;
         }
 
-        public string CptCode
+		public void NotifyPropertyChanged(String info)
+		{
+			if (PropertyChanged != null)
+			{
+				PropertyChanged(this, new PropertyChangedEventArgs(info));
+			}
+		}
+
+		public YellowstonePathology.Business.Billing.Model.CptCode CptCode
         {
             get { return this.m_CptCode; }
-            set
-            {
-                if (value != this.m_CptCode)
-                {
-                    this.m_CptCode = value;
-                    this.NotifyPropertyChanged("CptCode");
-                }
-            }
         }        
 
         public int Quantity
