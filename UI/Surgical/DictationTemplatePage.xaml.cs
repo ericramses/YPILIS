@@ -12,23 +12,25 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace YellowstonePathology.UI.Gross
+namespace YellowstonePathology.UI.Surgical
 {	
 	public partial class DictationTemplatePage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
 	{
-        private DictationTemplate m_DictationTemplate;        
+        private YellowstonePathology.UI.Gross.DictationTemplate m_DictationTemplate;
+        private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 
-        public DictationTemplatePage(string specimenId)
-		{            
-            DictationTemplateCollection dictationTemplateCollection = DictationTemplateCollection.GetAll();
-            this.m_DictationTemplate = dictationTemplateCollection.GetTemplate(specimenId);
+        public DictationTemplatePage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
+		{
+            this.m_AccessionOrder = accessionOrder;
+            //DictationTemplateCollection dictationTemplateCollection = DictationTemplateCollection.GetAll();
+            //this.m_DictationTemplate = dictationTemplateCollection.GetTemplate(specimenId);
             
 			InitializeComponent();
 
 			DataContext = this;
 		}
 
-        public DictationTemplate DictationTemplate
+        public YellowstonePathology.UI.Gross.DictationTemplate DictationTemplate
         {
             get { return this.m_DictationTemplate; }            
         }

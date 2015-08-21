@@ -44,6 +44,8 @@ namespace YellowstonePathology.UI.Surgical
 		{
             this.m_MainWindowCommandButtonHandler = mainWindowCommandButtonHandler;
             this.m_SecondMonitorWindow = secondMonitorWindow;
+            this.m_SecondMonitorWindow.WindowState = WindowState.Maximized;
+
             this.m_SystemIdentity = new YellowstonePathology.Business.User.SystemIdentity(YellowstonePathology.Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
 
             this.CommandBindingClose = new CommandBinding(MainWindow.ApplicationClosingCommand, CloseWorkspace);
@@ -237,6 +239,12 @@ namespace YellowstonePathology.UI.Surgical
 
         private void HandleNewCaseSearch(string masterAccessionNoOrReportNo)
         {
+            if (this.m_TypingUI.SurgicalTestOrder != null)
+            {
+                YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.LastReportNo = this.m_TypingUI.SurgicalTestOrder.ReportNo;
+                YellowstonePathology.Business.User.UserPreferenceInstance.Instance.SubmitChanges();
+            }
+
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(masterAccessionNoOrReportNo);
             if (orderIdParser.IsLegacyReportNo == true)
             {
@@ -246,7 +254,7 @@ namespace YellowstonePathology.UI.Surgical
             else if (orderIdParser.IsValidMasterAccessionNo == true)
             {
                 this.TextBoxReportNoSearch.Text = orderIdParser.CreateSurgicalReportNoFromMasterAccessionNo();
-                this.GetSurgicalCase(this.TextBoxReportNoSearch.Text);
+                this.GetSurgicalCase(this.TextBoxReportNoSearch.Text);                
             }                
         }
 
@@ -748,8 +756,7 @@ namespace YellowstonePathology.UI.Surgical
             result = result.Replace(invalidQuote1, correctQuote);
             result = result.Replace(invalidQuote2, correctQuote);
             result = result.Replace(invalidDash, correctDash);
-            
-
+           
             return result;
         }       
 
@@ -906,18 +913,43 @@ namespace YellowstonePathology.UI.Surgical
         {
             if (this.ListViewSurgicalCaseList.SelectedItem != null)
             {
+                if (this.m_TypingUI.SurgicalTestOrder != null)
+                {
+                    YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.LastReportNo = this.m_TypingUI.SurgicalTestOrder.ReportNo;
+                    YellowstonePathology.Business.User.UserPreferenceInstance.Instance.SubmitChanges();
+                }
+
                 YellowstonePathology.Business.Surgical.SurgicalOrderListItem surgicalOrderListItem = (YellowstonePathology.Business.Surgical.SurgicalOrderListItem)this.ListViewSurgicalCaseList.SelectedItem;
                 this.GetSurgicalCase(surgicalOrderListItem.ReportNo);
                 this.TextBoxReportNoSearch.Text = surgicalOrderListItem.ReportNo;
             }
+        }        
+
+        private void HyperLinkShowProviderDistribution_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.m_TypingUI.SurgicalTestOrder != null)
+            {
+                YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPage providerDistributionPage = new Login.FinalizeAccession.ProviderDistributionPage(this.m_TypingUI.SurgicalTestOrder.ReportNo, this.m_TypingUI.AccessionOrder, this.m_TypingUI.ObjectTracker, this.m_SecondMonitorWindow.PageNavigator,
+                            System.Windows.Visibility.Collapsed, System.Windows.Visibility.Visible, System.Windows.Visibility.Collapsed);
+                this.m_SecondMonitorWindow.PageNavigator.Navigate(providerDistributionPage);
+            }
         }
 
-        private void ContextMenuGrossTemplate_Click(object sender, RoutedEventArgs e)
+        private void HyperLinkShowGossTemplate_Click(object sender, RoutedEventArgs e)
         {
-            Control ctrl = (Control)e.Source;
-            YellowstonePathology.Business.View.BillingSpecimenView billingSpecimenView = (YellowstonePathology.Business.View.BillingSpecimenView)ctrl.Tag;
-            YellowstonePathology.UI.Gross.DictationTemplatePage dictationTemplatePage = new Gross.DictationTemplatePage(billingSpecimenView.SpecimenOrder.SpecimenId);
-            this.m_SecondMonitorWindow.PageNavigator.Navigate(dictationTemplatePage);
+            if (this.m_TypingUI.AccessionOrder != null)
+            {
+                DictationTemplatePage dictationTemplatePage = new DictationTemplatePage(this.m_TypingUI.AccessionOrder);
+                this.m_SecondMonitorWindow.PageNavigator.Navigate(dictationTemplatePage);
+            }
+        }
+
+        private void ButtonLast_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.LastReportNo) == false)
+            {
+                this.HandleNewCaseSearch(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.LastReportNo);
+            }
         }        
 	}    
 }

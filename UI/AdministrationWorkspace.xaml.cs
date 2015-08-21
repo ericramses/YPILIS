@@ -1261,10 +1261,10 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunShowTemplatePage_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.UI.Gross.SecondaryWindow window = new Gross.SecondaryWindow();
-            YellowstonePathology.UI.Gross.DictationTemplatePage page = new Gross.DictationTemplatePage("SPCMNPRSTTRDCLRSCTN");
-            window.Show();
-            window.PageNavigator.Navigate(page);
+            //YellowstonePathology.UI.Gross.SecondaryWindow window = new Gross.SecondaryWindow();
+            //YellowstonePathology.UI.Gross.DictationTemplatePage page = new Gross.DictationTemplatePage("SPCMNPRSTTRDCLRSCTN");
+            //window.Show();
+            //window.PageNavigator.Navigate(page);
         }
 
         private void GetTableNames()

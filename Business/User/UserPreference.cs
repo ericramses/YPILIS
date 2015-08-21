@@ -41,6 +41,7 @@ namespace YellowstonePathology.Business.User
 		private string m_WeekdayProcessorRunId;
 		private string m_WeekendProcessorRunId;
         private string m_CytologySlidePrinter;
+        private string m_LastReportNo;
 
         public UserPreference()
         {
@@ -401,6 +402,20 @@ namespace YellowstonePathology.Business.User
                 {
                     this.m_CytologySlidePrinter = value;
                     this.NotifyPropertyChanged("CytologySlidePrinter");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string LastReportNo
+        {
+            get { return this.m_LastReportNo; }
+            set
+            {
+                if (this.m_LastReportNo != value)
+                {
+                    this.m_LastReportNo = value;
+                    this.NotifyPropertyChanged("LastReportNo");
                 }
             }
         }
