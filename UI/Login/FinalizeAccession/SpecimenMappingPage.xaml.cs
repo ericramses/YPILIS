@@ -221,5 +221,14 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder = (YellowstonePathology.Business.Slide.Model.SlideOrder)checkBox.Tag;
             slideOrder.Status = YellowstonePathology.Business.Slide.Model.SlideStatusEnum.Created.ToString();
         }
+
+        private void ButtonUpdateTrackingLog_Click(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogCollection materialTrackingLogCollection = YellowstonePathology.Business.Gateway.SlideAccessionGateway.GetMaterialTrackingLogCollectionByMasterAccessionNo(this.m_AccessionOrder.MasterAccessionNo);
+            YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new Business.Persistence.ObjectTracker();
+            objectTracker.RegisterObject(materialTrackingLogCollection);
+            materialTrackingLogCollection.UpdateClientAccessioned(this.m_AccessionOrder.SpecimenOrderCollection);
+            objectTracker.SubmitChanges(materialTrackingLogCollection);
+        }
 	}
 }

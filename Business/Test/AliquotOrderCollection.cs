@@ -225,6 +225,7 @@ namespace YellowstonePathology.Business.Test
             aliquotOrder.AliquotType = thinPrepSlide.Name;
             aliquotOrder.LabelPrefix = string.Empty;
             aliquotOrder.LabelType = thinPrepSlide.AliquotType;
+            aliquotOrder.Status = YellowstonePathology.Business.TrackedItemStatusEnum.Created.ToString();
             this.Add(aliquotOrder);
             this.SetSlideLabels(specimenOrder.SpecimenNumber);
             return aliquotOrder;

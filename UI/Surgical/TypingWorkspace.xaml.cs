@@ -126,6 +126,11 @@ namespace YellowstonePathology.UI.Surgical
 
         public void CloseWorkspace(object target, ExecutedRoutedEventArgs args)
         {
+            if (this.m_TypingUI.SurgicalTestOrder != null)
+            {
+                YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.LastReportNo = this.m_TypingUI.SurgicalTestOrder.ReportNo;
+                YellowstonePathology.Business.User.UserPreferenceInstance.Instance.SubmitChanges();
+            }
             this.Save();			
         }
 
