@@ -131,6 +131,7 @@ namespace YellowstonePathology.UI
 			panelSetOrderCPTCode.CodeableType = "Surgical Diagnosis";
 			panelSetOrderCPTCode.EntryType = YellowstonePathology.Business.Billing.Model.PanelSetOrderCPTCodeEntryType.ManualEntry;
 			panelSetOrderCPTCode.SpecimenOrderId = specimenOrder.SpecimenOrderId;
+            panelSetOrderCPTCode.CodeType = cptItem.CptCode.CodeType.ToString();
 			panelSetOrderCPTCode.ClientId = this.m_AccessionOrder.ClientId;
 			this.m_SurgicalTestOrder.PanelSetOrderCPTCodeCollection.Add(panelSetOrderCPTCode);
 		}

@@ -41,7 +41,7 @@
 
                 <CheckBox Grid.Column="0" Grid.Row="0" Margin="2,4,2,2" Checked="CheckBoxAliquotOrder_Checked" Unchecked="CheckBoxAliquotOrder_Unchecked" Tag="{Binding}"></CheckBox>
                 <TextBlock Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" Text="{Binding Path=AliquotType}"></TextBlock>
-				<TextBlock Grid.Column="2" Grid.Row="0" Margin="2,2,2,2" Text="{Binding Path=Label}" MaxWidth="160" TextWrapping="Wrap"></TextBlock>
+				<TextBlock Grid.Column="2" Grid.Row="0" Margin="2,2,2,2" Text="{Binding Path=Label}" MaxWidth="160" TextWrapping="Wrap"></TextBlock>                
 
             </Grid>
         </HierarchicalDataTemplate>
@@ -94,7 +94,7 @@
 			</TreeView>
 
 			<TabControl Grid.Column="1" Grid.Row="0" Margin="2,2,2,2">
-				<TabItem Header="Hello">
+				<TabItem Header="Log">
 					<Grid Grid.Row="0" Margin="5">
 						<Grid.RowDefinitions>
 							<RowDefinition Height="*"></RowDefinition>
@@ -110,7 +110,7 @@
                                 <Style TargetType="{x:Type ListViewItem}">
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding ClientAccessioned}" Value="True">
-                                            <Setter Property="Background" Value="Red" />
+                                            <Setter Property="Background" Value="#edfb6f" />
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
