@@ -2881,6 +2881,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="HL7View\Panther\" />
     <Folder Include="MessageQueues\" />
     <Folder Include="Reports\Billing\" />
     <Folder Include="Rules\Creation\" />

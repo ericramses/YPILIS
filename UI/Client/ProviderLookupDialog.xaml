@@ -65,11 +65,7 @@
                         </ListView.View>
                     </ListView>
                 </Grid>
-            </TabItem>
-
-			<TabItem Header="Provider/Client">
-
-			</TabItem>
+            </TabItem>			
 		</TabControl>
 
 		<StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom">
