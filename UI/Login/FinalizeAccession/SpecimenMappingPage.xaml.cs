@@ -187,7 +187,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                     {                        
                         if (aliquotOrder.ClientAccessioned == true)
                         {
-                            YellowstonePathology.Business.Test.BlockLabelPrinter blockLabelPrinter = new Business.Test.BlockLabelPrinter(aliquotOrder.AliquotOrderId, aliquotOrder.Label, this.m_AccessionOrder.MasterAccessionNo, this.m_AccessionOrder.PLastName, this.m_AccessionOrder.PFirstName);
+                            YellowstonePathology.Business.Label.Model.BlockLabelPrinter blockLabelPrinter = new Business.Label.Model.BlockLabelPrinter(aliquotOrder.AliquotOrderId, aliquotOrder.Label, this.m_AccessionOrder.MasterAccessionNo, this.m_AccessionOrder.PLastName, this.m_AccessionOrder.PFirstName);
                             blockLabelPrinter.Print();
 
                             foreach (YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder in aliquotOrder.SlideOrderCollection)

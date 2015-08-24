@@ -388,6 +388,7 @@
     <Compile Include="Interface\IFlowMarker.cs" />
     <Compile Include="Interface\ILeukemiaLymphomaResult.cs" />
     <Compile Include="Interface\IPersistPageChanges.cs" />
+    <Compile Include="Label.Model\BlockLabelLegacy.cs" />
     <Compile Include="Label.Model\ThinPrepSlidePrinter.cs" />
     <Compile Include="Label.Model\ThinPrepSlide.cs" />
     <Compile Include="Label.Model\PantherLabel.cs" />
@@ -514,6 +515,7 @@
     <Compile Include="HL7View\ECW\ECWOBXViewFactory.cs" />
     <Compile Include="HL7View\ECW\ECWPIDView.cs" />
     <Compile Include="HL7View\ECW\ECWORCView.cs" />
+    <Compile Include="Test\CBFBinv16\CBFBinv16Test.cs" />
     <Compile Include="Test\Surgical\IntraoperativeConsultationResult.Validation.cs" />
     <Compile Include="TrackedItemStatusEnum.cs" />
     <Compile Include="Specimen.Model\AliquotCollection.cs" />
@@ -1305,7 +1307,7 @@
     <Compile Include="Test\AccessionTypeEnum.cs" />
     <Compile Include="Test\AliquotOrder.cs" />
     <Compile Include="Test\AliquotOrderCollection.cs" />
-    <Compile Include="Test\AliquotOrderPrinter.cs" />
+    <Compile Include="Label.Model\AliquotOrderPrinter.cs" />
     <Compile Include="Test\AliquotOrder_Base.cs" />
     <Compile Include="Test\AliquotType.cs" />
     <Compile Include="Test\ALKForNSCLCByFISH\ALKForNSCLCByFISHNegativeResult.cs" />
@@ -1519,8 +1521,8 @@
     <Compile Include="Test\BladderCancerFISHUrovysion\BladderCancerFISHUrovysionResultCollection.cs" />
     <Compile Include="Test\BladderCancerFISHUrovysion\BladderCancerFISHUrovysionTestOrder.cs" />
     <Compile Include="Test\BladderCancerFISHUrovysion\BladderCancerFISHUrovysionWordDocument.cs" />
-    <Compile Include="Test\BlockLabel.cs" />
-    <Compile Include="Test\BlockLabelPrinter.cs" />
+    <Compile Include="Label.Model\BlockLabel.cs" />
+    <Compile Include="Label.Model\BlockLabelPrinter.cs" />
     <Compile Include="Test\BRAFV600EK\BRAFV600EKCMMCNteView.cs" />
     <Compile Include="Test\BRAFV600EK\BRAFV600EKDetectedCRCResult.cs" />
     <Compile Include="Test\BRAFV600EK\BRAFV600EKDetectedLynchSyndromeResult.cs" />
@@ -1770,8 +1772,8 @@
     <Compile Include="Test\BRAFV600EK\BRAFV600EKResult.cs" />
     <Compile Include="Test\BRAFV600EK\BRAFV600EKResultCollection.cs" />
     <Compile Include="Test\BRAFV600EK\BRAFV600EKTestOrder.cs" />
-    <Compile Include="Test\Cassette.cs" />
-    <Compile Include="Test\CassettePrinter.cs" />
+    <Compile Include="Label.Model\Cassette.cs" />
+    <Compile Include="Label.Model\CassettePrinter.cs" />
     <Compile Include="Test\EGFRMutationAnalysis\EGFRMutationAnalysisDetectedResult.cs" />
     <Compile Include="Test\EGFRMutationAnalysis\EGFRMutationAnalysisNotDetectedResult.cs" />
     <Compile Include="Test\EGFRMutationAnalysis\EGFRMutationAnalysisResistanceResult.cs" />
@@ -1918,8 +1920,8 @@
     <Compile Include="Test\TestResult.cs" />
     <Compile Include="Test\TestResultTestCancelled.cs" />
     <Compile Include="Test\SearchEngine.cs" />
-    <Compile Include="Test\SlideLabel.cs" />
-    <Compile Include="Test\SlideLabelPrinter.cs" />
+    <Compile Include="Label.Model\SlideLabel.cs" />
+    <Compile Include="Label.Model\SlideLabelPrinter.cs" />
     <Compile Include="Test\TestCancelled\TestCancelledResult.cs" />
     <Compile Include="Test\ThinPrepPap\ThinPrepPapResult.cs" />
     <Compile Include="Test\Trichomonas\TrichomonasCMMCNteView.cs" />
