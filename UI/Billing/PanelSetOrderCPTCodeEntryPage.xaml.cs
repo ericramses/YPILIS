@@ -28,6 +28,7 @@ namespace YellowstonePathology.UI.Billing
 
         private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
         private YellowstonePathology.Business.Test.PanelSetOrderCPTCode m_PanelSetOrderCPTCode;
+		private YellowstonePathology.Business.Billing.Model.CptCodeCollection m_CptCodeCollection;
 
         public PanelSetOrderCPTCodeEntryPage(YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder, int clientId)
 		{
@@ -38,6 +39,8 @@ namespace YellowstonePathology.UI.Billing
             this.m_PanelSetOrderCPTCode.EntryType = "Manual Entry";
             this.m_PanelSetOrderCPTCode.CodeableType = "Billable Test";
 
+			this.m_CptCodeCollection = YellowstonePathology.Business.Billing.Model.CptCodeCollection.GetAll();
+
 			InitializeComponent();			
 			DataContext = this;
 		}
@@ -46,6 +49,11 @@ namespace YellowstonePathology.UI.Billing
         {
             get { return this.m_PanelSetOrderCPTCode; }
         }
+
+		public YellowstonePathology.Business.Billing.Model.CptCodeCollection CptCodeCollection
+		{
+			get { return this.m_CptCodeCollection; }
+		}
 
 		public void NotifyPropertyChanged(String info)
 		{
@@ -110,6 +118,16 @@ namespace YellowstonePathology.UI.Billing
 		private void ButtonBack_Click(object sender, RoutedEventArgs e)
 		{
 			if (this.Back != null) this.Back(this, new EventArgs());
+		}
+
+		private void ListViewCptCodes_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			if (this.ListViewCptCodes.SelectedItem != null)
+			{
+				YellowstonePathology.Business.Billing.Model.CptCode cptCode = (YellowstonePathology.Business.Billing.Model.CptCode)this.ListViewCptCodes.SelectedItem;
+				this.m_PanelSetOrderCPTCode.CPTCode = cptCode.Code;
+				this.m_PanelSetOrderCPTCode.Modifier = cptCode.Modifier;
+			}
 		}		
 	}
 }
