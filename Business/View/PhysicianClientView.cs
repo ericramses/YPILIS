@@ -19,5 +19,18 @@ namespace YellowstonePathology.Business.View
 		{
 			get { return this.m_Clients; }
 		}
+
+		public bool ClientExists(int clientId)
+		{
+			bool result = false;
+			foreach (YellowstonePathology.Business.Client.Model.Client client in this.Clients)
+			{
+				if (client.ClientId == clientId)
+				{
+					result = true;
+				}
+			}
+			return result;
+		}
 	}
 }
