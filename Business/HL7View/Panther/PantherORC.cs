@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 
-namespace YellowstonePathology.Business.HL7View.EPIC
+namespace YellowstonePathology.Business.HL7View.Panther
 {
-	public class EpicOrcView
+	public class PantherORC
 	{        		
 		private string m_DateFormat = "yyyyMMddHHmm";
 		private string m_MasterAccessionNo;        
@@ -16,7 +16,7 @@ namespace YellowstonePathology.Business.HL7View.EPIC
         private string m_SystemInitiatingOrder;
         private bool m_SendUnsolicited;
 
-        public EpicOrcView(string externalOrderId, YellowstonePathology.Business.Domain.Physician orderingPhysician, string masterAccessionNo, OrderStatus orderStatus, string systemInitiatingOrder, bool sendUnsolicited)
+        public PantherORC(string externalOrderId, YellowstonePathology.Business.Domain.Physician orderingPhysician, string masterAccessionNo, OrderStatus orderStatus, string systemInitiatingOrder, bool sendUnsolicited)
         {
             this.m_ExternalOrderId = externalOrderId;
             this.m_OrderingPhysician = orderingPhysician;

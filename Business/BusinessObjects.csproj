@@ -378,6 +378,13 @@
     <Compile Include="Helper\PatientHelper.cs" />
     <Compile Include="Helper\SerializationHelper.cs" />
     <Compile Include="Helper\StringExtensionMethods.cs" />
+    <Compile Include="HL7View\Panther\PantherNTE.cs" />
+    <Compile Include="HL7View\Panther\PantherOBX.cs" />
+    <Compile Include="HL7View\Panther\PantherOBR.cs" />
+    <Compile Include="HL7View\Panther\PantherORC.cs" />
+    <Compile Include="HL7View\Panther\PantherPID.cs" />
+    <Compile Include="HL7View\Panther\PantherHL7Client.cs" />
+    <Compile Include="HL7View\Panther\PantherMSH.cs" />
     <Compile Include="Interface\IFlowMarker.cs" />
     <Compile Include="Interface\ILeukemiaLymphomaResult.cs" />
     <Compile Include="Interface\IPersistPageChanges.cs" />
@@ -2881,7 +2888,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="HL7View\Panther\" />
     <Folder Include="MessageQueues\" />
     <Folder Include="Reports\Billing\" />
     <Folder Include="Rules\Creation\" />
