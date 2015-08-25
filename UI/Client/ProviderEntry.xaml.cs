@@ -71,12 +71,7 @@ namespace YellowstonePathology.UI.Client
 		{
             this.m_ObjectTracker.SubmitChanges(this.m_Physician);
 			Close();
-		}
-
-		private void ButtonCancel_Click(object sender, RoutedEventArgs e)
-		{
-			Close();
-		}
+		}		
 
 		private void ButtonAddToClient_Click(object sender, RoutedEventArgs e)
 		{
