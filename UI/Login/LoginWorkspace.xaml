@@ -94,6 +94,7 @@
                             <ContextMenu>
                                 <MenuItem Header="Convert to Cancelled Test" Click="MenuItemCancelTest_Click" Tag="{Binding}"></MenuItem>
                                 <MenuItem Header="Show IT Audits" Click="MenuItemShowITAudits_Click"></MenuItem>
+                                <MenuItem Header="Send Order To Panther" Click="MenuItemSendPantherOrder_Click"></MenuItem>
                             </ContextMenu>
                         </ListView.ContextMenu>
                         

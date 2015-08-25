@@ -909,5 +909,18 @@ namespace YellowstonePathology.UI.Login
         {
             this.m_LoginUI.GetReportSearchListByITAudit(Business.Test.ITAuditPriorityEnum.Medium);
         }
+
+        private void MenuItemSendPantherOrder_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.ListViewAccessionOrders.SelectedItem != null)
+            {                
+                YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_LoginUI.AccessionOrder.SpecimenOrderCollection[0];
+                YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = specimenOrder.AliquotOrderCollection[1];
+                YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_LoginUI.AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(14);
+                YellowstonePathology.Business.HL7View.Panther.PantherAssayHPV pantherAssayHPV = new Business.HL7View.Panther.PantherAssayHPV();
+                YellowstonePathology.Business.HL7View.Panther.PantherOrder pantherOrder = new Business.HL7View.Panther.PantherOrder(pantherAssayHPV, specimenOrder, aliquotOrder, this.m_LoginUI.AccessionOrder, panelSetOrder);
+                pantherOrder.Send();                
+            }
+        }
 	}
 }

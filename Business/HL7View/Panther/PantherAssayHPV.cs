@@ -5,10 +5,10 @@ using System.Text;
 
 namespace YellowstonePathology.Business.HL7View.Panther
 {
-    public class PantherHL7Client : Hl7Client
+    public class PantherAssayHPV : PantherAssay
     {
-        public PantherHL7Client()
-            : base("Panther", "Hologic")
+        public PantherAssayHPV() 
+            : base("HPV", "HPV", 14)
         {
 
         }

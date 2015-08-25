@@ -44,7 +44,10 @@ namespace YellowstonePathology.UI.Surgical
 		{
             this.m_MainWindowCommandButtonHandler = mainWindowCommandButtonHandler;
             this.m_SecondMonitorWindow = secondMonitorWindow;
-            this.m_SecondMonitorWindow.WindowState = WindowState.Maximized;
+            if (secondMonitorWindow != null)
+            {
+                this.m_SecondMonitorWindow.WindowState = WindowState.Maximized;
+            }
 
             this.m_SystemIdentity = new YellowstonePathology.Business.User.SystemIdentity(YellowstonePathology.Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
 

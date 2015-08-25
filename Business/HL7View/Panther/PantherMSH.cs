@@ -7,18 +7,12 @@ using System.Xml.Linq;
 namespace YellowstonePathology.Business.HL7View.Panther
 {
 	public class PantherMSH
-	{
-        public static string CLIANUMBER = "27D0946844";
+	{        
+        Hl7Client m_Client;             
 
-        Hl7Client m_Client;
-        Hl7MessageType m_MessageType;
-        string m_LocationCode;
-
-        public PantherMSH(Hl7Client client, Hl7MessageType messageType, string locationCode)
+        public PantherMSH()
 		{
-            this.m_Client = client;
-            this.m_MessageType = messageType;
-            this.m_LocationCode = locationCode;
+            this.m_Client = new PantherHL7Client();
 		}       
 
         public void ToXml(XElement document)
@@ -41,7 +35,7 @@ namespace YellowstonePathology.Business.HL7View.Panther
             mshElement.Add(msh03Element);
             
             XElement msh04Element = new XElement("MSH.4");
-            XElement msh0401Element = new XElement("MSH.4.1", m_LocationCode);                        
+            XElement msh0401Element = new XElement("MSH.4.1", "YPIBLGS");                        
             msh04Element.Add(msh0401Element);            
             mshElement.Add(msh04Element);
 
@@ -59,10 +53,8 @@ namespace YellowstonePathology.Business.HL7View.Panther
             mshElement.Add(msh07Element);
 
             XElement msh09Element = new XElement("MSH.9");
-            XElement msh0901Element = new XElement("MSH.9.1", this.m_MessageType.MessageType);
-            XElement msh0902Element = new XElement("MSH.9.2", this.m_MessageType.TriggerEvent);
-            msh09Element.Add(msh0901Element);
-            msh09Element.Add(msh0902Element);
+            XElement msh0901Element = new XElement("MSH.9.1", "ORU");            
+            msh09Element.Add(msh0901Element);            
             mshElement.Add(msh09Element);
 
             XElement msh10Element = new XElement("MSH.10");

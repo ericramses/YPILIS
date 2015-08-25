@@ -8,66 +8,45 @@ using System.Xml.Linq;
 namespace YellowstonePathology.Business.HL7View.Panther
 {
     public class PantherOrder
-    {        
-        private int m_ObxCount;
-        private string m_ReportNo;
-        private bool m_SendUnsolicited;        
-
+    {                        
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
         private YellowstonePathology.Business.Domain.Physician m_OrderingPhysician;
+        private YellowstonePathology.Business.Specimen.Model.SpecimenOrder m_SpecimenOrder;
+        private YellowstonePathology.Business.Test.AliquotOrder m_AliquotOrder;
+        private PantherAssay m_PantherAssay;
 
-        public PantherOrder(string reportNo)
-        {
-            this.m_ReportNo = reportNo;                        
-			
-			this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(reportNo);
-            this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);            
+        public PantherOrder(PantherAssay pantherAssay, YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder, YellowstonePathology.Business.Test.AliquotOrder aliquotOrder,
+            YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder)
+        {            
+            this.m_PantherAssay = pantherAssay;
+            this.m_SpecimenOrder = specimenOrder;
+            this.m_AliquotOrder = aliquotOrder;
+            this.m_AccessionOrder = accessionOrder;
+            this.m_PanelSetOrder = panelSetOrder;						
+		}                
 
-			this.m_OrderingPhysician = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianByPhysicianId(this.m_AccessionOrder.PhysicianId);           
-		}        
-
-        public XElement GetDocument()
-        {
-            return CreateDocument();
-        }
-
-        public void Send(YellowstonePathology.Business.Rules.MethodResult result)
+        public void Send()
         {                        
-            XElement detailDocument = CreateDocument();
-            this.WriteDocumentToServer(detailDocument);
-
-            result.Success = true;
-            result.Message = "An HL7 message was created and sent to the interface.";         
+            XElement document = CreateDocument();
+            this.WriteDocumentToServer(document);            
         }
 
         private XElement CreateDocument()
         {
-            XElement document = new XElement("HL7Message");
-            this.m_ObxCount = 1;
+            XElement document = new XElement("HL7Message");            
 
-            PantherHL7Client client = new PantherHL7Client();
-            OruR01 messageType = new OruR01();
-
-            string locationCode = "YPIIBILLINGS";
-            if (this.m_AccessionOrder.SvhMedicalRecord.StartsWith("A") == true)
-            {
-                locationCode = "SVHNPATH";
-            }
-
-            PantherMSH msh = new PantherMSH(client, messageType, locationCode);
+            PantherMSH msh = new PantherMSH();
             msh.ToXml(document);
 
-            PantherPID pid = new PantherPID(this.m_AccessionOrder.SvhMedicalRecord, this.m_AccessionOrder.PLastName, this.m_AccessionOrder.PFirstName, this.m_AccessionOrder.PBirthdate,
-                this.m_AccessionOrder.PSex, this.m_AccessionOrder.SvhAccount, this.m_AccessionOrder.PSSN);
+            PantherPID pid = new PantherPID(this.m_AccessionOrder.PatientId, this.m_AccessionOrder.PLastName, this.m_AccessionOrder.PFirstName, this.m_AccessionOrder.PBirthdate, this.m_AccessionOrder.PSex);
             pid.ToXml(document);
 
-            PantherORC orc = new PantherORC(this.m_AccessionOrder.ExternalOrderId, this.m_OrderingPhysician, this.m_AccessionOrder.MasterAccessionNo, OrderStatusEnum.Complete, this.m_AccessionOrder.SystemInitiatingOrder, this.m_SendUnsolicited);
+            PantherORC orc = new PantherORC(this.m_SpecimenOrder, this.m_AliquotOrder, this.m_PanelSetOrder);
             orc.ToXml(document);
 
-            //PantherOBR obr = new PantherOBR(this.m_AccessionOrder.ExternalOrderId, this.m_AccessionOrder.MasterAccessionNo, this.m_ReportNo, this.m_AccessionOrder.SpecimenOrderCollection[0].CollectionDate, this.m_AccessionOrder.SpecimenOrderCollection[0].CollectionTime, this.m_AccessionOrder.AccessionDateTime,
-            //    this.m_PanelSetOrder.FinalTime, this.m_OrderingPhysician, resultStatus.Value, universalService, this.m_SendUnsolicited);
-            //obr.ToXml(document);                                   
+            PantherOBR obr = new PantherOBR(this.m_PanelSetOrder.ReportNo, this.m_PantherAssay, this.m_SpecimenOrder);
+            obr.ToXml(document);                                   
 
             return document;
         }
@@ -76,9 +55,9 @@ namespace YellowstonePathology.Business.HL7View.Panther
         {
             string fileExtension = ".HL7.xml";
 
-			YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_ReportNo);
-			string serverFileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + "\\" + this.m_ReportNo + fileExtension;
-            string interfaceFileName = @"\\ypiiinterface1\ChannelData\Outgoing\" + this.m_ReportNo + fileExtension;            
+			YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
+			string serverFileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + "\\" + this.m_PanelSetOrder.ReportNo + fileExtension;
+            string interfaceFileName = @"\\ypiiinterface1\ChannelData\Outgoing\Panther\" + this.m_PanelSetOrder.ReportNo + fileExtension;            
             
             using (System.IO.StreamWriter sw = new System.IO.StreamWriter(serverFileName))
             {
