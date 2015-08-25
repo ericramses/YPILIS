@@ -24,6 +24,8 @@ namespace YellowstonePathology.UI.Client
 		private YellowstonePathology.Business.Client.Model.StandingOrderCollection m_HpvStandingOrders;
 		private YellowstonePathology.Business.View.PhysicianClientView m_PhysicianClientView;
 		private YellowstonePathology.Business.Client.Model.ClientCollection m_ClientCollection;
+		private List<YellowstonePathology.Business.Client.Model.PhysicianClientDistributionView> m_PhysicianClientDistributionViewList;
+		int m_PhysicianClientId;
 
         public ProviderEntry(YellowstonePathology.Business.Domain.Physician physician, YellowstonePathology.Business.Persistence.ObjectTracker objectTracker)
         {                        
@@ -65,6 +67,11 @@ namespace YellowstonePathology.UI.Client
 		public YellowstonePathology.Business.Client.Model.ClientCollection ClientCollection
 		{
 			get { return this.m_ClientCollection; }
+		}
+
+		public List<YellowstonePathology.Business.Client.Model.PhysicianClientDistributionView> PhysicianClientDistributionViewList
+		{
+			get { return this.m_PhysicianClientDistributionViewList; }
 		}
 
 		private void ButtonOK_Click(object sender, RoutedEventArgs e)
@@ -110,7 +117,67 @@ namespace YellowstonePathology.UI.Client
 				this.m_ClientCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientsByClientName(this.TextBoxClientName.Text);
 				NotifyPropertyChanged("ClientCollection");
 			}
+		}
+
+		private void ButtonAddToDistribution_Click(object sender, RoutedEventArgs e)
+		{
+			if (this.ListBoxNewDistributionSelection.SelectedItem != null)
+			{
+				YellowstonePathology.Business.Client.Model.Client client = (YellowstonePathology.Business.Client.Model.Client)this.ListBoxNewDistributionSelection.SelectedItem;
+				if (this.ListBoxClientMembership.SelectedItems.Count != 0)
+				{
+					YellowstonePathology.Business.Domain.PhysicianClient physicianClient = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClient(this.m_Physician.PhysicianId, client.ClientId);
+					int physicianClientId = physicianClient.PhysicianClientId;
+					foreach (YellowstonePathology.Business.Client.Model.PhysicianClientDistributionView physicianClientDistributionView in this.m_PhysicianClientDistributionViewList)
+					{
+						if (physicianClientDistributionView.PhysicianClientDistribution.DistributionID == physicianClientId)
+						{
+							MessageBox.Show("The item has already been added.");
+							return;
+						}
+					}
+
+					string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
+					YellowstonePathology.Business.Client.Model.PhysicianClientDistribution physicianClientDistribution = new Business.Client.Model.PhysicianClientDistribution(objectId, this.m_PhysicianClientId, physicianClientId);
+
+					YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
+					objectTracker.RegisterRootInsert(physicianClientDistribution);
+					objectTracker.SubmitChanges(physicianClientDistribution);
+
+					this.m_PhysicianClientDistributionViewList = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClientDistributions(this.m_PhysicianClientId);
+					this.NotifyPropertyChanged("PhysicianClientDistributionViewList");
+				}
+			}
+		}
+
+		private void ButtonRemoveFromDistribution_Click(object sender, RoutedEventArgs e)
+		{
+			if (this.ListBoxDistributionSelection.SelectedItem != null)
+			{
+				MessageBoxResult result = MessageBox.Show("Remove the selected item?", "Remove", MessageBoxButton.OKCancel);
+				if (result == MessageBoxResult.OK)
+				{
+					YellowstonePathology.Business.Client.Model.PhysicianClientDistributionView physicianClientDistributionView = (YellowstonePathology.Business.Client.Model.PhysicianClientDistributionView)this.ListBoxDistributionSelection.SelectedItem;
+					YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
+					objectTracker.RegisterRootDelete(physicianClientDistributionView.PhysicianClientDistribution);
+					objectTracker.SubmitChanges(physicianClientDistributionView.PhysicianClientDistribution);
+
+					this.m_PhysicianClientDistributionViewList = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClientDistributions(this.m_PhysicianClientId);
+					this.NotifyPropertyChanged("PhysicianClientDistributionViewList");
+				}
+			}
+		}
+
+		private void ListBoxClientMembership_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			if(this.ListBoxClientMembership.SelectedItem != null)
+			{
+				YellowstonePathology.Business.Client.Model.Client client = (YellowstonePathology.Business.Client.Model.Client)this.ListBoxClientMembership.SelectedItem;
+				YellowstonePathology.Business.Domain.PhysicianClient physicianClient = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClient(this.m_Physician.PhysicianId, client.ClientId);
+				this.m_PhysicianClientId = physicianClient.PhysicianClientId;
+				this.m_PhysicianClientDistributionViewList = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClientDistributions(this.m_PhysicianClientId);
+				this.NotifyPropertyChanged("PhysicianClientDistributionViewList");
+			}
 		}		
-		
 	}
 }

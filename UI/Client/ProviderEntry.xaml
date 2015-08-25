@@ -78,7 +78,24 @@
 						<RowDefinition Height="*"></RowDefinition>
 					</Grid.RowDefinitions>
 
-					<Grid Grid.Column="0" Grid.Row="0">
+					<TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" Text="Member of:" VerticalAlignment="Center"/>
+
+					<ListBox Name="ListBoxClients" Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" HorizontalAlignment="Stretch" IsTabStop="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding Path=Clients}">
+						<ListBox.ItemTemplate>
+							<DataTemplate>
+								<StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
+									<TextBlock Margin="2" Text="{Binding Path=ClientName}" />
+								</StackPanel>
+							</DataTemplate>
+						</ListBox.ItemTemplate>
+					</ListBox>
+
+					<StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical" Margin="2,2,2,2" VerticalAlignment="Center">
+						<Button Name="ButtonAddToClient" Width="70" Height="30" Margin="5,5,5,5" Click="ButtonAddToClient_Click">&lt; Add</Button>
+						<Button Name="ButtonRemoveFromClient" Width="70" Height="30" Margin="5,5,5,5" Click="ButtonRemoveFromClient_Click">Remove ></Button>
+					</StackPanel>
+
+					<Grid Grid.Column="2" Grid.Row="0">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="Auto"></ColumnDefinition>
 							<ColumnDefinition Width="*"></ColumnDefinition>
@@ -90,11 +107,10 @@
 
 						<TextBlock Grid.Column="0" Grid.Row="0" Margin="5" Text="Client Name Search:" />
 						<TextBox Name="TextBoxClientName" Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" HorizontalAlignment="Stretch" TextChanged="TextBoxClientName_TextChanged" />
+						
 					</Grid>
-					
-					<TextBlock Grid.Column="2" Grid.Row="0" Margin="2,2,2,2" Text="Member of:" VerticalAlignment="Center"/>
 
-					<ListBox Name="ListBoxClientSelection" Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" HorizontalAlignment="Stretch" IsTabStop="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding Path=ClientCollection}">
+					<ListBox Name="ListBoxClientSelection" Grid.Column="2" Grid.Row="1" Margin="2,2,2,2" HorizontalAlignment="Stretch" IsTabStop="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding Path=ClientCollection}">
 						<ListBox.ItemTemplate>
 							<DataTemplate>
 								<StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
@@ -103,28 +119,82 @@
 							</DataTemplate>
 						</ListBox.ItemTemplate>
 					</ListBox>
-					
-					<StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical" Margin="2,2,2,2" VerticalAlignment="Center">
-						<Button Name="ButtonAddToClient" Width="70" Height="30" Margin="5,5,5,5" Click="ButtonAddToClient_Click">Add ></Button>
-						<Button Name="ButtonRemoveFromClient" Width="70" Height="30" Margin="5,5,5,5" Click="ButtonRemoveFromClient_Click">&lt; Remove</Button>
-					</StackPanel>
 
-					<ListBox Name="ListBoxClients" Grid.Column="2" Grid.Row="1" Margin="2,2,2,2" HorizontalAlignment="Stretch" IsTabStop="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding Path=Clients}">
-						<ListBox.ItemTemplate>
-							<DataTemplate>
-								<StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
-									<TextBlock Margin="2" Text="{Binding Path=ClientName}" />
-								</StackPanel>
-							</DataTemplate>
-						</ListBox.ItemTemplate>
-					</ListBox>
-					
 				</Grid>
 			</TabItem>
             
             <TabItem Header="Distribution">
-                
-            </TabItem>
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="*"></ColumnDefinition>
+						<ColumnDefinition Width="*"></ColumnDefinition>
+						<ColumnDefinition Width="Auto"></ColumnDefinition>
+						<ColumnDefinition Width="*"></ColumnDefinition>
+					</Grid.ColumnDefinitions>
+
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto"></RowDefinition>
+						<RowDefinition Height="*"></RowDefinition>
+					</Grid.RowDefinitions>
+
+					<TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" Text="Member of:" VerticalAlignment="Center"/>
+
+					<ListBox Name="ListBoxClientMembership" Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" HorizontalAlignment="Stretch" IsTabStop="False" 
+							 ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding Path=Clients}" SelectionChanged="ListBoxClientMembership_SelectionChanged">
+						<ListBox.ItemTemplate>
+							<DataTemplate>
+								<StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
+									<TextBlock Margin="2" Text="{Binding Path=ClientName}" />
+								</StackPanel>
+							</DataTemplate>
+						</ListBox.ItemTemplate>
+					</ListBox>
+
+					<TextBlock Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" Text="Distributions:" VerticalAlignment="Center"/>
+
+					<ListBox Name="ListBoxDistributionSelection" Grid.Column="1" Grid.Row="1" Margin="2,2,2,2" HorizontalAlignment="Stretch" IsTabStop="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding Path=PhysicianClientDistributionViewList}">
+						<ListBox.ItemTemplate>
+							<DataTemplate>
+								<StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
+									<TextBlock Margin="2" Text="{Binding Path=ClientName}" />
+								</StackPanel>
+							</DataTemplate>
+						</ListBox.ItemTemplate>
+					</ListBox>
+
+					<StackPanel Grid.Column="2" Grid.Row="1" Orientation="Vertical" Margin="2,2,2,2" VerticalAlignment="Center">
+						<Button Name="ButtonAddToDistribution" Width="70" Height="30" Margin="5,5,5,5" Click="ButtonAddToDistribution_Click">&lt; Add</Button>
+						<Button Name="ButtonRemoveFromDistribution" Width="70" Height="30" Margin="5,5,5,5" Click="ButtonRemoveFromDistribution_Click">Remove ></Button>
+					</StackPanel>
+
+					<Grid Grid.Column="3" Grid.Row="0">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto"></ColumnDefinition>
+							<ColumnDefinition Width="*"></ColumnDefinition>
+						</Grid.ColumnDefinitions>
+
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto"></RowDefinition>
+						</Grid.RowDefinitions>
+
+						<TextBlock Grid.Column="0" Grid.Row="0" Margin="5" Text="Client Name:" />
+						<!--<TextBox Name="TextBoxClientDistributionName" Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" HorizontalAlignment="Stretch" TextChanged="TextBoxClientDistributionName_TextChanged" />
+-->
+					</Grid>
+
+					<ListBox Name="ListBoxNewDistributionSelection" Grid.Column="3" Grid.Row="1" Margin="2,2,2,2" HorizontalAlignment="Stretch" IsTabStop="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding Path=Clients}">
+						<ListBox.ItemTemplate>
+							<DataTemplate>
+								<StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
+									<TextBlock Margin="2" Text="{Binding Path=ClientName}" />
+								</StackPanel>
+							</DataTemplate>
+						</ListBox.ItemTemplate>
+					</ListBox>
+
+				</Grid>
+
+			</TabItem>
 		</TabControl>
 
 		<StackPanel Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">			

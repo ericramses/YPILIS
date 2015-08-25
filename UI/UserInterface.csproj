@@ -210,6 +210,9 @@
     <Compile Include="Client\ClientEntry.designer.cs">
       <DependentUpon>ClientEntry.cs</DependentUpon>
     </Compile>
+    <Compile Include="Client\ClientLookupDialog.xaml.cs">
+      <DependentUpon>ClientLookupDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Client\IHCMolecularRequisition.cs" />
     <Compile Include="Client\PhysicianClientSearch.cs">
       <SubType>Form</SubType>
@@ -1851,6 +1854,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="CellCounter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Client\ClientLookupDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
