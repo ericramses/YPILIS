@@ -199,9 +199,16 @@ namespace YellowstonePathology.UI.MaterialTracking
             CheckBox checkBox = (CheckBox)sender;
             YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder = (YellowstonePathology.Business.Slide.Model.SlideOrder)checkBox.Tag;
             if (this.m_MaterialIdList.Contains(slideOrder.SlideOrderId) == true)
-            {
+            {                
                 this.m_MaterialIdList.Remove(slideOrder.SlideOrderId);
-                this.m_MaterialTrackingLogList = this.m_MaterialTrackingLogCollection.GetList(this.m_MaterialIdList);
+                if (this.m_MaterialIdList.Count > 0)
+                {
+                    this.m_MaterialTrackingLogList = this.m_MaterialTrackingLogCollection.GetList(this.m_MaterialIdList);
+                }
+                else
+                {
+                    this.m_MaterialTrackingLogList = this.m_MaterialTrackingLogCollection.ToList<YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog>();
+                }
                 this.NotifyPropertyChanged("MaterialTrackingLogList");
             }
         }
@@ -225,7 +232,15 @@ namespace YellowstonePathology.UI.MaterialTracking
             if (this.m_MaterialIdList.Contains(aliquotOrder.AliquotOrderId) == true)
             {
                 this.m_MaterialIdList.Remove(aliquotOrder.AliquotOrderId);
-                this.m_MaterialTrackingLogList = this.m_MaterialTrackingLogCollection.GetList(this.m_MaterialIdList);
+                if (this.m_MaterialIdList.Count > 0)
+                {
+                    this.m_MaterialTrackingLogList = this.m_MaterialTrackingLogCollection.GetList(this.m_MaterialIdList);
+                }
+                else
+                {
+                    this.m_MaterialTrackingLogList = this.m_MaterialTrackingLogCollection.ToList<YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog>();
+                }
+
                 this.NotifyPropertyChanged("MaterialTrackingLogList");
             }
         }	

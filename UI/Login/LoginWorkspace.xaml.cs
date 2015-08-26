@@ -60,14 +60,15 @@ namespace YellowstonePathology.UI.Login
 			{
                 this.ComboBoxCaseType.SelectedValue = YellowstonePathology.Business.CaseType.ALLCaseTypes;
 				this.m_BarcodeScanPort.ContainerScanReceived += ContainerScanReceived;
-
+                this.m_BarcodeScanPort.HistologySlideScanReceived += new Business.BarcodeScanning.BarcodeScanPort.HistologySlideScanReceivedHandler(BarcodeScanPort_HistologySlideScanReceived);
+                
 				this.m_LoginUI.GetTaskOrderCollection();
 				this.m_LoginUI.GetDailyTaskOrderCollection();
 			}
 
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath += new MainWindowCommandButtonHandler.StartProviderDistributionPathEventHandler(MainWindowCommandButtonHandler_StartProviderDistributionPath);
 			this.m_LoadedHasRun = true;
-		}
+		}        
 
         private void MainWindowCommandButtonHandler_StartProviderDistributionPath(object sender, EventArgs e)
         {
