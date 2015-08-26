@@ -28,6 +28,7 @@ namespace YellowstonePathology.Business.View
 				if (client.ClientId == clientId)
 				{
 					result = true;
+					break;
 				}
 			}
 			return result;

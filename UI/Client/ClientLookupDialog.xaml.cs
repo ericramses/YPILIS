@@ -59,7 +59,7 @@ namespace YellowstonePathology.UI.Client
 				YellowstonePathology.Business.Client.Model.Client client = (YellowstonePathology.Business.Client.Model.Client)this.ListBoxClients.SelectedItem;
 				YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
 				objectTracker.RegisterObject(client);
-				ClientEntry clientEntry = new ClientEntry(client, objectTracker);
+				ClientEntryV2 clientEntry = new ClientEntryV2(client, objectTracker);
 				clientEntry.ShowDialog();
 			}
 		}
@@ -82,7 +82,7 @@ namespace YellowstonePathology.UI.Client
 				objectTracker.RegisterRootInsert(client);
 				client.ClientName = newClientName;
 				client.ObjectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-				ClientEntry clientEntryDialog = new ClientEntry(client, objectTracker);
+				ClientEntryV2 clientEntryDialog = new ClientEntryV2(client, objectTracker);
 				clientEntryDialog.ShowDialog();
 			}
 

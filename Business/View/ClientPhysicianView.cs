@@ -19,5 +19,19 @@ namespace YellowstonePathology.Business.View
 		{
 			get { return this.m_Physicians; }
 		}
+
+		public bool PhysicianExists(int physicianId)
+		{
+			bool result = false;
+			foreach (Domain.Physician physician in this.Physicians)
+			{
+				if (physician.PhysicianId == physicianId)
+				{
+					result = true;
+					break;
+				}
+			}
+			return result;
+		}
 	}
 }
