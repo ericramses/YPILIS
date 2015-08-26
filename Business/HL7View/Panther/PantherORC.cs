@@ -27,7 +27,7 @@ namespace YellowstonePathology.Business.HL7View.Panther
             document.Add(orcElement);
 
             XElement orc01Element = new XElement("ORC.1");
-            YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("ORC.1.1", "Action Code", orc01Element);
+            YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("ORC.1.1", PantherActionCode.NewSample, orc01Element);
             YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElementIfNotEmpty(orcElement, orc01Element);
             
             XElement orc03Element = new XElement("ORC.3");
