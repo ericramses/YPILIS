@@ -21,8 +21,12 @@ namespace YellowstonePathology.UI.Login.ReceiveSpecimen
     public partial class SpecimenSelectionPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        public delegate void ReturnEventHandler(object sender, UI.Navigation.PageNavigationReturnEventArgs e);
-        public event ReturnEventHandler Return;
+
+        public delegate void UseThisSpecimenEventHandler(object sender, YellowstonePathology.UI.CustomEventArgs.SpecimenOrderReturnEventArgs e);
+        public event UseThisSpecimenEventHandler UseThisSpecimen;        
+
+        public delegate void BackEventHandler(object sender, EventArgs e);
+        public event BackEventHandler Back;
 
 		private YellowstonePathology.Business.Specimen.Model.SpecimenOrderCollection m_SpecimenOrderCollection;
 
@@ -69,8 +73,7 @@ namespace YellowstonePathology.UI.Login.ReceiveSpecimen
 
         private void ButtonBack_Click(object sender, RoutedEventArgs e)
         {
-            UI.Navigation.PageNavigationReturnEventArgs args = new UI.Navigation.PageNavigationReturnEventArgs(UI.Navigation.PageNavigationDirectionEnum.Back, null);
-            this.Return(this, args);
+            if (this.Back != null) this.Back(this, new EventArgs());
         }
 
         private void ButtonNext_Click(object sender, RoutedEventArgs e)
@@ -78,8 +81,8 @@ namespace YellowstonePathology.UI.Login.ReceiveSpecimen
             if (this.ListBoxSpecimenOrderCollection.SelectedItems.Count != 0)
             {
 				YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = (YellowstonePathology.Business.Specimen.Model.SpecimenOrder)this.ListBoxSpecimenOrderCollection.SelectedItem;
-                UI.Navigation.PageNavigationReturnEventArgs args = new UI.Navigation.PageNavigationReturnEventArgs(UI.Navigation.PageNavigationDirectionEnum.Next, specimenOrder);
-                this.Return(this, args);
+                YellowstonePathology.UI.CustomEventArgs.SpecimenOrderReturnEventArgs eventArgs = new CustomEventArgs.SpecimenOrderReturnEventArgs(specimenOrder);
+                this.UseThisSpecimen(this, eventArgs);
             }
             else
             {

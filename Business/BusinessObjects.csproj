@@ -384,7 +384,6 @@
     <Compile Include="HL7View\Panther\PantherAssay.cs" />
     <Compile Include="HL7View\Panther\PantherAssayCollection.cs" />
     <Compile Include="HL7View\Panther\PantherNTE.cs" />
-    <Compile Include="HL7View\Panther\PantherOBX.cs" />
     <Compile Include="HL7View\Panther\PantherOBR.cs" />
     <Compile Include="HL7View\Panther\PantherORC.cs" />
     <Compile Include="HL7View\Panther\PantherOrderPriorityEnum.cs" />

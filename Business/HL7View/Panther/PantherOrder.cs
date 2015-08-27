@@ -14,16 +14,19 @@ namespace YellowstonePathology.Business.HL7View.Panther
         private YellowstonePathology.Business.Domain.Physician m_OrderingPhysician;
         private YellowstonePathology.Business.Specimen.Model.SpecimenOrder m_SpecimenOrder;
         private YellowstonePathology.Business.Test.AliquotOrder m_AliquotOrder;
-        private PantherAssay m_PantherAssay;
+        private PantherAssay m_Assay;
+        private string m_ActionCode;
 
-        public PantherOrder(PantherAssay pantherAssay, YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder, YellowstonePathology.Business.Test.AliquotOrder aliquotOrder,
-            YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder)
+        public PantherOrder(PantherAssay assay, YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder, YellowstonePathology.Business.Test.AliquotOrder aliquotOrder,
+            YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder,
+            string actionCode)
         {            
-            this.m_PantherAssay = pantherAssay;
+            this.m_Assay = assay;
             this.m_SpecimenOrder = specimenOrder;
             this.m_AliquotOrder = aliquotOrder;
             this.m_AccessionOrder = accessionOrder;
-            this.m_PanelSetOrder = panelSetOrder;						
+            this.m_PanelSetOrder = panelSetOrder;
+            this.m_ActionCode = actionCode;		
 		}                
 
         public void Send()
@@ -42,10 +45,10 @@ namespace YellowstonePathology.Business.HL7View.Panther
             PantherPID pid = new PantherPID(this.m_AccessionOrder.PatientId, this.m_AccessionOrder.PLastName, this.m_AccessionOrder.PFirstName, this.m_AccessionOrder.PBirthdate, this.m_AccessionOrder.PSex);
             pid.ToXml(document);
 
-            PantherORC orc = new PantherORC(this.m_SpecimenOrder, this.m_AliquotOrder, this.m_PanelSetOrder);
+            PantherORC orc = new PantherORC(this.m_SpecimenOrder, this.m_AliquotOrder, this.m_PanelSetOrder, this.m_ActionCode);
             orc.ToXml(document);
 
-            PantherOBR obr = new PantherOBR(this.m_PanelSetOrder.ReportNo, this.m_PantherAssay, this.m_SpecimenOrder);
+            PantherOBR obr = new PantherOBR(this.m_PanelSetOrder.ReportNo, this.m_Assay, this.m_SpecimenOrder);
             obr.ToXml(document);                                   
 
             return document;
