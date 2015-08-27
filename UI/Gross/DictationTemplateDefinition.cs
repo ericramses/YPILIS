@@ -82,11 +82,14 @@ namespace YellowstonePathology.UI.Gross
         public AppendixExcisionTemplate()
         {
             this.m_TemplateName = "Appendix Excision";
-            this.m_Text = "The specimen *SPECIMENNUMBER* is received *RECEIVEDIN* in a container labeled \"*PATIENTNAME*\" and consists of an *OPENED/UNOPENED* appendix measuring" +
-                " *MEASURING* in length and *MEASURING* in greatest diameter. The serosal surface is *COLOR/TEXTURE/EXUDATE/VASCULATURE*. The attached mesoappendix is" +
-                " *COLOR/TEXTURE* and measures *MEASURES*. The cut surface of the mesoappendix is *COLOR/TEXTURE*. A defect is *PRESENT/ABSENT*. The specimen is" + 
-                " Serially sectioned revealing a *DESCRIPTION* lumen, lined by *COLOR/TEXTURE* mucosa and filled with *DESCRIPTION* fecal material. A fecalith is" +
-                " *PRESENT/ABSENT*, it is *COLOR/TEXTURE* and measures up to *MEASUREMENT*. Representative sections of the specimen are submitted in *COLOR* cassette \"*CASSETTENUMBER*\".";
+            this.m_Text = "Specimen number: *SPECIMENNUMBER* Received: *FORMALIN/FRESH* Labeled: \"*PATIENTNAME*\"" + Environment.NewLine +
+                          "Condition: *OPENED/UNOPENED* Measuring: *MEASUREMENTS*" + Environment.NewLine +
+                          "Serosal Surface: *DESCRIPTION*" + Environment.NewLine +
+                          "Mesoappendix: *DESCRIPTION/MEASUREMENTS*" + Environment.NewLine +
+                          "Pertinent Abnormalities: *DESCRIPTION*" + Environment.NewLine +
+                          "Luminal Contents: *DESCRIPTION*" + Environment.NewLine +
+                          "Fecalith: *PRESENT/ABSENT/DESCRIPTION*" + Environment.NewLine +
+                          "Submitted: *CASSETTE/COLOR*";
 
             this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Specimen Number", ""));
             this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Recieved In", ""));
@@ -97,7 +100,6 @@ namespace YellowstonePathology.UI.Gross
             this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Attached Mesoappendix: Measurements and Description", ""));
             this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Pertinent Abnormalities", ""));
             this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Luminal Contents", ""));
-            this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Mucosal Surface", ""));
             this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Fecalith Present or Absent: Measurements and Description", ""));
             this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Cassette Color", ""));
             this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Cassette Number", ""));
