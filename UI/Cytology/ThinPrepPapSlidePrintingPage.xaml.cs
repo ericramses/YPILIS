@@ -56,12 +56,50 @@ namespace YellowstonePathology.UI.Cytology
 
         private void ThinPrepPapSlidePrintingPage_Unloaded(object sender, RoutedEventArgs e)
         {
-            this.m_BarcodeScanPort.ThinPrepSlideScanReceived -= BarcodeScanPort_ThinPrepSlideScanReceived;   
+            this.m_BarcodeScanPort.ThinPrepSlideScanReceived -= BarcodeScanPort_ThinPrepSlideScanReceived;
+            this.m_BarcodeScanPort.AliquotOrderIdReceived -= BarcodeScanPort_AliquotOrderIdReceived;
         }
 
         private void ThinPrepPapSlidePrintingPage_Loaded(object sender, RoutedEventArgs e)
         {            
             this.m_BarcodeScanPort.ThinPrepSlideScanReceived += new Business.BarcodeScanning.BarcodeScanPort.ThinPrepSlideScanReceivedHandler(BarcodeScanPort_ThinPrepSlideScanReceived);
+            this.m_BarcodeScanPort.AliquotOrderIdReceived += new Business.BarcodeScanning.BarcodeScanPort.AliquotOrderIdReceivedHandler(BarcodeScanPort_AliquotOrderIdReceived);
+        }
+
+        private void BarcodeScanPort_AliquotOrderIdReceived(string scanData)
+        {
+            this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal,
+                new Action(
+                    delegate()
+                    {                        
+                        if (this.m_SpecimenOrder.AliquotOrderCollection.Exists(scanData) == true)
+                        {
+                            YellowstonePathology.Business.Facility.Model.FacilityCollection facilityCollection = Business.Facility.Model.FacilityCollection.GetAllFacilities();
+                            YellowstonePathology.Business.Facility.Model.LocationCollection locationCollection = YellowstonePathology.Business.Facility.Model.LocationCollection.GetAllLocations();
+                            YellowstonePathology.Business.Facility.Model.Facility thisFacility = facilityCollection.GetByFacilityId(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId);
+                            YellowstonePathology.Business.Facility.Model.Location thisLocation = locationCollection.GetLocation(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.LocationId);
+
+                            YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = this.m_SpecimenOrder.AliquotOrderCollection.GetByAliquotOrderId(scanData);
+                            aliquotOrder.Validate(this.m_SystemIdentity);
+
+                            string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
+                            YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog materialTrackingLog = new Business.MaterialTracking.Model.MaterialTrackingLog(objectId, scanData, null, thisFacility.FacilityId, thisFacility.FacilityName,
+                                thisLocation.LocationId, thisLocation.Description, this.m_SystemIdentity.User.UserId, this.m_SystemIdentity.User.UserName, "Panther Aliquot Scanned", "Panther aliquot scanned at cytology aliquoting", "Aliquot", this.m_AccessionOrder.MasterAccessionNo, aliquotOrder.Label, aliquotOrder.ClientAccessioned);
+                            YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
+                            objectTracker.RegisterRootInsert(materialTrackingLog);
+                            objectTracker.SubmitChanges(materialTrackingLog);
+
+                            if (this.m_SpecimenOrder.AliquotOrderCollection.HasUnvalidatedItems() == false)
+                            {
+                                this.Save();
+                                this.Finished(this, new EventArgs());
+                            }
+                        }
+                        else
+                        {
+                            System.Windows.MessageBox.Show("The aliquot scanned does not appear to belong to this specimen.");
+                        }                                             
+                    }));   
         }
 
         private void BarcodeScanPort_ThinPrepSlideScanReceived(Business.BarcodeScanning.Barcode barcode)
@@ -177,14 +215,14 @@ namespace YellowstonePathology.UI.Cytology
         private void ButtonAddPantherAliquot_Click(object sender, RoutedEventArgs e)
         {
             YellowstonePathology.Business.Specimen.Model.PantherAliquot pantherAliquot = new Business.Specimen.Model.PantherAliquot();
-            if (this.m_SpecimenOrder.AliquotOrderCollection.Exists(pantherAliquot) == false)
-            {
+            //if (this.m_SpecimenOrder.AliquotOrderCollection.Exists(pantherAliquot) == false)
+            //{
                 YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = this.m_SpecimenOrder.AliquotOrderCollection.AddAliquot(pantherAliquot, this.m_SpecimenOrder, this.m_AccessionOrder.AccessionDate.Value);                
-            }
-            else
-            {
-                MessageBox.Show("Cannot add another Panther Aliquot as one already exists.");
-            }
+            //}
+            //else
+            //{
+            //    MessageBox.Show("Cannot add another Panther Aliquot as one already exists.");
+            //}
         }
 
         private void ButtonReprintSelected_Click(object sender, RoutedEventArgs e)
@@ -201,7 +239,11 @@ namespace YellowstonePathology.UI.Cytology
                 }
                 else if (aliquotOrder.AliquotType == pantherAliquot.AliquotType)
                 {
-                    
+                    YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByAliquotOrderId(aliquotOrder.AliquotOrderId);
+                    YellowstonePathology.Business.Label.Model.PantherLabel pantherLabel = new Business.Label.Model.PantherLabel(aliquotOrder.AliquotOrderId, this.m_AccessionOrder.PatientDisplayName, this.m_AccessionOrder.PBirthdate.Value, specimenOrder.Description);
+                    YellowstonePathology.Business.Label.Model.MolecularLabelPrinter molecularLabelPrinter = new Business.Label.Model.MolecularLabelPrinter();
+                    molecularLabelPrinter.Queue.Enqueue(pantherLabel);
+                    molecularLabelPrinter.Print();
                 }
             }
         }
@@ -216,13 +258,27 @@ namespace YellowstonePathology.UI.Cytology
         {         
             if (this.ListBoxAliquots.SelectedItems.Count != 0)
             {
+                YellowstonePathology.Business.Specimen.Model.ThinPrepSlide thinPrepSlide = new Business.Specimen.Model.ThinPrepSlide();
+                YellowstonePathology.Business.Specimen.Model.PantherAliquot pantherAliquot = new Business.Specimen.Model.PantherAliquot();
+
                 YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = (YellowstonePathology.Business.Test.AliquotOrder)this.ListBoxAliquots.SelectedItem;
-                if (aliquotOrder.Status == YellowstonePathology.Business.Slide.Model.SlideStatusEnum.Created.ToString())
+                if (aliquotOrder.AliquotType == thinPrepSlide.AliquotType)
                 {
-                    this.PrintThinPrepSlide(aliquotOrder);
-                    aliquotOrder.Status = YellowstonePathology.Business.TrackedItemStatusEnum.Printed.ToString();                    
-                }                
-             
+                    if (aliquotOrder.Status == YellowstonePathology.Business.Slide.Model.SlideStatusEnum.Created.ToString())
+                    {
+                        this.PrintThinPrepSlide(aliquotOrder);
+                        aliquotOrder.Status = YellowstonePathology.Business.TrackedItemStatusEnum.Printed.ToString();
+                    }
+                }
+                else if(aliquotOrder.AliquotType == pantherAliquot.AliquotType)
+                {
+                    YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByAliquotOrderId(aliquotOrder.AliquotOrderId);
+                    YellowstonePathology.Business.Label.Model.PantherLabel pantherLabel = new Business.Label.Model.PantherLabel(aliquotOrder.AliquotOrderId, this.m_AccessionOrder.PatientDisplayName, this.m_AccessionOrder.PBirthdate.Value, specimenOrder.Description);
+                    YellowstonePathology.Business.Label.Model.MolecularLabelPrinter molecularLabelPrinter = new Business.Label.Model.MolecularLabelPrinter();
+                    molecularLabelPrinter.Queue.Enqueue(pantherLabel);
+                    molecularLabelPrinter.Print();
+                }             
+
                 this.NotifyPropertyChanged(string.Empty);
             }
         }
