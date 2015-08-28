@@ -10,10 +10,13 @@ namespace YellowstonePathology.UI.Gross
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected string m_TemplateName;
+        private const string SpecimenNumberPlaceHolder = "*SPECIMENNUMBER*";
+        private const string PatientNamePlaceHolder = "*PATIENTNAME*";
+
+        protected string m_TemplateName;        
         protected string m_Text;
         protected string m_TranscribedText;
-        protected string m_TranscribedWords;
+        protected string m_TranscribedWords;        
 
         protected List<TemplateWord> m_WordList;
         protected YellowstonePathology.Business.Specimen.Model.SpecimenCollection m_SpecimenCollection;
@@ -84,13 +87,19 @@ namespace YellowstonePathology.UI.Gross
                     this.NotifyPropertyChanged("TranscribedWords");
                 }
             }
-        }   
+        }
+
+        public void SetInitialTranscribedText(int specimenNumber, string patientName)
+        {
+            this.m_TranscribedText = this.m_Text;
+            this.m_TranscribedText = this.m_TranscribedText.Replace(SpecimenNumberPlaceHolder, specimenNumber.ToString());
+            this.m_TranscribedText = this.m_TranscribedText.Replace(PatientNamePlaceHolder, patientName);
+        }
 
         public void BuildText()
         {
             if (string.IsNullOrEmpty(this.m_TranscribedWords) == false)
-            {
-                this.m_TranscribedText = this.m_Text;              
+            {                
                 string [] delimeter = { "\r\n" };
                 string[] lineSplit = this.m_TranscribedWords.Split(delimeter, StringSplitOptions.RemoveEmptyEntries);
                 for (int i = 0; i < lineSplit.Length; i++)

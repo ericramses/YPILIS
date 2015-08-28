@@ -83,12 +83,11 @@ namespace YellowstonePathology.UI.Surgical
             this.ContentControlDocument.Content = this.m_DocumentViewer;            
 
             this.ListViewLocalDictation.ItemsSource = this.m_LocalDictationList;
-            this.ListViewServerDictation.ItemsSource = this.m_ServerDictationList;					
-
+            this.ListViewServerDictation.ItemsSource = this.m_ServerDictationList;
+         
 			this.m_TypingUI.Lock.LockStatusChanged += new YellowstonePathology.Business.Domain.LockStatusChangedEventHandler(AccessionLock_LockStatusChanged);
-
             this.Unloaded += new RoutedEventHandler(TypingWorkspace_Unloaded);            			
-		}                
+		}        
 
 		private void TypingWorkspace_Loaded(object sender, RoutedEventArgs e)
 		{
@@ -318,8 +317,8 @@ namespace YellowstonePathology.UI.Surgical
                     break;
                 case Key.PageDown:
                     this.GetNextCaseListItem(1);
-                    break;
-            }            
+                    break;                    
+            }                        
         }
 
         public void GetNextCaseListItem(int upDown)

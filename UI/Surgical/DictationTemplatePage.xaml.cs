@@ -77,8 +77,10 @@ namespace YellowstonePathology.UI.Surgical
         {
             if(this.ListBoxSpecimenOrders.SelectedItem != null)
             {
+                this.m_DictationTemplateCollection = YellowstonePathology.UI.Gross.DictationTemplateCollection.GetAll();
                 YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = (YellowstonePathology.Business.Specimen.Model.SpecimenOrder)this.ListBoxSpecimenOrders.SelectedItem;
                 this.m_DictationTemplate = this.m_DictationTemplateCollection.GetTemplate(specimenOrder.SpecimenId);
+                this.m_DictationTemplate.SetInitialTranscribedText(specimenOrder.SpecimenNumber, this.m_AccessionOrder.PatientDisplayName);
                 this.NotifyPropertyChanged("DictationTemplate");
             }
         }
@@ -94,7 +96,14 @@ namespace YellowstonePathology.UI.Surgical
         private void AddToGross_Click(object sender, RoutedEventArgs e)
         {
             YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder = (YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetSurgical();
-            surgicalTestOrder.GrossX += Environment.NewLine + this.m_DictationTemplate.TranscribedText;
+            if (surgicalTestOrder.GrossX == "???")
+            {
+                surgicalTestOrder.GrossX = this.m_DictationTemplate.TranscribedText;
+            }
+            else
+            {
+                surgicalTestOrder.GrossX += Environment.NewLine + Environment.NewLine + this.m_DictationTemplate.TranscribedText;
+            }            
         }
 	}
 }
