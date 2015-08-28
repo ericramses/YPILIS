@@ -16,40 +16,63 @@
             <RowDefinition Height="Auto"></RowDefinition>
 			<RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
-			<RowDefinition Height="*"></RowDefinition>			
-		</Grid.RowDefinitions>
+			<RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
 
-        <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
-            <TextBlock Margin="2,2,2,2" FontSize="20" FontWeight="Bold" Text="Template:" HorizontalAlignment="Left"></TextBlock>
-            <TextBlock  Margin="2,2,2,2" Text="{Binding Path=DictationTemplate.TemplateName}" FontSize="20"></TextBlock>
-        </StackPanel>
-        <TextBox Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding Path=DictationTemplate.Text}" FontSize="20"></TextBox>
-                
-        
-        <TextBlock Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" FontSize="20" FontWeight="Bold" Text="Paragraph:" HorizontalAlignment="Left"></TextBlock>        
-        <TextBox Grid.Column="1" Grid.Row="1" Margin="2,2,2,2" TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding Path=DictationTemplate.TranscribedText}" FontSize="20"></TextBox>
-
-        
-        <TextBlock Grid.Column="0" Grid.Row="2" Margin="2,2,2,2" FontSize="20" FontWeight="Bold" Text="Phrases To Speak:" HorizontalAlignment="Left"></TextBlock>                
-        <ListBox Grid.Column="0" Grid.Row="3" Margin="2,2,2,2" FontSize="20" ItemsSource="{Binding Path=DictationTemplate.WordList}">
+        <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" FontSize="20" FontWeight="Bold" Text="Specimen:" HorizontalAlignment="Left"></TextBlock>
+        <ListBox Name="ListBoxSpecimenOrders" Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" FontSize="20" ItemsSource="{Binding Path=AccessionOrder.SpecimenOrderCollection}" SelectionChanged="ListBoxSpecimen_SelectionChanged">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
-                        <TextBlock Margin="2" Text="{Binding Path=Word}" />
+                        <TextBlock Margin="2" Text="{Binding Path=SpecimenDescriptionString}" />
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+        
+        <StackPanel Grid.Column="0" Grid.Row="2" Orientation="Horizontal">
+            <TextBlock Margin="2,2,2,2" FontSize="20" FontWeight="Bold" Text="Template:" HorizontalAlignment="Left"></TextBlock>
+            <TextBlock  Margin="2,2,2,2" Text="{Binding Path=DictationTemplate.TemplateName}" FontSize="20"></TextBlock>
+        </StackPanel>
+        <TextBox Grid.Column="0" Grid.Row="3" Margin="2,2,2,2" TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding Path=DictationTemplate.Text}" FontSize="20"></TextBox>
+        
 
-        <TextBlock Grid.Column="1" Grid.Row="2" Margin="2,2,2,2" FontSize="20" FontWeight="Bold" Text="Typing:" HorizontalAlignment="Left"></TextBlock>                
-        <Grid Grid.Column="1" Grid.Row="3">            
+        <Grid Grid.Column="1" Grid.Row="0" Grid.RowSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <TextBox Grid.Column="0" Margin="2,2,2,2" TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding Path=DictationTemplate.TranscribedWords}" FontSize="20"></TextBox>
-            <Button Grid.Column="1" Margin="2,2,2,2" Width="200" Height="50" VerticalAlignment="Top" Click="ButtonCreateParagraph_Click">Create Paragraph</Button>
-        </Grid>               
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>                
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" FontSize="20" FontWeight="Bold" Text="Phrases To Speak:" HorizontalAlignment="Left"></TextBlock>
+            <ListBox Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" FontSize="20" ItemsSource="{Binding Path=DictationTemplate.WordList}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
+                            <TextBlock Margin="2" Text="{Binding Path=Word}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+            <TextBlock Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" FontSize="20" FontWeight="Bold" Text="Typing:" HorizontalAlignment="Left"></TextBlock>
+            <TextBox Grid.Column="1" Grid.Row="1" Margin="2,2,2,2" TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding Path=DictationTemplate.TranscribedWords}" FontSize="26"></TextBox>
         
+        </Grid>
+                       
+        <TextBlock Grid.Column="1" Grid.Row="2" Margin="2,2,2,2" FontSize="20" FontWeight="Bold" Text="Paragraph:" HorizontalAlignment="Left"></TextBlock>        
+        <TextBox Grid.Column="1" Grid.Row="3" Margin="2,2,2,2" TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding Path=DictationTemplate.TranscribedText}" FontSize="20"></TextBox>
+
+        <StackPanel Grid.Column="1" Grid.Row="4" Orientation="Horizontal">
+            <Button Margin="2,2,2,2" Width="200" Height="50" VerticalAlignment="Top" HorizontalAlignment="Left" Click="ButtonCreateParagraph_Click">Create Paragraph</Button>
+            <Button Margin="2,2,2,2" Width="200" Height="50" VerticalAlignment="Top" HorizontalAlignment="Left" Click="AddToGross_Click">Add To Gross</Button>
+        </StackPanel>
+        
+
     </Grid>
 </UserControl>

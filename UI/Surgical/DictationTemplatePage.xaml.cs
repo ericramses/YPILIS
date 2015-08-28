@@ -11,24 +11,32 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.ComponentModel;
 
 namespace YellowstonePathology.UI.Surgical
-{	
-	public partial class DictationTemplatePage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
+{
+    public partial class DictationTemplatePage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges, INotifyPropertyChanged
 	{
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private YellowstonePathology.UI.Gross.DictationTemplateCollection m_DictationTemplateCollection;
         private YellowstonePathology.UI.Gross.DictationTemplate m_DictationTemplate;
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 
         public DictationTemplatePage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{
             this.m_AccessionOrder = accessionOrder;
-            //DictationTemplateCollection dictationTemplateCollection = DictationTemplateCollection.GetAll();
-            //this.m_DictationTemplate = dictationTemplateCollection.GetTemplate(specimenId);
+            this.m_DictationTemplateCollection = YellowstonePathology.UI.Gross.DictationTemplateCollection.GetAll();            
             
 			InitializeComponent();
 
 			DataContext = this;
 		}
+
+        public YellowstonePathology.Business.Test.AccessionOrder AccessionOrder
+        {
+            get { return this.m_AccessionOrder; }
+        }
 
         public YellowstonePathology.UI.Gross.DictationTemplate DictationTemplate
         {
@@ -62,7 +70,31 @@ namespace YellowstonePathology.UI.Surgical
 
         private void ButtonCreateParagraph_Click(object sender, RoutedEventArgs e)
         {
-            //this.m_DictationTemplate.BuildText();            
+            this.m_DictationTemplate.BuildText();            
+        }
+
+        private void ListBoxSpecimen_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(this.ListBoxSpecimenOrders.SelectedItem != null)
+            {
+                YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = (YellowstonePathology.Business.Specimen.Model.SpecimenOrder)this.ListBoxSpecimenOrders.SelectedItem;
+                this.m_DictationTemplate = this.m_DictationTemplateCollection.GetTemplate(specimenOrder.SpecimenId);
+                this.NotifyPropertyChanged("DictationTemplate");
+            }
+        }
+
+        public void NotifyPropertyChanged(String info)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
+        }
+
+        private void AddToGross_Click(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder = (YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetSurgical();
+            surgicalTestOrder.GrossX += Environment.NewLine + this.m_DictationTemplate.TranscribedText;
         }
 	}
 }
