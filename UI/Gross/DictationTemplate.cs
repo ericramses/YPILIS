@@ -112,7 +112,19 @@ namespace YellowstonePathology.UI.Gross
             this.m_TranscribedText = this.m_Text;
             this.m_TranscribedText = this.m_TranscribedText.Replace(SpecimenNumberPlaceHolder, specimenNumber.ToString());
             this.m_TranscribedText = this.m_TranscribedText.Replace(PatientNamePlaceHolder, patientName);
-        }
+        }           
+        public string Preamble
+        {
+            get { return this.m_Preamble; }
+            set
+            {
+                if (this.m_Preamble != value)
+                {
+                    this.m_Preamble = value;
+                    this.NotifyPropertyChanged("Preamble");
+                }
+            }
+        }   
 
         public void BuildText()
         {
