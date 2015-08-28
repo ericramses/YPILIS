@@ -9,7 +9,7 @@ namespace YellowstonePathology.UI.Gross
     {
         public TemplateNotFound()
         {
-            this.m_TemplateName = "Template Not Found.";            
+            this.m_TemplateName = "Template Not Found.";
         }
     }
 
@@ -28,9 +28,9 @@ namespace YellowstonePathology.UI.Gross
             this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Measuring/Agregating", "*MEASURING/AGGREGATING*"));
             this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Cassette Color", "*COLOR*"));
             this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Cassette Number", "*CASSETTENUMBER*"));
-            
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ProstateNeedleBiopsy nb = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ProstateNeedleBiopsy();                        
-            this.m_SpecimenCollection.Add(nb);            
+
+            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ProstateNeedleBiopsy nb = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ProstateNeedleBiopsy();
+            this.m_SpecimenCollection.Add(nb);
         }
     }
 
@@ -61,19 +61,16 @@ namespace YellowstonePathology.UI.Gross
         public GITemplate()
         {
             this.m_TemplateName = "GI Specimen";
-            this.m_Text = "The specimen *SPECIMENNUMBER* is received in one formalin filled container labeled \"*PATIENTNAME*\"" +
-                " and consists of *NUMBEROFFRAGMENTS* fragments of tan-pink tissue measuring in aggregate *MEASURING/AGGREGATING*. " +
+            this.m_Text = "*NUMBEROFFRAGMENTS* fragments of tan-pink tissue measuring in aggregate *MEASURING/AGGREGATING*. " +
                 "The specimen is filtered through a fine mesh bag and entirely submitted in *COLOR* cassette \"*CASSETTENUMBER*\".";
 
-            this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Specimen Number", "*SPECIMENNUMBER*"));
-            this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Patient Name", "*PATIENTNAME*"));
             this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Number Of Fragments", "*NUMBEROFFRAGMENTS*"));
             this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Measuring/Agregating", "*MEASURING/AGGREGATING*"));
             this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Cassette Color", "*COLOR*"));
             this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Cassette Number", "*CASSETTENUMBER*"));
-            
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.GIBiopsy gi = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.GIBiopsy();                        
-            this.m_SpecimenCollection.Add(gi);            
+
+            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.GIBiopsy gi = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.GIBiopsy();
+            this.m_SpecimenCollection.Add(gi);
         }
     }
 
@@ -96,7 +93,7 @@ namespace YellowstonePathology.UI.Gross
             this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Container Labeling", ""));
             this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Opened or Unopened", ""));
             this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Measurements", ""));
-            this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Serosal Surface", ""));            
+            this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Serosal Surface", ""));
             this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Attached Mesoappendix: Measurements and Description", ""));
             this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Pertinent Abnormalities", ""));
             this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Luminal Contents", ""));
@@ -105,10 +102,10 @@ namespace YellowstonePathology.UI.Gross
             this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Cassette Number", ""));
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.AppendixExcision appendixExcision = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.AppendixExcision();
-            this.m_SpecimenCollection.Add(appendixExcision);            
+            this.m_SpecimenCollection.Add(appendixExcision);
         }
     }
-   
+
     public class SkinShavePunchMiscTemplate : DictationTemplate
     {
         public SkinShavePunchMiscTemplate()
@@ -118,7 +115,7 @@ namespace YellowstonePathology.UI.Gross
                           "Specimen Description: *SHAVE/PUNCH/MISC*" + Environment.NewLine +
                           "Measurements: *MEASUREMENTS*" + Environment.NewLine +
                           "Submitted: *ENTIRELY/BIS/TRI/SERIALLY* Cassette: *COLOR/NUMBER*";
-                
+
 
             this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Specimen Number", ""));
             this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Recieved In", ""));
@@ -130,11 +127,11 @@ namespace YellowstonePathology.UI.Gross
             this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Cassette Number", ""));
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinShavePunchMiscBiopsy SkinShavePunchMiscBiopsy = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinShavePunchMiscBiopsy();
-            this.m_SpecimenCollection.Add(SkinShavePunchMiscBiopsy); 
+            this.m_SpecimenCollection.Add(SkinShavePunchMiscBiopsy);
 
         }
     }
-    
+
     public class SkinExcisionTemplate : DictationTemplate
     {
         public SkinExcisionTemplate()
@@ -200,7 +197,7 @@ namespace YellowstonePathology.UI.Gross
         }
     }
 
-        public class TonsilExcisionTemplate : DictationTemplate
+    public class TonsilExcisionTemplate : DictationTemplate
     {
         public TonsilExcisionTemplate()
         {
@@ -236,7 +233,7 @@ namespace YellowstonePathology.UI.Gross
         }
     }
 
-                    public class POCTemplate : DictationTemplate
+    public class POCTemplate : DictationTemplate
     {
         public POCTemplate()
         {
@@ -266,7 +263,7 @@ namespace YellowstonePathology.UI.Gross
         }
     }
 
-                    public class BreastReductionTemplate : DictationTemplate
+    public class BreastReductionTemplate : DictationTemplate
     {
         public BreastReductionTemplate()
         {
@@ -296,7 +293,7 @@ namespace YellowstonePathology.UI.Gross
         }
     }
 
-                    public class ECCTemplate : DictationTemplate
+    public class ECCTemplate : DictationTemplate
     {
         public ECCTemplate()
         {
@@ -322,4 +319,7 @@ namespace YellowstonePathology.UI.Gross
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ECC ECC = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ECC();
             this.m_SpecimenCollection.Add(ECC);
+        }
+
+    }
 }
