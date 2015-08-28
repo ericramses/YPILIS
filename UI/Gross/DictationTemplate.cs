@@ -16,7 +16,8 @@ namespace YellowstonePathology.UI.Gross
         protected string m_TemplateName;        
         protected string m_Text;
         protected string m_TranscribedText;
-        protected string m_TranscribedWords;        
+        protected string m_TranscribedWords;
+        protected string m_Preamble;
 
         protected List<TemplateWord> m_WordList;
         protected YellowstonePathology.Business.Specimen.Model.SpecimenCollection m_SpecimenCollection;
@@ -25,6 +26,9 @@ namespace YellowstonePathology.UI.Gross
         {
             this.m_WordList = new List<TemplateWord>();
             this.m_SpecimenCollection = new YellowstonePathology.Business.Specimen.Model.SpecimenCollection();
+
+            this.m_Preamble = "This is *TECH* doing gross dictation, case number \"*CASENUMBER*\", received is/are \"*#*\" containers." + Environment.NewLine +
+                              "Specimen number \"*#*\" is labeled \"*PATIENTNAME*\" \"*SPECIMENDESCRIPTION*\", and consists of:";
         }
 
         public List<TemplateWord> WordList
@@ -94,7 +98,19 @@ namespace YellowstonePathology.UI.Gross
             this.m_TranscribedText = this.m_Text;
             this.m_TranscribedText = this.m_TranscribedText.Replace(SpecimenNumberPlaceHolder, specimenNumber.ToString());
             this.m_TranscribedText = this.m_TranscribedText.Replace(PatientNamePlaceHolder, patientName);
-        }
+        }           
+        public string Preamble
+        {
+            get { return this.m_Preamble; }
+            set
+            {
+                if (this.m_Preamble != value)
+                {
+                    this.m_Preamble = value;
+                    this.NotifyPropertyChanged("Preamble");
+                }
+            }
+        }   
 
         public void BuildText()
         {
