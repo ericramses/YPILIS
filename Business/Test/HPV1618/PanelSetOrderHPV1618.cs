@@ -15,6 +15,7 @@ namespace YellowstonePathology.Business.Test.HPV1618
         private string m_References;
 		private string m_Method;		
         private string m_Interpretation;
+        private string m_Comment;
 
 		public PanelSetOrderHPV1618()
 		{
@@ -111,6 +112,20 @@ namespace YellowstonePathology.Business.Test.HPV1618
                 {
                     this.m_Interpretation = value;
                     this.NotifyPropertyChanged("Interpretation");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string Comment
+        {
+            get { return this.m_Comment; }
+            set
+            {
+                if (this.m_Comment != value)
+                {
+                    this.m_Comment = value;
+                    this.NotifyPropertyChanged("Comment");
                 }
             }
         }
