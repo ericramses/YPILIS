@@ -40,16 +40,16 @@ namespace YellowstonePathology.UI.Gross
             result.Add(new SkinShavePunchMiscTemplate());
             result.Add(new SkinExcisionTemplate());
             result.Add(new GallbladderExcisionTemplate());
-            //result.Add(new TonsilExcision());
-            //result.Add(new POC());
-            //result.Add(new BreastReduction());
-            //result.Add(new ECC());
-            //result.Add(new EMB());
-            //result.Add(new CervicalBiopsy());
-            //result.Add(new LEEPExcision());
-            //result.Add(new Placenta());
-            //result.Add(new Unterus());
-            //result.Add(new NeedleCoreBiopsy());
+            result.Add(new TonsilExcisionTemplate());
+            result.Add(new POCTemplate());
+            result.Add(new BreastReductionTemplate());
+            result.Add(new ECCTemplate());
+            result.Add(new EMBTemplate());
+            result.Add(new CervicalBiopsyTemplate());
+            //result.Add(new LEEPExcisionTemplate());
+            //result.Add(new PlacentaTemplate());
+            //result.Add(new UnterusTemplate());
+            //result.Add(new NeedleCoreBiopsyTemplate());
             return result;
         }               
     }
