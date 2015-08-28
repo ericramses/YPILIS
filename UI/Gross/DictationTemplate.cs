@@ -88,7 +88,21 @@ namespace YellowstonePathology.UI.Gross
                     this.NotifyPropertyChanged("TranscribedWords");
                 }
             }
-        }
+        }   
+
+        public string Preamble
+        {
+            get { return this.m_Preamble; }
+            set
+            {
+                if (this.m_Preamble != value)
+                {
+                    this.m_Preamble = value;
+                    this.NotifyPropertyChanged("Preamble");
+                }
+            }
+        }   
+        
 
         public string PreambleTemplate
         {
