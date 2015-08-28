@@ -22,10 +22,12 @@ namespace YellowstonePathology.UI.Surgical
         private YellowstonePathology.UI.Gross.DictationTemplateCollection m_DictationTemplateCollection;
         private YellowstonePathology.UI.Gross.DictationTemplate m_DictationTemplate;
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
+        private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 
-        public DictationTemplatePage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
+        public DictationTemplatePage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 		{
             this.m_AccessionOrder = accessionOrder;
+            this.m_SystemIdentity = systemIdentity;
             this.m_DictationTemplateCollection = YellowstonePathology.UI.Gross.DictationTemplateCollection.GetAll();            
             
 			InitializeComponent();
@@ -76,11 +78,11 @@ namespace YellowstonePathology.UI.Surgical
         private void ListBoxSpecimen_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if(this.ListBoxSpecimenOrders.SelectedItem != null)
-            {
+            {                
                 this.m_DictationTemplateCollection = YellowstonePathology.UI.Gross.DictationTemplateCollection.GetAll();
                 YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = (YellowstonePathology.Business.Specimen.Model.SpecimenOrder)this.ListBoxSpecimenOrders.SelectedItem;
                 this.m_DictationTemplate = this.m_DictationTemplateCollection.GetTemplate(specimenOrder.SpecimenId);
-                this.m_DictationTemplate.SetInitialTranscribedText(specimenOrder.SpecimenNumber, this.m_AccessionOrder.PatientDisplayName);
+                this.m_DictationTemplate.SetInitialTranscribedText(specimenOrder, this.m_AccessionOrder, this.m_SystemIdentity.User);
                 this.NotifyPropertyChanged("DictationTemplate");
             }
         }

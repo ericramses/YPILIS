@@ -946,7 +946,7 @@ namespace YellowstonePathology.UI.Surgical
         {
             if (this.m_TypingUI.AccessionOrder != null)
             {
-                DictationTemplatePage dictationTemplatePage = new DictationTemplatePage(this.m_TypingUI.AccessionOrder);
+                DictationTemplatePage dictationTemplatePage = new DictationTemplatePage(this.m_TypingUI.AccessionOrder, this.m_SystemIdentity);
                 this.m_SecondMonitorWindow.PageNavigator.Navigate(dictationTemplatePage);
             }
         }
