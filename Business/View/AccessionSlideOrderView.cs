@@ -20,7 +20,7 @@ namespace YellowstonePathology.Business.View
         private string m_PLastName;
         private int m_ClientId;
         private string m_ClientName;
-        private int m_PhysicianId;
+		private int m_PhysicianId;
         private string m_PhysicianName;
 
 		public AccessionSlideOrderView()
@@ -112,7 +112,7 @@ namespace YellowstonePathology.Business.View
             }
         }
 
-        public int PhysicianId
+		public int PhysicianId
         {
             get { return this.m_PhysicianId; }
             set
@@ -154,7 +154,7 @@ namespace YellowstonePathology.Business.View
             this.m_PLastName = propertyWriter.WriteString("PLastName");
             this.m_ClientId = propertyWriter.WriteInt("ClientId");
             this.m_ClientName = propertyWriter.WriteString("ClientName");
-            this.m_PhysicianId = propertyWriter.WriteInt("PhysicianId");
+			this.m_PhysicianId = propertyWriter.WriteInt("PhysicianId");
             this.m_PhysicianName = propertyWriter.WriteString("PhysicianName");
         }
 
@@ -171,7 +171,7 @@ namespace YellowstonePathology.Business.View
             YellowstonePathology.Business.Domain.Persistence.SerializationHelper.Serialize(result, "PLastName", PLastName);
             YellowstonePathology.Business.Domain.Persistence.SerializationHelper.Serialize(result, "ClientId", ClientId.ToString());
             YellowstonePathology.Business.Domain.Persistence.SerializationHelper.Serialize(result, "ClientName", ClientName);
-            YellowstonePathology.Business.Domain.Persistence.SerializationHelper.Serialize(result, "PhysicianId", PhysicianId.ToString());
+            YellowstonePathology.Business.Domain.Persistence.SerializationHelper.Serialize(result, "PhysicianId", PhysicianId);
             YellowstonePathology.Business.Domain.Persistence.SerializationHelper.Serialize(result, "PhysicianName", PhysicianName);
             return result;
         }	

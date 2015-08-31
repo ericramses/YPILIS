@@ -13,7 +13,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 	{
 		private bool m_PapCorrelationRequired;
 		private bool m_ReportableCase;
-		private bool m_PQRIRequired;		
+		private bool m_PQRIRequired;
 		private int m_PhysicianId;
 		private int m_ImmediateCorrelation;
 		private int m_PapCorrelation;

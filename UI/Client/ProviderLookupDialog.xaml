@@ -29,7 +29,7 @@
 							 ItemsSource="{Binding Path=ProviderCollection}">
 						<ListView.View>
 							<GridView>
-								<GridViewColumn Header="Id" Width="65" DisplayMemberBinding="{Binding Path=PhysicianId}" />
+								<GridViewColumn Header="Id" Width="65" DisplayMemberBinding="{Binding Path=ProviderId}" />
 								<GridViewColumn Header="Name" Width="200" DisplayMemberBinding="{Binding Path=DisplayName}" />																                                
 								<GridViewColumn Header="Credentials" Width="100" DisplayMemberBinding="{Binding Path=Credentials}" />
 							</GridView>

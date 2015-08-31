@@ -15,19 +15,22 @@ namespace YellowstonePathology.Business.Domain
         public event PropertyChangedEventHandler PropertyChanged;
 
 		private string m_ObjectId;
-        private int m_PhysicianClientId;
-        private int m_PhysicianId;
-        private int m_ClientId;		
+		private string m_PhysicianClientId;
+		private int m_PhysicianId;
+        private int m_ClientId;
+		private string m_ProviderId;
 
 		public PhysicianClient()
 		{
 
 		}
 
-		public PhysicianClient(string objectId, int physicianId, int clientId)
+		public PhysicianClient(string objectId, string physicianClientId, int physicianId, string providerId, int clientId)
 		{
 			this.m_ObjectId = objectId;
+			this.m_PhysicianClientId = physicianClientId;
 			this.m_PhysicianId = physicianId;
+			this.m_ProviderId = providerId;
 			this.m_ClientId = clientId;
 		}
 
@@ -45,8 +48,8 @@ namespace YellowstonePathology.Business.Domain
 			}
 		}
 
-        [PersistentPrimaryKeyProperty(true)]
-        public int PhysicianClientId
+        [PersistentPrimaryKeyProperty(false)]
+        public string PhysicianClientId
         {
             get { return this.m_PhysicianClientId; }
             set
@@ -60,7 +63,7 @@ namespace YellowstonePathology.Business.Domain
         }
 
         [PersistentProperty()]
-        public int PhysicianId
+		public int PhysicianId
         {
             get { return this.m_PhysicianId; }
             set
@@ -87,20 +90,18 @@ namespace YellowstonePathology.Business.Domain
             }
         }
 
-        public void WriteProperties(YellowstonePathology.Business.Domain.Persistence.IPropertyWriter propertyWriter)
-        {
-            this.m_PhysicianClientId = propertyWriter.WriteInt("PhysicianClientId");
-            this.m_PhysicianId = propertyWriter.WriteInt("PhysicianId");
-            this.m_ClientId = propertyWriter.WriteInt("ClientId");
-			this.m_ObjectId = propertyWriter.WriteString("ObjectId");
-		}
-
-        public void ReadProperties(YellowstonePathology.Business.Domain.Persistence.IPropertyReader propertyReader)
-        {
-            propertyReader.ReadInt("PhysicianClientId", PhysicianClientId);
-            propertyReader.ReadInt("PhysicianId", PhysicianId);
-            propertyReader.ReadInt("ClientId", ClientId);
-			propertyReader.ReadString("ObjectId", ObjectId);
+		[PersistentProperty()]
+		public string ProviderId
+		{
+			get { return this.m_ProviderId; }
+			set
+			{
+				if (this.m_ProviderId != value)
+				{
+					this.m_ProviderId = value;
+					this.NotifyPropertyChanged("ProviderId");
+				}
+			}
 		}
 
         public void NotifyPropertyChanged(String info)

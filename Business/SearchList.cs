@@ -72,14 +72,14 @@ namespace YellowstonePathology.Business
             get { return this.m_SearchString; }
         }
 
-        public long PhysicianClientId
+        public string PhysicianClientId
         {
-            get
-            {
-                long result = 0;
-                long.TryParse(this.m_SearchString, out result);
-                return result;
-            }
+			get { return this.m_SearchString; }
+            //{
+                //long result = 0;
+                //long.TryParse(this.m_SearchString, out result);
+                //return result;
+            //}
         }
 
 		public string MasterAccessionNo
@@ -154,9 +154,9 @@ namespace YellowstonePathology.Business
         public void SetFillByPhysicianClientId()
         {
             this.m_Cmd.Parameters.Clear();
-            this.m_Cmd.CommandText = "prcGetSearchListByPhysicianClientId";
+            this.m_Cmd.CommandText = "prcGetSearchListByPhysicianClientId_1";
             this.m_Cmd.CommandType = CommandType.StoredProcedure;
-            this.m_Cmd.Parameters.Add("@PhysicianClientId", SqlDbType.Int).Value = this.PhysicianClientId;
+            this.m_Cmd.Parameters.Add("@PhysicianClientId", SqlDbType.VarChar).Value = this.PhysicianClientId;
         }
 
 		public void SetFillByMasterAccessionNo()

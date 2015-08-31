@@ -49,9 +49,10 @@ namespace YellowstonePathology.UI.Client
 		{
 			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();            
 			string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-
-			YellowstonePathology.Business.Domain.Physician physician = new Business.Domain.Physician(objectId, "New Physician", "New Physician");
+			int physicianId = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetLargestPhysicianId() + 1;
+			YellowstonePathology.Business.Domain.Physician physician = new Business.Domain.Physician(objectId, objectId, physicianId, "New Physician", "New Physician");
             objectTracker.RegisterRootInsert(physician);
+
 			ProviderEntry providerEntry = new ProviderEntry(physician, objectTracker);
 			providerEntry.ShowDialog();
 		}

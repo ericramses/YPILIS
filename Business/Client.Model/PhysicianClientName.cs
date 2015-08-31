@@ -8,9 +8,10 @@ namespace YellowstonePathology.Business.Client.Model
 {
 	public class PhysicianClientName
 	{
-		private int m_PhysicianClientId;
+		private string m_PhysicianClientId;
 		private int m_ClientId;
 		private int m_PhysicianId;
+		private string m_ProviderId;
 		private string m_ClientName;
 		private string m_FirstName;
 		private string m_LastName;
@@ -23,7 +24,7 @@ namespace YellowstonePathology.Business.Client.Model
 		}
 
 		[PersistentProperty]
-		public int PhysicianClientId
+		public string PhysicianClientId
 		{
 			get { return this.m_PhysicianClientId; }
 			set { this.m_PhysicianClientId = value; }
@@ -41,6 +42,13 @@ namespace YellowstonePathology.Business.Client.Model
 		{
 			get { return this.m_PhysicianId; }
 			set { this.m_PhysicianId = value; }
+		}
+
+		[PersistentProperty]
+		public string ProviderId
+		{
+			get { return this.m_ProviderId; }
+			set { this.m_ProviderId = value; }
 		}
 
 		[PersistentProperty]
@@ -87,18 +95,6 @@ namespace YellowstonePathology.Business.Client.Model
 				result += this.m_LastName;
 				return result;
 			}
-		}
-
-		public void WriteProperties(YellowstonePathology.Business.Domain.Persistence.IPropertyWriter propertyWriter)
-		{
-			this.m_PhysicianClientId = propertyWriter.WriteInt("PhysicianClientId");
-			this.m_ClientId = propertyWriter.WriteInt("ClientId");
-			this.m_PhysicianId = propertyWriter.WriteInt("PhysicianId");
-			this.m_ClientName = propertyWriter.WriteString("ClientName");
-			this.m_FirstName = propertyWriter.WriteString("FirstName");
-			this.m_LastName = propertyWriter.WriteString("LastName");
-			this.m_Telephone = propertyWriter.WriteString("Telephone");
-			this.m_Fax = propertyWriter.WriteString("Fax");
 		}
 	}
 }

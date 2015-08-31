@@ -19,7 +19,7 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
 
 		private string m_ObjectId;
 		private string m_TestOrderReportDistributionLogId;		
-		private string m_ReportNo;								
+		private string m_ReportNo;
 		private int m_PhysicianId;
 		private int m_ClientId;
 		private string m_PhysicianName;
