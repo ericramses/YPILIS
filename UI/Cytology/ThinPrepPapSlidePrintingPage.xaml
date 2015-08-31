@@ -76,18 +76,7 @@
                 </ListBox.ItemsPanel>
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <Border>
-                            <Border.Style>
-                                <Style>
-                                    <Setter Property="Border.BorderBrush" Value="{Binding Path=Status, Converter={StaticResource TrackedItemStatusColorConverter}}"/>
-                                    <Setter Property="Border.BorderThickness" Value="5"/>
-                                    <Style.Triggers>
-                                        <Trigger Property="Border.IsMouseOver" Value="True">
-                                            <Setter Property="Border.BorderThickness" Value="7" />
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Border.Style>
+                        <Border BorderBrush="{Binding Path=Status, Converter={StaticResource TrackedItemStatusColorConverter}}" BorderThickness="5">                            
                             <Grid Margin="2,2,2,2" Width="200" Height="200">
 
                                 <Grid.ColumnDefinitions>
