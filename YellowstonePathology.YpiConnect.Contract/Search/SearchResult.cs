@@ -21,7 +21,7 @@ namespace YellowstonePathology.YpiConnect.Contract.Search
         DateTime m_AccessionDate;
         Nullable<DateTime> m_FinalTime;
         int m_ClientId;
-        int m_PhysicianId;
+		int m_PhysicianId;
         string m_ClientName;
         string m_PhysicianName;
         string m_PanelSetName;
@@ -45,7 +45,7 @@ namespace YellowstonePathology.YpiConnect.Contract.Search
             this.m_AccessionDate = propertyWriter.WriteDateTime("AccessionDate");
             this.m_FinalTime = propertyWriter.WriteNullableDateTime("FinalTime");
             this.m_ClientId = propertyWriter.WriteInt("ClientId");
-            this.m_PhysicianId = propertyWriter.WriteInt("PhysicianId");
+			this.m_PhysicianId = propertyWriter.WriteInt("PhysicianId");
             this.m_ClientName = propertyWriter.WriteString("ClientName");
             this.m_PhysicianName = propertyWriter.WriteString("PhysicianName");
             this.m_PanelSetName = propertyWriter.WriteString("PanelSetName");
@@ -123,7 +123,7 @@ namespace YellowstonePathology.YpiConnect.Contract.Search
         }
 
         [DataMember]
-        public int PhysicianId
+		public int PhysicianId
         {
             get { return this.m_PhysicianId; }
             set { this.m_PhysicianId = value; }            

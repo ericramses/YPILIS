@@ -9,7 +9,8 @@ namespace YellowstonePathology.Business.Client.Model
 	public class PhysicianClientDistributionView
 	{
 		private PhysicianClientDistribution m_PhysicianClientDistribution;
-        private int m_PhysicianId;
+		private int m_PhysicianId;
+		private string m_ProviderId;
         private string m_PhysicianName;
         private int m_ClientId;
         private string m_ClientName;
@@ -31,6 +32,13 @@ namespace YellowstonePathology.Business.Client.Model
             get { return this.m_PhysicianId; }
             set { this.m_PhysicianId = value; }
         }
+
+		[PersistentProperty()]
+		public string ProviderId
+		{
+			get { return this.m_ProviderId; }
+			set { this.m_ProviderId = value; }
+		}
 
 		[PersistentProperty()]
 		public string PhysicianName
@@ -60,13 +68,13 @@ namespace YellowstonePathology.Business.Client.Model
             set { this.m_DistributionType = value; }
         }
 
-        public void WriteProperties(YellowstonePathology.Business.Domain.Persistence.IPropertyWriter propertyWriter)
+        /*public void WriteProperties(YellowstonePathology.Business.Domain.Persistence.IPropertyWriter propertyWriter)
         {
 			this.m_PhysicianId = propertyWriter.WriteInt("PhysicianId");
             this.m_PhysicianName = propertyWriter.WriteString("PhysicianName");
             this.m_ClientId = propertyWriter.WriteInt("ClientId");
             this.m_ClientName = propertyWriter.WriteString("ClientName");
             this.m_DistributionType = propertyWriter.WriteString("DistributionType");
-        }
+        }*/
 	}
 }

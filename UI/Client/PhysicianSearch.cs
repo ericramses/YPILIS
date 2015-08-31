@@ -37,7 +37,7 @@ namespace YellowstonePathology.UI.Client
         {
             if (this.textBoxPhysicianName.Text.Length > 0)
             {
-				this.m_PhysicianNameViewCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianNameViewCollectionByPhysicianLastName(this.textBoxPhysicianName.Text);
+				this.m_PhysicianNameViewCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianNameViewCollectionByPhysicianLastNameV2(this.textBoxPhysicianName.Text);
                 this.PopulatePhysicianList();
             }
         }
@@ -110,10 +110,12 @@ namespace YellowstonePathology.UI.Client
 			if (result == DialogResult.OK)
 			{
 				string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-				YellowstonePathology.Business.Domain.Physician physician = new Business.Domain.Physician(objectId, newPhysicianLastName, string.Empty);
+				int physicianId = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetLargestPhysicianId() + 1;
+				YellowstonePathology.Business.Domain.Physician physician = new Business.Domain.Physician(objectId, objectId, physicianId, newPhysicianLastName, string.Empty);
 
 				YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
 				objectTracker.RegisterRootInsert(physician);
+
 				Client.PhysicianEntry physicianEntry = new PhysicianEntry(physician, objectTracker);
 				physicianEntry.ShowDialog();
 			}

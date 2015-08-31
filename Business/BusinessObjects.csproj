@@ -860,9 +860,6 @@
     <Compile Include="Domain\OrderableTestIcd9Code.Generated.cs" />
     <Compile Include="Domain\OrderableTestIcd9CodeCollection.cs" />
     <Compile Include="Domain\Physician.cs" />
-    <Compile Include="Domain\SimpleAccessionOrderLinq.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Slide.Model\SlideLabelCollection.cs" />
     <Compile Include="Slide.Model\SlideStatusEnum.cs" />
     <Compile Include="Domain\DataLoadResult.cs" />
@@ -2709,7 +2706,6 @@
     <Compile Include="Domain\Billing\InsuranceTypeLinq.cs" />
     <Compile Include="Domain\Billing\PatientType.cs" />
     <Compile Include="Domain\PhoneNumber.cs" />
-    <Compile Include="Domain\OrderBase.cs" />
     <Compile Include="Domain\Cytology\ScreeningTypeEnum.cs" />
     <Compile Include="Domain\ICD9Code.cs" />
     <Compile Include="Domain\Cytology\CytologyReportComment.cs" />

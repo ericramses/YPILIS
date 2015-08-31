@@ -9,7 +9,7 @@ namespace YellowstonePathology.Business.Client
 {
     public class PhysicianClientDistribution
     {
-        protected int m_PhysicianId;
+		protected int m_PhysicianId;
         protected string m_PhysicianName;
         protected int m_ClientId;
         protected string m_ClientName;
@@ -34,7 +34,7 @@ namespace YellowstonePathology.Business.Client
         }
 
         [PersistentProperty]
-        public int PhysicianId
+		public int PhysicianId
         {
             get { return this.m_PhysicianId; }
             set { this.m_PhysicianId = value; }

@@ -55,13 +55,13 @@ namespace YellowstonePathology.Business
 
         public void GetRDPhysicianClientCollection(string physicianLastName)
         {
-            this.m_RDPhysicianClientCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClientListByPhysicianLastName(physicianLastName);
+            this.m_RDPhysicianClientCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClientListByPhysicianLastNameV2(physicianLastName);
             this.NotifyPropertyChanged("RDPhysicianClientCollection");
         }
 
         public void GetPhysicianClientCollection(string physicianLastName)
         {
-            this.m_PhysicianClientCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClientListByPhysicianLastName(physicianLastName);
+            this.m_PhysicianClientCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClientListByPhysicianLastNameV2(physicianLastName);
             this.NotifyPropertyChanged("PhysicianClientCollection");
         }
              

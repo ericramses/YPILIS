@@ -10,12 +10,12 @@ namespace YellowstonePathology.UI.Client
 {
     public partial class ReportDistribution : Form
     {
-        int m_PhysicianClientID;
+        string m_PhysicianClientID;
 
 		private YellowstonePathology.Business.Client.Model.PhysicianClientNameCollection m_PhysicianClientNameCollection;
 		private List<YellowstonePathology.Business.Client.Model.PhysicianClientDistributionView> m_PhysicianClientDistributionViewList;
 
-        public ReportDistribution(int physicianClientID)
+        public ReportDistribution(string physicianClientID)
         {
             this.m_PhysicianClientID = physicianClientID;
             InitializeComponent();
@@ -23,8 +23,8 @@ namespace YellowstonePathology.UI.Client
 
         private void ReportDistribution_Load(object sender, EventArgs e)
         {
-			this.m_PhysicianClientNameCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClientNameCollection(this.m_PhysicianClientID);
-			this.m_PhysicianClientDistributionViewList = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClientDistributions(this.m_PhysicianClientID);
+			this.m_PhysicianClientNameCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClientNameCollectionV2(this.m_PhysicianClientID);
+			this.m_PhysicianClientDistributionViewList = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClientDistributionsV2(this.m_PhysicianClientID);
 
             this.Text = this.GetFormTitle();            
 
@@ -77,16 +77,16 @@ namespace YellowstonePathology.UI.Client
 			DialogResult result = physicianClient.ShowDialog();
 			if (result == DialogResult.OK)
 			{
-				int distributionID = physicianClient.PhysicianClientID;
+				string distributionID = physicianClient.PhysicianClientID;
 
 				string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-                YellowstonePathology.Business.Client.Model.PhysicianClientDistribution physicianClientDistribution = new Business.Client.Model.PhysicianClientDistribution(objectId, this.m_PhysicianClientID, distributionID);
+                YellowstonePathology.Business.Client.Model.PhysicianClientDistribution physicianClientDistribution = new Business.Client.Model.PhysicianClientDistribution(objectId, objectId, this.m_PhysicianClientID, distributionID);
 
 				YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
 				objectTracker.RegisterRootInsert(physicianClientDistribution);
 				objectTracker.SubmitChanges(physicianClientDistribution);
 
-				this.m_PhysicianClientDistributionViewList = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClientDistributions(this.m_PhysicianClientID);
+				this.m_PhysicianClientDistributionViewList = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClientDistributionsV2(this.m_PhysicianClientID);
 				this.PopulateDistributionList();
 			}
 		}
@@ -95,7 +95,7 @@ namespace YellowstonePathology.UI.Client
         {
 			if (this.listViewPhysicianClient.SelectedItems.Count != 0)
 			{
-				int physicianClientID = Convert.ToInt32(this.listViewPhysicianClient.SelectedItems[0].Text);
+				string physicianClientID = this.listViewPhysicianClient.SelectedItems[0].Text;
 				foreach( YellowstonePathology.Business.Client.Model.PhysicianClientDistributionView physicianClientDistributionView in this.m_PhysicianClientDistributionViewList)
 				{
 					if (physicianClientDistributionView.PhysicianClientDistribution.DistributionID == physicianClientID)
@@ -106,13 +106,13 @@ namespace YellowstonePathology.UI.Client
 				}
 
 				string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-                YellowstonePathology.Business.Client.Model.PhysicianClientDistribution physicianClientDistribution = new Business.Client.Model.PhysicianClientDistribution(objectId, this.m_PhysicianClientID, physicianClientID);
+                YellowstonePathology.Business.Client.Model.PhysicianClientDistribution physicianClientDistribution = new Business.Client.Model.PhysicianClientDistribution(objectId, objectId, this.m_PhysicianClientID, physicianClientID);
 
 				YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
 				objectTracker.RegisterRootInsert(physicianClientDistribution);
 				objectTracker.SubmitChanges(physicianClientDistribution);
 
-				this.m_PhysicianClientDistributionViewList = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClientDistributions(this.m_PhysicianClientID);
+				this.m_PhysicianClientDistributionViewList = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClientDistributionsV2(this.m_PhysicianClientID);
 				this.PopulateDistributionList();
 			}
 		}
@@ -124,7 +124,7 @@ namespace YellowstonePathology.UI.Client
 				DialogResult result = MessageBox.Show("Remove the selected item?", "Remove", MessageBoxButtons.OKCancel);
 				if (result == DialogResult.OK)
 				{
-					int physicianClientDistributionID = Convert.ToInt32(this.listViewDistribution.SelectedItems[0].Text);
+					string physicianClientDistributionID = this.listViewDistribution.SelectedItems[0].Text;
 					foreach (YellowstonePathology.Business.Client.Model.PhysicianClientDistributionView physicianClientDistributionView in this.m_PhysicianClientDistributionViewList)
 					{
 						if (physicianClientDistributionView.PhysicianClientDistribution.PhysicianClientDistributionID == physicianClientDistributionID)
@@ -133,7 +133,7 @@ namespace YellowstonePathology.UI.Client
 							objectTracker.RegisterRootDelete(physicianClientDistributionView.PhysicianClientDistribution);
 							objectTracker.SubmitChanges(physicianClientDistributionView.PhysicianClientDistribution);
 
-							this.m_PhysicianClientDistributionViewList = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClientDistributions(this.m_PhysicianClientID);
+							this.m_PhysicianClientDistributionViewList = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClientDistributionsV2(this.m_PhysicianClientID);
 							this.PopulateDistributionList();
 							break;
 						}

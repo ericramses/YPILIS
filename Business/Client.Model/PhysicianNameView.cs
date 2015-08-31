@@ -7,8 +7,9 @@ using YellowstonePathology.Business.Persistence;
 namespace YellowstonePathology.Business.Client.Model
 {
 	public class PhysicianNameView
-	{				
-		private int m_PhysicianId;		
+	{
+		private int m_PhysicianId;
+		private string m_ProviderId;
 		private string m_FirstName;
 		private string m_LastName;        
         private string m_HomeBasePhone;
@@ -24,7 +25,14 @@ namespace YellowstonePathology.Business.Client.Model
 		{
 			get { return this.m_PhysicianId; }
 			set { this.m_PhysicianId = value; }
-		}		
+		}
+
+		[PersistentProperty]
+		public string ProviderId
+		{
+			get { return this.m_ProviderId; }
+			set { this.m_ProviderId = value; }
+		}
 
 		[PersistentProperty]
 		public string FirstName

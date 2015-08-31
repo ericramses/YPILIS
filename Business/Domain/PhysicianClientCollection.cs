@@ -13,7 +13,7 @@ namespace YellowstonePathology.Business.Domain
 
         }
 
-        public PhysicianClient GetByPhysicianClientId(int physicianClientId)
+        public PhysicianClient GetByPhysicianClientId(string physicianClientId)
         {
             PhysicianClient result = null;
             foreach (PhysicianClient physicianClient in this)

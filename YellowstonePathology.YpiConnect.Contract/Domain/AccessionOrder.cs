@@ -22,7 +22,7 @@ namespace YellowstonePathology.YpiConnect.Contract.Domain
         string m_PCAN;
         string m_PSSN;
         int m_ClientId;
-        int m_PhysicianId;
+		int m_PhysicianId;
         string m_ClientName;
         string m_PhysicianName;        
 
@@ -184,7 +184,7 @@ namespace YellowstonePathology.YpiConnect.Contract.Domain
         }
 
         [Column(Name = "PhysicianId", Storage = "m_PhysicianId")]
-        public int PhysicianId
+		public int PhysicianId
         {
             get { return this.m_PhysicianId; }
             set
