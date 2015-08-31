@@ -8,10 +8,6 @@ namespace YellowstonePathology.UI.Gross
 {
     public class DictationTemplate : INotifyPropertyChanged
     {
-
-
-
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         public const string PreambleTemplate = "This is *SYSTEMUSER* doing gross dictation, case \"*MASTERACCESSIONNO*\", received *ISARE* \"*CONTAINERCOUNT*\" *CONTAINER*.";
