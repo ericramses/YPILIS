@@ -46,8 +46,9 @@ namespace YellowstonePathology.UI.Gross
             result.Add(new ECCTemplate());
             result.Add(new EMBTemplate());
             result.Add(new CervicalBiopsyTemplate());
-            //result.Add(new LEEPExcisionTemplate());
-            //result.Add(new PlacentaTemplate());
+            result.Add(new LEEPConeTemplate());
+            result.Add(new LEEPPiecesTemplate());
+            //result.Add(new SinglePlacentaTemplate());
             //result.Add(new UnterusTemplate());
             //result.Add(new NeedleCoreBiopsyTemplate());
             return result;

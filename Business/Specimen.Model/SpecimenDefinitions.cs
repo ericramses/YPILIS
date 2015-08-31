@@ -266,4 +266,43 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
                 this.m_RequiresGrossExamination = true;
             }
         }
+
+        public class LEEPCone : Specimen
+        {
+            public LEEPCone()
+            {
+                this.m_SpecimenId = "LPCSPCMN";
+                this.m_SpecimenName = "LEEP Cone";
+                this.m_Description = null;
+                this.m_LabFixation = "Formalin";
+                this.m_ClientFixation = null;
+                this.m_RequiresGrossExamination = true;
+            }
+        }
+
+        public class LEEPPieces : Specimen
+        {
+            public LEEPPieces()
+            {
+                this.m_SpecimenId = "LPPSPCMN";
+                this.m_SpecimenName = "LEEP Pieces";
+                this.m_Description = null;
+                this.m_LabFixation = "Formalin";
+                this.m_ClientFixation = null;
+                this.m_RequiresGrossExamination = true;
+            }
+        }
+
+        public class SinglePlacenta : Specimen
+        {
+            public SinglePlacenta()
+            {
+                this.m_SpecimenId = "SPSPCMN";
+                this.m_SpecimenName = "Single Placenta";
+                this.m_Description = null;
+                this.m_LabFixation = "Formalin";
+                this.m_ClientFixation = null;
+                this.m_RequiresGrossExamination = true;
+            }
+        }
 }
