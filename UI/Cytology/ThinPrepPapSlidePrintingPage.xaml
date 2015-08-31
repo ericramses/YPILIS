@@ -26,7 +26,8 @@
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>                
+                <RowDefinition Height="100"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
             </Grid.RowDefinitions>
 
             <Grid Grid.Column="0" Grid.Row="0" Margin="10,10,10,10">
@@ -53,9 +54,19 @@
                 <TextBlock Grid.Column="0" Grid.Row="2" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right" FontSize="20">Specimen:</TextBlock>
                 <TextBlock Grid.Column="1" Grid.Row="2" Margin="2,2,2,2" HorizontalAlignment="Stretch" Text="{Binding Path=SpecimenOrder.SpecimenDescriptionString}" FontSize="20"></TextBlock>                
 
-            </Grid>                       
+            </Grid>
 
-            <ListBox Name="ListBoxAliquots" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Margin="2,2,2,2" Height="240" ItemsSource="{Binding Path=SpecimenOrder.AliquotOrderCollection}" 
+            <ListView Name="ListBoxOrders" Grid.Row="1" Margin="2,2,2,2" ItemsSource="{Binding Path=AccessionOrder.PanelSetOrderCollection}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Test" Width="200" DisplayMemberBinding="{Binding Path=PanelSetName}" />
+                        <GridViewColumn Header="Date" Width="150" DisplayMemberBinding="{Binding Path=OrderDate}" />
+                        <GridViewColumn Header="By" Width="100" DisplayMemberBinding="{Binding Path=OrderedByInitials}" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+            <ListBox Name="ListBoxAliquots" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" Margin="2,2,2,2" Height="240" ItemsSource="{Binding Path=SpecimenOrder.AliquotOrderCollection}" 
                      MouseUp="ListBoxAliquots_MouseUp"
                      HorizontalAlignment="Center" BorderThickness="0">
                 <ListBox.ItemsPanel>
@@ -65,18 +76,7 @@
                 </ListBox.ItemsPanel>
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <Border>
-                            <Border.Style>
-                                <Style>
-                                    <Setter Property="Border.BorderBrush" Value="{Binding Path=Status, Converter={StaticResource TrackedItemStatusColorConverter}}"/>
-                                    <Setter Property="Border.BorderThickness" Value="5"/>
-                                    <Style.Triggers>
-                                        <Trigger Property="Border.IsMouseOver" Value="True">
-                                            <Setter Property="Border.BorderThickness" Value="7" />
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Border.Style>
+                        <Border BorderBrush="{Binding Path=Status, Converter={StaticResource TrackedItemStatusColorConverter}}" BorderThickness="5">                            
                             <Grid Margin="2,2,2,2" Width="200" Height="200">
 
                                 <Grid.ColumnDefinitions>
@@ -93,6 +93,7 @@
                                 <TextBlock Grid.Column="1" Grid.Row="1" Margin="5,5,5,5" Text="{Binding Path=Status}" FontSize="14" HorizontalAlignment="Center"></TextBlock>
                                 <TextBlock Grid.Column="1" Grid.Row="2" Margin="5,5,5,5" Text="{Binding Path=ValidatedBy}" FontSize="14" HorizontalAlignment="Center"></TextBlock>
                                 <TextBlock Grid.Column="1" Grid.Row="3" Margin="5,5,5,5" Text="{Binding Path=ValidationDate, Converter={StaticResource MilitaryDateTimeConverter}}" FontSize="14" HorizontalAlignment="Center"></TextBlock>
+                                
                             </Grid>
                         </Border>
                     </DataTemplate>

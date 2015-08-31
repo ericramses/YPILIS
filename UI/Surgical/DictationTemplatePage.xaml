@@ -36,7 +36,7 @@
             <TextBlock Margin="2,2,2,2" FontSize="20" FontWeight="Bold" Text="Template:" HorizontalAlignment="Left"></TextBlock>
             <TextBlock  Margin="2,2,2,2" Text="{Binding Path=DictationTemplate.TemplateName}" FontSize="20"></TextBlock>
         </StackPanel>
-        <TextBox Grid.Column="0" Grid.Row="3" Margin="2,2,2,2" TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding Path=DictationTemplate.Text}" FontSize="20"></TextBox>
+        <TextBox Grid.Column="0" Grid.Row="3" Margin="2,2,2,2" TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding Path=GrossDictation.Preamble}" FontSize="20"></TextBox>
         
 
         <Grid Grid.Column="1" Grid.Row="0" Grid.RowSpan="2">

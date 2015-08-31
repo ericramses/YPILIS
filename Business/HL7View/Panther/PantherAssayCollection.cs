@@ -13,9 +13,7 @@ namespace YellowstonePathology.Business.HL7View.Panther
             PantherAssayHPV hpv = new PantherAssayHPV();
             this.Add(hpv);
 
-            PantherAssay ngct = new PantherAssay("AptimaCombo2", "CT/GC", 3);
-            ngct.AnalyteList.Add("CT");
-            ngct.AnalyteList.Add("GC");
+            PantherAssay ngct = new PantherAssayNGCT();            
             this.Add(ngct);
 
             PantherAssay hpv1618 = new PantherAssay("GT HPV", "GT HPV", 62);

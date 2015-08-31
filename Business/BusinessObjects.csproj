@@ -378,6 +378,7 @@
     <Compile Include="Helper\PatientHelper.cs" />
     <Compile Include="Helper\SerializationHelper.cs" />
     <Compile Include="Helper\StringExtensionMethods.cs" />
+    <Compile Include="HL7View\Panther\PantherAssayNGCT.cs" />
     <Compile Include="HL7View\Panther\PantherActionCode.cs" />
     <Compile Include="HL7View\Panther\PantherAssayHPV.cs" />
     <Compile Include="HL7View\Panther\PantherOrder.cs" />
