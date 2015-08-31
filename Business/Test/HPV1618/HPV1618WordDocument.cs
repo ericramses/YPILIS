@@ -52,6 +52,15 @@ namespace YellowstonePathology.Business.Test.HPV1618
                 base.DeleteRow("pathologist_signature");
                 base.DeleteRow("esigned_header");
             }
+
+            if (string.IsNullOrEmpty(panelSetOrderHPV1618.Comment) == false)
+            {
+                base.ReplaceText("report_comment", panelSetOrderHPV1618.Comment);
+            }
+            else
+            {
+                base.DeleteRow("report_comment");
+            }
             
             base.ReplaceText("report_method", panelSetOrderHPV1618.Method);
 

@@ -46,23 +46,21 @@ namespace YellowstonePathology.UI.Login
         private void ShowSpecimenSelectionPage()
         {
             YellowstonePathology.UI.Login.ReceiveSpecimen.SpecimenSelectionPage specimenSelectionPage = new ReceiveSpecimen.SpecimenSelectionPage(this.m_AccessionOrder.SpecimenOrderCollection);
-            specimenSelectionPage.Return += new ReceiveSpecimen.SpecimenSelectionPage.ReturnEventHandler(SpecimenSelectionPage_Return);
+            specimenSelectionPage.Back += new ReceiveSpecimen.SpecimenSelectionPage.BackEventHandler(SpecimenSelectionPage_Back);
+            specimenSelectionPage.UseThisSpecimen += new ReceiveSpecimen.SpecimenSelectionPage.UseThisSpecimenEventHandler(SpecimenSelectionPage_UseThisSpecimen);
             this.m_PageNavigator.Navigate(specimenSelectionPage);
         }
 
-        private void SpecimenSelectionPage_Return(object sender, UI.Navigation.PageNavigationReturnEventArgs e)
-        {            
-            switch (e.PageNavigationDirectionEnum)
-            {
-                case UI.Navigation.PageNavigationDirectionEnum.Next:
-					this.m_SpecimenOrder = (YellowstonePathology.Business.Specimen.Model.SpecimenOrder)e.Data;
-                    this.ShowFinishPage();
-                    break;
-                case UI.Navigation.PageNavigationDirectionEnum.Back:
-                    this.EndPath();
-                    break;
-            }            
+        private void SpecimenSelectionPage_UseThisSpecimen(object sender, CustomEventArgs.SpecimenOrderReturnEventArgs e)
+        {
+            this.m_SpecimenOrder = e.SpecimenOrder;
+            this.ShowFinishPage();
         }
+
+        private void SpecimenSelectionPage_Back(object sender, EventArgs e)
+        {
+            this.EndPath();
+        }        
 
         private void ShowFinishPage()
         {            

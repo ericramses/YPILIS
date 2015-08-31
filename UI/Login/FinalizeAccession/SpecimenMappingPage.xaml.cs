@@ -187,7 +187,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                     {                        
                         if (aliquotOrder.ClientAccessioned == true)
                         {
-                            YellowstonePathology.Business.Test.BlockLabelPrinter blockLabelPrinter = new Business.Test.BlockLabelPrinter(aliquotOrder.AliquotOrderId, aliquotOrder.Label, this.m_AccessionOrder.MasterAccessionNo, this.m_AccessionOrder.PLastName, this.m_AccessionOrder.PFirstName);
+                            YellowstonePathology.Business.Label.Model.BlockLabelPrinter blockLabelPrinter = new Business.Label.Model.BlockLabelPrinter(aliquotOrder.AliquotOrderId, aliquotOrder.Label, this.m_AccessionOrder.MasterAccessionNo, this.m_AccessionOrder.PLastName, this.m_AccessionOrder.PFirstName);
                             blockLabelPrinter.Print();
 
                             foreach (YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder in aliquotOrder.SlideOrderCollection)
@@ -220,6 +220,15 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             CheckBox checkBox = (CheckBox)sender;
             YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder = (YellowstonePathology.Business.Slide.Model.SlideOrder)checkBox.Tag;
             slideOrder.Status = YellowstonePathology.Business.Slide.Model.SlideStatusEnum.Created.ToString();
+        }
+
+        private void ButtonUpdateTrackingLog_Click(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogCollection materialTrackingLogCollection = YellowstonePathology.Business.Gateway.SlideAccessionGateway.GetMaterialTrackingLogCollectionByMasterAccessionNo(this.m_AccessionOrder.MasterAccessionNo);
+            YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new Business.Persistence.ObjectTracker();
+            objectTracker.RegisterObject(materialTrackingLogCollection);
+            materialTrackingLogCollection.UpdateClientAccessioned(this.m_AccessionOrder.SpecimenOrderCollection);
+            objectTracker.SubmitChanges(materialTrackingLogCollection);
         }
 	}
 }

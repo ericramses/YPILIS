@@ -722,7 +722,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
         private void ButtonPrintLabels_Click(object sender, RoutedEventArgs e)
         {
             YellowstonePathology.Business.Test.AliquotOrderCollection selectedAliquots = this.m_AliquotAndStainOrderView.GetSelectedAliquots();
-            YellowstonePathology.Business.Test.AliquotOrderPrinter aliquotOrderPrinter = new Business.Test.AliquotOrderPrinter(selectedAliquots, this.m_AccessionOrder);
+            YellowstonePathology.Business.Label.Model.AliquotOrderPrinter aliquotOrderPrinter = new Business.Label.Model.AliquotOrderPrinter(selectedAliquots, this.m_AccessionOrder);
 
             if (aliquotOrderPrinter.HasCassettesToPrint() == true)
             {

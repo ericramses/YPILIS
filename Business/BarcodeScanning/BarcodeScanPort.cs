@@ -40,6 +40,9 @@ namespace YellowstonePathology.Business.BarcodeScanning
         public event USPostalServiceCertifiedMailReceivedHandler USPostalServiceCertifiedMailReceived;
         public delegate void USPostalServiceCertifiedMailReceivedHandler(string scanData);
 
+        public event AliquotOrderIdReceivedHandler AliquotOrderIdReceived;
+        public delegate void AliquotOrderIdReceivedHandler(string scanData);
+
 		private static BarcodeScanPort m_Instance;				
 		private SerialPort m_SerialPort;		
  
@@ -155,9 +158,17 @@ namespace YellowstonePathology.Business.BarcodeScanning
                 if (SvhAccountNoReceived != null) this.SvhAccountNoReceived(scanData);                				
 			}
             else if (scanData.Trim().Length == 20 && scanData.StartsWith("701")) // US Postal Service Certified Mail
-            {                
+            {
                 if (USPostalServiceCertifiedMailReceived != null) this.USPostalServiceCertifiedMailReceived(scanData);
-            }			   
+            }
+            else
+            {
+                YellowstonePathology.Business.OrderIdParser orderIdParser = new OrderIdParser(scanData);
+                if (orderIdParser.IsValidAliquotOrderId == true)
+                {
+                    if (AliquotOrderIdReceived != null) this.AliquotOrderIdReceived(scanData);
+                }
+            }
         }        
 	}	
 }

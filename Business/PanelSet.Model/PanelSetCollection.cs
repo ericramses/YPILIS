@@ -110,6 +110,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
             panelSetCollection.Add(new YellowstonePathology.Business.Test.AndrogenRecepter.AndrogenReceptorTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.MDSCMMLProfile.MDSCMMLProfileTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.AMLExtendedByFish.AMLExtendedByFishTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.CBFBinv16.CBFBinv16Test());
              
             //ARUP
 			panelSetCollection.Add(new YellowstonePathology.Business.Test.HPV1618.HPV1618Test());

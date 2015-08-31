@@ -156,6 +156,18 @@ namespace YellowstonePathology.Business
 				return result;
 			}
 		}
+
+        public bool IsValidAliquotOrderId
+        {
+            get
+            {
+                bool result = false;
+                System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex(AliquotOrderAlqIdPattern);
+                System.Text.RegularExpressions.Match match = regex.Match(this.m_IdToParse);
+                if (match.Captures.Count != 0) result = true;
+                return result;
+            }
+        }
 		#endregion
 
 		#region ReportNo

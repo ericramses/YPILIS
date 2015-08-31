@@ -278,7 +278,7 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
         }
     }
 
-    public class CPT81207 : CptCode //Need help
+    public class CPT81207 : CptCode
     {
         public CPT81207()
         {
@@ -291,7 +291,7 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
         }
     }
 
-    public class CPT81206 : CptCode //Need help
+    public class CPT81206 : CptCode
     {
         public CPT81206()
         {
@@ -304,7 +304,7 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
         }
     }
 
-    public class CPT81404 : CptCode //Need help
+    public class CPT81404 : CptCode
     {
         public CPT81404()
         {
@@ -317,7 +317,7 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
         }
     }
 
-    public class CPT81310 : CptCode //Need help
+    public class CPT81310 : CptCode
     {
         public CPT81310()
         {
@@ -330,7 +330,7 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
         }
     }
 
-    public class CPT81402 : CptCode //Need help
+    public class CPT81402 : CptCode
     {
         public CPT81402()
         {
@@ -343,7 +343,7 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
         }
     }
 
-    public class CPT81403 : CptCode //Need help
+    public class CPT81403 : CptCode 
     {
         public CPT81403()
         {
@@ -356,7 +356,7 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
         }
     }
 
-    public class CPT81245 : CptCode //Need help
+    public class CPT81245 : CptCode
     {
         public CPT81245()
         {
@@ -369,7 +369,20 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
         }
     }
 
-    public class CPT81315 : CptCode //Need help
+    public class CPT81450 : CptCode
+    {
+        public CPT81450()
+        {
+            this.m_Code = "81450";
+            this.m_FeeSchedule = FeeScheduleEnum.Clinical;
+            this.m_HasProfessionalComponent = false;
+            this.m_HasTechnicalComponent = true;
+            this.m_IsBillable = true;
+            this.m_CodeType = CPTCodeTypeEnum.Global;
+        }
+    }
+
+    public class CPT81315 : CptCode
     {
         public CPT81315()
         {

@@ -10,7 +10,7 @@ using YellowstonePathology.Business.Persistence;
 namespace YellowstonePathology.Business.Test.Surgical
 {
 	[PersistentClass("tblIntraoperativeConsultationResult", true, "YPIDATA")]
-	public class IntraoperativeConsultationResult : INotifyPropertyChanged
+	public partial class IntraoperativeConsultationResult : INotifyPropertyChanged, System.ComponentModel.IDataErrorInfo
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -35,6 +35,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 
 		public IntraoperativeConsultationResult()
         {
+			this.m_ValidationErrors = new Dictionary<string, string>();
 		}
 
 		public IntraoperativeConsultationResult(string intraoperativeConsultationResultId, string objectId, string surgicalSpecimenId)
@@ -42,6 +43,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			this.m_IntraoperativeConsultationResultId = intraoperativeConsultationResultId;
 			this.m_ObjectId = objectId;
 			this.m_SurgicalSpecimenId = surgicalSpecimenId;
+			this.m_ValidationErrors = new Dictionary<string, string>();
 		}
 
 		[PersistentDocumentIdProperty()]

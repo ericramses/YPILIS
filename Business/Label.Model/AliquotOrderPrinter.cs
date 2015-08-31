@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace YellowstonePathology.Business.Test
+namespace YellowstonePathology.Business.Label.Model
 {
     public class AliquotOrderPrinter
     {
@@ -18,10 +18,10 @@ namespace YellowstonePathology.Business.Test
         {
             this.m_AliquotOrderCollection = aliquotOrderCollection;
             this.m_AccessionOrder = accessionOrder;
-
+            
             this.m_BlockLabelPrinter = new BlockLabelPrinter(this.m_AliquotOrderCollection, this.m_AccessionOrder);
             this.m_CassettePrinter = new CassettePrinter(this.m_AliquotOrderCollection, this.m_AccessionOrder);
-            this.m_SlideLabelPrinter = new SlideLabelPrinter(this.m_AliquotOrderCollection, this.m_AccessionOrder);
+            this.m_SlideLabelPrinter = new SlideLabelPrinter(this.m_AliquotOrderCollection, this.m_AccessionOrder);            
         }
 
         public void Print()

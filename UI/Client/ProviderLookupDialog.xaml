@@ -11,7 +11,7 @@
 		
 		<TabControl Grid.Row="0" Margin="2,2,2,2">
 			<TabItem Header="Provider">
-				<Grid Margin="2,5,2,2">
+				<Grid Margin="2,2,2,2">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"></ColumnDefinition>
                         <ColumnDefinition Width="*"></ColumnDefinition>
@@ -29,9 +29,8 @@
 							 ItemsSource="{Binding Path=ProviderCollection}">
 						<ListView.View>
 							<GridView>
-								<GridViewColumn Header="First Name" Width="200" DisplayMemberBinding="{Binding Path=FirstName}" />								
-								<GridViewColumn Header="Last Name" Width="200" DisplayMemberBinding="{Binding Path=LastName}" />
-                                <GridViewColumn Header="Middle Initial" Width="90" DisplayMemberBinding="{Binding Path=MiddleInitial}" />
+								<GridViewColumn Header="Id" Width="65" DisplayMemberBinding="{Binding Path=PhysicianId}" />
+								<GridViewColumn Header="Name" Width="200" DisplayMemberBinding="{Binding Path=DisplayName}" />																                                
 								<GridViewColumn Header="Credentials" Width="100" DisplayMemberBinding="{Binding Path=Credentials}" />
 							</GridView>
 						</ListView.View>
@@ -65,11 +64,7 @@
                         </ListView.View>
                     </ListView>
                 </Grid>
-            </TabItem>
-
-			<TabItem Header="Provider/Client">
-
-			</TabItem>
+            </TabItem>			
 		</TabControl>
 
 		<StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom">

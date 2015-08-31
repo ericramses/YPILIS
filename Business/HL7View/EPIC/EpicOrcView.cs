@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 
-namespace YellowstonePathology.Business.HL7View
+namespace YellowstonePathology.Business.HL7View.EPIC
 {
 	public class EpicOrcView
 	{        		

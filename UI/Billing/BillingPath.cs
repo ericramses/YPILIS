@@ -132,6 +132,7 @@ namespace YellowstonePathology.UI.Billing
         {
             YellowstonePathology.UI.Billing.PanelSetOrderCPTCodeEntryPage panelSetOrderCPTCodeEntryPage = new PanelSetOrderCPTCodeEntryPage(e.PanelSetOrder, this.m_AccessionOrder.ClientId);
             panelSetOrderCPTCodeEntryPage.Next += new PanelSetOrderCPTCodeEntryPage.NextEventHandler(PanelSetOrderCPTCodeEntryPage_Next);
+			panelSetOrderCPTCodeEntryPage.Back += new PanelSetOrderCPTCodeEntryPage.BackEventHandler(PanelSetOrderCPTCodeEntryPage_Back);
             this.m_BillingWindowPrimary.PageNavigator.Navigate(panelSetOrderCPTCodeEntryPage);            
         }
 
@@ -139,6 +140,11 @@ namespace YellowstonePathology.UI.Billing
         {
             this.m_BillingWindowPrimary.PageNavigator.Navigate(this.m_BillingPage);
         }
+
+		private void PanelSetOrderCPTCodeEntryPage_Back(object sender, EventArgs e)
+		{
+			this.m_BillingWindowPrimary.PageNavigator.Navigate(this.m_BillingPage);
+		}
 
         private void BillingPage_ShowICDCodeEntry(object sender, CustomEventArgs.AccessionOrderWithTrackerReturnEventArgs e)
         {

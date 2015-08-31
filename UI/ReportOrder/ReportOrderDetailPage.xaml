@@ -93,6 +93,7 @@
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
                 </Grid.RowDefinitions>
 
                 <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold" Text="Panel Set Name:" />
@@ -143,24 +144,24 @@
 
                 <TextBlock Grid.Column="0" Grid.Row="10" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold">Specimen:</TextBlock>
                 <ComboBox Name="ComboBoxSpecimen" Grid.Column="1" Grid.Row="10" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Stretch"
-									  ItemsSource="{Binding Path=AccessionOrder.SpecimenOrderCollection}"
-									  DisplayMemberPath="Description"
-									  SelectedValuePath="SpecimenOrderId"
-									  SelectedValue="{Binding Path=PanelSetOrder.OrderedOnId}"
-									  IsEnabled="{Binding Path=IsWorkspaceEnabled}">
-                </ComboBox>
+				    ItemsSource="{Binding Path=AccessionOrder.SpecimenOrderCollection}"
+				    DisplayMemberPath="Description"
+				    SelectedValuePath="SpecimenOrderId"
+				    SelectedValue="{Binding Path=PanelSetOrder.OrderedOnId}"
+				    IsEnabled="{Binding Path=IsWorkspaceEnabled}">
+                </ComboBox>                
 
-                <TextBlock Grid.Column="0" Grid.Row="11" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold">IT Audited:</TextBlock>
-                <CheckBox Grid.Column="1" Grid.Row="11" Margin="2,2,2,2" IsChecked="{Binding Path=AccessionOrder.ITAudited}"></CheckBox>
+                <TextBlock Grid.Column="0" Grid.Row="12" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold">IT Audited:</TextBlock>
+                <CheckBox Grid.Column="1" Grid.Row="12" Margin="2,2,2,2" IsChecked="{Binding Path=AccessionOrder.ITAudited}"></CheckBox>
 
-                <TextBlock Grid.Column="0" Grid.Row="12" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold">Distribute:</TextBlock>
-                <CheckBox Grid.Column="1" Grid.Row="12" Margin="2,2,2,2" IsChecked="{Binding Path=PanelSetOrder.Distribute}"></CheckBox>
+                <TextBlock Grid.Column="0" Grid.Row="13" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold">Distribute:</TextBlock>
+                <CheckBox Grid.Column="1" Grid.Row="13" Margin="2,2,2,2" IsChecked="{Binding Path=PanelSetOrder.Distribute}"></CheckBox>
 
-                <TextBlock Grid.Column="0" Grid.Row="13" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold" Text="Accepted:" />
-                <CheckBox Grid.Column="1" Grid.Row="13" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Stretch" IsChecked="{Binding Path=PanelSetOrder.Accepted}" IsEnabled="False"/>
+                <TextBlock Grid.Column="0" Grid.Row="14" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold" Text="Accepted:" />
+                <CheckBox Grid.Column="1" Grid.Row="14" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Stretch" IsChecked="{Binding Path=PanelSetOrder.Accepted}" IsEnabled="False"/>
 
-                <TextBlock Grid.Column="0" Grid.Row="14" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold" Text="Accepted Date:" />
-                <TextBox Grid.Column="1" Grid.Row="14" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Stretch" Name="TextBoxDateAcceptedTime" IsEnabled="False">
+                <TextBlock Grid.Column="0" Grid.Row="15" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold" Text="Accepted Date:" />
+                <TextBox Grid.Column="1" Grid.Row="15" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Stretch" Name="TextBoxDateAcceptedTime" IsEnabled="False">
                     <TextBox.Text>
                         <MultiBinding Converter="{StaticResource SplitDateTimeConverter}" ValidatesOnDataErrors="True" ValidatesOnExceptions="True">
                             <Binding Path="PanelSetOrder.AcceptedDate" ValidatesOnDataErrors="True" ValidatesOnExceptions="True"/>
@@ -169,14 +170,14 @@
                     </TextBox.Text>
                 </TextBox>
 
-                <TextBlock Grid.Column="0" Grid.Row="15" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold" Text="Accepted By:" />
-                <TextBox Grid.Column="1" Grid.Row="15" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Stretch" Text="{Binding Path=PanelSetOrder.AcceptedBy}" />
+                <TextBlock Grid.Column="0" Grid.Row="16" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold" Text="Accepted By:" />
+                <TextBox Grid.Column="1" Grid.Row="16" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Stretch" Text="{Binding Path=PanelSetOrder.AcceptedBy}" />
 
-                <TextBlock Grid.Column="0" Grid.Row="16" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold" Text="Final:" />
-                <CheckBox Grid.Column="1" Grid.Row="16" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Stretch" IsChecked="{Binding Path=PanelSetOrder.Final}" IsEnabled="False"/>
+                <TextBlock Grid.Column="0" Grid.Row="17" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold" Text="Final:" />
+                <CheckBox Grid.Column="1" Grid.Row="17" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Stretch" IsChecked="{Binding Path=PanelSetOrder.Final}" IsEnabled="False"/>
 
-                <TextBlock Grid.Column="0" Grid.Row="17" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold" Text="Final Date:" />
-                <TextBox Grid.Column="1" Grid.Row="17" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Stretch" Name="TextBoxDateFinalTime" IsEnabled="False">
+                <TextBlock Grid.Column="0" Grid.Row="18" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold" Text="Final Date:" />
+                <TextBox Grid.Column="1" Grid.Row="18" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Stretch" Name="TextBoxDateFinalTime" IsEnabled="False">
                     <TextBox.Text>
                         <MultiBinding Converter="{StaticResource SplitDateTimeConverter}" ValidatesOnDataErrors="True" ValidatesOnExceptions="True">
                             <Binding Path="PanelSetOrder.FinalDate" ValidatesOnDataErrors="True" ValidatesOnExceptions="True"/>
@@ -185,11 +186,11 @@
                     </TextBox.Text>
                 </TextBox>
 
-                <TextBlock Grid.Column="0" Grid.Row="18" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold" Text="Signature:" />
-                <TextBox Grid.Column="1" Grid.Row="18" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Stretch" Text="{Binding Path=PanelSetOrder.Signature}" />
+                <TextBlock Grid.Column="0" Grid.Row="19" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold" Text="Signature:" />
+                <TextBox Grid.Column="1" Grid.Row="19" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Stretch" Text="{Binding Path=PanelSetOrder.Signature}" />
 
-                <TextBlock Grid.Column="0" Grid.Row="19" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold" Text="Expected Final Time:" />
-                <TextBox Grid.Column="1" Grid.Row="19" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Stretch" Text="{Binding Path=PanelSetOrder.ExpectedFinalTime}"/>
+                <TextBlock Grid.Column="0" Grid.Row="20" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold" Text="Expected Final Time:" />
+                <TextBox Grid.Column="1" Grid.Row="20" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Stretch" Text="{Binding Path=PanelSetOrder.ExpectedFinalTime}"/>
 
             </Grid>
 

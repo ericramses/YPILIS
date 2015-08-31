@@ -60,14 +60,15 @@ namespace YellowstonePathology.UI.Login
 			{
                 this.ComboBoxCaseType.SelectedValue = YellowstonePathology.Business.CaseType.ALLCaseTypes;
 				this.m_BarcodeScanPort.ContainerScanReceived += ContainerScanReceived;
-
+                this.m_BarcodeScanPort.HistologySlideScanReceived += new Business.BarcodeScanning.BarcodeScanPort.HistologySlideScanReceivedHandler(BarcodeScanPort_HistologySlideScanReceived);
+                
 				this.m_LoginUI.GetTaskOrderCollection();
 				this.m_LoginUI.GetDailyTaskOrderCollection();
 			}
 
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath += new MainWindowCommandButtonHandler.StartProviderDistributionPathEventHandler(MainWindowCommandButtonHandler_StartProviderDistributionPath);
 			this.m_LoadedHasRun = true;
-		}
+		}        
 
         private void MainWindowCommandButtonHandler_StartProviderDistributionPath(object sender, EventArgs e)
         {
@@ -783,12 +784,32 @@ namespace YellowstonePathology.UI.Login
             }
         }
 
-        private void TilePrintSlides_MouseUp(object sender, MouseButtonEventArgs e)
+        private void TileSpecimenSelection_MouseUp(object sender, MouseButtonEventArgs e)
+        {            
+            YellowstonePathology.Business.PanelSet.Model.PanelSetCollection panelSetCollection = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetAll();
+            YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_LoginUI.AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_LoginUI.ReportNo);
+            YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet = panelSetCollection.GetPanelSet(panelSetOrder.PanelSetId);
+            YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new Business.Test.TestOrderInfo(panelSet, null, true);
+            YellowstonePathology.UI.Login.Receiving.SpecimenSelectionPage specimenSelectionPage = new Receiving.SpecimenSelectionPage(this.m_LoginUI.AccessionOrder, testOrderInfo);
+            
+            YellowstonePathology.Business.User.SystemIdentity systemIdentity = new Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
+            this.m_LoginPageWindow = new LoginPageWindow(systemIdentity);
+            this.m_LoginPageWindow.Show();
+            specimenSelectionPage.TargetSelected += new Receiving.SpecimenSelectionPage.TargetSelectedEventHandler(SpecimenSelectionPage_TargetSelected);
+            this.m_LoginPageWindow.PageNavigator.Navigate(specimenSelectionPage);
+        }
+
+        private void SpecimenSelectionPage_TargetSelected(object sender, CustomEventArgs.TestOrderInfoEventArgs e)
         {
-            this.m_BarcodeScanPort.ContainerScanReceived -= ContainerScanReceived;	
-            YellowstonePathology.UI.Login.SlidePrinting.SlidePrintingPath slidePrintingPath = new SlidePrinting.SlidePrintingPath();
-            slidePrintingPath.Done += new SlidePrinting.SlidePrintingPath.DoneEventHandler(SlidePrintingPath_Done);
-            slidePrintingPath.Start();            
+            YellowstonePathology.Business.PanelSet.Model.PanelSetCollection panelSetCollection = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetAll();
+            YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_LoginUI.AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_LoginUI.ReportNo);
+            YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new Business.Persistence.ObjectTracker();
+            objectTracker.RegisterObject(this.m_LoginUI.AccessionOrder);
+
+            panelSetOrder.OrderedOn = e.TestOrderInfo.OrderTarget.GetOrderedOnType();
+            panelSetOrder.OrderedOnId = e.TestOrderInfo.OrderTarget.GetId();
+            objectTracker.SubmitChanges(this.m_LoginUI.AccessionOrder);
+            this.m_LoginPageWindow.Close();
         }
 
         private void SlidePrintingPath_Done(object sender, EventArgs e)
@@ -908,6 +929,60 @@ namespace YellowstonePathology.UI.Login
         private void MenuItemShowITAudits_Click(object sender, RoutedEventArgs e)
         {
             this.m_LoginUI.GetReportSearchListByITAudit(Business.Test.ITAuditPriorityEnum.Medium);
+        }
+
+        private void MenuItemSendPantherOrder_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.ListViewAccessionOrders.SelectedItem != null)
+            {
+                if (this.m_LoginUI.AccessionOrder.SpecimenOrderCollection.HasThinPrepFluidSpecimen() == true)
+                {
+                    YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_LoginUI.AccessionOrder.SpecimenOrderCollection.GetThinPrep();
+                    if (specimenOrder.AliquotOrderCollection.HasPantherAliquot() == true)
+                    {
+                        YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = specimenOrder.AliquotOrderCollection.GetPantherAliquot();
+                        YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_LoginUI.AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(14);
+                        YellowstonePathology.Business.HL7View.Panther.PantherAssayHPV pantherAssayHPV = new Business.HL7View.Panther.PantherAssayHPV();
+                        YellowstonePathology.Business.HL7View.Panther.PantherOrder pantherOrder = new Business.HL7View.Panther.PantherOrder(pantherAssayHPV, specimenOrder, aliquotOrder, this.m_LoginUI.AccessionOrder, panelSetOrder, YellowstonePathology.Business.HL7View.Panther.PantherActionCode.NewSample);
+                        pantherOrder.Send();
+                    }
+                    else
+                    {
+                        MessageBox.Show("No Panther aliquot found.");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No Thin Prep Fluid Specimen Found.");
+                }
+            }
+        }
+
+        private void MenuItemCancelPantherOrder_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.ListViewAccessionOrders.SelectedItem != null)
+            {
+                if (this.m_LoginUI.AccessionOrder.SpecimenOrderCollection.HasThinPrepFluidSpecimen() == true)
+                {
+                    YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_LoginUI.AccessionOrder.SpecimenOrderCollection.GetThinPrep();
+                    if (specimenOrder.AliquotOrderCollection.HasPantherAliquot() == true)
+                    {
+                        YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = specimenOrder.AliquotOrderCollection.GetPantherAliquot();
+                        YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_LoginUI.AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(14);
+                        YellowstonePathology.Business.HL7View.Panther.PantherAssayHPV pantherAssayHPV = new Business.HL7View.Panther.PantherAssayHPV();
+                        YellowstonePathology.Business.HL7View.Panther.PantherOrder pantherOrder = new Business.HL7View.Panther.PantherOrder(pantherAssayHPV, specimenOrder, aliquotOrder, this.m_LoginUI.AccessionOrder, panelSetOrder, YellowstonePathology.Business.HL7View.Panther.PantherActionCode.CancelRequest);
+                        pantherOrder.Send();
+                    }
+                    else
+                    {
+                        MessageBox.Show("No Panther aliquot found.");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No Thin Prep Fluid Specimen Found.");
+                }
+            }
         }
 	}
 }

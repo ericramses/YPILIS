@@ -35,7 +35,7 @@
 							</DataTemplate>
 						</GridViewColumn.CellTemplate>
 					</GridViewColumn>
-					<GridViewColumn DisplayMemberBinding="{Binding Path=CptCode}" Header="CPT Code" Width="100"/>					
+					<GridViewColumn DisplayMemberBinding="{Binding Path=CptCode.Code}" Header="CPT Code" Width="100"/>					
 				</GridView>
 			</ListView.View>
 		</ListView>

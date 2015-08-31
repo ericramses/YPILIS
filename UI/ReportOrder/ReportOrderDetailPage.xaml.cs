@@ -43,9 +43,9 @@ namespace YellowstonePathology.UI.ReportOrder
 
 			InitializeComponent();
 
-			DataContext = this;
+			DataContext = this;         
             this.Closing += new System.ComponentModel.CancelEventHandler(ReportOrderDetailPage_Closing);
-		}
+		}        
 
         private void ReportOrderDetailPage_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {

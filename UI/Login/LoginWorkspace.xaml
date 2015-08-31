@@ -94,6 +94,8 @@
                             <ContextMenu>
                                 <MenuItem Header="Convert to Cancelled Test" Click="MenuItemCancelTest_Click" Tag="{Binding}"></MenuItem>
                                 <MenuItem Header="Show IT Audits" Click="MenuItemShowITAudits_Click"></MenuItem>
+                                <MenuItem Header="Send Order To Panther" Click="MenuItemSendPantherOrder_Click"></MenuItem>
+                                <MenuItem Header="Cancel Panther Order" Click="MenuItemCancelPantherOrder_Click"></MenuItem>
                             </ContextMenu>
                         </ListView.ContextMenu>
                         
@@ -363,7 +365,7 @@
                             <CustomControls:Tile x:Name="TileScanning" Grid.Column="0" Grid.Row="2" Title="Scanning" Background="#666600" Margin="2,2,2,2" MouseUp="TileScanning_MouseUp"/>
                             <CustomControls:Tile x:Name="TileDocuments" Grid.Column="1" Grid.Row="2" Title="Documents" Background="#999900" Margin="2,2,2,2" MouseUp="TileDocuments_MouseUp"/>
                             <CustomControls:Tile x:Name="TileAliquotsAndStains" Grid.Column="2" Grid.Row="2" Title="Aliquots and Stains" Background="#669900" Margin="2,2,2,2" MouseUp="TileAliquotsAndStains_MouseUp"/>
-                            <CustomControls:Tile x:Name="TilePrintSlides" Grid.Column="3" Grid.Row="2" Title="Print Slides" Background="#339900" Margin="2,2,2,2" MouseUp="TilePrintSlides_MouseUp"/>
+                            <CustomControls:Tile x:Name="TileSpecimenSelection" Grid.Column="3" Grid.Row="2" Title="Specimen Selection" Background="#339900" Margin="2,2,2,2" MouseUp="TileSpecimenSelection_MouseUp"/>
 
                             <CustomControls:Tile x:Name="TileFixation" Grid.Column="0" Grid.Row="3" Title="Fixation" Background="#6699FF" Margin="2,2,2,2" MouseUp="TileFixation_MouseUp"/>
                             <CustomControls:Tile x:Name="TileCaseNotes" Grid.Column="1" Grid.Row="3" Title="Case Notes" Background="#3366FF" Margin="2,2,2,2" MouseUp="TileCaseNotes_MouseUp"/>

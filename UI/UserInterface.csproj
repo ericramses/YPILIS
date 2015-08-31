@@ -41,7 +41,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>197</ApplicationRevision>
+    <ApplicationRevision>215</ApplicationRevision>
     <ApplicationVersion>10.1.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -209,6 +209,9 @@
     </Compile>
     <Compile Include="Client\ClientEntry.designer.cs">
       <DependentUpon>ClientEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Client\ClientLookupDialog.xaml.cs">
+      <DependentUpon>ClientLookupDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Client\IHCMolecularRequisition.cs" />
     <Compile Include="Client\PhysicianClientSearch.cs">
@@ -445,6 +448,9 @@
       <DependentUpon>ReportOrderMolecularAnalysisDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="SortDirectionAdorner.cs" />
+    <Compile Include="Surgical\DictationTemplatePage.xaml.cs">
+      <DependentUpon>DictationTemplatePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Surgical\PublishedDocumentFinalPage.xaml.cs">
       <DependentUpon>PublishedDocumentFinalPage.xaml</DependentUpon>
     </Compile>
@@ -1851,6 +1857,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Client\ClientLookupDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="CodeSelectionV2.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -2036,6 +2046,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ReportOrder\ReportOrderMolecularAnalysisDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Surgical\DictationTemplatePage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -3883,6 +3897,7 @@
     <Content Include="CEFSharp\CefSharp.Wpf.dll" />
     <Content Include="CEFSharp\CefSharp.Wpf.Example.exe" />
     <Content Include="CEFSharp\CefSharp.Wpf.Example.vshost.exe" />
+    <Resource Include="Resources\Restore.png" />
     <Resource Include="CEFSharp\CefSharp.Wpf.xml" />
     <Resource Include="CEFSharp\CefSharp.xml" />
     <Content Include="CEFSharp\icudt.dll" />

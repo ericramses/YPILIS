@@ -16,10 +16,10 @@ namespace YellowstonePathology.UI.Gross
 {	
 	public partial class DictationTemplatePage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
 	{
-        private DictationTemplate m_DictationTemplate;
+        private DictationTemplate m_DictationTemplate;        
 
         public DictationTemplatePage(string specimenId)
-		{
+		{            
             DictationTemplateCollection dictationTemplateCollection = DictationTemplateCollection.GetAll();
             this.m_DictationTemplate = dictationTemplateCollection.GetTemplate(specimenId);
             
@@ -60,7 +60,7 @@ namespace YellowstonePathology.UI.Gross
 
         private void ButtonCreateParagraph_Click(object sender, RoutedEventArgs e)
         {
-            this.m_DictationTemplate.BuildText();            
+            //this.m_DictationTemplate.BuildText();            
         }
 	}
 }

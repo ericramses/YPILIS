@@ -78,6 +78,20 @@ namespace YellowstonePathology.Business.Test
             return result;
         }
 
+        public AliquotOrder GetPantherAliquot()
+        {
+            YellowstonePathology.Business.Specimen.Model.PantherAliquot pantherAliquot = new Specimen.Model.PantherAliquot();
+            AliquotOrder result = null;
+            foreach (AliquotOrder item in this)
+            {
+                if (item.AliquotType == pantherAliquot.AliquotType)
+                {
+                    result = item;
+                }
+            }
+            return result;
+        }
+
 		public AliquotOrder GetByTestOrderId(string testOrderId)
 		{
 			AliquotOrder result = null;			
@@ -225,6 +239,7 @@ namespace YellowstonePathology.Business.Test
             aliquotOrder.AliquotType = thinPrepSlide.Name;
             aliquotOrder.LabelPrefix = string.Empty;
             aliquotOrder.LabelType = thinPrepSlide.AliquotType;
+            aliquotOrder.Status = YellowstonePathology.Business.TrackedItemStatusEnum.Created.ToString();
             this.Add(aliquotOrder);
             this.SetSlideLabels(specimenOrder.SpecimenNumber);
             return aliquotOrder;
@@ -424,6 +439,21 @@ namespace YellowstonePathology.Business.Test
             foreach (AliquotOrder aliquotOrder in this)
             {
                 if (aliquotOrder.AliquotType == thinPrepSlide.Name)
+                {
+                    result = true;
+                    break;
+                }
+            }
+            return result;
+        }
+
+        public bool HasPantherAliquot()
+        {
+            YellowstonePathology.Business.Specimen.Model.PantherAliquot pantherAliquot = new Specimen.Model.PantherAliquot();
+            bool result = false;
+            foreach (AliquotOrder aliquotOrder in this)
+            {
+                if (aliquotOrder.AliquotType == pantherAliquot.Name)
                 {
                     result = true;
                     break;

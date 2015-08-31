@@ -18,7 +18,7 @@
                     <RowDefinition Height="Auto"></RowDefinition>
                 </Grid.RowDefinitions>
 
-                <CheckBox Grid.Column="0" Grid.Row="0" Margin="2,2,2,2"></CheckBox>
+                <CheckBox Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" Checked="CheckBoxSlideOrder_Checked" Unchecked="CheckBoxSlideOrder_Unchecked" Tag="{Binding}"></CheckBox>
                 <TextBlock Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" Text="Slide"></TextBlock>
                 <TextBlock Grid.Column="2" Grid.Row="0" Margin="2,2,2,2" Text="{Binding Path=Label}"></TextBlock>
 
@@ -39,9 +39,9 @@
                     <RowDefinition Height="Auto"></RowDefinition>
                 </Grid.RowDefinitions>
 
-                <CheckBox Grid.Column="0" Grid.Row="0" Margin="2,4,2,2"></CheckBox>
+                <CheckBox Grid.Column="0" Grid.Row="0" Margin="2,4,2,2" Checked="CheckBoxAliquotOrder_Checked" Unchecked="CheckBoxAliquotOrder_Unchecked" Tag="{Binding}"></CheckBox>
                 <TextBlock Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" Text="{Binding Path=AliquotType}"></TextBlock>
-				<TextBlock Grid.Column="2" Grid.Row="0" Margin="2,2,2,2" Text="{Binding Path=Label}" MaxWidth="160" TextWrapping="Wrap"></TextBlock>
+				<TextBlock Grid.Column="2" Grid.Row="0" Margin="2,2,2,2" Text="{Binding Path=Label}" MaxWidth="160" TextWrapping="Wrap"></TextBlock>                
 
             </Grid>
         </HierarchicalDataTemplate>
@@ -64,6 +64,7 @@
         </HierarchicalDataTemplate>
 
     </UserControl.Resources>
+    
     <Grid>
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition></ColumnDefinition>
@@ -88,24 +89,33 @@
 				<ColumnDefinition Width="*"></ColumnDefinition>
 			</Grid.ColumnDefinitions>
 
-			<TreeView Name="TreeViewSpecimenOrder" Grid.Column="0"  Grid.Row="0" Width="270" ItemsSource="{Binding Path=AccessionOrder.SpecimenOrderCollection}"
+			<TreeView Name="TreeViewSpecimenOrder" Grid.Column="0"  Grid.Row="0" Margin="2,2,2,2" Width="270" ItemsSource="{Binding Path=AccessionOrder.SpecimenOrderCollection}"
 								ItemTemplate="{StaticResource DataTemplateSpecimenOrder}" BorderThickness="1">
 			</TreeView>
 
-			<TabControl Grid.Column="1" Grid.Row="0">
-				<TabItem Header="Hello">
+			<TabControl Grid.Column="1" Grid.Row="0" Margin="2,2,2,2">
+				<TabItem Header="Log">
 					<Grid Grid.Row="0" Margin="5">
 						<Grid.RowDefinitions>
-							<RowDefinition Height="Auto"></RowDefinition>
+							<RowDefinition Height="*"></RowDefinition>
 						</Grid.RowDefinitions>
 
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="*"></ColumnDefinition>
 						</Grid.ColumnDefinitions>
 
-						<ListView Name="ListBoxMaterialTrackingBatch" Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" BorderBrush="Black" BorderThickness="1"
-								  ItemsSource="{Binding Path=MaterialTrackingLogCollection}" HorizontalAlignment="Stretch">
-							<ListView.View>
+						<ListView Name="ListViewMaterialTrackingLog" Grid.Column="1" Grid.Row="0" Margin="2,2,2,2"
+								  ItemsSource="{Binding Path=MaterialTrackingLogList}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                            <ListView.Resources>
+                                <Style TargetType="{x:Type ListViewItem}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ClientAccessioned}" Value="True">
+                                            <Setter Property="Background" Value="#edfb6f" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ListView.Resources>                            
+                            <ListView.View>
 								<GridView>
 									<GridViewColumn Header="Log Date" DisplayMemberBinding="{Binding Path=LogDate, Converter={StaticResource MilitaryDateTimeConverter}}" Width="120" />
 									<GridViewColumn Header="Action" DisplayMemberBinding="{Binding Path=Action}" Width="150" />

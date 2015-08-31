@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace YellowstonePathology.Business.Test
+namespace YellowstonePathology.Business.Label.Model
 {
     public class BlockLabelPrinter
     {
@@ -19,10 +19,22 @@ namespace YellowstonePathology.Business.Test
                 {
                     if (aliquotOrder.LabelType == YellowstonePathology.Business.Specimen.Model.AliquotLabelType.PaperLabel == true)
                     {
-                        BlockLabel blockLabel = new BlockLabel();
-                        blockLabel.FromAliquotOrder(aliquotOrder.AliquotOrderId, aliquotOrder.Label, accessionOrder.MasterAccessionNo, accessionOrder.PLastName, accessionOrder.PFirstName);
-                        this.m_BlockLabelQueue.Enqueue(blockLabel);
-                        aliquotOrder.Printed = true;
+                        YellowstonePathology.Business.OrderIdParser orderIdParser = new OrderIdParser(accessionOrder.MasterAccessionNo);
+                        if (orderIdParser.IsLegacyMasterAccessionNo == false)
+                        {
+                            BlockLabel blockLabel = new BlockLabel();
+                            blockLabel.FromAliquotOrder(aliquotOrder.AliquotOrderId, aliquotOrder.Label, accessionOrder.MasterAccessionNo, accessionOrder.PLastName, accessionOrder.PFirstName);
+                            this.m_BlockLabelQueue.Enqueue(blockLabel);
+                            aliquotOrder.Printed = true;
+                        }
+                        else
+                        {
+                            string reportNo = accessionOrder.PanelSetOrderCollection[0].ReportNo;
+                            BlockLabelLegacy blockLabel = new BlockLabelLegacy();
+                            blockLabel.FromLegacyAliquotOrder(aliquotOrder.AliquotOrderId, aliquotOrder.Label, reportNo, accessionOrder.PLastName, accessionOrder.PFirstName);
+                            this.m_BlockLabelQueue.Enqueue(blockLabel);
+                            aliquotOrder.Printed = true;
+                        }
                     }
                 }
             }       

@@ -11,27 +11,37 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.ComponentModel;
 
 namespace YellowstonePathology.UI.MaterialTracking
 {
 	/// <summary>
 	/// Interaction logic for MaterialTrackingCasePage.xaml
 	/// </summary>
-	public partial class MaterialTrackingCasePage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
+    public partial class MaterialTrackingCasePage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges, INotifyPropertyChanged
 	{
+        public delegate void PropertyChangedNotificationHandler(String info);
+        public event PropertyChangedEventHandler PropertyChanged;
+
 		private YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort m_BarcodeScanPort;
 		
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		private YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogCollection m_MaterialTrackingLogCollection;
+        private List<YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog> m_MaterialTrackingLogList;
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 		private string m_PageHeaderText;
+        private List<string> m_MaterialIdList;
 
 		public MaterialTrackingCasePage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
 			YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogCollection materialTrackingLogCollection,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 		{
+            this.m_MaterialIdList = new List<string>();
+
 			this.m_AccessionOrder = accessionOrder;
 			this.m_MaterialTrackingLogCollection = materialTrackingLogCollection;
+            this.m_MaterialTrackingLogList = this.m_MaterialTrackingLogCollection.ToList<YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog>();
+
             this.m_SystemIdentity = systemIdentity;
 			this.m_PageHeaderText = "Material Tracking For Case: " + this.m_AccessionOrder.MasterAccessionNo + " - " + this.m_AccessionOrder.PatientDisplayName;
 			this.m_BarcodeScanPort = YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort.Instance;			
@@ -59,9 +69,9 @@ namespace YellowstonePathology.UI.MaterialTracking
 			get { return this.m_AccessionOrder; }
 		}
 
-		public YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogCollection MaterialTrackingLogCollection
+		public List<YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog> MaterialTrackingLogList
 		{
-			get { return this.m_MaterialTrackingLogCollection; }
+            get { return this.m_MaterialTrackingLogList; }
 		}
 
 		public string PageHeaderText
@@ -171,5 +181,76 @@ namespace YellowstonePathology.UI.MaterialTracking
 		{
 
 		}
+
+        private void CheckBoxSlideOrder_Checked(object sender, RoutedEventArgs e)
+        {
+            CheckBox checkBox = (CheckBox)sender;
+            YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder = (YellowstonePathology.Business.Slide.Model.SlideOrder)checkBox.Tag;
+            if (this.m_MaterialIdList.Contains(slideOrder.SlideOrderId) == false)
+            {
+                this.m_MaterialIdList.Add(slideOrder.SlideOrderId);
+                this.m_MaterialTrackingLogList = this.m_MaterialTrackingLogCollection.GetList(this.m_MaterialIdList);
+                this.NotifyPropertyChanged("MaterialTrackingLogList");
+            }
+        }
+
+        private void CheckBoxSlideOrder_Unchecked(object sender, RoutedEventArgs e)
+        {
+            CheckBox checkBox = (CheckBox)sender;
+            YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder = (YellowstonePathology.Business.Slide.Model.SlideOrder)checkBox.Tag;
+            if (this.m_MaterialIdList.Contains(slideOrder.SlideOrderId) == true)
+            {                
+                this.m_MaterialIdList.Remove(slideOrder.SlideOrderId);
+                if (this.m_MaterialIdList.Count > 0)
+                {
+                    this.m_MaterialTrackingLogList = this.m_MaterialTrackingLogCollection.GetList(this.m_MaterialIdList);
+                }
+                else
+                {
+                    this.m_MaterialTrackingLogList = this.m_MaterialTrackingLogCollection.ToList<YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog>();
+                }
+                this.NotifyPropertyChanged("MaterialTrackingLogList");
+            }
+        }
+
+        private void CheckBoxAliquotOrder_Checked(object sender, RoutedEventArgs e)
+        {
+            CheckBox checkBox = (CheckBox)sender;
+            YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = (YellowstonePathology.Business.Test.AliquotOrder)checkBox.Tag;
+            if (this.m_MaterialIdList.Contains(aliquotOrder.AliquotOrderId) == false)
+            {
+                this.m_MaterialIdList.Add(aliquotOrder.AliquotOrderId);
+                this.m_MaterialTrackingLogList = this.m_MaterialTrackingLogCollection.GetList(this.m_MaterialIdList);
+                this.NotifyPropertyChanged("MaterialTrackingLogList");
+            }
+        }
+
+        private void CheckBoxAliquotOrder_Unchecked(object sender, RoutedEventArgs e)
+        {
+            CheckBox checkBox = (CheckBox)sender;
+            YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = (YellowstonePathology.Business.Test.AliquotOrder)checkBox.Tag;
+            if (this.m_MaterialIdList.Contains(aliquotOrder.AliquotOrderId) == true)
+            {
+                this.m_MaterialIdList.Remove(aliquotOrder.AliquotOrderId);
+                if (this.m_MaterialIdList.Count > 0)
+                {
+                    this.m_MaterialTrackingLogList = this.m_MaterialTrackingLogCollection.GetList(this.m_MaterialIdList);
+                }
+                else
+                {
+                    this.m_MaterialTrackingLogList = this.m_MaterialTrackingLogCollection.ToList<YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog>();
+                }
+
+                this.NotifyPropertyChanged("MaterialTrackingLogList");
+            }
+        }	
+
+        public void NotifyPropertyChanged(String info)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
+        }        
 	}
 }
