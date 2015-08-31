@@ -682,10 +682,10 @@ namespace YellowstonePathology.UI
 
         public void MenuItemClients_Click(object sender, RoutedEventArgs args)
         {
-			YellowstonePathology.UI.Client.ClientLookupDialog clientLookupDialog = new Client.ClientLookupDialog();
-			clientLookupDialog.ShowDialog();
-			//YellowstonePathology.UI.Client.ClientSearch clientSearch = new YellowstonePathology.UI.Client.ClientSearch();            
-            //clientSearch.ShowDialog();
+			//YellowstonePathology.UI.Client.ClientLookupDialog clientLookupDialog = new Client.ClientLookupDialog();
+			//clientLookupDialog.ShowDialog();
+			YellowstonePathology.UI.Client.ClientSearch clientSearch = new YellowstonePathology.UI.Client.ClientSearch();            
+            clientSearch.ShowDialog();
         }        
 
         public void MenuItemPhysicians_Click(object sender, RoutedEventArgs args)

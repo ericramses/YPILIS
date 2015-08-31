@@ -154,7 +154,7 @@ namespace YellowstonePathology.Business
         public void SetFillByPhysicianClientId()
         {
             this.m_Cmd.Parameters.Clear();
-            this.m_Cmd.CommandText = "prcGetSearchListByPhysicianClientId";
+            this.m_Cmd.CommandText = "prcGetSearchListByPhysicianClientId_1";
             this.m_Cmd.CommandType = CommandType.StoredProcedure;
             this.m_Cmd.Parameters.Add("@PhysicianClientId", SqlDbType.VarChar).Value = this.PhysicianClientId;
         }
