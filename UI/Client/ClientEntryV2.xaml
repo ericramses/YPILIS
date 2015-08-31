@@ -156,6 +156,76 @@
 				</Grid>
 
 			</TabItem>
+			
+			<TabItem Header="Suppiy Order">
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto"></ColumnDefinition>
+						<ColumnDefinition Width="*"></ColumnDefinition>
+					</Grid.ColumnDefinitions>
+
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto"></RowDefinition>
+						<RowDefinition Height="Auto"></RowDefinition>
+						<RowDefinition Height="Auto"></RowDefinition>
+						<RowDefinition Height="Auto"></RowDefinition>
+						<RowDefinition Height="Auto"></RowDefinition>
+						<RowDefinition Height="Auto"></RowDefinition>
+						<RowDefinition Height="Auto"></RowDefinition>
+						<RowDefinition Height="Auto"></RowDefinition>
+						<RowDefinition Height="Auto"></RowDefinition>
+						<RowDefinition Height="Auto"></RowDefinition>
+					</Grid.RowDefinitions>
+
+					<TextBlock Grid.Column="0" Grid.Row="0" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold" >Order Id:</TextBlock>
+					<TextBox Grid.Column="1" Grid.Row="0" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Stretch" Text="Order Id" />
+
+					<TextBlock Grid.Column="0" Grid.Row="1" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold" >Order Date:</TextBlock>
+					<TextBox Grid.Column="1" Grid.Row="1" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Stretch" Text="Order Date" />
+
+					<TextBlock Grid.Column="0" Grid.Row="2" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold" >Comment:</TextBlock>
+					<TextBox Grid.Column="1" Grid.Row="2" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Stretch" Text="Comment" />
+
+					<TextBlock Grid.Column="0" Grid.Row="3" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold" >Quantity:</TextBlock>
+					<TextBox Grid.Column="1" Grid.Row="3" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Stretch" Text="Quantity" />
+
+					<TextBlock Grid.Column="0" Grid.Row="4" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold" >Order Taken By:</TextBlock>
+					<TextBox Grid.Column="1" Grid.Row="4" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Stretch" Text="Taken By" />
+
+					<TextBlock Grid.Column="0" Grid.Row="5" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold" >OrderFilled By:</TextBlock>
+					<TextBox Grid.Column="1" Grid.Row="5" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Stretch" Text="Filled By" />
+
+					<TextBlock Grid.Column="0" Grid.Row="6" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold" >Final:</TextBlock>
+					<CheckBox Grid.Column="1" Grid.Row="6" Margin="5" VerticalAlignment="Center" />
+
+					<TextBlock Grid.Column="0" Grid.Row="7" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold" >DateSent:</TextBlock>
+					<TextBox Grid.Column="1" Grid.Row="7" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Stretch" Text="Date sent" />
+
+					<Grid Grid.Column="0" Grid.Row="8" Margin="2">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto"></RowDefinition>
+							<RowDefinition Height="Auto"></RowDefinition>
+							<RowDefinition Height="Auto"></RowDefinition>
+							<RowDefinition Height="Auto"></RowDefinition>
+						</Grid.RowDefinitions>
+						
+						<Button Grid.Row="0" Margin="5,5,5,5" Width="120" Height="30">Cytology Supplies</Button>
+						<Button Grid.Row="1" Margin="5,5,5,5" Width="120" Height="30">Biopsy Supplies</Button>
+						<Button Grid.Row="2" Margin="5,5,5,5" Width="120" Height="30">Transport Supplies</Button>
+						<Button Grid.Row="3" Margin="5,5,5,5" Width="120" Height="30">Forms</Button>
+					</Grid>
+					
+					<ListView Grid.Column="1" Grid.Row="8" Margin="5,5,5,5">
+						<ListView.View>
+							<GridView>
+								<GridViewColumn Header="Quantity" Width="50" />
+								<GridViewColumn Header="Item" Width="90" />
+								<GridViewColumn Header="Description" Width="200" />
+							</GridView>
+						</ListView.View>
+					</ListView>
+				</Grid>
+			</TabItem>
 		</TabControl>
 		
 		<StackPanel Grid.Row="1" HorizontalAlignment="Right" Orientation="Horizontal">			
