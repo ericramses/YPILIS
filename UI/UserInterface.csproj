@@ -286,6 +286,7 @@
       <DependentUpon>BlankPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Gross\ColorConverter.cs" />
+    <Compile Include="Gross\GrossDictation.cs" />
     <Compile Include="Gross\ProcessorSelectionPage.xaml.cs">
       <DependentUpon>ProcessorSelectionPage.xaml</DependentUpon>
     </Compile>

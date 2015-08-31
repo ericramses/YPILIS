@@ -935,15 +935,28 @@ namespace YellowstonePathology.UI.Login
         {
             if (this.ListViewAccessionOrders.SelectedItem != null)
             {
+                YellowstonePathology.Business.Search.ReportSearchItem reportSearchItem = (YellowstonePathology.Business.Search.ReportSearchItem)this.ListViewAccessionOrders.SelectedItem;
                 if (this.m_LoginUI.AccessionOrder.SpecimenOrderCollection.HasThinPrepFluidSpecimen() == true)
                 {
                     YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_LoginUI.AccessionOrder.SpecimenOrderCollection.GetThinPrep();
                     if (specimenOrder.AliquotOrderCollection.HasPantherAliquot() == true)
                     {
                         YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = specimenOrder.AliquotOrderCollection.GetPantherAliquot();
-                        YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_LoginUI.AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(14);
-                        YellowstonePathology.Business.HL7View.Panther.PantherAssayHPV pantherAssayHPV = new Business.HL7View.Panther.PantherAssayHPV();
-                        YellowstonePathology.Business.HL7View.Panther.PantherOrder pantherOrder = new Business.HL7View.Panther.PantherOrder(pantherAssayHPV, specimenOrder, aliquotOrder, this.m_LoginUI.AccessionOrder, panelSetOrder, YellowstonePathology.Business.HL7View.Panther.PantherActionCode.NewSample);
+                        YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_LoginUI.AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportSearchItem.ReportNo);
+                        YellowstonePathology.Business.HL7View.Panther.PantherAssay pantherAssay = null;
+                        switch (panelSetOrder.PanelSetId)
+                        {
+                            case 14:
+                                 pantherAssay = new Business.HL7View.Panther.PantherAssayHPV();
+                                break;
+                            case 3:
+                                pantherAssay = new Business.HL7View.Panther.PantherAssayNGCT();
+                                break;
+                            default:
+                                throw new Exception(panelSetOrder.PanelSetName +  " is mot implemented yet.");
+                        }
+                        
+                        YellowstonePathology.Business.HL7View.Panther.PantherOrder pantherOrder = new Business.HL7View.Panther.PantherOrder(pantherAssay, specimenOrder, aliquotOrder, this.m_LoginUI.AccessionOrder, panelSetOrder, YellowstonePathology.Business.HL7View.Panther.PantherActionCode.NewSample);
                         pantherOrder.Send();
                     }
                     else

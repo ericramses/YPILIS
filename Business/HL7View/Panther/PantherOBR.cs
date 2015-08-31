@@ -33,8 +33,7 @@ namespace YellowstonePathology.Business.HL7View.Panther
             obrElement.Add(obr03Element);            
 
             XElement obr04Element = new XElement("OBR.4");                        
-            YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("OBR.4.1", this.m_Assay.LongName, obr04Element);
-            YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("OBR.4.2", this.m_Assay.ShortName, obr04Element);            
+            YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("OBR.4.1", this.m_Assay.ShortName, obr04Element);            
             obrElement.Add(obr04Element);
 
             XElement obr15Element = new XElement("OBR.15");
