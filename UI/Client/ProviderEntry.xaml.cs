@@ -22,6 +22,7 @@ namespace YellowstonePathology.UI.Client
 		private YellowstonePathology.Business.Domain.Physician m_Physician;
         private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private YellowstonePathology.Business.Client.Model.StandingOrderCollection m_HpvStandingOrders;
+		private YellowstonePathology.Business.Client.Model.StandingOrderCollection m_HPV1618StandingOrderCollection;
 		private YellowstonePathology.Business.View.PhysicianClientView m_PhysicianClientView;
 		private YellowstonePathology.Business.Client.Model.ClientCollection m_ClientCollection;
 		private List<YellowstonePathology.Business.Client.Model.PhysicianClientDistributionView> m_PhysicianClientDistributionViewList;
@@ -33,7 +34,8 @@ namespace YellowstonePathology.UI.Client
             this.m_ObjectTracker = objectTracker;
 
 			this.m_PhysicianClientView = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClientView(this.m_Physician.ProviderId);
-			this.m_HpvStandingOrders = new YellowstonePathology.Business.Client.Model.StandingOrderCollection();
+			this.m_HpvStandingOrders = YellowstonePathology.Business.Client.Model.StandingOrderCollection.GetHPVStandingOrders();
+			this.m_HPV1618StandingOrderCollection = YellowstonePathology.Business.Client.Model.StandingOrderCollection.GetHPV1618StandingOrders();
 			this.m_ClientCollection = new YellowstonePathology.Business.Client.Model.ClientCollection();
             
             InitializeComponent();
@@ -54,10 +56,16 @@ namespace YellowstonePathology.UI.Client
             get { return this.m_Physician; }            
         }
 
-		public ObservableCollection<YellowstonePathology.Business.Client.Model.StandingOrder> HpvStandingOrders
+		public YellowstonePathology.Business.Client.Model.StandingOrderCollection HpvStandingOrders
 		{
 			get { return this.m_HpvStandingOrders; }
 		}
+
+		public YellowstonePathology.Business.Client.Model.StandingOrderCollection HPV1618StandingOrderCollection
+		{
+			get { return this.m_HPV1618StandingOrderCollection; }
+		}
+
 
 		public ObservableCollection<YellowstonePathology.Business.Client.Model.Client> Clients
 		{
@@ -180,6 +188,6 @@ namespace YellowstonePathology.UI.Client
 				this.m_PhysicianClientDistributionViewList = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClientDistributionsV2(this.m_PhysicianClientId);
 				this.NotifyPropertyChanged("PhysicianClientDistributionViewList");
 			}
-		}		
+		}
 	}
 }

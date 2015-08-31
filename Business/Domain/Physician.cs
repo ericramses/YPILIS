@@ -55,8 +55,13 @@ namespace YellowstonePathology.Business.Domain
 			this.ObjectId = objectId;
 			this.m_ProviderId = providerId;
 			this.m_PhysicianId = physicianId;
-			this.LastName = lastName;
-			this.FirstName = firstName;
+			this.m_LastName = lastName;
+			this.m_FirstName = firstName;
+			this.m_DisplayName = lastName + " " + firstName;
+			this.m_Active = true;
+			Business.Client.Model.StandingOrderNotSet standingOrderNotSet = new Client.Model.StandingOrderNotSet();
+			this.m_HPVStandingOrderCode = standingOrderNotSet.StandingOrderCode;
+			this.m_HPV1618StandingOrderCode = standingOrderNotSet.StandingOrderCode;
 		}
 
         [PersistentPrimaryKeyProperty(false)]

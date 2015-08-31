@@ -995,7 +995,7 @@ namespace YellowstonePathology.Business.Gateway
 		{
 			YellowstonePathology.Business.Client.Model.PhysicianNameViewCollection result = new YellowstonePathology.Business.Client.Model.PhysicianNameViewCollection();
 			SqlCommand cmd = new SqlCommand();
-			cmd.CommandText = "Select ph.PhysicianId ph.ProviderId, ph.FirstName, ph.LastName, c.Telephone [HomeBasePhone], c.Fax [HomeBaseFax] " +
+			cmd.CommandText = "Select ph.PhysicianId, ph.ProviderId, ph.FirstName, ph.LastName, c.Telephone [HomeBasePhone], c.Fax [HomeBaseFax] " +
 				"from tblPhysician ph " +
 				"left outer join tblClient c on ph.HomeBaseClientId = c.ClientId " +
 				"where ph.LastName like @LastName + '%' order by ph.FirstName ";
