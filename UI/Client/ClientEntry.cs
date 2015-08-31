@@ -28,7 +28,7 @@ namespace YellowstonePathology.UI.Client
 
             this.m_ControlList = new ArrayList();
 
-			this.m_PhysicianCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysiciansByClientId(this.m_Client.ClientId);            
+			this.m_PhysicianCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysiciansByClientIdV2(this.m_Client.ClientId);            
 
             InitializeComponent();
         }
@@ -163,8 +163,9 @@ namespace YellowstonePathology.UI.Client
             this.listViewPhysicianList.Items.Clear();
             foreach(YellowstonePathology.Business.Domain.Physician physician in this.m_PhysicianCollection)
             {
-                ListViewItem lvi = this.listViewPhysicianList.Items.Add(physician.PhysicianId.ToString());                
-                string physicianFirstName = physician.FirstName;
+                //ListViewItem lvi = this.listViewPhysicianList.Items.Add(physician.PhysicianId.ToString());                
+				ListViewItem lvi = this.listViewPhysicianList.Items.Add(physician.ProviderId);
+				string physicianFirstName = physician.FirstName;
                 string physicianLastName = physician.LastName;
                 lvi.SubItems.Add(physicianLastName + ", " + physicianFirstName);
             }
@@ -183,15 +184,16 @@ namespace YellowstonePathology.UI.Client
             {                
                 if(physicianSearch.SelectedPhysician != null)
                 {
-                    if (this.IsPhysicianInClient(physicianSearch.SelectedPhysician.PhysicianId) == false)
+					//if (this.IsPhysicianInClient(physicianSearch.SelectedPhysician.PhysicianId) == false)
+					if (this.IsPhysicianInClient(physicianSearch.SelectedPhysician.ProviderId) == false)
                     {
 						string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-						YellowstonePathology.Business.Domain.PhysicianClient physicianClient = new Business.Domain.PhysicianClient(objectId, physicianSearch.SelectedPhysician.PhysicianId, this.m_Client.ClientId);
+						YellowstonePathology.Business.Domain.PhysicianClient physicianClient = new Business.Domain.PhysicianClient(objectId, objectId, physicianSearch.SelectedPhysician.PhysicianId, physicianSearch.SelectedPhysician.ProviderId, this.m_Client.ClientId);
 						YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
                         objectTracker.RegisterRootInsert(physicianClient);
                         objectTracker.SubmitChanges(physicianClient);
 
-						this.m_PhysicianCollection = this.m_PhysicianCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysiciansByClientId(this.m_Client.ClientId);
+						this.m_PhysicianCollection = this.m_PhysicianCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysiciansByClientIdV2(this.m_Client.ClientId);
                         this.PopulatePhysicianList();
 
                         MessageBox.Show("The selected physician was added.");
@@ -204,22 +206,36 @@ namespace YellowstonePathology.UI.Client
             }            
         }
 
-        private bool IsPhysicianInClient(long physicianId)
+        /*private bool IsPhysicianInClient(int physicianId)
         {
-            foreach (ListViewItem lvi in this.listViewPhysicianList.Items)
-            {                
-                if (lvi.SubItems.Count == 1) return false;
-                int currentID = 0;
-                if (Int32.TryParse(lvi.SubItems[1].Text, out currentID) == true)
-                {                    
-                    if (currentID == physicianId)
-                    {
-                        return true;
-                    }
-                }
-            }
+			foreach (ListViewItem lvi in this.listViewPhysicianList.Items)
+			{
+				if (lvi.SubItems.Count == 1) return false;
+				int currentID = 0;
+				if (Int32.TryParse(lvi.SubItems[1].Text, out currentID) == true)
+				{
+					if (currentID == physicianId)
+					{
+						return true;
+					}
+				}
+			}
             return false;
-        }
+        }*/
+
+		private bool IsPhysicianInClient(string providerId)
+		{
+			foreach (ListViewItem lvi in this.listViewPhysicianList.Items)
+			{
+				if (lvi.SubItems.Count == 1) return false;
+				string currentID = lvi.SubItems[1].Text;
+				if (currentID == providerId)
+				{
+					return true;
+				}
+			}
+			return false;
+		}
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
@@ -241,13 +257,13 @@ namespace YellowstonePathology.UI.Client
             DialogResult result = MessageBox.Show("Remove selected physician?", "Remove", MessageBoxButtons.OKCancel);
             if (result == DialogResult.OK)
             {
-                int physicianId = Convert.ToInt32(this.listViewPhysicianList.SelectedItems[0].Text);
-				YellowstonePathology.Business.Domain.PhysicianClient physicianClient = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClient(physicianId, this.m_Client.ClientId);
+                string providerId = this.listViewPhysicianList.SelectedItems[0].Text;
+				YellowstonePathology.Business.Domain.PhysicianClient physicianClient = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClient(providerId, this.m_Client.ClientId);
 				YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
                 objectTracker.RegisterRootDelete(physicianClient);
                 objectTracker.SubmitChanges(physicianClient);
 
-				this.m_PhysicianCollection = this.m_PhysicianCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysiciansByClientId(this.m_Client.ClientId);
+				this.m_PhysicianCollection = this.m_PhysicianCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysiciansByClientIdV2(this.m_Client.ClientId);
                 this.PopulatePhysicianList();                
             }
         }        

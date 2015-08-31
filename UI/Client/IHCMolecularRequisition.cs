@@ -23,7 +23,7 @@ namespace YellowstonePathology.UI.Client
 		{
             this.m_PrintDocument = new System.Drawing.Printing.PrintDocument();
             this.m_ClientId = clientId;
-			this.m_ClientPhysicianView = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientPhysicianViewByClientId(this.m_ClientId);
+			this.m_ClientPhysicianView = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientPhysicianViewByClientIdV2(this.m_ClientId);
 			this.m_Barcode = new YellowstonePathology.Business.BarcodeScanning.BarcodeVersion1(YellowstonePathology.Business.BarcodeScanning.BarcodePrefixEnum.CLNT, this.m_ClientId.ToString());            
 		}
 

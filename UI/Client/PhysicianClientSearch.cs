@@ -10,7 +10,7 @@ namespace YellowstonePathology.UI.Client
 {
     public partial class PhysicianClientSearch : Form
     {
-        public int PhysicianClientID = 0;
+        public string PhysicianClientID ="";
         public int ClientID = 0;
         public int PhysicianID = 0;
         public string ClientName = "";
@@ -35,7 +35,7 @@ namespace YellowstonePathology.UI.Client
 			this.listViewPhysicianClient.Items.Clear();
 			foreach (YellowstonePathology.Business.Client.Model.PhysicianClientName physicianClientName in this.m_PhysicianClientNameCollection)
 			{
-				ListViewItem lvi = this.listViewPhysicianClient.Items.Add(physicianClientName.PhysicianClientId.ToString());
+				ListViewItem lvi = this.listViewPhysicianClient.Items.Add(physicianClientName.PhysicianClientId);
 				lvi.SubItems.Add(physicianClientName.ClientId.ToString());
 				lvi.SubItems.Add(physicianClientName.PhysicianId.ToString());
 				lvi.SubItems.Add(physicianClientName.ClientName);                
@@ -60,7 +60,7 @@ namespace YellowstonePathology.UI.Client
 					string physicianName = spaceSplit[1];
 					if (physicianName.Length > 0)
 					{
-						this.m_PhysicianClientNameCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClientNameCollection(clientName, physicianName);
+						this.m_PhysicianClientNameCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClientNameCollectionV2(clientName, physicianName);
 						this.PopulatePhysicianClientList();
 					}
 				}
@@ -71,7 +71,7 @@ namespace YellowstonePathology.UI.Client
         {            
             if (this.listViewPhysicianClient.SelectedItems.Count != 0)
             {                
-                this.PhysicianClientID = Convert.ToInt32(this.listViewPhysicianClient.SelectedItems[0].Text);
+                this.PhysicianClientID = this.listViewPhysicianClient.SelectedItems[0].Text;
                 this.ClientID = Convert.ToInt32(this.listViewPhysicianClient.SelectedItems[0].SubItems[1].Text);
                 this.PhysicianID = Convert.ToInt32(this.listViewPhysicianClient.SelectedItems[0].SubItems[2].Text);                
                 this.ClientName = this.listViewPhysicianClient.SelectedItems[0].SubItems[3].Text;
@@ -87,7 +87,7 @@ namespace YellowstonePathology.UI.Client
         {
             if (this.listViewPhysicianClient.SelectedItems.Count != 0)
             {
-                int physicianClientID = Convert.ToInt32(this.listViewPhysicianClient.SelectedItems[0].Text);
+                string physicianClientID = this.listViewPhysicianClient.SelectedItems[0].Text;
 				ReportDistribution reportDistribution = new ReportDistribution(physicianClientID);
                 reportDistribution.ShowDialog();
             }

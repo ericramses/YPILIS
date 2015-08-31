@@ -62,7 +62,7 @@
 						<TextBox Grid.Column="2" Grid.Row="0" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Stretch" Text="{Binding Path=Client.State}" />
 
 						<TextBlock Grid.Column="3" Grid.Row="0" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold" >Zip:</TextBlock>
-						<TextBox Grid.Column="4" Grid.Row="0" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Stretch" Text="{Binding Path=Client.Zip}" />
+						<TextBox Grid.Column="4" Grid.Row="0" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Stretch" Text="{Binding Path=Client.ZipCode}" />
 					</Grid>
 
 					<TextBlock Grid.Column="0" Grid.Row="4" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold" >Long Distance:</TextBlock>
@@ -88,11 +88,7 @@
 					<ComboBox Grid.Column="1" Grid.Row="10" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Stretch" ItemsSource="{Binding Path=FacilityTypes}"
 							  SelectedValue="{Binding Path=Client.FacilityType}" />
 
-					<TextBlock Grid.Column="0" Grid.Row="11" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold" >Billing Rule Set:</TextBlock>
-					<ComboBox Grid.Column="1" Grid.Row="11" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Stretch" ItemsSource="{Binding Path=BillingRuleSetCollection}"
-							  SelectedValue="{Binding Path=Client.BillingRuleSetId}" SelectedValuePath="BillingRuleSetIdOld" DisplayMemberPath="BillingRuleSetName" />
-
-					<TextBlock Grid.Column="0" Grid.Row="12" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold" >Billing Rule Set 2:</TextBlock>
+					<TextBlock Grid.Column="0" Grid.Row="12" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold" >Billing Rule Set:</TextBlock>
 					<ComboBox Grid.Column="1" Grid.Row="12" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Stretch" ItemsSource="{Binding Path=BillingRuleSetCollection}"
 							  SelectedValue="{Binding Path=Client.BillingRuleSetId2}" SelectedValuePath="BillingRuleSetId" DisplayMemberPath="BillingRuleSetName" />
 

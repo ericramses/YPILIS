@@ -56,7 +56,7 @@ namespace YellowstonePathology.Business.Validation
             }
         }
 
-        public static void IsPhyscianIdValid(long value, BrokenRuleCollection brokenRules)
+        public static void IsPhyscianIdValid(int value, BrokenRuleCollection brokenRules)
         {
             if (value == 0)
             {

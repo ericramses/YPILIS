@@ -26,7 +26,7 @@ namespace YellowstonePathology.UI.Client
         {
             this.m_Physician = physician;
 			this.m_ObjectTracker = objectTracker;
-			this.m_ClientCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientsByPhysicianId(this.m_Physician.PhysicianId);
+			this.m_ClientCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientsByProviderId(this.m_Physician.ProviderId);
             this.m_ControlList = new ArrayList();
 
             this.m_HPV1618StandingOrderCollection = YellowstonePathology.Business.Client.Model.StandingOrderCollection.GetHPV1618StandingOrders();
@@ -177,13 +177,15 @@ namespace YellowstonePathology.UI.Client
                 long clientId = clientSearch.ClientID;
                 if (this.IsClientInClient(clientId) == false)
                 {
+					this.Save();
+
 					string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-					YellowstonePathology.Business.Domain.PhysicianClient physicianClient = new Business.Domain.PhysicianClient(objectId, this.m_Physician.PhysicianId, clientSearch.ClientID);
+					YellowstonePathology.Business.Domain.PhysicianClient physicianClient = new Business.Domain.PhysicianClient(objectId, objectId, this.m_Physician.PhysicianId, this.m_Physician.ProviderId, clientSearch.ClientID);
 					YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
 					objectTracker.RegisterRootInsert(physicianClient);
 					objectTracker.SubmitChanges(physicianClient);
 
-					this.m_ClientCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientsByPhysicianId(this.m_Physician.PhysicianId);
+					this.m_ClientCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientsByProviderId(this.m_Physician.ProviderId);
 					this.PopulateClientList();
 					
 					
@@ -224,12 +226,12 @@ namespace YellowstonePathology.UI.Client
                     int clientId = 0;
                     if (Int32.TryParse(this.listViewClientList.SelectedItems[0].Text, out clientId) == true)
                     {
-						YellowstonePathology.Business.Domain.PhysicianClient physicianClient = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClient(this.m_Physician.PhysicianId, clientId);
+						YellowstonePathology.Business.Domain.PhysicianClient physicianClient = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClient(this.m_Physician.ProviderId, clientId);
 						YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
 						objectTracker.RegisterRootDelete(physicianClient);
 						objectTracker.SubmitChanges(physicianClient);
 
-						this.m_ClientCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientsByPhysicianId(this.m_Physician.PhysicianId);
+						this.m_ClientCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientsByProviderId(this.m_Physician.ProviderId);
 						this.PopulateClientList();                
 					
 					

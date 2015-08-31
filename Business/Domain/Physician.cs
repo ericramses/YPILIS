@@ -43,19 +43,28 @@ namespace YellowstonePathology.Business.Domain
         private string m_MDLastName;
         private bool m_SendPublishNotifications;
         private string m_PublishNotificationEmailAddress;
+		private string m_ProviderId;
 
 		public Physician()
 		{
 
 		}
 
-		public Physician(string objectId, string lastName, string firstName)
+		public Physician(string objectId, string providerId, int physicianId, string lastName, string firstName)
 		{
 			this.ObjectId = objectId;
-			this.LastName = lastName;
-			this.FirstName = firstName;
+			this.m_ProviderId = providerId;
+			this.m_PhysicianId = physicianId;
+			this.m_LastName = lastName;
+			this.m_FirstName = firstName;
+			this.m_DisplayName = lastName + " " + firstName;
+			this.m_Active = true;
+			Business.Client.Model.StandingOrderNotSet standingOrderNotSet = new Client.Model.StandingOrderNotSet();
+			this.m_HPVStandingOrderCode = standingOrderNotSet.StandingOrderCode;
+			this.m_HPV1618StandingOrderCode = standingOrderNotSet.StandingOrderCode;
 		}
-        [PersistentPrimaryKeyProperty(true)]
+
+        [PersistentPrimaryKeyProperty(false)]
 		public int PhysicianId
 		{
 			get { return this.m_PhysicianId; }
@@ -79,6 +88,20 @@ namespace YellowstonePathology.Business.Domain
 				{
 					this.m_ObjectId = value;
 					this.NotifyPropertyChanged("ObjectId");
+				}
+			}
+		}
+
+		[PersistentProperty()]
+		public string ProviderId
+		{
+			get { return this.m_ProviderId; }
+			set
+			{
+				if (this.m_ProviderId != value)
+				{
+					this.m_ProviderId = value;
+					this.NotifyPropertyChanged("ProviderId");
 				}
 			}
 		}

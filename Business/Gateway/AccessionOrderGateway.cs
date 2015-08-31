@@ -297,9 +297,6 @@ namespace YellowstonePathology.Business.Gateway
 
         public static List<YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder> GetSurgicalTestOrder()
         {
-#if MONGO
-            return AccessionOrderGatewayMongo.GetSurgicalTestOrder();
-#else
 			List<YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder> result = new List<YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder>();
 
             SqlCommand cmd = new SqlCommand();            
@@ -325,7 +322,6 @@ namespace YellowstonePathology.Business.Gateway
                 }
             }
             return result;
-#endif
         }
 
         public static List<YellowstonePathology.Business.Test.PanelSetOrderView> GetUnsetDistributions()

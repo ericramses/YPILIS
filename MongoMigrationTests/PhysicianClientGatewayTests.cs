@@ -105,7 +105,7 @@ namespace MongoMigrationTests
         [TestMethod]
 		public void GetPhysicianClientViewTest()
         {
-            YellowstonePathology.Business.View.PhysicianClientView result = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClientView(9);
+            YellowstonePathology.Business.View.PhysicianClientView result = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClientView("9");
             Assert.IsTrue(result.PhysicianId == 9);
             Assert.IsTrue(result.Clients.Count == 4);            
         }
@@ -120,7 +120,7 @@ namespace MongoMigrationTests
 		[TestMethod]
 		public void GetPhysicianClientNameCollection2Test()
 		{
-			YellowstonePathology.Business.Client.Model.PhysicianClientNameCollection result = YellowstonePathology.Business.Gateway.PhysicianClientGatewayMongo.GetPhysicianClientNameCollection(5650);
+			YellowstonePathology.Business.Client.Model.PhysicianClientNameCollection result = YellowstonePathology.Business.Gateway.PhysicianClientGatewayMongo.GetPhysicianClientNameCollection("5650");
 			Assert.IsTrue(result.Count == 6);
 		}
 

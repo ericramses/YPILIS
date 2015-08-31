@@ -23,7 +23,7 @@ namespace YellowstonePathology.Business.Interface
 
         int ClientId { get; set; }
         string ClientName { get; set; }
-        int PhysicianId { get; set; }
+		int PhysicianId { get; set; }
         string PhysicianName { get; set; }
 		string PatientType { get; set; }                                    
 		string PrimaryInsurance { get; set; }                                    

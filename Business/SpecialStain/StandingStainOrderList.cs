@@ -22,11 +22,11 @@ namespace YellowstonePathology.Business.SpecialStain
 		{
 			this.Add(new StandingStainOrderListItem(2401, 107, "Helicobacter pylori", "STOMACH", 0));
 			this.Add(new StandingStainOrderListItem(2401, 107, "Helicobacter pylori", "GASTRIC", 0));
-            this.Add(new StandingStainOrderListItem(2401, 107, "Helicobacter pylori", "ANTRUM", 0));
+			this.Add(new StandingStainOrderListItem(2401, 107, "Helicobacter pylori", "ANTRUM", 0));
 
             this.Add(new StandingStainOrderListItem(2879, 107, "Helicobacter pylori", "STOMACH", 0));
-            this.Add(new StandingStainOrderListItem(2879, 107, "Helicobacter pylori", "GASTRIC", 0));
-            this.Add(new StandingStainOrderListItem(2879, 107, "Helicobacter pylori", "ANTRUM", 0));
+			this.Add(new StandingStainOrderListItem(2879, 107, "Helicobacter pylori", "GASTRIC", 0));
+			this.Add(new StandingStainOrderListItem(2879, 107, "Helicobacter pylori", "ANTRUM", 0));
 
 			this.Add(new StandingStainOrderListItem(604, 115, "Iron", "BONE MARROW", 0));
 

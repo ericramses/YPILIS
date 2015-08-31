@@ -21,7 +21,7 @@ namespace YellowstonePathology.Business.Domain
         DateTime m_AccessionDate;
         Nullable<DateTime> m_FinalTime;
         int m_ClientId;
-        int m_PhysicianId;
+		int m_PhysicianId;
         string m_ClientName;
         string m_PhysicianName;
         string m_PanelSetName;
@@ -102,7 +102,7 @@ namespace YellowstonePathology.Business.Domain
         }
 
         [DataMember]
-        public int PhysicianId
+		public int PhysicianId
         {
             get { return this.m_PhysicianId; }
             set { this.m_PhysicianId = value; }

@@ -27,6 +27,9 @@
 						<RowDefinition Height="Auto"></RowDefinition>
 						<RowDefinition Height="Auto"></RowDefinition>
 						<RowDefinition Height="Auto"></RowDefinition>
+						<RowDefinition Height="Auto"></RowDefinition>
+						<RowDefinition Height="Auto"></RowDefinition>
+						<RowDefinition Height="Auto"></RowDefinition>
 						<RowDefinition Height="*"></RowDefinition>
 					</Grid.RowDefinitions>
 
@@ -57,11 +60,22 @@
 					<TextBlock Grid.Column="0" Grid.Row="8" Margin="2,2,2,2" HorizontalAlignment="Right" VerticalAlignment="Center">KRAS/BRAF Standing Order:</TextBlock>
 					<CheckBox Grid.Column="1" Grid.Row="8" IsChecked="{Binding Path=Physician.KRASBRAFStandingOrder}" Margin="2,2,2,2" VerticalAlignment="Center"></CheckBox>
 
-					<TextBlock Grid.Column="0" Grid.Row="9" Margin="2,2,2,2" HorizontalAlignment="Right" VerticalAlignment="Center">HPV Standing Order Instructions:</TextBlock>
-					<ComboBox Grid.Column="1" Grid.Row="9" Margin="2,2,2,2" ItemsSource="{Binding Path=HpvStandingOrders}" SelectedValue="{Binding Path=Physician.HPVStandingOrderCode}"
+					<TextBlock Grid.Column="0" Grid.Row="9" Margin="2,2,2,2" HorizontalAlignment="Right" VerticalAlignment="Center">Send Notifications:</TextBlock>
+					<CheckBox Grid.Column="1" Grid.Row="9" IsChecked="{Binding Path=Physician.SendPublishNotifications}" Margin="2,2,2,2" VerticalAlignment="Center"></CheckBox>
+
+					<TextBlock Grid.Column="0" Grid.Row="10" Margin="2,2,2,2" HorizontalAlignment="Right" VerticalAlignment="Center" >Notification Email:</TextBlock>
+					<TextBox Grid.Column="1" Grid.Row="10" Text="{Binding Path=Physician.PublishNotificationEmailAddress}" Margin="2,2,2,2"></TextBox>
+
+					<TextBlock Grid.Column="0" Grid.Row="11" Margin="2,2,2,2" HorizontalAlignment="Right" VerticalAlignment="Center">HPV Standing Order Instructions:</TextBlock>
+					<ComboBox Grid.Column="1" Grid.Row="11" Margin="2,2,2,2" ItemsSource="{Binding Path=HpvStandingOrders}" SelectedValue="{Binding Path=Physician.HPVStandingOrderCode}"
 							  SelectedValuePath="StandingOrderCode" DisplayMemberPath="Description">
 					</ComboBox>
-		
+
+					<TextBlock Grid.Column="0" Grid.Row="12" Margin="2,2,2,2" HorizontalAlignment="Right" VerticalAlignment="Center">HPV 16/18 Standing Order Instructions:</TextBlock>
+					<ComboBox Grid.Column="1" Grid.Row="12" Margin="2,2,2,2" ItemsSource="{Binding Path=HPV1618StandingOrderCollection}" SelectedValue="{Binding Path=Physician.HPV1618StandingOrderCode}"
+							  SelectedValuePath="StandingOrderCode" DisplayMemberPath="Description">
+					</ComboBox>
+
 				</Grid>
 			</TabItem>
 			
@@ -163,8 +177,8 @@
 					</ListBox>
 
 					<StackPanel Grid.Column="2" Grid.Row="1" Orientation="Vertical" Margin="2,2,2,2" VerticalAlignment="Center">
-						<Button Name="ButtonAddToDistribution" Width="70" Height="30" Margin="5,5,5,5" Click="ButtonAddToDistribution_Click">&lt; Add</Button>
-						<Button Name="ButtonRemoveFromDistribution" Width="70" Height="30" Margin="5,5,5,5" Click="ButtonRemoveFromDistribution_Click">Remove ></Button>
+						<Button Name="ButtonAddToDistribution" Width="100" Height="30" Margin="5,5,5,5" Click="ButtonAddToDistribution_Click">&lt; Add</Button>
+						<Button Name="ButtonRemoveFromDistribution" Width="100" Height="30" Margin="5,5,5,5" Click="ButtonRemoveFromDistribution_Click">Remove ></Button>
 					</StackPanel>
 
                     <TextBlock Grid.Column="3" Grid.Row="0" Margin="2,2,2,2" Text="Distribution Options:" />					

@@ -119,7 +119,7 @@ namespace YellowstonePathology.Business.Gateway
             List<BsonValue> physicianIdList = new List<BsonValue>();
             foreach (BsonDocument bsonDocument in physicianClientCursor)
             {
-                physicianIdList.Add(bsonDocument.GetValue("PhysicianId").AsInt32);
+                physicianIdList.Add(bsonDocument.GetValue("PhysicianId"));
             }
 
             MongoCollection physicianCollection = server.Database.GetCollection<BsonDocument>("Physician");
@@ -215,7 +215,7 @@ namespace YellowstonePathology.Business.Gateway
 			List<BsonValue> physicianIdList = new List<BsonValue>();
 			foreach (BsonDocument bsonDocument in physicianClientCursor)
 			{
-				physicianIdList.Add(bsonDocument.GetValue("PhysicianId").AsInt32);
+				physicianIdList.Add(bsonDocument.GetValue("PhysicianId"));
 			}
 
             MongoCollection physicianCollection = server.Database.GetCollection<BsonDocument>("Physician");
@@ -268,7 +268,7 @@ namespace YellowstonePathology.Business.Gateway
 			MongoCollection clientCollection = server.Database.GetCollection<BsonDocument>("Client");
 			MongoCursor clientCursor = clientCollection.FindAs<BsonDocument>(Query.Matches("ClientName", BsonRegularExpression.Create("^" + clientName + ".*", "i"))).SetSortOrder(SortBy.Ascending("ClientName"));
 
-			int physicianClientId = 0;
+			string physicianClientId = string.Empty;
 			long count = clientCursor.Count();
 			foreach (BsonDocument clientDocument in clientCursor)
 			{
@@ -291,7 +291,7 @@ namespace YellowstonePathology.Business.Gateway
 						if (physicianClientDocument.GetValue("PhysicianId").Equals(physicianDocument.GetValue("PhysicianId")) &&
 							physicianClientDocument.GetValue("ClientId").Equals(clientId))
 						{
-							physicianClientId = physicianClientDocument.GetValue("PhysicianClientId").AsInt32;
+							physicianClientId = Mongo.ValueHelper.GetStringValue(physicianClientDocument.GetValue("PhysicianClientId"));
 							break;
 						}
 					}
@@ -313,7 +313,7 @@ namespace YellowstonePathology.Business.Gateway
 			return result;
 		}
 
-		public static YellowstonePathology.Business.Client.Model.PhysicianClientNameCollection GetPhysicianClientNameCollection(int physicianClientId)
+		public static YellowstonePathology.Business.Client.Model.PhysicianClientNameCollection GetPhysicianClientNameCollection(string physicianClientId)
 		{
 			YellowstonePathology.Business.Client.Model.PhysicianClientNameCollection result = new YellowstonePathology.Business.Client.Model.PhysicianClientNameCollection();
 
@@ -338,7 +338,7 @@ namespace YellowstonePathology.Business.Gateway
 				{
 					if (physicianClientDocument.GetValue("ClientId").Equals(clientDocument.GetValue("ClientId")))
 					{
-						physicianClientId = physicianClientDocument.GetValue("PhysicianClientId").AsInt32;
+						physicianClientId = Mongo.ValueHelper.GetStringValue(physicianClientDocument.GetValue("PhysicianClientId"));
 						break;
 					}
 				}
@@ -349,7 +349,7 @@ namespace YellowstonePathology.Business.Gateway
 					physicianClientName.FirstName = Mongo.ValueHelper.GetStringValue(physicianDocument.GetValue("FirstName"));
 					physicianClientName.LastName = Mongo.ValueHelper.GetStringValue(physicianDocument.GetValue("LastName"));
 					physicianClientName.PhysicianClientId = physicianClientId;
-					physicianClientName.PhysicianId = physicianId.AsInt32;
+					physicianClientName.PhysicianId = physicianDocument.GetValue("PhysicianId").AsInt32;
 					physicianClientName.Telephone = Mongo.ValueHelper.GetStringValue(clientDocument.GetValue("Telephone"));
 
 					result.Add(physicianClientName);
@@ -507,7 +507,7 @@ namespace YellowstonePathology.Business.Gateway
 			result.FacilityType = Mongo.ValueHelper.GetStringValue(clientDocument.GetValue("FacilityType"));
 			result.FaxNumber = Mongo.ValueHelper.GetStringValue(clientDocument.GetValue("Fax"));
 			result.LongDistance = clientDocument.GetValue("LongDistance").AsBoolean;
-			result.PhysicianClientId = physicianClientId.AsInt32;
+			result.PhysicianClientId = Mongo.ValueHelper.GetStringValue(physicianClientId);
 			result.PhysicianId = physicianDocument.GetValue("PhysicianId").AsInt32;
 			result.PhysicianName = Mongo.ValueHelper.GetStringValue(physicianDocument.GetValue("DisplayName"));
 

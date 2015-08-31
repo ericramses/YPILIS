@@ -57,14 +57,16 @@ namespace YellowstonePathology.Business.Reports.Cytology
 
                 using (SqlDataReader dr = cmd.ExecuteReader())
                 {
-                    int currentPhysicianClientId = 0;
+                    //int currentPhysicianClientId = 0;
+					string currentPhysicianClientId = "0";
                     CytologyUnsatLetterItem item = new CytologyUnsatLetterItem();
                     CytologyUnsatLetterDetailItem detailItem = new CytologyUnsatLetterDetailItem();
 
                     while (dr.Read())
                     {
-                        int thisPhysicianClientId = BaseData.GetIntValue("PhysicianClientId", dr);
-                        if (thisPhysicianClientId != currentPhysicianClientId)
+                        //int thisPhysicianClientId = BaseData.GetIntValue("PhysicianClientId", dr);
+						string thisPhysicianClientId = BaseData.GetStringValue("PhysicianClientId", dr);
+						if (thisPhysicianClientId != currentPhysicianClientId)
                         {
                             item = new CytologyUnsatLetterItem();
                             item.Fill(dr);
@@ -90,8 +92,8 @@ namespace YellowstonePathology.Business.Reports.Cytology
 
     public class CytologyUnsatLetterItem
     {
-        int m_PhysicianClientId;
-        int m_ClientId;
+		string m_PhysicianClientId;
+		int m_ClientId;
         string m_ClientName;
         string m_PhysicianName;
         string m_Address;
@@ -111,7 +113,7 @@ namespace YellowstonePathology.Business.Reports.Cytology
             get { return this.m_DetailItems; }
         }
 
-        public int PhysicianClientId
+        public string PhysicianClientId
         {
             get { return this.m_PhysicianClientId; }
             set { this.m_PhysicianClientId = value; }
@@ -163,7 +165,7 @@ namespace YellowstonePathology.Business.Reports.Cytology
 
         public void Fill(SqlDataReader dr)
         {
-            this.PhysicianClientId = BaseData.GetIntValue("PhysicianClientId", dr);
+            this.PhysicianClientId = BaseData.GetStringValue("PhysicianClientId", dr);
             this.ClientId = BaseData.GetIntValue("ClientId", dr);
             this.ClientName = BaseData.GetStringValue("ClientName", dr);
             this.PhysicianName = BaseData.GetStringValue("PhysicianName", dr);

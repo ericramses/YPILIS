@@ -8,10 +8,11 @@ namespace YellowstonePathology.Business.Client
 {
     public class PhysicianClient
     {
-        private int m_PhysicianClientId;
+        private string m_PhysicianClientId;
         private int m_ClientId;
-        private int m_PhysicianId;
-        private string m_ClientName;
+		private int m_PhysicianId;
+		private string m_ProviderId;
+		private string m_ClientName;
         private string m_NPI;
         private string m_FacilityType;
         private string m_DistributionType;
@@ -25,7 +26,7 @@ namespace YellowstonePathology.Business.Client
         }
 
         [PersistentProperty()]
-        public int PhysicianClientId
+        public string PhysicianClientId
         {
             get { return m_PhysicianClientId; }
             set { m_PhysicianClientId = value; }
@@ -39,11 +40,18 @@ namespace YellowstonePathology.Business.Client
         }
 
         [PersistentProperty()]
-        public int PhysicianId
+		public int PhysicianId
         {
             get { return m_PhysicianId; }
             set { m_PhysicianId = value; }
         }
+
+		[PersistentProperty()]
+		public string ProviderId
+		{
+			get { return m_ProviderId; }
+			set { m_ProviderId = value; }
+		}
 
         [PersistentProperty()]
         public string NPI
