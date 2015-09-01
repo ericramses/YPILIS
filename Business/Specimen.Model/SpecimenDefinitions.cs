@@ -215,24 +215,12 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
         }
     }
 
-        public class LEEPExcision : Specimen
-    {
-        public LEEPExcision()
-        {
-            this.m_SpecimenId = "LPSPCMN";
-            this.m_SpecimenName = "LEEP Excision";
-            this.m_Description = null;
-            this.m_LabFixation = "Formalin";
-            this.m_ClientFixation = null;
-            this.m_RequiresGrossExamination = true;
-        }
-    }
 
-        public class Placenta : Specimen
+        public class SinglePlacenta : Specimen
         {
-            public Placenta()
+            public SinglePlacenta()
             {
-                this.m_SpecimenId = "PLCNTSPCMN";
+                this.m_SpecimenId = "SNGLPLCNTSPCMN";
                 this.m_SpecimenName = "Placenta";
                 this.m_Description = "Placenta";
                 this.m_LabFixation = "Formalin";
@@ -293,16 +281,4 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             }
         }
 
-        public class SinglePlacenta : Specimen
-        {
-            public SinglePlacenta()
-            {
-                this.m_SpecimenId = "SPSPCMN";
-                this.m_SpecimenName = "Single Placenta";
-                this.m_Description = null;
-                this.m_LabFixation = "Formalin";
-                this.m_ClientFixation = null;
-                this.m_RequiresGrossExamination = true;
-            }
-        }
 }
