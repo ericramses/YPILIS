@@ -23,6 +23,10 @@ namespace YellowstonePathology.Business.Test.NGCT
 			this.m_AllowMultiplePerAccession = true;
             this.m_ExpectedDuration = new TimeSpan(4, 0, 0, 0);
 
+            this.m_AddAliquotOnOrder = true;
+            this.m_AliquotToAddOnOrder = new YellowstonePathology.Business.Specimen.Model.PantherAliquot();
+            this.m_SendOrderToPanther = true;
+
             string taskDescription = "Gather materials and perform NGCT.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, taskDescription));
 
