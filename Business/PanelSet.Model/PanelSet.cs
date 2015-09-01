@@ -43,8 +43,9 @@ namespace YellowstonePathology.Business.PanelSet.Model
         protected bool m_AttemptOrderTargetLookup;
         protected bool m_IsClientAccessioned;
         protected bool m_AddAliquotOnOrder;
-        //hello
+        
         protected YellowstonePathology.Business.Specimen.Model.Aliquot m_AliquotToAddOnOrder;
+        protected YellowstonePathology.Business.Specimen.Model.Specimen m_SpecimenToAddAliquotTo;
 
         protected YellowstonePathology.Business.OrderTargetTypeCollection m_OrderTargetTypeCollectionExclusions;
         protected YellowstonePathology.Business.OrderTargetTypeCollection m_OrderTargetTypeCollectionRestrictions;
