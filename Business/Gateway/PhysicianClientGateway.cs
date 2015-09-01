@@ -865,7 +865,7 @@ namespace YellowstonePathology.Business.Gateway
 			   "from tblClient c " +
 			   "join tblPhysicianClient pc on c.ClientId = pc.ClientId " +
 			   "where pc.ProviderId = @ProviderId ";
-			cmd.Parameters.Add("@ProviderId", SqlDbType.Int).Value = providerId;
+			cmd.Parameters.Add("@ProviderId", SqlDbType.VarChar).Value = providerId;
 			cmd.CommandType = CommandType.Text;
 
 			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.BaseData.SqlConnectionString))
