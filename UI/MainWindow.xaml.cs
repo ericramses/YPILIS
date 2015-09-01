@@ -65,7 +65,6 @@ namespace YellowstonePathology.UI
         Test.LabWorkspace m_LabWorkspace;        
         AdministrationWorkspace m_AdministrationWorkspace;
         Scanning.ScanProcessingWorkspace m_ScanProcessingWorkspace;
-
         
 		YellowstonePathology.Business.Domain.Lock m_Lock;
 
@@ -830,7 +829,7 @@ namespace YellowstonePathology.UI
         }
         
         private void MenuItemMaterialTracking_Click(object sender, RoutedEventArgs e)
-        {			
+        {			            
             YellowstonePathology.UI.MaterialTracking.MaterialTrackingPath caseCompilationPath = new MaterialTracking.MaterialTrackingPath();
             caseCompilationPath.Start();
         }

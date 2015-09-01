@@ -11,7 +11,7 @@ namespace YellowstonePathology.Business.Test
         private YellowstonePathology.Business.Interface.IOrderTarget m_OrderTarget;        
         private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
         private bool m_Distribute;
-        private bool m_OrderTargetIsKnown;
+        private bool m_OrderTargetIsKnown;        
 
 		public TestOrderInfo()
 		{

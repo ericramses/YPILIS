@@ -1554,6 +1554,34 @@ namespace YellowstonePathology.Business.Gateway
 			return result;
 		}
 
+        public static YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingScannedItemView GetMaterialTrackingScannedItemViewByContainerId(string containerId)
+        {
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "select so.ContainerId [MaterialId], 'Container' [MaterialType], ao.MasterAccessionNo, ao.PLastName, ao.PFirstName, so.Description [MaterialLabel]" +
+                "from tblAccessionOrder ao " +
+                "join tblSpecimenOrder so on ao.MasterAccessionNo = so.MasterAccessionNo " +                
+                "where so.ContainerId = @ContainerId ";
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.Add("@ContainerId", SqlDbType.VarChar).Value = "CTNR" + containerId;
+
+            YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingScannedItemView result = null;
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.BaseData.SqlConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        result = new YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingScannedItemView();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(result, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                    }
+                }
+            }
+            return result;
+        }
+
 		public static YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingScannedItemView GetMaterialTrackingScannedItemViewBySlideOrderId(string slideOrderId)
 		{
 

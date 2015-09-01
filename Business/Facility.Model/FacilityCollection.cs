@@ -73,7 +73,8 @@ namespace YellowstonePathology.Business.Facility.Model
             result.Add(new UniversityOfArkansasMedicalSciences());
             result.Add(new SeattleCancerCenterAlliance());
             result.Add(new CancerTreatmentCentersOfAmerica());
-            result.Add(new PathologyAssociatesOfIdahoFalls());            
+            result.Add(new PathologyAssociatesOfIdahoFalls());
+            result.Add(new LoweLawGroup());
             return Sort(result);
         }
 

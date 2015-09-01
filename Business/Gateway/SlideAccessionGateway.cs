@@ -199,7 +199,7 @@ namespace YellowstonePathology.Business.Gateway
 		public static YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogCollection GetMaterialTrackingLogCollectionByBatchId(string batchId)
 		{
 			SqlCommand cmd = new SqlCommand();
-			cmd.CommandText = "Select * from tblMaterialTrackingLog where MaterialTrackingBatchId = @BatchId";
+			cmd.CommandText = "Select * from tblMaterialTrackingLog where MaterialTrackingBatchId = @BatchId order by LogDate desc";
 			cmd.CommandType = System.Data.CommandType.Text;
 			cmd.Parameters.Add("@BatchId", System.Data.SqlDbType.VarChar).Value = batchId;			
 			return BuildMaterialTrackingLogCollection(cmd);
@@ -331,7 +331,7 @@ namespace YellowstonePathology.Business.Gateway
         {
 			YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogViewCollection result = new YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogViewCollection();
             SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "Select * from ViewMaterialTrackingLog where MaterialTrackingBatchId = @MaterialTrackingBatchId";
+            cmd.CommandText = "Select * from ViewMaterialTrackingLog where MaterialTrackingBatchId = @MaterialTrackingBatchId order by LogDate desc";
             cmd.CommandType = System.Data.CommandType.Text;
             cmd.Parameters.Add("@MaterialTrackingBatchId", System.Data.SqlDbType.VarChar).Value = materialTrackingBatchId;
 
