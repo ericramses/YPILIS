@@ -16,7 +16,7 @@ namespace YellowstonePathology.Business.Client.Model
 	public class PhysicianClientDistribution
 	{
 		private string m_ObjectId;
-		private string m_PhysicianClientDistributionID;
+		private int m_PhysicianClientDistributionID;
 		private string m_PhysicianClientID;
 		private string m_DistributionID;
 
@@ -25,10 +25,9 @@ namespace YellowstonePathology.Business.Client.Model
 
         }
 
-		public PhysicianClientDistribution(string objectId, string physicianClientDistributionId, string physicianClientID, string distributionID)
+		public PhysicianClientDistribution(string objectId, string physicianClientID, string distributionID)
 		{
 			this.m_ObjectId = objectId;
-			this.m_PhysicianClientDistributionID = physicianClientDistributionId;
 			this.m_PhysicianClientID = physicianClientID;
 			this.m_DistributionID = distributionID;
 		}
@@ -40,8 +39,8 @@ namespace YellowstonePathology.Business.Client.Model
 			set { this.m_ObjectId = value; }
 		}
 
-		[PersistentPrimaryKeyProperty(false)]
-		public string PhysicianClientDistributionID
+		[PersistentPrimaryKeyProperty(true)]
+		public int PhysicianClientDistributionID
 		{
 			get { return this.m_PhysicianClientDistributionID; }
 			set { this.m_PhysicianClientDistributionID = value; }
