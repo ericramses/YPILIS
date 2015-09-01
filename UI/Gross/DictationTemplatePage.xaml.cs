@@ -13,54 +13,54 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace YellowstonePathology.UI.Gross
-{	
-	public partial class DictationTemplatePage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
-	{
-        private DictationTemplate m_DictationTemplate;        
+{
+    public partial class DictationTemplatePage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
+    {
+        private DictationTemplate m_DictationTemplate;
 
         public DictationTemplatePage(string specimenId)
-		{            
+        {
             DictationTemplateCollection dictationTemplateCollection = DictationTemplateCollection.GetAll();
             this.m_DictationTemplate = dictationTemplateCollection.GetTemplate(specimenId);
-            
-			InitializeComponent();
 
-			DataContext = this;
-		}
+            InitializeComponent();
+
+            DataContext = this;
+        }
 
         public DictationTemplate DictationTemplate
         {
-            get { return this.m_DictationTemplate; }            
+            get { return this.m_DictationTemplate; }
         }
 
-		public void Save()
-		{
+        public void Save()
+        {
             //this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);	
-		}
+        }
 
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
+        public bool OkToSaveOnNavigation(Type pageNavigatingTo)
+        {
+            return true;
+        }
 
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
+        public bool OkToSaveOnClose()
+        {
+            return true;
+        }
 
-		public void UpdateBindingSources()
-		{
+        public void UpdateBindingSources()
+        {
 
-		}              
+        }
 
         private void ButtonBack_Click(object sender, RoutedEventArgs e)
         {
-            
+
         }
 
         private void ButtonCreateParagraph_Click(object sender, RoutedEventArgs e)
         {
-            //this.m_DictationTemplate.BuildText();            
+            //this.m_DictationTemplate.BuildText();
         }
-	}
+    }
 }

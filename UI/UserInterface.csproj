@@ -41,7 +41,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>223</ApplicationRevision>
+    <ApplicationRevision>225</ApplicationRevision>
     <ApplicationVersion>10.1.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -490,7 +490,6 @@
     <Compile Include="BindingErrorListener.cs" />
     <Compile Include="BindingValidator.cs" />
     <Compile Include="BindingValidatorItem.cs" />
-    <Compile Include="Camera.cs" />
     <Compile Include="CodeSelectionV2.xaml.cs">
       <DependentUpon>CodeSelectionV2.xaml</DependentUpon>
     </Compile>
