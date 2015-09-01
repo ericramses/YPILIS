@@ -73,6 +73,21 @@ namespace YellowstonePathology.Business.Test
                 if (item.AliquotType == thinPrepSlide.Name)
                 {
                     result = item;
+                    break;
+                }
+            }
+            return result;
+        }
+
+        public AliquotOrder Get(YellowstonePathology.Business.Specimen.Model.Aliquot aliquot)
+        {            
+            AliquotOrder result = null;
+            foreach (AliquotOrder item in this)
+            {
+                if (item.AliquotType == aliquot.AliquotType)
+                {
+                    result = item;
+                    break;
                 }
             }
             return result;

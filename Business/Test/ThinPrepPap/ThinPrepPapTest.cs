@@ -26,6 +26,9 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
             this.m_AttemptOrderTargetLookup = true;
             this.m_RequireAssignmentOnOrder = false;
 
+            this.m_AddAliquotOnOrder = true;
+            this.m_AliquotToAddOnOrder = new YellowstonePathology.Business.Specimen.Model.ThinPrepSlide();
+
             this.m_TechnicalComponentFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings();
             this.m_ProfessionalComponentFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologistBillings();
 

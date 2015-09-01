@@ -43,9 +43,9 @@ namespace YellowstonePathology.Business.PanelSet.Model
         protected bool m_AttemptOrderTargetLookup;
         protected bool m_IsClientAccessioned;
         protected bool m_AddAliquotOnOrder;
+        protected bool m_SendOrderToPanther;
         
-        protected YellowstonePathology.Business.Specimen.Model.Aliquot m_AliquotToAddOnOrder;
-        protected YellowstonePathology.Business.Specimen.Model.Specimen m_SpecimenToAddAliquotTo;
+        protected YellowstonePathology.Business.Specimen.Model.Aliquot m_AliquotToAddOnOrder;        
 
         protected YellowstonePathology.Business.OrderTargetTypeCollection m_OrderTargetTypeCollectionExclusions;
         protected YellowstonePathology.Business.OrderTargetTypeCollection m_OrderTargetTypeCollectionRestrictions;
@@ -538,6 +538,20 @@ namespace YellowstonePathology.Business.PanelSet.Model
                 {
                     this.m_AliquotToAddOnOrder = value;
                     this.NotifyPropertyChanged("AliquotToAddOnOrder");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public bool SendOrderToPanther
+        {
+            get { return this.m_SendOrderToPanther; }
+            set
+            {
+                if (this.m_SendOrderToPanther != value)
+                {
+                    this.m_SendOrderToPanther = value;
+                    this.NotifyPropertyChanged("SendOrderToPanther");
                 }
             }
         }
