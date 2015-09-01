@@ -61,8 +61,9 @@ namespace YellowstonePathology.Business.Specimen.Model
             result.Add(new SpecimenDefinition.ECC());
             result.Add(new SpecimenDefinition.EMB());
             result.Add(new SpecimenDefinition.CervicalBiopsy());
-            result.Add(new SpecimenDefinition.LEEPExcision());
-            result.Add(new SpecimenDefinition.Placenta());
+            result.Add(new SpecimenDefinition.LEEPCone());
+            result.Add(new SpecimenDefinition.LEEPPieces());
+            result.Add(new SpecimenDefinition.SinglePlacenta());
             result.Add(new SpecimenDefinition.Uterus());
             result.Add(new SpecimenDefinition.NeedleCoreBiopsy());
             return result;
