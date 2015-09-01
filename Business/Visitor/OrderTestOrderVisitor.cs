@@ -34,11 +34,20 @@ namespace YellowstonePathology.Business.Visitor
         public override void Visit(Test.AccessionOrder accessionOrder)
         {
             this.m_AccessionOrder = accessionOrder;
+            this.HandleAddAliquotOnOrder();
             this.HandleClientAccessioned();
             this.HandlePanelSetOrder();                                    
             this.HandlePanelOrders();
             this.HandlDistribution();
             this.HandlReflexTestingPlan();                       
+        }
+
+        private void HandleAddAliquotOnOrder()
+        {
+            if (this.m_PanelSet.AddAliquotOnOrder == true)
+            {
+
+            }
         }
 
         private void HandleClientAccessioned()
