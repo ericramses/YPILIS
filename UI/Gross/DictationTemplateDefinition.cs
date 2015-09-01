@@ -419,37 +419,32 @@ namespace YellowstonePathology.UI.Gross
             this.m_TemplateName = "SinglePlacenta";
             this.m_Text = "Received: *INFORMALIN/FRESH*" + Environment.NewLine +
                           "Umbilical Cord:" + Environment.NewLine +
-                            "Umbilical Cord: *LENGTH* *INSERTION* *VESSELS*" + Environment.NewLine +
-                            "Umbilical Cord: *KNOTS* *COILING* *OTHER*" + Environment.NewLine +
+                                "Length: *LENGTH*, Insertion: *INSERTION*,Vessels: *VESSELS*" + Environment.NewLine +
+                                "Knots: *KNOTS*, Coiling: *COILING*, Other: *OTHER*" + Environment.NewLine +
                           "Extraplacental Membranes:" + Environment.NewLine +
-                            "Extraplacental Membranes: *INSERTION* *COLOR* *AMNION*" + Environment.NewLine +
-                            "Extraplacental Membranes: *CYSTS* *POINTOFRUPTURE*" + Environment.NewLine +
-                          "Placental Disc: *#* *COLOR* *MEASUERMENT*" + Environment.NewLine +
-                            "Placental Disc: *#* *COLOR* *MEASUERMENT*" + Environment.NewLine +
-                            "Placental Disc: *#* *COLOR* *MEASUERMENT*" + Environment.NewLine +                          
-                                "Gross Description: *#* *COLOR* *MEASUERMENT*" + Environment.NewLine +
-                            "Gross Description: *#* *COLOR* *MEASUERMENT*" + Environment.NewLine +
-                                "Gross Description: *#* *COLOR* *MEASUERMENT*" + Environment.NewLine +
-                            "Gross Description: *#* *COLOR* *MEASUERMENT*" + Environment.NewLine +
-                            "Gross Description: *#* *COLOR* *MEASUERMENT*" + Environment.NewLine +
-                            "Gross Description: *#* *COLOR* *MEASUERMENT*" + Environment.NewLine +
-                            "Gross Description: *#* *COLOR* *MEASUERMENT*" + Environment.NewLine +
-                            "Gross Description: *#* *COLOR* *MEASUERMENT*" + Environment.NewLine +
-                            "Gross Description: *#* *COLOR* *MEASUERMENT*" + Environment.NewLine +
-                            "Gross Description: *#* *COLOR* *MEASUERMENT*" + Environment.NewLine +
-                            "Gross Description: *#* *COLOR* *MEASUERMENT*" + Environment.NewLine +
-                            "Gross Description: *#* *COLOR* *MEASUERMENT*" + Environment.NewLine +
-                          "OS Description: *SHAPE* *LOCATION* *MEASUREMENT*" + Environment.NewLine +
-                          "Inked: *COLOR*" + Environment.NewLine +
-                          "Measurement: *MEASUREMENTS*" + Environment.NewLine +
+                                "Insertion: *INSERTION*, *COLOR*, *AMNION*" + Environment.NewLine +
+                                "Cysts: *CYSTS*, *POINTOFRUPTURE*" + Environment.NewLine +
+                          "Placental Disc:" + Environment.NewLine +
+                                "Placental Disc: *WEIGHT*, *SHAPE*, *MEASUERMENT*" + Environment.NewLine +
+                                "Fetal Surface:" + Environment.NewLine +                          
+                                    "Gross Description: *SURFACE*, *AMNIONNODOSUM*" + Environment.NewLine +
+                                "Maternal Surface:" + Environment.NewLine +
+                                    "Hemorrhage: *PRESENT/ABSENT*" + Environment.NewLine +
+                                        "[Adherent: *MEASUREMENTS*, *INDENTS/NO*]" +Environment.NewLine +
+                                        "[Non-Adherent: *MEASUREMENT*]" + Environment.NewLine +
+                                    "Gross Description: *SURFACE* *INFARCTS* *CALCIFICATION*" + Environment.NewLine +
                           "Submitted: *SUBMISSIONKEY* Cassette: *COLOR/NUMBER*";
 
 
             this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Recieved In", ""));
-            this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Gross Description", ""));
-            this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("OS Description/Location/Measurements", ""));
-            this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Inked", ""));
-            this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Measurements", ""));
+            this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Umbilical Cord Length/Insertion/Vessels", ""));
+            this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Umbilical Cord Knots/Coiling/Other", ""));
+            this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Extraplacental Membrane Insertion/Color/Amnion", ""));
+            this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Extraplacental Membrane Cysts/Rupture", ""));
+            this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Placental Disc Weight/Shape/Measurements", ""));
+            this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Placental Disc Fetal Surface Description/Amnion", ""));
+            this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Placental Disc Maternal Surface Hemorrhage", ""));
+            this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Placental Disc Maternal Surface Description/Infarcts/Calcifications", ""));
             this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Submission Key", ""));
             this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Cassette Color", ""));
             this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Cassette Number", ""));
