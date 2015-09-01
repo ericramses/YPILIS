@@ -80,7 +80,7 @@ namespace YellowstonePathology.UI.Client
 				string distributionID = physicianClient.PhysicianClientID;
 
 				string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-                YellowstonePathology.Business.Client.Model.PhysicianClientDistribution physicianClientDistribution = new Business.Client.Model.PhysicianClientDistribution(objectId, objectId, this.m_PhysicianClientID, distributionID);
+                YellowstonePathology.Business.Client.Model.PhysicianClientDistribution physicianClientDistribution = new Business.Client.Model.PhysicianClientDistribution(objectId, this.m_PhysicianClientID, distributionID);
 
 				YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
 				objectTracker.RegisterRootInsert(physicianClientDistribution);
@@ -106,7 +106,7 @@ namespace YellowstonePathology.UI.Client
 				}
 
 				string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-                YellowstonePathology.Business.Client.Model.PhysicianClientDistribution physicianClientDistribution = new Business.Client.Model.PhysicianClientDistribution(objectId, objectId, this.m_PhysicianClientID, physicianClientID);
+                YellowstonePathology.Business.Client.Model.PhysicianClientDistribution physicianClientDistribution = new Business.Client.Model.PhysicianClientDistribution(objectId, this.m_PhysicianClientID, physicianClientID);
 
 				YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
 				objectTracker.RegisterRootInsert(physicianClientDistribution);
@@ -124,7 +124,10 @@ namespace YellowstonePathology.UI.Client
 				DialogResult result = MessageBox.Show("Remove the selected item?", "Remove", MessageBoxButtons.OKCancel);
 				if (result == DialogResult.OK)
 				{
-					string physicianClientDistributionID = this.listViewDistribution.SelectedItems[0].Text;
+					int physicianClientDistributionID = 0;
+					bool converted = Int32.TryParse(this.listViewDistribution.SelectedItems[0].Text, out physicianClientDistributionID);
+					if(converted == true)
+					{
 					foreach (YellowstonePathology.Business.Client.Model.PhysicianClientDistributionView physicianClientDistributionView in this.m_PhysicianClientDistributionViewList)
 					{
 						if (physicianClientDistributionView.PhysicianClientDistribution.PhysicianClientDistributionID == physicianClientDistributionID)
@@ -137,6 +140,7 @@ namespace YellowstonePathology.UI.Client
 							this.PopulateDistributionList();
 							break;
 						}
+					}
 					}
 				}
 			}
