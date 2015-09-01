@@ -49,8 +49,9 @@ namespace YellowstonePathology.UI.Gross
             result.Add(new LEEPConeTemplate());
             result.Add(new LEEPPiecesTemplate());
             result.Add(new SinglePlacentaTemplate());
-            //result.Add(new UnterusTemplate());
-            //result.Add(new NeedleCoreBiopsyTemplate());
+            result.Add(new UterusTemplate());
+            result.Add(new UterusAdnexaTemplate());
+            result.Add(new NeedleCoreBiopsyTemplate());
             return result;
         }               
     }
