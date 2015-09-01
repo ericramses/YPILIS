@@ -242,6 +242,19 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             }
         }
 
+        public class UterusAdnexa : Specimen
+        {
+            public UterusAdnexa()
+            {
+                this.m_SpecimenId = "UTRADNSSPCMN";
+                this.m_SpecimenName = "Uterus with Adnexa Excision";
+                this.m_Description = null;
+                this.m_LabFixation = "Formalin";
+                this.m_ClientFixation = null;
+                this.m_RequiresGrossExamination = true;
+            }
+        }
+
         public class NeedleCoreBiopsy : Specimen
         {
             public NeedleCoreBiopsy()
