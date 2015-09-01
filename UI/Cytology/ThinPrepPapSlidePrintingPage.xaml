@@ -26,37 +26,31 @@
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="100"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
             </Grid.RowDefinitions>
 
             <Grid Grid.Column="0" Grid.Row="0" Margin="10,10,10,10">
 
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <Grid.ColumnDefinitions>                    
+                    <ColumnDefinition Width="*"></ColumnDefinition>                    
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>                    
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
 
-                <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right" FontSize="20">Master Accession No:</TextBlock>
-                <TextBlock Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" HorizontalAlignment="Stretch" Text="{Binding Path=AccessionOrder.MasterAccessionNo}" FontSize="20"></TextBlock>
-
-                <TextBlock Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right" FontSize="20">Patient Name:</TextBlock>
-                <TextBlock Grid.Column="1" Grid.Row="1" Margin="2,2,2,2" HorizontalAlignment="Stretch" Text="{Binding Path=AccessionOrder.PatientDisplayName}" FontSize="20"></TextBlock>
-
-                <TextBlock Grid.Column="0" Grid.Row="2" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right" FontSize="20">Specimen:</TextBlock>
-                <TextBlock Grid.Column="1" Grid.Row="2" Margin="2,2,2,2" HorizontalAlignment="Stretch" Text="{Binding Path=SpecimenOrder.SpecimenDescriptionString}" FontSize="20"></TextBlock>                
+                <StackPanel Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" Orientation="Horizontal">
+                    <TextBlock Margin="2,2,2,2" Text="{Binding Path=AccessionOrder.MasterAccessionNo}" FontSize="24" FontWeight="Bold"></TextBlock>
+                    <TextBlock Margin="2,2,2,2" Text=":" FontSize="24" FontWeight="Bold"></TextBlock>
+                    <TextBlock Margin="2,2,2,2" Text="{Binding Path=AccessionOrder.PatientDisplayName}" FontSize="24" FontWeight="Bold"></TextBlock>
+                </StackPanel>
+                <TextBlock Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" Text="{Binding Path=SpecimenOrder.SpecimenDescriptionString}" FontSize="20"></TextBlock>                
 
             </Grid>
 
-            <ListView Name="ListBoxOrders" Grid.Row="1" Margin="2,2,2,2" ItemsSource="{Binding Path=AccessionOrder.PanelSetOrderCollection}">
+            <ListView Name="ListBoxOrders" Grid.Row="1" Margin="2,2,2,2" ItemsSource="{Binding Path=AccessionOrder.PanelSetOrderCollection}" VerticalAlignment="Stretch">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Test" Width="200" DisplayMemberBinding="{Binding Path=PanelSetName}" />

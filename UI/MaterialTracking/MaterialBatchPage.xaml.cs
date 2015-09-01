@@ -63,7 +63,7 @@ namespace YellowstonePathology.UI.MaterialTracking
 			this.m_MaterialTrackingBatch = materialTrackingBatch;
             this.m_MaterialTrackingLogCollection = materialTrackingLogCollection;
             this.m_ObjectTracker = objectTracker;
-
+            
             this.m_UserMasterAccessionNo = useMasterAccessionNo;
             this.m_MasterAccessionNo = masterAccessionNo;
 
@@ -409,6 +409,9 @@ namespace YellowstonePathology.UI.MaterialTracking
                         break;
                     case "Slide":
 						materialTrackingScannedItemView = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetMaterialTrackingScannedItemViewBySlideOrderId(materialTrackingLog.MaterialId);
+                        break;
+                    case "Container":
+                        materialTrackingScannedItemView = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetMaterialTrackingScannedItemViewByContainerId(materialTrackingLog.MaterialId);
                         break;
                 }
 
