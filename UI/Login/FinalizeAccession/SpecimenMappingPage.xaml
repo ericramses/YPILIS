@@ -74,13 +74,13 @@
                 <TextBlock Grid.Column="2" Grid.Row="0" Margin="2,2,2,2" Text="{Binding Path=SpecimenDescriptionString}" FontWeight="Bold"></TextBlock>
 
                 <StackPanel Grid.Column="2" Grid.Row="1" Orientation="Horizontal">
-                    <TextBlock Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right">Time To Fixation:</TextBlock>
+                    <TextBlock Margin="2,2,2,2" HorizontalAlignment="Right">Time To Fixation:</TextBlock>
                     <ComboBox ItemsSource="{Binding Path=TimeToFixationTypeCollection, RelativeSource={RelativeSource AncestorType=UserControl}}" 
                           SelectedItem="{Binding Path=TimeToFixationHourString}" Margin="2,2,2,2" Width="100" HorizontalAlignment="Left"/>
                 </StackPanel>
 
                 <StackPanel Grid.Column="2" Grid.Row="2" Orientation="Horizontal">
-                    <TextBlock Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right">Fixation Duration:</TextBlock>
+                    <TextBlock Margin="2,2,2,2" HorizontalAlignment="Right">Fixation Duration:</TextBlock>
                     <TextBox Margin="2,2,2,2" Text="{Binding Path=FixationDuration}" Width="100" HorizontalAlignment="Left"></TextBox>
                 </StackPanel>
 

@@ -121,6 +121,23 @@ namespace YellowstonePathology.Business.Gateway
             return reportSearchList;
         }
 
+        public static YellowstonePathology.Business.Search.ReportSearchList GetReportSearchListByClientAccessioned()
+        {
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT pso.[MasterAccessionNo], pso.[ReportNo], a.AccessionTime [AccessionDate],  pso.[PanelSetId], a.[PFirstName] + ' ' + a.[PLastName] AS [PatientName], " +
+                "a.[PLastName], a.[PFirstName], a.[ClientName], a.[PhysicianName], a.[PBirthdate], pso.[OriginatingLocation], pso.[FinalDate], pso.PanelSetName, su.UserName as [OrderedBy], " +
+                "a.ColorCode, '' ForeignAccessionNo, pso.IsPosted " +
+                "FROM tblAccessionOrder a " +
+                "join tblPanelSetOrder pso ON a.[MasterAccessionNo] = pso.[MasterAccessionNo] " +
+                "Left Outer Join tblSystemUser su on pso.OrderedById = su.UserId " +
+                "where a.ClientAccessioned = 1 Order By pso.OrderDate desc " +
+                "for xml path('ReportSearchItem'), type, root('ReportSearchList')";
+
+            YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Domain.Persistence.SqlXmlPersistence.CrudOperations.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd, Domain.Persistence.DataLocationEnum.ProductionData);
+            return reportSearchList;
+        }
+
 		public static YellowstonePathology.Business.Search.ReportSearchList GetReportSearchListBySpecimenKeyword(string specimenDescription, DateTime startDate, DateTime endDate)
         {
             SqlCommand cmd = new SqlCommand();

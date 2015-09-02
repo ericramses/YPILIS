@@ -352,13 +352,7 @@ namespace YellowstonePathology.UI.Login
 				DocumentListDialog documentListDialog = new DocumentListDialog(this.m_LoginUI.AccessionOrder, this.m_LoginUI.ReportNo);
 				documentListDialog.ShowDialog();
             }     
-        }
-
-        private void TileAcknowledge_MouseUp(object sender, MouseButtonEventArgs e)
-		{
-			LabOrderAcknowledgementPath labOrderAcknowledgementPath = new LabOrderAcknowledgementPath();
-			labOrderAcknowledgementPath.Start();
-		}
+        }        
 
         private void TileContainerLabels_MouseUp(object sender, MouseButtonEventArgs e)
 		{
@@ -646,7 +640,27 @@ namespace YellowstonePathology.UI.Login
                     MessageBox.Show("There are no tasks for this case.");
                 }
 			}
-		}       
+		}
+
+        private void TileSpecimenMapping_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            if (this.ListViewAccessionOrders.SelectedItem != null)
+            {
+                YellowstonePathology.Business.Search.ReportSearchItem reportSearchItem = (YellowstonePathology.Business.Search.ReportSearchItem)this.ListViewAccessionOrders.SelectedItem;
+                YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
+                objectTracker.RegisterObject(this.m_LoginUI.AccessionOrder);
+                YellowstonePathology.UI.Login.FinalizeAccession.SpecimenMappingPage specimenMappingPage = new FinalizeAccession.SpecimenMappingPage(this.m_LoginUI.AccessionOrder, objectTracker);
+                specimenMappingPage.Next += new FinalizeAccession.SpecimenMappingPage.NextEventHandler(SpecimenMappingPage_Next);
+                YellowstonePathology.Business.User.SystemIdentity systemIdentity = new Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
+                this.m_LoginPageWindow = new LoginPageWindow(systemIdentity);
+                this.m_LoginPageWindow.PageNavigator.Navigate(specimenMappingPage);
+            }
+        }
+
+        private void SpecimenMappingPage_Next(object sender, EventArgs e)
+        {
+            this.m_LoginPageWindow.Close();
+        }
 
         private void TileBilling_MouseUp(object sender, MouseButtonEventArgs e)
         {
@@ -996,6 +1010,6 @@ namespace YellowstonePathology.UI.Login
                     MessageBox.Show("No Thin Prep Fluid Specimen Found.");
                 }
             }
-        }
+        }                
 	}
 }
