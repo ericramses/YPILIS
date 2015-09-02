@@ -836,7 +836,7 @@ namespace YellowstonePathology.Business.Gateway
 			SqlCommand cmd = new SqlCommand();
 			cmd.CommandText = "SELECT * FROM tblPhysician where ObjectId = @ObjectId";
 			cmd.CommandType = CommandType.Text;
-			cmd.Parameters.Add("@ObjectIdId", SqlDbType.VarChar).Value = objectId;
+			cmd.Parameters.Add("@ObjectId", SqlDbType.VarChar).Value = objectId;
 			Domain.Physician result = PhysicianClientGateway.GetPhysicianFromCommand(cmd);
 			return result;
 		}
@@ -848,7 +848,7 @@ namespace YellowstonePathology.Business.Gateway
 			SqlCommand cmd = new SqlCommand();
 			cmd.CommandText = "select ph.* " +
 			   "from tblPhysician ph " +
-			   "join tblPhysicianClient pc on ph.ObjectIdId = pc.ProviderId " +
+			   "join tblPhysicianClient pc on ph.ObjectId = pc.ProviderId " +
 			   "where pc.ClientId = @ClientId order by ph.LastName";
 			cmd.Parameters.Add("@ClientId", SqlDbType.Int).Value = clientId;
 			cmd.CommandType = CommandType.Text;
@@ -917,7 +917,7 @@ namespace YellowstonePathology.Business.Gateway
 		{
 			View.ClientPhysicianView result = null;
 			SqlCommand cmd = new SqlCommand();
-			cmd.CommandText = "with phys as(select p.* from tblPhysician p join tblPhysicianClient pc on p.ObjectId = pc.PhysicianId where pc.ClientId = @ClientId) " +
+			cmd.CommandText = "with phys as(select p.* from tblPhysician p join tblPhysicianClient pc on p.ObjectId = pc.ProviderId where pc.ClientId = @ClientId) " +
 				"select c.*," +
 				" ( select phys.*" +
 				"   from phys order by phys.FirstName for xml Path('Physician'), type) Physicians" +

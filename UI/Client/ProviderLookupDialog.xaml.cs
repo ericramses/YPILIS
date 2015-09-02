@@ -129,7 +129,7 @@ namespace YellowstonePathology.UI.Client
 				YellowstonePathology.Business.Client.Model.Client client = (YellowstonePathology.Business.Client.Model.Client)this.ListBoxClients.SelectedItem;
 				YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
                 objectTracker.RegisterObject(client);
-				ClientEntry clientEntry = new ClientEntry(client, objectTracker);
+				ClientEntryV2 clientEntry = new ClientEntryV2(client, objectTracker);
 				clientEntry.ShowDialog();
             }
         }		
