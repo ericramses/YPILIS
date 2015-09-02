@@ -28,7 +28,9 @@ namespace YellowstonePathology.UI.Client
 		private YellowstonePathology.Business.View.ClientPhysicianView m_ClientPhysicianView;
 		private YellowstonePathology.Business.Domain.PhysicianCollection m_PhysicianCollection;
 		private YellowstonePathology.Business.Billing.Model.BillingRuleSetCollection m_BillingRuleSetCollection;
-        YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
+        private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
+		private YellowstonePathology.Business.Client.Model.ClientSupplyCollection m_ClientSupplyCollection;
+		private YellowstonePathology.Business.Client.Model.ClientSupplyOrder m_ClientSupplyOrder;
 
 		public ClientEntryV2(YellowstonePathology.Business.Client.Model.Client client, YellowstonePathology.Business.Persistence.ObjectTracker objectTracker)
 		{
@@ -45,6 +47,7 @@ namespace YellowstonePathology.UI.Client
 
             this.m_DistributionTypeList = new YellowstonePathology.Business.ReportDistribution.Model.DistributionTypeList();
 			this.m_BillingRuleSetCollection = YellowstonePathology.Business.Billing.Model.BillingRuleSetCollection.GetAllRuleSets();
+			this.m_ClientSupplyCollection = new Business.Client.Model.ClientSupplyCollection();
 
 			InitializeComponent();
 			this.DataContext = this;
@@ -91,6 +94,11 @@ namespace YellowstonePathology.UI.Client
 		public YellowstonePathology.Business.Billing.Model.BillingRuleSetCollection BillingRuleSetCollection
 		{
 			get { return this.m_BillingRuleSetCollection; }
+		}
+
+		public YellowstonePathology.Business.Client.Model.ClientSupplyCollection ClientSupplyCollection
+		{
+			get { return this.m_ClientSupplyCollection; }
 		}
 
 		private void BorderPanelSetOrderHeader_Loaded(object sender, RoutedEventArgs e)
@@ -165,6 +173,40 @@ namespace YellowstonePathology.UI.Client
 				}
 				this.m_PhysicianCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysiciansByName(firstName, lastName);
 				NotifyPropertyChanged("PhysicianCollection");
+			}
+		}
+
+		private void FillClientSupplyCollection(string clientSupplyCategory)
+		{
+			this.m_ClientSupplyCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientSupplyCollection(clientSupplyCategory);
+			this.NotifyPropertyChanged("ClientSupplyCollection");
+		}
+
+		private void ButtonCytologySupplies_Click(object sender, RoutedEventArgs e)
+		{
+			this.FillClientSupplyCollection(YellowstonePathology.Business.Client.Model.ClientSupplyCategory.Cytology);
+		}
+
+		private void ButtonBiopsySupplies_Click(object sender, RoutedEventArgs e)
+		{
+			this.FillClientSupplyCollection(YellowstonePathology.Business.Client.Model.ClientSupplyCategory.Histology);
+		}
+
+		private void ButtonTransportSupplies_Click(object sender, RoutedEventArgs e)
+		{
+			this.FillClientSupplyCollection(YellowstonePathology.Business.Client.Model.ClientSupplyCategory.Transport);
+		}
+
+		private void ButtonForms_Click(object sender, RoutedEventArgs e)
+		{
+			this.FillClientSupplyCollection(YellowstonePathology.Business.Client.Model.ClientSupplyCategory.Forms);
+		}
+
+		private void ButtonRemoveItem_Click(object sender, RoutedEventArgs e)
+		{
+			if (this.ListViewOrderDetails.SelectedItem != null)
+			{
+				this.m_ClientSupplyOrder.ClientSupplyOrderDetailCollection.Remove((YellowstonePathology.Business.Client.Model.ClientSupplyOrderDetail)this.ListViewOrderDetails.SelectedItem);
 			}
 		}
 	}

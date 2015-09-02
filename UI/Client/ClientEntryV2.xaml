@@ -1,7 +1,7 @@
 ﻿<Window x:Class="YellowstonePathology.UI.Client.ClientEntryV2"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Client Entry" Height="600"  Width="600"
+        Title="Client Entry" Height="700"  Width="600"
 		WindowStyle="ToolWindow" WindowStartupLocation="CenterScreen">
 
 	<Grid>
@@ -207,20 +207,32 @@
 							<RowDefinition Height="Auto"></RowDefinition>
 							<RowDefinition Height="Auto"></RowDefinition>
 							<RowDefinition Height="Auto"></RowDefinition>
+							<RowDefinition Height="Auto"></RowDefinition>
 						</Grid.RowDefinitions>
-						
-						<Button Grid.Row="0" Margin="5,5,5,5" Width="120" Height="30">Cytology Supplies</Button>
-						<Button Grid.Row="1" Margin="5,5,5,5" Width="120" Height="30">Biopsy Supplies</Button>
-						<Button Grid.Row="2" Margin="5,5,5,5" Width="120" Height="30">Transport Supplies</Button>
-						<Button Grid.Row="3" Margin="5,5,5,5" Width="120" Height="30">Forms</Button>
+
+						<Button Grid.Row="0" Margin="5,5,5,5" Width="120" Height="30" Content="Cytology Supplies" Click="ButtonCytologySupplies_Click"/>
+						<Button Grid.Row="1" Margin="5,5,5,5" Width="120" Height="30" Content="Biopsy Supplies" Click="ButtonBiopsySupplies_Click"/>
+						<Button Grid.Row="2" Margin="5,5,5,5" Width="120" Height="30" Content="Transport Supplies" Click="ButtonTransportSupplies_Click"/>
+						<Button Grid.Row="3" Margin="5,5,5,5" Width="120" Height="30" Content="Forms" Click="ButtonForms_Click"/>
+						<Button Grid.Row="4" Margin="5,25,5,5" Width="120" Height="30" Content="Remove Item" Click="ButtonRemoveItem_Click"/>
 					</Grid>
 					
-					<ListView Grid.Column="1" Grid.Row="8" Margin="5,5,5,5">
+					<ListView Grid.Column="1" Grid.Row="8" Name="ListViewOrderDetails" Margin="5,5,5,5">
 						<ListView.View>
 							<GridView>
 								<GridViewColumn Header="Quantity" Width="50" />
 								<GridViewColumn Header="Item" Width="90" />
 								<GridViewColumn Header="Description" Width="200" />
+							</GridView>
+						</ListView.View>
+					</ListView>
+
+					<ListView Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="2" Name="ListViewSupplies" Margin="5,5,5,5">
+						<ListView.View>
+							<GridView>
+								<GridViewColumn Header="Item" Width="90" />
+								<GridViewColumn Header="Description" Width="350" />
+								<GridViewColumn Header="Quantity" Width="50" />
 							</GridView>
 						</ListView.View>
 					</ListView>

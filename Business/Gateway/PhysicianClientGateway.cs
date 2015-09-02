@@ -1302,12 +1302,13 @@ namespace YellowstonePathology.Business.Gateway
 			return result;
 		}
 
-		public static YellowstonePathology.Business.Client.Model.ClientSupplyCollection GetClientSupplyCollection()
+		public static YellowstonePathology.Business.Client.Model.ClientSupplyCollection GetClientSupplyCollection(string clientSupplyCategory)
 		{
 			YellowstonePathology.Business.Client.Model.ClientSupplyCollection result = new Client.Model.ClientSupplyCollection();
 			SqlCommand cmd = new SqlCommand();
-			cmd.CommandText = "Select * from tblClientSupply order by supplyname";
+			cmd.CommandText = "Select * from tblClientSupply where clientsupplycategory = @ClientSupplyCategory order by supplyname";
 			cmd.CommandType = CommandType.Text;
+			cmd.Parameters.Add("@ClientSupplyCategory", SqlDbType.VarChar).Value = clientSupplyCategory;
 
 			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.Properties.Settings.Default.CurrentConnectionString))
 			{
