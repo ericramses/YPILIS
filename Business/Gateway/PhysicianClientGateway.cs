@@ -106,14 +106,14 @@ namespace YellowstonePathology.Business.Gateway
 				{
 					cmd.CommandText = "SELECT PhysicianID, ClientId, FirstName, LastName, Active, Address, City, State, Zip, Phone, Fax, OutsideConsult, HPVTest, " +
 						"HPVInstructionID, HPVTestToPerformID, FullName, HPVStandingOrderCode, ReportDeliveryMethod, DisplayName, HomeBaseClientId, KRASBRAFStandingOrder, " +
-						"VoiceCommand, VoiceCommandIsEnabled, Npi, MiddleInitial, Credentials, UserName, ClientsPhysicianId, ProviderId " +
+						"VoiceCommand, VoiceCommandIsEnabled, Npi, MiddleInitial, Credentials, UserName, ClientsPhysicianId, ObjectId " +
 						"FROM tblPhysician where LastName like @LastName + '%' order by LastName, FirstName";
 				}
 				else
 				{
 					cmd.CommandText = "SELECT PhysicianID, ClientId, FirstName, LastName, Active, Address, City, State, Zip, Phone, Fax, OutsideConsult, HPVTest, " +
 						"HPVInstructionID, HPVTestToPerformID, FullName, HPVStandingOrderCode, ReportDeliveryMethod, DisplayName, HomeBaseClientId, KRASBRAFStandingOrder, " +
-						"VoiceCommand, VoiceCommandIsEnabled, Npi, MiddleInitial, Credentials, UserName, ClientsPhysicianId, ProviderId " +
+						"VoiceCommand, VoiceCommandIsEnabled, Npi, MiddleInitial, Credentials, UserName, ClientsPhysicianId, ObjectId " +
 						"FROM tblPhysician where FirstName like @FirstName + '%' and LastName like @LastName + '%' order by LastName, FirstName";
 					cmd.Parameters.Add("@FirstName", SqlDbType.VarChar).Value = firstName;
 				}
@@ -831,12 +831,12 @@ namespace YellowstonePathology.Business.Gateway
 
 
 //**********************
-		public static Domain.Physician GetPhysicianByProviderId(string providerId)
+		public static Domain.Physician GetPhysicianById(string objectId)
 		{
 			SqlCommand cmd = new SqlCommand();
-			cmd.CommandText = "SELECT * FROM tblPhysician where ProviderId = @ProviderId";
+			cmd.CommandText = "SELECT * FROM tblPhysician where ObjectId = @ObjectId";
 			cmd.CommandType = CommandType.Text;
-			cmd.Parameters.Add("@ProviderId", SqlDbType.VarChar).Value = providerId;
+			cmd.Parameters.Add("@ObjectIdId", SqlDbType.VarChar).Value = objectId;
 			Domain.Physician result = PhysicianClientGateway.GetPhysicianFromCommand(cmd);
 			return result;
 		}
@@ -848,7 +848,7 @@ namespace YellowstonePathology.Business.Gateway
 			SqlCommand cmd = new SqlCommand();
 			cmd.CommandText = "select ph.* " +
 			   "from tblPhysician ph " +
-			   "join tblPhysicianClient pc on ph.ProviderId = pc.ProviderId " +
+			   "join tblPhysicianClient pc on ph.ObjectIdId = pc.ProviderId " +
 			   "where pc.ClientId = @ClientId order by ph.LastName";
 			cmd.Parameters.Add("@ClientId", SqlDbType.Int).Value = clientId;
 			cmd.CommandType = CommandType.Text;
@@ -856,7 +856,7 @@ namespace YellowstonePathology.Business.Gateway
 			return result;
 		}
 
-		public static Domain.ClientCollection GetClientsByProviderId(string providerId)
+		public static Domain.ClientCollection GetClientsByProviderId(string objectId)
 		{
 			Domain.ClientCollection result = new Domain.ClientCollection();
 
@@ -864,8 +864,8 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.CommandText = "select c.* " +
 			   "from tblClient c " +
 			   "join tblPhysicianClient pc on c.ClientId = pc.ClientId " +
-			   "where pc.ProviderId = @ProviderId ";
-			cmd.Parameters.Add("@ProviderId", SqlDbType.VarChar).Value = providerId;
+			   "where pc.ProviderId = @ObjectId ";
+			cmd.Parameters.Add("@ObjectId", SqlDbType.VarChar).Value = objectId;
 			cmd.CommandType = CommandType.Text;
 
 			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.BaseData.SqlConnectionString))
@@ -917,7 +917,7 @@ namespace YellowstonePathology.Business.Gateway
 		{
 			View.ClientPhysicianView result = null;
 			SqlCommand cmd = new SqlCommand();
-			cmd.CommandText = "with phys as(select p.* from tblPhysician p join tblPhysicianClient pc on p.PhysicianId = pc.PhysicianId where pc.ClientId = @ClientId) " +
+			cmd.CommandText = "with phys as(select p.* from tblPhysician p join tblPhysicianClient pc on p.ObjectId = pc.PhysicianId where pc.ClientId = @ClientId) " +
 				"select c.*," +
 				" ( select phys.*" +
 				"   from phys order by phys.FirstName for xml Path('Physician'), type) Physicians" +
@@ -938,7 +938,7 @@ namespace YellowstonePathology.Business.Gateway
 			SqlCommand cmd = new SqlCommand();
 			cmd.CommandText = "select pc.PhysicianClientId, pc.ClientId, pc.PhysicianId, pc.ProviderId, c.ClientName, p.FirstName, p.LastName, c.Telephone, c.Fax " +
 				"from tblPhysicianClient pc join tblClient c on pc.ClientId = c.ClientId " +
-				"join tblPhysician p on pc.ProviderId = p.ProviderId " +
+				"join tblPhysician p on pc.ProviderId = p.ObjectId " +
 				"where p.LastName like @PhysicianName + '%' and c.ClientName like @ClientName + '%' order by c.ClientName, p.FirstName ";
 			cmd.CommandType = CommandType.Text;
 			cmd.Parameters.Add("@ClientName", SqlDbType.VarChar).Value = clientName;
@@ -968,8 +968,8 @@ namespace YellowstonePathology.Business.Gateway
 			SqlCommand cmd = new SqlCommand();
 			cmd.CommandText = "select pc.PhysicianClientId, pc.ClientId, pc.PhysicianId, pc.ProviderId, c.ClientName, p.FirstName, p.LastName, c.Telephone, c.Fax " +
 				"from tblPhysicianClient pc join tblClient c on pc.ClientId = c.ClientId " +
-				"join tblPhysician p on pc.ProviderId = p.ProviderId " +
-				"where p.ProviderId = (select ProviderId from tblPhysicianClient where PhysicianClientId = @PhysicianClientId) order by c.ClientName";
+				"join tblPhysician p on pc.ProviderId = p.ObjectId " +
+				"where p.ObjectId = (select ProviderId from tblPhysicianClient where PhysicianClientId = @PhysicianClientId) order by c.ClientName";
 			cmd.CommandType = CommandType.Text;
 			cmd.Parameters.Add("@PhysicianClientId", SqlDbType.VarChar).Value = physicianClientId;
 
@@ -995,7 +995,7 @@ namespace YellowstonePathology.Business.Gateway
 		{
 			YellowstonePathology.Business.Client.Model.PhysicianNameViewCollection result = new YellowstonePathology.Business.Client.Model.PhysicianNameViewCollection();
 			SqlCommand cmd = new SqlCommand();
-			cmd.CommandText = "Select ph.PhysicianId, ph.ProviderId, ph.FirstName, ph.LastName, c.Telephone [HomeBasePhone], c.Fax [HomeBaseFax] " +
+			cmd.CommandText = "Select ph.PhysicianId, ph.ObjectId as ProviderId, ph.FirstName, ph.LastName, c.Telephone [HomeBasePhone], c.Fax [HomeBaseFax] " +
 				"from tblPhysician ph " +
 				"left outer join tblClient c on ph.HomeBaseClientId = c.ClientId " +
 				"where ph.LastName like @LastName + '%' order by ph.FirstName ";
@@ -1025,12 +1025,12 @@ namespace YellowstonePathology.Business.Gateway
 		{
 			List<YellowstonePathology.Business.Client.Model.PhysicianClientDistributionView> result = new List<YellowstonePathology.Business.Client.Model.PhysicianClientDistributionView>();
 			SqlCommand cmd = new SqlCommand();
-			cmd.CommandText = "Select pcd.*, c.ClientId, c.ClientName, ph.PhysicianId, ph.ProviderId, ph.DisplayName [PhysicianName], c.DistributionType " +
+			cmd.CommandText = "Select pcd.*, c.ClientId, c.ClientName, ph.PhysicianId, ph.ObjectId as ProviderId, ph.DisplayName [PhysicianName], c.DistributionType " +
 				"from tblPhysicianClient pc " +
 				"join tblPhysicianClientDistribution pcd on pc.PhysicianClientId = pcd.PhysicianClientId " +
 				"join tblPhysicianClient pc2 on pcd.DistributionId = pc2.PhysicianClientId " +
 				"join tblClient c on pc2.ClientId = c.ClientId " +
-				"join tblPhysician ph on pc2.ProviderId = ph.ProviderId " +
+				"join tblPhysician ph on pc2.ProviderId = ph.ObjectId " +
 				"where pc.PhysicianClientId = @PhysicianClientId ";
 			cmd.CommandType = CommandType.Text;
 			cmd.Parameters.Add("@PhysicianClientId", SqlDbType.VarChar).Value = physicianClientId;
@@ -1056,13 +1056,13 @@ namespace YellowstonePathology.Business.Gateway
 			return result;
 		}
 
-		public static View.PhysicianClientView GetPhysicianClientView(string providerId)
+		public static View.PhysicianClientView GetPhysicianClientView(string objectId)
 		{
 			SqlCommand cmd = new SqlCommand();
-			cmd.CommandText = "select * from tblPhysician where ProviderId = @ProviderId;" +
-				" select c.* from tblClient c join tblPhysicianClient pc on c.ClientId = pc.ClientId where pc.ProviderId = @ProviderId order by ClientName";
+			cmd.CommandText = "select * from tblPhysician where ObjectId = @ObjectId;" +
+				" select c.* from tblClient c join tblPhysicianClient pc on c.ClientId = pc.ClientId where pc.ProviderId = @ObjectId order by ClientName";
 			cmd.CommandType = CommandType.Text;
-			cmd.Parameters.Add("@ProviderId", SqlDbType.VarChar).Value = providerId;
+			cmd.Parameters.Add("@ObjectId", SqlDbType.VarChar).Value = objectId;
 			return BuildPhysicianClientView(cmd);
 		}
 
@@ -1070,10 +1070,10 @@ namespace YellowstonePathology.Business.Gateway
 		{
 			YellowstonePathology.Business.Client.PhysicianClientCollection result = new Client.PhysicianClientCollection();
 			SqlCommand cmd = new SqlCommand();
-			cmd.CommandText = "Select pp.PhysicianClientId, c.ClientId, c.ClientName, ph.PhysicianId, ph.ProviderId, ph.DisplayName [PhysicianName], c.DistributionType, c.Fax [FaxNumber], c.LongDistance, c.FacilityType, ph.NPI " +
+			cmd.CommandText = "Select pp.PhysicianClientId, c.ClientId, c.ClientName, ph.PhysicianId, ph.ObjectId, ph.DisplayName [PhysicianName], c.DistributionType, c.Fax [FaxNumber], c.LongDistance, c.FacilityType, ph.NPI " +
 				 "from tblClient c " +
 				 "join tblPhysicianClient pp on c.clientid = pp.clientid " +
-				 "Join tblPhysician ph on pp.ProviderId = ph.ProviderId " +
+				 "Join tblPhysician ph on pp.ProviderId = ph.ObjectId " +
 				 "where ph.LastName like @LastName + '%' order by ph.LastName, ph.FirstName, c.ClientName";
 			cmd.CommandType = CommandType.Text;
 			cmd.Parameters.Add(@"LastName", SqlDbType.VarChar, 50).Value = physicianLastName;
@@ -1100,10 +1100,10 @@ namespace YellowstonePathology.Business.Gateway
 		{
 			YellowstonePathology.Business.Client.PhysicianClientCollection result = new Client.PhysicianClientCollection();
 			SqlCommand cmd = new SqlCommand();
-			cmd.CommandText = "Select pp.PhysicianClientId, c.ClientId, c.ClientName, ph.PhysicianId, ph.ProviderId, ph.DisplayName [PhysicianName], c.DistributionType, c.Fax [FaxNumber], c.LongDistance, c.FacilityType, ph.NPI " +
+			cmd.CommandText = "Select pp.PhysicianClientId, c.ClientId, c.ClientName, ph.PhysicianId, ph.ObjectId, ph.DisplayName [PhysicianName], c.DistributionType, c.Fax [FaxNumber], c.LongDistance, c.FacilityType, ph.NPI " +
 				 "from tblClient c " +
 				 "join tblPhysicianClient pp on c.clientid = pp.clientid " +
-				 "Join tblPhysician ph on pp.ProviderId = ph.ProviderId " +
+				 "Join tblPhysician ph on pp.ProviderId = ph.ObjectId " +
 				 "where c.ClientName like @ClientName + '%' and ph.LastName like @PhysicianLastName + '%' order by ph.LastName, ph.FirstName, c.ClientName";
 			cmd.CommandType = CommandType.Text;
 			cmd.Parameters.Add("@ClientName", SqlDbType.VarChar, 50).Value = clientName;
@@ -1131,10 +1131,10 @@ namespace YellowstonePathology.Business.Gateway
 		{
 			YellowstonePathology.Business.Client.PhysicianClientCollection result = new Client.PhysicianClientCollection();
 			SqlCommand cmd = new SqlCommand();
-			cmd.CommandText = "Select pp.PhysicianClientId, c.ClientId, c.ClientName, ph.PhysicianId, ph.ProviderId, ph.DisplayName [PhysicianName], c.FacilityType, c.DistributionType, c.Fax [FaxNumber], c.LongDistance, ph.NPI " +
+			cmd.CommandText = "Select pp.PhysicianClientId, c.ClientId, c.ClientName, ph.PhysicianId, ph.ObjectId, ph.DisplayName [PhysicianName], c.FacilityType, c.DistributionType, c.Fax [FaxNumber], c.LongDistance, ph.NPI " +
 				 "from tblClient c " +
 				 "join tblPhysicianClient pp on c.clientid = pp.clientid " +
-				 "Join tblPhysician ph on pp.ProviderId = ph.ProviderId " +
+				 "Join tblPhysician ph on pp.ProviderId = ph.ObjectId " +
 				 "where c.ClientId = @ClientId order by ph.LastName, ph.FirstName, c.ClientName";
 			cmd.CommandType = CommandType.Text;
 			cmd.Parameters.Add(@"ClientId", SqlDbType.Int).Value = clientId;
@@ -1161,10 +1161,10 @@ namespace YellowstonePathology.Business.Gateway
 		{
 			Business.Client.PhysicianClientDistributionCollection result = new Client.PhysicianClientDistributionCollection();
 			SqlCommand cmd = new SqlCommand();
-			cmd.CommandText = "Select c.ClientId, c.ClientName, ph.PhysicianId, ph.ProviderId, ph.DisplayName [PhysicianName], c.DistributionType, c.Fax [FaxNumber], c.LongDistance " +
+			cmd.CommandText = "Select c.ClientId, c.ClientName, ph.PhysicianId, ph.ObjectId, ph.DisplayName [PhysicianName], c.DistributionType, c.Fax [FaxNumber], c.LongDistance " +
 				 "from tblClient c " +
 				 "join tblPhysicianClient pp on c.clientid = pp.clientid " +
-				 "Join tblPhysician ph on pp.ProviderId = ph.ProviderId " +
+				 "Join tblPhysician ph on pp.ProviderId = ph.ObjectId " +
 				 "where c.ClientId = @ClientId order by ph.LastName, ph.FirstName, c.ClientName";
 			cmd.CommandType = CommandType.Text;
 			cmd.Parameters.Add(@"ClientId", SqlDbType.Int).Value = clientId;
@@ -1191,10 +1191,10 @@ namespace YellowstonePathology.Business.Gateway
 		{
 			Business.Client.PhysicianClientDistributionCollection result = new Client.PhysicianClientDistributionCollection();
 			SqlCommand cmd = new SqlCommand();
-			cmd.CommandText = "Select c.ClientId, c.ClientName, ph.PhysicianId, ph.ProviderId, ph.DisplayName [PhysicianName], c.DistributionType, c.Fax [FaxNumber], c.LongDistance " +
+			cmd.CommandText = "Select c.ClientId, c.ClientName, ph.PhysicianId, ph.ObjectId, ph.DisplayName [PhysicianName], c.DistributionType, c.Fax [FaxNumber], c.LongDistance " +
 				 "from tblClient c " +
 				 "join tblPhysicianClient pp on c.clientid = pp.clientid " +
-				 "Join tblPhysician ph on pp.ProviderId = ph.ProviderId " +
+				 "Join tblPhysician ph on pp.ProviderId = ph.ObjectId " +
 				 "where c.ClientName like @ClientName + '%' and ph.LastName like @PhysicianLastName + '%' order by ph.LastName, ph.FirstName, c.ClientName";
 			cmd.CommandType = CommandType.Text;
 			cmd.Parameters.Add("@ClientName", SqlDbType.VarChar, 50).Value = clientName;
@@ -1222,10 +1222,10 @@ namespace YellowstonePathology.Business.Gateway
 		{
 			Business.Client.PhysicianClientDistributionCollection result = new Client.PhysicianClientDistributionCollection();
 			SqlCommand cmd = new SqlCommand();
-			cmd.CommandText = "Select c.ClientId, c.ClientName, ph.PhysicianId, ph.ProviderId, ph.DisplayName [PhysicianName], c.DistributionType, c.Fax [FaxNumber], c.LongDistance " +
+			cmd.CommandText = "Select c.ClientId, c.ClientName, ph.PhysicianId, ph.ObjectId, ph.DisplayName [PhysicianName], c.DistributionType, c.Fax [FaxNumber], c.LongDistance " +
 				 "from tblClient c " +
 				 "join tblPhysicianClient pp on c.clientid = pp.clientid " +
-				 "Join tblPhysician ph on pp.ProviderId = ph.ProviderId " +
+				 "Join tblPhysician ph on pp.ProviderId = ph.ObjectId " +
 				 "where ph.FirstName like @FirstName + '%' and ph.LastName like @LastName + '%' order by ph.LastName, ph.FirstName, c.ClientName";
 			cmd.CommandType = CommandType.Text;
 			cmd.Parameters.Add("@FirstName", SqlDbType.VarChar, 50).Value = firstName;
@@ -1253,10 +1253,10 @@ namespace YellowstonePathology.Business.Gateway
 		{
 			Business.Client.PhysicianClientDistributionCollection result = new Client.PhysicianClientDistributionCollection();
 			SqlCommand cmd = new SqlCommand();
-			cmd.CommandText = "Select c.ClientId, c.ClientName, ph.PhysicianId, ph.ProviderId, ph.DisplayName [PhysicianName], c.DistributionType, c.Fax [FaxNumber], c.LongDistance " +
+			cmd.CommandText = "Select c.ClientId, c.ClientName, ph.PhysicianId, ph.ObjectId, ph.DisplayName [PhysicianName], c.DistributionType, c.Fax [FaxNumber], c.LongDistance " +
 				 "from tblClient c " +
 				 "join tblPhysicianClient pp on c.clientid = pp.clientid " +
-				 "Join tblPhysician ph on pp.ProviderId = ph.ProviderId " +
+				 "Join tblPhysician ph on pp.ProviderId = ph.ObjectId " +
 				 "where ph.LastName like @LastName + '%' order by ph.LastName, ph.FirstName, c.ClientName";
 			cmd.CommandType = CommandType.Text;
 			cmd.Parameters.Add("@LastName", SqlDbType.VarChar, 50).Value = lastName;
@@ -1295,6 +1295,32 @@ namespace YellowstonePathology.Business.Gateway
 					while (dr.Read())
 					{
 						result = (Int32)dr[0];
+					}
+				}
+			}
+
+			return result;
+		}
+
+		public static YellowstonePathology.Business.Client.Model.ClientSupplyCollection GetClientSupplyCollection()
+		{
+			YellowstonePathology.Business.Client.Model.ClientSupplyCollection result = new Client.Model.ClientSupplyCollection();
+			SqlCommand cmd = new SqlCommand();
+			cmd.CommandText = "Select * from tblClientSupply order by supplyname";
+			cmd.CommandType = CommandType.Text;
+
+			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.Properties.Settings.Default.CurrentConnectionString))
+			{
+				cn.Open();
+				cmd.Connection = cn;
+				using (SqlDataReader dr = cmd.ExecuteReader())
+				{
+					while (dr.Read())
+					{
+						YellowstonePathology.Business.Client.Model.ClientSupply clientSupply = new Client.Model.ClientSupply();
+						YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(clientSupply, dr);
+						sqlDataReaderPropertyWriter.WriteProperties();
+						result.Add(clientSupply);
 					}
 				}
 			}

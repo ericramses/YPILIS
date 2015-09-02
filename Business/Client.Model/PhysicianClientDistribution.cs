@@ -59,21 +59,5 @@ namespace YellowstonePathology.Business.Client.Model
 			get { return this.m_DistributionID; }
 			set { this.m_DistributionID = value; }
 		}
-/*
-        public void WriteProperties(YellowstonePathology.Business.Domain.Persistence.IPropertyWriter propertyWriter)
-        {
-			this.m_PhysicianClientDistributionID = propertyWriter.WriteString("PhysicianClientDistributionID");
-			this.m_PhysicianClientID = propertyWriter.WriteString("PhysicianClientID");
-			this.m_DistributionID = propertyWriter.WriteString("DistributionID");
-			this.m_ObjectId = propertyWriter.WriteString("ObjectId");
-		}
-
-        public void ReadProperties(YellowstonePathology.Business.Domain.Persistence.IPropertyReader propertyReader)
-        {
-			propertyReader.ReadString("PhysicianClientDistributionID", PhysicianClientDistributionID);
-			propertyReader.ReadString("PhysicianClientID", PhysicianClientID);
-			propertyReader.ReadString("DistributionID", DistributionID);
-			propertyReader.ReadString("ObjectId", ObjectId);
-		}*/
 	}
 }
