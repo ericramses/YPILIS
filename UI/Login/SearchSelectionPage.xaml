@@ -12,7 +12,7 @@
 		</Grid.RowDefinitions>		
 
         <TabControl Grid.Row="0" Grid.Column="0" Margin="2,2,2,2">            
-            <TabItem Header="Report No">
+            <TabItem Header="Search By">
                 <Grid Grid.Column="0" Grid.Row="1" Margin="10">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"></ColumnDefinition>
@@ -21,29 +21,29 @@
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"></RowDefinition>
-                    </Grid.RowDefinitions>
-
-                    <TextBlock Grid.Column="0" Grid.Row="0" Margin="3" VerticalAlignment="Center" FontWeight="Bold" Text="Report No:" />
-                    <TextBox Name="TextBoxReportNo" Grid.Column="1" Grid.Row="0" Margin="3" HorizontalAlignment="Stretch" Text="{Binding Path=ReportNo, UpdateSourceTrigger=PropertyChanged}" KeyUp="TextBoxReportNo_KeyUp"/>
-                    <Button Grid.Column="2" Grid.Row="0" Width="75" Height="25" Click="ButtonReportNoSearch_Click">Search</Button>
-                </Grid>
-            </TabItem>
-            <TabItem Header="Accession Date">
-                <Grid Grid.Column="0" Grid.Row="1" Margin="10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"></ColumnDefinition>
-                        <ColumnDefinition Width="100"></ColumnDefinition>
-                        <ColumnDefinition Width="Auto"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
                     </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Column="0" Grid.Row="0" Margin="3" VerticalAlignment="Center" FontWeight="Bold" Text="Accession Date:" />
-                    <TextBox Name="TextBoxAccessionDate" Grid.Column="1" Grid.Row="0" Margin="3" HorizontalAlignment="Stretch" Text="{Binding Path=AccessionDate, Converter={StaticResource ShortDateConverter}}" />
-                    <Button Grid.Column="2" Grid.Row="0" Width="75" Height="25" Click="ButtonAccessionDateSearch_Click">Search</Button>
+                    <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" VerticalAlignment="Center" FontWeight="Bold" Text="Report No:" />
+                    <TextBox Name="TextBoxReportNo" Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" HorizontalAlignment="Stretch" Text="{Binding Path=ReportNo, UpdateSourceTrigger=PropertyChanged}" KeyUp="TextBoxReportNo_KeyUp"/>
+                    <Button Grid.Column="2" Grid.Row="0" Width="75" Height="25" Margin="2,2,2,2" Click="ButtonReportNoSearch_Click">Search</Button>
+
+                    <TextBlock Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" VerticalAlignment="Center" FontWeight="Bold" Text="Accession Date:" />
+                    <TextBox Name="TextBoxAccessionDate" Grid.Column="1" Grid.Row="1" Margin="2,2,2,2" HorizontalAlignment="Stretch" Text="{Binding Path=AccessionDate, Converter={StaticResource ShortDateConverter}}" />
+                    <Button Grid.Column="2" Grid.Row="1" Width="75" Height="25" Margin="2,2,2,2" Click="ButtonAccessionDateSearch_Click">Search</Button>
+
+                    <TextBlock Grid.Column="0" Grid.Row="3" Margin="2,2,2,2" VerticalAlignment="Center" FontWeight="Bold" Text="Autopsies:" />
+                    <Button Grid.Column="2" Grid.Row="3" Width="75" Height="25" Margin="2,2,2,2" Click="ButtonAutopsySearch_Click">Search</Button>
+
+                    <TextBlock Grid.Column="0" Grid.Row="4" Margin="2,2,2,2" VerticalAlignment="Center" FontWeight="Bold" Text="Client Accessioned Cases:" />
+                    <Button Grid.Column="2" Grid.Row="4" Width="75" Height="25" Margin="2,2,2,2" Click="ButtonClientAccessionedSearch_Click">Search</Button>
+
                 </Grid>
-            </TabItem>
+            </TabItem>            
             <TabItem Header="Specimen Keyword">
                 <Grid Grid.Column="0" Grid.Row="1" Margin="10">
                     <Grid.ColumnDefinitions>
@@ -91,22 +91,7 @@
                     <Button Grid.Column="2" Grid.Row="2" Width="75" Height="25" Margin="2,2,2,2" Click="ButtonPositiveHPyloriSearch_Click" HorizontalAlignment="Right">Search</Button>
 
                 </Grid>
-            </TabItem>
-            <TabItem Header="Autopsy">
-                <Grid Grid.Column="0" Grid.Row="1" Margin="10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"></ColumnDefinition>
-                        <ColumnDefinition Width="100"></ColumnDefinition>
-                        <ColumnDefinition Width="Auto"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"></RowDefinition>
-                    </Grid.RowDefinitions>
-
-                    <TextBlock Grid.Column="0" Grid.Row="0" Margin="3" VerticalAlignment="Center" FontWeight="Bold" Text="Final all Autopsies:" />                    
-                    <Button Grid.Column="2" Grid.Row="0" Width="75" Height="25" Click="ButtonAutopsySearch_Click">Search</Button>
-                </Grid>
-            </TabItem>
+            </TabItem>            
             <TabItem Header="Billing">
                 <Grid Grid.Column="0" Grid.Row="1" Margin="10">
                     <Grid.ColumnDefinitions>

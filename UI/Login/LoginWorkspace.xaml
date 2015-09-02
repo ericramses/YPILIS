@@ -109,6 +109,7 @@
                                 <GridViewColumn DisplayMemberBinding="{Binding Path=PanelSetName}" Header="Report" Width="170"/>
                                 <GridViewColumn DisplayMemberBinding="{Binding Path=FinalDate, Converter={StaticResource ShortDateConverter}}" Header="Final" Width="150"/>
                                 <GridViewColumn DisplayMemberBinding="{Binding Path=IsPosted}" Header="Billed" Width="100"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Path=ClientName}" Header="Client" Width="200"/>
                             </GridView>
                         </ListView.View>
                     </ListView>
@@ -370,7 +371,7 @@
                             <CustomControls:Tile x:Name="TileFixation" Grid.Column="0" Grid.Row="3" Title="Fixation" Background="#6699FF" Margin="2,2,2,2" MouseUp="TileFixation_MouseUp"/>
                             <CustomControls:Tile x:Name="TileCaseNotes" Grid.Column="1" Grid.Row="3" Title="Case Notes" Background="#3366FF" Margin="2,2,2,2" MouseUp="TileCaseNotes_MouseUp"/>
                             <CustomControls:Tile x:Name="TileCaseHistory" Grid.Column="2" Grid.Row="3" Title="Case History" Background="#0066FF" Margin="2,2,2,2" MouseUp="TileCaseHistory_MouseUp"/>
-                            <CustomControls:Tile x:Name="TileAcknowledge" Grid.Column="3" Grid.Row="3" Title="Acknowledge" Background="#0033FF" Margin="2,2,2,2" MouseUp="TileAcknowledge_MouseUp"/>
+                            <CustomControls:Tile x:Name="TileSpecimenMapping" Grid.Column="3" Grid.Row="3" Title="Specimen Mapping" Background="#0033FF" Margin="2,2,2,2" MouseUp="TileSpecimenMapping_MouseUp"/>
 
                             <CustomControls:Tile x:Name="TileAccessionLabels" Grid.Column="0" Grid.Row="4" Title="Accession Labels" Background="#FFCC00" Margin="2,2,2,2" MouseUp="TileAccessionLabels_MouseUp"/>
                             <CustomControls:Tile x:Name="TileContainerLabels" Grid.Column="1" Grid.Row="4" Title="Container Labels" Background="#FF9900" Margin="2,2,2,2" MouseUp="TileContainerLabels_MouseUp"/>
