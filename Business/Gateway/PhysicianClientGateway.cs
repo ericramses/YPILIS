@@ -1070,7 +1070,7 @@ namespace YellowstonePathology.Business.Gateway
 		{
 			YellowstonePathology.Business.Client.PhysicianClientCollection result = new Client.PhysicianClientCollection();
 			SqlCommand cmd = new SqlCommand();
-			cmd.CommandText = "Select pp.PhysicianClientId, c.ClientId, c.ClientName, ph.PhysicianId, ph.ObjectId, ph.DisplayName [PhysicianName], c.DistributionType, c.Fax [FaxNumber], c.LongDistance, c.FacilityType, ph.NPI " +
+			cmd.CommandText = "Select pp.PhysicianClientId, c.ClientId, c.ClientName, ph.PhysicianId, ph.ObjectId [ProviderId], ph.DisplayName [PhysicianName], c.DistributionType, c.Fax [FaxNumber], c.LongDistance, c.FacilityType, ph.NPI " +
 				 "from tblClient c " +
 				 "join tblPhysicianClient pp on c.clientid = pp.clientid " +
 				 "Join tblPhysician ph on pp.ProviderId = ph.ObjectId " +

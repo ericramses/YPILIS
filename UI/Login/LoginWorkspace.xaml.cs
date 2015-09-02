@@ -653,7 +653,8 @@ namespace YellowstonePathology.UI.Login
                 specimenMappingPage.Next += new FinalizeAccession.SpecimenMappingPage.NextEventHandler(SpecimenMappingPage_Next);
                 YellowstonePathology.Business.User.SystemIdentity systemIdentity = new Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
                 this.m_LoginPageWindow = new LoginPageWindow(systemIdentity);
-                this.m_LoginPageWindow.PageNavigator.Navigate(specimenMappingPage);
+                this.m_LoginPageWindow.Show();
+                this.m_LoginPageWindow.PageNavigator.Navigate(specimenMappingPage);                
             }
         }
 
