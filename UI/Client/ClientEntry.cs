@@ -164,7 +164,7 @@ namespace YellowstonePathology.UI.Client
             foreach(YellowstonePathology.Business.Domain.Physician physician in this.m_PhysicianCollection)
             {
                 //ListViewItem lvi = this.listViewPhysicianList.Items.Add(physician.PhysicianId.ToString());                
-				ListViewItem lvi = this.listViewPhysicianList.Items.Add(physician.ProviderId);
+				ListViewItem lvi = this.listViewPhysicianList.Items.Add(physician.ObjectId);
 				string physicianFirstName = physician.FirstName;
                 string physicianLastName = physician.LastName;
                 lvi.SubItems.Add(physicianLastName + ", " + physicianFirstName);
@@ -185,10 +185,10 @@ namespace YellowstonePathology.UI.Client
                 if(physicianSearch.SelectedPhysician != null)
                 {
 					//if (this.IsPhysicianInClient(physicianSearch.SelectedPhysician.PhysicianId) == false)
-					if (this.IsPhysicianInClient(physicianSearch.SelectedPhysician.ProviderId) == false)
+					if (this.IsPhysicianInClient(physicianSearch.SelectedPhysician.ObjectId) == false)
                     {
 						string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-						YellowstonePathology.Business.Domain.PhysicianClient physicianClient = new Business.Domain.PhysicianClient(objectId, objectId, physicianSearch.SelectedPhysician.PhysicianId, physicianSearch.SelectedPhysician.ProviderId, this.m_Client.ClientId);
+						YellowstonePathology.Business.Domain.PhysicianClient physicianClient = new Business.Domain.PhysicianClient(objectId, objectId, physicianSearch.SelectedPhysician.PhysicianId, physicianSearch.SelectedPhysician.ObjectId, this.m_Client.ClientId);
 						YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
                         objectTracker.RegisterRootInsert(physicianClient);
                         objectTracker.SubmitChanges(physicianClient);
