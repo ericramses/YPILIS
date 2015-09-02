@@ -39,14 +39,52 @@ namespace YellowstonePathology.Business.Visitor
             this.HandlePanelSetOrder();                                    
             this.HandlePanelOrders();
             this.HandlDistribution();
-            this.HandlReflexTestingPlan();                       
+            this.HandlReflexTestingPlan();
+            this.HandlePantherOrder();          
+        }
+
+        private void HandlePantherOrder()
+        {
+            if (this.m_PanelSet.SendOrderToPanther == true)
+            {
+                YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = (YellowstonePathology.Business.Test.AliquotOrder)this.m_TestOrderInfo.OrderTarget;
+                YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByAliquotOrderId(aliquotOrder.AliquotOrderId);
+
+                YellowstonePathology.Business.HL7View.Panther.PantherAssay pantherAssay = null;  
+                switch (this.m_PanelSetOrder.PanelSetId)
+                {
+                    case 14:
+                        pantherAssay = new Business.HL7View.Panther.PantherAssayHPV();
+                        break;
+                    case 3:
+                        pantherAssay = new Business.HL7View.Panther.PantherAssayNGCT();
+                        break;
+                    default:
+                        throw new Exception(this.m_PanelSetOrder.PanelSetName +  " is mot implemented yet.");
+                }
+                        
+                YellowstonePathology.Business.HL7View.Panther.PantherOrder pantherOrder = new Business.HL7View.Panther.PantherOrder(pantherAssay, specimenOrder, aliquotOrder, this.m_AccessionOrder, this.m_PanelSetOrder, YellowstonePathology.Business.HL7View.Panther.PantherActionCode.NewSample);
+                pantherOrder.Send();                    
+            }
         }
 
         private void HandleAddAliquotOnOrder()
         {
             if (this.m_PanelSet.AddAliquotOnOrder == true)
-            {
+            {                
+                YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = (YellowstonePathology.Business.Specimen.Model.SpecimenOrder)this.m_TestOrderInfo.OrderTarget;
+                YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = null;
 
+                if (specimenOrder.AliquotOrderCollection.Exists(this.m_PanelSet.AliquotToAddOnOrder) == false)
+                {
+                    aliquotOrder = specimenOrder.AliquotOrderCollection.AddAliquot(this.m_PanelSet.AliquotToAddOnOrder, specimenOrder, DateTime.Now);
+                    this.m_TestOrderInfo.OrderTarget = aliquotOrder;
+                }
+                else
+                {
+                    aliquotOrder = specimenOrder.AliquotOrderCollection.Get(this.m_PanelSet.AliquotToAddOnOrder);
+                    this.m_TestOrderInfo.OrderTarget = aliquotOrder;
+                }
             }
         }
 

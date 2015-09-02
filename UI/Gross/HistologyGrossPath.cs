@@ -116,8 +116,8 @@ namespace YellowstonePathology.UI.Gross
 
                 if (this.m_HistologyGrossDialog.PageNavigator.HasDualMonitors() == true)
                 {
-                    //DictationTemplatePage dictationTemplatePage = new DictationTemplatePage(specimenOrder.SpecimenId);
-                    //this.m_SecondaryWindow.PageNavigator.Navigate(dictationTemplatePage);
+                    DictationTemplatePage dictationTemplatePage = new DictationTemplatePage(specimenOrder.SpecimenId);
+                    this.m_SecondaryWindow.PageNavigator.Navigate(dictationTemplatePage);
                 }                
 
                 if (string.IsNullOrEmpty(specimenOrder.ProcessorRunId) == true)

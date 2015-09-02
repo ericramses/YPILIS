@@ -28,6 +28,7 @@ namespace YellowstonePathology.Business.Test.HPVTWI
 
             this.m_AddAliquotOnOrder = true;
             this.m_AliquotToAddOnOrder = new YellowstonePathology.Business.Specimen.Model.PantherAliquot();
+            this.m_SendOrderToPanther = true;
 
             string taskDescription = "Perform HPV Testing on sample.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, taskDescription));
