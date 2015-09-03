@@ -75,6 +75,7 @@ namespace YellowstonePathology.Business.Facility.Model
             result.Add(new CancerTreatmentCentersOfAmerica());
             result.Add(new PathologyAssociatesOfIdahoFalls());
             result.Add(new LoweLawGroup());
+            result.Add(new ProfessionalPathologyOfWyoming());
             return Sort(result);
         }
 

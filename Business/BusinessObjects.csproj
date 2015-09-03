@@ -365,6 +365,7 @@
     <Compile Include="Domain\DataLoadStatusEnum.cs" />
     <Compile Include="Domain\OrderLogCollection.cs" />
     <Compile Include="Domain\OrderLogItem.cs" />
+    <Compile Include="Facility.Model\ProfessionalPathologyOfWyoming.cs" />
     <Compile Include="Facility.Model\LoweLawGroup.cs" />
     <Compile Include="Facility.Model\PathologyAssociatesOfIdahoFalls.cs" />
     <Compile Include="Flow\FlowCommentItem.Generated.cs">
@@ -384,6 +385,8 @@
     <Compile Include="Helper\PatientHelper.cs" />
     <Compile Include="Helper\SerializationHelper.cs" />
     <Compile Include="Helper\StringExtensionMethods.cs" />
+    <Compile Include="HL7View\Panther\PantherAssayTrich.cs" />
+    <Compile Include="HL7View\Panther\PantherAssayHPV1618.cs" />
     <Compile Include="HL7View\Panther\PantherAssayNGCT.cs" />
     <Compile Include="HL7View\Panther\PantherActionCode.cs" />
     <Compile Include="HL7View\Panther\PantherAssayHPV.cs" />

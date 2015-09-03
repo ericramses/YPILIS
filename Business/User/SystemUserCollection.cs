@@ -38,7 +38,18 @@ namespace YellowstonePathology.Business.User
                 YellowstonePathology.Business.Logging.EmailExceptionHandler.HandleException(message);
             }            
             return result;                        
-        }               		
+        }
+
+        public SystemUserCollection GetPathologistUsers()
+        {
+            SystemUserCollection users = new SystemUserCollection();
+            var query = from su in this where su.Active == true && su.IsUserInRole(SystemUserRoleDescriptionEnum.Pathologist) == true select su;
+            foreach (SystemUser user in query)
+            {
+                users.Add(user);
+            }
+            return users;
+        }
 
 		public SystemUserCollection GetUsersByRole(SystemUserRoleDescriptionEnum systemUserRoleDescriptionEnum, bool isActive)
 		{

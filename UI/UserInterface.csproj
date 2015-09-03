@@ -41,7 +41,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>231</ApplicationRevision>
+    <ApplicationRevision>235</ApplicationRevision>
     <ApplicationVersion>10.1.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -327,6 +327,7 @@
     <Compile Include="Gross\TemplateWord.cs" />
     <Compile Include="GroupingListView.cs" />
     <Compile Include="ListViewSorter.cs" />
+    <Compile Include="Login\FinalizeAccession\FacilityColorConverter.cs" />
     <Compile Include="Login\FinalizeAccession\FixationUpdate.cs" />
     <Compile Include="Login\FinalizeAccession\SpecimenMappingPage.xaml.cs">
       <DependentUpon>SpecimenMappingPage.xaml</DependentUpon>
