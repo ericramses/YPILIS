@@ -499,7 +499,7 @@ namespace YellowstonePathology.UI.Gross
             this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Uterine Length", "*UTERINELENGTH*"));
             this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Uterine Width", "*UTERINEWIDTH*"));
             this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Uterine Thickness", "*UTERINETHICKNESS*"));
-            this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Serosa Description/Cul-de-sac", "*SEROSADESCRIPTION*"));
+            this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Serosa Description", "*SEROSADESCRIPTION*"));
             this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Serosa Cul-de-sac", "*CULDESACCOLOR/CULDESACDESCRIPTION*"));
             this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Ectocervix Description", "ECTOCERVIXDESCRIPTION"));
             this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Os Measurement and Description", "*OSMEASUREMENT/OSDESCRIPTION*"));
@@ -529,7 +529,7 @@ namespace YellowstonePathology.UI.Gross
                                 "Weight: *UTERINEWEIGHT*" + Environment.NewLine +
                                 "Length: *UTERINELENGTH*" + Environment.NewLine +
                                 "Width: *UTERINEWIDTH*" + Environment.NewLine +
-                                "Thickness: *TUTERINEHICKNESS*" + Environment.NewLine +
+                                "Thickness: *UTERINEHICKNESS*" + Environment.NewLine +
                             "Serosa:" + Environment.NewLine +
                                 "Description: *SEROSADESCRIPTION*" + Environment.NewLine +
                                 "Cul-de-sac: *SEROSACOLOR/SEROSADESCRIPTION*" + Environment.NewLine +
