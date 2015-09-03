@@ -29,8 +29,7 @@ namespace YellowstonePathology.UI.Client
 		private YellowstonePathology.Business.Domain.PhysicianCollection m_PhysicianCollection;
 		private YellowstonePathology.Business.Billing.Model.BillingRuleSetCollection m_BillingRuleSetCollection;
         private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
-		private YellowstonePathology.Business.Client.Model.ClientSupplyCollection m_ClientSupplyCollection;
-		private YellowstonePathology.Business.Client.Model.ClientSupplyOrder m_ClientSupplyOrder;
+		private YellowstonePathology.Business.Client.Model.ClientSupplyOrderCollection m_ClientSupplyOrderCollection;
 
 		public ClientEntryV2(YellowstonePathology.Business.Client.Model.Client client, YellowstonePathology.Business.Persistence.ObjectTracker objectTracker)
 		{
@@ -47,7 +46,7 @@ namespace YellowstonePathology.UI.Client
 
             this.m_DistributionTypeList = new YellowstonePathology.Business.ReportDistribution.Model.DistributionTypeList();
 			this.m_BillingRuleSetCollection = YellowstonePathology.Business.Billing.Model.BillingRuleSetCollection.GetAllRuleSets();
-			this.m_ClientSupplyCollection = new Business.Client.Model.ClientSupplyCollection();
+			this.m_ClientSupplyOrderCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientSupplyOrderCollection(this.m_Client.ClientId);
 
 			InitializeComponent();
 			this.DataContext = this;
@@ -96,9 +95,9 @@ namespace YellowstonePathology.UI.Client
 			get { return this.m_BillingRuleSetCollection; }
 		}
 
-		public YellowstonePathology.Business.Client.Model.ClientSupplyCollection ClientSupplyCollection
+		public YellowstonePathology.Business.Client.Model.ClientSupplyOrderCollection ClientSupplyOrderCollection
 		{
-			get { return this.m_ClientSupplyCollection; }
+			get { return this.m_ClientSupplyOrderCollection; }
 		}
 
 		private void BorderPanelSetOrderHeader_Loaded(object sender, RoutedEventArgs e)
@@ -176,37 +175,26 @@ namespace YellowstonePathology.UI.Client
 			}
 		}
 
-		private void FillClientSupplyCollection(string clientSupplyCategory)
+		private void ButtonNewSupplyOrder_Click(object sender, RoutedEventArgs e)
 		{
-			this.m_ClientSupplyCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientSupplyCollection(clientSupplyCategory);
-			this.NotifyPropertyChanged("ClientSupplyCollection");
+			string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
+			YellowstonePathology.Business.Client.Model.ClientSupplyOrder clientSupplyOrder = new Business.Client.Model.ClientSupplyOrder(objectId, this.m_Client);
+			ClientSupplyOrderDialog clientSupplyOrderDialog = new ClientSupplyOrderDialog(clientSupplyOrder);
+			clientSupplyOrderDialog.ShowDialog();
 		}
 
-		private void ButtonCytologySupplies_Click(object sender, RoutedEventArgs e)
+		private void ButtonDeleteSupplyOrder_Click(object sender, RoutedEventArgs e)
 		{
-			this.FillClientSupplyCollection(YellowstonePathology.Business.Client.Model.ClientSupplyCategory.Cytology);
+
 		}
 
-		private void ButtonBiopsySupplies_Click(object sender, RoutedEventArgs e)
-		{
-			this.FillClientSupplyCollection(YellowstonePathology.Business.Client.Model.ClientSupplyCategory.Histology);
-		}
-
-		private void ButtonTransportSupplies_Click(object sender, RoutedEventArgs e)
-		{
-			this.FillClientSupplyCollection(YellowstonePathology.Business.Client.Model.ClientSupplyCategory.Transport);
-		}
-
-		private void ButtonForms_Click(object sender, RoutedEventArgs e)
-		{
-			this.FillClientSupplyCollection(YellowstonePathology.Business.Client.Model.ClientSupplyCategory.Forms);
-		}
-
-		private void ButtonRemoveItem_Click(object sender, RoutedEventArgs e)
+		private void ListViewOrderDetails_MouseDoubleClick(object sender, MouseButtonEventArgs e)
 		{
 			if (this.ListViewOrderDetails.SelectedItem != null)
 			{
-				this.m_ClientSupplyOrder.ClientSupplyOrderDetailCollection.Remove((YellowstonePathology.Business.Client.Model.ClientSupplyOrderDetail)this.ListViewOrderDetails.SelectedItem);
+				YellowstonePathology.Business.Client.Model.ClientSupplyOrder clientSupplyOrder = (YellowstonePathology.Business.Client.Model.ClientSupplyOrder)this.ListViewOrderDetails.SelectedItem;
+				ClientSupplyOrderDialog clientSupplyOrderDialog = new ClientSupplyOrderDialog(clientSupplyOrder);
+				clientSupplyOrderDialog.ShowDialog();
 			}
 		}
 	}

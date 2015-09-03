@@ -41,7 +41,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>231</ApplicationRevision>
+    <ApplicationRevision>229</ApplicationRevision>
     <ApplicationVersion>10.1.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -212,6 +212,9 @@
     </Compile>
     <Compile Include="Client\ClientLookupDialog.xaml.cs">
       <DependentUpon>ClientLookupDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Client\ClientSupplyOrderDialog.xaml.cs">
+      <DependentUpon>ClientSupplyOrderDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Client\IHCMolecularRequisition.cs" />
     <Compile Include="Client\PhysicianClientSearch.cs">
@@ -1858,6 +1861,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Client\ClientLookupDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Client\ClientSupplyOrderDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

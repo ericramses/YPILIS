@@ -1100,7 +1100,7 @@ namespace YellowstonePathology.Business.Gateway
 		{
 			YellowstonePathology.Business.Client.PhysicianClientCollection result = new Client.PhysicianClientCollection();
 			SqlCommand cmd = new SqlCommand();
-			cmd.CommandText = "Select pp.PhysicianClientId, c.ClientId, c.ClientName, ph.PhysicianId, ph.ObjectId, ph.DisplayName [PhysicianName], c.DistributionType, c.Fax [FaxNumber], c.LongDistance, c.FacilityType, ph.NPI " +
+			cmd.CommandText = "Select pp.PhysicianClientId, c.ClientId, c.ClientName, ph.PhysicianId, ph.ObjectId [ProviderId], ph.DisplayName [PhysicianName], c.DistributionType, c.Fax [FaxNumber], c.LongDistance, c.FacilityType, ph.NPI " +
 				 "from tblClient c " +
 				 "join tblPhysicianClient pp on c.clientid = pp.clientid " +
 				 "Join tblPhysician ph on pp.ProviderId = ph.ObjectId " +
@@ -1131,7 +1131,7 @@ namespace YellowstonePathology.Business.Gateway
 		{
 			YellowstonePathology.Business.Client.PhysicianClientCollection result = new Client.PhysicianClientCollection();
 			SqlCommand cmd = new SqlCommand();
-			cmd.CommandText = "Select pp.PhysicianClientId, c.ClientId, c.ClientName, ph.PhysicianId, ph.ObjectId, ph.DisplayName [PhysicianName], c.FacilityType, c.DistributionType, c.Fax [FaxNumber], c.LongDistance, ph.NPI " +
+			cmd.CommandText = "Select pp.PhysicianClientId, c.ClientId, c.ClientName, ph.PhysicianId, ph.ObjectId [ProviderId], ph.DisplayName [PhysicianName], c.FacilityType, c.DistributionType, c.Fax [FaxNumber], c.LongDistance, ph.NPI " +
 				 "from tblClient c " +
 				 "join tblPhysicianClient pp on c.clientid = pp.clientid " +
 				 "Join tblPhysician ph on pp.ProviderId = ph.ObjectId " +
@@ -1161,7 +1161,7 @@ namespace YellowstonePathology.Business.Gateway
 		{
 			Business.Client.PhysicianClientDistributionCollection result = new Client.PhysicianClientDistributionCollection();
 			SqlCommand cmd = new SqlCommand();
-			cmd.CommandText = "Select c.ClientId, c.ClientName, ph.PhysicianId, ph.ObjectId, ph.DisplayName [PhysicianName], c.DistributionType, c.Fax [FaxNumber], c.LongDistance " +
+			cmd.CommandText = "Select c.ClientId, c.ClientName, ph.PhysicianId, ph.DisplayName [PhysicianName], c.DistributionType, c.Fax [FaxNumber], c.LongDistance " +
 				 "from tblClient c " +
 				 "join tblPhysicianClient pp on c.clientid = pp.clientid " +
 				 "Join tblPhysician ph on pp.ProviderId = ph.ObjectId " +
@@ -1191,7 +1191,7 @@ namespace YellowstonePathology.Business.Gateway
 		{
 			Business.Client.PhysicianClientDistributionCollection result = new Client.PhysicianClientDistributionCollection();
 			SqlCommand cmd = new SqlCommand();
-			cmd.CommandText = "Select c.ClientId, c.ClientName, ph.PhysicianId, ph.ObjectId, ph.DisplayName [PhysicianName], c.DistributionType, c.Fax [FaxNumber], c.LongDistance " +
+			cmd.CommandText = "Select c.ClientId, c.ClientName, ph.PhysicianId, ph.DisplayName [PhysicianName], c.DistributionType, c.Fax [FaxNumber], c.LongDistance " +
 				 "from tblClient c " +
 				 "join tblPhysicianClient pp on c.clientid = pp.clientid " +
 				 "Join tblPhysician ph on pp.ProviderId = ph.ObjectId " +
@@ -1222,7 +1222,7 @@ namespace YellowstonePathology.Business.Gateway
 		{
 			Business.Client.PhysicianClientDistributionCollection result = new Client.PhysicianClientDistributionCollection();
 			SqlCommand cmd = new SqlCommand();
-			cmd.CommandText = "Select c.ClientId, c.ClientName, ph.PhysicianId, ph.ObjectId, ph.DisplayName [PhysicianName], c.DistributionType, c.Fax [FaxNumber], c.LongDistance " +
+			cmd.CommandText = "Select c.ClientId, c.ClientName, ph.PhysicianId, ph.DisplayName [PhysicianName], c.DistributionType, c.Fax [FaxNumber], c.LongDistance " +
 				 "from tblClient c " +
 				 "join tblPhysicianClient pp on c.clientid = pp.clientid " +
 				 "Join tblPhysician ph on pp.ProviderId = ph.ObjectId " +
@@ -1253,7 +1253,7 @@ namespace YellowstonePathology.Business.Gateway
 		{
 			Business.Client.PhysicianClientDistributionCollection result = new Client.PhysicianClientDistributionCollection();
 			SqlCommand cmd = new SqlCommand();
-			cmd.CommandText = "Select c.ClientId, c.ClientName, ph.PhysicianId, ph.ObjectId, ph.DisplayName [PhysicianName], c.DistributionType, c.Fax [FaxNumber], c.LongDistance " +
+			cmd.CommandText = "Select c.ClientId, c.ClientName, ph.PhysicianId, ph.DisplayName [PhysicianName], c.DistributionType, c.Fax [FaxNumber], c.LongDistance " +
 				 "from tblClient c " +
 				 "join tblPhysicianClient pp on c.clientid = pp.clientid " +
 				 "Join tblPhysician ph on pp.ProviderId = ph.ObjectId " +
@@ -1302,13 +1302,13 @@ namespace YellowstonePathology.Business.Gateway
 			return result;
 		}
 
-		public static YellowstonePathology.Business.Client.Model.ClientSupplyCollection GetClientSupplyCollection(string clientSupplyCategory)
+		public static YellowstonePathology.Business.Client.Model.ClientSupplyCollection GetClientSupplyCollection(string supplyCategory)
 		{
 			YellowstonePathology.Business.Client.Model.ClientSupplyCollection result = new Client.Model.ClientSupplyCollection();
 			SqlCommand cmd = new SqlCommand();
-			cmd.CommandText = "Select * from tblClientSupply where clientsupplycategory = @ClientSupplyCategory order by supplyname";
+			cmd.CommandText = "Select * from tblClientSupply where supplycategory = @SupplyCategory order by supplyname";
 			cmd.CommandType = CommandType.Text;
-			cmd.Parameters.Add("@ClientSupplyCategory", SqlDbType.VarChar).Value = clientSupplyCategory;
+			cmd.Parameters.Add("@SupplyCategory", SqlDbType.VarChar).Value = supplyCategory;
 
 			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.Properties.Settings.Default.CurrentConnectionString))
 			{
@@ -1327,6 +1327,49 @@ namespace YellowstonePathology.Business.Gateway
 			}
 
 			return result;
+		}
+
+		public static YellowstonePathology.Business.Client.Model.ClientSupplyOrderCollection GetClientSupplyOrderCollection(int clientId)
+		{
+			YellowstonePathology.Business.Client.Model.ClientSupplyOrderCollection result = new Client.Model.ClientSupplyOrderCollection();
+			SqlCommand cmd = new SqlCommand();
+			cmd.CommandText = "SELECT c.*," +
+				" (Select cd.* " +
+				"  from tblClientSupplyOrderDetail cd where cd.clientSupplyOrderId = c.clientSupplyOrderId for xml path('ClientSupplyOrderDetail'), type) ClientSupplyOrderDetailCollection" +
+				" from tblClientSupplyOrder c where c.ClientId = @ClientId order by c.OrderDate desc for xml path('ClientSupplyOrder'), root('ClientSupplyOrderCollection')";
+			cmd.CommandType = CommandType.Text;
+			cmd.Parameters.Add("@ClientId", SqlDbType.Int).Value = clientId;
+
+			XElement collectionElement = PhysicianClientGateway.GetXElementFromCommand(cmd);
+			if (collectionElement != null)
+			{
+				List<XElement> clientSupplyOrderList = collectionElement.Elements("ClientSupplyOrder").ToList();
+				foreach (XElement clientSupplyOrderElement in clientSupplyOrderList)
+				{
+					YellowstonePathology.Business.Client.Model.ClientSupplyOrder clientSupplyOrder = BuildClientSupplyOrder(clientSupplyOrderElement);
+					result.Add(clientSupplyOrder);
+
+				}
+			}
+			return result;
+		}
+
+		private static YellowstonePathology.Business.Client.Model.ClientSupplyOrder BuildClientSupplyOrder(XElement sourceElement)
+		{
+			YellowstonePathology.Business.Client.Model.ClientSupplyOrder clientSupplyOrder = new Client.Model.ClientSupplyOrder();
+			YellowstonePathology.Business.Persistence.XmlPropertyWriter xmlPropertyWriter = new Persistence.XmlPropertyWriter(sourceElement, clientSupplyOrder);
+			xmlPropertyWriter.Write();
+
+			List<XElement> clientSupplyOrderDetailElements = (from item in sourceElement.Elements("ClientSupplyOrderDetailCollection")
+															select item).ToList<XElement>();
+			foreach (XElement clientSupplyOrderDetailElement in clientSupplyOrderDetailElements.Elements("ClientSupplyOrderDetail"))
+			{
+				YellowstonePathology.Business.Client.Model.ClientSupplyOrderDetail clientSupplyOrderDetail = new YellowstonePathology.Business.Client.Model.ClientSupplyOrderDetail();
+				YellowstonePathology.Business.Persistence.XmlPropertyWriter xmlPropertyWriterDetail = new YellowstonePathology.Business.Persistence.XmlPropertyWriter(clientSupplyOrderDetailElement, clientSupplyOrderDetail);
+				xmlPropertyWriterDetail.Write();
+				clientSupplyOrder.ClientSupplyOrderDetailCollection.Add(clientSupplyOrderDetail);
+			}
+			return clientSupplyOrder;
 		}
 	}
 }
