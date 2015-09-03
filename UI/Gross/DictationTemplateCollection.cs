@@ -33,25 +33,29 @@ namespace YellowstonePathology.UI.Gross
         public static DictationTemplateCollection GetAll()
         {
             DictationTemplateCollection result = new DictationTemplateCollection();
+            result.Add(new AorticValveTemplate());
             result.Add(new AppendixExcisionTemplate());
-            result.Add(new ProstateNeedleCoreTemplate());
-            result.Add(new ProstateTURTemplate());
-            result.Add(new GITemplate());
-            result.Add(new SkinShavePunchMiscTemplate());
-            result.Add(new SkinExcisionTemplate());
-            result.Add(new GallbladderExcisionTemplate());
-            result.Add(new TonsilExcisionTemplate());
-            result.Add(new POCTemplate());
             result.Add(new BreastReductionTemplate());
-            result.Add(new ECCTemplate());
-            result.Add(new EMBTemplate());
             result.Add(new CervicalBiopsyTemplate());
+            result.Add(new EMBTemplate());
+            result.Add(new ECCTemplate());
+            result.Add(new FemoralHeadTemplate());
+            result.Add(new GallbladderExcisionTemplate());
+            result.Add(new GITemplate());
+            result.Add(new KneeTissueTemplate());
             result.Add(new LEEPConeTemplate());
             result.Add(new LEEPPiecesTemplate());
-            result.Add(new SinglePlacentaTemplate());
-            result.Add(new UterusTemplate());
-            result.Add(new UterusAdnexaTemplate());
+            result.Add(new MitralValveTemplate());
             result.Add(new NeedleCoreBiopsyTemplate());
+            result.Add(new POCTemplate());
+            result.Add(new ProstateNeedleCoreTemplate());
+            result.Add(new ProstateTURTemplate());
+            result.Add(new SinglePlacentaTemplate());
+            result.Add(new SkinExcisionTemplate());
+            result.Add(new SkinShavePunchMiscTemplate());
+            result.Add(new TonsilExcisionTemplate());
+            result.Add(new UterusAdnexaTemplate());
+            result.Add(new UterusTemplate());
             return result;
         }               
     }

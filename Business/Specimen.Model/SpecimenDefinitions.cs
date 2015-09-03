@@ -246,7 +246,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
         {
             public UterusAdnexa()
             {
-                this.m_SpecimenId = "UTRADNSSPCMN";
+                this.m_SpecimenId = "UTRADNSPCMN";
                 this.m_SpecimenName = "Uterus with Adnexa Excision";
                 this.m_Description = null;
                 this.m_LabFixation = "Formalin";
@@ -272,7 +272,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
         {
             public LEEPCone()
             {
-                this.m_SpecimenId = "LPCSPCMN";
+                this.m_SpecimenId = "LPCNSPCMN";
                 this.m_SpecimenName = "LEEP Cone";
                 this.m_Description = null;
                 this.m_LabFixation = "Formalin";
@@ -285,8 +285,60 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
         {
             public LEEPPieces()
             {
-                this.m_SpecimenId = "LPPSPCMN";
+                this.m_SpecimenId = "LPPCSPCMN";
                 this.m_SpecimenName = "LEEP Pieces";
+                this.m_Description = null;
+                this.m_LabFixation = "Formalin";
+                this.m_ClientFixation = null;
+                this.m_RequiresGrossExamination = true;
+            }
+        }
+
+        public class AorticValve : Specimen
+        {
+            public AorticValve()
+            {
+                this.m_SpecimenId = "AVSPCMN";
+                this.m_SpecimenName = "Aortic Valve";
+                this.m_Description = null;
+                this.m_LabFixation = "Formalin";
+                this.m_ClientFixation = null;
+                this.m_RequiresGrossExamination = true;
+            }
+        }
+
+        public class MitralValve : Specimen
+        {
+            public MitralValve()
+            {
+                this.m_SpecimenId = "MVSPCMN";
+                this.m_SpecimenName = "Mitral Valve";
+                this.m_Description = null;
+                this.m_LabFixation = "Formalin";
+                this.m_ClientFixation = null;
+                this.m_RequiresGrossExamination = true;
+            }
+        }
+        
+        public class KneeTissue : Specimen
+        {
+            public KneeTissue()
+            {
+                this.m_SpecimenId = "KTSPCMN";
+                this.m_SpecimenName = "Knee Tissue";
+                this.m_Description = null;
+                this.m_LabFixation = "Formalin";
+                this.m_ClientFixation = null;
+                this.m_RequiresGrossExamination = true;
+            }
+        }
+
+        public class FemoralHead : Specimen
+        {
+            public FemoralHead()
+            {
+                this.m_SpecimenId = "FHSPCMN";
+                this.m_SpecimenName = "Femoral Head";
                 this.m_Description = null;
                 this.m_LabFixation = "Formalin";
                 this.m_ClientFixation = null;
