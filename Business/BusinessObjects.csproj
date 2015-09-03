@@ -249,8 +249,10 @@
     <Compile Include="Client.Model\ClientSupply.cs" />
     <Compile Include="Client.Model\ClientSupplyCollection.cs" />
     <Compile Include="Client.Model\ClientSupplyOrder.cs" />
+    <Compile Include="Client.Model\ClientSupplyOrderCollection.cs" />
     <Compile Include="Client.Model\ClientSupplyOrderDetail.cs" />
     <Compile Include="Client.Model\ClientSupplyOrderDetailCollection.cs" />
+    <Compile Include="Client.Model\ClientSupplyCategory.cs" />
     <Compile Include="ClientOrder.Model\ClientOrderDetailView.cs" />
     <Compile Include="Client\AllClientGroup.cs" />
     <Compile Include="Client\AthenaPhysicianClientDistribution.cs" />

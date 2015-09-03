@@ -35,6 +35,28 @@ namespace YellowstonePathology.Business.Client.Model
 			this.m_ClientSupplyOrderDetailCollection = new ClientSupplyOrderDetailCollection();
 		}
 
+		public ClientSupplyOrder(string objectId, YellowstonePathology.Business.Client.Model.Client client)
+		{
+			this.m_ObjectId = objectId;
+			this.m_ClientAddress = client.Address;
+			this.m_ClientCity = client.City;
+			this.m_ClientId = client.ClientId;
+			this.m_ClientName = client.ClientName;
+			this.m_ClientState = client.State;
+			this.m_ClientZip = client.ZipCode;
+			this.m_ContactName = client.ContactName;
+			this.m_OrderDate = DateTime.Today;
+
+			YellowstonePathology.Business.User.SystemIdentity systemIdentity = new Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.CurrentlyScannedIn);
+			if (systemIdentity.IsKnown == false)
+			{
+				systemIdentity = new Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
+			}
+			this.m_OrderTakenById = systemIdentity.User.UserId;
+
+			this.m_ClientSupplyOrderDetailCollection = new ClientSupplyOrderDetailCollection();
+		}
+
         public void NotifyPropertyChanged(String info)
         {
             if (PropertyChanged != null)
@@ -50,7 +72,7 @@ namespace YellowstonePathology.Business.Client.Model
 		}
 
         [PersistentPrimaryKeyProperty(true)]
-		private int ClientSupplyOrderId
+		public int ClientSupplyOrderId
 		{
 			get { return this.m_ClientSupplyOrderId; }
 			set
@@ -64,7 +86,7 @@ namespace YellowstonePathology.Business.Client.Model
 		}
 
         [PersistentProperty()]
-		private int ClientId
+		public int ClientId
 		{
 			get { return this.m_ClientId; }
 			set
@@ -78,7 +100,7 @@ namespace YellowstonePathology.Business.Client.Model
 		}
 
         [PersistentProperty()]
-		private string ClientName
+		public string ClientName
 		{
 			get { return this.m_ClientName; }
 			set
@@ -92,7 +114,7 @@ namespace YellowstonePathology.Business.Client.Model
 		}
 
         [PersistentProperty()]
-		private string ClientAddress
+		public string ClientAddress
 		{
 			get { return this.m_ClientAddress; }
 			set
@@ -106,7 +128,7 @@ namespace YellowstonePathology.Business.Client.Model
 		}
 
         [PersistentProperty()]
-		private string ClientCity
+		public string ClientCity
 		{
 			get { return this.m_ClientCity; }
 			set
@@ -120,7 +142,7 @@ namespace YellowstonePathology.Business.Client.Model
 		}
 
         [PersistentProperty()]
-		private string ClientState
+		public string ClientState
 		{
 			get { return this.m_ClientState; }
 			set
@@ -134,7 +156,7 @@ namespace YellowstonePathology.Business.Client.Model
 		}
 
         [PersistentProperty()]
-		private string ClientZip
+		public string ClientZip
 		{
 			get { return this.m_ClientZip; }
 			set
@@ -148,7 +170,7 @@ namespace YellowstonePathology.Business.Client.Model
 		}
 
         [PersistentProperty()]
-		private DateTime? OrderDate
+		public DateTime? OrderDate
 		{
 			get { return this.m_OrderDate; }
 			set
@@ -162,7 +184,7 @@ namespace YellowstonePathology.Business.Client.Model
 		}
 
         [PersistentProperty()]
-		private DateTime? DateOrderSent
+		public DateTime? DateOrderSent
 		{
 			get { return this.m_DateOrderSent; }
 			set
@@ -176,7 +198,7 @@ namespace YellowstonePathology.Business.Client.Model
 		}
 
         [PersistentProperty()]
-		private bool OrderFinal
+		public bool OrderFinal
 		{
 			get { return this.m_OrderFinal; }
 			set
@@ -190,7 +212,7 @@ namespace YellowstonePathology.Business.Client.Model
 		}
 
         [PersistentProperty()]
-		private int OrderTakenById
+		public int OrderTakenById
 		{
 			get { return this.m_OrderTakenById; }
 			set
@@ -204,7 +226,7 @@ namespace YellowstonePathology.Business.Client.Model
 		}
 
         [PersistentProperty()]
-		private int OrderFilledById
+		public int OrderFilledById
 		{
 			get { return this.m_OrderFilledById; }
 			set
@@ -218,7 +240,7 @@ namespace YellowstonePathology.Business.Client.Model
 		}
 
         [PersistentProperty()]
-		private string ContactName
+		public string ContactName
 		{
 			get { return this.m_ContactName; }
 			set
@@ -232,7 +254,7 @@ namespace YellowstonePathology.Business.Client.Model
 		}
 
         [PersistentProperty()]
-		private string Comment
+		public string Comment
 		{
 			get { return this.m_Comment; }
 			set

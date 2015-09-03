@@ -28,7 +28,8 @@ namespace YellowstonePathology.UI.Client
 		private YellowstonePathology.Business.View.ClientPhysicianView m_ClientPhysicianView;
 		private YellowstonePathology.Business.Domain.PhysicianCollection m_PhysicianCollection;
 		private YellowstonePathology.Business.Billing.Model.BillingRuleSetCollection m_BillingRuleSetCollection;
-        YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
+        private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
+		private YellowstonePathology.Business.Client.Model.ClientSupplyOrderCollection m_ClientSupplyOrderCollection;
 
 		public ClientEntryV2(YellowstonePathology.Business.Client.Model.Client client, YellowstonePathology.Business.Persistence.ObjectTracker objectTracker)
 		{
@@ -45,6 +46,7 @@ namespace YellowstonePathology.UI.Client
 
             this.m_DistributionTypeList = new YellowstonePathology.Business.ReportDistribution.Model.DistributionTypeList();
 			this.m_BillingRuleSetCollection = YellowstonePathology.Business.Billing.Model.BillingRuleSetCollection.GetAllRuleSets();
+			this.m_ClientSupplyOrderCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientSupplyOrderCollection(this.m_Client.ClientId);
 
 			InitializeComponent();
 			this.DataContext = this;
@@ -91,6 +93,11 @@ namespace YellowstonePathology.UI.Client
 		public YellowstonePathology.Business.Billing.Model.BillingRuleSetCollection BillingRuleSetCollection
 		{
 			get { return this.m_BillingRuleSetCollection; }
+		}
+
+		public YellowstonePathology.Business.Client.Model.ClientSupplyOrderCollection ClientSupplyOrderCollection
+		{
+			get { return this.m_ClientSupplyOrderCollection; }
 		}
 
 		private void BorderPanelSetOrderHeader_Loaded(object sender, RoutedEventArgs e)
@@ -165,6 +172,29 @@ namespace YellowstonePathology.UI.Client
 				}
 				this.m_PhysicianCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysiciansByName(firstName, lastName);
 				NotifyPropertyChanged("PhysicianCollection");
+			}
+		}
+
+		private void ButtonNewSupplyOrder_Click(object sender, RoutedEventArgs e)
+		{
+			string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
+			YellowstonePathology.Business.Client.Model.ClientSupplyOrder clientSupplyOrder = new Business.Client.Model.ClientSupplyOrder(objectId, this.m_Client);
+			ClientSupplyOrderDialog clientSupplyOrderDialog = new ClientSupplyOrderDialog(clientSupplyOrder);
+			clientSupplyOrderDialog.ShowDialog();
+		}
+
+		private void ButtonDeleteSupplyOrder_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		private void ListViewOrderDetails_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+		{
+			if (this.ListViewOrderDetails.SelectedItem != null)
+			{
+				YellowstonePathology.Business.Client.Model.ClientSupplyOrder clientSupplyOrder = (YellowstonePathology.Business.Client.Model.ClientSupplyOrder)this.ListViewOrderDetails.SelectedItem;
+				ClientSupplyOrderDialog clientSupplyOrderDialog = new ClientSupplyOrderDialog(clientSupplyOrder);
+				clientSupplyOrderDialog.ShowDialog();
 			}
 		}
 	}
