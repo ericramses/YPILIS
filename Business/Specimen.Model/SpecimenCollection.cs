@@ -45,28 +45,32 @@ namespace YellowstonePathology.Business.Specimen.Model
         {
             SpecimenCollection result = new SpecimenCollection();
             result.Add(new SpecimenDefinition.NullSpecimen());
-            result.Add(new SpecimenDefinition.GIBiopsy());
             result.Add(new SpecimenDefinition.ThinPrepFluid());
-            result.Add(new SpecimenDefinition.ProstateRadicalResection());
             result.Add(new SpecimenDefinition.ProstateExceptRadicalResection());
             result.Add(new SpecimenDefinition.ProstateNeedleBiopsy());
+            result.Add(new SpecimenDefinition.ProstateRadicalResection());
             result.Add(new SpecimenDefinition.ProstateTUR());
-            result.Add(new SpecimenDefinition.SkinExcisionBiopsy());
-            result.Add(new SpecimenDefinition.SkinShavePunchMiscBiopsy());
+            result.Add(new SpecimenDefinition.AorticValve());
             result.Add(new SpecimenDefinition.AppendixExcision());
-            result.Add(new SpecimenDefinition.GallbladderExcision());
-            result.Add(new SpecimenDefinition.TonsilExcision());
-            result.Add(new SpecimenDefinition.POC());
             result.Add(new SpecimenDefinition.BreastReduction());
+            result.Add(new SpecimenDefinition.CervicalBiopsy());
             result.Add(new SpecimenDefinition.ECC());
             result.Add(new SpecimenDefinition.EMB());
-            result.Add(new SpecimenDefinition.CervicalBiopsy());
+            result.Add(new SpecimenDefinition.FemoralHead());
+            result.Add(new SpecimenDefinition.GallbladderExcision());
+            result.Add(new SpecimenDefinition.GIBiopsy());
+            result.Add(new SpecimenDefinition.KneeTissue());
             result.Add(new SpecimenDefinition.LEEPCone());
             result.Add(new SpecimenDefinition.LEEPPieces());
-            result.Add(new SpecimenDefinition.SinglePlacenta());
-            result.Add(new SpecimenDefinition.Uterus());
-            result.Add(new SpecimenDefinition.UterusAdnexa());
+            result.Add(new SpecimenDefinition.MitralValve());
             result.Add(new SpecimenDefinition.NeedleCoreBiopsy());
+            result.Add(new SpecimenDefinition.POC()); 
+            result.Add(new SpecimenDefinition.SinglePlacenta());
+            result.Add(new SpecimenDefinition.SkinExcisionBiopsy());
+            result.Add(new SpecimenDefinition.SkinShavePunchMiscBiopsy());
+            result.Add(new SpecimenDefinition.TonsilExcision());                                                           
+            result.Add(new SpecimenDefinition.Uterus());            
+            result.Add(new SpecimenDefinition.UterusAdnexa());
             return result;
         }
     }
