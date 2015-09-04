@@ -77,8 +77,9 @@ namespace YellowstonePathology.UI.Client
 			if (result == MessageBoxResult.OK)
 			{
 				string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
+				int clientId = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetLargestClientId() + 1;
 				YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-				YellowstonePathology.Business.Client.Model.Client client = new YellowstonePathology.Business.Client.Model.Client(objectId, newClientName);
+				YellowstonePathology.Business.Client.Model.Client client = new YellowstonePathology.Business.Client.Model.Client(objectId, newClientName, clientId);
 				objectTracker.RegisterRootInsert(client);
 				client.ClientName = newClientName;
 				client.ObjectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();

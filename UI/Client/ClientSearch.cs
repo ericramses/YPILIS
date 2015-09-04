@@ -174,16 +174,17 @@ namespace YellowstonePathology.UI.Client
             if (result == DialogResult.OK)
             {
 				string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
+				//int clientId = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetLargestClientId() + 1;
 				YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
 				YellowstonePathology.Business.Client.Model.Client client = new YellowstonePathology.Business.Client.Model.Client(objectId, newClientName);
-                objectTracker.RegisterRootInsert(client);
-				client.ClientName = newClientName;
-				client.ObjectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
+				//YellowstonePathology.Business.Client.Model.Client client = new YellowstonePathology.Business.Client.Model.Client(objectId, newClientName, clientId);
+				objectTracker.RegisterRootInsert(client);
                 ClientEntry clientEntryDialog = new ClientEntry(client, objectTracker);
                 clientEntryDialog.ShowDialog();                
             }
             this.SetListBoxData();            
         }
+
         private void buttonDelete_Click(object sender, EventArgs e)
         {
 			MessageBox.Show("Please contact IT to delete a client.", "This function not implemented", MessageBoxButtons.OK, MessageBoxIcon.Information);            

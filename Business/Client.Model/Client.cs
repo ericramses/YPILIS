@@ -46,6 +46,7 @@ namespace YellowstonePathology.Business.Client.Model
 		{
 			this.m_ObjectId = objectId;
 			this.m_ClientName = clientName;
+			//this.m_ClientId = clientId;
 			this.m_ClientLocationCollection = new ClientLocationCollection();
 		}
 
