@@ -169,7 +169,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
         {
             this.m_SpecimenId = "BRSTRDSPCMN";
             this.m_SpecimenName = "Breast Reduction";
-            this.m_Description = null;
+            this.m_Description = "[right/left] breast, reduction mammoplasty";
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = null;
             this.m_RequiresGrossExamination = true;
@@ -208,7 +208,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
         {
             this.m_SpecimenId = "CVCLBSPYSPCMN";
             this.m_SpecimenName = "Cervical Biopsy";
-            this.m_Description = null;
+            this.m_Description = "Cervix, biopsy";
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = null;
             this.m_RequiresGrossExamination = true;
@@ -274,7 +274,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             {
                 this.m_SpecimenId = "LPCNSPCMN";
                 this.m_SpecimenName = "LEEP Cone";
-                this.m_Description = null;
+                this.m_Description = "Cervix, LEEP, excision";
                 this.m_LabFixation = "Formalin";
                 this.m_ClientFixation = null;
                 this.m_RequiresGrossExamination = true;
@@ -287,7 +287,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             {
                 this.m_SpecimenId = "LPPCSPCMN";
                 this.m_SpecimenName = "LEEP Pieces";
-                this.m_Description = null;
+                this.m_Description = "Cervix, LEEP, excision";
                 this.m_LabFixation = "Formalin";
                 this.m_ClientFixation = null;
                 this.m_RequiresGrossExamination = true;
@@ -300,7 +300,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             {
                 this.m_SpecimenId = "AVSPCMN";
                 this.m_SpecimenName = "Aortic Valve";
-                this.m_Description = null;
+                this.m_Description = "Aortic valve";
                 this.m_LabFixation = "Formalin";
                 this.m_ClientFixation = null;
                 this.m_RequiresGrossExamination = true;
@@ -313,7 +313,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             {
                 this.m_SpecimenId = "MVSPCMN";
                 this.m_SpecimenName = "Mitral Valve";
-                this.m_Description = null;
+                this.m_Description = "Mitral valve";
                 this.m_LabFixation = "Formalin";
                 this.m_ClientFixation = null;
                 this.m_RequiresGrossExamination = true;
