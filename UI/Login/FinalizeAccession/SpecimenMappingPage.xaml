@@ -25,7 +25,7 @@
 
                 <CheckBox Grid.Column="0" Grid.Row="0" IsChecked="{Binding Path=ClientAccessioned}" Margin="2,2,2,2" Tag="{Binding Path=.}" 
                           Checked="CheckBoxSlideClientAccessioned_Checked" Unchecked="CheckBoxSlideClientAccessioned_Unchecked"></CheckBox>
-                <TextBlock Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" Text="Slide"></TextBlock>
+                <TextBlock Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" Text="Slide:"></TextBlock>
                 <TextBlock Grid.Column="2" Grid.Row="0" Margin="2,2,2,2" Text="{Binding Path=Label}"></TextBlock>                
                 <TextBox Grid.Column="3" Grid.Row="0" Margin="2,2,2,2" Text="{Binding Path=ClientLabel}" Width="50"></TextBox>
                 <TextBlock Grid.Column="4" Grid.Row="0" Margin="2,2,2,2" Text="{Binding Path=TestName}" Width="150"></TextBlock>
@@ -48,10 +48,13 @@
                 </Grid.RowDefinitions>
 
                 <CheckBox Grid.Column="0" Grid.Row="0" IsChecked="{Binding Path=ClientAccessioned}" Margin="2,2,2,2"></CheckBox>
-                <TextBlock Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" Text="{Binding Path=AliquotType}"></TextBlock>
+                <StackPanel Grid.Column="1" Grid.Row="0">
+                    <TextBlock Margin="2,2,2,2" Text="{Binding Path=AliquotType}"></TextBlock>
+                </StackPanel>                
                 <TextBlock Grid.Column="2" Grid.Row="0" Margin="2,2,2,2" Text="{Binding Path=Label}"></TextBlock>
-                <TextBox Grid.Column="3" Grid.Row="0" Margin="2,2,2,2" Text="{Binding Path=ClientLabel}" Width="50"></TextBox>
-
+                <TextBox Grid.Column="3" Grid.Row="0" Margin="2,2,2,2" Text="{Binding Path=ClientLabel}" Width="50"></TextBox>                
+                <TextBlock Grid.Column="4" Grid.Row="0" Margin="2,2,2,2" Text="{Binding Path=FacilityId}" HorizontalAlignment="Right"></TextBlock>
+                
             </Grid>
         </HierarchicalDataTemplate>
 
@@ -74,13 +77,13 @@
                 <TextBlock Grid.Column="2" Grid.Row="0" Margin="2,2,2,2" Text="{Binding Path=SpecimenDescriptionString}" FontWeight="Bold"></TextBlock>
 
                 <StackPanel Grid.Column="2" Grid.Row="1" Orientation="Horizontal">
-                    <TextBlock Margin="2,2,2,2" HorizontalAlignment="Right">Time To Fixation:</TextBlock>
+                    <TextBlock Margin="2,2,2,2" HorizontalAlignment="Right" Width="120">Time To Fixation:</TextBlock>
                     <ComboBox ItemsSource="{Binding Path=TimeToFixationTypeCollection, RelativeSource={RelativeSource AncestorType=UserControl}}" 
                           SelectedItem="{Binding Path=TimeToFixationHourString}" Margin="2,2,2,2" Width="100" HorizontalAlignment="Left"/>
                 </StackPanel>
 
                 <StackPanel Grid.Column="2" Grid.Row="2" Orientation="Horizontal">
-                    <TextBlock Margin="2,2,2,2" HorizontalAlignment="Right">Fixation Duration:</TextBlock>
+                    <TextBlock Margin="2,2,2,2" HorizontalAlignment="Right" Width="120">Fixation Duration:</TextBlock>
                     <TextBox Margin="2,2,2,2" Text="{Binding Path=FixationDuration}" Width="100" HorizontalAlignment="Left"></TextBox>
                 </StackPanel>
 
@@ -111,6 +114,8 @@
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
             </Grid.RowDefinitions>
@@ -122,14 +127,20 @@
             <TextBlock Grid.Column="1" Grid.Row="1" Margin="2,2,2,2" HorizontalAlignment="Stretch" Text="{Binding Path=AccessionOrder.MasterAccessionNo}"></TextBlock>
 
             <TextBlock Grid.Column="0" Grid.Row="2" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right">Client Accession No:</TextBlock>
-            <TextBox Grid.Column="1" Grid.Row="2" Margin="2,2,2,2" HorizontalAlignment="Stretch" Text="{Binding Path=AccessionOrder.ClientAccessionNo}"></TextBox>                        
-           
-            <TreeView Name="TreeViewSpecimenOrder" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="3" ItemsSource="{Binding Path=AccessionOrder.SpecimenOrderCollection}"
+            <TextBox Grid.Column="1" Grid.Row="2" Margin="2,2,2,2" HorizontalAlignment="Left" Text="{Binding Path=AccessionOrder.ClientAccessionNo}" Width="200"></TextBox>
+
+            <TextBlock Grid.Column="0" Grid.Row="3" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right">Client Name:</TextBlock>
+            <TextBlock Grid.Column="1" Grid.Row="3" Margin="2,2,2,2" Text="{Binding Path=AccessionOrder.ClientName}"></TextBlock>
+
+            <TextBlock Grid.Column="0" Grid.Row="4" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right">Physician Name:</TextBlock>
+            <TextBlock Grid.Column="1" Grid.Row="4" Margin="2,2,2,2" Text="{Binding Path=AccessionOrder.PhysicianName}"></TextBlock>
+
+            <TreeView Name="TreeViewSpecimenOrder" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="5" ItemsSource="{Binding Path=AccessionOrder.SpecimenOrderCollection}"
 							ItemTemplate="{StaticResource DataTemplateSpecimenOrder}" Margin="2,10,2,2" BorderThickness="1">
             </TreeView>
 
-            <Button Grid.Column="0" Grid.Row="4" Click="ButtonUpdateTrackingLog_Click" Width="150" Height="50" HorizontalAlignment="Right" Margin="2,2,2,2">Update Tracking Log</Button>
-            <Button Grid.Column="3" Grid.Row="4" Click="ButtonPrint_Click" Width="80" Height="50" HorizontalAlignment="Right" Margin="2,2,2,2">Print</Button>
+            <Button Grid.Column="0" Grid.Row="6" Click="ButtonUpdateTrackingLog_Click" Width="150" Height="50" HorizontalAlignment="Right" Margin="2,2,2,2">Update Tracking Log</Button>
+            <Button Grid.Column="3" Grid.Row="6" Click="ButtonPrint_Click" Width="100" Height="50" HorizontalAlignment="Right" Margin="2,2,2,2">Print Labels</Button>
 
         </Grid>
 

@@ -32,7 +32,7 @@ namespace YellowstonePathology.Business.Test
         protected string m_LabelType;
         private string m_LocationId;
         private string m_FacilityId;
-
+        private string m_FacilityName;
         protected bool m_Validated;
         protected string m_ValidationStation;
         protected int m_ValidatedById;
@@ -279,6 +279,20 @@ namespace YellowstonePathology.Business.Test
                 {
                     this.m_FacilityId = value;
                     this.NotifyPropertyChanged("FacilityId");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string FacilityName
+        {
+            get { return this.m_FacilityName; }
+            set
+            {
+                if (this.m_FacilityName != value)
+                {
+                    this.m_FacilityName = value;
+                    this.NotifyPropertyChanged("FacilityName");
                 }
             }
         }

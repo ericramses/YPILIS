@@ -330,6 +330,7 @@
     <Compile Include="Gross\TemplateWord.cs" />
     <Compile Include="GroupingListView.cs" />
     <Compile Include="ListViewSorter.cs" />
+    <Compile Include="Login\FinalizeAccession\FacilityColorConverter.cs" />
     <Compile Include="Login\FinalizeAccession\FixationUpdate.cs" />
     <Compile Include="Login\FinalizeAccession\SpecimenMappingPage.xaml.cs">
       <DependentUpon>SpecimenMappingPage.xaml</DependentUpon>

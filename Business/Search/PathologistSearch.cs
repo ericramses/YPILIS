@@ -36,7 +36,7 @@ namespace YellowstonePathology.Business.Search
 			this.m_FinalDates.Add("Final Last 7 Days");
 			this.m_FinalDates.Add("Final Last 30 Days");
 
-			this.m_Pathologists = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetUsersByRole(YellowstonePathology.Business.User.SystemUserRoleDescriptionEnum.Pathologist, true);
+            this.m_Pathologists = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetPathologistUsers();
 			YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.AddAllToUserList(this.m_Pathologists, true);
 			this.m_Pathologists[0].UserId = -1;
 			YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.AddUnassignedToUserList(this.m_Pathologists, true);

@@ -47,6 +47,13 @@ namespace YellowstonePathology.Business.Client.Model
 			this.m_ContactName = client.ContactName;
 			this.m_OrderDate = DateTime.Today;
 
+			YellowstonePathology.Business.User.SystemIdentity systemIdentity = new Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.CurrentlyScannedIn);
+			if (systemIdentity.IsKnown == false)
+			{
+				systemIdentity = new Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
+			}
+			this.m_OrderTakenById = systemIdentity.User.UserId;
+
 			this.m_ClientSupplyOrderDetailCollection = new ClientSupplyOrderDetailCollection();
 		}
 

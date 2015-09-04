@@ -28,12 +28,19 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
             YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisTestOrder egfrMutationAnalysisTestOrder = (YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(60);
             base.ReplaceText("egfr_result", egfrMutationAnalysisTestOrder.Result);
             base.SetXMLNodeParagraphData("egfr_comment", egfrMutationAnalysisTestOrder.Comment);
-			
-			if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(131) == true)
-			{
+
+            YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisDetectedResult egfrMutationAnalysisDetectedResult = new EGFRMutationAnalysis.EGFRMutationAnalysisDetectedResult();
+            if (egfrMutationAnalysisTestOrder.ResultCode == egfrMutationAnalysisDetectedResult.ResultCode)
+            {
+                base.ReplaceText("alk_result", "Not Indicated");
+                base.ReplaceText("ros1_result", "Not Indicated");
+            }
+
+            if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(131) == true)
+            {
                 YellowstonePathology.Business.Test.ALKForNSCLCByFISH.ALKForNSCLCByFISHTestOrder alkForNSCLCByFISHTestOrder = (YellowstonePathology.Business.Test.ALKForNSCLCByFISH.ALKForNSCLCByFISHTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(131);
-                base.ReplaceText("alk_result", alkForNSCLCByFISHTestOrder.Result);                
-			}
+                base.ReplaceText("alk_result", alkForNSCLCByFISHTestOrder.Result);
+            }            
             else if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(68) == true)
             {
                 YellowstonePathology.Business.Test.ALKForNSCLCByFISH.ALKForNSCLCByFISHTestOrderReportedSeparately alkForNSCLCByFISHTestOrderReportedSeparately = new YellowstonePathology.Business.Test.ALKForNSCLCByFISH.ALKForNSCLCByFISHTestOrderReportedSeparately();

@@ -10,7 +10,7 @@ namespace YellowstonePathology.Business.Facility.Model
         public StJamesHealthcare()
         {
             this.m_FacilityId = "STJMSHC";
-            this.m_FacilityName = "St. James Healthcare";
+            this.m_FacilityName = "St. James Healthcare - Pathology";
             this.m_Address1 = "400 S. Clark";
             this.m_City = "Butte";
             this.m_State = "MT";

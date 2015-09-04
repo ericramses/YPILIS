@@ -170,6 +170,9 @@
 							<DataTemplate>
 								<StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
 									<TextBlock Margin="2" Text="{Binding Path=ClientName}" />
+                                    <TextBlock Margin="2,2,0,2" Text="(" />
+                                    <TextBlock Margin="2" Text="{Binding Path=DistributionType}" />
+                                    <TextBlock Margin="0,2,2,2" Text=")" />
 								</StackPanel>
 							</DataTemplate>
 						</ListBox.ItemTemplate>

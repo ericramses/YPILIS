@@ -186,7 +186,6 @@ namespace YellowstonePathology.UI.Client
 			clientSupplyOrder = this.m_ClientSupplyOrderCollection.GetClientSupplyOrder(clientSupplyOrder.ObjectId);
 			objectTracker = new Business.Persistence.ObjectTracker();
 			objectTracker.RegisterObject(clientSupplyOrder);
-			ClientSupplyOrderDialog clientSupplyOrderDialog = new ClientSupplyOrderDialog(clientSupplyOrder, objectTracker);
 			clientSupplyOrderDialog.ShowDialog();
 			this.NotifyPropertyChanged("ClientSupplyOrderCollection");
 		}
@@ -211,7 +210,6 @@ namespace YellowstonePathology.UI.Client
 				YellowstonePathology.Business.Client.Model.ClientSupplyOrder clientSupplyOrder = (YellowstonePathology.Business.Client.Model.ClientSupplyOrder)this.ListViewOrderDetails.SelectedItem;
 				YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new Business.Persistence.ObjectTracker();
 				objectTracker.RegisterObject(clientSupplyOrder);
-				ClientSupplyOrderDialog clientSupplyOrderDialog = new ClientSupplyOrderDialog(clientSupplyOrder, objectTracker);
 				clientSupplyOrderDialog.ShowDialog();
 			}
 		}

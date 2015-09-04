@@ -59,6 +59,12 @@ namespace YellowstonePathology.Business.Visitor
                     case 3:
                         pantherAssay = new Business.HL7View.Panther.PantherAssayNGCT();
                         break;
+                    case 62:
+                        pantherAssay = new Business.HL7View.Panther.PantherAssayHPV1618();
+                        break;
+                    case 61:
+                        pantherAssay = new Business.HL7View.Panther.PantherAssayTrich();
+                        break;
                     default:
                         throw new Exception(this.m_PanelSetOrder.PanelSetName +  " is mot implemented yet.");
                 }
