@@ -84,9 +84,60 @@ namespace YellowstonePathology.UI.Client
 
 		private void ButtonOK_Click(object sender, RoutedEventArgs e)
 		{
-            this.m_ObjectTracker.SubmitChanges(this.m_Physician);
-			Close();
-		}		
+			if (this.NpiIsPresent() == true)
+			{
+				if (this.AllClientsHaveDistributionSet() == true)
+				{
+					this.m_ObjectTracker.SubmitChanges(this.m_Physician);
+					Close();
+				}
+			}
+		}
+
+		private bool NpiIsPresent()
+		{
+			bool npiIsPresent = true;
+			if (string.IsNullOrEmpty(this.m_Physician.Npi) == true)
+			{
+				npiIsPresent = false;
+				MessageBoxResult result = MessageBox.Show("The NPI is missing.  Do you want to continue?", "Missing NPI", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+				if (result == MessageBoxResult.Yes)
+				{
+					npiIsPresent = true;
+				}
+			}
+			return npiIsPresent;
+		}
+
+		private bool AllClientsHaveDistributionSet()
+		{
+			bool result = true;
+
+			StringBuilder msg = new StringBuilder();
+			foreach (YellowstonePathology.Business.Client.Model.Client client in this.m_PhysicianClientView.Clients)
+			{
+				YellowstonePathology.Business.Domain.PhysicianClient physicianClient = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClient(this.m_Physician.ObjectId, client.ClientId);
+				this.m_PhysicianClientId = physicianClient.PhysicianClientId;
+				List<YellowstonePathology.Business.Client.Model.PhysicianClientDistributionView> physicianClientDistributionViews = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClientDistributionsV2(this.m_PhysicianClientId);
+				if (physicianClientDistributionViews.Count == 0)
+				{
+					result = false;
+					msg.AppendLine(client.ClientName);
+				}
+			}
+
+			if (result == false)
+			{
+				MessageBoxResult messageBoxResult = MessageBox.Show("Distribution is not set for " + msg.ToString() + Environment.NewLine + Environment.NewLine + 
+					"Do you want to continue?", "Missing Distribution", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+				if (messageBoxResult == MessageBoxResult.Yes)
+				{
+					result = true;
+				}
+			}
+
+			return result;
+		}
 
 		private void ButtonAddToClient_Click(object sender, RoutedEventArgs e)
 		{
@@ -183,11 +234,16 @@ namespace YellowstonePathology.UI.Client
 			if(this.ListBoxClientMembership.SelectedItem != null)
 			{
 				YellowstonePathology.Business.Client.Model.Client client = (YellowstonePathology.Business.Client.Model.Client)this.ListBoxClientMembership.SelectedItem;
+				this.FillPhysicianClientDistributionViewList(client.ClientId);
 				YellowstonePathology.Business.Domain.PhysicianClient physicianClient = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClient(this.m_Physician.ObjectId, client.ClientId);
 				this.m_PhysicianClientId = physicianClient.PhysicianClientId;
 				this.m_PhysicianClientDistributionViewList = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClientDistributionsV2(this.m_PhysicianClientId);
 				this.NotifyPropertyChanged("PhysicianClientDistributionViewList");
 			}
+		}
+
+		private void FillPhysicianClientDistributionViewList(int clientId)
+		{
 		}
 	}
 }

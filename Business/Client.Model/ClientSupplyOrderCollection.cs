@@ -11,5 +11,19 @@ namespace YellowstonePathology.Business.Client.Model
 		public ClientSupplyOrderCollection()
 		{
 		}
+
+		public ClientSupplyOrder GetClientSupplyOrder(string objectId)
+		{
+			ClientSupplyOrder result = null;
+			foreach (ClientSupplyOrder order in this)
+			{
+				if (order.ObjectId == objectId)
+				{
+					result = order;
+					break;
+				}
+			}
+			return result;
+		}
 	}
 }

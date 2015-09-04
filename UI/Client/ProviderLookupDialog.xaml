@@ -57,9 +57,8 @@
 							 ItemsSource="{Binding Path=ClientCollection}">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="Client Id" Width="100" DisplayMemberBinding="{Binding Path=ClientId}" />
-                                <GridViewColumn Header="Client Name" Width="200" DisplayMemberBinding="{Binding Path=ClientName}" />
-                                <GridViewColumn Header="City" Width="200" DisplayMemberBinding="{Binding Path=City}" />
+                                <GridViewColumn Header="Client Name" Width="300" DisplayMemberBinding="{Binding Path=ClientName}" />
+                                <GridViewColumn Header="City" Width="280" DisplayMemberBinding="{Binding Path=City}" />
                             </GridView>
                         </ListView.View>
                     </ListView>
