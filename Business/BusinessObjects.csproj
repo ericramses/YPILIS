@@ -2173,7 +2173,7 @@
     <Compile Include="Facility.Model\PhenoPath.cs" />
     <Compile Include="Facility.Model\SeattleCancerCenterAlliance.cs" />
     <Compile Include="Facility.Model\Shodair.cs" />
-    <Compile Include="Facility.Model\StJamesHealthcare.cs" />
+    <Compile Include="Facility.Model\ButtePathology.cs" />
     <Compile Include="Facility.Model\StVincentHealthcare.cs" />
     <Compile Include="Facility.Model\Therapath.cs" />
     <Compile Include="Facility.Model\TXChildrensHospital.cs" />
@@ -2907,6 +2907,7 @@
     <Folder Include="Reports\Billing\" />
     <Folder Include="Rules\Creation\" />
     <Folder Include="Rules\PatientLinking\" />
+    <Folder Include="Test\Glycophorin\" />
     <Folder Include="Test\ReferenceLabResult\" />
   </ItemGroup>
   <ItemGroup>
