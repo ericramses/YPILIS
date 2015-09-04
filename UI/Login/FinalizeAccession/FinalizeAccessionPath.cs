@@ -220,7 +220,8 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             if (this.m_AccessionOrder.IsDermatologyClient() == true || this.m_AccessionOrder.PanelSetOrderCollection.HasGrossBeenOrdered() == true 
                 || this.m_AccessionOrder.PanelSetOrderCollection.Exists(panelSetTechnicalOnly.PanelSetId) == true
                 || this.m_AccessionOrder.PanelSetOrderCollection.Exists(reviewForAdditionalTestingTest.PanelSetId) == true
-                || this.m_AccessionOrder.PanelSetOrderCollection.Exists(ihcQCTest.PanelSetId) == true)
+                || this.m_AccessionOrder.PanelSetOrderCollection.Exists(ihcQCTest.PanelSetId) == true
+                || this.m_AccessionOrder.ClientId == 1260)
 			{
 			    AssignmentPage assignmentPage = new AssignmentPage(this.m_AccessionOrder, this.m_ObjectTracker);
 			    assignmentPage.Return += new AssignmentPage.ReturnEventHandler(AssignmentPage_Return);

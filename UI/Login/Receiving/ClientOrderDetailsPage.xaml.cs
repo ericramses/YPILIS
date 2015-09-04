@@ -98,6 +98,7 @@ namespace YellowstonePathology.UI.Login.Receiving
                 if (string.IsNullOrEmpty(this.m_ClientOrderDetail.ContainerId) == true)
                 {
                     this.m_ClientOrderDetail.ContainerIdBinding = containerBarcode.ToString();
+                    this.m_ClientOrderDetail.SetFixationStartTime();
                     this.m_ClientOrderDetail.Receive();
                 }
                 else
