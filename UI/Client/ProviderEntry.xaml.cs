@@ -128,7 +128,7 @@ namespace YellowstonePathology.UI.Client
 
 			if (result == false)
 			{
-				MessageBoxResult messageBoxResult = MessageBox.Show("Distribution is not set for " + msg.ToString() + Environment.NewLine + Environment.NewLine + 
+				MessageBoxResult messageBoxResult = MessageBox.Show("Distribution is not set for " + Environment.NewLine + msg.ToString() + Environment.NewLine + 
 					"Do you want to continue?", "Missing Distribution", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
 				if (messageBoxResult == MessageBoxResult.Yes)
 				{
