@@ -179,13 +179,29 @@ namespace YellowstonePathology.UI.Client
 		{
 			string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
 			YellowstonePathology.Business.Client.Model.ClientSupplyOrder clientSupplyOrder = new Business.Client.Model.ClientSupplyOrder(objectId, this.m_Client);
-			ClientSupplyOrderDialog clientSupplyOrderDialog = new ClientSupplyOrderDialog(clientSupplyOrder);
+			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new Business.Persistence.ObjectTracker();
+			objectTracker.RegisterRootInsert(clientSupplyOrder);
+			objectTracker.SubmitChanges(clientSupplyOrder);
+			this.m_ClientSupplyOrderCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientSupplyOrderCollection(this.m_Client.ClientId);
+			clientSupplyOrder = this.m_ClientSupplyOrderCollection.GetClientSupplyOrder(clientSupplyOrder.ObjectId);
+			objectTracker = new Business.Persistence.ObjectTracker();
+			objectTracker.RegisterObject(clientSupplyOrder);
+			ClientSupplyOrderDialog clientSupplyOrderDialog = new ClientSupplyOrderDialog(clientSupplyOrder, objectTracker);
 			clientSupplyOrderDialog.ShowDialog();
+			this.NotifyPropertyChanged("ClientSupplyOrderCollection");
 		}
 
 		private void ButtonDeleteSupplyOrder_Click(object sender, RoutedEventArgs e)
 		{
-
+			if (this.ListViewOrderDetails.SelectedItem != null)
+			{
+				YellowstonePathology.Business.Client.Model.ClientSupplyOrder clientSupplyOrder = (YellowstonePathology.Business.Client.Model.ClientSupplyOrder)this.ListViewOrderDetails.SelectedItem;
+				YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new Business.Persistence.ObjectTracker();
+				objectTracker.RegisterRootDelete(clientSupplyOrder);
+				objectTracker.SubmitChanges(clientSupplyOrder);
+				this.ClientSupplyOrderCollection.Remove(clientSupplyOrder);
+				this.NotifyPropertyChanged("ClientSupplyOrderCollection");
+			}
 		}
 
 		private void ListViewOrderDetails_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -193,7 +209,9 @@ namespace YellowstonePathology.UI.Client
 			if (this.ListViewOrderDetails.SelectedItem != null)
 			{
 				YellowstonePathology.Business.Client.Model.ClientSupplyOrder clientSupplyOrder = (YellowstonePathology.Business.Client.Model.ClientSupplyOrder)this.ListViewOrderDetails.SelectedItem;
-				ClientSupplyOrderDialog clientSupplyOrderDialog = new ClientSupplyOrderDialog(clientSupplyOrder);
+				YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new Business.Persistence.ObjectTracker();
+				objectTracker.RegisterObject(clientSupplyOrder);
+				ClientSupplyOrderDialog clientSupplyOrderDialog = new ClientSupplyOrderDialog(clientSupplyOrder, objectTracker);
 				clientSupplyOrderDialog.ShowDialog();
 			}
 		}
