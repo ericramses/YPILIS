@@ -1302,6 +1302,29 @@ namespace YellowstonePathology.Business.Gateway
 			return result;
 		}
 
+		public static int GetLargestClientId()
+		{
+			int result = 0;
+			SqlCommand cmd = new SqlCommand();
+			cmd.CommandText = "Select max(ClientId) from tblClient";
+			cmd.CommandType = CommandType.Text;
+
+			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.Properties.Settings.Default.CurrentConnectionString))
+			{
+				cn.Open();
+				cmd.Connection = cn;
+				using (SqlDataReader dr = cmd.ExecuteReader())
+				{
+					while (dr.Read())
+					{
+						result = (Int32)dr[0];
+					}
+				}
+			}
+
+			return result;
+		}
+
 		public static YellowstonePathology.Business.Client.Model.ClientSupplyCollection GetClientSupplyCollection(string supplyCategory)
 		{
 			YellowstonePathology.Business.Client.Model.ClientSupplyCollection result = new Client.Model.ClientSupplyCollection();

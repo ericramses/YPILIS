@@ -32,7 +32,7 @@ namespace YellowstonePathology.UI.Client
 			this.m_ClientSupplyOrder = clientSupplyOrder;
 			this.m_ObjectTracker = objectTracker;
 
-			this.m_UserCollection = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetUsersByRole(YellowstonePathology.Business.User.SystemUserRoleDescriptionEnum.ClientEntry, true);
+			this.m_UserCollection = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection;
 
 			InitializeComponent();
 
@@ -113,6 +113,7 @@ namespace YellowstonePathology.UI.Client
 				{
 					if (this.ListViewSupplies.SelectedItem != null)
 					{
+						quantityOrdered += " Ea.";
 						YellowstonePathology.Business.Client.Model.ClientSupply clientSupply = (YellowstonePathology.Business.Client.Model.ClientSupply)this.ListViewSupplies.SelectedItem;
 						string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
 						YellowstonePathology.Business.Client.Model.ClientSupplyOrderDetail clientSupplyOrderDetail = new Business.Client.Model.ClientSupplyOrderDetail(objectId,
