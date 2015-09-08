@@ -65,7 +65,7 @@ namespace YellowstonePathology.Business.Facility.Model
             result.Add(new ChildrensHospitalColorado());
             result.Add(new FoundationMedicine());
             result.Add(new BreastPathologyConsultants());
-            result.Add(new StJamesHealthcare());
+            result.Add(new ButtePathology());
             result.Add(new ColoradoGeneticsLaboratory());
             result.Add(new PhenoPath());
             result.Add(new UAMS());

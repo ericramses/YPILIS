@@ -22,23 +22,33 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 		public delegate void ReturnEventHandler(object sender, UI.Navigation.PageNavigationReturnEventArgs e);
 		public event ReturnEventHandler Return;
 
+        private bool m_IsLoaded;
 		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		private string m_PageHeaderText = "Case Asssignment Page";
-		private YellowstonePathology.Business.User.SystemUserCollection m_PathologistUsers;        
+		private YellowstonePathology.Business.User.SystemUserCollection m_PathologistUsers;
+        private YellowstonePathology.Business.Facility.Model.FacilityCollection m_FacilityCollection;
 
 		public AssignmentPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
 			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker)
 		{
+            this.m_IsLoaded = false;
 			this.m_ObjectTracker = objectTracker;
 			this.m_AccessionOrder = accessionOrder;
+            this.m_FacilityCollection = Business.Facility.Model.FacilityCollection.GetAllFacilities();
 
 			this.m_PathologistUsers = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetUsersByRole(YellowstonePathology.Business.User.SystemUserRoleDescriptionEnum.Pathologist, true);
 			
 			InitializeComponent();
 
-			DataContext = this;			
-		}		
+			DataContext = this;
+            this.Loaded += new RoutedEventHandler(AssignmentPage_Loaded);
+		}
+
+        private void AssignmentPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            this.m_IsLoaded = true;
+        }		
 
 		public string PageHeaderText
 		{
@@ -53,7 +63,12 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 		public YellowstonePathology.Business.Test.AccessionOrder AccessionOrder
 		{
 			get { return this.m_AccessionOrder; }
-		}		
+		}
+
+        public YellowstonePathology.Business.Facility.Model.FacilityCollection FacilityCollection
+        {
+            get { return this.m_FacilityCollection; }
+        }
 
 		private void ButtonBack_Click(object sender, RoutedEventArgs e)
 		{
@@ -117,5 +132,22 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 		{
 
 		}
+
+        private void ComboBoxUser_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (this.m_IsLoaded == true)
+            {
+                ComboBox comboBox = (ComboBox)sender;
+                YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = (YellowstonePathology.Business.Test.PanelSetOrder)comboBox.Tag;
+                YellowstonePathology.Business.User.SystemUser systemUser = (YellowstonePathology.Business.User.SystemUser)comboBox.SelectedItem;
+                if (systemUser.UserId == 5132 || systemUser.UserId == 5133)
+                {
+                    YellowstonePathology.Business.Facility.Model.ButtePathology buttePathology = new Business.Facility.Model.ButtePathology();
+                    YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings ypiBLGS = new Business.Facility.Model.YellowstonePathologyInstituteBillings();
+                    panelSetOrder.TechnicalComponentFacilityId = ypiBLGS.FacilityId;
+                    panelSetOrder.ProfessionalComponentFacilityId = buttePathology.FacilityId;
+                }
+            }
+        }
 	}
 }
