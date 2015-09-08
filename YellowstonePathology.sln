@@ -57,6 +57,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MongoMigrationTests", "Mong
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessObjects", "Business\BusinessObjects.csproj", "{0712F3D4-5C03-4446-B8FE-B8F5BE9495B1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YellowstonePathology.OptimusPrime", "YellowstonePathology.OptimusPrime\YellowstonePathology.OptimusPrime.csproj", "{69D98E8A-3353-413E-9974-8F4CA96B5CBC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|.NET = Debug|.NET
@@ -286,6 +288,36 @@ Global
 		{0712F3D4-5C03-4446-B8FE-B8F5BE9495B1}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{0712F3D4-5C03-4446-B8FE-B8F5BE9495B1}.Release|Win32.ActiveCfg = Release|Any CPU
 		{0712F3D4-5C03-4446-B8FE-B8F5BE9495B1}.Release|x86.ActiveCfg = Release|Any CPU
+		{69D98E8A-3353-413E-9974-8F4CA96B5CBC}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{69D98E8A-3353-413E-9974-8F4CA96B5CBC}.Debug|.NET.Build.0 = Debug|Any CPU
+		{69D98E8A-3353-413E-9974-8F4CA96B5CBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69D98E8A-3353-413E-9974-8F4CA96B5CBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69D98E8A-3353-413E-9974-8F4CA96B5CBC}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{69D98E8A-3353-413E-9974-8F4CA96B5CBC}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{69D98E8A-3353-413E-9974-8F4CA96B5CBC}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{69D98E8A-3353-413E-9974-8F4CA96B5CBC}.Debug|Win32.Build.0 = Debug|Any CPU
+		{69D98E8A-3353-413E-9974-8F4CA96B5CBC}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{69D98E8A-3353-413E-9974-8F4CA96B5CBC}.Debug|x86.Build.0 = Debug|Any CPU
+		{69D98E8A-3353-413E-9974-8F4CA96B5CBC}.Mongo|.NET.ActiveCfg = Release|Any CPU
+		{69D98E8A-3353-413E-9974-8F4CA96B5CBC}.Mongo|.NET.Build.0 = Release|Any CPU
+		{69D98E8A-3353-413E-9974-8F4CA96B5CBC}.Mongo|Any CPU.ActiveCfg = Release|Any CPU
+		{69D98E8A-3353-413E-9974-8F4CA96B5CBC}.Mongo|Any CPU.Build.0 = Release|Any CPU
+		{69D98E8A-3353-413E-9974-8F4CA96B5CBC}.Mongo|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{69D98E8A-3353-413E-9974-8F4CA96B5CBC}.Mongo|Mixed Platforms.Build.0 = Release|Any CPU
+		{69D98E8A-3353-413E-9974-8F4CA96B5CBC}.Mongo|Win32.ActiveCfg = Release|Any CPU
+		{69D98E8A-3353-413E-9974-8F4CA96B5CBC}.Mongo|Win32.Build.0 = Release|Any CPU
+		{69D98E8A-3353-413E-9974-8F4CA96B5CBC}.Mongo|x86.ActiveCfg = Release|Any CPU
+		{69D98E8A-3353-413E-9974-8F4CA96B5CBC}.Mongo|x86.Build.0 = Release|Any CPU
+		{69D98E8A-3353-413E-9974-8F4CA96B5CBC}.Release|.NET.ActiveCfg = Release|Any CPU
+		{69D98E8A-3353-413E-9974-8F4CA96B5CBC}.Release|.NET.Build.0 = Release|Any CPU
+		{69D98E8A-3353-413E-9974-8F4CA96B5CBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69D98E8A-3353-413E-9974-8F4CA96B5CBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69D98E8A-3353-413E-9974-8F4CA96B5CBC}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{69D98E8A-3353-413E-9974-8F4CA96B5CBC}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{69D98E8A-3353-413E-9974-8F4CA96B5CBC}.Release|Win32.ActiveCfg = Release|Any CPU
+		{69D98E8A-3353-413E-9974-8F4CA96B5CBC}.Release|Win32.Build.0 = Release|Any CPU
+		{69D98E8A-3353-413E-9974-8F4CA96B5CBC}.Release|x86.ActiveCfg = Release|Any CPU
+		{69D98E8A-3353-413E-9974-8F4CA96B5CBC}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

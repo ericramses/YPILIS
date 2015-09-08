@@ -140,12 +140,26 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                 ComboBox comboBox = (ComboBox)sender;
                 YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = (YellowstonePathology.Business.Test.PanelSetOrder)comboBox.Tag;
                 YellowstonePathology.Business.User.SystemUser systemUser = (YellowstonePathology.Business.User.SystemUser)comboBox.SelectedItem;
+                YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings ypiBLGS = new Business.Facility.Model.YellowstonePathologyInstituteBillings();
+                YellowstonePathology.Business.Facility.Model.ButtePathology buttePathology = new Business.Facility.Model.ButtePathology();
+
                 if (systemUser.UserId == 5132 || systemUser.UserId == 5133)
                 {
-                    YellowstonePathology.Business.Facility.Model.ButtePathology buttePathology = new Business.Facility.Model.ButtePathology();
-                    YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings ypiBLGS = new Business.Facility.Model.YellowstonePathologyInstituteBillings();
                     panelSetOrder.TechnicalComponentFacilityId = ypiBLGS.FacilityId;
+                    panelSetOrder.TechnicalComponentBillingFacilityId = ypiBLGS.FacilityId;
                     panelSetOrder.ProfessionalComponentFacilityId = buttePathology.FacilityId;
+                    panelSetOrder.ProfessionalComponentBillingFacilityId = buttePathology.FacilityId;
+                }
+                else
+                {
+                    if (panelSetOrder.ProfessionalComponentFacilityId == buttePathology.FacilityId)
+                    {
+                        YellowstonePathology.Business.Facility.Model.YellowstonePathologistBillings ypBLGS = new YellowstonePathology.Business.Facility.Model.YellowstonePathologistBillings();
+                        panelSetOrder.TechnicalComponentFacilityId = ypiBLGS.FacilityId;
+                        panelSetOrder.TechnicalComponentBillingFacilityId = ypiBLGS.FacilityId;
+                        panelSetOrder.ProfessionalComponentFacilityId = ypBLGS.FacilityId;
+                        panelSetOrder.ProfessionalComponentBillingFacilityId = ypBLGS.FacilityId;
+                    }
                 }
             }
         }

@@ -25,7 +25,8 @@ namespace YellowstonePathology.Business.Test.PNH
 				return;
 			}
 
-			if (testOrder.ResultCode == PNHNegativeResult.ResultCode)
+            PNHNegativeResult pnhNegativeResult = new PNHNegativeResult();
+			if (testOrder.ResultCode == pnhNegativeResult.ResultCode)
 			{
 				this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\PNHAnalysisNegative.8.xml";
 			}
@@ -61,7 +62,7 @@ namespace YellowstonePathology.Business.Test.PNH
             this.SetXmlNodeData("date_time_collected", collectionDateTimeString);						
 
 			//Handle result type            
-			if (testOrder.ResultCode != PNHNegativeResult.ResultCode)
+			if (testOrder.ResultCode != pnhNegativeResult.ResultCode)
 			{
 				this.HandleResultMonitor(testOrder.ResultCode);
 			}
