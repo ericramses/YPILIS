@@ -15,12 +15,7 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
         public TestOrderReportDistributionCollection()
         {
             
-		}
-
-        private void CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            
-        }        
+		}        
 
         public void ScheduleDistribution(DateTime timeToSchedule)
         {
