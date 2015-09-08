@@ -6,7 +6,6 @@
 	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="*"></RowDefinition>
-			<RowDefinition Height="Auto"></RowDefinition>
 		</Grid.RowDefinitions>
 		
 		<TabControl Name="MainTabControl" Grid.Row="0" Margin="2,2,2,2">
@@ -15,17 +14,18 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"></ColumnDefinition>
                         <ColumnDefinition Width="*"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
+					</Grid.ColumnDefinitions>
                     
 					<Grid.RowDefinitions>
 						<RowDefinition Height="Auto"></RowDefinition>
 						<RowDefinition Height="*"></RowDefinition>
+						<RowDefinition Height="Auto"></RowDefinition>
 					</Grid.RowDefinitions>
 										
 					<TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" HorizontalAlignment="Right" VerticalAlignment="Center" Text="Provider Name (last, first):" />
 					<TextBox Grid.Column="1" Grid.Row="0" Name="TextBoxProviderName" Margin="2,2,2,2" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" KeyUp="TextBoxProviderName_KeyUp" />					
 					
-					<ListView Name="ListBoxProviders" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Margin="2,2,2,2" MouseDoubleClick="ListBoxProviders_MouseDoubleClick"
+					<ListView Name="ListViewProviders" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Margin="2,2,2,2" MouseDoubleClick="ListBoxProviders_MouseDoubleClick"
 							 ItemsSource="{Binding Path=ProviderCollection}">
 						<ListView.View>
 							<GridView>								
@@ -35,6 +35,9 @@
 							</GridView>
 						</ListView.View>
 					</ListView>
+
+					<Button Name="ButtonNewProvider" Grid.Row="2" Grid.Column="0" Margin="5" Height="30" Width="100" HorizontalAlignment="Left" Content="New" Click="ButtonNewProvider_Click" />
+					<Button Grid.Row="2" Grid.Column="1" Margin="5" Height="30" Width="100" HorizontalAlignment="Right" Content="OK" Click="ButtonOK_Click" />
 				</Grid>
 			</TabItem>
 			
@@ -43,17 +46,18 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"></ColumnDefinition>
                         <ColumnDefinition Width="*"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
+					</Grid.ColumnDefinitions>
 
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="*"></RowDefinition>
-                    </Grid.RowDefinitions>
+						<RowDefinition Height="Auto"></RowDefinition>
+					</Grid.RowDefinitions>
 
                     <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" HorizontalAlignment="Right" VerticalAlignment="Center" Text="Client Name:" />
                     <TextBox Grid.Column="1" Grid.Row="0" Name="TextBoxClientName" Margin="2,2,2,2" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" KeyUp="TextBoxClientName_KeyUp" />
 
-                    <ListView Name="ListBoxClients" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Margin="2,2,2,2" MouseDoubleClick="ListBoxClients_MouseDoubleClick"
+                    <ListView Name="ListViewClients" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Margin="2,2,2,2" MouseDoubleClick="ListBoxClients_MouseDoubleClick"
 							 ItemsSource="{Binding Path=ClientCollection}">
                         <ListView.View>
                             <GridView>
@@ -62,15 +66,16 @@
                             </GridView>
                         </ListView.View>
                     </ListView>
-                </Grid>
+
+					<Button Name="ButtonNewClient" Grid.Row="2" Grid.Column="0" Margin="5,5,5,5" Height="30" Width="100" HorizontalAlignment="Left" Content="New" Click="ButtonNewClient_Click" />
+					<StackPanel Grid.Row="2" Grid.Column="1" Margin="150,0,0,0" Orientation="Horizontal" HorizontalAlignment="Left">
+						<Button Name="ButtonEnvelope" Margin="5,5,5,5" Height="30" Width="100" HorizontalAlignment="Center" Content="Envelope" Click="ButtonEnvelope_Click" />
+						<Button Name="ButtonRequisition" Grid.Row="2" Grid.Column="1" Margin="5" Height="30" Width="100" HorizontalAlignment="Center" Content="Requisition" Click="ButtonRequisition_Click" />
+					</StackPanel>
+					<Button Grid.Row="2" Grid.Column="1" Margin="5" Height="30" Width="100" HorizontalAlignment="Right" Content="OK" Click="ButtonOK_Click" />
+				</Grid>
             </TabItem>			
 		</TabControl>
 
-		<StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom">
-			<Button Margin="5" Height="30" Width="100" Content="New" Click="ButtonNewProvider_Click" />			
-		</StackPanel>
-		<StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
-			<Button Margin="5" Height="30" Width="100" Content="OK" Click="ButtonOK_Click" />
-		</StackPanel>
 	</Grid>
 </Window>

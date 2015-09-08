@@ -42,11 +42,11 @@ namespace YellowstonePathology.Business.Client.Model
 			this.m_ClientLocationCollection = new ClientLocationCollection();
         }
 
-		public Client(string objectId, string clientName)
+		public Client(string objectId, string clientName, int clientId)
 		{
 			this.m_ObjectId = objectId;
 			this.m_ClientName = clientName;
-			//this.m_ClientId = clientId;
+			this.m_ClientId = clientId;
 			this.m_ClientLocationCollection = new ClientLocationCollection();
 		}
 
@@ -69,7 +69,7 @@ namespace YellowstonePathology.Business.Client.Model
             }
         }
 
-        [PersistentPrimaryKeyProperty(true)]
+        [PersistentPrimaryKeyProperty(false)]
 		public int ClientId
 		{
 			get { return this.m_ClientId; }
