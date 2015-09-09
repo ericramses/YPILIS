@@ -37,7 +37,8 @@
 					</ListView>
 
 					<Button Name="ButtonNewProvider" Grid.Row="2" Grid.Column="0" Margin="5" Height="30" Width="100" HorizontalAlignment="Left" Content="New" Click="ButtonNewProvider_Click" />
-					<Button Grid.Row="2" Grid.Column="1" Margin="5" Height="30" Width="100" HorizontalAlignment="Right" Content="OK" Click="ButtonOK_Click" />
+                    <Button Grid.Row="2" Grid.Column="1" Margin="5" Height="30" Width="100" HorizontalAlignment="Left" Content="Delete" Click="ButtonDeleteProvider_Click" />
+                    <Button Grid.Row="2" Grid.Column="1" Margin="5" Height="30" Width="100" HorizontalAlignment="Right" Content="OK" Click="ButtonOK_Click" />
 				</Grid>
 			</TabItem>
 			
@@ -69,8 +70,9 @@
 
 					<Button Name="ButtonNewClient" Grid.Row="2" Grid.Column="0" Margin="5,5,5,5" Height="30" Width="100" HorizontalAlignment="Left" Content="New" Click="ButtonNewClient_Click" />
 					<StackPanel Grid.Row="2" Grid.Column="1" Margin="150,0,0,0" Orientation="Horizontal" HorizontalAlignment="Left">
+                        <Button Grid.Row="2" Grid.Column="1" Margin="5,5,25,5" Height="30" Width="100" HorizontalAlignment="Left" Content="Delete" Click="ButtonDeleteClient_Click" />
 						<Button Name="ButtonEnvelope" Margin="5,5,5,5" Height="30" Width="100" HorizontalAlignment="Center" Content="Envelope" Click="ButtonEnvelope_Click" />
-						<Button Name="ButtonRequisition" Grid.Row="2" Grid.Column="1" Margin="5" Height="30" Width="100" HorizontalAlignment="Center" Content="Requisition" Click="ButtonRequisition_Click" />
+						<Button Name="ButtonRequisition" Grid.Row="2" Grid.Column="1" Margin="5" Height="30" Width="100" HorizontalAlignment="Right" Content="Requisition" Click="ButtonRequisition_Click" />
 					</StackPanel>
 					<Button Grid.Row="2" Grid.Column="1" Margin="5" Height="30" Width="100" HorizontalAlignment="Right" Content="OK" Click="ButtonOK_Click" />
 				</Grid>
