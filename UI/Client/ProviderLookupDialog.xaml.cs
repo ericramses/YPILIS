@@ -57,7 +57,25 @@ namespace YellowstonePathology.UI.Client
 			providerEntry.ShowDialog();
 		}
 
-		private void ButtonNewClient_Click(object sender, RoutedEventArgs e)
+        private void ButtonDeleteProvider_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.ListViewProviders.SelectedItem != null)
+            {
+                YellowstonePathology.Business.Domain.Physician physician = (YellowstonePathology.Business.Domain.Physician)this.ListViewProviders.SelectedItem;
+                YellowstonePathology.Business.Rules.MethodResult methodResult = this.CanDeleteProvider(physician);
+                if (methodResult.Success == true)
+                {
+                    this.DeleteProvider(physician);
+                    this.DoProviderSearch();
+                }
+                else
+                {
+                    MessageBox.Show(methodResult.Message, "Unable to delete provider.", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                }
+            }
+        }
+
+        private void ButtonNewClient_Click(object sender, RoutedEventArgs e)
 		{
 			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
 			string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
@@ -69,7 +87,26 @@ namespace YellowstonePathology.UI.Client
 			clientEntry.ShowDialog();
 		}
 
-		private void ButtonEnvelope_Click(object sender, RoutedEventArgs e)
+        private void ButtonDeleteClient_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.ListViewClients.SelectedItem != null)
+            {
+
+                YellowstonePathology.Business.Client.Model.Client client = (YellowstonePathology.Business.Client.Model.Client)this.ListViewClients.SelectedItem;
+                YellowstonePathology.Business.Rules.MethodResult methodResult = this.CanDeleteClient(client);
+                if(methodResult.Success == true)
+                {
+                    this.DeleteClient(client);
+                    this.DoClientSearch(this.TextBoxClientName.Text);
+                }
+                else
+                {
+                    MessageBox.Show(methodResult.Message, "Unable to delete client.", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                }
+            }
+        }
+
+        private void ButtonEnvelope_Click(object sender, RoutedEventArgs e)
 		{
 			if (this.ListViewClients.SelectedItems.Count != 0)
 			{
@@ -170,5 +207,91 @@ namespace YellowstonePathology.UI.Client
 				clientEntry.ShowDialog();
             }
         }
-	}
+
+        private YellowstonePathology.Business.Rules.MethodResult CanDeleteProvider(YellowstonePathology.Business.Domain.Physician physician)
+        {
+            YellowstonePathology.Business.Rules.MethodResult result = new Business.Rules.MethodResult();
+            int accessionCount = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetAccessionCountByPhysicianId(physician.PhysicianId);
+            if (accessionCount > 0)
+            {
+                result.Success = false;
+                result.Message = physician.DisplayName + " has accessions and can not be deleted.";
+            }
+            else
+            {
+                StringBuilder msg = new StringBuilder();
+                msg.AppendLine(physician.DisplayName);
+                YellowstonePathology.Business.Domain.PhysicianClientCollection physicianClientCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClientCollectionByProviderId(physician.ObjectId);
+                foreach (YellowstonePathology.Business.Domain.PhysicianClient physicianClient in physicianClientCollection)
+                {
+                    YellowstonePathology.Business.Client.Model.PhysicianClientDistributionCollection physicianClientDistributionCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClientDistributionByPhysicianClientId(physicianClient.PhysicianClientId);
+                    if (physicianClientDistributionCollection.Count > 0)
+                    {
+                        result.Success = false;
+                        msg.AppendLine("- has existing distributions.  The distributions must be removed before the provider may be deleted.");
+                        break;
+                    }
+                }
+
+                if (physicianClientCollection.Count > 0)
+                {
+                    result.Success = false;
+                    msg.Append("- is a member of " + physicianClientCollection.Count.ToString() + " client/s.  The membership must be removed before the provider may be deleted.");
+                }
+                result.Message = msg.ToString();
+            }
+
+            return result;
+        }
+
+        private void DeleteProvider(YellowstonePathology.Business.Domain.Physician physician)
+        {
+            YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new Business.Persistence.ObjectTracker();
+            objectTracker.RegisterRootDelete(physician);
+            objectTracker.SubmitChanges(physician);            
+        }
+
+        private YellowstonePathology.Business.Rules.MethodResult CanDeleteClient(YellowstonePathology.Business.Client.Model.Client client)
+        {
+            YellowstonePathology.Business.Rules.MethodResult result = new Business.Rules.MethodResult();
+            int accessionCount = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetAccessionCountByClientId(client.ClientId);
+            if (accessionCount > 0)
+            {
+                result.Success = false;
+                result.Message = client.ClientName + " has accessions and can not be deleted.";
+            }
+            else
+            {
+                StringBuilder msg = new StringBuilder();
+                msg.AppendLine(client.ClientName);
+                YellowstonePathology.Business.Domain.PhysicianClientCollection physicianClientCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClientCollectionByClientId(client.ClientId);
+                foreach (YellowstonePathology.Business.Domain.PhysicianClient physicianClient in physicianClientCollection)
+                {
+                    YellowstonePathology.Business.Client.Model.PhysicianClientDistributionCollection physicianClientDistributionCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClientDistributionByPhysicianClientId(physicianClient.PhysicianClientId);
+                    if(physicianClientDistributionCollection.Count > 0)
+                    {
+                        result.Success = false;
+                        msg.AppendLine("- has distributions.  The distributions must be removed before the client can be deleted.");
+                        break;
+                    }
+                }
+
+                if (physicianClientCollection.Count > 0)
+                {
+                    result.Success = false;
+                    msg.AppendLine("- has membereship.  The membership must be removed before the client can be deleted.");
+                }
+                result.Message = msg.ToString();
+            }
+
+            return result;
+        }
+
+        private void DeleteClient(YellowstonePathology.Business.Client.Model.Client client)
+        {
+            YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new Business.Persistence.ObjectTracker();
+            objectTracker.RegisterRootDelete(client);
+            objectTracker.SubmitChanges(client);
+        }
+    }
 }

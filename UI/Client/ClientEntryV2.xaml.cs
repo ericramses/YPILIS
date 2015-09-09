@@ -154,17 +154,37 @@ namespace YellowstonePathology.UI.Client
 				{
 					YellowstonePathology.Business.Domain.Physician physician = (YellowstonePathology.Business.Domain.Physician)this.ListBoxPhysicians.SelectedItem;
 					YellowstonePathology.Business.Domain.PhysicianClient physicianClient = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClient(physician.ObjectId, this.m_Client.ClientId);
-					YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-					objectTracker.RegisterRootDelete(physicianClient);
-					objectTracker.SubmitChanges(physicianClient);
+                    YellowstonePathology.Business.Rules.MethodResult methodResult = this.CanRemoveMember(physicianClient);
+                    if (methodResult.Success == true)
+                    {
+                        YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
+                        objectTracker.RegisterRootDelete(physicianClient);
+                        objectTracker.SubmitChanges(physicianClient);
 
-					this.m_ClientPhysicianView.Physicians.Remove(physician);
-					this.NotifyPropertyChanged("Physicians");
-				}
-			}
+                        this.m_ClientPhysicianView.Physicians.Remove(physician);
+                        this.NotifyPropertyChanged("Physicians");
+                    }
+                    else
+                    {
+                        MessageBox.Show(methodResult.Message, "Unable to remove membership.", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    }
+                }
+            }
 		}
 
-		private void TextBoxProviderName_KeyUp(object sender, KeyEventArgs e)
+        private YellowstonePathology.Business.Rules.MethodResult CanRemoveMember(YellowstonePathology.Business.Domain.PhysicianClient physicianClient)
+        {
+            YellowstonePathology.Business.Rules.MethodResult result = new Business.Rules.MethodResult();
+            YellowstonePathology.Business.Client.Model.PhysicianClientDistributionCollection physicianClientDistributionCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClientDistributionByPhysicianClientId(physicianClient.PhysicianClientId);
+            if (physicianClientDistributionCollection.Count > 0)
+            {
+                result.Success = false;
+                result.Message = "This provider has distributions for this client.  These distributions must be removed before the provider can be removed from the client membership.";
+            }
+            return result;
+        }
+
+        private void TextBoxProviderName_KeyUp(object sender, KeyEventArgs e)
 		{
 			if (this.TextBoxProviderName.Text.Length > 0)
 			{
