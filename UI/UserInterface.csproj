@@ -450,6 +450,13 @@
     <Compile Include="Surgical\DictationTemplatePage.xaml.cs">
       <DependentUpon>DictationTemplatePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Surgical\PathologistSignoutDialog.xaml.cs">
+      <DependentUpon>PathologistSignoutDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Surgical\PathologistSignoutPath.cs" />
+    <Compile Include="Surgical\PathologistSignoutPage1.xaml.cs">
+      <DependentUpon>PathologistSignoutPage1.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Surgical\PublishedDocumentFinalPage.xaml.cs">
       <DependentUpon>PublishedDocumentFinalPage.xaml</DependentUpon>
     </Compile>
@@ -2049,6 +2056,14 @@
     <Page Include="Surgical\DictationTemplatePage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Surgical\PathologistSignoutDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Surgical\PathologistSignoutPage1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Surgical\PublishedDocumentFinalPage.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -3793,7 +3808,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Billing\CodeSelection.xml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="PatientLinking\" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Surgical\TypingTemplate.xml" />
   </ItemGroup>
@@ -3824,9 +3841,7 @@
   <ItemGroup>
     <Resource Include="Resources\TwoDBarcode.jpg" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="PatientLinking\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Resources\Tasks.png" />
   </ItemGroup>
