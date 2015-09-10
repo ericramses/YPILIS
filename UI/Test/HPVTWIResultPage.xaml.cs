@@ -27,93 +27,47 @@ namespace YellowstonePathology.UI.Test
 		public event NextEventHandler Next;
 
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
-		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-        private Microsoft.Office.Interop.Excel.Application m_ExcelApplication;
-        private Microsoft.Office.Interop.Excel.Workbook m_WorkBook;
+		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;                
 		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
-		private string m_PageHeaderText;
-        private YellowstonePathology.UI.Test.TecanSample m_TecanSample;
+		private string m_PageHeaderText;        
 
 		private YellowstonePathology.Business.Test.HPVTWI.PanelSetOrderHPVTWI m_PanelSetOrderHPVTWI;
 		private YellowstonePathology.UI.Navigation.PageNavigator m_PageNavigator;
+        private string m_AdditionalTestingComment;
 
-		public HPVTWIResultPage(YellowstonePathology.Business.Test.HPVTWI.PanelSetOrderHPVTWI panelSetOrderHPVTWI,
-			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-            Microsoft.Office.Interop.Excel.Application excelApplication,
-            Microsoft.Office.Interop.Excel.Workbook workBook,
+        public HPVTWIResultPage(YellowstonePathology.Business.Test.HPVTWI.PanelSetOrderHPVTWI panelSetOrderHPVTWI,
+			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,            
 			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity,
 			YellowstonePathology.UI.Navigation.PageNavigator pageNavigator)
 		{
-			this.m_PanelSetOrderHPVTWI = panelSetOrderHPVTWI;
-			int idx = this.m_PanelSetOrderHPVTWI.PanelOrderCollection.Count - 1;			
-			this.m_AccessionOrder = accessionOrder;
-            this.m_ExcelApplication = excelApplication;
-            this.m_WorkBook = workBook;
+			this.m_PanelSetOrderHPVTWI = panelSetOrderHPVTWI;			
+			this.m_AccessionOrder = accessionOrder;                        
 			this.m_SystemIdentity = systemIdentity;
 			this.m_ObjectTracker = objectTracker;
 			this.m_PageNavigator = pageNavigator;
 
 			this.m_PageHeaderText = "HPV TWI Results For: " + this.m_AccessionOrder.PatientDisplayName;
 
-            this.SetTcanWell();
-			InitializeComponent();
+            bool hpv1618HasBeenOrdered = this.m_AccessionOrder.PanelSetOrderCollection.Exists(62);            
+            if (hpv1618HasBeenOrdered == true)
+            {
+                this.m_AdditionalTestingComment = YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapWordDocument.HPV1618HasBeenOrderedComment;
+            }
+            else
+            {
+                this.m_AdditionalTestingComment = YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapWordDocument.NoAdditionalTestingOrderedComment;
+            }
+
+            InitializeComponent();
 
 			DataContext = this;                      
-		}
-
-        public void SetTcanWell()
+		}     
+        
+        public string AdditionalTestingComment
         {
-            if (this.m_ExcelApplication != null)
-            {
-                Microsoft.Office.Interop.Excel.Worksheet workSheet = this.m_WorkBook.Sheets["Summary"];
-                workSheet.Select(Type.Missing);                
-                
-                YellowstonePathology.UI.Test.TecanSamplePlacementQueue tecanSamplePlacementQueue = new TecanSamplePlacementQueue();
-                foreach (YellowstonePathology.UI.Test.TecanSample tecanSample in tecanSamplePlacementQueue.Queue)
-                {
-                    Microsoft.Office.Interop.Excel.Range range = workSheet.Cells[tecanSample.ResultIdCell.RowIndex, tecanSample.ResultIdCell.ColumnIndex];
-                    string cellValue = Convert.ToString(range.Value);                    
-                    string reportNo = YellowstonePathology.UI.Test.TecanSample.GetReportNo(cellValue);
-
-                    if (reportNo == this.m_PanelSetOrderHPVTWI.ReportNo)
-                    {
-                        this.m_TecanSample = tecanSample;
-                        break;
-                    }                    
-                }
-            }
-        }
-
-        private void HyperLinkImportResult_Click(object sender, RoutedEventArgs e)
-        {
-            if (this.m_ExcelApplication != null)
-            {                
-                YellowstonePathology.Business.Rules.MethodResult methodResult = YellowstonePathology.Business.Test.HPVTWI.HPVTWIResult.IsOkToSetResult(this.m_PanelSetOrderHPVTWI.PanelOrderCollection);
-                if (methodResult.Success == true)
-                {
-                    Microsoft.Office.Interop.Excel.Worksheet workSheet = this.m_WorkBook.Sheets["Summary"];
-                    workSheet.Select(Type.Missing);
-                    Microsoft.Office.Interop.Excel.Range range = workSheet.Cells[this.m_TecanSample.ResultIdCell.RowIndex, 2];
-                    string sampleResult = (string)range.Value;
-                    YellowstonePathology.Business.Test.HPVTWI.HPVTWIResult hpvTWIResult = YellowstonePathology.Business.Test.HPVTWI.HPVTWIResultCollection.ParseFromTcanResult(sampleResult);
-
-                    if (hpvTWIResult != null)
-                    {
-                        YellowstonePathology.Business.Test.HPVTWI.PanelOrderHPVTWI panelOrder = (YellowstonePathology.Business.Test.HPVTWI.PanelOrderHPVTWI)this.m_PanelSetOrderHPVTWI.PanelOrderCollection.GetUnacceptedPanelOrder();
-						hpvTWIResult.SetResult(this.m_PanelSetOrderHPVTWI, panelOrder, this.m_SystemIdentity);
-                    }
-                    else
-                    {
-                        MessageBox.Show("The system was not able to translate the result from the spreadsheet.");
-                    }
-                }
-                else
-                {
-                    MessageBox.Show(methodResult.Message);
-                }   
-            }            
-        }
+            get { return this.m_AdditionalTestingComment; }
+        }           
 
 		public YellowstonePathology.Business.Test.HPVTWI.PanelSetOrderHPVTWI PanelSetOrder
 		{
@@ -164,14 +118,15 @@ namespace YellowstonePathology.UI.Test
         }		
 
 		private void HyperLinkFinalize_Click(object sender, RoutedEventArgs e)
-		{            
-            YellowstonePathology.Business.Rules.MethodResult methodResult = YellowstonePathology.Business.Test.HPVTWI.HPVTWIResult.IsOkToFinal(this.m_PanelSetOrderHPVTWI.PanelOrderCollection);
-            if (methodResult.Success == true)
-            {
-                YellowstonePathology.Business.Test.HPVTWI.PanelOrderHPVTWI panelOrder = (YellowstonePathology.Business.Test.HPVTWI.PanelOrderHPVTWI)this.m_PanelSetOrderHPVTWI.PanelOrderCollection.GetLastAcceptedPanelOrder();
-                YellowstonePathology.Business.Test.HPVTWI.HPVTWIResultCollection resultCollection = YellowstonePathology.Business.Test.HPVTWI.HPVTWIResultCollection.GetAllResults();
-                YellowstonePathology.Business.Test.HPVTWI.HPVTWIResult hpvTWIResult = resultCollection.GetResultByPreliminaryResultCode(panelOrder.ResultCode);
-                hpvTWIResult.FinalizeResults(this.m_PanelSetOrderHPVTWI, this.m_SystemIdentity);
+		{
+            //YellowstonePathology.Business.Rules.MethodResult methodResult = YellowstonePathology.Business.Test.HPVTWI.HPVTWIResult.IsOkToFinal(this.m_PanelSetOrderHPVTWI.PanelOrderCollection);
+            //if (methodResult.Success == true)
+            //{
+            //YellowstonePathology.Business.Test.HPVTWI.PanelOrderHPVTWI panelOrder = (YellowstonePathology.Business.Test.HPVTWI.PanelOrderHPVTWI)this.m_PanelSetOrderHPVTWI.PanelOrderCollection.GetLastAcceptedPanelOrder();
+            //YellowstonePathology.Business.Test.HPVTWI.HPVTWIResultCollection resultCollection = YellowstonePathology.Business.Test.HPVTWI.HPVTWIResultCollection.GetAllResults();
+            //YellowstonePathology.Business.Test.HPVTWI.HPVTWIResult hpvTWIResult = resultCollection.GetResult(panelOrder.ResultCode);
+            //hpvTWIResult.FinalizeResults(this.m_PanelSetOrderHPVTWI, this.m_SystemIdentity);
+            this.m_PanelSetOrderHPVTWI.Finalize(this.m_SystemIdentity.User);
 
                 YellowstonePathology.Business.ReportDistribution.Model.MultiTestDistributionHandler multiTestDistributionHandler = YellowstonePathology.Business.ReportDistribution.Model.MultiTestDistributionHandlerFactory.GetHandler(this.m_AccessionOrder);
                 multiTestDistributionHandler.Set();
@@ -180,15 +135,16 @@ namespace YellowstonePathology.UI.Test
                 {
                     this.m_AccessionOrder.PanelSetOrderCollection.GetWomensHealthProfile().SetExptectedFinalTime(this.m_AccessionOrder);
                 }
-            }
-            else
-            {
-                MessageBox.Show(methodResult.Message);
-            }            
+            //}
+            //else
+            //{
+            //    MessageBox.Show(methodResult.Message);
+            //}            
 		}        
 
         private void HyperLinkUnfinalResults_Click(object sender, RoutedEventArgs e)
         {
+            /*
             YellowstonePathology.Business.Rules.MethodResult methodResult = YellowstonePathology.Business.Test.HPVTWI.HPVTWIResult.IsOkToUnFinalize(this.m_PanelSetOrderHPVTWI);
             if (methodResult.Success == true)
             {
@@ -201,10 +157,13 @@ namespace YellowstonePathology.UI.Test
             {
                 MessageBox.Show(methodResult.Message);
             }
+            */
+            this.m_PanelSetOrderHPVTWI.Unfinalize();
         }        
 
         private void HyperLinkUnacceptResults_Click(object sender, RoutedEventArgs e)
         {
+            /*
             YellowstonePathology.Business.Rules.MethodResult methodResult = YellowstonePathology.Business.Test.HPVTWI.HPVTWIResult.IsOkToUnAccept(this.m_PanelSetOrderHPVTWI.PanelOrderCollection);
             if (methodResult.Success == true)
             {
@@ -217,23 +176,22 @@ namespace YellowstonePathology.UI.Test
             {            
                 MessageBox.Show(methodResult.Message);
             }
+            */
+            this.m_PanelSetOrderHPVTWI.Unaccept();
         }
 
 		private void HyperLinkAcceptResults_Click(object sender, RoutedEventArgs e)
 		{
-            YellowstonePathology.Business.Rules.MethodResult methodResult = YellowstonePathology.Business.Test.HPVTWI.HPVTWIResult.IsOkToAccept(this.m_PanelSetOrderHPVTWI.PanelOrderCollection);
-            if (methodResult.Success == true)
-            {
-                YellowstonePathology.Business.Test.HPVTWI.PanelOrderHPVTWI panelOrder = (YellowstonePathology.Business.Test.HPVTWI.PanelOrderHPVTWI)this.m_PanelSetOrderHPVTWI.PanelOrderCollection.GetUnacceptedPanelOrder();
-                YellowstonePathology.Business.Test.HPVTWI.HPVTWIResultCollection resultCollection = YellowstonePathology.Business.Test.HPVTWI.HPVTWIResultCollection.GetAllResults();
-                YellowstonePathology.Business.Test.HPVTWI.HPVTWIResult hpvTWIResult = resultCollection.GetResultByPreliminaryResultCode(panelOrder.ResultCode);                
-                hpvTWIResult.AcceptResults(this.m_PanelSetOrderHPVTWI, this.m_SystemIdentity);
-            }
-            else
-            {
-                MessageBox.Show(methodResult.Message);
-            }
-		}        
+            //YellowstonePathology.Business.Rules.MethodResult methodResult = YellowstonePathology.Business.Test.HPVTWI.HPVTWIResult.IsOkToAccept(this.m_PanelSetOrderHPVTWI.PanelOrderCollection);
+            //if (methodResult.Success == true)
+            //{                                
+            this.m_PanelSetOrderHPVTWI.Accept(this.m_SystemIdentity.User);
+            //}
+            //else
+            //{
+            //    MessageBox.Show(methodResult.Message);
+            //}
+        }        
 
         private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
         {
@@ -244,22 +202,7 @@ namespace YellowstonePathology.UI.Test
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_PanelSetOrderHPVTWI.ReportNo);
             string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);
             YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(fileName);
-        }
-
-        private void HyperLinkA56Positive_Click(object sender, RoutedEventArgs e)
-        {
-            YellowstonePathology.Business.Rules.MethodResult methodResult = YellowstonePathology.Business.Test.HPVTWI.HPVTWIResult.IsOkToSetResult(this.m_PanelSetOrderHPVTWI.PanelOrderCollection);
-            if (methodResult.Success == true)
-            {
-                YellowstonePathology.Business.Test.HPVTWI.PanelOrderHPVTWI panelOrder = (YellowstonePathology.Business.Test.HPVTWI.PanelOrderHPVTWI)this.m_PanelSetOrderHPVTWI.PanelOrderCollection.GetUnacceptedPanelOrder();
-                YellowstonePathology.Business.Test.HPVTWI.HPVTWIA56PositiveResult result = new Business.Test.HPVTWI.HPVTWIA56PositiveResult();
-				result.SetResult(this.m_PanelSetOrderHPVTWI, panelOrder, this.m_SystemIdentity);
-            }
-            else
-            {
-                MessageBox.Show(methodResult.Message);
-            }
-        }
+        }        
 
         private void HyperLinkNegativeResult_Click(object sender, RoutedEventArgs e)
         {
@@ -276,170 +219,20 @@ namespace YellowstonePathology.UI.Test
             }
         }
 
-        private void HyperLinkA7Positive_Click(object sender, RoutedEventArgs e)
+        private void HyperLinkPositive_Click(object sender, RoutedEventArgs e)
         {
             YellowstonePathology.Business.Rules.MethodResult methodResult = YellowstonePathology.Business.Test.HPVTWI.HPVTWIResult.IsOkToSetResult(this.m_PanelSetOrderHPVTWI.PanelOrderCollection);
             if (methodResult.Success == true)
             {
                 YellowstonePathology.Business.Test.HPVTWI.PanelOrderHPVTWI panelOrder = (YellowstonePathology.Business.Test.HPVTWI.PanelOrderHPVTWI)this.m_PanelSetOrderHPVTWI.PanelOrderCollection.GetUnacceptedPanelOrder();
-                YellowstonePathology.Business.Test.HPVTWI.HPVTWIA7PositiveResult result = new Business.Test.HPVTWI.HPVTWIA7PositiveResult();
-				result.SetResult(this.m_PanelSetOrderHPVTWI, panelOrder, this.m_SystemIdentity);
+                YellowstonePathology.Business.Test.HPVTWI.HPVTWIPositiveResult result = new Business.Test.HPVTWI.HPVTWIPositiveResult();
+                result.SetResult(this.m_PanelSetOrderHPVTWI, panelOrder, this.m_SystemIdentity);
             }
             else
             {
                 MessageBox.Show(methodResult.Message);
             }
-        }
-
-        private void HyperLinkA9Positive_Click(object sender, RoutedEventArgs e)
-        {
-            YellowstonePathology.Business.Rules.MethodResult methodResult = YellowstonePathology.Business.Test.HPVTWI.HPVTWIResult.IsOkToSetResult(this.m_PanelSetOrderHPVTWI.PanelOrderCollection);
-            if (methodResult.Success == true)
-            {                
-                YellowstonePathology.Business.Test.HPVTWI.PanelOrderHPVTWI panelOrder = (YellowstonePathology.Business.Test.HPVTWI.PanelOrderHPVTWI)this.m_PanelSetOrderHPVTWI.PanelOrderCollection.GetUnacceptedPanelOrder();
-                YellowstonePathology.Business.Test.HPVTWI.HPVTWIA9PositiveResult result = new Business.Test.HPVTWI.HPVTWIA9PositiveResult();
-				result.SetResult(this.m_PanelSetOrderHPVTWI, panelOrder, this.m_SystemIdentity);                   
-            }
-            else
-            {
-                MessageBox.Show(methodResult.Message);
-            }
-        }
-
-        private void HyperLinkA567Positive_Click(object sender, RoutedEventArgs e)
-        {
-            YellowstonePathology.Business.Rules.MethodResult methodResult = YellowstonePathology.Business.Test.HPVTWI.HPVTWIResult.IsOkToSetResult(this.m_PanelSetOrderHPVTWI.PanelOrderCollection);
-            if (methodResult.Success == true)
-            {
-                YellowstonePathology.Business.Test.HPVTWI.PanelOrderHPVTWI panelOrder = (YellowstonePathology.Business.Test.HPVTWI.PanelOrderHPVTWI)this.m_PanelSetOrderHPVTWI.PanelOrderCollection.GetUnacceptedPanelOrder();
-                YellowstonePathology.Business.Test.HPVTWI.HPVTWIA567PositiveResult result = new Business.Test.HPVTWI.HPVTWIA567PositiveResult();
-				result.SetResult(this.m_PanelSetOrderHPVTWI, panelOrder, this.m_SystemIdentity);
-            }
-            else
-            {
-                MessageBox.Show(methodResult.Message);
-            }
-        }
-
-        private void HyperLinkA569Positive_Click(object sender, RoutedEventArgs e)
-        {
-            YellowstonePathology.Business.Rules.MethodResult methodResult = YellowstonePathology.Business.Test.HPVTWI.HPVTWIResult.IsOkToSetResult(this.m_PanelSetOrderHPVTWI.PanelOrderCollection);
-            if (methodResult.Success == true)
-            {
-                YellowstonePathology.Business.Test.HPVTWI.PanelOrderHPVTWI panelOrder = (YellowstonePathology.Business.Test.HPVTWI.PanelOrderHPVTWI)this.m_PanelSetOrderHPVTWI.PanelOrderCollection.GetUnacceptedPanelOrder();
-                YellowstonePathology.Business.Test.HPVTWI.HPVTWIA569PositiveResult result = new Business.Test.HPVTWI.HPVTWIA569PositiveResult();
-				result.SetResult(this.m_PanelSetOrderHPVTWI, panelOrder, this.m_SystemIdentity);
-            }
-            else
-            {
-                MessageBox.Show(methodResult.Message);
-            }
-        }
-
-        private void HyperLinkA5679Positive_Click(object sender, RoutedEventArgs e)
-        {
-            YellowstonePathology.Business.Rules.MethodResult methodResult = YellowstonePathology.Business.Test.HPVTWI.HPVTWIResult.IsOkToSetResult(this.m_PanelSetOrderHPVTWI.PanelOrderCollection);
-            if (methodResult.Success == true)
-            {
-                YellowstonePathology.Business.Test.HPVTWI.PanelOrderHPVTWI panelOrder = (YellowstonePathology.Business.Test.HPVTWI.PanelOrderHPVTWI)this.m_PanelSetOrderHPVTWI.PanelOrderCollection.GetUnacceptedPanelOrder();
-                YellowstonePathology.Business.Test.HPVTWI.HPVTWIA5679PositiveResult result = new Business.Test.HPVTWI.HPVTWIA5679PositiveResult();
-				result.SetResult(this.m_PanelSetOrderHPVTWI, panelOrder, this.m_SystemIdentity);
-            }
-            else
-            {
-                MessageBox.Show(methodResult.Message);
-            }
-        }
-
-        private void HyperLinkLowFamFOZ_Click(object sender, RoutedEventArgs e)
-        {
-            YellowstonePathology.Business.Rules.MethodResult methodResult = YellowstonePathology.Business.Test.HPVTWI.HPVTWIResult.IsOkToSetResult(this.m_PanelSetOrderHPVTWI.PanelOrderCollection);
-            if (methodResult.Success == true)
-            {
-                YellowstonePathology.Business.Test.HPVTWI.PanelOrderHPVTWI panelOrder = (YellowstonePathology.Business.Test.HPVTWI.PanelOrderHPVTWI)this.m_PanelSetOrderHPVTWI.PanelOrderCollection.GetUnacceptedPanelOrder();
-                YellowstonePathology.Business.Test.HPVTWI.HPVTWILowFamFOZResult result = new Business.Test.HPVTWI.HPVTWILowFamFOZResult();
-				result.SetResult(this.m_PanelSetOrderHPVTWI, panelOrder, this.m_SystemIdentity);
-            }
-            else
-            {
-                MessageBox.Show(methodResult.Message);
-            }
-        }
-
-        private void HyperLinkLowgDNA_Click(object sender, RoutedEventArgs e)
-        {
-            YellowstonePathology.Business.Rules.MethodResult methodResult = YellowstonePathology.Business.Test.HPVTWI.HPVTWIResult.IsOkToSetResult(this.m_PanelSetOrderHPVTWI.PanelOrderCollection);
-            if (methodResult.Success == true)
-            {
-                YellowstonePathology.Business.Test.HPVTWI.PanelOrderHPVTWI panelOrder = (YellowstonePathology.Business.Test.HPVTWI.PanelOrderHPVTWI)this.m_PanelSetOrderHPVTWI.PanelOrderCollection.GetUnacceptedPanelOrder();
-                YellowstonePathology.Business.Test.HPVTWI.HPVTWILowgDNAResult result = new Business.Test.HPVTWI.HPVTWILowgDNAResult();
-				result.SetResult(this.m_PanelSetOrderHPVTWI, panelOrder, this.m_SystemIdentity);
-            }
-            else
-            {
-                MessageBox.Show(methodResult.Message);
-            }
-        }
-
-        private void HyperLinkLowgDNARepeat_Click(object sender, RoutedEventArgs e)
-        {
-            YellowstonePathology.Business.Rules.MethodResult methodResult = YellowstonePathology.Business.Test.HPVTWI.HPVTWIResult.IsOkToSetResult(this.m_PanelSetOrderHPVTWI.PanelOrderCollection);
-            if (methodResult.Success == true)
-            {
-                YellowstonePathology.Business.Test.HPVTWI.PanelOrderHPVTWI panelOrder = (YellowstonePathology.Business.Test.HPVTWI.PanelOrderHPVTWI)this.m_PanelSetOrderHPVTWI.PanelOrderCollection.GetUnacceptedPanelOrder();
-                YellowstonePathology.Business.Test.HPVTWI.HPVTWILowgDNARepeatResult result = new Business.Test.HPVTWI.HPVTWILowgDNARepeatResult();
-				result.SetResult(this.m_PanelSetOrderHPVTWI, panelOrder, this.m_SystemIdentity);
-            }
-            else
-            {
-                MessageBox.Show(methodResult.Message);
-            }
-        }	
-
-        private void HyperLinkHighCV_Click(object sender, RoutedEventArgs e)
-        {
-            YellowstonePathology.Business.Rules.MethodResult methodResult = YellowstonePathology.Business.Test.HPVTWI.HPVTWIResult.IsOkToSetResult(this.m_PanelSetOrderHPVTWI.PanelOrderCollection);
-            if (methodResult.Success == true)
-            {
-                YellowstonePathology.Business.Test.HPVTWI.PanelOrderHPVTWI panelOrder = (YellowstonePathology.Business.Test.HPVTWI.PanelOrderHPVTWI)this.m_PanelSetOrderHPVTWI.PanelOrderCollection.GetUnacceptedPanelOrder();
-                YellowstonePathology.Business.Test.HPVTWI.HPVTWIHighCVResult result = new Business.Test.HPVTWI.HPVTWIHighCVResult();
-				result.SetResult(this.m_PanelSetOrderHPVTWI, panelOrder, this.m_SystemIdentity);
-            }
-            else
-            {
-                MessageBox.Show(methodResult.Message);
-            }
-        }
-
-        private void HyperLinkQNS_Click(object sender, RoutedEventArgs e)
-        {
-            YellowstonePathology.Business.Rules.MethodResult methodResult = YellowstonePathology.Business.Test.HPVTWI.HPVTWIResult.IsOkToSetResult(this.m_PanelSetOrderHPVTWI.PanelOrderCollection);
-            if (methodResult.Success == true)
-            {
-                YellowstonePathology.Business.Test.HPVTWI.PanelOrderHPVTWI panelOrder = (YellowstonePathology.Business.Test.HPVTWI.PanelOrderHPVTWI)this.m_PanelSetOrderHPVTWI.PanelOrderCollection.GetUnacceptedPanelOrder();
-                YellowstonePathology.Business.Test.HPVTWI.HPVTWIQNSResult result = new Business.Test.HPVTWI.HPVTWIQNSResult();
-				result.SetResult(this.m_PanelSetOrderHPVTWI, panelOrder, this.m_SystemIdentity);
-            }
-            else
-            {
-                MessageBox.Show(methodResult.Message);
-            }
-        }
-
-        private void HyperLinkA79Positive_Click(object sender, RoutedEventArgs e)
-        {
-            YellowstonePathology.Business.Rules.MethodResult methodResult = YellowstonePathology.Business.Test.HPVTWI.HPVTWIResult.IsOkToSetResult(this.m_PanelSetOrderHPVTWI.PanelOrderCollection);
-            if (methodResult.Success == true)
-            {
-                YellowstonePathology.Business.Test.HPVTWI.PanelOrderHPVTWI panelOrder = (YellowstonePathology.Business.Test.HPVTWI.PanelOrderHPVTWI)this.m_PanelSetOrderHPVTWI.PanelOrderCollection.GetUnacceptedPanelOrder();
-                YellowstonePathology.Business.Test.HPVTWI.HPVTWIA79PositiveResult result = new Business.Test.HPVTWI.HPVTWIA79PositiveResult();
-				result.SetResult(this.m_PanelSetOrderHPVTWI, panelOrder, this.m_SystemIdentity);
-            }
-            else
-            {
-                MessageBox.Show(methodResult.Message);
-            }
-        }
+        }                
 
         private void HyperLinkProvider_Click(object sender, RoutedEventArgs e)
         {
@@ -457,6 +250,6 @@ namespace YellowstonePathology.UI.Test
         private void ProviderDistributionPath_Back(object sender, EventArgs e)
         {
             this.m_PageNavigator.Navigate(this);
-        }        	
-	}
+        }
+    }
 }
