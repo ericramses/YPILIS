@@ -62,34 +62,25 @@ namespace YellowstonePathology.Business.Test.HPVTWI
             get { return this.m_OveralResultCode; }
         }
 
+        public string OveralResult
+        {
+            get { return this.m_OveralResult; }
+        }
+
         public void Clear(YellowstonePathology.Business.Test.HPVTWI.PanelSetOrderHPVTWI panelSetOrder)
         {
-            panelSetOrder.Result = null;
-            panelSetOrder.References = null;
-            panelSetOrder.TestInformation = null;
+            
         }
 
         public void Clear(YellowstonePathology.Business.Test.HPVTWI.PanelOrderHPVTWI panelOrder)
         {
-            panelOrder.A5A6Result = null;
-            panelOrder.A7Result = null;
-            panelOrder.A9Result = null;            
+                     
         }
 
 		public virtual void SetResult(YellowstonePathology.Business.Test.HPVTWI.PanelSetOrderHPVTWI panelSetOrder,
 			YellowstonePathology.Business.Test.HPVTWI.PanelOrderHPVTWI panelOrder,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
-        {            
-			YellowstonePathology.Business.Rules.MethodResult result = HPVTWIResult.IsOkToRemoveSecondPanelOrder(panelSetOrder, panelOrder);
-			if (result.Success == true)
-			{
-				this.RemoveSecondPanelOrder(panelSetOrder);
-			}
-
-            panelOrder.A5A6Result = this.m_A5A6Result;
-            panelOrder.A7Result = this.m_A7Result;
-            panelOrder.A9Result = this.m_A9Result;
-            panelOrder.ResultCode = this.m_PreliminaryResultCode;
+        {            			
 
             panelSetOrder.ResultCode = this.m_OveralResultCode;
             panelSetOrder.Result = this.m_OveralResult;
@@ -108,13 +99,7 @@ namespace YellowstonePathology.Business.Test.HPVTWI
         }
 
         public void UnacceptResults(YellowstonePathology.Business.Test.HPVTWI.PanelSetOrderHPVTWI panelSetOrder)
-        {            
-            YellowstonePathology.Business.Test.PanelOrder acceptedPanelOrder = panelSetOrder.PanelOrderCollection.GetLastAcceptedPanelOrder();
-            acceptedPanelOrder.Accepted = false;
-            acceptedPanelOrder.AcceptedById = 0;
-            acceptedPanelOrder.AcceptedDate = null;
-            acceptedPanelOrder.AcceptedTime = null;
-
+        {                        
 			panelSetOrder.Unaccept();
         }
 

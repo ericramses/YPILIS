@@ -70,7 +70,21 @@ namespace YellowstonePathology.Business.Test.HPVTWI
                 }
             }
             return result;
-        }        
+        }
+
+        public HPVTWIResult GetResult(string resultCode)
+        {
+            HPVTWIResult result = null;
+            foreach (HPVTWIResult hpvTWIResult in this)
+            {
+                if (hpvTWIResult.OveralResultCode == resultCode)
+                {
+                    result = hpvTWIResult;
+                    break;
+                }
+            }
+            return result;
+        }
 
         public static HPVTWIResultCollection GetAllResults()
         {

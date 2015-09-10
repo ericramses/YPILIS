@@ -47,7 +47,7 @@ namespace YellowstonePathology.UI.Test
 			objectTracker.RegisterObject(accessionOrder);
 
 			YellowstonePathology.Business.Test.HPVTWI.PanelSetOrderHPVTWI panelSetOrder = (YellowstonePathology.Business.Test.HPVTWI.PanelSetOrderHPVTWI)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportSearchItem.ReportNo);			
-            YellowstonePathology.UI.Test.HPVTWIResultPath hpvtwiResultPath = new HPVTWIResultPath(panelSetOrder.ReportNo, accessionOrder, this.m_ExcelApplication, this.m_WorkBook, objectTracker, this.m_PageNavigator);
+            YellowstonePathology.UI.Test.HPVTWIResultPath hpvtwiResultPath = new HPVTWIResultPath(panelSetOrder.ReportNo, accessionOrder, objectTracker, this.m_PageNavigator);
             hpvtwiResultPath.Finish += new FinishEventHandler(HPVTWIResultPath_Finish);
             hpvtwiResultPath.Start();
 		}

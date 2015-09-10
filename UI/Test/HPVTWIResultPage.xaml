@@ -59,62 +59,13 @@
 				<TextBlock Grid.Column="0" Grid.Row="0" Margin="0,3,0,0" FontWeight="Bold" FontSize="14">Options</TextBlock>
 
                 <TextBlock Grid.Column="0" Grid.Row="1" Margin="5,3,0,0">                    
-                    <Hyperlink Click="HyperLinkImportResult_Click">Import Result</Hyperlink>
+                    <Hyperlink Click="HyperLinkNegativeResult_Click">Negative</Hyperlink>
+                </TextBlock>
+
+                <TextBlock Grid.Column="0" Grid.Row="2" Margin="5,3,0,0">                    
+                    <Hyperlink Click="HyperLinkPositive_Click">Positive</Hyperlink>
                 </TextBlock>
                 
-                <TextBlock Grid.Column="0" Grid.Row="2" Margin="5,3,0,0">                    
-                    <Hyperlink Click="HyperLinkNegativeResult_Click">Negative</Hyperlink>
-				</TextBlock>                                
-
-                <TextBlock Grid.Column="0" Grid.Row="4" Margin="5,3,0,0">                    
-                    <Hyperlink Click="HyperLinkA56Positive_Click">A5/6 +</Hyperlink>
-                </TextBlock>
-
-                <TextBlock Grid.Column="0" Grid.Row="5" Margin="5,3,0,0">                    
-                    <Hyperlink Click="HyperLinkA7Positive_Click">A7 +</Hyperlink>
-                </TextBlock>
-
-                <TextBlock Grid.Column="0" Grid.Row="6" Margin="5,3,0,0">                    
-                    <Hyperlink Click="HyperLinkA9Positive_Click">A9 +</Hyperlink>
-                </TextBlock>
-
-                <TextBlock Grid.Column="0" Grid.Row="7" Margin="5,3,0,0">                    
-                    <Hyperlink Click="HyperLinkA567Positive_Click">A5/6 A7 +</Hyperlink>
-                </TextBlock>
-
-                <TextBlock Grid.Column="0" Grid.Row="8" Margin="5,3,0,0">                    
-                    <Hyperlink Click="HyperLinkA569Positive_Click">A5/6 A9 +</Hyperlink>
-                </TextBlock>
-
-                <TextBlock Grid.Column="0" Grid.Row="9" Margin="5,3,0,0">                    
-                    <Hyperlink Click="HyperLinkA79Positive_Click">A7 A9 +</Hyperlink>
-                </TextBlock>
-
-                <TextBlock Grid.Column="0" Grid.Row="10" Margin="5,3,0,0">                    
-                    <Hyperlink Click="HyperLinkA5679Positive_Click">A5/6 A7 A9 +</Hyperlink>
-                </TextBlock>
-                                
-
-                <TextBlock Grid.Column="0" Grid.Row="12" Margin="5,3,0,0">                    
-                    <Hyperlink Click="HyperLinkLowFamFOZ_Click">LowFamFOZ</Hyperlink>
-                </TextBlock>                
-
-                <TextBlock Grid.Column="0" Grid.Row="13" Margin="5,3,0,0">                    
-                    <Hyperlink Click="HyperLinkLowgDNA_Click">Low gDNA</Hyperlink>
-                </TextBlock>
-
-                <TextBlock Grid.Column="0" Grid.Row="14" Margin="5,3,0,0">                    
-                    <Hyperlink Click="HyperLinkLowgDNARepeat_Click">Low gDNA (Repeat)</Hyperlink>
-                </TextBlock>
-
-                <TextBlock Grid.Column="0" Grid.Row="15" Margin="5,3,0,0">                    
-                    <Hyperlink Click="HyperLinkHighCV_Click">High %CV</Hyperlink>
-                </TextBlock>
-
-                <TextBlock Grid.Column="0" Grid.Row="16" Margin="5,3,0,0">                    
-                    <Hyperlink Click="HyperLinkQNS_Click">QNS</Hyperlink>
-                </TextBlock>
-
                 <TextBlock Grid.Column="0" Grid.Row="18" Margin="5,3,0,0">                    
                     <Hyperlink Click="HyperLinkAcceptResults_Click">Accept Results</Hyperlink>
 				</TextBlock>
@@ -165,69 +116,36 @@
 						<RowDefinition Height="Auto"></RowDefinition>
 						<RowDefinition Height="Auto"></RowDefinition>
 						<RowDefinition Height="Auto"></RowDefinition>
-						<RowDefinition Height="Auto"></RowDefinition>
-						<RowDefinition Height="Auto"></RowDefinition>
-						<RowDefinition Height="Auto"></RowDefinition>
-						<RowDefinition Height="Auto"></RowDefinition>
-						<RowDefinition Height="Auto"></RowDefinition>
-						<RowDefinition Height="Auto"></RowDefinition>
-						<RowDefinition Height="Auto"></RowDefinition>
-						<RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
-						<RowDefinition Height="*"></RowDefinition>
-					</Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
 
-					<TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Left" FontWeight="Bold" FontSize="16">Final Result:</TextBlock>
-					<TextBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.Result}" HorizontalAlignment="Stretch" IsEnabled="False" FontSize="16"/>
+					<TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" HorizontalAlignment="Left" FontWeight="Bold" FontSize="20">Result:</TextBlock>
+					<TextBox Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.Result}" HorizontalAlignment="Stretch" IsEnabled="False" FontSize="20" FontWeight="Bold"/>
 
-					<TextBlock Grid.Column="0" Grid.Row="2" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Left" FontWeight="Bold" FontSize="16">Report Comment:</TextBlock>
-					<TextBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.Comment}"  TextWrapping="Wrap" FontSize="16"/>
+                    <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Margin="2,2,2,2" HorizontalAlignment="Left" FontWeight="Bold">Report Comment:</TextBlock>
+					<TextBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" Margin="2,2,2,2" HorizontalAlignment="Stretch" Text="{Binding Path=PanelSetOrder.Comment}"  TextWrapping="Wrap"/>
 
-					<TextBlock Grid.Column="0" Grid.Row="4" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Left" FontWeight="Bold">Preliminary Result:</TextBlock>
-					<ListView Name="ListViewPanelOrder" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Margin="2,2,2,2" ItemsSource="{Binding Path=PanelSetOrder.PanelOrderCollection}" HorizontalAlignment="Stretch" Height="100">
-						<ListView.View>
-							<GridView>
-								<GridViewColumn Header="Ordered" DisplayMemberBinding="{Binding Path=OrderTime, Converter={StaticResource MilitaryDateTimeConverter}}" Width="120"/>
-								<GridViewColumn Header="Accepted" DisplayMemberBinding="{Binding Path=AcceptedTime, Converter={StaticResource ShortDateTimeConverter}}" Width="120"/>
-								<GridViewColumn Header="A5/A6 Result" DisplayMemberBinding="{Binding Path=A5A6Result}" Width="150"/>
-								<GridViewColumn Header="A7 Result" DisplayMemberBinding="{Binding Path=A7Result}" Width="150"/>
-								<GridViewColumn Header="A9 Result" DisplayMemberBinding="{Binding Path=A9Result}" Width="150"/>
-							</GridView>
-						</ListView.View>
-					</ListView>
+                    <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" Margin="2,2,2,2" HorizontalAlignment="Left" FontWeight="Bold">Additional Testing:</TextBlock>
+                    <TextBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="4" Margin="2,2,2,2" HorizontalAlignment="Stretch" Text="{Binding Path=AdditionalTestingComment, Mode=OneWay}" TextWrapping="Wrap" IsEnabled="False"/>
 
-					<StackPanel Grid.Column="0" Grid.Row="6" Orientation="Horizontal">
-						<TextBlock Margin="2,2,2,2" Text="Provider Name:" FontWeight="Bold" />
-						<TextBlock Margin="2,2,2,2" Text="{Binding Path=AccessionOrder.PhysicianName}"/>
-						<TextBlock Margin="10,2,2,2" Text="{Binding Path=AccessionOrder.PhysicianId}"/>
-					</StackPanel>
+                    <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="5" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Left">Test Information:</TextBlock>
+                    <TextBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="6" Margin="2,2,2,2" HorizontalAlignment="Stretch" Text="{Binding Path=PanelSetOrder.TestInformation}"  TextWrapping="Wrap"/>
 
-					<StackPanel Grid.Column="0" Grid.Row="7" Orientation="Horizontal">
-						<TextBlock Margin="2,2,2,2" Text="Client Name:" FontWeight="Bold" />
-						<TextBlock Margin="2,2,2,2" Text="{Binding Path=AccessionOrder.ClientName}"/>
-						<TextBlock Margin="10,2,2,2" Text="{Binding Path=AccessionOrder.ClientId}"/>
-					</StackPanel>
+                    <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="7" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Left">References:</TextBlock>
+                    <TextBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="8" Margin="2,2,2,2" HorizontalAlignment="Stretch" Text="{Binding Path=PanelSetOrder.References}"  TextWrapping="Wrap"/>
 
-					<TextBlock Grid.Column="0" Grid.Row="8" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Left" FontWeight="Bold">Report Distribution:</TextBlock>
-					<ListView Name="ListViewReportDistribution" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="9" Height="175" BorderBrush="Gray"
-                          ItemsSource="{Binding Path=PanelSetOrder.TestOrderReportDistributionCollection}" Margin="2,2,2,2">
-						<ListView.View>
-							<GridView>
-                                <GridViewColumn DisplayMemberBinding="{Binding Path=DateAdded, StringFormat=MM/dd/yyyy HH:mm}" Header="Distributed" Width="150"/>
-                                <GridViewColumn DisplayMemberBinding="{Binding Path=PhysicianName}" Header="Physician" Width="250"/>
-								<GridViewColumn DisplayMemberBinding="{Binding Path=ClientName}" Header="Client" Width="250"/>
-								<GridViewColumn DisplayMemberBinding="{Binding Path=DistributionType}" Header="Type" Width="100"/>                                
-							</GridView>
-						</ListView.View>
-					</ListView>
+                    <TextBlock Grid.Column="0" Grid.Row="9" Margin="2,2,2,2" FontWeight="Bold">Distribute:</TextBlock>
+                    <CheckBox Grid.Column="1" Grid.Row="9" Margin="2,2,2,2" IsChecked="{Binding Path=PanelSetOrder.Distribute}"></CheckBox>
+                    
+                    <TextBlock Grid.Column="0" Grid.Row="10" Margin="2,2,2,2" FontWeight="Bold">No Charge:</TextBlock>
+					<CheckBox Grid.Column="1" Grid.Row="10" Margin="2,2,2,2" IsChecked="{Binding Path=PanelSetOrder.NoCharge}"></CheckBox>
 
-                    <TextBlock Grid.Column="0" Grid.Row="10" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Left">Distribute:</TextBlock>
-                    <CheckBox Grid.Column="1" Grid.Row="10" Margin="2,2,2,2" IsChecked="{Binding Path=PanelSetOrder.Distribute}" />
-
-					<TextBlock Grid.Column="0" Grid.Row="11" Margin="2,2,2,2" FontWeight="Bold">No Charge:</TextBlock>
-					<CheckBox Grid.Column="1" Grid.Row="11" Margin="2,2,2,2" IsChecked="{Binding Path=PanelSetOrder.NoCharge}"></CheckBox>
-
-					<Grid Grid.Column="0" Grid.Row="12" Grid.ColumnSpan="2">
+					<Grid Grid.Column="0" Grid.Row="11" Grid.ColumnSpan="2">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="Auto"></ColumnDefinition>
 							<ColumnDefinition Width="*"></ColumnDefinition>
