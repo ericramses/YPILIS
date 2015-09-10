@@ -62,7 +62,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
                 }
             }
 
-            if (result == null) throw new Exception("The universal services id cannot be null");
+            if (result == false) throw new Exception("The universal services id cannot be null");
             return result;
         }
 
