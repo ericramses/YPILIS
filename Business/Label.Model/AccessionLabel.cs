@@ -14,7 +14,6 @@ namespace YellowstonePathology.Business.Label.Model
         private string m_PatientFirstName;
         private string m_PatientLastName;
         private string m_MasterAccessionNo;
-        private string m_Location = "YPII-Blgs";
 
         public AccessionLabel()
         {

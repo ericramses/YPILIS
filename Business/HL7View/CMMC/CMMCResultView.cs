@@ -9,7 +9,6 @@ namespace YellowstonePathology.Business.HL7View.CMMC
 	public class CMMCResultView : IResultView
 	{
         private XElement m_Document;
-        private int m_ObxCount;
         private string m_ReportNo;
 
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
@@ -45,7 +44,6 @@ namespace YellowstonePathology.Business.HL7View.CMMC
 
         private void CreateDocument()
         {
-            this.m_ObxCount = 1;
             this.m_Document = new XElement("HL7Message");
 
             CMMCHl7Client client = new CMMCHl7Client();

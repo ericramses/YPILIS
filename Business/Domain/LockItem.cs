@@ -13,7 +13,6 @@ namespace YellowstonePathology.Business.Domain
 		private DateTime m_LockDate;
 		private string m_LockedBy;
         private string m_ComputerName;
-        private string m_Context;
 
 		public LockItem()
 		{

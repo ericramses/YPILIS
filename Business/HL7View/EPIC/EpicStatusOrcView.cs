@@ -12,7 +12,6 @@ namespace YellowstonePathology.Business.HL7View.EPIC
         private YellowstonePathology.Business.Domain.Physician m_OrderingPhysician;
         private OrderStatus m_OrderStatus;
         private string m_ExternalOrderId;
-        private string m_MasterAccessionNo;
 
         public EpicStatusOrcView(string externalOrderId, YellowstonePathology.Business.Domain.Physician orderingPhysician, OrderStatus orderStatus)
         {

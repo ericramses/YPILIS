@@ -20,8 +20,6 @@ namespace YellowstonePathology.UI.Login
 	public partial class ScanPage : PageFunction<PageFunctionResult>
 	{
 		private YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort m_BarcodeScanPort;
-		private int m_ContainerNumber;
-		private string m_StepText;
 
 		public ScanPage()
 		{

@@ -67,7 +67,6 @@ namespace YellowstonePathology.Business.Specimen.Model
 		private List<YellowstonePathology.Business.Test.Model.TestOrder> m_PeerReviewTestOrders;		
 		private bool m_DeletePending = false;
 		private bool m_ApplyFixation = true;
-		private bool m_Order = false;
 
 		public SpecimenOrder()
 		{

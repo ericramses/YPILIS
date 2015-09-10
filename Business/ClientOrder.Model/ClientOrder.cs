@@ -20,7 +20,6 @@ namespace YellowstonePathology.Business.ClientOrder.Model
     {
         public event PropertyChangedEventHandler PropertyChanged;
         
-		private bool m_AcceptingDetails;
         private YellowstonePathology.Business.Client.Model.ClientLocation m_ClientLocation;
         private ClientOrderDetailCollection m_ClientOrderDetailCollection;
 

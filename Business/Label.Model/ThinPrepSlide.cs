@@ -12,7 +12,6 @@ namespace YellowstonePathology.Business.Label.Model
         private string m_PatientLastName;
 		private YellowstonePathology.Business.BarcodeScanning.BarcodeVersion2 m_Barcode;
 		private YellowstonePathology.Business.BarcodeScanning.CytycBarcode m_CytycBarcode;
-        private string m_Location = "YPII-Blgs";
 
         public ThinPrepSlide(string patientFirstName, string patientLastName, YellowstonePathology.Business.BarcodeScanning.BarcodeVersion2 barcode,
 			YellowstonePathology.Business.BarcodeScanning.CytycBarcode cytycBarcode)

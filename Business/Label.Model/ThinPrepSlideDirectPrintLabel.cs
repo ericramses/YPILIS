@@ -10,7 +10,6 @@ namespace YellowstonePathology.Business.Label.Model
         private string m_MasterAccessionNo;
         private string m_CytycOCRLine1;
         private string m_CytycOCRLine2;
-        private string m_SlideNumber;
         private string m_PatientLastName;
         private string m_PatientFirstName;
 		private YellowstonePathology.Business.BarcodeScanning.CytycBarcode m_CytycBarcode;

@@ -8,7 +8,7 @@ namespace YellowstonePathology.Business.HL7View.Panther
 {
 	public class PantherORC
 	{        		
-		private string m_DateFormat = "yyyyMMddHHmm";
+		private string m_DateFormat = "yyyyMMddHHmmss";
         private YellowstonePathology.Business.Specimen.Model.SpecimenOrder m_SpecimenOrder;
         private YellowstonePathology.Business.Test.AliquotOrder m_AliquotOrder;
         private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
@@ -37,7 +37,7 @@ namespace YellowstonePathology.Business.HL7View.Panther
             YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElementIfNotEmpty(orcElement, orc03Element);                                                
             
             XElement orc09Element = new XElement("ORC.9");
-            YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("ORC.9.1", this.m_SpecimenOrder.CollectionDate.Value.ToString("yyyyMMddHHmmss"), orc09Element);
+            YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("ORC.9.1", this.m_SpecimenOrder.CollectionDate.Value.ToString(m_DateFormat), orc09Element);
             YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElementIfNotEmpty(orcElement, orc09Element);            
 
             XElement orc10Element = new XElement("ORC.10");

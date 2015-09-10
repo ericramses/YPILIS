@@ -267,7 +267,7 @@ namespace YellowstonePathology.Business.Test
         {
             throw new Exception("throw up.");
 
-            item.PostDate = DateTime.Today;
+           /* item.PostDate = DateTime.Today;
 
             YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill reverseOriginal = this.GetNextItem(item.ReportNo);
             reverseOriginal.ClientId = item.ClientId;
@@ -277,7 +277,7 @@ namespace YellowstonePathology.Business.Test
             reverseOriginal.Modifier = item.Modifier;
             reverseOriginal.Quantity = item.Quantity;
             reverseOriginal.PostDate = DateTime.Today;
-            this.Add(reverseOriginal);
+            this.Add(reverseOriginal);*/
         }
 
         public void ImportReverse(DateTime postDate)

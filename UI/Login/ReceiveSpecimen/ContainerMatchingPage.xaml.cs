@@ -13,7 +13,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.ComponentModel;
-using System.Collections.ObjectModel;
 
 namespace YellowstonePathology.UI.Login.ReceiveSpecimen
 {

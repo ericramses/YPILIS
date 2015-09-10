@@ -9,11 +9,11 @@ namespace YellowstonePathology.UI.Login
 {
     public class CytologySlideLabelGrid : System.Windows.Controls.Grid
     {
-        TextBlock m_Title;
+        //TextBlock m_Title;
         TextBlock m_CRCLine1;
         TextBlock m_CRCLine2;
-        TextBlock m_Name;
-        TextBlock m_AcidWash;
+        //TextBlock m_Name;
+        //TextBlock m_AcidWash;
 
         public CytologySlideLabelGrid(string crcLine1, string crcLine2, string name, bool acidWash)
         {                                       

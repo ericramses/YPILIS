@@ -8,8 +8,6 @@ namespace YellowstonePathology.Business.HL7View.CMMC
 {
 	public class CMMCObrView
 	{        
-        private YellowstonePathology.Business.User.SystemUser m_SigningPathologist;
-        
         private string m_ExternalOrderId;
         private string m_DateFormat = "yyyyMMddHHmm";
         private string m_YpiOrderId;

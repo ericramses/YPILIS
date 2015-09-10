@@ -8,8 +8,6 @@ namespace YellowstonePathology.Business.Patient.Model
 {
     public class LinkingRuleMatchCollection : ObservableCollection<LinkingRuleMatch>
     {
-        private bool m_IsMatch;
-
         public LinkingRuleMatchCollection()
         {
 

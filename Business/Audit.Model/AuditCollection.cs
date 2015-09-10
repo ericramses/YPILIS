@@ -8,7 +8,6 @@ namespace YellowstonePathology.Business.Audit.Model
 {
     public class AuditCollection : ObservableCollection<Audit>
     {
-        private AuditStatusEnum m_Status;
         private bool m_ActionRequired;
         private string m_Message;
 
@@ -69,11 +68,6 @@ namespace YellowstonePathology.Business.Audit.Model
             }
 
             return result;
-        }
-
-        public AuditStatusEnum Status
-        {
-            get { return this.m_Status; }
         }
 
         public bool ActionRequired

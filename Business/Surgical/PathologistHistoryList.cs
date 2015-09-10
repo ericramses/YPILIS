@@ -55,7 +55,6 @@ namespace YellowstonePathology.Business.Surgical
 		private string m_ReportNo;
         private System.Nullable<DateTime> m_AccessionDate;
         private System.Nullable<DateTime> m_FinalDate;
-        private string m_Final;
         private string m_ForeColor;
         private string m_PanelSetName;
 

@@ -15,7 +15,6 @@ namespace YellowstonePathology.YpiConnect.Contract.Billing
 	public class CptBillingCodeItem : INotifyPropertyChanged
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
-		private bool m_BillingIsOpen;
 
         private YellowstonePathology.YpiConnect.Contract.Billing.ICD9BillingCodeCollection m_ICD9BillingCodeCollection;
 

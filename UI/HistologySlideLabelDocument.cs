@@ -55,7 +55,7 @@ namespace YellowstonePathology.UI
         {
             int count = 1;
             int x = 3;
-            int y = 8;            
+            //int y = 8;            
 
             for(int i=0; i<4; i++)
             {

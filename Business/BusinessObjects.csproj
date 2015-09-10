@@ -648,7 +648,6 @@
     <Compile Include="Domain\Billing\BillingComponentTechnicalOnly.cs" />
     <Compile Include="Domain\Billing\BillingComponentNoBilling.cs" />
     <Compile Include="Domain\Billing\SurgicalStainSpecimen.cs" />
-    <Compile Include="Domain\Billing\PsaTransferPrep.cs" />
     <Compile Include="Billing\CptCodeList.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -736,7 +735,6 @@
     <Compile Include="Domain\Billing\BillToEnum.cs" />
     <Compile Include="Domain\Billing\BillableObjectThinPrepPap.cs" />
     <Compile Include="Domain\Billing\BillableObjectLeukemiaLymphoma.cs" />
-    <Compile Include="Domain\Billing\CptBillingCodeRule.cs" />
     <Compile Include="Domain\Billing\GlobalBillingRule.cs" />
     <Compile Include="Billing\CptCodeModifier.cs" />
     <Compile Include="Domain\Billing\StainSpecimen.cs" />

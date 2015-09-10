@@ -8,8 +8,6 @@ namespace YellowstonePathology.Business.HL7View.EPIC
 {
 	public class EpicObrView
 	{        
-        private YellowstonePathology.Business.User.SystemUser m_SigningPathologist;
-        
         private string m_ExternalOrderId;
         private string m_DateFormat = "yyyyMMddHHmm";
 

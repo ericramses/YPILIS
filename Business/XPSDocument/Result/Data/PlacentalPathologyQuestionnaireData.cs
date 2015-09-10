@@ -12,47 +12,47 @@ namespace YellowstonePathology.Document.Result.Data
 
 		private XElement m_DataElement;
 		//ClientOrder
-		private string m_ClientOrderId;
-		private bool m_Received;
-		private bool m_Submitted;
-		private Nullable<DateTime> m_OrderDate;
-		private Nullable<DateTime> m_OrderTime;
-		private string m_OrderedBy;
+		//private string m_ClientOrderId;
+		//private bool m_Received;
+		//private bool m_Submitted;
+		//private Nullable<DateTime> m_OrderDate;
+		//private Nullable<DateTime> m_OrderTime;
+		//private string m_OrderedBy;
 		private string m_PFirstName;
 		private string m_PLastName;
-		private string m_PMiddleInitial;
-		private Nullable<DateTime> m_PBirthdate;
-		private string m_PSex;
-		private string m_PSSN;
-		private string m_SvhMedicalRecord;
-		private string m_SvhAccountNo;
-		private int m_ClientId;
-		private string m_ClientName;
-		private Nullable<int> m_ClientLocationId;
-		private string m_ProviderId;
-		private string m_ProviderName;
-		private string m_ClinicalHistory;
-		private string m_ReportCopyTo;
-		private string m_OrderType;
-		private Nullable<int> m_PanelSetId;
-		private bool m_Accessioned;
-		private bool m_Validated;
-		private Nullable<DateTime> m_CollectionDate;
-		private string m_ExternalOrderId;
-		private string m_IncomingHL7;
-		private string m_MasterAccessionNo;
-		private string m_OrderedByFirstName;
-		private string m_OrderedByLastName;
-		private string m_OrderedById;
-		private string m_ProviderFirstName;
-		private string m_ProviderLastName;
-		private bool m_Hold;
-		private string m_HoldMessage;
-		private string m_HoldBy;
-		private bool m_Acknowledged;
-		private int m_AcknowledgedById;
-		private Nullable<DateTime> m_AcknowledgedDate;
-		private string m_SystemInitiatingOrder;
+		//private string m_PMiddleInitial;
+		//private Nullable<DateTime> m_PBirthdate;
+		//private string m_PSex;
+		//private string m_PSSN;
+		//private string m_SvhMedicalRecord;
+		//private string m_SvhAccountNo;
+		//private int m_ClientId;
+		//private string m_ClientName;
+		//private Nullable<int> m_ClientLocationId;
+		//private string m_ProviderId;
+		//private string m_ProviderName;
+		//private string m_ClinicalHistory;
+		//private string m_ReportCopyTo;
+		//private string m_OrderType;
+		//private Nullable<int> m_PanelSetId;
+		//private bool m_Accessioned;
+		//private bool m_Validated;
+		//private Nullable<DateTime> m_CollectionDate;
+		//private string m_ExternalOrderId;
+		//private string m_IncomingHL7;
+		//private string m_MasterAccessionNo;
+		//private string m_OrderedByFirstName;
+		//private string m_OrderedByLastName;
+		//private string m_OrderedById;
+		//private string m_ProviderFirstName;
+		//private string m_ProviderLastName;
+		//private bool m_Hold;
+		//private string m_HoldMessage;
+		//private string m_HoldBy;
+		//private bool m_Acknowledged;
+		//private int m_AcknowledgedById;
+		//private Nullable<DateTime> m_AcknowledgedDate;
+		//private string m_SystemInitiatingOrder;
 
 		//PlacentaClientOrderDetail
 		private string m_Birthdate;
@@ -227,7 +227,7 @@ namespace YellowstonePathology.Document.Result.Data
 			this.m_Mass = Convert.ToBoolean(detailElement.Element("Mass").Value);
 		}
 
-		public string ClientOrderId
+		/*public string ClientOrderId
 		{
 			get { return this.m_ClientOrderId; }
 		}
@@ -255,7 +255,7 @@ namespace YellowstonePathology.Document.Result.Data
 		public string OrderedBy
 		{
 			get { return this.m_OrderedBy; }
-		}
+		}*/
 
 		public string PFirstName
 		{
@@ -267,7 +267,7 @@ namespace YellowstonePathology.Document.Result.Data
 			get { return this.m_PLastName; }
 		}
 
-		public string PMiddleInitial
+		/*public string PMiddleInitial
 		{
 			get { return this.m_PMiddleInitial; }
 		}
@@ -430,7 +430,7 @@ namespace YellowstonePathology.Document.Result.Data
 		public string SystemInitiatingOrder
 		{
 			get { return this.m_SystemInitiatingOrder; }
-		}
+		}*/
 
 		public string Birthdate
 		{

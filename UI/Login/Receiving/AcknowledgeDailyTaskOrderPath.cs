@@ -9,7 +9,6 @@ namespace YellowstonePathology.UI.Login.Receiving
 	{
 		private YellowstonePathology.Business.Task.Model.TaskOrderCollection m_TaskOrderCollection;
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
-		private LoginPageWindow m_LoginPageWindow;
 
 		public AcknowledgeDailyTaskOrderPath(YellowstonePathology.Business.Task.Model.TaskOrderCollection taskOrderCollection)
 		{
