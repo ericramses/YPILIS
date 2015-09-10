@@ -46,12 +46,6 @@ namespace YellowstonePathology.Business.BarcodeScanning
             set { this.m_Prefix = value; }
         }
 
-        public string ID
-        {
-            get { return this.m_ID; }
-            set { this.m_ID = value; }
-        }
-
         public string Version
         {
             get { return this.m_Version; }

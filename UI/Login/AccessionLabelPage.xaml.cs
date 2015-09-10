@@ -22,7 +22,6 @@ namespace YellowstonePathology.UI.Login
 		public delegate void CloseEventHandler(object sender, EventArgs e);
 		public event CloseEventHandler Close;
 
-        private YellowstonePathology.Business.Label.Model.HistologySlidePaperLabelPrinter m_HistologySlideLablePrinter;
         private string m_PageHeaderText = "Accession Label Page";
 
 		public AccessionLabelPage(YellowstonePathology.Business.Search.ReportSearchList reportSearchList)
@@ -42,11 +41,6 @@ namespace YellowstonePathology.UI.Login
         public string PageHeaderText
         {
             get { return this.m_PageHeaderText; }
-        }
-
-        YellowstonePathology.Business.Label.Model.HistologySlidePaperLabelPrinter HistologySlideLabelPrinter
-        {
-            get { return this.m_HistologySlideLablePrinter; }
         }
 
         public void NotifyPropertyChanged(String info)

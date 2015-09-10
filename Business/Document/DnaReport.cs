@@ -12,8 +12,8 @@ namespace YellowstonePathology.Business.Document
 	{
         XElement m_ReportTemplate;
 
-        private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-        private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrderItem;        
+        //private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
+        //private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrderItem;        
         private YellowstonePathology.Business.Document.NativeDocumentFormatEnum m_NativeDocumentFormat;
 
         public DnaReport()

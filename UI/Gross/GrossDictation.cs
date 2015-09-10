@@ -11,7 +11,6 @@ namespace YellowstonePathology.UI.Gross
         public event PropertyChangedEventHandler PropertyChanged;
 
         private string m_Preamble;
-        private string m_SpecimenText;
         private string m_Text;
         private string m_Words;
 

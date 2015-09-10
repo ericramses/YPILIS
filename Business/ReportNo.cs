@@ -16,7 +16,6 @@ namespace YellowstonePathology.Business
 
         private string m_Value;
         private string m_MasterAccessionNo;
-        private bool m_AllowMultipleWithThisLetter;
 
 		public ReportNo()
         {

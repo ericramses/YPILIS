@@ -9,8 +9,6 @@ namespace YellowstonePathology.Business.Monitor.Model
     public class DistributionCollection : ObservableCollection<Distribution>
     {
 
-        private double m_AverageMinutesToInitialDistribution;
-
         public DistributionCollection()
         {
 
@@ -23,10 +21,5 @@ namespace YellowstonePathology.Business.Monitor.Model
                 distribution.SetState();             
             }
         }        
-
-        public double AverageMinutesToInitialDistribution
-        {
-            get { return this.m_AverageMinutesToInitialDistribution; }
-        }       
     }
 }

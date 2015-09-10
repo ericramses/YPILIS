@@ -24,8 +24,8 @@ namespace YellowstonePathology.UI.Scanning
         private delegate void MethodInvoker();
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private string m_LocalStorageLocation = @"C:\Program Files\Yellowstone Pathology Institute\Scanning\LocalStorage";        
-        private string m_LocalSplitFileFolderPath = @"C:\Program Files\Yellowstone Pathology Institute\Scanning\LocalStorage\FilesToBeSplit\";                
+        //private string m_LocalStorageLocation = @"C:\Program Files\Yellowstone Pathology Institute\Scanning\LocalStorage";        
+        //private string m_LocalSplitFileFolderPath = @"C:\Program Files\Yellowstone Pathology Institute\Scanning\LocalStorage\FilesToBeSplit\";                
 
         ScannedFileCollection m_ServerFileCollection;        
         ServerFolderCollection m_ServerFolderCollection;        

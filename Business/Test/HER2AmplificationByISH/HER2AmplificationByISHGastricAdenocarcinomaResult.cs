@@ -49,7 +49,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 				this.m_ResultCode = IndeterminateResultCode;
 			}
 
-			this.m_InterpretiveComment = this.m_InterpretiveComment;
+			//this.m_InterpretiveComment = this.m_InterpretiveComment;
 
 			if (testOrder.Her2byIHCOrder == 1)
 			{

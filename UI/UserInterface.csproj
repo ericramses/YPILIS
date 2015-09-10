@@ -56,6 +56,8 @@
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
+    <NoWarn>
+    </NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>false</DebugSymbols>
@@ -861,7 +863,6 @@
       <DependentUpon>PanelOrderBatch.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ScanDocuments.cs" />
     <Compile Include="Surgical\TypingWorkspace.xaml.cs">
       <DependentUpon>TypingWorkspace.xaml</DependentUpon>
     </Compile>
@@ -3792,28 +3793,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Billing\CodeSelection.xml" />
   </ItemGroup>
-  <ItemGroup>
-    <PublishFile Include="Microsoft.Data.SqlXml">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-    <PublishFile Include="stdole">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Surgical\TypingTemplate.xml" />
   </ItemGroup>

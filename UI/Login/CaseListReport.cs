@@ -13,7 +13,6 @@ namespace YellowstonePathology.UI.Login
     {
 		private YellowstonePathology.Business.Search.ReportSearchList m_ReportSearchList;
         private YellowstonePathology.Document.Xps.ReportDocument m_ReportDocument;
-        private Grid m_ReportGrid;
 
 		public CaseListReport(YellowstonePathology.Business.Search.ReportSearchList reportSearchList)
         {

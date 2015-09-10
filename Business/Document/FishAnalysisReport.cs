@@ -6,8 +6,6 @@ namespace YellowstonePathology.Business.Document
 {
 	public class FishAnalysisReport : CaseReportV2
     {
-		YellowstonePathology.Business.Test.FishAnalysis.FishAnalysisTestOrder m_ReportOrder;
-
 		public override void Render(string masterAccessionNo, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveEnum)
 		{
             this.m_ReportNo = reportNo;
