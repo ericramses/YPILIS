@@ -21,30 +21,36 @@ namespace YellowstonePathology.Business.Test.HPVTWI
 
 		public static string CytologyReportNoPlaceHolder = "cytology_accessionno";
 
-        public static string TestInformation = "Testing for high-risk HPV was performed using the Invader technology from Hologic after automated DNA extraction from the " +
-            "ThinPrep sample.  The Invader chemistry is a proprietary signal amplification method capable of detecting low levels of target DNA.  Using analyte specific reagents, " +
-            "the assay is capable of detecting genotypes 16, 18, 31, 33, 35, 39, 45, 51, 52, 56, 58, 59, 66 and 68.  The assay also evaluates specimen adequacy by measuring the " +
-            "amount of normal human DNA present in the sample.  HPV types 16 & 18 are frequently associated with high risk for development of high grade dysplasia and anogenital " +
-            "carcinoma.  HPV types 31/33/35/39/45/51/52/56/58/59/68 have also been classified as high-risk for the development of high grade dysplasia and anogenital carcinoma.  " +
-            "HPV type 66 has been classified as probable high-risk.  A negative test result does not necessarily imply the absence of HPV infection as this assay targets only the " +
-            "most common high-risk genotypes and insufficient sampling can affect results.  These results should be correlated with cytology and clinical exam results.";
+        public static string TestInformation = "The Aptima HPV assay is an in vitro nucleic acid amplification test for the qualitative detection of E6/E7 viral " +
+            "messenger RNA (mRNA) from 14 high-risk types of human papillomavirus (HPV) in cervical specimens. The high-risk HPV types detected by the assay " +
+            "include: 16, 18, 31, 33, 35, 39, 45, 51, 52, 56, 58, 59, 66, and 68. The Aptima HPV assay does not discriminate between the 14 high-risk types. " +
+            "Cervical specimens in ThinPrep Pap Test vials containing PreservCyt Solution and collected with broom-type or cytobrush/spatula collection devices* " +
+            "may be tested with the Aptima HPV assay. The assay is used with the Panther System. The use of the test is indicated: 1. To screen women 21 years and " +
+            "older with atypical squamous cells of undetermined significance (ASC-US) cervical cytology results to determine the need for referral to colposcopy. The " +
+            "results of this test are not intended to prevent women from proceeding to colposcopy. 2. In women 30 years and older, the Aptima HPV assay can be used with " +
+            "cervical cytology to adjunctively screen to assess the presence or absence of high-risk HPV types. This information, together with the physician’s " +
+            "assessment of cytology history, other risk factors, and professional guidelines, may be used to guide patient management. * Broom-type device (e.g., " +
+            "Wallach Pipette) or endocervical brush/spatula. This assay is not intended for use as a screening device for women under age 30 with normal cervical " +
+            "cytology. The Aptima HPV assay is not intended to substitute for regular cervical cytology screening. Detection of HPV using the Aptima HPV assay does not " +
+            "differentiate HPV types and cannot evaluate persistence of any one type. The use of this assay has not been evaluated for the management of HPV vaccinated " +
+            "women, women with prior ablative or excisional therapy, hysterectomy, who are pregnant, or who have other risk factors (e.g., HIV +, immunocompromised, " +
+            "history of sexually transmitted infection).The Aptima HPV assay is designed to enhance existing methods for the detection of cervical disease and should be " +
+            "used in conjunction with clinical information derived from other diagnostic and screening tests, physical examinations, and full medical history in " +
+            "accordance with appropriate patient management procedures.";
 
-        public static string References = "Darragh TM, Colgan TJ, Cox JT et al. The Lower Anogenital Squamous Terminology (LAST) Standardization Project for HPV-Associated Lesions: " +
-            "Background and Consensus Recommendations from the College of American Pathologists and the American Society for Colposcopy and Cervical Pathology. Arch Pathol " +
-            "Lab Med 2012 Oct; 136(10): 1266-97.";
+        public static string References = "1. Darragh TM, Colgan TJ, Cox JT et al. The Lower Anogenital Squamous Terminology (LAST) Standardization Project for " +
+            "HPV-Associated Lesions: Background and Consensus Recommendations from the College of American Pathologists and the American Society for Colposcopy and " +
+            "Cervical Pathology. Arch Pathol Lab Med 2012 Oct; 136(10): 1266-97." + Environment.NewLine +
+            "2.Doorbar, J. 2006. Molecular biology of human papillomavirus infection and cervical cancer.Clin Sci(Lond). 110(5):525-41.";
 		
 		public static string InsufficientComment = "The quantity of genomic DNA present in the sample is insufficient to perform the analysis, even after an attempt to " +
 			"increase DNA content by using more specimen volume.  There is no charge for this specimen.  Consider repeat testing, if clinically indicated.";
 		
 		public static string IndeterminateComment = "Results are indeterminate due to technical issues with this specific specimen, which may be related to specimen DNA " +
 			"quality or interfering substances.  Consider repeat testing, if clinically indicated.";
-
-        protected string m_PreliminaryResultCode;
-        protected string m_A5A6Result;
-        protected string m_A7Result;
-        protected string m_A9Result;
-        protected string m_OveralResultCode;
-        protected string m_OveralResult;
+        
+        protected string m_ResultCode;
+        protected string m_Result;
         protected string m_Comment;
 
 		public HPVTWIResult()
@@ -52,19 +58,14 @@ namespace YellowstonePathology.Business.Test.HPVTWI
 			
 		}
 
-        public string PreliminaryResultCode
+        public string ResultCode
         {
-            get { return this.m_PreliminaryResultCode; }
-        }
+            get { return this.m_ResultCode; }
+        }        
 
-        public string OveralResultCode
+        public string Result
         {
-            get { return this.m_OveralResultCode; }
-        }
-
-        public string OveralResult
-        {
-            get { return this.m_OveralResult; }
+            get { return this.m_Result; }
         }
 
         public void Clear(YellowstonePathology.Business.Test.HPVTWI.PanelSetOrderHPVTWI panelSetOrder)
@@ -82,8 +83,8 @@ namespace YellowstonePathology.Business.Test.HPVTWI
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {            			
 
-            panelSetOrder.ResultCode = this.m_OveralResultCode;
-            panelSetOrder.Result = this.m_OveralResult;
+            panelSetOrder.ResultCode = this.m_ResultCode;
+            panelSetOrder.Result = this.m_Result;
             panelSetOrder.TestInformation = TestInformation;
             panelSetOrder.References = References;
             panelSetOrder.Comment = this.m_Comment;

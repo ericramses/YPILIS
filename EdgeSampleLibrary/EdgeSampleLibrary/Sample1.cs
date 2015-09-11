@@ -16,7 +16,7 @@ namespace EdgeSampleLibrary
         }
 
         public async Task<string> QueryUsers(IDictionary<string, object> payload)
-        {            
+        {
             var connectionString = "Data Source=TestSQL;Initial Catalog=YPIData;Integrated Security=True";
 
             string reportNo = (string)payload["reportNo"];
@@ -29,17 +29,37 @@ namespace EdgeSampleLibrary
                 HPVResult hpvResult = null;
                 if (overallInterpretation == "Negative")
                 {
-                    hpvResult = new HPVNegativeResult();                
+                    hpvResult = new HPVNegativeResult();
+                    sql = @"Update tblPanelSetOrder set ResultCode = '" + hpvResult.ResultCode + "', "
+                    + "[HoldDistribution] = 1, "
+                    + "[Accepted] = 1, "
+                    + "[AcceptedBy] = 'Optimus Prime', "
+                    + "[AcceptedById] = 5134, "
+                    + "[AcceptedDate] = '" + DateTime.Today.ToString("MM/dd/yyyy") + "', "
+                    + "[AcceptedTime] = '" + DateTime.Now.ToString("MM/dd/yyyy HH:mm") + "', "
+                    + "[Final] = 1, "
+                    + "[Signature] = 'Optimus Prime', "
+                    + "[FinaledById] = 5134, "
+                    + "[FinalDate] = '" + DateTime.Today.ToString("MM/dd/yyyy") + "', "
+                    + "[FinalTime] = '" + DateTime.Now.ToString("MM/dd/yyyy HH:mm") + "' "
+                    + "where ReportNo = '" + reportNo + "';";
                 }
                 else if (overallInterpretation == "POSITIVE")
                 {
                     hpvResult = new HPVPositiveResult();
-                }
+                    sql = @"Update tblPanelSetOrder set ResultCode = '" + hpvResult.ResultCode + "', "
+                    + "[HoldDistribution] = 1, "
+                    + "[Accepted] = 1, "
+                    + "[AcceptedBy] = 'Optimus Prime', "
+                    + "[AcceptedById] = 5134, "
+                    + "[AcceptedDate] = '" + DateTime.Today.ToString("MM/dd/yyyy") + "', "
+                    + "[AcceptedTime] = '" + DateTime.Now.ToString("MM/dd/yyyy HH:mm") + "' "                    
+                    + "where ReportNo = '" + reportNo + "';";
+                }                
 
-                sql = @"Update tblPanelSetOrder set ResultCode = '" + hpvResult.ResultCode + "' where ReportNo = '" + reportNo + "';";
                 sql += @"Update tblPanelSetOrderHPVTWI set [Result] = '" + hpvResult.Result + "', "
                     + "[References] = '" + HPVResult.References + "', "
-                    + "[TestInformation] = '" + HPVResult.TestInformation + "' "
+                    + "[TestInformation] = '" + HPVResult.TestInformation + "' "                    
                     + "where [ReportNo] = '" + reportNo + "';";
             }
             

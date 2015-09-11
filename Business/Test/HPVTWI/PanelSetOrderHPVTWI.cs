@@ -26,7 +26,8 @@ namespace YellowstonePathology.Business.Test.HPVTWI
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 			: base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute, systemIdentity)
 		{
-			
+            this.m_TestInformation = HPVTWIResult.TestInformation;
+            this.m_References = HPVTWIResult.References;
 		}        
 
 		[PersistentProperty()]
