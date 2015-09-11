@@ -332,23 +332,6 @@
 								<OrderItems>
 								</OrderItems>
 							</OrderItem>
-							<OrderItem>
-								<Id>350</Id>
-								<ParentId>19</ParentId>
-								<ChildId>0</ChildId>
-								<Name>Cytomegalovirus</Name>
-								<Orderable>True</Orderable>
-								<Order>False</Order>
-								<ItemType>Test</ItemType>
-								<OrderPriority>40</OrderPriority>
-								<NotListedName></NotListedName>
-								<NotListedNameVisible>False</NotListedNameVisible>
-								<Comment></Comment>
-								<CommentVisible>False</CommentVisible>
-								<TemplateName>StandardCheckBoxTemplate</TemplateName>
-								<OrderItems>
-								</OrderItems>
-							</OrderItem>
               <OrderItem>
                 <Id>357</Id>
                 <ParentId>19</ParentId>
@@ -400,7 +383,24 @@
 								<OrderItems>
 								</OrderItems>
 							</OrderItem>
-						</OrderItems>
+              <OrderItem>
+                <Id>350</Id>
+                <ParentId>19</ParentId>
+                <ChildId>0</ChildId>
+                <Name>Cytomegalovirus</Name>
+                <Orderable>True</Orderable>
+                <Order>False</Order>
+                <ItemType>Test</ItemType>
+                <OrderPriority>40</OrderPriority>
+                <NotListedName></NotListedName>
+                <NotListedNameVisible>False</NotListedNameVisible>
+                <Comment></Comment>
+                <CommentVisible>False</CommentVisible>
+                <TemplateName>StandardCheckBoxTemplate</TemplateName>
+                <OrderItems>
+                </OrderItems>
+              </OrderItem>
+            </OrderItems>
 					</OrderItem>
 					<OrderItem>
 						<Id>0</Id>
