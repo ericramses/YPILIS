@@ -15,6 +15,8 @@ namespace YellowstonePathology.UI.Surgical
         private PathologistSignoutDialog m_PathologistSignoutDialog;
         private YellowstonePathology.Business.Rules.Surgical.WordSearchList m_PapCorrelationWordList;
 
+        private bool m_GoingBack;
+
 
         public PathologistSignoutPath(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
             YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder,
@@ -74,12 +76,87 @@ namespace YellowstonePathology.UI.Surgical
 
         private void PapCorrelationPage_Next(object sender, EventArgs e)
         {
-            this.ShowPathologistSignoutPage1();
+            this.m_GoingBack = false;
+            if (this.HandlePQRS() == false)
+            {
+                this.ShowPathologistSignoutPage1();
+            }
         }
 
         private void PapCorrelationPage_Back(object sender, EventArgs e)
         {
             this.m_PathologistSignoutDialog.Close();
+        }
+
+        public bool HandlePQRS()
+        {
+            bool pqrsFound = false;
+            YellowstonePathology.UI.Surgical.PQRSMeasureCollection pqrsCollection = YellowstonePathology.UI.Surgical.PQRSMeasureCollection.GetAll();
+            foreach (YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen in this.m_SurgicalTestOrder.SurgicalSpecimenCollection)
+            {
+                foreach (YellowstonePathology.UI.Surgical.PQRSMeasure pqrsMeasure in pqrsCollection)
+                {
+                    pqrsFound = false;
+                    int patientAge = YellowstonePathology.Business.Helper.PatientHelper.GetAge(this.m_AccessionOrder.PBirthdate.Value);
+                    if (pqrsMeasure.DoesMeasureApply(this.m_SurgicalTestOrder, surgicalSpecimen, patientAge) == true)
+                    {
+                        PQRSMeasurePage pqrsMeasurePage = new PQRSMeasurePage(pqrsMeasure, surgicalSpecimen);
+                        pqrsMeasurePage.Cancel += new PQRSMeasurePage.CancelEventHandler(PQRSMeasurePage_Cancel);
+                        pqrsMeasurePage.AddPQRSCode += new PQRSMeasurePage.AddPQRSCodeEventHandler(PQRSMeasurePage_AddPQRSCode);
+                        pqrsMeasurePage.PQRSCodeNotApplicable += new PQRSMeasurePage.PQRSCodeNotApplicableEventHandler(PQRSMeasurePage_PQRSCodeNotApplicable);
+                        this.m_PathologistSignoutDialog.PageNavigator.Navigate(pqrsMeasurePage);
+                        pqrsFound = true;
+                        break;
+                    }
+                }
+                if (pqrsFound) break;
+            }
+            return pqrsFound;
+        }
+
+        private void PQRSMeasurePage_PQRSCodeNotApplicable(object sender, EventArgs e)
+        {
+            this.MoveFromPQRSMeasurePage();
+        }
+
+        private void PQRSMeasurePage_AddPQRSCode(object sender, CustomEventArgs.AddPQRSReturnEventArgs e)
+        {
+            this.AddPQRSCode(e.PQRSCode, e.SurgicalSpecimen);
+            this.MoveFromPQRSMeasurePage();
+        }
+
+        private void PQRSMeasurePage_Cancel(object sender, EventArgs e)
+        {
+            this.MoveFromPQRSMeasurePage();
+        }
+
+        protected void AddPQRSCode(YellowstonePathology.Business.Billing.Model.PQRSCode pqrsCode, YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen)
+        {
+            if (this.m_SurgicalTestOrder.PanelSetOrderCPTCodeCollection.Exists(pqrsCode.Code, 1) == false)
+            {
+                YellowstonePathology.Business.Test.PanelSetOrderCPTCode panelSetOrderCPTCode = this.m_SurgicalTestOrder.PanelSetOrderCPTCodeCollection.GetNextItem(this.m_SurgicalTestOrder.ReportNo);
+                panelSetOrderCPTCode.Quantity = 1;
+                panelSetOrderCPTCode.CPTCode = pqrsCode.Code;
+                panelSetOrderCPTCode.Modifier = pqrsCode.Modifier;
+                panelSetOrderCPTCode.CodeableDescription = "PQRS Code";
+                panelSetOrderCPTCode.CodeableType = "PQRS";
+                panelSetOrderCPTCode.EntryType = YellowstonePathology.Business.Billing.Model.PanelSetOrderCPTCodeEntryType.ManualEntry;
+                panelSetOrderCPTCode.SpecimenOrderId = surgicalSpecimen.SpecimenOrderId;
+                panelSetOrderCPTCode.ClientId = this.m_AccessionOrder.ClientId;
+                this.m_SurgicalTestOrder.PanelSetOrderCPTCodeCollection.Add(panelSetOrderCPTCode);
+            }
+        }
+
+        private void MoveFromPQRSMeasurePage()
+        {
+            if (this.m_GoingBack == true)
+            {
+                this.ShowPapCorrelationPage();
+            }
+            else
+            {
+                this.ShowPathologistSignoutPage1();
+            }
         }
 
         private void ShowPathologistSignoutPage1()
@@ -97,9 +174,13 @@ namespace YellowstonePathology.UI.Surgical
 
         private void PathologistSignoutPage1_Back(object sender, EventArgs e)
         {
-            if (this.ShowPapCorrelationPage() == false)
+            this.m_GoingBack = true;
+            if (this.HandlePQRS() == false)
             {
-                this.m_PathologistSignoutDialog.Close();
+                if (this.ShowPapCorrelationPage() == false)
+                {
+                    this.m_PathologistSignoutDialog.Close();
+                }
             }
         }
     }
