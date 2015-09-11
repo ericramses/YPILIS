@@ -510,6 +510,12 @@
 							<TextBlock VerticalAlignment="Center" Margin="2">Reassign Case</TextBlock>
 						</StackPanel>
 					</Button>
+                    <Button ToolTip="Testing - Ask before using!" Click="ButtonTesting_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/Resources/Gears.jpg" Margin="2" Height="16"></Image>
+                            <TextBlock VerticalAlignment="Center" Margin="2">Testing</TextBlock>
+                        </StackPanel>
+                    </Button>
 				</ToolBar>
 			</ToolBarTray>
 

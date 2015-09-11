@@ -16,9 +16,9 @@ using System.ComponentModel;
 namespace YellowstonePathology.UI.Surgical
 {
     /// <summary>
-    /// Interaction logic for PathologistSignoutPage1.xaml
+    /// Interaction logic for PapCorrelationPage.xaml
     /// </summary>
-    public partial class PathologistSignoutPage1 : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
+    public partial class PapCorrelationPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -30,16 +30,20 @@ namespace YellowstonePathology.UI.Surgical
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         private YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder m_SurgicalTestOrder;
         private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
+        private YellowstonePathology.Business.Patient.Model.PatientHistoryList m_PatientHistoryList;
         private string m_PageHeaderText;
 
-        public PathologistSignoutPage1(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
+        public PapCorrelationPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
             YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder,
             YellowstonePathology.Business.Persistence.ObjectTracker objectTracker)
         {
             this.m_AccessionOrder = accessionOrder;
             this.m_SurgicalTestOrder = surgicalTestOrder;
             this.m_ObjectTracker = objectTracker;
-            this.m_PageHeaderText = "Signout Page 1";
+            this.m_PageHeaderText = "Pap Correlation Page";
+            this.m_PatientHistoryList = new YellowstonePathology.Business.Patient.Model.PatientHistoryList();
+            this.m_PatientHistoryList.SetFillCommandByAccessionNo(m_SurgicalTestOrder.ReportNo);
+            this.m_PatientHistoryList.Fill();
 
             InitializeComponent();
 
@@ -66,7 +70,7 @@ namespace YellowstonePathology.UI.Surgical
 
         public void Save()
         {
-            //this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
+            this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
         }
 
         public void UpdateBindingSources()
@@ -87,6 +91,24 @@ namespace YellowstonePathology.UI.Surgical
         public string PageHeaderText
         {
             get { return this.m_PageHeaderText; }
+        }
+
+        public YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder SurgicalTestOrder
+        {
+            get { return this.m_SurgicalTestOrder; }
+        }
+
+        public YellowstonePathology.Business.Patient.Model.PatientHistoryList PatientHistoryList
+        {
+            get { return this.m_PatientHistoryList; }
+        }
+
+        private void ListViewAccessions_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if(this.ListViewAccessions.SelectedItem != null)
+            {
+                this.m_SurgicalTestOrder.PapCorrelationAccessionNo = ((YellowstonePathology.Business.Patient.Model.PatientHistoryListItem)this.ListViewAccessions.SelectedItem).ReportNo;
+            }
         }
     }
 }

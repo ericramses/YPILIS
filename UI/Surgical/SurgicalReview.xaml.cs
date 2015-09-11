@@ -451,5 +451,11 @@ namespace YellowstonePathology.UI.Surgical
             }
             return result;
         }
-	}
+
+        private void ButtonTesting_Click(object sender, RoutedEventArgs e)
+        {
+            PathologistSignoutPath pathologistSignoutPath = new PathologistSignoutPath(this.m_PathologistUI.AccessionOrder, this.PanelSetOrderSurgical, this.m_PathologistUI.ObjectTracker, this.m_SystemIdentity);
+            pathologistSignoutPath.Start();
+        }
+    }
 }
