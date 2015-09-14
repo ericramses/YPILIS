@@ -156,6 +156,8 @@
     <Compile Include="Audit.Model\CouldBenefitFromCCCPAudit.cs" />
     <Compile Include="Audit.Model\HER2OKToAcceptAudit.cs" />
     <Compile Include="Audit.Model\IntraoperativeConsultationFinalAudit.cs" />
+    <Compile Include="Audit.Model\PapCorrelationAudit.cs" />
+    <Compile Include="Audit.Model\ProviderNpiAudit.cs" />
     <Compile Include="Audit.Model\SpecimenOrderAudit.cs" />
     <Compile Include="Audit.Model\IsOKToAdjustWHPExpectedFinalTimeAuditCollection.cs" />
     <Compile Include="Audit.Model\FinalizedAudit.cs" />

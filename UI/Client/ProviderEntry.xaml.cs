@@ -67,7 +67,7 @@ namespace YellowstonePathology.UI.Client
 		}
 
 
-		public ObservableCollection<YellowstonePathology.Business.Client.Model.Client> Clients
+		public ObservableCollection<YellowstonePathology.Business.Client.Model.Client> ProviderClients
 		{
 			get { return this.m_PhysicianClientView.Clients; }
 		}
@@ -84,29 +84,22 @@ namespace YellowstonePathology.UI.Client
 
 		private void ButtonOK_Click(object sender, RoutedEventArgs e)
 		{
-			if (this.NpiIsPresent() == true)
-			{
-				if (this.AllClientsHaveDistributionSet() == true)
-				{
-					this.m_ObjectTracker.SubmitChanges(this.m_Physician);
-					Close();
-				}
-			}
-		}
+            YellowstonePathology.Business.Audit.Model.ProviderNpiAudit providerNpiAudit = new YellowstonePathology.Business.Audit.Model.ProviderNpiAudit(this.m_Physician);
+            providerNpiAudit.Run();
+            if (providerNpiAudit.Status == Business.Audit.Model.AuditStatusEnum.Failure)
+            {
+                MessageBoxResult result = MessageBox.Show(providerNpiAudit.Message.ToString() + "  Do you want to continue?", "Missing NPI", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+                if (result == MessageBoxResult.No)
+                {
+                    return;
+                }
+            }
 
-		private bool NpiIsPresent()
-		{
-			bool npiIsPresent = true;
-			if (string.IsNullOrEmpty(this.m_Physician.Npi) == true)
+            if (this.AllClientsHaveDistributionSet() == true)
 			{
-				npiIsPresent = false;
-				MessageBoxResult result = MessageBox.Show("The NPI is missing.  Do you want to continue?", "Missing NPI", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
-				if (result == MessageBoxResult.Yes)
-				{
-					npiIsPresent = true;
-				}
+				this.m_ObjectTracker.SubmitChanges(this.m_Physician);
+				Close();
 			}
-			return npiIsPresent;
 		}
 
 		private bool AllClientsHaveDistributionSet()
