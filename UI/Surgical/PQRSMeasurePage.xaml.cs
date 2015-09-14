@@ -25,10 +25,10 @@ namespace YellowstonePathology.UI.Surgical
 		public delegate void CancelEventHandler(object sender, EventArgs e);
         public event CancelEventHandler Cancel;
 
-        private PQRSMeasure m_PQRSMeasure;
+        private YellowstonePathology.Business.Surgical.PQRSMeasure m_PQRSMeasure;
 		private YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen m_SurgicalSpecimen;
 
-		public PQRSMeasurePage(PQRSMeasure pqrsMeasure, YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen)
+		public PQRSMeasurePage(YellowstonePathology.Business.Surgical.PQRSMeasure pqrsMeasure, YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen)
         {
             this.m_PQRSMeasure = pqrsMeasure;
 			this.m_SurgicalSpecimen = surgicalSpecimen;
@@ -72,7 +72,7 @@ namespace YellowstonePathology.UI.Surgical
 		{
 		}
 
-		public PQRSMeasure PQRSMeasure
+		public YellowstonePathology.Business.Surgical.PQRSMeasure PQRSMeasure
 		{
 			get { return this.m_PQRSMeasure; }
 		}

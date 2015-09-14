@@ -14,9 +14,10 @@ namespace YellowstonePathology.UI.Surgical
 
         private YellowstonePathology.Business.Audit.Model.PapCorrelationAudit m_PapCorrelationAudit;
         private YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen m_SurgicalSpecimen;
-        private YellowstonePathology.UI.Surgical.PQRSMeasure m_PqrsMeasure;
+        private YellowstonePathology.Business.Surgical.PQRSMeasure m_PqrsMeasure;
         private PathologistSignoutDialog m_PathologistSignoutDialog;
 
+        private YellowstonePathology.Business.Audit.Model.AuditCollection m_AuditCollection;
         private bool m_PqrsRequired;
 
         public PathologistSignoutPath(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
@@ -28,6 +29,9 @@ namespace YellowstonePathology.UI.Surgical
             this.m_SurgicalTestOrder = surgicalTestOrder;
             this.m_ObjectTracker = objectTracker;
             this.m_SystemIdentity = systemIdentity;
+
+            this.m_AuditCollection = new Business.Audit.Model.AuditCollection();
+            this.m_AuditCollection.Add(new Business.Audit.Model.PapCorrelationAudit(this.m_AccessionOrder));
 
             this.m_PapCorrelationAudit = new Business.Audit.Model.PapCorrelationAudit(this.m_AccessionOrder);
 
@@ -72,10 +76,10 @@ namespace YellowstonePathology.UI.Surgical
         private void SetPQRSRequired()
         {
             this.m_PqrsRequired = false;
-            YellowstonePathology.UI.Surgical.PQRSMeasureCollection pqrsCollection = YellowstonePathology.UI.Surgical.PQRSMeasureCollection.GetAll();
+            YellowstonePathology.Business.Surgical.PQRSMeasureCollection pqrsCollection = YellowstonePathology.Business.Surgical.PQRSMeasureCollection.GetAll();
             foreach (YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen in this.m_SurgicalTestOrder.SurgicalSpecimenCollection)
             {
-                foreach (YellowstonePathology.UI.Surgical.PQRSMeasure pqrsMeasure in pqrsCollection)
+                foreach (YellowstonePathology.Business.Surgical.PQRSMeasure pqrsMeasure in pqrsCollection)
                 {
                     int patientAge = YellowstonePathology.Business.Helper.PatientHelper.GetAge(this.m_AccessionOrder.PBirthdate.Value);
                     if (pqrsMeasure.DoesMeasureApply(this.m_SurgicalTestOrder, surgicalSpecimen, patientAge) == true)
