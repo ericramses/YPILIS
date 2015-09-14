@@ -535,6 +535,17 @@
     <Compile Include="HL7View\ECW\ECWOBXViewFactory.cs" />
     <Compile Include="HL7View\ECW\ECWPIDView.cs" />
     <Compile Include="HL7View\ECW\ECWORCView.cs" />
+    <Compile Include="Surgical\PQRIKeyWordCollection.cs" />
+    <Compile Include="Surgical\PQRSAgeDefinitionEnum.cs" />
+    <Compile Include="Surgical\PQRSBarrettsEsophagusMeasure.cs" />
+    <Compile Include="Surgical\PQRSBreastMeasure.cs" />
+    <Compile Include="Surgical\PQRSColorectalMeasure.cs" />
+    <Compile Include="Surgical\PQRSMeasure.cs" />
+    <Compile Include="Surgical\PQRSMeasure395.cs" />
+    <Compile Include="Surgical\PQRSMeasure396.cs" />
+    <Compile Include="Surgical\PQRSMeasureCollection.cs" />
+    <Compile Include="Surgical\PQRSMelanomaMeasure.cs" />
+    <Compile Include="Surgical\PQRSRadicalProstatectomyMeasure.cs" />
     <Compile Include="Test\CBFBinv16\CBFBinv16Test.cs" />
     <Compile Include="Test\HPVTWI\HPVTWIPositiveResult.cs" />
     <Compile Include="Test\Surgical\IntraoperativeConsultationResult.Validation.cs" />
