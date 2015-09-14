@@ -463,26 +463,6 @@
     <Compile Include="Surgical\PeerReviewResultPage.xaml.cs">
       <DependentUpon>PeerReviewResultPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Surgical\PQRSMeasure396.cs" />
-    <Compile Include="Surgical\PQRSMeasure395.cs" />
-    <Compile Include="Surgical\PQRSAgeDefinitionEnum.cs" />
-    <Compile Include="Surgical\PQRSMelanomaMeasure.cs" />
-    <Compile Include="Surgical\PQRIKeyWordCollection.cs" />
-    <Compile Include="Surgical\PQRSBarrettsEsophagusMeasure.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Surgical\PQRSBreastMeasure.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Surgical\PQRSColorectalMeasure.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Surgical\PQRSMeasure.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Surgical\PQRSMeasureCollection.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Surgical\PQRSMeasurePage.xaml.cs">
       <DependentUpon>PQRSMeasurePage.xaml</DependentUpon>
     </Compile>
@@ -503,9 +483,6 @@
     <Compile Include="CustomEventArgs\TaskOrderReturnEventArgs.cs" />
     <Compile Include="HelloWorldService.cs" />
     <Compile Include="Surgical\PQRSMeasurePath.cs" />
-    <Compile Include="Surgical\PQRSRadicalProstatectomyMeasure.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Surgical\PublishedDocumentReview.xaml.cs">
       <DependentUpon>PublishedDocumentReview.xaml</DependentUpon>
       <SubType>Code</SubType>

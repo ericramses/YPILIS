@@ -19,11 +19,11 @@ namespace YellowstonePathology.UI.Surgical
 
         public void HandlePQRS()
         {
-            YellowstonePathology.UI.Surgical.PQRSMeasureCollection pqrsCollection = YellowstonePathology.UI.Surgical.PQRSMeasureCollection.GetAll();
+            YellowstonePathology.Business.Surgical.PQRSMeasureCollection pqrsCollection = YellowstonePathology.Business.Surgical.PQRSMeasureCollection.GetAll();
 			foreach (YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen in this.m_PanelSetOrder.SurgicalSpecimenCollection)
 			{
 				bool pqrsFound = false;
-                foreach (YellowstonePathology.UI.Surgical.PQRSMeasure pqrsMeasure in pqrsCollection)
+                foreach (YellowstonePathology.Business.Surgical.PQRSMeasure pqrsMeasure in pqrsCollection)
                 {
 					int patientAge = YellowstonePathology.Business.Helper.PatientHelper.GetAge(this.m_AccessionOrder.PBirthdate.Value);
                     if (pqrsMeasure.DoesMeasureApply(this.m_PanelSetOrder, surgicalSpecimen, patientAge) == true)
