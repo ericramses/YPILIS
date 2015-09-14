@@ -90,7 +90,7 @@
 
 					<TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" Text="Client Membership:" VerticalAlignment="Center"/>
 
-					<ListBox Name="ListBoxClients" Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" HorizontalAlignment="Stretch" IsTabStop="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding Path=Clients}">
+					<ListBox Name="ListBoxClients" Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" HorizontalAlignment="Stretch" IsTabStop="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding Path=ProviderClients}">
 						<ListBox.ItemTemplate>
 							<DataTemplate>
 								<StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
@@ -150,7 +150,7 @@
 					<TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" Text="Client Membership:" VerticalAlignment="Center"/>
 
 					<ListBox Name="ListBoxClientMembership" Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" HorizontalAlignment="Stretch" IsTabStop="False" 
-							 ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding Path=Clients}" SelectionChanged="ListBoxClientMembership_SelectionChanged">
+							 ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding Path=ProviderClients}" SelectionChanged="ListBoxClientMembership_SelectionChanged">
 						<ListBox.ItemTemplate>
 							<DataTemplate>
 								<StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
@@ -183,7 +183,7 @@
                     <TextBlock Grid.Column="3" Grid.Row="0" Margin="2,2,2,2" Text="Distribution Options:" />					
 
 					<ListBox Name="ListBoxNewDistributionSelection" Grid.Column="3" Grid.Row="1" Margin="2,2,2,2" HorizontalAlignment="Stretch" IsTabStop="False" 
-                             ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding Path=Clients}">
+                             ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding Path=ProviderClients}">
 						<ListBox.ItemTemplate>
 							<DataTemplate>
 								<StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">

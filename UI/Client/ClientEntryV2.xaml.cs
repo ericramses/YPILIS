@@ -105,24 +105,10 @@ namespace YellowstonePathology.UI.Client
 			get { return this.m_ClientSupplyOrderCollection; }
 		}
 
-		private void BorderPanelSetOrderHeader_Loaded(object sender, RoutedEventArgs e)
-		{
-			Border border = sender as Border;
-			ContentPresenter contentPresenter = border.TemplatedParent as ContentPresenter;
-			contentPresenter.HorizontalAlignment = HorizontalAlignment.Stretch;
-		}
-
 		private void ButtonOk_Click(object sender, RoutedEventArgs e)
 		{
 			this.m_ObjectTracker.SubmitChanges(this.m_Client);
 			Close();
-		}
-
-		private void Control_Loaded(object sender, RoutedEventArgs e)
-		{
-			UIElement uIElement = sender as UIElement;
-			if (uIElement == null) return;
-			uIElement.Focus();
 		}
 
 		private void ButtonAddToClient_Click(object sender, RoutedEventArgs e)
