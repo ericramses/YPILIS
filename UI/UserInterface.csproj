@@ -450,6 +450,9 @@
     <Compile Include="Surgical\DictationTemplatePage.xaml.cs">
       <DependentUpon>DictationTemplatePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Surgical\PapCorrelationPage.xaml.cs">
+      <DependentUpon>PapCorrelationPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Surgical\PathologistSignoutDialog.xaml.cs">
       <DependentUpon>PathologistSignoutDialog.xaml</DependentUpon>
     </Compile>
@@ -2056,6 +2059,10 @@
     <Page Include="Surgical\DictationTemplatePage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Surgical\PapCorrelationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Surgical\PathologistSignoutDialog.xaml">
       <SubType>Designer</SubType>
