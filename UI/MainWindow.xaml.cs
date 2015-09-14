@@ -677,30 +677,12 @@ namespace YellowstonePathology.UI
         {
 			this.m_MainWindowCommandButtonHandler.OnAssignCase();
             AssignCommand.Execute(null, null);
-        }
-
-        public void MenuItemClients_Click(object sender, RoutedEventArgs args)
-        {
-			YellowstonePathology.UI.Client.ClientSearch clientSearch = new YellowstonePathology.UI.Client.ClientSearch();            
-            clientSearch.ShowDialog();
         }        
-
-        public void MenuItemPhysicians_Click(object sender, RoutedEventArgs args)
-        {
-            YellowstonePathology.UI.Client.PhysicianSearch physicianSearch = new Client.PhysicianSearch();
-            physicianSearch.ShowDialog();
-        }
         
         public void MenuItemLabWorkspace_Click(object sender, RoutedEventArgs args)
         {
             this.AddLabWorkspace();
-        }
-
-        public void MenuItemPhysicianClient_Click(object sender, RoutedEventArgs args)
-        {
-			YellowstonePathology.UI.Client.PhysicianClientSearch physicianClientSearch = new Client.PhysicianClientSearch();
-            physicianClientSearch.ShowDialog();
-        }        
+        }              
         
         public void MenuItemReportDistributionMonitor_Click(object sender, RoutedEventArgs args)
         {

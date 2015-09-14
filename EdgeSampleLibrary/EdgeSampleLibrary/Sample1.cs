@@ -9,15 +9,14 @@ namespace EdgeSampleLibrary
     public class Sample1
     {
         public async Task<object> Invoke(object input)
-        {
-            // Edge marshalls data to .NET using an IDictionary<string, object>
+        {            
             var payload = (IDictionary<string, object>)input;            
             return await QueryUsers(payload);
         }
 
         public async Task<string> QueryUsers(IDictionary<string, object> payload)
         {
-            var connectionString = "Data Source=TestSQL;Initial Catalog=YPIData;Integrated Security=True";
+            var connectionString = "Data Source=TestSQL;Initial Catalog=YPIData;Integrated Security=True";            
 
             string reportNo = (string)payload["reportNo"];
             string testName = (string)payload["testName"];
@@ -42,7 +41,7 @@ namespace EdgeSampleLibrary
                     + "[FinaledById] = 5134, "
                     + "[FinalDate] = '" + DateTime.Today.ToString("MM/dd/yyyy") + "', "
                     + "[FinalTime] = '" + DateTime.Now.ToString("MM/dd/yyyy HH:mm") + "' "
-                    + "where ReportNo = '" + reportNo + "';";
+                    + "where Accepted = 0 and ReportNo = '" + reportNo + "';";
                 }
                 else if (overallInterpretation == "POSITIVE")
                 {
@@ -54,15 +53,16 @@ namespace EdgeSampleLibrary
                     + "[AcceptedById] = 5134, "
                     + "[AcceptedDate] = '" + DateTime.Today.ToString("MM/dd/yyyy") + "', "
                     + "[AcceptedTime] = '" + DateTime.Now.ToString("MM/dd/yyyy HH:mm") + "' "                    
-                    + "where ReportNo = '" + reportNo + "';";
-                }                
+                    + "where Accepted = 0 and ReportNo = '" + reportNo + "';";
+                }                                
 
-                sql += @"Update tblPanelSetOrderHPVTWI set [Result] = '" + hpvResult.Result + "', "
-                    + "[References] = '" + HPVResult.References + "', "
-                    + "[TestInformation] = '" + HPVResult.TestInformation + "' "                    
-                    + "where [ReportNo] = '" + reportNo + "';";
+                sql += @"Update tblPanelSetOrderHPVTWI set[Result] = '" + hpvResult.Result + "' "
+                        + "from tblPanelSetOrderHPVTWI psoh, tblPanelSetOrder pso "
+                        + "where psoh.ReportNo = pso.ReportNo "
+                        + "and psoh.ReportNo = '" + reportNo + "' and pso.Accepted = 0";
+
             }
-            
+
             using (var cnx = new SqlConnection(connectionString))
             {
                 using (var cmd = new SqlCommand(sql, cnx))
@@ -71,36 +71,8 @@ namespace EdgeSampleLibrary
                     await cmd.ExecuteNonQueryAsync();
                 }
             }
-
-                    /*
-                    var users = new List<SampleUser>();
-
-                    using (var cnx = new SqlConnection(connectionString))
-                    {
-                        using (var cmd = new SqlCommand(sql, cnx))
-                        {
-                            await cnx.OpenAsync();                    
-
-                            using (var reader = await cmd.ExecuteReaderAsync(CommandBehavior.CloseConnection))
-                            {
-                                while (await reader.ReadAsync())
-                                {
-                                    var user = new SampleUser
-                                    {
-                                        Id = reader.GetInt32(0),
-                                        FirstName = reader.GetString(1),
-                                        LastName = reader.GetString(2),
-                                        Email = reader.GetString(3),
-                                        CreateDate = reader.GetDateTime(4)
-                                    };
-                                    users.Add(user);
-                                }
-                            }
-                        }
-                    }
-                    */
-
-                    return connectionString;
+                    
+            return "Result Update.";
         }
     }
 

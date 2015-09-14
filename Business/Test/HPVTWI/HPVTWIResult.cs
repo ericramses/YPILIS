@@ -42,7 +42,9 @@ namespace YellowstonePathology.Business.Test.HPVTWI
             "HPV-Associated Lesions: Background and Consensus Recommendations from the College of American Pathologists and the American Society for Colposcopy and " +
             "Cervical Pathology. Arch Pathol Lab Med 2012 Oct; 136(10): 1266-97." + Environment.NewLine +
             "2.Doorbar, J. 2006. Molecular biology of human papillomavirus infection and cervical cancer.Clin Sci(Lond). 110(5):525-41.";
-		
+
+        public static string ASRComment = "This test was performed using a US FDA approved RNA probe kit.  The procedure and performance were verified by Yellowstone Pathology Institute (YPI).";
+
 		public static string InsufficientComment = "The quantity of genomic DNA present in the sample is insufficient to perform the analysis, even after an attempt to " +
 			"increase DNA content by using more specimen volume.  There is no charge for this specimen.  Consider repeat testing, if clinically indicated.";
 		

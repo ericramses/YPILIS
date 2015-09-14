@@ -36,6 +36,7 @@ namespace YellowstonePathology.UI.Client
 			this.m_Client = client;
 			this.m_ObjectTracker = objectTracker;
 			this.m_ClientPhysicianView = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientPhysicianViewByClientIdV2(this.m_Client.ClientId);
+
 			if (this.m_ClientPhysicianView == null)
 			{
 				this.m_ClientPhysicianView = new Business.View.ClientPhysicianView();

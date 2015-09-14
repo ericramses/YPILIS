@@ -17,7 +17,6 @@ namespace YellowstonePathology.UI.Surgical
 
         private bool m_GoingBack;
 
-
         public PathologistSignoutPath(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
             YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder,
             YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,

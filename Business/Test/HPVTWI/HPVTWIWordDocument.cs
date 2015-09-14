@@ -50,8 +50,9 @@ namespace YellowstonePathology.Business.Test.HPVTWI
 
 			base.ReplaceText("test_information", panelSetOrder.TestInformation);
 			base.ReplaceText("report_references", panelSetOrder.References);
-            			
-			this.SetReportDistribution();
+            base.ReplaceText("asr_comment", panelSetOrder.ASRComment);
+
+            this.SetReportDistribution();
 			this.SetCaseHistory();            
 
 			this.SaveReport();
