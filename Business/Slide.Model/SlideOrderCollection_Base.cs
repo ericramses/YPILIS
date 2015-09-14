@@ -91,7 +91,8 @@ namespace YellowstonePathology.Business.Slide.Model
             return result;
         }   
 
-        public int GetNextSlideNumber()
+        /*
+        public int GetNextSlideNumber(string blockLabel)
         {
             int result = 1;
             if (this.Count > 0)
@@ -119,5 +120,6 @@ namespace YellowstonePathology.Business.Slide.Model
             }
             return result;
         }
+        */
     }
 }

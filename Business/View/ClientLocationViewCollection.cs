@@ -56,8 +56,8 @@ namespace YellowstonePathology.Business.View
             YellowstonePathology.Business.View.ClientLocationView svhDermatology = new Business.View.ClientLocationView(1321, 686, "Montana Dermatology", "Medical Records");
             this.Add(svhDermatology);
 
-            YellowstonePathology.Business.View.ClientLocationView stJames = new Business.View.ClientLocationView(278, 136, "St. James Healthcare - Pathology", "Medical Records");
-            this.Add(stJames);
+            YellowstonePathology.Business.View.ClientLocationView buttePathology = new Business.View.ClientLocationView(278, 136, "Butte Pathology, LLC ", "Medical Records");
+            this.Add(buttePathology);
 
             YellowstonePathology.Business.View.ClientLocationView tallman = new Business.View.ClientLocationView(579, 223, "Tallman Dermatology", "Medical Records");
             this.Add(tallman);

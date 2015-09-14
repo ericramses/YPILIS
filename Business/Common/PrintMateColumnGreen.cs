@@ -5,10 +5,10 @@ using System.Text;
 
 namespace YellowstonePathology.Business.Common
 {
-    public class PrintMateColumnMesh : PrintMateColumn
+    public class PrintMateColumnGreen : PrintMateColumn
     {
-        public PrintMateColumnMesh()
-            : base(6, "6 - Mesh", "White")
+        public PrintMateColumnGreen()
+            : base(6, "6 - Green", "Green")
         {
 
         }
