@@ -125,7 +125,14 @@ namespace YellowstonePathology.UI.Client
 		{
 			if (this.ListViewClients.SelectedItems.Count != 0)
 			{
-				YellowstonePathology.Business.Client.Model.Client client = (YellowstonePathology.Business.Client.Model.Client)this.ListViewClients.SelectedItem;
+                YellowstonePathology.Business.Client.Model.Client client = (YellowstonePathology.Business.Client.Model.Client)this.ListViewClients.SelectedItem;
+                YellowstonePathology.Business.Audit.Model.PhoneNumberAudit phoneNumberAudit = new Business.Audit.Model.PhoneNumberAudit(client.Telephone);
+                phoneNumberAudit.Run();
+                if (phoneNumberAudit.Status == Business.Audit.Model.AuditStatusEnum.Failure)
+                {
+                    MessageBox.Show(phoneNumberAudit.Message.ToString(), "Unable to print requisitions", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    return;
+                }
 				Client.RequisitionOptionsDialog requisitionOptionsDialog = new RequisitionOptionsDialog(client.ClientId, client.ClientName);
 				requisitionOptionsDialog.ShowDialog();
 			}
