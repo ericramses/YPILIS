@@ -46,14 +46,7 @@ namespace YellowstonePathology.UI.Client
 
         private void ProviderEntry_Closing(object sender, CancelEventArgs e)
         {
-            if (this.CanSave() == true)
-            {
-                this.Save();
-            }
-            else
-            {
-                e.Cancel = true;
-            }
+            this.Save();
         }
 
         public void NotifyPropertyChanged(String info)
@@ -97,7 +90,10 @@ namespace YellowstonePathology.UI.Client
 
 		private void ButtonOK_Click(object sender, RoutedEventArgs e)
 		{
-			Close();
+            if (this.CanSave() == true)
+            {
+                Close();
+            }
 		}
 
         private bool CanSave()
