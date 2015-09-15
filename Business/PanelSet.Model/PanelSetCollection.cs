@@ -170,8 +170,9 @@ namespace YellowstonePathology.Business.PanelSet.Model
             panelSetCollection.Add(new YellowstonePathology.Business.Test.PeerReview.PeerReviewTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.IHCQC.IHCQCTest());
 			panelSetCollection.Add(new YellowstonePathology.Business.Test.ReviewForAdditionalTesting.ReviewForAdditionalTestingTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.HoldForFLow.HoldForFlowTest());
 
-			panelSetCollection.Add(new YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeIHCPanelTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeIHCPanelTest());
 
             panelSetCollection.Add(new YellowstonePathology.Business.Test.PNH.PNHTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.LLP.LeukemiaLymphomaTest());

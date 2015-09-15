@@ -41,7 +41,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>253</ApplicationRevision>
+    <ApplicationRevision>261</ApplicationRevision>
     <ApplicationVersion>10.1.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -236,6 +236,7 @@
       <DependentUpon>ReportDistribution.cs</DependentUpon>
     </Compile>
     <Compile Include="Common\OrderItemView.cs" />
+    <Compile Include="Converter\BooleanVisibilityHiddenConverter.cs" />
     <Compile Include="Converter\GatingPercentConverter.cs" />
     <Compile Include="Converter\GatingPopulationConverter.cs" />
     <Compile Include="Converter\MilitaryDateTimeConverterV2.cs" />

@@ -542,8 +542,8 @@
 			<TabItem Name="TabItemAncillaryStudies" Header="Ancillary Studies">
 				<ScrollViewer>
 					<StackPanel>
-						<StackPanel Orientation="Horizontal" Background="Gray">
-							<TextBlock Width="75" Background="Gray" Foreground="White" Margin="2,2,2,2">No Charge</TextBlock>
+                        <StackPanel Orientation="Horizontal" Background="Gray">
+                            <TextBlock Width="75" Background="Gray" Foreground="White" Margin="2,2,2,2">No Charge</TextBlock>
 							<TextBlock Width="30" Background="Gray" Foreground="White" Margin="2,2,2,2">Qty</TextBlock>
 							<TextBlock Width="120" Background="Gray" Foreground="White" Margin="2,2,2,2">Stain</TextBlock>
 							<TextBlock Width="200" Background="Gray" Foreground="White" Margin="2,2,2,2">Result</TextBlock>
@@ -563,6 +563,7 @@
 							<ItemsControl.ItemTemplate>
 								<DataTemplate>
 									<StackPanel Orientation="Horizontal">
+                                        <Image Source="/Resources/out2.png" Width="17" Height="17" Visibility="{Binding Path=ClientAccessioned, Converter={StaticResource BooleanVisibilityHiddenConverter}}"></Image>
 										<CheckBox Margin="2,2,2,2" VerticalAlignment="Center" IsChecked="{Binding Path=NoCharge}" ToolTip="No Charge" Width="75"></CheckBox>
 										<TextBlock Text="{Binding Path=CptCodeQuantity}" Width="30" Margin="2,2,2,2"/>
 										<TextBlock Text="{Binding Path=ProcedureName}" Width="100" Margin="2,2,2,2"/>

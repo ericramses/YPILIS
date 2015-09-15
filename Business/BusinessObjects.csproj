@@ -547,6 +547,7 @@
     <Compile Include="Surgical\PQRSMelanomaMeasure.cs" />
     <Compile Include="Surgical\PQRSRadicalProstatectomyMeasure.cs" />
     <Compile Include="Test\CBFBinv16\CBFBinv16Test.cs" />
+    <Compile Include="Test\HoldForFlow\HoldForFlowTest.cs" />
     <Compile Include="Test\HPVTWI\HPVTWIPositiveResult.cs" />
     <Compile Include="Test\Surgical\IntraoperativeConsultationResult.Validation.cs" />
     <Compile Include="TrackedItemStatusEnum.cs" />
