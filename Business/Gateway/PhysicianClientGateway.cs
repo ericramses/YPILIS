@@ -1352,7 +1352,7 @@ namespace YellowstonePathology.Business.Gateway
 			return result;
 		}
 
-		public static YellowstonePathology.Business.Client.Model.ClientSupplyOrderCollection GetClientSupplyOrderCollection(int clientId)
+		public static YellowstonePathology.Business.Client.Model.ClientSupplyOrderCollection GetClientSupplyOrderCollectionByClientId(int clientId)
 		{
 			YellowstonePathology.Business.Client.Model.ClientSupplyOrderCollection result = new Client.Model.ClientSupplyOrderCollection();
 			SqlCommand cmd = new SqlCommand();
@@ -1377,7 +1377,31 @@ namespace YellowstonePathology.Business.Gateway
 			return result;
 		}
 
-		private static YellowstonePathology.Business.Client.Model.ClientSupplyOrder BuildClientSupplyOrder(XElement sourceElement)
+        public static YellowstonePathology.Business.Client.Model.ClientSupplyOrderCollection GetClientSupplyOrderCollection()
+        {
+            YellowstonePathology.Business.Client.Model.ClientSupplyOrderCollection result = new Client.Model.ClientSupplyOrderCollection();
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "SELECT c.*," +
+                " (Select cd.* " +
+                "  from tblClientSupplyOrderDetail cd where cd.clientSupplyOrderId = c.clientSupplyOrderId for xml path('ClientSupplyOrderDetail'), type) ClientSupplyOrderDetailCollection" +
+                " from tblClientSupplyOrder c where c.OrderDate >= dateadd(mm, -3, getdate()) order by c.OrderDate desc for xml path('ClientSupplyOrder'), root('ClientSupplyOrderCollection')";
+            cmd.CommandType = CommandType.Text;            
+
+            XElement collectionElement = PhysicianClientGateway.GetXElementFromCommand(cmd);
+            if (collectionElement != null)
+            {
+                List<XElement> clientSupplyOrderList = collectionElement.Elements("ClientSupplyOrder").ToList();
+                foreach (XElement clientSupplyOrderElement in clientSupplyOrderList)
+                {
+                    YellowstonePathology.Business.Client.Model.ClientSupplyOrder clientSupplyOrder = BuildClientSupplyOrder(clientSupplyOrderElement);
+                    result.Add(clientSupplyOrder);
+
+                }
+            }
+            return result;
+        }
+
+        private static YellowstonePathology.Business.Client.Model.ClientSupplyOrder BuildClientSupplyOrder(XElement sourceElement)
 		{
 			YellowstonePathology.Business.Client.Model.ClientSupplyOrder clientSupplyOrder = new Client.Model.ClientSupplyOrder();
 			YellowstonePathology.Business.Persistence.XmlPropertyWriter xmlPropertyWriter = new Persistence.XmlPropertyWriter(sourceElement, clientSupplyOrder);

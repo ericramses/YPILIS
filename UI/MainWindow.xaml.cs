@@ -893,6 +893,12 @@ namespace YellowstonePathology.UI
         {
             YellowstonePathology.UI.Mongo.MongoMigrationWindow mongoMigrationWindow = new Mongo.MongoMigrationWindow();
             mongoMigrationWindow.ShowDialog();
-        }        
-	}    
+        }
+
+        private void MenuItemClientSupplyOrders_Click(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.UI.Client.ClientSupplyOrderListDialog clientSupplyOrderListDialog = new Client.ClientSupplyOrderListDialog();
+            clientSupplyOrderListDialog.ShowDialog();
+        }
+    }    
 }

@@ -58,6 +58,7 @@
 
             <MenuItem Header="_Client" Name="MenuItemClient">
                 <MenuItem Header="Provider Lookup" Click="MenuItemProviderLookup_Click"></MenuItem>
+                <MenuItem Header="Client Supply Orders" Click="MenuItemClientSupplyOrders_Click"></MenuItem>
             </MenuItem>
 
 			<MenuItem Header="_Billing" Name="MenuItemBilling">				

@@ -1,0 +1,25 @@
+﻿<Window x:Class="YellowstonePathology.UI.Client.ClientSupplyOrderListDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:YellowstonePathology.UI.Client"
+        mc:Ignorable="d"
+        Title="Client Supply Order Dialog" Height="500" Width="1000" WindowStyle="ToolWindow">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <ListView Grid.Column="0" Grid.Row="0" Name="ListViewOrderDetails" Margin="10" ItemsSource="{Binding Path=ClientSupplyOrderCollection}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Client Name" DisplayMemberBinding="{Binding Path=ClientName}" Width="300" />
+                    <GridViewColumn Header="Order Date" DisplayMemberBinding="{Binding Path=OrderDate, Converter={StaticResource ShortDateConverter}}" Width="150" />
+                    <GridViewColumn Header="Date Sent Out" DisplayMemberBinding="{Binding Path=DateOrderSent, Converter={StaticResource ShortDateConverter}}" Width="150" />
+                    <GridViewColumn Header="Final" DisplayMemberBinding="{Binding Path=OrderFinal}" Width="100" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</Window>
