@@ -56,9 +56,15 @@ namespace YellowstonePathology.UI.Client
 
 			InitializeComponent();
 			this.DataContext = this;
+            Closing += ClientEntry_Closing;
 		}
 
-		public void NotifyPropertyChanged(String info)
+        private void ClientEntry_Closing(object sender, CancelEventArgs e)
+        {
+            this.Save();
+        }
+
+        public void NotifyPropertyChanged(String info)
 		{
 			if (PropertyChanged != null)
 			{
@@ -108,9 +114,22 @@ namespace YellowstonePathology.UI.Client
 
 		private void ButtonOk_Click(object sender, RoutedEventArgs e)
 		{
-			this.m_ObjectTracker.SubmitChanges(this.m_Client);
-			Close();
+            if(this.CanSave() == true)
+            {
+			    Close();
+            }
 		}
+
+        private bool CanSave()
+        {
+            bool result = true;
+            return result;
+        }
+
+        private void Save()
+        {
+			this.m_ObjectTracker.SubmitChanges(this.m_Client);
+        }
 
 		private void ButtonAddToClient_Click(object sender, RoutedEventArgs e)
 		{

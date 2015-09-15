@@ -23,6 +23,27 @@ namespace YellowstonePathology.Business.Audit.Model
                 this.m_Status = AuditStatusEnum.Failure;
                 this.m_Message.AppendLine("The NPI is missing");
             }
+            else if(this.m_Physician.Npi == "0")
+            {
+                this.m_Status = AuditStatusEnum.Failure;
+                this.m_Message.AppendLine("The NPI is not valid");
+            }
+            else if(this.m_Physician.Npi.Length != 10)
+            {
+                this.m_Status = AuditStatusEnum.Failure;
+                this.m_Message.AppendLine("The NPI is not the correct number of digits");
+            }
+            else
+            {
+                foreach(char c in this.m_Physician.Npi)
+                {
+                    if (Char.IsDigit(c) == false)
+                    {
+                        this.m_Status = AuditStatusEnum.Failure;
+                        this.m_Message.AppendLine("The NPI is not all digits");
+                    }
+                }
+            }
         }
     }
 }
