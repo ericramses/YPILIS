@@ -33,19 +33,19 @@
 					</Grid.RowDefinitions>
 
 					<TextBlock Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" HorizontalAlignment="Right" VerticalAlignment="Center">Last Name:</TextBlock>
-					<TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Path=Physician.LastName}" Margin="2,2,2,2"></TextBox>					
+                    <TextBox Grid.Column="1" Grid.Row="1" Name="TextBoxLastName" Text="{Binding Path=Physician.LastName}" Margin="2,2,2,2" KeyUp="TextBoxNames_KeyUp"></TextBox>					
 
 					<TextBlock Grid.Column="0" Grid.Row="2" Margin="2,2,2,2" HorizontalAlignment="Right" VerticalAlignment="Center">First Name:</TextBlock>
-					<TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Path=Physician.FirstName}" Margin="2,2,2,2"></TextBox>					
+                    <TextBox Grid.Column="1" Grid.Row="2" Name="TextBoxFirstName" Text="{Binding Path=Physician.FirstName}" Margin="2,2,2,2" KeyUp="TextBoxNames_KeyUp"></TextBox>					
 
 					<TextBlock Grid.Column="0" Grid.Row="3" Margin="2,2,2,2" HorizontalAlignment="Right" VerticalAlignment="Center">Middle Initial:</TextBlock>
 					<TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Path=Physician.MiddleInitial}" Margin="2,2,2,2"></TextBox>					
 
 					<TextBlock Grid.Column="0" Grid.Row="4" Margin="2,2,2,2" HorizontalAlignment="Right" VerticalAlignment="Center">Display Name:</TextBlock>
-					<TextBox Grid.Column="1" Grid.Row="4" Text="{Binding Path=Physician.DisplayName}" Margin="2,2,2,2"></TextBox>
+                    <TextBox Grid.Column="1" Grid.Row="4" Name="TextBoxDisplayName" Text="{Binding Path=Physician.DisplayName}" Margin="2,2,2,2"></TextBox>
 
 					<TextBlock Grid.Column="0" Grid.Row="5" Margin="2,2,2,2" HorizontalAlignment="Right" VerticalAlignment="Center">Credentials:</TextBlock>
-					<TextBox Grid.Column="1" Grid.Row="5" Text="{Binding Path=Physician.Credentials}" Margin="2,2,2,2"></TextBox>
+                    <TextBox Grid.Column="1" Grid.Row="5" Name="TextBoxCredentials" Text="{Binding Path=Physician.Credentials}" Margin="2,2,2,2" KeyUp="TextBoxNames_KeyUp"></TextBox>
         
 					<TextBlock Grid.Column="0" Grid.Row="6" Margin="2,2,2,2" HorizontalAlignment="Right" VerticalAlignment="Center" >NPI:</TextBlock>
 					<TextBox Grid.Column="1" Grid.Row="6" Text="{Binding Path=Physician.Npi}" Margin="2,2,2,2"></TextBox>
