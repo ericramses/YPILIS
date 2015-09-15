@@ -14,8 +14,6 @@ namespace YellowstonePathology.UI.Surgical
 
         private YellowstonePathology.Business.Audit.Model.AuditCollection m_AuditCollection;
         private YellowstonePathology.Business.Audit.Model.AuditResult m_AuditResult;
-        private YellowstonePathology.Business.Audit.Model.PapCorrelationAudit m_PapCorrelationAudit;
-        private YellowstonePathology.Business.Audit.Model.PqrsAudit m_PqrsAudit;
         private PathologistSignoutDialog m_PathologistSignoutDialog;
 
         public PathologistSignoutPath(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
@@ -29,58 +27,41 @@ namespace YellowstonePathology.UI.Surgical
             this.m_SystemIdentity = systemIdentity;
 
             this.m_AuditCollection = new Business.Audit.Model.AuditCollection();
-            this.m_PapCorrelationAudit = new Business.Audit.Model.PapCorrelationAudit(this.m_AccessionOrder);
-            this.m_AuditCollection.Add(this.m_PapCorrelationAudit);
-            this.m_PqrsAudit = new Business.Audit.Model.PqrsAudit(this.m_AccessionOrder);
-            this.m_AuditCollection.Add(this.m_PqrsAudit);
+            this.m_AuditCollection.Add(new Business.Audit.Model.PapCorrelationAudit(this.m_AccessionOrder));
+            this.m_AuditCollection.Add(new Business.Audit.Model.PqrsAudit(this.m_AccessionOrder));
 
             this.m_PathologistSignoutDialog = new PathologistSignoutDialog();
         }
 
         public void Start()
         {
-            this.CaseCanBeSignedOut();
             if (this.m_AuditResult.Status == Business.Audit.Model.AuditStatusEnum.Failure)
             {
                 this.HandlePapCorrelation();
-                if (this.m_PapCorrelationAudit.Status == Business.Audit.Model.AuditStatusEnum.Failure)
-                {
-                    this.ShowPapCorrelationPage();
-                }
-                else if (this.m_PqrsAudit.Status == Business.Audit.Model.AuditStatusEnum.Failure)
-                {
-                    this.ShowPQRSMeasurePage();
-                }
-
-                if (this.m_AuditResult.Status == Business.Audit.Model.AuditStatusEnum.Failure)
-                {
-                    this.m_PathologistSignoutDialog.ShowDialog();
-                }
+                this.m_PathologistSignoutDialog.ShowDialog();
             }
         }
 
-        private YellowstonePathology.Business.Audit.Model.AuditResult CaseCanBeSignedOut()
+        public YellowstonePathology.Business.Audit.Model.AuditResult CaseCanBeSignedOut()
         {
-            this.m_AuditResult = new Business.Audit.Model.AuditResult();
-            this.m_AuditResult.Status = Business.Audit.Model.AuditStatusEnum.OK;
-
-            if (this.m_SurgicalTestOrder.Final == false)
-            {
-                this.m_AuditResult = this.m_AuditCollection.Run2();
-            }
+            this.m_AuditResult = this.m_AuditCollection.Run2();
             return this.m_AuditResult;
         }
 
         private void HandlePapCorrelation()
         {
-            if (this.m_PapCorrelationAudit.Status == Business.Audit.Model.AuditStatusEnum.Failure)
+            YellowstonePathology.Business.Audit.Model.PapCorrelationAudit papCorrelationAudit = new Business.Audit.Model.PapCorrelationAudit(this.m_AccessionOrder);
+            papCorrelationAudit.Run();
+            if (papCorrelationAudit.Status == Business.Audit.Model.AuditStatusEnum.Failure)
             {
                 this.m_SurgicalTestOrder.PapCorrelationRequired = true;
+                this.ShowPapCorrelationPage();
             }
             else
             {
                 this.m_SurgicalTestOrder.PapCorrelationRequired = false;
                 this.m_SurgicalTestOrder.PapCorrelation = 0;
+                this.HandlePqrs();
             }
         }
 
@@ -94,7 +75,19 @@ namespace YellowstonePathology.UI.Surgical
 
         private void PapCorrelationPage_Next(object sender, EventArgs e)
         {
-            if (this.m_PqrsAudit.Status == Business.Audit.Model.AuditStatusEnum.Failure)
+            this.HandlePqrs();
+        }
+
+        private void PapCorrelationPage_Back(object sender, EventArgs e)
+        {
+            this.m_PathologistSignoutDialog.Close();
+        }
+
+        private void HandlePqrs()
+        {
+            YellowstonePathology.Business.Audit.Model.PqrsAudit pqrsAudit = new Business.Audit.Model.PqrsAudit(this.m_AccessionOrder);
+            pqrsAudit.Run();
+            if (pqrsAudit.Status == Business.Audit.Model.AuditStatusEnum.Failure)
             {
                 this.ShowPQRSMeasurePage();
             }
@@ -102,11 +95,6 @@ namespace YellowstonePathology.UI.Surgical
             {
                 this.m_PathologistSignoutDialog.Close();
             }
-        }
-
-        private void PapCorrelationPage_Back(object sender, EventArgs e)
-        {
-            this.m_PathologistSignoutDialog.Close();
         }
 
         private bool ShowPQRSMeasurePage()
