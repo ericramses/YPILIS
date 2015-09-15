@@ -55,7 +55,10 @@ namespace YellowstonePathology.UI.Surgical
             if (papCorrelationAudit.Status == Business.Audit.Model.AuditStatusEnum.Failure)
             {
                 this.m_SurgicalTestOrder.PapCorrelationRequired = true;
-                this.ShowPapCorrelationPage();
+                PapCorrelationPage papCorrelationPage = new PapCorrelationPage(this.m_AccessionOrder, this.m_SurgicalTestOrder, this.m_ObjectTracker);
+                papCorrelationPage.Next += PapCorrelationPage_Next;
+                papCorrelationPage.Back += PapCorrelationPage_Back;
+                this.m_PathologistSignoutDialog.PageNavigator.Navigate(papCorrelationPage);
             }
             else
             {
@@ -63,14 +66,6 @@ namespace YellowstonePathology.UI.Surgical
                 this.m_SurgicalTestOrder.PapCorrelation = 0;
                 this.HandlePqrs();
             }
-        }
-
-        private void ShowPapCorrelationPage()
-        {
-            PapCorrelationPage papCorrelationPage = new PapCorrelationPage(this.m_AccessionOrder, this.m_SurgicalTestOrder, this.m_ObjectTracker);
-            papCorrelationPage.Next += PapCorrelationPage_Next;
-            papCorrelationPage.Back += PapCorrelationPage_Back;
-            this.m_PathologistSignoutDialog.PageNavigator.Navigate(papCorrelationPage);
         }
 
         private void PapCorrelationPage_Next(object sender, EventArgs e)
@@ -89,37 +84,31 @@ namespace YellowstonePathology.UI.Surgical
             pqrsAudit.Run();
             if (pqrsAudit.Status == Business.Audit.Model.AuditStatusEnum.Failure)
             {
-                this.ShowPQRSMeasurePage();
+                bool result = false;
+                YellowstonePathology.Business.Surgical.PQRSMeasureCollection pqrsCollection = YellowstonePathology.Business.Surgical.PQRSMeasureCollection.GetAll();
+                foreach (YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen in this.m_SurgicalTestOrder.SurgicalSpecimenCollection)
+                {
+                    foreach (YellowstonePathology.Business.Surgical.PQRSMeasure pqrsMeasure in pqrsCollection)
+                    {
+                        int patientAge = YellowstonePathology.Business.Helper.PatientHelper.GetAge(this.m_AccessionOrder.PBirthdate.Value);
+                        if (pqrsMeasure.DoesMeasureApply(this.m_SurgicalTestOrder, surgicalSpecimen, patientAge) == true)
+                        {
+                            PQRSMeasurePage pqrsMeasurePage = new PQRSMeasurePage(pqrsMeasure, surgicalSpecimen);
+                            pqrsMeasurePage.Cancel += new PQRSMeasurePage.CancelEventHandler(PQRSMeasurePage_Cancel);
+                            pqrsMeasurePage.AddPQRSCode += new PQRSMeasurePage.AddPQRSCodeEventHandler(PQRSMeasurePage_AddPQRSCode);
+                            pqrsMeasurePage.PQRSCodeNotApplicable += new PQRSMeasurePage.PQRSCodeNotApplicableEventHandler(PQRSMeasurePage_PQRSCodeNotApplicable);
+                            this.m_PathologistSignoutDialog.PageNavigator.Navigate(pqrsMeasurePage);
+                            result = true;
+                            break;
+                        }
+                    }
+                    if (result == true) break;
+                }
             }
             else
             {
                 this.m_PathologistSignoutDialog.Close();
             }
-        }
-
-        private bool ShowPQRSMeasurePage()
-        {
-            bool result = false;
-            YellowstonePathology.Business.Surgical.PQRSMeasureCollection pqrsCollection = YellowstonePathology.Business.Surgical.PQRSMeasureCollection.GetAll();
-            foreach (YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen in this.m_SurgicalTestOrder.SurgicalSpecimenCollection)
-            {
-                foreach (YellowstonePathology.Business.Surgical.PQRSMeasure pqrsMeasure in pqrsCollection)
-                {
-                    int patientAge = YellowstonePathology.Business.Helper.PatientHelper.GetAge(this.m_AccessionOrder.PBirthdate.Value);
-                    if (pqrsMeasure.DoesMeasureApply(this.m_SurgicalTestOrder, surgicalSpecimen, patientAge) == true)
-                    {
-                        PQRSMeasurePage pqrsMeasurePage = new PQRSMeasurePage(pqrsMeasure, surgicalSpecimen);
-                        pqrsMeasurePage.Cancel += new PQRSMeasurePage.CancelEventHandler(PQRSMeasurePage_Cancel);
-                        pqrsMeasurePage.AddPQRSCode += new PQRSMeasurePage.AddPQRSCodeEventHandler(PQRSMeasurePage_AddPQRSCode);
-                        pqrsMeasurePage.PQRSCodeNotApplicable += new PQRSMeasurePage.PQRSCodeNotApplicableEventHandler(PQRSMeasurePage_PQRSCodeNotApplicable);
-                        this.m_PathologistSignoutDialog.PageNavigator.Navigate(pqrsMeasurePage);
-                        result = true;
-                        break;
-                    }
-                }
-                if (result == true) break;
-            }
-            return result;
         }
 
         private void PQRSMeasurePage_PQRSCodeNotApplicable(object sender, EventArgs e)

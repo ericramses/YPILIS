@@ -99,14 +99,25 @@ namespace YellowstonePathology.UI.Client
         private bool CanSave()
         {
             bool result = true;
-            YellowstonePathology.Business.Audit.Model.ProviderNpiAudit providerNpiAudit = new YellowstonePathology.Business.Audit.Model.ProviderNpiAudit(this.m_Physician);
-            providerNpiAudit.Run();
-            if (providerNpiAudit.Status == Business.Audit.Model.AuditStatusEnum.Failure)
+            YellowstonePathology.Business.Audit.Model.ProviderDisplayNameAudit providerDisplayNameAudit = new Business.Audit.Model.ProviderDisplayNameAudit(this.m_Physician.DisplayName);
+            providerDisplayNameAudit.Run();
+            if (providerDisplayNameAudit.Status == Business.Audit.Model.AuditStatusEnum.Failure)
             {
-                MessageBoxResult messageBoxResult = MessageBox.Show(providerNpiAudit.Message.ToString() + "  Do you want to continue?", "Missing NPI", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
-                if (messageBoxResult == MessageBoxResult.No)
+                MessageBoxResult messageBoxResult = MessageBox.Show(providerDisplayNameAudit.Message.ToString(), "Missing display name", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                result = false;
+            }
+
+            if (result == true)
+            {
+                YellowstonePathology.Business.Audit.Model.ProviderNpiAudit providerNpiAudit = new YellowstonePathology.Business.Audit.Model.ProviderNpiAudit(this.m_Physician);
+                providerNpiAudit.Run();
+                if (providerNpiAudit.Status == Business.Audit.Model.AuditStatusEnum.Failure)
                 {
-                    result = false;
+                    MessageBoxResult messageBoxResult = MessageBox.Show(providerNpiAudit.Message.ToString() + "  Do you want to continue?", "Missing NPI", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+                    if (messageBoxResult == MessageBoxResult.No)
+                    {
+                        result = false;
+                    }
                 }
             }
 

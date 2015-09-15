@@ -159,6 +159,7 @@
     <Compile Include="Audit.Model\PapCorrelationAudit.cs" />
     <Compile Include="Audit.Model\PhoneNumberAudit.cs" />
     <Compile Include="Audit.Model\PqrsAudit.cs" />
+    <Compile Include="Audit.Model\ProviderDisplayNameAudit.cs" />
     <Compile Include="Audit.Model\ProviderNpiAudit.cs" />
     <Compile Include="Audit.Model\SpecimenOrderAudit.cs" />
     <Compile Include="Audit.Model\IsOKToAdjustWHPExpectedFinalTimeAuditCollection.cs" />
