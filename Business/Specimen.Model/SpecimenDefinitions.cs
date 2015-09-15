@@ -274,7 +274,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             {
                 this.m_SpecimenId = "LPCNSPCMN";
                 this.m_SpecimenName = "LEEP Cone";
-                this.m_Description = "Cervix, LEEP, excision";
+                this.m_Description = "Cervix, LEEP excision";
                 this.m_LabFixation = "Formalin";
                 this.m_ClientFixation = null;
                 this.m_RequiresGrossExamination = true;
@@ -287,7 +287,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             {
                 this.m_SpecimenId = "LPPCSPCMN";
                 this.m_SpecimenName = "LEEP Pieces";
-                this.m_Description = "Cervix, LEEP, excision";
+                this.m_Description = "Cervix, LEEP excision";
                 this.m_LabFixation = "Formalin";
                 this.m_ClientFixation = null;
                 this.m_RequiresGrossExamination = true;
