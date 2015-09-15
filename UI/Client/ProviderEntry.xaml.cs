@@ -41,9 +41,22 @@ namespace YellowstonePathology.UI.Client
             InitializeComponent();
 
             this.DataContext = this;
+            Closing += ProviderEntry_Closing;
         }
 
-		public void NotifyPropertyChanged(String info)
+        private void ProviderEntry_Closing(object sender, CancelEventArgs e)
+        {
+            if (this.CanSave() == true)
+            {
+                this.Save();
+            }
+            else
+            {
+                e.Cancel = true;
+            }
+        }
+
+        public void NotifyPropertyChanged(String info)
 		{
 			if (PropertyChanged != null)
 			{
@@ -84,23 +97,37 @@ namespace YellowstonePathology.UI.Client
 
 		private void ButtonOK_Click(object sender, RoutedEventArgs e)
 		{
+			Close();
+		}
+
+        private bool CanSave()
+        {
+            bool result = true;
             YellowstonePathology.Business.Audit.Model.ProviderNpiAudit providerNpiAudit = new YellowstonePathology.Business.Audit.Model.ProviderNpiAudit(this.m_Physician);
             providerNpiAudit.Run();
             if (providerNpiAudit.Status == Business.Audit.Model.AuditStatusEnum.Failure)
             {
-                MessageBoxResult result = MessageBox.Show(providerNpiAudit.Message.ToString() + "  Do you want to continue?", "Missing NPI", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
-                if (result == MessageBoxResult.No)
+                MessageBoxResult messageBoxResult = MessageBox.Show(providerNpiAudit.Message.ToString() + "  Do you want to continue?", "Missing NPI", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+                if (messageBoxResult == MessageBoxResult.No)
                 {
-                    return;
+                    result = false;
                 }
             }
 
-            if (this.AllClientsHaveDistributionSet() == true)
-			{
-				this.m_ObjectTracker.SubmitChanges(this.m_Physician);
-				Close();
-			}
-		}
+            if (result == true)
+            {
+                if (this.AllClientsHaveDistributionSet() == false)
+                {
+                    result = false;
+                }
+            }
+            return result;
+        }
+
+        private void Save()
+        {
+			this.m_ObjectTracker.SubmitChanges(this.m_Physician);
+        }
 
 		private bool AllClientsHaveDistributionSet()
 		{
