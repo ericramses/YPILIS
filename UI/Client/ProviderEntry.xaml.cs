@@ -281,7 +281,6 @@ namespace YellowstonePathology.UI.Client
 			if(this.ListBoxClientMembership.SelectedItem != null)
 			{
 				YellowstonePathology.Business.Client.Model.Client client = (YellowstonePathology.Business.Client.Model.Client)this.ListBoxClientMembership.SelectedItem;
-				this.FillPhysicianClientDistributionViewList(client.ClientId);
 				YellowstonePathology.Business.Domain.PhysicianClient physicianClient = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClient(this.m_Physician.ObjectId, client.ClientId);
 				this.m_PhysicianClientId = physicianClient.PhysicianClientId;
 				this.m_PhysicianClientDistributionViewList = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClientDistributionsV2(this.m_PhysicianClientId);
@@ -289,8 +288,42 @@ namespace YellowstonePathology.UI.Client
 			}
 		}
 
-		private void FillPhysicianClientDistributionViewList(int clientId)
-		{
-		}
-	}
+        private void TextBoxNames_KeyUp(object sender, KeyEventArgs e)
+        {
+            this.CreateDisplayName();
+        }
+
+        private void CreateDisplayName()
+        {
+            string firstName = this.TextBoxFirstName.Text;
+            string lastName = this.TextBoxLastName.Text;
+            string credentials = this.TextBoxCredentials.Text;
+
+            StringBuilder displayName = new StringBuilder();
+            if (string.IsNullOrEmpty(firstName) == false)
+            {
+                displayName.Append(firstName);
+            }
+
+            if(string.IsNullOrEmpty(lastName) == false)
+            {
+                if (displayName.Length > 0)
+                {
+                    displayName.Append(" ");
+                }
+                displayName.Append(lastName);
+            }
+
+            if(string.IsNullOrEmpty(credentials) == false)
+            {
+                if (displayName.Length > 0)
+                {
+                    displayName.Append(", ");
+                }
+                displayName.Append(credentials);
+            }
+            this.m_Physician.DisplayName = displayName.ToString();
+            this.NotifyPropertyChanged("Physician.DisplayName");
+        }
+    }
 }
