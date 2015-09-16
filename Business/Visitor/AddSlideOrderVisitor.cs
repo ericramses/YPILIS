@@ -28,7 +28,7 @@ namespace YellowstonePathology.Business.Visitor
 
             Slide.Model.Slide slide = Slide.Model.SlideFactory.Get(this.m_TestOrder.TestId);
 
-            int nextSlideNumber = this.m_AliquotOrder.SlideOrderCollection.GetNextSlideNumber();
+            int nextSlideNumber = this.m_AliquotOrder.SlideOrderCollection.Count() + 1; //this.m_AliquotOrder.SlideOrderCollection.GetNextSlideNumber(this.m_AliquotOrder.Label);
             string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();            
             string slideOrderId = YellowstonePathology.Business.OrderIdParser.GetNextSlideOrderId(this.m_AliquotOrder.SlideOrderCollection, this.m_AliquotOrder.AliquotOrderId);            
 

@@ -36,6 +36,7 @@ namespace YellowstonePathology.UI.Client
 			this.m_Client = client;
 			this.m_ObjectTracker = objectTracker;
 			this.m_ClientPhysicianView = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientPhysicianViewByClientIdV2(this.m_Client.ClientId);
+
 			if (this.m_ClientPhysicianView == null)
 			{
 				this.m_ClientPhysicianView = new Business.View.ClientPhysicianView();
@@ -51,7 +52,7 @@ namespace YellowstonePathology.UI.Client
 
             this.m_DistributionTypeList = new YellowstonePathology.Business.ReportDistribution.Model.DistributionTypeList();
 			this.m_BillingRuleSetCollection = YellowstonePathology.Business.Billing.Model.BillingRuleSetCollection.GetAllRuleSets();
-			this.m_ClientSupplyOrderCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientSupplyOrderCollection(this.m_Client.ClientId);
+			this.m_ClientSupplyOrderCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientSupplyOrderCollectionByClientId(this.m_Client.ClientId);
 
 			InitializeComponent();
 			this.DataContext = this;
@@ -212,7 +213,7 @@ namespace YellowstonePathology.UI.Client
 			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new Business.Persistence.ObjectTracker();
 			objectTracker.RegisterRootInsert(clientSupplyOrder);
 			objectTracker.SubmitChanges(clientSupplyOrder);
-			this.m_ClientSupplyOrderCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientSupplyOrderCollection(this.m_Client.ClientId);
+			this.m_ClientSupplyOrderCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientSupplyOrderCollectionByClientId(this.m_Client.ClientId);
 			clientSupplyOrder = this.m_ClientSupplyOrderCollection.GetClientSupplyOrder(clientSupplyOrder.ObjectId);
 			objectTracker = new Business.Persistence.ObjectTracker();
 			objectTracker.RegisterObject(clientSupplyOrder);

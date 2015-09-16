@@ -47,7 +47,7 @@ namespace YellowstonePathology.UI.Test
 			this.m_ObjectTracker = objectTracker;
 			this.m_PageNavigator = pageNavigator;
 
-			this.m_PageHeaderText = "HPV TWI Results For: " + this.m_AccessionOrder.PatientDisplayName;
+			this.m_PageHeaderText = "HPV TWI Results For: " + this.m_AccessionOrder.PatientDisplayName + "  (" + this.m_PanelSetOrderHPVTWI.ReportNo + ")";
 
             bool hpv1618HasBeenOrdered = this.m_AccessionOrder.PanelSetOrderCollection.Exists(62);            
             if (hpv1618HasBeenOrdered == true)

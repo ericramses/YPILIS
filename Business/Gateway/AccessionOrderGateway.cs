@@ -191,7 +191,7 @@ namespace YellowstonePathology.Business.Gateway
         {
             List<YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution> result = new List<YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution>();
             SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "Select * from tblTestOrderReportDistribution tor	join tblPanelSetOrder pso on tor.ReportNo = pso.ReportNo where tor.[Distributed] = 0 and tor.ScheduledDistributionTime is null and pso.Final = 1 and pso.Distribute = 1"; 
+            cmd.CommandText = "Select * from tblTestOrderReportDistribution tor	join tblPanelSetOrder pso on tor.ReportNo = pso.ReportNo where tor.[Distributed] = 0 and tor.ScheduledDistributionTime is null and pso.Final = 1 and pso.Distribute = 1 and pso.HoldDistribution = 0"; 
             cmd.CommandType = CommandType.Text;
 
             using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.Properties.Settings.Default.CurrentConnectionString))

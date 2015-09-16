@@ -41,7 +41,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>247</ApplicationRevision>
+    <ApplicationRevision>265</ApplicationRevision>
     <ApplicationVersion>10.1.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -210,6 +210,9 @@
     <Compile Include="Client\ClientSupplyOrderDialog.xaml.cs">
       <DependentUpon>ClientSupplyOrderDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Client\ClientSupplyOrderListDialog.xaml.cs">
+      <DependentUpon>ClientSupplyOrderListDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Client\IHCMolecularRequisition.cs" />
     <Compile Include="Client\PhysicianClientSearch.cs">
       <SubType>Form</SubType>
@@ -236,6 +239,7 @@
       <DependentUpon>ReportDistribution.cs</DependentUpon>
     </Compile>
     <Compile Include="Common\OrderItemView.cs" />
+    <Compile Include="Converter\BooleanVisibilityHiddenConverter.cs" />
     <Compile Include="Converter\GatingPercentConverter.cs" />
     <Compile Include="Converter\GatingPopulationConverter.cs" />
     <Compile Include="Converter\MilitaryDateTimeConverterV2.cs" />
@@ -1839,6 +1843,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Client\ClientSupplyOrderDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Client\ClientSupplyOrderListDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -28,9 +28,8 @@
 					<MenuItem Header="_Search"></MenuItem>
 					<MenuItem Header="Preferences" Click="MenuItemPreferences_Click"></MenuItem>
 					<MenuItem Header="Database" Click="MenuItemDatabase_Click"></MenuItem>
-					<MenuItem Header="Application Validation" Click="MenuItemValidate_Click"></MenuItem>
-					<!--<MenuItem Header="Update Local Data" Click="UpdateLocalData_Click"></MenuItem>					-->
-					<MenuItem Header="Locked Cases" Click="MenuItemLockedCases_Click"></MenuItem>                    
+                    <MenuItem Header="Application Validation" Click="MenuItemValidate_Click"></MenuItem>
+                    <MenuItem Header="Locked Cases" Click="MenuItemLockedCases_Click"></MenuItem>                    
 				</MenuItem>			
         
 			<MenuItem Header="_Surgical" Name="MenuItemSurgical">
@@ -57,11 +56,9 @@
                 <MenuItem Header="Client Communications" Click="MenuItemClientCommunications_Click" />
             </MenuItem>
 
-			<MenuItem Header="_Client" Name="MenuItemClient">
-				<MenuItem Header="Clients" Click="MenuItemClients_Click"></MenuItem>
-				<MenuItem Header="Physicians" Click="MenuItemPhysicians_Click"></MenuItem>
-				<MenuItem Header="Physician Client" Click="MenuItemPhysicianClient_Click"></MenuItem>
+            <MenuItem Header="_Client" Name="MenuItemClient">
                 <MenuItem Header="Provider Lookup" Click="MenuItemProviderLookup_Click"></MenuItem>
+                <MenuItem Header="Client Supply Orders" Click="MenuItemClientSupplyOrders_Click"></MenuItem>
             </MenuItem>
 
 			<MenuItem Header="_Billing" Name="MenuItemBilling">				

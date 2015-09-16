@@ -327,7 +327,7 @@
     <Compile Include="Client\StandingOrder.cs" />
     <Compile Include="Client\StandingOrderCollection.cs" />
     <Compile Include="Common\PrintMateColumnTeal2.cs" />
-    <Compile Include="Common\PrintMateColumnMesh.cs" />
+    <Compile Include="Common\PrintMateColumnGreen.cs" />
     <Compile Include="Common\PrintMateColumnOrange2.cs" />
     <Compile Include="Common\PrintMateColumnPink.cs" />
     <Compile Include="Common\PrintMateColumnOrange1.cs" />
@@ -550,6 +550,7 @@
     <Compile Include="Surgical\PQRSMelanomaMeasure.cs" />
     <Compile Include="Surgical\PQRSRadicalProstatectomyMeasure.cs" />
     <Compile Include="Test\CBFBinv16\CBFBinv16Test.cs" />
+    <Compile Include="Test\HoldForFlow\HoldForFlowTest.cs" />
     <Compile Include="Test\HPVTWI\HPVTWIPositiveResult.cs" />
     <Compile Include="Test\Surgical\IntraoperativeConsultationResult.Validation.cs" />
     <Compile Include="TrackedItemStatusEnum.cs" />
@@ -1197,7 +1198,6 @@
     <Compile Include="Test\HPV1618\HPV1618EpicObxView.cs" />
     <Compile Include="Test\HPV1618\HPV1618WordDocument.cs" />
     <Compile Include="Test\HPVTWI\HPVTWIEpicObxView.cs" />
-    <Compile Include="Test\HPVTWI\HPVTWILowgDNAResult.cs" />
     <Compile Include="Test\HPVTWI\HPVTWIWordDocument.cs" />
     <Compile Include="Test\InvasiveBreastPanel\InvasiveBreastPanel.cs">
       <SubType>Code</SubType>
@@ -1831,18 +1831,7 @@
     <Compile Include="Test\HPV1618\HPV16PositiveHPV18NegativeResult.cs" />
     <Compile Include="Test\HPV1618\PanelOrderHPV1618.cs" />
     <Compile Include="Test\HPV1618\PanelSetOrderHPV1618.cs" />
-    <Compile Include="Test\HPVTWI\HPVTWIA5679PositiveResult.cs" />
-    <Compile Include="Test\HPVTWI\HPVTWIA567PositiveResult.cs" />
-    <Compile Include="Test\HPVTWI\HPVTWIA569PositiveResult.cs" />
-    <Compile Include="Test\HPVTWI\HPVTWIA56PositiveResult.cs" />
-    <Compile Include="Test\HPVTWI\HPVTWIA79PositiveResult.cs" />
-    <Compile Include="Test\HPVTWI\HPVTWIA7PositiveResult.cs" />
-    <Compile Include="Test\HPVTWI\HPVTWIA9PositiveResult.cs" />
-    <Compile Include="Test\HPVTWI\HPVTWIHighCVResult.cs" />
-    <Compile Include="Test\HPVTWI\HPVTWILowFamFozResult.cs" />
-    <Compile Include="Test\HPVTWI\HPVTWILowgDNARepeatResult.cs" />
     <Compile Include="Test\HPVTWI\HPVTWINegativeResult.cs" />
-    <Compile Include="Test\HPVTWI\HPVTWIQnsResult.cs" />
     <Compile Include="Test\HPVTWI\HPVTWIResult.cs" />
     <Compile Include="Test\HPVTWI\HPVTWIResultCollection.cs" />
     <Compile Include="Test\HPVTWI\PanelSetOrderHPVTWI.cs" />

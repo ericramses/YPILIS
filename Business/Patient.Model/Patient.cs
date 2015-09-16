@@ -47,7 +47,7 @@ namespace YellowstonePathology.Business.Patient.Model
             string result = this.m_FirstName;
             if (this.m_FirstName.Length > length)
             {
-                result = result.Substring(length);
+                result = result.Substring(0, length);
             }
             return result;
         }
@@ -57,7 +57,7 @@ namespace YellowstonePathology.Business.Patient.Model
             string result = this.m_LastName;
             if (this.m_LastName.Length > length)
             {
-                result = result.Substring(length);
+                result = result.Substring(0, length);
             }
             return result;
         }
