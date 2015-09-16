@@ -32,7 +32,7 @@ namespace YellowstonePathology.Business.Audit.Model
                     if (accessionOrder.PanelSetOrderCollection.Exists(panelSetHPVTWI.PanelSetId) == false)
                     {
                         this.m_ActionRequired = true;
-                        this.m_Message.AppendLine("The order indicates that an " + panelSetHPVTWI.PanelSetName + " is required but not ordered.");
+                        this.m_Message.AppendLine("The order indicates that an " + panelSetHPVTWI.PanelSetName + " is required but it has not ordered.");
                     }
                 }
             }

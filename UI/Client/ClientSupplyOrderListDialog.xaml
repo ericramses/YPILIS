@@ -10,8 +10,11 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-
-        <ListView Grid.Column="0" Grid.Row="0" Name="ListViewOrderDetails" Margin="10" ItemsSource="{Binding Path=ClientSupplyOrderCollection}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <ListView Grid.Column="0" Grid.Row="0" Name="ListViewClientSupplyOrders" Margin="10" ItemsSource="{Binding Path=ClientSupplyOrderCollection}" MouseDoubleClick="ListViewClientSupplyOrders_MouseDoubleClick">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Client Name" DisplayMemberBinding="{Binding Path=ClientName}" Width="300" />
@@ -21,5 +24,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
+        <Button Grid.Column="0" Grid.Row="1" Width="90" Height="30" Click="ButtonDelete_Click" HorizontalAlignment="Left" Margin="2,2,2,2">Delete</Button>
+        <Button Grid.Column="0" Grid.Row="1" Width="90" Height="30" Click="ButtonClose_Click" HorizontalAlignment="Right" Margin="2,2,2,2">Close</Button>
     </Grid>
 </Window>

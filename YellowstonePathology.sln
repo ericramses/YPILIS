@@ -33,7 +33,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "YpiConnectHttpHost", "YpiConnectHttpHost\", "{CB02282C-851D-4428-983F-EE76294B995D}"
 	ProjectSection(WebsiteProperties) = preProject
-		TargetFrameworkMoniker = ".NETFramework,Version%3Dv3.5"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5"
 		ProjectReferences = "{0B68C6D2-6418-4ECD-95D5-93DD6F8E1782}|DomainPersistence.dll;{C64F59D1-3A32-40DF-8294-89E0DCD19BE3}|SqlXmlPersistence.dll;{012A95F3-57EE-4ADD-A8D4-5CDE1146812F}|YellowstonePathology.YpiConnect.Contract.dll;{7F3B40B5-CB0B-4AC0-A2B0-CCCFF9247484}|YellowstonePathology.YpiConnect.Service.dll;{0712F3D4-5C03-4446-B8FE-B8F5BE9495B1}|BusinessObjects.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/YpiConnectHttpHost"
 		Debug.AspNetCompiler.PhysicalPath = "YpiConnectHttpHost\"
@@ -50,6 +50,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "YpiConnectHttpHost", "YpiCo
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "64012"
+		SlnRelativePath = "YpiConnectHttpHost\"
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MongoMigrationTests", "MongoMigrationTests\MongoMigrationTests.csproj", "{E53908E4-A399-47C0-A302-6D78614C183A}"
