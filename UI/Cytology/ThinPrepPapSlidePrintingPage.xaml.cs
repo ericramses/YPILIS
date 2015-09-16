@@ -215,14 +215,14 @@ namespace YellowstonePathology.UI.Cytology
         private void ButtonAddPantherAliquot_Click(object sender, RoutedEventArgs e)
         {
             YellowstonePathology.Business.Specimen.Model.PantherAliquot pantherAliquot = new Business.Specimen.Model.PantherAliquot();
-            //if (this.m_SpecimenOrder.AliquotOrderCollection.Exists(pantherAliquot) == false)
-            //{
+            if (this.m_SpecimenOrder.AliquotOrderCollection.Exists(pantherAliquot) == false)
+            {
                 YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = this.m_SpecimenOrder.AliquotOrderCollection.AddAliquot(pantherAliquot, this.m_SpecimenOrder, this.m_AccessionOrder.AccessionDate.Value);                
-            //}
-            //else
-            //{
-            //    MessageBox.Show("Cannot add another Panther Aliquot as one already exists.");
-            //}
+            }
+            else
+            {
+                MessageBox.Show("Cannot add another Panther Aliquot as one already exists.");
+            }
         }
 
         private void ButtonReprintSelected_Click(object sender, RoutedEventArgs e)

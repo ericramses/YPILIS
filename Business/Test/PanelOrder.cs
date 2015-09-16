@@ -19,7 +19,7 @@ namespace YellowstonePathology.Business.Test
 		public event PropertyChangedEventHandler PropertyChanged;
 
 		private YellowstonePathology.Business.Test.Model.TestOrderCollection m_TestOrderCollection;
-		private bool m_Order = false;        
+		//private bool m_Order = false;        
 
 		protected string m_ObjectId;
 		protected string m_PanelOrderId;

@@ -44,10 +44,6 @@ namespace YellowstonePathology.Business.Patient.Model
                 {
                     result = true;
                 }
-                else
-                {
-                    string yy = "123";
-                }
             }
             return result;
         }

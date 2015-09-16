@@ -7,7 +7,6 @@ using System.IO;
 using System.Xml;
 using System.Xml.Linq;
 using System.Data.SqlClient;
-using Microsoft.Data.SqlXml;
 
 namespace YellowstonePathology.Business.Domain.Persistence.SqlXmlPersistence
 {

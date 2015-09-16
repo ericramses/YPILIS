@@ -7,7 +7,6 @@ namespace YellowstonePathology.Business.Test
 {
 	public class AccessionOrderThinPrepPap : AccessionOrder
 	{
-        private YellowstonePathology.Business.ClientOrder.Model.ClientOrder m_ClientOrder;
         private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 
         public AccessionOrderThinPrepPap(string masterAccessionNo, string objectId) 

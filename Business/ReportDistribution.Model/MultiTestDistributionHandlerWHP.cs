@@ -15,9 +15,7 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
         private YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTest m_WomensHealthProfileTest;
         private YellowstonePathology.Business.Test.PanelSetOrder m_WomensHealthProfileTestOrder;                
 
-        private List<YellowstonePathology.Business.Test.PanelSetOrder> m_PanelSetOrderList;
-
-        protected YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
+        private List<YellowstonePathology.Business.Test.PanelSetOrder> m_PanelSetOrderList;        
 
         protected bool m_DistributePap;
         protected bool m_DistributeHPV;

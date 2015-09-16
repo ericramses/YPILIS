@@ -11,7 +11,6 @@ namespace YellowstonePathology.Business.HL7View.Panther
     {                        
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
-        private YellowstonePathology.Business.Domain.Physician m_OrderingPhysician;
         private YellowstonePathology.Business.Specimen.Model.SpecimenOrder m_SpecimenOrder;
         private YellowstonePathology.Business.Test.AliquotOrder m_AliquotOrder;
         private PantherAssay m_Assay;

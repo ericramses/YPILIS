@@ -41,9 +41,15 @@ namespace YellowstonePathology.UI.Client
             InitializeComponent();
 
             this.DataContext = this;
+            Closing += ProviderEntry_Closing;
         }
 
-		public void NotifyPropertyChanged(String info)
+        private void ProviderEntry_Closing(object sender, CancelEventArgs e)
+        {
+            this.Save();
+        }
+
+        public void NotifyPropertyChanged(String info)
 		{
 			if (PropertyChanged != null)
 			{
@@ -67,7 +73,7 @@ namespace YellowstonePathology.UI.Client
 		}
 
 
-		public ObservableCollection<YellowstonePathology.Business.Client.Model.Client> Clients
+		public ObservableCollection<YellowstonePathology.Business.Client.Model.Client> ProviderClients
 		{
 			get { return this.m_PhysicianClientView.Clients; }
 		}
@@ -84,9 +90,81 @@ namespace YellowstonePathology.UI.Client
 
 		private void ButtonOK_Click(object sender, RoutedEventArgs e)
 		{
-            this.m_ObjectTracker.SubmitChanges(this.m_Physician);
-			Close();
-		}		
+            if (this.CanSave() == true)
+            {
+                Close();
+            }
+		}
+
+        private bool CanSave()
+        {
+            bool result = true;
+            YellowstonePathology.Business.Audit.Model.ProviderDisplayNameAudit providerDisplayNameAudit = new Business.Audit.Model.ProviderDisplayNameAudit(this.m_Physician.DisplayName);
+            providerDisplayNameAudit.Run();
+            if (providerDisplayNameAudit.Status == Business.Audit.Model.AuditStatusEnum.Failure)
+            {
+                MessageBoxResult messageBoxResult = MessageBox.Show(providerDisplayNameAudit.Message.ToString(), "Missing display name", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                result = false;
+            }
+
+            if (result == true)
+            {
+                YellowstonePathology.Business.Audit.Model.ProviderNpiAudit providerNpiAudit = new YellowstonePathology.Business.Audit.Model.ProviderNpiAudit(this.m_Physician);
+                providerNpiAudit.Run();
+                if (providerNpiAudit.Status == Business.Audit.Model.AuditStatusEnum.Failure)
+                {
+                    MessageBoxResult messageBoxResult = MessageBox.Show(providerNpiAudit.Message.ToString() + "  Do you want to continue?", "Missing NPI", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+                    if (messageBoxResult == MessageBoxResult.No)
+                    {
+                        result = false;
+                    }
+                }
+            }
+
+            if (result == true)
+            {
+                if (this.AllClientsHaveDistributionSet() == false)
+                {
+                    result = false;
+                }
+            }
+            return result;
+        }
+
+        private void Save()
+        {
+			this.m_ObjectTracker.SubmitChanges(this.m_Physician);
+        }
+
+		private bool AllClientsHaveDistributionSet()
+		{
+			bool result = true;
+
+			StringBuilder msg = new StringBuilder();
+			foreach (YellowstonePathology.Business.Client.Model.Client client in this.m_PhysicianClientView.Clients)
+			{
+				YellowstonePathology.Business.Domain.PhysicianClient physicianClient = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClient(this.m_Physician.ObjectId, client.ClientId);
+				this.m_PhysicianClientId = physicianClient.PhysicianClientId;
+				List<YellowstonePathology.Business.Client.Model.PhysicianClientDistributionView> physicianClientDistributionViews = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClientDistributionsV2(this.m_PhysicianClientId);
+				if (physicianClientDistributionViews.Count == 0)
+				{
+					result = false;
+					msg.AppendLine(client.ClientName);
+				}
+			}
+
+			if (result == false)
+			{
+				MessageBoxResult messageBoxResult = MessageBox.Show("Distribution is not set for " + Environment.NewLine + msg.ToString() + Environment.NewLine + 
+					"Do you want to continue?", "Missing Distribution", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+				if (messageBoxResult == MessageBoxResult.Yes)
+				{
+					result = true;
+				}
+			}
+
+			return result;
+		}
 
 		private void ButtonAddToClient_Click(object sender, RoutedEventArgs e)
 		{
@@ -98,7 +176,7 @@ namespace YellowstonePathology.UI.Client
 					this.m_ObjectTracker.SubmitChanges(this.m_Physician);
 
 					string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-					YellowstonePathology.Business.Domain.PhysicianClient physicianClient = new Business.Domain.PhysicianClient(objectId, objectId, this.m_PhysicianClientView.PhysicianId, this.m_PhysicianClientView.ObjectId, client.ClientId);
+					YellowstonePathology.Business.Domain.PhysicianClient physicianClient = new Business.Domain.PhysicianClient(objectId, objectId, this.m_Physician.PhysicianId, this.m_Physician.ObjectId, client.ClientId);
 					YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
 					objectTracker.RegisterRootInsert(physicianClient);
 					objectTracker.SubmitChanges(physicianClient);
@@ -113,14 +191,34 @@ namespace YellowstonePathology.UI.Client
 			{
 				YellowstonePathology.Business.Client.Model.Client client = (YellowstonePathology.Business.Client.Model.Client)this.ListBoxClients.SelectedItem;
 				YellowstonePathology.Business.Domain.PhysicianClient physicianClient = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClient(this.m_PhysicianClientView.ObjectId, client.ClientId);
-				YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-				objectTracker.RegisterRootDelete(physicianClient);
-				objectTracker.SubmitChanges(physicianClient);
-				this.m_PhysicianClientView.Clients.Remove(client);
+                YellowstonePathology.Business.Rules.MethodResult methodResult = this.CanRemoveMember(physicianClient);
+                if (methodResult.Success == true)
+                {
+                    YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
+                    objectTracker.RegisterRootDelete(physicianClient);
+                    objectTracker.SubmitChanges(physicianClient);
+                    this.m_PhysicianClientView.Clients.Remove(client);
+                }
+                else
+                {
+                    MessageBox.Show(methodResult.Message, "Unable to remove membership.", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                }
 			}
 		}
 
-		private void TextBoxClientName_TextChanged(object sender, TextChangedEventArgs e)
+        private YellowstonePathology.Business.Rules.MethodResult CanRemoveMember(YellowstonePathology.Business.Domain.PhysicianClient physicianClient)
+        {
+            YellowstonePathology.Business.Rules.MethodResult result = new Business.Rules.MethodResult();
+            YellowstonePathology.Business.Client.Model.PhysicianClientDistributionCollection physicianClientDistributionCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClientDistributionByPhysicianClientId(physicianClient.PhysicianClientId);
+            if(physicianClientDistributionCollection.Count > 0)
+            {
+                result.Success = false;
+                result.Message = "This provider has distributions for this client.  These distributions must be removed before the provider can be removed from the client membership.";
+            }
+            return result;
+        }
+
+        private void TextBoxClientName_TextChanged(object sender, TextChangedEventArgs e)
 		{
 			if (this.TextBoxClientName.Text.Length > 0)
 			{
@@ -189,5 +287,43 @@ namespace YellowstonePathology.UI.Client
 				this.NotifyPropertyChanged("PhysicianClientDistributionViewList");
 			}
 		}
-	}
+
+        private void TextBoxNames_KeyUp(object sender, KeyEventArgs e)
+        {
+            this.CreateDisplayName();
+        }
+
+        private void CreateDisplayName()
+        {
+            string firstName = this.TextBoxFirstName.Text;
+            string lastName = this.TextBoxLastName.Text;
+            string credentials = this.TextBoxCredentials.Text;
+
+            StringBuilder displayName = new StringBuilder();
+            if (string.IsNullOrEmpty(firstName) == false)
+            {
+                displayName.Append(firstName);
+            }
+
+            if(string.IsNullOrEmpty(lastName) == false)
+            {
+                if (displayName.Length > 0)
+                {
+                    displayName.Append(" ");
+                }
+                displayName.Append(lastName);
+            }
+
+            if(string.IsNullOrEmpty(credentials) == false)
+            {
+                if (displayName.Length > 0)
+                {
+                    displayName.Append(", ");
+                }
+                displayName.Append(credentials);
+            }
+            this.m_Physician.DisplayName = displayName.ToString();
+            this.NotifyPropertyChanged("Physician.DisplayName");
+        }
+    }
 }

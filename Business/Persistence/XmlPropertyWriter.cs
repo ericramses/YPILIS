@@ -13,14 +13,13 @@ namespace YellowstonePathology.Business.Persistence
         object m_ObjectToWriteTo;
         Type m_ObjectType;
         XElement m_Document;
-        private string m_DateFormat;
+        //private string m_DateFormat = "yyyy-MM-ddTHH:mm:ss.FFF";
 
         public XmlPropertyWriter(XElement documentToReadFrom, object objectToWriteTo)
         {
 			this.m_ObjectToWriteTo = objectToWriteTo;
             this.m_Document = documentToReadFrom;
 			this.m_ObjectType = objectToWriteTo.GetType();
-            this.m_DateFormat = "yyyy-MM-ddTHH:mm:ss.FFF";    
         }
 
         public void Write()

@@ -15,7 +15,6 @@ namespace YellowstonePathology.YpiConnect.Client
         private XpsDocument m_XpsDocument;
         private string m_ReportNo;
         private YellowstonePathology.YpiConnect.Contract.CaseDocumentTypeEnum m_CaseDocumentType;
-        private string m_FilePath;
         private YellowstonePathology.YpiConnect.Proxy.FileTransferServiceProxy m_FileTransferServiceProxy;
         private bool m_IsDownloaded;
 

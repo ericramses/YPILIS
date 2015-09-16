@@ -20,9 +20,8 @@ namespace YellowstonePathology.UI.Login.ReceiveSpecimen
 	public partial class DocumentMatchingWizardPage : PageFunction<PageFunctionResult>
 	{
 		private YellowstonePathology.Business.Document.CaseDocumentCollection m_CaseDocumentCollection;
-		private YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection m_ClientOrderCollection;
-		private YellowstonePathology.Business.Client.Model.Client m_Client;
-		private YellowstonePathology.Business.ClientOrder.Model.ClientOrderMediaCollection m_ClientOrderMediaCollection;
+		//private YellowstonePathology.Business.Client.Model.Client m_Client;
+		//private YellowstonePathology.Business.ClientOrder.Model.ClientOrderMediaCollection m_ClientOrderMediaCollection;
 		private YellowstonePathology.Business.ClientOrder.Model.ClientOrderMedia m_ClientOrderMedia;
 		private string m_ClientOrderId;
         private string m_StepText = "Step #4 - Match/Enter Requisition";

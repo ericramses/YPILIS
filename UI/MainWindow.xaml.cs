@@ -19,7 +19,7 @@ namespace YellowstonePathology.UI
 {    
     public partial class MainWindow : System.Windows.Window
     {
-		System.Timers.Timer m_Timer;
+		//System.Timers.Timer m_Timer;
 		System.Media.SoundPlayer m_WavPlayer;
 
         public delegate void SaveEventHandler(object sender, EventArgs e);
@@ -276,7 +276,7 @@ namespace YellowstonePathology.UI
 		}
         */
 
-		private void m_Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+		/*private void m_Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
 		{
 			string ids = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPanelOrderIdsToAcknowledge();            
 
@@ -289,7 +289,7 @@ namespace YellowstonePathology.UI
             {
                 this.m_Timer.Interval = 1000 * 60 * 5;
             }			
-		}
+		}*/
         
         public YellowstonePathology.UI.Test.LabWorkspace LabWorkspace
         {
@@ -681,8 +681,6 @@ namespace YellowstonePathology.UI
 
         public void MenuItemClients_Click(object sender, RoutedEventArgs args)
         {
-			//YellowstonePathology.UI.Client.ClientLookupDialog clientLookupDialog = new Client.ClientLookupDialog();
-			//clientLookupDialog.ShowDialog();
 			YellowstonePathology.UI.Client.ClientSearch clientSearch = new YellowstonePathology.UI.Client.ClientSearch();            
             clientSearch.ShowDialog();
         }        

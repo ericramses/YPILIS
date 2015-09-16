@@ -7,8 +7,6 @@ namespace YellowstonePathology.Business.Rules.Surgical
 {
 	public class PatientRecentAccessions
 	{        
-        private string m_MasterAccessionNo;
-        private string m_PatientId;
         private string m_PFirstName;
         private string m_PLastName;
 
@@ -35,14 +33,6 @@ namespace YellowstonePathology.Business.Rules.Surgical
                 return result;
             }
 		}
-
-		private void GetPatientIdRecentAccessions()
-        {
-			if (!string.IsNullOrEmpty(this.m_PatientId) && this.m_PatientId != "0")
-			{
-				this.m_RecentAccessionViewCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetRecentAccessionOrders(this.m_PatientId, this.m_MasterAccessionNo);
-			}
-        }
 
 		private void GetPatientNameRecentAccessions()
 		{

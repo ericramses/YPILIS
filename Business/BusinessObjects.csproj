@@ -156,6 +156,11 @@
     <Compile Include="Audit.Model\CouldBenefitFromCCCPAudit.cs" />
     <Compile Include="Audit.Model\HER2OKToAcceptAudit.cs" />
     <Compile Include="Audit.Model\IntraoperativeConsultationFinalAudit.cs" />
+    <Compile Include="Audit.Model\PapCorrelationAudit.cs" />
+    <Compile Include="Audit.Model\PhoneNumberAudit.cs" />
+    <Compile Include="Audit.Model\PqrsAudit.cs" />
+    <Compile Include="Audit.Model\ProviderDisplayNameAudit.cs" />
+    <Compile Include="Audit.Model\ProviderNpiAudit.cs" />
     <Compile Include="Audit.Model\SpecimenOrderAudit.cs" />
     <Compile Include="Audit.Model\IsOKToAdjustWHPExpectedFinalTimeAuditCollection.cs" />
     <Compile Include="Audit.Model\FinalizedAudit.cs" />
@@ -253,6 +258,7 @@
     <Compile Include="Client.Model\ClientSupplyOrderDetail.cs" />
     <Compile Include="Client.Model\ClientSupplyOrderDetailCollection.cs" />
     <Compile Include="Client.Model\ClientSupplyCategory.cs" />
+    <Compile Include="Client.Model\PhysicianClientDistributionCollection.cs" />
     <Compile Include="ClientOrder.Model\ClientOrderDetailView.cs" />
     <Compile Include="Client\AllClientGroup.cs" />
     <Compile Include="Client\AthenaPhysicianClientDistribution.cs" />
@@ -532,7 +538,19 @@
     <Compile Include="HL7View\ECW\ECWOBXViewFactory.cs" />
     <Compile Include="HL7View\ECW\ECWPIDView.cs" />
     <Compile Include="HL7View\ECW\ECWORCView.cs" />
+    <Compile Include="Surgical\PQRIKeyWordCollection.cs" />
+    <Compile Include="Surgical\PQRSAgeDefinitionEnum.cs" />
+    <Compile Include="Surgical\PQRSBarrettsEsophagusMeasure.cs" />
+    <Compile Include="Surgical\PQRSBreastMeasure.cs" />
+    <Compile Include="Surgical\PQRSColorectalMeasure.cs" />
+    <Compile Include="Surgical\PQRSMeasure.cs" />
+    <Compile Include="Surgical\PQRSMeasure395.cs" />
+    <Compile Include="Surgical\PQRSMeasure396.cs" />
+    <Compile Include="Surgical\PQRSMeasureCollection.cs" />
+    <Compile Include="Surgical\PQRSMelanomaMeasure.cs" />
+    <Compile Include="Surgical\PQRSRadicalProstatectomyMeasure.cs" />
     <Compile Include="Test\CBFBinv16\CBFBinv16Test.cs" />
+    <Compile Include="Test\HPVTWI\HPVTWIPositiveResult.cs" />
     <Compile Include="Test\Surgical\IntraoperativeConsultationResult.Validation.cs" />
     <Compile Include="TrackedItemStatusEnum.cs" />
     <Compile Include="Specimen.Model\AliquotCollection.cs" />
@@ -647,7 +665,6 @@
     <Compile Include="Domain\Billing\BillingComponentTechnicalOnly.cs" />
     <Compile Include="Domain\Billing\BillingComponentNoBilling.cs" />
     <Compile Include="Domain\Billing\SurgicalStainSpecimen.cs" />
-    <Compile Include="Domain\Billing\PsaTransferPrep.cs" />
     <Compile Include="Billing\CptCodeList.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -735,7 +752,6 @@
     <Compile Include="Domain\Billing\BillToEnum.cs" />
     <Compile Include="Domain\Billing\BillableObjectThinPrepPap.cs" />
     <Compile Include="Domain\Billing\BillableObjectLeukemiaLymphoma.cs" />
-    <Compile Include="Domain\Billing\CptBillingCodeRule.cs" />
     <Compile Include="Domain\Billing\GlobalBillingRule.cs" />
     <Compile Include="Billing\CptCodeModifier.cs" />
     <Compile Include="Domain\Billing\StainSpecimen.cs" />
@@ -2173,7 +2189,7 @@
     <Compile Include="Facility.Model\PhenoPath.cs" />
     <Compile Include="Facility.Model\SeattleCancerCenterAlliance.cs" />
     <Compile Include="Facility.Model\Shodair.cs" />
-    <Compile Include="Facility.Model\StJamesHealthcare.cs" />
+    <Compile Include="Facility.Model\ButtePathology.cs" />
     <Compile Include="Facility.Model\StVincentHealthcare.cs" />
     <Compile Include="Facility.Model\Therapath.cs" />
     <Compile Include="Facility.Model\TXChildrensHospital.cs" />
@@ -2907,6 +2923,7 @@
     <Folder Include="Reports\Billing\" />
     <Folder Include="Rules\Creation\" />
     <Folder Include="Rules\PatientLinking\" />
+    <Folder Include="Test\Glycophorin\" />
     <Folder Include="Test\ReferenceLabResult\" />
   </ItemGroup>
   <ItemGroup>

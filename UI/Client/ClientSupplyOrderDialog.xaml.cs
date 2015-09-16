@@ -24,10 +24,15 @@ namespace YellowstonePathology.UI.Client
 
 		private YellowstonePathology.Business.Client.Model.ClientSupplyCollection m_ClientSupplyCollection;
 		private YellowstonePathology.Business.Client.Model.ClientSupplyOrder m_ClientSupplyOrder;
+		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
+		private YellowstonePathology.Business.User.SystemUserCollection m_UserCollection;
 
-		public ClientSupplyOrderDialog(YellowstonePathology.Business.Client.Model.ClientSupplyOrder clientSupplyOrder)
+		public ClientSupplyOrderDialog(YellowstonePathology.Business.Client.Model.ClientSupplyOrder clientSupplyOrder, YellowstonePathology.Business.Persistence.ObjectTracker objectTracker)
 		{
 			this.m_ClientSupplyOrder = clientSupplyOrder;
+			this.m_ObjectTracker = objectTracker;
+
+			this.m_UserCollection = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection;
 
 			InitializeComponent();
 
@@ -50,6 +55,11 @@ namespace YellowstonePathology.UI.Client
 		public YellowstonePathology.Business.Client.Model.ClientSupplyCollection ClientSupplyCollection
 		{
 			get { return this.m_ClientSupplyCollection; }
+		}
+
+		public YellowstonePathology.Business.User.SystemUserCollection UserCollection
+		{
+			get { return this.m_UserCollection; }
 		}
 
 		private void FillClientSupplyCollection(string clientSupplyCategory)
@@ -88,6 +98,7 @@ namespace YellowstonePathology.UI.Client
 
 		private void ButtonOk_Click(object sender, RoutedEventArgs e)
 		{
+			this.m_ObjectTracker.SubmitChanges(this.m_ClientSupplyOrder);
 			this.Close();
 		}
 
@@ -102,6 +113,7 @@ namespace YellowstonePathology.UI.Client
 				{
 					if (this.ListViewSupplies.SelectedItem != null)
 					{
+						quantityOrdered += " Ea.";
 						YellowstonePathology.Business.Client.Model.ClientSupply clientSupply = (YellowstonePathology.Business.Client.Model.ClientSupply)this.ListViewSupplies.SelectedItem;
 						string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
 						YellowstonePathology.Business.Client.Model.ClientSupplyOrderDetail clientSupplyOrderDetail = new Business.Client.Model.ClientSupplyOrderDetail(objectId,

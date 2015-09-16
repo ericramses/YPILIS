@@ -11,7 +11,6 @@ namespace YellowstonePathology.Business.Rules
         private bool m_ShowMessage;
         protected bool m_ContinueExecutionOnHalt;		
         private List<ExecutionMessage> m_ExecutionMessages;
-        private string m_ResultMessage;
         private string m_SuccessMessage;
         private string m_FailureMessage;
         private object m_ReturnValue;

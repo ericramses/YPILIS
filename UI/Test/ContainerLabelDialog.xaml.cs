@@ -17,7 +17,6 @@ namespace YellowstonePathology.UI.Test
     {
         private StringBuilder m_KeyboardInput;
         private string m_ContainerId;
-		private YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort m_BarcodeScanPort;
 
 		public BarcodeLabelDialog()
         {

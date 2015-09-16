@@ -9,7 +9,6 @@ namespace YellowstonePathology.Business.HL7View.CDC
 	public class MTDohObxView
 	{		
 		YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-		string m_DateFormat = "yyyyMMddHHmm";
 		string m_ReportNo;
         int m_ObxCount;
 

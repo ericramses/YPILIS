@@ -229,6 +229,7 @@
                                         <MenuItem Header="Show HL7 Result" Click="MenuItemShowHl7Result_Click"></MenuItem>
                                         <MenuItem Header="Send Meditech Result" Click="MenuItemSendMeditechResult_Click"></MenuItem>
                                         <MenuItem Header="Send HL7 Order" Click="MenuItemSendHL7Order_Click"></MenuItem>
+                                        <MenuItem Header="Send Panther Order" Click="MenuItemSendPantherOrder_Click"></MenuItem>
 										<MenuItem Header="Remove from Batch" Click="MenuItemRemoveFromBatch_Click"></MenuItem>
                                     </ContextMenu>
                                 </ListView.ContextMenu>

@@ -236,7 +236,7 @@ namespace YellowstonePathology.Business.Gateway
             {
                 //physicianCollection = YellowstonePathology.Business.Domain.Persistence.SqlXmlPersistence.CrudOperations.ExecuteXmlCommand<YellowstonePathology.YpiConnect.Contract.Domain.PhysicianCollection>(cmd, Business.Domain.Persistence.DataLocationEnum.ProductionData);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 physicianCollection = new YellowstonePathology.Business.Client.Model.PhysicianCollection();
             }

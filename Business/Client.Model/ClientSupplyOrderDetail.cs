@@ -28,7 +28,8 @@ namespace YellowstonePathology.Business.Client.Model
 		public ClientSupplyOrderDetail(string objectId, int clientSupplyOrderId, int clientSupplyId, string supplyName, string supplyDescription, string quantityOrdered)
 		{
 			this.m_ObjectId = objectId;
-			this.m_clientsupplyid = clientSupplyOrderId;
+			this.m_clientsupplyorderid = clientSupplyOrderId;
+			this.m_clientsupplyid = clientsupplyid;
 			this.m_supplyname = supplyName;
 			this.m_supplydescription = supplyDescription;
 			this.m_quantityordered = quantityOrdered;

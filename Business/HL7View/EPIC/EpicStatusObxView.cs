@@ -8,7 +8,6 @@ namespace YellowstonePathology.Business.HL7View.EPIC
 {
 	public class EpicStatusObxView
 	{		
-		string m_DateFormat = "yyyyMMddHHmm";	
 		int m_ObxCount;
 
         public EpicStatusObxView(int obxCount)

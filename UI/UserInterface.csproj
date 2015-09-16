@@ -41,7 +41,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>235</ApplicationRevision>
+    <ApplicationRevision>247</ApplicationRevision>
     <ApplicationVersion>10.1.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -56,6 +56,8 @@
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
+    <NoWarn>
+    </NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>false</DebugSymbols>
@@ -81,11 +83,6 @@
       <HintPath>CEFSharp\CefSharp.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.Data.SqlXml, Version=9.0.242.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Program Files\SQLXML 4.0\bin\Microsoft.Data.SqlXml.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
@@ -209,9 +206,6 @@
     </Compile>
     <Compile Include="Client\ClientEntry.designer.cs">
       <DependentUpon>ClientEntry.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Client\ClientLookupDialog.xaml.cs">
-      <DependentUpon>ClientLookupDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Client\ClientSupplyOrderDialog.xaml.cs">
       <DependentUpon>ClientSupplyOrderDialog.xaml</DependentUpon>
@@ -456,31 +450,18 @@
     <Compile Include="Surgical\DictationTemplatePage.xaml.cs">
       <DependentUpon>DictationTemplatePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Surgical\PapCorrelationPage.xaml.cs">
+      <DependentUpon>PapCorrelationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Surgical\PathologistSignoutDialog.xaml.cs">
+      <DependentUpon>PathologistSignoutDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Surgical\PathologistSignoutPath.cs" />
     <Compile Include="Surgical\PublishedDocumentFinalPage.xaml.cs">
       <DependentUpon>PublishedDocumentFinalPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Surgical\PeerReviewResultPage.xaml.cs">
       <DependentUpon>PeerReviewResultPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Surgical\PQRSMeasure396.cs" />
-    <Compile Include="Surgical\PQRSMeasure395.cs" />
-    <Compile Include="Surgical\PQRSAgeDefinitionEnum.cs" />
-    <Compile Include="Surgical\PQRSMelanomaMeasure.cs" />
-    <Compile Include="Surgical\PQRIKeyWordCollection.cs" />
-    <Compile Include="Surgical\PQRSBarrettsEsophagusMeasure.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Surgical\PQRSBreastMeasure.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Surgical\PQRSColorectalMeasure.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Surgical\PQRSMeasure.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Surgical\PQRSMeasureCollection.cs">
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Surgical\PQRSMeasurePage.xaml.cs">
       <DependentUpon>PQRSMeasurePage.xaml</DependentUpon>
@@ -502,9 +483,6 @@
     <Compile Include="CustomEventArgs\TaskOrderReturnEventArgs.cs" />
     <Compile Include="HelloWorldService.cs" />
     <Compile Include="Surgical\PQRSMeasurePath.cs" />
-    <Compile Include="Surgical\PQRSRadicalProstatectomyMeasure.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Surgical\PublishedDocumentReview.xaml.cs">
       <DependentUpon>PublishedDocumentReview.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -869,7 +847,6 @@
       <DependentUpon>PanelOrderBatch.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ScanDocuments.cs" />
     <Compile Include="Surgical\TypingWorkspace.xaml.cs">
       <DependentUpon>TypingWorkspace.xaml</DependentUpon>
     </Compile>
@@ -1861,10 +1838,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Client\ClientLookupDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Client\ClientSupplyOrderDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -2060,6 +2033,14 @@
     <Page Include="Surgical\DictationTemplatePage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Surgical\PapCorrelationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Surgical\PathologistSignoutDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Surgical\PublishedDocumentFinalPage.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -3805,26 +3786,7 @@
     <EmbeddedResource Include="Billing\CodeSelection.xml" />
   </ItemGroup>
   <ItemGroup>
-    <PublishFile Include="Microsoft.Data.SqlXml">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-    <PublishFile Include="stdole">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
+    <Folder Include="PatientLinking\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Surgical\TypingTemplate.xml" />
@@ -3856,9 +3818,7 @@
   <ItemGroup>
     <Resource Include="Resources\TwoDBarcode.jpg" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="PatientLinking\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Resources\Tasks.png" />
   </ItemGroup>

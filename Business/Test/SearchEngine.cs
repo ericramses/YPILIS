@@ -19,7 +19,6 @@ namespace YellowstonePathology.Business.Test
 		private int m_BatchTypeId;
 
         private YellowstonePathology.Business.AutomatedOrderList m_AutomatedOrderList;
-		private int m_PanelSetId;
 
 		public SearchEngine()
 		{

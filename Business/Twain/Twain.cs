@@ -98,7 +98,7 @@ namespace YellowstonePathology.Business.Twain
                         source.Dispose();
                     }
                 }
-                catch (TwainException twainException)
+                catch (TwainException)
                 {
                     result.Add("No Scanners Found.");
                 }
