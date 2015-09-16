@@ -304,5 +304,11 @@ namespace YellowstonePathology.Business.Client.Model
 				}
 			}
 		}
+
+        public string ToJsonString()
+        {
+            string result = MongoDB.Bson.BsonExtensionMethods.ToJson(this, typeof(YellowstonePathology.Business.Client.Model.ClientSupplyOrder));
+            return result;
+        }
 	}
 }
