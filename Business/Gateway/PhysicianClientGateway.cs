@@ -1401,6 +1401,31 @@ namespace YellowstonePathology.Business.Gateway
             return result;
         }
 
+        public static YellowstonePathology.Business.Client.Model.ClientSupplyOrderCollection GetClientSupplyOrderCollectionByFinal(bool final)
+        {
+            YellowstonePathology.Business.Client.Model.ClientSupplyOrderCollection result = new Client.Model.ClientSupplyOrderCollection();
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "SELECT c.*," +
+                " (Select cd.* " +
+                "  from tblClientSupplyOrderDetail cd where cd.clientSupplyOrderId = c.clientSupplyOrderId for xml path('ClientSupplyOrderDetail'), type) ClientSupplyOrderDetailCollection" +
+                " from tblClientSupplyOrder c where c.OrderDate >= dateadd(mm, -3, getdate()) and c.OrderFinal = @Final order by c.OrderDate desc for xml path('ClientSupplyOrder'), root('ClientSupplyOrderCollection')";
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.Add("@Final", SqlDbType.Bit).Value = final;
+
+            XElement collectionElement = PhysicianClientGateway.GetXElementFromCommand(cmd);
+            if (collectionElement != null)
+            {
+                List<XElement> clientSupplyOrderList = collectionElement.Elements("ClientSupplyOrder").ToList();
+                foreach (XElement clientSupplyOrderElement in clientSupplyOrderList)
+                {
+                    YellowstonePathology.Business.Client.Model.ClientSupplyOrder clientSupplyOrder = BuildClientSupplyOrder(clientSupplyOrderElement);
+                    result.Add(clientSupplyOrder);
+
+                }
+            }
+            return result;
+        }
+
         private static YellowstonePathology.Business.Client.Model.ClientSupplyOrder BuildClientSupplyOrder(XElement sourceElement)
 		{
 			YellowstonePathology.Business.Client.Model.ClientSupplyOrder clientSupplyOrder = new Client.Model.ClientSupplyOrder();

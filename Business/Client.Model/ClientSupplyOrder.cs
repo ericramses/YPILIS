@@ -27,6 +27,8 @@ namespace YellowstonePathology.Business.Client.Model
 		private string m_ContactName;
 		private string m_Comment;
 		private string m_ObjectId;
+        private string m_OrderTakenBy;
+        private string m_OrderFilledBy;
 
 		private ClientSupplyOrderDetailCollection m_ClientSupplyOrderDetailCollection;
 
@@ -260,6 +262,34 @@ namespace YellowstonePathology.Business.Client.Model
 				}
 			}
 		}
+
+        [PersistentProperty()]
+        public string OrderTakenBy
+        {
+            get { return this.m_OrderTakenBy; }
+            set
+            {
+                if (this.m_OrderTakenBy != value)
+                {
+                    this.m_OrderTakenBy = value;
+                    this.NotifyPropertyChanged("OrderTakenBy");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string OrderFilledBy
+        {
+            get { return this.m_OrderFilledBy; }
+            set
+            {
+                if (this.m_OrderFilledBy != value)
+                {
+                    this.m_OrderFilledBy = value;
+                    this.NotifyPropertyChanged("OrderFilledBy");
+                }
+            }
+        }
 
         [PersistentDocumentIdProperty()]
 		public string ObjectId
