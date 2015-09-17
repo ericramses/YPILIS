@@ -550,6 +550,8 @@
     <Compile Include="Surgical\PQRSMelanomaMeasure.cs" />
     <Compile Include="Surgical\PQRSRadicalProstatectomyMeasure.cs" />
     <Compile Include="Test\CBFBinv16\CBFBinv16Test.cs" />
+    <Compile Include="Test\ChromosomeAnalysisForFetalAnomaly\ChromosomeAnalysisForFetalAnomalyNoGrowthResult.cs" />
+    <Compile Include="Test\ChromosomeAnalysis\ChromosomeAnalysisInconclusiveResult.cs" />
     <Compile Include="Test\HoldForFlow\HoldForFlowTest.cs" />
     <Compile Include="Test\HPVTWI\HPVTWIPositiveResult.cs" />
     <Compile Include="Test\Surgical\IntraoperativeConsultationResult.Validation.cs" />

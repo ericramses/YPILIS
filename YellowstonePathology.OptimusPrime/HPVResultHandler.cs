@@ -29,7 +29,12 @@ namespace YellowstonePathology.OptimusPrime
                 if (overallInterpretation == "Negative")
                 {
                     hpvResult = new HPVNegativeResult();
-                    sql = @"Update tblPanelSetOrder set ResultCode = '" + hpvResult.ResultCode + "', "
+                    sql = @"Update tblPanelSetOrderHPVTWI set Result = '" + hpvResult.Result + "' "
+                        + "from tblPanelSetOrderHPVTWI psoh, tblPanelSetOrder pso "
+                        + "where psoh.ReportNo = pso.ReportNo "
+                        + "and psoh.ReportNo = '" + reportNo + "' and pso.Accepted = 0";
+
+                    sql += @"Update tblPanelSetOrder set ResultCode = '" + hpvResult.ResultCode + "', "
                     + "[HoldDistribution] = 1, "
                     + "[Accepted] = 1, "
                     + "[AcceptedBy] = 'Optimus Prime', "
@@ -46,7 +51,12 @@ namespace YellowstonePathology.OptimusPrime
                 else if (overallInterpretation == "POSITIVE")
                 {
                     hpvResult = new HPVPositiveResult();
-                    sql = @"Update tblPanelSetOrder set ResultCode = '" + hpvResult.ResultCode + "', "
+                    sql = @"Update tblPanelSetOrderHPVTWI set Result = '" + hpvResult.Result + "' "
+                        + "from tblPanelSetOrderHPVTWI psoh, tblPanelSetOrder pso "
+                        + "where psoh.ReportNo = pso.ReportNo "
+                        + "and psoh.ReportNo = '" + reportNo + "' and pso.Accepted = 0";
+
+                    sql += @"Update tblPanelSetOrder set ResultCode = '" + hpvResult.ResultCode + "', "
                     + "[HoldDistribution] = 1, "
                     + "[Accepted] = 1, "
                     + "[AcceptedBy] = 'Optimus Prime', "
@@ -56,10 +66,7 @@ namespace YellowstonePathology.OptimusPrime
                     + "where Accepted = 0 and ReportNo = '" + reportNo + "';";
                 }
 
-                sql += @"Update tblPanelSetOrderHPVTWI set[Result] = '" + hpvResult.Result + "' "
-                        + "from tblPanelSetOrderHPVTWI psoh, tblPanelSetOrder pso "
-                        + "where psoh.ReportNo = pso.ReportNo "
-                        + "and psoh.ReportNo = '" + reportNo + "' and pso.Accepted = 0";
+                
 
             }
 
@@ -72,7 +79,7 @@ namespace YellowstonePathology.OptimusPrime
                 }
             }
 
-            return "The HPV Result has been Set.";
+            return sql;
         }
     }
 }

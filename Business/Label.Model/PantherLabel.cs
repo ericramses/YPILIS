@@ -36,11 +36,10 @@ namespace YellowstonePathology.Business.Label.Model
             using (Font font = new Font("Verdana", 6, FontStyle.Regular, GraphicsUnit.Point))
             {
                 e.Graphics.DrawString(largeRectangleString, font, Brushes.Black, rectangle, stringFormatLargeRectangle);                
-            }
+            }            
 
-			BarcodeLib.Barcode barcode = new BarcodeLib.Barcode();
-			Image barcodeImage = barcode.Encode(BarcodeLib.TYPE.CODE128, this.m_AliquotOrderId, Color.Black, Color.White, 210, 48);
-            
+            BarcodeLib.Barcode barcode = new BarcodeLib.Barcode();
+            Image barcodeImage = barcode.Encode(BarcodeLib.TYPE.CODE128, this.m_AliquotOrderId, Color.Black, Color.White, 210, 48);            
             e.Graphics.DrawImage(barcodeImage, new Point(45, 8));     
         }        
     }

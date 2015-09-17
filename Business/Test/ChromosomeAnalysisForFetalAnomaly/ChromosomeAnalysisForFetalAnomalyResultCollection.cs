@@ -11,7 +11,8 @@ namespace YellowstonePathology.Business.Test.ChromosomeAnalysisForFetalAnomaly
 		{
 			this.Add(new ChromosomeAnalysisForFetalAnomalyNormalResult());
 			this.Add(new ChromosomeAnalysisForFetalAnomalyAbnormalResult());
-			this.Add(new YellowstonePathology.Business.Test.TestResultNoResult());
+            this.Add(new ChromosomeAnalysisForFetalAnomalyNoGrowthResult());
+            this.Add(new YellowstonePathology.Business.Test.TestResultNoResult());
 		}
 	}
 }
