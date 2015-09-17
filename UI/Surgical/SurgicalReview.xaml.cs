@@ -462,6 +462,16 @@ namespace YellowstonePathology.UI.Surgical
                 {
                     pathologistSignoutPath.Start();
                     this.RefreshBillingSpecimenViewCollection();
+                    auditResult = pathologistSignoutPath.CaseCanBeSignedOut();
+                }
+
+                if (auditResult.Status == Business.Audit.Model.AuditStatusEnum.OK)
+                {
+                    MessageBox.Show("Case has been audited and is ready to sign out.");
+                }
+                else
+                {
+                    MessageBox.Show("Case has been audited and there are issues for signing out.");
                 }
             }
         }

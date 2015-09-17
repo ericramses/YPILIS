@@ -24,9 +24,9 @@ namespace YellowstonePathology.UI.Client
 
         public ClientSupplyOrderListDialog()
         {
-            this.m_ClientSupplyOrderCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientSupplyOrderCollection();
             InitializeComponent();
             this.DataContext = this;
+            this.ComboBoxOrderSelection.SelectedIndex = 0;
         }
 
         public YellowstonePathology.Business.Client.Model.ClientSupplyOrderCollection ClientSupplyOrderCollection
@@ -74,6 +74,23 @@ namespace YellowstonePathology.UI.Client
             if (PropertyChanged != null)
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
+        }
+
+        private void ComboBoxOrderSelection_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(this.ComboBoxOrderSelection.SelectedItem != null)
+            {
+                if (this.ComboBoxOrderSelection.SelectedIndex == 0)
+                {
+                    this.m_ClientSupplyOrderCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientSupplyOrderCollection();
+                }
+                else if(this.ComboBoxOrderSelection.SelectedIndex == 1)
+                {
+                    this.m_ClientSupplyOrderCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientSupplyOrderCollectionByFinal(false);
+                }
+
+                this.NotifyPropertyChanged("ClientSupplyOrderCollection");
             }
         }
     }

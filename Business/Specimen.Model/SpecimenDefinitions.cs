@@ -234,7 +234,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             public Uterus()
             {
                 this.m_SpecimenId = "UTRSSPCMN";
-                this.m_SpecimenName = "Uterus Excision";
+                this.m_SpecimenName = "Uterus Resection";
                 this.m_Description = null;
                 this.m_LabFixation = "Formalin";
                 this.m_ClientFixation = null;

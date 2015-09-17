@@ -296,6 +296,7 @@ namespace YellowstonePathology.UI.Client
         private void CreateDisplayName()
         {
             string firstName = this.TextBoxFirstName.Text;
+            string middleInitial = this.TextBoxMiddleInitial.Text;
             string lastName = this.TextBoxLastName.Text;
             string credentials = this.TextBoxCredentials.Text;
 
@@ -305,7 +306,17 @@ namespace YellowstonePathology.UI.Client
                 displayName.Append(firstName);
             }
 
-            if(string.IsNullOrEmpty(lastName) == false)
+            if (string.IsNullOrEmpty(middleInitial) == false)
+            {
+                if(displayName.Length > 0)
+                {
+                    displayName.Append(" ");
+                }
+                displayName.Append(middleInitial);
+                displayName.Append(".");
+            }
+
+            if (string.IsNullOrEmpty(lastName) == false)
             {
                 if (displayName.Length > 0)
                 {
@@ -323,7 +334,6 @@ namespace YellowstonePathology.UI.Client
                 displayName.Append(credentials);
             }
             this.m_Physician.DisplayName = displayName.ToString();
-            this.NotifyPropertyChanged("Physician.DisplayName");
         }
     }
 }
