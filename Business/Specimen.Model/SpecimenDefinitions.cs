@@ -60,7 +60,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
         {
             this.m_SpecimenId = "GBSPCMN";
             this.m_SpecimenName = "Gallbladder Excision";
-            this.m_Description = "Gallbladder Excision";
+            this.m_Description = "Gallbladder, excision";
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = null;
             this.m_RequiresGrossExamination = true;
@@ -182,7 +182,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
         {
             this.m_SpecimenId = "ECCSPCMN";
             this.m_SpecimenName = "ECC";
-            this.m_Description = "Endocervical Curettage";
+            this.m_Description = "Endocervix, curettage";
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = null;
             this.m_RequiresGrossExamination = true;
@@ -195,7 +195,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
         {
             this.m_SpecimenId = "EMBSPCMN";
             this.m_SpecimenName = "EMB";
-            this.m_Description = "Endometrium Biopsy";
+            this.m_Description = "Endometrium, biopsy";
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = null;
             this.m_RequiresGrossExamination = true;
@@ -247,7 +247,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             public UterusAdnexa()
             {
                 this.m_SpecimenId = "UTRADNSPCMN";
-                this.m_SpecimenName = "Uterus with Adnexa Excision";
+                this.m_SpecimenName = "Uterus with Adnexa Resection";
                 this.m_Description = null;
                 this.m_LabFixation = "Formalin";
                 this.m_ClientFixation = null;
@@ -274,7 +274,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             {
                 this.m_SpecimenId = "LPCNSPCMN";
                 this.m_SpecimenName = "LEEP Cone";
-                this.m_Description = "Cervix, LEEP excision";
+                this.m_Description = "Cervix, LEEP cone excision";
                 this.m_LabFixation = "Formalin";
                 this.m_ClientFixation = null;
                 this.m_RequiresGrossExamination = true;
