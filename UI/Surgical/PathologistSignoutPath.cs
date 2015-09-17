@@ -12,6 +12,10 @@ namespace YellowstonePathology.UI.Surgical
         private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
         private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 
+        private List<Action> m_ActionList;
+        private int m_ActionIndex;
+        private bool m_GoingForward;
+
         private YellowstonePathology.Business.Audit.Model.AuditCollection m_AuditCollection;
         private YellowstonePathology.Business.Audit.Model.AuditResult m_AuditResult;
         private PathologistSignoutDialog m_PathologistSignoutDialog;
@@ -26,6 +30,10 @@ namespace YellowstonePathology.UI.Surgical
             this.m_ObjectTracker = objectTracker;
             this.m_SystemIdentity = systemIdentity;
 
+            this.m_ActionList = new List<Action>();
+            this.m_ActionIndex = 0;
+            this.m_GoingForward = true;
+
             this.m_AuditCollection = new Business.Audit.Model.AuditCollection();
             this.m_AuditCollection.Add(new Business.Audit.Model.PapCorrelationAudit(this.m_AccessionOrder));
             this.m_AuditCollection.Add(new Business.Audit.Model.PqrsAudit(this.m_AccessionOrder));
@@ -38,7 +46,8 @@ namespace YellowstonePathology.UI.Surgical
         {
             if (this.m_AuditResult.Status == Business.Audit.Model.AuditStatusEnum.Failure)
             {
-                this.HandlePapCorrelation();
+                this.SetActionList();
+                this.m_ActionList[0].Invoke();
                 this.m_PathologistSignoutDialog.ShowDialog();
             }
         }
@@ -47,6 +56,54 @@ namespace YellowstonePathology.UI.Surgical
         {
             this.m_AuditResult = this.m_AuditCollection.Run2();
             return this.m_AuditResult;
+        }
+
+        private void SetActionList()
+        {
+            foreach(YellowstonePathology.Business.Audit.Model.Audit audit in this.m_AuditCollection)
+            {
+                audit.Run();
+                if(audit.Status == Business.Audit.Model.AuditStatusEnum.Failure)
+                {
+                    Type auditType = audit.GetType();
+                    if(auditType == typeof(YellowstonePathology.Business.Audit.Model.PapCorrelationAudit))
+                    {
+                        this.m_ActionList.Add(HandlePapCorrelation);
+                    }
+                    else if (auditType == typeof(YellowstonePathology.Business.Audit.Model.PqrsAudit))
+                    {
+                        this.m_ActionList.Add(HandlePqrs);
+                    }
+                    else if(auditType == typeof(YellowstonePathology.Business.Audit.Model.AncillaryStudiesAreHandledAudit))
+                    {
+                        this.m_ActionList.Add(HandleAncillaryStudies);
+                    }
+                }
+            }
+        }
+
+        private void InvokeAction(int idx)
+        {
+            if (idx < 0 || idx >= this.m_ActionList.Count)
+            {
+                this.m_PathologistSignoutDialog.Close();
+            }
+            else
+            {
+                this.m_ActionList[idx].Invoke();
+            }
+        }
+
+        private void IncrementActionIndex()
+        {
+            if (this.m_GoingForward == true)
+            {
+                this.m_ActionIndex++;
+            }
+            else
+            {
+                this.m_ActionIndex--;
+            }
         }
 
         private void HandlePapCorrelation()
@@ -63,20 +120,25 @@ namespace YellowstonePathology.UI.Surgical
             }
             else
             {
-                this.m_SurgicalTestOrder.PapCorrelationRequired = false;
-                this.m_SurgicalTestOrder.PapCorrelation = 0;
-                this.HandlePqrs();
+                //this.m_SurgicalTestOrder.PapCorrelationRequired = false;
+                //this.m_SurgicalTestOrder.PapCorrelation = 0;
+                this.IncrementActionIndex();
+                this.InvokeAction(this.m_ActionIndex);
             }
         }
 
         private void PapCorrelationPage_Next(object sender, EventArgs e)
         {
-            this.HandlePqrs();
+            this.m_GoingForward = true;
+            this.IncrementActionIndex();
+            this.InvokeAction(this.m_ActionIndex);
         }
 
         private void PapCorrelationPage_Back(object sender, EventArgs e)
         {
-            this.m_PathologistSignoutDialog.Close();
+            this.m_GoingForward = false;
+            this.IncrementActionIndex();
+            this.InvokeAction(this.m_ActionIndex);
         }
 
         private void HandlePqrs()
@@ -94,8 +156,8 @@ namespace YellowstonePathology.UI.Surgical
                         int patientAge = YellowstonePathology.Business.Helper.PatientHelper.GetAge(this.m_AccessionOrder.PBirthdate.Value);
                         if (pqrsMeasure.DoesMeasureApply(this.m_SurgicalTestOrder, surgicalSpecimen, patientAge) == true)
                         {
-                            PQRSMeasurePage pqrsMeasurePage = new PQRSMeasurePage(pqrsMeasure, surgicalSpecimen);
-                            pqrsMeasurePage.Cancel += new PQRSMeasurePage.CancelEventHandler(PQRSMeasurePage_Cancel);
+                            PQRSMeasurePage pqrsMeasurePage = new PQRSMeasurePage(pqrsMeasure, surgicalSpecimen, false);
+                            pqrsMeasurePage.Back += new PQRSMeasurePage.BackEventHandler(PQRSMeasurePage_Back);
                             pqrsMeasurePage.AddPQRSCode += new PQRSMeasurePage.AddPQRSCodeEventHandler(PQRSMeasurePage_AddPQRSCode);
                             pqrsMeasurePage.PQRSCodeNotApplicable += new PQRSMeasurePage.PQRSCodeNotApplicableEventHandler(PQRSMeasurePage_PQRSCodeNotApplicable);
                             this.m_PathologistSignoutDialog.PageNavigator.Navigate(pqrsMeasurePage);
@@ -108,24 +170,31 @@ namespace YellowstonePathology.UI.Surgical
             }
             else
             {
-                this.HandleAncillaryStudies();
+                this.IncrementActionIndex();
+                this.InvokeAction(this.m_ActionIndex);
             }
         }
 
         private void PQRSMeasurePage_PQRSCodeNotApplicable(object sender, EventArgs e)
         {
-            this.HandleAncillaryStudies();
+            this.m_GoingForward = true;
+            this.IncrementActionIndex();
+            this.InvokeAction(this.m_ActionIndex);
         }
 
         private void PQRSMeasurePage_AddPQRSCode(object sender, CustomEventArgs.AddPQRSReturnEventArgs e)
         {
             this.AddPQRSCode(e.PQRSCode, e.SurgicalSpecimen);
-            this.HandleAncillaryStudies();
+            this.m_GoingForward = true;
+            this.IncrementActionIndex();
+            this.InvokeAction(this.m_ActionIndex);
         }
 
-        private void PQRSMeasurePage_Cancel(object sender, EventArgs e)
+        private void PQRSMeasurePage_Back(object sender, EventArgs e)
         {
-            this.HandleAncillaryStudies();
+            this.m_GoingForward = false;
+            this.IncrementActionIndex();
+            this.InvokeAction(this.m_ActionIndex);
         }
 
         protected void AddPQRSCode(YellowstonePathology.Business.Billing.Model.PQRSCode pqrsCode, YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen)
@@ -156,17 +225,28 @@ namespace YellowstonePathology.UI.Surgical
                 auditResult.Status = ancillaryStudiesAreHandledAudit.Status;
                 PathologistSignoutAuditMessagePage pathologistSignoutAuditMessagePage = new PathologistSignoutAuditMessagePage(auditResult);
                 pathologistSignoutAuditMessagePage.Next += PathologistSignoutAuditMessagePage_Next;
+                pathologistSignoutAuditMessagePage.Back += PathologistSignoutAuditMessagePage_Back;
                 this.m_PathologistSignoutDialog.PageNavigator.Navigate(pathologistSignoutAuditMessagePage);
             }
             else
             {
-                this.m_PathologistSignoutDialog.Close();
+                this.IncrementActionIndex();
+                this.InvokeAction(this.m_ActionIndex);
             }
         }
 
         private void PathologistSignoutAuditMessagePage_Next(object sender, EventArgs e)
         {
-            this.m_PathologistSignoutDialog.Close();
+            this.m_GoingForward = true;
+            this.IncrementActionIndex();
+            this.InvokeAction(this.m_ActionIndex);
+        }
+
+        private void PathologistSignoutAuditMessagePage_Back(object sender, EventArgs e)
+        {
+            this.m_GoingForward = false;
+            this.IncrementActionIndex();
+            this.InvokeAction(this.m_ActionIndex);
         }
     }
 }

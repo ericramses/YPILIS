@@ -21,6 +21,9 @@ namespace YellowstonePathology.UI.Surgical
     {
         public delegate void NextEventHandler(object sender, EventArgs e);
         public event NextEventHandler Next;
+        public delegate void BackEventHandler(object sender, EventArgs e);
+        public event BackEventHandler Back;
+
 
         YellowstonePathology.Business.Audit.Model.AuditResult m_AuditResult;
 
@@ -54,6 +57,11 @@ namespace YellowstonePathology.UI.Surgical
         private void ButtonNext_Click(object sender, RoutedEventArgs e)
         {
             this.Next(this, new EventArgs());
+        }
+
+        private void ButtonBack_Click(object sender, RoutedEventArgs e)
+        {
+            this.Back(this, new EventArgs());
         }
 
         public YellowstonePathology.Business.Audit.Model.AuditResult AuditResult

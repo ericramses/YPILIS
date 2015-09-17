@@ -31,7 +31,11 @@ namespace YellowstonePathology.Business.Audit.Model
             this.m_Status = AuditStatusEnum.OK;
             if (this.m_AccessionOrder.SpecimenOrderCollection.FindWordsInDescription(this.m_PapCorrelationWordList) == true)
             {
-                this.m_Status = AuditStatusEnum.Failure;
+                YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetSurgical();
+                if (surgicalTestOrder.PapCorrelation == 0)
+                {
+                    this.m_Status = AuditStatusEnum.Failure;
+                }
             }
         }
     }

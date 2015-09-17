@@ -25,15 +25,27 @@ namespace YellowstonePathology.UI.Surgical
 		public delegate void CancelEventHandler(object sender, EventArgs e);
         public event CancelEventHandler Cancel;
 
+        public delegate void BackEventHandler(object sender, EventArgs e);
+        public event BackEventHandler Back;
+
         private YellowstonePathology.Business.Surgical.PQRSMeasure m_PQRSMeasure;
 		private YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen m_SurgicalSpecimen;
+        private Visibility m_NextButtonVisibility;
 
-		public PQRSMeasurePage(YellowstonePathology.Business.Surgical.PQRSMeasure pqrsMeasure, YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen)
+		public PQRSMeasurePage(YellowstonePathology.Business.Surgical.PQRSMeasure pqrsMeasure, YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen, bool showOkButton)
         {
             this.m_PQRSMeasure = pqrsMeasure;
 			this.m_SurgicalSpecimen = surgicalSpecimen;
+            if (showOkButton == true)
+            {
+                this.m_NextButtonVisibility = Visibility.Hidden;
+            }
+            else
+            {
+                this.m_NextButtonVisibility = Visibility.Visible;
+            }
 
-			InitializeComponent();
+            InitializeComponent();
 			this.DataContext = this;
         }
         
@@ -76,6 +88,46 @@ namespace YellowstonePathology.UI.Surgical
 		{
 			get { return this.m_PQRSMeasure; }
 		}
+
+        public Visibility OKButtonVisibility
+        {
+            get
+            {
+                if (this.m_NextButtonVisibility == Visibility.Hidden)
+                {
+                    return Visibility.Visible;
+                }
+                else
+                {
+                }
+                return Visibility.Hidden;
+            }
+        }
+
+        public Visibility CancelButtonVisibility
+        {
+            get
+            {
+                if (this.m_NextButtonVisibility == Visibility.Hidden)
+                {
+                    return Visibility.Visible;
+                }
+                else
+                {
+                }
+                return Visibility.Hidden;
+            }
+        }
+
+        public Visibility NextButtonVisibility
+        {
+            get { return this.m_NextButtonVisibility; }
+        }
+
+        private void ButtonBack_Click(object sender, RoutedEventArgs e)
+        {
+            this.Back(this, new EventArgs());
+        }
 
         private void ButtonCancel_Click(object sender, RoutedEventArgs e)
         {
