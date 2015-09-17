@@ -17,8 +17,6 @@ namespace YellowstonePathology.Business.Test.CKIT
 			this.m_ResultDocumentSource = YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.YPIDatabase;
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterR();
             this.m_Active = true;
-
-
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.CKIT.CKITTestOrder).AssemblyQualifiedName;
             
 			this.m_AllowMultiplePerAccession = true;

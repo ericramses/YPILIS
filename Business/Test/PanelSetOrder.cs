@@ -89,7 +89,8 @@ namespace YellowstonePathology.Business.Test
         private string m_PeerReviewRequestComment;
         private string m_PeerReviewRequestType;		       
 		private string m_SignatureButtonText;
-		private bool m_SignatureButtonIsEnabled;        
+		private bool m_SignatureButtonIsEnabled;
+        private bool m_HoldDistribution;    
 
 		protected YellowstonePathology.Business.Document.CaseDocumentCollection m_CaseDocumentCollection;
 
@@ -1065,9 +1066,23 @@ namespace YellowstonePathology.Business.Test
                     this.NotifyPropertyChanged("PeerReviewRequestType");
                 }
             }
-        }        
+        }
 
-		public virtual void DeleteChildren()
+        [PersistentProperty()]
+        public bool HoldDistribution
+        {
+            get { return this.m_HoldDistribution; }
+            set
+            {
+                if (this.m_HoldDistribution != value)
+                {
+                    this.m_HoldDistribution = value;
+                    this.NotifyPropertyChanged("HoldDistribution");
+                }
+            }
+        }
+
+        public virtual void DeleteChildren()
 		{
 
 		}

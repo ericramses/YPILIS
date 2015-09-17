@@ -9,8 +9,8 @@ namespace YellowstonePathology.Business.Test.HPVTWI
 	{
 		public HPVTWIPositiveResult()
 		{            
-            this.m_OveralResultCode = "HPVTWPSTV";
-            this.m_OveralResult = HPVTWIResult.PositiveResult; 
+            this.m_ResultCode = "HPVTWPSTV";
+            this.m_Result = HPVTWIResult.PositiveResult; 
 		}
 	}
 }

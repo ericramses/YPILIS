@@ -10,6 +10,7 @@
         <converter:ShortDateConverter x:Key="ShortDateConverter"/>
         <converter:SplitDateTimeConverter x:Key="SplitDateTimeConverter"/>
         <converter:BooleanVisibilityConverter x:Key="BooleanVisibilityConverter"/>
+        <converter:BooleanVisibilityHiddenConverter x:Key="BooleanVisibilityHiddenConverter"/>
         <converter:BooleanInverseVisibilityConverter x:Key="BooleanInverseVisibilityConverter"/>
         <converter:BooleanYesNoConverter x:Key="BooleanYesNoConverter"/>
         <converter:ShortDateYMDConverter x:Key="ShortDateYMDConverter"/>

@@ -4,19 +4,19 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
 
-namespace EdgeSampleLibrary
+namespace YellowstonePathology.OptimusPrime
 {
-    public class Sample1
+    public class HPVResultHandler
     {
         public async Task<object> Invoke(object input)
-        {            
-            var payload = (IDictionary<string, object>)input;            
-            return await QueryUsers(payload);
+        {
+            var payload = (IDictionary<string, object>)input;
+            return await HandleResult(payload);
         }
 
-        public async Task<string> QueryUsers(IDictionary<string, object> payload)
+        public async Task<string> HandleResult(IDictionary<string, object> payload)
         {
-            var connectionString = "Data Source=TestSQL;Initial Catalog=YPIData;Integrated Security=True";            
+            var connectionString = "Data Source=TestSQL;Initial Catalog=YPIData;Integrated Security=True";
 
             string reportNo = (string)payload["reportNo"];
             string testName = (string)payload["testName"];
@@ -29,7 +29,12 @@ namespace EdgeSampleLibrary
                 if (overallInterpretation == "Negative")
                 {
                     hpvResult = new HPVNegativeResult();
-                    sql = @"Update tblPanelSetOrder set ResultCode = '" + hpvResult.ResultCode + "', "
+                    sql = @"Update tblPanelSetOrderHPVTWI set Result = '" + hpvResult.Result + "' "
+                        + "from tblPanelSetOrderHPVTWI psoh, tblPanelSetOrder pso "
+                        + "where psoh.ReportNo = pso.ReportNo "
+                        + "and psoh.ReportNo = '" + reportNo + "' and pso.Accepted = 0";
+
+                    sql += @"Update tblPanelSetOrder set ResultCode = '" + hpvResult.ResultCode + "', "
                     + "[HoldDistribution] = 1, "
                     + "[Accepted] = 1, "
                     + "[AcceptedBy] = 'Optimus Prime', "
@@ -46,20 +51,22 @@ namespace EdgeSampleLibrary
                 else if (overallInterpretation == "POSITIVE")
                 {
                     hpvResult = new HPVPositiveResult();
-                    sql = @"Update tblPanelSetOrder set ResultCode = '" + hpvResult.ResultCode + "', "
+                    sql = @"Update tblPanelSetOrderHPVTWI set Result = '" + hpvResult.Result + "' "
+                        + "from tblPanelSetOrderHPVTWI psoh, tblPanelSetOrder pso "
+                        + "where psoh.ReportNo = pso.ReportNo "
+                        + "and psoh.ReportNo = '" + reportNo + "' and pso.Accepted = 0";
+
+                    sql += @"Update tblPanelSetOrder set ResultCode = '" + hpvResult.ResultCode + "', "
                     + "[HoldDistribution] = 1, "
                     + "[Accepted] = 1, "
                     + "[AcceptedBy] = 'Optimus Prime', "
                     + "[AcceptedById] = 5134, "
                     + "[AcceptedDate] = '" + DateTime.Today.ToString("MM/dd/yyyy") + "', "
-                    + "[AcceptedTime] = '" + DateTime.Now.ToString("MM/dd/yyyy HH:mm") + "' "                    
+                    + "[AcceptedTime] = '" + DateTime.Now.ToString("MM/dd/yyyy HH:mm") + "' "
                     + "where Accepted = 0 and ReportNo = '" + reportNo + "';";
-                }                                
+                }
 
-                sql += @"Update tblPanelSetOrderHPVTWI set[Result] = '" + hpvResult.Result + "' "
-                        + "from tblPanelSetOrderHPVTWI psoh, tblPanelSetOrder pso "
-                        + "where psoh.ReportNo = pso.ReportNo "
-                        + "and psoh.ReportNo = '" + reportNo + "' and pso.Accepted = 0";
+                
 
             }
 
@@ -71,8 +78,8 @@ namespace EdgeSampleLibrary
                     await cmd.ExecuteNonQueryAsync();
                 }
             }
-                    
-            return "Result Update.";
+
+            return sql;
         }
-    }    
+    }
 }

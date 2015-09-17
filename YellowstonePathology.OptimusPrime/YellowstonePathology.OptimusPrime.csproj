@@ -40,7 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Gateway.cs" />
+    <Compile Include="HPVResultHandler.cs" />
+    <Compile Include="HPVNegativeResult.cs" />
+    <Compile Include="HPVPositiveResult.cs" />
+    <Compile Include="HPVResult.cs" />
     <Compile Include="PanelSetOrder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

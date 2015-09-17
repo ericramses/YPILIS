@@ -13,6 +13,7 @@ namespace YellowstonePathology.Business.Test.HPVTWI
 		private string m_Comment;
 		private string m_References;
 		private string m_TestInformation;
+        private string m_ASRComment;
 
 		public PanelSetOrderHPVTWI()
 		{
@@ -26,7 +27,9 @@ namespace YellowstonePathology.Business.Test.HPVTWI
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 			: base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute, systemIdentity)
 		{
-			
+            this.m_TestInformation = HPVTWIResult.TestInformation;
+            this.m_References = HPVTWIResult.References;
+            this.m_ASRComment = HPVTWIResult.ASRComment;
 		}        
 
 		[PersistentProperty()]
@@ -85,7 +88,21 @@ namespace YellowstonePathology.Business.Test.HPVTWI
 			}
 		}
 
-		public override string GetResultWithTestName()
+        [PersistentProperty()]
+        public string ASRComment
+        {
+            get { return this.m_ASRComment; }
+            set
+            {
+                if (this.m_ASRComment != value)
+                {
+                    this.m_ASRComment = value;
+                    this.NotifyPropertyChanged("ASRComment");
+                }
+            }
+        }
+
+        public override string GetResultWithTestName()
 		{
 			StringBuilder result = new StringBuilder();
 			result.Append(this.m_PanelSetName);

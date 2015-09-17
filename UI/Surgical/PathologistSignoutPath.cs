@@ -29,6 +29,7 @@ namespace YellowstonePathology.UI.Surgical
             this.m_AuditCollection = new Business.Audit.Model.AuditCollection();
             this.m_AuditCollection.Add(new Business.Audit.Model.PapCorrelationAudit(this.m_AccessionOrder));
             this.m_AuditCollection.Add(new Business.Audit.Model.PqrsAudit(this.m_AccessionOrder));
+            this.m_AuditCollection.Add(new Business.Audit.Model.AncillaryStudiesAreHandledAudit(this.m_SurgicalTestOrder));
 
             this.m_PathologistSignoutDialog = new PathologistSignoutDialog();
         }
@@ -107,24 +108,24 @@ namespace YellowstonePathology.UI.Surgical
             }
             else
             {
-                this.m_PathologistSignoutDialog.Close();
+                this.HandleAncillaryStudies();
             }
         }
 
         private void PQRSMeasurePage_PQRSCodeNotApplicable(object sender, EventArgs e)
         {
-            this.m_PathologistSignoutDialog.Close();
+            this.HandleAncillaryStudies();
         }
 
         private void PQRSMeasurePage_AddPQRSCode(object sender, CustomEventArgs.AddPQRSReturnEventArgs e)
         {
             this.AddPQRSCode(e.PQRSCode, e.SurgicalSpecimen);
-            this.m_PathologistSignoutDialog.Close();
+            this.HandleAncillaryStudies();
         }
 
         private void PQRSMeasurePage_Cancel(object sender, EventArgs e)
         {
-            this.m_PathologistSignoutDialog.Close();
+            this.HandleAncillaryStudies();
         }
 
         protected void AddPQRSCode(YellowstonePathology.Business.Billing.Model.PQRSCode pqrsCode, YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen)
@@ -142,6 +143,30 @@ namespace YellowstonePathology.UI.Surgical
                 panelSetOrderCPTCode.ClientId = this.m_AccessionOrder.ClientId;
                 this.m_SurgicalTestOrder.PanelSetOrderCPTCodeCollection.Add(panelSetOrderCPTCode);
             }
+        }
+
+        private void HandleAncillaryStudies()
+        {
+            YellowstonePathology.Business.Audit.Model.AncillaryStudiesAreHandledAudit ancillaryStudiesAreHandledAudit = new Business.Audit.Model.AncillaryStudiesAreHandledAudit(this.m_SurgicalTestOrder);
+            ancillaryStudiesAreHandledAudit.Run();
+            if (ancillaryStudiesAreHandledAudit.Status == Business.Audit.Model.AuditStatusEnum.Failure)
+            {
+                YellowstonePathology.Business.Audit.Model.AuditResult auditResult = new Business.Audit.Model.AuditResult();
+                auditResult.Message = ancillaryStudiesAreHandledAudit.Message.ToString();
+                auditResult.Status = ancillaryStudiesAreHandledAudit.Status;
+                PathologistSignoutAuditMessagePage pathologistSignoutAuditMessagePage = new PathologistSignoutAuditMessagePage(auditResult);
+                pathologistSignoutAuditMessagePage.Next += PathologistSignoutAuditMessagePage_Next;
+                this.m_PathologistSignoutDialog.PageNavigator.Navigate(pathologistSignoutAuditMessagePage);
+            }
+            else
+            {
+                this.m_PathologistSignoutDialog.Close();
+            }
+        }
+
+        private void PathologistSignoutAuditMessagePage_Next(object sender, EventArgs e)
+        {
+            this.m_PathologistSignoutDialog.Close();
         }
     }
 }

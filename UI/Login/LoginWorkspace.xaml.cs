@@ -548,11 +548,12 @@ namespace YellowstonePathology.UI.Login
         {
             if (this.ListViewClientOrders.SelectedItem != null)
             {
+                this.m_BarcodeScanPort.ContainerScanReceived -= ContainerScanReceived;
                 YellowstonePathology.Business.ClientOrder.Model.OrderBrowserListItem orderBrowserListItem = (YellowstonePathology.Business.ClientOrder.Model.OrderBrowserListItem)this.ListViewClientOrders.SelectedItem;
                 YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder = YellowstonePathology.Business.Gateway.ClientOrderGateway.GetClientOrderByClientOrderId(orderBrowserListItem.ClientOrderId);
-
                 YellowstonePathology.UI.Login.Receiving.ReceiveSpecimenPathStartingWithOrder path = new Receiving.ReceiveSpecimenPathStartingWithOrder(clientOrder);
                 path.Start();
+                this.m_BarcodeScanPort.ContainerScanReceived += ContainerScanReceived;
             }
         }
 
