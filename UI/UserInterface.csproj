@@ -278,6 +278,9 @@
     <Compile Include="Cytology\PrintSlideDialog.xaml.cs">
       <DependentUpon>PrintSlideDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Cytology\ScanAliquotPage.xaml.cs">
+      <DependentUpon>ScanAliquotPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Cytology\TrackedItemStatusColorConverter.cs" />
     <Compile Include="Cytology\ThinPrepPapSlidePrintingPage.xaml.cs">
       <DependentUpon>ThinPrepPapSlidePrintingPage.xaml</DependentUpon>
@@ -1872,6 +1875,10 @@
     <Page Include="Cytology\PrintSlideDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Cytology\ScanAliquotPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Cytology\ThinPrepPapSlidePrintingPage.xaml">
       <SubType>Designer</SubType>
