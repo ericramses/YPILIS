@@ -156,6 +156,7 @@
     <Compile Include="Audit.Model\AreAllWHPTestsFinalAudit.cs" />
     <Compile Include="Audit.Model\CouldBenefitFromCCCPAudit.cs" />
     <Compile Include="Audit.Model\HER2OKToAcceptAudit.cs" />
+    <Compile Include="Audit.Model\IntraoperativeConsultationCorrelationAudit.cs" />
     <Compile Include="Audit.Model\IntraoperativeConsultationFinalAudit.cs" />
     <Compile Include="Audit.Model\PapCorrelationAudit.cs" />
     <Compile Include="Audit.Model\PhoneNumberAudit.cs" />
@@ -169,6 +170,7 @@
     <Compile Include="Audit.Model\IsOkToAddToDistributionAudit.cs" />
     <Compile Include="Audit.Model\PanelSetOrderAudit.cs" />
     <Compile Include="Audit.Model\DistributionNotSetAudit.cs" />
+    <Compile Include="Audit.Model\SurgicalCaseHasQuestionMarksAudit.cs" />
     <Compile Include="Audit.Model\TallmanMedicalRecordAudit.cs" />
     <Compile Include="Audit.Model\IsWHPAllDoneAuditCollection.cs" />
     <Compile Include="Audit.Model\PhysicianNotSetAudit.cs" />

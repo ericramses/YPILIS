@@ -40,6 +40,8 @@ namespace YellowstonePathology.UI.Surgical
             this.m_AuditCollection.Add(new Business.Audit.Model.PapCorrelationAudit(this.m_AccessionOrder));
             this.m_AuditCollection.Add(new Business.Audit.Model.PqrsAudit(this.m_AccessionOrder));
             this.m_AuditCollection.Add(new Business.Audit.Model.AncillaryStudiesAreHandledAudit(this.m_SurgicalTestOrder));
+            this.m_AuditCollection.Add(new Business.Audit.Model.IntraoperativeConsultationCorrelationAudit(this.m_SurgicalTestOrder));
+            this.m_AuditCollection.Add(new Business.Audit.Model.SurgicalCaseHasQuestionMarksAudit(this.m_SurgicalTestOrder));
 
             this.m_PathologistSignoutDialog = new PathologistSignoutDialog();
         }
@@ -62,13 +64,17 @@ namespace YellowstonePathology.UI.Surgical
 
         private void SetActionList()
         {
+            StringBuilder msg = new StringBuilder();
+            this.m_MessageAuditResult = new Business.Audit.Model.AuditResult();
+            this.m_MessageAuditResult.Message = string.Empty;
+
             foreach(YellowstonePathology.Business.Audit.Model.Audit audit in this.m_AuditCollection)
             {
                 audit.Run();
                 if(audit.Status == Business.Audit.Model.AuditStatusEnum.Failure)
                 {
                     Type auditType = audit.GetType();
-                    if(auditType == typeof(YellowstonePathology.Business.Audit.Model.PapCorrelationAudit))
+                    if (auditType == typeof(YellowstonePathology.Business.Audit.Model.PapCorrelationAudit))
                     {
                         this.m_ActionList.Add(HandlePapCorrelation);
                     }
@@ -76,14 +82,28 @@ namespace YellowstonePathology.UI.Surgical
                     {
                         this.m_ActionList.Add(HandlePqrs);
                     }
-                    else if(auditType == typeof(YellowstonePathology.Business.Audit.Model.AncillaryStudiesAreHandledAudit))
+                    else if (auditType == typeof(YellowstonePathology.Business.Audit.Model.AncillaryStudiesAreHandledAudit))
                     {
-                        this.m_MessageAuditResult = new Business.Audit.Model.AuditResult();
-                        this.m_MessageAuditResult.Message = audit.Message.ToString();
+                        msg.AppendLine(audit.Message.ToString());
                         this.m_MessageAuditResult.Status = audit.Status;
-                        this.m_ActionList.Add(HandleAncillaryStudies);
+                    }
+                    else if (auditType == typeof(YellowstonePathology.Business.Audit.Model.IntraoperativeConsultationCorrelationAudit))
+                    {
+                        msg.AppendLine(audit.Message.ToString());
+                        this.m_MessageAuditResult.Status = audit.Status;
+                    }
+                    else if (auditType == typeof(YellowstonePathology.Business.Audit.Model.SurgicalCaseHasQuestionMarksAudit))
+                    {
+                        msg.AppendLine(audit.Message.ToString());
+                        this.m_MessageAuditResult.Status = audit.Status;
                     }
                 }
+            }
+
+            if (this.m_MessageAuditResult.Status == Business.Audit.Model.AuditStatusEnum.Failure)
+            {
+                this.m_MessageAuditResult.Message = msg.ToString();
+                this.m_ActionList.Add(HandleAncillaryStudies);
             }
         }
 
