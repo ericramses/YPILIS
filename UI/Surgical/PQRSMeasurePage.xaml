@@ -45,8 +45,10 @@
 				  Checked="CheckBoxNotApplicable_Checked"/>
 
         <StackPanel Grid.Column="0" Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="2,2,2,2">
-            <Button Margin="2,2,2,2" Click="ButtonOK_Click" Height="30" Width="50">OK</Button>
-            <Button Margin="2,2,2,2" Click="ButtonCancel_Click" Height="30" Width="50">Cancel</Button>
+            <Button Margin="2,2,2,2" Click="ButtonBack_Click" Height="30" Width="50" Visibility="{Binding Path=NextButtonVisibility}">Back</Button>
+            <Button Margin="2,2,2,2" Click="ButtonOK_Click" Height="30" Width="50" Visibility="{Binding Path=OKButtonVisibility}">OK</Button>
+            <Button Margin="2,2,2,2" Click="ButtonCancel_Click" Height="30" Width="50" Visibility="{Binding Path=CancelButtonVisibility}">Cancel</Button>
+            <Button Margin="2,2,2,2" Click="ButtonOK_Click" Height="30" Width="50" Visibility="{Binding Path=NextButtonVisibility}">Next</Button>
         </StackPanel>
         
     </Grid>

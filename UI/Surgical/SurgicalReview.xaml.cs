@@ -467,11 +467,11 @@ namespace YellowstonePathology.UI.Surgical
 
                 if (auditResult.Status == Business.Audit.Model.AuditStatusEnum.OK)
                 {
-                    MessageBox.Show("Case has been audited and is ready to sign out.");
+                    MessageBox.Show("OK");
                 }
                 else
                 {
-                    MessageBox.Show("Case has been audited and there are issues for signing out.");
+                    MessageBox.Show("Issues");
                 }
             }
         }

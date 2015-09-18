@@ -29,7 +29,7 @@ namespace YellowstonePathology.UI.Surgical
                     if (pqrsMeasure.DoesMeasureApply(this.m_PanelSetOrder, surgicalSpecimen, patientAge) == true)
                     {
                         this.m_PQRSMeasureDialog = new PQRSMeasureDialog();
-						PQRSMeasurePage pqrsMeasurePage = new PQRSMeasurePage(pqrsMeasure, surgicalSpecimen);
+						PQRSMeasurePage pqrsMeasurePage = new PQRSMeasurePage(pqrsMeasure, surgicalSpecimen, true);
                         pqrsMeasurePage.Cancel += new PQRSMeasurePage.CancelEventHandler(PQRSMeasurePage_Cancel);
                         pqrsMeasurePage.AddPQRSCode += new PQRSMeasurePage.AddPQRSCodeEventHandler(PQRSMeasurePage_AddPQRSCode);
 						pqrsMeasurePage.PQRSCodeNotApplicable += new PQRSMeasurePage.PQRSCodeNotApplicableEventHandler(PQRSMeasurePage_PQRSCodeNotApplicable);
