@@ -25,13 +25,35 @@ namespace YellowstonePathology.Business.Audit.Model
                     int patientAge = YellowstonePathology.Business.Helper.PatientHelper.GetAge(this.m_AccessionOrder.PBirthdate.Value);
                     if (pqrsMeasure.DoesMeasureApply(surgicalTestOrder, surgicalSpecimen, patientAge) == true)
                     {
-                        this.m_Status = AuditStatusEnum.Failure;
-                        this.m_Message.AppendLine("A PQRS code must be applied.");
-                        break;
+                        if (this.MeasureCodeExists(pqrsMeasure) == false)
+                        {
+                            this.m_Status = AuditStatusEnum.Failure;
+                            this.m_Message.AppendLine("A PQRS code must be applied.");
+                            break;
+                        }
                     }
                 }
                 if (this.m_Status == AuditStatusEnum.Failure) break;
             }
+        }
+
+        private bool MeasureCodeExists(YellowstonePathology.Business.Surgical.PQRSMeasure pqrsMeasure)
+        {
+            bool result = false;
+            YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetSurgical();
+            foreach (YellowstonePathology.Business.Test.PanelSetOrderCPTCode panelSetOrderCPTCode in surgicalTestOrder.PanelSetOrderCPTCodeCollection)
+            {
+                foreach (YellowstonePathology.Business.Billing.Model.PQRSCode pqrsCode in pqrsMeasure.PQRSCodeCollection)
+                {
+                    if (pqrsCode.Code == panelSetOrderCPTCode.CPTCode)
+                    {
+                        result = true;
+                        break;
+                    }
+                }
+                if (result == true) break;
+            }
+            return result;
         }
     }
 }

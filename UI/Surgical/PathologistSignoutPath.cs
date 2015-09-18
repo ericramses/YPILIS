@@ -177,7 +177,7 @@ namespace YellowstonePathology.UI.Surgical
 
         private void PQRSMeasurePage_PQRSCodeNotApplicable(object sender, EventArgs e)
         {
-            this.m_GoingForward = true;
+            //this.m_GoingForward = true;
             this.IncrementActionIndex();
             this.InvokeAction(this.m_ActionIndex);
         }
@@ -185,7 +185,7 @@ namespace YellowstonePathology.UI.Surgical
         private void PQRSMeasurePage_AddPQRSCode(object sender, CustomEventArgs.AddPQRSReturnEventArgs e)
         {
             this.AddPQRSCode(e.PQRSCode, e.SurgicalSpecimen);
-            this.m_GoingForward = true;
+            //this.m_GoingForward = true;
             this.IncrementActionIndex();
             this.InvokeAction(this.m_ActionIndex);
         }
