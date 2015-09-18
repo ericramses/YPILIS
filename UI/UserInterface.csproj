@@ -467,6 +467,9 @@
       <DependentUpon>PathologistSignoutDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Surgical\PathologistSignoutPath.cs" />
+    <Compile Include="Surgical\PqrsSignoutPage.xaml.cs">
+      <DependentUpon>PqrsSignoutPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Surgical\PublishedDocumentFinalPage.xaml.cs">
       <DependentUpon>PublishedDocumentFinalPage.xaml</DependentUpon>
     </Compile>
@@ -2061,6 +2064,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Surgical\PathologistSignoutDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Surgical\PqrsSignoutPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
