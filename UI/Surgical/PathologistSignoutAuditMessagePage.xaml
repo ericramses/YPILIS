@@ -13,7 +13,7 @@
 
         <TextBlock Grid.Column="0" Grid.Row="1" Margin="5,5,5,5" HorizontalAlignment="Stretch" Text="{Binding Path=AuditResult.Message}" />
 
-        <Button Grid.Column="0" Grid.Row="3" Width="100" Height="40" HorizontalAlignment="Left" Margin="5,5,5,5" Click="ButtonBack_Click">Back ></Button>
+        <Button Grid.Column="0" Grid.Row="3" Width="100" Height="40" HorizontalAlignment="Left" Margin="5,5,5,5" Click="ButtonBack_Click">&lt; Back</Button>
         <Button Grid.Column="0" Grid.Row="3" Width="100" Height="40" HorizontalAlignment="Right" Margin="5,5,5,5" Click="ButtonNext_Click">Next ></Button>
     </Grid>
 </UserControl>
