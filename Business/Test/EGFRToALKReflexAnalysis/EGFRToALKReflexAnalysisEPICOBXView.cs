@@ -42,7 +42,7 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
 				alkResult = alkForNSCLCByFISHTestOrderReportedSeparately.Result;
 			}            
 
-			this.AddNextObxElement("ALK Mutation Analysis: " + alkResult, document, "F");
+			this.AddNextObxElement("ALK Rearrangement Analysis: " + alkResult, document, "F");
             this.AddNextObxElement("", document, "F");
 
             string ros1Result = null;
@@ -52,7 +52,7 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
                 ros1Result = ros1ByFISHTestOrder.Result;
             }
 
-            this.AddNextObxElement("ROS1 Mutation Analysis: " + ros1Result, document, "F");
+            this.AddNextObxElement("ROS1 Rearrangement Analysis: " + ros1Result, document, "F");
             this.AddNextObxElement("", document, "F");
 
             this.AddNextObxElement("Interpretation: ", document, "F");

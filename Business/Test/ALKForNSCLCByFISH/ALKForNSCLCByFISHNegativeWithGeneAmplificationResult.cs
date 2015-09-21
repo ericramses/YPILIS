@@ -10,8 +10,8 @@ namespace YellowstonePathology.Business.Test.ALKForNSCLCByFISH
         public ALKForNSCLCByFISHNegativeWithGeneAmplificationResult()
 		{
             this.m_ResultCode = "ALKNSCLCFSHNGTVWGAMP";
-            this.m_Result = "Negative for ALK rearrangement";
-            this.m_ResultDisplayText = "Negative for ALK rearrangement with gene amplification";
+            this.m_Result = "Negative";
+            this.m_ResultDisplayText = "Negative";
             this.m_ResultAbbreviation = "Negative";
 
 			this.m_Interpretation = "An ALK gene rearrangement was observed in 0% of the nuclei scored but is below the cut-off for this assay. However, an abnormal signal " +

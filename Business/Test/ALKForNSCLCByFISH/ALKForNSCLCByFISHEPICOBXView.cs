@@ -16,7 +16,7 @@ namespace YellowstonePathology.Business.Test.ALKForNSCLCByFISH
 		public override void ToXml(XElement document)
 		{
             YellowstonePathology.Business.Test.ALKForNSCLCByFISH.ALKForNSCLCByFISHTestOrder panelSetOrder = (YellowstonePathology.Business.Test.ALKForNSCLCByFISH.ALKForNSCLCByFISHTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
-			this.AddHeader(document, panelSetOrder, "ALK for NSCLC by Fish Analysis");
+			this.AddHeader(document, panelSetOrder, "ALK Rearrangement Analysis");
 
 			this.AddNextObxElement("", document, "F");
 			string result = "Result: " + panelSetOrder.Result;

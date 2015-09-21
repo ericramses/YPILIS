@@ -555,6 +555,7 @@
     <Compile Include="Test\ChromosomeAnalysis\ChromosomeAnalysisInconclusiveResult.cs" />
     <Compile Include="Test\HoldForFlow\HoldForFlowTest.cs" />
     <Compile Include="Test\HPVTWI\HPVTWIPositiveResult.cs" />
+    <Compile Include="Test\ROS1ByFISH\ROS1ByFISHInconclusiveResult.cs" />
     <Compile Include="Test\Surgical\IntraoperativeConsultationResult.Validation.cs" />
     <Compile Include="TrackedItemStatusEnum.cs" />
     <Compile Include="Specimen.Model\AliquotCollection.cs" />

@@ -10,8 +10,8 @@ namespace YellowstonePathology.Business.Test.ALKForNSCLCByFISH
         public ALKForNSCLCByFISHNegativeResult()
 		{
             this.m_ResultCode = "ALKNSCLCFSHNGTV";
-			this.m_Result = "Negative for ALK rearrangement";
-            this.m_ResultDisplayText = "Negative for ALK rearrangement";
+			this.m_Result = "Negative";
+            this.m_ResultDisplayText = "Negative";
             this.m_ResultAbbreviation = "Negative";
 			
 			this.m_Interpretation = "Interphase FISH analysis was performed using the ALK Break Apart FISH Probe Kit. FISH probe signals were within the normal reference " +
