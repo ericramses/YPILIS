@@ -35,6 +35,8 @@ namespace YellowstonePathology.Business.Audit.Model
                 }
             }
 
+            this.m_Message.Clear();
+
             if(resultMsg.Length > 0)
             {
                 this.m_Message.AppendLine("Ancillary study result is not set for:");
