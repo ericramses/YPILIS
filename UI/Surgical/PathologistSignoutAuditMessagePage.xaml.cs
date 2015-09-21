@@ -25,11 +25,11 @@ namespace YellowstonePathology.UI.Surgical
         public event BackEventHandler Back;
 
 
-        YellowstonePathology.Business.Audit.Model.AuditResult m_AuditResult;
+        private List<string> m_AuditMessages;
 
-        public PathologistSignoutAuditMessagePage(YellowstonePathology.Business.Audit.Model.AuditResult auditResult)
+        public PathologistSignoutAuditMessagePage(List<string> auditMessages)
         {
-            this.m_AuditResult = auditResult;
+            this.m_AuditMessages = auditMessages;
 
             InitializeComponent();
             DataContext = this;
@@ -64,9 +64,9 @@ namespace YellowstonePathology.UI.Surgical
             this.Back(this, new EventArgs());
         }
 
-        public YellowstonePathology.Business.Audit.Model.AuditResult AuditResult
+        public List<string> AuditMessages
         {
-            get { return this.m_AuditResult; }
+            get { return this.m_AuditMessages; }
         }
     }
 }
