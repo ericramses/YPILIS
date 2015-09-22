@@ -547,6 +547,7 @@
     <Compile Include="HL7View\ECW\ECWOBXViewFactory.cs" />
     <Compile Include="HL7View\ECW\ECWPIDView.cs" />
     <Compile Include="HL7View\ECW\ECWORCView.cs" />
+    <Compile Include="Specimen.Model\OrderedOn.cs" />
     <Compile Include="Surgical\PQRIKeyWordCollection.cs" />
     <Compile Include="Surgical\PQRSAgeDefinitionEnum.cs" />
     <Compile Include="Surgical\PQRSBarrettsEsophagusMeasure.cs" />
@@ -563,6 +564,8 @@
     <Compile Include="Test\ChromosomeAnalysis\ChromosomeAnalysisInconclusiveResult.cs" />
     <Compile Include="Test\HoldForFlow\HoldForFlowTest.cs" />
     <Compile Include="Test\HPVTWI\HPVTWIPositiveResult.cs" />
+    <Compile Include="Test\Instrument.cs" />
+    <Compile Include="Test\ROS1ByFISH\ROS1ByFISHInconclusiveResult.cs" />
     <Compile Include="Test\Surgical\IntraoperativeConsultationResult.Validation.cs" />
     <Compile Include="TrackedItemStatusEnum.cs" />
     <Compile Include="Specimen.Model\AliquotCollection.cs" />

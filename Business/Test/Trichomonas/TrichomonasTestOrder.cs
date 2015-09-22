@@ -24,8 +24,8 @@ namespace YellowstonePathology.Business.Test.Trichomonas
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 			: base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute, systemIdentity)
 		{
-
-		}
+            this.m_TechnicalComponentInstrumentId = Instrument.HOLOGICPANTHERID;
+        }
 
         [YellowstonePathology.Business.Persistence.PersistentProperty()]
         public string Result

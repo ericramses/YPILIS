@@ -51,14 +51,13 @@
 				<MenuItem Header="Master Log" Click="MenuItemMasterLog_Click"></MenuItem>
 				<MenuItem Header="Login" Click="MenuItemLogin_Click" />
                 <MenuItem Header="Material Tracking" Click="MenuItemMaterialTracking_Click" />
-                <MenuItem Header="Slide Lookup" Click="MenuItemSlideLookup_Click" />
-                <MenuItem Header="Neogenomics Results" Click="MenuItemNeogenomicsResults_Click" />
-                <MenuItem Header="Client Communications" Click="MenuItemClientCommunications_Click" />
+                <MenuItem Header="Panther Orders" Click="MenuItemPantherOrders_Click" />                
             </MenuItem>
 
             <MenuItem Header="_Client" Name="MenuItemClient">
                 <MenuItem Header="Provider Lookup" Click="MenuItemProviderLookup_Click"></MenuItem>
                 <MenuItem Header="Client Supply Orders" Click="MenuItemClientSupplyOrders_Click"></MenuItem>
+                <MenuItem Header="Cytology Unsat Letter Dialog" Click="MenuItemCytologyUnsatLetterDialog_Click"></MenuItem>
             </MenuItem>
 
 			<MenuItem Header="_Billing" Name="MenuItemBilling">				

@@ -30,6 +30,7 @@ namespace YellowstonePathology.Business.Test.HPVTWI
             this.m_TestInformation = HPVTWIResult.TestInformation;
             this.m_References = HPVTWIResult.References;
             this.m_ASRComment = HPVTWIResult.ASRComment;
+            this.m_TechnicalComponentInstrumentId = Instrument.HOLOGICPANTHERID;
 		}        
 
 		[PersistentProperty()]

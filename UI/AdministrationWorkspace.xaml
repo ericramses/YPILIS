@@ -19,9 +19,8 @@
         <Button Click="TestBillingData_Click" Width="200" Height="30" Margin="5,5,5,5">Test Billing Data</Button>
         <Button Click="SerializeAccessionOrder_Click" Width="200" Height="30" Margin="5,5,5,5">Serialize Accession Order</Button>
         <Button Click="ButtonShowTestWindow_Click" Width="200" Height="30" Margin="5,5,5,5">Show Test Window</Button>
-		<Button Click="ButtonDeleteTest_Click" Width="200" Height="30" Margin="5,5,5,5">Delete Test</Button>
-		<Button Click="ButtonOpenCytologyCase_Click" Width="200" Height="30" Margin="5,5,5,5">Open Cytology Cases</Button>
-		<Button Click="ButtonHL7Response_Click" Width="200" Height="30" Margin="5,5,5,5">Create HL7 Response</Button>
+        <Button Click="ButtonDeleteTest_Click" Width="200" Height="30" Margin="5,5,5,5">Delete Test</Button>
+        <Button Click="ButtonHL7Response_Click" Width="200" Height="30" Margin="5,5,5,5">Create HL7 Response</Button>
 
         <Button Click="ButtonTestYpiConnect_Click" Width="200" Height="30" Margin="5,5,5,5">Test YPI Connect Stuff</Button>
         <Button Click="ButtonOpenVerificationWindow_Click" Width="200" Height="30" Margin="5,5,5,5">Open Verification Window</Button>

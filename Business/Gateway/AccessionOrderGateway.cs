@@ -1228,6 +1228,36 @@ namespace YellowstonePathology.Business.Gateway
 			return result.ToString();
 		}
 
+        public static YellowstonePathology.Business.Test.PanelSetOrderCollection GetPantherOrdersNotAliquoted()
+        {
+            YellowstonePathology.Business.Test.PanelSetOrderCollection result = new Test.PanelSetOrderCollection();
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "select pso.* " +
+                "from tblPanelSetOrder pso " +
+                "join tblAliquotOrder ao on pso.OrderedOnId = ao.AliquotOrderId " +
+                "where TechnicalComponentInstrumentId = 'PNTHR' " +
+                "and ao.Validated = 0";
+
+            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = new Test.PanelSetOrder();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(panelSetOrder, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Add(panelSetOrder);
+                    }
+                }
+            }
+
+            return result;
+        }
 		public static List<Test.PanelOrder> GetPanelOrdersToAcknowledge(string panelOrderIdString)
 		{
 			List<Test.PanelOrder> result = new List<Test.PanelOrder>();

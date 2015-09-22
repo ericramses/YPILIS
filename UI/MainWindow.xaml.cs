@@ -881,13 +881,7 @@ namespace YellowstonePathology.UI
         {
             YellowstonePathology.UI.Test.NeogenomicsResultPath neogenomicsResultPath = new Test.NeogenomicsResultPath();
             neogenomicsResultPath.Start();
-        }
-
-        private void MenuItemClientCommunications_Click(object sender, RoutedEventArgs e)
-        {
-            BrowserWindow browserWindow = new BrowserWindow();
-            browserWindow.ShowDialog();
-        }
+        }        
 
         private void MenuItemMongoMigration_Click(object sender, RoutedEventArgs e)
         {
@@ -899,6 +893,18 @@ namespace YellowstonePathology.UI
         {
             YellowstonePathology.UI.Client.ClientSupplyOrderListDialog clientSupplyOrderListDialog = new Client.ClientSupplyOrderListDialog();
             clientSupplyOrderListDialog.ShowDialog();
+        }
+
+        private void MenuItemCytologyUnsatLetterDialog_Click(object sender, RoutedEventArgs e)
+        {
+            Cytology.CytologyUnsatLetterDialog dialog = new Cytology.CytologyUnsatLetterDialog();
+            dialog.ShowDialog();
+        }
+
+        private void MenuItemPantherOrders_Click(object sender, RoutedEventArgs e)
+        {
+            PantherOrdersDialog pantherOrdersDialog = new PantherOrdersDialog();
+            pantherOrdersDialog.ShowDialog();
         }
     }    
 }

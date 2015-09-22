@@ -10,9 +10,9 @@ namespace YellowstonePathology.Business.Test.ALKForNSCLCByFISH
         public ALKForNSCLCByFISHPositiveResult()
 		{
             this.m_ResultCode = "ALKNSCLCFSHPSTV";
-			this.m_Result = "Positive for ALK rearrangement";
-            this.m_ResultDisplayText = "Positive for ALK rearrangement";
-            this.m_ResultAbbreviation = "Detected";
+			this.m_Result = "Positive";
+            this.m_ResultDisplayText = "Positive";
+            this.m_ResultAbbreviation = "Positive";
 			
 			this.m_Interpretation = "An ALK gene rearrangement was observed in 0% of the nuclei scored but is below the cut-off for this assay.  " +
 				"However, an abnormal signal pattern of > or = *FUSIONS* fusions (> or = *FUSIONS*F) was seen in *NUCLEIPERCENT*% of nuclei scored. This finding is at or above our cutoff " +

@@ -68,7 +68,10 @@ namespace YellowstonePathology.Business.Visitor
                     default:
                         throw new Exception(this.m_PanelSetOrder.PanelSetName +  " is mot implemented yet.");
                 }
-                        
+
+                this.m_PanelSetOrder.OrderedOnId = aliquotOrder.AliquotOrderId;
+                this.m_PanelSetOrder.OrderedOn = YellowstonePathology.Business.Specimen.Model.OrderedOn.Aliquot;
+
                 YellowstonePathology.Business.HL7View.Panther.PantherOrder pantherOrder = new Business.HL7View.Panther.PantherOrder(pantherAssay, specimenOrder, aliquotOrder, this.m_AccessionOrder, this.m_PanelSetOrder, YellowstonePathology.Business.HL7View.Panther.PantherActionCode.NewSample);
                 pantherOrder.Send();                    
             }

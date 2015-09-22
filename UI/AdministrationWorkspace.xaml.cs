@@ -291,8 +291,7 @@ namespace YellowstonePathology.UI
 
 		private void ButtonOpenCytologyCase_Click(object sender, RoutedEventArgs e)
 		{
-			Cytology.CytologyUnsatLetterDialog dialog = new Cytology.CytologyUnsatLetterDialog();
-			dialog.ShowDialog();
+			
 		}
 
 		private void ButtonHL7Response_Click(object sender, RoutedEventArgs e)

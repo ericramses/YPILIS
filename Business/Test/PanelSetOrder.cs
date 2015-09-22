@@ -62,6 +62,7 @@ namespace YellowstonePathology.Business.Test
         protected Nullable<DateTime> m_TimeOfLastPublishNotification;        
         protected string m_TechnicalComponentFacilityId;
         protected string m_TechnicalComponentBillingFacilityId;
+        protected string m_TechnicalComponentInstrumentId;
         protected bool m_HasTechnicalComponent;
         protected string m_ProfessionalComponentFacilityId;
         protected string m_ProfessionalComponentBillingFacilityId;
@@ -686,6 +687,20 @@ namespace YellowstonePathology.Business.Test
                 {
                     this.m_TechnicalComponentFacilityId = value;
                     this.NotifyPropertyChanged("TechnicalComponentFacilityId");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string TechnicalComponentInstrumentId
+        {
+            get { return this.m_TechnicalComponentInstrumentId; }
+            set
+            {
+                if (this.m_TechnicalComponentInstrumentId != value)
+                {
+                    this.m_TechnicalComponentInstrumentId = value;
+                    this.NotifyPropertyChanged("TechnicalComponentInstrumentId");
                 }
             }
         }
