@@ -440,6 +440,7 @@
     <Compile Include="PantherOrdersDialog.xaml.cs">
       <DependentUpon>PantherOrdersDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PantherOrdersReport.cs" />
     <Compile Include="ReportDistribution\ReportDistributionWorkspace.xaml.cs">
       <DependentUpon>ReportDistributionWorkspace.xaml</DependentUpon>
     </Compile>

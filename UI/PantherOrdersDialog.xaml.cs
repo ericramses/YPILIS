@@ -18,9 +18,27 @@ namespace YellowstonePathology.UI
     /// </summary>
     public partial class PantherOrdersDialog : Window
     {
+        private YellowstonePathology.Business.Test.PanelSetOrderCollection m_PantherOrderCollection;
         public PantherOrdersDialog()
         {
+            this.m_PantherOrderCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPantherOrdersNotAliquoted();
             InitializeComponent();
+            this.DataContext = this;
+        }
+
+        public YellowstonePathology.Business.Test.PanelSetOrderCollection PantherOrderCollection
+        {
+            get { return this.m_PantherOrderCollection; }
+        }
+        private void ButtonClose_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void ButtonPrint_Click(object sender, RoutedEventArgs e)
+        {
+            PantherOrdersReport pantherOrdersReport = new PantherOrdersReport(this.m_PantherOrderCollection);
+            pantherOrdersReport.Print();
         }
     }
 }

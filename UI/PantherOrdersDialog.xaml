@@ -5,8 +5,34 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YellowstonePathology.UI"
         mc:Ignorable="d"
-        Title="PantherOrdersDialog" Height="600" Width="1200">
+        Title="Panther Orders Dialog" Height="600" Width="1200" WindowStyle="ToolWindow">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+
+        <ComboBox Name="ComboBoxListType" Grid.Row="0" Margin="2,2,2,2" HorizontalAlignment="Stretch">
+            <ComboBoxItem IsSelected="True">Not Aliquoted</ComboBoxItem>
+        </ComboBox>
+
+        <ListView Grid.Column="0" Grid.Row="1" Name="ListViewPantherOrders" Margin="2,2,2,2" ItemsSource="{Binding Path=PantherOrderCollection}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Report No" DisplayMemberBinding="{Binding Path=ReportNo}" Width="100" />
+                    <GridViewColumn Header="Order Time" DisplayMemberBinding="{Binding Path=OrderTime, Converter={StaticResource MilitaryDateTimeConverter}}" Width="150" />
+                    <GridViewColumn Header="Test" DisplayMemberBinding="{Binding Path=PanelSetName}" Width="150" />
+                    <GridViewColumn Header="Accepted" DisplayMemberBinding="{Binding Path=AcceptedTime, Converter={StaticResource MilitaryDateTimeConverter}}" Width="150" />
+                    <GridViewColumn Header="Finaled" DisplayMemberBinding="{Binding Path=FinalTime, Converter={StaticResource MilitaryDateTimeConverter}}" Width="150" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button Grid.Column="0" Grid.Row="2" Width="90" Height="30" Click="ButtonPrint_Click" HorizontalAlignment="Left" Margin="2,2,2,2">Print</Button>
+        <Button Grid.Column="0" Grid.Row="2" Width="90" Height="30" Click="ButtonClose_Click" HorizontalAlignment="Right" Margin="2,2,2,2">Close</Button>
     </Grid>
 </Window>
