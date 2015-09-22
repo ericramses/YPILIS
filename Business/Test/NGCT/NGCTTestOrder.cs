@@ -31,8 +31,8 @@ namespace YellowstonePathology.Business.Test.NGCT
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 			: base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute, systemIdentity)
 		{
-			
-		}		
+            this.m_TechnicalComponentInstrumentId = Instrument.HOLOGICPANTHERID;
+        }		
 
 		public override YellowstonePathology.Business.Rules.MethodResult IsOkToAccept()
 		{

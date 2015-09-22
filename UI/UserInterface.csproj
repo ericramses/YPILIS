@@ -41,7 +41,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>270</ApplicationRevision>
+    <ApplicationRevision>283</ApplicationRevision>
     <ApplicationVersion>10.1.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -437,6 +437,9 @@
       <DependentUpon>MonitorPageWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="NetworkAuthorization.cs" />
+    <Compile Include="PantherOrdersDialog.xaml.cs">
+      <DependentUpon>PantherOrdersDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ReportDistribution\ReportDistributionWorkspace.xaml.cs">
       <DependentUpon>ReportDistributionWorkspace.xaml</DependentUpon>
     </Compile>
@@ -2030,6 +2033,10 @@
     <Page Include="Monitor\MonitorPageWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PantherOrdersDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ReportDistribution\ReportDistributionWorkspace.xaml">
       <Generator>MSBuild:Compile</Generator>

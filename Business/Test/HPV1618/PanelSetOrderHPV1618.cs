@@ -29,8 +29,8 @@ namespace YellowstonePathology.Business.Test.HPV1618
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 			: base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute, systemIdentity)
 		{
-			
-		}
+            this.m_TechnicalComponentInstrumentId = Instrument.HOLOGICPANTHERID;
+        }
         
         [PersistentProperty()]
         public string Indication
