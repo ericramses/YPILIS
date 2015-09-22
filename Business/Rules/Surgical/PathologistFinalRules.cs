@@ -268,7 +268,7 @@ namespace YellowstonePathology.Business.Rules.Surgical
         {
             if (this.m_IsSigning == true)
             {
-                if (this.m_AccessionOrder.ClientId == 2371)
+                if (this.m_AccessionOrder.PhysicianId == 2371)
                 {
                     this.m_ExecutionStatus.AddMessage("The physician for this case is not set.", true);
                 }
