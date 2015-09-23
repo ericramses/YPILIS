@@ -439,6 +439,7 @@
     <Compile Include="PanelSet.Model\PanelSetTCellClonalityByPCRRetired.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Test\PantherOrderList.cs" />
     <Compile Include="Persistence\BooleanPropertyBridge.cs" />
     <Compile Include="Persistence\BuildTypeEnum.cs" />
     <Compile Include="Persistence\DateTimePropertyBridge.cs" />
@@ -565,6 +566,7 @@
     <Compile Include="Test\HoldForFlow\HoldForFlowTest.cs" />
     <Compile Include="Test\HPVTWI\HPVTWIPositiveResult.cs" />
     <Compile Include="Test\Instrument.cs" />
+    <Compile Include="Test\PantherOrderListItem.cs" />
     <Compile Include="Test\ROS1ByFISH\ROS1ByFISHInconclusiveResult.cs" />
     <Compile Include="Test\Surgical\IntraoperativeConsultationResult.Validation.cs" />
     <Compile Include="TrackedItemStatusEnum.cs" />

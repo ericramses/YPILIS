@@ -8,14 +8,14 @@ namespace YellowstonePathology.UI
     public partial class PantherOrdersReport 
     {
         private System.Drawing.Printing.PrintDocument m_PrintDocument;        
-        private Queue<YellowstonePathology.Business.Test.PanelSetOrder> m_PanelSetOrderQueue;
+        private Queue<YellowstonePathology.Business.Test.PantherOrderListItem> m_PantherOrderListItemQueue;
 
-        public PantherOrdersReport(YellowstonePathology.Business.Test.PanelSetOrderCollection panelSetOrderCollection)
+        public PantherOrdersReport(YellowstonePathology.Business.Test.PantherOrderList pantherOrderList)
         {
-            this.m_PanelSetOrderQueue = new Queue<Business.Test.PanelSetOrder>();
-            foreach(YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder in panelSetOrderCollection)
+            this.m_PantherOrderListItemQueue = new Queue<Business.Test.PantherOrderListItem>();
+            foreach(YellowstonePathology.Business.Test.PantherOrderListItem pantherOrderListItem in pantherOrderList)
             {
-                this.m_PanelSetOrderQueue.Enqueue(panelSetOrder);
+                this.m_PantherOrderListItemQueue.Enqueue(pantherOrderListItem);
             }
         }
 
@@ -38,14 +38,14 @@ namespace YellowstonePathology.UI
 
             for (int i = 0; i < 4; i++)
             {
-                YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_PanelSetOrderQueue.Dequeue();
-                this.DrawLine(x, y, panelSetOrder, e);
+                YellowstonePathology.Business.Test.PantherOrderListItem pantherOrderListItem = this.m_PantherOrderListItemQueue.Dequeue();
+                this.DrawLine(x, y, pantherOrderListItem, e);
                 y = y + 30;
                 count += 1;
-                if (this.m_PanelSetOrderQueue.Count == 0) break;
+                if (this.m_PantherOrderListItemQueue.Count == 0) break;
             }
 
-            if (this.m_PanelSetOrderQueue.Count == 0)
+            if (this.m_PantherOrderListItemQueue.Count == 0)
             {
                 e.HasMorePages = false;
             }
@@ -60,10 +60,12 @@ namespace YellowstonePathology.UI
             e.Graphics.DrawString("Panther Orders Not Aliquoted", new System.Drawing.Font("Verdana", 12, System.Drawing.FontStyle.Bold), System.Drawing.Brushes.Black, new System.Drawing.PointF(x, y));            
         }
 
-        private void DrawLine(int x, int y, YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder, System.Drawing.Printing.PrintPageEventArgs e)
+        private void DrawLine(int x, int y, YellowstonePathology.Business.Test.PantherOrderListItem pantherOrderListItem, System.Drawing.Printing.PrintPageEventArgs e)
         {
-            e.Graphics.DrawString(panelSetOrder.ReportNo, new System.Drawing.Font("Verdana", 9), System.Drawing.Brushes.Black, new System.Drawing.PointF(x, y));
-            e.Graphics.DrawString(panelSetOrder.PanelSetName, new System.Drawing.Font("Verdana", 9), System.Drawing.Brushes.Black, new System.Drawing.PointF(x + 150, y));            
+            e.Graphics.DrawString(pantherOrderListItem.ReportNo, new System.Drawing.Font("Verdana", 9), System.Drawing.Brushes.Black, new System.Drawing.PointF(x, y));
+            e.Graphics.DrawString(pantherOrderListItem.PanelSetName, new System.Drawing.Font("Verdana", 9), System.Drawing.Brushes.Black, new System.Drawing.PointF(x + 150, y));
+            e.Graphics.DrawString(pantherOrderListItem.PLastName, new System.Drawing.Font("Verdana", 9), System.Drawing.Brushes.Black, new System.Drawing.PointF(x + 350, y));
+            e.Graphics.DrawString(pantherOrderListItem.PFirstName, new System.Drawing.Font("Verdana", 9), System.Drawing.Brushes.Black, new System.Drawing.PointF(x + 500, y));
         }
     }
 }

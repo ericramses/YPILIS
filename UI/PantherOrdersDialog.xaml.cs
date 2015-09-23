@@ -10,26 +10,30 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.ComponentModel;
 
 namespace YellowstonePathology.UI
 {
     /// <summary>
     /// Interaction logic for PantherOrdersDialog.xaml
     /// </summary>
-    public partial class PantherOrdersDialog : Window
+    public partial class PantherOrdersDialog : Window, INotifyPropertyChanged
     {
-        private YellowstonePathology.Business.Test.PanelSetOrderCollection m_PantherOrderCollection;
+        public event PropertyChangedEventHandler PropertyChanged;
+        private YellowstonePathology.Business.Test.PantherOrderList m_PantherOrderList;
+
         public PantherOrdersDialog()
         {
-            this.m_PantherOrderCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPantherOrdersNotAliquoted();
+            this.m_PantherOrderList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPantherOrdersNotAliquoted();
             InitializeComponent();
             this.DataContext = this;
         }
 
-        public YellowstonePathology.Business.Test.PanelSetOrderCollection PantherOrderCollection
+        public YellowstonePathology.Business.Test.PantherOrderList PantherOrderList
         {
-            get { return this.m_PantherOrderCollection; }
+            get { return this.m_PantherOrderList; }
         }
+
         private void ButtonClose_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
@@ -37,8 +41,37 @@ namespace YellowstonePathology.UI
 
         private void ButtonPrint_Click(object sender, RoutedEventArgs e)
         {
-            PantherOrdersReport pantherOrdersReport = new PantherOrdersReport(this.m_PantherOrderCollection);
+            PantherOrdersReport pantherOrdersReport = new PantherOrdersReport(this.m_PantherOrderList);
             pantherOrdersReport.Print();
+        }
+
+        private void ButtonSearch_Click(object sender, RoutedEventArgs e)
+        {
+            string selectedValue = this.ComboBoxListType.SelectedValue.ToString();
+            switch (selectedValue)
+            {
+                case "Not Aliquoted":
+                    this.m_PantherOrderList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPantherOrdersNotAliquoted();
+                    break;
+                case "Not Accepted":
+                    this.m_PantherOrderList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPantherOrdersNotAccepted();
+                    break;
+                case "Not Final":
+                    this.m_PantherOrderList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPantherOrdersNotFinal();
+                    break;
+                case "Final":
+                    this.m_PantherOrderList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPantherOrdersFinal();
+                    break;
+            }
+            this.NotifyPropertyChanged("PantherOrderList");
+        }
+
+        public void NotifyPropertyChanged(String info)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
         }
     }
 }
