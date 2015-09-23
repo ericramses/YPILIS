@@ -458,11 +458,11 @@
       <DependentUpon>ReportOrderMolecularAnalysisDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="SortDirectionAdorner.cs" />
-    <Compile Include="Surgical\CarcinomaTestingSignoutPage.xaml.cs">
-      <DependentUpon>CarcinomaTestingSignoutPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Surgical\DictationTemplatePage.xaml.cs">
       <DependentUpon>DictationTemplatePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Surgical\LynchSyndromeSignoutPage.xaml.cs">
+      <DependentUpon>LynchSyndromeSignoutPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Surgical\PapCorrelationPage.xaml.cs">
       <DependentUpon>PapCorrelationPage.xaml</DependentUpon>
@@ -2062,13 +2062,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Surgical\CarcinomaTestingSignoutPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Surgical\DictationTemplatePage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Surgical\LynchSyndromeSignoutPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Surgical\PapCorrelationPage.xaml">
       <SubType>Designer</SubType>
