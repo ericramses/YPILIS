@@ -149,7 +149,6 @@
     <Compile Include="Audit.Model\AuditCollection.cs" />
     <Compile Include="Audit.Model\AuditResult.cs" />
     <Compile Include="Audit.Model\AuditStatusEnum.cs" />
-    <Compile Include="Audit.Model\CarcinomaTestingAudit.cs" />
     <Compile Include="Audit.Model\CaseHasNotFoundClientAudit.cs" />
     <Compile Include="Audit.Model\CaseHasNotFoundProviderAudit.cs" />
     <Compile Include="Audit.Model\CaseHasUnfinaledPeerReviewAudit.cs" />
@@ -163,6 +162,7 @@
     <Compile Include="Audit.Model\HER2OKToAcceptAudit.cs" />
     <Compile Include="Audit.Model\IntraoperativeConsultationCorrelationAudit.cs" />
     <Compile Include="Audit.Model\IntraoperativeConsultationFinalAudit.cs" />
+    <Compile Include="Audit.Model\LynchSyndromeAudit.cs" />
     <Compile Include="Audit.Model\PapCorrelationAudit.cs" />
     <Compile Include="Audit.Model\PhoneNumberAudit.cs" />
     <Compile Include="Audit.Model\PqrsAudit.cs" />
@@ -550,10 +550,6 @@
     <Compile Include="HL7View\ECW\ECWPIDView.cs" />
     <Compile Include="HL7View\ECW\ECWORCView.cs" />
     <Compile Include="Specimen.Model\OrderedOn.cs" />
-    <Compile Include="Surgical\CarcinomaMeasure.cs" />
-    <Compile Include="Surgical\CarcinomaMeasureCollection.cs" />
-    <Compile Include="Surgical\ColorectalCarcinomaMeasure.cs" />
-    <Compile Include="Surgical\EndometrialCarcinomaMeasure.cs" />
     <Compile Include="Surgical\KeyWordCollection.cs" />
     <Compile Include="Surgical\PQRIKeyWordCollection.cs" />
     <Compile Include="Surgical\PQRSAgeDefinitionEnum.cs" />
@@ -566,7 +562,6 @@
     <Compile Include="Surgical\PQRSMeasureCollection.cs" />
     <Compile Include="Surgical\PQRSMelanomaMeasure.cs" />
     <Compile Include="Surgical\PQRSRadicalProstatectomyMeasure.cs" />
-    <Compile Include="Surgical\UterineCarcinomaMeasure.cs" />
     <Compile Include="Test\CBFBinv16\CBFBinv16Test.cs" />
     <Compile Include="Test\ChromosomeAnalysisForFetalAnomaly\ChromosomeAnalysisForFetalAnomalyNoGrowthResult.cs" />
     <Compile Include="Test\ChromosomeAnalysis\ChromosomeAnalysisInconclusiveResult.cs" />
