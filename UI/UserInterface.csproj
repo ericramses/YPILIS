@@ -458,6 +458,9 @@
       <DependentUpon>ReportOrderMolecularAnalysisDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="SortDirectionAdorner.cs" />
+    <Compile Include="Surgical\CCCPOrderPage.xaml.cs">
+      <DependentUpon>CCCPOrderPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Surgical\DictationTemplatePage.xaml.cs">
       <DependentUpon>DictationTemplatePage.xaml</DependentUpon>
     </Compile>
@@ -2061,6 +2064,10 @@
     <Page Include="ReportOrder\ReportOrderMolecularAnalysisDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Surgical\CCCPOrderPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Surgical\DictationTemplatePage.xaml">
       <Generator>MSBuild:Compile</Generator>

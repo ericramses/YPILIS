@@ -44,6 +44,7 @@ namespace YellowstonePathology.UI.Surgical
             this.m_AuditCollection.Add(new Business.Audit.Model.AncillaryStudiesAreHandledAudit(this.m_SurgicalTestOrder));
             this.m_AuditCollection.Add(new Business.Audit.Model.IntraoperativeConsultationCorrelationAudit(this.m_SurgicalTestOrder));
             this.m_AuditCollection.Add(new Business.Audit.Model.LynchSyndromeAudit(this.m_AccessionOrder));
+            this.m_AuditCollection.Add(new Business.Audit.Model.CCCPAudit(this.m_AccessionOrder));
             this.m_AuditCollection.Add(new Business.Audit.Model.SurgicalCaseHasQuestionMarksAudit(this.m_SurgicalTestOrder));
             this.m_AuditCollection.Add(new Business.Audit.Model.SigningUserIsAssignedUserAudit(this.m_SurgicalTestOrder, this.m_SystemIdentity));
             this.m_AuditCollection.Add(new Business.Audit.Model.SvhCaseHasMRNAndAccountNoAudit(this.m_AccessionOrder));
@@ -98,6 +99,11 @@ namespace YellowstonePathology.UI.Surgical
                         case "YellowstonePathology.Business.Audit.Model.LynchSyndromeAudit":
                             {
                                 this.m_ActionList.Add(HandleLynchSyndrome);
+                                break;
+                            }
+                        case "YellowstonePathology.Business.Audit.Model.CCCPAudit":
+                            {
+                                this.m_ActionList.Add(HandleCCCP);
                                 break;
                             }
                         default:
@@ -225,6 +231,28 @@ namespace YellowstonePathology.UI.Surgical
         }
 
         private void LynchSyndromeSignoutPage_Back(object sender, EventArgs e)
+        {
+            this.m_GoingForward = false;
+            this.IncrementActionIndex();
+            this.InvokeAction(this.m_ActionIndex);
+        }
+
+        private void HandleCCCP()
+        {
+            CCCPOrderPage cccpOrderPage = new CCCPOrderPage(this.m_AccessionOrder, this.m_ObjectTracker, this.m_SystemIdentity);
+            cccpOrderPage.Next += CCCPOrderPage_Next;
+            cccpOrderPage.Back += CCCPOrderPage_Back;
+            this.m_PathologistSignoutDialog.PageNavigator.Navigate(cccpOrderPage);
+        }
+
+        private void CCCPOrderPage_Next(object sender, EventArgs e)
+        {
+            this.m_GoingForward = true;
+            this.IncrementActionIndex();
+            this.InvokeAction(this.m_ActionIndex);
+        }
+
+        private void CCCPOrderPage_Back(object sender, EventArgs e)
         {
             this.m_GoingForward = false;
             this.IncrementActionIndex();
