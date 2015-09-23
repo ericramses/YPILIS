@@ -303,7 +303,7 @@ namespace YellowstonePathology.UI.Gross
                 YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetSurgical();
                 if (panelSetOrder == null) panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNoToUse);
 
-                YellowstonePathology.Business.Visitor.OrderTestVisitor orderTestVisitor = new Business.Visitor.OrderTestVisitor(panelSetOrder.ReportNo, test, test.OrderComment, null, false, aliquotOrder, false, false, this.m_AccessionOrder.TaskOrderCollection, this.m_SystemIdentity);
+                YellowstonePathology.Business.Visitor.OrderTestVisitor orderTestVisitor = new Business.Visitor.OrderTestVisitor(panelSetOrder.ReportNo, test, test.OrderComment, null, false, aliquotOrder, false, true, this.m_AccessionOrder.TaskOrderCollection, this.m_SystemIdentity);
                 this.m_AccessionOrder.TakeATrip(orderTestVisitor);
 			}
 		}

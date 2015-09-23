@@ -384,6 +384,10 @@
     <Compile Include="Domain\DataLoadStatusEnum.cs" />
     <Compile Include="Domain\OrderLogCollection.cs" />
     <Compile Include="Domain\OrderLogItem.cs" />
+    <Compile Include="Facility.Model\BozemanDeaconess.cs" />
+    <Compile Include="Facility.Model\CMMC.cs" />
+    <Compile Include="Facility.Model\StJamesHospital.cs" />
+    <Compile Include="Facility.Model\TallmanDermatology.cs" />
     <Compile Include="Facility.Model\ProfessionalPathologyOfWyoming.cs" />
     <Compile Include="Facility.Model\LoweLawGroup.cs" />
     <Compile Include="Facility.Model\PathologyAssociatesOfIdahoFalls.cs" />
