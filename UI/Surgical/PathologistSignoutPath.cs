@@ -43,6 +43,7 @@ namespace YellowstonePathology.UI.Surgical
             this.m_AuditCollection.Add(new Business.Audit.Model.PqrsAudit(this.m_AccessionOrder));
             this.m_AuditCollection.Add(new Business.Audit.Model.AncillaryStudiesAreHandledAudit(this.m_SurgicalTestOrder));
             this.m_AuditCollection.Add(new Business.Audit.Model.IntraoperativeConsultationCorrelationAudit(this.m_SurgicalTestOrder));
+            this.m_AuditCollection.Add(new Business.Audit.Model.CarcinomaTestingAudit(this.m_AccessionOrder));
             this.m_AuditCollection.Add(new Business.Audit.Model.SurgicalCaseHasQuestionMarksAudit(this.m_SurgicalTestOrder));
             this.m_AuditCollection.Add(new Business.Audit.Model.SigningUserIsAssignedUserAudit(this.m_SurgicalTestOrder, this.m_SystemIdentity));
             this.m_AuditCollection.Add(new Business.Audit.Model.SvhCaseHasMRNAndAccountNoAudit(this.m_AccessionOrder));
@@ -92,6 +93,11 @@ namespace YellowstonePathology.UI.Surgical
                         case "YellowstonePathology.Business.Audit.Model.PqrsAudit":
                             {
                                 this.m_ActionList.Add(HandlePqrs);
+                                break;
+                            }
+                        case "YellowstonePathology.Business.Audit.Model.CarcinomaTestingAudit":
+                            {
+                                this.m_ActionList.Add(HandleCarcinomaTesting);
                                 break;
                             }
                         default:
@@ -197,6 +203,42 @@ namespace YellowstonePathology.UI.Surgical
         }
 
         private void PqrsSignoutPage_Back(object sender, EventArgs e)
+        {
+            this.m_GoingForward = false;
+            this.IncrementActionIndex();
+            this.InvokeAction(this.m_ActionIndex);
+        }
+
+        private void HandleCarcinomaTesting()
+        {
+            bool result = false;
+            YellowstonePathology.Business.Surgical.CarcinomaMeasureCollection carcinomaMeasureCollection = YellowstonePathology.Business.Surgical.CarcinomaMeasureCollection.GetAll();
+            foreach (YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen in this.m_SurgicalTestOrder.SurgicalSpecimenCollection)
+            {
+                foreach (YellowstonePathology.Business.Surgical.CarcinomaMeasure carcinomaMeasure in carcinomaMeasureCollection)
+                {
+                    if (carcinomaMeasure.DoesMeasureApply(this.m_SurgicalTestOrder, surgicalSpecimen) == true)
+                    {
+                        CarcinomaTestingSignoutPage carcinomaTestingSignoutPage = new CarcinomaTestingSignoutPage(carcinomaMeasure, this.m_AccessionOrder, this.m_ObjectTracker, this.m_SystemIdentity);
+                        carcinomaTestingSignoutPage.Next += CarcinomaTestingSignoutPage_Next;
+                        carcinomaTestingSignoutPage.Back += CarcinomaTestingSignoutPage_Back;
+                        this.m_PathologistSignoutDialog.PageNavigator.Navigate(carcinomaTestingSignoutPage);
+                        result = true;
+                        break;
+                    }
+                }
+                if (result == true) break;
+            }
+        }
+
+        private void CarcinomaTestingSignoutPage_Next(object sender, EventArgs e)
+        {
+            this.m_GoingForward = true;
+            this.IncrementActionIndex();
+            this.InvokeAction(this.m_ActionIndex);
+        }
+
+        private void CarcinomaTestingSignoutPage_Back(object sender, EventArgs e)
         {
             this.m_GoingForward = false;
             this.IncrementActionIndex();
