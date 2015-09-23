@@ -15,9 +15,9 @@ using System.Windows.Shapes;
 namespace YellowstonePathology.UI.Surgical
 {
     /// <summary>
-    /// Interaction logic for CarcinomaTestingSignoutPage.xaml
+    /// Interaction logic for LynchSyndromeSignoutPage.xaml
     /// </summary>
-    public partial class CarcinomaTestingSignoutPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
+    public partial class LynchSyndromeSignoutPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
     {
         public delegate void NextEventHandler(object sender, EventArgs e);
         public event NextEventHandler Next;
@@ -27,15 +27,11 @@ namespace YellowstonePathology.UI.Surgical
 
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
-        private YellowstonePathology.Business.Surgical.CarcinomaMeasure m_CarcinomaMeasure;
         private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
-
-        public CarcinomaTestingSignoutPage(YellowstonePathology.Business.Surgical.CarcinomaMeasure carcinomaMeasure,
-            YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
+        public LynchSyndromeSignoutPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
             YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
             YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
-            this.m_CarcinomaMeasure = carcinomaMeasure;
             this.m_AccessionOrder = accessionOrder;
             this.m_ObjectTracker = objectTracker;
             this.m_SystemIdentity = systemIdentity;
@@ -68,10 +64,6 @@ namespace YellowstonePathology.UI.Surgical
             get { return this.m_AccessionOrder; }
         }
 
-        public YellowstonePathology.Business.Surgical.CarcinomaMeasure CarcinomaMeasure
-        {
-            get { return this.m_CarcinomaMeasure; }
-        }
         private void ButtonNext_Click(object sender, RoutedEventArgs e)
         {
             this.Next(this, new EventArgs());
@@ -80,6 +72,15 @@ namespace YellowstonePathology.UI.Surgical
         private void ButtonBack_Click(object sender, RoutedEventArgs e)
         {
             this.Back(this, new EventArgs());
+        }
+
+        private void ButtonOrder_Click(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeEvaluationTest lynchSyndromeEvaluationTest = new YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeEvaluationTest();
+            if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(lynchSyndromeEvaluationTest.PanelSetId) == false)
+            {
+
+            }
         }
     }
 }
