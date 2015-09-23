@@ -15,9 +15,9 @@ using System.Windows.Shapes;
 namespace YellowstonePathology.UI.Surgical
 {
     /// <summary>
-    /// Interaction logic for LynchSyndromeSignoutPage.xaml
+    /// Interaction logic for CCCPOrderPage.xaml
     /// </summary>
-    public partial class LynchSyndromeSignoutPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
+    public partial class CCCPOrderPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
     {
         public delegate void NextEventHandler(object sender, EventArgs e);
         public event NextEventHandler Next;
@@ -29,7 +29,7 @@ namespace YellowstonePathology.UI.Surgical
         private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
         private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 
-        public LynchSyndromeSignoutPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
+        public CCCPOrderPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
             YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
             YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
@@ -77,8 +77,8 @@ namespace YellowstonePathology.UI.Surgical
 
         private void ButtonOrder_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeEvaluationTest lynchSyndromeEvaluationTest = new YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeEvaluationTest();
-            if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(lynchSyndromeEvaluationTest.PanelSetId) == false)
+            YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile.ComprehensiveColonCancerProfileTest comprehensiveColonCancerProfileTest = new YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile.ComprehensiveColonCancerProfileTest();
+            if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(comprehensiveColonCancerProfileTest.PanelSetId) == false)
             {
 
             }
