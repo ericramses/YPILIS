@@ -47,10 +47,16 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
         {
             SpecimenMappingPage specimenMappingPage = new SpecimenMappingPage(this.m_AccessionOrder, this.m_ObjectTracker);
             specimenMappingPage.Next += new SpecimenMappingPage.NextEventHandler(SpecimenMappingPage_Next);
+            specimenMappingPage.Back += new SpecimenMappingPage.BackEventHandler(SpecimenMappingPage_Back);
             this.m_PageNavigator.Navigate(specimenMappingPage);
         }
 
         private void SpecimenMappingPage_Next(object sender, EventArgs e)
+        {
+            this.ShowAliquotAndStainOrderPage();
+        }
+
+        private void SpecimenMappingPage_Back(object sender, EventArgs e)
         {
             this.ShowAliquotAndStainOrderPage();
         }

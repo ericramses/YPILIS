@@ -652,6 +652,7 @@ namespace YellowstonePathology.UI.Login
                 objectTracker.RegisterObject(this.m_LoginUI.AccessionOrder);
                 YellowstonePathology.UI.Login.FinalizeAccession.SpecimenMappingPage specimenMappingPage = new FinalizeAccession.SpecimenMappingPage(this.m_LoginUI.AccessionOrder, objectTracker);
                 specimenMappingPage.Next += new FinalizeAccession.SpecimenMappingPage.NextEventHandler(SpecimenMappingPage_Next);
+                specimenMappingPage.Back += new FinalizeAccession.SpecimenMappingPage.BackEventHandler(SpecimenMappingPage_Back);
                 YellowstonePathology.Business.User.SystemIdentity systemIdentity = new Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
                 this.m_LoginPageWindow = new LoginPageWindow(systemIdentity);
                 this.m_LoginPageWindow.Show();
@@ -660,6 +661,11 @@ namespace YellowstonePathology.UI.Login
         }
 
         private void SpecimenMappingPage_Next(object sender, EventArgs e)
+        {
+            this.m_LoginPageWindow.Close();
+        }
+
+        private void SpecimenMappingPage_Back(object sender, EventArgs e)
         {
             this.m_LoginPageWindow.Close();
         }
