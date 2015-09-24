@@ -15,9 +15,9 @@ using System.Windows.Shapes;
 namespace YellowstonePathology.UI.Surgical
 {
     /// <summary>
-    /// Interaction logic for CCCPOrderPage.xaml
+    /// Interaction logic for ColorectalCancerOrderPage.xaml
     /// </summary>
-    public partial class CCCPOrderPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
+    public partial class ColorectalCancerOrderPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
     {
         public delegate void NextEventHandler(object sender, EventArgs e);
         public event NextEventHandler Next;
@@ -25,17 +25,19 @@ namespace YellowstonePathology.UI.Surgical
         public delegate void BackEventHandler(object sender, EventArgs e);
         public event BackEventHandler Back;
 
-        private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-        private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
-        private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
+        public delegate void OrderLynchSyndromeEventHandler(object sender, EventArgs e);
+        public event OrderLynchSyndromeEventHandler OrderLynchSyndrome;
 
-        public CCCPOrderPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-            YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
-            YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        public delegate void OrderCCCPEventHandler(object sender, EventArgs e);
+        public event OrderCCCPEventHandler OrderCCCP;
+
+        private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
+        private List<string> m_Messages;
+
+        public ColorectalCancerOrderPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, List<string> messages)
         {
             this.m_AccessionOrder = accessionOrder;
-            this.m_ObjectTracker = objectTracker;
-            this.m_SystemIdentity = systemIdentity;
+            this.m_Messages = messages;
 
             InitializeComponent();
             DataContext = this;
@@ -43,17 +45,16 @@ namespace YellowstonePathology.UI.Surgical
 
         public void Save()
         {
-            this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
         }
 
         public bool OkToSaveOnNavigation(Type pageNavigatingTo)
         {
-            return true;
+            return false;
         }
 
         public bool OkToSaveOnClose()
         {
-            return true;
+            return false;
         }
 
         public void UpdateBindingSources()
@@ -63,6 +64,11 @@ namespace YellowstonePathology.UI.Surgical
         public YellowstonePathology.Business.Test.AccessionOrder AccessionOrder
         {
             get { return this.m_AccessionOrder; }
+        }
+
+        public List<string> Messages
+        {
+            get { return this.m_Messages; }
         }
 
         private void ButtonNext_Click(object sender, RoutedEventArgs e)
@@ -75,12 +81,21 @@ namespace YellowstonePathology.UI.Surgical
             this.Back(this, new EventArgs());
         }
 
-        private void ButtonOrder_Click(object sender, RoutedEventArgs e)
+        private void HyperLinkLynchSyndrome_Click(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeEvaluationTest lynchSyndromeEvaluationTest = new YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeEvaluationTest();
+            if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(lynchSyndromeEvaluationTest.PanelSetId) == false)
+            {
+                this.OrderLynchSyndrome(this, new EventArgs());
+            }
+        }
+
+        private void HyperLinkComprehensiveColonCancerProfile_Click(object sender, RoutedEventArgs e)
         {
             YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile.ComprehensiveColonCancerProfileTest comprehensiveColonCancerProfileTest = new YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile.ComprehensiveColonCancerProfileTest();
             if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(comprehensiveColonCancerProfileTest.PanelSetId) == false)
             {
-
+                this.OrderCCCP(this, new EventArgs());
             }
         }
     }

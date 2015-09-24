@@ -40,13 +40,13 @@ namespace YellowstonePathology.Business.Audit.Model
             if(resultMsg.Length > 0)
             {
                 this.m_Message.AppendLine("Ancillary study result is not set for:");
-                this.m_Message.AppendLine(resultMsg.ToString());
+                this.m_Message.Append(resultMsg.ToString());
             }
 
             if(commentMsg.Length > 0)
             {
                 this.m_Message.AppendLine("Ancillary study comment is not set or is pending for:");
-                this.m_Message.AppendLine(commentMsg.ToString());
+                this.m_Message.Append(commentMsg.ToString());
             }
         }
     }

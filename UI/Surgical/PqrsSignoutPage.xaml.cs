@@ -15,9 +15,9 @@ using System.Windows.Shapes;
 namespace YellowstonePathology.UI.Surgical
 {
     /// <summary>
-    /// Interaction logic for PqrsSignoutPage.xaml
+    /// Interaction logic for PQRSSignoutPage.xaml
     /// </summary>
-    public partial class PqrsSignoutPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
+    public partial class PQRSSignoutPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
     {
         public delegate void NextEventHandler(object sender, EventArgs e);
         public event NextEventHandler Next;
@@ -31,7 +31,7 @@ namespace YellowstonePathology.UI.Surgical
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 
-        public PqrsSignoutPage(YellowstonePathology.Business.Surgical.PQRSMeasure pqrsMeasure,
+        public PQRSSignoutPage(YellowstonePathology.Business.Surgical.PQRSMeasure pqrsMeasure,
             YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen,
             YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,

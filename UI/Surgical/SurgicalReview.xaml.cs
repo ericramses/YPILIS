@@ -468,12 +468,16 @@ namespace YellowstonePathology.UI.Surgical
 
                 if (auditResult.Status == Business.Audit.Model.AuditStatusEnum.OK)
                 {
-                    MessageBox.Show("OK");
+                    this.PanelSetOrderSurgical.Finalize(this.m_SystemIdentity.User);
+                    if (this.PanelSetOrderSurgical.Accepted == false)
+                    {
+                        this.PanelSetOrderSurgical.Accept(this.m_SystemIdentity.User);
+                    }
                 }
-                else
-                {
-                    MessageBox.Show("This case cannot be signed out until the issues are resolved.");
-                }
+
+                this.m_PathologistUI.SetSignatureButtonProperties();
+                this.NotifyPropertyChanged(string.Empty);
+                this.Save();
             }
         }
     }

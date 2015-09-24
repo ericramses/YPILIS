@@ -5,10 +5,10 @@ using System.Text;
 
 namespace YellowstonePathology.Business.Audit.Model
 {
-    public class PqrsAudit : Audit
+    public class PQRSIsRequiredAudit : Audit
     {
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-        public PqrsAudit(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
+        public PQRSIsRequiredAudit(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {
             this.m_AccessionOrder = accessionOrder;
         }
@@ -29,7 +29,7 @@ namespace YellowstonePathology.Business.Audit.Model
                         if (this.MeasureCodeExists(pqrsMeasure, panelSetOrderCPTCodeCollection) == false)
                         {
                             this.m_Status = AuditStatusEnum.Failure;
-                            this.m_Message.AppendLine("A PQRS code must be applied.");
+                            this.m_Message.Append("A PQRS code must be applied.");
                             break;
                         }
                     }
