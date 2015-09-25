@@ -21,7 +21,7 @@
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <Grid Grid.Column="0" Margin="10" Width="200">
+            <Grid Grid.Column="0" Margin="10" Width="180">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
@@ -34,7 +34,7 @@
                     <Hyperlink Click="HyperLinkLynchSyndrome_Click">Lynch Syndrome Evaluation</Hyperlink>
                 </TextBlock>
 
-                <TextBlock Grid.Column="0" Grid.Row="3" Margin="5,3,0,0">                    
+                <TextBlock Grid.Column="0" Grid.Row="3" Margin="5,3,0,0" TextWrapping="Wrap">                    
                     <Hyperlink Click="HyperLinkComprehensiveColonCancerProfile_Click">Comprehensive Colon Cancer Profile</Hyperlink>
                 </TextBlock>
         </Grid>
@@ -42,20 +42,23 @@
             <Grid Grid.Column="1">
 
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
 
-                <ListView Name="ListViewMessages" Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" HorizontalAlignment="Stretch"
-                              ItemsSource="{Binding Path=Messages}">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn DisplayMemberBinding="{Binding}" Header="Indicated Tests" Width="550"/>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
+                <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2"  HorizontalAlignment="Center" Text="The following tests are suggested for this case:" />
+                <ListBox Name="ListViewMessages" Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" HorizontalAlignment="Stretch" ItemsSource="{Binding Path=Messages}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
+                                <TextBlock Margin="2" Text="{Binding}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
 
-                <ListView Name="ListBoxTestOrders" Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" HorizontalAlignment="Stretch"
+                <ListView Name="ListBoxTestOrders" Grid.Column="0" Grid.Row="2" Margin="2,2,2,2" HorizontalAlignment="Stretch"
                               ItemsSource="{Binding Path=AccessionOrder.PanelSetOrderCollection}">
                     <ListView.View>
                         <GridView>
