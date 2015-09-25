@@ -458,14 +458,11 @@
       <DependentUpon>ReportOrderMolecularAnalysisDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="SortDirectionAdorner.cs" />
-    <Compile Include="Surgical\CCCPOrderPage.xaml.cs">
-      <DependentUpon>CCCPOrderPage.xaml</DependentUpon>
+    <Compile Include="Surgical\ColorectalCancerOrderPage.xaml.cs">
+      <DependentUpon>ColorectalCancerOrderPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Surgical\DictationTemplatePage.xaml.cs">
       <DependentUpon>DictationTemplatePage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Surgical\LynchSyndromeSignoutPage.xaml.cs">
-      <DependentUpon>LynchSyndromeSignoutPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Surgical\PapCorrelationPage.xaml.cs">
       <DependentUpon>PapCorrelationPage.xaml</DependentUpon>
@@ -477,8 +474,8 @@
       <DependentUpon>PathologistSignoutDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Surgical\PathologistSignoutPath.cs" />
-    <Compile Include="Surgical\PqrsSignoutPage.xaml.cs">
-      <DependentUpon>PqrsSignoutPage.xaml</DependentUpon>
+    <Compile Include="Surgical\PQRSSignoutPage.xaml.cs">
+      <DependentUpon>PQRSSignoutPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Surgical\PublishedDocumentFinalPage.xaml.cs">
       <DependentUpon>PublishedDocumentFinalPage.xaml</DependentUpon>
@@ -2065,17 +2062,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Surgical\CCCPOrderPage.xaml">
+    <Page Include="Surgical\ColorectalCancerOrderPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Surgical\DictationTemplatePage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Surgical\LynchSyndromeSignoutPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Surgical\PapCorrelationPage.xaml">
       <SubType>Designer</SubType>
@@ -2089,7 +2082,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Surgical\PqrsSignoutPage.xaml">
+    <Page Include="Surgical\PQRSSignoutPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

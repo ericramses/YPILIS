@@ -21,7 +21,7 @@ namespace YellowstonePathology.Business.Audit.Model
             if (this.m_AccessionOrder.ClientId == 1007)
             {
                 this.m_Status = AuditStatusEnum.Failure;
-                this.m_Message.AppendLine("The client for this case is not set.");
+                this.m_Message.Append("The client for this case is not set.");
             }
         }
     }

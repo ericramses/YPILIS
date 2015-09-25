@@ -8,15 +8,15 @@ namespace YellowstonePathology.Business.Audit.Model
     public class CCCPAudit : Audit
     {
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-        private List<string> m_DescriptionKeyWords;
-        private List<string> m_DiagnosisKeyWords;
+        private YellowstonePathology.Business.Surgical.KeyWordCollection m_DescriptionKeyWords;
+        private YellowstonePathology.Business.Surgical.KeyWordCollection m_DiagnosisKeyWords;
         private YellowstonePathology.Business.Billing.Model.CptCodeCollection m_CptCodeCollection;
 
         public CCCPAudit(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {
             this.m_AccessionOrder = accessionOrder;
-            this.m_DescriptionKeyWords = new List<string> { "colon", "cecum", "appendix", "rectum" };
-            this.m_DiagnosisKeyWords = new List<string> { "carcinoma", "adenocarcinoma" };
+            this.m_DescriptionKeyWords = new YellowstonePathology.Business.Surgical.KeyWordCollection { "colon", "cecum", "appendix", "rectum" };
+            this.m_DiagnosisKeyWords = new YellowstonePathology.Business.Surgical.KeyWordCollection { "carcinoma", "adenocarcinoma" };
             this.m_CptCodeCollection = new Billing.Model.CptCodeCollection();
             this.m_CptCodeCollection.Add(new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88309());
         }
@@ -36,7 +36,7 @@ namespace YellowstonePathology.Business.Audit.Model
                     if (this.IndicatorExists(surgicalSpecimen.SpecimenOrder.Description, surgicalSpecimen.Diagnosis, panelSetOrderCPTCodeCollectionForThisSpecimen) == true)
                     {
                         this.m_Status = AuditStatusEnum.Failure;
-                        this.m_Message.AppendLine("Comprehensive Colon Cancer Profile is suggested.");
+                        this.m_Message.Append(comprehensiveColonCancerProfileTest.PanelSetName);
                         break;
                     }
                 }
@@ -47,30 +47,13 @@ namespace YellowstonePathology.Business.Audit.Model
         {
             bool result = false;
 
-            if (this.WordsExistIn(description, this.m_DescriptionKeyWords) == true)
+            if (this.m_DescriptionKeyWords.WordsExistIn(description) == true)
             {
-                if (this.WordsExistIn(diagnosis, this.m_DiagnosisKeyWords) == true)
+                if (this.m_DiagnosisKeyWords.WordsExistIn(diagnosis) == true)
                 {
                     if (panelSetOrderCPTCodeCollection.DoesCollectionHaveCodes(this.m_CptCodeCollection) == true)
                     {
                         result = true;
-                    }
-                }
-            }
-            return result;
-        }
-
-        public bool WordsExistIn(string text, List<string> keyWords)
-        {
-            bool result = false;
-            if (string.IsNullOrEmpty(text) == false)
-            {
-                foreach (string keyWord in keyWords)
-                {
-                    if (text.ToUpper().Contains(keyWord.ToUpper()) == true)
-                    {
-                        result = true;
-                        break;
                     }
                 }
             }

@@ -15,33 +15,40 @@ using System.Windows.Shapes;
 namespace YellowstonePathology.UI.Surgical
 {
     /// <summary>
-    /// Interaction logic for PqrsSignoutPage.xaml
+    /// Interaction logic for PQRSSignoutPage.xaml
     /// </summary>
-    public partial class PqrsSignoutPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
+    public partial class PQRSSignoutPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
     {
         public delegate void NextEventHandler(object sender, EventArgs e);
         public event NextEventHandler Next;
-
         public delegate void BackEventHandler(object sender, EventArgs e);
         public event BackEventHandler Back;
+        public delegate void CloseEventHandler(object sender, EventArgs e);
+        public event CloseEventHandler Close;
 
         private YellowstonePathology.Business.Surgical.PQRSMeasure m_PQRSMeasure;
         private YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen m_SurgicalSpecimen;
         private YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder m_SurgicalTestOrder;
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
+        private System.Windows.Visibility m_BackButtonVisibility;
+        private System.Windows.Visibility m_NextButtonVisibility;
 
-        public PqrsSignoutPage(YellowstonePathology.Business.Surgical.PQRSMeasure pqrsMeasure,
+        public PQRSSignoutPage(YellowstonePathology.Business.Surgical.PQRSMeasure pqrsMeasure,
             YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen,
             YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-            YellowstonePathology.Business.Persistence.ObjectTracker objectTracker)
+            YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
+            System.Windows.Visibility backButtonVisibility,
+            System.Windows.Visibility nextButtonVisibility)
         {
             this.m_PQRSMeasure = pqrsMeasure;
             this.m_SurgicalSpecimen = surgicalSpecimen;
             this.m_SurgicalTestOrder = surgicalTestOrder;
             this.m_AccessionOrder = accessionOrder;
             this.m_ObjectTracker = objectTracker;
+            this.m_BackButtonVisibility = backButtonVisibility;
+            this.m_NextButtonVisibility = nextButtonVisibility;
 
             InitializeComponent();
             this.DataContext = this;
@@ -58,6 +65,11 @@ namespace YellowstonePathology.UI.Surgical
         private void ButtonBack_Click(object sender, RoutedEventArgs e)
         {
             this.Back(this, new EventArgs());
+        }
+
+        private void ButtonClose_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close(this, new EventArgs());
         }
 
         private bool CanSave()
@@ -103,6 +115,28 @@ namespace YellowstonePathology.UI.Surgical
         public YellowstonePathology.Business.Surgical.PQRSMeasure PQRSMeasure
         {
             get { return this.m_PQRSMeasure; }
+        }
+
+        public System.Windows.Visibility BackButtonVisibility
+        {
+            get { return this.m_BackButtonVisibility; }
+        }
+
+        public System.Windows.Visibility NextButtonVisibility
+        {
+            get { return this.m_NextButtonVisibility; }
+        }
+
+        public System.Windows.Visibility CloseButtonVisibility
+        {
+            get
+            {
+                if (this.m_NextButtonVisibility == System.Windows.Visibility.Hidden)
+                {
+                    return System.Windows.Visibility.Visible;
+                }
+                return System.Windows.Visibility.Hidden;
+            }
         }
 
         private void CheckBoxNotApplicable_Checked(object sender, RoutedEventArgs e)

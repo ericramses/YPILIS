@@ -8,33 +8,33 @@ namespace YellowstonePathology.Business.Audit.Model
     public class LynchSyndromeAudit : Audit
     {
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-        private List<string> m_ColorectalDescriptionKeyWords;
-        private List<string> m_ColorectalDiagnosisKeyWords;
+        private YellowstonePathology.Business.Surgical.KeyWordCollection m_ColorectalDescriptionKeyWords;
+        private YellowstonePathology.Business.Surgical.KeyWordCollection m_ColorectalDiagnosisKeyWords;
         private YellowstonePathology.Business.Billing.Model.CptCodeCollection m_ColorectalCptCodeCollection;
 
-        private List<string> m_EndometrialDescriptionKeyWords;
-        private List<string> m_EndometrialDiagnosisKeyWords;
+        private YellowstonePathology.Business.Surgical.KeyWordCollection m_EndometrialDescriptionKeyWords;
+        private YellowstonePathology.Business.Surgical.KeyWordCollection m_EndometrialDiagnosisKeyWords;
         private YellowstonePathology.Business.Billing.Model.CptCodeCollection m_EndometrialCptCodeCollection;
 
-        private List<string> m_UterineDescriptionKeyWords;
-        private List<string> m_UterineDiagnosisKeyWords;
+        private YellowstonePathology.Business.Surgical.KeyWordCollection m_UterineDescriptionKeyWords;
+        private YellowstonePathology.Business.Surgical.KeyWordCollection m_UterineDiagnosisKeyWords;
         private YellowstonePathology.Business.Billing.Model.CptCodeCollection m_UterineCptCodeCollection;
 
         public LynchSyndromeAudit(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {
             this.m_AccessionOrder = accessionOrder;
-            this.m_ColorectalDescriptionKeyWords = new List<string> { "colon", "cecum", "appendix", "rectum" };
-            this.m_ColorectalDiagnosisKeyWords = new List<string> { "carcinoma", "adenocarcinoma" };
+            this.m_ColorectalDescriptionKeyWords = new YellowstonePathology.Business.Surgical.KeyWordCollection { "colon", "cecum", "appendix", "rectum" };
+            this.m_ColorectalDiagnosisKeyWords = new YellowstonePathology.Business.Surgical.KeyWordCollection { "carcinoma", "adenocarcinoma" };
             this.m_ColorectalCptCodeCollection = new Billing.Model.CptCodeCollection();
             this.m_ColorectalCptCodeCollection.Add(new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88309());
 
-            this.m_EndometrialDescriptionKeyWords = new List<string> { "endometrium" };
-            this.m_EndometrialDiagnosisKeyWords = new List<string> { "endometrioid carcinoma", "endometrioid adenocarcinoma" };
+            this.m_EndometrialDescriptionKeyWords = new YellowstonePathology.Business.Surgical.KeyWordCollection { "endometrium" };
+            this.m_EndometrialDiagnosisKeyWords = new YellowstonePathology.Business.Surgical.KeyWordCollection { "endometrioid carcinoma", "endometrioid adenocarcinoma" };
             this.m_EndometrialCptCodeCollection = new Billing.Model.CptCodeCollection();
             this.m_EndometrialCptCodeCollection.Add(new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88305());
 
-            this.m_UterineDescriptionKeyWords = new List<string> { "uterus" };
-            this.m_UterineDiagnosisKeyWords = new List<string> { "endometrioid carcinoma", "endometrioid adenocarcinoma" };
+            this.m_UterineDescriptionKeyWords = new YellowstonePathology.Business.Surgical.KeyWordCollection { "uterus" };
+            this.m_UterineDiagnosisKeyWords = new YellowstonePathology.Business.Surgical.KeyWordCollection { "endometrioid carcinoma", "endometrioid adenocarcinoma" };
             this.m_UterineCptCodeCollection = new Billing.Model.CptCodeCollection();
             this.m_UterineCptCodeCollection.Add(new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88309());
         }
@@ -54,19 +54,19 @@ namespace YellowstonePathology.Business.Audit.Model
                     if (this.ColorectalIndicatorExists(surgicalSpecimen.SpecimenOrder.Description, surgicalSpecimen.Diagnosis, panelSetOrderCPTCodeCollectionForThisSpecimen) == true)
                     {
                         this.m_Status = AuditStatusEnum.Failure;
-                        this.m_Message.AppendLine("Lynch Syndrome is suggested.");
+                        this.m_Message.Append(lynchSyndromeEvaluationTest.PanelSetName);
                         break;
                     }
                     else if (this.EndometrialIndicatorExists(surgicalSpecimen.SpecimenOrder.Description, surgicalSpecimen.Diagnosis, panelSetOrderCPTCodeCollectionForThisSpecimen) == true)
                     {
                         this.m_Status = AuditStatusEnum.Failure;
-                        this.m_Message.AppendLine("Lynch Syndrome is suggested.");
+                        this.m_Message.Append(lynchSyndromeEvaluationTest.PanelSetName);
                         break;
                     }
                     else if ( this.UterineIndicatorExists(surgicalSpecimen.SpecimenOrder.Description, surgicalSpecimen.Diagnosis, panelSetOrderCPTCodeCollectionForThisSpecimen) == true)
                     {
                         this.m_Status = AuditStatusEnum.Failure;
-                        this.m_Message.AppendLine("Lynch Syndrome is suggested.");
+                        this.m_Message.Append(lynchSyndromeEvaluationTest.PanelSetName);
                         break;
                     }
                 }
@@ -77,9 +77,9 @@ namespace YellowstonePathology.Business.Audit.Model
         {
             bool result = false;
 
-            if (this.WordsExistIn(description, this.m_ColorectalDescriptionKeyWords) == true)
+            if (this.m_ColorectalDescriptionKeyWords.WordsExistIn(description) == true)
             {
-                if (this.WordsExistIn(diagnosis, this.m_ColorectalDiagnosisKeyWords) == true)
+                if (this.m_ColorectalDiagnosisKeyWords.WordsExistIn(diagnosis) == true)
                 {
                     if (panelSetOrderCPTCodeCollection.DoesCollectionHaveCodes(this.m_ColorectalCptCodeCollection) == true)
                     {
@@ -94,9 +94,9 @@ namespace YellowstonePathology.Business.Audit.Model
         {
             bool result = false;
 
-            if (this.WordsExistIn(description, this.m_EndometrialDescriptionKeyWords) == true)
+            if (this.m_EndometrialDescriptionKeyWords.WordsExistIn(description) == true)
             {
-                if (this.WordsExistIn(diagnosis, this.m_EndometrialDiagnosisKeyWords) == true)
+                if (this.m_EndometrialDiagnosisKeyWords.WordsExistIn(diagnosis) == true)
                 {
                     if (panelSetOrderCPTCodeCollection.DoesCollectionHaveCodes(this.m_EndometrialCptCodeCollection) == true)
                     {
@@ -111,30 +111,13 @@ namespace YellowstonePathology.Business.Audit.Model
         {
             bool result = false;
 
-            if (this.WordsExistIn(description, this.m_UterineDescriptionKeyWords) == true)
+            if (this.m_UterineDescriptionKeyWords.WordsExistIn(description) == true)
             {
-                if (this.WordsExistIn(diagnosis, this.m_UterineDiagnosisKeyWords) == true)
+                if (this.m_UterineDiagnosisKeyWords.WordsExistIn(diagnosis) == true)
                 {
                     if (panelSetOrderCPTCodeCollection.DoesCollectionHaveCodes(this.m_UterineCptCodeCollection) == true)
                     {
                         result = true;
-                    }
-                }
-            }
-            return result;
-        }
-
-        public bool WordsExistIn(string text, List<string> keyWords)
-        {
-            bool result = false;
-            if (string.IsNullOrEmpty(text) == false)
-            {
-                foreach (string keyWord in keyWords)
-                {
-                    if (text.ToUpper().Contains(keyWord.ToUpper()) == true)
-                    {
-                        result = true;
-                        break;
                     }
                 }
             }
