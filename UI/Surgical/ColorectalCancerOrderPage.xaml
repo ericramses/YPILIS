@@ -71,8 +71,9 @@
             
         </Grid>
 
-        <Button Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" Click="ButtonBack_Click" Height="50" Width="100" HorizontalAlignment="Left">&lt; Back</Button>
-        <Button Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" Click="ButtonNext_Click" Height="50" Width="100" HorizontalAlignment="Right">Next ></Button>
-        
+        <Button Grid.Column="0" Grid.Row="1" Margin="5,5,5,5" Height="40" Width="100" HorizontalAlignment="Left" Click="ButtonBack_Click" Visibility="{Binding Path=BackButtonVisibility}">&lt; Back</Button>
+        <Button Grid.Column="0" Grid.Row="1" Margin="5,5,5,5" Height="40" Width="100" HorizontalAlignment="Right" Click="ButtonNext_Click" Visibility="{Binding Path=NextButtonVisibility}">Next ></Button>
+        <Button Grid.Column="0" Grid.Row="1" Margin="5,5,5,5" Height="40" Width="100" HorizontalAlignment="Right" Click="ButtonClose_Click" Visibility="{Binding Path=CloseButtonVisibility}">Close</Button>
+
     </Grid>
 </UserControl>

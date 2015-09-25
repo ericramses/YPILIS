@@ -9,13 +9,12 @@
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <Border Grid.Row="0" BorderBrush="Transparent" BorderThickness="0" Background="{DynamicResource {x:Static SystemColors.InactiveCaptionBrushKey}}"></Border>
-        <TextBlock Grid.Column="0" Grid.Row="0" Margin="20,2,2,2" Text="{Binding Path=PageHeaderText}" VerticalAlignment="Center" Foreground="White" FontSize="16" FontWeight="Bold"></TextBlock>
+        <TextBlock Grid.Column="0" Grid.Row="0" Margin="20,2,2,2" Text="{Binding Path=PageHeaderText}" VerticalAlignment="Center" FontWeight="Bold"></TextBlock>
 
         <Grid Grid.Row="1" Margin="5">
             <Grid.ColumnDefinitions>
@@ -90,9 +89,9 @@
 
         </Grid>
 
-        <Border Grid.Column="0" Grid.Row="2" BorderBrush="Transparent" BorderThickness="0" Background="{DynamicResource {x:Static SystemColors.InactiveCaptionBrushKey}}"></Border>
-        <Button Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Margin="5,5,5,5" Click="ButtonBack_Click" Width="100" Height="40" HorizontalAlignment="Left">&lt; Back</Button>
-        <Button Grid.Column="0" Grid.Row="2" Width="100" Height="40" HorizontalAlignment="Right" Margin="5,5,5,5" Click="ButtonNext_Click">Next ></Button>
+        <Button Grid.Column="0" Grid.Row="2" Height="40" Width="100" Margin="5,5,5,5" HorizontalAlignment="Left" Click="ButtonBack_Click" Visibility="{Binding Path=BackButtonVisibility}">&lt; Back</Button>
+        <Button Grid.Column="0" Grid.Row="2" Height="40" Width="100" Margin="5,5,5,5" HorizontalAlignment="Right" Click="ButtonNext_Click" Visibility="{Binding Path=NextButtonVisibility}">Next ></Button>
+        <Button Grid.Column="0" Grid.Row="2" Height="40" Width="100" Margin="5,5,5,5" HorizontalAlignment="Right" Click="ButtonClose_Click" Visibility="{Binding Path=CloseButtonVisibility}">Close</Button>
 
     </Grid>
 </UserControl>

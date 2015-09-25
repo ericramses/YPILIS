@@ -34,7 +34,6 @@ namespace YellowstonePathology.UI.Surgical
             this.m_TypingShortcutUserControl = typingShortcutUserControl;
             this.m_PathologistUI = pathologistUI;
             this.m_SystemIdentity = systemIdentity;
-            this.m_PathologistSignoutPath = new PathologistSignoutPath(this.m_PathologistUI.AccessionOrder, this.PanelSetOrderSurgical, this.m_PathologistUI.ObjectTracker, this.m_SystemIdentity);
 
 			this.m_BillingSpecimenViewCollection = new Business.View.BillingSpecimenViewCollection();
 			this.RefreshBillingSpecimenViewCollection();
@@ -458,6 +457,11 @@ namespace YellowstonePathology.UI.Surgical
         {
             if (this.PanelSetOrderSurgical.Final == false)
             {
+                if (this.m_PathologistSignoutPath == null)
+                {
+                    this.m_PathologistSignoutPath = new PathologistSignoutPath(this.m_PathologistUI.AccessionOrder, this.PanelSetOrderSurgical, this.m_PathologistUI.ObjectTracker, this.m_SystemIdentity);
+                }
+
                 YellowstonePathology.Business.Audit.Model.AuditResult auditResult = this.m_PathologistSignoutPath.CaseCanBeSignedOut();
                 if(auditResult.Status == Business.Audit.Model.AuditStatusEnum.Failure)
                 {

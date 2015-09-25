@@ -21,23 +21,30 @@ namespace YellowstonePathology.UI.Surgical
     {
         public delegate void NextEventHandler(object sender, EventArgs e);
         public event NextEventHandler Next;
-
         public delegate void BackEventHandler(object sender, EventArgs e);
         public event BackEventHandler Back;
+        public delegate void CloseEventHandler(object sender, EventArgs e);
+        public event CloseEventHandler Close;
 
         public delegate void OrderLynchSyndromeEventHandler(object sender, EventArgs e);
         public event OrderLynchSyndromeEventHandler OrderLynchSyndrome;
-
         public delegate void OrderCCCPEventHandler(object sender, EventArgs e);
         public event OrderCCCPEventHandler OrderCCCP;
 
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         private List<string> m_Messages;
+        private System.Windows.Visibility m_BackButtonVisibility;
+        private System.Windows.Visibility m_NextButtonVisibility;
 
-        public ColorectalCancerOrderPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, List<string> messages)
+        public ColorectalCancerOrderPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
+            List<string> messages,
+            System.Windows.Visibility backButtonVisibility,
+            System.Windows.Visibility nextButtonVisibility)
         {
             this.m_AccessionOrder = accessionOrder;
             this.m_Messages = messages;
+            this.m_BackButtonVisibility = backButtonVisibility;
+            this.m_NextButtonVisibility = nextButtonVisibility;
 
             InitializeComponent();
             DataContext = this;
@@ -71,6 +78,28 @@ namespace YellowstonePathology.UI.Surgical
             get { return this.m_Messages; }
         }
 
+        public System.Windows.Visibility BackButtonVisibility
+        {
+            get { return this.m_BackButtonVisibility; }
+        }
+
+        public System.Windows.Visibility NextButtonVisibility
+        {
+            get { return this.m_NextButtonVisibility; }
+        }
+
+        public System.Windows.Visibility CloseButtonVisibility
+        {
+            get
+            {
+                if (this.m_NextButtonVisibility == System.Windows.Visibility.Hidden)
+                {
+                    return System.Windows.Visibility.Visible;
+                }
+                return System.Windows.Visibility.Hidden;
+            }
+        }
+
         private void ButtonNext_Click(object sender, RoutedEventArgs e)
         {
             this.Next(this, new EventArgs());
@@ -79,6 +108,11 @@ namespace YellowstonePathology.UI.Surgical
         private void ButtonBack_Click(object sender, RoutedEventArgs e)
         {
             this.Back(this, new EventArgs());
+        }
+
+        private void ButtonClose_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close(this, new EventArgs());
         }
 
         private void HyperLinkLynchSyndrome_Click(object sender, RoutedEventArgs e)
