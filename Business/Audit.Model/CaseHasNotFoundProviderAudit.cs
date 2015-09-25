@@ -21,7 +21,7 @@ namespace YellowstonePathology.Business.Audit.Model
             if (this.m_AccessionOrder.PhysicianId == 2371)
             {
                 this.m_Status = AuditStatusEnum.Failure;
-                this.m_Message.AppendLine("The physician for this case is not set.");
+                this.m_Message.Append("The physician for this case is not set.");
             }
         }
     }

@@ -25,7 +25,7 @@ namespace YellowstonePathology.Business.Audit.Model
                     if (intraoperativeConsultationResult.Correlation == "Not Correlated")
                     {
                         this.m_Status = AuditStatusEnum.Failure;
-                        this.m_Message.AppendLine("The case has an intraoperative consultation that is not correlated.");
+                        this.m_Message.Append("The case has an intraoperative consultation that is not correlated.");
                         break;
                     }
                 }

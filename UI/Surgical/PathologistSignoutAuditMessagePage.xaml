@@ -12,13 +12,14 @@
         <ListView Grid.Column="0" Grid.Row="0" Margin="5,5,5,5" HorizontalAlignment="Stretch" ItemsSource="{Binding Path=AuditMessages}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Audit Message" DisplayMemberBinding="{Binding}" />
+                    <GridViewColumn Header="Audit Message" DisplayMemberBinding="{Binding}" Width="800" />
                 </GridView>
 
             </ListView.View>
         </ListView>
 
-        <Button Grid.Column="0" Grid.Row="1" Width="100" Height="40" HorizontalAlignment="Left" Margin="5,5,5,5" Click="ButtonBack_Click">&lt; Back</Button>
-        <Button Grid.Column="0" Grid.Row="1" Width="100" Height="40" HorizontalAlignment="Right" Margin="5,5,5,5" Click="ButtonNext_Click">Next ></Button>
+        <Button Grid.Column="0" Grid.Row="1" Height="40" Width="100" Margin="5,5,5,5" HorizontalAlignment="Left" Click="ButtonBack_Click" Visibility="{Binding Path=BackButtonVisibility}">&lt; Back</Button>
+        <Button Grid.Column="0" Grid.Row="1" Height="40" Width="100" Margin="5,5,5,5" HorizontalAlignment="Right" Click="ButtonNext_Click" Visibility="{Binding Path=NextButtonVisibility}">Next ></Button>
+        <Button Grid.Column="0" Grid.Row="1" Height="40" Width="100" Margin="5,5,5,5" HorizontalAlignment="Right" Click="ButtonClose_Click" Visibility="{Binding Path=CloseButtonVisibility}">Close</Button>
     </Grid>
 </UserControl>

@@ -26,7 +26,7 @@ namespace YellowstonePathology.Business.Audit.Model
                     if (this.m_AccessionOrder.PanelSetOrderCollection.HasUnfinaledPeerReview() == true)
                     {
                         this.m_Status = AuditStatusEnum.Failure;
-                        this.m_Message.AppendLine("There is one or more unfinaled prospective peer reviews.");
+                        this.m_Message.Append("There is one or more unfinaled prospective peer reviews.");
                     }
                 }
             }

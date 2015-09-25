@@ -23,13 +23,19 @@ namespace YellowstonePathology.UI.Surgical
         public event NextEventHandler Next;
         public delegate void BackEventHandler(object sender, EventArgs e);
         public event BackEventHandler Back;
+        public delegate void CloseEventHandler(object sender, EventArgs e);
+        public event CloseEventHandler Close;
 
+        private System.Windows.Visibility m_BackButtonVisibility;
+        private System.Windows.Visibility m_NextButtonVisibility;
 
         private List<string> m_AuditMessages;
 
-        public PathologistSignoutAuditMessagePage(List<string> auditMessages)
+        public PathologistSignoutAuditMessagePage(List<string> auditMessages, System.Windows.Visibility backButtonVisibility, System.Windows.Visibility nextButtonVisibility)
         {
             this.m_AuditMessages = auditMessages;
+            this.m_BackButtonVisibility = backButtonVisibility;
+            this.m_NextButtonVisibility = nextButtonVisibility;
 
             InitializeComponent();
             DataContext = this;
@@ -64,9 +70,36 @@ namespace YellowstonePathology.UI.Surgical
             this.Back(this, new EventArgs());
         }
 
+        private void ButtonClose_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close(this, new EventArgs());
+        }
+
         public List<string> AuditMessages
         {
             get { return this.m_AuditMessages; }
+        }
+
+        public System.Windows.Visibility BackButtonVisibility
+        {
+            get { return this.m_BackButtonVisibility; }
+        }
+
+        public System.Windows.Visibility NextButtonVisibility
+        {
+            get { return this.m_NextButtonVisibility; }
+        }
+
+        public System.Windows.Visibility CloseButtonVisibility
+        {
+            get
+            {
+                if (this.m_NextButtonVisibility == System.Windows.Visibility.Hidden)
+                {
+                    return System.Windows.Visibility.Visible;
+                }
+                return System.Windows.Visibility.Hidden;
+            }
         }
     }
 }
