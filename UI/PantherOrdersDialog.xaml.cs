@@ -21,10 +21,12 @@ namespace YellowstonePathology.UI
     {
         public event PropertyChangedEventHandler PropertyChanged;
         private YellowstonePathology.Business.Test.PantherOrderList m_PantherOrderList;
+        private YellowstonePathology.Business.Test.PantherAliquotList m_PantherAliquotList;
 
         public PantherOrdersDialog()
         {
-            this.m_PantherOrderList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPantherOrdersNotAliquoted();
+            this.m_PantherAliquotList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPantherOrdersNotAliquoted();
+            this.m_PantherOrderList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPantherOrdersNotAcceptedHPV();
             InitializeComponent();
             this.DataContext = this;
         }
@@ -34,6 +36,11 @@ namespace YellowstonePathology.UI
             get { return this.m_PantherOrderList; }
         }
 
+        public YellowstonePathology.Business.Test.PantherAliquotList PantherAliquotList
+        {
+            get { return this.m_PantherAliquotList; }
+        }
+
         private void ButtonClose_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
@@ -41,26 +48,22 @@ namespace YellowstonePathology.UI
 
         private void ButtonPrint_Click(object sender, RoutedEventArgs e)
         {
-            PantherOrdersReport pantherOrdersReport = new PantherOrdersReport(this.m_PantherOrderList);
-            pantherOrdersReport.Print();
+            PantherAliquotReport pantherAliquotReport = new PantherAliquotReport(this.m_PantherAliquotList);
+            pantherAliquotReport.Print();
         }
 
         private void ButtonSearch_Click(object sender, RoutedEventArgs e)
-        {
-            string selectedValue = this.ComboBoxListType.SelectedValue.ToString();
-            switch (selectedValue)
-            {
-                case "Not Aliquoted":
-                    this.m_PantherOrderList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPantherOrdersNotAliquoted();
+        {            
+            switch (this.ComboBoxListType.SelectedIndex)
+            {                
+                case 0:
+                    this.m_PantherOrderList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPantherOrdersNotAcceptedHPV();
                     break;
-                case "Not Accepted":
-                    this.m_PantherOrderList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPantherOrdersNotAccepted();
+                case 1:
+                    this.m_PantherOrderList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPantherOrdersNotFinalHPV();
                     break;
-                case "Not Final":
-                    this.m_PantherOrderList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPantherOrdersNotFinal();
-                    break;
-                case "Final":
-                    this.m_PantherOrderList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPantherOrdersFinal();
+                case 2:
+                    this.m_PantherOrderList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPantherOrdersFinalHPV();
                     break;
             }
             this.NotifyPropertyChanged("PantherOrderList");

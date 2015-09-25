@@ -13,7 +13,7 @@ namespace YellowstonePathology.Business.Test
         private DateTime m_OrderTime;
         private string m_PLastName;
         private string m_PFirstName;
-        private string m_ResultCode;
+        private string m_Result;
         private Nullable<DateTime> m_AcceptedTime;
         private Nullable<DateTime> m_FinalTime;
 
@@ -58,10 +58,10 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
-        public string ResultCode
+        public string Result
         {
-            get { return this.m_ResultCode; }
-            set { this.m_ResultCode = value; }
+            get { return this.m_Result; }
+            set { this.m_Result = value; }
         }
 
         [PersistentProperty()]

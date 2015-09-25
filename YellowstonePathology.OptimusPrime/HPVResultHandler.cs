@@ -20,6 +20,7 @@ namespace YellowstonePathology.OptimusPrime
 
             string reportNo = (string)payload["reportNo"];
             string testName = (string)payload["testName"];
+            string aliquotOrderId = (string)payload["aliquotOrderId"];
             string overallInterpretation = (string)payload["overallInterpretation"];
             string sql = null;
 
@@ -32,7 +33,8 @@ namespace YellowstonePathology.OptimusPrime
                     sql = @"Update tblPanelSetOrderHPVTWI set Result = '" + hpvResult.Result + "' "
                         + "from tblPanelSetOrderHPVTWI psoh, tblPanelSetOrder pso "
                         + "where psoh.ReportNo = pso.ReportNo "
-                        + "and psoh.ReportNo = '" + reportNo + "' and pso.Accepted = 0";
+                        + "and pso.OrderedOnId = '" + aliquotOrderId + "' and pso.Accepted = 0; ";
+                        //+ "and psoh.ReportNo = '" + reportNo + "' and pso.Accepted = 0; ";
 
                     sql += @"Update tblPanelSetOrder set ResultCode = '" + hpvResult.ResultCode + "', "
                     + "[HoldDistribution] = 1, "
@@ -46,7 +48,8 @@ namespace YellowstonePathology.OptimusPrime
                     + "[FinaledById] = 5134, "
                     + "[FinalDate] = '" + DateTime.Today.ToString("MM/dd/yyyy") + "', "
                     + "[FinalTime] = '" + DateTime.Now.ToString("MM/dd/yyyy HH:mm") + "' "
-                    + "where Accepted = 0 and ReportNo = '" + reportNo + "';";
+                    + "where PanelSetId = 14 and Accepted = 0 and OrderedOnId = '" + aliquotOrderId + "';";
+                    //+ "where Accepted = 0 and ReportNo = '" + reportNo + "';";
                 }
                 else if (overallInterpretation == "POSITIVE")
                 {
@@ -54,7 +57,8 @@ namespace YellowstonePathology.OptimusPrime
                     sql = @"Update tblPanelSetOrderHPVTWI set Result = '" + hpvResult.Result + "' "
                         + "from tblPanelSetOrderHPVTWI psoh, tblPanelSetOrder pso "
                         + "where psoh.ReportNo = pso.ReportNo "
-                        + "and psoh.ReportNo = '" + reportNo + "' and pso.Accepted = 0";
+                        + "and pso.OrderedOnId = '" + aliquotOrderId + "' and pso.Accepted = 0; ";
+                        //+ "and psoh.ReportNo = '" + reportNo + "' and pso.Accepted = 0; ";
 
                     sql += @"Update tblPanelSetOrder set ResultCode = '" + hpvResult.ResultCode + "', "
                     + "[HoldDistribution] = 1, "
@@ -63,11 +67,9 @@ namespace YellowstonePathology.OptimusPrime
                     + "[AcceptedById] = 5134, "
                     + "[AcceptedDate] = '" + DateTime.Today.ToString("MM/dd/yyyy") + "', "
                     + "[AcceptedTime] = '" + DateTime.Now.ToString("MM/dd/yyyy HH:mm") + "' "
-                    + "where Accepted = 0 and ReportNo = '" + reportNo + "';";
-                }
-
-                
-
+                    + "where PanelSetId = 14 and Accepted = 0 and OrderedOnId = '" + aliquotOrderId + "';";
+                    //+ "where Accepted = 0 and ReportNo = '" + reportNo + "';";
+                }                
             }
 
             using (var cnx = new SqlConnection(connectionString))

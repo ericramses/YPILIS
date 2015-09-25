@@ -20,6 +20,7 @@ namespace EdgeSampleLibrary
 
             string reportNo = (string)payload["reportNo"];
             string testName = (string)payload["testName"];
+            string aliquotOrderId = (string)payload["aliquotOrderId"];
             string overallInterpretation = (string)payload["overallInterpretation"];
             string sql = null;
 
@@ -41,7 +42,8 @@ namespace EdgeSampleLibrary
                     + "[FinaledById] = 5134, "
                     + "[FinalDate] = '" + DateTime.Today.ToString("MM/dd/yyyy") + "', "
                     + "[FinalTime] = '" + DateTime.Now.ToString("MM/dd/yyyy HH:mm") + "' "
-                    + "where Accepted = 0 and ReportNo = '" + reportNo + "';";
+                    + "where Accepted = 0 and OrderedOnId = '" + aliquotOrderId + "';";
+                    //+ "where Accepted = 0 and ReportNo = '" + reportNo + "';";
                 }
                 else if (overallInterpretation == "POSITIVE")
                 {
@@ -52,14 +54,16 @@ namespace EdgeSampleLibrary
                     + "[AcceptedBy] = 'Optimus Prime', "
                     + "[AcceptedById] = 5134, "
                     + "[AcceptedDate] = '" + DateTime.Today.ToString("MM/dd/yyyy") + "', "
-                    + "[AcceptedTime] = '" + DateTime.Now.ToString("MM/dd/yyyy HH:mm") + "' "                    
-                    + "where Accepted = 0 and ReportNo = '" + reportNo + "';";
+                    + "[AcceptedTime] = '" + DateTime.Now.ToString("MM/dd/yyyy HH:mm") + "' "
+                    + "where Accepted = 0 and OrderedOnId = '" + aliquotOrderId + "';";
+                    //+ "where Accepted = 0 and ReportNo = '" + reportNo + "';";
                 }                                
 
                 sql += @"Update tblPanelSetOrderHPVTWI set[Result] = '" + hpvResult.Result + "' "
                         + "from tblPanelSetOrderHPVTWI psoh, tblPanelSetOrder pso "
                         + "where psoh.ReportNo = pso.ReportNo "
-                        + "and psoh.ReportNo = '" + reportNo + "' and pso.Accepted = 0";
+                        + "and pso.OrderedOnId = '" + aliquotOrderId + "' and pso.Accepted = 0";
+                        //+ "and psoh.ReportNo = '" + reportNo + "' and pso.Accepted = 0";
 
             }
 

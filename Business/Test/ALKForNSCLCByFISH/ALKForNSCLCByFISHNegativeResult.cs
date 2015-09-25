@@ -15,7 +15,7 @@ namespace YellowstonePathology.Business.Test.ALKForNSCLCByFISH
             this.m_ResultAbbreviation = "Negative";
 			
 			this.m_Interpretation = "Interphase FISH analysis was performed using the ALK Break Apart FISH Probe Kit. FISH probe signals were within the normal reference " +
-                "range. ALK gene rearrangement observations were below the cutoff of <10% for this assay. This represents " +
+                "range. ALK gene rearrangement observations were below the cutoff of 10% for this assay. This represents " +
                 "a NORMAL result and suggests that ALK inhibitors are not indicated.";
 			
 			this.m_ProbeSetDetail = "ALK Lung: A normal FISH signal pattern of two fusions (2F) was observed.";
