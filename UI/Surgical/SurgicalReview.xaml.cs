@@ -462,12 +462,12 @@ namespace YellowstonePathology.UI.Surgical
                     this.m_PathologistSignoutPath = new PathologistSignoutPath(this.m_PathologistUI.AccessionOrder, this.PanelSetOrderSurgical, this.m_PathologistUI.ObjectTracker, this.m_SystemIdentity);
                 }
 
-                YellowstonePathology.Business.Audit.Model.AuditResult auditResult = this.m_PathologistSignoutPath.CaseCanBeSignedOut();
+                YellowstonePathology.Business.Audit.Model.AuditResult auditResult = this.m_PathologistSignoutPath.PathologistSignOutAudit;
                 if(auditResult.Status == Business.Audit.Model.AuditStatusEnum.Failure)
                 {
                     this.m_PathologistSignoutPath.Start();
                     this.RefreshBillingSpecimenViewCollection();
-                    auditResult = this.m_PathologistSignoutPath.CaseCanBeSignedOut();
+                    auditResult = this.m_PathologistSignoutPath.IsPathologistSignoutHandled();
                 }
 
                 if (auditResult.Status == Business.Audit.Model.AuditStatusEnum.OK)

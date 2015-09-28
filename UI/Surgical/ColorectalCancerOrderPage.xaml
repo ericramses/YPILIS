@@ -21,6 +21,8 @@
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
+            <Border Grid.Row="0" Grid.Column="0" BorderBrush="Transparent" BorderThickness="0" Background="{DynamicResource {x:Static SystemColors.InactiveCaptionBrushKey}}"></Border>
+
             <Grid Grid.Column="0" Margin="10" Width="180">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"></RowDefinition>

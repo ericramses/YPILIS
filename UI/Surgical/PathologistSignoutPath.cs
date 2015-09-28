@@ -17,7 +17,7 @@ namespace YellowstonePathology.UI.Surgical
         private List<string> m_AuditMessages;
         private List<string> m_ColonCancerMessages;
 
-        private YellowstonePathology.Business.Audit.Model.AuditCollection m_AuditCollection;
+        private YellowstonePathology.Business.Audit.Model.PathologistSignoutAuditCollection m_PathologistSignoutAuditCollection;
         private YellowstonePathology.Business.Audit.Model.AuditResult m_AuditResult;
         private YellowstonePathology.Business.Audit.Model.AuditResult m_MessageAuditResult;
         private PathologistSignoutDialog m_PathologistSignoutDialog;
@@ -37,22 +37,9 @@ namespace YellowstonePathology.UI.Surgical
             this.m_ObjectTracker = objectTracker;
             this.m_SystemIdentity = systemIdentity;
 
-            this.m_AuditCollection = new Business.Audit.Model.AuditCollection();
-            this.m_AuditCollection.Add(new Business.Audit.Model.AncillaryStudiesAreHandledAudit(this.m_SurgicalTestOrder));
-            this.m_AuditCollection.Add(new Business.Audit.Model.SurgicalCaseHasQuestionMarksAudit(this.m_SurgicalTestOrder));
-            this.m_AuditCollection.Add(new Business.Audit.Model.SigningUserIsAssignedUserAudit(this.m_SurgicalTestOrder, this.m_SystemIdentity));
-            this.m_AuditCollection.Add(new Business.Audit.Model.SvhCaseHasMRNAndAccountNoAudit(this.m_AccessionOrder));
-            this.m_AuditCollection.Add(new Business.Audit.Model.CaseHasNotFoundClientAudit(this.m_AccessionOrder));
-            this.m_AuditCollection.Add(new Business.Audit.Model.CaseHasNotFoundProviderAudit(this.m_AccessionOrder));
-            this.m_AuditCollection.Add(new Business.Audit.Model.CaseHasUnfinaledPeerReviewAudit(this.m_AccessionOrder));
-            this.m_AuditCollection.Add(new Business.Audit.Model.GradedStainsAreHandledAudit(this.m_SurgicalTestOrder));
-            this.m_AuditCollection.Add(new Business.Audit.Model.IntraoperativeConsultationCorrelationAudit(this.m_SurgicalTestOrder));
-            this.m_AuditCollection.Add(new Business.Audit.Model.PapCorrelationAudit(this.m_AccessionOrder));
-            this.m_AuditCollection.Add(new Business.Audit.Model.PQRSIsRequiredAudit(this.m_AccessionOrder));
-            this.m_AuditCollection.Add(new Business.Audit.Model.LynchSyndromeAudit(this.m_AccessionOrder));
-            this.m_AuditCollection.Add(new Business.Audit.Model.CCCPAudit(this.m_AccessionOrder));
+            this.m_PathologistSignoutAuditCollection = new Business.Audit.Model.PathologistSignoutAuditCollection(this.m_AccessionOrder, this.m_SystemIdentity);
 
-            this.m_AuditResult = this.m_AuditCollection.Run2();
+            this.m_AuditResult = this.m_PathologistSignoutAuditCollection.Run2();
             if (this.m_AuditResult.Status == Business.Audit.Model.AuditStatusEnum.Failure)
             {
                 this.SetActionList();
@@ -70,12 +57,19 @@ namespace YellowstonePathology.UI.Surgical
             }
         }
 
-        public YellowstonePathology.Business.Audit.Model.AuditResult CaseCanBeSignedOut()
+        public YellowstonePathology.Business.Audit.Model.AuditResult PathologistSignOutAudit
         {
-            return this.m_AuditResult;
+            get { return this.m_AuditResult; }
         }
 
-        private void SetActionList()
+        public YellowstonePathology.Business.Audit.Model.AuditResult IsPathologistSignoutHandled()
+        {
+            YellowstonePathology.Business.Audit.Model.IsPathologistSignoutHandledAuditCollection isPathologistSignoutHandledAuditCollection = new Business.Audit.Model.IsPathologistSignoutHandledAuditCollection(this.m_AccessionOrder, this.m_SystemIdentity);
+            YellowstonePathology.Business.Audit.Model.AuditResult auditResult = isPathologistSignoutHandledAuditCollection.Run2();
+            return auditResult;
+        }
+
+    private void SetActionList()
         {
             this.m_ActionList = new List<Action>();
             this.m_AuditMessages = new List<string>();
@@ -84,7 +78,7 @@ namespace YellowstonePathology.UI.Surgical
             this.m_MessageAuditResult.Status = Business.Audit.Model.AuditStatusEnum.OK;
             this.m_MessageAuditResult.Message = string.Empty;
 
-            foreach(YellowstonePathology.Business.Audit.Model.Audit audit in this.m_AuditCollection)
+            foreach(YellowstonePathology.Business.Audit.Model.Audit audit in this.m_PathologistSignoutAuditCollection)
             {
                 audit.Run();
                 if (audit.Status == Business.Audit.Model.AuditStatusEnum.Failure)
@@ -105,7 +99,7 @@ namespace YellowstonePathology.UI.Surgical
                         case "YellowstonePathology.Business.Audit.Model.LynchSyndromeAudit":
                         case "YellowstonePathology.Business.Audit.Model.CCCPAudit":
                             {
-                                this.m_ColonCancerMessages.Add(audit.Message.ToString());
+                                this.m_ColonCancerMessages.Add(audit.Message.ToString().Trim());
                                 if (this.m_ActionList.Contains(HandleColorectalCancer) == false)
                                 {
                                     this.m_ActionList.Add(HandleColorectalCancer);
@@ -114,7 +108,7 @@ namespace YellowstonePathology.UI.Surgical
                             }
                         default:
                             {
-                                this.m_AuditMessages.Add(audit.Message.ToString());
+                                this.m_AuditMessages.Add(audit.Message.ToString().Trim());
                                 this.m_MessageAuditResult.Status = audit.Status;
                                 if(this.m_ActionList.Contains(HandleAuditMessages) == false)
                                 {
