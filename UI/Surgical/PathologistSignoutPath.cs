@@ -98,6 +98,7 @@ namespace YellowstonePathology.UI.Surgical
                             }
                         case "YellowstonePathology.Business.Audit.Model.LynchSyndromeAudit":
                         case "YellowstonePathology.Business.Audit.Model.CCCPAudit":
+                        case "YellowstonePathology.Business.Audit.Model.BRAFMetastaticMelanomaAudit":
                             {
                                 this.m_ColonCancerMessages.Add(audit.Message.ToString().Trim());
                                 if (this.m_ActionList.Contains(HandleColorectalCancer) == false)
@@ -170,16 +171,12 @@ namespace YellowstonePathology.UI.Surgical
 
         private void HandlePapCorrelation()
         {
-            //this.m_SurgicalTestOrder.PapCorrelationRequired = true;
-
             this.SetWindowButtonVisibility();
             PapCorrelationPage papCorrelationPage = new PapCorrelationPage(this.m_AccessionOrder, this.m_SurgicalTestOrder, this.m_ObjectTracker, this.m_BackButtonVisibility, this.m_NextButtonVisibility);
             papCorrelationPage.Next += this.MoveForward;
             papCorrelationPage.Back += this.MoveBack;
             papCorrelationPage.Close += this.CloseDialog;
             this.m_PathologistSignoutDialog.PageNavigator.Navigate(papCorrelationPage);
-            //this.m_SurgicalTestOrder.PapCorrelationRequired = false;
-            //this.m_SurgicalTestOrder.PapCorrelation = 0;
         }
 
         private void HandlePQRS()
@@ -223,6 +220,7 @@ namespace YellowstonePathology.UI.Surgical
             colorectalCancerOrderPage.Close += this.CloseDialog;
             colorectalCancerOrderPage.OrderCCCP += ColorectalCancerOrderPage_OrderCCCP;
             colorectalCancerOrderPage.OrderLynchSyndrome += ColorectalCancerOrderPage_OrderLynchSyndrome;
+            colorectalCancerOrderPage.OrderBRAFV600EK += ColorectalCancerOrderPage_OrderBRAFV600EK;
             this.m_PathologistSignoutDialog.PageNavigator.Navigate(colorectalCancerOrderPage);
         }
 
@@ -236,6 +234,12 @@ namespace YellowstonePathology.UI.Surgical
         {
             YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeEvaluationTest lynchSyndromeEvaluationTest = new Business.Test.LynchSyndrome.LynchSyndromeEvaluationTest();
             this.StartReportOrderPath(lynchSyndromeEvaluationTest);
+        }
+
+        private void ColorectalCancerOrderPage_OrderBRAFV600EK(object sender, EventArgs e)
+        {
+            YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTest brafV600EKTest = new Business.Test.BRAFV600EK.BRAFV600EKTest();
+            this.StartReportOrderPath(brafV600EKTest);
         }
 
         private void StartReportOrderPath(YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet)

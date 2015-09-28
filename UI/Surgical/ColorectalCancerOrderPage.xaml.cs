@@ -30,6 +30,8 @@ namespace YellowstonePathology.UI.Surgical
         public event OrderLynchSyndromeEventHandler OrderLynchSyndrome;
         public delegate void OrderCCCPEventHandler(object sender, EventArgs e);
         public event OrderCCCPEventHandler OrderCCCP;
+        public delegate void OrderBRAFV600EKEventHandler(object sender, EventArgs e);
+        public event OrderBRAFV600EKEventHandler OrderBRAFV600EK;
 
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         private List<string> m_Messages;
@@ -130,6 +132,15 @@ namespace YellowstonePathology.UI.Surgical
             if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(comprehensiveColonCancerProfileTest.PanelSetId) == false)
             {
                 this.OrderCCCP(this, new EventArgs());
+            }
+        }
+
+        private void HyperLinkBRAFV600E_Click(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTest brafV600EKTest = new Business.Test.BRAFV600EK.BRAFV600EKTest();
+            if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(brafV600EKTest.PanelSetId) == false)
+            {
+                this.OrderBRAFV600EK(this, new EventArgs());
             }
         }
     }
