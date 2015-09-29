@@ -26,12 +26,8 @@ namespace YellowstonePathology.UI.Surgical
         public delegate void CloseEventHandler(object sender, EventArgs e);
         public event CloseEventHandler Close;
 
-        public delegate void OrderLynchSyndromeEventHandler(object sender, EventArgs e);
-        public event OrderLynchSyndromeEventHandler OrderLynchSyndrome;
-        public delegate void OrderCCCPEventHandler(object sender, EventArgs e);
-        public event OrderCCCPEventHandler OrderCCCP;
-        public delegate void OrderBRAFV600EKEventHandler(object sender, EventArgs e);
-        public event OrderBRAFV600EKEventHandler OrderBRAFV600EK;
+        public delegate void OrderTestEventHandler(object sender, CustomEventArgs.PanelSetReturnEventArgs e);
+        public event OrderTestEventHandler OrderTest;
 
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         private List<string> m_Messages;
@@ -122,7 +118,7 @@ namespace YellowstonePathology.UI.Surgical
             YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeEvaluationTest lynchSyndromeEvaluationTest = new YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeEvaluationTest();
             if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(lynchSyndromeEvaluationTest.PanelSetId) == false)
             {
-                this.OrderLynchSyndrome(this, new EventArgs());
+                this.OrderTest(this, new CustomEventArgs.PanelSetReturnEventArgs(lynchSyndromeEvaluationTest));
             }
         }
 
@@ -131,7 +127,7 @@ namespace YellowstonePathology.UI.Surgical
             YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile.ComprehensiveColonCancerProfileTest comprehensiveColonCancerProfileTest = new YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile.ComprehensiveColonCancerProfileTest();
             if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(comprehensiveColonCancerProfileTest.PanelSetId) == false)
             {
-                this.OrderCCCP(this, new EventArgs());
+                this.OrderTest(this, new CustomEventArgs.PanelSetReturnEventArgs(comprehensiveColonCancerProfileTest));
             }
         }
 
@@ -140,7 +136,34 @@ namespace YellowstonePathology.UI.Surgical
             YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTest brafV600EKTest = new Business.Test.BRAFV600EK.BRAFV600EKTest();
             if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(brafV600EKTest.PanelSetId) == false)
             {
-                this.OrderBRAFV600EK(this, new EventArgs());
+                this.OrderTest(this, new CustomEventArgs.PanelSetReturnEventArgs(brafV600EKTest));
+            }
+        }
+
+        private void HyperLinkHighRiskHPVTWI_Click(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Test.HPVTWI.HPVTWITest hpvTWITest = new Business.Test.HPVTWI.HPVTWITest();
+            if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(hpvTWITest.PanelSetId) == false)
+            {
+                this.OrderTest(this, new CustomEventArgs.PanelSetReturnEventArgs(hpvTWITest));
+            }
+        }
+
+        private void HyperLinkKRASStandardMutationAnalysis_Click(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Test.KRASStandard.KRASStandardTest krasStandardTest = new Business.Test.KRASStandard.KRASStandardTest();
+            if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(krasStandardTest.PanelSetId) == false)
+            {
+                this.OrderTest(this, new CustomEventArgs.PanelSetReturnEventArgs(krasStandardTest));
+            }
+        }
+
+        private void HyperLinkPNH_Click(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Test.PNH.PNHTest pnhTest = new Business.Test.PNH.PNHTest();
+            if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(pnhTest.PanelSetId) == false)
+            {
+                this.OrderTest(this, new CustomEventArgs.PanelSetReturnEventArgs(pnhTest));
             }
         }
     }

@@ -162,13 +162,17 @@
     <Compile Include="Audit.Model\CouldBenefitFromCCCPAudit.cs" />
     <Compile Include="Audit.Model\GradedStainsAreHandledAudit.cs" />
     <Compile Include="Audit.Model\HER2OKToAcceptAudit.cs" />
+    <Compile Include="Audit.Model\HighRiskHPVForSiteAudit.cs" />
     <Compile Include="Audit.Model\IntraoperativeConsultationCorrelationAudit.cs" />
     <Compile Include="Audit.Model\IntraoperativeConsultationFinalAudit.cs" />
     <Compile Include="Audit.Model\IsPathologistSignoutHandledAuditCollection.cs" />
+    <Compile Include="Audit.Model\KRASForMetastaticColorectalCancerAudit.cs" />
     <Compile Include="Audit.Model\LynchSyndromeAudit.cs" />
+    <Compile Include="Audit.Model\NonASCIICharacterAudit.cs" />
     <Compile Include="Audit.Model\PapCorrelationAudit.cs" />
     <Compile Include="Audit.Model\PathologistSignoutAuditCollection.cs" />
     <Compile Include="Audit.Model\PhoneNumberAudit.cs" />
+    <Compile Include="Audit.Model\PNHOnBoneMarrowSpecimenAudit.cs" />
     <Compile Include="Audit.Model\PQRSIsHandledAudit.cs" />
     <Compile Include="Audit.Model\PQRSIsRequiredAudit.cs" />
     <Compile Include="Audit.Model\ProviderDisplayNameAudit.cs" />

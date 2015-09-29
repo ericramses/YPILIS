@@ -96,9 +96,17 @@ namespace YellowstonePathology.UI.Surgical
                                 this.m_ActionList.Add(HandlePQRS);
                                 break;
                             }
+                        case "YellowstonePathology.Business.Audit.Model.NonASCIICharacterAudit":
+                            {
+                                this.m_ActionList.Add(HandleNonASCIICharacters);
+                                break;
+                            }
                         case "YellowstonePathology.Business.Audit.Model.LynchSyndromeAudit":
                         case "YellowstonePathology.Business.Audit.Model.CCCPAudit":
                         case "YellowstonePathology.Business.Audit.Model.BRAFMetastaticMelanomaAudit":
+                        case "YellowstonePathology.Business.Audit.Model.HighRiskHPVForSiteAudit":
+                        case "YellowstonePathology.Business.Audit.Model.KRASForMetastaticColorectalCancerAudit":
+                        case "YellowstonePathology.Business.Audit.Model.PNHOnBoneMarrowSpecimenAudit":
                             {
                                 this.m_ColonCancerMessages.Add(audit.Message.ToString().Trim());
                                 if (this.m_ActionList.Contains(HandleColorectalCancer) == false)
@@ -218,28 +226,13 @@ namespace YellowstonePathology.UI.Surgical
             colorectalCancerOrderPage.Next += this.MoveForward;
             colorectalCancerOrderPage.Back += this.MoveBack;
             colorectalCancerOrderPage.Close += this.CloseDialog;
-            colorectalCancerOrderPage.OrderCCCP += ColorectalCancerOrderPage_OrderCCCP;
-            colorectalCancerOrderPage.OrderLynchSyndrome += ColorectalCancerOrderPage_OrderLynchSyndrome;
-            colorectalCancerOrderPage.OrderBRAFV600EK += ColorectalCancerOrderPage_OrderBRAFV600EK;
+            colorectalCancerOrderPage.OrderTest += ColorectalCancerOrderPage_OrderTest;
             this.m_PathologistSignoutDialog.PageNavigator.Navigate(colorectalCancerOrderPage);
         }
 
-        private void ColorectalCancerOrderPage_OrderCCCP(object sender, EventArgs e)
+        private void ColorectalCancerOrderPage_OrderTest(object sender, CustomEventArgs.PanelSetReturnEventArgs e)
         {
-            YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile.ComprehensiveColonCancerProfileTest comprehensiveColonCancerProfileTest = new Business.Test.ComprehensiveColonCancerProfile.ComprehensiveColonCancerProfileTest();
-            this.StartReportOrderPath(comprehensiveColonCancerProfileTest);
-        }
-
-        private void ColorectalCancerOrderPage_OrderLynchSyndrome(object sender, EventArgs e)
-        {
-            YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeEvaluationTest lynchSyndromeEvaluationTest = new Business.Test.LynchSyndrome.LynchSyndromeEvaluationTest();
-            this.StartReportOrderPath(lynchSyndromeEvaluationTest);
-        }
-
-        private void ColorectalCancerOrderPage_OrderBRAFV600EK(object sender, EventArgs e)
-        {
-            YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTest brafV600EKTest = new Business.Test.BRAFV600EK.BRAFV600EKTest();
-            this.StartReportOrderPath(brafV600EKTest);
+            this.StartReportOrderPath(e.PanelSet);
         }
 
         private void StartReportOrderPath(YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet)
@@ -266,6 +259,16 @@ namespace YellowstonePathology.UI.Surgical
             pathologistSignoutAuditMessagePage.Back += this.MoveBack;
             pathologistSignoutAuditMessagePage.Close += this.CloseDialog;
             this.m_PathologistSignoutDialog.PageNavigator.Navigate(pathologistSignoutAuditMessagePage);
+        }
+
+        private void HandleNonASCIICharacters()
+        {
+            this.SetWindowButtonVisibility();
+            NonASCIICharacterCorrectionPage nonASCIICharacterCorrectionPage = new NonASCIICharacterCorrectionPage(this.m_AccessionOrder, this.m_SurgicalTestOrder, this.m_ObjectTracker, this.m_BackButtonVisibility, this.m_NextButtonVisibility);
+            nonASCIICharacterCorrectionPage.Next += this.MoveForward;
+            nonASCIICharacterCorrectionPage.Back += this.MoveBack;
+            nonASCIICharacterCorrectionPage.Close += this.CloseDialog;
+            this.m_PathologistSignoutDialog.PageNavigator.Navigate(nonASCIICharacterCorrectionPage);
         }
     }
 }

@@ -16,9 +16,9 @@ namespace YellowstonePathology.Business.Surgical
         public bool WordsExistIn(string text)
         {
             bool result = false;
-            foreach (string keyWord in this)
+            if (string.IsNullOrEmpty(text) == false)
             {
-                if (string.IsNullOrEmpty(text) == false)
+                foreach (string keyWord in this)
                 {
                     if (text.ToUpper().Contains(keyWord.ToUpper()) == true)
                     {

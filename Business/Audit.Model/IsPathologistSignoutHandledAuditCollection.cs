@@ -11,17 +11,18 @@ namespace YellowstonePathology.Business.Audit.Model
             YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder = accessionOrder.PanelSetOrderCollection.GetSurgical();
-            this.Add(new Business.Audit.Model.AncillaryStudiesAreHandledAudit(surgicalTestOrder));
-            this.Add(new Business.Audit.Model.SurgicalCaseHasQuestionMarksAudit(surgicalTestOrder));
-            this.Add(new Business.Audit.Model.SigningUserIsAssignedUserAudit(surgicalTestOrder, systemIdentity));
-            this.Add(new Business.Audit.Model.SvhCaseHasMRNAndAccountNoAudit(accessionOrder));
-            this.Add(new Business.Audit.Model.CaseHasNotFoundClientAudit(accessionOrder));
-            this.Add(new Business.Audit.Model.CaseHasNotFoundProviderAudit(accessionOrder));
-            this.Add(new Business.Audit.Model.CaseHasUnfinaledPeerReviewAudit(accessionOrder));
-            this.Add(new Business.Audit.Model.GradedStainsAreHandledAudit(surgicalTestOrder));
-            this.Add(new Business.Audit.Model.IntraoperativeConsultationCorrelationAudit(surgicalTestOrder));
-            this.Add(new Business.Audit.Model.PapCorrelationAudit(accessionOrder));
-            this.Add(new Business.Audit.Model.PQRSIsHandledAudit(accessionOrder));
+            this.Add(new AncillaryStudiesAreHandledAudit(surgicalTestOrder));
+            this.Add(new SurgicalCaseHasQuestionMarksAudit(surgicalTestOrder));
+            this.Add(new SigningUserIsAssignedUserAudit(surgicalTestOrder, systemIdentity));
+            this.Add(new SvhCaseHasMRNAndAccountNoAudit(accessionOrder));
+            this.Add(new CaseHasNotFoundClientAudit(accessionOrder));
+            this.Add(new CaseHasNotFoundProviderAudit(accessionOrder));
+            this.Add(new CaseHasUnfinaledPeerReviewAudit(accessionOrder));
+            this.Add(new GradedStainsAreHandledAudit(surgicalTestOrder));
+            this.Add(new IntraoperativeConsultationCorrelationAudit(surgicalTestOrder));
+            this.Add(new PapCorrelationAudit(accessionOrder));
+            this.Add(new PQRSIsHandledAudit(accessionOrder));
+            this.Add(new NonASCIICharacterAudit(surgicalTestOrder));
         }
     }
 }

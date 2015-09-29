@@ -22,9 +22,13 @@ namespace YellowstonePathology.Business.Audit.Model
             this.Add(new IntraoperativeConsultationCorrelationAudit(surgicalTestOrder));
             this.Add(new PapCorrelationAudit(accessionOrder));
             this.Add(new PQRSIsRequiredAudit(accessionOrder));
+            this.Add(new NonASCIICharacterAudit(surgicalTestOrder));
             this.Add(new LynchSyndromeAudit(accessionOrder));
             this.Add(new CCCPAudit(accessionOrder));
             this.Add(new BRAFMetastaticMelanomaAudit(accessionOrder));
+            this.Add(new HighRiskHPVForSiteAudit(accessionOrder));
+            this.Add(new KRASForMetastaticColorectalCancerAudit(accessionOrder));
+            this.Add(new PNHOnBoneMarrowSpecimenAudit(accessionOrder));
         }
     }
 }
