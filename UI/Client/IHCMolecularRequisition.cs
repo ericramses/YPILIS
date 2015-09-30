@@ -211,7 +211,19 @@ namespace YellowstonePathology.UI.Client
             {
                 e.Graphics.DrawString("[ ] " + immunoHistochemistryTest.TestName, new System.Drawing.Font("Tahoma", 8), System.Drawing.Brushes.Black, new System.Drawing.PointF(x, y));
                 y += 12;
-            }            
+            }
+            
+            y += 12;
+
+            YellowstonePathology.Business.Test.Model.DisplayGroupProstate displayGroupProstate = new YellowstonePathology.Business.Test.Model.DisplayGroupProstate();
+            e.Graphics.DrawString(displayGroupProstate.GroupName, new System.Drawing.Font("Tahoma", 8), System.Drawing.Brushes.Black, new System.Drawing.PointF(x, y));
+            y += 12;
+
+            foreach (YellowstonePathology.Business.Test.Model.ImmunoHistochemistryTest immunoHistochemistryTest in displayGroupProstate.List)
+            {
+                e.Graphics.DrawString("[ ] " + immunoHistochemistryTest.TestName, new System.Drawing.Font("Tahoma", 8), System.Drawing.Brushes.Black, new System.Drawing.PointF(x, y));
+                y += 12;
+            }           
 
             x = 655;
             y = 480;

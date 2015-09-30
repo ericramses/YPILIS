@@ -44,7 +44,10 @@ namespace YellowstonePathology.UI.Login.Receiving
         public delegate void ShowResultPageEventHandler(object sender, YellowstonePathology.UI.CustomEventArgs.PanelSetOrderReturnEventArgs e);
         public event ShowResultPageEventHandler ShowResultPage;
 
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
+        public delegate void ShowMissingInformationPageEventHandler(object sender, EventArgs e);
+        public event ShowMissingInformationPageEventHandler ShowMissingInformationPage;
+
+        private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		private YellowstonePathology.Business.ClientOrder.Model.ClientOrder m_ClientOrder;		
@@ -335,26 +338,7 @@ namespace YellowstonePathology.UI.Login.Receiving
                 }
                 index += 1;
             }
-        }
-
-        private void TileDataSheet_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            if (this.m_AccessionOrder.PanelSetOrderCollection.Count > 0)
-            {
-                YellowstonePathology.Document.Result.Data.AccessionOrderDataSheetData accessionOrderDataSheetData = YellowstonePathology.Business.Gateway.XmlGateway.GetAccessionOrderDataSheetData(this.m_AccessionOrder.MasterAccessionNo);
-                YellowstonePathology.Document.Result.Xps.AccessionOrderDataSheet accessionOrderDataSheet = new Document.Result.Xps.AccessionOrderDataSheet(accessionOrderDataSheetData);
-                System.Printing.PrintQueue printQueue = new System.Printing.LocalPrintServer().DefaultPrintQueue;
-
-                System.Windows.Controls.PrintDialog printDialog = new System.Windows.Controls.PrintDialog();
-                printDialog.PrintTicket.PageOrientation = System.Printing.PageOrientation.Portrait;
-                printDialog.PrintQueue = printQueue;
-                printDialog.PrintDocument(accessionOrderDataSheet.FixedDocument.DocumentPaginator, "AccessionDataSheet");
-            }
-            else
-            {
-                MessageBox.Show("You must order something before the data sheet can be printed out.");
-            }
-        }
+        }        
 
         private void HyperLinkSurgicalDiagnosis_Click(object sender, RoutedEventArgs e)
         {
@@ -429,6 +413,25 @@ namespace YellowstonePathology.UI.Login.Receiving
                 YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = (YellowstonePathology.Business.Test.PanelSetOrder)this.ListViewPanelSetOrder.SelectedItem;
                 if(this.ShowResultPage != null) this.ShowResultPage(this, new CustomEventArgs.PanelSetOrderReturnEventArgs(panelSetOrder));
             }
-        }                  
-	}
+        }
+                
+        private void ButtonPrintDataSheet_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.m_AccessionOrder.PanelSetOrderCollection.Count > 0)
+            {
+                YellowstonePathology.Document.Result.Data.AccessionOrderDataSheetData accessionOrderDataSheetData = YellowstonePathology.Business.Gateway.XmlGateway.GetAccessionOrderDataSheetData(this.m_AccessionOrder.MasterAccessionNo);
+                YellowstonePathology.Document.Result.Xps.AccessionOrderDataSheet accessionOrderDataSheet = new Document.Result.Xps.AccessionOrderDataSheet(accessionOrderDataSheetData);
+                System.Printing.PrintQueue printQueue = new System.Printing.LocalPrintServer().DefaultPrintQueue;
+
+                System.Windows.Controls.PrintDialog printDialog = new System.Windows.Controls.PrintDialog();
+                printDialog.PrintTicket.PageOrientation = System.Printing.PageOrientation.Portrait;
+                printDialog.PrintQueue = printQueue;
+                printDialog.PrintDocument(accessionOrderDataSheet.FixedDocument.DocumentPaginator, "AccessionDataSheet");
+            }
+            else
+            {
+                MessageBox.Show("You must order something before the data sheet can be printed out.");
+            }
+        }
+    }
 }

@@ -225,7 +225,10 @@ namespace YellowstonePathology.UI.Test
                 case 204:
                     result = new ROS1ResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
                     break;
-			}
+                case 212:
+                    result = new MissingInformationResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+                    break;
+            }
             return result;
         }
 

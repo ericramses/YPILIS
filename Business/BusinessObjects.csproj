@@ -392,6 +392,10 @@
     <Compile Include="Domain\DataLoadStatusEnum.cs" />
     <Compile Include="Domain\OrderLogCollection.cs" />
     <Compile Include="Domain\OrderLogItem.cs" />
+    <Compile Include="Facility.Model\BozemanDeaconess.cs" />
+    <Compile Include="Facility.Model\CMMC.cs" />
+    <Compile Include="Facility.Model\StJamesHospital.cs" />
+    <Compile Include="Facility.Model\TallmanDermatology.cs" />
     <Compile Include="Facility.Model\ProfessionalPathologyOfWyoming.cs" />
     <Compile Include="Facility.Model\LoweLawGroup.cs" />
     <Compile Include="Facility.Model\PathologyAssociatesOfIdahoFalls.cs" />
@@ -449,6 +453,11 @@
     <Compile Include="PanelSet.Model\PanelSetTCellClonalityByPCRRetired.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Test.Model\DispalyGroupProstate.cs" />
+    <Compile Include="Test\MissingInformation\MissingInformationTest.cs" />
+    <Compile Include="Test\MissingInformation\MissingInformationTestOrder.cs" />
+    <Compile Include="Test\PantherAliquotList.cs" />
+    <Compile Include="Test\PantherOrderList.cs" />
     <Compile Include="Persistence\BooleanPropertyBridge.cs" />
     <Compile Include="Persistence\BuildTypeEnum.cs" />
     <Compile Include="Persistence\DateTimePropertyBridge.cs" />
@@ -576,6 +585,8 @@
     <Compile Include="Test\HoldForFlow\HoldForFlowTest.cs" />
     <Compile Include="Test\HPVTWI\HPVTWIPositiveResult.cs" />
     <Compile Include="Test\Instrument.cs" />
+    <Compile Include="Test\PantherAliquotListItem.cs" />
+    <Compile Include="Test\PantherOrderListItem.cs" />
     <Compile Include="Test\ROS1ByFISH\ROS1ByFISHInconclusiveResult.cs" />
     <Compile Include="Test\Surgical\IntraoperativeConsultationResult.Validation.cs" />
     <Compile Include="TrackedItemStatusEnum.cs" />

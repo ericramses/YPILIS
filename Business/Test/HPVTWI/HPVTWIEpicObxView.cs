@@ -47,14 +47,14 @@ namespace YellowstonePathology.Business.Test.HPVTWI
             this.AddNextObxElement(string.Empty, document, "F");
 
             this.AddNextObxElement("Test Information: ", document, "F");            
-            this.AddNextObxElement(panelSetOrder.TestInformation, document, "F");            
+            this.HandleLongString(panelSetOrder.TestInformation, document, "F");            
             this.AddNextObxElement("", document, "F");
 
             this.AddNextObxElement("References:", document, "F");            
-            this.AddNextObxElement(panelSetOrder.References, document, "F");
+            this.HandleLongString(panelSetOrder.References, document, "F");
             this.AddNextObxElement("", document, "F");
 
-            this.AddNextObxElement(panelSetOrder.ASRComment, document, "F");
+            this.HandleLongString(panelSetOrder.ASRComment, document, "F");
 
             string locationPerformed = panelSetOrder.GetLocationPerformedComment();
             this.AddNextObxElement(locationPerformed, document, "F");

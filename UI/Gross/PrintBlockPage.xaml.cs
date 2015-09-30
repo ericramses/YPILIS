@@ -305,7 +305,10 @@ namespace YellowstonePathology.UI.Gross
 
                 YellowstonePathology.Business.Visitor.OrderTestVisitor orderTestVisitor = new Business.Visitor.OrderTestVisitor(panelSetOrder.ReportNo, test, test.OrderComment, null, false, aliquotOrder, false, false, this.m_AccessionOrder.TaskOrderCollection, this.m_SystemIdentity);
                 this.m_AccessionOrder.TakeATrip(orderTestVisitor);
-			}
+
+                YellowstonePathology.Business.Visitor.AddSlideOrderVisitor addSlideOrderVisitor = new Business.Visitor.AddSlideOrderVisitor(aliquotOrder, orderTestVisitor.TestOrder, this.m_SystemIdentity);
+                this.m_AccessionOrder.TakeATrip(addSlideOrderVisitor);
+            }
 		}
 
 		private void PrintBlocks()

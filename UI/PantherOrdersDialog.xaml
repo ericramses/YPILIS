@@ -11,28 +11,80 @@
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
 
+        <TabControl Grid.Column="0" Grid.Row="0">
+            <TabItem Header="Aliquots">
+                <Grid Margin="2,2,2,2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
 
-        <ComboBox Name="ComboBoxListType" Grid.Row="0" Margin="2,2,2,2" HorizontalAlignment="Stretch">
-            <ComboBoxItem IsSelected="True">Not Aliquoted</ComboBoxItem>
-        </ComboBox>
+                    <TextBlock Grid.Column="0" Grid.Row="0">The following cases need Panther Aliquots</TextBlock>
+                    
+                    <ListView Grid.Column="0" Grid.Row="1" Name="ListViewPantherAliquots" Margin="2,2,2,2" ItemsSource="{Binding Path=PantherAliquotList}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Master Accession No" DisplayMemberBinding="{Binding Path=MasterAccessionNo}" Width="100" />
+                                <GridViewColumn Header="Accession Time" DisplayMemberBinding="{Binding Path=AccessionTime, Converter={StaticResource MilitaryDateTimeConverter}}" Width="150" />
+                                <GridViewColumn Header="Last Name" DisplayMemberBinding="{Binding Path=PLastName}" Width="150" />
+                                <GridViewColumn Header="First Name" DisplayMemberBinding="{Binding Path=PFirstName}" Width="150" />                                
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
 
-        <ListView Grid.Column="0" Grid.Row="1" Name="ListViewPantherOrders" Margin="2,2,2,2" ItemsSource="{Binding Path=PantherOrderCollection}">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Report No" DisplayMemberBinding="{Binding Path=ReportNo}" Width="100" />
-                    <GridViewColumn Header="Order Time" DisplayMemberBinding="{Binding Path=OrderTime, Converter={StaticResource MilitaryDateTimeConverter}}" Width="150" />
-                    <GridViewColumn Header="Test" DisplayMemberBinding="{Binding Path=PanelSetName}" Width="150" />
-                    <GridViewColumn Header="Accepted" DisplayMemberBinding="{Binding Path=AcceptedTime, Converter={StaticResource MilitaryDateTimeConverter}}" Width="150" />
-                    <GridViewColumn Header="Finaled" DisplayMemberBinding="{Binding Path=FinalTime, Converter={StaticResource MilitaryDateTimeConverter}}" Width="150" />
-                </GridView>
-            </ListView.View>
-        </ListView>
-        <Button Grid.Column="0" Grid.Row="2" Width="90" Height="30" Click="ButtonPrint_Click" HorizontalAlignment="Left" Margin="2,2,2,2">Print</Button>
-        <Button Grid.Column="0" Grid.Row="2" Width="90" Height="30" Click="ButtonClose_Click" HorizontalAlignment="Right" Margin="2,2,2,2">Close</Button>
+                    <Button Grid.Column="0" Grid.Row="2" Width="90" Height="30" Click="ButtonPrint_Click" HorizontalAlignment="Left" Margin="2,2,2,2">Print</Button>
+                </Grid>
+            </TabItem>
+            <TabItem Header="HPV">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <ComboBox Name="ComboBoxListType" Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" HorizontalAlignment="Stretch" SelectedValuePath="Content">
+                        <ComboBoxItem IsSelected="True">HPV cases with no result</ComboBoxItem>
+                        <ComboBoxItem>HPV cases with a result but not final</ComboBoxItem>
+                        <ComboBoxItem>HPV case that are final</ComboBoxItem>
+                    </ComboBox>
+
+                    <Button Grid.Column="1" Grid.Row="0" Click="ButtonSearch_Click" Margin="2,2,2,2" Width="100">Search</Button>
+
+                    <ListView Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Name="ListViewPantherOrders" Margin="2,2,2,2" ItemsSource="{Binding Path=PantherOrderList}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Report No" DisplayMemberBinding="{Binding Path=ReportNo}" Width="100" />
+                                <GridViewColumn Header="Order Time" DisplayMemberBinding="{Binding Path=OrderTime, Converter={StaticResource MilitaryDateTimeConverter}}" Width="150" />
+                                <GridViewColumn Header="Test" DisplayMemberBinding="{Binding Path=PanelSetName}" Width="150" />
+                                <GridViewColumn Header="Accepted" DisplayMemberBinding="{Binding Path=AcceptedTime, Converter={StaticResource MilitaryDateTimeConverter}}" Width="150" />
+                                <GridViewColumn Header="Finaled" DisplayMemberBinding="{Binding Path=FinalTime, Converter={StaticResource MilitaryDateTimeConverter}}" Width="150" />
+                                <GridViewColumn Header="Result" DisplayMemberBinding="{Binding Path=Result}" Width="150" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </TabItem>
+            <TabItem Header="NG/CT">
+            </TabItem>
+            <TabItem Header="HPV 16/18">
+            </TabItem>
+            <TabItem Header="Trichomonas">
+            </TabItem>
+        </TabControl>
+        <Button Grid.Column="0" Grid.Row="1" Width="90" Height="30" Click="ButtonClose_Click" HorizontalAlignment="Right" Margin="2,2,2,2">Close</Button>
+        
     </Grid>
 </Window>
