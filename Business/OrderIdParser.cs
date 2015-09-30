@@ -17,10 +17,10 @@ namespace YellowstonePathology.Business
 		private static readonly string LegacyMasterAccessionNoPattern = @"^\d+";
 		private static readonly string MasterAccessionNoPattern = @"^\d\d-\d+";
 
-		private static readonly string ReportNoPattern = @"^\d\d-\d+.[AaBbFfMmPpRrSsTtYy]{1}\d*";
-		private static readonly string ReportNoLetterPattern = @"^\d\d-\d+.(?<ReportNoPrefix>[AaBbFfMmPpRrSsTtYyQq])\d*";
-		private static readonly string ReportNoNumberPattern = @"^\d\d-\d+.[AaBbFfMmPpRrSsTtYyQq](?<ReportNoNumber>\d*)";
-		private static readonly string ReportNoYearPattern = @"^(?<ReportNoYear>\d\d)-\d+.[AaBbFfMmPpRrSsTtYyQq]{1}\d*";
+		private static readonly string ReportNoPattern = @"^\d\d-\d+.[AaBbFfIiMmPpRrSsTtYy]{1}\d*";
+		private static readonly string ReportNoLetterPattern = @"^\d\d-\d+.(?<ReportNoPrefix>[AaBbFfIiMmPpRrSsTtYyQq])\d*";
+		private static readonly string ReportNoNumberPattern = @"^\d\d-\d+.[AaBbFfIiMmPpRrSsTtYyQq](?<ReportNoNumber>\d*)";
+		private static readonly string ReportNoYearPattern = @"^(?<ReportNoYear>\d\d)-\d+.[AaBbFfIiMmPpRrSsTtYyQq]{1}\d*";
 
 		private static readonly string PanelOrderIdPattern = @"^\d\d-\d+.[AaBbFfMmPpRrSsTtYy]{1}\d*.PO\d+";
 		private static readonly string PanelOrderNoPattern = @"^\d\d-\d+.[AaBbFfMmPpRrSsTtYy]{1}\d*.PO(?<PanelOrderNo>\d+)";

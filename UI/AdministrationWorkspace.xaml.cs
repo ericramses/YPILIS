@@ -322,9 +322,9 @@ namespace YellowstonePathology.UI
             string printer = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.ContainerLabelPrinter;
             System.Printing.PrintQueue printQueue = printServer.GetPrintQueue(printer);
 
-            //YellowstonePathology.UI.Login.SerumLabel label = new Login.SerumLabel("Serum", "84165-26");            
+            YellowstonePathology.UI.Login.SerumLabel label = new Login.SerumLabel("Serum", "84165-26");            
             //YellowstonePathology.UI.Login.FormalinAddedLabel label = new Login.FormalinAddedLabel();
-            YellowstonePathology.UI.Login.IFELabel label = new Login.IFELabel();
+            //YellowstonePathology.UI.Login.IFELabel label = new Login.IFELabel();
 
             System.Windows.Controls.PrintDialog printDialog = new System.Windows.Controls.PrintDialog();
             printDialog.PrintTicket.CopyCount = 100;
@@ -1072,10 +1072,27 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Label.Model.PantherLabel pantherLabel = new Business.Label.Model.PantherLabel("15-12345.1.1", "Mouse, Micki E", DateTime.Parse("8/10/1966"), "Thin Prep Fluid");
-            YellowstonePathology.Business.Label.Model.MolecularLabelPrinter printer = new Business.Label.Model.MolecularLabelPrinter();
-            printer.Queue.Enqueue(pantherLabel);
-            printer.Print();
+            XDocument myxml = XDocument.Load(@"XMLFile2.xml");
+            IEnumerable<XElement> nodes = myxml.XPathSelectElements("//Codes/Code");
+            foreach(XElement node in nodes)
+            {
+                string icd9 = node.Attribute("ICD9").Value;
+                string icd10 = node.Attribute("ICD10").Value;
+                string description = node.Attribute("Description").Value;
+
+                string test = null;
+                if (node.Attribute("Test") != null)
+                {
+                     test = node.Attribute("Test").Value;
+                }
+                string line = icd9 + "\t" + icd10 + "\t" + description;
+                
+                if(test != null)
+                {
+                    line = line + "\t" + test;
+                }
+                Console.WriteLine(line);
+            }
         }
 
         private void FindY()

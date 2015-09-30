@@ -80,25 +80,25 @@
 				</Grid>
 			</DataTemplate>
 
-			<Style x:Key="SpecimenStyle" TargetType="ListBoxItem">
-				<Setter Property="FocusVisualStyle" Value="{x:Null}" />
-				<Setter Property="Template">
-					<Setter.Value>
-						<ControlTemplate TargetType="ListBoxItem">
-							<Border Name="Border" Margin="5,5,5,5" Padding="5" SnapsToDevicePixels="true" BorderBrush="Black" BorderThickness="1" CornerRadius="6" Background="#F5F5F5">
-								<ContentPresenter />
-							</Border>
-							<ControlTemplate.Triggers>
-								<Trigger Property="IsSelected" Value="true">
-									<Setter TargetName="Border" Property="CornerRadius" Value="6"/>
-									<Setter TargetName="Border" Property="Background" Value="#DCE6F2"></Setter>
-								</Trigger>
-							</ControlTemplate.Triggers>
-						</ControlTemplate>
-					</Setter.Value>
-				</Setter>
-			</Style>
-		</Grid.Resources>
+            <Style x:Key="SpecimenStyle" TargetType="ListBoxItem">
+                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ListBoxItem">
+                            <Border Name="Border" Margin="5,5,5,5" Padding="5" SnapsToDevicePixels="true" BorderBrush="Black" BorderThickness="1" CornerRadius="6" Background="#F5F5F5">
+                                <ContentPresenter />
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsSelected" Value="true">
+                                    <Setter TargetName="Border" Property="CornerRadius" Value="6"/>
+                                    <Setter TargetName="Border" Property="Background" Value="#DCE6F2"></Setter>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </Grid.Resources>
 
         <Grid.RowDefinitions>
 			<RowDefinition Height="50"></RowDefinition>
@@ -107,9 +107,16 @@
         </Grid.RowDefinitions>
         
 		<Border Grid.Row="0" BorderBrush="Transparent" BorderThickness="0" Background="{DynamicResource {x:Static SystemColors.InactiveCaptionBrushKey}}"></Border>
-		<TextBlock Grid.Column="0" Grid.Row="0" Margin="20,2,2,2" Text="{Binding Path=PageHeaderText}" VerticalAlignment="Center" Foreground="White" FontSize="16" FontWeight="Bold"></TextBlock>                
+		<TextBlock Grid.Column="0" Grid.Row="0" Margin="20,2,2,2" Text="{Binding Path=PageHeaderText}" VerticalAlignment="Center" Foreground="White" FontSize="16" FontWeight="Bold"></TextBlock>
 
-        <CustomControls:TileWithImage x:Name="TileDataSheet" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right" ImagePath="\Resources\DataSheet.png" Title="Print Data Sheet" Background="#FF6666" Margin="2,2,2,2" MouseUp="TileDataSheet_MouseUp" Width="150"/>
+        <StackPanel  Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right" Orientation="Horizontal">
+            <Button Margin="2,2,2,2" Click="ButtonPrintDataSheet_Click">
+                <StackPanel Orientation="Horizontal" Margin="2,2,2,2">
+                    <Image Source="\Resources\DataSheet.png" Width="64" Height="64" Margin="0,0,0,0"/>
+                    <TextBlock Margin="5,2,2,2">Data Sheet</TextBlock>
+                </StackPanel>
+            </Button>
+        </StackPanel>
 
         <Grid Grid.Row="1" Margin="10">
             <Grid.ColumnDefinitions>

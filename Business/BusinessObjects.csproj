@@ -446,6 +446,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Test.Model\DispalyGroupProstate.cs" />
+    <Compile Include="Test\MissingInformation\MissingInformationTest.cs" />
+    <Compile Include="Test\MissingInformation\MissingInformationTestOrder.cs" />
     <Compile Include="Test\PantherAliquotList.cs" />
     <Compile Include="Test\PantherOrderList.cs" />
     <Compile Include="Persistence\BooleanPropertyBridge.cs" />

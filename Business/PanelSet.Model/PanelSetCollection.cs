@@ -220,6 +220,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
             panelSetCollection.Add(new PanelSetCytogeneticAnalysisRetired());
 
 			panelSetCollection.Add(new YellowstonePathology.Business.Test.ChromosomeAnalysisForFetalAnomaly.ChromosomeAnalysisForFetalAnomalyTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.MissingInformation.MissingInformationTest());
 
             PanelSetCollection result = new PanelSetCollection();
             IEnumerable<PanelSet> enumerable = panelSetCollection.OrderBy(i => i.PanelSetName);
@@ -356,6 +357,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
             panelSetCollection.Add(new PanelSetRenalBiopsyPanel());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.IHCQC.IHCQCTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.ReviewForAdditionalTesting.ReviewForAdditionalTestingTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.MissingInformation.MissingInformationTest());
             return panelSetCollection;
         }
 

@@ -96,6 +96,7 @@ namespace YellowstonePathology.Business.Test
         private bool m_ITAuditRequired;
         private bool m_ITAudited;
         private int m_ITAuditPriority;
+        private string m_CaseDialog;
 
 		public AccessionOrder()
         {
@@ -1155,7 +1156,21 @@ namespace YellowstonePathology.Business.Test
             }
         }
 
-		public void FromClientOrder(YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder, int orderingUserId)
+        [PersistentProperty()]
+        public string CaseDialog
+        {
+            get { return this.m_CaseDialog; }
+            set
+            {
+                if (this.m_CaseDialog != value)
+                {
+                    this.m_CaseDialog = value;
+                    this.NotifyPropertyChanged("CaseDialog");
+                }
+            }
+        }
+
+        public void FromClientOrder(YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder, int orderingUserId)
         {            
 			this.ClientId = clientOrder.ClientId;
 			this.ClientName = clientOrder.ClientName;
