@@ -21,7 +21,8 @@ namespace YellowstonePathology.Business.Test.MissingInformation
             this.m_ExpectedDuration = new TimeSpan(1, 0, 0, 0);
             this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.MissingInformation.MissingInformtionTestOrder).AssemblyQualifiedName;            
 			this.m_AllowMultiplePerAccession = true;
-            this.m_ShowResultPageOnOrder = true;    
+            this.m_ShowResultPageOnOrder = true;
+            this.m_NeverDistribute = true;
 		}
 	}
 }

@@ -47,11 +47,11 @@ namespace YellowstonePathology.UI.Login
 		{
 			result.AppendLine("Missing Diagnosis Code:");
 			result.AppendLine();
-			result.AppendLine("____________________  Routine Screening Pap - V76.2");
+			result.AppendLine("____________________  Encounter for screening for malignant neoplasm of cervix - Z12.4");
 			result.AppendLine();
-            result.AppendLine("____________________  Vag Screen, no cervix - V76.47");
+            result.AppendLine("____________________  Encounter for screening for malignant neoplasm of vagina - Z12.72");
             result.AppendLine();
-			result.AppendLine("____________________  High Risk Screening Pap - V15.89");
+			result.AppendLine("____________________  Other contact with and (suspected) exposures hazardous to health - Z77.9");
 			result.AppendLine();
 			result.AppendLine("____________________  Diagnostic Pap (Must Supply Code)");
 			result.AppendLine();
@@ -76,12 +76,11 @@ namespace YellowstonePathology.UI.Login
             result.AppendLine("Pap smear or office visit screening V codes are not valid for an STD/NGCT testing");
             result.AppendLine();
             result.AppendLine("It might be useful to keep around:");            
-            result.AppendLine("V74.5 Venereal disease");
-            result.AppendLine("V73.88 Other specified chlamydial deseases");
-            result.AppendLine("V73.89 Other specified viral diseases");
-            result.AppendLine("V73.98 Unspecified chlamydial diseases");
-            result.AppendLine("V73.99 Unspecified viral disease");
-            result.AppendLine("V01.6 Venereal diseases-persons with potential health hazards related to communicable diseases");
+            result.AppendLine("Z11.3 Encounter for screening for infections with a predominantly sexual mode of transmission");
+            result.AppendLine("Z11.8 Encounter for screening for other infectious and parasitic diseases");
+            result.AppendLine("Z11.59 Encounter for screening for other viral diseases");
+            result.AppendLine("Z11.98 Encounter for screening for other infectious and parasitic diseases");            
+            result.AppendLine("Z20.2 Contact with and (suspected) exposure to infections with a predominantly sexual mode of transmission");
 			result.AppendLine();
 			this.m_NeedSignatureLine = true;
 		}

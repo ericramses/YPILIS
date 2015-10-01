@@ -132,7 +132,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			this.AddBlankNteElement(document);
 
 			this.AddNextNteElement("Clinical Information: ", document);
-			this.HandleLongString(panelSetOrderSurgical.ClinicalInfo, document);
+			this.HandleLongString(this.m_AccessionOrder.ClinicalHistory, document);
 		}
 	}
 }

@@ -23,7 +23,9 @@ namespace YellowstonePathology.Business.Audit.Model
             if (!string.IsNullOrEmpty(this.m_SurgicalTestOrder.GrossX) && this.m_SurgicalTestOrder.GrossX.Contains("???") == true) this.m_Message.Append("Gross Description, ");
             if (!string.IsNullOrEmpty(this.m_SurgicalTestOrder.MicroscopicX) && this.m_SurgicalTestOrder.MicroscopicX.Contains("???") == true) this.m_Message.Append("Microscopic Description, ");
             if (!string.IsNullOrEmpty(this.m_SurgicalTestOrder.Comment) && this.m_SurgicalTestOrder.Comment.Contains("???") == true) this.m_Message.Append("Microscopic Description, ");
-            if (!string.IsNullOrEmpty(this.m_SurgicalTestOrder.ClinicalInfo) && this.m_SurgicalTestOrder.ClinicalInfo.Contains("???") == true) this.m_Message.Append("Clinical Info, ");
+
+            throw new Exception("Clinical History Question marks need to be handled");
+            //if (!string.IsNullOrEmpty(this.m_SurgicalTestOrder.ClinicalInfo) && this.m_SurgicalTestOrder.ClinicalInfo.Contains("???") == true) this.m_Message.Append("Clinical Info, ");
 
             foreach (YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen specimen in this.m_SurgicalTestOrder.SurgicalSpecimenCollection)
             {

@@ -68,48 +68,39 @@
 				<TextBox Grid.Column="1" Grid.Row="4" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrderCPTCode.CodeableDescription}" FontSize="14"></TextBox>
 
 			</Grid>
-			<ListBox Grid.Column="1" Grid.Row="0" ItemsSource="{Binding Path=CptCodeCollection}" Name="ListViewCptCodes" SelectionChanged="ListViewCptCodes_SelectionChanged"
+            <ListBox Grid.Column="1" Grid.Row="0" ItemsSource="{Binding Path=CptCodeCollection}" Name="ListViewCptCodes" SelectionChanged="ListViewCptCodes_SelectionChanged"
                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderThickness="0" ScrollViewer.VerticalScrollBarVisibility="Disabled">
-				<ListBox.ItemsPanel>
-					<ItemsPanelTemplate>
-						<WrapPanel Orientation="Vertical" HorizontalAlignment="Left" ScrollViewer.VerticalScrollBarVisibility="Disabled" />
-					</ItemsPanelTemplate>
-				</ListBox.ItemsPanel>
-				<ListBox.ItemTemplate>
-					<DataTemplate>
-						<Border>
-							<Border.Style>
-								<Style>
-									<Setter Property="Border.BorderBrush" Value="Gray"/>
-									<Setter Property="Border.BorderThickness" Value="1"/>
-									<Setter Property="Border.Padding" Value="1"/>
-								</Style>
-							</Border.Style>
-							<Grid Width="80" Height="20" Margin="2,2,2,2">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Vertical" HorizontalAlignment="Left" ScrollViewer.VerticalScrollBarVisibility="Disabled" />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border>
+                            <Border.Style>
+                                <Style>
+                                    <Setter Property="Border.BorderBrush" Value="Gray"/>
+                                    <Setter Property="Border.BorderThickness" Value="1"/>
+                                    <Setter Property="Border.Padding" Value="1"/>
+                                </Style>
+                            </Border.Style>
+                            <Grid Width="80" Height="20" Margin="2,2,2,2">
 
-								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="Auto"></ColumnDefinition>
-									<ColumnDefinition Width="Auto"></ColumnDefinition>
-								</Grid.ColumnDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
 
-								<TextBlock Grid.Column="0" FontSize="14" Text="{Binding Path=Code}" Margin="2,2,2,2"/>
-								<TextBlock Grid.Column="1" FontSize="14" Text="{Binding Path=Modifier}" Margin="2,2,2,2"/>
+                                <TextBlock Grid.Column="0" FontSize="14" Text="{Binding Path=Code}" Margin="2,2,2,2"/>
+                                <TextBlock Grid.Column="1" FontSize="14" Text="{Binding Path=Modifier}" Margin="2,2,2,2"/>
 
-							</Grid>
-						</Border>
-					</DataTemplate>
-				</ListBox.ItemTemplate>
-			</ListBox>
-
-			<!--<ListView Name="ListViewCptCodes" Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" Width="160" HorizontalAlignment="Left" ItemsSource="{Binding Path=CptCodeCollection}" SelectionChanged="ListViewCptCodes_SelectionChanged">
-				<ListView.View>
-					<GridView>
-						<GridViewColumn DisplayMemberBinding="{Binding Path=Code}" Header="CPT Code" Width="70"/>
-						<GridViewColumn DisplayMemberBinding="{Binding Path=Modifier}" Header="Modifier" Width="50"/>
-					</GridView>
-				</ListView.View>
-			</ListView>-->
-		</Grid>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
 		
 		<Border Grid.Row="2" BorderBrush="Transparent" BorderThickness="0" Background="{DynamicResource {x:Static SystemColors.InactiveCaptionBrushKey}}"></Border>
 		<Button Name="ButtonBack" Grid.Row="2" Margin="5,5,5,5" Click="ButtonBack_Click" Width="100" Height="40" HorizontalAlignment="Left">&lt; Back</Button>
