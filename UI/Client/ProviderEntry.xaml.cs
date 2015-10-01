@@ -335,5 +335,17 @@ namespace YellowstonePathology.UI.Client
             }
             this.m_Physician.DisplayName = displayName.ToString();
         }
+
+        private void ComboBoxHomeBase_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(this.ComboBoxHomeBase.SelectedItem != null)
+            {
+                YellowstonePathology.Business.Client.Model.Client selectedHomeBaseClient = (YellowstonePathology.Business.Client.Model.Client)this.ComboBoxHomeBase.SelectedItem;
+                if (selectedHomeBaseClient.ClientId != this.m_Physician.HomeBaseClientId)
+                {
+                    this.m_Physician.HomeBaseClientId = selectedHomeBaseClient.ClientId;
+                }
+            }
+        }
     }
 }
