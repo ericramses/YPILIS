@@ -17,8 +17,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 		private int m_PhysicianId;
 		private int m_ImmediateCorrelation;
 		private int m_PapCorrelation;
-		private int m_PQRIInstructions;
-		private string m_ClinicalInfo;
+		private int m_PQRIInstructions;		
 		private string m_GrossX;
 		private string m_ImmediateX;
 		private string m_MicroscopicX;
@@ -223,21 +222,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 					this.NotifyPropertyChanged("PQRIInstructions");
 				}
 			}
-		}
-
-		[PersistentProperty()]
-		public string ClinicalInfo
-		{
-			get { return this.m_ClinicalInfo; }
-			set
-			{
-				if (this.m_ClinicalInfo != value)
-				{
-					this.m_ClinicalInfo = value;
-					this.NotifyPropertyChanged("ClinicalInfo");
-				}
-			}
-		}
+		}		
 
 		[PersistentProperty()]
 		public string GrossX

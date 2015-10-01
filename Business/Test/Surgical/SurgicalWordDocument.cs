@@ -29,7 +29,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			panelSetOrderSurgical.GrossX = YellowstonePathology.Business.Common.SpellChecker.FixString(panelSetOrderSurgical.GrossX);
 			panelSetOrderSurgical.MicroscopicX = YellowstonePathology.Business.Common.SpellChecker.FixString(panelSetOrderSurgical.MicroscopicX);
 			panelSetOrderSurgical.CancerSummary = YellowstonePathology.Business.Common.SpellChecker.FixString(panelSetOrderSurgical.CancerSummary);
-			panelSetOrderSurgical.ClinicalInfo = YellowstonePathology.Business.Common.SpellChecker.FixString(panelSetOrderSurgical.ClinicalInfo);
+			this.m_AccessionOrder.ClinicalHistory = YellowstonePathology.Business.Common.SpellChecker.FixString(this.m_AccessionOrder.ClinicalHistory);
 			panelSetOrderSurgical.Comment = YellowstonePathology.Business.Common.SpellChecker.FixString(panelSetOrderSurgical.Comment);
 
 			foreach (YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen in panelSetOrderSurgical.SurgicalSpecimenCollection)
@@ -308,7 +308,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 				mainTableNode.RemoveChild(rowAncillaryCommentNode);
 			}
 
-			this.SetXMLNodeParagraphData("clinical_information", panelSetOrderSurgical.ClinicalInfo);
+			this.SetXMLNodeParagraphData("clinical_information", this.m_AccessionOrder.ClinicalHistory);
 
 			XmlNode rowICHeaderNode = mainTableNode.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='intraoperative_consultation_header']", this.m_NameSpaceManager);
 			XmlNode rowICSpecimenNode = mainTableNode.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='intraoperative_consultation_specimen']", this.m_NameSpaceManager);

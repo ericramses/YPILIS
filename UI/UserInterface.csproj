@@ -41,7 +41,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>297</ApplicationRevision>
+    <ApplicationRevision>303</ApplicationRevision>
     <ApplicationVersion>10.1.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -518,6 +518,9 @@
     </Compile>
     <Compile Include="Surgical\ResultPathReview.xaml.cs">
       <DependentUpon>ResultPathReview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Surgical\SurgicalHistory.xaml.cs">
+      <DependentUpon>SurgicalHistory.xaml</DependentUpon>
     </Compile>
     <Compile Include="Surgical\TextSearchHandler.cs" />
     <Compile Include="TaskNotifier.cs" />
@@ -1364,9 +1367,6 @@
     <Compile Include="Surgical\PQRSMeasureDialog.xaml.cs">
       <DependentUpon>PQRSMeasureDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Surgical\SurgicalHistory.xaml.cs">
-      <DependentUpon>SurgicalHistory.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Surgical\SurgicalRescreenDialog.xaml.cs">
       <DependentUpon>SurgicalRescreenDialog.xaml</DependentUpon>
     </Compile>
@@ -2125,6 +2125,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Surgical\ResultPathReview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Surgical\SurgicalHistory.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -3191,10 +3195,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Surgical\PQRSMeasureDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Surgical\SurgicalHistory.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

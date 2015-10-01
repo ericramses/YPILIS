@@ -120,12 +120,10 @@ namespace YellowstonePathology.UI.Test
 		}        
 
         private void HyperLinkFirstCall_Click(object sender, RoutedEventArgs e)
-        {
+        {            
             if (this.m_MissingInformtionTestOrder.FirstCall == false)
             {
-                this.m_MissingInformtionTestOrder.FirstCall = true;
-                this.m_MissingInformtionTestOrder.FirstCallMadeBy = this.m_SystemIdentity.User.DisplayName;
-                this.m_MissingInformtionTestOrder.TimeOfFirstCall = DateTime.Now;
+                this.m_MissingInformtionTestOrder.SetFirstCall(this.m_SystemIdentity);
             }
             else
             {
@@ -135,7 +133,84 @@ namespace YellowstonePathology.UI.Test
 
         private void HyperLinkSecondCall_Click(object sender, RoutedEventArgs e)
         {
+            if (this.m_MissingInformtionTestOrder.SecondCall == false)
+            {
+                this.m_MissingInformtionTestOrder.SetSecondCall(this.m_SystemIdentity);
+            }
+            else
+            {
+                MessageBox.Show("The second call has already been made.");
+            }
+        }
 
+        private void HyperLinkThirdCall_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.m_MissingInformtionTestOrder.ThirdCall == false)
+            {
+                this.m_MissingInformtionTestOrder.SetThirdCall(this.m_SystemIdentity);
+            }
+            else
+            {
+                MessageBox.Show("The third call has already been made.");
+            }
+        }        
+
+        private void HyperLinkFax_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.m_MissingInformtionTestOrder.Fax == false)
+            {
+                this.m_MissingInformtionTestOrder.Fax = true;
+                this.m_MissingInformtionTestOrder.FaxSentBy = this.m_SystemIdentity.User.DisplayName;
+                this.m_MissingInformtionTestOrder.TimeFaxSent = DateTime.Now;
+                this.NotifyPropertyChanged("FaxDisplayString");
+            }
+            else
+            {
+                MessageBox.Show("A fax has already sent.");
+            }
+        }
+
+        private void HyperLinkClientSystemLookup_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.m_MissingInformtionTestOrder.ClientSystemLookup == false)
+            {
+                this.m_MissingInformtionTestOrder.ClientSystemLookup = true;
+                this.m_MissingInformtionTestOrder.ClientSystemLookupBy = this.m_SystemIdentity.User.DisplayName;
+                this.m_MissingInformtionTestOrder.TimeOfClientSystemLookup = DateTime.Now;
+                this.NotifyPropertyChanged("ClientSystemLookupDisplayString");
+            }
+            else
+            {
+                MessageBox.Show("The Client System Lookup is already set.");
+            }
+        }
+
+        private void HyperLinkClearResults_Click(object sender, RoutedEventArgs e)
+        {
+            this.m_MissingInformtionTestOrder.FirstCall = false;
+            this.m_MissingInformtionTestOrder.FirstCallMadeBy = null;
+            this.m_MissingInformtionTestOrder.TimeOfFirstCall = null;
+            this.m_MissingInformtionTestOrder.FirstCallComment = null;
+
+            this.m_MissingInformtionTestOrder.SecondCall = false;
+            this.m_MissingInformtionTestOrder.SecondCallMadeBy = null;
+            this.m_MissingInformtionTestOrder.TimeOfSecondCall = null;
+            this.m_MissingInformtionTestOrder.SecondCallComment = null;
+
+            this.m_MissingInformtionTestOrder.ThirdCall = false;
+            this.m_MissingInformtionTestOrder.ThirdCallMadeBy = null;
+            this.m_MissingInformtionTestOrder.TimeOfThirdCall = null;
+            this.m_MissingInformtionTestOrder.ThirdCallComment = null;
+
+            this.m_MissingInformtionTestOrder.Fax = false;
+            this.m_MissingInformtionTestOrder.FaxSentBy = null;
+            this.m_MissingInformtionTestOrder.TimeFaxSent = null;
+
+            this.m_MissingInformtionTestOrder.ClientSystemLookup = false;
+            this.m_MissingInformtionTestOrder.ClientSystemLookupBy = null;
+            this.m_MissingInformtionTestOrder.TimeOfClientSystemLookup = null;
+
+            this.NotifyPropertyChanged("*");
         }
     }
 }

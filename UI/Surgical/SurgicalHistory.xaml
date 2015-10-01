@@ -44,21 +44,12 @@
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition></ColumnDefinition>
 				</Grid.ColumnDefinitions>
-				<Grid.RowDefinitions>
-					<RowDefinition Height="Auto"></RowDefinition>
-					<RowDefinition Height="Auto"></RowDefinition>
-					<RowDefinition Height="Auto"></RowDefinition>
-				</Grid.RowDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
 
-				<StackPanel Grid.Column="0" Grid.Row="0">
-					<TextBlock Margin="3" FontWeight="Bold" HorizontalAlignment="Left">Clinical Information:</TextBlock>
-					<TextBox Margin="3" TextWrapping="Wrap" AcceptsReturn="True" FontSize="12"
-							 Text="{Binding Path=ClinicalInfo}"
-							 IsEnabled="{Binding ElementName=SurgicalHistoryControl, Path=DataContext.FieldEnabler.IsProtectedEnabled}">
-					</TextBox>
-				</StackPanel>
-
-				<StackPanel Grid.Column="0" Grid.Row="1">
+                <StackPanel Grid.Column="0" Grid.Row="0">
 					<TextBlock Margin="3" FontWeight="Bold" HorizontalAlignment="Left">Gross Description:</TextBlock>
 					<TextBox Margin="3" TextWrapping="Wrap" AcceptsReturn="True"
 							 Text="{Binding Path=GrossX}"
@@ -66,7 +57,7 @@
 					</TextBox>
 				</StackPanel>
 
-				<ItemsControl Grid.Column="0" Grid.Row="2" ItemsSource="{Binding Path=SurgicalSpecimenCollection}" 
+				<ItemsControl Grid.Column="0" Grid.Row="1" ItemsSource="{Binding Path=SurgicalSpecimenCollection}" 
 							ItemTemplate="{StaticResource DataTemplateIntraoperativeHeader}">
 					<ItemsControl.Template>
 						<ControlTemplate TargetType="ItemsControl">
@@ -92,17 +83,26 @@
 					<ColumnDefinition></ColumnDefinition>
 				</Grid.ColumnDefinitions>
 				<Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
 					<RowDefinition Height="Auto"></RowDefinition>
 					<RowDefinition Height="Auto"></RowDefinition>
 					<RowDefinition></RowDefinition>
 				</Grid.RowDefinitions>
 
-				<ContentControl Grid.Column="0" Grid.Row="0" ContentTemplate="{StaticResource DataTemplateSurgicalHistoryResult}"
+                <StackPanel Grid.Column="0" Grid.Row="0">
+                    <TextBlock Margin="3" FontWeight="Bold" HorizontalAlignment="Left">Clinical History:</TextBlock>
+                    <TextBox Margin="3" TextWrapping="Wrap" AcceptsReturn="True" FontSize="12"
+							 Text="{Binding Path=AccessionOrder.ClinicalHistory}"
+							 IsEnabled="{Binding ElementName=SurgicalHistoryControl, Path=DataContext.FieldEnabler.IsProtectedEnabled}">
+                    </TextBox>
+                </StackPanel>
+
+                <ContentControl Grid.Column="0" Grid.Row="1" ContentTemplate="{StaticResource DataTemplateSurgicalHistoryResult}"
 												Content="{Binding Path=PanelSetOrderSurgical}"></ContentControl>
 
-				<TextBlock Grid.Column="0" Grid.Row="1" Margin="2" VerticalAlignment="Center" TextAlignment="Left" FontWeight="Bold">Other Cases for this Patient:</TextBlock>
+                <TextBlock Grid.Column="0" Grid.Row="2" Margin="2" VerticalAlignment="Center" TextAlignment="Left" FontWeight="Bold">Other Cases for this Patient:</TextBlock>
 
-				<ContentControl Name="HistoryControl" Margin="2" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Stretch"></ContentControl>
+				<ContentControl Name="HistoryControl" Margin="2" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Stretch"></ContentControl>
 			</Grid>
 		</ScrollViewer>
 

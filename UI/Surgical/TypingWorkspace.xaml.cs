@@ -391,7 +391,7 @@ namespace YellowstonePathology.UI.Surgical
 				m_TypingUI.SurgicalTestOrder.GrossX = YellowstonePathology.Business.Common.SpellChecker.FixString(m_TypingUI.SurgicalTestOrder.GrossX);
 				m_TypingUI.SurgicalTestOrder.MicroscopicX = YellowstonePathology.Business.Common.SpellChecker.FixString(m_TypingUI.SurgicalTestOrder.MicroscopicX);
 				m_TypingUI.SurgicalTestOrder.CancerSummary = YellowstonePathology.Business.Common.SpellChecker.FixString(m_TypingUI.SurgicalTestOrder.CancerSummary);
-				m_TypingUI.SurgicalTestOrder.ClinicalInfo = YellowstonePathology.Business.Common.SpellChecker.FixString(m_TypingUI.SurgicalTestOrder.ClinicalInfo);
+				m_TypingUI.AccessionOrder.ClinicalHistory = YellowstonePathology.Business.Common.SpellChecker.FixString(m_TypingUI.AccessionOrder.ClinicalHistory);
 				m_TypingUI.SurgicalTestOrder.Comment = YellowstonePathology.Business.Common.SpellChecker.FixString(m_TypingUI.SurgicalTestOrder.Comment);
 
 				foreach (YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen specimen in m_TypingUI.SurgicalTestOrder.SurgicalSpecimenCollection)
@@ -890,7 +890,7 @@ namespace YellowstonePathology.UI.Surgical
                 if(clientOrderCollection[0] is YellowstonePathology.Business.ClientOrder.Model.SurgicalClientOrder)
                 {
                     YellowstonePathology.Business.ClientOrder.Model.SurgicalClientOrder surgicalClientOrder = (YellowstonePathology.Business.ClientOrder.Model.SurgicalClientOrder)clientOrderCollection[0];
-					this.m_TypingUI.SurgicalTestOrder.ClinicalInfo += "Pre-Op Diagnosis: " + surgicalClientOrder.PreOpDiagnosis;
+					this.m_TypingUI.AccessionOrder.ClinicalHistory += "Pre-Op Diagnosis: " + surgicalClientOrder.PreOpDiagnosis;
                 }
             }
             else
@@ -908,7 +908,7 @@ namespace YellowstonePathology.UI.Surgical
                 bindingExpression.UpdateSource();
 
                 YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder = clientOrderCollection[0];
-				this.m_TypingUI.SurgicalTestOrder.ClinicalInfo += clientOrder.SpecialInstructions;
+				this.m_TypingUI.AccessionOrder.ClinicalHistory += clientOrder.SpecialInstructions;
             }
             else
             {

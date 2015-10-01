@@ -647,7 +647,7 @@
 
 					<TextBlock Margin="2,2,2,2" FontWeight="Bold">Clinical Information:</TextBlock>
                     <TextBox Name="TextBoxClinical" TextWrapping="Wrap" AcceptsReturn="True" FontSize="12" RequestBringIntoView="Any_RequestBringIntoView" KeyUp="TextBox_KeyUp"
-						Text="{Binding Path=PanelSetOrderSurgical.ClinicalInfo}" 
+						Text="{Binding Path=AccessionOrder.ClinicalHistory}" 
 						IsEnabled="{Binding Path=FieldEnabler.IsProtectedEnabled}">
 					</TextBox>
 
