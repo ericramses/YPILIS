@@ -186,12 +186,15 @@ namespace YellowstonePathology.UI.Client
 			string lastName = string.Empty;
 			string[] commaSplit = this.TextBoxProviderName.Text.Split(',');
 			lastName = commaSplit[0].Trim();
-			if (commaSplit.Length > 1)
-			{
-				firstName = commaSplit[1].Trim();
-			    this.m_ProviderCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetHomeBaseProviderClientListByProviderFirstLastName(firstName, lastName);
-			}
-            else
+            if (commaSplit.Length > 1)
+            {
+                firstName = commaSplit[1].Trim();
+            }
+            if (string.IsNullOrEmpty(lastName) == false && string.IsNullOrEmpty(firstName) == false)
+            {
+                    this.m_ProviderCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetHomeBaseProviderClientListByProviderFirstLastName(firstName, lastName);
+            }
+            else if (string.IsNullOrEmpty(lastName) == false)
             {
                 this.m_ProviderCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetHomeBaseProviderClientListByProviderLastName(lastName);
             }
