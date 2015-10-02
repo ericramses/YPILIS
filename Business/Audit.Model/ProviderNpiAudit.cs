@@ -31,7 +31,7 @@ namespace YellowstonePathology.Business.Audit.Model
             else if(this.m_Physician.Npi.Length != 10)
             {
                 this.m_Status = AuditStatusEnum.Failure;
-                this.m_Message.AppendLine("The NPI is not the correct number of digits");
+                this.m_Message.AppendLine("The NPI is not ten digits");
             }
             else
             {
@@ -41,6 +41,7 @@ namespace YellowstonePathology.Business.Audit.Model
                     {
                         this.m_Status = AuditStatusEnum.Failure;
                         this.m_Message.AppendLine("The NPI is not all digits");
+                        break;
                     }
                 }
             }
