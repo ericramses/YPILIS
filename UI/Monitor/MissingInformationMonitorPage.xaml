@@ -27,7 +27,7 @@
             <RowDefinition Height="*"></RowDefinition>            
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Column="0" Grid.Row="0" Margin="10,10,10,10" FontSize="24">Pending Test Monitor</TextBlock>
+        <TextBlock Grid.Column="0" Grid.Row="0" Margin="10,10,10,10" FontSize="24">Missing Information Monitor</TextBlock>
 
         <ListView Name="ListViewMissingInformation" Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" ItemsSource="{Binding Path=MissingInformationCollection}" 
                   HorizontalAlignment="Stretch" FontSize="14" MouseDoubleClick="ListViewMissingInformation_DoubleClick">
