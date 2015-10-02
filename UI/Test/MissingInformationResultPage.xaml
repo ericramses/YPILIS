@@ -161,12 +161,12 @@
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
 
-                <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Left">Clinical History:</TextBlock>
+                <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Left">Call Comments:</TextBlock>
                 <TextBox Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
-                         Text="{Binding Path=AccessionOrder.ClinicalHistory}" AcceptsReturn="True" TextWrapping="Wrap"></TextBox>
+                         Text="{Binding Path=MissingInformtionTestOrder.CallComments}" AcceptsReturn="True" TextWrapping="Wrap"></TextBox>
                 
-                <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Left">Clinical History:</TextBlock>
-                <TextBox Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                <TextBlock Grid.Column="0" Grid.Row="2" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Left">Clinical History:</TextBlock>
+                <TextBox Grid.Column="0" Grid.Row="3" Margin="2,2,2,2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
                          Text="{Binding Path=AccessionOrder.ClinicalHistory}" AcceptsReturn="True" TextWrapping="Wrap"></TextBox>
 
             </Grid>
