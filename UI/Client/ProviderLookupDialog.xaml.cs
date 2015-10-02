@@ -53,7 +53,7 @@ namespace YellowstonePathology.UI.Client
 			YellowstonePathology.Business.Domain.Physician physician = new Business.Domain.Physician(objectId, physicianId, "New Physician", "New Physician");
 			objectTracker.RegisterRootInsert(physician);
 
-			ProviderEntry providerEntry = new ProviderEntry(physician, objectTracker);
+			ProviderEntry providerEntry = new ProviderEntry(physician, objectTracker, true);
 			providerEntry.ShowDialog();
 		}
 
@@ -168,7 +168,7 @@ namespace YellowstonePathology.UI.Client
 				YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
                 objectTracker.RegisterObject(physician);
 
-				ProviderEntry providerEntry = new ProviderEntry(physician, objectTracker);
+				ProviderEntry providerEntry = new ProviderEntry(physician, objectTracker, false);
 				providerEntry.ShowDialog();
 			}
 		}

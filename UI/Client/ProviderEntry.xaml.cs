@@ -26,12 +26,14 @@ namespace YellowstonePathology.UI.Client
 		private YellowstonePathology.Business.View.PhysicianClientView m_PhysicianClientView;
 		private YellowstonePathology.Business.Client.Model.ClientCollection m_ClientCollection;
 		private List<YellowstonePathology.Business.Client.Model.PhysicianClientDistributionView> m_PhysicianClientDistributionViewList;
-		string m_PhysicianClientId;
+		private string m_PhysicianClientId;
+        private bool m_AuditOnSaveIsRequired;
 
-        public ProviderEntry(YellowstonePathology.Business.Domain.Physician physician, YellowstonePathology.Business.Persistence.ObjectTracker objectTracker)
+        public ProviderEntry(YellowstonePathology.Business.Domain.Physician physician, YellowstonePathology.Business.Persistence.ObjectTracker objectTracker, bool auditOnSaveIsRequired)
         {                        
             this.m_Physician = physician;
             this.m_ObjectTracker = objectTracker;
+            this.m_AuditOnSaveIsRequired = auditOnSaveIsRequired;
 
 			this.m_PhysicianClientView = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClientView(this.m_Physician.ObjectId);
 			this.m_HpvStandingOrders = YellowstonePathology.Business.Client.Model.StandingOrderCollection.GetHPVStandingOrders();
@@ -90,7 +92,14 @@ namespace YellowstonePathology.UI.Client
 
 		private void ButtonOK_Click(object sender, RoutedEventArgs e)
 		{
-            if (this.CanSave() == true)
+            if (this.m_AuditOnSaveIsRequired == true)
+            {
+                if (this.CanSave() == true)
+                {
+                    Close();
+                }
+            }
+            else
             {
                 Close();
             }
@@ -99,31 +108,17 @@ namespace YellowstonePathology.UI.Client
         private bool CanSave()
         {
             bool result = true;
-            YellowstonePathology.Business.Audit.Model.ProviderDisplayNameAudit providerDisplayNameAudit = new Business.Audit.Model.ProviderDisplayNameAudit(this.m_Physician.DisplayName);
-            providerDisplayNameAudit.Run();
-            if (providerDisplayNameAudit.Status == Business.Audit.Model.AuditStatusEnum.Failure)
-            {
-                MessageBoxResult messageBoxResult = MessageBox.Show(providerDisplayNameAudit.Message.ToString(), "Missing display name", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-                result = false;
-            }
 
-            if (result == true)
-            {
-                YellowstonePathology.Business.Audit.Model.ProviderNpiAudit providerNpiAudit = new YellowstonePathology.Business.Audit.Model.ProviderNpiAudit(this.m_Physician);
-                providerNpiAudit.Run();
-                if (providerNpiAudit.Status == Business.Audit.Model.AuditStatusEnum.Failure)
-                {
-                    MessageBoxResult messageBoxResult = MessageBox.Show(providerNpiAudit.Message.ToString() + "  Do you want to continue?", "Missing NPI", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
-                    if (messageBoxResult == MessageBoxResult.No)
-                    {
-                        result = false;
-                    }
-                }
-            }
+            Business.Audit.Model.AuditCollection auditCollection = new Business.Audit.Model.AuditCollection { new Business.Audit.Model.ProviderDisplayNameAudit(this.m_Physician.DisplayName),
+                new YellowstonePathology.Business.Audit.Model.ProviderNpiAudit(this.m_Physician),
+                new Business.Audit.Model.ProviderHomeBaseAudit(this.m_Physician),
+                new Business.Audit.Model.ProviderClientsHaveDistributionSetAudit(this.m_Physician.ObjectId, this.m_PhysicianClientView) };
 
-            if (result == true)
+            YellowstonePathology.Business.Audit.Model.AuditResult auditResult = auditCollection.Run2();
+            if (auditResult.Status == Business.Audit.Model.AuditStatusEnum.Failure)
             {
-                if (this.AllClientsHaveDistributionSet() == false)
+                MessageBoxResult messageBoxResult = MessageBox.Show(auditResult.Message + "  Do you want to continue?", "Missing Information", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+                if (messageBoxResult == MessageBoxResult.No)
                 {
                     result = false;
                 }
@@ -135,36 +130,6 @@ namespace YellowstonePathology.UI.Client
         {
 			this.m_ObjectTracker.SubmitChanges(this.m_Physician);
         }
-
-		private bool AllClientsHaveDistributionSet()
-		{
-			bool result = true;
-
-			StringBuilder msg = new StringBuilder();
-			foreach (YellowstonePathology.Business.Client.Model.Client client in this.m_PhysicianClientView.Clients)
-			{
-				YellowstonePathology.Business.Domain.PhysicianClient physicianClient = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClient(this.m_Physician.ObjectId, client.ClientId);
-				this.m_PhysicianClientId = physicianClient.PhysicianClientId;
-				List<YellowstonePathology.Business.Client.Model.PhysicianClientDistributionView> physicianClientDistributionViews = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClientDistributionsV2(this.m_PhysicianClientId);
-				if (physicianClientDistributionViews.Count == 0)
-				{
-					result = false;
-					msg.AppendLine(client.ClientName);
-				}
-			}
-
-			if (result == false)
-			{
-				MessageBoxResult messageBoxResult = MessageBox.Show("Distribution is not set for " + Environment.NewLine + msg.ToString() + Environment.NewLine + 
-					"Do you want to continue?", "Missing Distribution", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
-				if (messageBoxResult == MessageBoxResult.Yes)
-				{
-					result = true;
-				}
-			}
-
-			return result;
-		}
 
 		private void ButtonAddToClient_Click(object sender, RoutedEventArgs e)
 		{
