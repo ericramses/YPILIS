@@ -18,6 +18,7 @@ namespace YellowstonePathology.Business.Client
         private string m_DistributionType;
         private string m_PhysicianName;        
         private string m_FaxNumber;
+        private string m_Telephone;
         private bool m_LongDistance;
 
         public PhysicianClient()
@@ -93,6 +94,13 @@ namespace YellowstonePathology.Business.Client
         {
             get { return m_FaxNumber; }
             set { m_FaxNumber = value; }
+        }
+
+        [PersistentProperty()]
+        public string Telephone
+        {
+            get { return m_Telephone; }
+            set { m_Telephone = value; }
         }
 
         [PersistentProperty()]

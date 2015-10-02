@@ -21,7 +21,7 @@ namespace YellowstonePathology.UI.Client
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		private YellowstonePathology.Business.Domain.PhysicianCollection m_PhysicianCollection;
+		private YellowstonePathology.Business.Client.Model.ProviderClientCollection m_ProviderCollection;
 		private YellowstonePathology.Business.Client.Model.ClientCollection m_ClientCollection;
 
 		public ProviderLookupDialog()
@@ -30,12 +30,12 @@ namespace YellowstonePathology.UI.Client
 			DataContext = this;
 		}
 
-		public YellowstonePathology.Business.Domain.PhysicianCollection ProviderCollection
+		public YellowstonePathology.Business.Client.Model.ProviderClientCollection ProviderCollection
 		{
-			get { return this.m_PhysicianCollection; }
+			get { return this.m_ProviderCollection; }
 			private set
 			{
-				this.m_PhysicianCollection = value;
+				this.m_ProviderCollection = value;
 				NotifyPropertyChanged("ProviderCollection");
 			}
 		}
@@ -61,11 +61,11 @@ namespace YellowstonePathology.UI.Client
         {
             if (this.ListViewProviders.SelectedItem != null)
             {
-                YellowstonePathology.Business.Domain.Physician physician = (YellowstonePathology.Business.Domain.Physician)this.ListViewProviders.SelectedItem;
-                YellowstonePathology.Business.Rules.MethodResult methodResult = this.CanDeleteProvider(physician);
+                YellowstonePathology.Business.Client.Model.ProviderClient providerClient = (YellowstonePathology.Business.Client.Model.ProviderClient)this.ListViewProviders.SelectedItem;
+                YellowstonePathology.Business.Rules.MethodResult methodResult = this.CanDeleteProvider(providerClient.Physician);
                 if (methodResult.Success == true)
                 {
-                    this.DeleteProvider(physician);
+                    this.DeleteProvider(providerClient.Physician);
                     this.DoProviderSearch();
                 }
                 else
@@ -163,7 +163,8 @@ namespace YellowstonePathology.UI.Client
 		{
 			if (this.ListViewProviders.SelectedItem != null)
 			{
-				YellowstonePathology.Business.Domain.Physician physician = (YellowstonePathology.Business.Domain.Physician)this.ListViewProviders.SelectedItem;
+                YellowstonePathology.Business.Client.Model.ProviderClient providerClient =  (YellowstonePathology.Business.Client.Model.ProviderClient)this.ListViewProviders.SelectedItem;
+                YellowstonePathology.Business.Domain.Physician physician = providerClient.Physician;
 				YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
                 objectTracker.RegisterObject(physician);
 
@@ -188,10 +189,14 @@ namespace YellowstonePathology.UI.Client
 			if (commaSplit.Length > 1)
 			{
 				firstName = commaSplit[1].Trim();
+			    this.m_ProviderCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetHomeBaseProviderClientListByProviderFirstLastName(firstName, lastName);
 			}
+            else
+            {
+                this.m_ProviderCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetHomeBaseProviderClientListByProviderLastName(lastName);
+            }
 
-			this.m_PhysicianCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysiciansByName(firstName, lastName);
-			NotifyPropertyChanged("ProviderCollection");
+            NotifyPropertyChanged("ProviderCollection");
 			this.ListViewProviders.SelectedIndex = -1;
 		}
 

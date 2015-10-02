@@ -25,6 +25,11 @@ namespace YellowstonePathology.UI.Cytology
 		public delegate void FinishedEventHandler(object sender, EventArgs e);
 		public event FinishedEventHandler Finished;
 
+        public delegate void PageTimedOutEventHandler(object sender, EventArgs e);
+        public event PageTimedOutEventHandler PageTimedOut;
+
+        private System.Windows.Threading.DispatcherTimer m_PageTimeOutTimer;
+
         private YellowstonePathology.Business.Specimen.Model.SpecimenOrder m_SpecimenOrder;
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
@@ -44,9 +49,13 @@ namespace YellowstonePathology.UI.Cytology
             this.m_SystemIdentity = systemIdentity;
 			this.m_PageHeaderText = "Slide Printing Page ";
 
-            this.m_BarcodeScanPort = Business.BarcodeScanning.BarcodeScanPort.Instance;            
+            this.m_BarcodeScanPort = Business.BarcodeScanning.BarcodeScanPort.Instance;
 
-			InitializeComponent();
+            this.m_PageTimeOutTimer = new System.Windows.Threading.DispatcherTimer();
+            this.m_PageTimeOutTimer.Interval = new TimeSpan(0, 20, 0);
+            this.m_PageTimeOutTimer.Tick += new EventHandler(PageTimeOutTimer_Tick);
+
+            InitializeComponent();
 
 			DataContext = this;            
 
@@ -54,16 +63,26 @@ namespace YellowstonePathology.UI.Cytology
             this.Unloaded += new RoutedEventHandler(ThinPrepPapSlidePrintingPage_Unloaded);
 		}
 
-        private void ThinPrepPapSlidePrintingPage_Unloaded(object sender, RoutedEventArgs e)
-        {
-            this.m_BarcodeScanPort.ThinPrepSlideScanReceived -= BarcodeScanPort_ThinPrepSlideScanReceived;
-            this.m_BarcodeScanPort.AliquotOrderIdReceived -= BarcodeScanPort_AliquotOrderIdReceived;
-        }
-
         private void ThinPrepPapSlidePrintingPage_Loaded(object sender, RoutedEventArgs e)
         {            
             this.m_BarcodeScanPort.ThinPrepSlideScanReceived += new Business.BarcodeScanning.BarcodeScanPort.ThinPrepSlideScanReceivedHandler(BarcodeScanPort_ThinPrepSlideScanReceived);
             this.m_BarcodeScanPort.AliquotOrderIdReceived += new Business.BarcodeScanning.BarcodeScanPort.AliquotOrderIdReceivedHandler(BarcodeScanPort_AliquotOrderIdReceived);
+            this.m_PageTimeOutTimer.Start();
+        }
+
+        private void ThinPrepPapSlidePrintingPage_Unloaded(object sender, RoutedEventArgs e)
+        {
+            this.m_BarcodeScanPort.ThinPrepSlideScanReceived -= BarcodeScanPort_ThinPrepSlideScanReceived;
+            this.m_BarcodeScanPort.AliquotOrderIdReceived -= BarcodeScanPort_AliquotOrderIdReceived;
+            this.m_PageTimeOutTimer.Stop();
+        }
+
+        private void PageTimeOutTimer_Tick(object sender, EventArgs e)
+        {
+            this.m_PageTimeOutTimer.Stop();
+
+            EventArgs eventArgs = new EventArgs();
+            this.PageTimedOut(this, eventArgs);
         }
 
         private void BarcodeScanPort_AliquotOrderIdReceived(string scanData)

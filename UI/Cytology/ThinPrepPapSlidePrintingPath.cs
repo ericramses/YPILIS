@@ -143,6 +143,7 @@ namespace YellowstonePathology.UI.Cytology
 		{
 			ThinPrepPapSlidePrintingPage thinPrepPapSlidePrintingPage = new ThinPrepPapSlidePrintingPage(specimenOrder, this.m_AccessionOrder, this.m_ObjectTracker, this.m_SystemIdentity);
 			thinPrepPapSlidePrintingPage.Finished += new ThinPrepPapSlidePrintingPage.FinishedEventHandler(ThinPrepPapSlidePrintingPage_Finished);
+            thinPrepPapSlidePrintingPage.PageTimedOut += PageTimedOut;
 			this.m_PrintSlideDialog.PageNavigator.Navigate(thinPrepPapSlidePrintingPage);
 		}
 
