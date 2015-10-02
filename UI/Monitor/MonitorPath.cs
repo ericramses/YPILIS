@@ -42,6 +42,10 @@ namespace YellowstonePathology.UI.Monitor
                     PendingTestMonitorPage pendingTestMonitorPage = new PendingTestMonitorPage();
                     this.m_PageQueue.Enqueue(pendingTestMonitorPage);
                     break;
+                case MonitorPageLoadEnum.MissingInformationMonitor:
+                    MissingInformationMonitorPage missingInformationMonitorPage = new MissingInformationMonitorPage();
+                    this.m_PageQueue.Enqueue(missingInformationMonitorPage);
+                    break;
             }
         }
 

@@ -117,8 +117,12 @@
                 </Grid.RowDefinitions>
 
                 <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right">Missing Information:</TextBlock>
-                <TextBox Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" HorizontalAlignment="Stretch" Text="{Binding Path=MissingInformtionTestOrder.MissingInformation}"></TextBox>
-                
+                <ComboBox Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" HorizontalAlignment="Stretch" Text="{Binding Path=MissingInformtionTestOrder.MissingInformation}">
+                    <ComboBoxItem>Clinical Information</ComboBoxItem>
+                    <ComboBoxItem>ICD9 Code</ComboBoxItem>
+                    <ComboBoxItem>Provider</ComboBoxItem>
+                </ComboBox>
+
                 <TextBlock Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right">First Call:</TextBlock>
                 <TextBox Grid.Column="1" Grid.Row="1" Margin="2,2,2,2" HorizontalAlignment="Stretch" Text="{Binding Path=MissingInformtionTestOrder.FirstCallComment}" IsEnabled="False"></TextBox>
 
@@ -142,6 +146,7 @@
 
                 <TextBlock Grid.Column="0" Grid.Row="8" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right">Finaled By:</TextBlock>
                 <TextBox Grid.Column="1" Grid.Row="8" Margin="2,2,2,2" Text="{Binding Path=MissingInformtionTestOrder.Signature}" IsEnabled="False"></TextBox>
+                
             </Grid>
 
             <Grid Grid.Column="2" Grid.Row="0">
@@ -155,7 +160,8 @@
                 </Grid.RowDefinitions>
 
                 <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Left">Clinical History:</TextBlock>
-                <TextBox Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Text="{Binding Path=AccessionOrder.ClinicalHistory}"></TextBox>
+                <TextBox Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                         Text="{Binding Path=AccessionOrder.ClinicalHistory}" AcceptsReturn="True" TextWrapping="Wrap"></TextBox>
 
             </Grid>
 

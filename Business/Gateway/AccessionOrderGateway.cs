@@ -840,7 +840,7 @@ namespace YellowstonePathology.Business.Gateway
                 "FROM tblAccessionOrder a JOIN tblPanelSetOrder pso ON a.MasterAccessionNo = pso.MasterAccessionNo " +
                 "JOIN tblSurgicalTestOrder sto ON pso.ReportNo = sto.ReportNo " +
                 "JOIN tblSystemUser su on pso.AssignedToId = su.UserId " +
-                "WHERE convert(varchar(max), sto.ClinicalInfo) = '???' and a.AccessionDate >= dateadd(dd, -10, getdate())) T1 " +
+                "WHERE convert(varchar(max), a.ClinicalHistory) = '???' and a.AccessionDate >= dateadd(dd, -10, getdate())) T1 " +
                 "ORDER BY AccessionTime";
             cmd.CommandType = CommandType.Text;
 
@@ -1835,7 +1835,38 @@ namespace YellowstonePathology.Business.Gateway
 			return result;
 		}
 
-		public static YellowstonePathology.Business.NeogenomicsResultCollection GetNeogenomicsResultCollection()
+        public static YellowstonePathology.Business.Monitor.Model.MissingInformationCollection GetMissingInformationCollection()
+        {
+            YellowstonePathology.Business.Monitor.Model.MissingInformationCollection result = new YellowstonePathology.Business.Monitor.Model.MissingInformationCollection();
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "select pso.ReportNo, pso.PanelSetName [TestName], pso.ExpectedFinalTime, pso.OrderTime, ao.ClientName, ao.PhysicianName [ProviderName], su.DisplayName [AssignedTo], pso.Delayed " +
+                "from tblPanelSetOrder pso " +
+                "join tblAccessionOrder ao on pso.MasterAccessionNo = ao.MasterAccessionNo	" +
+                "join tblSystemUser su on pso.AssignedToId = su.UserId " +
+                "where PanelSetId = 212 " +
+                "order by ExpectedFinalTime";
+            cmd.CommandType = CommandType.Text;
+
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        YellowstonePathology.Business.Monitor.Model.MissingInformation missingInformation = new YellowstonePathology.Business.Monitor.Model.MissingInformation();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(missingInformation, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Add(missingInformation);
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        public static YellowstonePathology.Business.NeogenomicsResultCollection GetNeogenomicsResultCollection()
 		{            
 #if MONGO
             return AccessionOrderGatewayMongo.GetNeogenomicsResultCollection();

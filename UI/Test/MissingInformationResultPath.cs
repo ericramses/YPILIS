@@ -19,8 +19,7 @@ namespace YellowstonePathology.UI.Test
             : base(pageNavigator)
         {
             this.m_AccessionOrder = accessionOrder;
-            this.m_ObjectTracker = objectTracker;
-            this.m_SystemIdentity = new YellowstonePathology.Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
+            this.m_ObjectTracker = objectTracker;            
 			this.m_MissingInformationTestOrder = (YellowstonePathology.Business.Test.MissingInformation.MissingInformtionTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 		}
 

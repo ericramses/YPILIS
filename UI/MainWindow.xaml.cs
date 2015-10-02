@@ -906,5 +906,12 @@ namespace YellowstonePathology.UI
             PantherOrdersDialog pantherOrdersDialog = new PantherOrdersDialog();
             pantherOrdersDialog.ShowDialog();
         }
+
+        private void MenuItemShowMissingInformationMonitor_Click(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.UI.Monitor.MonitorPath monitorPath = new Monitor.MonitorPath();
+            monitorPath.Load(YellowstonePathology.UI.Monitor.MonitorPageLoadEnum.MissingInformationMonitor);
+            monitorPath.Start();
+        }
     }    
 }

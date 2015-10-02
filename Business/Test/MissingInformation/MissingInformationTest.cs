@@ -23,6 +23,7 @@ namespace YellowstonePathology.Business.Test.MissingInformation
 			this.m_AllowMultiplePerAccession = true;
             this.m_ShowResultPageOnOrder = true;
             this.m_NeverDistribute = true;
-		}
+            this.m_HasNoOrderTarget = true;
+        }
 	}
 }

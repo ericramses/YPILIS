@@ -440,12 +440,15 @@
     <Compile Include="MaterialTracking.Model\MaterialTrackingLogViewCollection.cs" />
     <Compile Include="MaterialTracking.Model\MaterialTrackingScannedItemView.cs" />
     <Compile Include="MaterialTracking.Model\MaterialTrackingScannedItemViewCollection.cs" />
+    <Compile Include="Monitor.Model\MissingInformation.cs" />
+    <Compile Include="Monitor.Model\MissingInformationCollection.cs" />
     <Compile Include="NeogenomicsResult.cs" />
     <Compile Include="NeogenomicsResultCollection.cs" />
     <Compile Include="PanelSet.Model\PanelSetTCellClonalityByPCRRetired.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Test.Model\DispalyGroupProstate.cs" />
+    <Compile Include="Test\HPVTWI\HPVTWIInvalidResult.cs" />
     <Compile Include="Test\MissingInformation\MissingInformationTest.cs" />
     <Compile Include="Test\MissingInformation\MissingInformationTestOrder.cs" />
     <Compile Include="Test\PantherAliquotList.cs" />

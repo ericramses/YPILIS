@@ -39,6 +39,7 @@ namespace YellowstonePathology.UI.Test
 			this.m_SystemIdentity = systemIdentity;
 			this.m_ObjectTracker = objectTracker;
 
+            this.m_SystemIdentity = new Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
 			this.m_MissingInformtionTestOrder = missingInformationTestOrder;
             this.m_PageHeaderText = "Missing Information For: " + this.m_AccessionOrder.PatientDisplayName;
 

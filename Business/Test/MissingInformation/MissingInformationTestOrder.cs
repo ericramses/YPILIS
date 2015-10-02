@@ -41,15 +41,14 @@ namespace YellowstonePathology.Business.Test.MissingInformation
 
 		}
 
-		public MissingInformtionTestOrder(string masterAccessionNo, string reportNo, string objectId,
-			YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
-            YellowstonePathology.Business.Interface.IOrderTarget orderTarget,
-			bool distribute,
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
-			: base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute, systemIdentity)
-		{			
-			
-		}
+        public MissingInformtionTestOrder(string masterAccessionNo, string reportNo, string objectId,
+            YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
+            bool distribute,
+            YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+            : base(masterAccessionNo, reportNo, objectId, panelSet, distribute, systemIdentity)
+		{
+
+        }       
 
         [PersistentProperty()]
         public string MissingInformation

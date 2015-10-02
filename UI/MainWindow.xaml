@@ -87,6 +87,7 @@
                 <MenuItem Name="MenuItemMonitorReportDistribution" Header="Report Distribution" Click="MenuItemShowReportDistributionMonitor_Click"></MenuItem>
                 <MenuItem Name="MenuItemMonitorCytologyScreening" Header="Cytology Screening" Click="MenuItemShowCytologyScreeningMonitor_Click"></MenuItem>
                 <MenuItem Name="MenuItemMonitorPendingTests" Header="Pending Tests" Click="MenuItemShowPendingTestMonitor_Click"></MenuItem>
+                <MenuItem Name="MenuItemMonitorMissingInformation" Header="Missing Information" Click="MenuItemShowMissingInformationMonitor_Click"></MenuItem>
             </MenuItem>
                 
             </Menu>

@@ -35,19 +35,19 @@ namespace YellowstonePathology.Business.Rules.Surgical
 			this.m_Rule.ActionList.Add(IsTheCaseBeingSigned);
 			this.m_Rule.ActionList.Add(AreAncillaryStudiesHandled);
 			this.m_Rule.ActionList.Add(IsPapCorrelationHandled);
-			//this.m_Rule.ActionList.Add(CaseIsAssigned);
+			this.m_Rule.ActionList.Add(CaseIsAssigned);
 			this.m_Rule.ActionList.Add(IsSpecialDermCaseViolation);
 			this.m_Rule.ActionList.Add(IsIntraoperativeCorrelationHandled);
 			this.m_Rule.ActionList.Add(CaseHasQuestionMarks);
-			//this.m_Rule.ActionList.Add(CurrentUserIsTheAssignedUser);
+			this.m_Rule.ActionList.Add(CurrentUserIsTheAssignedUser);
 			this.m_Rule.ActionList.Add(CaseHasSvhAccount);
 			this.m_Rule.ActionList.Add(CaseHasSvhMRN);
             this.m_Rule.ActionList.Add(CaseHasClientNotFound);
             this.m_Rule.ActionList.Add(CaseHasPhysicianNotFound);
             this.m_Rule.ActionList.Add(CaseHasUnfinaledPeerReview);
 			this.m_Rule.ActionList.Add(GradedStainsAreHandled);
-			//this.m_Rule.ActionList.Add(SignCase);
-			//this.m_Rule.ActionList.Add(UnSignCase);
+			this.m_Rule.ActionList.Add(SignCase);
+			this.m_Rule.ActionList.Add(UnSignCase);
 			this.m_Rule.ActionList.Add(DeleteUndistributedLogItems);
 		}
 

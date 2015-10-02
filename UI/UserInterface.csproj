@@ -41,7 +41,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>303</ApplicationRevision>
+    <ApplicationRevision>312</ApplicationRevision>
     <ApplicationVersion>10.1.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -356,6 +356,9 @@
     <Compile Include="Mongo\Testing.cs" />
     <Compile Include="Mongo\TransferWindow.xaml.cs">
       <DependentUpon>TransferWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Monitor\MissingInformationMonitorPage.xaml.cs">
+      <DependentUpon>MissingInformationMonitorPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="PageNavigationWindow.xaml.cs">
       <DependentUpon>PageNavigationWindow.xaml</DependentUpon>
@@ -1972,6 +1975,10 @@
     <Page Include="Mongo\TransferWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Monitor\MissingInformationMonitorPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="PageNavigationWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

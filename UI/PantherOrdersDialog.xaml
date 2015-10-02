@@ -55,15 +55,13 @@
                         <RowDefinition Height="Auto"></RowDefinition>
                     </Grid.RowDefinitions>
 
-                    <ComboBox Name="ComboBoxListType" Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" HorizontalAlignment="Stretch" SelectedValuePath="Content">
+                    <ComboBox Name="ComboBoxListType" Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" HorizontalAlignment="Stretch" SelectedValuePath="Content" SelectionChanged="ComboBoxListType_SelectionChanged">
                         <ComboBoxItem IsSelected="True">HPV cases with no result</ComboBoxItem>
                         <ComboBoxItem>HPV cases with a result but not final</ComboBoxItem>
                         <ComboBoxItem>HPV case that are final</ComboBoxItem>
                     </ComboBox>
 
-                    <Button Grid.Column="1" Grid.Row="0" Click="ButtonSearch_Click" Margin="2,2,2,2" Width="100">Search</Button>
-
-                    <ListView Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Name="ListViewPantherOrders" Margin="2,2,2,2" ItemsSource="{Binding Path=PantherOrderList}">
+                    <ListView Grid.Column="0" Grid.Row="1" Name="ListViewPantherHPVOrders" Margin="2,2,2,2" ItemsSource="{Binding Path=PantherHPVOrderList}">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Report No" DisplayMemberBinding="{Binding Path=ReportNo}" Width="100" />
@@ -75,6 +73,10 @@
                             </GridView>
                         </ListView.View>
                     </ListView>
+
+                    <Button Grid.Column="1" Grid.Row="1" Click="ButtonResult_Click" Margin="2,2,2,2" Width="100" Height="50" VerticalAlignment="Top">Result</Button>
+                    <Button Grid.Column="1" Grid.Row="1" Click="ButtonResendPantherOrder_Click" Margin="2,2,2,2" Width="100" Height="50" VerticalAlignment="Top">Resend Order</Button>
+                    
                 </Grid>
             </TabItem>
             <TabItem Header="NG/CT">
@@ -84,7 +86,8 @@
             <TabItem Header="Trichomonas">
             </TabItem>
         </TabControl>
-        <Button Grid.Column="0" Grid.Row="1" Width="90" Height="30" Click="ButtonClose_Click" HorizontalAlignment="Right" Margin="2,2,2,2">Close</Button>
+        
+        <Button Grid.Column="0" Grid.Row="1" Width="100" Height="30" Click="ButtonClose_Click" HorizontalAlignment="Right" Margin="2,2,2,2">Close</Button>
         
     </Grid>
 </Window>
