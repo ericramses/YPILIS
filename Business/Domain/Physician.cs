@@ -34,7 +34,7 @@ namespace YellowstonePathology.Business.Domain
 		private string m_FullName;		
 		private int m_ReportDeliveryMethod;
 		private string m_DisplayName;
-		private int m_HomeBaseClientId;
+		private int? m_HomeBaseClientId;
 		private bool m_KRASBRAFStandingOrder;
 		private string m_Npi;
         private string m_HPVStandingOrderCode;
@@ -357,7 +357,7 @@ namespace YellowstonePathology.Business.Domain
 		}
 
         [PersistentProperty()]
-		public int HomeBaseClientId
+		public int? HomeBaseClientId
 		{
 			get { return this.m_HomeBaseClientId; }
 			set

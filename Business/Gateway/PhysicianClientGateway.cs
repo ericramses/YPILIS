@@ -1627,25 +1627,22 @@ namespace YellowstonePathology.Business.Gateway
             xmlPropertyWriterP.Write();
             result.Physician = physician;
 
-            if (physician.HomeBaseClientId != 0)
+            XElement clientElement = providerElement.Element("Client");
+            if (clientElement != null)
             {
-                XElement clientElement = providerElement.Element("Client");
-                if (clientElement != null)
-                {
-                    YellowstonePathology.Business.Client.Model.Client client = new Client.Model.Client();
-                    YellowstonePathology.Business.Persistence.XmlPropertyWriter xmlPropertyWriterC = new Persistence.XmlPropertyWriter(clientElement, client);
-                    xmlPropertyWriterC.Write();
-                    result.Client = client;
-                }
+                YellowstonePathology.Business.Client.Model.Client client = new Client.Model.Client();
+                YellowstonePathology.Business.Persistence.XmlPropertyWriter xmlPropertyWriterC = new Persistence.XmlPropertyWriter(clientElement, client);
+                xmlPropertyWriterC.Write();
+                result.Client = client;
+            }
 
-                XElement providerClientElement = providerElement.Element("ProviderClient");
-                if (providerClientElement != null)
-                {
-                    YellowstonePathology.Business.Persistence.XmlPropertyWriter xmlPropertyWriterPC = new Persistence.XmlPropertyWriter(providerClientElement, result);
-                    xmlPropertyWriterPC.Write();
-                }
+            XElement providerClientElement = providerElement.Element("ProviderClient");
+            if (providerClientElement != null)
+            {
+                YellowstonePathology.Business.Persistence.XmlPropertyWriter xmlPropertyWriterPC = new Persistence.XmlPropertyWriter(providerClientElement, result);
+                xmlPropertyWriterPC.Write();
             }
             return result;
         }
-}
+    }
 }

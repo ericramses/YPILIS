@@ -341,10 +341,7 @@ namespace YellowstonePathology.UI.Client
             if(this.ComboBoxHomeBase.SelectedItem != null)
             {
                 YellowstonePathology.Business.Client.Model.Client selectedHomeBaseClient = (YellowstonePathology.Business.Client.Model.Client)this.ComboBoxHomeBase.SelectedItem;
-                if (selectedHomeBaseClient.ClientId != this.m_Physician.HomeBaseClientId)
-                {
-                    this.m_Physician.HomeBaseClientId = selectedHomeBaseClient.ClientId;
-                }
+                this.m_Physician.HomeBaseClientId = selectedHomeBaseClient.ClientId;
             }
         }
     }
