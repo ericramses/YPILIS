@@ -31,8 +31,8 @@
 							<GridView>								
 								<GridViewColumn Header="Name" Width="350" DisplayMemberBinding="{Binding Path=Physician.DisplayName}" />
                                 <GridViewColumn Header="NPI" Width="100" DisplayMemberBinding="{Binding Path=Physician.Npi}" />
-                                <GridViewColumn Header="Home Base Phone" Width="130" DisplayMemberBinding="{Binding Path=Client.Telephone,Converter={StaticResource PhoneNumberConverter}}" />
-                                <GridViewColumn Header="Home Base Fax" Width="130" DisplayMemberBinding="{Binding Path=Client.Fax,Converter={StaticResource PhoneNumberConverter}}" />
+                                <GridViewColumn Header="Phone" Width="130" DisplayMemberBinding="{Binding Path=Client.Telephone,Converter={StaticResource PhoneNumberConverter}}" />
+                                <GridViewColumn Header="Fax" Width="130" DisplayMemberBinding="{Binding Path=Client.Fax,Converter={StaticResource PhoneNumberConverter}}" />
                             </GridView>
 						</ListView.View>
 					</ListView>

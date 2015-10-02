@@ -1630,10 +1630,13 @@ namespace YellowstonePathology.Business.Gateway
             if (physician.HomeBaseClientId != 0)
             {
                 XElement clientElement = providerElement.Element("Client");
-                YellowstonePathology.Business.Client.Model.Client client = new Client.Model.Client();
-                YellowstonePathology.Business.Persistence.XmlPropertyWriter xmlPropertyWriterC = new Persistence.XmlPropertyWriter(clientElement, client);
-                xmlPropertyWriterC.Write();
-                result.Client = client;
+                if (clientElement != null)
+                {
+                    YellowstonePathology.Business.Client.Model.Client client = new Client.Model.Client();
+                    YellowstonePathology.Business.Persistence.XmlPropertyWriter xmlPropertyWriterC = new Persistence.XmlPropertyWriter(clientElement, client);
+                    xmlPropertyWriterC.Write();
+                    result.Client = client;
+                }
 
                 XElement providerClientElement = providerElement.Element("ProviderClient");
                 if (providerClientElement != null)
