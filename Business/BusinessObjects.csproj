@@ -175,7 +175,9 @@
     <Compile Include="Audit.Model\PNHOnBoneMarrowSpecimenAudit.cs" />
     <Compile Include="Audit.Model\PQRSIsHandledAudit.cs" />
     <Compile Include="Audit.Model\PQRSIsRequiredAudit.cs" />
+    <Compile Include="Audit.Model\ProviderClientsHaveDistributionSetAudit.cs" />
     <Compile Include="Audit.Model\ProviderDisplayNameAudit.cs" />
+    <Compile Include="Audit.Model\ProviderHomeBaseAudit.cs" />
     <Compile Include="Audit.Model\ProviderNpiAudit.cs" />
     <Compile Include="Audit.Model\SigningUserIsAssignedUserAudit.cs" />
     <Compile Include="Audit.Model\SpecimenOrderAudit.cs" />
