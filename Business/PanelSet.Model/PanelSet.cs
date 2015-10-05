@@ -44,6 +44,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
         protected bool m_IsClientAccessioned;
         protected bool m_AddAliquotOnOrder;
         protected bool m_SendOrderToPanther;
+        protected bool m_ShowAdditionalEMailPage;
         
         protected YellowstonePathology.Business.Specimen.Model.Aliquot m_AliquotToAddOnOrder;        
 
@@ -80,6 +81,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
             this.m_AttemptOrderTargetLookup = false;
             this.m_RequireAssignmentOnOrder = true;
             this.m_IsClientAccessioned = false;
+            this.m_ShowAdditionalEMailPage = false;
 
             this.m_OrderTargetTypeCollectionExclusions = new YellowstonePathology.Business.OrderTargetTypeCollection();
             this.m_OrderTargetTypeCollectionRestrictions = new YellowstonePathology.Business.OrderTargetTypeCollection();
@@ -552,6 +554,20 @@ namespace YellowstonePathology.Business.PanelSet.Model
                 {
                     this.m_SendOrderToPanther = value;
                     this.NotifyPropertyChanged("SendOrderToPanther");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public bool ShowAdditionalEMailPage
+        {
+            get { return this.m_ShowAdditionalEMailPage; }
+            set
+            {
+                if (this.m_ShowAdditionalEMailPage != value)
+                {
+                    this.m_ShowAdditionalEMailPage = value;
+                    this.NotifyPropertyChanged("ShowAdditionalEMailPage");
                 }
             }
         }

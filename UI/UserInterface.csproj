@@ -341,6 +341,9 @@
     </Compile>
     <Compile Include="Login\Receiving\AcknowledgeDailyTaskOrderPath.cs" />
     <Compile Include="Converter\CollectionDateTimeBackgroundConverter.cs" />
+    <Compile Include="Login\Receiving\AdditionalTestingEMailPage.xaml.cs">
+      <DependentUpon>AdditionalTestingEMailPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Login\Receiving\TumorNucleiPercentageEntryPage.xaml.cs">
       <DependentUpon>TumorNucleiPercentageEntryPage.xaml</DependentUpon>
     </Compile>
@@ -1962,6 +1965,10 @@
     <Page Include="Login\FinalizeAccession\SpecimenMappingPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Login\Receiving\AdditionalTestingEMailPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Login\Receiving\TumorNucleiPercentageEntryPage.xaml">
       <Generator>MSBuild:Compile</Generator>
