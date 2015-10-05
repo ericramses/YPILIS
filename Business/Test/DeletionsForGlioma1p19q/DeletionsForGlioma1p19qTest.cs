@@ -17,6 +17,7 @@ namespace YellowstonePathology.Business.Test.DeletionsForGlioma1p19q
 			this.m_ResultDocumentSource = YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.YPIDatabase;
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterR();
             this.m_Active = true;
+            this.m_ShowAdditionalEMailPage = true;
 
 
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.DeletionsForGlioma1p19q.DeletionsForGlioma1p19qTestOrder).AssemblyQualifiedName;
