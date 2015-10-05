@@ -115,10 +115,8 @@ namespace YellowstonePathology.UI.Login.Receiving
                     body.Append("If you don't have access to YPI Connect please call us at (406)238-6360.");
 
                     System.Net.Mail.MailAddress from = new System.Net.Mail.MailAddress("Results@YPII.com");
-                    //System.Net.Mail.MailAddress to = new System.Net.Mail.MailAddress(this.m_EMailAddress);
-                    System.Net.Mail.MailAddress to = new System.Net.Mail.MailAddress("william.copland@YPII.com");
-                    //System.Net.Mail.MailAddress bcc = new System.Net.Mail.MailAddress("Results@YPII.com");
-                    System.Net.Mail.MailAddress bcc = new System.Net.Mail.MailAddress("sid.harder@YPII.com");
+                    System.Net.Mail.MailAddress to = new System.Net.Mail.MailAddress(this.m_EMailAddress);
+                    System.Net.Mail.MailAddress bcc = new System.Net.Mail.MailAddress("Results@YPII.com");
 
                     System.Net.Mail.MailMessage message = new System.Net.Mail.MailMessage(from, to);
                     message.Subject = subject;
