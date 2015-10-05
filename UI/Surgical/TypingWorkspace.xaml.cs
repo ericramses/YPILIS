@@ -772,7 +772,7 @@ namespace YellowstonePathology.UI.Surgical
 			YellowstonePathology.Business.Domain.Physician physician = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianByPhysicianId(this.m_TypingUI.AccessionOrder.PhysicianId);
 			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
             objectTracker.RegisterObject(physician);
-            Client.ProviderEntry providerEntry = new Client.ProviderEntry(physician, objectTracker);
+            Client.ProviderEntry providerEntry = new Client.ProviderEntry(physician, objectTracker, false);
             providerEntry.ShowDialog();
         }
 

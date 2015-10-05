@@ -1555,7 +1555,7 @@ namespace YellowstonePathology.UI.Test
 				YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
                 objectTracker.RegisterObject(physician);
 
-                YellowstonePathology.UI.Client.ProviderEntry providerEntry = new Client.ProviderEntry(physician, objectTracker);
+                YellowstonePathology.UI.Client.ProviderEntry providerEntry = new Client.ProviderEntry(physician, objectTracker, false);
                 providerEntry.ShowDialog();
             }
         }
