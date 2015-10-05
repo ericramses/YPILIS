@@ -92,41 +92,13 @@
                     <GridViewColumn>
                         <GridViewColumn.HeaderTemplate>
                             <DataTemplate>
-                                <TextBlock Text="ScreeningType" HorizontalAlignment="Stretch" Width="200" Margin="2,2,2,2"/>
+                                <TextBlock Text="First Call" HorizontalAlignment="Stretch" Width="220" Margin="2,2,2,2"/>
                             </DataTemplate>
                         </GridViewColumn.HeaderTemplate>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Grid Width="200">
-                                    <TextBlock Text="{Binding Path=TestName}" HorizontalAlignment="Stretch"/>
-                                </Grid>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>                    
-                    <GridViewColumn>
-                        <GridViewColumn.HeaderTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="Assigned" HorizontalAlignment="Stretch" Width="250" Margin="2,2,2,2"/>
-                            </DataTemplate>
-                        </GridViewColumn.HeaderTemplate>
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Grid Width="250">
-                                    <TextBlock Text="{Binding Path=AssignedTo}" HorizontalAlignment="Stretch"/>
-                                </Grid>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>                    
-                    <GridViewColumn>
-                        <GridViewColumn.HeaderTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="Provider" HorizontalAlignment="Stretch" Width="300" Margin="2,2,2,2"/>
-                            </DataTemplate>
-                        </GridViewColumn.HeaderTemplate>
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Grid Width="300">
-                                    <TextBlock Text="{Binding Path=ProviderName}" HorizontalAlignment="Stretch"/>
+                                <Grid Width="220">
+                                    <TextBlock Text="{Binding Path=FirstCallComment}" HorizontalAlignment="Stretch"/>
                                 </Grid>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
@@ -134,41 +106,13 @@
                     <GridViewColumn>
                         <GridViewColumn.HeaderTemplate>
                             <DataTemplate>
-                                <TextBlock Text="Running Time" HorizontalAlignment="Stretch" Width="100" Margin="2,2,2,2"/>
+                                <TextBlock Text="Second Call" HorizontalAlignment="Stretch" Width="220" Margin="2,2,2,2"/>
                             </DataTemplate>
                         </GridViewColumn.HeaderTemplate>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Grid Width="200">
-                                    <TextBlock Text="{Binding Path=RunningTimeString}" HorizontalAlignment="Stretch"/>
-                                </Grid>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn>
-                        <GridViewColumn.HeaderTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="Goal Time" HorizontalAlignment="Stretch" Width="100" Margin="2,2,2,2"/>
-                            </DataTemplate>
-                        </GridViewColumn.HeaderTemplate>
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Grid Width="200">
-                                    <TextBlock Text="{Binding Path=GoalTimeString}" HorizontalAlignment="Stretch"/>
-                                </Grid>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn>
-                        <GridViewColumn.HeaderTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="" HorizontalAlignment="Stretch" Width="100" Margin="2,2,2,2"/>
-                            </DataTemplate>
-                        </GridViewColumn.HeaderTemplate>
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Grid Width="200">
-                                    <TextBlock Text="{Binding Path=DifferenceString}" HorizontalAlignment="Stretch"/>
+                                <Grid Width="220">
+                                    <TextBlock Text="{Binding Path=SecondCallComment}" HorizontalAlignment="Stretch"/>
                                 </Grid>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>

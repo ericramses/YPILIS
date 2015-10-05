@@ -951,7 +951,7 @@ namespace YellowstonePathology.UI.Test
 				if (batch.BatchTypeId == 3) //HPV
 				{
 					this.m_ResultDialog = new ResultDialog();
-					HPVTWIBatchResultPath hpvTWIBatchResultPath = new HPVTWIBatchResultPath(this.m_LabUI.SearchEngine.ReportSearchList, this.m_ResultDialog.PageNavigator);
+					HPVTWIBatchResultPath hpvTWIBatchResultPath = new HPVTWIBatchResultPath(this.m_LabUI.SearchEngine.ReportSearchList, this.m_ResultDialog.PageNavigator, this.m_SystemIdentity);
 					hpvTWIBatchResultPath.Finish += new ResultPath.FinishEventHandler(BatchResultPath_Finish);
 					hpvTWIBatchResultPath.Start();
 					this.m_ResultDialog.ShowDialog();
@@ -959,7 +959,7 @@ namespace YellowstonePathology.UI.Test
 				else if(batch.BatchTypeId == 6) //NGCT
 				{
 					this.m_ResultDialog = new ResultDialog();
-					NGCTBatchResultPath ngctBatchResultPath = new NGCTBatchResultPath(this.m_LabUI.SearchEngine.ReportSearchList, this.m_ResultDialog.PageNavigator);
+					NGCTBatchResultPath ngctBatchResultPath = new NGCTBatchResultPath(this.m_LabUI.SearchEngine.ReportSearchList, this.m_ResultDialog.PageNavigator, this.m_SystemIdentity);
 					ngctBatchResultPath.Finish += new ResultPath.FinishEventHandler(BatchResultPath_Finish);
 					ngctBatchResultPath.Start();
 					this.m_ResultDialog.ShowDialog();
@@ -967,7 +967,7 @@ namespace YellowstonePathology.UI.Test
 				else if (batch.BatchTypeId == 2) //CF
 				{
 					this.m_ResultDialog = new ResultDialog();
-					CysticFibrosisBatchResultPath cysticFibrosisBatchResultPath = new CysticFibrosisBatchResultPath(this.m_LabUI.SearchEngine.ReportSearchList, this.m_ResultDialog.PageNavigator);
+					CysticFibrosisBatchResultPath cysticFibrosisBatchResultPath = new CysticFibrosisBatchResultPath(this.m_LabUI.SearchEngine.ReportSearchList, this.m_ResultDialog.PageNavigator, this.m_SystemIdentity);
 					cysticFibrosisBatchResultPath.Finish += new ResultPath.FinishEventHandler(BatchResultPath_Finish);
 					cysticFibrosisBatchResultPath.Start();
 					this.m_ResultDialog.ShowDialog();
@@ -975,7 +975,7 @@ namespace YellowstonePathology.UI.Test
 				else if (batch.BatchTypeId == 23) //HPV16/18
 				{
 					this.m_ResultDialog = new ResultDialog();
-					HPV1618BatchResultPath hpv1618BatchResultPath = new HPV1618BatchResultPath(this.m_LabUI.SearchEngine.ReportSearchList, this.m_ResultDialog.PageNavigator);
+					HPV1618BatchResultPath hpv1618BatchResultPath = new HPV1618BatchResultPath(this.m_LabUI.SearchEngine.ReportSearchList, this.m_ResultDialog.PageNavigator, this.m_SystemIdentity);
 					hpv1618BatchResultPath.Finish += new ResultPath.FinishEventHandler(BatchResultPath_Finish);
 					hpv1618BatchResultPath.Start();
 					this.m_ResultDialog.ShowDialog();

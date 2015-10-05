@@ -13,8 +13,10 @@ namespace YellowstonePathology.UI.Test
         private TestCancelledResultPage m_ResultPage;
         private YellowstonePathology.UI.CustomEventArgs.CancelTestEventArgs m_CancelATestEventArgs;
 
-        public CancelATestPath(YellowstonePathology.UI.CustomEventArgs.CancelTestEventArgs cancelATestEventArgs, YellowstonePathology.UI.Navigation.PageNavigator pageNavigator) 
-            : base(pageNavigator)
+        public CancelATestPath(YellowstonePathology.UI.CustomEventArgs.CancelTestEventArgs cancelATestEventArgs, 
+            YellowstonePathology.UI.Navigation.PageNavigator pageNavigator,
+            YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+            : base(pageNavigator, systemIdentity)
         {
             this.m_CancelATestEventArgs = cancelATestEventArgs;
 			this.Authenticated += new AuthenticatedEventHandler(ResultPath_Authenticated);

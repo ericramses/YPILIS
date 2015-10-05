@@ -12,9 +12,11 @@ namespace YellowstonePathology.UI.Test
         private Microsoft.Office.Interop.Excel.Application m_ExcelApplication;
         private Microsoft.Office.Interop.Excel.Workbook m_WorkBook;
 
-		public HPVTWIBatchResultPath(YellowstonePathology.Business.Search.ReportSearchList reportSearchList, YellowstonePathology.UI.Navigation.PageNavigator pageNavigator) 
-            : base(pageNavigator)
-		{
+		public HPVTWIBatchResultPath(YellowstonePathology.Business.Search.ReportSearchList reportSearchList, 
+            YellowstonePathology.UI.Navigation.PageNavigator pageNavigator,
+            YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+            : base(pageNavigator, systemIdentity)
+        {
             this.m_CurrentIndex = 0;
             this.m_ReportSearchList = reportSearchList;
 			this.Authenticated += new AuthenticatedEventHandler(ResultPath_Authenticated);
@@ -47,7 +49,7 @@ namespace YellowstonePathology.UI.Test
 			objectTracker.RegisterObject(accessionOrder);
 
 			YellowstonePathology.Business.Test.HPVTWI.PanelSetOrderHPVTWI panelSetOrder = (YellowstonePathology.Business.Test.HPVTWI.PanelSetOrderHPVTWI)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportSearchItem.ReportNo);			
-            YellowstonePathology.UI.Test.HPVTWIResultPath hpvtwiResultPath = new HPVTWIResultPath(panelSetOrder.ReportNo, accessionOrder, objectTracker, this.m_PageNavigator);
+            YellowstonePathology.UI.Test.HPVTWIResultPath hpvtwiResultPath = new HPVTWIResultPath(panelSetOrder.ReportNo, accessionOrder, objectTracker, this.m_PageNavigator, this.m_SystemIdentity);
             hpvtwiResultPath.Finish += new FinishEventHandler(HPVTWIResultPath_Finish);
             hpvtwiResultPath.Start();
 		}

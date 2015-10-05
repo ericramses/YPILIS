@@ -483,7 +483,7 @@ namespace YellowstonePathology.UI.Surgical
 				string reportNo = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetLse.PanelSetId).ReportNo;
 				this.m_ResultDialog = new Test.ResultDialog();
 				YellowstonePathology.UI.Test.LynchSyndromeEvaluationResultPath resultPath = new YellowstonePathology.UI.Test.LynchSyndromeEvaluationResultPath(reportNo,
-					this.m_AccessionOrder, this.m_ObjectTracker, this.m_ResultDialog.PageNavigator, Visibility.Visible);
+					this.m_AccessionOrder, this.m_ObjectTracker, this.m_ResultDialog.PageNavigator, Visibility.Visible, this.m_SystemIdentity);
 
 				resultPath.Finish += new Test.ResultPath.FinishEventHandler(ResultPath_Finish);
 				resultPath.Start();
@@ -494,7 +494,7 @@ namespace YellowstonePathology.UI.Surgical
 				string reportNo = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetcccp.PanelSetId).ReportNo;
 				this.m_ResultDialog = new Test.ResultDialog();
 				YellowstonePathology.UI.Test.ComprehensiveColonCancerProfilePath resultPath = new YellowstonePathology.UI.Test.ComprehensiveColonCancerProfilePath(reportNo,
-					this.m_AccessionOrder, this.m_ObjectTracker, this.m_ResultDialog.PageNavigator, Visibility.Collapsed);
+					this.m_AccessionOrder, this.m_ObjectTracker, this.m_ResultDialog.PageNavigator, Visibility.Collapsed, this.m_SystemIdentity);
 
 				resultPath.Finish += new Test.ResultPath.FinishEventHandler(ResultPath_Finish);
 				resultPath.Start();

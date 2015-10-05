@@ -10,9 +10,11 @@ namespace YellowstonePathology.UI.Test
 		private YellowstonePathology.Business.Search.ReportSearchList m_ReportSearchList;
 		private int m_CurrentIndex;
 
-		public HPV1618BatchResultPath(YellowstonePathology.Business.Search.ReportSearchList reportSearchList, YellowstonePathology.UI.Navigation.PageNavigator pageNavigator)
-			: base(pageNavigator)
-		{
+		public HPV1618BatchResultPath(YellowstonePathology.Business.Search.ReportSearchList reportSearchList, 
+            YellowstonePathology.UI.Navigation.PageNavigator pageNavigator,
+            YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+            : base(pageNavigator, systemIdentity)
+        {
 			this.m_CurrentIndex = 0;
 			this.m_ReportSearchList = reportSearchList;
 
@@ -32,7 +34,7 @@ namespace YellowstonePathology.UI.Test
 			objectTracker.RegisterObject(accessionOrder);
 
 			YellowstonePathology.Business.Test.HPV1618.PanelSetOrderHPV1618 panelSetOrder = (YellowstonePathology.Business.Test.HPV1618.PanelSetOrderHPV1618)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportSearchItem.ReportNo);
-			YellowstonePathology.UI.Test.HPV1618ResultPath resultPath = new HPV1618ResultPath(panelSetOrder.ReportNo, accessionOrder, objectTracker, this.m_PageNavigator);
+			YellowstonePathology.UI.Test.HPV1618ResultPath resultPath = new HPV1618ResultPath(panelSetOrder.ReportNo, accessionOrder, objectTracker, this.m_PageNavigator, this.m_SystemIdentity);
 			resultPath.Finish += new FinishEventHandler(ResultPath_Finish);
 			resultPath.Start();
 		}
