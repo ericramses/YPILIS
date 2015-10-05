@@ -16,11 +16,12 @@ namespace YellowstonePathology.Business.Monitor.Model
 
         private string m_ReportNo;
         private string m_TestName;
-        private DateTime m_OrderTime;
-        private string m_FirstCallComment;
+        private DateTime m_OrderTime;        
+        private string m_FirstCallComment;        
         private string m_SecondCallComment;
+        private string m_ProviderName;
         private Nullable<DateTime> m_ExpectedFinalTime;
-        
+        private MonitorStateEnum m_State;
 
         public MissingInformation()
         {
@@ -109,7 +110,52 @@ namespace YellowstonePathology.Business.Monitor.Model
                     this.NotifyPropertyChanged("ExpectedFinalTime");
                 }
             }
-        }            
+        }
+
+        [PersistentProperty()]
+        public string ProviderName
+        {
+            get { return this.m_ProviderName; }
+            set
+            {
+                if (this.m_ProviderName != value)
+                {
+                    this.m_ProviderName = value;
+                    this.NotifyPropertyChanged("ProviderName");
+                }
+            }
+        }
+
+        public MonitorStateEnum State
+        {
+            get { return this.m_State; }
+            set
+            {
+                if (this.m_State != value)
+                {
+                    this.m_State = value;
+                    this.NotifyPropertyChanged("State");
+                }
+            }
+        }
+
+        public void SetState()
+        {            
+            TimeSpan diff = DateTime.Now - this.m_OrderTime;
+            if (diff.TotalHours > 72)
+            {
+                this.m_State = MonitorStateEnum.Critical;
+            }
+            else if (diff.TotalHours > 24)
+            {
+                this.m_State = MonitorStateEnum.Warning;
+            }
+            else
+            {
+                this.m_State = MonitorStateEnum.Warning;
+            }        
+        }
+
 
         public void NotifyPropertyChanged(String info)
         {

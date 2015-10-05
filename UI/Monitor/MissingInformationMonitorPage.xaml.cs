@@ -32,7 +32,7 @@ namespace YellowstonePathology.UI.Monitor
         private void LoadData()
         {
             YellowstonePathology.Business.Monitor.Model.MissingInformationCollection missingInformationCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetMissingInformationCollection();
-            //missingInformationCollection.SetState();
+            missingInformationCollection.SetState();
             //missingInformationCollection = missingInformationCollection.SortByDifference();
             this.m_MissingInformationCollection = missingInformationCollection;
             this.NotifyPropertyChanged("");

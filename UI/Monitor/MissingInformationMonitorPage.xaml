@@ -92,6 +92,20 @@
                     <GridViewColumn>
                         <GridViewColumn.HeaderTemplate>
                             <DataTemplate>
+                                <TextBlock Text="Provider" HorizontalAlignment="Stretch" Width="250" Margin="2,2,2,2"/>
+                            </DataTemplate>
+                        </GridViewColumn.HeaderTemplate>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid Width="250" HorizontalAlignment="Left">
+                                    <TextBlock Text="{Binding Path=ProviderName}" HorizontalAlignment="Stretch"/>
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn>
+                        <GridViewColumn.HeaderTemplate>
+                            <DataTemplate>
                                 <TextBlock Text="First Call" HorizontalAlignment="Stretch" Width="220" Margin="2,2,2,2"/>
                             </DataTemplate>
                         </GridViewColumn.HeaderTemplate>
