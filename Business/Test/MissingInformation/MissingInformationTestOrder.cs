@@ -11,6 +11,8 @@ namespace YellowstonePathology.Business.Test.MissingInformation
 	public class MissingInformtionTestOrder : YellowstonePathology.Business.Test.PanelSetOrder
 	{
 		private string m_MissingInformation;
+        private string m_CallComments;
+
         private bool m_FirstCall;
         private string m_FirstCallMadeBy;
         private Nullable<DateTime> m_TimeOfFirstCall;
@@ -60,6 +62,20 @@ namespace YellowstonePathology.Business.Test.MissingInformation
                 {
                     this.m_MissingInformation = value;
                     this.NotifyPropertyChanged("MissingInformation");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string CallComments
+        {
+            get { return this.m_CallComments; }
+            set
+            {
+                if (this.m_CallComments != value)
+                {
+                    this.m_CallComments = value;
+                    this.NotifyPropertyChanged("CallComments");
                 }
             }
         }

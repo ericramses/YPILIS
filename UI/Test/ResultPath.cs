@@ -17,8 +17,9 @@ namespace YellowstonePathology.UI.Test
         protected YellowstonePathology.UI.Navigation.PageNavigator m_PageNavigator;
 		protected YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;        
 
-		public ResultPath(YellowstonePathology.UI.Navigation.PageNavigator pageNavigator)
+		public ResultPath(YellowstonePathology.UI.Navigation.PageNavigator pageNavigator, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
+            this.m_SystemIdentity = systemIdentity;
 			this.m_PageNavigator = pageNavigator;         
         }
 
@@ -42,7 +43,7 @@ namespace YellowstonePathology.UI.Test
         
         private void CancelTest(object sender, YellowstonePathology.UI.CustomEventArgs.CancelTestEventArgs e)
         {
-            CancelATestPath cancelATestPath = new CancelATestPath(e, this.m_PageNavigator);
+            CancelATestPath cancelATestPath = new CancelATestPath(e, this.m_PageNavigator, this.m_SystemIdentity);
             cancelATestPath.Finish += new FinishEventHandler(CancellATestPath_Finish);
             cancelATestPath.Back += new CancelATestPath.BackEventHandler(CancellATestPath_Back);
             cancelATestPath.Start();

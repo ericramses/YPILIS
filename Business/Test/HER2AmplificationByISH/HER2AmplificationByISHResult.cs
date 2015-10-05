@@ -90,7 +90,6 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 				YellowstonePathology.Business.Test.PanelOrder panelOrder = testOrder.PanelOrderCollection.GetLastAcceptedPanelOrder();
 				panelOrder.UnacceptResults();
 			}
-
 		}
 	}
 }

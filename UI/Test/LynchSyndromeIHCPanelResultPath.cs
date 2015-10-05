@@ -15,8 +15,9 @@ namespace YellowstonePathology.UI.Test
         public LynchSyndromeIHCPanelResultPath(string reportNo,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
 			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
-            YellowstonePathology.UI.Navigation.PageNavigator pageNavigator) 
-            : base(pageNavigator)
+            YellowstonePathology.UI.Navigation.PageNavigator pageNavigator,
+            YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+            : base(pageNavigator, systemIdentity)
         {
             this.m_AccessionOrder = accessionOrder;
 			this.m_PanelSetOrderLynchSyndromeIHC = (YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeIHC)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
@@ -53,7 +54,7 @@ namespace YellowstonePathology.UI.Test
 		{
 			YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeEvaluationTest panelSet = new YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeEvaluationTest();
             string reportNo = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSet.PanelSetId, this.m_PanelSetOrderLynchSyndromeIHC.OrderedOnId, true).ReportNo;
-			Test.LynchSyndromeEvaluationResultPath path = new LynchSyndromeEvaluationResultPath(reportNo, this.m_AccessionOrder, this.m_ObjectTracker, this.m_PageNavigator, System.Windows.Visibility.Visible);
+			Test.LynchSyndromeEvaluationResultPath path = new LynchSyndromeEvaluationResultPath(reportNo, this.m_AccessionOrder, this.m_ObjectTracker, this.m_PageNavigator, System.Windows.Visibility.Visible, this.m_SystemIdentity);
             path.Back += new LynchSyndromeEvaluationResultPath.BackEventHandler(LynchSyndromeEvaluationResultPath_Back);
 			path.Finish += new FinishEventHandler(LynchSyndromeEvaluationResultPath_Finish);
 			path.Start();				

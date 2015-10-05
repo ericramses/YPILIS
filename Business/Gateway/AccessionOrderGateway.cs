@@ -1812,7 +1812,7 @@ namespace YellowstonePathology.Business.Gateway
 				"from tblPanelSetOrder pso " +
 				"join tblAccessionOrder ao on pso.MasterAccessionNo = ao.MasterAccessionNo	" +
 				"join tblSystemUser su on pso.AssignedToId = su.UserId " +
-				"where final = 0 " +
+				"where final = 0 and panelSetId <> 212 " +  //Will not show Missing Information Tests!
 				"order by ExpectedFinalTime";
 			cmd.CommandType = CommandType.Text;
 
@@ -1839,11 +1839,12 @@ namespace YellowstonePathology.Business.Gateway
         {
             YellowstonePathology.Business.Monitor.Model.MissingInformationCollection result = new YellowstonePathology.Business.Monitor.Model.MissingInformationCollection();
             SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "select pso.ReportNo, pso.PanelSetName [TestName], pso.ExpectedFinalTime, pso.OrderTime, ao.ClientName, ao.PhysicianName [ProviderName], su.DisplayName [AssignedTo], pso.Delayed " +
+            cmd.CommandText = "select pso.ReportNo, pso.PanelSetName [TestName], pso.ExpectedFinalTime, pso.OrderTime, mit.FirstCallComment, mit.SecondCallComment, ao.PhysicianName [ProviderName] " +
                 "from tblPanelSetOrder pso " +
                 "join tblAccessionOrder ao on pso.MasterAccessionNo = ao.MasterAccessionNo	" +
+                "join tblMissingInformationTestOrder mit on pso.ReportNo = mit.ReportNo " +
                 "join tblSystemUser su on pso.AssignedToId = su.UserId " +
-                "where PanelSetId = 212 " +
+                "where pso.PanelSetId = 212 and pso.Final = 0" +
                 "order by ExpectedFinalTime";
             cmd.CommandType = CommandType.Text;
 

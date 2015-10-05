@@ -13,10 +13,10 @@ namespace YellowstonePathology.Business.Monitor.Model
 
         }
 
-        public MissingInformationCollection SortByDifference()
+        public MissingInformationCollection SortByState()
         {
             MissingInformationCollection result = new MissingInformationCollection();
-            List<MissingInformation> sortedList = this.OrderBy(x => x.State).ThenBy(x => x.Difference.TotalHours).ToList();
+            List<MissingInformation> sortedList = this.OrderBy(x => x.State).ThenBy(x => x.OrderTime).ToList();
             foreach (MissingInformation missingInformation in sortedList)
             {
                 result.Add(missingInformation);
@@ -26,9 +26,9 @@ namespace YellowstonePathology.Business.Monitor.Model
 
         public void SetState()
         {
-            foreach (MissingInformation test in this)
+            foreach (MissingInformation missingInformation in this)
             {
-                test.SetState();
+                missingInformation.SetState();
             }
         }
     }
