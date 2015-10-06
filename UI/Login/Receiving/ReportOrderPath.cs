@@ -239,12 +239,12 @@ namespace YellowstonePathology.UI.Login.Receiving
         private bool ShowAdditionalTestingEMailPage()
         {
             bool result = false;
-            if (this.m_TestOrderInfo.PanelSet.ShowAdditionalEMailPage == true)
+            if (this.m_TestOrderInfo.PanelSet.TechnicalComponentFacility.GetType() != typeof(YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings))
             {
                 if (this.m_AccessionOrder.PanelSetOrderCollection.Count > 1)
                 {
                     result = true;
-                    AdditionalTestingEMailPage additionalTestingEMailPage = new AdditionalTestingEMailPage(this.m_TestOrderInfo.PanelSetOrder, this.m_AccessionOrder, this.m_ObjectTracker);
+                    AdditionalTestingEMailPage additionalTestingEMailPage = new AdditionalTestingEMailPage(this.m_TestOrderInfo.PanelSetOrder, this.m_AccessionOrder, this.m_ObjectTracker, this.m_SystemIdentity);
                     additionalTestingEMailPage.Next += AdditionalTestingEMailPage_Next;
                     additionalTestingEMailPage.Back += AdditionalTestingEMailPage_Back;
                     this.m_PageNavigator.Navigate(additionalTestingEMailPage);

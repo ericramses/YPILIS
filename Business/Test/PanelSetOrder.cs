@@ -91,9 +91,13 @@ namespace YellowstonePathology.Business.Test
         private string m_PeerReviewRequestType;		       
 		private string m_SignatureButtonText;
 		private bool m_SignatureButtonIsEnabled;
-        private bool m_HoldDistribution;    
+        private bool m_HoldDistribution;
+        private bool m_AdditionalTestingEmailSent;
+        private string m_AdditionalTestingEmailSentBy;
+        private Nullable<DateTime> m_TimeAdditionalTestingEmailSent;
+        private string m_AdditionalTestingEmailMessage;
 
-		protected YellowstonePathology.Business.Document.CaseDocumentCollection m_CaseDocumentCollection;
+        protected YellowstonePathology.Business.Document.CaseDocumentCollection m_CaseDocumentCollection;
 
 		protected System.Windows.Documents.FixedDocumentSequence m_PublishedDocument;
 		protected string m_OrderedOnDescription;
@@ -1093,6 +1097,62 @@ namespace YellowstonePathology.Business.Test
                 {
                     this.m_HoldDistribution = value;
                     this.NotifyPropertyChanged("HoldDistribution");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public bool AdditionalTestingEmailSent
+        {
+            get { return this.m_AdditionalTestingEmailSent; }
+            set
+            {
+                if (this.m_AdditionalTestingEmailSent != value)
+                {
+                    this.m_AdditionalTestingEmailSent = value;
+                    this.NotifyPropertyChanged("AdditionalTestingEmailSent");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string AdditionalTestingEmailSentBy
+        {
+            get { return this.m_AdditionalTestingEmailSentBy; }
+            set
+            {
+                if (this.m_AdditionalTestingEmailSentBy != value)
+                {
+                    this.m_AdditionalTestingEmailSentBy = value;
+                    this.NotifyPropertyChanged("AdditionalTestingEmailSentBy");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public Nullable<DateTime> TimeAdditionalTestingEmailSent
+        {
+            get { return this.m_TimeAdditionalTestingEmailSent; }
+            set
+            {
+                if (this.m_TimeAdditionalTestingEmailSent != value)
+                {
+                    this.m_TimeAdditionalTestingEmailSent = value;
+                    this.NotifyPropertyChanged("TimeAdditionalTestingEmailSent");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string AdditionalTestingEmailMessage
+        {
+            get { return this.m_AdditionalTestingEmailMessage; }
+            set
+            {
+                if (this.m_AdditionalTestingEmailMessage != value)
+                {
+                    this.m_AdditionalTestingEmailMessage = value;
+                    this.NotifyPropertyChanged("AdditionalTestingEmailMessage");
                 }
             }
         }
