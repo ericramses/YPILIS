@@ -96,6 +96,7 @@ namespace YellowstonePathology.Business.Test
         private string m_AdditionalTestingEmailSentBy;
         private Nullable<DateTime> m_TimeAdditionalTestingEmailSent;
         private string m_AdditionalTestingEmailMessage;
+        private string m_AdditionalTestingEmailAddress;
 
         protected YellowstonePathology.Business.Document.CaseDocumentCollection m_CaseDocumentCollection;
 
@@ -1153,6 +1154,20 @@ namespace YellowstonePathology.Business.Test
                 {
                     this.m_AdditionalTestingEmailMessage = value;
                     this.NotifyPropertyChanged("AdditionalTestingEmailMessage");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string AdditionalTestingEmailAddress
+        {
+            get { return this.m_AdditionalTestingEmailAddress; }
+            set
+            {
+                if (this.m_AdditionalTestingEmailAddress != value)
+                {
+                    this.m_AdditionalTestingEmailAddress = value;
+                    this.NotifyPropertyChanged("AdditionalTestingEmailAddress");
                 }
             }
         }
