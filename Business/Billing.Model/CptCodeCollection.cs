@@ -218,6 +218,17 @@ namespace YellowstonePathology.Business.Billing.Model
             result.Add(new PQRSCodeDefinitions.PQRSG9428());
             result.Add(new PQRSCodeDefinitions.PQRSG9429());
 
+            return GetSorted(result);
+        }
+
+        public static CptCodeCollection GetSorted(CptCodeCollection cptCodeCollection)
+        {
+            CptCodeCollection result = new CptCodeCollection();
+            IOrderedEnumerable<CptCode> orderedResult = cptCodeCollection.OrderBy(i => i.Code);
+            foreach (CptCode cptCode in orderedResult)
+            {
+                result.Add(cptCode);
+            }
             return result;
         }
     }

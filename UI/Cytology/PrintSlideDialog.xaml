@@ -7,10 +7,17 @@
 			<ColumnDefinition Width="*"></ColumnDefinition>
 		</Grid.ColumnDefinitions>
 		<Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
 			<RowDefinition Height="*"></RowDefinition>
 		</Grid.RowDefinitions>
 
-
-		<ContentControl Name="MainContent" Grid.Column="0" Grid.Row="0"></ContentControl>
+        <Menu Name="MenuFile" Grid.Column="0" Grid.Row="0" Visibility="Visible">
+            <MenuItem Header="_File" Name="MenuItemFile">
+                <MenuItem Header="Preferences" Click="MenuItemPreferences_Click"></MenuItem>
+            </MenuItem>
+        </Menu>
+        
+        <ContentControl Name="MainContent" Grid.Column="0" Grid.Row="1"></ContentControl>
+        
 	</Grid>
 </Window>
