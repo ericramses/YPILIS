@@ -381,7 +381,7 @@
                             <CustomControls:Tile x:Name="TileReport" Grid.Column="0" Grid.Row="5" Title="Report" Background="#006666" Margin="2,2,2,2" MouseUp="TileReport_MouseUp"/>
                             <CustomControls:Tile x:Name="TileProviderDistribution" Grid.Column="1" Grid.Row="5" Title="Provider/Distribution" Background="#006666" Margin="2,2,2,2" MouseUp="TileProviderDistribution_MouseUp"/>
                             <CustomControls:Tile x:Name="TileResult" Grid.Column="2" Grid.Row="5" Title="Result" Background="#007060" Margin="2,2,2,2" MouseUp="TileResult_MouseUp"/>
-                            <CustomControls:Tile x:Name="TileAdditionialTestingEmail" Grid.Column="3" Grid.ColumnSpan="2" Grid.Row="5" Title="Addt'l Testing Email" Background="#003333" Margin="2,2,2,2" MouseUp="TileAdditionialTestingEmail_MouseUp"/>
+                            <CustomControls:Tile x:Name="TileAdditionialTestingEmail" Grid.Column="3" Grid.ColumnSpan="2" Grid.Row="5" Title="Additional Testing Email" Background="#003333" Margin="2,2,2,2" MouseUp="TileAdditionialTestingEmail_MouseUp"/>
 
                             <CustomControls:Tile x:Name="TileBilling" Grid.Column="0" Grid.Row="6" Title="Billing" Background="#FF6666" Margin="2,2,2,2" MouseUp="TileBilling_MouseUp"/>
                             <CustomControls:Tile x:Name="TileICD" Grid.Column="1" Grid.Row="6" Title="ICD Codes" Background="#FF6666" Margin="2,2,2,2" MouseUp="TileICDCodes_MouseUp"/>

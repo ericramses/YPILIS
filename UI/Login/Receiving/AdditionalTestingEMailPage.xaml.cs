@@ -31,8 +31,6 @@ namespace YellowstonePathology.UI.Login.Receiving
         private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
         private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
         private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
-        private string m_EMailAddress;
-        private string m_Message;
 
         public AdditionalTestingEMailPage(YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
@@ -44,25 +42,20 @@ namespace YellowstonePathology.UI.Login.Receiving
             this.m_ObjectTracker = objectTracker;
             this.m_SystemIdentity = systemIdentity;
 
-            YellowstonePathology.Business.Domain.Physician physician = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianByPhysicianId(this.m_AccessionOrder.PhysicianId);
-            this.m_EMailAddress = physician.PublishNotificationEmailAddress;
-            this.m_Message = "Additional testing is being performed.  Use YPII Connect to view the details.";
+            if (string.IsNullOrEmpty(this.m_PanelSetOrder.AdditionalTestingEmailAddress) == true)
+            {
+                YellowstonePathology.Business.Domain.Physician physician = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianByPhysicianId(this.m_AccessionOrder.PhysicianId);
+                this.m_PanelSetOrder.AdditionalTestingEmailAddress = physician.PublishNotificationEmailAddress;
+            }
 
             InitializeComponent();
 
             DataContext = this;
         }
 
-        public string EMailAddress
+        public YellowstonePathology.Business.Test.PanelSetOrder PanelSetOrder
         {
-            get { return this.m_EMailAddress; }
-            set { this.m_EMailAddress = value; }
-        }
-
-        public string Message
-        {
-            get { return this.m_Message; }
-            set { this.m_Message = value; }
+            get { return this.m_PanelSetOrder; }
         }
 
         public bool OkToSaveOnNavigation(Type pageNavigatingTo)
@@ -105,20 +98,24 @@ namespace YellowstonePathology.UI.Login.Receiving
 
         private void HyperLinkSendEmail_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrEmpty(this.m_EMailAddress) == false)
+            if (string.IsNullOrEmpty(this.m_PanelSetOrder.AdditionalTestingEmailAddress) == false)
             {
-                if (string.IsNullOrEmpty(this.m_Message) == false)
+                if (string.IsNullOrEmpty(this.m_PanelSetOrder.AdditionalTestingEmailMessage) == false)
                 {
                     YellowstonePathology.Business.PanelSet.Model.PanelSetCollection panelSetCollection = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetAll();
                     YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet = panelSetCollection.GetPanelSet(this.m_PanelSetOrder.PanelSetId);
                     string subject = "Additional Testing has been ordered: " + panelSet.PanelSetName;
                     StringBuilder body = new StringBuilder();
-                    body.AppendLine(this.m_Message);
-                    body.AppendLine();
-                    body.Append("If you don't have access to YPI Connect please call us at (406)238-6360.");
+                    body.Append(this.m_PanelSetOrder.AdditionalTestingEmailMessage);
+                    if (this.m_PanelSetOrder.AdditionalTestingEmailSent == false)
+                    {
+                        body.AppendLine();
+                        body.AppendLine();
+                        body.Append("If you don't have access to YPI Connect please call us at (406)238-6360.");
+                    }
 
                     System.Net.Mail.MailAddress from = new System.Net.Mail.MailAddress("Results@YPII.com");
-                    //System.Net.Mail.MailAddress to = new System.Net.Mail.MailAddress(this.m_EMailAddress);
+                    //System.Net.Mail.MailAddress to = new System.Net.Mail.MailAddress(this.m_PanelSetOrder.AdditionalTestingEmailAddress);
                     System.Net.Mail.MailAddress to = new System.Net.Mail.MailAddress("sid.harder@YPII.com");
                     System.Net.Mail.MailAddress bcc = new System.Net.Mail.MailAddress("Results@YPII.com");
 
@@ -130,7 +127,9 @@ namespace YellowstonePathology.UI.Login.Receiving
                     this.m_PanelSetOrder.AdditionalTestingEmailSent = true;
                     this.m_PanelSetOrder.TimeAdditionalTestingEmailSent = DateTime.Now;
                     this.m_PanelSetOrder.AdditionalTestingEmailSentBy = this.m_SystemIdentity.User.UserName;
-                    this.m_PanelSetOrder.AdditionalTestingEmailMessage = this.m_Message;
+                    this.m_PanelSetOrder.AdditionalTestingEmailMessage = body.ToString();
+
+                    this.NotifyPropertyChanged(string.Empty);
 
                     System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient("10.1.2.111");
                     client.Credentials = new System.Net.NetworkCredential("Results", "p0046ep0046e");

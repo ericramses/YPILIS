@@ -53,14 +53,22 @@
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
 
-                <TextBlock Grid.Column="0" Grid.Row="0" Margin="2" HorizontalAlignment="Right">Address:</TextBlock>
-                <TextBox Name="TextBoxEMailAddress" Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" Text="{Binding Path=EMailAddress}" ></TextBox>
+                <TextBlock Grid.Column="0" Grid.Row="0" Margin="2" HorizontalAlignment="Right">Date/Time Sent:</TextBlock>
+                <TextBlock Grid.Column="1" Grid.Row="0" Margin="2" HorizontalAlignment="Left" Text="{Binding Path=PanelSetOrder.TimeAdditionalTestingEmailSent,Converter={StaticResource MilitaryDateTimeConverterV2}}"></TextBlock>
 
-                <TextBlock Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" HorizontalAlignment="Right" VerticalAlignment="Top">Message:</TextBlock>
-                <TextBox Name="TextBoxMessage" Grid.Column="1" Grid.Row="1" Margin="2,2,2,2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Text="{Binding Path=Message}" TextWrapping="Wrap" AcceptsReturn="True"></TextBox>
+                <TextBlock Grid.Column="0" Grid.Row="1" Margin="2" HorizontalAlignment="Right">Sent By:</TextBlock>
+                <TextBlock Grid.Column="1" Grid.Row="1" Margin="2" HorizontalAlignment="Left" Text="{Binding Path=PanelSetOrder.AdditionalTestingEmailSentBy}"></TextBlock>
+
+                <TextBlock Grid.Column="0" Grid.Row="2" Margin="2" HorizontalAlignment="Right">Address:</TextBlock>
+                <TextBox Name="TextBoxEMailAddress" Grid.Column="1" Grid.Row="2" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.AdditionalTestingEmailAddress}" ></TextBox>
+
+                <TextBlock Grid.Column="0" Grid.Row="3" Margin="2,2,2,2" HorizontalAlignment="Right" VerticalAlignment="Top">Message:</TextBlock>
+                <TextBox Name="TextBoxMessage" Grid.Column="1" Grid.Row="3" Margin="2,2,2,2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Text="{Binding Path=PanelSetOrder.AdditionalTestingEmailMessage}" TextWrapping="Wrap" AcceptsReturn="True"></TextBox>
 
             </Grid>
 
