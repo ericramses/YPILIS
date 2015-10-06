@@ -109,7 +109,10 @@ namespace YellowstonePathology.Business.Document
 					case 62: //HPV 16/18
 						document = new YellowstonePathology.Business.Test.HPV1618.HPV1618WordDocument();
 						break;
-					case 66:  //Test Cancelled
+                    case 213: //HPV 16/18
+                        document = new YellowstonePathology.Business.Test.HPV1618ByPCR.HPV1618ByPCRWordDocument();
+                        break;
+                    case 66:  //Test Cancelled
 						document = new YellowstonePathology.Business.Test.TestCancelled.TestCancelledWordDocument();
 						break;
 					case 100: //BCL1 t1114

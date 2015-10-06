@@ -54,10 +54,7 @@ namespace YellowstonePathology.Business.HL7View.EPIC
                     break;
                 case 24:
 					view = new YellowstonePathology.Business.Test.StemCellEnumeration.StemCellEnumerationEpicObxView(accessionOrder, reportNo, obxCount);
-                    break;
-				//case 28:
-				//	view = new YellowstonePathology.Business.Test.FetalHemoglobin.FetalHemoglobinEpicObxView(accessionOrder, reportNo, obxCount);
-				//	break;
+                    break;				
 				case 30:
 					view = new YellowstonePathology.Business.Test.KRASStandardReflex.KRASStandardReflexEpicObxView(accessionOrder, reportNo, obxCount);
                     break;
@@ -90,6 +87,9 @@ namespace YellowstonePathology.Business.HL7View.EPIC
                     break;
                 case 62:
 					view = new YellowstonePathology.Business.Test.HPV1618.HPV1618EpicObxView(accessionOrder, reportNo, obxCount);
+                    break;
+                case 213:
+                    view = new YellowstonePathology.Business.Test.HPV1618ByPCR.HPV1618ByPCREPICOBXView(accessionOrder, reportNo, obxCount);
                     break;
                 case 66:
 					view = new YellowstonePathology.Business.Test.TestCancelled.TestCancelledEpicObxView(accessionOrder, reportNo, obxCount);

@@ -460,6 +460,19 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Test.Model\DispalyGroupProstate.cs" />
+    <Compile Include="Test\HPV1618ByPCR\HPV1618BothPositiveResult.cs" />
+    <Compile Include="Test\HPV1618ByPCR\HPV1618BothNegativeResult.cs" />
+    <Compile Include="Test\HPV1618ByPCR\HPV1618ByPCRTest.cs" />
+    <Compile Include="Test\HPV1618ByPCR\HPV1618ByPCRTestOrder.cs" />
+    <Compile Include="Test\HPV1618ByPCR\HPV1618ByPCRWordDocument.cs" />
+    <Compile Include="Test\HPV1618ByPCR\HPV1618ByPCRResult.cs" />
+    <Compile Include="Test\HPV1618ByPCR\HPV1618ByPCRIndication.cs" />
+    <Compile Include="Test\HPV1618ByPCR\HPV1618ByPCREPICOBXView.cs" />
+    <Compile Include="Test\HPV1618ByPCR\HPV1618NoResult.cs" />
+    <Compile Include="Test\HPV1618ByPCR\HPV1618IndeterminateResult.cs" />
+    <Compile Include="Test\HPV1618ByPCR\HPV1618ByPCRResultCollection.cs" />
+    <Compile Include="Test\HPV1618ByPCR\HPV16NegativeHPV18PositiveResult.cs" />
+    <Compile Include="Test\HPV1618ByPCR\HPV16PositiveHPV18NegativeResult.cs" />
     <Compile Include="Test\HPVTWI\HPVTWIInvalidResult.cs" />
     <Compile Include="Test\MissingInformation\MissingInformationTest.cs" />
     <Compile Include="Test\MissingInformation\MissingInformationTestOrder.cs" />
