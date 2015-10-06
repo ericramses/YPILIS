@@ -344,6 +344,7 @@
     <Compile Include="Login\Receiving\AdditionalTestingEMailPage.xaml.cs">
       <DependentUpon>AdditionalTestingEMailPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Login\Receiving\AdditionalTestingEmailPathWithSecurity.cs" />
     <Compile Include="Login\Receiving\TumorNucleiPercentageEntryPage.xaml.cs">
       <DependentUpon>TumorNucleiPercentageEntryPage.xaml</DependentUpon>
     </Compile>
