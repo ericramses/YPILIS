@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="YellowstonePathology.UI.Test.HPV1618ResultPage"
+﻿<UserControl x:Class="YellowstonePathology.UI.Test.HPV1618ByPCRResultPage"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 

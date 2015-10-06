@@ -43,6 +43,11 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
         private void ClinicalHistoryPage_Loaded(object sender, RoutedEventArgs e)
         {
             this.TextBoxClinicalHistory.Focus();
+            if (this.TextBoxClinicalHistory != null)
+            {
+                Keyboard.Focus(this.TextBoxClinicalHistory);
+                this.TextBoxClinicalHistory.SelectAll();
+            }
         }
 
 		public string PageHeaderText
