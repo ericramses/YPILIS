@@ -181,10 +181,9 @@ namespace YellowstonePathology.Business.Rules.Surgical
 				result.Append("There are ??? in ");
 				if (!string.IsNullOrEmpty(this.m_PanelSetOrderSurgical.GrossX) && this.m_PanelSetOrderSurgical.GrossX.Contains("???") == true) result.Append("Gross Description, ");
 				if (!string.IsNullOrEmpty(this.m_PanelSetOrderSurgical.MicroscopicX) && this.m_PanelSetOrderSurgical.MicroscopicX.Contains("???") == true) result.Append("Microscopic Description, ");
-				if (!string.IsNullOrEmpty(this.m_PanelSetOrderSurgical.Comment) && this.m_PanelSetOrderSurgical.Comment.Contains("???") == true) result.Append("Microscopic Description, ");
+				if (!string.IsNullOrEmpty(this.m_PanelSetOrderSurgical.Comment) && this.m_PanelSetOrderSurgical.Comment.Contains("???") == true) result.Append("Comment, ");
 
-                //throw new Exception("Clinical history Question marks need to be handled");
-				//if (!string.IsNullOrEmpty(this.m_PanelSetOrderSurgical.ClinicalInfo) && this.m_PanelSetOrderSurgical.ClinicalInfo.Contains("???") == true) result.Append("Clinical Info, ");
+				if (!string.IsNullOrEmpty(this.m_AccessionOrder.ClinicalHistory) && this.m_AccessionOrder.ClinicalHistory.Contains("???") == true) result.Append("Clinical History, ");
 
 				foreach (YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen specimen in this.m_PanelSetOrderSurgical.SurgicalSpecimenCollection)
 				{
