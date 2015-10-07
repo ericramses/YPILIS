@@ -34,26 +34,13 @@ namespace YellowstonePathology.Business.Test.HPV1618ByPCR
 		}
 
 		public void SetResult(YellowstonePathology.Business.Test.HPV1618ByPCR.HPV1618ByPCRTestOrder panelSetOrder)
-		{            
-			YellowstonePathology.Business.Test.HPV1618.PanelOrderHPV1618 panelOrder = (YellowstonePathology.Business.Test.HPV1618.PanelOrderHPV1618)panelSetOrder.PanelOrderCollection.GetUnacceptedPanelOrder();
-			panelOrder.HPV16Result = this.m_HPV16Result;
-            panelOrder.HPV18Result = this.m_HPV18Result;
-			panelOrder.ResultCode = this.m_ResultCode;            
-
+		{            			
             panelSetOrder.ResultCode = this.m_ResultCode;
             panelSetOrder.HPV16Result = this.m_HPV16Result;
             panelSetOrder.HPV18Result = this.m_HPV18Result;
             panelSetOrder.Method = this.m_Method;
-            panelSetOrder.References = this.m_References;
-
-            if (panelSetOrder.Indication == HPV1618ByPCRIndication.SquamousCellCarcinoma)
-            {
-                panelSetOrder.Interpretation = this.m_SquamousCellCarcinomaInterpretation;
-            }
-            else
-            {
-                panelSetOrder.Interpretation = null;
-            }
+            panelSetOrder.References = this.m_References;            
+            panelSetOrder.Interpretation = this.m_SquamousCellCarcinomaInterpretation;            
 		}
 
 		public virtual void AcceptResults(YellowstonePathology.Business.Test.HPV1618.PanelSetOrderHPV1618 panelSetOrder,

@@ -42,6 +42,7 @@
                             <Code ICD9="795.05" ICD10="R87.810" Description="Cervical high risk human papillomavirus (HPV) DNA test positive" Test="Cytology" Quantity="1"/>
                             <Code ICD9="795.09" ICD10="R87.820" Description="Cervical low risk human papillomavirus (HPV) DNA test positive" Test="Cytology" Quantity="1"/>
                             <Code ICD9="V22.0" ICD10="Z34.00" Description="Encounter for supervision of normal first pregnancy, unspecified trimester" Test="Cytology" Quantity="1"/>
+                            <Code ICD9="" ICD10="Z34.01" Description="Encounter for supervision of normal first pregnancy, first trimester" Test="Cytology" Quantity="1"/>
                             <Code ICD9="V22.1" ICD10="Z34.80" Description="Encounter for supervision of other normal pregnancy, unspecified trimester" Test="Cytology" Quantity="1"/>
                             <Code ICD9="V22.1" ICD10="V34.90" Description="Encounter for supervision of normal pregnancy, unspecified, unspecified trimester" Test="Cytology" Quantity="1"/>
                             <Code ICD9="V24.1" ICD10="Z39.1" Description="Encounter for care and examination of lactating mother" Test="Cytology" Quantity="1"/>
@@ -51,7 +52,7 @@
                             <Code ICD9="V01.6" ICD10="Z20.2" Description="Contact with and (suspected) exposure to infections with a predominantly sexual mode of transmission" Test="NGCT" Quantity="1"/>
                             <Code ICD9="V73.98" ICD10="Z11.8" Description="Encounter for screening for other infectious and parasitic diseases" Test="NGCT" Quantity="1"/>
                             <Code ICD9="V73.88" ICD10="Z11.8" Description="Encounter for screening for other infectious and parasitic diseases" Test="NGCT" Quantity="1"/>
-                            <Code ICD9="V73.89" ICD10="Z11.59" Description="Encounter for screening for other viral diseases" Test="NGCT" Quantity="1"/>
+                            <Code ICD9="V73.89" ICD10="Z11.59" Description="Encounter for screening for other viral diseases" Test="NGCT" Quantity="1"/>                            
                             <Code ICD9="131.0" ICD10="" Description="Crosswalk indicates this code sucks" Test="Trichomonas/Vag,Vulv" Quantity="1"/>
                             <Code ICD9="131.09" ICD10="A59.09" Description="Other urogenital trichomoniasis" Test="Trichomonas/Cervx" Quantity="1"/>
                             <Code ICD9="131.9" ICD10="A59.9" Description=" Trichomoniasis, unspecified" Test="Trichomonas" Quantity="1"/>

@@ -69,7 +69,7 @@ namespace YellowstonePathology.UI.Surgical
             return auditResult;
         }
 
-    private void SetActionList()
+        private void SetActionList()
         {
             this.m_ActionList = new List<Action>();
             this.m_AuditMessages = new List<string>();
