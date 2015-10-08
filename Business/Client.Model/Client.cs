@@ -305,7 +305,33 @@ namespace YellowstonePathology.Business.Client.Model
                     this.NotifyPropertyChanged("m_ContactName");
                 }
             }
-        }        
+        }  
+        
+        public string FormattedTelephone
+        {
+            get
+            {
+                string result = string.Empty;
+                if (string.IsNullOrEmpty(this.m_Telephone) == false && this.m_Telephone.Length == 10)
+                {
+                    result = "(" + m_Telephone.Substring(0, 3) + ") " + m_Telephone.Substring(3, 3) + "-" + m_Telephone.Substring(6, 4);
+                }
+                return result;
+            }            
+        }
+
+        public string FormattedFax
+        {
+            get
+            {
+                string result = string.Empty;
+                if (string.IsNullOrEmpty(this.m_Fax) == false && this.m_Fax.Length == 10)
+                {
+                    result = "(" + m_Fax.Substring(0, 3) + ") " + m_Fax.Substring(3, 3) + "-" + m_Fax.Substring(6, 4);
+                }
+                return result;
+            }
+        }
 
         public void NotifyPropertyChanged(String info)
         {

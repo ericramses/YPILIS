@@ -24,6 +24,7 @@ namespace YellowstonePathology.Business.Search
 		ByNotAudited,
 		ByPatientId,        
 		ByNotVerified,
-        ByInHouseMolecularPending
+        ByInHouseMolecularPending,
+        ByPanelSetId
 	}
 }

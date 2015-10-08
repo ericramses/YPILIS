@@ -147,5 +147,26 @@ namespace YellowstonePathology.UI
                 }
             }
         }
+
+        private void ContextMenuValidate_Click(object sender, RoutedEventArgs e)
+        {
+            if(this.ListViewPantherAliquots.SelectedItem != null)
+            {                
+                YellowstonePathology.Business.Test.PantherAliquotListItem pantherAliquotListItem = (YellowstonePathology.Business.Test.PantherAliquotListItem)this.ListViewPantherAliquots.SelectedItem;
+                YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByMasterAccessionNo(pantherAliquotListItem.MasterAccessionNo);
+                YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new Business.Persistence.ObjectTracker();
+                objectTracker.RegisterObject(accessionOrder);
+                if (accessionOrder.SpecimenOrderCollection.HasPantherAliquot() == true)
+                {
+                    YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = accessionOrder.SpecimenOrderCollection.GetPantherAliquot();
+                    aliquotOrder.Validated = true;
+                    aliquotOrder.ValidationDate = DateTime.Now;
+                    objectTracker.SubmitChanges(accessionOrder);                    
+                }
+
+                this.m_PantherAliquotList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPantherOrdersNotAliquoted();
+                this.NotifyPropertyChanged("PantherAliquotList");
+            }
+        }
     }
 }

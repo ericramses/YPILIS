@@ -11,7 +11,7 @@ namespace YellowstonePathology.Business.Label.Model
             : base(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.CytologySlidePrinter)
         {
             this.m_ColumnCount = 1;
-            //this.m_ColumnWidth = 106;
+            this.m_ColumnWidth = 106;
         }        
     }
 }

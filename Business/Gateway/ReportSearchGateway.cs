@@ -407,5 +407,15 @@ namespace YellowstonePathology.Business.Gateway
 			YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Domain.Persistence.SqlXmlPersistence.CrudOperations.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd, Domain.Persistence.DataLocationEnum.ProductionData);
 			return reportSearchList;
 		}
-	}
+
+        public static YellowstonePathology.Business.Search.ReportSearchList GetReportSearchListByPanelSetId(List<object> parameters)
+        {
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = "gwAccessionOrderListByPanelSetId";
+            cmd.Parameters.Add("@PanelSetId", SqlDbType.Int).Value = parameters[0];
+            YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Domain.Persistence.SqlXmlPersistence.CrudOperations.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd, Domain.Persistence.DataLocationEnum.ProductionData);
+            return reportSearchList;
+        }
+    }
 }
