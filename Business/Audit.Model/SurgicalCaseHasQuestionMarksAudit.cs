@@ -7,10 +7,12 @@ namespace YellowstonePathology.Business.Audit.Model
 {
     public class SurgicalCaseHasQuestionMarksAudit : Audit
     {
+        YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder m_SurgicalTestOrder;
 
-        public SurgicalCaseHasQuestionMarksAudit(YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder)
+        public SurgicalCaseHasQuestionMarksAudit(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder)
         {
+            this.m_AccessionOrder = accessionOrder;
             this.m_SurgicalTestOrder = surgicalTestOrder;
         }
 
@@ -22,9 +24,9 @@ namespace YellowstonePathology.Business.Audit.Model
             this.m_Message.Append(resultMsg);
             if (!string.IsNullOrEmpty(this.m_SurgicalTestOrder.GrossX) && this.m_SurgicalTestOrder.GrossX.Contains("???") == true) this.m_Message.Append("Gross Description, ");
             if (!string.IsNullOrEmpty(this.m_SurgicalTestOrder.MicroscopicX) && this.m_SurgicalTestOrder.MicroscopicX.Contains("???") == true) this.m_Message.Append("Microscopic Description, ");
-            if (!string.IsNullOrEmpty(this.m_SurgicalTestOrder.Comment) && this.m_SurgicalTestOrder.Comment.Contains("???") == true) this.m_Message.Append("Microscopic Description, ");
+            if (!string.IsNullOrEmpty(this.m_SurgicalTestOrder.Comment) && this.m_SurgicalTestOrder.Comment.Contains("???") == true) this.m_Message.Append("Comment, ");
             
-            //if (!string.IsNullOrEmpty(this.m_SurgicalTestOrder.ClinicalInfo) && this.m_SurgicalTestOrder.ClinicalInfo.Contains("???") == true) this.m_Message.Append("Clinical Info, ");
+            if (!string.IsNullOrEmpty(this.m_AccessionOrder.ClinicalHistory) && this.m_AccessionOrder.ClinicalHistory.Contains("???") == true) this.m_Message.Append("Clinical History, ");
 
             foreach (YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen specimen in this.m_SurgicalTestOrder.SurgicalSpecimenCollection)
             {
