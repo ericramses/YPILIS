@@ -455,6 +455,7 @@ namespace YellowstonePathology.UI.Surgical
 
         private void ButtonTesting_Click(object sender, RoutedEventArgs e)
         {
+            MainWindow.MoveKeyboardFocusNextThenBack();
             if (this.PanelSetOrderSurgical.Final == false)
             {
                 if (this.m_PathologistSignoutPath == null)
@@ -473,6 +474,7 @@ namespace YellowstonePathology.UI.Surgical
                 if (auditResult.Status == Business.Audit.Model.AuditStatusEnum.OK)
                 {
                     this.PanelSetOrderSurgical.Finalize(this.m_SystemIdentity.User);
+                    this.m_PathologistSignoutPath = null;
                     if (this.PanelSetOrderSurgical.Accepted == false)
                     {
                         this.PanelSetOrderSurgical.Accept(this.m_SystemIdentity.User);

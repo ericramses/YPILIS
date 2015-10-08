@@ -12,7 +12,7 @@ namespace YellowstonePathology.Business.Audit.Model
         {
             YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder = accessionOrder.PanelSetOrderCollection.GetSurgical();
             this.Add(new AncillaryStudiesAreHandledAudit(surgicalTestOrder));
-            this.Add(new SurgicalCaseHasQuestionMarksAudit(surgicalTestOrder));
+            this.Add(new SurgicalCaseHasQuestionMarksAudit(accessionOrder, surgicalTestOrder));
             this.Add(new SigningUserIsAssignedUserAudit(surgicalTestOrder, systemIdentity));
             this.Add(new SvhCaseHasMRNAndAccountNoAudit(accessionOrder));
             this.Add(new CaseHasNotFoundClientAudit(accessionOrder));
