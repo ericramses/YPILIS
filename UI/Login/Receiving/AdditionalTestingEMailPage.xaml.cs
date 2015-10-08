@@ -48,6 +48,12 @@ namespace YellowstonePathology.UI.Login.Receiving
                 this.m_PanelSetOrder.AdditionalTestingEmailAddress = physician.PublishNotificationEmailAddress;
             }
 
+            if(string.IsNullOrEmpty(this.m_PanelSetOrder.AdditionalTestingEmailMessage) == true)
+            {
+                this.m_PanelSetOrder.AdditionalTestingEmailMessage = "Additional Testing is being performed.  Use YPI Connect to see details." + Environment.NewLine +
+                    Environment.NewLine + Environment.NewLine + "If you don't have access to YPI Connect please call us at (406)238-6360.";
+            }
+
             InitializeComponent();
 
             DataContext = this;
@@ -105,29 +111,20 @@ namespace YellowstonePathology.UI.Login.Receiving
                     YellowstonePathology.Business.PanelSet.Model.PanelSetCollection panelSetCollection = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetAll();
                     YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet = panelSetCollection.GetPanelSet(this.m_PanelSetOrder.PanelSetId);
                     string subject = "Additional Testing has been ordered: " + panelSet.PanelSetName;
-                    StringBuilder body = new StringBuilder();
-                    body.Append(this.m_PanelSetOrder.AdditionalTestingEmailMessage);
-                    if (this.m_PanelSetOrder.AdditionalTestingEmailSent == false)
-                    {
-                        body.AppendLine();
-                        body.AppendLine();
-                        body.Append("If you don't have access to YPI Connect please call us at (406)238-6360.");
-                    }
 
                     System.Net.Mail.MailAddress from = new System.Net.Mail.MailAddress("Results@YPII.com");
                     //System.Net.Mail.MailAddress to = new System.Net.Mail.MailAddress(this.m_PanelSetOrder.AdditionalTestingEmailAddress);
                     System.Net.Mail.MailAddress to = new System.Net.Mail.MailAddress("sid.harder@YPII.com");
-                    System.Net.Mail.MailAddress bcc = new System.Net.Mail.MailAddress("Results@YPII.com");
+                    //System.Net.Mail.MailAddress bcc = new System.Net.Mail.MailAddress("Results@YPII.com");
 
                     System.Net.Mail.MailMessage message = new System.Net.Mail.MailMessage(from, to);
                     message.Subject = subject;
-                    message.Body = body.ToString();
-                    message.Bcc.Add(bcc);
+                    message.Body = this.m_PanelSetOrder.AdditionalTestingEmailMessage;
+                    //message.Bcc.Add(bcc);
 
                     this.m_PanelSetOrder.AdditionalTestingEmailSent = true;
                     this.m_PanelSetOrder.TimeAdditionalTestingEmailSent = DateTime.Now;
                     this.m_PanelSetOrder.AdditionalTestingEmailSentBy = this.m_SystemIdentity.User.UserName;
-                    this.m_PanelSetOrder.AdditionalTestingEmailMessage = body.ToString();
 
                     this.NotifyPropertyChanged(string.Empty);
 
