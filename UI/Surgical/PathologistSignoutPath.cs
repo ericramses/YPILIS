@@ -86,26 +86,25 @@ namespace YellowstonePathology.UI.Surgical
             {
                 audit.Run();
                 if (audit.Status == Business.Audit.Model.AuditStatusEnum.Failure)
-                {
-                    Type auditType = audit.GetType();
-                    if (auditType == typeof(YellowstonePathology.Business.Audit.Model.PapCorrelationAudit))
+                {                    
+                    if (audit is YellowstonePathology.Business.Audit.Model.PapCorrelationAudit)
                     {
                         this.m_ActionList.Add(HandlePapCorrelation);
                     }
-                    else if (auditType == typeof(YellowstonePathology.Business.Audit.Model.PQRSIsRequiredAudit))
+                    else if (audit is YellowstonePathology.Business.Audit.Model.PQRSIsRequiredAudit)
                     {
                         this.m_ActionList.Add(HandlePQRS);
                     }
-                    else if (auditType == typeof(YellowstonePathology.Business.Audit.Model.NonASCIICharacterAudit))
+                    else if (audit is YellowstonePathology.Business.Audit.Model.NonASCIICharacterAudit)
                     {
                         this.m_ActionList.Add(HandleNonASCIICharacters);
                     }
-                    else if (auditType == typeof(YellowstonePathology.Business.Audit.Model.LynchSyndromeAudit) ||
-                        auditType == typeof(YellowstonePathology.Business.Audit.Model.CCCPAudit) ||
-                        auditType == typeof(YellowstonePathology.Business.Audit.Model.BRAFMetastaticMelanomaAudit) ||
-                        auditType == typeof(YellowstonePathology.Business.Audit.Model.HighRiskHPVForSiteAudit) ||
-                        auditType == typeof(YellowstonePathology.Business.Audit.Model.KRASForMetastaticColorectalCancerAudit) ||
-                        auditType == typeof(YellowstonePathology.Business.Audit.Model.PNHOnBoneMarrowSpecimenAudit))
+                    else if (audit is YellowstonePathology.Business.Audit.Model.LynchSyndromeAudit ||
+                        audit is YellowstonePathology.Business.Audit.Model.CCCPAudit ||
+                        audit is YellowstonePathology.Business.Audit.Model.BRAFMetastaticMelanomaAudit ||
+                        audit is YellowstonePathology.Business.Audit.Model.HighRiskHPVForSiteAudit ||
+                        audit is YellowstonePathology.Business.Audit.Model.KRASForMetastaticColorectalCancerAudit ||
+                        audit is YellowstonePathology.Business.Audit.Model.PNHOnBoneMarrowSpecimenAudit)
                     {
                         this.m_ColonCancerMessages.Add(audit.Message.ToString().Trim());
                         if (this.m_ActionList.Contains(HandleColorectalCancer) == false)
