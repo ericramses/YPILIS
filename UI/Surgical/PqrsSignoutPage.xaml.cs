@@ -69,7 +69,10 @@ namespace YellowstonePathology.UI.Surgical
 
         private void ButtonClose_Click(object sender, RoutedEventArgs e)
         {
-            this.Close(this, new EventArgs());
+            if (this.CanSave() == true)
+            {
+                this.Close(this, new EventArgs());
+            }
         }
 
         private bool CanSave()

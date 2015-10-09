@@ -7,6 +7,9 @@ namespace YellowstonePathology.Business.Audit.Model
 {
     public class PathologistSignoutAuditCollection : AuditCollection
     {
+        public PathologistSignoutAuditCollection()
+        { }
+
         public PathologistSignoutAuditCollection(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
             YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
@@ -29,6 +32,84 @@ namespace YellowstonePathology.Business.Audit.Model
             this.Add(new HighRiskHPVForSiteAudit(accessionOrder));
             this.Add(new KRASForMetastaticColorectalCancerAudit(accessionOrder));
             this.Add(new PNHOnBoneMarrowSpecimenAudit(accessionOrder));
+        }
+
+        public AuditCollection GetAuditMessageCollection()
+        {
+            AuditCollection result = new AuditCollection();
+            foreach(Audit audit in this)
+            {
+                if(audit.GetType() == typeof(AncillaryStudiesAreHandledAudit) ||
+                    audit.GetType() == typeof(SurgicalCaseHasQuestionMarksAudit) ||
+                    audit.GetType() == typeof(SigningUserIsAssignedUserAudit) ||
+                    audit.GetType() == typeof(SvhCaseHasMRNAndAccountNoAudit) ||
+                    audit.GetType() == typeof(CaseHasNotFoundClientAudit) ||
+                    audit.GetType() == typeof(CaseHasNotFoundProviderAudit) ||
+                    audit.GetType() == typeof(CaseHasUnfinaledPeerReviewAudit) ||
+                    audit.GetType() == typeof(GradedStainsAreHandledAudit) ||
+                    audit.GetType() == typeof(IntraoperativeConsultationCorrelationAudit))
+                {
+                    result.Add(audit);
+                }
+            }
+            return result;
+        }
+
+        public AuditCollection GetSuggestedTestAuditCollection()
+        {
+            AuditCollection result = new AuditCollection();
+            foreach (Audit audit in this)
+            {
+                if (audit.GetType() == typeof(LynchSyndromeAudit) ||
+                    audit.GetType() == typeof(CCCPAudit) ||
+                    audit.GetType() == typeof(BRAFMetastaticMelanomaAudit) ||
+                    audit.GetType() == typeof(HighRiskHPVForSiteAudit) ||
+                    audit.GetType() == typeof(KRASForMetastaticColorectalCancerAudit) ||
+                    audit.GetType() == typeof(PNHOnBoneMarrowSpecimenAudit))
+                {
+                    result.Add(audit);
+                }
+            }
+            return result;
+        }
+
+        public PapCorrelationAudit GetPapCorrelationAudit()
+        {
+            PapCorrelationAudit result = null;
+            foreach (Audit audit in this)
+            {
+                if (audit.GetType() == typeof(PapCorrelationAudit))
+                {
+                    result = audit as PapCorrelationAudit;
+                }
+            }
+            return result;
+        }
+
+        public PQRSIsRequiredAudit GetPQRSIsRequiredAudit()
+        {
+            PQRSIsRequiredAudit result = null;
+            foreach (Audit audit in this)
+            {
+                if (audit.GetType() == typeof(PQRSIsRequiredAudit))
+                {
+                    result = audit as PQRSIsRequiredAudit;
+                }
+            }
+            return result;
+        }
+
+        public NonASCIICharacterAudit GetNonASCIICharacterAudit()
+        {
+            NonASCIICharacterAudit result = null;
+            foreach (Audit audit in this)
+            {
+                if (audit.GetType() == typeof(NonASCIICharacterAudit))
+                {
+                    result = audit as NonASCIICharacterAudit;
+                }
+            }
+            return result;
         }
     }
 }

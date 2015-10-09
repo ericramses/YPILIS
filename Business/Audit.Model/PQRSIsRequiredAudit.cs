@@ -7,7 +7,10 @@ namespace YellowstonePathology.Business.Audit.Model
 {
     public class PQRSIsRequiredAudit : Audit
     {
+        private YellowstonePathology.Business.Surgical.PQRSMeasure m_PQRSMeasure;
+        private YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen m_SurgicalSpecimen;
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
+
         public PQRSIsRequiredAudit(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {
             this.m_AccessionOrder = accessionOrder;
@@ -30,6 +33,8 @@ namespace YellowstonePathology.Business.Audit.Model
                         {
                             this.m_Status = AuditStatusEnum.Failure;
                             this.m_Message.Append("A PQRS code must be applied.");
+                            this.m_PQRSMeasure = pqrsMeasure;
+                            this.m_SurgicalSpecimen = surgicalSpecimen;
                             break;
                         }
                     }
@@ -38,7 +43,17 @@ namespace YellowstonePathology.Business.Audit.Model
             }
         }
 
-        private bool MeasureCodeExists(YellowstonePathology.Business.Surgical.PQRSMeasure pqrsMeasure,
+        public YellowstonePathology.Business.Surgical.PQRSMeasure PQRSMeasure
+        {
+            get { return this.m_PQRSMeasure; }
+        }
+
+        public YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen SurgicalSpecimen
+        {
+            get { return this.m_SurgicalSpecimen; }
+        }
+
+        public bool MeasureCodeExists(YellowstonePathology.Business.Surgical.PQRSMeasure pqrsMeasure,
             YellowstonePathology.Business.Test.PanelSetOrderCPTCodeCollection panelSetOrderCPTCodeCollection)
         {
             bool result = false;
