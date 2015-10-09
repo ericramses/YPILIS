@@ -165,11 +165,12 @@
     <Compile Include="Audit.Model\HighRiskHPVForSiteAudit.cs" />
     <Compile Include="Audit.Model\IntraoperativeConsultationCorrelationAudit.cs" />
     <Compile Include="Audit.Model\IntraoperativeConsultationFinalAudit.cs" />
-    <Compile Include="Audit.Model\IsPathologistSignoutHandledAuditCollection.cs" />
+    <Compile Include="Audit.Model\PathologistSignoutIsHandledAuditCollection.cs" />
     <Compile Include="Audit.Model\KRASForMetastaticColorectalCancerAudit.cs" />
     <Compile Include="Audit.Model\LynchSyndromeAudit.cs" />
     <Compile Include="Audit.Model\NonASCIICharacterAudit.cs" />
-    <Compile Include="Audit.Model\PapCorrelationAudit.cs" />
+    <Compile Include="Audit.Model\PapCorrelationIsRequiredAudit.cs" />
+    <Compile Include="Audit.Model\PapCorrelationIsHandledAudit.cs" />
     <Compile Include="Audit.Model\PathologistSignoutAuditCollection.cs" />
     <Compile Include="Audit.Model\PhoneNumberAudit.cs" />
     <Compile Include="Audit.Model\PNHOnBoneMarrowSpecimenAudit.cs" />

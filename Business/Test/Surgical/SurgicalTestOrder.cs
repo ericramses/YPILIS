@@ -29,7 +29,9 @@ namespace YellowstonePathology.Business.Test.Surgical
 		private string m_AJCCStage;
 		private string m_ImmediateCorrelationComment;
 		private string m_PapCorrelationComment;
-		private string m_PapCorrelationAccessionNo;        
+		private string m_PapCorrelationAccessionNo;
+        private bool m_PQRSIsIndicated;
+        private bool m_PQRSNotApplicable;
 
 		private SurgicalSpecimenCollection m_SurgicalSpecimenCollection;
 		private YellowstonePathology.Business.Specimen.Model.SpecimenOrderCollection m_SpecimenOrderCollection;
@@ -390,9 +392,37 @@ namespace YellowstonePathology.Business.Test.Surgical
 					this.NotifyPropertyChanged("PapCorrelationAccessionNo");
 				}
 			}
-		}        		
+		}
 
-		public Collection<YellowstonePathology.Business.SpecialStain.StainResultItem> TypingStainCollection
+        [PersistentProperty()]
+        public bool PQRSIsIndicated
+        {
+            get { return this.m_PQRSIsIndicated; }
+            set
+            {
+                if (this.m_PQRSIsIndicated != value)
+                {
+                    this.m_PQRSIsIndicated = value;
+                    this.NotifyPropertyChanged("PQRSIsIndicated");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public bool PQRSNotApplicable
+        {
+            get { return this.m_PQRSNotApplicable; }
+            set
+            {
+                if (this.m_PQRSNotApplicable != value)
+                {
+                    this.m_PQRSNotApplicable = value;
+                    this.NotifyPropertyChanged("PQRSNotApplicable");
+                }
+            }
+        }
+
+        public Collection<YellowstonePathology.Business.SpecialStain.StainResultItem> TypingStainCollection
 		{
 			get
 			{
