@@ -42,6 +42,7 @@ namespace YellowstonePathology.Business.User
 		private string m_WeekendProcessorRunId;
         private string m_CytologySlidePrinter;
         private string m_LastReportNo;
+        private string m_ThermoFisherSlidePrinter;
 
         public UserPreference()
         {
@@ -416,6 +417,20 @@ namespace YellowstonePathology.Business.User
                 {
                     this.m_LastReportNo = value;
                     this.NotifyPropertyChanged("LastReportNo");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string ThermoFisherSlidePrinter
+        {
+            get { return this.m_ThermoFisherSlidePrinter; }
+            set
+            {
+                if (this.m_ThermoFisherSlidePrinter != value)
+                {
+                    this.m_ThermoFisherSlidePrinter = value;
+                    this.NotifyPropertyChanged("ThermoFisherSlidePrinter");
                 }
             }
         }
