@@ -5,36 +5,13 @@ using System.Text;
 
 namespace YellowstonePathology.Business.Label.Model
 {
-    public class ThermoFisherHistologySlidePrinter
+    public class ThermoFisherHistologySlidePrinter : LabelPrinter
     {
-        private List<HistologySlideDirectPrintLabel> m_Queue;
-
         public ThermoFisherHistologySlidePrinter()
+            : base(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.ThermoFisherSlidePrinter)
         {
-            this.m_Queue = new List<HistologySlideDirectPrintLabel>();
-        }
-
-        public List<HistologySlideDirectPrintLabel> Queue
-        {
-            get { return this.m_Queue; }
-        }
-
-        public void Print()
-        {
-            if (string.IsNullOrEmpty(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.SlideMatePrinterPath) == false)
-            {
-                StringBuilder lines = new StringBuilder();
-                foreach (HistologySlideDirectPrintLabel histologySlideDirectPrintLabel in this.m_Queue)
-                {
-                    lines.Append(histologySlideDirectPrintLabel.GetLine());
-                }
-                
-                string fileName = System.IO.Path.Combine(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.SlideMatePrinterPath, Guid.NewGuid() + ".txt");
-                using (System.IO.StreamWriter streamWriter = new System.IO.StreamWriter(fileName))
-                {
-                    streamWriter.Write(lines.ToString());
-                }
-            }
+            this.m_ColumnCount = 1;
+            this.m_ColumnWidth = 106;
         }
     }
 }

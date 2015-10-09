@@ -440,6 +440,7 @@
     <Compile Include="Interface\ILeukemiaLymphomaResult.cs" />
     <Compile Include="Interface\IPersistPageChanges.cs" />
     <Compile Include="Label.Model\BlockLabelLegacy.cs" />
+    <Compile Include="Label.Model\HistologySlideLabel.cs" />
     <Compile Include="Label.Model\ThinPrepSlidePrinter.cs" />
     <Compile Include="Label.Model\ThinPrepSlide.cs" />
     <Compile Include="Label.Model\PantherLabel.cs" />
@@ -608,6 +609,7 @@
     <Compile Include="Test\Instrument.cs" />
     <Compile Include="Test\PantherAliquotListItem.cs" />
     <Compile Include="Test\PantherOrderListItem.cs" />
+    <Compile Include="Test\PDL1\PDL1.cs" />
     <Compile Include="Test\ROS1ByFISH\ROS1ByFISHInconclusiveResult.cs" />
     <Compile Include="Test\Surgical\IntraoperativeConsultationResult.Validation.cs" />
     <Compile Include="Test\TechInitiatedPeripheralSmear\TechInitiatedPeripheralSmearTest.cs" />

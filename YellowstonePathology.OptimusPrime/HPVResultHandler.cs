@@ -17,8 +17,7 @@ namespace YellowstonePathology.OptimusPrime
         public async Task<string> HandleResult(IDictionary<string, object> payload)
         {
             var connectionString = "Data Source=TestSQL;Initial Catalog=YPIData;Integrated Security=True";
-
-            string reportNo = (string)payload["reportNo"];
+            
             string testName = (string)payload["testName"];
             string aliquotOrderId = (string)payload["aliquotOrderId"];
             string overallInterpretation = (string)payload["overallInterpretation"];
@@ -36,7 +35,7 @@ namespace YellowstonePathology.OptimusPrime
                         + "and pso.OrderedOnId = '" + aliquotOrderId + "' and pso.Accepted = 0; ";                        
 
                     sql += @"Update tblPanelSetOrder set ResultCode = '" + hpvResult.ResultCode + "', "
-                    + "[HoldDistribution] = 1, "
+                    + "[HoldDistribution] = 0, "
                     + "[Accepted] = 1, "
                     + "[AcceptedBy] = 'Optimus Prime', "
                     + "[AcceptedById] = 5134, "
@@ -58,7 +57,7 @@ namespace YellowstonePathology.OptimusPrime
                         + "and pso.OrderedOnId = '" + aliquotOrderId + "' and pso.Accepted = 0; ";                        
 
                     sql += @"Update tblPanelSetOrder set ResultCode = '" + hpvResult.ResultCode + "', "
-                    + "[HoldDistribution] = 1, "
+                    + "[HoldDistribution] = 0, "
                     + "[Accepted] = 1, "
                     + "[AcceptedBy] = 'Optimus Prime', "
                     + "[AcceptedById] = 5134, "
@@ -75,7 +74,7 @@ namespace YellowstonePathology.OptimusPrime
                         + "and pso.OrderedOnId = '" + aliquotOrderId + "' and pso.Accepted = 0; ";                    
 
                     sql += @"Update tblPanelSetOrder set ResultCode = '" + hpvResult.ResultCode + "', "
-                    + "[HoldDistribution] = 1 "                    
+                    + "[HoldDistribution] = 0 "                    
                     + "where PanelSetId = 14 and Accepted = 0 and OrderedOnId = '" + aliquotOrderId + "';";                    
                 }
             }
@@ -89,7 +88,7 @@ namespace YellowstonePathology.OptimusPrime
                 }
             }
 
-            return sql;
+            return "Optimus Prime updated result: " + aliquotOrderId + " - " + testName;
         }
     }
 }
