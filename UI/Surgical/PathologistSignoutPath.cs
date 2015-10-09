@@ -22,6 +22,7 @@ namespace YellowstonePathology.UI.Surgical
         private YellowstonePathology.Business.Audit.Model.AuditResult m_MessageAuditResult;
         private PathologistSignoutDialog m_PathologistSignoutDialog;
         private PQRSSignoutPage m_PQRSSignoutPage;
+        private bool m_PQRSHasBeenResolved;
 
         private System.Windows.Visibility m_BackButtonVisibility;
         private System.Windows.Visibility m_NextButtonVisibility;
@@ -38,6 +39,7 @@ namespace YellowstonePathology.UI.Surgical
             this.m_SystemIdentity = systemIdentity;
 
             this.m_PathologistSignoutAuditCollection = new Business.Audit.Model.PathologistSignoutAuditCollection(this.m_AccessionOrder, this.m_SystemIdentity);
+            this.m_PQRSHasBeenResolved = false;
 
             this.m_AuditResult = this.m_PathologistSignoutAuditCollection.Run2();
             if (this.m_AuditResult.Status == Business.Audit.Model.AuditStatusEnum.Failure)
@@ -68,7 +70,13 @@ namespace YellowstonePathology.UI.Surgical
 
         public YellowstonePathology.Business.Audit.Model.AuditResult IsPathologistSignoutHandled()
         {
-            YellowstonePathology.Business.Audit.Model.IsPathologistSignoutHandledAuditCollection isPathologistSignoutHandledAuditCollection = new Business.Audit.Model.IsPathologistSignoutHandledAuditCollection(this.m_AccessionOrder, this.m_SystemIdentity);
+            YellowstonePathology.Business.Audit.Model.PQRSIsRequiredAudit pqrsIsRequiredAudit = this.m_PathologistSignoutAuditCollection.GetPQRSIsRequiredAudit();
+            bool pqrsIsRequired = false;
+            if (pqrsIsRequiredAudit.Status == Business.Audit.Model.AuditStatusEnum.Failure)
+            {
+                pqrsIsRequired = true;
+            }
+            YellowstonePathology.Business.Audit.Model.IsPathologistSignoutHandledAuditCollection isPathologistSignoutHandledAuditCollection = new Business.Audit.Model.IsPathologistSignoutHandledAuditCollection(this.m_AccessionOrder, pqrsIsRequired, this.m_PQRSHasBeenResolved, this.m_SystemIdentity);
             YellowstonePathology.Business.Audit.Model.AuditResult auditResult = isPathologistSignoutHandledAuditCollection.Run2();
             return auditResult;
         }
@@ -82,44 +90,49 @@ namespace YellowstonePathology.UI.Surgical
             this.m_MessageAuditResult.Status = Business.Audit.Model.AuditStatusEnum.OK;
             this.m_MessageAuditResult.Message = string.Empty;
 
-            foreach(YellowstonePathology.Business.Audit.Model.Audit audit in this.m_PathologistSignoutAuditCollection)
+            foreach (YellowstonePathology.Business.Audit.Model.Audit audit in this.m_PathologistSignoutAuditCollection)
             {
                 audit.Run();
+            }
+
+            Business.Audit.Model.AuditCollection auditMessageCollection = this.m_PathologistSignoutAuditCollection.GetAuditMessageCollection();
+            foreach (YellowstonePathology.Business.Audit.Model.Audit audit in auditMessageCollection)
+            {
                 if (audit.Status == Business.Audit.Model.AuditStatusEnum.Failure)
-                {                    
-                    if (audit is YellowstonePathology.Business.Audit.Model.PapCorrelationAudit)
+                {
+                    this.m_AuditMessages.Add(audit.Message.ToString().Trim());
+                    this.m_MessageAuditResult.Status = audit.Status;
+                    if (this.m_ActionList.Contains(HandleAuditMessages) == false)
                     {
-                        this.m_ActionList.Add(HandlePapCorrelation);
+                        this.m_ActionList.Add(HandleAuditMessages);
                     }
-                    else if (audit is YellowstonePathology.Business.Audit.Model.PQRSIsRequiredAudit)
+                }
+            }
+
+            Business.Audit.Model.NonASCIICharacterAudit nonASCIICharacterAudit = this.m_PathologistSignoutAuditCollection.GetNonASCIICharacterAudit();
+            if(nonASCIICharacterAudit.Status == Business.Audit.Model.AuditStatusEnum.Failure)
+            {
+                this.m_ActionList.Add(HandleNonASCIICharacters);
+            }
+            Business.Audit.Model.PapCorrelationAudit papCorrelationAudit = this.m_PathologistSignoutAuditCollection.GetPapCorrelationAudit();
+            if(papCorrelationAudit.Status == Business.Audit.Model.AuditStatusEnum.Failure)
+            {
+                this.m_ActionList.Add(HandlePapCorrelation);
+            }
+            Business.Audit.Model.PQRSIsRequiredAudit pqrsIsRequiredAudit = this.m_PathologistSignoutAuditCollection.GetPQRSIsRequiredAudit();
+            if(pqrsIsRequiredAudit.Status == Business.Audit.Model.AuditStatusEnum.Failure)
+            {
+                this.m_ActionList.Add(HandlePQRS);
+            }
+            Business.Audit.Model.AuditCollection suggestedTestCollection = this.m_PathologistSignoutAuditCollection.GetSuggestedTestAuditCollection();
+            foreach (YellowstonePathology.Business.Audit.Model.Audit audit in suggestedTestCollection)
+            {
+                if (audit.Status == Business.Audit.Model.AuditStatusEnum.Failure)
+                {
+                    this.m_ColonCancerMessages.Add(audit.Message.ToString().Trim());
+                    if (this.m_ActionList.Contains(HandleColorectalCancer) == false)
                     {
-                        this.m_ActionList.Add(HandlePQRS);
-                    }
-                    else if (audit is YellowstonePathology.Business.Audit.Model.NonASCIICharacterAudit)
-                    {
-                        this.m_ActionList.Add(HandleNonASCIICharacters);
-                    }
-                    else if (audit is YellowstonePathology.Business.Audit.Model.LynchSyndromeAudit ||
-                        audit is YellowstonePathology.Business.Audit.Model.CCCPAudit ||
-                        audit is YellowstonePathology.Business.Audit.Model.BRAFMetastaticMelanomaAudit ||
-                        audit is YellowstonePathology.Business.Audit.Model.HighRiskHPVForSiteAudit ||
-                        audit is YellowstonePathology.Business.Audit.Model.KRASForMetastaticColorectalCancerAudit ||
-                        audit is YellowstonePathology.Business.Audit.Model.PNHOnBoneMarrowSpecimenAudit)
-                    {
-                        this.m_ColonCancerMessages.Add(audit.Message.ToString().Trim());
-                        if (this.m_ActionList.Contains(HandleColorectalCancer) == false)
-                        {
-                            this.m_ActionList.Add(HandleColorectalCancer);
-                        }
-                    }
-                    else
-                    {
-                        this.m_AuditMessages.Add(audit.Message.ToString().Trim());
-                        this.m_MessageAuditResult.Status = audit.Status;
-                        if(this.m_ActionList.Contains(HandleAuditMessages) == false)
-                        {
-                            this.m_ActionList.Insert(0, HandleAuditMessages);
-                        }
+                        this.m_ActionList.Add(HandleColorectalCancer);
                     }
                 }
             }
@@ -132,29 +145,14 @@ namespace YellowstonePathology.UI.Surgical
             this.m_MessageAuditResult.Status = Business.Audit.Model.AuditStatusEnum.OK;
             this.m_MessageAuditResult.Message = string.Empty;
 
-            foreach (YellowstonePathology.Business.Audit.Model.Audit audit in this.m_PathologistSignoutAuditCollection)
+            Business.Audit.Model.AuditCollection auditMessageCollection = this.m_PathologistSignoutAuditCollection.GetAuditMessageCollection();
+            foreach (YellowstonePathology.Business.Audit.Model.Audit audit in auditMessageCollection)
             {
-                Type auditType = audit.GetType();
-                if (auditType == typeof(YellowstonePathology.Business.Audit.Model.PapCorrelationAudit) ||
-                    auditType == typeof(YellowstonePathology.Business.Audit.Model.PQRSIsRequiredAudit) ||
-                    auditType == typeof(YellowstonePathology.Business.Audit.Model.NonASCIICharacterAudit) ||
-                    auditType == typeof(YellowstonePathology.Business.Audit.Model.LynchSyndromeAudit) ||
-                    auditType == typeof(YellowstonePathology.Business.Audit.Model.CCCPAudit) ||
-                    auditType == typeof(YellowstonePathology.Business.Audit.Model.BRAFMetastaticMelanomaAudit) ||
-                    auditType == typeof(YellowstonePathology.Business.Audit.Model.HighRiskHPVForSiteAudit) ||
-                    auditType == typeof(YellowstonePathology.Business.Audit.Model.KRASForMetastaticColorectalCancerAudit) ||
-                    auditType == typeof(YellowstonePathology.Business.Audit.Model.PNHOnBoneMarrowSpecimenAudit))
+                audit.Run();
+                if (audit.Status == Business.Audit.Model.AuditStatusEnum.Failure)
                 {
-                    continue;
-                }
-                else
-                {
-                    audit.Run();
-                    if (audit.Status == Business.Audit.Model.AuditStatusEnum.Failure)
-                    {
-                        this.m_AuditMessages.Add(audit.Message.ToString().Trim());
-                        this.m_MessageAuditResult.Status = audit.Status;
-                    }
+                    this.m_AuditMessages.Add(audit.Message.ToString().Trim());
+                    this.m_MessageAuditResult.Status = audit.Status;
                 }
             }
 
@@ -220,33 +218,29 @@ namespace YellowstonePathology.UI.Surgical
         private void HandlePQRS()
         {
             this.SetWindowButtonVisibility();
+            Business.Audit.Model.PQRSIsRequiredAudit pqrsIsRequiredAudit = this.m_PathologistSignoutAuditCollection.GetPQRSIsRequiredAudit();
+            YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen = pqrsIsRequiredAudit.SurgicalSpecimen;
+            YellowstonePathology.Business.Surgical.PQRSMeasure pqrsMeasure = pqrsIsRequiredAudit.PQRSMeasure;
             if (this.m_PQRSSignoutPage == null)
             {
-                bool result = false;
-                YellowstonePathology.Business.Surgical.PQRSMeasureCollection pqrsCollection = YellowstonePathology.Business.Surgical.PQRSMeasureCollection.GetAll();
-                foreach (YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen in this.m_SurgicalTestOrder.SurgicalSpecimenCollection)
-                {
-                    foreach (YellowstonePathology.Business.Surgical.PQRSMeasure pqrsMeasure in pqrsCollection)
-                    {
-                        int patientAge = YellowstonePathology.Business.Helper.PatientHelper.GetAge(this.m_AccessionOrder.PBirthdate.Value);
-                        if (pqrsMeasure.DoesMeasureApply(this.m_SurgicalTestOrder, surgicalSpecimen, patientAge) == true)
-                        {
-                            this.m_PQRSSignoutPage = new PQRSSignoutPage(pqrsMeasure, surgicalSpecimen, this.m_SurgicalTestOrder, this.m_AccessionOrder, this.m_ObjectTracker, this.m_BackButtonVisibility, this.m_NextButtonVisibility);
-                            this.m_PQRSSignoutPage.Next += this.MoveForward;
-                            this.m_PQRSSignoutPage.Back +=this.MoveBack;
-                            this.m_PQRSSignoutPage.Close += this.CloseDialog;
-                            this.m_PathologistSignoutDialog.PageNavigator.Navigate(this.m_PQRSSignoutPage);
-                            result = true;
-                            break;
-                        }
-                    }
-                    if (result == true) break;
-                }
+                this.m_PQRSSignoutPage = new PQRSSignoutPage(pqrsMeasure, surgicalSpecimen, this.m_SurgicalTestOrder, this.m_AccessionOrder, this.m_ObjectTracker, this.m_BackButtonVisibility, this.m_NextButtonVisibility);
+                this.m_PQRSSignoutPage.Next += PQRSSignoutPage_Next;
+                this.m_PQRSSignoutPage.Back +=this.MoveBack;
+                this.m_PQRSSignoutPage.Close += PQRSSignoutPage_Close;
             }
-            else
-            {
-                this.m_PathologistSignoutDialog.PageNavigator.Navigate(this.m_PQRSSignoutPage);
-            }
+            this.m_PathologistSignoutDialog.PageNavigator.Navigate(this.m_PQRSSignoutPage);
+        }
+
+        private void PQRSSignoutPage_Next(object sender, EventArgs e)
+        {
+            this.m_PQRSHasBeenResolved = true;
+            this.MoveForward(sender, e);
+        }
+
+        private void PQRSSignoutPage_Close(object sender, EventArgs e)
+        {
+            this.m_PQRSHasBeenResolved = true;
+            this.CloseDialog(sender, e);
         }
 
         private void HandleColorectalCancer()
