@@ -65,7 +65,7 @@
                                 <ControlTemplate TargetType="{x:Type ListBoxItem}">
                                     <RadioButton IsChecked="{Binding IsSelected, RelativeSource={x:Static RelativeSource.TemplatedParent}}" Margin="2,2,2,2">
                                         <RadioButton.Content>
-                                            <TextBlock Width="300" TextWrapping="Wrap" Text="{Binding Path=FormattedReportingDefinition}" Margin="2,2,2,2"></TextBlock>
+                                            <TextBlock Width="700" TextWrapping="Wrap" Text="{Binding Path=FormattedReportingDefinition}" Margin="2,2,2,2"></TextBlock>
                                         </RadioButton.Content>
                                     </RadioButton>
                                 </ControlTemplate>

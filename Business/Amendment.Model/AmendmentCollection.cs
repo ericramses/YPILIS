@@ -131,5 +131,33 @@ namespace YellowstonePathology.Business.Amendment.Model
 			}
 			return result;
 		}
-   }
+
+        public bool HasAmendmentForReferenceReportNo(string reportNo)
+        {
+            bool result = false;
+            foreach (Amendment amendment in this)
+            {
+                if (amendment.ReferenceReportNo == reportNo)
+                {
+                    result = true;
+                    break;
+                }
+            }
+            return result;
+        }
+
+        public Amendment GetAmendmentForReferenceReportNo(string reportNo)
+        {
+            Amendment result = null;
+            foreach (Amendment amendment in this)
+            {
+                if (amendment.ReferenceReportNo == reportNo)
+                {
+                    result = amendment;
+                    break;
+                }
+            }
+            return result;
+        }
+    }
 }
