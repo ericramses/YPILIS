@@ -5,11 +5,9 @@ using System.Text;
 
 namespace YellowstonePathology.Business.Audit.Model
 {
-    public class IsPathologistSignoutHandledAuditCollection : AuditCollection
+    public class PathologistSignoutIsHandledAuditCollection : AuditCollection
     {
-        public IsPathologistSignoutHandledAuditCollection(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-            bool pqrsIsRequired,
-            bool pqrsHasBeenResolved,
+        public PathologistSignoutIsHandledAuditCollection(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
             YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder = accessionOrder.PanelSetOrderCollection.GetSurgical();
@@ -22,8 +20,8 @@ namespace YellowstonePathology.Business.Audit.Model
             this.Add(new CaseHasUnfinaledPeerReviewAudit(accessionOrder));
             this.Add(new GradedStainsAreHandledAudit(surgicalTestOrder));
             this.Add(new IntraoperativeConsultationCorrelationAudit(surgicalTestOrder));
-            this.Add(new PapCorrelationAudit(accessionOrder));
-            this.Add(new PQRSIsHandledAudit(surgicalTestOrder, pqrsIsRequired, pqrsHasBeenResolved));
+            this.Add(new PapCorrelationIsHandledAudit(accessionOrder));
+            this.Add(new PQRSIsHandledAudit(accessionOrder));
             this.Add(new NonASCIICharacterAudit(surgicalTestOrder));
         }
     }

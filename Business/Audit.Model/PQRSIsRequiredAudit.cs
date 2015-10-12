@@ -28,15 +28,11 @@ namespace YellowstonePathology.Business.Audit.Model
                 {
                     if (pqrsMeasure.DoesMeasureApply(surgicalTestOrder, surgicalSpecimen, patientAge) == true)
                     {
-                        YellowstonePathology.Business.Test.PanelSetOrderCPTCodeCollection panelSetOrderCPTCodeCollection = surgicalTestOrder.PanelSetOrderCPTCodeCollection.GetSpecimenOrderCollection(surgicalSpecimen.SpecimenOrderId);
-                        if (this.MeasureCodeExists(pqrsMeasure, panelSetOrderCPTCodeCollection) == false)
-                        {
-                            this.m_Status = AuditStatusEnum.Failure;
-                            this.m_Message.Append("A PQRS code must be applied.");
-                            this.m_PQRSMeasure = pqrsMeasure;
-                            this.m_SurgicalSpecimen = surgicalSpecimen;
-                            break;
-                        }
+                        this.m_Status = AuditStatusEnum.Failure;
+                        this.m_Message.Append("A PQRS code must be applied.");
+                        this.m_PQRSMeasure = pqrsMeasure;
+                        this.m_SurgicalSpecimen = surgicalSpecimen;
+                        break;
                     }
                 }
                 if (this.m_Status == AuditStatusEnum.Failure) break;
@@ -51,21 +47,6 @@ namespace YellowstonePathology.Business.Audit.Model
         public YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen SurgicalSpecimen
         {
             get { return this.m_SurgicalSpecimen; }
-        }
-
-        public bool MeasureCodeExists(YellowstonePathology.Business.Surgical.PQRSMeasure pqrsMeasure,
-            YellowstonePathology.Business.Test.PanelSetOrderCPTCodeCollection panelSetOrderCPTCodeCollection)
-        {
-            bool result = false;
-            foreach (YellowstonePathology.Business.Billing.Model.PQRSCode pqrsCode in pqrsMeasure.PQRSCodeCollection)
-            {
-                if (panelSetOrderCPTCodeCollection.Exists(pqrsCode.Code, 1) == true)
-                {
-                    result = true;
-                    break;
-                }
-            }
-            return result;
         }
     }
 }

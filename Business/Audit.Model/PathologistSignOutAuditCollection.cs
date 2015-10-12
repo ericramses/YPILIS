@@ -23,7 +23,7 @@ namespace YellowstonePathology.Business.Audit.Model
             this.Add(new CaseHasUnfinaledPeerReviewAudit(accessionOrder));
             this.Add(new GradedStainsAreHandledAudit(surgicalTestOrder));
             this.Add(new IntraoperativeConsultationCorrelationAudit(surgicalTestOrder));
-            this.Add(new PapCorrelationAudit(accessionOrder));
+            this.Add(new PapCorrelationIsRequiredAudit(accessionOrder));
             this.Add(new PQRSIsRequiredAudit(accessionOrder));
             this.Add(new NonASCIICharacterAudit(surgicalTestOrder));
             this.Add(new LynchSyndromeAudit(accessionOrder));
@@ -73,14 +73,14 @@ namespace YellowstonePathology.Business.Audit.Model
             return result;
         }
 
-        public PapCorrelationAudit GetPapCorrelationAudit()
+        public PapCorrelationIsRequiredAudit GetPapCorrelationAudit()
         {
-            PapCorrelationAudit result = null;
+            PapCorrelationIsRequiredAudit result = null;
             foreach (Audit audit in this)
             {
-                if (audit.GetType() == typeof(PapCorrelationAudit))
+                if (audit.GetType() == typeof(PapCorrelationIsRequiredAudit))
                 {
-                    result = audit as PapCorrelationAudit;
+                    result = audit as PapCorrelationIsRequiredAudit;
                 }
             }
             return result;

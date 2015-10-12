@@ -5,12 +5,12 @@ using System.Text;
 
 namespace YellowstonePathology.Business.Audit.Model
 {
-    public class PapCorrelationAudit : Audit
+    public class PapCorrelationIsRequiredAudit : Audit
     {
         private YellowstonePathology.Business.Rules.Surgical.WordSearchList m_PapCorrelationWordList;
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 
-        public PapCorrelationAudit(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
+        public PapCorrelationIsRequiredAudit(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {
             this.m_AccessionOrder = accessionOrder;
 
@@ -31,11 +31,7 @@ namespace YellowstonePathology.Business.Audit.Model
             this.m_Status = AuditStatusEnum.OK;
             if (this.m_AccessionOrder.SpecimenOrderCollection.FindWordsInDescription(this.m_PapCorrelationWordList) == true)
             {
-                YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetSurgical();
-                if (surgicalTestOrder.PapCorrelation == 0)
-                {
                     this.m_Status = AuditStatusEnum.Failure;
-                }
             }
         }
     }
