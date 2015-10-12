@@ -50,8 +50,26 @@ namespace YellowstonePathology.UI.Surgical
             this.m_BackButtonVisibility = backButtonVisibility;
             this.m_NextButtonVisibility = nextButtonVisibility;
 
+            this.m_SurgicalTestOrder.PQRSIsIndicated = true;
+
             InitializeComponent();
             this.DataContext = this;
+            this.Loaded += PQRSSignoutPage_Loaded;
+        }
+
+        private void PQRSSignoutPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Test.PanelSetOrderCPTCodeCollection panelSetOrderCPTCodeCollection = this.m_SurgicalTestOrder.PanelSetOrderCPTCodeCollection.GetSpecimenOrderCollection(this.m_SurgicalSpecimen.SpecimenOrderId);
+            //foreach (YellowstonePathology.Business.Billing.Model.PQRSCode pqrsCode in this.m_PQRSMeasure.PQRSCodeCollection)
+            for(int idx = 0; idx < this.m_PQRSMeasure.PQRSCodeCollection.Count; idx++)
+            {
+                if (panelSetOrderCPTCodeCollection.Exists(this.m_PQRSMeasure.PQRSCodeCollection[idx].Code, 1) == true)
+                {
+                    this.RadioButtonList.SelectedIndex = idx;
+                    break;
+                }
+            }
+
         }
 
         private void ButtonNext_Click(object sender, RoutedEventArgs e)
@@ -119,6 +137,17 @@ namespace YellowstonePathology.UI.Surgical
         {
             get { return this.m_PQRSMeasure; }
         }
+
+        public YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder SurgicalTestOrder
+        {
+            get { return this.m_SurgicalTestOrder; }
+        }
+
+        public YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen SurgicalSpecimen
+        {
+            get { return this.m_SurgicalSpecimen; }
+        }
+
 
         public System.Windows.Visibility BackButtonVisibility
         {

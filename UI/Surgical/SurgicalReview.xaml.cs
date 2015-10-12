@@ -27,7 +27,6 @@ namespace YellowstonePathology.UI.Surgical
         private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
         private YellowstonePathology.UI.TypingShortcutUserControl m_TypingShortcutUserControl;
 		private YellowstonePathology.Business.View.BillingSpecimenViewCollection m_BillingSpecimenViewCollection;
-        private PathologistSignoutPath m_PathologistSignoutPath;
 
         public SurgicalReview(YellowstonePathology.UI.TypingShortcutUserControl typingShortcutUserControl, PathologistUI pathologistUI, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
@@ -458,23 +457,19 @@ namespace YellowstonePathology.UI.Surgical
             MainWindow.MoveKeyboardFocusNextThenBack();
             if (this.PanelSetOrderSurgical.Final == false)
             {
-                if (this.m_PathologistSignoutPath == null)
-                {
-                    this.m_PathologistSignoutPath = new PathologistSignoutPath(this.m_PathologistUI.AccessionOrder, this.PanelSetOrderSurgical, this.m_PathologistUI.ObjectTracker, this.m_SystemIdentity);
-                }
+                PathologistSignoutPath pathologistSignoutPath = new PathologistSignoutPath(this.m_PathologistUI.AccessionOrder, this.PanelSetOrderSurgical, this.m_PathologistUI.ObjectTracker, this.m_SystemIdentity);
 
-                YellowstonePathology.Business.Audit.Model.AuditResult auditResult = this.m_PathologistSignoutPath.PathologistSignOutAudit;
+                YellowstonePathology.Business.Audit.Model.AuditResult auditResult = pathologistSignoutPath.PathologistSignOutAudit;
                 if(auditResult.Status == Business.Audit.Model.AuditStatusEnum.Failure)
                 {
-                    this.m_PathologistSignoutPath.Start();
+                    pathologistSignoutPath.Start();
                     this.RefreshBillingSpecimenViewCollection();
-                    auditResult = this.m_PathologistSignoutPath.IsPathologistSignoutHandled();
+                    auditResult = pathologistSignoutPath.IsPathologistSignoutAuditSuccessful();
                 }
 
                 if (auditResult.Status == Business.Audit.Model.AuditStatusEnum.OK)
                 {
                     this.PanelSetOrderSurgical.Finalize(this.m_SystemIdentity.User);
-                    this.m_PathologistSignoutPath = null;
                     if (this.PanelSetOrderSurgical.Accepted == false)
                     {
                         this.PanelSetOrderSurgical.Accept(this.m_SystemIdentity.User);
