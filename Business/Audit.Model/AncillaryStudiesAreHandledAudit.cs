@@ -45,7 +45,7 @@ namespace YellowstonePathology.Business.Audit.Model
 
             if(commentMsg.Length > 0)
             {
-                this.m_Message.AppendLine("Ancillary study comment is not set or is pending for:");
+                this.m_Message.AppendLine("Ancillary study control comment is not set or is pending for:");
                 this.m_Message.Append(commentMsg.ToString());
             }
         }
