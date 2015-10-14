@@ -44,11 +44,11 @@ namespace YellowstonePathology.UI.Test
         /*private void ShowResultPage()
 		{
 			this.m_ResultPage = new API2MALT1ResultPage((YellowstonePathology.Business.Test.API2MALT1.API2MALT1TestOrder)this.m_PanelSetOrder, this.m_AccessionOrder, this.m_ObjectTracker, this.m_SystemIdentity);
-			this.m_ResultPage.Next += new API2MALT1ResultPage.NextEventHandler(ResultPage_Next);
+			this.m_ResultPage.Next += new API2MALT1ResultPage.NextEventHandler(ResultsPage_Next);
 			this.m_PageNavigator.Navigate(this.m_ResultPage);
 		}*/
 
-        protected override void ResultPage_Next(object sender, EventArgs e)
+        protected override void ResultsPage_Next(object sender, EventArgs e)
 		{
 			this.Finished();
 		}

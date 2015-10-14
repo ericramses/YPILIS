@@ -57,7 +57,7 @@ namespace YellowstonePathology.UI.Test
 				this.m_SystemIdentity = new Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
                 if (this.GetType() == typeof(YellowstonePathology.UI.Test.API2MALT1ResultPath))
                 {
-                    this.ShowResultPage();
+                    this.ShowResultsPage();
                 }
                 else
                 {
@@ -110,15 +110,15 @@ namespace YellowstonePathology.UI.Test
 
 
 
-        protected void ShowResultPage()
+        protected void ShowResultsPage()
         {
             Type resultPageType = Type.GetType(this.m_ResultPageClassName);
             IResultPageAction resultPage = (IResultPageAction)Activator.CreateInstance(resultPageType, new object[] { this.m_PanelSetOrder, this.m_AccessionOrder, this.m_ObjectTracker, this.m_SystemIdentity });
-            resultPage.Next += ResultPage_Next;
+            resultPage.Next += ResultsPage_Next;
             this.m_PageNavigator.Navigate((System.Windows.Controls.UserControl)resultPage);
         }
 
-        protected virtual void ResultPage_Next(object sender, EventArgs e)
+        protected virtual void ResultsPage_Next(object sender, EventArgs e)
         {
         }
     }
