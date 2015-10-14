@@ -32,6 +32,7 @@ namespace YellowstonePathology.UI
         private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
         private YellowstonePathology.Business.Amendment.Model.Amendment m_Amendment;
         private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
+        private string m_PageHeaderText;
 
         public AmendmentPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
             YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
@@ -43,6 +44,7 @@ namespace YellowstonePathology.UI
             this.m_Amendment = amendment;
             this.m_SystemIdentity = systemIdentity;
             this.AmendmentSigners = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetUsersByRole(YellowstonePathology.Business.User.SystemUserRoleDescriptionEnum.AmendmentSigner, true);
+            this.m_PageHeaderText = "Amendment For: " + this.m_AccessionOrder.PatientDisplayName + " (" +this.m_AccessionOrder.PanelSetOrderCollection.GetSurgical().ReportNo + ")";
 
             InitializeComponent();
 
@@ -75,6 +77,11 @@ namespace YellowstonePathology.UI
         public void UpdateBindingSources()
         {
 
+        }
+
+        public string PageHeaderText
+        {
+            get { return this.m_PageHeaderText; }
         }
 
         public YellowstonePathology.Business.Amendment.Model.Amendment Amendment
@@ -127,7 +134,22 @@ namespace YellowstonePathology.UI
             this.Back(this, new EventArgs());
         }
 
-        private void ButtonFinalize_Click(object sender, RoutedEventArgs e)
+        private void ButtonClose_Click(object sender, RoutedEventArgs e)
+        {
+            this.Finish(this, new EventArgs());
+        }
+
+        private void HyperLinkSet_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void HyperLinkAccept_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void HyperLinkFinalize_Click(object sender, RoutedEventArgs e)
         {
             YellowstonePathology.Business.Rules.ExecutionStatus executionStatus = new YellowstonePathology.Business.Rules.ExecutionStatus();
             YellowstonePathology.Business.Rules.Amendment.FinalAmendment finalAmendment = new YellowstonePathology.Business.Rules.Amendment.FinalAmendment();
@@ -143,9 +165,17 @@ namespace YellowstonePathology.UI
             NotifyPropertyChanged("Amendment");
         }
 
-        private void ButtonClose_Click(object sender, RoutedEventArgs e)
+        private void HyperLinkUnaccept_Click(object sender, RoutedEventArgs e)
         {
-            this.Finish(this, new EventArgs());
+
+        }
+
+        private void HyperLinkUnfinalize_Click(object sender, RoutedEventArgs e)
+        {
+            if(this.m_Amendment.Final == true)
+            {
+                this.m_Amendment.Unfinalize();
+            }
         }
     }
 }
