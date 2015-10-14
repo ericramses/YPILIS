@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows;
 
 namespace YellowstonePathology.UI.Test
 {
@@ -15,12 +16,34 @@ namespace YellowstonePathology.UI.Test
 
 		protected ResultDialog m_ResultDialog;
         protected YellowstonePathology.UI.Navigation.PageNavigator m_PageNavigator;
-		protected YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;        
+		protected YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 
-		public ResultPath(YellowstonePathology.UI.Navigation.PageNavigator pageNavigator, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        protected YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
+        protected YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
+        protected YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
+        protected System.Windows.Visibility m_BackButtonVisibility;
+
+        protected string m_ResultPageClassName;
+
+        public ResultPath(YellowstonePathology.UI.Navigation.PageNavigator pageNavigator, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             this.m_SystemIdentity = systemIdentity;
 			this.m_PageNavigator = pageNavigator;         
+        }
+
+        protected ResultPath(YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder,
+            YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
+            YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
+            YellowstonePathology.UI.Navigation.PageNavigator pageNavigator,
+            System.Windows.Visibility backButtonVisibility,
+            YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        {
+            this.m_PanelSetOrder = panelSetOrder;
+            this.m_AccessionOrder = accessionOrder;
+            this.m_ObjectTracker = objectTracker;
+            this.m_PageNavigator = pageNavigator;
+            this.m_BackButtonVisibility = backButtonVisibility;
+            this.m_SystemIdentity = systemIdentity;
         }
 
         public virtual void Start()
@@ -32,7 +55,14 @@ namespace YellowstonePathology.UI.Test
 			else
 			{
 				this.m_SystemIdentity = new Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
-				this.Authenticated(this, new EventArgs());
+                if (this.GetType() == typeof(YellowstonePathology.UI.Test.API2MALT1ResultPath))
+                {
+                    this.ShowResultPage();
+                }
+                else
+                {
+                    this.Authenticated(this, new EventArgs());
+                }
 			}			
         }
 
@@ -76,6 +106,20 @@ namespace YellowstonePathology.UI.Test
         public void Finished()
         {
             if (this.Finish != null) this.Finish(this, new EventArgs());
-        }        
+        }
+
+
+
+        protected void ShowResultPage()
+        {
+            Type resultPageType = Type.GetType(this.m_ResultPageClassName);
+            IResultPageAction resultPage = (IResultPageAction)Activator.CreateInstance(resultPageType, new object[] { this.m_PanelSetOrder, this.m_AccessionOrder, this.m_ObjectTracker, this.m_SystemIdentity });
+            resultPage.Next += ResultPage_Next;
+            this.m_PageNavigator.Navigate((System.Windows.Controls.UserControl)resultPage);
+        }
+
+        protected virtual void ResultPage_Next(object sender, EventArgs e)
+        {
+        }
     }
 }
