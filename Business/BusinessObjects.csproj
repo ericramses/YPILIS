@@ -462,6 +462,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Test.Model\DispalyGroupProstate.cs" />
+    <Compile Include="Test\ALKForNSCLCByFISH\ALKForNSCLCByFISHNegativeWithMonosomyResult.cs" />
+    <Compile Include="Test\ALKForNSCLCByFISH\ALKForNSCLCByFISHNegativeWithPolysomyResult.cs" />
     <Compile Include="Test\HPV1618ByPCR\HPV1618BothPositiveResult.cs" />
     <Compile Include="Test\HPV1618ByPCR\HPV1618BothNegativeResult.cs" />
     <Compile Include="Test\HPV1618ByPCR\HPV1618ByPCRTest.cs" />
@@ -611,6 +613,8 @@
     <Compile Include="Test\PantherOrderListItem.cs" />
     <Compile Include="Test\PDL1\PDL1.cs" />
     <Compile Include="Test\ROS1ByFISH\ROS1ByFISHInconclusiveResult.cs" />
+    <Compile Include="Test\ROS1ByFISH\ROS1ByFISHNegativeWithMonosomyResult.cs" />
+    <Compile Include="Test\ROS1ByFISH\ROS1ByFISHNegativeWithPolysomyResult.cs" />
     <Compile Include="Test\Surgical\IntraoperativeConsultationResult.Validation.cs" />
     <Compile Include="Test\TechInitiatedPeripheralSmear\TechInitiatedPeripheralSmearTest.cs" />
     <Compile Include="Test\TechInitiatedPeripheralSmear\TechInitiatedPeripheralSmearTestOrder.cs" />
@@ -657,7 +661,6 @@
     <Compile Include="Test.Model\ResultItem.cs" />
     <Compile Include="Test.Model\ResultItemCollection.cs" />
     <Compile Include="Test.Model\TTF1NapsinADualStain.cs" />
-    <Compile Include="Test\ALKForNSCLCByFISH\ALKForNSCLCByFISHResultFactory.cs" />
     <Compile Include="Test\ALKForNSCLCByFISH\ALKForNSCLCByFISHEPICOBXView.cs" />
     <Compile Include="Test\ALKForNSCLCByFISH\ALKForNSCLCByFISHNegativeWithGeneAmplificationResult.cs" />
     <Compile Include="Test\ALKForNSCLCByFISH\ALKForNSCLCByFISHNoResult.cs" />
@@ -1361,7 +1364,6 @@
     <Compile Include="Test\ROS1ByFISH\ROS1ByFISHNegativeResult.cs" />
     <Compile Include="Test\ROS1ByFISH\ROS1ByFISHResult.cs" />
     <Compile Include="Test\ROS1ByFISH\ROS1ByFISHResultCollection.cs" />
-    <Compile Include="Test\ROS1ByFISH\ROS1ByFISHResultFactory.cs" />
     <Compile Include="Test\ROS1ByFISH\ROS1ByFISHEPICOBXView.cs" />
     <Compile Include="Test\ROS1ByFISH\ROS1ByFISHWordDocument.cs" />
     <Compile Include="Test\ROS1ByFISH\ROS1ByFISHTest.cs" />

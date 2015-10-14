@@ -15,7 +15,8 @@ namespace YellowstonePathology.UI.Test
 
 		protected ResultDialog m_ResultDialog;
         protected YellowstonePathology.UI.Navigation.PageNavigator m_PageNavigator;
-		protected YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;        
+		protected YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity; 
+               
 
 		public ResultPath(YellowstonePathology.UI.Navigation.PageNavigator pageNavigator, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {

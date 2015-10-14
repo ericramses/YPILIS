@@ -151,7 +151,7 @@ namespace YellowstonePathology.UI.Cutting
                 YellowstonePathology.Business.Label.Model.HistologySlidePaperLabelPrinter histologySlidePaperLabelPrinter = new Business.Label.Model.HistologySlidePaperLabelPrinter();
                 foreach (YellowstonePathology.Business.Slide.Model.SlideOrder_Base slideOrder in slideOrderCollection)
                 {
-                    YellowstonePathology.Business.Label.Model.HistologySlidePaperLabel histologySlidePaperLabel = new Business.Label.Model.HistologySlidePaperLabel(slideOrder.SlideOrderId, slideOrder.ReportNo, slideOrder.Label, slideOrder.PatientLastName, slideOrder.TestAbbreviation);
+                    YellowstonePathology.Business.Label.Model.HistologySlidePaperLabel histologySlidePaperLabel = new Business.Label.Model.HistologySlidePaperLabel(slideOrder.SlideOrderId, slideOrder.ReportNo, slideOrder.Label, slideOrder.PatientLastName, slideOrder.TestAbbreviation, slideOrder.Location);
                     histologySlidePaperLabelPrinter.Queue.Enqueue(histologySlidePaperLabel);                    
                 }
 
