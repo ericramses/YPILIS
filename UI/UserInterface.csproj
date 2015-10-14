@@ -626,6 +626,7 @@
     <Compile Include="Test\HPV1618ByPCRResultPage.xaml.cs">
       <DependentUpon>HPV1618ByPCRResultPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Test\IResultPageAction.cs" />
     <Compile Include="Test\MissingInformationResultPage.xaml.cs">
       <DependentUpon>MissingInformationResultPage.xaml</DependentUpon>
     </Compile>

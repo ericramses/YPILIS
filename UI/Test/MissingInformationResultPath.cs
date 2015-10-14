@@ -34,6 +34,7 @@ namespace YellowstonePathology.UI.Test
 		{
 			this.m_ResultPage = new MissingInformationResultPage(this.m_MissingInformationTestOrder, this.m_AccessionOrder, this.m_ObjectTracker, this.m_SystemIdentity);            
             this.m_ResultPage.Next += new MissingInformationResultPage.NextEventHandler(ResultPage_Next);
+            this.m_ResultPage.ShowICDEntry += M_ResultPage_ShowICDEntry;
             this.m_PageNavigator.Navigate(this.m_ResultPage);
 		}
 
@@ -41,5 +42,23 @@ namespace YellowstonePathology.UI.Test
         {
             base.Finished();
         }        
+
+        private void M_ResultPage_ShowICDEntry(object sender, EventArgs e)
+        {
+            UI.Login.ICDEntryPage icdEntryPage = new Login.ICDEntryPage(this.m_AccessionOrder, this.m_ObjectTracker, this.m_MissingInformationTestOrder.ReportNo, this.m_SystemIdentity);
+            icdEntryPage.Next += IcdEntryPage_Next;
+            icdEntryPage.Back += IcdEntryPage_Back;
+            this.m_PageNavigator.Navigate(icdEntryPage);
+        }
+
+        private void IcdEntryPage_Next(object sender, EventArgs e)
+        {
+            this.ShowResultPage();
+        }
+
+        private void IcdEntryPage_Back(object sender, EventArgs e)
+        {
+            this.ShowResultPage();
+        }
     }
 }
