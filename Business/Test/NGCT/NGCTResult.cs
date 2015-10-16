@@ -13,6 +13,8 @@ namespace YellowstonePathology.Business.Test.NGCT
         public static string NGNegativeResultCode = "NGNGTV";
         public static string CTPositiveResultCode = "CTPSTV";
         public static string CTNegativeResultCode = "CTNGTV";
+        public static string IndeterminateResultCode = "INDMT";
+        public static string IndeterminateResult = "Indeterminate";
 
         public static string Method = "DNA was extracted from the patient’s specimen using an automated method.  Real time PCR amplification was " +
                 "performed for organism detection and identification.";

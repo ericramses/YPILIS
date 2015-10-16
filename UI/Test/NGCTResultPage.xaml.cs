@@ -29,8 +29,8 @@ namespace YellowstonePathology.UI.Test
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private YellowstonePathology.Business.Test.NGCT.NGCTTestOrder m_PanelSetOrder;
-		//private YellowstonePathology.Business.Test.NGCT.NGCTResultCollection m_NGResultCollection;
-		//private YellowstonePathology.Business.Test.NGCT.NGCTResultCollection m_CTResultCollection;
+		private YellowstonePathology.Business.Test.NGCT.NGCTResultCollection m_NGResultCollection;
+		private YellowstonePathology.Business.Test.NGCT.NGCTResultCollection m_CTResultCollection;
 		private string m_PageHeaderText;
 
 
@@ -45,8 +45,8 @@ namespace YellowstonePathology.UI.Test
 			this.m_ObjectTracker = objectTracker;
 
 			this.m_PageHeaderText = "NG CT Results For: " + this.m_AccessionOrder.PatientDisplayName;
-			//this.m_NGResultCollection = YellowstonePathology.Business.Test.NGCT.NGCTResultCollection.GetNGResultCollection();
-			//this.m_CTResultCollection = YellowstonePathology.Business.Test.NGCT.NGCTResultCollection.GetCTResultCollection();
+			this.m_NGResultCollection = YellowstonePathology.Business.Test.NGCT.NGCTResultCollection.GetNGResultCollection();
+			this.m_CTResultCollection = YellowstonePathology.Business.Test.NGCT.NGCTResultCollection.GetCTResultCollection();
 
 			InitializeComponent();
 
@@ -59,7 +59,7 @@ namespace YellowstonePathology.UI.Test
 			get { return this.m_PanelSetOrder; }
 		}
 
-		/*public YellowstonePathology.Business.Test.NGCT.NGCTResultCollection NGResultCollection
+		public YellowstonePathology.Business.Test.NGCT.NGCTResultCollection NGResultCollection
 		{
 			get { return this.m_NGResultCollection; }
 		}
@@ -67,7 +67,7 @@ namespace YellowstonePathology.UI.Test
 		public YellowstonePathology.Business.Test.NGCT.NGCTResultCollection CTResultCollection
 		{
 			get { return this.m_CTResultCollection; }
-		}*/
+		}
 
 		public YellowstonePathology.Business.Test.AccessionOrder AccessionOrder
 		{
@@ -174,76 +174,6 @@ namespace YellowstonePathology.UI.Test
 			}
 		}
 
-		private void HyperLinkBothNegative_Click(object sender, RoutedEventArgs e)
-		{
-			YellowstonePathology.Business.Rules.MethodResult methodResult = this.m_PanelSetOrder.IsOkToSetResults();
-			if (methodResult.Success == true)
-			{
-				YellowstonePathology.Business.Test.NGCT.NGCTBothNegativeResult ngctBothNegativeResult = new YellowstonePathology.Business.Test.NGCT.NGCTBothNegativeResult();
-                ngctBothNegativeResult.SetResults(this.m_PanelSetOrder);
-			}
-			else
-			{
-				MessageBox.Show(methodResult.Message);
-			}
-		}
-
-        private void HyperLinkNGNegativeCTPositive_Click(object sender, RoutedEventArgs e)
-        {
-            YellowstonePathology.Business.Rules.MethodResult methodResult = this.m_PanelSetOrder.IsOkToSetResults();
-            if (methodResult.Success == true)
-            {
-                YellowstonePathology.Business.Test.NGCT.NGCTNGNegativeCTPositiveResult ngctNGNegativeCTPositiveResult = new YellowstonePathology.Business.Test.NGCT.NGCTNGNegativeCTPositiveResult();
-                ngctNGNegativeCTPositiveResult.SetResults(this.m_PanelSetOrder);
-            }
-            else
-            {
-                MessageBox.Show(methodResult.Message);
-            }
-        }
-
-        private void HyperLinkNGPositiveCTNegative_Click(object sender, RoutedEventArgs e)
-        {
-            YellowstonePathology.Business.Rules.MethodResult methodResult = this.m_PanelSetOrder.IsOkToSetResults();
-            if (methodResult.Success == true)
-            {
-                YellowstonePathology.Business.Test.NGCT.NGCTNGPositiveCTNegativeResult ngctNGPositiveCTNegativeResult = new YellowstonePathology.Business.Test.NGCT.NGCTNGPositiveCTNegativeResult();
-                ngctNGPositiveCTNegativeResult.SetResults(this.m_PanelSetOrder);
-            }
-            else
-            {
-                MessageBox.Show(methodResult.Message);
-            }
-        }
-
-        private void HyperLinkBothPositive_Click(object sender, RoutedEventArgs e)
-        {
-            YellowstonePathology.Business.Rules.MethodResult methodResult = this.m_PanelSetOrder.IsOkToSetResults();
-            if (methodResult.Success == true)
-            {
-                YellowstonePathology.Business.Test.NGCT.NGCTBothPositiveResult ngctBothPositiveResult = new YellowstonePathology.Business.Test.NGCT.NGCTBothPositiveResult();
-                ngctBothPositiveResult.SetResults(this.m_PanelSetOrder);
-            }
-            else
-            {
-                MessageBox.Show(methodResult.Message);
-            }
-        }
-
-        private void HyperLinkNoResult_Click(object sender, RoutedEventArgs e)
-        {
-            YellowstonePathology.Business.Rules.MethodResult methodResult = this.m_PanelSetOrder.IsOkToSetResults();
-            if (methodResult.Success == true)
-            {
-                YellowstonePathology.Business.Test.NGCT.NGCTNoResult ngctNoResult = new YellowstonePathology.Business.Test.NGCT.NGCTNoResult();
-                ngctNoResult.SetResults(this.m_PanelSetOrder);
-            }
-            else
-            {
-                MessageBox.Show(methodResult.Message);
-            }
-        }
-
         private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
 		{
 			this.Save();
@@ -254,5 +184,23 @@ namespace YellowstonePathology.UI.Test
 			string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);
 			YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(fileName);
 		}
-	}
+
+        private void ComboBoxNGResult_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (this.ComboBoxNGResult.SelectedItem != null)
+            {
+                YellowstonePathology.Business.Test.TestResult testResult = (YellowstonePathology.Business.Test.TestResult)this.ComboBoxNGResult.SelectedItem;
+                this.m_PanelSetOrder.NGResultCode = testResult.ResultCode;
+            }
+        }
+
+        private void ComboBoxCTResult_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (this.ComboBoxCTResult.SelectedItem != null)
+            {
+                YellowstonePathology.Business.Test.TestResult testResult = (YellowstonePathology.Business.Test.TestResult)this.ComboBoxCTResult.SelectedItem;
+                this.m_PanelSetOrder.CTResultCode = testResult.ResultCode;
+            }
+        }
+    }
 }

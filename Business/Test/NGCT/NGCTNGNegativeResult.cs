@@ -9,8 +9,8 @@ namespace YellowstonePathology.Business.Test.NGCT
 	{
 		public NGCTNGNegativeResult()
 		{
-			this.m_ResultCode = "NGNGTV";
-			this.m_Result = "Negative";
+			this.m_ResultCode = NGCTResult.NGNegativeResultCode;
+			this.m_Result = NGCTResult.NegativeResult;
 		}
 	}
 }
