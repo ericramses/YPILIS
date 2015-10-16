@@ -322,17 +322,44 @@ namespace YellowstonePathology.UI
             string printer = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.ContainerLabelPrinter;
             System.Printing.PrintQueue printQueue = printServer.GetPrintQueue(printer);
 
-            YellowstonePathology.UI.Login.SerumLabel label = new Login.SerumLabel("Serum", "84165-26");            
-            //YellowstonePathology.UI.Login.FormalinAddedLabel label = new Login.FormalinAddedLabel();
-            //YellowstonePathology.UI.Login.IFELabel label = new Login.IFELabel();
+            YellowstonePathology.UI.Login.SerumLabel label = new Login.SerumLabel("Serum", "84165-26");                        
 
             System.Windows.Controls.PrintDialog printDialog = new System.Windows.Controls.PrintDialog();
             printDialog.PrintTicket.CopyCount = 100;
             printDialog.PrintTicket.PageMediaSize = new PageMediaSize(384, 96);
             printDialog.PrintQueue = printQueue;
 
-            printDialog.PrintDocument(label.DocumentPaginator, "Labels");
-            //printDialog.PrintDocument(formalinAddedLabel.DocumentPaginator, "Formalin Added Labels");     
+            printDialog.PrintDocument(label.DocumentPaginator, "Labels");            
+        }
+
+        private void ButtonFormalinAddedLabels_Click(object sender, RoutedEventArgs e)
+        {
+            System.Printing.PrintServer printServer = new System.Printing.LocalPrintServer();
+            string printer = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.ContainerLabelPrinter;
+            System.Printing.PrintQueue printQueue = printServer.GetPrintQueue(printer);
+            
+            YellowstonePathology.UI.Login.FormalinAddedLabel label = new Login.FormalinAddedLabel();
+            System.Windows.Controls.PrintDialog printDialog = new System.Windows.Controls.PrintDialog();
+            printDialog.PrintTicket.CopyCount = 100;
+            printDialog.PrintTicket.PageMediaSize = new PageMediaSize(384, 96);
+            printDialog.PrintQueue = printQueue;
+
+            printDialog.PrintDocument(label.DocumentPaginator, "Labels");            
+        }
+
+        private void ButtonIFLabels_Click(object sender, RoutedEventArgs e)
+        {
+            System.Printing.PrintServer printServer = new System.Printing.LocalPrintServer();
+            string printer = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.ContainerLabelPrinter;
+            System.Printing.PrintQueue printQueue = printServer.GetPrintQueue(printer);
+
+            YellowstonePathology.UI.Login.IFELabel label = new Login.IFELabel();
+            System.Windows.Controls.PrintDialog printDialog = new System.Windows.Controls.PrintDialog();
+            printDialog.PrintTicket.CopyCount = 100;
+            printDialog.PrintTicket.PageMediaSize = new PageMediaSize(384, 96);
+            printDialog.PrintQueue = printQueue;
+
+            printDialog.PrintDocument(label.DocumentPaginator, "Labels");            
         }
 
         private void ButtonUrineLabels_Click(object sender, RoutedEventArgs e)

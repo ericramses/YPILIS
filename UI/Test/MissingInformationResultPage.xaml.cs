@@ -23,6 +23,8 @@ namespace YellowstonePathology.UI.Test
         public delegate void NextEventHandler(object sender, EventArgs e);
         public event NextEventHandler Next;
 
+        public event EventHandler ShowICDEntry;
+
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;        
@@ -212,6 +214,14 @@ namespace YellowstonePathology.UI.Test
             this.m_MissingInformtionTestOrder.TimeOfClientSystemLookup = null;
 
             this.NotifyPropertyChanged("*");
+        }
+
+        private void HyperLinkShowICDEntryPage_Click(object sender, RoutedEventArgs e)
+        {
+            if(this.ShowICDEntry != null)
+            {
+                this.ShowICDEntry(this, new EventArgs());
+            }
         }
     }
 }

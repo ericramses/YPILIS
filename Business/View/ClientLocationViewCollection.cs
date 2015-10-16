@@ -45,10 +45,7 @@ namespace YellowstonePathology.Business.View
             this.Add(westParkHospital);
 
             YellowstonePathology.Business.View.ClientLocationView billingsObgyn = new Business.View.ClientLocationView(54, 8, "Billings OB/GYN Associates", "Medical Records");
-            this.Add(billingsObgyn);
-
-            YellowstonePathology.Business.View.ClientLocationView svhRadiology = new Business.View.ClientLocationView(558, 699, "St. Vincent Radiology", "Radiology");
-            this.Add(svhRadiology);
+            this.Add(billingsObgyn);            
 
             YellowstonePathology.Business.View.ClientLocationView yellowstoneBreastCenter = new Business.View.ClientLocationView(126, 20, "Yellowstone Breast Center", "Medical Records");
             this.Add(yellowstoneBreastCenter);
@@ -60,6 +57,12 @@ namespace YellowstonePathology.Business.View
             this.Add(buttePathology);
 
             YellowstonePathology.Business.View.ClientLocationView tallman = new Business.View.ClientLocationView(579, 223, "Tallman Dermatology", "Medical Records");
+            this.Add(tallman);
+
+            YellowstonePathology.Business.View.ClientLocationView advancedDerm = new Business.View.ClientLocationView(1260, 633, "Advanced Dermatology", "Medical Records");
+            this.Add(tallman);
+
+            YellowstonePathology.Business.View.ClientLocationView bigskyOBGYN = new Business.View.ClientLocationView(25, 4, "Big Sky OB/GYN - SVPN", "Medical Records");
             this.Add(tallman);
         }
 
