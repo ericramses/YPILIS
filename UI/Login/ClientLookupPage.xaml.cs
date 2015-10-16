@@ -29,10 +29,8 @@ namespace YellowstonePathology.UI.Login
         private string m_PageHeaderText = "Select Client";		
 
 		public ClientLookupPage()
-		{            
-			this.m_FavoriteClientCollection = new Business.View.ClientLocationViewCollection();
-			this.m_FavoriteClientCollection.AddFavorites();
-
+		{
+            this.m_FavoriteClientCollection = Business.View.ClientLocationViewCollection.GetFavorites();
 			this.m_BarcodeScanPort = YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort.Instance;
 
 			InitializeComponent();
