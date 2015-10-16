@@ -481,5 +481,13 @@ namespace YellowstonePathology.UI.Surgical
                 this.Save();
             }
         }
+
+        private void ContextMenuAddInteropativeConsultation_Click(object sender, RoutedEventArgs e)
+        {
+            //YellowstonePathology.Business.Test.Model.IntraoperativeConsultation intraoperativeConsultation = new Business.Test.Model.IntraoperativeConsultation();
+            //MenuItem menuItem = (MenuItem)sender;
+            //YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen = (YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen)menuItem.Tag;
+            //YellowstonePathology.Business.Visitor.OrderTestVisitor orderTestVisitor = new Business.Visitor.OrderTestVisitor(this.m_PathologistUI.PanelSetOrder.ReportNo, intraoperativeConsultation, null, null, false, )
+        }
     }
 }

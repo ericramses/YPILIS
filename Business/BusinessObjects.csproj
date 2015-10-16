@@ -616,6 +616,8 @@
     <Compile Include="Test\ROS1ByFISH\ROS1ByFISHNegativeWithMonosomyResult.cs" />
     <Compile Include="Test\ROS1ByFISH\ROS1ByFISHNegativeWithPolysomyResult.cs" />
     <Compile Include="Test\Surgical\IntraoperativeConsultationResult.Validation.cs" />
+    <Compile Include="Test\InformalConsult\InformalConsultTest.cs" />
+    <Compile Include="Test\InformalConsult\InformalConsultTestOrder.cs" />
     <Compile Include="Test\TechInitiatedPeripheralSmear\TechInitiatedPeripheralSmearTest.cs" />
     <Compile Include="Test\TechInitiatedPeripheralSmear\TechInitiatedPeripheralSmearTestOrder.cs" />
     <Compile Include="TrackedItemStatusEnum.cs" />
