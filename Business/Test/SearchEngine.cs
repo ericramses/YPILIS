@@ -254,6 +254,7 @@ namespace YellowstonePathology.Business.Test
         {
             this.m_Parameters.Clear();
             this.m_Parameters.Add(panelSetId);
+            this.m_Parameters.Add(DateTime.Today.AddMonths(-3));
             this.m_SearchFillEnum = YellowstonePathology.Business.Search.ReportSearchFillEnum.ByPanelSetId;
         }
 

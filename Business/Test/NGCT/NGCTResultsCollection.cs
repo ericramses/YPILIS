@@ -14,16 +14,16 @@ namespace YellowstonePathology.Business.Test.NGCT
 		public static NGCTResultCollection GetAll()
 		{
 			NGCTResultCollection result = new NGCTResultCollection();
-			result.Add(new NGCTNGNegativeResult());
-			result.Add(new NGCTNGPositiveResult());
-			result.Add(new NGCTCTNegativeResult());
-			result.Add(new NGCTCTPositiveResult());
+			result.Add(new NGCTBothNegativeResult());
+			result.Add(new NGCTBothPositiveResult());
+			result.Add(new NGCTNGPositiveCTNegativeResult());
+			result.Add(new NGCTNGNegativeCTPositiveResult());
 			result.Add(new NGCTNoResult());
 
 			return result;
 		}
 
-		public static NGCTResultCollection GetNGResultCollection()
+		/*public static NGCTResultCollection GetNGResultCollection()
 		{
 			NGCTResultCollection result = new NGCTResultCollection();
 			result.Add(new NGCTNGNegativeResult());
@@ -69,6 +69,6 @@ namespace YellowstonePathology.Business.Test.NGCT
 				}
 			}
 			return result;
-		}
+		}*/
 	}
 }

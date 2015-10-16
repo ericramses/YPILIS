@@ -46,9 +46,6 @@ namespace YellowstonePathology.Business.Test.NGCT
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceCTGC());
 
-            YellowstonePathology.Business.Test.NGCT.NGCTPanel ngctPanel = new NGCTPanel();
-            this.m_PanelCollection.Add(ngctPanel);
-
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ThinPrepFluid thinPrepFluid = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ThinPrepFluid();
             this.OrderTargetTypeCollectionRestrictions.Add(thinPrepFluid);
 		}
