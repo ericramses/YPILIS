@@ -18,7 +18,7 @@ namespace YellowstonePathology.Business.Test.NGCT
 			result.Add(new NGCTCTPositiveResult());
 			result.Add(new NGCTNGPositiveResult());
 			result.Add(new NGCTNGNegativeResult());
-            result.Add(new NGCTIndeterminateResult());
+            result.Add(new NGCTInvalidResult());
 			result.Add(new NGCTNoResult());
 
 			return result;
@@ -29,7 +29,7 @@ namespace YellowstonePathology.Business.Test.NGCT
 			NGCTResultCollection result = new NGCTResultCollection();
 			result.Add(new NGCTNGNegativeResult());
 			result.Add(new NGCTNGPositiveResult());
-            result.Add(new NGCTIndeterminateResult());
+            result.Add(new NGCTInvalidResult());
             result.Add(new NGCTNoResult());
 
 			return result;
@@ -40,7 +40,7 @@ namespace YellowstonePathology.Business.Test.NGCT
 			NGCTResultCollection result = new NGCTResultCollection();
 			result.Add(new NGCTCTNegativeResult());
 			result.Add(new NGCTCTPositiveResult());
-            result.Add(new NGCTIndeterminateResult());
+            result.Add(new NGCTInvalidResult());
             result.Add(new NGCTNoResult());
 
 			return result;
