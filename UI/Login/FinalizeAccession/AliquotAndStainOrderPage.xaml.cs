@@ -748,7 +748,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             foreach(YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder in slideOrderCollection)
             {
                 YellowstonePathology.Business.Label.Model.HistologySlidePaperLabel paperLabel = new Business.Label.Model.HistologySlidePaperLabel(slideOrder.SlideOrderId,
-                    slideOrder.ReportNo, slideOrder.Label, slideOrder.PatientLastName, slideOrder.TestAbbreviation);
+                    slideOrder.ReportNo, slideOrder.Label, slideOrder.PatientLastName, slideOrder.TestAbbreviation, slideOrder.Location);
 
                 YellowstonePathology.Business.Label.Model.HistologySlidePaperLabelPrinter printer = new Business.Label.Model.HistologySlidePaperLabelPrinter();
                 printer.Queue.Enqueue(paperLabel);

@@ -10,10 +10,25 @@ namespace YellowstonePathology.Business.Test.ALKForNSCLCByFISH
     {
         public ALKForNSCLCByFISHResultCollection()
         {
-            this.Add(new ALKForNSCLCByFISHNoResult());
-            this.Add(new ALKForNSCLCByFISHPositiveResult());
+            this.Add(new ALKForNSCLCByFISHNoResult());            
             this.Add(new ALKForNSCLCByFISHNegativeResult());
-            this.Add(new ALKForNSCLCByFISHNegativeWithGeneAmplificationResult());
+            this.Add(new ALKForNSCLCByFISHNegativeWithPolysomyResult());
+            this.Add(new ALKForNSCLCByFISHNegativeWithMonosomyResult());
+            this.Add(new ALKForNSCLCByFISHPositiveResult());
+        }
+
+        public ALKForNSCLCByFISHResult GetByResultCode(string resultCode)
+        {
+            ALKForNSCLCByFISHResult result = null;
+            foreach(ALKForNSCLCByFISHResult alkForNSCLCByFISHResult in this)
+            {
+                if (alkForNSCLCByFISHResult.ResultCode == resultCode)
+                {
+                    result = alkForNSCLCByFISHResult;
+                    break;
+                }
+            }
+            return result;
         }
     }
 }

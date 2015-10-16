@@ -13,16 +13,17 @@ namespace YellowstonePathology.Business.Label.Model
         private string m_SlideNumber;
         private string m_PatientLastName;
         private string m_TestAbbreviation;
-        private string m_FacilityLocationAbbreviation = "YPII-Blgs";
+        private string m_FacilityLocationAbbreviation;
 		private YellowstonePathology.Business.BarcodeScanning.BarcodeVersion2 m_Barcode;
 
-        public HistologySlideLabel(string slideOrderId, string reportNo, string slideNumber, string patientLastName, string testAbbreviation)
+        public HistologySlideLabel(string slideOrderId, string reportNo, string slideNumber, string patientLastName, string testAbbreviation, string facilityLocationAbbreviation)
         {
             this.m_SlideOrderId = slideOrderId;
             this.m_ReportNo = reportNo;
             this.m_SlideNumber = slideNumber;
             this.m_PatientLastName = patientLastName;
             this.m_TestAbbreviation = testAbbreviation;
+            this.m_FacilityLocationAbbreviation = facilityLocationAbbreviation;
 			this.m_Barcode = new YellowstonePathology.Business.BarcodeScanning.BarcodeVersion2(Business.BarcodeScanning.BarcodePrefixEnum.HSLD, this.m_SlideOrderId);            
         }
 
