@@ -9,9 +9,11 @@ namespace YellowstonePathology.Business.Test.NGCT
 	{
 		public NGCTNoResult()
 		{
-			this.m_ResultCode = null;
-			this.m_Result = null;
-			this.m_Method = null;
+            this.m_NGResultCode = null;
+            this.m_NeisseriaGonorrhoeaeResult = null;
+            this.m_CTResultCode = null;
+            this.m_ChlamydiaTrachomatisResult = null;
+            this.m_Method = null;
 			this.m_References = null;
 			this.m_TestDevelopment = null;
 		}

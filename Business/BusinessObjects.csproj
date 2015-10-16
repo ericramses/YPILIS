@@ -478,6 +478,10 @@
     <Compile Include="Test\HPVTWI\HPVTWIInvalidResult.cs" />
     <Compile Include="Test\MissingInformation\MissingInformationTest.cs" />
     <Compile Include="Test\MissingInformation\MissingInformationTestOrder.cs" />
+    <Compile Include="Test\NGCT\NGCTBothNegativeResult.cs" />
+    <Compile Include="Test\NGCT\NGCTBothPositiveResult.cs" />
+    <Compile Include="Test\NGCT\NGCTNGNegativeCTPositiveResult.cs" />
+    <Compile Include="Test\NGCT\NGCTNGPositiveCTNegativeResult.cs" />
     <Compile Include="Test\PantherAliquotList.cs" />
     <Compile Include="Test\PantherOrderList.cs" />
     <Compile Include="Persistence\BooleanPropertyBridge.cs" />

@@ -31,6 +31,9 @@ namespace YellowstonePathology.Business.Test.NGCT
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 			: base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute, systemIdentity)
 		{
+            this.m_Method = NGCTResult.Method;
+            this.m_References = NGCTResult.References;
+            this.m_TestDevelopment = NGCTResult.TestDevelopment;
             this.m_TechnicalComponentInstrumentId = Instrument.HOLOGICPANTHERID;
         }		
 
@@ -53,7 +56,7 @@ namespace YellowstonePathology.Business.Test.NGCT
 			return result;
 		}
 
-		public void OrderRetest(Business.User.SystemUser systemUser)
+		/*public void OrderRetest(Business.User.SystemUser systemUser)
 		{			
             string panelOrderId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
             NGCTConfirmatoryPanel ngctConfirmatoryPanel = new NGCTConfirmatoryPanel();
@@ -66,7 +69,7 @@ namespace YellowstonePathology.Business.Test.NGCT
             this.DelayedBy = systemUser.DisplayName;
 			this.DelayedDate = DateTime.Now;
 			this.ExpectedFinalTime = YellowstonePathology.Business.Helper.DateTimeExtensions.GetEndDateConsideringWeekends(this.m_ExpectedFinalTime.Value, timeSpanDelay);
-		}
+		}*/
 
 		public override string GetResultWithTestName()
 		{
@@ -97,7 +100,7 @@ namespace YellowstonePathology.Business.Test.NGCT
 				result.Success = false;
 				result.Message = "Results may not be set because the results already have been accepted.";
 			}
-			else if (string.IsNullOrEmpty(this.m_NGResultCode) == true)
+			/*else if (string.IsNullOrEmpty(this.m_NGResultCode) == true)
 			{
 				result.Success = false;
 				result.Message = "The NG Result must be selected before the results can be set.";
@@ -106,7 +109,7 @@ namespace YellowstonePathology.Business.Test.NGCT
 			{
 				result.Success = false;
 				result.Message = "The CT Result must be selected before the results can be set.";
-			}
+			}*/
 			return result;
 		}
 
