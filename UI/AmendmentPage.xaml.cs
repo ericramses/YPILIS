@@ -112,15 +112,6 @@ namespace YellowstonePathology.UI
             }
         }
 
-        public void ComboBoxAmendmentUsers_SelectionChanged(object sender, RoutedEventArgs args)
-        {
-            if (this.m_Amendment != null && this.comboBoxAmendmentUsers.SelectedItem != null)
-            {
-                YellowstonePathology.Business.User.SystemUser systemUserItem = (YellowstonePathology.Business.User.SystemUser)this.comboBoxAmendmentUsers.SelectedItem;
-                this.m_Amendment.PathologistSignature = systemUserItem.Signature;
-            }
-        }
-
         private void CheckSpelling()
         {
             YellowstonePathology.Business.Common.SpellChecker spellCheck = new YellowstonePathology.Business.Common.SpellChecker();
@@ -141,40 +132,59 @@ namespace YellowstonePathology.UI
 
         private void HyperLinkSet_Click(object sender, RoutedEventArgs e)
         {
-
+            MessageBox.Show("Set is currently not implemented.", "Not working just yet", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void HyperLinkAccept_Click(object sender, RoutedEventArgs e)
         {
-
+            YellowstonePathology.Business.Rules.MethodResult methodResult = this.m_Amendment.IsOkToAccept();
+            if (methodResult.Success == true)
+            {
+                this.m_Amendment.Accept(this.m_SystemIdentity.User);
+            }
+            else
+            {
+                MessageBox.Show(methodResult.Message);
+            }
         }
 
         private void HyperLinkFinalize_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Rules.ExecutionStatus executionStatus = new YellowstonePathology.Business.Rules.ExecutionStatus();
-            YellowstonePathology.Business.Rules.Amendment.FinalAmendment finalAmendment = new YellowstonePathology.Business.Rules.Amendment.FinalAmendment();
-            finalAmendment.Execute(this.m_Amendment, executionStatus, this.m_SystemIdentity);
-            if (executionStatus.Halted)
+            YellowstonePathology.Business.Test.OkToFinalizeResult okToFinalizeResult = this.m_Amendment.IsOkToFinalize();
+            if (okToFinalizeResult.OK == true)
             {
-                YellowstonePathology.Business.Rules.RuleExecutionStatus ruleExecutionStatus = new YellowstonePathology.Business.Rules.RuleExecutionStatus();
-                ruleExecutionStatus.PopulateFromLinqExecutionStatus(executionStatus);
-                RuleExecutionStatusDialog dialog = new RuleExecutionStatusDialog(ruleExecutionStatus);
-                dialog.ShowDialog();
-                return;
+                this.m_Amendment.Finalize(this.m_SystemIdentity);
             }
-            NotifyPropertyChanged("Amendment");
+            else
+            {
+                MessageBox.Show(okToFinalizeResult.Message);
+            }
         }
 
         private void HyperLinkUnaccept_Click(object sender, RoutedEventArgs e)
         {
-
+            YellowstonePathology.Business.Rules.MethodResult methodResult = this.m_Amendment.IsOkToUnaccept();
+            if(methodResult.Success == true)
+            {
+                this.m_Amendment.Unaccept();
+            }
+            else
+            {
+                MessageBox.Show(methodResult.Message);
+            }
         }
 
         private void HyperLinkUnfinalize_Click(object sender, RoutedEventArgs e)
         {
-            if(this.m_Amendment.Final == true)
+            YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_Amendment.ReportNo);
+            YellowstonePathology.Business.Test.OkToUnfinalizeResult okToUnfinalizeResult = this.m_Amendment.IsOkToUnfinalize(panelSetOrder);
+            if (okToUnfinalizeResult.OK == true)
             {
                 this.m_Amendment.Unfinalize();
+            }
+            else
+            {
+                MessageBox.Show(okToUnfinalizeResult.Message);
             }
         }
     }

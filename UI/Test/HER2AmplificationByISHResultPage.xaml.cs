@@ -184,7 +184,6 @@ namespace YellowstonePathology.UI.Test
                         amendment.TestResultAmendmentFill(surgicalPanelSetOrder.ReportNo, surgicalPanelSetOrder.AssignedToId, amendmentText);
                         amendment.UserId = surgicalPanelSetOrder.AssignedToId;
                         amendment.ReferenceReportNo = this.m_PanelSetOrder.ReportNo;
-                        amendment.PathologistSignature = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetSystemUserById(surgicalPanelSetOrder.AssignedToId).Signature;
                     }
                 }
             }                

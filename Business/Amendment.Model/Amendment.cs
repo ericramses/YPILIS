@@ -40,8 +40,13 @@ namespace YellowstonePathology.Business.Amendment.Model
 		private string m_AmendmentType;
 		private string m_PathologistSignature;
 		private string m_ReferenceReportNo;
+        private int m_AcceptedById;
+        private bool m_Accepted;
+        private Nullable<DateTime> m_AcceptedDate;
+        private Nullable<DateTime> m_AcceptedTime;
+        private string m_AcceptedBy;
 
-		public Amendment()
+        public Amendment()
         {
 
 		}
@@ -410,6 +415,108 @@ namespace YellowstonePathology.Business.Amendment.Model
 			}
 		}
 
+        [PersistentProperty()]
+        public int AcceptedById
+        {
+            get { return this.m_AcceptedById; }
+            set
+            {
+                if (this.m_AcceptedById != value)
+                {
+                    this.m_AcceptedById = value;
+                    this.NotifyPropertyChanged("AcceptedById");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public bool Accepted
+        {
+            get { return this.m_Accepted; }
+            set
+            {
+                if (this.m_Accepted != value)
+                {
+                    this.m_Accepted = value;
+                    this.NotifyPropertyChanged("Accepted");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public Nullable<DateTime> AcceptedDate
+		{
+			get { return this.m_AcceptedDate; }
+            set
+			{
+				if (this.m_AcceptedDate != value)
+                {
+                    this.m_AcceptedDate = value;
+                    this.NotifyPropertyChanged("AcceptedDate");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public Nullable<DateTime> AcceptedTime
+		{
+			get { return this.m_AcceptedTime; }
+            set
+			{
+				if (this.m_AcceptedTime != value)
+                {
+                    this.m_AcceptedTime = value;
+                    this.NotifyPropertyChanged("AcceptedTime");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string AcceptedBy
+        {
+            get { return this.m_AcceptedBy; }
+            set
+            {
+                if (this.m_AcceptedBy != value)
+                {
+                    this.m_AcceptedBy = value;
+                    this.NotifyPropertyChanged("AcceptedBy");
+                }
+            }
+        }
+
+        public virtual YellowstonePathology.Business.Rules.MethodResult IsOkToAccept()
+        {
+            YellowstonePathology.Business.Rules.MethodResult result = new Rules.MethodResult();
+            if (this.Accepted == true)
+            {
+                result.Success = false;
+                result.Message = "The amendment cannot be accepted because it is already accepted.";
+            }
+            else if (this.m_Text.Contains("???"))
+            {
+                result.Success = false;
+                result.Message = "The amendment cannot be finalized because the text contains ???.";
+            }
+            return result;
+        }
+
+        public virtual YellowstonePathology.Business.Rules.MethodResult IsOkToUnaccept()
+        {
+            YellowstonePathology.Business.Rules.MethodResult result = new Rules.MethodResult();
+            if (this.Final == true)
+            {
+                result.Success = false;
+                result.Message = "The amendment cannot be unaccepted because the amendment is final.";
+            }
+            else if (this.Accepted == false)
+            {
+                result.Success = false;
+                result.Message = "The amendment cannot be unaccepted because it has not accepted.";
+            }
+            return result;
+        }
+
         public YellowstonePathology.Business.Test.OkToUnfinalizeResult IsOkToUnfinalize(YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder)
         {
             YellowstonePathology.Business.Test.OkToUnfinalizeResult result = new Test.OkToUnfinalizeResult();
@@ -418,9 +525,9 @@ namespace YellowstonePathology.Business.Amendment.Model
             if (this.Final == false)
             {
                 result.OK = false;
-                result.Message = "Cannot unfinalize this amendment because it's not final.";
+                result.Message = "Cannot unfinalize this amendment because it is not final.";
             }
-            if (panelSetOrder.TestOrderReportDistributionCollection.HasDistributedItemsAfter(this.FinalTime.Value) == true)
+            else if (panelSetOrder.TestOrderReportDistributionCollection.HasDistributedItemsAfter(this.FinalTime.Value) == true)
             {
                 result.OK = false;
                 result.ShowWarningMessage = true;
@@ -434,12 +541,17 @@ namespace YellowstonePathology.Business.Amendment.Model
             YellowstonePathology.Business.Test.OkToFinalizeResult okToFinalizeResult = new Test.OkToFinalizeResult();
             okToFinalizeResult.OK = true;
 
-            if (this.m_Text.Contains("???"))
+            if (this.Accepted == false)
+            {
+                okToFinalizeResult.OK = false;
+                okToFinalizeResult.Message = "The amendment cannot be finalized because it has not been accepted.";
+            }
+            else if (this.m_Text.Contains("???"))
             {
                 okToFinalizeResult.OK = false;
                 okToFinalizeResult.Message = "The amendment cannot be finalized because the text contains ???.";                
             }
-            if (this.m_Final == true)
+            else if (this.m_Final == true)
             {
                 okToFinalizeResult.OK = false;
                 okToFinalizeResult.Message = "The amendment is already final.";                
@@ -447,7 +559,27 @@ namespace YellowstonePathology.Business.Amendment.Model
             return okToFinalizeResult;
         }
 
-		public void Finalize(YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        public void Accept(Business.User.SystemUser systemUser)
+        {
+            this.m_Accepted = true;
+            this.m_AcceptedById = systemUser.UserId;
+            this.m_AcceptedBy = systemUser.DisplayName;
+            this.m_AcceptedDate = DateTime.Today;
+            this.m_AcceptedTime = DateTime.Now;
+            this.NotifyPropertyChanged(string.Empty);
+        }
+
+        public void Unaccept()
+        {
+            this.m_Accepted = false;
+            this.m_AcceptedById = 0;
+            this.m_AcceptedBy = null;
+            this.m_AcceptedDate = null;
+            this.m_AcceptedTime = null;
+            this.NotifyPropertyChanged(string.Empty);
+        }
+
+        public void Finalize(YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {            
             this.m_PathologistSignature = systemIdentity.User.Signature;            
             this.m_UserId = systemIdentity.User.UserId;

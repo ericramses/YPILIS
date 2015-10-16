@@ -76,27 +76,21 @@
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="*"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
                 </Grid.RowDefinitions>
 
-                <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" VerticalAlignment="Center" FontWeight="Bold">Reference Report No:</TextBlock>
-                <TextBlock Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" VerticalAlignment="Center" Text="{Binding Path=Amendment.ReferenceReportNo}"/>
+                <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" VerticalAlignment="Center" FontWeight="Bold">Report No:</TextBlock>
+                <TextBlock Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" VerticalAlignment="Center" Text="{Binding Path=Amendment.ReportNo}"/>
 
-                <TextBlock Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" VerticalAlignment="Center" FontWeight="Bold">Amendment Type:</TextBlock>
-                <ComboBox Grid.Column="1" Grid.Row="1" Margin="2,2,2,2" Text="{Binding Path=Amendment.AmendmentType}" HorizontalAlignment="Stretch">
+                <TextBlock Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" VerticalAlignment="Center" FontWeight="Bold">Reference Report No:</TextBlock>
+                <TextBlock Grid.Column="1" Grid.Row="1" Margin="2,2,2,2" VerticalAlignment="Center" Text="{Binding Path=Amendment.ReferenceReportNo}"/>
+
+                <TextBlock Grid.Column="0" Grid.Row="2" Margin="2,2,2,2" VerticalAlignment="Center" FontWeight="Bold">Amendment Type:</TextBlock>
+                <ComboBox Grid.Column="1" Grid.Row="2" Margin="2,2,2,2" Text="{Binding Path=Amendment.AmendmentType}" HorizontalAlignment="Stretch">
                     <ComboBoxItem>Addendum</ComboBoxItem>
                     <ComboBoxItem>Correction</ComboBoxItem>
-                </ComboBox>
-
-                <TextBlock Grid.Column="0" Grid.Row="2" Margin="2,2,2,2" VerticalAlignment="Center" FontWeight="Bold">Amended By:</TextBlock>
-                <ComboBox Grid.Column="1" Grid.Row="2" Margin="2,2,2,2" Name="comboBoxAmendmentUsers" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
-                          ItemsSource="{Binding Path=AmendmentSigners}"
-						  DisplayMemberPath="DisplayName"
-						  SelectedValuePath="UserId"
-						  SelectedValue="{Binding Path=Amendment.UserId}"
-						  SelectionChanged="ComboBoxAmendmentUsers_SelectionChanged">
                 </ComboBox>
 
                 <TextBlock Grid.Column="0" Grid.Row="3" Margin="2,2,2,2" FontWeight="Bold">Require Pathologist Signature:</TextBlock>
@@ -108,11 +102,11 @@
                 <TextBlock Grid.Column="0" Grid.Row="5" Margin="2,2,2,2" FontWeight="Bold">Revised Diagnosis:</TextBlock>
                 <CheckBox Grid.Column="1" Grid.Row="5" IsChecked="{Binding Path=Amendment.RevisedDiagnosis}" Margin="2,2,2,2"/>
 
-                <TextBlock Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" Margin="2,2,2,0" HorizontalAlignment="Center" FontWeight="Bold">Amendment</TextBlock>
-                <TextBox Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2" Margin="2,0,2,2" Text="{Binding Path=Amendment.Text}" TextWrapping="Wrap" AcceptsReturn="True"></TextBox>
+                <TextBlock Grid.Column="0" Grid.Row="6" Margin="2,2,2,2" FontWeight="Bold">Distribute On Final:</TextBlock>
+                <CheckBox Grid.Column="1" Grid.Row="6" Margin="2,2,2,2" IsChecked="{Binding Path=Amendment.DistributeOnFinal}"></CheckBox>
 
-                <TextBlock Grid.Column="0" Grid.Row="8" Margin="2,2,2,2" FontWeight="Bold">Distribute On Final:</TextBlock>
-                <CheckBox Grid.Column="1" Grid.Row="8" Margin="2,2,2,2" IsChecked="{Binding Path=Amendment.DistributeOnFinal}"></CheckBox>
+                <TextBlock Grid.Column="0" Grid.Row="7" Margin="2,2,2,0" FontWeight="Bold">Amendment:</TextBlock>
+                <TextBox Grid.Column="0" Grid.Row="8" Grid.ColumnSpan="2" Margin="2,0,2,2" Text="{Binding Path=Amendment.Text}" TextWrapping="Wrap" AcceptsReturn="True"></TextBox>
 
                 <Grid Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="2">
                     <Grid.ColumnDefinitions>
@@ -132,7 +126,7 @@
                     <CheckBox Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" IsChecked="{Binding Path=Amendment.Accepted}" IsEnabled="False"></CheckBox>
 
                     <TextBlock Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" FontWeight="Bold">Date Accepted:</TextBlock>
-                    <TextBox Grid.Column="1" Grid.Row="1" Margin="2,2,2,2" Text="{Binding Path=Amendment.AcceptedTime}" IsEnabled="False"></TextBox>
+                    <TextBox Grid.Column="1" Grid.Row="1" Margin="2,2,2,2" Text="{Binding Path=Amendment.AcceptedTime, Converter={StaticResource MilitaryDateTimeConverterV2}}" IsEnabled="False"></TextBox>
 
                     <TextBlock Grid.Column="0" Grid.Row="2" Margin="2,2,2,2" FontWeight="Bold">Accepted By:</TextBlock>
                     <TextBox Grid.Column="1" Grid.Row="2" Margin="2,2,2,2" Text="{Binding Path=Amendment.AcceptedBy}" IsEnabled="False"></TextBox>
@@ -141,7 +135,7 @@
                     <CheckBox Grid.Column="3" Grid.Row="0" Margin="2,2,2,2" IsChecked="{Binding Path=Amendment.Final}" IsEnabled="False"></CheckBox>
 
                     <TextBlock Grid.Column="2" Grid.Row="1" Margin="2,2,2,2" FontWeight="Bold">Date Finaled:</TextBlock>
-                    <TextBox Grid.Column="3" Grid.Row="1" Margin="2,2,2,2" Text="{Binding Path=Amendment.FinalTime}" IsEnabled="False"></TextBox>
+                    <TextBox Grid.Column="3" Grid.Row="1" Margin="2,2,2,2" Text="{Binding Path=Amendment.FinalTime, Converter={StaticResource MilitaryDateTimeConverterV2}}" IsEnabled="False"></TextBox>
 
                     <TextBlock Grid.Column="2" Grid.Row="2" Margin="2,2,2,2" FontWeight="Bold">Finaled By:</TextBlock>
                     <TextBox Grid.Column="3" Grid.Row="2" Margin="2,2,2,2" Text="{Binding Path=Amendment.PathologistSignature}" IsEnabled="False"></TextBox>
