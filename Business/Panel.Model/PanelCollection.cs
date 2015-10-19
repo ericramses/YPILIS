@@ -40,9 +40,6 @@ namespace YellowstonePathology.Business.Panel.Model
             result.Add(new YellowstonePathology.Business.Test.ErPrSemiQuantitative.ERPRSemiQuantitativePanel());
             result.Add(new YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHPanel());
 
-            result.Add(new YellowstonePathology.Business.Test.NGCT.NGCTPanel());
-            result.Add(new YellowstonePathology.Business.Test.NGCT.NGCTConfirmatoryPanel());
-
             result.Add(new YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapAcidWashPanel());
             result.Add(new YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapDotReviewPanel());
             result.Add(new YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapQCPanel());
