@@ -85,11 +85,11 @@
 
                     <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" VerticalAlignment="Center" FontSize="20" FontWeight="Bold">NG Result:</TextBlock>
                     <ComboBox Name="ComboBoxNGResult" Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" ItemsSource="{Binding Path=NGResultCollection}" DisplayMemberPath="Result" 
-							  SelectedValue="{Binding Path=PanelSetOrder.NeisseriaGonorrhoeaeResult}" SelectedValuePath="Result" HorizontalAlignment="Stretch" SelectionChanged="ComboBoxNGResult_SelectionChanged"/>
+							  SelectedValue="{Binding Path=PanelSetOrder.NeisseriaGonorrhoeaeResult}" SelectedValuePath="Result" HorizontalAlignment="Stretch"/>
 
                     <TextBlock Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" VerticalAlignment="Center" FontSize="20" FontWeight="Bold">CT Result:</TextBlock>
                     <ComboBox Name="ComboBoxCTResult" Grid.Column="1" Grid.Row="1" Margin="2,2,2,2" ItemsSource="{Binding Path=CTResultCollection}" DisplayMemberPath="Result" 
-							  SelectedValue="{Binding Path=PanelSetOrder.ChlamydiaTrachomatisResult}" SelectedValuePath="Result" HorizontalAlignment="Stretch" SelectionChanged="ComboBoxCTResult_SelectionChanged"/>
+							  SelectedValue="{Binding Path=PanelSetOrder.ChlamydiaTrachomatisResult}" SelectedValuePath="Result" HorizontalAlignment="Stretch"/>
 
                     <TextBlock Grid.Column="0" Grid.Row="2" Margin="2,2,2,2" VerticalAlignment="Center" FontWeight="Bold" HorizontalAlignment="Left">Comment:</TextBlock>
 					<TextBox Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Margin="2,2,2,2" TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding Path=PanelSetOrder.Comment}" />

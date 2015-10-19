@@ -51,10 +51,23 @@ namespace YellowstonePathology.UI.Test
 			InitializeComponent();
 
 			DataContext = this;
-
+            Loaded += NGCTResultPage_Loaded;
+            Unloaded += NGCTResultPage_Unloaded;
 		}
 
-		public YellowstonePathology.Business.Test.NGCT.NGCTTestOrder PanelSetOrder
+        private void NGCTResultPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            this.ComboBoxNGResult.SelectionChanged += this.ComboBoxNGResult_SelectionChanged;
+            this.ComboBoxCTResult.SelectionChanged += this.ComboBoxCTResult_SelectionChanged;
+        }
+
+        private void NGCTResultPage_Unloaded(object sender, RoutedEventArgs e)
+        {
+            this.ComboBoxNGResult.SelectionChanged -= this.ComboBoxNGResult_SelectionChanged;
+            this.ComboBoxCTResult.SelectionChanged -= this.ComboBoxCTResult_SelectionChanged;
+        }
+
+        public YellowstonePathology.Business.Test.NGCT.NGCTTestOrder PanelSetOrder
 		{
 			get { return this.m_PanelSetOrder; }
 		}
