@@ -543,8 +543,8 @@ namespace YellowstonePathology.Business.Amendment.Model
 
             if (this.Accepted == false)
             {
-                okToFinalizeResult.OK = false;
-                okToFinalizeResult.Message = "The amendment cannot be finalized because it has not been accepted.";
+                //okToFinalizeResult.OK = false;
+                //okToFinalizeResult.Message = "The amendment cannot be finalized because it has not been accepted.";
             }
             else if (this.m_Text.Contains("???"))
             {
