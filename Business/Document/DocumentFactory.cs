@@ -275,6 +275,7 @@ namespace YellowstonePathology.Business.Document
                     case 197:
                     case 201:
                     case 208:
+                    case 211:
                     case 212:                    
                     case 214:                    
                         document = new YellowstonePathology.Business.Document.NothingToPublishReport();
