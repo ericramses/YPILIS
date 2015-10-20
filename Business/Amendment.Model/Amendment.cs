@@ -496,7 +496,7 @@ namespace YellowstonePathology.Business.Amendment.Model
             else if (this.m_Text.Contains("???"))
             {
                 result.Success = false;
-                result.Message = "The amendment cannot be finalized because the text contains ???.";
+                result.Message = "The amendment cannot be accepted because the text contains ???.";
             }
             return result;
         }
@@ -541,12 +541,7 @@ namespace YellowstonePathology.Business.Amendment.Model
             YellowstonePathology.Business.Test.OkToFinalizeResult okToFinalizeResult = new Test.OkToFinalizeResult();
             okToFinalizeResult.OK = true;
 
-            if (this.Accepted == false)
-            {
-                //okToFinalizeResult.OK = false;
-                //okToFinalizeResult.Message = "The amendment cannot be finalized because it has not been accepted.";
-            }
-            else if (this.m_Text.Contains("???"))
+            if (this.m_Text.Contains("???"))
             {
                 okToFinalizeResult.OK = false;
                 okToFinalizeResult.Message = "The amendment cannot be finalized because the text contains ???.";                
@@ -581,6 +576,11 @@ namespace YellowstonePathology.Business.Amendment.Model
 
         public void Finalize(YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {            
+            if(this.Accepted == false)
+            {
+                this.Accept(systemIdentity.User);
+            }
+
             this.m_PathologistSignature = systemIdentity.User.Signature;            
             this.m_UserId = systemIdentity.User.UserId;
             this.m_Final = true;

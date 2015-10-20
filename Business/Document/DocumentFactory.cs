@@ -277,7 +277,6 @@ namespace YellowstonePathology.Business.Document
                     case 208:
                     case 211:
                     case 212:                    
-                    case 214:                    
                         document = new YellowstonePathology.Business.Document.NothingToPublishReport();
                         break;
                     case 203:
@@ -285,6 +284,9 @@ namespace YellowstonePathology.Business.Document
                         break;
                     case 204:
                         document = new YellowstonePathology.Business.Test.ROS1ByFISH.ROS1ByFISHWordDocument();
+                        break;
+                    case 214:
+                        document = new YellowstonePathology.Business.Test.TechInitiatedPeripheralSmear.TechInitiatedPeripheralSmearWordDocument();
                         break;
 					default:
 						break;

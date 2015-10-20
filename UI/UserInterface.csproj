@@ -824,6 +824,10 @@
     <Compile Include="Test\TCellClonalityByPCRResultPath.cs" />
     <Compile Include="Test\TecanSamplePlacementQueue.cs" />
     <Compile Include="Test\TecanSample.cs" />
+    <Compile Include="Test\TechInitiatedPeripheralSmearResultPage.xaml.cs">
+      <DependentUpon>TechInitiatedPeripheralSmearResultPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Test\TechInitiatedPeripheralSmearResultPath.cs" />
     <Compile Include="Test\WomensHealthProfilePage.xaml.cs">
       <DependentUpon>WomensHealthProfilePage.xaml</DependentUpon>
     </Compile>
@@ -2440,6 +2444,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Test\TCellClonalityByPCRResultPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Test\TechInitiatedPeripheralSmearResultPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

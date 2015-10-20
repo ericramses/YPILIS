@@ -15,15 +15,15 @@ namespace YellowstonePathology.Business.Test.TechInitiatedPeripheralSmear
             this.m_CaseType = YellowstonePathology.Business.CaseType.Technical;
 			this.m_HasTechnicalComponent = true;			
 			this.m_HasProfessionalComponent = false;
-			this.m_ResultDocumentSource = YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.None;
+			this.m_ResultDocumentSource = YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.YPIDatabase;
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterT();
             this.m_Active = true;            
 			                    
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.TechInitiatedPeripheralSmear.TechInitiatedPeripheralSmearTestOrder).AssemblyQualifiedName;
 			this.m_AllowMultiplePerAccession = true;
-            this.m_NeverDistribute = true;            
+            this.m_NeverDistribute = false;            
 			this.m_AcceptOnFinal = true;
-            this.m_HasNoOrderTarget = true;
+            //this.m_HasNoOrderTarget = true;
             this.m_IsBillable = false;
 
             this.m_TechnicalComponentFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings();            
