@@ -164,9 +164,7 @@ namespace YellowstonePathology.UI.Test
 			YellowstonePathology.Business.Rules.MethodResult methodResult = this.m_PanelSetOrder.IsOkToAccept();
 			if (methodResult.Success == true)
 			{
-				YellowstonePathology.Business.Test.NGCT.NGCTResult ngctResult = new YellowstonePathology.Business.Test.NGCT.NGCTResult();
-				ngctResult.AcceptResults(this.m_PanelSetOrder, this.m_SystemIdentity.User);
-				this.NotifyPropertyChanged("");
+				this.m_PanelSetOrder.Accept(this.m_SystemIdentity.User);
 			}
 			else
 			{

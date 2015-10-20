@@ -26,7 +26,7 @@ namespace YellowstonePathology.Business.Test.HPV1618
             return result;
         }
 
-		public static HPV1618ResultCollection GetAllResults()
+		/*public static HPV1618ResultCollection GetAllResults()
         {
 			HPV1618ResultCollection result = new HPV1618ResultCollection();
             result.Add(new HPV1618NoResult());
@@ -36,6 +36,26 @@ namespace YellowstonePathology.Business.Test.HPV1618
 			result.Add(new HPV16NegativeHPV18PositiveResult());
 			result.Add(new HPV16PositiveHPV18NegativeResult());
 			return result;
-		}
-	}
+		}*/
+
+        public static HPV1618ResultCollection GetGenotype16Results()
+        {
+            HPV1618ResultCollection result = new HPV1618ResultCollection();
+            result.Add(new HPV1618NoResult());
+            result.Add(new HPV1618Genotype16NegativeResult());
+            result.Add(new HPV1618Genotype16PositiveResult());
+            result.Add(new HPV1618InvalidResult());
+            return result;
+        }
+
+        public static HPV1618ResultCollection GetGenotype18Results()
+        {
+            HPV1618ResultCollection result = new HPV1618ResultCollection();
+            result.Add(new HPV1618NoResult());
+            result.Add(new HPV1618Genotype18NegativeResult());
+            result.Add(new HPV1618Genotype18PositiveResult());
+            result.Add(new HPV1618InvalidResult());
+            return result;
+        }
+    }
 }

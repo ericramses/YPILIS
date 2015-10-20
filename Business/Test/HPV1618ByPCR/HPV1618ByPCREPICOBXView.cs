@@ -30,7 +30,7 @@ namespace YellowstonePathology.Business.Test.HPV1618ByPCR
             this.AddNextObxElement("HPV-18 Reference: Negative", document, "F");
             this.AddNextObxElement("", document, "F");
 
-            if (panelSetOrder.Indication == YellowstonePathology.Business.Test.HPV1618.HPV1618Indication.SquamousCellCarcinoma)
+            if (panelSetOrder.Indication == YellowstonePathology.Business.Test.HPV1618ByPCR.HPV1618ByPCRIndication.SquamousCellCarcinoma)
             {
                 this.AddNextObxElement("Interpretation:", document, "F");
                 this.AddNextObxElement(panelSetOrder.Interpretation, document, "F");

@@ -477,7 +477,10 @@
     <Compile Include="Test\HPV1618ByPCR\HPV1618ByPCRResultCollection.cs" />
     <Compile Include="Test\HPV1618ByPCR\HPV16NegativeHPV18PositiveResult.cs" />
     <Compile Include="Test\HPV1618ByPCR\HPV16PositiveHPV18NegativeResult.cs" />
-    <Compile Include="Test\HPV1618\HPV1618BothNegativeResult.cs" />
+    <Compile Include="Test\HPV1618\HPV1618Genotype16NegativeResult.cs" />
+    <Compile Include="Test\HPV1618\HPV1618Genotype16PositiveResult.cs" />
+    <Compile Include="Test\HPV1618\HPV1618Genotype18NegativeResult.cs" />
+    <Compile Include="Test\HPV1618\HPV1618Genotype18PositiveResult.cs" />
     <Compile Include="Test\HPVTWI\HPVTWIInvalidResult.cs" />
     <Compile Include="Test\MissingInformation\MissingInformationTest.cs" />
     <Compile Include="Test\MissingInformation\MissingInformationTestOrder.cs" />
@@ -1886,14 +1889,9 @@
     <Compile Include="Test\HighGradeLargeBCellLymphoma\HighGradeLargeBCellLymphomaPositiveResult1.cs" />
     <Compile Include="Test\HighGradeLargeBCellLymphoma\HighGradeLargeBCellLymphomaResult.cs" />
     <Compile Include="Test\HighGradeLargeBCellLymphoma\PanelSetOrderHighGradeLargeBCellLymphoma.cs" />
-    <Compile Include="Test\HPV1618\HPV1618BothPositiveResult.cs" />
-    <Compile Include="Test\HPV1618\HPV1618IndeterminateResult.cs" />
-    <Compile Include="Test\HPV1618\HPV1618Indication.cs" />
+    <Compile Include="Test\HPV1618\HPV1618InvalidResult.cs" />
     <Compile Include="Test\HPV1618\HPV1618Result.cs" />
     <Compile Include="Test\HPV1618\HPV1618ResultCollection.cs" />
-    <Compile Include="Test\HPV1618\HPV16NegativeHPV18PositiveResult.cs" />
-    <Compile Include="Test\HPV1618\HPV16PositiveHPV18NegativeResult.cs" />
-    <Compile Include="Test\HPV1618\PanelOrderHPV1618.cs" />
     <Compile Include="Test\HPV1618\PanelSetOrderHPV1618.cs" />
     <Compile Include="Test\HPVTWI\HPVTWINegativeResult.cs" />
     <Compile Include="Test\HPVTWI\HPVTWIResult.cs" />
@@ -2296,7 +2294,6 @@
     <Compile Include="Test\ThinPrepPap\ThinPrepPapQCPanel.cs" />
     <Compile Include="Test\ErPrSemiQuantitative\ERPRSemiQuanititativePanel.cs" />
     <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHPanel.cs" />
-    <Compile Include="Test\HPV1618\HPV1618Panel.cs" />
     <Compile Include="Test\HPVTWI\HPVTWIPanel.cs" />
     <Compile Include="Test\JAK2V617F\JAK2V617FPanel.cs" />
     <Compile Include="Test\KRASStandard\KRASStandardPanel.cs" />
