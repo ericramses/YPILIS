@@ -243,7 +243,7 @@ namespace YellowstonePathology.UI.Login.Receiving
             {
                 if (this.m_TestOrderInfo.PanelSet.TechnicalComponentFacility.GetType() != typeof(YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings))
                 {
-                    if (this.m_AccessionOrder.PanelSetOrderCollection.Count > 1)
+                    if (this.m_AccessionOrder.PanelSetOrderCollection.Count > 1 && this.m_AccessionOrder.PhysicianId != 0)
                     {
                         result = true;
                         AdditionalTestingEMailPage additionalTestingEMailPage = new AdditionalTestingEMailPage(this.m_TestOrderInfo.PanelSetOrder, this.m_AccessionOrder, this.m_ObjectTracker, this.m_SystemIdentity);

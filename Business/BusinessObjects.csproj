@@ -464,6 +464,7 @@
     <Compile Include="Test.Model\DispalyGroupProstate.cs" />
     <Compile Include="Test\ALKForNSCLCByFISH\ALKForNSCLCByFISHNegativeWithMonosomyResult.cs" />
     <Compile Include="Test\ALKForNSCLCByFISH\ALKForNSCLCByFISHNegativeWithPolysomyResult.cs" />
+    <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHSystemGeneratedAmendmentText.cs" />
     <Compile Include="Test\HPV1618ByPCR\HPV1618BothPositiveResult.cs" />
     <Compile Include="Test\HPV1618ByPCR\HPV1618BothNegativeResult.cs" />
     <Compile Include="Test\HPV1618ByPCR\HPV1618ByPCRTest.cs" />
