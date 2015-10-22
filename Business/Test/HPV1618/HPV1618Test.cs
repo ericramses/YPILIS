@@ -37,13 +37,7 @@ namespace YellowstonePathology.Business.Test.HPV1618
             this.m_HasSplitCPTCode = false;            
 
            YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT87625(), 1);
-            this.m_PanelSetCptCodeCollection.Add(panelSetCptCode);
-
-            string taskDescription = "Cut curls and an after H&E. Give to molecular";
-			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Histology, taskDescription));
-
-            string task2Description = "Receive materials from histology and run test.";
-			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, task2Description));
+            this.m_PanelSetCptCodeCollection.Add(panelSetCptCode);            
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceHPV1618GEN());
 		}

@@ -57,8 +57,9 @@ namespace YellowstonePathology.UI.Test
 			InitializeComponent();
 
 			DataContext = this;
-            Loaded += HPV1618ResultPage_Loaded;
-            Unloaded += HPV1618ResultPage_Unloaded;
+
+            this.Loaded += HPV1618ResultPage_Loaded;
+            this.Unloaded += HPV1618ResultPage_Unloaded;
 		}
 
         private void HPV1618ResultPage_Loaded(object sender, RoutedEventArgs e)
