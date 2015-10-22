@@ -40,26 +40,5 @@ namespace YellowstonePathology.Business.Test.NGCT
             this.m_References = NGCTResult.References; ;
 			this.m_TestDevelopment = NGCTResult.TestDevelopment;
 		}
-
-		public void SetResults(NGCTTestOrder testOrder)
-		{
-			testOrder.Method = this.m_Method;
-			testOrder.References = this.m_References;
-			testOrder.TestDevelopment = this.m_TestDevelopment;
-            testOrder.CTResultCode = this.m_CTResultCode;
-            testOrder.NGResultCode = this.m_NGResultCode;
-            testOrder.NeisseriaGonorrhoeaeResult = this.m_NeisseriaGonorrhoeaeResult;
-            testOrder.ChlamydiaTrachomatisResult = this.m_ChlamydiaTrachomatisResult;
-        }
-
-		public void AcceptResults(NGCTTestOrder testOrder, Business.User.SystemUser user)
-		{
-			foreach(YellowstonePathology.Business.Test.PanelOrder panelOrder in testOrder.PanelOrderCollection)
-			{
-				panelOrder.AcceptResults(user);
-				panelOrder.NotifyPropertyChanged("AcceptedBy");
-			}
-			testOrder.Accept(user);
-		}
 	}
 }

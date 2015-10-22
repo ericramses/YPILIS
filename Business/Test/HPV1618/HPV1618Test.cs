@@ -46,9 +46,6 @@ namespace YellowstonePathology.Business.Test.HPV1618
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, task2Description));
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceHPV1618GEN());
-
-            YellowstonePathology.Business.Test.HPV1618.HPV1618Panel hpv1618Panel = new Business.Test.HPV1618.HPV1618Panel();
-            this.m_PanelCollection.Add(hpv1618Panel);            
 		}
 	}
 }

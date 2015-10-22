@@ -205,7 +205,19 @@ namespace YellowstonePathology.UI.Surgical
                 YellowstonePathology.Business.Test.OkToFinalizeResult isOkToFinalizeResult = amendment.IsOkToFinalize();
                 if (isOkToFinalizeResult.OK == true)
                 {
-                    amendment.Finalize(this.m_SystemIdentity);                    
+                    bool canFinal = true;
+                    if (isOkToFinalizeResult.ShowWarningMessage == true)
+                    {
+                        MessageBoxResult messageBoxResult = MessageBox.Show(isOkToFinalizeResult.Message, "Issue with the amendment", MessageBoxButton.YesNo, MessageBoxImage.Exclamation, MessageBoxResult.No);
+                        if (messageBoxResult == MessageBoxResult.No)
+                        {
+                            canFinal = false;
+                        }
+                    }
+                    if(canFinal == true)
+                    {
+                        amendment.Finalize(this.m_SystemIdentity);                    
+                    }
                 }
                 else
                 {

@@ -51,10 +51,23 @@ namespace YellowstonePathology.UI.Test
 			InitializeComponent();
 
 			DataContext = this;
-
+            Loaded += NGCTResultPage_Loaded;
+            Unloaded += NGCTResultPage_Unloaded;
 		}
 
-		public YellowstonePathology.Business.Test.NGCT.NGCTTestOrder PanelSetOrder
+        private void NGCTResultPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            this.ComboBoxNGResult.SelectionChanged += this.ComboBoxNGResult_SelectionChanged;
+            this.ComboBoxCTResult.SelectionChanged += this.ComboBoxCTResult_SelectionChanged;
+        }
+
+        private void NGCTResultPage_Unloaded(object sender, RoutedEventArgs e)
+        {
+            this.ComboBoxNGResult.SelectionChanged -= this.ComboBoxNGResult_SelectionChanged;
+            this.ComboBoxCTResult.SelectionChanged -= this.ComboBoxCTResult_SelectionChanged;
+        }
+
+        public YellowstonePathology.Business.Test.NGCT.NGCTTestOrder PanelSetOrder
 		{
 			get { return this.m_PanelSetOrder; }
 		}
@@ -151,9 +164,7 @@ namespace YellowstonePathology.UI.Test
 			YellowstonePathology.Business.Rules.MethodResult methodResult = this.m_PanelSetOrder.IsOkToAccept();
 			if (methodResult.Success == true)
 			{
-				YellowstonePathology.Business.Test.NGCT.NGCTResult ngctResult = new YellowstonePathology.Business.Test.NGCT.NGCTResult();
-				ngctResult.AcceptResults(this.m_PanelSetOrder, this.m_SystemIdentity.User);
-				this.NotifyPropertyChanged("");
+				this.m_PanelSetOrder.Accept(this.m_SystemIdentity.User);
 			}
 			else
 			{

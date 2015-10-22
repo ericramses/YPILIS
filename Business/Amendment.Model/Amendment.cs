@@ -45,6 +45,7 @@ namespace YellowstonePathology.Business.Amendment.Model
         private Nullable<DateTime> m_AcceptedDate;
         private Nullable<DateTime> m_AcceptedTime;
         private string m_AcceptedBy;
+        private bool m_SystemGenerated;
 
         public Amendment()
         {
@@ -485,6 +486,20 @@ namespace YellowstonePathology.Business.Amendment.Model
             }
         }
 
+        [PersistentProperty()]
+        public bool SystemGenerated
+        {
+            get { return this.m_SystemGenerated; }
+            set
+            {
+                if (this.m_SystemGenerated != value)
+                {
+                    this.m_SystemGenerated = value;
+                    this.NotifyPropertyChanged("SystemGenerated");
+                }
+            }
+        }
+
         public virtual YellowstonePathology.Business.Rules.MethodResult IsOkToAccept()
         {
             YellowstonePathology.Business.Rules.MethodResult result = new Rules.MethodResult();
@@ -496,7 +511,7 @@ namespace YellowstonePathology.Business.Amendment.Model
             else if (this.m_Text.Contains("???"))
             {
                 result.Success = false;
-                result.Message = "The amendment cannot be finalized because the text contains ???.";
+                result.Message = "The amendment cannot be accepted because the text contains ???.";
             }
             return result;
         }
@@ -541,12 +556,7 @@ namespace YellowstonePathology.Business.Amendment.Model
             YellowstonePathology.Business.Test.OkToFinalizeResult okToFinalizeResult = new Test.OkToFinalizeResult();
             okToFinalizeResult.OK = true;
 
-            if (this.Accepted == false)
-            {
-                //okToFinalizeResult.OK = false;
-                //okToFinalizeResult.Message = "The amendment cannot be finalized because it has not been accepted.";
-            }
-            else if (this.m_Text.Contains("???"))
+            if (this.m_Text.Contains("???"))
             {
                 okToFinalizeResult.OK = false;
                 okToFinalizeResult.Message = "The amendment cannot be finalized because the text contains ???.";                
@@ -555,6 +565,16 @@ namespace YellowstonePathology.Business.Amendment.Model
             {
                 okToFinalizeResult.OK = false;
                 okToFinalizeResult.Message = "The amendment is already final.";                
+            }
+            else 
+            {
+                bool textMatches = this.SystemGeneratedTextMatchesCurrent();
+                if (textMatches == false)
+                {
+                    okToFinalizeResult.Message = "The amendment text may not accurately reflect the results of the test for which the amendment was created." + 
+                        Environment.NewLine + Environment.NewLine + "Do you wish to continue?";
+                    okToFinalizeResult.ShowWarningMessage = true;
+                }
             }
             return okToFinalizeResult;
         }
@@ -581,7 +601,12 @@ namespace YellowstonePathology.Business.Amendment.Model
 
         public void Finalize(YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {            
-            this.m_PathologistSignature = systemIdentity.User.Signature;            
+            if(this.Accepted == false)
+            {
+                this.Accept(systemIdentity.User);
+            }
+
+            this.m_PathologistSignature = systemIdentity.User.Signature;
             this.m_UserId = systemIdentity.User.UserId;
             this.m_Final = true;
             this.m_FinalDate = DateTime.Today;
@@ -598,5 +623,22 @@ namespace YellowstonePathology.Business.Amendment.Model
             this.m_FinalTime = null;
             this.NotifyPropertyChanged(string.Empty);
         }
-	}
+
+        private bool SystemGeneratedTextMatchesCurrent()
+        {
+            bool result = true;
+            if(this.m_SystemGenerated == true)
+            {
+                YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(this.m_ReferenceReportNo);
+                YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReferenceReportNo);
+                YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHTest her2AmplificationByISHTest = new Test.HER2AmplificationByISH.HER2AmplificationByISHTest();
+                if (panelSetOrder.PanelSetId == her2AmplificationByISHTest.PanelSetId)
+                {
+                    string generatedText = YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHSystemGeneratedAmendmentText.AmendmentText((YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHTestOrder)panelSetOrder);
+                    result = this.m_Text.Contains(generatedText);
+                }
+            }
+            return result;
+        }
+    }
 }

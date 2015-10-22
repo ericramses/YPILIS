@@ -232,6 +232,9 @@ namespace YellowstonePathology.UI.Test
                 case 212:
                     result = new MissingInformationResultPath(reportNo, accessionOrder, objectTracker, pageNavigator, systemIdentity);
                     break;
+                case 214:
+                    result = new TechInitiatedPeripheralSmearResultPath(reportNo, accessionOrder, objectTracker, pageNavigator, systemIdentity);
+                    break;
             }
             return result;
         }

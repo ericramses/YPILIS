@@ -33,7 +33,7 @@ namespace YellowstonePathology.Business.Test.HPV1618ByPCR
 			base.ReplaceText("hpv16_result", panelSetOrder.HPV16Result);
 			base.ReplaceText("hpv18_result", panelSetOrder.HPV18Result);
 
-            if (panelSetOrder.Indication == YellowstonePathology.Business.Test.HPV1618.HPV1618Indication.SquamousCellCarcinoma)
+            if (panelSetOrder.Indication == YellowstonePathology.Business.Test.HPV1618ByPCR.HPV1618ByPCRIndication.SquamousCellCarcinoma)
             {
                 base.ReplaceText("report_interpretation_header", "Interpretation");
                 base.ReplaceText("report_interpretation", panelSetOrder.Interpretation);
