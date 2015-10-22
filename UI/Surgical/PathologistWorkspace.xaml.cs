@@ -155,7 +155,7 @@ namespace YellowstonePathology.UI.Surgical
 
 		private void MainWindowCommandButtonHandler_ShowCaseDocument(object sender, EventArgs e)
 		{
-			this.ShowCaseDocument();
+            this.ShowCaseDocument();
 		}
 
 		private void MainWindowCommandButtonHandler_ShowOrderForm(object sender, EventArgs e)

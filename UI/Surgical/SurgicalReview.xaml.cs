@@ -202,26 +202,27 @@ namespace YellowstonePathology.UI.Surgical
 
             if (amendment.Final == false)
             {
-                YellowstonePathology.Business.Test.OkToFinalizeResult isOkToFinalizeResult = amendment.IsOkToFinalize();
-                if (isOkToFinalizeResult.OK == true)
+                YellowstonePathology.Business.Test.OkToFinalizeResult okToFinalizeResult = amendment.IsOkToFinalize(this.m_PathologistUI.AccessionOrder);
+                if (okToFinalizeResult.OK == true)
                 {
                     bool canFinal = true;
-                    if (isOkToFinalizeResult.ShowWarningMessage == true)
+                    if (okToFinalizeResult.ShowWarningMessage == true)
                     {
-                        MessageBoxResult messageBoxResult = MessageBox.Show(isOkToFinalizeResult.Message, "Issue with the amendment", MessageBoxButton.YesNo, MessageBoxImage.Exclamation, MessageBoxResult.No);
+                        MessageBoxResult messageBoxResult = MessageBox.Show(okToFinalizeResult.Message, "Issue with the amendment", MessageBoxButton.YesNo, MessageBoxImage.Exclamation, MessageBoxResult.No);
                         if (messageBoxResult == MessageBoxResult.No)
                         {
                             canFinal = false;
                         }
                     }
+
                     if(canFinal == true)
                     {
-                        amendment.Finalize(this.m_SystemIdentity);                    
+                        amendment.Finalize(this.m_SystemIdentity.User);                    
                     }
                 }
                 else
                 {
-                    MessageBox.Show(isOkToFinalizeResult.Message);
+                    MessageBox.Show(okToFinalizeResult.Message);
                 }
             }
             else

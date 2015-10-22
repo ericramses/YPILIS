@@ -150,10 +150,23 @@ namespace YellowstonePathology.UI
 
         private void HyperLinkFinalize_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Test.OkToFinalizeResult okToFinalizeResult = this.m_Amendment.IsOkToFinalize();
+            YellowstonePathology.Business.Test.OkToFinalizeResult okToFinalizeResult = this.m_Amendment.IsOkToFinalize(this.m_AccessionOrder);
             if (okToFinalizeResult.OK == true)
             {
-                this.m_Amendment.Finalize(this.m_SystemIdentity);
+                bool canFinal = true;
+                if (okToFinalizeResult.ShowWarningMessage == true)
+                {
+                    MessageBoxResult messageBoxResult = MessageBox.Show(okToFinalizeResult.Message, "Issue with the amendment", MessageBoxButton.YesNo, MessageBoxImage.Exclamation, MessageBoxResult.No);
+                    if (messageBoxResult == MessageBoxResult.No)
+                    {
+                        canFinal = false;
+                    }
+                }
+
+                if (canFinal == true)
+                {
+                    this.m_Amendment.Finalize(this.m_SystemIdentity.User);
+                }
             }
             else
             {
