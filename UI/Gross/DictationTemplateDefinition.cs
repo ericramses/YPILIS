@@ -71,6 +71,40 @@ namespace YellowstonePathology.UI.Gross
         }
     }
 
+    public class FallopianTubeTemplate : DictationTemplate
+    {
+        public FallopianTubeTemplate()
+        {
+            this.m_TemplateName = "Fallopian Tube Specimen";
+            this.m_Text = "Consists of a tan tan-pink segment of fallopian tube *WITH/WITHOUT* fimbriated ends measuring *LENGTH* in length, and up to *DIAMETER* in diameter. " +
+                "The specimen is serially sectioned revealing a small empty lumen lined by homogeneous tan mucosa without lesions. Representative sections are submitted in cassette \"*CASSETTENUMBER*\".";
+
+            this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Fimbriated ends", "*WITH/WITHOUT*"));
+            this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Length", "*LENGTH*"));
+            this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Diameter", "*DIAMETER*"));
+            this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Cassette Number", "*CASSETTENUMBER*"));
+
+            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.FallopianTube ft = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.FallopianTube();
+            this.m_SpecimenCollection.Add(ft);
+        }
+    }
+
+    public class SinusContentTemplate : DictationTemplate
+    {
+        public SinusContentTemplate()
+        {
+            this.m_TemplateName = "Sinus Content Specimen";
+            this.m_Text = "Consists of multiple tan-pink tissue and bone fragments aggregating to *MEASURING/AGGREGATING*. " +
+                "The tissue is filtered through a fine mesh bag and submitted in cassette \"*CASSETTENUMBER*\".";
+
+            this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Measuring/Agregating", "*MEASURING/AGGREGATING*"));
+            this.m_WordList.Add(new YellowstonePathology.UI.Gross.TemplateWord("Cassette Number", "*CASSETTENUMBER*"));
+
+            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SinusContent sc = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SinusContent();
+            this.m_SpecimenCollection.Add(sc);
+        }
+    }
+
     public class AppendixExcisionTemplate : DictationTemplate
     {
         public AppendixExcisionTemplate()
