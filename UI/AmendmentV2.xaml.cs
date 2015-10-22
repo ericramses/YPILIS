@@ -79,15 +79,38 @@ namespace YellowstonePathology.UI
         }
 
         public void ButtonFinalize_Click(object sender, RoutedEventArgs args)
-        {            
-            string message = string.Empty;
-            if (this.m_Amendment.Final != true)
+        {
+            YellowstonePathology.Business.User.SystemUser systemUser = (YellowstonePathology.Business.User.SystemUser)this.comboBoxAmendmentUsers.SelectedItem;
+            if (systemUser.UserId > 0)
             {
-                this.m_Amendment.Final = true;
-                this.m_Amendment.FinalDate = DateTime.Today;
-                this.m_Amendment.FinalTime = DateTime.Now;
+                YellowstonePathology.Business.Test.OkToFinalizeResult okToFinalizeResult = this.m_Amendment.IsOkToFinalize(this.m_AccessionOrder);
+                if (okToFinalizeResult.OK == true)
+                {
+                    bool canFinal = true;
+                    if (okToFinalizeResult.ShowWarningMessage == true)
+                    {
+                        MessageBoxResult messageBoxResult = MessageBox.Show(okToFinalizeResult.Message, "Issue with the amendment", MessageBoxButton.YesNo, MessageBoxImage.Exclamation, MessageBoxResult.No);
+                        if (messageBoxResult == MessageBoxResult.No)
+                        {
+                            canFinal = false;
+                        }
+                    }
+
+                    if (canFinal == true)
+                    {
+                        this.m_Amendment.Finalize(systemUser);
+                        this.Save();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show(okToFinalizeResult.Message);
+                }
             }
-            this.Save();
+            else
+            {
+                MessageBox.Show("Select a signer from the Amended By choices.", "Amendment signer not selected", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
         }
     }
 }
