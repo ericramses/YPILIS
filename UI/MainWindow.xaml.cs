@@ -657,21 +657,15 @@ namespace YellowstonePathology.UI
 
 		public void ToolBarButtonViewDocument_Click(object sender, RoutedEventArgs args)
 		{
-            ToolBarButtonViewDocument.Click -= ToolBarButtonViewDocument_Click;
             this.m_MainWindowCommandButtonHandler.OnShowCaseDocument();
             MainWindow.ShowCaseDocumentCommand.Execute(null, null);
-            DateTime dt = DateTime.Now.AddSeconds(1);
-            int cnt = 0;
-            while (1 == 1)
-            {
-                cnt++;
-                if(DateTime.Now.CompareTo(dt) >= 1)
-                {
-                    break;
-                }
-            }
-            MessageBox.Show("cnt = " + cnt.ToString());
-            ToolBarButtonViewDocument.Click += ToolBarButtonViewDocument_Click;
+        }
+
+        private void ToolBarButtonViewDocument_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // WHC This is here to prevent sending the click event twice which causes an IO exception:
+            // "The process cannot access the file <filename> because it is being used by another process."
+            e.Handled = true;
         }
 
         public void ToolBarButtonAccessionLock_Click(object sender, RoutedEventArgs args)
