@@ -881,6 +881,11 @@ namespace YellowstonePathology.UI.Test
                     this.m_LabUI.SearchEngine.SetFillByPanelSetId(213); //HPV 16 18 by PCR
                     this.m_LabUI.FillCaseList();
                 }
+                else if (batchTypeListItem.BatchTypeId == 23)
+                {
+                    this.m_LabUI.SearchEngine.SetFillByPanelSetId(62); //HPV 16 18
+                    this.m_LabUI.FillCaseList();
+                }
                 else if (batchTypeListItem.BatchTypeId == 6)
                 {
                     this.m_LabUI.SearchEngine.SetFillByPanelSetId(3); //NGCT
