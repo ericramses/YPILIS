@@ -891,6 +891,11 @@ namespace YellowstonePathology.UI.Test
                     this.m_LabUI.SearchEngine.SetFillByPanelSetId(3); //NGCT
                     this.m_LabUI.FillCaseList();
                 }
+                else if (batchTypeListItem.BatchTypeId == 22)
+                {
+                    this.m_LabUI.SearchEngine.SetFillByPanelSetId(61); //Trichomonas
+                    this.m_LabUI.FillCaseList();
+                }
                 else
                 {					
 					this.m_LabUI.SearchEngine.SetBatchListFillByBatchTypeId(batchTypeListItem.BatchTypeId);
