@@ -161,6 +161,7 @@
     <Compile Include="Audit.Model\AccountNoAudit.cs" />
     <Compile Include="Audit.Model\AreAllWHPTestsFinalAudit.cs" />
     <Compile Include="Audit.Model\CouldBenefitFromCCCPAudit.cs" />
+    <Compile Include="Audit.Model\DistributionCanBeSetAudit.cs" />
     <Compile Include="Audit.Model\GradedStainsAreHandledAudit.cs" />
     <Compile Include="Audit.Model\HER2OKToAcceptAudit.cs" />
     <Compile Include="Audit.Model\HighRiskHPVForSiteAudit.cs" />

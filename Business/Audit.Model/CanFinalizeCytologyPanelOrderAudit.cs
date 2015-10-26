@@ -51,13 +51,9 @@ namespace YellowstonePathology.Business.Audit.Model
 
             if(this.m_ExecutionStatus.Halted == true)
             {
-                if(this.m_ExecutionStatus.ShowMessage == false)
+                this.m_Status = AuditStatusEnum.Failure;
+                if(this.m_ExecutionStatus.ShowMessage == true)
                 {
-                    this.m_Status = AuditStatusEnum.Warning;
-                }
-                else
-                {
-                    this.m_Status = AuditStatusEnum.Failure;
                     this.m_Message.Append(this.m_ExecutionStatus.ExecutionMessagesString);
                 }
             }
