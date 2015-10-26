@@ -1291,6 +1291,99 @@ namespace YellowstonePathology.Business.Gateway
             return result;
         }
 
+        public static YellowstonePathology.Business.Test.PantherOrderList GetPantherOrdersNotAcceptedNGCT()
+        {
+            YellowstonePathology.Business.Test.PantherOrderList result = new Test.PantherOrderList();
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "select pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, a.PFirstName, pso.AcceptedTime, pso.FinalTime, null as Result, ngct.NeisseriaGonorrhoeaeResult, ngct.ChlamydiaTrachomatisResult " +
+                "from tblPanelSetOrder pso " +
+                "join tblNGCTTestOrder ngct on pso.ReportNo = ngct.ReportNo " +
+                "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " +
+                "where TechnicalComponentInstrumentId = 'PNTHR' and pso.Accepted = 0 order by pso.OrderTime";
+
+            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        YellowstonePathology.Business.Test.PantherOrderListItemNGCT pantherOrderListItem = new Test.PantherOrderListItemNGCT();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(pantherOrderListItem, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Add(pantherOrderListItem);
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        public static YellowstonePathology.Business.Test.PantherOrderList GetPantherOrdersNotFinalNGCT()
+        {
+            YellowstonePathology.Business.Test.PantherOrderList result = new Test.PantherOrderList();
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "select pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, a.PFirstName, pso.AcceptedTime, pso.FinalTime, null as Result, ngct.NeisseriaGonorrhoeaeResult, ngct.ChlamydiaTrachomatisResult " +
+                "from tblPanelSetOrder pso " +
+                "join tblNGCTTestOrder ngct on pso.ReportNo = ngct.ReportNo " +
+                "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " +
+                "where TechnicalComponentInstrumentId = 'PNTHR' and pso.Accepted = 1 and pso.Final = 0 order by pso.FinalTime desc";
+
+            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        YellowstonePathology.Business.Test.PantherOrderListItemNGCT pantherOrderListItem = new Test.PantherOrderListItemNGCT();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(pantherOrderListItem, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Add(pantherOrderListItem);
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        public static YellowstonePathology.Business.Test.PantherOrderList GetPantherOrdersFinalNGCT()
+        {
+            YellowstonePathology.Business.Test.PantherOrderList result = new Test.PantherOrderList();
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "select pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, a.PFirstName, pso.AcceptedTime, pso.FinalTime, null as Result, ngct.NeisseriaGonorrhoeaeResult, ngct.ChlamydiaTrachomatisResult " +
+                "from tblPanelSetOrder pso " +
+                "join tblNGCTTestOrder ngct on pso.ReportNo = ngct.ReportNo " +
+                "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " +
+                "where TechnicalComponentInstrumentId = 'PNTHR' and pso.Final = 1 order by pso.FinalTime desc";
+
+            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        YellowstonePathology.Business.Test.PantherOrderListItemNGCT pantherOrderListItem = new Test.PantherOrderListItemNGCT();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(pantherOrderListItem, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Add(pantherOrderListItem);
+                    }
+                }
+            }
+
+            return result;
+        }
+
         public static YellowstonePathology.Business.Test.PantherOrderList GetPantherOrdersNotFinalHPV()
         {
             YellowstonePathology.Business.Test.PantherOrderList result = new Test.PantherOrderList();

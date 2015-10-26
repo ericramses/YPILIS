@@ -656,22 +656,9 @@ namespace YellowstonePathology.UI
         }
 
 		public void ToolBarButtonViewDocument_Click(object sender, RoutedEventArgs args)
-		{
-            ToolBarButtonViewDocument.Click -= ToolBarButtonViewDocument_Click;
+		{            
             this.m_MainWindowCommandButtonHandler.OnShowCaseDocument();
-            MainWindow.ShowCaseDocumentCommand.Execute(null, null);
-            DateTime dt = DateTime.Now.AddSeconds(1);
-            int cnt = 0;
-            while (1 == 1)
-            {
-                cnt++;
-                if(DateTime.Now.CompareTo(dt) >= 1)
-                {
-                    break;
-                }
-            }
-            MessageBox.Show("cnt = " + cnt.ToString());
-            ToolBarButtonViewDocument.Click += ToolBarButtonViewDocument_Click;
+            MainWindow.ShowCaseDocumentCommand.Execute(null, null);                        
         }
 
         public void ToolBarButtonAccessionLock_Click(object sender, RoutedEventArgs args)

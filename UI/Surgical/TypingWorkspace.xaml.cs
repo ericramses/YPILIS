@@ -65,7 +65,7 @@ namespace YellowstonePathology.UI.Surgical
             this.CommandBindings.Add(this.CommandBindingToggleAccessionLockMode);
 			this.CommandBindings.Add(this.CommandBindingRemoveTab);
 			this.CommandBindings.Add(this.CommandBindingShowOrderForm);
-			this.CommandBindings.Add(this.CommandBindingShowAmendmentDialog);			
+			this.CommandBindings.Add(this.CommandBindingShowAmendmentDialog);                        	
 
 			this.m_TypingUI = new YellowstonePathology.Business.Typing.TypingUIV2(this.m_SystemIdentity);									
 			this.m_AmendmentControl = new AmendmentControlV2(this.m_SystemIdentity, string.Empty, this.m_TypingUI.AccessionOrder, this.m_TypingUI.ObjectTracker);			

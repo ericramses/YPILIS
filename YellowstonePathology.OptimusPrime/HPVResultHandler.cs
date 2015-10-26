@@ -88,7 +88,7 @@ namespace YellowstonePathology.OptimusPrime
                 }
             }
 
-            return "Optimus Prime updated result: " + aliquotOrderId + " - " + testName;
+            return "Optimus Prime updated result: " + aliquotOrderId + " - " + testName + " on: " + DateTime.Now.ToString();
         }
     }
 }

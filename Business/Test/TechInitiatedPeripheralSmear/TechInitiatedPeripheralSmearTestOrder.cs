@@ -18,15 +18,14 @@ namespace YellowstonePathology.Business.Test.TechInitiatedPeripheralSmear
             
 		}
 
-		/*public TechInitiatedPeripheralSmearTestOrder(string masterAccessionNo, string reportNo, string objectId,
+		public TechInitiatedPeripheralSmearTestOrder(string masterAccessionNo, string reportNo, string objectId,
             YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
 			bool distribute,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
             : base(masterAccessionNo, reportNo, objectId, panelSet, distribute, systemIdentity)
 		{
-            this.Accept(systemIdentity.User);
-            this.Finalize(systemIdentity.User);
-		}*/
+            
+		}
 
         public TechInitiatedPeripheralSmearTestOrder(string masterAccessionNo, string reportNo, string objectId,
             YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,

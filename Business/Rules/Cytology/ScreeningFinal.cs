@@ -48,7 +48,8 @@ namespace YellowstonePathology.Business.Rules.Cytology
             this.m_Rule.ActionList.Add(HandleImagerError);
             this.m_Rule.ActionList.Add(IsOkToFinalPanelSetOrderResult);
 			this.m_Rule.ActionList.Add(IsQCScreenerSameAsInitialScreener);
-			this.m_Rule.ActionList.Add(FinalPanelSetOrder);            
+			this.m_Rule.ActionList.Add(FinalPanelSetOrder);
+            this.m_Rule.ActionList.Add(HandleScreeningError);
 		}
 
         public bool UserHasPermissions
@@ -79,6 +80,22 @@ namespace YellowstonePathology.Business.Rules.Cytology
         {
             get { return this.m_UnacceptedDotReviewExists; }
             set { this.m_UnacceptedDotReviewExists = value; }
+        }
+
+        private void HandleScreeningError()
+        {
+            YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology panelOrderCytology = this.m_PanelSetOrderCytology.PanelOrderCollection.GetPrimaryScreening();            
+            if(YellowstonePathology.Business.Cytology.Model.CytologyResultCode.IsResultCodeNormal(panelOrderCytology.ResultCode) == true)
+            {
+                if (YellowstonePathology.Business.Cytology.Model.CytologyResultCode.IsDiagnosisThreeOrBetter(this.m_PanelSetOrderCytology.ResultCode))
+                {
+                    this.m_PanelSetOrderCytology.ScreeningError = true;
+                }
+                else
+                {
+                    this.m_PanelSetOrderCytology.ScreeningError = false;
+                }
+            }            
         }
 
         private void DoesPriorUnacceptedScreeningExist()
