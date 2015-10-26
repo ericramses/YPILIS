@@ -25,6 +25,7 @@ namespace YellowstonePathology.Business.Test.Trichomonas
 			: base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute, systemIdentity)
 		{
             this.m_TechnicalComponentInstrumentId = Instrument.HOLOGICPANTHERID;
+            this.m_Method = TrichomonasResult.Method;
         }
 
         [YellowstonePathology.Business.Persistence.PersistentProperty()]

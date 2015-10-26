@@ -50,10 +50,22 @@ namespace YellowstonePathology.UI.Test
 
 			InitializeComponent();
 
-			DataContext = this;				
+			DataContext = this;
+            Loaded += TrichomonasResultPage_Loaded;
+            Unloaded += TrichomonasResultPage_Unloaded;
 		}
 
-		public YellowstonePathology.Business.Test.Trichomonas.TrichomonasTestOrder ReportOrder
+        private void TrichomonasResultPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            this.ComboBoxResult.SelectionChanged += ComboBoxResult_SelectionChanged;
+        }
+
+        private void TrichomonasResultPage_Unloaded(object sender, RoutedEventArgs e)
+        {
+            this.ComboBoxResult.SelectionChanged -= ComboBoxResult_SelectionChanged;
+        }
+
+        public YellowstonePathology.Business.Test.Trichomonas.TrichomonasTestOrder ReportOrder
         {
             get { return this.m_ReportOrderTrichomonas; }
         }
@@ -138,26 +150,6 @@ namespace YellowstonePathology.UI.Test
 			else
 			{
 				MessageBox.Show(methodResult.Message);
-			}
-		}
-
-		private void HyperLinkSetResults_Click(object sender, RoutedEventArgs e)
-		{
-			if (this.ComboBoxResult.SelectedItem != null)
-			{
-				YellowstonePathology.Business.Rules.MethodResult result = YellowstonePathology.Business.Test.Trichomonas.TrichomonasResult.IsOkToSetResult(this.m_ReportOrderTrichomonas);
-				if (result.Success == true)
-				{
-					this.m_ReportOrderTrichomonas.Method = YellowstonePathology.Business.Test.Trichomonas.TrichomonasResult.Method;
-				}
-				else
-				{
-					MessageBox.Show(result.Message);
-				}
-			}
-			else
-			{
-				MessageBox.Show("A result must be selected before it can be set.");
 			}
 		}
 

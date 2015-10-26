@@ -5,6 +5,8 @@ using System.Linq;
 using System.Data;
 using System.Collections.ObjectModel;
 using YellowstonePathology.Business.Persistence;
+using YellowstonePathology.Business.Audit.Model;
+using YellowstonePathology.Business.User;
 
 namespace YellowstonePathology.Business.Test.Surgical
 {
@@ -600,5 +602,12 @@ namespace YellowstonePathology.Business.Test.Surgical
                 }
             }
         }
-	}
+
+        public AuditResult IsOkToFinalize(AccessionOrder accessionOrder, SystemIdentity systemIdentity)
+        {
+            Audit.Model.PathologistSignoutAuditCollection pathologistSignoutAuditCollection = new PathologistSignoutAuditCollection(accessionOrder, systemIdentity);
+            AuditResult auditResult = pathologistSignoutAuditCollection.Run2();
+            return auditResult;
+        }
+    }
 }
