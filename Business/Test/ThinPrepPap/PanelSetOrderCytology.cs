@@ -466,5 +466,16 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 		{
 			return this.GetResultWithTestName();
 		}
+
+        public Audit.Model.AuditResult IsOkToFinalize(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
+            PanelOrderCytology panelOrderToFinalize,
+            YellowstonePathology.Business.User.SystemIdentity systemIdentity,
+            YellowstonePathology.Business.Rules.ExecutionStatus executionStatus)
+        {
+            Audit.Model.AuditCollection auditCollection = new Audit.Model.AuditCollection();
+            auditCollection.Add(new Audit.Model.CanFinalizeCytologyPanelOrderAudit(panelOrderToFinalize, this, accessionOrder, systemIdentity, executionStatus));
+            Audit.Model.AuditResult auditResult = auditCollection.Run2();
+            return auditResult;
+        }
 	}
 }

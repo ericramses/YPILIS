@@ -209,8 +209,8 @@ namespace YellowstonePathology.UI.Cytology
         }
 
 		public void ScreeningFinal(YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology panelOrderToFinal, YellowstonePathology.Business.Rules.ExecutionStatus executionStatus)
-        {            
-			switch (panelOrderToFinal.ScreeningType.ToUpper())
+        {
+            /*switch (panelOrderToFinal.ScreeningType.ToUpper())
             {
                 case "DOT REVIEW":
                     YellowstonePathology.Business.Rules.Cytology.DotReviewFinal dotReviewFinal = new YellowstonePathology.Business.Rules.Cytology.DotReviewFinal();
@@ -226,8 +226,8 @@ namespace YellowstonePathology.UI.Cytology
                     YellowstonePathology.Business.Rules.Cytology.ScreeningFinal screeningFinal2 = new YellowstonePathology.Business.Rules.Cytology.ScreeningFinal(YellowstonePathology.Business.ProcessingModeEnum.Production);
 					screeningFinal2.Execute(this.m_SystemIdentity.User, this.m_AccessionOrder, panelOrderToFinal, executionStatus);
 					break;
-            }
-
+            }*/
+            YellowstonePathology.Business.Audit.Model.AuditResult auditResult = this.m_PanelSetOrderCytology.IsOkToFinalize(this.m_AccessionOrder, panelOrderToFinal, this.m_SystemIdentity, executionStatus);
             if (this.m_PanelSetOrderCytology.Final == true)
             {
                 YellowstonePathology.Business.ReportDistribution.Model.MultiTestDistributionHandler multiTestDistributionHandler = YellowstonePathology.Business.ReportDistribution.Model.MultiTestDistributionHandlerFactory.GetHandler(this.m_AccessionOrder);
