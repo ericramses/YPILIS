@@ -52,17 +52,23 @@ namespace YellowstonePathology.UI.Test
 				YellowstonePathology.Business.Domain.Physician physician = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianByPhysicianId(this.m_AccessionOrder.PhysicianId);
 
 				YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder = YellowstonePathology.Business.Gateway.ClientOrderGateway.GetClientOrderByClientOrderId(this.m_AccessionOrder.ClientOrderId);
-				WomensHealthProfilePage womensHealthProfilePage = new WomensHealthProfilePage(this.m_AccessionOrder, this.m_ObjectTracker, clientOrder, this.m_SystemIdentity);
-				womensHealthProfilePage.Next += new WomensHealthProfilePage.NextEventHandler(WomensHealthProfilePage_Next);
-				this.m_PageNavigator.Navigate(womensHealthProfilePage);
+				WomensHealthProfilePage womensHealthProfilePage = new WomensHealthProfilePage(this.m_AccessionOrder, this.m_ObjectTracker, clientOrder, this.m_SystemIdentity, System.Windows.Visibility.Visible);
+				womensHealthProfilePage.Finished += new WomensHealthProfilePage.FinishedEventHandler(WomensHealthProfilePage_Finished);
+                womensHealthProfilePage.Back += new WomensHealthProfilePage.BackEventHandler(WomensHealthProfilePage_Back);
+                this.m_PageNavigator.Navigate(womensHealthProfilePage);
 				result = true;
 			}
 			return result;
 		}
 
-		private void WomensHealthProfilePage_Next(object sender, EventArgs e)
+		private void WomensHealthProfilePage_Finished(object sender, EventArgs e)
 		{
 			this.Finished();
 		}
-	}
+
+        private void WomensHealthProfilePage_Back(object sender, EventArgs e)
+        {
+            this.ShowResultPage();
+        }
+    }
 }
