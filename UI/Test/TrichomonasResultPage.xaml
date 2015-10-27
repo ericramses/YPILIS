@@ -125,9 +125,6 @@
 						<TextBox Grid.Column="3" Grid.Row="2" Margin="2,2,2,2" Text="{Binding Path=ReportOrder.Signature}" IsEnabled="False"></TextBox>
 
 					</Grid>
-
-                    <ComboBox Name="ComboBoxResult2" Grid.Column="0" Grid.Row="6" Margin="2,2,2,2" ItemsSource="{Binding Path=ResultCollection}" DisplayMemberPath="Result" 
-							  SelectedValue="{Binding Path=ReportOrder.Result}" SelectedValuePath="Result" HorizontalAlignment="Stretch"/>
                     
 				</Grid>
 

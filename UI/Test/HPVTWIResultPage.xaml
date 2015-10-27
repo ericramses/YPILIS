@@ -33,76 +33,39 @@
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="20"></RowDefinition>
 					<RowDefinition Height="Auto"></RowDefinition>
-					<RowDefinition Height="Auto"></RowDefinition>
-					<RowDefinition Height="Auto"></RowDefinition>
-					<RowDefinition Height="Auto"></RowDefinition>
-					<RowDefinition Height="Auto"></RowDefinition>
-					<RowDefinition Height="Auto"></RowDefinition>
-					<RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="20"></RowDefinition>
-					<RowDefinition Height="Auto"></RowDefinition>
-					<RowDefinition Height="Auto"></RowDefinition>
-					<RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="Auto"></RowDefinition>
-					<RowDefinition Height="Auto"></RowDefinition>                    
-                    <RowDefinition Height="20"></RowDefinition>                    
-					<RowDefinition Height="Auto"></RowDefinition>
-					<RowDefinition Height="Auto"></RowDefinition>
-					<RowDefinition Height="Auto"></RowDefinition>
-					<RowDefinition Height="Auto"></RowDefinition>
 					<RowDefinition Height="*"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
-					<RowDefinition Height="20"></RowDefinition>
-					<RowDefinition Height="Auto"></RowDefinition>
 				</Grid.RowDefinitions>
 
 				<TextBlock Grid.Column="0" Grid.Row="0" Margin="0,3,0,0" FontWeight="Bold" FontSize="14">Options</TextBlock>
 
                 <TextBlock Grid.Column="0" Grid.Row="1" Margin="5,3,0,0">                    
-                    <Hyperlink Click="HyperLinkNegativeResult_Click">Negative</Hyperlink>
-                </TextBlock>
-
-                <TextBlock Grid.Column="0" Grid.Row="2" Margin="5,3,0,0">                    
-                    <Hyperlink Click="HyperLinkPositive_Click">Positive</Hyperlink>
-                </TextBlock>
-
-                <TextBlock Grid.Column="0" Grid.Row="3" Margin="5,3,0,0">                    
-                    <Hyperlink Click="HyperLinkInvalid_Click">Invalid</Hyperlink>
-                </TextBlock>
-
-                <TextBlock Grid.Column="0" Grid.Row="18" Margin="5,3,0,0">                    
                     <Hyperlink Click="HyperLinkAcceptResults_Click">Accept Results</Hyperlink>
 				</TextBlock>
 				
-                <TextBlock Grid.Column="0" Grid.Row="19" Margin="5,3,0,0">                    
+                <TextBlock Grid.Column="0" Grid.Row="2" Margin="5,3,0,0">                    
                     <Hyperlink Click="HyperLinkShowDocument_Click">Show Document</Hyperlink>
                 </TextBlock>
-                <TextBlock Grid.Column="0" Grid.Row="20" Margin="5,3,0,0">
+                <TextBlock Grid.Column="0" Grid.Row="3" Margin="5,3,0,0">
 					<Hyperlink Click="HyperLinkFinalize_Click">
 						<TextBlock Text="Finalize" />
 					</Hyperlink>
 				</TextBlock>
-                <TextBlock Grid.Column="0" Grid.Row="21" Margin="5,3,0,0">                    
+                
+                <TextBlock Grid.Column="0" Grid.Row="5" Margin="5,3,0,0">                    
                     <Hyperlink Click="ButtonNext_Click">Next</Hyperlink>
                 </TextBlock>
                 
-                
-                <TextBlock Grid.Column="0" Grid.Row="23" Margin="5,3,0,0">                    
+                                <TextBlock Grid.Column="0" Grid.Row="7" Margin="5,3,0,0">                    
                     <Hyperlink Click="HyperLinkUnacceptResults_Click">
 						<TextBlock Text="Unaccept Results" />
 					</Hyperlink>
 				</TextBlock>
 
-                <TextBlock Grid.Column="0" Grid.Row="24" Margin="5,3,0,0">                    
+                <TextBlock Grid.Column="0" Grid.Row="8" Margin="5,3,0,0">                    
                     <Hyperlink Click="HyperLinkUnfinalResults_Click">
 						<TextBlock Text="Unfinalize Results" />
-					</Hyperlink>
-				</TextBlock>
-
-				<TextBlock Grid.Column="0" Grid.Row="26" Margin="5,3,0,0">                    
-                    <Hyperlink Click="HyperLinkProvider_Click">
-						<TextBlock Text="Provider" />
 					</Hyperlink>
 				</TextBlock>
 
@@ -132,7 +95,8 @@
                     </Grid.RowDefinitions>
 
 					<TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" HorizontalAlignment="Left" FontWeight="Bold" FontSize="20">Result:</TextBlock>
-					<TextBox Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.Result}" HorizontalAlignment="Stretch" IsEnabled="False" FontSize="20" FontWeight="Bold"/>
+                    <ComboBox Name="ComboBoxResult" Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" FontSize="20" ItemsSource="{Binding Path=ResultCollection}" DisplayMemberPath="Result" 
+							  SelectedValue="{Binding Path=PanelSetOrder.Result}" SelectedValuePath="Result" HorizontalAlignment="Stretch" />
 
                     <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Margin="2,2,2,2" HorizontalAlignment="Left" FontWeight="Bold">Report Comment:</TextBlock>
 					<TextBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" Margin="2,2,2,2" HorizontalAlignment="Stretch" Text="{Binding Path=PanelSetOrder.Comment}"  TextWrapping="Wrap"/>

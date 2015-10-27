@@ -46,9 +46,6 @@ namespace YellowstonePathology.Business.Test.HPVTWI
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceHRHPVTEST());
 
-            HPVTWIPanel hpvtwiPanel = new HPVTWIPanel();
-            this.m_PanelCollection.Add(hpvtwiPanel);
-
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ThinPrepFluid thinPrepFluid = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ThinPrepFluid();
             this.OrderTargetTypeCollectionRestrictions.Add(thinPrepFluid);
 		}
