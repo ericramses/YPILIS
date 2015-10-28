@@ -20,8 +20,10 @@ namespace YellowstonePathology.UI.Test
         public delegate void PropertyChangedNotificationHandler(String info);
         public event PropertyChangedEventHandler PropertyChanged;        
 
-        public delegate void NextEventHandler(object sender, EventArgs e);
-        public event NextEventHandler Next;
+        public delegate void FinishedEventHandler(object sender, EventArgs e);
+        public event FinishedEventHandler Finished;
+        public delegate void BackEventHandler(object sender, EventArgs e);
+        public event BackEventHandler Back;
 
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
@@ -40,11 +42,13 @@ namespace YellowstonePathology.UI.Test
         private YellowstonePathology.Business.Audit.Model.IsWHPAllDoneAuditCollection m_AuditCollection;
 
         private string m_HPVStandingOrderDescription;
+        private System.Windows.Visibility m_BackButtonVisibility;
 
         public WomensHealthProfilePage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
             YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
             YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder,            
-            YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+            YellowstonePathology.Business.User.SystemIdentity systemIdentity,
+            System.Windows.Visibility backButtonVisibility)
         {
             this.m_AccessionOrder = accessionOrder;
             this.m_ObjectTracker = objectTracker;            
@@ -57,6 +61,7 @@ namespace YellowstonePathology.UI.Test
             this.m_ClientOrder = clientOrder;
 			this.m_WomensHealthProfileTestOrder = (YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(116);
             this.m_SystemIdentity = systemIdentity;
+            this.m_BackButtonVisibility = backButtonVisibility;
 
 			this.m_Physician = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianByPhysicianId(this.m_AccessionOrder.PhysicianId);
 
@@ -152,6 +157,11 @@ namespace YellowstonePathology.UI.Test
 		{
 			get { return this.m_DateOfLastHPV; }
 		}
+
+        public System.Windows.Visibility BackButtonVisibility
+        {
+            get { return this.m_BackButtonVisibility; }
+        }
 
         public bool OkToSaveOnNavigation(Type pageNavigatingTo)
         {
@@ -322,9 +332,14 @@ namespace YellowstonePathology.UI.Test
 			YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(fileName);
 		}
 
-        private void ButtonNext_Click(object sender, RoutedEventArgs e)
+        private void ButtonClose_Click(object sender, RoutedEventArgs e)
         {
             this.GoNext();
+        }
+
+        private void ButtonBack_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.Back != null) this.Back(this, new EventArgs());
         }
 
         private void GoNext()
@@ -335,12 +350,12 @@ namespace YellowstonePathology.UI.Test
                 MessageBoxResult messageBoxResult = MessageBox.Show(this.m_AuditCollection.Message + " Are you sure you want to continue.", "Continue?", MessageBoxButton.YesNo);
                 if (messageBoxResult == MessageBoxResult.Yes)
                 {
-                    if (this.Next != null) this.Next(this, new EventArgs());
+                    if (this.Finished != null) this.Finished(this, new EventArgs());
                 }
             }
             else
             {
-                if (this.Next != null) this.Next(this, new EventArgs());
+                if (this.Finished != null) this.Finished(this, new EventArgs());
             }
         }
 

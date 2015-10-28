@@ -270,7 +270,8 @@ namespace YellowstonePathology.UI.Test
                         clientOrder = clientOrders[0];
                     }
 
-                    YellowstonePathology.UI.Login.WomensHealthProfilePath womensHealthProfilePath = new YellowstonePathology.UI.Login.WomensHealthProfilePath(accessionOrder, objectTracker, clientOrder, pageNavigator, systemIdentity);
+                    YellowstonePathology.UI.Login.WomensHealthProfilePath womensHealthProfilePath = new YellowstonePathology.UI.Login.WomensHealthProfilePath(accessionOrder, objectTracker, clientOrder, pageNavigator, systemIdentity, System.Windows.Visibility.Collapsed);
+                    womensHealthProfilePath.Back += new Login.WomensHealthProfilePath.BackEventHandler(WomensHealthProfilePath_Finished);
                     womensHealthProfilePath.Finished += new Login.WomensHealthProfilePath.FinishedEventHandler(WomensHealthProfilePath_Finished);
                     womensHealthProfilePath.Start();
                 }

@@ -485,6 +485,7 @@
     <Compile Include="Test\HPV1618\HPV1618Genotype18NegativeResult.cs" />
     <Compile Include="Test\HPV1618\HPV1618Genotype18PositiveResult.cs" />
     <Compile Include="Test\HPVTWI\HPVTWIInvalidResult.cs" />
+    <Compile Include="Test\HPVTWI\HPVTWINoResult.cs" />
     <Compile Include="Test\MissingInformation\MissingInformationTest.cs" />
     <Compile Include="Test\MissingInformation\MissingInformationTestOrder.cs" />
     <Compile Include="Test\NGCT\NGCTInvalidResult.cs" />
@@ -1471,7 +1472,6 @@
     <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHTest.cs" />
     <Compile Include="Test\HighGradeLargeBCellLymphoma\HighGradeLargeBCellLymphomaPanelTest.cs" />
     <Compile Include="Test\HPV1618\HPV1618Test.cs" />
-    <Compile Include="Test\HPVTWI\PanelOrderHPVTWI.cs" />
     <Compile Include="Test\JAK2Exon1214\JAK2Exon1214Test.cs" />
     <Compile Include="Test\JAK2V617F\JAK2V617FTest.cs" />
     <Compile Include="Test\KRASExon4Mutation\KRASExon4MutationTest.cs" />
@@ -2303,7 +2303,6 @@
     <Compile Include="Test\ThinPrepPap\ThinPrepPapQCPanel.cs" />
     <Compile Include="Test\ErPrSemiQuantitative\ERPRSemiQuanititativePanel.cs" />
     <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHPanel.cs" />
-    <Compile Include="Test\HPVTWI\HPVTWIPanel.cs" />
     <Compile Include="Test\JAK2V617F\JAK2V617FPanel.cs" />
     <Compile Include="Test\KRASStandard\KRASStandardPanel.cs" />
     <Compile Include="Test\LynchSyndrome\LynchSyndromeIHCPanel.cs" />

@@ -896,6 +896,11 @@ namespace YellowstonePathology.UI.Test
                     this.m_LabUI.SearchEngine.SetFillByPanelSetId(61); //Trichomonas
                     this.m_LabUI.FillCaseList();
                 }
+                else if (batchTypeListItem.BatchTypeId == 3)
+                {
+                    this.m_LabUI.SearchEngine.SetFillByPanelSetId(14); //HPV TWI
+                    this.m_LabUI.FillCaseList();
+                }
                 else
                 {					
 					this.m_LabUI.SearchEngine.SetBatchListFillByBatchTypeId(batchTypeListItem.BatchTypeId);

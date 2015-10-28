@@ -12,25 +12,13 @@ namespace YellowstonePathology.Business.Test.HPVTWI
 
         }                
 
-        public HPVTWIResult GetResult(string resultCode)
-        {
-            HPVTWIResult result = null;
-            foreach (HPVTWIResult hpvTWIResult in this)
-            {
-                if (hpvTWIResult.ResultCode == resultCode)
-                {
-                    result = hpvTWIResult;
-                    break;
-                }
-            }
-            return result;
-        }
-
         public static HPVTWIResultCollection GetAllResults()
         {
             HPVTWIResultCollection result = new HPVTWIResultCollection();            
             result.Add(new HPVTWINegativeResult());
-            result.Add(new HPVTWIPositiveResult());            
+            result.Add(new HPVTWIPositiveResult());
+            result.Add(new HPVTWIInvalidResult());
+            result.Add(new HPVTWINoResult());
             return result;
         }
     }
