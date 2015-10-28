@@ -106,8 +106,8 @@
 						<TextBlock Margin="2,0,0,0">Lock</TextBlock>
 					</StackPanel>
 				</Button>
-					<Button Click="ToolBarButtonViewDocument_Click" ToolTip="View Document" Height="22" Name="ToolBarButtonViewDocument">
-					<StackPanel Orientation="Horizontal">
+                    <Button Click="ToolBarButtonViewDocument_Click" ToolTip="View Document" Height="22" Name="ToolBarButtonViewDocument" MouseDoubleClick="ToolBarButtonViewDocument_MouseDoubleClick">
+                        <StackPanel Orientation="Horizontal">
 						<Image Source="/Graphics/Document.jpg"></Image>
 						<TextBlock Margin="2,0,0,0">Document</TextBlock>
 					</StackPanel>

@@ -21,14 +21,11 @@ namespace YellowstonePathology.Business.Test.TechInitiatedPeripheralSmear
             this.AddHeader(document, testOrder, "Tech Initiated Peripheral Smear");
             this.AddNextObxElement(string.Empty, document, "F");
 
-            this.HandleLongString("Tech Comment: " + testOrder.TechComment, document, "F");
+            this.HandleLongString("Technologists Question: " + testOrder.TechnologistsQuestion, document, "F");
             this.AddNextObxElement("", document, "F");
 
-            this.HandleLongString("Pathologist Comment: " + testOrder.PathologistComment, document, "F");
-            this.AddNextObxElement("", document, "F");
-
-            this.AddNextObxElement("Specimen: Thin Prep Fluid", document, "F");
-            this.AddNextObxElement("", document, "F");
+            this.HandleLongString("Pathologist Feedback: " + testOrder.PathologistFeedback, document, "F");
+            this.AddNextObxElement("", document, "F");            
 
             string locationPerformed = testOrder.GetLocationPerformedComment();
             this.AddNextObxElement(locationPerformed, document, "F");

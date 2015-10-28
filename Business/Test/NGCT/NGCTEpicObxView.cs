@@ -40,7 +40,7 @@ namespace YellowstonePathology.Business.Test.NGCT
             this.AddNextObxElement(testOrder.References, document, "F");
             this.AddNextObxElement("", document, "F");
 
-            this.AddNextObxElement(testOrder.TestDevelopment, document, "F");
+            this.AddNextObxElement(testOrder.TestInformation, document, "F");
 
             string locationPerformed = testOrder.GetLocationPerformedComment();
             this.AddNextObxElement(locationPerformed, document, "F");

@@ -466,5 +466,27 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 		{
 			return this.GetResultWithTestName();
 		}
+
+        public Audit.Model.AuditResult IsOkToFinalize(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
+            PanelOrderCytology panelOrderToFinalize,
+            YellowstonePathology.Business.User.SystemIdentity systemIdentity,
+            YellowstonePathology.Business.Rules.ExecutionStatus executionStatus)
+        {
+            Audit.Model.AuditCollection auditCollection = new Audit.Model.AuditCollection();
+            auditCollection.Add(new Audit.Model.DistributionCanBeSetAudit(accessionOrder));
+            auditCollection.Add(new Audit.Model.CanFinalizeCytologyPanelOrderAudit(panelOrderToFinalize, this, accessionOrder, systemIdentity, executionStatus));
+            Audit.Model.AuditResult auditResult = auditCollection.Run2();
+
+            if(auditResult.Status == Audit.Model.AuditStatusEnum.Failure)
+            {
+                if(executionStatus.Halted == false)
+                {
+                    executionStatus.AddMessage(auditResult.Message, true);
+                    executionStatus.ShowMessage = true;
+                    executionStatus.Halted = true;
+                }
+            }
+            return auditResult;
+        }
 	}
 }

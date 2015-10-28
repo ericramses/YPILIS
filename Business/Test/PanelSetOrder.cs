@@ -1210,6 +1210,7 @@ namespace YellowstonePathology.Business.Test
             auditCollection.Add(new Audit.Model.FinalizedAudit(this));
             auditCollection.Add(new Audit.Model.MRNAudit(accessionOrder));
             auditCollection.Add(new Audit.Model.AccountNoAudit(accessionOrder));
+            auditCollection.Add(new Audit.Model.DistributionCanBeSetAudit(accessionOrder));
             YellowstonePathology.Business.Audit.Model.AuditResult auditResult = auditCollection.Run2();
 
             return result;

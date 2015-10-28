@@ -150,6 +150,7 @@
     <Compile Include="Audit.Model\AuditResult.cs" />
     <Compile Include="Audit.Model\AuditStatusEnum.cs" />
     <Compile Include="Audit.Model\BRAFMetastaticMelanomaAudit.cs" />
+    <Compile Include="Audit.Model\CanFinalizeCytologyPanelOrderAudit.cs" />
     <Compile Include="Audit.Model\CaseHasNotFoundClientAudit.cs" />
     <Compile Include="Audit.Model\CaseHasNotFoundProviderAudit.cs" />
     <Compile Include="Audit.Model\CaseHasUnfinaledPeerReviewAudit.cs" />
@@ -160,6 +161,7 @@
     <Compile Include="Audit.Model\AccountNoAudit.cs" />
     <Compile Include="Audit.Model\AreAllWHPTestsFinalAudit.cs" />
     <Compile Include="Audit.Model\CouldBenefitFromCCCPAudit.cs" />
+    <Compile Include="Audit.Model\DistributionCanBeSetAudit.cs" />
     <Compile Include="Audit.Model\GradedStainsAreHandledAudit.cs" />
     <Compile Include="Audit.Model\HER2OKToAcceptAudit.cs" />
     <Compile Include="Audit.Model\HighRiskHPVForSiteAudit.cs" />
@@ -629,6 +631,7 @@
     <Compile Include="Test\TechInitiatedPeripheralSmear\TechInitiatedPeripheralSmearTest.cs" />
     <Compile Include="Test\TechInitiatedPeripheralSmear\TechInitiatedPeripheralSmearTestOrder.cs" />
     <Compile Include="Test\TechInitiatedPeripheralSmear\TechInitiatedPeripheralSmearWordDocument.cs" />
+    <Compile Include="Test\Trichomonas\TrichomonasInvalidResult.cs" />
     <Compile Include="TrackedItemStatusEnum.cs" />
     <Compile Include="Specimen.Model\AliquotCollection.cs" />
     <Compile Include="Specimen.Model\BlockMedium.cs" />

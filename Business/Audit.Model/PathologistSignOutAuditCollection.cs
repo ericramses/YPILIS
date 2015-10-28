@@ -20,6 +20,7 @@ namespace YellowstonePathology.Business.Audit.Model
             this.Add(new SvhCaseHasMRNAndAccountNoAudit(accessionOrder));
             this.Add(new CaseHasNotFoundClientAudit(accessionOrder));
             this.Add(new CaseHasNotFoundProviderAudit(accessionOrder));
+            this.Add(new DistributionCanBeSetAudit(accessionOrder));
             this.Add(new CaseHasUnfinaledPeerReviewAudit(accessionOrder));
             this.Add(new GradedStainsAreHandledAudit(surgicalTestOrder));
             this.Add(new IntraoperativeConsultationCorrelationAudit(surgicalTestOrder));
@@ -45,7 +46,8 @@ namespace YellowstonePathology.Business.Audit.Model
                     audit.GetType() == typeof(SvhCaseHasMRNAndAccountNoAudit) ||
                     audit.GetType() == typeof(CaseHasNotFoundClientAudit) ||
                     audit.GetType() == typeof(CaseHasNotFoundProviderAudit) ||
-                    audit.GetType() == typeof(CaseHasUnfinaledPeerReviewAudit) ||
+                    audit.GetType() == typeof(CaseHasNotFoundProviderAudit) ||
+                    audit.GetType() == typeof(DistributionCanBeSetAudit) ||
                     audit.GetType() == typeof(GradedStainsAreHandledAudit) ||
                     audit.GetType() == typeof(IntraoperativeConsultationCorrelationAudit))
                 {
