@@ -656,9 +656,9 @@ namespace YellowstonePathology.UI
         }
 
 		public void ToolBarButtonViewDocument_Click(object sender, RoutedEventArgs args)
-		{
+		{            
             this.m_MainWindowCommandButtonHandler.OnShowCaseDocument();
-            MainWindow.ShowCaseDocumentCommand.Execute(null, null);
+            MainWindow.ShowCaseDocumentCommand.Execute(null, null);                        
         }
 
         private void ToolBarButtonViewDocument_MouseDoubleClick(object sender, MouseButtonEventArgs e)

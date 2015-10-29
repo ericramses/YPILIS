@@ -346,4 +346,29 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             }
         }
 
+        public class FallopianTube : Specimen
+    {
+            public FallopianTube()
+        {
+                this.m_SpecimenId = "FTSPCMN";
+                this.m_SpecimenName = "Fallopian Tube";
+                this.m_Description = null;
+                this.m_LabFixation = "Formalin";
+                this.m_ClientFixation = null;
+                this.m_RequiresGrossExamination = true;
+        }
+    }
+
+        public class SinusContent : Specimen
+    {
+            public SinusContent()
+        {
+                this.m_SpecimenId = "SCSPCMN";
+                this.m_SpecimenName = "Sinus Content";
+                this.m_Description = null;
+                this.m_LabFixation = "Formalin";
+                this.m_ClientFixation = null;
+                this.m_RequiresGrossExamination = true;
+            }
+        }
 }

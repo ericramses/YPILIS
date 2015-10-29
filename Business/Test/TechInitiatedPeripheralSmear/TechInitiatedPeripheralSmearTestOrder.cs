@@ -10,23 +10,23 @@ namespace YellowstonePathology.Business.Test.TechInitiatedPeripheralSmear
 	public class TechInitiatedPeripheralSmearTestOrder : YellowstonePathology.Business.Test.PanelSetOrder
 	{
 
-        private string m_TechComment;
-        private string m_PathologistComment;
+        private string m_TechnologistsQuestion;
+        private string m_PathologistFeedback;
+        private string m_CBCComment;
 
 		public TechInitiatedPeripheralSmearTestOrder()
 		{
             
 		}
 
-		/*public TechInitiatedPeripheralSmearTestOrder(string masterAccessionNo, string reportNo, string objectId,
+		public TechInitiatedPeripheralSmearTestOrder(string masterAccessionNo, string reportNo, string objectId,
             YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
 			bool distribute,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
             : base(masterAccessionNo, reportNo, objectId, panelSet, distribute, systemIdentity)
 		{
-            this.Accept(systemIdentity.User);
-            this.Finalize(systemIdentity.User);
-		}*/
+            
+		}
 
         public TechInitiatedPeripheralSmearTestOrder(string masterAccessionNo, string reportNo, string objectId,
             YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
@@ -55,29 +55,43 @@ namespace YellowstonePathology.Business.Test.TechInitiatedPeripheralSmear
         }
 
         [PersistentProperty()]
-        public string TechComment
+        public string TechnologistsQuestion
         {
-            get { return this.m_TechComment; }
+            get { return this.m_TechnologistsQuestion; }
             set
             {
-                if (this.m_TechComment != value)
+                if (this.m_TechnologistsQuestion != value)
                 {
-                    this.m_TechComment = value;
-                    this.NotifyPropertyChanged("TechComment");
+                    this.m_TechnologistsQuestion = value;
+                    this.NotifyPropertyChanged("TechnologistsQuestion");
                 }
             }
         }
 
         [PersistentProperty()]
-        public string PathologistComment
+        public string PathologistFeedback
         {
-            get { return this.m_PathologistComment; }
+            get { return this.m_PathologistFeedback; }
             set
             {
-                if (this.m_PathologistComment != value)
+                if (this.m_PathologistFeedback != value)
                 {
-                    this.m_PathologistComment = value;
-                    this.NotifyPropertyChanged("PathologistComment");
+                    this.m_PathologistFeedback = value;
+                    this.NotifyPropertyChanged("PathologistFeedback");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string CBCComment
+        {
+            get { return this.m_CBCComment; }
+            set
+            {
+                if (this.m_CBCComment != value)
+                {
+                    this.m_CBCComment = value;
+                    this.NotifyPropertyChanged("CBCComment");
                 }
             }
         }

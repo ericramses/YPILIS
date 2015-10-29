@@ -41,6 +41,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HPVInvalidResult.cs" />
+    <Compile Include="NGCTOneOrBothPositiveResult.cs" />
+    <Compile Include="NGCTBothNegativeResult.cs" />
     <Compile Include="NGCTResult.cs" />
     <Compile Include="NGCTResultHandler.cs" />
     <Compile Include="HPVResultHandler.cs" />

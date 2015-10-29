@@ -386,6 +386,7 @@
 							<RowDefinition></RowDefinition>
 							<RowDefinition></RowDefinition>
 							<RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
 						</Grid.RowDefinitions>
 
 						<TextBlock Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right" FontWeight="Bold"                                   
@@ -401,7 +402,10 @@
 						<TextBlock Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right" Margin="2,2,2,2" VerticalAlignment="Bottom">No Charge:</TextBlock>
 						<CheckBox Grid.Column="1" Grid.Row="2" Margin="2,2,2,2" VerticalAlignment="Bottom" IsChecked="{Binding Path=NoCharge}" IsEnabled="{Binding ElementName=CytologyResultUserControl, Path=DataContext.CanSave}"></CheckBox>
 
-					</Grid>
+                        <TextBlock Grid.Column="0" Grid.Row="3" HorizontalAlignment="Right" Margin="2,2,2,2" VerticalAlignment="Bottom">Error:</TextBlock>
+                        <CheckBox Grid.Column="1" Grid.Row="3" Margin="2,2,2,2" VerticalAlignment="Bottom" IsChecked="{Binding Path=ScreeningError}" IsEnabled="False"></CheckBox>
+
+                    </Grid>
 
 					<TextBlock Grid.Column="0" Grid.Row="2" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Right">Provider:</TextBlock>
                     <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal">

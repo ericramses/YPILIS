@@ -122,9 +122,9 @@ namespace YellowstonePathology.Business.Test
                 }
             }
             return result;
-        }
+        }        
 
-		public PanelOrder GetInitialPanel()
+        public PanelOrder GetInitialPanel()
 		{
 			YellowstonePathology.Business.Test.PanelOrder result = null;
 			foreach (PanelOrder panelOrder in this)

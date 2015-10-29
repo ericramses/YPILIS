@@ -40,6 +40,7 @@ namespace YellowstonePathology.UI.Gross
             result.Add(new EMBTemplate());
             result.Add(new ECCTemplate());
             result.Add(new FemoralHeadTemplate());
+            result.Add(new FallopianTubeTemplate());
             result.Add(new GallbladderExcisionTemplate());
             result.Add(new GITemplate());
             result.Add(new KneeTissueTemplate());
@@ -50,6 +51,7 @@ namespace YellowstonePathology.UI.Gross
             result.Add(new POCTemplate());
             result.Add(new ProstateNeedleCoreTemplate());
             result.Add(new ProstateTURTemplate());
+            result.Add(new SinusContentTemplate());
             result.Add(new SinglePlacentaTemplate());
             result.Add(new SkinExcisionTemplate());
             result.Add(new SkinShavePunchMiscTemplate());

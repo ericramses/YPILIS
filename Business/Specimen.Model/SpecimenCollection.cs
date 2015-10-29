@@ -63,6 +63,7 @@ namespace YellowstonePathology.Business.Specimen.Model
             result.Add(new SpecimenDefinition.ECC());
             result.Add(new SpecimenDefinition.EMB());
             result.Add(new SpecimenDefinition.FemoralHead());
+            result.Add(new SpecimenDefinition.FallopianTube());
             result.Add(new SpecimenDefinition.GallbladderExcision());
             result.Add(new SpecimenDefinition.GIBiopsy());
             result.Add(new SpecimenDefinition.KneeTissue());
@@ -71,10 +72,11 @@ namespace YellowstonePathology.Business.Specimen.Model
             result.Add(new SpecimenDefinition.MitralValve());
             result.Add(new SpecimenDefinition.NeedleCoreBiopsy());
             result.Add(new SpecimenDefinition.POC());
-            result.Add(new SpecimenDefinition.ProstateExceptRadicalResection());
+            result.Add(new SpecimenDefinition.ProstateExceptRadicalResection());            
             result.Add(new SpecimenDefinition.ProstateNeedleBiopsy());
             result.Add(new SpecimenDefinition.ProstateRadicalResection());
             result.Add(new SpecimenDefinition.ProstateTUR());
+            result.Add(new SpecimenDefinition.SinusContent());
             result.Add(new SpecimenDefinition.SinglePlacenta());
             result.Add(new SpecimenDefinition.SkinExcisionBiopsy());
             result.Add(new SpecimenDefinition.SkinShavePunchMiscBiopsy());

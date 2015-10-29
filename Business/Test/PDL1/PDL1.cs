@@ -16,8 +16,9 @@ namespace YellowstonePathology.Business.PanelSet.Model.PDL1
 			this.m_HasProfessionalComponent = false;
 			this.m_ResultDocumentSource = ResultDocumentSourceEnum.PublishedDocument;
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterR();
-            this.m_Active = true;            			
-            
+            this.m_Active = true;
+            this.m_NeverDistribute = true;
+
 			this.m_AllowMultiplePerAccession = true;
 
             string taskDescription = "Gather materials and send to Neogenomics.";
