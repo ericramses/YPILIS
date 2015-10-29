@@ -8,7 +8,7 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
     public class MultiTestDistributionHandlerWHP : MultiTestDistributionHandler
     {
 		private YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapTest m_PanelSetThinPrepPap;
-		private YellowstonePathology.Business.Test.HPVTWI.HPVTWITest m_PanelSetHPVTWI;
+		private YellowstonePathology.Business.Test.HPV.HPVTest m_PanelSetHPV;
 		private YellowstonePathology.Business.Test.HPV1618.HPV1618Test m_PanelSetHPV1618;
         private YellowstonePathology.Business.Test.NGCT.NGCTTest m_NGCTTest;
         private YellowstonePathology.Business.Test.Trichomonas.TrichomonasTest m_TrichomonasTest;
@@ -31,7 +31,7 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
             this.m_PanelSetOrderList = new List<Test.PanelSetOrder>();
 
 			this.m_PanelSetThinPrepPap = new YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapTest();
-			this.m_PanelSetHPVTWI = new Test.HPVTWI.HPVTWITest();
+			this.m_PanelSetHPV = new Test.HPV.HPVTest();
 			this.m_PanelSetHPV1618 = new YellowstonePathology.Business.Test.HPV1618.HPV1618Test();
             this.m_NGCTTest = new YellowstonePathology.Business.Test.NGCT.NGCTTest();
             this.m_TrichomonasTest = new YellowstonePathology.Business.Test.Trichomonas.TrichomonasTest();
@@ -46,9 +46,9 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
                     this.m_PanelSetOrderList.Add(psoThinPrep);
                 }
 
-                if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(this.m_PanelSetHPVTWI.PanelSetId) == true)
+                if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(this.m_PanelSetHPV.PanelSetId) == true)
                 {
-                    YellowstonePathology.Business.Test.PanelSetOrder psoHPV = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_PanelSetHPVTWI.PanelSetId);
+                    YellowstonePathology.Business.Test.PanelSetOrder psoHPV = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_PanelSetHPV.PanelSetId);
                     this.m_PanelSetOrderList.Add(psoHPV);
                 }
 
@@ -84,7 +84,7 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
                     {
                         panelSetOrder.Distribute = this.m_DistributePap;
                     }
-                    else if (panelSetOrder.PanelSetId == this.m_PanelSetHPVTWI.PanelSetId)
+                    else if (panelSetOrder.PanelSetId == this.m_PanelSetHPV.PanelSetId)
                     {
                         panelSetOrder.Distribute = this.m_DistributeHPV;
                     }

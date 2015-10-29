@@ -140,12 +140,12 @@ namespace YellowstonePathology.UI.Surgical
             }
         }
 
-        private void HyperLinkHighRiskHPVTWI_Click(object sender, RoutedEventArgs e)
+        private void HyperLinkHighRiskHPV_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Test.HPVTWI.HPVTWITest hpvTWITest = new Business.Test.HPVTWI.HPVTWITest();
-            if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(hpvTWITest.PanelSetId) == false)
+            YellowstonePathology.Business.Test.HPV.HPVTest hpvTest = new Business.Test.HPV.HPVTest();
+            if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(hpvTest.PanelSetId) == false)
             {
-                this.OrderTest(this, new CustomEventArgs.PanelSetReturnEventArgs(hpvTWITest));
+                this.OrderTest(this, new CustomEventArgs.PanelSetReturnEventArgs(hpvTest));
             }
         }
 

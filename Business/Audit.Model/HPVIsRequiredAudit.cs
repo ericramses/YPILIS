@@ -28,11 +28,11 @@ namespace YellowstonePathology.Business.Audit.Model
 				YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder womensHealthProfileTestOrder = (YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(womensHealthProfileTest.PanelSetId);
 				if (womensHealthProfileTestOrder.OrderHPV == true)
                 {
-					YellowstonePathology.Business.Test.HPVTWI.HPVTWITest panelSetHPVTWI = new YellowstonePathology.Business.Test.HPVTWI.HPVTWITest();
-                    if (accessionOrder.PanelSetOrderCollection.Exists(panelSetHPVTWI.PanelSetId) == false)
+					YellowstonePathology.Business.Test.HPV.HPVTest panelSetHPV = new YellowstonePathology.Business.Test.HPV.HPVTest();
+                    if (accessionOrder.PanelSetOrderCollection.Exists(panelSetHPV.PanelSetId) == false)
                     {
                         this.m_ActionRequired = true;
-                        this.m_Message.AppendLine("The order indicates that an " + panelSetHPVTWI.PanelSetName + " is required but it has not ordered.");
+                        this.m_Message.AppendLine("The order indicates that an " + panelSetHPV.PanelSetName + " is required but it has not ordered.");
                     }
                 }
             }
@@ -47,11 +47,11 @@ namespace YellowstonePathology.Business.Audit.Model
 				YellowstonePathology.Business.Client.Model.StandingOrder standingOrder = YellowstonePathology.Business.Client.Model.StandingOrderCollection.GetByStandingOrderCode(womensHealthProfileTestOrder.HPVStandingOrderCode);
                 if (standingOrder.IsRequired(accessionOrder) == true)
                 {
-					YellowstonePathology.Business.Test.HPVTWI.HPVTWITest panelSetHPVTWI = new YellowstonePathology.Business.Test.HPVTWI.HPVTWITest();
-                    if (accessionOrder.PanelSetOrderCollection.Exists(panelSetHPVTWI.PanelSetId) == false)
+					YellowstonePathology.Business.Test.HPV.HPVTest panelSetHPV = new YellowstonePathology.Business.Test.HPV.HPVTest();
+                    if (accessionOrder.PanelSetOrderCollection.Exists(panelSetHPV.PanelSetId) == false)
                     {
                         this.m_ActionRequired = true;
-                        this.m_Message.AppendLine("An " + panelSetHPVTWI.PanelSetName + " is required but not ordered.");
+                        this.m_Message.AppendLine("An " + panelSetHPV.PanelSetName + " is required but not ordered.");
                     }
                 }
             }
@@ -67,11 +67,11 @@ namespace YellowstonePathology.Business.Audit.Model
 
                 if (reflexOrder.IsRequired(accessionOrder) == true)
                 {
-					YellowstonePathology.Business.Test.HPVTWI.HPVTWITest panelSetHPVTWI = new YellowstonePathology.Business.Test.HPVTWI.HPVTWITest();
-                    if (accessionOrder.PanelSetOrderCollection.Exists(panelSetHPVTWI.PanelSetId) == false)
+					YellowstonePathology.Business.Test.HPV.HPVTest panelSetHPV = new YellowstonePathology.Business.Test.HPV.HPVTest();
+                    if (accessionOrder.PanelSetOrderCollection.Exists(panelSetHPV.PanelSetId) == false)
                     {
                         this.m_ActionRequired = true;
-                        this.m_Message.AppendLine("An " + panelSetHPVTWI.PanelSetName + " is required but not ordered.");
+                        this.m_Message.AppendLine("An " + panelSetHPV.PanelSetName + " is required but not ordered.");
                     }
                 }
             }

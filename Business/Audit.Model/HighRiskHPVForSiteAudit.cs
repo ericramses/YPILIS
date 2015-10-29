@@ -29,8 +29,8 @@ namespace YellowstonePathology.Business.Audit.Model
             this.m_Status = AuditStatusEnum.OK;
             this.m_Message.Clear();
 
-            YellowstonePathology.Business.Test.HPVTWI.HPVTWITest hpvTWITest = new Test.HPVTWI.HPVTWITest();
-            if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(hpvTWITest.PanelSetId) == false)
+            YellowstonePathology.Business.Test.HPV.HPVTest hpvTest = new Test.HPV.HPVTest();
+            if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(hpvTest.PanelSetId) == false)
             {
                 YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetSurgical();
                 foreach (YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen in surgicalTestOrder.SurgicalSpecimenCollection)
@@ -39,7 +39,7 @@ namespace YellowstonePathology.Business.Audit.Model
                     if (this.HPVIndicatorExists(surgicalSpecimen.SpecimenOrder.Description, surgicalSpecimen.Diagnosis, panelSetOrderCPTCodeCollectionForThisSpecimen) == true)
                     {
                         this.m_Status = AuditStatusEnum.Failure;
-                        this.m_Message.Append(hpvTWITest.PanelSetName);
+                        this.m_Message.Append(hpvTest.PanelSetName);
                         break;
                     }
                 }

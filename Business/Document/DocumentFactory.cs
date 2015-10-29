@@ -40,8 +40,8 @@ namespace YellowstonePathology.Business.Document
 					case 128: //Non GYN Cytology
 						document = new YellowstonePathology.Business.Test.Surgical.SurgicalWordDocument();
 						break;
-					case 14: //HPV Third Wave
-						document = new YellowstonePathology.Business.Test.HPVTWI.HPVTWIWordDocument();
+					case 14: //HPV
+						document = new YellowstonePathology.Business.Test.HPV.HPVWordDocument();
 						break;
 					case 15:  //Cytology                    
 						document = new YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapWordDocument();
