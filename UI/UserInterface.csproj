@@ -41,7 +41,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>382</ApplicationRevision>
+    <ApplicationRevision>390</ApplicationRevision>
     <ApplicationVersion>10.1.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -204,12 +204,6 @@
     <Compile Include="CellCounter.xaml.cs">
       <DependentUpon>CellCounter.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Client\ClientEntry.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Client\ClientEntry.designer.cs">
-      <DependentUpon>ClientEntry.cs</DependentUpon>
-    </Compile>
     <Compile Include="Client\ClientSupplyOrderDialog.xaml.cs">
       <DependentUpon>ClientSupplyOrderDialog.xaml</DependentUpon>
     </Compile>
@@ -217,29 +211,8 @@
       <DependentUpon>ClientSupplyOrderListDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Client\IHCMolecularRequisition.cs" />
-    <Compile Include="Client\PhysicianClientSearch.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Client\PhysicianClientSearch.Designer.cs">
-      <DependentUpon>PhysicianClientSearch.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Client\PhysicianEntry.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Client\PhysicianEntry.designer.cs">
-      <DependentUpon>PhysicianEntry.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Client\PhysicianSearch.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Client\PhysicianSearch.designer.cs">
-      <DependentUpon>PhysicianSearch.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Client\ReportDistribution.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Client\ReportDistribution.Designer.cs">
-      <DependentUpon>ReportDistribution.cs</DependentUpon>
+    <Compile Include="Client\ClientGroupEntry.xaml.cs">
+      <DependentUpon>ClientGroupEntry.xaml</DependentUpon>
     </Compile>
     <Compile Include="Common\OrderItemView.cs" />
     <Compile Include="Converter\BooleanVisibilityHiddenConverter.cs" />
@@ -937,12 +910,6 @@
     <Compile Include="Client\ClientEntryV2.xaml.cs">
       <DependentUpon>ClientEntryV2.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Client\WebBrowser.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Client\WebBrowser.Designer.cs">
-      <DependentUpon>WebBrowser.cs</DependentUpon>
-    </Compile>
     <Compile Include="Common\CaseHistoryPage.xaml.cs">
       <DependentUpon>CaseHistoryPage.xaml</DependentUpon>
     </Compile>
@@ -980,12 +947,6 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Client\ClientSearch.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Client\ClientSearch.Designer.cs">
-      <DependentUpon>ClientSearch.cs</DependentUpon>
     </Compile>
     <Compile Include="Client\Envelope.cs" />
     <Compile Include="Client\ProviderEntry.xaml.cs">
@@ -1671,30 +1632,6 @@
       <DependentUpon>PatientWorkspace.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Client\ClientEntry.resx">
-      <DependentUpon>ClientEntry.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Client\ClientSearch.resx">
-      <DependentUpon>ClientSearch.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Client\PhysicianClientSearch.resx">
-      <DependentUpon>PhysicianClientSearch.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Client\PhysicianEntry.resx">
-      <DependentUpon>PhysicianEntry.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Client\PhysicianSearch.resx">
-      <DependentUpon>PhysicianSearch.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Client\ReportDistribution.resx">
-      <DependentUpon>ReportDistribution.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Client\WebBrowser.resx">
-      <DependentUpon>WebBrowser.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
@@ -1898,6 +1835,10 @@
     <Page Include="Client\ClientSupplyOrderListDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Client\ClientGroupEntry.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="CodeSelectionV2.xaml">
       <Generator>MSBuild:Compile</Generator>

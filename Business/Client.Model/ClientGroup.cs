@@ -1,36 +1,79 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Text;
+using System.Data;
+using System.Data.SqlClient;
+using System.Windows;
+using System.Windows.Data;
+using YellowstonePathology.Business.Persistence;
+
 
 namespace YellowstonePathology.Business.Client.Model
 {
-    public class ClientGroup
-    {       
-        private List<int> m_Members;
+    [PersistentClass("tblClientGroup", "YPIDATA")]
+    public class ClientGroup : INotifyPropertyChanged
+    {
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private string m_ObjectId;
+        private int m_ClientGroupId;
+        private string m_GroupName;
 
         public ClientGroup()
-        {            
-            this.m_Members = new List<int>();
-        }        
-
-        public List<int> Members
         {
-            get { return this.m_Members; }
+
         }
 
-        public virtual bool Exists(int clientId)
+        [PersistentDocumentIdProperty()]
+        public string ObjectId
         {
-            bool result = false;
-            foreach (int id in this.m_Members)
+            get { return this.m_ObjectId; }
+            set
             {
-                if (id == clientId)
+                if (value != this.m_ObjectId)
                 {
-                    result = true;
-                    break;
+                    this.m_ObjectId = value;
+                    this.NotifyPropertyChanged("ObjectId");
                 }
             }
-            return result;
+        }
+
+        [PersistentPrimaryKeyProperty(true)]
+        public int ClientGroupId
+        {
+            get { return this.m_ClientGroupId; }
+            set
+            {
+                if (value != this.m_ClientGroupId)
+                {
+                    this.m_ClientGroupId = value;
+                    this.NotifyPropertyChanged("ClientGroupId");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string GroupName
+        {
+            get { return this.m_GroupName; }
+            set
+            {
+                if (value != this.m_GroupName)
+                {
+                    this.m_GroupName = value;
+                    this.NotifyPropertyChanged("GroupName");
+                }
+            }
+        }
+
+        public void NotifyPropertyChanged(String info)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
         }
     }
 }

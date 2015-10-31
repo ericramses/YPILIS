@@ -10,7 +10,7 @@ namespace YellowstonePathology.Business.Label.Model
         public PAPSlideLabelPrinter() 
             : base(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.CytologySlideLabelPrinter)
         {
-            this.m_ColumnCount = 3;
+            this.m_ColumnCount = 2;
             this.m_ColumnWidth = 106;
         }        
     }
