@@ -976,9 +976,9 @@ namespace YellowstonePathology.UI.Test
 				if (batch.BatchTypeId == 3) //HPV
 				{
 					this.m_ResultDialog = new ResultDialog();
-					HPVTWIBatchResultPath hpvTWIBatchResultPath = new HPVTWIBatchResultPath(this.m_LabUI.SearchEngine.ReportSearchList, this.m_ResultDialog.PageNavigator, this.m_SystemIdentity);
-					hpvTWIBatchResultPath.Finish += new ResultPath.FinishEventHandler(BatchResultPath_Finish);
-					hpvTWIBatchResultPath.Start();
+					HPVBatchResultPath hpvBatchResultPath = new HPVBatchResultPath(this.m_LabUI.SearchEngine.ReportSearchList, this.m_ResultDialog.PageNavigator, this.m_SystemIdentity);
+					hpvBatchResultPath.Finish += new ResultPath.FinishEventHandler(BatchResultPath_Finish);
+					hpvBatchResultPath.Start();
 					this.m_ResultDialog.ShowDialog();
 				}
 				else if(batch.BatchTypeId == 6) //NGCT

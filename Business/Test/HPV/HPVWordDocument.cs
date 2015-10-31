@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace YellowstonePathology.Business.Test.HPVTWI
+namespace YellowstonePathology.Business.Test.HPV
 {
-	public class HPVTWIWordDocument : YellowstonePathology.Business.Document.CaseReportV2
+	public class HPVWordDocument : YellowstonePathology.Business.Document.CaseReportV2
 	{
 		public override void Render(string masterAccessionNo, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveEnum)
 		{
@@ -13,8 +13,9 @@ namespace YellowstonePathology.Business.Test.HPVTWI
 			this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByMasterAccessionNo(masterAccessionNo);
             this.m_PanelSetOrder = m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 
-			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\HPVThirdWave.7.xml";
-			base.OpenTemplate();
+			//this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\HPVThirdWave.7.xml";
+            this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\HPV.xml";
+            base.OpenTemplate();
 
 			base.SetDemographicsV2();
 
@@ -27,7 +28,7 @@ namespace YellowstonePathology.Business.Test.HPVTWI
             string collectionDateTimeString = YellowstonePathology.Business.Helper.DateTimeExtensions.CombineDateAndTime(specimenOrder.CollectionDate, specimenOrder.CollectionTime);
             this.SetXmlNodeData("date_time_collected", collectionDateTimeString);
 
-			YellowstonePathology.Business.Test.HPVTWI.PanelSetOrderHPVTWI panelSetOrder = (YellowstonePathology.Business.Test.HPVTWI.PanelSetOrderHPVTWI)this.m_PanelSetOrder;
+			HPVTestOrder panelSetOrder = (HPVTestOrder)this.m_PanelSetOrder;
 			
 			if(string.IsNullOrEmpty(panelSetOrder.Result) == false) base.ReplaceText("test_result", panelSetOrder.Result);            
 

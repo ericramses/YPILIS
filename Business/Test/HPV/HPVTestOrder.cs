@@ -4,10 +4,10 @@ using System.Text;
 using System.Data;
 using YellowstonePathology.Business.Persistence;
 
-namespace YellowstonePathology.Business.Test.HPVTWI
+namespace YellowstonePathology.Business.Test.HPV
 {
 	[PersistentClass("tblPanelSetOrderHPVTWI", "tblPanelSetOrder", "YPIDATA")]
-	public class PanelSetOrderHPVTWI : PanelSetOrder
+    public class HPVTestOrder : PanelSetOrder
 	{        
 		private string m_Result;
 		private string m_Comment;
@@ -15,21 +15,21 @@ namespace YellowstonePathology.Business.Test.HPVTWI
 		private string m_TestInformation;
         private string m_ASRComment;
 
-		public PanelSetOrderHPVTWI()
+		public HPVTestOrder()
 		{
 
 		}
 
-		public PanelSetOrderHPVTWI(string masterAccessionNo, string reportNo, string objectId,
+		public HPVTestOrder(string masterAccessionNo, string reportNo, string objectId,
 			YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
             YellowstonePathology.Business.Interface.IOrderTarget orderTarget,
 			bool distribute,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 			: base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute, systemIdentity)
 		{
-            this.m_TestInformation = HPVTWIResult.TestInformation;
-            this.m_References = HPVTWIResult.References;
-            this.m_ASRComment = HPVTWIResult.ASRComment;
+            this.m_TestInformation = HPVResult.TestInformation;
+            this.m_References = HPVResult.References;
+            this.m_ASRComment = HPVResult.ASRComment;
             this.m_TechnicalComponentInstrumentId = Instrument.HOLOGICPANTHERID;
 		}        
 
@@ -116,5 +116,38 @@ namespace YellowstonePathology.Business.Test.HPVTWI
 		{
 			return this.GetResultWithTestName();
 		}
-	}
+
+        public override YellowstonePathology.Business.Rules.MethodResult IsOkToAccept()
+        {
+            
+            YellowstonePathology.Business.Rules.MethodResult result = base.IsOkToAccept();
+            if (result.Success == true)
+            {
+                if (string.IsNullOrEmpty(this.ResultCode) == true)
+                {
+                    result.Success = false;
+                    result.Message = "This case cannot be accepted because the results are not set.";
+                }
+            }
+            return result;
+        }
+
+        public override YellowstonePathology.Business.Audit.Model.AuditResult IsOkToFinalize(Test.AccessionOrder accessionOrder)
+        {
+            YellowstonePathology.Business.Audit.Model.AuditResult result = base.IsOkToFinalize(accessionOrder);
+            if(result.Status == Audit.Model.AuditStatusEnum.OK)
+            {
+                if(this.Accepted == false)
+                {
+                    YellowstonePathology.Business.Rules.MethodResult methodResult = this.IsOkToAccept();
+                    if(methodResult.Success == false)
+                    {
+                        result.Status = Audit.Model.AuditStatusEnum.Failure;
+                        result.Message = "This case cannot be finalized because the results are not set.";
+                    }
+                }
+            }
+            return result;
+        }
+    }
 }

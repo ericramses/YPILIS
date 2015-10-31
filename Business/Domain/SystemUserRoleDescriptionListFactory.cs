@@ -23,7 +23,7 @@ namespace YellowstonePathology.Business.Domain
 					roleList.Add(YellowstonePathology.Business.User.SystemUserRoleDescriptionEnum.Administrator);
 					break;
 				case YellowstonePathology.Business.PanelSet.Model.PanelSetEnum.HighRiskHPV:
-				case YellowstonePathology.Business.PanelSet.Model.PanelSetEnum.HighRiskHPVTWI:
+				case YellowstonePathology.Business.PanelSet.Model.PanelSetEnum.HPV:
 				case YellowstonePathology.Business.PanelSet.Model.PanelSetEnum.NGCT:
 				case YellowstonePathology.Business.PanelSet.Model.PanelSetEnum.Extraction:
 					roleList.Add(YellowstonePathology.Business.User.SystemUserRoleDescriptionEnum.Pathologist);

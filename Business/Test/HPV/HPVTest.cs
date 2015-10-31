@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace YellowstonePathology.Business.Test.HPVTWI
+namespace YellowstonePathology.Business.Test.HPV
 {
-	public class HPVTWITest : YellowstonePathology.Business.PanelSet.Model.PanelSetMolecularTest
+	public class HPVTest : YellowstonePathology.Business.PanelSet.Model.PanelSetMolecularTest
 	{
-		public HPVTWITest()
+		public HPVTest()
 		{
 			this.m_PanelSetId = 14;
-			this.m_PanelSetName = "High Risk HPV TWI";
+			this.m_PanelSetName = "HPV";
             this.m_Abbreviation = "HPV";
             this.m_CaseType = YellowstonePathology.Business.CaseType.Molecular;
 			this.m_HasTechnicalComponent = true;			
@@ -19,7 +19,7 @@ namespace YellowstonePathology.Business.Test.HPVTWI
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterM();
             this.m_Active = true;
 
-			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.HPVTWI.PanelSetOrderHPVTWI).AssemblyQualifiedName;                        
+			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.HPV.HPVTestOrder).AssemblyQualifiedName;                        
 			this.m_AcceptOnFinal = true;
 			this.m_AllowMultiplePerAccession = true;
             this.m_ExpectedDuration = new TimeSpan(4, 0, 0, 0);

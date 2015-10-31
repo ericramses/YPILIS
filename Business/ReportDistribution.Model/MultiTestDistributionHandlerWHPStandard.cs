@@ -16,13 +16,13 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
             this.m_DistributeNGCT = false;
             this.m_DistributeTrich = false;
 
-			YellowstonePathology.Business.Test.HPVTWI.HPVTWITest panelSetHPVTWI = new YellowstonePathology.Business.Test.HPVTWI.HPVTWITest();
+			YellowstonePathology.Business.Test.HPV.HPVTest panelSetHPV = new YellowstonePathology.Business.Test.HPV.HPVTest();
 		    YellowstonePathology.Business.Test.HPV1618.HPV1618Test panelSetHPV1618 = new YellowstonePathology.Business.Test.HPV1618.HPV1618Test();
             YellowstonePathology.Business.Test.NGCT.NGCTTest ngctTTest = new YellowstonePathology.Business.Test.NGCT.NGCTTest();
             YellowstonePathology.Business.Test.Trichomonas.TrichomonasTest trichomonasTest = new YellowstonePathology.Business.Test.Trichomonas.TrichomonasTest();
 
             this.m_DistributeHWP = false;
-            if (accessionOrder.PanelSetOrderCollection.Exists(panelSetHPVTWI.PanelSetId) == true) this.m_DistributeHWP = true;
+            if (accessionOrder.PanelSetOrderCollection.Exists(panelSetHPV.PanelSetId) == true) this.m_DistributeHWP = true;
             if (accessionOrder.PanelSetOrderCollection.Exists(panelSetHPV1618.PanelSetId) == true) this.m_DistributeHWP = true;
             if (accessionOrder.PanelSetOrderCollection.Exists(ngctTTest.PanelSetId) == true) this.m_DistributeHWP = true;
             if (accessionOrder.PanelSetOrderCollection.Exists(trichomonasTest.PanelSetId) == true) this.m_DistributeHWP = true;

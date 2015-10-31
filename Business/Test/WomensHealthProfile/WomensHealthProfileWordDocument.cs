@@ -158,10 +158,10 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
 			XmlNode insertAfterRow = rowBlankRow;
 
 			string headerText = "High Risk HPV Testing";
-			YellowstonePathology.Business.Test.HPVTWI.HPVTWITest panelSetHPVTWI = new YellowstonePathology.Business.Test.HPVTWI.HPVTWITest();
-			if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(panelSetHPVTWI.PanelSetId) == true)
+			YellowstonePathology.Business.Test.HPV.HPVTest panelSetHPV = new YellowstonePathology.Business.Test.HPV.HPVTest();
+			if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(panelSetHPV.PanelSetId) == true)
 			{
-				YellowstonePathology.Business.Test.HPVTWI.PanelSetOrderHPVTWI panelSetOrderHPVTWI = (YellowstonePathology.Business.Test.HPVTWI.PanelSetOrderHPVTWI)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetHPVTWI.PanelSetId);
+				YellowstonePathology.Business.Test.HPV.HPVTestOrder hpvTestOrder = (YellowstonePathology.Business.Test.HPV.HPVTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetHPV.PanelSetId);
 				XmlNode rowTestNodeClone = rowTestNode.Clone();
 				rowTestNodeClone.SelectSingleNode("descendant::w:r[w:t='molecular_test']/w:t", this.m_NameSpaceManager).InnerText = headerText;
 				mainTableNode.InsertAfter(rowTestNodeClone, insertAfterRow);
@@ -169,9 +169,9 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
 
 				XmlNode rowResultNodeClone = rowResultNode.Clone();
 				rowResultNodeClone.SelectSingleNode("descendant::w:r[w:t='test_name']/w:t", this.m_NameSpaceManager).InnerText = "High Risk HPV";
-				rowResultNodeClone.SelectSingleNode("descendant::w:r[w:t='test_result']/w:t", this.m_NameSpaceManager).InnerText = panelSetOrderHPVTWI.Result;
+				rowResultNodeClone.SelectSingleNode("descendant::w:r[w:t='test_result']/w:t", this.m_NameSpaceManager).InnerText = hpvTestOrder.Result;
                 rowResultNodeClone.SelectSingleNode("descendant::w:r[w:t='test_reference']/w:t", this.m_NameSpaceManager).InnerText = "Negative";
-				string testFinaldate = YellowstonePathology.Business.Helper.DateTimeExtensions.DateStringFromNullable(panelSetOrderHPVTWI.FinalDate);
+				string testFinaldate = YellowstonePathology.Business.Helper.DateTimeExtensions.DateStringFromNullable(hpvTestOrder.FinalDate);
 				rowResultNodeClone.SelectSingleNode("descendant::w:r[w:t='test_final_date']/w:t", this.m_NameSpaceManager).InnerText = testFinaldate;
 				mainTableNode.InsertAfter(rowResultNodeClone, insertAfterRow);
 				insertAfterRow = rowResultNodeClone;
@@ -275,7 +275,7 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
 				insertAfterRow = rowResultNodeClone;
 			}
 
-			if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(panelSetHPVTWI.PanelSetId) == false &&
+			if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(panelSetHPV.PanelSetId) == false &&
 				this.m_AccessionOrder.PanelSetOrderCollection.Exists(panelSetHPV1618.PanelSetId) == false &&
 				this.m_AccessionOrder.PanelSetOrderCollection.Exists(panelSetNGCT.PanelSetId) == false &&
 				this.m_AccessionOrder.PanelSetOrderCollection.Exists(panelSetTrichomonas.PanelSetId) == false)
@@ -297,7 +297,7 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
 		private void SetPriorResults()
 		{
 			YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapTest panelSetThinPrepPap = new YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapTest();
-			YellowstonePathology.Business.Test.HPVTWI.HPVTWITest panelSetHPVTWI = new YellowstonePathology.Business.Test.HPVTWI.HPVTWITest();
+			YellowstonePathology.Business.Test.HPV.HPVTest panelSetHPV = new YellowstonePathology.Business.Test.HPV.HPVTest();
 			YellowstonePathology.Business.Test.HPV1618.HPV1618Test panelSetHPV1618 = new YellowstonePathology.Business.Test.HPV1618.HPV1618Test();
             YellowstonePathology.Business.Test.NGCT.NGCTTest panelSetNGCT = new YellowstonePathology.Business.Test.NGCT.NGCTTest();
 			YellowstonePathology.Business.Test.Trichomonas.TrichomonasTest panelSetTrichomonas = new YellowstonePathology.Business.Test.Trichomonas.TrichomonasTest();
@@ -322,7 +322,7 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
 					string result = null;
 
 					if (panelSetOrder.PanelSetId == panelSetThinPrepPap.PanelSetId ||
-						panelSetOrder.PanelSetId == panelSetHPVTWI.PanelSetId ||
+						panelSetOrder.PanelSetId == panelSetHPV.PanelSetId ||
 						panelSetOrder.PanelSetId == panelSetHPV1618.PanelSetId ||
 						panelSetOrder.PanelSetId == panelSetNGCT.PanelSetId ||
 						panelSetOrder.PanelSetId == panelSetTrichomonas.PanelSetId)

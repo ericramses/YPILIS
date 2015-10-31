@@ -932,7 +932,7 @@ namespace YellowstonePathology.UI
 
             //YellowstonePathology.Business.Test.AccessionOrder ao = YellowstonePathology.Business.Gateway.AccessionOrderGatewayV2.GetAccessionOrderByMasterAccessionNo("14-19341");
 
-            //Type collectionType = Type.GetType("YellowstonePathology.Business.Test.HPVTWI.PanelSetOrderHPVTWI, BusinessObjects, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null");
+            //Type collectionType = Type.GetType("YellowstonePathology.Business.Test.HPV.PanelSetOrderHPV, BusinessObjects, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null");
             //System.Collections.IList childObjectCollection = (System.Collections.IList)Activator.CreateInstance(collectionType);
 
             //YellowstonePathology.Business.Persistence.SqlCommandBuilder sqlCommandBuilder = new Persistence.SqlCommandBuilder(typeof(YellowstonePathology.Business.Test.AccessionOrder), "14-19341");

@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace YellowstonePathology.Business.Test.HPVTWI
+namespace YellowstonePathology.Business.Test.HPV
 {
-	public class HPVTWIResult : Test.TestResult
+	public class HPVResult : Test.TestResult
 	{
-        public static string OveralResultCodePositive = "HPVTWPSTV";
+        public static string OveralResultCodePositive = "HPVPSTV";
 
         public static string InvalidResult = "Invalid";
         public static string PositiveResult = "Positive";
@@ -52,7 +52,7 @@ namespace YellowstonePathology.Business.Test.HPVTWI
 		public static string IndeterminateComment = "Results are indeterminate due to technical issues with this specific specimen, which may be related to specimen DNA " +
 			"quality or interfering substances.  Consider repeat testing, if clinically indicated.";
 
-		public HPVTWIResult()
+		public HPVResult()
 		{
 			
 		}

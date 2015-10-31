@@ -21,7 +21,7 @@ namespace YellowstonePathology.Business.HL7View.CMMC
 		public override void ToXml(XElement document)
 		{
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(this.m_ReportNo);            
-            YellowstonePathology.Business.Test.HPVTWI.PanelSetOrderHPVTWI panelSetOrder = (YellowstonePathology.Business.Test.HPVTWI.PanelSetOrderHPVTWI)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
+            YellowstonePathology.Business.Test.HPV.HPVTestOrder panelSetOrder = (YellowstonePathology.Business.Test.HPV.HPVTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
 
             this.AddCompanyHeader(document);
             this.AddBlankNteElement(document);
@@ -40,11 +40,11 @@ namespace YellowstonePathology.Business.HL7View.CMMC
             this.AddBlankNteElement(document);
 
             this.AddNextNteElement("Test Information: ", document);            
-            this.HandleLongString(YellowstonePathology.Business.Test.HPVTWI.HPVTWIResult.TestInformation, document);
+            this.HandleLongString(YellowstonePathology.Business.Test.HPV.HPVResult.TestInformation, document);
             this.AddBlankNteElement(document);
             
             this.AddNextNteElement("References: ", document);
-            this.HandleLongString(YellowstonePathology.Business.Test.HPVTWI.HPVTWIResult.References, document);
+            this.HandleLongString(YellowstonePathology.Business.Test.HPV.HPVResult.References, document);
             this.AddBlankNteElement(document);
 
             string asrComment = "This test was performed using a US FDA approved DNA probe kit.  The FDA procedure was performed using a modified DNA extraction method for test optimization, and the modified procedure was validated by Yellowstone Pathology Institute (YPI).  YPI assumes the responsibility for test performance.";

@@ -189,8 +189,8 @@ namespace YellowstonePathology.UI.Test
             if (this.m_AccessionOrder.PanelSetOrderCollection.HasPanelSetBeenOrdered(hpvPanelSetId) == false)
             {
                 YellowstonePathology.Business.Interface.IOrderTarget orderTarget = this.m_AccessionOrder.SpecimenOrderCollection.GetOrderTarget(this.m_WomensHealthProfileTestOrder.OrderedOnId);
-				YellowstonePathology.Business.Test.HPVTWI.HPVTWITest panelSetHPVTWI = new Business.Test.HPVTWI.HPVTWITest();
-                YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new Business.Test.TestOrderInfo(panelSetHPVTWI, orderTarget, true);                
+				YellowstonePathology.Business.Test.HPV.HPVTest panelSetHPV = new Business.Test.HPV.HPVTest();
+                YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new Business.Test.TestOrderInfo(panelSetHPV, orderTarget, true);                
                 YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Business.Visitor.OrderTestOrderVisitor(testOrderInfo, this.m_SystemIdentity);
                 this.m_AccessionOrder.TakeATrip(orderTestOrderVisitor);
 
