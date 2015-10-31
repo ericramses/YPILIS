@@ -28,7 +28,7 @@ namespace YellowstonePathology.UI.Test
 					result = new NGCTResultPath(reportNo, accessionOrder, objectTracker, pageNavigator, systemIdentity);
                     break;
 				case 14:
-                    result = new HPVTWIResultPath(reportNo, accessionOrder, objectTracker, pageNavigator, systemIdentity);
+                    result = new HPVResultPath(reportNo, accessionOrder, objectTracker, pageNavigator, systemIdentity);
                     break;
 				case 18:
 					result = new BRAFV600EKResultPath(reportNo, accessionOrder, objectTracker, pageNavigator, backButtonVisibility, systemIdentity);

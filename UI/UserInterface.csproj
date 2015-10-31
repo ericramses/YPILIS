@@ -902,15 +902,15 @@
     <Compile Include="Surgical\TypingWorkspace.xaml.cs">
       <DependentUpon>TypingWorkspace.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Test\HPVTWIBatchResultPath.cs" />
+    <Compile Include="Test\HPVBatchResultPath.cs" />
     <Compile Include="Test\HPV1618ResultPage.xaml.cs">
       <DependentUpon>HPV1618ResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Test\HPV1618ResultPath.cs" />
-    <Compile Include="Test\HPVTWIResultPage.xaml.cs">
-      <DependentUpon>HPVTWIResultPage.xaml</DependentUpon>
+    <Compile Include="Test\HPVResultPage.xaml.cs">
+      <DependentUpon>HPVResultPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Test\HPVTWIResultPath.cs" />
+    <Compile Include="Test\HPVResultPath.cs" />
     <Compile Include="Test\LynchSyndromeEvaluationResultPage.xaml.cs">
       <DependentUpon>LynchSyndromeEvaluationResultPage.xaml</DependentUpon>
     </Compile>
@@ -2519,7 +2519,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Test\HPVTWIResultPage.xaml">
+    <Page Include="Test\HPVResultPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

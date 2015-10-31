@@ -200,40 +200,10 @@ namespace YellowstonePathology.UI.Surgical
             this.TextBoxReportNoSearch.SelectionStart = 100;    
         }
 
-        public void MoveToNextTab(object sender, KeyEventArgs args)
-        {
-
-            if (args.Key == Key.Tab)
-            {
-                TextBox textBox = (TextBox)sender;
-                switch (textBox.Name)
-                {
-                    case "TextBoxClinical":
-                        this.TabControlLeftMain.SelectedIndex = 1;                        
-                        break;
-                    case "TextBoxGross":
-                        this.TabControlLeftMain.SelectedIndex = 2;                        
-                        break;                    
-                    case "TextBoxImmediate":
-                        this.TabControlLeftMain.SelectedIndex = 3;                        
-                        break;
-                    case "TextBoxMicroscopic":
-                        this.TabControlLeftMain.SelectedIndex = 4;
-                        this.TabControlRightMain.SelectedIndex = 1;
-                        break;                    
-                }                
-            }
-        }
-
         public void TextBox_GotFocus(object sender, RoutedEventArgs args)
         {
             TextBox textBox = (TextBox)sender;
             textBox.Select(5000, 1);
-        }
-        
-        public void ButtonAccessionSearch_Click(object sender, RoutedEventArgs args)
-        {
-            this.GetSurgicalCase(this.TextBoxReportNoSearch.Text);            
         }
 
         public void TextBoxReportNoSearch_KeyDown(object sender, KeyEventArgs args)
@@ -383,25 +353,6 @@ namespace YellowstonePathology.UI.Surgical
 				YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(fileName);
 			}
         }
-
-        public void ButtonFixDocument_Click(object sender, RoutedEventArgs args)
-        {
-			if (m_TypingUI.SurgicalTestOrder != null)
-			{
-				m_TypingUI.SurgicalTestOrder.GrossX = YellowstonePathology.Business.Common.SpellChecker.FixString(m_TypingUI.SurgicalTestOrder.GrossX);
-				m_TypingUI.SurgicalTestOrder.MicroscopicX = YellowstonePathology.Business.Common.SpellChecker.FixString(m_TypingUI.SurgicalTestOrder.MicroscopicX);
-				m_TypingUI.SurgicalTestOrder.CancerSummary = YellowstonePathology.Business.Common.SpellChecker.FixString(m_TypingUI.SurgicalTestOrder.CancerSummary);
-				m_TypingUI.AccessionOrder.ClinicalHistory = YellowstonePathology.Business.Common.SpellChecker.FixString(m_TypingUI.AccessionOrder.ClinicalHistory);
-				m_TypingUI.SurgicalTestOrder.Comment = YellowstonePathology.Business.Common.SpellChecker.FixString(m_TypingUI.SurgicalTestOrder.Comment);
-
-				foreach (YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen specimen in m_TypingUI.SurgicalTestOrder.SurgicalSpecimenCollection)
-				{
-					specimen.Diagnosis = YellowstonePathology.Business.Common.SpellChecker.FixString(specimen.Diagnosis);
-				}
-
-				this.Save();
-			}
-        }        
 
         private YellowstonePathology.Business.Rules.MethodResult DoTypingFinalChecks()
         {
@@ -566,16 +517,6 @@ namespace YellowstonePathology.UI.Surgical
         {
             this.m_TypingUI.CaseListDate = this.m_TypingUI.CaseListDate.AddDays(1);
 			this.m_TypingUI.SurgicalOrderList.FillByAccessionDate(this.m_TypingUI.CaseListDate);
-        }
-
-        public void ListViewSurgicalCaseList_MouseLeftButtonUp(object sender, RoutedEventArgs args)
-        {            
-            if (this.ListViewSurgicalCaseList.SelectedItem != null)
-            {                
-                YellowstonePathology.Business.Surgical.SurgicalOrderListItem item = (YellowstonePathology.Business.Surgical.SurgicalOrderListItem)this.ListViewSurgicalCaseList.SelectedItem;
-				this.TextBoxReportNoSearch.Text = item.ReportNo;
-                this.GetSurgicalCase(item.ReportNo);
-            }                        
         }
 
         public void ButtonGetList_Click(object sender, RoutedEventArgs args)

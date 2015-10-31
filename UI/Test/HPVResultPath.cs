@@ -5,24 +5,24 @@ using System.Text;
 
 namespace YellowstonePathology.UI.Test
 {
-	public class HPVTWIResultPath : ResultPath
+	public class HPVResultPath : ResultPath
 	{
         public delegate void NextEventHandler(object sender, EventArgs e);
         public event NextEventHandler Next;
 
-		private HPVTWIResultPage m_HPVTWIResultPage;
+		private HPVResultPage m_HPVResultPage;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;        
-		private YellowstonePathology.Business.Test.HPVTWI.PanelSetOrderHPVTWI m_PanelSetOrderHPVTWI;
+		private YellowstonePathology.Business.Test.HPV.HPVTestOrder m_HPVTestOrder;
 		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 
-        public HPVTWIResultPath(string reportNo, YellowstonePathology.Business.Test.AccessionOrder accessionOrder,            
+        public HPVResultPath(string reportNo, YellowstonePathology.Business.Test.AccessionOrder accessionOrder,            
             YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
             YellowstonePathology.UI.Navigation.PageNavigator pageNavigator,
             YellowstonePathology.Business.User.SystemIdentity systemIdentity)
             : base(pageNavigator, systemIdentity)
         {
             this.m_AccessionOrder = accessionOrder;            
-            this.m_PanelSetOrderHPVTWI = (YellowstonePathology.Business.Test.HPVTWI.PanelSetOrderHPVTWI)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
+            this.m_HPVTestOrder = (YellowstonePathology.Business.Test.HPV.HPVTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
             this.m_ObjectTracker = objectTracker;
             this.Authenticated += new AuthenticatedEventHandler(ResultPath_Authenticated);
         }                      
@@ -34,12 +34,12 @@ namespace YellowstonePathology.UI.Test
 
 		private void ShowResultPage()
 		{
-			this.m_HPVTWIResultPage = new HPVTWIResultPage(this.m_PanelSetOrderHPVTWI, this.m_AccessionOrder, this.m_ObjectTracker, this.m_SystemIdentity, this.m_PageNavigator);
-			this.m_HPVTWIResultPage.Next += new HPVTWIResultPage.NextEventHandler(HPVTWIResultPage_Next);
-			this.m_PageNavigator.Navigate(this.m_HPVTWIResultPage);
+			this.m_HPVResultPage = new HPVResultPage(this.m_HPVTestOrder, this.m_AccessionOrder, this.m_ObjectTracker, this.m_SystemIdentity, this.m_PageNavigator);
+			this.m_HPVResultPage.Next += new HPVResultPage.NextEventHandler(HPVResultPage_Next);
+			this.m_PageNavigator.Navigate(this.m_HPVResultPage);
 		}
 
-		private void HPVTWIResultPage_Next(object sender, EventArgs e)
+		private void HPVResultPage_Next(object sender, EventArgs e)
 		{
 			if (this.ShowWomensHealthProfilePage() == false)
             {                

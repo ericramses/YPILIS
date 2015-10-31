@@ -5,14 +5,14 @@ using System.Text;
 
 namespace YellowstonePathology.UI.Test
 {
-	public class HPVTWIBatchResultPath : ResultPath
+	public class HPVBatchResultPath : ResultPath
 	{
 		private YellowstonePathology.Business.Search.ReportSearchList m_ReportSearchList;
         private int m_CurrentIndex;
         private Microsoft.Office.Interop.Excel.Application m_ExcelApplication;
         private Microsoft.Office.Interop.Excel.Workbook m_WorkBook;
 
-		public HPVTWIBatchResultPath(YellowstonePathology.Business.Search.ReportSearchList reportSearchList, 
+		public HPVBatchResultPath(YellowstonePathology.Business.Search.ReportSearchList reportSearchList, 
             YellowstonePathology.UI.Navigation.PageNavigator pageNavigator,
             YellowstonePathology.Business.User.SystemIdentity systemIdentity)
             : base(pageNavigator, systemIdentity)
@@ -48,13 +48,13 @@ namespace YellowstonePathology.UI.Test
 			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
 			objectTracker.RegisterObject(accessionOrder);
 
-			YellowstonePathology.Business.Test.HPVTWI.PanelSetOrderHPVTWI panelSetOrder = (YellowstonePathology.Business.Test.HPVTWI.PanelSetOrderHPVTWI)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportSearchItem.ReportNo);			
-            YellowstonePathology.UI.Test.HPVTWIResultPath hpvtwiResultPath = new HPVTWIResultPath(panelSetOrder.ReportNo, accessionOrder, objectTracker, this.m_PageNavigator, this.m_SystemIdentity);
-            hpvtwiResultPath.Finish += new FinishEventHandler(HPVTWIResultPath_Finish);
-            hpvtwiResultPath.Start();
+			YellowstonePathology.Business.Test.HPV.HPVTestOrder panelSetOrder = (YellowstonePathology.Business.Test.HPV.HPVTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportSearchItem.ReportNo);			
+            YellowstonePathology.UI.Test.HPVResultPath hpvResultPath = new HPVResultPath(panelSetOrder.ReportNo, accessionOrder, objectTracker, this.m_PageNavigator, this.m_SystemIdentity);
+            hpvResultPath.Finish += new FinishEventHandler(HPVResultPath_Finish);
+            hpvResultPath.Start();
 		}
 
-        private void HPVTWIResultPath_Finish(object sender, EventArgs e)
+        private void HPVResultPath_Finish(object sender, EventArgs e)
         {
             this.m_CurrentIndex += 1;
             if (this.m_CurrentIndex < this.m_ReportSearchList.Count) this.GoToNextCase();

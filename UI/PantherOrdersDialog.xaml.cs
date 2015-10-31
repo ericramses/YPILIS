@@ -82,7 +82,7 @@ namespace YellowstonePathology.UI
                 this.m_LoginPageWindow = new Login.LoginPageWindow(systemIdentity);
                 this.m_LoginPageWindow.Show();
 
-                YellowstonePathology.UI.Test.HPVTWIResultPath hpvResultPath = new Test.HPVTWIResultPath(pantherOrderListItem.ReportNo, accessionOrder, objectTracker, this.m_LoginPageWindow.PageNavigator, systemIdentity);
+                YellowstonePathology.UI.Test.HPVResultPath hpvResultPath = new Test.HPVResultPath(pantherOrderListItem.ReportNo, accessionOrder, objectTracker, this.m_LoginPageWindow.PageNavigator, systemIdentity);
                 hpvResultPath.Finish += HpvResultPath_Finish;
                 hpvResultPath.Start();
             }

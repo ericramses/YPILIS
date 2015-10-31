@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 
-namespace YellowstonePathology.Business.Test.HPVTWI
+namespace YellowstonePathology.Business.Test.HPV
 {
-	public class HPVTWIEpicObxView : YellowstonePathology.Business.HL7View.EPIC.EpicObxView
+	public class HPVEpicObxView : YellowstonePathology.Business.HL7View.EPIC.EpicObxView
     {
-		public HPVTWIEpicObxView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount) 
+		public HPVEpicObxView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount) 
             : base(accessionOrder, reportNo, obxCount)
 		{
 			
@@ -16,8 +16,8 @@ namespace YellowstonePathology.Business.Test.HPVTWI
 
         public override void ToXml(XElement document)
         {            
-            PanelSetOrderHPVTWI panelSetOrder = (PanelSetOrderHPVTWI)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
-            this.AddHeader(document, panelSetOrder, "High Risk HPV Report");
+            HPVTestOrder panelSetOrder = (HPVTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
+            this.AddHeader(document, panelSetOrder, "HPV Report");
             this.AddNextObxElement("", document, "F");            
 
             string resultText = "Result: " + panelSetOrder.Result;

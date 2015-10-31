@@ -18,7 +18,7 @@ namespace YellowstonePathology.Business.Client.Model
         {
             bool result = false;
 
-			YellowstonePathology.Business.Test.HPVTWI.HPVTWITest panelSetHPVTWI = new YellowstonePathology.Business.Test.HPVTWI.HPVTWITest();
+			YellowstonePathology.Business.Test.HPV.HPVTest panelSetHPV = new YellowstonePathology.Business.Test.HPV.HPVTest();
 		   YellowstonePathology.Business.Test.HPV1618.HPV1618Test panelSetHPV1618 = new YellowstonePathology.Business.Test.HPV1618.HPV1618Test();
 			YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapTest panelSetThinPrepPap = new YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapTest();            
 
@@ -30,10 +30,10 @@ namespace YellowstonePathology.Business.Client.Model
                     string papResultCode = panelsetOrderCytology.ResultCode;
 					if (YellowstonePathology.Business.Cytology.Model.CytologyResultCode.IsResultCodeNormal(papResultCode) == true || YellowstonePathology.Business.Cytology.Model.CytologyResultCode.IsResultCodeReactive(papResultCode) == true)
                     {
-                        if (accessionOrder.PanelSetOrderCollection.Exists(panelSetHPVTWI.PanelSetId) == true)
+                        if (accessionOrder.PanelSetOrderCollection.Exists(panelSetHPV.PanelSetId) == true)
                         {
-                            YellowstonePathology.Business.Test.HPVTWI.PanelSetOrderHPVTWI panelSetOrderHPVTWI = (YellowstonePathology.Business.Test.HPVTWI.PanelSetOrderHPVTWI)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetHPVTWI.PanelSetId);
-                            if (panelSetOrderHPVTWI.ResultCode == YellowstonePathology.Business.Test.HPVTWI.HPVTWIResult.OveralResultCodePositive)
+                            YellowstonePathology.Business.Test.HPV.HPVTestOrder hpvTestOrder = (YellowstonePathology.Business.Test.HPV.HPVTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetHPV.PanelSetId);
+                            if (hpvTestOrder.ResultCode == YellowstonePathology.Business.Test.HPV.HPVResult.OveralResultCodePositive)
                             {
                                 result = true;                             
                             }                            

@@ -26,7 +26,7 @@ namespace YellowstonePathology.Business.HL7View.EPIC
 					view = new YellowstonePathology.Business.Test.Surgical.SurgicalEpicObxView(accessionOrder, reportNo, obxCount);
                     break;
                 case 14:
-					view = new YellowstonePathology.Business.Test.HPVTWI.HPVTWIEpicObxView(accessionOrder, reportNo, obxCount);
+					view = new YellowstonePathology.Business.Test.HPV.HPVEpicObxView(accessionOrder, reportNo, obxCount);
                     break;
                 case 15:
 					view = new YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapEpicObxView(accessionOrder, reportNo, obxCount);

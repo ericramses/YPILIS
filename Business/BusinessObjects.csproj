@@ -484,8 +484,8 @@
     <Compile Include="Test\HPV1618\HPV1618Genotype16PositiveResult.cs" />
     <Compile Include="Test\HPV1618\HPV1618Genotype18NegativeResult.cs" />
     <Compile Include="Test\HPV1618\HPV1618Genotype18PositiveResult.cs" />
-    <Compile Include="Test\HPVTWI\HPVTWIInvalidResult.cs" />
-    <Compile Include="Test\HPVTWI\HPVTWINoResult.cs" />
+    <Compile Include="Test\HPV\HPVInvalidResult.cs" />
+    <Compile Include="Test\HPV\HPVNoResult.cs" />
     <Compile Include="Test\MissingInformation\MissingInformationTest.cs" />
     <Compile Include="Test\MissingInformation\MissingInformationTestOrder.cs" />
     <Compile Include="Test\NGCT\NGCTInvalidResult.cs" />
@@ -616,7 +616,7 @@
     <Compile Include="Test\ChromosomeAnalysisForFetalAnomaly\ChromosomeAnalysisForFetalAnomalyNoGrowthResult.cs" />
     <Compile Include="Test\ChromosomeAnalysis\ChromosomeAnalysisInconclusiveResult.cs" />
     <Compile Include="Test\HoldForFlow\HoldForFlowTest.cs" />
-    <Compile Include="Test\HPVTWI\HPVTWIPositiveResult.cs" />
+    <Compile Include="Test\HPV\HPVPositiveResult.cs" />
     <Compile Include="Test\Instrument.cs" />
     <Compile Include="Test\PantherAliquotListItem.cs" />
     <Compile Include="Test\PantherOrderListItemNGCT.cs" />
@@ -1276,8 +1276,8 @@
     <Compile Include="Test\HighGradeLargeBCellLymphoma\HighGradeLargeBCellLymphomaWordDocument.cs" />
     <Compile Include="Test\HPV1618\HPV1618EpicObxView.cs" />
     <Compile Include="Test\HPV1618\HPV1618WordDocument.cs" />
-    <Compile Include="Test\HPVTWI\HPVTWIEpicObxView.cs" />
-    <Compile Include="Test\HPVTWI\HPVTWIWordDocument.cs" />
+    <Compile Include="Test\HPV\HPVEpicObxView.cs" />
+    <Compile Include="Test\HPV\HPVWordDocument.cs" />
     <Compile Include="Test\InvasiveBreastPanel\InvasiveBreastPanel.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -1902,10 +1902,10 @@
     <Compile Include="Test\HPV1618\HPV1618Result.cs" />
     <Compile Include="Test\HPV1618\HPV1618ResultCollection.cs" />
     <Compile Include="Test\HPV1618\PanelSetOrderHPV1618.cs" />
-    <Compile Include="Test\HPVTWI\HPVTWINegativeResult.cs" />
-    <Compile Include="Test\HPVTWI\HPVTWIResult.cs" />
-    <Compile Include="Test\HPVTWI\HPVTWIResultCollection.cs" />
-    <Compile Include="Test\HPVTWI\PanelSetOrderHPVTWI.cs" />
+    <Compile Include="Test\HPV\HPVNegativeResult.cs" />
+    <Compile Include="Test\HPV\HPVResult.cs" />
+    <Compile Include="Test\HPV\HPVResultCollection.cs" />
+    <Compile Include="Test\HPV\HPVTestOrder.cs" />
     <Compile Include="Test\KRASStandardReflex\KRASStandardReflexEpicObxView.cs" />
     <Compile Include="Test\KRASStandardReflex\KRASStandardReflexKRASNotDetecedBRAFDetectedResult.cs" />
     <Compile Include="Test\KRASStandardReflex\KRASStandardReflexBothNotDetectedResult.cs" />
@@ -2391,7 +2391,7 @@
     <Compile Include="PanelSet.Model\PanelSetHighRiskMultipleMyelomaByFISH Fish.cs" />
     <Compile Include="PanelSet.Model\PanelSetHPV16.cs" />
     <Compile Include="PanelSet.Model\PanelSetHPVLowRiskByInSituHybridization.cs" />
-    <Compile Include="Test\HPVTWI\HPVTWITest.cs" />
+    <Compile Include="Test\HPV\HPVTest.cs" />
     <Compile Include="PanelSet.Model\PanelSetIgHBCL2ByFish.cs" />
     <Compile Include="PanelSet.Model\PanelSetIgHMAFBByFish.cs" />
     <Compile Include="PanelSet.Model\PanelSetIgHMAFByFish.cs" />

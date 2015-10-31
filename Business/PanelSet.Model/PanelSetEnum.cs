@@ -16,7 +16,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
         FluorescentInSituHybridization = 11,
         HER2AmplificationByFISH = 12,
         SurgicalPathology = 13,
-        HighRiskHPVTWI  = 14,
+        HPV  = 14,
         Cytology = 15,
         Flow = 16,
         Extraction = 17,

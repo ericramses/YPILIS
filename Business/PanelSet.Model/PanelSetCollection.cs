@@ -152,7 +152,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
 			panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetHer2AmplificationByFishRetired2());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHTest());
             panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetHPV16());
-			panelSetCollection.Add(new YellowstonePathology.Business.Test.HPVTWI.HPVTWITest());
+			panelSetCollection.Add(new YellowstonePathology.Business.Test.HPV.HPVTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.KRASStandardReflex.KRASStandardReflexTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.KRASStandard.KRASStandardTest());

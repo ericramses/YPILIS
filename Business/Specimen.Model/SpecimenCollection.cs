@@ -41,6 +41,17 @@ namespace YellowstonePathology.Business.Specimen.Model
             return result;
         }
 
+        private static SpecimenCollection Sort(SpecimenCollection specimenCollection)
+        {
+            SpecimenCollection result = new SpecimenCollection();
+            IOrderedEnumerable<Specimen> orderedResult = specimenCollection.OrderBy(i => i.SpecimenName);
+            foreach (Specimen specimen in orderedResult)
+            {
+                result.Add(specimen);
+            }
+            return result;
+        }
+
         public static SpecimenCollection GetAll()
         {
             SpecimenCollection result = new SpecimenCollection();
@@ -73,7 +84,7 @@ namespace YellowstonePathology.Business.Specimen.Model
             result.Add(new SpecimenDefinition.TonsilExcision());                                                           
             result.Add(new SpecimenDefinition.Uterus());            
             result.Add(new SpecimenDefinition.UterusAdnexa());
-            return result;
+            return Sort(result);
         }
     }
 }
