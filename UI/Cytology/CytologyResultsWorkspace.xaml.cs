@@ -672,10 +672,10 @@ namespace YellowstonePathology.UI.Cytology
                 }
 
                 this.m_PageNavigationWindow = new PageNavigationWindow(this.m_SystemIdentity);
-				YellowstonePathology.UI.Login.WomensHealthProfilePath womensHealthProfilePath = new YellowstonePathology.UI.Login.WomensHealthProfilePath(this.m_CytologyUI.AccessionOrder, this.m_CytologyUI.ObjectTracker, clientOrder, this.m_PageNavigationWindow.PageNavigator, this.m_SystemIdentity, Visibility.Collapsed);
-                womensHealthProfilePath.Finished += new Login.WomensHealthProfilePath.FinishedEventHandler(WomensHealthProfilePath_Finished);
+				YellowstonePathology.UI.Login.WomensHealthProfilePath womensHealthProfilePath = new YellowstonePathology.UI.Login.WomensHealthProfilePath(this.m_CytologyUI.AccessionOrder, this.m_CytologyUI.ObjectTracker, clientOrder, this.m_PageNavigationWindow.PageNavigator, Visibility.Collapsed);
+                womensHealthProfilePath.Finish += new Login.WomensHealthProfilePath.FinishEventHandler(WomensHealthProfilePath_Finished);
                 womensHealthProfilePath.Back += new Login.WomensHealthProfilePath.BackEventHandler(WomensHealthProfilePath_Finished);
-                womensHealthProfilePath.Start();
+                womensHealthProfilePath.Start(this.m_SystemIdentity);
                 this.m_PageNavigationWindow.ShowDialog();
             }
             else

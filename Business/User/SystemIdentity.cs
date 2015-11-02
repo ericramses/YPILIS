@@ -146,9 +146,9 @@ namespace YellowstonePathology.Business.User
 
 		public static bool DoesLoggedInUserNeedToScanId()
 		{
-			bool result = false;
-            
-			string userName = System.Windows.Forms.SystemInformation.UserName.ToUpper();
+            bool result = false;
+
+            string userName = System.Windows.Forms.SystemInformation.UserName.ToUpper();
 			switch (userName)
 			{
 				case "NOT ASSIGNED": //0
@@ -157,13 +157,13 @@ namespace YellowstonePathology.Business.User
 				case "HISTOLOGYB":   //5097
 				case "HISTOLOGYC":   //5117
 				case "CODYHISTOLOGY": //5077
-					result = true;
+                    result = true;
 					break;
 				default:
 					result = false;
 					break;
 			}
-			return result;
+            return result;
 		}
     }
 }

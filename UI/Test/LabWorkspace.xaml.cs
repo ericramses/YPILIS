@@ -969,90 +969,90 @@ namespace YellowstonePathology.UI.Test
 
 		private void ButtonAcceptBatchResults_Click(object sender, RoutedEventArgs args)
 		{
-			this.Save();
+            this.Save();
             if (this.listViewBatchList.SelectedItem != null)
             {
-				YellowstonePathology.Business.Panel.Model.PanelOrderBatch batch = (YellowstonePathology.Business.Panel.Model.PanelOrderBatch)this.listViewBatchList.SelectedItem;				
-				if (batch.BatchTypeId == 3) //HPV
-				{
-					this.m_ResultDialog = new ResultDialog();
-					HPVBatchResultPath hpvBatchResultPath = new HPVBatchResultPath(this.m_LabUI.SearchEngine.ReportSearchList, this.m_ResultDialog.PageNavigator, this.m_SystemIdentity);
-					hpvBatchResultPath.Finish += new ResultPath.FinishEventHandler(BatchResultPath_Finish);
-					hpvBatchResultPath.Start();
-					this.m_ResultDialog.ShowDialog();
-				}
-				else if(batch.BatchTypeId == 6) //NGCT
-				{
-					this.m_ResultDialog = new ResultDialog();
-					NGCTBatchResultPath ngctBatchResultPath = new NGCTBatchResultPath(this.m_LabUI.SearchEngine.ReportSearchList, this.m_ResultDialog.PageNavigator, this.m_SystemIdentity);
-					ngctBatchResultPath.Finish += new ResultPath.FinishEventHandler(BatchResultPath_Finish);
-					ngctBatchResultPath.Start();
-					this.m_ResultDialog.ShowDialog();
-				}
-				else if (batch.BatchTypeId == 2) //CF
-				{
-					this.m_ResultDialog = new ResultDialog();
-					CysticFibrosisBatchResultPath cysticFibrosisBatchResultPath = new CysticFibrosisBatchResultPath(this.m_LabUI.SearchEngine.ReportSearchList, this.m_ResultDialog.PageNavigator, this.m_SystemIdentity);
-					cysticFibrosisBatchResultPath.Finish += new ResultPath.FinishEventHandler(BatchResultPath_Finish);
-					cysticFibrosisBatchResultPath.Start();
-					this.m_ResultDialog.ShowDialog();
-				}
-				else if (batch.BatchTypeId == 23) //HPV16/18
-				{
-					this.m_ResultDialog = new ResultDialog();
-					HPV1618BatchResultPath hpv1618BatchResultPath = new HPV1618BatchResultPath(this.m_LabUI.SearchEngine.ReportSearchList, this.m_ResultDialog.PageNavigator, this.m_SystemIdentity);
-					hpv1618BatchResultPath.Finish += new ResultPath.FinishEventHandler(BatchResultPath_Finish);
-					hpv1618BatchResultPath.Start();
-					this.m_ResultDialog.ShowDialog();
-				}
-				else
-				{
-					YellowstonePathology.Business.Rules.RuleExecutionStatus ruleExecutionStatus = new YellowstonePathology.Business.Rules.RuleExecutionStatus();
-					foreach (YellowstonePathology.Business.Search.ReportSearchItem item in this.m_LabUI.CaseList)
-					{
-						if (item.MasterAccessionNo == this.m_LabUI.AccessionOrder.MasterAccessionNo)
-						{
-							YellowstonePathology.Business.Test.PanelSetOrder panelSetOrderWithBatch = this.m_LabUI.PanelSetOrder;
+                YellowstonePathology.Business.Panel.Model.PanelOrderBatch batch = (YellowstonePathology.Business.Panel.Model.PanelOrderBatch)this.listViewBatchList.SelectedItem;
+                if (batch.BatchTypeId == 3) //HPV
+                {
+                    this.m_ResultDialog = new ResultDialog();
+                    HPVBatchResultPath hpvBatchResultPath = new HPVBatchResultPath(this.m_LabUI.SearchEngine.ReportSearchList, this.m_ResultDialog.PageNavigator);
+                    hpvBatchResultPath.Finish += new ResultPath.FinishEventHandler(BatchResultPath_Finish);
+                    hpvBatchResultPath.Start();
+                    this.m_ResultDialog.ShowDialog();
+                }
+                else if (batch.BatchTypeId == 6) //NGCT
+                {
+                    this.m_ResultDialog = new ResultDialog();
+                    NGCTBatchResultPath ngctBatchResultPath = new NGCTBatchResultPath(this.m_LabUI.SearchEngine.ReportSearchList, this.m_ResultDialog.PageNavigator);
+                    ngctBatchResultPath.Finish += new ResultPath.FinishEventHandler(BatchResultPath_Finish);
+                    ngctBatchResultPath.Start();
+                    this.m_ResultDialog.ShowDialog();
+                }
+                else if (batch.BatchTypeId == 2) //CF
+                {
+                    this.m_ResultDialog = new ResultDialog();
+                    CysticFibrosisBatchResultPath cysticFibrosisBatchResultPath = new CysticFibrosisBatchResultPath(this.m_LabUI.SearchEngine.ReportSearchList, this.m_ResultDialog.PageNavigator);
+                    cysticFibrosisBatchResultPath.Finish += new ResultPath.FinishEventHandler(BatchResultPath_Finish);
+                    cysticFibrosisBatchResultPath.Start();
+                    this.m_ResultDialog.ShowDialog();
+                }
+                else if (batch.BatchTypeId == 23) //HPV16/18
+                {
+                    this.m_ResultDialog = new ResultDialog();
+                    HPV1618BatchResultPath hpv1618BatchResultPath = new HPV1618BatchResultPath(this.m_LabUI.SearchEngine.ReportSearchList, this.m_ResultDialog.PageNavigator);
+                    hpv1618BatchResultPath.Finish += new ResultPath.FinishEventHandler(BatchResultPath_Finish);
+                    hpv1618BatchResultPath.Start();
+                    this.m_ResultDialog.ShowDialog();
+                }
+                else
+                {
+                    YellowstonePathology.Business.Rules.RuleExecutionStatus ruleExecutionStatus = new YellowstonePathology.Business.Rules.RuleExecutionStatus();
+                    foreach (YellowstonePathology.Business.Search.ReportSearchItem item in this.m_LabUI.CaseList)
+                    {
+                        if (item.MasterAccessionNo == this.m_LabUI.AccessionOrder.MasterAccessionNo)
+                        {
+                            YellowstonePathology.Business.Test.PanelSetOrder panelSetOrderWithBatch = this.m_LabUI.PanelSetOrder;
 
-							int count = panelSetOrderWithBatch.PanelOrderCollection.Count;
-							for (int idx = 0; idx < count; idx++)
-							{
-								panelSetOrderWithBatch.PanelOrderCollection[idx].AcceptResults(ruleExecutionStatus, this.m_LabUI.AccessionOrder, this.m_SystemIdentity.User);
-							}
-							this.m_LabUI.Save();
-							this.m_LabUI.GetAccessionOrder(this.m_LabUI.PanelSetOrder.ReportNo);
-						}
-						else
-						{
-							YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-							YellowstonePathology.Business.Test.AccessionOrder logItem = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(item.ReportNo);
-							objectTracker.RegisterObject(logItem);
-							YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = logItem.PanelSetOrderCollection.GetPanelSetOrder(item.ReportNo);
+                            int count = panelSetOrderWithBatch.PanelOrderCollection.Count;
+                            for (int idx = 0; idx < count; idx++)
+                            {
+                                panelSetOrderWithBatch.PanelOrderCollection[idx].AcceptResults(ruleExecutionStatus, this.m_LabUI.AccessionOrder, this.m_SystemIdentity.User);
+                            }
+                            this.m_LabUI.Save();
+                            this.m_LabUI.GetAccessionOrder(this.m_LabUI.PanelSetOrder.ReportNo);
+                        }
+                        else
+                        {
+                            YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
+                            YellowstonePathology.Business.Test.AccessionOrder logItem = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(item.ReportNo);
+                            objectTracker.RegisterObject(logItem);
+                            YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = logItem.PanelSetOrderCollection.GetPanelSetOrder(item.ReportNo);
 
-							int count = panelSetOrder.PanelOrderCollection.Count;
-							for (int idx = 0; idx < count; idx++)
-							{
-								panelSetOrder.PanelOrderCollection[idx].AcceptResults(ruleExecutionStatus, logItem, this.m_SystemIdentity.User);
-							}
-							objectTracker.SubmitChanges(logItem);
-						}
-					}
-					if (ruleExecutionStatus.ExecutionHalted == true)
-					{
-						YellowstonePathology.UI.RuleExecutionStatusDialog dialog = new RuleExecutionStatusDialog(ruleExecutionStatus);
-						dialog.ShowDialog();
-					}
-					else
-					{
-						MessageBox.Show("Process accepting results is complete.");
-					}
-				}
-			}
+                            int count = panelSetOrder.PanelOrderCollection.Count;
+                            for (int idx = 0; idx < count; idx++)
+                            {
+                                panelSetOrder.PanelOrderCollection[idx].AcceptResults(ruleExecutionStatus, logItem, this.m_SystemIdentity.User);
+                            }
+                            objectTracker.SubmitChanges(logItem);
+                        }
+                    }
+                    if (ruleExecutionStatus.ExecutionHalted == true)
+                    {
+                        YellowstonePathology.UI.RuleExecutionStatusDialog dialog = new RuleExecutionStatusDialog(ruleExecutionStatus);
+                        dialog.ShowDialog();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Process accepting results is complete.");
+                    }
+                }
+            }
             else
             {
                 MessageBox.Show("Please select a batch to finalize.", "No Batch Selected", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 listViewBatchList.Focus();
-            }						
+            }
 		}
 
         private void BatchResultPath_Finish(object sender, EventArgs e)
@@ -1766,13 +1766,11 @@ namespace YellowstonePathology.UI.Test
 
 		private void ButtonResults_Click(object sender, RoutedEventArgs e)
 		{
-            YellowstonePathology.Business.User.SystemIdentity systemIdentity = new Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
-
             this.m_ResultDialog = new ResultDialog();
             YellowstonePathology.UI.Test.ResultPathFactory resultPathFactory = new Test.ResultPathFactory();
             resultPathFactory.Finished += new Test.ResultPathFactory.FinishedEventHandler(ResultPathFactory_Finished);
 
-            bool started = resultPathFactory.Start(this.m_LabUI.PanelSetOrder, this.m_LabUI.AccessionOrder, this.m_LabUI.ObjectTracker, this.m_ResultDialog.PageNavigator, systemIdentity, System.Windows.Visibility.Collapsed);
+            bool started = resultPathFactory.Start(this.m_LabUI.PanelSetOrder, this.m_LabUI.AccessionOrder, this.m_LabUI.ObjectTracker, this.m_ResultDialog.PageNavigator, System.Windows.Visibility.Collapsed);
             if (started == true)
             {
                 this.m_ResultDialog.ShowDialog();
