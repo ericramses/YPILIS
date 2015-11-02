@@ -1047,13 +1047,7 @@ namespace YellowstonePathology.UI
 
         private void WriteStVincentAllInSql()
         {
-            StringBuilder result = new StringBuilder();
-            YellowstonePathology.Business.Client.Model.ClientGroupStVincent clientGroupStVincent = new Business.Client.Model.ClientGroupStVincent();
-            foreach (int id in clientGroupStVincent.Members)
-            {
-                result.Append(", " + id);
-            }
-            Console.WriteLine(result.ToString());
+            
         }
 
         private void FindTextInFiles()

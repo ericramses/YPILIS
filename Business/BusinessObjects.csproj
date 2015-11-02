@@ -275,6 +275,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="CaseType.cs" />
+    <Compile Include="Client.Model\ClientGroupClient.cs" />
+    <Compile Include="Client.Model\ClientGroupClientCollection.cs" />
+    <Compile Include="Client.Model\ClientGroupCollection.cs" />
     <Compile Include="Client.Model\ClientSupply.cs" />
     <Compile Include="Client.Model\ClientSupplyCollection.cs" />
     <Compile Include="Client.Model\ClientSupplyOrder.cs" />
@@ -486,6 +489,7 @@
     <Compile Include="Test\HPV1618\HPV1618Genotype18PositiveResult.cs" />
     <Compile Include="Test\HPV\HPVInvalidResult.cs" />
     <Compile Include="Test\HPV\HPVNoResult.cs" />
+    <Compile Include="Test\LynchSyndrome\LSEGYNResult3.cs" />
     <Compile Include="Test\MissingInformation\MissingInformationTest.cs" />
     <Compile Include="Test\MissingInformation\MissingInformationTestOrder.cs" />
     <Compile Include="Test\NGCT\NGCTInvalidResult.cs" />
@@ -2144,13 +2148,9 @@
     <Compile Include="Client.Model\ClientCollection.cs" />
     <Compile Include="Client.Model\ClientCommunication.cs" />
     <Compile Include="Client.Model\ClientGroup.cs" />
-    <Compile Include="Client.Model\ClientGroupAllClients.cs" />
-    <Compile Include="Client.Model\ClientGroupStVincent.cs" />
     <Compile Include="Client.Model\ClientLocation.cs" />
     <Compile Include="Client.Model\ClientLocationCollection.cs" />
-    <Compile Include="Client.Model\CMMCGroup.cs" />
     <Compile Include="Client.Model\LocalPhonePrefix.cs" />
-    <Compile Include="Client.Model\MountainViewGroup.cs" />
     <Compile Include="Client.Model\Physician.cs" />
     <Compile Include="Client.Model\PhysicianClientDistribution.cs" />
     <Compile Include="Client.Model\PhysicianClientDistributionView.cs" />
@@ -2161,8 +2161,6 @@
     <Compile Include="Client.Model\PhysicianNameHelper.cs" />
     <Compile Include="Client.Model\PhysicianNameView.cs" />
     <Compile Include="Client.Model\PhysicianNameViewCollection.cs" />
-    <Compile Include="Client.Model\StVincentGroup.cs" />
-    <Compile Include="Client.Model\WestParkHospitalGroup.cs" />
     <Compile Include="ClientOrder.Model\ClientOrder.cs" />
     <Compile Include="ClientOrder.Model\ClientOrder.Validation.cs" />
     <Compile Include="ClientOrder.Model\ClientOrderCollection.cs" />

@@ -14,9 +14,9 @@ namespace YellowstonePathology.Business.Facility.Model
             NeogenomicsFlorida neogenomicsFlorida = new NeogenomicsFlorida();
 
             YellowstonePathologyInstituteBillings ypii = new YellowstonePathologyInstituteBillings();
-            YellowstonePathology.Business.Client.Model.ClientGroupStVincent clientGroupStVincent = new Business.Client.Model.ClientGroupStVincent();
-            YellowstonePathology.Business.Client.Model.ClientGroupAllClients clientGroupAllClients = new Business.Client.Model.ClientGroupAllClients();
-            
+            YellowstonePathology.Business.Client.Model.ClientGroupClientCollection clientGroupStVincent = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientGroupClientCollectionByClientGroupId(1);
+            YellowstonePathology.Business.Client.Model.ClientGroupClientCollection clientGroupAllClients = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientGroupClientCollection();
+
             this.Add(new ClientBillingFacility(neogenomicsIrvine, ypii, clientGroupStVincent, "Technical"));
             this.Add(new ClientBillingFacility(neogenomicsFlorida, ypii, clientGroupStVincent, "Technical"));
 

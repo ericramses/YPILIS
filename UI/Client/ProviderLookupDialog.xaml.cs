@@ -23,9 +23,11 @@ namespace YellowstonePathology.UI.Client
 
 		private YellowstonePathology.Business.Client.Model.ProviderClientCollection m_ProviderCollection;
 		private YellowstonePathology.Business.Client.Model.ClientCollection m_ClientCollection;
+        private YellowstonePathology.Business.Client.Model.ClientGroupCollection m_ClientGroupCollection;
 
 		public ProviderLookupDialog()
 		{
+            this.m_ClientGroupCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientGroupCollection();
 			InitializeComponent();
 			DataContext = this;
 		}
@@ -39,6 +41,11 @@ namespace YellowstonePathology.UI.Client
 				NotifyPropertyChanged("ProviderCollection");
 			}
 		}
+
+        public YellowstonePathology.Business.Client.Model.ClientGroupCollection ClientGroupCollection
+        {
+            get { return this.m_ClientGroupCollection; }
+        }
 
 		public YellowstonePathology.Business.Client.Model.ClientCollection ClientCollection
         {
@@ -307,6 +314,18 @@ namespace YellowstonePathology.UI.Client
             YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new Business.Persistence.ObjectTracker();
             objectTracker.RegisterRootDelete(client);
             objectTracker.SubmitChanges(client);
+        }
+
+        private void ListViewClientGroups_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if(this.ListViewClientGroups.SelectedItem != null)
+            {
+                YellowstonePathology.Business.Client.Model.ClientGroup clientGroup = (YellowstonePathology.Business.Client.Model.ClientGroup)this.ListViewClientGroups.SelectedItem;
+                YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new Business.Persistence.ObjectTracker();
+                objectTracker.RegisterObject(clientGroup);
+                ClientGroupEntry clientGroupEntry = new ClientGroupEntry(clientGroup, objectTracker);
+                clientGroupEntry.ShowDialog();
+            }
         }
     }
 }

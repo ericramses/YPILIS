@@ -19,8 +19,8 @@ namespace YellowstonePathology.UI.Billing
     {
         private Nullable<DateTime> m_PostDateStart;
         private Nullable<DateTime> m_PostDateEnd;        
-        private YellowstonePathology.Business.Client.ClientGroup m_ClientGroup;                        
-        private YellowstonePathology.Business.Client.ClientGroupCollection m_ClientGroupCollection;        
+        private YellowstonePathology.Business.Client.Model.ClientGroup m_ClientGroup;                        
+        private YellowstonePathology.Business.Client.Model.ClientGroupCollection m_ClientGroupCollection;        
 
         public ClientBillingReportDialog()
         {
@@ -45,13 +45,13 @@ namespace YellowstonePathology.UI.Billing
             set { this.m_PostDateEnd = value; }
         }        
 
-        public YellowstonePathology.Business.Client.ClientGroup ClientGroup
+        public YellowstonePathology.Business.Client.Model.ClientGroup ClientGroup
         {
             get { return this.m_ClientGroup; }
             set { this.m_ClientGroup = value; }
         }        
        
-        public YellowstonePathology.Business.Client.ClientGroupCollection ClientGroupCollection
+        public YellowstonePathology.Business.Client.Model.ClientGroupCollection ClientGroupCollection
         {
             get { return this.m_ClientGroupCollection; }
         }
