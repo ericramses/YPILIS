@@ -5,44 +5,48 @@ using System.Text;
 
 namespace YellowstonePathology.UI.Test
 {
-    public class EGFRToALKReflexPath
+    public class EGFRToALKReflexPath : ResultPath
     {
-		public delegate void FinishEventHandler(object sender, EventArgs e);
-		public event FinishEventHandler Finish;
+		//public delegate void FinishEventHandler(object sender, EventArgs e);
+		//public event FinishEventHandler Finish;
 
         public delegate void BackEventHandler(object sender, EventArgs e);
         public event BackEventHandler Back;
 
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
-        private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
-        private YellowstonePathology.UI.Navigation.PageNavigator m_PageNavigator;
+        //private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
+        //private YellowstonePathology.UI.Navigation.PageNavigator m_PageNavigator;
 
         private YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisTestOrder m_EGFRToALKReflexAnalysisTestOrder;
         private EGFRToALKReflexPage m_EGFRToALKReflexPage;
-        private System.Windows.Visibility m_BackButtonVisibility;
+        //private System.Windows.Visibility m_BackButtonVisibility;
 
         public EGFRToALKReflexPath(string reportNo, YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
             YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
-            YellowstonePathology.Business.User.SystemIdentity systemIdentity,
             YellowstonePathology.UI.Navigation.PageNavigator pageNavigator,
-            System.Windows.Visibility backButtonVisibility)
+            System.Windows.Visibility backButtonVisibility) : base(pageNavigator)
         {
             this.m_AccessionOrder = accessionOrder;
             this.m_ObjectTracker = objectTracker;
-            this.m_SystemIdentity = systemIdentity;
-            this.m_PageNavigator = pageNavigator;
+            //this.m_SystemIdentity = systemIdentity;
+            //this.m_PageNavigator = pageNavigator;
             this.m_BackButtonVisibility = backButtonVisibility;
 
             this.m_EGFRToALKReflexAnalysisTestOrder = (YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
         }
 
-        public void Start()
+        private void ResultPath_Authenticated(object sender, EventArgs e)
         {
             this.m_EGFRToALKReflexPage = new EGFRToALKReflexPage(this.m_EGFRToALKReflexAnalysisTestOrder, this.m_AccessionOrder, this.m_ObjectTracker, this.m_SystemIdentity, this.m_BackButtonVisibility);
             this.m_EGFRToALKReflexPage.OrderALKAndROS1 += new EGFRToALKReflexPage.OrderALKAndROS1EventHandler(EGFRToALKReflexPage_OrderALKAndROS1);
             this.m_EGFRToALKReflexPage.Finish +=new EGFRToALKReflexPage.FinishEventHandler(EGFRToALKReflexPage_Finish);
             this.m_EGFRToALKReflexPage.Back += new EGFRToALKReflexPage.BackEventHandler(EGFRToALKReflexPage_Back);
+            this.ShowResultPage();
+        }
+
+        public void ShowResultPage()
+        {
             this.m_PageNavigator.Navigate(this.m_EGFRToALKReflexPage);
         }
 
@@ -77,7 +81,8 @@ namespace YellowstonePathology.UI.Test
 
 		private void EGFRToALKReflexPage_Finish(object sender, EventArgs e)
 		{
-			if(this.Finish != null) this.Finish(this, new EventArgs());
+            //if(this.Finish != null) this.Finish(this, new EventArgs());
+            this.Finished();
 		}       
 
         private void ReportOrderPath_Finish(object sender, EventArgs e)

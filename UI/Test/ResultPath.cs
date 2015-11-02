@@ -25,9 +25,8 @@ namespace YellowstonePathology.UI.Test
 
         protected string m_ResultPageClassName;
 
-        public ResultPath(YellowstonePathology.UI.Navigation.PageNavigator pageNavigator, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        public ResultPath(YellowstonePathology.UI.Navigation.PageNavigator pageNavigator)
         {
-            this.m_SystemIdentity = systemIdentity;
 			this.m_PageNavigator = pageNavigator;         
         }
 
@@ -35,15 +34,13 @@ namespace YellowstonePathology.UI.Test
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
             YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
             YellowstonePathology.UI.Navigation.PageNavigator pageNavigator,
-            System.Windows.Visibility backButtonVisibility,
-            YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+            System.Windows.Visibility backButtonVisibility)
         {
             this.m_PanelSetOrder = panelSetOrder;
             this.m_AccessionOrder = accessionOrder;
             this.m_ObjectTracker = objectTracker;
             this.m_PageNavigator = pageNavigator;
             this.m_BackButtonVisibility = backButtonVisibility;
-            this.m_SystemIdentity = systemIdentity;
         }
 
         public virtual void Start()
@@ -66,6 +63,19 @@ namespace YellowstonePathology.UI.Test
 			}			
         }
 
+        public virtual void Start(YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        {
+            this.m_SystemIdentity = systemIdentity;
+            if (this.GetType() == typeof(YellowstonePathology.UI.Test.API2MALT1ResultPath))
+            {
+                this.ShowResultsPage();
+            }
+            else
+            {
+                this.Authenticated(this, new EventArgs());
+            }
+        }
+
         public void RegisterCancelATest(IResultPage resultPage)
         {
             resultPage.CancelTest += new CustomEventArgs.EventHandlerDefinitions.CancelTestEventHandler(CancelTest);
@@ -73,7 +83,7 @@ namespace YellowstonePathology.UI.Test
         
         private void CancelTest(object sender, YellowstonePathology.UI.CustomEventArgs.CancelTestEventArgs e)
         {
-            CancelATestPath cancelATestPath = new CancelATestPath(e, this.m_PageNavigator, this.m_SystemIdentity);
+            CancelATestPath cancelATestPath = new CancelATestPath(e, this.m_PageNavigator);
             cancelATestPath.Finish += new FinishEventHandler(CancellATestPath_Finish);
             cancelATestPath.Back += new CancelATestPath.BackEventHandler(CancellATestPath_Back);
             cancelATestPath.Start();

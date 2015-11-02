@@ -483,7 +483,7 @@ namespace YellowstonePathology.UI.Surgical
 				string reportNo = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetLse.PanelSetId).ReportNo;
 				this.m_ResultDialog = new Test.ResultDialog();
 				YellowstonePathology.UI.Test.LynchSyndromeEvaluationResultPath resultPath = new YellowstonePathology.UI.Test.LynchSyndromeEvaluationResultPath(reportNo,
-					this.m_AccessionOrder, this.m_ObjectTracker, this.m_ResultDialog.PageNavigator, Visibility.Visible, this.m_SystemIdentity);
+					this.m_AccessionOrder, this.m_ObjectTracker, this.m_ResultDialog.PageNavigator, Visibility.Visible);
 
 				resultPath.Finish += new Test.ResultPath.FinishEventHandler(ResultPath_Finish);
 				resultPath.Start();
@@ -494,7 +494,7 @@ namespace YellowstonePathology.UI.Surgical
 				string reportNo = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetcccp.PanelSetId).ReportNo;
 				this.m_ResultDialog = new Test.ResultDialog();
 				YellowstonePathology.UI.Test.ComprehensiveColonCancerProfilePath resultPath = new YellowstonePathology.UI.Test.ComprehensiveColonCancerProfilePath(reportNo,
-					this.m_AccessionOrder, this.m_ObjectTracker, this.m_ResultDialog.PageNavigator, Visibility.Collapsed, this.m_SystemIdentity);
+					this.m_AccessionOrder, this.m_ObjectTracker, this.m_ResultDialog.PageNavigator, Visibility.Collapsed);
 
 				resultPath.Finish += new Test.ResultPath.FinishEventHandler(ResultPath_Finish);
 				resultPath.Start();
@@ -509,7 +509,7 @@ namespace YellowstonePathology.UI.Surgical
 			{
                 YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetInvasiveBreastPanel.PanelSetId, this.m_PanelSetOrder.OrderedOnId, true);
 				this.m_ResultDialog = new Test.ResultDialog();
-				YellowstonePathology.UI.Test.InvasiveBreastPanelPath resultPath = new Test.InvasiveBreastPanelPath(panelSetOrder.ReportNo, this.m_AccessionOrder, this.m_ObjectTracker, this.m_SystemIdentity, this.m_ResultDialog.PageNavigator);
+				YellowstonePathology.UI.Test.InvasiveBreastPanelPath resultPath = new Test.InvasiveBreastPanelPath(panelSetOrder.ReportNo, this.m_AccessionOrder, this.m_ObjectTracker, this.m_ResultDialog.PageNavigator);
 				resultPath.Finish += new Test.InvasiveBreastPanelPath.FinishEventHandler(ResultPath_Finish);
 				resultPath.Start();
 				this.m_ResultDialog.ShowDialog();

@@ -15,9 +15,8 @@ namespace YellowstonePathology.UI.Test
 		public HighGradeLargeBCellLymphomaResultPath(string reportNo,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
 			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
-            YellowstonePathology.UI.Navigation.PageNavigator pageNavigator,
-            YellowstonePathology.Business.User.SystemIdentity systemIdentity)
-            : base(pageNavigator, systemIdentity)
+            YellowstonePathology.UI.Navigation.PageNavigator pageNavigator)
+            : base(pageNavigator)
         {
             this.m_AccessionOrder = accessionOrder;
 			this.m_PanelSetOrderHighGradeLargeBCellLymphoma = (YellowstonePathology.Business.Test.HighGradeLargeBCellLymphoma.PanelSetOrderHighGradeLargeBCellLymphoma)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);

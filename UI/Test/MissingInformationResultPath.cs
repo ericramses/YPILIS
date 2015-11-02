@@ -15,22 +15,21 @@ namespace YellowstonePathology.UI.Test
 
         public MissingInformationResultPath(string reportNo, YellowstonePathology.Business.Test.AccessionOrder accessionOrder,            
             YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
-            YellowstonePathology.UI.Navigation.PageNavigator pageNavigator,
-            YellowstonePathology.Business.User.SystemIdentity systemIdentity)
-            : base(pageNavigator, systemIdentity)
+            YellowstonePathology.UI.Navigation.PageNavigator pageNavigator)
+            : base(pageNavigator)
         {
             this.m_AccessionOrder = accessionOrder;
-            this.m_ObjectTracker = objectTracker;     
-                   
+            this.m_ObjectTracker = objectTracker;                        
 			this.m_MissingInformationTestOrder = (YellowstonePathology.Business.Test.MissingInformation.MissingInformtionTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
-		}
+            this.Authenticated += new AuthenticatedEventHandler(ResultPath_Authenticated);
+        }
 
-        public override void Start()
-        {            
+        private void ResultPath_Authenticated(object sender, EventArgs e)
+        {
             this.ShowResultPage();
-        }		
+        }
 
-		private void ShowResultPage()
+        private void ShowResultPage()
 		{
 			this.m_ResultPage = new MissingInformationResultPage(this.m_MissingInformationTestOrder, this.m_AccessionOrder, this.m_ObjectTracker, this.m_SystemIdentity);            
             this.m_ResultPage.Next += new MissingInformationResultPage.NextEventHandler(ResultPage_Next);
