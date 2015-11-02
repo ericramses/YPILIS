@@ -13,9 +13,8 @@ namespace YellowstonePathology.UI.Test
         private Microsoft.Office.Interop.Excel.Workbook m_WorkBook;
 
 		public HPVBatchResultPath(YellowstonePathology.Business.Search.ReportSearchList reportSearchList, 
-            YellowstonePathology.UI.Navigation.PageNavigator pageNavigator,
-            YellowstonePathology.Business.User.SystemIdentity systemIdentity)
-            : base(pageNavigator, systemIdentity)
+            YellowstonePathology.UI.Navigation.PageNavigator pageNavigator)
+            : base(pageNavigator)
         {
             this.m_CurrentIndex = 0;
             this.m_ReportSearchList = reportSearchList;
@@ -49,9 +48,9 @@ namespace YellowstonePathology.UI.Test
 			objectTracker.RegisterObject(accessionOrder);
 
 			YellowstonePathology.Business.Test.HPV.HPVTestOrder panelSetOrder = (YellowstonePathology.Business.Test.HPV.HPVTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportSearchItem.ReportNo);			
-            YellowstonePathology.UI.Test.HPVResultPath hpvResultPath = new HPVResultPath(panelSetOrder.ReportNo, accessionOrder, objectTracker, this.m_PageNavigator, this.m_SystemIdentity);
+            YellowstonePathology.UI.Test.HPVResultPath hpvResultPath = new HPVResultPath(panelSetOrder.ReportNo, accessionOrder, objectTracker, this.m_PageNavigator);
             hpvResultPath.Finish += new FinishEventHandler(HPVResultPath_Finish);
-            hpvResultPath.Start();
+            hpvResultPath.Start(this.m_SystemIdentity);
 		}
 
         private void HPVResultPath_Finish(object sender, EventArgs e)

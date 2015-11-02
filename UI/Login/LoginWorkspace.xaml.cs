@@ -453,13 +453,11 @@ namespace YellowstonePathology.UI.Login
 
                 YellowstonePathology.Business.User.SystemIdentity systemIdentity = new Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
 
-                this.m_LoginPageWindow = new LoginPageWindow(systemIdentity);
                 YellowstonePathology.UI.Test.ResultPathFactory resultPathFactory = new Test.ResultPathFactory();
                 resultPathFactory.Finished += new Test.ResultPathFactory.FinishedEventHandler(ResultPathFactory_Finished);
 
                 this.m_LoginPageWindow = new LoginPageWindow(systemIdentity);
-                bool started = resultPathFactory.Start(panelSetOrder, this.m_LoginUI.AccessionOrder, objectTracker, this.m_LoginPageWindow.PageNavigator, systemIdentity, System.Windows.Visibility.Collapsed);
-
+                bool started = resultPathFactory.Start(panelSetOrder, this.m_LoginUI.AccessionOrder, objectTracker, this.m_LoginPageWindow.PageNavigator, System.Windows.Visibility.Collapsed);
                 if (started == true)
                 {
                     this.m_LoginPageWindow.ShowDialog();
@@ -604,7 +602,7 @@ namespace YellowstonePathology.UI.Login
                 YellowstonePathology.Business.User.SystemIdentity systemIdentity = new Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
                 this.m_LoginPageWindow = new LoginPageWindow(systemIdentity);
 
-                YellowstonePathology.UI.Login.Receiving.TaskOrderPath taskOrderPath = new Receiving.TaskOrderPath(accessionOrder, objectTracker, taskOrder, this.m_LoginPageWindow.PageNavigator, PageNavigationModeEnum.Standalone, systemIdentity);
+                YellowstonePathology.UI.Login.Receiving.TaskOrderPath taskOrderPath = new Receiving.TaskOrderPath(accessionOrder, objectTracker, taskOrder, this.m_LoginPageWindow.PageNavigator, PageNavigationModeEnum.Standalone);
                 taskOrderPath.Close += new Receiving.TaskOrderPath.CloseEventHandler(TaskOrderPath_Close);
                 taskOrderPath.Start();
                 this.m_LoginPageWindow.ShowDialog();
@@ -631,7 +629,7 @@ namespace YellowstonePathology.UI.Login
                     YellowstonePathology.Business.User.SystemIdentity systemIdentity = new Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
                     this.m_LoginPageWindow = new LoginPageWindow(systemIdentity);
 
-                    YellowstonePathology.UI.Login.Receiving.TaskOrderPath taskOrderPath = new Receiving.TaskOrderPath(this.m_LoginUI.AccessionOrder, objectTracker, taskOrder, this.m_LoginPageWindow.PageNavigator, PageNavigationModeEnum.Standalone, systemIdentity);
+                    YellowstonePathology.UI.Login.Receiving.TaskOrderPath taskOrderPath = new Receiving.TaskOrderPath(this.m_LoginUI.AccessionOrder, objectTracker, taskOrder, this.m_LoginPageWindow.PageNavigator, PageNavigationModeEnum.Standalone);
                     taskOrderPath.Close += new Receiving.TaskOrderPath.CloseEventHandler(TaskOrderPath_Close);
                     taskOrderPath.Start();
                     this.m_LoginPageWindow.ShowDialog();

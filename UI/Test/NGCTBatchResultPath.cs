@@ -11,9 +11,8 @@ namespace YellowstonePathology.UI.Test
         private int m_CurrentIndex;
 
 		public NGCTBatchResultPath(YellowstonePathology.Business.Search.ReportSearchList reportSearchList, 
-            YellowstonePathology.UI.Navigation.PageNavigator pageNavigator,
-            YellowstonePathology.Business.User.SystemIdentity systemIdentity)
-            : base(pageNavigator, systemIdentity)
+            YellowstonePathology.UI.Navigation.PageNavigator pageNavigator)
+            : base(pageNavigator)
         {
             this.m_CurrentIndex = 0;
             this.m_ReportSearchList = reportSearchList;
@@ -34,9 +33,9 @@ namespace YellowstonePathology.UI.Test
 			objectTracker.RegisterObject(accessionOrder);
 
 			YellowstonePathology.Business.Test.NGCT.NGCTTestOrder panelSetOrder = (YellowstonePathology.Business.Test.NGCT.NGCTTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportSearchItem.ReportNo);			
-            YellowstonePathology.UI.Test.NGCTResultPath resultPath = new NGCTResultPath(panelSetOrder.ReportNo, accessionOrder, objectTracker, this.m_PageNavigator, this.m_SystemIdentity);
+            YellowstonePathology.UI.Test.NGCTResultPath resultPath = new NGCTResultPath(panelSetOrder.ReportNo, accessionOrder, objectTracker, this.m_PageNavigator);
             resultPath.Finish += new FinishEventHandler(ResultPath_Finish);
-            resultPath.Start();
+            resultPath.Start(this.m_SystemIdentity);
 		}
 
         private void ResultPath_Finish(object sender, EventArgs e)
