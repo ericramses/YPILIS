@@ -6,7 +6,7 @@ using YellowstonePathology.Business.Persistence;
 
 namespace YellowstonePathology.Business.Test.HPV
 {
-	[PersistentClass("tblPanelSetOrderHPVTWI", "tblPanelSetOrder", "YPIDATA")]
+	[PersistentClass("tblHPVTestOrder", "tblPanelSetOrder", "YPIDATA")]
     public class HPVTestOrder : PanelSetOrder
 	{        
 		private string m_Result;

@@ -24,8 +24,9 @@ namespace YellowstonePathology.UI.Test
         public event NextEventHandler Next;
 
         public event EventHandler ShowICDEntry;
+        public event EventHandler ShowFaxPage;
 
-		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
+        private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;        
         private string m_PageHeaderText;
@@ -222,6 +223,11 @@ namespace YellowstonePathology.UI.Test
             {
                 this.ShowICDEntry(this, new EventArgs());
             }
+        }
+
+        private void HyperLinkShowFaxPage_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.ShowFaxPage != null) this.ShowFaxPage(this, new EventArgs());            
         }
     }
 }

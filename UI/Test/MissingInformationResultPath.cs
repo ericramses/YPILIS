@@ -34,16 +34,35 @@ namespace YellowstonePathology.UI.Test
 		{
 			this.m_ResultPage = new MissingInformationResultPage(this.m_MissingInformationTestOrder, this.m_AccessionOrder, this.m_ObjectTracker, this.m_SystemIdentity);            
             this.m_ResultPage.Next += new MissingInformationResultPage.NextEventHandler(ResultPage_Next);
-            this.m_ResultPage.ShowICDEntry += M_ResultPage_ShowICDEntry;
+            this.m_ResultPage.ShowICDEntry += ResultPage_ShowICDEntry;
+            this.m_ResultPage.ShowFaxPage += ResultPage_ShowFaxPage;
             this.m_PageNavigator.Navigate(this.m_ResultPage);
 		}
+
+        private void ResultPage_ShowFaxPage(object sender, EventArgs e)
+        {
+            YellowstonePathology.UI.Login.ClientFaxPage clientFaxPage = new Login.ClientFaxPage(this.m_AccessionOrder, this.m_SystemIdentity);
+            clientFaxPage.Next += ClientFaxPage_Next;
+            clientFaxPage.Back += ClientFaxPage_Back;
+            this.m_PageNavigator.Navigate(clientFaxPage);
+        }
+
+        private void ClientFaxPage_Back(object sender, EventArgs e)
+        {
+            this.ShowResultPage();
+        }
+
+        private void ClientFaxPage_Next(object sender, EventArgs e)
+        {
+            this.ShowResultPage();
+        }
 
         private void ResultPage_Next(object sender, EventArgs e)
         {
             base.Finished();
         }        
 
-        private void M_ResultPage_ShowICDEntry(object sender, EventArgs e)
+        private void ResultPage_ShowICDEntry(object sender, EventArgs e)
         {
             UI.Login.ICDEntryPage icdEntryPage = new Login.ICDEntryPage(this.m_AccessionOrder, this.m_ObjectTracker, this.m_MissingInformationTestOrder.ReportNo, this.m_SystemIdentity);
             icdEntryPage.Next += IcdEntryPage_Next;
