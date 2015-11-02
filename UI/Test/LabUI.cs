@@ -230,10 +230,10 @@ namespace YellowstonePathology.UI.Test
 			objectTracker.SubmitChanges(panelOrderBatch);
 		}
 
-		public void PrintCurrentBatchLog(YellowstonePathology.Business.Panel.Model.PanelOrderBatch panelOrderBatch, YellowstonePathology.Business.Search.ReportSearchList selectedItemList)
+		public void PrintCurrentBatchLog(string description, DateTime printDate, YellowstonePathology.Business.Search.ReportSearchList selectedItemList)
 		{
 			YellowstonePathology.Business.MolecularTesting.BatchLogReport report = new YellowstonePathology.Business.MolecularTesting.BatchLogReport();
-			report.Print(selectedItemList, panelOrderBatch);
+			report.Print(selectedItemList, description, printDate);
 		}
 
 		public void MoveIndeterminateHpvCasesToUnassignedBatch()

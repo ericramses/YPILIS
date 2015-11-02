@@ -22,20 +22,6 @@ namespace YellowstonePathology.Business.Test.CysticFibrosis
 			this.m_MutationsTested = CysticFibrosisResult.MutationsTestedString;
 		}        
 
-		public void AcceptResults(CysticFibrosisTestOrder testOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
-		{
-			YellowstonePathology.Business.Test.PanelOrder panelOrder = testOrder.PanelOrderCollection.GetUnacceptedPanelOrder();
-			panelOrder.AcceptResults(systemIdentity.User);
-			testOrder.Accept(systemIdentity.User);
-		}
-
-		public void UnacceptResults(CysticFibrosisTestOrder testOrder)
-		{
-			YellowstonePathology.Business.Test.PanelOrder panelOrder = testOrder.PanelOrderCollection.GetLastAcceptedPanelOrder();
-			panelOrder.UnacceptResults();
-			testOrder.Unaccept();
-		}
-
 		public virtual void SetResults(CysticFibrosisTestOrder testOrder, CysticFibrosisEthnicGroup cysticFibrosisEthnicGroup)
 		{
 			testOrder.Result = this.m_Result;

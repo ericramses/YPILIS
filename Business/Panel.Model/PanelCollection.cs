@@ -33,7 +33,6 @@ namespace YellowstonePathology.Business.Panel.Model
         {
             PanelCollection result = new PanelCollection();
 
-            result.Add(new YellowstonePathology.Business.Test.CysticFibrosis.CysticFibrosisPanel());
             result.Add(new Business.Test.LynchSyndrome.LynchSyndromeIHCPanel());
             result.Add(new YellowstonePathology.Business.Test.ErPrSemiQuantitative.ERPRSemiQuantitativePanel());
             result.Add(new YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHPanel());

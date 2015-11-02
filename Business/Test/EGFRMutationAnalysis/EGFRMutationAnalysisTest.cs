@@ -42,9 +42,6 @@ namespace YellowstonePathology.Business.Test.EGFRMutationAnalysis
             this.m_PanelSetCptCodeCollection.Add(panelSetCptCode);
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceMOLEGEN());
-
-            EGFRMutationAnalysisPanel egfrMutationAnalysisPanel = new EGFRMutationAnalysisPanel();
-            this.m_PanelCollection.Add(egfrMutationAnalysisPanel);
 		}
 	}
 }
