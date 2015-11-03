@@ -719,7 +719,7 @@ namespace YellowstonePathology.UI.Test
             if (listViewBatchList.SelectedItem != null && ListViewCaseList.Items.Count > 0)
             {
 				YellowstonePathology.Business.Panel.Model.PanelOrderBatch panelOrderBatch = (YellowstonePathology.Business.Panel.Model.PanelOrderBatch)listViewBatchList.SelectedItem;
-                this.m_LabUI.PrintCurrentBatchLog(panelOrderBatch, this.m_LabUI.CaseList);
+                this.m_LabUI.PrintCurrentBatchLog(panelOrderBatch.Description, panelOrderBatch.BatchDate.Value, this.m_LabUI.CaseList);
             }
             else
             {
@@ -899,6 +899,16 @@ namespace YellowstonePathology.UI.Test
                 else if (batchTypeListItem.BatchTypeId == 3)
                 {
                     this.m_LabUI.SearchEngine.SetFillByPanelSetId(14); //HPV TWI
+                    this.m_LabUI.FillCaseList();
+                }
+                else if (batchTypeListItem.BatchTypeId == 21)
+                {
+                    this.m_LabUI.SearchEngine.SetFillByPanelSetId(60); //EGFR
+                    this.m_LabUI.FillCaseList();
+                }
+                else if (batchTypeListItem.BatchTypeId == 2)
+                {
+                    this.m_LabUI.SearchEngine.SetFillByPanelSetId(183); //CF
                     this.m_LabUI.FillCaseList();
                 }
                 else
@@ -1321,23 +1331,20 @@ namespace YellowstonePathology.UI.Test
             }
         }
         
-		private void MenuItemBatchAndPrint_Click(object sender, RoutedEventArgs e)
+		private void MenuItemPrintSelected_Click(object sender, RoutedEventArgs e)
 		{
 			if (this.ListViewCaseList.SelectedItems.Count > 0)
 			{
+
                 YellowstonePathology.Business.BatchTypeListItem batchTypeListItem = (YellowstonePathology.Business.BatchTypeListItem)this.ComboBoxPanelSetType.SelectedItem;
-				YellowstonePathology.Business.Panel.Model.PanelOrderBatch panelOrderBatch = this.m_LabUI.AddPanelOrderBatch(batchTypeListItem);
-
-				this.AssignUnassignedPanelsToBatch(panelOrderBatch);
-
 				YellowstonePathology.Business.Search.ReportSearchList selectedItemList = new Business.Search.ReportSearchList();
 				foreach (YellowstonePathology.Business.Search.ReportSearchItem item in ListViewCaseList.SelectedItems)
 				{
 					selectedItemList.Add(item);
 				}
-				this.m_LabUI.PrintCurrentBatchLog(panelOrderBatch, selectedItemList);
-				this.m_LabUI.FillCaseList();
-			}
+
+                this.m_LabUI.PrintCurrentBatchLog(batchTypeListItem.BatchTypeDescription, DateTime.Today, selectedItemList);
+            }
 			else
 			{
 				MessageBox.Show("Select all the cases to batch", "No cases selected");
@@ -1352,7 +1359,7 @@ namespace YellowstonePathology.UI.Test
 			ContextMenu contextMenu = (ContextMenu)sender;
 			foreach (MenuItem menuItem in contextMenu.Items)
 			{
-				if (menuItem.Header.ToString() == "Batch And Print")
+				if (menuItem.Header.ToString() == "Print Selected")
 				{
 					menuItem.IsEnabled = enabled;
 					break;
