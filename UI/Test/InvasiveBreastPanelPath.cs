@@ -30,7 +30,8 @@ namespace YellowstonePathology.UI.Test
 			//this.m_PageNavigator = pageNavigator;
 
 			this.m_InvasiveBreastPanel = (YellowstonePathology.Business.Test.InvasiveBreastPanel.InvasiveBreastPanel)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
-		}
+            Authenticated += ResultPath_Authenticated;
+        }
 
         private void ResultPath_Authenticated(object sender, EventArgs e)
         {
