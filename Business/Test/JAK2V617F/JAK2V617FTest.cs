@@ -42,9 +42,6 @@ namespace YellowstonePathology.Business.Test.JAK2V617F
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, task2Description));
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceJAK2());
-
-            JAK2V617FPanel jak2V617FPanel = new JAK2V617FPanel();
-            this.m_PanelCollection.Add(jak2V617FPanel);
         }
 	}
 }
