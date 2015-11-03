@@ -1361,7 +1361,6 @@
     <Compile Include="Test\NPM1\NPM1Test.cs" />
     <Compile Include="Test\NPM1\PanelSetOrderNPM1.cs" />
     <Compile Include="Test\OkToUnfinalizeResult.cs" />
-    <Compile Include="Test\EGFRMutationAnalysis\EGFRMutationAnalysisPanel.cs" />
     <Compile Include="Test\HPV1618\HPV1618NoResult.cs" />
     <Compile Include="Test\OkToFinalizeResult.cs" />
     <Compile Include="Test\PlasmaCellMyelomaRiskStratification\PlasmaCellMyelomaRiskStratificationEpicObxView.cs" />
@@ -2296,7 +2295,6 @@
     <Compile Include="Test\BRAFV600EK\BRAFV600EKPanel.cs" />
     <Compile Include="Test\ThinPrepPap\ThinPrepPapAcidWashPanel.cs" />
     <Compile Include="Test\ThinPrepPap\ThinPrepPapDotReviewPanel.cs" />
-    <Compile Include="Test\CysticFibrosis\CysticFibrosisPanel.cs" />
     <Compile Include="Test\ThinPrepPap\ThinPrepPapScreeningPanel.cs" />
     <Compile Include="Test\ThinPrepPap\ThinPrepPapQCPanel.cs" />
     <Compile Include="Test\ErPrSemiQuantitative\ERPRSemiQuanititativePanel.cs" />

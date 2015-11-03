@@ -33,7 +33,7 @@ namespace YellowstonePathology.Business.Test.CysticFibrosis
 
             base.SetDemographicsV2();
 
-			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderById(this.m_PanelSetOrder.OrderedOnId);
+			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByOrderTarget(this.m_PanelSetOrder.OrderedOnId);
             this.SetXmlNodeData("specimen_description", specimenOrder.Description);
 
             string collectionDateTimeString = YellowstonePathology.Business.Helper.DateTimeExtensions.CombineDateAndTime(specimenOrder.CollectionDate, specimenOrder.CollectionTime);

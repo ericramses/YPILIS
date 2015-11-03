@@ -216,7 +216,7 @@
 							<ListView Name="ListViewCaseList" Grid.Column="0" Grid.Row="1" ItemsSource="{Binding Path=CaseList}" SelectionChanged="ListViewCaseList_SelectionChanged" FontSize="12">
                                 <ListView.ContextMenu>
                                     <ContextMenu Opened="ContextMenuBatchAndPrint_Opened">
-                                        <MenuItem Header="Batch And Print" Click="MenuItemBatchAndPrint_Click"></MenuItem>
+                                        <MenuItem Header="Print Selected" Click="MenuItemPrintSelected_Click"></MenuItem>
                                         <MenuItem Header="Print Molecular Label" Click="MenuItemPrintMolecularLabel_Click"></MenuItem>
                                         <MenuItem Header="Open Document Folder" Click="MenuItemOpenDocumentFolder_Click"></MenuItem>                                        
                                         <MenuItem Header="Send HL7 Result" Click="MenuItemSendHL7Result_Click"></MenuItem>

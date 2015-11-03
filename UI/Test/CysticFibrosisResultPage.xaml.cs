@@ -159,8 +159,7 @@ namespace YellowstonePathology.UI.Test
 			YellowstonePathology.Business.Rules.MethodResult methodResult = this.m_PanelSetOrder.IsOkToAccept();
 			if (methodResult.Success == true)
 			{
-				YellowstonePathology.Business.Test.CysticFibrosis.CysticFibrosisResult result = (YellowstonePathology.Business.Test.CysticFibrosis.CysticFibrosisResult)this.m_ResultCollection.GetResult(this.m_PanelSetOrder);
-				result.AcceptResults(this.m_PanelSetOrder, this.m_SystemIdentity);
+                this.m_PanelSetOrder.Accept(this.m_SystemIdentity.User);
 			}
 			else
 			{
@@ -173,8 +172,7 @@ namespace YellowstonePathology.UI.Test
 			YellowstonePathology.Business.Rules.MethodResult methodResult = this.m_PanelSetOrder.IsOkToUnaccept();
 			if (methodResult.Success == true)
 			{
-				YellowstonePathology.Business.Test.CysticFibrosis.CysticFibrosisResult result = (YellowstonePathology.Business.Test.CysticFibrosis.CysticFibrosisResult)this.m_ResultCollection.GetResult(this.m_PanelSetOrder);
-				result.UnacceptResults(this.m_PanelSetOrder);
+                this.m_PanelSetOrder.Unaccept();
 			}
 			else
 			{
