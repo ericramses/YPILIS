@@ -9,6 +9,7 @@ namespace YellowstonePathology.Business.Test.HPV
 	[PersistentClass("tblHPVTestOrder", "tblPanelSetOrder", "YPIDATA")]
     public class HPVTestOrder : PanelSetOrder
 	{        
+
 		private string m_Result;
 		private string m_Comment;
 		private string m_References;
