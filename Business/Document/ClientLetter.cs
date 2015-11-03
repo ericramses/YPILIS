@@ -30,6 +30,7 @@ namespace YellowstonePathology.Business.Document
             xmlDocument.Save(xmlDocumentFileName);
 
             YellowstonePathology.Business.Document.CaseDocument.SaveXMLAsDocFromFileName(xmlDocumentFileName);
+            YellowstonePathology.Business.Helper.FileConversionHelper.SaveDocAsXPS(xmlDocumentFileName.Replace(".DOC", ".XPS"));
         }
 	}
 }

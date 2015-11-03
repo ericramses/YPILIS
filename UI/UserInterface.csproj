@@ -262,6 +262,7 @@
       <DependentUpon>ThinPrepPapSlidePrintingPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Cytology\ThinPrepPapSlidePrintingPath.cs" />
+    <Compile Include="FaxTesting.cs" />
     <Compile Include="Gross\BlankPage.xaml.cs">
       <DependentUpon>BlankPage.xaml</DependentUpon>
     </Compile>
