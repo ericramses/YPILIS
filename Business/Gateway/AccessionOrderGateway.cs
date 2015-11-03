@@ -2137,7 +2137,7 @@ namespace YellowstonePathology.Business.Gateway
 		{
 			YellowstonePathology.Business.BatchTypeList result = new BatchTypeList();
 			SqlCommand cmd = new SqlCommand();
-			cmd.CommandText = "SELECT BatchTypeId, BatchTypeDescription, DisplaySequence, BatchIndicator FROM tblBatchType order by DisplaySequence";
+			cmd.CommandText = "SELECT BatchTypeId, BatchTypeDescription, DisplaySequence, BatchIndicator FROM tblBatchType order by BatchTypeDescription";
 			cmd.CommandType = CommandType.Text;
 
 			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.Properties.Settings.Default.CurrentConnectionString))

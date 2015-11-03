@@ -217,20 +217,16 @@
                                 <ListView.ContextMenu>
                                     <ContextMenu Opened="ContextMenuBatchAndPrint_Opened">
                                         <MenuItem Header="Print Selected" Click="MenuItemPrintSelected_Click"></MenuItem>
-                                        <MenuItem Header="Print Molecular Label" Click="MenuItemPrintMolecularLabel_Click"></MenuItem>
+                                        <!--<MenuItem Header="Print Molecular Label" Click="MenuItemPrintMolecularLabel_Click"></MenuItem>-->
                                         <MenuItem Header="Open Document Folder" Click="MenuItemOpenDocumentFolder_Click"></MenuItem>                                        
                                         <MenuItem Header="Send HL7 Result" Click="MenuItemSendHL7Result_Click"></MenuItem>
                                         <MenuItem Header="Send HL7 Result Test" Click="MenuItemSendHL7ResultTest_Click"></MenuItem>
                                         <MenuItem Header="Send HL7 Status Message" Click="MenuItemSendHL7StatusMessage_Click"></MenuItem>
-                                        <MenuItem Header="Open Physician Entry" Click="MenuItemOpenPhysicianEntry_Click"></MenuItem>										
-                                        <MenuItem Header="Edit Results" Click="MenuItemEditResults_Click"></MenuItem>
-                                        <MenuItem Header="To XML" Click="MenuItemToXml_Click"></MenuItem>
                                         <MenuItem Header="Publish" Click="MenuItemPublish_Click"></MenuItem>
                                         <MenuItem Header="Show HL7 Result" Click="MenuItemShowHl7Result_Click"></MenuItem>
                                         <MenuItem Header="Send Meditech Result" Click="MenuItemSendMeditechResult_Click"></MenuItem>
                                         <MenuItem Header="Send HL7 Order" Click="MenuItemSendHL7Order_Click"></MenuItem>
                                         <MenuItem Header="Send Panther Order" Click="MenuItemSendPantherOrder_Click"></MenuItem>
-										<MenuItem Header="Remove from Batch" Click="MenuItemRemoveFromBatch_Click"></MenuItem>
                                     </ContextMenu>
                                 </ListView.ContextMenu>
                                 <ListView.View>                                    
@@ -260,39 +256,10 @@
 											<ColumnDefinition></ColumnDefinition>
 										</Grid.ColumnDefinitions>
 										<Grid.RowDefinitions>
-											<RowDefinition Height="35"></RowDefinition>
 											<RowDefinition></RowDefinition>
 										</Grid.RowDefinitions>
 
-										<ToolBarPanel Grid.Column="0" Grid.Row="0">
-											<ToolBarTray Background="Gainsboro" FocusManager.IsFocusScope="False">
-												<ToolBar FocusManager.IsFocusScope="False">
-													<Button Margin="2" ToolTip="Create new batch" Click="ButtonCreateNewBatch_Click">
-														<Image Source="/Resources/Add.ico"></Image>
-													</Button>													
-													<Button Margin="2" ToolTip="Assign selected cases to the selected batch" Click="ButtonAssignUnassignedCases_Click">
-														<Image Source="/Resources/AddBatch.ico"></Image>
-													</Button>
-													<Button Margin="2" ToolTip="Print batch" Click="ButtonPrintBatchLog_Click">
-														<Image Source="/Resources/Printer.ico"></Image>
-													</Button>
-													<Button Margin="2" ToolTip="Accept Results" Click="ButtonAcceptBatchResults_Click">
-														<Image Source="/Resources/AcceptResults.ico"></Image>
-													</Button>
-													<Button Margin="2" ToolTip="Finalize batch" Click="ButtonFinalBatch_Click">
-														<Image Source="/Resources/Finalize.ico"></Image>
-													</Button>                                                    
-													<Button Margin="2" ToolTip="Delete selected batch" Click="ButtonDelete_Click">
-														<Image Source="/Resources/Delete.ico"></Image>
-													</Button>
-                                                    <Button Margin="2" ToolTip="Show Tecan Import Export Dialog" Click="ButtonShowTecanImportExportDialog_Click">
-                                                        <Image Source="/Resources/Reassign.ico"></Image>
-                                                    </Button>
-                                                </ToolBar>
-											</ToolBarTray>
-										</ToolBarPanel>
-
-										<ListView Name="listViewBatchList" Grid.Column="0" Grid.Row="1" FontSize="12"
+										<ListView Name="listViewBatchList" Grid.Column="0" Grid.Row="0" FontSize="12"
 											ItemsSource="{Binding Path=BatchList}"
 											SelectionChanged="ListViewBatchList_SelectionChanged"
 											SelectedValuePath="PanelOrderBatchId">

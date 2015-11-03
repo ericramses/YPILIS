@@ -114,25 +114,6 @@ namespace YellowstonePathology.UI.Test
 			get { return this.m_PanelSetOrder; }
 		}
 
-		public void SetBatchTestOrderResultsAsNormal()
-        {
-			foreach (YellowstonePathology.Business.Search.ReportSearchItem item in this.CaseList)
-			{
-				YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(item.ReportNo);
-				YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-				objectTracker.RegisterObject(accessionOrder);
-				YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(item.ReportNo);
-
-                YellowstonePathology.Business.Rules.RuleExecutionStatus ruleExecutionStatus = new YellowstonePathology.Business.Rules.RuleExecutionStatus();
-
-				foreach (YellowstonePathology.Business.Test.PanelOrder panelOrder in panelSetOrder.PanelOrderCollection)
-				{
-					panelOrder.SetResultsAsNormal(this.AccessionOrder, ruleExecutionStatus);
-				}
-				objectTracker.SubmitChanges(accessionOrder);
-            }            
-        }
-
 		public YellowstonePathology.Business.Search.ReportSearchList CaseList
         {
 			get { return this.m_SearchEngine.ReportSearchList; }
@@ -192,123 +173,11 @@ namespace YellowstonePathology.UI.Test
 			this.NotifyPropertyChanged("");
 		}
 
-		public void AddPanelOrderBatch(YellowstonePathology.Business.Panel.Model.PanelOrderBatch panelOrderBatch)
+		public void PrintCaseList(string description, DateTime printDate, YellowstonePathology.Business.Search.ReportSearchList selectedItemList)
 		{
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-			objectTracker.RegisterRootInsert(panelOrderBatch);
-			objectTracker.SubmitChanges(panelOrderBatch);
-			this.FillBatchList();
-		}
-
-		public YellowstonePathology.Business.Panel.Model.PanelOrderBatch AddPanelOrderBatch(YellowstonePathology.Business.BatchTypeListItem batchTypeListItem)
-		{
-			string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-			YellowstonePathology.Business.Panel.Model.PanelOrderBatch panelOrderBatch = new Business.Panel.Model.PanelOrderBatch(objectId);
-			panelOrderBatch.BatchTypeId = batchTypeListItem.BatchTypeId;
-			panelOrderBatch.Description = batchTypeListItem.BatchTypeDescription;
-			panelOrderBatch.BatchDate = DateTime.Today;
-			panelOrderBatch.RunDate = DateTime.Today;
-			this.AddPanelOrderBatch(panelOrderBatch);
-
-			YellowstonePathology.Business.Panel.Model.PanelOrderBatch result = null;
-			foreach (YellowstonePathology.Business.Panel.Model.PanelOrderBatch batch in this.m_SearchEngine.PanelOrderBatchList)
-			{
-				if (batch.BatchDate == DateTime.Today && batch.RunDate == DateTime.Today && batch.PanelOrderBatchId > 0)
-				{
-					result = batch;
-					break;
-				}
-			}
-			return result;
-		}
-
-		public void RemovePanelOrderBatch(YellowstonePathology.Business.Panel.Model.PanelOrderBatch panelOrderBatch)
-		{
-			this.m_SearchEngine.PanelOrderBatchList.Remove(panelOrderBatch);
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-			objectTracker.RegisterRootDelete(panelOrderBatch);
-			objectTracker.SubmitChanges(panelOrderBatch);
-		}
-
-		public void PrintCurrentBatchLog(string description, DateTime printDate, YellowstonePathology.Business.Search.ReportSearchList selectedItemList)
-		{
-			YellowstonePathology.Business.MolecularTesting.BatchLogReport report = new YellowstonePathology.Business.MolecularTesting.BatchLogReport();
+			YellowstonePathology.Business.MolecularTesting.CaseList report = new YellowstonePathology.Business.MolecularTesting.CaseList();
 			report.Print(selectedItemList, description, printDate);
 		}
-
-		public void MoveIndeterminateHpvCasesToUnassignedBatch()
-		{
-			SqlCommand cmd = new SqlCommand();
-			cmd.CommandText = "pHpvUnBatchIndeterminate";
-			cmd.CommandType = CommandType.StoredProcedure;
-			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.BaseData.SqlConnectionString))
-			{
-				cn.Open();
-				cmd.Connection = cn;
-				cmd.ExecuteNonQuery();
-			}
-		}
-
-        /*
-		public void AddSpecimen()
-		{
-			int panelSetId = 0;
-			if (this.m_PanelSetOrder != null)
-			{
-				panelSetId = this.m_PanelSetOrder.PanelSetId;
-			}
-
-			if (panelSetId > 0)
-			{
-				Business.Specimen.Model.SpecimenOrder specimenOrder = this.AccessionOrder.SpecimenOrderCollection.Add(this.AccessionOrder.MasterAccessionNo);
-                specimenOrder.Accepted = false;
-                specimenOrder.AliquotRequestCount = 1;
-				this.Save();
-				this.GetAccessionOrder(this.m_PanelSetOrder.ReportNo);
-			}
-		}
-        */
-
-		/*public void AcknowledgeOrder()
-		{
-			DateTime acknowledgementDate = DateTime.Today;
-			DateTime acknowledgementTime = DateTime.Now;
-			int acknowledgementId = this.m_SystemIdentity.User.UserId;
-
-			if (this.m_PanelOrderIds.Length > 0)
-			{
-				List<YellowstonePathology.Business.Test.PanelOrder> panelOrders = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPanelOrdersToAcknowledge(this.m_PanelOrderIds);
-				YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new Persistence.ObjectTracker();
-				foreach (YellowstonePathology.Business.Test.PanelOrder panelOrder in panelOrders)
-				{
-					objectTracker.RegisterObject(panelOrder);
-					panelOrder.Acknowledged = true;
-					panelOrder.AcknowledgedById = acknowledgementId;
-					panelOrder.AcknowledgedDate = acknowledgementDate;
-					panelOrder.AcknowledgedTime = acknowledgementTime;
-					objectTracker.SubmitChanges(panelOrder);
-				}
-
-				// make the report
-				YellowstonePathology.Business.Reports.LabOrderSheet labOrderSheet = new YellowstonePathology.Business.Reports.LabOrderSheet();
-				labOrderSheet.CreateReport(this.m_PanelOrderIds, acknowledgementDate, acknowledgementTime);
-			}
-
-			this.m_AcknowledgeOrders = new YellowstonePathology.Business.Domain.XElementFromSql();
-			this.m_PanelOrderIds = string.Empty;
-			NotifyPropertyChanged("AcknowledgeOrders");                                  
-		}*/		
-
-		/*public void FillOrderToAcknowledgeList()
-		{
-			this.m_AcknowledgeOrders = new YellowstonePathology.Business.Domain.XElementFromSql();
-			this.m_PanelOrderIds = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPanelOrderIdsToAcknowledge();
-			if (string.IsNullOrEmpty(m_PanelOrderIds) == false)
-			{
-				this.m_AcknowledgeOrders = YellowstonePathology.Business.Gateway.XmlGateway.GetXmlOrdersToAcknowledge(this.m_PanelOrderIds);
-				NotifyPropertyChanged("AcknowledgeOrders");
-			}
-		}*/
 
 		public void ViewLabOrderLog(DateTime orderDate)
 		{
