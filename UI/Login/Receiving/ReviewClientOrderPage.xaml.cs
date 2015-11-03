@@ -226,10 +226,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 
 		private void ButtonShowFaxPage_Click(object sender, RoutedEventArgs e)
 		{
-			ClientFaxPage clientFaxPage = new ClientFaxPage(this.m_ClientOrder, this.m_SystemIdentity);
-			clientFaxPage.Back += new ClientFaxPage.BackEventHandler(ClientFaxPage_Back);
-			clientFaxPage.Next += new ClientFaxPage.NextEventHandler(ClientFaxPage_Next);
-			this.m_PageNavigator.Navigate(clientFaxPage);
+			
 		}
 
 		private void ButtonShowEventsPage_Click(object sender, RoutedEventArgs e)

@@ -31,8 +31,9 @@ namespace YellowstonePathology.Business.Document
 
 			string xmlDocumentFileName = YellowstonePathology.Business.Properties.Settings.Default.ClientMissingInformationLetterFileName.ToUpper().Replace("DOC", "XML");
 			xmlDocument.Save(xmlDocumentFileName);
-
-			YellowstonePathology.Business.Document.CaseDocument.SaveXMLAsDocFromFileName(xmlDocumentFileName);
-		}
+            
+            YellowstonePathology.Business.Document.CaseDocument.SaveXMLAsDocFromFileName(xmlDocumentFileName);
+            YellowstonePathology.Business.Helper.FileConversionHelper.SaveDocAsXPS(xmlDocumentFileName.Replace(".DOC", ".XPS"));
+        }
 	}
 }

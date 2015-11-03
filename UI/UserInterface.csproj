@@ -41,7 +41,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>390</ApplicationRevision>
+    <ApplicationRevision>394</ApplicationRevision>
     <ApplicationVersion>10.1.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -262,6 +262,7 @@
       <DependentUpon>ThinPrepPapSlidePrintingPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Cytology\ThinPrepPapSlidePrintingPath.cs" />
+    <Compile Include="FaxTesting.cs" />
     <Compile Include="Gross\BlankPage.xaml.cs">
       <DependentUpon>BlankPage.xaml</DependentUpon>
     </Compile>

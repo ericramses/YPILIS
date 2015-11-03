@@ -95,7 +95,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                 YellowstonePathology.Business.BarcodeScanning.CytycBarcode cytycBarcode = YellowstonePathology.Business.BarcodeScanning.CytycBarcode.Parse(this.m_AccessionOrder.MasterAccessionNo);
                 YellowstonePathology.Business.Label.Model.PAPSlideLabel papSlideLabel = new Business.Label.Model.PAPSlideLabel(this.m_AccessionOrder.PFirstName, this.m_AccessionOrder.PLastName, barcode, cytycBarcode);
                 YellowstonePathology.Business.Label.Model.PAPSlideLabelPrinter papSlideLabelPrinter = new Business.Label.Model.PAPSlideLabelPrinter();
-                for (int i = 0; i < 3; i++)
+                for (int i = 0; i < 2; i++)
                 {
                     papSlideLabelPrinter.Queue.Enqueue(papSlideLabel);
                 }

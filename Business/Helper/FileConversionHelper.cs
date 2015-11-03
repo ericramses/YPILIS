@@ -16,6 +16,39 @@ namespace YellowstonePathology.Business.Helper
 {
     public class FileConversionHelper
     {
+        public static void SaveDocAsXPS(string fileName)
+        {
+            Microsoft.Office.Interop.Word.Application oWord;
+            Object oMissing = System.Reflection.Missing.Value;
+            Object oTrue = true;
+            Object oFalse = false;
+
+            oWord = new Microsoft.Office.Interop.Word.Application();
+            oWord.Visible = false;
+
+            string currentPrinter = oWord.ActivePrinter;
+            oWord.ActivePrinter = "Microsoft XPS Document Writer";
+
+            Object docFileName = fileName;
+            Object xpsFileName = fileName.Replace(".doc", ".xps");
+
+            Object fileFormat = "wdFormatDocument";
+
+            if (System.IO.File.Exists(docFileName.ToString()) == true)
+            {
+                Microsoft.Office.Interop.Word.Document doc = oWord.Documents.Open(ref docFileName, ref oMissing, ref oMissing,
+                        ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing,
+                        ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing);
+
+                object oOutputFile = xpsFileName;
+                doc.PrintOut(ref oFalse, ref oFalse, ref oMissing, ref oOutputFile, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing,
+                    ref oTrue, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing);                
+            }
+
+            oWord.ActivePrinter = currentPrinter;
+            oWord.Quit(ref oFalse, ref oMissing, ref oMissing);            
+        }
+
         public static bool ConvertXpsDocumentToPdf(string reportNo)
         {
             bool result = true;
