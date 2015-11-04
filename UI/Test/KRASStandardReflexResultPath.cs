@@ -28,15 +28,9 @@ namespace YellowstonePathology.UI.Test
             this.m_KRASStandardReflexTestOrder = (YellowstonePathology.Business.Test.KRASStandardReflex.KRASStandardReflexTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 			this.m_ObjectTracker = objectTracker;
 			this.m_BackButtonVisibility = backButtonVisibility;
-			this.Authenticated += new AuthenticatedEventHandler(ResultPath_Authenticated);
 		}
 
-		private void ResultPath_Authenticated(object sender, EventArgs e)
-		{
-			this.ShowResultPage();
-		}
-
-        private void ShowResultPage()
+        protected override void ShowResultPage()
         {
             this.m_ResultPage = new KRASStandardReflexResultPage(this.m_KRASStandardReflexTestOrder, this.m_AccessionOrder, this.m_ObjectTracker, this.m_SystemIdentity, this.m_PageNavigator, this.m_BackButtonVisibility);
             this.m_ResultPage.Next += new KRASStandardReflexResultPage.NextEventHandler(ResultPage_Next);

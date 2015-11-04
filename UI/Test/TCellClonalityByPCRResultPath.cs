@@ -21,15 +21,9 @@ namespace YellowstonePathology.UI.Test
 			this.m_AccessionOrder = accessionOrder;
 			this.m_PanelSetOrderTCellClonalityByPCR = (YellowstonePathology.Business.Test.TCellClonalityByPCR.PanelSetOrderTCellClonalityByPCR)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 			this.m_ObjectTracker = objectTracker;
-			this.Authenticated += new AuthenticatedEventHandler(ResultPath_Authenticated);
 		}
 
-		private void ResultPath_Authenticated(object sender, EventArgs e)
-		{
-			this.ShowResultPage();
-		}
-
-		private void ShowResultPage()
+        protected override void ShowResultPage()
 		{
 			this.m_TCellClonalityByPCRResultPage = new TCellClonalityByPCRResultPage(this.m_PanelSetOrderTCellClonalityByPCR, this.m_AccessionOrder, this.m_ObjectTracker, this.m_SystemIdentity);
 			this.m_TCellClonalityByPCRResultPage.Next += new TCellClonalityByPCRResultPage.NextEventHandler(TCellClonalityByPCRResultPage_Next);

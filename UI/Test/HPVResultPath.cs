@@ -7,9 +7,6 @@ namespace YellowstonePathology.UI.Test
 {
 	public class HPVResultPath : ResultPath
 	{
-        public delegate void NextEventHandler(object sender, EventArgs e);
-        public event NextEventHandler Next;
-
 		private HPVResultPage m_HPVResultPage;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;        
 		private YellowstonePathology.Business.Test.HPV.HPVTestOrder m_HPVTestOrder;
@@ -23,15 +20,9 @@ namespace YellowstonePathology.UI.Test
             this.m_AccessionOrder = accessionOrder;            
             this.m_HPVTestOrder = (YellowstonePathology.Business.Test.HPV.HPVTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
             this.m_ObjectTracker = objectTracker;
-            this.Authenticated += new AuthenticatedEventHandler(ResultPath_Authenticated);
-        }                      
-
-		private void ResultPath_Authenticated(object sender, EventArgs e)
-		{
-			this.ShowResultPage();
 		}
 
-		private void ShowResultPage()
+        protected override void ShowResultPage()
 		{
 			this.m_HPVResultPage = new HPVResultPage(this.m_HPVTestOrder, this.m_AccessionOrder, this.m_ObjectTracker, this.m_SystemIdentity, this.m_PageNavigator);
 			this.m_HPVResultPage.Next += new HPVResultPage.NextEventHandler(HPVResultPage_Next);

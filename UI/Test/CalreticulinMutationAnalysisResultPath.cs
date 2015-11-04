@@ -21,15 +21,9 @@ namespace YellowstonePathology.UI.Test
             this.m_AccessionOrder = accessionOrder;
 			this.m_ReportOrderCalreticulinMutationAnalysis = (YellowstonePathology.Business.Test.CalreticulinMutationAnalysis.CalreticulinMutationAnalysisTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 			this.m_ObjectTracker = objectTracker;
-			this.Authenticated += new AuthenticatedEventHandler(ResultPath_Authenticated);
 		}
 
-		private void ResultPath_Authenticated(object sender, EventArgs e)
-		{
-			this.ShowResultPage();
-		}
-
-        private void ShowResultPage()
+        protected override void ShowResultPage()
         {
 			this.m_CalreticulinMutationAnalysisResultPage = new CalreticulinMutationAnalysisResultPage(this.m_ReportOrderCalreticulinMutationAnalysis, this.m_AccessionOrder, this.m_ObjectTracker, this.m_SystemIdentity);
 			this.m_CalreticulinMutationAnalysisResultPage.Next += new CalreticulinMutationAnalysisResultPage.NextEventHandler(CalreticulinMutationAnalysisResultPage_Next);
