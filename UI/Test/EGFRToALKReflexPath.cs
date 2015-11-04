@@ -34,6 +34,7 @@ namespace YellowstonePathology.UI.Test
             this.m_BackButtonVisibility = backButtonVisibility;
 
             this.m_EGFRToALKReflexAnalysisTestOrder = (YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
+            this.Authenticated += new AuthenticatedEventHandler(ResultPath_Authenticated);
         }
 
         private void ResultPath_Authenticated(object sender, EventArgs e)

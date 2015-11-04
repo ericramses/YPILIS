@@ -47,7 +47,35 @@ namespace YellowstonePathology.Business.Test.JAK2V617F
 			return result;
 		}
 
-		[PersistentProperty()]
+        public override YellowstonePathology.Business.Rules.MethodResult IsOkToAccept()
+        {
+            YellowstonePathology.Business.Rules.MethodResult result = base.IsOkToAccept();
+            if (result.Success == true)
+            {
+                if (string.IsNullOrEmpty(this.m_ResultCode) == true)
+                {
+                    result.Success = false;
+                    result.Message = "The results cannot be accepted because the Result is not set.";
+                }
+            }
+            return result;
+        }
+
+        public override YellowstonePathology.Business.Audit.Model.AuditResult IsOkToFinalize(Test.AccessionOrder accessionOrder)
+        {
+            Audit.Model.AuditResult auditResult = base.IsOkToFinalize(accessionOrder);
+            if (auditResult.Status == Audit.Model.AuditStatusEnum.OK)
+            {
+                if (this.Accepted == false)
+                {
+                    auditResult.Status = Audit.Model.AuditStatusEnum.Failure;
+                    auditResult.Message = "This case cannot be finalized because the results have not been accepted.";
+                }
+            }
+            return auditResult;
+        }
+
+        [PersistentProperty()]
 		public string Result
 		{
 			get { return this.m_Result; }
