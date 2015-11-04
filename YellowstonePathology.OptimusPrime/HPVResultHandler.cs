@@ -29,8 +29,8 @@ namespace YellowstonePathology.OptimusPrime
                 if (overallInterpretation == "Negative")
                 {
                     hpvResult = new HPVNegativeResult();
-                    sql = @"Update tblPanelSetOrderHPVTWI set Result = '" + hpvResult.Result + "' "
-                        + "from tblPanelSetOrderHPVTWI psoh, tblPanelSetOrder pso "
+                    sql = @"Update tblHPVTestOrder set Result = '" + hpvResult.Result + "' "
+                        + "from tblHPVTestOrder psoh, tblPanelSetOrder pso "
                         + "where psoh.ReportNo = pso.ReportNo "
                         + "and pso.OrderedOnId = '" + aliquotOrderId + "' and pso.Accepted = 0; ";                        
 
@@ -51,8 +51,8 @@ namespace YellowstonePathology.OptimusPrime
                 else if (overallInterpretation == "POSITIVE")
                 {
                     hpvResult = new HPVPositiveResult();
-                    sql = @"Update tblPanelSetOrderHPVTWI set Result = '" + hpvResult.Result + "' "
-                        + "from tblPanelSetOrderHPVTWI psoh, tblPanelSetOrder pso "
+                    sql = @"Update tblHPVTestOrder set Result = '" + hpvResult.Result + "' "
+                        + "from tblHPVTestOrder psoh, tblPanelSetOrder pso "
                         + "where psoh.ReportNo = pso.ReportNo "
                         + "and pso.OrderedOnId = '" + aliquotOrderId + "' and pso.Accepted = 0; ";                        
 
@@ -68,8 +68,8 @@ namespace YellowstonePathology.OptimusPrime
                 else if (overallInterpretation == "Invalid")
                 {
                     hpvResult = new HPVInvalidResult();
-                    sql = @"Update tblPanelSetOrderHPVTWI set Result = '" + hpvResult.Result + "' "
-                        + "from tblPanelSetOrderHPVTWI psoh, tblPanelSetOrder pso "
+                    sql = @"Update tblHPVTestOrder set Result = '" + hpvResult.Result + "' "
+                        + "from tblHPVTestOrder psoh, tblPanelSetOrder pso "
                         + "where psoh.ReportNo = pso.ReportNo "
                         + "and pso.OrderedOnId = '" + aliquotOrderId + "' and pso.Accepted = 0; ";                    
 

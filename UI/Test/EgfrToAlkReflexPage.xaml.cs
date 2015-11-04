@@ -26,8 +26,8 @@ namespace YellowstonePathology.UI.Test
         public delegate void BackEventHandler(object sender, EventArgs e);
         public event BackEventHandler Back;        
 
-        public delegate void OrderALKAndROS1EventHandler(object sender, EventArgs e);
-        public event OrderALKAndROS1EventHandler OrderALKAndROS1;
+        public delegate void OrderALKROS1AndPDL1EventHandler(object sender, EventArgs e);
+        public event OrderALKROS1AndPDL1EventHandler OrderALKROS1AndPDL1;
 
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
@@ -141,9 +141,9 @@ namespace YellowstonePathology.UI.Test
 
 		}						      
 
-        private void HyperLinkOrderALKAndROS1_Click(object sender, RoutedEventArgs e)
+        private void HyperLinkOrderALKROS1AndPDL1_Click(object sender, RoutedEventArgs e)
         {
-            this.OrderALKAndROS1(this, new EventArgs());
+            this.OrderALKROS1AndPDL1(this, new EventArgs());
         }  
 
 		private void HyperLinkSetResults_Click(object sender, RoutedEventArgs e)

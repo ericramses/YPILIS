@@ -625,7 +625,7 @@
     <Compile Include="Test\PantherAliquotListItem.cs" />
     <Compile Include="Test\PantherOrderListItemNGCT.cs" />
     <Compile Include="Test\PantherOrderListItem.cs" />
-    <Compile Include="Test\PDL1\PDL1.cs" />
+    <Compile Include="Test\PDL1\PDL1Test.cs" />
     <Compile Include="Test\ROS1ByFISH\ROS1ByFISHInconclusiveResult.cs" />
     <Compile Include="Test\ROS1ByFISH\ROS1ByFISHNegativeWithMonosomyResult.cs" />
     <Compile Include="Test\ROS1ByFISH\ROS1ByFISHNegativeWithPolysomyResult.cs" />

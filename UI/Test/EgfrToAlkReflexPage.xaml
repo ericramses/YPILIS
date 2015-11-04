@@ -48,7 +48,7 @@
             <TextBlock Grid.Column="0" Grid.Row="0" Margin="0,5,0,0" FontWeight="Bold" FontSize="16">Order</TextBlock>
 
             <TextBlock Grid.Column="0" Grid.Row="1" Margin="5,3,0,0">
-                <Hyperlink Click="HyperLinkOrderALKAndROS1_Click" FontSize="14">ALK and ROS1</Hyperlink>
+                <Hyperlink Click="HyperLinkOrderALKROS1AndPDL1_Click" FontSize="14">ALK and ROS1</Hyperlink>
             </TextBlock>
 
             <TextBlock Grid.Column="0" Grid.Row="3" Margin="0,20,0,0" FontWeight="Bold" FontSize="16">Options</TextBlock>
