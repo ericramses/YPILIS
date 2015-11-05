@@ -52,10 +52,10 @@ namespace YellowstonePathology.Business.Test
                         validationResult.IsValid = false;
                         validationResult.Message = "West Park Hostpital account numbers must be 9 characters long.";
                     }
-                    else if (this.SvhAccount.StartsWith("A") == false)
+                    else if (this.SvhAccount.StartsWith("A") == false && this.SvhAccount.StartsWith("CC") == false)
                     {
                         validationResult.IsValid = false;
-                        validationResult.Message = "West Park Hostpital account numbers must start with the letter A.";
+                        validationResult.Message = "West Park Hostpital account numbers must start with the letter A or CC.";
                     }
                 }
                 else
