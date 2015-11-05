@@ -33,8 +33,6 @@ namespace YellowstonePathology.Business.Panel.Model
         {
             PanelCollection result = new PanelCollection();
 
-            result.Add(new YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHPanel());
-
             result.Add(new YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapAcidWashPanel());
             result.Add(new YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapDotReviewPanel());
             result.Add(new YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapQCPanel());
