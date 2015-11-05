@@ -155,12 +155,10 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkFinalize_Click(object sender, RoutedEventArgs e)
 		{
-			YellowstonePathology.Business.Rules.MethodResult methodResult = YellowstonePathology.Business.Test.KRASStandard.KRASStandardResult.IsOkToFinal(this.m_AccessionOrder, this.m_PanelSetOrder);
-			if (methodResult.Success == true)
+			YellowstonePathology.Business.Audit.Model.AuditResult auditResult = this.m_PanelSetOrder.IsOkToFinalize(this.m_AccessionOrder);
+			if (auditResult.Status == Business.Audit.Model.AuditStatusEnum.OK)
 			{
-				YellowstonePathology.Business.Test.KRASStandard.KRASStandardResultCollection resultCollection = YellowstonePathology.Business.Test.KRASStandard.KRASStandardResultCollection.GetAll();
-				YellowstonePathology.Business.Test.KRASStandard.KRASStandardResult result = resultCollection.GetResult(this.m_PanelSetOrder.ResultCode);
-				result.FinalizeResults(this.m_PanelSetOrder, this.m_SystemIdentity);
+                this.m_PanelSetOrder.Finalize(this.m_SystemIdentity.User);
 
                 YellowstonePathology.Business.Test.KRASStandardReflex.KRASStandardReflexTest krasStandardReflexTest = new YellowstonePathology.Business.Test.KRASStandardReflex.KRASStandardReflexTest();
 				if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(krasStandardReflexTest.PanelSetId) == true)
@@ -171,18 +169,16 @@ namespace YellowstonePathology.UI.Test
 			}
 			else
 			{
-				MessageBox.Show(methodResult.Message);
+				MessageBox.Show(auditResult.Message);
 			}
 		}
 
 		private void HyperLinkUnfinalResults_Click(object sender, RoutedEventArgs e)
 		{
-			YellowstonePathology.Business.Rules.MethodResult methodResult = YellowstonePathology.Business.Test.KRASStandard.KRASStandardResult.IsOkToUnFinalize(this.m_PanelSetOrder);
+			YellowstonePathology.Business.Rules.MethodResult methodResult = this.m_PanelSetOrder.IsOkToUnfinalize();
 			if (methodResult.Success == true)
 			{
-				YellowstonePathology.Business.Test.KRASStandard.KRASStandardResultCollection resultCollection = YellowstonePathology.Business.Test.KRASStandard.KRASStandardResultCollection.GetAll();
-				YellowstonePathology.Business.Test.KRASStandard.KRASStandardResult result = resultCollection.GetResult(this.m_PanelSetOrder.ResultCode);
-				result.UnFinalizeResults(this.m_PanelSetOrder);
+                this.m_PanelSetOrder.Unfinalize();
 			}
 			else
 			{
@@ -192,7 +188,7 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkSetResults_Click(object sender, RoutedEventArgs e)
 		{
-			YellowstonePathology.Business.Rules.MethodResult methodResult = YellowstonePathology.Business.Test.KRASStandard.KRASStandardResult.IsOkToSetResult(this.m_PanelSetOrder);
+			YellowstonePathology.Business.Rules.MethodResult methodResult = this.m_PanelSetOrder.IsOkToSetResult();
 			if (methodResult.Success == true)
 			{
 				if (this.ComboBoxResult.SelectedItem != null)
@@ -225,13 +221,10 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkAcceptResults_Click(object sender, RoutedEventArgs e)
 		{
-			YellowstonePathology.Business.Rules.MethodResult methodResult = YellowstonePathology.Business.Test.KRASStandard.KRASStandardResult.IsOkToAccept(this.m_PanelSetOrder);
+			YellowstonePathology.Business.Rules.MethodResult methodResult = this.m_PanelSetOrder.IsOkToAccept();
 			if (methodResult.Success == true)
 			{
-				YellowstonePathology.Business.Test.PanelOrder panelOrder = this.m_PanelSetOrder.PanelOrderCollection.GetUnacceptedPanelOrder();
-				YellowstonePathology.Business.Test.KRASStandard.KRASStandardResultCollection resultCollection = YellowstonePathology.Business.Test.KRASStandard.KRASStandardResultCollection.GetAll();
-				YellowstonePathology.Business.Test.KRASStandard.KRASStandardResult result = resultCollection.GetResult(this.m_PanelSetOrder.ResultCode);
-				result.AcceptResults(this.m_PanelSetOrder, panelOrder, this.m_SystemIdentity);
+                this.m_PanelSetOrder.Accept(this.m_SystemIdentity.User);
 			}
 			else
 			{
@@ -241,13 +234,10 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkUnacceptResults_Click(object sender, RoutedEventArgs e)
 		{
-			YellowstonePathology.Business.Rules.MethodResult methodResult = YellowstonePathology.Business.Test.KRASStandard.KRASStandardResult.IsOkToUnaccept(this.m_PanelSetOrder);
+			YellowstonePathology.Business.Rules.MethodResult methodResult = this.m_PanelSetOrder.IsOkToUnaccept();
 			if (methodResult.Success == true)
 			{
-				YellowstonePathology.Business.Test.PanelOrder panelOrder = this.m_PanelSetOrder.PanelOrderCollection.GetLastAcceptedPanelOrder();
-				YellowstonePathology.Business.Test.KRASStandard.KRASStandardResultCollection resultCollection = YellowstonePathology.Business.Test.KRASStandard.KRASStandardResultCollection.GetAll();
-				YellowstonePathology.Business.Test.KRASStandard.KRASStandardResult result = resultCollection.GetResult(this.m_PanelSetOrder.ResultCode);
-				result.UnacceptResults(this.m_PanelSetOrder);
+                this.m_PanelSetOrder.Unaccept();
 			}
 			else
 			{

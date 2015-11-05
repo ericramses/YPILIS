@@ -6,15 +6,16 @@ using System.Text;
 namespace YellowstonePathology.UI.Test
 {
     public class EGFRToALKReflexPath : ResultPath
-    {		
+    {
         public delegate void BackEventHandler(object sender, EventArgs e);
         public event BackEventHandler Back;
 
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-        private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;        
+        private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 
         private YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisTestOrder m_EGFRToALKReflexAnalysisTestOrder;
-        private EGFRToALKReflexPage m_EGFRToALKReflexPage;        
+        private EGFRToALKReflexPage m_EGFRToALKReflexPage;
+        private System.Windows.Visibility m_BackButtonVisibility;
 
         public EGFRToALKReflexPath(string reportNo, YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
             YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
@@ -26,20 +27,14 @@ namespace YellowstonePathology.UI.Test
             this.m_BackButtonVisibility = backButtonVisibility;
             
             this.m_EGFRToALKReflexAnalysisTestOrder = (YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
-            this.Authenticated += new AuthenticatedEventHandler(ResultPath_Authenticated);
         }
 
-        private void ResultPath_Authenticated(object sender, EventArgs e)
+        protected override void ShowResultPage()
         {
             this.m_EGFRToALKReflexPage = new EGFRToALKReflexPage(this.m_EGFRToALKReflexAnalysisTestOrder, this.m_AccessionOrder, this.m_ObjectTracker, this.m_SystemIdentity, this.m_BackButtonVisibility);
             this.m_EGFRToALKReflexPage.OrderALKROS1AndPDL1 += new EGFRToALKReflexPage.OrderALKROS1AndPDL1EventHandler(EGFRToALKReflexPage_OrderALKROS1AndPDL1);
             this.m_EGFRToALKReflexPage.Finish +=new EGFRToALKReflexPage.FinishEventHandler(EGFRToALKReflexPage_Finish);
             this.m_EGFRToALKReflexPage.Back += new EGFRToALKReflexPage.BackEventHandler(EGFRToALKReflexPage_Back);
-            this.ShowResultPage();
-        }
-
-        public void ShowResultPage()
-        {
             this.m_PageNavigator.Navigate(this.m_EGFRToALKReflexPage);
         }
 

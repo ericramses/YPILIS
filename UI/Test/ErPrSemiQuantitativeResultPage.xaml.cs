@@ -24,8 +24,6 @@ namespace YellowstonePathology.UI.Test
 
 		public delegate void NextEventHandler(object sender, EventArgs e);
 		public event NextEventHandler Next;
-		public delegate void BackEventHandler(object sender, EventArgs e);
-		public event BackEventHandler Back;
 
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;

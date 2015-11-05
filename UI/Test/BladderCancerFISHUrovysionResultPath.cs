@@ -21,15 +21,9 @@ namespace YellowstonePathology.UI.Test
 			this.m_AccessionOrder = accessionOrder;
 			this.m_PanelSetOrder = (YellowstonePathology.Business.Test.BladderCancerFISHUrovysion.BladderCancerFISHUrovysionTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 			this.m_ObjectTracker = objectTracker;
-			this.Authenticated += new AuthenticatedEventHandler(ResultPath_Authenticated);
 		}
 
-		private void ResultPath_Authenticated(object sender, EventArgs e)
-		{
-			this.ShowResultPage();
-		}
-
-		private void ShowResultPage()
+        protected override void ShowResultPage()
 		{
 			this.m_ResultPage = new BladderCancerFISHUrovysionResultPage(this.m_PanelSetOrder, this.m_AccessionOrder, this.m_ObjectTracker, this.m_SystemIdentity);
 			this.m_ResultPage.Next += new BladderCancerFISHUrovysionResultPage.NextEventHandler(ResultPage_Next);
