@@ -66,10 +66,10 @@ namespace YellowstonePathology.Business.Test.JAK2V617F
             Audit.Model.AuditResult auditResult = base.IsOkToFinalize(accessionOrder);
             if (auditResult.Status == Audit.Model.AuditStatusEnum.OK)
             {
-                if (this.Accepted == false)
+                if (string.IsNullOrEmpty(this.m_ResultCode) == true)
                 {
                     auditResult.Status = Audit.Model.AuditStatusEnum.Failure;
-                    auditResult.Message = "This case cannot be finalized because the results have not been accepted.";
+                    auditResult.Message = "This case cannot be finalized because the results have not been set.";
                 }
             }
             return auditResult;

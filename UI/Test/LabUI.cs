@@ -139,11 +139,6 @@ namespace YellowstonePathology.UI.Test
 			get { return this.m_PanelSetCollection; }
 		}
 
-		public YellowstonePathology.Business.Panel.Model.PanelOrderBatchList BatchList
-		{
-			get { return this.m_SearchEngine.PanelOrderBatchList; }
-		}
-
         public YellowstonePathology.Business.AutomatedOrderList AutomatedOrderList
 		{
 			get { return this.m_SearchEngine.AutomatedOrderList; }
@@ -262,12 +257,6 @@ namespace YellowstonePathology.UI.Test
 			this.m_SearchEngine.FillSearchList();
 			this.NotifyPropertyChanged("CaseList");
 		}
-
-		public void FillBatchList()
-		{
-			this.m_SearchEngine.FillBatchList();
-			this.NotifyPropertyChanged("BatchList");
-		}		
 
 		public void NotifyPropertyChanged(String info)
 		{
