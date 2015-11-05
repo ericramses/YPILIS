@@ -21,15 +21,9 @@ namespace YellowstonePathology.UI.Test
             this.m_AccessionOrder = accessionOrder;
 			this.m_HPV1618ByPCRTestOrder = (YellowstonePathology.Business.Test.HPV1618ByPCR.HPV1618ByPCRTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 			this.m_ObjectTracker = objectTracker;
-			this.Authenticated += new AuthenticatedEventHandler(ResultPath_Authenticated);
 		}
 
-		private void ResultPath_Authenticated(object sender, EventArgs e)
-		{
-			this.ShowResultPage();
-		}
-
-        private void ShowResultPage()
+        protected override void ShowResultPage()
         {
 			this.m_HPV1618ByPCRResultPage = new HPV1618ByPCRResultPage(this.m_HPV1618ByPCRTestOrder, this.m_AccessionOrder, this.m_ObjectTracker, this.m_SystemIdentity, this.m_PageNavigator);
 			this.m_HPV1618ByPCRResultPage.Next += new HPV1618ByPCRResultPage.NextEventHandler(HPV1618ByPCRResultPage_Next);

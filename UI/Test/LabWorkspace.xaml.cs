@@ -720,9 +720,14 @@ namespace YellowstonePathology.UI.Test
                     this.m_LabUI.SearchEngine.SetFillByPanelSetId(60); //EGFR
                     this.m_LabUI.FillCaseList();
                 }
-                else if (batchTypeListItem.BatchTypeId == 2)
+                else if (batchTypeListItem.BatchTypeId == 4)
                 {
-                    this.m_LabUI.SearchEngine.SetFillByPanelSetId(183); //CF
+                    this.m_LabUI.SearchEngine.SetFillByPanelSetId(1); //JAC2
+                    this.m_LabUI.FillCaseList();
+                }
+                else if (batchTypeListItem.BatchTypeId == 5)
+                {
+                    this.m_LabUI.SearchEngine.SetFillByPanelSetId(27); //KRAS Std
                     this.m_LabUI.FillCaseList();
                 }
                 else

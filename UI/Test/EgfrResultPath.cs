@@ -21,15 +21,9 @@ namespace YellowstonePathology.UI.Test
             this.m_AccessionOrder = accessionOrder;
             this.m_EGFRMutationAnalysisTestOrder = (YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 			this.m_ObjectTracker = objectTracker;
-			this.Authenticated += new AuthenticatedEventHandler(ResultPath_Authenticated);
 		}
 
-		private void ResultPath_Authenticated(object sender, EventArgs e)
-		{
-			this.ShowResultPage();
-		}
-
-        private void ShowResultPage()
+        protected override void ShowResultPage()
         {
             this.m_EGFRResultPage = new EGFRResultPage(this.m_EGFRMutationAnalysisTestOrder, this.m_AccessionOrder, this.m_ObjectTracker, this.m_SystemIdentity);
             this.m_EGFRResultPage.Next += new EGFRResultPage.NextEventHandler(EgfrResultPage_Next);

@@ -23,12 +23,7 @@ namespace YellowstonePathology.UI.Test
 			this.m_FNAAdequacyAssessmentResult = (YellowstonePathology.Business.Test.FNAAdequacyAssessment.FNAAdequacyAssessmentTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 		}
 
-        private void ResultPath_Authenticated(object sender, EventArgs e)
-        {
-            this.ShowResultPage();
-        }
-
-        private void ShowResultPage()
+        protected override void ShowResultPage()
 		{
 			this.m_ResultPage = new FNAResultPage(this.m_FNAAdequacyAssessmentResult, this.m_AccessionOrder, this.m_ObjectTracker, this.m_SystemIdentity);            
             this.m_ResultPage.Next += new FNAResultPage.NextEventHandler(ResultPage_Next);

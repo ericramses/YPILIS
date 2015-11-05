@@ -28,15 +28,9 @@ namespace YellowstonePathology.UI.Test
 			this.m_ObjectTracker = objectTracker;
             this.m_BackButtonVisibility = backButtonVisibility;
 
-			this.Authenticated += new AuthenticatedEventHandler(ResultPath_Authenticated);
 		}
 
-		private void ResultPath_Authenticated(object sender, EventArgs e)
-		{
-			this.ShowResultPage();
-		}
-
-        private void ShowResultPage()
+        protected override void ShowResultPage()
         {
 			ComprehensiveColonCancerProfilePage comprehensiveColonCancerProfilePage = new ComprehensiveColonCancerProfilePage(this.m_ComprehensiveColonCancerProfile, this.m_AccessionOrder, this.m_ObjectTracker, this.m_SystemIdentity, this.m_BackButtonVisibility);
 			comprehensiveColonCancerProfilePage.Next += new ComprehensiveColonCancerProfilePage.NextEventHandler(ComprehensiveColonCancerProfilePage_Next);

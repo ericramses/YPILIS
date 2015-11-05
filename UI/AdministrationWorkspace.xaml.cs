@@ -1162,7 +1162,7 @@ namespace YellowstonePathology.UI
 
         private void FixHPV()
         {
-            YellowstonePathology.Business.ReportNoCollection reportNoCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetReportNumbers();
+            /*YellowstonePathology.Business.ReportNoCollection reportNoCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetReportNumbers();
             foreach (YellowstonePathology.Business.ReportNo reportNo in reportNoCollection)
             {
                 string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
@@ -1175,7 +1175,7 @@ namespace YellowstonePathology.UI
                 YellowstonePathology.Business.Test.PanelOrder  panelOrder = new Business.Test.PanelOrder(reportNo.Value, objectId, objectId, panel, 5051);
                 pso.PanelOrderCollection.Add(panelOrder);
                 ot.SubmitChanges(accessionOrder);
-            }
+            }*/
         }
 
         private void FindNonASCICharacters()

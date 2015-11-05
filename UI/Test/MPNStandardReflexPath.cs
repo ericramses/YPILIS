@@ -24,15 +24,9 @@ namespace YellowstonePathology.UI.Test
             this.m_AccessionOrder = accessionOrder;
 			this.m_PanelSetOrderMPNStandardReflex = (YellowstonePathology.Business.Test.MPNStandardReflex.PanelSetOrderMPNStandardReflex)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 			this.m_ObjectTracker = objectTracker;
-			this.Authenticated += new AuthenticatedEventHandler(ResultPath_Authenticated);
 		}
 
-		private void ResultPath_Authenticated(object sender, EventArgs e)
-		{
-			this.ShowResultPage();
-		}
-
-        private void ShowResultPage()
+        protected override void ShowResultPage()
         {
 			this.m_MPNStandardReflexPage = new MPNStandardReflexPage(this.m_AccessionOrder, this.m_ObjectTracker, this.m_SystemIdentity);
 			this.m_MPNStandardReflexPage.Back += new MPNStandardReflexPage.BackEventHandler(MPNStandardReflexPage_Back);

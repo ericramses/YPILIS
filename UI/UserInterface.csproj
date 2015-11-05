@@ -600,7 +600,6 @@
     <Compile Include="Test\HPV1618ByPCRResultPage.xaml.cs">
       <DependentUpon>HPV1618ByPCRResultPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Test\IResultPageAction.cs" />
     <Compile Include="Test\MissingInformationResultPage.xaml.cs">
       <DependentUpon>MissingInformationResultPage.xaml</DependentUpon>
     </Compile>
@@ -614,7 +613,6 @@
     <Compile Include="Test\IHCQCResultPage.xaml.cs">
       <DependentUpon>IHCQCResultPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Test\CysticFibrosisBatchResultPath.cs" />
     <Compile Include="Test\CysticFibrosisResultPage.xaml.cs">
       <DependentUpon>CysticFibrosisResultPage.xaml</DependentUpon>
     </Compile>
@@ -648,7 +646,6 @@
       <DependentUpon>HER2AmplificationByISHResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Test\HER2AmplificationByISHResultPath.cs" />
-    <Compile Include="Test\HPV1618BatchResultPath.cs" />
     <Compile Include="Test\JAK2V617FResultPage.xaml.cs">
       <DependentUpon>JAK2V617FResultPage.xaml</DependentUpon>
     </Compile>
@@ -746,7 +743,6 @@
     </Compile>
     <Compile Include="Test\MultipleMyelomaMGUSByFishResultPath.cs" />
     <Compile Include="Test\NeogenomicsResultPath.cs" />
-    <Compile Include="Test\NGCTBatchResultPath.cs" />
     <Compile Include="Test\NGCTResultPage.xaml.cs">
       <DependentUpon>NGCTResultPage.xaml</DependentUpon>
     </Compile>
@@ -876,7 +872,6 @@
     <Compile Include="Surgical\TypingWorkspace.xaml.cs">
       <DependentUpon>TypingWorkspace.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Test\HPVBatchResultPath.cs" />
     <Compile Include="Test\HPV1618ResultPage.xaml.cs">
       <DependentUpon>HPV1618ResultPage.xaml</DependentUpon>
     </Compile>
