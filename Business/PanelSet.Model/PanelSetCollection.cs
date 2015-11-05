@@ -139,7 +139,6 @@ namespace YellowstonePathology.Business.PanelSet.Model
             panelSetCollection.Add(new YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.Autopsy.AutopsyTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.BCellClonalityByPCR.BCellClonalityByPCRTest());
-			panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetBoneMarrowRetired());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.CysticFibrosis.CysticFibrosisTest());
 			panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.CysticFibrosisTestRetired());
@@ -492,6 +491,45 @@ namespace YellowstonePathology.Business.PanelSet.Model
         {            
             List<int> intList = GetPanelSetIdList(caseType);
 			return YellowstonePathology.Business.Helper.IdHelper.ToIdString(intList);         
+        }
+
+        public static PanelSetCollection GetMolecularLabPanelSets()
+        {
+            PanelSetCollection panelSetCollection = new PanelSetCollection();
+//Bone Marrow
+//Flow
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.Autopsy.AutopsyTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.BCellClonalityByPCR.BCellClonalityByPCRTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.CysticFibrosis.CysticFibrosisTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.ErPrSemiQuantitative.ErPrSemiQuantitativeTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.FactorVLeiden.FactorVLeidenTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.HPV.HPVTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.HPV1618.HPV1618Test());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.HPV1618ByPCR.HPV1618ByPCRTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.KRASStandardReflex.KRASStandardReflexTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.KRASStandard.KRASStandardTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetMthfr());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.NGCT.NGCTTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.Prothrombin.ProthrombinTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.TechnicalOnly.TechnicalOnlyTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.Trichomonas.TrichomonasTest());
+            return Sort(panelSetCollection);
+        }
+
+        private static PanelSetCollection Sort(PanelSetCollection panelSetCollection)
+        {
+            PanelSetCollection result = new PanelSetCollection();
+            IOrderedEnumerable<PanelSet> orderedResult = panelSetCollection.OrderBy(i => i.PanelSetName);
+            foreach (PanelSet panelSet in orderedResult)
+            {
+                result.Add(panelSet);
+            }
+            return result;
         }
     }
 }

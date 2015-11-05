@@ -247,6 +247,8 @@
     <Compile Include="BarcodeScanning\HistologyBlock.cs" />
     <Compile Include="BarcodeScanning\HistologySlide.cs" />
     <Compile Include="BarcodeScanning\ThinPrepSlide.cs" />
+    <Compile Include="BatchTypeList.cs" />
+    <Compile Include="BatchTypeListItem.cs" />
     <Compile Include="Billing\BillingCodeSummaryList.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -2082,8 +2084,6 @@
     <Compile Include="Visitor\StainAcknowledgementTaskOrderVisitor.cs" />
     <Compile Include="WordApplication.cs" />
     <Compile Include="AutomatedOrderList.cs" />
-    <Compile Include="BatchTypeList.cs" />
-    <Compile Include="BatchTypeListItem.cs" />
     <Compile Include="Billing.Model\BillingComponentEnum.cs" />
     <Compile Include="Billing.Model\BillingRule.cs" />
     <Compile Include="Billing.Model\BillingRuleCollection.cs" />

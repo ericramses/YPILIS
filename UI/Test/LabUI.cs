@@ -27,7 +27,7 @@ namespace YellowstonePathology.UI.Test
 		YellowstonePathology.Business.PanelSet.Model.PanelSetCaseTypeCollection m_PanelSetCaseTypeCollection;
 
 		YellowstonePathology.Business.FileList m_DigeneImportFileList;
-		YellowstonePathology.Business.BatchTypeList m_BatchTypeList;
+		YellowstonePathology.Business.PanelSet.Model.PanelSetCollection m_PanelSetCollection;
 
 		private YellowstonePathology.Business.User.SystemUserCollection m_PathologistUsers;				
 
@@ -50,7 +50,7 @@ namespace YellowstonePathology.UI.Test
 			this.m_MedTechUsers = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetUsersByRole(YellowstonePathology.Business.User.SystemUserRoleDescriptionEnum.MedTech, true);
 			this.m_LogUsers = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetUsersByRole(YellowstonePathology.Business.User.SystemUserRoleDescriptionEnum.Log, true);
 
-			this.m_BatchTypeList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetBatchTypeList();
+            this.m_PanelSetCollection = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetMolecularLabPanelSets();
 			
 			this.m_DigeneImportFileList = new YellowstonePathology.Business.FileList();
             			
@@ -134,9 +134,9 @@ namespace YellowstonePathology.UI.Test
 			get { return this.m_LogUsers; }
 		}
 
-		public YellowstonePathology.Business.BatchTypeList BatchTypeList
-		{
-			get { return this.m_BatchTypeList; }
+		public YellowstonePathology.Business.PanelSet.Model.PanelSetCollection PanelSetCollection
+        {
+			get { return this.m_PanelSetCollection; }
 		}
 
 		public YellowstonePathology.Business.Panel.Model.PanelOrderBatchList BatchList

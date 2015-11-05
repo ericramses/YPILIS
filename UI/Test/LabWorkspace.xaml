@@ -175,9 +175,9 @@
                                         <ComboBox Name="ComboBoxPanelSetType" Margin="3"
 												Style="{StaticResource BoundTextBox}" 
 												MaxWidth="165" Height="22" MaxHeight="22"
-												ItemsSource="{Binding Path=BatchTypeList}"
-												DisplayMemberPath="BatchTypeDescription"
-												SelectedValuePath="BatchTypeId"												
+												ItemsSource="{Binding Path=PanelSetCollection}"
+												DisplayMemberPath="PanelSetName"
+												SelectedValuePath="PanelSetId"												
 												SelectionChanged="ComboBoxPanelSetType_SelectionChanged" FontSize="12">
 										</ComboBox>
 									</StackPanel>									
@@ -215,7 +215,7 @@
 							</ToolBarTray>
 							<ListView Name="ListViewCaseList" Grid.Column="0" Grid.Row="1" ItemsSource="{Binding Path=CaseList}" SelectionChanged="ListViewCaseList_SelectionChanged" FontSize="12">
                                 <ListView.ContextMenu>
-                                    <ContextMenu Opened="ContextMenuBatchAndPrint_Opened">
+                                    <ContextMenu>
                                         <MenuItem Header="Print Selected" Click="MenuItemPrintSelected_Click"></MenuItem>
                                         <!--<MenuItem Header="Print Molecular Label" Click="MenuItemPrintMolecularLabel_Click"></MenuItem>-->
                                         <MenuItem Header="Open Document Folder" Click="MenuItemOpenDocumentFolder_Click"></MenuItem>                                        

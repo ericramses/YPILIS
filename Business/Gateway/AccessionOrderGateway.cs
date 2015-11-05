@@ -2133,32 +2133,6 @@ namespace YellowstonePathology.Business.Gateway
 			return result;
 		}
 
-		public static YellowstonePathology.Business.BatchTypeList GetBatchTypeList()
-		{
-			YellowstonePathology.Business.BatchTypeList result = new BatchTypeList();
-			SqlCommand cmd = new SqlCommand();
-			cmd.CommandText = "SELECT BatchTypeId, BatchTypeDescription, DisplaySequence, BatchIndicator FROM tblBatchType order by BatchTypeDescription";
-			cmd.CommandType = CommandType.Text;
-
-			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.Properties.Settings.Default.CurrentConnectionString))
-			{
-				cn.Open();
-				cmd.Connection = cn;
-				using (SqlDataReader dr = cmd.ExecuteReader())
-				{
-					while (dr.Read())
-					{
-						YellowstonePathology.Business.BatchTypeListItem batchTypeListItem = new YellowstonePathology.Business.BatchTypeListItem();
-						YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(batchTypeListItem, dr);
-						sqlDataReaderPropertyWriter.WriteProperties();
-						result.Add(batchTypeListItem);
-					}
-				}
-			}
-
-			return result;
-		}
-
 		public static YellowstonePathology.Business.PanelSet.Model.PanelSetCaseTypeCollection GetPanelSetCaseTypeCollection()
 		{
 			YellowstonePathology.Business.PanelSet.Model.PanelSetCaseTypeCollection result = new YellowstonePathology.Business.PanelSet.Model.PanelSetCaseTypeCollection();
