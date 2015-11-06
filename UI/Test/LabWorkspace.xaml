@@ -217,7 +217,7 @@
                                 <ListView.ContextMenu>
                                     <ContextMenu>
                                         <MenuItem Header="Print Selected" Click="MenuItemPrintSelected_Click"></MenuItem>
-                                        <!--<MenuItem Header="Print Molecular Label" Click="MenuItemPrintMolecularLabel_Click"></MenuItem>-->
+                                        <MenuItem Header="Print Molecular Label" Click="MenuItemPrintMolecularLabel_Click"></MenuItem>
                                         <MenuItem Header="Open Document Folder" Click="MenuItemOpenDocumentFolder_Click"></MenuItem>                                        
                                         <MenuItem Header="Send HL7 Result" Click="MenuItemSendHL7Result_Click"></MenuItem>
                                         <MenuItem Header="Send HL7 Result Test" Click="MenuItemSendHL7ResultTest_Click"></MenuItem>
