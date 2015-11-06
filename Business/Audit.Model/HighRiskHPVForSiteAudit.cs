@@ -7,7 +7,8 @@ namespace YellowstonePathology.Business.Audit.Model
 {
     public class HighRiskHPVForSiteAudit : Audit
     {
-        private YellowstonePathology.Business.Surgical.KeyWordCollection m_LocationKeyWords;
+        private YellowstonePathology.Business.Surgical.KeyWordCollection m_SpecimenDescriptionKeyWords;
+        private YellowstonePathology.Business.Surgical.KeyWordCollection m_ExcludeWords;
         private YellowstonePathology.Business.Surgical.KeyWordCollection m_DiagnosisKeyWords;
         private YellowstonePathology.Business.Billing.Model.CptCodeCollection m_CptCodeCollection;
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
@@ -15,7 +16,8 @@ namespace YellowstonePathology.Business.Audit.Model
         public HighRiskHPVForSiteAudit(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {
             this.m_AccessionOrder = accessionOrder;
-            this.m_LocationKeyWords = new Surgical.KeyWordCollection { "head", "neck" };
+            this.m_SpecimenDescriptionKeyWords = new Surgical.KeyWordCollection { "head", "neck" };
+            this.m_ExcludeWords = new Surgical.KeyWordCollection { "skin" };
             this.m_DiagnosisKeyWords = new Surgical.KeyWordCollection { "squamous cell carcinoma" };
             this.m_CptCodeCollection = new Billing.Model.CptCodeCollection { new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88304(),
                 new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88305(),
@@ -50,13 +52,16 @@ namespace YellowstonePathology.Business.Audit.Model
         {
             bool result = false;
 
-            if (this.m_LocationKeyWords.WordsExistIn(description) == true)
+            if (this.m_SpecimenDescriptionKeyWords.WordsExistIn(description) == true)
             {
-                if (this.m_DiagnosisKeyWords.WordsExistIn(diagnosis) == true)
+                if(this.m_ExcludeWords.WordsExistIn(description) == false)
                 {
-                    if (panelSetOrderCPTCodeCollection.DoesCollectionHaveCodes(this.m_CptCodeCollection) == true)
-                    {
-                        result = true;
+                    if (this.m_DiagnosisKeyWords.WordsExistIn(diagnosis) == true)
+                    {                    
+                        if (panelSetOrderCPTCodeCollection.DoesCollectionHaveCodes(this.m_CptCodeCollection) == true)
+                        {
+                            result = true;
+                        }
                     }
                 }
             }
