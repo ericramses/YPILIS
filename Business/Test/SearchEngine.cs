@@ -15,9 +15,6 @@ namespace YellowstonePathology.Business.Test
 		private YellowstonePathology.Business.Search.ReportSearchFillEnum m_SearchFillEnum;
 		private YellowstonePathology.Business.Search.ReportSearchList m_ReportSearchList;
 
-		private YellowstonePathology.Business.Panel.Model.PanelOrderBatchList m_PanelOrderBatchList;
-		private int m_BatchTypeId;
-
         private YellowstonePathology.Business.AutomatedOrderList m_AutomatedOrderList;
 
 		public SearchEngine()
@@ -25,7 +22,6 @@ namespace YellowstonePathology.Business.Test
 			m_Parameters = new List<object>();
 			m_SearchFillEnum = YellowstonePathology.Business.Search.ReportSearchFillEnum.None;
 			this.m_ReportSearchList = new YellowstonePathology.Business.Search.ReportSearchList();
-			this.m_PanelOrderBatchList = new YellowstonePathology.Business.Panel.Model.PanelOrderBatchList();
             this.m_AutomatedOrderList = new YellowstonePathology.Business.AutomatedOrderList();
 		}
 
@@ -270,35 +266,6 @@ namespace YellowstonePathology.Business.Test
 			this.m_Parameters.Clear();
 			this.m_Parameters.Add(panelSetId);
 			this.m_SearchFillEnum = YellowstonePathology.Business.Search.ReportSearchFillEnum.ByNotVerified;
-		}
-
-		public YellowstonePathology.Business.Panel.Model.PanelOrderBatchList PanelOrderBatchList
-		{
-			get { return this.m_PanelOrderBatchList; }
-		}
-
-		public void FillBatchList()
-		{
-			this.m_PanelOrderBatchList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPanelOrderBatchListByBatchId(this.m_BatchTypeId);
-
-			YellowstonePathology.Business.Panel.Model.PanelOrderBatch batchItem = new YellowstonePathology.Business.Panel.Model.PanelOrderBatch();
-			batchItem.BatchTypeId = this.m_BatchTypeId;
-			batchItem.PanelOrderBatchId = 0;
-			batchItem.BatchDate = DateTime.Today;
-			batchItem.RunDate = DateTime.Today;
-			batchItem.Description = "Unassigned";
-			this.m_PanelOrderBatchList.Insert(0, batchItem);
-		}
-
-		public void SetBatchListFillByBatchTypeId(int batchTypeId)
-		{
-			this.m_BatchTypeId = batchTypeId;
-		}
-		
-		public bool CanDeleteBatch(int panelOrderBatchId)
-		{
-			bool result = YellowstonePathology.Business.Gateway.AccessionOrderGateway.CanDeleteBatch(panelOrderBatchId);
-			return result;
 		}
 
         public YellowstonePathology.Business.AutomatedOrderList AutomatedOrderList

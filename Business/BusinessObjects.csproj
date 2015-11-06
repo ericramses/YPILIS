@@ -247,8 +247,6 @@
     <Compile Include="BarcodeScanning\HistologyBlock.cs" />
     <Compile Include="BarcodeScanning\HistologySlide.cs" />
     <Compile Include="BarcodeScanning\ThinPrepSlide.cs" />
-    <Compile Include="BatchTypeList.cs" />
-    <Compile Include="BatchTypeListItem.cs" />
     <Compile Include="Billing\BillingCodeSummaryList.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -2302,8 +2300,6 @@
     <Compile Include="Panel.Model\InitialPanel.cs" />
     <Compile Include="Panel.Model\Panel.cs" />
     <Compile Include="Panel.Model\PanelCollection.cs" />
-    <Compile Include="Panel.Model\PanelOrderBatch.cs" />
-    <Compile Include="Panel.Model\PanelOrderBatchList.cs" />
     <Compile Include="Test\ThinPrepPap\PrimaryScreeningPanel.cs" />
     <Compile Include="PanelSet.Model\AbsoluteCD4CountTest.cs" />
     <Compile Include="PanelSet.Model\ALK1Test.cs" />

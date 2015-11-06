@@ -920,5 +920,11 @@ namespace YellowstonePathology.UI
             monitorPath.Load(YellowstonePathology.UI.Monitor.MonitorPageLoadEnum.MissingInformationMonitor);
             monitorPath.Start();
         }
+
+        private void MenuItemAcidWashOrders_Click(object sender, RoutedEventArgs e)
+        {
+            Test.AcidWashOrdersDialog acidWashOrdersDialog = new Test.AcidWashOrdersDialog();
+            acidWashOrdersDialog.ShowDialog();
+        }
     }    
 }

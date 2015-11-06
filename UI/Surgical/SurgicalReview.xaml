@@ -516,7 +516,7 @@
 							<TextBlock VerticalAlignment="Center" Margin="2">Reassign Case</TextBlock>
 						</StackPanel>
 					</Button>
-				</ToolBar>
+                </ToolBar>
 			</ToolBarTray>
 
 			<Rectangle RadiusX="5" RadiusY="5" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="1" Grid.RowSpan="1" Margin="2"></Rectangle>

@@ -168,7 +168,7 @@ namespace YellowstonePathology.UI.Test
 
 		private void LabWorkspace_Loaded(object sender, RoutedEventArgs args)
         {            
-			if (this.m_SystemIdentity.StationName == "BLGSCASSETTE" || this.m_SystemIdentity.StationName == "HISTOLOGYB")
+			/*if (this.m_SystemIdentity.StationName == "BLGSCASSETTE" || this.m_SystemIdentity.StationName == "HISTOLOGYB")
 			{				
 				for (int idx = 0; idx < this.ComboBoxPanelSetType.Items.Count; idx++)
 				{
@@ -178,7 +178,7 @@ namespace YellowstonePathology.UI.Test
 						break;
 					}
 				}                
-			}
+			}*/
 
 			if (this.m_LabUI != null && this.m_LabUI.AccessionOrder != null && this.m_LabUI.PanelSetOrder != null)
 			{
