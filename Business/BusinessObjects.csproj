@@ -164,7 +164,7 @@
     <Compile Include="Audit.Model\DistributionCanBeSetAudit.cs" />
     <Compile Include="Audit.Model\GradedStainsAreHandledAudit.cs" />
     <Compile Include="Audit.Model\HER2OKToAcceptAudit.cs" />
-    <Compile Include="Audit.Model\HighRiskHPVForSiteAudit.cs" />
+    <Compile Include="Audit.Model\HPV1618ForSiteAudit.cs" />
     <Compile Include="Audit.Model\IntraoperativeConsultationCorrelationAudit.cs" />
     <Compile Include="Audit.Model\IntraoperativeConsultationFinalAudit.cs" />
     <Compile Include="Audit.Model\PathologistSignoutIsHandledAuditCollection.cs" />
