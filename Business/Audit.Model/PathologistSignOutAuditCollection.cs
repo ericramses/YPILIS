@@ -30,7 +30,7 @@ namespace YellowstonePathology.Business.Audit.Model
             this.Add(new LynchSyndromeAudit(accessionOrder));
             this.Add(new CCCPAudit(accessionOrder));
             this.Add(new BRAFMetastaticMelanomaAudit(accessionOrder));
-            this.Add(new HighRiskHPVForSiteAudit(accessionOrder));
+            this.Add(new HPV1618ForSiteAudit(accessionOrder));
             this.Add(new KRASForMetastaticColorectalCancerAudit(accessionOrder));
             this.Add(new PNHOnBoneMarrowSpecimenAudit(accessionOrder));
         }
@@ -65,7 +65,7 @@ namespace YellowstonePathology.Business.Audit.Model
                 if (audit.GetType() == typeof(LynchSyndromeAudit) ||
                     audit.GetType() == typeof(CCCPAudit) ||
                     audit.GetType() == typeof(BRAFMetastaticMelanomaAudit) ||
-                    audit.GetType() == typeof(HighRiskHPVForSiteAudit) ||
+                    audit.GetType() == typeof(HPV1618ForSiteAudit) ||
                     audit.GetType() == typeof(KRASForMetastaticColorectalCancerAudit) ||
                     audit.GetType() == typeof(PNHOnBoneMarrowSpecimenAudit))
                 {
