@@ -168,7 +168,7 @@ namespace YellowstonePathology.UI.Test
 
 		private void LabWorkspace_Loaded(object sender, RoutedEventArgs args)
         {            
-			if (this.m_SystemIdentity.StationName == "BLGSCASSETTE" || this.m_SystemIdentity.StationName == "HISTOLOGYB")
+			/*if (this.m_SystemIdentity.StationName == "BLGSCASSETTE" || this.m_SystemIdentity.StationName == "HISTOLOGYB")
 			{				
 				for (int idx = 0; idx < this.ComboBoxPanelSetType.Items.Count; idx++)
 				{
@@ -178,7 +178,7 @@ namespace YellowstonePathology.UI.Test
 						break;
 					}
 				}                
-			}
+			}*/
 
 			if (this.m_LabUI != null && this.m_LabUI.AccessionOrder != null && this.m_LabUI.PanelSetOrder != null)
 			{
@@ -636,33 +636,6 @@ namespace YellowstonePathology.UI.Test
 			m_Comment = (YellowstonePathology.Business.Domain.Core.Comment)(menuItem.Tag);
 		}
 
-		public void ListViewBatchList_SelectionChanged(object sender, RoutedEventArgs args)
-		{
-			if (listViewBatchList.SelectedItem != null)
-			{
-
-				if ((int)listViewBatchList.SelectedValue == 0)
-				{
-					this.FillUnassignedList();
-				}
-				else
-				{
-					this.m_LabUI.SearchEngine.SetFillByBatchId((int)listViewBatchList.SelectedValue);
-					this.m_LabUI.FillCaseList();
-				}
-				ListViewCaseList.Focus();
-				SetListViewToTop();
-			}
-		}		
-
-		private void FillUnassignedList()
-		{
-			this.m_LabUI.SearchEngine.SetFillByUnBatchedBatchTypeId((int)ComboBoxPanelSetType.SelectedValue);
-			this.m_LabUI.FillCaseList();
-			this.ListViewCaseList.Focus();
-			SetListViewToTop();
-		}
-
         public void ListViewPanelSetOrder_SelectionChanged(object sender, RoutedEventArgs args)
         {
 			if(ListViewResultPanelSetOrder.SelectedIndex > -1)
@@ -673,80 +646,14 @@ namespace YellowstonePathology.UI.Test
 
         private void ComboBoxPanelSetType_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			DateTime startTime = DateTime.Now;
 			if (ComboBoxPanelSetType.SelectedItem != null)
 			{
-                YellowstonePathology.Business.BatchTypeListItem batchTypeListItem = (YellowstonePathology.Business.BatchTypeListItem)this.ComboBoxPanelSetType.SelectedItem;
-				if (batchTypeListItem.BatchIndicator == "Day")
-				{
-					this.m_LabUI.SearchEngine.SetFillByAccessionDate(this.m_WorkDate, batchTypeListItem.BatchTypeId, this.GetFacilityIdFromLocation(this.ComboBoxLogLocation.Text));
-					this.m_LabUI.BatchList.Clear();
-					this.m_LabUI.FillCaseList();
-				}
-				else if (batchTypeListItem.BatchIndicator == "Month")
-				{
-					DateTime startdate = this.m_WorkDate.AddMonths(-1);
-					this.m_LabUI.SearchEngine.SetFillByAccessionDateRange(startdate, this.m_WorkDate, batchTypeListItem.BatchTypeId, this.GetFacilityIdFromLocation(this.ComboBoxLogLocation.Text));
-					this.m_LabUI.BatchList.Clear();
-					this.m_LabUI.FillCaseList();
-				}
-                else if (batchTypeListItem.BatchTypeId == 24)
-                {                    
-                    this.m_LabUI.SearchEngine.SetFillByPanelSetId(213); //HPV 16 18 by PCR
-                    this.m_LabUI.FillCaseList();
-                }
-                else if (batchTypeListItem.BatchTypeId == 23)
-                {
-                    this.m_LabUI.SearchEngine.SetFillByPanelSetId(62); //HPV 16 18
-                    this.m_LabUI.FillCaseList();
-                }
-                else if (batchTypeListItem.BatchTypeId == 6)
-                {
-                    this.m_LabUI.SearchEngine.SetFillByPanelSetId(3); //NGCT
-                    this.m_LabUI.FillCaseList();
-                }
-                else if (batchTypeListItem.BatchTypeId == 22)
-                {
-                    this.m_LabUI.SearchEngine.SetFillByPanelSetId(61); //Trichomonas
-                    this.m_LabUI.FillCaseList();
-                }
-                else if (batchTypeListItem.BatchTypeId == 3)
-                {
-                    this.m_LabUI.SearchEngine.SetFillByPanelSetId(14); //HPV TWI
-                    this.m_LabUI.FillCaseList();
-                }
-                else if (batchTypeListItem.BatchTypeId == 21)
-                {
-                    this.m_LabUI.SearchEngine.SetFillByPanelSetId(60); //EGFR
-                    this.m_LabUI.FillCaseList();
-                }
-                else if (batchTypeListItem.BatchTypeId == 4)
-                {
-                    this.m_LabUI.SearchEngine.SetFillByPanelSetId(1); //JAC2
-                    this.m_LabUI.FillCaseList();
-                }
-                else if (batchTypeListItem.BatchTypeId == 5)
-                {
-                    this.m_LabUI.SearchEngine.SetFillByPanelSetId(27); //KRAS Std
-                    this.m_LabUI.FillCaseList();
-                }
-                else
-                {					
-					this.m_LabUI.SearchEngine.SetBatchListFillByBatchTypeId(batchTypeListItem.BatchTypeId);
-					this.m_LabUI.FillBatchList();
-
-					if (this.listViewBatchList.Items.Count > 0)
-					{
-						this.listViewBatchList.SelectedIndex = 0;
-					}
-					else
-					{
-						this.m_LabUI.SearchEngine.SetFillByUnBatchedBatchTypeId(batchTypeListItem.BatchTypeId);
-						this.m_LabUI.FillCaseList();
-					}
-				}
-			}            
-		}
+                YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet = (YellowstonePathology.Business.PanelSet.Model.PanelSet)this.ComboBoxPanelSetType.SelectedItem;
+                this.m_LabUI.SearchEngine.SetFillByPanelSetId(panelSet.PanelSetId);
+                this.m_LabUI.FillCaseList();
+                this.SetListViewToTop();
+            }
+        }
 
 		private void SetListViewToTop()
 		{
@@ -786,32 +693,6 @@ namespace YellowstonePathology.UI.Test
 			this.Save();            
 			this.ButtonAcceptAliquotDetails.Focus();
 		}		
-
-        public void ButtonPlaceKRASOrderFromSurgicalCase_Click(object sender, RoutedEventArgs args)
-        {
-			MessageBox.Show("Please use the Tree View and order from the proper Aliquot.");
-        }
-
-		public void ButtonPlaceBRAFOrderFromSurgicalCase_Click(object sender, RoutedEventArgs args)
-		{
-			MessageBox.Show("Please use the Tree View and order from the proper Aliquot.");
-		}
-
-        private void ButtonPlaceHPV16OrderFromSurgicalCase_Click(object sender, RoutedEventArgs e)
-        {
-			MessageBox.Show("Please use the Tree View and order from the proper Aliquot.");
-        }
-
-		/*private void ButtonAcknowledge_Click(object sender, RoutedEventArgs e)
-		{
-            this.Save();
-			this.m_LabUI.AcknowledgeOrder();
-		}
-
-		private void ButtonRefreshAcknowledgeList_Click(object sender, RoutedEventArgs e)
-		{
-			this.m_LabUI.FillOrderToAcknowledgeList();
-		}*/
 
 		private void SpecimenGrid_CurrentCellChanged(object sender, EventArgs e)
 		{
@@ -894,7 +775,7 @@ namespace YellowstonePathology.UI.Test
 
         private void ButtonBack_Click(object sender, RoutedEventArgs args)
         {
-			int batchTypeId = 0;
+			/*int batchTypeId = 0;
             this.m_WorkDate = this.m_WorkDate.AddDays(-1);
 			if (this.ComboBoxPanelSetType.SelectedItem != null)
 			{
@@ -902,12 +783,12 @@ namespace YellowstonePathology.UI.Test
 				batchTypeId = batchTypeListItem.BatchTypeId;
 			}
 			this.m_LabUI.SearchEngine.SetFillByAccessionDate(this.m_WorkDate, batchTypeId, this.GetFacilityIdFromLocation(this.ComboBoxLogLocation.Text));
-			this.m_LabUI.FillCaseList();
+			this.m_LabUI.FillCaseList();*/
 		}
 
         private void ButtonForward_Click(object sender, RoutedEventArgs args)
         {
-			int batchTypeId = 0;
+			/*int batchTypeId = 0;
 			this.m_WorkDate = this.m_WorkDate.AddDays(+1);
 
 			if (this.ComboBoxPanelSetType.SelectedItem != null)
@@ -917,7 +798,7 @@ namespace YellowstonePathology.UI.Test
 			}
             
             this.m_LabUI.SearchEngine.SetFillByAccessionDate(this.m_WorkDate, batchTypeId, this.GetFacilityIdFromLocation(this.ComboBoxLogLocation.Text));
-			this.m_LabUI.FillCaseList();
+			this.m_LabUI.FillCaseList();*/
 		}
 
         private string GetFacilityIdFromLocation(string location)
@@ -942,7 +823,7 @@ namespace YellowstonePathology.UI.Test
 
 		private void ComboBoxLogLocation_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			int batchTypeId = 0;
+			/*int batchTypeId = 0;
 			if (this.ComboBoxPanelSetType.SelectedItem != null)
 			{
                 YellowstonePathology.Business.BatchTypeListItem batchTypeListItem = (YellowstonePathology.Business.BatchTypeListItem)this.ComboBoxPanelSetType.SelectedItem;
@@ -964,7 +845,7 @@ namespace YellowstonePathology.UI.Test
                     this.m_LabUI.SearchEngine.SetFillByAccessionDate(this.m_WorkDate, batchTypeId, ypCdy.FacilityId);
                     break;                
             }			
-			this.m_LabUI.FillCaseList();            
+			this.m_LabUI.FillCaseList();            */
 		}
 
         private void ButtonAssignPathologist_Click(object sender, RoutedEventArgs e)
@@ -995,83 +876,20 @@ namespace YellowstonePathology.UI.Test
 		{
 			if (this.ListViewCaseList.SelectedItems.Count > 0)
 			{
-
-                YellowstonePathology.Business.BatchTypeListItem batchTypeListItem = (YellowstonePathology.Business.BatchTypeListItem)this.ComboBoxPanelSetType.SelectedItem;
+                YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet = (YellowstonePathology.Business.PanelSet.Model.PanelSet)this.ComboBoxPanelSetType.SelectedItem;
 				YellowstonePathology.Business.Search.ReportSearchList selectedItemList = new Business.Search.ReportSearchList();
 				foreach (YellowstonePathology.Business.Search.ReportSearchItem item in ListViewCaseList.SelectedItems)
 				{
 					selectedItemList.Add(item);
 				}
 
-                this.m_LabUI.PrintCaseList(batchTypeListItem.BatchTypeDescription, DateTime.Today, selectedItemList);
+                this.m_LabUI.PrintCaseList(panelSet.PanelSetName, DateTime.Today, selectedItemList);
             }
 			else
 			{
 				MessageBox.Show("Select all the cases to batch", "No cases selected");
 			}
 		}
-
-		private void ContextMenuBatchAndPrint_Opened(object sender, RoutedEventArgs e)
-		{
-			bool enabled = false;
-			if (this.ListViewCaseList.SelectedItem != null && ((YellowstonePathology.Business.Search.ReportSearchItem)this.ListViewCaseList.SelectedItem).ReportNo[0] != 'S') enabled = true;
-
-			ContextMenu contextMenu = (ContextMenu)sender;
-			foreach (MenuItem menuItem in contextMenu.Items)
-			{
-				if (menuItem.Header.ToString() == "Print Selected")
-				{
-					menuItem.IsEnabled = enabled;
-					break;
-				}
-			}
-
-			if (this.ListViewCaseList.SelectedItem != null && this.listViewBatchList.SelectedItem != null && (int)this.listViewBatchList.SelectedValue != 0) enabled = true;
-			else enabled = false;
-
-			foreach (MenuItem menuItem in contextMenu.Items)
-			{
-				if (menuItem.Header.ToString() == "Remove from Batch")
-				{
-					menuItem.IsEnabled = enabled;
-					break;
-				}
-			}
-		}
-
-		private void SelectBatchForUnassignedPanels()
-		{
-			this.m_LabUI.Save();
-			BatchAssignmentSelectionDialog dialog = new BatchAssignmentSelectionDialog(this.m_LabUI.SearchEngine.PanelOrderBatchList);
-			bool? result = dialog.ShowDialog();
-			if (result.HasValue && result.Value)
-			{
-				YellowstonePathology.Business.Panel.Model.PanelOrderBatch panelOrderBatch = dialog.SelectedPanelOrderBatch;
-				this.AssignUnassignedPanelsToBatch(panelOrderBatch);
-			}
-		}
-
-		private void AssignUnassignedPanelsToBatch(YellowstonePathology.Business.Panel.Model.PanelOrderBatch panelOrderBatch)
-		{
-			foreach (YellowstonePathology.Business.Search.ReportSearchItem item in this.ListViewCaseList.SelectedItems)
-			{
-				if(item.MasterAccessionNo == this.m_LabUI.AccessionOrder.MasterAccessionNo)
-				{
-					YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_LabUI.AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(item.ReportNo);
-					panelSetOrder.PanelOrderCollection.AssignBatchId(panelOrderBatch.PanelOrderBatchId);
-					this.m_LabUI.Save();
-				}
-				else
-				{
-					YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-					YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(item.ReportNo);
-					objectTracker.RegisterObject(accessionOrder);
-					YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(item.ReportNo);
-					panelSetOrder.PanelOrderCollection.AssignBatchId(panelOrderBatch.PanelOrderBatchId);
-					objectTracker.SubmitChanges(accessionOrder);
-				}
-			}
-		}								
 
         private void ButtonCaseHistory_Click(object sender, RoutedEventArgs e)
         {
@@ -1224,16 +1042,8 @@ namespace YellowstonePathology.UI.Test
                 p.Start();
             }
         }
-        
-		/*private void HyperLinkEdit_Click(object sender, RoutedEventArgs e)
-		{
-			Hyperlink hyperlink = (Hyperlink)sender;
-			YellowstonePathology.Business.Test.Model.TestOrder testOrder = (YellowstonePathology.Business.Test.Model.TestOrder)hyperlink.Tag;
-			TestResultEditDialog testResultEditDialog = new TestResultEditDialog(testOrder);
-			testResultEditDialog.ShowDialog();
-		}*/                      		     
 
-		private void ButtonPlayDictation_Click(object sender, RoutedEventArgs e)
+		/*private void ButtonPlayDictation_Click(object sender, RoutedEventArgs e)
 		{
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_LabUI.PanelSetOrder.ReportNo);
 			string filePath = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser);
@@ -1248,17 +1058,7 @@ namespace YellowstonePathology.UI.Test
 			{
 				MessageBox.Show("Dictation file for " + this.m_LabUI.PanelSetOrder.ReportNo + " is not in the case folder.");
 			}
-		}
-
-        private void ButtonTypingTemplates_Click(object sender, RoutedEventArgs e)
-        {
-            TypingTemplateDialog typingTemplateDialog = new TypingTemplateDialog();
-            bool? result = typingTemplateDialog.ShowDialog();
-            if (result.HasValue && result.Value == true)
-            {
-                this.m_LabUI.AccessionOrder.PanelSetOrderCollection[0].PanelOrderCollection[0].TestOrderCollection[0].Result = typingTemplateDialog.TextBoxTemplateParagraphText.Text;
-            }
-        }
+		}*/
 
         private void MenuItemPublish_Click(object sender, RoutedEventArgs e)
         {
@@ -1409,20 +1209,6 @@ namespace YellowstonePathology.UI.Test
 		{
 			this.m_ResultDialog.Close();
 		}
-
-        private void ButtonShowTecanImportExportDialog_Click(object sender, RoutedEventArgs e)
-        {
-            TecanImportExportPage tecanImportExportPage = new TecanImportExportPage(this.m_LabUI.CaseList, System.Windows.Visibility.Collapsed, System.Windows.Visibility.Visible);
-            tecanImportExportPage.Close += new TecanImportExportPage.CloseEventHandler(TecanImportExportPage_Close);
-            this.m_ResultDialog = new ResultDialog();
-            this.m_ResultDialog.PageNavigator.Navigate(tecanImportExportPage);
-            this.m_ResultDialog.ShowDialog();
-        }
-
-        private void TecanImportExportPage_Close(object sender, EventArgs e)
-        {
-            this.m_ResultDialog.Close();   
-        }
 
         private void MenuItemSendPantherOrder_Click(object sender, RoutedEventArgs e)
         {

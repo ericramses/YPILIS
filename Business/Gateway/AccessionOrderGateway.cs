@@ -574,33 +574,6 @@ namespace YellowstonePathology.Business.Gateway
 			}
 		}
 
-		public static YellowstonePathology.Business.Panel.Model.PanelOrderBatchList GetPanelOrderBatchListByBatchId(int batchTypeId)
-		{
-			YellowstonePathology.Business.Panel.Model.PanelOrderBatchList result = new Panel.Model.PanelOrderBatchList();
-			SqlCommand cmd = new SqlCommand();
-			cmd.CommandText = " SELECT TOP 100 pob.*, bt.BatchTypedescription FROM tblPanelOrderBatch pob JOIN tblBatchType bt ON pob.BatchTypeId = bt.BatchTypeId WHERE bt.BatchTypeId " +
-				"= @BatchTypeId ORDER BY pob.BatchDate DESC, pob.PanelOrderBatchId Desc";
-			cmd.CommandType = CommandType.Text;
-			cmd.Parameters.Add("@BatchTypeId", SqlDbType.Int).Value = batchTypeId;
-
-			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.Properties.Settings.Default.CurrentConnectionString))
-			{
-				cn.Open();
-				cmd.Connection = cn;
-				using (SqlDataReader dr = cmd.ExecuteReader())
-				{
-					while (dr.Read())
-					{
-						YellowstonePathology.Business.Panel.Model.PanelOrderBatch panelOrderBatch = new Panel.Model.PanelOrderBatch();
-						YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(panelOrderBatch, dr);
-						sqlDataReaderPropertyWriter.WriteProperties();
-						result.Add(panelOrderBatch);
-					}
-				}
-			}
-			return result;
-		}
-
 		public static SpecialStain.StainResultOptionList GetStainResultOptionListByStainResultId(string stainResultId)
 		{
 			SpecialStain.StainResultOptionList result = new SpecialStain.StainResultOptionList();
@@ -2130,32 +2103,6 @@ namespace YellowstonePathology.Business.Gateway
 					}
 				}
 			}
-			return result;
-		}
-
-		public static YellowstonePathology.Business.BatchTypeList GetBatchTypeList()
-		{
-			YellowstonePathology.Business.BatchTypeList result = new BatchTypeList();
-			SqlCommand cmd = new SqlCommand();
-			cmd.CommandText = "SELECT BatchTypeId, BatchTypeDescription, DisplaySequence, BatchIndicator FROM tblBatchType order by BatchTypeDescription";
-			cmd.CommandType = CommandType.Text;
-
-			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.Properties.Settings.Default.CurrentConnectionString))
-			{
-				cn.Open();
-				cmd.Connection = cn;
-				using (SqlDataReader dr = cmd.ExecuteReader())
-				{
-					while (dr.Read())
-					{
-						YellowstonePathology.Business.BatchTypeListItem batchTypeListItem = new YellowstonePathology.Business.BatchTypeListItem();
-						YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(batchTypeListItem, dr);
-						sqlDataReaderPropertyWriter.WriteProperties();
-						result.Add(batchTypeListItem);
-					}
-				}
-			}
-
 			return result;
 		}
 

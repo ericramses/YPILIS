@@ -515,6 +515,9 @@
       <DependentUpon>ABL1KinaseDomainMutationResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Test\ABL1KinaseDomainMutationResultPath.cs" />
+    <Compile Include="Test\AcidWashOrdersDialog.xaml.cs">
+      <DependentUpon>AcidWashOrdersDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Test\ALKForNSCLCByFISHResultPage.xaml.cs">
       <DependentUpon>ALKForNSCLCByFISHResultPage.xaml</DependentUpon>
     </Compile>
@@ -864,10 +867,6 @@
     </Compile>
     <Compile Include="Login\Receiving\TaskOrderPage.xaml.cs">
       <DependentUpon>TaskOrderPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="MolecularTesting\PanelOrderBatch.xaml.cs">
-      <DependentUpon>PanelOrderBatch.xaml</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Surgical\TypingWorkspace.xaml.cs">
       <DependentUpon>TypingWorkspace.xaml</DependentUpon>
@@ -1395,9 +1394,6 @@
     </Compile>
     <Compile Include="Test\ContainerLabelDialog.xaml.cs">
       <DependentUpon>ContainerLabelDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Test\BatchAssignmentSelectionDialog.xaml.cs">
-      <DependentUpon>BatchAssignmentSelectionDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Test\FrozenFinalDialog.xaml.cs">
       <DependentUpon>FrozenFinalDialog.xaml</DependentUpon>
@@ -2108,6 +2104,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Test\AcidWashOrdersDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Test\ALKForNSCLCByFISHResultPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -2441,10 +2441,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Login\Receiving\TaskOrderPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MolecularTesting\PanelOrderBatch.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -3236,10 +3232,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Test\BatchAssignmentSelectionDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Test\FrozenFinalDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -3828,6 +3820,7 @@
     <EmbeddedResource Include="Billing\CodeSelection.xml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="MolecularTesting\" />
     <Folder Include="PatientLinking\" />
   </ItemGroup>
   <ItemGroup>

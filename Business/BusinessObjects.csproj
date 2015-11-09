@@ -2082,8 +2082,6 @@
     <Compile Include="Visitor\StainAcknowledgementTaskOrderVisitor.cs" />
     <Compile Include="WordApplication.cs" />
     <Compile Include="AutomatedOrderList.cs" />
-    <Compile Include="BatchTypeList.cs" />
-    <Compile Include="BatchTypeListItem.cs" />
     <Compile Include="Billing.Model\BillingComponentEnum.cs" />
     <Compile Include="Billing.Model\BillingRule.cs" />
     <Compile Include="Billing.Model\BillingRuleCollection.cs" />
@@ -2297,16 +2295,11 @@
     <Compile Include="Test\ThinPrepPap\ThinPrepPapDotReviewPanel.cs" />
     <Compile Include="Test\ThinPrepPap\ThinPrepPapScreeningPanel.cs" />
     <Compile Include="Test\ThinPrepPap\ThinPrepPapQCPanel.cs" />
-    <Compile Include="Test\ErPrSemiQuantitative\ERPRSemiQuanititativePanel.cs" />
-    <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHPanel.cs" />
-    <Compile Include="Test\LynchSyndrome\LynchSyndromeIHCPanel.cs" />
     <Compile Include="OrderTargetTypeCollection.cs" />
     <Compile Include="Panel.Model\SpecialStainPanel.cs" />
     <Compile Include="Panel.Model\InitialPanel.cs" />
     <Compile Include="Panel.Model\Panel.cs" />
     <Compile Include="Panel.Model\PanelCollection.cs" />
-    <Compile Include="Panel.Model\PanelOrderBatch.cs" />
-    <Compile Include="Panel.Model\PanelOrderBatchList.cs" />
     <Compile Include="Test\ThinPrepPap\PrimaryScreeningPanel.cs" />
     <Compile Include="PanelSet.Model\AbsoluteCD4CountTest.cs" />
     <Compile Include="PanelSet.Model\ALK1Test.cs" />
