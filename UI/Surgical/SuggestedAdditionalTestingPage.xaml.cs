@@ -15,9 +15,9 @@ using System.Windows.Shapes;
 namespace YellowstonePathology.UI.Surgical
 {
     /// <summary>
-    /// Interaction logic for ColorectalCancerOrderPage.xaml
+    /// Interaction logic for SuggestedAdditionalTestingPge.xaml
     /// </summary>
-    public partial class ColorectalCancerOrderPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
+    public partial class SuggestedAdditionalTestingPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
     {
         public delegate void NextEventHandler(object sender, EventArgs e);
         public event NextEventHandler Next;
@@ -34,7 +34,7 @@ namespace YellowstonePathology.UI.Surgical
         private System.Windows.Visibility m_BackButtonVisibility;
         private System.Windows.Visibility m_NextButtonVisibility;
 
-        public ColorectalCancerOrderPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
+        public SuggestedAdditionalTestingPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
             List<string> messages,
             System.Windows.Visibility backButtonVisibility,
             System.Windows.Visibility nextButtonVisibility)
@@ -140,12 +140,12 @@ namespace YellowstonePathology.UI.Surgical
             }
         }
 
-        private void HyperLinkHighRiskHPV_Click(object sender, RoutedEventArgs e)
+        private void HyperLinkHPV1618_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Test.HPV.HPVTest hpvTest = new Business.Test.HPV.HPVTest();
-            if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(hpvTest.PanelSetId) == false)
+            YellowstonePathology.Business.Test.HPV1618.HPV1618Test hpv1618Test = new Business.Test.HPV1618.HPV1618Test();
+            if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(hpv1618Test.PanelSetId) == false)
             {
-                this.OrderTest(this, new CustomEventArgs.PanelSetReturnEventArgs(hpvTest));
+                this.OrderTest(this, new CustomEventArgs.PanelSetReturnEventArgs(hpv1618Test));
             }
         }
 

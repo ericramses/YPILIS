@@ -165,7 +165,7 @@ namespace YellowstonePathology.UI.Surgical
 
         private void ButtonSignature_Click(object sender, RoutedEventArgs args)
         {
-            if ((this.m_SystemIdentity.User.UserId == 5102 || this.m_SystemIdentity.User.UserId == 5001) && this.PanelSetOrderSurgical.Final == false) //Dr. Durden only and only if signing
+            if ((this.m_SystemIdentity.User.UserId == 5102 || this.m_SystemIdentity.User.UserId == 5091) && this.PanelSetOrderSurgical.Final == false) //Dr. Durden only and only if signing
             {
                 this.TestSignout();
             }
