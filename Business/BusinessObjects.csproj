@@ -469,6 +469,8 @@
     <Compile Include="Test.Model\DispalyGroupProstate.cs" />
     <Compile Include="Test\ALKForNSCLCByFISH\ALKForNSCLCByFISHNegativeWithMonosomyResult.cs" />
     <Compile Include="Test\ALKForNSCLCByFISH\ALKForNSCLCByFISHNegativeWithPolysomyResult.cs" />
+    <Compile Include="Test\ErPrSemiQuantitative\ERPRSemiQuanititativePanel.cs" />
+    <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHPanel.cs" />
     <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHSystemGeneratedAmendmentText.cs" />
     <Compile Include="Test\HPV1618ByPCR\HPV1618BothPositiveResult.cs" />
     <Compile Include="Test\HPV1618ByPCR\HPV1618BothNegativeResult.cs" />
@@ -490,6 +492,7 @@
     <Compile Include="Test\HPV\HPVInvalidResult.cs" />
     <Compile Include="Test\HPV\HPVNoResult.cs" />
     <Compile Include="Test\LynchSyndrome\LSEGYNResult3.cs" />
+    <Compile Include="Test\LynchSyndrome\LynchSyndromeIHCPanel.cs" />
     <Compile Include="Test\MissingInformation\MissingInformationTest.cs" />
     <Compile Include="Test\MissingInformation\MissingInformationTestOrder.cs" />
     <Compile Include="Test\NGCT\NGCTInvalidResult.cs" />
