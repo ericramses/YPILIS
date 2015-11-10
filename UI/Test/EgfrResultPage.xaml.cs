@@ -140,7 +140,7 @@ namespace YellowstonePathology.UI.Test
 
         private void HyperLinkResistantExon20_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisDetectedResult result = new Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisDetectedResult();
+            YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisResistanceResult result = new Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisResistanceResult();
             result.SetResult(this.m_EGFRMutationAnalysisTestOrder, "Resistant Exon 20");
         }
 
