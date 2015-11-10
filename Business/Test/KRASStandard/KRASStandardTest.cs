@@ -43,6 +43,9 @@ namespace YellowstonePathology.Business.Test.KRASStandard
             this.m_PanelSetCptCodeCollection.Add(panelSetCptCode);
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceKRAS());
-		}
-	}
+
+            KRASStandardPanel krasStandardPanel = new KRASStandardPanel();
+            this.m_PanelCollection.Add(krasStandardPanel);
+        }
+    }
 }
