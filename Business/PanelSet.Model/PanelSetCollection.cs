@@ -496,7 +496,6 @@ namespace YellowstonePathology.Business.PanelSet.Model
         public static PanelSetCollection GetMolecularLabPanelSets()
         {
             PanelSetCollection panelSetCollection = new PanelSetCollection();
-            panelSetCollection.Add(new YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.Autopsy.AutopsyTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.BCellClonalityByPCR.BCellClonalityByPCRTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTest());
