@@ -30,6 +30,24 @@ namespace YellowstonePathology.Business.HL7View.EPIC
             throw new Exception("Not implemented in the base.");
         }
 
+        public virtual void AddAmendments(XElement document)
+        {
+            Business.Test.PanelSetOrder panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
+            foreach (YellowstonePathology.Business.Amendment.Model.Amendment amendment in panelSetOrder.AmendmentCollection)
+            {
+                if (amendment.Final == true)
+                {
+                    this.AddNextObxElement(amendment.AmendmentType + ": " + amendment.AmendmentDate.Value.ToString("MM/dd/yyyy"), document, "C");
+                    this.HandleLongString(amendment.Text, document, "C");
+                    if (amendment.RequirePathologistSignature == true)
+                    {
+                        this.AddNextObxElement("Signature: " + amendment.PathologistSignature, document, "C");
+                    }
+                    this.AddNextObxElement("", document, "C");
+                }
+            }
+        }
+
         protected void AddHeader(XElement document, YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder, string title)
         {
             this.AddNextObxElement(string.Empty, document, "F");
