@@ -113,8 +113,9 @@ namespace YellowstonePathology.UI.Login
 				}
 
                 //YellowstonePathology.Business.ReportDistribution.Model.FaxSubmission.Submit(client.Fax, client.LongDistance, "Missing Information", YellowstonePathology.UI.Properties.Settings.Default.ClientMissingInformationLetterFileName);
+                YellowstonePathology.Business.ReportDistribution.Model.FaxSubmission.Submit(client.Fax, client.LongDistance, "Missing Information", @"C:\Program Files\Yellowstone Pathology Institute\test.tif");
                 //MessageBox.Show("The fax was successfully submitted.");				
-			}
+            }
 			else
 			{
 				MessageBox.Show("Client must be selected before a fax can be generated.");
