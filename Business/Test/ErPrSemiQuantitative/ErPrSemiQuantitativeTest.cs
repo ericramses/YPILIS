@@ -35,6 +35,9 @@ namespace YellowstonePathology.Business.Test.ErPrSemiQuantitative
             this.m_PanelSetCptCodeCollection.Add(panelSetCptCode);
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceYPI());
-		}
-	}
+
+            ERPRSemiQuantitativePanel erprSemiQuantitativePanel = new ERPRSemiQuantitativePanel();
+            this.m_PanelCollection.Add(erprSemiQuantitativePanel);
+        }
+    }
 }

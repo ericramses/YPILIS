@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YellowstonePathology.UI.Test"
-        Title="Acid Wash Orders Dialog" Height="800" Width="550" WindowStyle="ToolWindow" WindowStartupLocation="CenterScreen">
+        Title="Acid Wash Orders Dialog" Height="400" Width="550" WindowStyle="ToolWindow" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"></ColumnDefinition>
@@ -13,14 +13,13 @@
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
-        <ListView Name="ListViewCaseList" Grid.Column="0" Grid.Row="0" Margin="5,5,5,5" ItemsSource="{Binding Path=ReportSearchList}" FontSize="12" Width="510">
+        <ListView Name="ListViewCaseList" Grid.Column="0" Grid.Row="0" Margin="5,5,5,5" ItemsSource="{Binding Path=AcidWashSearchList}" FontSize="12" Width="510" MouseDoubleClick="ListViewCaseList_MouseDoubleClick">
             <ListView.View>
                 <GridView AllowsColumnReorder="True" ColumnHeaderToolTip="Case List">
                     <GridViewColumn DisplayMemberBinding="{Binding Path=ReportNo}" Header="Report No" Width="85" />
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=AccessionDate, Converter={StaticResource ShortDateConverter}}" Header="Accession Date" Width="90"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=PatientName}" Header="Patient Name" Width="120"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=FinalDate, Converter={StaticResource ShortDateConverter}}" Header="Final Date" Width="90"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=OrderedBy}" Header="Ordered By" Width="90"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=OrderDate, Converter={StaticResource ShortDateConverter}}" Header="Order Date" Width="90"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=PatientName}" Header="Patient Name" Width="150"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Accepted}" Header="Accepted" Width="90"/>
                 </GridView>
             </ListView.View>
         </ListView>
