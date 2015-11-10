@@ -18,27 +18,35 @@ namespace YellowstonePathology.UI.Test
     /// </summary>
     public partial class AcidWashOrdersDialog : Window
     {
-        private YellowstonePathology.Business.Test.SearchEngine m_SearchEngine;
+        private YellowstonePathology.Business.Test.ThinPrepPap.AcidWashSearchList m_AcidWashSearchList;
 
         public AcidWashOrdersDialog()
         {
-            this.m_SearchEngine = new Business.Test.SearchEngine();
-            this.m_SearchEngine.SetFillByPanelSetId(15);
-            this.m_SearchEngine.FillSearchList();
+            this.m_AcidWashSearchList = Business.Gateway.ReportSearchGateway.GetAcidWashSearchList(DateTime.Today.AddMonths(-3));
 
             InitializeComponent();
 
             DataContext = this;
         }
 
-        public YellowstonePathology.Business.Search.ReportSearchList ReportSearchList
+        public Business.Test.ThinPrepPap.AcidWashSearchList AcidWashSearchList
         {
-            get { return this.m_SearchEngine.ReportSearchList; }
+            get { return this.m_AcidWashSearchList; }
         }
 
         private void ButtonClose_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void ListViewCaseList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (this.ListViewCaseList.SelectedItem != null)
+            {
+                Business.Test.ThinPrepPap.AcidWashSearchItem acidWashSearchItem = (Business.Test.ThinPrepPap.AcidWashSearchItem)this.ListViewCaseList.SelectedItem;
+                AcidWashResultDialog acidWashResultDialog = new AcidWashResultDialog(acidWashSearchItem.ReportNo);
+                acidWashResultDialog.ShowDialog();
+            }
         }
     }
 }

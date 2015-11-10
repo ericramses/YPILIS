@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using YellowstonePathology.Business.Persistence;
+using YellowstonePathology.Business.User;
 
 namespace YellowstonePathology.Business.Test.ThinPrepPap
 {
@@ -49,10 +50,32 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 			this.AcknowledgedById = acceptingUser.UserId;
 			this.AcknowledgedDate = DateTime.Today;
 			this.AcknowledgedTime = DateTime.Now;
-
 		}
 
-		[PersistentProperty()]
+        public override void AcceptResults(SystemUser acceptingUser)
+        {
+            base.AcceptResults(acceptingUser);
+            this.NotifyPropertyChanged("AcceptedBy");
+        }
+
+        public override void UnacceptResults()
+        {
+            base.UnacceptResults();
+            this.NotifyPropertyChanged("AcceptedBy");
+        }
+
+        public Rules.MethodResult IsOkToAccept()
+        {
+            Rules.MethodResult methodResult = new Rules.MethodResult();
+            if(this.Accepted == true)
+            {
+                methodResult.Success = false;
+                methodResult.Message = "Result has already been accepted.";
+            }
+            return methodResult;
+        }
+
+        [PersistentProperty()]
 		public string Result
 		{
 			get { return this.m_Result; }

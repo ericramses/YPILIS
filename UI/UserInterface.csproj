@@ -518,6 +518,9 @@
     <Compile Include="Test\AcidWashOrdersDialog.xaml.cs">
       <DependentUpon>AcidWashOrdersDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Test\AcidWashResultDialog.xaml.cs">
+      <DependentUpon>AcidWashResultDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Test\ALKForNSCLCByFISHResultPage.xaml.cs">
       <DependentUpon>ALKForNSCLCByFISHResultPage.xaml</DependentUpon>
     </Compile>
@@ -2105,6 +2108,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Test\AcidWashOrdersDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Test\AcidWashResultDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
