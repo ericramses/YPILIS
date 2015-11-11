@@ -25,7 +25,10 @@ namespace YellowstonePathology.Business.Test.TechInitiatedPeripheralSmear
             this.AddNextObxElement("", document, "F");
 
             this.HandleLongString("Pathologist Feedback: " + testOrder.PathologistFeedback, document, "F");
-            this.AddNextObxElement("", document, "F");            
+            this.AddNextObxElement("", document, "F");
+
+            this.HandleLongString("CBC Comment: " + testOrder.CBCComment, document, "F");
+            this.AddNextObxElement("", document, "F");
 
             string locationPerformed = testOrder.GetLocationPerformedComment();
             this.AddNextObxElement(locationPerformed, document, "F");
