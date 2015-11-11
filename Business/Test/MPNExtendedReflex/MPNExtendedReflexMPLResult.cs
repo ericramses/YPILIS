@@ -9,29 +9,21 @@ namespace YellowstonePathology.Business.Test.MPNExtendedReflex
     {               
         public MPNExtendedReflexMPLResult(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {
+            bool messageIsSet = false;
             YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FTest jak2V617FTest = new JAK2V617F.JAK2V617FTest();
-            if (accessionOrder.PanelSetOrderCollection.Exists(jak2V617FTest.PanelSetId) == true)
+            YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FTestOrder panelSetOrderJAK2V617F = (YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(jak2V617FTest.PanelSetId);
+            if (panelSetOrderJAK2V617F.Final == true)
             {
-                YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FTestOrder panelSetOrderJAK2V617F = (YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(jak2V617FTest.PanelSetId);
-                if (panelSetOrderJAK2V617F.Final == true)
-                {
-                    YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FDetectedResult jak2V617DetectedResult = new YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FDetectedResult();
+                YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FDetectedResult jak2V617DetectedResult = new YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FDetectedResult();
 
-                    if (panelSetOrderJAK2V617F.ResultCode == jak2V617DetectedResult.ResultCode)
-                    {
-                        this.m_Message = new StringBuilder(MPNExtendedReflexResult.NotClinicallyIndicated);
-                    }
-                    else
-                    {
-                        this.m_Message = new StringBuilder(MPNExtendedReflexResult.UnknownState);
-                    }
-                }
-                else
+                if (panelSetOrderJAK2V617F.ResultCode == jak2V617DetectedResult.ResultCode)
                 {
-                    this.m_Message = new StringBuilder(MPNExtendedReflexResult.UnknownState);
+                    this.m_Message = new StringBuilder(MPNExtendedReflexResult.NotClinicallyIndicated);
+                    messageIsSet = true;
                 }
             }
-            else
+
+            if (messageIsSet == false)
             {
                 YellowstonePathology.Business.Test.MPL.MPLTest panelSetMPL = new YellowstonePathology.Business.Test.MPL.MPLTest();
                 if (accessionOrder.PanelSetOrderCollection.Exists(panelSetMPL.PanelSetId) == true)
