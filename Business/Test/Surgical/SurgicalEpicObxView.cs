@@ -59,19 +59,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			}
 			this.AddNextObxElement("", document, "F");
 
-            foreach (YellowstonePathology.Business.Amendment.Model.Amendment amendment in panelSetOrderSurgical.AmendmentCollection)
-			{
-				if (amendment.Final == true)
-				{
-					this.AddNextObxElement(amendment.AmendmentType + ": " + amendment.AmendmentDate.Value.ToString("MM/dd/yyyy"), document, "C");
-					this.HandleLongString(amendment.Text, document, "C");
-					if (amendment.RequirePathologistSignature == true)
-					{
-						this.AddNextObxElement("Signature: " + amendment.PathologistSignature, document, "C");
-					}
-					this.AddNextObxElement("", document, "C");
-				}
-			}
+            this.AddAmendments(document);
 
 			this.AddNextObxElement("Microscopic Description: ", document, "F");
 			this.HandleLongString(panelSetOrderSurgical.MicroscopicX, document, "F");
