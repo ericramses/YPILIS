@@ -30,6 +30,15 @@ namespace YellowstonePathology.Business.Facility.Model.LocationDefinitions
         }
     }
 
+    public class Compile : Location
+    {
+        public Compile()
+        {
+            this.LocationId = "COMPILE";
+            this.m_Description = "Application Computer";
+        }
+    }
+
     public class WilliamCoplandOffice : Location
     {
         public WilliamCoplandOffice()

@@ -87,6 +87,7 @@ namespace YellowstonePathology.Business.Facility.Model
             result.Add(new YellowstonePathology.Business.Facility.Model.LocationDefinitions.TiffanyGoodsonOffice());
             result.Add(new YellowstonePathology.Business.Facility.Model.LocationDefinitions.WilliamCoplandOffice());
             result.Add(new YellowstonePathology.Business.Facility.Model.LocationDefinitions.YolandaHuttonOffice());
+            result.Add(new YellowstonePathology.Business.Facility.Model.LocationDefinitions.Compile());
 
             //YellowstonePathologyInstituteCody
             result.Add(new YellowstonePathology.Business.Facility.Model.LocationDefinitions.CodyAccessionStation());
