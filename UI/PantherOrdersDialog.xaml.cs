@@ -148,6 +148,7 @@ namespace YellowstonePathology.UI
 
                         YellowstonePathology.Business.HL7View.Panther.PantherOrder pantherOrder = new Business.HL7View.Panther.PantherOrder(pantherAssay, specimenOrder, aliquotOrder, accessionOrder, panelSetOrder, YellowstonePathology.Business.HL7View.Panther.PantherActionCode.NewSample);
                         pantherOrder.Send();
+                        MessageBox.Show("An order has been sent to the Panther.");
                     }
                     else
                     {

@@ -1428,10 +1428,16 @@ namespace YellowstonePathology.Business.Test
                 if(this.m_ClientId == 1260) //If Advanced Dermatology
                 {
                     panelSetOrder.AssignedToId = 5132; //Assign to Dr. Shannon
+                    YellowstonePathology.Business.Facility.Model.ButtePathology buttePathology = new Facility.Model.ButtePathology();
+                    panelSetOrder.ProfessionalComponentFacilityId = buttePathology.FacilityId;
+                    panelSetOrder.ProfessionalComponentBillingFacilityId = buttePathology.FacilityId;
                 }
                 else
                 {
                     panelSetOrder.AssignedToId = 5088; //Assign to Dr. Emerick
+                    YellowstonePathology.Business.Facility.Model.YellowstonePathologistBillings yp = new Facility.Model.YellowstonePathologistBillings();
+                    panelSetOrder.ProfessionalComponentFacilityId = yp.FacilityId;
+                    panelSetOrder.ProfessionalComponentBillingFacilityId = yp.FacilityId;
                 }                
             }
             else
