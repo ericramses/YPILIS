@@ -46,15 +46,9 @@ namespace YellowstonePathology.Business.HL7View.EPIC
                 case 21:
 					view = new YellowstonePathology.Business.Test.ThrombocytopeniaProfile.ThrombocytopeniaProfileEpicObxView(accessionOrder, reportNo, obxCount);
                     break;
-                case 22:
-					view = new YellowstonePathology.Business.Test.PlateletAssociatedAntibodies.PAAEpicObxView(accessionOrder, reportNo, obxCount);
-                    break;                
                 case 23:
 					view = new YellowstonePathology.Business.Test.ReticulatedPlateletAnalysis.RPAEpicObxView(accessionOrder, reportNo, obxCount);
                     break;
-                case 24:
-					view = new YellowstonePathology.Business.Test.StemCellEnumeration.StemCellEnumerationEpicObxView(accessionOrder, reportNo, obxCount);
-                    break;				
 				case 30:
 					view = new YellowstonePathology.Business.Test.KRASStandardReflex.KRASStandardReflexEpicObxView(accessionOrder, reportNo, obxCount);
                     break;
@@ -64,21 +58,9 @@ namespace YellowstonePathology.Business.HL7View.EPIC
                 case 33:
 					view = new YellowstonePathology.Business.Test.Prothrombin.ProthrombinEpicObxView(accessionOrder, reportNo, obxCount);
                     break;
-                case 34:
-                    view = new EpicMthfrObxView(accessionOrder, reportNo, obxCount);
-                    break;
-                case 35:
-					view = new YellowstonePathology.Business.Test.Autopsy.AutopsyEpicObxView(accessionOrder, reportNo, obxCount);
-                    break;
-                case 36:
-					view = new YellowstonePathology.Business.Test.BCellClonalityByPCR.BCellClonalityByPCREpicObxView(accessionOrder, reportNo, obxCount);
-                    break;
 				case 50:
 					view = new YellowstonePathology.Business.Test.ErPrSemiQuantitative.ErPrSemiQuantitativeEpicObxView(accessionOrder, reportNo, obxCount);
 					break;
-				case 54:
-                    view = new EpicCytogeneticsObxView(accessionOrder, reportNo, obxCount);
-                    break;                
                 case 60:
 					view = new YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisEpicObxView(accessionOrder, reportNo, obxCount);
                     break;

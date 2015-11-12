@@ -29,6 +29,14 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             this.AddNextObxElement(panelSetOrderLynchSyndromeEvaluation.Comment, document, "F");
             this.AddNextObxElement("", document, "F");
 
+            this.AddNextObxElement("Pathologist: " + panelSetOrderLynchSyndromeEvaluation.Signature, document, "F");
+            if (panelSetOrderLynchSyndromeEvaluation.FinalTime.HasValue == true)
+            {
+                this.AddNextObxElement("E-signed " + panelSetOrderLynchSyndromeEvaluation.FinalTime.Value.ToString("MM/dd/yyyy HH:mm"), document, "F");
+            }
+            this.AddNextObxElement("", document, "F");
+            this.AddAmendments(document);
+
             YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeIHC panelSetOrderLynchSyndromeIHC = (YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeIHC)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(102, panelSetOrderLynchSyndromeEvaluation.OrderedOnId, true);
             if (panelSetOrderLynchSyndromeIHC != null)
             {
@@ -55,8 +63,6 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
                     this.AddNextObxElement("", document, "F");   
                 }
             }
-
-            this.AddAmendments(document);
 
             YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(panelSetOrderLynchSyndromeEvaluation.OrderedOn, panelSetOrderLynchSyndromeEvaluation.OrderedOnId);
             this.AddNextObxElement("Specimem: " + specimenOrder.Description, document, "F");
