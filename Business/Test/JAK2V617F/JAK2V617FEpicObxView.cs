@@ -22,6 +22,7 @@ namespace YellowstonePathology.Business.Test.JAK2V617F
 
             this.AddNextObxElement("Result: " + panelSetOrder.Result, document, "F");
             this.AddNextObxElement("", document, "F");
+            this.AddAmendments(document);
 
             this.AddNextObxElement("Interpretation: ", document, "F");
             this.HandleLongString(panelSetOrder.Interpretation, document, "F");

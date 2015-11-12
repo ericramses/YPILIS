@@ -29,6 +29,8 @@ namespace YellowstonePathology.Business.Test.NGCT
             this.AddNextObxElement("Reference: Negative", document, "F");
             this.AddNextObxElement("", document, "F");
 
+            this.AddAmendments(document);
+
             this.AddNextObxElement("Specimen: Thin Prep Fluid", document, "F");
             this.AddNextObxElement("", document, "F");
 

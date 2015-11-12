@@ -25,8 +25,9 @@ namespace YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile
 			this.AddNextObxElement("Interpretation:", document, "F");
 			this.HandleLongString(comprehensiveColonCancerProfile.Interpretation, document, "F");
             this.AddNextObxElement("", document, "F");
+            this.AddAmendments(document);
 
-			string specimenDescription = comprehensiveColonCancerProfileResult.SpecimenOrder.GetSpecimenDescriptionString();
+            string specimenDescription = comprehensiveColonCancerProfileResult.SpecimenOrder.GetSpecimenDescriptionString();
 			this.HandleLongString("Specimen:", document, "F");
             this.HandleLongString(specimenDescription, document, "F");
             this.AddNextObxElement("", document, "F");

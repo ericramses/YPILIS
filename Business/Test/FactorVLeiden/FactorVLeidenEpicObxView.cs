@@ -27,8 +27,9 @@ namespace YellowstonePathology.Business.Test.FactorVLeiden
 				this.AddNextObxElement("  " + testOrder.ResultDescription, document, "F");
 			}
 			this.AddNextObxElement("", document, "F");
+            this.AddAmendments(document);
 
-			if (string.IsNullOrEmpty(testOrder.Comment) == false)
+            if (string.IsNullOrEmpty(testOrder.Comment) == false)
 			{
 				this.HandleLongString("Comment: " + testOrder.Comment, document, "F");
 				this.AddNextObxElement("", document, "F");

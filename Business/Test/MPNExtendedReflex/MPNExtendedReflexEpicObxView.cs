@@ -32,8 +32,9 @@ namespace YellowstonePathology.Business.Test.MPNExtendedReflex
 				this.AddNextObxElement("E-signed " + mpnExtendedReflexResult.PanelSetOrderMPNExtendedReflex.FinalTime.Value.ToString("MM/dd/yyyy HH:mm"), document, "F");
 			}
 			this.AddNextObxElement("", document, "F");
+            this.AddAmendments(document);
 
-			this.AddNextObxElement("Specimen Description:", document, "F");
+            this.AddNextObxElement("Specimen Description:", document, "F");
 			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(mpnExtendedReflexResult.PanelSetOrderMPNExtendedReflex.OrderedOn, mpnExtendedReflexResult.PanelSetOrderMPNExtendedReflex.OrderedOnId);
 			this.HandleLongString(specimenOrder.Description, document, "F");
 			this.AddNextObxElement(string.Empty, document, "F");

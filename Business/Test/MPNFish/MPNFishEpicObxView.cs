@@ -30,7 +30,9 @@ namespace YellowstonePathology.Business.Test.MPNFish
 			}
 
 			this.AddNextObxElement("", document, "F");
-			this.AddNextObxElement("Specimen Information:", document, "F");
+            this.AddAmendments(document);
+
+            this.AddNextObxElement("Specimen Information:", document, "F");
 			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(panelSetOrder.OrderedOn, panelSetOrder.OrderedOnId);
 			this.AddNextObxElement("Specimen Identification: " + specimenOrder.Description, document, "F");
 			string collectionDateTimeString = YellowstonePathology.Business.Helper.DateTimeExtensions.CombineDateAndTime(specimenOrder.CollectionDate, specimenOrder.CollectionTime);

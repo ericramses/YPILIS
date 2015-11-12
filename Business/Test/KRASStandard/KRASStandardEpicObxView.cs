@@ -28,8 +28,9 @@ namespace YellowstonePathology.Business.Test.KRASStandard
 				this.AddNextObxElement("  " + panelSetOrder.MutationDetected, document, "F");
 			}
 			this.AddNextObxElement("", document, "F");
+            this.AddAmendments(document);
 
-			if (string.IsNullOrEmpty(panelSetOrder.Comment) == false)
+            if (string.IsNullOrEmpty(panelSetOrder.Comment) == false)
 			{
 				this.AddNextObxElement("Comment: " + panelSetOrder.Comment, document, "F");
 				this.AddNextObxElement("", document, "F");

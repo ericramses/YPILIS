@@ -34,7 +34,9 @@ namespace YellowstonePathology.Business.Test.HPV1618
             {
                 this.AddNextObxElement("Comment:", document, "F");
                 this.AddNextObxElement(panelSetOrder.Comment, document, "F");                
-            }            
+            }
+
+            this.AddAmendments(document);
 
             YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByOrderTarget(panelSetOrder.OrderedOnId);
             this.AddNextObxElement("Specimen: " + specimenOrder.GetDescription(), document, "F");
