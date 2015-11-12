@@ -704,7 +704,6 @@
     <Compile Include="Test\EGFRMutationAnalysis\EGFRMutationAnalysisWordDocument.cs" />
     <Compile Include="Test\EGFRToALKReflexAnalysis\EGFRToALKReflexAnalysisElementStatusEnum.cs" />
     <Compile Include="Test\EGFRToALKReflexAnalysis\EGFRToALKReflexAnalysisEPICOBXView.cs" />
-    <Compile Include="HL7View\EPIC\EpicSummaryHeaderObxView.cs" />
     <Compile Include="HL7View\EPIC\EpicStatusObrView.cs" />
     <Compile Include="Mongo\DocumentCollectionTracker.cs" />
     <Compile Include="Mongo\DocumentTracker.cs" />
@@ -1034,8 +1033,6 @@
     <Compile Include="HL7View\EPIC\AllResultTypeTest.cs" />
     <Compile Include="HL7View\EPIC\EpicUniversalSerivceIdDictionary.cs" />
     <Compile Include="HL7View\EPIC\TestEpicStatusMessage.cs" />
-    <Compile Include="HL7View\EPIC\EpicCytogeneticsObxView.cs" />
-    <Compile Include="HL7View\EPIC\EpicMthfrObxView.cs" />
     <Compile Include="HL7View\EPIC\EpicOrcView.cs" />
     <Compile Include="HL7View\EPIC\EpicPidView.cs" />
     <Compile Include="HL7View\EPIC\EpicMshView.cs" />
@@ -1266,7 +1263,6 @@
     <Compile Include="Test\EGFRToALKReflexAnalysis\EGFRToALKReflexAnalysisElementResult.cs" />
     <Compile Include="Test\EosinophiliaByFISH\EosinophiliaByFISHEpicObxView.cs" />
     <Compile Include="Test\EosinophiliaByFISH\EosinophiliaByFISHWordDocument.cs" />
-    <Compile Include="Test\FetalHemoglobin\FetalHemoglobinEpicObxView.cs" />
     <Compile Include="Test\FetalHemoglobin\FetalHemoglobinTest.cs" />
     <Compile Include="Test\FetalHemoglobin\FetalHemoglobinWordDocument.cs" />
     <Compile Include="Test\FNAAdequacyAssessment\FNAAdequacyAssessmentTestOrder.cs" />
@@ -1372,7 +1368,6 @@
     <Compile Include="Test\OkToFinalizeResult.cs" />
     <Compile Include="Test\PlasmaCellMyelomaRiskStratification\PlasmaCellMyelomaRiskStratificationEpicObxView.cs" />
     <Compile Include="Test\PlasmaCellMyelomaRiskStratification\PlasmaCellMyelomaRiskStratificationWordDocument.cs" />
-    <Compile Include="Test\PlateletAssociatedAntibodies\PAAEpicObxView.cs" />
     <Compile Include="Test\PlateletAssociatedAntibodies\PlateletAssociatedAntibodiesTest.cs" />
     <Compile Include="Test\PlateletAssociatedAntibodies\PlateletAssociatedAntibodiesWordDocument.cs" />
     <Compile Include="Test\ReticulatedPlateletAnalysis\ReticulatedPlateletAnalysisTest.cs" />
@@ -1393,7 +1388,6 @@
     <Compile Include="Test\ROS1ByFISH\ROS1ByFISHWordDocument.cs" />
     <Compile Include="Test\ROS1ByFISH\ROS1ByFISHTest.cs" />
     <Compile Include="Test\ROS1ByFISH\ROS1ByFISHTestOrder.cs" />
-    <Compile Include="Test\StemCellEnumeration\StemCellEnumerationEpicObxView.cs" />
     <Compile Include="Test\StemCellEnumeration\StemCellEnumerationTest.cs" />
     <Compile Include="Test\StemCellEnumeration\StemCellEnumerationWordDocument.cs" />
     <Compile Include="Test\TCellClonalityByPCR\TCellClonalityByPCREpicObxView.cs" />
@@ -1599,10 +1593,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Visitor\AccessionTreeVisitor.cs" />
-    <Compile Include="Test\Autopsy\AutopsyEpicObxView.cs" />
     <Compile Include="Test\Autopsy\AutopsyTestOrder.cs" />
     <Compile Include="Test\Autopsy\AutopsyWordDocument.cs" />
-    <Compile Include="Test\BCellClonalityByPCR\BCellClonalityByPCREpicObxView.cs" />
     <Compile Include="Test\BCellClonalityByPCR\BCellClonalityByPCRIndeterminateResult.cs" />
     <Compile Include="Test\BCellClonalityByPCR\BCellClonalityByPCRNegativeResult.cs" />
     <Compile Include="Test\BCellClonalityByPCR\BCellClonalityByPCRPositiveResult.cs" />
