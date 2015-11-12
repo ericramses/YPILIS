@@ -31,6 +31,8 @@ namespace YellowstonePathology.Business.Test.EGFRMutationAnalysis
             }
             
             this.AddNextObxElement("", document, "F");
+            this.AddAmendments(document);
+
             this.AddNextObxElement("Comment:", document, "F");
             this.HandleLongString(egfrMutationAnalysisTestOrder.Comment, document, "F"); 
 

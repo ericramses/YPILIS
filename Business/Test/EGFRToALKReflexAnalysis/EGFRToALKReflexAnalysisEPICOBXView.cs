@@ -25,8 +25,9 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
 
             this.AddNextObxElement("EGFR Mutation Analysis: " + egfrMutationAnalysisTestOrder.Result, document, "F");
             this.AddNextObxElement("", document, "F");
+            this.AddAmendments(document);
 
-			this.AddNextObxElement("Comment: ", document, "F");
+            this.AddNextObxElement("Comment: ", document, "F");
             this.HandleLongString(egfrMutationAnalysisTestOrder.Comment, document, "F");
             this.AddNextObxElement("", document, "F");
 

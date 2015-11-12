@@ -114,6 +114,10 @@ namespace YellowstonePathology.UI.Test
 			if (auditResult.Status == Business.Audit.Model.AuditStatusEnum.OK)
 			{
                 this.m_PanelSetOrder.Finalize(this.m_SystemIdentity.User);
+                if(this.m_PanelSetOrder.Accepted == false)
+                {
+                    this.m_PanelSetOrder.Accept(this.m_SystemIdentity.User);
+                }
 			}
 			else
 			{

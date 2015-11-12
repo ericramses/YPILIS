@@ -90,7 +90,9 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
 			this.AddNextObxElement("Date Finalized: " + cytoTechFinal, document, "F");
 			this.AddNextObxElement("", document, "F");
 
-			if (reviewPanelOrder != null)
+            this.AddAmendments(document);
+
+            if (reviewPanelOrder != null)
 			{
 				string reviewedBy = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetSystemUserById(reviewPanelOrder.ScreenedById).Signature;
 				string reviewedByFinal = YellowstonePathology.Business.Helper.DateTimeExtensions.DateStringFromNullable(reviewPanelOrder.AcceptedDate);

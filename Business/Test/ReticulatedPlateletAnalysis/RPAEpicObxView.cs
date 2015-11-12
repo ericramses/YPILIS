@@ -27,7 +27,9 @@ namespace YellowstonePathology.Business.Test.ReticulatedPlateletAnalysis
             this.AddNextObxElement("Reference: 0-.55%", document, "F");
             this.AddNextObxElement("Antibodies Used: CD41, Thiozole Orange", document, "F");
             this.AddNextObxElement(string.Empty, document, "F");
-            
+
+            this.AddAmendments(document);
+
             this.AddNextObxElement("Method: Quantitative Flow Cytometry", document, "F");
             this.AddNextObxElement(string.Empty, document, "F");
 
