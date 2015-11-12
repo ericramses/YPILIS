@@ -34,7 +34,9 @@ namespace YellowstonePathology.Business.Test.Prothrombin
 				this.AddNextObxElement("", document, "F");
 			}
 
-			this.HandleLongString("Indication: " + testOrder.Indication, document, "F");
+            this.AddAmendments(document);
+
+            this.HandleLongString("Indication: " + testOrder.Indication, document, "F");
 			this.AddNextObxElement("", document, "F");
 
 			this.AddNextObxElement("Interpretation: ", document, "F");

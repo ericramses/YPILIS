@@ -39,7 +39,9 @@ namespace YellowstonePathology.Business.Test.ThrombocytopeniaProfile
             this.AddNextObxElement("Reference Range: 0-0.55%", document, "F");
             this.AddNextObxElement("", document, "F");
 
-			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(panelSetOrder.OrderedOn, panelSetOrder.OrderedOnId);
+            this.AddAmendments(document);
+
+            YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(panelSetOrder.OrderedOn, panelSetOrder.OrderedOnId);
             this.AddNextObxElement("Specimen Description: " + specimenOrder.Description, document, "F");
             this.AddNextObxElement("", document, "F");
 

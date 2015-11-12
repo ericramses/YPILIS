@@ -78,8 +78,9 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
             {
                 this.AddNextObxElement("E-signed " + panelSetOrderCytology.FinalTime.Value.ToString("MM/dd/yyyy HH:mm"), document, "F");
             }
-            this.AddNextObxElement(string.Empty, document, "F");            
-            
+            this.AddNextObxElement(string.Empty, document, "F");
+            this.AddAmendments(document);
+
             this.AddNextObxElement("Screening Method: ", document, "F");
             this.AddNextObxElement(panelSetOrderCytology.Method, document, "F");
             this.AddNextObxElement(string.Empty, document, "F");

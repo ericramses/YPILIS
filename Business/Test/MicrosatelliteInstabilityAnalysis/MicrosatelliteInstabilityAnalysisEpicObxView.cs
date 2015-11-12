@@ -30,8 +30,9 @@ namespace YellowstonePathology.Business.Test.MicrosatelliteInstabilityAnalysis
 			this.AddNextObxElement("  D2S123 : " + panelSetOrder.D2S123Instability, document, "F");
 
 			this.AddNextObxElement("", document, "F");
+            this.AddAmendments(document);
 
-			this.AddNextObxElement("Interpretation: ", document, "F");
+            this.AddNextObxElement("Interpretation: ", document, "F");
 			this.HandleLongString(panelSetOrder.Interpretation, document, "F");
 			this.AddNextObxElement("", document, "F");
 

@@ -55,7 +55,9 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
                     this.AddNextObxElement("", document, "F");   
                 }
             }
-            
+
+            this.AddAmendments(document);
+
             YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(panelSetOrderLynchSyndromeEvaluation.OrderedOn, panelSetOrderLynchSyndromeEvaluation.OrderedOnId);
             this.AddNextObxElement("Specimem: " + specimenOrder.Description, document, "F");
             this.AddNextObxElement("", document, "F");

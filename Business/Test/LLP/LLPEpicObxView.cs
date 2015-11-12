@@ -34,8 +34,9 @@ namespace YellowstonePathology.Business.Test.LLP
                 this.AddNextObxElement("E-signed " + panelSetOrder.FinalTime.Value.ToString("MM/dd/yyyy HH:mm"), document, "F");
             }            
 			this.AddNextObxElement("", document, "F");
+            this.AddAmendments(document);
 
-			this.AddNextObxElement("Cell Population Of Interest:", document, "F");
+            this.AddNextObxElement("Cell Population Of Interest:", document, "F");
 			this.HandleLongString(panelSetOrder.CellPopulationOfInterest, document, "F");
 
 			this.AddNextObxElement("", document, "F");

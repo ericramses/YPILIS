@@ -38,8 +38,9 @@ namespace YellowstonePathology.Business.Test.KRASStandardReflex
 				this.AddNextObxElement("E-signed " + krasStandardReflexResult.KRASStandardReflexTestOrder.FinalTime.Value.ToString("MM/dd/yyyy HH:mm"), document, "F");
 			}
 			this.AddNextObxElement("", document, "F");
+            this.AddAmendments(document);
 
-			this.AddNextObxElement("Specimen Description:", document, "F");
+            this.AddNextObxElement("Specimen Description:", document, "F");
 			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(krasStandardReflexResult.KRASStandardReflexTestOrder.OrderedOn, krasStandardReflexResult.KRASStandardReflexTestOrder.OrderedOnId);
 			this.AddNextObxElement(specimenOrder.Description, document, "F");
 			this.AddNextObxElement(string.Empty, document, "F");
