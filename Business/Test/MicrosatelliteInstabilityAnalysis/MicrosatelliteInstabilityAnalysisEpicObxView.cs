@@ -28,8 +28,14 @@ namespace YellowstonePathology.Business.Test.MicrosatelliteInstabilityAnalysis
 			this.AddNextObxElement("  D5S346 : " + panelSetOrder.D5S346Instability, document, "F");
 			this.AddNextObxElement("  D17S250: " + panelSetOrder.D17S250Instability, document, "F");
 			this.AddNextObxElement("  D2S123 : " + panelSetOrder.D2S123Instability, document, "F");
-
 			this.AddNextObxElement("", document, "F");
+
+            this.AddNextObxElement("Pathologist: " + panelSetOrder.Signature, document, "F");
+            if (panelSetOrder.FinalTime.HasValue == true)
+            {
+                this.AddNextObxElement("E-signed " + panelSetOrder.FinalTime.Value.ToString("MM/dd/yyyy HH:mm"), document, "F");
+            }
+            this.AddNextObxElement("", document, "F");
             this.AddAmendments(document);
 
             this.AddNextObxElement("Interpretation: ", document, "F");

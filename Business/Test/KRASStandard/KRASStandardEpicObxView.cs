@@ -27,14 +27,20 @@ namespace YellowstonePathology.Business.Test.KRASStandard
 			{
 				this.AddNextObxElement("  " + panelSetOrder.MutationDetected, document, "F");
 			}
-			this.AddNextObxElement("", document, "F");
-            this.AddAmendments(document);
 
             if (string.IsNullOrEmpty(panelSetOrder.Comment) == false)
 			{
 				this.AddNextObxElement("Comment: " + panelSetOrder.Comment, document, "F");
 				this.AddNextObxElement("", document, "F");
 			}
+
+            this.AddNextObxElement("Pathologist: " + panelSetOrder.Signature, document, "F");
+            if (panelSetOrder.FinalTime.HasValue == true)
+            {
+                this.AddNextObxElement("E-signed " + panelSetOrder.FinalTime.Value.ToString("MM/dd/yyyy HH:mm"), document, "F");
+            }
+            this.AddNextObxElement("", document, "F");
+            this.AddAmendments(document);
 
 			this.AddNextObxElement("Indication: " + panelSetOrder.Indication, document, "F");
 			this.AddNextObxElement("", document, "F");

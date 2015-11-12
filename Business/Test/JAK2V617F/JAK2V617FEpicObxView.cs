@@ -22,6 +22,13 @@ namespace YellowstonePathology.Business.Test.JAK2V617F
 
             this.AddNextObxElement("Result: " + panelSetOrder.Result, document, "F");
             this.AddNextObxElement("", document, "F");
+
+            this.AddNextObxElement("Pathologist: " + panelSetOrder.Signature, document, "F");
+            if (panelSetOrder.FinalTime.HasValue == true)
+            {
+                this.AddNextObxElement("E-signed " + panelSetOrder.FinalTime.Value.ToString("MM/dd/yyyy HH:mm"), document, "F");
+            }
+            this.AddNextObxElement("", document, "F");
             this.AddAmendments(document);
 
             this.AddNextObxElement("Interpretation: ", document, "F");

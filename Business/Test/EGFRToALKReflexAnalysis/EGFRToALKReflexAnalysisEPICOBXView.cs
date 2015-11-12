@@ -25,7 +25,6 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
 
             this.AddNextObxElement("EGFR Mutation Analysis: " + egfrMutationAnalysisTestOrder.Result, document, "F");
             this.AddNextObxElement("", document, "F");
-            this.AddAmendments(document);
 
             this.AddNextObxElement("Comment: ", document, "F");
             this.HandleLongString(egfrMutationAnalysisTestOrder.Comment, document, "F");
@@ -55,6 +54,14 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
 
             this.AddNextObxElement("ROS1 Rearrangement Analysis: " + ros1Result, document, "F");
             this.AddNextObxElement("", document, "F");
+
+            this.AddNextObxElement("Pathologist: " + egfrToALKReflexAnalysisTestOrder.Signature, document, "F");
+            if (egfrToALKReflexAnalysisTestOrder.FinalTime.HasValue == true)
+            {
+                this.AddNextObxElement("E-signed " + egfrToALKReflexAnalysisTestOrder.FinalTime.Value.ToString("MM/dd/yyyy HH:mm"), document, "F");
+            }
+            this.AddNextObxElement("", document, "F");
+            this.AddAmendments(document);
 
             this.AddNextObxElement("Interpretation: ", document, "F");
 			this.HandleLongString(egfrToALKReflexAnalysisTestOrder.Interpretation, document, "F");
