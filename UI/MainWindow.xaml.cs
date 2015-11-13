@@ -914,6 +914,12 @@ namespace YellowstonePathology.UI
             pantherOrdersDialog.ShowDialog();
         }
 
+        private void MenuItemPantherStorage_Click(object sender, RoutedEventArgs e)
+        {
+            PantherStorageDialog pantherStorageDialog = new PantherStorageDialog();
+            pantherStorageDialog.ShowDialog();
+        }
+
         private void MenuItemShowMissingInformationMonitor_Click(object sender, RoutedEventArgs e)
         {
             YellowstonePathology.UI.Monitor.MonitorPath monitorPath = new Monitor.MonitorPath();
