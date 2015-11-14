@@ -302,6 +302,16 @@ namespace YellowstonePathology.UI.Cytology
 			}
 		}
 
+        private void ButtonAcidWashUnaccept_Click(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderAcidWash panelOrderAcidWash = (Business.Test.ThinPrepPap.PanelOrderAcidWash)this.ListBoxResults.SelectedItem;
+            MessageBoxResult result = System.Windows.MessageBox.Show("Unaccept selected Acid wash?", "UnAccept?", MessageBoxButton.OKCancel);
+            if (result == MessageBoxResult.OK)
+            {
+                panelOrderAcidWash.UnacceptResults();
+            }
+        }
+
         private void ButtonAcidWashAccept_Click(object sender, RoutedEventArgs e)
         {
             YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderAcidWash panelOrderAcidWash = (Business.Test.ThinPrepPap.PanelOrderAcidWash)this.ListBoxResults.SelectedItem;

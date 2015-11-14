@@ -428,6 +428,9 @@
       <DependentUpon>PantherOrdersDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="PantherAliquotReport.cs" />
+    <Compile Include="PantherStorageDialog.xaml.cs">
+      <DependentUpon>PantherStorageDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ReportDistribution\ReportDistributionWorkspace.xaml.cs">
       <DependentUpon>ReportDistributionWorkspace.xaml</DependentUpon>
     </Compile>
@@ -2020,6 +2023,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="PantherOrdersDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PantherStorageDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
