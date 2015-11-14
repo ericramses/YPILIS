@@ -10,7 +10,6 @@
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
@@ -18,19 +17,11 @@
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
+        
+        <TextBlock Margin="2,2,2,2" Grid.Column="0" Grid.Row="0" FontSize="20" FontWeight="Bold" Text="Gross Dictation:" HorizontalAlignment="Left"></TextBlock>
+        <TextBox  Margin="2,2,2,2" Grid.Column="0" Grid.Row="1" Text="{Binding Path=GrossDescription}" FontSize="20" AcceptsReturn="True" TextWrapping="Wrap"></TextBox>
 
-        <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
-            <TextBlock Margin="2,2,2,2" FontSize="20" FontWeight="Bold" Text="Template:" HorizontalAlignment="Left"></TextBlock>
-            <TextBlock  Margin="2,2,2,2" Text="{Binding Path=DictationTemplate.TemplateName}" FontSize="20"></TextBlock>
-        </StackPanel>
-        <TextBox Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding Path=DictationTemplate.Text}" FontSize="20"></TextBox>
-
-
-        <TextBlock Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" FontSize="20" FontWeight="Bold" Text="Paragraph:" HorizontalAlignment="Left"></TextBlock>
-        <TextBox Grid.Column="1" Grid.Row="1" Margin="2,2,2,2" TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding Path=DictationTemplate.TranscribedText}" FontSize="20"></TextBox>
-
-
-        <TextBlock Grid.Column="0" Grid.Row="2" Margin="2,2,2,2" FontSize="20" FontWeight="Bold" Text="Phrases To Speak:" HorizontalAlignment="Left"></TextBlock>
+        <TextBlock Grid.Column="0" Grid.Row="2" Margin="2,2,2,2" FontSize="20" FontWeight="Bold" Text="Phrases:" HorizontalAlignment="Left"></TextBlock>
         <ListBox Grid.Column="0" Grid.Row="3" Margin="2,2,2,2" FontSize="20" ItemsSource="{Binding Path=DictationTemplate.WordList}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
@@ -40,16 +31,6 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-
-        <TextBlock Grid.Column="1" Grid.Row="2" Margin="2,2,2,2" FontSize="20" FontWeight="Bold" Text="Typing:" HorizontalAlignment="Left"></TextBlock>
-        <Grid Grid.Column="1" Grid.Row="3">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="Auto"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <TextBox Grid.Column="0" Margin="2,2,2,2" TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding Path=DictationTemplate.TranscribedWords}" FontSize="20"></TextBox>
-            <Button Grid.Column="1" Margin="2,2,2,2" Width="200" Height="50" VerticalAlignment="Top" Click="ButtonCreateParagraph_Click">Create Paragraph</Button>
-        </Grid>
 
     </Grid>
 </UserControl>

@@ -49,7 +49,7 @@
                 <RowDefinition Height="*"></RowDefinition>                
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" FontSize="20" FontWeight="Bold" Text="Phrases To Speak:" HorizontalAlignment="Left"></TextBlock>
+            <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" FontSize="20" FontWeight="Bold" Text="Spoken Phrases:" HorizontalAlignment="Left"></TextBlock>
             <ListBox Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" FontSize="20" ItemsSource="{Binding Path=DictationTemplate.WordList}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>

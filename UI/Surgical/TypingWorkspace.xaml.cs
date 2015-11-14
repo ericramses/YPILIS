@@ -877,9 +877,10 @@ namespace YellowstonePathology.UI.Surgical
         {
             if (this.m_TypingUI.SurgicalTestOrder != null)
             {
-                YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPage providerDistributionPage = new Login.FinalizeAccession.ProviderDistributionPage(this.m_TypingUI.SurgicalTestOrder.ReportNo, this.m_TypingUI.AccessionOrder, this.m_TypingUI.ObjectTracker, this.m_SecondMonitorWindow.PageNavigator,
-                            System.Windows.Visibility.Collapsed, System.Windows.Visibility.Visible, System.Windows.Visibility.Collapsed);
-                this.m_SecondMonitorWindow.PageNavigator.Navigate(providerDistributionPage);
+                //YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPage providerDistributionPage = new Login.FinalizeAccession.ProviderDistributionPage(this.m_TypingUI.SurgicalTestOrder.ReportNo, this.m_TypingUI.AccessionOrder, this.m_TypingUI.ObjectTracker, this.m_SecondMonitorWindow.PageNavigator,
+                //            System.Windows.Visibility.Collapsed, System.Windows.Visibility.Visible, System.Windows.Visibility.Collapsed);
+
+                
             }
         }
 
@@ -887,8 +888,12 @@ namespace YellowstonePathology.UI.Surgical
         {
             if (this.m_TypingUI.AccessionOrder != null)
             {
-                DictationTemplatePage dictationTemplatePage = new DictationTemplatePage(this.m_TypingUI.AccessionOrder, this.m_SystemIdentity);
-                this.m_SecondMonitorWindow.PageNavigator.Navigate(dictationTemplatePage);
+                PageNavigationWindow pageNavigationWindow = new PageNavigationWindow(this.m_SystemIdentity);
+                YellowstonePathology.UI.Gross.DictationTemplatePage dictationTemplatePage = new YellowstonePathology.UI.Gross.DictationTemplatePage(this.m_TypingUI.AccessionOrder.SpecimenOrderCollection[0], this.m_TypingUI.AccessionOrder, this.m_SystemIdentity);
+                pageNavigationWindow.PageNavigator.Navigate(dictationTemplatePage);
+                pageNavigationWindow.Show();
+                //DictationTemplatePage dictationTemplatePage = new DictationTemplatePage(this.m_TypingUI.AccessionOrder, this.m_SystemIdentity);
+                //this.m_SecondMonitorWindow.PageNavigator.Navigate(dictationTemplatePage);
             }
         }
 

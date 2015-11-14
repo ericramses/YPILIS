@@ -132,10 +132,10 @@ namespace YellowstonePathology.UI.Test
             result.SetResult(this.m_EGFRMutationAnalysisTestOrder, "L861Q");
         }
 
-        private void HyperLinkResistantT790_Click(object sender, RoutedEventArgs e)
+        private void HyperLinkResistantT790M_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisDetectedResult result = new Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisDetectedResult();
-            result.SetResult(this.m_EGFRMutationAnalysisTestOrder, "T790");
+            YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisResistanceResult result = new Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisResistanceResult();
+            result.SetResult(this.m_EGFRMutationAnalysisTestOrder, "T790M");
         }
 
         private void HyperLinkResistantExon20_Click(object sender, RoutedEventArgs e)
