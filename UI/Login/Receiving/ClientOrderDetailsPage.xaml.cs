@@ -70,7 +70,15 @@ namespace YellowstonePathology.UI.Login.Receiving
 
         private void ClientOrderDetailsPage_Loaded(object sender, RoutedEventArgs e)
         {
-            this.m_BarcodeScanPort.ContainerScanReceived += ContainerScanReceived;            
+            //This line to ensure that "ContainerScanReceived" is not already hooked up. I have found that the event is fireing twice.
+            //this.m_BarcodeScanPort.ContainerScanReceived -= ContainerScanReceived;
+            this.m_BarcodeScanPort.ContainerScanReceived += ContainerScanReceived;                  
+
+            if(this.m_BarcodeScanPort.GetContainerScanReceivedInvocationCount() != 1)
+            {
+                MessageBox.Show(this.m_BarcodeScanPort.GetContainerScanReceivedTargetString());
+            }
+
             this.TextBoxAccessionAs.Focus();
 
             if (string.IsNullOrEmpty(this.m_ClientOrderDetail.DescriptionToAccession) == false)
