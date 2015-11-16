@@ -21,20 +21,20 @@ namespace YellowstonePathology.UI.Test
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private YellowstonePathology.Business.Test.ThinPrepPap.AcidWashSearchList m_AcidWashSearchList;
+        private YellowstonePathology.Business.Test.ThinPrepPap.AcidWashList m_AcidWashList;
 
         public AcidWashOrdersDialog()
         {
-            this.m_AcidWashSearchList = Business.Gateway.ReportSearchGateway.GetAcidWashSearchList(DateTime.Today.AddMonths(-3));
+            this.m_AcidWashList = Business.Gateway.ReportSearchGateway.GetAcidWashList(DateTime.Today.AddMonths(-3));
 
             InitializeComponent();
 
             DataContext = this;
         }
 
-        public Business.Test.ThinPrepPap.AcidWashSearchList AcidWashSearchList
+        public Business.Test.ThinPrepPap.AcidWashList AcidWashList
         {
-            get { return this.m_AcidWashSearchList; }
+            get { return this.m_AcidWashList; }
         }
 
         private void ButtonClose_Click(object sender, RoutedEventArgs e)
@@ -50,16 +50,16 @@ namespace YellowstonePathology.UI.Test
             }
         }
 
-        private void ListViewCaseList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void ListViewAcidWashList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (this.ListViewCaseList.SelectedItem != null)
+            if (this.ListViewAcidWashList.SelectedItem != null)
             {
-                Business.Test.ThinPrepPap.AcidWashSearchItem acidWashSearchItem = (Business.Test.ThinPrepPap.AcidWashSearchItem)this.ListViewCaseList.SelectedItem;
-                AcidWashResultDialog acidWashResultDialog = new AcidWashResultDialog(acidWashSearchItem.ReportNo);
+                Business.Test.ThinPrepPap.AcidWashListItem acidWashListItem = (Business.Test.ThinPrepPap.AcidWashListItem)this.ListViewAcidWashList.SelectedItem;
+                AcidWashResultDialog acidWashResultDialog = new AcidWashResultDialog(acidWashListItem.ReportNo);
                 acidWashResultDialog.ShowDialog();
-                this.m_AcidWashSearchList = Business.Gateway.ReportSearchGateway.GetAcidWashSearchList(DateTime.Today.AddMonths(-3));
-                this.NotifyPropertyChanged("AcidWashSearchList");
+                this.m_AcidWashList = Business.Gateway.ReportSearchGateway.GetAcidWashList(DateTime.Today.AddMonths(-3));
+                this.NotifyPropertyChanged("AcidWashList");
             }
-        }
+        }        
     }
 }

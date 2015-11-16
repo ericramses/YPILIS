@@ -67,22 +67,33 @@ namespace YellowstonePathology.UI.Test
         private void HyperLinkUnacceptResults_Click(object sender, RoutedEventArgs e)
         {
             this.m_PanelOrderAcidWash.UnacceptResults();
+        }        
+
+        private void Save()
+        {
+            this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
         }
 
-        private void ButtonNext_Click(object sender, RoutedEventArgs e)
+        private void ButtonClose_Click(object sender, RoutedEventArgs e)
         {
             this.Save();
             this.Close();
         }
 
-        private void ButtonBack_Click(object sender, RoutedEventArgs e)
+        private void HyperLinkPrintLabel_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
-        }
+            YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPAP();
+            YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(panelSetOrder.ReportNo);
+            string dummyReportNo = (orderIdParser.ReportNoYear + 50).ToString() + "-" + orderIdParser.MasterAccessionNoNumber + "." + orderIdParser.ReportNoLetter;
 
-        private void Save()
-        {
-            this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
+            YellowstonePathology.UI.Login.CytologySlideLabelDocument cytologySlideLabelDocument = new Login.CytologySlideLabelDocument(dummyReportNo, this.m_AccessionOrder.PLastName, false);
+            System.Windows.Controls.PrintDialog printDialog = new System.Windows.Controls.PrintDialog();
+
+            System.Printing.PrintServer printServer = new System.Printing.LocalPrintServer();
+            System.Printing.PrintQueue printQueue = printServer.GetPrintQueue(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.CytologySlideLabelPrinter);
+
+            printDialog.PrintQueue = printQueue;            
+            printDialog.PrintDocument(cytologySlideLabelDocument.DocumentPaginator, "Slide Labels");
         }
     }
 }
