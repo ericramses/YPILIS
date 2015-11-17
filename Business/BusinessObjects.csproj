@@ -641,8 +641,8 @@
     <Compile Include="Test\TechInitiatedPeripheralSmear\TechInitiatedPeripheralSmearTest.cs" />
     <Compile Include="Test\TechInitiatedPeripheralSmear\TechInitiatedPeripheralSmearTestOrder.cs" />
     <Compile Include="Test\TechInitiatedPeripheralSmear\TechInitiatedPeripheralSmearWordDocument.cs" />
-    <Compile Include="Test\ThinPrepPap\AcidWashSearchItem.cs" />
-    <Compile Include="Test\ThinPrepPap\AcidWashSearchList.cs" />
+    <Compile Include="Test\ThinPrepPap\AcidWashListItem.cs" />
+    <Compile Include="Test\ThinPrepPap\AcidWashList.cs" />
     <Compile Include="Test\Trichomonas\TrichomonasInvalidResult.cs" />
     <Compile Include="TrackedItemStatusEnum.cs" />
     <Compile Include="Specimen.Model\AliquotCollection.cs" />

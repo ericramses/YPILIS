@@ -419,9 +419,9 @@ namespace YellowstonePathology.Business.Gateway
             return reportSearchList;
         }
 
-        public static Test.ThinPrepPap.AcidWashSearchList GetAcidWashSearchList(DateTime startDate)
+        public static Test.ThinPrepPap.AcidWashList GetAcidWashList(DateTime startDate)
         {
-            Test.ThinPrepPap.AcidWashSearchList result = new Test.ThinPrepPap.AcidWashSearchList();
+            Test.ThinPrepPap.AcidWashList result = new Test.ThinPrepPap.AcidWashList();
             SqlCommand cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "Select po.ReportNo, po.OrderDate, po.Accepted, a.PLastName, a.PFirstName, a.PMiddleInitial from tblPanelOrder po join tblPanelSetOrder pso on po.ReportNo = pso.ReportNo " +
@@ -436,10 +436,10 @@ namespace YellowstonePathology.Business.Gateway
                 {
                     while (dr.Read())
                     {
-                        Test.ThinPrepPap.AcidWashSearchItem acidWashSearchItem = new Test.ThinPrepPap.AcidWashSearchItem();
-                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(acidWashSearchItem, dr);
+                        Test.ThinPrepPap.AcidWashListItem acidWashLIstItem = new Test.ThinPrepPap.AcidWashListItem();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(acidWashLIstItem, dr);
                         sqlDataReaderPropertyWriter.WriteProperties();
-                        result.Add(acidWashSearchItem);
+                        result.Add(acidWashLIstItem);
                     }
                 }
             }

@@ -6,8 +6,11 @@ using System.Collections.ObjectModel;
 
 namespace YellowstonePathology.Business.Test.ThinPrepPap
 {
-    public class AcidWashSearchList : ObservableCollection<AcidWashSearchItem>
+    public class AcidWashList : ObservableCollection<AcidWashListItem>
     {
-        public AcidWashSearchList() { }
+        public AcidWashList()
+        {
+
+        }
     }
 }

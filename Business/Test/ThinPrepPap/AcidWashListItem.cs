@@ -6,7 +6,7 @@ using YellowstonePathology.Business.Persistence;
 
 namespace YellowstonePathology.Business.Test.ThinPrepPap
 {
-    public class AcidWashSearchItem
+    public class AcidWashListItem
     {
         private string m_ReportNo;
         private DateTime m_OrderDate;
@@ -15,8 +15,10 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
         private string m_PMiddleInitial;
         private bool m_Accepted;
 
-        public AcidWashSearchItem()
-        { }
+        public AcidWashListItem()
+        {
+
+        }
 
         public string PatientName
         {

@@ -76,7 +76,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 
             if(this.m_BarcodeScanPort.GetContainerScanReceivedInvocationCount() != 1)
             {
-                MessageBox.Show(this.m_BarcodeScanPort.GetContainerScanReceivedTargetString());
+                //MessageBox.Show(this.m_BarcodeScanPort.GetContainerScanReceivedTargetString());
             }
 
             this.TextBoxAccessionAs.Focus();
