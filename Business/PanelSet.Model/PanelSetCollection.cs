@@ -89,6 +89,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
             panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetP53ByFish());
 			panelSetCollection.Add(new YellowstonePathology.Business.Test.PlasmaCellMyelomaRiskStratification.PlasmaCellMyelomaRiskStratificationTest());
 			panelSetCollection.Add(new YellowstonePathology.Business.Test.KRASExon4Mutation.KRASExon4MutationTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.KRASExon23Mutation.KRASExon23MutationTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.MYD88MutationAnalysis.MYD88MutationAnalysisTest());
 			panelSetCollection.Add(new YellowstonePathology.Business.Test.BCellGeneRearrangement.BCellGeneRearrangementTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.NRASMutationAnalysis.NRASMutationAnalysisTest());
