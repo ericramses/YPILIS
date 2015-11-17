@@ -290,7 +290,10 @@ namespace YellowstonePathology.Business.Document
                     case 214:
                         document = new YellowstonePathology.Business.Test.TechInitiatedPeripheralSmear.TechInitiatedPeripheralSmearWordDocument();
                         break;
-					default:
+                    case 217:
+                        document = new YellowstonePathology.Business.Test.KRASExon23Mutation.KRASExon23MutationWordDocument();
+                        break;
+                    default:
 						break;
 				}
 			}

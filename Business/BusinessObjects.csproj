@@ -493,8 +493,11 @@
     <Compile Include="Test\HPV1618\HPV1618Genotype18PositiveResult.cs" />
     <Compile Include="Test\HPV\HPVInvalidResult.cs" />
     <Compile Include="Test\HPV\HPVNoResult.cs" />
+    <Compile Include="Test\KRASExon23Mutation\KRASExon23MutationEpicObxView.cs" />
+    <Compile Include="Test\KRASExon23Mutation\KRASExon23MutationResult.cs" />
     <Compile Include="Test\KRASExon23Mutation\KRASExon23MutationTest.cs" />
     <Compile Include="Test\KRASExon23Mutation\KRASExon23MutationTestOrder.cs" />
+    <Compile Include="Test\KRASExon23Mutation\KRASExon23MutationWordDocument.cs" />
     <Compile Include="Test\KRASStandard\KRASStandardPanel.cs" />
     <Compile Include="Test\LynchSyndrome\LSEGYNResult3.cs" />
     <Compile Include="Test\LynchSyndrome\LynchSyndromeIHCPanel.cs" />

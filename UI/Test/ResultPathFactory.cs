@@ -234,6 +234,9 @@ namespace YellowstonePathology.UI.Test
                 case 214:
                     result = new TechInitiatedPeripheralSmearResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
                     break;
+                case 217:
+                    result = new KRASExon23MutationResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+                    break;
             }
             return result;
         }
