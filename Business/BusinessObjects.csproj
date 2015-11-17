@@ -466,6 +466,7 @@
     <Compile Include="PanelSet.Model\PanelSetTCellClonalityByPCRRetired.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Persistence\JSONWriter.cs" />
     <Compile Include="Test.Model\DispalyGroupProstate.cs" />
     <Compile Include="Test\ALKForNSCLCByFISH\ALKForNSCLCByFISHNegativeWithMonosomyResult.cs" />
     <Compile Include="Test\ALKForNSCLCByFISH\ALKForNSCLCByFISHNegativeWithPolysomyResult.cs" />
@@ -492,6 +493,8 @@
     <Compile Include="Test\HPV1618\HPV1618Genotype18PositiveResult.cs" />
     <Compile Include="Test\HPV\HPVInvalidResult.cs" />
     <Compile Include="Test\HPV\HPVNoResult.cs" />
+    <Compile Include="Test\KRASExon23Mutation\KRASExon23MutationTest.cs" />
+    <Compile Include="Test\KRASExon23Mutation\KRASExon23MutationTestOrder.cs" />
     <Compile Include="Test\KRASStandard\KRASStandardPanel.cs" />
     <Compile Include="Test\LynchSyndrome\LSEGYNResult3.cs" />
     <Compile Include="Test\LynchSyndrome\LynchSyndromeIHCPanel.cs" />

@@ -1093,27 +1093,9 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
-            XDocument myxml = XDocument.Load(@"XMLFile2.xml");
-            IEnumerable<XElement> nodes = myxml.XPathSelectElements("//Codes/Code");
-            foreach(XElement node in nodes)
-            {
-                string icd9 = node.Attribute("ICD9").Value;
-                string icd10 = node.Attribute("ICD10").Value;
-                string description = node.Attribute("Description").Value;
-
-                string test = null;
-                if (node.Attribute("Test") != null)
-                {
-                     test = node.Attribute("Test").Value;
-                }
-                string line = icd9 + "\t" + icd10 + "\t" + description;
-                
-                if(test != null)
-                {
-                    line = line + "\t" + test;
-                }
-                Console.WriteLine(line);
-            }
+            YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByMasterAccessionNo("15-27221");
+            string json = YellowstonePathology.Business.Persistence.JSONWriter.Write(accessionOrder);
+            System.IO.File.WriteAllText(@"C:\node\test.json", json);
         }
 
         private void FindY()
