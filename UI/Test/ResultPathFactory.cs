@@ -237,6 +237,9 @@ namespace YellowstonePathology.UI.Test
                 case 217:
                     result = new KRASExon23MutationResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
                     break;
+                case 218:
+                    result = new RASRAFPanelResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+                    break;
             }
             return result;
         }

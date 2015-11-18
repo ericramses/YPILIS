@@ -16,9 +16,9 @@ using System.ComponentModel;
 namespace YellowstonePathology.UI.Test
 {
     /// <summary>
-    /// Interaction logic for KRASExon23MutationResultPage.xaml
+    /// Interaction logic for RASRAFPanelResultPage.xaml
     /// </summary>
-    public partial class KRASExon23MutationResultPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
+    public partial class RASRAFPanelResultPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -30,22 +30,22 @@ namespace YellowstonePathology.UI.Test
         private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
         private string m_PageHeaderText;
 
-        private YellowstonePathology.Business.Test.KRASExon23Mutation.KRASExon23MutationTestOrder m_KRASExon23MutationTestOrder;
+        private YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelTestOrder m_RASRAFPanelTestOrder;
         private string m_OrderedOnDescription;
 
-        public KRASExon23MutationResultPage(YellowstonePathology.Business.Test.KRASExon23Mutation.KRASExon23MutationTestOrder krasExon23MutationTestOrder,
+        public RASRAFPanelResultPage(YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelTestOrder rasRAFPanelTestOrder,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
             YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
             YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
-            this.m_KRASExon23MutationTestOrder = krasExon23MutationTestOrder;
+            this.m_RASRAFPanelTestOrder = rasRAFPanelTestOrder;
             this.m_AccessionOrder = accessionOrder;
             this.m_SystemIdentity = systemIdentity;
             this.m_ObjectTracker = objectTracker;
 
-            this.m_PageHeaderText = "KRAS Exon 2,3 Mutation Analysis Result For: " + this.m_AccessionOrder.PatientDisplayName;
+            this.m_PageHeaderText = "RAS/RAF Panel Result For: " + this.m_AccessionOrder.PatientDisplayName;
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_KRASExon23MutationTestOrder.OrderedOn, this.m_KRASExon23MutationTestOrder.OrderedOnId);
+            YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_RASRAFPanelTestOrder.OrderedOn, this.m_RASRAFPanelTestOrder.OrderedOnId);
             this.m_OrderedOnDescription = specimenOrder.Description;
 
             InitializeComponent();
@@ -58,9 +58,9 @@ namespace YellowstonePathology.UI.Test
             get { return this.m_OrderedOnDescription; }
         }
 
-        public YellowstonePathology.Business.Test.KRASExon23Mutation.KRASExon23MutationTestOrder PanelSetOrder
+        public YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelTestOrder PanelSetOrder
         {
-            get { return this.m_KRASExon23MutationTestOrder; }
+            get { return this.m_RASRAFPanelTestOrder; }
         }
 
         public void NotifyPropertyChanged(String info)
@@ -98,25 +98,25 @@ namespace YellowstonePathology.UI.Test
 
         private void HyperLinkNotDetected_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Test.KRASExon23Mutation.KRASExon23MutationResult result = new YellowstonePathology.Business.Test.KRASExon23Mutation.KRASExon23MutationResult();
-            result.SetResults(this.m_KRASExon23MutationTestOrder);
+            YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelResult result = new YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelResult();
+            result.SetResults(this.m_RASRAFPanelTestOrder);
             this.NotifyPropertyChanged("PanelSetOrder");
         }
 
         private void HyperLinkDetected_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Test.KRASExon23Mutation.KRASExon23MutationResult result = new YellowstonePathology.Business.Test.KRASExon23Mutation.KRASExon23MutationResult();
-            result.SetResults(this.m_KRASExon23MutationTestOrder);
+            YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelResult result = new YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelResult();
+            result.SetResults(this.m_RASRAFPanelTestOrder);
             this.NotifyPropertyChanged("PanelSetOrder");
         }
 
         private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
         {
             this.Save();
-            YellowstonePathology.Business.Test.KRASExon23Mutation.KRASExon23MutationWordDocument report = new Business.Test.KRASExon23Mutation.KRASExon23MutationWordDocument();
-            report.Render(this.m_AccessionOrder.MasterAccessionNo, this.m_KRASExon23MutationTestOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft);
+            YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelWordDocument report = new Business.Test.RASRAFPanel.RASRAFPanelWordDocument();
+            report.Render(this.m_AccessionOrder.MasterAccessionNo, this.m_RASRAFPanelTestOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft);
 
-            YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_KRASExon23MutationTestOrder.ReportNo);
+            YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_RASRAFPanelTestOrder.ReportNo);
             string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);
             YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(fileName);
         }
@@ -125,9 +125,9 @@ namespace YellowstonePathology.UI.Test
         {
             MessageBox.Show("This case cannot be finalized because IT needs more information to create the correct report." + Environment.NewLine + "Please contact IT.");
 
-            /*if (this.m_KRASExon23MutationTestOrder.Final == false)
+            /*if (this.m_RASRAFPanelTestOrder.Final == false)
             {
-                this.m_KRASExon23MutationTestOrder.Finalize(this.m_SystemIdentity.User);
+                this.m_RASRAFPanelTestOrder.Finalize(this.m_SystemIdentity.User);
             }
             else
             {
@@ -137,9 +137,9 @@ namespace YellowstonePathology.UI.Test
 
         private void HyperLinkUnfinalResults_Click(object sender, RoutedEventArgs e)
         {
-            if (this.m_KRASExon23MutationTestOrder.Final == true)
+            if (this.m_RASRAFPanelTestOrder.Final == true)
             {
-                this.m_KRASExon23MutationTestOrder.Unfinalize();
+                this.m_RASRAFPanelTestOrder.Unfinalize();
             }
             else
             {
@@ -151,10 +151,10 @@ namespace YellowstonePathology.UI.Test
         {
             MessageBox.Show("This results cannot be accepted because IT needs more information to store the correct data." + Environment.NewLine + "Please contact IT.");
 
-            /*YellowstonePathology.Business.Rules.MethodResult result = this.m_KRASExon23MutationTestOrder.IsOkToAccept();
+            /*YellowstonePathology.Business.Rules.MethodResult result = this.m_RASRAFPanelTestOrder.IsOkToAccept();
             if (result.Success == true)
             {
-                this.m_KRASExon23MutationTestOrder.Accept(this.m_SystemIdentity.User);
+                this.m_RASRAFPanelTestOrder.Accept(this.m_SystemIdentity.User);
             }
             else
             {
@@ -164,10 +164,10 @@ namespace YellowstonePathology.UI.Test
 
         private void HyperLinkUnacceptResults_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Rules.MethodResult result = this.m_KRASExon23MutationTestOrder.IsOkToUnaccept();
+            YellowstonePathology.Business.Rules.MethodResult result = this.m_RASRAFPanelTestOrder.IsOkToUnaccept();
             if (result.Success == true)
             {
-                this.m_KRASExon23MutationTestOrder.Unaccept();
+                this.m_RASRAFPanelTestOrder.Unaccept();
             }
             else
             {
