@@ -112,7 +112,8 @@ namespace YellowstonePathology.Business.PanelSet.Model
             panelSetCollection.Add(new YellowstonePathology.Business.Test.MDSCMMLProfile.MDSCMMLProfileTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.AMLExtendedByFish.AMLExtendedByFishTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.CBFBinv16.CBFBinv16Test());
-                        
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelTest());
+
             //ARUP
             panelSetCollection.Add(new YellowstonePathology.Business.Test.HPV1618.HPV1618Test());
             panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetArupBraf());

@@ -235,7 +235,10 @@ namespace YellowstonePathology.Business.HL7View.EPIC
                 case 217:
                     view = new YellowstonePathology.Business.Test.KRASExon23Mutation.KRASExon23MutationEpicObxView(accessionOrder, reportNo, obxCount);
                     break;
-			}
+                case 218:
+                    view = new YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelEpicObxView(accessionOrder, reportNo, obxCount);
+                    break;
+            }
             return view;
         }
     }
