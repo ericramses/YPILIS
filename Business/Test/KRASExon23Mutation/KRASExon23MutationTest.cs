@@ -20,7 +20,7 @@ namespace YellowstonePathology.Business.Test.KRASExon23Mutation
 			this.m_Active = true;
 
 
-			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.KRASExon4Mutation.KRASExon4MutationTestOrder).AssemblyQualifiedName;
+			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.KRASExon23Mutation.KRASExon23MutationTestOrder).AssemblyQualifiedName;
 			
 			this.m_AllowMultiplePerAccession = true;
 
