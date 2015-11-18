@@ -34,7 +34,7 @@ namespace YellowstonePathology.OptimusPrime
                     await cmd.ExecuteNonQueryAsync();
                 }
             }
-
+            
             return "Optimus Prime updated result: " + aliquotOrderId + " - " + testName + " on " + DateTime.Now.ToString();
         }
     }

@@ -16,7 +16,7 @@ namespace YellowstonePathology.Business.Persistence
             PropertyInfo[] properties = o.GetType().GetProperties().
                 Where(prop => Attribute.IsDefined(prop, typeof(PersistentProperty)) || Attribute.IsDefined(prop, typeof(PersistentPrimaryKeyProperty))).ToArray();
             foreach (PropertyInfo property in properties)
-            {                
+            {
                 Type dataType = property.PropertyType;
                 if (dataType == typeof(string))
                 {
@@ -56,7 +56,7 @@ namespace YellowstonePathology.Business.Persistence
                 }
             }
 
-            if(properties.Length != 0)
+            if (properties.Length != 0)
             {
                 result.Remove(result.Length - 3, 1);
             }

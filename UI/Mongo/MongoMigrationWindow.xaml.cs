@@ -455,10 +455,13 @@ namespace YellowstonePathology.UI.Mongo
         {
             if (this.ListViewTransferCollection.SelectedItem != null)
             {
-                YellowstonePathology.Business.Mongo.Transfer transfer = (YellowstonePathology.Business.Mongo.Transfer)this.ListViewTransferCollection.SelectedItem;
-                this.m_TransferCollection.Remove(transfer);
+                while(this.ListViewTransferCollection.SelectedItems.Count != 0)
+                {
+                    YellowstonePathology.Business.Mongo.Transfer transfer = (YellowstonePathology.Business.Mongo.Transfer)this.ListViewTransferCollection.SelectedItems[0];
+                    this.m_TransferCollection.Remove(transfer);                    
+                }
                 this.m_DocumentCollectionTracker.SubmitChanges();
-                MessageBox.Show("All done.");
+                MessageBox.Show("Transfers have been removed.");
             }
         }
 

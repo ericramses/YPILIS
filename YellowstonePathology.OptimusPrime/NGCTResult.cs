@@ -7,10 +7,10 @@ namespace YellowstonePathology.OptimusPrime
 {
     public class NGCTResult
     {
-        public const string PantherNGNegativeResult = "GC Neg";
+        public const string PantherNGNegativeResult = "GC neg";
         public const string PantherNGPositiveResult = "GC POS";
 
-        public const string PantherCTNegativeResult = "CT Neg";
+        public const string PantherCTNegativeResult = "CT neg";
         public const string PantherCTPositiveResult = "CT POS";
 
         public const string PantherNGInvalidResult = "Invalid";
@@ -33,7 +33,7 @@ namespace YellowstonePathology.OptimusPrime
             {
                 result = new NGCTOneOrBothPositiveResult(pantherNGResult, pantherCTResult);
             }
-            if (pantherNGResult == PantherNGInvalidResult || pantherCTResult == PantherCTInvalidResult)
+            else if (pantherNGResult == PantherNGInvalidResult || pantherCTResult == PantherCTInvalidResult)
             {
                 result = new NGCTInvalidResult();
             }
