@@ -461,5 +461,14 @@ namespace YellowstonePathology.Business.Helper
 
 			return result;
 		}
-	}
+
+        public static DateTime? RemoveSeconds(DateTime? dateToSet)
+        {
+            if (dateToSet.HasValue)
+            {
+                return new DateTime(dateToSet.Value.Year, dateToSet.Value.Month, dateToSet.Value.Day, dateToSet.Value.Hour, dateToSet.Value.Minute, 0);
+            }
+            return dateToSet;
+        }
+    }
 }
