@@ -123,14 +123,16 @@ namespace YellowstonePathology.UI.Test
 
         private void HyperLinkFinalizeResults_Click(object sender, RoutedEventArgs e)
         {
-            if (this.m_KRASExon23MutationTestOrder.Final == false)
+            MessageBox.Show("This case cannot be finalized because IT needs more information to create the correct report." + Environment.NewLine + "Please contact IT.");
+
+            /*if (this.m_KRASExon23MutationTestOrder.Final == false)
             {
                 this.m_KRASExon23MutationTestOrder.Finalize(this.m_SystemIdentity.User);
             }
             else
             {
                 MessageBox.Show("This case cannot be finalized because it is already final.");
-            }
+            }*/
         }
 
         private void HyperLinkUnfinalResults_Click(object sender, RoutedEventArgs e)
@@ -147,7 +149,9 @@ namespace YellowstonePathology.UI.Test
 
         private void HyperLinkAcceptResults_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Rules.MethodResult result = this.m_KRASExon23MutationTestOrder.IsOkToAccept();
+            MessageBox.Show("This results cannot be accepted because IT needs more information to store the correct data." + Environment.NewLine + "Please contact IT.");
+
+            /*YellowstonePathology.Business.Rules.MethodResult result = this.m_KRASExon23MutationTestOrder.IsOkToAccept();
             if (result.Success == true)
             {
                 this.m_KRASExon23MutationTestOrder.Accept(this.m_SystemIdentity.User);
@@ -155,7 +159,7 @@ namespace YellowstonePathology.UI.Test
             else
             {
                 MessageBox.Show(result.Message);
-            }
+            }*/
         }
 
         private void HyperLinkUnacceptResults_Click(object sender, RoutedEventArgs e)
