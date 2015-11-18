@@ -293,6 +293,9 @@ namespace YellowstonePathology.Business.Document
                     case 217:
                         document = new YellowstonePathology.Business.Test.KRASExon23Mutation.KRASExon23MutationWordDocument();
                         break;
+                    case 218:
+                        document = new YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelWordDocument();
+                        break;
                     default:
 						break;
 				}
