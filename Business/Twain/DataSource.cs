@@ -440,7 +440,6 @@ namespace YellowstonePathology.Business.Twain
                     DataArgumentType.UserInterface,
                     Message.DisableDS,
                     userInterface);
-
                 
                     result = Twain32Native.DsmIdentity(
                     _applicationId,
@@ -448,7 +447,7 @@ namespace YellowstonePathology.Business.Twain
                     DataGroup.Control,
                     DataArgumentType.Identity,
                     Message.CloseDS,
-                    SourceId);             
+                    SourceId);                                    
             }
         }
     }

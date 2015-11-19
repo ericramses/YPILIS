@@ -1093,9 +1093,14 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByMasterAccessionNo("15-27221");
-            string json = YellowstonePathology.Business.Persistence.JSONWriter.Write(accessionOrder);
-            System.IO.File.WriteAllText(@"C:\node\test.json", json);
+            //YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByMasterAccessionNo("15-27221");
+            //string json = YellowstonePathology.Business.Persistence.JSONWriter.Write(accessionOrder);
+            //System.IO.File.WriteAllText(@"C:\node\test.json", json);
+
+            //YellowstonePathology.OptimusPrime.NGCTResult result = YellowstonePathology.OptimusPrime.NGCTResult.GetResult("NT neg", "CT POS");
+
+            
+            
         }
 
         private void FindY()

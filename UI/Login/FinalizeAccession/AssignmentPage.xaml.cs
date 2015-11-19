@@ -143,6 +143,8 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                 YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings ypiBLGS = new Business.Facility.Model.YellowstonePathologyInstituteBillings();
                 YellowstonePathology.Business.Facility.Model.ButtePathology buttePathology = new Business.Facility.Model.ButtePathology();
 
+                YellowstonePathology.Business.Facility.Model.YellowstonePathologistBillings ypBLGS = new YellowstonePathology.Business.Facility.Model.YellowstonePathologistBillings();                
+
                 if (systemUser.UserId == 5132 || systemUser.UserId == 5133) //Dr Shannon and Dr Smirnoff
                 {
                     panelSetOrder.TechnicalComponentFacilityId = ypiBLGS.FacilityId;
@@ -151,21 +153,21 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                     panelSetOrder.ProfessionalComponentBillingFacilityId = buttePathology.FacilityId;
                 }
                 else
-                {                    
-                    YellowstonePathology.Business.Facility.Model.YellowstonePathologistBillings ypBLGS = new YellowstonePathology.Business.Facility.Model.YellowstonePathologistBillings();
+                {                                        
                     panelSetOrder.TechnicalComponentFacilityId = ypiBLGS.FacilityId;
                     panelSetOrder.TechnicalComponentBillingFacilityId = ypiBLGS.FacilityId;
 
                     if(systemUser.UserId == 5061) //Dr Clegg
                     {
                         YellowstonePathology.Business.Facility.Model.YellowstonePathologistCody ypCody = new Business.Facility.Model.YellowstonePathologistCody();
+                        YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteCody ypiCody = new Business.Facility.Model.YellowstonePathologyInstituteCody();
                         panelSetOrder.ProfessionalComponentFacilityId = ypCody.FacilityId;
-                        panelSetOrder.ProfessionalComponentBillingFacilityId = ypCody.FacilityId;
+                        panelSetOrder.ProfessionalComponentBillingFacilityId = ypiCody.FacilityId;
                     }
                     else
                     {
                         panelSetOrder.ProfessionalComponentFacilityId = ypBLGS.FacilityId;
-                        panelSetOrder.ProfessionalComponentBillingFacilityId = ypBLGS.FacilityId;
+                        panelSetOrder.ProfessionalComponentBillingFacilityId = ypiBLGS.FacilityId;
                     }                    
                 }
             }

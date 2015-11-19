@@ -60,7 +60,16 @@ namespace YellowstonePathology.UI.Common
 		private void UserPreferences_Loaded(object sender, RoutedEventArgs e)
 		{
             this.m_Twain = new Business.Twain.Twain(new WpfWindowMessageHook(Window.GetWindow(this)));
-			this.PageScannerCollection = new Business.Common.PageScannerCollection(this.m_Twain);
+            if(Environment.OSVersion.VersionString != "Microsoft Windows NT 6.2.9200.0")
+            {
+                this.PageScannerCollection = new Business.Common.PageScannerCollection(this.m_Twain);
+            }
+            else
+            {
+                this.m_PageScannerCollection = new Business.Common.PageScannerCollection();
+                MessageBox.Show("Unable to initialize the TWAIN Scanner Collection.");
+            }
+			
 		}
 
         public YellowstonePathology.Business.Surgical.ProcessorRunCollection ProcessorRunCollection

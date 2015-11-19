@@ -157,6 +157,12 @@
                         <ColumnDefinition Width="*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
 
+                    <Grid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Print Paper Label" Click="MenuItemPrintPaperLabel_Click" Tag="{Binding}"></MenuItem>
+                        </ContextMenu>
+                    </Grid.ContextMenu>
+
                     <Image Grid.Column="0" Source="/Resources/out2.png" Width="17" Height="17" Visibility="{Binding Path=Element[ClientAccessioned].Value, Converter={StaticResource BooleanVisibilityConverter}}"></Image>
                     <CheckBox Grid.Column="1" Margin="2,2,2,2" VerticalAlignment="Center" IsChecked="{Binding Path=Element[IsSelected].Value, Converter={StaticResource BooleanStringConverter}}" />                    
                     <TextBlock Grid.Column="2" Margin="2,2,2,2" VerticalAlignment="Center" Text="{Binding Path=Element[LabelType].Value}"></TextBlock>                    
