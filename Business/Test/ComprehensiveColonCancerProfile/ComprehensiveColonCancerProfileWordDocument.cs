@@ -16,7 +16,7 @@ namespace YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile
 			this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByMasterAccessionNo(masterAccessionNo);
 			this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 
-			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\ComprehensiveColonCancerProfile.xml";
+			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\ComprehensiveColonCancerProfile.1.xml";
 			this.OpenTemplate();
 			this.SetDemographicsV2();
 			this.SetReportDistribution();
@@ -34,11 +34,28 @@ namespace YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile
 			base.ReplaceText("surgical_report_no", comprehensiveColonCancerProfileResult.PanelSetOrderSurgical.ReportNo);
 			base.ReplaceText("specimen_diagnosis", comprehensiveColonCancerProfileResult.SurgicalSpecimen.Diagnosis);
 			base.ReplaceText("ajcc_stage", comprehensiveColonCancerProfileResult.PanelSetOrderSurgical.AJCCStage);
-			base.ReplaceText("mlh1_result", comprehensiveColonCancerProfileResult.IHCResult.MLH1Result.Description);
-			base.ReplaceText("msh2_result", comprehensiveColonCancerProfileResult.IHCResult.MSH2Result.Description);
-			base.ReplaceText("msh6_result", comprehensiveColonCancerProfileResult.IHCResult.MSH6Result.Description);
-			base.ReplaceText("pms2_result", comprehensiveColonCancerProfileResult.IHCResult.PMS2Result.Description);
-			base.ReplaceText("ihc_report_no", comprehensiveColonCancerProfileResult.PanelSetOrderLynchSyndromeIHC.ReportNo);
+            if (comprehensiveColonCancerProfileResult.IHCResult != null)
+            {
+                base.ReplaceText("mlh1_result", comprehensiveColonCancerProfileResult.IHCResult.MLH1Result.Description);
+                base.ReplaceText("msh2_result", comprehensiveColonCancerProfileResult.IHCResult.MSH2Result.Description);
+                base.ReplaceText("msh6_result", comprehensiveColonCancerProfileResult.IHCResult.MSH6Result.Description);
+                base.ReplaceText("pms2_result", comprehensiveColonCancerProfileResult.IHCResult.PMS2Result.Description);
+            }
+            else
+            {
+                base.ReplaceText("mlh1_result", "Not Included");
+                base.ReplaceText("msh2_result", "Not Included");
+                base.ReplaceText("msh6_result", "Not Included");
+                base.ReplaceText("pms2_result", "Not Included");
+            }
+            if (comprehensiveColonCancerProfileResult.PanelSetOrderLynchSyndromeIHC != null)
+            {
+                base.ReplaceText("ihc_report_no", comprehensiveColonCancerProfileResult.PanelSetOrderLynchSyndromeIHC.ReportNo);
+            }
+            else
+            {
+                base.ReplaceText("ihc_report_no", "Not Included");
+            }
 
 			if (comprehensiveColonCancerProfileResult.PanelSetOrderMLH1MethylationAnalysis != null)
 			{
@@ -68,9 +85,39 @@ namespace YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile
             else
             {
                 this.DeleteRow("braf_result");
-            }			
+            }
 
-			base.ReplaceText("pathologist_signature", comprehensiveColonCancerProfile.Signature);
+            if (comprehensiveColonCancerProfileResult.KRASExon23MutationIsOrdered == true)
+            {
+                base.ReplaceText("kras23_result", comprehensiveColonCancerProfileResult.KRASExon23MutationTestOrder.Result);
+                base.ReplaceText("kras23_report_no", comprehensiveColonCancerProfileResult.KRASExon23MutationTestOrder.ReportNo);
+            }
+            else
+            {
+                this.DeleteRow("kras23_result");
+            }
+
+            if (comprehensiveColonCancerProfileResult.KRASExon4MutationIsOrdered == true)
+            {
+                base.ReplaceText("kras4_result", comprehensiveColonCancerProfileResult.KRASExon4MutationTestOrder.Result);
+                base.ReplaceText("kras4_report_no", comprehensiveColonCancerProfileResult.KRASExon4MutationTestOrder.ReportNo);
+            }
+            else
+            {
+                this.DeleteRow("kras4_result");
+            }
+
+            if (comprehensiveColonCancerProfileResult.NRASMutationAnalysisIsOrdered == true)
+            {
+                base.ReplaceText("nras_result", comprehensiveColonCancerProfileResult.NRASMutationAnalysisTestOrder.Result);
+                base.ReplaceText("nras_report_no", comprehensiveColonCancerProfileResult.NRASMutationAnalysisTestOrder.ReportNo);
+            }
+            else
+            {
+                this.DeleteRow("nras_result");
+            }
+
+            base.ReplaceText("pathologist_signature", comprehensiveColonCancerProfile.Signature);
 
 			this.SaveReport();
 		}

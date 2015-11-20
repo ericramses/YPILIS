@@ -25,12 +25,16 @@ namespace YellowstonePathology.UI.Test
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		private YellowstonePathology.Business.Specimen.Model.SpecimenOrder m_SpecimenOrder;
 		private YellowstonePathology.Business.Test.Surgical.IntraoperativeConsultationResult m_IntraoperativeConsultation;
+        private YellowstonePathology.UI.TypingShortcutUserControl m_TypingShortcutUserControl;
 
-		public FrozenFinalDialog(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.Surgical.IntraoperativeConsultationResult intraoperativeConsultation)
+        public FrozenFinalDialog(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
+            YellowstonePathology.Business.Test.Surgical.IntraoperativeConsultationResult intraoperativeConsultation,
+            YellowstonePathology.UI.TypingShortcutUserControl typingShortcutUserControl)
 		{
 			this.m_PathologistUsers = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetUsersByRole(YellowstonePathology.Business.User.SystemUserRoleDescriptionEnum.Pathologist, true);
 			this.m_AccessionOrder = accessionOrder;
 			this.m_IntraoperativeConsultation = intraoperativeConsultation;
+            this.m_TypingShortcutUserControl = typingShortcutUserControl;
 
 			YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder panelSetOrderSurgical = (YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder)accessionOrder.PanelSetOrderCollection.GetSurgical();
 			YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen = (from ssr in panelSetOrderSurgical.SurgicalSpecimenCollection
@@ -149,5 +153,14 @@ namespace YellowstonePathology.UI.Test
 				this.m_IntraoperativeConsultation.FinaledBy = ((YellowstonePathology.Business.User.SystemUser)this.ComboBoxFinaledBy.SelectedItem).DisplayName;
 			}
 		}
-	}
+
+        private void TextBox_KeyUp(object sender, KeyEventArgs args)
+        {
+            if (args.Key == Key.Space)
+            {
+                TextBox textBox = (TextBox)args.Source;
+                this.m_TypingShortcutUserControl.SetShortcut(textBox);
+            }
+        }
+    }
 }

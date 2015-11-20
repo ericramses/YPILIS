@@ -22,6 +22,7 @@ namespace YellowstonePathology.UI
         public event PropertyChangedEventHandler PropertyChanged;
         private YellowstonePathology.Business.Test.PantherOrderList m_PantherHPVOrderList;
         private YellowstonePathology.Business.Test.PantherOrderList m_PantherNGCTOrderList;
+        private YellowstonePathology.Business.Test.PantherOrderList m_PantherHPV1618OrderList;
         private YellowstonePathology.Business.Test.PantherAliquotList m_PantherAliquotList;
         private YellowstonePathology.UI.Login.LoginPageWindow m_LoginPageWindow;
 
@@ -30,6 +31,7 @@ namespace YellowstonePathology.UI
             this.m_PantherAliquotList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPantherOrdersNotAliquoted();
             this.m_PantherHPVOrderList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPantherOrdersNotAcceptedHPV();
             this.m_PantherNGCTOrderList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPantherOrdersNotAcceptedNGCT();
+            this.m_PantherHPV1618OrderList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPantherOrdersNotAcceptedHPV1618();
 
             InitializeComponent();
             this.DataContext = this;            
@@ -43,6 +45,11 @@ namespace YellowstonePathology.UI
         public YellowstonePathology.Business.Test.PantherOrderList PantherNGCTOrderList
         {
             get { return this.m_PantherNGCTOrderList; }
+        }
+
+        public YellowstonePathology.Business.Test.PantherOrderList PantherHPV1618OrderList
+        {
+            get { return this.m_PantherHPV1618OrderList; }
         }
 
         public YellowstonePathology.Business.Test.PantherAliquotList PantherAliquotList
@@ -98,6 +105,11 @@ namespace YellowstonePathology.UI
             this.m_LoginPageWindow.Close();
         }
 
+        private void HPV1618ResultPath_Finish(object sender, EventArgs e)
+        {
+            this.m_LoginPageWindow.Close();
+        }
+
         private void ComboBoxListType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if(this.IsLoaded == true)
@@ -118,47 +130,59 @@ namespace YellowstonePathology.UI
             }
         }        
 
-        private void ButtonResendPantherOrder_Click(object sender, RoutedEventArgs e)
+        private void ResendPantherOrder(YellowstonePathology.Business.Test.PantherOrderListItem pantherOrderListItem, YellowstonePathology.Business.HL7View.Panther.PantherAssay pantherAssay)
+        {
+            YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(pantherOrderListItem.ReportNo);
+
+            if (accessionOrder.SpecimenOrderCollection.HasThinPrepFluidSpecimen() == true)
+            {
+                YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = accessionOrder.SpecimenOrderCollection.GetThinPrep();
+                if (specimenOrder.AliquotOrderCollection.HasPantherAliquot() == true)
+                {
+                    YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = specimenOrder.AliquotOrderCollection.GetPantherAliquot();
+                    YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(pantherOrderListItem.ReportNo);
+                    YellowstonePathology.Business.HL7View.Panther.PantherOrder pantherOrder = new Business.HL7View.Panther.PantherOrder(pantherAssay, specimenOrder, aliquotOrder, accessionOrder, panelSetOrder, YellowstonePathology.Business.HL7View.Panther.PantherActionCode.NewSample);
+                    pantherOrder.Send();
+                    MessageBox.Show("An order has been sent to the Panther.");
+                }
+                else
+                {
+                    MessageBox.Show("No Panther aliquot found.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("No Thin Prep Fluid Specimen Found.");
+            }
+        }
+
+        private void ButtonResendHPVPantherOrder_Click(object sender, RoutedEventArgs e)
         {
             if (this.ListViewPantherHPVOrders.SelectedItem != null)
             {
                 YellowstonePathology.Business.Test.PantherOrderListItem pantherOrderListItem = (YellowstonePathology.Business.Test.PantherOrderListItem)this.ListViewPantherHPVOrders.SelectedItem;
-                YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(pantherOrderListItem.ReportNo);
+                YellowstonePathology.Business.HL7View.Panther.PantherAssay pantherAssay = new Business.HL7View.Panther.PantherAssayHPV();
+                this.ResendPantherOrder(pantherOrderListItem, pantherAssay);
+            }
+        }
 
-                if (accessionOrder.SpecimenOrderCollection.HasThinPrepFluidSpecimen() == true)
-                {
-                    YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = accessionOrder.SpecimenOrderCollection.GetThinPrep();
-                    if (specimenOrder.AliquotOrderCollection.HasPantherAliquot() == true)
-                    {
-                        YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = specimenOrder.AliquotOrderCollection.GetPantherAliquot();
-                        YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(pantherOrderListItem.ReportNo);
-                        YellowstonePathology.Business.HL7View.Panther.PantherAssay pantherAssay = null;
+        private void ButtonResendNGCTPantherOrder_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.ListViewPantherNGCTOrders.SelectedItem != null)
+            {
+                YellowstonePathology.Business.Test.PantherOrderListItem pantherOrderListItem = (YellowstonePathology.Business.Test.PantherOrderListItem)this.ListViewPantherNGCTOrders.SelectedItem;
+                YellowstonePathology.Business.HL7View.Panther.PantherAssay pantherAssay = new Business.HL7View.Panther.PantherAssayNGCT();
+                this.ResendPantherOrder(pantherOrderListItem, pantherAssay);
+            }
+        }
 
-                        switch (panelSetOrder.PanelSetId)
-                        {
-                            case 14:
-                                pantherAssay = new Business.HL7View.Panther.PantherAssayHPV();
-                                break;
-                            case 3:
-                                pantherAssay = new Business.HL7View.Panther.PantherAssayNGCT();
-                                break;
-                            default:
-                                throw new Exception(panelSetOrder.PanelSetName + " is mot implemented yet.");
-                        }
-
-                        YellowstonePathology.Business.HL7View.Panther.PantherOrder pantherOrder = new Business.HL7View.Panther.PantherOrder(pantherAssay, specimenOrder, aliquotOrder, accessionOrder, panelSetOrder, YellowstonePathology.Business.HL7View.Panther.PantherActionCode.NewSample);
-                        pantherOrder.Send();
-                        MessageBox.Show("An order has been sent to the Panther.");
-                    }
-                    else
-                    {
-                        MessageBox.Show("No Panther aliquot found.");
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("No Thin Prep Fluid Specimen Found.");
-                }
+        private void ButtonResendHPV1618PantherOrder_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.ListViewPantherHPV1618Orders.SelectedItem != null)
+            {
+                YellowstonePathology.Business.Test.PantherOrderListItem pantherOrderListItem = (YellowstonePathology.Business.Test.PantherOrderListItem)this.ListViewPantherHPV1618Orders.SelectedItem;
+                YellowstonePathology.Business.HL7View.Panther.PantherAssay pantherAssay = new Business.HL7View.Panther.PantherAssayHPV1618();
+                this.ResendPantherOrder(pantherOrderListItem, pantherAssay);
             }
         }
 
@@ -219,6 +243,45 @@ namespace YellowstonePathology.UI
                         break;
                 }
                 this.NotifyPropertyChanged("PantherNGCTOrderList");
+            }
+        }
+
+        private void ComboBoxListTypeHPV1618_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (this.IsLoaded == true)
+            {
+                switch (this.ComboBoxListTypeHPV1618.SelectedIndex)
+                {
+                    case 0:
+                        this.m_PantherHPV1618OrderList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPantherOrdersNotAcceptedHPV1618();
+                        break;
+                    case 1:
+                        this.m_PantherHPV1618OrderList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPantherOrdersNotFinalHPV1618();
+                        break;
+                    case 2:
+                        this.m_PantherHPV1618OrderList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPantherOrdersFinalHPV1618();
+                        break;
+                }
+                this.NotifyPropertyChanged("PantherHPV1618OrderList");
+            }
+        }
+
+        private void ButtonShowHPV1618Result_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.ListViewPantherHPV1618Orders.SelectedItem != null)
+            {
+                YellowstonePathology.Business.Test.PantherOrderListItem pantherOrderListItem = (YellowstonePathology.Business.Test.PantherOrderListItem)this.ListViewPantherHPV1618Orders.SelectedItem;
+                YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(pantherOrderListItem.ReportNo);
+                YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new Business.Persistence.ObjectTracker();
+                objectTracker.RegisterObject(accessionOrder);
+
+                YellowstonePathology.Business.User.SystemIdentity systemIdentity = new Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
+                this.m_LoginPageWindow = new Login.LoginPageWindow(systemIdentity);
+                this.m_LoginPageWindow.Show();
+
+                YellowstonePathology.UI.Test.HPV1618ResultPath hpv1618ResultPath = new Test.HPV1618ResultPath(pantherOrderListItem.ReportNo, accessionOrder, objectTracker, this.m_LoginPageWindow.PageNavigator);
+                hpv1618ResultPath.Finish += HPV1618ResultPath_Finish;
+                hpv1618ResultPath.Start();
             }
         }
     }
