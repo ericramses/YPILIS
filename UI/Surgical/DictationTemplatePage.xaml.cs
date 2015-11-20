@@ -35,9 +35,18 @@ namespace YellowstonePathology.UI.Surgical
             this.m_DictationTemplateCollection = YellowstonePathology.UI.Gross.DictationTemplateCollection.GetAll();            
 
 			InitializeComponent();
+            this.Loaded += DictationTemplatePage_Loaded;
 
 			DataContext = this;
 		}
+
+        private void DictationTemplatePage_Loaded(object sender, RoutedEventArgs e)
+        {
+            if(this.m_AccessionOrder.SpecimenOrderCollection.Count != 0)
+            {
+                this.ListBoxSpecimenOrders.SelectedIndex = 0;
+            }
+        }
 
         public YellowstonePathology.Business.Test.AccessionOrder AccessionOrder
         {
@@ -72,61 +81,65 @@ namespace YellowstonePathology.UI.Surgical
                     this.m_DictationTemplate = this.m_DictationTemplateCollection.GetTemplate(specimenOrder.SpecimenId);
 
                     string grossX = "Specimen " + specimenOrder.SpecimenNumber + " ";
-                    if (specimenOrder.ClientFixation == YellowstonePathology.Business.Specimen.Model.FixationType.Formalin)
+                    if (specimenOrder.ClientFixation != YellowstonePathology.Business.Specimen.Model.FixationType.Fresh)
                     {
-                        grossX += "is received in formalin filled container labeled \"" + this.m_AccessionOrder.PatientDisplayName + " - " + specimenOrder.Description + "\"";
+                        grossX += "is received in formalin filled container labeled \"" + this.m_AccessionOrder.PatientDisplayName + " - [description]\"";
                     }
                     else if (specimenOrder.ClientFixation == YellowstonePathology.Business.Specimen.Model.FixationType.Fresh)
                     {
-                        grossX += " is received fresh in a container labeled \"" + this.m_AccessionOrder.PatientDisplayName + " - " + specimenOrder.Description + "\"";
+                        grossX += " is received fresh in a container labeled \"" + this.m_AccessionOrder.PatientDisplayName + " - [description]\"";
                     }
+
                     grossX += ". " + Environment.NewLine + Environment.NewLine;
                     grossX += this.m_DictationTemplate.Text;
+                    
+                    YellowstonePathology.Business.Common.PrintMateCarousel printMateCarousel = new Business.Common.PrintMateCarousel();
+                    YellowstonePathology.Business.Common.PrintMateColumn printMateColumn = printMateCarousel.GetColumn(this.m_AccessionOrder.PrintMateColumnNumber);
+                    string submitted = "[procedure] and " + specimenOrder.GetGrossSubmittedInString(printMateColumn.ColorCode);
+                    grossX = grossX.Replace("[submitted]", submitted);
+                    grossX = grossX.Replace("[cassettelabel]", "\"" + specimenOrder.SpecimenNumber.ToString() + "A\".");
 
-                    //YellowstonePathology.Business.Common.PrintMateCarousel printMateCarousel = new Business.Common.PrintMateCarousel();
-                    //YellowstonePathology.Business.Common.PrintMateColumn printMateColumn = printMateCarousel.GetColumn(this.m_AccessionOrder.PrintMateColumnNumber);
-                    //grossX += "It is bisected and " + this.m_SpecimenOrder.GetGrossSubmittedInString(printMateColumn.ColorCode);
                     this.m_GrossDescription = grossX;
                     this.NotifyPropertyChanged(string.Empty);
                     this.TextBoxGrossDescription.Focus();
-                    this.SelectNextInput();
+                    this.SelectNextInput(0);
                 }                
             }
         }   
         
-        private void SelectNextInput()
+        private bool SelectNextInput(int startingPosition)
         {
-            int startingPosition = 0;
-            if(string.IsNullOrEmpty(this.TextBoxGrossDescription.SelectedText) == false)
-            {
-                startingPosition = this.TextBoxGrossDescription.SelectionStart;
-            }
-
+            bool result = false;                  
             int positionOfNextLeftBracket = this.TextBoxGrossDescription.Text.IndexOf("[", startingPosition + 1);
             if (positionOfNextLeftBracket != -1)
             {
                 int positionOfNextRightBracket = this.TextBoxGrossDescription.Text.IndexOf("]", positionOfNextLeftBracket);
                 this.TextBoxGrossDescription.SelectionStart = positionOfNextLeftBracket;
                 this.TextBoxGrossDescription.SelectionLength = positionOfNextRightBracket - positionOfNextLeftBracket + 1;
-            }            
-        }
-
-        private void SelectPreviousInput()
+                result = true;
+            }
+            return result;
+        }    
+        
+        private void HandleTextBoxGrossDescriptionTab()
         {
             int startingPosition = 0;
             if (string.IsNullOrEmpty(this.TextBoxGrossDescription.SelectedText) == false)
             {
                 startingPosition = this.TextBoxGrossDescription.SelectionStart;
             }
-
-            int positionOfPreviousLeftBracket = this.TextBoxGrossDescription.Text.LastIndexOf("[", startingPosition - 1);
-            if (positionOfPreviousLeftBracket != -1)
+            if(startingPosition == 0)
             {
-                int positionOfPreviousRightBracket = this.TextBoxGrossDescription.Text.IndexOf("]", positionOfPreviousLeftBracket);
-                this.TextBoxGrossDescription.SelectionStart = positionOfPreviousLeftBracket;
-                this.TextBoxGrossDescription.SelectionLength = positionOfPreviousRightBracket - positionOfPreviousLeftBracket + 1;
+                SelectNextInput(startingPosition);
             }
-        }
+            else
+            {
+                if(SelectNextInput(startingPosition) == false)
+                {
+                    SelectNextInput(0);
+                }
+            }
+        }    
 
         private void HyperLinkAddDicationToGross_Click(object sender, RoutedEventArgs e)
         {
@@ -137,20 +150,33 @@ namespace YellowstonePathology.UI.Surgical
             }
             else
             {
-                this.m_SurgicalTestOrder.GrossX = this.m_SurgicalTestOrder.GrossX + Environment.NewLine + this.m_GrossDescription;
-            }            
+                this.m_SurgicalTestOrder.GrossX = this.m_SurgicalTestOrder.GrossX + Environment.NewLine + Environment.NewLine + this.m_GrossDescription;
+            }
+
+            this.m_GrossDescription = null;
+            this.NotifyPropertyChanged("GrossDescription");
+
+            if(this.ListBoxSpecimenOrders.SelectedIndex != this.ListBoxSpecimenOrders.Items.Count - 1)
+            {
+                this.ListBoxSpecimenOrders.SelectedIndex = this.ListBoxSpecimenOrders.SelectedIndex + 1;
+            }
+        }
+
+        private void TextBoxGrossDescription_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            TextBox tbx = sender as TextBox;
+            if (e.Key == Key.Tab)
+            {
+                e.Handled = true;
+            }
         }
 
         private void TextBoxGrossDescription_KeyUp(object sender, KeyEventArgs e)
         {
-            if(e.Key == Key.F1)
+            if(e.Key == Key.Tab)
             {
-                this.SelectNextInput();
-            }
-            else if(e.Key == Key.F2)
-            {
-                this.SelectPreviousInput();
-            }
+                this.HandleTextBoxGrossDescriptionTab();
+            }            
         }
 
         public void NotifyPropertyChanged(String info)
