@@ -9,7 +9,7 @@ namespace YellowstonePathology.Business.Facility.Model
     {
         public ButtePathology()
         {
-            this.m_FacilityId = "STJMSHC";
+            this.m_FacilityId = "BTTPTHLGY";
             this.m_FacilityName = "Butte Pathology, LLC";
             this.m_Address1 = "400 S. Clark";
             this.m_City = "Butte";

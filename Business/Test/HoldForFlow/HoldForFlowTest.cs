@@ -5,7 +5,7 @@ using System.Text;
 
 namespace YellowstonePathology.Business.Test.HoldForFLow
 {
-	public class HoldForFlowTest : YellowstonePathology.Business.PanelSet.Model.PanelSetMolecularTest
+	public class HoldForFlowTest : YellowstonePathology.Business.PanelSet.Model.PanelSet
 	{
 		public HoldForFlowTest()
 		{
@@ -18,19 +18,12 @@ namespace YellowstonePathology.Business.Test.HoldForFLow
 			this.m_ResultDocumentSource = YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.None;
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterT();
             this.m_Active = true;
+            this.m_NeverDistribute = true;
             this.m_ExpectedDuration = new TimeSpan(2, 0, 0, 0);
             this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.PanelSetOrder).AssemblyQualifiedName;
             this.m_RequiresPathologistSignature = false;
             this.m_AcceptOnFinal = false;
-			this.m_AllowMultiplePerAccession = true;
-            
-            this.m_TechnicalComponentFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings();
-            this.m_ProfessionalComponentFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologistBillings();
-
-            this.m_TechnicalComponentBillingFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings();
-            this.m_ProfessionalComponentBillingFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings();
-
-            this.m_HasSplitCPTCode = false;                                                
+			this.m_AllowMultiplePerAccession = false;                                   
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceMiscellaneous());            
 		}
 	}

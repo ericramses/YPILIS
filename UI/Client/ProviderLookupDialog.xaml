@@ -29,10 +29,10 @@
 							 ItemsSource="{Binding Path=ProviderCollection}">
 						<ListView.View>
 							<GridView>								
-								<GridViewColumn Header="Name" Width="200" DisplayMemberBinding="{Binding Path=DisplayName}" />																                                
-								<GridViewColumn Header="Credentials" Width="100" DisplayMemberBinding="{Binding Path=Credentials}" />
-                                <GridViewColumn Header="NPI" Width="100" DisplayMemberBinding="{Binding Path=Npi}" />
-							</GridView>
+								<GridViewColumn Header="Name" Width="350" DisplayMemberBinding="{Binding Path=Physician.DisplayName}" />                                
+                                <GridViewColumn Header="Phone" Width="130" DisplayMemberBinding="{Binding Path=Client.FormattedTelephone}" />
+                                <GridViewColumn Header="Fax" Width="130" DisplayMemberBinding="{Binding Path=Client.FormattedFax}" />
+                            </GridView>
 						</ListView.View>
 					</ListView>
 
@@ -63,7 +63,8 @@
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Client Name" Width="300" DisplayMemberBinding="{Binding Path=ClientName}" />
-                                <GridViewColumn Header="City" Width="280" DisplayMemberBinding="{Binding Path=City}" />
+                                <GridViewColumn Header="Phone" Width="200" DisplayMemberBinding="{Binding Path=FormattedTelephone}" />
+                                <GridViewColumn Header="Fax" Width="200" DisplayMemberBinding="{Binding Path=FormattedFax}" />
                             </GridView>
                         </ListView.View>
                     </ListView>

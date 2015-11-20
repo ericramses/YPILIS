@@ -34,14 +34,10 @@ namespace YellowstonePathology.Business.Panel.Model
             PanelCollection result = new PanelCollection();
 
             result.Add(new Business.Test.HPVTWI.HPVTWIPanel());
-            result.Add(new Business.Test.HPV1618.HPV1618Panel());
             result.Add(new YellowstonePathology.Business.Test.CysticFibrosis.CysticFibrosisPanel());
             result.Add(new Business.Test.LynchSyndrome.LynchSyndromeIHCPanel());
             result.Add(new YellowstonePathology.Business.Test.ErPrSemiQuantitative.ERPRSemiQuantitativePanel());
             result.Add(new YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHPanel());
-
-            result.Add(new YellowstonePathology.Business.Test.NGCT.NGCTPanel());
-            result.Add(new YellowstonePathology.Business.Test.NGCT.NGCTConfirmatoryPanel());
 
             result.Add(new YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapAcidWashPanel());
             result.Add(new YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapDotReviewPanel());

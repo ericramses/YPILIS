@@ -44,12 +44,7 @@ namespace YellowstonePathology.Business.Specimen.Model
         public static SpecimenCollection GetAll()
         {
             SpecimenCollection result = new SpecimenCollection();
-            result.Add(new SpecimenDefinition.NullSpecimen());
-            result.Add(new SpecimenDefinition.ThinPrepFluid());
-            result.Add(new SpecimenDefinition.ProstateExceptRadicalResection());
-            result.Add(new SpecimenDefinition.ProstateNeedleBiopsy());
-            result.Add(new SpecimenDefinition.ProstateRadicalResection());
-            result.Add(new SpecimenDefinition.ProstateTUR());
+            result.Add(new SpecimenDefinition.NullSpecimen());            
             result.Add(new SpecimenDefinition.AorticValve());
             result.Add(new SpecimenDefinition.AppendixExcision());
             result.Add(new SpecimenDefinition.BreastReduction());
@@ -66,10 +61,18 @@ namespace YellowstonePathology.Business.Specimen.Model
             result.Add(new SpecimenDefinition.MitralValve());
             result.Add(new SpecimenDefinition.NeedleCoreBiopsy());
             result.Add(new SpecimenDefinition.POC());
+<<<<<<< HEAD
             result.Add(new SpecimenDefinition.SinusContent());
+=======
+            result.Add(new SpecimenDefinition.ProstateExceptRadicalResection());
+            result.Add(new SpecimenDefinition.ProstateNeedleBiopsy());
+            result.Add(new SpecimenDefinition.ProstateRadicalResection());
+            result.Add(new SpecimenDefinition.ProstateTUR());
+>>>>>>> fabacf2ba7cab1858d04fcd76a7300e3b4494045
             result.Add(new SpecimenDefinition.SinglePlacenta());
             result.Add(new SpecimenDefinition.SkinExcisionBiopsy());
             result.Add(new SpecimenDefinition.SkinShavePunchMiscBiopsy());
+            result.Add(new SpecimenDefinition.ThinPrepFluid());
             result.Add(new SpecimenDefinition.TonsilExcision());                                                           
             result.Add(new SpecimenDefinition.Uterus());            
             result.Add(new SpecimenDefinition.UterusAdnexa());

@@ -15,55 +15,73 @@ namespace YellowstonePathology.Business.View
             
 		}
 
-        public void AddFavorites()
+        public static ClientLocationViewCollection GetFavorites()
         {
+            ClientLocationViewCollection result = new ClientLocationViewCollection();
+
             YellowstonePathology.Business.View.ClientLocationView svhSurgery = new Business.View.ClientLocationView(558, 694, "St. Vincent Healthcare", "Surgery");
-            this.Add(svhSurgery);
+            result.Add(svhSurgery);
 
             YellowstonePathology.Business.View.ClientLocationView svhGICenter = new Business.View.ClientLocationView(558, 695, "St. Vincent Healthcare", "GI Center");
-            this.Add(svhGICenter);
+            result.Add(svhGICenter);
 
             YellowstonePathology.Business.View.ClientLocationView bigSkyDerm = new Business.View.ClientLocationView(1203, 580, "Big Sky Dermatology", "Medical Records");
-            this.Add(bigSkyDerm);
+            result.Add(bigSkyDerm);
 
             YellowstonePathology.Business.View.ClientLocationView cmmc = new Business.View.ClientLocationView(219, 84, "CMMC - Laboratory", "Medical Records");
-            this.Add(cmmc);
+            result.Add(cmmc);
 
             YellowstonePathology.Business.View.ClientLocationView ysc = new Business.View.ClientLocationView(660, 276, "Yellowstone Surgery Center", "Medical Records");
-            this.Add(ysc);
+            result.Add(ysc);
 
             YellowstonePathology.Business.View.ClientLocationView hrh = new Business.View.ClientLocationView(723, 281, "Holy Rosary Healthcare Lab", "Medical Records");
-            this.Add(hrh);
+            result.Add(hrh);
 
             YellowstonePathology.Business.View.ClientLocationView yd = new Business.View.ClientLocationView(14, 2, "Yellowstone Dermatology", "Medical Records");
-            this.Add(yd);
+            result.Add(yd);
 
             YellowstonePathology.Business.View.ClientLocationView yellowstoneUrology = new Business.View.ClientLocationView(184, 54, "St. Vincent Healthcare Urology", "Medical Records");
-            this.Add(yellowstoneUrology);
+            result.Add(yellowstoneUrology);
 
             YellowstonePathology.Business.View.ClientLocationView westParkHospital = new Business.View.ClientLocationView(553, 205, "West Park Hospital", "Medical Records");
-            this.Add(westParkHospital);
+            result.Add(westParkHospital);
 
             YellowstonePathology.Business.View.ClientLocationView billingsObgyn = new Business.View.ClientLocationView(54, 8, "Billings OB/GYN Associates", "Medical Records");
-            this.Add(billingsObgyn);
-
-            YellowstonePathology.Business.View.ClientLocationView svhRadiology = new Business.View.ClientLocationView(558, 699, "St. Vincent Radiology", "Radiology");
-            this.Add(svhRadiology);
+            result.Add(billingsObgyn);            
 
             YellowstonePathology.Business.View.ClientLocationView yellowstoneBreastCenter = new Business.View.ClientLocationView(126, 20, "Yellowstone Breast Center", "Medical Records");
-            this.Add(yellowstoneBreastCenter);
+            result.Add(yellowstoneBreastCenter);
 
             YellowstonePathology.Business.View.ClientLocationView svhDermatology = new Business.View.ClientLocationView(1321, 686, "Montana Dermatology", "Medical Records");
-            this.Add(svhDermatology);
+            result.Add(svhDermatology);
 
-            YellowstonePathology.Business.View.ClientLocationView buttePathology = new Business.View.ClientLocationView(278, 136, "Butte Pathology, LLC ", "Medical Records");
-            this.Add(buttePathology);
+            YellowstonePathology.Business.View.ClientLocationView buttePathology = new Business.View.ClientLocationView(1446, 136, "St. James Healthcare -- Lab", "Medical Records");
+            result.Add(buttePathology);
 
             YellowstonePathology.Business.View.ClientLocationView tallman = new Business.View.ClientLocationView(579, 223, "Tallman Dermatology", "Medical Records");
-            this.Add(tallman);
+            result.Add(tallman);
+
+            YellowstonePathology.Business.View.ClientLocationView advancedDerm = new Business.View.ClientLocationView(1260, 633, "Advanced Dermatology", "Medical Records");
+            result.Add(advancedDerm);
+
+            YellowstonePathology.Business.View.ClientLocationView bigskyOBGYN = new Business.View.ClientLocationView(25, 4, "Big Sky OB/GYN - SVPN", "Medical Records");
+            result.Add(bigskyOBGYN);
+
+            return Sort(result);
         }
 
-		public void AddRecent(YellowstonePathology.Business.Client.Model.Client client)
+        private static ClientLocationViewCollection Sort(ClientLocationViewCollection clientLocationViewCollection)
+        {
+            ClientLocationViewCollection result = new ClientLocationViewCollection();
+            IOrderedEnumerable<ClientLocationView> orderedResult = clientLocationViewCollection.OrderBy(i => i.ClientName);
+            foreach (ClientLocationView clientLocationView in orderedResult)
+            {
+                result.Add(clientLocationView);
+            }
+            return result;
+        }
+
+        public void AddRecent(YellowstonePathology.Business.Client.Model.Client client)
         {
             if (this.Count <= 20) // Limit list to 20
             {

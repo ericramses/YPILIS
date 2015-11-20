@@ -54,7 +54,7 @@ namespace YellowstonePathology.Business.HL7View.CDC
 
 			observationSubId += 1;
 			XElement clinicalInfoObx03Element = this.CreateObx3Segement("22636-5", "Clinical History", "LN");
-			string clinicalInfo = this.StripWhiteSpace(panelSetOrderSurgical.ClinicalInfo);
+			string clinicalInfo = this.StripWhiteSpace(this.m_AccessionOrder.ClinicalHistory);
 			this.AddNextObxElement(document, clinicalInfoObx03Element, observationSubId, clinicalInfo, "F");
 
 			observationSubId += 1;

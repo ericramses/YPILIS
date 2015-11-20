@@ -13,9 +13,10 @@ namespace YellowstonePathology.Business.Surgical
 			this.m_PQRIKeyWordCollection.Add("Colon");
             this.m_PQRIKeyWordCollection.Add("Sigmoid");
             this.m_PQRIKeyWordCollection.Add("Rectum");
-            this.m_PQRIKeyWordCollection.Add("Apendix");            
+            this.m_PQRIKeyWordCollection.Add("Apendix");
+            this.m_PQRIKeyWordCollection.Add("Appendix");
 
-			this.m_Header = "Colorectal Cancer Pathology Reporting";
+            this.m_Header = "Colorectal Cancer Pathology Reporting";
             this.m_CptCodeCollection.Add(new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88309());
 
 			this.m_PQRSCodeCollection.Add(new YellowstonePathology.Business.Billing.Model.PQRSCodeDefinitions.PQRSG8721());

@@ -15,12 +15,12 @@ namespace YellowstonePathology.UI.Test
 
         public FNAResultPath(string reportNo, YellowstonePathology.Business.Test.AccessionOrder accessionOrder,            
             YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
-            YellowstonePathology.UI.Navigation.PageNavigator pageNavigator)
-            : base(pageNavigator)
+            YellowstonePathology.UI.Navigation.PageNavigator pageNavigator,
+            YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+            : base(pageNavigator, systemIdentity)
         {
             this.m_AccessionOrder = accessionOrder;
-            this.m_ObjectTracker = objectTracker;
-            this.m_SystemIdentity = new YellowstonePathology.Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
+            this.m_ObjectTracker = objectTracker;            
 			this.m_FNAAdequacyAssessmentResult = (YellowstonePathology.Business.Test.FNAAdequacyAssessment.FNAAdequacyAssessmentTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 		}
 

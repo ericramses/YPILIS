@@ -9,7 +9,8 @@ namespace YellowstonePathology.Business.Test.HPVTWI
 	{
         public static string OveralResultCodePositive = "HPVTWPSTV";
 
-		public static string PositiveResult = "Positive";
+        public static string InvalidResult = "Invalid";
+        public static string PositiveResult = "Positive";
 		public static string NegativeResult = "Negative";
 		public static string IndeterminateResult = "Indeterminate";
 		public static string QnsResult = "QNS";

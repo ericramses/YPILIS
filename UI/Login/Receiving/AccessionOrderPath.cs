@@ -115,7 +115,26 @@ namespace YellowstonePathology.UI.Login.Receiving
 			accessionOrderPage.ShowSurgicalGrossDescription += new AccessionOrderPage.ShowSurgicalGrossDescriptionEventHandler(AccessionOrderPage_ShowSurgicalGrossDescription);
 			accessionOrderPage.StartAccessionedSpecimenPath += new AccessionOrderPage.StartAccessionedSpecimenPathHandler(AccessionOrderPage_StartSpecimenOrderDetailsPath);
             accessionOrderPage.ShowResultPage += new AccessionOrderPage.ShowResultPageEventHandler(AccessionOrderPage_ShowResultPage);
+            accessionOrderPage.ShowMissingInformationPage += AccessionOrderPage_ShowMissingInformationPage;
 			this.m_PageNavigator.Navigate(accessionOrderPage);                
+        }
+
+        private void AccessionOrderPage_ShowMissingInformationPage(object sender, EventArgs e)
+        {
+            YellowstonePathology.UI.Login.MissingInformationPage missingInformationPage = new MissingInformationPage(this.m_AccessionOrder, this.m_ObjectTracker, this.m_SystemIdentity);
+            missingInformationPage.Next += MissingInformationPage_Next;
+            missingInformationPage.Back += MissingInformationPage_Back;
+            this.m_PageNavigator.Navigate(missingInformationPage);
+        }
+
+        private void MissingInformationPage_Back(object sender, EventArgs e)
+        {
+            this.ShowAccessionOrderPage();
+        }
+
+        private void MissingInformationPage_Next(object sender, EventArgs e)
+        {
+            this.ShowAccessionOrderPage();
         }
 
         private void AccessionOrderPage_ShowResultPage(object sender, CustomEventArgs.PanelSetOrderReturnEventArgs e)

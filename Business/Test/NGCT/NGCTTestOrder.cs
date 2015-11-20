@@ -31,8 +31,11 @@ namespace YellowstonePathology.Business.Test.NGCT
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 			: base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute, systemIdentity)
 		{
-			
-		}		
+            this.m_Method = NGCTResult.Method;
+            this.m_References = NGCTResult.References;
+            this.m_TestDevelopment = NGCTResult.TestDevelopment;
+            this.m_TechnicalComponentInstrumentId = Instrument.HOLOGICPANTHERID;
+        }		
 
 		public override YellowstonePathology.Business.Rules.MethodResult IsOkToAccept()
 		{
@@ -53,21 +56,6 @@ namespace YellowstonePathology.Business.Test.NGCT
 			return result;
 		}
 
-		public void OrderRetest(Business.User.SystemUser systemUser)
-		{			
-            string panelOrderId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-            NGCTConfirmatoryPanel ngctConfirmatoryPanel = new NGCTConfirmatoryPanel();
-            YellowstonePathology.Business.Test.PanelOrder panelOrder = new Business.Test.PanelOrder(this.m_ReportNo, panelOrderId, panelOrderId, ngctConfirmatoryPanel, systemUser.UserId);
-
-            this.m_PanelOrderCollection.Add(panelOrder);
-
-			TimeSpan timeSpanDelay = new TimeSpan(5, 0, 0, 0);
-			this.Delayed = true;
-            this.DelayedBy = systemUser.DisplayName;
-			this.DelayedDate = DateTime.Now;
-			this.ExpectedFinalTime = YellowstonePathology.Business.Helper.DateTimeExtensions.GetEndDateConsideringWeekends(this.m_ExpectedFinalTime.Value, timeSpanDelay);
-		}
-
 		public override string GetResultWithTestName()
 		{
 			StringBuilder result = new StringBuilder();
@@ -86,28 +74,6 @@ namespace YellowstonePathology.Business.Test.NGCT
 			result.Append("Neisseria gonorrhoeae Result: ");
 			result.AppendLine(this.m_NeisseriaGonorrhoeaeResult);
 			return result.ToString();
-		}
-
-
-		public YellowstonePathology.Business.Rules.MethodResult IsOkToSetResults()
-		{
-			YellowstonePathology.Business.Rules.MethodResult result = new YellowstonePathology.Business.Rules.MethodResult();
-			if (this.m_Accepted == true)
-			{
-				result.Success = false;
-				result.Message = "Results may not be set because the results already have been accepted.";
-			}
-			else if (string.IsNullOrEmpty(this.m_NGResultCode) == true)
-			{
-				result.Success = false;
-				result.Message = "The NG Result must be selected before the results can be set.";
-			}
-			else if (string.IsNullOrEmpty(this.m_CTResultCode) == true)
-			{
-				result.Success = false;
-				result.Message = "The CT Result must be selected before the results can be set.";
-			}
-			return result;
 		}
 
 		[PersistentProperty()]

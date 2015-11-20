@@ -34,7 +34,10 @@ namespace YellowstonePathology.UI.Gross
         public delegate void SignOutEventHandler(object sender, EventArgs e);
         public event SignOutEventHandler SignOut;
 
-		private YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort m_BarcodeScanPort;
+        public delegate void ScanAliquotEventHandler(object sender, EventArgs e);
+        public event ScanAliquotEventHandler ScanAliquot;
+
+        private YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort m_BarcodeScanPort;
 		private System.Windows.Threading.DispatcherTimer m_PageTimeOutTimer;
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
         private string m_Message;
@@ -151,5 +154,10 @@ namespace YellowstonePathology.UI.Gross
         {
             this.SignOut(this, new EventArgs());
         }
-	}
+
+        private void ButtonScanAliquot_Click(object sender, RoutedEventArgs e)
+        {
+            this.ScanAliquot(this, new EventArgs());
+        }
+    }
 }

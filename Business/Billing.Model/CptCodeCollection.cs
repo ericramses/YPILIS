@@ -180,7 +180,8 @@ namespace YellowstonePathology.Business.Billing.Model
             result.Add(new CptCodeDefinition.CPT81263());
             result.Add(new CptCodeDefinition.CPT81445());
             result.Add(new CptCodeDefinition.CPT88233());
-            result.Add(new CptCodeDefinition.CPT81450());            
+            result.Add(new CptCodeDefinition.CPT81450());
+            result.Add(new CptCodeDefinition.CPT88239());
 
             result.Add(new GCodeDefinitions.CPTG0123());
             result.Add(new GCodeDefinitions.CPTG0124());
@@ -217,6 +218,17 @@ namespace YellowstonePathology.Business.Billing.Model
             result.Add(new PQRSCodeDefinitions.PQRSG9428());
             result.Add(new PQRSCodeDefinitions.PQRSG9429());
 
+            return GetSorted(result);
+        }
+
+        public static CptCodeCollection GetSorted(CptCodeCollection cptCodeCollection)
+        {
+            CptCodeCollection result = new CptCodeCollection();
+            IOrderedEnumerable<CptCode> orderedResult = cptCodeCollection.OrderBy(i => i.Code);
+            foreach (CptCode cptCode in orderedResult)
+            {
+                result.Add(cptCode);
+            }
             return result;
         }
     }

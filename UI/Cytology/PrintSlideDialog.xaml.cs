@@ -30,5 +30,11 @@ namespace YellowstonePathology.UI.Cytology
 		{
 			get { return this.m_PageNavigator; }
 		}
-	}
+
+        private void MenuItemPreferences_Click(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.UI.Common.UserPreferences dlg = new YellowstonePathology.UI.Common.UserPreferences();
+            dlg.ShowDialog();
+        }
+    }
 }

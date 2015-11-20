@@ -50,8 +50,35 @@ namespace YellowstonePathology.UI.Cytology
             scanContainerPage.PageTimedOut += new YellowstonePathology.UI.Gross.ScanContainerPage.PageTimedOutEventHandler(ScanContainerPage_PageTimedOut);
             scanContainerPage.BarcodeWontScan += new YellowstonePathology.UI.Gross.ScanContainerPage.BarcodeWontScanEventHandler(ScanContainerPage_BarcodeWontScan);
             scanContainerPage.SignOut += new YellowstonePathology.UI.Gross.ScanContainerPage.SignOutEventHandler(ScanContainerPage_SignOut);
+            scanContainerPage.ScanAliquot += ScanContainerPage_ScanAliquot;
 
             this.m_PrintSlideDialog.PageNavigator.Navigate(scanContainerPage);
+        }
+
+        private void ScanContainerPage_ScanAliquot(object sender, EventArgs e)
+        {
+            YellowstonePathology.UI.Cytology.ScanAliquotPage scanAliquotPage = new ScanAliquotPage(this.m_SystemIdentity, "Scan Aliquot");
+            this.m_PrintSlideDialog.PageNavigator.Navigate(scanAliquotPage);
+            scanAliquotPage.UseThisAliquotOrderId += ScanAliquotPage_UseThisAliquotOrderId;
+        }
+
+        private void ScanAliquotPage_UseThisAliquotOrderId(object sender, string aliquotOrderId)
+        {
+            this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByAliquotOrderId(aliquotOrderId);
+            this.m_ObjectTracker = new Business.Persistence.ObjectTracker();
+
+            if (this.m_AccessionOrder == null)
+            {
+                System.Windows.MessageBox.Show("The scanned aliquot was not found.");
+                this.ShowScanContainerPage();
+            }
+            else
+            {
+                this.m_ObjectTracker.RegisterObject(this.m_AccessionOrder);
+                YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByAliquotOrderId(aliquotOrderId);
+                this.AddMaterialTrackingLog(specimenOrder);
+                this.ShowThinPrepPapSlidePrintingPage(specimenOrder);
+            }
         }
 
         private void ScanContainerPage_SignOut(object sender, EventArgs e)
@@ -116,6 +143,7 @@ namespace YellowstonePathology.UI.Cytology
 		{
 			ThinPrepPapSlidePrintingPage thinPrepPapSlidePrintingPage = new ThinPrepPapSlidePrintingPage(specimenOrder, this.m_AccessionOrder, this.m_ObjectTracker, this.m_SystemIdentity);
 			thinPrepPapSlidePrintingPage.Finished += new ThinPrepPapSlidePrintingPage.FinishedEventHandler(ThinPrepPapSlidePrintingPage_Finished);
+            thinPrepPapSlidePrintingPage.PageTimedOut += PageTimedOut;
 			this.m_PrintSlideDialog.PageNavigator.Navigate(thinPrepPapSlidePrintingPage);
 		}
 

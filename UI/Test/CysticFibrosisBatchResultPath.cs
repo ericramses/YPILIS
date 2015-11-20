@@ -10,8 +10,10 @@ namespace YellowstonePathology.UI.Test
 		private YellowstonePathology.Business.Search.ReportSearchList m_ReportSearchList;
         private int m_CurrentIndex;
 
-		public CysticFibrosisBatchResultPath(YellowstonePathology.Business.Search.ReportSearchList reportSearchList, YellowstonePathology.UI.Navigation.PageNavigator pageNavigator) 
-            : base(pageNavigator)
+		public CysticFibrosisBatchResultPath(YellowstonePathology.Business.Search.ReportSearchList reportSearchList, 
+            YellowstonePathology.UI.Navigation.PageNavigator pageNavigator,
+            YellowstonePathology.Business.User.SystemIdentity systemIdentity) 
+            : base(pageNavigator, systemIdentity)
 		{
             this.m_CurrentIndex = 0;
             this.m_ReportSearchList = reportSearchList;
@@ -32,7 +34,7 @@ namespace YellowstonePathology.UI.Test
 			objectTracker.RegisterObject(accessionOrder);
 
 			YellowstonePathology.Business.Test.CysticFibrosis.CysticFibrosisTestOrder panelSetOrder = (YellowstonePathology.Business.Test.CysticFibrosis.CysticFibrosisTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportSearchItem.ReportNo);
-			YellowstonePathology.UI.Test.CysticFibrosisResultPath resultPath = new CysticFibrosisResultPath(panelSetOrder.ReportNo, accessionOrder, objectTracker, this.m_PageNavigator);
+			YellowstonePathology.UI.Test.CysticFibrosisResultPath resultPath = new CysticFibrosisResultPath(panelSetOrder.ReportNo, accessionOrder, objectTracker, this.m_PageNavigator, this.m_SystemIdentity);
             resultPath.Finish += new FinishEventHandler(ResultPath_Finish);
             resultPath.Start();
 		}

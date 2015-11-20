@@ -359,7 +359,13 @@
 					<RowDefinition></RowDefinition>
 				</Grid.RowDefinitions>
 
-				<TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Path=SurgicalSpecimen.DiagnosisIdFormatted}" Margin="5"></TextBlock>
+				<TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Path=SurgicalSpecimen.DiagnosisIdFormatted}" Margin="5">
+                    <TextBlock.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Add Interoperative Consultation" Click="ContextMenuAddInteropativeConsultation_Click" Tag="{Binding Path=SurgicalSpecimen}"></MenuItem>
+                        </ContextMenu>
+                    </TextBlock.ContextMenu>
+                </TextBlock>
 
 				<TextBox Name="TextBoxSpecimenType" Grid.Row="0" Grid.Column="1" Margin="2" TextWrapping="Wrap" AcceptsReturn="True"
 						 FontSize="12" FontWeight="Bold" MinWidth="300"  RequestBringIntoView="Any_RequestBringIntoView"
@@ -647,7 +653,7 @@
 
 					<TextBlock Margin="2,2,2,2" FontWeight="Bold">Clinical Information:</TextBlock>
                     <TextBox Name="TextBoxClinical" TextWrapping="Wrap" AcceptsReturn="True" FontSize="12" RequestBringIntoView="Any_RequestBringIntoView" KeyUp="TextBox_KeyUp"
-						Text="{Binding Path=PanelSetOrderSurgical.ClinicalInfo}" 
+						Text="{Binding Path=AccessionOrder.ClinicalHistory}" 
 						IsEnabled="{Binding Path=FieldEnabler.IsProtectedEnabled}">
 					</TextBox>
 

@@ -163,30 +163,18 @@ namespace YellowstonePathology.UI.Test
                     YellowstonePathology.Business.Test.PanelSetOrder surgicalPanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetSurgical.PanelSetId);
                     if (surgicalPanelSetOrder.AmendmentCollection.HasAmendmentForReport(this.m_PanelSetOrder.ReportNo) == false)
                     {
-                        string amendmentText = string.Empty;
-                        if (this.m_PanelSetOrder.Her2byIHCOrder == 1)
-                        {
-                            amendmentText = "HER2 Amplification and immunohistochemistry were performed(see YPI report #" + this.m_PanelSetOrder.ReportNo + "), with the following results: \n\n" +
-                                "HER2 Amplification: " + this.m_PanelSetOrder.Result + "\n " +
-                                this.m_PanelSetOrder.ResultDescription + "\n " +
-                                "Average HER2 Copy Number = " + this.m_PanelSetOrder.AverageHer2NeuSignal.Value.ToString() + "\n" +
-                                "HER2 Amplification: ???";
-                        }
-                        else
-                        {
-                            amendmentText = "HER2 Amplification was performed (see YPI report #" + this.m_PanelSetOrder.ReportNo + "), with the following results: \n\n" +
-                                "HER2 Amplification: " + this.m_PanelSetOrder.Result + "\n " +
-                                this.m_PanelSetOrder.ResultDescription + "\n" +
-                                "Average HER2 Copy Number = " + this.m_PanelSetOrder.AverageHer2NeuSignal.Value.ToString();
-                        }
-
+                        string amendmentText = YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHSystemGeneratedAmendmentText.AmendmentText(this.m_PanelSetOrder);
                         YellowstonePathology.Business.Amendment.Model.Amendment amendment = surgicalPanelSetOrder.AddAmendment();
                         amendment.TestResultAmendmentFill(surgicalPanelSetOrder.ReportNo, surgicalPanelSetOrder.AssignedToId, amendmentText);
-                        amendment.UserId = surgicalPanelSetOrder.AssignedToId;
-                        amendment.PathologistSignature = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetSystemUserById(surgicalPanelSetOrder.AssignedToId).Signature;
+                        amendment.ReferenceReportNo = this.m_PanelSetOrder.ReportNo;
+                        amendment.SystemGenerated = true;
                     }
                 }
-            }                
+            }
+            else
+            {
+                MessageBox.Show(methodResult.Message);
+            }
         }
 
         private void HyperLinkUnfinalResults_Click(object sender, RoutedEventArgs e)

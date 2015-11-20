@@ -93,7 +93,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
     public class ProstateRadicalResection : Specimen
     {
         public ProstateRadicalResection()
-        {
+        {            
             this.m_SpecimenId = "SPCMNPRSTTRDCLRSCTN";
             this.m_SpecimenName = "Prostate Radical Resection";
             this.m_Description = "Prostate, radical resection";
@@ -105,7 +105,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
     {
         public ProstateExceptRadicalResection()
         {
-            this.m_SpecimenId = "SPCMNPRSTTRDCLRSCTN";
+            this.m_SpecimenId = "SPCMNPRSTTXRDCLRSCTN";
             this.m_SpecimenName = "Prostate Except Radical Resection";
             this.m_Description = "Prostate, except radical resection";
             this.m_CPTCode = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88307();

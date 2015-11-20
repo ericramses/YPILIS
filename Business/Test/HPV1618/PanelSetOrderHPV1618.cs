@@ -11,7 +11,9 @@ namespace YellowstonePathology.Business.Test.HPV1618
 	{
         private string m_Indication;
 		private string m_HPV16Result;
-		private string m_HPV18Result;
+		private string m_HPV16ResultCode;
+        private string m_HPV18Result;
+        private string m_HPV18ResultCode;
         private string m_References;
 		private string m_Method;		
         private string m_Interpretation;
@@ -29,8 +31,10 @@ namespace YellowstonePathology.Business.Test.HPV1618
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 			: base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute, systemIdentity)
 		{
-			
-		}
+            this.m_TechnicalComponentInstrumentId = Instrument.HOLOGICPANTHERID;
+            this.m_Method = HPV1618Result.Method;
+            this.m_References = HPV1618Result.References;
+        }
         
         [PersistentProperty()]
         public string Indication
@@ -60,7 +64,21 @@ namespace YellowstonePathology.Business.Test.HPV1618
 			}
 		}
 
-		[PersistentProperty()]
+        [PersistentProperty()]
+        public string HPV16ResultCode
+        {
+            get { return this.m_HPV16ResultCode; }
+            set
+            {
+                if (this.m_HPV16ResultCode != value)
+                {
+                    this.m_HPV16ResultCode = value;
+                    this.NotifyPropertyChanged("HPV16ResultCode");
+                }
+            }
+        }
+
+        [PersistentProperty()]
 		public string HPV18Result
 		{
 			get { return this.m_HPV18Result; }
@@ -74,7 +92,21 @@ namespace YellowstonePathology.Business.Test.HPV1618
 			}
 		}
 
-		[PersistentProperty()]
+        [PersistentProperty()]
+        public string HPV18ResultCode
+        {
+            get { return this.m_HPV18ResultCode; }
+            set
+            {
+                if (this.m_HPV18ResultCode != value)
+                {
+                    this.m_HPV18ResultCode = value;
+                    this.NotifyPropertyChanged("HPV18ResultCode");
+                }
+            }
+        }
+
+        [PersistentProperty()]
 		public string References
 		{
             get { return this.m_References; }
@@ -128,6 +160,25 @@ namespace YellowstonePathology.Business.Test.HPV1618
                     this.NotifyPropertyChanged("Comment");
                 }
             }
+        }
+
+        public override YellowstonePathology.Business.Rules.MethodResult IsOkToAccept()
+        {
+            YellowstonePathology.Business.Rules.MethodResult result = base.IsOkToAccept();
+            if (result.Success == true)
+            {
+                if (string.IsNullOrEmpty(this.m_HPV16ResultCode) == true)
+                {
+                    result.Success = false;
+                    result.Message = "The Genotype 16 result must be set before results may be accepted.";
+                }
+                else if (string.IsNullOrEmpty(this.m_HPV18ResultCode) == true)
+                {
+                    result.Success = false;
+                    result.Message = "The Genotype 18 result must be set before results may be accepted.";
+                }
+            }
+            return result;
         }
 
         public override bool IsOkToAddTasks()

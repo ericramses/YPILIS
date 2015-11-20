@@ -210,8 +210,8 @@
 
 					<TextBlock Grid.Column="0" Grid.Row="16" Margin="2" VerticalAlignment="Center" FontWeight="Bold">Ratio of average HER2/CHR17 signals:</TextBlock>
 					<TextBlock Grid.Column="1" Grid.Row="16" Margin="2" VerticalAlignment="Center" Text="{Binding Path=PanelSetOrder.AverageHer2Chr17Signal}" />
-
-					<TextBlock Grid.Column="0" Grid.Row="17" Margin="2" VerticalAlignment="Center" FontWeight="Bold">Tech Comment:</TextBlock>
+                    
+                    <TextBlock Grid.Column="0" Grid.Row="17" Margin="2" VerticalAlignment="Center" FontWeight="Bold">Tech Comment:</TextBlock>
 					<TextBox Grid.Column="0" Grid.Row="18" Margin="2" Grid.ColumnSpan="2" AcceptsReturn="True" TextWrapping="Wrap" Text="{Binding Path=PanelSetOrder.TechComment}" />
 
 					<TextBlock Grid.Column="0" Grid.Row="19" Margin="2" FontWeight="Bold" VerticalAlignment="Center">Result Comment:</TextBlock>

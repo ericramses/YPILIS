@@ -178,7 +178,7 @@ namespace YellowstonePathology.Business.Reports.Cytology
 
     public class CytologyUnsatLetterDetailItem
     {
-        int m_PhysicianClientId;
+        string m_PhysicianClientId;
         int m_ClientId;
         string m_ReportNo;
         Nullable<DateTime> m_PBirthdate;
@@ -192,7 +192,7 @@ namespace YellowstonePathology.Business.Reports.Cytology
         }
 
 
-        public int PhysicianClientId
+        public string PhysicianClientId
         {
             get { return this.m_PhysicianClientId; }
             set { this.m_PhysicianClientId = value; }
@@ -240,7 +240,7 @@ namespace YellowstonePathology.Business.Reports.Cytology
 
         public void Fill(SqlDataReader dr)
         {
-            this.PhysicianClientId = BaseData.GetIntValue("PhysicianClientId", dr);
+            this.PhysicianClientId = BaseData.GetStringValue("PhysicianClientId", dr);
             this.ClientId = BaseData.GetIntValue("ClientId", dr);
             this.ReportNo = BaseData.GetStringValue("ReportNo", dr);
             this.PBirthdate = BaseData.GetDateTimeValue("PBirthdate", dr);

@@ -33,7 +33,7 @@ namespace YellowstonePathology.UI.Surgical
             this.m_PQRSMeasure = pqrsMeasure;
 			this.m_SurgicalSpecimen = surgicalSpecimen;
 
-			InitializeComponent();
+            InitializeComponent();
 			this.DataContext = this;
         }
         

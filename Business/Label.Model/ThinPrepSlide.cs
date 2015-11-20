@@ -23,43 +23,27 @@ namespace YellowstonePathology.Business.Label.Model
         }
 
         public override void DrawLabel(int x, int y, System.Drawing.Printing.PrintPageEventArgs e)
-        {
-            Rectangle hologicRectangle = new Rectangle(x + 10, y + 12, 80, 32);
-            string hologicString = this.m_CytycBarcode.LineOne + Environment.NewLine + this.m_CytycBarcode.LineTwo;
-
-            StringFormat hologicStringFormat = new StringFormat();
-            hologicStringFormat.Alignment = StringAlignment.Near;
-            hologicStringFormat.LineAlignment = StringAlignment.Center;
+        {           
+            int xMargin = 13;
+            int yMargin = 13;            
 
             using (Font hologicFont = new Font("OCRAMCE", 10, FontStyle.Regular, GraphicsUnit.Point))
             {
-                e.Graphics.DrawString(hologicString, hologicFont, Brushes.Black, hologicRectangle, hologicStringFormat);
+                e.Graphics.DrawString(this.m_CytycBarcode.LineOne, hologicFont, Brushes.Black, new Point(x + xMargin + 0, y + yMargin + 0));
+                e.Graphics.DrawString(this.m_CytycBarcode.LineTwo, hologicFont, Brushes.Black, new Point(x + xMargin + 0, y + yMargin + 17));
             }
-
-            string patientNameText = this.TruncateString(this.m_PatientLastName, 8)  +  ", " + this.TruncateString(this.m_PatientFirstName, 1);
-
-            StringFormat patientNameStringtFormat = new StringFormat();
-            patientNameStringtFormat.Alignment = StringAlignment.Near;
-            patientNameStringtFormat.LineAlignment = StringAlignment.Center;
-
-            Rectangle patientNameRectangle = new Rectangle(x + 10, y + 38, 80, 30);
-
+            
+            string patientNameText = this.TruncateString(this.m_PatientLastName, 8)  +  ", " + this.TruncateString(this.m_PatientFirstName, 1);            
             using (Font patientNamefont = new Font("Verdana", 7, FontStyle.Regular, GraphicsUnit.Point))
             {
-                e.Graphics.DrawString(patientNameText, patientNamefont, Brushes.Black, patientNameRectangle, patientNameStringtFormat);
+                e.Graphics.DrawString(patientNameText, patientNamefont, Brushes.Black, new Point(x + xMargin + 0, y + yMargin + 37));
             }
 
-            string locationText = "YPI Blgs";
-
-            StringFormat locationStringtFormat = new StringFormat();
-            locationStringtFormat.Alignment = StringAlignment.Near;
-            locationStringtFormat.LineAlignment = StringAlignment.Center;
-
-            Rectangle locationRectangle = new Rectangle(x + 10, y + 72, 80, 15);
-
+            
+            string locationText = "YPI Blgs";            
             using (Font locationfont = new Font("Verdana", 5, FontStyle.Regular, GraphicsUnit.Point))
             {
-                e.Graphics.DrawString(locationText, locationfont, Brushes.Black, locationRectangle, locationStringtFormat);
+                e.Graphics.DrawString(locationText, locationfont, Brushes.Black, new Point(x + xMargin + 0, y + yMargin + 68));
             }
 
             DataMatrix.DmtxImageEncoder encoder = new DataMatrix.DmtxImageEncoder();
@@ -69,7 +53,7 @@ namespace YellowstonePathology.Business.Label.Model
             options.BackColor = System.Drawing.Color.White;
             options.ForeColor = System.Drawing.Color.Black;
             Bitmap bitmap = encoder.EncodeImage(this.m_Barcode.ToString(), options);
-            e.Graphics.DrawImage(bitmap, new PointF(x + 62, y + 62));
+            e.Graphics.DrawImage(bitmap, new PointF(x + xMargin + 55, y + yMargin + 55));            
         }        
     }
 }

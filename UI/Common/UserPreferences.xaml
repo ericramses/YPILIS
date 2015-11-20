@@ -35,6 +35,7 @@
 			<RowDefinition Height="Auto"></RowDefinition>
 			<RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
 			<RowDefinition Height="*"></RowDefinition>
 		</Grid.RowDefinitions>        
         
@@ -166,9 +167,14 @@
                   HorizontalAlignment="Stretch" Text="{Binding Path=UserPreference.CytologySlidePrinter}">
         </ComboBox>
 
-        <Button Name="ButtonTestBlockPrinter" Grid.Column="0" Grid.Row="24" Margin="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Click="ButtonTestBlockPrinter_Click"  Width="130" Height="30">Test Cassette Printer</Button>
+        <TextBlock Grid.Column="0" Grid.Row="24" Margin="2,2,2,2" VerticalAlignment="Center" TextAlignment="Right">Thermo Fisher Slide Printer:</TextBlock>
+        <ComboBox Grid.Column="1" Grid.Row="24" ItemsSource="{Binding Path=PrintQueueCollection}" DisplayMemberPath="Name"  Margin="2,2,2,2"
+                  HorizontalAlignment="Stretch" Text="{Binding Path=UserPreference.ThermoFisherSlidePrinter}">
+        </ComboBox>
 
-		<StackPanel Grid.Column="1" Grid.Row="25" HorizontalAlignment="Right" VerticalAlignment="Bottom" Orientation="Horizontal">            
+        <Button Name="ButtonTestBlockPrinter" Grid.Column="0" Grid.Row="25" Margin="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Click="ButtonTestBlockPrinter_Click"  Width="130" Height="30">Test Cassette Printer</Button>
+
+		<StackPanel Grid.Column="1" Grid.Row="26" HorizontalAlignment="Right" VerticalAlignment="Bottom" Orientation="Horizontal">            
             <Button Name="ButtonOK" Margin="2" HorizontalAlignment="Center" Click="ButtonOK_Click" Width="50" Height="30">OK</Button>
             <Button Name="ButtonCancel" Margin="2" HorizontalAlignment="Center" Click="ButtonCancel_Click" Width="50" Height="30">Cancel</Button>
         </StackPanel>

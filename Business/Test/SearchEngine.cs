@@ -86,7 +86,10 @@ namespace YellowstonePathology.Business.Test
 				case YellowstonePathology.Business.Search.ReportSearchFillEnum.ByNotVerified:
 					this.m_ReportSearchList = Gateway.ReportSearchGateway.GetReportSearchListByNotVerified(m_Parameters);
 					break;
-				default:
+                case YellowstonePathology.Business.Search.ReportSearchFillEnum.ByPanelSetId:
+                    this.m_ReportSearchList = Gateway.ReportSearchGateway.GetReportSearchListByPanelSetId(m_Parameters);
+                    break;
+                default:
 					break;
 			}
 			if (this.m_ReportSearchList == null) this.m_ReportSearchList = new YellowstonePathology.Business.Search.ReportSearchList();
@@ -247,7 +250,15 @@ namespace YellowstonePathology.Business.Test
 			this.m_SearchFillEnum = YellowstonePathology.Business.Search.ReportSearchFillEnum.ByNotAudited;
 		}
 
-		public void SetFillByPatientId(string patientId)
+        public void SetFillByPanelSetId(int panelSetId)
+        {
+            this.m_Parameters.Clear();
+            this.m_Parameters.Add(panelSetId);
+            this.m_Parameters.Add(DateTime.Today.AddMonths(-3));
+            this.m_SearchFillEnum = YellowstonePathology.Business.Search.ReportSearchFillEnum.ByPanelSetId;
+        }
+
+        public void SetFillByPatientId(string patientId)
 		{
 			this.m_Parameters.Clear();
 			this.m_Parameters.Add(patientId);

@@ -42,6 +42,10 @@ namespace YellowstonePathology.UI.Monitor
                     PendingTestMonitorPage pendingTestMonitorPage = new PendingTestMonitorPage();
                     this.m_PageQueue.Enqueue(pendingTestMonitorPage);
                     break;
+                case MonitorPageLoadEnum.MissingInformationMonitor:
+                    MissingInformationMonitorPage missingInformationMonitorPage = new MissingInformationMonitorPage();
+                    this.m_PageQueue.Enqueue(missingInformationMonitorPage);
+                    break;
             }
         }
 
@@ -50,11 +54,14 @@ namespace YellowstonePathology.UI.Monitor
             CytologyScreeningMonitorPage cytologyScreeningMonitorPage = new CytologyScreeningMonitorPage();            
             this.m_PageQueue.Enqueue(cytologyScreeningMonitorPage);
 
-            //ReportDistributionMonitorPage reportDistributionMonitorPage = new ReportDistributionMonitorPage();            
-            //this.m_PageQueue.Enqueue(reportDistributionMonitorPage);
+            ReportDistributionMonitorPage reportDistributionMonitorPage = new ReportDistributionMonitorPage();            
+            this.m_PageQueue.Enqueue(reportDistributionMonitorPage);
 
             PendingTestMonitorPage pendingTestMonitorPage = new PendingTestMonitorPage();
             this.m_PageQueue.Enqueue(pendingTestMonitorPage);
+
+            MissingInformationMonitorPage missingInformationPage = new MissingInformationMonitorPage();
+            this.m_PageQueue.Enqueue(missingInformationPage);
         }
 
         public void StartTimer()

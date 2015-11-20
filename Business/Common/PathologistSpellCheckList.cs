@@ -29,8 +29,9 @@ namespace YellowstonePathology.Business.Common
 			PropertyInfo microscopicXProperty = srType.GetProperty("MicroscopicX");
 			this.Add(SpellCheckListItem.CreateSpellCheckListItem(microscopicXProperty, panelSetOrderSurgical));
 
-			PropertyInfo clinicalInfoProperty = srType.GetProperty("ClinicalInfo");
-			this.Add(SpellCheckListItem.CreateSpellCheckListItem(clinicalInfoProperty, panelSetOrderSurgical));
+            Type aoType = accessionOrder.GetType();
+			PropertyInfo clinicalHistoryProperty = aoType.GetProperty("ClinicalHistory");
+			this.Add(SpellCheckListItem.CreateSpellCheckListItem(clinicalHistoryProperty, accessionOrder));
 
 			PropertyInfo grossXProperty = srType.GetProperty("GrossX");
 			this.Add(SpellCheckListItem.CreateSpellCheckListItem(grossXProperty, panelSetOrderSurgical));

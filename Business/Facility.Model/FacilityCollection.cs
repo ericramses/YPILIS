@@ -76,6 +76,10 @@ namespace YellowstonePathology.Business.Facility.Model
             result.Add(new PathologyAssociatesOfIdahoFalls());
             result.Add(new LoweLawGroup());
             result.Add(new ProfessionalPathologyOfWyoming());
+            result.Add(new TallmanDermatology());
+            result.Add(new BozemanDeaconess());
+            result.Add(new CMMC());
+            result.Add(new StJamesHospital());
             return Sort(result);
         }
 

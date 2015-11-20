@@ -70,8 +70,9 @@ namespace YellowstonePathology.UI.Login.Receiving
 
         private void ClientOrderDetailsPage_Loaded(object sender, RoutedEventArgs e)
         {
-            this.m_BarcodeScanPort.ContainerScanReceived += ContainerScanReceived;                
+            this.m_BarcodeScanPort.ContainerScanReceived += ContainerScanReceived;            
             this.TextBoxAccessionAs.Focus();
+
             if (string.IsNullOrEmpty(this.m_ClientOrderDetail.DescriptionToAccession) == false)
             {
                 if (this.m_ClientOrderDetail.DescriptionToAccession.ToUpper().Contains("THIN PREP") == true)
@@ -80,10 +81,16 @@ namespace YellowstonePathology.UI.Login.Receiving
                 }
             }
 
+            TextBox textBox = (TextBox)this.ComboBoxSpecimenId.Template.FindName("PART_EditableTextBox", this.ComboBoxSpecimenId);
+            if (textBox != null)
+            {
+                textBox.LostFocus += TextBoxInComboBox_LostFocus;
+            }
+
             this.ComboBoxReceivedIn.SelectionChanged += new SelectionChangedEventHandler(ComboBoxReceivedIn_SelectionChanged);
             this.CheckBoxClientAccessioned.Checked +=new RoutedEventHandler(CheckBoxClientAccessioned_Checked);
             this.CheckBoxClientAccessioned.Unchecked +=new RoutedEventHandler(CheckBoxClientAccessioned_Unchecked);
-        }
+        }             
 
         private void ComboBoxReceivedIn_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -248,26 +255,15 @@ namespace YellowstonePathology.UI.Login.Receiving
        
         private void ComboBoxSpecimenId_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {            
-            if (this.ComboBoxSpecimenId.SelectedItem != null)
-            {
-                if (string.IsNullOrEmpty(this.m_ClientOrderDetail.DescriptionToAccession) == true)
-                {
-                    if (this.TextBoxAccessionAs != null)
-                    {
-                        YellowstonePathology.Business.Specimen.Model.Specimen specimen = (YellowstonePathology.Business.Specimen.Model.Specimen)this.ComboBoxSpecimenId.SelectedItem;
-                        this.m_ClientOrderDetail.DescriptionToAccessionBinding = specimen.Description;
-                        this.m_ClientOrderDetail.LabFixationBinding = specimen.LabFixation;
-                        this.m_ClientOrderDetail.ClientFixationBinding = specimen.ClientFixation;
-                        this.m_ClientOrderDetail.RequiresGrossExamination = specimen.RequiresGrossExamination;
-
-                        this.HandleTemplatedSpecimen();
-                        this.NotifyPropertyChanged("");
-                    }
-                }
-            }
+            
         }
 
-        private void HandleTemplatedSpecimen()
+        private void ComboBoxSpecimenId_LostFocus(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void TextBoxAccessionAs_GotFocus(object sender, RoutedEventArgs e)
         {
             int positionOfFirstBracket = this.TextBoxAccessionAs.Text.IndexOf('[');
             if (positionOfFirstBracket != -1)
@@ -279,7 +275,20 @@ namespace YellowstonePathology.UI.Login.Receiving
                     this.TextBoxAccessionAs.SelectionStart = positionOfFirstBracket;
                     this.TextBoxAccessionAs.SelectionLength = positionOfLastBracket - positionOfFirstBracket + 1;
                 }
-            }                        
+            }
+        }        
+
+        private void TextBoxInComboBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (this.ComboBoxSpecimenId.SelectedItem != null)
+            {
+                YellowstonePathology.Business.Specimen.Model.Specimen specimen = (YellowstonePathology.Business.Specimen.Model.Specimen)this.ComboBoxSpecimenId.SelectedItem;
+                this.m_ClientOrderDetail.DescriptionToAccessionBinding = specimen.Description;
+                this.m_ClientOrderDetail.LabFixationBinding = specimen.LabFixation;
+                this.m_ClientOrderDetail.ClientFixationBinding = specimen.ClientFixation;
+                this.m_ClientOrderDetail.RequiresGrossExamination = specimen.RequiresGrossExamination;
+                this.NotifyPropertyChanged("");
+            }
         }
 
         private void HyperLinkReceivedFresh_Click(object sender, RoutedEventArgs e)
@@ -366,7 +375,6 @@ namespace YellowstonePathology.UI.Login.Receiving
             {
                 MessageBox.Show("The Container Id cannot be cleared because the specimen has been accessioned.");
             }
-        }
-                
-	}
+        }        
+    }
 }

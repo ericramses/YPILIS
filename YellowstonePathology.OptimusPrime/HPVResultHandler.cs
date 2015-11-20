@@ -17,9 +17,9 @@ namespace YellowstonePathology.OptimusPrime
         public async Task<string> HandleResult(IDictionary<string, object> payload)
         {
             var connectionString = "Data Source=TestSQL;Initial Catalog=YPIData;Integrated Security=True";
-
-            string reportNo = (string)payload["reportNo"];
+            
             string testName = (string)payload["testName"];
+            string aliquotOrderId = (string)payload["aliquotOrderId"];
             string overallInterpretation = (string)payload["overallInterpretation"];
             string sql = null;
 
@@ -32,10 +32,10 @@ namespace YellowstonePathology.OptimusPrime
                     sql = @"Update tblPanelSetOrderHPVTWI set Result = '" + hpvResult.Result + "' "
                         + "from tblPanelSetOrderHPVTWI psoh, tblPanelSetOrder pso "
                         + "where psoh.ReportNo = pso.ReportNo "
-                        + "and psoh.ReportNo = '" + reportNo + "' and pso.Accepted = 0";
+                        + "and pso.OrderedOnId = '" + aliquotOrderId + "' and pso.Accepted = 0; ";                        
 
                     sql += @"Update tblPanelSetOrder set ResultCode = '" + hpvResult.ResultCode + "', "
-                    + "[HoldDistribution] = 1, "
+                    + "[HoldDistribution] = 0, "
                     + "[Accepted] = 1, "
                     + "[AcceptedBy] = 'Optimus Prime', "
                     + "[AcceptedById] = 5134, "
@@ -46,7 +46,7 @@ namespace YellowstonePathology.OptimusPrime
                     + "[FinaledById] = 5134, "
                     + "[FinalDate] = '" + DateTime.Today.ToString("MM/dd/yyyy") + "', "
                     + "[FinalTime] = '" + DateTime.Now.ToString("MM/dd/yyyy HH:mm") + "' "
-                    + "where Accepted = 0 and ReportNo = '" + reportNo + "';";
+                    + "where PanelSetId = 14 and Accepted = 0 and OrderedOnId = '" + aliquotOrderId + "';";                    
                 }
                 else if (overallInterpretation == "POSITIVE")
                 {
@@ -54,20 +54,29 @@ namespace YellowstonePathology.OptimusPrime
                     sql = @"Update tblPanelSetOrderHPVTWI set Result = '" + hpvResult.Result + "' "
                         + "from tblPanelSetOrderHPVTWI psoh, tblPanelSetOrder pso "
                         + "where psoh.ReportNo = pso.ReportNo "
-                        + "and psoh.ReportNo = '" + reportNo + "' and pso.Accepted = 0";
+                        + "and pso.OrderedOnId = '" + aliquotOrderId + "' and pso.Accepted = 0; ";                        
 
                     sql += @"Update tblPanelSetOrder set ResultCode = '" + hpvResult.ResultCode + "', "
-                    + "[HoldDistribution] = 1, "
+                    + "[HoldDistribution] = 0, "
                     + "[Accepted] = 1, "
                     + "[AcceptedBy] = 'Optimus Prime', "
                     + "[AcceptedById] = 5134, "
                     + "[AcceptedDate] = '" + DateTime.Today.ToString("MM/dd/yyyy") + "', "
                     + "[AcceptedTime] = '" + DateTime.Now.ToString("MM/dd/yyyy HH:mm") + "' "
-                    + "where Accepted = 0 and ReportNo = '" + reportNo + "';";
+                    + "where PanelSetId = 14 and Accepted = 0 and OrderedOnId = '" + aliquotOrderId + "';";
                 }
+                else if (overallInterpretation == "Invalid")
+                {
+                    hpvResult = new HPVInvalidResult();
+                    sql = @"Update tblPanelSetOrderHPVTWI set Result = '" + hpvResult.Result + "' "
+                        + "from tblPanelSetOrderHPVTWI psoh, tblPanelSetOrder pso "
+                        + "where psoh.ReportNo = pso.ReportNo "
+                        + "and pso.OrderedOnId = '" + aliquotOrderId + "' and pso.Accepted = 0; ";                    
 
-                
-
+                    sql += @"Update tblPanelSetOrder set ResultCode = '" + hpvResult.ResultCode + "', "
+                    + "[HoldDistribution] = 0 "                    
+                    + "where PanelSetId = 14 and Accepted = 0 and OrderedOnId = '" + aliquotOrderId + "';";                    
+                }
             }
 
             using (var cnx = new SqlConnection(connectionString))
@@ -79,7 +88,7 @@ namespace YellowstonePathology.OptimusPrime
                 }
             }
 
-            return sql;
+            return "Optimus Prime updated result: " + aliquotOrderId + " - " + testName;
         }
     }
 }

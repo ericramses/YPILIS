@@ -15,7 +15,7 @@ namespace YellowstonePathology.Business.Test.TestCancelled
             YellowstonePathology.Business.Test.TestCancelled.TestCancelledTestOrder reportOrderTestCancelled = (YellowstonePathology.Business.Test.TestCancelled.TestCancelledTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
             this.m_PanelSetOrder = reportOrderTestCancelled;
 
-			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\TestCancelled.7.xml";
+			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\TestCancelled.8.xml";
 			base.OpenTemplate();
 
 			base.SetDemographicsV2();
@@ -28,8 +28,12 @@ namespace YellowstonePathology.Business.Test.TestCancelled
 
 			this.ReplaceText("test_canceled_name", testName);
             this.ReplaceText("test_cancelled_comment",  reportOrderTestCancelled.Comment);
+            this.ReplaceText("pathologist_signature", this.m_PanelSetOrder.Signature);
 
-			this.SetReportDistribution();
+            string finalDate = YellowstonePathology.Business.BaseData.GetShortDateString(this.m_PanelSetOrder.FinalDate) + " - " + YellowstonePathology.Business.BaseData.GetMillitaryTimeString(this.m_PanelSetOrder.FinalTime);
+            this.SetXmlNodeData("final_date", finalDate);
+
+            this.SetReportDistribution();
 			this.SetCaseHistory();
 
 			YellowstonePathology.Business.Document.AmendmentSection amendmentSection = new YellowstonePathology.Business.Document.AmendmentSection();

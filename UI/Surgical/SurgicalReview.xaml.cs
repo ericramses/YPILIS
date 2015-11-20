@@ -26,7 +26,7 @@ namespace YellowstonePathology.UI.Surgical
         private string m_CancerCaseSummaryVisibility;
         private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
         private YellowstonePathology.UI.TypingShortcutUserControl m_TypingShortcutUserControl;
-		private YellowstonePathology.Business.View.BillingSpecimenViewCollection m_BillingSpecimenViewCollection;        
+		private YellowstonePathology.Business.View.BillingSpecimenViewCollection m_BillingSpecimenViewCollection;
 
         public SurgicalReview(YellowstonePathology.UI.TypingShortcutUserControl typingShortcutUserControl, PathologistUI pathologistUI, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
@@ -205,7 +205,19 @@ namespace YellowstonePathology.UI.Surgical
                 YellowstonePathology.Business.Test.OkToFinalizeResult isOkToFinalizeResult = amendment.IsOkToFinalize();
                 if (isOkToFinalizeResult.OK == true)
                 {
-                    amendment.Finalize(this.m_SystemIdentity);                    
+                    bool canFinal = true;
+                    if (isOkToFinalizeResult.ShowWarningMessage == true)
+                    {
+                        MessageBoxResult messageBoxResult = MessageBox.Show(isOkToFinalizeResult.Message, "Issue with the amendment", MessageBoxButton.YesNo, MessageBoxImage.Exclamation, MessageBoxResult.No);
+                        if (messageBoxResult == MessageBoxResult.No)
+                        {
+                            canFinal = false;
+                        }
+                    }
+                    if(canFinal == true)
+                    {
+                        amendment.Finalize(this.m_SystemIdentity);                    
+                    }
                 }
                 else
                 {
@@ -454,26 +466,40 @@ namespace YellowstonePathology.UI.Surgical
 
         private void ButtonTesting_Click(object sender, RoutedEventArgs e)
         {
+            MainWindow.MoveKeyboardFocusNextThenBack();
             if (this.PanelSetOrderSurgical.Final == false)
             {
                 PathologistSignoutPath pathologistSignoutPath = new PathologistSignoutPath(this.m_PathologistUI.AccessionOrder, this.PanelSetOrderSurgical, this.m_PathologistUI.ObjectTracker, this.m_SystemIdentity);
-                YellowstonePathology.Business.Audit.Model.AuditResult auditResult = pathologistSignoutPath.CaseCanBeSignedOut();
+
+                YellowstonePathology.Business.Audit.Model.AuditResult auditResult = pathologistSignoutPath.PathologistSignOutAudit;
                 if(auditResult.Status == Business.Audit.Model.AuditStatusEnum.Failure)
                 {
                     pathologistSignoutPath.Start();
                     this.RefreshBillingSpecimenViewCollection();
-                    auditResult = pathologistSignoutPath.CaseCanBeSignedOut();
+                    auditResult = pathologistSignoutPath.IsPathologistSignoutAuditSuccessful();
                 }
 
                 if (auditResult.Status == Business.Audit.Model.AuditStatusEnum.OK)
                 {
-                    MessageBox.Show("Case has been audited and is ready to sign out.");
+                    this.PanelSetOrderSurgical.Finalize(this.m_SystemIdentity.User);
+                    if (this.PanelSetOrderSurgical.Accepted == false)
+                    {
+                        this.PanelSetOrderSurgical.Accept(this.m_SystemIdentity.User);
+                    }
                 }
-                else
-                {
-                    MessageBox.Show("Case has been audited and there are issues for signing out.");
-                }
+
+                this.m_PathologistUI.SetSignatureButtonProperties();
+                this.NotifyPropertyChanged(string.Empty);
+                this.Save();
             }
+        }
+
+        private void ContextMenuAddInteropativeConsultation_Click(object sender, RoutedEventArgs e)
+        {
+            //YellowstonePathology.Business.Test.Model.IntraoperativeConsultation intraoperativeConsultation = new Business.Test.Model.IntraoperativeConsultation();
+            //MenuItem menuItem = (MenuItem)sender;
+            //YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen = (YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen)menuItem.Tag;
+            //YellowstonePathology.Business.Visitor.OrderTestVisitor orderTestVisitor = new Business.Visitor.OrderTestVisitor(this.m_PathologistUI.PanelSetOrder.ReportNo, intraoperativeConsultation, null, null, false, )
         }
     }
 }

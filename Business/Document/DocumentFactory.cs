@@ -109,7 +109,10 @@ namespace YellowstonePathology.Business.Document
 					case 62: //HPV 16/18
 						document = new YellowstonePathology.Business.Test.HPV1618.HPV1618WordDocument();
 						break;
-					case 66:  //Test Cancelled
+                    case 213: //HPV 16/18
+                        document = new YellowstonePathology.Business.Test.HPV1618ByPCR.HPV1618ByPCRWordDocument();
+                        break;
+                    case 66:  //Test Cancelled
 						document = new YellowstonePathology.Business.Test.TestCancelled.TestCancelledWordDocument();
 						break;
 					case 100: //BCL1 t1114
@@ -272,6 +275,8 @@ namespace YellowstonePathology.Business.Document
                     case 197:
                     case 201:
                     case 208:
+                    case 211:
+                    case 212:                    
                         document = new YellowstonePathology.Business.Document.NothingToPublishReport();
                         break;
                     case 203:
@@ -279,6 +284,9 @@ namespace YellowstonePathology.Business.Document
                         break;
                     case 204:
                         document = new YellowstonePathology.Business.Test.ROS1ByFISH.ROS1ByFISHWordDocument();
+                        break;
+                    case 214:
+                        document = new YellowstonePathology.Business.Test.TechInitiatedPeripheralSmear.TechInitiatedPeripheralSmearWordDocument();
                         break;
 					default:
 						break;

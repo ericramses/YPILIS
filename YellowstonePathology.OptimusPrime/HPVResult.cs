@@ -8,8 +8,9 @@ namespace YellowstonePathology.OptimusPrime
     public class HPVResult
     {        
         public static string PositiveResult = "Positive";
-        public static string NegativeResult = "Negative";        
-        
+        public static string NegativeResult = "Negative";
+        public static string InvalidResult = "Invalid";
+
         protected string m_ResultCode;
         protected string m_Result;        
 

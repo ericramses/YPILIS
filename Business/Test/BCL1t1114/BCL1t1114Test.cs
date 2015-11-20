@@ -10,14 +10,13 @@ namespace YellowstonePathology.Business.Test.BCL1t1114
         public BCL1t1114Test()
 		{
 			this.m_PanelSetId = 100;
-			this.m_PanelSetName = "BCL1, t(11;14)";
+			this.m_PanelSetName = "BCL1/IgH t(11;14)";
 			this.m_CaseType = YellowstonePathology.Business.CaseType.FISH;
 			this.m_HasTechnicalComponent = true;			
             this.m_HasProfessionalComponent = false;
 			this.m_ResultDocumentSource = YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.YPIDatabase;
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterR();
             this.m_Active = true;
-
 
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.BCL1t1114.BCL1t1114TestOrder).AssemblyQualifiedName;
             

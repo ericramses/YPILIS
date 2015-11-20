@@ -537,6 +537,42 @@ namespace YellowstonePathology.Business.Specimen.Model
 			return result;
 		}
 
+        public bool HasPantherAliquot()
+        {
+            bool result = false;
+            YellowstonePathology.Business.Specimen.Model.PantherAliquot pantherAliquot = new PantherAliquot();
+            foreach (YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder in this)
+            {
+                foreach (YellowstonePathology.Business.Test.AliquotOrder aliquotOrder in specimenOrder.AliquotOrderCollection)
+                {
+                    if (aliquotOrder.AliquotType == pantherAliquot.AliquotType)
+                    {
+                        result = true;
+                        break;
+                    }
+                }
+            }
+            return result;
+        }
+
+        public YellowstonePathology.Business.Test.AliquotOrder GetPantherAliquot()
+        {
+            YellowstonePathology.Business.Test.AliquotOrder result = null;
+            YellowstonePathology.Business.Specimen.Model.PantherAliquot pantherAliquot = new PantherAliquot();
+            foreach (YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder in this)
+            {
+                foreach (YellowstonePathology.Business.Test.AliquotOrder aliquotOrder in specimenOrder.AliquotOrderCollection)
+                {
+                    if (aliquotOrder.AliquotType == pantherAliquot.AliquotType)
+                    {
+                        result = aliquotOrder;
+                        break;
+                    }
+                }
+            }
+            return result;
+        }
+
         public YellowstonePathology.Business.Slide.Model.SlideOrder GetSlideOrder(string slideOrderId)
         {
             YellowstonePathology.Business.Slide.Model.SlideOrder result = null;

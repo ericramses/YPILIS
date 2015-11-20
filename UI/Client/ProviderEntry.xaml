@@ -29,7 +29,8 @@
 						<RowDefinition Height="Auto"></RowDefinition>
 						<RowDefinition Height="Auto"></RowDefinition>
 						<RowDefinition Height="Auto"></RowDefinition>
-						<RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
 					</Grid.RowDefinitions>
 
 					<TextBlock Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" HorizontalAlignment="Right" VerticalAlignment="Center">Last Name:</TextBlock>
@@ -72,7 +73,12 @@
 							  SelectedValuePath="StandingOrderCode" DisplayMemberPath="Description">
 					</ComboBox>
 
-				</Grid>
+                    <TextBlock Grid.Column="0" Grid.Row="13" Margin="2,2,2,2" HorizontalAlignment="Right" VerticalAlignment="Center">Home Base:</TextBlock>
+                    <ComboBox Name="ComboBoxHomeBase" Grid.Column="1" Grid.Row="13" Margin="2,2,2,2" ItemsSource="{Binding Path=ProviderClients}" SelectedValue="{Binding Path=Physician.HomeBaseClientId}"
+							  SelectedValuePath="ClientId" DisplayMemberPath="ClientName" SelectionChanged="ComboBoxHomeBase_SelectionChanged">
+                    </ComboBox>
+
+                </Grid>
 			</TabItem>
 			
 			<TabItem Header="Membership">

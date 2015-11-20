@@ -23,8 +23,11 @@ namespace YellowstonePathology.UI.Cytology
 		private int m_OpenCaseCount;
 
 		public CytologyUnsatLetterDialog()
-		{
-			InitializeComponent();
+		{            
+            DateTime firstDayOfThisMonth = DateTime.Parse(DateTime.Today.Month.ToString() + "/1/" + DateTime.Today.Year.ToString());
+            this.m_StartDate = firstDayOfThisMonth.AddMonths(-1);
+            this.m_EndDate = firstDayOfThisMonth.AddDays(-1);
+            InitializeComponent();
 			DataContext = this;
 		}
 

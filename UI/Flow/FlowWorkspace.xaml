@@ -44,6 +44,7 @@
                     <ICDCode ICD9="238.75" ICD10="D46.9" Description="Myelodysplastic syndrome, unspecified" />
                     <ICDCode ICD9="288.00" ICD10="D70.9" Description="Neutropenia, NOS" />
                     <ICDCode ICD9="790.09" ICD10="R71.8" Description="Other abnormality of red blood cells" />
+                    <ICDCode ICD9="" ICD10="R19.09" Description="Other intra-abdominal and pelvic swelling, mass and lump" />
                     <ICDCode ICD9="204.80" ICD10="C91.Z0" Description="Other lymphoid leukemia not having achieved remission" />
                     <ICDCode ICD9="200.30" ICD10="C83.89" Description="Other non-follicular lymphoma, extranodal and solid organ sites" />
                     <ICDCode ICD9="200.30" ICD10="C83.80" Description="Other non-follicular lymphoma, unspecified site" />
@@ -65,6 +66,7 @@
                     <ICDCode ICD9="202.20" ICD10="C84.19" Description="Sezary disease, extranodal and solid organ sites" />
                     <ICDCode ICD9="202.20" ICD10="C84.10" Description="Sezary disease, unspecified site" />
                     <ICDCode ICD9="287.5" ICD10="D69.6" Description="Thrombocytopenia, unspecified" />
+                    <ICDCode ICD9="780.79" ICD10="R53.1" Description="Weakness" />
                     <ICDCode ICD9="757.33" ICD10="Q82.1" Description="Xeroderma pigmentosum" />
                 </ICDCodeCollection>
             </x:XData>

@@ -9,6 +9,7 @@ namespace YellowstonePathology.UI.Monitor
     {
         ReportDistributionMonitor,
         CytologyScreeningMonitor,
-        PendingTestMonitor
+        PendingTestMonitor,
+        MissingInformationMonitor
     }
 }

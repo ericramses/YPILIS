@@ -55,11 +55,7 @@ namespace YellowstonePathology.Document
                         this.m_MultiPageDocument.WriteRowContent(panelSetGrid);
 
                         List<XElement> panelSetOrderCPTCodeElements = XMLHelper.GetElementList(panelSetOrderElement, "PanelSetOrderCPTCodeCollection", "PanelSetOrderCPTCode");
-                        //if (panelSetOrderCPTCodeElements.Count > 0)
-                        //{
-                        //    Grid cptCodesHeaderGrid = this.GetCodeSectionHeader("Testing Performed");
-                        //    this.m_MultiPageDocument.WriteRowContent(cptCodesHeaderGrid);
-                        //}
+                        
                         foreach (XElement panelSetOrderCPTCodeElement in panelSetOrderCPTCodeElements)
                         {
                             Grid panelSetOrderCPTCodeGrid = this.GetPanelSetOrderCPTCodeGrid(panelSetOrderCPTCodeElement);
@@ -84,32 +80,7 @@ namespace YellowstonePathology.Document
                                     this.m_MultiPageDocument.WriteRowContent(nonClientPanelSetOrderCPTCodeBillGrid);
                                 }
                             }
-                        }
-
-                        /*
-                        List<XElement> medicareCodeElements = XMLHelper.GetElementList(panelSetOrderElement, "PanelSetOrderCPTCodeBillCollection", "PanelSetOrderCPTCodeBill");
-                        if (this.HasCLNTMedicareCodes(medicareCodeElements) == true)
-                        {
-                            if (medicareCodeElements.Count > 0)
-                            {
-                                Grid medicareCodeHeaderGrid = this.GetCodeSectionHeader("Medicare Codes");
-                                this.m_MultiPageDocument.WriteRowContent(medicareCodeHeaderGrid);
-                            }
-                            foreach (XElement panelSetOrderCPTCodeBillElement in PanelSetOrderCPTCodeBillElements)
-                            {
-                                string billBy = XMLHelper.GetString(panelSetOrderCPTCodeBillElement, "BillBy");
-                                if (billBy == "CLNT")
-                                {
-                                    DateTime postDate = DateTime.Parse(panelSetOrderCPTCodeBillElement.Element("PostDate").Value);
-                                    if (YellowstonePathology.Document.XMLHelper.IsDateElementInRange(postDate, this.m_PostDateStart, this.m_PostDateEnd) == true)
-                                    {
-                                        Grid medicareCodeGrid = this.GetPanelSetOrderCPTCodeBillGrid(panelSetOrderCPTCodeBillElement);
-                                        this.m_MultiPageDocument.WriteRowContent(medicareCodeGrid);
-                                    }
-                                }
-                            }
-                        }
-                        */
+                        }                        
 
                         Grid blankGrid = new Grid();
                         blankGrid.Height = 30;

@@ -43,7 +43,7 @@ namespace YellowstonePathology.Business.Test.ROS1ByFISH
             this.SetXMLNodeParagraphData("report_references", ros1ByFISHTestOrder.References);
             this.SetXMLNodeParagraphData("reference_range", ros1ByFISHTestOrder.ReferenceRange);
             this.SetXMLNodeParagraphData("nuclei_scored", ros1ByFISHTestOrder.NucleiScored);
-            this.SetXMLNodeParagraphData("probeset_details", ros1ByFISHTestOrder.ProbeSetDetail);
+            this.ReplaceText("probeset_details", ros1ByFISHTestOrder.ProbeSetDetail);
             this.SetXMLNodeParagraphData("report_method", ros1ByFISHTestOrder.Method);
             this.SetXMLNodeParagraphData("tumor_nuclei_percentage", ros1ByFISHTestOrder.TumorNucleiPercentage);
 

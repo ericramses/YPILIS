@@ -430,7 +430,7 @@ namespace YellowstonePathology.Business.Twain
         public void Close()
         {
             if (SourceId.Id != 0)
-            {
+            {                
                 UserInterface userInterface = new UserInterface();
 
                 TwainResult result = Twain32Native.DsUserInterface(
@@ -441,13 +441,14 @@ namespace YellowstonePathology.Business.Twain
                     Message.DisableDS,
                     userInterface);
 
-                result = Twain32Native.DsmIdentity(
+                
+                    result = Twain32Native.DsmIdentity(
                     _applicationId,
                     IntPtr.Zero,
                     DataGroup.Control,
                     DataArgumentType.Identity,
                     Message.CloseDS,
-                    SourceId);
+                    SourceId);             
             }
         }
     }

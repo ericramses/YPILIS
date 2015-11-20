@@ -104,7 +104,7 @@ namespace YellowstonePathology.UI
 
 		private void ButtonFinalize_Click(object sender, RoutedEventArgs e)
 		{
-			YellowstonePathology.Business.Rules.ExecutionStatus executionStatus = new YellowstonePathology.Business.Rules.ExecutionStatus();
+            /*YellowstonePathology.Business.Rules.ExecutionStatus executionStatus = new YellowstonePathology.Business.Rules.ExecutionStatus();
 			YellowstonePathology.Business.Rules.Amendment.FinalAmendment finalAmendment = new YellowstonePathology.Business.Rules.Amendment.FinalAmendment();
 			finalAmendment.Execute(this.SelectedAmendment, executionStatus, this.m_AmendmentUI.SystemIdentity);
 			if (executionStatus.Halted)
@@ -114,8 +114,30 @@ namespace YellowstonePathology.UI
 				RuleExecutionStatusDialog dialog = new RuleExecutionStatusDialog(ruleExecutionStatus);
 				dialog.ShowDialog();
 				return;
-			}
-			NotifyPropertyChanged("SelectedAmendment");
+			}*/
+            YellowstonePathology.Business.Test.OkToFinalizeResult isOkToFinalizeResult = this.SelectedAmendment.IsOkToFinalize();
+            if (isOkToFinalizeResult.OK == true)
+            {
+                bool canFinal = true;
+                if (isOkToFinalizeResult.ShowWarningMessage == true)
+                {
+                    MessageBoxResult messageBoxResult = MessageBox.Show(isOkToFinalizeResult.Message, "Issue with the amendment", MessageBoxButton.YesNo, MessageBoxImage.Exclamation, MessageBoxResult.No);
+                    if (messageBoxResult == MessageBoxResult.No)
+                    {
+                        canFinal = false;
+                    }
+                }
+                if (canFinal == true)
+                {
+                    this.SelectedAmendment.Finalize(this.m_AmendmentUI.SystemIdentity);
+                }
+            }
+            else
+            {
+                MessageBox.Show(isOkToFinalizeResult.Message);
+            }
+
+            NotifyPropertyChanged("SelectedAmendment");
 		}
 
 		private void ButtonClose_Click(object sender, RoutedEventArgs e)

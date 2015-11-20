@@ -251,5 +251,20 @@ namespace YellowstonePathology.UI.Test
         {
             this.m_PageNavigator.Navigate(this);
         }
+
+        private void HyperLinkInvalid_Click(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Rules.MethodResult methodResult = YellowstonePathology.Business.Test.HPVTWI.HPVTWIResult.IsOkToSetResult(this.m_PanelSetOrderHPVTWI.PanelOrderCollection);
+            if (methodResult.Success == true)
+            {
+                YellowstonePathology.Business.Test.HPVTWI.PanelOrderHPVTWI panelOrder = (YellowstonePathology.Business.Test.HPVTWI.PanelOrderHPVTWI)this.m_PanelSetOrderHPVTWI.PanelOrderCollection.GetUnacceptedPanelOrder();
+                YellowstonePathology.Business.Test.HPVTWI.HPVTWIInvalidResult result = new Business.Test.HPVTWI.HPVTWIInvalidResult();
+                result.SetResult(this.m_PanelSetOrderHPVTWI, panelOrder, this.m_SystemIdentity);
+            }
+            else
+            {
+                MessageBox.Show(methodResult.Message);
+            }
+        }
     }
 }

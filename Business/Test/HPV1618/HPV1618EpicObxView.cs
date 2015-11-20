@@ -30,24 +30,14 @@ namespace YellowstonePathology.Business.Test.HPV1618
             this.AddNextObxElement("HPV-18 Reference: Negative", document, "F");
             this.AddNextObxElement("", document, "F");
 
-            if (panelSetOrder.Indication == YellowstonePathology.Business.Test.HPV1618.HPV1618Indication.SquamousCellCarcinoma)
-            {
-                this.AddNextObxElement("Interpretation:", document, "F");
-                this.AddNextObxElement(panelSetOrder.Interpretation, document, "F");
-                this.AddNextObxElement("", document, "F");
-
-                this.AddNextObxElement(panelSetOrder.Signature, document, "F");
-                this.AddNextObxElement("*** E-signed " + panelSetOrder.FinalTime.Value.ToString("MM/dd/yyyy HH:mm") + "***", document, "F");                               
-            }
-
             if (string.IsNullOrEmpty(panelSetOrder.Comment) == false)
             {
                 this.AddNextObxElement("Comment:", document, "F");
                 this.AddNextObxElement(panelSetOrder.Comment, document, "F");                
             }            
 
-            YellowstonePathology.Business.Interface.IOrderTarget orderTarget = this.m_AccessionOrder.SpecimenOrderCollection.GetOrderTarget(panelSetOrder.OrderedOnId);
-            this.AddNextObxElement("Specimen: " + orderTarget.GetDescription(), document, "F");
+            YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByOrderTarget(panelSetOrder.OrderedOnId);
+            this.AddNextObxElement("Specimen: " + specimenOrder.GetDescription(), document, "F");
             this.AddNextObxElement("", document, "F");
 
             this.AddNextObxElement("Method: ", document, "F");            

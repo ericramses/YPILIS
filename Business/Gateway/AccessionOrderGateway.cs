@@ -840,7 +840,7 @@ namespace YellowstonePathology.Business.Gateway
                 "FROM tblAccessionOrder a JOIN tblPanelSetOrder pso ON a.MasterAccessionNo = pso.MasterAccessionNo " +
                 "JOIN tblSurgicalTestOrder sto ON pso.ReportNo = sto.ReportNo " +
                 "JOIN tblSystemUser su on pso.AssignedToId = su.UserId " +
-                "WHERE convert(varchar(max), sto.ClinicalInfo) = '???' and a.AccessionDate >= dateadd(dd, -10, getdate())) T1 " +
+                "WHERE convert(varchar(max), a.ClinicalHistory) = '???' and a.AccessionDate >= dateadd(dd, -10, getdate())) T1 " +
                 "ORDER BY AccessionTime";
             cmd.CommandType = CommandType.Text;
 
@@ -1228,7 +1228,132 @@ namespace YellowstonePathology.Business.Gateway
 			return result.ToString();
 		}
 
-		public static List<Test.PanelOrder> GetPanelOrdersToAcknowledge(string panelOrderIdString)
+        public static YellowstonePathology.Business.Test.PantherAliquotList GetPantherOrdersNotAliquoted()
+        {
+            YellowstonePathology.Business.Test.PantherAliquotList result = new Test.PantherAliquotList();
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "select a.MasterAccessionNo, a.AccessionTime, a.PLastName, a.PFirstName, ao.AliquotType, ao.ValidationDate, ao.ValidatedBy " +
+                "from tblAccessionOrder a " +
+                "join tblSpecimenOrder so on a.MasterAccessionNo = so.MasterAccessionNo " +
+                "join tblAliquotOrder ao on so.SpecimenOrderId = ao.SpecimenOrderId " +                
+                "where ao.AliquotType = 'Panther Aliquot' " +
+                "and ao.Validated = 0 order by a.AccessionTime";
+
+            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        YellowstonePathology.Business.Test.PantherAliquotListItem pantherAliquotListItem = new Test.PantherAliquotListItem();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(pantherAliquotListItem, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Add(pantherAliquotListItem);
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        public static YellowstonePathology.Business.Test.PantherOrderList GetPantherOrdersNotAcceptedHPV()
+        {
+            YellowstonePathology.Business.Test.PantherOrderList result = new Test.PantherOrderList();
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "select pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, a.PFirstName, pso.ResultCode, pso.AcceptedTime, pso.FinalTime, psoh.Result " +
+                "from tblPanelSetOrder pso " +
+                "join tblPanelSetOrderHPVTWI psoh on pso.ReportNo = psoh.ReportNo " +
+                "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " +                 
+                "where TechnicalComponentInstrumentId = 'PNTHR' and pso.Accepted = 0 order by pso.OrderTime";          
+
+            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        YellowstonePathology.Business.Test.PantherOrderListItem pantherOrderListItem = new Test.PantherOrderListItem();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(pantherOrderListItem, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Add(pantherOrderListItem);
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        public static YellowstonePathology.Business.Test.PantherOrderList GetPantherOrdersNotFinalHPV()
+        {
+            YellowstonePathology.Business.Test.PantherOrderList result = new Test.PantherOrderList();
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "select pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, a.PFirstName, pso.ResultCode, pso.AcceptedTime, pso.FinalTime, psoh.Result " +
+                "from tblPanelSetOrder pso " +
+                "join tblPanelSetOrderHPVTWI psoh on pso.ReportNo = psoh.ReportNo " +
+                "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " +
+                "where TechnicalComponentInstrumentId = 'PNTHR' and pso.Accepted = 1 and pso.Final = 0 order by pso.OrderTime";
+
+            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        YellowstonePathology.Business.Test.PantherOrderListItem pantherOrderListItem = new Test.PantherOrderListItem();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(pantherOrderListItem, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Add(pantherOrderListItem);
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        public static YellowstonePathology.Business.Test.PantherOrderList GetPantherOrdersFinalHPV()
+        {
+            YellowstonePathology.Business.Test.PantherOrderList result = new Test.PantherOrderList();
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "select pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, a.PFirstName, pso.ResultCode, pso.AcceptedTime, pso.FinalTime, psoh.Result " +
+                "from tblPanelSetOrder pso " +
+                "join tblPanelSetOrderHPVTWI psoh on pso.ReportNo = psoh.ReportNo " +
+                "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " +
+                "where TechnicalComponentInstrumentId = 'PNTHR' and pso.Final = 1 and pso.FinalDate >= dateAdd(mm, -3, pso.FinalDate) order by pso.FinalTime desc";
+
+            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        YellowstonePathology.Business.Test.PantherOrderListItem pantherOrderListItem = new Test.PantherOrderListItem();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(pantherOrderListItem, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Add(pantherOrderListItem);
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        public static List<Test.PanelOrder> GetPanelOrdersToAcknowledge(string panelOrderIdString)
 		{
 			List<Test.PanelOrder> result = new List<Test.PanelOrder>();
 			XElement collectionElement = new XElement("Document");
@@ -1687,7 +1812,7 @@ namespace YellowstonePathology.Business.Gateway
 				"from tblPanelSetOrder pso " +
 				"join tblAccessionOrder ao on pso.MasterAccessionNo = ao.MasterAccessionNo	" +
 				"join tblSystemUser su on pso.AssignedToId = su.UserId " +
-				"where final = 0 " +
+				"where final = 0 and panelSetId <> 212 " +  //Will not show Missing Information Tests!
 				"order by ExpectedFinalTime";
 			cmd.CommandType = CommandType.Text;
 
@@ -1710,7 +1835,39 @@ namespace YellowstonePathology.Business.Gateway
 			return result;
 		}
 
-		public static YellowstonePathology.Business.NeogenomicsResultCollection GetNeogenomicsResultCollection()
+        public static YellowstonePathology.Business.Monitor.Model.MissingInformationCollection GetMissingInformationCollection()
+        {
+            YellowstonePathology.Business.Monitor.Model.MissingInformationCollection result = new YellowstonePathology.Business.Monitor.Model.MissingInformationCollection();
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "select pso.ReportNo, pso.PanelSetName [TestName], pso.ExpectedFinalTime, pso.OrderTime, mit.FirstCallComment, mit.SecondCallComment, ao.PhysicianName [ProviderName] " +
+                "from tblPanelSetOrder pso " +
+                "join tblAccessionOrder ao on pso.MasterAccessionNo = ao.MasterAccessionNo	" +
+                "join tblMissingInformationTestOrder mit on pso.ReportNo = mit.ReportNo " +
+                "join tblSystemUser su on pso.AssignedToId = su.UserId " +
+                "where pso.PanelSetId = 212 and pso.Final = 0" +
+                "order by ExpectedFinalTime";
+            cmd.CommandType = CommandType.Text;
+
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        YellowstonePathology.Business.Monitor.Model.MissingInformation missingInformation = new YellowstonePathology.Business.Monitor.Model.MissingInformation();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(missingInformation, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Add(missingInformation);
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        public static YellowstonePathology.Business.NeogenomicsResultCollection GetNeogenomicsResultCollection()
 		{            
 #if MONGO
             return AccessionOrderGatewayMongo.GetNeogenomicsResultCollection();

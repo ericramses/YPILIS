@@ -113,8 +113,11 @@ namespace YellowstonePathology.UI.Login.Receiving
         {
             if (this.ShowTaskOrderPage(this.m_TestOrderInfo) == false)
             {
-                CustomEventArgs.TestOrderInfoEventArgs eventArgs = new CustomEventArgs.TestOrderInfoEventArgs(this.m_TestOrderInfo);
-                if (this.Finish != null) this.Finish(this, eventArgs);
+                if (this.ShowAdditionalTestingEMailPage() == false)
+                {
+                    CustomEventArgs.TestOrderInfoEventArgs eventArgs = new CustomEventArgs.TestOrderInfoEventArgs(this.m_TestOrderInfo);
+                    if (this.Finish != null) this.Finish(this, eventArgs);
+                }
             }
         }
 
@@ -146,17 +149,20 @@ namespace YellowstonePathology.UI.Login.Receiving
                 tumorNucleiPercentagePage.Next += new TumorNucleiPercentageEntryPage.NextEventHandler(TumorNucleiPercentagePage_Next);
                 this.m_PageNavigator.Navigate(tumorNucleiPercentagePage);
             }
-            else
+            else if (this.ShowAdditionalTestingEMailPage() == false)
             {
                 CustomEventArgs.TestOrderInfoEventArgs eventArgs = new CustomEventArgs.TestOrderInfoEventArgs(this.m_TestOrderInfo);
                 if (this.Finish != null) this.Finish(this, eventArgs);
-            }            
+            }
 		}
 
         private void TumorNucleiPercentagePage_Next(object sender, EventArgs e)
         {
-            CustomEventArgs.TestOrderInfoEventArgs eventArgs = new CustomEventArgs.TestOrderInfoEventArgs(this.m_TestOrderInfo);
-            if (this.Finish != null) this.Finish(this, eventArgs);
+            if (this.ShowAdditionalTestingEMailPage() == false)
+            {
+                CustomEventArgs.TestOrderInfoEventArgs eventArgs = new CustomEventArgs.TestOrderInfoEventArgs(this.m_TestOrderInfo);
+                if (this.Finish != null) this.Finish(this, eventArgs);
+            }
         }
 
         private void TumorNucleiPercentagePage_Back(object sender, EventArgs e)
@@ -175,8 +181,11 @@ namespace YellowstonePathology.UI.Login.Receiving
             {
                 if (this.ShowTaskOrderPage(testOrderInfo) == false)
                 {
-                    CustomEventArgs.TestOrderInfoEventArgs eventArgs = new CustomEventArgs.TestOrderInfoEventArgs(this.m_TestOrderInfo);
-                    if (this.Finish != null) this.Finish(this, eventArgs);
+                    if (this.ShowAdditionalTestingEMailPage() == false)
+                    {
+                        CustomEventArgs.TestOrderInfoEventArgs eventArgs = new CustomEventArgs.TestOrderInfoEventArgs(this.m_TestOrderInfo);
+                        if (this.Finish != null) this.Finish(this, eventArgs);
+                    }
                 }          
             }                      
 		}					
@@ -226,5 +235,37 @@ namespace YellowstonePathology.UI.Login.Receiving
 
             return result;
         }							   		    		       
-	}
+
+        private bool ShowAdditionalTestingEMailPage()
+        {
+            bool result = false;
+            if (this.m_TestOrderInfo.PanelSet.HasTechnicalComponent == true)
+            {
+                if (this.m_TestOrderInfo.PanelSet.TechnicalComponentFacility.GetType() != typeof(YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings))
+                {
+                    if (this.m_AccessionOrder.PanelSetOrderCollection.Count > 1 && this.m_AccessionOrder.PhysicianId != 0)
+                    {
+                        result = true;
+                        AdditionalTestingEMailPage additionalTestingEMailPage = new AdditionalTestingEMailPage(this.m_TestOrderInfo.PanelSetOrder, this.m_AccessionOrder, this.m_ObjectTracker, this.m_SystemIdentity);
+                        additionalTestingEMailPage.Next += AdditionalTestingEMailPage_Next;
+                        additionalTestingEMailPage.Back += AdditionalTestingEMailPage_Back;
+                        this.m_PageNavigator.Navigate(additionalTestingEMailPage);
+                    }
+                }
+            }
+            return result;
+        }
+
+        private void AdditionalTestingEMailPage_Next(object sender, EventArgs e)
+        {
+            CustomEventArgs.TestOrderInfoEventArgs eventArgs = new CustomEventArgs.TestOrderInfoEventArgs(this.m_TestOrderInfo);
+            if (this.Finish != null) this.Finish(this, eventArgs);
+        }
+
+        private void AdditionalTestingEMailPage_Back(object sender, EventArgs e)
+        {
+            CustomEventArgs.TestOrderInfoEventArgs eventArgs = new CustomEventArgs.TestOrderInfoEventArgs(this.m_TestOrderInfo);
+            if (this.Finish != null) this.Finish(this, eventArgs);
+        }
+    }
 }

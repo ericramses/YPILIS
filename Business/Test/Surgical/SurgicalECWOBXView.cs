@@ -122,7 +122,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			this.AddNextObxElement("", document, "F");
 
             this.AddNextObxElement("Clinical Info: ", document, "F");
-            this.HandleLongString(panelSetOrderSurgical.ClinicalInfo, document, "F");
+            this.HandleLongString(this.m_AccessionOrder.ClinicalHistory, document, "F");
             this.AddNextObxElement("", document, "F");
 
 			string immunoComment = panelSetOrderSurgical.GetImmunoComment();

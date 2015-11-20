@@ -40,8 +40,14 @@ namespace YellowstonePathology.Business.Amendment.Model
 		private string m_AmendmentType;
 		private string m_PathologistSignature;
 		private string m_ReferenceReportNo;
+        private int m_AcceptedById;
+        private bool m_Accepted;
+        private Nullable<DateTime> m_AcceptedDate;
+        private Nullable<DateTime> m_AcceptedTime;
+        private string m_AcceptedBy;
+        private bool m_SystemGenerated;
 
-		public Amendment()
+        public Amendment()
         {
 
 		}
@@ -410,6 +416,122 @@ namespace YellowstonePathology.Business.Amendment.Model
 			}
 		}
 
+        [PersistentProperty()]
+        public int AcceptedById
+        {
+            get { return this.m_AcceptedById; }
+            set
+            {
+                if (this.m_AcceptedById != value)
+                {
+                    this.m_AcceptedById = value;
+                    this.NotifyPropertyChanged("AcceptedById");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public bool Accepted
+        {
+            get { return this.m_Accepted; }
+            set
+            {
+                if (this.m_Accepted != value)
+                {
+                    this.m_Accepted = value;
+                    this.NotifyPropertyChanged("Accepted");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public Nullable<DateTime> AcceptedDate
+		{
+			get { return this.m_AcceptedDate; }
+            set
+			{
+				if (this.m_AcceptedDate != value)
+                {
+                    this.m_AcceptedDate = value;
+                    this.NotifyPropertyChanged("AcceptedDate");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public Nullable<DateTime> AcceptedTime
+		{
+			get { return this.m_AcceptedTime; }
+            set
+			{
+				if (this.m_AcceptedTime != value)
+                {
+                    this.m_AcceptedTime = value;
+                    this.NotifyPropertyChanged("AcceptedTime");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string AcceptedBy
+        {
+            get { return this.m_AcceptedBy; }
+            set
+            {
+                if (this.m_AcceptedBy != value)
+                {
+                    this.m_AcceptedBy = value;
+                    this.NotifyPropertyChanged("AcceptedBy");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public bool SystemGenerated
+        {
+            get { return this.m_SystemGenerated; }
+            set
+            {
+                if (this.m_SystemGenerated != value)
+                {
+                    this.m_SystemGenerated = value;
+                    this.NotifyPropertyChanged("SystemGenerated");
+                }
+            }
+        }
+
+        public virtual YellowstonePathology.Business.Rules.MethodResult IsOkToAccept()
+        {
+            YellowstonePathology.Business.Rules.MethodResult result = new Rules.MethodResult();
+            if (this.Accepted == true)
+            {
+                result.Success = false;
+                result.Message = "The amendment cannot be accepted because it is already accepted.";
+            }
+            else if (this.m_Text.Contains("???"))
+            {
+                result.Success = false;
+                result.Message = "The amendment cannot be accepted because the text contains ???.";
+            }
+            return result;
+        }
+
+        public virtual YellowstonePathology.Business.Rules.MethodResult IsOkToUnaccept()
+        {
+            YellowstonePathology.Business.Rules.MethodResult result = new Rules.MethodResult();
+            if (this.Final == true)
+            {
+                result.Success = false;
+                result.Message = "The amendment cannot be unaccepted because the amendment is final.";
+            }
+            else if (this.Accepted == false)
+            {
+                result.Success = false;
+                result.Message = "The amendment cannot be unaccepted because it has not accepted.";
+            }
+            return result;
+        }
+
         public YellowstonePathology.Business.Test.OkToUnfinalizeResult IsOkToUnfinalize(YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder)
         {
             YellowstonePathology.Business.Test.OkToUnfinalizeResult result = new Test.OkToUnfinalizeResult();
@@ -418,9 +540,9 @@ namespace YellowstonePathology.Business.Amendment.Model
             if (this.Final == false)
             {
                 result.OK = false;
-                result.Message = "Cannot unfinalize this amendment because it's not final.";
+                result.Message = "Cannot unfinalize this amendment because it is not final.";
             }
-            if (panelSetOrder.TestOrderReportDistributionCollection.HasDistributedItemsAfter(this.FinalTime.Value) == true)
+            else if (panelSetOrder.TestOrderReportDistributionCollection.HasDistributedItemsAfter(this.FinalTime.Value) == true)
             {
                 result.OK = false;
                 result.ShowWarningMessage = true;
@@ -439,17 +561,52 @@ namespace YellowstonePathology.Business.Amendment.Model
                 okToFinalizeResult.OK = false;
                 okToFinalizeResult.Message = "The amendment cannot be finalized because the text contains ???.";                
             }
-            if (this.m_Final == true)
+            else if (this.m_Final == true)
             {
                 okToFinalizeResult.OK = false;
                 okToFinalizeResult.Message = "The amendment is already final.";                
             }
+            else 
+            {
+                bool textMatches = this.SystemGeneratedTextMatchesCurrent();
+                if (textMatches == false)
+                {
+                    okToFinalizeResult.Message = "The amendment text may not accurately reflect the results of the test for which the amendment was created." + 
+                        Environment.NewLine + Environment.NewLine + "Do you wish to continue?";
+                    okToFinalizeResult.ShowWarningMessage = true;
+                }
+            }
             return okToFinalizeResult;
         }
 
-		public void Finalize(YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        public void Accept(Business.User.SystemUser systemUser)
+        {
+            this.m_Accepted = true;
+            this.m_AcceptedById = systemUser.UserId;
+            this.m_AcceptedBy = systemUser.DisplayName;
+            this.m_AcceptedDate = DateTime.Today;
+            this.m_AcceptedTime = DateTime.Now;
+            this.NotifyPropertyChanged(string.Empty);
+        }
+
+        public void Unaccept()
+        {
+            this.m_Accepted = false;
+            this.m_AcceptedById = 0;
+            this.m_AcceptedBy = null;
+            this.m_AcceptedDate = null;
+            this.m_AcceptedTime = null;
+            this.NotifyPropertyChanged(string.Empty);
+        }
+
+        public void Finalize(YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {            
-            this.m_PathologistSignature = systemIdentity.User.Signature;            
+            if(this.Accepted == false)
+            {
+                this.Accept(systemIdentity.User);
+            }
+
+            this.m_PathologistSignature = systemIdentity.User.Signature;
             this.m_UserId = systemIdentity.User.UserId;
             this.m_Final = true;
             this.m_FinalDate = DateTime.Today;
@@ -466,5 +623,22 @@ namespace YellowstonePathology.Business.Amendment.Model
             this.m_FinalTime = null;
             this.NotifyPropertyChanged(string.Empty);
         }
-	}
+
+        private bool SystemGeneratedTextMatchesCurrent()
+        {
+            bool result = true;
+            if(this.m_SystemGenerated == true)
+            {
+                YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(this.m_ReferenceReportNo);
+                YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReferenceReportNo);
+                YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHTest her2AmplificationByISHTest = new Test.HER2AmplificationByISH.HER2AmplificationByISHTest();
+                if (panelSetOrder.PanelSetId == her2AmplificationByISHTest.PanelSetId)
+                {
+                    string generatedText = YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHSystemGeneratedAmendmentText.AmendmentText((YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHTestOrder)panelSetOrder);
+                    result = this.m_Text.Contains(generatedText);
+                }
+            }
+            return result;
+        }
+    }
 }

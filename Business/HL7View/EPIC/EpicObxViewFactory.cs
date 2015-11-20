@@ -54,10 +54,7 @@ namespace YellowstonePathology.Business.HL7View.EPIC
                     break;
                 case 24:
 					view = new YellowstonePathology.Business.Test.StemCellEnumeration.StemCellEnumerationEpicObxView(accessionOrder, reportNo, obxCount);
-                    break;
-				//case 28:
-				//	view = new YellowstonePathology.Business.Test.FetalHemoglobin.FetalHemoglobinEpicObxView(accessionOrder, reportNo, obxCount);
-				//	break;
+                    break;				
 				case 30:
 					view = new YellowstonePathology.Business.Test.KRASStandardReflex.KRASStandardReflexEpicObxView(accessionOrder, reportNo, obxCount);
                     break;
@@ -90,6 +87,9 @@ namespace YellowstonePathology.Business.HL7View.EPIC
                     break;
                 case 62:
 					view = new YellowstonePathology.Business.Test.HPV1618.HPV1618EpicObxView(accessionOrder, reportNo, obxCount);
+                    break;
+                case 213:
+                    view = new YellowstonePathology.Business.Test.HPV1618ByPCR.HPV1618ByPCREPICOBXView(accessionOrder, reportNo, obxCount);
                     break;
                 case 66:
 					view = new YellowstonePathology.Business.Test.TestCancelled.TestCancelledEpicObxView(accessionOrder, reportNo, obxCount);
@@ -244,6 +244,12 @@ namespace YellowstonePathology.Business.HL7View.EPIC
 				case 192:
 					view = new YellowstonePathology.Business.Test.ALLAdultByFISH.ALLAdultByFISHEpicObxView(accessionOrder, reportNo, obxCount);
 					break;
+                case 204:
+                    view = new YellowstonePathology.Business.Test.ROS1ByFISH.ROS1ByFISHEPICOBXView(accessionOrder, reportNo, obxCount);
+                    break;
+                case 214:
+                    view = new YellowstonePathology.Business.Test.TechInitiatedPeripheralSmear.TechInitiatedPeripheralSmearEpicObxView(accessionOrder, reportNo, obxCount);
+                    break;
 			}
             return view;
         }
