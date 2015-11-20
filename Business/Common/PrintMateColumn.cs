@@ -31,7 +31,6 @@ namespace YellowstonePathology.Business.Common
         public string ColorCode
         {
             get { return this.m_ColorCode; }
-        }
-        
+        }                
     }
 }

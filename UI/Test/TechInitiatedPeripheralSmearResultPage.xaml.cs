@@ -42,7 +42,7 @@ namespace YellowstonePathology.UI.Test
             this.m_SystemIdentity = systemIdentity;
             this.m_ObjectTracker = objectTracker;
 
-            this.m_PageHeaderText = "Tech Initiated Peripheral Smearr Results For: " + this.m_AccessionOrder.PatientDisplayName;
+            this.m_PageHeaderText = testOrder.PanelSetName + " for: " + this.m_AccessionOrder.PatientDisplayName;
 
             InitializeComponent();
 

@@ -15,22 +15,15 @@ namespace YellowstonePathology.UI.Test
         public ALKForNSCLCByFISHResultPath(string reportNo,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
 			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
-            YellowstonePathology.UI.Navigation.PageNavigator pageNavigator,
-            YellowstonePathology.Business.User.SystemIdentity systemIdentity)
-            : base(pageNavigator, systemIdentity)
+            YellowstonePathology.UI.Navigation.PageNavigator pageNavigator)
+            : base(pageNavigator)
         {
             this.m_AccessionOrder = accessionOrder;
             this.m_TestOrder = (YellowstonePathology.Business.Test.ALKForNSCLCByFISH.ALKForNSCLCByFISHTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 			this.m_ObjectTracker = objectTracker;
-			this.Authenticated += new AuthenticatedEventHandler(ResultPath_Authenticated);
 		}
 
-		private void ResultPath_Authenticated(object sender, EventArgs e)
-		{
-			this.ShowResultPage();
-		}
-
-        private void ShowResultPage()
+        protected override void ShowResultPage()
         {
             this.m_ResultPage = new ALKForNSCLCByFISHResultPage(this.m_TestOrder, this.m_AccessionOrder, this.m_ObjectTracker, this.m_SystemIdentity);
             this.m_ResultPage.Next += new ALKForNSCLCByFISHResultPage.NextEventHandler(ResultPage_Next);
@@ -54,14 +47,20 @@ namespace YellowstonePathology.UI.Test
             {
                 YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisTestOrder testOrder = (YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSet.PanelSetId, this.m_TestOrder.OrderedOnId, true);
                 result = true;
-				Test.EGFRToALKReflexPath eGFRToALKReflexPath = new Test.EGFRToALKReflexPath(testOrder.ReportNo, this.m_AccessionOrder, this.m_ObjectTracker, this.m_SystemIdentity, this.m_PageNavigator, System.Windows.Visibility.Visible);
-				eGFRToALKReflexPath.Finish += new Test.EGFRToALKReflexPath.FinishEventHandler(EGFRToALKReflexPath_Finish);                
-				eGFRToALKReflexPath.Start();
+				Test.EGFRToALKReflexPath eGFRToALKReflexPath = new Test.EGFRToALKReflexPath(testOrder.ReportNo, this.m_AccessionOrder, this.m_ObjectTracker, this.m_PageNavigator, System.Windows.Visibility.Visible);
+				eGFRToALKReflexPath.Finish += new Test.EGFRToALKReflexPath.FinishEventHandler(EGFRToALKReflexPath_Finish);
+                eGFRToALKReflexPath.Back += EGFRToALKReflexPath_Back;
+				eGFRToALKReflexPath.Start(this.m_SystemIdentity);
 			}
             return result;
         }
 
-		private void EGFRToALKReflexPath_Finish(object sender, EventArgs e)
+        private void EGFRToALKReflexPath_Back(object sender, EventArgs e)
+        {
+            this.ShowResultPage();
+        }
+
+        private void EGFRToALKReflexPath_Finish(object sender, EventArgs e)
         {
             base.Finished();
 		}

@@ -38,6 +38,7 @@ namespace YellowstonePathology.Business.Test.Her2AmplificationByFish
                 this.AddNextObxElement("E-signed " + panelSetOrder.FinalTime.Value.ToString("MM/dd/yyyy HH:mm"), document, "F");
             }
             this.AddNextObxElement(string.Empty, document, "F");
+            this.AddAmendments(document);
 
             this.AddNextObxElement("Number of invasive tumor cells counted: " + panelSetOrder.NucleiScored, document, "F");
             this.AddNextObxElement("HER2 average copy number per nucleus: " + panelSetOrder.AverageHER2SignalsPerNucleus, document, "F");

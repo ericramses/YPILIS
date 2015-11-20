@@ -35,7 +35,6 @@ namespace YellowstonePathology.UI.Test
 
 		private YellowstonePathology.Business.Test.HPV1618.PanelSetOrderHPV1618 m_PanelSetOrder;
 		private YellowstonePathology.UI.Navigation.PageNavigator m_PageNavigator;
-        private List<string> m_IndicationList;
 
 		public HPV1618ResultPage(YellowstonePathology.Business.Test.HPV1618.PanelSetOrderHPV1618 panelSetOrderHPV1618,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
@@ -57,8 +56,9 @@ namespace YellowstonePathology.UI.Test
 			InitializeComponent();
 
 			DataContext = this;
-            Loaded += HPV1618ResultPage_Loaded;
-            Unloaded += HPV1618ResultPage_Unloaded;
+
+            this.Loaded += HPV1618ResultPage_Loaded;
+            this.Unloaded += HPV1618ResultPage_Unloaded;
 		}
 
         private void HPV1618ResultPage_Loaded(object sender, RoutedEventArgs e)

@@ -8,20 +8,19 @@ namespace YellowstonePathology.UI.Gross
 {
     public class DictationTemplate : INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public const string PreambleTemplate = "This is *SYSTEMUSER* doing gross dictation, case \"*MASTERACCESSIONNO*\", received *ISARE* \"*CONTAINERCOUNT*\" *CONTAINER*.";
-                              //"Specimen number \"*SPECIMENNUMBER*\" is labeled \"*PATIENTNAME*\" \"*SPECIMENDESCRIPTION*\", and consists of:";
+        public event PropertyChangedEventHandler PropertyChanged;        
 
         protected string m_TemplateName;        
         protected string m_Text;                       
         protected List<TemplateWord> m_WordList;
         protected YellowstonePathology.Business.Specimen.Model.SpecimenCollection m_SpecimenCollection;
+        protected int m_FontSize;
 
         public DictationTemplate()
         {
             this.m_WordList = new List<TemplateWord>();
-            this.m_SpecimenCollection = new YellowstonePathology.Business.Specimen.Model.SpecimenCollection();           
+            this.m_SpecimenCollection = new YellowstonePathology.Business.Specimen.Model.SpecimenCollection();
+            this.m_FontSize = 20;
         }
 
         public List<TemplateWord> WordList
@@ -32,6 +31,19 @@ namespace YellowstonePathology.UI.Gross
         public YellowstonePathology.Business.Specimen.Model.SpecimenCollection SpecimenCollection
         {
             get { return this.m_SpecimenCollection; }
+        }
+
+        public int FontSize
+        {
+            get { return this.m_FontSize; }
+            set
+            {
+                if (this.m_FontSize != value)
+                {
+                    this.m_FontSize = value;
+                    this.NotifyPropertyChanged("FontSize");
+                }
+            }
         }
 
         public string TemplateName

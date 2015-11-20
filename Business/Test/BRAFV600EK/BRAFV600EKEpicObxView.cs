@@ -30,8 +30,9 @@ namespace YellowstonePathology.Business.Test.BRAFV600EK
                 this.AddNextObxElement("E-signed " + panelSetOrder.FinalTime.Value.ToString("MM/dd/yyyy HH:mm"), document, "F");
             }
             this.AddNextObxElement("", document, "F");
+            this.AddAmendments(document);
 
-			this.AddNextObxElement("Indication: " + panelSetOrder.Indication, document, "F");
+            this.AddNextObxElement("Indication: " + panelSetOrder.Indication, document, "F");
             this.AddNextObxElement("", document, "F");
             
             this.AddNextObxElement("Interpretation: ", document, "F");

@@ -11,59 +11,39 @@ namespace YellowstonePathology.UI.Test
         public delegate void FinishEventHandler(object sender, EventArgs e);
         public event FinishEventHandler Finish;        
 
-		public delegate void AuthenticatedEventHandler(object sender, EventArgs e);
-		public event AuthenticatedEventHandler Authenticated;        
-
 		protected ResultDialog m_ResultDialog;
         protected YellowstonePathology.UI.Navigation.PageNavigator m_PageNavigator;
 		protected YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 
-        protected YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
-        protected YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-        protected YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
-        protected System.Windows.Visibility m_BackButtonVisibility;
+        //protected YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
+        //protected YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
+        //protected YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
+        //protected System.Windows.Visibility m_BackButtonVisibility;
 
         protected string m_ResultPageClassName;
 
-        public ResultPath(YellowstonePathology.UI.Navigation.PageNavigator pageNavigator, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        public ResultPath(YellowstonePathology.UI.Navigation.PageNavigator pageNavigator)
         {
-            this.m_SystemIdentity = systemIdentity;
 			this.m_PageNavigator = pageNavigator;         
-        }
-
-        protected ResultPath(YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder,
-            YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-            YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
-            YellowstonePathology.UI.Navigation.PageNavigator pageNavigator,
-            System.Windows.Visibility backButtonVisibility,
-            YellowstonePathology.Business.User.SystemIdentity systemIdentity)
-        {
-            this.m_PanelSetOrder = panelSetOrder;
-            this.m_AccessionOrder = accessionOrder;
-            this.m_ObjectTracker = objectTracker;
-            this.m_PageNavigator = pageNavigator;
-            this.m_BackButtonVisibility = backButtonVisibility;
-            this.m_SystemIdentity = systemIdentity;
         }
 
         public virtual void Start()
         {
 			if (Business.User.SystemIdentity.DoesLoggedInUserNeedToScanId() == true)
 			{
-				this.ShowScanSecurityBadgePage();
+                this.ShowScanSecurityBadgePage();
 			}
 			else
 			{
 				this.m_SystemIdentity = new Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
-                if (this.GetType() == typeof(YellowstonePathology.UI.Test.API2MALT1ResultPath))
-                {
-                    this.ShowResultsPage();
-                }
-                else
-                {
-                    this.Authenticated(this, new EventArgs());
-                }
-			}			
+                this.ShowResultPage();
+            }
+        }
+
+        public virtual void Start(YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        {
+            this.m_SystemIdentity = systemIdentity;
+            this.ShowResultPage();
         }
 
         public void RegisterCancelATest(IResultPage resultPage)
@@ -73,7 +53,7 @@ namespace YellowstonePathology.UI.Test
         
         private void CancelTest(object sender, YellowstonePathology.UI.CustomEventArgs.CancelTestEventArgs e)
         {
-            CancelATestPath cancelATestPath = new CancelATestPath(e, this.m_PageNavigator, this.m_SystemIdentity);
+            CancelATestPath cancelATestPath = new CancelATestPath(e, this.m_PageNavigator);
             cancelATestPath.Finish += new FinishEventHandler(CancellATestPath_Finish);
             cancelATestPath.Back += new CancelATestPath.BackEventHandler(CancellATestPath_Back);
             cancelATestPath.Start();
@@ -100,8 +80,8 @@ namespace YellowstonePathology.UI.Test
 		protected void ScanSecurityBadgePage_AuthentificationSuccessful(object sender, CustomEventArgs.SystemIdentityReturnEventArgs e)
 		{
 			this.m_SystemIdentity = e.SystemIdentity;
-			this.Authenticated(this, new EventArgs());
-		}                 
+            this.ShowResultPage();
+        }
 
         public void Finished()
         {
@@ -110,16 +90,9 @@ namespace YellowstonePathology.UI.Test
 
 
 
-        protected void ShowResultsPage()
+        protected virtual void ShowResultPage()
         {
-            Type resultPageType = Type.GetType(this.m_ResultPageClassName);
-            IResultPageAction resultPage = (IResultPageAction)Activator.CreateInstance(resultPageType, new object[] { this.m_PanelSetOrder, this.m_AccessionOrder, this.m_ObjectTracker, this.m_SystemIdentity });
-            resultPage.Next += ResultsPage_Next;
-            this.m_PageNavigator.Navigate((System.Windows.Controls.UserControl)resultPage);
-        }
-
-        protected virtual void ResultsPage_Next(object sender, EventArgs e)
-        {
+            throw new NotImplementedException("ShowResultPage not implemented in result path base.");
         }
     }
 }

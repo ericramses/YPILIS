@@ -1407,8 +1407,16 @@ namespace YellowstonePathology.Business.Test
         {
             if (this.IsDermatologyClient() == true)
             {
-                YellowstonePathology.Business.Common.PrintMateColumnYellow printMateColumnYellow = new Common.PrintMateColumnYellow();
-                this.m_PrintMateColumnNumber = printMateColumnYellow.ColumnNumber;
+                if(this.m_ClientId == 1260) //Advanced Dermatology
+                {
+                    YellowstonePathology.Business.Common.PrintMateColumnGreen printMateColumnGreen = new Common.PrintMateColumnGreen();
+                    this.m_PrintMateColumnNumber = printMateColumnGreen.ColumnNumber;
+                }
+                else
+                {
+                    YellowstonePathology.Business.Common.PrintMateColumnYellow printMateColumnYellow = new Common.PrintMateColumnYellow();
+                    this.m_PrintMateColumnNumber = printMateColumnYellow.ColumnNumber;
+                }                
             }
         }
 
@@ -1417,7 +1425,20 @@ namespace YellowstonePathology.Business.Test
 
             if (panelSetOrder.PanelSetId == 13 && this.IsDermatologyClient() == true)
             {
-                panelSetOrder.AssignedToId = 5088;
+                if(this.m_ClientId == 1260) //If Advanced Dermatology
+                {
+                    panelSetOrder.AssignedToId = 5132; //Assign to Dr. Shannon
+                    YellowstonePathology.Business.Facility.Model.ButtePathology buttePathology = new Facility.Model.ButtePathology();
+                    panelSetOrder.ProfessionalComponentFacilityId = buttePathology.FacilityId;
+                    panelSetOrder.ProfessionalComponentBillingFacilityId = buttePathology.FacilityId;
+                }
+                else
+                {
+                    panelSetOrder.AssignedToId = 5088; //Assign to Dr. Emerick
+                    YellowstonePathology.Business.Facility.Model.YellowstonePathologistBillings yp = new Facility.Model.YellowstonePathologistBillings();
+                    panelSetOrder.ProfessionalComponentFacilityId = yp.FacilityId;
+                    panelSetOrder.ProfessionalComponentBillingFacilityId = yp.FacilityId;
+                }                
             }
             else
             {
@@ -1619,6 +1640,6 @@ namespace YellowstonePathology.Business.Test
 			result.AppendLine("Report for: " + panelSetOrder.PanelSetName);
             result.AppendLine(panelSetOrder.ToResultString(this));
             return result.ToString();
-        }
+        }        
 	}
 }

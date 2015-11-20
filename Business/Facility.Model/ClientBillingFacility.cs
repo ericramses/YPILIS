@@ -9,14 +9,14 @@ namespace YellowstonePathology.Business.Facility.Model
     {        
         private Facility m_PerformingFacility;
         private Facility m_DefaultBillingFacility;
-        private Business.Client.Model.ClientGroup m_ClientGroup;
+        private Business.Client.Model.ClientGroupClientCollection m_ClientGroupClientCollection;
         private string m_FacilityComponent;
 
-        public ClientBillingFacility(Facility performaingFacility, Facility defaultBillingFacility, Business.Client.Model.ClientGroup clientGroup, string facilityComponent)
+        public ClientBillingFacility(Facility performaingFacility, Facility defaultBillingFacility, Business.Client.Model.ClientGroupClientCollection clientGroupClientCollection, string facilityComponent)
         {
             this.m_PerformingFacility = performaingFacility;
             this.m_DefaultBillingFacility = defaultBillingFacility;
-            this.m_ClientGroup = clientGroup;
+            this.m_ClientGroupClientCollection = clientGroupClientCollection;
             this.m_FacilityComponent = facilityComponent;
         }        
 
@@ -25,7 +25,7 @@ namespace YellowstonePathology.Business.Facility.Model
             bool result = false;
             if (this.m_PerformingFacility.FacilityId == performingFacilityId && this.m_FacilityComponent == facilityComponent)
             {
-                if (this.m_ClientGroup.Exists(clientId) == true)
+                if (this.m_ClientGroupClientCollection.ClientIdExists(clientId) == true)
                 {
                     result = true;
                 }
@@ -33,9 +33,9 @@ namespace YellowstonePathology.Business.Facility.Model
             return result;
         }
 
-        public Business.Client.Model.ClientGroup ClientGroup
+        public Business.Client.Model.ClientGroupClientCollection ClientGroupClientCollection
         {
-            get { return this.m_ClientGroup; }
+            get { return this.m_ClientGroupClientCollection; }
         }
 
         public Facility PerformingFacility

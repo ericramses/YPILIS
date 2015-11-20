@@ -130,9 +130,18 @@ namespace YellowstonePathology.UI
             this.Finish(this, new EventArgs());
         }
 
-        private void HyperLinkSet_Click(object sender, RoutedEventArgs e)
+        private void HyperLinkResetAmendmentText_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Set is currently not implemented.", "Not working just yet", MessageBoxButton.OK, MessageBoxImage.Information);
+            YellowstonePathology.Business.Rules.MethodResult methodResult = this.m_Amendment.IsOkToResetText(this.m_AccessionOrder);
+            if (methodResult.Success == true)
+            {
+                YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHTestOrder her2AmplificationByISHTestOrder = (Business.Test.HER2AmplificationByISH.HER2AmplificationByISHTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_Amendment.ReferenceReportNo);
+                this.m_Amendment.Text = YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHSystemGeneratedAmendmentText.AmendmentText(her2AmplificationByISHTestOrder);
+            }
+            else
+            {
+                MessageBox.Show(methodResult.Message);
+            }
         }
 
         private void HyperLinkAccept_Click(object sender, RoutedEventArgs e)
@@ -150,10 +159,23 @@ namespace YellowstonePathology.UI
 
         private void HyperLinkFinalize_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Test.OkToFinalizeResult okToFinalizeResult = this.m_Amendment.IsOkToFinalize();
+            YellowstonePathology.Business.Test.OkToFinalizeResult okToFinalizeResult = this.m_Amendment.IsOkToFinalize(this.m_AccessionOrder);
             if (okToFinalizeResult.OK == true)
             {
-                this.m_Amendment.Finalize(this.m_SystemIdentity);
+                bool canFinal = true;
+                if (okToFinalizeResult.ShowWarningMessage == true)
+                {
+                    MessageBoxResult messageBoxResult = MessageBox.Show(okToFinalizeResult.Message, "Issue with the amendment", MessageBoxButton.YesNo, MessageBoxImage.Exclamation, MessageBoxResult.No);
+                    if (messageBoxResult == MessageBoxResult.No)
+                    {
+                        canFinal = false;
+                    }
+                }
+
+                if (canFinal == true)
+                {
+                    this.m_Amendment.Finalize(this.m_SystemIdentity.User);
+                }
             }
             else
             {

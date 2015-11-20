@@ -302,7 +302,31 @@ namespace YellowstonePathology.UI.Cytology
 			}
 		}
 
-		private void ButtonAgree_Click(object sender, RoutedEventArgs e)
+        private void ButtonAcidWashUnaccept_Click(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderAcidWash panelOrderAcidWash = (Business.Test.ThinPrepPap.PanelOrderAcidWash)this.ListBoxResults.SelectedItem;
+            MessageBoxResult result = System.Windows.MessageBox.Show("Unaccept selected Acid wash?", "UnAccept?", MessageBoxButton.OKCancel);
+            if (result == MessageBoxResult.OK)
+            {
+                panelOrderAcidWash.UnacceptResults();
+            }
+        }
+
+        private void ButtonAcidWashAccept_Click(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderAcidWash panelOrderAcidWash = (Business.Test.ThinPrepPap.PanelOrderAcidWash)this.ListBoxResults.SelectedItem;
+            Business.Rules.MethodResult methodResult = panelOrderAcidWash.IsOkToAccept();
+            if(methodResult.Success == true)
+            {
+                panelOrderAcidWash.AcceptResults(this.m_SystemIdentity.User);
+            }
+            else
+            {
+                MessageBox.Show(methodResult.Message);
+            }
+        }
+
+        private void ButtonAgree_Click(object sender, RoutedEventArgs e)
 		{
 			if (this.ListBoxResults.SelectedItem != null)
 			{
@@ -672,9 +696,10 @@ namespace YellowstonePathology.UI.Cytology
                 }
 
                 this.m_PageNavigationWindow = new PageNavigationWindow(this.m_SystemIdentity);
-				YellowstonePathology.UI.Login.WomensHealthProfilePath womensHealthProfilePath = new YellowstonePathology.UI.Login.WomensHealthProfilePath(this.m_CytologyUI.AccessionOrder, this.m_CytologyUI.ObjectTracker, clientOrder, this.m_PageNavigationWindow.PageNavigator, this.m_SystemIdentity);
-                womensHealthProfilePath.Finished += new Login.WomensHealthProfilePath.FinishedEventHandler(WomensHealthProfilePath_Finished);
-				womensHealthProfilePath.Start();
+				YellowstonePathology.UI.Login.WomensHealthProfilePath womensHealthProfilePath = new YellowstonePathology.UI.Login.WomensHealthProfilePath(this.m_CytologyUI.AccessionOrder, this.m_CytologyUI.ObjectTracker, clientOrder, this.m_PageNavigationWindow.PageNavigator, Visibility.Collapsed);
+                womensHealthProfilePath.Finish += new Login.WomensHealthProfilePath.FinishEventHandler(WomensHealthProfilePath_Finished);
+                womensHealthProfilePath.Back += new Login.WomensHealthProfilePath.BackEventHandler(WomensHealthProfilePath_Finished);
+                womensHealthProfilePath.Start(this.m_SystemIdentity);
                 this.m_PageNavigationWindow.ShowDialog();
             }
             else
@@ -692,5 +717,5 @@ namespace YellowstonePathology.UI.Cytology
 		{
 			this.TextBoxReportNoSearch.Text = reportNo;
 		}
-	}
+    }
 }

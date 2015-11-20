@@ -40,8 +40,8 @@ namespace YellowstonePathology.Business.Document
 					case 128: //Non GYN Cytology
 						document = new YellowstonePathology.Business.Test.Surgical.SurgicalWordDocument();
 						break;
-					case 14: //HPV Third Wave
-						document = new YellowstonePathology.Business.Test.HPVTWI.HPVTWIWordDocument();
+					case 14: //HPV
+						document = new YellowstonePathology.Business.Test.HPV.HPVWordDocument();
 						break;
 					case 15:  //Cytology                    
 						document = new YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapWordDocument();
@@ -276,9 +276,11 @@ namespace YellowstonePathology.Business.Document
                     case 201:
                     case 208:
                     case 211:
-                    case 212:                    
-                        document = new YellowstonePathology.Business.Document.NothingToPublishReport();
+                    case 212:
+                    case 216:            
+                        document = new YellowstonePathology.Business.Document.NothingToPublishReport();                    
                         break;
+                    
                     case 203:
                         document = new YellowstonePathology.Business.Test.ReviewForAdditionalTesting.ReviewForAdditionalTestingWordDocument();
                         break;
@@ -288,7 +290,13 @@ namespace YellowstonePathology.Business.Document
                     case 214:
                         document = new YellowstonePathology.Business.Test.TechInitiatedPeripheralSmear.TechInitiatedPeripheralSmearWordDocument();
                         break;
-					default:
+                    case 217:
+                        document = new YellowstonePathology.Business.Test.KRASExon23Mutation.KRASExon23MutationWordDocument();
+                        break;
+                    case 218:
+                        document = new YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelWordDocument();
+                        break;
+                    default:
 						break;
 				}
 			}

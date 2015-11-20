@@ -25,8 +25,7 @@ namespace YellowstonePathology.Business.Domain.Billing
 		{			
 			this.m_ProviderNPI = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianByPhysicianId(this.m_AccessionOrder.PhysicianId).Npi;
 			this.SetAccessionNode();
-			this.SetCptCodeNodes();
-			this.SetICD9CodeNodes();
+			this.SetCptCodeNodes();			
             this.SetICD10CodeNodes();
 		}		
 
@@ -115,20 +114,7 @@ namespace YellowstonePathology.Business.Domain.Billing
                 }
 			}
 			this.Add(cptListElement);
-		}
-
-		protected void SetICD9CodeNodes()
-		{
-			XElement icd9ListElement = new XElement("ICD9Codes");			
-			foreach(YellowstonePathology.Business.Billing.ICD9BillingCode icd9BillingCode in this.m_AccessionOrder.ICD9BillingCodeCollection)
-			{
-				XElement icd9Element = new XElement("ICD9Code",
-                    new XElement("Code", icd9BillingCode.ICD9Code),
-                    new XElement("Quantity", icd9BillingCode.Quantity.ToString()));
-				icd9ListElement.Add(icd9Element);
-			}
-			this.Add(icd9ListElement);
-		}
+		}		
 
         protected void SetICD10CodeNodes()
         {

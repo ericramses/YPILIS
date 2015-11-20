@@ -15,22 +15,15 @@ namespace YellowstonePathology.UI.Test
 		public KRASStandardResultPath(string reportNo,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
 			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
-            YellowstonePathology.UI.Navigation.PageNavigator pageNavigator,
-            YellowstonePathology.Business.User.SystemIdentity systemIdentity)
-            : base(pageNavigator, systemIdentity)
+            YellowstonePathology.UI.Navigation.PageNavigator pageNavigator)
+            : base(pageNavigator)
         {
             this.m_AccessionOrder = accessionOrder;
 			this.m_PanelSetOrder = (YellowstonePathology.Business.Test.KRASStandard.KRASStandardTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 			this.m_ObjectTracker = objectTracker;
-			this.Authenticated += new AuthenticatedEventHandler(ResultPath_Authenticated);
 		}
 
-		private void ResultPath_Authenticated(object sender, EventArgs e)
-		{
-			this.ShowResultPage();
-		}
-
-        private void ShowResultPage()
+        protected override void ShowResultPage()
         {
 			this.m_ResultPage = new KRASStandardResultPage(this.m_PanelSetOrder, this.m_AccessionOrder, this.m_ObjectTracker, this.m_SystemIdentity, this.m_PageNavigator);
 			this.m_ResultPage.Next += new KRASStandardResultPage.NextEventHandler(ResultPage_Next);
@@ -58,11 +51,11 @@ namespace YellowstonePathology.UI.Test
                 result = true;
                 string reportNo = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(brafV600EKTest.PanelSetId).ReportNo;
                 YellowstonePathology.UI.Test.BRAFV600EKResultPath resultPath = new YellowstonePathology.UI.Test.BRAFV600EKResultPath(reportNo,
-					this.m_AccessionOrder, this.m_ObjectTracker, this.m_PageNavigator, System.Windows.Visibility.Visible, this.m_SystemIdentity);
+					this.m_AccessionOrder, this.m_ObjectTracker, this.m_PageNavigator, System.Windows.Visibility.Visible);
 
                 resultPath.Finish += new Test.ResultPath.FinishEventHandler(ResultPath_Finish);
 				resultPath.Back += new BRAFV600EKResultPath.BackEventHandler(ResultPath_Back);
-				resultPath.Start();
+				resultPath.Start(this.m_SystemIdentity);
             }
             return result;
         }
@@ -76,11 +69,11 @@ namespace YellowstonePathology.UI.Test
 				result = true;
                 string reportNo = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(krasStandardReflexTest.PanelSetId, this.m_PanelSetOrder.OrderedOnId, true).ReportNo;
                 YellowstonePathology.UI.Test.KRASStandardReflexResultPath resultPath = new YellowstonePathology.UI.Test.KRASStandardReflexResultPath(reportNo,
-					this.m_AccessionOrder, this.m_ObjectTracker, this.m_PageNavigator, System.Windows.Visibility.Visible, this.m_SystemIdentity);
+					this.m_AccessionOrder, this.m_ObjectTracker, this.m_PageNavigator, System.Windows.Visibility.Visible);
 
 				resultPath.Finish += new Test.ResultPath.FinishEventHandler(ResultPath_Finish);
                 resultPath.Back += new KRASStandardReflexResultPath.BackEventHandler(ResultPath_Back);
-				resultPath.Start();
+				resultPath.Start(this.m_SystemIdentity);
 			}
 			return result;
 		}

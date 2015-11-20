@@ -44,7 +44,8 @@
                             <Code ICD9="V22.0" ICD10="Z34.00" Description="Encounter for supervision of normal first pregnancy, unspecified trimester" Test="Cytology" Quantity="1"/>
                             <Code ICD9="" ICD10="Z34.01" Description="Encounter for supervision of normal first pregnancy, first trimester" Test="Cytology" Quantity="1"/>
                             <Code ICD9="V22.1" ICD10="Z34.80" Description="Encounter for supervision of other normal pregnancy, unspecified trimester" Test="Cytology" Quantity="1"/>
-                            <Code ICD9="V22.1" ICD10="V34.90" Description="Encounter for supervision of normal pregnancy, unspecified, unspecified trimester" Test="Cytology" Quantity="1"/>
+                            <Code ICD9="" ICD10="Z34.81" Description="Encounter for supervision of other normal pregnancy, first trimester" Test="Cytology" Quantity="1"/>
+                            <Code ICD9="V22.1" ICD10="Z34.90" Description="Encounter for supervision of normal pregnancy, unspecified, unspecified trimester" Test="Cytology" Quantity="1"/>                            
                             <Code ICD9="V24.1" ICD10="Z39.1" Description="Encounter for care and examination of lactating mother" Test="Cytology" Quantity="1"/>
                             <Code ICD9="V24.2" ICD10="Z39.2" Description="Encounter for routine postpartum follow-up" Test="Cytology" Quantity="1"/>
                             <Code ICD9="V73.81" ICD10="Z11.51" Description="Encounter for screening for human papillomavirus (HPV)" Test="Routine HPV" Quantity="1"/>

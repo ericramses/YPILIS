@@ -23,8 +23,9 @@ namespace YellowstonePathology.Business.Test.TechInitiatedPeripheralSmear
 			this.m_AllowMultiplePerAccession = true;
             this.m_NeverDistribute = false;            
 			this.m_AcceptOnFinal = true;
-            //this.m_HasNoOrderTarget = true;
+            this.m_HasNoOrderTarget = true;
             this.m_IsBillable = false;
+            this.m_ShowResultPageOnOrder = true;
 
             this.m_TechnicalComponentFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings();            
             this.m_TechnicalComponentBillingFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings();

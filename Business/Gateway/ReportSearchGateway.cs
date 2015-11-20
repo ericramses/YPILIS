@@ -412,11 +412,38 @@ namespace YellowstonePathology.Business.Gateway
         {
             SqlCommand cmd = new SqlCommand();
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.CommandText = "gwAccessionOrderListByPanelSetId_1";
+            cmd.CommandText = "gwAccessionOrderListByPanelSetId_2";
             cmd.Parameters.Add("@PanelSetId", SqlDbType.Int).Value = parameters[0];
             cmd.Parameters.Add("@AccessionDate", SqlDbType.DateTime).Value = parameters[1];
             YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Domain.Persistence.SqlXmlPersistence.CrudOperations.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd, Domain.Persistence.DataLocationEnum.ProductionData);
             return reportSearchList;
+        }
+
+        public static Test.ThinPrepPap.AcidWashList GetAcidWashList(DateTime startDate)
+        {
+            Test.ThinPrepPap.AcidWashList result = new Test.ThinPrepPap.AcidWashList();
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "Select po.ReportNo, po.OrderDate, po.Accepted, a.PLastName, a.PFirstName, a.PMiddleInitial from tblPanelOrder po join tblPanelSetOrder pso on po.ReportNo = pso.ReportNo " +
+                " join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo where po.PanelId = 39 and po.OrderDate >= @StartDate  order by po.OrderDate Desc";
+            cmd.Parameters.Add("@StartDate", SqlDbType.DateTime).Value = startDate;
+
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        Test.ThinPrepPap.AcidWashListItem acidWashLIstItem = new Test.ThinPrepPap.AcidWashListItem();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(acidWashLIstItem, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Add(acidWashLIstItem);
+                    }
+                }
+            }
+            return result;
         }
     }
 }

@@ -38,6 +38,6 @@ namespace YellowstonePathology.Business.Test.ErPrSemiQuantitative
 
             ERPRSemiQuantitativePanel erprSemiQuantitativePanel = new ERPRSemiQuantitativePanel();
             this.m_PanelCollection.Add(erprSemiQuantitativePanel);
-		}
-	}
+        }
+    }
 }

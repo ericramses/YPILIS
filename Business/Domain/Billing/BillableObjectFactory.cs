@@ -51,8 +51,8 @@ namespace YellowstonePathology.Business.Domain.Billing
         {
             bool result = false;
             YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
-            YellowstonePathology.Business.Client.Model.MountainViewGroup mountainViewGroup = new YellowstonePathology.Business.Client.Model.MountainViewGroup();
-            if(mountainViewGroup.Exists(accessionOrder.ClientId) == true)
+            YellowstonePathology.Business.Client.Model.ClientGroupClientCollection mountainViewGroup = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientGroupClientCollectionByClientGroupId(44);
+            if(mountainViewGroup.ClientIdExists(accessionOrder.ClientId) == true)
             {
                 YellowstonePathology.Business.Facility.Model.NeogenomicsIrvine neogenomicsIrvine = new YellowstonePathology.Business.Facility.Model.NeogenomicsIrvine();
                 if(panelSetOrder.TechnicalComponentFacilityId == neogenomicsIrvine.FacilityId)

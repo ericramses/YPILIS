@@ -25,8 +25,21 @@ namespace YellowstonePathology.Business.BarcodeScanning
         public event ThinPrepSlideScanReceivedHandler ThinPrepSlideScanReceived;
 		public delegate void ThinPrepSlideScanReceivedHandler(Barcode barcode);
 
+        //private EventHandler ContainerScanReceivedHandler;        
+        //public event EventHandler ContainerScanReceived
+        //{
+        //    add
+        //    {
+        //        ContainerScanReceived += value;
+        //    }
+        //    remove
+        //    {
+        //        ContainerScanReceived -= value;
+        //    }
+        //}        
+
         public event ContainerScanReceivedHandler ContainerScanReceived;
-		public delegate void ContainerScanReceivedHandler(ContainerBarcode containerBarcode);
+        public delegate void ContainerScanReceivedHandler(ContainerBarcode containerBarcode);
 
         public event SvhAccountNoReceiveHandler SvhAccountNoReceived;
         public delegate void SvhAccountNoReceiveHandler(string svhAccountNo);
@@ -47,7 +60,7 @@ namespace YellowstonePathology.Business.BarcodeScanning
 		private SerialPort m_SerialPort;		
  
 		private BarcodeScanPort()
-		{                        
+		{            
             this.m_SerialPort = new SerialPort();
             this.m_SerialPort.PortName = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.BarcodeScanPort;
             this.m_SerialPort.NewLine = "\n";
@@ -169,6 +182,22 @@ namespace YellowstonePathology.Business.BarcodeScanning
                     if (AliquotOrderIdReceived != null) this.AliquotOrderIdReceived(scanData);
                 }
             }
-        }        
+        }  
+        
+        public int GetContainerScanReceivedInvocationCount()
+        {
+            return this.ContainerScanReceived.GetInvocationList().Length;
+        }      
+
+        public string GetContainerScanReceivedTargetString()
+        {
+            Delegate[] delegateList = this.ContainerScanReceived.GetInvocationList();
+            StringBuilder result = new StringBuilder();
+            for (int i = 0; i < delegateList.Length; i++)
+            {
+                result.AppendLine(delegateList[i].Target.ToString());
+            }
+            return result.ToString();
+        }
 	}	
 }

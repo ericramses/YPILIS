@@ -24,16 +24,13 @@ namespace YellowstonePathology.UI.Login.Receiving
 			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
 			YellowstonePathology.Business.Task.Model.TaskOrder taskOrder,
             YellowstonePathology.UI.Navigation.PageNavigator pageNavigator,
-			PageNavigationModeEnum pageNavigationMode,
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+			PageNavigationModeEnum pageNavigationMode)
 		{
 			this.m_AccessionOrder = accessionOrder;
 			this.m_ObjectTracker = objectTracker;
             this.m_TaskOrder = taskOrder;
 
-			this.m_PageNavigationMode = pageNavigationMode;
-			this.m_SystemIdentity = systemIdentity;
-            
+			this.m_PageNavigationMode = pageNavigationMode;            
             this.m_PageNavigator = pageNavigator;
 		}        
 
@@ -50,7 +47,13 @@ namespace YellowstonePathology.UI.Login.Receiving
 			}            
 		}
 
-		private void ShowScanSecurityBadgePage()
+        public void Start(YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        {
+            this.m_SystemIdentity = systemIdentity;
+            this.ShowTaskOrderPage();
+        }
+
+        private void ShowScanSecurityBadgePage()
 		{
             YellowstonePathology.UI.Login.ScanSecurityBadgePage scanSecurityBadgePage = new ScanSecurityBadgePage(System.Windows.Visibility.Collapsed);
 			scanSecurityBadgePage.AuthentificationSuccessful += new ScanSecurityBadgePage.AuthentificationSuccessfulEventHandler(ScanSecurityBadgePage_AuthentificationSuccessful);

@@ -11,6 +11,7 @@ namespace YellowstonePathology.Business.Test.Trichomonas
 		{
 			this.Add(new TrichomonasNegativeResult());
 			this.Add(new TrichomonasPositiveResult());
+            this.Add(new TrichomonasInvalidResult());
 			this.Add(new Business.Test.TestResultNoResult());
 		}
 	}

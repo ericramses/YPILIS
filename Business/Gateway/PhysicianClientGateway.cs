@@ -164,12 +164,12 @@ namespace YellowstonePathology.Business.Gateway
 			return result;
 		}
 
-        public static YellowstonePathology.Business.Client.ClientGroupCollection GetClientGroupCollection()
+        public static YellowstonePathology.Business.Client.Model.ClientGroupCollection GetClientGroupCollection()
         {
 #if MONGO
             return PhysicianClientGatewayMongo.GetClientGroupCollection();
 #else
-            YellowstonePathology.Business.Client.ClientGroupCollection result = new Client.ClientGroupCollection();
+            YellowstonePathology.Business.Client.Model.ClientGroupCollection result = new Client.Model.ClientGroupCollection();
             SqlCommand cmd = new SqlCommand("select * from tblClientGroup order by GroupName");
             cmd.CommandType = CommandType.Text;            
 
@@ -181,7 +181,7 @@ namespace YellowstonePathology.Business.Gateway
                 {
                     while (dr.Read())
                     {
-                        YellowstonePathology.Business.Client.ClientGroup clientGroup = new Client.ClientGroup();
+                        YellowstonePathology.Business.Client.Model.ClientGroup clientGroup = new Client.Model.ClientGroup();
                         YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(clientGroup, dr);
                         sqlDataReaderPropertyWriter.WriteProperties();
                         result.Add(clientGroup);
@@ -886,7 +886,39 @@ namespace YellowstonePathology.Business.Gateway
 			return result;
 		}
 
-		public static Domain.PhysicianClient GetPhysicianClient(string providerId, int clientId)
+        public static YellowstonePathology.Business.Client.Model.ClientCollection GetClientCollectionByClientGroupId(int clientGroupId)
+        {
+            YellowstonePathology.Business.Client.Model.ClientCollection result = new Client.Model.ClientCollection();
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "select c.* " +
+                "from tblClientGroup cg " +
+                "join tblClientGroupClient cgc on cg.ClientGroupId = cgc.ClientGroupId " +
+                "join tblclient c on cgc.ClientId = c.ClientId " +
+                "where cgc.ClientGroupId = @ClientGroupId order by c.ClientName";
+
+            cmd.Parameters.Add("@ClientGroupId", SqlDbType.Int).Value = clientGroupId;
+            cmd.CommandType = CommandType.Text;
+
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.BaseData.SqlConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        YellowstonePathology.Business.Client.Model.Client client = new YellowstonePathology.Business.Client.Model.Client();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(client, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Add(client);
+                    }
+                }
+            }
+            return result;
+        }
+
+        public static Domain.PhysicianClient GetPhysicianClient(string providerId, int clientId)
 		{
 			Domain.PhysicianClient result = null;
 			SqlCommand cmd = new SqlCommand();
@@ -1325,7 +1357,70 @@ namespace YellowstonePathology.Business.Gateway
 			return result;
 		}
 
-		public static YellowstonePathology.Business.Client.Model.ClientSupplyCollection GetClientSupplyCollection(string supplyCategory)
+        public static int GetLargestClientGroupId()
+        {
+            int result = 0;
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "Select max(ClientGroupId) from tblClientGroup";
+            cmd.CommandType = CommandType.Text;
+
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        result = (Int32)dr[0];
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        public static int GetLargestClientGroupClientId()
+        {
+            int result = 0;
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "Select max(ClientGroupClientId) from tblClientGroupClient";
+            cmd.CommandType = CommandType.Text;
+
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        result = (Int32)dr[0];
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        public static void DeleteClientGroupClient(int clientid, int clientGroupId)
+        {
+            
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "delete tblClientGroupClient where ClientGroupId = @ClientGroupId and ClientId = @ClientId";
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.Add("@ClientGroupId", SqlDbType.Int).Value = clientGroupId;
+            cmd.Parameters.Add("@ClientId", SqlDbType.Int).Value = clientid;
+
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                cmd.ExecuteNonQuery();   
+            }            
+        }
+
+        public static YellowstonePathology.Business.Client.Model.ClientSupplyCollection GetClientSupplyCollection(string supplyCategory)
 		{
 			YellowstonePathology.Business.Client.Model.ClientSupplyCollection result = new Client.Model.ClientSupplyCollection();
 			SqlCommand cmd = new SqlCommand();
@@ -1644,5 +1739,83 @@ namespace YellowstonePathology.Business.Gateway
             }
             return result;
         }
+
+        public static YellowstonePathology.Business.Client.Model.ClientGroupClientCollection GetClientGroupClientCollection()
+        {
+            YellowstonePathology.Business.Client.Model.ClientGroupClientCollection result = new Client.Model.ClientGroupClientCollection();
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "Select * from tblClientGroupClient";
+            cmd.CommandType = CommandType.Text;            
+
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        YellowstonePathology.Business.Client.Model.ClientGroupClient clientGroupClient = new Client.Model.ClientGroupClient();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(clientGroupClient, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Add(clientGroupClient);
+                    }
+                }
+            }
+            return result;
+        }
+
+        public static YellowstonePathology.Business.Client.Model.ClientGroupClientCollection GetClientGroupClientCollectionByClientGroupId(List<int> clientGroupIds)
+        {
+            string inClause = YellowstonePathology.Business.Helper.IdListHelper.ToIdString(clientGroupIds);
+            YellowstonePathology.Business.Client.Model.ClientGroupClientCollection result = new Client.Model.ClientGroupClientCollection();
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "Select * from tblClientGroupClient where ClientGroupId in (" + inClause + ")";
+            cmd.CommandType = CommandType.Text;            
+
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        YellowstonePathology.Business.Client.Model.ClientGroupClient clientGroupClient = new Client.Model.ClientGroupClient();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(clientGroupClient, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Add(clientGroupClient);
+                    }
+                }
+            }
+            return result;
+        }
+
+        public static YellowstonePathology.Business.Client.Model.ClientGroupClientCollection GetClientGroupClientCollectionByClientGroupId(int clientGroupId)
+        {
+            YellowstonePathology.Business.Client.Model.ClientGroupClientCollection result = new Client.Model.ClientGroupClientCollection();
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "Select * from tblClientGroupClient where ClientGroupId = @ClientGroupId";
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.Add("@ClientGroupId", SqlDbType.Int).Value = clientGroupId;
+
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        YellowstonePathology.Business.Client.Model.ClientGroupClient clientGroupClient = new Client.Model.ClientGroupClient();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(clientGroupClient, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Add(clientGroupClient);
+                    }
+                }
+            }
+            return result;
+        }
+
     }
 }

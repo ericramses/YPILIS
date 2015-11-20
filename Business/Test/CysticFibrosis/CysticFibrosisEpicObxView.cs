@@ -43,7 +43,9 @@ namespace YellowstonePathology.Business.Test.CysticFibrosis
             }            
 
 			this.AddNextObxElement("", document, "F");
-			this.AddNextObxElement("Specimen: Whole blood EDTA", document, "F");
+            this.AddAmendments(document);
+
+            this.AddNextObxElement("Specimen: Whole blood EDTA", document, "F");
 
             YellowstonePathology.Business.Test.CysticFibrosis.CysticFibrosisEthnicGroupCollection cysticFibrosisEthnicGroupCollection = new CysticFibrosisEthnicGroupCollection();
             YellowstonePathology.Business.Test.CysticFibrosis.CysticFibrosisEthnicGroup cysticFibrosisEthnicGroup = cysticFibrosisEthnicGroupCollection.GetCysticFibrosisEthnicGroup(panelSetOrder.EthnicGroupId);

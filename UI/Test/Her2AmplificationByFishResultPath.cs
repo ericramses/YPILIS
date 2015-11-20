@@ -15,22 +15,15 @@ namespace YellowstonePathology.UI.Test
 		public Her2AmplificationByFishResultPath(string reportNo,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
 			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
-            YellowstonePathology.UI.Navigation.PageNavigator pageNavigator,
-            YellowstonePathology.Business.User.SystemIdentity systemIdentity)
-            : base(pageNavigator, systemIdentity)
+            YellowstonePathology.UI.Navigation.PageNavigator pageNavigator)
+            : base(pageNavigator)
         {
             this.m_AccessionOrder = accessionOrder;
 			this.m_PanelSetOrder = (YellowstonePathology.Business.Test.Her2AmplificationByFish.PanelSetOrderHer2AmplificationByFish)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 			this.m_ObjectTracker = objectTracker;
-			this.Authenticated += new AuthenticatedEventHandler(ResultPath_Authenticated);
 		}
 
-		private void ResultPath_Authenticated(object sender, EventArgs e)
-		{
-			this.ShowResultPage();
-		}
-
-        private void ShowResultPage()
+        protected override void ShowResultPage()
         {
 			this.m_ResultPage = new Her2AmplificationByFishResultPage(this.m_PanelSetOrder, this.m_AccessionOrder, this.m_ObjectTracker, this.m_SystemIdentity);
 			this.m_ResultPage.Next += new Her2AmplificationByFishResultPage.NextEventHandler(ResultPage_Next);
@@ -50,9 +43,9 @@ namespace YellowstonePathology.UI.Test
 			{
                 YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSet.PanelSetId, this.m_PanelSetOrder.OrderedOnId, true);
 				result = true;
-				InvasiveBreastPanelPath invasiveBreastPanelPath = new InvasiveBreastPanelPath(panelSetOrder.ReportNo, this.m_AccessionOrder, this.m_ObjectTracker, this.m_SystemIdentity, this.m_PageNavigator);
+				InvasiveBreastPanelPath invasiveBreastPanelPath = new InvasiveBreastPanelPath(panelSetOrder.ReportNo, this.m_AccessionOrder, this.m_ObjectTracker, this.m_PageNavigator);
 				invasiveBreastPanelPath.Finish += new InvasiveBreastPanelPath.FinishEventHandler(InvasiveBreastPanelPath_Finish);
-				invasiveBreastPanelPath.Start();
+				invasiveBreastPanelPath.Start(this.m_SystemIdentity);
 			}
 
 			return result;

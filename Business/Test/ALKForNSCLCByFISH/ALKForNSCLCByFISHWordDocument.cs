@@ -29,9 +29,9 @@ namespace YellowstonePathology.Business.Test.ALKForNSCLCByFISH
             YellowstonePathology.Business.Test.ALKForNSCLCByFISH.ALKForNSCLCByFISHTestOrder alkForNSCLCByFISHTestOrder = (YellowstonePathology.Business.Test.ALKForNSCLCByFISH.ALKForNSCLCByFISHTestOrder)this.m_PanelSetOrder;
 
 			YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetAliquotOrder(alkForNSCLCByFISHTestOrder.OrderedOnId);
-			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(alkForNSCLCByFISHTestOrder.OrderedOn, alkForNSCLCByFISHTestOrder.OrderedOnId);
+			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(alkForNSCLCByFISHTestOrder.OrderedOn, alkForNSCLCByFISHTestOrder.OrderedOnId);            
 
-			string specimenDescription = specimenOrder.Description;
+            string specimenDescription = specimenOrder.Description;
 			if(aliquotOrder != null) specimenDescription += ", Block " + aliquotOrder.Label;
 			this.ReplaceText("specimen_description", specimenDescription);
 

@@ -150,6 +150,7 @@
     <Compile Include="Audit.Model\AuditResult.cs" />
     <Compile Include="Audit.Model\AuditStatusEnum.cs" />
     <Compile Include="Audit.Model\BRAFMetastaticMelanomaAudit.cs" />
+    <Compile Include="Audit.Model\CanFinalizeCytologyPanelOrderAudit.cs" />
     <Compile Include="Audit.Model\CaseHasNotFoundClientAudit.cs" />
     <Compile Include="Audit.Model\CaseHasNotFoundProviderAudit.cs" />
     <Compile Include="Audit.Model\CaseHasUnfinaledPeerReviewAudit.cs" />
@@ -160,9 +161,10 @@
     <Compile Include="Audit.Model\AccountNoAudit.cs" />
     <Compile Include="Audit.Model\AreAllWHPTestsFinalAudit.cs" />
     <Compile Include="Audit.Model\CouldBenefitFromCCCPAudit.cs" />
+    <Compile Include="Audit.Model\DistributionCanBeSetAudit.cs" />
     <Compile Include="Audit.Model\GradedStainsAreHandledAudit.cs" />
     <Compile Include="Audit.Model\HER2OKToAcceptAudit.cs" />
-    <Compile Include="Audit.Model\HighRiskHPVForSiteAudit.cs" />
+    <Compile Include="Audit.Model\HPV1618ForSiteAudit.cs" />
     <Compile Include="Audit.Model\IntraoperativeConsultationCorrelationAudit.cs" />
     <Compile Include="Audit.Model\IntraoperativeConsultationFinalAudit.cs" />
     <Compile Include="Audit.Model\PathologistSignoutIsHandledAuditCollection.cs" />
@@ -273,6 +275,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="CaseType.cs" />
+    <Compile Include="Client.Model\ClientGroupClient.cs" />
+    <Compile Include="Client.Model\ClientGroupClientCollection.cs" />
+    <Compile Include="Client.Model\ClientGroupCollection.cs" />
     <Compile Include="Client.Model\ClientSupply.cs" />
     <Compile Include="Client.Model\ClientSupplyCollection.cs" />
     <Compile Include="Client.Model\ClientSupplyOrder.cs" />
@@ -461,9 +466,13 @@
     <Compile Include="PanelSet.Model\PanelSetTCellClonalityByPCRRetired.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Persistence\JSONWriter.cs" />
     <Compile Include="Test.Model\DispalyGroupProstate.cs" />
     <Compile Include="Test\ALKForNSCLCByFISH\ALKForNSCLCByFISHNegativeWithMonosomyResult.cs" />
     <Compile Include="Test\ALKForNSCLCByFISH\ALKForNSCLCByFISHNegativeWithPolysomyResult.cs" />
+    <Compile Include="Test\EGFRMutationAnalysis\EGFRMutationAnalysisPanel.cs" />
+    <Compile Include="Test\ErPrSemiQuantitative\ERPRSemiQuanititativePanel.cs" />
+    <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHPanel.cs" />
     <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHSystemGeneratedAmendmentText.cs" />
     <Compile Include="Test\HPV1618ByPCR\HPV1618BothPositiveResult.cs" />
     <Compile Include="Test\HPV1618ByPCR\HPV1618BothNegativeResult.cs" />
@@ -482,7 +491,16 @@
     <Compile Include="Test\HPV1618\HPV1618Genotype16PositiveResult.cs" />
     <Compile Include="Test\HPV1618\HPV1618Genotype18NegativeResult.cs" />
     <Compile Include="Test\HPV1618\HPV1618Genotype18PositiveResult.cs" />
-    <Compile Include="Test\HPVTWI\HPVTWIInvalidResult.cs" />
+    <Compile Include="Test\HPV\HPVInvalidResult.cs" />
+    <Compile Include="Test\HPV\HPVNoResult.cs" />
+    <Compile Include="Test\KRASExon23Mutation\KRASExon23MutationEpicObxView.cs" />
+    <Compile Include="Test\KRASExon23Mutation\KRASExon23MutationResult.cs" />
+    <Compile Include="Test\KRASExon23Mutation\KRASExon23MutationTest.cs" />
+    <Compile Include="Test\KRASExon23Mutation\KRASExon23MutationTestOrder.cs" />
+    <Compile Include="Test\KRASExon23Mutation\KRASExon23MutationWordDocument.cs" />
+    <Compile Include="Test\KRASStandard\KRASStandardPanel.cs" />
+    <Compile Include="Test\LynchSyndrome\LSEGYNResult3.cs" />
+    <Compile Include="Test\LynchSyndrome\LynchSyndromeIHCPanel.cs" />
     <Compile Include="Test\MissingInformation\MissingInformationTest.cs" />
     <Compile Include="Test\MissingInformation\MissingInformationTestOrder.cs" />
     <Compile Include="Test\NGCT\NGCTInvalidResult.cs" />
@@ -565,7 +583,7 @@
     <Compile Include="Gateway\FlowGatewayMongo.cs" />
     <Compile Include="Gateway\PhysicianClientGatewayMongo.cs" />
     <Compile Include="Interface\ISolidTumorTesting.cs" />
-    <Compile Include="MolecularTesting\BatchLogReport.cs" />
+    <Compile Include="MolecularTesting\CaseList.cs" />
     <Compile Include="Mongo\BSONObjectBuilder.cs" />
     <Compile Include="Mongo\AOTransferBuilder.cs">
       <SubType>Code</SubType>
@@ -613,11 +631,17 @@
     <Compile Include="Test\ChromosomeAnalysisForFetalAnomaly\ChromosomeAnalysisForFetalAnomalyNoGrowthResult.cs" />
     <Compile Include="Test\ChromosomeAnalysis\ChromosomeAnalysisInconclusiveResult.cs" />
     <Compile Include="Test\HoldForFlow\HoldForFlowTest.cs" />
-    <Compile Include="Test\HPVTWI\HPVTWIPositiveResult.cs" />
+    <Compile Include="Test\HPV\HPVPositiveResult.cs" />
     <Compile Include="Test\Instrument.cs" />
     <Compile Include="Test\PantherAliquotListItem.cs" />
+    <Compile Include="Test\PantherOrderListItemNGCT.cs" />
     <Compile Include="Test\PantherOrderListItem.cs" />
-    <Compile Include="Test\PDL1\PDL1.cs" />
+    <Compile Include="Test\PDL1\PDL1Test.cs" />
+    <Compile Include="Test\RASRAFPanel\RASRAFPanelEpicObxView.cs" />
+    <Compile Include="Test\RASRAFPanel\RASRAFPanelResult.cs" />
+    <Compile Include="Test\RASRAFPanel\RASRAFPanelTest.cs" />
+    <Compile Include="Test\RASRAFPanel\RASRAFPanelTestOrder.cs" />
+    <Compile Include="Test\RASRAFPanel\RASRAFPanelWordDocument.cs" />
     <Compile Include="Test\ROS1ByFISH\ROS1ByFISHInconclusiveResult.cs" />
     <Compile Include="Test\ROS1ByFISH\ROS1ByFISHNegativeWithMonosomyResult.cs" />
     <Compile Include="Test\ROS1ByFISH\ROS1ByFISHNegativeWithPolysomyResult.cs" />
@@ -628,6 +652,9 @@
     <Compile Include="Test\TechInitiatedPeripheralSmear\TechInitiatedPeripheralSmearTest.cs" />
     <Compile Include="Test\TechInitiatedPeripheralSmear\TechInitiatedPeripheralSmearTestOrder.cs" />
     <Compile Include="Test\TechInitiatedPeripheralSmear\TechInitiatedPeripheralSmearWordDocument.cs" />
+    <Compile Include="Test\ThinPrepPap\AcidWashListItem.cs" />
+    <Compile Include="Test\ThinPrepPap\AcidWashList.cs" />
+    <Compile Include="Test\Trichomonas\TrichomonasInvalidResult.cs" />
     <Compile Include="TrackedItemStatusEnum.cs" />
     <Compile Include="Specimen.Model\AliquotCollection.cs" />
     <Compile Include="Specimen.Model\BlockMedium.cs" />
@@ -688,7 +715,6 @@
     <Compile Include="Test\EGFRMutationAnalysis\EGFRMutationAnalysisWordDocument.cs" />
     <Compile Include="Test\EGFRToALKReflexAnalysis\EGFRToALKReflexAnalysisElementStatusEnum.cs" />
     <Compile Include="Test\EGFRToALKReflexAnalysis\EGFRToALKReflexAnalysisEPICOBXView.cs" />
-    <Compile Include="HL7View\EPIC\EpicSummaryHeaderObxView.cs" />
     <Compile Include="HL7View\EPIC\EpicStatusObrView.cs" />
     <Compile Include="Mongo\DocumentCollectionTracker.cs" />
     <Compile Include="Mongo\DocumentTracker.cs" />
@@ -1018,8 +1044,6 @@
     <Compile Include="HL7View\EPIC\AllResultTypeTest.cs" />
     <Compile Include="HL7View\EPIC\EpicUniversalSerivceIdDictionary.cs" />
     <Compile Include="HL7View\EPIC\TestEpicStatusMessage.cs" />
-    <Compile Include="HL7View\EPIC\EpicCytogeneticsObxView.cs" />
-    <Compile Include="HL7View\EPIC\EpicMthfrObxView.cs" />
     <Compile Include="HL7View\EPIC\EpicOrcView.cs" />
     <Compile Include="HL7View\EPIC\EpicPidView.cs" />
     <Compile Include="HL7View\EPIC\EpicMshView.cs" />
@@ -1250,7 +1274,6 @@
     <Compile Include="Test\EGFRToALKReflexAnalysis\EGFRToALKReflexAnalysisElementResult.cs" />
     <Compile Include="Test\EosinophiliaByFISH\EosinophiliaByFISHEpicObxView.cs" />
     <Compile Include="Test\EosinophiliaByFISH\EosinophiliaByFISHWordDocument.cs" />
-    <Compile Include="Test\FetalHemoglobin\FetalHemoglobinEpicObxView.cs" />
     <Compile Include="Test\FetalHemoglobin\FetalHemoglobinTest.cs" />
     <Compile Include="Test\FetalHemoglobin\FetalHemoglobinWordDocument.cs" />
     <Compile Include="Test\FNAAdequacyAssessment\FNAAdequacyAssessmentTestOrder.cs" />
@@ -1271,8 +1294,8 @@
     <Compile Include="Test\HighGradeLargeBCellLymphoma\HighGradeLargeBCellLymphomaWordDocument.cs" />
     <Compile Include="Test\HPV1618\HPV1618EpicObxView.cs" />
     <Compile Include="Test\HPV1618\HPV1618WordDocument.cs" />
-    <Compile Include="Test\HPVTWI\HPVTWIEpicObxView.cs" />
-    <Compile Include="Test\HPVTWI\HPVTWIWordDocument.cs" />
+    <Compile Include="Test\HPV\HPVEpicObxView.cs" />
+    <Compile Include="Test\HPV\HPVWordDocument.cs" />
     <Compile Include="Test\InvasiveBreastPanel\InvasiveBreastPanel.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -1352,12 +1375,10 @@
     <Compile Include="Test\NPM1\NPM1Test.cs" />
     <Compile Include="Test\NPM1\PanelSetOrderNPM1.cs" />
     <Compile Include="Test\OkToUnfinalizeResult.cs" />
-    <Compile Include="Test\EGFRMutationAnalysis\EGFRMutationAnalysisPanel.cs" />
     <Compile Include="Test\HPV1618\HPV1618NoResult.cs" />
     <Compile Include="Test\OkToFinalizeResult.cs" />
     <Compile Include="Test\PlasmaCellMyelomaRiskStratification\PlasmaCellMyelomaRiskStratificationEpicObxView.cs" />
     <Compile Include="Test\PlasmaCellMyelomaRiskStratification\PlasmaCellMyelomaRiskStratificationWordDocument.cs" />
-    <Compile Include="Test\PlateletAssociatedAntibodies\PAAEpicObxView.cs" />
     <Compile Include="Test\PlateletAssociatedAntibodies\PlateletAssociatedAntibodiesTest.cs" />
     <Compile Include="Test\PlateletAssociatedAntibodies\PlateletAssociatedAntibodiesWordDocument.cs" />
     <Compile Include="Test\ReticulatedPlateletAnalysis\ReticulatedPlateletAnalysisTest.cs" />
@@ -1378,7 +1399,6 @@
     <Compile Include="Test\ROS1ByFISH\ROS1ByFISHWordDocument.cs" />
     <Compile Include="Test\ROS1ByFISH\ROS1ByFISHTest.cs" />
     <Compile Include="Test\ROS1ByFISH\ROS1ByFISHTestOrder.cs" />
-    <Compile Include="Test\StemCellEnumeration\StemCellEnumerationEpicObxView.cs" />
     <Compile Include="Test\StemCellEnumeration\StemCellEnumerationTest.cs" />
     <Compile Include="Test\StemCellEnumeration\StemCellEnumerationWordDocument.cs" />
     <Compile Include="Test\TCellClonalityByPCR\TCellClonalityByPCREpicObxView.cs" />
@@ -1467,7 +1487,6 @@
     <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHTest.cs" />
     <Compile Include="Test\HighGradeLargeBCellLymphoma\HighGradeLargeBCellLymphomaPanelTest.cs" />
     <Compile Include="Test\HPV1618\HPV1618Test.cs" />
-    <Compile Include="Test\HPVTWI\PanelOrderHPVTWI.cs" />
     <Compile Include="Test\JAK2Exon1214\JAK2Exon1214Test.cs" />
     <Compile Include="Test\JAK2V617F\JAK2V617FTest.cs" />
     <Compile Include="Test\KRASExon4Mutation\KRASExon4MutationTest.cs" />
@@ -1585,10 +1604,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Visitor\AccessionTreeVisitor.cs" />
-    <Compile Include="Test\Autopsy\AutopsyEpicObxView.cs" />
     <Compile Include="Test\Autopsy\AutopsyTestOrder.cs" />
     <Compile Include="Test\Autopsy\AutopsyWordDocument.cs" />
-    <Compile Include="Test\BCellClonalityByPCR\BCellClonalityByPCREpicObxView.cs" />
     <Compile Include="Test\BCellClonalityByPCR\BCellClonalityByPCRIndeterminateResult.cs" />
     <Compile Include="Test\BCellClonalityByPCR\BCellClonalityByPCRNegativeResult.cs" />
     <Compile Include="Test\BCellClonalityByPCR\BCellClonalityByPCRPositiveResult.cs" />
@@ -1898,10 +1915,10 @@
     <Compile Include="Test\HPV1618\HPV1618Result.cs" />
     <Compile Include="Test\HPV1618\HPV1618ResultCollection.cs" />
     <Compile Include="Test\HPV1618\PanelSetOrderHPV1618.cs" />
-    <Compile Include="Test\HPVTWI\HPVTWINegativeResult.cs" />
-    <Compile Include="Test\HPVTWI\HPVTWIResult.cs" />
-    <Compile Include="Test\HPVTWI\HPVTWIResultCollection.cs" />
-    <Compile Include="Test\HPVTWI\PanelSetOrderHPVTWI.cs" />
+    <Compile Include="Test\HPV\HPVNegativeResult.cs" />
+    <Compile Include="Test\HPV\HPVResult.cs" />
+    <Compile Include="Test\HPV\HPVResultCollection.cs" />
+    <Compile Include="Test\HPV\HPVTestOrder.cs" />
     <Compile Include="Test\KRASStandardReflex\KRASStandardReflexEpicObxView.cs" />
     <Compile Include="Test\KRASStandardReflex\KRASStandardReflexKRASNotDetecedBRAFDetectedResult.cs" />
     <Compile Include="Test\KRASStandardReflex\KRASStandardReflexBothNotDetectedResult.cs" />
@@ -2075,8 +2092,6 @@
     <Compile Include="Visitor\StainAcknowledgementTaskOrderVisitor.cs" />
     <Compile Include="WordApplication.cs" />
     <Compile Include="AutomatedOrderList.cs" />
-    <Compile Include="BatchTypeList.cs" />
-    <Compile Include="BatchTypeListItem.cs" />
     <Compile Include="Billing.Model\BillingComponentEnum.cs" />
     <Compile Include="Billing.Model\BillingRule.cs" />
     <Compile Include="Billing.Model\BillingRuleCollection.cs" />
@@ -2140,13 +2155,9 @@
     <Compile Include="Client.Model\ClientCollection.cs" />
     <Compile Include="Client.Model\ClientCommunication.cs" />
     <Compile Include="Client.Model\ClientGroup.cs" />
-    <Compile Include="Client.Model\ClientGroupAllClients.cs" />
-    <Compile Include="Client.Model\ClientGroupStVincent.cs" />
     <Compile Include="Client.Model\ClientLocation.cs" />
     <Compile Include="Client.Model\ClientLocationCollection.cs" />
-    <Compile Include="Client.Model\CMMCGroup.cs" />
     <Compile Include="Client.Model\LocalPhonePrefix.cs" />
-    <Compile Include="Client.Model\MountainViewGroup.cs" />
     <Compile Include="Client.Model\Physician.cs" />
     <Compile Include="Client.Model\PhysicianClientDistribution.cs" />
     <Compile Include="Client.Model\PhysicianClientDistributionView.cs" />
@@ -2157,8 +2168,6 @@
     <Compile Include="Client.Model\PhysicianNameHelper.cs" />
     <Compile Include="Client.Model\PhysicianNameView.cs" />
     <Compile Include="Client.Model\PhysicianNameViewCollection.cs" />
-    <Compile Include="Client.Model\StVincentGroup.cs" />
-    <Compile Include="Client.Model\WestParkHospitalGroup.cs" />
     <Compile Include="ClientOrder.Model\ClientOrder.cs" />
     <Compile Include="ClientOrder.Model\ClientOrder.Validation.cs" />
     <Compile Include="ClientOrder.Model\ClientOrderCollection.cs" />
@@ -2294,22 +2303,13 @@
     <Compile Include="Test\BRAFV600EK\BRAFV600EKPanel.cs" />
     <Compile Include="Test\ThinPrepPap\ThinPrepPapAcidWashPanel.cs" />
     <Compile Include="Test\ThinPrepPap\ThinPrepPapDotReviewPanel.cs" />
-    <Compile Include="Test\CysticFibrosis\CysticFibrosisPanel.cs" />
     <Compile Include="Test\ThinPrepPap\ThinPrepPapScreeningPanel.cs" />
     <Compile Include="Test\ThinPrepPap\ThinPrepPapQCPanel.cs" />
-    <Compile Include="Test\ErPrSemiQuantitative\ERPRSemiQuanititativePanel.cs" />
-    <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHPanel.cs" />
-    <Compile Include="Test\HPVTWI\HPVTWIPanel.cs" />
-    <Compile Include="Test\JAK2V617F\JAK2V617FPanel.cs" />
-    <Compile Include="Test\KRASStandard\KRASStandardPanel.cs" />
-    <Compile Include="Test\LynchSyndrome\LynchSyndromeIHCPanel.cs" />
     <Compile Include="OrderTargetTypeCollection.cs" />
     <Compile Include="Panel.Model\SpecialStainPanel.cs" />
     <Compile Include="Panel.Model\InitialPanel.cs" />
     <Compile Include="Panel.Model\Panel.cs" />
     <Compile Include="Panel.Model\PanelCollection.cs" />
-    <Compile Include="Panel.Model\PanelOrderBatch.cs" />
-    <Compile Include="Panel.Model\PanelOrderBatchList.cs" />
     <Compile Include="Test\ThinPrepPap\PrimaryScreeningPanel.cs" />
     <Compile Include="PanelSet.Model\AbsoluteCD4CountTest.cs" />
     <Compile Include="PanelSet.Model\ALK1Test.cs" />
@@ -2388,7 +2388,7 @@
     <Compile Include="PanelSet.Model\PanelSetHighRiskMultipleMyelomaByFISH Fish.cs" />
     <Compile Include="PanelSet.Model\PanelSetHPV16.cs" />
     <Compile Include="PanelSet.Model\PanelSetHPVLowRiskByInSituHybridization.cs" />
-    <Compile Include="Test\HPVTWI\HPVTWITest.cs" />
+    <Compile Include="Test\HPV\HPVTest.cs" />
     <Compile Include="PanelSet.Model\PanelSetIgHBCL2ByFish.cs" />
     <Compile Include="PanelSet.Model\PanelSetIgHMAFBByFish.cs" />
     <Compile Include="PanelSet.Model\PanelSetIgHMAFByFish.cs" />

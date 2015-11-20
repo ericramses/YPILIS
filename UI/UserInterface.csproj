@@ -29,7 +29,7 @@
     <ApplicationIcon>YPI.ico</ApplicationIcon>
     <NoWin32Manifest>true</NoWin32Manifest>
     <TargetFrameworkProfile />
-    <PublishUrl>\\Ypiibldc\YPIILIS\Application\</PublishUrl>
+    <PublishUrl>\\ypiidc\YPIILIS\Application\</PublishUrl>
     <Install>false</Install>
     <InstallFrom>Unc</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -41,7 +41,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>368</ApplicationRevision>
+    <ApplicationRevision>516</ApplicationRevision>
     <ApplicationVersion>10.1.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -204,12 +204,6 @@
     <Compile Include="CellCounter.xaml.cs">
       <DependentUpon>CellCounter.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Client\ClientEntry.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Client\ClientEntry.designer.cs">
-      <DependentUpon>ClientEntry.cs</DependentUpon>
-    </Compile>
     <Compile Include="Client\ClientSupplyOrderDialog.xaml.cs">
       <DependentUpon>ClientSupplyOrderDialog.xaml</DependentUpon>
     </Compile>
@@ -217,29 +211,8 @@
       <DependentUpon>ClientSupplyOrderListDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Client\IHCMolecularRequisition.cs" />
-    <Compile Include="Client\PhysicianClientSearch.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Client\PhysicianClientSearch.Designer.cs">
-      <DependentUpon>PhysicianClientSearch.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Client\PhysicianEntry.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Client\PhysicianEntry.designer.cs">
-      <DependentUpon>PhysicianEntry.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Client\PhysicianSearch.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Client\PhysicianSearch.designer.cs">
-      <DependentUpon>PhysicianSearch.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Client\ReportDistribution.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Client\ReportDistribution.Designer.cs">
-      <DependentUpon>ReportDistribution.cs</DependentUpon>
+    <Compile Include="Client\ClientGroupEntry.xaml.cs">
+      <DependentUpon>ClientGroupEntry.xaml</DependentUpon>
     </Compile>
     <Compile Include="Common\OrderItemView.cs" />
     <Compile Include="Converter\BooleanVisibilityHiddenConverter.cs" />
@@ -289,11 +262,11 @@
       <DependentUpon>ThinPrepPapSlidePrintingPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Cytology\ThinPrepPapSlidePrintingPath.cs" />
+    <Compile Include="FaxTesting.cs" />
     <Compile Include="Gross\BlankPage.xaml.cs">
       <DependentUpon>BlankPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Gross\ColorConverter.cs" />
-    <Compile Include="Gross\GrossDictation.cs" />
     <Compile Include="Gross\ProcessorSelectionPage.xaml.cs">
       <DependentUpon>ProcessorSelectionPage.xaml</DependentUpon>
     </Compile>
@@ -454,6 +427,9 @@
       <DependentUpon>PantherOrdersDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="PantherAliquotReport.cs" />
+    <Compile Include="PantherStorageDialog.xaml.cs">
+      <DependentUpon>PantherStorageDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ReportDistribution\ReportDistributionWorkspace.xaml.cs">
       <DependentUpon>ReportDistributionWorkspace.xaml</DependentUpon>
     </Compile>
@@ -471,8 +447,8 @@
       <DependentUpon>ReportOrderMolecularAnalysisDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="SortDirectionAdorner.cs" />
-    <Compile Include="Surgical\ColorectalCancerOrderPage.xaml.cs">
-      <DependentUpon>ColorectalCancerOrderPage.xaml</DependentUpon>
+    <Compile Include="Surgical\SuggestedAdditionalTestingPage.xaml.cs">
+      <DependentUpon>SuggestedAdditionalTestingPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Surgical\DictationTemplatePage.xaml.cs">
       <DependentUpon>DictationTemplatePage.xaml</DependentUpon>
@@ -541,6 +517,12 @@
       <DependentUpon>ABL1KinaseDomainMutationResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Test\ABL1KinaseDomainMutationResultPath.cs" />
+    <Compile Include="Test\AcidWashOrdersDialog.xaml.cs">
+      <DependentUpon>AcidWashOrdersDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Test\AcidWashResultDialog.xaml.cs">
+      <DependentUpon>AcidWashResultDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Test\ALKForNSCLCByFISHResultPage.xaml.cs">
       <DependentUpon>ALKForNSCLCByFISHResultPage.xaml</DependentUpon>
     </Compile>
@@ -626,11 +608,18 @@
     <Compile Include="Test\HPV1618ByPCRResultPage.xaml.cs">
       <DependentUpon>HPV1618ByPCRResultPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Test\IResultPageAction.cs" />
+    <Compile Include="Test\KRASExon23MutationResultPage.xaml.cs">
+      <DependentUpon>KRASExon23MutationResultPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Test\KRASExon23MutationResultPath.cs" />
     <Compile Include="Test\MissingInformationResultPage.xaml.cs">
       <DependentUpon>MissingInformationResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Test\MissingInformationResultPath.cs" />
+    <Compile Include="Test\RASRAFPanelResultPage.xaml.cs">
+      <DependentUpon>RASRAFPanelResultPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Test\RASRAFPanelResultPath.cs" />
     <Compile Include="Test\ROS1ResultPath.cs" />
     <Compile Include="Test\ROS1ResultPage.xaml.cs">
       <DependentUpon>ROS1ResultPage.xaml</DependentUpon>
@@ -640,7 +629,6 @@
     <Compile Include="Test\IHCQCResultPage.xaml.cs">
       <DependentUpon>IHCQCResultPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Test\CysticFibrosisBatchResultPath.cs" />
     <Compile Include="Test\CysticFibrosisResultPage.xaml.cs">
       <DependentUpon>CysticFibrosisResultPage.xaml</DependentUpon>
     </Compile>
@@ -674,7 +662,6 @@
       <DependentUpon>HER2AmplificationByISHResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Test\HER2AmplificationByISHResultPath.cs" />
-    <Compile Include="Test\HPV1618BatchResultPath.cs" />
     <Compile Include="Test\JAK2V617FResultPage.xaml.cs">
       <DependentUpon>JAK2V617FResultPage.xaml</DependentUpon>
     </Compile>
@@ -772,7 +759,6 @@
     </Compile>
     <Compile Include="Test\MultipleMyelomaMGUSByFishResultPath.cs" />
     <Compile Include="Test\NeogenomicsResultPath.cs" />
-    <Compile Include="Test\NGCTBatchResultPath.cs" />
     <Compile Include="Test\NGCTResultPage.xaml.cs">
       <DependentUpon>NGCTResultPage.xaml</DependentUpon>
     </Compile>
@@ -895,22 +881,17 @@
     <Compile Include="Login\Receiving\TaskOrderPage.xaml.cs">
       <DependentUpon>TaskOrderPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MolecularTesting\PanelOrderBatch.xaml.cs">
-      <DependentUpon>PanelOrderBatch.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Surgical\TypingWorkspace.xaml.cs">
       <DependentUpon>TypingWorkspace.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Test\HPVTWIBatchResultPath.cs" />
     <Compile Include="Test\HPV1618ResultPage.xaml.cs">
       <DependentUpon>HPV1618ResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Test\HPV1618ResultPath.cs" />
-    <Compile Include="Test\HPVTWIResultPage.xaml.cs">
-      <DependentUpon>HPVTWIResultPage.xaml</DependentUpon>
+    <Compile Include="Test\HPVResultPage.xaml.cs">
+      <DependentUpon>HPVResultPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Test\HPVTWIResultPath.cs" />
+    <Compile Include="Test\HPVResultPath.cs" />
     <Compile Include="Test\LynchSyndromeEvaluationResultPage.xaml.cs">
       <DependentUpon>LynchSyndromeEvaluationResultPage.xaml</DependentUpon>
     </Compile>
@@ -936,12 +917,6 @@
     <Compile Include="Client\OncologyRequisition.cs" />
     <Compile Include="Client\ClientEntryV2.xaml.cs">
       <DependentUpon>ClientEntryV2.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Client\WebBrowser.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Client\WebBrowser.Designer.cs">
-      <DependentUpon>WebBrowser.cs</DependentUpon>
     </Compile>
     <Compile Include="Common\CaseHistoryPage.xaml.cs">
       <DependentUpon>CaseHistoryPage.xaml</DependentUpon>
@@ -980,12 +955,6 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Client\ClientSearch.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Client\ClientSearch.Designer.cs">
-      <DependentUpon>ClientSearch.cs</DependentUpon>
     </Compile>
     <Compile Include="Client\Envelope.cs" />
     <Compile Include="Client\ProviderEntry.xaml.cs">
@@ -1439,9 +1408,6 @@
     <Compile Include="Test\ContainerLabelDialog.xaml.cs">
       <DependentUpon>ContainerLabelDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Test\BatchAssignmentSelectionDialog.xaml.cs">
-      <DependentUpon>BatchAssignmentSelectionDialog.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Test\FrozenFinalDialog.xaml.cs">
       <DependentUpon>FrozenFinalDialog.xaml</DependentUpon>
     </Compile>
@@ -1671,30 +1637,6 @@
       <DependentUpon>PatientWorkspace.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Client\ClientEntry.resx">
-      <DependentUpon>ClientEntry.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Client\ClientSearch.resx">
-      <DependentUpon>ClientSearch.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Client\PhysicianClientSearch.resx">
-      <DependentUpon>PhysicianClientSearch.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Client\PhysicianEntry.resx">
-      <DependentUpon>PhysicianEntry.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Client\PhysicianSearch.resx">
-      <DependentUpon>PhysicianSearch.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Client\ReportDistribution.resx">
-      <DependentUpon>ReportDistribution.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Client\WebBrowser.resx">
-      <DependentUpon>WebBrowser.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
@@ -1899,6 +1841,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Client\ClientGroupEntry.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="CodeSelectionV2.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -2087,6 +2033,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="PantherStorageDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ReportDistribution\ReportDistributionWorkspace.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -2107,7 +2057,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Surgical\ColorectalCancerOrderPage.xaml">
+    <Page Include="Surgical\SuggestedAdditionalTestingPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -2168,6 +2118,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Test\ABL1KinaseDomainMutationResultPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Test\AcidWashOrdersDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Test\AcidWashResultDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -2255,9 +2213,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Test\KRASExon23MutationResultPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Test\MissingInformationResultPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Test\RASRAFPanelResultPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Test\ROS1ResultPage.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -2507,10 +2473,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MolecularTesting\PanelOrderBatch.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Surgical\TypingWorkspace.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -2519,7 +2481,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Test\HPVTWIResultPage.xaml">
+    <Page Include="Test\HPVResultPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -3299,10 +3261,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Test\BatchAssignmentSelectionDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Test\FrozenFinalDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -3891,6 +3849,7 @@
     <EmbeddedResource Include="Billing\CodeSelection.xml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="MolecularTesting\" />
     <Folder Include="PatientLinking\" />
   </ItemGroup>
   <ItemGroup>

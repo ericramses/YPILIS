@@ -188,15 +188,15 @@ namespace YellowstonePathology.UI.Surgical
         private void HandleColorectalCancer()
         {
             this.SetWindowButtonVisibility();
-            ColorectalCancerOrderPage colorectalCancerOrderPage = new ColorectalCancerOrderPage(this.m_AccessionOrder, this.m_ColonCancerMessages, this.m_BackButtonVisibility, this.m_NextButtonVisibility);
-            colorectalCancerOrderPage.Next += this.MoveForward;
-            colorectalCancerOrderPage.Back += this.MoveBack;
-            colorectalCancerOrderPage.Close += this.CloseDialog;
-            colorectalCancerOrderPage.OrderTest += ColorectalCancerOrderPage_OrderTest;
-            this.m_PathologistSignoutDialog.PageNavigator.Navigate(colorectalCancerOrderPage);
+            SuggestedAdditionalTestingPage suggestedAdditionalTestingPage = new SuggestedAdditionalTestingPage(this.m_AccessionOrder, this.m_ColonCancerMessages, this.m_BackButtonVisibility, this.m_NextButtonVisibility);
+            suggestedAdditionalTestingPage.Next += this.MoveForward;
+            suggestedAdditionalTestingPage.Back += this.MoveBack;
+            suggestedAdditionalTestingPage.Close += this.CloseDialog;
+            suggestedAdditionalTestingPage.OrderTest += SuggestedAdditionalTestingPage_OrderTest;
+            this.m_PathologistSignoutDialog.PageNavigator.Navigate(suggestedAdditionalTestingPage);
         }
 
-        private void ColorectalCancerOrderPage_OrderTest(object sender, CustomEventArgs.PanelSetReturnEventArgs e)
+        private void SuggestedAdditionalTestingPage_OrderTest(object sender, CustomEventArgs.PanelSetReturnEventArgs e)
         {
             this.StartReportOrderPath(e.PanelSet);
         }

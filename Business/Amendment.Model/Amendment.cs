@@ -12,34 +12,34 @@ using YellowstonePathology.Business.Persistence;
 
 namespace YellowstonePathology.Business.Amendment.Model
 {
-	[PersistentClass("tblAmendment", "YPIDATA")]
-	public class Amendment : INotifyPropertyChanged
+    [PersistentClass("tblAmendment", "YPIDATA")]
+    public class Amendment : INotifyPropertyChanged
     {
-		public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler PropertyChanged;
 
-		string m_SignatureButtonText;
+        string m_SignatureButtonText;
         bool m_SignatureButtonIsEnabled;
         bool m_DeleteButtonIsEnabled;
 
-		private string m_ObjectId;
-		private string m_AmendmentId;
+        private string m_ObjectId;
+        private string m_AmendmentId;
         private string m_ReportNo;
-		private bool m_RequirePathologistSignature;
-		private bool m_ShowPreviousDiagnosis;
-		private bool m_Final;
-		private bool m_IsDistributed;
-		private bool m_DistributeOnFinal;
-		private bool m_ShowAmendmentOnReport;
-		private bool m_RevisedDiagnosis;
-		private Nullable<DateTime> m_AmendmentDate;
-		private Nullable<DateTime> m_AmendmentTime;
-		private Nullable<DateTime> m_FinalDate;
-		private Nullable<DateTime> m_FinalTime;
-		private int m_UserId;		
-		private string m_Text;
-		private string m_AmendmentType;
-		private string m_PathologistSignature;
-		private string m_ReferenceReportNo;
+        private bool m_RequirePathologistSignature;
+        private bool m_ShowPreviousDiagnosis;
+        private bool m_Final;
+        private bool m_IsDistributed;
+        private bool m_DistributeOnFinal;
+        private bool m_ShowAmendmentOnReport;
+        private bool m_RevisedDiagnosis;
+        private Nullable<DateTime> m_AmendmentDate;
+        private Nullable<DateTime> m_AmendmentTime;
+        private Nullable<DateTime> m_FinalDate;
+        private Nullable<DateTime> m_FinalTime;
+        private int m_UserId;
+        private string m_Text;
+        private string m_AmendmentType;
+        private string m_PathologistSignature;
+        private string m_ReferenceReportNo;
         private int m_AcceptedById;
         private bool m_Accepted;
         private Nullable<DateTime> m_AcceptedDate;
@@ -50,27 +50,27 @@ namespace YellowstonePathology.Business.Amendment.Model
         public Amendment()
         {
 
-		}
+        }
 
-		public Amendment(string reportNo, string objectId, string amendmentId)
-		{
-			this.m_ReportNo = reportNo;
-			this.m_ObjectId = objectId;
-			this.AmendmentId = amendmentId;
-			this.SetDefaultValues(reportNo);
-		}
+        public Amendment(string reportNo, string objectId, string amendmentId)
+        {
+            this.m_ReportNo = reportNo;
+            this.m_ObjectId = objectId;
+            this.AmendmentId = amendmentId;
+            this.SetDefaultValues(reportNo);
+        }
 
-		public string SignatureButtonText
+        public string SignatureButtonText
         {
             get { return this.m_SignatureButtonText; }
-            set 
-            { 
+            set
+            {
                 this.m_SignatureButtonText = value;
                 this.NotifyPropertyChanged("SignatureButtonText");
             }
         }
 
-		public bool SignatureButtonIsEnabled
+        public bool SignatureButtonIsEnabled
         {
             get { return this.m_SignatureButtonIsEnabled; }
             set
@@ -80,7 +80,7 @@ namespace YellowstonePathology.Business.Amendment.Model
             }
         }
 
-		public bool DeleteButtonIsEnabled
+        public bool DeleteButtonIsEnabled
         {
             get { return this.m_DeleteButtonIsEnabled; }
             set
@@ -90,9 +90,9 @@ namespace YellowstonePathology.Business.Amendment.Model
             }
         }
 
-		public string ShortAmendment
+        public string ShortAmendment
         {
-            get 
+            get
             {
                 string text = string.Empty;
                 if (this.Text.Length > 100)
@@ -102,319 +102,319 @@ namespace YellowstonePathology.Business.Amendment.Model
                 else
                 {
                     text = this.Text;
-                }                
+                }
                 text = text.Replace('\n', ' ');
                 text = text.Replace('\r', ' ');
                 return text;
             }
         }
 
-		public void TestResultAmendmentFill(string reportNo, int assignedToId, string amendmentText)
-		{
-			this.ReportNo = reportNo;
-			this.RequirePathologistSignature = true;
-			this.AmendmentDate = DateTime.Today;
-			this.AmendmentTime = DateTime.Now;
-			this.Text = amendmentText;
-			this.AmendmentType = "Addendum";
-			this.ShowPreviousDiagnosis = false;
-			this.Final = false;
-			this.IsDistributed = false;
-			this.DistributeOnFinal = true;
-			this.UserId = assignedToId;
-			this.ShowAmendmentOnReport = true;
-			this.RevisedDiagnosis = false;
-		}
+        public void TestResultAmendmentFill(string reportNo, int assignedToId, string amendmentText)
+        {
+            this.ReportNo = reportNo;
+            this.RequirePathologistSignature = true;
+            this.AmendmentDate = DateTime.Today;
+            this.AmendmentTime = DateTime.Now;
+            this.Text = amendmentText;
+            this.AmendmentType = "Addendum";
+            this.ShowPreviousDiagnosis = false;
+            this.Final = false;
+            this.IsDistributed = false;
+            this.DistributeOnFinal = true;
+            this.UserId = assignedToId;
+            this.ShowAmendmentOnReport = true;
+            this.RevisedDiagnosis = false;
+        }
 
-		public void SetDefaultValues(string reportNo)
-		{
-			this.ReportNo = reportNo;
-			this.RequirePathologistSignature = true;
-			this.Text = "???";
-			this.AmendmentType = "Addendum";
-			this.ShowPreviousDiagnosis = false;
-			this.Final = false;
-			this.IsDistributed = false;
-			this.DistributeOnFinal = true;
-			this.ShowAmendmentOnReport = true;
-			this.RevisedDiagnosis = false;
-			this.AmendmentDate = DateTime.Today;
-			this.AmendmentTime = DateTime.Now;
-		}
+        public void SetDefaultValues(string reportNo)
+        {
+            this.ReportNo = reportNo;
+            this.RequirePathologistSignature = true;
+            this.Text = "???";
+            this.AmendmentType = "Addendum";
+            this.ShowPreviousDiagnosis = false;
+            this.Final = false;
+            this.IsDistributed = false;
+            this.DistributeOnFinal = true;
+            this.ShowAmendmentOnReport = true;
+            this.RevisedDiagnosis = false;
+            this.AmendmentDate = DateTime.Today;
+            this.AmendmentTime = DateTime.Now;
+        }
 
-		public void NotifyPropertyChanged(String info)
-		{
-			if (PropertyChanged != null)
-			{
-				PropertyChanged(this, new PropertyChangedEventArgs(info));
-			}
-		}
+        public void NotifyPropertyChanged(String info)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
+        }
 
-		[PersistentDocumentIdProperty()]
-		public string ObjectId
-		{
-			get { return this.m_ObjectId; }
-			set
-			{
-				if (this.m_ObjectId != value)
-				{
-					this.m_ObjectId = value;
-					this.NotifyPropertyChanged("ObjectId");
-				}
-			}
-		}
+        [PersistentDocumentIdProperty()]
+        public string ObjectId
+        {
+            get { return this.m_ObjectId; }
+            set
+            {
+                if (this.m_ObjectId != value)
+                {
+                    this.m_ObjectId = value;
+                    this.NotifyPropertyChanged("ObjectId");
+                }
+            }
+        }
 
-		[PersistentPrimaryKeyProperty(false)]
-		public string AmendmentId
-		{
-			get { return this.m_AmendmentId; }
-			set
-			{
-				if (this.m_AmendmentId != value)
-				{
-					this.m_AmendmentId = value;
-					this.NotifyPropertyChanged("AmendmentId");
-				}
-			}
-		}
+        [PersistentPrimaryKeyProperty(false)]
+        public string AmendmentId
+        {
+            get { return this.m_AmendmentId; }
+            set
+            {
+                if (this.m_AmendmentId != value)
+                {
+                    this.m_AmendmentId = value;
+                    this.NotifyPropertyChanged("AmendmentId");
+                }
+            }
+        }
 
-		[PersistentProperty()]
-		public bool RequirePathologistSignature
-		{
-			get { return this.m_RequirePathologistSignature; }
-			set
-			{
-				if (this.m_RequirePathologistSignature != value)
-				{
-					this.m_RequirePathologistSignature = value;
-					this.NotifyPropertyChanged("RequirePathologistSignature");
-				}
-			}
-		}
+        [PersistentProperty()]
+        public bool RequirePathologistSignature
+        {
+            get { return this.m_RequirePathologistSignature; }
+            set
+            {
+                if (this.m_RequirePathologistSignature != value)
+                {
+                    this.m_RequirePathologistSignature = value;
+                    this.NotifyPropertyChanged("RequirePathologistSignature");
+                }
+            }
+        }
 
-		[PersistentProperty()]
-		public bool ShowPreviousDiagnosis
-		{
-			get { return this.m_ShowPreviousDiagnosis; }
-			set
-			{
-				if (this.m_ShowPreviousDiagnosis != value)
-				{
-					this.m_ShowPreviousDiagnosis = value;
-					this.NotifyPropertyChanged("ShowPreviousDiagnosis");
-				}
-			}
-		}
+        [PersistentProperty()]
+        public bool ShowPreviousDiagnosis
+        {
+            get { return this.m_ShowPreviousDiagnosis; }
+            set
+            {
+                if (this.m_ShowPreviousDiagnosis != value)
+                {
+                    this.m_ShowPreviousDiagnosis = value;
+                    this.NotifyPropertyChanged("ShowPreviousDiagnosis");
+                }
+            }
+        }
 
-		[PersistentProperty()]
-		public bool Final
-		{
-			get { return this.m_Final; }
-			set
-			{
-				if (this.m_Final != value)
-				{
-					this.m_Final = value;
-					this.NotifyPropertyChanged("Final");
-				}
-			}
-		}
+        [PersistentProperty()]
+        public bool Final
+        {
+            get { return this.m_Final; }
+            set
+            {
+                if (this.m_Final != value)
+                {
+                    this.m_Final = value;
+                    this.NotifyPropertyChanged("Final");
+                }
+            }
+        }
 
-		[PersistentProperty()]
-		public bool IsDistributed
-		{
-			get { return this.m_IsDistributed; }
-			set
-			{
-				if (this.m_IsDistributed != value)
-				{
-					this.m_IsDistributed = value;
-					this.NotifyPropertyChanged("IsDistributed");
-				}
-			}
-		}
+        [PersistentProperty()]
+        public bool IsDistributed
+        {
+            get { return this.m_IsDistributed; }
+            set
+            {
+                if (this.m_IsDistributed != value)
+                {
+                    this.m_IsDistributed = value;
+                    this.NotifyPropertyChanged("IsDistributed");
+                }
+            }
+        }
 
-		[PersistentProperty()]
-		public bool DistributeOnFinal
-		{
-			get { return this.m_DistributeOnFinal; }
-			set
-			{
-				if (this.m_DistributeOnFinal != value)
-				{
-					this.m_DistributeOnFinal = value;
-					this.NotifyPropertyChanged("DistributeOnFinal");
-				}
-			}
-		}
+        [PersistentProperty()]
+        public bool DistributeOnFinal
+        {
+            get { return this.m_DistributeOnFinal; }
+            set
+            {
+                if (this.m_DistributeOnFinal != value)
+                {
+                    this.m_DistributeOnFinal = value;
+                    this.NotifyPropertyChanged("DistributeOnFinal");
+                }
+            }
+        }
 
-		[PersistentProperty()]
-		public bool ShowAmendmentOnReport
-		{
-			get { return this.m_ShowAmendmentOnReport; }
-			set
-			{
-				if (this.m_ShowAmendmentOnReport != value)
-				{
-					this.m_ShowAmendmentOnReport = value;
-					this.NotifyPropertyChanged("ShowAmendmentOnReport");
-				}
-			}
-		}
+        [PersistentProperty()]
+        public bool ShowAmendmentOnReport
+        {
+            get { return this.m_ShowAmendmentOnReport; }
+            set
+            {
+                if (this.m_ShowAmendmentOnReport != value)
+                {
+                    this.m_ShowAmendmentOnReport = value;
+                    this.NotifyPropertyChanged("ShowAmendmentOnReport");
+                }
+            }
+        }
 
-		[PersistentProperty()]
-		public bool RevisedDiagnosis
-		{
-			get { return this.m_RevisedDiagnosis; }
-			set
-			{
-				if (this.m_RevisedDiagnosis != value)
-				{
-					this.m_RevisedDiagnosis = value;
-					this.NotifyPropertyChanged("RevisedDiagnosis");
-				}
-			}
-		}
+        [PersistentProperty()]
+        public bool RevisedDiagnosis
+        {
+            get { return this.m_RevisedDiagnosis; }
+            set
+            {
+                if (this.m_RevisedDiagnosis != value)
+                {
+                    this.m_RevisedDiagnosis = value;
+                    this.NotifyPropertyChanged("RevisedDiagnosis");
+                }
+            }
+        }
 
-		[PersistentProperty()]
-		public Nullable<DateTime> AmendmentDate
-		{
-			get { return this.m_AmendmentDate; }
-			set
-			{
-				if (this.m_AmendmentDate != value)
-				{
-					this.m_AmendmentDate = value;
-					this.NotifyPropertyChanged("AmendmentDate");
-				}
-			}
-		}
+        [PersistentProperty()]
+        public Nullable<DateTime> AmendmentDate
+        {
+            get { return this.m_AmendmentDate; }
+            set
+            {
+                if (this.m_AmendmentDate != value)
+                {
+                    this.m_AmendmentDate = value;
+                    this.NotifyPropertyChanged("AmendmentDate");
+                }
+            }
+        }
 
-		[PersistentProperty()]
-		public Nullable<DateTime> AmendmentTime
-		{
-			get { return this.m_AmendmentTime; }
-			set
-			{
-				if (this.m_AmendmentTime != value)
-				{
-					this.m_AmendmentTime = value;
-					this.NotifyPropertyChanged("AmendmentTime");
-				}
-			}
-		}
+        [PersistentProperty()]
+        public Nullable<DateTime> AmendmentTime
+        {
+            get { return this.m_AmendmentTime; }
+            set
+            {
+                if (this.m_AmendmentTime != value)
+                {
+                    this.m_AmendmentTime = value;
+                    this.NotifyPropertyChanged("AmendmentTime");
+                }
+            }
+        }
 
-		[PersistentProperty()]
-		public Nullable<DateTime> FinalDate
-		{
-			get { return this.m_FinalDate; }
-			set
-			{
-				if (this.m_FinalDate != value)
-				{
-					this.m_FinalDate = value;
-					this.NotifyPropertyChanged("FinalDate");
-				}
-			}
-		}
+        [PersistentProperty()]
+        public Nullable<DateTime> FinalDate
+        {
+            get { return this.m_FinalDate; }
+            set
+            {
+                if (this.m_FinalDate != value)
+                {
+                    this.m_FinalDate = value;
+                    this.NotifyPropertyChanged("FinalDate");
+                }
+            }
+        }
 
-		[PersistentProperty()]
-		public Nullable<DateTime> FinalTime
-		{
-			get { return this.m_FinalTime; }
-			set
-			{
-				if (this.m_FinalTime != value)
-				{
-					this.m_FinalTime = value;
-					this.NotifyPropertyChanged("FinalTime");
-				}
-			}
-		}
+        [PersistentProperty()]
+        public Nullable<DateTime> FinalTime
+        {
+            get { return this.m_FinalTime; }
+            set
+            {
+                if (this.m_FinalTime != value)
+                {
+                    this.m_FinalTime = value;
+                    this.NotifyPropertyChanged("FinalTime");
+                }
+            }
+        }
 
-		[PersistentProperty()]
-		public int UserId
-		{
-			get { return this.m_UserId; }
-			set
-			{
-				if (this.m_UserId != value)
-				{
-					this.m_UserId = value;
-					this.NotifyPropertyChanged("UserId");
-				}
-			}
-		}
+        [PersistentProperty()]
+        public int UserId
+        {
+            get { return this.m_UserId; }
+            set
+            {
+                if (this.m_UserId != value)
+                {
+                    this.m_UserId = value;
+                    this.NotifyPropertyChanged("UserId");
+                }
+            }
+        }
 
-		[PersistentProperty()]
-		public string ReportNo
-		{
-			get { return this.m_ReportNo; }
-			set
-			{
-				if (this.m_ReportNo != value)
-				{
-					this.m_ReportNo = value;
-					this.NotifyPropertyChanged("ReportNo");
-				}
-			}
-		}
+        [PersistentProperty()]
+        public string ReportNo
+        {
+            get { return this.m_ReportNo; }
+            set
+            {
+                if (this.m_ReportNo != value)
+                {
+                    this.m_ReportNo = value;
+                    this.NotifyPropertyChanged("ReportNo");
+                }
+            }
+        }
 
-		[PersistentProperty()]
-		public string Text
-		{
-			get { return this.m_Text; }
-			set
-			{
-				if (this.m_Text != value)
-				{
-					this.m_Text = value;
-					this.NotifyPropertyChanged("Text");
-				}
-			}
-		}
+        [PersistentProperty()]
+        public string Text
+        {
+            get { return this.m_Text; }
+            set
+            {
+                if (this.m_Text != value)
+                {
+                    this.m_Text = value;
+                    this.NotifyPropertyChanged("Text");
+                }
+            }
+        }
 
-		[PersistentProperty()]
-		public string AmendmentType
-		{
-			get { return this.m_AmendmentType; }
-			set
-			{
-				if (this.m_AmendmentType != value)
-				{
-					this.m_AmendmentType = value;
-					this.NotifyPropertyChanged("AmendmentType");
-				}
-			}
-		}
+        [PersistentProperty()]
+        public string AmendmentType
+        {
+            get { return this.m_AmendmentType; }
+            set
+            {
+                if (this.m_AmendmentType != value)
+                {
+                    this.m_AmendmentType = value;
+                    this.NotifyPropertyChanged("AmendmentType");
+                }
+            }
+        }
 
-		[PersistentProperty()]
-		public string PathologistSignature
-		{
-			get { return this.m_PathologistSignature; }
-			set
-			{
-				if (this.m_PathologistSignature != value)
-				{
-					this.m_PathologistSignature = value;
-					this.NotifyPropertyChanged("PathologistSignature");
-				}
-			}
-		}
+        [PersistentProperty()]
+        public string PathologistSignature
+        {
+            get { return this.m_PathologistSignature; }
+            set
+            {
+                if (this.m_PathologistSignature != value)
+                {
+                    this.m_PathologistSignature = value;
+                    this.NotifyPropertyChanged("PathologistSignature");
+                }
+            }
+        }
 
-		[PersistentProperty()]
-		public string ReferenceReportNo
-		{
-			get { return this.m_ReferenceReportNo; }
-			set
-			{
-				if (this.m_ReferenceReportNo != value)
-				{
-					this.m_ReferenceReportNo = value;
-					this.NotifyPropertyChanged("ReferenceReportNo");
-				}
-			}
-		}
+        [PersistentProperty()]
+        public string ReferenceReportNo
+        {
+            get { return this.m_ReferenceReportNo; }
+            set
+            {
+                if (this.m_ReferenceReportNo != value)
+                {
+                    this.m_ReferenceReportNo = value;
+                    this.NotifyPropertyChanged("ReferenceReportNo");
+                }
+            }
+        }
 
         [PersistentProperty()]
         public int AcceptedById
@@ -446,11 +446,11 @@ namespace YellowstonePathology.Business.Amendment.Model
 
         [PersistentProperty()]
         public Nullable<DateTime> AcceptedDate
-		{
-			get { return this.m_AcceptedDate; }
+        {
+            get { return this.m_AcceptedDate; }
             set
-			{
-				if (this.m_AcceptedDate != value)
+            {
+                if (this.m_AcceptedDate != value)
                 {
                     this.m_AcceptedDate = value;
                     this.NotifyPropertyChanged("AcceptedDate");
@@ -460,11 +460,11 @@ namespace YellowstonePathology.Business.Amendment.Model
 
         [PersistentProperty()]
         public Nullable<DateTime> AcceptedTime
-		{
-			get { return this.m_AcceptedTime; }
+        {
+            get { return this.m_AcceptedTime; }
             set
-			{
-				if (this.m_AcceptedTime != value)
+            {
+                if (this.m_AcceptedTime != value)
                 {
                     this.m_AcceptedTime = value;
                     this.NotifyPropertyChanged("AcceptedTime");
@@ -551,7 +551,7 @@ namespace YellowstonePathology.Business.Amendment.Model
             return result;
         }
 
-        public YellowstonePathology.Business.Test.OkToFinalizeResult IsOkToFinalize()
+        public YellowstonePathology.Business.Test.OkToFinalizeResult IsOkToFinalize(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {
             YellowstonePathology.Business.Test.OkToFinalizeResult okToFinalizeResult = new Test.OkToFinalizeResult();
             okToFinalizeResult.OK = true;
@@ -559,24 +559,43 @@ namespace YellowstonePathology.Business.Amendment.Model
             if (this.m_Text.Contains("???"))
             {
                 okToFinalizeResult.OK = false;
-                okToFinalizeResult.Message = "The amendment cannot be finalized because the text contains ???.";                
+                okToFinalizeResult.Message = "The amendment cannot be finalized because the text contains ???.";
             }
             else if (this.m_Final == true)
             {
                 okToFinalizeResult.OK = false;
-                okToFinalizeResult.Message = "The amendment is already final.";                
+                okToFinalizeResult.Message = "The amendment is already final.";
             }
-            else 
+            else
             {
-                bool textMatches = this.SystemGeneratedTextMatchesCurrent();
+                bool textMatches = this.SystemGeneratedTextMatchesCurrent(accessionOrder);
                 if (textMatches == false)
                 {
-                    okToFinalizeResult.Message = "The amendment text may not accurately reflect the results of the test for which the amendment was created." + 
+                    okToFinalizeResult.Message = "The amendment text may not accurately reflect the results of the test for which the amendment was created." +
                         Environment.NewLine + Environment.NewLine + "Do you wish to continue?";
                     okToFinalizeResult.ShowWarningMessage = true;
                 }
             }
             return okToFinalizeResult;
+        }
+
+        public YellowstonePathology.Business.Rules.MethodResult IsOkToResetText(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
+        {
+            YellowstonePathology.Business.Rules.MethodResult result = new Rules.MethodResult();
+            if (this.Final == true)
+            {
+                result.Success = false;
+                result.Message = "The amendment cannot be reset because the amendment is final.";
+            }
+            else
+            {
+                if (this.HasAbilityToResetText(accessionOrder) == false)
+                {
+                    result.Success = false;
+                    result.Message = "The amendment cannot be reset because the text is not generated.";
+                }
+            }
+            return result;
         }
 
         public void Accept(Business.User.SystemUser systemUser)
@@ -599,15 +618,15 @@ namespace YellowstonePathology.Business.Amendment.Model
             this.NotifyPropertyChanged(string.Empty);
         }
 
-        public void Finalize(YellowstonePathology.Business.User.SystemIdentity systemIdentity)
-        {            
-            if(this.Accepted == false)
+        public void Finalize(YellowstonePathology.Business.User.SystemUser systemUser)
+        {
+            if (this.Accepted == false)
             {
-                this.Accept(systemIdentity.User);
+                this.Accept(systemUser);
             }
 
-            this.m_PathologistSignature = systemIdentity.User.Signature;
-            this.m_UserId = systemIdentity.User.UserId;
+            this.m_PathologistSignature = systemUser.Signature;
+            this.m_UserId = systemUser.UserId;
             this.m_Final = true;
             this.m_FinalDate = DateTime.Today;
             this.m_FinalTime = DateTime.Now;
@@ -624,18 +643,32 @@ namespace YellowstonePathology.Business.Amendment.Model
             this.NotifyPropertyChanged(string.Empty);
         }
 
-        private bool SystemGeneratedTextMatchesCurrent()
+        private bool SystemGeneratedTextMatchesCurrent(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {
             bool result = true;
-            if(this.m_SystemGenerated == true)
+            if (this.m_SystemGenerated == true)
             {
-                YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(this.m_ReferenceReportNo);
                 YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReferenceReportNo);
                 YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHTest her2AmplificationByISHTest = new Test.HER2AmplificationByISH.HER2AmplificationByISHTest();
                 if (panelSetOrder.PanelSetId == her2AmplificationByISHTest.PanelSetId)
                 {
                     string generatedText = YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHSystemGeneratedAmendmentText.AmendmentText((YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHTestOrder)panelSetOrder);
                     result = this.m_Text.Contains(generatedText);
+                }
+            }
+            return result;
+        }
+
+        private bool HasAbilityToResetText(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
+        {
+            bool result = false;
+            if (this.m_SystemGenerated == true)
+            {
+                YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReferenceReportNo);
+                YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHTest her2AmplificationByISHTest = new Test.HER2AmplificationByISH.HER2AmplificationByISHTest();
+                if (panelSetOrder.PanelSetId == her2AmplificationByISHTest.PanelSetId)
+                {
+                    result = true;
                 }
             }
             return result;

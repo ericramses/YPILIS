@@ -12,7 +12,7 @@ namespace YellowstonePathology.Business.Client.Model
             this.m_RuleNumber = 13;
             this.m_ReflexOrderCode = "RFLXHPVRL13";
             this.m_Description = "Perform reflex HPV testing on patients who are greater than 30, have a PAP result of Normal or Reactive and the endocervical component is absent.";
-			this.m_PanelSet = new YellowstonePathology.Business.Test.HPVTWI.HPVTWITest();
+			this.m_PanelSet = new YellowstonePathology.Business.Test.HPV.HPVTest();
         }
 
         public override bool IsRequired(Business.Test.AccessionOrder accessionOrder)

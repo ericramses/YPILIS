@@ -39,15 +39,16 @@
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="*"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
                 </Grid.RowDefinitions>
 
-                <TextBlock Grid.Column="0" Grid.Row="0" Margin="0,3,0,0" FontWeight="Bold" FontSize="14">Options</TextBlock>
+                <TextBlock Grid.Column="0" Grid.Row="0" Margin="0,3,0,0" FontWeight="Bold" FontSize="14">Set Call</TextBlock>
 
                 <TextBlock Grid.Column="0" Grid.Row="1" Margin="5,3,0,0">                    
 					<Hyperlink Click="HyperLinkFirstCall_Click">
@@ -78,26 +79,32 @@
 						<TextBlock Text="Client System Lookup" />
 					</Hyperlink>
 				</TextBlock>
-
-                <TextBlock Grid.Column="0" Grid.Row="6" Margin="5,3,0,0">                    
+                
+                <TextBlock Grid.Column="0" Grid.Row="7" Margin="5,3,0,0">                    
+                    <Hyperlink Click="HyperLinkShowFaxPage_Click">
+						<TextBlock Text="Send Fax" />
+					</Hyperlink>
+				</TextBlock>
+                
+                <TextBlock Grid.Column="0" Grid.Row="8" Margin="5,3,0,0">                    
                     <Hyperlink Click="HyperLinkShowICDEntryPage_Click">
 						<TextBlock Text="ICD Entry" />
 					</Hyperlink>
 				</TextBlock>
 
-                <TextBlock Grid.Column="0" Grid.Row="8" Margin="5,3,0,0">                    
+                <TextBlock Grid.Column="0" Grid.Row="10" Margin="5,3,0,0">                    
 					<Hyperlink Click="HyperLinkFinalize_Click">
 						<TextBlock Text="Finalize" />
 					</Hyperlink>
 				</TextBlock>
 
-                <TextBlock Grid.Column="0" Grid.Row="10" Margin="5,3,0,0">                    
+                <TextBlock Grid.Column="0" Grid.Row="11" Margin="5,3,0,0">                    
                     <Hyperlink Click="HyperLinkUnfinalResults_Click">
 						<TextBlock Text="Unfinalize" />
 					</Hyperlink>
 				</TextBlock>
 
-                <TextBlock Grid.Column="0" Grid.Row="11" Margin="5,3,0,0">                    
+                <TextBlock Grid.Column="0" Grid.Row="12" Margin="5,3,0,0">                    
                     <Hyperlink Click="HyperLinkClearResults_Click">
 						<TextBlock Text="Clear" />
 					</Hyperlink>

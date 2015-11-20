@@ -15,7 +15,7 @@ namespace YellowstonePathology.Business.Test.NGCT
             this.m_ChlamydiaTrachomatisResult = null;
             this.m_Method = null;
 			this.m_References = null;
-			this.m_TestDevelopment = null;
+			this.m_TestInformation = null;
 		}
 	}
 }

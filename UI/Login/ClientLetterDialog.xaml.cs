@@ -146,6 +146,7 @@ namespace YellowstonePathology.UI.Login
         private void ButtonClientSearch_Click(object sender, RoutedEventArgs e)
         {
             //YellowstonePathology.Depricated.Client.ClientSearch clientSearch = new YellowstonePathology.Depricated.Client.ClientSearch();            
+            /*
 			Client.ClientSearch clientSearch = new Client.ClientSearch();
             clientSearch.ShowDialog();
             if (clientSearch.DialogResult == System.Windows.Forms.DialogResult.OK)
@@ -153,7 +154,8 @@ namespace YellowstonePathology.UI.Login
                 this.m_ClientId = clientSearch.GetSelectedClientId();
                 this.m_ClientName = clientSearch.GetSelectedClientName();
                 this.NotifyPropertyChanged("");
-            }            
+            }
+            */           
         }
 
 		private void AppendToEventDescription(StringBuilder stringBuilder, string msg)

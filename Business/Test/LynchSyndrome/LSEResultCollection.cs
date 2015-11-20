@@ -32,6 +32,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 
             result.Add(new LSEGYNResult1());
             result.Add(new LSEGYNResult2());
+            result.Add(new LSEGYNResult3());
 
             return result;
         }
@@ -61,6 +62,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             LSEResultCollection result = new LSEResultCollection();
             result.Add(new LSEGYNResult1());
             result.Add(new LSEGYNResult2());
+            result.Add(new LSEGYNResult3());
             return result;
         }
 

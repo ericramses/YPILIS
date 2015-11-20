@@ -27,7 +27,9 @@ namespace YellowstonePathology.Business.Test.TestCancelled
 			this.AddNextObxElement("Test Canceled", document, "F");
 			this.AddNextObxElement("", document, "F");
 			this.AddNextObxElement("Comment: " + testCancelledTestOrder.Comment, document, "F");
-            this.AddNextObxElement("", document, "F");            
+            this.AddNextObxElement("", document, "F");
+            this.AddAmendments(document);
+            this.AddNextObxElement("", document, "F");
         }
     }
 }

@@ -65,7 +65,7 @@ namespace YellowstonePathology.UI.Surgical
             this.CommandBindings.Add(this.CommandBindingToggleAccessionLockMode);
 			this.CommandBindings.Add(this.CommandBindingRemoveTab);
 			this.CommandBindings.Add(this.CommandBindingShowOrderForm);
-			this.CommandBindings.Add(this.CommandBindingShowAmendmentDialog);			
+			this.CommandBindings.Add(this.CommandBindingShowAmendmentDialog);                        	
 
 			this.m_TypingUI = new YellowstonePathology.Business.Typing.TypingUIV2(this.m_SystemIdentity);									
 			this.m_AmendmentControl = new AmendmentControlV2(this.m_SystemIdentity, string.Empty, this.m_TypingUI.AccessionOrder, this.m_TypingUI.ObjectTracker);			
@@ -200,40 +200,10 @@ namespace YellowstonePathology.UI.Surgical
             this.TextBoxReportNoSearch.SelectionStart = 100;    
         }
 
-        public void MoveToNextTab(object sender, KeyEventArgs args)
-        {
-
-            if (args.Key == Key.Tab)
-            {
-                TextBox textBox = (TextBox)sender;
-                switch (textBox.Name)
-                {
-                    case "TextBoxClinical":
-                        this.TabControlLeftMain.SelectedIndex = 1;                        
-                        break;
-                    case "TextBoxGross":
-                        this.TabControlLeftMain.SelectedIndex = 2;                        
-                        break;                    
-                    case "TextBoxImmediate":
-                        this.TabControlLeftMain.SelectedIndex = 3;                        
-                        break;
-                    case "TextBoxMicroscopic":
-                        this.TabControlLeftMain.SelectedIndex = 4;
-                        this.TabControlRightMain.SelectedIndex = 1;
-                        break;                    
-                }                
-            }
-        }
-
         public void TextBox_GotFocus(object sender, RoutedEventArgs args)
         {
             TextBox textBox = (TextBox)sender;
             textBox.Select(5000, 1);
-        }
-        
-        public void ButtonAccessionSearch_Click(object sender, RoutedEventArgs args)
-        {
-            this.GetSurgicalCase(this.TextBoxReportNoSearch.Text);            
         }
 
         public void TextBoxReportNoSearch_KeyDown(object sender, KeyEventArgs args)
@@ -383,25 +353,6 @@ namespace YellowstonePathology.UI.Surgical
 				YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(fileName);
 			}
         }
-
-        public void ButtonFixDocument_Click(object sender, RoutedEventArgs args)
-        {
-			if (m_TypingUI.SurgicalTestOrder != null)
-			{
-				m_TypingUI.SurgicalTestOrder.GrossX = YellowstonePathology.Business.Common.SpellChecker.FixString(m_TypingUI.SurgicalTestOrder.GrossX);
-				m_TypingUI.SurgicalTestOrder.MicroscopicX = YellowstonePathology.Business.Common.SpellChecker.FixString(m_TypingUI.SurgicalTestOrder.MicroscopicX);
-				m_TypingUI.SurgicalTestOrder.CancerSummary = YellowstonePathology.Business.Common.SpellChecker.FixString(m_TypingUI.SurgicalTestOrder.CancerSummary);
-				m_TypingUI.AccessionOrder.ClinicalHistory = YellowstonePathology.Business.Common.SpellChecker.FixString(m_TypingUI.AccessionOrder.ClinicalHistory);
-				m_TypingUI.SurgicalTestOrder.Comment = YellowstonePathology.Business.Common.SpellChecker.FixString(m_TypingUI.SurgicalTestOrder.Comment);
-
-				foreach (YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen specimen in m_TypingUI.SurgicalTestOrder.SurgicalSpecimenCollection)
-				{
-					specimen.Diagnosis = YellowstonePathology.Business.Common.SpellChecker.FixString(specimen.Diagnosis);
-				}
-
-				this.Save();
-			}
-        }        
 
         private YellowstonePathology.Business.Rules.MethodResult DoTypingFinalChecks()
         {
@@ -566,16 +517,6 @@ namespace YellowstonePathology.UI.Surgical
         {
             this.m_TypingUI.CaseListDate = this.m_TypingUI.CaseListDate.AddDays(1);
 			this.m_TypingUI.SurgicalOrderList.FillByAccessionDate(this.m_TypingUI.CaseListDate);
-        }
-
-        public void ListViewSurgicalCaseList_MouseLeftButtonUp(object sender, RoutedEventArgs args)
-        {            
-            if (this.ListViewSurgicalCaseList.SelectedItem != null)
-            {                
-                YellowstonePathology.Business.Surgical.SurgicalOrderListItem item = (YellowstonePathology.Business.Surgical.SurgicalOrderListItem)this.ListViewSurgicalCaseList.SelectedItem;
-				this.TextBoxReportNoSearch.Text = item.ReportNo;
-                this.GetSurgicalCase(item.ReportNo);
-            }                        
         }
 
         public void ButtonGetList_Click(object sender, RoutedEventArgs args)
@@ -930,24 +871,22 @@ namespace YellowstonePathology.UI.Surgical
                 this.GetSurgicalCase(surgicalOrderListItem.ReportNo);
                 this.TextBoxReportNoSearch.Text = surgicalOrderListItem.ReportNo;
             }
-        }        
-
-        private void HyperLinkShowProviderDistribution_Click(object sender, RoutedEventArgs e)
-        {
-            if (this.m_TypingUI.SurgicalTestOrder != null)
-            {
-                YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPage providerDistributionPage = new Login.FinalizeAccession.ProviderDistributionPage(this.m_TypingUI.SurgicalTestOrder.ReportNo, this.m_TypingUI.AccessionOrder, this.m_TypingUI.ObjectTracker, this.m_SecondMonitorWindow.PageNavigator,
-                            System.Windows.Visibility.Collapsed, System.Windows.Visibility.Visible, System.Windows.Visibility.Collapsed);
-                this.m_SecondMonitorWindow.PageNavigator.Navigate(providerDistributionPage);
-            }
-        }
+        }               
 
         private void HyperLinkShowGossTemplate_Click(object sender, RoutedEventArgs e)
         {
             if (this.m_TypingUI.AccessionOrder != null)
-            {
+            {                
                 DictationTemplatePage dictationTemplatePage = new DictationTemplatePage(this.m_TypingUI.AccessionOrder, this.m_SystemIdentity);
                 this.m_SecondMonitorWindow.PageNavigator.Navigate(dictationTemplatePage);
+
+                /*
+                YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_TypingUI.AccessionOrder.SpecimenOrderCollection[0];
+                YellowstonePathology.UI.Gross.DictationTemplatePage dictationTemplatePage = new Gross.DictationTemplatePage(specimenOrder, this.m_TypingUI.AccessionOrder, this.m_SystemIdentity);
+                YellowstonePathology.UI.Login.LoginPageWindow loginPageWindow = new Login.LoginPageWindow(this.m_SystemIdentity);
+                loginPageWindow.PageNavigator.Navigate(dictationTemplatePage);
+                loginPageWindow.Show();
+                */
             }
         }
 

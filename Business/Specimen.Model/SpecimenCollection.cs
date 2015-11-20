@@ -41,6 +41,17 @@ namespace YellowstonePathology.Business.Specimen.Model
             return result;
         }
 
+        private static SpecimenCollection Sort(SpecimenCollection specimenCollection)
+        {
+            SpecimenCollection result = new SpecimenCollection();
+            IOrderedEnumerable<Specimen> orderedResult = specimenCollection.OrderBy(i => i.SpecimenName);
+            foreach (Specimen specimen in orderedResult)
+            {
+                result.Add(specimen);
+            }
+            return result;
+        }
+
         public static SpecimenCollection GetAll()
         {
             SpecimenCollection result = new SpecimenCollection();
@@ -61,14 +72,11 @@ namespace YellowstonePathology.Business.Specimen.Model
             result.Add(new SpecimenDefinition.MitralValve());
             result.Add(new SpecimenDefinition.NeedleCoreBiopsy());
             result.Add(new SpecimenDefinition.POC());
-<<<<<<< HEAD
-            result.Add(new SpecimenDefinition.SinusContent());
-=======
-            result.Add(new SpecimenDefinition.ProstateExceptRadicalResection());
+            result.Add(new SpecimenDefinition.ProstateExceptRadicalResection());            
             result.Add(new SpecimenDefinition.ProstateNeedleBiopsy());
             result.Add(new SpecimenDefinition.ProstateRadicalResection());
             result.Add(new SpecimenDefinition.ProstateTUR());
->>>>>>> fabacf2ba7cab1858d04fcd76a7300e3b4494045
+            result.Add(new SpecimenDefinition.SinusContent());
             result.Add(new SpecimenDefinition.SinglePlacenta());
             result.Add(new SpecimenDefinition.SkinExcisionBiopsy());
             result.Add(new SpecimenDefinition.SkinShavePunchMiscBiopsy());
@@ -76,7 +84,7 @@ namespace YellowstonePathology.Business.Specimen.Model
             result.Add(new SpecimenDefinition.TonsilExcision());                                                           
             result.Add(new SpecimenDefinition.Uterus());            
             result.Add(new SpecimenDefinition.UterusAdnexa());
-            return result;
+            return Sort(result);
         }
     }
 }

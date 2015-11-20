@@ -130,9 +130,9 @@ namespace YellowstonePathology.UI.Login.Receiving
 				YellowstonePathology.Business.Task.Model.TaskOrder taskOrder = this.m_AccessionOrder.CreateTask(testOrderInfo, this.m_SystemIdentity);
                 this.m_AccessionOrder.TaskOrderCollection.Add(taskOrder);
                     
-				TaskOrderPath taskOrderPath = new TaskOrderPath(this.m_AccessionOrder, this.m_ObjectTracker, taskOrder, this.m_PageNavigator, PageNavigationModeEnum.Inline, this.m_SystemIdentity);
+				TaskOrderPath taskOrderPath = new TaskOrderPath(this.m_AccessionOrder, this.m_ObjectTracker, taskOrder, this.m_PageNavigator, PageNavigationModeEnum.Inline);
 				taskOrderPath.Next += new TaskOrderPath.NextEventHandler(TaskOrderPath_Next);
-				taskOrderPath.Start();
+				taskOrderPath.Start(this.m_SystemIdentity);
 				result = true;
 			}
 			

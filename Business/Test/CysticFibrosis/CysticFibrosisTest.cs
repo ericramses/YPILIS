@@ -37,9 +37,6 @@ namespace YellowstonePathology.Business.Test.CysticFibrosis
             this.m_PanelSetCptCodeCollection.Add(panelSetCptCode);
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceCFYPI());
-
-            CysticFibrosisPanel cysticFibrosisPanel = new CysticFibrosisPanel();
-            this.m_PanelCollection.Add(cysticFibrosisPanel);
 		}
 	}
 }

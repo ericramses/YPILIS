@@ -71,7 +71,7 @@
                 </TextBlock>
 
                 <TextBlock Grid.Column="0" Grid.Row="7" Margin="5,3,0,0">
-                    <Hyperlink Click="HyperLinkResistantT790_Click">Resistant T790</Hyperlink>
+                    <Hyperlink Click="HyperLinkResistantT790M_Click">Resistant T790M</Hyperlink>
                 </TextBlock>
                 <TextBlock Grid.Column="0" Grid.Row="8" Margin="5,3,0,0">
                     <Hyperlink Click="HyperLinkResistantExon20_Click">Resistant Exon 20</Hyperlink>

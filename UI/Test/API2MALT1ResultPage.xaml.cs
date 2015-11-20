@@ -18,12 +18,12 @@ namespace YellowstonePathology.UI.Test
 	/// <summary>
 	/// Interaction logic for API2MALT1ResultPage.xaml
 	/// </summary>
-	public partial class API2MALT1ResultPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges, IResultPageAction
+	public partial class API2MALT1ResultPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
     {
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		//public delegate void NextEventHandler(object sender, EventArgs e);
-		public event EventHandler Next;
+		public delegate void NextEventHandler(object sender, EventArgs e);
+		public event NextEventHandler Next;
 
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;

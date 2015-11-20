@@ -45,6 +45,6 @@ namespace YellowstonePathology.Business.Test.EGFRMutationAnalysis
 
             EGFRMutationAnalysisPanel egfrMutationAnalysisPanel = new EGFRMutationAnalysisPanel();
             this.m_PanelCollection.Add(egfrMutationAnalysisPanel);
-		}
-	}
+        }
+    }
 }

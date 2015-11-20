@@ -14,15 +14,13 @@ namespace YellowstonePathology.UI.Test
         private YellowstonePathology.UI.CustomEventArgs.CancelTestEventArgs m_CancelATestEventArgs;
 
         public CancelATestPath(YellowstonePathology.UI.CustomEventArgs.CancelTestEventArgs cancelATestEventArgs, 
-            YellowstonePathology.UI.Navigation.PageNavigator pageNavigator,
-            YellowstonePathology.Business.User.SystemIdentity systemIdentity)
-            : base(pageNavigator, systemIdentity)
+            YellowstonePathology.UI.Navigation.PageNavigator pageNavigator)
+            : base(pageNavigator)
         {
             this.m_CancelATestEventArgs = cancelATestEventArgs;
-			this.Authenticated += new AuthenticatedEventHandler(ResultPath_Authenticated);
 		}
 
-		private void ResultPath_Authenticated(object sender, EventArgs e)
+        protected override void ShowResultPage()
 		{
             CancelTestWarningPage cancelTestWarningPage = new CancelTestWarningPage(this.m_CancelATestEventArgs);
             cancelTestWarningPage.Back += new CancelTestWarningPage.BackEventHandler(CancelTestWarningPage_Back);
@@ -43,7 +41,7 @@ namespace YellowstonePathology.UI.Test
             testCancelledTestOrder.NoCharge = true;
             testCancelledTestOrder.Comment = e.ReasonForCancelation;
 
-            this.ShowResultPage(testCancelledTestOrder, accessionOrder, objectTracker);
+            this.ShowTestCancelledResultPage(testCancelledTestOrder, accessionOrder, objectTracker);
         }
 
         private void CancelTestWarningPage_Back(object sender, YellowstonePathology.UI.CustomEventArgs.CancelTestEventArgs e)
@@ -51,7 +49,7 @@ namespace YellowstonePathology.UI.Test
             this.Back(this, e);
         }
 
-        private void ShowResultPage(YellowstonePathology.Business.Test.TestCancelled.TestCancelledTestOrder testCancelledTestOrder, 
+        private void ShowTestCancelledResultPage(YellowstonePathology.Business.Test.TestCancelled.TestCancelledTestOrder testCancelledTestOrder, 
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Persistence.ObjectTracker objectTracker)
 		{            
             this.m_ResultPage = new TestCancelledResultPage(testCancelledTestOrder, accessionOrder, objectTracker, this.m_SystemIdentity);

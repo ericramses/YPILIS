@@ -90,7 +90,7 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
 			this.AddNextObxElement("Date Finalized: " + cytoTechFinal, document, "F");
 			this.AddNextObxElement("", document, "F");
 
-			if (reviewPanelOrder != null)
+            if (reviewPanelOrder != null)
 			{
 				string reviewedBy = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetSystemUserById(reviewPanelOrder.ScreenedById).Signature;
 				string reviewedByFinal = YellowstonePathology.Business.Helper.DateTimeExtensions.DateStringFromNullable(reviewPanelOrder.AcceptedDate);
@@ -106,14 +106,16 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
 				this.AddNextObxElement("", document, "F");
 			}
 
+            this.AddAmendments(document);
+
 			this.AddNextObxElement("CURRENT MOLECULAR TEST SUMMARY", document, "F");
 
-			YellowstonePathology.Business.Test.HPVTWI.HPVTWITest panelSetHPVTWI = new YellowstonePathology.Business.Test.HPVTWI.HPVTWITest();
+			YellowstonePathology.Business.Test.HPV.HPVTest panelSetHPV = new YellowstonePathology.Business.Test.HPV.HPVTest();
 			YellowstonePathology.Business.Test.HPV1618.HPV1618Test panelSetHPV1618 = new YellowstonePathology.Business.Test.HPV1618.HPV1618Test();
             YellowstonePathology.Business.Test.NGCT.NGCTTest panelSetNGCT = new YellowstonePathology.Business.Test.NGCT.NGCTTest();
 			YellowstonePathology.Business.Test.Trichomonas.TrichomonasTest panelSetTrichomonas = new YellowstonePathology.Business.Test.Trichomonas.TrichomonasTest();
 
-			if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(panelSetHPVTWI.PanelSetId) == false &&
+			if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(panelSetHPV.PanelSetId) == false &&
 				this.m_AccessionOrder.PanelSetOrderCollection.Exists(panelSetHPV1618.PanelSetId) == false &&
 				this.m_AccessionOrder.PanelSetOrderCollection.Exists(panelSetNGCT.PanelSetId) == false &&
 				this.m_AccessionOrder.PanelSetOrderCollection.Exists(panelSetTrichomonas.PanelSetId) == false)
@@ -123,12 +125,12 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
 			}
 			else
 			{
-				if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(panelSetHPVTWI.PanelSetId) == true)
+				if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(panelSetHPV.PanelSetId) == true)
 				{
-					YellowstonePathology.Business.Test.HPVTWI.PanelSetOrderHPVTWI panelSetOrderHPVTWI = (YellowstonePathology.Business.Test.HPVTWI.PanelSetOrderHPVTWI)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetHPVTWI.PanelSetId);
-					this.AddNextObxElement("High Risk HPV: " + panelSetOrderHPVTWI.Result, document, "F");
+					YellowstonePathology.Business.Test.HPV.HPVTestOrder hpvTestOrder = (YellowstonePathology.Business.Test.HPV.HPVTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetHPV.PanelSetId);
+					this.AddNextObxElement("High Risk HPV: " + hpvTestOrder.Result, document, "F");
 					this.AddNextObxElement("Reference: Negative", document, "F");
-					string hpvFinal = YellowstonePathology.Business.Helper.DateTimeExtensions.DateStringFromNullable(panelSetOrderHPVTWI.FinalDate);
+					string hpvFinal = YellowstonePathology.Business.Helper.DateTimeExtensions.DateStringFromNullable(hpvTestOrder.FinalDate);
 					this.AddNextObxElement("Date Finalized: " + hpvFinal, document, "F");
 					this.AddNextObxElement("", document, "F");
 				}
@@ -217,7 +219,7 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
 						string result = null;
 
 						if (panelSetOrder.PanelSetId == panelSetThinPrepPap.PanelSetId ||
-							panelSetOrder.PanelSetId == panelSetHPVTWI.PanelSetId ||
+							panelSetOrder.PanelSetId == panelSetHPV.PanelSetId ||
 							panelSetOrder.PanelSetId == panelSetHPV1618.PanelSetId ||
 							panelSetOrder.PanelSetId == panelSetNGCT.PanelSetId ||
 							panelSetOrder.PanelSetId == panelSetTrichomonas.PanelSetId)

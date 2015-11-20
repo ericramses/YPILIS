@@ -19,23 +19,13 @@ namespace YellowstonePathology.Business.Test.TechInitiatedPeripheralSmear
             this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\TechInitiatedPeripheralSmear.xml";
             base.OpenTemplate();
 
-            base.SetDemographicsV2();
+            base.SetDemographicsV2();                        
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrder.OrderedOn, this.m_PanelSetOrder.OrderedOnId);
-            base.ReplaceText("specimen_description", specimenOrder.Description);
+            base.ReplaceText("technologist_question", techInitiatedPeripheralSmearTestOrder.TechnologistsQuestion);
+            base.ReplaceText("pathologist_feedback", techInitiatedPeripheralSmearTestOrder.PathologistFeedback);
+            base.ReplaceText("cbc_comment", techInitiatedPeripheralSmearTestOrder.CBCComment);
 
-            string collectionDateTimeString = YellowstonePathology.Business.Helper.DateTimeExtensions.CombineDateAndTime(specimenOrder.CollectionDate, specimenOrder.CollectionTime);
-            this.SetXmlNodeData("date_time_collected", collectionDateTimeString);
-
-            YellowstonePathology.Business.Document.AmendmentSection amendmentSection = new YellowstonePathology.Business.Document.AmendmentSection();
-            amendmentSection.SetAmendment(this.m_PanelSetOrder.AmendmentCollection, this.m_ReportXml, this.m_NameSpaceManager, false);
-
-            base.ReplaceText("tech_comment", techInitiatedPeripheralSmearTestOrder.TechComment);
-            base.ReplaceText("pathologist_comment", techInitiatedPeripheralSmearTestOrder.PathologistComment);
-
-
-            this.SetReportDistribution();
-            this.SetCaseHistory();
+            this.SetReportDistribution();            
 
             this.SaveReport();
         }

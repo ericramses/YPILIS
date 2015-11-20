@@ -34,7 +34,15 @@ namespace YellowstonePathology.Business.Test.Prothrombin
 				this.AddNextObxElement("", document, "F");
 			}
 
-			this.HandleLongString("Indication: " + testOrder.Indication, document, "F");
+            this.AddNextObxElement("Pathologist: " + testOrder.Signature, document, "F");
+            if (testOrder.FinalTime.HasValue == true)
+            {
+                this.AddNextObxElement("E-signed " + testOrder.FinalTime.Value.ToString("MM/dd/yyyy HH:mm"), document, "F");
+            }
+            this.AddNextObxElement("", document, "F");
+            this.AddAmendments(document);
+
+            this.HandleLongString("Indication: " + testOrder.Indication, document, "F");
 			this.AddNextObxElement("", document, "F");
 
 			this.AddNextObxElement("Interpretation: ", document, "F");

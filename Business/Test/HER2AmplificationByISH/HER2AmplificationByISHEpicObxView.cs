@@ -55,6 +55,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
                 this.AddNextObxElement("E-signed " + panelSetOrder.FinalTime.Value.ToString("MM/dd/yyyy HH:mm"), document, "F");
             }
             this.AddNextObxElement(string.Empty, document, "F");
+            this.AddAmendments(document);
 
             this.AddNextObxElement("Number of invasive tumor cells counted: " + panelSetOrder.CellsCounted.ToString(), document, "F");
             this.AddNextObxElement("Number of observers: " + panelSetOrder.NumberOfObservers.ToString(), document, "F");
@@ -126,6 +127,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
                 this.AddNextObxElement("E-signed " + panelSetOrder.FinalTime.Value.ToString("MM/dd/yyyy HH:mm"), document, "F");
             }
             this.AddNextObxElement(string.Empty, document, "F");
+            this.AddAmendments(document);
 
             this.AddNextObxElement("Number of invasive tumor cells counted: " + panelSetOrder.CellsCounted.ToString(), document, "F");
             this.AddNextObxElement("Number of observers: " + panelSetOrder.NumberOfObservers.ToString(), document, "F");

@@ -195,9 +195,10 @@ namespace YellowstonePathology.UI.Cytology
                     }
 
                     this.m_PageNavigationWindow = new PageNavigationWindow(this.m_SystemIdentity);
-                    YellowstonePathology.UI.Login.WomensHealthProfilePath womensHealthProfilePath = new YellowstonePathology.UI.Login.WomensHealthProfilePath(this.m_AccessionOrder, this.m_ObjectTracker, clientOrder, this.m_PageNavigationWindow.PageNavigator, this.m_SystemIdentity);
-                    womensHealthProfilePath.Finished += new Login.WomensHealthProfilePath.FinishedEventHandler(WomensHealthProfilePath_Finished);                        
-					womensHealthProfilePath.Start();
+                    YellowstonePathology.UI.Login.WomensHealthProfilePath womensHealthProfilePath = new YellowstonePathology.UI.Login.WomensHealthProfilePath(this.m_AccessionOrder, this.m_ObjectTracker, clientOrder, this.m_PageNavigationWindow.PageNavigator, Visibility.Collapsed);
+                    womensHealthProfilePath.Back += new Login.WomensHealthProfilePath.BackEventHandler(WomensHealthProfilePath_Finished);
+                    womensHealthProfilePath.Finish += new Login.WomensHealthProfilePath.FinishEventHandler(WomensHealthProfilePath_Finished);
+                    womensHealthProfilePath.Start(this.m_SystemIdentity);
                     this.m_PageNavigationWindow.ShowDialog();                    
                 }                                
             }            
@@ -209,8 +210,8 @@ namespace YellowstonePathology.UI.Cytology
         }
 
 		public void ScreeningFinal(YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology panelOrderToFinal, YellowstonePathology.Business.Rules.ExecutionStatus executionStatus)
-        {            
-			switch (panelOrderToFinal.ScreeningType.ToUpper())
+        {
+            /*switch (panelOrderToFinal.ScreeningType.ToUpper())
             {
                 case "DOT REVIEW":
                     YellowstonePathology.Business.Rules.Cytology.DotReviewFinal dotReviewFinal = new YellowstonePathology.Business.Rules.Cytology.DotReviewFinal();
@@ -226,8 +227,8 @@ namespace YellowstonePathology.UI.Cytology
                     YellowstonePathology.Business.Rules.Cytology.ScreeningFinal screeningFinal2 = new YellowstonePathology.Business.Rules.Cytology.ScreeningFinal(YellowstonePathology.Business.ProcessingModeEnum.Production);
 					screeningFinal2.Execute(this.m_SystemIdentity.User, this.m_AccessionOrder, panelOrderToFinal, executionStatus);
 					break;
-            }
-
+            }*/
+            YellowstonePathology.Business.Audit.Model.AuditResult auditResult = this.m_PanelSetOrderCytology.IsOkToFinalize(this.m_AccessionOrder, panelOrderToFinal, this.m_SystemIdentity, executionStatus);
             if (this.m_PanelSetOrderCytology.Final == true)
             {
                 YellowstonePathology.Business.ReportDistribution.Model.MultiTestDistributionHandler multiTestDistributionHandler = YellowstonePathology.Business.ReportDistribution.Model.MultiTestDistributionHandlerFactory.GetHandler(this.m_AccessionOrder);

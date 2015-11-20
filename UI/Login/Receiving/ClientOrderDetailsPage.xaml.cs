@@ -70,7 +70,15 @@ namespace YellowstonePathology.UI.Login.Receiving
 
         private void ClientOrderDetailsPage_Loaded(object sender, RoutedEventArgs e)
         {
-            this.m_BarcodeScanPort.ContainerScanReceived += ContainerScanReceived;            
+            //This line to ensure that "ContainerScanReceived" is not already hooked up. I have found that the event is fireing twice.
+            //this.m_BarcodeScanPort.ContainerScanReceived -= ContainerScanReceived;
+            this.m_BarcodeScanPort.ContainerScanReceived += ContainerScanReceived;                  
+
+            if(this.m_BarcodeScanPort.GetContainerScanReceivedInvocationCount() != 1)
+            {
+                //MessageBox.Show(this.m_BarcodeScanPort.GetContainerScanReceivedTargetString());
+            }
+
             this.TextBoxAccessionAs.Focus();
 
             if (string.IsNullOrEmpty(this.m_ClientOrderDetail.DescriptionToAccession) == false)
@@ -155,8 +163,10 @@ namespace YellowstonePathology.UI.Login.Receiving
 		private void ButtonNext_Click(object sender, RoutedEventArgs e)
 		{
             this.m_ClientOrderDetail.ValidateObject();
+
             if (this.m_ClientOrderDetail.ValidationErrors.Count > 0)
             {
+                this.CheckFixationStartTimeOrCollectionTimeValidationErrors();
                 MessageBoxResult messageBoxResult = MessageBox.Show("There are validation errors on this form.  Are you sure you want to continue?", "Validation Errors", MessageBoxButton.YesNo);
                 if (messageBoxResult == MessageBoxResult.Yes)
                 {
@@ -169,7 +179,33 @@ namespace YellowstonePathology.UI.Login.Receiving
                 this.m_BarcodeScanPort.ContainerScanReceived -= ContainerScanReceived;
                 this.Next(this, new EventArgs());                    
             }           
-		}        
+		}
+
+        private void CheckFixationStartTimeOrCollectionTimeValidationErrors()
+        {
+            DateTime? fixedFixationStartTime = Business.Helper.DateTimeExtensions.RemoveSeconds(this.m_ClientOrderDetail.FixationStartTime);
+            DateTime? fixedCollectionDate = Business.Helper.DateTimeExtensions.RemoveSeconds(this.m_ClientOrderDetail.CollectionDate);
+            if (this.m_ClientOrderDetail.ValidationErrors.ContainsKey("CollectionDateBinding") == true)
+            {
+                if(this.m_ClientOrderDetail.ValidationErrors["CollectionDateBinding"] == "The Collection Time cannot be after the Fixation Start Time.")
+                {
+                    if(fixedFixationStartTime.Value == fixedCollectionDate.Value)
+                    {
+                        MessageBox.Show("Please contact IT before continuing!  IT is trying to determine how this happens." + Environment.NewLine + "The message is 'The Collection Time cannot be after the Fixation Start Time.'.");
+                    }
+                }
+            }
+            else if (this.m_ClientOrderDetail.ValidationErrors.ContainsKey("FixationStartTimeBinding") == true)
+            {
+                if (this.m_ClientOrderDetail.ValidationErrors["FixationStartTimeBinding"] == "The Fixation Start Time cannot be before the Collection Date.")
+                {
+                    if (fixedFixationStartTime.Value == fixedCollectionDate.Value)
+                    {
+                        MessageBox.Show("Please contact IT before continuing!  IT is trying to determine how this happens." + Environment.NewLine + "The message is 'The Fixation Start Time cannot be before the Collection Date.'.");
+                    }
+                }
+            }
+        }
 
         private YellowstonePathology.Business.Rules.MethodResult IsOkToNavigate()
         {

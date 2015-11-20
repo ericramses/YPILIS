@@ -69,7 +69,7 @@ namespace YellowstonePathology.Business.Visitor
         }
 
         private void HandleIC()
-        {
+        {            
             if (this.m_SurgicalSpecimen.IntraoperativeConsultationResultCollection.Count == 0) // don't add one if one already exists.
             {
                 if (this.m_TestOrder.TestId == 45 || this.m_TestOrder.TestId == 194)
@@ -78,7 +78,7 @@ namespace YellowstonePathology.Business.Visitor
                     intraoperativeConsultationResult.TestOrderId = this.m_TestOrder.TestOrderId;
                     this.m_SurgicalSpecimen.IntraoperativeConsultationResultCollection.Add(intraoperativeConsultationResult);
                 }
-            }
+            }            
         }
 
         private void HandleStainResult()

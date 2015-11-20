@@ -656,12 +656,19 @@ namespace YellowstonePathology.UI
         }
 
 		public void ToolBarButtonViewDocument_Click(object sender, RoutedEventArgs args)
-		{
-			this.m_MainWindowCommandButtonHandler.OnShowCaseDocument();
-            MainWindow.ShowCaseDocumentCommand.Execute(null, null);
-		}
+		{            
+            this.m_MainWindowCommandButtonHandler.OnShowCaseDocument();
+            MainWindow.ShowCaseDocumentCommand.Execute(null, null);                        
+        }
 
-		public void ToolBarButtonAccessionLock_Click(object sender, RoutedEventArgs args)
+        private void ToolBarButtonViewDocument_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // WHC This is here to prevent sending the click event twice which causes an IO exception:
+            // "The process cannot access the file <filename> because it is being used by another process."
+            e.Handled = true;
+        }
+
+        public void ToolBarButtonAccessionLock_Click(object sender, RoutedEventArgs args)
 		{
             this.m_MainWindowCommandButtonHandler.OnToggelEventLock();
             MainWindow.ToggleAccessionLockModeCommand.Execute(null, null);
@@ -907,11 +914,23 @@ namespace YellowstonePathology.UI
             pantherOrdersDialog.ShowDialog();
         }
 
+        private void MenuItemPantherStorage_Click(object sender, RoutedEventArgs e)
+        {
+            PantherStorageDialog pantherStorageDialog = new PantherStorageDialog();
+            pantherStorageDialog.ShowDialog();
+        }
+
         private void MenuItemShowMissingInformationMonitor_Click(object sender, RoutedEventArgs e)
         {
             YellowstonePathology.UI.Monitor.MonitorPath monitorPath = new Monitor.MonitorPath();
             monitorPath.Load(YellowstonePathology.UI.Monitor.MonitorPageLoadEnum.MissingInformationMonitor);
             monitorPath.Start();
+        }
+
+        private void MenuItemAcidWashOrders_Click(object sender, RoutedEventArgs e)
+        {
+            Test.AcidWashOrdersDialog acidWashOrdersDialog = new Test.AcidWashOrdersDialog();
+            acidWashOrdersDialog.ShowDialog();
         }
     }    
 }

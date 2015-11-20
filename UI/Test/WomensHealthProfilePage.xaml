@@ -262,7 +262,8 @@
         </ScrollViewer>
         
         <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" BorderBrush="Transparent" BorderThickness="0" Background="{DynamicResource {x:Static SystemColors.InactiveCaptionBrushKey}}" Margin="0,0,0,0"></Border>
-        <Button Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Margin="5,5,5,5" Click="ButtonNext_Click" Width="100" Height="40" HorizontalAlignment="Right">Next</Button>
+        <Button Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Margin="5,5,5,5" Click="ButtonBack_Click" Width="100" Height="40" HorizontalAlignment="Left" Visibility="{Binding Path=BackButtonVisibility}"> &lt; Back</Button>
+        <Button Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Margin="5,5,5,5" Click="ButtonClose_Click" Width="100" Height="40" HorizontalAlignment="Right">Close</Button>
 
     </Grid>
 </UserControl>

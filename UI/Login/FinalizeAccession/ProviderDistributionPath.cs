@@ -57,6 +57,16 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 			this.m_LoginPageWindow.ShowDialog();
         }
 
+        public void Start(YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        {
+            this.m_SystemIdentity = systemIdentity;
+            this.m_LoginPageWindow = new LoginPageWindow(this.m_SystemIdentity);
+            this.m_LoginPageWindow.Width = System.Windows.SystemParameters.PrimaryScreenWidth * 0.80;
+
+            this.ShowCaseLockPage();
+            this.m_LoginPageWindow.ShowDialog();
+        }
+
         private void ShowScanSecurityBadgePage()
         {
             YellowstonePathology.UI.Login.ScanSecurityBadgePage scanSecurityBadgePage = new ScanSecurityBadgePage(System.Windows.Visibility.Collapsed);

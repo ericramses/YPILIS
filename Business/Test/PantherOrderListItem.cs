@@ -16,6 +16,7 @@ namespace YellowstonePathology.Business.Test
         private string m_Result;
         private Nullable<DateTime> m_AcceptedTime;
         private Nullable<DateTime> m_FinalTime;
+        private bool m_HoldDistribution;
 
         public PantherOrderListItem()
         {
@@ -76,6 +77,13 @@ namespace YellowstonePathology.Business.Test
         {
             get { return m_FinalTime; }
             set { this.m_FinalTime = value; }
+        }
+
+        [PersistentProperty()]
+        public bool HoldDistribution
+        {
+            get { return this.m_HoldDistribution; }
+            set { this.m_HoldDistribution = value; }
         }
     }
 }

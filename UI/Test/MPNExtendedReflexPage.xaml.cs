@@ -154,14 +154,15 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkFinalizeResults_Click(object sender, RoutedEventArgs e)
 		{
-			if (this.m_MPNExtendedReflexResult.PanelSetOrderMPNExtendedReflex.Final == false)
+            Business.Audit.Model.AuditResult auditResult = this.m_MPNExtendedReflexResult.IsOkToFinalize();
+            if(auditResult.Status == Business.Audit.Model.AuditStatusEnum.OK)
 			{
 				this.m_MPNExtendedReflexResult.PanelSetOrderMPNExtendedReflex.Finalize(this.m_SystemIdentity.User);
 			}
 			else
 			{
-				MessageBox.Show("This case cannot be finalized because it is already final.");
-			}
+                MessageBox.Show(auditResult.Message);
+            }
 		}
 
 		private void HyperLinkUnfinalResults_Click(object sender, RoutedEventArgs e)

@@ -19,8 +19,8 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
                 }
                 else
                 {
-                    YellowstonePathology.Business.Client.Model.ClientGroupStVincent clientGroupStVincent = new YellowstonePathology.Business.Client.Model.ClientGroupStVincent();
-                    if (clientGroupStVincent.Exists(accessionOrder.ClientId) == true)
+                    YellowstonePathology.Business.Client.Model.ClientGroupClientCollection clientGroupStVincent = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientGroupClientCollectionByClientGroupId(1);
+                    if (clientGroupStVincent.ClientIdExists(accessionOrder.ClientId) == true)
                     {
                         result = new MultiTestDistributionHandlerWHPSVH(accessionOrder);
                     }

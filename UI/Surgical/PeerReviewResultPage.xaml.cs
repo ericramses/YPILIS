@@ -19,9 +19,6 @@ namespace YellowstonePathology.UI.Surgical
 	public partial class PeerReviewResultPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
-
-		public delegate void NextEventHandler(object sender, EventArgs e);
-		public event NextEventHandler Next;
         
         private YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder m_SurgicalTestOrder;
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;

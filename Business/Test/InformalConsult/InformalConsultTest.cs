@@ -9,7 +9,7 @@ namespace YellowstonePathology.Business.Test.InformalConsult
 	{
 		public InformalConsultTest()
 		{
-			this.m_PanelSetId = 215;
+			this.m_PanelSetId = 216;
 			this.m_PanelSetName = "Informal Consult";
             this.m_Abbreviation = "Consult";
             this.m_CaseType = YellowstonePathology.Business.CaseType.Technical;
@@ -19,7 +19,7 @@ namespace YellowstonePathology.Business.Test.InformalConsult
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterT();
             this.m_Active = true;            
 			                    
-			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.TechInitiatedPeripheralSmear.TechInitiatedPeripheralSmearTestOrder).AssemblyQualifiedName;
+			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.InformalConsult.InformalConsultTestOrder).AssemblyQualifiedName;
 			this.m_AllowMultiplePerAccession = true;
             this.m_NeverDistribute = true;            
 			this.m_AcceptOnFinal = true;

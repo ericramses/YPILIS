@@ -40,6 +40,9 @@ namespace YellowstonePathology.Business.Test.HPV1618ByPCR
                 this.AddNextObxElement("*** E-signed " + panelSetOrder.FinalTime.Value.ToString("MM/dd/yyyy HH:mm") + "***", document, "F");                               
             }
 
+            this.AddNextObxElement("", document, "F");
+            this.AddAmendments(document);
+
             if (string.IsNullOrEmpty(panelSetOrder.Comment) == false)
             {
                 this.AddNextObxElement("Comment:", document, "F");

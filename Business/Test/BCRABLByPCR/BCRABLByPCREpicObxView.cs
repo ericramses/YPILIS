@@ -30,8 +30,10 @@ namespace YellowstonePathology.Business.Test.BCRABLByPCR
 			{
 				this.AddNextObxElement("E-signed " + panelSetOrder.FinalTime.Value.ToString("MM/dd/yyyy HH:mm"), document, "F");
 			}
-
 			this.AddNextObxElement("", document, "F");
+
+            this.AddAmendments(document);
+
 			this.AddNextObxElement("Specimen Information:", document, "F");
 			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(panelSetOrder.OrderedOn, panelSetOrder.OrderedOnId);
 			this.AddNextObxElement("Specimen Identification: " + specimenOrder.Description, document, "F");

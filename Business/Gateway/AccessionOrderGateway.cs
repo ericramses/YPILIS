@@ -352,7 +352,7 @@ namespace YellowstonePathology.Business.Gateway
 		public static Test.AccessionOrder GetAccessionOrderByAliquotOrderId(string aliquotOrderId)
 		{
 			SqlCommand cmd = new SqlCommand();
-			cmd.CommandText = "gwGetAccessionByAliquotOrderId_A6";
+			cmd.CommandText = "gwGetAccessionByAliquotOrderId_A7";
 			cmd.CommandType = CommandType.StoredProcedure;
 			cmd.Parameters.Add("@AliquotOrderId", SqlDbType.VarChar).Value = aliquotOrderId;
 			AccessionOrderBuilder accessionOrderBuilder = new AccessionOrderBuilder();
@@ -364,7 +364,7 @@ namespace YellowstonePathology.Business.Gateway
 		public static Test.AccessionOrder GetAccessionOrderByContainerId(string containerId)
 		{
 			SqlCommand cmd = new SqlCommand();
-			cmd.CommandText = "gwGetAccessionByContainerId_A6";
+			cmd.CommandText = "gwGetAccessionByContainerId_A7";
 			cmd.CommandType = CommandType.StoredProcedure;
 			cmd.Parameters.Add("@ContainerId", SqlDbType.VarChar).Value = containerId;
 			AccessionOrderBuilder accessionOrderBuilder = new AccessionOrderBuilder();
@@ -379,7 +379,7 @@ namespace YellowstonePathology.Business.Gateway
 			return AccessionOrderGatewayMongo.GetAccessionOrderByMasterAccessionNo(masterAccessionNo);
 #else
 			SqlCommand cmd = new SqlCommand();
-			cmd.CommandText = "gwGetAccessionByMasterAccessionNo_A6";
+			cmd.CommandText = "gwGetAccessionByMasterAccessionNo_A7";
 			cmd.CommandType = CommandType.StoredProcedure;
 			cmd.Parameters.Add("@MasterAccessionNo", SqlDbType.VarChar).Value = masterAccessionNo;
 			AccessionOrderBuilder accessionOrderBuilder = new AccessionOrderBuilder();
@@ -395,7 +395,7 @@ namespace YellowstonePathology.Business.Gateway
 			return AccessionOrderGatewayMongo.GetAccessionOrderByReportNo(reportNo);
 #else
 			SqlCommand cmd = new SqlCommand();
-			cmd.CommandText = "gwGetAccessionByReportNo_A6";
+			cmd.CommandText = "gwGetAccessionByReportNo_A7";
 			cmd.CommandType = CommandType.StoredProcedure;
 			cmd.Parameters.Add("@ReportNo", SqlDbType.VarChar).Value = reportNo;
 			AccessionOrderBuilder accessionOrderBuilder = new AccessionOrderBuilder();
@@ -408,7 +408,7 @@ namespace YellowstonePathology.Business.Gateway
 		public static Test.AccessionOrder GetAccessionOrderBySlideOrderId(string slideOrderId)
 		{
 			SqlCommand cmd = new SqlCommand();
-			cmd.CommandText = "gwGetAccessionBySlideOrderId_A6";
+			cmd.CommandText = "gwGetAccessionBySlideOrderId_A7";
 			cmd.CommandType = CommandType.StoredProcedure;
 			cmd.Parameters.Add("@SlideOrderId", SqlDbType.VarChar).Value = slideOrderId;
 			AccessionOrderBuilder accessionOrderBuilder = new AccessionOrderBuilder();
@@ -420,7 +420,7 @@ namespace YellowstonePathology.Business.Gateway
 		public static XElement GetAccessionOrderDocumentByReportNo(string reportNo)
 		{
 			SqlCommand cmd = new SqlCommand();
-			cmd.CommandText = "gwGetAccessionByReportNo_A6";
+			cmd.CommandText = "gwGetAccessionByReportNo_A7";
 			cmd.CommandType = CommandType.StoredProcedure;
 			cmd.Parameters.Add("@ReportNo", SqlDbType.VarChar).Value = reportNo;
 			XElement document = AccessionOrderGateway.GetAccessionOrderElement(cmd);
@@ -572,33 +572,6 @@ namespace YellowstonePathology.Business.Gateway
 				string result = cmd.Parameters["@NewReportNo"].Value.ToString();
 				return result;
 			}
-		}
-
-		public static YellowstonePathology.Business.Panel.Model.PanelOrderBatchList GetPanelOrderBatchListByBatchId(int batchTypeId)
-		{
-			YellowstonePathology.Business.Panel.Model.PanelOrderBatchList result = new Panel.Model.PanelOrderBatchList();
-			SqlCommand cmd = new SqlCommand();
-			cmd.CommandText = " SELECT TOP 100 pob.*, bt.BatchTypedescription FROM tblPanelOrderBatch pob JOIN tblBatchType bt ON pob.BatchTypeId = bt.BatchTypeId WHERE bt.BatchTypeId " +
-				"= @BatchTypeId ORDER BY pob.BatchDate DESC, pob.PanelOrderBatchId Desc";
-			cmd.CommandType = CommandType.Text;
-			cmd.Parameters.Add("@BatchTypeId", SqlDbType.Int).Value = batchTypeId;
-
-			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.Properties.Settings.Default.CurrentConnectionString))
-			{
-				cn.Open();
-				cmd.Connection = cn;
-				using (SqlDataReader dr = cmd.ExecuteReader())
-				{
-					while (dr.Read())
-					{
-						YellowstonePathology.Business.Panel.Model.PanelOrderBatch panelOrderBatch = new Panel.Model.PanelOrderBatch();
-						YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(panelOrderBatch, dr);
-						sqlDataReaderPropertyWriter.WriteProperties();
-						result.Add(panelOrderBatch);
-					}
-				}
-			}
-			return result;
 		}
 
 		public static SpecialStain.StainResultOptionList GetStainResultOptionListByStainResultId(string stainResultId)
@@ -1266,9 +1239,9 @@ namespace YellowstonePathology.Business.Gateway
 
             SqlCommand cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "select pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, a.PFirstName, pso.ResultCode, pso.AcceptedTime, pso.FinalTime, psoh.Result " +
+            cmd.CommandText = "select pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, a.PFirstName, pso.ResultCode, pso.AcceptedTime, pso.FinalTime, psoh.Result, pso.HoldDistribution " +
                 "from tblPanelSetOrder pso " +
-                "join tblPanelSetOrderHPVTWI psoh on pso.ReportNo = psoh.ReportNo " +
+                "join tblHPVTestOrder psoh on pso.ReportNo = psoh.ReportNo " +
                 "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " +                 
                 "where TechnicalComponentInstrumentId = 'PNTHR' and pso.Accepted = 0 order by pso.OrderTime";          
 
@@ -1291,15 +1264,108 @@ namespace YellowstonePathology.Business.Gateway
             return result;
         }
 
+        public static YellowstonePathology.Business.Test.PantherOrderList GetPantherOrdersNotAcceptedNGCT()
+        {
+            YellowstonePathology.Business.Test.PantherOrderList result = new Test.PantherOrderList();
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "select pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, a.PFirstName, pso.AcceptedTime, pso.FinalTime, null as Result, ngct.NeisseriaGonorrhoeaeResult, ngct.ChlamydiaTrachomatisResult, pso.HoldDistribution " +
+                "from tblPanelSetOrder pso " +
+                "join tblNGCTTestOrder ngct on pso.ReportNo = ngct.ReportNo " +
+                "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " +
+                "where TechnicalComponentInstrumentId = 'PNTHR' and pso.Accepted = 0 order by pso.OrderTime";
+
+            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        YellowstonePathology.Business.Test.PantherOrderListItemNGCT pantherOrderListItem = new Test.PantherOrderListItemNGCT();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(pantherOrderListItem, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Add(pantherOrderListItem);
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        public static YellowstonePathology.Business.Test.PantherOrderList GetPantherOrdersNotFinalNGCT()
+        {
+            YellowstonePathology.Business.Test.PantherOrderList result = new Test.PantherOrderList();
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "select pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, a.PFirstName, pso.AcceptedTime, pso.FinalTime, null as Result, ngct.NeisseriaGonorrhoeaeResult, ngct.ChlamydiaTrachomatisResult, pso.HoldDistribution " +
+                "from tblPanelSetOrder pso " +
+                "join tblNGCTTestOrder ngct on pso.ReportNo = ngct.ReportNo " +
+                "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " +
+                "where TechnicalComponentInstrumentId = 'PNTHR' and pso.Accepted = 1 and pso.Final = 0 order by pso.FinalTime desc";
+
+            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        YellowstonePathology.Business.Test.PantherOrderListItemNGCT pantherOrderListItem = new Test.PantherOrderListItemNGCT();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(pantherOrderListItem, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Add(pantherOrderListItem);
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        public static YellowstonePathology.Business.Test.PantherOrderList GetPantherOrdersFinalNGCT()
+        {
+            YellowstonePathology.Business.Test.PantherOrderList result = new Test.PantherOrderList();
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "select pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, a.PFirstName, pso.AcceptedTime, pso.FinalTime, null as Result, ngct.NeisseriaGonorrhoeaeResult, ngct.ChlamydiaTrachomatisResult, pso.HoldDistribution " +
+                "from tblPanelSetOrder pso " +
+                "join tblNGCTTestOrder ngct on pso.ReportNo = ngct.ReportNo " +
+                "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " +
+                "where TechnicalComponentInstrumentId = 'PNTHR' and pso.Final = 1 order by pso.FinalTime desc";
+
+            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        YellowstonePathology.Business.Test.PantherOrderListItemNGCT pantherOrderListItem = new Test.PantherOrderListItemNGCT();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(pantherOrderListItem, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Add(pantherOrderListItem);
+                    }
+                }
+            }
+
+            return result;
+        }
+
         public static YellowstonePathology.Business.Test.PantherOrderList GetPantherOrdersNotFinalHPV()
         {
             YellowstonePathology.Business.Test.PantherOrderList result = new Test.PantherOrderList();
 
             SqlCommand cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "select pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, a.PFirstName, pso.ResultCode, pso.AcceptedTime, pso.FinalTime, psoh.Result " +
+            cmd.CommandText = "select pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, a.PFirstName, pso.ResultCode, pso.AcceptedTime, pso.FinalTime, psoh.Result, pso.HoldDistribution " +
                 "from tblPanelSetOrder pso " +
-                "join tblPanelSetOrderHPVTWI psoh on pso.ReportNo = psoh.ReportNo " +
+                "join tblHPVTestOrder psoh on pso.ReportNo = psoh.ReportNo " +
                 "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " +
                 "where TechnicalComponentInstrumentId = 'PNTHR' and pso.Accepted = 1 and pso.Final = 0 order by pso.OrderTime";
 
@@ -1328,9 +1394,9 @@ namespace YellowstonePathology.Business.Gateway
 
             SqlCommand cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "select pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, a.PFirstName, pso.ResultCode, pso.AcceptedTime, pso.FinalTime, psoh.Result " +
+            cmd.CommandText = "select pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, a.PFirstName, pso.ResultCode, pso.AcceptedTime, pso.FinalTime, psoh.Result, pso.HoldDistribution " +
                 "from tblPanelSetOrder pso " +
-                "join tblPanelSetOrderHPVTWI psoh on pso.ReportNo = psoh.ReportNo " +
+                "join tblHPVTestOrder psoh on pso.ReportNo = psoh.ReportNo " +
                 "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " +
                 "where TechnicalComponentInstrumentId = 'PNTHR' and pso.Final = 1 and pso.FinalDate >= dateAdd(mm, -3, pso.FinalDate) order by pso.FinalTime desc";
 
@@ -2037,32 +2103,6 @@ namespace YellowstonePathology.Business.Gateway
 					}
 				}
 			}
-			return result;
-		}
-
-		public static YellowstonePathology.Business.BatchTypeList GetBatchTypeList()
-		{
-			YellowstonePathology.Business.BatchTypeList result = new BatchTypeList();
-			SqlCommand cmd = new SqlCommand();
-			cmd.CommandText = "SELECT BatchTypeId, BatchTypeDescription, DisplaySequence, BatchIndicator FROM tblBatchType order by DisplaySequence";
-			cmd.CommandType = CommandType.Text;
-
-			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.Properties.Settings.Default.CurrentConnectionString))
-			{
-				cn.Open();
-				cmd.Connection = cn;
-				using (SqlDataReader dr = cmd.ExecuteReader())
-				{
-					while (dr.Read())
-					{
-						YellowstonePathology.Business.BatchTypeListItem batchTypeListItem = new YellowstonePathology.Business.BatchTypeListItem();
-						YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(batchTypeListItem, dr);
-						sqlDataReaderPropertyWriter.WriteProperties();
-						result.Add(batchTypeListItem);
-					}
-				}
-			}
-
 			return result;
 		}
 
