@@ -99,14 +99,14 @@ namespace YellowstonePathology.UI.Test
         private void HyperLinkNotDetected_Click(object sender, RoutedEventArgs e)
         {
             YellowstonePathology.Business.Test.KRASExon23Mutation.KRASExon23MutationResult result = new YellowstonePathology.Business.Test.KRASExon23Mutation.KRASExon23MutationResult();
-            result.SetResults(this.m_KRASExon23MutationTestOrder);
+            result.SetNotDetectedResults(this.m_KRASExon23MutationTestOrder);
             this.NotifyPropertyChanged("PanelSetOrder");
         }
 
         private void HyperLinkDetected_Click(object sender, RoutedEventArgs e)
         {
             YellowstonePathology.Business.Test.KRASExon23Mutation.KRASExon23MutationResult result = new YellowstonePathology.Business.Test.KRASExon23Mutation.KRASExon23MutationResult();
-            result.SetResults(this.m_KRASExon23MutationTestOrder);
+            result.SetDetectedResults(this.m_KRASExon23MutationTestOrder);
             this.NotifyPropertyChanged("PanelSetOrder");
         }
 
@@ -123,35 +123,33 @@ namespace YellowstonePathology.UI.Test
 
         private void HyperLinkFinalizeResults_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("This case cannot be finalized because IT needs more information to create the correct report." + Environment.NewLine + "Please contact IT.");
-
-            /*if (this.m_KRASExon23MutationTestOrder.Final == false)
+            Business.Audit.Model.AuditResult auditResult = this.m_KRASExon23MutationTestOrder.IsOkToFinalize(this.m_AccessionOrder);
+            if (auditResult.Status == Business.Audit.Model.AuditStatusEnum.OK)
             {
                 this.m_KRASExon23MutationTestOrder.Finalize(this.m_SystemIdentity.User);
             }
             else
             {
-                MessageBox.Show("This case cannot be finalized because it is already final.");
-            }*/
+                MessageBox.Show(auditResult.Message);
+            }
         }
 
         private void HyperLinkUnfinalResults_Click(object sender, RoutedEventArgs e)
         {
-            if (this.m_KRASExon23MutationTestOrder.Final == true)
+            Business.Rules.MethodResult methodResult = this.m_KRASExon23MutationTestOrder.IsOkToUnfinalize();
+            if (methodResult.Success == true)
             {
                 this.m_KRASExon23MutationTestOrder.Unfinalize();
             }
             else
             {
-                MessageBox.Show("This case cannot be unfinalized because it is not final.");
+                MessageBox.Show(methodResult.Message);
             }
         }
 
         private void HyperLinkAcceptResults_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("This results cannot be accepted because IT needs more information to store the correct data." + Environment.NewLine + "Please contact IT.");
-
-            /*YellowstonePathology.Business.Rules.MethodResult result = this.m_KRASExon23MutationTestOrder.IsOkToAccept();
+            YellowstonePathology.Business.Rules.MethodResult result = this.m_KRASExon23MutationTestOrder.IsOkToAccept();
             if (result.Success == true)
             {
                 this.m_KRASExon23MutationTestOrder.Accept(this.m_SystemIdentity.User);
@@ -159,7 +157,7 @@ namespace YellowstonePathology.UI.Test
             else
             {
                 MessageBox.Show(result.Message);
-            }*/
+            }
         }
 
         private void HyperLinkUnacceptResults_Click(object sender, RoutedEventArgs e)

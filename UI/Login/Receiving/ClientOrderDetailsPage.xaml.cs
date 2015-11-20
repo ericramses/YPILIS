@@ -79,7 +79,8 @@ namespace YellowstonePathology.UI.Login.Receiving
                 //MessageBox.Show(this.m_BarcodeScanPort.GetContainerScanReceivedTargetString());
             }
 
-            this.TextBoxAccessionAs.Focus();
+            //this.TextBoxAccessionAs.Focus();
+            this.ComboBoxSpecimenId.Focus();
 
             if (string.IsNullOrEmpty(this.m_ClientOrderDetail.DescriptionToAccession) == false)
             {
@@ -316,10 +317,13 @@ namespace YellowstonePathology.UI.Login.Receiving
 
         private void TextBoxInComboBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (this.ComboBoxSpecimenId.SelectedItem != null)
+            if (this.ComboBoxSpecimenId.SelectedItem != null && this.ComboBoxSpecimenId.SelectedItem.GetType() != typeof(YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.NullSpecimen))
             {
                 YellowstonePathology.Business.Specimen.Model.Specimen specimen = (YellowstonePathology.Business.Specimen.Model.Specimen)this.ComboBoxSpecimenId.SelectedItem;
-                this.m_ClientOrderDetail.DescriptionToAccessionBinding = specimen.Description;
+                if (string.IsNullOrEmpty(this.m_ClientOrderDetail.DescriptionToAccessionBinding) == true)
+                {
+                    this.m_ClientOrderDetail.DescriptionToAccessionBinding = specimen.Description;
+                }
                 this.m_ClientOrderDetail.LabFixationBinding = specimen.LabFixation;
                 this.m_ClientOrderDetail.ClientFixationBinding = specimen.ClientFixation;
                 this.m_ClientOrderDetail.RequiresGrossExamination = specimen.RequiresGrossExamination;
