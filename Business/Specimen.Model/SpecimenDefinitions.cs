@@ -66,12 +66,24 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_RequiresGrossExamination = true;
         }
     }
-    public class SkinExcisionBiopsy : Specimen
+    public class SkinExcisionOrientedBiopsy : Specimen
     {
-        public SkinExcisionBiopsy()
+        public SkinExcisionOrientedBiopsy()
         {
-            this.m_SpecimenId = "SKEXSPCMN";
-            this.m_SpecimenName = "Skin Excision Biopsy";
+            this.m_SpecimenId = "SKEXOSPCMN";
+            this.m_SpecimenName = "Oriented Skin Excision Biopsy";
+            this.m_Description = null;
+            this.m_LabFixation = "Formalin";
+            this.m_ClientFixation = "Formalin";
+            this.m_RequiresGrossExamination = true;
+        }
+    }
+    public class SkinExcisionUnorientedBiopsy : Specimen
+    {
+        public SkinExcisionUnorientedBiopsy()
+        {
+            this.m_SpecimenId = "SKEXUOSPCMN";
+            this.m_SpecimenName = "Unoriented Skin Excision Biopsy";
             this.m_Description = null;
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = "Formalin";
