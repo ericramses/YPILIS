@@ -41,7 +41,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>505</ApplicationRevision>
+    <ApplicationRevision>516</ApplicationRevision>
     <ApplicationVersion>10.1.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -267,7 +267,6 @@
       <DependentUpon>BlankPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Gross\ColorConverter.cs" />
-    <Compile Include="Gross\GrossDictation.cs" />
     <Compile Include="Gross\ProcessorSelectionPage.xaml.cs">
       <DependentUpon>ProcessorSelectionPage.xaml</DependentUpon>
     </Compile>

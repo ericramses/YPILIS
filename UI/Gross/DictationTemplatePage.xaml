@@ -14,23 +14,14 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        
-        <TextBlock Margin="2,2,2,2" Grid.Column="0" Grid.Row="0" FontSize="20" FontWeight="Bold" Text="Gross Dictation:" HorizontalAlignment="Left"></TextBlock>
-        <TextBox  Margin="2,2,2,2" Grid.Column="0" Grid.Row="1" Text="{Binding Path=GrossDescription}" FontSize="20" AcceptsReturn="True" TextWrapping="Wrap"></TextBox>
 
-        <TextBlock Grid.Column="0" Grid.Row="2" Margin="2,2,2,2" FontSize="20" FontWeight="Bold" Text="Phrases:" HorizontalAlignment="Left"></TextBlock>
-        <ListBox Grid.Column="0" Grid.Row="3" Margin="2,2,2,2" FontSize="20" ItemsSource="{Binding Path=DictationTemplate.WordList}">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
-                        <TextBlock Margin="2" Text="{Binding Path=Word}" />
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+        <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Orientation="Horizontal">
+            <TextBlock Margin="2,2,2,2" FontSize="20" FontWeight="Bold" Text="Gross Dictation:" HorizontalAlignment="Left"></TextBlock>
+            <TextBlock Margin="2,2,2,2" FontSize="16" Text="{Binding Path=DictationTemplate.TemplateName}" HorizontalAlignment="Left"></TextBlock>
+        </StackPanel>
+        
+        <TextBox  Margin="2,2,2,2" Grid.Column="0" Grid.Row="1" Text="{Binding Path=GrossDescription}" FontSize="{Binding Path=DictationTemplate.FontSize}" AcceptsReturn="True" TextWrapping="Wrap"></TextBox>
 
     </Grid>
 </UserControl>

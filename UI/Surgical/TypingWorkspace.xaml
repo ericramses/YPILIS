@@ -771,9 +771,6 @@
         
             <StatusBarItem HorizontalAlignment="Right">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Margin="2,2,10,2">
-                        <Hyperlink Click="HyperLinkShowProviderDistribution_Click">Provider Distribution</Hyperlink>
-                    </TextBlock>
                     <TextBlock Margin="2,2,2,2">
                         <Hyperlink Click="HyperLinkShowGossTemplate_Click">Gross Templates</Hyperlink>
                     </TextBlock>

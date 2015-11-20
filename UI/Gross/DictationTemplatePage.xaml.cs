@@ -40,8 +40,7 @@ namespace YellowstonePathology.UI.Gross
 
         public void SetGrossDescription()
         {
-            string grossX = "This is " + this.m_SystemIdentity.User.DisplayName + " performing gross examination for case " + this.m_AccessionOrder.MasterAccessionNo + Environment.NewLine;
-            grossX += "Specimen " + this.m_SpecimenOrder.SpecimenNumber + " ";
+            string grossX = "Specimen " + this.m_SpecimenOrder.SpecimenNumber + " ";
             if(this.m_SpecimenOrder.ClientFixation == YellowstonePathology.Business.Specimen.Model.FixationType.Formalin)
             {
                 grossX += "is received in formalin filled container labeled \"" + this.m_AccessionOrder.PatientDisplayName + " - "  + this.m_SpecimenOrder.Description + "\"";
@@ -51,13 +50,11 @@ namespace YellowstonePathology.UI.Gross
                 grossX += " is received fresh in a container labeled \"" + this.m_AccessionOrder.PatientDisplayName + " - " + this.m_SpecimenOrder.Description + "\"";
             }
             grossX += ". " + Environment.NewLine + Environment.NewLine;
+            grossX += this.m_DictationTemplate.Text;
 
-            grossX += "*** (This is the part that I can't get from existing data) ***" + Environment.NewLine;
-            grossX += "It consists of a tan, irregularly ovoid skin shave measuring 0.6 X 0.4 X 0.05 cm." + Environment.NewLine + Environment.NewLine;
-
-            YellowstonePathology.Business.Common.PrintMateCarousel printMateCarousel = new Business.Common.PrintMateCarousel();
-            YellowstonePathology.Business.Common.PrintMateColumn printMateColumn = printMateCarousel.GetColumn(this.m_AccessionOrder.PrintMateColumnNumber);
-            grossX += "It is bisected and " + this.m_SpecimenOrder.GetGrossSubmittedInString(printMateColumn.ColorCode);
+            //YellowstonePathology.Business.Common.PrintMateCarousel printMateCarousel = new Business.Common.PrintMateCarousel();
+            //YellowstonePathology.Business.Common.PrintMateColumn printMateColumn = printMateCarousel.GetColumn(this.m_AccessionOrder.PrintMateColumnNumber);
+            //grossX += "It is bisected and " + this.m_SpecimenOrder.GetGrossSubmittedInString(printMateColumn.ColorCode);
             this.m_GrossDescription = grossX;
         }
 
