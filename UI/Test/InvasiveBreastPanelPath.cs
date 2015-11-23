@@ -7,13 +7,8 @@ namespace YellowstonePathology.UI.Test
 {
 	public class InvasiveBreastPanelPath : ResultPath
 	{
-		//public delegate void FinishEventHandler(object sender, EventArgs e);
-		//public event FinishEventHandler Finish;
-
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
-		//private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
-		//private YellowstonePathology.UI.Navigation.PageNavigator m_PageNavigator;
 		private string m_ReportNo;
 
 		private InvasiveBreastPanelPage m_InvasiveBreastPanelPage;
@@ -26,29 +21,20 @@ namespace YellowstonePathology.UI.Test
 			this.m_ReportNo = reportNo;
 			this.m_AccessionOrder = accessionOrder;
 			this.m_ObjectTracker = objectTracker;
-			//this.m_SystemIdentity = systemIdentity;
-			//this.m_PageNavigator = pageNavigator;
 
 			this.m_InvasiveBreastPanel = (YellowstonePathology.Business.Test.InvasiveBreastPanel.InvasiveBreastPanel)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
-            Authenticated += ResultPath_Authenticated;
         }
 
-        private void ResultPath_Authenticated(object sender, EventArgs e)
-        {
+        protected override void ShowResultPage()
+		{
             this.m_InvasiveBreastPanelPage = new InvasiveBreastPanelPage(this.m_ReportNo, this.m_AccessionOrder, this.m_ObjectTracker, this.m_SystemIdentity);
             this.m_InvasiveBreastPanelPage.Next += new InvasiveBreastPanelPage.NextEventHandler(InvasiveBreastPanelPage_Next);
             this.m_InvasiveBreastPanelPage.OrderHER2byFISH += new InvasiveBreastPanelPage.OrderHER2byFISHEventHandler(InvasiveBreastPanelPage_OrderHER2byFISH);
-            this.ShowResultPage();
-        }
-
-        public void ShowResultPage()
-		{
 			this.m_PageNavigator.Navigate(this.m_InvasiveBreastPanelPage);
 		}
 
 		private void InvasiveBreastPanelPage_Next(object sender, EventArgs e)
 		{
-            //if (this.Finish != null) this.Finish(this, new EventArgs());
             this.Finished();
 		}
 

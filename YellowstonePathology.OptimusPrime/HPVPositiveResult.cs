@@ -9,7 +9,7 @@ namespace YellowstonePathology.OptimusPrime
     {
         public HPVPositiveResult()
         {
-            this.m_ResultCode = "HPVTWPSTV";
+            this.m_ResultCode = "HPVPSTV";
             this.m_Result = HPVResult.PositiveResult;
         }
     }

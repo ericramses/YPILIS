@@ -142,7 +142,8 @@
 			</TextBox>
 
 			<TextBlock Grid.Column="0" Grid.Row="4" Style="{StaticResource LogTextBlock}">Result:</TextBlock>
-			<TextBox Name="TextBoxResult" Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="3" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Stretch" TextAlignment="Left" TextWrapping="Wrap" Text="{Binding Path=IntraoperativeConsultation.Result}" AcceptsReturn="True"></TextBox>
+			<TextBox Name="TextBoxResult" Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="3" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Stretch" 
+                     TextAlignment="Left" TextWrapping="Wrap" Text="{Binding Path=IntraoperativeConsultation.Result}" AcceptsReturn="True" KeyUp="TextBox_KeyUp"></TextBox>
 
 			<TextBlock Grid.Column="0" Grid.Row="5" Style="{StaticResource LogTextBlock}">Callback Contact:</TextBlock>
 			<TextBox Name="TextBoxCallbackContact" Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="3" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Stretch" TextAlignment="Left" TextWrapping="Wrap" Text="{Binding Path=IntraoperativeConsultation.CallbackContact}" AcceptsReturn="True"></TextBox>

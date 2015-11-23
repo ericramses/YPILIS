@@ -1093,27 +1093,14 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
-            XDocument myxml = XDocument.Load(@"XMLFile2.xml");
-            IEnumerable<XElement> nodes = myxml.XPathSelectElements("//Codes/Code");
-            foreach(XElement node in nodes)
-            {
-                string icd9 = node.Attribute("ICD9").Value;
-                string icd10 = node.Attribute("ICD10").Value;
-                string description = node.Attribute("Description").Value;
+            //YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByMasterAccessionNo("15-27221");
+            //string json = YellowstonePathology.Business.Persistence.JSONWriter.Write(accessionOrder);
+            //System.IO.File.WriteAllText(@"C:\node\test.json", json);
 
-                string test = null;
-                if (node.Attribute("Test") != null)
-                {
-                     test = node.Attribute("Test").Value;
-                }
-                string line = icd9 + "\t" + icd10 + "\t" + description;
-                
-                if(test != null)
-                {
-                    line = line + "\t" + test;
-                }
-                Console.WriteLine(line);
-            }
+            //YellowstonePathology.OptimusPrime.NGCTResult result = YellowstonePathology.OptimusPrime.NGCTResult.GetResult("NT neg", "CT POS");
+
+            
+            
         }
 
         private void FindY()
@@ -1162,7 +1149,7 @@ namespace YellowstonePathology.UI
 
         private void FixHPV()
         {
-            YellowstonePathology.Business.ReportNoCollection reportNoCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetReportNumbers();
+            /*YellowstonePathology.Business.ReportNoCollection reportNoCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetReportNumbers();
             foreach (YellowstonePathology.Business.ReportNo reportNo in reportNoCollection)
             {
                 string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
@@ -1175,7 +1162,7 @@ namespace YellowstonePathology.UI
                 YellowstonePathology.Business.Test.PanelOrder  panelOrder = new Business.Test.PanelOrder(reportNo.Value, objectId, objectId, panel, 5051);
                 pso.PanelOrderCollection.Add(panelOrder);
                 ot.SubmitChanges(accessionOrder);
-            }
+            }*/
         }
 
         private void FindNonASCICharacters()

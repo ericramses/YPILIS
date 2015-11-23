@@ -185,8 +185,12 @@ namespace YellowstonePathology.Business.Client
             bool result = true;
             if (panelSetOrder.TestOrderReportDistributionCollection.Exists(YellowstonePathology.Business.ReportDistribution.Model.DistributionType.EPIC) == false)
             {
-                YellowstonePathology.Business.Client.Model.ClientGroupClientCollection stVincentGroup = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientGroupClientCollectionByClientGroupId(1);
-                if (stVincentGroup.ClientIdExists(accessionOrder.ClientId) == true)
+                List<int> clientGroupIds = new List<int>();
+                clientGroupIds.Add(1);
+                clientGroupIds.Add(2);
+
+                YellowstonePathology.Business.Client.Model.ClientGroupClientCollection stVincentAndHRHGroup = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientGroupClientCollectionByClientGroupId(clientGroupIds);
+                if (stVincentAndHRHGroup.ClientIdExists(accessionOrder.ClientId) == true)
                 {
                     if (string.IsNullOrEmpty(accessionOrder.SvhAccount) == true || string.IsNullOrEmpty(accessionOrder.SvhMedicalRecord) == true)
                     {

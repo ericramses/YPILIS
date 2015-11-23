@@ -51,7 +51,9 @@
 				<MenuItem Header="Master Log" Click="MenuItemMasterLog_Click"></MenuItem>
 				<MenuItem Header="Login" Click="MenuItemLogin_Click" />
                 <MenuItem Header="Material Tracking" Click="MenuItemMaterialTracking_Click" />
-                <MenuItem Header="Panther Orders" Click="MenuItemPantherOrders_Click" />                
+                <MenuItem Header="Panther Orders" Click="MenuItemPantherOrders_Click" />
+                <MenuItem Header="Panther Storage" Click="MenuItemPantherStorage_Click" />
+                <MenuItem Header="Acid Wash Orders" Click="MenuItemAcidWashOrders_Click" />
             </MenuItem>
 
             <MenuItem Header="_Client" Name="MenuItemClient">

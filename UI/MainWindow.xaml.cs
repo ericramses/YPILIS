@@ -914,11 +914,23 @@ namespace YellowstonePathology.UI
             pantherOrdersDialog.ShowDialog();
         }
 
+        private void MenuItemPantherStorage_Click(object sender, RoutedEventArgs e)
+        {
+            PantherStorageDialog pantherStorageDialog = new PantherStorageDialog();
+            pantherStorageDialog.ShowDialog();
+        }
+
         private void MenuItemShowMissingInformationMonitor_Click(object sender, RoutedEventArgs e)
         {
             YellowstonePathology.UI.Monitor.MonitorPath monitorPath = new Monitor.MonitorPath();
             monitorPath.Load(YellowstonePathology.UI.Monitor.MonitorPageLoadEnum.MissingInformationMonitor);
             monitorPath.Start();
+        }
+
+        private void MenuItemAcidWashOrders_Click(object sender, RoutedEventArgs e)
+        {
+            Test.AcidWashOrdersDialog acidWashOrdersDialog = new Test.AcidWashOrdersDialog();
+            acidWashOrdersDialog.ShowDialog();
         }
     }    
 }

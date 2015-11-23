@@ -31,7 +31,9 @@ namespace YellowstonePathology.Business.Test.BladderCancerFISHUrovysion
 			}
 
 			this.AddNextObxElement("", document, "F");
-			this.AddNextObxElement("Specimen Information:", document, "F");
+            this.AddAmendments(document);
+
+            this.AddNextObxElement("Specimen Information:", document, "F");
 			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(testOrder.OrderedOn, testOrder.OrderedOnId);
 			this.AddNextObxElement("Specimen Identification: " + specimenOrder.Description, document, "F");
 			string collectionDateTimeString = YellowstonePathology.Business.Helper.DateTimeExtensions.CombineDateAndTime(specimenOrder.CollectionDate, specimenOrder.CollectionTime);

@@ -90,7 +90,7 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
 			this.AddNextObxElement("Date Finalized: " + cytoTechFinal, document, "F");
 			this.AddNextObxElement("", document, "F");
 
-			if (reviewPanelOrder != null)
+            if (reviewPanelOrder != null)
 			{
 				string reviewedBy = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetSystemUserById(reviewPanelOrder.ScreenedById).Signature;
 				string reviewedByFinal = YellowstonePathology.Business.Helper.DateTimeExtensions.DateStringFromNullable(reviewPanelOrder.AcceptedDate);
@@ -105,6 +105,8 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
 				}
 				this.AddNextObxElement("", document, "F");
 			}
+
+            this.AddAmendments(document);
 
 			this.AddNextObxElement("CURRENT MOLECULAR TEST SUMMARY", document, "F");
 

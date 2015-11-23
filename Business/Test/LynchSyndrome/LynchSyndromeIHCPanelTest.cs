@@ -44,11 +44,11 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServicePathSummary());
 
-			LynchSyndromeIHCPanel lynchSyndromeIHCPanel = new LynchSyndromeIHCPanel();
+            LynchSyndromeIHCPanel lynchSyndromeIHCPanel = new LynchSyndromeIHCPanel();
             this.m_PanelCollection.Add(lynchSyndromeIHCPanel);
-		}
+        }
 
-		public override YellowstonePathology.Business.Rules.MethodResult OrderTargetIsOk(YellowstonePathology.Business.Interface.IOrderTarget orderTarget)
+        public override YellowstonePathology.Business.Rules.MethodResult OrderTargetIsOk(YellowstonePathology.Business.Interface.IOrderTarget orderTarget)
         {
             YellowstonePathology.Business.Rules.MethodResult methodResult = new Business.Rules.MethodResult();
             methodResult.Success = true;

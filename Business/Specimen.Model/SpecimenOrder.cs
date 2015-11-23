@@ -145,6 +145,29 @@ namespace YellowstonePathology.Business.Specimen.Model
 			return result;
 		}		
 
+        public string GetGrossSubmittedInString(string cassetteColor)
+        {
+            string result = null;
+            if (this.m_AliquotOrderCollection.Count != 0)
+            {                
+                result = "entirely submitted into " + cassetteColor.ToLower();
+                if (this.m_AliquotOrderCollection.Count == 1)
+                {
+                    result += " cassette ";
+                }
+                else
+                {
+                    result += " cassettes ";
+                }                
+                foreach (YellowstonePathology.Business.Test.AliquotOrder aliquotOrder in this.m_AliquotOrderCollection)
+                {
+                    result += "\"" + aliquotOrder.Label + "\", ";
+                }            
+                result = result.Remove(result.Length - 2, 2);                
+            }
+            return result;
+        }
+
 		public string GetSpecimenDescriptionString()
 		{
 			string result = this.SpecimenNumber.ToString() + ".) " + this.Description;

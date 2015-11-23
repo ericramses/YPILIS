@@ -1,22 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-//using System.Text;
 using System.Windows;
-//using System.Windows.Controls;
-//using System.Windows.Data;
-//using System.Windows.Documents;
-//using System.Windows.Input;
-//using System.Windows.Media;
-//using System.Windows.Media.Imaging;
-//using System.Windows.Shapes;
 using System.ComponentModel;
 using System.Reflection;
 using MongoDB.Bson;
 using MongoDB.Driver;
-//using MongoDB.Driver.Linq;
-//using MongoDB.Driver.Builders;
-//using MongoDB.Driver.GridFS;
 
 namespace YellowstonePathology.UI.Mongo
 {    
@@ -455,10 +444,13 @@ namespace YellowstonePathology.UI.Mongo
         {
             if (this.ListViewTransferCollection.SelectedItem != null)
             {
-                YellowstonePathology.Business.Mongo.Transfer transfer = (YellowstonePathology.Business.Mongo.Transfer)this.ListViewTransferCollection.SelectedItem;
-                this.m_TransferCollection.Remove(transfer);
+                while(this.ListViewTransferCollection.SelectedItems.Count != 0)
+                {
+                    YellowstonePathology.Business.Mongo.Transfer transfer = (YellowstonePathology.Business.Mongo.Transfer)this.ListViewTransferCollection.SelectedItems[0];
+                    this.m_TransferCollection.Remove(transfer);                    
+                }
                 this.m_DocumentCollectionTracker.SubmitChanges();
-                MessageBox.Show("All done.");
+                MessageBox.Show("Transfers have been removed.");
             }
         }
 

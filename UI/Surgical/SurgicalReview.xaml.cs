@@ -88,7 +88,7 @@ namespace YellowstonePathology.UI.Surgical
         private void HyperLinkFS_Click(object sender, RoutedEventArgs e)
         {
 			YellowstonePathology.Business.Test.Surgical.IntraoperativeConsultationResult intraoperativeConsultationResult = ((Hyperlink)sender).Tag as YellowstonePathology.Business.Test.Surgical.IntraoperativeConsultationResult;
-            Test.FrozenFinalDialog frozenFinalDialog = new Test.FrozenFinalDialog(this.AccessionOrder, intraoperativeConsultationResult);
+            Test.FrozenFinalDialog frozenFinalDialog = new Test.FrozenFinalDialog(this.AccessionOrder, intraoperativeConsultationResult, this.m_TypingShortcutUserControl);
             frozenFinalDialog.ShowDialog();
             this.m_PathologistUI.Save();
         }
@@ -165,7 +165,7 @@ namespace YellowstonePathology.UI.Surgical
 
         private void ButtonSignature_Click(object sender, RoutedEventArgs args)
         {
-            if (this.m_SystemIdentity.User.UserId == 5102 && this.PanelSetOrderSurgical.Final == false) //Dr. Durden only and only if signing
+            if ((this.m_SystemIdentity.User.UserId == 5102 || this.m_SystemIdentity.User.UserId == 5091) && this.PanelSetOrderSurgical.Final == false) //Dr. Durden only and only if signing
             {
                 this.TestSignout();
             }

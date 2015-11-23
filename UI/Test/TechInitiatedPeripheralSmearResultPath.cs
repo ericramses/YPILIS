@@ -21,25 +21,18 @@ namespace YellowstonePathology.UI.Test
             this.m_AccessionOrder = accessionOrder;
 			this.m_PanelSetOrder = (YellowstonePathology.Business.Test.TechInitiatedPeripheralSmear.TechInitiatedPeripheralSmearTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 			this.m_ObjectTracker = objectTracker;
-			this.Authenticated += new AuthenticatedEventHandler(ResultPath_Authenticated);
-    }
+        }
 
-    private void ResultPath_Authenticated(object sender, EventArgs e)
-    {
-        this.ShowResultPage();
-    }
+        protected override void ShowResultPage()
+        {
+            this.m_ResultPage = new TechInitiatedPeripheralSmearResultPage(this.m_PanelSetOrder, this.m_AccessionOrder, this.m_ObjectTracker, this.m_SystemIdentity);
+                this.m_ResultPage.Next += ResultPage_Next;
+            this.m_PageNavigator.Navigate(this.m_ResultPage);
+        }
 
-    private void ShowResultPage()
-    {
-        this.m_ResultPage = new TechInitiatedPeripheralSmearResultPage(this.m_PanelSetOrder, this.m_AccessionOrder, this.m_ObjectTracker, this.m_SystemIdentity);
-            this.m_ResultPage.Next += ResultPage_Next;
-        this.m_PageNavigator.Navigate(this.m_ResultPage);
+        private void ResultPage_Next(object sender, EventArgs e)
+        {
+            this.Finished();
+        }
     }
-
-    private void ResultPage_Next(object sender, EventArgs e)
-    {
-        this.Finished();
-    }
-
-}
 }

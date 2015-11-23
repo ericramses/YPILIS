@@ -213,9 +213,9 @@ namespace YellowstonePathology.UI.Test
 				case 185:
 					result = new BladderCancerFISHUrovysionResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
                     break;
-				//case 186:
-				//	result = new API2MALT1ResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
-                //    break;
+				case 186:
+					result = new API2MALT1ResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+                    break;
 				case 192:
 					result = new ALLAdultByFISHResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
                     break;
@@ -233,6 +233,12 @@ namespace YellowstonePathology.UI.Test
                     break;
                 case 214:
                     result = new TechInitiatedPeripheralSmearResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+                    break;
+                case 217:
+                    result = new KRASExon23MutationResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+                    break;
+                case 218:
+                    result = new RASRAFPanelResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
                     break;
             }
             return result;
@@ -287,14 +293,6 @@ namespace YellowstonePathology.UI.Test
                     YellowstonePathology.UI.Test.InvasiveBreastPanelPath invasiveBreastPanelPath = new Test.InvasiveBreastPanelPath(panelSetOrder.ReportNo, accessionOrder, objectTracker, pageNavigator);
                     invasiveBreastPanelPath.Finish += new Test.InvasiveBreastPanelPath.FinishEventHandler(InvasiveBreastPanelPath_Finish);
                     invasiveBreastPanelPath.Start(systemIdentity);
-                }
-
-                else if (panelSetOrder is YellowstonePathology.Business.Test.API2MALT1.API2MALT1TestOrder)
-                {
-                    result = true;
-                    ResultPath resultPathGenerated = YellowstonePathology.UI.Test.ResultPathFactory.BuildResultPath(panelSetOrder, accessionOrder, objectTracker, pageNavigator, System.Windows.Visibility.Collapsed);
-                    resultPathGenerated.Finish += new Test.ResultPath.FinishEventHandler(ResultPath_Finish);
-                    resultPathGenerated.Start();
                 }
                 else
                 {
@@ -360,14 +358,6 @@ namespace YellowstonePathology.UI.Test
                     invasiveBreastPanelPath.Finish += new Test.InvasiveBreastPanelPath.FinishEventHandler(InvasiveBreastPanelPath_Finish);
                     invasiveBreastPanelPath.Start();
                 }
-
-                else if (panelSetOrder is YellowstonePathology.Business.Test.API2MALT1.API2MALT1TestOrder)
-                {
-                    result = true;
-                    ResultPath resultPathGenerated = YellowstonePathology.UI.Test.ResultPathFactory.BuildResultPath(panelSetOrder, accessionOrder, objectTracker, pageNavigator, System.Windows.Visibility.Collapsed);
-                    resultPathGenerated.Finish += new Test.ResultPath.FinishEventHandler(ResultPath_Finish);
-                    resultPathGenerated.Start();
-                }
                 else
                 {
                     YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetAll().GetPanelSet(panelSetOrder.PanelSetId);
@@ -402,17 +392,6 @@ namespace YellowstonePathology.UI.Test
         private void InvasiveBreastPanelPath_Finish(object sender, EventArgs e)
         {
             if (this.Finished != null) this.Finished(this, new EventArgs());
-        }
-
-
-        public static ResultPath BuildResultPath(YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder,
-            YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-            YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
-            YellowstonePathology.UI.Navigation.PageNavigator pageNavigator,
-            System.Windows.Visibility backButtonVisibility)
-        {
-            ResultPath resultPath = new API2MALT1ResultPath((YellowstonePathology.Business.Test.API2MALT1.API2MALT1TestOrder)panelSetOrder, accessionOrder, objectTracker, pageNavigator, backButtonVisibility);
-            return resultPath;
         }
     }
 }

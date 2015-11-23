@@ -38,8 +38,9 @@ namespace YellowstonePathology.Business.Test.PNH
 				this.AddNextObxElement("E-signed " + testOrder.FinalTime.Value.ToString("MM/dd/yyyy HH:mm"), document, "F");
             }
             this.AddNextObxElement("", document, "F");
+            this.AddAmendments(document);
 
-			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(testOrder.OrderedOn, testOrder.OrderedOnId);
+            YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(testOrder.OrderedOn, testOrder.OrderedOnId);
             this.AddNextObxElement("Specimen Description: " + specimenOrder.Description, document, "F");
             this.AddNextObxElement("", document, "F");
 

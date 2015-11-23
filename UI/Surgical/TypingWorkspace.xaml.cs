@@ -871,24 +871,22 @@ namespace YellowstonePathology.UI.Surgical
                 this.GetSurgicalCase(surgicalOrderListItem.ReportNo);
                 this.TextBoxReportNoSearch.Text = surgicalOrderListItem.ReportNo;
             }
-        }        
-
-        private void HyperLinkShowProviderDistribution_Click(object sender, RoutedEventArgs e)
-        {
-            if (this.m_TypingUI.SurgicalTestOrder != null)
-            {
-                YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPage providerDistributionPage = new Login.FinalizeAccession.ProviderDistributionPage(this.m_TypingUI.SurgicalTestOrder.ReportNo, this.m_TypingUI.AccessionOrder, this.m_TypingUI.ObjectTracker, this.m_SecondMonitorWindow.PageNavigator,
-                            System.Windows.Visibility.Collapsed, System.Windows.Visibility.Visible, System.Windows.Visibility.Collapsed);
-                this.m_SecondMonitorWindow.PageNavigator.Navigate(providerDistributionPage);
-            }
-        }
+        }               
 
         private void HyperLinkShowGossTemplate_Click(object sender, RoutedEventArgs e)
         {
             if (this.m_TypingUI.AccessionOrder != null)
-            {
+            {                
                 DictationTemplatePage dictationTemplatePage = new DictationTemplatePage(this.m_TypingUI.AccessionOrder, this.m_SystemIdentity);
                 this.m_SecondMonitorWindow.PageNavigator.Navigate(dictationTemplatePage);
+
+                /*
+                YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_TypingUI.AccessionOrder.SpecimenOrderCollection[0];
+                YellowstonePathology.UI.Gross.DictationTemplatePage dictationTemplatePage = new Gross.DictationTemplatePage(specimenOrder, this.m_TypingUI.AccessionOrder, this.m_SystemIdentity);
+                YellowstonePathology.UI.Login.LoginPageWindow loginPageWindow = new Login.LoginPageWindow(this.m_SystemIdentity);
+                loginPageWindow.PageNavigator.Navigate(dictationTemplatePage);
+                loginPageWindow.Show();
+                */
             }
         }
 

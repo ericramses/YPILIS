@@ -821,6 +821,16 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             string slideOrderId = checkBox.Tag.ToString();
             YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSlideOrder(slideOrderId);
             slideOrder.ClientAccessioned = false;
-        }                           
-	}
+        }
+
+        private void MenuItemPrintPaperLabel_Click(object sender, RoutedEventArgs e)
+        {
+            MenuItem menuItem = (MenuItem)sender;            
+            XElement xElement = XElement.Parse(menuItem.Tag.ToString());
+            string aliquotOrderId = xElement.Element("AliquotOrderId").Value;
+            YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetAliquotOrder(aliquotOrderId);
+            YellowstonePathology.Business.Label.Model.BlockLabelPrinter blockLabelPrinter = new Business.Label.Model.BlockLabelPrinter(aliquotOrderId, aliquotOrder.Label, this.m_AccessionOrder.MasterAccessionNo, this.m_AccessionOrder.PLastName, this.m_AccessionOrder.PFirstName);
+            blockLabelPrinter.Print();
+        }
+    }
 }

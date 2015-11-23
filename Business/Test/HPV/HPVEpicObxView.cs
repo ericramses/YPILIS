@@ -26,6 +26,7 @@ namespace YellowstonePathology.Business.Test.HPV
             this.AddNextObxElement("", document, "F");
             this.AddNextObxElement("Reference: Negative", document, "F");
             this.AddNextObxElement("", document, "F");
+            this.AddAmendments(document);
 
             this.AddNextObxElement("Specimen: ThinPrep fluid", document, "F");
             this.AddNextObxElement("", document, "F");

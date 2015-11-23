@@ -28,13 +28,21 @@ namespace YellowstonePathology.Business.Test.FactorVLeiden
 			}
 			this.AddNextObxElement("", document, "F");
 
-			if (string.IsNullOrEmpty(testOrder.Comment) == false)
+            if (string.IsNullOrEmpty(testOrder.Comment) == false)
 			{
 				this.HandleLongString("Comment: " + testOrder.Comment, document, "F");
 				this.AddNextObxElement("", document, "F");
 			}
 
-			this.HandleLongString("Indication: " + testOrder.Indication, document, "F");
+            this.AddNextObxElement("Pathologist: " + testOrder.Signature, document, "F");
+            if (testOrder.FinalTime.HasValue == true)
+            {
+                this.AddNextObxElement("E-signed " + testOrder.FinalTime.Value.ToString("MM/dd/yyyy HH:mm"), document, "F");
+            }
+            this.AddNextObxElement("", document, "F");
+            this.AddAmendments(document);
+
+            this.HandleLongString("Indication: " + testOrder.Indication, document, "F");
 			this.AddNextObxElement("", document, "F");
 
 			this.HandleLongString("Interpretation: ", document, "F");

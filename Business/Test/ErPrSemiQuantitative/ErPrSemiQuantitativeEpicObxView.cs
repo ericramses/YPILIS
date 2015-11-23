@@ -44,6 +44,8 @@ namespace YellowstonePathology.Business.Test.ErPrSemiQuantitative
             }
 
             this.AddNextObxElement("", document, "F");
+            this.AddAmendments(document);
+
             this.AddNextObxElement("Specimen Information:", document, "F");
 			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(panelSetOrder.OrderedOn, panelSetOrder.OrderedOnId);
             this.AddNextObxElement("Specimen Identification: " + specimenOrder.Description, document, "F");

@@ -159,7 +159,7 @@
 						</Grid.ColumnDefinitions>
 						<Grid.RowDefinitions>
 							<RowDefinition Height="*"></RowDefinition>
-							<RowDefinition Height="300"></RowDefinition>
+							<RowDefinition Height="Auto"></RowDefinition>
 						</Grid.RowDefinitions>
 						<Grid Grid.Column="0" Grid.Row="0">
 							<Grid.ColumnDefinitions>
@@ -175,9 +175,9 @@
                                         <ComboBox Name="ComboBoxPanelSetType" Margin="3"
 												Style="{StaticResource BoundTextBox}" 
 												MaxWidth="165" Height="22" MaxHeight="22"
-												ItemsSource="{Binding Path=BatchTypeList}"
-												DisplayMemberPath="BatchTypeDescription"
-												SelectedValuePath="BatchTypeId"												
+												ItemsSource="{Binding Path=PanelSetCollection}"
+												DisplayMemberPath="PanelSetName"
+												SelectedValuePath="PanelSetId"												
 												SelectionChanged="ComboBoxPanelSetType_SelectionChanged" FontSize="12">
 										</ComboBox>
 									</StackPanel>									
@@ -215,9 +215,9 @@
 							</ToolBarTray>
 							<ListView Name="ListViewCaseList" Grid.Column="0" Grid.Row="1" ItemsSource="{Binding Path=CaseList}" SelectionChanged="ListViewCaseList_SelectionChanged" FontSize="12">
                                 <ListView.ContextMenu>
-                                    <ContextMenu Opened="ContextMenuBatchAndPrint_Opened">
+                                    <ContextMenu>
                                         <MenuItem Header="Print Selected" Click="MenuItemPrintSelected_Click"></MenuItem>
-                                        <!--<MenuItem Header="Print Molecular Label" Click="MenuItemPrintMolecularLabel_Click"></MenuItem>-->
+                                        <MenuItem Header="Print Molecular Label" Click="MenuItemPrintMolecularLabel_Click"></MenuItem>
                                         <MenuItem Header="Open Document Folder" Click="MenuItemOpenDocumentFolder_Click"></MenuItem>                                        
                                         <MenuItem Header="Send HL7 Result" Click="MenuItemSendHL7Result_Click"></MenuItem>
                                         <MenuItem Header="Send HL7 Result Test" Click="MenuItemSendHL7ResultTest_Click"></MenuItem>
@@ -242,128 +242,87 @@
 								</ListView.View>
 							</ListView>
 						</Grid>
-						<Grid Grid.Column="0" Grid.Row="1" Margin="5,5,5,5">
-							<TabControl>
-								<TabItem>
-									<TabItem.Header>
-										<StackPanel Orientation="Horizontal">
-											<Image Source="/Resources/Batch.ico"></Image>
-											<TextBlock Margin="4,0,0,0">Batch</TextBlock>
-										</StackPanel>
-									</TabItem.Header>
-									<Grid Background="OldLace">
-										<Grid.ColumnDefinitions>
-											<ColumnDefinition></ColumnDefinition>
-										</Grid.ColumnDefinitions>
-										<Grid.RowDefinitions>
-											<RowDefinition></RowDefinition>
-										</Grid.RowDefinitions>
+                        
+                        <Grid Grid.Column="0" Grid.Row="1" Margin="5,5,5,5" KeyUp="Search_KeyUp">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="170"></ColumnDefinition>
+								<ColumnDefinition Width="170"></ColumnDefinition>
+								<ColumnDefinition Width="160"></ColumnDefinition>
+								<ColumnDefinition></ColumnDefinition>
+							</Grid.ColumnDefinitions>
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+								<RowDefinition Height="*"></RowDefinition>
+							</Grid.RowDefinitions>
+							<RadioButton Name="radioButtonSearchThisMonth"                  
+							Grid.Column="0" Grid.Row="0"
+							Style="{StaticResource RadioButtonStyle}"
+							GroupName="radioButtonGroupSearch">This Month:</RadioButton>
+										
+							<RadioButton Name="radioButtonSearchLastMonth"                  
+							Grid.Column="0" Grid.Row="1"
+							Style="{StaticResource RadioButtonStyle}"
+							GroupName="radioButtonGroupSearch">Last Month:</RadioButton>
+										
+							<RadioButton Name="radioButtonSearchToday"                  
+							Grid.Column="0" Grid.Row="2"
+							Style="{StaticResource RadioButtonStyle}"
+							GroupName="radioButtonGroupSearch">Today:</RadioButton>
+										
+							<RadioButton Name="radioButtonSearchYesterday"                  
+							Grid.Column="0" Grid.Row="3"
+							Style="{StaticResource RadioButtonStyle}"
+							GroupName="radioButtonGroupSearch">Yesterday:</RadioButton>
+										
+							<RadioButton Name="radioButtonSearchNotDistributed"                  
+							Grid.Column="0" Grid.Row="4"
+							Style="{StaticResource RadioButtonStyle}"
+							GroupName="radioButtonGroupSearch">Not Distributed:</RadioButton>
+										
+							<RadioButton Name="radioButtonSearchNotFinal"                  
+							Grid.Column="0" Grid.Row="5"
+							Style="{StaticResource RadioButtonStyle}"
+							GroupName="radioButtonGroupSearch">Not Final:</RadioButton>
+										
+							<RadioButton Name="radioButtonSearchNotAudited"                  
+								Grid.Column="1" Grid.Row="0"
+								Style="{StaticResource RadioButtonStyle}"
+								GroupName="radioButtonGroupSearch">Not Audited:</RadioButton>
+							<ComboBox Name="comboBoxAuditType" Width="150" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" Margin="2"
+										ItemsSource="{Binding Path=PanelSetCaseTypeCollection}" DisplayMemberPath="CaseType" Style="{StaticResource BoundTextBox}">
+							</ComboBox>
+										
+							<RadioButton Name="radioButtonSearchAccessionNo"
+								Grid.Column="1" Grid.Row="1"
+								Style="{StaticResource RadioButtonStyle}"
+								GroupName="radioButtonGroupSearch">Report No:</RadioButton>
+							<TextBox Name="textBoxSearchReportNo" Width="150" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Left" Margin="2"></TextBox>
+										
+							<RadioButton Name="radioButtonSearchPatientName"                  
+								Grid.Column="1" Grid.Row="2"
+								Style="{StaticResource RadioButtonStyle}"
+								GroupName="radioButtonGroupSearch">Patient Last Name:</RadioButton>
+							<TextBox Name="textBoxSearchPatientName" Width="150" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Left" Margin="2"></TextBox>
+										
+							<RadioButton Name="radioButtonSearchMasterAccessionNo"                  
+								Grid.Column="1" Grid.Row="3"
+								Style="{StaticResource RadioButtonStyle}"
+								GroupName="radioButtonGroupSearch">Master Accession No:</RadioButton>
+							<TextBox Name="textBoxSearchMasterAccessionNo" Width="150" Grid.Column="2" Grid.Row="3" HorizontalAlignment="Left" Margin="2"></TextBox>
 
-										<ListView Name="listViewBatchList" Grid.Column="0" Grid.Row="0" FontSize="12"
-											ItemsSource="{Binding Path=BatchList}"
-											SelectionChanged="ListViewBatchList_SelectionChanged"
-											SelectedValuePath="PanelOrderBatchId">
-											<ListView.View>
-												<GridView AllowsColumnReorder="True" ColumnHeaderToolTip="List" Selector.IsSelected="False">
-													<GridViewColumn DisplayMemberBinding="{Binding Path=Description}" Header="Batch Type" Width="160"/>
-													<GridViewColumn DisplayMemberBinding="{Binding Path=BatchDate, Converter={StaticResource ShortDateConverter}}" Header="Batch Date" Width="90"/>
-													<GridViewColumn DisplayMemberBinding="{Binding Path=RunDate, Converter={StaticResource ShortDateConverter}}" Header="Run Date" Width="90"/>
-                                                    <GridViewColumn DisplayMemberBinding="{Binding Path=PanelOrderBatchId}" Header="Batch ID" Width="90"/>
-												</GridView>
-											</ListView.View>
-										</ListView>
-									</Grid>
-								</TabItem>
-								<TabItem>
-									<TabItem.Header>
-										<StackPanel Orientation="Horizontal">
-											<Image Source="/Resources/Search.ico"></Image>
-											<TextBlock Margin="4,0,0,0">Search</TextBlock>
-										</StackPanel>
-									</TabItem.Header>
-									<Grid KeyUp="Search_KeyUp">
-										<Grid.ColumnDefinitions>
-											<ColumnDefinition Width="170"></ColumnDefinition>
-											<ColumnDefinition Width="170"></ColumnDefinition>
-											<ColumnDefinition Width="160"></ColumnDefinition>
-											<ColumnDefinition></ColumnDefinition>
-										</Grid.ColumnDefinitions>
-										<Grid.RowDefinitions>
-											<RowDefinition Height="Auto"></RowDefinition>
-                                            <RowDefinition Height="Auto"></RowDefinition>
-                                            <RowDefinition Height="Auto"></RowDefinition>
-                                            <RowDefinition Height="Auto"></RowDefinition>
-                                            <RowDefinition Height="Auto"></RowDefinition>
-                                            <RowDefinition Height="Auto"></RowDefinition>
-                                            <RowDefinition Height="Auto"></RowDefinition>
-                                            <RowDefinition Height="Auto"></RowDefinition>
-											<RowDefinition Height="*"></RowDefinition>
-										</Grid.RowDefinitions>
-										<RadioButton Name="radioButtonSearchThisMonth"                  
-										Grid.Column="0" Grid.Row="0"
-										Style="{StaticResource RadioButtonStyle}"
-										GroupName="radioButtonGroupSearch">This Month:</RadioButton>
-										
-										<RadioButton Name="radioButtonSearchLastMonth"                  
-										Grid.Column="0" Grid.Row="1"
-										Style="{StaticResource RadioButtonStyle}"
-										GroupName="radioButtonGroupSearch">Last Month:</RadioButton>
-										
-										<RadioButton Name="radioButtonSearchToday"                  
-										Grid.Column="0" Grid.Row="2"
-										Style="{StaticResource RadioButtonStyle}"
-										GroupName="radioButtonGroupSearch">Today:</RadioButton>
-										
-										<RadioButton Name="radioButtonSearchYesterday"                  
-										Grid.Column="0" Grid.Row="3"
-										Style="{StaticResource RadioButtonStyle}"
-										GroupName="radioButtonGroupSearch">Yesterday:</RadioButton>
-										
-										<RadioButton Name="radioButtonSearchNotDistributed"                  
-										Grid.Column="0" Grid.Row="4"
-										Style="{StaticResource RadioButtonStyle}"
-										GroupName="radioButtonGroupSearch">Not Distributed:</RadioButton>
-										
-										<RadioButton Name="radioButtonSearchNotFinal"                  
-										Grid.Column="0" Grid.Row="5"
-										Style="{StaticResource RadioButtonStyle}"
-										GroupName="radioButtonGroupSearch">Not Final:</RadioButton>
-										
-										<RadioButton Name="radioButtonSearchNotAudited"                  
-										    Grid.Column="1" Grid.Row="0"
-										    Style="{StaticResource RadioButtonStyle}"
-										    GroupName="radioButtonGroupSearch">Not Audited:</RadioButton>
-										<ComboBox Name="comboBoxAuditType" Width="150" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" Margin="2"
-												  ItemsSource="{Binding Path=PanelSetCaseTypeCollection}" DisplayMemberPath="CaseType" Style="{StaticResource BoundTextBox}">
-										</ComboBox>
-										
-										<RadioButton Name="radioButtonSearchAccessionNo"
-										    Grid.Column="1" Grid.Row="1"
-										    Style="{StaticResource RadioButtonStyle}"
-										    GroupName="radioButtonGroupSearch">Report No:</RadioButton>
-										<TextBox Name="textBoxSearchReportNo" Width="150" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Left" Margin="2"></TextBox>
-										
-										<RadioButton Name="radioButtonSearchPatientName"                  
-										    Grid.Column="1" Grid.Row="2"
-										    Style="{StaticResource RadioButtonStyle}"
-										    GroupName="radioButtonGroupSearch">Patient Last Name:</RadioButton>
-										<TextBox Name="textBoxSearchPatientName" Width="150" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Left" Margin="2"></TextBox>
-										
-										<RadioButton Name="radioButtonSearchMasterAccessionNo"                  
-										    Grid.Column="1" Grid.Row="3"
-										    Style="{StaticResource RadioButtonStyle}"
-										    GroupName="radioButtonGroupSearch">Master Accession No:</RadioButton>
-										<TextBox Name="textBoxSearchMasterAccessionNo" Width="150" Grid.Column="2" Grid.Row="3" HorizontalAlignment="Left" Margin="2"></TextBox>
+                            <RadioButton Name="radioButtonSearchInHouseMolecularNotFinal"
+							Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="2"
+							Style="{StaticResource RadioButtonStyle}"
+							GroupName="radioButtonGroupSearch">In House Molecular Pending:</RadioButton>
 
-                                        <RadioButton Name="radioButtonSearchInHouseMolecularNotFinal"
-										Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="2"
-										Style="{StaticResource RadioButtonStyle}"
-										GroupName="radioButtonGroupSearch">In House Molecular Pending:</RadioButton>
-
-                                        <Button Name="buttonSearch" Style="{StaticResource NormalButton}" Width="150" Click="ButtonSearch_Click" Grid.Column="0" Grid.Row="7">Search</Button>
-									</Grid>
-								</TabItem>
-							</TabControl>
+                            <Button Name="buttonSearch" Style="{StaticResource NormalButton}" Width="150" Click="ButtonSearch_Click" Grid.Column="0" Grid.Row="7">Search</Button>
 						</Grid>
 					</Grid>
 				</TabItem>

@@ -97,15 +97,8 @@
 					</Grid.RowDefinitions>
 
 					<TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" VerticalAlignment="Center" FontWeight="Bold">Result:</TextBlock>
-					<Grid Grid.Column="1" Grid.Row="0">
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="*"></ColumnDefinition>
-							<ColumnDefinition Width="Auto"></ColumnDefinition>
-						</Grid.ColumnDefinitions>
-						<ComboBox Name="ComboBoxResult" Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" ItemsSource="{Binding Path=ResultCollection}" DisplayMemberPath="Result" 
-							  SelectedValue="{Binding Path=PanelSetOrder.Result}" SelectedValuePath="Result" HorizontalAlignment="Stretch" SelectionChanged="ComboBoxResult_SelectionChanged"/>
-						<TextBlock Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.ResultCode}"></TextBlock>
-					</Grid>
+					<ComboBox Name="ComboBoxResult" Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" ItemsSource="{Binding Path=ResultCollection}" DisplayMemberPath="Result"
+                              SelectedValue="{Binding Path=PanelSetOrder.Result}" SelectedValuePath="Result" HorizontalAlignment="Stretch" SelectionChanged="ComboBoxResult_SelectionChanged"/>
 
 					<TextBlock Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" VerticalAlignment="Center" FontWeight="Bold">Comment:</TextBlock>
 					<TextBox Grid.Column="1" Grid.Row="1" Margin="2,2,2,2" TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding Path=PanelSetOrder.Comment}"/>

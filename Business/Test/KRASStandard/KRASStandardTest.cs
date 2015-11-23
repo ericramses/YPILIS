@@ -46,6 +46,6 @@ namespace YellowstonePathology.Business.Test.KRASStandard
 
             KRASStandardPanel krasStandardPanel = new KRASStandardPanel();
             this.m_PanelCollection.Add(krasStandardPanel);
-		}
-	}
+        }
+    }
 }

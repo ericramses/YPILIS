@@ -26,7 +26,15 @@ namespace YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile
 			this.HandleLongString(comprehensiveColonCancerProfile.Interpretation, document, "F");
             this.AddNextObxElement("", document, "F");
 
-			string specimenDescription = comprehensiveColonCancerProfileResult.SpecimenOrder.GetSpecimenDescriptionString();
+            this.AddNextObxElement("Pathologist: " + comprehensiveColonCancerProfile.Signature, document, "F");
+            if (comprehensiveColonCancerProfile.FinalTime.HasValue == true)
+            {
+                this.AddNextObxElement("E-signed " + comprehensiveColonCancerProfile.FinalTime.Value.ToString("MM/dd/yyyy HH:mm"), document, "F");
+            }
+            this.AddNextObxElement("", document, "F");
+            this.AddAmendments(document);
+
+            string specimenDescription = comprehensiveColonCancerProfileResult.SpecimenOrder.GetSpecimenDescriptionString();
 			this.HandleLongString("Specimen:", document, "F");
             this.HandleLongString(specimenDescription, document, "F");
             this.AddNextObxElement("", document, "F");

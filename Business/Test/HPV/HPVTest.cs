@@ -10,7 +10,7 @@ namespace YellowstonePathology.Business.Test.HPV
 		public HPVTest()
 		{
 			this.m_PanelSetId = 14;
-			this.m_PanelSetName = "HPV";
+			this.m_PanelSetName = "High Risk HPV";
             this.m_Abbreviation = "HPV";
             this.m_CaseType = YellowstonePathology.Business.CaseType.Molecular;
 			this.m_HasTechnicalComponent = true;			

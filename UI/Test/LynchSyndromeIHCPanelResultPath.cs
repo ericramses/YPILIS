@@ -21,15 +21,9 @@ namespace YellowstonePathology.UI.Test
             this.m_AccessionOrder = accessionOrder;
 			this.m_PanelSetOrderLynchSyndromeIHC = (YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeIHC)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 			this.m_ObjectTracker = objectTracker;
-			this.Authenticated += new AuthenticatedEventHandler(ResultPath_Authenticated);
 		}
 
-		private void ResultPath_Authenticated(object sender, EventArgs e)
-		{
-			this.ShowResultPage();
-		}
-
-        private void ShowResultPage()
+        protected override void ShowResultPage()
         {
             this.m_LynchSyndromeIHCPanelResultPage = new LynchSyndromeIHCPanelResultPage(this.m_PanelSetOrderLynchSyndromeIHC, this.m_AccessionOrder, this.m_ObjectTracker, this.m_SystemIdentity);
 			this.m_LynchSyndromeIHCPanelResultPage.Next += new LynchSyndromeIHCPanelResultPage.NextEventHandler(LynchSyndromeIHCPanelResultPage_Next);

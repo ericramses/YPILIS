@@ -75,13 +75,20 @@
                                 <GridViewColumn Header="Accepted" DisplayMemberBinding="{Binding Path=AcceptedTime, Converter={StaticResource MilitaryDateTimeConverter}}" Width="150" />
                                 <GridViewColumn Header="Finaled" DisplayMemberBinding="{Binding Path=FinalTime, Converter={StaticResource MilitaryDateTimeConverter}}" Width="150" />
                                 <GridViewColumn Header="Result" DisplayMemberBinding="{Binding Path=Result}" Width="150" />
+                                <GridViewColumn Header="Hold Distribution" Width="100">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox IsChecked="{Binding Path=HoldDistribution}" Margin="2,2,2,2" HorizontalAlignment="Center" IsEnabled="False"></CheckBox>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
                             </GridView>
                         </ListView.View>
                     </ListView>
 
                     <StackPanel Grid.Column="1" Grid.Row="1">
                         <Button Click="ButtonResult_Click" Margin="2,2,2,2" Width="100" Height="50" VerticalAlignment="Top">Result</Button>
-                        <Button Click="ButtonResendPantherOrder_Click" Margin="2,2,2,2" Width="100" Height="50" VerticalAlignment="Top">Resend Order</Button>
+                        <Button Click="ButtonResendHPVPantherOrder_Click" Margin="2,2,2,2" Width="100" Height="50" VerticalAlignment="Top">Resend Order</Button>
                     </StackPanel>
 
                 </Grid>
@@ -108,24 +115,75 @@
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Report No" DisplayMemberBinding="{Binding Path=ReportNo}" Width="100" />
-                                <GridViewColumn Header="Order Time" DisplayMemberBinding="{Binding Path=OrderTime, Converter={StaticResource MilitaryDateTimeConverter}}" Width="150" />
+                                <GridViewColumn Header="Order Time" DisplayMemberBinding="{Binding Path=OrderTime, Converter={StaticResource MilitaryDateTimeConverter}}" Width="130" />
                                 <GridViewColumn Header="Test" DisplayMemberBinding="{Binding Path=PanelSetName}" Width="150" />
-                                <GridViewColumn Header="Accepted" DisplayMemberBinding="{Binding Path=AcceptedTime, Converter={StaticResource MilitaryDateTimeConverter}}" Width="150" />
+                                <GridViewColumn Header="Accepted" DisplayMemberBinding="{Binding Path=AcceptedTime, Converter={StaticResource MilitaryDateTimeConverter}}" Width="130" />
                                 <GridViewColumn Header="Finaled" DisplayMemberBinding="{Binding Path=FinalTime, Converter={StaticResource MilitaryDateTimeConverter}}" Width="150" />
                                 <GridViewColumn Header="NG Result" DisplayMemberBinding="{Binding Path=NeisseriaGonorrhoeaeResult}" Width="150" />
                                 <GridViewColumn Header="CT Result" DisplayMemberBinding="{Binding Path=ChlamydiaTrachomatisResult}" Width="150" />
+                                <GridViewColumn Header="Hold Distribution" Width="100">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox IsChecked="{Binding Path=HoldDistribution}" Margin="2,2,2,2" HorizontalAlignment="Center" IsEnabled="False"></CheckBox>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
                             </GridView>
                         </ListView.View>
                     </ListView>
 
                     <StackPanel Grid.Column="1" Grid.Row="1">
                         <Button Click="ButtonShowNGCTResult_Click" Margin="2,2,2,2" Width="100" Height="50" VerticalAlignment="Top">Result</Button>
-                        <Button Click="ButtonResendPantherOrder_Click" Margin="2,2,2,2" Width="100" Height="50" VerticalAlignment="Top">Resend Order</Button>
+                        <Button Click="ButtonResendNGCTPantherOrder_Click" Margin="2,2,2,2" Width="100" Height="50" VerticalAlignment="Top">Resend Order</Button>
                     </StackPanel>
 
                 </Grid>
             </TabItem>
             <TabItem Header="HPV 16/18">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <ComboBox Name="ComboBoxListTypeHPV1618" Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" HorizontalAlignment="Stretch" SelectedValuePath="Content" SelectionChanged="ComboBoxListTypeHPV1618_SelectionChanged">
+                        <ComboBoxItem IsSelected="True">HPV1618 cases with no result</ComboBoxItem>
+                        <ComboBoxItem>HPV1618 cases with a result but not final</ComboBoxItem>
+                        <ComboBoxItem>HPV1618 case that are final</ComboBoxItem>
+                    </ComboBox>
+
+                    <ListView Grid.Column="0" Grid.Row="1" Name="ListViewPantherHPV1618Orders" Margin="2,2,2,2" ItemsSource="{Binding Path=PantherHPV1618OrderList}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Report No" DisplayMemberBinding="{Binding Path=ReportNo}" Width="100" />
+                                <GridViewColumn Header="Order Time" DisplayMemberBinding="{Binding Path=OrderTime, Converter={StaticResource MilitaryDateTimeConverter}}" Width="130" />
+                                <GridViewColumn Header="Test" DisplayMemberBinding="{Binding Path=PanelSetName}" Width="150" />
+                                <GridViewColumn Header="Accepted" DisplayMemberBinding="{Binding Path=AcceptedTime, Converter={StaticResource MilitaryDateTimeConverter}}" Width="130" />
+                                <GridViewColumn Header="Finaled" DisplayMemberBinding="{Binding Path=FinalTime, Converter={StaticResource MilitaryDateTimeConverter}}" Width="150" />
+                                <GridViewColumn Header="HPV 16 Result" DisplayMemberBinding="{Binding Path=HPV16Result}" Width="150" />
+                                <GridViewColumn Header="HPV 18 Result" DisplayMemberBinding="{Binding Path=HPV18Result}" Width="150" />
+                                <GridViewColumn Header="Hold Distribution" Width="100">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox IsChecked="{Binding Path=HoldDistribution}" Margin="2,2,2,2" HorizontalAlignment="Center" IsEnabled="False"></CheckBox>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+
+                    <StackPanel Grid.Column="1" Grid.Row="1">
+                        <Button Click="ButtonShowHPV1618Result_Click" Margin="2,2,2,2" Width="100" Height="50" VerticalAlignment="Top">Result</Button>
+                        <Button Click="ButtonResendHPV1618PantherOrder_Click" Margin="2,2,2,2" Width="100" Height="50" VerticalAlignment="Top">Resend Order</Button>
+                    </StackPanel>
+
+                </Grid>
             </TabItem>
             <TabItem Header="Trichomonas">
             </TabItem>

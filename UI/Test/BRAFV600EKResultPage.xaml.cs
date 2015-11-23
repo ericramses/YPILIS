@@ -178,7 +178,7 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkUnfinalResults_Click(object sender, RoutedEventArgs e)
 		{
-			YellowstonePathology.Business.Rules.MethodResult methodResult = YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FResult.IsOkToUnFinalize(this.m_PanelSetOrder);
+			YellowstonePathology.Business.Rules.MethodResult methodResult = this.m_PanelSetOrder.IsOkToUnfinalize();
 			if (methodResult.Success == true)
 			{
 				YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKResultCollection resultCollection = YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKResultCollection.GetAll();

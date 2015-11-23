@@ -302,7 +302,31 @@ namespace YellowstonePathology.UI.Cytology
 			}
 		}
 
-		private void ButtonAgree_Click(object sender, RoutedEventArgs e)
+        private void ButtonAcidWashUnaccept_Click(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderAcidWash panelOrderAcidWash = (Business.Test.ThinPrepPap.PanelOrderAcidWash)this.ListBoxResults.SelectedItem;
+            MessageBoxResult result = System.Windows.MessageBox.Show("Unaccept selected Acid wash?", "UnAccept?", MessageBoxButton.OKCancel);
+            if (result == MessageBoxResult.OK)
+            {
+                panelOrderAcidWash.UnacceptResults();
+            }
+        }
+
+        private void ButtonAcidWashAccept_Click(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderAcidWash panelOrderAcidWash = (Business.Test.ThinPrepPap.PanelOrderAcidWash)this.ListBoxResults.SelectedItem;
+            Business.Rules.MethodResult methodResult = panelOrderAcidWash.IsOkToAccept();
+            if(methodResult.Success == true)
+            {
+                panelOrderAcidWash.AcceptResults(this.m_SystemIdentity.User);
+            }
+            else
+            {
+                MessageBox.Show(methodResult.Message);
+            }
+        }
+
+        private void ButtonAgree_Click(object sender, RoutedEventArgs e)
 		{
 			if (this.ListBoxResults.SelectedItem != null)
 			{
@@ -693,5 +717,5 @@ namespace YellowstonePathology.UI.Cytology
 		{
 			this.TextBoxReportNoSearch.Text = reportNo;
 		}
-	}
+    }
 }

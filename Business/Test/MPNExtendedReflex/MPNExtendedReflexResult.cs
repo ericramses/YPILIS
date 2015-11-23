@@ -5,8 +5,8 @@ using System.Text;
 
 namespace YellowstonePathology.Business.Test.MPNExtendedReflex
 {
-	public class MPNExtendedReflexResult
-	{
+    public class MPNExtendedReflexResult
+    {
         public static string PendingResult = "Pending";
         public static string NotPerformedResult = "Not Performed";
         public static string NotClinicallyIndicated = "Not Clinically Indicated";
@@ -45,18 +45,18 @@ namespace YellowstonePathology.Business.Test.MPNExtendedReflex
             "2.  Levine RL, Gilliland DG.  Myeloproliferative disorders.  Blood. 2008 112: 2190-2198 " + Environment.NewLine +
             "3. Nangalia J, et al. Somatic CALR mutations in myeloproliferative neoplasms with nonmutated JAK2, N Engl J Med. 2013 Dec 19;369(25):2391-405.";
 
-		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
+        private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 
-		private YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FTest m_PanelSetJAK2V617F;
-		private YellowstonePathology.Business.Test.CalreticulinMutationAnalysis.CalreticulinMutationAnalysisTest m_PanelSetCalreticulinMutationAnalysis;
+        private YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FTest m_PanelSetJAK2V617F;
+        private YellowstonePathology.Business.Test.CalreticulinMutationAnalysis.CalreticulinMutationAnalysisTest m_PanelSetCalreticulinMutationAnalysis;
         private YellowstonePathology.Business.Test.MPL.MPLTest m_PanelSetMPL;
 
-		private YellowstonePathology.Business.Test.MPNExtendedReflex.PanelSetOrderMPNExtendedReflex m_PanelSetOrderMPNExtendedReflex;
-		private YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FTestOrder m_PanelSetOrderJAK2V617F;
-		private YellowstonePathology.Business.Test.CalreticulinMutationAnalysis.CalreticulinMutationAnalysisTestOrder m_PanelSetOrderCalreticulinMutationAnalysis;
-		private YellowstonePathology.Business.Test.MPL.PanelSetOrderMPL m_PanelSetOrderMPL;
+        private YellowstonePathology.Business.Test.MPNExtendedReflex.PanelSetOrderMPNExtendedReflex m_PanelSetOrderMPNExtendedReflex;
+        private YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FTestOrder m_PanelSetOrderJAK2V617F;
+        private YellowstonePathology.Business.Test.CalreticulinMutationAnalysis.CalreticulinMutationAnalysisTestOrder m_PanelSetOrderCalreticulinMutationAnalysis;
+        private YellowstonePathology.Business.Test.MPL.PanelSetOrderMPL m_PanelSetOrderMPL;
 
-		private YellowstonePathology.Business.Specimen.Model.SpecimenOrder m_SpecimenOrder;
+        private YellowstonePathology.Business.Specimen.Model.SpecimenOrder m_SpecimenOrder;
 
         private bool m_HasCALR;
         private bool m_HasMPL;
@@ -67,34 +67,34 @@ namespace YellowstonePathology.Business.Test.MPNExtendedReflex
 
         private YellowstonePathology.Business.Audit.Model.AuditCollection m_AuditCollection;
 
-		private string m_Comment;
-		private string m_Interpretation;
-		private string m_Method;
-		private string m_References;		
+        private string m_Comment;
+        private string m_Interpretation;
+        private string m_Method;
+        private string m_References;
 
-		public MPNExtendedReflexResult(AccessionOrder accessionOrder)
-		{
-			this.m_AccessionOrder = accessionOrder;
+        public MPNExtendedReflexResult(AccessionOrder accessionOrder)
+        {
+            this.m_AccessionOrder = accessionOrder;
 
-			YellowstonePathology.Business.Test.MPNExtendedReflex.MPNExtendedReflexTest panelSetMPNExtendedReflex = new YellowstonePathology.Business.Test.MPNExtendedReflex.MPNExtendedReflexTest();
-			this.m_PanelSetOrderMPNExtendedReflex = (YellowstonePathology.Business.Test.MPNExtendedReflex.PanelSetOrderMPNExtendedReflex)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetMPNExtendedReflex.PanelSetId);
-			
-			this.m_SpecimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrderMPNExtendedReflex.OrderedOn, this.m_PanelSetOrderMPNExtendedReflex.OrderedOnId);
+            YellowstonePathology.Business.Test.MPNExtendedReflex.MPNExtendedReflexTest panelSetMPNExtendedReflex = new YellowstonePathology.Business.Test.MPNExtendedReflex.MPNExtendedReflexTest();
+            this.m_PanelSetOrderMPNExtendedReflex = (YellowstonePathology.Business.Test.MPNExtendedReflex.PanelSetOrderMPNExtendedReflex)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetMPNExtendedReflex.PanelSetId);
+
+            this.m_SpecimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrderMPNExtendedReflex.OrderedOn, this.m_PanelSetOrderMPNExtendedReflex.OrderedOnId);
 
             this.m_PanelSetJAK2V617F = new YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FTest();
-			this.m_PanelSetCalreticulinMutationAnalysis = new YellowstonePathology.Business.Test.CalreticulinMutationAnalysis.CalreticulinMutationAnalysisTest();
+            this.m_PanelSetCalreticulinMutationAnalysis = new YellowstonePathology.Business.Test.CalreticulinMutationAnalysis.CalreticulinMutationAnalysisTest();
             this.m_PanelSetMPL = new YellowstonePathology.Business.Test.MPL.MPLTest();
 
             this.m_PanelSetOrderJAK2V617F = (YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_PanelSetJAK2V617F.PanelSetId);
 
             this.m_HasCALR = this.m_AccessionOrder.PanelSetOrderCollection.Exists(this.m_PanelSetCalreticulinMutationAnalysis.PanelSetId);
-            if(this.m_HasCALR == true)
+            if (this.m_HasCALR == true)
             {
                 this.m_PanelSetOrderCalreticulinMutationAnalysis = (YellowstonePathology.Business.Test.CalreticulinMutationAnalysis.CalreticulinMutationAnalysisTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_PanelSetCalreticulinMutationAnalysis.PanelSetId);
             }
-            
+
             this.m_HasMPL = this.m_AccessionOrder.PanelSetOrderCollection.Exists(this.m_PanelSetMPL.PanelSetId);
-            if(this.m_HasMPL == true)
+            if (this.m_HasMPL == true)
             {
                 this.m_PanelSetOrderMPL = (YellowstonePathology.Business.Test.MPL.PanelSetOrderMPL)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_PanelSetMPL.PanelSetId);
             }
@@ -113,7 +113,7 @@ namespace YellowstonePathology.Business.Test.MPNExtendedReflex
             this.SetMethod();
             this.SetComment();
             this.m_References = References;
-		}
+        }
 
         public YellowstonePathology.Business.Audit.Model.AuditCollection AuditCollection
         {
@@ -151,7 +151,7 @@ namespace YellowstonePathology.Business.Test.MPNExtendedReflex
         private bool IsJAK2Detected()
         {
             bool result = false;
-			YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FDetectedResult jak2V617FDetectedResult = new YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FDetectedResult();
+            YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FDetectedResult jak2V617FDetectedResult = new YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FDetectedResult();
             if (this.m_PanelSetOrderJAK2V617F.ResultCode == jak2V617FDetectedResult.ResultCode)
             {
                 result = true;
@@ -162,7 +162,7 @@ namespace YellowstonePathology.Business.Test.MPNExtendedReflex
         private bool IsCALRDetected()
         {
             bool result = false;
-			YellowstonePathology.Business.Test.CalreticulinMutationAnalysis.CalreticulinMutationAnalysisResultDetected calreticulinMutationAnalysisResultDetected = new YellowstonePathology.Business.Test.CalreticulinMutationAnalysis.CalreticulinMutationAnalysisResultDetected();
+            YellowstonePathology.Business.Test.CalreticulinMutationAnalysis.CalreticulinMutationAnalysisResultDetected calreticulinMutationAnalysisResultDetected = new YellowstonePathology.Business.Test.CalreticulinMutationAnalysis.CalreticulinMutationAnalysisResultDetected();
             if (this.m_PanelSetOrderCalreticulinMutationAnalysis.ResultCode == calreticulinMutationAnalysisResultDetected.ResultCode)
             {
                 result = true;
@@ -177,7 +177,7 @@ namespace YellowstonePathology.Business.Test.MPNExtendedReflex
             if (this.m_PanelSetOrderMPL.ResultCode == mplResultDetected.ResultCode)
             {
                 result = true;
-            }   
+            }
             return result;
         }
 
@@ -185,8 +185,8 @@ namespace YellowstonePathology.Business.Test.MPNExtendedReflex
         {
             bool result = false;
 
-			YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FNotDetectedResult jak2V617FNotDetectedResult = new YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FNotDetectedResult();
-			YellowstonePathology.Business.Test.CalreticulinMutationAnalysis.CalreticulinMutationAnalysisResultNotDetected calreticulinMutationAnalysisResultNotDetected = new YellowstonePathology.Business.Test.CalreticulinMutationAnalysis.CalreticulinMutationAnalysisResultNotDetected();
+            YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FNotDetectedResult jak2V617FNotDetectedResult = new YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FNotDetectedResult();
+            YellowstonePathology.Business.Test.CalreticulinMutationAnalysis.CalreticulinMutationAnalysisResultNotDetected calreticulinMutationAnalysisResultNotDetected = new YellowstonePathology.Business.Test.CalreticulinMutationAnalysis.CalreticulinMutationAnalysisResultNotDetected();
             YellowstonePathology.Business.Test.MPL.MPLResultNotDetected mplResultNotDetected = new MPL.MPLResultNotDetected();
 
             if (this.m_PanelSetOrderJAK2V617F.ResultCode == jak2V617FNotDetectedResult.ResultCode)
@@ -216,25 +216,25 @@ namespace YellowstonePathology.Business.Test.MPNExtendedReflex
                 }
             }
             this.m_Method = method.ToString().Trim();
-        }        
+        }
 
         private void SetComment()
         {
-            this.m_Comment = this.m_PanelSetOrderJAK2V617F.Comment;                    
+            this.m_Comment = this.m_PanelSetOrderJAK2V617F.Comment;
         }
 
-		public void SetResults()
-		{
+        public void SetResults()
+        {
             this.m_PanelSetOrderMPNExtendedReflex.Comment = this.m_Comment;
-			this.m_PanelSetOrderMPNExtendedReflex.Interpretation = this.m_Interpretation;
+            this.m_PanelSetOrderMPNExtendedReflex.Interpretation = this.m_Interpretation;
             this.m_PanelSetOrderMPNExtendedReflex.Method = this.m_Method;
             this.m_PanelSetOrderMPNExtendedReflex.References = this.m_References;
-		}
+        }
 
-		public MPNExtendedReflexJAK2Result JAK2V617FResult
-		{
-			get { return this.m_JAK2V617FResult; }
-		}
+        public MPNExtendedReflexJAK2Result JAK2V617FResult
+        {
+            get { return this.m_JAK2V617FResult; }
+        }
 
         public MPNExtendedReflexCALRResult CALRResult
         {
@@ -246,14 +246,37 @@ namespace YellowstonePathology.Business.Test.MPNExtendedReflex
             get { return this.m_MPLResult; }
         }
 
-		public YellowstonePathology.Business.Test.MPNExtendedReflex.PanelSetOrderMPNExtendedReflex PanelSetOrderMPNExtendedReflex
-		{
-			get { return this.m_PanelSetOrderMPNExtendedReflex; }
-		}
+        public YellowstonePathology.Business.Test.MPNExtendedReflex.PanelSetOrderMPNExtendedReflex PanelSetOrderMPNExtendedReflex
+        {
+            get { return this.m_PanelSetOrderMPNExtendedReflex; }
+        }
 
-		public YellowstonePathology.Business.Specimen.Model.SpecimenOrder SpecimenOrder
-		{
-			get { return this.m_SpecimenOrder; }
-		}
-	}
+        public YellowstonePathology.Business.Specimen.Model.SpecimenOrder SpecimenOrder
+        {
+            get { return this.m_SpecimenOrder; }
+        }
+
+        public YellowstonePathology.Business.Audit.Model.AuditResult IsOkToFinalize()
+        {
+            YellowstonePathology.Business.Audit.Model.AuditResult result = this.m_PanelSetOrderMPNExtendedReflex.IsOkToFinalize(this.m_AccessionOrder);
+            if(result.Status == Audit.Model.AuditStatusEnum.OK)
+            {
+                if(this.m_JAK2V617FResult.Result == MPNExtendedReflexResult.PendingResult ||
+                    this.m_CALRResult.Result == MPNExtendedReflexResult.PendingResult ||
+                    this.m_MPLResult.Result == MPNExtendedReflexResult.PendingResult)
+                {
+                    result.Message = "This case can not be finaled as one or more dependency tests are not finaled.";
+                    result.Status = Audit.Model.AuditStatusEnum.Failure;
+                }
+                else if(this.m_CALRResult.Result == MPNExtendedReflexResult.PleaseOrder ||
+                    this.m_MPLResult.Result == MPNExtendedReflexResult.PleaseOrder)
+                {
+                    result.Message = "This case can not be finaled as one or more dependency tests are not ordered.";
+                    result.Status = Audit.Model.AuditStatusEnum.Failure;
+                }
+            }
+
+            return result;
+        }
+    }
 }
