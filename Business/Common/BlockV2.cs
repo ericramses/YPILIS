@@ -56,18 +56,18 @@ namespace YellowstonePathology.Business.Common
 
         public override string ToString()
 		{
-			YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_MasterAccessionNo);
+            YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_MasterAccessionNo);
 
-			StringBuilder result = new StringBuilder(this.m_Prefix + this.m_Delimeter + this.m_Delimeter);
+            StringBuilder result = new StringBuilder(this.m_Prefix + this.m_Delimeter);
             result.Append(this.FormattedCassetteColumn + this.m_Delimeter);
             result.Append(orderIdParser.MasterAccessionNo + this.m_Delimeter);
-			result.Append(this.BlockTitle + this.m_Delimeter);
-			result.Append(this.PatientInitials + this.m_Delimeter);
-			result.Append(this.CompanyId + this.m_Delimeter);
-			result.Append(this.ScanningId + this.m_Delimeter);
-			result.Append(orderIdParser.MasterAccessionNoYear.Value.ToString() + this.m_Delimeter);
-			result.Append(orderIdParser.MasterAccessionNoNumber.Value.ToString());
-			return result.ToString();
-		}
+            result.Append(this.BlockTitle + this.m_Delimeter);
+            result.Append(this.PatientInitials + this.m_Delimeter);
+            result.Append(this.CompanyId + this.m_Delimeter);
+            result.Append(this.ScanningId + this.m_Delimeter);
+            result.Append(orderIdParser.MasterAccessionNoYear.Value.ToString() + this.m_Delimeter);
+            result.Append(orderIdParser.MasterAccessionNoNumber.Value.ToString());
+            return result.ToString();
+        }
 	}
 }

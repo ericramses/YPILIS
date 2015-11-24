@@ -45,24 +45,18 @@ namespace YellowstonePathology.Business.Label.Model
         public void Print()
         {
             string path = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.CassettePrinter;
-            if(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.UseLaserCassettePrinter == true)
-            {
-                path = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.LaserCassettePrinter;
-            }
+            //if(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.UseLaserCassettePrinter == true)
+            //{
+            //    path = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.LaserCassettePrinter;
+            //}
 
             try
             {
-                using (System.IO.StreamWriter file = new System.IO.StreamWriter(path + System.Guid.NewGuid().ToString() + ".gdc"))
+                using (System.IO.StreamWriter file = new System.IO.StreamWriter(path + System.Guid.NewGuid().ToString() + ".txt"))
                 {
                     foreach (Cassette cassette in this.m_Cassettes)
-                    {
-                        string line = null;
-                        if(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.UseLaserCassettePrinter == true)
-                        {
-                            line = cassette.ToLaserString();
-                        }
-
-                        cassette.ToString();
+                    {                        
+                        string line = cassette.ToString();                                                
                         file.Write(line + "\r\n");
                         cassette.AliquotOrder.Printed = true;
                     }
