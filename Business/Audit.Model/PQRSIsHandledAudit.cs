@@ -25,6 +25,7 @@ namespace YellowstonePathology.Business.Audit.Model
                 if (surgicalTestOrder.PQRSNotApplicable == false)
                 {
                     YellowstonePathology.Business.Surgical.PQRSMeasureCollection pqrsCollection = YellowstonePathology.Business.Surgical.PQRSMeasureCollection.GetAll();
+                    YellowstonePathology.Business.Surgical.PQRSMeasure useThisPQRSMeasure = null;
                     int patientAge = YellowstonePathology.Business.Helper.PatientHelper.GetAge(this.m_AccessionOrder.PBirthdate.Value);
                     foreach (YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen in surgicalTestOrder.SurgicalSpecimenCollection)
                     {
@@ -32,18 +33,18 @@ namespace YellowstonePathology.Business.Audit.Model
                         {
                             if (pqrsMeasure.DoesMeasureApply(surgicalTestOrder, surgicalSpecimen, patientAge) == true)
                             {
-                                YellowstonePathology.Business.Test.PanelSetOrderCPTCodeCollection panelSetOrderCPTCodeCollection = surgicalTestOrder.PanelSetOrderCPTCodeCollection.GetSpecimenOrderCollection(surgicalSpecimen.SpecimenOrderId);
-                                if (this.MeasureCodeExists(pqrsMeasure, panelSetOrderCPTCodeCollection) == false)
-                                {
-                                    this.m_Status = AuditStatusEnum.Failure;
-                                    this.m_Message.Append("A PQRS code must be applied.");
-                                    break;
-                                }
+                                useThisPQRSMeasure = pqrsMeasure;
+                                break;
                             }
                         }
 
-                        if(this.m_Status == AuditStatusEnum.Failure)
+                        if(useThisPQRSMeasure != null)
                         {
+                            if (this.MeasureCodeExists(useThisPQRSMeasure, surgicalTestOrder.PanelSetOrderCPTCodeCollection) == false)
+                            {
+                                this.m_Status = AuditStatusEnum.Failure;
+                                this.m_Message.Append("A PQRS code must be applied.");
+                            }
                             break;
                         }
                     }

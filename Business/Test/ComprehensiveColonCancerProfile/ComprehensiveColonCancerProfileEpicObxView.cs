@@ -86,6 +86,27 @@ namespace YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile
 				this.AddNextObxElement("Result: " + comprehensiveColonCancerProfileResult.BRAFV600EKTestOrder.Result, document, "F");
 				this.AddNextObxElement("", document, "F");
             }
+
+            if (comprehensiveColonCancerProfileResult.KRASExon23MutationIsOrdered == true)
+            {
+                this.AddNextObxElement("KRAS Exon 2,3 Mutation Analysis: " + comprehensiveColonCancerProfileResult.KRASExon23MutationTestOrder.ReportNo, document, "F");
+                this.AddNextObxElement("Result: " + comprehensiveColonCancerProfileResult.KRASExon23MutationTestOrder.Result, document, "F");
+                this.AddNextObxElement("", document, "F");
+            }
+
+            if (comprehensiveColonCancerProfileResult.KRASExon4MutationIsOrdered == true)
+            {
+                this.AddNextObxElement("KRAS Exon 4 Mutation Analysis: " + comprehensiveColonCancerProfileResult.KRASExon4MutationTestOrder.ReportNo, document, "F");
+                this.AddNextObxElement("Result: " + comprehensiveColonCancerProfileResult.KRASExon4MutationTestOrder.Result, document, "F");
+                this.AddNextObxElement("", document, "F");
+            }
+
+            if (comprehensiveColonCancerProfileResult.NRASMutationAnalysisIsOrdered == true)
+            {
+                this.AddNextObxElement("NRAS Mutation Analysis: " + comprehensiveColonCancerProfileResult.NRASMutationAnalysisTestOrder.ReportNo, document, "F");
+                this.AddNextObxElement("Result: " + comprehensiveColonCancerProfileResult.NRASMutationAnalysisTestOrder.Result, document, "F");
+                this.AddNextObxElement("", document, "F");
+            }
         }
-	}
+    }
 }
