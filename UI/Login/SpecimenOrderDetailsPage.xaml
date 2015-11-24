@@ -124,7 +124,7 @@
 
                 <TextBlock Grid.Column="0" Grid.Row="2" Margin="2,2,2,2" FontSize="14" HorizontalAlignment="Right">Specimen Id:</TextBlock>
                 <ComboBox Name="ComboBoxSpecimenId" Grid.Column="1" Grid.Row="2" Margin="2,2,2,2" HorizontalAlignment="Stretch" ItemsSource="{Binding Path=SpecimenCollection}" SelectedValuePath="SpecimenId" DisplayMemberPath="SpecimenName"
-				        SelectedValue="{Binding Path=SpecimenOrder.SpecimenId}" SelectionChanged="ComboBoxSpecimenId_SelectionChanged" />
+				        SelectedValue="{Binding Path=SpecimenOrder.SpecimenId}" />
 
                 <TextBlock Grid.Column="0" Grid.Row="3" Margin="2,2,2,2" FontSize="14" HorizontalAlignment="Right">Description:</TextBlock>
                 <TextBox Name="TextBoxDescription" Grid.Column="1" Grid.Row="3" Margin="2,2,2,2" Text="{Binding Path=SpecimenOrder.Description}" TextWrapping="Wrap" FontSize="14" AcceptsReturn="True"></TextBox>
