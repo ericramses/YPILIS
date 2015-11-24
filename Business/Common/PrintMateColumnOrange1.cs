@@ -8,7 +8,7 @@ namespace YellowstonePathology.Business.Common
     public class PrintMateColumnOrange1 : PrintMateColumn
     {
         public PrintMateColumnOrange1()
-            : base(3, "3 - Orange", "#FFFFC175")
+            : base(3, "3 - Orange", "#FFFFC175", "Orange")
         {
 
         }

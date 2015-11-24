@@ -7,7 +7,7 @@ namespace YellowstonePathology.Business.Common
 {
     public class PrintMateNullColumn : PrintMateColumn
     {
-        public PrintMateNullColumn() : base(0, "White", "No Color")
+        public PrintMateNullColumn() : base(0, "White", "No Color", "No Color")
         {
             
         }

@@ -90,14 +90,14 @@ namespace YellowstonePathology.UI.Surgical
                         grossX += " is received fresh in a container labeled \"" + this.m_AccessionOrder.PatientDisplayName + " - [description]\"";
                     }
 
-                    grossX += ". " + Environment.NewLine + Environment.NewLine;
+                    grossX += ". ";
                     grossX += this.m_DictationTemplate.Text;
                     
                     YellowstonePathology.Business.Common.PrintMateCarousel printMateCarousel = new Business.Common.PrintMateCarousel();
                     YellowstonePathology.Business.Common.PrintMateColumn printMateColumn = printMateCarousel.GetColumn(this.m_AccessionOrder.PrintMateColumnNumber);
-                    string submitted = "[procedure] and " + specimenOrder.GetGrossSubmittedInString(printMateColumn.ColorCode);
+                    string submitted = "[procedure] and " + specimenOrder.GetGrossSubmittedInString(printMateColumn.Color);
                     grossX = grossX.Replace("[submitted]", submitted);
-                    grossX = grossX.Replace("[cassettelabel]", "\"" + specimenOrder.SpecimenNumber.ToString() + "A\".");
+                    grossX = grossX.Replace("[cassettelabel]", "\"" + specimenOrder.SpecimenNumber.ToString() + "A\".  ");
 
                     this.m_GrossDescription = grossX;
                     this.NotifyPropertyChanged(string.Empty);

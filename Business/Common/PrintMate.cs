@@ -25,15 +25,29 @@ namespace YellowstonePathology.Business.Common
 			if (blockCollection.Count > 0)
 			{
 				string path = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.CassettePrinter;
+                if(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.UseLaserCassettePrinter == true)
+                {
+                    path = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.LaserCassettePrinter;
+                }
+
 				try
 				{
-					using (StreamWriter file = new StreamWriter(path + System.Guid.NewGuid().ToString() + ".txt"))
+					using (StreamWriter file = new StreamWriter(path + System.Guid.NewGuid().ToString() + ".gdc"))
 					{
 						foreach (Block block in blockCollection)
 						{
 							if (block.PrintRequested == true)
 							{
-								string line = block.ToString();
+                                string line = null;
+                                if(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.UseLaserCassettePrinter == true)
+                                {
+                                    line = block.ToLaserString();
+                                }
+                                else
+                                {
+                                    line = block.ToString();
+                                }
+                                
 								file.Write(line + "\r\n");
 								block.PrintRequested = false;
 							}

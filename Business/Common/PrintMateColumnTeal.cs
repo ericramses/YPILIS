@@ -8,7 +8,7 @@ namespace YellowstonePathology.Business.Common
     public class PrintMateColumnTeal : PrintMateColumn
     {
         public PrintMateColumnTeal()
-            : base(2, "2 - Teal", "Teal")
+            : base(2, "2 - Teal", "Teal", "Teal")
         {
 
         }

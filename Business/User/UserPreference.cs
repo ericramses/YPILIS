@@ -43,6 +43,8 @@ namespace YellowstonePathology.Business.User
         private string m_CytologySlidePrinter;
         private string m_LastReportNo;
         private string m_ThermoFisherSlidePrinter;
+        private string m_LaserCassettePrinter;
+        private bool m_UseLaserCassettePrinter;
 
         public UserPreference()
         {
@@ -210,6 +212,20 @@ namespace YellowstonePathology.Business.User
 				}
 			}
 		}
+
+        [PersistentProperty()]
+        public string LaserCassettePrinter
+        {
+            get { return this.m_LaserCassettePrinter; }
+            set
+            {
+                if (this.m_LaserCassettePrinter != value)
+                {
+                    this.m_LaserCassettePrinter = value;
+                    this.NotifyPropertyChanged("LaserCassettePrinter");
+                }
+            }
+        }
 
         [PersistentProperty()]
         public string SpecialStainAcknowledgementPrinter
@@ -431,6 +447,20 @@ namespace YellowstonePathology.Business.User
                 {
                     this.m_ThermoFisherSlidePrinter = value;
                     this.NotifyPropertyChanged("ThermoFisherSlidePrinter");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public bool UseLaserCassettePrinter
+        {
+            get { return this.m_UseLaserCassettePrinter; }
+            set
+            {
+                if (this.m_UseLaserCassettePrinter != value)
+                {
+                    this.m_UseLaserCassettePrinter = value;
+                    this.NotifyPropertyChanged("UseLaserCassettePrinter");
                 }
             }
         }

@@ -49,7 +49,7 @@ namespace YellowstonePathology.UI.Gross
             {
                 grossX += " is received fresh in a container labeled \"" + this.m_AccessionOrder.PatientDisplayName + " - " + this.m_SpecimenOrder.Description + "\"";
             }
-            grossX += ". " + Environment.NewLine + Environment.NewLine;
+            grossX += ".  " + Environment.NewLine + Environment.NewLine;
             grossX += this.m_DictationTemplate.Text;
 
             //YellowstonePathology.Business.Common.PrintMateCarousel printMateCarousel = new Business.Common.PrintMateCarousel();

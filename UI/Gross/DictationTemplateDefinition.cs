@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Gross
         public ProstateNeedleCoreTemplate()
         {
             this.m_TemplateName = "Prostate Specimen";
-            this.m_Text = "Consists of [number] tan-pink cylindrical tissue fragments [measurement]. " +
+            this.m_Text = "Consists of [number] tan-pink cylindrical tissue fragments [measurement].  " +
                 "The specimen is filtered through a fine mesh bag and entirely submitted in cassette [cassettelabel]";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ProstateNeedleBiopsy nb = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ProstateNeedleBiopsy();
@@ -32,7 +32,7 @@ namespace YellowstonePathology.UI.Gross
         {
             this.m_TemplateName = "Prostate Specimen";
             this.m_Text = "Consists of [number] tan-pink irregularly shaped, rough and ragged tissue fragments(s)" +
-                "weighing in aggregate [weight], and aggregating to [measurement]. " +
+                "weighing in aggregate [weight], and aggregating to [measurement].  " +
                 "The specimen is submitted [submitted]";
                         
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ProstateTUR tur = new Business.Specimen.Model.SpecimenDefinition.ProstateTUR();
@@ -45,8 +45,8 @@ namespace YellowstonePathology.UI.Gross
         public GITemplate()
         {
             this.m_TemplateName = "GI Specimen";
-            this.m_Text = "Consists of [number] fragments of tan-pink tissue measuring in aggregate [measurement]. " +
-                "The specimen is filtered through a fine mesh bag and entirely submitted in cassette [cassettelabel]";            
+            this.m_Text = "Consists of [number] fragments of tan-pink tissue measuring in aggregate [measurement].  " +
+                "The specimen is filtered through a fine mesh bag and entirely submitted in cassette [cassettelabel].";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.GIBiopsy gi = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.GIBiopsy();
             this.m_SpecimenCollection.Add(gi);
@@ -58,11 +58,12 @@ namespace YellowstonePathology.UI.Gross
         public FallopianTubeTemplate()
         {
             this.m_TemplateName = "Fallopian Tube Specimen";
-            this.m_Text = "Fimbriated Ends: []" + Environment.NewLine +
-                           "Length: [length]" + Environment.NewLine +
-                           "Diameter: [diameter]" + Environment.NewLine +
-                           "Inking: [color]" + Environment.NewLine +
-                           "Submitted: [submitted]";
+            this.m_Text = Environment.NewLine +
+                "Fimbriated Ends: [description]" + Environment.NewLine +
+                "Length: [length]" + Environment.NewLine +
+                "Diameter: [diameter]" + Environment.NewLine +
+                "Inking: [color]" + Environment.NewLine +
+                "Submitted: [submitted]";
 
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.FallopianTube ft = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.FallopianTube();
@@ -75,7 +76,7 @@ namespace YellowstonePathology.UI.Gross
         public SinusContentTemplate()
         {
             this.m_TemplateName = "Sinus Content Specimen";
-            this.m_Text = "Consists of multiple tan-pink tissue and bone fragments aggregating to [measurement]. " +
+            this.m_Text = "Consists of multiple tan-pink tissue and bone fragments aggregating to [measurement].  " +
                 "The tissue is filtered through a fine mesh bag and submitted in cassette [cassettelabel]";
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SinusContent sc = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SinusContent();
@@ -88,13 +89,14 @@ namespace YellowstonePathology.UI.Gross
         public AppendixExcisionTemplate()
         {
             this.m_TemplateName = "Appendix Excision";
-            this.m_Text = "Gross Description: [description] Measuring: [measurement]" + Environment.NewLine +
-                          "Serosal Surface: [description]" + Environment.NewLine +
-                          "Mesoappendix: [measurement], [description]" + Environment.NewLine +
-                          "Pertinent Abnormalities: [description]" + Environment.NewLine +
-                          "Luminal Contents: [description]" + Environment.NewLine +
-                          "Fecalith: [description] [measurement], [description]" + Environment.NewLine +
-                          "Submitted: [submitted]";            
+            this.m_Text = Environment.NewLine +
+                "Gross Description: [description] Measuring: [measurement]" + Environment.NewLine +
+                "Serosal Surface: [description]" + Environment.NewLine +
+                "Mesoappendix: [measurement], [description]" + Environment.NewLine +
+                "Pertinent Abnormalities: [description]" + Environment.NewLine +
+                "Luminal Contents: [description]" + Environment.NewLine +
+                "Fecalith: [description] [measurement], [description]" + Environment.NewLine +
+                "Submitted: [submitted]";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.AppendixExcision appendixExcision = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.AppendixExcision();
             this.m_SpecimenCollection.Add(appendixExcision);
@@ -106,7 +108,7 @@ namespace YellowstonePathology.UI.Gross
         public SkinShavePunchMiscTemplate()
         {
             this.m_TemplateName = "Skin Shave Punch and Misc Biopsy";
-            this.m_Text = "Gross Description: [description]" + Environment.NewLine +
+            this.m_Text = Environment.NewLine + "Gross Description: [description]" + Environment.NewLine +
                           "Measurements: [measurements]" + Environment.NewLine +
                           "Submitted: [submitted]";            
 
@@ -120,7 +122,7 @@ namespace YellowstonePathology.UI.Gross
         public SkinExcisionUnorientedTemplate()
         {
             this.m_TemplateName = "Unoriented Skin Excision Biopsy";
-            this.m_Text = "Quantity: [number]" + Environment.NewLine +
+            this.m_Text = Environment.NewLine + "Quantity: [number]" + Environment.NewLine +
                           "Gross Description: [description]" + Environment.NewLine +
                           "Measurements: [measurements]" + Environment.NewLine +
                           "Inking: [color]" + Environment.NewLine +
@@ -137,11 +139,11 @@ namespace YellowstonePathology.UI.Gross
         public SkinExcisionOrientedTemplate()
         {
             this.m_TemplateName = "Oriented Skin Excision Biopsy";
-            this.m_Text = "Quantity: [number]" + Environment.NewLine +
+            this.m_Text = Environment.NewLine + "Quantity: [number]" + Environment.NewLine +
                           "Gross Description: [description]" + Environment.NewLine +
                           "Measurements: [measurements]" + Environment.NewLine +
                           "Orientation Marker: [designation]" + Environment.NewLine +
-                          "Inking: 12 to 3 o' clock = blue; 3 to 6 o' clock = red; 6 to 9 o' clock = green; 9 to 12 o' clock = orange; deep = black. " + Environment.NewLine +
+                          "Inking: 12 to 3 o' clock = blue; 3 to 6 o' clock = red; 6 to 9 o' clock = green; 9 to 12 o' clock = orange; deep = black.  " + Environment.NewLine +
                           "Sectioning: []" + Environment.NewLine +
                           "Submitted: Tips submitted in 1A, remainder in [submitted]";
 
@@ -155,7 +157,7 @@ namespace YellowstonePathology.UI.Gross
         public GallbladderExcisionTemplate()
         {
             this.m_TemplateName = "Gallbladder Excision";
-            this.m_Text = "Description: [description]" + Environment.NewLine +
+            this.m_Text = Environment.NewLine + "Description: [description]" + Environment.NewLine +
                           "Measurements: [measurement]" + Environment.NewLine +
                           "Serosal Surface: [description]" + Environment.NewLine +
                           "Adventitial Surface: [description]" + Environment.NewLine +
@@ -177,7 +179,7 @@ namespace YellowstonePathology.UI.Gross
         public TonsilExcisionTemplate()
         {
             this.m_TemplateName = "Tonsil Excision";
-            this.m_Text = "Gross Description: [description]" + Environment.NewLine +
+            this.m_Text = Environment.NewLine + "Gross Description: [description]" + Environment.NewLine +
                           "Adenoids: [description]" + Environment.NewLine +
                           "Weight: [weight]" + Environment.NewLine +
                           "Measurement Tonsil 1: [measurement]" + Environment.NewLine +
@@ -196,7 +198,7 @@ namespace YellowstonePathology.UI.Gross
         public POCTemplate()
         {
             this.m_TemplateName = "POC";
-            this.m_Text = "Gross Description: [description]" + Environment.NewLine +
+            this.m_Text = Environment.NewLine + "Gross Description: [description]" + Environment.NewLine +
                           "Measurement: [measurement]" + Environment.NewLine +
                           "Villi: [description]" + Environment.NewLine +
                           "Fetal Parts: [description]" + Environment.NewLine +
@@ -212,7 +214,7 @@ namespace YellowstonePathology.UI.Gross
         public BreastReductionTemplate()
         {
             this.m_TemplateName = "BreastReduction";
-            this.m_Text = "Gross Description: [description]" + Environment.NewLine +
+            this.m_Text = Environment.NewLine + "Gross Description: [description]" + Environment.NewLine +
                           "Weight: [weight]" + Environment.NewLine +
                           "Measurement: [measurement]" + Environment.NewLine +
                           "Submitted: [submitted]";            
@@ -227,7 +229,7 @@ namespace YellowstonePathology.UI.Gross
         public ECCTemplate()
         {
             this.m_TemplateName = "ECC";
-            this.m_Text = "Gross Description: [number], [color], [consistency]" + Environment.NewLine +
+            this.m_Text = Environment.NewLine + "Gross Description: [number], [color], [consistency]" + Environment.NewLine +
                           "Measurement: [measurement]" + Environment.NewLine +
                           "Submitted: [submitted]";            
 
@@ -241,7 +243,7 @@ namespace YellowstonePathology.UI.Gross
         public EMBTemplate()
         {
             this.m_TemplateName = "EMB";
-            this.m_Text = "Gross Description: [number], [color], [consistency]" + Environment.NewLine +
+            this.m_Text = Environment.NewLine + "Gross Description: [number], [color], [consistency]" + Environment.NewLine +
                           "Measurement: [measurement]" + Environment.NewLine +
                           "Submitted: [submitted]";            
 
@@ -255,7 +257,7 @@ namespace YellowstonePathology.UI.Gross
         public CervicalBiopsyTemplate()
         {
             this.m_TemplateName = "CervicalBiopsy";
-            this.m_Text = "Gross Description: [number], [color], [consistency]" + Environment.NewLine +
+            this.m_Text = Environment.NewLine + "Gross Description: [number], [color], [consistency]" + Environment.NewLine +
                           "Measurement: [measurement]" + Environment.NewLine +
                           "Inked: [description]" + Environment.NewLine +
                           "Submitted: [submitted]";            
@@ -269,7 +271,7 @@ namespace YellowstonePathology.UI.Gross
     {
         public LEEPConeTemplate()
         {
-            this.m_TemplateName = "LEEPCone";
+            this.m_TemplateName = Environment.NewLine + "LEEPCone";
             this.m_Text = "Gross Description: [description], [color], [characteristics]" + Environment.NewLine +
                           "Measurement: [measurement]" + Environment.NewLine +
                           "OS: *OSDESCRIPTION* [measurement]" + Environment.NewLine +
@@ -286,7 +288,7 @@ namespace YellowstonePathology.UI.Gross
     {
         public LEEPPiecesTemplate()
         {
-            this.m_TemplateName = "LEEPPieces";
+            this.m_TemplateName = Environment.NewLine + "LEEPPieces";
             this.m_Text = "Gross Description: [number], [color], [measurement]" + Environment.NewLine +
                           "OS Description: [shape], [location], [measurement]" + Environment.NewLine +
                           "Inked: [description]" + Environment.NewLine +
@@ -302,7 +304,7 @@ namespace YellowstonePathology.UI.Gross
         public SinglePlacentaTemplate()
         {
             this.m_TemplateName = "SinglePlacenta";
-            this.m_Text = "Umbilical Cord:" + Environment.NewLine +
+            this.m_Text = Environment.NewLine + "Umbilical Cord:" + Environment.NewLine +
                           "   Length: [length]" + Environment.NewLine +
                           "   Insertion: [insertion]" + Environment.NewLine +
                           "   Vessels: [number]" + Environment.NewLine +
@@ -341,7 +343,7 @@ namespace YellowstonePathology.UI.Gross
         public UterusTemplate()
         {
             this.m_TemplateName = "Uterus";
-            this.m_Text = "Uterus and Cervix:" + Environment.NewLine +
+            this.m_Text = Environment.NewLine + "Uterus and Cervix:" + Environment.NewLine +
                           "   Uterine Corpus:" + Environment.NewLine +
                           "      Weight: [weight]" + Environment.NewLine +
                           "      Length: [length]" + Environment.NewLine +
@@ -376,7 +378,7 @@ namespace YellowstonePathology.UI.Gross
         {
             this.m_TemplateName = "Uterus with Adnexa";
             this.m_FontSize = 16;
-            this.m_Text = "Uterus and Cervix:" + Environment.NewLine +
+            this.m_Text = Environment.NewLine + "Uterus and Cervix:" + Environment.NewLine +
                           "   Right Adnexal Organs:" + Environment.NewLine +
                           "      Fallopian Tube:" + Environment.NewLine +
                           "      Dimensions: [desciption], [length], [diameter]" + Environment.NewLine +
@@ -429,7 +431,7 @@ namespace YellowstonePathology.UI.Gross
         public NeedleCoreBiopsyTemplate()
         {
             this.m_TemplateName = "Needle Core Biopsy";
-            this.m_Text = "Consists of [number] [color] tissue fragments measuring [measurement] in aggregate. " +
+            this.m_Text = "Consists of [number] [color] tissue measuring [measurement] in aggregate.  " +
                 "The specimen is filtered through a fine mesh bag and entirely submitted in cassette [cassettelabel]";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.NeedleCoreBiopsy NeedleCoreBiopsy = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.NeedleCoreBiopsy();
@@ -442,8 +444,8 @@ namespace YellowstonePathology.UI.Gross
         public AorticValveTemplate()
         {
             this.m_TemplateName = "Aortic Valve";
-            this.m_Text = "The specimen consists of [number] valve cusps, aggregating to [measurement]." +
-                "Vegetations [description] identified. The valve cusps are [description]." +
+            this.m_Text = "The specimen consists of [number] valve cusps, aggregating to [measurement].  " +
+                "Vegetations [description] identified. The valve cusps are [description].  " +
                 "Representative section are submitted in cassette [cassetlabel]";
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.AorticValve AorticValve = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.AorticValve();
@@ -456,8 +458,8 @@ namespace YellowstonePathology.UI.Gross
         public MitralValveTemplate()
         {
             this.m_TemplateName = "Mitral Valve";
-            this.m_Text = "The specimen consists of [number] of valve leaflets with attached chordae tendina aggregating to [measurement]." +
-                "Vegetations [???] identified. The valve leaflets are [description]." +
+            this.m_Text = "The specimen consists of [number] of valve leaflets with attached chordae tendina aggregating to [measurement].  " +
+                "Vegetations [description] identified. The valve leaflets are [description]." +
                 "Representative section are submitted in cassette [cassetlabel]";
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.MitralValve MitralValve = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.MitralValve();
@@ -470,10 +472,10 @@ namespace YellowstonePathology.UI.Gross
         public KneeTissueTemplate()
         {
             this.m_TemplateName = "Knee Tissue";
-            this.m_Text = "The specimen consists of [number] of bone and soft tissue aggregating to [measurement]." +
+            this.m_Text = "The specimen consists of [number] of bone and soft tissue aggregating to [measurement].  " +
                 "Recognizable tibial plateau and femoral condyles [are/not] identified. The articular surface shows [description] eburation" +
-                "and [description] osteophyte formation. Sectioning reveals tan-yellow trabecular bone." + 
-                "Sections are not submitted for microscopic evaluation. ";            
+                "and [description] osteophyte formation. Sectioning reveals tan-yellow trabecular bone.  " + 
+                "Sections are not submitted for microscopic evaluation.  ";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.KneeTissue KneeTissue = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.KneeTissue();
             this.m_SpecimenCollection.Add(KneeTissue);
@@ -485,10 +487,10 @@ namespace YellowstonePathology.UI.Gross
         public FemoralHeadTemplate()
         {
             this.m_TemplateName = "Femoral Head";
-            this.m_Text = "The specimen consists of a [description] femoral head with attached femoral neck measuring [measurement]." +
-                "The femoral neck has a [description]. There is [percent] eburation and [percent] osteophyte formation." +
+            this.m_Text = "The specimen consists of a [description] femoral head with attached femoral neck measuring [measurement].  " +
+                "The femoral neck has a [description]. There is [percent] eburation and [percent] osteophyte formation.  " +
                 "Sectioning reveals tan-yellow trabecual bone. [description]. A representative section is submitted in cassette [cassettelabel]" +
-                "following overnight decalcification. ";            
+                "following overnight decalcification.  ";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.FemoralHead FemoralHead = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.FemoralHead();
             this.m_SpecimenCollection.Add(FemoralHead);
