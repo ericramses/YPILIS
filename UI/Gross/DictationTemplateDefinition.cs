@@ -121,7 +121,7 @@ namespace YellowstonePathology.UI.Gross
     {
         public SkinExcisionUnorientedTemplate()
         {
-            this.m_TemplateName = "Unoriented Skin Excision Biopsy";
+            this.m_TemplateName = "Skin Excision Biopsy, Unoriented";
             this.m_Text = Environment.NewLine + "Quantity: [number]" + Environment.NewLine +
                           "Gross Description: [description]" + Environment.NewLine +
                           "Measurements: [measurements]" + Environment.NewLine +
@@ -138,7 +138,7 @@ namespace YellowstonePathology.UI.Gross
     {
         public SkinExcisionOrientedTemplate()
         {
-            this.m_TemplateName = "Oriented Skin Excision Biopsy";
+            this.m_TemplateName = "Skin Excision Biopsy, Oriented";
             this.m_Text = Environment.NewLine + "Quantity: [number]" + Environment.NewLine +
                           "Gross Description: [description]" + Environment.NewLine +
                           "Measurements: [measurements]" + Environment.NewLine +
