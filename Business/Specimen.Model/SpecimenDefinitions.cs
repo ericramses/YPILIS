@@ -168,7 +168,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
         {
             this.m_SpecimenId = "POCSPCMN";
             this.m_SpecimenName = "POC";
-            this.m_Description = "Uteran Contents";
+            this.m_Description = "Uterine Contents";
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = null;
             this.m_RequiresGrossExamination = true;
