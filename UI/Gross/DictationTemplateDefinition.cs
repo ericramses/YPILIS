@@ -126,7 +126,7 @@ namespace YellowstonePathology.UI.Gross
                           "Gross Description: [description]" + Environment.NewLine +
                           "Measurements: [measurements]" + Environment.NewLine +
                           "Inking: [color]" + Environment.NewLine +
-                          "Sectioning: []" + Environment.NewLine +
+                          "Sectioning: [description]" + Environment.NewLine +
                           "Submitted: Tips submitted in 1A, remainder in [submitted]";
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinExcisionUnorientedBiopsy skinexcisionunorientedBiopsy = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinExcisionUnorientedBiopsy();
@@ -143,8 +143,8 @@ namespace YellowstonePathology.UI.Gross
                           "Gross Description: [description]" + Environment.NewLine +
                           "Measurements: [measurements]" + Environment.NewLine +
                           "Orientation Marker: [designation]" + Environment.NewLine +
-                          "Inking: 12 to 3 o' clock = blue; 3 to 6 o' clock = red; 6 to 9 o' clock = green; 9 to 12 o' clock = orange; deep = black.  " + Environment.NewLine +
-                          "Sectioning: []" + Environment.NewLine +
+                          "Inking: 12 to 3 o'clock = blue; 3 to 6 o'clock = red; 6 to 9 o'clock = green; 9 to 12 o'clock = orange; deep = black.  " + Environment.NewLine +
+                          "Sectioning: [Description]" + Environment.NewLine +
                           "Submitted: Tips submitted in 1A, remainder in [submitted]";
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinExcisionOrientedBiopsy skinexcisionorientedBiopsy = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinExcisionOrientedBiopsy();
@@ -157,14 +157,13 @@ namespace YellowstonePathology.UI.Gross
         public GallbladderExcisionTemplate()
         {
             this.m_TemplateName = "Gallbladder Excision";
-            this.m_Text = Environment.NewLine + "Description: [description]" + Environment.NewLine +
+            this.m_Text = Environment.NewLine + "Specimen Integrity: [description]" + Environment.NewLine +
                           "Measurements: [measurement]" + Environment.NewLine +
                           "Serosal Surface: [description]" + Environment.NewLine +
                           "Adventitial Surface: [description]" + Environment.NewLine +
-                          "Mural Defects: [description]" + Environment.NewLine +
-                          "Loose Stones: [description]" + Environment.NewLine +
+                          "Mural Defects: [description]" + Environment.NewLine +                          
                           "Luminal Contents: [description]" + Environment.NewLine +
-                          "Stones Within: [description]" + Environment.NewLine +
+                          "Loose Stones: [description]" + Environment.NewLine +
                           "Mucosal Surface: [description]" + Environment.NewLine +
                           "Wall Thickness: [thickness]" + Environment.NewLine +
                           "Submitted: [submitted]";            

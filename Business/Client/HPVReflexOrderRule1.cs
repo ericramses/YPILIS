@@ -31,7 +31,7 @@ namespace YellowstonePathology.Business.Client.Model
 
                         if (dateOfLastHPV.HasValue == true)
                         {
-                            if (dateOfLastHPV < DateTime.Today.AddDays(-330))
+                            if (dateOfLastHPV < accessionOrder.AccessionDate.Value.AddDays(-330))
                             {
                                 result = true;
                             }
