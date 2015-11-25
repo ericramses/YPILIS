@@ -174,7 +174,7 @@ namespace YellowstonePathology.UI.Gross
         }
     }
 
-    public class TonsilExcisionTemplate : DictationTemplate
+    public class TonsilAdenoidExcisionTemplate : DictationTemplate
     {
         public TonsilAdenoidExcisionTemplate()
         {
@@ -188,7 +188,7 @@ namespace YellowstonePathology.UI.Gross
                           "Cut Surface: [description]" + Environment.NewLine +
                           "Submitted: [submitted]";            
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.TonsilExcision TonsilAdenoidExcision = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.TonsilExcision();
+            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.TonsilAdenoidExcision tonsilAdenoidExcision = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.TonsilAdenoidExcision();
             this.m_SpecimenCollection.Add(TonsilAdenoidExcision);
         }
     }
@@ -205,7 +205,7 @@ namespace YellowstonePathology.UI.Gross
                           "Cut Surface: [description]" + Environment.NewLine +
                           "Submitted: [submitted]";
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.TonsilExcision TonsilExcision = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.TonsilExcision();
+            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.TonsilExcision tonsilExcision = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.TonsilExcision();
             this.m_SpecimenCollection.Add(TonsilExcision);
         }
     }
@@ -220,7 +220,7 @@ namespace YellowstonePathology.UI.Gross
                           "Cut Surface: [description]" + Environment.NewLine +
                           "Submitted: [submitted]";
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.AdenoidExcision TonsilExcision = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.AdenoidExcision();
+            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.AdenoidExcision adenoidExcision = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.AdenoidExcision();
             this.m_SpecimenCollection.Add(AdenoidExcision);
         }
     }
@@ -236,7 +236,7 @@ namespace YellowstonePathology.UI.Gross
                           "Fetal Parts: [description]" + Environment.NewLine +
                           "Submitted: [submitted]";            
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.POC POC = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.POC();
+            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.POC poc = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.POC();
             this.m_SpecimenCollection.Add(POC);
         }
     }
@@ -251,7 +251,7 @@ namespace YellowstonePathology.UI.Gross
                           "Measurement: [measurement]" + Environment.NewLine +
                           "Submitted: [submitted]";            
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.BreastReduction BreastReduction = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.BreastReduction();
+            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.BreastReduction breastReduction = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.BreastReduction();
             this.m_SpecimenCollection.Add(BreastReduction);
         }
     }
@@ -265,7 +265,7 @@ namespace YellowstonePathology.UI.Gross
                           "Measurement: [measurement]" + Environment.NewLine +
                           "Submitted: [submitted]";            
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ECC ECC = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ECC();
+            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ECC ecc = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ECC();
             this.m_SpecimenCollection.Add(ECC);
         }
     }
@@ -279,7 +279,7 @@ namespace YellowstonePathology.UI.Gross
                           "Measurement: [measurement]" + Environment.NewLine +
                           "Submitted: [submitted]";            
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.EMB EMB = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.EMB();
+            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.EMB emb = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.EMB();
             this.m_SpecimenCollection.Add(EMB);
         }
     }
@@ -293,7 +293,7 @@ namespace YellowstonePathology.UI.Gross
                           "Measurement: [measurement]" + Environment.NewLine +
                           "Submitted: [submitted]";            
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.CervicalBiopsy CervicalBiopsy = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.CervicalBiopsy();
+            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.CervicalBiopsy cervicalBiopsy = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.CervicalBiopsy();
             this.m_SpecimenCollection.Add(CervicalBiopsy);
         }
     }
@@ -309,7 +309,7 @@ namespace YellowstonePathology.UI.Gross
                           "Inking: [description]" + Environment.NewLine +
                           "Submitted: [submitted]";            
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.LEEPCone LEEPCone = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.LEEPCone();
+            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.LEEPCone leepCone = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.LEEPCone();
             this.m_SpecimenCollection.Add(LEEPCone);
         }
     }
@@ -324,7 +324,7 @@ namespace YellowstonePathology.UI.Gross
                           "Inking: [description]" + Environment.NewLine +
                           "Submitted: [submitted]";            
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.LEEPPieces LEEPPieces = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.LEEPPieces();
+            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.LEEPPieces leepPieces = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.LEEPPieces();
             this.m_SpecimenCollection.Add(LEEPPieces);
         }
     }
