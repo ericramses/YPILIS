@@ -52,9 +52,13 @@ namespace YellowstonePathology.UI.Test
 
 			DataContext = this;
 
+            //if (this.m_PanelSetOrder.Final == true)
+            //{
+            //    ResultEnabler.SetEnabled(this.Content);
+            //}
 		}
 
-		public YellowstonePathology.Business.Test.BCellClonalityByPCR.BCellClonalityByPCRTestOrder PanelSetOrder
+        public YellowstonePathology.Business.Test.BCellClonalityByPCR.BCellClonalityByPCRTestOrder PanelSetOrder
 		{
 			get { return this.m_PanelSetOrder; }
 		}

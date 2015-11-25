@@ -80,6 +80,7 @@ namespace YellowstonePathology.UI.Login.Receiving
             }
 
             this.TextBoxAccessionAs.Focus();
+
             if (string.IsNullOrEmpty(this.m_ClientOrderDetail.SpecimenId) == true)
             {
                 this.ComboBoxSpecimenId.Focus();
@@ -93,7 +94,13 @@ namespace YellowstonePathology.UI.Login.Receiving
                 }
             }
 
-            this.ComboBoxSpecimenId.SelectionChanged += ComboBoxSpecimenId_SelectionChanged;
+            TextBox textBox = (TextBox)this.ComboBoxSpecimenId.Template.FindName("PART_EditableTextBox", this.ComboBoxSpecimenId);
+            if (textBox != null)
+            {
+                textBox.LostFocus += TextBoxInComboBox_LostFocus;
+            }
+
+            //this.ComboBoxSpecimenId.LostFocus += ComboBoxSpecimenId_LostFocus;
             this.ComboBoxReceivedIn.SelectionChanged += new SelectionChangedEventHandler(ComboBoxReceivedIn_SelectionChanged);
             this.CheckBoxClientAccessioned.Checked +=new RoutedEventHandler(CheckBoxClientAccessioned_Checked);
             this.CheckBoxClientAccessioned.Unchecked +=new RoutedEventHandler(CheckBoxClientAccessioned_Unchecked);
@@ -288,7 +295,11 @@ namespace YellowstonePathology.UI.Login.Receiving
             }
         }
        
-        private void ComboBoxSpecimenId_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //private void ComboBoxSpecimenId_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
+        //}
+
+        /*private void ComboBoxSpecimenId_LostFocus(object sender, RoutedEventArgs e)
         {
             if (this.ComboBoxSpecimenId.SelectedItem != null && this.ComboBoxSpecimenId.SelectedItem.GetType() != typeof(YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.NullSpecimen))
             {
@@ -302,7 +313,7 @@ namespace YellowstonePathology.UI.Login.Receiving
                 this.m_ClientOrderDetail.RequiresGrossExamination = specimen.RequiresGrossExamination;
                 this.NotifyPropertyChanged("");
             }
-        }
+        }*/
 
         private void TextBoxAccessionAs_GotFocus(object sender, RoutedEventArgs e)
         {
@@ -403,6 +414,22 @@ namespace YellowstonePathology.UI.Login.Receiving
             {
                 MessageBox.Show("The Container Id cannot be cleared because the specimen has been accessioned.");
             }
-        }        
+        }
+
+        private void TextBoxInComboBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (this.ComboBoxSpecimenId.SelectedItem != null && this.ComboBoxSpecimenId.SelectedItem.GetType() != typeof(YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.NullSpecimen))
+            {
+                YellowstonePathology.Business.Specimen.Model.Specimen specimen = (YellowstonePathology.Business.Specimen.Model.Specimen)this.ComboBoxSpecimenId.SelectedItem;
+                if (string.IsNullOrEmpty(this.m_ClientOrderDetail.DescriptionToAccessionBinding) == true)
+                {
+                    this.m_ClientOrderDetail.DescriptionToAccessionBinding = specimen.Description;
+                }
+                this.m_ClientOrderDetail.LabFixationBinding = specimen.LabFixation;
+                this.m_ClientOrderDetail.ClientFixationBinding = specimen.ClientFixation;
+                this.m_ClientOrderDetail.RequiresGrossExamination = specimen.RequiresGrossExamination;
+                this.NotifyPropertyChanged("");
+            }
+        }
     }
 }
