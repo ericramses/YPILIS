@@ -66,8 +66,8 @@ namespace YellowstonePathology.UI.Gross
                 "Submitted: [submitted]";
 
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.FallopianTube ft = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.FallopianTube();
-            this.m_SpecimenCollection.Add(ft);
+            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.FallopianTube fallopianTube = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.FallopianTube();
+            this.m_SpecimenCollection.Add(fallopianTube);
         }
     }
 
@@ -79,8 +79,8 @@ namespace YellowstonePathology.UI.Gross
             this.m_Text = "[identifier] and consists of multiple fragments of tan-pink tissue and bone aggregating to [measurement].  " +
                 "They are filtered through a fine mesh bag and submitted in cassette [cassettelabel] for decalcification prior to processing.";
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SinusContent sc = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SinusContent();
-            this.m_SpecimenCollection.Add(sc);
+            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SinusContent sinusContent = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SinusContent();
+            this.m_SpecimenCollection.Add(sinusContent);
         }
     }
 
@@ -113,8 +113,8 @@ namespace YellowstonePathology.UI.Gross
                           "Measurements: [measurements]" + Environment.NewLine +
                           "Submitted: [submitted]";            
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinShavePunchMiscBiopsy SkinShavePunchMiscBiopsy = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinShavePunchMiscBiopsy();
-            this.m_SpecimenCollection.Add(SkinShavePunchMiscBiopsy);
+            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinShavePunchMiscBiopsy skinShavePunchMiscBiopsy = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinShavePunchMiscBiopsy();
+            this.m_SpecimenCollection.Add(skinShavePunchMiscBiopsy);
         }
     }
 
@@ -130,8 +130,8 @@ namespace YellowstonePathology.UI.Gross
                           "Sectioning: [description]" + Environment.NewLine +
                           "Submitted: Tips submitted in 1A, remainder in [submitted]";
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinExcisionUnorientedBiopsy skinexcisionunorientedBiopsy = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinExcisionUnorientedBiopsy();
-            this.m_SpecimenCollection.Add(skinexcisionunorientedBiopsy);
+            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinExcisionUnorientedBiopsy skinExcisionUnorientedBiopsy = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinExcisionUnorientedBiopsy();
+            this.m_SpecimenCollection.Add(skinExcisionUnorientedBiopsy);
         }
     }
 
@@ -148,8 +148,8 @@ namespace YellowstonePathology.UI.Gross
                           "Sectioning: [Description]" + Environment.NewLine +
                           "Submitted: Tips submitted in 1A, remainder in [submitted]";
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinExcisionOrientedBiopsy skinexcisionorientedBiopsy = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinExcisionOrientedBiopsy();
-            this.m_SpecimenCollection.Add(skinexcisionorientedBiopsy);
+            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinExcisionOrientedBiopsy skinExcisionOrientedBiopsy = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinExcisionOrientedBiopsy();
+            this.m_SpecimenCollection.Add(skinExcisionOrientedBiopsy);
         }
     }
 
@@ -189,7 +189,7 @@ namespace YellowstonePathology.UI.Gross
                           "Submitted: [submitted]";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.TonsilAdenoidExcision tonsilAdenoidExcision = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.TonsilAdenoidExcision();
-            this.m_SpecimenCollection.Add(TonsilAdenoidExcision);
+            this.m_SpecimenCollection.Add(tonsilAdenoidExcision);
         }
     }
 
@@ -206,7 +206,7 @@ namespace YellowstonePathology.UI.Gross
                           "Submitted: [submitted]";
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.TonsilExcision tonsilExcision = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.TonsilExcision();
-            this.m_SpecimenCollection.Add(TonsilExcision);
+            this.m_SpecimenCollection.Add(tonsilExcision);
         }
     }
     public class AdenoidExcisionTemplate : DictationTemplate
@@ -221,7 +221,7 @@ namespace YellowstonePathology.UI.Gross
                           "Submitted: [submitted]";
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.AdenoidExcision adenoidExcision = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.AdenoidExcision();
-            this.m_SpecimenCollection.Add(AdenoidExcision);
+            this.m_SpecimenCollection.Add(adenoidExcision);
         }
     }
 
@@ -237,7 +237,7 @@ namespace YellowstonePathology.UI.Gross
                           "Submitted: [submitted]";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.POC poc = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.POC();
-            this.m_SpecimenCollection.Add(POC);
+            this.m_SpecimenCollection.Add(poc);
         }
     }
 
@@ -252,7 +252,7 @@ namespace YellowstonePathology.UI.Gross
                           "Submitted: [submitted]";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.BreastReduction breastReduction = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.BreastReduction();
-            this.m_SpecimenCollection.Add(BreastReduction);
+            this.m_SpecimenCollection.Add(breastReduction);
         }
     }
 
@@ -266,7 +266,7 @@ namespace YellowstonePathology.UI.Gross
                           "Submitted: [submitted]";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ECC ecc = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ECC();
-            this.m_SpecimenCollection.Add(ECC);
+            this.m_SpecimenCollection.Add(ecc);
         }
     }
 
@@ -280,7 +280,7 @@ namespace YellowstonePathology.UI.Gross
                           "Submitted: [submitted]";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.EMB emb = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.EMB();
-            this.m_SpecimenCollection.Add(EMB);
+            this.m_SpecimenCollection.Add(emb);
         }
     }
 
@@ -294,7 +294,7 @@ namespace YellowstonePathology.UI.Gross
                           "Submitted: [submitted]";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.CervicalBiopsy cervicalBiopsy = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.CervicalBiopsy();
-            this.m_SpecimenCollection.Add(CervicalBiopsy);
+            this.m_SpecimenCollection.Add(cervicalBiopsy);
         }
     }
 
@@ -310,7 +310,7 @@ namespace YellowstonePathology.UI.Gross
                           "Submitted: [submitted]";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.LEEPCone leepCone = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.LEEPCone();
-            this.m_SpecimenCollection.Add(LEEPCone);
+            this.m_SpecimenCollection.Add(leepCone);
         }
     }
 
@@ -325,7 +325,7 @@ namespace YellowstonePathology.UI.Gross
                           "Submitted: [submitted]";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.LEEPPieces leepPieces = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.LEEPPieces();
-            this.m_SpecimenCollection.Add(LEEPPieces);
+            this.m_SpecimenCollection.Add(leepPieces);
         }
     }
 
@@ -363,8 +363,8 @@ namespace YellowstonePathology.UI.Gross
                           "      Other: [description]" + Environment.NewLine +
                           "Submitted: [submitted]";            
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SinglePlacenta SinglePlacenta = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SinglePlacenta();
-            this.m_SpecimenCollection.Add(SinglePlacenta);
+            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SinglePlacenta singlePlacenta = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SinglePlacenta();
+            this.m_SpecimenCollection.Add(singlePlacenta);
         }
     }
 
@@ -396,8 +396,8 @@ namespace YellowstonePathology.UI.Gross
                           "         Lesions in Uterine wall: [description]" + Environment.NewLine +
                           "Submitted: [submitted]";            
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Uterus Uterus = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Uterus();
-            this.m_SpecimenCollection.Add(Uterus);
+            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Uterus uterus = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Uterus();
+            this.m_SpecimenCollection.Add(uterus);
         }
 
     }
@@ -450,8 +450,8 @@ namespace YellowstonePathology.UI.Gross
                           "Submitted: [submitted]";
             
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.UterusAdnexa UterusAdnexa = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.UterusAdnexa();
-            this.m_SpecimenCollection.Add(UterusAdnexa);
+            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.UterusAdnexa uterusAdnexa = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.UterusAdnexa();
+            this.m_SpecimenCollection.Add(uterusAdnexa);
         }
 
     }
@@ -464,8 +464,8 @@ namespace YellowstonePathology.UI.Gross
             this.m_Text = "[identifier] and consists of [number] [color] threadlike tissue fragments measuring [measurement] in aggregate.  " +
                 "They are filtered through a fine mesh bag and entirely submitted in cassette [cassettelabel]";            
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.NeedleCoreBiopsy NeedleCoreBiopsy = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.NeedleCoreBiopsy();
-            this.m_SpecimenCollection.Add(NeedleCoreBiopsy);
+            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.NeedleCoreBiopsy needleCoreBiopsy = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.NeedleCoreBiopsy();
+            this.m_SpecimenCollection.Add(needleCoreBiopsy);
         }
     }
 
@@ -478,8 +478,8 @@ namespace YellowstonePathology.UI.Gross
                 "Vegetations [description] identified. The valve cusps are [description].  " +
                 "The leaflets are serially sectioned and representative sections are submitted in cassette [cassetlabel]";
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.AorticValve AorticValve = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.AorticValve();
-            this.m_SpecimenCollection.Add(AorticValve);
+            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.AorticValve aorticValve = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.AorticValve();
+            this.m_SpecimenCollection.Add(aorticValve);
         }
     }
 
@@ -492,8 +492,8 @@ namespace YellowstonePathology.UI.Gross
                 "Vegetations [description] identified. The valve leaflets are [description]." +
                 "The leaflets are serially sectioned and representative sections are submitted in cassette [cassetlabel]";
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.MitralValve MitralValve = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.MitralValve();
-            this.m_SpecimenCollection.Add(MitralValve);
+            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.MitralValve mitralValve = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.MitralValve();
+            this.m_SpecimenCollection.Add(mitralValve);
         }
     }
 
@@ -507,8 +507,8 @@ namespace YellowstonePathology.UI.Gross
                 "and [description] osteophyte formation. Sectioning reveals tan-yellow trabecular bone.  " + 
                 "Sections are not submitted for microscopic evaluation.  ";            
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.KneeTissue KneeTissue = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.KneeTissue();
-            this.m_SpecimenCollection.Add(KneeTissue);
+            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.KneeTissue kneeTissue = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.KneeTissue();
+            this.m_SpecimenCollection.Add(kneeTissue);
         }
     }
 
@@ -522,8 +522,8 @@ namespace YellowstonePathology.UI.Gross
                 "Sectioning reveals tan-yellow trabecular bone. A representative section is submitted in cassette [cassettelabel]" +
                 "following overnight decalcification.  ";            
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.FemoralHead FemoralHead = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.FemoralHead();
-            this.m_SpecimenCollection.Add(FemoralHead);
+            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.FemoralHead femoralHead = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.FemoralHead();
+            this.m_SpecimenCollection.Add(femoralHead);
         }
     }
 }
