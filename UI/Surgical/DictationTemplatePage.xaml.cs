@@ -79,27 +79,26 @@ namespace YellowstonePathology.UI.Surgical
                 {
                     YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = (YellowstonePathology.Business.Specimen.Model.SpecimenOrder)this.ListBoxSpecimenOrders.SelectedItem;
                     this.m_DictationTemplate = this.m_DictationTemplateCollection.GetTemplate(specimenOrder.SpecimenId);
+                    this.m_GrossDescription = this.m_DictationTemplate.Text;
 
-                    string grossX = "Specimen " + specimenOrder.SpecimenNumber + " ";
+                    string identifier = "Specimen " + specimenOrder.SpecimenNumber + " ";
                     if (specimenOrder.ClientFixation != YellowstonePathology.Business.Specimen.Model.FixationType.Fresh)
                     {
-                        grossX += "is received in formalin filled container labeled \"" + this.m_AccessionOrder.PatientDisplayName + " - [description]\"";
+                        identifier += "is received in formalin filled container labeled \"" + this.m_AccessionOrder.PatientDisplayName + " - [description]\"";
                     }
                     else if (specimenOrder.ClientFixation == YellowstonePathology.Business.Specimen.Model.FixationType.Fresh)
                     {
-                        grossX += " is received fresh in a container labeled \"" + this.m_AccessionOrder.PatientDisplayName + " - [description]\"";
+                        identifier += " is received fresh in a container labeled \"" + this.m_AccessionOrder.PatientDisplayName + " - [description]\"";
                     }
 
-                    grossX += ". ";
-                    grossX += this.m_DictationTemplate.Text;
-                    
+                    this.m_GrossDescription = this.m_GrossDescription.Replace("[identifier]", identifier);
+
                     YellowstonePathology.Business.Common.PrintMateCarousel printMateCarousel = new Business.Common.PrintMateCarousel();
                     YellowstonePathology.Business.Common.PrintMateColumn printMateColumn = printMateCarousel.GetColumn(this.m_AccessionOrder.PrintMateColumnNumber);
                     string submitted = "[procedure] and " + specimenOrder.GetGrossSubmittedInString(printMateColumn.Color);
-                    grossX = grossX.Replace("[submitted]", submitted);
-                    grossX = grossX.Replace("[cassettelabel]", "\"" + specimenOrder.SpecimenNumber.ToString() + "A\".  ");
-
-                    this.m_GrossDescription = grossX;
+                    this.m_GrossDescription = this.m_GrossDescription.Replace("[submitted]", submitted);
+                    this.m_GrossDescription = this.m_GrossDescription.Replace("[cassettelabel]", "\"" + specimenOrder.SpecimenNumber.ToString() + "A\".  ");
+                    
                     this.NotifyPropertyChanged(string.Empty);
                     this.TextBoxGrossDescription.Focus();
                     this.SelectNextInput(0);
