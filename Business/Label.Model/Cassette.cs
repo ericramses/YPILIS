@@ -195,7 +195,7 @@ namespace YellowstonePathology.Business.Label.Model
 
         public override string ToString()
         {
-			YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_MasterAccessionNo);
+            YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_MasterAccessionNo);
 
             StringBuilder result = new StringBuilder(this.m_Prefix + this.m_Delimeter);
             result.Append(this.FormattedCassetteColumn + this.m_Delimeter);

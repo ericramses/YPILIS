@@ -33,6 +33,7 @@ namespace YellowstonePathology.UI.Gross
         public static DictationTemplateCollection GetAll()
         {
             DictationTemplateCollection result = new DictationTemplateCollection();
+            result.Add(new AdenoidExcisionTemplate());
             result.Add(new AorticValveTemplate());
             result.Add(new AppendixExcisionTemplate());
             result.Add(new BreastReductionTemplate());
@@ -56,6 +57,7 @@ namespace YellowstonePathology.UI.Gross
             result.Add(new SkinExcisionOrientedTemplate());
             result.Add(new SkinExcisionUnorientedTemplate());
             result.Add(new SkinShavePunchMiscTemplate());
+            result.Add(new TonsilAdenoidExcisionTemplate());
             result.Add(new TonsilExcisionTemplate());
             result.Add(new UterusAdnexaTemplate());
             result.Add(new UterusTemplate());
