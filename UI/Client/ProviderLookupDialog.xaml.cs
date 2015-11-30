@@ -342,5 +342,37 @@ namespace YellowstonePathology.UI.Client
                 NotifyPropertyChanged("SelectedClient");
             }
         }
+
+        private void ButtonAddClientLocation_Click(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
+            objectTracker.RegisterObject(this.m_SelectedClient);
+
+            string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
+            YellowstonePathology.Business.Client.Model.ClientLocation clientLocation = new Business.Client.Model.ClientLocation();
+            clientLocation.ObjectId = objectId;
+            clientLocation.ClientId = this.m_SelectedClient.ClientId;
+            clientLocation.Location = "Medical Records";
+            clientLocation.OrderType = "REQUISITION";
+            clientLocation.SpecimenTrackingInitiated = "Ypii Lab";
+            clientLocation.AllowMultipleOrderTypes = true;
+            clientLocation.DefaultOrderPanelSetId = 13;
+            clientLocation.AllowMultipleOrderDetailTypes = false;
+            clientLocation.DefaultOrderDetailTypeCode = "SRGCL";
+
+            this.m_SelectedClient.ClientLocationCollection.Add(clientLocation);
+            objectTracker.SubmitChanges(this.m_SelectedClient);
+
+            this.DoClientSearch(this.TextBoxClientName.Text);
+            for(int idx = 0; idx > this.ListViewClients.Items.Count; idx++)
+            {
+                Business.Client.Model.Client client = (Business.Client.Model.Client)this.ListViewClients.Items[idx];
+                if (client.ClientId == this.m_SelectedClient.ClientId)
+                {
+                    this.ListViewClients.SelectedIndex = idx;
+                    break;
+                }
+            }
+        }
     }
 }
