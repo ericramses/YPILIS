@@ -43,7 +43,16 @@ namespace YellowstonePathology.UI.Client
             InitializeComponent();
 
             this.DataContext = this;
+            Loaded += ProviderEntry_Loaded;
             Closing += ProviderEntry_Closing;
+        }
+
+        private void ProviderEntry_Loaded(object sender, RoutedEventArgs e)
+        {
+           if(this.ProviderClients.Count > 0)
+            {
+                this.ListBoxClientMembership.SelectedIndex = 0;
+            }
         }
 
         private void ProviderEntry_Closing(object sender, CancelEventArgs e)
