@@ -24,8 +24,9 @@ namespace YellowstonePathology.UI.Client
 		private YellowstonePathology.Business.Client.Model.ProviderClientCollection m_ProviderCollection;
 		private YellowstonePathology.Business.Client.Model.ClientCollection m_ClientCollection;
         private YellowstonePathology.Business.Client.Model.ClientGroupCollection m_ClientGroupCollection;
+        private YellowstonePathology.Business.Client.Model.Client m_SelectedClient;
 
-		public ProviderLookupDialog()
+        public ProviderLookupDialog()
 		{
             this.m_ClientGroupCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientGroupCollection();
 			InitializeComponent();
@@ -52,7 +53,12 @@ namespace YellowstonePathology.UI.Client
             get { return this.m_ClientCollection; }
         }
 
-		private void ButtonNewProvider_Click(object sender, RoutedEventArgs e)
+        public YellowstonePathology.Business.Client.Model.Client SelectedClient
+        {
+            get { return this.m_SelectedClient; }
+        }
+
+        private void ButtonNewProvider_Click(object sender, RoutedEventArgs e)
 		{
 			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
 			string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
@@ -325,6 +331,15 @@ namespace YellowstonePathology.UI.Client
                 objectTracker.RegisterObject(clientGroup);
                 ClientGroupEntry clientGroupEntry = new ClientGroupEntry(clientGroup, objectTracker);
                 clientGroupEntry.ShowDialog();
+            }
+        }
+
+        private void ListViewClients_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(this.ListViewClients.SelectedItem != null)
+            {
+                this.m_SelectedClient = (YellowstonePathology.Business.Client.Model.Client)this.ListViewClients.SelectedItem;
+                NotifyPropertyChanged("SelectedClient");
             }
         }
     }

@@ -43,40 +43,71 @@
 			</TabItem>
 			
 			<TabItem Header="Client">
-                <Grid Margin="2,5,2,2">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"></ColumnDefinition>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
-					</Grid.ColumnDefinitions>
+                <TabControl>
+                    <TabItem Header="Selection">
+                        <Grid Margin="2,5,2,2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+					        </Grid.ColumnDefinitions>
 
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"></RowDefinition>
-                        <RowDefinition Height="*"></RowDefinition>
-						<RowDefinition Height="Auto"></RowDefinition>
-					</Grid.RowDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+						        <RowDefinition Height="Auto"></RowDefinition>
+					        </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" HorizontalAlignment="Right" VerticalAlignment="Center" Text="Client Name:" />
-                    <TextBox Grid.Column="1" Grid.Row="0" Name="TextBoxClientName" Margin="2,2,2,2" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" KeyUp="TextBoxClientName_KeyUp" />
+                            <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" HorizontalAlignment="Right" VerticalAlignment="Center" Text="Client Name:" />
+                            <TextBox Grid.Column="1" Grid.Row="0" Name="TextBoxClientName" Margin="2,2,2,2" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" KeyUp="TextBoxClientName_KeyUp" />
 
-                    <ListView Name="ListViewClients" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Margin="2,2,2,2" MouseDoubleClick="ListBoxClients_MouseDoubleClick"
-							 ItemsSource="{Binding Path=ClientCollection}">
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn Header="Client Name" Width="300" DisplayMemberBinding="{Binding Path=ClientName}" />
-                                <GridViewColumn Header="Phone" Width="200" DisplayMemberBinding="{Binding Path=FormattedTelephone}" />
-                                <GridViewColumn Header="Fax" Width="200" DisplayMemberBinding="{Binding Path=FormattedFax}" />
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
+                            <ListView Name="ListViewClients" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Margin="2,2,2,2" MouseDoubleClick="ListBoxClients_MouseDoubleClick"
+							         ItemsSource="{Binding Path=ClientCollection}" SelectionChanged="ListViewClients_SelectionChanged">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="Client Name" Width="300" DisplayMemberBinding="{Binding Path=ClientName}" />
+                                        <GridViewColumn Header="Phone" Width="200" DisplayMemberBinding="{Binding Path=FormattedTelephone}" />
+                                        <GridViewColumn Header="Fax" Width="200" DisplayMemberBinding="{Binding Path=FormattedFax}" />
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
 
-					<Button Name="ButtonNewClient" Grid.Row="2" Grid.Column="0" Margin="5,5,5,5" Height="30" Width="100" HorizontalAlignment="Left" Content="New" Click="ButtonNewClient_Click" />
-					<StackPanel Grid.Row="2" Grid.Column="1" Margin="150,0,0,0" Orientation="Horizontal" HorizontalAlignment="Left">
-                        <Button Grid.Row="2" Grid.Column="1" Margin="5,5,25,5" Height="30" Width="100" HorizontalAlignment="Left" Content="Delete" Click="ButtonDeleteClient_Click" />
-						<Button Name="ButtonEnvelope" Margin="5,5,5,5" Height="30" Width="100" HorizontalAlignment="Center" Content="Envelope" Click="ButtonEnvelope_Click" />
-						<Button Name="ButtonRequisition" Grid.Row="2" Grid.Column="1" Margin="5" Height="30" Width="100" HorizontalAlignment="Right" Content="Requisition" Click="ButtonRequisition_Click" />
-					</StackPanel>
-					<Button Grid.Row="2" Grid.Column="1" Margin="5" Height="30" Width="100" HorizontalAlignment="Right" Content="OK" Click="ButtonOK_Click" />
-				</Grid>
+					        <Button Name="ButtonNewClient" Grid.Row="2" Grid.Column="0" Margin="5,5,5,5" Height="30" Width="100" HorizontalAlignment="Left" Content="New" Click="ButtonNewClient_Click" />
+					        <StackPanel Grid.Row="2" Grid.Column="1" Margin="150,0,0,0" Orientation="Horizontal" HorizontalAlignment="Left">
+                                <Button Grid.Row="2" Grid.Column="1" Margin="5,5,25,5" Height="30" Width="100" HorizontalAlignment="Left" Content="Delete" Click="ButtonDeleteClient_Click" />
+						        <Button Name="ButtonEnvelope" Margin="5,5,5,5" Height="30" Width="100" HorizontalAlignment="Center" Content="Envelope" Click="ButtonEnvelope_Click" />
+						        <Button Name="ButtonRequisition" Grid.Row="2" Grid.Column="1" Margin="5" Height="30" Width="100" HorizontalAlignment="Right" Content="Requisition" Click="ButtonRequisition_Click" />
+					        </StackPanel>
+					        <Button Grid.Row="2" Grid.Column="1" Margin="5" Height="30" Width="100" HorizontalAlignment="Right" Content="OK" Click="ButtonOK_Click" />
+				        </Grid>
+                    </TabItem>
+
+                    <TabItem Header="Locations">
+
+                        <Grid Margin="2,5,2,2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <ListView Name="ListViewClientLocations" Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" ItemsSource="{Binding Path=SelectedClient.ClientLocationCollection}">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="Location" Width="300" DisplayMemberBinding="{Binding Path=Location}" />
+                                        <GridViewColumn Header="Order Type" Width="200" DisplayMemberBinding="{Binding Path=OrderType}" />
+                                        <GridViewColumn Header="Tracking Initiated" Width="200" DisplayMemberBinding="{Binding Path=SpecimenTrackingInitiated}" />
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+
+                            <Button Grid.Row="1" Grid.Column="0" Margin="5" Height="30" Width="100" HorizontalAlignment="Right" Content="OK" Click="ButtonOK_Click" />
+
+                        </Grid>
+
+                    </TabItem>
+                </TabControl>
             </TabItem>
 
             <TabItem Header="Client Groups">
