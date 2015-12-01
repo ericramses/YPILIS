@@ -44,7 +44,7 @@ namespace YellowstonePathology.Business.Test.InvasiveBreastPanel
             }
 
 			YellowstonePathology.Business.Test.ErPrSemiQuantitative.ErPrSemiQuantitativeTest erPrSemiQuantitativeTest = new YellowstonePathology.Business.Test.ErPrSemiQuantitative.ErPrSemiQuantitativeTest();            
-            if (this.m_AccessionOrder.PanelSetOrderCollection.HasSurgical() == true)
+            if (this.m_AccessionOrder.PanelSetOrderCollection.HasSurgical() == true && this.m_AccessionOrder.PanelSetOrderCollection.Exists(erPrSemiQuantitativeTest.PanelSetId) == false)
             {
                 this.m_HasSurgical = true;
 				YellowstonePathology.Business.Test.Surgical.SurgicalTest panelSetSurgical = new YellowstonePathology.Business.Test.Surgical.SurgicalTest();

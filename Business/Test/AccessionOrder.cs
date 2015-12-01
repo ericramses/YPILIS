@@ -97,6 +97,9 @@ namespace YellowstonePathology.Business.Test
         private bool m_ITAudited;
         private int m_ITAuditPriority;
         private string m_CaseDialog;
+        private Nullable<int> m_LockAquiredById;
+        private string m_LockAquiredByUserName;
+        private Nullable<DateTime> m_TimeLockAquired; 
 
 		public AccessionOrder()
         {
@@ -148,6 +151,48 @@ namespace YellowstonePathology.Business.Test
 				}
 			}
 		}
+
+        [PersistentProperty()]
+        public Nullable<int> LockAquiredById
+        {
+            get { return this.m_LockAquiredById; }
+            set
+            {
+                if (this.m_LockAquiredById != value)
+                {
+                    this.m_LockAquiredById = value;
+                    this.NotifyPropertyChanged("LockAquiredById");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string LockAquiredByUserName
+        {
+            get { return this.m_LockAquiredByUserName; }
+            set
+            {
+                if (this.m_LockAquiredByUserName != value)
+                {
+                    this.m_LockAquiredByUserName = value;
+                    this.NotifyPropertyChanged("LockAquiredByUserName");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public Nullable<DateTime> TimeLockAquired
+        {
+            get { return this.m_TimeLockAquired; }
+            set
+            {
+                if (this.m_TimeLockAquired != value)
+                {
+                    this.m_TimeLockAquired = value;
+                    this.NotifyPropertyChanged("TimeLockAquired");
+                }
+            }
+        }
 
         [PersistentProperty()]
         public string ClientAccessionNo
