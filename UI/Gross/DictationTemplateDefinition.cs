@@ -46,7 +46,7 @@ namespace YellowstonePathology.UI.Gross
         {
             this.m_TemplateName = "GI Specimen";
             this.m_Text = "[identifier] and consists of [number] tan-pink tissue fragments measuring [measurement] in aggregate.  " +
-                "The specimen is filtered through a fine mesh bag and entirely submitted in cassette [cassettelabel].";            
+                "The specimen is filtered through a fine mesh bag and entirely submitted in cassette [cassettelabel].  ";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.GIBiopsy gi = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.GIBiopsy();
             this.m_SpecimenCollection.Add(gi);
@@ -477,7 +477,7 @@ namespace YellowstonePathology.UI.Gross
         {
             this.m_TemplateName = "Needle Core Biopsy";
             this.m_Text = "[identifier] and consists of [number] [color] threadlike tissue fragments measuring [measurement] in aggregate.  " +
-                "They are filtered through a fine mesh bag and entirely submitted in cassette [cassettelabel]";            
+                "They are filtered through a fine mesh bag and entirely submitted in cassette [cassettelabel].  ";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.NeedleCoreBiopsy needleCoreBiopsy = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.NeedleCoreBiopsy();
             this.m_SpecimenCollection.Add(needleCoreBiopsy);
@@ -491,7 +491,7 @@ namespace YellowstonePathology.UI.Gross
             this.m_TemplateName = "Aortic Valve";
             this.m_Text = "[identifier] and consists of [number] valve cusps aggregating to [measurement].  " +
                 "Vegetations [description] identified. The valve cusps are [description].  " +
-                "The leaflets are serially sectioned and representative sections are submitted in cassette [cassetlabel]";
+                "The leaflets are serially sectioned and representative sections are submitted in cassette [cassettelabel].  ";
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.AorticValve aorticValve = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.AorticValve();
             this.m_SpecimenCollection.Add(aorticValve);
@@ -534,7 +534,7 @@ namespace YellowstonePathology.UI.Gross
             this.m_TemplateName = "Femoral Head";
             this.m_Text = "[identifier] and consists of a [description] femoral head with attached femoral neck measuring [measurement].  " +
                 "The femoral neck margin is [description]. The articular surface shows [percent] eburnation and [percent] osteophyte formation.  " +
-                "Sectioning reveals tan-yellow trabecular bone. A representative section is submitted in cassette [cassettelabel]" +
+                "Sectioning reveals tan-yellow trabecular bone. A representative section is submitted in cassette [cassettelabel].  " +
                 "following overnight decalcification.  ";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.FemoralHead femoralHead = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.FemoralHead();

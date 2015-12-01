@@ -97,7 +97,7 @@ namespace YellowstonePathology.UI.Surgical
                     YellowstonePathology.Business.Common.PrintMateColumn printMateColumn = printMateCarousel.GetColumn(this.m_AccessionOrder.PrintMateColumnNumber);
                     string submitted = "[procedure] and " + specimenOrder.GetGrossSubmittedInString(printMateColumn.Color);
                     this.m_GrossDescription = this.m_GrossDescription.Replace("[submitted]", submitted);
-                    this.m_GrossDescription = this.m_GrossDescription.Replace("[cassettelabel]", "\"" + specimenOrder.SpecimenNumber.ToString() + "A\".  ");
+                    this.m_GrossDescription = this.m_GrossDescription.Replace("[cassettelabel]", "\"" + specimenOrder.SpecimenNumber.ToString() + "A\"");
                     
                     this.NotifyPropertyChanged(string.Empty);
                     this.TextBoxGrossDescription.Focus();
