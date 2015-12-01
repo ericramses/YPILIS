@@ -197,6 +197,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
             panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetImmunohistochemistry());
             panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetGlycophorinA());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.PDL1.PDL1Test());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.CD1a.CD1aTest());
 
             //TheraPath
             panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetMusclePathologyAnalysis());
