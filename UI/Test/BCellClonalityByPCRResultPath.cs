@@ -27,7 +27,7 @@ namespace YellowstonePathology.UI.Test
         {
 			this.m_ResultPage = new BCellClonalityByPCRResultPage(this.m_PanelSetOrder, this.m_AccessionOrder, this.m_ObjectTracker, this.m_SystemIdentity);
 			this.m_ResultPage.Next += new BCellClonalityByPCRResultPage.NextEventHandler(ResultPage_Next);
-			this.m_PageNavigator.Navigate(this.m_ResultPage, this.m_PanelSetOrder.DisableResults);
+			this.m_PageNavigator.Navigate(this.m_ResultPage);
         }
 
 		private void ResultPage_Next(object sender, EventArgs e)

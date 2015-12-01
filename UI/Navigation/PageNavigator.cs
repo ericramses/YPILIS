@@ -52,12 +52,6 @@ namespace YellowstonePathology.UI.Navigation
             this.m_ContentControl.Content = page;            
         }
 
-        public void Navigate(UserControl page, bool disable)
-        {
-            this.Navigate(page);
-            if (disable == true) Test.ResultDisabler.Disable(this.m_ContentControl.Content);
-        }
-
         public void ShowSecondMonitorWindow(System.Windows.Window window)
         {            
             if (System.Windows.Forms.Screen.AllScreens.Length > 1)

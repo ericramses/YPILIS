@@ -54,7 +54,7 @@ namespace YellowstonePathology.Business.Client.Model
 			}
 		}
 
-		[PersistentPrimaryKeyProperty(true)]
+		[PersistentPrimaryKeyProperty(false)]
 		public int ClientLocationId
 		{
 			get { return this.m_ClientLocationId; }

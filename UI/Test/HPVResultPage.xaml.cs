@@ -19,7 +19,7 @@ namespace YellowstonePathology.UI.Test
 	/// <summary>
 	/// Interaction logic for HPVResultPage.xaml
 	/// </summary>
-	public partial class HPVResultPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
+	public partial class HPVResultPage : ResultControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -39,7 +39,7 @@ namespace YellowstonePathology.UI.Test
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,            
 			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity,
-			YellowstonePathology.UI.Navigation.PageNavigator pageNavigator)
+			YellowstonePathology.UI.Navigation.PageNavigator pageNavigator) : base (hpvTestOrder)
 		{
 			this.m_HPVTestOrder = hpvTestOrder;			
 			this.m_AccessionOrder = accessionOrder;                        
