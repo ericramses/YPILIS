@@ -26,7 +26,7 @@ namespace YellowstonePathology.UI.Test
 		{
 			this.m_HPVResultPage = new HPVResultPage(this.m_HPVTestOrder, this.m_AccessionOrder, this.m_ObjectTracker, this.m_SystemIdentity, this.m_PageNavigator);
 			this.m_HPVResultPage.Next += new HPVResultPage.NextEventHandler(HPVResultPage_Next);
-			this.m_PageNavigator.Navigate(this.m_HPVResultPage, this.m_HPVTestOrder.DisableResults);
+			this.m_PageNavigator.Navigate(this.m_HPVResultPage);
 		}
 
 		private void HPVResultPage_Next(object sender, EventArgs e)
@@ -42,9 +42,6 @@ namespace YellowstonePathology.UI.Test
 			bool result = false;
 			if (this.m_AccessionOrder.PanelSetOrderCollection.HasWomensHealthProfileOrder() == true)
 			{
-                YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTest womensHealthProfileTest = new Business.Test.WomensHealthProfile.WomensHealthProfileTest();
-                YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder womensHealthProfileTestOrder = (Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(womensHealthProfileTest.PanelSetId);
-
                 YellowstonePathology.Business.Domain.Physician physician = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianByPhysicianId(this.m_AccessionOrder.PhysicianId);
 				YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology panelSetOrderCytology = (YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(15);
 				
@@ -52,7 +49,7 @@ namespace YellowstonePathology.UI.Test
 				WomensHealthProfilePage womensHealthProfilePage = new WomensHealthProfilePage(this.m_AccessionOrder, this.m_ObjectTracker, clientOrder, this.m_SystemIdentity, System.Windows.Visibility.Visible);
 				womensHealthProfilePage.Finished += new WomensHealthProfilePage.FinishedEventHandler(WomensHealthProfilePage_Finished);
                 womensHealthProfilePage.Back += new WomensHealthProfilePage.BackEventHandler(WomensHealthProfilePage_Back);
-                this.m_PageNavigator.Navigate(womensHealthProfilePage, womensHealthProfileTestOrder.DisableResults);
+                this.m_PageNavigator.Navigate(womensHealthProfilePage);
 				result = true;				
 			}
 			return result;

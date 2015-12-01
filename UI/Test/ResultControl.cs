@@ -7,11 +7,33 @@ using System.Windows.Controls;
 
 namespace YellowstonePathology.UI.Test
 {
-    public class ResultDisabler
+    public class ResultControl : UserControl
     {
-        public ResultDisabler() { }
+        private YellowstonePathology.Business.Test.PanelSetOrder m_TestOrder;
+        private bool m_DisableRequired;
 
-        public static void Disable(object o)
+        public ResultControl(YellowstonePathology.Business.Test.PanelSetOrder testOrder)
+        {
+            this.m_TestOrder = testOrder;
+            if (this.m_TestOrder.Final == true && this.m_TestOrder.TestOrderReportDistributionCollection.HasDistributedItems())
+            {
+                this.m_DisableRequired = true;
+            }
+
+            this.Loaded += ResultControl_Loaded;
+        }
+
+        public ResultControl()
+        {
+
+        }
+
+        private void ResultControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (this.m_DisableRequired) DisableContents(this.Content);
+        }
+
+        private void DisableContents(object o)
         {
             if (o is Button)
             {
@@ -25,12 +47,12 @@ namespace YellowstonePathology.UI.Test
                     button.IsEnabled = true;
                 }
             }
-            else if(o is Panel)
+            else if (o is Panel)
             {
                 Panel panel = (Panel)o;
                 foreach (UIElement element in panel.Children)
                 {
-                    Disable(element);
+                    DisableContents(element);
                 }
             }
 
@@ -39,7 +61,7 @@ namespace YellowstonePathology.UI.Test
                 ContentControl contentControl = (ContentControl)o;
                 if (contentControl.Content != null)
                 {
-                    Disable(contentControl.Content);
+                    DisableContents(contentControl.Content);
                 }
                 else
                 {

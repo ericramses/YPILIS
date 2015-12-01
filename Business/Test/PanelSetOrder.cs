@@ -1726,10 +1726,5 @@ namespace YellowstonePathology.Business.Test
         {
             accessionTreeVisitor.Visit(this);
         }        
-
-        public virtual bool DisableResults
-        {
-            get { return this.Final == true && this.TestOrderReportDistributionCollection.HasDistributedItems(); }
-        }
 	}
 }
