@@ -740,7 +740,12 @@ namespace YellowstonePathology.UI
 
         private void ButtonCheckHPV_Click(object sender, RoutedEventArgs e)
         {
-		}
+            Business.Test.AccessionOrder ao = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo("15-123.S");
+            Business.Persistence.JSONObjectWriter jsonObjectWriter = new Business.Persistence.JSONObjectWriter();
+            object o = jsonObjectWriter.Write(ao);
+            string s = jsonObjectWriter.JSONString;
+            MessageBox.Show(s);
+        }
 
         private void ButtonCheckReportDistribution_Click(object sender, RoutedEventArgs e)
         {
