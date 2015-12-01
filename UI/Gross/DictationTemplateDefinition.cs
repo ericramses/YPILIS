@@ -258,6 +258,7 @@ namespace YellowstonePathology.UI.Gross
                 "Gross Description:  [description]" + Environment.NewLine +
                 "Weight:  [weight]" + Environment.NewLine +
                 "Measurement:  [measurement]" + Environment.NewLine +
+                "Cut Surface:  [description]" + Environment.NewLine +
                 "Submitted:  [submitted]";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.BreastReduction breastReduction = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.BreastReduction();
