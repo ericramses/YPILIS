@@ -744,7 +744,7 @@ namespace YellowstonePathology.UI
             Business.Persistence.JSONObjectWriter jsonObjectWriter = new Business.Persistence.JSONObjectWriter();
             object o = jsonObjectWriter.Write(ao);
             string s = jsonObjectWriter.JSONString;
-            MessageBox.Show(s);
+            int i = s.Length;
         }
 
         private void ButtonCheckReportDistribution_Click(object sender, RoutedEventArgs e)
