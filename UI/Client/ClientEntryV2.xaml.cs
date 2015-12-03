@@ -246,5 +246,34 @@ namespace YellowstonePathology.UI.Client
 				clientSupplyOrderDialog.ShowDialog();
 			}
 		}
-	}
+
+        private void ButtonAddClientLocation_Click(object sender, RoutedEventArgs e)
+        {
+            string location = "Medical Records";
+            if (this.m_Client.ClientLocationCollection.Exists(location) == false)
+            {
+                YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
+                objectTracker.RegisterObject(this.m_Client.ClientLocationCollection);
+
+                string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
+                int locationId = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetLargestClientLocationId();
+                locationId++;
+
+                YellowstonePathology.Business.Client.Model.ClientLocation clientLocation = new Business.Client.Model.ClientLocation();
+                clientLocation.ObjectId = objectId;
+                clientLocation.ClientLocationId = locationId;
+                clientLocation.ClientId = this.m_Client.ClientId;
+                clientLocation.Location = location;
+                clientLocation.OrderType = "REQUISITION";
+                clientLocation.SpecimenTrackingInitiated = "Ypii Lab";
+                clientLocation.AllowMultipleOrderTypes = true;
+                clientLocation.DefaultOrderPanelSetId = 13;
+                clientLocation.AllowMultipleOrderDetailTypes = false;
+                clientLocation.DefaultOrderDetailTypeCode = "SRGCL";
+
+                this.m_Client.ClientLocationCollection.Add(clientLocation);
+                objectTracker.SubmitChanges(this.m_Client.ClientLocationCollection);
+            }
+        }
+    }
 }
