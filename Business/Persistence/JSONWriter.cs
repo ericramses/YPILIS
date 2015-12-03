@@ -9,14 +9,15 @@ namespace YellowstonePathology.Business.Persistence
 {
     public class JSONWriter
     {
-        public static string Write(object o)
+        public static string Write(object o, JSONIndenter jsonIndenter)
         {
             Type type = o.GetType();
-            StringBuilder result = new StringBuilder("{" + Environment.NewLine);
+            StringBuilder result = new StringBuilder(jsonIndenter.IndentationString + "{" + Environment.NewLine);
             PropertyInfo[] properties = o.GetType().GetProperties().
                 Where(prop => Attribute.IsDefined(prop, typeof(PersistentProperty)) || Attribute.IsDefined(prop, typeof(PersistentPrimaryKeyProperty))).ToArray();
             foreach (PropertyInfo property in properties)
-            {                
+            {
+                result.Append(jsonIndenter.IndentationString);               
                 Type dataType = property.PropertyType;
                 if (dataType == typeof(string))
                 {
@@ -58,17 +59,17 @@ namespace YellowstonePathology.Business.Persistence
 
             if(properties.Length != 0)
             {
-                result.Remove(result.Length - 3, 1);
+                result.Remove(result.Length - 3, 3);
             }
 
-            result.AppendLine("}");
+            //result.AppendLine("}");
             return result.ToString();
         }
 
         private static string EscapeJSON(string json)
         {
             json = json.Replace(Environment.NewLine, "\\n");
-            return json.Replace("\"", "'");
+            return json.Replace("\"", "\\\"");
         }
 
         private static void WriteString(StringBuilder result, PropertyInfo property, object o)
@@ -131,56 +132,34 @@ namespace YellowstonePathology.Business.Persistence
             }
         }
 
-        public static void SetOpenBrace(StringBuilder oString)
+        public static void SetOpenBrace(StringBuilder oString, JSONIndenter jsonIndenter)
         {
-            oString.Append("{ \n");
+            oString.Append(jsonIndenter.IndentationString + "{");
         }
 
-        public static void SetCloseBrace(StringBuilder oString)
+        public static void SetCloseBrace(StringBuilder oString, JSONIndenter jsonIndenter)
         {
-            oString.Append("} \n");
+            oString.Append(" \n" + jsonIndenter.IndentationString + "}");
         }
 
-        public static void SetOpenBracket(StringBuilder oString)
+        public static void SetOpenBracket(StringBuilder oString, JSONIndenter jsonIndenter)
         {
-            oString.Append("[ \n");
+            oString.Append(" \n" + jsonIndenter.IndentationString + "[");
         }
 
-        public static void SetCloseBracket(StringBuilder oString)
+        public static void SetCloseBracket(StringBuilder oString, JSONIndenter jsonIndenter)
         {
-            oString.Append("] \n");
+            oString.Append(" \n" + jsonIndenter.IndentationString + "]");
         }
 
-        public static void SetObjectName(StringBuilder oString, object o)
+        public static void SetObjectName(StringBuilder oString, object o, JSONIndenter jsonIndenter)
         {
-            oString.Append("\t\"" + o.GetType().Name + "\": \n");
+            oString.Append(jsonIndenter.IndentationString + "\"" + o.GetType().Name + "\": \n");
         }
 
         public static void SetSeperator(StringBuilder oString)
         {
             oString.Append(", \n");
-        }
-
-        public static void RemoveLastSeperator(StringBuilder oString)
-        {
-            string seperator = ", \n";
-            string s = oString.ToString();
-            int idx = s.LastIndexOf(seperator);
-            if (idx == s.Length - seperator.Length)
-            {
-                oString.Remove(idx, seperator.Length);
-            }
-        }
-
-        public static void RemoveObjectEnd(StringBuilder oString)
-        {
-            string seperator = "} \n";
-            string s = oString.ToString();
-            int idx = s.LastIndexOf(seperator);
-            if (idx == s.Length - seperator.Length)
-            {
-                oString.Remove(idx, seperator.Length);
-            }
         }
     }
 }
