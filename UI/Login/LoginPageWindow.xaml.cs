@@ -19,7 +19,7 @@ namespace YellowstonePathology.UI.Login
     public partial class LoginPageWindow : Window
     {
         private YellowstonePathology.UI.Navigation.PageNavigator m_PageNavigator;
-		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
+		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;        
 
 		public LoginPageWindow(YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {            
