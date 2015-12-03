@@ -20,7 +20,7 @@ namespace YellowstonePathology.Business.Gateway
 
         static AOGW()
         {
-
+            
         }
 
         private AOGW()

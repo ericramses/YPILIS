@@ -22,7 +22,7 @@ namespace YellowstonePathology.UI.Login
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;        
 
 		public LoginPageWindow(YellowstonePathology.Business.User.SystemIdentity systemIdentity)
-        {            
+        {                        
             this.m_SystemIdentity = systemIdentity;
             InitializeComponent();            
             this.m_PageNavigator = new UI.Navigation.PageNavigator(this.MainContent);

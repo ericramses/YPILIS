@@ -112,7 +112,7 @@ namespace YellowstonePathology.UI.Gross
             this.m_Text = "[identifier]." + Environment.NewLine +
                 "Gross Description:  [description]" + Environment.NewLine +
                 "Measurements:  [measurements]" + Environment.NewLine +
-                "Submitted:  [submitted]";            
+                "Submitted:  [submitted].";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinShavePunchMiscBiopsy skinShavePunchMiscBiopsy = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinShavePunchMiscBiopsy();
             this.m_SpecimenCollection.Add(skinShavePunchMiscBiopsy);
@@ -124,8 +124,7 @@ namespace YellowstonePathology.UI.Gross
         public SkinExcisionUnorientedTemplate()
         {
             this.m_TemplateName = "Skin Excision Biopsy, Unoriented";
-            this.m_Text = "[identifier]." + Environment.NewLine +
-                "Quantity:  [number]" + Environment.NewLine +
+            this.m_Text = "[identifier]." + Environment.NewLine +                
                 "Gross Description:  [description]" + Environment.NewLine +
                 "Measurements:  [measurements]" + Environment.NewLine +
                 "Inking:  [color]" + Environment.NewLine +
@@ -142,8 +141,7 @@ namespace YellowstonePathology.UI.Gross
         public SkinExcisionOrientedTemplate()
         {
             this.m_TemplateName = "Skin Excision Biopsy, Oriented";
-            this.m_Text = "[identifier]." + Environment.NewLine +
-                "Quantity:  [number]" + Environment.NewLine +
+            this.m_Text = "[identifier]." + Environment.NewLine +                
                 "Gross Description:  [description]" + Environment.NewLine +
                 "Measurements:  [measurements]" + Environment.NewLine +
                 "Orientation:  [designation]" + Environment.NewLine +
