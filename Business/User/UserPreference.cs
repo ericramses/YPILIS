@@ -45,6 +45,7 @@ namespace YellowstonePathology.Business.User
         private string m_ThermoFisherSlidePrinter;
         private string m_LaserCassettePrinter;
         private bool m_UseLaserCassettePrinter;
+        private Nullable<int> m_GPathologistId;
 
         public UserPreference()
         {
@@ -461,6 +462,20 @@ namespace YellowstonePathology.Business.User
                 {
                     this.m_UseLaserCassettePrinter = value;
                     this.NotifyPropertyChanged("UseLaserCassettePrinter");
+                }
+            }
+        }
+        
+        [PersistentProperty()]
+        public Nullable<int> GPathologistId
+        {
+            get { return this.m_GPathologistId; }
+            set
+            {
+                if (this.m_GPathologistId != value)
+                {
+                    this.m_GPathologistId = value;
+                    this.NotifyPropertyChanged("GPathologistId");
                 }
             }
         }

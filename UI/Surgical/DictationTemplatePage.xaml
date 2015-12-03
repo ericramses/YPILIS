@@ -19,6 +19,18 @@
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" FontSize="14" FontWeight="Bold" Text="Specimen:" HorizontalAlignment="Left"></TextBlock>
+    	
+    	<StackPanel Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right" Orientation="Horizontal">
+			<TextBlock Margin="2,2,2,2" FontWeight="Bold" Text="G-Pathologist:" HorizontalAlignment="Left"></TextBlock>
+			<ComboBox Name="ComboBoxPathologistUsers" ItemsSource="{Binding Path=PathologistUsers}" DisplayMemberPath="DisplayName" 
+		         KeyboardNavigation.IsTabStop="False" 
+			     VerticalAlignment="Center"
+		         SelectedValuePath="UserId" 
+		         SelectedValue="{Binding Path=UserPreference.GPathologistId}"
+		         Margin="2,2,2,2" Width="200" HorizontalAlignment="Right">
+			</ComboBox>
+    	</StackPanel>
+    	
         <ListBox Name="ListBoxSpecimenOrders" Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" FontSize="14" ItemsSource="{Binding Path=AccessionOrder.SpecimenOrderCollection}" SelectionChanged="ListBoxSpecimen_SelectionChanged">
             <ListBox.ItemTemplate>
                 <DataTemplate>

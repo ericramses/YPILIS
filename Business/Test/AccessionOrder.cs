@@ -99,6 +99,7 @@ namespace YellowstonePathology.Business.Test
         private string m_CaseDialog;
         private Nullable<int> m_LockAquiredById;
         private string m_LockAquiredByUserName;
+        private string m_LockAquiredByHostName;
         private Nullable<DateTime> m_TimeLockAquired; 
 
 		public AccessionOrder()
@@ -176,6 +177,20 @@ namespace YellowstonePathology.Business.Test
                 {
                     this.m_LockAquiredByUserName = value;
                     this.NotifyPropertyChanged("LockAquiredByUserName");
+                }
+            }
+        }
+        
+        [PersistentProperty()]
+        public string LockAquiredByHostName
+        {
+            get { return this.m_LockAquiredByHostName; }
+            set
+            {
+                if (this.m_LockAquiredByHostName != value)
+                {
+                    this.m_LockAquiredByHostName = value;
+                    this.NotifyPropertyChanged("LockAquiredByHostName");
                 }
             }
         }
@@ -1470,7 +1485,7 @@ namespace YellowstonePathology.Business.Test
 
             if (panelSetOrder.PanelSetId == 13 && this.IsDermatologyClient() == true)
             {
-                if(this.m_ClientId == 1260) //If Advanced Dermatology
+                if(this.m_ClientId == 1260 || this.m_ClientId == 1511) //If Advanced Dermatology or Big Sky Diagnosistics
                 {
                     panelSetOrder.AssignedToId = 5132; //Assign to Dr. Shannon
                     YellowstonePathology.Business.Facility.Model.ButtePathology buttePathology = new Facility.Model.ButtePathology();
@@ -1685,6 +1700,16 @@ namespace YellowstonePathology.Business.Test
 			result.AppendLine("Report for: " + panelSetOrder.PanelSetName);
             result.AppendLine(panelSetOrder.ToResultString(this));
             return result.ToString();
-        }        
+        } 
+        
+        public bool LockedAquired
+        {
+            get
+            {
+                bool result = false;
+                //if lockaquiredbyhostname == my hostname then true
+                return result;
+            }            
+        }       
 	}
 }

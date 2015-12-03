@@ -412,6 +412,8 @@
     <Compile Include="Flow\FlowCommentItem.Generated.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Gateway\AOGW.cs" />
+    <Compile Include="Gateway\AOSaveResult.cs" />
     <Compile Include="Gateway\LockGateway.cs">
       <SubType>Code</SubType>
     </Compile>

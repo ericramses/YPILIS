@@ -130,7 +130,7 @@ namespace YellowstonePathology.UI.Gross
                 "Measurements:  [measurements]" + Environment.NewLine +
                 "Inking:  [color]" + Environment.NewLine +
                 "Sectioning:  [description]" + Environment.NewLine +
-                "Submitted:  Tips submitted in 1A, remainder in [submitted]";
+                "Submitted:  Tips submitted in cassette \"1A\" and remainder [remaindersubmission].";
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinExcisionUnorientedBiopsy skinExcisionUnorientedBiopsy = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinExcisionUnorientedBiopsy();
             this.m_SpecimenCollection.Add(skinExcisionUnorientedBiopsy);
@@ -149,7 +149,7 @@ namespace YellowstonePathology.UI.Gross
                 "Orientation:  [designation]" + Environment.NewLine +
                 "Inking:  12 to 3 o'clock = blue; 3 to 6 o'clock = red; 6 to 9 o'clock = green; 9 to 12 o'clock = orange; deep = black.  " + Environment.NewLine +
                 "Sectioning:  [Description]" + Environment.NewLine +
-                "Submitted:  Tips submitted in 1A, remainder in [submitted]";
+                "Submitted:  Tips submitted in cassette \"1A\" and remainder [remaindersubmission].";
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinExcisionOrientedBiopsy skinExcisionOrientedBiopsy = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinExcisionOrientedBiopsy();
             this.m_SpecimenCollection.Add(skinExcisionOrientedBiopsy);
@@ -209,7 +209,7 @@ namespace YellowstonePathology.UI.Gross
                 "Measurement Tonsil 1:  [measurement]" + Environment.NewLine +
                 "Measurement Tonsil 2:  [measurement]" + Environment.NewLine +
                 "Cut Surface:  [description]" + Environment.NewLine +
-                "Submitted:  [submitted]";
+                "Submitted:  [tonsilsubmitted]";
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.TonsilExcision tonsilExcision = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.TonsilExcision();
             this.m_SpecimenCollection.Add(tonsilExcision);
@@ -288,7 +288,7 @@ namespace YellowstonePathology.UI.Gross
             this.m_Text = "[identifier]." + Environment.NewLine +
                 "Gross Description:  [number], [color], [consistency]" + Environment.NewLine +
                 "Measurement:  [measurement]" + Environment.NewLine +
-                "Submitted:  [submitted]";            
+                "Submitted:  Filtered through a fine mesh bag and entirely submitted in cassette [cassettelabel].  ";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.EMB emb = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.EMB();
             this.m_SpecimenCollection.Add(emb);
@@ -303,7 +303,7 @@ namespace YellowstonePathology.UI.Gross
             this.m_Text = "[identifier]." + Environment.NewLine +
                 "Gross Description:  [number], [color], [consistency]" + Environment.NewLine +
                 "Measurement:  [measurement]" + Environment.NewLine +
-                "Submitted:  [submitted]";            
+                "Submitted:  Filtered through a fine mesh bag and entirely submitted in cassette [cassettelabel].  ";
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.CervicalBiopsy cervicalBiopsy = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.CervicalBiopsy();
             this.m_SpecimenCollection.Add(cervicalBiopsy);
