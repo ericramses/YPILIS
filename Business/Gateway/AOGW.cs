@@ -36,6 +36,7 @@ namespace YellowstonePathology.Business.Gateway
         {
             //This will be the only place that an AO can be saved.
             //We need to devise a way to make sure AO's are not saved directly throught the OT
+            //This function will create the JSON and store it in the JSON property so it will get persisted.
             AOSaveResult result = new AOSaveResult();
             return result;
         }

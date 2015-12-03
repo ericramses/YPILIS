@@ -87,89 +87,84 @@ namespace YellowstonePathology.UI.Surgical
 
         private void ListBoxSpecimen_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            this.m_GrossDescription = null;
             if(this.ListBoxSpecimenOrders.SelectedItem != null)
-            {                                              
-                if(string.IsNullOrEmpty(this.m_GrossDescription) == true)
+            {                                                              
+                YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = (YellowstonePathology.Business.Specimen.Model.SpecimenOrder)this.ListBoxSpecimenOrders.SelectedItem;                    
+                if(string.IsNullOrEmpty(specimenOrder.SpecimenId) == false)
                 {
-                    YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = (YellowstonePathology.Business.Specimen.Model.SpecimenOrder)this.ListBoxSpecimenOrders.SelectedItem;
                     this.m_DictationTemplate = this.m_DictationTemplateCollection.GetTemplate(specimenOrder.SpecimenId);
-                    if(this.m_DictationTemplate != null)
+                    this.m_GrossDescription = this.m_DictationTemplate.Text;
+
+                    string identifier = "Specimen " + specimenOrder.SpecimenNumber + " ";
+                    if (specimenOrder.ClientFixation != YellowstonePathology.Business.Specimen.Model.FixationType.Fresh)
                     {
-                        this.m_GrossDescription = this.m_DictationTemplate.Text;
+                        identifier += "is received in a formalin filled container labeled \"" + this.m_AccessionOrder.PatientDisplayName + " - [description]\"";
+                    }
+                    else if (specimenOrder.ClientFixation == YellowstonePathology.Business.Specimen.Model.FixationType.Fresh)
+                    {
+                        identifier += " is received fresh in a container labeled \"" + this.m_AccessionOrder.PatientDisplayName + " - [description]\"";
+                    }
 
-                        string identifier = "Specimen " + specimenOrder.SpecimenNumber + " ";
-                        if (specimenOrder.ClientFixation != YellowstonePathology.Business.Specimen.Model.FixationType.Fresh)
-                        {
-                            identifier += "is received in a formalin filled container labeled \"" + this.m_AccessionOrder.PatientDisplayName + " - [description]\"";
-                        }
-                        else if (specimenOrder.ClientFixation == YellowstonePathology.Business.Specimen.Model.FixationType.Fresh)
-                        {
-                            identifier += " is received fresh in a container labeled \"" + this.m_AccessionOrder.PatientDisplayName + " - [description]\"";
-                        }
+                    this.m_GrossDescription = this.m_GrossDescription.Replace("[identifier]", identifier);
 
-                        this.m_GrossDescription = this.m_GrossDescription.Replace("[identifier]", identifier);
+                    YellowstonePathology.Business.Common.PrintMateCarousel printMateCarousel = new Business.Common.PrintMateCarousel();
+                    YellowstonePathology.Business.Common.PrintMateColumn printMateColumn = printMateCarousel.GetColumn(this.m_AccessionOrder.PrintMateColumnNumber);
 
-                        YellowstonePathology.Business.Common.PrintMateCarousel printMateCarousel = new Business.Common.PrintMateCarousel();
-                        YellowstonePathology.Business.Common.PrintMateColumn printMateColumn = printMateCarousel.GetColumn(this.m_AccessionOrder.PrintMateColumnNumber);
-
-                        if (this.m_GrossDescription.Contains("[submitted]") == true)
-                        {
-                            string submittedStatement = "[procedure] and " + specimenOrder.GetGrossSubmittedInString(printMateColumn.Color);
-                            this.m_GrossDescription = this.m_GrossDescription.Replace("[submitted]", submittedStatement);
-                        }
-                        else if (this.m_GrossDescription.Contains("[cassettelabel]") == true)
-                        {
-                            this.m_GrossDescription = this.m_GrossDescription.Replace("[cassettelabel]", "\"" + specimenOrder.SpecimenNumber.ToString() + "A\"");
-                        }
-                        else if (this.m_GrossDescription.Contains("[remaindersubmission]") == true)
-                        {
-                            string remainderSubmittedStatement = specimenOrder.GetGrossRemainderSubmittedInString();
-                            this.m_GrossDescription = this.m_GrossDescription.Replace("[remaindersubmission]", remainderSubmittedStatement);
-                        }
-                        else if (this.m_GrossDescription.Contains("[tonsilsubmitted]") == true)
-                        {
-                            this.m_GrossDescription = this.m_GrossDescription.Replace("[tonsilsubmitted]", "Representative sections from each of the tonsils are submitted into " + printMateColumn.Color + " cassette \"1A\".  ");
-                        }
+                    if (this.m_GrossDescription.Contains("[submitted]") == true)
+                    {
+                        string submittedStatement = "[procedure] and " + specimenOrder.GetGrossSubmittedInString(printMateColumn.Color);
+                        this.m_GrossDescription = this.m_GrossDescription.Replace("[submitted]", submittedStatement);
+                    }
+                    else if (this.m_GrossDescription.Contains("[cassettelabel]") == true)
+                    {
+                        this.m_GrossDescription = this.m_GrossDescription.Replace("[cassettelabel]", "\"" + specimenOrder.SpecimenNumber.ToString() + "A\"");
+                    }
+                    else if (this.m_GrossDescription.Contains("[remaindersubmission]") == true)
+                    {
+                        string remainderSubmittedStatement = specimenOrder.GetGrossRemainderSubmittedInString();
+                        this.m_GrossDescription = this.m_GrossDescription.Replace("[remaindersubmission]", remainderSubmittedStatement);
+                    }
+                    else if (this.m_GrossDescription.Contains("[tonsilsubmitted]") == true)
+                    {
+                        this.m_GrossDescription = this.m_GrossDescription.Replace("[tonsilsubmitted]", "Representative sections from each of the tonsils are submitted into " + printMateColumn.Color + " cassette \"1A\".  ");
+                    }
                         
-                        string initials = string.Empty;
-                        if (specimenOrder.AliquotOrderCollection.Count != 0)
+                    string initials = string.Empty;
+                    if (specimenOrder.AliquotOrderCollection.Count != 0)
+                    {
+                        if(this.m_AccessionOrder.SpecimenOrderCollection.IsLastSpecimen(specimenOrder.SpecimenOrderId) == true)
                         {
-                        	if(this.m_AccessionOrder.SpecimenOrderCollection.IsLastSpecimen(specimenOrder.SpecimenOrderId) == true)
-                        	{
-	                            int grossVerifiedById = specimenOrder.AliquotOrderCollection[0].GrossVerifiedById;
-	                            string grossedByInitials = "[??]";
+	                        int grossVerifiedById = specimenOrder.AliquotOrderCollection[0].GrossVerifiedById;
+	                        string grossedByInitials = "[??]";
 	
-	                            if (grossVerifiedById != 0)
-	                            {
-	                                YellowstonePathology.Business.User.SystemUser grossedBy = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetSystemUserById(grossVerifiedById);
-	                                grossedByInitials = grossedBy.Initials.ToUpper();
-	                            }
+	                        if (grossVerifiedById != 0)
+	                        {
+	                            YellowstonePathology.Business.User.SystemUser grossedBy = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetSystemUserById(grossVerifiedById);
+	                            grossedByInitials = grossedBy.Initials.ToUpper();
+	                        }
 	
-	                            string supervisedByInitials = "[??]";
-	                            if (this.m_UserPreference.GPathologistId.HasValue == true)
-	                            {
-	                                YellowstonePathology.Business.User.SystemUser supervisedBy = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetSystemUserById(this.m_UserPreference.GPathologistId.Value);
-	                                supervisedByInitials = supervisedBy.Initials.ToUpper();
-	                            }
+	                        string supervisedByInitials = "[??]";
+	                        if (this.m_UserPreference.GPathologistId.HasValue == true)
+	                        {
+	                            YellowstonePathology.Business.User.SystemUser supervisedBy = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetSystemUserById(this.m_UserPreference.GPathologistId.Value);
+	                            supervisedByInitials = supervisedBy.Initials.ToUpper();
+	                        }
 	
-	                            string typedByInitials = this.m_SystemIdentity.User.Initials.ToLower();
+	                        string typedByInitials = this.m_SystemIdentity.User.Initials.ToLower();
 	
-	                            initials = grossedByInitials + "/" + supervisedByInitials + "/" + typedByInitials;
-	                            this.m_GrossDescription = this.m_GrossDescription + "  " + initials;
-                        	}
+	                        initials = grossedByInitials + "/" + supervisedByInitials + "/" + typedByInitials;
+	                        this.m_GrossDescription = this.m_GrossDescription + "  " + initials;
                         }
-                        
-                        this.NotifyPropertyChanged(string.Empty);
-                        this.TextBoxGrossDescription.Focus();
-                        this.SelectNextInput(0);
-                    }                    
-                }
-                else
-                {
-                    this.m_GrossDescription = null;
+                    }
+
                     this.NotifyPropertyChanged(string.Empty);
+                    this.TextBoxGrossDescription.Focus();
+                    this.SelectNextInput(0);
                 }                
             }
+
+            this.NotifyPropertyChanged(string.Empty);
         }   
         
         private bool SelectNextInput(int startingPosition)
