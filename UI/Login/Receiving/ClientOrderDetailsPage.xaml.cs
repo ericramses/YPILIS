@@ -79,6 +79,8 @@ namespace YellowstonePathology.UI.Login.Receiving
                 //MessageBox.Show(this.m_BarcodeScanPort.GetContainerScanReceivedTargetString());
             }
 
+            this.FixTimes();
+
             this.TextBoxAccessionAs.Focus();
 
             if (string.IsNullOrEmpty(this.m_ClientOrderDetail.SpecimenId) == true)
@@ -104,7 +106,14 @@ namespace YellowstonePathology.UI.Login.Receiving
             this.ComboBoxReceivedIn.SelectionChanged += new SelectionChangedEventHandler(ComboBoxReceivedIn_SelectionChanged);
             this.CheckBoxClientAccessioned.Checked +=new RoutedEventHandler(CheckBoxClientAccessioned_Checked);
             this.CheckBoxClientAccessioned.Unchecked +=new RoutedEventHandler(CheckBoxClientAccessioned_Unchecked);
-        }             
+        }
+
+        private void FixTimes()
+        {
+           this.m_ClientOrderDetail.CollectionDate = Business.Helper.DateTimeExtensions.RemoveSeconds(this.m_ClientOrderDetail.CollectionDate);
+           this.m_ClientOrderDetail.FixationStartTime = Business.Helper.DateTimeExtensions.RemoveSeconds(this.m_ClientOrderDetail.FixationStartTime);
+        }
+
 
         private void ComboBoxReceivedIn_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

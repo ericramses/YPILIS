@@ -67,7 +67,8 @@ namespace YellowstonePathology.Business.Persistence
 
         private static string EscapeJSON(string json)
         {
-            return json.Replace(Environment.NewLine, "\\n");
+            json = json.Replace(Environment.NewLine, "\\n");
+            return json.Replace("\"", "'");
         }
 
         private static void WriteString(StringBuilder result, PropertyInfo property, object o)
@@ -127,6 +128,58 @@ namespace YellowstonePathology.Business.Persistence
             else
             {
                 result.Append("\t\"" + property.Name + "\": null, \n");
+            }
+        }
+
+        public static void SetOpenBrace(StringBuilder oString)
+        {
+            oString.Append("{ \n");
+        }
+
+        public static void SetCloseBrace(StringBuilder oString)
+        {
+            oString.Append("} \n");
+        }
+
+        public static void SetOpenBracket(StringBuilder oString)
+        {
+            oString.Append("[ \n");
+        }
+
+        public static void SetCloseBracket(StringBuilder oString)
+        {
+            oString.Append("] \n");
+        }
+
+        public static void SetObjectName(StringBuilder oString, object o)
+        {
+            oString.Append("\t\"" + o.GetType().Name + "\": \n");
+        }
+
+        public static void SetSeperator(StringBuilder oString)
+        {
+            oString.Append(", \n");
+        }
+
+        public static void RemoveLastSeperator(StringBuilder oString)
+        {
+            string seperator = ", \n";
+            string s = oString.ToString();
+            int idx = s.LastIndexOf(seperator);
+            if (idx == s.Length - seperator.Length)
+            {
+                oString.Remove(idx, seperator.Length);
+            }
+        }
+
+        public static void RemoveObjectEnd(StringBuilder oString)
+        {
+            string seperator = "} \n";
+            string s = oString.ToString();
+            int idx = s.LastIndexOf(seperator);
+            if (idx == s.Length - seperator.Length)
+            {
+                oString.Remove(idx, seperator.Length);
             }
         }
     }
