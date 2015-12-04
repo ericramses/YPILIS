@@ -125,7 +125,6 @@ namespace YellowstonePathology.UI.Gross
         {
             this.m_TemplateName = "Skin Excision Biopsy, Unoriented";
             this.m_Text = "[identifier]." + Environment.NewLine +
-                "Quantity:  [number]" + Environment.NewLine +
                 "Gross Description:  [description]" + Environment.NewLine +
                 "Measurements:  [measurements]" + Environment.NewLine +
                 "Inking:  [color]" + Environment.NewLine +
@@ -143,7 +142,6 @@ namespace YellowstonePathology.UI.Gross
         {
             this.m_TemplateName = "Skin Excision Biopsy, Oriented";
             this.m_Text = "[identifier]." + Environment.NewLine +
-                "Quantity:  [number]" + Environment.NewLine +
                 "Gross Description:  [description]" + Environment.NewLine +
                 "Measurements:  [measurements]" + Environment.NewLine +
                 "Orientation:  [designation]" + Environment.NewLine +
@@ -258,6 +256,7 @@ namespace YellowstonePathology.UI.Gross
                 "Gross Description:  [description]" + Environment.NewLine +
                 "Weight:  [weight]" + Environment.NewLine +
                 "Measurement:  [measurement]" + Environment.NewLine +
+                "Cut Surface:  [description]" + Environment.NewLine +
                 "Submitted:  [submitted]";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.BreastReduction breastReduction = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.BreastReduction();
