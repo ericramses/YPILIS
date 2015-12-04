@@ -132,11 +132,6 @@ namespace YellowstonePathology.Business.Persistence
             }
         }
 
-        public static void SetOpenBrace(StringBuilder oString, JSONIndenter jsonIndenter)
-        {
-            oString.Append(jsonIndenter.IndentationString + "{");
-        }
-
         public static void SetCloseBrace(StringBuilder oString, JSONIndenter jsonIndenter)
         {
             oString.Append(" \n" + jsonIndenter.IndentationString + "}");
@@ -144,7 +139,7 @@ namespace YellowstonePathology.Business.Persistence
 
         public static void SetOpenBracket(StringBuilder oString, JSONIndenter jsonIndenter)
         {
-            oString.Append(" \n" + jsonIndenter.IndentationString + "[");
+            oString.Append(" \n" + jsonIndenter.IndentationString + "[ \n");
         }
 
         public static void SetCloseBracket(StringBuilder oString, JSONIndenter jsonIndenter)
@@ -154,7 +149,7 @@ namespace YellowstonePathology.Business.Persistence
 
         public static void SetObjectName(StringBuilder oString, object o, JSONIndenter jsonIndenter)
         {
-            oString.Append(jsonIndenter.IndentationString + "\"" + o.GetType().Name + "\": \n");
+            oString.Append(jsonIndenter.IndentationString + "\"" + o.GetType().Name + "\":");
         }
 
         public static void SetSeperator(StringBuilder oString)

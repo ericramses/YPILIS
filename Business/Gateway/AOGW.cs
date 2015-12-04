@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml;
+using System.Xml.Linq;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace YellowstonePathology.Business.Gateway
 {
@@ -66,7 +70,47 @@ namespace YellowstonePathology.Business.Gateway
             //if it's alread here then return it
             //go get it, put it in the collection and return it
             //If AO.LockAquired == true then register it in the OT
-            YellowstonePathology.Business.Test.AccessionOrder result = new Test.AccessionOrder();            
+            YellowstonePathology.Business.Test.AccessionOrder result = null;
+            if (this.m_AccessionOrderCollection.Exists(masterAccessionNo) == true)
+            {
+                result = this.m_AccessionOrderCollection.GetAccessionOrder(masterAccessionNo);
+            }
+            else
+            {
+                YellowstonePathology.Business.User.SystemIdentity systemIdentity = new YellowstonePathology.Business.User.SystemIdentity(YellowstonePathology.Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
+                AccessionOrderBuilder accessionOrderBuilder = new AccessionOrderBuilder();
+                XElement document = null;
+
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandText = "AOGWGetByMasterAccessionNo";
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@MasterAccessionNo", SqlDbType.VarChar).Value = masterAccessionNo;
+                cmd.Parameters.Add("@AquireLock", SqlDbType.Bit).Value = aquireLock;
+                cmd.Parameters.Add("@LockAquiredById", SqlDbType.VarChar).Value = systemIdentity.User.UserId;
+                cmd.Parameters.Add("@LockAquiredByUserName", SqlDbType.VarChar).Value = systemIdentity.User.UserName;
+                cmd.Parameters.Add("@LockAquiredByHostName", SqlDbType.VarChar).Value = System.Environment.MachineName;
+                cmd.Parameters.Add("@TimeLockAquired", SqlDbType.DateTime).Value = DateTime.Now;
+                using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.Properties.Settings.Default.CurrentConnectionString))
+                {
+                    cn.Open();
+                    cmd.Connection = cn;
+                    using (XmlReader xmlReader = cmd.ExecuteXmlReader())
+                    {
+                        if (xmlReader.Read() == true)
+                        {
+                            document = XElement.Load(xmlReader, LoadOptions.PreserveWhitespace);
+                        }
+                    }
+                }
+                accessionOrderBuilder.Build(document);
+                result = accessionOrderBuilder.AccessionOrder;
+                this.m_AccessionOrderCollection.Add(result);
+                if(result.LockedAquired == true)
+                {
+                    this.m_ObjectTracker.RegisterObject(result);
+                }
+            }
+
             return result;
         }
 
@@ -75,9 +119,10 @@ namespace YellowstonePathology.Business.Gateway
             //always see if you already have it before you go to the database
             //if it's alread here then return it
             //go get it, put it in the collection and return it
-            //If AO.LockAquired == true then register it in the OT            
-            YellowstonePathology.Business.Test.AccessionOrder result = new Test.AccessionOrder();            
-            return result;
+            //If AO.LockAquired == true then register it in the OT                        
+            YellowstonePathology.Business.OrderIdParser orderIdParser = new OrderIdParser(reportNo);
+            string masterAccessionNo = orderIdParser.MasterAccessionNo;
+            return GetByMasterAccessionNo(masterAccessionNo, aquireLock);
         }
 
         public static AOGW Instance

@@ -1707,7 +1707,7 @@ namespace YellowstonePathology.Business.Test
             get
             {
                 bool result = false;
-                //if lockaquiredbyhostname == my hostname then true
+                if (LockAquiredByHostName == System.Environment.MachineName) result = true;
                 return result;
             }            
         }       
