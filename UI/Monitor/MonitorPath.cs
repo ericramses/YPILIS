@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+//using Microsoft.Office.Interop.Outlook;
 
 namespace YellowstonePathology.UI.Monitor
 {
@@ -13,18 +14,46 @@ namespace YellowstonePathology.UI.Monitor
         private System.Timers.Timer m_Timer;
 		private YellowstonePathology.UI.Monitor.MonitorPageWindow m_MonitorPageWindow;        
 
+		//private Microsoft.Office.Interop.Outlook.Application m_OutlookApplication;
+		//private NameSpace m_OutlookNameSpace;
+		//private MAPIFolder m_OutlookInbox;
+		//private Items m_OutlookItems;
+		
         public MonitorPath()
 		{
+        	//this.m_OutlookApplication = new Microsoft.Office.Interop.Outlook.Application();
+			//this.m_OutlookNameSpace = outlookApplication.GetNamespace("MAPI");
+			//this.m_Inbox = this.m_OutlookNameSpace.GetDefaultFolder(Microsoft.Office.Interop.Outlook.OlDefaultFolders.olFolderInbox);
+			
             this.m_PageQueue = new Queue<System.Windows.Controls.UserControl>();            
             this.m_MonitorPageWindow = new MonitorPageWindow();            
 		}               
 
         public void Start()
-        {            
+        {                    	
             this.ShowNextPage();
             this.StartTimer();
             this.m_MonitorPageWindow.Show();
         }
+        
+        private void CheckForUnreadAutopsyRequest()
+        {        	    	
+    		//this.m_Items = this.m_Inbox.Items;
+    		//this.m_Items.ItemAdd += new ItemsEvents_ItemAddEventHandler(items_ItemAdd);
+        }
+        
+        private void items_ItemAdd(object Item)
+		{
+		    //string filter = "USED CARS";
+		    //MailItem mail = (MailItem)Item;
+		    //if (Item != null)
+		    //{
+		        //if (mail.MessageClass == "IPM.Note" && mail.Subject.ToUpper().Contains(filter.ToUpper()))
+		        //{
+		            //mail.Move(this.m_OutlookNameSpace.GetDefaultFolder(Microsoft.Office.Interop.Outlook.OlDefaultFolders.olFolderJunk));
+		        //}
+		    //}	
+		}
 
         public void Load(MonitorPageLoadEnum monitorPage)
         {
