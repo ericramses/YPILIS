@@ -18,7 +18,7 @@ namespace YellowstonePathology.Business.Persistence
             this.m_JSONIndenter = new JSONIndenter();
         }
 
-        public object Write(object objectToClone)
+        public string Write(object objectToClone)
         {
             Type objectType = objectToClone.GetType();
             object clonedObject = this.CloneThisObject(objectToClone);
@@ -27,13 +27,14 @@ namespace YellowstonePathology.Business.Persistence
             this.HandlePersistentChildren(objectToClone, clonedObject);
             this.m_JSONIndenter.Exdent();
             JSONWriter.SetCloseBrace(this.m_OString, this.m_JSONIndenter);
-            return clonedObject;
+            //return clonedObject;
+            return this.m_OString.ToString();
         }
 
-        public string JSONString
+        /*public string JSONString
         {
             get { return this.m_OString.ToString(); }
-        }
+        }*/
 
         private void HandlePersistentChildCollections(object parentObject, object clonedParent)
         {

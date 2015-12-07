@@ -42,6 +42,10 @@ namespace YellowstonePathology.Business.Gateway
             //We need to devise a way to make sure AO's are not saved directly throught the OT
             //This function will create the JSON and store it in the JSON property so it will get persisted.
             AOSaveResult result = new AOSaveResult();
+            Persistence.JSONObjectWriter jsonObjectWriter = new Persistence.JSONObjectWriter();
+            accessionOrder.JSON = jsonObjectWriter.Write(accessionOrder);
+            this.m_ObjectTracker.SubmitChanges(accessionOrder);
+            result.OK = true;
             return result;
         }
 
@@ -53,15 +57,41 @@ namespace YellowstonePathology.Business.Gateway
             //this method will remove the AO from the collection
             //If the AO does not exist in the collection then throw an error.
             AOSaveResult result = new AOSaveResult();
+            if(accessionOrder.LockedAquired == true)
+            {
+                bool wasRemoved = this.m_AccessionOrderCollection.Remove(accessionOrder);
+                if (wasRemoved == false) throw new Exception("AOGW:Release. Accession not in collection.  MasterAccessionNo = " + accessionOrder.MasterAccessionNo);
+
+                accessionOrder.LockAquiredById = null;
+                accessionOrder.LockAquiredByUserName = null;
+                accessionOrder.LockAquiredByHostName = null;
+                accessionOrder.TimeLockAquired = null;
+
+                Save(accessionOrder);
+                this.m_ObjectTracker.Deregister(accessionOrder);
+                result.OK = true;
+            }
+            else
+            {
+                result.OK = false;
+                result.Message = "Unable to release lock as the lock was not acquired.";
+            }
             return result;
         }
 
         public YellowstonePathology.Business.Test.AccessionOrder Refresh(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, bool aquireLock)
         {
             //If it is in the list remove it from the list, unregister it from the OT and then go get it from the database.  If it's not in the list then throw an error.    
-            //Register it with OT if AO.LockAquired == true;        
-            YellowstonePathology.Business.Test.AccessionOrder result = new Test.AccessionOrder();            
-            return result;
+            //Register it with OT if AO.LockAquired == true;
+            bool wasRemoved = this.m_AccessionOrderCollection.Remove(accessionOrder);
+            if (wasRemoved == false) throw new Exception("AOGW:Refresh. Accession not in collection.  MasterAccessionNo = " + accessionOrder.MasterAccessionNo);
+
+            if(this.m_ObjectTracker.IsRegistered(accessionOrder) == true)
+            {
+                this.m_ObjectTracker.Deregister(accessionOrder);
+            }
+
+            return GetByMasterAccessionNo(accessionOrder.MasterAccessionNo, aquireLock);
         }
 
         public YellowstonePathology.Business.Test.AccessionOrder GetByMasterAccessionNo(string masterAccessionNo, bool aquireLock)
@@ -131,6 +161,28 @@ namespace YellowstonePathology.Business.Gateway
             {
                 return instance;
             }
+        }
+
+        public List<string> GetCasesWithNullJSONString(int numberOfAccessionsToRetrieve, int year)
+        {
+            List<string> result = new List<string>();
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "Select top (" + numberOfAccessionsToRetrieve.ToString() + ") MasterAccessionNo from tblAccessionOrder where JSON is null and AccessionDate < '1/1/" + year.ToString() + "'";
+            cmd.CommandType = CommandType.Text;
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        result.Add(dr[0].ToString());
+                    }
+                }
+            }
+            return result;
         }
     }
 }

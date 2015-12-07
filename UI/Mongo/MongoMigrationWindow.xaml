@@ -58,6 +58,10 @@
                 <MenuItem Header="Update Out Of Sync Count" Click="MenuItemUpdateOutOfSyncCount_Click"></MenuItem>
                 <MenuItem Header="Synchronize" Click="MenuItemSynchronize_Click"></MenuItem>                
             </MenuItem>
+            <MenuItem Header="Write JSON">
+                <MenuItem Header="Write JSON string in AO table" Click="MenuItemWriteJson_Click"></MenuItem>
+                <MenuItem Header="Synchronize" Click="MenuItemSynchronize_Click"></MenuItem>
+            </MenuItem>
         </Menu>
         
         <ListView Name="ListViewTransferCollection" Grid.Column="0" Grid.Row="1" ItemsSource="{Binding Path=TransferCollection}" 
