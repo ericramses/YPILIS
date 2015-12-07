@@ -10,21 +10,23 @@ namespace YellowstonePathology.Business.Persistence
     public class JSONObjectWriter
     {
         private StringBuilder m_OString;
+        private JSONIndenter m_JSONIndenter;
 
         public JSONObjectWriter()
         {
             this.m_OString = new StringBuilder();
+            this.m_JSONIndenter = new JSONIndenter();
         }
 
         public object Write(object objectToClone)
         {
             Type objectType = objectToClone.GetType();
-            JSONWriter.SetOpenBrace(this.m_OString);
             object clonedObject = this.CloneThisObject(objectToClone);
+            this.m_JSONIndenter.Indent();
             this.HandlePersistentChildCollections(objectToClone, clonedObject);
             this.HandlePersistentChildren(objectToClone, clonedObject);
-            //JSONWriter.RemoveLastSeperator(this.m_OString);
-            JSONWriter.SetCloseBrace(this.m_OString);
+            this.m_JSONIndenter.Exdent();
+            JSONWriter.SetCloseBrace(this.m_OString, this.m_JSONIndenter);
             return clonedObject;
         }
 
@@ -44,26 +46,34 @@ namespace YellowstonePathology.Business.Persistence
                 {
                     IList childCollectionObject = (IList)propertyInfo.GetValue(parentObject, null);                    
                     IList clonedCollection = (IList)Activator.CreateInstance(childCollectionObject.GetType());
-                    JSONWriter.SetSeperator(this.m_OString);
-                    JSONWriter.SetObjectName(this.m_OString, childCollectionObject);
-                    JSONWriter.SetOpenBracket(this.m_OString);
-                    JSONWriter.SetOpenBrace(this.m_OString);
                     for (int i = 0; i < childCollectionObject.Count; i++)
                     {
+                        if (i == 0)
+                        {
+                            JSONWriter.SetSeperator(this.m_OString);
+                            JSONWriter.SetObjectName(this.m_OString, childCollectionObject, this.m_JSONIndenter);
+                            JSONWriter.SetOpenBracket(this.m_OString, this.m_JSONIndenter);
+                        }
                         object clonedCollectionItem = this.CloneThisObject(childCollectionObject[i]);
+
                         clonedCollection.Add(clonedCollectionItem);
                         object collectionItem = childCollectionObject[i];
 
+                        this.m_JSONIndenter.Indent();
                         this.HandlePersistentChildCollections(collectionItem, clonedCollectionItem);
                         this.HandlePersistentChildren(collectionItem, clonedCollectionItem);
-                        if(i < childCollectionObject.Count - 1)
+                        this.m_JSONIndenter.Exdent();
+                        JSONWriter.SetCloseBrace(this.m_OString, this.m_JSONIndenter);
+                        if(i == childCollectionObject.Count - 1)
+                        {
+                            JSONWriter.SetCloseBracket(this.m_OString, this.m_JSONIndenter);
+                        }
+                        else
                         {
                             JSONWriter.SetSeperator(this.m_OString);
                         }
                     }
                     propertyInfo.SetValue(clonedParent, clonedCollection, null);
-                    JSONWriter.SetCloseBrace(this.m_OString);
-                    JSONWriter.SetCloseBracket(this.m_OString);
                 }
             }
         }
@@ -78,11 +88,14 @@ namespace YellowstonePathology.Business.Persistence
                 {
                     JSONWriter.SetSeperator(this.m_OString);
                     object childObject = childPropertyInfo.GetValue(parentObject, null);
+                    JSONWriter.SetObjectName(this.m_OString, childObject, this.m_JSONIndenter);
                     object clonedObject = this.CloneThisObject(childObject);
 
                     childPropertyInfo.SetValue(parentObjectClone, clonedObject, null);
                     this.HandlePersistentChildCollections(childObject, clonedObject);
                     this.HandlePersistentChildren(childObject, clonedObject);
+                    this.m_JSONIndenter.Exdent();
+                    JSONWriter.SetCloseBrace(this.m_OString, this.m_JSONIndenter);
                 }
             }
         }
@@ -103,8 +116,8 @@ namespace YellowstonePathology.Business.Persistence
                 object persistentPropertyValue = persistentProperty.GetValue(objectToClone, null);
                 persistentProperty.SetValue(clone, persistentPropertyValue, null);                
             }
-            JSONWriter.SetObjectName(this.m_OString, clone);
-            this.m_OString.Append(JSONWriter.Write(clone));
+
+            this.m_OString.Append(JSONWriter.Write(clone, this.m_JSONIndenter));
             return clone;
         }
     }

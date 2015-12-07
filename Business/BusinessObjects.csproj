@@ -470,6 +470,7 @@
     <Compile Include="PanelSet.Model\PanelSetTCellClonalityByPCRRetired.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Persistence\JSONIndenter.cs" />
     <Compile Include="Persistence\JSONWriter.cs" />
     <Compile Include="Persistence\JSONObjectWriter.cs" />
     <Compile Include="Test.Model\DispalyGroupProstate.cs" />
