@@ -7,17 +7,17 @@ using System.Reflection;
 
 namespace YellowstonePathology.Business.Persistence
 {
-    public class JSONWriter
+    public static class JSONWriter
     {
-        public static string Write(object o, JSONIndenter jsonIndenter)
+        public static string Write(object o)
         {
             Type type = o.GetType();
-            StringBuilder result = new StringBuilder(jsonIndenter.IndentationString + "{" + Environment.NewLine);
+            StringBuilder result = new StringBuilder("\t{" + Environment.NewLine);
             PropertyInfo[] properties = o.GetType().GetProperties().
                 Where(prop => Attribute.IsDefined(prop, typeof(PersistentProperty)) || Attribute.IsDefined(prop, typeof(PersistentPrimaryKeyProperty))).ToArray();
             foreach (PropertyInfo property in properties)
             {
-                result.Append(jsonIndenter.IndentationString);               
+                result.Append("\t");               
                 Type dataType = property.PropertyType;
                 if (dataType == typeof(string))
                 {
@@ -130,31 +130,6 @@ namespace YellowstonePathology.Business.Persistence
             {
                 result.Append("\t\"" + property.Name + "\": null, \n");
             }
-        }
-
-        public static void SetCloseBrace(StringBuilder oString, JSONIndenter jsonIndenter)
-        {
-            oString.Append(" \n" + jsonIndenter.IndentationString + "}");
-        }
-
-        public static void SetOpenBracket(StringBuilder oString, JSONIndenter jsonIndenter)
-        {
-            oString.Append(" \n" + jsonIndenter.IndentationString + "[ \n");
-        }
-
-        public static void SetCloseBracket(StringBuilder oString, JSONIndenter jsonIndenter)
-        {
-            oString.Append(" \n" + jsonIndenter.IndentationString + "]");
-        }
-
-        public static void SetObjectName(StringBuilder oString, object o, JSONIndenter jsonIndenter)
-        {
-            oString.Append(jsonIndenter.IndentationString + "\"" + o.GetType().Name + "\":");
-        }
-
-        public static void SetSeperator(StringBuilder oString)
-        {
-            oString.Append(", \n");
-        }
+        }        
     }
 }
