@@ -33,8 +33,8 @@ namespace YellowstonePathology.UI.Gross
             this.m_TemplateName = "Prostate Specimen";
             this.m_Text = "[identifier] and consists of [number] irregular ragged tan-pink tissue fragments" +
                 "weighing [weight] and measuring [measurement] in aggregate.  " +
-                "The specimen is submitted [submitted].  ";
-                        
+                "The specimen is entirely submitted in cassette [cassettelabel].  ";
+
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ProstateTUR tur = new Business.Specimen.Model.SpecimenDefinition.ProstateTUR();
             this.m_SpecimenCollection.Add(tur);
         }
@@ -62,8 +62,8 @@ namespace YellowstonePathology.UI.Gross
             	"Gross description:  [description]" + Environment.NewLine +
                 "Fimbriated Ends:  [description]" + Environment.NewLine +
             	"Fallopian Tube 1:  [description]" + Environment.NewLine +                          
-				"Fallopian Tube 2:  [description]" + Environment.NewLine +            	                
-                "Submitted:  [submitted].  ";
+				"Fallopian Tube 2:  [description]" + Environment.NewLine +
+                "Submitted:  Serially sectioned with representative sections submitted into teal cassette [cassettelabel].  ";
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.FallopianTube fallopianTube = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.FallopianTube();
             this.m_SpecimenCollection.Add(fallopianTube);
@@ -256,7 +256,7 @@ namespace YellowstonePathology.UI.Gross
                 "Weight:  [weight]" + Environment.NewLine +
                 "Measurement:  [measurement]" + Environment.NewLine +
                 "Cut Surface:  [description]" + Environment.NewLine +
-                "Submitted:  [submitted].";            
+                "Submitted:  [submitted].  ";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.BreastReduction breastReduction = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.BreastReduction();
             this.m_SpecimenCollection.Add(breastReduction);
@@ -269,7 +269,7 @@ namespace YellowstonePathology.UI.Gross
         {
             this.m_TemplateName = "ECC";
             this.m_Text = "[identifier]." + Environment.NewLine +
-                "Gross Description:   Multiple tan pink fragments of tissue and mucous." + Environment.NewLine +
+                "Gross Description:   Multiple tan-pink fragments of tissue and mucous." + Environment.NewLine +
                 "Measurement:  [measurement]" + Environment.NewLine +
                 "Submitted:  [submitted].  ";            
 
@@ -284,7 +284,7 @@ namespace YellowstonePathology.UI.Gross
         {
             this.m_TemplateName = "EMB";
             this.m_Text = "[identifier]." + Environment.NewLine +
-                "Gross Description:  Multiple tan pink fragments of tissue and mucous." + Environment.NewLine +
+                "Gross Description:  Multiple tan-pink fragments of tissue and mucous." + Environment.NewLine +
                 "Measurement:  [measurement]" + Environment.NewLine +
                 "Submitted:  Filtered through a fine mesh bag and entirely submitted in cassette [cassettelabel].  ";            
 

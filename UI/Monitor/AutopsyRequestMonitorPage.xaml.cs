@@ -12,14 +12,15 @@ using System.ComponentModel;
 
 namespace YellowstonePathology.UI.Monitor
 {
-	public partial class AutopsyRequestMonitorPage : UserControl, INotifyPropertyChanged, IMonitorPage
-	{
+	public partial class AutopsyRequestMonitorPage : UserControl, INotifyPropertyChanged, IMonitorPage, YellowstonePathology.Business.Interface.IPersistPageChanges
+    {
 		public event PropertyChangedEventHandler PropertyChanged;		
-
+		
 		public AutopsyRequestMonitorPage()
-		{
+		{			
 			InitializeComponent();
-		}
+			this.DataContext = this;         
+		}       
 		
 		public void Refresh()
         {
@@ -38,6 +39,26 @@ namespace YellowstonePathology.UI.Monitor
 			{
 				PropertyChanged(this, new PropertyChangedEventArgs(info));
 			}
-		}   
-	}
+		}
+
+        public bool OkToSaveOnNavigation(Type pageNavigatingTo)
+        {
+            return true;
+        }
+
+        public bool OkToSaveOnClose()
+        {
+            return true;
+        }
+
+        public void Save()
+        {
+
+        }
+
+        public void UpdateBindingSources()
+        {
+
+        }
+    }
 }
