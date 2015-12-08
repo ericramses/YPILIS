@@ -4,39 +4,34 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Reflection;
+using System.IO;
 
 namespace YellowstonePathology.Business.Persistence
 {
     public class JSONObjectWriter
     {
         private StringBuilder m_OString;
-        private JSONIndenter m_JSONIndenter;
 
         public JSONObjectWriter()
         {
             this.m_OString = new StringBuilder();
-            this.m_JSONIndenter = new JSONIndenter();
         }
 
-        public string Write(object objectToClone)
+        public object Write(object objectToWrite)
         {
-            Type objectType = objectToClone.GetType();
-            object clonedObject = this.CloneThisObject(objectToClone);
-            this.m_JSONIndenter.Indent();
-            this.HandlePersistentChildCollections(objectToClone, clonedObject);
-            this.HandlePersistentChildren(objectToClone, clonedObject);
-            this.m_JSONIndenter.Exdent();
-            JSONWriter.SetCloseBrace(this.m_OString, this.m_JSONIndenter);
-            //return clonedObject;
+            Type objectType = objectToWrite.GetType();
+            this.m_OString.Append(this.WriteThisObject(objectToWrite));
+            this.HandlePersistentChildCollections(objectToWrite, this.m_OString);
+            this.HandlePersistentChildren(objectToWrite, this.m_OString);
             return this.m_OString.ToString();
         }
 
-        /*public string JSONString
+        public string JSONString
         {
             get { return this.m_OString.ToString(); }
-        }*/
+        }
 
-        private void HandlePersistentChildCollections(object parentObject, object clonedParent)
+        private void HandlePersistentChildCollections(object parentObject, StringBuilder parentStringBuilder)
         {
             if (parentObject != null)
             {
@@ -45,81 +40,101 @@ namespace YellowstonePathology.Business.Persistence
                 List<PropertyInfo> childCollectionProperties = parentObjectType.GetProperties().Where(prop => Attribute.IsDefined(prop, typeof(PersistentCollection))).ToList();
                 foreach (PropertyInfo propertyInfo in childCollectionProperties)
                 {
+                    StringBuilder collectionStringBuilder = new StringBuilder();
                     IList childCollectionObject = (IList)propertyInfo.GetValue(parentObject, null);                    
-                    IList clonedCollection = (IList)Activator.CreateInstance(childCollectionObject.GetType());
                     for (int i = 0; i < childCollectionObject.Count; i++)
                     {
                         if (i == 0)
                         {
-                            JSONWriter.SetSeperator(this.m_OString);
-                            JSONWriter.SetObjectName(this.m_OString, childCollectionObject, this.m_JSONIndenter);
-                            JSONWriter.SetOpenBracket(this.m_OString, this.m_JSONIndenter);
+                            this.SetSeperator(collectionStringBuilder);
+                            JSONIndenter.IndentDepth = JSONIndenter.IndentDepth + 1;
+                            this.SetObjectName(childCollectionObject, collectionStringBuilder);
+                            JSONIndenter.IndentDepth = JSONIndenter.IndentDepth + 1;
+                            this.SetOpenCollectionBracket(collectionStringBuilder);
+                            JSONIndenter.IndentDepth = JSONIndenter.IndentDepth + 1;
                         }
-                        object clonedCollectionItem = this.CloneThisObject(childCollectionObject[i]);
 
-                        clonedCollection.Add(clonedCollectionItem);
+                        StringBuilder childStringBuilder = new StringBuilder();
                         object collectionItem = childCollectionObject[i];
+                        childStringBuilder.Append(this.WriteThisObject(collectionItem));
 
-                        this.m_JSONIndenter.Indent();
-                        this.HandlePersistentChildCollections(collectionItem, clonedCollectionItem);
-                        this.HandlePersistentChildren(collectionItem, clonedCollectionItem);
-                        this.m_JSONIndenter.Exdent();
-                        JSONWriter.SetCloseBrace(this.m_OString, this.m_JSONIndenter);
-                        if(i == childCollectionObject.Count - 1)
+                        this.HandlePersistentChildCollections(collectionItem, childStringBuilder);
+                        this.HandlePersistentChildren(collectionItem, childStringBuilder);
+                        collectionStringBuilder.Append(childStringBuilder);
+
+                        if (i == childCollectionObject.Count - 1)
                         {
-                            JSONWriter.SetCloseBracket(this.m_OString, this.m_JSONIndenter);
+                            JSONIndenter.IndentDepth = JSONIndenter.IndentDepth - 1;
+                            this.SetCloseCollectionBracket(collectionStringBuilder);
+                            JSONIndenter.IndentDepth = JSONIndenter.IndentDepth - 2;
                         }
                         else
                         {
-                            JSONWriter.SetSeperator(this.m_OString);
+                            this.SetSeperator(collectionStringBuilder);
                         }
                     }
-                    propertyInfo.SetValue(clonedParent, clonedCollection, null);
+                    this.InsertBeforeEndOfParent(parentStringBuilder, collectionStringBuilder.ToString());
                 }
             }
         }
 
-        private void HandlePersistentChildren(object parentObject, object parentObjectClone)
+        private void HandlePersistentChildren(object parentObject, StringBuilder parentStringBuilder)
         {
             if (parentObject != null)
             {
                 Type parentObjectType = parentObject.GetType();
                 List<PropertyInfo> childProperties = parentObjectType.GetProperties().Where(prop => Attribute.IsDefined(prop, typeof(PersistentChild))).ToList();
+                JSONIndenter.IndentDepth = JSONIndenter.IndentDepth + 1;
                 foreach (PropertyInfo childPropertyInfo in childProperties)
                 {
-                    JSONWriter.SetSeperator(this.m_OString);
+                    StringBuilder childStringBuilder = new StringBuilder();
+                    this.SetSeperator(childStringBuilder);
                     object childObject = childPropertyInfo.GetValue(parentObject, null);
-                    JSONWriter.SetObjectName(this.m_OString, childObject, this.m_JSONIndenter);
-                    object clonedObject = this.CloneThisObject(childObject);
+                    this.SetObjectName(childObject, childStringBuilder);
+                    childStringBuilder.Append(this.WriteThisObject(childObject));
 
-                    childPropertyInfo.SetValue(parentObjectClone, clonedObject, null);
-                    this.HandlePersistentChildCollections(childObject, clonedObject);
-                    this.HandlePersistentChildren(childObject, clonedObject);
-                    this.m_JSONIndenter.Exdent();
-                    JSONWriter.SetCloseBrace(this.m_OString, this.m_JSONIndenter);
+                    this.HandlePersistentChildCollections(childObject, childStringBuilder);
+                    this.HandlePersistentChildren(childObject, childStringBuilder);
+                    this.InsertBeforeEndOfParent(parentStringBuilder, childStringBuilder.ToString());
                 }
+                JSONIndenter.IndentDepth = JSONIndenter.IndentDepth - 1;
             }
         }
-
-        private object CloneThisObject(object objectToClone)
+        
+        private string WriteThisObject(object objectToWrite)
         {
-            if (objectToClone == null) return null;            
+            return JSONWriter.Write(objectToWrite);
+        }
 
-            object clone = Activator.CreateInstance(objectToClone.GetType());
+        private void SetObjectName(object o, StringBuilder source)
+        {
+            JSONIndenter.Indent(source);
+            source.Append("\"" + o.GetType().Name + "\":");
+        }
 
-            PropertyInfo keyPersistentProperty = objectToClone.GetType().GetProperties().Where(prop => Attribute.IsDefined(prop, typeof(PersistentPrimaryKeyProperty))).Single();
-            object keyPersistentPropertyValue = keyPersistentProperty.GetValue(objectToClone, null);
-            keyPersistentProperty.SetValue(clone, keyPersistentPropertyValue, null);                
+        private void SetOpenCollectionBracket(StringBuilder source)
+        {
+            source.Append(" \n");
+            JSONIndenter.Indent(source);
+            source.Append("[ \n");
+        }
 
-            PropertyInfo[] persistentProperties = objectToClone.GetType().GetProperties().Where(prop => Attribute.IsDefined(prop, typeof(PersistentProperty))).ToArray();
-            foreach (PropertyInfo persistentProperty in persistentProperties)
-            {
-                object persistentPropertyValue = persistentProperty.GetValue(objectToClone, null);
-                persistentProperty.SetValue(clone, persistentPropertyValue, null);                
-            }
+        private void SetCloseCollectionBracket(StringBuilder source)
+        {
+            JSONIndenter.Indent(source);
+            source.Append("] \n");
+        }
 
-            this.m_OString.Append(JSONWriter.Write(clone, this.m_JSONIndenter));
-            return clone;
+        private void SetSeperator(StringBuilder source)
+        {
+            source.Append(", \n");
+        }
+
+        private void InsertBeforeEndOfParent(StringBuilder parent, string child)
+        {
+            string result = parent.ToString();
+            int indexOfLastClosingCurlyBrace = result.LastIndexOf("}");
+            parent.Insert(indexOfLastClosingCurlyBrace, child);
         }
     }
 }

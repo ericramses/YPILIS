@@ -43,7 +43,7 @@ namespace YellowstonePathology.Business.Gateway
             //This function will create the JSON and store it in the JSON property so it will get persisted.
             AOSaveResult result = new AOSaveResult();
             Persistence.JSONObjectWriter jsonObjectWriter = new Persistence.JSONObjectWriter();
-            accessionOrder.JSON = jsonObjectWriter.Write(accessionOrder);
+            accessionOrder.JSON = jsonObjectWriter.Write(accessionOrder).ToString();
             this.m_ObjectTracker.SubmitChanges(accessionOrder);
             result.OK = true;
             return result;

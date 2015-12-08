@@ -19,7 +19,7 @@ namespace YellowstonePathology.UI.Gross
         {
             this.m_TemplateName = "Prostate Specimen";
             this.m_Text = "[identifier] and consists of [number] tan-pink cylindrical tissue fragments [measurement].  " +
-                "The specimen is entirely submitted in cassette [cassettelabel].";            
+                "The specimen is entirely submitted in cassette [cassettelabel].  ";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ProstateNeedleBiopsy nb = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ProstateNeedleBiopsy();
             this.m_SpecimenCollection.Add(nb);
@@ -33,7 +33,7 @@ namespace YellowstonePathology.UI.Gross
             this.m_TemplateName = "Prostate Specimen";
             this.m_Text = "[identifier] and consists of [number] irregular ragged tan-pink tissue fragments" +
                 "weighing [weight] and measuring [measurement] in aggregate.  " +
-                "The specimen is submitted [submitted]";
+                "The specimen is submitted [submitted].  ";
                         
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ProstateTUR tur = new Business.Specimen.Model.SpecimenDefinition.ProstateTUR();
             this.m_SpecimenCollection.Add(tur);
@@ -59,12 +59,11 @@ namespace YellowstonePathology.UI.Gross
         {
             this.m_TemplateName = "Fallopian Tube Specimen";
             this.m_Text = "[identifier]." + Environment.NewLine +
+            	"Gross description:  [description]" + Environment.NewLine +
                 "Fimbriated Ends:  [description]" + Environment.NewLine +
-                "Length:  [length]" + Environment.NewLine +
-                "Diameter:  [diameter]" + Environment.NewLine +
-                "Inking:  [color]" + Environment.NewLine +
-                "Submitted:  [submitted]";
-
+            	"Fallopian Tube 1:  [description]" + Environment.NewLine +                          
+				"Fallopian Tube 2:  [description]" + Environment.NewLine +            	                
+                "Submitted:  [submitted].  ";
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.FallopianTube fallopianTube = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.FallopianTube();
             this.m_SpecimenCollection.Add(fallopianTube);
@@ -77,7 +76,7 @@ namespace YellowstonePathology.UI.Gross
         {
             this.m_TemplateName = "Sinus Content Specimen";
             this.m_Text = "[identifier] and consists of multiple fragments of tan-pink tissue and bone aggregating to [measurement].  " +
-                "They are filtered through a fine mesh bag and submitted in cassette [cassettelabel] for decalcification prior to processing.";
+                "They are filtered through a fine mesh bag and submitted in cassette [cassettelabel] for decalcification prior to processing.  ";
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SinusContent sinusContent = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SinusContent();
             this.m_SpecimenCollection.Add(sinusContent);
@@ -97,7 +96,7 @@ namespace YellowstonePathology.UI.Gross
                 "Pertinent Abnormalities:  [description]" + Environment.NewLine +
                 "Luminal Contents:  [description]" + Environment.NewLine +
                 "Fecaliths:  [description] [measurement], [description]" + Environment.NewLine +
-                "Submitted:  [submitted]";            
+                "Submitted:  Representative sections are submitted to cassette [cassettelabel].  ";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.AppendixExcision appendixExcision = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.AppendixExcision();
             this.m_SpecimenCollection.Add(appendixExcision);
@@ -112,7 +111,7 @@ namespace YellowstonePathology.UI.Gross
             this.m_Text = "[identifier]." + Environment.NewLine +
                 "Gross Description:  [description]" + Environment.NewLine +
                 "Measurements:  [measurements]" + Environment.NewLine +
-                "Submitted:  [submitted]";            
+                "Submitted:  [submitted].  ";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinShavePunchMiscBiopsy skinShavePunchMiscBiopsy = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinShavePunchMiscBiopsy();
             this.m_SpecimenCollection.Add(skinShavePunchMiscBiopsy);
@@ -124,12 +123,12 @@ namespace YellowstonePathology.UI.Gross
         public SkinExcisionUnorientedTemplate()
         {
             this.m_TemplateName = "Skin Excision Biopsy, Unoriented";
-            this.m_Text = "[identifier]." + Environment.NewLine +
+            this.m_Text = "[identifier]." + Environment.NewLine +                
                 "Gross Description:  [description]" + Environment.NewLine +
                 "Measurements:  [measurements]" + Environment.NewLine +
                 "Inking:  [color]" + Environment.NewLine +
                 "Sectioning:  [description]" + Environment.NewLine +
-                "Submitted:  Tips submitted in cassette \"1A\" and remainder [remaindersubmission].";
+                "Submitted:  Tips submitted in cassette \"1A\" and remainder [remaindersubmission].  ";
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinExcisionUnorientedBiopsy skinExcisionUnorientedBiopsy = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinExcisionUnorientedBiopsy();
             this.m_SpecimenCollection.Add(skinExcisionUnorientedBiopsy);
@@ -141,13 +140,13 @@ namespace YellowstonePathology.UI.Gross
         public SkinExcisionOrientedTemplate()
         {
             this.m_TemplateName = "Skin Excision Biopsy, Oriented";
-            this.m_Text = "[identifier]." + Environment.NewLine +
+            this.m_Text = "[identifier]." + Environment.NewLine +                
                 "Gross Description:  [description]" + Environment.NewLine +
                 "Measurements:  [measurements]" + Environment.NewLine +
                 "Orientation:  [designation]" + Environment.NewLine +
                 "Inking:  12 to 3 o'clock = blue; 3 to 6 o'clock = red; 6 to 9 o'clock = green; 9 to 12 o'clock = orange; deep = black.  " + Environment.NewLine +
-                "Sectioning:  [Description]" + Environment.NewLine +
-                "Submitted:  Tips submitted in cassette \"1A\" and remainder [remaindersubmission].";
+                "Sectioning:  [description]" + Environment.NewLine +
+                "Submitted:  Tips submitted in cassette \"1A\" and remainder [remaindersubmission].  ";
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinExcisionOrientedBiopsy skinExcisionOrientedBiopsy = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinExcisionOrientedBiopsy();
             this.m_SpecimenCollection.Add(skinExcisionOrientedBiopsy);
@@ -169,7 +168,7 @@ namespace YellowstonePathology.UI.Gross
                 "Loose Stones:  [description]" + Environment.NewLine +
                 "Mucosal Surface:  [description]" + Environment.NewLine +
                 "Wall Thickness:  [thickness]" + Environment.NewLine +
-                "Submitted:  [submitted]";            
+                "Submitted:  Representative sections are submitted to cassette [cassettelabel].  ";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.GallbladderExcision gallbladderExcision = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.GallbladderExcision();
             this.m_SpecimenCollection.Add(gallbladderExcision);
@@ -182,14 +181,14 @@ namespace YellowstonePathology.UI.Gross
         {
             this.m_TemplateName = "Tonsil Adenoid Excision";
             this.m_Text = "[identifier]." + Environment.NewLine +
-                "Gross Description:  [description]" + Environment.NewLine +
+                "Tonsils:  [description]" + Environment.NewLine +
                 "Adenoids:  [description]" + Environment.NewLine +
                 "Weight:  [weight]" + Environment.NewLine +
                 "Measurement Tonsil 1:  [measurement]" + Environment.NewLine +
                 "Measurement Tonsil 2:  [measurement]" + Environment.NewLine +
                 "Measurement Adenoids:  [measurement]" + Environment.NewLine +
                 "Cut Surface:  [description]" + Environment.NewLine +
-                "Submitted:  [submitted]";            
+                "Submitted:  Representative sections are submitted to cassette [cassettelabel].  ";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.TonsilAdenoidExcision tonsilAdenoidExcision = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.TonsilAdenoidExcision();
             this.m_SpecimenCollection.Add(tonsilAdenoidExcision);
@@ -207,7 +206,7 @@ namespace YellowstonePathology.UI.Gross
                 "Measurement Tonsil 1:  [measurement]" + Environment.NewLine +
                 "Measurement Tonsil 2:  [measurement]" + Environment.NewLine +
                 "Cut Surface:  [description]" + Environment.NewLine +
-                "Submitted:  [tonsilsubmitted]";
+                "Submitted:  Representative sections are submitted to cassette [cassettelabel].  ";
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.TonsilExcision tonsilExcision = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.TonsilExcision();
             this.m_SpecimenCollection.Add(tonsilExcision);
@@ -223,7 +222,7 @@ namespace YellowstonePathology.UI.Gross
                 "Weight:  [weight]" + Environment.NewLine +
                 "Measurement Adenoids:  [measurement]" + Environment.NewLine +
                 "Cut Surface:  [description]" + Environment.NewLine +
-                "Submitted:  [submitted]";
+                "Submitted:  Representative sections are submitted to cassette [cassettelabel].  ";
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.AdenoidExcision adenoidExcision = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.AdenoidExcision();
             this.m_SpecimenCollection.Add(adenoidExcision);
@@ -240,7 +239,7 @@ namespace YellowstonePathology.UI.Gross
                 "Measurement:  [measurement]" + Environment.NewLine +
                 "Villi:  [description]" + Environment.NewLine +
                 "Fetal Parts:  [description]" + Environment.NewLine +
-                "Submitted:  [submitted]";            
+                "Submitted:  [submitted].  ";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.POC poc = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.POC();
             this.m_SpecimenCollection.Add(poc);
@@ -257,7 +256,7 @@ namespace YellowstonePathology.UI.Gross
                 "Weight:  [weight]" + Environment.NewLine +
                 "Measurement:  [measurement]" + Environment.NewLine +
                 "Cut Surface:  [description]" + Environment.NewLine +
-                "Submitted:  [submitted]";            
+                "Submitted:  [submitted].";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.BreastReduction breastReduction = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.BreastReduction();
             this.m_SpecimenCollection.Add(breastReduction);
@@ -270,9 +269,9 @@ namespace YellowstonePathology.UI.Gross
         {
             this.m_TemplateName = "ECC";
             this.m_Text = "[identifier]." + Environment.NewLine +
-                "Gross Description:  [number], [color], [consistency]" + Environment.NewLine +
+                "Gross Description:   Multiple tan pink fragments of tissue and mucous." + Environment.NewLine +
                 "Measurement:  [measurement]" + Environment.NewLine +
-                "Submitted:  [submitted]";            
+                "Submitted:  [submitted].  ";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ECC ecc = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ECC();
             this.m_SpecimenCollection.Add(ecc);
@@ -285,7 +284,7 @@ namespace YellowstonePathology.UI.Gross
         {
             this.m_TemplateName = "EMB";
             this.m_Text = "[identifier]." + Environment.NewLine +
-                "Gross Description:  [number], [color], [consistency]" + Environment.NewLine +
+                "Gross Description:  Multiple tan pink fragments of tissue and mucous." + Environment.NewLine +
                 "Measurement:  [measurement]" + Environment.NewLine +
                 "Submitted:  Filtered through a fine mesh bag and entirely submitted in cassette [cassettelabel].  ";            
 
@@ -319,7 +318,7 @@ namespace YellowstonePathology.UI.Gross
                 "Measurement:  [measurement]" + Environment.NewLine +
                 "Os:  *OSDESCRIPTION* [measurement]" + Environment.NewLine +
                 "Inking:  [description]" + Environment.NewLine +
-                "Submitted:  [submitted]";            
+                "Submitted:  [submitted].  ";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.LEEPCone leepCone = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.LEEPCone();
             this.m_SpecimenCollection.Add(leepCone);
@@ -335,7 +334,7 @@ namespace YellowstonePathology.UI.Gross
                 "Gross Description:  [number], [color], [measurement]" + Environment.NewLine +
                 "Os:  [shape], [location], [measurement]" + Environment.NewLine +
                 "Inking:  [description]" + Environment.NewLine +
-                "Submitted:  [submitted]";            
+                "Submitted:  [submitted].  ";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.LEEPPieces leepPieces = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.LEEPPieces();
             this.m_SpecimenCollection.Add(leepPieces);
@@ -375,7 +374,7 @@ namespace YellowstonePathology.UI.Gross
                 "      Maternal Surface:  [description]" + Environment.NewLine +
                 "      Infacts:  [description]" + Environment.NewLine +
                 "      Other:  [description]" + Environment.NewLine +
-                "Submitted:  [submitted]";            
+                "Submitted:  [submitted].  ";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SinglePlacenta singlePlacenta = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SinglePlacenta();
             this.m_SpecimenCollection.Add(singlePlacenta);
@@ -409,7 +408,7 @@ namespace YellowstonePathology.UI.Gross
                 "         Myometrium:" + Environment.NewLine +
                 "         Average Myometrial Thickness:  [thickness]" + Environment.NewLine +
                 "         Lesions in Uterine wall:  [description]" + Environment.NewLine +
-                "Submitted:  [submitted]";            
+                "Submitted:  [submitted].  ";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Uterus uterus = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Uterus();
             this.m_SpecimenCollection.Add(uterus);
@@ -462,7 +461,7 @@ namespace YellowstonePathology.UI.Gross
                 "   Myometrium:" + Environment.NewLine +
                 "      Average Myometrial Thickness:  [thickness]" + Environment.NewLine +
                 "      Lesions in Uterine wall:  [description]" + Environment.NewLine +                          
-                "Submitted:  [submitted]";
+                "Submitted:  [submitted].  ";
             
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.UterusAdnexa uterusAdnexa = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.UterusAdnexa();
@@ -504,7 +503,7 @@ namespace YellowstonePathology.UI.Gross
             this.m_TemplateName = "Mitral Valve";
             this.m_Text = "[identifier] and consists of [number] valve leaflets aggregating to [measurement].  " +
                 "Vegetations [description] identified. The valve leaflets are [description]." +
-                "The leaflets are serially sectioned and representative sections are submitted in cassette [cassetlabel]";
+                "The leaflets are serially sectioned and representative sections are submitted in cassette [cassetlabel].  ";
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.MitralValve mitralValve = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.MitralValve();
             this.m_SpecimenCollection.Add(mitralValve);

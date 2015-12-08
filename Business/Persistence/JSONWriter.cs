@@ -7,17 +7,20 @@ using System.Reflection;
 
 namespace YellowstonePathology.Business.Persistence
 {
-    public class JSONWriter
+    public static class JSONWriter
     {
-        public static string Write(object o, JSONIndenter jsonIndenter)
+        public static string Write(object o)
         {
             Type type = o.GetType();
-            StringBuilder result = new StringBuilder(jsonIndenter.IndentationString + "{" + Environment.NewLine);
+            StringBuilder result = new StringBuilder();
+            JSONIndenter.Indent(result);
+            JSONIndenter.IndentDepth = JSONIndenter.IndentDepth + 1;
+            result.Append("{" + Environment.NewLine);
             PropertyInfo[] properties = o.GetType().GetProperties().
                 Where(prop => Attribute.IsDefined(prop, typeof(PersistentProperty)) || Attribute.IsDefined(prop, typeof(PersistentPrimaryKeyProperty))).ToArray();
             foreach (PropertyInfo property in properties)
             {
-                result.Append(jsonIndenter.IndentationString);               
+                JSONIndenter.Indent(result);               
                 Type dataType = property.PropertyType;
                 if (dataType == typeof(string))
                 {
@@ -57,18 +60,21 @@ namespace YellowstonePathology.Business.Persistence
                 }
             }
 
-            if(properties.Length != 0)
+            JSONIndenter.IndentDepth = JSONIndenter.IndentDepth - 1;
+            if (properties.Length != 0)
             {
                 result.Remove(result.Length - 3, 3);
             }
 
-            //result.AppendLine("}");
+            result.AppendLine("}");
             return result.ToString();
         }
 
         private static string EscapeJSON(string json)
         {
-            json = json.Replace(Environment.NewLine, "\\n");
+            //json = json.Replace(Environment.NewLine, "\\n");
+            json = json.Replace("\r", string.Empty);
+            json = json.Replace("\n", "\\n");
             return json.Replace("\"", "\\\"");
         }
 
@@ -76,11 +82,13 @@ namespace YellowstonePathology.Business.Persistence
         {
             if (property.GetValue(o, null) != null)
             {
-                result.Append("\t\"" + property.Name + "\": \"" + EscapeJSON(property.GetValue(o, null).ToString()) + "\", \n");
+                //result.Append("\t\"" + property.Name + "\": \"" + EscapeJSON(property.GetValue(o, null).ToString()) + "\", \n");
+                result.Append("\"" + property.Name + "\": \"" + EscapeJSON(property.GetValue(o, null).ToString()) + "\", \n");
             }
             else
             {
-                result.Append("\t\"" + property.Name + "\": null, \n");
+                //result.Append("\t\"" + property.Name + "\": null, \n");
+                result.Append("\"" + property.Name + "\": null, \n");
             }
         }
 
@@ -88,11 +96,13 @@ namespace YellowstonePathology.Business.Persistence
         {
             if (property.GetValue(o, null) != null)
             {
-                result.Append("\t\"" + property.Name + "\": " + property.GetValue(o, null) + ", \n");
+                //result.Append("\t\"" + property.Name + "\": " + property.GetValue(o, null) + ", \n");
+                result.Append("\"" + property.Name + "\": " + property.GetValue(o, null) + ", \n");
             }
             else
             {
-                result.Append("\t\"" + property.Name + "\": null, \n");
+                //result.Append("\t\"" + property.Name + "\": null, \n");
+                result.Append("\"" + property.Name + "\": null, \n");
             }
         }
 
@@ -102,11 +112,13 @@ namespace YellowstonePathology.Business.Persistence
             {
                 DateTime dotNetDate = DateTime.Parse(property.GetValue(o, null).ToString());
                 string jsonDate = dotNetDate.Year.ToString() + "-" + dotNetDate.Month.ToString() + "-" + dotNetDate.Day.ToString() + "T" + dotNetDate.Hour.ToString() + ":" + dotNetDate.Minute + ":" + dotNetDate.Second.ToString() + "." + dotNetDate.Millisecond + "Z";
-                result.Append("\t\"" + property.Name + "\": \"" + jsonDate + "\", \n");
+                //result.Append("\t\"" + property.Name + "\": \"" + jsonDate + "\", \n");
+                result.Append("\"" + property.Name + "\": \"" + jsonDate + "\", \n");
             }
             else
             {
-                result.Append("\t\"" + property.Name + "\": null, \n");
+                //result.Append("\t\"" + property.Name + "\": null, \n");
+                result.Append("\"" + property.Name + "\": null, \n");
             }
         }
 
@@ -124,37 +136,14 @@ namespace YellowstonePathology.Business.Persistence
                 {
                     jsonValue = "false";
                 }
-                result.Append("\t\"" + property.Name + "\": " + jsonValue + ", \n");
+                //result.Append("\t\"" + property.Name + "\": " + jsonValue + ", \n");
+                result.Append("\"" + property.Name + "\": " + jsonValue + ", \n");
             }
             else
             {
-                result.Append("\t\"" + property.Name + "\": null, \n");
+                //result.Append("\t\"" + property.Name + "\": null, \n");
+                result.Append("\"" + property.Name + "\": null, \n");
             }
-        }
-
-        public static void SetCloseBrace(StringBuilder oString, JSONIndenter jsonIndenter)
-        {
-            oString.Append(" \n" + jsonIndenter.IndentationString + "}");
-        }
-
-        public static void SetOpenBracket(StringBuilder oString, JSONIndenter jsonIndenter)
-        {
-            oString.Append(" \n" + jsonIndenter.IndentationString + "[ \n");
-        }
-
-        public static void SetCloseBracket(StringBuilder oString, JSONIndenter jsonIndenter)
-        {
-            oString.Append(" \n" + jsonIndenter.IndentationString + "]");
-        }
-
-        public static void SetObjectName(StringBuilder oString, object o, JSONIndenter jsonIndenter)
-        {
-            oString.Append(jsonIndenter.IndentationString + "\"" + o.GetType().Name + "\":");
-        }
-
-        public static void SetSeperator(StringBuilder oString)
-        {
-            oString.Append(", \n");
-        }
+        }        
     }
 }

@@ -5,29 +5,22 @@ using System.Text;
 
 namespace YellowstonePathology.Business.Persistence
 {
-    public class JSONIndenter
+    public static class JSONIndenter
     {
-        private static string IndentString = "\t";
-        private string m_IndentationString;
+        static int m_Depth  = 1;
 
-        public JSONIndenter()
-        {
-            this.m_IndentationString = string.Empty;
-        }
+        public static void Indent(StringBuilder stringToIndent)
+		{
+            for (int idx = 0; idx < m_Depth; idx++)
+            {
+                stringToIndent.Append("\t");
+            }
+		}
 
-        public string IndentationString
+        public static int IndentDepth
         {
-            get { return this.m_IndentationString; }
-        }
-
-        public void Indent()
-        {
-            this.m_IndentationString += IndentString;
-        }
-
-        public void Exdent()
-        {
-            this.m_IndentationString = this.m_IndentationString.Remove(0, IndentString.Length);
+            get { return m_Depth; }
+            set { m_Depth = value; }
         }
     }
 }
