@@ -4,28 +4,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Reflection;
+using System.IO;
 
 namespace YellowstonePathology.Business.Persistence
 {
     public class JSONObjectWriter
     {
-        private StringBuilder m_OString;        
+        private StringBuilder m_OString;
 
         public JSONObjectWriter()
         {
-            this.m_OString = new StringBuilder();            
+            this.m_OString = new StringBuilder();
         }
 
-        public object Write(object objectToClone)
+        public object Write(object objectToWrite)
         {
-            Type objectType = objectToClone.GetType();
-            object clonedObject = this.CloneThisObject(objectToClone);
-            JSONIndenter.Indent(this.m_OString);
-            this.HandlePersistentChildCollections(objectToClone, clonedObject);
-            this.HandlePersistentChildren(objectToClone, clonedObject);
-            JSONIndenter.Exdent(this.m_OString);
-            SetCloseBrace(this.m_OString);
-            return clonedObject;
+            Type objectType = objectToWrite.GetType();
+            this.m_OString.Append(this.WriteThisObject(objectToWrite));
+            this.HandlePersistentChildCollections(objectToWrite, this.m_OString);
+            this.HandlePersistentChildren(objectToWrite, this.m_OString);
+            return this.m_OString.ToString();
         }
 
         public string JSONString
@@ -33,7 +31,7 @@ namespace YellowstonePathology.Business.Persistence
             get { return this.m_OString.ToString(); }
         }
 
-        private void HandlePersistentChildCollections(object parentObject, object clonedParent)
+        private void HandlePersistentChildCollections(object parentObject, StringBuilder parentStringBuilder)
         {
             if (parentObject != null)
             {
@@ -42,106 +40,101 @@ namespace YellowstonePathology.Business.Persistence
                 List<PropertyInfo> childCollectionProperties = parentObjectType.GetProperties().Where(prop => Attribute.IsDefined(prop, typeof(PersistentCollection))).ToList();
                 foreach (PropertyInfo propertyInfo in childCollectionProperties)
                 {
+                    StringBuilder collectionStringBuilder = new StringBuilder();
                     IList childCollectionObject = (IList)propertyInfo.GetValue(parentObject, null);                    
-                    IList clonedCollection = (IList)Activator.CreateInstance(childCollectionObject.GetType());
                     for (int i = 0; i < childCollectionObject.Count; i++)
                     {
                         if (i == 0)
                         {
-                            SetSeperator(this.m_OString);
-                            SetObjectName(this.m_OString, childCollectionObject);
-                            SetOpenBracket(this.m_OString);
+                            this.SetSeperator(collectionStringBuilder);
+                            JSONIndenter.IndentDepth = JSONIndenter.IndentDepth + 1;
+                            this.SetObjectName(childCollectionObject, collectionStringBuilder);
+                            JSONIndenter.IndentDepth = JSONIndenter.IndentDepth + 1;
+                            this.SetOpenCollectionBracket(collectionStringBuilder);
+                            JSONIndenter.IndentDepth = JSONIndenter.IndentDepth + 1;
                         }
-                        object clonedCollectionItem = this.CloneThisObject(childCollectionObject[i]);
 
-                        clonedCollection.Add(clonedCollectionItem);
+                        StringBuilder childStringBuilder = new StringBuilder();
                         object collectionItem = childCollectionObject[i];
+                        childStringBuilder.Append(this.WriteThisObject(collectionItem));
 
-                        JSONIndenter.Indent(this.m_OString);
-                        this.HandlePersistentChildCollections(collectionItem, clonedCollectionItem);
-                        this.HandlePersistentChildren(collectionItem, clonedCollectionItem);
-                        JSONIndenter.Exdent(this.m_OString);
-                        SetCloseBrace(this.m_OString);
-                        if(i == childCollectionObject.Count - 1)
+                        this.HandlePersistentChildCollections(collectionItem, childStringBuilder);
+                        this.HandlePersistentChildren(collectionItem, childStringBuilder);
+                        collectionStringBuilder.Append(childStringBuilder);
+
+                        if (i == childCollectionObject.Count - 1)
                         {
-                            SetCloseBracket(this.m_OString);
+                            JSONIndenter.IndentDepth = JSONIndenter.IndentDepth - 1;
+                            this.SetCloseCollectionBracket(collectionStringBuilder);
+                            JSONIndenter.IndentDepth = JSONIndenter.IndentDepth - 2;
                         }
                         else
                         {
-                            SetSeperator(this.m_OString);
+                            this.SetSeperator(collectionStringBuilder);
                         }
                     }
-                    propertyInfo.SetValue(clonedParent, clonedCollection, null);
+                    this.InsertBeforeEndOfParent(parentStringBuilder, collectionStringBuilder.ToString());
                 }
             }
         }
 
-        private void HandlePersistentChildren(object parentObject, object parentObjectClone)
+        private void HandlePersistentChildren(object parentObject, StringBuilder parentStringBuilder)
         {
             if (parentObject != null)
             {
                 Type parentObjectType = parentObject.GetType();
                 List<PropertyInfo> childProperties = parentObjectType.GetProperties().Where(prop => Attribute.IsDefined(prop, typeof(PersistentChild))).ToList();
+                JSONIndenter.IndentDepth = JSONIndenter.IndentDepth + 1;
                 foreach (PropertyInfo childPropertyInfo in childProperties)
                 {
-                    SetSeperator(this.m_OString);
+                    StringBuilder childStringBuilder = new StringBuilder();
+                    this.SetSeperator(childStringBuilder);
                     object childObject = childPropertyInfo.GetValue(parentObject, null);
-                    SetObjectName(this.m_OString, childObject);
-                    object clonedObject = this.CloneThisObject(childObject);
+                    this.SetObjectName(childObject, childStringBuilder);
+                    childStringBuilder.Append(this.WriteThisObject(childObject));
 
-                    childPropertyInfo.SetValue(parentObjectClone, clonedObject, null);
-                    this.HandlePersistentChildCollections(childObject, clonedObject);
-                    this.HandlePersistentChildren(childObject, clonedObject);
-                    JSONIndenter.Exdent(this.m_OString);
-                    SetCloseBrace(this.m_OString);
+                    this.HandlePersistentChildCollections(childObject, childStringBuilder);
+                    this.HandlePersistentChildren(childObject, childStringBuilder);
+                    this.InsertBeforeEndOfParent(parentStringBuilder, childStringBuilder.ToString());
                 }
+                JSONIndenter.IndentDepth = JSONIndenter.IndentDepth - 1;
             }
         }
         
-        private object CloneThisObject(object objectToClone)
+        private string WriteThisObject(object objectToWrite)
         {
-            if (objectToClone == null) return null;            
-
-            object clone = Activator.CreateInstance(objectToClone.GetType());
-
-            PropertyInfo keyPersistentProperty = objectToClone.GetType().GetProperties().Where(prop => Attribute.IsDefined(prop, typeof(PersistentPrimaryKeyProperty))).Single();
-            object keyPersistentPropertyValue = keyPersistentProperty.GetValue(objectToClone, null);
-            keyPersistentProperty.SetValue(clone, keyPersistentPropertyValue, null);                
-
-            PropertyInfo[] persistentProperties = objectToClone.GetType().GetProperties().Where(prop => Attribute.IsDefined(prop, typeof(PersistentProperty))).ToArray();
-            foreach (PropertyInfo persistentProperty in persistentProperties)
-            {
-                object persistentPropertyValue = persistentProperty.GetValue(objectToClone, null);
-                persistentProperty.SetValue(clone, persistentPropertyValue, null);                
-            }
-
-            this.m_OString.Append(JSONWriter.Write(clone));
-            return clone;
-        }       
-
-        private static void SetCloseBrace(StringBuilder oString)
-        {
-            oString.Append(" \n\t}");
+            return JSONWriter.Write(objectToWrite);
         }
 
-        private static void SetOpenBracket(StringBuilder oString)
+        private void SetObjectName(object o, StringBuilder source)
         {
-            oString.Append(" \n\t[ \n");
+            JSONIndenter.Indent(source);
+            source.Append("\"" + o.GetType().Name + "\":");
         }
 
-        private static void SetCloseBracket(StringBuilder oString)
+        private void SetOpenCollectionBracket(StringBuilder source)
         {
-            oString.Append(" \n\t]");
+            source.Append(" \n");
+            JSONIndenter.Indent(source);
+            source.Append("[ \n");
         }
 
-        private static void SetObjectName(StringBuilder oString, object o)
+        private void SetCloseCollectionBracket(StringBuilder source)
         {
-            oString.Append("\t\"" + o.GetType().Name + "\":");
+            JSONIndenter.Indent(source);
+            source.Append("] \n");
         }
 
-        private static void SetSeperator(StringBuilder oString)
+        private void SetSeperator(StringBuilder source)
         {
-            oString.Append(", \n");
-        }              
-    }      
+            source.Append(", \n");
+        }
+
+        private void InsertBeforeEndOfParent(StringBuilder parent, string child)
+        {
+            string result = parent.ToString();
+            int indexOfLastClosingCurlyBrace = result.LastIndexOf("}");
+            parent.Insert(indexOfLastClosingCurlyBrace, child);
+        }
+    }
 }
