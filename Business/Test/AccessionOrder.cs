@@ -1561,16 +1561,9 @@ namespace YellowstonePathology.Business.Test
 					YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_SpecimenOrderCollection.Add(this.m_MasterAccessionNo, clientOrderDetail);					
 					clientOrderDetail.Accessioned = true;
 
+					if(clientOrderDetail.ClientAccessioned == true) this.ClientAccessioned = true;
                     YellowstonePathology.Business.Visitor.AddSpecimenOrderVisitor addSpecimenOrderVisitor = new Visitor.AddSpecimenOrderVisitor(specimenOrder);
-                    this.TakeATrip(addSpecimenOrderVisitor);
-
-                    string specimenDescription = specimenOrder.Description.ToUpper();
-                    if (specimenDescription.Contains("BREAST") == true)
-                    {
-                        this.m_ITAudited = false;
-                        this.m_ITAuditRequired = true;
-                        this.m_ITAuditPriority = 3;
-                    }
+                    this.TakeATrip(addSpecimenOrderVisitor);                    
 				}			
 			}
 		}

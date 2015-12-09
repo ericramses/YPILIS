@@ -80,6 +80,7 @@ namespace YellowstonePathology.Business.Facility.Model
             result.Add(new BozemanDeaconess());
             result.Add(new CMMC());
             result.Add(new StJamesHospital());
+            result.Add(new MontanaDepartmentofJustice());
             return Sort(result);
         }
 

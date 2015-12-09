@@ -177,24 +177,49 @@ namespace YellowstonePathology.UI.Login.Receiving
 
 		private void ButtonNext_Click(object sender, RoutedEventArgs e)
 		{
-            this.m_ClientOrderDetail.ValidateObject();
-
-            if (this.m_ClientOrderDetail.ValidationErrors.Count > 0)
+            if(this.HandleBreastFixationTime() == true)
             {
-                this.CheckFixationStartTimeOrCollectionTimeValidationErrors();
-                MessageBoxResult messageBoxResult = MessageBox.Show("There are validation errors on this form.  Are you sure you want to continue?", "Validation Errors", MessageBoxButton.YesNo);
-                if (messageBoxResult == MessageBoxResult.Yes)
+                this.m_ClientOrderDetail.ValidateObject();
+
+                if (this.m_ClientOrderDetail.ValidationErrors.Count > 0)
+                {
+                    this.CheckFixationStartTimeOrCollectionTimeValidationErrors();
+                    MessageBoxResult messageBoxResult = MessageBox.Show("There are validation errors on this form.  Are you sure you want to continue?", "Validation Errors", MessageBoxButton.YesNo);
+                    if (messageBoxResult == MessageBoxResult.Yes)
+                    {
+                        this.m_BarcodeScanPort.ContainerScanReceived -= ContainerScanReceived;
+                        this.Next(this, new EventArgs());
+                    }
+                }
+                else
                 {
                     this.m_BarcodeScanPort.ContainerScanReceived -= ContainerScanReceived;
-                    this.Next(this, new EventArgs());                    
+                    this.Next(this, new EventArgs());
+                }
+            }            
+		}
+
+        private bool HandleBreastFixationTime()
+        {
+            bool result = true;
+            if(string.IsNullOrEmpty(this.m_ClientOrderDetail.DescriptionToAccession) == false)
+            {
+                if (this.m_ClientOrderDetail.DescriptionToAccession.ToUpper().Contains("BREAST") == true)
+                {
+                    if (YellowstonePathology.Business.Helper.DateTimeExtensions.DoesDateHaveTime(this.m_ClientOrderDetail.CollectionDate) == false)
+                    {
+                        MessageBoxResult collectionDateResult = MessageBox.Show("This case appears to be a breast case and there is no Collection Time. Are you sure you want to continue?", "Continue?", MessageBoxButton.YesNo);
+                        if (collectionDateResult == MessageBoxResult.No) result = false;
+                    }
+                    else if (YellowstonePathology.Business.Helper.DateTimeExtensions.DoesDateHaveTime(this.m_ClientOrderDetail.FixationStartTime) == false)
+                    {
+                        MessageBoxResult fixationStartTimeResult = MessageBox.Show("This case appears to be a breast case and there is no Fixation Start Time. Please contact IT.", "Continue?", MessageBoxButton.YesNo);
+                        if (fixationStartTimeResult == MessageBoxResult.No) result = false;
+                    }
                 }
             }
-            else
-            {
-                this.m_BarcodeScanPort.ContainerScanReceived -= ContainerScanReceived;
-                this.Next(this, new EventArgs());                    
-            }           
-		}
+            return result;
+        }
 
         private void CheckFixationStartTimeOrCollectionTimeValidationErrors()
         {

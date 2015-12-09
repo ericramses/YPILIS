@@ -405,6 +405,7 @@
     <Compile Include="Domain\OrderLogItem.cs" />
     <Compile Include="Facility.Model\BozemanDeaconess.cs" />
     <Compile Include="Facility.Model\CMMC.cs" />
+    <Compile Include="Facility.Model\MontanaDepartmentofJustice.cs" />
     <Compile Include="Facility.Model\StJamesHospital.cs" />
     <Compile Include="Facility.Model\TallmanDermatology.cs" />
     <Compile Include="Facility.Model\ProfessionalPathologyOfWyoming.cs" />
