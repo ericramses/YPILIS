@@ -119,9 +119,8 @@ namespace YellowstonePathology.UI.Monitor
         
         private bool UnreadAutopsyRequestExist()
         {      
-        	bool result = true;
-            
-			/*        	
+        	bool result = false;
+            			     	
             Microsoft.Office.Interop.Outlook.Application oApp;
             Microsoft.Office.Interop.Outlook._NameSpace oNS;
             Microsoft.Office.Interop.Outlook.MAPIFolder oFolder;
@@ -148,8 +147,7 @@ namespace YellowstonePathology.UI.Monitor
                 }                
                 System.Runtime.InteropServices.Marshal.FinalReleaseComObject(item);
             }
-            System.Runtime.InteropServices.Marshal.FinalReleaseComObject(items);            
-			*/
+            System.Runtime.InteropServices.Marshal.FinalReleaseComObject(items);            			
 			
             return result;
         }  
