@@ -317,9 +317,7 @@ namespace YellowstonePathology.Business.Rules.Surgical
 		{
 			if (this.m_IsSigning == true)
 			{
-				this.m_PanelSetOrderSurgical.Finalize(this.m_SystemIdentity.User);
-                //this needs to be handled at a different place.
-				//this.m_PanelSetOrderSurgical.ProfessionalComponentFacilityId = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId;
+				this.m_PanelSetOrderSurgical.Finalize(this.m_SystemIdentity.User);                				
 				if (this.m_PanelSetOrderSurgical.Accepted == false)
 				{
 					this.m_PanelSetOrderSurgical.Accept(this.m_SystemIdentity.User);
