@@ -41,7 +41,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>582</ApplicationRevision>
+    <ApplicationRevision>587</ApplicationRevision>
     <ApplicationVersion>10.1.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -820,6 +820,7 @@
       <DependentUpon>TechInitiatedPeripheralSmearResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Test\TechInitiatedPeripheralSmearResultPath.cs" />
+    <Compile Include="Test\TechnicalOnlyResultPath.cs" />
     <Compile Include="Test\WomensHealthProfilePage.xaml.cs">
       <DependentUpon>WomensHealthProfilePage.xaml</DependentUpon>
     </Compile>

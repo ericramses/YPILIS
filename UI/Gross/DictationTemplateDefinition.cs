@@ -271,7 +271,7 @@ namespace YellowstonePathology.UI.Gross
             this.m_Text = "[identifier]." + Environment.NewLine +
                 "Gross Description:   Multiple tan-pink fragments of tissue and mucous." + Environment.NewLine +
                 "Measurement:  [measurement]" + Environment.NewLine +
-                "Submitted:  [submitted].  ";            
+                "Submitted:  Filtered through a fine mesh bag and entirely submitted in cassette [cassettelabel].  ";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ECC ecc = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ECC();
             this.m_SpecimenCollection.Add(ecc);
