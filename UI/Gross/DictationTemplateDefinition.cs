@@ -489,7 +489,7 @@ namespace YellowstonePathology.UI.Gross
             this.m_TemplateName = "Aortic Valve";
             this.m_Text = "[identifier] and consists of [number] valve cusps aggregating to [measurement].  " +
                 "Vegetations [description] identified. The valve cusps are [description].  " +
-                "The leaflets are serially sectioned and representative sections are submitted in cassette [cassettelabel].  ";
+                "The leaflets are serially sectioned and representative sections are submitted in cassette [cassettelabel] for decalcification prior to processing  ";
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.AorticValve aorticValve = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.AorticValve();
             this.m_SpecimenCollection.Add(aorticValve);
