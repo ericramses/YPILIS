@@ -19,10 +19,12 @@ namespace YellowstonePathology.Business.Persistence
 
         public object Write(object objectToWrite)
         {
+            JSONIndenter.IndentDepth = 1;
             Type objectType = objectToWrite.GetType();
             this.m_OString.Append(this.WriteThisObject(objectToWrite));
             this.HandlePersistentChildCollections(objectToWrite, this.m_OString);
             this.HandlePersistentChildren(objectToWrite, this.m_OString);
+            JSONIndenter.IndentDepth = 1;
             return this.m_OString.ToString();
         }
 
@@ -56,7 +58,10 @@ namespace YellowstonePathology.Business.Persistence
 
                         StringBuilder childStringBuilder = new StringBuilder();
                         object collectionItem = childCollectionObject[i];
-                        childStringBuilder.Append(this.WriteThisObject(collectionItem));
+                        //childStringBuilder.Append(this.WriteThisObject(collectionItem));
+
+                        string cs = this.WriteThisObject(collectionItem);
+                        childStringBuilder.Append(cs);
 
                         this.HandlePersistentChildCollections(collectionItem, childStringBuilder);
                         this.HandlePersistentChildren(collectionItem, childStringBuilder);
@@ -66,7 +71,6 @@ namespace YellowstonePathology.Business.Persistence
                         {
                             JSONIndenter.IndentDepth = JSONIndenter.IndentDepth - 1;
                             this.SetCloseCollectionBracket(collectionStringBuilder);
-                            JSONIndenter.IndentDepth = JSONIndenter.IndentDepth - 2;
                         }
                         else
                         {
@@ -123,18 +127,36 @@ namespace YellowstonePathology.Business.Persistence
         {
             JSONIndenter.Indent(source);
             source.Append("] \n");
+            JSONIndenter.IndentDepth = JSONIndenter.IndentDepth - 2;
+            JSONIndenter.Indent(source);
         }
 
         private void SetSeperator(StringBuilder source)
         {
-            source.Append(", \n");
+            string stringToTrim = source.ToString();
+            int initialLength = stringToTrim.Length;
+            string trimedString = stringToTrim.TrimEnd();
+            int trimedLength = trimedString.Length;
+            string whiteSpaceString = stringToTrim.Substring(trimedLength, initialLength - trimedLength);
+            if (whiteSpaceString.Contains("\n") == true)
+            {
+                source.Insert(trimedLength, ",");
+            }
+            else
+            {
+                source.Insert(trimedLength, ", \r\n");
+            }
         }
 
         private void InsertBeforeEndOfParent(StringBuilder parent, string child)
         {
+            string parentString = parent.ToString();
+            int indexOfLastCurlyBrace = parentString.LastIndexOf("}");
+            string stringToTrim = parentString.Substring(0, indexOfLastCurlyBrace);
+            string trimedString = stringToTrim.TrimEnd();
+            int trimedLength = trimedString.Length;
+            parent.Insert(trimedLength, child);
             string result = parent.ToString();
-            int indexOfLastClosingCurlyBrace = result.LastIndexOf("}");
-            parent.Insert(indexOfLastClosingCurlyBrace, child);
         }
     }
 }

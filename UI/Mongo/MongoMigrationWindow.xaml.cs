@@ -680,7 +680,7 @@ namespace YellowstonePathology.UI.Mongo
 
         private void JSONWriterWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            List<string> masterAccessionNos = Business.Gateway.AOGW.Instance.GetCasesWithNullJSONString(2, 1999);
+            List<string> masterAccessionNos = Business.Gateway.AOGW.Instance.GetCasesWithNullJSONString(2, 2000);
             foreach (string masterAccessionNo in masterAccessionNos)
             {
                 Business.Test.AccessionOrder ao = Business.Gateway.AOGW.Instance.GetByMasterAccessionNo(masterAccessionNo, true);
