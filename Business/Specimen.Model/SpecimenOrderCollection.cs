@@ -29,6 +29,16 @@ namespace YellowstonePathology.Business.Specimen.Model
             }
             return result;
         }
+        
+        public bool IsLastSpecimen(string specimenOrderId)
+        {
+            bool result = false;
+            if(this[this.Count -1].SpecimenOrderId == specimenOrderId)
+            {
+            	result = true;
+            }
+            return result;
+        }
 
 		public YellowstonePathology.Business.Specimen.Model.SpecimenOrder GetThinPrep()
         {

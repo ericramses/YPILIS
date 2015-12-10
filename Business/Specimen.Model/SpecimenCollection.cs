@@ -55,7 +55,8 @@ namespace YellowstonePathology.Business.Specimen.Model
         public static SpecimenCollection GetAll()
         {
             SpecimenCollection result = new SpecimenCollection();
-            result.Add(new SpecimenDefinition.NullSpecimen());            
+            result.Add(new SpecimenDefinition.NullSpecimen());
+            result.Add(new SpecimenDefinition.AdenoidExcision());
             result.Add(new SpecimenDefinition.AorticValve());
             result.Add(new SpecimenDefinition.AppendixExcision());
             result.Add(new SpecimenDefinition.BreastReduction());
@@ -82,7 +83,8 @@ namespace YellowstonePathology.Business.Specimen.Model
             result.Add(new SpecimenDefinition.SkinExcisionUnorientedBiopsy());
             result.Add(new SpecimenDefinition.SkinShavePunchMiscBiopsy());
             result.Add(new SpecimenDefinition.ThinPrepFluid());
-            result.Add(new SpecimenDefinition.TonsilExcision());                                                           
+            result.Add(new SpecimenDefinition.TonsilAdenoidExcision());
+            result.Add(new SpecimenDefinition.TonsilExcision());
             result.Add(new SpecimenDefinition.Uterus());            
             result.Add(new SpecimenDefinition.UterusAdnexa());
             return Sort(result);

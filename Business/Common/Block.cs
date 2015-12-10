@@ -8,7 +8,8 @@ namespace YellowstonePathology.Business.Common
 	public class Block : YellowstonePathology.Business.Domain.DomainBase
 	{        
 		protected string m_Prefix = "$";
-		protected string m_Delimeter = "#";
+        protected string m_LaserDelimeter = "|";
+        protected string m_Delimeter = "#";
 		protected string m_CassetteColumnDelimiter = "H";
 		protected string m_CompanyId = "YPII";
 		protected string m_ScanningPrefix = "ALQ";
@@ -19,13 +20,11 @@ namespace YellowstonePathology.Business.Common
 		protected bool m_PrintRequested;
 		protected bool m_Verified;
 		protected string m_ReportNo;
-		protected string m_MasterAccessionNo;
-
-        //protected YellowstonePathology.Business.Slide.Model.PhysicalSlideCollection m_PhysicalSlideCollection;
+		protected string m_MasterAccessionNo;        
 
 		public Block()
 		{
-            //this.m_PhysicalSlideCollection = new YellowstonePathology.Business.Slide.Model.PhysicalSlideCollection();
+            
 		}        
 
 		public string ReportNo
@@ -151,6 +150,11 @@ namespace YellowstonePathology.Business.Common
         public string ScanningId
         {
             get { return this.m_ScanningPrefix + this.BlockId.ToString(); }            
+        }
+        
+        public virtual string ToLaserString()
+        {
+            throw new Exception();
         }        
 	}
 }

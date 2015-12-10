@@ -128,7 +128,7 @@
 
                 <TextBlock Grid.Column="0" Grid.Row="3" Margin="2,2,2,2" FontSize="14" HorizontalAlignment="Right">Specimen Id:</TextBlock>
                 <ComboBox Name="ComboBoxSpecimenId" Grid.Column="1" Grid.Row="3" Margin="2,2,2,2" HorizontalAlignment="Stretch" ItemsSource="{Binding Path=SpecimenCollection}" SelectedValuePath="SpecimenId" DisplayMemberPath="SpecimenName"
-				        SelectedValue="{Binding Path=ClientOrderDetail.SpecimenId}" IsEditable="True" LostFocus="ComboBoxSpecimenId_LostFocus"/>
+				        SelectedValue="{Binding Path=ClientOrderDetail.SpecimenId}" IsEditable="True"/>
 
                 <TextBlock Grid.Column="0" Grid.Row="4" Margin="2,2,2,2" FontSize="14" HorizontalAlignment="Right">Accession As:</TextBlock>
                 <TextBox Name="TextBoxAccessionAs" Grid.Column="1" Grid.Row="4" Margin="2,2,2,2" Text="{Binding Path=ClientOrderDetail.DescriptionToAccessionBinding, ValidatesOnDataErrors=True}" TextWrapping="Wrap" FontSize="14" AcceptsReturn="True" GotFocus="TextBoxAccessionAs_GotFocus">

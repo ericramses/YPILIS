@@ -54,5 +54,19 @@ namespace YellowstonePathology.Business.Client.Model
 		{
 			get { return this.m_CurrentLocation; }
 		}
-	}
+
+        public bool Exists(string location)
+        {
+            bool result = false;
+            foreach (ClientLocation clientLocation in this)
+            {
+                if (clientLocation.Location == "Medical Records")
+                {
+                    result = true;
+                    break;
+                }
+            }
+            return result;
+        }
+    }
 }

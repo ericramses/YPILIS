@@ -179,7 +179,32 @@
 					</ListView>
 				</Grid>
 			</TabItem>
-		</TabControl>
+
+            <TabItem Header="Locations">
+
+                <Grid Margin="2,5,2,2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <ListView Name="ListViewClientLocations" Grid.Column="0" Grid.Row="0" Margin="5,5,5,5" ItemsSource="{Binding Path=Client.ClientLocationCollection}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Location" Width="300" DisplayMemberBinding="{Binding Path=Location}" />
+                                <GridViewColumn Header="Order Type" Width="200" DisplayMemberBinding="{Binding Path=OrderType}" />
+                                <GridViewColumn Header="Tracking Initiated" Width="150" DisplayMemberBinding="{Binding Path=SpecimenTrackingInitiated}" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+
+                    <Button Grid.Row="0" Grid.Column="1" Margin="15,15,15,5" Height="30" Width="140" VerticalAlignment="Top" Content="Add Medical Records" Click="ButtonAddClientLocation_Click" />
+
+                </Grid>
+
+            </TabItem>
+
+        </TabControl>
 		
 		<StackPanel Grid.Row="1" HorizontalAlignment="Right" Orientation="Horizontal">			
 			<Button Margin="5" Width="120" Height="30" Click="ButtonOk_Click" Content="OK" />

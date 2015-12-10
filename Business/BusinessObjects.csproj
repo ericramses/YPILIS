@@ -299,6 +299,7 @@
     </Compile>
     <Compile Include="Client\HPVCompoundStandingOrderRule3.cs" />
     <Compile Include="Client\FaxPhysicianClientDistribution.cs" />
+    <Compile Include="Client\HPVCompoundStandingOrderRule4.cs" />
     <Compile Include="Client\MediTechPhysicianClientDistribution.cs" />
     <Compile Include="Client\ECWPhysicianClientDistribution.cs" />
     <Compile Include="Client\EPICAndFaxPhysicianClientDistribution.cs" />
@@ -404,6 +405,7 @@
     <Compile Include="Domain\OrderLogItem.cs" />
     <Compile Include="Facility.Model\BozemanDeaconess.cs" />
     <Compile Include="Facility.Model\CMMC.cs" />
+    <Compile Include="Facility.Model\MontanaDepartmentofJustice.cs" />
     <Compile Include="Facility.Model\StJamesHospital.cs" />
     <Compile Include="Facility.Model\TallmanDermatology.cs" />
     <Compile Include="Facility.Model\ProfessionalPathologyOfWyoming.cs" />
@@ -412,6 +414,8 @@
     <Compile Include="Flow\FlowCommentItem.Generated.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Gateway\AOGW.cs" />
+    <Compile Include="Gateway\AOSaveResult.cs" />
     <Compile Include="Gateway\LockGateway.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -445,6 +449,8 @@
     <Compile Include="Interface\ILeukemiaLymphomaResult.cs" />
     <Compile Include="Interface\IPersistPageChanges.cs" />
     <Compile Include="Label.Model\BlockLabelLegacy.cs" />
+    <Compile Include="Label.Model\LaserCassettePrinter.cs" />
+    <Compile Include="Label.Model\LaserCassette.cs" />
     <Compile Include="Label.Model\HistologySlideLabel.cs" />
     <Compile Include="Label.Model\ThinPrepSlidePrinter.cs" />
     <Compile Include="Label.Model\ThinPrepSlide.cs" />
@@ -466,10 +472,13 @@
     <Compile Include="PanelSet.Model\PanelSetTCellClonalityByPCRRetired.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Persistence\JSONIndenter.cs" />
     <Compile Include="Persistence\JSONWriter.cs" />
+    <Compile Include="Persistence\JSONObjectWriter.cs" />
     <Compile Include="Test.Model\DispalyGroupProstate.cs" />
     <Compile Include="Test\ALKForNSCLCByFISH\ALKForNSCLCByFISHNegativeWithMonosomyResult.cs" />
     <Compile Include="Test\ALKForNSCLCByFISH\ALKForNSCLCByFISHNegativeWithPolysomyResult.cs" />
+    <Compile Include="Test\CD1a\CD1aTest.cs" />
     <Compile Include="Test\EGFRMutationAnalysis\EGFRMutationAnalysisPanel.cs" />
     <Compile Include="Test\ErPrSemiQuantitative\ERPRSemiQuanititativePanel.cs" />
     <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHPanel.cs" />

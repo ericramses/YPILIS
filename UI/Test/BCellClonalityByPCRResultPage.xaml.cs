@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Test
 	/// <summary>
 	/// Interaction logic for BCellClonalityByPCRResultPage.xaml
 	/// </summary>
-	public partial class BCellClonalityByPCRResultPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
+	public partial class BCellClonalityByPCRResultPage : ResultControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -37,7 +37,7 @@ namespace YellowstonePathology.UI.Test
 		public BCellClonalityByPCRResultPage(YellowstonePathology.Business.Test.BCellClonalityByPCR.BCellClonalityByPCRTestOrder testOrder,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
 			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+			YellowstonePathology.Business.User.SystemIdentity systemIdentity): base(testOrder)
 		{
 			this.m_PanelSetOrder = testOrder;
 			this.m_AccessionOrder = accessionOrder;
@@ -51,10 +51,9 @@ namespace YellowstonePathology.UI.Test
 			InitializeComponent();
 
 			DataContext = this;
-
 		}
 
-		public YellowstonePathology.Business.Test.BCellClonalityByPCR.BCellClonalityByPCRTestOrder PanelSetOrder
+        public YellowstonePathology.Business.Test.BCellClonalityByPCR.BCellClonalityByPCRTestOrder PanelSetOrder
 		{
 			get { return this.m_PanelSetOrder; }
 		}

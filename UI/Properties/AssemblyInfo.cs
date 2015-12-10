@@ -6,6 +6,7 @@ using System.Resources;
 using System.Globalization;
 using System.Windows;
 using System.Runtime.InteropServices;
+using System.Windows.Markup;
 
 #endregion
 
@@ -61,3 +62,5 @@ using System.Runtime.InteropServices;
 // by using the '*' as shown below:
 [assembly: AssemblyVersion("20.0.*")]
 [assembly: AssemblyFileVersionAttribute("10.0.0.0")]
+[assembly: XmlnsDefinition("http://schemas.microsoft.com/winfx/2006/xaml/presentation","YellowstonePathology.UI.Test")]
+

@@ -19,6 +19,20 @@ namespace YellowstonePathology.Business.Audit.Model
             this.m_Status = AuditStatusEnum.OK;
             this.m_Message.Clear();
 
+            YellowstonePathology.Business.Surgical.PQRSMeasure useThisPQRSMeasure = GetApplicablePQRSMeasure();
+            if (useThisPQRSMeasure != null)
+            {
+                if (this.DoesCPTCodeExist(useThisPQRSMeasure) == false)
+                {
+                    this.m_Status = AuditStatusEnum.Failure;
+                    this.m_Message.Append("A PQRS code must be applied.");
+                }
+            }
+        }
+
+        private YellowstonePathology.Business.Surgical.PQRSMeasure GetApplicablePQRSMeasure()
+        {
+            YellowstonePathology.Business.Surgical.PQRSMeasure result = null;
             YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetSurgical();
             if(surgicalTestOrder.PQRSIsIndicated == true)
             {
@@ -32,32 +46,28 @@ namespace YellowstonePathology.Business.Audit.Model
                         {
                             if (pqrsMeasure.DoesMeasureApply(surgicalTestOrder, surgicalSpecimen, patientAge) == true)
                             {
-                                YellowstonePathology.Business.Test.PanelSetOrderCPTCodeCollection panelSetOrderCPTCodeCollection = surgicalTestOrder.PanelSetOrderCPTCodeCollection.GetSpecimenOrderCollection(surgicalSpecimen.SpecimenOrderId);
-                                if (this.MeasureCodeExists(pqrsMeasure, panelSetOrderCPTCodeCollection) == false)
-                                {
-                                    this.m_Status = AuditStatusEnum.Failure;
-                                    this.m_Message.Append("A PQRS code must be applied.");
-                                    break;
-                                }
+                                result = pqrsMeasure;
+                                break;
                             }
                         }
 
-                        if(this.m_Status == AuditStatusEnum.Failure)
+                        if (result != null)
                         {
                             break;
                         }
                     }
                 }
             }
+            return result;
         }
 
-        private bool MeasureCodeExists(YellowstonePathology.Business.Surgical.PQRSMeasure pqrsMeasure,
-            YellowstonePathology.Business.Test.PanelSetOrderCPTCodeCollection panelSetOrderCPTCodeCollection)
+        private bool DoesCPTCodeExist(YellowstonePathology.Business.Surgical.PQRSMeasure pqrsMeasure)
         {
             bool result = false;
+            YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetSurgical();
             foreach (YellowstonePathology.Business.Billing.Model.PQRSCode pqrsCode in pqrsMeasure.PQRSCodeCollection)
             {
-                if (panelSetOrderCPTCodeCollection.Exists(pqrsCode.Code, 1) == true)
+                if (surgicalTestOrder.PanelSetOrderCPTCodeCollection.Exists(pqrsCode.Code, 1) == true)
                 {
                     result = true;
                     break;

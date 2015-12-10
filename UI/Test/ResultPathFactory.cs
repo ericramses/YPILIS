@@ -41,7 +41,10 @@ namespace YellowstonePathology.UI.Test
 				case 30:
                     result = new KRASStandardReflexResultPath(reportNo, accessionOrder, objectTracker, pageNavigator, backButtonVisibility);
                     break;
-				case 32:
+                case 31:
+                    result = new TechnicalOnlyResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+                    break;
+                case 32:
 					result = new FactorVLeidenResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
                     break;
 				case 33:

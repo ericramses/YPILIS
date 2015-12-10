@@ -97,6 +97,11 @@ namespace YellowstonePathology.Business.Test
         private bool m_ITAudited;
         private int m_ITAuditPriority;
         private string m_CaseDialog;
+        private string m_JSON;
+        private Nullable<int> m_LockAquiredById;
+        private string m_LockAquiredByUserName;
+        private string m_LockAquiredByHostName;
+        private Nullable<DateTime> m_TimeLockAquired; 
 
 		public AccessionOrder()
         {
@@ -148,6 +153,76 @@ namespace YellowstonePathology.Business.Test
 				}
 			}
 		}
+
+        [PersistentProperty()]
+        public string JSON
+        {
+            get { return this.m_JSON; }
+            set
+            {
+                if (this.m_JSON != value)
+                {
+                    this.m_JSON = value;
+                    this.NotifyPropertyChanged("JSON");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public Nullable<int> LockAquiredById
+        {
+            get { return this.m_LockAquiredById; }
+            set
+            {
+                if (this.m_LockAquiredById != value)
+                {
+                    this.m_LockAquiredById = value;
+                    this.NotifyPropertyChanged("LockAquiredById");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string LockAquiredByUserName
+        {
+            get { return this.m_LockAquiredByUserName; }
+            set
+            {
+                if (this.m_LockAquiredByUserName != value)
+                {
+                    this.m_LockAquiredByUserName = value;
+                    this.NotifyPropertyChanged("LockAquiredByUserName");
+                }
+            }
+        }
+        
+        [PersistentProperty()]
+        public string LockAquiredByHostName
+        {
+            get { return this.m_LockAquiredByHostName; }
+            set
+            {
+                if (this.m_LockAquiredByHostName != value)
+                {
+                    this.m_LockAquiredByHostName = value;
+                    this.NotifyPropertyChanged("LockAquiredByHostName");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public Nullable<DateTime> TimeLockAquired
+        {
+            get { return this.m_TimeLockAquired; }
+            set
+            {
+                if (this.m_TimeLockAquired != value)
+                {
+                    this.m_TimeLockAquired = value;
+                    this.NotifyPropertyChanged("TimeLockAquired");
+                }
+            }
+        }
 
         [PersistentProperty()]
         public string ClientAccessionNo
@@ -1425,7 +1500,7 @@ namespace YellowstonePathology.Business.Test
 
             if (panelSetOrder.PanelSetId == 13 && this.IsDermatologyClient() == true)
             {
-                if(this.m_ClientId == 1260) //If Advanced Dermatology
+                if(this.m_ClientId == 1260 || this.m_ClientId == 1511) //If Advanced Dermatology or Big Sky Diagnosistics
                 {
                     panelSetOrder.AssignedToId = 5132; //Assign to Dr. Shannon
                     YellowstonePathology.Business.Facility.Model.ButtePathology buttePathology = new Facility.Model.ButtePathology();
@@ -1486,16 +1561,9 @@ namespace YellowstonePathology.Business.Test
 					YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_SpecimenOrderCollection.Add(this.m_MasterAccessionNo, clientOrderDetail);					
 					clientOrderDetail.Accessioned = true;
 
+					if(clientOrderDetail.ClientAccessioned == true) this.ClientAccessioned = true;
                     YellowstonePathology.Business.Visitor.AddSpecimenOrderVisitor addSpecimenOrderVisitor = new Visitor.AddSpecimenOrderVisitor(specimenOrder);
-                    this.TakeATrip(addSpecimenOrderVisitor);
-
-                    string specimenDescription = specimenOrder.Description.ToUpper();
-                    if (specimenDescription.Contains("BREAST") == true)
-                    {
-                        this.m_ITAudited = false;
-                        this.m_ITAuditRequired = true;
-                        this.m_ITAuditPriority = 3;
-                    }
+                    this.TakeATrip(addSpecimenOrderVisitor);                    
 				}			
 			}
 		}
@@ -1640,6 +1708,16 @@ namespace YellowstonePathology.Business.Test
 			result.AppendLine("Report for: " + panelSetOrder.PanelSetName);
             result.AppendLine(panelSetOrder.ToResultString(this));
             return result.ToString();
-        }        
+        } 
+        
+        public bool LockedAquired
+        {
+            get
+            {
+                bool result = false;
+                if (LockAquiredByHostName == System.Environment.MachineName) result = true;
+                return result;
+            }            
+        }       
 	}
 }

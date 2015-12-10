@@ -57,6 +57,21 @@ namespace YellowstonePathology.UI.Login
 
         private void SpecimenOrderDetailsPage_Loaded(object sender, RoutedEventArgs e)
         {
+            this.TextBoxDescription.Focus();
+            if(string.IsNullOrEmpty(this.m_SpecimenOrder.SpecimenId) == true)
+            {
+                this.ComboBoxSpecimenId.Focus();
+            }
+
+            if (string.IsNullOrEmpty(this.m_SpecimenOrder.Description) == false)
+            {
+                if (this.m_SpecimenOrder.Description.ToUpper().Contains("THIN PREP") == true)
+                {
+                    this.TextBoxSpecimenSource.Focus();
+                }
+            }
+
+            this.ComboBoxSpecimenId.SelectionChanged += ComboBoxSpecimenId_SelectionChanged;
             this.ComboBoxProcessorRun.SelectionChanged += new SelectionChangedEventHandler(ComboBoxProcessorRun_SelectionChanged);
             this.ComboBoxReceivedIn.SelectionChanged += new SelectionChangedEventHandler(ComboBoxReceivedIn_SelectionChanged);
             this.CheckBoxClientAccessioned.Checked +=new RoutedEventHandler(CheckBoxClientAccessioned_Checked);
@@ -239,7 +254,7 @@ namespace YellowstonePathology.UI.Login
 
         private void ComboBoxSpecimenId_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (this.ComboBoxSpecimenId.SelectedItem != null)
+            if (this.ComboBoxSpecimenId.SelectedItem != null && this.ComboBoxSpecimenId.SelectedItem.GetType() != typeof(YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.NullSpecimen))
             {
                 if (string.IsNullOrEmpty(this.m_SpecimenOrder.Description) == true)
                 {

@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using YellowstonePathology.Business.Persistence;
 using YellowstonePathology.Business.Audit.Model;
 using YellowstonePathology.Business.User;
+using YellowstonePathology.Business.Rules;
 
 namespace YellowstonePathology.Business.Test.Surgical
 {
@@ -608,6 +609,18 @@ namespace YellowstonePathology.Business.Test.Surgical
             Audit.Model.PathologistSignoutAuditCollection pathologistSignoutAuditCollection = new PathologistSignoutAuditCollection(accessionOrder, systemIdentity);
             AuditResult auditResult = pathologistSignoutAuditCollection.Run2();
             return auditResult;
+        }
+
+        public override void Finalize(AccessionOrder accessionOrder, RuleExecutionStatus ruleExecutionStatus, SystemIdentity systemIdentity)
+        {
+            this.m_ProfessionalComponentFacilityId = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId;
+            base.Finalize(accessionOrder, ruleExecutionStatus, systemIdentity);
+        }
+
+        public override void Finalize(SystemUser systemUser)
+        {
+            this.m_ProfessionalComponentFacilityId = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId;
+            base.Finalize(systemUser);
         }
     }
 }

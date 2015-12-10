@@ -694,8 +694,7 @@ namespace YellowstonePathology.UI
         public void MenuItemReportDistributionMonitor_Click(object sender, RoutedEventArgs args)
         {
             YellowstonePathology.UI.Monitor.MonitorPath monitorPath = new Monitor.MonitorPath();            
-            monitorPath.Load(YellowstonePathology.UI.Monitor.MonitorPageLoadEnum.ReportDistributionMonitor);
-            monitorPath.Start();
+            monitorPath.Show(YellowstonePathology.UI.Monitor.MonitorPageLoadEnum.ReportDistributionMonitor);            
         }        
 
         public void MenuItemFlowMarkerPanels_Click(object sender, RoutedEventArgs args)
@@ -866,22 +865,19 @@ namespace YellowstonePathology.UI
         private void MenuItemShowReportDistributionMonitor_Click(object sender, RoutedEventArgs e)
         {
             YellowstonePathology.UI.Monitor.MonitorPath monitorPath = new Monitor.MonitorPath();            
-            monitorPath.Load(YellowstonePathology.UI.Monitor.MonitorPageLoadEnum.ReportDistributionMonitor);
-            monitorPath.Start();
+            monitorPath.Show(YellowstonePathology.UI.Monitor.MonitorPageLoadEnum.ReportDistributionMonitor);            
         }
 
         private void MenuItemShowCytologyScreeningMonitor_Click(object sender, RoutedEventArgs e)
         {
             YellowstonePathology.UI.Monitor.MonitorPath monitorPath = new Monitor.MonitorPath();            
-            monitorPath.Load(YellowstonePathology.UI.Monitor.MonitorPageLoadEnum.CytologyScreeningMonitor);
-            monitorPath.Start();
+            monitorPath.Show(YellowstonePathology.UI.Monitor.MonitorPageLoadEnum.CytologyScreeningMonitor);            
         }
 
         private void MenuItemShowPendingTestMonitor_Click(object sender, RoutedEventArgs e)
         {
             YellowstonePathology.UI.Monitor.MonitorPath monitorPath = new Monitor.MonitorPath();
-            monitorPath.Load(YellowstonePathology.UI.Monitor.MonitorPageLoadEnum.PendingTestMonitor);
-            monitorPath.Start();            
+            monitorPath.Show(YellowstonePathology.UI.Monitor.MonitorPageLoadEnum.PendingTestMonitor);            
         }
 
         private void MenuItemNeogenomicsResults_Click(object sender, RoutedEventArgs e)
@@ -923,8 +919,7 @@ namespace YellowstonePathology.UI
         private void MenuItemShowMissingInformationMonitor_Click(object sender, RoutedEventArgs e)
         {
             YellowstonePathology.UI.Monitor.MonitorPath monitorPath = new Monitor.MonitorPath();
-            monitorPath.Load(YellowstonePathology.UI.Monitor.MonitorPageLoadEnum.MissingInformationMonitor);
-            monitorPath.Start();
+            monitorPath.Show(YellowstonePathology.UI.Monitor.MonitorPageLoadEnum.MissingInformationMonitor);            
         }
 
         private void MenuItemAcidWashOrders_Click(object sender, RoutedEventArgs e)

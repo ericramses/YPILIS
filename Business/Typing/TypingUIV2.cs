@@ -33,6 +33,7 @@ namespace YellowstonePathology.Business.Typing
 		YellowstonePathology.Business.Typing.ParagraphTemplateCollection m_ParagraphTemplateCollection;
 		private YellowstonePathology.Business.View.BillingSpecimenViewCollection m_BillingSpecimenViewCollection;
 		private YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder m_SurgicalTestOrder;
+		private string m_TemplateText;
 
 		public TypingUIV2(YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 		{
@@ -86,6 +87,12 @@ namespace YellowstonePathology.Business.Typing
 				this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
 			}
 		}
+		
+		public string TemplateText
+        {
+            get { return this.m_TemplateText; }
+            set { this.m_TemplateText = value; }
+        }
 
 		public ParagraphTemplateCollection ParagraphTemplateCollection
 		{

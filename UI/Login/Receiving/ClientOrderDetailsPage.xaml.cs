@@ -79,8 +79,14 @@ namespace YellowstonePathology.UI.Login.Receiving
                 //MessageBox.Show(this.m_BarcodeScanPort.GetContainerScanReceivedTargetString());
             }
 
-            //this.TextBoxAccessionAs.Focus();
-            this.ComboBoxSpecimenId.Focus();
+            this.FixTimes();
+
+            this.TextBoxAccessionAs.Focus();
+
+            if (string.IsNullOrEmpty(this.m_ClientOrderDetail.SpecimenId) == true)
+            {
+                this.ComboBoxSpecimenId.Focus();
+            }
 
             if (string.IsNullOrEmpty(this.m_ClientOrderDetail.DescriptionToAccession) == false)
             {
@@ -96,10 +102,18 @@ namespace YellowstonePathology.UI.Login.Receiving
                 textBox.LostFocus += TextBoxInComboBox_LostFocus;
             }
 
+            //this.ComboBoxSpecimenId.LostFocus += ComboBoxSpecimenId_LostFocus;
             this.ComboBoxReceivedIn.SelectionChanged += new SelectionChangedEventHandler(ComboBoxReceivedIn_SelectionChanged);
             this.CheckBoxClientAccessioned.Checked +=new RoutedEventHandler(CheckBoxClientAccessioned_Checked);
             this.CheckBoxClientAccessioned.Unchecked +=new RoutedEventHandler(CheckBoxClientAccessioned_Unchecked);
-        }             
+        }
+
+        private void FixTimes()
+        {
+           this.m_ClientOrderDetail.CollectionDate = Business.Helper.DateTimeExtensions.RemoveSeconds(this.m_ClientOrderDetail.CollectionDate);
+           this.m_ClientOrderDetail.FixationStartTime = Business.Helper.DateTimeExtensions.RemoveSeconds(this.m_ClientOrderDetail.FixationStartTime);
+        }
+
 
         private void ComboBoxReceivedIn_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -163,24 +177,49 @@ namespace YellowstonePathology.UI.Login.Receiving
 
 		private void ButtonNext_Click(object sender, RoutedEventArgs e)
 		{
-            this.m_ClientOrderDetail.ValidateObject();
-
-            if (this.m_ClientOrderDetail.ValidationErrors.Count > 0)
+            if(this.HandleBreastFixationTime() == true)
             {
-                this.CheckFixationStartTimeOrCollectionTimeValidationErrors();
-                MessageBoxResult messageBoxResult = MessageBox.Show("There are validation errors on this form.  Are you sure you want to continue?", "Validation Errors", MessageBoxButton.YesNo);
-                if (messageBoxResult == MessageBoxResult.Yes)
+                this.m_ClientOrderDetail.ValidateObject();
+
+                if (this.m_ClientOrderDetail.ValidationErrors.Count > 0)
+                {
+                    this.CheckFixationStartTimeOrCollectionTimeValidationErrors();
+                    MessageBoxResult messageBoxResult = MessageBox.Show("There are validation errors on this form.  Are you sure you want to continue?", "Validation Errors", MessageBoxButton.YesNo);
+                    if (messageBoxResult == MessageBoxResult.Yes)
+                    {
+                        this.m_BarcodeScanPort.ContainerScanReceived -= ContainerScanReceived;
+                        this.Next(this, new EventArgs());
+                    }
+                }
+                else
                 {
                     this.m_BarcodeScanPort.ContainerScanReceived -= ContainerScanReceived;
-                    this.Next(this, new EventArgs());                    
+                    this.Next(this, new EventArgs());
+                }
+            }            
+		}
+
+        private bool HandleBreastFixationTime()
+        {
+            bool result = true;
+            if(string.IsNullOrEmpty(this.m_ClientOrderDetail.DescriptionToAccession) == false)
+            {
+                if (this.m_ClientOrderDetail.DescriptionToAccession.ToUpper().Contains("BREAST") == true)
+                {
+                    if (YellowstonePathology.Business.Helper.DateTimeExtensions.DoesDateHaveTime(this.m_ClientOrderDetail.CollectionDate) == false)
+                    {
+                        MessageBoxResult collectionDateResult = MessageBox.Show("This case appears to be a breast case and there is no Collection Time. Are you sure you want to continue?", "Continue?", MessageBoxButton.YesNo);
+                        if (collectionDateResult == MessageBoxResult.No) result = false;
+                    }
+                    else if (YellowstonePathology.Business.Helper.DateTimeExtensions.DoesDateHaveTime(this.m_ClientOrderDetail.FixationStartTime) == false)
+                    {
+                        MessageBoxResult fixationStartTimeResult = MessageBox.Show("This case appears to be a breast case and there is no Fixation Start Time. Please contact IT.", "Continue?", MessageBoxButton.YesNo);
+                        if (fixationStartTimeResult == MessageBoxResult.No) result = false;
+                    }
                 }
             }
-            else
-            {
-                this.m_BarcodeScanPort.ContainerScanReceived -= ContainerScanReceived;
-                this.Next(this, new EventArgs());                    
-            }           
-		}
+            return result;
+        }
 
         private void CheckFixationStartTimeOrCollectionTimeValidationErrors()
         {
@@ -290,15 +329,25 @@ namespace YellowstonePathology.UI.Login.Receiving
             }
         }
        
-        private void ComboBoxSpecimenId_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {            
-            
-        }
+        //private void ComboBoxSpecimenId_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
+        //}
 
-        private void ComboBoxSpecimenId_LostFocus(object sender, RoutedEventArgs e)
+        /*private void ComboBoxSpecimenId_LostFocus(object sender, RoutedEventArgs e)
         {
-            
-        }
+            if (this.ComboBoxSpecimenId.SelectedItem != null && this.ComboBoxSpecimenId.SelectedItem.GetType() != typeof(YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.NullSpecimen))
+            {
+                YellowstonePathology.Business.Specimen.Model.Specimen specimen = (YellowstonePathology.Business.Specimen.Model.Specimen)this.ComboBoxSpecimenId.SelectedItem;
+                if (string.IsNullOrEmpty(this.m_ClientOrderDetail.DescriptionToAccessionBinding) == true)
+                {
+                    this.m_ClientOrderDetail.DescriptionToAccessionBinding = specimen.Description;
+                }
+                this.m_ClientOrderDetail.LabFixationBinding = specimen.LabFixation;
+                this.m_ClientOrderDetail.ClientFixationBinding = specimen.ClientFixation;
+                this.m_ClientOrderDetail.RequiresGrossExamination = specimen.RequiresGrossExamination;
+                this.NotifyPropertyChanged("");
+            }
+        }*/
 
         private void TextBoxAccessionAs_GotFocus(object sender, RoutedEventArgs e)
         {
@@ -314,22 +363,6 @@ namespace YellowstonePathology.UI.Login.Receiving
                 }
             }
         }        
-
-        private void TextBoxInComboBox_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (this.ComboBoxSpecimenId.SelectedItem != null && this.ComboBoxSpecimenId.SelectedItem.GetType() != typeof(YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.NullSpecimen))
-            {
-                YellowstonePathology.Business.Specimen.Model.Specimen specimen = (YellowstonePathology.Business.Specimen.Model.Specimen)this.ComboBoxSpecimenId.SelectedItem;
-                if (string.IsNullOrEmpty(this.m_ClientOrderDetail.DescriptionToAccessionBinding) == true)
-                {
-                    this.m_ClientOrderDetail.DescriptionToAccessionBinding = specimen.Description;
-                }
-                this.m_ClientOrderDetail.LabFixationBinding = specimen.LabFixation;
-                this.m_ClientOrderDetail.ClientFixationBinding = specimen.ClientFixation;
-                this.m_ClientOrderDetail.RequiresGrossExamination = specimen.RequiresGrossExamination;
-                this.NotifyPropertyChanged("");
-            }
-        }
 
         private void HyperLinkReceivedFresh_Click(object sender, RoutedEventArgs e)
         {            
@@ -415,6 +448,22 @@ namespace YellowstonePathology.UI.Login.Receiving
             {
                 MessageBox.Show("The Container Id cannot be cleared because the specimen has been accessioned.");
             }
-        }        
+        }
+
+        private void TextBoxInComboBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (this.ComboBoxSpecimenId.SelectedItem != null && this.ComboBoxSpecimenId.SelectedItem.GetType() != typeof(YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.NullSpecimen))
+            {
+                YellowstonePathology.Business.Specimen.Model.Specimen specimen = (YellowstonePathology.Business.Specimen.Model.Specimen)this.ComboBoxSpecimenId.SelectedItem;
+                if (string.IsNullOrEmpty(this.m_ClientOrderDetail.DescriptionToAccessionBinding) == true)
+                {
+                    this.m_ClientOrderDetail.DescriptionToAccessionBinding = specimen.Description;
+                }
+                this.m_ClientOrderDetail.LabFixationBinding = specimen.LabFixation;
+                this.m_ClientOrderDetail.ClientFixationBinding = specimen.ClientFixation;
+                this.m_ClientOrderDetail.RequiresGrossExamination = specimen.RequiresGrossExamination;
+                this.NotifyPropertyChanged("");
+            }
+        }
     }
 }

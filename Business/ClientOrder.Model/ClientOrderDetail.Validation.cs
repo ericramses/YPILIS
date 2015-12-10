@@ -14,7 +14,6 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 
         public void ValidateObject()
         {
-            //this.RemoveSecondsFromCollectionDate();
             this.ValidateCollectionDate();
             this.ValidateFixationComment();
             this.ValidateContainerId();
@@ -22,14 +21,6 @@ namespace YellowstonePathology.Business.ClientOrder.Model
             this.ValidateFixationStartTime();
             this.ValidateClientFixation();
             this.ValidateLabFixation();
-        }
-
-        public void RemoveSecondsFromCollectionDate()
-        {
-            this.m_CollectionDate = Business.Helper.DateTimeExtensions.RemoveSeconds(this.m_CollectionDate);
-            this.NotifyPropertyChanged("CollectionDateBinding");
-            this.NotifyPropertyChanged("CollectionDate");
-            this.NotifyPropertyChanged("CollectionDateBackgroundColorBinding");
         }
 
         public System.Windows.Media.SolidColorBrush CollectionDateBackgroundColorBinding

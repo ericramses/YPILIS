@@ -745,7 +745,23 @@
 
 			<TabItem Name="tabItemTreeView" Header="Tree View"></TabItem>
 
-		</TabControl>
+            <TabItem Name="tabItemTemplates" Header="Templates">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2">
+                        <Hyperlink Click="HyperLinkBuildTemplates_Click">Build Templates</Hyperlink>
+                    </TextBlock>
+                    <TextBox Grid.Column="0" Grid.Row="1" Text="{Binding Path=TemplateText}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Visible" AcceptsReturn="True" TextWrapping="Wrap" FontSize="14"></TextBox>
+                </Grid>
+            </TabItem>
+
+        </TabControl>
 
 		<StatusBar Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2">
 			<StatusBarItem>
@@ -768,14 +784,17 @@
 			<StatusBarItem>
 				<TextBlock Width="60" Margin="2" TextAlignment="Left" HorizontalAlignment="Stretch" VerticalAlignment="Center" Text="{Binding Path=SurgicalTestOrder.ReportNo}"></TextBlock>
 			</StatusBarItem>
-        
+
             <StatusBarItem HorizontalAlignment="Right">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Margin="2,2,2,2">
+                        <Hyperlink Click="HyperLinkShowProviderDistribution_Click">Provider Distribution</Hyperlink>
+                    </TextBlock>
+                    <TextBlock Margin="2,2,2,2">
                         <Hyperlink Click="HyperLinkShowGossTemplate_Click">Gross Templates</Hyperlink>
                     </TextBlock>
-                </StackPanel>                
-            </StatusBarItem>                       
+                </StackPanel>
+            </StatusBarItem>
         
         </StatusBar>
 

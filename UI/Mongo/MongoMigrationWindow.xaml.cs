@@ -8,12 +8,13 @@ using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace YellowstonePathology.UI.Mongo
-{    
+{
     public partial class MongoMigrationWindow : Window
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
         private BackgroundWorker m_TransferTableWorker;
+        private BackgroundWorker m_JSONWriterWorker;
         private YellowstonePathology.Business.Mongo.Server m_SQLTransferServer;
         private YellowstonePathology.Business.Mongo.DocumentCollectionTracker m_DocumentCollectionTracker;
         private YellowstonePathology.Business.Mongo.TransferCollection m_TransferCollection;
@@ -27,7 +28,7 @@ namespace YellowstonePathology.UI.Mongo
             this.m_StatusMessage = "Idle";
 
             InitializeComponent();
-            this.DataContext = this;            
+            this.DataContext = this;
         }
 
         public string StatusMessage
@@ -38,7 +39,7 @@ namespace YellowstonePathology.UI.Mongo
         public YellowstonePathology.Business.Mongo.TransferCollection TransferCollection
         {
             get { return this.m_TransferCollection; }
-        }        
+        }
 
         private void ButtonView_Click(object sender, RoutedEventArgs e)
         {
@@ -49,16 +50,16 @@ namespace YellowstonePathology.UI.Mongo
                 transferWindow.ShowDialog();
                 this.NotifyPropertyChanged("TransferCollection");
             }
-        }                
+        }
 
         private void ButtonClose_Click(object sender, RoutedEventArgs e)
         {
             this.m_DocumentCollectionTracker.SubmitChanges();
             this.Close();
-        }        
+        }
 
         private void AddTransferDocuments(string assemblyName)
-        {            
+        {
             Assembly assembly = Assembly.LoadFile(assemblyName);
             Type[] types = assembly.GetTypes();
 
@@ -73,18 +74,18 @@ namespace YellowstonePathology.UI.Mongo
                         {
                             YellowstonePathology.Business.Persistence.PersistentClass persistentClass = (YellowstonePathology.Business.Persistence.PersistentClass)o;
                             if (string.IsNullOrEmpty(persistentClass.StorageName) == false)
-                            {                                
+                            {
                                 string collectionName = persistentClass.StorageName.Substring(3);
                                 string tableName = persistentClass.StorageName;
-                                
+
                                 YellowstonePathology.Business.Mongo.Transfer transfer = YellowstonePathology.Business.Mongo.Transfer.New(tableName, collectionName);
                                 transfer.AssemblyQualifiedName = type.AssemblyQualifiedName;
-                                transfer.HasBaseClass = persistentClass.HasPersistentBaseClass;                                
+                                transfer.HasBaseClass = persistentClass.HasPersistentBaseClass;
 
                                 if (persistentClass.HasPersistentBaseClass == true)
-                                {                                    
+                                {
                                     transfer.BaseTableName = persistentClass.BaseStorageName;
-                                }                                                               
+                                }
 
                                 List<PropertyInfo> propertyList = type.GetProperties().Where(prop => Attribute.IsDefined(prop, typeof(YellowstonePathology.Business.Persistence.PersistentPrimaryKeyProperty))).ToList();
                                 transfer.PrimaryKeyName = propertyList[0].Name;
@@ -111,20 +112,20 @@ namespace YellowstonePathology.UI.Mongo
         {
             this.m_TransferCollection.Clear();
             this.m_DocumentCollectionTracker.SubmitChanges();
-            this.NotifyPropertyChanged("TransferCollection");     
-        }        
+            this.NotifyPropertyChanged("TransferCollection");
+        }
 
-        
+
         private void ButtonUpdateObjectIDs_Click(object sender, RoutedEventArgs e)
         {
             if (this.ListViewTransferCollection.SelectedItems != null)
             {
                 foreach (YellowstonePathology.Business.Mongo.Transfer transfer in this.ListViewTransferCollection.SelectedItems)
-                {                    
+                {
                     transfer.UpdateSQLObjectIDs(100000);
                 }
             }
-        }        
+        }
 
         private void ButtonAddSQLFields_Click(object sender, RoutedEventArgs e)
         {
@@ -146,7 +147,7 @@ namespace YellowstonePathology.UI.Mongo
             {
                 foreach (YellowstonePathology.Business.Mongo.Transfer transfer in this.ListViewTransferCollection.SelectedItems)
                 {
-                    transfer.AddSQLDeleteTrigger();                    
+                    transfer.AddSQLDeleteTrigger();
                 }
             }
         }
@@ -171,13 +172,13 @@ namespace YellowstonePathology.UI.Mongo
                 {
                     transferList.Add(transfer);
                 }
-                
+
                 BackgroundWorker transferTableWorker = new BackgroundWorker();
                 transferTableWorker.DoWork += new DoWorkEventHandler(TransferTableWorker_DoWork);
                 transferTableWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(TransferTableWorker_RunWorkerCompleted);
-                transferTableWorker.RunWorkerAsync(transferList);   
+                transferTableWorker.RunWorkerAsync(transferList);
             }
-        }                             
+        }
 
         private void ButtonDeleteDocuments_Click(object sender, RoutedEventArgs e)
         {
@@ -185,7 +186,7 @@ namespace YellowstonePathology.UI.Mongo
             {
                 YellowstonePathology.Business.Mongo.Transfer transfer = (YellowstonePathology.Business.Mongo.Transfer)this.ListViewTransferCollection.SelectedItem;
                 transfer.DropMongoCollection();
-                transfer.UpdateMongoDocumentCount();                
+                transfer.UpdateMongoDocumentCount();
             }
         }
 
@@ -210,7 +211,7 @@ namespace YellowstonePathology.UI.Mongo
                 foreach (YellowstonePathology.Business.Mongo.Transfer transfer in this.ListViewTransferCollection.SelectedItems)
                 {
                     transfer.FixZeroX();
-                    transfer.UpdateZeroXCount();                    
+                    transfer.UpdateZeroXCount();
                 }
                 MessageBox.Show("All done.");
             }
@@ -232,7 +233,7 @@ namespace YellowstonePathology.UI.Mongo
         }
 
         private void ButtonExtendDocuments_Click(object sender, RoutedEventArgs e)
-        {           
+        {
             foreach (YellowstonePathology.Business.Mongo.Transfer transfer in this.ListViewTransferCollection.SelectedItems)
             {
                 transfer.ExtendDocuments();
@@ -251,7 +252,7 @@ namespace YellowstonePathology.UI.Mongo
                     transfer.DropObjectId();
                 }
             }
-        }        
+        }
 
         private void ButtonBuildIndexes_Click(object sender, RoutedEventArgs e)
         {
@@ -284,7 +285,7 @@ namespace YellowstonePathology.UI.Mongo
             List<string> panelSetOrderDerivedList = ClassHelper.GetPanelSetOrderDerivedTableNames();
             YellowstonePathology.Business.Mongo.LocalServer localServer = new Business.Mongo.LocalServer("LocalLIS");
             foreach (string str in panelSetOrderDerivedList)
-            {                
+            {
                 MongoCollection collection = localServer.Database.GetCollection<BsonDocument>(str);
                 collection.Drop();
             }
@@ -337,7 +338,7 @@ namespace YellowstonePathology.UI.Mongo
         {
             foreach (YellowstonePathology.Business.Mongo.Transfer transfer in this.ListViewTransferCollection.SelectedItems)
             {
-                transfer.DropMongoCollection();                
+                transfer.DropMongoCollection();
             }
             this.m_DocumentCollectionTracker.SubmitChanges();
             MessageBox.Show("All done.");
@@ -356,8 +357,8 @@ namespace YellowstonePathology.UI.Mongo
             this.m_TransferTableWorker.DoWork += new DoWorkEventHandler(TransferTableWorker_DoWork);
             this.m_TransferTableWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(TransferTableWorker_RunWorkerCompleted);
             this.m_TransferTableWorker.ProgressChanged += new ProgressChangedEventHandler(TransferTableWorker_ProgressChanged);
-            this.m_TransferTableWorker.RunWorkerAsync(transferList);               
-        }        
+            this.m_TransferTableWorker.RunWorkerAsync(transferList);
+        }
 
         private void MenuItemUpdateSQLIndexCount_Click(object sender, RoutedEventArgs e)
         {
@@ -416,38 +417,38 @@ namespace YellowstonePathology.UI.Mongo
         {
             List<YellowstonePathology.Business.Mongo.Transfer> transferList = (List<YellowstonePathology.Business.Mongo.Transfer>)e.Argument;
             foreach (YellowstonePathology.Business.Mongo.Transfer transfer in transferList)
-            {                
-                transfer.DropMongoCollection();                
-                transfer.UpdateSQLObjectIDs(1000);                
-                transfer.SetTransferDBTS();                
-                transfer.TransferTableToMongo(this.m_TransferTableWorker);                
-                transfer.UpdateTransferDBTS();                
-                transfer.UpdateMongoDocumentCount();                
+            {
+                transfer.DropMongoCollection();
+                transfer.UpdateSQLObjectIDs(1000);
+                transfer.SetTransferDBTS();
+                transfer.TransferTableToMongo(this.m_TransferTableWorker);
+                transfer.UpdateTransferDBTS();
+                transfer.UpdateMongoDocumentCount();
                 transfer.BuildMongoIndexes();
-                transfer.UpdateMongoIndexCount();               
+                transfer.UpdateMongoIndexCount();
 
                 this.m_DocumentCollectionTracker.SubmitChanges();
             }
         }
 
         private void TransferTableWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {            
-            this.TextBlockStatusMessage.Text = "Transfer of table complete.";            
+        {
+            this.TextBlockStatusMessage.Text = "Transfer of table complete.";
         }
 
         private void TransferTableWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            this.TextBlockStatusMessage.Text = e.UserState.ToString();            
+            this.TextBlockStatusMessage.Text = e.UserState.ToString();
         }
 
         private void MenuItemDeleteTransfers_Click(object sender, RoutedEventArgs e)
         {
             if (this.ListViewTransferCollection.SelectedItem != null)
             {
-                while(this.ListViewTransferCollection.SelectedItems.Count != 0)
+                while (this.ListViewTransferCollection.SelectedItems.Count != 0)
                 {
                     YellowstonePathology.Business.Mongo.Transfer transfer = (YellowstonePathology.Business.Mongo.Transfer)this.ListViewTransferCollection.SelectedItems[0];
-                    this.m_TransferCollection.Remove(transfer);                    
+                    this.m_TransferCollection.Remove(transfer);
                 }
                 this.m_DocumentCollectionTracker.SubmitChanges();
                 MessageBox.Show("Transfers have been removed.");
@@ -475,7 +476,7 @@ namespace YellowstonePathology.UI.Mongo
         {
             foreach (YellowstonePathology.Business.Mongo.Transfer transfer in this.ListViewTransferCollection.SelectedItems)
             {
-                transfer.AddSQLObjectIdColumn();                
+                transfer.AddSQLObjectIdColumn();
             }
             this.m_DocumentCollectionTracker.SubmitChanges();
             MessageBox.Show("All done.");
@@ -522,7 +523,7 @@ namespace YellowstonePathology.UI.Mongo
         }
 
         private void MenuItemBuildAccessionOrderDocuments_Click(object sender, RoutedEventArgs e)
-        {                                    
+        {
             MongoDatabase lis = YellowstonePathology.Business.Mongo.MongoTestServer.Instance.LIS;
             lis.DropCollection("AccessionOrder");
 
@@ -534,8 +535,8 @@ namespace YellowstonePathology.UI.Mongo
 
         private void MenuItemBuildAccessionOrderObject_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Mongo.Gateway.GetAccessionOrderByMasterAccessionNo("14-24");            
-        }        
+            YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Mongo.Gateway.GetAccessionOrderByMasterAccessionNo("14-24");
+        }
 
         private void MenuItemBuildPanelSetCollection_Click(object sender, RoutedEventArgs e)
         {
@@ -556,7 +557,7 @@ namespace YellowstonePathology.UI.Mongo
 
                 BsonDocument bsonDocument = YellowstonePathology.Business.Mongo.BSONBuilder.Build(panelSet);
                 mongoPanelSetCollection.Insert(bsonDocument);
-            }           
+            }
         }
 
         private void MenuItemUpdateOutOfSyncCount_Click(object sender, RoutedEventArgs e)
@@ -597,7 +598,7 @@ namespace YellowstonePathology.UI.Mongo
             }
             this.m_DocumentCollectionTracker.SubmitChanges();
             MessageBox.Show("All done.");
-        }           
+        }
 
         public void NotifyPropertyChanged(String info)
         {
@@ -658,7 +659,46 @@ namespace YellowstonePathology.UI.Mongo
             lis.DropCollection("Client");
 
             YellowstonePathology.Business.Mongo.ClientTransferBuilder clientTransferBuilder = new Business.Mongo.ClientTransferBuilder();
-            clientTransferBuilder.Build();      
-        }        
+            clientTransferBuilder.Build();
+        }
+
+        private void MenuItemWriteJson_Click(object sender, RoutedEventArgs e)
+        {
+            List<YellowstonePathology.Business.Mongo.Transfer> transferList = new List<Business.Mongo.Transfer>();
+            foreach (YellowstonePathology.Business.Mongo.Transfer transfer in this.ListViewTransferCollection.SelectedItems)
+            {
+                transferList.Add(transfer);
+            }
+
+            this.m_JSONWriterWorker = new BackgroundWorker();
+            this.m_JSONWriterWorker.WorkerReportsProgress = true;
+            this.m_JSONWriterWorker.DoWork += new DoWorkEventHandler(JSONWriterWorker_DoWork);
+            this.m_JSONWriterWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(JSONWriterWorker_RunWorkerCompleted);
+            this.m_JSONWriterWorker.ProgressChanged += new ProgressChangedEventHandler(JSONWriterWorker_ProgressChanged);
+            this.m_JSONWriterWorker.RunWorkerAsync(transferList);
+        }
+
+        private void JSONWriterWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            List<Business.MasterAccessionNo> masterAccessionNos = Business.Gateway.AccessionOrderGateway.GetMasterAccessionNosWithNullJSONString(2, 2014);
+            foreach (Business.MasterAccessionNo masterAccessionNo in masterAccessionNos)
+            {
+                Business.Test.AccessionOrder ao = Business.Gateway.AccessionOrderGateway.GetAccessionOrderByMasterAccessionNo(masterAccessionNo.Value);
+                Business.Persistence.ObjectTracker objectTracker = new Business.Persistence.ObjectTracker();
+                objectTracker.RegisterObject(ao);                
+                Business.Persistence.JSONObjectWriter.Write(ao).ToString();
+                objectTracker.SubmitChanges(ao);
+            }
+        }
+
+        private void JSONWriterWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            this.TextBlockStatusMessage.Text = "Update of JSON complete.";
+        }
+
+        private void JSONWriterWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            this.TextBlockStatusMessage.Text = e.UserState.ToString();
+        }
     }
 }

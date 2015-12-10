@@ -158,17 +158,48 @@ namespace YellowstonePathology.Business.Specimen.Model
                 else
                 {
                     result += " cassettes ";
-                }                
+                }
+                
                 foreach (YellowstonePathology.Business.Test.AliquotOrder aliquotOrder in this.m_AliquotOrderCollection)
-                {
-                    result += "\"" + aliquotOrder.Label + "\", ";
+                {                    
+                    result += "\"" + aliquotOrder.Label + "\", ";                    
                 }            
+
                 result = result.Remove(result.Length - 2, 2);                
             }
             return result;
         }
 
-		public string GetSpecimenDescriptionString()
+        public string GetGrossRemainderSubmittedInString()
+        {
+            string result = null;
+            if (this.m_AliquotOrderCollection.Count != 0)
+            {
+                result = "entirely submitted into ";
+                if (this.m_AliquotOrderCollection.Count == 2)
+                {
+                    result += "cassette ";
+                }
+                else
+                {
+                    result += "cassettes ";
+                }
+
+                int index = 0;
+                foreach (YellowstonePathology.Business.Test.AliquotOrder aliquotOrder in this.m_AliquotOrderCollection)
+                {
+                    if (index != 0)
+                    {
+                        result += "\"" + aliquotOrder.Label + "\", ";
+                    }                    
+                    index += 1;
+                }
+                result = result.Remove(result.Length - 2, 2);
+            }
+            return result;
+        }
+
+        public string GetSpecimenDescriptionString()
 		{
 			string result = this.SpecimenNumber.ToString() + ".) " + this.Description;
 			return result;

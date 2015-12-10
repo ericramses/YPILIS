@@ -44,5 +44,19 @@ namespace YellowstonePathology.Business.Test
 			}
 			return result;
 		}
-	}
+
+        public AccessionOrder GetAccessionOrder(string masterAccessionNo)
+        {
+            AccessionOrder result = null;
+            foreach (AccessionOrder accessionOrder in this)
+            {
+                if (accessionOrder.MasterAccessionNo == masterAccessionNo)
+                {
+                    result = accessionOrder;
+                    break;
+                }
+            }
+            return result;
+        }
+    }
 }

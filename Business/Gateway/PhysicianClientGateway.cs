@@ -233,8 +233,8 @@ namespace YellowstonePathology.Business.Gateway
 			return PhysicianClientGatewayMongo.GetClientsByClientName(clientName);
 #else
             SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "SELECT c.*, (SELECT * from tblClientLocation where ClientId = c.ClientId for xml path('ClientLocation'), type) ClientLocationCollection " +
-                "FROM tblClient c where c.ClientName like @ClientName + '%' for xml Path('Client'), Root('ClientCollection'), type";
+            cmd.CommandText = "SELECT c.*, (SELECT * from tblClientLocation where ClientId = c.ClientId order by Location for xml path('ClientLocation'), type) ClientLocationCollection " +
+                "FROM tblClient c where c.ClientName like @ClientName + '%' order by ClientName for xml Path('Client'), Root('ClientCollection'), type";
             cmd.CommandType = CommandType.Text;
             cmd.Parameters.Add("@ClientName", SqlDbType.VarChar).Value = clientName;
             XElement resultElement = PhysicianClientGateway.GetXElementFromCommand(cmd);
@@ -864,7 +864,7 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.CommandText = "select c.* " +
 			   "from tblClient c " +
 			   "join tblPhysicianClient pc on c.ClientId = pc.ClientId " +
-			   "where pc.ProviderId = @ObjectId ";
+			   "where pc.ProviderId = @ObjectId order by ClientName ";
 			cmd.Parameters.Add("@ObjectId", SqlDbType.VarChar).Value = objectId;
 			cmd.CommandType = CommandType.Text;
 
@@ -1385,6 +1385,29 @@ namespace YellowstonePathology.Business.Gateway
             int result = 0;
             SqlCommand cmd = new SqlCommand();
             cmd.CommandText = "Select max(ClientGroupClientId) from tblClientGroupClient";
+            cmd.CommandType = CommandType.Text;
+
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        result = (Int32)dr[0];
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        public static int GetLargestClientLocationId()
+        {
+            int result = 0;
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "Select max(ClientLocationId) from tblClientLocation";
             cmd.CommandType = CommandType.Text;
 
             using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.Properties.Settings.Default.CurrentConnectionString))

@@ -71,7 +71,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
         public SkinExcisionOrientedBiopsy()
         {
             this.m_SpecimenId = "SKEXOSPCMN";
-            this.m_SpecimenName = "Oriented Skin Excision Biopsy";
+            this.m_SpecimenName = "Skin Excision Biopsy, Oriented";
             this.m_Description = null;
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = "Formalin";
@@ -83,7 +83,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
         public SkinExcisionUnorientedBiopsy()
         {
             this.m_SpecimenId = "SKEXUOSPCMN";
-            this.m_SpecimenName = "Unoriented Skin Excision Biopsy";
+            this.m_SpecimenName = "Skin Excision Biopsy, Unoriented";
             this.m_Description = null;
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = "Formalin";
@@ -150,6 +150,19 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
         }
     }
 
+    public class AdenoidExcision : Specimen
+    {
+        public AdenoidExcision()
+        {
+            this.m_SpecimenId = "ADSPCM";
+            this.m_SpecimenName = "Adenoid Excision";
+            this.m_Description = null;
+            this.m_LabFixation = "Formalin";
+            this.m_ClientFixation = null;
+            this.m_RequiresGrossExamination = true;
+        }
+    }
+
     public class TonsilExcision : Specimen
     {
         public TonsilExcision()
@@ -162,13 +175,27 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_RequiresGrossExamination = true;
         }
     }
+
+    public class TonsilAdenoidExcision : Specimen
+    {
+        public TonsilAdenoidExcision()
+        {
+            this.m_SpecimenId = "TNSLADSPCM";
+            this.m_SpecimenName = "Tonsil and Adenoids Excision";
+            this.m_Description = null;
+            this.m_LabFixation = "Formalin";
+            this.m_ClientFixation = null;
+            this.m_RequiresGrossExamination = true;
+        }
+    }
+
     public class POC : Specimen
     {
         public POC()
         {
             this.m_SpecimenId = "POCSPCMN";
             this.m_SpecimenName = "POC";
-            this.m_Description = "Uteran Contents";
+            this.m_Description = "Uterine Contents";
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = null;
             this.m_RequiresGrossExamination = true;
