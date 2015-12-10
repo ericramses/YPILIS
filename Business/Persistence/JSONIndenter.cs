@@ -6,21 +6,13 @@ using System.Text;
 namespace YellowstonePathology.Business.Persistence
 {
     public static class JSONIndenter
-    {
-        static int m_Depth  = 1;
-
-        public static void Indent(StringBuilder stringToIndent)
+    {        
+        public static void AddTabs(StringBuilder stringToIndent, int indentCount)
 		{
-            for (int idx = 0; idx < m_Depth; idx++)
+            for (int idx = 0; idx < indentCount; idx++)
             {
                 stringToIndent.Append("\t");
             }
-		}
-
-        public static int IndentDepth
-        {
-            get { return m_Depth; }
-            set { m_Depth = value; }
-        }
+		}        
     }
 }

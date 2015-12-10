@@ -742,7 +742,7 @@ namespace YellowstonePathology.UI
         {
             /*Business.Test.AccessionOrder ao = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByMasterAccessionNo("15-23916");
             Business.Persistence.JSONObjectWriter jsonObjectWriter = new Business.Persistence.JSONObjectWriter();
-            string s = jsonObjectWriter.Write(ao).ToString();
+            string s = Business.Persistence.JSONObjectWriter.Write(ao);
             StreamWriter sw = new StreamWriter("C:\\TEMP\\Test.txt", true);
             sw.Write(s);
             sw.Close();
@@ -1102,14 +1102,10 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
-            //YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByMasterAccessionNo("15-27221");
-            //string json = YellowstonePathology.Business.Persistence.JSONWriter.Write(accessionOrder);
-            //System.IO.File.WriteAllText(@"C:\node\test.json", json);
+            YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByMasterAccessionNo("15-27221");
 
-            //YellowstonePathology.OptimusPrime.NGCTResult result = YellowstonePathology.OptimusPrime.NGCTResult.GetResult("NT neg", "CT POS");
-
-            
-            
+            string json = YellowstonePathology.Business.Persistence.JSONObjectWriter.Write(accessionOrder);
+            System.IO.File.WriteAllText(@"C:\node\test.json", json);                       
         }
 
         private void FindY()

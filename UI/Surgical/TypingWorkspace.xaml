@@ -768,14 +768,17 @@
 			<StatusBarItem>
 				<TextBlock Width="60" Margin="2" TextAlignment="Left" HorizontalAlignment="Stretch" VerticalAlignment="Center" Text="{Binding Path=SurgicalTestOrder.ReportNo}"></TextBlock>
 			</StatusBarItem>
-        
+
             <StatusBarItem HorizontalAlignment="Right">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Margin="2,2,2,2">
+                        <Hyperlink Click="HyperLinkShowProviderDistribution_Click">Provider Distribution</Hyperlink>
+                    </TextBlock>
+                    <TextBlock Margin="2,2,2,2">
                         <Hyperlink Click="HyperLinkShowGossTemplate_Click">Gross Templates</Hyperlink>
                     </TextBlock>
-                </StackPanel>                
-            </StatusBarItem>                       
+                </StackPanel>
+            </StatusBarItem>
         
         </StatusBar>
 
