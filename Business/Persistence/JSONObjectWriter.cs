@@ -9,31 +9,20 @@ using System.IO;
 namespace YellowstonePathology.Business.Persistence
 {
     public class JSONObjectWriter
-    {
-        private StringBuilder m_OString;
-
-        public JSONObjectWriter()
+    {        
+        public static String Write(object objectToWrite)
         {
-            this.m_OString = new StringBuilder();
-        }
-
-        public object Write(object objectToWrite)
-        {
-            JSONIndenter.IndentDepth = 1;
+            StringBuilder oString = new StringBuilder();
+            int indentCount = 0;
             Type objectType = objectToWrite.GetType();
-            this.m_OString.Append(this.WriteThisObject(objectToWrite));
-            this.HandlePersistentChildCollections(objectToWrite, this.m_OString);
-            this.HandlePersistentChildren(objectToWrite, this.m_OString);
-            JSONIndenter.IndentDepth = 1;
-            return this.m_OString.ToString();
-        }
+            oString.Append(JSONWriter.Write(objectToWrite, indentCount));
+            HandlePersistentChildCollections(objectToWrite, oString, indentCount);
+            HandlePersistentChildren(objectToWrite, oString, indentCount);
+            indentCount = 0;
+            return oString.ToString();
+        }        
 
-        public string JSONString
-        {
-            get { return this.m_OString.ToString(); }
-        }
-
-        private void HandlePersistentChildCollections(object parentObject, StringBuilder parentStringBuilder)
+        private static void HandlePersistentChildCollections(object parentObject, StringBuilder parentStringBuilder, int indentCount)
         {
             if (parentObject != null)
             {
@@ -48,90 +37,85 @@ namespace YellowstonePathology.Business.Persistence
                     {
                         if (i == 0)
                         {
-                            this.SetSeperator(collectionStringBuilder);
-                            JSONIndenter.IndentDepth = JSONIndenter.IndentDepth + 1;
-                            this.SetObjectName(childCollectionObject, collectionStringBuilder);
-                            JSONIndenter.IndentDepth = JSONIndenter.IndentDepth + 1;
-                            this.SetOpenCollectionBracket(collectionStringBuilder);
-                            JSONIndenter.IndentDepth = JSONIndenter.IndentDepth + 1;
+                            collectionStringBuilder.AppendLine();
+                            JSONIndenter.AddTabs(collectionStringBuilder, indentCount);
+                            collectionStringBuilder.Append("\"" + childCollectionObject.GetType().Name + "\":");
+
+                            collectionStringBuilder.AppendLine();
+                            JSONIndenter.AddTabs(collectionStringBuilder, indentCount);
+                            collectionStringBuilder.Append("]");
+
+                            indentCount += 1;                            
                         }
 
                         StringBuilder childStringBuilder = new StringBuilder();
                         object collectionItem = childCollectionObject[i];
-                        //childStringBuilder.Append(this.WriteThisObject(collectionItem));
 
-                        string cs = this.WriteThisObject(collectionItem);
-                        childStringBuilder.Append(cs);
+                        string json = JSONWriter.Write(collectionItem, indentCount); 
+                        childStringBuilder.Append(json);
 
-                        this.HandlePersistentChildCollections(collectionItem, childStringBuilder);
-                        this.HandlePersistentChildren(collectionItem, childStringBuilder);
+                        HandlePersistentChildCollections(collectionItem, childStringBuilder, indentCount);
+                        HandlePersistentChildren(collectionItem, childStringBuilder, indentCount);
                         collectionStringBuilder.Append(childStringBuilder);
 
                         if (i == childCollectionObject.Count - 1)
                         {
-                            JSONIndenter.IndentDepth = JSONIndenter.IndentDepth - 1;
-                            this.SetCloseCollectionBracket(collectionStringBuilder);
-                        }
-                        else
-                        {
-                            this.SetSeperator(collectionStringBuilder);
-                        }
-                    }
-                    this.InsertBeforeEndOfParent(parentStringBuilder, collectionStringBuilder.ToString());
+                            indentCount -= 1;
+                            collectionStringBuilder.AppendLine();
+                            JSONIndenter.AddTabs(collectionStringBuilder, indentCount);
+                            collectionStringBuilder.Append("]");
+                            parentStringBuilder.Insert(parentStringBuilder.Length - 1, collectionStringBuilder.ToString());
+                        }                       
+                    }                    
                 }
             }
         }
 
-        private void HandlePersistentChildren(object parentObject, StringBuilder parentStringBuilder)
+        private static void HandlePersistentChildren(object parentObject, StringBuilder parentStringBuilder, int indentCount)
         {
             if (parentObject != null)
             {
                 Type parentObjectType = parentObject.GetType();
                 List<PropertyInfo> childProperties = parentObjectType.GetProperties().Where(prop => Attribute.IsDefined(prop, typeof(PersistentChild))).ToList();
-                JSONIndenter.IndentDepth = JSONIndenter.IndentDepth + 1;
+                indentCount += 1;
                 foreach (PropertyInfo childPropertyInfo in childProperties)
                 {
                     StringBuilder childStringBuilder = new StringBuilder();
-                    this.SetSeperator(childStringBuilder);
+                    SetSeperator(childStringBuilder);
                     object childObject = childPropertyInfo.GetValue(parentObject, null);
-                    this.SetObjectName(childObject, childStringBuilder);
-                    childStringBuilder.Append(this.WriteThisObject(childObject));
+                    SetObjectName(childObject, childStringBuilder, indentCount);
+                    string json = JSONWriter.Write(childObject, indentCount);                    
+                    childStringBuilder.Append(json);
 
-                    this.HandlePersistentChildCollections(childObject, childStringBuilder);
-                    this.HandlePersistentChildren(childObject, childStringBuilder);
-                    this.InsertBeforeEndOfParent(parentStringBuilder, childStringBuilder.ToString());
+                    HandlePersistentChildCollections(childObject, childStringBuilder, indentCount);
+                    HandlePersistentChildren(childObject, childStringBuilder, indentCount);
+                    InsertBeforeEndOfParent(parentStringBuilder, childStringBuilder.ToString());
                 }
-                JSONIndenter.IndentDepth = JSONIndenter.IndentDepth - 1;
+                indentCount -= 1;
             }
-        }
-        
-        private string WriteThisObject(object objectToWrite)
-        {
-            return JSONWriter.Write(objectToWrite);
-        }
+        }                             
 
-        private void SetObjectName(object o, StringBuilder source)
+        private static void SetObjectName(object o, StringBuilder source, int indentCount)
         {
-            JSONIndenter.Indent(source);
+            JSONIndenter.AddTabs(source, indentCount);
             source.Append("\"" + o.GetType().Name + "\":");
         }
 
-        private void SetOpenCollectionBracket(StringBuilder source)
+        private static void SetOpenCollectionBracket(StringBuilder source, int indentCount)
         {
             source.Append(" \n");
-            JSONIndenter.Indent(source);
+            JSONIndenter.AddTabs(source, indentCount);
             source.Append("[ \n");
         }
 
-        private void SetCloseCollectionBracket(StringBuilder source)
-        {
-            JSONIndenter.Indent(source);
-            source.Append("] \n");
-            JSONIndenter.IndentDepth = JSONIndenter.IndentDepth - 2;
-            JSONIndenter.Indent(source);
-        }
+        private static void SetCloseCollectionBracket(StringBuilder source, int indentCount)
+        {                        
+            source.AppendLine();
+            JSONIndenter.AddTabs(source, indentCount);
+            source.Append("]");
+        }       
 
-        private void SetSeperator(StringBuilder source)
+        private static void SetSeperator(StringBuilder source)
         {
             string stringToTrim = source.ToString();
             int initialLength = stringToTrim.Length;
@@ -148,7 +132,7 @@ namespace YellowstonePathology.Business.Persistence
             }
         }
 
-        private void InsertBeforeEndOfParent(StringBuilder parent, string child)
+        private static void InsertBeforeEndOfParent(StringBuilder parent, string child)
         {
             string parentString = parent.ToString();
             int indexOfLastCurlyBrace = parentString.LastIndexOf("}");
