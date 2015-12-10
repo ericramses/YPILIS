@@ -13,11 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
+using System.ComponentModel;
 
 namespace YellowstonePathology.UI.Surgical
 {
-	public partial class TypingWorkspace : UserControl
-	{		
+	public partial class TypingWorkspace : UserControl, INotifyPropertyChanged
+    {
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public CommandBinding CommandBindingClose;
         public CommandBinding CommandBindingSave;        
 		public CommandBinding CommandBindingShowCaseDocument;
@@ -39,6 +42,7 @@ namespace YellowstonePathology.UI.Surgical
         private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
         private MainWindowCommandButtonHandler m_MainWindowCommandButtonHandler;
         private PageNavigationWindow m_SecondMonitorWindow;
+        private string m_TemplateText;
 
         public TypingWorkspace(MainWindowCommandButtonHandler mainWindowCommandButtonHandler, PageNavigationWindow secondMonitorWindow)
 		{
@@ -134,6 +138,12 @@ namespace YellowstonePathology.UI.Surgical
                 YellowstonePathology.Business.User.UserPreferenceInstance.Instance.SubmitChanges();
             }
             this.Save();			
+        }
+
+        public string TemplateText
+        {
+            get { return this.m_TemplateText; }
+            set { this.m_TemplateText = value; }
         }
 
 		public void RemoveTab(object target, ExecutedRoutedEventArgs args)
@@ -898,6 +908,23 @@ namespace YellowstonePathology.UI.Surgical
             {
                 this.HandleNewCaseSearch(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.LastReportNo);
             }
-        }        
+        }
+
+        private void HyperLinkBuildTemplates_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.m_TypingUI.AccessionOrder != null)
+            {
+                this.m_TemplateText = "Hello world";
+                
+            }
+        }
+
+        public void NotifyPropertyChanged(String info)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
+        }
     }    
 }

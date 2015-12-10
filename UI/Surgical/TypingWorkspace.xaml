@@ -745,7 +745,23 @@
 
 			<TabItem Name="tabItemTreeView" Header="Tree View"></TabItem>
 
-		</TabControl>
+            <TabItem Name="tabItemTemplates" Header="Templates">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2">
+                        <Hyperlink Click="HyperLinkBuildTemplates_Click">Build Templates</Hyperlink>
+                    </TextBlock>
+                    <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding Path=TemplateText}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Visible"></TextBlock>
+                </Grid>
+            </TabItem>
+
+        </TabControl>
 
 		<StatusBar Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2">
 			<StatusBarItem>

@@ -362,7 +362,7 @@ namespace YellowstonePathology.UI.Gross
                 "   Point of Rupture:  [description]" + Environment.NewLine +
                 "Placental Disc:" + Environment.NewLine +
                 "   Weight:  [weight]" + Environment.NewLine +
-                "   Shape:  [shape]" + Environment.NewLine + 
+                "   Shape:  [shape]" + Environment.NewLine +
                 "   Measurements:  [measurement]" + Environment.NewLine +
                 "   Fetal Surface:" + Environment.NewLine +
                 "      Fetal Surface:  [description]" + Environment.NewLine +
@@ -374,6 +374,9 @@ namespace YellowstonePathology.UI.Gross
                 "      Maternal Surface:  [description]" + Environment.NewLine +
                 "      Infacts:  [description]" + Environment.NewLine +
                 "      Other:  [description]" + Environment.NewLine +
+                "   Sectioned at 1 cm intervals:" + Environment.NewLine +
+                "       Infarcts:  [description]" + Environment.NewLine +
+                "       Cysts:  [description]" + Environment.NewLine +
                 "Submitted:  [submitted].  ";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SinglePlacenta singlePlacenta = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SinglePlacenta();
