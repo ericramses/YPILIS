@@ -12,6 +12,7 @@ namespace YellowstonePathology.Business.Persistence
     {        
         public static String Write(object objectToWrite)
         {
+            string s = "hello world";
             StringBuilder oString = new StringBuilder();
             int indentCount = 0;
             Type objectType = objectToWrite.GetType();
