@@ -58,10 +58,7 @@ namespace YellowstonePathology.Business.Persistence
 
                         StringBuilder childStringBuilder = new StringBuilder();
                         object collectionItem = childCollectionObject[i];
-                        //childStringBuilder.Append(this.WriteThisObject(collectionItem));
-
-                        string cs = this.WriteThisObject(collectionItem);
-                        childStringBuilder.Append(cs);
+                        childStringBuilder.Append(this.WriteThisObject(collectionItem));
 
                         this.HandlePersistentChildCollections(collectionItem, childStringBuilder);
                         this.HandlePersistentChildren(collectionItem, childStringBuilder);
@@ -71,13 +68,13 @@ namespace YellowstonePathology.Business.Persistence
                         {
                             JSONIndenter.IndentDepth = JSONIndenter.IndentDepth - 1;
                             this.SetCloseCollectionBracket(collectionStringBuilder);
+                            this.InsertBeforeEndOfParent(parentStringBuilder, collectionStringBuilder.ToString());
                         }
                         else
                         {
                             this.SetSeperator(collectionStringBuilder);
                         }
                     }
-                    this.InsertBeforeEndOfParent(parentStringBuilder, collectionStringBuilder.ToString());
                 }
             }
         }
@@ -144,7 +141,7 @@ namespace YellowstonePathology.Business.Persistence
             }
             else
             {
-                source.Insert(trimedLength, ", \r\n");
+                source.Insert(trimedLength, ", \n");
             }
         }
 
