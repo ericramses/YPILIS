@@ -52,11 +52,8 @@ namespace YellowstonePathology.Business.Persistence
                         object collectionItem = childCollectionObject[i];
 
                         string json = JSONWriter.Write(collectionItem, indentCount); 
-                        childStringBuilder.Append(json);
-
-                        indentCount -= 1;
+                        childStringBuilder.Append(json);                        
                         HandlePersistentChildCollections(collectionItem, childStringBuilder, indentCount);
-                        indentCount += 1;
 
                         collectionStringBuilder.AppendLine();                     
                         collectionStringBuilder.Append(childStringBuilder);

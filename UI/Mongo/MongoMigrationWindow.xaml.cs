@@ -685,9 +685,8 @@ namespace YellowstonePathology.UI.Mongo
             {
                 Business.Test.AccessionOrder ao = Business.Gateway.AccessionOrderGateway.GetAccessionOrderByMasterAccessionNo(masterAccessionNo.Value);
                 Business.Persistence.ObjectTracker objectTracker = new Business.Persistence.ObjectTracker();
-                objectTracker.RegisterObject(ao);
-                Business.Persistence.JSONObjectWriter jsonObjectWriter = new Business.Persistence.JSONObjectWriter();
-                ao.JSON = jsonObjectWriter.Write(ao).ToString();
+                objectTracker.RegisterObject(ao);                
+                Business.Persistence.JSONObjectWriter.Write(ao).ToString();
                 objectTracker.SubmitChanges(ao);
             }
         }
