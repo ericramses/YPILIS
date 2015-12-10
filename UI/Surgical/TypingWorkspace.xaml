@@ -757,7 +757,7 @@
                     <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2">
                         <Hyperlink Click="HyperLinkBuildTemplates_Click">Build Templates</Hyperlink>
                     </TextBlock>
-                    <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding Path=TemplateText}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Visible"></TextBlock>
+                    <TextBox Grid.Column="0" Grid.Row="1" Text="{Binding Path=TemplateText}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Visible" AcceptsReturn="True" TextWrapping="Wrap" FontSize="14"></TextBox>
                 </Grid>
             </TabItem>
 

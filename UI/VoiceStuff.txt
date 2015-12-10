@@ -1,4 +1,5 @@
-﻿SpeechRecognizer m_SpeechRecognizer;
+﻿This is second change in I1
+SpeechRecognizer m_SpeechRecognizer;
 
 Grammar m_StepTwoGrammar;
 Grammar m_StepThreeGrammar;
