@@ -347,6 +347,7 @@ namespace YellowstonePathology.UI.Gross
         {
             this.m_TemplateName = "SinglePlacenta";
             this.m_Text = "[identifier]." + Environment.NewLine +
+                +Environment.NewLine +
                 "Umbilical Cord:" + Environment.NewLine +
                 "   Length:  [length]" + Environment.NewLine +
                 "   Insertion:  [insertion]" + Environment.NewLine +
@@ -354,15 +355,17 @@ namespace YellowstonePathology.UI.Gross
                 "   Knots:  [description]" + Environment.NewLine +
                 "   Coiling:  [description]" + Environment.NewLine +
                 "   Other:  [description]" + Environment.NewLine +
+                +Environment.NewLine +
                 "Extraplacental Membranes:" + Environment.NewLine +
                 "   Insertion:  [insertion]" + Environment.NewLine +
                 "   Color:  [color]" + Environment.NewLine +
                 "   Amnion Nodosum:  [description]" + Environment.NewLine +
                 "   Cysts:  [description]" + Environment.NewLine +
                 "   Point of Rupture:  [description]" + Environment.NewLine +
+                +Environment.NewLine +
                 "Placental Disc:" + Environment.NewLine +
                 "   Weight:  [weight]" + Environment.NewLine +
-                "   Shape:  [shape]" + Environment.NewLine + 
+                "   Shape:  [shape]" + Environment.NewLine +
                 "   Measurements:  [measurement]" + Environment.NewLine +
                 "   Fetal Surface:" + Environment.NewLine +
                 "      Fetal Surface:  [description]" + Environment.NewLine +
@@ -374,7 +377,11 @@ namespace YellowstonePathology.UI.Gross
                 "      Maternal Surface:  [description]" + Environment.NewLine +
                 "      Infacts:  [description]" + Environment.NewLine +
                 "      Other:  [description]" + Environment.NewLine +
-                "Submitted:  [submitted].  ";            
+                "   Sectioned at 1 cm intervals:" + Environment.NewLine +
+                "       Surface Infarcts:  [description]" + Environment.NewLine +
+                "       Cysts:  [description]" + Environment.NewLine +
+                +Environment.NewLine +
+                "Cassette Summary: 1A: Cord from both ends, 1B: Membranes, 1C-1D: Central Placenta.  ";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SinglePlacenta singlePlacenta = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SinglePlacenta();
             this.m_SpecimenCollection.Add(singlePlacenta);
