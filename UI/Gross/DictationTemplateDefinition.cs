@@ -76,7 +76,7 @@ namespace YellowstonePathology.UI.Gross
         {
             this.m_TemplateName = "Sinus Content Specimen";
             this.m_Text = "[identifier] and consists of multiple fragments of tan-pink tissue and bone aggregating to [measurement].  " +
-                "They are filtered through a fine mesh bag and submitted in cassette [cassettelabel] for decalcification prior to processing.  ";
+                "They are filtered through a fine mesh bag and entirely submitted in cassette [cassettelabel] for decalcification prior to processing.  ";
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SinusContent sinusContent = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SinusContent();
             this.m_SpecimenCollection.Add(sinusContent);
