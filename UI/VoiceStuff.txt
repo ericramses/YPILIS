@@ -1,4 +1,5 @@
-﻿SpeechRecognizer m_SpeechRecognizer;
+﻿testing 123
+SpeechRecognizer m_SpeechRecognizer;
 
 Grammar m_StepTwoGrammar;
 Grammar m_StepThreeGrammar;
