@@ -9,18 +9,16 @@ namespace YellowstonePathology.Business.Persistence
 {
     public static class JSONWriter
     {
-        public static string Write(object o, int indentCount)
+        public static string Write(object o)
         {
             Type type = o.GetType();
-            StringBuilder result = new StringBuilder();
-            JSONIndenter.AddTabs(result, indentCount);
-            indentCount += 1;
-            result.Append("{" + Environment.NewLine);
+            StringBuilder result = new StringBuilder();                        
+            result.Append("{");
             PropertyInfo[] properties = o.GetType().GetProperties().
                 Where(prop => Attribute.IsDefined(prop, typeof(PersistentProperty)) || Attribute.IsDefined(prop, typeof(PersistentPrimaryKeyProperty))).ToArray();
+            
             foreach (PropertyInfo property in properties)
-            {
-                JSONIndenter.AddTabs(result, indentCount);
+            {                
                 Type dataType = property.PropertyType;
                 if (dataType == typeof(string))
                 {
@@ -62,18 +60,15 @@ namespace YellowstonePathology.Business.Persistence
             
             if (properties.Length != 0)
             {
-                result.Replace(",", string.Empty, result.Length - 3, 1);                
+                result.Replace(",", string.Empty, result.Length - 3, 2);                
             }
-
-            indentCount -= 1;            
-            JSONIndenter.AddTabs(result, indentCount);
-            result.Append("}");            
+                                   
+            result.Append("}");             
             return result.ToString();
         }
 
         private static string EscapeJSON(string json)
-        {
-            //json = json.Replace(Environment.NewLine, "\\n");
+        {            
             json = json.Replace("\r", string.Empty);
             json = json.Replace("\n", "\\n");
             return json.Replace("\"", "\\\"");
@@ -83,11 +78,11 @@ namespace YellowstonePathology.Business.Persistence
         {
             if (property.GetValue(o, null) != null)
             {             
-                result.Append("\"" + property.Name + "\": \"" + EscapeJSON(property.GetValue(o, null).ToString()) + "\", \n");
+                result.Append("\"" + property.Name + "\": \"" + EscapeJSON(property.GetValue(o, null).ToString()) + "\", ");
             }
             else
             {             
-                result.Append("\"" + property.Name + "\": null, \n");
+                result.Append("\"" + property.Name + "\": null, ");
             }
         }
 
@@ -95,11 +90,11 @@ namespace YellowstonePathology.Business.Persistence
         {
             if (property.GetValue(o, null) != null)
             {             
-                result.Append("\"" + property.Name + "\": " + property.GetValue(o, null) + ", \n");
+                result.Append("\"" + property.Name + "\": " + property.GetValue(o, null) + ", ");
             }
             else
             {             
-                result.Append("\"" + property.Name + "\": null, \n");
+                result.Append("\"" + property.Name + "\": null, ");
             }
         }
 
@@ -109,11 +104,11 @@ namespace YellowstonePathology.Business.Persistence
             {
                 DateTime dotNetDate = DateTime.Parse(property.GetValue(o, null).ToString());
                 string jsonDate = dotNetDate.Year.ToString() + "-" + dotNetDate.Month.ToString() + "-" + dotNetDate.Day.ToString() + "T" + dotNetDate.Hour.ToString() + ":" + dotNetDate.Minute + ":" + dotNetDate.Second.ToString() + "." + dotNetDate.Millisecond + "Z";                
-                result.Append("\"" + property.Name + "\": \"" + jsonDate + "\", \n");
+                result.Append("\"" + property.Name + "\": \"" + jsonDate + "\", ");
             }
             else
             {                
-                result.Append("\"" + property.Name + "\": null, \n");
+                result.Append("\"" + property.Name + "\": null, ");
             }
         }
 
@@ -131,11 +126,11 @@ namespace YellowstonePathology.Business.Persistence
                 {
                     jsonValue = "false";
                 }                
-                result.Append("\"" + property.Name + "\": " + jsonValue + ", \n");
+                result.Append("\"" + property.Name + "\": " + jsonValue + ", ");
             }
             else
             {                
-                result.Append("\"" + property.Name + "\": null, \n");
+                result.Append("\"" + property.Name + "\": null, ");
             }
         }        
     }
