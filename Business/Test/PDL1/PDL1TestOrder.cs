@@ -10,10 +10,13 @@ namespace YellowstonePathology.Business.Test.PDL1
     public class PDL1TestOrder : PanelSetOrder
     {
         private string m_Result;
-        private string m_Interpretation;
-        private string m_Method;
-        private string m_References;
+        private string m_StainPercent;
 
+        public PDL1TestOrder()
+        {
+        	
+        }
+        
         public PDL1TestOrder(string masterAccessionNo, string reportNo, string objectId,
             YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
             YellowstonePathology.Business.Interface.IOrderTarget orderTarget,
@@ -39,43 +42,15 @@ namespace YellowstonePathology.Business.Test.PDL1
         }
 
         [PersistentProperty()]
-        public string Interpretation
+        public string StainPercent
         {
-            get { return this.m_Interpretation; }
+            get { return this.m_StainPercent; }
             set
             {
-                if (this.m_Interpretation != value)
+                if (this.m_StainPercent != value)
                 {
-                    this.m_Interpretation = value;
-                    this.NotifyPropertyChanged("Interpretation");
-                }
-            }
-        }
-
-        [PersistentProperty()]
-        public string Method
-        {
-            get { return this.m_Method; }
-            set
-            {
-                if (this.m_Method != value)
-                {
-                    this.m_Method = value;
-                    this.NotifyPropertyChanged("Method");
-                }
-            }
-        }
-
-        [PersistentProperty()]
-        public string References
-        {
-            get { return this.m_References; }
-            set
-            {
-                if (this.m_References != value)
-                {
-                    this.m_References = value;
-                    this.NotifyPropertyChanged("References");
+                    this.m_StainPercent = value;
+                    this.NotifyPropertyChanged("StainPercent");
                 }
             }
         }
@@ -87,7 +62,7 @@ namespace YellowstonePathology.Business.Test.PDL1
             result.AppendLine("Result: " + this.m_Result);
             result.AppendLine();
 
-            result.AppendLine("Interpretation: " + this.m_Interpretation);
+            result.AppendLine("Stain Percent: " + this.m_StainPercent);
             result.AppendLine();
 
             return result.ToString();
