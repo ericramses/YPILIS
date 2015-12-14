@@ -514,7 +514,16 @@ namespace YellowstonePathology.UI.Surgical
 		{
 			if (e.Key == Key.F7)
 			{
-				this.m_PathologistUI.SpellCheckCurrentItem();
+				TraversalRequest traversalRequestNext = new TraversalRequest(FocusNavigationDirection.Next);				
+				UIElement keyboardFocus = Keyboard.FocusedElement as UIElement;
+				
+				if(keyboardFocus != null)
+				{
+					keyboardFocus.MoveFocus(traversalRequestNext);
+				}						
+				
+				this.m_PathologistUI.SpellCheckCurrentItem();										
+				e.Handled = true;
 			}
 		}
 
