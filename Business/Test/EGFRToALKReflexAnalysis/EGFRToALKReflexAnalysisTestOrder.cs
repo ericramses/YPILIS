@@ -15,6 +15,7 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
         private string m_TumorNucleiPercentage;
         private bool m_QNSForALK;
         private bool m_QNSForROS1;
+        private bool m_QNSForPDL1;
 
 		public EGFRToALKReflexAnalysisTestOrder() 
         {
@@ -152,6 +153,17 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
             {
                 this.m_QNSForROS1 = value;
                 NotifyPropertyChanged("QNSForROS1");
+            }
+        }
+
+        [PersistentProperty]
+        public bool QNSForPDL1
+        {
+            get { return this.m_QNSForPDL1; }
+            set
+            {
+                this.m_QNSForPDL1 = value;
+                NotifyPropertyChanged("QNSForPDL1");
             }
         }
 
