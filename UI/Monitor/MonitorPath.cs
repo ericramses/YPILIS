@@ -9,6 +9,7 @@ namespace YellowstonePathology.UI.Monitor
 	public class MonitorPath
 	{        
         private static double TimerInterval = 1000 * 20;
+        private static double AfterHoursTimerInterval = 1000 * 60 * 10;
         private static double InitialTimerInterval = 1000;
 
         private Queue<System.Windows.Controls.UserControl> m_PageQueue;
@@ -90,9 +91,9 @@ namespace YellowstonePathology.UI.Monitor
         }
 
         private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
-        {
-            this.m_Timer.Interval = TimerInterval;
+        {            
             this.m_Timer.Stop();
+            
             DateTime timerDailyStartTime = DateTime.Parse(DateTime.Today.ToShortDateString() + " 05:00");
             DateTime timerDailyEndTime = DateTime.Parse(DateTime.Today.ToShortDateString() + " 18:00");
             
@@ -102,6 +103,7 @@ namespace YellowstonePathology.UI.Monitor
                     {
                         if (DateTime.Now >= timerDailyStartTime && DateTime.Now <= timerDailyEndTime)
                         {
+                        	this.m_Timer.Interval = TimerInterval;
                         	if(this.UnreadAutopsyRequestExist() == false)
                         	{
                             	this.ShowNextPage();
@@ -113,6 +115,9 @@ namespace YellowstonePathology.UI.Monitor
                         }
                         else
                         {
+                        	this.m_Timer.Interval = AfterHoursTimerInterval;
+                        	this.m_Timer.Start();
+                        	
                             GoodNightPage goodNightPage = new GoodNightPage();
                             this.m_MonitorPageWindow.PageNavigator.Navigate(goodNightPage);
                         }
