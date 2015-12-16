@@ -181,7 +181,7 @@ namespace YellowstonePathology.UI.Gross
         {
             this.m_TemplateName = "Tonsil Adenoid Excision";
             this.m_Text = "[identifier]." + Environment.NewLine +
-                "Tonsils:  [description]" + Environment.NewLine +
+                "Tonsils:  Two tan-pink lobular, palatine tonsils" + Environment.NewLine +
                 "Adenoids:  [description]" + Environment.NewLine +
                 "Weight:  [weight]" + Environment.NewLine +
                 "Measurement Tonsil 1:  [measurement]" + Environment.NewLine +
@@ -201,7 +201,7 @@ namespace YellowstonePathology.UI.Gross
         {
             this.m_TemplateName = "Tonsil Excision";
             this.m_Text = "[identifier]." + Environment.NewLine +
-                "Gross Description:  [description]" + Environment.NewLine +
+                "Gross Description:  Two tan-pink lobular, palatine tonsils" + Environment.NewLine +
                 "Weight:  [weight]" + Environment.NewLine +
                 "Measurement Tonsil 1:  [measurement]" + Environment.NewLine +
                 "Measurement Tonsil 2:  [measurement]" + Environment.NewLine +
