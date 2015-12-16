@@ -691,7 +691,7 @@ namespace YellowstonePathology.UI.Mongo
                 ao.JSON = json;
                 objectTracker.SubmitChanges(ao);
                 count += 1;
-                this.m_JSONWriterWorker.ReportProgress(0, count.ToBson() + " - " + masterAccessionNo.Value);
+                this.m_JSONWriterWorker.ReportProgress(0, count.ToString() + " - " + masterAccessionNo.Value);
             }
         }
 
