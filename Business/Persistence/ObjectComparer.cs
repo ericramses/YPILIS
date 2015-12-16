@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace YellowstonePathology.Business.Persistence
 {
@@ -14,7 +15,7 @@ namespace YellowstonePathology.Business.Persistence
 		
 		public ObjectComparer(object firstObject, object secondObject)
 		{
-			this.m_FirstObject = first;
+			this.m_FirstObject = firstObject;
 			this.m_SecondObject = secondObject;
 				
 			this.m_Result = false;
