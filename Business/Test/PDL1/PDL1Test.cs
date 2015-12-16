@@ -11,16 +11,18 @@ namespace YellowstonePathology.Business.Test.PDL1
 		{
 			this.m_PanelSetId = 215;
             this.m_PanelSetName = "PD-L1";
+            this.m_Abbreviation = "PD-L1";
             this.m_CaseType = YellowstonePathology.Business.CaseType.IHC;
 			this.m_HasTechnicalComponent = true;			
 			this.m_HasProfessionalComponent = false;
-			this.m_ResultDocumentSource = PanelSet.Model.ResultDocumentSourceEnum.PublishedDocument;
-            //this.m_ResultDocumentSource = PanelSet.Model.ResultDocumentSourceEnum.YPIDatabase;
+            this.m_ResultDocumentSource = PanelSet.Model.ResultDocumentSourceEnum.YPIDatabase;
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterR();
             this.m_Active = true;
             this.m_NeverDistribute = true;
 
 			this.m_AllowMultiplePerAccession = true;
+
+			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.PDL1.PDL1TestOrder).AssemblyQualifiedName;
 
             string taskDescription = "Gather materials and send to Neogenomics.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, taskDescription));

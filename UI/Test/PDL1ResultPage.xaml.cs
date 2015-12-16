@@ -44,7 +44,7 @@ namespace YellowstonePathology.UI.Test
             this.m_SystemIdentity = systemIdentity;
             this.m_ObjectTracker = objectTracker;
 
-            this.m_PageHeaderText = "PD-L1 Result For: " + this.m_AccessionOrder.PatientDisplayName;
+            this.m_PageHeaderText = this.m_PanelSetOrder.PanelSetName + " Result For: " + this.m_AccessionOrder.PatientDisplayName;
 
             YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrder.OrderedOn, this.m_PanelSetOrder.OrderedOnId);
             this.m_OrderedOnDescription = specimenOrder.Description;
@@ -185,6 +185,48 @@ namespace YellowstonePathology.UI.Test
                 YellowstonePathology.Business.Test.TestResult testResult = (YellowstonePathology.Business.Test.TestResult)this.ComboBoxResult.SelectedItem;
                 this.m_PanelSetOrder.ResultCode = testResult.ResultCode;
             }
+        }
+        
+        private void TextBoxStainPercent_LostFocus(object sender, RoutedEventArgs e)
+        {
+        	if(string.IsNullOrEmpty(this.TextBoxStainPercent.Text) == false)
+        	{        		
+        		int percent = this.NumberFromText(this.TextBoxStainPercent.Text);
+        		if(percent > 0)
+        		{
+        			if(percent > 50)
+        			{
+        				this.m_PanelSetOrder.Result = "Positive";
+        			}
+        			else
+        			{
+        				this.m_PanelSetOrder.Result = "Negative";
+        			}
+        		}        		
+        	}
+        }
+        
+        private int NumberFromText(string text)
+        {
+        	int result = 0;
+        	string tmp = string.Empty;
+        	bool added = false;
+        	for(int idx = 0; idx < text.Length; idx++)
+        	{
+        		char c = text[idx];
+        		if(Char.IsDigit(c) == true)
+        		{
+        			tmp += c;
+        			added = true;
+        		}
+        		else
+        		{
+        			if(added == true) break;
+        		}
+        	}
+        	
+    		Int32.TryParse(tmp, out result);
+    		return result;
         }
     }
 }

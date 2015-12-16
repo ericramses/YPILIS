@@ -481,6 +481,7 @@
     <Compile Include="Test\CD1a\CD1aTest.cs" />
     <Compile Include="Test\ChromosomeAnalysis\ChromosomeAnalysisIncompleteResult.cs" />
     <Compile Include="Test\EGFRMutationAnalysis\EGFRMutationAnalysisPanel.cs" />
+    <Compile Include="Test\EGFRToALKReflexAnalysis\EGFRToALKReflexAnalysisPDL1Result.cs" />
     <Compile Include="Test\ErPrSemiQuantitative\ERPRSemiQuanititativePanel.cs" />
     <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHPanel.cs" />
     <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHSystemGeneratedAmendmentText.cs" />
@@ -649,7 +650,9 @@
     <Compile Include="Test\PantherOrderListItem.cs" />
     <Compile Include="Test\PDL1\PDL1EpicObxView.cs" />
     <Compile Include="Test\PDL1\PDL1NegativeResult.cs" />
+    <Compile Include="Test\PDL1\PDL1NoResult.cs" />
     <Compile Include="Test\PDL1\PDL1PositiveResult.cs" />
+    <Compile Include="Test\PDL1\PDL1Result.cs" />
     <Compile Include="Test\PDL1\PDL1ResultCollection.cs" />
     <Compile Include="Test\PDL1\PDL1Test.cs" />
     <Compile Include="Test\PDL1\PDL1TestOrder.cs" />

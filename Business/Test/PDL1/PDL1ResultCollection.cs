@@ -11,7 +11,21 @@ namespace YellowstonePathology.Business.Test.PDL1
         {
             this.Add(new PDL1NegativeResult());
             this.Add(new PDL1PositiveResult());
-            this.Add(new TestResultNoResult());
+            this.Add(new PDL1NoResult());
+        }
+
+        public PDL1Result GetByResultCode(string resultCode)
+        {
+            PDL1Result result = null;
+            foreach(PDL1Result pdl1Result in this)
+            {
+                if (pdl1Result.ResultCode == resultCode)
+                {
+                    result = pdl1Result;
+                    break;
+                }
+            }
+            return result;
         }
     }
 }
