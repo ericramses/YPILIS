@@ -12,16 +12,14 @@ namespace YellowstonePathology.Business.Persistence
     {        
         public static String Write(object objectToWrite)
         {
-            StringBuilder oString = new StringBuilder();
-            int indentCount = 0;
+            StringBuilder oString = new StringBuilder();            
             Type objectType = objectToWrite.GetType();
-            oString.Append(JSONWriter.Write(objectToWrite, indentCount));
-            HandlePersistentChildCollections(objectToWrite, oString, indentCount);            
-            indentCount = 0;
+            oString.Append(JSONWriter.Write(objectToWrite));
+            HandlePersistentChildCollections(objectToWrite, oString);                        
             return oString.ToString();
         }        
 
-        private static void HandlePersistentChildCollections(object parentObject, StringBuilder parentStringBuilder, int indentCount)
+        private static void HandlePersistentChildCollections(object parentObject, StringBuilder parentStringBuilder)
         {
             if (parentObject != null)
             {
@@ -35,37 +33,28 @@ namespace YellowstonePathology.Business.Persistence
                     for (int i = 0; i < childCollectionObject.Count; i++)
                     {
                         if (i == 0)
-                        {
-                            indentCount += 1;
-
-                            JSONIndenter.AddTabs(collectionStringBuilder, indentCount);
-                            collectionStringBuilder.Append("\"" + childCollectionObject.GetType().Name + "\":");
-
-                            collectionStringBuilder.AppendLine();
-                            JSONIndenter.AddTabs(collectionStringBuilder, indentCount);
-                            collectionStringBuilder.Append("[");
-
-                            indentCount += 1;                            
+                        {                           
+                            collectionStringBuilder.Append("\"" + childCollectionObject.GetType().Name + "\":");                                                        
+                            collectionStringBuilder.Append("[");                                                     
                         }
 
                         StringBuilder childStringBuilder = new StringBuilder();
                         object collectionItem = childCollectionObject[i];
 
-                        string json = JSONWriter.Write(collectionItem, indentCount); 
+                        string json = JSONWriter.Write(collectionItem); 
                         childStringBuilder.Append(json);                        
-                        HandlePersistentChildCollections(collectionItem, childStringBuilder, indentCount);
-
-                        collectionStringBuilder.AppendLine();                     
+                        HandlePersistentChildCollections(collectionItem, childStringBuilder);                                            
                         collectionStringBuilder.Append(childStringBuilder);
 
                         if (i == childCollectionObject.Count - 1)
+                        {                                                                                  
+                            collectionStringBuilder.Append("]");                                                      
+                            parentStringBuilder.Insert(parentStringBuilder.Length - 1, ", " + collectionStringBuilder.ToString());                         
+                        } 
+                        else
                         {
-                            indentCount -= 1;                            
-                            JSONIndenter.AddTabs(collectionStringBuilder, indentCount);
-                            collectionStringBuilder.Append("]");
-                            parentStringBuilder.Insert(parentStringBuilder.Length - 1, collectionStringBuilder.ToString());
-                            indentCount -= 1;
-                        }                       
+                        	collectionStringBuilder.Append(", ");
+                        }
                     }                    
                 }
             }

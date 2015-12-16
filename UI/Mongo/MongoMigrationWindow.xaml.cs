@@ -680,14 +680,16 @@ namespace YellowstonePathology.UI.Mongo
 
         private void JSONWriterWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            List<Business.MasterAccessionNo> masterAccessionNos = Business.Gateway.AccessionOrderGateway.GetMasterAccessionNosWithNullJSONString(2, 2014);
+            List<Business.MasterAccessionNo> masterAccessionNos = Business.Gateway.AccessionOrderGateway.GetMasterAccessionNosWithNullJSONString(10000, 2014);
             foreach (Business.MasterAccessionNo masterAccessionNo in masterAccessionNos)
             {
                 Business.Test.AccessionOrder ao = Business.Gateway.AccessionOrderGateway.GetAccessionOrderByMasterAccessionNo(masterAccessionNo.Value);
                 Business.Persistence.ObjectTracker objectTracker = new Business.Persistence.ObjectTracker();
                 objectTracker.RegisterObject(ao);                
-                Business.Persistence.JSONObjectWriter.Write(ao).ToString();
+                string json = Business.Persistence.JSONObjectWriter.Write(ao);
+                ao.JSON = json;
                 objectTracker.SubmitChanges(ao);
+                this.m_JSONWriterWorker.ReportProgress(0, masterAccessionNo.Value);
             }
         }
 

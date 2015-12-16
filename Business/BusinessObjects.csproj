@@ -416,6 +416,7 @@
     </Compile>
     <Compile Include="Gateway\AOGW.cs" />
     <Compile Include="Gateway\AOSaveResult.cs" />
+    <Compile Include="Gateway\JASONObjectBuilder.cs" />
     <Compile Include="Gateway\LockGateway.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -475,6 +476,7 @@
     <Compile Include="Persistence\JSONIndenter.cs" />
     <Compile Include="Persistence\JSONWriter.cs" />
     <Compile Include="Persistence\JSONObjectWriter.cs" />
+    <Compile Include="Persistence\ObjectComparer.cs" />
     <Compile Include="Test.Model\DispalyGroupProstate.cs" />
     <Compile Include="Test\ALKForNSCLCByFISH\ALKForNSCLCByFISHNegativeWithMonosomyResult.cs" />
     <Compile Include="Test\ALKForNSCLCByFISH\ALKForNSCLCByFISHNegativeWithPolysomyResult.cs" />
