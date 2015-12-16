@@ -388,8 +388,8 @@ namespace YellowstonePathology.Business.PanelSet.Model
             panelSetCollection.Add(new PanelSetJAK2PolycythemiaVeraReflex());
             panelSetCollection.Add(new PanelSetJAK2PrimaryMyelofibrosisReflex());
             panelSetCollection.Add(new PanelSetJAK2EssentialThrombocythemiaReflex());                            
-            panelSetCollection.Add(new YellowstonePathology.Business.Test.KRASStandard.KRASStandardTest());
-            panelSetCollection.Add(new YellowstonePathology.Business.Test.KRASStandardReflex.KRASStandardReflexTest());
+            //panelSetCollection.Add(new YellowstonePathology.Business.Test.KRASStandard.KRASStandardTest());
+            //panelSetCollection.Add(new YellowstonePathology.Business.Test.KRASStandardReflex.KRASStandardReflexTest());
 			panelSetCollection.Add(new YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeEvaluationTest());
 			panelSetCollection.Add(new YellowstonePathology.Business.Test.ReviewForAdditionalTesting.ReviewForAdditionalTestingTest());
             return panelSetCollection;
