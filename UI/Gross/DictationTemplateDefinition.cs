@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Gross
         public ProstateNeedleCoreTemplate()
         {
             this.m_TemplateName = "Prostate Specimen";
-            this.m_Text = "[identifier] and consists of [number] tan-pink cylindrical tissue fragments [measurement].  " +
+            this.m_Text = "[identifier] and consists of [number] tan-pink cylindrical tissue fragments measuring [measurement].  " +
                 "The specimen is entirely submitted in cassette [cassettelabel].  ";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ProstateNeedleBiopsy nb = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ProstateNeedleBiopsy();
