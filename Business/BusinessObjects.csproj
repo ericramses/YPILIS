@@ -476,6 +476,7 @@
     <Compile Include="Persistence\JSONWriter.cs" />
     <Compile Include="Persistence\JSONObjectWriter.cs" />
     <Compile Include="Test.Model\DispalyGroupProstate.cs" />
+    <Compile Include="Test.Model\P40IHC.cs" />
     <Compile Include="Test\ALKForNSCLCByFISH\ALKForNSCLCByFISHNegativeWithMonosomyResult.cs" />
     <Compile Include="Test\ALKForNSCLCByFISH\ALKForNSCLCByFISHNegativeWithPolysomyResult.cs" />
     <Compile Include="Test\CD1a\CD1aTest.cs" />
