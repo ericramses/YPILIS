@@ -25,9 +25,10 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
             YellowstonePathology.Business.Document.AmendmentSection amendmentSection = new YellowstonePathology.Business.Document.AmendmentSection();
             amendmentSection.SetAmendment(m_PanelSetOrder.AmendmentCollection, this.m_ReportXml, this.m_NameSpaceManager, true);
 
-            this.ReplaceText("report_result", testOrder.Result);
-            this.ReplaceText("report_mutations", testOrder.Mutations);
-            this.ReplaceText("report_interpretation", testOrder.Interpretation);
+            this.ReplaceText("braf_result", testOrder.BRAFResult);
+            this.ReplaceText("kras_result", testOrder.KRASResult);
+            this.ReplaceText("nras_result", testOrder.NRASResult);
+            this.ReplaceText("hras_result", testOrder.HRASResult);
             this.ReplaceText("report_method", testOrder.Method);
             this.ReplaceText("report_references", testOrder.References);
             this.ReplaceText("report_disclaimer", testOrder.ReportDisclaimer);
