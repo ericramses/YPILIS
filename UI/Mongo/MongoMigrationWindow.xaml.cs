@@ -680,6 +680,7 @@ namespace YellowstonePathology.UI.Mongo
 
         private void JSONWriterWorker_DoWork(object sender, DoWorkEventArgs e)
         {
+            int count = 0;
             List<Business.MasterAccessionNo> masterAccessionNos = Business.Gateway.AccessionOrderGateway.GetMasterAccessionNosWithNullJSONString(10000, 2014);
             foreach (Business.MasterAccessionNo masterAccessionNo in masterAccessionNos)
             {
@@ -689,7 +690,8 @@ namespace YellowstonePathology.UI.Mongo
                 string json = Business.Persistence.JSONObjectWriter.Write(ao);
                 ao.JSON = json;
                 objectTracker.SubmitChanges(ao);
-                this.m_JSONWriterWorker.ReportProgress(0, masterAccessionNo.Value);
+                count += 1;
+                this.m_JSONWriterWorker.ReportProgress(0, count.ToBson() + " - " + masterAccessionNo.Value);
             }
         }
 
