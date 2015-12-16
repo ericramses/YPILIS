@@ -32,7 +32,36 @@ namespace YellowstonePathology.UI.Test
 
         private void ResultPage_Next(object sender, EventArgs e)
         {
-            this.Finished();
+            if (this.ShowReflexTestPage() == false)
+            {
+				this.Finished();
+			}
+        }        
+
+        private bool ShowReflexTestPage()
+        {
+            bool result = false;
+            YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisTest panelSet = new Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisTest();
+            if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(panelSet.PanelSetId, this.m_PanelSetOrder.OrderedOnId, true) == true)
+            {
+                YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisTestOrder testOrder = (YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSet.PanelSetId, this.m_PanelSetOrder.OrderedOnId, true);
+				result = true;
+				Test.EGFRToALKReflexPath egfrToALKReflexPath = new Test.EGFRToALKReflexPath(testOrder.ReportNo, this.m_AccessionOrder, this.m_ObjectTracker, this.m_PageNavigator, System.Windows.Visibility.Visible);
+                egfrToALKReflexPath.Finish += new Test.EGFRToALKReflexPath.FinishEventHandler(EGFRToALKReflexPath_Finish);
+                egfrToALKReflexPath.Back += new EGFRToALKReflexPath.BackEventHandler(EGFRToALKReflexPath_Back);
+                egfrToALKReflexPath.Start(this.m_SystemIdentity);
+			}
+            return result;
         }
+
+        private void EGFRToALKReflexPath_Back(object sender, EventArgs e)
+        {
+            this.ShowResultPage();
+        }
+
+		private void EGFRToALKReflexPath_Finish(object sender, EventArgs e)
+        {
+            base.Finished();
+		}
     }
 }

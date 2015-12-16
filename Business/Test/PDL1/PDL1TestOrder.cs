@@ -67,5 +67,24 @@ namespace YellowstonePathology.Business.Test.PDL1
 
             return result.ToString();
         }
+
+		public override YellowstonePathology.Business.Rules.MethodResult IsOkToAccept()
+		{
+			YellowstonePathology.Business.Rules.MethodResult result = base.IsOkToAccept();
+			if (result.Success == true)
+			{
+				if(string.IsNullOrEmpty(this.StainPercent) == true)
+				{
+					result.Success = false;
+					result.Message = "The results cannot be accepted because the stain percent is not set.";
+				}
+				else if(string.IsNullOrEmpty(this.m_Result) == true)
+				{
+					result.Success = false;
+					result.Message = "The results cannot be accepted because the result is not set.";
+				}
+			}
+			return result;
+		}
     }
 }
