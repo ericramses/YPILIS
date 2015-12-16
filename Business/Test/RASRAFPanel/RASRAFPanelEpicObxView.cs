@@ -19,11 +19,11 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
             this.AddHeader(document, panelSetOrder, "RAS/RAF Panel");
 
             this.AddNextObxElement("", document, "F");
-            string result = "Result: " + panelSetOrder.Result;
-            this.AddNextObxElement(result, document, "F");
-            result = "  Mutations: " + panelSetOrder.Mutations;
-            this.AddNextObxElement(result, document, "F");
-
+            this.AddNextObxElement("BRAF Result: " + panelSetOrder.BRAFResult, document, "F");
+            this.AddNextObxElement("KRAS Result: " + panelSetOrder.KRASResult, document, "F");
+            this.AddNextObxElement("NRAS Result: " + panelSetOrder.NRASResult, document, "F");
+            this.AddNextObxElement("HRAS Result: " + panelSetOrder.HRASResult, document, "F");
+            
             this.AddNextObxElement("", document, "F");
             this.AddNextObxElement("Pathologist: " + panelSetOrder.ReferenceLabSignature, document, "F");
             if (panelSetOrder.FinalTime.HasValue == true)
@@ -39,10 +39,6 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
             this.AddNextObxElement("Specimen Identification: " + specimenOrder.Description, document, "F");
             string collectionDateTimeString = YellowstonePathology.Business.Helper.DateTimeExtensions.CombineDateAndTime(specimenOrder.CollectionDate, specimenOrder.CollectionTime);
             this.AddNextObxElement("Collection Date/Time: " + collectionDateTimeString, document, "F");
-
-            this.AddNextObxElement("", document, "F");
-            this.AddNextObxElement("Interpretation:", document, "F");
-            this.HandleLongString(panelSetOrder.Interpretation, document, "F");
 
             this.AddNextObxElement("", document, "F");
             this.AddNextObxElement("Method:", document, "F");

@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="YellowstonePathology.UI.Test.RASRAFPanelResultPage"
+<UserControl x:Class="YellowstonePathology.UI.Test.RASRAFPanelResultPage"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -106,22 +106,25 @@
                     <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,5" FontWeight="Bold">Ordered On:</TextBlock>
                     <TextBlock Grid.Column="1" Grid.Row="0" Margin="2,2,2,5" Text="{Binding Path=OrderedOnDescription}"></TextBlock>
 
-                    <TextBlock Grid.Column="0" Grid.Row="1" Margin="2,2,2,5" FontWeight="Bold">Result:</TextBlock>
-                    <TextBox Grid.Column="1" Grid.Row="1" Margin="2,2,2,5" Text="{Binding Path=PanelSetOrder.Result}" />
+                    <TextBlock Grid.Column="0" Grid.Row="1" Margin="2,2,2,5" FontWeight="Bold">BRAF Result:</TextBlock>
+                    <TextBox Grid.Column="1" Grid.Row="1" Margin="2,2,2,5" Text="{Binding Path=PanelSetOrder.BRAFResult}" />
 
-                    <TextBlock Grid.Column="0" Grid.Row="2" Margin="2,2,2,5" FontWeight="Bold">Mutations:</TextBlock>
-                    <TextBox Grid.Column="1" Grid.Row="2" Margin="2,2,2,5" Text="{Binding Path=PanelSetOrder.Mutations}" />
+                    <TextBlock Grid.Column="0" Grid.Row="2" Margin="2,2,2,5" FontWeight="Bold">KRAS Result:</TextBlock>
+                    <TextBox Grid.Column="1" Grid.Row="2" Margin="2,2,2,5" Text="{Binding Path=PanelSetOrder.KRASResult}" />
 
-                    <TextBlock Grid.Column="0" Grid.Row="3" Margin="2,2,2,2" FontWeight="Bold">Interpretation:</TextBlock>
-                    <TextBox Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.Interpretation}" TextWrapping="Wrap" AcceptsReturn="True" />
+                    <TextBlock Grid.Column="0" Grid.Row="3" Margin="2,2,2,5" FontWeight="Bold">NRAS Result:</TextBlock>
+                    <TextBox Grid.Column="1" Grid.Row="3" Margin="2,2,2,5" Text="{Binding Path=PanelSetOrder.NRASResult}" />
 
-                    <TextBlock Grid.Column="0" Grid.Row="5" Margin="2,2,2,2" FontWeight="Bold">Method:</TextBlock>
-                    <TextBox Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.Method}" TextWrapping="Wrap" AcceptsReturn="True"></TextBox>
+                    <TextBlock Grid.Column="0" Grid.Row="4" Margin="2,2,2,5" FontWeight="Bold">HRAS Result:</TextBlock>
+                    <TextBox Grid.Column="1" Grid.Row="4" Margin="2,2,2,5" Text="{Binding Path=PanelSetOrder.HRASResult}" />
 
-                    <TextBlock Grid.Column="0" Grid.Row="7" Margin="2,2,2,5" FontWeight="Bold">References:</TextBlock>
-                    <TextBox Grid.Column="0" Grid.Row="8" Grid.ColumnSpan="2" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.References}" TextWrapping="Wrap" AcceptsReturn="True" />
+                    <TextBlock Grid.Column="0" Grid.Row="8" Margin="2,2,2,2" FontWeight="Bold">Method:</TextBlock>
+                    <TextBox Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="2" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.Method}" TextWrapping="Wrap" AcceptsReturn="True"></TextBox>
 
-                    <local:ReferenceLabFinalControl x:Name="ReferenceLabFinalControl" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="9" Margin="2,2,2,2"/>
+                    <TextBlock Grid.Column="0" Grid.Row="10" Margin="2,2,2,5" FontWeight="Bold">References:</TextBlock>
+                    <TextBox Grid.Column="0" Grid.Row="11" Grid.ColumnSpan="2" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.References}" TextWrapping="Wrap" AcceptsReturn="True" />
+
+                    <local:ReferenceLabFinalControl x:Name="ReferenceLabFinalControl" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="12" Margin="2,2,2,2"/>
 
                 </Grid>
 

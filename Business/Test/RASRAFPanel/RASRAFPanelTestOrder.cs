@@ -9,9 +9,10 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
     [PersistentClass("tblRASRAFPanelTestOrder", "tblPanelSetOrder", "YPIDATA")]
     public class RASRAFPanelTestOrder : YellowstonePathology.Business.Test.PanelSetOrder
     {
-        private string m_Result;
-        private string m_Interpretation;
-        private string m_Mutations;
+        private string m_KRASResult;
+        private string m_NRASResult;
+        private string m_HRASResult;
+        private string m_BRAFResult;
         private string m_Method;
         private string m_References;
         private string m_ReportDisclaimer;
@@ -28,48 +29,6 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
             YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 			: base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute, systemIdentity)
 		{
-        }
-
-        [PersistentProperty()]
-        public string Result
-        {
-            get { return this.m_Result; }
-            set
-            {
-                if (this.m_Result != value)
-                {
-                    this.m_Result = value;
-                    this.NotifyPropertyChanged("Result");
-                }
-            }
-        }
-
-        [PersistentProperty()]
-        public string Interpretation
-        {
-            get { return this.m_Interpretation; }
-            set
-            {
-                if (this.m_Interpretation != value)
-                {
-                    this.m_Interpretation = value;
-                    this.NotifyPropertyChanged("Interpretation");
-                }
-            }
-        }
-
-        [PersistentProperty()]
-        public string Mutations
-        {
-            get { return this.m_Mutations; }
-            set
-            {
-                if (this.m_Mutations != value)
-                {
-                    this.m_Mutations = value;
-                    this.NotifyPropertyChanged("Mutations");
-                }
-            }
         }
 
         [PersistentProperty()]
@@ -114,15 +73,73 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
             }
         }
 
+        [PersistentProperty()]
+        public string KRASResult
+        {
+            get { return this.m_KRASResult; }
+            set
+            {
+                if (this.m_KRASResult != value)
+                {
+                    this.m_KRASResult = value;
+                    this.NotifyPropertyChanged("KRASResult");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string NRASResult
+        {
+            get { return this.m_NRASResult; }
+            set
+            {
+                if (this.m_NRASResult != value)
+                {
+                    this.m_NRASResult = value;
+                    this.NotifyPropertyChanged("NRASResult");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string HRASResult
+        {
+            get { return this.m_HRASResult; }
+            set
+            {
+                if (this.m_HRASResult != value)
+                {
+                    this.m_HRASResult = value;
+                    this.NotifyPropertyChanged("HRASResult");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string BRAFResult
+        {
+            get { return this.m_BRAFResult; }
+            set
+            {
+                if (this.m_BRAFResult != value)
+                {
+                    this.m_BRAFResult = value;
+                    this.NotifyPropertyChanged("BRAFResult");
+                }
+            }
+        }
+
         public override string ToResultString(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {
             StringBuilder result = new StringBuilder();
-            result.Append("Result: ");
-            result.AppendLine(this.m_Result);
-            result.Append("Interpretation: ");
-            result.AppendLine(this.m_Interpretation);
-            result.Append("Mutations: ");
-            result.AppendLine(this.m_Mutations);
+            result.Append("BRAF Result: ");
+            result.AppendLine(this.m_BRAFResult);
+            result.Append("KRAS Result: ");
+            result.AppendLine(this.m_KRASResult);
+            result.Append("NRAS Result: ");
+            result.AppendLine(this.m_NRASResult);
+            result.Append("HRAS Result: ");
+            result.AppendLine(this.m_HRASResult);
             return result.ToString();
         }
     }
