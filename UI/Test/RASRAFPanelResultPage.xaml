@@ -41,12 +41,6 @@
                 </Grid.RowDefinitions>
 
                 <TextBlock Grid.Column="0" Grid.Row="0" Margin="0,3,0,0" FontWeight="Bold" FontSize="14">Results</TextBlock>
-                <TextBlock Grid.Column="0" Grid.Row="1" Margin="5,3,0,0">
-                    <Hyperlink Click="HyperLinkDetected_Click">Detected</Hyperlink>
-                </TextBlock>
-                <TextBlock Grid.Column="0" Grid.Row="2" Margin="5,3,0,5">
-                    <Hyperlink Click="HyperLinkNotDetected_Click">Not Detected</Hyperlink>
-                </TextBlock>
 
                 <TextBlock Grid.Column="0" Grid.Row="3" Margin="5,3,0,0">                    
                     <Hyperlink Click="HyperLinkAcceptResults_Click">Accept Results</Hyperlink>
@@ -105,26 +99,75 @@
 
                     <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,5" FontWeight="Bold">Ordered On:</TextBlock>
                     <TextBlock Grid.Column="1" Grid.Row="0" Margin="2,2,2,5" Text="{Binding Path=OrderedOnDescription}"></TextBlock>
+                	
+                	<Grid Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
+                		<Grid.ColumnDefinitions>
+                			<ColumnDefinition Width="Auto"></ColumnDefinition>
+                			<ColumnDefinition Width="*"></ColumnDefinition>
+                			<ColumnDefinition Width="*"></ColumnDefinition>
+                			<ColumnDefinition Width="*"></ColumnDefinition>
+                			<ColumnDefinition Width="*"></ColumnDefinition>
+                			<ColumnDefinition Width="*"></ColumnDefinition>
+                			<ColumnDefinition Width="*"></ColumnDefinition>
+                			<ColumnDefinition Width="*"></ColumnDefinition>
+                		</Grid.ColumnDefinitions>
+                	
+                		<Grid.RowDefinitions>
+                			<RowDefinition Height="Auto"></RowDefinition>
+                			<RowDefinition Height="Auto"></RowDefinition>
+                			<RowDefinition Height="Auto"></RowDefinition>
+                			<RowDefinition Height="Auto"></RowDefinition>
+                			<RowDefinition Height="Auto"></RowDefinition>
+                			<RowDefinition Height="Auto"></RowDefinition>
+                		</Grid.RowDefinitions>
+                	
+	                    <TextBlock Grid.Column="3" Grid.Row="0" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Center">Alternate Nucleotide</TextBlock>
+	                    <TextBlock Grid.Column="5" Grid.Row="0" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Center">Allele</TextBlock>
+	                    <TextBlock Grid.Column="6" Grid.Row="0" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Center">Read</TextBlock>
+	                    <TextBlock Grid.Column="7" Grid.Row="0" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Center">Predicted Effect</TextBlock>
 
-                    <TextBlock Grid.Column="0" Grid.Row="1" Margin="2,2,2,5" FontWeight="Bold">BRAF Result:</TextBlock>
-                    <TextBox Grid.Column="1" Grid.Row="1" Margin="2,2,2,5" Text="{Binding Path=PanelSetOrder.BRAFResult}" />
+	                    <TextBlock Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Center">Test</TextBlock>
+	                    <TextBlock Grid.Column="1" Grid.Row="1" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Center">Result</TextBlock>
+	                    <TextBlock Grid.Column="2" Grid.Row="1" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Center">Mutation Name</TextBlock>
+	                    <TextBlock Grid.Column="3" Grid.Row="1" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Center">Mutation Name</TextBlock>
+	                    <TextBlock Grid.Column="4" Grid.Row="1" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Center">Consequence</TextBlock>
+	                    <TextBlock Grid.Column="5" Grid.Row="1" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Center">Frequency</TextBlock>
+	                    <TextBlock Grid.Column="6" Grid.Row="1" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Center">Depth</TextBlock>
+	                    <TextBlock Grid.Column="7" Grid.Row="1" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Center">On Protein</TextBlock>
+                	
+	                    <TextBlock Grid.Column="0" Grid.Row="2" Margin="2,2,2,2" FontWeight="Bold">BRAF</TextBlock>
+	                    <TextBox Grid.Column="1" Grid.Row="2" Margin="2,2,2,5" Text="{Binding Path=PanelSetOrder.BRAFResult}" />
+	                    <TextBox Grid.Column="2" Grid.Row="2" Margin="2,2,2,5" Text="{Binding Path=PanelSetOrder.BRAFMutationName}" TextWrapping="Wrap" />
+	                    <TextBox Grid.Column="3" Grid.Row="2" Margin="2,2,2,5" Text="{Binding Path=PanelSetOrder.BRAFAlternateNucleotideMutationName}" TextWrapping="Wrap" />
+	                    <TextBox Grid.Column="4" Grid.Row="2" Margin="2,2,2,5" Text="{Binding Path=PanelSetOrder.BRAFConsequence}" TextWrapping="Wrap" />
+	                    <TextBox Grid.Column="5" Grid.Row="2" Margin="2,2,2,5" Text="{Binding Path=PanelSetOrder.BRAFAlleleFrequency}" TextWrapping="Wrap" />
+	                    <TextBox Grid.Column="6" Grid.Row="2" Margin="2,2,2,5" Text="{Binding Path=PanelSetOrder.BRAFReadDepth}" TextWrapping="Wrap" />
+	                    <TextBox Grid.Column="7" Grid.Row="2" Margin="2,2,2,5" Text="{Binding Path=PanelSetOrder.BRAFPredictedEffectOnProtein}" TextWrapping="Wrap" />
+                		
+	                    <TextBlock Grid.Column="0" Grid.Row="3" Margin="2,2,2,2" FontWeight="Bold">KRAS</TextBlock>
+	                    <TextBox Grid.Column="1" Grid.Row="3" Margin="2,2,2,5" Text="{Binding Path=PanelSetOrder.KRASResult}" TextWrapping="Wrap" />
+	                    <TextBox Grid.Column="2" Grid.Row="3" Margin="2,2,2,5" Text="{Binding Path=PanelSetOrder.KRASMutationName}" TextWrapping="Wrap" />
+	                    <TextBox Grid.Column="3" Grid.Row="3" Margin="2,2,2,5" Text="{Binding Path=PanelSetOrder.KRASAlternateNucleotideMutationName}" TextWrapping="Wrap" />
+	                    <TextBox Grid.Column="4" Grid.Row="3" Margin="2,2,2,5" Text="{Binding Path=PanelSetOrder.KRASConsequence}" TextWrapping="Wrap" />
+	                    <TextBox Grid.Column="5" Grid.Row="3" Margin="2,2,2,5" Text="{Binding Path=PanelSetOrder.KRASAlleleFrequency}" TextWrapping="Wrap" />
+	                    <TextBox Grid.Column="6" Grid.Row="3" Margin="2,2,2,5" Text="{Binding Path=PanelSetOrder.KRASReadDepth}" TextWrapping="Wrap" />
+	                    <TextBox Grid.Column="7" Grid.Row="3" Margin="2,2,2,5" Text="{Binding Path=PanelSetOrder.KRASPredictedEffectOnProtein}" TextWrapping="Wrap" />
+                		
+	                    <TextBlock Grid.Column="0" Grid.Row="4" Margin="2,2,2,2" FontWeight="Bold">NRAS</TextBlock>
+	                    <TextBox Grid.Column="1" Grid.Row="4" Margin="2,2,2,5" Text="{Binding Path=PanelSetOrder.NRASResult}" />
 
-                    <TextBlock Grid.Column="0" Grid.Row="2" Margin="2,2,2,5" FontWeight="Bold">KRAS Result:</TextBlock>
-                    <TextBox Grid.Column="1" Grid.Row="2" Margin="2,2,2,5" Text="{Binding Path=PanelSetOrder.KRASResult}" />
+                		<TextBlock Grid.Column="0" Grid.Row="5" Margin="2,2,2,2" FontWeight="Bold">HRAS</TextBlock>
+	                    <TextBox Grid.Column="1" Grid.Row="5" Margin="2,2,2,5" Text="{Binding Path=PanelSetOrder.HRASResult}" />
+                	
+                	</Grid>
 
-                    <TextBlock Grid.Column="0" Grid.Row="3" Margin="2,2,2,5" FontWeight="Bold">NRAS Result:</TextBlock>
-                    <TextBox Grid.Column="1" Grid.Row="3" Margin="2,2,2,5" Text="{Binding Path=PanelSetOrder.NRASResult}" />
+                    <TextBlock Grid.Column="0" Grid.Row="2" Margin="2,2,2,2" FontWeight="Bold">Method:</TextBlock>
+                    <TextBox Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.Method}" TextWrapping="Wrap" AcceptsReturn="True"></TextBox>
 
-                    <TextBlock Grid.Column="0" Grid.Row="4" Margin="2,2,2,5" FontWeight="Bold">HRAS Result:</TextBlock>
-                    <TextBox Grid.Column="1" Grid.Row="4" Margin="2,2,2,5" Text="{Binding Path=PanelSetOrder.HRASResult}" />
+                    <TextBlock Grid.Column="0" Grid.Row="4" Margin="2,2,2,5" FontWeight="Bold">References:</TextBlock>
+                    <TextBox Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.References}" TextWrapping="Wrap" AcceptsReturn="True" />
 
-                    <TextBlock Grid.Column="0" Grid.Row="8" Margin="2,2,2,2" FontWeight="Bold">Method:</TextBlock>
-                    <TextBox Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="2" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.Method}" TextWrapping="Wrap" AcceptsReturn="True"></TextBox>
-
-                    <TextBlock Grid.Column="0" Grid.Row="10" Margin="2,2,2,5" FontWeight="Bold">References:</TextBlock>
-                    <TextBox Grid.Column="0" Grid.Row="11" Grid.ColumnSpan="2" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.References}" TextWrapping="Wrap" AcceptsReturn="True" />
-
-                    <local:ReferenceLabFinalControl x:Name="ReferenceLabFinalControl" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="12" Margin="2,2,2,2"/>
+                    <local:ReferenceLabFinalControl x:Name="ReferenceLabFinalControl" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="6" Margin="2,2,2,2"/>
 
                 </Grid>
 
