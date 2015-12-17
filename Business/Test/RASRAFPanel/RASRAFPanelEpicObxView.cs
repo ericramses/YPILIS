@@ -20,7 +20,29 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
 
             this.AddNextObxElement("", document, "F");
             this.AddNextObxElement("BRAF Result: " + panelSetOrder.BRAFResult, document, "F");
+            if(panelSetOrder.BRAFResult.ToUpper() == "DETECTED")
+            {
+	            this.AddNextObxElement("BRAF Mutation Name: " + panelSetOrder.BRAFMutationName, document, "F");
+	            this.AddNextObxElement("BRAF Alternate Nucleotide Mutation Name: " + panelSetOrder.BRAFAlternateNucleotideMutationName, document, "F");
+	            this.AddNextObxElement("BRAF Consequence: " + panelSetOrder.BRAFConsequence, document, "F");
+	            this.AddNextObxElement("BRAF Allele Frequency: " + panelSetOrder.BRAFAlleleFrequency, document, "F");
+	            this.AddNextObxElement("BRAF Read Depth: " + panelSetOrder.BRAFReadDepth, document, "F");
+	            this.AddNextObxElement("BRAF Predicted Effect On Protein: " + panelSetOrder.BRAFPredictedEffectOnProtein, document, "F");
+            }
+            
+            this.AddNextObxElement("", document, "F");
             this.AddNextObxElement("KRAS Result: " + panelSetOrder.KRASResult, document, "F");
+            if(panelSetOrder.KRASResult.ToUpper() == "DETECTED")
+            {
+	            this.AddNextObxElement("KRAS Mutation Name: " + panelSetOrder.KRASMutationName, document, "F");
+	            this.AddNextObxElement("KRAS Alternate Nucleotide Mutation Name: " + panelSetOrder.KRASAlternateNucleotideMutationName, document, "F");
+	            this.AddNextObxElement("KRAS Consequence: " + panelSetOrder.KRASConsequence, document, "F");
+	            this.AddNextObxElement("KRAS Allele Frequency: " + panelSetOrder.KRASAlleleFrequency, document, "F");
+	            this.AddNextObxElement("KRAS Read Depth: " + panelSetOrder.KRASReadDepth, document, "F");
+	            this.AddNextObxElement("KRAS Predicted Effect On Protein: " + panelSetOrder.KRASPredictedEffectOnProtein, document, "F");
+            }
+            
+            this.AddNextObxElement("", document, "F");
             this.AddNextObxElement("NRAS Result: " + panelSetOrder.NRASResult, document, "F");
             this.AddNextObxElement("HRAS Result: " + panelSetOrder.HRASResult, document, "F");
             
