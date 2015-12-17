@@ -16,14 +16,18 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
         private string m_KRASMutationName;
         private string m_KRASAlternateNucleotideMutationName;
         private string m_KRASConsequence;
-        private string m_KRASAlleleFrequency;
-        private string m_KRASReadDepth;
         private string m_KRASPredictedEffectOnProtein;
+        private string m_NRASMutationName;
+        private string m_NRASAlternateNucleotideMutationName;
+        private string m_NRASConsequence;
+        private string m_NRASPredictedEffectOnProtein;
+        private string m_HRASMutationName;
+        private string m_HRASAlternateNucleotideMutationName;
+        private string m_HRASConsequence;
+        private string m_HRASPredictedEffectOnProtein;
         private string m_BRAFMutationName;
         private string m_BRAFAlternateNucleotideMutationName;
         private string m_BRAFConsequence;
-        private string m_BRAFAlleleFrequency;
-        private string m_BRAFReadDepth;
         private string m_BRAFPredictedEffectOnProtein;
         private string m_Method;
         private string m_References;
@@ -184,34 +188,6 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
         }
 
         [PersistentProperty()]
-        public string KRASAlleleFrequency
-        {
-            get { return this.m_KRASAlleleFrequency; }
-            set
-            {
-                if (this.m_KRASAlleleFrequency != value)
-                {
-                    this.m_KRASAlleleFrequency = value;
-                    this.NotifyPropertyChanged("KRASAlleleFrequency");
-                }
-            }
-        }
-
-        [PersistentProperty()]
-        public string KRASReadDepth
-        {
-            get { return this.m_KRASReadDepth; }
-            set
-            {
-                if (this.m_KRASReadDepth != value)
-                {
-                    this.m_KRASReadDepth = value;
-                    this.NotifyPropertyChanged("KRASReadDepth");
-                }
-            }
-        }
-
-        [PersistentProperty()]
         public string KRASPredictedEffectOnProtein
         {
             get { return this.m_KRASPredictedEffectOnProtein; }
@@ -221,6 +197,118 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
                 {
                     this.m_KRASPredictedEffectOnProtein = value;
                     this.NotifyPropertyChanged("KRASPredictedEffectOnProtein");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string NRASMutationName
+        {
+            get { return this.m_NRASMutationName; }
+            set
+            {
+                if (this.m_NRASMutationName != value)
+                {
+                    this.m_NRASMutationName = value;
+                    this.NotifyPropertyChanged("NRASMutationName");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string NRASAlternateNucleotideMutationName
+        {
+            get { return this.m_NRASAlternateNucleotideMutationName; }
+            set
+            {
+                if (this.m_NRASAlternateNucleotideMutationName != value)
+                {
+                    this.m_NRASAlternateNucleotideMutationName = value;
+                    this.NotifyPropertyChanged("NRASAlternateNucleotideMutationName");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string NRASConsequence
+        {
+            get { return this.m_NRASConsequence; }
+            set
+            {
+                if (this.m_NRASConsequence != value)
+                {
+                    this.m_NRASConsequence = value;
+                    this.NotifyPropertyChanged("NRASConsequence");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string NRASPredictedEffectOnProtein
+        {
+            get { return this.m_NRASPredictedEffectOnProtein; }
+            set
+            {
+                if (this.m_NRASPredictedEffectOnProtein != value)
+                {
+                    this.m_NRASPredictedEffectOnProtein = value;
+                    this.NotifyPropertyChanged("NRASPredictedEffectOnProtein");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string HRASMutationName
+        {
+            get { return this.m_HRASMutationName; }
+            set
+            {
+                if (this.m_HRASMutationName != value)
+                {
+                    this.m_HRASMutationName = value;
+                    this.NotifyPropertyChanged("HRASMutationName");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string HRASAlternateNucleotideMutationName
+        {
+            get { return this.m_HRASAlternateNucleotideMutationName; }
+            set
+            {
+                if (this.m_HRASAlternateNucleotideMutationName != value)
+                {
+                    this.m_HRASAlternateNucleotideMutationName = value;
+                    this.NotifyPropertyChanged("HRASAlternateNucleotideMutationName");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string HRASConsequence
+        {
+            get { return this.m_HRASConsequence; }
+            set
+            {
+                if (this.m_HRASConsequence != value)
+                {
+                    this.m_HRASConsequence = value;
+                    this.NotifyPropertyChanged("HRASConsequence");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string HRASPredictedEffectOnProtein
+        {
+            get { return this.m_HRASPredictedEffectOnProtein; }
+            set
+            {
+                if (this.m_HRASPredictedEffectOnProtein != value)
+                {
+                    this.m_HRASPredictedEffectOnProtein = value;
+                    this.NotifyPropertyChanged("HRASPredictedEffectOnProtein");
                 }
             }
         }
@@ -263,34 +351,6 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
                 {
                     this.m_BRAFConsequence = value;
                     this.NotifyPropertyChanged("BRAFConsequence");
-                }
-            }
-        }
-
-        [PersistentProperty()]
-        public string BRAFAlleleFrequency
-        {
-            get { return this.m_BRAFAlleleFrequency; }
-            set
-            {
-                if (this.m_BRAFAlleleFrequency != value)
-                {
-                    this.m_BRAFAlleleFrequency = value;
-                    this.NotifyPropertyChanged("BRAFAlleleFrequency");
-                }
-            }
-        }
-
-        [PersistentProperty()]
-        public string BRAFReadDepth
-        {
-            get { return this.m_BRAFReadDepth; }
-            set
-            {
-                if (this.m_BRAFReadDepth != value)
-                {
-                    this.m_BRAFReadDepth = value;
-                    this.NotifyPropertyChanged("BRAFReadDepth");
                 }
             }
         }

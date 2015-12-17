@@ -25,8 +25,6 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
 	            this.AddNextObxElement("BRAF Mutation Name: " + panelSetOrder.BRAFMutationName, document, "F");
 	            this.AddNextObxElement("BRAF Alternate Nucleotide Mutation Name: " + panelSetOrder.BRAFAlternateNucleotideMutationName, document, "F");
 	            this.AddNextObxElement("BRAF Consequence: " + panelSetOrder.BRAFConsequence, document, "F");
-	            this.AddNextObxElement("BRAF Allele Frequency: " + panelSetOrder.BRAFAlleleFrequency, document, "F");
-	            this.AddNextObxElement("BRAF Read Depth: " + panelSetOrder.BRAFReadDepth, document, "F");
 	            this.AddNextObxElement("BRAF Predicted Effect On Protein: " + panelSetOrder.BRAFPredictedEffectOnProtein, document, "F");
             }
             
@@ -37,15 +35,28 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
 	            this.AddNextObxElement("KRAS Mutation Name: " + panelSetOrder.KRASMutationName, document, "F");
 	            this.AddNextObxElement("KRAS Alternate Nucleotide Mutation Name: " + panelSetOrder.KRASAlternateNucleotideMutationName, document, "F");
 	            this.AddNextObxElement("KRAS Consequence: " + panelSetOrder.KRASConsequence, document, "F");
-	            this.AddNextObxElement("KRAS Allele Frequency: " + panelSetOrder.KRASAlleleFrequency, document, "F");
-	            this.AddNextObxElement("KRAS Read Depth: " + panelSetOrder.KRASReadDepth, document, "F");
 	            this.AddNextObxElement("KRAS Predicted Effect On Protein: " + panelSetOrder.KRASPredictedEffectOnProtein, document, "F");
             }
             
             this.AddNextObxElement("", document, "F");
             this.AddNextObxElement("NRAS Result: " + panelSetOrder.NRASResult, document, "F");
-            this.AddNextObxElement("HRAS Result: " + panelSetOrder.HRASResult, document, "F");
+            if(panelSetOrder.NRASResult.ToUpper() == "DETECTED")
+            {
+	            this.AddNextObxElement("NRAS Mutation Name: " + panelSetOrder.NRASMutationName, document, "F");
+	            this.AddNextObxElement("NRAS Alternate Nucleotide Mutation Name: " + panelSetOrder.NRASAlternateNucleotideMutationName, document, "F");
+	            this.AddNextObxElement("NRAS Consequence: " + panelSetOrder.NRASConsequence, document, "F");
+	            this.AddNextObxElement("NRAS Predicted Effect On Protein: " + panelSetOrder.NRASPredictedEffectOnProtein, document, "F");
+            }
             
+            this.AddNextObxElement("HRAS Result: " + panelSetOrder.HRASResult, document, "F");
+            if(panelSetOrder.KRASResult.ToUpper() == "DETECTED")
+            {
+	            this.AddNextObxElement("HRAS Mutation Name: " + panelSetOrder.HRASMutationName, document, "F");
+	            this.AddNextObxElement("HRAS Alternate Nucleotide Mutation Name: " + panelSetOrder.HRASAlternateNucleotideMutationName, document, "F");
+	            this.AddNextObxElement("HRAS Consequence: " + panelSetOrder.HRASConsequence, document, "F");
+	            this.AddNextObxElement("HRAS Predicted Effect On Protein: " + panelSetOrder.HRASPredictedEffectOnProtein, document, "F");
+            }
+                        
             this.AddNextObxElement("", document, "F");
             this.AddNextObxElement("Pathologist: " + panelSetOrder.ReferenceLabSignature, document, "F");
             if (panelSetOrder.FinalTime.HasValue == true)

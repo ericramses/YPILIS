@@ -32,6 +32,8 @@ namespace YellowstonePathology.UI.Test
 
         private YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelTestOrder m_RASRAFPanelTestOrder;
         private string m_OrderedOnDescription;
+        
+        private List<string> m_ResultList;
 
         public RASRAFPanelResultPage(YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelTestOrder rasRAFPanelTestOrder,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
@@ -47,10 +49,24 @@ namespace YellowstonePathology.UI.Test
 
             YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_RASRAFPanelTestOrder.OrderedOn, this.m_RASRAFPanelTestOrder.OrderedOnId);
             this.m_OrderedOnDescription = specimenOrder.Description;
+            
+            this.m_ResultList = new List<string>();
+            this.m_ResultList.Add("Not Detected");
+            this.m_ResultList.Add("Detected");
+			this.m_ResultList.Add("");
 
             InitializeComponent();
 
             DataContext = this;
+            Loaded += this.RASRAFPanelResultPage_Loaded;
+        }
+        
+		public void RASRAFPanelResultPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            this.ComboBoxBRAFResult.SelectionChanged += ComboBoxBRAFResult_SelectionChanged;
+            this.ComboBoxKRASResult.SelectionChanged += ComboBoxKRASResult_SelectionChanged;
+            this.ComboBoxNRASResult.SelectionChanged += ComboBoxNRASResult_SelectionChanged;
+            this.ComboBoxHRASResult.SelectionChanged += ComboBoxHRASResult_SelectionChanged;
         }
 
         public string OrderedOnDescription
@@ -61,6 +77,11 @@ namespace YellowstonePathology.UI.Test
         public YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelTestOrder PanelSetOrder
         {
             get { return this.m_RASRAFPanelTestOrder; }
+        }
+        
+        public List<string> ResultList
+        {
+        	get { return this.m_ResultList; }
         }
 
         public void NotifyPropertyChanged(String info)
@@ -94,20 +115,6 @@ namespace YellowstonePathology.UI.Test
         public void UpdateBindingSources()
         {
 
-        }
-
-        private void HyperLinkNotDetected_Click(object sender, RoutedEventArgs e)
-        {
-            YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelResult result = new YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelResult();
-            result.SetResults(this.m_RASRAFPanelTestOrder);
-            this.NotifyPropertyChanged("PanelSetOrder");
-        }
-
-        private void HyperLinkDetected_Click(object sender, RoutedEventArgs e)
-        {
-            YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelResult result = new YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelResult();
-            result.SetResults(this.m_RASRAFPanelTestOrder);
-            this.NotifyPropertyChanged("PanelSetOrder");
         }
 
         private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
@@ -149,9 +156,7 @@ namespace YellowstonePathology.UI.Test
 
         private void HyperLinkAcceptResults_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("This results cannot be accepted because IT needs more information to store the correct data." + Environment.NewLine + "Please contact IT.");
-
-            /*YellowstonePathology.Business.Rules.MethodResult result = this.m_RASRAFPanelTestOrder.IsOkToAccept();
+            YellowstonePathology.Business.Rules.MethodResult result = this.m_RASRAFPanelTestOrder.IsOkToAccept();
             if (result.Success == true)
             {
                 this.m_RASRAFPanelTestOrder.Accept(this.m_SystemIdentity.User);
@@ -159,7 +164,7 @@ namespace YellowstonePathology.UI.Test
             else
             {
                 MessageBox.Show(result.Message);
-            }*/
+            }
         }
 
         private void HyperLinkUnacceptResults_Click(object sender, RoutedEventArgs e)
@@ -178,6 +183,66 @@ namespace YellowstonePathology.UI.Test
         private void ButtonNext_Click(object sender, RoutedEventArgs e)
         {
             if (this.Next != null) this.Next(this, new EventArgs());
+        }
+        
+        private void ComboBoxBRAFResult_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+        	if(this.ComboBoxBRAFResult.SelectedItem != null)
+        	{
+        		string result = this.ComboBoxBRAFResult.SelectedItem.ToString();
+        		if(result == "Not Detected")
+        		{
+        			this.m_RASRAFPanelTestOrder.BRAFAlternateNucleotideMutationName = "N/A";
+        			this.m_RASRAFPanelTestOrder.BRAFConsequence = "N/A";
+        			this.m_RASRAFPanelTestOrder.BRAFMutationName = "N/A";
+        			this.m_RASRAFPanelTestOrder.BRAFPredictedEffectOnProtein = "N/A";
+        		}
+        	}
+        }
+        
+        private void ComboBoxKRASResult_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+        	if(this.ComboBoxKRASResult.SelectedItem != null)
+        	{
+        		string result = this.ComboBoxKRASResult.SelectedItem.ToString();
+        		if(result == "Not Detected")
+        		{
+        			this.m_RASRAFPanelTestOrder.KRASAlternateNucleotideMutationName = "N/A";
+        			this.m_RASRAFPanelTestOrder.KRASConsequence = "N/A";
+        			this.m_RASRAFPanelTestOrder.KRASMutationName = "N/A";
+        			this.m_RASRAFPanelTestOrder.KRASPredictedEffectOnProtein = "N/A";
+        		}
+        	}
+        }
+        
+        private void ComboBoxNRASResult_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+        	if(this.ComboBoxNRASResult.SelectedItem != null)
+        	{
+        		string result = this.ComboBoxNRASResult.SelectedItem.ToString();
+        		if(result == "Not Detected")
+        		{
+        			this.m_RASRAFPanelTestOrder.NRASAlternateNucleotideMutationName = "N/A";
+        			this.m_RASRAFPanelTestOrder.NRASConsequence = "N/A";
+        			this.m_RASRAFPanelTestOrder.NRASMutationName = "N/A";
+        			this.m_RASRAFPanelTestOrder.NRASPredictedEffectOnProtein = "N/A";
+        		}
+        	}
+        }
+        
+        private void ComboBoxHRASResult_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+        	if(this.ComboBoxHRASResult.SelectedItem != null)
+        	{
+        		string result = this.ComboBoxHRASResult.SelectedItem.ToString();
+        		if(result == "Not Detected")
+        		{
+        			this.m_RASRAFPanelTestOrder.HRASAlternateNucleotideMutationName = "N/A";
+        			this.m_RASRAFPanelTestOrder.HRASConsequence = "N/A";
+        			this.m_RASRAFPanelTestOrder.HRASMutationName = "N/A";
+        			this.m_RASRAFPanelTestOrder.HRASPredictedEffectOnProtein = "N/A";
+        		}
+        	}
         }
     }
 }
