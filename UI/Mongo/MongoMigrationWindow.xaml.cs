@@ -680,19 +680,29 @@ namespace YellowstonePathology.UI.Mongo
 
         private void JSONWriterWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            int count = 0;
-            List<Business.MasterAccessionNo> masterAccessionNos = Business.Gateway.AccessionOrderGateway.GetMasterAccessionNosWithNullJSONString(10000, 2014);
-            foreach (Business.MasterAccessionNo masterAccessionNo in masterAccessionNos)
-            {
-                Business.Test.AccessionOrder ao = Business.Gateway.AccessionOrderGateway.GetAccessionOrderByMasterAccessionNo(masterAccessionNo.Value);
-                Business.Persistence.ObjectTracker objectTracker = new Business.Persistence.ObjectTracker();
-                objectTracker.RegisterObject(ao);                
-                string json = Business.Persistence.JSONObjectWriter.Write(ao);
-                ao.JSON = json;
-                objectTracker.SubmitChanges(ao);
-                count += 1;
-                this.m_JSONWriterWorker.ReportProgress(0, count.ToString() + " - " + masterAccessionNo.Value);
-            }
+            while(true)
+            {                
+                List<Business.MasterAccessionNo> masterAccessionNos = Business.Gateway.AccessionOrderGateway.GetMasterAccessionNosWithNullJSONString(1000, 2013);
+                if(masterAccessionNos.Count != 0)
+                {
+                    int count = 0;
+                    foreach (Business.MasterAccessionNo masterAccessionNo in masterAccessionNos)
+                    {
+                        Business.Test.AccessionOrder ao = Business.Gateway.AccessionOrderGateway.GetAccessionOrderByMasterAccessionNo(masterAccessionNo.Value);
+                        Business.Persistence.ObjectTracker objectTracker = new Business.Persistence.ObjectTracker();
+                        objectTracker.RegisterObject(ao);
+                        string json = Business.Persistence.JSONObjectWriter.Write(ao);
+                        ao.JSON = json;
+                        objectTracker.SubmitChanges(ao);
+                        count += 1;
+                        this.m_JSONWriterWorker.ReportProgress(0, count.ToString() + " - " + masterAccessionNo.Value);
+                    }
+                }
+                else
+                {
+                    break;
+                }            
+            }            
         }
 
         private void JSONWriterWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
