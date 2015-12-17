@@ -291,7 +291,7 @@ namespace YellowstonePathology.Business.Test.Model
             result.Add(new SOX10());
             result.Add(new SATB2());
             
-            result.Add(new P40IHC());
+            result.Add(new P40());
 
             //NG CT
             result.Add(new NeisseriaGonorrhoeae());

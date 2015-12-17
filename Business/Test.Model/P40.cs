@@ -11,15 +11,15 @@ using System;
 namespace YellowstonePathology.Business.Test.Model
 {
 	/// <summary>
-	/// Description of P40IHC.
+	/// Description of P40.
 	/// </summary>
-	public class P40IHC : ImmunoHistochemistryTest
+	public class P40 : ImmunoHistochemistryTest
 	{
-		public P40IHC()
+		public P40()
 		{
 			this.m_TestId = 359;
-			this.m_TestName = "P40 IHC";
-            this.m_TestAbbreviation = "P40 IHC";
+			this.m_TestName = "P40";
+            this.m_TestAbbreviation = "P40";
 			this.m_Active = true;
 			this.m_NeedsAcknowledgement = true;
 		}
