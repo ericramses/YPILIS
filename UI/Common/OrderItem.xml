@@ -1799,7 +1799,7 @@
                 <Id>359</Id>
                 <ParentId>19</ParentId>
                 <ChildId>0</ChildId>
-                <Name>P40 IHC</Name>
+                <Name>P40</Name>
                 <Orderable>True</Orderable>
                 <Order>False</Order>
                 <ItemType>Test</ItemType>
