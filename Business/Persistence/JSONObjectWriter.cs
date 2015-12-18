@@ -15,7 +15,7 @@ namespace YellowstonePathology.Business.Persistence
             StringBuilder oString = new StringBuilder();            
             Type objectType = objectToWrite.GetType();
             oString.Append(JSONWriter.Write(objectToWrite));
-            HandlePersistentChildCollections(objectToWrite, oString);                        
+            HandlePersistentChildCollections(objectToWrite, oString);            
             return oString.ToString();
         }        
 
@@ -41,14 +41,14 @@ namespace YellowstonePathology.Business.Persistence
                         StringBuilder childStringBuilder = new StringBuilder();
                         object collectionItem = childCollectionObject[i];
 
-                        string json = JSONWriter.Write(collectionItem); 
-                        childStringBuilder.Append(json);                        
+                        string childJSON = JSONWriter.Write(collectionItem); 
+                        childStringBuilder.Append(childJSON);                        
                         HandlePersistentChildCollections(collectionItem, childStringBuilder);                                            
                         collectionStringBuilder.Append(childStringBuilder);
 
                         if (i == childCollectionObject.Count - 1)
                         {                                                                                  
-                            collectionStringBuilder.Append("]");                                                      
+                            collectionStringBuilder.Append("]");                            
                             parentStringBuilder.Insert(parentStringBuilder.Length - 1, ", " + collectionStringBuilder.ToString());                         
                         } 
                         else

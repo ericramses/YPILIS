@@ -1102,10 +1102,15 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByMasterAccessionNo("15-27221");
-
+            YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByMasterAccessionNo("13-30085");
             string json = YellowstonePathology.Business.Persistence.JSONObjectWriter.Write(accessionOrder);
-            System.IO.File.WriteAllText(@"C:\node\test.json", json);                       
+
+            //string json = System.IO.File.ReadAllText("c:\testing\test.json");
+            //MongoDB.Bson.BsonDocument document = MongoDB.Bson.Serialization.BsonSerializer.Deserialize<BsonDocument>(json);
+            
+            //YellowstonePathology.Business.Mongo.Server server = new Business.Mongo.TestServer(YellowstonePathology.Business.Mongo.MongoTestServer.LISDatabaseName);
+            //MongoCollection mongoCollection = server.Database.GetCollection<BsonDocument>("AccessionOrder");
+            //mongoCollection.Insert(document);
         }
 
         private void FindY()
