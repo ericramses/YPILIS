@@ -29,6 +29,27 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
             this.ReplaceText("kras_result", testOrder.KRASResult);
             this.ReplaceText("nras_result", testOrder.NRASResult);
             this.ReplaceText("hras_result", testOrder.HRASResult);
+            
+            this.ReplaceText("braf_mn", testOrder.BRAFMutationName);
+            this.ReplaceText("kras_mn", testOrder.KRASMutationName);
+            this.ReplaceText("nras_mn", testOrder.NRASMutationName);
+            this.ReplaceText("hras_mn", testOrder.HRASMutationName);
+            
+            this.ReplaceText("braf_anmn", testOrder.BRAFAlternateNucleotideMutationName);
+            this.ReplaceText("kras_anmn", testOrder.KRASAlternateNucleotideMutationName);
+            this.ReplaceText("nras_anmn", testOrder.NRASAlternateNucleotideMutationName);
+            this.ReplaceText("hras_anmn", testOrder.HRASAlternateNucleotideMutationName);
+            
+            this.ReplaceText("braf_cons", testOrder.BRAFConsequence);
+            this.ReplaceText("kras_cons", testOrder.KRASConsequence);
+            this.ReplaceText("nras_cons", testOrder.NRASConsequence);
+            this.ReplaceText("hras_cons", testOrder.HRASConsequence);
+            
+            this.ReplaceText("braf_peop", testOrder.BRAFPredictedEffectOnProtein);
+            this.ReplaceText("kras_peop", testOrder.KRASPredictedEffectOnProtein);
+            this.ReplaceText("nras_peop", testOrder.NRASPredictedEffectOnProtein);
+            this.ReplaceText("hras_peop", testOrder.HRASPredictedEffectOnProtein);
+            
             this.ReplaceText("report_method", testOrder.Method);
             this.ReplaceText("report_references", testOrder.References);
             this.ReplaceText("report_disclaimer", testOrder.ReportDisclaimer);

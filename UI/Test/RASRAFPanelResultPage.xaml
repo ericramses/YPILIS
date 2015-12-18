@@ -100,11 +100,10 @@
                     <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,5" FontWeight="Bold">Ordered On:</TextBlock>
                     <TextBlock Grid.Column="1" Grid.Row="0" Margin="2,2,2,5" Text="{Binding Path=OrderedOnDescription}"></TextBlock>
                 	
+		            <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" BorderBrush="Black" BorderThickness="1" ></Border>
                 	<Grid Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
                 		<Grid.ColumnDefinitions>
                 			<ColumnDefinition Width="Auto"></ColumnDefinition>
-                			<ColumnDefinition Width="*"></ColumnDefinition>
-                			<ColumnDefinition Width="*"></ColumnDefinition>
                 			<ColumnDefinition Width="*"></ColumnDefinition>
                 			<ColumnDefinition Width="*"></ColumnDefinition>
                 			<ColumnDefinition Width="*"></ColumnDefinition>
@@ -120,44 +119,79 @@
                 			<RowDefinition Height="Auto"></RowDefinition>
                 			<RowDefinition Height="Auto"></RowDefinition>
                 		</Grid.RowDefinitions>
-                	
-	                    <TextBlock Grid.Column="3" Grid.Row="0" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Center">Alternate Nucleotide</TextBlock>
-	                    <TextBlock Grid.Column="5" Grid.Row="0" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Center">Allele</TextBlock>
-	                    <TextBlock Grid.Column="6" Grid.Row="0" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Center">Read</TextBlock>
-	                    <TextBlock Grid.Column="7" Grid.Row="0" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Center">Predicted Effect</TextBlock>
 
-	                    <TextBlock Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Center">Test</TextBlock>
-	                    <TextBlock Grid.Column="1" Grid.Row="1" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Center">Result</TextBlock>
-	                    <TextBlock Grid.Column="2" Grid.Row="1" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Center">Mutation Name</TextBlock>
-	                    <TextBlock Grid.Column="3" Grid.Row="1" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Center">Mutation Name</TextBlock>
-	                    <TextBlock Grid.Column="4" Grid.Row="1" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Center">Consequence</TextBlock>
-	                    <TextBlock Grid.Column="5" Grid.Row="1" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Center">Frequency</TextBlock>
-	                    <TextBlock Grid.Column="6" Grid.Row="1" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Center">Depth</TextBlock>
-	                    <TextBlock Grid.Column="7" Grid.Row="1" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Center">On Protein</TextBlock>
+			            <Border Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" BorderBrush="Black" BorderThickness="0,0,1,1" ></Border>
+			            <Border Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" BorderBrush="Black" BorderThickness="0,0,1,1" ></Border>
+			            <Border Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" BorderBrush="Black" BorderThickness="0,0,1,1" ></Border>
+			            <Border Grid.Row="0" Grid.Column="3" Grid.RowSpan="2" BorderBrush="Black" BorderThickness="0,0,1,1" ></Border>
+			            <Border Grid.Row="0" Grid.Column="4" Grid.RowSpan="2" BorderBrush="Black" BorderThickness="0,0,1,1" ></Border>
+			            <Border Grid.Row="0" Grid.Column="5" Grid.RowSpan="2" BorderBrush="Black" BorderThickness="0,0,0,1" ></Border>
                 	
+	                    <TextBlock Grid.Column="3" Grid.Row="0" Margin="2,2,2,0" FontWeight="Bold" HorizontalAlignment="Center">Alternate Nucleotide</TextBlock>
+	                    <TextBlock Grid.Column="5" Grid.Row="0" Margin="2,2,2,0" FontWeight="Bold" HorizontalAlignment="Center">Predicted Effect</TextBlock>
+
+	                    <TextBlock Grid.Column="0" Grid.Row="1" Margin="2,0,2,2" FontWeight="Bold" HorizontalAlignment="Center">Test</TextBlock>
+	                    <TextBlock Grid.Column="1" Grid.Row="1" Margin="2,0,2,2" FontWeight="Bold" HorizontalAlignment="Center">Result</TextBlock>
+	                    <TextBlock Grid.Column="2" Grid.Row="1" Margin="2,0,2,2" FontWeight="Bold" HorizontalAlignment="Center">Mutation Name</TextBlock>
+	                    <TextBlock Grid.Column="3" Grid.Row="1" Margin="2,0,2,2" FontWeight="Bold" HorizontalAlignment="Center">Mutation Name</TextBlock>
+	                    <TextBlock Grid.Column="4" Grid.Row="1" Margin="2,0,2,2" FontWeight="Bold" HorizontalAlignment="Center">Consequence</TextBlock>
+	                    <TextBlock Grid.Column="5" Grid.Row="1" Margin="2,0,2,2" FontWeight="Bold" HorizontalAlignment="Center">On Protein</TextBlock>
+
+			            <Border Grid.Row="2" Grid.Column="0" BorderBrush="Black" BorderThickness="0,0,1,1" ></Border>
+			            <Border Grid.Row="2" Grid.Column="1" BorderBrush="Black" BorderThickness="0,0,1,1" ></Border>
+			            <Border Grid.Row="2" Grid.Column="2" BorderBrush="Black" BorderThickness="0,0,1,1" ></Border>
+			            <Border Grid.Row="2" Grid.Column="3" BorderBrush="Black" BorderThickness="0,0,1,1" ></Border>
+			            <Border Grid.Row="2" Grid.Column="4" BorderBrush="Black" BorderThickness="0,0,1,1" ></Border>
+			            <Border Grid.Row="2" Grid.Column="5" BorderBrush="Black" BorderThickness="0,0,0,1" ></Border>
+                		
 	                    <TextBlock Grid.Column="0" Grid.Row="2" Margin="2,2,2,2" FontWeight="Bold">BRAF</TextBlock>
-	                    <TextBox Grid.Column="1" Grid.Row="2" Margin="2,2,2,5" Text="{Binding Path=PanelSetOrder.BRAFResult}" />
-	                    <TextBox Grid.Column="2" Grid.Row="2" Margin="2,2,2,5" Text="{Binding Path=PanelSetOrder.BRAFMutationName}" TextWrapping="Wrap" />
-	                    <TextBox Grid.Column="3" Grid.Row="2" Margin="2,2,2,5" Text="{Binding Path=PanelSetOrder.BRAFAlternateNucleotideMutationName}" TextWrapping="Wrap" />
-	                    <TextBox Grid.Column="4" Grid.Row="2" Margin="2,2,2,5" Text="{Binding Path=PanelSetOrder.BRAFConsequence}" TextWrapping="Wrap" />
-	                    <TextBox Grid.Column="5" Grid.Row="2" Margin="2,2,2,5" Text="{Binding Path=PanelSetOrder.BRAFAlleleFrequency}" TextWrapping="Wrap" />
-	                    <TextBox Grid.Column="6" Grid.Row="2" Margin="2,2,2,5" Text="{Binding Path=PanelSetOrder.BRAFReadDepth}" TextWrapping="Wrap" />
-	                    <TextBox Grid.Column="7" Grid.Row="2" Margin="2,2,2,5" Text="{Binding Path=PanelSetOrder.BRAFPredictedEffectOnProtein}" TextWrapping="Wrap" />
+	                    <ComboBox Name="ComboBoxBRAFResult" Grid.Column="1" Grid.Row="2" Margin="2,2,2,5" BorderThickness="0" ItemsSource="{Binding Path=ResultList}" SelectedValue="{Binding Path=PanelSetOrder.BRAFResult}"/>
+	                    <TextBox Grid.Column="2" Grid.Row="2" Margin="2,2,2,5" BorderThickness="0" Text="{Binding Path=PanelSetOrder.BRAFMutationName}" TextWrapping="Wrap" />
+	                    <TextBox Grid.Column="3" Grid.Row="2" Margin="2,2,2,5" BorderThickness="0" Text="{Binding Path=PanelSetOrder.BRAFAlternateNucleotideMutationName}" TextWrapping="Wrap" />
+	                    <TextBox Grid.Column="4" Grid.Row="2" Margin="2,2,2,5" BorderThickness="0" Text="{Binding Path=PanelSetOrder.BRAFConsequence}" TextWrapping="Wrap" />
+	                    <TextBox Grid.Column="5" Grid.Row="2" Margin="2,2,2,5" BorderThickness="0" Text="{Binding Path=PanelSetOrder.BRAFPredictedEffectOnProtein}" TextWrapping="Wrap" />
+
+			            <Border Grid.Row="3" Grid.Column="0" BorderBrush="Black" BorderThickness="0,0,1,1" ></Border>
+			            <Border Grid.Row="3" Grid.Column="1" BorderBrush="Black" BorderThickness="0,0,1,1" ></Border>
+			            <Border Grid.Row="3" Grid.Column="2" BorderBrush="Black" BorderThickness="0,0,1,1" ></Border>
+			            <Border Grid.Row="3" Grid.Column="3" BorderBrush="Black" BorderThickness="0,0,1,1" ></Border>
+			            <Border Grid.Row="3" Grid.Column="4" BorderBrush="Black" BorderThickness="0,0,1,1" ></Border>
+			            <Border Grid.Row="3" Grid.Column="5" BorderBrush="Black" BorderThickness="0,0,0,1" ></Border>
                 		
 	                    <TextBlock Grid.Column="0" Grid.Row="3" Margin="2,2,2,2" FontWeight="Bold">KRAS</TextBlock>
-	                    <TextBox Grid.Column="1" Grid.Row="3" Margin="2,2,2,5" Text="{Binding Path=PanelSetOrder.KRASResult}" TextWrapping="Wrap" />
-	                    <TextBox Grid.Column="2" Grid.Row="3" Margin="2,2,2,5" Text="{Binding Path=PanelSetOrder.KRASMutationName}" TextWrapping="Wrap" />
-	                    <TextBox Grid.Column="3" Grid.Row="3" Margin="2,2,2,5" Text="{Binding Path=PanelSetOrder.KRASAlternateNucleotideMutationName}" TextWrapping="Wrap" />
-	                    <TextBox Grid.Column="4" Grid.Row="3" Margin="2,2,2,5" Text="{Binding Path=PanelSetOrder.KRASConsequence}" TextWrapping="Wrap" />
-	                    <TextBox Grid.Column="5" Grid.Row="3" Margin="2,2,2,5" Text="{Binding Path=PanelSetOrder.KRASAlleleFrequency}" TextWrapping="Wrap" />
-	                    <TextBox Grid.Column="6" Grid.Row="3" Margin="2,2,2,5" Text="{Binding Path=PanelSetOrder.KRASReadDepth}" TextWrapping="Wrap" />
-	                    <TextBox Grid.Column="7" Grid.Row="3" Margin="2,2,2,5" Text="{Binding Path=PanelSetOrder.KRASPredictedEffectOnProtein}" TextWrapping="Wrap" />
+	                    <ComboBox Name="ComboBoxKRASResult" Grid.Column="1" Grid.Row="3" Margin="2,2,2,5" BorderThickness="0" ItemsSource="{Binding Path=ResultList}" SelectedValue="{Binding Path=PanelSetOrder.KRASResult}"/>
+	                    <TextBox Grid.Column="2" Grid.Row="3" Margin="2,2,2,5" BorderThickness="0" Text="{Binding Path=PanelSetOrder.KRASMutationName}" TextWrapping="Wrap" />
+	                    <TextBox Grid.Column="3" Grid.Row="3" Margin="2,2,2,5" BorderThickness="0" Text="{Binding Path=PanelSetOrder.KRASAlternateNucleotideMutationName}" TextWrapping="Wrap" />
+	                    <TextBox Grid.Column="4" Grid.Row="3" Margin="2,2,2,5" BorderThickness="0" Text="{Binding Path=PanelSetOrder.KRASConsequence}" TextWrapping="Wrap" />
+	                    <TextBox Grid.Column="5" Grid.Row="3" Margin="2,2,2,5" BorderThickness="0" Text="{Binding Path=PanelSetOrder.KRASPredictedEffectOnProtein}" TextWrapping="Wrap" />
+
+			            <Border Grid.Row="4" Grid.Column="0" BorderBrush="Black" BorderThickness="0,0,1,1" ></Border>
+			            <Border Grid.Row="4" Grid.Column="1" BorderBrush="Black" BorderThickness="0,0,1,1" ></Border>
+			            <Border Grid.Row="4" Grid.Column="2" BorderBrush="Black" BorderThickness="0,0,1,1" ></Border>
+			            <Border Grid.Row="4" Grid.Column="3" BorderBrush="Black" BorderThickness="0,0,1,1" ></Border>
+			            <Border Grid.Row="4" Grid.Column="4" BorderBrush="Black" BorderThickness="0,0,1,1" ></Border>
+			            <Border Grid.Row="4" Grid.Column="5" BorderBrush="Black" BorderThickness="0,0,0,1" ></Border>
                 		
 	                    <TextBlock Grid.Column="0" Grid.Row="4" Margin="2,2,2,2" FontWeight="Bold">NRAS</TextBlock>
-	                    <TextBox Grid.Column="1" Grid.Row="4" Margin="2,2,2,5" Text="{Binding Path=PanelSetOrder.NRASResult}" />
+	                    <ComboBox Name="ComboBoxNRASResult" Grid.Column="1" Grid.Row="4" Margin="2,2,2,2" BorderThickness="0" ItemsSource="{Binding Path=ResultList}" SelectedValue="{Binding Path=PanelSetOrder.NRASResult}"/>
+	                    <TextBox Grid.Column="2" Grid.Row="4" Margin="2,2,2,2" BorderThickness="0" Text="{Binding Path=PanelSetOrder.NRASMutationName}" TextWrapping="Wrap" />
+	                    <TextBox Grid.Column="3" Grid.Row="4" Margin="2,2,2,5" BorderThickness="0" Text="{Binding Path=PanelSetOrder.NRASAlternateNucleotideMutationName}" TextWrapping="Wrap" />
+	                    <TextBox Grid.Column="4" Grid.Row="4" Margin="2,2,2,5" BorderThickness="0" Text="{Binding Path=PanelSetOrder.NRASConsequence}" TextWrapping="Wrap" />
+	                    <TextBox Grid.Column="5" Grid.Row="4" Margin="2,2,2,5" BorderThickness="0" Text="{Binding Path=PanelSetOrder.NRASPredictedEffectOnProtein}" TextWrapping="Wrap" />
+
+			            <Border Grid.Row="5" Grid.Column="0" BorderBrush="Black" BorderThickness="0,0,1,0" ></Border>
+			            <Border Grid.Row="5" Grid.Column="1" BorderBrush="Black" BorderThickness="0,0,1,0" ></Border>
+			            <Border Grid.Row="5" Grid.Column="2" BorderBrush="Black" BorderThickness="0,0,1,0" ></Border>
+			            <Border Grid.Row="5" Grid.Column="3" BorderBrush="Black" BorderThickness="0,0,1,0" ></Border>
+			            <Border Grid.Row="5" Grid.Column="4" BorderBrush="Black" BorderThickness="0,0,1,0" ></Border>
+			            <Border Grid.Row="5" Grid.Column="5" BorderBrush="Black" BorderThickness="0" ></Border>
 
                 		<TextBlock Grid.Column="0" Grid.Row="5" Margin="2,2,2,2" FontWeight="Bold">HRAS</TextBlock>
-	                    <TextBox Grid.Column="1" Grid.Row="5" Margin="2,2,2,5" Text="{Binding Path=PanelSetOrder.HRASResult}" />
+	                    <ComboBox Name="ComboBoxHRASResult" Grid.Column="1" Grid.Row="5" Margin="2,2,2,2" BorderThickness="0" ItemsSource="{Binding Path=ResultList}" SelectedValue="{Binding Path=PanelSetOrder.HRASResult}"/>
+	                    <TextBox Grid.Column="2" Grid.Row="5" Margin="2,2,2,5" BorderThickness="0" Text="{Binding Path=PanelSetOrder.HRASMutationName}" TextWrapping="Wrap" />
+	                    <TextBox Grid.Column="3" Grid.Row="5" Margin="2,2,2,5" BorderThickness="0" Text="{Binding Path=PanelSetOrder.HRASAlternateNucleotideMutationName}" TextWrapping="Wrap" />
+	                    <TextBox Grid.Column="4" Grid.Row="5" Margin="2,2,2,5" BorderThickness="0" Text="{Binding Path=PanelSetOrder.HRASConsequence}" TextWrapping="Wrap" />
+	                    <TextBox Grid.Column="5" Grid.Row="5" Margin="2,2,2,5" BorderThickness="0" Text="{Binding Path=PanelSetOrder.HRASPredictedEffectOnProtein}" TextWrapping="Wrap" />
                 	
                 	</Grid>
 

@@ -7,7 +7,7 @@ namespace YellowstonePathology.Business.Test.KRASExon4Mutation
 {
 	public class KRASExon4MutationResult
 	{
-		protected const string m_References = "1. Riely et al. Lung Cancer in ‘Never-Smokers’: Beyond EGFR Mutations and EGFR-TK Inhibitors. Clinical Cancer " +
+		public const string m_References = "1. Riely et al. Lung Cancer in ‘Never-Smokers’: Beyond EGFR Mutations and EGFR-TK Inhibitors. Clinical Cancer " +
 			"Research. 2008; 14:5731-5734.\r\n" +
 			"2. Amado et al. Wild-Type KRAS Is Required for Panitumumab Efficacy in Patients With Metastatic Colorectal Cancer J Clin Oncol. 2008; 26:1626-1634.\r\n" +
 			"3. Allegra et al. American Society of Clinical Oncology provisional clinical opinion: testing for KRAS gene mutations in patients with metastatic " +
