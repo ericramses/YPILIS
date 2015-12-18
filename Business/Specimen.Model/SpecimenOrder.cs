@@ -173,7 +173,7 @@ namespace YellowstonePathology.Business.Specimen.Model
                 {
                     result += " cassette \"" + this.m_AliquotOrderCollection[1].Label + "\"";
                 }
-                else
+                else if (this.m_AliquotOrderCollection.Count > 2)
                 {
                     result += " cassettes \"" + this.m_AliquotOrderCollection[1].Label + "\" - \"" + this.m_AliquotOrderCollection[this.m_AliquotOrderCollection.Count - 1].Label + "\"";
                 }                
