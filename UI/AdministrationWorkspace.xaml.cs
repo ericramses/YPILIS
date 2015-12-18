@@ -1105,6 +1105,11 @@ namespace YellowstonePathology.UI
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByMasterAccessionNo("13-30085");
             string json = YellowstonePathology.Business.Persistence.JSONObjectWriter.Write(accessionOrder);
 
+            if(json.Contains("Order...cessioned") == true)
+            {
+
+            }
+
             //string json = System.IO.File.ReadAllText("c:\testing\test.json");
             //MongoDB.Bson.BsonDocument document = MongoDB.Bson.Serialization.BsonSerializer.Deserialize<BsonDocument>(json);
             

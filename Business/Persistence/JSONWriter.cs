@@ -72,7 +72,7 @@ namespace YellowstonePathology.Business.Persistence
         }
 
         private static string EscapeJSON(string s)
-        {
+        {            
             if (s == null || s.Length == 0)
             {
                 return "";
@@ -125,7 +125,7 @@ namespace YellowstonePathology.Business.Persistence
                         break;
                 }
             }
-            return sb.ToString();
+            return sb.ToString();           
         }
 
         private static void WriteString(StringBuilder result, PropertyInfo property, object o)

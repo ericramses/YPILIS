@@ -26,37 +26,34 @@ namespace YellowstonePathology.Business.Persistence
                 Type parentObjectType = parentObject.GetType();
 
                 List<PropertyInfo> childCollectionProperties = parentObjectType.GetProperties().Where(prop => Attribute.IsDefined(prop, typeof(PersistentCollection))).ToList();
-                foreach (PropertyInfo propertyInfo in childCollectionProperties)
+                for (int j=0; j<childCollectionProperties.Count; j++)
                 {
-                    StringBuilder collectionStringBuilder = new StringBuilder();
-                    IList childCollectionObject = (IList)propertyInfo.GetValue(parentObject, null);                    
+                    IList childCollectionObject = (IList)childCollectionProperties[j].GetValue(parentObject, null);
+                    StringBuilder collectionStringBuilder = new StringBuilder(", \"" + childCollectionObject.GetType().Name + "\":[");                     
+
                     for (int i = 0; i < childCollectionObject.Count; i++)
-                    {
-                        if (i == 0)
-                        {                           
-                            collectionStringBuilder.Append("\"" + childCollectionObject.GetType().Name + "\":");                                                        
-                            collectionStringBuilder.Append("[");                                                     
-                        }
-
-                        StringBuilder childStringBuilder = new StringBuilder();
+                    {                        
                         object collectionItem = childCollectionObject[i];
-
-                        string childJSON = JSONWriter.Write(collectionItem); 
-                        childStringBuilder.Append(childJSON);                        
-                        HandlePersistentChildCollections(collectionItem, childStringBuilder);                                            
+                        StringBuilder childStringBuilder = new StringBuilder(JSONWriter.Write(collectionItem));                        
+                        HandlePersistentChildCollections(collectionItem, childStringBuilder);
                         collectionStringBuilder.Append(childStringBuilder);
 
-                        if (i == childCollectionObject.Count - 1)
-                        {                                                                                  
-                            collectionStringBuilder.Append("]");                            
-                            parentStringBuilder.Insert(parentStringBuilder.Length - 1, ", " + collectionStringBuilder.ToString());                         
-                        } 
-                        else
+                        if (i < childCollectionObject.Count - 1)
                         {
-                        	collectionStringBuilder.Append(", ");
-                        }
-                    }                    
-                }
+                            collectionStringBuilder.Append(", ");
+                        }                         
+                    }
+
+                    if(j == childCollectionObject.Count - 1)
+                    {
+                        collectionStringBuilder.Append("]");                        
+                    }
+                    else
+                    {
+                        collectionStringBuilder.Append("], ");
+                    }
+                    parentStringBuilder.Insert(parentStringBuilder.Length - 1, collectionStringBuilder.ToString());
+                }                
             }
         }                                                
     }
