@@ -125,7 +125,15 @@ namespace YellowstonePathology.UI.Surgical
 	                    }                        
                         else if (this.m_GrossDescription.Contains("[tipssubmitted]") == true)
 	                    {
-	                        string tipsSubmittedStatement = "Tips submitted in cassette \"" + specimenOrder.SpecimenNumber + "A\" and remainder " + specimenOrder.GetGrossRemainderSubmittedInString();
+                            string tipsSubmittedStatement = null;
+                            if (specimenOrder.AliquotOrderCollection.Count == 1)
+                            {
+                                tipsSubmittedStatement = "Entirely submitted in cassette \"" + specimenOrder.AliquotOrderCollection[0].Label + "\"";
+                            }
+                            else
+                            {
+                                tipsSubmittedStatement = "Tips submitted in cassette \"" + specimenOrder.SpecimenNumber + "A\" and remainder " + specimenOrder.GetGrossRemainderSubmittedInString();
+                            }	                        
 	                        this.m_GrossDescription = this.m_GrossDescription.Replace("[tipssubmitted]", tipsSubmittedStatement);
 	                    }	                    
 	                        
