@@ -122,11 +122,11 @@ namespace YellowstonePathology.UI.Surgical
 	                    else if (this.m_GrossDescription.Contains("[cassettelabel]") == true)
 	                    {
 	                        this.m_GrossDescription = this.m_GrossDescription.Replace("[cassettelabel]", "\"" + specimenOrder.SpecimenNumber.ToString() + "A\"");
-	                    }
-	                    else if (this.m_GrossDescription.Contains("[remaindersubmission]") == true)
+	                    }                        
+                        else if (this.m_GrossDescription.Contains("[tipssubmitted]") == true)
 	                    {
-	                        string remainderSubmittedStatement = specimenOrder.GetGrossRemainderSubmittedInString();
-	                        this.m_GrossDescription = this.m_GrossDescription.Replace("[remaindersubmission]", remainderSubmittedStatement);
+	                        string tipsSubmittedStatement = "Tips submitted in cassette \"" + specimenOrder.SpecimenNumber + "A\" and remainder " + specimenOrder.GetGrossRemainderSubmittedInString();
+	                        this.m_GrossDescription = this.m_GrossDescription.Replace("[tipssubmitted]", tipsSubmittedStatement);
 	                    }	                    
 	                        
 	                    string initials = string.Empty;

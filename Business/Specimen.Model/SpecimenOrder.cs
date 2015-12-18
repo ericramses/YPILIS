@@ -171,11 +171,11 @@ namespace YellowstonePathology.Business.Specimen.Model
                 result = "entirely submitted into ";
                 if (this.m_AliquotOrderCollection.Count == 2)
                 {
-                    result += " cassette \"" + this.m_AliquotOrderCollection[0].Label + "\"";
+                    result += " cassette \"" + this.m_AliquotOrderCollection[1].Label + "\"";
                 }
                 else
                 {
-                    result += " cassettes \"" + this.m_AliquotOrderCollection[0].Label + "\" - \"" + this.m_AliquotOrderCollection[this.m_AliquotOrderCollection.Count - 1].Label + "\"";
+                    result += " cassettes \"" + this.m_AliquotOrderCollection[1].Label + "\" - \"" + this.m_AliquotOrderCollection[this.m_AliquotOrderCollection.Count - 1].Label + "\"";
                 }                
             }
             return result;
