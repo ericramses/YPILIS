@@ -2454,12 +2454,12 @@ namespace YellowstonePathology.Business.Gateway
 			return result;
 		}
 
-        public static List<Business.MasterAccessionNo> GetMasterAccessionNosWithNullJSONString(int numberOfAccessionsToRetrieve, int year)
+        public static List<Business.MasterAccessionNo> GetMasterAccessionNoList(DateTime accessionDate)
         {
             List<Business.MasterAccessionNo> result = new List<Business.MasterAccessionNo>();
 
             SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "Select top (" + numberOfAccessionsToRetrieve.ToString() + ") MasterAccessionNo from tblAccessionOrder where JSON is null and AccessionDate between '1/1/" + year.ToString() + "' and '12/31/" + year.ToString() + "'";
+            cmd.CommandText = "Select MasterAccessionNo from tblAccessionOrder where AccessionDate = '" + accessionDate.ToString() + "'";
             cmd.CommandType = CommandType.Text;
             using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.Properties.Settings.Default.CurrentConnectionString))
             {

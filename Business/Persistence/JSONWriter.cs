@@ -9,6 +9,62 @@ namespace YellowstonePathology.Business.Persistence
 {
     public static class JSONWriter
     {
+        public static void WritProperties(StringBuilder result, object o)
+        {            
+            PropertyInfo[] properties = o.GetType().GetProperties().
+                Where(prop => Attribute.IsDefined(prop, typeof(PersistentProperty)) || Attribute.IsDefined(prop, typeof(PersistentPrimaryKeyProperty))).ToArray();
+
+            for (int i=0; i<properties.Length - 1; i++)
+            {
+                PropertyInfo property = properties[i];
+                if (property.Name != "JSON")
+                {
+                    Type dataType = property.PropertyType;
+                    if (dataType == typeof(string))
+                    {
+                        WriteString(result, property, o);
+                    }
+                    else if (dataType == typeof(int))
+                    {
+                        WriteNumber(result, property, o);
+                    }
+                    else if (dataType == typeof(double))
+                    {
+                        WriteNumber(result, property, o);
+                    }
+                    else if (dataType == typeof(Nullable<int>))
+                    {
+                        WriteNumber(result, property, o);
+                    }
+                    else if (dataType == typeof(DateTime))
+                    {
+                        WriteDate(result, property, o);
+                    }
+                    else if (dataType == typeof(bool))
+                    {
+                        WriteBoolean(result, property, o);
+                    }
+                    else if (dataType == typeof(Nullable<bool>))
+                    {
+                        WriteBoolean(result, property, o);
+                    }
+                    else if (dataType == typeof(Nullable<DateTime>))
+                    {
+                        WriteDate(result, property, o);
+                    }
+                    else
+                    {
+                        throw new Exception("This Data Type is Not Implemented: " + dataType.Name);
+                    }
+                }
+            }
+
+            if (properties.Length != 0)
+            {
+                result.Replace(",", string.Empty, result.Length - 3, 2);
+            }            
+        }
+
         public static string Write(object o)
         {
             Type type = o.GetType();

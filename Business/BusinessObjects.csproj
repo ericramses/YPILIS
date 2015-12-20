@@ -416,7 +416,6 @@
     </Compile>
     <Compile Include="Gateway\AOGW.cs" />
     <Compile Include="Gateway\AOSaveResult.cs" />
-    <Compile Include="Gateway\JASONObjectBuilder.cs" />
     <Compile Include="Gateway\LockGateway.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -474,6 +473,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Persistence\JSONIndenter.cs" />
+    <Compile Include="Persistence\JSONObjectStreamWriter.cs" />
+    <Compile Include="Persistence\JSONStreamWriter.cs" />
     <Compile Include="Persistence\JSONWriter.cs" />
     <Compile Include="Persistence\JSONObjectWriter.cs" />
     <Compile Include="Persistence\ObjectComparer.cs" />
