@@ -76,7 +76,7 @@ namespace YellowstonePathology.UI.Gross
         {
             this.m_TemplateName = "Sinus Content Specimen";
             this.m_Text = "[identifier] and consists of multiple fragments of tan-pink tissue and bone aggregating to [measurement].  " +
-                "They are filtered through a fine mesh bag and submitted in cassette [cassettelabel] for decalcification prior to processing.  ";
+                "They are filtered through a fine mesh bag and entirely submitted in cassette [cassettelabel] for decalcification prior to processing.  ";
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SinusContent sinusContent = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SinusContent();
             this.m_SpecimenCollection.Add(sinusContent);
@@ -381,7 +381,7 @@ namespace YellowstonePathology.UI.Gross
                 "       Surface Infarcts:  [description]" + Environment.NewLine +
                 "       Cysts:  [description]" + Environment.NewLine + 
             	Environment.NewLine +
-                "Cassette Summary: 1A: Cord from both ends, 1B: Membranes, 1C-1D: Central Placenta.  ";            
+                "Cassette Summary: \"1A\": Cord from both ends, \"1B\": Membranes, \"1C-1D\": Central Placenta.  ";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SinglePlacenta singlePlacenta = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SinglePlacenta();
             this.m_SpecimenCollection.Add(singlePlacenta);

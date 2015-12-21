@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Test.ROS1ByFISH
             this.Add(new ROS1ByFISHInconclusiveResult());
         }
 
-        public ROS1ByFISHResult GetGyResultCode(string resultCode)
+        public ROS1ByFISHResult GetByResultCode(string resultCode)
         {
             ROS1ByFISHResult result = null;
             foreach (ROS1ByFISHResult ros1ByFISHResult in this)

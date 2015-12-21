@@ -30,6 +30,7 @@ namespace YellowstonePathology.UI
 
         DispatcherTimer m_Timer;
 
+
         int m_Turn = 0;
 
         public WatchBitmap()

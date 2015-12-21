@@ -44,7 +44,7 @@ namespace YellowstonePathology.UI.Test
             this.m_SystemIdentity = systemIdentity;
             this.m_ObjectTracker = objectTracker;
 
-            this.m_PageHeaderText = "PD-L1 Result For: " + this.m_AccessionOrder.PatientDisplayName;
+            this.m_PageHeaderText = this.m_PanelSetOrder.PanelSetName + " Result For: " + this.m_AccessionOrder.PatientDisplayName;
 
             YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrder.OrderedOn, this.m_PanelSetOrder.OrderedOnId);
             this.m_OrderedOnDescription = specimenOrder.Description;
@@ -190,22 +190,19 @@ namespace YellowstonePathology.UI.Test
         private void TextBoxStainPercent_LostFocus(object sender, RoutedEventArgs e)
         {
         	if(string.IsNullOrEmpty(this.TextBoxStainPercent.Text) == false)
-        	{
-        		if(string.IsNullOrEmpty(this.m_PanelSetOrder.Result) == true)
+        	{        		
+        		int percent = this.NumberFromText(this.TextBoxStainPercent.Text);
+        		if(percent > 0)
         		{
-	        		int percent = this.NumberFromText(this.TextBoxStainPercent.Text);
-	        		if(percent > 0)
-	        		{
-	        			if(percent > 50)
-	        			{
-	        				this.m_PanelSetOrder.Result = "Positive";
-	        			}
-	        			else
-	        			{
-	        				this.m_PanelSetOrder.Result = "Negative";
-	        			}
-	        		}
-        		}
+        			if(percent > 50)
+        			{
+        				this.m_PanelSetOrder.Result = "Positive";
+        			}
+        			else
+        			{
+        				this.m_PanelSetOrder.Result = "Negative";
+        			}
+        		}        		
         	}
         }
         

@@ -38,6 +38,9 @@ namespace YellowstonePathology.Business.Common
 
 			PropertyInfo commentProperty = srType.GetProperty("Comment");
 			this.Add(SpellCheckListItem.CreateSpellCheckListItem(commentProperty, panelSetOrderSurgical));
+			
+			PropertyInfo cancerSummaryProperty = srType.GetProperty("CancerSummary");
+			this.Add(SpellCheckListItem.CreateSpellCheckListItem(cancerSummaryProperty, panelSetOrderSurgical));
 		}
     }
 }
