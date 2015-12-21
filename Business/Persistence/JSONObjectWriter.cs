@@ -15,48 +15,111 @@ namespace YellowstonePathology.Business.Persistence
             StringBuilder oString = new StringBuilder();            
             Type objectType = objectToWrite.GetType();
             oString.Append(JSONWriter.Write(objectToWrite));
-            HandlePersistentChildCollections(objectToWrite, oString);                        
+            HandlePersistentChildCollections(objectToWrite, oString, null);            
             return oString.ToString();
-        }        
+        }                  
 
-        private static void HandlePersistentChildCollections(object parentObject, StringBuilder parentStringBuilder)
+        public static string WriteV2(StringBuilder result, object objectToWrite)
+        {            
+            result.Append("{");
+            JSONWriter.WritProperties(result, objectToWrite);
+
+            Type parentObjectType = objectToWrite.GetType();
+
+            List<PropertyInfo> childCollectionProperties = parentObjectType.GetProperties().Where(prop => Attribute.IsDefined(prop, typeof(PersistentCollection))).ToList();
+            for (int i = 0; i < childCollectionProperties.Count; i++)
+            {
+                IList childCollectionObject = (IList)childCollectionProperties[i].GetValue(objectToWrite, null);
+
+                if(i == 0)
+                {
+                    result.Append(", ");
+                }
+
+                result.Append("\"" + childCollectionObject.GetType().Name + "\":");
+
+                if (childCollectionObject.GetType().Name == "PanelOrderCollection")
+                {
+                    string xx = result.ToString();
+                }
+
+                if (childCollectionObject.Count != 0)
+                {
+                    result.Append("[");                                
+                    for (int j = 0; j < childCollectionObject.Count; j++)
+                    {
+                        object collectionItem = childCollectionObject[j];
+                        WriteV2(result, collectionItem);
+
+                        if (j != childCollectionObject.Count - 1)
+                        {
+                            result.Append(", ");
+                        }
+                    }
+                    result.Append("]");
+                }
+                else
+                {
+                    result.Append("null");
+                }                
+
+                if(i != childCollectionProperties.Count - 1)
+                {
+                    result.Append(",");
+                }
+            }
+            
+            result.Append("}");
+            return result.ToString();
+        }
+       
+        private static void HandlePersistentChildCollections(object parentObject, StringBuilder parentStringBuilder, object previousObject)
         {
             if (parentObject != null)
             {
                 Type parentObjectType = parentObject.GetType();
 
                 List<PropertyInfo> childCollectionProperties = parentObjectType.GetProperties().Where(prop => Attribute.IsDefined(prop, typeof(PersistentCollection))).ToList();
-                foreach (PropertyInfo propertyInfo in childCollectionProperties)
-                {
-                    StringBuilder collectionStringBuilder = new StringBuilder();
-                    IList childCollectionObject = (IList)propertyInfo.GetValue(parentObject, null);                    
-                    for (int i = 0; i < childCollectionObject.Count; i++)
+                for (int j=0; j<childCollectionProperties.Count; j++)
+                {                    
+                    IList childCollectionObject = (IList)childCollectionProperties[j].GetValue(parentObject, null);
+
+                    string lastCharacters = parentStringBuilder.ToString().Substring(parentStringBuilder.Length - 50);
+                    string previousObjectName = null;
+                    if(previousObject != null)
                     {
-                        if (i == 0)
-                        {                           
-                            collectionStringBuilder.Append("\"" + childCollectionObject.GetType().Name + "\":");                                                        
-                            collectionStringBuilder.Append("[");                                                     
-                        }
+                        previousObjectName = previousObject.GetType().Name;
+                    }
 
-                        StringBuilder childStringBuilder = new StringBuilder();
+                    Console.WriteLine(childCollectionObject.GetType().Name + ", " + previousObjectName + ":  " + lastCharacters);
+
+                    parentStringBuilder.Insert(parentStringBuilder.Length - 1, "*" + childCollectionObject.GetType().Name + "*");
+                    StringBuilder collectionStringBuilder = new StringBuilder(", \"" + childCollectionObject.GetType().Name + "\":[");                     
+
+                    for (int i = 0; i < childCollectionObject.Count; i++)
+                    {                        
                         object collectionItem = childCollectionObject[i];
-
-                        string json = JSONWriter.Write(collectionItem); 
-                        childStringBuilder.Append(json);                        
-                        HandlePersistentChildCollections(collectionItem, childStringBuilder);                                            
+                        StringBuilder childStringBuilder = new StringBuilder(JSONWriter.Write(collectionItem));                        
+                        HandlePersistentChildCollections(collectionItem, childStringBuilder, childCollectionObject);
                         collectionStringBuilder.Append(childStringBuilder);
 
-                        if (i == childCollectionObject.Count - 1)
-                        {                                                                                  
-                            collectionStringBuilder.Append("]");                                                      
-                            parentStringBuilder.Insert(parentStringBuilder.Length - 1, ", " + collectionStringBuilder.ToString());                         
-                        } 
-                        else
+                        if (i < childCollectionObject.Count - 1)
                         {
-                        	collectionStringBuilder.Append(", ");
-                        }
-                    }                    
-                }
+                            collectionStringBuilder.Append(", ");
+                        }                         
+                    }
+
+                    if(j == childCollectionObject.Count - 1)
+                    {
+                        collectionStringBuilder.Append("]");                        
+                    }
+                    else
+                    {
+                        collectionStringBuilder.Append("], *NEXTCOLLECTION*");
+                    }
+
+                    parentStringBuilder.Replace("*" + childCollectionObject.GetType().Name + "*", collectionStringBuilder.ToString());
+                }                
             }
         }                                                
     }

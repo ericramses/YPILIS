@@ -31,6 +31,9 @@ using YellowstonePathology.Business.Helper;
 using System.Collections.ObjectModel;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using MongoDB.Driver.Linq;
+using MongoDB.Driver.Builders;
+using MongoDB.Driver.GridFS;
 
 namespace YellowstonePathology.UI
 {    
@@ -1102,10 +1105,20 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByMasterAccessionNo("15-27221");
+            //YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByMasterAccessionNo("13-30085");            
 
-            string json = YellowstonePathology.Business.Persistence.JSONObjectWriter.Write(accessionOrder);
-            System.IO.File.WriteAllText(@"C:\node\test.json", json);                       
+            //StreamWriter result = new StreamWriter("c:\\testing\\test.json", false);
+            //YellowstonePathology.Business.Persistence.JSONObjectStreamWriter.Write(result, accessionOrder);
+            //result.Flush();                    
+
+            //string json = System.IO.File.ReadAllText("c:\testing\test.json");
+            //MongoDB.Bson.BsonDocument document = MongoDB.Bson.Serialization.BsonSerializer.Deserialize<BsonDocument>(json);
+
+            YellowstonePathology.Business.Mongo.Server transferServer = new Business.Mongo.TestServer(YellowstonePathology.Business.Mongo.MongoTestServer.LISDatabaseName);
+            MongoCollection collection = transferServer.Database.GetCollection<BsonDocument>("AccessionOrderCollection");
+            BsonDocument bsonDocument = collection.FindOneAs<BsonDocument>(Query.EQ("MasterAccessionNo", BsonValue.Create("14-112")));
+
+            YellowstonePathology.Business.Test.AccessionOrder ao = (YellowstonePathology.Business.Test.AccessionOrder)YellowstonePathology.Business.Mongo.BSONObjectBuilder.Build(bsonDocument, typeof(YellowstonePathology.Business.Test.AccessionOrder));
         }
 
         private void FindY()
