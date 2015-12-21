@@ -33,8 +33,9 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
                         }
                         if (this.m_Final == true)
                         {
-                            //YellowstonePathology.Business.Test. egfrMutationAnalysisTestOrder = (YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisTestOrder)this.m_PanelSetOrder;
-                            //this.m_ResultAbbreviation = YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisResultFactory.GetResult(egfrMutationAnalysisTestOrder.ResultCode).ResultAbbreviation;
+                        	YellowstonePathology.Business.Test.ROS1ByFISH.ROS1ByFISHResultCollection ros1ByFISHResultCollection = new YellowstonePathology.Business.Test.ROS1ByFISH.ROS1ByFISHResultCollection();
+                            YellowstonePathology.Business.Test.ROS1ByFISH.ROS1ByFISHTestOrder ros1ByFISHTestOrder = (YellowstonePathology.Business.Test.ROS1ByFISH.ROS1ByFISHTestOrder)this.m_PanelSetOrder;
+                            this.m_ResultAbbreviation = ros1ByFISHResultCollection.GetByResultCode(ros1ByFISHTestOrder.ResultCode).ResultAbbreviation;
                         }
                     }
                 }
