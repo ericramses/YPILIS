@@ -8,15 +8,9 @@ using System.Data;
 using System.Data.SqlClient;
 
 namespace YellowstonePathology.Business.Gateway
-{
-
-    //we need to be careful not to change how this single class structure is setup because this structure is thread safe.
+{    
     public sealed class AOGW
-    {
-        //Properties in AO: LockAquiredById, LockAquiredByUserName, LockAquiredByHostName, TimeLockAquired
-        //Need a stored procedure that takes the above parameters and a masteraccessionno  and sets them if they are not null.
-        //Assume if LockAuqiredById is null then they are all null.
-
+    {        
         private static readonly AOGW instance = new AOGW();
 
         private bool USEMONGO = false;
@@ -29,27 +23,18 @@ namespace YellowstonePathology.Business.Gateway
         }
 
         private AOGW()
-        {
-            //This collection will hold all AO's in use by the application.
-            //AO's will be removed from the collection when they are released.
-            //saving an AO will not cause it to be removed from the collection.
+        {            
             this.m_AccessionOrderCollection = new Test.AccessionOrderCollection();
             this.m_ObjectTracker = new Persistence.ObjectTracker();
         }
 
         public void Save(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, bool releaseLock)
         {
-            //This will be the only place that an AO can be saved.
-            //We need to devise a way to make sure AO's are not saved directly throught the OT
-            //This function will create the JSON and store it in the JSON property so it will get persisted.
-            //The app will call save without regard to wether a lock is aquired. 
-            //if ReleaseLock is true then the lock properties will be set to null before saving.			
+            
         }
 
         public YellowstonePathology.Business.Test.AccessionOrder Refresh(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, bool aquireLock)
-        {
-            //If it is in the list remove it from the list, unregister it from the OT and then go get it from the database.  If it's not in the list then throw an error.    
-            //Register it with OT if AO.LockAquired == true;        
+        {            
             YellowstonePathology.Business.Test.AccessionOrder result = new Test.AccessionOrder();
             return result;
         }
@@ -117,15 +102,7 @@ namespace YellowstonePathology.Business.Gateway
             }
             accessionOrderBuilder.Build(document);
             return accessionOrderBuilder.AccessionOrder;
-        }
-
-        public YellowstonePathology.Business.Test.AccessionOrder GetByReportNo(string reportNo, bool aquireLock)
-        {
-            //If it is a legacy reportno then make a trip to the database to get the masteraccessionno                        
-            YellowstonePathology.Business.OrderIdParser orderIdParser = new OrderIdParser(reportNo);
-            string masterAccessionNo = orderIdParser.MasterAccessionNo;
-            return GetByMasterAccessionNo(masterAccessionNo, aquireLock);
-        }
+        }        
 
         public static AOGW Instance
         {
