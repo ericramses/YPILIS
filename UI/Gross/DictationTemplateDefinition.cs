@@ -31,9 +31,9 @@ namespace YellowstonePathology.UI.Gross
         public ProstateTURTemplate()
         {
             this.m_TemplateName = "Prostate Specimen";
-            this.m_Text = "[identifier] and consists of [number] irregular ragged tan-pink tissue fragments" +
+            this.m_Text = "[identifier] and consists of [number] irregular ragged tan-pink tissue fragments " +
                 "weighing [weight] and measuring [measurement] in aggregate.  " +
-                "The specimen is entirely submitted in cassette [cassettelabel].  ";
+                "Representative sections are submitted in cassette [cassettelabel].  ";
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ProstateTUR tur = new Business.Specimen.Model.SpecimenDefinition.ProstateTUR();
             this.m_SpecimenCollection.Add(tur);
@@ -168,7 +168,7 @@ namespace YellowstonePathology.UI.Gross
                 "Loose Stones:  [description]" + Environment.NewLine +
                 "Mucosal Surface:  [description]" + Environment.NewLine +
                 "Wall Thickness:  [thickness]" + Environment.NewLine +
-                "Submitted:  Representative sections are submitted to cassette [cassettelabel].  ";            
+                "Submitted:  [representativesections].  ";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.GallbladderExcision gallbladderExcision = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.GallbladderExcision();
             this.m_SpecimenCollection.Add(gallbladderExcision);
@@ -181,14 +181,14 @@ namespace YellowstonePathology.UI.Gross
         {
             this.m_TemplateName = "Tonsil Adenoid Excision";
             this.m_Text = "[identifier]." + Environment.NewLine +
-                "Tonsils:  Two tan-pink lobular, palatine tonsils" + Environment.NewLine +
+                "Tonsils:  Two tan-pink, lobular, palatine tonsils." + Environment.NewLine +
                 "Adenoids:  [description]" + Environment.NewLine +
                 "Weight:  [weight]" + Environment.NewLine +
                 "Measurement Tonsil 1:  [measurement]" + Environment.NewLine +
                 "Measurement Tonsil 2:  [measurement]" + Environment.NewLine +
                 "Measurement Adenoids:  [measurement]" + Environment.NewLine +
                 "Cut Surface:  [description]" + Environment.NewLine +
-                "Submitted:  Representative sections are submitted to cassette [cassettelabel].  ";            
+                "Submitted:  [representativesections].  ";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.TonsilAdenoidExcision tonsilAdenoidExcision = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.TonsilAdenoidExcision();
             this.m_SpecimenCollection.Add(tonsilAdenoidExcision);
@@ -201,7 +201,7 @@ namespace YellowstonePathology.UI.Gross
         {
             this.m_TemplateName = "Tonsil Excision";
             this.m_Text = "[identifier]." + Environment.NewLine +
-                "Gross Description:  Two tan-pink lobular, palatine tonsils" + Environment.NewLine +
+                "Gross Description:  Two tan-pink, lobular, palatine tonsils." + Environment.NewLine +
                 "Weight:  [weight]" + Environment.NewLine +
                 "Measurement Tonsil 1:  [measurement]" + Environment.NewLine +
                 "Measurement Tonsil 2:  [measurement]" + Environment.NewLine +
@@ -414,8 +414,9 @@ namespace YellowstonePathology.UI.Gross
                 "         Average Endometrial Thickness:  [thickness]" + Environment.NewLine +
                 "         Myometrium:" + Environment.NewLine +
                 "         Average Myometrial Thickness:  [thickness]" + Environment.NewLine +
+                "         Cut Surface:  [description]" + Environment.NewLine +
                 "         Lesions in Uterine wall:  [description]" + Environment.NewLine +
-                "Submitted:  [submitted].  ";            
+                "Submitted:  [???].  ";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Uterus uterus = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Uterus();
             this.m_SpecimenCollection.Add(uterus);
