@@ -17,55 +17,129 @@ namespace YellowstonePathology.Business.Persistence
 
             for (int i=0; i<properties.Length; i++)
             {
-                PropertyInfo property = properties[i];
-                if (property.Name != "JSON")
+                PropertyInfo property = properties[i];                
+                Type dataType = property.PropertyType;
+
+                if(property.Name == "ObjectId")
                 {
-                    Type dataType = property.PropertyType;
-                    if (dataType == typeof(string))
-                    {
-                        WriteString(result, property, o);
-                    }
-                    else if (dataType == typeof(int))
-                    {
-                        WriteNumber(result, property, o);
-                    }
-                    else if (dataType == typeof(double))
-                    {
-                        WriteNumber(result, property, o);
-                    }
-                    else if (dataType == typeof(Nullable<int>))
-                    {
-                        WriteNumber(result, property, o);
-                    }
-                    else if (dataType == typeof(DateTime))
-                    {
-                        WriteDate(result, property, o);
-                    }
-                    else if (dataType == typeof(bool))
-                    {
-                        WriteBoolean(result, property, o);
-                    }
-                    else if (dataType == typeof(Nullable<bool>))
-                    {
-                        WriteBoolean(result, property, o);
-                    }
-                    else if (dataType == typeof(Nullable<DateTime>))
-                    {
-                        WriteDate(result, property, o);
-                    }
-                    else
-                    {
-                        throw new Exception("This Data Type is Not Implemented: " + dataType.Name);
-                    }
+                    WriteObjectId(result, property, o);
+                }
+                else if (dataType == typeof(string))
+                {
+                    WriteString(result, property, o);
+                }
+                else if (dataType == typeof(int))
+                {
+                    WriteNumber(result, property, o);
+                }
+                else if (dataType == typeof(double))
+                {
+                    WriteNumber(result, property, o);
+                }
+                else if (dataType == typeof(Nullable<int>))
+                {
+                    WriteNumber(result, property, o);
+                }
+                else if (dataType == typeof(DateTime))
+                {
+                    WriteDate(result, property, o);
+                }
+                else if (dataType == typeof(bool))
+                {
+                    WriteBoolean(result, property, o);
+                }
+                else if (dataType == typeof(Nullable<bool>))
+                {
+                    WriteBoolean(result, property, o);
+                }
+                else if (dataType == typeof(Nullable<DateTime>))
+                {
+                    WriteDate(result, property, o);
+                }
+                else
+                {
+                    throw new Exception("This Data Type is Not Implemented: " + dataType.Name);
+                }
 
-                    if (i != properties.Length - 1)
-                    {
-                        result.Write(", ");
-                    }
-                }                
+                if (i != properties.Length - 1)
+                {
+                    result.Write(", ");
+                }                          
             }                     
-        }        
+        }
 
+        private static void WriteObjectId(StringWriter result, PropertyInfo property, object o)
+        {            
+            if (property.GetValue(o, null) != null)
+            {
+                result.Write("\"_id\": ObjectId(\"" + property.GetValue(o, null).ToString() + "\")");
+            }
+            else
+            {
+                result.Write("\"" + property.Name + "\": null");
+            }
+        }
+
+        private static void WriteString(StringWriter result, PropertyInfo property, object o)
+        {            
+            if (property.GetValue(o, null) != null)
+            {             
+                result.Write("\"" + property.Name + "\": \"" + EscapeJSON(property.GetValue(o, null).ToString()) + "\"");
+            }
+            else
+            {             
+                result.Write("\"" + property.Name + "\": null");
+            }
+        }
+
+        private static void WriteNumber(StringWriter result, PropertyInfo property, object o)
+        {
+            if (property.GetValue(o, null) != null)
+            {             
+                result.Write("\"" + property.Name + "\": " + property.GetValue(o, null));
+            }
+            else
+            {             
+                result.Write("\"" + property.Name + "\": null");
+            }
+        }
+
+        private static void WriteDate(StringWriter result, PropertyInfo property, object o)
+        {
+            if (property.GetValue(o, null) != null)
+            {
+                DateTime dotNetDate = DateTime.Parse(property.GetValue(o, null).ToString());
+                long totalMiliseconds = (long)(dotNetDate - new DateTime(1970, 1, 1)).TotalMilliseconds;
+                result.Write("\"" + property.Name + "\": {\"$date\": " + totalMiliseconds.ToString() + "}");                
+            }
+            else
+            {                
+                result.Write("\"" + property.Name + "\": null");
+            }
+        }
+
+        private static void WriteBoolean(StringWriter result, PropertyInfo property, object o)
+        {
+            if (property.GetValue(o, null) != null)
+            {
+                string stringValue = property.GetValue(o, null).ToString();
+                string jsonValue = null;
+                if (stringValue.ToUpper() == "TRUE")
+                {
+                    jsonValue = "true";
+                }
+                else if (stringValue.ToUpper() == "FALSE")
+                {
+                    jsonValue = "false";
+                }                
+                result.Write("\"" + property.Name + "\": " + jsonValue + "");
+            }
+            else
+            {                
+                result.Write("\"" + property.Name + "\": null");
+            }           
+        } 
+        
         private static string EscapeJSON(string s)
         {            
             if (s == null || s.Length == 0)
@@ -121,76 +195,6 @@ namespace YellowstonePathology.Business.Persistence
                 }
             }
             return sb.ToString();           
-        }
-
-        private static void WriteString(StringWriter result, PropertyInfo property, object o)
-        {
-            string propName = null;
-            if(property.Name == "ObjectId")
-            {
-                propName = "_id";
-            }
-            else
-            {
-                propName = property.Name;
-            }
-
-            if (property.GetValue(o, null) != null)
-            {             
-                result.Write("\"" + propName + "\": \"" + EscapeJSON(property.GetValue(o, null).ToString()) + "\"");
-            }
-            else
-            {             
-                result.Write("\"" + propName + "\": null");
-            }
-        }
-
-        private static void WriteNumber(StringWriter result, PropertyInfo property, object o)
-        {
-            if (property.GetValue(o, null) != null)
-            {             
-                result.Write("\"" + property.Name + "\": " + property.GetValue(o, null));
-            }
-            else
-            {             
-                result.Write("\"" + property.Name + "\": null");
-            }
-        }
-
-        private static void WriteDate(StringWriter result, PropertyInfo property, object o)
-        {
-            if (property.GetValue(o, null) != null)
-            {
-                DateTime dotNetDate = DateTime.Parse(property.GetValue(o, null).ToString());
-                string jsonDate = dotNetDate.Year.ToString() + "-" + dotNetDate.Month.ToString() + "-" + dotNetDate.Day.ToString() + "T" + dotNetDate.Hour.ToString() + ":" + dotNetDate.Minute + ":" + dotNetDate.Second.ToString() + "." + dotNetDate.Millisecond + "Z";                
-                result.Write("\"" + property.Name + "\": \"" + jsonDate + "\"");
-            }
-            else
-            {                
-                result.Write("\"" + property.Name + "\": null");
-            }
-        }
-
-        private static void WriteBoolean(StringWriter result, PropertyInfo property, object o)
-        {
-            if (property.GetValue(o, null) != null)
-            {
-                string stringValue = property.GetValue(o, null).ToString();
-                string jsonValue = null;
-                if (stringValue.ToUpper() == "TRUE")
-                {
-                    jsonValue = "true";
-                }
-                else if (stringValue.ToUpper() == "FALSE")
-                {
-                    jsonValue = "false";
-                }                
-                result.Write("\"" + property.Name + "\": " + jsonValue + "");
-            }
-            else
-            {                
-                result.Write("\"" + property.Name + "\": null");
-            }           
-        }        
+        }       
     }
 }
