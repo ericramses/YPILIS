@@ -53,6 +53,13 @@ namespace YellowstonePathology.UI.Test
             InitializeComponent();
 
             DataContext = this;
+            
+            Loaded += PDL1ResultPage_Loaded;
+        }
+        
+        public void PDL1ResultPage_Loaded(object sender, RoutedEventArgs e)
+        {
+        	this.ComboBoxResult.SelectionChanged += ComboBoxResult_SelectionChanged;
         }
 
         public string OrderedOnDescription

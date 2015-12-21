@@ -55,7 +55,14 @@ namespace YellowstonePathology.UI.Test
 			InitializeComponent();
 
 			DataContext = this;				
+						
+			Loaded += ALKForNSCLCByFISHResultPage_Loaded;
 		}
+        
+        public void ALKForNSCLCByFISHResultPage_Loaded(object sender, RoutedEventArgs e)
+        {
+        	this.ComboBoxResult.SelectionChanged += ComboBoxResult_SelectionChanged;
+        }
 
         public string OrderedOnDescription
         {
@@ -214,7 +221,11 @@ namespace YellowstonePathology.UI.Test
 
         private void ComboBoxResult_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
-        }                        
+            if (this.ComboBoxResult.SelectedItem != null)
+            {
+                YellowstonePathology.Business.Test.ALKForNSCLCByFISH.ALKForNSCLCByFISHResult result = (YellowstonePathology.Business.Test.ALKForNSCLCByFISH.ALKForNSCLCByFISHResult)this.ComboBoxResult.SelectedItem;
+                this.m_PanelSetOrder.ResultCode = result.ResultCode;
+            }
+        }
 	}
 }
