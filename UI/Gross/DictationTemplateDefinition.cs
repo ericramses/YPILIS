@@ -33,7 +33,7 @@ namespace YellowstonePathology.UI.Gross
             this.m_TemplateName = "Prostate Specimen";
             this.m_Text = "[identifier] and consists of [number] irregular ragged tan-pink tissue fragments " +
                 "weighing [weight] and measuring [measurement] in aggregate.  " +
-                "Representative sections are submitted in cassette [cassettelabel].  ";
+                "Submitted:  [representativesections].  ";
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ProstateTUR tur = new Business.Specimen.Model.SpecimenDefinition.ProstateTUR();
             this.m_SpecimenCollection.Add(tur);
@@ -96,7 +96,7 @@ namespace YellowstonePathology.UI.Gross
                 "Pertinent Abnormalities:  [description]" + Environment.NewLine +
                 "Luminal Contents:  [description]" + Environment.NewLine +
                 "Fecaliths:  [description] [measurement], [description]" + Environment.NewLine +
-                "Submitted:  Representative sections are submitted to cassette [cassettelabel].  ";            
+                "Submitted:  [representativesections].  ";
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.AppendixExcision appendixExcision = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.AppendixExcision();
             this.m_SpecimenCollection.Add(appendixExcision);
@@ -188,7 +188,7 @@ namespace YellowstonePathology.UI.Gross
                 "Measurement Tonsil 2:  [measurement]" + Environment.NewLine +
                 "Measurement Adenoids:  [measurement]" + Environment.NewLine +
                 "Cut Surface:  [description]" + Environment.NewLine +
-                "Submitted:  [representativesections].  ";            
+                "Submitted:  [representativesectionsagerestricted].  ";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.TonsilAdenoidExcision tonsilAdenoidExcision = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.TonsilAdenoidExcision();
             this.m_SpecimenCollection.Add(tonsilAdenoidExcision);
@@ -206,7 +206,7 @@ namespace YellowstonePathology.UI.Gross
                 "Measurement Tonsil 1:  [measurement]" + Environment.NewLine +
                 "Measurement Tonsil 2:  [measurement]" + Environment.NewLine +
                 "Cut Surface:  [description]" + Environment.NewLine +
-                "Submitted:  Representative sections are submitted to cassette [cassettelabel].  ";
+                "Submitted:  [representativesectionsagerestricted].  ";
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.TonsilExcision tonsilExcision = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.TonsilExcision();
             this.m_SpecimenCollection.Add(tonsilExcision);
@@ -222,7 +222,7 @@ namespace YellowstonePathology.UI.Gross
                 "Weight:  [weight]" + Environment.NewLine +
                 "Measurement Adenoids:  [measurement]" + Environment.NewLine +
                 "Cut Surface:  [description]" + Environment.NewLine +
-                "Submitted:  Representative sections are submitted to cassette [cassettelabel].  ";
+                "Submitted:  [representativesectionsagerestricted].  ";
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.AdenoidExcision adenoidExcision = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.AdenoidExcision();
             this.m_SpecimenCollection.Add(adenoidExcision);
@@ -375,13 +375,16 @@ namespace YellowstonePathology.UI.Gross
                 "         Adherent:  [measurement], [description]" + Environment.NewLine +
                 "         Non-Adherent:  [measurement]]" + Environment.NewLine +
                 "      Maternal Surface:  [description]" + Environment.NewLine +
-                "      Infacts:  [description]" + Environment.NewLine +
+                "      Infarcts:  [description]" + Environment.NewLine +
                 "      Other:  [description]" + Environment.NewLine +
                 "   Sectioned at 1 cm intervals:" + Environment.NewLine +
                 "       Surface Infarcts:  [description]" + Environment.NewLine +
                 "       Cysts:  [description]" + Environment.NewLine + 
             	Environment.NewLine +
-                "Cassette Summary: \"1A\": Cord from both ends, \"1B\": Membranes, \"1C-1D\": Central Placenta.  ";            
+                "Cassette Summary: " + Environment.NewLine +
+                "\"1A\": Cord from both ends, " + Environment.NewLine +
+                "\"1B\": Membranes, " + Environment.NewLine +
+                "\"1C-1D\": Central Placenta.  ";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SinglePlacenta singlePlacenta = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SinglePlacenta();
             this.m_SpecimenCollection.Add(singlePlacenta);
@@ -497,7 +500,7 @@ namespace YellowstonePathology.UI.Gross
             this.m_TemplateName = "Aortic Valve";
             this.m_Text = "[identifier] and consists of [number] valve cusps aggregating to [measurement].  " +
                 "Vegetations [description] identified. The valve cusps are [description].  " +
-                "The leaflets are serially sectioned and representative sections are submitted in cassette [cassettelabel] for decalcification prior to processing  ";
+                "The leaflets are serially sectioned. [representativesections] for decalcification prior to processing  ";
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.AorticValve aorticValve = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.AorticValve();
             this.m_SpecimenCollection.Add(aorticValve);
@@ -511,7 +514,7 @@ namespace YellowstonePathology.UI.Gross
             this.m_TemplateName = "Mitral Valve";
             this.m_Text = "[identifier] and consists of [number] valve leaflets aggregating to [measurement].  " +
                 "Vegetations [description] identified. The valve leaflets are [description]." +
-                "The leaflets are serially sectioned and representative sections are submitted in cassette [cassetlabel].  ";
+                "The leaflets are serially sectioned.  [representativesections].  ";
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.MitralValve mitralValve = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.MitralValve();
             this.m_SpecimenCollection.Add(mitralValve);
@@ -540,8 +543,7 @@ namespace YellowstonePathology.UI.Gross
             this.m_TemplateName = "Femoral Head";
             this.m_Text = "[identifier] and consists of a [description] femoral head with attached femoral neck measuring [measurement].  " +
                 "The femoral neck margin is [description]. The articular surface shows [percent] eburnation and [percent] osteophyte formation.  " +
-                "Sectioning reveals tan-yellow trabecular bone. A representative section is submitted in cassette [cassettelabel].  " +
-                "following overnight decalcification.  ";            
+                "Sectioning reveals tan-yellow trabecular bone. [representativesections] following overnight decalcification.  ";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.FemoralHead femoralHead = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.FemoralHead();
             this.m_SpecimenCollection.Add(femoralHead);

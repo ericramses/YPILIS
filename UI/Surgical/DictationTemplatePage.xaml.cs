@@ -124,6 +124,19 @@ namespace YellowstonePathology.UI.Surgical
                             string representativeSections = specimenOrder.GetRepresentativeSectionsSubmittedIn(printMateColumn.Color);
                             this.m_GrossDescription = this.m_GrossDescription.Replace("[representativesections]", representativeSections);
                         }
+                        else if (this.m_GrossDescription.Contains("[representativesectionsagerestricted]") == true)
+                        {
+                            string representativeSectionsAgeRestricted = null;
+                            if (this.m_AccessionOrder.PBirthdate.HasValue == true && YellowstonePathology.Business.Helper.PatientHelper.GetAge(this.m_AccessionOrder.PBirthdate.Value) >= 13)
+                            {
+                                representativeSectionsAgeRestricted = specimenOrder.GetRepresentativeSectionsSubmittedIn(printMateColumn.Color);
+                            }
+                            else
+                            {
+                                representativeSectionsAgeRestricted = "No sections are submitted for microscopic examination";
+                            }                             
+                            this.m_GrossDescription = this.m_GrossDescription.Replace("[representativesectionsagerestricted]", representativeSectionsAgeRestricted);
+                        }
                         else if (this.m_GrossDescription.Contains("[cassettelabel]") == true)
 	                    {
 	                        this.m_GrossDescription = this.m_GrossDescription.Replace("[cassettelabel]", "\"" + specimenOrder.SpecimenNumber.ToString() + "A\"");
