@@ -416,7 +416,6 @@
     </Compile>
     <Compile Include="Gateway\AOGW.cs" />
     <Compile Include="Gateway\AOSaveResult.cs" />
-    <Compile Include="Gateway\JASONObjectBuilder.cs" />
     <Compile Include="Gateway\LockGateway.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -474,6 +473,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Persistence\JSONIndenter.cs" />
+    <Compile Include="Persistence\JSONObjectStreamWriter.cs" />
+    <Compile Include="Persistence\JSONStreamWriter.cs" />
     <Compile Include="Persistence\JSONWriter.cs" />
     <Compile Include="Persistence\JSONObjectWriter.cs" />
     <Compile Include="Persistence\ObjectComparer.cs" />
@@ -507,6 +508,7 @@
     <Compile Include="Test\HPV1618\HPV1618Genotype18PositiveResult.cs" />
     <Compile Include="Test\HPV\HPVInvalidResult.cs" />
     <Compile Include="Test\HPV\HPVNoResult.cs" />
+    <Compile Include="Test\IDH1IDH2MutationAnalsysis\IDH1IDH2MutationAnalsysisTest.cs" />
     <Compile Include="Test\KRASExon23Mutation\KRASExon23MutationEpicObxView.cs" />
     <Compile Include="Test\KRASExon23Mutation\KRASExon23MutationResult.cs" />
     <Compile Include="Test\KRASExon23Mutation\KRASExon23MutationTest.cs" />
@@ -515,6 +517,7 @@
     <Compile Include="Test\KRASStandard\KRASStandardPanel.cs" />
     <Compile Include="Test\LynchSyndrome\LSEGYNResult3.cs" />
     <Compile Include="Test\LynchSyndrome\LynchSyndromeIHCPanel.cs" />
+    <Compile Include="Test\MGMTPromoterMethylationAnalysis\MGMTPromoterMethylationAnalysisTest.cs" />
     <Compile Include="Test\MissingInformation\MissingInformationTest.cs" />
     <Compile Include="Test\MissingInformation\MissingInformationTestOrder.cs" />
     <Compile Include="Test\NGCT\NGCTInvalidResult.cs" />

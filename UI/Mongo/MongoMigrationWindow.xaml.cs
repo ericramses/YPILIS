@@ -6,6 +6,9 @@ using System.ComponentModel;
 using System.Reflection;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using MongoDB.Driver.Linq;
+using MongoDB.Driver.Builders;
+using MongoDB.Driver.GridFS;
 
 namespace YellowstonePathology.UI.Mongo
 {
@@ -14,7 +17,7 @@ namespace YellowstonePathology.UI.Mongo
         public event PropertyChangedEventHandler PropertyChanged;
 
         private BackgroundWorker m_TransferTableWorker;
-        private BackgroundWorker m_JSONWriterWorker;
+        private BackgroundWorker m_AOTransferWorker;
         private YellowstonePathology.Business.Mongo.Server m_SQLTransferServer;
         private YellowstonePathology.Business.Mongo.DocumentCollectionTracker m_DocumentCollectionTracker;
         private YellowstonePathology.Business.Mongo.TransferCollection m_TransferCollection;
@@ -662,7 +665,7 @@ namespace YellowstonePathology.UI.Mongo
             clientTransferBuilder.Build();
         }
 
-        private void MenuItemWriteJson_Click(object sender, RoutedEventArgs e)
+        private void MenuItemStartAOTransfer_Click(object sender, RoutedEventArgs e)
         {
             List<YellowstonePathology.Business.Mongo.Transfer> transferList = new List<Business.Mongo.Transfer>();
             foreach (YellowstonePathology.Business.Mongo.Transfer transfer in this.ListViewTransferCollection.SelectedItems)
@@ -670,49 +673,70 @@ namespace YellowstonePathology.UI.Mongo
                 transferList.Add(transfer);
             }
 
-            this.m_JSONWriterWorker = new BackgroundWorker();
-            this.m_JSONWriterWorker.WorkerReportsProgress = true;
-            this.m_JSONWriterWorker.DoWork += new DoWorkEventHandler(JSONWriterWorker_DoWork);
-            this.m_JSONWriterWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(JSONWriterWorker_RunWorkerCompleted);
-            this.m_JSONWriterWorker.ProgressChanged += new ProgressChangedEventHandler(JSONWriterWorker_ProgressChanged);
-            this.m_JSONWriterWorker.RunWorkerAsync(transferList);
+            this.m_AOTransferWorker = new BackgroundWorker();
+            this.m_AOTransferWorker.WorkerReportsProgress = true;
+            this.m_AOTransferWorker.WorkerSupportsCancellation = true;
+            this.m_AOTransferWorker.DoWork += new DoWorkEventHandler(AOTransferWorker_DoWork);
+            this.m_AOTransferWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(AOTransferWorker_RunWorkerCompleted);
+            this.m_AOTransferWorker.ProgressChanged += new ProgressChangedEventHandler(AOTransferWorker_ProgressChanged);            
+            this.m_AOTransferWorker.RunWorkerAsync(transferList);
         }
 
-        private void JSONWriterWorker_DoWork(object sender, DoWorkEventArgs e)
+        private void AOTransferWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            while(true)
-            {                
-                List<Business.MasterAccessionNo> masterAccessionNos = Business.Gateway.AccessionOrderGateway.GetMasterAccessionNosWithNullJSONString(1000, 2013);
-                if(masterAccessionNos.Count != 0)
+            YellowstonePathology.Business.Mongo.Server server = new Business.Mongo.TestServer(YellowstonePathology.Business.Mongo.MongoTestServer.LISDatabaseName);
+            MongoCollection mongoCollection = server.Database.GetCollection<BsonDocument>("AccessionOrderCollection");
+
+            DateTime lastTransferredDate = YellowstonePathology.Business.Gateway.AccessionOrderGatewayMongo.GetLastDateTransferred();
+            DateTime currentTransferDate = lastTransferredDate.AddDays(1);            
+
+            while (true)
+            {
+                List<Business.MasterAccessionNo> masterAccessionNos = Business.Gateway.AccessionOrderGateway.GetMasterAccessionNoList(currentTransferDate);                
+                foreach (Business.MasterAccessionNo masterAccessionNo in masterAccessionNos)
                 {
-                    int count = 0;
-                    foreach (Business.MasterAccessionNo masterAccessionNo in masterAccessionNos)
-                    {
-                        Business.Test.AccessionOrder ao = Business.Gateway.AccessionOrderGateway.GetAccessionOrderByMasterAccessionNo(masterAccessionNo.Value);
-                        Business.Persistence.ObjectTracker objectTracker = new Business.Persistence.ObjectTracker();
-                        objectTracker.RegisterObject(ao);
-                        string json = Business.Persistence.JSONObjectWriter.Write(ao);
-                        ao.JSON = json;
-                        objectTracker.SubmitChanges(ao);
-                        count += 1;
-                        this.m_JSONWriterWorker.ReportProgress(0, count.ToString() + " - " + masterAccessionNo.Value);
-                    }
+                    Business.Test.AccessionOrder ao = Business.Gateway.AccessionOrderGateway.GetAccessionOrderByMasterAccessionNo(masterAccessionNo.Value);
+
+                    System.Text.StringBuilder sb = new System.Text.StringBuilder();
+                    System.IO.StringWriter sw = new System.IO.StringWriter(sb);                        
+
+                    YellowstonePathology.Business.Persistence.JSONObjectStreamWriter.Write(sw, ao);
+                    sw.Flush();
+                    sw.Close();
+
+                    BsonDocument bsonDocument = BsonDocument.Parse(sb.ToString());
+                    mongoCollection.Update(Query.EQ("MasterAccessionNo", ao.MasterAccessionNo), Update.Replace(bsonDocument), UpdateFlags.Upsert);
+                    
+                    this.m_AOTransferWorker.ReportProgress(0, currentTransferDate.ToShortDateString() + " - " + masterAccessionNo.Value);
                 }
-                else
+                
+                YellowstonePathology.Business.Gateway.AccessionOrderGatewayMongo.InsertLastDateTransferrred(currentTransferDate);
+                currentTransferDate = currentTransferDate.AddDays(1);
+
+                if(this.m_AOTransferWorker.CancellationPending == true)
                 {
                     break;
-                }            
+                }
+                if (currentTransferDate > DateTime.Today)
+                {
+                    break;
+                }                
             }            
         }
 
-        private void JSONWriterWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        private void AOTransferWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            this.TextBlockStatusMessage.Text = "Update of JSON complete.";
+            this.TextBlockStatusMessage.Text = "AO Transfer Stopped.";
         }
 
-        private void JSONWriterWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        private void AOTransferWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             this.TextBlockStatusMessage.Text = e.UserState.ToString();
+        }
+
+        private void MenuItemStopAOTransfer_Click(object sender, RoutedEventArgs e)
+        {
+            this.m_AOTransferWorker.CancelAsync();
         }
     }
 }

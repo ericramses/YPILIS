@@ -20,10 +20,47 @@ namespace YellowstonePathology.Business.Gateway
 	public class AccessionOrderGatewayMongo
 	{
         public AccessionOrderGatewayMongo()
+        {   
+                     
+        }
+        public static DateTime GetLastDateTransferred()
         {            
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "Select max(DateTransferred) from tblMongoDatesTransferred";            
+            cmd.CommandType = CommandType.Text;
+
+            string date = string.Empty;
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        date = dr[0].ToString();                        
+                    }
+                }
+            }
+            return DateTime.Parse(date);
         }
 
-		public static Test.AccessionOrder GetAccessionOrderByMasterAccessionNo(string masterAccessionNo)
+        public static void InsertLastDateTransferrred(DateTime lastDate)
+        {
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "insert tblMongoDatesTransferred (DateTransferred) values (@DateTransferred)";
+            cmd.Parameters.Add("@DateTransferred", SqlDbType.DateTime).Value = lastDate;
+            cmd.CommandType = CommandType.Text;
+
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public static Test.AccessionOrder GetAccessionOrderByMasterAccessionNo(string masterAccessionNo)
 		{
 			YellowstonePathology.Business.Mongo.Server transferServer = new Business.Mongo.TestServer(YellowstonePathology.Business.Mongo.MongoTestServer.LISDatabaseName);
 			MongoCollection collection = transferServer.Database.GetCollection<BsonDocument>("AccessionOrder");

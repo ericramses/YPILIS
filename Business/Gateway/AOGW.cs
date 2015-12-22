@@ -8,15 +8,9 @@ using System.Data;
 using System.Data.SqlClient;
 
 namespace YellowstonePathology.Business.Gateway
-{
-
-    //we need to be careful not to change how this single class structure is setup because this structure is thread safe.
+{    
     public sealed class AOGW
-    {
-        //Properties in AO: LockAquiredById, LockAquiredByUserName, LockAquiredByHostName, TimeLockAquired
-        //Need a stored procedure that takes the above parameters and a masteraccessionno  and sets them if they are not null.
-        //Assume if LockAuqiredById is null then they are all null.
-
+    {        
         private static readonly AOGW instance = new AOGW();
 
         private bool USEMONGO = false;
@@ -29,10 +23,7 @@ namespace YellowstonePathology.Business.Gateway
         }
 
         private AOGW()
-        {
-            //This collection will hold all AO's in use by the application.
-            //AO's will be removed from the collection when they are released.
-            //saving an AO will not cause it to be removed from the collection.
+        {            
             this.m_AccessionOrderCollection = new Test.AccessionOrderCollection();
             this.m_ObjectTracker = new Persistence.ObjectTracker();
         }
@@ -148,15 +139,7 @@ namespace YellowstonePathology.Business.Gateway
             }
             accessionOrderBuilder.Build(document);
             return accessionOrderBuilder.AccessionOrder;
-        }
-
-        public YellowstonePathology.Business.Test.AccessionOrder GetByReportNo(string reportNo, bool aquireLock)
-        {
-            //If it is a legacy reportno then make a trip to the database to get the masteraccessionno                        
-            YellowstonePathology.Business.OrderIdParser orderIdParser = new OrderIdParser(reportNo);
-            string masterAccessionNo = orderIdParser.MasterAccessionNo;
-            return GetByMasterAccessionNo(masterAccessionNo, aquireLock);
-        }
+        }        
 
         public static AOGW Instance
         {
