@@ -119,7 +119,12 @@ namespace YellowstonePathology.UI.Surgical
 	                        string submittedStatement = "[procedure] and " + specimenOrder.GetGrossSubmittedInString(printMateColumn.Color);
 	                        this.m_GrossDescription = this.m_GrossDescription.Replace("[submitted]", submittedStatement);
 	                    }
-	                    else if (this.m_GrossDescription.Contains("[cassettelabel]") == true)
+                        else if (this.m_GrossDescription.Contains("[representativesections]") == true)
+                        {
+                            string representativeSections = specimenOrder.GetRepresentativeSectionsSubmittedIn(printMateColumn.Color);
+                            this.m_GrossDescription = this.m_GrossDescription.Replace("[representativesections]", representativeSections);
+                        }
+                        else if (this.m_GrossDescription.Contains("[cassettelabel]") == true)
 	                    {
 	                        this.m_GrossDescription = this.m_GrossDescription.Replace("[cassettelabel]", "\"" + specimenOrder.SpecimenNumber.ToString() + "A\"");
 	                    }                        

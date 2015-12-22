@@ -163,6 +163,31 @@ namespace YellowstonePathology.Business.Specimen.Model
             return result;
         }
 
+        public string GetRepresentativeSectionsSubmittedIn(string cassetteColor)
+        {
+            string result = null;
+            if (this.m_AliquotOrderCollection.Count != 0)
+            {
+                result = "Representative sections are submitted to " + cassetteColor.ToLower();
+                if (this.m_AliquotOrderCollection.Count == 1)
+                {
+                    result += " cassette ";
+                }
+                else
+                {
+                    result += " cassettes ";
+                }
+
+                foreach (YellowstonePathology.Business.Test.AliquotOrder aliquotOrder in this.m_AliquotOrderCollection)
+                {
+                    result += "\"" + aliquotOrder.Label + "\", ";
+                }
+
+                result = result.Remove(result.Length - 2, 2);
+            }
+            return result;
+        }
+
         public string GetGrossRemainderSubmittedInString()
         {
             string result = null;

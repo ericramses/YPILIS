@@ -96,8 +96,7 @@ namespace YellowstonePathology.Business.Test
         private bool m_ITAuditRequired;
         private bool m_ITAudited;
         private int m_ITAuditPriority;
-        private string m_CaseDialog;
-        private string m_JSON;
+        private string m_CaseDialog;        
         private Nullable<int> m_LockAquiredById;
         private string m_LockAquiredByUserName;
         private string m_LockAquiredByHostName;
@@ -152,21 +151,7 @@ namespace YellowstonePathology.Business.Test
 					this.NotifyPropertyChanged("MasterAccessionNo");
 				}
 			}
-		}
-
-        [PersistentProperty()]
-        public string JSON
-        {
-            get { return this.m_JSON; }
-            set
-            {
-                if (this.m_JSON != value)
-                {
-                    this.m_JSON = value;
-                    this.NotifyPropertyChanged("JSON");
-                }
-            }
-        }
+		}        
 
         [PersistentProperty()]
         public Nullable<int> LockAquiredById

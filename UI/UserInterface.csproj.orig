@@ -42,10 +42,10 @@
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
 <<<<<<< HEAD
-    <ApplicationRevision>591</ApplicationRevision>
+    <ApplicationRevision>640</ApplicationRevision>
 =======
-    <ApplicationRevision>592</ApplicationRevision>
->>>>>>> issue234
+    <ApplicationRevision>627</ApplicationRevision>
+>>>>>>> issue241
     <ApplicationVersion>10.1.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
