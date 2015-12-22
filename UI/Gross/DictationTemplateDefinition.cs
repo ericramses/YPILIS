@@ -299,7 +299,7 @@ namespace YellowstonePathology.UI.Gross
         {
             this.m_TemplateName = "CervicalBiopsy";
             this.m_Text = "[identifier]." + Environment.NewLine +
-                "Gross Description:  [number], [color], [consistency]" + Environment.NewLine +
+                "Gross Description:  [number], tan-pink, rubbery fragment(s)." + Environment.NewLine +
                 "Measurement:  [measurement]" + Environment.NewLine +
                 "Submitted:  Filtered through a fine mesh bag and entirely submitted in cassette [cassettelabel].  ";
 
