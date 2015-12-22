@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 
 namespace YellowstonePathology.UI.Test
 {
@@ -55,7 +56,36 @@ namespace YellowstonePathology.UI.Test
                     DisableContents(element);
                 }
             }
-
+            else if (o is TextBlock)
+            {
+            	TextBlock textBlock = (TextBlock)o;
+            	bool result = false;
+            	foreach (object inline in textBlock.Inlines)
+            	{
+            		if(inline is Hyperlink)
+	            	{
+            			Hyperlink hyperlink = (Hyperlink)inline;
+            			foreach(object hlinline in hyperlink.Inlines)
+            			{
+            				if(hlinline is Run)
+            				{
+            					string s = ((Run)hlinline).Text;
+				            	if(s == "Show Document")
+				                {
+				            		((UIElement)o).IsEnabled = true;
+				            		result = true;
+				            		break;
+				                }
+            				}
+            			}
+            		}
+	       			if(result == true) break;
+	         	}
+            	if(result == false)
+            	{
+	            	((UIElement)o).IsEnabled = false;
+            	}
+            }
             else if (o is ContentControl)
             {
                 ContentControl contentControl = (ContentControl)o;
