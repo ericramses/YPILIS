@@ -43,14 +43,45 @@ namespace YellowstonePathology.Business.Gateway
             //We need to devise a way to make sure AO's are not saved directly throught the OT
             //This function will create the JSON and store it in the JSON property so it will get persisted.
             //The app will call save without regard to wether a lock is aquired. 
-            //if ReleaseLock is true then the lock properties will be set to null before saving.			
+            //if ReleaseLock is true then the lock properties will be set to null before saving.
+            if(accessionOrder.LockedAquired == true)
+            {
+            	if(releaseLock == true)
+            	{
+            		accessionOrder.LockAquiredByHostName = null;
+            		accessionOrder.LockAquiredById = null;
+            		accessionOrder.LockAquiredByUserName = null;
+            		accessionOrder.TimeLockAquired = null;
+            	}
+            	
+            	accessionOrder.JSON = null;
+            	accessionOrder.JSON = Persistence.JSONObjectWriter.Write(accessionOrder);
+            	this.m_ObjectTracker.SubmitChanges(accessionOrder);
+            	if(releaseLock == true)
+            	{
+            		this.m_ObjectTracker.Deregister(accessionOrder);
+		            this.m_AccessionOrderCollection.Remove(accessionOrder);
+            	}
+            }
         }
 
         public YellowstonePathology.Business.Test.AccessionOrder Refresh(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, bool aquireLock)
         {
             //If it is in the list remove it from the list, unregister it from the OT and then go get it from the database.  If it's not in the list then throw an error.    
-            //Register it with OT if AO.LockAquired == true;        
-            YellowstonePathology.Business.Test.AccessionOrder result = new Test.AccessionOrder();
+            //Register it with OT if AO.LockAquired == true;
+            if(this.m_AccessionOrderCollection.Exists(accessionOrder.MasterAccessionNo) == false)
+            {
+            	throw new Exception("AccessionOrder - " + accessionOrder.MasterAccessionNo + " not in AOGW AccessinOrderCollection");
+            }
+            
+            this.m_AccessionOrderCollection.Remove(accessionOrder);
+            if(this.m_ObjectTracker.IsRegistered(accessionOrder) == true)
+            {
+	            this.m_ObjectTracker.Deregister(accessionOrder);
+            }
+            
+            YellowstonePathology.Business.Test.AccessionOrder result = GetByMasterAccessionNo(accessionOrder.MasterAccessionNo, aquireLock);
+            
             return result;
         }
 
