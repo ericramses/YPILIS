@@ -9,7 +9,7 @@ namespace YellowstonePathology.Business.Test.IDH1IDH2MutationAnalsysis
     {
         public IDH1IDH2MutationAnalsysisTest()
         {
-            this.m_PanelSetId = 215;
+            this.m_PanelSetId = 221;
             this.m_PanelSetName = "IDH1 And IDH2 Mutation Analsysis";
             this.m_Abbreviation = "IDH1 And IDH2 Mutation Analsysis";
             this.m_CaseType = YellowstonePathology.Business.CaseType.Molecular;
