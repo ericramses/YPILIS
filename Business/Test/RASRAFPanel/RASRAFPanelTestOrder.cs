@@ -32,6 +32,7 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
         private string m_Method;
         private string m_References;
         private string m_ReportDisclaimer;
+        private string m_Interpretation;
 
         public RASRAFPanelTestOrder()
         {
@@ -368,7 +369,21 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
                 }
             }
         }
-        	
+
+        [PersistentProperty()]
+        public string Interpretation
+        {
+            get { return this.m_Interpretation; }
+            set
+            {
+                if (this.m_Interpretation != value)
+                {
+                    this.m_Interpretation = value;
+                    this.NotifyPropertyChanged("Interpretation");
+                }
+            }
+        }
+
         public override string ToResultString(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {
             StringBuilder result = new StringBuilder();

@@ -50,6 +50,7 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
             this.ReplaceText("nras_peop", testOrder.NRASPredictedEffectOnProtein);
             this.ReplaceText("hras_peop", testOrder.HRASPredictedEffectOnProtein);
             
+            this.ReplaceText("report_interpretation", testOrder.Interpretation);
             this.ReplaceText("report_method", testOrder.Method);
             this.ReplaceText("report_references", testOrder.References);
             this.ReplaceText("report_disclaimer", testOrder.ReportDisclaimer);

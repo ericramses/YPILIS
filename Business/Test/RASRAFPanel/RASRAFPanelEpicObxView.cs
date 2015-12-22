@@ -74,7 +74,11 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
             this.AddNextObxElement("Collection Date/Time: " + collectionDateTimeString, document, "F");
 
             this.AddNextObxElement("", document, "F");
-            this.AddNextObxElement("Method:", document, "F");
+            this.AddNextObxElement("Interpretation:", document, "F");
+            this.HandleLongString(panelSetOrder.Interpretation, document, "F");
+            
+            this.AddNextObxElement("", document, "F");
+            this.AddNextObxElement("Method:", document, "F");            
             this.HandleLongString(panelSetOrder.Method, document, "F");
 
             this.AddNextObxElement("", document, "F");
