@@ -749,8 +749,8 @@ namespace YellowstonePathology.UI
             sw.Write(s);
             sw.Close();
             */
-            Business.Test.AccessionOrder ao = YellowstonePathology.Business.Gateway.AOGW.Instance.GetByReportNo("15-123.S", true);
-            YellowstonePathology.Business.Gateway.AOGW.Instance.Save(ao);
+            Business.Test.AccessionOrder ao = YellowstonePathology.Business.Gateway.AOGW.Instance.GetByMasterAccessionNo("15-123", true);
+            YellowstonePathology.Business.Gateway.AOGW.Instance.Save(ao, true);
             ao = YellowstonePathology.Business.Gateway.AOGW.Instance.Refresh(ao, false);
         }
 

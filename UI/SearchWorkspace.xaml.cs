@@ -214,7 +214,7 @@ namespace YellowstonePathology.UI
             {
 				YellowstonePathology.Business.SearchListItem item = (YellowstonePathology.Business.SearchListItem)this.listViewCaseList.SelectedItem;
 				MainWindow mainWindow = (MainWindow)Window.GetWindow(this);
-				mainWindow.AddFlowWorkspace(item.ReportNo);
+				mainWindow.AddFlowWorkspace(item.ReportNo, item.MasterAccessionNo);
 			}
 		}
 	}

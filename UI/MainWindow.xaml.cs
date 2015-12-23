@@ -520,10 +520,10 @@ namespace YellowstonePathology.UI
 			}
         }
 
-        public void AddFlowWorkspace(string reportNo)
+        public void AddFlowWorkspace(string reportNo, string masterAccessionNo)
         {
             this.AddFlowWorkspace();
-            this.m_FlowWorkspace.GetCase(reportNo);
+            this.m_FlowWorkspace.GetCase(reportNo, masterAccessionNo);
         }
 
         private void FlowWorkspace_Loaded(object sender, RoutedEventArgs e)
