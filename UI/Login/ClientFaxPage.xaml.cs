@@ -112,9 +112,13 @@ namespace YellowstonePathology.UI.Login
 					clientLetter.Create(this.m_PatientNameWithBirthDate, client, letterBody);
 				}
 
-                //YellowstonePathology.Business.ReportDistribution.Model.FaxSubmission.Submit(client.Fax, client.LongDistance, "Missing Information", YellowstonePathology.UI.Properties.Settings.Default.ClientMissingInformationLetterFileName);
-                YellowstonePathology.Business.ReportDistribution.Model.FaxSubmission.Submit(client.Fax, client.LongDistance, "Missing Information", @"C:\Program Files\Yellowstone Pathology Institute\test.tif");
-                //MessageBox.Show("The fax was successfully submitted.");				
+                DateTime timeToSchedule = DateTime.Parse(DateTime.Today.ToShortDateString() + " 13:00");
+                if(DateTime.Now >= timeToSchedule)
+                {
+                    timeToSchedule = timeToSchedule.AddDays(1);
+                }
+
+                YellowstonePathology.Business.ReportDistribution.Model.ScheduledFaxSubmission.Submit(client.Fax, client.LongDistance, "Missing Information", @"C:\Program Files\Yellowstone Pathology Institute\test.tif", timeToSchedule);
             }
 			else
 			{
