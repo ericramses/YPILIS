@@ -9,6 +9,7 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
     [PersistentClass("tblRASRAFPanelTestOrder", "tblPanelSetOrder", "YPIDATA")]
     public class RASRAFPanelTestOrder : YellowstonePathology.Business.Test.PanelSetOrder
     {
+    	
         private string m_KRASResult;
         private string m_NRASResult;
         private string m_HRASResult;
@@ -46,6 +47,8 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
             YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 			: base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute, systemIdentity)
 		{
+        	this.m_Method = RASRAFPanelResult.Method;
+        	this.m_References = RASRAFPanelResult.References;
         }
 
         [PersistentProperty()]
@@ -396,6 +399,18 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
             result.Append("HRAS Result: ");
             result.AppendLine(this.m_HRASResult);
             return result.ToString();
+        }
+        
+        public YellowstonePathology.Business.Rules.MethodResult IsOkToSet()
+        {
+        	YellowstonePathology.Business.Rules.MethodResult methodResult = new YellowstonePathology.Business.Rules.MethodResult();
+        	if(this.Accepted == true)
+        	{
+        		methodResult.Success = false;
+        		methodResult.Message = "Unable to set results as the results have already been accepted.";
+        	}
+        		
+        	return methodResult;
         }
     }
 }
