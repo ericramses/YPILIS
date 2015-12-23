@@ -129,17 +129,15 @@ namespace YellowstonePathology.UI.Test
         }
 
         private void HyperLinkFinalizeResults_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("This case cannot be finalized because IT needs more information to create the correct report." + Environment.NewLine + "Please contact IT.");
-
-            /*if (this.m_RASRAFPanelTestOrder.Final == false)
+        {            
+            if (this.m_RASRAFPanelTestOrder.Final == false)
             {
                 this.m_RASRAFPanelTestOrder.Finalize(this.m_SystemIdentity.User);
             }
             else
             {
                 MessageBox.Show("This case cannot be finalized because it is already final.");
-            }*/
+            }
         }
 
         private void HyperLinkUnfinalResults_Click(object sender, RoutedEventArgs e)
