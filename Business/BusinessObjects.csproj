@@ -448,7 +448,9 @@
     <Compile Include="Interface\IFlowMarker.cs" />
     <Compile Include="Interface\ILeukemiaLymphomaResult.cs" />
     <Compile Include="Interface\IPersistPageChanges.cs" />
+    <Compile Include="Label.Model\SpecimenLabel.cs" />
     <Compile Include="Label.Model\BlockLabelLegacy.cs" />
+    <Compile Include="Label.Model\SpecimenLabelPrinter.cs" />
     <Compile Include="Label.Model\LaserCassettePrinter.cs" />
     <Compile Include="Label.Model\LaserCassette.cs" />
     <Compile Include="Label.Model\HistologySlideLabel.cs" />
