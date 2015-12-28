@@ -193,7 +193,7 @@ namespace YellowstonePathology.Business.Specimen.Model
             string result = null;
             if (this.m_AliquotOrderCollection.Count != 0)
             {
-                result = "entirely submitted into ";
+                result = "entirely submitted into";
                 if (this.m_AliquotOrderCollection.Count == 2)
                 {
                     result += " cassette \"" + this.m_AliquotOrderCollection[1].Label + "\"";

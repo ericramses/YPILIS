@@ -270,7 +270,7 @@
 							<TextBlock Margin="0,5,0,0" FontWeight="Bold">Gross Description:</TextBlock>
 							<TextBox Name="TextBoxGross"
 									 TextWrapping="Wrap" AcceptsReturn="True"
-									 Text="{Binding Path=SurgicalTestOrder.GrossX}"
+									 Text="{Binding Path=SurgicalTestOrder.GrossX, UpdateSourceTrigger=PropertyChanged}"
 									 KeyUp="TextBox_KeyUp" FontSize="12" IsEnabled="{Binding Path=FieldEnabler.IsProtectedEnabled}" MinWidth="200"
 									 Style="{StaticResource NewTextBox}" SpellCheck.IsEnabled="False"></TextBox>
 
