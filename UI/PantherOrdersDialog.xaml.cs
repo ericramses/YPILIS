@@ -173,7 +173,7 @@ namespace YellowstonePathology.UI
         {
             if (this.ListViewPantherNGCTOrders.SelectedItem != null)
             {
-                foreach (YellowstonePathology.Business.Test.PantherOrderListItem item in this.ListViewPantherHPVOrders.SelectedItems)
+                foreach (YellowstonePathology.Business.Test.PantherOrderListItem item in this.ListViewPantherNGCTOrders.SelectedItems)
                 {                    
                     YellowstonePathology.Business.HL7View.Panther.PantherAssay pantherAssay = new Business.HL7View.Panther.PantherAssayNGCT();
                     this.ResendPantherOrder(item, pantherAssay);
@@ -186,7 +186,7 @@ namespace YellowstonePathology.UI
         {
             if (this.ListViewPantherHPV1618Orders.SelectedItem != null)
             {
-                foreach (YellowstonePathology.Business.Test.PantherOrderListItem item in this.ListViewPantherHPVOrders.SelectedItems)
+                foreach (YellowstonePathology.Business.Test.PantherOrderListItem item in this.ListViewPantherHPV1618Orders.SelectedItems)
                 {                    
                     YellowstonePathology.Business.HL7View.Panther.PantherAssay pantherAssay = new Business.HL7View.Panther.PantherAssayHPV1618();
                     this.ResendPantherOrder(item, pantherAssay);
