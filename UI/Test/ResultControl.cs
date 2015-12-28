@@ -16,7 +16,8 @@ namespace YellowstonePathology.UI.Test
         public ResultControl(YellowstonePathology.Business.Test.PanelSetOrder testOrder)
         {
             this.m_TestOrder = testOrder;
-            if (this.m_TestOrder.Final == true && this.m_TestOrder.TestOrderReportDistributionCollection.HasDistributedItems())
+            if (this.m_TestOrder.Final == true &&
+                (this.m_TestOrder.Distribute == false || this.m_TestOrder.TestOrderReportDistributionCollection.HasDistributedItems()))
             {
                 this.m_DisableRequired = true;
             }
@@ -38,15 +39,13 @@ namespace YellowstonePathology.UI.Test
         {
             if (o is Button)
             {
-                Button button = (Button)o;
-                string s = ((Button)o).Content.ToString();
-                if (s.Contains("Next") ||
-                    s.Contains("Back") ||
-                    s.Contains("Close") ||
-                    s.Contains("Finish"))
-                {
-                    button.IsEnabled = true;
-                }
+                FrameworkElement frameworkElement = (FrameworkElement)o;
+            	this.SetEnableForRemainActiveInName(frameworkElement);
+            }
+            else if (o is TextBlock)
+            {
+                FrameworkElement frameworkElement = (FrameworkElement)o;
+            	this.SetEnableForRemainActiveInName(frameworkElement);
             }
             else if (o is Panel)
             {
@@ -55,36 +54,6 @@ namespace YellowstonePathology.UI.Test
                 {
                     DisableContents(element);
                 }
-            }
-            else if (o is TextBlock)
-            {
-            	TextBlock textBlock = (TextBlock)o;
-            	bool result = false;
-            	foreach (object inline in textBlock.Inlines)
-            	{
-            		if(inline is Hyperlink)
-	            	{
-            			Hyperlink hyperlink = (Hyperlink)inline;
-            			foreach(object hlinline in hyperlink.Inlines)
-            			{
-            				if(hlinline is Run)
-            				{
-            					string s = ((Run)hlinline).Text;
-				            	if(s == "Show Document")
-				                {
-				            		((UIElement)o).IsEnabled = true;
-				            		result = true;
-				            		break;
-				                }
-            				}
-            			}
-            		}
-	       			if(result == true) break;
-	         	}
-            	if(result == false)
-            	{
-	            	((UIElement)o).IsEnabled = false;
-            	}
             }
             else if (o is ContentControl)
             {
@@ -102,7 +71,30 @@ namespace YellowstonePathology.UI.Test
             {
                 ((UIElement)o).IsEnabled = false;
             }
-
+        }
+        
+        private void SetEnableForRemainActiveInName(FrameworkElement frameworkElement)
+        {
+        	if(frameworkElement.Visibility == Visibility.Visible)
+        	{
+	            string s = frameworkElement.Name;
+	            if(string.IsNullOrEmpty(s) == true)
+	            {
+	            	frameworkElement.IsEnabled = false;
+	            }
+	            else if (s.Contains("RemainActive"))
+	            {
+	                frameworkElement.IsEnabled = true;
+	            }
+	            else
+	            {
+	            	frameworkElement.IsEnabled = false;
+	            }
+        	}
+        	else
+        	{
+            	frameworkElement.IsEnabled = false;
+        	}
         }
     }
 }
