@@ -143,7 +143,7 @@ namespace YellowstonePathology.UI
                     YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(pantherOrderListItem.ReportNo);
                     YellowstonePathology.Business.HL7View.Panther.PantherOrder pantherOrder = new Business.HL7View.Panther.PantherOrder(pantherAssay, specimenOrder, aliquotOrder, accessionOrder, panelSetOrder, YellowstonePathology.Business.HL7View.Panther.PantherActionCode.NewSample);
                     pantherOrder.Send();
-                    MessageBox.Show("An order has been sent to the Panther.");
+                    //MessageBox.Show("An order has been sent to the Panther.");
                 }
                 else
                 {
@@ -160,9 +160,12 @@ namespace YellowstonePathology.UI
         {
             if (this.ListViewPantherHPVOrders.SelectedItem != null)
             {
-                YellowstonePathology.Business.Test.PantherOrderListItem pantherOrderListItem = (YellowstonePathology.Business.Test.PantherOrderListItem)this.ListViewPantherHPVOrders.SelectedItem;
-                YellowstonePathology.Business.HL7View.Panther.PantherAssay pantherAssay = new Business.HL7View.Panther.PantherAssayHPV();
-                this.ResendPantherOrder(pantherOrderListItem, pantherAssay);
+                foreach(YellowstonePathology.Business.Test.PantherOrderListItem item in this.ListViewPantherHPVOrders.SelectedItems)
+                {                    
+                    YellowstonePathology.Business.HL7View.Panther.PantherAssay pantherAssay = new Business.HL7View.Panther.PantherAssayHPV();
+                    this.ResendPantherOrder(item, pantherAssay);
+                }
+                MessageBox.Show("The selected order(s) have been sent.");
             }
         }
 
@@ -170,9 +173,12 @@ namespace YellowstonePathology.UI
         {
             if (this.ListViewPantherNGCTOrders.SelectedItem != null)
             {
-                YellowstonePathology.Business.Test.PantherOrderListItem pantherOrderListItem = (YellowstonePathology.Business.Test.PantherOrderListItem)this.ListViewPantherNGCTOrders.SelectedItem;
-                YellowstonePathology.Business.HL7View.Panther.PantherAssay pantherAssay = new Business.HL7View.Panther.PantherAssayNGCT();
-                this.ResendPantherOrder(pantherOrderListItem, pantherAssay);
+                foreach (YellowstonePathology.Business.Test.PantherOrderListItem item in this.ListViewPantherHPVOrders.SelectedItems)
+                {                    
+                    YellowstonePathology.Business.HL7View.Panther.PantherAssay pantherAssay = new Business.HL7View.Panther.PantherAssayNGCT();
+                    this.ResendPantherOrder(item, pantherAssay);
+                }
+                MessageBox.Show("The selected order(s) have been sent.");
             }
         }
 
@@ -180,9 +186,12 @@ namespace YellowstonePathology.UI
         {
             if (this.ListViewPantherHPV1618Orders.SelectedItem != null)
             {
-                YellowstonePathology.Business.Test.PantherOrderListItem pantherOrderListItem = (YellowstonePathology.Business.Test.PantherOrderListItem)this.ListViewPantherHPV1618Orders.SelectedItem;
-                YellowstonePathology.Business.HL7View.Panther.PantherAssay pantherAssay = new Business.HL7View.Panther.PantherAssayHPV1618();
-                this.ResendPantherOrder(pantherOrderListItem, pantherAssay);
+                foreach (YellowstonePathology.Business.Test.PantherOrderListItem item in this.ListViewPantherHPVOrders.SelectedItems)
+                {                    
+                    YellowstonePathology.Business.HL7View.Panther.PantherAssay pantherAssay = new Business.HL7View.Panther.PantherAssayHPV1618();
+                    this.ResendPantherOrder(item, pantherAssay);
+                }
+                MessageBox.Show("The selected order(s) have been sent.");
             }
         }
 
