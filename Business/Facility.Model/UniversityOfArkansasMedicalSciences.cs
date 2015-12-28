@@ -11,7 +11,7 @@ namespace YellowstonePathology.Business.Facility.Model
         {
             this.m_FacilityId = "UAMS";
             this.m_FacilityIdOLD = null;
-            this.m_FacilityName = "University O fArkansas Medical Sciences";
+            this.m_FacilityName = "University Of Arkansas Medical Sciences";
             this.m_Address1 = "4301 West Markham St.";
             this.m_City = "Little Rock";
             this.m_State = "AR";

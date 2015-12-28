@@ -81,6 +81,7 @@ namespace YellowstonePathology.Business.Facility.Model
             result.Add(new CMMC());
             result.Add(new StJamesHospital());
             result.Add(new MontanaDepartmentofJustice());
+            result.Add(new UniversityOfMichigan());
             return Sort(result);
         }
 

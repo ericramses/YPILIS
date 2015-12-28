@@ -411,6 +411,7 @@
     <Compile Include="Facility.Model\ProfessionalPathologyOfWyoming.cs" />
     <Compile Include="Facility.Model\LoweLawGroup.cs" />
     <Compile Include="Facility.Model\PathologyAssociatesOfIdahoFalls.cs" />
+    <Compile Include="Facility.Model\UniversityOfMichigan.cs" />
     <Compile Include="Flow\FlowCommentItem.Generated.cs">
       <SubType>Code</SubType>
     </Compile>
