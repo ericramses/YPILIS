@@ -15,7 +15,6 @@ namespace YellowstonePathology.Business.Gateway
 
         private bool USEMONGO = false;
         private YellowstonePathology.Business.Test.AccessionOrderCollection m_AccessionOrderCollection;
-        private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 
         static AOGW()
         {
@@ -25,17 +24,50 @@ namespace YellowstonePathology.Business.Gateway
         private AOGW()
         {            
             this.m_AccessionOrderCollection = new Test.AccessionOrderCollection();
-            this.m_ObjectTracker = new Persistence.ObjectTracker();
         }
 
         public void Save(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, bool releaseLock)
         {
+            //This will be the only place that an AO can be saved.
+            //We need to devise a way to make sure AO's are not saved directly throught the OT
+            //This function will create the JSON and store it in the JSON property so it will get persisted.
+            //The app will call save without regard to wether a lock is aquired. 
+            //if ReleaseLock is true then the lock properties will be set to null before saving.
+            if(accessionOrder.LockedAquired == true)
+            {
+            	if(releaseLock == true)
+            	{
+            		accessionOrder.LockAquiredByHostName = null;
+            		accessionOrder.LockAquiredById = null;
+            		accessionOrder.LockAquiredByUserName = null;
+            		accessionOrder.TimeLockAquired = null;
+            	}
+            	
+            	YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(accessionOrder);
+            }
             
-        }
+           	if(releaseLock == true)
+        	{
+        		YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.Deregister(accessionOrder);
+        	}
+     }
 
         public YellowstonePathology.Business.Test.AccessionOrder Refresh(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, bool aquireLock)
-        {            
-            YellowstonePathology.Business.Test.AccessionOrder result = new Test.AccessionOrder();
+        {
+            //If it is in the list remove it from the list, unregister it from the OT and then go get it from the database.  If it's not in the list then throw an error.    
+            //Register it with OT if AO.LockAquired == true;
+            if(this.m_AccessionOrderCollection.Remove(accessionOrder) == false)
+            {
+            	throw new Exception("AccessionOrder - " + accessionOrder.MasterAccessionNo + " not in AOGW AccessinOrderCollection");
+            }
+            
+            if(YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.IsRegistered(accessionOrder) == true)
+            {
+	            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.Deregister(accessionOrder);
+            }
+            
+            YellowstonePathology.Business.Test.AccessionOrder result = GetByMasterAccessionNo(accessionOrder.MasterAccessionNo, aquireLock);
+            
             return result;
         }
 
@@ -60,7 +92,7 @@ namespace YellowstonePathology.Business.Gateway
                 this.m_AccessionOrderCollection.Add(result);
                 if (result.LockedAquired == true)
                 {
-                    this.m_ObjectTracker.RegisterObject(result);
+                    YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(result);
                 }
             }
 
