@@ -51,8 +51,8 @@ namespace YellowstonePathology.UI.Test
             this.m_OrderedOnDescription = specimenOrder.Description;
             
             this.m_ResultList = new List<string>();
-            this.m_ResultList.Add("Not Detected");
-            this.m_ResultList.Add("Detected");
+            this.m_ResultList.Add(YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelResult.NotDetected);
+            this.m_ResultList.Add(YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelResult.Detected);
 			this.m_ResultList.Add("");
 
             InitializeComponent();
@@ -149,6 +149,20 @@ namespace YellowstonePathology.UI.Test
             else
             {
                 MessageBox.Show("This case cannot be unfinalized because it is not final.");
+            }
+        }
+
+        private void HyperLinkSetResults_Click(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Rules.MethodResult result = this.m_RASRAFPanelTestOrder.IsOkToSet();
+            if (result.Success == true)
+            {
+            	YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelResult rasrafPanelResult = new YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelResult();
+                rasrafPanelResult.SetResults(this.m_RASRAFPanelTestOrder);
+            }
+            else
+            {
+                MessageBox.Show(result.Message);
             }
         }
 
