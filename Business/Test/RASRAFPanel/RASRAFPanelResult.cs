@@ -26,6 +26,7 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
         	"chemotherapy-refractory metastatic colorectal cancer: a retrospective consortium analysis.";
         public static string Detected = "Detected";
         public static string NotDetected = "Not Detected";
+        public static string NA = "N/A";
         
         protected const string m_Interpretation = "KRAS, NRAS, HRAS, and BRAF are members of the RAS/RAF/MAPK pathway. Current guidelines require KRAS and NRAS " +
         	"testing in metastatic colorectal cancer for determination of anti-EGFR therapy, and recommend BRAF testing as a marker of poor prognosis.  Patients " +
@@ -106,6 +107,70 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
             disclaimer.AppendLine(testOrder.GetLocationPerformedComment());
             disclaimer.Append(m_TestDevelopment);
             testOrder.ReportDisclaimer = disclaimer.ToString();
+        }
+        
+        public static void SetBRAFDetected(RASRAFPanelTestOrder testOrder)
+        {
+        	if(testOrder.BRAFAlternateNucleotideMutationName == RASRAFPanelResult.NA) testOrder.BRAFAlternateNucleotideMutationName = null;
+        	if(testOrder.BRAFConsequence == RASRAFPanelResult.NA) testOrder.BRAFConsequence = null;
+        	if(testOrder.BRAFMutationName == RASRAFPanelResult.NA) testOrder.BRAFMutationName = null;
+        	if(testOrder.BRAFPredictedEffectOnProtein == RASRAFPanelResult.NA) testOrder.BRAFPredictedEffectOnProtein = null;
+        }
+        
+        public static void SetBRAFNotDetected(RASRAFPanelTestOrder testOrder)
+        {
+			testOrder.BRAFAlternateNucleotideMutationName = RASRAFPanelResult.NA;
+			testOrder.BRAFConsequence = RASRAFPanelResult.NA;
+			testOrder.BRAFMutationName = RASRAFPanelResult.NA;
+			testOrder.BRAFPredictedEffectOnProtein = RASRAFPanelResult.NA;
+        }
+        
+        public static void SetKRASDetected(RASRAFPanelTestOrder testOrder)
+        {
+        	if(testOrder.KRASAlternateNucleotideMutationName == RASRAFPanelResult.NA) testOrder.KRASAlternateNucleotideMutationName = null;
+        	if(testOrder.KRASConsequence == RASRAFPanelResult.NA) testOrder.KRASConsequence = null;
+        	if(testOrder.KRASMutationName == RASRAFPanelResult.NA) testOrder.KRASMutationName = null;
+        	if(testOrder.KRASPredictedEffectOnProtein == RASRAFPanelResult.NA) testOrder.KRASPredictedEffectOnProtein = null;
+        }
+        
+        public static void SetKRASNotDetected(RASRAFPanelTestOrder testOrder)
+        {
+			testOrder.KRASAlternateNucleotideMutationName = RASRAFPanelResult.NA;
+			testOrder.KRASConsequence = RASRAFPanelResult.NA;
+			testOrder.KRASMutationName = RASRAFPanelResult.NA;
+			testOrder.KRASPredictedEffectOnProtein = RASRAFPanelResult.NA;
+        }
+        
+        public static void SetNRASDetected(RASRAFPanelTestOrder testOrder)
+        {
+        	if(testOrder.NRASAlternateNucleotideMutationName == RASRAFPanelResult.NA) testOrder.NRASAlternateNucleotideMutationName = null;
+        	if(testOrder.NRASConsequence == RASRAFPanelResult.NA) testOrder.NRASConsequence = null;
+        	if(testOrder.NRASMutationName == RASRAFPanelResult.NA) testOrder.NRASMutationName = null;
+        	if(testOrder.NRASPredictedEffectOnProtein == RASRAFPanelResult.NA) testOrder.NRASPredictedEffectOnProtein = null;
+        }
+        
+        public static void SetNRASNotDetected(RASRAFPanelTestOrder testOrder)
+        {
+			testOrder.NRASAlternateNucleotideMutationName = RASRAFPanelResult.NA;
+			testOrder.NRASConsequence = RASRAFPanelResult.NA;
+			testOrder.NRASMutationName = RASRAFPanelResult.NA;
+			testOrder.NRASPredictedEffectOnProtein = RASRAFPanelResult.NA;
+        }
+        
+        public static void SetHRASDetected(RASRAFPanelTestOrder testOrder)
+        {
+        	if(testOrder.HRASAlternateNucleotideMutationName == RASRAFPanelResult.NA) testOrder.HRASAlternateNucleotideMutationName = null;
+        	if(testOrder.HRASConsequence == RASRAFPanelResult.NA) testOrder.HRASConsequence = null;
+        	if(testOrder.HRASMutationName == RASRAFPanelResult.NA) testOrder.HRASMutationName = null;
+        	if(testOrder.HRASPredictedEffectOnProtein == RASRAFPanelResult.NA) testOrder.HRASPredictedEffectOnProtein = null;
+        }
+        
+        public static void SetHRASNotDetected(RASRAFPanelTestOrder testOrder)
+        {
+			testOrder.HRASAlternateNucleotideMutationName = RASRAFPanelResult.NA;
+			testOrder.HRASConsequence = RASRAFPanelResult.NA;
+			testOrder.HRASMutationName = RASRAFPanelResult.NA;
+			testOrder.HRASPredictedEffectOnProtein = RASRAFPanelResult.NA;
         }
     }
 }
