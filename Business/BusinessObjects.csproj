@@ -144,6 +144,7 @@
     <Compile Include="Amendment.Model\Amendment.cs" />
     <Compile Include="Amendment.Model\AmendmentCollection.cs" />
     <Compile Include="ApplicationVersion.cs" />
+    <Compile Include="Audit.Model\AliquotAndStainOrderAuditCollection.cs" />
     <Compile Include="Audit.Model\AncillaryStudiesAreHandledAudit.cs" />
     <Compile Include="Audit.Model\Audit.cs" />
     <Compile Include="Audit.Model\AuditCollection.cs" />
@@ -160,9 +161,12 @@
     <Compile Include="Audit.Model\CanWomensHealthProfileBeFinaledAudit.cs" />
     <Compile Include="Audit.Model\AccountNoAudit.cs" />
     <Compile Include="Audit.Model\AreAllWHPTestsFinalAudit.cs" />
+    <Compile Include="Audit.Model\CodyCassetteColorAudit.cs" />
     <Compile Include="Audit.Model\CouldBenefitFromCCCPAudit.cs" />
     <Compile Include="Audit.Model\DistributionCanBeSetAudit.cs" />
+    <Compile Include="Audit.Model\FNAHasIntraOpAudit.cs" />
     <Compile Include="Audit.Model\GradedStainsAreHandledAudit.cs" />
+    <Compile Include="Audit.Model\HasColorForDirectPrintBlocksAudit.cs" />
     <Compile Include="Audit.Model\HER2OKToAcceptAudit.cs" />
     <Compile Include="Audit.Model\HPV1618ForSiteAudit.cs" />
     <Compile Include="Audit.Model\IntraoperativeConsultationCorrelationAudit.cs" />
@@ -183,6 +187,7 @@
     <Compile Include="Audit.Model\ProviderHomeBaseAudit.cs" />
     <Compile Include="Audit.Model\ProviderNpiAudit.cs" />
     <Compile Include="Audit.Model\SigningUserIsAssignedUserAudit.cs" />
+    <Compile Include="Audit.Model\SpecialOrdersNeedHandledAudit.cs" />
     <Compile Include="Audit.Model\SpecimenOrderAudit.cs" />
     <Compile Include="Audit.Model\IsOKToAdjustWHPExpectedFinalTimeAuditCollection.cs" />
     <Compile Include="Audit.Model\FinalizedAudit.cs" />
