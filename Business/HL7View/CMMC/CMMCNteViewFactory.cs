@@ -87,10 +87,13 @@ namespace YellowstonePathology.Business.HL7View.CMMC
                 case 61:
 					view = new YellowstonePathology.Business.Test.Trichomonas.TrichomonasCMMCNteView(accessionOrder, reportNo);
                     break;
-				case 62:
-					view = new CMMCHpv1618NteView(accessionOrder, reportNo);
+				case 62:                
+                    view = new CMMCHpv1618NteView(accessionOrder, reportNo);
 					break;
-				case 106:
+                case 213:
+                    view = new YellowstonePathology.Business.Test.HPV1618ByPCR.HPV1618ByPCRCMMCView(accessionOrder, reportNo);
+                    break;
+                case 106:
 					view = new CMMCLynchSyndromeEvaluationNteView(accessionOrder, reportNo);
 					break;
 				case 116:

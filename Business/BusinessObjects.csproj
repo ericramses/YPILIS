@@ -498,6 +498,7 @@
     <Compile Include="Test\ErPrSemiQuantitative\ERPRSemiQuanititativePanel.cs" />
     <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHPanel.cs" />
     <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHSystemGeneratedAmendmentText.cs" />
+    <Compile Include="Test\HPV1618ByPCR\HPV1618ByPCRCMMCView.cs" />
     <Compile Include="Test\HPV1618ByPCR\HPV1618BothPositiveResult.cs" />
     <Compile Include="Test\HPV1618ByPCR\HPV1618BothNegativeResult.cs" />
     <Compile Include="Test\HPV1618ByPCR\HPV1618ByPCRTest.cs" />
