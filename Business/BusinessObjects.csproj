@@ -3007,14 +3007,7 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="MessageQueues\" />
-    <Folder Include="Reports\Billing\" />
-    <Folder Include="Rules\Creation\" />
-    <Folder Include="Rules\PatientLinking\" />
-    <Folder Include="Test\Glycophorin\" />
-    <Folder Include="Test\ReferenceLabResult\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="XMLTemplates\AccessionSummaryBreastCancer.xml" />
     <EmbeddedResource Include="XMLTemplates\AccessionSummaryColorectalCancer.xml" />
