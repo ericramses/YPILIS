@@ -12,10 +12,12 @@ namespace YellowstonePathology.UI.Test
     {
         private YellowstonePathology.Business.Test.PanelSetOrder m_TestOrder;
         private bool m_DisableRequired;
+        protected List<FrameworkElement> m_ControlsNotDisabledOnFinal;
 
         public ResultControl(YellowstonePathology.Business.Test.PanelSetOrder testOrder)
         {
             this.m_TestOrder = testOrder;
+            this.m_ControlsNotDisabledOnFinal = new List<FrameworkElement>();
             if (this.m_TestOrder.Final == true &&
                 (this.m_TestOrder.Distribute == false || this.m_TestOrder.TestOrderReportDistributionCollection.HasDistributedItems()))
             {
@@ -27,7 +29,7 @@ namespace YellowstonePathology.UI.Test
 
         public ResultControl()
         {
-
+            this.m_ControlsNotDisabledOnFinal = new List<FrameworkElement>();
         }
 
         private void ResultControl_Loaded(object sender, RoutedEventArgs e)
@@ -37,16 +39,10 @@ namespace YellowstonePathology.UI.Test
 
         private void DisableContents(object o)
         {
-            if (o is Button)
-            {
-                FrameworkElement frameworkElement = (FrameworkElement)o;
-            	this.SetEnableForRemainActiveInName(frameworkElement);
-            }
-            else if (o is TextBlock)
-            {
-                FrameworkElement frameworkElement = (FrameworkElement)o;
-            	this.SetEnableForRemainActiveInName(frameworkElement);
-            }
+        	if(this.m_ControlsNotDisabledOnFinal.Contains(o))
+        	{
+        		((FrameworkElement)o).IsEnabled = true;
+        	}
             else if (o is Panel)
             {
                 Panel panel = (Panel)o;
@@ -71,30 +67,6 @@ namespace YellowstonePathology.UI.Test
             {
                 ((UIElement)o).IsEnabled = false;
             }
-        }
-        
-        private void SetEnableForRemainActiveInName(FrameworkElement frameworkElement)
-        {
-        	if(frameworkElement.Visibility == Visibility.Visible)
-        	{
-	            string s = frameworkElement.Name;
-	            if(string.IsNullOrEmpty(s) == true)
-	            {
-	            	frameworkElement.IsEnabled = false;
-	            }
-	            else if (s.Contains("RemainActive"))
-	            {
-	                frameworkElement.IsEnabled = true;
-	            }
-	            else
-	            {
-	            	frameworkElement.IsEnabled = false;
-	            }
-        	}
-        	else
-        	{
-            	frameworkElement.IsEnabled = false;
-        	}
         }
     }
 }
