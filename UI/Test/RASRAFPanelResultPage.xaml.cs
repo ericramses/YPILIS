@@ -202,12 +202,13 @@ namespace YellowstonePathology.UI.Test
         	if(this.ComboBoxBRAFResult.SelectedItem != null)
         	{
         		string result = this.ComboBoxBRAFResult.SelectedItem.ToString();
-        		if(result == "Not Detected")
+        		if(result == YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelResult.Detected)
         		{
-        			this.m_RASRAFPanelTestOrder.BRAFAlternateNucleotideMutationName = "N/A";
-        			this.m_RASRAFPanelTestOrder.BRAFConsequence = "N/A";
-        			this.m_RASRAFPanelTestOrder.BRAFMutationName = "N/A";
-        			this.m_RASRAFPanelTestOrder.BRAFPredictedEffectOnProtein = "N/A";
+        			YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelResult.SetBRAFDetected(this.m_RASRAFPanelTestOrder);
+        		}
+        		else if(result == YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelResult.NotDetected)
+        		{
+        			YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelResult.SetBRAFNotDetected(this.m_RASRAFPanelTestOrder);
         		}
         	}
         }
@@ -217,12 +218,13 @@ namespace YellowstonePathology.UI.Test
         	if(this.ComboBoxKRASResult.SelectedItem != null)
         	{
         		string result = this.ComboBoxKRASResult.SelectedItem.ToString();
-        		if(result == "Not Detected")
+        		if(result == YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelResult.Detected)
         		{
-        			this.m_RASRAFPanelTestOrder.KRASAlternateNucleotideMutationName = "N/A";
-        			this.m_RASRAFPanelTestOrder.KRASConsequence = "N/A";
-        			this.m_RASRAFPanelTestOrder.KRASMutationName = "N/A";
-        			this.m_RASRAFPanelTestOrder.KRASPredictedEffectOnProtein = "N/A";
+        			YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelResult.SetKRASDetected(this.m_RASRAFPanelTestOrder);
+        		}
+        		else if(result == YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelResult.NotDetected)
+        		{
+        			YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelResult.SetKRASNotDetected(this.m_RASRAFPanelTestOrder);
         		}
         	}
         }
@@ -232,12 +234,13 @@ namespace YellowstonePathology.UI.Test
         	if(this.ComboBoxNRASResult.SelectedItem != null)
         	{
         		string result = this.ComboBoxNRASResult.SelectedItem.ToString();
-        		if(result == "Not Detected")
+        		if(result == YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelResult.Detected)
         		{
-        			this.m_RASRAFPanelTestOrder.NRASAlternateNucleotideMutationName = "N/A";
-        			this.m_RASRAFPanelTestOrder.NRASConsequence = "N/A";
-        			this.m_RASRAFPanelTestOrder.NRASMutationName = "N/A";
-        			this.m_RASRAFPanelTestOrder.NRASPredictedEffectOnProtein = "N/A";
+        			YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelResult.SetNRASDetected(this.m_RASRAFPanelTestOrder);
+        		}
+        		else if(result == YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelResult.NotDetected)
+        		{
+        			YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelResult.SetNRASNotDetected(this.m_RASRAFPanelTestOrder);
         		}
         	}
         }
@@ -247,12 +250,13 @@ namespace YellowstonePathology.UI.Test
         	if(this.ComboBoxHRASResult.SelectedItem != null)
         	{
         		string result = this.ComboBoxHRASResult.SelectedItem.ToString();
-        		if(result == "Not Detected")
+        		if(result == YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelResult.Detected)
         		{
-        			this.m_RASRAFPanelTestOrder.HRASAlternateNucleotideMutationName = "N/A";
-        			this.m_RASRAFPanelTestOrder.HRASConsequence = "N/A";
-        			this.m_RASRAFPanelTestOrder.HRASMutationName = "N/A";
-        			this.m_RASRAFPanelTestOrder.HRASPredictedEffectOnProtein = "N/A";
+        			YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelResult.SetHRASDetected(this.m_RASRAFPanelTestOrder);
+        		}
+        		else if(result == YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelResult.NotDetected)
+        		{
+        			YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelResult.SetHRASNotDetected(this.m_RASRAFPanelTestOrder);
         		}
         	}
         }
