@@ -187,7 +187,6 @@
     <Compile Include="Audit.Model\ProviderHomeBaseAudit.cs" />
     <Compile Include="Audit.Model\ProviderNpiAudit.cs" />
     <Compile Include="Audit.Model\SigningUserIsAssignedUserAudit.cs" />
-    <Compile Include="Audit.Model\SpecialOrdersNeedHandledAudit.cs" />
     <Compile Include="Audit.Model\SpecimenOrderAudit.cs" />
     <Compile Include="Audit.Model\IsOKToAdjustWHPExpectedFinalTimeAuditCollection.cs" />
     <Compile Include="Audit.Model\FinalizedAudit.cs" />
@@ -2796,7 +2795,6 @@
     <EmbeddedResource Include="XMLTemplates\CytologyOrderInstructions.xml" />
     <EmbeddedResource Include="Rules\PanelOrder\RulesAcceptPeerReviewResults.xml" />
     <EmbeddedResource Include="Rules\PanelSetOrder\RulesSignatureButtonText.xml" />
-    <EmbeddedResource Include="Rules\Common\RulesAutomatedStainOrder.xml" />
     <EmbeddedResource Include="Rules\Surgical\RulesAssignPathologistId.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -2886,7 +2884,6 @@
     <Compile Include="Reports\IReport.cs" />
     <Compile Include="Reports\Surgical\SurgicalMasterLog.cs" />
     <Compile Include="Rules\BaseRules.cs" />
-    <Compile Include="Rules\Common\RulesAutomatedStainOrder.cs" />
     <Compile Include="Rules\PanelOrder\RulesAcceptPeerReviewResults.cs" />
     <Compile Include="Billing\PQRIColorectalCancer.cs" />
     <Compile Include="Billing\PQRIBreastCancer.cs" />
@@ -2915,9 +2912,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="SpecialStain\StainResultOptionList.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="SpecialStain\StandingStainOrderList.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Surgical\PathologistHistoryList.cs" />

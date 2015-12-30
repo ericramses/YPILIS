@@ -66,11 +66,8 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 			YellowstonePathology.Business.Task.Model.TaskOrder taskOrder = (YellowstonePathology.Business.Task.Model.TaskOrder)e.Data;
 			switch (e.PageNavigationDirectionEnum)
 			{
-				case UI.Navigation.PageNavigationDirectionEnum.Next:
-					if (this.SpecialOrdersNeedHandled() == false)
-					{
-						this.Return(this, new UI.Navigation.PageNavigationReturnEventArgs(UI.Navigation.PageNavigationDirectionEnum.Next, null));
-					}
+				case UI.Navigation.PageNavigationDirectionEnum.Next:					
+					this.Return(this, new UI.Navigation.PageNavigationReturnEventArgs(UI.Navigation.PageNavigationDirectionEnum.Next, null));					
 					break;
 				case UI.Navigation.PageNavigationDirectionEnum.Back:
 					this.Return(this, new UI.Navigation.PageNavigationReturnEventArgs(UI.Navigation.PageNavigationDirectionEnum.Back, null));
@@ -79,11 +76,8 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
         }
 
 		private void AliquotAndStainOrderPage_ShowTaskOrderPage(object sender, CustomEventArgs.AcknowledgeStainOrderEventArgs e)
-		{
-			if (this.SpecialOrdersNeedHandled() == false)
-			{
-				this.ShowTaskOrderPage(e.TaskOrderStainAcknowledgement);
-			}
+		{			
+			this.ShowTaskOrderPage(e.TaskOrderStainAcknowledgement);			
 		}
 
 		private void ShowTaskOrderPage(YellowstonePathology.Business.Task.Model.TaskOrder taskOrder)
@@ -102,20 +96,6 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 		private void TaskOrderPage_Back(object sender, EventArgs e)
 		{
 			this.ShowAliquotAndStainOrderPage();
-		}
-
-		private bool SpecialOrdersNeedHandled()
-		{
-			YellowstonePathology.Business.Rules.Common.RulesAutomatedStainOrder rulesAutomatedStainOrder = new Business.Rules.Common.RulesAutomatedStainOrder();
-			YellowstonePathology.Business.Rules.ExecutionStatus executionStatus = new Business.Rules.ExecutionStatus();
-			rulesAutomatedStainOrder.Execute(executionStatus, this.m_AccessionOrder);
-
-			if (executionStatus.Halted == false)
-			{
-				System.Windows.MessageBox.Show(executionStatus.ExecutionMessagesString);
-			}
-
-			return !executionStatus.Halted;
-		}
+		}		
 	}
 }
