@@ -3864,10 +3864,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Billing\CodeSelection.xml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="MolecularTesting\" />
-    <Folder Include="PatientLinking\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Surgical\TypingTemplate.xml" />
   </ItemGroup>
