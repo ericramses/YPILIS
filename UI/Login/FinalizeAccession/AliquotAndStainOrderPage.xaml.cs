@@ -169,7 +169,35 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
 		private void ButtonNext_Click(object sender, RoutedEventArgs e)
 		{
-			if (this.SpecialOrdersNeedHandled() == false)
+			YellowstonePathology.Business.Audit.Model.AliquotAndStainOrderAuditCollection aliquotAndStainOrderAuditCollection = new YellowstonePathology.Business.Audit.Model.AliquotAndStainOrderAuditCollection(this.m_AccessionOrder, this.m_AliquotAndStainOrderView.GetAliquotCollection());
+			YellowstonePathology.Business.Audit.Model.AuditResult auditResult = aliquotAndStainOrderAuditCollection.Run2();
+			
+			if(auditResult.Status == YellowstonePathology.Business.Audit.Model.AuditStatusEnum.Failure)
+			{
+				if(aliquotAndStainOrderAuditCollection.SpecialOrdersNeedHandledAudit.Status == YellowstonePathology.Business.Audit.Model.AuditStatusEnum.Failure)
+				{
+					MessageBoxResult answer = MessageBox.Show(aliquotAndStainOrderAuditCollection.SpecialOrdersNeedHandledAudit.Message.ToString() + "  Do you want to continue without ordering.", "Standing test", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+					if(answer == MessageBoxResult.No)
+					{
+						return;
+					}
+				}
+				else if(aliquotAndStainOrderAuditCollection.FNAHasIntraOpAudit.Status == YellowstonePathology.Business.Audit.Model.AuditStatusEnum.Failure)
+				{
+					MessageBoxResult answer = MessageBox.Show(aliquotAndStainOrderAuditCollection.FNAHasIntraOpAudit.Message.ToString() + "  Do you want to continue without ordering.", "Intraoperative Consultation", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+					if(answer == MessageBoxResult.No)
+					{
+						return;
+					}
+				}
+				else
+				{
+                        MessageBox.Show(auditResult.Message);
+                        return;
+				}
+			}
+			
+			/*if (this.SpecialOrdersNeedHandled() == false)
 			{
                 YellowstonePathology.Business.Test.AliquotOrderCollection aliquotCollection = this.m_AliquotAndStainOrderView.GetAliquotCollection();
                 if (aliquotCollection.HasDirectPrintBlocks() == true)
@@ -185,7 +213,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                         MessageBox.Show("The Accessioning Facility should be Cody when the cassette color is pink");
                         return;
                     }
-                }
+                }*/
 
                 
 
@@ -202,10 +230,10 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 					UI.Navigation.PageNavigationReturnEventArgs args = new UI.Navigation.PageNavigationReturnEventArgs(UI.Navigation.PageNavigationDirectionEnum.Next, this.m_StainAcknowledgementTaskOrderVisitor.TaskOrderStainAcknowlegedment);
 					this.Return(this, args);
 				}
-			}
+			//}
 		}
 
-        private bool SpecialOrdersNeedHandled()
+        /*private bool SpecialOrdersNeedHandled()
         {                       
             YellowstonePathology.Business.Rules.Common.RulesAutomatedStainOrder rulesAutomatedStainOrder = new Business.Rules.Common.RulesAutomatedStainOrder();
             YellowstonePathology.Business.Rules.ExecutionStatus executionStatus = new Business.Rules.ExecutionStatus();
@@ -226,7 +254,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             }
 
             return result;
-        }
+        }*/
 
 		private bool TestHasBeenOrdered(int testId)
 		{
