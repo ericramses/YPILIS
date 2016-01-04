@@ -157,8 +157,9 @@ namespace YellowstonePathology.UI.Test
             //YellowstonePathology.Business.Rules.MethodResult result = this.m_RASRAFPanelTestOrder.IsOkToSet();
             //if (result.Success == true)
             //{
-            	YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelResult rasrafPanelResult = new YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelResult();
-                rasrafPanelResult.SetResults(this.m_RASRAFPanelTestOrder);
+                YellowstonePathology.Business.Test.RASRAFPanel.ResultCollection resultCollection = new Business.Test.RASRAFPanel.ResultCollection(this.m_RASRAFPanelTestOrder);
+                YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelResult rasrafPanelResult = resultCollection.GetResult();
+                rasrafPanelResult.SetResults(this.m_RASRAFPanelTestOrder, resultCollection);
             //}
             //else
             //{
