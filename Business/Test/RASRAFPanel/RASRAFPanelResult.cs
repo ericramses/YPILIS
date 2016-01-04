@@ -51,51 +51,16 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
 
         }
 
-        public virtual void SetResults(RASRAFPanelTestOrder testOrder)
-        {
-            ResultCollection resultCollection = new ResultCollection(testOrder);
-
-            StringBuilder detectedInterpretation = new StringBuilder();
-        	if(detectedMutations.Count > 0)
-        	{
-        		detectedInterpretation.Append(m_DetectedInterpretation);
-        		for(int idx = 0; idx < detectedMutations.Count; idx++)
-        		{
-        			detectedInterpretation.Append(detectedMutations[idx]);
-        			if(idx == detectedMutations.Count - 2) detectedInterpretation.Append(" AND ");
-        			else if(idx <  detectedMutations.Count - 2) detectedInterpretation.Append(", ");
-        		}
-        		
-        		if(notDetectedMutations.Count == 0) detectedInterpretation.Append(" GENES.");
-        		else detectedInterpretation.Append(", ");
-        	}
-    		
-        	StringBuilder notDetectedInterpretation = new StringBuilder();
-        	if(notDetectedMutations.Count > 0)
-        	{
-        		if(detectedMutations.Count > 0) notDetectedInterpretation.Append("BUT ");
-        		else notDetectedInterpretation.Append("-");
-        		
-        		notDetectedInterpretation.Append(m_NotDetectedInterpretation);
-        		for(int idx = 0; idx < notDetectedMutations.Count; idx++)
-        		{
-        			notDetectedInterpretation.Append(notDetectedMutations[idx]);
-        			if(idx == notDetectedMutations.Count - 2) notDetectedInterpretation.Append(" AND ");
-        			else if(idx <  notDetectedMutations.Count - 2) notDetectedInterpretation.Append(", ");
-        		}
-        		notDetectedInterpretation.AppendLine(" GENES.");
-        		notDetectedInterpretation.AppendLine();
-    			notDetectedInterpretation.Append(m_NotDetectedInterpretationEnding);
-        	}
+        public virtual void SetResults(RASRAFPanelTestOrder testOrder, ResultCollection resultCollection)
+        {                    	
+        	//StringBuilder interpretation = new StringBuilder();
+        	//interpretation.Append(detectedInterpretation.ToString());
+        	//interpretation.Append(notDetectedInterpretation.ToString());
+        	//interpretation.AppendLine();
+        	//interpretation.AppendLine();
+        	//interpretation.Append(m_Interpretation);
         	
-        	StringBuilder interpretation = new StringBuilder();
-        	interpretation.Append(detectedInterpretation.ToString());
-        	interpretation.Append(notDetectedInterpretation.ToString());
-        	interpretation.AppendLine();
-        	interpretation.AppendLine();
-        	interpretation.Append(m_Interpretation);
-        	
-        	testOrder.Interpretation = interpretation.ToString();
+        	//testOrder.Interpretation = interpretation.ToString();
 
             StringBuilder disclaimer = new StringBuilder();
             disclaimer.AppendLine(testOrder.GetLocationPerformedComment());
@@ -148,7 +113,7 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
 			testOrder.NRASAlternateNucleotideMutationName = RASRAFPanelResult.NAResult;
 			testOrder.NRASConsequence = RASRAFPanelResult.NAResult;
 			testOrder.NRASMutationName = RASRAFPanelResult.NAResult;
-			testOrder.NRASPredictedEffectOnProtein = RASRAFPanelResult.NAResult
+            testOrder.NRASPredictedEffectOnProtein = RASRAFPanelResult.NAResult;
         }
         
         public static void SetHRASDetected(RASRAFPanelTestOrder testOrder)

@@ -51,8 +51,8 @@ namespace YellowstonePathology.UI.Test
             this.m_OrderedOnDescription = specimenOrder.Description;
             
             this.m_ResultList = new List<string>();
-            this.m_ResultList.Add(YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelResult.NotDetected);
-            this.m_ResultList.Add(YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelResult.Detected);
+            this.m_ResultList.Add(YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelResult.NotDetectedResult);
+            this.m_ResultList.Add(YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelResult.DetectedResult);
 			this.m_ResultList.Add("");
 
             InitializeComponent();
@@ -159,8 +159,9 @@ namespace YellowstonePathology.UI.Test
             YellowstonePathology.Business.Rules.MethodResult result = this.m_RASRAFPanelTestOrder.IsOkToSet();
             if (result.Success == true)
             {
-            	YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelResult rasrafPanelResult = new YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelResult();
-                rasrafPanelResult.SetResults(this.m_RASRAFPanelTestOrder);
+                YellowstonePathology.Business.Test.RASRAFPanel.ResultCollection resultCollection = new Business.Test.RASRAFPanel.ResultCollection(this.m_RASRAFPanelTestOrder);
+                YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelResult rasrafPanelResult = resultCollection.GetResult();
+                rasrafPanelResult.SetResults(this.m_RASRAFPanelTestOrder, resultCollection);
             }
             else
             {
@@ -204,11 +205,11 @@ namespace YellowstonePathology.UI.Test
         	if(this.ComboBoxBRAFResult.SelectedItem != null)
         	{
         		string result = this.ComboBoxBRAFResult.SelectedItem.ToString();
-        		if(result == YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelResult.Detected)
+        		if(result == YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelResult.DetectedResult)
         		{
         			YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelResult.SetBRAFDetected(this.m_RASRAFPanelTestOrder);
         		}
-        		else if(result == YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelResult.NotDetected)
+        		else if(result == YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelResult.NotDetectedResult)
         		{
         			YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelResult.SetBRAFNotDetected(this.m_RASRAFPanelTestOrder);
         		}
@@ -220,11 +221,11 @@ namespace YellowstonePathology.UI.Test
         	if(this.ComboBoxKRASResult.SelectedItem != null)
         	{
         		string result = this.ComboBoxKRASResult.SelectedItem.ToString();
-        		if(result == YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelResult.Detected)
+        		if(result == YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelResult.DetectedResult)
         		{
         			YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelResult.SetKRASDetected(this.m_RASRAFPanelTestOrder);
         		}
-        		else if(result == YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelResult.NotDetected)
+        		else if(result == YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelResult.NotDetectedResult)
         		{
         			YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelResult.SetKRASNotDetected(this.m_RASRAFPanelTestOrder);
         		}
@@ -236,11 +237,11 @@ namespace YellowstonePathology.UI.Test
         	if(this.ComboBoxNRASResult.SelectedItem != null)
         	{
         		string result = this.ComboBoxNRASResult.SelectedItem.ToString();
-        		if(result == YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelResult.Detected)
+        		if(result == YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelResult.DetectedResult)
         		{
         			YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelResult.SetNRASDetected(this.m_RASRAFPanelTestOrder);
         		}
-        		else if(result == YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelResult.NotDetected)
+        		else if(result == YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelResult.NotDetectedResult)
         		{
         			YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelResult.SetNRASNotDetected(this.m_RASRAFPanelTestOrder);
         		}
@@ -252,11 +253,11 @@ namespace YellowstonePathology.UI.Test
         	if(this.ComboBoxHRASResult.SelectedItem != null)
         	{
         		string result = this.ComboBoxHRASResult.SelectedItem.ToString();
-        		if(result == YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelResult.Detected)
+        		if(result == YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelResult.DetectedResult)
         		{
         			YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelResult.SetHRASDetected(this.m_RASRAFPanelTestOrder);
         		}
-        		else if(result == YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelResult.NotDetected)
+        		else if(result == YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelResult.NotDetectedResult)
         		{
         			YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelResult.SetHRASNotDetected(this.m_RASRAFPanelTestOrder);
         		}
