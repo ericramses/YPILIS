@@ -52,15 +52,18 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
         }
 
         public virtual void SetResults(RASRAFPanelTestOrder testOrder, ResultCollection resultCollection)
-        {                    	
-        	//StringBuilder interpretation = new StringBuilder();
-        	//interpretation.Append(detectedInterpretation.ToString());
-        	//interpretation.Append(notDetectedInterpretation.ToString());
-        	//interpretation.AppendLine();
-        	//interpretation.AppendLine();
-        	//interpretation.Append(m_Interpretation);
-        	
-        	//testOrder.Interpretation = interpretation.ToString();
+        {
+            StringBuilder interpretation = new StringBuilder();
+            interpretation.AppendLine(this.m_InterpretationFirstLine);
+            interpretation.AppendLine();
+            interpretation.AppendLine(this.m_InterpretationSecondLine);
+            interpretation.AppendLine();
+            interpretation.AppendLine(this.m_InterpretationBody);
+
+            interpretation = interpretation.Replace("[NOTDETECTEDMUTATIONLIST]", resultCollection.GetNotDetectedListString());
+            interpretation = interpretation.Replace("[DETECTEDMUTATIONLIST]", resultCollection.GetDetectedListString());
+
+            testOrder.Interpretation = interpretation.ToString();
 
             StringBuilder disclaimer = new StringBuilder();
             disclaimer.AppendLine(testOrder.GetLocationPerformedComment());

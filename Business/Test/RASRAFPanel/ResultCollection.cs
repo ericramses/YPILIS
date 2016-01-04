@@ -62,7 +62,7 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
             StringBuilder result = new StringBuilder();
             for (int idx = 0; idx < this.m_NotDetectedMutations.Count; idx++)
             {
-                result.Append(this.m_DetectedMutations[idx]);
+                result.Append(this.m_NotDetectedMutations[idx]);
                 if (idx == this.m_NotDetectedMutations.Count - 2)
                 {
                     result.Append(" AND ");
