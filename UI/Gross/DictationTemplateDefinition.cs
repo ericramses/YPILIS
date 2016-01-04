@@ -370,10 +370,11 @@ namespace YellowstonePathology.UI.Gross
                 "   Fetal Surface:" + Environment.NewLine +
                 "      Fetal Surface:  [description]" + Environment.NewLine +
                 "      Amnion Nodosum:  [description]" + Environment.NewLine +
+                "      Cysts:  [description]" + Environment.NewLine +
                 "   Maternal Surface:" + Environment.NewLine +
                 "      Hemorrhage:  [description]" + Environment.NewLine +
                 "         Adherent:  [measurement], [description]" + Environment.NewLine +
-                "         Non-Adherent:  [measurement]]" + Environment.NewLine +
+                "         Non-Adherent:  [measurement]" + Environment.NewLine +
                 "      Maternal Surface:  [description]" + Environment.NewLine +
                 "      Infarcts:  [description]" + Environment.NewLine +
                 "      Other:  [description]" + Environment.NewLine +
@@ -382,9 +383,9 @@ namespace YellowstonePathology.UI.Gross
                 "       Cysts:  [description]" + Environment.NewLine + 
             	Environment.NewLine +
                 "Cassette Summary: " + Environment.NewLine +
-                "\"1A\": Cord from both ends, " + Environment.NewLine +
-                "\"1B\": Membranes, " + Environment.NewLine +
-                "\"1C-1D\": Central Placenta.  ";            
+                "\"1A\"- Cord from both ends, " + Environment.NewLine +
+                "\"1B\"- Membranes, " + Environment.NewLine +
+                "\"1C\" - \"1D\"- Central placenta.  ";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SinglePlacenta singlePlacenta = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SinglePlacenta();
             this.m_SpecimenCollection.Add(singlePlacenta);

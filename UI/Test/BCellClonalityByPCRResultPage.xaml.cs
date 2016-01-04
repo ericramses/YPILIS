@@ -51,6 +51,8 @@ namespace YellowstonePathology.UI.Test
 			InitializeComponent();
 
 			DataContext = this;
+			this.m_ControlsNotDisabledOnFinal.Add(this.ButtonNext);
+			this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockShowDocument);
 		}
 
         public YellowstonePathology.Business.Test.BCellClonalityByPCR.BCellClonalityByPCRTestOrder PanelSetOrder

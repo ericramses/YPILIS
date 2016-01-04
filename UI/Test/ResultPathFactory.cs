@@ -258,7 +258,8 @@ namespace YellowstonePathology.UI.Test
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity,
             System.Windows.Visibility backButtonVisibility)
         {
-			bool result = false;            
+			bool result = false;
+
             YellowstonePathology.UI.Test.ResultPath resultPath = YellowstonePathology.UI.Test.ResultPathFactory.GetResultPath(panelSetOrder.PanelSetId, panelSetOrder.ReportNo, accessionOrder, objectTracker, pageNavigator, System.Windows.Visibility.Collapsed);
 
             if (resultPath != null)

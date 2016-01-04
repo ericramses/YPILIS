@@ -129,17 +129,15 @@ namespace YellowstonePathology.UI.Test
         }
 
         private void HyperLinkFinalizeResults_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("This case cannot be finalized because IT needs more information to create the correct report." + Environment.NewLine + "Please contact IT.");
-
-            /*if (this.m_RASRAFPanelTestOrder.Final == false)
+        {            
+            if (this.m_RASRAFPanelTestOrder.Final == false)
             {
                 this.m_RASRAFPanelTestOrder.Finalize(this.m_SystemIdentity.User);
             }
             else
             {
                 MessageBox.Show("This case cannot be finalized because it is already final.");
-            }*/
+            }
         }
 
         private void HyperLinkUnfinalResults_Click(object sender, RoutedEventArgs e)
@@ -156,17 +154,16 @@ namespace YellowstonePathology.UI.Test
 
         private void HyperLinkSetResults_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Rules.MethodResult result = this.m_RASRAFPanelTestOrder.IsOkToSet();
-            if (result.Success == true)
-            {
-                YellowstonePathology.Business.Test.RASRAFPanel.ResultCollection resultCollection = new Business.Test.RASRAFPanel.ResultCollection(this.m_RASRAFPanelTestOrder);
-                YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelResult rasrafPanelResult = resultCollection.GetResult();
-                rasrafPanelResult.SetResults(this.m_RASRAFPanelTestOrder, resultCollection);
-            }
-            else
-            {
-                MessageBox.Show(result.Message);
-            }
+            //YellowstonePathology.Business.Rules.MethodResult result = this.m_RASRAFPanelTestOrder.IsOkToSet();
+            //if (result.Success == true)
+            //{
+            	YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelResult rasrafPanelResult = new YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelResult();
+                rasrafPanelResult.SetResults(this.m_RASRAFPanelTestOrder);
+            //}
+            //else
+            //{
+            //    MessageBox.Show(result.Message);
+            //}
         }
 
         private void HyperLinkAcceptResults_Click(object sender, RoutedEventArgs e)

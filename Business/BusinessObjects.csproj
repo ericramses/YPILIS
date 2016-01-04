@@ -144,6 +144,7 @@
     <Compile Include="Amendment.Model\Amendment.cs" />
     <Compile Include="Amendment.Model\AmendmentCollection.cs" />
     <Compile Include="ApplicationVersion.cs" />
+    <Compile Include="Audit.Model\AliquotAndStainOrderAuditCollection.cs" />
     <Compile Include="Audit.Model\AncillaryStudiesAreHandledAudit.cs" />
     <Compile Include="Audit.Model\Audit.cs" />
     <Compile Include="Audit.Model\AuditCollection.cs" />
@@ -160,9 +161,12 @@
     <Compile Include="Audit.Model\CanWomensHealthProfileBeFinaledAudit.cs" />
     <Compile Include="Audit.Model\AccountNoAudit.cs" />
     <Compile Include="Audit.Model\AreAllWHPTestsFinalAudit.cs" />
+    <Compile Include="Audit.Model\CodyCassetteColorAudit.cs" />
     <Compile Include="Audit.Model\CouldBenefitFromCCCPAudit.cs" />
     <Compile Include="Audit.Model\DistributionCanBeSetAudit.cs" />
+    <Compile Include="Audit.Model\FNAHasIntraOpAudit.cs" />
     <Compile Include="Audit.Model\GradedStainsAreHandledAudit.cs" />
+    <Compile Include="Audit.Model\HasColorForDirectPrintBlocksAudit.cs" />
     <Compile Include="Audit.Model\HER2OKToAcceptAudit.cs" />
     <Compile Include="Audit.Model\HPV1618ForSiteAudit.cs" />
     <Compile Include="Audit.Model\IntraoperativeConsultationCorrelationAudit.cs" />
@@ -411,6 +415,7 @@
     <Compile Include="Facility.Model\ProfessionalPathologyOfWyoming.cs" />
     <Compile Include="Facility.Model\LoweLawGroup.cs" />
     <Compile Include="Facility.Model\PathologyAssociatesOfIdahoFalls.cs" />
+    <Compile Include="Facility.Model\UniversityOfMichigan.cs" />
     <Compile Include="Flow\FlowCommentItem.Generated.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -448,7 +453,9 @@
     <Compile Include="Interface\IFlowMarker.cs" />
     <Compile Include="Interface\ILeukemiaLymphomaResult.cs" />
     <Compile Include="Interface\IPersistPageChanges.cs" />
+    <Compile Include="Label.Model\SpecimenLabel.cs" />
     <Compile Include="Label.Model\BlockLabelLegacy.cs" />
+    <Compile Include="Label.Model\SpecimenLabelPrinter.cs" />
     <Compile Include="Label.Model\LaserCassettePrinter.cs" />
     <Compile Include="Label.Model\LaserCassette.cs" />
     <Compile Include="Label.Model\HistologySlideLabel.cs" />
@@ -478,10 +485,12 @@
     <Compile Include="Persistence\JSONWriter.cs" />
     <Compile Include="Persistence\JSONObjectWriter.cs" />
     <Compile Include="Persistence\ObjectComparer.cs" />
+    <Compile Include="ReportDistribution.Model\ScheduledFaxSubmission.cs" />
     <Compile Include="Test.Model\DispalyGroupProstate.cs" />
     <Compile Include="Test.Model\P40.cs" />
     <Compile Include="Test\ALKForNSCLCByFISH\ALKForNSCLCByFISHNegativeWithMonosomyResult.cs" />
     <Compile Include="Test\ALKForNSCLCByFISH\ALKForNSCLCByFISHNegativeWithPolysomyResult.cs" />
+    <Compile Include="Test\ALKForNSCLCByFISH\ALKForNSCLCByFISHNotInterpretableResult.cs" />
     <Compile Include="Test\CD1a\CD1aTest.cs" />
     <Compile Include="Test\ChromosomeAnalysis\ChromosomeAnalysisIncompleteResult.cs" />
     <Compile Include="Test\EGFRMutationAnalysis\EGFRMutationAnalysisPanel.cs" />
@@ -489,6 +498,7 @@
     <Compile Include="Test\ErPrSemiQuantitative\ERPRSemiQuanititativePanel.cs" />
     <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHPanel.cs" />
     <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHSystemGeneratedAmendmentText.cs" />
+    <Compile Include="Test\HPV1618ByPCR\HPV1618ByPCRCMMCView.cs" />
     <Compile Include="Test\HPV1618ByPCR\HPV1618BothPositiveResult.cs" />
     <Compile Include="Test\HPV1618ByPCR\HPV1618BothNegativeResult.cs" />
     <Compile Include="Test\HPV1618ByPCR\HPV1618ByPCRTest.cs" />
@@ -2789,7 +2799,6 @@
     <EmbeddedResource Include="XMLTemplates\CytologyOrderInstructions.xml" />
     <EmbeddedResource Include="Rules\PanelOrder\RulesAcceptPeerReviewResults.xml" />
     <EmbeddedResource Include="Rules\PanelSetOrder\RulesSignatureButtonText.xml" />
-    <EmbeddedResource Include="Rules\Common\RulesAutomatedStainOrder.xml" />
     <EmbeddedResource Include="Rules\Surgical\RulesAssignPathologistId.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -2879,7 +2888,6 @@
     <Compile Include="Reports\IReport.cs" />
     <Compile Include="Reports\Surgical\SurgicalMasterLog.cs" />
     <Compile Include="Rules\BaseRules.cs" />
-    <Compile Include="Rules\Common\RulesAutomatedStainOrder.cs" />
     <Compile Include="Rules\PanelOrder\RulesAcceptPeerReviewResults.cs" />
     <Compile Include="Billing\PQRIColorectalCancer.cs" />
     <Compile Include="Billing\PQRIBreastCancer.cs" />
@@ -2908,9 +2916,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="SpecialStain\StainResultOptionList.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="SpecialStain\StandingStainOrderList.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Surgical\PathologistHistoryList.cs" />
@@ -3001,14 +3006,7 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="MessageQueues\" />
-    <Folder Include="Reports\Billing\" />
-    <Folder Include="Rules\Creation\" />
-    <Folder Include="Rules\PatientLinking\" />
-    <Folder Include="Test\Glycophorin\" />
-    <Folder Include="Test\ReferenceLabResult\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="XMLTemplates\AccessionSummaryBreastCancer.xml" />
     <EmbeddedResource Include="XMLTemplates\AccessionSummaryColorectalCancer.xml" />

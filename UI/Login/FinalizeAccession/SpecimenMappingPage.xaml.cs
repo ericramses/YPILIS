@@ -71,11 +71,33 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 		private void ButtonNext_Click(object sender, RoutedEventArgs e)
 		{
             this.HandleClientAccessionedStainResult();
+            this.HandleClientAccessionedTestOrders();
+
             if (this.IsOkToGoNext() == true)
             {
                 this.Next(this, new EventArgs());
             }
 		}
+
+        private void HandleClientAccessionedTestOrders()
+        {
+            foreach(YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder in this.m_AccessionOrder.PanelSetOrderCollection)
+            {
+                foreach(YellowstonePathology.Business.Test.PanelOrder panelOrder in panelSetOrder.PanelOrderCollection)
+                {
+                    foreach(YellowstonePathology.Business.Test.Model.TestOrder testOrder in panelOrder.TestOrderCollection)
+                    {
+                        foreach(YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder in testOrder.SlideOrderCollection)
+                        {
+                            if (slideOrder.ClientAccessioned == true)
+                            {
+                                testOrder.NoCharge = true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
         private void HandleClientAccessionedStainResult()
         {
