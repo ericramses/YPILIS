@@ -30,7 +30,10 @@ namespace YellowstonePathology.Business.Test.CalreticulinMutationAnalysis
 			{
 				reportResult = string.Empty;
 			}
+
 			this.ReplaceText("report_result", reportResult);
+            this.ReplaceText("calr_percentage", reportOrderCalreticulinMutationAnalysis.Percentage);
+            this.ReplaceText("calr_mutations", reportOrderCalreticulinMutationAnalysis.Mutations);
 
             this.ReplaceText("report_interpretation", reportOrderCalreticulinMutationAnalysis.Interpretation);
             this.ReplaceText("report_method", reportOrderCalreticulinMutationAnalysis.Method);
