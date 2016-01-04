@@ -39,8 +39,9 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
             "not been approved by the FDA. The FDA has determined such clearance or approval is not necessary. This laboratory is CLIA certified to perform high " +
             "complexity clinical testing.";
 
-        protected string m_InterpretationFirstLine;
-        protected string m_InterpretationSecondLine;
+        protected string m_Comment;
+
+        protected string m_InterpretationFirstLine;        
         protected string m_InterpretationBody = "KRAS, NRAS, HRAS, and BRAF are members of the RAS/RAF/MAPK pathway. Current guidelines require KRAS and NRAS " +
             "testing in metastatic colorectal cancer for determination of anti-EGFR therapy, and recommend BRAF testing as a marker of poor prognosis.  Patients " +
             "with any known KRAS mutation (exon 2 or non-exon 2) or NRAS should not be treated with either cetuximab or panitumumab per NCCN Guidelines. BRAF " +
@@ -54,16 +55,14 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
         public virtual void SetResults(RASRAFPanelTestOrder testOrder, ResultCollection resultCollection)
         {
             StringBuilder interpretation = new StringBuilder();
-            interpretation.AppendLine(this.m_InterpretationFirstLine);
+            interpretation.AppendLine(this.m_InterpretationFirstLine);            
             interpretation.AppendLine();
-            interpretation.AppendLine(this.m_InterpretationSecondLine);
-            interpretation.AppendLine();
-            interpretation.AppendLine(this.m_InterpretationBody);
+            interpretation.Append(this.m_InterpretationBody);
 
             interpretation = interpretation.Replace("[NOTDETECTEDMUTATIONLIST]", resultCollection.GetNotDetectedListString());
             interpretation = interpretation.Replace("[DETECTEDMUTATIONLIST]", resultCollection.GetDetectedListString());
 
-            testOrder.Interpretation = interpretation.ToString();
+            testOrder.Interpretation = interpretation.ToString();            
 
             StringBuilder disclaimer = new StringBuilder();
             disclaimer.AppendLine(testOrder.GetLocationPerformedComment());

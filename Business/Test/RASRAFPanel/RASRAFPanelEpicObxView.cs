@@ -56,7 +56,10 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
 	            this.AddNextObxElement("HRAS Consequence: " + panelSetOrder.HRASConsequence, document, "F");
 	            this.AddNextObxElement("HRAS Predicted Effect On Protein: " + panelSetOrder.HRASPredictedEffectOnProtein, document, "F");
             }
-                        
+
+            this.AddNextObxElement("", document, "F");
+            this.AddNextObxElement("Comment: " + panelSetOrder.Comment, document, "F");
+
             this.AddNextObxElement("", document, "F");
             this.AddNextObxElement("Pathologist: " + panelSetOrder.ReferenceLabSignature, document, "F");
             if (panelSetOrder.FinalTime.HasValue == true)

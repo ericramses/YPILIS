@@ -154,17 +154,17 @@ namespace YellowstonePathology.UI.Test
 
         private void HyperLinkSetResults_Click(object sender, RoutedEventArgs e)
         {
-            //YellowstonePathology.Business.Rules.MethodResult result = this.m_RASRAFPanelTestOrder.IsOkToSet();
-            //if (result.Success == true)
-            //{
+            YellowstonePathology.Business.Rules.MethodResult result = this.m_RASRAFPanelTestOrder.IsOkToSet();
+            if (result.Success == true)
+            {
                 YellowstonePathology.Business.Test.RASRAFPanel.ResultCollection resultCollection = new Business.Test.RASRAFPanel.ResultCollection(this.m_RASRAFPanelTestOrder);
                 YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelResult rasrafPanelResult = resultCollection.GetResult();
                 rasrafPanelResult.SetResults(this.m_RASRAFPanelTestOrder, resultCollection);
-            //}
-            //else
-            //{
-            //    MessageBox.Show(result.Message);
-            //}
+            }
+            else
+            {
+                MessageBox.Show(result.Message);
+            }
         }
 
         private void HyperLinkAcceptResults_Click(object sender, RoutedEventArgs e)

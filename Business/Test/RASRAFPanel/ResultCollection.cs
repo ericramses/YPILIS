@@ -25,6 +25,16 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
             else m_NotDetectedMutations.Add(RASRAFPanelResult.HRASAbbreviation);
         }
 
+        public List<string> DetectedMutations
+        {
+            get { return this.m_DetectedMutations; }
+        }
+
+        public List<string> NotDetectedMutations
+        {
+            get { return this.m_NotDetectedMutations; }
+        }
+
         public RASRAFPanelResult GetResult()
         {
             RASRAFPanelResult result = null;
@@ -47,7 +57,7 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
                 result.Append(this.m_DetectedMutations[idx]);
                 if (idx == this.m_DetectedMutations.Count - 2)
                 {
-                    result.Append(" AND ");
+                    result.Append(" and ");
                 }
                 else if (idx < this.m_DetectedMutations.Count - 2)
                 {
@@ -65,7 +75,7 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
                 result.Append(this.m_NotDetectedMutations[idx]);
                 if (idx == this.m_NotDetectedMutations.Count - 2)
                 {
-                    result.Append(" AND ");
+                    result.Append(" or ");
                 }
                 else if (idx < this.m_NotDetectedMutations.Count - 2)
                 {

@@ -9,9 +9,19 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
     {
         public DetectedResult()
         {            
-            this.m_InterpretationFirstLine = "-THERE ARE MUTATIONS IN [DETECTEDMUTATIONLIST] BUT NOT [NOTDETECTEDMUTATIONLIST] GENES.";
-            this.m_InterpretationSecondLine = "THE PRESENCE OF [DETECTEDMUTATIONLIST] MUTATION IN COLORECTAL CANCER IS ASSOCIATED WITH RESISTANCE TO ANTI-EGFR THERAPY, BUT POSSIBLE SENSITIVITY " +
-                "TO MEK INHIBITORS. [DETECTEDMUTATIONLIST] MUTATION IS ALSO REPORTED TO BE ASSOCIATED WITH SHORTER SURVIVAL.";
-        }       
+            this.m_InterpretationFirstLine = "[DETECTEDMUTATIONLIST] mutations detected; No evidence of mutation in [NOTDETECTEDMUTATIONLIST].";
+            this.m_Comment = "The presence of [DETECTEDMUTATIONLIST] mutations in colorectal cancer is associated with resistance to anti-EGFR therapy; however, patients may exhibit sensitivity " +
+                "to MEK inhibitors. [DETECTEDMUTATIONLIST] mutations are also reported to be associated with shorter survival.";
+        }
+
+        public override void SetResults(RASRAFPanelTestOrder testOrder, ResultCollection resultCollection)
+        {
+            StringBuilder comment = new StringBuilder(this.m_Comment);
+            comment = comment.Replace("[NOTDETECTEDMUTATIONLIST]", resultCollection.GetNotDetectedListString());
+            comment = comment.Replace("[DETECTEDMUTATIONLIST]", resultCollection.GetDetectedListString());            
+
+            testOrder.Comment = comment.ToString();
+            base.SetResults(testOrder, resultCollection);
+        }
     }
 }

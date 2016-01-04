@@ -21,7 +21,7 @@ namespace YellowstonePathology.Business.Test.MPNExtendedReflex
                     string calrResult = panelSetOrderCalreticulinMutationAnalysis.Result;
                     if (panelSetOrderCalreticulinMutationAnalysis.Result == DetectedResult)
                     {
-                        calrResult = calrResult + "(" + panelSetOrderCalreticulinMutationAnalysis.Percentage + ", " + panelSetOrderCalreticulinMutationAnalysis.Mutations + ")";
+                        calrResult = calrResult + "(" + panelSetOrderCalreticulinMutationAnalysis.Mutations + ")";
                     }
                     this.m_Message = new StringBuilder(calrResult);
                 }
