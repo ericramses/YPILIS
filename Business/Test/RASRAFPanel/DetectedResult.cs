@@ -11,7 +11,7 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
         {            
             this.m_InterpretationFirstLine = "[DETECTEDMUTATIONLIST] mutations detected; No evidence of mutation in [NOTDETECTEDMUTATIONLIST].";
             this.m_Comment = "The presence of [DETECTEDMUTATIONLIST] mutations in colorectal cancer is associated with resistance to anti-EGFR therapy; however, patients may exhibit sensitivity " +
-                "to MEK inhibitors. [DETECTEDMUTATIONLIST] mutations are also reported to be associated with shorter survival.";
+                "to MEK inhibitors. [DETECTEDMUTATIONLIST] mutations are also reported to be associated with shortened survival.";
         }
 
         public override void SetResults(RASRAFPanelTestOrder testOrder, ResultCollection resultCollection)

@@ -63,7 +63,7 @@ namespace YellowstonePathology.UI.Gross
                 "Fimbriated Ends:  [description]" + Environment.NewLine +
             	"Fallopian Tube 1:  [description]" + Environment.NewLine +                          
 				"Fallopian Tube 2:  [description]" + Environment.NewLine +
-                "Submitted:  Serially sectioned with representative sections submitted into teal cassette [cassettelabel].  ";
+                "Submitted:  Serially sectioned with representative sections submitted into cassette [cassettelabel].  ";
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.FallopianTube fallopianTube = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.FallopianTube();
             this.m_SpecimenCollection.Add(fallopianTube);
@@ -420,7 +420,7 @@ namespace YellowstonePathology.UI.Gross
                 "         Average Myometrial Thickness:  [thickness]" + Environment.NewLine +
                 "         Cut Surface:  [description]" + Environment.NewLine +
                 "         Lesions in Uterine wall:  [description]" + Environment.NewLine +
-                "Submitted:  [???].  ";            
+                "Submitted:  [manualsubmition].  ";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Uterus uterus = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Uterus();
             this.m_SpecimenCollection.Add(uterus);
@@ -437,7 +437,7 @@ namespace YellowstonePathology.UI.Gross
                 "Uterus and Cervix:" + Environment.NewLine +
                 "Right Adnexal Organs:" + Environment.NewLine +
                 "   Fallopian Tube:" + Environment.NewLine +
-                "      Dimensions:  [desciption], [length], [diameter]" + Environment.NewLine +
+                "      Dimensions:  [measurements]" + Environment.NewLine +
                 "      Outer Surface:  [description]" + Environment.NewLine +
                 "      Cut Surface:  [description]" + Environment.NewLine +
                 "   Ovary:" + Environment.NewLine +
@@ -446,7 +446,7 @@ namespace YellowstonePathology.UI.Gross
                 "      Cut Surface:  [description]" + Environment.NewLine +
                 "Left Adnexal Organs:" + Environment.NewLine +
                 "   Fallopian Tube:" + Environment.NewLine +
-                "      Dimensions:  [description], [length], [diameter]" + Environment.NewLine +
+                "      Dimensions:  [measurements]" + Environment.NewLine +
                 "      Outer Surface:  [description]" + Environment.NewLine +
                 "      Cut Surface:  [description]" + Environment.NewLine +
                 "   Ovary:" + Environment.NewLine +
@@ -460,7 +460,7 @@ namespace YellowstonePathology.UI.Gross
                 "   Thickness:  [thickness]" + Environment.NewLine +
                 "   Serosa:" + Environment.NewLine +
                 "      Uterine Serosa Description:  [description]" + Environment.NewLine +
-                "      Cul-de-sac Serosa Description:  [color], [description]" + Environment.NewLine +
+                "      Cul-de-sac Description:  [description]" + Environment.NewLine +
                 "Cervix:" + Environment.NewLine +
                 "   Ectocervix:  [description]" + Environment.NewLine +
                 "   Os:  [description], [measurement]" + Environment.NewLine +
@@ -472,8 +472,8 @@ namespace YellowstonePathology.UI.Gross
                 "      Average Endometrial Thickness:  [thickness]" + Environment.NewLine +
                 "   Myometrium:" + Environment.NewLine +
                 "      Average Myometrial Thickness:  [thickness]" + Environment.NewLine +
-                "      Lesions in Uterine wall:  [description]" + Environment.NewLine +                          
-                "Submitted:  [submitted].  ";
+                "   Sectioning Reveals:  [description]" + Environment.NewLine +                          
+                "Submitted:  [manualsubmition].  ";
             
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.UterusAdnexa uterusAdnexa = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.UterusAdnexa();
