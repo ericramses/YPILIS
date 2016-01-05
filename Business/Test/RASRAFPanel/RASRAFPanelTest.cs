@@ -38,8 +38,15 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
             YellowstonePathology.Business.Task.Model.TaskSendBlockToNeogenomics taskSendBlockToNeogenomics = new YellowstonePathology.Business.Task.Model.TaskSendBlockToNeogenomics();
             this.m_TaskCollection.Add(taskSendBlockToNeogenomics);
 
-            YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT81479(), 1);
-            this.m_PanelSetCptCodeCollection.Add(panelSetCptCode);
+            YellowstonePathology.Business.Billing.Model.PanelSetCptCode cpt81210 = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT81210(), 1);
+            YellowstonePathology.Business.Billing.Model.PanelSetCptCode cpt81275 = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT81275(), 1);
+            YellowstonePathology.Business.Billing.Model.PanelSetCptCode cpt81403 = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT81403(), 1);
+            YellowstonePathology.Business.Billing.Model.PanelSetCptCode cpt81404 = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT81404(), 1);
+
+            this.m_PanelSetCptCodeCollection.Add(cpt81210);
+            this.m_PanelSetCptCodeCollection.Add(cpt81275);
+            this.m_PanelSetCptCodeCollection.Add(cpt81403);
+            this.m_PanelSetCptCodeCollection.Add(cpt81404);
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceMiscellaneous());
         }
