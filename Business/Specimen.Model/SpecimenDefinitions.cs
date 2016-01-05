@@ -156,7 +156,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
         {
             this.m_SpecimenId = "ADSPCM";
             this.m_SpecimenName = "Adenoid Excision";
-            this.m_Description = null;
+            this.m_Description = "Adenoid, excision";
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = null;
             this.m_RequiresGrossExamination = true;
@@ -169,7 +169,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
         {
             this.m_SpecimenId = "TNSLSPCM";
             this.m_SpecimenName = "Tonsil Excision";
-            this.m_Description = null;
+            this.m_Description = "Right and left tonsils, excision";
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = null;
             this.m_RequiresGrossExamination = true;
@@ -182,7 +182,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
         {
             this.m_SpecimenId = "TNSLADSPCM";
             this.m_SpecimenName = "Tonsil and Adenoids Excision";
-            this.m_Description = null;
+            this.m_Description = "Right and left tonsisl with adenoids, excision";
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = null;
             this.m_RequiresGrossExamination = true;
@@ -274,7 +274,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             {
                 this.m_SpecimenId = "UTRSSPCMN";
                 this.m_SpecimenName = "Uterus Resection";
-                this.m_Description = null;
+                this.m_Description = "Uterus and cervix, resection";
                 this.m_LabFixation = "Formalin";
                 this.m_ClientFixation = null;
                 this.m_RequiresGrossExamination = true;
@@ -386,25 +386,25 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
         }
 
         public class FallopianTube : Specimen
-    {
-            public FallopianTube()
         {
+            public FallopianTube()
+            {
                 this.m_SpecimenId = "FTSPCMN";
                 this.m_SpecimenName = "Fallopian Tube";
-                this.m_Description = null;
+                this.m_Description = "[Right/Left] fallopian tube, segmental resection";
                 this.m_LabFixation = "Formalin";
                 this.m_ClientFixation = null;
                 this.m_RequiresGrossExamination = true;
+            }
         }
-    }
 
         public class SinusContent : Specimen
-    {
-            public SinusContent()
         {
+            public SinusContent()
+            {
                 this.m_SpecimenId = "SCSPCMN";
                 this.m_SpecimenName = "Sinus Content";
-                this.m_Description = null;
+                this.m_Description = "[Right/Left] sinus content";
                 this.m_LabFixation = "Formalin";
                 this.m_ClientFixation = null;
                 this.m_RequiresGrossExamination = true;

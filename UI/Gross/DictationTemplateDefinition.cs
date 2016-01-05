@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using YellowstonePathology.Business.Specimen.Model;
+using YellowstonePathology.Business.Test;
 
 namespace YellowstonePathology.UI.Gross
 {
@@ -24,6 +26,11 @@ namespace YellowstonePathology.UI.Gross
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ProstateNeedleBiopsy nb = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ProstateNeedleBiopsy();
             this.m_SpecimenCollection.Add(nb);
         }
+
+        public override string GetDictationText(SpecimenOrder specimen, AccessionOrder accessionOrder)
+        {
+            return base.GetDictationText(specimen, accessionOrder);
+        }
     }
 
     public class ProstateTURTemplate : DictationTemplate
@@ -38,6 +45,11 @@ namespace YellowstonePathology.UI.Gross
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ProstateTUR tur = new Business.Specimen.Model.SpecimenDefinition.ProstateTUR();
             this.m_SpecimenCollection.Add(tur);
         }
+
+        public override string GetDictationText(SpecimenOrder specimen, AccessionOrder accessionOrder)
+        {
+            return base.GetDictationText(specimen, accessionOrder);
+        }
     }
 
     public class GITemplate : DictationTemplate
@@ -50,6 +62,11 @@ namespace YellowstonePathology.UI.Gross
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.GIBiopsy gi = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.GIBiopsy();
             this.m_SpecimenCollection.Add(gi);
+        }
+
+        public override string GetDictationText(SpecimenOrder specimen, AccessionOrder accessionOrder)
+        {
+            return base.GetDictationText(specimen, accessionOrder);
         }
     }
 
@@ -68,6 +85,11 @@ namespace YellowstonePathology.UI.Gross
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.FallopianTube fallopianTube = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.FallopianTube();
             this.m_SpecimenCollection.Add(fallopianTube);
         }
+
+        public override string GetDictationText(SpecimenOrder specimen, AccessionOrder accessionOrder)
+        {
+            return base.GetDictationText(specimen, accessionOrder);
+        }
     }
 
     public class SinusContentTemplate : DictationTemplate
@@ -80,6 +102,11 @@ namespace YellowstonePathology.UI.Gross
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SinusContent sinusContent = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SinusContent();
             this.m_SpecimenCollection.Add(sinusContent);
+        }
+
+        public override string GetDictationText(SpecimenOrder specimen, AccessionOrder accessionOrder)
+        {
+            return base.GetDictationText(specimen, accessionOrder);
         }
     }
 
@@ -101,6 +128,11 @@ namespace YellowstonePathology.UI.Gross
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.AppendixExcision appendixExcision = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.AppendixExcision();
             this.m_SpecimenCollection.Add(appendixExcision);
         }
+
+        public override string GetDictationText(SpecimenOrder specimen, AccessionOrder accessionOrder)
+        {
+            return base.GetDictationText(specimen, accessionOrder);
+        }
     }
 
     public class SkinShavePunchMiscTemplate : DictationTemplate
@@ -115,6 +147,11 @@ namespace YellowstonePathology.UI.Gross
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinShavePunchMiscBiopsy skinShavePunchMiscBiopsy = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinShavePunchMiscBiopsy();
             this.m_SpecimenCollection.Add(skinShavePunchMiscBiopsy);
+        }
+
+        public override string GetDictationText(SpecimenOrder specimen, AccessionOrder accessionOrder)
+        {
+            return base.GetDictationText(specimen, accessionOrder);
         }
     }
 
@@ -133,6 +170,11 @@ namespace YellowstonePathology.UI.Gross
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinExcisionUnorientedBiopsy skinExcisionUnorientedBiopsy = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinExcisionUnorientedBiopsy();
             this.m_SpecimenCollection.Add(skinExcisionUnorientedBiopsy);
         }
+
+        public override string GetDictationText(SpecimenOrder specimen, AccessionOrder accessionOrder)
+        {
+            return base.GetDictationText(specimen, accessionOrder);
+        }
     }
 
     public class SkinExcisionOrientedTemplate : DictationTemplate
@@ -150,6 +192,11 @@ namespace YellowstonePathology.UI.Gross
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinExcisionOrientedBiopsy skinExcisionOrientedBiopsy = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinExcisionOrientedBiopsy();
             this.m_SpecimenCollection.Add(skinExcisionOrientedBiopsy);
+        }
+
+        public override string GetDictationText(SpecimenOrder specimen, AccessionOrder accessionOrder)
+        {
+            return base.GetDictationText(specimen, accessionOrder);
         }
     }
 
@@ -173,6 +220,11 @@ namespace YellowstonePathology.UI.Gross
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.GallbladderExcision gallbladderExcision = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.GallbladderExcision();
             this.m_SpecimenCollection.Add(gallbladderExcision);
         }
+
+        public override string GetDictationText(SpecimenOrder specimen, AccessionOrder accessionOrder)
+        {
+            return base.GetDictationText(specimen, accessionOrder);
+        }
     }
 
     public class TonsilAdenoidExcisionTemplate : DictationTemplate
@@ -193,6 +245,11 @@ namespace YellowstonePathology.UI.Gross
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.TonsilAdenoidExcision tonsilAdenoidExcision = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.TonsilAdenoidExcision();
             this.m_SpecimenCollection.Add(tonsilAdenoidExcision);
         }
+
+        public override string GetDictationText(SpecimenOrder specimen, AccessionOrder accessionOrder)
+        {
+            return base.GetDictationText(specimen, accessionOrder);
+        }
     }
 
     public class TonsilExcisionTemplate : DictationTemplate
@@ -211,7 +268,13 @@ namespace YellowstonePathology.UI.Gross
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.TonsilExcision tonsilExcision = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.TonsilExcision();
             this.m_SpecimenCollection.Add(tonsilExcision);
         }
+
+        public override string GetDictationText(SpecimenOrder specimen, AccessionOrder accessionOrder)
+        {
+            return base.GetDictationText(specimen, accessionOrder);
+        }
     }
+
     public class AdenoidExcisionTemplate : DictationTemplate
     {
         public AdenoidExcisionTemplate()
@@ -226,6 +289,11 @@ namespace YellowstonePathology.UI.Gross
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.AdenoidExcision adenoidExcision = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.AdenoidExcision();
             this.m_SpecimenCollection.Add(adenoidExcision);
+        }
+
+        public override string GetDictationText(SpecimenOrder specimen, AccessionOrder accessionOrder)
+        {
+            return base.GetDictationText(specimen, accessionOrder);
         }
     }
 
@@ -244,6 +312,11 @@ namespace YellowstonePathology.UI.Gross
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.POC poc = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.POC();
             this.m_SpecimenCollection.Add(poc);
         }
+
+        public override string GetDictationText(SpecimenOrder specimen, AccessionOrder accessionOrder)
+        {
+            return base.GetDictationText(specimen, accessionOrder);
+        }
     }
 
     public class BreastReductionTemplate : DictationTemplate
@@ -261,6 +334,11 @@ namespace YellowstonePathology.UI.Gross
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.BreastReduction breastReduction = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.BreastReduction();
             this.m_SpecimenCollection.Add(breastReduction);
         }
+
+        public override string GetDictationText(SpecimenOrder specimen, AccessionOrder accessionOrder)
+        {
+            return base.GetDictationText(specimen, accessionOrder);
+        }
     }
 
     public class ECCTemplate : DictationTemplate
@@ -275,6 +353,11 @@ namespace YellowstonePathology.UI.Gross
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ECC ecc = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ECC();
             this.m_SpecimenCollection.Add(ecc);
+        }
+
+        public override string GetDictationText(SpecimenOrder specimen, AccessionOrder accessionOrder)
+        {
+            return base.GetDictationText(specimen, accessionOrder);
         }
     }
 
@@ -291,6 +374,11 @@ namespace YellowstonePathology.UI.Gross
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.EMB emb = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.EMB();
             this.m_SpecimenCollection.Add(emb);
         }
+
+        public override string GetDictationText(SpecimenOrder specimen, AccessionOrder accessionOrder)
+        {
+            return base.GetDictationText(specimen, accessionOrder);
+        }
     }
 
     public class CervicalBiopsyTemplate : DictationTemplate
@@ -305,6 +393,11 @@ namespace YellowstonePathology.UI.Gross
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.CervicalBiopsy cervicalBiopsy = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.CervicalBiopsy();
             this.m_SpecimenCollection.Add(cervicalBiopsy);
+        }
+
+        public override string GetDictationText(SpecimenOrder specimen, AccessionOrder accessionOrder)
+        {
+            return base.GetDictationText(specimen, accessionOrder);
         }
     }
 
@@ -323,6 +416,11 @@ namespace YellowstonePathology.UI.Gross
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.LEEPCone leepCone = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.LEEPCone();
             this.m_SpecimenCollection.Add(leepCone);
         }
+
+        public override string GetDictationText(SpecimenOrder specimen, AccessionOrder accessionOrder)
+        {
+            return base.GetDictationText(specimen, accessionOrder);
+        }
     }
 
     public class LEEPPiecesTemplate : DictationTemplate
@@ -338,6 +436,11 @@ namespace YellowstonePathology.UI.Gross
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.LEEPPieces leepPieces = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.LEEPPieces();
             this.m_SpecimenCollection.Add(leepPieces);
+        }
+
+        public override string GetDictationText(SpecimenOrder specimen, AccessionOrder accessionOrder)
+        {
+            return base.GetDictationText(specimen, accessionOrder);
         }
     }
 
@@ -390,6 +493,11 @@ namespace YellowstonePathology.UI.Gross
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SinglePlacenta singlePlacenta = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SinglePlacenta();
             this.m_SpecimenCollection.Add(singlePlacenta);
         }
+
+        public override string GetDictationText(SpecimenOrder specimen, AccessionOrder accessionOrder)
+        {
+            return base.GetDictationText(specimen, accessionOrder);
+        }
     }
 
     public class UterusTemplate : DictationTemplate
@@ -424,6 +532,11 @@ namespace YellowstonePathology.UI.Gross
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Uterus uterus = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Uterus();
             this.m_SpecimenCollection.Add(uterus);
+        }
+
+        public override string GetDictationText(SpecimenOrder specimen, AccessionOrder accessionOrder)
+        {
+            return base.GetDictationText(specimen, accessionOrder);
         }
     }
 
@@ -479,6 +592,11 @@ namespace YellowstonePathology.UI.Gross
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.UterusAdnexa uterusAdnexa = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.UterusAdnexa();
             this.m_SpecimenCollection.Add(uterusAdnexa);
         }
+
+        public override string GetDictationText(SpecimenOrder specimen, AccessionOrder accessionOrder)
+        {
+            return base.GetDictationText(specimen, accessionOrder);
+        }
     }
 
     public class NeedleCoreBiopsyTemplate : DictationTemplate
@@ -491,6 +609,11 @@ namespace YellowstonePathology.UI.Gross
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.NeedleCoreBiopsy needleCoreBiopsy = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.NeedleCoreBiopsy();
             this.m_SpecimenCollection.Add(needleCoreBiopsy);
+        }
+
+        public override string GetDictationText(SpecimenOrder specimen, AccessionOrder accessionOrder)
+        {
+            return base.GetDictationText(specimen, accessionOrder);
         }
     }
 
@@ -506,6 +629,11 @@ namespace YellowstonePathology.UI.Gross
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.AorticValve aorticValve = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.AorticValve();
             this.m_SpecimenCollection.Add(aorticValve);
         }
+
+        public override string GetDictationText(SpecimenOrder specimen, AccessionOrder accessionOrder)
+        {
+            return base.GetDictationText(specimen, accessionOrder);
+        }
     }
 
     public class MitralValveTemplate : DictationTemplate
@@ -519,6 +647,11 @@ namespace YellowstonePathology.UI.Gross
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.MitralValve mitralValve = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.MitralValve();
             this.m_SpecimenCollection.Add(mitralValve);
+        }
+
+        public override string GetDictationText(SpecimenOrder specimen, AccessionOrder accessionOrder)
+        {
+            return base.GetDictationText(specimen, accessionOrder);
         }
     }
 
@@ -535,6 +668,11 @@ namespace YellowstonePathology.UI.Gross
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.KneeTissue kneeTissue = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.KneeTissue();
             this.m_SpecimenCollection.Add(kneeTissue);
         }
+
+        public override string GetDictationText(SpecimenOrder specimen, AccessionOrder accessionOrder)
+        {
+            return base.GetDictationText(specimen, accessionOrder);
+        }
     }
 
     public class FemoralHeadTemplate : DictationTemplate
@@ -548,6 +686,11 @@ namespace YellowstonePathology.UI.Gross
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.FemoralHead femoralHead = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.FemoralHead();
             this.m_SpecimenCollection.Add(femoralHead);
+        }
+
+        public override string GetDictationText(SpecimenOrder specimen, AccessionOrder accessionOrder)
+        {
+            return base.GetDictationText(specimen, accessionOrder);
         }
     }
 }

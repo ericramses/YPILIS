@@ -11,22 +11,15 @@ namespace YellowstonePathology.UI.Gross
         public event PropertyChangedEventHandler PropertyChanged;        
 
         protected string m_TemplateName;        
-        protected string m_Text;                       
-        protected List<TemplateWord> m_WordList;
+        protected string m_Text;                               
         protected YellowstonePathology.Business.Specimen.Model.SpecimenCollection m_SpecimenCollection;
         protected int m_FontSize;
 
         public DictationTemplate()
-        {
-            this.m_WordList = new List<TemplateWord>();
+        {            
             this.m_SpecimenCollection = new YellowstonePathology.Business.Specimen.Model.SpecimenCollection();
             this.m_FontSize = 20;
-        }
-
-        public List<TemplateWord> WordList
-        {
-            get { return this.m_WordList; }
-        }
+        }        
 
         public YellowstonePathology.Business.Specimen.Model.SpecimenCollection SpecimenCollection
         {
@@ -70,7 +63,12 @@ namespace YellowstonePathology.UI.Gross
                     this.NotifyPropertyChanged("Text");
                 }
             }
-        }                        
+        }  
+        
+        public virtual string GetDictationText(YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimen, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
+        {
+            return this.m_Text;
+        }
 
         public void NotifyPropertyChanged(String info)
         {
