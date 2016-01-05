@@ -67,8 +67,7 @@ namespace YellowstonePathology.UI.Gross
         
         public virtual string GetDictationText(YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimen, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {
-            string result = null;
-            return result;
+            return this.m_Text;
         }
 
         public void NotifyPropertyChanged(String info)
