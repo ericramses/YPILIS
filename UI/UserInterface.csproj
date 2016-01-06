@@ -548,6 +548,11 @@
       <DependentUpon>BCellClonalityByPCRResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Test\BCellClonalityByPCRResultPath.cs" />
+    <Compile Include="Test\BCellEnumerationResultPage.xaml.cs">
+      <DependentUpon>BCellEnumerationResultPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Test\BCellEnumerationResultPath.cs" />
     <Compile Include="Test\BCellGeneRearrangementResultPage.xaml.cs">
       <DependentUpon>BCellGeneRearrangementResultPage.xaml</DependentUpon>
     </Compile>
@@ -811,6 +816,11 @@
     <Compile Include="Test\CancelTestWarningPage.xaml.cs">
       <DependentUpon>CancelTestWarningPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Test\TCellSubsetAnalysisResultPage.xaml.cs">
+      <DependentUpon>TCellSubsetAnalysisResultPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Test\TCellSubsetAnalysisResultPath.cs" />
     <Compile Include="Test\TecanImportExportPage.xaml.cs">
       <DependentUpon>TecanImportExportPage.xaml</DependentUpon>
     </Compile>
@@ -2161,6 +2171,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Test\BCellEnumerationResultPage.xaml" />
     <Page Include="Test\BCellGeneRearrangementResultPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -2421,6 +2432,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Test\TCellSubsetAnalysisResultPage.xaml" />
     <Page Include="Test\TecanImportExportPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

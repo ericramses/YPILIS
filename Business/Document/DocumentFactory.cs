@@ -298,6 +298,12 @@ namespace YellowstonePathology.Business.Document
                     case 218:
                         document = new YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelWordDocument();
                         break;
+                    case 222:
+                        document = new YellowstonePathology.Business.Test.BCellEnumeration.BCellEnumerationWordDocument();
+                        break;
+                    case 223:
+                        document = new YellowstonePathology.Business.Test.TCellSubsetAnalysis.TCellSubsetAnalysisWordDocument();
+                        break;
                     default:
 						break;
 				}
