@@ -232,6 +232,12 @@ namespace YellowstonePathology.UI.Login
 			this.NotifyPropertyChanged("ReportSearchList");
 		}
 
+        public void GetReportSearchListByAliquotOrderId(string aliquotOrderId)
+        {
+            this.m_ReportSearchList = YellowstonePathology.Business.Gateway.ReportSearchGateway.GetReportSearchListByAliquotOrderId(aliquotOrderId);
+            this.NotifyPropertyChanged("ReportSearchList");
+        }
+
         public void GetReportSearchListByITAudit(YellowstonePathology.Business.Test.ITAuditPriorityEnum itAuditPriority)
         {
             this.m_ReportSearchList = YellowstonePathology.Business.Gateway.ReportSearchGateway.GetReportSearchListByITAudit(itAuditPriority);
@@ -268,20 +274,20 @@ namespace YellowstonePathology.UI.Login
 			}
 
 			return result;
-		}
+		}		
 
-		public void GetAccessionOrderBySlideOrderId(string slideOrderId)
-		{
-			this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderBySlideOrderId(slideOrderId);
-			if (this.m_AccessionOrder != null)
-			{
-				string reportNo = this.m_AccessionOrder.PanelSetOrderCollection[0].ReportNo;
-				this.GetReportSearchListByReportNo(reportNo);
-				this.NotifyPropertyChanged("ReportSearchList");
-			}
-		}
+        public void GetAccessionOrderBySlideOrderId(string slideOrderId)
+        {
+            this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderBySlideOrderId(slideOrderId);
+            if (this.m_AccessionOrder != null)
+            {
+                string reportNo = this.m_AccessionOrder.PanelSetOrderCollection[0].ReportNo;
+                this.GetReportSearchListByReportNo(reportNo);
+                this.NotifyPropertyChanged("ReportSearchList");
+            }
+        }
 
-		public void GetTaskOrderCollection()
+        public void GetTaskOrderCollection()
 		{
 			this.m_TaskOrderCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetTaskOrderCollection(YellowstonePathology.Business.Task.Model.TaskAcknowledgementType.Immediate);
 			this.NotifyPropertyChanged("TaskOrderCollection");
