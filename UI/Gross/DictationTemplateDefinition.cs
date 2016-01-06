@@ -568,7 +568,7 @@ namespace YellowstonePathology.UI.Gross
                 "         Average Myometrial Thickness:  [thickness]" + Environment.NewLine +
                 "         Cut Surface:  [description]" + Environment.NewLine +
                 "         Lesions in Uterine wall:  [description]" + Environment.NewLine +
-                "Submitted:  [manualsubmition].  ";            
+                "[summarysubmission]  ";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Uterus uterus = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Uterus();
             this.m_SpecimenCollection.Add(uterus);
@@ -577,7 +577,7 @@ namespace YellowstonePathology.UI.Gross
         public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
-            result = this.ReplaceManualSubmition(result, specimenOrder);
+            result = this.ReplaceSummarySubmission(result, specimenOrder);
             return result;
         }
     }
@@ -627,8 +627,8 @@ namespace YellowstonePathology.UI.Gross
                 "      Average Endometrial Thickness:  [thickness]" + Environment.NewLine +
                 "   Myometrium:" + Environment.NewLine +
                 "      Average Myometrial Thickness:  [thickness]" + Environment.NewLine +
-                "   Sectioning Reveals:  [description]" + Environment.NewLine +                          
-                "Submitted:  [manualsubmition].  ";
+                "   Sectioning Reveals:  [description]" + Environment.NewLine +
+                "[summarysubmission].  ";
             
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.UterusAdnexa uterusAdnexa = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.UterusAdnexa();
@@ -638,7 +638,7 @@ namespace YellowstonePathology.UI.Gross
         public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
-            result = this.ReplaceManualSubmition(result, specimenOrder);
+            result = this.ReplaceSummarySubmission(result, specimenOrder);
             return result;
         }
     }

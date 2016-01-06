@@ -91,6 +91,11 @@ namespace YellowstonePathology.UI.Gross
             return text.Replace("[cassettelabel]", "\"" + specimenOrder.SpecimenNumber.ToString() + "A\"");
         }
 
+        protected string ReplaceCassetteSummary(string text, YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder)
+        {
+            return text.Replace("[cassettesummary]", "\"" + specimenOrder.SpecimenNumber.ToString() + "A\"");
+        }
+
         protected string ReplaceRepresentativeSectionsAgeRestricted(string text, YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {
             string result = null;
@@ -132,9 +137,9 @@ namespace YellowstonePathology.UI.Gross
 
         }
 
-        protected string ReplaceManualSubmition(string text, YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder)
+        protected string ReplaceSummarySubmission(string text, YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder)
         {
-            return text;
+            return text.Replace("[summarysubmission]", specimenOrder.GetSummarySubmissionString());
         }
 
         protected string AppendInitials(string text, YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder, YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)

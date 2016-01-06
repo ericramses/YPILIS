@@ -163,6 +163,17 @@ namespace YellowstonePathology.Business.Specimen.Model
             return result;
         }
 
+        public string GetSummarySubmissionString()
+        { 
+            StringBuilder result = new StringBuilder("CASSETTE SUMMARY: ");
+            result.AppendLine();
+            foreach(YellowstonePathology.Business.Test.AliquotOrder aliquotOrder in this.AliquotOrderCollection)
+            {
+                result.AppendLine("\"" + aliquotOrder.Label + "\" - [???]");
+            }                        
+            return result.ToString();
+        }
+
         public string GetRepresentativeSectionsSubmittedIn()
         {
             string result = null;
