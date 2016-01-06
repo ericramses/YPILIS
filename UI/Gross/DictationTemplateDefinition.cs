@@ -27,9 +27,11 @@ namespace YellowstonePathology.UI.Gross
             this.m_SpecimenCollection.Add(nb);
         }
 
-        public override string GetDictationText(SpecimenOrder specimen, AccessionOrder accessionOrder)
+        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
-            return base.GetDictationText(specimen, accessionOrder);
+            string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
+            result = this.ReplaceCassetteLabel(result, specimenOrder);
+            return result;
         }
     }
 
@@ -46,9 +48,11 @@ namespace YellowstonePathology.UI.Gross
             this.m_SpecimenCollection.Add(tur);
         }
 
-        public override string GetDictationText(SpecimenOrder specimen, AccessionOrder accessionOrder)
+        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
-            return base.GetDictationText(specimen, accessionOrder);
+            string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
+            result = this.ReplaceRepresentativeSections(result, specimenOrder);
+            return result;
         }
     }
 
@@ -64,9 +68,11 @@ namespace YellowstonePathology.UI.Gross
             this.m_SpecimenCollection.Add(gi);
         }
 
-        public override string GetDictationText(SpecimenOrder specimen, AccessionOrder accessionOrder)
+        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
-            return base.GetDictationText(specimen, accessionOrder);
+            string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
+            result = this.ReplaceCassetteLabel(result, specimenOrder);
+            return result;
         }
     }
 
@@ -86,9 +92,11 @@ namespace YellowstonePathology.UI.Gross
             this.m_SpecimenCollection.Add(fallopianTube);
         }
 
-        public override string GetDictationText(SpecimenOrder specimen, AccessionOrder accessionOrder)
+        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
-            return base.GetDictationText(specimen, accessionOrder);
+            string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
+            result = this.ReplaceCassetteLabel(result, specimenOrder);
+            return result;
         }
     }
 
@@ -104,9 +112,11 @@ namespace YellowstonePathology.UI.Gross
             this.m_SpecimenCollection.Add(sinusContent);
         }
 
-        public override string GetDictationText(SpecimenOrder specimen, AccessionOrder accessionOrder)
+        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
-            return base.GetDictationText(specimen, accessionOrder);
+            string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
+            result = this.ReplaceCassetteLabel(result, specimenOrder);
+            return result;
         }
     }
 
@@ -129,9 +139,11 @@ namespace YellowstonePathology.UI.Gross
             this.m_SpecimenCollection.Add(appendixExcision);
         }
 
-        public override string GetDictationText(SpecimenOrder specimen, AccessionOrder accessionOrder)
+        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
-            return base.GetDictationText(specimen, accessionOrder);
+            string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
+            result = this.ReplaceRepresentativeSections(result, specimenOrder);
+            return result;
         }
     }
 
@@ -149,9 +161,11 @@ namespace YellowstonePathology.UI.Gross
             this.m_SpecimenCollection.Add(skinShavePunchMiscBiopsy);
         }
 
-        public override string GetDictationText(SpecimenOrder specimen, AccessionOrder accessionOrder)
+        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
-            return base.GetDictationText(specimen, accessionOrder);
+            string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
+            result = this.ReplaceSubmitted(result, specimenOrder);
+            return result;
         }
     }
 
@@ -171,9 +185,11 @@ namespace YellowstonePathology.UI.Gross
             this.m_SpecimenCollection.Add(skinExcisionUnorientedBiopsy);
         }
 
-        public override string GetDictationText(SpecimenOrder specimen, AccessionOrder accessionOrder)
+        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
-            return base.GetDictationText(specimen, accessionOrder);
+            string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
+            result = this.ReplaceTipsSubmitted(result, specimenOrder);
+            return result;
         }
     }
 
@@ -188,15 +204,17 @@ namespace YellowstonePathology.UI.Gross
                 "Orientation:  [designation]" + Environment.NewLine +
                 "Inking:  12 to 3 o'clock = blue; 3 to 6 o'clock = red; 6 to 9 o'clock = green; 9 to 12 o'clock = orange; deep = black.  " + Environment.NewLine +
                 "Sectioning:  [description]" + Environment.NewLine +
-                "Submitted:  Tips submitted in cassette \"1A\" and remainder [remaindersubmission].  ";
+                "Submitted:  [tipssubmitted].  ";
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinExcisionOrientedBiopsy skinExcisionOrientedBiopsy = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinExcisionOrientedBiopsy();
             this.m_SpecimenCollection.Add(skinExcisionOrientedBiopsy);
         }
 
-        public override string GetDictationText(SpecimenOrder specimen, AccessionOrder accessionOrder)
+        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
-            return base.GetDictationText(specimen, accessionOrder);
+            string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
+            result = this.ReplaceTipsSubmitted(result, specimenOrder);
+            return result;
         }
     }
 
@@ -221,9 +239,11 @@ namespace YellowstonePathology.UI.Gross
             this.m_SpecimenCollection.Add(gallbladderExcision);
         }
 
-        public override string GetDictationText(SpecimenOrder specimen, AccessionOrder accessionOrder)
+        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
-            return base.GetDictationText(specimen, accessionOrder);
+            string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
+            result = this.ReplaceRepresentativeSections(result, specimenOrder);
+            return result;
         }
     }
 
@@ -246,9 +266,11 @@ namespace YellowstonePathology.UI.Gross
             this.m_SpecimenCollection.Add(tonsilAdenoidExcision);
         }
 
-        public override string GetDictationText(SpecimenOrder specimen, AccessionOrder accessionOrder)
+        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
-            return base.GetDictationText(specimen, accessionOrder);
+            string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
+            result = this.ReplaceRepresentativeSectionsAgeRestricted(result, specimenOrder, accessionOrder);
+            return result;
         }
     }
 
@@ -269,9 +291,11 @@ namespace YellowstonePathology.UI.Gross
             this.m_SpecimenCollection.Add(tonsilExcision);
         }
 
-        public override string GetDictationText(SpecimenOrder specimen, AccessionOrder accessionOrder)
+        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
-            return base.GetDictationText(specimen, accessionOrder);
+            string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
+            result = this.ReplaceRepresentativeSectionsAgeRestricted(result, specimenOrder, accessionOrder);
+            return result;
         }
     }
 
@@ -291,9 +315,11 @@ namespace YellowstonePathology.UI.Gross
             this.m_SpecimenCollection.Add(adenoidExcision);
         }
 
-        public override string GetDictationText(SpecimenOrder specimen, AccessionOrder accessionOrder)
+        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
-            return base.GetDictationText(specimen, accessionOrder);
+            string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
+            result = this.ReplaceRepresentativeSectionsAgeRestricted(result, specimenOrder, accessionOrder);
+            return result;
         }
     }
 
@@ -313,9 +339,11 @@ namespace YellowstonePathology.UI.Gross
             this.m_SpecimenCollection.Add(poc);
         }
 
-        public override string GetDictationText(SpecimenOrder specimen, AccessionOrder accessionOrder)
+        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
-            return base.GetDictationText(specimen, accessionOrder);
+            string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
+            result = this.ReplaceSubmitted(result, specimenOrder);
+            return result;
         }
     }
 
@@ -335,9 +363,11 @@ namespace YellowstonePathology.UI.Gross
             this.m_SpecimenCollection.Add(breastReduction);
         }
 
-        public override string GetDictationText(SpecimenOrder specimen, AccessionOrder accessionOrder)
+        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
-            return base.GetDictationText(specimen, accessionOrder);
+            string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
+            result = this.ReplaceSubmitted(result, specimenOrder);
+            return result;
         }
     }
 
@@ -355,9 +385,11 @@ namespace YellowstonePathology.UI.Gross
             this.m_SpecimenCollection.Add(ecc);
         }
 
-        public override string GetDictationText(SpecimenOrder specimen, AccessionOrder accessionOrder)
+        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
-            return base.GetDictationText(specimen, accessionOrder);
+            string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
+            result = this.ReplaceCassetteLabel(result, specimenOrder);
+            return result;
         }
     }
 
@@ -375,9 +407,11 @@ namespace YellowstonePathology.UI.Gross
             this.m_SpecimenCollection.Add(emb);
         }
 
-        public override string GetDictationText(SpecimenOrder specimen, AccessionOrder accessionOrder)
+        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
-            return base.GetDictationText(specimen, accessionOrder);
+            string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
+            result = this.ReplaceCassetteLabel(result, specimenOrder);
+            return result;
         }
     }
 
@@ -395,9 +429,11 @@ namespace YellowstonePathology.UI.Gross
             this.m_SpecimenCollection.Add(cervicalBiopsy);
         }
 
-        public override string GetDictationText(SpecimenOrder specimen, AccessionOrder accessionOrder)
+        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
-            return base.GetDictationText(specimen, accessionOrder);
+            string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
+            result = this.ReplaceCassetteLabel(result, specimenOrder);
+            return result;
         }
     }
 
@@ -417,9 +453,11 @@ namespace YellowstonePathology.UI.Gross
             this.m_SpecimenCollection.Add(leepCone);
         }
 
-        public override string GetDictationText(SpecimenOrder specimen, AccessionOrder accessionOrder)
+        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
-            return base.GetDictationText(specimen, accessionOrder);
+            string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
+            result = this.ReplaceSubmitted(result, specimenOrder);
+            return result;
         }
     }
 
@@ -438,9 +476,11 @@ namespace YellowstonePathology.UI.Gross
             this.m_SpecimenCollection.Add(leepPieces);
         }
 
-        public override string GetDictationText(SpecimenOrder specimen, AccessionOrder accessionOrder)
+        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
-            return base.GetDictationText(specimen, accessionOrder);
+            string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
+            result = this.ReplaceSubmitted(result, specimenOrder);
+            return result;
         }
     }
 
@@ -494,9 +534,9 @@ namespace YellowstonePathology.UI.Gross
             this.m_SpecimenCollection.Add(singlePlacenta);
         }
 
-        public override string GetDictationText(SpecimenOrder specimen, AccessionOrder accessionOrder)
+        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
-            return base.GetDictationText(specimen, accessionOrder);
+            return base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
         }
     }
 
@@ -534,9 +574,11 @@ namespace YellowstonePathology.UI.Gross
             this.m_SpecimenCollection.Add(uterus);
         }
 
-        public override string GetDictationText(SpecimenOrder specimen, AccessionOrder accessionOrder)
+        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
-            return base.GetDictationText(specimen, accessionOrder);
+            string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
+            result = this.ReplaceManualSubmition(result, specimenOrder);
+            return result;
         }
     }
 
@@ -593,9 +635,11 @@ namespace YellowstonePathology.UI.Gross
             this.m_SpecimenCollection.Add(uterusAdnexa);
         }
 
-        public override string GetDictationText(SpecimenOrder specimen, AccessionOrder accessionOrder)
+        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
-            return base.GetDictationText(specimen, accessionOrder);
+            string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
+            result = this.ReplaceManualSubmition(result, specimenOrder);
+            return result;
         }
     }
 
@@ -611,9 +655,11 @@ namespace YellowstonePathology.UI.Gross
             this.m_SpecimenCollection.Add(needleCoreBiopsy);
         }
 
-        public override string GetDictationText(SpecimenOrder specimen, AccessionOrder accessionOrder)
+        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
-            return base.GetDictationText(specimen, accessionOrder);
+            string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
+            result = this.ReplaceCassetteLabel(result, specimenOrder);
+            return result;
         }
     }
 
@@ -630,9 +676,11 @@ namespace YellowstonePathology.UI.Gross
             this.m_SpecimenCollection.Add(aorticValve);
         }
 
-        public override string GetDictationText(SpecimenOrder specimen, AccessionOrder accessionOrder)
+        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
-            return base.GetDictationText(specimen, accessionOrder);
+            string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
+            result = this.ReplaceRepresentativeSections(result, specimenOrder);
+            return result;
         }
     }
 
@@ -649,9 +697,11 @@ namespace YellowstonePathology.UI.Gross
             this.m_SpecimenCollection.Add(mitralValve);
         }
 
-        public override string GetDictationText(SpecimenOrder specimen, AccessionOrder accessionOrder)
+        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
-            return base.GetDictationText(specimen, accessionOrder);
+            string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
+            result = this.ReplaceRepresentativeSections(result, specimenOrder);
+            return result;
         }
     }
 
@@ -669,9 +719,9 @@ namespace YellowstonePathology.UI.Gross
             this.m_SpecimenCollection.Add(kneeTissue);
         }
 
-        public override string GetDictationText(SpecimenOrder specimen, AccessionOrder accessionOrder)
+        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
-            return base.GetDictationText(specimen, accessionOrder);
+            return base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
         }
     }
 
@@ -688,9 +738,11 @@ namespace YellowstonePathology.UI.Gross
             this.m_SpecimenCollection.Add(femoralHead);
         }
 
-        public override string GetDictationText(SpecimenOrder specimen, AccessionOrder accessionOrder)
+        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
-            return base.GetDictationText(specimen, accessionOrder);
+            string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
+            result = this.ReplaceRepresentativeSections(this.m_Text, specimenOrder);
+            return result;
         }
     }
 }

@@ -145,12 +145,12 @@ namespace YellowstonePathology.Business.Specimen.Model
 			return result;
 		}		
 
-        public string GetGrossSubmittedInString(string cassetteColor)
+        public string GetGrossSubmittedInString()
         {
             string result = null;
             if (this.m_AliquotOrderCollection.Count != 0)
-            {                
-                result = "entirely submitted into " + cassetteColor.ToLower();
+            {
+                result = "entirely submitted into ";
                 if (this.m_AliquotOrderCollection.Count == 1)
                 {
                 	result += " cassette \"" + this.m_AliquotOrderCollection[0].Label + "\"";
@@ -163,12 +163,12 @@ namespace YellowstonePathology.Business.Specimen.Model
             return result;
         }
 
-        public string GetRepresentativeSectionsSubmittedIn(string cassetteColor)
+        public string GetRepresentativeSectionsSubmittedIn()
         {
             string result = null;
             if (this.m_AliquotOrderCollection.Count != 0)
             {
-                result = "Representative sections are submitted to " + cassetteColor.ToLower();
+                result = "Representative sections are submitted to ";
                 if (this.m_AliquotOrderCollection.Count == 1)
                 {
                     result += " cassette ";
