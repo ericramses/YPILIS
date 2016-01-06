@@ -45,10 +45,10 @@ namespace YellowstonePathology.Business.Label.Model
         public void Print()
         {
             string path = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.CassettePrinter;
-            //if(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.UseLaserCassettePrinter == true)
-            //{
-            //    path = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.LaserCassettePrinter;
-            //}
+            if(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.UseLaserCassettePrinter == true)
+            {
+                path = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.LaserCassettePrinter;
+            }
 
             try
             {

@@ -152,37 +152,27 @@ namespace YellowstonePathology.Business.Label.Model
             this.m_AliquotOrder = aliquotOrder;
             this.m_BlockTitle = aliquotOrder.PrintLabel;
             this.m_Verified = aliquotOrder.GrossVerified;
-            this.m_PatientInitials = patientName.GetInitials();
-            this.m_CassetteColumn = accessionOrder.PrintMateColumnNumber;
+            this.m_PatientInitials = patientName.GetInitials();            
+            
+            if(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.UseLaserCassettePrinter == false)
+            {
+                this.m_CassetteColumn = accessionOrder.PrintMateColumnNumber;
+            }
+            else
+            {
+                YellowstonePathology.Business.Common.PrintMateCarousel printMateCarousel = new Common.PrintMateCarousel();
+                YellowstonePathology.Business.Common.PrintMateColumn printMateColumn = printMateCarousel.GetColumn(accessionOrder.PrintMateColumnNumber);
+                this.m_CassetteColumn = printMateColumn.GeneralDataId;
+            }
         }
 
         public string ToLaserString()
         {
             //C:\Program Files\General Data Company\Cassette Printing\Normal.itl|102|15-28044|1A|JA|YPII|ALQ15-28044.1A|15|28044
             YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_MasterAccessionNo);
-            StringBuilder result = new StringBuilder(TemplateFileName + this.m_LaserDelimeter);            
+            StringBuilder result = new StringBuilder(TemplateFileName + this.m_LaserDelimeter);                                    
 
-            int cassetteCollumn = 103;
-            switch (CassetteColumn)
-            {
-                case 6:
-                    cassetteCollumn = 105;
-                    break;
-                case 5:
-                    cassetteCollumn = 111;
-                    break;
-                case 4:
-                    cassetteCollumn = 104;
-                    break;
-                case 3:
-                    cassetteCollumn = 111;
-                    break;
-                default:
-                    cassetteCollumn = 105;
-                    break;
-            }
-
-            result.Append(cassetteCollumn.ToString() + this.m_LaserDelimeter);
+            result.Append(this.m_CassetteColumn.ToString() + this.m_LaserDelimeter);
             result.Append(orderIdParser.MasterAccessionNo + this.m_LaserDelimeter);
             result.Append(this.BlockTitle + this.m_LaserDelimeter);
             result.Append(this.PatientInitials + this.m_LaserDelimeter);
