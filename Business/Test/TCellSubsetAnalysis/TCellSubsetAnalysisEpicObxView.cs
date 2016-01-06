@@ -30,6 +30,14 @@ namespace YellowstonePathology.Business.Test.TCellSubsetAnalysis
 			this.AddNextObxElement("", document, "F");
 			string result = "Result: " + panelSetOrder.Result;
 			this.AddNextObxElement(result, document, "F");
+			result = "CD3 Percent: " + panelSetOrder.CD3Percent;
+			this.AddNextObxElement(result, document, "F");
+			result = "CD4 Percent: " + panelSetOrder.CD4Percent;
+			this.AddNextObxElement(result, document, "F");
+			result = "CD8 Percent: " + panelSetOrder.CD8Percent;
+			this.AddNextObxElement(result, document, "F");
+			result = "CD4/CD8 Ratio: " + panelSetOrder.CD4CD8Ratio;
+			this.AddNextObxElement(result, document, "F");
 
 			this.AddNextObxElement("", document, "F");
 			this.AddNextObxElement("Pathologist: " + panelSetOrder.Signature, document, "F");

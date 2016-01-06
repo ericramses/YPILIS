@@ -30,6 +30,22 @@ namespace YellowstonePathology.Business.Test.BCellEnumeration
 			this.AddNextObxElement("", document, "F");
 			string result = "Result: " + panelSetOrder.Result;
 			this.AddNextObxElement(result, document, "F");
+			result = "WBC: " + panelSetOrder.WBC;
+			this.AddNextObxElement(result, document, "F");
+			result = "Lymphocyte Percentage: " + panelSetOrder.LymphocytePercentage;
+			this.AddNextObxElement(result, document, "F");
+			result = "CD19 B-Cell Positive Count: " + panelSetOrder.CD19BCellPositiveCount;
+			this.AddNextObxElement(result, document, "F");
+			result = "CD19 B-Cell Positive Percent: " + panelSetOrder.CD19BCellPositivePercent;
+			this.AddNextObxElement(result, document, "F");
+			result = "CD20 B-Cell Positive Count: " + panelSetOrder.CD20BCellPositiveCount;
+			this.AddNextObxElement(result, document, "F");
+			result = "CD20 B-Cell Positive Percent: " + panelSetOrder.CD20BCellPositivePercent;
+			this.AddNextObxElement(result, document, "F");
+			result = "CD19 Absolute Count: " + panelSetOrder.CD19AbsoluteCount;
+			this.AddNextObxElement(result, document, "F");
+			result = "CD20 Absolute Count: " + panelSetOrder.CD20AbsoluteCount;
+			this.AddNextObxElement(result, document, "F");
 
 			this.AddNextObxElement("", document, "F");
 			this.AddNextObxElement("Pathologist: " + panelSetOrder.Signature, document, "F");
