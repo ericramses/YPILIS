@@ -40,22 +40,7 @@ namespace YellowstonePathology.UI.Gross
 
         public void SetGrossDescription()
         {
-            string grossX = "Specimen " + this.m_SpecimenOrder.SpecimenNumber + " ";
-            if(this.m_SpecimenOrder.ClientFixation == YellowstonePathology.Business.Specimen.Model.FixationType.Formalin)
-            {
-                grossX += "is received in formalin filled container labeled \"" + this.m_AccessionOrder.PatientDisplayName + " - "  + this.m_SpecimenOrder.Description + "\"";
-            }
-            else if(this.m_SpecimenOrder.ClientFixation == YellowstonePathology.Business.Specimen.Model.FixationType.Fresh)
-            {
-                grossX += " is received fresh in a container labeled \"" + this.m_AccessionOrder.PatientDisplayName + " - " + this.m_SpecimenOrder.Description + "\"";
-            }
-            grossX += ".  " + Environment.NewLine + Environment.NewLine;
-            grossX += this.m_DictationTemplate.Text;
-
-            //YellowstonePathology.Business.Common.PrintMateCarousel printMateCarousel = new Business.Common.PrintMateCarousel();
-            //YellowstonePathology.Business.Common.PrintMateColumn printMateColumn = printMateCarousel.GetColumn(this.m_AccessionOrder.PrintMateColumnNumber);
-            //grossX += "It is bisected and " + this.m_SpecimenOrder.GetGrossSubmittedInString(printMateColumn.ColorCode);
-            this.m_GrossDescription = grossX;
+            this.m_GrossDescription = this.m_DictationTemplate.BuildResultText(this.m_SpecimenOrder, this.m_AccessionOrder, this.m_SystemIdentity);
         }
 
         public string GrossDescription
