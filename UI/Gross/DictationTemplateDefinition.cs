@@ -377,7 +377,7 @@ namespace YellowstonePathology.UI.Gross
         {
             this.m_TemplateName = "ECC";
             this.m_Text = "[identifier]." + Environment.NewLine +
-                "Gross Description:   Multiple tan-pink fragments of tissue and mucous." + Environment.NewLine +
+                "Gross Description:   Multiple tan-pink fragments of tissue and mucus." + Environment.NewLine +
                 "Measurement:  [measurement]" + Environment.NewLine +
                 "Submitted:  Filtered through a fine mesh bag and entirely submitted in cassette [cassettelabel].  ";            
 
@@ -399,7 +399,7 @@ namespace YellowstonePathology.UI.Gross
         {
             this.m_TemplateName = "EMB";
             this.m_Text = "[identifier]." + Environment.NewLine +
-                "Gross Description:  Multiple tan-pink fragments of tissue and mucous." + Environment.NewLine +
+                "Gross Description:  Multiple tan-pink fragments of tissue and mucus." + Environment.NewLine +
                 "Measurement:  [measurement]" + Environment.NewLine +
                 "Submitted:  Filtered through a fine mesh bag and entirely submitted in cassette [cassettelabel].  ";            
 
