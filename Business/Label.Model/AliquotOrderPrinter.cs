@@ -8,7 +8,7 @@ namespace YellowstonePathology.Business.Label.Model
     public class AliquotOrderPrinter
     {
         private BlockLabelPrinter m_BlockLabelPrinter;
-        private CassettePrinter m_CassettePrinter;
+        private LaserCassettePrinter m_LaserCassettePrinter;
         private SlideLabelPrinter m_SlideLabelPrinter;
         private SpecimenLabelPrinter m_SpecimenLabelPrinter;
         
@@ -22,7 +22,7 @@ namespace YellowstonePathology.Business.Label.Model
             this.m_AccessionOrder = accessionOrder;
             
             this.m_BlockLabelPrinter = new BlockLabelPrinter(this.m_AliquotOrderCollection, this.m_AccessionOrder);
-            this.m_CassettePrinter = new CassettePrinter(this.m_AliquotOrderCollection, this.m_AccessionOrder);
+            this.m_LaserCassettePrinter = new LaserCassettePrinter(this.m_AliquotOrderCollection, this.m_AccessionOrder);
             this.m_SlideLabelPrinter = new SlideLabelPrinter(this.m_AliquotOrderCollection, this.m_AccessionOrder);
             this.m_SpecimenLabelPrinter = new SpecimenLabelPrinter(this.m_AliquotOrderCollection, this.m_AccessionOrder);
         }
@@ -30,7 +30,7 @@ namespace YellowstonePathology.Business.Label.Model
         public void Print()
         {
             if (this.m_BlockLabelPrinter.HasItemsToPrint() == true) this.m_BlockLabelPrinter.Print();
-            if (this.m_CassettePrinter.HasItemsToPrint() == true) this.m_CassettePrinter.Print();
+            if (this.m_LaserCassettePrinter.HasItemsToPrint() == true) this.m_LaserCassettePrinter.Print();
             if (this.m_SlideLabelPrinter.HasItemsToPrint() == true) this.m_SlideLabelPrinter.Print();
             if (this.m_SpecimenLabelPrinter.HasItemsToPrint() == true) this.m_SpecimenLabelPrinter.Print();
         }
@@ -38,7 +38,7 @@ namespace YellowstonePathology.Business.Label.Model
         public bool HasCassettesToPrint()
         {
             bool result = false;
-            if (this.m_CassettePrinter.HasItemsToPrint() == true) result = true;
+            if (this.m_LaserCassettePrinter.HasItemsToPrint() == true) result = true;
             return result;
         }
     }
