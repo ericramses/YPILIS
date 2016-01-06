@@ -42,7 +42,7 @@ namespace YellowstonePathology.Business.Common
             get { return this.m_Color; }
         }
 
-        public int GeneralDataId
+        public int GeneralDataColor
         {
             get { return this.m_GeneralDataId; }
         }

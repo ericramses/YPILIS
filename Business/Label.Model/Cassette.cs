@@ -19,7 +19,7 @@ namespace YellowstonePathology.Business.Label.Model
 		protected string m_CassetteColumnDelimiter = "H";
 		protected string m_CompanyId = "YPII";
 		protected string m_ScanningPrefix = "ALQ";
-		protected int m_CassetteColumn;
+		protected string m_CassetteColumn;
 		protected string m_BlockTitle;
 		protected string m_PatientInitials;		
 		protected bool m_PrintRequested;
@@ -91,7 +91,7 @@ namespace YellowstonePathology.Business.Label.Model
 			}
         }
 
-        public int CassetteColumn
+        public string CassetteColumn
         {
             get { return this.m_CassetteColumn; }
 			set
@@ -156,13 +156,13 @@ namespace YellowstonePathology.Business.Label.Model
             
             if(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.UseLaserCassettePrinter == false)
             {
-                this.m_CassetteColumn = accessionOrder.PrintMateColumnNumber;
+                this.m_CassetteColumn = accessionOrder.PrintMateColumnNumber.ToString();
             }
             else
             {
                 YellowstonePathology.Business.Common.PrintMateCarousel printMateCarousel = new Common.PrintMateCarousel();
                 YellowstonePathology.Business.Common.PrintMateColumn printMateColumn = printMateCarousel.GetColumn(accessionOrder.PrintMateColumnNumber);
-                this.m_CassetteColumn = printMateColumn.GeneralDataId;
+                this.m_CassetteColumn = printMateColumn.GeneralDataColor.ToString();
             }
         }
 

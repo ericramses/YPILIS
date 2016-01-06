@@ -52,13 +52,19 @@ namespace YellowstonePathology.UI.Gross
             YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetSurgical();
             if (panelSetOrder == null) panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection[0];
 
-			this.m_AliquotOrder.Printed = false;
+            /*			
 			YellowstonePathology.Business.Common.BlockCollection blockCollection = new Business.Common.BlockCollection();
 			string patientInitials = YellowstonePathology.Business.Helper.PatientHelper.GetPatientInitials(this.m_AccessionOrder.PFirstName, this.m_AccessionOrder.PLastName);
 			YellowstonePathology.Business.Test.AliquotOrderCollection blocksToPrintCollection = this.m_SpecimenOrder.AliquotOrderCollection.GetUnPrintedBlocks();
 			blockCollection.FromAliquotOrderItemCollection(blocksToPrintCollection, panelSetOrder.ReportNo, patientInitials, this.m_AccessionOrder.PrintMateColumnNumber, true);
 			YellowstonePathology.Business.Common.PrintMate.Print(blockCollection);
 			blocksToPrintCollection.SetPrinted();
+            */
+
+            this.m_AliquotOrder.Printed = false;
+            YellowstonePathology.Business.Test.AliquotOrderCollection blocksToPrintCollection = this.m_SpecimenOrder.AliquotOrderCollection.GetUnPrintedBlocks();
+            YellowstonePathology.Business.Label.Model.AliquotOrderPrinter aliquotOrderPrinter = new Business.Label.Model.AliquotOrderPrinter(blocksToPrintCollection, this.m_AccessionOrder);
+            aliquotOrderPrinter.Print();
 
             CustomEventArgs.SpecimenOrderReturnEventArgs specimenOrderReturnEventArgs = new CustomEventArgs.SpecimenOrderReturnEventArgs(this.m_SpecimenOrder);
             this.Next(this, specimenOrderReturnEventArgs);
