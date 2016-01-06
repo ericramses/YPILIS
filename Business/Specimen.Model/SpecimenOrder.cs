@@ -179,22 +179,15 @@ namespace YellowstonePathology.Business.Specimen.Model
             string result = null;
             if (this.m_AliquotOrderCollection.Count != 0)
             {
-                result = "Representative sections are submitted to ";
+                result = "Representative sections are submitted to ";               
                 if (this.m_AliquotOrderCollection.Count == 1)
                 {
-                    result += " cassette ";
+                    result += " cassette \"" + this.m_AliquotOrderCollection[0].Label + "\"";
                 }
                 else
                 {
-                    result += " cassettes ";
-                }
-
-                foreach (YellowstonePathology.Business.Test.AliquotOrder aliquotOrder in this.m_AliquotOrderCollection)
-                {
-                    result += "\"" + aliquotOrder.Label + "\", ";
-                }
-
-                result = result.Remove(result.Length - 2, 2);
+                    result += " cassettes \"" + this.m_AliquotOrderCollection[0].Label + "\" - \"" + this.m_AliquotOrderCollection[this.m_AliquotOrderCollection.Count - 1].Label + "\"";
+                }               
             }
             return result;
         }
