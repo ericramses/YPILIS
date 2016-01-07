@@ -7,6 +7,7 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 using System;
+using YellowstonePathology.Business.Helper;
 
 namespace YellowstonePathology.Business.Test.TCellSubsetAnalysis
 {
@@ -33,12 +34,12 @@ namespace YellowstonePathology.Business.Test.TCellSubsetAnalysis
 			YellowstonePathology.Business.Document.AmendmentSection amendmentSection = new YellowstonePathology.Business.Document.AmendmentSection();
 			amendmentSection.SetAmendment(m_PanelSetOrder.AmendmentCollection, this.m_ReportXml, this.m_NameSpaceManager, true);
 
-			this.ReplaceText("report_result", testOrder.Result);
-			this.ReplaceText("report_cd3_percent", testOrder.CD3Percent);
-			this.ReplaceText("report_cd4_percent", testOrder.CD4Percent);
-			this.ReplaceText("report_cd8_percent", testOrder.CD8Percent);
-			this.ReplaceText("report_cd4cd8_ratio", testOrder.CD4CD8Ratio);
-			this.ReplaceText("report_interpretation", testOrder.Interpretation);
+			this.ReplaceText("report_cd3_percent", testOrder.CD3Percent.ToString().StringAsPercent());
+			this.ReplaceText("report_cd4_percent", testOrder.CD4Percent.ToString().StringAsPercent());
+			this.ReplaceText("report_cd8_percent", testOrder.CD8Percent.ToString().StringAsPercent());
+			string value = string.Empty;
+			if(testOrder.CD4CD8Ratio.HasValue) value = Math.Round(testOrder.CD4CD8Ratio.Value, 2).ToString();
+			this.ReplaceText("report_cd4cd8_ratio", value);
 			this.ReplaceText("report_method", testOrder.Method);
 			this.ReplaceText("report_references", testOrder.References);
 			this.ReplaceText("asr_comment", testOrder.ASRComment);
