@@ -323,10 +323,10 @@ namespace YellowstonePathology.UI.Gross
             */
 
             YellowstonePathology.Business.Test.AliquotOrderCollection blocksToPrintCollection = this.m_SpecimenOrder.AliquotOrderCollection.GetUnPrintedBlocks();
-            YellowstonePathology.Business.Label.Model.LaserCassettePrinter laserCassettePrinter = new Business.Label.Model.LaserCassettePrinter(blocksToPrintCollection, this.m_AccessionOrder);
-            if (laserCassettePrinter.HasItemsToPrint() == true)
+            YellowstonePathology.Business.Label.Model.CassettePrinter cassettePrinter = new Business.Label.Model.CassettePrinter(blocksToPrintCollection, this.m_AccessionOrder);
+            if (cassettePrinter.HasItemsToPrint() == true)
             {
-                laserCassettePrinter.Print();
+                cassettePrinter.Print();
             }
 
             this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
