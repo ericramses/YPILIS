@@ -491,6 +491,10 @@
     <Compile Include="Test\ALKForNSCLCByFISH\ALKForNSCLCByFISHNegativeWithMonosomyResult.cs" />
     <Compile Include="Test\ALKForNSCLCByFISH\ALKForNSCLCByFISHNegativeWithPolysomyResult.cs" />
     <Compile Include="Test\ALKForNSCLCByFISH\ALKForNSCLCByFISHNotInterpretableResult.cs" />
+    <Compile Include="Test\BCellEnumeration\BCellEnumerationEpicObxView.cs" />
+    <Compile Include="Test\BCellEnumeration\BCellEnumerationTest.cs" />
+    <Compile Include="Test\BCellEnumeration\BCellEnumerationTestOrder.cs" />
+    <Compile Include="Test\BCellEnumeration\BCellEnumerationWordDocument.cs" />
     <Compile Include="Test\CD1a\CD1aTest.cs" />
     <Compile Include="Test\ChromosomeAnalysis\ChromosomeAnalysisIncompleteResult.cs" />
     <Compile Include="Test\EGFRMutationAnalysis\EGFRMutationAnalysisPanel.cs" />
@@ -687,6 +691,10 @@
     <Compile Include="Test\Surgical\IntraoperativeConsultationResult.Validation.cs" />
     <Compile Include="Test\InformalConsult\InformalConsultTest.cs" />
     <Compile Include="Test\InformalConsult\InformalConsultTestOrder.cs" />
+    <Compile Include="Test\TCellSubsetAnalysis\TCellSubsetAnalysisEpicObxView.cs" />
+    <Compile Include="Test\TCellSubsetAnalysis\TCellSubsetAnalysisTest.cs" />
+    <Compile Include="Test\TCellSubsetAnalysis\TCellSubsetAnalysisTestOrder.cs" />
+    <Compile Include="Test\TCellSubsetAnalysis\TCellSubsetAnalysisWordDocument.cs" />
     <Compile Include="Test\TechInitiatedPeripheralSmear\TechInitiatedPeripheralSmearCMMCNteView.cs" />
     <Compile Include="Test\TechInitiatedPeripheralSmear\TechInitiatedPeripheralSmearEpicObxView.cs" />
     <Compile Include="Test\TechInitiatedPeripheralSmear\TechInitiatedPeripheralSmearTest.cs" />
@@ -3006,7 +3014,10 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Test\BCellEnumeration" />
+    <Folder Include="Test\TCellSubsetAnalysis" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="XMLTemplates\AccessionSummaryBreastCancer.xml" />
     <EmbeddedResource Include="XMLTemplates\AccessionSummaryColorectalCancer.xml" />

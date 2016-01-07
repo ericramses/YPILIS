@@ -241,6 +241,12 @@ namespace YellowstonePathology.Business.HL7View.EPIC
                 case 218:
                     view = new YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelEpicObxView(accessionOrder, reportNo, obxCount);
                     break;
+                case 222:
+                    view = new YellowstonePathology.Business.Test.BCellEnumeration.BCellEnumerationEpicObxView(accessionOrder, reportNo, obxCount);
+                    break;
+                case 223:
+                    view = new YellowstonePathology.Business.Test.TCellSubsetAnalysis.TCellSubsetAnalysisEpicObxView(accessionOrder, reportNo, obxCount);
+                    break;
             }
             return view;
         }
