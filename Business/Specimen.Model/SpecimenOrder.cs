@@ -153,11 +153,11 @@ namespace YellowstonePathology.Business.Specimen.Model
                 result = "entirely submitted into ";
                 if (this.m_AliquotOrderCollection.Count == 1)
                 {
-                	result += " cassette \"" + this.m_AliquotOrderCollection[0].Label + "\"";
+                	result += "cassette \"" + this.m_AliquotOrderCollection[0].Label + "\"";
                 }
                 else
                 {
-                    result += " cassettes \"" + this.m_AliquotOrderCollection[0].Label + "\" - \"" + this.m_AliquotOrderCollection[this.m_AliquotOrderCollection.Count - 1].Label + "\"";
+                    result += "cassettes \"" + this.m_AliquotOrderCollection[0].Label + "\" - \"" + this.m_AliquotOrderCollection[this.m_AliquotOrderCollection.Count - 1].Label + "\"";
                 }                                              
             }
             return result;
@@ -182,11 +182,11 @@ namespace YellowstonePathology.Business.Specimen.Model
                 result = "Representative sections are submitted to ";               
                 if (this.m_AliquotOrderCollection.Count == 1)
                 {
-                    result += " cassette \"" + this.m_AliquotOrderCollection[0].Label + "\"";
+                    result += "cassette \"" + this.m_AliquotOrderCollection[0].Label + "\"";
                 }
                 else
                 {
-                    result += " cassettes \"" + this.m_AliquotOrderCollection[0].Label + "\" - \"" + this.m_AliquotOrderCollection[this.m_AliquotOrderCollection.Count - 1].Label + "\"";
+                    result += "cassettes \"" + this.m_AliquotOrderCollection[0].Label + "\" - \"" + this.m_AliquotOrderCollection[this.m_AliquotOrderCollection.Count - 1].Label + "\"";
                 }               
             }
             return result;
@@ -197,14 +197,14 @@ namespace YellowstonePathology.Business.Specimen.Model
             string result = null;
             if (this.m_AliquotOrderCollection.Count != 0)
             {
-                result = "entirely submitted into";
+                result = "entirely submitted into ";
                 if (this.m_AliquotOrderCollection.Count == 2)
                 {
-                    result += " cassette \"" + this.m_AliquotOrderCollection[1].Label + "\"";
+                    result += "cassette \"" + this.m_AliquotOrderCollection[1].Label + "\"";
                 }
                 else if (this.m_AliquotOrderCollection.Count > 2)
                 {
-                    result += " cassettes \"" + this.m_AliquotOrderCollection[1].Label + "\" - \"" + this.m_AliquotOrderCollection[this.m_AliquotOrderCollection.Count - 1].Label + "\"";
+                    result += "cassettes \"" + this.m_AliquotOrderCollection[1].Label + "\" - \"" + this.m_AliquotOrderCollection[this.m_AliquotOrderCollection.Count - 1].Label + "\"";
                 }                
             }
             return result;

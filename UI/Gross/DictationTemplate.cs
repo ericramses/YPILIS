@@ -81,7 +81,7 @@ namespace YellowstonePathology.UI.Gross
             }
             else if (specimenOrder.ClientFixation == YellowstonePathology.Business.Specimen.Model.FixationType.Fresh)
             {
-                identifier += " is received fresh in a container labeled \"" + accessionOrder.PatientDisplayName + " - [description]\"";
+                identifier += "is received fresh in a container labeled \"" + accessionOrder.PatientDisplayName + " - [description]\"";
             }
             return text.Replace("[identifier]", identifier);
         }
@@ -113,7 +113,7 @@ namespace YellowstonePathology.UI.Gross
 
         protected string ReplaceRepresentativeSections(string text, YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder)
         {
-            return text.Replace("[representativesections]", "\"" + specimenOrder.GetRepresentativeSectionsSubmittedIn());
+            return text.Replace("[representativesections]", specimenOrder.GetRepresentativeSectionsSubmittedIn());
         }
 
         protected string ReplaceSubmitted(string text, YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder)
