@@ -189,6 +189,8 @@ namespace YellowstonePathology.Business.PanelSet.Model
 
             panelSetCollection.Add(new YellowstonePathology.Business.Test.HPV1618ByPCR.HPV1618ByPCRTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.InformalConsult.InformalConsultTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.BCellEnumeration.BCellEnumerationTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.TCellSubsetAnalysis.TCellSubsetAnalysisTest());
 
             //UniversityofWashington
             panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetUniversalOrganismByPCR());

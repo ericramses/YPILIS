@@ -246,6 +246,12 @@ namespace YellowstonePathology.UI.Test
                 case 218:
                     result = new RASRAFPanelResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
                     break;
+                case 222:
+                    result = new BCellEnumerationResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+                    break;
+                case 223:
+                    result = new TCellSubsetAnalysisResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+                    break;
             }
             return result;
         }
