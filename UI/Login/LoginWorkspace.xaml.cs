@@ -61,6 +61,7 @@ namespace YellowstonePathology.UI.Login
                 this.ComboBoxCaseType.SelectedValue = YellowstonePathology.Business.CaseType.ALLCaseTypes;
                 this.m_BarcodeScanPort.ContainerScanReceived += ContainerScanReceived;
                 this.m_BarcodeScanPort.HistologySlideScanReceived += new Business.BarcodeScanning.BarcodeScanPort.HistologySlideScanReceivedHandler(BarcodeScanPort_HistologySlideScanReceived);
+                this.m_BarcodeScanPort.AliquotOrderIdReceived += BarcodeScanPort_AliquotOrderIdReceived;
 
                 this.m_LoginUI.GetTaskOrderCollection();
                 this.m_LoginUI.GetDailyTaskOrderCollection();
@@ -68,6 +69,17 @@ namespace YellowstonePathology.UI.Login
 
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath += new MainWindowCommandButtonHandler.StartProviderDistributionPathEventHandler(MainWindowCommandButtonHandler_StartProviderDistributionPath);
             this.m_LoadedHasRun = true;
+        }
+
+        private void BarcodeScanPort_AliquotOrderIdReceived(string scanData)
+        {
+            this.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
+            {
+                this.m_BarcodeScanPort.AliquotOrderIdReceived -= BarcodeScanPort_AliquotOrderIdReceived;
+                this.m_LoginUI.GetReportSearchListByAliquotOrderId(scanData);
+                this.m_BarcodeScanPort.ContainerScanReceived += ContainerScanReceived;
+            }
+            ));
         }
 
         private void MainWindowCommandButtonHandler_StartProviderDistributionPath(object sender, EventArgs e)

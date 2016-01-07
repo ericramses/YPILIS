@@ -7,6 +7,9 @@ namespace YellowstonePathology.Business.Test.MPNExtendedReflex
 {
     public class MPNExtendedReflexCALRResult : YellowstonePathology.Business.Audit.Model.Audit
     {
+        public const string NotDetectedResult = "Not Detected";
+        public const string DetectedResult = "Detected";
+
         public MPNExtendedReflexCALRResult(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {
 			YellowstonePathology.Business.Test.CalreticulinMutationAnalysis.CalreticulinMutationAnalysisTest panelSetCalreticulinMutationAnalysis = new YellowstonePathology.Business.Test.CalreticulinMutationAnalysis.CalreticulinMutationAnalysisTest();            
@@ -15,7 +18,12 @@ namespace YellowstonePathology.Business.Test.MPNExtendedReflex
 				YellowstonePathology.Business.Test.CalreticulinMutationAnalysis.CalreticulinMutationAnalysisTestOrder panelSetOrderCalreticulinMutationAnalysis = (YellowstonePathology.Business.Test.CalreticulinMutationAnalysis.CalreticulinMutationAnalysisTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetCalreticulinMutationAnalysis.PanelSetId);
                 if (panelSetOrderCalreticulinMutationAnalysis.Final == true)
                 {
-                    this.m_Message = new StringBuilder(panelSetOrderCalreticulinMutationAnalysis.Result);
+                    string calrResult = panelSetOrderCalreticulinMutationAnalysis.Result;
+                    if (panelSetOrderCalreticulinMutationAnalysis.Result == DetectedResult)
+                    {
+                        calrResult = calrResult + "(" + panelSetOrderCalreticulinMutationAnalysis.Mutations + ")";
+                    }
+                    this.m_Message = new StringBuilder(calrResult);
                 }
                 else
                 {
@@ -53,7 +61,7 @@ namespace YellowstonePathology.Business.Test.MPNExtendedReflex
                     this.m_Message = new StringBuilder(MPNExtendedReflexResult.UnknownState);
                 }                
             }
-        }
+        }       
 
         public string Result
         {

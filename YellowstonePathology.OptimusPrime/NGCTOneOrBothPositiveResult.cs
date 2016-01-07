@@ -42,7 +42,7 @@ namespace YellowstonePathology.OptimusPrime
                         + "where ngct.ReportNo = pso.ReportNo "
                         + "and pso.OrderedOnId = '" + aliquotOrderId + "' and pso.Accepted = 0; ";
 
-            sql += @"Update tblPanelSetOrder set [HoldDistribution] = 1, "
+            sql += @"Update tblPanelSetOrder set [HoldDistribution] = 0, "
             + "[Accepted] = 1, "
             + "[AcceptedBy] = 'Optimus Prime', "
             + "[AcceptedById] = 5134, "

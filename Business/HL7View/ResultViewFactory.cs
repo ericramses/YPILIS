@@ -42,6 +42,7 @@ namespace YellowstonePathology.Business.HL7View
                 case 969:
                 case 1422:
                 case 1456:
+                case 1279:
                 case 67:
                     resultView = new Business.HL7View.EPIC.EpicResultView(reportNo, testing);                    
                     break;

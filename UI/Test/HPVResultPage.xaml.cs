@@ -65,6 +65,9 @@ namespace YellowstonePathology.UI.Test
 			DataContext = this;
             Loaded += HPVResultPage_Loaded;
             Unloaded += HPVResultPage_Unloaded;
+            
+            this.m_ControlsNotDisabledOnFinal.Add(this.ButtonNext);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockShowDocument);
 		}
 
         private void HPVResultPage_Loaded(object sender, RoutedEventArgs e)

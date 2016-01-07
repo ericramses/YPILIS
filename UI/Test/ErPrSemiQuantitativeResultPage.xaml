@@ -110,9 +110,9 @@
 					<TextBlock Grid.Column="0" Grid.Row="1" Margin="3" VerticalAlignment="Center" FontWeight="Bold" HorizontalAlignment="Left" Text="ER Intensity:" />
 					<ComboBox Grid.Column="1" Grid.Row="1" Margin="3" Text="{Binding Path=PanelSetOrder.ErIntensity}">
 						<ComboBoxItem>0+</ComboBoxItem>
-						<ComboBoxItem>1+</ComboBoxItem>
-						<ComboBoxItem>2+</ComboBoxItem>
-						<ComboBoxItem>3+</ComboBoxItem>
+						<ComboBoxItem>Weak, 1+</ComboBoxItem>
+						<ComboBoxItem>Moderate, 2+</ComboBoxItem>
+						<ComboBoxItem>Strong, 3+</ComboBoxItem>
                         <ComboBoxItem>N/A</ComboBoxItem>
 						<ComboBoxItem>Not Performed</ComboBoxItem>
 					</ComboBox>
@@ -130,9 +130,9 @@
 					<TextBlock Grid.Column="0" Grid.Row="4" Margin="3" VerticalAlignment="Center" FontWeight="Bold" HorizontalAlignment="Left" Text="PR Intensity:" />
 					<ComboBox Grid.Column="1" Grid.Row="4" Margin="3" Text="{Binding Path=PanelSetOrder.PrIntensity}">
 						<ComboBoxItem>0+</ComboBoxItem>
-						<ComboBoxItem>1+</ComboBoxItem>
-						<ComboBoxItem>2</ComboBoxItem>
-						<ComboBoxItem>3+</ComboBoxItem>
+						<ComboBoxItem>Weak, 1+</ComboBoxItem>
+						<ComboBoxItem>Moderate, 2+</ComboBoxItem>
+						<ComboBoxItem>Strong, 3+</ComboBoxItem>
                         <ComboBoxItem>N/A</ComboBoxItem>
 						<ComboBoxItem>Not Performed</ComboBoxItem>
 					</ComboBox>

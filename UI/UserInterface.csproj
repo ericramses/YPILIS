@@ -41,7 +41,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>652</ApplicationRevision>
+    <ApplicationRevision>693</ApplicationRevision>
     <ApplicationVersion>10.1.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -3864,10 +3864,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Billing\CodeSelection.xml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="MolecularTesting\" />
-    <Folder Include="PatientLinking\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Surgical\TypingTemplate.xml" />
   </ItemGroup>

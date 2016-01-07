@@ -30,7 +30,7 @@ namespace YellowstonePathology.Business.Domain.Billing
             YellowstonePathology.Business.Billing.Model.BillingRuleSet billingRuleSet = YellowstonePathology.Business.Billing.Model.BillingRuleSetCollection.GetRuleSetByRuleSetId(client.BillingRuleSetId2);
 			YellowstonePathology.Business.Billing.Model.BillingTypeEnum billingType = billingRuleSet.GetBillingType(this.m_AccessionOrder.PatientType, this.m_AccessionOrder.PrimaryInsurance, this.m_AccessionOrder.SecondaryInsurance, this.m_PanelSetOrder.Ordered14DaysPostDischarge, this.m_PanelSetOrder.PanelSetId);
 			this.m_PanelSetOrder.BillingType = billingType.ToString();			
-        }
+        }        
 
         public void Unpost()
         {

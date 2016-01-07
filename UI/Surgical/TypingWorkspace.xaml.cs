@@ -910,7 +910,7 @@ namespace YellowstonePathology.UI.Surgical
             	foreach(YellowstonePathology.UI.Gross.DictationTemplate template in collection)
             	{
                     result.AppendLine("Name: " + template.TemplateName);
-                    result.Append(this.GetTemplateText(template));
+                    result.Append(template.BuildResultText(this.m_TypingUI.AccessionOrder.SpecimenOrderCollection[0], this.m_TypingUI.AccessionOrder, this.m_SystemIdentity));
                     result.AppendLine();
                     result.AppendLine();
                     result.AppendLine();
@@ -918,81 +918,6 @@ namespace YellowstonePathology.UI.Surgical
                 this.m_TypingUI.TemplateText = result.ToString();
                 this.m_TypingUI.NotifyPropertyChanged("TemplateText");
             }
-        }
-		
-        private string GetTemplateText(YellowstonePathology.UI.Gross.DictationTemplate template)
-        {
-        	string result = string.Empty;
-
-            YellowstonePathology.Business.User.UserPreference userPreference = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference;
-            YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_TypingUI.AccessionOrder.SpecimenOrderCollection[0];                  
-            if(string.IsNullOrEmpty(specimenOrder.SpecimenId) == false)
-            {                                    
-                if(template is YellowstonePathology.UI.Gross.TemplateNotFound == false)
-                {
-                    result = template.Text;
-	
-	                string identifier = "Specimen " + specimenOrder.SpecimenNumber + " ";
-	                if (specimenOrder.ClientFixation != YellowstonePathology.Business.Specimen.Model.FixationType.Fresh)
-	                {
-	                    identifier += "is received in a formalin filled container labeled \"" + this.m_TypingUI.AccessionOrder.PatientDisplayName + " - [description]\"";
-	                }
-	                else if (specimenOrder.ClientFixation == YellowstonePathology.Business.Specimen.Model.FixationType.Fresh)
-	                {
-	                    identifier += " is received fresh in a container labeled \"" + this.m_TypingUI.AccessionOrder.PatientDisplayName + " - [description]\"";
-	                }
-
-                    result = result.Replace("[identifier]", identifier);
-	
-	                YellowstonePathology.Business.Common.PrintMateCarousel printMateCarousel = new Business.Common.PrintMateCarousel();
-	                YellowstonePathology.Business.Common.PrintMateColumn printMateColumn = printMateCarousel.GetColumn(this.m_TypingUI.AccessionOrder.PrintMateColumnNumber);
-	
-	                if (result.Contains("[submitted]") == true)
-	                {
-	                    string submittedStatement = "[procedure] and " + specimenOrder.GetGrossSubmittedInString(printMateColumn.Color);
-                        result = result.Replace("[submitted]", submittedStatement);
-	                }
-	                else if (result.Contains("[cassettelabel]") == true)
-	                {
-                        result = result.Replace("[cassettelabel]", "\"" + specimenOrder.SpecimenNumber.ToString() + "A\"");
-	                }
-	                else if (result.Contains("[remaindersubmission]") == true)
-	                {
-	                    string remainderSubmittedStatement = specimenOrder.GetGrossRemainderSubmittedInString();
-                        result = result.Replace("[remaindersubmission]", remainderSubmittedStatement);
-	                }	                    
-	                        
-	                string initials = string.Empty;
-	                if (specimenOrder.AliquotOrderCollection.Count != 0)
-	                {
-	                    if(this.m_TypingUI.AccessionOrder.SpecimenOrderCollection.IsLastSpecimen(specimenOrder.SpecimenOrderId) == true)
-	                    {
-		                    int grossVerifiedById = specimenOrder.AliquotOrderCollection[0].GrossVerifiedById;
-		                    string grossedByInitials = "[??]";
-		
-		                    if (grossVerifiedById != 0)
-		                    {
-		                        YellowstonePathology.Business.User.SystemUser grossedBy = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetSystemUserById(grossVerifiedById);
-		                        grossedByInitials = grossedBy.Initials.ToUpper();
-		                    }
-		
-		                    string supervisedByInitials = "[??]";
-		                    if (userPreference.GPathologistId.HasValue == true)
-		                    {
-		                        YellowstonePathology.Business.User.SystemUser supervisedBy = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetSystemUserById(userPreference.GPathologistId.Value);
-		                        supervisedByInitials = supervisedBy.Initials.ToUpper();
-		                    }
-		
-		                    string typedByInitials = this.m_SystemIdentity.User.Initials.ToLower();
-		
-		                    initials = grossedByInitials + "/" + supervisedByInitials + "/" + typedByInitials;
-                            result = result + initials;
-	                    }
-	                }
-		                
-                }
-            }
-            return result;                                       
         }
     }    
 }

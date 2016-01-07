@@ -20,6 +20,11 @@ namespace YellowstonePathology.Business.Test.CalreticulinMutationAnalysis
 
 			this.AddNextObxElement("", document, "F");
 			string result = "Result: " + panelSetOrder.Result;
+            if(result == "Detected")
+            {
+                result = result + "(" + panelSetOrder.Mutations + ")";
+            }
+
 			this.AddNextObxElement(result, document, "F");
 
 			this.AddNextObxElement("", document, "F");

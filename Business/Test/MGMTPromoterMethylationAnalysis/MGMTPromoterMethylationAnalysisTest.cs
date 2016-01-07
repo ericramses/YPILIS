@@ -9,7 +9,7 @@ namespace YellowstonePathology.Business.Test.MGMTPromoterMethylationAnalysis
     {
         public MGMTPromoterMethylationAnalysisTest()
         {
-            this.m_PanelSetId = 214;
+            this.m_PanelSetId = 220;
             this.m_PanelSetName = "MGMT Promoter Methylation Analysis";
             this.m_Abbreviation = "MGMT Promoter Methylation Analysis";
             this.m_CaseType = YellowstonePathology.Business.CaseType.Molecular;
