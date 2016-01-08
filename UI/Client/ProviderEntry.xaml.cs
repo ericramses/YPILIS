@@ -20,7 +20,6 @@ namespace YellowstonePathology.UI.Client
 		public event PropertyChangedEventHandler PropertyChanged;
 		
 		private YellowstonePathology.Business.Domain.Physician m_Physician;
-        private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private YellowstonePathology.Business.Client.Model.StandingOrderCollection m_HpvStandingOrders;
 		private YellowstonePathology.Business.Client.Model.StandingOrderCollection m_HPV1618StandingOrderCollection;
 		private YellowstonePathology.Business.View.PhysicianClientView m_PhysicianClientView;
@@ -29,10 +28,9 @@ namespace YellowstonePathology.UI.Client
 		private string m_PhysicianClientId;
         private bool m_AuditOnSaveIsRequired;
 
-        public ProviderEntry(YellowstonePathology.Business.Domain.Physician physician, YellowstonePathology.Business.Persistence.ObjectTracker objectTracker, bool auditOnSaveIsRequired)
+        public ProviderEntry(YellowstonePathology.Business.Domain.Physician physician, bool auditOnSaveIsRequired)
         {                        
             this.m_Physician = physician;
-            this.m_ObjectTracker = objectTracker;
             this.m_AuditOnSaveIsRequired = auditOnSaveIsRequired;
 
 			this.m_PhysicianClientView = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClientView(this.m_Physician.ObjectId);
@@ -137,7 +135,7 @@ namespace YellowstonePathology.UI.Client
 
         private void Save()
         {
-			this.m_ObjectTracker.SubmitChanges(this.m_Physician);
+			YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_Physician);
         }
 
 		private void ButtonAddToClient_Click(object sender, RoutedEventArgs e)
@@ -147,13 +145,12 @@ namespace YellowstonePathology.UI.Client
 				YellowstonePathology.Business.Client.Model.Client client = (YellowstonePathology.Business.Client.Model.Client)this.ListBoxClientSelection.SelectedItem;
 				if (this.m_PhysicianClientView.ClientExists(client.ClientId) == false)
 				{
-					this.m_ObjectTracker.SubmitChanges(this.m_Physician);
+					YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_Physician);
 
 					string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
 					YellowstonePathology.Business.Domain.PhysicianClient physicianClient = new Business.Domain.PhysicianClient(objectId, objectId, this.m_Physician.PhysicianId, this.m_Physician.ObjectId, client.ClientId);
-					YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-					objectTracker.RegisterRootInsert(physicianClient);
-					objectTracker.SubmitChanges(physicianClient);
+					YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterRootInsert(physicianClient);
+					YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(physicianClient);
 					this.m_PhysicianClientView.Clients.Add(client);
 				}
 			}
@@ -168,9 +165,8 @@ namespace YellowstonePathology.UI.Client
                 YellowstonePathology.Business.Rules.MethodResult methodResult = this.CanRemoveMember(physicianClient);
                 if (methodResult.Success == true)
                 {
-                    YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-                    objectTracker.RegisterRootDelete(physicianClient);
-                    objectTracker.SubmitChanges(physicianClient);
+                    YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterRootDelete(physicianClient);
+                    YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(physicianClient);
                     this.m_PhysicianClientView.Clients.Remove(client);
                 }
                 else
@@ -222,9 +218,8 @@ namespace YellowstonePathology.UI.Client
 					string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
 					YellowstonePathology.Business.Client.Model.PhysicianClientDistribution physicianClientDistribution = new Business.Client.Model.PhysicianClientDistribution(objectId, this.m_PhysicianClientId, physicianClientId);
 
-					YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-					objectTracker.RegisterRootInsert(physicianClientDistribution);
-					objectTracker.SubmitChanges(physicianClientDistribution);
+					YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterRootInsert(physicianClientDistribution);
+					YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(physicianClientDistribution);
 
 					this.m_PhysicianClientDistributionViewList = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClientDistributionsV2(this.m_PhysicianClientId);
 					this.NotifyPropertyChanged("PhysicianClientDistributionViewList");
@@ -240,9 +235,8 @@ namespace YellowstonePathology.UI.Client
 				if (result == MessageBoxResult.OK)
 				{
 					YellowstonePathology.Business.Client.Model.PhysicianClientDistributionView physicianClientDistributionView = (YellowstonePathology.Business.Client.Model.PhysicianClientDistributionView)this.ListBoxDistributionSelection.SelectedItem;
-					YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-					objectTracker.RegisterRootDelete(physicianClientDistributionView.PhysicianClientDistribution);
-					objectTracker.SubmitChanges(physicianClientDistributionView.PhysicianClientDistribution);
+					YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterRootDelete(physicianClientDistributionView.PhysicianClientDistribution);
+					YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(physicianClientDistributionView.PhysicianClientDistribution);
 
 					this.m_PhysicianClientDistributionViewList = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClientDistributionsV2(this.m_PhysicianClientId);
 					this.NotifyPropertyChanged("PhysicianClientDistributionViewList");
