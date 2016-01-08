@@ -712,9 +712,8 @@ namespace YellowstonePathology.UI.Surgical
         private void ButtonProviderEntry_Click(object sender, RoutedEventArgs e)
         {
 			YellowstonePathology.Business.Domain.Physician physician = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianByPhysicianId(this.m_TypingUI.AccessionOrder.PhysicianId);
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-            objectTracker.RegisterObject(physician);
-            Client.ProviderEntry providerEntry = new Client.ProviderEntry(physician, objectTracker, false);
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(physician);
+            Client.ProviderEntry providerEntry = new Client.ProviderEntry(physician, false);
             providerEntry.ShowDialog();
         }
 

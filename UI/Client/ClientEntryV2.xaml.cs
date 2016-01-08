@@ -28,13 +28,11 @@ namespace YellowstonePathology.UI.Client
 		private YellowstonePathology.Business.View.ClientPhysicianView m_ClientPhysicianView;
 		private YellowstonePathology.Business.Domain.PhysicianCollection m_PhysicianCollection;
 		private YellowstonePathology.Business.Billing.Model.BillingRuleSetCollection m_BillingRuleSetCollection;
-        private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private YellowstonePathology.Business.Client.Model.ClientSupplyOrderCollection m_ClientSupplyOrderCollection;
 
-		public ClientEntryV2(YellowstonePathology.Business.Client.Model.Client client, YellowstonePathology.Business.Persistence.ObjectTracker objectTracker)
+		public ClientEntryV2(YellowstonePathology.Business.Client.Model.Client client)
 		{
 			this.m_Client = client;
-			this.m_ObjectTracker = objectTracker;
 			this.m_ClientPhysicianView = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientPhysicianViewByClientIdV2(this.m_Client.ClientId);
 
 			if (this.m_ClientPhysicianView == null)
@@ -128,7 +126,7 @@ namespace YellowstonePathology.UI.Client
 
         private void Save()
         {
-			this.m_ObjectTracker.SubmitChanges(this.m_Client);
+			YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_Client);
         }
 
 		private void ButtonAddToClient_Click(object sender, RoutedEventArgs e)
@@ -138,13 +136,12 @@ namespace YellowstonePathology.UI.Client
 				YellowstonePathology.Business.Domain.Physician physician = (YellowstonePathology.Business.Domain.Physician)this.ListBoxAvailableProviders.SelectedItem;
 				if (this.m_ClientPhysicianView.PhysicianExists(physician.PhysicianId) == false)
 				{
-					this.m_ObjectTracker.SubmitChanges(this.m_Client);
+					YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_Client);
 
 					string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
 					YellowstonePathology.Business.Domain.PhysicianClient physicianClient = new Business.Domain.PhysicianClient(objectId, objectId, physician.PhysicianId, physician.ObjectId, this.m_Client.ClientId);
-					YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-					objectTracker.RegisterRootInsert(physicianClient);
-					objectTracker.SubmitChanges(physicianClient);
+					YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterRootInsert(physicianClient);
+					YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(physicianClient);
 					this.m_ClientPhysicianView.Physicians.Add(physician);
 					this.NotifyPropertyChanged("Physicians");
 				}
@@ -163,9 +160,8 @@ namespace YellowstonePathology.UI.Client
                     YellowstonePathology.Business.Rules.MethodResult methodResult = this.CanRemoveMember(physicianClient);
                     if (methodResult.Success == true)
                     {
-                        YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-                        objectTracker.RegisterRootDelete(physicianClient);
-                        objectTracker.SubmitChanges(physicianClient);
+                        YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterRootDelete(physicianClient);
+                        YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(physicianClient);
 
                         this.m_ClientPhysicianView.Physicians.Remove(physician);
                         this.NotifyPropertyChanged("Physicians");
@@ -210,14 +206,12 @@ namespace YellowstonePathology.UI.Client
 		{
 			string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
 			YellowstonePathology.Business.Client.Model.ClientSupplyOrder clientSupplyOrder = new Business.Client.Model.ClientSupplyOrder(objectId, this.m_Client);
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new Business.Persistence.ObjectTracker();
-			objectTracker.RegisterRootInsert(clientSupplyOrder);
-			objectTracker.SubmitChanges(clientSupplyOrder);
+			YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterRootInsert(clientSupplyOrder);
+			YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(clientSupplyOrder);
 			this.m_ClientSupplyOrderCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientSupplyOrderCollectionByClientId(this.m_Client.ClientId);
 			clientSupplyOrder = this.m_ClientSupplyOrderCollection.GetClientSupplyOrder(clientSupplyOrder.ObjectId);
-			objectTracker = new Business.Persistence.ObjectTracker();
-			objectTracker.RegisterObject(clientSupplyOrder);
-			ClientSupplyOrderDialog clientSupplyOrderDialog = new ClientSupplyOrderDialog(clientSupplyOrder, objectTracker);
+			YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(clientSupplyOrder);
+			ClientSupplyOrderDialog clientSupplyOrderDialog = new ClientSupplyOrderDialog(clientSupplyOrder);
 			clientSupplyOrderDialog.ShowDialog();
 			this.NotifyPropertyChanged("ClientSupplyOrderCollection");
 		}
@@ -227,9 +221,8 @@ namespace YellowstonePathology.UI.Client
 			if (this.ListViewOrderDetails.SelectedItem != null)
 			{
 				YellowstonePathology.Business.Client.Model.ClientSupplyOrder clientSupplyOrder = (YellowstonePathology.Business.Client.Model.ClientSupplyOrder)this.ListViewOrderDetails.SelectedItem;
-				YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new Business.Persistence.ObjectTracker();
-				objectTracker.RegisterRootDelete(clientSupplyOrder);
-				objectTracker.SubmitChanges(clientSupplyOrder);
+				YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterRootDelete(clientSupplyOrder);
+				YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(clientSupplyOrder);
 				this.ClientSupplyOrderCollection.Remove(clientSupplyOrder);
 				this.NotifyPropertyChanged("ClientSupplyOrderCollection");
 			}
@@ -240,9 +233,8 @@ namespace YellowstonePathology.UI.Client
 			if (this.ListViewOrderDetails.SelectedItem != null)
 			{
 				YellowstonePathology.Business.Client.Model.ClientSupplyOrder clientSupplyOrder = (YellowstonePathology.Business.Client.Model.ClientSupplyOrder)this.ListViewOrderDetails.SelectedItem;
-				YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new Business.Persistence.ObjectTracker();
-				objectTracker.RegisterObject(clientSupplyOrder);
-				ClientSupplyOrderDialog clientSupplyOrderDialog = new ClientSupplyOrderDialog(clientSupplyOrder, objectTracker);
+				YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(clientSupplyOrder);
+				ClientSupplyOrderDialog clientSupplyOrderDialog = new ClientSupplyOrderDialog(clientSupplyOrder);
 				clientSupplyOrderDialog.ShowDialog();
 			}
 		}
@@ -252,8 +244,7 @@ namespace YellowstonePathology.UI.Client
             string location = "Medical Records";
             if (this.m_Client.ClientLocationCollection.Exists(location) == false)
             {
-                YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-                objectTracker.RegisterObject(this.m_Client.ClientLocationCollection);
+                YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_Client.ClientLocationCollection);
 
                 string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
                 int locationId = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetLargestClientLocationId();
@@ -272,7 +263,7 @@ namespace YellowstonePathology.UI.Client
                 clientLocation.DefaultOrderDetailTypeCode = "SRGCL";
 
                 this.m_Client.ClientLocationCollection.Add(clientLocation);
-                objectTracker.SubmitChanges(this.m_Client.ClientLocationCollection);
+                YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_Client.ClientLocationCollection);
             }
         }
     }
