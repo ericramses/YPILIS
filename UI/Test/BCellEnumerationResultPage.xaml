@@ -41,10 +41,6 @@
 
 				<TextBlock Grid.Column="0" Grid.Row="0" Margin="0,3,0,0" FontWeight="Bold" FontSize="14">Options</TextBlock>
 
-				<!-- <TextBlock Grid.Column="0" Grid.Row="1" Margin="5,3,0,0">                    
-                    <Hyperlink Click="HyperLinkSetResults_Click">Set Results</Hyperlink>
-				</TextBlock> -->
-
 				<TextBlock Grid.Column="0" Grid.Row="3" Margin="5,3,0,0">                    
                     <Hyperlink Click="HyperLinkAcceptResults_Click">Accept Results</Hyperlink>
 				</TextBlock>
@@ -92,31 +88,28 @@
 						<RowDefinition Height="Auto"></RowDefinition>
 						<RowDefinition Height="Auto"></RowDefinition>
 						<RowDefinition Height="Auto"></RowDefinition>
-						<RowDefinition Height="Auto"></RowDefinition>
-						<RowDefinition Height="Auto"></RowDefinition>
-						<RowDefinition Height="Auto"></RowDefinition>
 					</Grid.RowDefinitions>
 
 					<TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" VerticalAlignment="Center" FontWeight="Bold" HorizontalAlignment="Left">WBC:</TextBlock>
-					<TextBox Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.WBC}" />
+					<TextBox Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.WBC, Converter={StaticResource NullableIntConverter}}" />
 
 					<TextBlock Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" VerticalAlignment="Center" FontWeight="Bold" HorizontalAlignment="Left">Lymphocyte Percentage:</TextBlock>
-					<TextBox Grid.Column="1" Grid.Row="1" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.LymphocytePercentage}" />
+					<TextBox Grid.Column="1" Grid.Row="1" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.LymphocytePercentage, Converter={StaticResource NullableIntConverter}}" />
 
 					<TextBlock Grid.Column="0" Grid.Row="2" Margin="2,2,2,2" VerticalAlignment="Center" FontWeight="Bold" HorizontalAlignment="Left">CD19 B-Cell Positive Count:</TextBlock>
-					<TextBox Grid.Column="1" Grid.Row="2" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.CD19BCellPositiveCount}" />
+					<TextBox Grid.Column="1" Grid.Row="2" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.CD19BCellPositiveCount, Converter={StaticResource NullableIntConverter}}" />
 
 					<TextBlock Grid.Column="0" Grid.Row="3" Margin="2,2,2,2" VerticalAlignment="Center" FontWeight="Bold" HorizontalAlignment="Left">CD19 B-Cell Positive Percent:</TextBlock>
-					<TextBox Grid.Column="1" Grid.Row="3" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.CD19BCellPositivePercent}" />
+					<TextBox Grid.Column="1" Grid.Row="3" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.CD19BCellPositivePercent, Converter={StaticResource NullableIntConverter}}" />
 
 					<TextBlock Grid.Column="0" Grid.Row="4" Margin="2,2,2,2" VerticalAlignment="Center" FontWeight="Bold" HorizontalAlignment="Left">CD20 B-Cell Positive Count:</TextBlock>
-					<TextBox Grid.Column="1" Grid.Row="4" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.CD20BCellPositiveCount}" />
+					<TextBox Grid.Column="1" Grid.Row="4" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.CD20BCellPositiveCount, Converter={StaticResource NullableIntConverter}}" />
 
 					<TextBlock Grid.Column="0" Grid.Row="5" Margin="2,2,2,2" VerticalAlignment="Center" FontWeight="Bold" HorizontalAlignment="Left">CD20 B-Cell Positive Percent:</TextBlock>
-					<TextBox Grid.Column="1" Grid.Row="5" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.CD20BCellPositivePercent}" />
+					<TextBox Grid.Column="1" Grid.Row="5" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.CD20BCellPositivePercent, Converter={StaticResource NullableIntConverter}}" />
 
 					<TextBlock Grid.Column="0" Grid.Row="6" Margin="2,2,2,2" VerticalAlignment="Center" FontWeight="Bold" HorizontalAlignment="Left">CD19 Absolute Count:</TextBlock>
-					<TextBlock Grid.Column="1" Grid.Row="6" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.CD19AbsoluteCount}" />
+					<TextBlock Grid.Column="1" Grid.Row="6" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.CD19AbsoluteCount, Converter={StaticResource NullableIntConverter}}" />
 
 					<TextBlock Grid.Column="0" Grid.Row="7" Margin="2,2,2,2" VerticalAlignment="Center" FontWeight="Bold" HorizontalAlignment="Left">CD20 Absolute Count:</TextBlock>
 					<TextBlock Grid.Column="1" Grid.Row="7" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.CD20AbsoluteCount}" />
