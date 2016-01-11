@@ -467,8 +467,9 @@ namespace YellowstonePathology.UI.Gross
         {
             this.m_TemplateName = "LEEPPieces";
             this.m_Text = "[identifier]." + Environment.NewLine +
-                "Gross Description:  [number], [color], [measurement]" + Environment.NewLine +
-                "Os:  [shape], [location], [measurement]" + Environment.NewLine +
+                "Gross Description:  [description], [color], [characteristics]" + Environment.NewLine +
+                "Measurement:  [measurement]" + Environment.NewLine +
+                "Os:  *OSDESCRIPTION* [measurement]" + Environment.NewLine +
                 "Inking:  [description]" + Environment.NewLine +
                 "Submitted:  [submitted].  ";            
 
@@ -526,9 +527,9 @@ namespace YellowstonePathology.UI.Gross
                 "       Cysts:  [description]" + Environment.NewLine + 
             	Environment.NewLine +
                 "Cassette Summary: " + Environment.NewLine +
-                "\"1A\"- Cord from both ends, " + Environment.NewLine +
-                "\"1B\"- Membranes, " + Environment.NewLine +
-                "\"1C\" - \"1D\"- Central placenta.  ";            
+                "\"1A\" - Cord from both ends, " + Environment.NewLine +
+                "\"1B\" - Membranes, " + Environment.NewLine +
+                "\"1C\" - \"1D\" - Central placenta.  ";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SinglePlacenta singlePlacenta = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SinglePlacenta();
             this.m_SpecimenCollection.Add(singlePlacenta);
