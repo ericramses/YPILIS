@@ -54,6 +54,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 				this.m_LoginPageWindow.SystemIdentity = this.m_SystemIdentity;
 				this.ShowCaseLockPage();
 			}
+
 			this.m_LoginPageWindow.ShowDialog();
         }
 
