@@ -561,6 +561,7 @@ namespace YellowstonePathology.UI.Gross
                 "      Os:  [description], [measurement]" + Environment.NewLine +
                 "   Sectioning of Uterus and Cervix:" + Environment.NewLine +
                 "      Endocervical Canal:  [description]" + Environment.NewLine +
+                "      Endocervical Mucosa:  [description]" + Environment.NewLine +
                 "      Endometrial Cavity:" + Environment.NewLine +
                 "         Dimensions:  [measurement]" + Environment.NewLine +
                 "         Description:  [description]" + Environment.NewLine +
@@ -592,7 +593,7 @@ namespace YellowstonePathology.UI.Gross
             this.m_Text = "[identifier]." + Environment.NewLine +
                 "Uterus and Cervix:" + Environment.NewLine +
                 "Right Adnexal Organs:" + Environment.NewLine +
-                "   Fallopian Tube:" + Environment.NewLine +
+                "   Fallopian Tube: ([fimbriated ends])" + Environment.NewLine +
                 "      Dimensions:  [measurements]" + Environment.NewLine +
                 "      Outer Surface:  [description]" + Environment.NewLine +
                 "      Cut Surface:  [description]" + Environment.NewLine +
@@ -622,6 +623,7 @@ namespace YellowstonePathology.UI.Gross
                 "   Os:  [description], [measurement]" + Environment.NewLine +
                 "Sectioning of Uterus and Cervix:" + Environment.NewLine +
                 "   Endocervical Canal:  [description], [measurement]" + Environment.NewLine +
+                "   Endocervical Mucosa:  [description]" + Environment.NewLine +
                 "   Endometrial Cavity:" + Environment.NewLine +
                 "      Dimensions:  [measurement]" + Environment.NewLine +
                 "      Description:  [description]" + Environment.NewLine +
