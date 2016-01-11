@@ -9,6 +9,7 @@
 using System;
 using System.Linq;
 using System.Xml.Linq;
+using YellowstonePathology.Business.Helper;
 
 namespace YellowstonePathology.Business.Test.TCellSubsetAnalysis
 {
@@ -28,15 +29,15 @@ namespace YellowstonePathology.Business.Test.TCellSubsetAnalysis
 			this.AddHeader(document, panelSetOrder, "B-Cell Enumeration");
 
 			this.AddNextObxElement("", document, "F");
-			string result = "Result: " + panelSetOrder.Result;
+			string result = "CD3 Percent: " + panelSetOrder.CD3Percent.ToString().StringAsPercent();
 			this.AddNextObxElement(result, document, "F");
-			result = "CD3 Percent: " + panelSetOrder.CD3Percent;
+			result = "CD4 Percent: " + panelSetOrder.CD4Percent.ToString().StringAsPercent();
 			this.AddNextObxElement(result, document, "F");
-			result = "CD4 Percent: " + panelSetOrder.CD4Percent;
+			result = "CD8 Percent: " + panelSetOrder.CD8Percent.ToString().StringAsPercent();
 			this.AddNextObxElement(result, document, "F");
-			result = "CD8 Percent: " + panelSetOrder.CD8Percent;
-			this.AddNextObxElement(result, document, "F");
-			result = "CD4/CD8 Ratio: " + panelSetOrder.CD4CD8Ratio;
+			string value = string.Empty;
+			if(panelSetOrder.CD4CD8Ratio.HasValue) value = Math.Round(panelSetOrder.CD4CD8Ratio.Value, 2).ToString();
+			result = "CD4/CD8 Ratio: " + value;
 			this.AddNextObxElement(result, document, "F");
 
 			this.AddNextObxElement("", document, "F");
@@ -54,10 +55,6 @@ namespace YellowstonePathology.Business.Test.TCellSubsetAnalysis
 			this.AddNextObxElement("Specimen Identification: " + specimenOrder.Description, document, "F");
 			string collectionDateTimeString = YellowstonePathology.Business.Helper.DateTimeExtensions.CombineDateAndTime(specimenOrder.CollectionDate, specimenOrder.CollectionTime);
 			this.AddNextObxElement("Collection Date/Time: " + collectionDateTimeString, document, "F");
-
-			this.AddNextObxElement("", document, "F");
-			this.AddNextObxElement("Interpretation:", document, "F");
-			this.HandleLongString(panelSetOrder.Interpretation, document, "F");
 
 			this.AddNextObxElement("", document, "F");
 			this.AddNextObxElement("Method:", document, "F");
