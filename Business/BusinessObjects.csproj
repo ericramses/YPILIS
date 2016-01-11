@@ -486,6 +486,8 @@
     <Compile Include="Persistence\JSONObjectWriter.cs" />
     <Compile Include="Persistence\ObjectComparer.cs" />
     <Compile Include="Persistence\ObjectTrackerV2.cs" />
+    <Compile Include="Persistence\RegisteredObject.cs" />
+    <Compile Include="Persistence\RegisteredObjectCollection.cs" />
     <Compile Include="ReportDistribution.Model\ScheduledFaxSubmission.cs" />
     <Compile Include="Test.Model\DispalyGroupProstate.cs" />
     <Compile Include="Test.Model\P40.cs" />

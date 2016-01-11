@@ -19,8 +19,8 @@ namespace YellowstonePathology.Business.Persistence
 	/// </summary>
 	public sealed class ObjectTrackerV2
 	{
-        private static readonly ObjectTrackerV2 instance = new ObjectTrackerV2();
-        
+        private static ObjectTrackerV2 instance;
+
         private Dictionary<object, object> m_RegisteredObjects;
         private Dictionary<object, object> m_RegisteredRootInserts;
         private Dictionary<object, object> m_RegisteredRootDeletes;
@@ -42,6 +42,10 @@ namespace YellowstonePathology.Business.Persistence
         {
             get
             {
+                if (instance == null)
+                {
+                    instance = new ObjectTrackerV2();
+                }
                 return instance;
             }
         }
@@ -61,10 +65,8 @@ namespace YellowstonePathology.Business.Persistence
 				PropertyInfo keyProperty = objectType.GetProperties().Where(prop => Attribute.IsDefined(prop, typeof(PersistentPrimaryKeyProperty))).Single();
 				object keyPropertyValue = keyProperty.GetValue(clonedObject, null);
 
-				if (this.IsOkToRegister(objectToRegister, objectType, keyPropertyValue) == true)
-				{
-					this.m_RegisteredObjects.Add(keyPropertyValue, clonedObject);
-				}
+                this.Deregister(objectToRegister);
+				this.m_RegisteredObjects.Add(keyPropertyValue, clonedObject);
 			}
 		}
 
@@ -84,25 +86,6 @@ namespace YellowstonePathology.Business.Persistence
             RegisteredCollection registeredCollection = new RegisteredCollection(objectCollectionToRegister, clonedCollection);
             this.m_RegisteredCollections.Add(registeredCollection);            
 		}
-
-        private bool IsOkToRegister(object objectToRegister, Type objectType, object keyPropertyValue)
-        {
-            bool result = true;            
-
-            if (this.m_RegisteredRootInserts.ContainsKey(keyPropertyValue) == true)
-            {
-            	result = false;
-            }
-            else if (this.m_RegisteredRootDeletes.ContainsKey(keyPropertyValue) == true)
-            {
-            	result = false;
-            }
-            else if (this.m_RegisteredObjects.ContainsKey(keyPropertyValue) == true)
-            {
-                result = false;
-            }
-            return result;
-        }
 
         public bool IsRegistered(object objectToCheck)
         {
