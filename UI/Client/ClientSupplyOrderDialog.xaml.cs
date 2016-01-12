@@ -29,6 +29,7 @@ namespace YellowstonePathology.UI.Client
 		public ClientSupplyOrderDialog(YellowstonePathology.Business.Client.Model.ClientSupplyOrder clientSupplyOrder)
 		{
 			this.m_ClientSupplyOrder = clientSupplyOrder;
+			YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_ClientSupplyOrder, this);
 			this.m_UserCollection = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection;
 
 			InitializeComponent();
@@ -95,8 +96,9 @@ namespace YellowstonePathology.UI.Client
 
 		private void ButtonOk_Click(object sender, RoutedEventArgs e)
 		{
-			YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_ClientSupplyOrder);
+			YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_ClientSupplyOrder, this);
 			this.Close();
+			YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.Deregister(this.m_ClientSupplyOrder, this);
 		}
 
 		private void ListViewSupplies_MouseDoubleClick(object sender, MouseButtonEventArgs e)

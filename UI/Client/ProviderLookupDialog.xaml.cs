@@ -57,7 +57,9 @@ namespace YellowstonePathology.UI.Client
 			string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
 			int physicianId = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetLargestPhysicianId() + 1;
 			YellowstonePathology.Business.Domain.Physician physician = new Business.Domain.Physician(objectId, physicianId, "New Physician", "New Physician");
-			YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterRootInsert(physician);
+			YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterRootInsert(physician, this);
+			YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(physician, this);
+			YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.Deregister(physician, this);
 
 			ProviderEntry providerEntry = new ProviderEntry(physician, true);
 			providerEntry.ShowDialog();
@@ -86,7 +88,9 @@ namespace YellowstonePathology.UI.Client
 			string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
 			int clientId = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetLargestClientId() + 1;
 			YellowstonePathology.Business.Client.Model.Client client = new YellowstonePathology.Business.Client.Model.Client(objectId, "New Client", clientId);
-			YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterRootInsert(client);
+			YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterRootInsert(client, this);
+			YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(client, this);
+			YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.Deregister(client, this);
 
 			ClientEntryV2 clientEntry = new ClientEntryV2(client);
 			clientEntry.ShowDialog();
@@ -170,7 +174,6 @@ namespace YellowstonePathology.UI.Client
 			{
                 YellowstonePathology.Business.Client.Model.ProviderClient providerClient =  (YellowstonePathology.Business.Client.Model.ProviderClient)this.ListViewProviders.SelectedItem;
                 YellowstonePathology.Business.Domain.Physician physician = providerClient.Physician;
-                YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(physician);
 
 				ProviderEntry providerEntry = new ProviderEntry(physician, false);
 				providerEntry.ShowDialog();
@@ -220,7 +223,6 @@ namespace YellowstonePathology.UI.Client
 			if (this.ListViewClients.SelectedItem != null)
             {
 				YellowstonePathology.Business.Client.Model.Client client = (YellowstonePathology.Business.Client.Model.Client)this.ListViewClients.SelectedItem;
-                YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(client);
 				ClientEntryV2 clientEntry = new ClientEntryV2(client);
 				clientEntry.ShowDialog();
             }
@@ -264,8 +266,8 @@ namespace YellowstonePathology.UI.Client
 
         private void DeleteProvider(YellowstonePathology.Business.Domain.Physician physician)
         {
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterRootDelete(physician);
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(physician);            
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterRootDelete(physician, this);
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(physician, this);            
         }
 
         private YellowstonePathology.Business.Rules.MethodResult CanDeleteClient(YellowstonePathology.Business.Client.Model.Client client)
@@ -306,8 +308,8 @@ namespace YellowstonePathology.UI.Client
 
         private void DeleteClient(YellowstonePathology.Business.Client.Model.Client client)
         {
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterRootDelete(client);
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(client);
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterRootDelete(client, this);
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(client, this);
         }
 
         private void ListViewClientGroups_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -315,7 +317,6 @@ namespace YellowstonePathology.UI.Client
             if(this.ListViewClientGroups.SelectedItem != null)
             {
                 YellowstonePathology.Business.Client.Model.ClientGroup clientGroup = (YellowstonePathology.Business.Client.Model.ClientGroup)this.ListViewClientGroups.SelectedItem;
-                YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(clientGroup);
                 ClientGroupEntry clientGroupEntry = new ClientGroupEntry(clientGroup);
                 clientGroupEntry.ShowDialog();
             }
