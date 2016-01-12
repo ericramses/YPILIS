@@ -14,6 +14,7 @@ namespace YellowstonePathology.Business.Persistence
 
         public RegisteredObject(object value, object registeredBy)
         {
+        	this.m_RegisteredBy = new List<object>();
             this.m_Value = value;
             this.m_RegisteredBy.Add(registeredBy);
             Type objectType = this.m_Value.GetType();
@@ -34,6 +35,11 @@ namespace YellowstonePathology.Business.Persistence
         public List<object> RegisteredBy
         {
             get { return this.m_RegisteredBy; }
+        }
+        
+        public Type ValueType
+        {
+        	get { return this.m_Value.GetType(); }
         }
     }
 }
