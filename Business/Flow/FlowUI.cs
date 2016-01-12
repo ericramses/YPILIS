@@ -177,7 +177,7 @@ namespace YellowstonePathology.Business.Flow
 
 		public void GetAccessionOrder(string reportNo, string masterAccessionNo)
 		{			
-			this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AOGW.Instance.GetByMasterAccessionNo(masterAccessionNo, true);
+			this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AOGW.Instance.GetByMasterAccessionNo(masterAccessionNo, true, this);
 			this.m_ReportNo = reportNo;
 
 			this.RefreshCaseDocumentCollection(reportNo);
@@ -323,7 +323,7 @@ namespace YellowstonePathology.Business.Flow
         {
 			if (this.AccessionOrder != null)
             {                
-                YellowstonePathology.Business.Gateway.AOGW.Instance.Save(this.m_AccessionOrder, releaseLock);                
+                YellowstonePathology.Business.Gateway.AOGW.Instance.Save(this.m_AccessionOrder, releaseLock, this);                
             }
         }        
 
