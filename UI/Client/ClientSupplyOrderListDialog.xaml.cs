@@ -37,7 +37,6 @@ namespace YellowstonePathology.UI.Client
         private void ListViewClientSupplyOrders_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             YellowstonePathology.Business.Client.Model.ClientSupplyOrder clientSupplyOrder = (YellowstonePathology.Business.Client.Model.ClientSupplyOrder)this.ListViewClientSupplyOrders.SelectedItem;
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(clientSupplyOrder);
             YellowstonePathology.UI.Client.ClientSupplyOrderDialog clientSupplyOrderDialog = new ClientSupplyOrderDialog(clientSupplyOrder);
             clientSupplyOrderDialog.ShowDialog();
         }
@@ -55,8 +54,8 @@ namespace YellowstonePathology.UI.Client
                 if(messageBoxResult == MessageBoxResult.Yes)
                 {
                     YellowstonePathology.Business.Client.Model.ClientSupplyOrder clientSupplyOrder = (YellowstonePathology.Business.Client.Model.ClientSupplyOrder)this.ListViewClientSupplyOrders.SelectedItem;
-                    YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterRootDelete(clientSupplyOrder);
-                    YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(clientSupplyOrder);
+                    YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterRootDelete(clientSupplyOrder, this);
+                    YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(clientSupplyOrder, this);
                     this.m_ClientSupplyOrderCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientSupplyOrderCollection();
                     this.NotifyPropertyChanged("ClientSupplyOrderCollection");
                 }

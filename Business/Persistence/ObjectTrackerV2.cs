@@ -21,9 +21,9 @@ namespace YellowstonePathology.Business.Persistence
 	{
         private static ObjectTrackerV2 instance;
 
-        private Dictionary<object, object> m_RegisteredObjects;
-        private Dictionary<object, object> m_RegisteredRootInserts;
-        private Dictionary<object, object> m_RegisteredRootDeletes;
+        private RegisteredObjectCollection m_RegisteredObjects;
+        private RegisteredObjectCollection m_RegisteredRootInserts;
+        private RegisteredObjectCollection m_RegisteredRootDeletes;
         private RegisteredCollections m_RegisteredCollections;
         
 		static ObjectTrackerV2()
@@ -32,9 +32,9 @@ namespace YellowstonePathology.Business.Persistence
 		
         private ObjectTrackerV2() 
         {            
-            this.m_RegisteredObjects = new Dictionary<object, object>();
-            this.m_RegisteredRootInserts = new Dictionary<object, object>();
-            this.m_RegisteredRootDeletes = new Dictionary<object, object>();
+            this.m_RegisteredObjects = new RegisteredObjectCollection();
+            this.m_RegisteredRootInserts = new RegisteredObjectCollection();
+            this.m_RegisteredRootDeletes = new RegisteredObjectCollection();
             this.m_RegisteredCollections = new RegisteredCollections();
         }
 
@@ -50,27 +50,21 @@ namespace YellowstonePathology.Business.Persistence
             }
         }
 
-        public void RegisterObject(object objectToRegister)
+        public void RegisterObject(object objectToRegister, object registeredBy)
         {
 			if (objectToRegister.GetType().BaseType.Name == "ObservableCollection`1")
 			{
-				RegisterObjectCollection(objectToRegister);
+				RegisterObjectCollection(objectToRegister, registeredBy);
 			}
 			else
 			{
 				ObjectCloner objectCloner = new ObjectCloner();
 				object clonedObject = objectCloner.Clone(objectToRegister);
-
-				Type objectType = clonedObject.GetType();
-				PropertyInfo keyProperty = objectType.GetProperties().Where(prop => Attribute.IsDefined(prop, typeof(PersistentPrimaryKeyProperty))).Single();
-				object keyPropertyValue = keyProperty.GetValue(clonedObject, null);
-
-                this.Deregister(objectToRegister);
-				this.m_RegisteredObjects.Add(keyPropertyValue, clonedObject);
+				this.m_RegisteredObjects.Register(clonedObject, registeredBy);
 			}
 		}
 
-		private void RegisterObjectCollection(object objectCollectionToRegister)
+		private void RegisterObjectCollection(object objectCollectionToRegister, object registeredBy)
 		{
             Collection<object> clonedCollection = new Collection<object>();
             int listCount = (int)objectCollectionToRegister.GetType().GetProperty("Count").GetValue(objectCollectionToRegister, null);
@@ -79,7 +73,7 @@ namespace YellowstonePathology.Business.Persistence
             {                
                 object[] index = { i };
                 object listObject = objectCollectionToRegister.GetType().GetProperty("Item").GetValue(objectCollectionToRegister, index);
-                this.RegisterObject(listObject);
+                this.RegisterObject(listObject, registeredBy);
                 clonedCollection.Add(listObject);
             }
 
@@ -87,97 +81,74 @@ namespace YellowstonePathology.Business.Persistence
             this.m_RegisteredCollections.Add(registeredCollection);            
 		}
 
-        public bool IsRegistered(object objectToCheck)
+        public bool IsRegistered(object objectToCheck, object registeredBy)
         {
             bool result = false;
 
-            Type objectType = objectToCheck.GetType();
-            PropertyInfo keyProperty = objectType.GetProperties().Where(prop => Attribute.IsDefined(prop, typeof(PersistentPrimaryKeyProperty))).Single();
-            object keyPropertyValue = keyProperty.GetValue(objectToCheck, null);
-            result = this.m_RegisteredObjects.ContainsKey(keyPropertyValue);            
+            if(this.m_RegisteredObjects.IsRegisteredBy(objectToCheck, registeredBy) == true)
+            {
+           		result = true;
+            }
 
             return result;
         }
 
-        public void Deregister(object objectToDeRegister)
+        public void Deregister(object objectToDeRegister, object registeredBy)
         {
-            Type objectType = objectToDeRegister.GetType();
-            PropertyInfo keyProperty = objectType.GetProperties().Where(prop => Attribute.IsDefined(prop, typeof(PersistentPrimaryKeyProperty))).Single();
-            object keyPropertyValue = keyProperty.GetValue(objectToDeRegister, null);
-
-            this.m_RegisteredObjects.Remove(keyPropertyValue);
-            this.m_RegisteredRootDeletes.Remove(keyPropertyValue);
-            this.m_RegisteredRootInserts.Remove(keyPropertyValue);
+            this.m_RegisteredObjects.Unregister(objectToDeRegister, registeredBy);
+            this.m_RegisteredRootDeletes.Unregister(objectToDeRegister, registeredBy);
+            this.m_RegisteredRootInserts.Unregister(objectToDeRegister, registeredBy);
         }        
 
-        public void RegisterRootInsert(object rootObjectToInsert)
+        public void RegisterRootInsert(object rootObjectToInsert, object registeredBy)
         {
-            Type objectType = rootObjectToInsert.GetType();
-            PropertyInfo keyProperty = objectType.GetProperties().Where(prop => Attribute.IsDefined(prop, typeof(PersistentPrimaryKeyProperty))).Single();
-            object keyPropertyValue = keyProperty.GetValue(rootObjectToInsert, null);
-
-            if (this.m_RegisteredRootInserts.ContainsKey(keyPropertyValue) == false)
-            {
-                this.m_RegisteredRootInserts.Add(keyPropertyValue, rootObjectToInsert);
-            }
+            this.m_RegisteredRootInserts.Register(rootObjectToInsert, registeredBy);
         }
 
-        public void RegisterRootDelete(object rootObjectToDelete)
+        public void RegisterRootDelete(object rootObjectToDelete, object registeredBy)
         {
-            Type objectType = rootObjectToDelete.GetType();
-            PropertyInfo keyProperty = objectType.GetProperties().Where(prop => Attribute.IsDefined(prop, typeof(PersistentPrimaryKeyProperty))).Single();
-            object keyPropertyValue = keyProperty.GetValue(rootObjectToDelete, null);
+			this.m_RegisteredObjects.Unregister(rootObjectToDelete, registeredBy);
 
-			if (this.m_RegisteredObjects.ContainsKey(keyPropertyValue) == true)
-			{
-				this.m_RegisteredObjects.Remove(keyPropertyValue);
-			}
-
-            if (this.m_RegisteredRootDeletes.ContainsKey(keyPropertyValue) == false)
-            {
-                this.m_RegisteredRootDeletes.Add(keyPropertyValue, rootObjectToDelete);
-            }
+            this.m_RegisteredRootDeletes.Register(rootObjectToDelete, registeredBy);
         }                
 
-		private void SubmitCollectionChanges(object objectCollectionToSubmit)
+		private void SubmitCollectionChanges(object objectCollectionToSubmit, object registeredBy)
 		{
 			int listCount = (int)objectCollectionToSubmit.GetType().GetProperty("Count").GetValue(objectCollectionToSubmit, null);
 			for (int i = 0; i < listCount; i++)
 			{
 				object[] index = { i };
 				object listObject = objectCollectionToSubmit.GetType().GetProperty("Item").GetValue(objectCollectionToSubmit, index);
-				PropertyInfo keyProperty = listObject.GetType().GetProperties().Where(prop => Attribute.IsDefined(prop, typeof(PersistentPrimaryKeyProperty))).Single();
-				object keyPropertyValue = keyProperty.GetValue(listObject, null);
-				if (this.m_RegisteredObjects.ContainsKey(keyPropertyValue) == true)
+				if (this.m_RegisteredObjects.IsRegisteredBy(listObject, registeredBy) == true)
 				{
-					this.SubmitChanges(listObject);
+					this.SubmitChanges(listObject, registeredBy);
+		            this.Deregister(listObject, registeredBy);
 				}
 
-                this.Deregister(listObject);
 			}
 			
 			RegisteredCollection registeredCollection = this.m_RegisteredCollections.GetRegisteredCollection(objectCollectionToSubmit);
             List<object> insertedObjects = registeredCollection.GetInsertedObjects();
             foreach (object insertedObject in insertedObjects)
             {
-                this.RegisterRootInsert(insertedObject);
-                this.SubmitChanges(insertedObject);
-                this.Deregister(insertedObject);
+                this.RegisterRootInsert(insertedObject, registeredBy);
+                this.SubmitChanges(insertedObject, registeredBy);
+                this.Deregister(insertedObject, registeredBy);
             }            
 
             List<object> deletedObjects = registeredCollection.GetDeletedObjects();
             foreach (object deletedObject in deletedObjects)
             {
-                this.RegisterRootDelete(deletedObject);
-                this.SubmitChanges(deletedObject);
-                this.Deregister(deletedObject);
+                this.RegisterRootDelete(deletedObject, registeredBy);
+                this.SubmitChanges(deletedObject, registeredBy);
+                this.Deregister(deletedObject, registeredBy);
             }            
             
             this.m_RegisteredCollections.Remove(registeredCollection);
-            this.RegisterObjectCollection(objectCollectionToSubmit);
+            this.RegisterObjectCollection(objectCollectionToSubmit, registeredBy);
 		}                           
               
-        public void PrepareRemoteTransferAgent(object objectToSubmit,  RemoteObjectTransferAgent remoteTransferAgent)
+        /*public void PrepareRemoteTransferAgent(object objectToSubmit,  RemoteObjectTransferAgent remoteTransferAgent)
         {
             remoteTransferAgent.ObjectToSubmit = objectToSubmit;
             foreach (KeyValuePair<object, object> pair in this.m_RegisteredObjects)
@@ -196,9 +167,9 @@ namespace YellowstonePathology.Business.Persistence
                 remoteTransferAgent.RegisteredRootInserts.Add(transferObject);
             }
 			this.ResetFromRemoteTransferAgent(remoteTransferAgent);
-        }
+        }*/
 
-        public void SubmitChanges(RemoteObjectTransferAgent remoteTransferAgent)
+        /*public void SubmitChanges(RemoteObjectTransferAgent remoteTransferAgent)
         {            
             foreach (TransferObject transferObject in remoteTransferAgent.RegisteredObjects)
             {
@@ -216,9 +187,9 @@ namespace YellowstonePathology.Business.Persistence
             }
 
             this.SubmitChanges(remoteTransferAgent.ObjectToSubmit);            
-        }
+        }*/
 
-		private void ResetFromRemoteTransferAgent(RemoteObjectTransferAgent remoteTransferAgent)
+		/*private void ResetFromRemoteTransferAgent(RemoteObjectTransferAgent remoteTransferAgent)
 		{
 			object objectToSubmit = remoteTransferAgent.ObjectToSubmit;
 			Type objectType = objectToSubmit.GetType();
@@ -244,19 +215,19 @@ namespace YellowstonePathology.Business.Persistence
 			{
 				throw new Exception("The object you request submission on is not registered.");
 			}
-		}
+		}*/
 
-        public SubmissionResult SubmitChanges(object objectToSubmit)
+        public SubmissionResult SubmitChanges(object objectToSubmit, object registeredBy)
         {
             SubmissionResult result = new SubmissionResult();
 
             if (objectToSubmit.GetType().BaseType.Name == "ObservableCollection`1")
             {
-                this.SubmitCollectionChanges(objectToSubmit);
+                this.SubmitCollectionChanges(objectToSubmit, registeredBy);
             }
             else
             {
-                SqlCommandSubmitter sqlCommandSubmitter = this.GetSqlCommands(objectToSubmit);                
+                SqlCommandSubmitter sqlCommandSubmitter = this.GetSqlCommands(objectToSubmit, registeredBy);                
                 sqlCommandSubmitter.SubmitChanges();                
             }
 
@@ -269,11 +240,11 @@ namespace YellowstonePathology.Business.Persistence
             deleteCommandBuilder.Build(objectToSubmit, objectSubmitter.SqlDeleteFirstCommands, objectSubmitter.SqlDeleteCommands);
         }
 
-        private void HandleRootInsertSubmission(object objectToSubmit, object originalValues, object keyPropertyValue, SqlCommandSubmitter objectSubmitter)
+        private void HandleRootInsertSubmission(object objectToSubmit, object keyPropertyValue, SqlCommandSubmitter objectSubmitter, object registeredBy)
         {
             InsertCommandBuilder insertCommandBuilder = new InsertCommandBuilder();
             insertCommandBuilder.Build(objectToSubmit, objectSubmitter.SqlInsertCommands, objectSubmitter.SqlInsertLastCommands);
-            this.m_RegisteredRootInserts.Remove(keyPropertyValue);
+            this.m_RegisteredRootInserts.Unregister(objectToSubmit, registeredBy);
         }
 
         private void HandleUpdateSubmission(object objectToSubmit, object originalValues, object keyPropertyValue, SqlCommandSubmitter objectSubmitter)
@@ -310,7 +281,7 @@ namespace YellowstonePathology.Business.Persistence
             sqlCommandSubmitter.SubmitChanges();
         }
 
-        public SqlCommandSubmitter GetSqlCommands(object objectToSubmit)
+        public SqlCommandSubmitter GetSqlCommands(object objectToSubmit, object registeredBy)
         {
             PersistentClass persistentClassAttribute = (PersistentClass)objectToSubmit.GetType().GetCustomAttributes(typeof(PersistentClass), false).Single();
             SqlCommandSubmitter objectSubmitter = new SqlCommandSubmitter(persistentClassAttribute.Database);
@@ -320,22 +291,26 @@ namespace YellowstonePathology.Business.Persistence
             object keyPropertyValue = keyProperty.GetValue(objectToSubmit, null);
 
             object registeredObject = null;
-            if (this.m_RegisteredObjects.TryGetValue(keyPropertyValue, out registeredObject) == true)
+            if(this.m_RegisteredObjects.IsRegisteredBy(objectToSubmit, registeredBy) == true)
             {
-                this.m_RegisteredObjects.Remove(keyPropertyValue);
-                this.HandleUpdateSubmission(objectToSubmit, registeredObject, keyPropertyValue, objectSubmitter);
-                this.RegisterObject(objectToSubmit);
+                RegisteredObject registeredObjectToSubmit = this.m_RegisteredObjects.Get(objectToSubmit);
+                registeredObject = registeredObjectToSubmit.Value;
+                this.m_RegisteredObjects.Unregister(objectToSubmit, registeredBy);
+	            this.HandleUpdateSubmission(objectToSubmit, registeredObject, keyPropertyValue, objectSubmitter);
+	            this.RegisterObject(objectToSubmit, registeredBy);
             }
-            else if (this.m_RegisteredRootDeletes.TryGetValue(keyPropertyValue, out registeredObject) == true)
+            else if(this.m_RegisteredRootDeletes.IsRegisteredBy(objectToSubmit, registeredBy) == true)
             {
-                this.m_RegisteredRootDeletes.Remove(keyPropertyValue);
-                this.HandleRootDeleteSubmission(registeredObject, keyPropertyValue, objectSubmitter);
+                RegisteredObject registeredObjectToSubmit = this.m_RegisteredRootDeletes.Get(objectToSubmit);
+                registeredObject = registeredObjectToSubmit.Value;
+                this.m_RegisteredRootDeletes.Unregister(objectToSubmit, registeredBy);
+	            this.HandleRootDeleteSubmission(registeredObject, keyPropertyValue, objectSubmitter);
             }
-            else if (this.m_RegisteredRootInserts.TryGetValue(keyPropertyValue, out registeredObject) == true)
+            else if(this.m_RegisteredRootInserts.IsRegisteredBy(objectToSubmit, registeredBy) == true)
             {
-                this.m_RegisteredRootInserts.Remove(keyPropertyValue);
-                this.HandleRootInsertSubmission(objectToSubmit, registeredObject, keyPropertyValue, objectSubmitter);
-                this.RegisterObject(objectToSubmit);
+	            this.m_RegisteredRootInserts.Unregister(objectToSubmit, registeredBy);
+	            this.HandleRootInsertSubmission(objectToSubmit, keyPropertyValue, objectSubmitter, registeredBy);
+	            this.RegisterObject(objectToSubmit, registeredBy);
             }
             else
             {

@@ -43,12 +43,12 @@ namespace YellowstonePathology.Business.Gateway
             		accessionOrder.TimeLockAquired = null;
             	}
             	
-            	YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(accessionOrder);
+            	//YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(accessionOrder);
             }
             
            	if(releaseLock == true)
         	{
-        		YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.Deregister(accessionOrder);
+        		//YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.Deregister(accessionOrder);
         	}
      }
 
@@ -61,9 +61,9 @@ namespace YellowstonePathology.Business.Gateway
             	throw new Exception("AccessionOrder - " + accessionOrder.MasterAccessionNo + " not in AOGW AccessinOrderCollection");
             }
             
-            if(YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.IsRegistered(accessionOrder) == true)
+            //if(YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.IsRegistered(accessionOrder) == true)
             {
-	            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.Deregister(accessionOrder);
+	            //YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.Deregister(accessionOrder);
             }
             
             YellowstonePathology.Business.Test.AccessionOrder result = GetByMasterAccessionNo(accessionOrder.MasterAccessionNo, aquireLock);
@@ -92,7 +92,7 @@ namespace YellowstonePathology.Business.Gateway
                 this.m_AccessionOrderCollection.Add(result);
                 if (result.LockedAquired == true)
                 {
-                    YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(result);
+                    //YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(result);
                 }
             }
 
