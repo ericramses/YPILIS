@@ -16,7 +16,7 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
 			this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByMasterAccessionNo(masterAccessionNo);
 			this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 
-            this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\EGFRToALKReflexAnalysis.3.xml";
+            this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\EGFRToALKReflexAnalysis.4.xml";
             this.OpenTemplate();
             this.SetDemographicsV2();
             this.SetReportDistribution();
@@ -34,6 +34,7 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
             {
                 base.ReplaceText("alk_result", "Not Indicated");
                 base.ReplaceText("ros1_result", "Not Indicated");
+                base.ReplaceText("pdl1_result", "Not Indicated");
             }
 
             if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(131) == true)
@@ -59,6 +60,12 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
             {
                 YellowstonePathology.Business.Test.ROS1ByFISH.ROS1ByFISHTestOrder ros1ByFISHTestOrder = (YellowstonePathology.Business.Test.ROS1ByFISH.ROS1ByFISHTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(204);
                 base.ReplaceText("ros1_result", ros1ByFISHTestOrder.Result);
+            }
+
+            if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(215) == true)
+            {
+                YellowstonePathology.Business.Test.PDL1.PDL1TestOrder pdl1TestOrder = (YellowstonePathology.Business.Test.PDL1.PDL1TestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(215);
+                base.ReplaceText("pdl1_result", pdl1TestOrder.Result);
             }
 
             base.SetXMLNodeParagraphData("report_interpretation", egfrToALKReflexAnalysisTestOrder.Interpretation);

@@ -54,7 +54,14 @@ namespace YellowstonePathology.UI.Test
 			InitializeComponent();
 
 			DataContext = this;				
+			
+			Loaded += ROS1ResultPage_Loaded;
 		}
+        
+        public void ROS1ResultPage_Loaded(object sender, RoutedEventArgs e)
+        {
+        	this.ComboBoxResult.SelectionChanged += ComboBoxResult_SelectionChanged;
+        }
 
         public YellowstonePathology.Business.Test.ROS1ByFISH.ROS1ByFISHResultCollection ResultCollection
         {
@@ -207,9 +214,9 @@ namespace YellowstonePathology.UI.Test
         {
             if (this.ComboBoxResult.SelectedItem != null)
             {
-                YellowstonePathology.Business.Test.ROS1ByFISH.ROS1ByFISHResult ros1ByFISHResult = (YellowstonePathology.Business.Test.ROS1ByFISH.ROS1ByFISHResult)this.ComboBoxResult.SelectedItem;
-                this.m_ROS1ByFISHTestOrder.ResultCode = ros1ByFISHResult.ResultCode;
+                YellowstonePathology.Business.Test.ROS1ByFISH.ROS1ByFISHResult result = (YellowstonePathology.Business.Test.ROS1ByFISH.ROS1ByFISHResult)this.ComboBoxResult.SelectedItem;
+                this.m_ROS1ByFISHTestOrder.ResultCode = result.ResultCode;
             }
-        }        
+        }
 	}
 }

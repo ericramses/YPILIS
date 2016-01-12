@@ -177,7 +177,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 
 		private void ButtonNext_Click(object sender, RoutedEventArgs e)
 		{
-            if(this.HandleBreastFixationTime() == true)
+			if(this.HandleBreastFixationTime() == true && this.ClientOrderDetail.ClientAccessioned == false)
             {
                 this.m_ClientOrderDetail.ValidateObject();
 

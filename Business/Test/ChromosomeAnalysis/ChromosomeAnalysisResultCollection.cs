@@ -12,6 +12,7 @@ namespace YellowstonePathology.Business.Test.ChromosomeAnalysis
 			this.Add(new ChromosomeAnalysisNormalResult());
 			this.Add(new ChromosomeAnalysisAbnormalResult());
             this.Add(new ChromosomeAnalysisIndeterminateResult());
+            this.Add(new ChromosomeAnalysisIncompleteResult());
             this.Add(new ChromosomeAnalysisInconclusiveResult());
             this.Add(new YellowstonePathology.Business.Test.TestResultNoResult());
 		}

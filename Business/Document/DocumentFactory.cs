@@ -279,8 +279,7 @@ namespace YellowstonePathology.Business.Document
                     case 212:
                     case 216:            
                         document = new YellowstonePathology.Business.Document.NothingToPublishReport();                    
-                        break;
-                    
+                        break;                    
                     case 203:
                         document = new YellowstonePathology.Business.Test.ReviewForAdditionalTesting.ReviewForAdditionalTestingWordDocument();
                         break;
@@ -289,6 +288,9 @@ namespace YellowstonePathology.Business.Document
                         break;
                     case 214:
                         document = new YellowstonePathology.Business.Test.TechInitiatedPeripheralSmear.TechInitiatedPeripheralSmearWordDocument();
+                        break;
+                    case 215:
+                        document = new YellowstonePathology.Business.Test.PDL1.PDL1WordDocument();
                         break;
                     case 217:
                         document = new YellowstonePathology.Business.Test.KRASExon23Mutation.KRASExon23MutationWordDocument();

@@ -252,5 +252,17 @@ namespace YellowstonePathology.UI.Test
             this.m_EGFRToALKReflexAnalysisResult = new Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisResult(this.m_AccessionOrder, this.m_EGFRToALKReflexAnalysisTestOrder);
             this.NotifyPropertyChanged(string.Empty);
         }                    
+
+        private void CheckBoxQNSForPDL1_Checked(object sender, RoutedEventArgs e)
+        {
+            this.m_EGFRToALKReflexAnalysisResult = new Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisResult(this.m_AccessionOrder, this.m_EGFRToALKReflexAnalysisTestOrder);
+            this.NotifyPropertyChanged(string.Empty);
+        }
+
+        private void CheckBoxQNSForPDL1_Unchecked(object sender, RoutedEventArgs e)
+        {
+            this.m_EGFRToALKReflexAnalysisResult = new Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisResult(this.m_AccessionOrder, this.m_EGFRToALKReflexAnalysisTestOrder);
+            this.NotifyPropertyChanged(string.Empty);
+        }                    
 	}
 }

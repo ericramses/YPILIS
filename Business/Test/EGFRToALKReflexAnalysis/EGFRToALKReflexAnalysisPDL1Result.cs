@@ -1,18 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿/*
+ * Created by SharpDevelop.
+ * User: William.Copland
+ * Date: 12/14/2015
+ * Time: 12:00
+ * 
+ * To change this template use Tools | Options | Coding | Edit Standard Headers.
+ */
+using System;
 
 namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
 {
-    public class EGFRToALKReflexAnalysisROS1Result : EGFRToALKReflexAnalysisElementResult
+	/// <summary>
+	/// Description of EGFRToALKReflexAnalysisPDL1Result.
+	/// </summary>
+	public class EGFRToALKReflexAnalysisPDL1Result: EGFRToALKReflexAnalysisElementResult
     {
-        public EGFRToALKReflexAnalysisROS1Result(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, 
+        public EGFRToALKReflexAnalysisPDL1Result(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, 
             YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisResult egfrMutationAnalysisResult,
             YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisTestOrder egfrToALKReflexAnalysisTestOrder)
-            : base(accessionOrder, 204)
+            : base(accessionOrder, 215)
         {
-            if (egfrToALKReflexAnalysisTestOrder.QNSForROS1 == true)
+            if (egfrToALKReflexAnalysisTestOrder.QNSForPDL1 == true)
             {
                 this.m_Status = EGFRToALKReflexAnalysisElementStatusEnum.QNS;
             }
@@ -33,9 +41,9 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
                         }
                         if (this.m_Final == true)
                         {
-                        	YellowstonePathology.Business.Test.ROS1ByFISH.ROS1ByFISHResultCollection ros1ByFISHResultCollection = new YellowstonePathology.Business.Test.ROS1ByFISH.ROS1ByFISHResultCollection();
-                            YellowstonePathology.Business.Test.ROS1ByFISH.ROS1ByFISHTestOrder ros1ByFISHTestOrder = (YellowstonePathology.Business.Test.ROS1ByFISH.ROS1ByFISHTestOrder)this.m_PanelSetOrder;
-                            this.m_ResultAbbreviation = ros1ByFISHResultCollection.GetByResultCode(ros1ByFISHTestOrder.ResultCode).ResultAbbreviation;
+                        	YellowstonePathology.Business.Test.PDL1.PDL1ResultCollection pdl1ResultCollection = new PDL1.PDL1ResultCollection();
+                            YellowstonePathology.Business.Test.PDL1.PDL1TestOrder pdl1TestOrder = (YellowstonePathology.Business.Test.PDL1.PDL1TestOrder)this.m_PanelSetOrder;
+                            this.m_ResultAbbreviation = pdl1ResultCollection.GetByResultCode(pdl1TestOrder.ResultCode).ResultAbbreviation;
                         }
                     }
                 }
@@ -44,6 +52,6 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
                     this.m_Status = EGFRToALKReflexAnalysisElementStatusEnum.Pending;
                 }
             }
-        }        
-    }
+        }
+	}
 }
