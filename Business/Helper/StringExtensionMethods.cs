@@ -103,5 +103,12 @@ namespace YellowstonePathology.Business.Helper
             }
 			return result;
 		}
+		
+		public static string StringAsPercent(this String source)
+		{
+			string result = "0%";
+			if(string.IsNullOrEmpty(source) == false) result = source + "%";
+			return result;
+		}
     }
 }
