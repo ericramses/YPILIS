@@ -93,12 +93,34 @@ namespace YellowstonePathology.Business.Persistence
             return result;
         }
 
-        public void Deregister(object objectToDeRegister, object registeredBy)
+        public void Deregister(object objectToDeregister, object registeredBy)
         {
-            this.m_RegisteredObjects.Unregister(objectToDeRegister, registeredBy);
-            this.m_RegisteredRootDeletes.Unregister(objectToDeRegister, registeredBy);
-            this.m_RegisteredRootInserts.Unregister(objectToDeRegister, registeredBy);
-        }        
+            if (objectToDeregister.GetType().BaseType.Name == "ObservableCollection`1")
+            {
+                DeregisterObjectCollection(objectToDeregister, registeredBy);
+            }
+            else
+            {
+                this.m_RegisteredObjects.Unregister(objectToDeregister, registeredBy);
+                this.m_RegisteredRootDeletes.Unregister(objectToDeregister, registeredBy);
+                this.m_RegisteredRootInserts.Unregister(objectToDeregister, registeredBy);
+            }
+        }
+
+        private void DeregisterObjectCollection(object objectCollectionToDeregister, object registeredBy)
+        {
+            int listCount = (int)objectCollectionToDeregister.GetType().GetProperty("Count").GetValue(objectCollectionToDeregister, null);
+
+            for (int i = 0; i < listCount; i++)
+            {
+                object[] index = { i };
+                object listObject = objectCollectionToDeregister.GetType().GetProperty("Item").GetValue(objectCollectionToDeregister, index);
+                this.Deregister(listObject, registeredBy);
+            }
+
+            RegisteredCollection registeredCollection = this.m_RegisteredCollections.GetRegisteredCollection(objectCollectionToDeregister);
+            this.m_RegisteredCollections.Remove(registeredCollection);
+        }
 
         public void RegisterRootInsert(object rootObjectToInsert, object registeredBy)
         {

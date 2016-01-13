@@ -94,6 +94,7 @@ namespace YellowstonePathology.UI.Client
 
 			ClientEntryV2 clientEntry = new ClientEntryV2(client);
 			clientEntry.ShowDialog();
+                    this.DoClientSearch(this.TextBoxClientName.Text);
 		}
 
         private void ButtonDeleteClient_Click(object sender, RoutedEventArgs e)
@@ -308,6 +309,13 @@ namespace YellowstonePathology.UI.Client
 
         private void DeleteClient(YellowstonePathology.Business.Client.Model.Client client)
         {
+            YellowstonePathology.Business.Client.Model.ClientLocationCollection clientLocationCollection = client.ClientLocationCollection;
+            for (int idx = clientLocationCollection.Count - 1; idx > -1; idx--)
+            {
+                YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterRootDelete(clientLocationCollection[idx], this);
+                YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(clientLocationCollection[idx], this);
+            }
+
             YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterRootDelete(client, this);
             YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(client, this);
         }
