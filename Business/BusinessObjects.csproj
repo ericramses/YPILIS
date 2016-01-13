@@ -458,8 +458,6 @@
     <Compile Include="Label.Model\SpecimenLabel.cs" />
     <Compile Include="Label.Model\BlockLabelLegacy.cs" />
     <Compile Include="Label.Model\SpecimenLabelPrinter.cs" />
-    <Compile Include="Label.Model\LaserCassettePrinter.cs" />
-    <Compile Include="Label.Model\LaserCassette.cs" />
     <Compile Include="Label.Model\HistologySlideLabel.cs" />
     <Compile Include="Label.Model\ThinPrepSlidePrinter.cs" />
     <Compile Include="Label.Model\ThinPrepSlide.cs" />
@@ -488,6 +486,7 @@
     <Compile Include="Persistence\JSONObjectWriter.cs" />
     <Compile Include="Persistence\ObjectComparer.cs" />
     <Compile Include="ReportDistribution.Model\ScheduledFaxSubmission.cs" />
+    <Compile Include="Specimen.Model\EmbeddingInstructions.cs" />
     <Compile Include="Test.Model\DispalyGroupProstate.cs" />
     <Compile Include="Test.Model\P40.cs" />
     <Compile Include="Test\ALKForNSCLCByFISH\ALKForNSCLCByFISHNegativeWithMonosomyResult.cs" />

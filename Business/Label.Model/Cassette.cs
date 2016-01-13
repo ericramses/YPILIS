@@ -25,7 +25,9 @@ namespace YellowstonePathology.Business.Label.Model
 		protected bool m_PrintRequested;
 		protected bool m_Verified;
 		protected string m_ReportNo;
-		protected string m_MasterAccessionNo;        
+		protected string m_MasterAccessionNo;
+        protected string m_ClientAccessionNo;
+        protected bool m_ClientAccessioned;  
 
         public Cassette()
 		{
@@ -137,6 +139,11 @@ namespace YellowstonePathology.Business.Label.Model
             get { return this.m_CompanyId; }
         }
 
+        public string ClientAccessionNo
+        {
+            get { return this.m_ClientAccessionNo; }
+        }
+
         public string ScanningId
         {
             get { return this.m_ScanningPrefix + this.m_AliquotOrder.AliquotOrderId; }            
@@ -151,9 +158,20 @@ namespace YellowstonePathology.Business.Label.Model
             this.m_MasterAccessionNo = orderIdParser.MasterAccessionNo;
             this.m_AliquotOrder = aliquotOrder;
             this.m_BlockTitle = aliquotOrder.PrintLabel;
-            this.m_Verified = aliquotOrder.GrossVerified;
+            this.m_Verified = aliquotOrder.GrossVerified;           
             this.m_PatientInitials = patientName.GetInitials();            
             
+            if(accessionOrder.ClientAccessioned == true)
+            {
+                this.m_ClientAccessionNo = accessionOrder.ClientAccessionNo;
+                this.m_ClientAccessioned = true;
+            }
+            else
+            {
+                this.m_ClientAccessionNo = null;
+                this.m_ClientAccessioned = false;
+            }
+
             if(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.UseLaserCassettePrinter == false)
             {
                 this.m_CassetteColumn = accessionOrder.PrintMateColumnNumber.ToString();
@@ -176,7 +194,16 @@ namespace YellowstonePathology.Business.Label.Model
             result.Append(orderIdParser.MasterAccessionNo + this.m_LaserDelimeter);
             result.Append(this.BlockTitle + this.m_LaserDelimeter);
             result.Append(this.PatientInitials + this.m_LaserDelimeter);
-            result.Append(this.CompanyId + this.m_LaserDelimeter);
+
+            if(this.m_ClientAccessioned == true)
+            {
+                result.Append(this.m_ClientAccessionNo + this.m_LaserDelimeter);
+            }
+            else
+            {
+                result.Append(this.m_CompanyId + this.m_LaserDelimeter);
+            }
+            
             result.Append(this.ScanningId + this.m_LaserDelimeter);
             result.Append(orderIdParser.MasterAccessionNoYear.Value.ToString() + this.m_LaserDelimeter);
             result.Append(orderIdParser.MasterAccessionNoNumber.Value.ToString());
