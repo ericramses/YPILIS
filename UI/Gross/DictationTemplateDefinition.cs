@@ -568,7 +568,7 @@ namespace YellowstonePathology.UI.Gross
                 "      Average Endometrial Thickness:  [thickness]" + Environment.NewLine +
                 "   Myometrium:" + Environment.NewLine +
                 "      Average Myometrial Thickness:  [thickness]" + Environment.NewLine +
-                "      Cut Surface: [description]" + Environment.NewLine +
+                "   Cut Surface: [description]" + Environment.NewLine +
                 "      Lesions in Myometrium: [description]" + Environment.NewLine +
                 "[summarysubmission]  ";            
 
@@ -631,7 +631,7 @@ namespace YellowstonePathology.UI.Gross
                 "      Average Endometrial Thickness:  [thickness]" + Environment.NewLine +
                 "   Myometrium:" + Environment.NewLine +
                 "      Average Myometrial Thickness:  [thickness]" + Environment.NewLine +
-                "      Cut Surface: [description]" + Environment.NewLine +
+                "   Cut Surface: [description]" + Environment.NewLine +
                 "      Lesions in Myometrium: [description]" + Environment.NewLine +
                 "[summarysubmission].  ";
             
@@ -672,10 +672,14 @@ namespace YellowstonePathology.UI.Gross
     {
         public AorticValveTemplate()
         {
-            this.m_TemplateName = "Aortic Valve";
-            this.m_Text = "[identifier] and consists of [number] valve cusps aggregating to [measurement].  " +
-                "Vegetations [description] identified. The valve cusps are [description].  " +
-                "The leaflets are serially sectioned. [representativesections] for decalcification prior to processing  ";
+            this.m_TemplateName = "Aortic Valve";            
+
+            this.m_Text = "[identifier]." + Environment.NewLine +
+                "Gross Description:  [description]" + Environment.NewLine +
+                "Measurements:  [measurements]" + Environment.NewLine +
+                "Calcification:  [present/not present]" + Environment.NewLine +
+                "Vegetation:  [present/not present]" + Environment.NewLine +
+                "Submitted:  [representativesections] for decalcification prior to processing.  ";
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.AorticValve aorticValve = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.AorticValve();
             this.m_SpecimenCollection.Add(aorticValve);
@@ -693,10 +697,13 @@ namespace YellowstonePathology.UI.Gross
     {
         public MitralValveTemplate()
         {
-            this.m_TemplateName = "Mitral Valve";
-            this.m_Text = "[identifier] and consists of [number] valve leaflets aggregating to [measurement].  " +
-                "Vegetations [description] identified. The valve leaflets are [description]." +
-                "The leaflets are serially sectioned.  [representativesections].  ";
+            this.m_TemplateName = "Mitral Valve";            
+
+            this.m_Text = "[identifier]." + Environment.NewLine +
+               "Leaflets Description:  [description]" + Environment.NewLine +
+               "Measurements:  [measurements]" + Environment.NewLine +
+               "Chordae:  [description]" + Environment.NewLine +               
+               "Submitted:  [representativesections] for decalcification prior to processing.  ";
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.MitralValve mitralValve = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.MitralValve();
             this.m_SpecimenCollection.Add(mitralValve);
