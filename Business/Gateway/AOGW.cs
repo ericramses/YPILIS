@@ -66,6 +66,10 @@ namespace YellowstonePathology.Business.Gateway
             if (this.m_AccessionOrderCollection.Exists(masterAccessionNo) == true)
             {
                 result = this.m_AccessionOrderCollection.GetAccessionOrder(masterAccessionNo);
+                if(aquireLock == true && result.LockedAquired == false)
+                {
+                    result = Refresh(result, aquireLock, registeredBy);
+                }
             }
             else
             {

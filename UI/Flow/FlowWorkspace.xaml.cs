@@ -74,14 +74,18 @@ namespace YellowstonePathology.UI.Flow
 
         private void MainWindowCommandButtonHandler_StartProviderDistributionPath(object sender, EventArgs e)
         {
-        	MessageBox.Show("Temporarily disconnected");
-            /*if (this.m_FlowUI.AccessionOrder != null)
+        	//MessageBox.Show("Temporarily disconnected");
+            if (this.m_FlowUI.AccessionOrder != null)
             {
+            	this.Save(true);
+            	YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
+            	objectTracker.RegisterObject(this.m_FlowUI.AccessionOrder);
                 YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPath providerDistributionPath =
-                    new YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPath(this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.ReportNo, this.m_FlowUI.AccessionOrder, this.m_FlowUI.ObjectTracker,
+                    new YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPath(this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.ReportNo, this.m_FlowUI.AccessionOrder, objectTracker,
                     System.Windows.Visibility.Collapsed, System.Windows.Visibility.Visible, System.Windows.Visibility.Collapsed);
                 providerDistributionPath.Start();
-            }*/
+                this.m_FlowUI.GetAccessionOrder(this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.ReportNo, this.m_FlowUI.AccessionOrder.MasterAccessionNo);
+            }
         }
 
         private void FlowWorkspace_Unloaded(object sender, RoutedEventArgs e)
@@ -573,11 +577,14 @@ namespace YellowstonePathology.UI.Flow
 
         private void ShowAmendmentDialog(object target, ExecutedRoutedEventArgs args)
         {
-        	MessageBox.Show("Temporarily disconnected");
-            /*this.Save(false);
-            YellowstonePathology.UI.AmendmentPageController amendmentPageController = new AmendmentPageController(this.m_FlowUI.AccessionOrder, this.m_FlowUI.ObjectTracker, this.m_FlowUI.PanelSetOrderLeukemiaLymphoma, this.m_SystemIdentity);
-            amendmentPageController.ShowDialog();*/
-        }        
+        	//MessageBox.Show("Temporarily disconnected");
+            this.Save(true);
+            YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
+            objectTracker.RegisterObject(this.m_FlowUI.AccessionOrder);
+            YellowstonePathology.UI.AmendmentPageController amendmentPageController = new AmendmentPageController(this.m_FlowUI.AccessionOrder, objectTracker, this.m_FlowUI.PanelSetOrderLeukemiaLymphoma, this.m_SystemIdentity);
+            amendmentPageController.ShowDialog();
+            this.m_FlowUI.GetAccessionOrder(this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.ReportNo, this.m_FlowUI.AccessionOrder.MasterAccessionNo);
+        }
 
         private void ButtonRefresh_Click(object sender, RoutedEventArgs e)
         {
@@ -695,16 +702,20 @@ namespace YellowstonePathology.UI.Flow
        
         private void ButtonShowSpecimenDialog_Click(object sender, RoutedEventArgs e)
         {
-        	MessageBox.Show("Temporarily disconnected");
-            /*if (this.ComboBoxSpecimen.SelectedItem != null)
+        	//MessageBox.Show("Temporarily disconnected");
+            if (this.ComboBoxSpecimen.SelectedItem != null)
             {
+            	this.Save(true);
+            	YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
+                objectTracker.RegisterObject(this.m_FlowUI.AccessionOrder);
 				YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = (YellowstonePathology.Business.Specimen.Model.SpecimenOrder)this.ComboBoxSpecimen.SelectedItem;
-                YellowstonePathology.UI.Login.SpecimenOrderDetailsPage specimenOrderDetailsPage = new YellowstonePathology.UI.Login.SpecimenOrderDetailsPage(this.m_FlowUI.AccessionOrder, this.m_FlowUI.ObjectTracker, specimenOrder);
+                YellowstonePathology.UI.Login.SpecimenOrderDetailsPage specimenOrderDetailsPage = new YellowstonePathology.UI.Login.SpecimenOrderDetailsPage(this.m_FlowUI.AccessionOrder, objectTracker, specimenOrder);
                 specimenOrderDetailsPage.Next += new Login.SpecimenOrderDetailsPage.NextEventHandler(SpecimenOrderDetailsPage_Next);
                 this.m_LoginPageWindow = new Login.LoginPageWindow(this.m_SystemIdentity);
                 this.m_LoginPageWindow.PageNavigator.Navigate(specimenOrderDetailsPage);
                 this.m_LoginPageWindow.ShowDialog();
-            }*/
+                this.m_FlowUI.GetAccessionOrder(this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.ReportNo, this.m_FlowUI.AccessionOrder.MasterAccessionNo);
+            }
         }
 
         private void SpecimenOrderDetailsPage_Next(object sender, EventArgs e)
@@ -802,19 +813,22 @@ namespace YellowstonePathology.UI.Flow
 
         private void ButtonReportOrder_Click(object sender, RoutedEventArgs e)
         {            
-        	MessageBox.Show("Temporarily disconnected");
-            /*YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection clientOrderCollection = YellowstonePathology.Business.Gateway.ClientOrderGateway.GetClientOrdersByMasterAccessionNo(this.m_FlowUI.AccessionOrder.MasterAccessionNo);
+        	//MessageBox.Show("Temporarily disconnected");
+        	this.Save(true);
+            YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection clientOrderCollection = YellowstonePathology.Business.Gateway.ClientOrderGateway.GetClientOrdersByMasterAccessionNo(this.m_FlowUI.AccessionOrder.MasterAccessionNo);
             if (clientOrderCollection.Count != 0)
             {
-                this.m_FlowUI.ObjectTracker.RegisterObject(clientOrderCollection[0]);
-                Login.Receiving.AccessionOrderPath accessionOrderPath = new Login.Receiving.AccessionOrderPath(this.m_FlowUI.AccessionOrder, clientOrderCollection[0], this.m_FlowUI.ObjectTracker, PageNavigationModeEnum.Standalone);
+            	YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
+            	objectTracker.RegisterObject(this.m_FlowUI.AccessionOrder);
+                objectTracker.RegisterObject(clientOrderCollection[0]);
+                Login.Receiving.AccessionOrderPath accessionOrderPath = new Login.Receiving.AccessionOrderPath(this.m_FlowUI.AccessionOrder, clientOrderCollection[0], objectTracker, PageNavigationModeEnum.Standalone);
                 accessionOrderPath.Start();
-                this.m_FlowUI.ObjectTracker.Deregister(clientOrderCollection[0]);
+                this.m_FlowUI.GetAccessionOrder(this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.ReportNo, this.m_FlowUI.AccessionOrder.MasterAccessionNo);
             }
             else
             {
                 MessageBox.Show("No Client Order was found.  Please contact IT.");
-            }*/         
+            }         
         }
 
         private void ListICDCode_MouseDoubleClick(object sender, MouseButtonEventArgs e)
