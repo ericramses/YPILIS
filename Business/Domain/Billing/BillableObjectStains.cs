@@ -23,7 +23,7 @@ namespace YellowstonePathology.Business.Domain.Billing
             this.m_GradedTestCollection = YellowstonePathology.Business.Test.Model.TestCollection.GetGradedTests();
             this.m_CytochemicalTestCollection = YellowstonePathology.Business.Test.Model.TestCollection.GetCytochemicalTests();
             this.m_CytochemicalForMicroorganismsTestCollection = YellowstonePathology.Business.Test.Model.TestCollection.GetCytochemicalForMicroorganismsTests();            
-        }        
+        }                       
 
         public override void PostGlobal(string billTo, string billBy)
         {
@@ -33,7 +33,7 @@ namespace YellowstonePathology.Business.Domain.Billing
 				this.Post88313(YellowstonePathology.Business.Billing.Model.BillingComponentEnum.Global, billTo, billBy);
 				this.Post88312(YellowstonePathology.Business.Billing.Model.BillingComponentEnum.Global, billTo, billBy);
 				this.Post88342(YellowstonePathology.Business.Billing.Model.BillingComponentEnum.Global, billTo, billBy);
-				this.Post88341(YellowstonePathology.Business.Billing.Model.BillingComponentEnum.Global, billTo, billBy);
+				this.Post88341(YellowstonePathology.Business.Billing.Model.BillingComponentEnum.Global, billTo, billBy);                
                 this.Post3395F();
 			}
         }
@@ -46,7 +46,7 @@ namespace YellowstonePathology.Business.Domain.Billing
 				this.Post88313(YellowstonePathology.Business.Billing.Model.BillingComponentEnum.Professional, billTo, billBy);
 				this.Post88312(YellowstonePathology.Business.Billing.Model.BillingComponentEnum.Professional, billTo, billBy);
 				this.Post88342(YellowstonePathology.Business.Billing.Model.BillingComponentEnum.Professional, billTo, billBy);
-				this.Post88341(YellowstonePathology.Business.Billing.Model.BillingComponentEnum.Professional, billTo, billBy);
+				this.Post88341(YellowstonePathology.Business.Billing.Model.BillingComponentEnum.Professional, billTo, billBy);                
                 this.Post3395F();
 			}
         }
@@ -59,10 +59,10 @@ namespace YellowstonePathology.Business.Domain.Billing
 				this.Post88313(YellowstonePathology.Business.Billing.Model.BillingComponentEnum.Technical, billTo, billBy);
 				this.Post88312(YellowstonePathology.Business.Billing.Model.BillingComponentEnum.Technical, billTo, billBy);
 				this.Post88342(YellowstonePathology.Business.Billing.Model.BillingComponentEnum.Technical, billTo, billBy);
-				this.Post88341(YellowstonePathology.Business.Billing.Model.BillingComponentEnum.Technical, billTo, billBy);
+				this.Post88341(YellowstonePathology.Business.Billing.Model.BillingComponentEnum.Technical, billTo, billBy);                
                 this.Post3395F();
 			}
-        }		
+        }        
 
         public void Post88360(YellowstonePathology.Business.Billing.Model.BillingComponentEnum billingComponent, string billTo, string billBy)
         {
@@ -279,6 +279,6 @@ namespace YellowstonePathology.Business.Domain.Billing
                     this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.Add(panelSetOrderCPTCode);
                 }
             }
-        }                             
+        }                                         
     }
 }

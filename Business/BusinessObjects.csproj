@@ -402,6 +402,7 @@
     <Compile Include="DataMatrix\DmtxVector2.cs" />
     <Compile Include="DataTemplateSpecimenOrderEnum.cs" />
     <Compile Include="Document\CaseDocumentPath.cs" />
+    <Compile Include="Domain\Billing\BillableObjectTechnicalOnlyAutopsy.cs" />
     <Compile Include="Domain\Core\Comment.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -3015,10 +3016,7 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Test\BCellEnumeration" />
-    <Folder Include="Test\TCellSubsetAnalysis" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="XMLTemplates\AccessionSummaryBreastCancer.xml" />
     <EmbeddedResource Include="XMLTemplates\AccessionSummaryColorectalCancer.xml" />

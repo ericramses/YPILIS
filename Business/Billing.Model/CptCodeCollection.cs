@@ -224,6 +224,8 @@ namespace YellowstonePathology.Business.Billing.Model
             result.Add(new PQRSCodeDefinitions.PQRSG9428());
             result.Add(new PQRSCodeDefinitions.PQRSG9429());
 
+            result.Add(new CptCodeDefinition.AutopsyTechnicalOnly());
+
             return GetSorted(result);
         }
 
