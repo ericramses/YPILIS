@@ -26,7 +26,7 @@ namespace YellowstonePathology.Business.Gateway
             this.m_AccessionOrderCollection = new Test.AccessionOrderCollection();
         }
 
-        public void Save(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, bool releaseLock)
+        public void Save(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, bool releaseLock, object registeredBy)
         {
             //This will be the only place that an AO can be saved.
             //We need to devise a way to make sure AO's are not saved directly throught the OT
@@ -43,16 +43,16 @@ namespace YellowstonePathology.Business.Gateway
             		accessionOrder.TimeLockAquired = null;
             	}
             	
-            	//YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(accessionOrder);
+            	YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(accessionOrder, registeredBy);
             }
             
            	if(releaseLock == true)
         	{
-        		//YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.Deregister(accessionOrder);
+        		YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.Deregister(accessionOrder, registeredBy);
         	}
      }
 
-        public YellowstonePathology.Business.Test.AccessionOrder Refresh(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, bool aquireLock)
+        public YellowstonePathology.Business.Test.AccessionOrder Refresh(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, bool aquireLock, object registeredBy)
         {
             //If it is in the list remove it from the list, unregister it from the OT and then go get it from the database.  If it's not in the list then throw an error.    
             //Register it with OT if AO.LockAquired == true;
@@ -61,17 +61,14 @@ namespace YellowstonePathology.Business.Gateway
             	throw new Exception("AccessionOrder - " + accessionOrder.MasterAccessionNo + " not in AOGW AccessinOrderCollection");
             }
             
-            //if(YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.IsRegistered(accessionOrder) == true)
-            {
-	            //YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.Deregister(accessionOrder);
-            }
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.Deregister(accessionOrder, registeredBy);
             
-            YellowstonePathology.Business.Test.AccessionOrder result = GetByMasterAccessionNo(accessionOrder.MasterAccessionNo, aquireLock);
+            YellowstonePathology.Business.Test.AccessionOrder result = GetByMasterAccessionNo(accessionOrder.MasterAccessionNo, aquireLock, registeredBy);
             
             return result;
         }
 
-        public YellowstonePathology.Business.Test.AccessionOrder GetByMasterAccessionNo(string masterAccessionNo, bool aquireLock)
+        public YellowstonePathology.Business.Test.AccessionOrder GetByMasterAccessionNo(string masterAccessionNo, bool aquireLock, object registeredBy)
         {
             YellowstonePathology.Business.Test.AccessionOrder result = null;
             if (this.m_AccessionOrderCollection.Exists(masterAccessionNo) == true)
@@ -90,10 +87,11 @@ namespace YellowstonePathology.Business.Gateway
                 }
 
                 this.m_AccessionOrderCollection.Add(result);
-                if (result.LockedAquired == true)
-                {
-                    //YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(result);
-                }
+            }
+
+            if (result.LockedAquired == true)
+            {
+                YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(result, registeredBy);
             }
 
             return result;
