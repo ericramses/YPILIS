@@ -27,12 +27,7 @@ namespace YellowstonePathology.Business.Gateway
         }
 
         public void Save(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, bool releaseLock, object registeredBy)
-        {
-            //This will be the only place that an AO can be saved.
-            //We need to devise a way to make sure AO's are not saved directly throught the OT
-            //This function will create the JSON and store it in the JSON property so it will get persisted.
-            //The app will call save without regard to wether a lock is aquired. 
-            //if ReleaseLock is true then the lock properties will be set to null before saving.
+        {            
             if(accessionOrder.LockedAquired == true)
             {
             	if(releaseLock == true)
@@ -53,16 +48,13 @@ namespace YellowstonePathology.Business.Gateway
      }
 
         public YellowstonePathology.Business.Test.AccessionOrder Refresh(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, bool aquireLock, object registeredBy)
-        {
-            //If it is in the list remove it from the list, unregister it from the OT and then go get it from the database.  If it's not in the list then throw an error.    
-            //Register it with OT if AO.LockAquired == true;
+        {            
             if(this.m_AccessionOrderCollection.Remove(accessionOrder) == false)
             {
             	throw new Exception("AccessionOrder - " + accessionOrder.MasterAccessionNo + " not in AOGW AccessinOrderCollection");
             }
             
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.Deregister(accessionOrder, registeredBy);
-            
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.Deregister(accessionOrder, registeredBy);            
             YellowstonePathology.Business.Test.AccessionOrder result = GetByMasterAccessionNo(accessionOrder.MasterAccessionNo, aquireLock, registeredBy);
             
             return result;

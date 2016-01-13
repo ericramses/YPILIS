@@ -66,24 +66,29 @@ namespace YellowstonePathology.Business.Persistence
 	        	this.Add(registeredObject);
         	}
         }
-        
+
         public void Unregister(object objectToRegister, object registeredBy)
         {
-        	if(this.Exists(objectToRegister) == true)
-        	{
-        		RegisteredObject existingRegisteredObject = this.Get(objectToRegister);
-        		if(existingRegisteredObject.RegisteredBy.Contains(registeredBy) == true)
-        		{
-        			existingRegisteredObject.RegisteredBy.Remove(registeredBy);
-        		}
-        		
-        		if(existingRegisteredObject.RegisteredBy.Count == 0)
-        		{
-        			this.Remove(existingRegisteredObject);
-        		}
-        	}
+            if (this.Exists(objectToRegister) == true)
+            {
+                RegisteredObject existingRegisteredObject = this.Get(objectToRegister);
+                if (existingRegisteredObject.RegisteredBy.Contains(registeredBy) == true)
+                {
+                    existingRegisteredObject.RegisteredBy.Remove(registeredBy);
+                }
+
+                if (existingRegisteredObject.RegisteredBy.Count == 0)
+                {
+                    this.Remove(existingRegisteredObject);
+                }
+            }
         }
-        
+
+        public void CleanUp(object registeredBy)
+        {
+            
+        }
+
         public bool IsRegisteredBy(object objectToFind, object registeredBy)
         {
         	bool result = false;
