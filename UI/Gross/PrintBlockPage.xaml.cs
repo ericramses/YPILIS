@@ -313,13 +313,23 @@ namespace YellowstonePathology.UI.Gross
 
 		private void PrintBlocks()
 		{
+            /*
 			YellowstonePathology.Business.Common.BlockCollection blockCollection = new Business.Common.BlockCollection();
 			string patientInitials = YellowstonePathology.Business.Helper.PatientHelper.GetPatientInitials(this.m_AccessionOrder.PFirstName, this.m_AccessionOrder.PLastName);            
 			YellowstonePathology.Business.Test.AliquotOrderCollection blocksToPrintCollection = this.m_SpecimenOrder.AliquotOrderCollection.GetUnPrintedBlocks();
 			blockCollection.FromAliquotOrderItemCollection(blocksToPrintCollection, this.m_ReportNoToUse, patientInitials, this.m_AccessionOrder.PrintMateColumnNumber, true);
-
 			YellowstonePathology.Business.Common.PrintMate.Print(blockCollection);
 			blocksToPrintCollection.SetPrinted();
+            */
+
+            YellowstonePathology.Business.Test.AliquotOrderCollection blocksToPrintCollection = this.m_SpecimenOrder.AliquotOrderCollection.GetUnPrintedBlocks();
+            YellowstonePathology.Business.Label.Model.CassettePrinter cassettePrinter = new Business.Label.Model.CassettePrinter(blocksToPrintCollection, this.m_AccessionOrder);
+            if (cassettePrinter.HasItemsToPrint() == true)
+            {
+                cassettePrinter.Print();
+            }
+
+            this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
 			this.GrossBlockManagementView = new Business.View.GrossBlockManagementView(this.m_AccessionOrder, this.m_CaseNotesDocument, this.m_SpecimenOrder);
 		}
 

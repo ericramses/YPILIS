@@ -1105,11 +1105,7 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
-            System.Net.Mail.MailMessage message = new System.Net.Mail.MailMessage("Sid.Harder@ypii.com", "Sid.Harder@ypii.com", System.Windows.Forms.SystemInformation.UserName, "sdfsdf");
-            System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient("10.1.2.111");
-            client.UseDefaultCredentials = false;
-            client.Credentials = new System.Net.NetworkCredential("Administrator", "p0046e");
-            client.Send(message);
+            
         }
 
         private void FindY()

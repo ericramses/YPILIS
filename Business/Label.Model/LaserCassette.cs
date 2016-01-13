@@ -9,7 +9,7 @@ namespace YellowstonePathology.Business.Label.Model
 	{
         //C:\GDHC\cassette\formats\Normal.itl#102#$#H2#15-23277#FS1A#JP#YPII#ALQ15-23277.1A#15#23277
 
-        private const string TemplateFileName = @"C:\GDHC\cassette\formats\Normal.itl";
+        private const string TemplateFileName = @"C:\Program Files\General Data Company\Cassette Printing\Normal.itl";
         private const string SomeNumber = "102";
 
         private YellowstonePathology.Business.Test.AliquotOrder m_AliquotOrder;		

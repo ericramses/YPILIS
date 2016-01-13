@@ -360,6 +360,7 @@
     <Compile Include="Client\ReflexOrderStatus.cs" />
     <Compile Include="Client\StandingOrder.cs" />
     <Compile Include="Client\StandingOrderCollection.cs" />
+    <Compile Include="Common\PrintMateColumnLilac.cs" />
     <Compile Include="Common\PrintMateColumnTeal2.cs" />
     <Compile Include="Common\PrintMateColumnGreen.cs" />
     <Compile Include="Common\PrintMateColumnOrange2.cs" />
