@@ -43,7 +43,7 @@ namespace YellowstonePathology.Business.Gateway
             
            	if(releaseLock == true)
         	{
-        		YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.Deregister(accessionOrder, registeredBy);
+        		YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(registeredBy);
         	}
      }
 
@@ -54,7 +54,7 @@ namespace YellowstonePathology.Business.Gateway
             	throw new Exception("AccessionOrder - " + accessionOrder.MasterAccessionNo + " not in AOGW AccessinOrderCollection");
             }
             
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.Deregister(accessionOrder, registeredBy);            
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(registeredBy);            
             YellowstonePathology.Business.Test.AccessionOrder result = GetByMasterAccessionNo(accessionOrder.MasterAccessionNo, aquireLock, registeredBy);
             
             return result;

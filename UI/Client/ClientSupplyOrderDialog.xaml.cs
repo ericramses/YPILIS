@@ -98,7 +98,7 @@ namespace YellowstonePathology.UI.Client
 		{
 			YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_ClientSupplyOrder, this);
 			this.Close();
-			YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.Deregister(this.m_ClientSupplyOrder, this);
+			YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
 		}
 
 		private void ListViewSupplies_MouseDoubleClick(object sender, MouseButtonEventArgs e)
