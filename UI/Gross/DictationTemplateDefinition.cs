@@ -41,8 +41,7 @@ namespace YellowstonePathology.UI.Gross
         {
             this.m_TemplateName = "Prostate Specimen";
             this.m_Text = "[identifier] and consists of [number] irregular ragged tan-pink tissue fragments " +
-                "weighing [weight] and measuring [measurement] in aggregate.  " +
-                "Submitted:  [representativesections].  ";
+                "weighing [weight] and measuring [measurement] in aggregate.  [representativesections]. ";                
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ProstateTUR tur = new Business.Specimen.Model.SpecimenDefinition.ProstateTUR();
             this.m_SpecimenCollection.Add(tur);
