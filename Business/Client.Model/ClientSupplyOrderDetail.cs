@@ -12,8 +12,8 @@ namespace YellowstonePathology.Business.Client.Model
 	{
 		public event PropertyChangedEventHandler PropertyChanged;				
 
-		private int m_clientsupplyorderdetailid;
-		private int m_clientsupplyorderid;
+		private string m_clientsupplyorderdetailid;
+		private string m_clientsupplyorderid;
 		private int m_clientsupplyid;
 		private string m_supplyname;
 		private string m_supplydescription;
@@ -25,9 +25,10 @@ namespace YellowstonePathology.Business.Client.Model
 		{
 		}
 
-		public ClientSupplyOrderDetail(string objectId, int clientSupplyOrderId, int clientSupplyId, string supplyName, string supplyDescription, string quantityOrdered)
+		public ClientSupplyOrderDetail(string objectId, string clientSupplyOrderId, int clientSupplyId, string supplyName, string supplyDescription, string quantityOrdered)
 		{
 			this.m_ObjectId = objectId;
+			this.m_clientsupplyorderdetailid = objectId;
 			this.m_clientsupplyorderid = clientSupplyOrderId;
 			this.m_clientsupplyid = clientsupplyid;
 			this.m_supplyname = supplyName;
@@ -43,8 +44,8 @@ namespace YellowstonePathology.Business.Client.Model
             }
         }
 
-        [PersistentPrimaryKeyProperty(true)]
-		public int clientsupplyorderdetailid
+        [PersistentPrimaryKeyProperty(false)]
+		public string clientsupplyorderdetailid
 		{
 			get { return this.m_clientsupplyorderdetailid; }
 			set
@@ -58,7 +59,7 @@ namespace YellowstonePathology.Business.Client.Model
 		}
 
         [PersistentProperty()]
-		public int clientsupplyorderid
+		public string clientsupplyorderid
 		{
 			get { return this.m_clientsupplyorderid; }
 			set
