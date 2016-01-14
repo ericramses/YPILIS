@@ -26,27 +26,6 @@ namespace YellowstonePathology.Business.Gateway
             this.m_AccessionOrderCollection = new Test.AccessionOrderCollection();
         }
 
-        public void Save(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, bool releaseLock, object registeredBy)
-        {            
-            if(accessionOrder.LockedAquired == true)
-            {
-            	if(releaseLock == true)
-            	{
-            		accessionOrder.LockAquiredByHostName = null;
-            		accessionOrder.LockAquiredById = null;
-            		accessionOrder.LockAquiredByUserName = null;
-            		accessionOrder.TimeLockAquired = null;
-            	}
-            	
-            	YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(accessionOrder, registeredBy);
-            }
-            
-           	if(releaseLock == true)
-        	{
-        		YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(registeredBy);
-        	}
-     }
-
         public YellowstonePathology.Business.Test.AccessionOrder Refresh(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, bool aquireLock, object registeredBy)
         {            
             if(this.m_AccessionOrderCollection.Remove(accessionOrder) == false)
@@ -54,7 +33,6 @@ namespace YellowstonePathology.Business.Gateway
             	throw new Exception("AccessionOrder - " + accessionOrder.MasterAccessionNo + " not in AOGW AccessinOrderCollection");
             }
             
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(registeredBy);            
             YellowstonePathology.Business.Test.AccessionOrder result = GetByMasterAccessionNo(accessionOrder.MasterAccessionNo, aquireLock, registeredBy);
             
             return result;
@@ -74,18 +52,10 @@ namespace YellowstonePathology.Business.Gateway
             
 	        if (this.m_AccessionOrderCollection.Exists(masterAccessionNo) == true)
             {
-                YellowstonePathology.Business.Test.AccessionOrder accessionToRemove = this.m_AccessionOrderCollection.GetAccessionOrder(masterAccessionNo);
-                this.m_AccessionOrderCollection.Remove(accessionToRemove);
-	            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(registeredBy);            
+	        	this.m_AccessionOrderCollection.Remove(masterAccessionNo);
             }
 
             this.m_AccessionOrderCollection.Add(result);
-
-            if (result.LockedAquired == true)
-            {
-                YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(result, registeredBy);
-            }
-
             return result;
         }
 

@@ -58,5 +58,17 @@ namespace YellowstonePathology.Business.Test
             }
             return result;
         }
+        
+        public void Remove(string masterAccessionNo)
+        {
+            foreach (AccessionOrder accessionOrder in this)
+            {
+                if (accessionOrder.MasterAccessionNo == masterAccessionNo)
+                {
+                	Remove(accessionOrder);
+                    break;
+                }
+            }
+        }
     }
 }
