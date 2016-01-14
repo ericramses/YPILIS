@@ -167,9 +167,17 @@ namespace YellowstonePathology.Business.Specimen.Model
         { 
             StringBuilder result = new StringBuilder("CASSETTE SUMMARY: ");
             result.AppendLine();
-            foreach(YellowstonePathology.Business.Test.AliquotOrder aliquotOrder in this.AliquotOrderCollection)
+            for(int i=0; i<this.m_AliquotOrderCollection.Count; i++)
             {
-                result.AppendLine("\"" + aliquotOrder.Label + "\" - [???]");
+                string text = "\"" + this.m_AliquotOrderCollection[i].Label + "\" - [???]";
+                if(i < this.m_AliquotOrderCollection.Count - 1)
+                {
+                    result.AppendLine(text);
+                }
+                else
+                {
+                    result.Append(text);                    
+                }                
             }                        
             return result.ToString();
         }

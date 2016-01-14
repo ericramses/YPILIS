@@ -545,32 +545,31 @@ namespace YellowstonePathology.UI.Gross
         public UterusTemplate()
         {
             this.m_TemplateName = "Uterus";
-            this.m_Text = "[identifier]." + Environment.NewLine +
-                "Uterus and Cervix:" + Environment.NewLine +
-                "   Uterine Corpus:" + Environment.NewLine +
-                "      Weight:  [weight]" + Environment.NewLine +
-                "      Length:  [length]" + Environment.NewLine +
-                "      Width:  [width]" + Environment.NewLine +
-                "      Thickness:  [thickness]" + Environment.NewLine +
-                "   Serosa:" + Environment.NewLine +
-                "      Description:  [color], [description]" + Environment.NewLine +
-                "      Cul-de-sac:  [color], [description]" + Environment.NewLine +
+            this.m_Text = "[identifier]." + Environment.NewLine +                
+                Environment.NewLine +
+                "Uterine Corpus:" + Environment.NewLine +
+                "   Weight:  [weight]" + Environment.NewLine +
+                "   Length:  [length]" + Environment.NewLine +
+                "   Width:  [width]" + Environment.NewLine +
+                "   Thickness:  [thickness]" + Environment.NewLine +
+                "Serosa:" + Environment.NewLine +
+                "   Uterine Serosa:  [color], [description]" + Environment.NewLine +
+                "   Cul-de-sac Serosa:  [color], [description]" + Environment.NewLine +
                 "Cervix:" + Environment.NewLine +
                 "   Measurement: [measurement] " + Environment.NewLine +
                 "   Os:  [description], [measurement]" + Environment.NewLine +
-                "   Ectocervix:  [description]" + Environment.NewLine +
+                "   Ectocervical Mucosa:  [description]" + Environment.NewLine +
                 "Sectioning of Uterus and Cervix:" + Environment.NewLine +
-                "   Endocervical Canal:  [measurement]" + Environment.NewLine +
-                "   Endocervical Mucosa:  [description]" + Environment.NewLine +
+                "   Endocervical Canal:  [description]" + Environment.NewLine +                
                 "   Endometrial Cavity:" + Environment.NewLine +
                 "      Dimensions:  [measurement]" + Environment.NewLine +
                 "      Description:  [description]" + Environment.NewLine +
-                "      Average Endometrial Thickness:  [thickness]" + Environment.NewLine +
+                "      Endometrial Thickness:  [thickness]" + Environment.NewLine +
                 "   Myometrium:" + Environment.NewLine +
-                "      Average Myometrial Thickness:  [thickness]" + Environment.NewLine +
-                "   Cut Surface: [description]" + Environment.NewLine +
+                "      Myometrial Thickness:  [thickness]" + Environment.NewLine +                
                 "      Lesions in Myometrium: [description]" + Environment.NewLine +
-                "[summarysubmission]  ";            
+                Environment.NewLine +
+                "[summarysubmission].  ";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Uterus uterus = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Uterus();
             this.m_SpecimenCollection.Add(uterus);
@@ -591,19 +590,19 @@ namespace YellowstonePathology.UI.Gross
             this.m_TemplateName = "Uterus with Adnexa";
             this.m_FontSize = 16;
             this.m_Text = "[identifier]." + Environment.NewLine +
-                "Uterus and Cervix:" + Environment.NewLine +
+                Environment.NewLine +
                 "Right Adnexal Organs:" + Environment.NewLine +
-                "   Fallopian Tube: ([w/wo fimbriated ends])" + Environment.NewLine +
-                "      Dimensions:  [measurements]" + Environment.NewLine +
+                "   Fallopian Tube: " + Environment.NewLine +
+                "      Dimensions:  [measurements]([w/wo fimbriated ends])" + Environment.NewLine +
                 "      Surface:  [description/paratubal cysts absent/present]" + Environment.NewLine +
                 "      Cut Surface:  [patent/stenotic lumen]" + Environment.NewLine +
                 "   Ovary:" + Environment.NewLine +
                 "      Dimensions:  [measurement]" + Environment.NewLine +
-                "      Surface:  [decription]" + Environment.NewLine +
+                "      Surface:  [description]" + Environment.NewLine +
                 "      Cut Surface:  [description]" + Environment.NewLine +
                 "Left Adnexal Organs:" + Environment.NewLine +
-                "   Fallopian Tube: ([w/wo fimbriated ends])" + Environment.NewLine +
-                "      Dimensions:  [measurements]" + Environment.NewLine +
+                "   Fallopian Tube: " + Environment.NewLine +
+                "      Dimensions:  [measurements]([w/wo fimbriated ends])" + Environment.NewLine +
                 "      Surface:  [description/paratubal cysts absent/present]" + Environment.NewLine +
                 "      Cut Surface:  [patent/stenotic lumen]" + Environment.NewLine +
                 "   Ovary:" + Environment.NewLine +
@@ -621,18 +620,18 @@ namespace YellowstonePathology.UI.Gross
                 "Cervix:" + Environment.NewLine +
                 "   Measurement: [measurement] " + Environment.NewLine +
                 "   Os:  [description], [measurement]" + Environment.NewLine +
-                "   Ectocervix:  [description]" + Environment.NewLine +
+                "   Ectocervical Mucosa:  [description]" + Environment.NewLine +
                 "Sectioning of Uterus and Cervix:" + Environment.NewLine +
-                "   Endocervical Canal:  [description], [measurement]" + Environment.NewLine +
+                "   Endocervical Canal:  [description]" + Environment.NewLine +
                 "   Endocervical Mucosa:  [description]" + Environment.NewLine +
                 "   Endometrial Cavity:" + Environment.NewLine +
                 "      Dimensions:  [measurement]" + Environment.NewLine +
                 "      Description:  [description]" + Environment.NewLine +
-                "      Average Endometrial Thickness:  [thickness]" + Environment.NewLine +
+                "      Endometrial Thickness:  [thickness]" + Environment.NewLine +
                 "   Myometrium:" + Environment.NewLine +
-                "      Average Myometrial Thickness:  [thickness]" + Environment.NewLine +
-                "   Cut Surface: [description]" + Environment.NewLine +
+                "      Myometrial Thickness:  [thickness]" + Environment.NewLine +                
                 "      Lesions in Myometrium: [description]" + Environment.NewLine +
+                Environment.NewLine +
                 "[summarysubmission].  ";
             
 

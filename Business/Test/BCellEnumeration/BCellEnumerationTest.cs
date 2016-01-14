@@ -26,7 +26,10 @@ namespace YellowstonePathology.Business.Test.BCellEnumeration
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterF();
             this.m_Active = true;
 
-			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.BCellEnumeration.BCellEnumerationTestOrder).AssemblyQualifiedName;
+            YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT86356(), 2);
+            this.m_PanelSetCptCodeCollection.Add(panelSetCptCode);
+
+            this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.BCellEnumeration.BCellEnumerationTestOrder).AssemblyQualifiedName;
             
 			this.m_AllowMultiplePerAccession = true;
 
