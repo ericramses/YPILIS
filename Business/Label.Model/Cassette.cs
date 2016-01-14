@@ -27,7 +27,8 @@ namespace YellowstonePathology.Business.Label.Model
 		protected string m_ReportNo;
 		protected string m_MasterAccessionNo;
         protected string m_ClientAccessionNo;
-        protected bool m_ClientAccessioned;  
+        protected bool m_ClientAccessioned;
+        protected string m_EmbeddingInstructions;
 
         public Cassette()
 		{
@@ -159,8 +160,8 @@ namespace YellowstonePathology.Business.Label.Model
             this.m_AliquotOrder = aliquotOrder;
             this.m_BlockTitle = aliquotOrder.PrintLabel;
             this.m_Verified = aliquotOrder.GrossVerified;           
-            this.m_PatientInitials = patientName.GetInitials();            
-            
+            this.m_PatientInitials = patientName.GetInitials();
+            this.m_EmbeddingInstructions = aliquotOrder.EmbeddingInstructions;
             if(accessionOrder.ClientAccessioned == true)
             {
                 this.m_ClientAccessionNo = accessionOrder.ClientAccessionNo;
@@ -201,7 +202,14 @@ namespace YellowstonePathology.Business.Label.Model
             }
             else
             {
-                result.Append(this.m_CompanyId + this.m_LaserDelimeter);
+                if(string.IsNullOrEmpty(this.m_EmbeddingInstructions) == false)
+                {
+                    result.Append(this.m_EmbeddingInstructions + this.m_LaserDelimeter);
+                }
+                else
+                {
+                    result.Append(this.m_CompanyId + this.m_LaserDelimeter);
+                }                
             }
             
             result.Append(this.ScanningId + this.m_LaserDelimeter);

@@ -11,6 +11,7 @@
 			<RowDefinition Height="*"></RowDefinition>
 			<RowDefinition Height="Auto"></RowDefinition>
 			<RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
 		</Grid.RowDefinitions>
 		
 		<TextBlock Grid.Row="1" Margin="10" FontSize="16" HorizontalAlignment="Center" Text="Block Options" />
@@ -21,5 +22,45 @@
             <Button Margin="10" Width="140" Height="50" Content="Reprint Block" Click="ButtonReprintBlock_Click" />
 			<Button Margin="10" Width="140" Height="50" Content="FS to IC only" Click="ButtonChangeFSToIC_Click" />			
 		</StackPanel>
-	</Grid>
+
+        <ListBox Grid.Column="0" Grid.Row="3" ItemsSource="{Binding Path=EmbeddingInstructionList}" Name="ListBoxEmbeddingInstructionList" SelectionChanged="ListBoxEmbeddingInstructionList_SelectionChanged"
+                HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" ScrollViewer.HorizontalScrollBarVisibility="Disabled" />
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border>
+                        <Border.Style>
+                            <Style>
+                                <Setter Property="Border.Background" Value="#FFFFCC"/>
+                                <Setter Property="Border.BorderBrush" Value="Gray"/>
+                                <Setter Property="Border.BorderThickness" Value="1"/>
+                                <Setter Property="Border.Padding" Value="1"/>
+                                <Style.Triggers>
+                                    <Trigger Property="Border.IsMouseOver" Value="True">
+                                        <Setter Property="Border.BorderThickness" Value="2" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                        <Grid Width="100" Height="30" Margin="2,2,2,2">
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Grid.Row="0" FontSize="14" Text="{Binding Path=.}" FontWeight="Bold" Margin="2,2,2,2" HorizontalAlignment="Center"/>
+
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        
+    </Grid>
 </UserControl>
