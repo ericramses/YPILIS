@@ -77,7 +77,7 @@ namespace YellowstonePathology.UI.Flow
         	//MessageBox.Show("Temporarily disconnected");
             if (this.m_FlowUI.AccessionOrder != null)
             {
-            	this.Save(true);
+            	this.Save(false);
             	YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
             	objectTracker.RegisterObject(this.m_FlowUI.AccessionOrder);
                 YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPath providerDistributionPath =
@@ -578,7 +578,7 @@ namespace YellowstonePathology.UI.Flow
         private void ShowAmendmentDialog(object target, ExecutedRoutedEventArgs args)
         {
         	//MessageBox.Show("Temporarily disconnected");
-            this.Save(true);
+            this.Save(false);
             YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
             objectTracker.RegisterObject(this.m_FlowUI.AccessionOrder);
             YellowstonePathology.UI.AmendmentPageController amendmentPageController = new AmendmentPageController(this.m_FlowUI.AccessionOrder, objectTracker, this.m_FlowUI.PanelSetOrderLeukemiaLymphoma, this.m_SystemIdentity);
@@ -705,7 +705,7 @@ namespace YellowstonePathology.UI.Flow
         	//MessageBox.Show("Temporarily disconnected");
             if (this.ComboBoxSpecimen.SelectedItem != null)
             {
-            	this.Save(true);
+            	this.Save(false);
             	YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
                 objectTracker.RegisterObject(this.m_FlowUI.AccessionOrder);
 				YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = (YellowstonePathology.Business.Specimen.Model.SpecimenOrder)this.ComboBoxSpecimen.SelectedItem;
@@ -814,7 +814,7 @@ namespace YellowstonePathology.UI.Flow
         private void ButtonReportOrder_Click(object sender, RoutedEventArgs e)
         {            
         	//MessageBox.Show("Temporarily disconnected");
-        	this.Save(true);
+        	this.Save(false);
             YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection clientOrderCollection = YellowstonePathology.Business.Gateway.ClientOrderGateway.GetClientOrdersByMasterAccessionNo(this.m_FlowUI.AccessionOrder.MasterAccessionNo);
             if (clientOrderCollection.Count != 0)
             {

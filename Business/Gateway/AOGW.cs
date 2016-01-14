@@ -63,27 +63,23 @@ namespace YellowstonePathology.Business.Gateway
         public YellowstonePathology.Business.Test.AccessionOrder GetByMasterAccessionNo(string masterAccessionNo, bool aquireLock, object registeredBy)
         {
             YellowstonePathology.Business.Test.AccessionOrder result = null;
-            if (this.m_AccessionOrderCollection.Exists(masterAccessionNo) == true)
+            if (USEMONGO == false)
             {
-                result = this.m_AccessionOrderCollection.GetAccessionOrder(masterAccessionNo);
-                if(aquireLock == true && result.LockedAquired == false)
-                {
-                    result = Refresh(result, aquireLock, registeredBy);
-                }
+                result = this.BuildFromSQL(masterAccessionNo, aquireLock);
             }
             else
             {
-                if (USEMONGO == false)
-                {
-                    result = this.BuildFromSQL(masterAccessionNo, aquireLock);
-                }
-                else
-                {
-                    result = this.BuildFromMongo(masterAccessionNo, aquireLock);
-                }
-
-                this.m_AccessionOrderCollection.Add(result);
+                result = this.BuildFromMongo(masterAccessionNo, aquireLock);
             }
+            
+	        if (this.m_AccessionOrderCollection.Exists(masterAccessionNo) == true)
+            {
+                YellowstonePathology.Business.Test.AccessionOrder accessionToRemove = this.m_AccessionOrderCollection.GetAccessionOrder(masterAccessionNo);
+                this.m_AccessionOrderCollection.Remove(accessionToRemove);
+	            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(registeredBy);            
+            }
+
+            this.m_AccessionOrderCollection.Add(result);
 
             if (result.LockedAquired == true)
             {
