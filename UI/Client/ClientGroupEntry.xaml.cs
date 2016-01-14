@@ -38,7 +38,7 @@ namespace YellowstonePathology.UI.Client
         private void ProviderEntry_Closing(object sender, CancelEventArgs e)
         {
             this.Save();
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.Deregister(this.m_ClientGroup, this);
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
         }
 
         public void NotifyPropertyChanged(String info)
@@ -87,7 +87,6 @@ namespace YellowstonePathology.UI.Client
                     YellowstonePathology.Business.Client.Model.ClientGroupClient clientGroupClient = new Business.Client.Model.ClientGroupClient(objectId, clientGroupClientId, client.ClientId, this.m_ClientGroup.ClientGroupId);
                     YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterRootInsert(clientGroupClient, this);
                     YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(clientGroupClient, this);
-                    YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.Deregister(clientGroupClient, this);
 
                     this.m_MembersClientCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientCollectionByClientGroupId(this.m_ClientGroup.ClientGroupId);
                     this.NotifyPropertyChanged("MembersClientCollection");

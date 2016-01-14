@@ -397,7 +397,7 @@ namespace YellowstonePathology.Business.Flow
 			get
 			{
 				bool result = false;
-				if (this.m_Lock.LockAquired == true)
+				if (this.m_AccessionOrder != null && this.m_AccessionOrder.LockedAquired == true)
 				{
                     result = true;
 				}

@@ -55,13 +55,6 @@ namespace YellowstonePathology.Business.Persistence
 			this.m_RegisteredObjects.Register(clonedObject, registeredBy);			
 		}
 
-        public void Deregister(object objectToDeregister, object registeredBy)
-        {            
-            this.m_RegisteredObjects.Unregister(objectToDeregister, registeredBy);
-            this.m_RegisteredRootDeletes.Unregister(objectToDeregister, registeredBy);
-            this.m_RegisteredRootInserts.Unregister(objectToDeregister, registeredBy);         
-        }
-
         public void CleanUp(object registeredBy)
         {            
             this.m_RegisteredObjects.CleanUp(registeredBy);
@@ -76,7 +69,7 @@ namespace YellowstonePathology.Business.Persistence
 
         public void RegisterRootDelete(object rootObjectToDelete, object registeredBy)
         {
-			this.m_RegisteredObjects.Unregister(rootObjectToDelete, registeredBy);
+			this.m_RegisteredObjects.Deregister(rootObjectToDelete, registeredBy);
             this.m_RegisteredRootDeletes.Register(rootObjectToDelete, registeredBy);
         }                
 
@@ -100,7 +93,7 @@ namespace YellowstonePathology.Business.Persistence
         {
             InsertCommandBuilder insertCommandBuilder = new InsertCommandBuilder();
             insertCommandBuilder.Build(objectToSubmit, objectSubmitter.SqlInsertCommands, objectSubmitter.SqlInsertLastCommands);
-            this.m_RegisteredRootInserts.Unregister(objectToSubmit, registeredBy);
+            this.m_RegisteredRootInserts.Deregister(objectToSubmit, registeredBy);
         }
 
         private void HandleUpdateSubmission(object objectToSubmit, object originalValues, object keyPropertyValue, SqlCommandSubmitter objectSubmitter)
@@ -142,7 +135,7 @@ namespace YellowstonePathology.Business.Persistence
             {
                 RegisteredObject registeredObjectToSubmit = this.m_RegisteredObjects.Get(objectToSubmit);
                 registeredObject = registeredObjectToSubmit.Value;
-                this.m_RegisteredObjects.Unregister(objectToSubmit, registeredBy);
+                this.m_RegisteredObjects.Deregister(objectToSubmit, registeredBy);
 	            this.HandleUpdateSubmission(objectToSubmit, registeredObject, keyPropertyValue, objectSubmitter);
 	            this.RegisterObject(objectToSubmit, registeredBy);
             }
@@ -150,12 +143,12 @@ namespace YellowstonePathology.Business.Persistence
             {
                 RegisteredObject registeredObjectToSubmit = this.m_RegisteredRootDeletes.Get(objectToSubmit);
                 registeredObject = registeredObjectToSubmit.Value;
-                this.m_RegisteredRootDeletes.Unregister(objectToSubmit, registeredBy);
+                this.m_RegisteredRootDeletes.Deregister(objectToSubmit, registeredBy);
 	            this.HandleRootDeleteSubmission(registeredObject, keyPropertyValue, objectSubmitter);
             }
             else if(this.m_RegisteredRootInserts.IsRegisteredBy(objectToSubmit, registeredBy) == true)
             {
-	            this.m_RegisteredRootInserts.Unregister(objectToSubmit, registeredBy);
+	            this.m_RegisteredRootInserts.Deregister(objectToSubmit, registeredBy);
 	            this.HandleRootInsertSubmission(objectToSubmit, keyPropertyValue, objectSubmitter, registeredBy);
 	            this.RegisterObject(objectToSubmit, registeredBy);
             }

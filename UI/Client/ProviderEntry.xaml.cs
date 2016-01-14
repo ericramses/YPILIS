@@ -57,7 +57,7 @@ namespace YellowstonePathology.UI.Client
         private void ProviderEntry_Closing(object sender, CancelEventArgs e)
         {
             this.Save();
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.Deregister(this.m_Physician, this);
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
         }
 
         public void NotifyPropertyChanged(String info)
@@ -153,7 +153,6 @@ namespace YellowstonePathology.UI.Client
 					YellowstonePathology.Business.Domain.PhysicianClient physicianClient = new Business.Domain.PhysicianClient(objectId, objectId, this.m_Physician.PhysicianId, this.m_Physician.ObjectId, client.ClientId);
 					YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterRootInsert(physicianClient, this);
 					YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(physicianClient, this);
-					YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.Deregister(physicianClient, this);
 					this.m_PhysicianClientView.Clients.Add(client);
 				}
 			}
@@ -223,7 +222,6 @@ namespace YellowstonePathology.UI.Client
 
 					YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterRootInsert(physicianClientDistribution, this);
 					YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(physicianClientDistribution, this);
-					YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.Deregister(physicianClientDistribution, this);
 
 					this.m_PhysicianClientDistributionViewList = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClientDistributionsV2(this.m_PhysicianClientId);
 					this.NotifyPropertyChanged("PhysicianClientDistributionViewList");

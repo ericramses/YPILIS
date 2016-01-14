@@ -12,7 +12,7 @@ namespace YellowstonePathology.Business.Client.Model
 	{
 		public event PropertyChangedEventHandler PropertyChanged;				
 
-		private int m_ClientSupplyOrderId;
+		private string m_ClientSupplyOrderId;
 		private int m_ClientId;
 		private string m_ClientName;
 		private string m_ClientAddress;
@@ -40,6 +40,7 @@ namespace YellowstonePathology.Business.Client.Model
 		public ClientSupplyOrder(string objectId, YellowstonePathology.Business.Client.Model.Client client)
 		{
 			this.m_ObjectId = objectId;
+			this.m_ClientSupplyOrderId = objectId;
 			this.m_ClientAddress = client.Address;
 			this.m_ClientCity = client.City;
 			this.m_ClientId = client.ClientId;
@@ -67,8 +68,8 @@ namespace YellowstonePathology.Business.Client.Model
 			set { this.m_ClientSupplyOrderDetailCollection = value; }
 		}
 
-        [PersistentPrimaryKeyProperty(true)]
-		public int ClientSupplyOrderId
+        [PersistentPrimaryKeyProperty(false)]
+		public string ClientSupplyOrderId
 		{
 			get { return this.m_ClientSupplyOrderId; }
 			set

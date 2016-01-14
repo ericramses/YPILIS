@@ -67,7 +67,7 @@ namespace YellowstonePathology.Business.Persistence
         	}
         }
 
-        public void Unregister(object objectToRegister, object registeredBy)
+        public void Deregister(object objectToRegister, object registeredBy)
         {
             if (this.Exists(objectToRegister) == true)
             {
@@ -86,7 +86,19 @@ namespace YellowstonePathology.Business.Persistence
 
         public void CleanUp(object registeredBy)
         {
-            
+        	for (int idx = this.Count - 1; idx > -1; idx--)
+            {
+        		RegisteredObject registeredObject = this[idx];
+        		if(registeredObject.RegisteredBy.Contains(registeredBy))
+                {
+                    registeredObject.RegisteredBy.Remove(registeredBy);
+                }
+
+                if (registeredObject.RegisteredBy.Count == 0)
+                {
+                    this.RemoveAt(idx);
+                }
+            }
         }
 
         public bool IsRegisteredBy(object objectToFind, object registeredBy)
