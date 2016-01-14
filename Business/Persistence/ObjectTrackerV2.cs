@@ -83,6 +83,23 @@ namespace YellowstonePathology.Business.Persistence
             return result;
         }
 
+        public SubmissionResult SubmitChanges(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, object registeredBy, bool releaseLock)
+        {
+            SubmissionResult result = new SubmissionResult();
+            if(releaseLock == true)
+            {
+	    		accessionOrder.LockAquiredByHostName = null;
+	    		accessionOrder.LockAquiredById = null;
+	    		accessionOrder.LockAquiredByUserName = null;
+	    		accessionOrder.TimeLockAquired = null;
+            }
+            
+            SqlCommandSubmitter sqlCommandSubmitter = this.GetSqlCommands(accessionOrder, registeredBy);                
+            sqlCommandSubmitter.SubmitChanges();                
+
+            return result;
+        }
+
         private void HandleRootDeleteSubmission(object objectToSubmit, object keyPropertyValue, SqlCommandSubmitter objectSubmitter)
         {
             DeleteCommandBuilder deleteCommandBuilder = new DeleteCommandBuilder();

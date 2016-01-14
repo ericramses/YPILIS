@@ -91,7 +91,7 @@ namespace YellowstonePathology.UI.Flow
         private void FlowWorkspace_Unloaded(object sender, RoutedEventArgs e)
         {
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath -= MainWindowCommandButtonHandler_StartProviderDistributionPath;
-            this.Save(true);
+            this.Save(false);
         }
 
         public void RemoveTab(object target, ExecutedRoutedEventArgs args)

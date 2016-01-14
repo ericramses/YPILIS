@@ -750,8 +750,6 @@ namespace YellowstonePathology.UI
             sw.Close();
             */
             Business.Test.AccessionOrder ao = YellowstonePathology.Business.Gateway.AOGW.Instance.GetByMasterAccessionNo("15-123", true, this);
-            YellowstonePathology.Business.Gateway.AOGW.Instance.Save(ao, true, this);
-            ao = YellowstonePathology.Business.Gateway.AOGW.Instance.Refresh(ao, false, this);
         }
 
         private void ButtonCheckReportDistribution_Click(object sender, RoutedEventArgs e)
