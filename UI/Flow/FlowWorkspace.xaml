@@ -99,7 +99,7 @@
 			<StackPanel Orientation="Horizontal">
 				<TextBlock Text="{Binding Path=CaseHeader}" VerticalAlignment="Center" Margin="5" FontWeight="Bold"></TextBlock>        
 				<TextBlock Style="{StaticResource HeadingTextBlock}" VerticalAlignment="Center">Locked By:</TextBlock>
-				<TextBlock Name="textBoxLockMessage" Style="{StaticResource HeadingTextBlock}" VerticalAlignment="Center" Text="{Binding Path=Lock.LockMessage}" Width="200" TextAlignment="Left"></TextBlock>
+                    <TextBlock Name="textBoxLockMessage" Style="{StaticResource HeadingTextBlock}" VerticalAlignment="Center" Text="{Binding Path=AccessionOrder.LockAquiredByUserName}" Width="200" TextAlignment="Left"></TextBlock>
 			</StackPanel>
 			</StackPanel>
 			<TabControl Grid.Column="0" Grid.Row="1" Name="tabControlFlow">

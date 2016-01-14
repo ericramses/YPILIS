@@ -63,7 +63,7 @@ namespace YellowstonePathology.UI.Flow
             this.tabItemDocumentViewer.Content = this.m_DocumentViewer;            
             this.tabControlFlow.SelectionChanged += new SelectionChangedEventHandler(tabControlFlow_SelectionChanged);
 
-            this.m_FlowUI.Lock.LockStatusChanged += new YellowstonePathology.Business.Domain.LockStatusChangedEventHandler(AccessionLock_LockStatusChanged);
+            //this.m_FlowUI.Lock.LockStatusChanged += new YellowstonePathology.Business.Domain.LockStatusChangedEventHandler(AccessionLock_LockStatusChanged);
             this.Unloaded += new RoutedEventHandler(FlowWorkspace_Unloaded);
         }
 
@@ -101,29 +101,29 @@ namespace YellowstonePathology.UI.Flow
         private void ApplicationClosing(object target, ExecutedRoutedEventArgs args)
         {
             this.Save(true);
-            this.m_FlowUI.Lock.ReleaseLock();
+            //this.m_FlowUI.Lock.ReleaseLock();
         }
 
         private void AccessionLock_LockStatusChanged(object sender, EventArgs e)
         {
-            ((MainWindow)Application.Current.MainWindow).SetLockObject(this.m_FlowUI.Lock);
+            //((MainWindow)Application.Current.MainWindow).SetLockObject(this.m_FlowUI.Lock);
         }
 
         public void AlterAccessionLock(object target, ExecutedRoutedEventArgs args)
         {
-            Save(false);
-            this.m_FlowUI.Lock.ToggleLockingMode();
-            this.m_FlowUI.SetAccess();
-            this.m_FlowUI.NotifyPropertyChanged("");
+            //Save(false);
+            //this.m_FlowUI.Lock.ToggleLockingMode();
+            //this.m_FlowUI.SetAccess();
+            //this.m_FlowUI.NotifyPropertyChanged("");
         }
 
         private void CanAlterAccessionLock(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = false;
-			if (((TabItem)this.Parent).IsSelected && this.m_FlowUI.AccessionOrder != null && this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.ReportNo != null)
-            {
-                e.CanExecute = true;
-            }
+			//if (((TabItem)this.Parent).IsSelected && this.m_FlowUI.AccessionOrder != null && this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.ReportNo != null)
+            //{
+            //    e.CanExecute = true;
+            //}
         }        
 
         public void GatingCount_LostFocus(object sender, RoutedEventArgs args)
@@ -169,10 +169,10 @@ namespace YellowstonePathology.UI.Flow
 
         public void ButtonAccessionLock_Click(object sender, RoutedEventArgs args)
         {
-			if (this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.ReportNo != string.Empty)
-            {
-                this.m_FlowUI.Lock.ToggleLockingMode();
-            }
+			//if (this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.ReportNo != string.Empty)
+            //{
+            //    this.m_FlowUI.Lock.ToggleLockingMode();
+            //}
         }
 
         public void MenuItemDeleteIcd9Code_Click(object sender, RoutedEventArgs args)
@@ -569,10 +569,10 @@ namespace YellowstonePathology.UI.Flow
         private void ItemIsSelected(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = false;
-            if (((TabItem)this.Parent).IsSelected && this.m_FlowUI.AccessionOrder != null && this.m_FlowUI.Lock.LockAquired)
-            {
-                e.CanExecute = true;
-            }
+            //if (((TabItem)this.Parent).IsSelected && this.m_FlowUI.AccessionOrder != null && this.m_FlowUI.Lock.LockAquired)
+            //{
+            //    e.CanExecute = true;
+            //}
         }
 
         private void ShowAmendmentDialog(object target, ExecutedRoutedEventArgs args)
