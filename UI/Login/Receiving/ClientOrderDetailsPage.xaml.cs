@@ -175,29 +175,37 @@ namespace YellowstonePathology.UI.Login.Receiving
             if(this.Back != null) this.Back(this, new EventArgs());
 		}
 
-		private void ButtonNext_Click(object sender, RoutedEventArgs e)
-		{
-			if(this.HandleBreastFixationTime() == true && this.ClientOrderDetail.ClientAccessioned == false)
+        private void ButtonNext_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.ClientOrderDetail.ClientAccessioned == false)
             {
-                this.m_ClientOrderDetail.ValidateObject();
-
-                if (this.m_ClientOrderDetail.ValidationErrors.Count > 0)
+                if (this.HandleBreastFixationTime() == true)
                 {
-                    this.CheckFixationStartTimeOrCollectionTimeValidationErrors();
-                    MessageBoxResult messageBoxResult = MessageBox.Show("There are validation errors on this form.  Are you sure you want to continue?", "Validation Errors", MessageBoxButton.YesNo);
-                    if (messageBoxResult == MessageBoxResult.Yes)
+                    this.m_ClientOrderDetail.ValidateObject();
+
+                    if (this.m_ClientOrderDetail.ValidationErrors.Count > 0)
+                    {
+                        this.CheckFixationStartTimeOrCollectionTimeValidationErrors();
+                        MessageBoxResult messageBoxResult = MessageBox.Show("There are validation errors on this form.  Are you sure you want to continue?", "Validation Errors", MessageBoxButton.YesNo);
+                        if (messageBoxResult == MessageBoxResult.Yes)
+                        {
+                            this.m_BarcodeScanPort.ContainerScanReceived -= ContainerScanReceived;
+                            this.Next(this, new EventArgs());
+                        }
+                    }
+                    else
                     {
                         this.m_BarcodeScanPort.ContainerScanReceived -= ContainerScanReceived;
                         this.Next(this, new EventArgs());
                     }
                 }
-                else
-                {
-                    this.m_BarcodeScanPort.ContainerScanReceived -= ContainerScanReceived;
-                    this.Next(this, new EventArgs());
-                }
-            }            
-		}
+            }
+            else
+            {
+                this.m_BarcodeScanPort.ContainerScanReceived -= ContainerScanReceived;
+                this.Next(this, new EventArgs());
+            }
+        }
 
         private bool HandleBreastFixationTime()
         {
