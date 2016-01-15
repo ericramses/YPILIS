@@ -22,9 +22,9 @@ namespace YellowstonePathology.Business.Test.TCellSubsetAnalysis
 		private string m_Method;
 		private string m_References;
 		private string m_ASRComment;
-		private int? m_CD3Percent;
-		private int? m_CD4Percent;
-		private int? m_CD8Percent;
+		private double? m_CD3Percent;
+		private double? m_CD4Percent;
+		private double? m_CD8Percent;
 		private double? m_CD4CD8Ratio;
 		
 		public TCellSubsetAnalysisTestOrder()
@@ -90,7 +90,7 @@ namespace YellowstonePathology.Business.Test.TCellSubsetAnalysis
 		}
 
 		[PersistentProperty()]
-		public int? CD3Percent
+		public double? CD3Percent
 		{
 			get { return this.m_CD3Percent; }
 			set
@@ -104,7 +104,7 @@ namespace YellowstonePathology.Business.Test.TCellSubsetAnalysis
 		}
 
 		[PersistentProperty()]
-		public int? CD4Percent
+		public double? CD4Percent
 		{
 			get { return this.m_CD4Percent; }
 			set
@@ -119,7 +119,7 @@ namespace YellowstonePathology.Business.Test.TCellSubsetAnalysis
 		}
 
 		[PersistentProperty()]
-		public int? CD8Percent
+		public double? CD8Percent
 		{
 			get { return this.m_CD8Percent; }
 			set
@@ -152,7 +152,7 @@ namespace YellowstonePathology.Business.Test.TCellSubsetAnalysis
 			double? result = null;
 			if(this.m_CD4Percent.HasValue && this.m_CD8Percent.HasValue)
 			{
-				result = Math.Round((double)this.m_CD4Percent / (double)this.m_CD8Percent, 2);
+				result = Math.Round(this.m_CD4Percent.Value / this.m_CD8Percent.Value, 2);
 			}
 			this.CD4CD8Ratio = result;
 		}
