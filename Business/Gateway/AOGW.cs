@@ -26,19 +26,7 @@ namespace YellowstonePathology.Business.Gateway
             this.m_AccessionOrderCollection = new Test.AccessionOrderCollection();
         }
 
-        public YellowstonePathology.Business.Test.AccessionOrder Refresh(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, bool aquireLock, object registeredBy)
-        {            
-            if(this.m_AccessionOrderCollection.Remove(accessionOrder) == false)
-            {
-            	throw new Exception("AccessionOrder - " + accessionOrder.MasterAccessionNo + " not in AOGW AccessinOrderCollection");
-            }
-            
-            YellowstonePathology.Business.Test.AccessionOrder result = GetByMasterAccessionNo(accessionOrder.MasterAccessionNo, aquireLock, registeredBy);
-            
-            return result;
-        }
-
-        public YellowstonePathology.Business.Test.AccessionOrder GetByMasterAccessionNo(string masterAccessionNo, bool aquireLock, object registeredBy)
+        public YellowstonePathology.Business.Test.AccessionOrder GetByMasterAccessionNo(string masterAccessionNo, bool aquireLock)
         {
             YellowstonePathology.Business.Test.AccessionOrder result = null;
             if (USEMONGO == false)

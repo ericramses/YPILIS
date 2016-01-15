@@ -743,13 +743,6 @@ namespace YellowstonePathology.UI
 
         private void ButtonCheckHPV_Click(object sender, RoutedEventArgs e)
         {
-            /*Business.Test.AccessionOrder ao = YellowstonePathology.Business.Gateway.AOGW.Instance.GetByMasterAccessionNo("15-23916");
-            string s = Business.Persistence.JSONObjectWriter.Write(ao);
-            StreamWriter sw = new StreamWriter("C:\\TEMP\\Test.txt", true);
-            sw.Write(s);
-            sw.Close();
-            */
-            Business.Test.AccessionOrder ao = YellowstonePathology.Business.Gateway.AOGW.Instance.GetByMasterAccessionNo("15-123", true, this);
         }
 
         private void ButtonCheckReportDistribution_Click(object sender, RoutedEventArgs e)
