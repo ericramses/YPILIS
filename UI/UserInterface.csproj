@@ -220,6 +220,7 @@
     <Compile Include="Converter\GatingPercentConverter.cs" />
     <Compile Include="Converter\GatingPopulationConverter.cs" />
     <Compile Include="Converter\MilitaryDateTimeConverterV2.cs" />
+    <Compile Include="Converter\NullableDoubleConverter.cs" />
     <Compile Include="Converter\PanelSetIdConverter.cs" />
     <Compile Include="Converter\ResultCodeResultConverter.cs" />
     <Compile Include="CustomEventArgs\AcknowledgeStainOrderEventArgs.cs" />

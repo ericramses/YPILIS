@@ -23,14 +23,14 @@ namespace YellowstonePathology.Business.Test.BCellEnumeration
 		private string m_Method;
 		private string m_References;
 		private string m_ASRComment;
-		private int? m_WBC;
-		private int? m_LymphocytePercentage;
-		private int? m_CD19BCellPositiveCount;
-		private int? m_CD19BCellPositivePercent;
-		private int? m_CD20BCellPositiveCount;
-		private int? m_CD20BCellPositivePercent;
-		private int? m_CD19AbsoluteCount;
-		private int? m_CD20AbsoluteCount;
+		private double? m_WBC;
+		private double? m_LymphocytePercentage;
+		private double? m_CD19BCellPositiveCount;
+		private double? m_CD19BCellPositivePercent;
+		private double? m_CD20BCellPositiveCount;
+		private double? m_CD20BCellPositivePercent;
+		private double? m_CD19AbsoluteCount;
+		private double? m_CD20AbsoluteCount;
 		
 		public BCellEnumerationTestOrder()
 		{
@@ -95,7 +95,7 @@ namespace YellowstonePathology.Business.Test.BCellEnumeration
 		}
 
 		[PersistentProperty()]
-		public int? WBC
+		public double? WBC
 		{
 			get { return this.m_WBC; }
 			set
@@ -111,7 +111,7 @@ namespace YellowstonePathology.Business.Test.BCellEnumeration
 		}
 
 		[PersistentProperty()]
-		public int? LymphocytePercentage
+		public double? LymphocytePercentage
 		{
 			get { return this.m_LymphocytePercentage; }
 			set
@@ -127,7 +127,7 @@ namespace YellowstonePathology.Business.Test.BCellEnumeration
 		}
 
 		[PersistentProperty()]
-		public int? CD19BCellPositiveCount
+		public double? CD19BCellPositiveCount
 		{
 			get { return this.m_CD19BCellPositiveCount; }
 			set
@@ -141,7 +141,7 @@ namespace YellowstonePathology.Business.Test.BCellEnumeration
 		}
 
 		[PersistentProperty()]
-		public int? CD19BCellPositivePercent
+		public double? CD19BCellPositivePercent
 		{
 			get { return this.m_CD19BCellPositivePercent; }
 			set
@@ -156,7 +156,7 @@ namespace YellowstonePathology.Business.Test.BCellEnumeration
 		}
 
 		[PersistentProperty()]
-		public int? CD20BCellPositiveCount
+		public double? CD20BCellPositiveCount
 		{
 			get { return this.m_CD20BCellPositiveCount; }
 			set
@@ -170,7 +170,7 @@ namespace YellowstonePathology.Business.Test.BCellEnumeration
 		}
 
 		[PersistentProperty()]
-		public int? CD20BCellPositivePercent
+		public double? CD20BCellPositivePercent
 		{
 			get { return this.m_CD20BCellPositivePercent; }
 			set
@@ -185,7 +185,7 @@ namespace YellowstonePathology.Business.Test.BCellEnumeration
 		}
 		
 		[PersistentProperty()]
-		public int? CD19AbsoluteCount
+		public double? CD19AbsoluteCount
 		{
 			get { return this.m_CD19AbsoluteCount; }
 			set
@@ -199,7 +199,7 @@ namespace YellowstonePathology.Business.Test.BCellEnumeration
 		}
 		
 		[PersistentProperty()]
-		public int? CD20AbsoluteCount
+		public double? CD20AbsoluteCount
 		{
 			get { return this.m_CD20AbsoluteCount; }
 			set
@@ -214,24 +214,24 @@ namespace YellowstonePathology.Business.Test.BCellEnumeration
 		
 		private void SetCD19AbsoluteCount()
 		{
-			int? result = null;
+            double? result = null;
 			if(this.m_WBC.HasValue && this.m_LymphocytePercentage.HasValue && this.m_CD19BCellPositivePercent.HasValue)
 			{
-				int lpDenominator = this.m_LymphocytePercentage.Value < 10 ? 10 : 100;
-				int cdDenominator = this.m_CD19BCellPositivePercent.Value < 10 ? 10 : 100;
-				result = this.m_WBC.Value * this.m_LymphocytePercentage.Value * this.m_CD19BCellPositivePercent.Value / lpDenominator / cdDenominator;
+				double lpDenominator = this.m_LymphocytePercentage.Value < 10.0 ? 10.0 : 100.0;
+				double cdDenominator = this.m_CD19BCellPositivePercent.Value < 10.0 ? 10.0 : 100.0;
+				result = Math.Round((this.m_WBC.Value * this.m_LymphocytePercentage.Value * this.m_CD19BCellPositivePercent.Value / lpDenominator / cdDenominator), 2);
 			}
 			this.CD19AbsoluteCount = result;
 		}
 		
 		public void SetCD20AbsoluteCount()
 		{
-			int? result = null;
+            double? result = null;
 			if(this.m_WBC.HasValue && this.m_LymphocytePercentage.HasValue && this.m_CD20BCellPositivePercent.HasValue)
 			{
-				int lpDenominator = this.m_LymphocytePercentage.Value < 10 ? 10 : 100;
-				int cdDenominator = this.m_CD20BCellPositivePercent.Value < 10 ? 10 : 100;
-				result = this.m_WBC.Value * this.m_LymphocytePercentage.Value * this.m_CD20BCellPositivePercent.Value / lpDenominator / cdDenominator;
+                double lpDenominator = this.m_LymphocytePercentage.Value < 10.0 ? 10.0 : 100.0;
+                double cdDenominator = this.m_CD20BCellPositivePercent.Value < 10.0 ? 10.0 : 100.0;
+				result = Math.Round((this.m_WBC.Value * this.m_LymphocytePercentage.Value * this.m_CD20BCellPositivePercent.Value / lpDenominator / cdDenominator), 2);
 			}
 			this.CD20AbsoluteCount = result;
 		}
