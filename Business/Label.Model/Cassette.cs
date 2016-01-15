@@ -162,6 +162,7 @@ namespace YellowstonePathology.Business.Label.Model
             this.m_Verified = aliquotOrder.GrossVerified;           
             this.m_PatientInitials = patientName.GetInitials();
             this.m_EmbeddingInstructions = aliquotOrder.EmbeddingInstructions;
+
             if(accessionOrder.ClientAccessioned == true)
             {
                 this.m_ClientAccessionNo = accessionOrder.ClientAccessionNo;
