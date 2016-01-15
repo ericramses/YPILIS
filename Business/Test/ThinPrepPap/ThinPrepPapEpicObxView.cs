@@ -25,6 +25,20 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
             this.AddNextObxElement("##############################################", document, "F");
             this.AddNextObxElement("Epithelial Cell Description:", document, "F");            
             this.AddNextObxElement(panelSetOrderCytology.ScreeningImpression.ToUpper(), document, "F");
+
+            this.AddNextObxElement(string.Empty, document, "F");
+
+            this.AddNextObxElement("Other Conditions:", document, "F");
+            string otherConditions = panelSetOrderCytology.OtherConditions;
+            if (string.IsNullOrEmpty(otherConditions) == true)
+            {
+                otherConditions = "None.";
+            }
+            else
+            {
+                this.HandleLongString(otherConditions, document, "F");
+            }
+
             this.AddNextObxElement("##############################################", document, "F");
             this.AddNextObxElement(string.Empty, document, "F");
 
@@ -44,17 +58,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
                 this.HandleLongString(reportComment, document, "F");
                 this.AddNextObxElement(string.Empty, document, "F");
             }                      
-
-            this.AddNextObxElement("Other Conditions:", document, "F");
-            string otherConditions = panelSetOrderCytology.OtherConditions;
-            if (string.IsNullOrEmpty(otherConditions) == true)
-            {
-                otherConditions = "None.";
-            }
-            else
-            {
-                this.HandleLongString(otherConditions, document, "F");
-            }            
+                    
             this.AddNextObxElement(string.Empty, document, "F");
 
             bool hpvHasBeenOrdered = this.m_AccessionOrder.PanelSetOrderCollection.Exists(14);            

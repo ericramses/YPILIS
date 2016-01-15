@@ -53,6 +53,16 @@ namespace YellowstonePathology.Business.Domain.Billing
             return result;
         }
 
+        public int GetBillable88305Count()
+        {
+            int result = 0;
+            foreach (StainSpecimen stainSpecimen in this)
+            {
+                result = result + stainSpecimen.GetBillableHANDECount();
+            }
+            return result;
+        }
+
         public int GetBillable88313Count()
         {
             int result = 0;

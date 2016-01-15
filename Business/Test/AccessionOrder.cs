@@ -1496,8 +1496,9 @@ namespace YellowstonePathology.Business.Test
                 {
                     panelSetOrder.AssignedToId = 5088; //Assign to Dr. Emerick
                     YellowstonePathology.Business.Facility.Model.YellowstonePathologistBillings yp = new Facility.Model.YellowstonePathologistBillings();
+                    YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings ypi = new Facility.Model.YellowstonePathologyInstituteBillings();
                     panelSetOrder.ProfessionalComponentFacilityId = yp.FacilityId;
-                    panelSetOrder.ProfessionalComponentBillingFacilityId = yp.FacilityId;
+                    panelSetOrder.ProfessionalComponentBillingFacilityId = ypi.FacilityId;
                 }                
             }
             else

@@ -39,8 +39,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
         private Nullable<int> m_Aliquots;
         private YellowstonePathology.Business.Specimen.Model.Aliquot m_Aliquot;
         private Nullable<int> m_PassNumber;
-		private object m_Test;
-        //private bool m_OrderSlide;
+		private object m_Test;        
 
 		private ObservableCollection<object> m_TestCollection;
         private YellowstonePathology.Business.Test.Model.TestCollection m_AllTests;
@@ -49,6 +48,8 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
         private AliquotAndStainOrderView m_AliquotAndStainOrderView;
         private YellowstonePathology.Business.Common.PrintMate m_PrintMate;
 		private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
+
+        private YellowstonePathology.Business.Specimen.Model.EmbeddingInstructionList m_EmbeddingInstructionList;
 
 		public AliquotAndStainOrderPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
 			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
@@ -59,6 +60,8 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 			this.m_ObjectTracker = objectTracker;
 			this.m_AccessionOrder = accessionOrder;
 			this.m_PanelSetOrder = panelSetOrder;
+
+            this.m_EmbeddingInstructionList = new Business.Specimen.Model.EmbeddingInstructionList();
 
 			this.m_AliquotAndStainOrderView = new AliquotAndStainOrderView(accessionOrder, panelSetOrder);
 			this.m_SystemIdentity = systemIdentity;
@@ -73,6 +76,11 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 			this.DataContext = this;
 			this.Loaded += new RoutedEventHandler(StainOrderPage_Loaded);
 		}
+
+        public YellowstonePathology.Business.Specimen.Model.EmbeddingInstructionList EmbeddingInstructionList
+        {
+            get { return this.m_EmbeddingInstructionList;  }
+        }            
 
         public YellowstonePathology.Business.Common.PrintMate PrintMate
         {
@@ -224,6 +232,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
 		public void Save()
 		{
+            this.m_AliquotAndStainOrderView.SetEmbeddingComments();
 			this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);			
 		}
 

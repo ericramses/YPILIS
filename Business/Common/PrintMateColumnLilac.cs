@@ -5,10 +5,10 @@ using System.Text;
 
 namespace YellowstonePathology.Business.Common
 {
-    public class PrintMateColumnTeal2 : PrintMateColumn
+    public class PrintMateColumnLilac : PrintMateColumn
     {
-        public PrintMateColumnTeal2()
-            : base(6, "6 - Teal", "Teal", "Teal", 108)
+        public PrintMateColumnLilac()
+            : base(7, "7 - Lilac", "Lilac", "Lilac", 109)
         {
 
         }

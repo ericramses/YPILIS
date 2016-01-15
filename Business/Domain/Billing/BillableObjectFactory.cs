@@ -18,10 +18,32 @@ namespace YellowstonePathology.Business.Domain.Billing
             {
                 result = new BillableObjectMedicareProstateNeedleBiopsy(accessionOrder, reportNo);
             }
+            else if(IsAutopsyTechnicalOnly(accessionOrder, reportNo) == true)
+            {
+                result = new BillableObjectTechnicalOnlyAutopsy(accessionOrder, reportNo);
+            }
             else
             {
                 result = GetStandardBillableObject(accessionOrder, reportNo);
             }            
+            return result;
+        }
+
+        public static bool IsAutopsyTechnicalOnly(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo)
+        {
+            bool result = false;
+
+            YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
+            YellowstonePathology.Business.PanelSet.Model.PanelSetCollection panelSetCollection = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetAll();
+            YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet = panelSetCollection.GetPanelSet(panelSetOrder.PanelSetId);
+
+            if (panelSet is YellowstonePathology.Business.Test.TechnicalOnly.TechnicalOnlyTest == true)
+            {
+                if(accessionOrder.ClientId == 1520) //Montana Department of Justice Forensic Science Division
+                {
+                    result = true;
+                }
+            }
             return result;
         }
 
@@ -100,7 +122,7 @@ namespace YellowstonePathology.Business.Domain.Billing
                 result = new BillableObjectLeukemiaLymphoma(accessionOrder, reportNo);
             }
             else if (panelSet is YellowstonePathology.Business.Test.TechnicalOnly.TechnicalOnlyTest == true || panelSet is YellowstonePathology.Business.Test.IHCQC.IHCQCTest == true)
-            {
+            {                
                 result = new BillableObjectTechnicalOnly(accessionOrder, reportNo);
             }
             else

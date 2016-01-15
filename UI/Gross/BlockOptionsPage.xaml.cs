@@ -33,6 +33,7 @@ namespace YellowstonePathology.UI.Gross
         private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private YellowstonePathology.Business.Specimen.Model.SpecimenOrder m_SpecimenOrder;
 		private YellowstonePathology.Business.Test.AliquotOrder m_AliquotOrder;
+        private YellowstonePathology.Business.Specimen.Model.EmbeddingInstructionList m_EmbeddingInstructionList;
 
 		public BlockOptionsPage(YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder, YellowstonePathology.Business.Test.AliquotOrder aliquotOrder,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Persistence.ObjectTracker objectTracker, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
@@ -41,28 +42,36 @@ namespace YellowstonePathology.UI.Gross
             this.m_AliquotOrder = aliquotOrder;			
 			this.m_AccessionOrder = accessionOrder;
             this.m_SystemIdentity = systemIdentity;
-            this.m_ObjectTracker = objectTracker;			
+            this.m_ObjectTracker = objectTracker;
+
+            this.m_EmbeddingInstructionList = new Business.Specimen.Model.EmbeddingInstructionList();
 
 			InitializeComponent();
 			DataContext = this;
 		}		
 
+        public YellowstonePathology.Business.Specimen.Model.EmbeddingInstructionList EmbeddingInstructionList
+        {
+            get { return this.m_EmbeddingInstructionList; }
+        }
+
 		private void ButtonReprintBlock_Click(object sender, RoutedEventArgs e)
 		{
-            YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetSurgical();
-            if (panelSetOrder == null) panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection[0];
-
-			this.m_AliquotOrder.Printed = false;
-			YellowstonePathology.Business.Common.BlockCollection blockCollection = new Business.Common.BlockCollection();
-			string patientInitials = YellowstonePathology.Business.Helper.PatientHelper.GetPatientInitials(this.m_AccessionOrder.PFirstName, this.m_AccessionOrder.PLastName);
-			YellowstonePathology.Business.Test.AliquotOrderCollection blocksToPrintCollection = this.m_SpecimenOrder.AliquotOrderCollection.GetUnPrintedBlocks();
-			blockCollection.FromAliquotOrderItemCollection(blocksToPrintCollection, panelSetOrder.ReportNo, patientInitials, this.m_AccessionOrder.PrintMateColumnNumber, true);
-			YellowstonePathology.Business.Common.PrintMate.Print(blockCollection);
-			blocksToPrintCollection.SetPrinted();
-
+            this.PrintBlock();
             CustomEventArgs.SpecimenOrderReturnEventArgs specimenOrderReturnEventArgs = new CustomEventArgs.SpecimenOrderReturnEventArgs(this.m_SpecimenOrder);
             this.Next(this, specimenOrderReturnEventArgs);
 		}
+
+        private void PrintBlock()
+        {
+            YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetSurgical();
+            if (panelSetOrder == null) panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection[0];
+
+            this.m_AliquotOrder.Printed = false;
+            YellowstonePathology.Business.Test.AliquotOrderCollection blocksToPrintCollection = this.m_SpecimenOrder.AliquotOrderCollection.GetUnPrintedBlocks();
+            YellowstonePathology.Business.Label.Model.AliquotOrderPrinter aliquotOrderPrinter = new Business.Label.Model.AliquotOrderPrinter(blocksToPrintCollection, this.m_AccessionOrder);
+            aliquotOrderPrinter.Print();
+        }
 
 		private void ButtonChangeFSToIC_Click(object sender, RoutedEventArgs e)
 		{
@@ -132,5 +141,19 @@ namespace YellowstonePathology.UI.Gross
             CustomEventArgs.SpecimenOrderReturnEventArgs eventArgs = new CustomEventArgs.SpecimenOrderReturnEventArgs(this.m_SpecimenOrder);
             if(this.Back != null) this.Back(this, eventArgs);
         }
-	}
+
+        private void ListBoxEmbeddingInstructionList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(this.ListBoxEmbeddingInstructionList.SelectedItem != null)
+            {
+                string embeddingInstructions = (string)this.ListBoxEmbeddingInstructionList.SelectedItem;
+                this.m_AliquotOrder.EmbeddingInstructions = embeddingInstructions;
+                this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
+                this.PrintBlock();
+
+                CustomEventArgs.SpecimenOrderReturnEventArgs specimenOrderReturnEventArgs = new CustomEventArgs.SpecimenOrderReturnEventArgs(this.m_SpecimenOrder);
+                this.Next(this, specimenOrderReturnEventArgs);
+            }
+        }
+    }
 }

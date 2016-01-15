@@ -5,6 +5,20 @@ using System.Text;
 
 namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
 {
+    public class AutopsyTechnicalOnly : CptCode
+    {
+        public AutopsyTechnicalOnly()
+        {
+            this.m_Code = "AUTOPSY";
+            this.m_FeeSchedule = FeeScheduleEnum.Clinical;
+            this.m_HasProfessionalComponent = false;
+            this.m_HasTechnicalComponent = true;
+            this.m_IsBillable = true;
+            this.m_CodeType = CPTCodeTypeEnum.TechnicalOnly;
+            this.m_Modifier = "TC";
+        }
+    }
+
     public class CPT81288 : CptCode
     {
         public CPT81288()
@@ -96,6 +110,19 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
         }
     }
 
+    public class CPT88347 : CptCode
+    {
+        public CPT88347()
+        {
+            this.m_Code = "88347";
+            this.m_FeeSchedule = FeeScheduleEnum.Physician;
+            this.m_HasProfessionalComponent = true;
+            this.m_HasTechnicalComponent = true;
+            this.m_IsBillable = true;
+            this.m_CodeType = CPTCodeTypeEnum.Global;
+        }
+    }
+
     public class CPT88348 : CptCode
     {
         public CPT88348()
@@ -114,6 +141,19 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
         public CPT87624()
         {
             this.m_Code = "87624";
+            this.m_FeeSchedule = FeeScheduleEnum.Clinical;
+            this.m_HasProfessionalComponent = false;
+            this.m_HasTechnicalComponent = true;
+            this.m_IsBillable = true;
+            this.m_CodeType = CPTCodeTypeEnum.TechnicalOnly;
+        }
+    }
+
+    public class CPT87661 : CptCode
+    {
+        public CPT87661()
+        {
+            this.m_Code = "87661";
             this.m_FeeSchedule = FeeScheduleEnum.Clinical;
             this.m_HasProfessionalComponent = false;
             this.m_HasTechnicalComponent = true;

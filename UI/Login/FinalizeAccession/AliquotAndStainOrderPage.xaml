@@ -153,7 +153,8 @@
                         <ColumnDefinition Width="Auto"></ColumnDefinition>
                         <ColumnDefinition Width="Auto"></ColumnDefinition>
                         <ColumnDefinition Width="Auto"></ColumnDefinition>
-                        <ColumnDefinition Width="Auto"></ColumnDefinition>                        
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
                         <ColumnDefinition Width="*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
 
@@ -168,7 +169,13 @@
                     <TextBlock Grid.Column="2" Margin="2,2,2,2" VerticalAlignment="Center" Text="{Binding Path=Element[LabelType].Value}"></TextBlock>                    
                     <TextBlock Grid.Column="3" FontWeight="Bold" Margin="2,2,0,2" VerticalAlignment="Center" Text="{Binding Path=Element[Type].Value}"></TextBlock>                    
                     <TextBlock Grid.Column="4" FontWeight="Bold" Margin="0,2,2,2" VerticalAlignment="Center">:</TextBlock>
-                    <TextBlock Grid.Column="5" Margin="2,2,2,2" VerticalAlignment="Center" Text="{Binding Path=Element[Label].Value}"></TextBlock>                    
+                    <TextBlock Grid.Column="5" Margin="2,2,2,2" VerticalAlignment="Center" Text="{Binding Path=Element[Label].Value}"></TextBlock>
+
+                    <ComboBox Grid.Column="6" Margin="10,2,2,2" HorizontalAlignment="Stretch"
+							BorderBrush="LightGray" BorderThickness="1" Width="100"
+							ItemsSource="{Binding Path=EmbeddingInstructionList, RelativeSource={RelativeSource AncestorType=UserControl}}" Text="{Binding Path=Element[EmbeddingInstructions].Value}" IsEditable="True">
+                    </ComboBox>
+                    
                 </Grid>                				
 			</HierarchicalDataTemplate>
 
