@@ -1,4 +1,4 @@
-﻿<Window x:Class="YellowstonePathology.UI.PantherOrdersDialog"
+<Window x:Class="YellowstonePathology.UI.PantherOrdersDialog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -187,6 +187,45 @@
             </TabItem>
             <TabItem Header="Trichomonas">
             </TabItem>
+    	
+    		<TabItem Header="Womans Health Profile">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <ComboBox Name="ComboBoxListTypeWHP" Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" HorizontalAlignment="Stretch" SelectedValuePath="Content" SelectionChanged="ComboBoxListTypeWHP_SelectionChanged">
+                        <ComboBoxItem IsSelected="True">WHP cases not final</ComboBoxItem>
+                        <ComboBoxItem>WHP cases that are final</ComboBoxItem>
+                    </ComboBox>
+
+                    <ListView Grid.Column="0" Grid.Row="1" Name="ListViewWHPOrders" Margin="2,2,2,2" ItemsSource="{Binding Path=PantherWHPOrderList}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Report No" DisplayMemberBinding="{Binding Path=ReportNo}" Width="100" />
+                                <GridViewColumn Header="Order Time" DisplayMemberBinding="{Binding Path=OrderTime, Converter={StaticResource MilitaryDateTimeConverter}}" Width="130" />
+                                <GridViewColumn Header="Test" DisplayMemberBinding="{Binding Path=PanelSetName}" Width="150" />
+                                <GridViewColumn Header="Accepted" DisplayMemberBinding="{Binding Path=AcceptedTime, Converter={StaticResource MilitaryDateTimeConverter}}" Width="130" />
+                                <GridViewColumn Header="Finaled" DisplayMemberBinding="{Binding Path=FinalTime, Converter={StaticResource MilitaryDateTimeConverter}}" Width="150" />
+                                <GridViewColumn Header="Hold Distribution" Width="100">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox IsChecked="{Binding Path=HoldDistribution}" Margin="2,2,2,2" HorizontalAlignment="Center" IsEnabled="False"></CheckBox>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+
+                </Grid>
+
+        	</TabItem>
         </TabControl>
         
         <Button Grid.Column="0" Grid.Row="1" Width="100" Height="30" Click="ButtonClose_Click" HorizontalAlignment="Right" Margin="2,2,2,2">Close</Button>
