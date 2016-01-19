@@ -23,6 +23,7 @@ namespace YellowstonePathology.UI
         private YellowstonePathology.Business.Test.PantherOrderList m_PantherHPVOrderList;
         private YellowstonePathology.Business.Test.PantherOrderList m_PantherNGCTOrderList;
         private YellowstonePathology.Business.Test.PantherOrderList m_PantherHPV1618OrderList;
+        private YellowstonePathology.Business.Test.PantherOrderList m_PantherWHPOrderList;
         private YellowstonePathology.Business.Test.PantherAliquotList m_PantherAliquotList;
         private YellowstonePathology.UI.Login.LoginPageWindow m_LoginPageWindow;
 
@@ -32,6 +33,7 @@ namespace YellowstonePathology.UI
             this.m_PantherHPVOrderList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPantherOrdersNotAcceptedHPV();
             this.m_PantherNGCTOrderList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPantherOrdersNotAcceptedNGCT();
             this.m_PantherHPV1618OrderList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPantherOrdersNotAcceptedHPV1618();
+            this.m_PantherWHPOrderList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPantherOrdersNotFinalWHP();
 
             InitializeComponent();
             this.DataContext = this;            
@@ -50,6 +52,11 @@ namespace YellowstonePathology.UI
         public YellowstonePathology.Business.Test.PantherOrderList PantherHPV1618OrderList
         {
             get { return this.m_PantherHPV1618OrderList; }
+        }
+
+        public YellowstonePathology.Business.Test.PantherOrderList PantherWHPOrderList
+        {
+            get { return this.m_PantherWHPOrderList; }
         }
 
         public YellowstonePathology.Business.Test.PantherAliquotList PantherAliquotList
@@ -291,6 +298,23 @@ namespace YellowstonePathology.UI
                 YellowstonePathology.UI.Test.HPV1618ResultPath hpv1618ResultPath = new Test.HPV1618ResultPath(pantherOrderListItem.ReportNo, accessionOrder, objectTracker, this.m_LoginPageWindow.PageNavigator);
                 hpv1618ResultPath.Finish += HPV1618ResultPath_Finish;
                 hpv1618ResultPath.Start();
+            }
+        }
+
+        private void ComboBoxListTypeWHP_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (this.IsLoaded == true)
+            {
+                switch (this.ComboBoxListTypeWHP.SelectedIndex)
+                {
+                    case 0:
+                        this.m_PantherWHPOrderList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPantherOrdersNotFinalWHP();
+                        break;
+                    case 1:
+                        this.m_PantherWHPOrderList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPantherOrdersFinalWHP();
+                        break;
+                }
+                this.NotifyPropertyChanged("PantherWHPOrderList");
             }
         }
     }
