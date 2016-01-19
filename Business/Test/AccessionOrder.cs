@@ -1467,16 +1467,21 @@ namespace YellowstonePathology.Business.Test
         {
             if (this.IsDermatologyClient() == true)
             {
-                if(this.m_ClientId == 1260) //Advanced Dermatology
+                if(this.m_ClientId == 1260 || this.m_ClientId == 1511) //Advanced Dermatology, diagnositics
                 {
-                    YellowstonePathology.Business.Common.PrintMateColumnGreen printMateColumnGreen = new Common.PrintMateColumnGreen();
-                    this.m_PrintMateColumnNumber = printMateColumnGreen.ColumnNumber;
+                    YellowstonePathology.Business.Common.PrintMateColumnLilac printMateColumnLilac = new Common.PrintMateColumnLilac();
+                    this.m_PrintMateColumnNumber = printMateColumnLilac.ColumnNumber;
                 }
                 else
                 {
                     YellowstonePathology.Business.Common.PrintMateColumnYellow printMateColumnYellow = new Common.PrintMateColumnYellow();
                     this.m_PrintMateColumnNumber = printMateColumnYellow.ColumnNumber;
                 }                
+            }
+            else if(this.m_ClientId == 1520)
+            {
+                YellowstonePathology.Business.Common.PrintMateColumnLilac printMateColumnLilac = new Common.PrintMateColumnLilac();
+                this.m_PrintMateColumnNumber = printMateColumnLilac.ColumnNumber;
             }
         }
 
