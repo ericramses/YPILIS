@@ -250,7 +250,13 @@ namespace YellowstonePathology.UI.Login
 			this.NotifyPropertyChanged("ReportSearchList");
 		}
 
-		public void GetAccessionOrder(string masterAccessionNo, string reportNo)
+        public void GetReportSearchListByTest(int panelSetId, DateTime startDate, DateTime endDate)
+        {
+            this.m_ReportSearchList = YellowstonePathology.Business.Gateway.ReportSearchGateway.GetReportSearchListByTest(panelSetId, startDate, endDate);
+            this.NotifyPropertyChanged("ReportSearchList");
+        }
+
+        public void GetAccessionOrder(string masterAccessionNo, string reportNo)
 		{
 			this.AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByMasterAccessionNo(masterAccessionNo);            
 			this.ReportNo = reportNo;
