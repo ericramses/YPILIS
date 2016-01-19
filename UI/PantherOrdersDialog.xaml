@@ -28,7 +28,7 @@
                     </Grid.RowDefinitions>
 
                     <TextBlock Grid.Column="0" Grid.Row="0">The following cases need Panther Aliquots</TextBlock>
-                    
+
                     <ListView Grid.Column="0" Grid.Row="1" Name="ListViewPantherAliquots" Margin="2,2,2,2" ItemsSource="{Binding Path=PantherAliquotList}">
                         <ListView.ContextMenu>
                             <ContextMenu>
@@ -40,7 +40,7 @@
                                 <GridViewColumn Header="Master Accession No" DisplayMemberBinding="{Binding Path=MasterAccessionNo}" Width="100" />
                                 <GridViewColumn Header="Accession Time" DisplayMemberBinding="{Binding Path=AccessionTime, Converter={StaticResource MilitaryDateTimeConverter}}" Width="150" />
                                 <GridViewColumn Header="Last Name" DisplayMemberBinding="{Binding Path=PLastName}" Width="150" />
-                                <GridViewColumn Header="First Name" DisplayMemberBinding="{Binding Path=PFirstName}" Width="150" />                                
+                                <GridViewColumn Header="First Name" DisplayMemberBinding="{Binding Path=PFirstName}" Width="150" />
                             </GridView>
                         </ListView.View>
                     </ListView>
@@ -142,7 +142,8 @@
             <TabItem Header="HPV 16/18">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="91*"></ColumnDefinition>
+                        <ColumnDefinition Width="180*"/>
                         <ColumnDefinition Width="Auto"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
@@ -151,13 +152,13 @@
                         <RowDefinition Height="Auto"></RowDefinition>
                     </Grid.RowDefinitions>
 
-                    <ComboBox Name="ComboBoxListTypeHPV1618" Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" HorizontalAlignment="Stretch" SelectedValuePath="Content" SelectionChanged="ComboBoxListTypeHPV1618_SelectionChanged">
+                    <ComboBox Name="ComboBoxListTypeHPV1618" Grid.Column="0" Grid.Row="0" Margin="2,2,2,2.4" HorizontalAlignment="Stretch" SelectedValuePath="Content" SelectionChanged="ComboBoxListTypeHPV1618_SelectionChanged" Grid.ColumnSpan="2">
                         <ComboBoxItem IsSelected="True">HPV1618 cases with no result</ComboBoxItem>
                         <ComboBoxItem>HPV1618 cases with a result but not final</ComboBoxItem>
                         <ComboBoxItem>HPV1618 case that are final</ComboBoxItem>
                     </ComboBox>
 
-                    <ListView Grid.Column="0" Grid.Row="1" Name="ListViewPantherHPV1618Orders" Margin="2,2,2,2" ItemsSource="{Binding Path=PantherHPV1618OrderList}">
+                    <ListView Grid.Column="0" Grid.Row="1" Name="ListViewPantherHPV1618Orders" Margin="2,1.6" ItemsSource="{Binding Path=PantherHPV1618OrderList}" Grid.ColumnSpan="2">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Report No" DisplayMemberBinding="{Binding Path=ReportNo}" Width="100" />
@@ -178,7 +179,7 @@
                         </ListView.View>
                     </ListView>
 
-                    <StackPanel Grid.Column="1" Grid.Row="1">
+                    <StackPanel Grid.Column="2" Margin="0,26,0,-0.4" Grid.RowSpan="3">
                         <Button Click="ButtonShowHPV1618Result_Click" Margin="2,2,2,2" Width="100" Height="50" VerticalAlignment="Top">Result</Button>
                         <Button Click="ButtonResendHPV1618PantherOrder_Click" Margin="2,2,2,2" Width="100" Height="50" VerticalAlignment="Top">Resend Order</Button>
                     </StackPanel>
@@ -187,8 +188,8 @@
             </TabItem>
             <TabItem Header="Trichomonas">
             </TabItem>
-    	
-    		<TabItem Header="Womans Health Profile">
+
+            <TabItem Header="Womans Health Profile">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"></ColumnDefinition>
@@ -223,12 +224,17 @@
                         </ListView.View>
                     </ListView>
 
+                    <StackPanel Grid.Column="1" Grid.Row="1" Margin="2,2,2,2">
+                        <Button Click="ButtonShowWHPResult_Click" Margin="2,2,2,2" Width="100" Height="50" VerticalAlignment="Top">Result</Button>
+                        <Button Click="ButtonFinalizeWHP_Click" Margin="2,2,2,2" Width="100" Height="50" VerticalAlignment="Top">Finalize</Button>
+                    </StackPanel>
+
                 </Grid>
 
-        	</TabItem>
+            </TabItem>
         </TabControl>
-        
+
         <Button Grid.Column="0" Grid.Row="1" Width="100" Height="30" Click="ButtonClose_Click" HorizontalAlignment="Right" Margin="2,2,2,2">Close</Button>
-        
+
     </Grid>
 </Window>
