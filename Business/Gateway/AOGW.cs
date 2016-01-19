@@ -29,21 +29,31 @@ namespace YellowstonePathology.Business.Gateway
         public YellowstonePathology.Business.Test.AccessionOrder GetByMasterAccessionNo(string masterAccessionNo, bool aquireLock)
         {
             YellowstonePathology.Business.Test.AccessionOrder result = null;
-            if (USEMONGO == false)
-            {
-                result = this.BuildFromSQL(masterAccessionNo, aquireLock);
-            }
-            else
-            {
-                result = this.BuildFromMongo(masterAccessionNo, aquireLock);
-            }
             
 	        if (this.m_AccessionOrderCollection.Exists(masterAccessionNo) == true)
             {
-	        	this.m_AccessionOrderCollection.Remove(masterAccessionNo);
+	        	result = this.m_AccessionOrderCollection.GetAccessionOrder(masterAccessionNo);
+	        	if(result.LockedAquired == false)
+	        	{
+		        	this.m_AccessionOrderCollection.Remove(masterAccessionNo);
+		        	result = null;
+	        	}
             }
 
-            this.m_AccessionOrderCollection.Add(result);
+	        if(this.m_AccessionOrderCollection.Exists(masterAccessionNo) == false)
+	        {
+	            if (USEMONGO == false)
+	            {
+	                result = this.BuildFromSQL(masterAccessionNo, aquireLock);
+	            }
+	            else
+	            {
+	                result = this.BuildFromMongo(masterAccessionNo, aquireLock);
+	            }
+	            
+	            this.m_AccessionOrderCollection.Add(result);
+	        }
+	        
             return result;
         }
 
