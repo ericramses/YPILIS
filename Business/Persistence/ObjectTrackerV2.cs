@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
+using System.Windows;
 
 namespace YellowstonePathology.Business.Persistence
 {
@@ -33,8 +34,23 @@ namespace YellowstonePathology.Business.Persistence
         {            
             this.m_RegisteredObjects = new RegisteredObjectCollection();
             this.m_RegisteredRootInserts = new RegisteredObjectCollection();
-            this.m_RegisteredRootDeletes = new RegisteredObjectCollection();            
+            this.m_RegisteredRootDeletes = new RegisteredObjectCollection();
+            //Application.Current.Exit += App_Exit;          
         }
+
+        /*private void App_Exit(object sender, ExitEventArgs e)
+        {
+            for (int idx = this.m_RegisteredObjects.Count - 1; idx > -1; idx--)
+            {
+                RegisteredObject registeredObject = this.m_RegisteredObjects[idx];
+                object registeredBy = registeredObject.RegisteredBy[0];
+                Test.AccessionOrder accessonOrder = (Test.AccessionOrder)registeredObject.Value;
+                if (accessonOrder.LockedAquired == true)
+                {
+                    this.SubmitChanges(accessonOrder, registeredBy, true);
+                }
+            }
+        }*/
 
         public static ObjectTrackerV2 Instance
         {
