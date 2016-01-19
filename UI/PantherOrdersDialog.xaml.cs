@@ -330,16 +330,29 @@ namespace YellowstonePathology.UI
         {
             if(this.ComboBoxListTypeWHP.SelectedIndex == 0)
             {
-                foreach(YellowstonePathology.Business.Test.PantherOrderListItem pantherOrderListItem in this.ListViewWHPOrders.Items)
+                foreach(YellowstonePathology.Business.Test.PantherOrderListItem pantherOrderListItem in this.ListViewWHPOrders.SelectedItems)
                 {
                     YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(pantherOrderListItem.ReportNo);
                     YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new Business.Persistence.ObjectTracker();
                     objectTracker.RegisterObject(accessionOrder);
                     this.FinalWHPCase(accessionOrder, pantherOrderListItem.ReportNo);
+                    objectTracker.SubmitChanges(accessionOrder);
                 }
                 
                 this.m_PantherWHPOrderList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPantherOrdersNotFinalWHP();
                 this.NotifyPropertyChanged("PantherWHPOrderList");
+            }
+            else
+            {
+                MessageBox.Show("Select WHP cases not final", "Already Final");
+            }
+        }
+
+        private void ButtonSelectAllWHP_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.ComboBoxListTypeWHP.SelectedIndex == 0)
+            {
+                this.ListViewWHPOrders.SelectAll();
             }
             else
             {
@@ -377,7 +390,7 @@ namespace YellowstonePathology.UI
                     YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder womensHealthProfileTestOrder = (Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
                     YellowstonePathology.Business.ReportDistribution.Model.MultiTestDistributionHandler multiTestDistributionHandler = YellowstonePathology.Business.ReportDistribution.Model.MultiTestDistributionHandlerFactory.GetHandler(accessionOrder);
                     multiTestDistributionHandler.Set();
-                    YellowstonePathology.Business.User.SystemUser user = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetSystemUserByUserName("OptimusPrime");
+                    YellowstonePathology.Business.User.SystemUser user = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetSystemUserById(5134);
                     womensHealthProfileTestOrder.Finalize(user);
                 }
             }

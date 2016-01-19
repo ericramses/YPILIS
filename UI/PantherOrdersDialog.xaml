@@ -213,20 +213,14 @@
                                 <GridViewColumn Header="Test" DisplayMemberBinding="{Binding Path=PanelSetName}" Width="150" />
                                 <GridViewColumn Header="Accepted" DisplayMemberBinding="{Binding Path=AcceptedTime, Converter={StaticResource MilitaryDateTimeConverter}}" Width="130" />
                                 <GridViewColumn Header="Finaled" DisplayMemberBinding="{Binding Path=FinalTime, Converter={StaticResource MilitaryDateTimeConverter}}" Width="150" />
-                                <GridViewColumn Header="Hold Distribution" Width="100">
-                                    <GridViewColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <CheckBox IsChecked="{Binding Path=HoldDistribution}" Margin="2,2,2,2" HorizontalAlignment="Center" IsEnabled="False"></CheckBox>
-                                        </DataTemplate>
-                                    </GridViewColumn.CellTemplate>
-                                </GridViewColumn>
                             </GridView>
                         </ListView.View>
                     </ListView>
 
                     <StackPanel Grid.Column="1" Grid.Row="1" Margin="2,2,2,2">
                         <Button Click="ButtonShowWHPResult_Click" Margin="2,2,2,2" Width="100" Height="50" VerticalAlignment="Top">Result</Button>
-                        <Button Click="ButtonFinalizeWHP_Click" Margin="2,2,2,2" Width="100" Height="50" VerticalAlignment="Top">Finalize</Button>
+                        <Button Click="ButtonSelectAllWHP_Click" Margin="2,2,2,2" Width="100" Height="50" VerticalAlignment="Top">Select All</Button>
+                        <Button Click="ButtonFinalizeWHP_Click" Margin="2,2,2,2" Width="100" Height="50" VerticalAlignment="Top">Finalize Selected</Button>
                     </StackPanel>
 
                 </Grid>
