@@ -117,6 +117,11 @@ namespace YellowstonePathology.UI
             this.m_LoginPageWindow.Close();
         }
 
+        private void WHPResultPath_Finish(object sender, EventArgs e)
+        {
+            this.m_LoginPageWindow.Close();
+        }
+
         private void ComboBoxListType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if(this.IsLoaded == true)
@@ -301,6 +306,47 @@ namespace YellowstonePathology.UI
             }
         }
 
+        private void ButtonShowWHPResult_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.ListViewWHPOrders.SelectedItem != null)
+            {
+                YellowstonePathology.Business.Test.PantherOrderListItem pantherOrderListItem = (YellowstonePathology.Business.Test.PantherOrderListItem)this.ListViewWHPOrders.SelectedItem;
+                YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(pantherOrderListItem.ReportNo);
+                YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new Business.Persistence.ObjectTracker();
+                objectTracker.RegisterObject(accessionOrder);
+                YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder = YellowstonePathology.Business.Gateway.ClientOrderGateway.GetClientOrderByClientOrderId(accessionOrder.ClientOrderId);
+
+                YellowstonePathology.Business.User.SystemIdentity systemIdentity = new Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
+                this.m_LoginPageWindow = new Login.LoginPageWindow(systemIdentity);
+                this.m_LoginPageWindow.Show();
+
+                Login.WomensHealthProfilePath womensHealthProfilePath = new Login.WomensHealthProfilePath(accessionOrder, objectTracker, clientOrder, this.m_LoginPageWindow.PageNavigator, Visibility.Hidden);
+                womensHealthProfilePath.Finish += WHPResultPath_Finish;
+                womensHealthProfilePath.Start();
+            }
+        }
+
+        private void ButtonFinalizeWHP_Click(object sender, RoutedEventArgs e)
+        {
+            if(this.ComboBoxListTypeWHP.SelectedIndex == 0)
+            {
+                foreach(YellowstonePathology.Business.Test.PantherOrderListItem pantherOrderListItem in this.ListViewWHPOrders.Items)
+                {
+                    YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(pantherOrderListItem.ReportNo);
+                    YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new Business.Persistence.ObjectTracker();
+                    objectTracker.RegisterObject(accessionOrder);
+                    this.FinalWHPCase(accessionOrder, pantherOrderListItem.ReportNo);
+                }
+                
+                this.m_PantherWHPOrderList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPantherOrdersNotFinalWHP();
+                this.NotifyPropertyChanged("PantherWHPOrderList");
+            }
+            else
+            {
+                MessageBox.Show("Select WHP cases not final", "Already Final");
+            }
+        }
+
         private void ComboBoxListTypeWHP_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (this.IsLoaded == true)
@@ -315,6 +361,25 @@ namespace YellowstonePathology.UI
                         break;
                 }
                 this.NotifyPropertyChanged("PantherWHPOrderList");
+            }
+        }
+
+        private void FinalWHPCase(Business.Test.AccessionOrder accessionOrder, string reportNo)
+        {
+            YellowstonePathology.Business.Audit.Model.IsWHPAllDoneAuditCollection isWHPAllDoneAuditCollection = new Business.Audit.Model.IsWHPAllDoneAuditCollection(accessionOrder);
+            isWHPAllDoneAuditCollection.Run();
+            if (isWHPAllDoneAuditCollection.ActionRequired == true)
+            {
+                YellowstonePathology.Business.Audit.Model.ShouldWomensHealthProfileBeFinaledAudit shouldAudit = new Business.Audit.Model.ShouldWomensHealthProfileBeFinaledAudit(accessionOrder);
+                shouldAudit.Run();
+                if (shouldAudit.Message.ToString() == isWHPAllDoneAuditCollection.Message)
+                {
+                    YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder womensHealthProfileTestOrder = (Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
+                    YellowstonePathology.Business.ReportDistribution.Model.MultiTestDistributionHandler multiTestDistributionHandler = YellowstonePathology.Business.ReportDistribution.Model.MultiTestDistributionHandlerFactory.GetHandler(accessionOrder);
+                    multiTestDistributionHandler.Set();
+                    YellowstonePathology.Business.User.SystemUser user = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetSystemUserByUserName("OptimusPrime");
+                    womensHealthProfileTestOrder.Finalize(user);
+                }
             }
         }
     }
