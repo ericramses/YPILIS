@@ -1553,7 +1553,7 @@ namespace YellowstonePathology.Business.Gateway
                 "from tblPanelSetOrder pso " +
                 "join tblWomensHealthProfileTestOrder psowhp on pso.ReportNo = psowhp.ReportNo " +
                 "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " +
-                "where pso.Final = 0 order by pso.FinalTime desc";
+                "where pso.Final = 0 order by pso.OrderTime";
 
             using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
             {
