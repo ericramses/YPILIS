@@ -12,14 +12,12 @@ namespace YellowstonePathology.Business.Test.HPV1618
         public static string InvalidResult = "Invalid";
         public static string InvalidResultCode = "HPV1618NVLD";
 
-        public static string Method = "DNA was extracted from the patient’s specimen using an automated method.  Real-time PCR amplification was " +
-			"performed using primers and hydrolysis probes specific for HPV types 16 and 18. The beta-actin gene was used as an internal control. " +
-			"The real-time PCR curves were analyzed to determine the presence of HPV types 16 and 18 in the specimen.";
+        public static string Method = null;
 
-        public static string References = "Highly Effective Detection of Human Papillomavirus 16 and 18 DNA by a Testing Algorithm Combining Broad-Spectrum " +
-            "and Type-Specific PCR J Clin Microbiol. 2006 September; 44(9): 3292–3298.";
-
-        protected string m_SquamousCellCarcinomaInterpretation;
+        public static string References = "Khan, M.J., P.E. Castle, A.T. Lorincz, S. Wacholder, M. Sherman, D.R. Scott, B.B. Rush, A.G. Glass and M. Schiffman. 2005. " +
+            "The elevated 10-year risk of cervical precancer and cancer in women with human papillomavirus (HPV) type 16 or 18 and the possible utility of type-specific HPV testing in " +
+            "clinical practice. J. Natl. Cancer Inst. 97(14): 1072-1079. Burd, E.M. 2003. Human papillomavirus and cervical cancer. Clin Microbiol Rev. 16(1):1-17.";
+        
         protected string m_HPV16Result;
         protected string m_HPV18Result;
         protected string m_m_HPV16ResultCode;

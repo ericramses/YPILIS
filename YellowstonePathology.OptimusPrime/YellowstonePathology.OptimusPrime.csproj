@@ -41,10 +41,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HPVInvalidResult.cs" />
+    <Compile Include="HPV1618BothNegativeResult.cs" />
+    <Compile Include="HPV1618InvalidResult.cs" />
     <Compile Include="NGCTInvalidResult.cs" />
+    <Compile Include="HPV1618OneOrBothPositiveResult.cs" />
     <Compile Include="NGCTOneOrBothPositiveResult.cs" />
     <Compile Include="NGCTBothNegativeResult.cs" />
+    <Compile Include="HPV1618Result.cs" />
     <Compile Include="NGCTResult.cs" />
+    <Compile Include="HPV1618ResultHandler.cs" />
     <Compile Include="NGCTResultHandler.cs" />
     <Compile Include="HPVResultHandler.cs" />
     <Compile Include="HPVNegativeResult.cs" />
