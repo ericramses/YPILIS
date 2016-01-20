@@ -23,9 +23,10 @@ namespace YellowstonePathology.Business.Test.PDL1
 			this.m_AllowMultiplePerAccession = true;
 
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.PDL1.PDL1TestOrder).AssemblyQualifiedName;
+			//changed by MS and TK;
 
-            string taskDescription = "Gather materials and send to Neogenomics.";
-			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, taskDescription));
+            string taskDescription = "Gather block ftrom histology and send to Neogenomics.";
+            this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Flow, taskDescription));
 
             YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88342(), 1);
             this.m_PanelSetCptCodeCollection.Add(panelSetCptCode);
