@@ -49,10 +49,13 @@ namespace YellowstonePathology.Business.Test.BCellEnumeration
 				"investigational or for research.  This laboratory is certified under the Clinical Laboratory Improvement Amendments of 1988 (CLIA-88) " +
 				"as qualified to perform high complexity clinical laboratory testing.";
 			this.m_Method = "Not Set Yet";
-			this.m_References = "Not Set Yet";
-		}
+            this.m_References = "1. Fried AJ, Bonilla FA.  Pathogenesis, Diagnosis, and Management of Primary Antibody Deficiencies and Infections.  Clinical Microbiology Review.  2009 Jul; 22:  396 - 414. " + Environment.NewLine +
+                "2. Kotylo PK, Fineberg NS, et al.Reference ranges for lymphocyte subsets in pediactric patients.American Journal of Clinical Pathology. 1993; 100: 111 - 115. " + Environment.NewLine +
+                "3. Prescovitz  MD.Rituximab, and Anti-CD20 Monoclonal Antibody:  History and Mechanism of Action.American Journal of Transplantation. 2006; 6: 859 - 866. " + Environment.NewLine +
+                "4. Stewart CC, Stewart SJ. Immunological monitoring utilizing novel probes.Annual of the New York Annal of New York Academy of Science.  1993; 95: 816 - 823.";
+        }
 
-		[PersistentProperty()]
+        [PersistentProperty()]
 		public string Method
 		{
 			get { return this.m_Method; }
