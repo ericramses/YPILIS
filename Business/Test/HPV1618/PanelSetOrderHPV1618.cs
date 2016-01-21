@@ -8,15 +8,13 @@ namespace YellowstonePathology.Business.Test.HPV1618
 {
 	[PersistentClass("tblPanelSetOrderHPV1618", "tblPanelSetOrder", "YPIDATA")]
 	public class PanelSetOrderHPV1618 : PanelSetOrder
-	{
-        private string m_Indication;
+	{        
 		private string m_HPV16Result;
 		private string m_HPV16ResultCode;
         private string m_HPV18Result;
         private string m_HPV18ResultCode;
         private string m_References;
-		private string m_Method;		
-        private string m_Interpretation;
+		private string m_Method;		        
         private string m_Comment;
 
 		public PanelSetOrderHPV1618()
@@ -34,21 +32,7 @@ namespace YellowstonePathology.Business.Test.HPV1618
             this.m_TechnicalComponentInstrumentId = Instrument.HOLOGICPANTHERID;
             this.m_Method = HPV1618Result.Method;
             this.m_References = HPV1618Result.References;
-        }
-        
-        [PersistentProperty()]
-        public string Indication
-        {
-            get { return this.m_Indication; }
-            set
-            {
-                if (this.m_Indication != value)
-                {
-                    this.m_Indication = value;
-                    this.NotifyPropertyChanged("Indication");
-                }
-            }
-        }
+        }               
 
 		[PersistentProperty()]
 		public string HPV16Result
@@ -132,21 +116,7 @@ namespace YellowstonePathology.Business.Test.HPV1618
 					this.NotifyPropertyChanged("Method");
 				}
 			}
-		}
-
-        [PersistentProperty()]
-        public string Interpretation
-        {
-            get { return this.m_Interpretation; }
-            set
-            {
-                if (this.m_Interpretation != value)
-                {
-                    this.m_Interpretation = value;
-                    this.NotifyPropertyChanged("Interpretation");
-                }
-            }
-        }
+		}        
 
         [PersistentProperty()]
         public string Comment
