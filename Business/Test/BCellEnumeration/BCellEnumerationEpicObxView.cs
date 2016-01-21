@@ -9,6 +9,8 @@
 using System;
 using System.Linq;
 using System.Xml.Linq;
+using System.Text;
+using YellowstonePathology.Business.Helper;
 
 namespace YellowstonePathology.Business.Test.BCellEnumeration
 {
@@ -28,24 +30,22 @@ namespace YellowstonePathology.Business.Test.BCellEnumeration
 			this.AddHeader(document, panelSetOrder, "B-Cell Enumeration");
 
 			this.AddNextObxElement("", document, "F");
-			string result = "Result: " + panelSetOrder.Result;
-			this.AddNextObxElement(result, document, "F");
-			result = "WBC: " + panelSetOrder.WBC;
-			this.AddNextObxElement(result, document, "F");
-			result = "Lymphocyte Percentage: " + panelSetOrder.LymphocytePercentage;
-			this.AddNextObxElement(result, document, "F");
-			result = "CD19 B-Cell Positive Count: " + panelSetOrder.CD19BCellPositiveCount;
-			this.AddNextObxElement(result, document, "F");
-			result = "CD19 B-Cell Positive Percent: " + panelSetOrder.CD19BCellPositivePercent;
-			this.AddNextObxElement(result, document, "F");
-			result = "CD20 B-Cell Positive Count: " + panelSetOrder.CD20BCellPositiveCount;
-			this.AddNextObxElement(result, document, "F");
-			result = "CD20 B-Cell Positive Percent: " + panelSetOrder.CD20BCellPositivePercent;
-			this.AddNextObxElement(result, document, "F");
-			result = "CD19 Absolute Count: " + panelSetOrder.CD19AbsoluteCount;
-			this.AddNextObxElement(result, document, "F");
-			result = "CD20 Absolute Count: " + panelSetOrder.CD20AbsoluteCount;
-			this.AddNextObxElement(result, document, "F");
+			StringBuilder result = new StringBuilder("WBC: " + panelSetOrder.WBC.ToString());
+			this.AddNextObxElement(result.ToString(), document, "F");
+			result = new StringBuilder("Lymphocyte Percentage: " + panelSetOrder.LymphocytePercentage.ToString().StringAsPercent());
+			this.AddNextObxElement(result.ToString(), document, "F");
+			result = new StringBuilder("CD19 B-Cell Positive Count: " + panelSetOrder.CD19BCellPositiveCount.ToString());
+			this.AddNextObxElement(result.ToString(), document, "F");
+			result = new StringBuilder("CD19 B-Cell Positive Percent: " + panelSetOrder.CD19BCellPositivePercent.ToString().StringAsPercent());
+			this.AddNextObxElement(result.ToString(), document, "F");
+			result = new StringBuilder("CD20 B-Cell Positive Count: " + panelSetOrder.CD20BCellPositiveCount.ToString());
+			this.AddNextObxElement(result.ToString(), document, "F");
+			result = new StringBuilder("CD20 B-Cell Positive Percent: " + panelSetOrder.CD20BCellPositivePercent.ToString().StringAsPercent());
+			this.AddNextObxElement(result.ToString(), document, "F");
+			result = new StringBuilder("CD19 Absolute Count: " + panelSetOrder.CD19AbsoluteCount.ToString());
+			this.AddNextObxElement(result.ToString(), document, "F");
+			result = new StringBuilder("CD20 Absolute Count: " + panelSetOrder.CD20AbsoluteCount.ToString());
+			this.AddNextObxElement(result.ToString(), document, "F");
 
 			this.AddNextObxElement("", document, "F");
 			this.AddNextObxElement("Pathologist: " + panelSetOrder.Signature, document, "F");
@@ -62,10 +62,6 @@ namespace YellowstonePathology.Business.Test.BCellEnumeration
 			this.AddNextObxElement("Specimen Identification: " + specimenOrder.Description, document, "F");
 			string collectionDateTimeString = YellowstonePathology.Business.Helper.DateTimeExtensions.CombineDateAndTime(specimenOrder.CollectionDate, specimenOrder.CollectionTime);
 			this.AddNextObxElement("Collection Date/Time: " + collectionDateTimeString, document, "F");
-
-			this.AddNextObxElement("", document, "F");
-			this.AddNextObxElement("Interpretation:", document, "F");
-			this.HandleLongString(panelSetOrder.Interpretation, document, "F");
 
 			this.AddNextObxElement("", document, "F");
 			this.AddNextObxElement("Method:", document, "F");

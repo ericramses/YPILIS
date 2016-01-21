@@ -40,7 +40,10 @@ namespace YellowstonePathology.UI.Gross
 
         public void SetGrossDescription()
         {
-            this.m_GrossDescription = this.m_DictationTemplate.BuildResultText(this.m_SpecimenOrder, this.m_AccessionOrder, this.m_SystemIdentity);
+            if(string.IsNullOrEmpty(this.m_DictationTemplate.Text) == false)
+            {
+                this.m_GrossDescription = this.m_DictationTemplate.BuildResultText(this.m_SpecimenOrder, this.m_AccessionOrder, this.m_SystemIdentity);
+            }            
         }
 
         public string GrossDescription

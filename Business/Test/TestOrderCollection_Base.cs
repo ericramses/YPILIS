@@ -146,7 +146,26 @@ namespace YellowstonePathology.Business.Test.Model
             }
 
             return result;
-        }                      
+        }
+
+        public int GetBillableHANDECount()
+        {
+            int result = 0;
+            YellowstonePathology.Business.Test.Model.HandE hande = new HandE();
+
+            foreach (YellowstonePathology.Business.Test.Model.TestOrder testOrder in this)
+            {
+                if (testOrder.NoCharge == false)
+                {
+                    if (hande.TestId == testOrder.TestId)
+                    {                        
+                        result += 1;                       
+                    }
+                }
+            }
+
+            return result;
+        }
 
         public bool Exists(int testId)
         {

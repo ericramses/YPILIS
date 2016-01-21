@@ -42,7 +42,13 @@ namespace YellowstonePathology.Business.Domain.Billing
 			return result;
 		}
 
-		public virtual int GetBillableCytochemicalStainCount()
+        public virtual int GetBillableHANDECount()
+        {
+            int result = this.TestOrderCollection.GetBillableHANDECount();
+            return result;
+        }
+
+        public virtual int GetBillableCytochemicalStainCount()
 		{
 			int result = this.TestOrderCollection.GetBillableCytochemicalStainCount();
 			return result;

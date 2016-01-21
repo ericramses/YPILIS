@@ -18,6 +18,7 @@ namespace YellowstonePathology.Business.Common
             this.m_Columns.Add(new PrintMateColumnPink());
             this.m_Columns.Add(new PrintMateColumnOrange2());            
             this.m_Columns.Add(new PrintMateColumnGreen());
+            this.m_Columns.Add(new PrintMateColumnLilac());
         }
 
         public List<PrintMateColumn> Columns

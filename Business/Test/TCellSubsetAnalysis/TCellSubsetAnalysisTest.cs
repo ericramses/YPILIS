@@ -30,6 +30,9 @@ namespace YellowstonePathology.Business.Test.TCellSubsetAnalysis
             
 			this.m_AllowMultiplePerAccession = true;
 
+            YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT86356(), 3);
+            this.m_PanelSetCptCodeCollection.Add(panelSetCptCode);
+
             string taskDescription = "Gather materials and perform test.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Flow, taskDescription));
 

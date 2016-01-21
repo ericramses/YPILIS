@@ -438,6 +438,28 @@ namespace YellowstonePathology.Business.Gateway
             return reportSearchList;
         }
 
+        public static YellowstonePathology.Business.Search.ReportSearchList GetReportSearchListByTest(int panelSetId, DateTime startDate, DateTime endDate)
+        {
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT pso.[MasterAccessionNo], pso.[ReportNo], a.AccessionTime [AccessionDate],  pso.[PanelSetId], a.[PFirstName] + ' ' + a.[PLastName] AS [PatientName], " +
+                "a.[PLastName], a.[PFirstName], a.[ClientName], a.[PhysicianName], a.[PBirthdate], pso.[OriginatingLocation], pso.[FinalDate], pso.PanelSetName, su.UserName as [OrderedBy], " +
+                "a.ColorCode, '' ForeignAccessionNo, pso.IsPosted " +
+                "FROM tblAccessionOrder a " +
+                "JOIN tblPanelSetOrder pso ON a.[MasterAccessionNo] = pso.[MasterAccessionNo] " +
+                "Left Outer Join tblSystemUser su on pso.OrderedById = su.UserId " +
+                "WHERE pso.PanelSetId  =  @PanelSetId " +
+                "and pso.OrderDate between @StartDate and @EndDate " +
+                "for xml path('ReportSearchItem'), type, root('ReportSearchList')";
+
+            cmd.Parameters.Add("@PanelSetId", SqlDbType.Int).Value = panelSetId;
+            cmd.Parameters.Add("@StartDate", SqlDbType.DateTime).Value = startDate;
+            cmd.Parameters.Add("@EndDate", SqlDbType.DateTime).Value = endDate;
+
+            YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Domain.Persistence.SqlXmlPersistence.CrudOperations.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd, Domain.Persistence.DataLocationEnum.ProductionData);
+            return reportSearchList;
+        }
+
         public static Test.ThinPrepPap.AcidWashList GetAcidWashList(DateTime startDate)
         {
             Test.ThinPrepPap.AcidWashList result = new Test.ThinPrepPap.AcidWashList();

@@ -66,7 +66,7 @@ namespace YellowstonePathology.UI.Gross
         }        
 
         public virtual string BuildResultText(YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder, YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
-        {
+        {            
             string result = this.ReplaceIdentifier(this.m_Text, specimenOrder, accessionOrder);
             result = this.AppendInitials(result, specimenOrder, accessionOrder, systemIdentity);
             return result;            

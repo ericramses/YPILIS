@@ -9,6 +9,7 @@
 using System;
 using System.Text;
 using YellowstonePathology.Business.Persistence;
+using YellowstonePathology.Business.Helper;
 
 namespace YellowstonePathology.Business.Test.BCellEnumeration
 {
@@ -19,27 +20,17 @@ namespace YellowstonePathology.Business.Test.BCellEnumeration
 	[PersistentClass("tblBCellEnumerationTestOrder", "tblPanelSetOrder", "YPIDATA")]
 	public class BCellEnumerationTestOrder : PanelSetOrder
 	{		
-		public static string s_ASR = "Tests utilizing Analytic Specific Reagents (ASR’s) were developed and performance characteristics determined by " +
-			"Yellowstone Pathology Institute, Inc.  They have not been cleared or approved by the U.S. Food and Drug Administration.  The FDA has " +
-			"determined that such clearance or approval is not necessary.  ASR’s may be used for clinical purposes and should not be regarded as " +
-			"investigational or for research.  This laboratory is certified under the Clinical Laboratory Improvement Amendments of 1988 (CLIA-88) " +
-			"as qualified to perform high complexity clinical laboratory testing.";
-		public static string s_Method = "Not Set Yet";
-		public static string s_References = "Not Set Yet";
-
-		private string m_Result;
-		private string m_Interpretation;
 		private string m_Method;
 		private string m_References;
 		private string m_ASRComment;
-		private string m_WBC;
-		private string m_LymphocytePercentage;
-		private string m_CD19BCellPositiveCount;
-		private string m_CD19BCellPositivePercent;
-		private string m_CD20BCellPositiveCount;
-		private string m_CD20BCellPositivePercent;
-		private string m_CD19AbsoluteCount;
-		private string m_CD20AbsoluteCount;
+		private double? m_WBC;
+		private double? m_LymphocytePercentage;
+		private double? m_CD19BCellPositiveCount;
+		private double? m_CD19BCellPositivePercent;
+		private double? m_CD20BCellPositiveCount;
+		private double? m_CD20BCellPositivePercent;
+		private double? m_CD19AbsoluteCount;
+		private double? m_CD20AbsoluteCount;
 		
 		public BCellEnumerationTestOrder()
 		{
@@ -52,40 +43,19 @@ namespace YellowstonePathology.Business.Test.BCellEnumeration
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 			: base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute, systemIdentity)
 		{
-			this.m_ASRComment = s_ASR;
-			this.m_Method = s_Method;
-			this.m_References = s_References;
-		}
+			this.m_ASRComment = "Tests utilizing Analytic Specific Reagents (ASR’s) were developed and performance characteristics determined by " +
+				"Yellowstone Pathology Institute, Inc.  They have not been cleared or approved by the U.S. Food and Drug Administration.  The FDA has " +
+				"determined that such clearance or approval is not necessary.  ASR’s may be used for clinical purposes and should not be regarded as " +
+				"investigational or for research.  This laboratory is certified under the Clinical Laboratory Improvement Amendments of 1988 (CLIA-88) " +
+				"as qualified to perform high complexity clinical laboratory testing.";
+			this.m_Method = "Not Set Yet";
+            this.m_References = "1. Fried AJ, Bonilla FA.  Pathogenesis, Diagnosis, and Management of Primary Antibody Deficiencies and Infections.  Clinical Microbiology Review.  2009 Jul; 22:  396 - 414. " + Environment.NewLine +
+                "2. Kotylo PK, Fineberg NS, et al.Reference ranges for lymphocyte subsets in pediactric patients.American Journal of Clinical Pathology. 1993; 100: 111 - 115. " + Environment.NewLine +
+                "3. Prescovitz  MD.Rituximab, and Anti-CD20 Monoclonal Antibody:  History and Mechanism of Action.American Journal of Transplantation. 2006; 6: 859 - 866. " + Environment.NewLine +
+                "4. Stewart CC, Stewart SJ. Immunological monitoring utilizing novel probes.Annual of the New York Annal of New York Academy of Science.  1993; 95: 816 - 823.";
+        }
 
-		[PersistentProperty()]
-		public string Result
-		{
-			get { return this.m_Result; }
-			set
-			{
-				if (this.m_Result != value)
-				{
-					this.m_Result = value;
-					this.NotifyPropertyChanged("Result");
-				}
-			}
-		}
-
-		[PersistentProperty()]
-		public string Interpretation
-		{
-			get { return this.m_Interpretation; }
-			set
-			{
-				if (this.m_Interpretation != value)
-				{
-					this.m_Interpretation = value;
-					this.NotifyPropertyChanged("Interpretation");
-				}
-			}
-		}
-
-		[PersistentProperty()]
+        [PersistentProperty()]
 		public string Method
 		{
 			get { return this.m_Method; }
@@ -128,7 +98,7 @@ namespace YellowstonePathology.Business.Test.BCellEnumeration
 		}
 
 		[PersistentProperty()]
-		public string WBC
+		public double? WBC
 		{
 			get { return this.m_WBC; }
 			set
@@ -144,7 +114,7 @@ namespace YellowstonePathology.Business.Test.BCellEnumeration
 		}
 
 		[PersistentProperty()]
-		public string LymphocytePercentage
+		public double? LymphocytePercentage
 		{
 			get { return this.m_LymphocytePercentage; }
 			set
@@ -160,7 +130,7 @@ namespace YellowstonePathology.Business.Test.BCellEnumeration
 		}
 
 		[PersistentProperty()]
-		public string CD19BCellPositiveCount
+		public double? CD19BCellPositiveCount
 		{
 			get { return this.m_CD19BCellPositiveCount; }
 			set
@@ -174,7 +144,7 @@ namespace YellowstonePathology.Business.Test.BCellEnumeration
 		}
 
 		[PersistentProperty()]
-		public string CD19BCellPositivePercent
+		public double? CD19BCellPositivePercent
 		{
 			get { return this.m_CD19BCellPositivePercent; }
 			set
@@ -189,7 +159,7 @@ namespace YellowstonePathology.Business.Test.BCellEnumeration
 		}
 
 		[PersistentProperty()]
-		public string CD20BCellPositiveCount
+		public double? CD20BCellPositiveCount
 		{
 			get { return this.m_CD20BCellPositiveCount; }
 			set
@@ -203,7 +173,7 @@ namespace YellowstonePathology.Business.Test.BCellEnumeration
 		}
 
 		[PersistentProperty()]
-		public string CD20BCellPositivePercent
+		public double? CD20BCellPositivePercent
 		{
 			get { return this.m_CD20BCellPositivePercent; }
 			set
@@ -218,7 +188,7 @@ namespace YellowstonePathology.Business.Test.BCellEnumeration
 		}
 		
 		[PersistentProperty()]
-		public string CD19AbsoluteCount
+		public double? CD19AbsoluteCount
 		{
 			get { return this.m_CD19AbsoluteCount; }
 			set
@@ -232,7 +202,7 @@ namespace YellowstonePathology.Business.Test.BCellEnumeration
 		}
 		
 		[PersistentProperty()]
-		public string CD20AbsoluteCount
+		public double? CD20AbsoluteCount
 		{
 			get { return this.m_CD20AbsoluteCount; }
 			set
@@ -247,38 +217,24 @@ namespace YellowstonePathology.Business.Test.BCellEnumeration
 		
 		private void SetCD19AbsoluteCount()
 		{
-			string result = string.Empty;
-			double wbc;
-			double lymphocytePercentage;
-			double cd19BCellPositivePercent;
-			bool wbcHasValue = double.TryParse(this.m_WBC, out wbc);
-			bool lymphocytePercentageHasValue = double.TryParse(this.m_LymphocytePercentage, out lymphocytePercentage);
-			bool cd19BCellPositivePercentHasValue = double.TryParse(this.m_CD19BCellPositivePercent, out cd19BCellPositivePercent);
-			if(wbcHasValue && lymphocytePercentageHasValue && cd19BCellPositivePercentHasValue)
+            double? result = null;
+			if(this.m_WBC.HasValue && this.m_LymphocytePercentage.HasValue && this.m_CD19BCellPositivePercent.HasValue)
 			{
-				int lpDenominator = this.m_LymphocytePercentage.Length == 1 ? 10 : 100;
-				int cdDenominator = this.m_CD19BCellPositivePercent.Length == 1 ? 10 : 100;
-				double resultValue = wbc * lymphocytePercentage * cd19BCellPositivePercent / lpDenominator / cdDenominator;
-				result = Math.Round(resultValue, 2).ToString();
+				double lpDenominator = this.m_LymphocytePercentage.Value < 10.0 ? 10.0 : 100.0;
+				double cdDenominator = this.m_CD19BCellPositivePercent.Value < 10.0 ? 10.0 : 100.0;
+				result = Math.Round((this.m_WBC.Value * this.m_LymphocytePercentage.Value * this.m_CD19BCellPositivePercent.Value / lpDenominator / cdDenominator), 2);
 			}
 			this.CD19AbsoluteCount = result;
 		}
 		
 		public void SetCD20AbsoluteCount()
 		{
-			string result = string.Empty;
-			double wbc;
-			double lymphocytePercentage;
-			double cd20BCellPositivePercent;
-			bool wbcHasValue = double.TryParse(this.m_WBC, out wbc);
-			bool lymphocytePercentageHasValue = double.TryParse(this.m_LymphocytePercentage, out lymphocytePercentage);
-			bool cd20BCellPositivePercentHasValue = double.TryParse(this.m_CD20BCellPositivePercent, out cd20BCellPositivePercent);
-			if(wbcHasValue && lymphocytePercentageHasValue && cd20BCellPositivePercentHasValue)
+            double? result = null;
+			if(this.m_WBC.HasValue && this.m_LymphocytePercentage.HasValue && this.m_CD20BCellPositivePercent.HasValue)
 			{
-				int lpDenominator = this.m_LymphocytePercentage.Length == 1 ? 10 : 100;
-				int cdDenominator = this.m_CD20BCellPositivePercent.Length == 1 ? 10 : 100;
-				double resultValue = wbc * lymphocytePercentage * cd20BCellPositivePercent / lpDenominator / cdDenominator;
-				result = Math.Round(resultValue, 2).ToString();
+                double lpDenominator = this.m_LymphocytePercentage.Value < 10.0 ? 10.0 : 100.0;
+                double cdDenominator = this.m_CD20BCellPositivePercent.Value < 10.0 ? 10.0 : 100.0;
+				result = Math.Round((this.m_WBC.Value * this.m_LymphocytePercentage.Value * this.m_CD20BCellPositivePercent.Value / lpDenominator / cdDenominator), 2);
 			}
 			this.CD20AbsoluteCount = result;
 		}
@@ -286,12 +242,22 @@ namespace YellowstonePathology.Business.Test.BCellEnumeration
 		public override string ToResultString(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{
 			StringBuilder result = new StringBuilder();
-
-			result.AppendLine("Result: " + this.m_Result);
-			result.AppendLine();
-
-			result.AppendLine("Interpretation: " + this.m_Interpretation);
-			result.AppendLine();
+			
+			result.AppendLine("WBC: " + this.m_WBC.ToString());
+			
+			result.AppendLine("Lymphocyte Percentage: " + this.m_LymphocytePercentage.ToString().StringAsPercent());
+			
+			result.AppendLine("CD19 B-Cell Positive Count: " + this.m_CD19BCellPositiveCount.ToString());
+			
+			result.AppendLine("CD19 B-Cell Positive Percent: " + this.m_CD19BCellPositivePercent.ToString().StringAsPercent());
+			
+			result.AppendLine("CD20 B-Cell Positive Count: " + this.m_CD20BCellPositiveCount.ToString());
+			
+			result.AppendLine("CD20 B-Cell Positive Percent: " + this.m_CD20BCellPositivePercent.ToString().StringAsPercent());
+			
+			result.AppendLine("CD19 Absolute Count: " + this.m_CD19AbsoluteCount.ToString());
+			
+			result.AppendLine("CD20 Absolute Count: " + this.m_CD20AbsoluteCount.ToString());
 
 			return result.ToString();
 		}

@@ -32,6 +32,9 @@ namespace YellowstonePathology.UI.Login
         private DateTime m_HPyloriStartDate;
         private DateTime m_HPyloriEndDate;
         private LoginUIV2 m_LoginUI;
+        private DateTime m_TestStartDate;
+        private DateTime m_TestEndDate;
+        private YellowstonePathology.Business.PanelSet.Model.PanelSetCollection m_PanelSetCollection;
 
 		private string m_PageHeaderText = "Select Search Type";
 
@@ -49,7 +52,11 @@ namespace YellowstonePathology.UI.Login
             this.m_KeyWordStartDate = DateTime.Today.AddDays(-30);
             this.m_KeyWordEndDate = DateTime.Today;
 
-			InitializeComponent();
+            this.m_TestStartDate = DateTime.Today.AddMonths(-1);
+            this.m_TestEndDate = DateTime.Today;
+            this.m_PanelSetCollection = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetAll();
+
+            InitializeComponent();
 
 			DataContext = this;            
 		}        
@@ -113,7 +120,24 @@ namespace YellowstonePathology.UI.Login
             set { this.m_HPyloriEndDate = value; }
         }
 
-		public void Save()
+        public YellowstonePathology.Business.PanelSet.Model.PanelSetCollection PanelSetCollection
+        {
+            get { return this.m_PanelSetCollection; }
+        }
+
+        public DateTime TestStartDate
+        {
+            get { return this.m_TestStartDate; }
+            set { this.m_TestStartDate = value; }
+        }
+
+        public DateTime TestEndDate
+        {
+            get { return this.m_TestEndDate; }
+            set { this.m_TestEndDate = value; }
+        }
+
+        public void Save()
 		{
 		}
 
@@ -234,5 +258,19 @@ namespace YellowstonePathology.UI.Login
             this.m_LoginUI.GetReportSearchListByClientAccessioned();
             Window.GetWindow(this).Close();   
         }        
-	}
+
+        private void ButtonTestSearch_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.ListBoxTest.SelectedItem != null)
+            {
+                YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet = (YellowstonePathology.Business.PanelSet.Model.PanelSet)this.ListBoxTest.SelectedItem;
+                this.m_LoginUI.GetReportSearchListByTest(panelSet.PanelSetId, this.m_TestStartDate, this.m_TestEndDate);
+                Window.GetWindow(this).Close();
+            }
+            else
+            {
+                MessageBox.Show("Select a test from the list.", "Test not selected");
+            }
+        }
+    }
 }

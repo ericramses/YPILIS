@@ -360,6 +360,7 @@
     <Compile Include="Client\ReflexOrderStatus.cs" />
     <Compile Include="Client\StandingOrder.cs" />
     <Compile Include="Client\StandingOrderCollection.cs" />
+    <Compile Include="Common\PrintMateColumnLilac.cs" />
     <Compile Include="Common\PrintMateColumnTeal2.cs" />
     <Compile Include="Common\PrintMateColumnGreen.cs" />
     <Compile Include="Common\PrintMateColumnOrange2.cs" />
@@ -401,6 +402,7 @@
     <Compile Include="DataMatrix\DmtxVector2.cs" />
     <Compile Include="DataTemplateSpecimenOrderEnum.cs" />
     <Compile Include="Document\CaseDocumentPath.cs" />
+    <Compile Include="Domain\Billing\BillableObjectTechnicalOnlyAutopsy.cs" />
     <Compile Include="Domain\Core\Comment.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -456,8 +458,6 @@
     <Compile Include="Label.Model\SpecimenLabel.cs" />
     <Compile Include="Label.Model\BlockLabelLegacy.cs" />
     <Compile Include="Label.Model\SpecimenLabelPrinter.cs" />
-    <Compile Include="Label.Model\LaserCassettePrinter.cs" />
-    <Compile Include="Label.Model\LaserCassette.cs" />
     <Compile Include="Label.Model\HistologySlideLabel.cs" />
     <Compile Include="Label.Model\ThinPrepSlidePrinter.cs" />
     <Compile Include="Label.Model\ThinPrepSlide.cs" />
@@ -489,6 +489,7 @@
     <Compile Include="Persistence\RegisteredObject.cs" />
     <Compile Include="Persistence\RegisteredObjectCollection.cs" />
     <Compile Include="ReportDistribution.Model\ScheduledFaxSubmission.cs" />
+    <Compile Include="Specimen.Model\EmbeddingInstructionList.cs" />
     <Compile Include="Test.Model\DispalyGroupProstate.cs" />
     <Compile Include="Test.Model\P40.cs" />
     <Compile Include="Test\ALKForNSCLCByFISH\ALKForNSCLCByFISHNegativeWithMonosomyResult.cs" />
