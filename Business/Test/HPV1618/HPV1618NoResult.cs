@@ -11,8 +11,7 @@ namespace YellowstonePathology.Business.Test.HPV1618
         {
             this.m_ResultCode = null;
             this.m_HPV16Result = null;
-            this.m_HPV18Result = null;
-            this.m_SquamousCellCarcinomaInterpretation = null;
+            this.m_HPV18Result = null;            
             this.m_References = null;
             this.m_Method = null;
         }
