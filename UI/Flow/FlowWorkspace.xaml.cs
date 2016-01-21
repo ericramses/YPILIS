@@ -96,6 +96,7 @@ namespace YellowstonePathology.UI.Flow
 
         public void RemoveTab(object target, ExecutedRoutedEventArgs args)
         {
+            this.Save(true);
         }
 
         private void ApplicationClosing(object target, ExecutedRoutedEventArgs args)
