@@ -97,7 +97,7 @@ namespace YellowstonePathology.UI.Test
 					result = new MicrosatelliteInstabilityAnalysisResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
                     break;
 				case 135:
-					result = new ABL1KinaseDomainMutationResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+					result = new ABL1KinaseDomainMutationResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
 				case 136:
 					result = new MPNStandardReflexPath(reportNo, accessionOrder, objectTracker, pageNavigator);

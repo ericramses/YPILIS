@@ -27,7 +27,6 @@ namespace YellowstonePathology.UI.Test
 
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private YellowstonePathology.Business.Test.ABL1KinaseDomainMutation.ABL1KinaseDomainMutationTestOrder m_PanelSetOrder;
 		private YellowstonePathology.Business.Test.ABL1KinaseDomainMutation.ABL1KinaseDomainMutationResultCollection m_ResultCollection;
 
@@ -36,13 +35,11 @@ namespace YellowstonePathology.UI.Test
 
 		public ABL1KinaseDomainMutationResultPage(YellowstonePathology.Business.Test.ABL1KinaseDomainMutation.ABL1KinaseDomainMutationTestOrder testOrder,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 		{
             this.m_PanelSetOrder = testOrder;
 			this.m_AccessionOrder = accessionOrder;
 			this.m_SystemIdentity = systemIdentity;
-			this.m_ObjectTracker = objectTracker;
 
 			this.m_PageHeaderText = "ABL1 Kinase Domain Mutation Analysis Result For: " + this.m_AccessionOrder.PatientDisplayName;
 
@@ -53,9 +50,22 @@ namespace YellowstonePathology.UI.Test
 			InitializeComponent();
 
 			DataContext = this;
+
+            Loaded += ABL1KinaseDomainMutationResultPage_Loaded;
+            Unloaded += ABL1KinaseDomainMutationResultPage_Unloaded;
 		}
 
-		public string OrderedOnDescription
+        private void ABL1KinaseDomainMutationResultPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
+        }
+
+        private void ABL1KinaseDomainMutationResultPage_Unloaded(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
+        }
+
+        public string OrderedOnDescription
 		{
 			get { return this.m_OrderedOnDescription; }
 		}
@@ -95,7 +105,7 @@ namespace YellowstonePathology.UI.Test
 
 		public void Save()
 		{
-			this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
 		}
 
 		public void UpdateBindingSources()
@@ -175,7 +185,10 @@ namespace YellowstonePathology.UI.Test
 
 		private void ButtonNext_Click(object sender, RoutedEventArgs e)
 		{
-			if (this.Next != null) this.Next(this, new EventArgs());
+            if (this.Next != null)
+            {
+                this.Next(this, new EventArgs());
+            }
 		}
 
 		private void ComboBoxResult_SelectionChanged(object sender, SelectionChangedEventArgs e)
