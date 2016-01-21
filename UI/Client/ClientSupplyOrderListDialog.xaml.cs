@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.ComponentModel;
+using System.Xml.Linq;
 
 namespace YellowstonePathology.UI.Client
 {
@@ -63,6 +64,20 @@ namespace YellowstonePathology.UI.Client
             else
             {
                 MessageBox.Show("You must select an item before deleting.");
+            }
+        }
+
+        private void ButtonPrint_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.ListViewClientSupplyOrders.SelectedItem != null)
+            {
+                YellowstonePathology.Business.Client.Model.ClientSupplyOrder clientSupplyOrder = (YellowstonePathology.Business.Client.Model.ClientSupplyOrder)this.ListViewClientSupplyOrders.SelectedItem;
+                XElement dataElement = YellowstonePathology.Business.Gateway.XmlGateway.GetClientSupplyOrderReportData(clientSupplyOrder.ClientSupplyOrderId);
+                YellowstonePathology.Business.XPSDocument.Result.Data.ClientSupplyOrderReportData clientSupplyOrderReportData = new Business.XPSDocument.Result.Data.ClientSupplyOrderReportData(dataElement);
+                YellowstonePathology.Business.XPSDocument.Result.Xps.ClientSupplyOrderReport clientSupplyOrderReport = new Business.XPSDocument.Result.Xps.ClientSupplyOrderReport(clientSupplyOrderReportData);
+                XpsDocumentViewer xpsDocumentViewer = new XpsDocumentViewer();
+                xpsDocumentViewer.LoadDocument(clientSupplyOrderReport.FixedDocument);
+                xpsDocumentViewer.ShowDialog();
             }
         }
 

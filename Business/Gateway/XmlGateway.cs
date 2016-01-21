@@ -204,6 +204,33 @@ namespace YellowstonePathology.Business.Gateway
             }
 
             return result;
-        }         
-	}
+        }
+
+        public static XElement GetClientSupplyOrderReportData(string clientSupplyOrderId)
+        {
+            XElement result = new XElement("Document");
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "SELECT c.*," +
+                " (Select cd.* " +
+                "  from tblClientSupplyOrderDetail cd where cd.clientSupplyOrderId = c.clientSupplyOrderId for xml path('ClientSupplyOrderDetail'), type) ClientSupplyOrderDetailCollection" +
+                " from tblClientSupplyOrder c where c.ClientSupplyOrderId = @ClientSupplyOrderId for xml path('ClientSupplyOrder')";
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.Add("@ClientSupplyOrderId", SqlDbType.VarChar).Value = clientSupplyOrderId;
+
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (XmlReader xmlReader = cmd.ExecuteXmlReader())
+                {
+                    if (xmlReader.Read() == true)
+                    {
+                        result = XElement.Load(xmlReader);
+                    }
+                }
+            }
+
+            return result;
+        }
+    }
 }

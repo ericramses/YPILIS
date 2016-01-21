@@ -35,7 +35,8 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Grid.Column="0" Grid.Row="2" Width="90" Height="30" Click="ButtonDelete_Click" HorizontalAlignment="Left" Margin="2,2,2,2">Delete</Button>
-        <Button Grid.Column="0" Grid.Row="2" Width="90" Height="30" Click="ButtonClose_Click" HorizontalAlignment="Right" Margin="2,2,2,2">Close</Button>
+        <Button Grid.Column="0" Grid.Row="2" Width="90" Height="30" Click="ButtonDelete_Click" HorizontalAlignment="Left" Margin="12,5,5,5">Delete</Button>
+        <Button Grid.Column="0" Grid.Row="2" Width="90" Height="30" Click="ButtonPrint_Click" HorizontalAlignment="Center" Margin="5,5,5,5">Print</Button>
+        <Button Grid.Column="0" Grid.Row="2" Width="90" Height="30" Click="ButtonClose_Click" HorizontalAlignment="Right" Margin="5,5,12,5">Close</Button>
     </Grid>
 </Window>
