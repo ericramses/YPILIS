@@ -36,28 +36,14 @@ namespace YellowstonePathology.Business.XPSDocument.Result.Xps
         }
 
         public void WriteDetailInfo()
-        {
-            /*Border border = new Border()
-            {
-                BorderBrush = System.Windows.Media.Brushes.Black,
-                BorderThickness = new Thickness(0, 1, 0, 0)
-            };
-
-            bool borderSet = false;*/
+        {            
             foreach (XElement specimenElement in this.m_ClientSupplyOrderReportData.Elements("ClientSupplyOrderDetail"))
             {
                 Grid detailGrid = this.SetupDetailGrid();
                 this.WriteDetailQuantity(specimenElement, detailGrid);
                 this.WriteDetailName(specimenElement, detailGrid);
                 this.WriteDetailDescription(specimenElement, detailGrid);
-                this.m_ReportDocument.WriteRowContent(detailGrid);
-                /*if(borderSet == false)
-                {
-                    Grid.SetColumn(border, 0);
-                    Grid.SetRow(border, 4);
-                    m_ReportDocument.WriteBorder(border);
-                    borderSet = true;
-                }*/
+                this.m_ReportDocument.WriteRowContent(detailGrid);                
             }
         }
 
@@ -93,11 +79,9 @@ namespace YellowstonePathology.Business.XPSDocument.Result.Xps
             grid.Children.Add(textBlockLabel);
 
             TextBlock textBlockText = new TextBlock();
-            textBlockText.Text = this.m_ClientSupplyOrderReportData.Element("ClientName").Value;
-            textBlockText.FontSize = 14;
+            textBlockText.Text = this.m_ClientSupplyOrderReportData.Element("ClientName").Value;            
             textBlockText.Margin = new Thickness(2, 0, 2, 0);
-            textBlockText.HorizontalAlignment = HorizontalAlignment.Left;
-            textBlockText.FontWeight = FontWeight.FromOpenTypeWeight(700);
+            textBlockText.HorizontalAlignment = HorizontalAlignment.Left;            
             Grid.SetColumn(textBlockText, 1);
             Grid.SetRow(textBlockText, 0);
             grid.Children.Add(textBlockText);
@@ -113,8 +97,7 @@ namespace YellowstonePathology.Business.XPSDocument.Result.Xps
             TextBlock text = new TextBlock();
             text.Text = this.m_ClientSupplyOrderReportData.Element("OrderDate").Value;
             text.Margin = new Thickness(2, 0, 2, 0);
-            text.HorizontalAlignment = HorizontalAlignment.Left;
-            text.FontWeight = FontWeight.FromOpenTypeWeight(700);
+            text.HorizontalAlignment = HorizontalAlignment.Left;            
             Grid.SetColumn(text, 3);
             Grid.SetRow(text, 0);
             grid.Children.Add(text);
@@ -146,11 +129,9 @@ namespace YellowstonePathology.Business.XPSDocument.Result.Xps
             grid.Children.Add(textBlockLabel);
 
             TextBlock textBlockText = new TextBlock();
-            textBlockText.Text = this.m_ClientSupplyOrderReportData.Element("Address").Value;
-            textBlockText.FontSize = 14;
+            textBlockText.Text = this.m_ClientSupplyOrderReportData.Element("Address").Value;            
             textBlockText.Margin = new Thickness(2, 0, 2, 0);
-            textBlockText.HorizontalAlignment = HorizontalAlignment.Left;
-            textBlockText.FontWeight = FontWeight.FromOpenTypeWeight(700);
+            textBlockText.HorizontalAlignment = HorizontalAlignment.Left;            
             Grid.SetColumn(textBlockText, 1);
             Grid.SetRow(textBlockText, 0);
             grid.Children.Add(textBlockText);
@@ -190,31 +171,25 @@ namespace YellowstonePathology.Business.XPSDocument.Result.Xps
             grid.Children.Add(textBlockLabel);
 
             TextBlock textBlockText = new TextBlock();
-            textBlockText.Text = this.m_ClientSupplyOrderReportData.Element("City").Value;
-            textBlockText.FontSize = 14;
+            textBlockText.Text = this.m_ClientSupplyOrderReportData.Element("City").Value;            
             textBlockText.Margin = new Thickness(2, 0, 2, 0);
-            textBlockText.HorizontalAlignment = HorizontalAlignment.Left;
-            textBlockText.FontWeight = FontWeight.FromOpenTypeWeight(700);
+            textBlockText.HorizontalAlignment = HorizontalAlignment.Left;            
             Grid.SetColumn(textBlockText, 1);
             Grid.SetRow(textBlockText, 0);
             grid.Children.Add(textBlockText);
 
             TextBlock text1 = new TextBlock();
-            text1.Text = this.m_ClientSupplyOrderReportData.Element("State").Value;
-            text1.FontSize = 14;
+            text1.Text = this.m_ClientSupplyOrderReportData.Element("State").Value;            
             text1.Margin = new Thickness(2, 0, 2, 0);
-            text1.HorizontalAlignment = HorizontalAlignment.Left;
-            text1.FontWeight = FontWeight.FromOpenTypeWeight(700);
+            text1.HorizontalAlignment = HorizontalAlignment.Left;            
             Grid.SetColumn(text1, 2);
             Grid.SetRow(text1, 0);
             grid.Children.Add(text1);
 
             TextBlock text2 = new TextBlock();
-            text2.Text = this.m_ClientSupplyOrderReportData.Element("Zip").Value;
-            text2.FontSize = 14;
+            text2.Text = this.m_ClientSupplyOrderReportData.Element("Zip").Value;            
             text2.Margin = new Thickness(2, 0, 2, 0);
-            text2.HorizontalAlignment = HorizontalAlignment.Left;
-            text2.FontWeight = FontWeight.FromOpenTypeWeight(700);
+            text2.HorizontalAlignment = HorizontalAlignment.Left;            
             Grid.SetColumn(text2, 3);
             Grid.SetRow(text2, 0);
             grid.Children.Add(text2);
@@ -246,27 +221,25 @@ namespace YellowstonePathology.Business.XPSDocument.Result.Xps
             grid.Children.Add(textBlockLabel);
 
             TextBlock textBlockText = new TextBlock();
-            textBlockText.Text = this.m_ClientSupplyOrderReportData.Element("Comment").Value;
-            textBlockText.FontSize = 14;
+            textBlockText.Text = this.m_ClientSupplyOrderReportData.Element("Comment").Value;            
             textBlockText.Margin = new Thickness(2, 0, 2, 0);
-            textBlockText.HorizontalAlignment = HorizontalAlignment.Left;
-            textBlockText.FontWeight = FontWeight.FromOpenTypeWeight(700);
+            textBlockText.HorizontalAlignment = HorizontalAlignment.Left;            
             textBlockText.TextWrapping = TextWrapping.Wrap;
             Grid.SetColumn(textBlockText, 1);
             Grid.SetRow(textBlockText, 0);
             grid.Children.Add(textBlockText);
-
 
             this.m_ReportDocument.WriteRowContent(grid);
 
             Border border = new Border()
             {
                 BorderBrush = System.Windows.Media.Brushes.Black,
-                BorderThickness = new Thickness(0, 1, 0, 0)
+                BorderThickness = new Thickness(0, 1, 0, 0)                
             };
-            Grid.SetColumn(border, 0);
-            //Grid.SetColumnSpan(border, 2);
+
+            Grid.SetColumn(border, 0);            
             Grid.SetRow(border, 4);
+
             m_ReportDocument.WriteBorder(border);
         }
 
