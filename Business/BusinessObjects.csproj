@@ -485,6 +485,9 @@
     <Compile Include="Persistence\JSONWriter.cs" />
     <Compile Include="Persistence\JSONObjectWriter.cs" />
     <Compile Include="Persistence\ObjectComparer.cs" />
+    <Compile Include="Persistence\ObjectTrackerV2.cs" />
+    <Compile Include="Persistence\RegisteredObject.cs" />
+    <Compile Include="Persistence\RegisteredObjectCollection.cs" />
     <Compile Include="ReportDistribution.Model\ScheduledFaxSubmission.cs" />
     <Compile Include="Specimen.Model\EmbeddingInstructionList.cs" />
     <Compile Include="Test.Model\DispalyGroupProstate.cs" />
@@ -2721,6 +2724,7 @@
     <Compile Include="XPSDocument\Result\Data\AccessionOrderDataSheetData.cs" />
     <Compile Include="XPSDocument\Result\Data\BrafReportData.cs" />
     <Compile Include="XPSDocument\Result\Data\ClientOrderDataSheetData.cs" />
+    <Compile Include="XPSDocument\Result\Data\ClientSupplyOrderReportData.cs" />
     <Compile Include="XPSDocument\Result\Data\CysticFibrosisReportData.cs" />
     <Compile Include="XPSDocument\Result\Data\Extensions.cs" />
     <Compile Include="XPSDocument\Result\Data\Her2AmplificationReportData.cs" />
@@ -2755,6 +2759,7 @@
     <Compile Include="XPSDocument\Result\Xps\BRAFReport.cs" />
     <Compile Include="XPSDocument\Result\Xps\ClientOrderDataSheet.cs" />
     <Compile Include="XPSDocument\Result\Xps\ClientOrderFNADataSheet.cs" />
+    <Compile Include="XPSDocument\Result\Xps\ClientSupplyOrderReport.cs" />
     <Compile Include="XPSDocument\Result\Xps\CysticFibrosisReport.cs" />
     <Compile Include="XPSDocument\Result\Xps\Her2AmplificationReport.cs" />
     <Compile Include="XPSDocument\Result\Xps\Hpv16Report.cs" />

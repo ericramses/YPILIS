@@ -20,6 +20,7 @@ namespace YellowstonePathology.Business.Flow
 		private Nullable<DateTime> m_AccessionDate;
 		private Nullable<DateTime> m_FinalDate;
 		private string m_TestName;
+		private string m_MasterAccessionNo;
 
 		public FlowLogListItem()
         {
@@ -115,6 +116,13 @@ namespace YellowstonePathology.Business.Flow
 					this.NotifyPropertyChanged("TestName");
 				}
 			}
+		}
+
+		[PersistentProperty]
+		public string MasterAccessionNo
+		{
+			get { return this.m_MasterAccessionNo; }
+			set { this.m_MasterAccessionNo = value; }
 		}
 	}
 }
