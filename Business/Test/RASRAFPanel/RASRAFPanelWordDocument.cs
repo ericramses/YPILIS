@@ -62,7 +62,7 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
             string collectionDateTimeString = YellowstonePathology.Business.Helper.DateTimeExtensions.CombineDateAndTime(specimenOrder.CollectionDate, specimenOrder.CollectionTime);
             this.SetXmlNodeData("date_time_collected", collectionDateTimeString);
 
-            this.ReplaceText("report_date", BaseData.GetShortDateString(this.m_PanelSetOrder.ReferenceLabFinalDate));
+            this.ReplaceText("referencelab_finaldate", BaseData.GetShortDateTimeString(this.m_PanelSetOrder.ReferenceLabFinalDate));
             this.ReplaceText("pathologist_signature", this.m_PanelSetOrder.ReferenceLabSignature);
 
             this.SaveReport();

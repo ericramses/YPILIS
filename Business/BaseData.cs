@@ -562,7 +562,7 @@ namespace YellowstonePathology.Business
             {
                 return string.Empty;
             }
-        }
+        }        
 
         public static void SetSqlDateParameterValue(Nullable<DateTime> date, SqlParameter param)
         {
