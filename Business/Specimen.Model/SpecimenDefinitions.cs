@@ -182,7 +182,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
         {
             this.m_SpecimenId = "TNSLADSPCM";
             this.m_SpecimenName = "Tonsil and Adenoids Excision";
-            this.m_Description = "Right and left tonsisl with adenoids, excision";
+            this.m_Description = "Right and left tonsils with adenoids, excision";
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = null;
             this.m_RequiresGrossExamination = true;

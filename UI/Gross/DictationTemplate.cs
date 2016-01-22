@@ -26,6 +26,18 @@ namespace YellowstonePathology.UI.Gross
             get { return this.m_SpecimenCollection; }
         }
 
+        public string RemoveLine(string text, int lineIndex)
+        {
+            string result = text;
+            string[] lines = result.Split('\n');
+            if(lines.Length >= lineIndex)
+            {
+                string lineToRemove = lines[lineIndex] + '\n';
+                result = result.Replace(lineToRemove, string.Empty);
+            }
+            return result;
+        }
+
         public int FontSize
         {
             get { return this.m_FontSize; }

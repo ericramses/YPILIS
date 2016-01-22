@@ -14,7 +14,7 @@ namespace YellowstonePathology.Business.Test.HPV1618
             this.m_Abbreviation = "HPV1618";
 			this.m_CaseType = YellowstonePathology.Business.CaseType.Molecular;
 			this.m_HasTechnicalComponent = true;			
-			this.m_HasProfessionalComponent = true;
+			this.m_HasProfessionalComponent = false;
 			this.m_ResultDocumentSource = YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.YPIDatabase;
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterM();
             this.m_Active = true;
@@ -28,11 +28,8 @@ namespace YellowstonePathology.Business.Test.HPV1618
             this.m_AcceptOnFinal = false;
 			this.m_AllowMultiplePerAccession = true;
             
-            this.m_TechnicalComponentFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings();
-            this.m_ProfessionalComponentFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologistBillings();
-
-            this.m_TechnicalComponentBillingFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings();
-            this.m_ProfessionalComponentBillingFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings();
+            this.m_TechnicalComponentFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings();            
+            this.m_TechnicalComponentBillingFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings();            
 
             this.m_HasSplitCPTCode = false;            
 
