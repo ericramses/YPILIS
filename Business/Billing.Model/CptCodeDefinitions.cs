@@ -5,11 +5,11 @@ using System.Text;
 
 namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
 {
-    public class AutopsyTechnicalOnly : CptCode
+    public class AutopsyBlock : CptCode
     {
-        public AutopsyTechnicalOnly()
+        public AutopsyBlock()
         {
-            this.m_Code = "AUTOPSY";
+            this.m_Code = "AUTOPSYBLOCK";
             this.m_FeeSchedule = FeeScheduleEnum.Clinical;
             this.m_HasProfessionalComponent = false;
             this.m_HasTechnicalComponent = true;
