@@ -13,26 +13,23 @@ namespace YellowstonePathology.UI.Test
 		private LynchSyndromeEvaluationResultPage m_LynchSyndromeEvaluationResultPage;
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		private YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation m_PanelSetOrderLynchSyndromeEvaluation;
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 
         private System.Windows.Visibility m_BackButtonVisibility;
 
 		public LynchSyndromeEvaluationResultPath(string reportNo,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
             YellowstonePathology.UI.Navigation.PageNavigator pageNavigator,
             System.Windows.Visibility backButtonVisibility)
             : base(pageNavigator)
         {
             this.m_AccessionOrder = accessionOrder;
 			this.m_PanelSetOrderLynchSyndromeEvaluation = (YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
-			this.m_ObjectTracker = objectTracker;
             this.m_BackButtonVisibility = backButtonVisibility;
 		}
 
         protected override void ShowResultPage()
         {
-			this.m_LynchSyndromeEvaluationResultPage = new LynchSyndromeEvaluationResultPage(this.m_PanelSetOrderLynchSyndromeEvaluation, this.m_AccessionOrder, this.m_ObjectTracker, this.m_SystemIdentity, this.m_BackButtonVisibility);
+			this.m_LynchSyndromeEvaluationResultPage = new LynchSyndromeEvaluationResultPage(this.m_PanelSetOrderLynchSyndromeEvaluation, this.m_AccessionOrder, this.m_SystemIdentity, this.m_BackButtonVisibility);
 			this.m_LynchSyndromeEvaluationResultPage.Next += new LynchSyndromeEvaluationResultPage.NextEventHandler(LynchSyndromeEvaluationResultPage_Next);
             this.m_LynchSyndromeEvaluationResultPage.Back += new LynchSyndromeEvaluationResultPage.BackEventHandler(LynchSyndromeEvaluationResultPage_Back);			
 			this.m_LynchSyndromeEvaluationResultPage.OrderBraf += new LynchSyndromeEvaluationResultPage.OrderBrafEventHandler(LynchSyndromeEvaluationResultPage_OrderBraf);
@@ -77,7 +74,7 @@ namespace YellowstonePathology.UI.Test
             if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(psComprehensiveColonCancerProfile.PanelSetId, this.m_PanelSetOrderLynchSyndromeEvaluation.OrderedOnId, true) == true)
 			{
 				YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile.ComprehensiveColonCancerProfile comprehensiveColonCancerProfile = (YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile.ComprehensiveColonCancerProfile)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(psComprehensiveColonCancerProfile.PanelSetId, this.m_PanelSetOrderLynchSyndromeEvaluation.OrderedOnId, true);
-				ComprehensiveColonCancerProfilePage comprehensiveColonCancerProfilePage = new ComprehensiveColonCancerProfilePage(comprehensiveColonCancerProfile, this.m_AccessionOrder, this.m_ObjectTracker, this.m_SystemIdentity, System.Windows.Visibility.Visible);
+				ComprehensiveColonCancerProfilePage comprehensiveColonCancerProfilePage = new ComprehensiveColonCancerProfilePage(comprehensiveColonCancerProfile, this.m_AccessionOrder, this.m_SystemIdentity, System.Windows.Visibility.Visible);
 				comprehensiveColonCancerProfilePage.Next += new ComprehensiveColonCancerProfilePage.NextEventHandler(ComprehensiveColonCancerProfilePage_Next);
                 comprehensiveColonCancerProfilePage.Back += new ComprehensiveColonCancerProfilePage.BackEventHandler(ComprehensiveColonCancerProfilePage_Back);
 				this.m_PageNavigator.Navigate(comprehensiveColonCancerProfilePage);
@@ -98,9 +95,11 @@ namespace YellowstonePathology.UI.Test
 
 		private void StartReportOrderPath(YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet)
 		{
-			YellowstonePathology.Business.Interface.IOrderTarget orderTarget = this.m_AccessionOrder.SpecimenOrderCollection.GetOrderTarget(this.m_PanelSetOrderLynchSyndromeEvaluation.OrderedOnId);
+            YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new Business.Persistence.ObjectTracker();
+            objectTracker.RegisterObject(this.m_AccessionOrder);
+            YellowstonePathology.Business.Interface.IOrderTarget orderTarget = this.m_AccessionOrder.SpecimenOrderCollection.GetOrderTarget(this.m_PanelSetOrderLynchSyndromeEvaluation.OrderedOnId);
             YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new YellowstonePathology.Business.Test.TestOrderInfo(panelSet, orderTarget, false);            
-			YellowstonePathology.UI.Login.Receiving.ReportOrderPath reportOrderPath = new Login.Receiving.ReportOrderPath(this.m_AccessionOrder, this.m_ObjectTracker, this.m_SystemIdentity, this.m_PageNavigator, PageNavigationModeEnum.Inline);
+			YellowstonePathology.UI.Login.Receiving.ReportOrderPath reportOrderPath = new Login.Receiving.ReportOrderPath(this.m_AccessionOrder, objectTracker, this.m_SystemIdentity, this.m_PageNavigator, PageNavigationModeEnum.Inline);
 			reportOrderPath.Finish += new Login.Receiving.ReportOrderPath.FinishEventHandler(ReportOrderPath_Finish);
             reportOrderPath.Start(testOrderInfo);
 		}

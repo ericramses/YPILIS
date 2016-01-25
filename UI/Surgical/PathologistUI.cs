@@ -441,7 +441,7 @@ namespace YellowstonePathology.UI.Surgical
 			this.RunPathologistEnableRules();
 		}        
 
-		public void SetNonSurgicalPanelSetSignature()
+		/*public void SetNonSurgicalPanelSetSignature()
 		{
 			YellowstonePathology.Business.Rules.RuleExecutionStatus ruleExecutionStatus = new YellowstonePathology.Business.Rules.RuleExecutionStatus();
 			this.m_PanelSetOrder.Finalize(this.m_AccessionOrder, ruleExecutionStatus, this.m_SystemIdentity);
@@ -519,6 +519,6 @@ namespace YellowstonePathology.UI.Surgical
         private void ResultPath_Finish(object sender, EventArgs e)
         {
             this.m_ResultDialog.Close();
-        }
+        }*/
 	}
 }

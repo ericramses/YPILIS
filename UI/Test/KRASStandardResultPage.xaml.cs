@@ -29,7 +29,6 @@ namespace YellowstonePathology.UI.Test
 
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private YellowstonePathology.UI.Navigation.PageNavigator m_PageNavigator;
 		private string m_PageHeaderText;
 		private string m_OrderedOnDescription;
@@ -41,14 +40,12 @@ namespace YellowstonePathology.UI.Test
 
 		public KRASStandardResultPage(YellowstonePathology.Business.Test.KRASStandard.KRASStandardTestOrder panelSetOrderKRASStandard,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity,
 			YellowstonePathology.UI.Navigation.PageNavigator pageNavigator)
 		{
 			this.m_PanelSetOrder = panelSetOrderKRASStandard;
 			this.m_AccessionOrder = accessionOrder;
 			this.m_SystemIdentity = systemIdentity;
-			this.m_ObjectTracker = objectTracker;
 			this.m_PageNavigator = pageNavigator;
 
             this.m_PageHeaderText = "KRAS Standard Mutation Analysis Results For: " + this.m_AccessionOrder.PatientDisplayName + " (" + this.m_PanelSetOrder.ReportNo + ")";
@@ -63,8 +60,21 @@ namespace YellowstonePathology.UI.Test
 
 			InitializeComponent();
 
-			DataContext = this;                      
+			DataContext = this;
+
+            Loaded += KRASStandardResultPage_Loaded;
+            Unloaded += KRASStandardResultPage_Unloaded;                      
 		}
+
+        private void KRASStandardResultPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
+        }
+
+        private void KRASStandardResultPage_Unloaded(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
+        }
 
         public YellowstonePathology.Business.Test.IndicationCollection IndicationCollection
         {
@@ -140,10 +150,10 @@ namespace YellowstonePathology.UI.Test
 
 		public void Save()
 		{
-			this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
-		}
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
+        }
 
-		public void UpdateBindingSources()
+        public void UpdateBindingSources()
 		{
 
 		}
@@ -265,10 +275,11 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkProvider_Click(object sender, RoutedEventArgs e)
 		{
-            YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPath providerDistributionPath = new Login.FinalizeAccession.ProviderDistributionPath(this.m_PanelSetOrder.ReportNo, this.m_AccessionOrder, this.m_ObjectTracker, System.Windows.Visibility.Visible, System.Windows.Visibility.Collapsed, System.Windows.Visibility.Visible);
-            providerDistributionPath.Back += new Login.FinalizeAccession.ProviderDistributionPath.BackEventHandler(ProviderDistributionPath_Back);
-            providerDistributionPath.Next += new Login.FinalizeAccession.ProviderDistributionPath.NextEventHandler(ProviderDistributionPath_Next);
-            providerDistributionPath.Start(this.m_SystemIdentity);
+            MessageBox.Show("Not Implemented");
+            //YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPath providerDistributionPath = new Login.FinalizeAccession.ProviderDistributionPath(this.m_PanelSetOrder.ReportNo, this.m_AccessionOrder, this.m_ObjectTracker, System.Windows.Visibility.Visible, System.Windows.Visibility.Collapsed, System.Windows.Visibility.Visible);
+            //providerDistributionPath.Back += new Login.FinalizeAccession.ProviderDistributionPath.BackEventHandler(ProviderDistributionPath_Back);
+            //providerDistributionPath.Next += new Login.FinalizeAccession.ProviderDistributionPath.NextEventHandler(ProviderDistributionPath_Next);
+            //providerDistributionPath.Start(this.m_SystemIdentity);
 		}
 
         private void ProviderDistributionPath_Next(object sender, EventArgs e)

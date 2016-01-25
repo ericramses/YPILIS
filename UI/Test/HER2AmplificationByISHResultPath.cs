@@ -10,22 +10,19 @@ namespace YellowstonePathology.UI.Test
         HER2AmplificationByISHResultPage m_ResultPage;
         YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHTestOrder m_PanelSetOrder;
-        private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 
         public HER2AmplificationByISHResultPath(string reportNo,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-            YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
             YellowstonePathology.UI.Navigation.PageNavigator pageNavigator)
             : base(pageNavigator)
         {
             this.m_AccessionOrder = accessionOrder;
             this.m_PanelSetOrder = (YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
-            this.m_ObjectTracker = objectTracker;
         }
 
         protected override void ShowResultPage()
         {
-            this.m_ResultPage = new HER2AmplificationByISHResultPage(this.m_PanelSetOrder, this.m_AccessionOrder, this.m_ObjectTracker, this.m_SystemIdentity, this.m_PageNavigator);
+            this.m_ResultPage = new HER2AmplificationByISHResultPage(this.m_PanelSetOrder, this.m_AccessionOrder, this.m_SystemIdentity, this.m_PageNavigator);
             this.m_ResultPage.Next += new HER2AmplificationByISHResultPage.NextEventHandler(ResultPage_Next);
             this.m_ResultPage.SpecimenDetail += new HER2AmplificationByISHResultPage.SpecimenDetailEventHandler(ResultPage_SpecimenDetail);
 
@@ -47,8 +44,10 @@ namespace YellowstonePathology.UI.Test
 
         private void ResultPage_SpecimenDetail(object sender, EventArgs e)
         {
+            YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new Business.Persistence.ObjectTracker();
+            objectTracker.RegisterObject(this.m_AccessionOrder);
             YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByOrderTarget(this.m_PanelSetOrder.OrderedOnId);
-            Login.SpecimenOrderDetailsPath specimenOrderDetailsPath = new Login.SpecimenOrderDetailsPath(specimenOrder, this.m_AccessionOrder, this.m_ObjectTracker, this.m_PageNavigator);
+            Login.SpecimenOrderDetailsPath specimenOrderDetailsPath = new Login.SpecimenOrderDetailsPath(specimenOrder, this.m_AccessionOrder, objectTracker, this.m_PageNavigator);
             specimenOrderDetailsPath.Finish += new Login.SpecimenOrderDetailsPath.FinishEventHandler(SpecimenOrderDetailsPath_Finish);
             specimenOrderDetailsPath.Start(this.m_SystemIdentity);
         }
@@ -66,7 +65,7 @@ namespace YellowstonePathology.UI.Test
             {
                 YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetInvasiveBreastPanel.PanelSetId, this.m_PanelSetOrder.OrderedOnId, true);
                 result = true;
-                YellowstonePathology.UI.Test.InvasiveBreastPanelPath resultPath = new Test.InvasiveBreastPanelPath(panelSetOrder.ReportNo, this.m_AccessionOrder, this.m_ObjectTracker, this.m_PageNavigator);
+                YellowstonePathology.UI.Test.InvasiveBreastPanelPath resultPath = new Test.InvasiveBreastPanelPath(panelSetOrder.ReportNo, this.m_AccessionOrder, this.m_PageNavigator);
                 resultPath.Finish += new Test.InvasiveBreastPanelPath.FinishEventHandler(ResultPath_Finish);
                 resultPath.Start(this.m_SystemIdentity);
             }
@@ -90,8 +89,10 @@ namespace YellowstonePathology.UI.Test
                 if (surgicalTestOrder.AmendmentCollection.HasAmendmentForReferenceReportNo(this.m_PanelSetOrder.ReportNo) == true)
                 {
                     result = true;
+                    YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new Business.Persistence.ObjectTracker();
+                    objectTracker.RegisterObject(this.m_AccessionOrder);
                     YellowstonePathology.Business.Amendment.Model.Amendment amendment = surgicalTestOrder.AmendmentCollection.GetAmendmentForReferenceReportNo(this.m_PanelSetOrder.ReportNo);
-                    AmendmentPage amendmentPage = new AmendmentPage(this.m_AccessionOrder, this.m_ObjectTracker, amendment, this.m_SystemIdentity);
+                    AmendmentPage amendmentPage = new AmendmentPage(this.m_AccessionOrder, objectTracker, amendment, this.m_SystemIdentity);
                     amendmentPage.Back += AmendmentPage_Back;
                     amendmentPage.Finish += AmendmentPage_Finish;
                     this.m_PageNavigator.Navigate(amendmentPage);

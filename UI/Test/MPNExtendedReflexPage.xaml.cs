@@ -34,18 +34,15 @@ namespace YellowstonePathology.UI.Test
 		
 
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 		private YellowstonePathology.Business.Test.MPNExtendedReflex.MPNExtendedReflexResult m_MPNExtendedReflexResult;
 		private string m_PageHeaderText;
 		private string m_OrderedOnDescription;
 
 		public MPNExtendedReflexPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 		{
 			this.m_AccessionOrder = accessionOrder;
-			this.m_ObjectTracker = objectTracker;
 			this.m_SystemIdentity = systemIdentity;
 			this.m_MPNExtendedReflexResult = new Business.Test.MPNExtendedReflex.MPNExtendedReflexResult(this.m_AccessionOrder);
 			this.m_OrderedOnDescription = this.m_MPNExtendedReflexResult.SpecimenOrder.Description;
@@ -55,9 +52,22 @@ namespace YellowstonePathology.UI.Test
 			InitializeComponent();
 
 			this.DataContext = this;
+
+            Loaded += MPNExtendedReflexPage_Loaded;
+            Unloaded += MPNExtendedReflexPage_Unloaded;
 		}
 
-		public YellowstonePathology.Business.Test.MPNExtendedReflex.PanelSetOrderMPNExtendedReflex PanelSetOrder
+        private void MPNExtendedReflexPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
+        }
+
+        private void MPNExtendedReflexPage_Unloaded(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
+        }
+
+        public YellowstonePathology.Business.Test.MPNExtendedReflex.PanelSetOrderMPNExtendedReflex PanelSetOrder
 		{
 			get { return this.m_MPNExtendedReflexResult.PanelSetOrderMPNExtendedReflex; }
 		}
@@ -94,10 +104,10 @@ namespace YellowstonePathology.UI.Test
 
 		public void Save()
 		{
-			this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
-		}
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
+        }
 
-		public void UpdateBindingSources()
+        public void UpdateBindingSources()
 		{
 
 		}

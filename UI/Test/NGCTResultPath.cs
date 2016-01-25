@@ -10,22 +10,19 @@ namespace YellowstonePathology.UI.Test
 		NGCTResultPage m_ResultPage;
 		YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		YellowstonePathology.Business.Test.NGCT.NGCTTestOrder m_PanelSetOrder;
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 
 		public NGCTResultPath(string reportNo,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
             YellowstonePathology.UI.Navigation.PageNavigator pageNavigator)
             : base(pageNavigator)
         {
             this.m_AccessionOrder = accessionOrder;
 			this.m_PanelSetOrder = (YellowstonePathology.Business.Test.NGCT.NGCTTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
-			this.m_ObjectTracker = objectTracker;
 		}
 
         protected override void ShowResultPage()
         {
-			this.m_ResultPage = new NGCTResultPage(this.m_PanelSetOrder, this.m_AccessionOrder, this.m_ObjectTracker, this.m_SystemIdentity);
+			this.m_ResultPage = new NGCTResultPage(this.m_PanelSetOrder, this.m_AccessionOrder, this.m_SystemIdentity);
 			this.m_ResultPage.Next += new NGCTResultPage.NextEventHandler(ResultPage_Next);
 			this.m_PageNavigator.Navigate(this.m_ResultPage);
         }
@@ -47,7 +44,7 @@ namespace YellowstonePathology.UI.Test
 				YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology panelSetOrderCytology = (YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(15);
 
 				YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder = YellowstonePathology.Business.Gateway.ClientOrderGateway.GetClientOrderByClientOrderId(this.m_AccessionOrder.ClientOrderId);
-				WomensHealthProfilePage womensHealthProfilePage = new WomensHealthProfilePage(this.m_AccessionOrder, this.m_ObjectTracker, clientOrder, this.m_SystemIdentity, System.Windows.Visibility.Visible);
+				WomensHealthProfilePage womensHealthProfilePage = new WomensHealthProfilePage(this.m_AccessionOrder, clientOrder, this.m_SystemIdentity, System.Windows.Visibility.Visible);
 				womensHealthProfilePage.Finished += new WomensHealthProfilePage.FinishedEventHandler(WomensHealthProfilePage_Finished);
                 womensHealthProfilePage.Back += new WomensHealthProfilePage.BackEventHandler(WomensHealthProfilePage_Back);
                 this.m_PageNavigator.Navigate(womensHealthProfilePage);

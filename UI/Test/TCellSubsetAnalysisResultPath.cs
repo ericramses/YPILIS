@@ -18,22 +18,19 @@ namespace YellowstonePathology.UI.Test
 		TCellSubsetAnalysisResultPage m_ResultPage;
 		YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		YellowstonePathology.Business.Test.TCellSubsetAnalysis.TCellSubsetAnalysisTestOrder m_PanelSetOrder;
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 
 		public TCellSubsetAnalysisResultPath(string reportNo,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
 			YellowstonePathology.UI.Navigation.PageNavigator pageNavigator)
             : base(pageNavigator)
         {
 			this.m_AccessionOrder = accessionOrder;
 			this.m_PanelSetOrder = (YellowstonePathology.Business.Test.TCellSubsetAnalysis.TCellSubsetAnalysisTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
-			this.m_ObjectTracker = objectTracker;
 		}
 
         protected override void ShowResultPage()
 		{
-			this.m_ResultPage = new TCellSubsetAnalysisResultPage(this.m_PanelSetOrder, this.m_AccessionOrder, this.m_ObjectTracker, this.m_SystemIdentity);
+			this.m_ResultPage = new TCellSubsetAnalysisResultPage(this.m_PanelSetOrder, this.m_AccessionOrder, this.m_SystemIdentity);
 			this.m_ResultPage.Next += new TCellSubsetAnalysisResultPage.NextEventHandler(ResultPage_Next);
 			this.m_PageNavigator.Navigate(this.m_ResultPage);
 		}

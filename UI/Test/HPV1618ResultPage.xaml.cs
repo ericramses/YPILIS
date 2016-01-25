@@ -28,7 +28,6 @@ namespace YellowstonePathology.UI.Test
 
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
         private YellowstonePathology.Business.Test.HPV1618.HPV1618ResultCollection m_Genotype16ResultCollection;
         private YellowstonePathology.Business.Test.HPV1618.HPV1618ResultCollection m_Genotype18ResultCollection;
         private string m_PageHeaderText;
@@ -38,14 +37,12 @@ namespace YellowstonePathology.UI.Test
 
 		public HPV1618ResultPage(YellowstonePathology.Business.Test.HPV1618.PanelSetOrderHPV1618 panelSetOrderHPV1618,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity,
 			YellowstonePathology.UI.Navigation.PageNavigator pageNavigator)
 		{
 			this.m_PanelSetOrder = panelSetOrderHPV1618;
 			this.m_AccessionOrder = accessionOrder;
 			this.m_SystemIdentity = systemIdentity;
-			this.m_ObjectTracker = objectTracker;
 			this.m_PageNavigator = pageNavigator;
 
             this.m_Genotype16ResultCollection = YellowstonePathology.Business.Test.HPV1618.HPV1618ResultCollection.GetGenotype16Results();
@@ -65,12 +62,14 @@ namespace YellowstonePathology.UI.Test
         {
             this.ComboBoxGenotype16Result.SelectionChanged += ComboBoxGenotype16Result_SelectionChanged;
             this.ComboBoxGenotype18Result.SelectionChanged += ComboBoxGenotype18Result_SelectionChanged;
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
         }
 
         private void HPV1618ResultPage_Unloaded(object sender, RoutedEventArgs e)
         {
             this.ComboBoxGenotype16Result.SelectionChanged -= ComboBoxGenotype16Result_SelectionChanged;
             this.ComboBoxGenotype18Result.SelectionChanged -= ComboBoxGenotype18Result_SelectionChanged;
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
         }
 
         public YellowstonePathology.Business.Test.HPV1618.PanelSetOrderHPV1618 PanelSetOrder
@@ -118,10 +117,10 @@ namespace YellowstonePathology.UI.Test
 
 		public void Save()
 		{
-			this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
-		}
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
+        }
 
-		public void UpdateBindingSources()
+        public void UpdateBindingSources()
 		{
 
 		}

@@ -738,12 +738,6 @@
       <DependentUpon>FLT3ResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Test\FLT3ResultPath.cs" />
-    <Compile Include="Test\NeogenomicsResultTextPage.xaml.cs">
-      <DependentUpon>NeogenomicsResultTextPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Test\NeogenomicsResultPage.xaml.cs">
-      <DependentUpon>NeogenomicsResultPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Test\HighGradeLargeBCellLymphomaResultPage.xaml.cs">
       <DependentUpon>HighGradeLargeBCellLymphomaResultPage.xaml</DependentUpon>
     </Compile>
@@ -774,7 +768,6 @@
       <DependentUpon>MultipleMyelomaMGUSByFishResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Test\MultipleMyelomaMGUSByFishResultPath.cs" />
-    <Compile Include="Test\NeogenomicsResultPath.cs" />
     <Compile Include="Test\NGCTResultPage.xaml.cs">
       <DependentUpon>NGCTResultPage.xaml</DependentUpon>
     </Compile>
@@ -2352,14 +2345,6 @@
     <Page Include="Test\FLT3ResultPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Test\NeogenomicsResultTextPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Test\NeogenomicsResultPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Test\EGFRToALKReflexPage.xaml">
       <SubType>Designer</SubType>

@@ -26,7 +26,6 @@ namespace YellowstonePathology.UI.Test
         public event BackEventHandler Back;
 
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-        private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
         private YellowstonePathology.Business.ClientOrder.Model.ClientOrder m_ClientOrder;
         private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
         private YellowstonePathology.Business.Domain.Physician m_Physician;
@@ -45,13 +44,11 @@ namespace YellowstonePathology.UI.Test
         private System.Windows.Visibility m_BackButtonVisibility;
 
         public WomensHealthProfilePage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-            YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
             YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder,            
             YellowstonePathology.Business.User.SystemIdentity systemIdentity,
             System.Windows.Visibility backButtonVisibility)
         {
             this.m_AccessionOrder = accessionOrder;
-            this.m_ObjectTracker = objectTracker;            
             
             this.m_HPVReflexOrderCollection = YellowstonePathology.Business.Client.Model.ReflexOrderCollection.GetHPVRequisitionReflexOrders();
             this.m_HPVStandingOrderCollection = YellowstonePathology.Business.Client.Model.StandingOrderCollection.GetHPVStandingOrders();
@@ -82,7 +79,20 @@ namespace YellowstonePathology.UI.Test
             InitializeComponent();
 
             this.DataContext = this;
-        }        
+
+            Loaded += WomensHealthProfilePage_Loaded;
+            Unloaded += WomensHealthProfilePage_Unloaded;
+        }
+
+        private void WomensHealthProfilePage_Loaded(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
+        }
+
+        private void WomensHealthProfilePage_Unloaded(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
+        }
 
         public string HPVStandingOrderDescription
         {
@@ -175,7 +185,7 @@ namespace YellowstonePathology.UI.Test
 
         public void Save()
         {
-            this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
         }
 
         public void UpdateBindingSources()

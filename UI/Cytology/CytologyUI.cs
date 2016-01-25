@@ -185,7 +185,9 @@ namespace YellowstonePathology.UI.Cytology
 				isWHPAllDoneAuditCollection.Run();
 
 				if (isWHPAllDoneAuditCollection.ActionRequired == true)
-                {                    
+                {
+                    this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
+                    this.m_ObjectTracker.Deregister(this.m_AccessionOrder);                    
                     YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder = null;
                     YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection clientOrders = YellowstonePathology.Business.Gateway.ClientOrderGateway.GetClientOrdersByMasterAccessionNo(this.m_AccessionOrder.MasterAccessionNo);
 
@@ -195,7 +197,7 @@ namespace YellowstonePathology.UI.Cytology
                     }
 
                     this.m_PageNavigationWindow = new PageNavigationWindow(this.m_SystemIdentity);
-                    YellowstonePathology.UI.Login.WomensHealthProfilePath womensHealthProfilePath = new YellowstonePathology.UI.Login.WomensHealthProfilePath(this.m_AccessionOrder, this.m_ObjectTracker, clientOrder, this.m_PageNavigationWindow.PageNavigator, Visibility.Collapsed);
+                    YellowstonePathology.UI.Login.WomensHealthProfilePath womensHealthProfilePath = new YellowstonePathology.UI.Login.WomensHealthProfilePath(this.m_AccessionOrder, clientOrder, this.m_PageNavigationWindow.PageNavigator, Visibility.Collapsed);
                     womensHealthProfilePath.Back += new Login.WomensHealthProfilePath.BackEventHandler(WomensHealthProfilePath_Finished);
                     womensHealthProfilePath.Finish += new Login.WomensHealthProfilePath.FinishEventHandler(WomensHealthProfilePath_Finished);
                     womensHealthProfilePath.Start(this.m_SystemIdentity);
@@ -206,6 +208,7 @@ namespace YellowstonePathology.UI.Cytology
 
         private void WomensHealthProfilePath_Finished(object sender, EventArgs e)
         {
+            this.m_ObjectTracker.RegisterObject(this.m_AccessionOrder);
             this.m_PageNavigationWindow.Close();
         }
 

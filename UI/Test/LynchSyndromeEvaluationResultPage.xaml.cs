@@ -40,7 +40,6 @@ namespace YellowstonePathology.UI.Test
 
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private string m_PageHeaderText;
 		private string m_OrderedOnDescription;
 
@@ -53,14 +52,12 @@ namespace YellowstonePathology.UI.Test
 
 		public LynchSyndromeEvaluationResultPage(YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromeEvaluation,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity,
             System.Windows.Visibility backButtonVisibility)
 		{
 			this.m_PanelSetOrderLynchSyndromeEvaluation = panelSetOrderLynchSyndromeEvaluation;
 			this.m_AccessionOrder = accessionOrder;
 			this.m_SystemIdentity = systemIdentity;
-			this.m_ObjectTracker = objectTracker;
             this.m_BackButtonVisibility = backButtonVisibility;
 
             this.m_LSETypeCollection = new Business.Test.LynchSyndrome.LSETypeCollection();
@@ -71,15 +68,23 @@ namespace YellowstonePathology.UI.Test
 			this.m_OrderedOnDescription = specimenOrder.Description;
 			if (aliquotOrder != null) this.m_OrderedOnDescription += ": " + aliquotOrder.Label;            
 
-            this.Loaded += new RoutedEventHandler(LynchSyndromeEvaluationResultPage_Loaded);
 			InitializeComponent();
-			DataContext = this;			
+			DataContext = this;
+            			
+            this.Loaded += new RoutedEventHandler(LynchSyndromeEvaluationResultPage_Loaded);
+            Unloaded += LynchSyndromeEvaluationResultPage_Unloaded;
 		}
 
         private void LynchSyndromeEvaluationResultPage_Loaded(object sender, RoutedEventArgs e)
         {
             this.SetLSEResults();
-        }        
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
+        }
+
+        private void LynchSyndromeEvaluationResultPage_Unloaded(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
+        }
 
         public YellowstonePathology.Business.Test.LynchSyndrome.LSETypeCollection LSETypeCollection
         {
@@ -196,10 +201,10 @@ namespace YellowstonePathology.UI.Test
 
 		public void Save()
 		{
-			this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
-		}
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
+        }
 
-		public void UpdateBindingSources()
+        public void UpdateBindingSources()
 		{
 
 		}
@@ -324,16 +329,19 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkOrderBraf_Click(object sender, RoutedEventArgs e)
 		{
+            this.Save();
 			this.OrderBraf(this, new EventArgs());
 		}
 
 		private void HyperLinkOrderMLH1_Click(object sender, RoutedEventArgs e)
 		{
-			this.OrderMLH1MethylationAnalysis(this, new EventArgs());
+            this.Save();
+            this.OrderMLH1MethylationAnalysis(this, new EventArgs());
 		}
 
         private void HyperLinkOrderCCCP_Click(object sender, RoutedEventArgs e)
         {
+            this.Save();
             this.OrderColonCancerProfile(this, new EventArgs());
         }
 
