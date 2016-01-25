@@ -21,9 +21,11 @@ namespace YellowstonePathology.Business.Test.ABL1KinaseDomainMutation
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.ABL1KinaseDomainMutation.ABL1KinaseDomainMutationTestOrder).AssemblyQualifiedName;
             
             this.m_AllowMultiplePerAccession = true;
+			//Changed by MS and TK;
 
-            string taskDescription = "This is an add-on test. The specimen is at Neogenomics. Please confirm that ABL1 Kinase Domain Mutation is ordered at Neogenomics.";
-			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Transcription, taskDescription));
+            string taskDescription2 = "Collect (Peripheral blood: 5 mL in EDTA tube ONLY; " +
+            "Bone marrow: 2 mL in EDTA tube ONLY) and send to Neogenomics.";
+			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Flow, taskDescription2));
 
             this.m_TechnicalComponentFacility = new YellowstonePathology.Business.Facility.Model.NeogenomicsIrvine();
             this.m_TechnicalComponentBillingFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings();

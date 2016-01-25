@@ -22,10 +22,10 @@ namespace YellowstonePathology.Business.Test.MDSExtendedByFish
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.MDSExtendedByFish.PanelSetOrderMDSExtendedByFish).AssemblyQualifiedName;
             
 			this.m_AllowMultiplePerAccession = true;
+			//checked by MS and TK;
 
-            string taskDescription = "Gather materials (Bone Marrow Aspirate: 1-2 mL sodium heparin tube. EDTA tube is acceptable. " +
-                "Peripheral Blood: 2-5 mL sodium heparin tube. EDTA tube is acceptable." +
-                "Fresh, Unfixed Tissue: Tissue in RPMI. Fluids: Equal parts RPMI to specimen volume) and send out to Neo.";
+            string taskDescription = "Gather materials (Peripheral blood: 2-5 mL in sodium heparin tube and 2x5 mL in EDTA tube or" +
+            "Bone marrow: 1-2 mL in sodium heparin tube and 2 mL in EDTA tube or Fresh unfixed tissue in RPMI) and send out to Neo.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Flow, taskDescription));
 
             this.m_TechnicalComponentFacility = new YellowstonePathology.Business.Facility.Model.NeogenomicsIrvine();
