@@ -70,6 +70,17 @@ namespace YellowstonePathology.UI.Flow
         private void FlowWorkspace_Loaded(object sender, RoutedEventArgs e)
         {
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath += new MainWindowCommandButtonHandler.StartProviderDistributionPathEventHandler(MainWindowCommandButtonHandler_StartProviderDistributionPath);
+            this.m_MainWindowCommandButtonHandler.ShowAmendmentDialog += MainWindowCommandButtonHandler_ShowAmendmentDialog;
+        }
+
+        private void MainWindowCommandButtonHandler_ShowAmendmentDialog(object sender, EventArgs e)
+        {
+            this.Save(false);
+            YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
+            objectTracker.RegisterObject(this.m_FlowUI.AccessionOrder);
+            YellowstonePathology.UI.AmendmentPageController amendmentPageController = new AmendmentPageController(this.m_FlowUI.AccessionOrder, objectTracker, this.m_FlowUI.PanelSetOrderLeukemiaLymphoma, this.m_SystemIdentity);
+            amendmentPageController.ShowDialog();
+            this.m_FlowUI.GetAccessionOrder(this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.ReportNo, this.m_FlowUI.AccessionOrder.MasterAccessionNo);
         }
 
         private void MainWindowCommandButtonHandler_StartProviderDistributionPath(object sender, EventArgs e)
@@ -577,8 +588,7 @@ namespace YellowstonePathology.UI.Flow
         }
 
         private void ShowAmendmentDialog(object target, ExecutedRoutedEventArgs args)
-        {
-        	//MessageBox.Show("Temporarily disconnected");
+        {        	
             this.Save(false);
             YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
             objectTracker.RegisterObject(this.m_FlowUI.AccessionOrder);

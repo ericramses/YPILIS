@@ -137,8 +137,7 @@ namespace YellowstonePathology.UI
 
 			this.TabControlLeftWorkspace.SelectionChanged += new SelectionChangedEventHandler(TabControlLeftWorkspace_SelectionChanged);
 			if (this.m_SystemIdentity.User.UserId != 5001 && this.m_SystemIdentity.User.UserId != 5051 && this.m_SystemIdentity.User.UserId != 5126)
-			{
-                //this.MenuItemAdministration.IsEnabled = true;
+			{                
                 this.MenuItemReportDistribution.IsEnabled = false;
             }
 
@@ -154,9 +153,7 @@ namespace YellowstonePathology.UI
         }        
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
-        {            
-            //HostSetupHandler hostSetupHandler = new HostSetupHandler();
-            //hostSetupHandler.HandleSetup();
+        {                        
             this.ShowStartupPage();
         }        
 
@@ -263,33 +260,7 @@ namespace YellowstonePathology.UI
                     }
 				}				
 			}
-        }
-
-        /*
-		public void StartTimer()
-		{
-			this.m_Timer = new System.Timers.Timer();
-			this.m_Timer.Elapsed += new System.Timers.ElapsedEventHandler(m_Timer_Elapsed);
-
-            this.m_Timer.Interval = 1000 * 5 *60;
-			this.m_Timer.Enabled = true;
-		}
-        */
-
-		/*private void m_Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
-		{
-			string ids = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPanelOrderIdsToAcknowledge();            
-
-            if (ids.Length > 0)
-			{
-                this.m_WavPlayer.Play();
-                this.m_Timer.Interval = 1000 * 30;
-            }
-            else
-            {
-                this.m_Timer.Interval = 1000 * 60 * 5;
-            }			
-		}*/
+        }        
         
         public YellowstonePathology.UI.Test.LabWorkspace LabWorkspace
         {
@@ -763,17 +734,7 @@ namespace YellowstonePathology.UI
 		public void Restart()
 		{
 			Close();
-		}        
-
-        /*private void UpdateLocalData_Click(object sender, RoutedEventArgs e)
-        {
-			Cursor holdCursor = this.Cursor;
-			this.Cursor = Cursors.Wait;
-			YellowstonePathology.Business.DataContext.SetupLocalData setupLocalData = new YellowstonePathology.Business.DataContext.SetupLocalData();
-            setupLocalData.ExecuteFullSetup(true);
-			this.Cursor = holdCursor;
-			MessageBox.Show("Local data has been updated.");
-        }*/        
+		}                    
 
         private void ToolBarButtonAddAmendment_Click(object sender, RoutedEventArgs e)
         {

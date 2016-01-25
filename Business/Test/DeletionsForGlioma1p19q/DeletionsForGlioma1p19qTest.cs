@@ -23,8 +23,8 @@ namespace YellowstonePathology.Business.Test.DeletionsForGlioma1p19q
             
 			this.m_AllowMultiplePerAccession = true;
 
-            string taskDescription = "Create an H&E and give to pathologist to circle .";
-			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Histology, taskDescription)); 
+            string taskDescription = "Collect the block from Histology and send to Neo.";
+			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Flow, taskDescription)); 
 
             this.m_TechnicalComponentFacility = new YellowstonePathology.Business.Facility.Model.NeogenomicsIrvine();
             this.m_ProfessionalComponentFacility = new YellowstonePathology.Business.Facility.Model.NeogenomicsIrvine();

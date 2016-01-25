@@ -156,7 +156,6 @@ namespace YellowstonePathology.Business.Flow
                     this.m_ICD9BillingCodeCollection = value;
                     this.NotifyPropertyChanged("ICD9BillingCodeCollection");
                 }
-
             }
 		}
 
@@ -188,8 +187,7 @@ namespace YellowstonePathology.Business.Flow
 			this.m_PatientHistoryList.SetFillCommandByAccessionNo(reportNo);
 			this.m_PatientHistoryList.Fill();
 			this.m_PatientHistoryList.SetCaseDocumentCollection(reportNo);
-
-			//this.m_Lock.SetLockable(this.m_AccessionOrder);
+			
 			this.NotifyPropertyChanged("AccessionOrder");
 			this.NotifyPropertyChanged("PanelSetOrderLeukemiaLymphoma");
 			this.NotifyPropertyChanged("PatientHistoryList");

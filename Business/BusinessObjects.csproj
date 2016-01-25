@@ -304,6 +304,7 @@
     <Compile Include="Client\HPVCompoundStandingOrderRule3.cs" />
     <Compile Include="Client\FaxPhysicianClientDistribution.cs" />
     <Compile Include="Client\HPVCompoundStandingOrderRule4.cs" />
+    <Compile Include="Client\HPVReflexOrderRule14.cs" />
     <Compile Include="Client\MediTechPhysicianClientDistribution.cs" />
     <Compile Include="Client\ECWPhysicianClientDistribution.cs" />
     <Compile Include="Client\EPICAndFaxPhysicianClientDistribution.cs" />

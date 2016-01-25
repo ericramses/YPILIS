@@ -22,11 +22,13 @@ namespace YellowstonePathology.Business.Test.API2MALT1
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.API2MALT1.API2MALT1TestOrder).AssemblyQualifiedName;
             
 			this.m_AllowMultiplePerAccession = true;
+			//Changed by MS and TK;
 
             string taskDescription1 = "Cut H&E slide and give to pathologist to circle tumor for tech only. Give the paraffin block to Flow so they can send to NEO.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Histology, taskDescription1));
 
-            string taskDescription2 = "Collect slide from pathologist and paraffin block from histology and send to Neogenomics.";
+            string taskDescription2 = "Collect slide from pathologist and paraffin block from histology, or collect (Peripheral blood: 2-5 mL in sodium heparin tube, 2x5 mL in EDTA tube; " +
+            "Bone marrow: 1-2 mL in sodium heparin tube or 2 mL in EDTA tube; Fresh unfixed tissue in RPMI) and send to Neogenomics.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Flow, taskDescription2));
 
             this.m_TechnicalComponentFacility = new YellowstonePathology.Business.Facility.Model.NeogenomicsIrvine();

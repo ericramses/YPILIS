@@ -226,7 +226,13 @@ namespace YellowstonePathology.UI.Login
             this.NotifyPropertyChanged("ReportSearchList");
         }
 
-		public void GetReportSearchListByMasterAccessionNo(string masterAccessionNo)
+        public void GetReportSearchListByDrKurtzman()
+        {
+            this.m_ReportSearchList = YellowstonePathology.Business.Gateway.ReportSearchGateway.GetReportSearchListByDrKurtzman();
+            this.NotifyPropertyChanged("ReportSearchList");
+        }
+
+        public void GetReportSearchListByMasterAccessionNo(string masterAccessionNo)
 		{
 			this.m_ReportSearchList = YellowstonePathology.Business.Gateway.ReportSearchGateway.GetReportSearchListByMasterAccessionNo(masterAccessionNo);
 			this.NotifyPropertyChanged("ReportSearchList");

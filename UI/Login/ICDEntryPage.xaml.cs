@@ -147,9 +147,9 @@ namespace YellowstonePathology.UI.Login
 
         private void HyperlinkAddICDCode_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrEmpty(this.TextBoxICD9Code.Text) == false || string.IsNullOrEmpty(this.TextBoxICD10Code.Text) == false)
+            if (string.IsNullOrEmpty(this.TextBoxICD10Code.Text) == false)
             {
-                this.AddICD9Code(this.TextBoxICD9Code.Text, this.TextBoxICD10Code.Text, 1);
+                this.AddICD9Code(null, this.TextBoxICD10Code.Text, 1);
             }            
         }
 

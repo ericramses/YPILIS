@@ -267,7 +267,7 @@ namespace YellowstonePathology.UI.Gross
 
         public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
-            string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
+            string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);            
             result = this.ReplaceRepresentativeSectionsAgeRestricted(result, specimenOrder, accessionOrder);
             return result;
         }
@@ -279,10 +279,9 @@ namespace YellowstonePathology.UI.Gross
         {
             this.m_TemplateName = "Tonsil Excision";
             this.m_Text = "[identifier]." + Environment.NewLine +
-                "Gross Description:  Two tan-pink, lobular, palatine tonsils." + Environment.NewLine +
+                "Gross Description:  [quantity] tan-pink, lobular, palatine [tonsils]." + Environment.NewLine +
                 "Weight:  [weight]" + Environment.NewLine +
-                "Measurement Tonsil 1:  [measurement]" + Environment.NewLine +
-                "Measurement Tonsil 2:  [measurement]" + Environment.NewLine +
+                "[measurementstring]" + Environment.NewLine +                
                 "Cut Surface:  [description]" + Environment.NewLine +
                 "Submitted:  [representativesectionsagerestricted].  ";
 
@@ -293,10 +292,26 @@ namespace YellowstonePathology.UI.Gross
         public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
+            
+            if (accessionOrder.SpecimenOrderCollection.Count == 2)
+            {
+                result = result.Replace("[quantity]", "One");
+                result = result.Replace("[tonsils]", "tonsil");
+                result = result.Replace("[measurementstring]", "Measurement:  [measurement]");
+            }
+            else
+            {
+                string measurementString = "Measurement Tonsil 1:  [measurement]" + Environment.NewLine +
+                    "Measurement Tonsil 2:  [measurement]";
+                result = result.Replace("[tonsils]", "tonsils");
+                result = result.Replace("[quantity]", "Two");
+                result = result.Replace("[measurementstring]", measurementString);
+            }
+            
             result = this.ReplaceRepresentativeSectionsAgeRestricted(result, specimenOrder, accessionOrder);
             return result;
         }
-    }
+    }    
 
     public class AdenoidExcisionTemplate : DictationTemplate
     {
@@ -442,9 +457,9 @@ namespace YellowstonePathology.UI.Gross
         {
             this.m_TemplateName = "LEEPCone";
             this.m_Text = "[identifier]." + Environment.NewLine +
-                "Gross Description:  [description], [color], [characteristics]" + Environment.NewLine +
+                "Gross Description:  [color], [characteristics]" + Environment.NewLine +
                 "Measurement:  [measurement]" + Environment.NewLine +
-                "Os:  *OSDESCRIPTION* [measurement]" + Environment.NewLine +
+                "Os:  [description], [measurement]" + Environment.NewLine +
                 "Inking:  [description]" + Environment.NewLine +
                 "Submitted:  [submitted].  ";            
 
@@ -466,9 +481,9 @@ namespace YellowstonePathology.UI.Gross
         {
             this.m_TemplateName = "LEEPPieces";
             this.m_Text = "[identifier]." + Environment.NewLine +
-                "Gross Description:  [description], [color], [characteristics]" + Environment.NewLine +
+                "Gross Description:  [color], [characteristics]" + Environment.NewLine +
                 "Measurement:  [measurement]" + Environment.NewLine +
-                "Os:  *OSDESCRIPTION* [measurement]" + Environment.NewLine +
+                "Os:  [description], [measurement]" + Environment.NewLine +
                 "Inking:  [description]" + Environment.NewLine +
                 "Submitted:  [submitted].  ";            
 

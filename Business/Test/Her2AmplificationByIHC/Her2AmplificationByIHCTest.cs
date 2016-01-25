@@ -23,12 +23,9 @@ namespace YellowstonePathology.Business.Test.Her2AmplificationByIHC
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.Her2AmplificationByIHC.PanelSetOrderHer2AmplificationByIHC).AssemblyQualifiedName;
             
 			this.m_AllowMultiplePerAccession = true;
+			//Changed by MS and Tk;
 
-            string taskDescription = "Gather materials (Cut Slides: 3 cut slides. Cut sections at 3-4 microns, and place tissue at the center bottom of the slide" +
-                "or Paraffin block: (Preferred for image analysis.) Formalin-fixed paraffin-embedded tissue.) and give to Molecular for send out to Neo.";
-			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Histology, taskDescription));
-
-            string taskDescription2 = "Receive materials from histology and send out to Neo.";
+            string taskDescription2 = "Get block from histology and send out to Neo.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, taskDescription2));
 
             this.m_TechnicalComponentFacility = new YellowstonePathology.Business.Facility.Model.NeogenomicsIrvine();

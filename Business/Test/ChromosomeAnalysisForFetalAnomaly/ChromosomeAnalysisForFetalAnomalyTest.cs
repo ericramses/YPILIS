@@ -23,7 +23,7 @@ namespace YellowstonePathology.Business.Test.ChromosomeAnalysisForFetalAnomaly
             
 			this.m_AllowMultiplePerAccession = true;            
 
-            string taskDescription = "Gather materials (Peripheral blood: 2-5 mL in sodium heparin tube or Bone marrow: 1-2 mL in sodium heparin tube) and send out to Neo.";
+            string taskDescription = "Collect fresh tissue in RPMI and send out to Neo.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Histology, taskDescription));
 
             this.m_TechnicalComponentFacility = new YellowstonePathology.Business.Facility.Model.NeogenomicsIrvine();
