@@ -16,7 +16,7 @@ namespace YellowstonePathology.Business.Gateway
 #if MONGO
             return FlowGatewayMongo.GetByLeukemiaNotFinal();
 #else
-            SqlCommand cmd = new SqlCommand("select pso.ReportNo, ao.PLastName, ao.PFirstName, ao.AccessionDate, pso.FinalDate, pso.PanelSetName [TestName], pso.ObjectId " +
+            SqlCommand cmd = new SqlCommand("select pso.ReportNo, ao.PLastName, ao.PFirstName, ao.AccessionDate, pso.FinalDate, pso.PanelSetName [TestName], pso.ObjectId, pso.MasterAccessionNo " +
 				"from tblPanelSetOrder pso join tblAccessionOrder ao on pso.MasterAccessionNo = ao.MasterAccessionNo " +
 				"where pso.PanelSetId = 20 and pso.Final = 0 order by ao.AccessionDate desc, pso.ReportNo desc");
 			cmd.CommandType = CommandType.Text;
@@ -29,7 +29,7 @@ namespace YellowstonePathology.Business.Gateway
 #if MONGO
             return FlowGatewayMongo.GetByTestType(panelSetId);
 #else
-			SqlCommand cmd = new SqlCommand("select pso.ReportNo, ao.PLastName, ao.PFirstName, ao.AccessionDate, pso.FinalDate, pso.PanelSetName [TestName], pso.ObjectId " +
+			SqlCommand cmd = new SqlCommand("select pso.ReportNo, ao.PLastName, ao.PFirstName, ao.AccessionDate, pso.FinalDate, pso.PanelSetName [TestName], pso.ObjectId, pso.MasterAccessionNo " +
                 "from tblPanelSetOrder pso join tblAccessionOrder ao on pso.MasterAccessionNo = ao.MasterAccessionNo " +
 				"Where PanelSetId = @PanelSetId order by ao.AccessionDate desc, pso.ReportNo desc");
 			cmd.CommandType = CommandType.Text;
@@ -43,7 +43,7 @@ namespace YellowstonePathology.Business.Gateway
 #if MONGO
             return FlowGatewayMongo.GetFlowLogListByReportNo(reportNo);
 #else
-			SqlCommand cmd = new SqlCommand("select pso.ReportNo, ao.PLastName, ao.PFirstName, ao.AccessionDate, pso.FinalDate, pso.PanelSetName [TestName], pso.ObjectId " +
+			SqlCommand cmd = new SqlCommand("select pso.ReportNo, ao.PLastName, ao.PFirstName, ao.AccessionDate, pso.FinalDate, pso.PanelSetName [TestName], pso.ObjectId, pso.MasterAccessionNo " +
 				"from tblPanelSetOrder pso join tblAccessionOrder ao on pso.MasterAccessionNo = ao.MasterAccessionNo " +
                 "where pso.PanelSetId not in (19,143,211,222,223) and pso.CaseType = 'Flow Cytometry' and pso.ReportNo = @ReportNo ");
 			cmd.CommandType = CommandType.Text;
@@ -57,7 +57,7 @@ namespace YellowstonePathology.Business.Gateway
 #if MONGO
             return FlowGatewayMongo.GetByAccessionMonth(date);
 #else
-			SqlCommand cmd = new SqlCommand("Select pso.ReportNo, ao.PLastName, ao.PFirstName, ao.AccessionDate, pso.FinalDate, pso.PanelSetName [TestName], pso.ObjectId " +
+			SqlCommand cmd = new SqlCommand("Select pso.ReportNo, ao.PLastName, ao.PFirstName, ao.AccessionDate, pso.FinalDate, pso.PanelSetName [TestName], pso.ObjectId, pso.MasterAccessionNo " +
                 "from tblPanelSetOrder pso join tblAccessionOrder ao on pso.MasterAccessionNo = ao.MasterAccessionNo " +
 				"where pso.PanelSetId not in (19,143,211,222,223) and pso.CaseType = 'Flow Cytometry' and month(ao.AccessionDate) = @Month and Year(ao.AccessionDate) = @Year " +
 				"order by ao.AccessionDate desc, pso.ReportNo desc");
@@ -77,7 +77,7 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.CommandType = CommandType.Text;
 
 			string whereClause = string.Empty;
-			string sql = "select pso.ReportNo, ao.PLastName, ao.PFirstName, ao.AccessionDate, pso.FinalDate, pso.PanelSetName [TestName], pso.ObjectId " +
+			string sql = "select pso.ReportNo, ao.PLastName, ao.PFirstName, ao.AccessionDate, pso.FinalDate, pso.PanelSetName [TestName], pso.ObjectId, pso.MasterAccessionNo " +
                 "from tblPanelSetOrder pso join tblAccessionOrder ao on pso.MasterAccessionNo = ao.MasterAccessionNo " +
                 "Where pso.PanelSetId not in (19,143,211,222,223) and pso.CaseType = 'Flow Cytometry' ";
 
@@ -106,7 +106,7 @@ namespace YellowstonePathology.Business.Gateway
 #if MONGO
             return FlowGatewayMongo.GetByPathologistId(pathologistId);
 #else
-			SqlCommand cmd = new SqlCommand("select pso.ReportNo, ao.PLastName, ao.PFirstName, ao.AccessionDate, pso.FinalDate, pso.PanelSetName [TestName], pso.ObjectId " +
+			SqlCommand cmd = new SqlCommand("select pso.ReportNo, ao.PLastName, ao.PFirstName, ao.AccessionDate, pso.FinalDate, pso.PanelSetName [TestName], pso.ObjectId, pso.MasterAccessionNo " +
                 "from tblPanelSetOrder pso join tblAccessionOrder ao on pso.MasterAccessionNo = ao.MasterAccessionNo " +
                 "where dateadd(yy, +1, ao.AccessionDate) > getDate() and pso.AssignedToId = @PathologistId " +
 				"order by ao.AccessionDate desc, pso.ReportNo desc");

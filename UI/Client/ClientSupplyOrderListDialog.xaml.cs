@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.ComponentModel;
+using System.Xml.Linq;
 
 namespace YellowstonePathology.UI.Client
 {
@@ -37,9 +38,7 @@ namespace YellowstonePathology.UI.Client
         private void ListViewClientSupplyOrders_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             YellowstonePathology.Business.Client.Model.ClientSupplyOrder clientSupplyOrder = (YellowstonePathology.Business.Client.Model.ClientSupplyOrder)this.ListViewClientSupplyOrders.SelectedItem;
-            YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new Business.Persistence.ObjectTracker();
-            objectTracker.RegisterObject(clientSupplyOrder);
-            YellowstonePathology.UI.Client.ClientSupplyOrderDialog clientSupplyOrderDialog = new ClientSupplyOrderDialog(clientSupplyOrder, objectTracker);
+            YellowstonePathology.UI.Client.ClientSupplyOrderDialog clientSupplyOrderDialog = new ClientSupplyOrderDialog(clientSupplyOrder);
             clientSupplyOrderDialog.ShowDialog();
         }
 
@@ -56,9 +55,8 @@ namespace YellowstonePathology.UI.Client
                 if(messageBoxResult == MessageBoxResult.Yes)
                 {
                     YellowstonePathology.Business.Client.Model.ClientSupplyOrder clientSupplyOrder = (YellowstonePathology.Business.Client.Model.ClientSupplyOrder)this.ListViewClientSupplyOrders.SelectedItem;
-                    YellowstonePathology.Business.Persistence.ObjectTracker ot = new Business.Persistence.ObjectTracker();
-                    ot.RegisterRootDelete(clientSupplyOrder);
-                    ot.SubmitChanges(clientSupplyOrder);
+                    YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterRootDelete(clientSupplyOrder, this);
+                    YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(clientSupplyOrder, this);
                     this.m_ClientSupplyOrderCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientSupplyOrderCollection();
                     this.NotifyPropertyChanged("ClientSupplyOrderCollection");
                 }
@@ -66,6 +64,20 @@ namespace YellowstonePathology.UI.Client
             else
             {
                 MessageBox.Show("You must select an item before deleting.");
+            }
+        }
+
+        private void ButtonPrint_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.ListViewClientSupplyOrders.SelectedItem != null)
+            {
+                YellowstonePathology.Business.Client.Model.ClientSupplyOrder clientSupplyOrder = (YellowstonePathology.Business.Client.Model.ClientSupplyOrder)this.ListViewClientSupplyOrders.SelectedItem;
+                XElement dataElement = YellowstonePathology.Business.Gateway.XmlGateway.GetClientSupplyOrderReportData(clientSupplyOrder.ClientSupplyOrderId);
+                YellowstonePathology.Business.XPSDocument.Result.Data.ClientSupplyOrderReportData clientSupplyOrderReportData = new Business.XPSDocument.Result.Data.ClientSupplyOrderReportData(dataElement);
+                YellowstonePathology.Business.XPSDocument.Result.Xps.ClientSupplyOrderReport clientSupplyOrderReport = new Business.XPSDocument.Result.Xps.ClientSupplyOrderReport(clientSupplyOrderReportData);
+                XpsDocumentViewer xpsDocumentViewer = new XpsDocumentViewer();
+                xpsDocumentViewer.LoadDocument(clientSupplyOrderReport.FixedDocument);
+                xpsDocumentViewer.ShowDialog();
             }
         }
 

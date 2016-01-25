@@ -24,14 +24,12 @@ namespace YellowstonePathology.UI.Client
 
 		private YellowstonePathology.Business.Client.Model.ClientSupplyCollection m_ClientSupplyCollection;
 		private YellowstonePathology.Business.Client.Model.ClientSupplyOrder m_ClientSupplyOrder;
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private YellowstonePathology.Business.User.SystemUserCollection m_UserCollection;
 
-		public ClientSupplyOrderDialog(YellowstonePathology.Business.Client.Model.ClientSupplyOrder clientSupplyOrder, YellowstonePathology.Business.Persistence.ObjectTracker objectTracker)
+		public ClientSupplyOrderDialog(YellowstonePathology.Business.Client.Model.ClientSupplyOrder clientSupplyOrder)
 		{
 			this.m_ClientSupplyOrder = clientSupplyOrder;
-			this.m_ObjectTracker = objectTracker;
-
+			YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_ClientSupplyOrder, this);
 			this.m_UserCollection = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection;
 
 			InitializeComponent();
@@ -98,38 +96,28 @@ namespace YellowstonePathology.UI.Client
 
 		private void ButtonOk_Click(object sender, RoutedEventArgs e)
 		{
-			this.m_ObjectTracker.SubmitChanges(this.m_ClientSupplyOrder);
+			YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_ClientSupplyOrder, this);
 			this.Close();
+			YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
 		}
 
 		private void ListViewSupplies_MouseDoubleClick(object sender, MouseButtonEventArgs e)
 		{
 			if (string.IsNullOrEmpty(this.TextBoxQuantity.Text) == false)
 			{
-				string quantityOrdered = this.TextBoxQuantity.Text;
-				int quantity = 0;
-				bool hasQuantity = Int32.TryParse(quantityOrdered, out quantity);
-				if (hasQuantity == true)
-				{
-					if (this.ListViewSupplies.SelectedItem != null)
-					{
-						quantityOrdered += " Ea.";
-						YellowstonePathology.Business.Client.Model.ClientSupply clientSupply = (YellowstonePathology.Business.Client.Model.ClientSupply)this.ListViewSupplies.SelectedItem;
-						string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-						YellowstonePathology.Business.Client.Model.ClientSupplyOrderDetail clientSupplyOrderDetail = new Business.Client.Model.ClientSupplyOrderDetail(objectId,
-							this.m_ClientSupplyOrder.ClientSupplyOrderId, clientSupply.clientsupplyid, clientSupply.supplyname, clientSupply.description, quantityOrdered);
-						this.m_ClientSupplyOrder.ClientSupplyOrderDetailCollection.Add(clientSupplyOrderDetail);
-
-					}
-					else
-					{
-						MessageBox.Show("Select a supply item to add");
-					}
+				string quantityOrdered = this.TextBoxQuantity.Text;												
+				if (this.ListViewSupplies.SelectedItem != null)
+				{						
+					YellowstonePathology.Business.Client.Model.ClientSupply clientSupply = (YellowstonePathology.Business.Client.Model.ClientSupply)this.ListViewSupplies.SelectedItem;
+					string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
+					YellowstonePathology.Business.Client.Model.ClientSupplyOrderDetail clientSupplyOrderDetail = new Business.Client.Model.ClientSupplyOrderDetail(objectId,
+						this.m_ClientSupplyOrder.ClientSupplyOrderId, clientSupply.clientsupplyid, clientSupply.supplyname, clientSupply.description, quantityOrdered);
+					this.m_ClientSupplyOrder.ClientSupplyOrderDetailCollection.Add(clientSupplyOrderDetail);
 				}
 				else
 				{
-					MessageBox.Show("Enter a valid number");
-				}
+					MessageBox.Show("Select a supply item to add");
+				}				
 			}
 			else
 			{

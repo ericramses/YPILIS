@@ -272,5 +272,11 @@ namespace YellowstonePathology.UI.Login
                 MessageBox.Show("Select a test from the list.", "Test not selected");
             }
         }
+
+        private void ButtonDrKurtzmanCaseSearch_Click(object sender, RoutedEventArgs e)
+        {
+            this.m_LoginUI.GetReportSearchListByDrKurtzman();
+            Window.GetWindow(this).Close();   
+        }
     }
 }
