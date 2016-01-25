@@ -105,30 +105,19 @@ namespace YellowstonePathology.UI.Client
 		{
 			if (string.IsNullOrEmpty(this.TextBoxQuantity.Text) == false)
 			{
-				string quantityOrdered = this.TextBoxQuantity.Text;
-				int quantity = 0;
-				bool hasQuantity = Int32.TryParse(quantityOrdered, out quantity);
-				if (hasQuantity == true)
-				{
-					if (this.ListViewSupplies.SelectedItem != null)
-					{
-						quantityOrdered += " Ea.";
-						YellowstonePathology.Business.Client.Model.ClientSupply clientSupply = (YellowstonePathology.Business.Client.Model.ClientSupply)this.ListViewSupplies.SelectedItem;
-						string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-						YellowstonePathology.Business.Client.Model.ClientSupplyOrderDetail clientSupplyOrderDetail = new Business.Client.Model.ClientSupplyOrderDetail(objectId,
-							this.m_ClientSupplyOrder.ClientSupplyOrderId, clientSupply.clientsupplyid, clientSupply.supplyname, clientSupply.description, quantityOrdered);
-						this.m_ClientSupplyOrder.ClientSupplyOrderDetailCollection.Add(clientSupplyOrderDetail);
-
-					}
-					else
-					{
-						MessageBox.Show("Select a supply item to add");
-					}
+				string quantityOrdered = this.TextBoxQuantity.Text;												
+				if (this.ListViewSupplies.SelectedItem != null)
+				{						
+					YellowstonePathology.Business.Client.Model.ClientSupply clientSupply = (YellowstonePathology.Business.Client.Model.ClientSupply)this.ListViewSupplies.SelectedItem;
+					string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
+					YellowstonePathology.Business.Client.Model.ClientSupplyOrderDetail clientSupplyOrderDetail = new Business.Client.Model.ClientSupplyOrderDetail(objectId,
+						this.m_ClientSupplyOrder.ClientSupplyOrderId, clientSupply.clientsupplyid, clientSupply.supplyname, clientSupply.description, quantityOrdered);
+					this.m_ClientSupplyOrder.ClientSupplyOrderDetailCollection.Add(clientSupplyOrderDetail);
 				}
 				else
 				{
-					MessageBox.Show("Enter a valid number");
-				}
+					MessageBox.Show("Select a supply item to add");
+				}				
 			}
 			else
 			{

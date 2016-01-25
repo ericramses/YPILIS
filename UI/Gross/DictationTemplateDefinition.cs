@@ -457,9 +457,9 @@ namespace YellowstonePathology.UI.Gross
         {
             this.m_TemplateName = "LEEPCone";
             this.m_Text = "[identifier]." + Environment.NewLine +
-                "Gross Description:  [description], [color], [characteristics]" + Environment.NewLine +
+                "Gross Description:  [color], [characteristics]" + Environment.NewLine +
                 "Measurement:  [measurement]" + Environment.NewLine +
-                "Os:  *OSDESCRIPTION* [measurement]" + Environment.NewLine +
+                "Os:  [description], [measurement]" + Environment.NewLine +
                 "Inking:  [description]" + Environment.NewLine +
                 "Submitted:  [submitted].  ";            
 
@@ -481,9 +481,9 @@ namespace YellowstonePathology.UI.Gross
         {
             this.m_TemplateName = "LEEPPieces";
             this.m_Text = "[identifier]." + Environment.NewLine +
-                "Gross Description:  [description], [color], [characteristics]" + Environment.NewLine +
+                "Gross Description:  [color], [characteristics]" + Environment.NewLine +
                 "Measurement:  [measurement]" + Environment.NewLine +
-                "Os:  *OSDESCRIPTION* [measurement]" + Environment.NewLine +
+                "Os:  [description], [measurement]" + Environment.NewLine +
                 "Inking:  [description]" + Environment.NewLine +
                 "Submitted:  [submitted].  ";            
 
