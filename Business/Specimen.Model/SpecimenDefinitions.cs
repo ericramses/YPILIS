@@ -66,13 +66,14 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_RequiresGrossExamination = true;
         }
     }
+    
     public class SkinExcisionOrientedBiopsy : Specimen
     {
         public SkinExcisionOrientedBiopsy()
         {
             this.m_SpecimenId = "SKEXOSPCMN";
             this.m_SpecimenName = "Skin Excision Biopsy, Oriented";
-            this.m_Description = null;
+            this.m_Description = "Skin, [site], oriented excision";
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = "Formalin";
             this.m_RequiresGrossExamination = true;
@@ -84,7 +85,32 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
         {
             this.m_SpecimenId = "SKEXUOSPCMN";
             this.m_SpecimenName = "Skin Excision Biopsy, Unoriented";
-            this.m_Description = null;
+            this.m_Description = "Skin, [site], unoriented excision";
+            this.m_LabFixation = "Formalin";
+            this.m_ClientFixation = "Formalin";
+            this.m_RequiresGrossExamination = true;
+        }
+    }
+    
+        public class SkinExcisionOrientedwithCurettingsBiopsy : Specimen
+    {
+        public SkinExcisionOrientedwithCurettingsBiopsy()
+        {
+            this.m_SpecimenId = "SKEXOSPCMN";
+            this.m_SpecimenName = "Skin Excision Biopsy with Curettings, Oriented";
+            this.m_Description = "Skin, [site], oriented excision with curettings";
+            this.m_LabFixation = "Formalin";
+            this.m_ClientFixation = "Formalin";
+            this.m_RequiresGrossExamination = true;
+        }
+    }
+    public class SkinExcisionUnorientedwithCurettingsBiopsy : Specimen
+    {
+        public SkinExcisionUnorientedwithCurettingsBiopsy()
+        {
+            this.m_SpecimenId = "SKEXUOSPCMN";
+            this.m_SpecimenName = "Skin Excision Biopsy with Curettings, Unoriented";
+            this.m_Description = "Skin, [site], unoriented excision with curettings";
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = "Formalin";
             this.m_RequiresGrossExamination = true;

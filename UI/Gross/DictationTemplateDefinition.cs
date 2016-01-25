@@ -216,6 +216,55 @@ namespace YellowstonePathology.UI.Gross
             return result;
         }
     }
+    
+        public class SkinExcisionUnorientedwithCurettingsTemplate : DictationTemplate
+    {
+        public SkinExcisionUnorientedwithCurettingsTemplate()
+        {
+            this.m_TemplateName = "Skin Excision Biopsy with Curettings, Unoriented";
+            this.m_Text = "[identifier]." + Environment.NewLine +                
+                "Gross Description:  [description]" + Environment.NewLine +
+                "Measurements:  [measurements]; Curettings: [measurements]" + Environment.NewLine +
+                "Inking:  [color]" + Environment.NewLine +
+                "Sectioning:  [description]" + Environment.NewLine +
+                "Submitted:  [tipssubmitted].  ";
+
+            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinExcisionUnorientedBiopsy skinExcisionUnorientedBiopsy = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinExcisionUnorientedBiopsy();
+            this.m_SpecimenCollection.Add(skinExcisionUnorientedBiopsy);
+        }
+
+        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        {
+            string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
+            result = this.ReplaceTipsSubmitted(result, specimenOrder);
+            return result;
+        }
+    }
+
+    public class SkinExcisionOrientedwithCurettingsTemplate : DictationTemplate
+    {
+        public SkinExcisionOrientedwithCurettingsTemplate()
+        {
+            this.m_TemplateName = "Skin Excision Biopsy with Curettings, Oriented";
+            this.m_Text = "[identifier]." + Environment.NewLine +                
+                "Gross Description:  [description]" + Environment.NewLine +
+                "Measurements:  [measurements]; Curettings: [measurements]" + Environment.NewLine +
+                "Orientation:  [designation]" + Environment.NewLine +
+                "Inking:  12 to 3 o'clock = blue; 3 to 6 o'clock = red; 6 to 9 o'clock = green; 9 to 12 o'clock = orange; deep = black.  " + Environment.NewLine +
+                "Sectioning:  [description]" + Environment.NewLine +
+                "Submitted:  [tipssubmitted].  ";
+
+            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinExcisionOrientedBiopsy skinExcisionOrientedBiopsy = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinExcisionOrientedBiopsy();
+            this.m_SpecimenCollection.Add(skinExcisionOrientedBiopsy);
+        }
+
+        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        {
+            string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
+            result = this.ReplaceTipsSubmitted(result, specimenOrder);
+            return result;
+        }
+    }
 
     public class GallbladderExcisionTemplate : DictationTemplate
     {
