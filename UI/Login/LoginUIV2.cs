@@ -27,8 +27,9 @@ namespace YellowstonePathology.UI.Login
         private string m_CurrentCaseType;
         private YellowstonePathology.Business.ClientOrder.Model.OrderBrowserListItemCollection m_OrderBrowserListItemCollection;
 		private string m_ReportNo;
+        private string m_SelectedItemCount;
 
-		public LoginUIV2()
+        public LoginUIV2()
 		{			
 			this.m_LogUsers = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetUsersByRole(YellowstonePathology.Business.User.SystemUserRoleDescriptionEnum.Log, true);
             this.m_CaseTypeList = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetCaseTypes();
@@ -46,7 +47,20 @@ namespace YellowstonePathology.UI.Login
             this.m_TaskOrderCollection = e.TaskOrderCollection;
             this.NotifyPropertyChanged("TaskOrderCollection");
             YellowstonePathology.UI.TaskNotifier.Instance.Notifier.Alert -= Notifier_Alert;
-        }        
+        }
+
+        public string SelectedItemCount
+        {
+            get { return this.m_SelectedItemCount; }
+            set
+            {
+                if (this.m_SelectedItemCount != value)
+                {
+                    this.m_SelectedItemCount = value;
+                    this.NotifyPropertyChanged("SelectedItemCount");
+                }
+            }
+        }
 
         public YellowstonePathology.Business.ClientOrder.Model.OrderBrowserListItemCollection OrderBrowserListItemCollection
         {
