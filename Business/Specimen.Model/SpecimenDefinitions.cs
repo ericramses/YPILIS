@@ -98,7 +98,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
         {
             this.m_SpecimenId = "SKEXOCSPCMN";
             this.m_SpecimenName = "Skin Excision Biopsy with Curettings, Oriented";
-            this.m_Description = "Skin, [site], excisional biopsy with curettings";
+            this.m_Description = "Skin, [site], excisional biopsy";
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = "Formalin";
             this.m_RequiresGrossExamination = true;
@@ -110,7 +110,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
         {
             this.m_SpecimenId = "SKEXUOCSPCMN";
             this.m_SpecimenName = "Skin Excision Biopsy with Curettings, Unoriented";
-            this.m_Description = "Skin, [site], excisional biopsy with curettings";
+            this.m_Description = "Skin, [site], excisional biopsy";
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = "Formalin";
             this.m_RequiresGrossExamination = true;
