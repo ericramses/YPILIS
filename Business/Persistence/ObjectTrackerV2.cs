@@ -183,7 +183,7 @@ namespace YellowstonePathology.Business.Persistence
             {
 	            this.m_RegisteredRootInserts.Deregister(objectToSubmit, registeredBy);
 	            this.HandleRootInsertSubmission(objectToSubmit, keyPropertyValue, objectSubmitter, registeredBy);
-	            this.RegisterObject(objectToSubmit, registeredBy);
+	            //this.RegisterObject(objectToSubmit, registeredBy);
             }
             else
             {

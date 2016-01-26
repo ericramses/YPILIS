@@ -96,7 +96,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
     {
         public SkinExcisionOrientedwithCurettingsBiopsy()
         {
-            this.m_SpecimenId = "SKEXOSPCMN";
+            this.m_SpecimenId = "SKEXOCSPCMN";
             this.m_SpecimenName = "Skin Excision Biopsy with Curettings, Oriented";
             this.m_Description = "Skin, [site], oriented excision with curettings";
             this.m_LabFixation = "Formalin";
@@ -108,7 +108,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
     {
         public SkinExcisionUnorientedwithCurettingsBiopsy()
         {
-            this.m_SpecimenId = "SKEXUOSPCMN";
+            this.m_SpecimenId = "SKEXUOCSPCMN";
             this.m_SpecimenName = "Skin Excision Biopsy with Curettings, Unoriented";
             this.m_Description = "Skin, [site], unoriented excision with curettings";
             this.m_LabFixation = "Formalin";

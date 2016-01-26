@@ -229,8 +229,8 @@ namespace YellowstonePathology.UI.Gross
                 "Sectioning:  [description]" + Environment.NewLine +
                 "Submitted:  [tipssubmitted].  ";
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinExcisionUnorientedBiopsy skinExcisionUnorientedBiopsy = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinExcisionUnorientedBiopsy();
-            this.m_SpecimenCollection.Add(skinExcisionUnorientedBiopsy);
+            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinExcisionUnorientedwithCurettingsBiopsy skinExcisionUnorientedwithCurettingsBiopsy = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinExcisionUnorientedwithCurettingsBiopsy();
+            this.m_SpecimenCollection.Add(skinExcisionUnorientedwithCurettingsBiopsy);
         }
 
         public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
@@ -254,8 +254,8 @@ namespace YellowstonePathology.UI.Gross
                 "Sectioning:  [description]" + Environment.NewLine +
                 "Submitted:  [tipssubmitted].  ";
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinExcisionOrientedBiopsy skinExcisionOrientedBiopsy = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinExcisionOrientedBiopsy();
-            this.m_SpecimenCollection.Add(skinExcisionOrientedBiopsy);
+            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinExcisionOrientedwithCurettingsBiopsy skinExcisionOrientedwithCurettingsBiopsy = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinExcisionOrientedwithCurettingsBiopsy();
+            this.m_SpecimenCollection.Add(skinExcisionOrientedwithCurettingsBiopsy);
         }
 
         public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
