@@ -635,9 +635,7 @@ namespace YellowstonePathology.UI.Gross
                 Environment.NewLine +
                 "Uterine Corpus:" + Environment.NewLine +
                 "   Weight:  [weight]" + Environment.NewLine +
-                "   Length:  [length]" + Environment.NewLine +
-                "   Width:  [width]" + Environment.NewLine +
-                "   Thickness:  [thickness]" + Environment.NewLine +
+                "   Dimensions:  [measurements]" + Environment.NewLine +
                 "Serosa:" + Environment.NewLine +
                 "   Uterine Serosa:  [color], [description]" + Environment.NewLine +
                 "   Cul-de-sac Serosa:  [color], [description]" + Environment.NewLine +
@@ -697,9 +695,7 @@ namespace YellowstonePathology.UI.Gross
                 "      Cut Surface:  [description]" + Environment.NewLine +
                 "Uterine Corpus:" + Environment.NewLine +
                 "   Weight:  [weight]" + Environment.NewLine +
-                "   Length:  [length]" + Environment.NewLine +
-                "   Width:  [width]" + Environment.NewLine +
-                "   Thickness:  [thickness]" + Environment.NewLine +
+                "   Dimensions: [measurements]" + Environment.NewLine +
                 "   Serosa:" + Environment.NewLine +
                 "      Uterine Serosa Description:  [description]" + Environment.NewLine +
                 "      Cul-de-sac Description:  [description]" + Environment.NewLine +
