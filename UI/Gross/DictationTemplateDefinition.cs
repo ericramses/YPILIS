@@ -196,7 +196,7 @@ namespace YellowstonePathology.UI.Gross
         {
             this.m_TemplateName = "Skin Excision Biopsy, Unoriented";
             this.m_Text = "[identifier]." + Environment.NewLine +                
-                "Gross Description:  Unoriented excision" + Environment.NewLine +
+                "Gross Description:  Unoriented excision." + Environment.NewLine +
                 "Measurements:  [measurements]" + Environment.NewLine +
                 "Inking:  [color]" + Environment.NewLine +
                 "Sectioning:  [description]" + Environment.NewLine +
@@ -220,7 +220,7 @@ namespace YellowstonePathology.UI.Gross
         {
             this.m_TemplateName = "Skin Excision Biopsy, Oriented";
             this.m_Text = "[identifier]." + Environment.NewLine +                
-                "Gross Description:  Oriented excision" + Environment.NewLine +
+                "Gross Description:  Oriented excision." + Environment.NewLine +
                 "Measurements:  [measurements]" + Environment.NewLine +
                 "Orientation:  [designation]" + Environment.NewLine +
                 "Inking:  12 to 3 o'clock = blue; 3 to 6 o'clock = red; 6 to 9 o'clock = green; 9 to 12 o'clock = orange; deep = black.  " + Environment.NewLine +
@@ -245,7 +245,7 @@ namespace YellowstonePathology.UI.Gross
         {
             this.m_TemplateName = "Skin Excision Biopsy with Curettings, Unoriented";
             this.m_Text = "[identifier]." + Environment.NewLine +                
-                "Gross Description:  Unoriented excision with curettings" + Environment.NewLine +
+                "Gross Description:  Unoriented excision with curettings." + Environment.NewLine +
                 "Measurements:  [measurements]; Curettings: [measurements]" + Environment.NewLine +
                 "Inking:  [color]" + Environment.NewLine +
                 "Sectioning:  [description]" + Environment.NewLine +
@@ -269,7 +269,7 @@ namespace YellowstonePathology.UI.Gross
         {
             this.m_TemplateName = "Skin Excision Biopsy with Curettings, Oriented";
             this.m_Text = "[identifier]." + Environment.NewLine +                
-                "Gross Description:  Oriented excision with curettings" + Environment.NewLine +
+                "Gross Description:  Oriented excision with curettings." + Environment.NewLine +
                 "Measurements:  [measurements]; Curettings: [measurements]" + Environment.NewLine +
                 "Orientation:  [designation]" + Environment.NewLine +
                 "Inking:  12 to 3 o'clock = blue; 3 to 6 o'clock = red; 6 to 9 o'clock = green; 9 to 12 o'clock = orange; deep = black.  " + Environment.NewLine +
