@@ -54,12 +54,12 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
         }
     }
 
-    public class SkinShaveBiopsy : Specimen
+    public class SkinShavewithCurettingsBiopsy : Specimen
     {
-        public SkinShaveBiopsy()
+        public SkinShavewithCurettingsBiopsy()
         {
-            this.m_SpecimenId = "SKSHSPCMN";
-            this.m_SpecimenName = "Skin Shave Biopsy";
+            this.m_SpecimenId = "SKSHCSPCMN";
+            this.m_SpecimenName = "Skin Shave Biopsy with Curettings";
             this.m_Description = null;
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = "Formalin";
