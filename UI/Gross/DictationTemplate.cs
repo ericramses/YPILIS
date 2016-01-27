@@ -186,7 +186,7 @@ namespace YellowstonePathology.UI.Gross
             
             if (specimenOrder.AliquotOrderCollection.Count != 0)
             {
-                if (accessionOrder.SpecimenOrderCollection.IsLastSpecimen(specimenOrder.SpecimenOrderId) == true)
+                if (accessionOrder.SpecimenOrderCollection.IsLastSpecimenWithBlocks(specimenOrder.SpecimenOrderId) == true)
                 {
                     int grossVerifiedById = specimenOrder.AliquotOrderCollection[0].GrossVerifiedById;
                     string grossedByInitials = "[??]";
@@ -198,7 +198,13 @@ namespace YellowstonePathology.UI.Gross
                     }
 
                     string supervisedByInitials = "[??]";
-                    if (YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.GPathologistId.HasValue == true)
+
+                    YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteCody ypiCody = new Business.Facility.Model.YellowstonePathologyInstituteCody();
+                    if (accessionOrder.AccessioningFacilityId == ypiCody.FacilityId)
+                    {
+                        supervisedByInitials = "PPC";
+                    }
+                    else if (YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.GPathologistId.HasValue == true)
                     {
                         YellowstonePathology.Business.User.SystemUser supervisedBy = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetSystemUserById(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.GPathologistId.Value);
                         supervisedByInitials = supervisedBy.Initials.ToUpper();

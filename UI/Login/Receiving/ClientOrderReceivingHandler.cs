@@ -237,8 +237,8 @@ namespace YellowstonePathology.UI.Login.Receiving
 
 		public void CreateNewAccessionOrder(YellowstonePathology.Business.Test.AccessionTypeEnum accessionType)
 		{
-			string masterAccessionNo = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetNextMasterAccessionNo();
-			string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
+            string masterAccessionNo = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetNextMasterAccessionNo();            
+            string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
 			switch (accessionType)
 			{				
 				case Business.Test.AccessionTypeEnum.ThinPrepPap:
