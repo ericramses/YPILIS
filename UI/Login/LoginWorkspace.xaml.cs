@@ -29,7 +29,7 @@ namespace YellowstonePathology.UI.Login
         private bool m_LoadedHasRun;
         private MainWindowCommandButtonHandler m_MainWindowCommandButtonHandler;
 
-        private LoginPageWindow m_LoginPageWindow;
+        private LoginPageWindow m_LoginPageWindow;        
 
         public LoginWorkspace(MainWindowCommandButtonHandler mainWindowCommandButtonHandler)
         {
@@ -93,7 +93,7 @@ namespace YellowstonePathology.UI.Login
                 providerDistributionPath.Start();
             }
         }
-
+        
         private void LoginWorkspace_Unloaded(object sender, RoutedEventArgs e)
         {
             this.m_LoadedHasRun = false;
@@ -147,6 +147,7 @@ namespace YellowstonePathology.UI.Login
             {
                 YellowstonePathology.Business.Search.ReportSearchItem item = (YellowstonePathology.Business.Search.ReportSearchItem)this.ListViewAccessionOrders.SelectedItem;
                 this.GetCase(item.MasterAccessionNo, item.ReportNo);
+                this.m_LoginUI.SelectedItemCount = "Selected Items: " + this.ListViewAccessionOrders.SelectedItems.Count.ToString();             
             }
         }
 

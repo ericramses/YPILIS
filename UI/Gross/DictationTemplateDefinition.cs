@@ -168,13 +168,35 @@ namespace YellowstonePathology.UI.Gross
         }
     }
 
+    public class SkinShavewithCurettingsTemplate : DictationTemplate
+    {
+        public SkinShavewithCurettingsTemplate()
+        {
+            this.m_TemplateName = "Skin Shave with Curettings Biopsy";
+            this.m_Text = "[identifier]." + Environment.NewLine +
+                "Gross Description:  [description]; Curettings:  [description]" + Environment.NewLine +
+                "Measurements:  [measurements]" + Environment.NewLine +
+                "Submitted:  [submitted].  ";
+
+            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinShavewithCurettingsBiopsy skinShavewithCurettingsBiopsy = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinShavewithCurettingsBiopsy();
+            this.m_SpecimenCollection.Add(skinShavewithCurettingsBiopsy);
+        }
+
+        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        {
+            string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
+            result = this.ReplaceSubmitted(result, specimenOrder);
+            return result;
+        }
+    }
+
     public class SkinExcisionUnorientedTemplate : DictationTemplate
     {
         public SkinExcisionUnorientedTemplate()
         {
             this.m_TemplateName = "Skin Excision Biopsy, Unoriented";
             this.m_Text = "[identifier]." + Environment.NewLine +                
-                "Gross Description:  [description]" + Environment.NewLine +
+                "Gross Description:  Unoriented excision" + Environment.NewLine +
                 "Measurements:  [measurements]" + Environment.NewLine +
                 "Inking:  [color]" + Environment.NewLine +
                 "Sectioning:  [description]" + Environment.NewLine +
@@ -198,7 +220,7 @@ namespace YellowstonePathology.UI.Gross
         {
             this.m_TemplateName = "Skin Excision Biopsy, Oriented";
             this.m_Text = "[identifier]." + Environment.NewLine +                
-                "Gross Description:  [description]" + Environment.NewLine +
+                "Gross Description:  Oriented excision" + Environment.NewLine +
                 "Measurements:  [measurements]" + Environment.NewLine +
                 "Orientation:  [designation]" + Environment.NewLine +
                 "Inking:  12 to 3 o'clock = blue; 3 to 6 o'clock = red; 6 to 9 o'clock = green; 9 to 12 o'clock = orange; deep = black.  " + Environment.NewLine +
@@ -213,6 +235,55 @@ namespace YellowstonePathology.UI.Gross
         {
             string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
             result = this.ReplaceTipsSubmitted(result, specimenOrder);
+            return result;
+        }
+    }
+    
+        public class SkinExcisionUnorientedwithCurettingsTemplate : DictationTemplate
+    {
+        public SkinExcisionUnorientedwithCurettingsTemplate()
+        {
+            this.m_TemplateName = "Skin Excision Biopsy with Curettings, Unoriented";
+            this.m_Text = "[identifier]." + Environment.NewLine +                
+                "Gross Description:  Unoriented excision with curettings" + Environment.NewLine +
+                "Measurements:  [measurements]; Curettings: [measurements]" + Environment.NewLine +
+                "Inking:  [color]" + Environment.NewLine +
+                "Sectioning:  [description]" + Environment.NewLine +
+                "Submitted:  [tipssubmittedwithcurettings].  ";
+
+            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinExcisionUnorientedwithCurettingsBiopsy skinExcisionUnorientedwithCurettingsBiopsy = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinExcisionUnorientedwithCurettingsBiopsy();
+            this.m_SpecimenCollection.Add(skinExcisionUnorientedwithCurettingsBiopsy);
+        }
+
+        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        {
+            string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
+            result = this.ReplaceTipsSubmittedWithCurettings(result, specimenOrder);
+            return result;
+        }
+    }
+
+    public class SkinExcisionOrientedwithCurettingsTemplate : DictationTemplate
+    {
+        public SkinExcisionOrientedwithCurettingsTemplate()
+        {
+            this.m_TemplateName = "Skin Excision Biopsy with Curettings, Oriented";
+            this.m_Text = "[identifier]." + Environment.NewLine +                
+                "Gross Description:  Oriented excision with curettings" + Environment.NewLine +
+                "Measurements:  [measurements]; Curettings: [measurements]" + Environment.NewLine +
+                "Orientation:  [designation]" + Environment.NewLine +
+                "Inking:  12 to 3 o'clock = blue; 3 to 6 o'clock = red; 6 to 9 o'clock = green; 9 to 12 o'clock = orange; deep = black.  " + Environment.NewLine +
+                "Sectioning:  [description]" + Environment.NewLine +
+                "Submitted:  [tipssubmittedwithcurettings].  ";
+
+            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinExcisionOrientedwithCurettingsBiopsy skinExcisionOrientedwithCurettingsBiopsy = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinExcisionOrientedwithCurettingsBiopsy();
+            this.m_SpecimenCollection.Add(skinExcisionOrientedwithCurettingsBiopsy);
+        }
+
+        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        {
+            string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
+            result = this.ReplaceTipsSubmittedWithCurettings(result, specimenOrder);
             return result;
         }
     }

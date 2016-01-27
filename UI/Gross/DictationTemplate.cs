@@ -149,6 +149,30 @@ namespace YellowstonePathology.UI.Gross
 
         }
 
+        protected string ReplaceTipsSubmittedWithCurettings(string text, YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder)
+        {
+            string statement = null;
+            if (specimenOrder.AliquotOrderCollection.Count == 1)
+            {
+                statement = "Entirely submitted in cassette \"" + specimenOrder.AliquotOrderCollection[0].Label + "\"";
+            }
+            else
+            {
+                statement = "Tips submitted in cassette \"" + specimenOrder.SpecimenNumber + "A\", ";
+                if (specimenOrder.AliquotOrderCollection.Count >= 2)
+                {
+                    statement += "remainder of excision in cassettes " + specimenOrder.GetGrossMiddleCassettesSubmittedInString();
+                    if (specimenOrder.AliquotOrderCollection.Count >= 3)
+                    {
+                        statement += ", curettings are filtered through a fine mesh bag and entirely submitted in cassette \"" + specimenOrder.AliquotOrderCollection.GetLastBlock().Label + "\"";
+                    }                    
+                }                
+            }
+
+            return text.Replace("[tipssubmittedwithcurettings]", statement);
+
+        }
+
         protected string ReplaceSummarySubmission(string text, YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder)
         {
             return text.Replace("[summarysubmission]", specimenOrder.GetSummarySubmissionString());

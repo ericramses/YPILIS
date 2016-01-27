@@ -27,8 +27,11 @@ namespace YellowstonePathology.Business.Test.CLLByFish
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 			: base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute, systemIdentity)
 		{
-
-		}
+            this.m_References = "1. Dohner H, et al. N Engl J Med 2000; 343:1910-6." + Environment.NewLine +
+                "2.Hamblin TJ.Best Practice &Research Clinical Haematology. 2007; 20(3):455 - 68." + Environment.NewLine +
+                "3.Nowakowski GS, et al. Br J Hematol. 2005; 130:36 - 42." + Environment.NewLine +
+                "4.Atlas of Genetics and Cytogenetics in Oncology and Hematology http://atlasgeneticsoncology.org/";
+        }
 
 		[PersistentProperty()]
 		public string Result

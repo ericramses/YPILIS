@@ -30,7 +30,7 @@ namespace YellowstonePathology.UI.Client
 		{
 			this.m_ClientSupplyOrder = clientSupplyOrder;
 			YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_ClientSupplyOrder, this);
-			this.m_UserCollection = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection;
+            this.m_UserCollection = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetUsersByRole(Business.User.SystemUserRoleDescriptionEnum.Log, true);
 
 			InitializeComponent();
 

@@ -218,6 +218,20 @@ namespace YellowstonePathology.Business.Specimen.Model
             return result;
         }
 
+        public string GetGrossMiddleCassettesSubmittedInString()
+        {
+            string result = null;
+            if (this.m_AliquotOrderCollection.Count == 3)
+            {
+                result += " \"" + this.m_AliquotOrderCollection[1].Label + "\" ";
+            }
+            else if (this.m_AliquotOrderCollection.Count > 3)
+            {                                
+                result += " \"" + this.m_AliquotOrderCollection[1].Label + "\" - \"" + this.m_AliquotOrderCollection[this.m_AliquotOrderCollection.Count - 2].Label + "\" ";                
+            }
+            return result;
+        }
+
         public string GetSpecimenDescriptionString()
 		{
 			string result = this.SpecimenNumber.ToString() + ".) " + this.Description;
