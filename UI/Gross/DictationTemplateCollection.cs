@@ -58,7 +58,7 @@ namespace YellowstonePathology.UI.Gross
             result.Add(new SkinExcisionUnorientedTemplate());
             result.Add(new SkinExcisionOrientedwithCurettingsTemplate());
             result.Add(new SkinExcisionUnorientedwithCurettingsTemplate());
-            result.Add(new SkinShaveTemplate());
+            result.Add(new SkinShavewithCurettingsTemplate());
             result.Add(new SkinShavePunchMiscTemplate());
             result.Add(new TonsilAdenoidExcisionTemplate());
             result.Add(new TonsilExcisionTemplate());

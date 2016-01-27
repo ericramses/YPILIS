@@ -168,18 +168,18 @@ namespace YellowstonePathology.UI.Gross
         }
     }
 
-    public class SkinShaveTemplate : DictationTemplate
+    public class SkinShavewithCurettingsTemplate : DictationTemplate
     {
-        public SkinShaveTemplate()
+        public SkinShavewithCurettingsTemplate()
         {
-            this.m_TemplateName = "Skin Shave Biopsy";
+            this.m_TemplateName = "Skin Shave with Curettings Biopsy";
             this.m_Text = "[identifier]." + Environment.NewLine +
                 "Gross Description:  [description]; Curettings:  [description]" + Environment.NewLine +
                 "Measurements:  [measurements]" + Environment.NewLine +
                 "Submitted:  [submitted].  ";
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinShaveBiopsy skinShaveBiopsy = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinShaveBiopsy();
-            this.m_SpecimenCollection.Add(skinShaveBiopsy);
+            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinShavewithCurettingsBiopsy skinShavewithCurettingsBiopsy = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinShavewithCurettingsBiopsy();
+            this.m_SpecimenCollection.Add(skinShavewithCurettingsBiopsy);
         }
 
         public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
