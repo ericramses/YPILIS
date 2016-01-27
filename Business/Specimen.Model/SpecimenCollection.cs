@@ -84,6 +84,7 @@ namespace YellowstonePathology.Business.Specimen.Model
             result.Add(new SpecimenDefinition.SkinExcisionOrientedwithCurettingsBiopsy());
             result.Add(new SpecimenDefinition.SkinExcisionUnorientedwithCurettingsBiopsy());            
             result.Add(new SpecimenDefinition.SkinShavePunchMiscBiopsy());
+            result.Add(new SpecimenDefinition.SkinShaveBiopsy());
             result.Add(new SpecimenDefinition.ThinPrepFluid());
             result.Add(new SpecimenDefinition.TonsilAdenoidExcision());
             result.Add(new SpecimenDefinition.TonsilExcision());

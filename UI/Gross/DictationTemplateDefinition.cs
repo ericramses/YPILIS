@@ -168,6 +168,28 @@ namespace YellowstonePathology.UI.Gross
         }
     }
 
+    public class SkinShaveTemplate : DictationTemplate
+    {
+        public SkinShaveTemplate()
+        {
+            this.m_TemplateName = "Skin Shave Biopsy";
+            this.m_Text = "[identifier]." + Environment.NewLine +
+                "Gross Description:  [description]; Curettings:  [description]" + Environment.NewLine +
+                "Measurements:  [measurements]" + Environment.NewLine +
+                "Submitted:  [submitted].  ";
+
+            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinShaveBiopsy skinShaveBiopsy = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinShaveBiopsy();
+            this.m_SpecimenCollection.Add(skinShaveBiopsy);
+        }
+
+        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        {
+            string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
+            result = this.ReplaceSubmitted(result, specimenOrder);
+            return result;
+        }
+    }
+
     public class SkinExcisionUnorientedTemplate : DictationTemplate
     {
         public SkinExcisionUnorientedTemplate()
@@ -227,7 +249,7 @@ namespace YellowstonePathology.UI.Gross
                 "Measurements:  [measurements]; Curettings: [measurements]" + Environment.NewLine +
                 "Inking:  [color]" + Environment.NewLine +
                 "Sectioning:  [description]" + Environment.NewLine +
-                "Submitted:  [tipssubmitted].  ";
+                "Submitted:  [tipssubmittedwithcurettings].  ";
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinExcisionUnorientedwithCurettingsBiopsy skinExcisionUnorientedwithCurettingsBiopsy = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinExcisionUnorientedwithCurettingsBiopsy();
             this.m_SpecimenCollection.Add(skinExcisionUnorientedwithCurettingsBiopsy);
@@ -236,7 +258,7 @@ namespace YellowstonePathology.UI.Gross
         public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
-            result = this.ReplaceTipsSubmitted(result, specimenOrder);
+            result = this.ReplaceTipsSubmittedWithCurettings(result, specimenOrder);
             return result;
         }
     }
@@ -252,7 +274,7 @@ namespace YellowstonePathology.UI.Gross
                 "Orientation:  [designation]" + Environment.NewLine +
                 "Inking:  12 to 3 o'clock = blue; 3 to 6 o'clock = red; 6 to 9 o'clock = green; 9 to 12 o'clock = orange; deep = black.  " + Environment.NewLine +
                 "Sectioning:  [description]" + Environment.NewLine +
-                "Submitted:  [tipssubmitted].  ";
+                "Submitted:  [tipssubmittedwithcurettings].  ";
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinExcisionOrientedwithCurettingsBiopsy skinExcisionOrientedwithCurettingsBiopsy = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinExcisionOrientedwithCurettingsBiopsy();
             this.m_SpecimenCollection.Add(skinExcisionOrientedwithCurettingsBiopsy);
@@ -261,7 +283,7 @@ namespace YellowstonePathology.UI.Gross
         public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
-            result = this.ReplaceTipsSubmitted(result, specimenOrder);
+            result = this.ReplaceTipsSubmittedWithCurettings(result, specimenOrder);
             return result;
         }
     }
