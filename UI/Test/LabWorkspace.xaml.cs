@@ -116,10 +116,13 @@ namespace YellowstonePathology.UI.Test
         {
             if (this.m_LabUI.AccessionOrder != null)
             {
+                this.m_LabUI.ObjectTracker.SubmitChanges(this.m_LabUI.AccessionOrder);
+                this.m_LabUI.ObjectTracker.Deregister(this.m_LabUI.AccessionOrder);
                 YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPath providerDistributionPath =
-                    new YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPath(this.m_LabUI.PanelSetOrder.ReportNo, this.m_LabUI.AccessionOrder, this.m_LabUI.ObjectTracker,
+                    new YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPath(this.m_LabUI.PanelSetOrder.ReportNo, this.m_LabUI.AccessionOrder,
                     System.Windows.Visibility.Collapsed, System.Windows.Visibility.Visible, System.Windows.Visibility.Collapsed);
                 providerDistributionPath.Start();
+                this.m_LabUI.ObjectTracker.RegisterObject(this.m_LabUI.AccessionOrder);
             }
         }
 
@@ -250,9 +253,12 @@ namespace YellowstonePathology.UI.Test
         {
             if (this.m_LabUI.PanelSetOrder != null)
             {
-                YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPath providerDistributionPath = new Login.FinalizeAccession.ProviderDistributionPath(this.m_LabUI.PanelSetOrder.ReportNo, this.m_LabUI.AccessionOrder, this.m_LabUI.ObjectTracker,
+                this.m_LabUI.ObjectTracker.SubmitChanges(this.m_LabUI.AccessionOrder);
+                this.m_LabUI.ObjectTracker.Deregister(this.m_LabUI.AccessionOrder);
+                YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPath providerDistributionPath = new Login.FinalizeAccession.ProviderDistributionPath(this.m_LabUI.PanelSetOrder.ReportNo, this.m_LabUI.AccessionOrder,
                     System.Windows.Visibility.Collapsed, System.Windows.Visibility.Visible, System.Windows.Visibility.Collapsed);
                 providerDistributionPath.Start();
+                this.m_LabUI.ObjectTracker.RegisterObject(this.m_LabUI.AccessionOrder);
             }
         }		
 

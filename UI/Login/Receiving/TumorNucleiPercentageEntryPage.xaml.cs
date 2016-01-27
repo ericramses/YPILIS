@@ -28,20 +28,30 @@ namespace YellowstonePathology.UI.Login.Receiving
 				
 		private YellowstonePathology.Business.Interface.ISolidTumorTesting m_SolidTumorTesting;
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-        private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 
-        public TumorNucleiPercentageEntryPage(YellowstonePathology.Business.Interface.ISolidTumorTesting solidTumorTesting, YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-            YellowstonePathology.Business.Persistence.ObjectTracker objectTracker)
+        public TumorNucleiPercentageEntryPage(YellowstonePathology.Business.Interface.ISolidTumorTesting solidTumorTesting, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{
             this.m_SolidTumorTesting = solidTumorTesting;
             this.m_AccessionOrder = accessionOrder;
-            this.m_ObjectTracker = objectTracker;
 
 			InitializeComponent();			
 			DataContext = this;
+
+            Loaded += TumorNucleiPercentageEntryPage_Loaded;
+            Unloaded += TumorNucleiPercentageEntryPage_Unloaded;
 		}
 
-		public void NotifyPropertyChanged(String info)
+        private void TumorNucleiPercentageEntryPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
+        }
+
+        private void TumorNucleiPercentageEntryPage_Unloaded(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
+        }
+
+        public void NotifyPropertyChanged(String info)
 		{
 			if (PropertyChanged != null)
 			{
@@ -66,10 +76,10 @@ namespace YellowstonePathology.UI.Login.Receiving
 
 		public void Save()
 		{
-            this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
-		}
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
+        }
 
-		public void UpdateBindingSources()
+        public void UpdateBindingSources()
 		{
 
 		}       

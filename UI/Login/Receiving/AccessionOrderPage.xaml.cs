@@ -47,7 +47,6 @@ namespace YellowstonePathology.UI.Login.Receiving
         public delegate void ShowMissingInformationPageEventHandler(object sender, EventArgs e);
         public event ShowMissingInformationPageEventHandler ShowMissingInformationPage;
 
-        private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		private YellowstonePathology.Business.ClientOrder.Model.ClientOrder m_ClientOrder;		
@@ -62,11 +61,9 @@ namespace YellowstonePathology.UI.Login.Receiving
 
 		public AccessionOrderPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,             
             YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity,        
             PageNavigationModeEnum pageNavigationMode)
 		{
-			this.m_ObjectTracker = objectTracker;
 			this.m_AccessionOrder = accessionOrder;
             this.m_PageNavigationMode = pageNavigationMode;
 
@@ -91,12 +88,12 @@ namespace YellowstonePathology.UI.Login.Receiving
 			DataContext = this;
 
 			this.Loaded += new RoutedEventHandler(AccessionOrderPage_Loaded);
+            Unloaded += AccessionOrderPage_Unloaded;
 		}
 
         public AccessionOrderPage(ClientOrderReceivingHandler clientOrderReceivingHandler, PageNavigationModeEnum pageNavigationMode)
         {            
             this.m_AccessionOrder = clientOrderReceivingHandler.AccessionOrder;
-            this.m_ObjectTracker = clientOrderReceivingHandler.ObjectTracker;
             this.m_PageNavigationMode = pageNavigationMode;
 
             this.m_ClientOrder = clientOrderReceivingHandler.ClientOrder;
@@ -113,14 +110,21 @@ namespace YellowstonePathology.UI.Login.Receiving
             DataContext = this;
 
 			this.Loaded += new RoutedEventHandler(AccessionOrderPage_Loaded);
-		}
+            Unloaded += AccessionOrderPage_Unloaded;
+        }
 
-		private void AccessionOrderPage_Loaded(object sender, RoutedEventArgs e)
+        private void AccessionOrderPage_Loaded(object sender, RoutedEventArgs e)
 		{
             this.SelectTestOrder();
-		}
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
+        }
 
-		private void AccessionOrderPage_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void AccessionOrderPage_Unloaded(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
+        }
+
+        private void AccessionOrderPage_PropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
 			if (e.PropertyName == "PanelSetOrderCollection")
 			{
@@ -241,10 +245,10 @@ namespace YellowstonePathology.UI.Login.Receiving
 
 		public void Save()
 		{
-			this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);            
-		}        
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
+        }
 
-		public void UpdateBindingSources()
+        public void UpdateBindingSources()
 		{
 
 		}
@@ -393,7 +397,7 @@ namespace YellowstonePathology.UI.Login.Receiving
                 if (specimenOrder.AliquotOrderCollection.Count == 0)
                 {
                     this.m_AccessionOrder.SpecimenOrderCollection.Remove(specimenOrder);
-                    this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
+                    this.Save();
                 }
                 else
                 {

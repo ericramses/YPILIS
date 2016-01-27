@@ -10,7 +10,6 @@ namespace YellowstonePathology.UI.Login
         public delegate void FinishEventHandler(object sender, EventArgs e);
         public event FinishEventHandler Finish;
 
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;		
 		private YellowstonePathology.Business.Domain.Lock m_Lock;
@@ -18,24 +17,20 @@ namespace YellowstonePathology.UI.Login
         private YellowstonePathology.UI.Navigation.PageNavigator m_PageNavigator;
 
 		public SpecimenOrderDetailsPath(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
 			string containerId,
             YellowstonePathology.UI.Navigation.PageNavigator pageNavigator)
 		{
 			this.m_AccessionOrder = accessionOrder;
-			this.m_ObjectTracker = objectTracker;			
             this.m_PageNavigator = pageNavigator;
             this.m_SpecimenOrder = accessionOrder.SpecimenOrderCollection.GetSpecimenOrderByContainerId(containerId);
 		}
 
         public SpecimenOrderDetailsPath(YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-            YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,            
             YellowstonePathology.UI.Navigation.PageNavigator pageNavigator)
         {
             this.m_SpecimenOrder = specimenOrder;
             this.m_AccessionOrder = accessionOrder;
-            this.m_ObjectTracker = objectTracker;            
             this.m_PageNavigator = pageNavigator;
         }
         
@@ -95,7 +90,7 @@ namespace YellowstonePathology.UI.Login
 
 		private void ShowAccessionedSpecimenPage()
 		{
-            SpecimenOrderDetailsPage specimenOrderDetailsPage = new SpecimenOrderDetailsPage(this.m_AccessionOrder, this.m_ObjectTracker, this.m_SpecimenOrder);
+            SpecimenOrderDetailsPage specimenOrderDetailsPage = new SpecimenOrderDetailsPage(this.m_AccessionOrder, this.m_SpecimenOrder);
             specimenOrderDetailsPage.Next += new SpecimenOrderDetailsPage.NextEventHandler(SpecimenOrderDetailsPage_Finish);
             specimenOrderDetailsPage.Back += new SpecimenOrderDetailsPage.BackEventHandler(SpecimenOrderDetailsPage_Back);
             this.m_PageNavigator.Navigate(specimenOrderDetailsPage);

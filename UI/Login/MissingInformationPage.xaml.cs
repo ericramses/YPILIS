@@ -22,23 +22,34 @@ namespace YellowstonePathology.UI.Login
         public delegate void NextEventHandler(object sender, EventArgs e);
         public event NextEventHandler Next;
 
-        private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
         private string m_NewText;     
 
 		public MissingInformationPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+            YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 		{            
-			this.m_ObjectTracker = objectTracker;
             this.m_AccessionOrder = accessionOrder;
             this.m_SystemIdentity = systemIdentity;
             
 			InitializeComponent();
 
-			DataContext = this;        
+			DataContext = this;
+
+            Loaded += MissingInformationPage_Loaded;
+            Unloaded += MissingInformationPage_Unloaded;        
 		}
-        			
+
+        private void MissingInformationPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
+        }
+
+        private void MissingInformationPage_Unloaded(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
+        }
+
         public string NewText
         {
             get { return this.m_NewText; }
@@ -72,10 +83,10 @@ namespace YellowstonePathology.UI.Login
 
 		public void Save()
 		{
-			this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
-		}
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
+        }
 
-		public void UpdateBindingSources()
+        public void UpdateBindingSources()
 		{
 
 		}

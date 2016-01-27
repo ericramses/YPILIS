@@ -66,7 +66,7 @@ namespace YellowstonePathology.UI.Login.Receiving
             if (caseLockPage.Lock.LockAquired == true)
             {
                 this.m_ObjectTracker.RegisterObject(this.m_AccessionOrder);
-                AdditionalTestingEMailPage additionalTestingEMailPage = new AdditionalTestingEMailPage(this.m_PanelSetOrder, this.m_AccessionOrder, this.m_ObjectTracker, this.m_SystemIdentity);
+                AdditionalTestingEMailPage additionalTestingEMailPage = new AdditionalTestingEMailPage(this.m_PanelSetOrder, this.m_AccessionOrder, this.m_SystemIdentity);
                 additionalTestingEMailPage.Next += AdditionalTestingEMailPage_Finished;
                 additionalTestingEMailPage.Back += AdditionalTestingEMailPage_Finished;
                 this.m_LoginPageWindow.PageNavigator.Navigate(additionalTestingEMailPage);

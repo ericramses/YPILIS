@@ -86,9 +86,12 @@ namespace YellowstonePathology.UI.Surgical
         {
             if (this.m_PathologistUI.AccessionOrder != null)
             {
-                YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPath providerDistributionPath = new YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPath(this.m_PathologistUI.PanelSetOrder.ReportNo, this.m_PathologistUI.AccessionOrder, this.m_PathologistUI.ObjectTracker,
+                this.m_PathologistUI.ObjectTracker.SubmitChanges(this.m_PathologistUI.AccessionOrder);
+                this.m_PathologistUI.ObjectTracker.Deregister(this.m_PathologistUI.AccessionOrder);
+                YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPath providerDistributionPath = new YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPath(this.m_PathologistUI.PanelSetOrder.ReportNo, this.m_PathologistUI.AccessionOrder,
                     System.Windows.Visibility.Collapsed, System.Windows.Visibility.Visible, System.Windows.Visibility.Collapsed);
                 providerDistributionPath.Start();
+                this.m_PathologistUI.ObjectTracker.RegisterObject(this.m_PathologistUI.AccessionOrder);
             }
         }
 
@@ -654,12 +657,13 @@ namespace YellowstonePathology.UI.Surgical
 
 			if (clientOrderCollection.Count != 0)
 			{
-				this.m_PathologistUI.ObjectTracker.RegisterObject(clientOrderCollection[0]);
-				Login.Receiving.AccessionOrderPath accessionOrderPath = new Login.Receiving.AccessionOrderPath(accessionOrder, clientOrderCollection[0], this.m_PathologistUI.ObjectTracker, PageNavigationModeEnum.Standalone);
+                this.m_PathologistUI.ObjectTracker.SubmitChanges(this.m_PathologistUI.AccessionOrder);
+                this.m_PathologistUI.ObjectTracker.Deregister(this.m_PathologistUI.AccessionOrder);
+                Login.Receiving.AccessionOrderPath accessionOrderPath = new Login.Receiving.AccessionOrderPath(accessionOrder, clientOrderCollection[0], PageNavigationModeEnum.Standalone);
 				accessionOrderPath.Start();
-				this.m_PathologistUI.ObjectTracker.Deregister(clientOrderCollection[0]);
-			}
-			else
+                this.m_PathologistUI.ObjectTracker.RegisterObject(this.m_PathologistUI.AccessionOrder);
+            }
+            else
 			{
 				MessageBox.Show("No Client Order was found.  Please contact Sid.");
 			}

@@ -10,19 +10,16 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
         public delegate void ReturnEventHandler(object sender, UI.Navigation.PageNavigationReturnEventArgs e);
         public event ReturnEventHandler Return;
 
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
         private YellowstonePathology.UI.Navigation.PageNavigator m_PageNavigator;
 		private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
 
 		public AliquotAndStainOrderPath(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
 			YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity,
 			YellowstonePathology.UI.Navigation.PageNavigator pageNavigator)
 		{
-			this.m_ObjectTracker = objectTracker;
 			this.m_AccessionOrder = accessionOrder;
 			this.m_PanelSetOrder = panelSetOrder;
 			this.m_SystemIdentity = systemIdentity;
@@ -36,7 +33,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
         private void ShowAliquotAndStainOrderPage()
         {
-			FinalizeAccession.AliquotAndStainOrderPage aliquotAndStainOrderPage = new FinalizeAccession.AliquotAndStainOrderPage(this.m_AccessionOrder, this.m_ObjectTracker, this.m_PanelSetOrder, this.m_SystemIdentity);
+			FinalizeAccession.AliquotAndStainOrderPage aliquotAndStainOrderPage = new FinalizeAccession.AliquotAndStainOrderPage(this.m_AccessionOrder, this.m_PanelSetOrder, this.m_SystemIdentity);
             aliquotAndStainOrderPage.Return += new FinalizeAccession.AliquotAndStainOrderPage.ReturnEventHandler(AliquotAndStainOrderPage_Return);
 			aliquotAndStainOrderPage.ShowTaskOrderPage += new AliquotAndStainOrderPage.ShowTaskOrderPageEventHandler(AliquotAndStainOrderPage_ShowTaskOrderPage);
             aliquotAndStainOrderPage.ShowSpecimenMappingPage += new AliquotAndStainOrderPage.ShowSpecimenMappingPageEventHandler(AliquotAndStainOrderPage_ShowSpecimenMappingPage);
@@ -45,7 +42,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
         private void AliquotAndStainOrderPage_ShowSpecimenMappingPage(object sender, EventArgs e)
         {
-            SpecimenMappingPage specimenMappingPage = new SpecimenMappingPage(this.m_AccessionOrder, this.m_ObjectTracker);
+            SpecimenMappingPage specimenMappingPage = new SpecimenMappingPage(this.m_AccessionOrder);
             specimenMappingPage.Next += new SpecimenMappingPage.NextEventHandler(SpecimenMappingPage_Next);
             specimenMappingPage.Back += new SpecimenMappingPage.BackEventHandler(SpecimenMappingPage_Back);
             this.m_PageNavigator.Navigate(specimenMappingPage);
@@ -82,7 +79,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
 		private void ShowTaskOrderPage(YellowstonePathology.Business.Task.Model.TaskOrder taskOrder)
 		{
-			YellowstonePathology.UI.Login.Receiving.TaskOrderPage taskOrderPage = new Receiving.TaskOrderPage(this.m_AccessionOrder, this.m_ObjectTracker, taskOrder, PageNavigationModeEnum.Inline, this.m_SystemIdentity);
+			YellowstonePathology.UI.Login.Receiving.TaskOrderPage taskOrderPage = new Receiving.TaskOrderPage(this.m_AccessionOrder, taskOrder, PageNavigationModeEnum.Inline, this.m_SystemIdentity);
 			taskOrderPage.Back += new Receiving.TaskOrderPage.BackEventHandler(TaskOrderPage_Back);
 			taskOrderPage.Next += new Receiving.TaskOrderPage.NextEventHandler(TaskOrderPage_Next);
 			this.m_PageNavigator.Navigate(taskOrderPage);
@@ -90,12 +87,12 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
 		private void TaskOrderPage_Next(object sender, EventArgs e)
 		{
-			this.Return(this, new UI.Navigation.PageNavigationReturnEventArgs(UI.Navigation.PageNavigationDirectionEnum.Next, null));
+            this.Return(this, new UI.Navigation.PageNavigationReturnEventArgs(UI.Navigation.PageNavigationDirectionEnum.Next, null));
 		}
 
 		private void TaskOrderPage_Back(object sender, EventArgs e)
 		{
-			this.ShowAliquotAndStainOrderPage();
-		}		
-	}
+            this.ShowAliquotAndStainOrderPage();
+        }
+    }
 }

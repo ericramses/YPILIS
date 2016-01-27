@@ -7,7 +7,6 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 {
     public class FinalizeAccessionPathWithSecurity
     {
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 		private string m_ReportNo;
@@ -15,10 +14,9 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
         private LoginPageWindow m_LoginPageWindow;
         private YellowstonePathology.Business.Domain.Lock m_Lock;
 
-		public FinalizeAccessionPathWithSecurity(string reportNo, YellowstonePathology.Business.Test.AccessionOrder accessionOrder, Business.Persistence.ObjectTracker objectTracker)
+		public FinalizeAccessionPathWithSecurity(string reportNo, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {            
             this.m_AccessionOrder = accessionOrder;
-            this.m_ObjectTracker = objectTracker;
 			this.m_ReportNo = reportNo;
 		}
 
@@ -67,7 +65,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             {				
 				YellowstonePathology.UI.Login.FinalizeAccession.FinalizeAccessionPath finalizeAccessionPath = 
                     new FinalizeAccessionPath(this.m_ReportNo, this.m_LoginPageWindow.PageNavigator,
-                    this.m_AccessionOrder, this.m_ObjectTracker, this.m_SystemIdentity);
+                    this.m_AccessionOrder, this.m_SystemIdentity);
                 finalizeAccessionPath.Start();
                 finalizeAccessionPath.Return += new FinalizeAccessionPath.ReturnEventHandler(FinalizeAccessionPath_Return);
             }

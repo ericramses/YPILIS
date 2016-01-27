@@ -13,7 +13,6 @@ namespace YellowstonePathology.UI.Test
         public static ResultPath GetResultPath(int panelSetId,
             string reportNo,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
             YellowstonePathology.UI.Navigation.PageNavigator pageNavigator,
             System.Windows.Visibility backButtonVisibility)
         {
@@ -259,14 +258,13 @@ namespace YellowstonePathology.UI.Test
 
         public bool Start(YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-            YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,                        
             YellowstonePathology.UI.Navigation.PageNavigator pageNavigator,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity,
             System.Windows.Visibility backButtonVisibility)
         {
 			bool result = false;
 
-            YellowstonePathology.UI.Test.ResultPath resultPath = YellowstonePathology.UI.Test.ResultPathFactory.GetResultPath(panelSetOrder.PanelSetId, panelSetOrder.ReportNo, accessionOrder, objectTracker, pageNavigator, System.Windows.Visibility.Collapsed);
+            YellowstonePathology.UI.Test.ResultPath resultPath = YellowstonePathology.UI.Test.ResultPathFactory.GetResultPath(panelSetOrder.PanelSetId, panelSetOrder.ReportNo, accessionOrder, pageNavigator, System.Windows.Visibility.Collapsed);
 
             if (resultPath != null)
             {
@@ -330,7 +328,7 @@ namespace YellowstonePathology.UI.Test
             System.Windows.Visibility backButtonVisibility)
         {
             bool result = false;
-            YellowstonePathology.UI.Test.ResultPath resultPath = YellowstonePathology.UI.Test.ResultPathFactory.GetResultPath(panelSetOrder.PanelSetId, panelSetOrder.ReportNo, accessionOrder, objectTracker, pageNavigator, System.Windows.Visibility.Collapsed);
+            YellowstonePathology.UI.Test.ResultPath resultPath = YellowstonePathology.UI.Test.ResultPathFactory.GetResultPath(panelSetOrder.PanelSetId, panelSetOrder.ReportNo, accessionOrder, pageNavigator, System.Windows.Visibility.Collapsed);
 
             if (resultPath != null)
             {

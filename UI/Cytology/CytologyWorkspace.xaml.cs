@@ -123,10 +123,13 @@ namespace YellowstonePathology.UI.Cytology
         {
             if (this.m_CytologyUI.AccessionOrder != null)
             {
+                this.m_CytologyUI.ObjectTracker.SubmitChanges(this.m_CytologyUI.AccessionOrder);
+                this.m_CytologyUI.ObjectTracker.Deregister(this.m_CytologyUI.AccessionOrder);
                 YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPath providerDistributionPath =
-					new YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPath(this.m_CytologyUI.PanelSetOrderCytology.ReportNo, this.m_CytologyUI.AccessionOrder, this.m_CytologyUI.ObjectTracker,
+					new YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPath(this.m_CytologyUI.PanelSetOrderCytology.ReportNo, this.m_CytologyUI.AccessionOrder,
                     System.Windows.Visibility.Collapsed, System.Windows.Visibility.Visible, System.Windows.Visibility.Collapsed);
                 providerDistributionPath.Start();
+                this.m_CytologyUI.ObjectTracker.RegisterObject(this.m_CytologyUI.AccessionOrder);
             }
         }
 
@@ -174,13 +177,16 @@ namespace YellowstonePathology.UI.Cytology
 
         public void StartProviderDistributionPath(object target, ExecutedRoutedEventArgs args)
         {
-			string reportNo = this.m_CytologyUI.PanelSetOrderCytology.ReportNo;
-            YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPath providerDistributionPath = new Login.FinalizeAccession.ProviderDistributionPath(reportNo, this.m_CytologyUI.AccessionOrder, this.m_CytologyUI.ObjectTracker,
+            this.m_CytologyUI.ObjectTracker.SubmitChanges(this.m_CytologyUI.AccessionOrder);
+            this.m_CytologyUI.ObjectTracker.Deregister(this.m_CytologyUI.AccessionOrder);
+            string reportNo = this.m_CytologyUI.PanelSetOrderCytology.ReportNo;
+            YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPath providerDistributionPath = new Login.FinalizeAccession.ProviderDistributionPath(reportNo, this.m_CytologyUI.AccessionOrder,
                 System.Windows.Visibility.Collapsed, System.Windows.Visibility.Visible, System.Windows.Visibility.Collapsed);
             providerDistributionPath.Start();
-		}
+            this.m_CytologyUI.ObjectTracker.RegisterObject(this.m_CytologyUI.AccessionOrder);
+        }
 
-		public UI.Cytology.CytologyResultsWorkspace CytologyResultsWorkspace
+        public UI.Cytology.CytologyResultsWorkspace CytologyResultsWorkspace
 		{
 			get { return this.m_CytologyResultsWorkspace; }
 		}

@@ -32,29 +32,39 @@ namespace YellowstonePathology.UI.Login
 
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private string m_PageHeaderText;
 		private string m_ReportNo;
 		
 
         public ICDEntryPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
 			string reportNo,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 		{			
 			this.m_AccessionOrder = accessionOrder;
 			this.m_SystemIdentity = systemIdentity;
-			this.m_ObjectTracker = objectTracker;
 			this.m_ReportNo = reportNo;
 
 			this.m_PageHeaderText = "ICD Entry for: " + this.m_AccessionOrder.PatientDisplayName;
 			
 			InitializeComponent();
 
-			DataContext = this;                      
-		}		
+			DataContext = this;
 
-		public void NotifyPropertyChanged(String info)
+            Loaded += ICDEntryPage_Loaded;
+            Unloaded += ICDEntryPage_Unloaded;
+		}
+
+        private void ICDEntryPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
+        }
+
+        private void ICDEntryPage_Unloaded(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
+        }
+
+        public void NotifyPropertyChanged(String info)
 		{
 			if (PropertyChanged != null)
 			{
@@ -84,10 +94,10 @@ namespace YellowstonePathology.UI.Login
 
 		public void Save()
 		{
-			this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
-		}
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
+        }
 
-		public void UpdateBindingSources()
+        public void UpdateBindingSources()
 		{
 
 		}

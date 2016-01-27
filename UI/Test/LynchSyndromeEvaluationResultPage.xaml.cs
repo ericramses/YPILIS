@@ -329,19 +329,16 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkOrderBraf_Click(object sender, RoutedEventArgs e)
 		{
-            this.Save();
 			this.OrderBraf(this, new EventArgs());
 		}
 
 		private void HyperLinkOrderMLH1_Click(object sender, RoutedEventArgs e)
 		{
-            this.Save();
             this.OrderMLH1MethylationAnalysis(this, new EventArgs());
 		}
 
         private void HyperLinkOrderCCCP_Click(object sender, RoutedEventArgs e)
         {
-            this.Save();
             this.OrderColonCancerProfile(this, new EventArgs());
         }
 

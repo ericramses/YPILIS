@@ -23,34 +23,14 @@ namespace YellowstonePathology.UI.Login.Receiving
 
         private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-        private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
         private YellowstonePathology.Business.ClientOrder.Model.ClientOrder m_ClientOrder;
 
         public AccessionOrderPath(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-            YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,            
-			PageNavigationModeEnum pageNavigationMode)
-        {
-            this.m_AccessionOrder = accessionOrder;
-            this.m_ClientOrder = clientOrder;
-
-			this.m_ObjectTracker = objectTracker;
-
-            this.m_LoginPageWindow = new LoginPageWindow();
-            this.m_PageNavigator = this.m_LoginPageWindow.PageNavigator;
-            this.m_PageNavigationMode = pageNavigationMode;  
-        }
-
-		public AccessionOrderPath(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
 			YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder,			
 			PageNavigationModeEnum pageNavigationMode)
 		{
 			this.m_AccessionOrder = accessionOrder;
 			this.m_ClientOrder = clientOrder;
-
-			this.m_ObjectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-			this.m_ObjectTracker.RegisterObject(this.m_AccessionOrder);
-			this.m_ObjectTracker.RegisterObject(this.m_ClientOrder);
 
 			this.m_LoginPageWindow = new LoginPageWindow();
 			this.m_PageNavigator = this.m_LoginPageWindow.PageNavigator;
@@ -65,7 +45,6 @@ namespace YellowstonePathology.UI.Login.Receiving
             this.m_SystemIdentity = clientOrderReceivingHandler.SystemIdentity;
             this.m_PageNavigator = pageNavigator;
 
-            this.m_ObjectTracker = clientOrderReceivingHandler.ObjectTracker;
             this.m_PageNavigationMode = pageNavigationMode;  
         }
 
@@ -106,7 +85,7 @@ namespace YellowstonePathology.UI.Login.Receiving
         private void ShowAccessionOrderPage()
         {
 			Login.Receiving.AccessionOrderPage accessionOrderPage = new Login.Receiving.AccessionOrderPage(this.m_AccessionOrder, this.m_ClientOrder,
-                this.m_ObjectTracker, this.m_SystemIdentity, this.m_PageNavigationMode);
+                this.m_SystemIdentity, this.m_PageNavigationMode);
 			accessionOrderPage.Back += new Receiving.AccessionOrderPage.BackEventHandler(AccessionOrderPage_Back);
 			accessionOrderPage.Close += new Receiving.AccessionOrderPage.CloseEventHandler(AccessionOrderPage_Close);
 			accessionOrderPage.Next += new Receiving.AccessionOrderPage.NextEventHandler(AccessionOrderPage_Next);
@@ -121,7 +100,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 
         private void AccessionOrderPage_ShowMissingInformationPage(object sender, EventArgs e)
         {
-            YellowstonePathology.UI.Login.MissingInformationPage missingInformationPage = new MissingInformationPage(this.m_AccessionOrder, this.m_ObjectTracker, this.m_SystemIdentity);
+            YellowstonePathology.UI.Login.MissingInformationPage missingInformationPage = new MissingInformationPage(this.m_AccessionOrder, this.m_SystemIdentity);
             missingInformationPage.Next += MissingInformationPage_Next;
             missingInformationPage.Back += MissingInformationPage_Back;
             this.m_PageNavigator.Navigate(missingInformationPage);
@@ -146,11 +125,11 @@ namespace YellowstonePathology.UI.Login.Receiving
             bool started = false;
             if (this.m_PageNavigationMode == PageNavigationModeEnum.Inline)
             {
-                started = resultPathFactory.Start(e.PanelSetOrder, this.m_AccessionOrder, this.m_ObjectTracker, this.m_PageNavigator, systemIdentity, System.Windows.Visibility.Collapsed);
+                started = resultPathFactory.Start(e.PanelSetOrder, this.m_AccessionOrder, this.m_PageNavigator, systemIdentity, System.Windows.Visibility.Collapsed);
             }
             else
             {
-                started = resultPathFactory.Start(e.PanelSetOrder, this.m_AccessionOrder, this.m_ObjectTracker, this.m_LoginPageWindow.PageNavigator, systemIdentity, System.Windows.Visibility.Collapsed);
+                started = resultPathFactory.Start(e.PanelSetOrder, this.m_AccessionOrder, this.m_LoginPageWindow.PageNavigator, systemIdentity, System.Windows.Visibility.Collapsed);
             }
              
             if (started == false)
@@ -166,7 +145,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 
         private void AccessionOrderPage_StartSpecimenOrderDetailsPath(object sender, CustomEventArgs.SpecimenOrderReturnEventArgs e)
         {
-            SpecimenOrderDetailsPath specimenOrderDetailsPath = new SpecimenOrderDetailsPath(e.SpecimenOrder, this.m_AccessionOrder, this.m_ObjectTracker, this.m_PageNavigator);
+            SpecimenOrderDetailsPath specimenOrderDetailsPath = new SpecimenOrderDetailsPath(e.SpecimenOrder, this.m_AccessionOrder, this.m_PageNavigator);
             specimenOrderDetailsPath.Finish += new SpecimenOrderDetailsPath.FinishEventHandler(SpecimenOrderDetailsPath_Finish);
             specimenOrderDetailsPath.Start(this.m_SystemIdentity);
         }
@@ -198,7 +177,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 			{
 				YellowstonePathology.UI.Login.FinalizeAccession.FinalizeCytologyPath finalizeCytologyPath = new YellowstonePathology.UI.Login.FinalizeAccession.FinalizeCytologyPath(
 					this.m_ClientOrder, this.m_AccessionOrder,
-					this.m_ObjectTracker, e.ReportNo, this.m_PageNavigator, this.m_SystemIdentity);
+					e.ReportNo, this.m_PageNavigator, this.m_SystemIdentity);
 				finalizeCytologyPath.Return += new YellowstonePathology.UI.Login.FinalizeAccession.FinalizeCytologyPath.ReturnEventHandler(CytologyFinalizationPath_Return);
 				finalizeCytologyPath.Finish += new YellowstonePathology.UI.Login.FinalizeAccession.FinalizeCytologyPath.FinishEventHandler(CytologyFinalizationPath_Finish);
 				finalizeCytologyPath.Start();
@@ -206,7 +185,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 			else
 			{
 				FinalizeAccession.FinalizeAccessionPath finalizeAccessionPath = new FinalizeAccession.FinalizeAccessionPath(e.ReportNo, this.m_PageNavigator,
-							this.m_AccessionOrder, this.m_ObjectTracker, this.m_SystemIdentity);
+							this.m_AccessionOrder, this.m_SystemIdentity);
 				finalizeAccessionPath.Return += new FinalizeAccession.FinalizeAccessionPath.ReturnEventHandler(FinalizeAccessionPath_Return);
 				finalizeAccessionPath.Start();
 			}
@@ -214,21 +193,21 @@ namespace YellowstonePathology.UI.Login.Receiving
 
         private void AccessionOrderPage_OrderPanelSet(object sender, CustomEventArgs.TestOrderInfoEventArgs e)
 		{
-			ReportOrderPath reportOrderPath = new ReportOrderPath(this.m_AccessionOrder, this.m_ObjectTracker, this.m_ClientOrder, this.m_SystemIdentity, this.m_PageNavigator, this.m_PageNavigationMode);
+			ReportOrderPath reportOrderPath = new ReportOrderPath(this.m_AccessionOrder, this.m_ClientOrder, this.m_SystemIdentity, this.m_PageNavigator, this.m_PageNavigationMode);
 			reportOrderPath.Finish += new ReportOrderPath.FinishEventHandler(ReportOrderPath_Finish);
 			reportOrderPath.Start(e.TestOrderInfo);
 		}
 
 		private void AccessionOrderPage_ShowSurgicalDiagnosis(object sender, EventArgs e)
         {
-            YellowstonePathology.UI.Login.ReceiveSpecimen.SurgicalDiagnosisPage surgicalDiagnosisPage = new ReceiveSpecimen.SurgicalDiagnosisPage(this.m_AccessionOrder, this.m_ObjectTracker);
+            YellowstonePathology.UI.Login.ReceiveSpecimen.SurgicalDiagnosisPage surgicalDiagnosisPage = new ReceiveSpecimen.SurgicalDiagnosisPage(this.m_AccessionOrder);
             surgicalDiagnosisPage.Return += new ReceiveSpecimen.SurgicalDiagnosisPage.ReturnEventHandler(SurgicalDiagnosisPage_Return);
             this.m_PageNavigator.Navigate(surgicalDiagnosisPage);
         }
 
         private void AccessionOrderPage_ShowSurgicalGrossDescription(object sender, EventArgs e)
         {
-            YellowstonePathology.UI.Login.FinalizeAccession.GrossEntryPage grossEntryPage = new FinalizeAccession.GrossEntryPage(this.m_AccessionOrder, this.m_ObjectTracker);
+            YellowstonePathology.UI.Login.FinalizeAccession.GrossEntryPage grossEntryPage = new FinalizeAccession.GrossEntryPage(this.m_AccessionOrder);
             grossEntryPage.Next += new FinalizeAccession.GrossEntryPage.NextEventHandler(GrossEntryPage_Next);
             this.m_PageNavigator.Navigate(grossEntryPage);
         }
@@ -250,7 +229,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 
         private void ReportOrderPath_Finish(object sender, CustomEventArgs.TestOrderInfoEventArgs e)
 		{
-			this.ShowAccessionOrderPage();
+            this.ShowAccessionOrderPage();
 		}
 
 		private void FinalizeAccessionPath_Return(object sender, UI.Navigation.PageNavigationReturnEventArgs e)
