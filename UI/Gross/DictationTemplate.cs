@@ -186,7 +186,7 @@ namespace YellowstonePathology.UI.Gross
             
             if (specimenOrder.AliquotOrderCollection.Count != 0)
             {
-                if (accessionOrder.SpecimenOrderCollection.IsLastSpecimenWithBlocks(specimenOrder.SpecimenOrderId) == true)
+                if (accessionOrder.SpecimenOrderCollection.IsLastNonPAPSpecimen(specimenOrder.SpecimenOrderId) == true)
                 {
                     int grossVerifiedById = specimenOrder.AliquotOrderCollection[0].GrossVerifiedById;
                     string grossedByInitials = "[??]";
