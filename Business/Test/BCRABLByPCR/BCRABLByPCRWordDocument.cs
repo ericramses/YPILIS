@@ -32,7 +32,8 @@ namespace YellowstonePathology.Business.Test.BCRABLByPCR
 			}
 			this.ReplaceText("report_result", result);
 			this.ReplaceText("fusion_transcript_type", testOrder.FusionTranscriptType);
-			this.ReplaceText("report_interpretation", testOrder.Interpretation);
+            this.ReplaceText("percent_bcrabl", testOrder.PercentBCRABL);
+            this.ReplaceText("report_interpretation", testOrder.Interpretation);
 			this.ReplaceText("report_method", testOrder.Method);
 			this.ReplaceText("report_references", testOrder.References);
 

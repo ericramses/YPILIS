@@ -76,7 +76,7 @@ namespace YellowstonePathology.Business.Persistence
             this.m_RegisteredObjects.CleanUp(registeredBy);
             this.m_RegisteredRootDeletes.CleanUp(registeredBy);
             this.m_RegisteredRootInserts.CleanUp(registeredBy);            
-        }        
+        }
 
         public void RegisterRootInsert(object rootObjectToInsert, object registeredBy)
         {
@@ -168,9 +168,12 @@ namespace YellowstonePathology.Business.Persistence
             {
                 RegisteredObject registeredObjectToSubmit = this.m_RegisteredObjects.Get(objectToSubmit);
                 registeredObject = registeredObjectToSubmit.Value;
-                this.m_RegisteredObjects.Deregister(objectToSubmit, registeredBy);
+                //this.m_RegisteredObjects.Deregister(objectToSubmit, registeredBy);
 	            this.HandleUpdateSubmission(objectToSubmit, registeredObject, keyPropertyValue, objectSubmitter);
-	            this.RegisterObject(objectToSubmit, registeredBy);
+                //this.RegisterObject(objectToSubmit, registeredBy);
+                ObjectCloner objectCloner = new ObjectCloner();
+                object clonedObject = objectCloner.Clone(objectToSubmit);
+                this.m_RegisteredObjects.ResetValueOnUpdate(clonedObject);
             }
             else if(this.m_RegisteredRootDeletes.IsRegisteredBy(objectToSubmit, registeredBy) == true)
             {
@@ -183,7 +186,7 @@ namespace YellowstonePathology.Business.Persistence
             {
 	            this.m_RegisteredRootInserts.Deregister(objectToSubmit, registeredBy);
 	            this.HandleRootInsertSubmission(objectToSubmit, keyPropertyValue, objectSubmitter, registeredBy);
-	            this.RegisterObject(objectToSubmit, registeredBy);
+	            //this.RegisterObject(objectToSubmit, registeredBy);
             }
             else
             {

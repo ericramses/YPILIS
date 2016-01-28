@@ -27,7 +27,6 @@ namespace YellowstonePathology.UI.Test
 
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-        private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
         private string m_PageHeaderText;
 
         private YellowstonePathology.Business.Test.ALKForNSCLCByFISH.ALKForNSCLCByFISHResultCollection m_ResultCollection;
@@ -36,13 +35,11 @@ namespace YellowstonePathology.UI.Test
 
         public ALKForNSCLCByFISHResultPage(YellowstonePathology.Business.Test.ALKForNSCLCByFISH.ALKForNSCLCByFISHTestOrder alkForNSCLCByFISHTestOrder,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 		{
             this.m_PanelSetOrder = alkForNSCLCByFISHTestOrder;
 			this.m_AccessionOrder = accessionOrder;			
 			this.m_SystemIdentity = systemIdentity;
-			this.m_ObjectTracker = objectTracker;
 
             this.m_ResultCollection = new Business.Test.ALKForNSCLCByFISH.ALKForNSCLCByFISHResultCollection();
             this.m_PageHeaderText = "ALK Results For: " + this.m_AccessionOrder.PatientDisplayName;
@@ -57,11 +54,18 @@ namespace YellowstonePathology.UI.Test
 			DataContext = this;				
 						
 			Loaded += ALKForNSCLCByFISHResultPage_Loaded;
+            Unloaded += ALKForNSCLCByFISHResultPage_Unloaded;
 		}
-        
+
         public void ALKForNSCLCByFISHResultPage_Loaded(object sender, RoutedEventArgs e)
         {
         	this.ComboBoxResult.SelectionChanged += ComboBoxResult_SelectionChanged;
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
+        }
+
+        private void ALKForNSCLCByFISHResultPage_Unloaded(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
         }
 
         public string OrderedOnDescription
@@ -104,10 +108,10 @@ namespace YellowstonePathology.UI.Test
 
 		public void Save()
 		{
-            this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
-		}
-        
-		public void UpdateBindingSources()
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
+        }
+
+        public void UpdateBindingSources()
 		{
 
 		}
@@ -206,7 +210,7 @@ namespace YellowstonePathology.UI.Test
         {
             if (this.m_PanelSetOrder.Accepted == false)
             {
-                this.CancelTest(this, new CustomEventArgs.CancelTestEventArgs(this.m_PanelSetOrder, this.m_AccessionOrder, "Insufficient tissue to perform test.", this, this.m_ObjectTracker));
+                this.CancelTest(this, new CustomEventArgs.CancelTestEventArgs(this.m_PanelSetOrder, this.m_AccessionOrder, "Insufficient tissue to perform test.", this));
             }
             else
             {

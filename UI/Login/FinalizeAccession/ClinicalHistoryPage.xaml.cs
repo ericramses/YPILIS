@@ -23,14 +23,11 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 		public event ReturnEventHandler Return;
 
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private string m_PageHeaderText;
 
-		public ClinicalHistoryPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker)
+		public ClinicalHistoryPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{
 			this.m_AccessionOrder = accessionOrder;
-			this.m_ObjectTracker = objectTracker;
 			this.m_PageHeaderText = accessionOrder.MasterAccessionNo + ": " +
 				accessionOrder.PFirstName + " " + accessionOrder.PLastName;
 
@@ -38,7 +35,20 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
             this.Loaded += new RoutedEventHandler(ClinicalHistoryPage_Loaded);
 			this.DataContext = this;
+
+            Loaded += ClinicalHistoryPage_Loaded1;
+            Unloaded += ClinicalHistoryPage_Unloaded;
 		}
+
+        private void ClinicalHistoryPage_Loaded1(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
+        }
+
+        private void ClinicalHistoryPage_Unloaded(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
+        }
 
         private void ClinicalHistoryPage_Loaded(object sender, RoutedEventArgs e)
         {
@@ -84,10 +94,10 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
 		public void Save()
 		{
-			this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
-		}
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
+        }
 
-		public void UpdateBindingSources()
+        public void UpdateBindingSources()
 		{
 		}
 	}

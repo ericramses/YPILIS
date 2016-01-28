@@ -207,7 +207,7 @@ namespace YellowstonePathology.UI.Surgical
             testOrderInfo.PanelSet = panelSet;
             testOrderInfo.OrderTargetIsKnown = false;
 
-            YellowstonePathology.UI.Login.Receiving.ReportOrderPath reportOrderPath = new Login.Receiving.ReportOrderPath(this.m_AccessionOrder, this.m_ObjectTracker, this.m_SystemIdentity, this.m_PathologistSignoutDialog.PageNavigator, PageNavigationModeEnum.Inline);
+            YellowstonePathology.UI.Login.Receiving.ReportOrderPath reportOrderPath = new Login.Receiving.ReportOrderPath(this.m_AccessionOrder, this.m_SystemIdentity, this.m_PathologistSignoutDialog.PageNavigator, PageNavigationModeEnum.Inline);
             reportOrderPath.Finish += ReportOrderPath_Finish;
             reportOrderPath.Start(testOrderInfo);
         }

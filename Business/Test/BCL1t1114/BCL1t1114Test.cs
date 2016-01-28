@@ -21,11 +21,14 @@ namespace YellowstonePathology.Business.Test.BCL1t1114
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.BCL1t1114.BCL1t1114TestOrder).AssemblyQualifiedName;
             
 			this.m_AllowMultiplePerAccession = true;
+			//Changed by MS and TK;
 
-            string taskDescription = "Gather materials (Bone Marrow Aspirate: 1-2 mL sodium heparin tube. EDTA tube is acceptable. " +
-                "Peripheral Blood: 2-5 mL sodium heparin tube. EDTA tube is acceptable." +
-                "Fresh, Unfixed Tissue: Tissue in RPMI. Fluids: Equal parts RPMI to specimen volume) and send out to Neo.";
-			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Flow, taskDescription));
+            string taskDescription1 = "Cut H&E slide and give to pathologist to circle tumor for tech only. Give the paraffin block to Flow so they can send to NEO.";
+			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Histology, taskDescription1));
+
+            string taskDescription2 = "Collect slide from pathologist and paraffin block from histology, or collect (Peripheral blood: 2-5 mL in sodium heparin tube, 2x5 mL in EDTA tube(PCR is EDTA ONLY); " +
+            "Bone marrow: 1-2 mL in sodium heparin tube or 2 mL in EDTA tube(PCR is EDTA ONLY); Fresh unfixed tissue in RPMI) and send to Neogenomics.";
+			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Flow, taskDescription2));
 
             this.m_TechnicalComponentFacility = new YellowstonePathology.Business.Facility.Model.NeogenomicsIrvine();
             this.m_TechnicalComponentBillingFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings();

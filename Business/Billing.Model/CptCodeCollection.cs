@@ -118,7 +118,8 @@ namespace YellowstonePathology.Business.Billing.Model
 			result.Add(new CptCodeDefinition.CPT88262());
             result.Add(new CptCodeDefinition.CPT88264());
 			result.Add(new CptCodeDefinition.CPT88280());
-			result.Add(new CptCodeDefinition.CPT88291());
+            result.Add(new CptCodeDefinition.CPT81287());
+            result.Add(new CptCodeDefinition.CPT88291());
 			result.Add(new CptCodeDefinition.CPT88300());            
             result.Add(new CptCodeDefinition.CPT88302());
             result.Add(new CptCodeDefinition.CPT88304());
@@ -173,6 +174,7 @@ namespace YellowstonePathology.Business.Billing.Model
             result.Add(new CptCodeDefinition.CPT87625());
             result.Add(new CptCodeDefinition.CPT88341());
             result.Add(new CptCodeDefinition.CPT88346());
+            result.Add(new CptCodeDefinition.CPT88347());
             result.Add(new CptCodeDefinition.CPT88348());
             result.Add(new CptCodeDefinition.CPT88377());
             result.Add(new CptCodeDefinition.CPT88374());
@@ -186,6 +188,7 @@ namespace YellowstonePathology.Business.Billing.Model
             result.Add(new CptCodeDefinition.CPT81450());
             result.Add(new CptCodeDefinition.CPT88239());
             result.Add(new CptCodeDefinition.CPT88230());
+            result.Add(new CptCodeDefinition.CPT87661());
 
             result.Add(new GCodeDefinitions.CPTG0123());
             result.Add(new GCodeDefinitions.CPTG0124());
@@ -221,6 +224,8 @@ namespace YellowstonePathology.Business.Billing.Model
             result.Add(new PQRSCodeDefinitions.PQRSG9425());
             result.Add(new PQRSCodeDefinitions.PQRSG9428());
             result.Add(new PQRSCodeDefinitions.PQRSG9429());
+
+            result.Add(new CptCodeDefinition.AutopsyBlock());
 
             return GetSorted(result);
         }

@@ -12,6 +12,7 @@ namespace YellowstonePathology.Business.Test.BCRABLByPCR
 		private string m_Result;
 		private string m_DetectedLogReduction;
 		private string m_FusionTranscriptType;
+        private string m_PercentBCRABL;
 		private string m_Interpretation;
 		private string m_Method;
 		private string m_References;
@@ -71,7 +72,21 @@ namespace YellowstonePathology.Business.Test.BCRABLByPCR
 			}
 		}
 
-		[PersistentProperty()]
+        [PersistentProperty()]
+        public string PercentBCRABL
+        {
+            get { return this.m_PercentBCRABL; }
+            set
+            {
+                if (this.m_PercentBCRABL != value)
+                {
+                    this.m_PercentBCRABL = value;
+                    this.NotifyPropertyChanged("PercentBCRABL");
+                }
+            }
+        }
+
+        [PersistentProperty()]
 		public string Interpretation
 		{
 			get { return this.m_Interpretation; }

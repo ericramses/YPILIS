@@ -13,26 +13,23 @@ namespace YellowstonePathology.UI.Test
 		private KRASStandardReflexResultPage m_ResultPage;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         private YellowstonePathology.Business.Test.KRASStandardReflex.KRASStandardReflexTestOrder m_KRASStandardReflexTestOrder;
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private System.Windows.Visibility m_BackButtonVisibility;
 
 
         public KRASStandardReflexResultPath(string reportNo,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
 			YellowstonePathology.UI.Navigation.PageNavigator pageNavigator,
 			System.Windows.Visibility backButtonVisibility)
             : base(pageNavigator)
         {
             this.m_AccessionOrder = accessionOrder;
             this.m_KRASStandardReflexTestOrder = (YellowstonePathology.Business.Test.KRASStandardReflex.KRASStandardReflexTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
-			this.m_ObjectTracker = objectTracker;
 			this.m_BackButtonVisibility = backButtonVisibility;
 		}
 
         protected override void ShowResultPage()
         {
-            this.m_ResultPage = new KRASStandardReflexResultPage(this.m_KRASStandardReflexTestOrder, this.m_AccessionOrder, this.m_ObjectTracker, this.m_SystemIdentity, this.m_PageNavigator, this.m_BackButtonVisibility);
+            this.m_ResultPage = new KRASStandardReflexResultPage(this.m_KRASStandardReflexTestOrder, this.m_AccessionOrder, this.m_SystemIdentity, this.m_PageNavigator, this.m_BackButtonVisibility);
             this.m_ResultPage.Next += new KRASStandardReflexResultPage.NextEventHandler(ResultPage_Next);
             this.m_ResultPage.Back += new KRASStandardReflexResultPage.BackEventHandler(ResultPage_Back);
             this.m_ResultPage.OrderBRAF += new KRASStandardReflexResultPage.OrderBRAFEventHandler(ResultPage_OrderBRAF);
@@ -62,7 +59,7 @@ namespace YellowstonePathology.UI.Test
 				result = true;
                 string reportNo = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetLse.PanelSetId, this.m_KRASStandardReflexTestOrder.OrderedOnId, true).ReportNo;
 				YellowstonePathology.UI.Test.LynchSyndromeEvaluationResultPath resultPath = new YellowstonePathology.UI.Test.LynchSyndromeEvaluationResultPath(reportNo,
-					this.m_AccessionOrder, this.m_ObjectTracker, this.m_PageNavigator, System.Windows.Visibility.Visible);
+					this.m_AccessionOrder, this.m_PageNavigator, System.Windows.Visibility.Visible);
 
 				resultPath.Finish += new Test.ResultPath.FinishEventHandler(ResultPath_Finish);
 				resultPath.Back += new LynchSyndromeEvaluationResultPath.BackEventHandler(ResultPath_Back);
@@ -73,7 +70,7 @@ namespace YellowstonePathology.UI.Test
 				result = true;
                 string reportNo = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetcccp.PanelSetId, this.m_KRASStandardReflexTestOrder.OrderedOnId, true).ReportNo;
 				YellowstonePathology.UI.Test.ComprehensiveColonCancerProfilePath resultPath = new YellowstonePathology.UI.Test.ComprehensiveColonCancerProfilePath(reportNo,
-					this.m_AccessionOrder, this.m_ObjectTracker, this.m_PageNavigator, System.Windows.Visibility.Collapsed);
+					this.m_AccessionOrder, this.m_PageNavigator, System.Windows.Visibility.Collapsed);
 
 				resultPath.Finish += new Test.ResultPath.FinishEventHandler(ResultPath_Finish);
 				resultPath.Back += new ComprehensiveColonCancerProfilePath.BackEventHandler(ResultPath_Back);
@@ -105,7 +102,7 @@ namespace YellowstonePathology.UI.Test
 			YellowstonePathology.Business.Interface.IOrderTarget orderTarget = this.m_AccessionOrder.SpecimenOrderCollection.GetOrderTarget(panelSetOrder.OrderedOnId);
 			YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new YellowstonePathology.Business.Test.TestOrderInfo(panelSet, orderTarget, false);            
 
-			YellowstonePathology.UI.Login.Receiving.ReportOrderPath reportOrderPath = new Login.Receiving.ReportOrderPath(this.m_AccessionOrder, this.m_ObjectTracker, this.m_SystemIdentity, this.m_PageNavigator, PageNavigationModeEnum.Inline);
+			YellowstonePathology.UI.Login.Receiving.ReportOrderPath reportOrderPath = new Login.Receiving.ReportOrderPath(this.m_AccessionOrder, this.m_SystemIdentity, this.m_PageNavigator, PageNavigationModeEnum.Inline);
 			reportOrderPath.Finish += new Login.Receiving.ReportOrderPath.FinishEventHandler(ReportOrderPath_Finish);
             reportOrderPath.Start(testOrderInfo);
 		}

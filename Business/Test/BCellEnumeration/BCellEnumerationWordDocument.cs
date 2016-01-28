@@ -7,6 +7,7 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 using System;
+using YellowstonePathology.Business.Helper;
 
 namespace YellowstonePathology.Business.Test.BCellEnumeration
 {
@@ -33,16 +34,15 @@ namespace YellowstonePathology.Business.Test.BCellEnumeration
 			YellowstonePathology.Business.Document.AmendmentSection amendmentSection = new YellowstonePathology.Business.Document.AmendmentSection();
 			amendmentSection.SetAmendment(m_PanelSetOrder.AmendmentCollection, this.m_ReportXml, this.m_NameSpaceManager, true);
 
-			this.ReplaceText("report_result", testOrder.Result);
-			this.ReplaceText("report_wbc", testOrder.WBC);
-			this.ReplaceText("report_lymphocyte_percentage", testOrder.LymphocytePercentage);
-			this.ReplaceText("report_cd19_bcel_positive_count", testOrder.CD19BCellPositiveCount);
-			this.ReplaceText("report_cd19_bcell_positive_percent", testOrder.CD19BCellPositivePercent);
-			this.ReplaceText("report_cd20_bcell_positive_count", testOrder.CD20BCellPositiveCount);
-			this.ReplaceText("report_cd20_bcell_positive_percent", testOrder.CD20BCellPositivePercent);
-			this.ReplaceText("report_cd19_absolute_count", testOrder.CD19AbsoluteCount);
-			this.ReplaceText("report_cd20_absolute_count", testOrder.CD20AbsoluteCount);
-			this.ReplaceText("report_interpretation", testOrder.Interpretation);
+			this.ReplaceText("wbc_count", testOrder.WBC.ToString());
+			this.ReplaceText("lymphocyte_percentage", testOrder.LymphocytePercentage.ToString().StringAsPercent());
+			this.ReplaceText("cd19_bcell_positive_count", testOrder.CD19BCellPositiveCount.ToString());
+			this.ReplaceText("cd19_bcell_positive_percent", testOrder.CD19BCellPositivePercent.ToString().StringAsPercent());
+			this.ReplaceText("cd20_bcell_positive_count", testOrder.CD20BCellPositiveCount.ToString());
+			this.ReplaceText("cd20_bcell_positive_percent", testOrder.CD20BCellPositivePercent.ToString().StringAsPercent());
+			this.ReplaceText("cd19_absolute_count", testOrder.CD19AbsoluteCount.ToString());
+			this.ReplaceText("cd20_absolute_count", testOrder.CD20AbsoluteCount.ToString());
+
 			this.ReplaceText("report_method", testOrder.Method);
 			this.ReplaceText("report_references", testOrder.References);
 			this.ReplaceText("asr_comment", testOrder.ASRComment);

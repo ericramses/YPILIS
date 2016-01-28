@@ -13,7 +13,6 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
         public delegate void BackEventHandler(object sender, EventArgs e);
         public event BackEventHandler Back;
 
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         private string m_ReportNo;
         private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
@@ -25,14 +24,12 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
         private System.Windows.Visibility m_BackButtonVisibility;
 
         public ProviderDistributionPath(string reportNo, YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-            YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
             System.Windows.Visibility nextButtonVisibility,
             System.Windows.Visibility closeButtonVisibility,
             System.Windows.Visibility backButtonVisibility)
         {
             this.m_ReportNo = reportNo;
             this.m_AccessionOrder = accessionOrder;
-            this.m_ObjectTracker = objectTracker;
 
             this.m_NextButtonVisibility = nextButtonVisibility;
             this.m_CloseButtonVisibility = closeButtonVisibility;
@@ -54,6 +51,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 				this.m_LoginPageWindow.SystemIdentity = this.m_SystemIdentity;
 				this.ShowCaseLockPage();
 			}
+
 			this.m_LoginPageWindow.ShowDialog();
         }
 
@@ -94,7 +92,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             CaseLockPage caseLockPage = (CaseLockPage)sender;
             if (caseLockPage.Lock.LockAquired == true)
             {				
-                FinalizeAccession.ProviderDistributionPage providerDistributionPage = new FinalizeAccession.ProviderDistributionPage(this.m_ReportNo, this.m_AccessionOrder, this.m_ObjectTracker, this.m_LoginPageWindow.PageNavigator, 
+                FinalizeAccession.ProviderDistributionPage providerDistributionPage = new FinalizeAccession.ProviderDistributionPage(this.m_ReportNo, this.m_AccessionOrder, this.m_LoginPageWindow.PageNavigator, 
                    this.m_NextButtonVisibility, this.m_CloseButtonVisibility, this.m_BackButtonVisibility);
                 providerDistributionPage.Close += new FinalizeAccession.ProviderDistributionPage.CloseEventHandler(ProviderDetailPage_Close);
                 providerDistributionPage.Next += new ProviderDistributionPage.NextEventHandler(ProviderDistributionPage_Next);
@@ -109,11 +107,17 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
         private void ProviderDistributionPage_Next(object sender, EventArgs e)
         {
+            FinalizeAccession.ProviderDistributionPage providerDistributionPage = new FinalizeAccession.ProviderDistributionPage(this.m_ReportNo, this.m_AccessionOrder, this.m_LoginPageWindow.PageNavigator, System.Windows.Visibility.Visible,
+                System.Windows.Visibility.Collapsed, System.Windows.Visibility.Visible);
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(providerDistributionPage);
             if (this.Next != null) this.Next(this, new EventArgs());   
         }
 
         private void ProviderDistributionPage_Back(object sender, EventArgs e)
         {
+            FinalizeAccession.ProviderDistributionPage providerDistributionPage = new FinalizeAccession.ProviderDistributionPage(this.m_ReportNo, this.m_AccessionOrder, this.m_LoginPageWindow.PageNavigator, System.Windows.Visibility.Visible,
+                System.Windows.Visibility.Collapsed, System.Windows.Visibility.Visible);
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(providerDistributionPage);
             if (this.Back != null) this.Back(this, new EventArgs());   
         }
 

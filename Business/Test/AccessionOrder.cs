@@ -1467,16 +1467,21 @@ namespace YellowstonePathology.Business.Test
         {
             if (this.IsDermatologyClient() == true)
             {
-                if(this.m_ClientId == 1260) //Advanced Dermatology
+                if(this.m_ClientId == 1260 || this.m_ClientId == 1511) //Advanced Dermatology, diagnositics
                 {
-                    YellowstonePathology.Business.Common.PrintMateColumnGreen printMateColumnGreen = new Common.PrintMateColumnGreen();
-                    this.m_PrintMateColumnNumber = printMateColumnGreen.ColumnNumber;
+                    YellowstonePathology.Business.Common.PrintMateColumnLilac printMateColumnLilac = new Common.PrintMateColumnLilac();
+                    this.m_PrintMateColumnNumber = printMateColumnLilac.ColumnNumber;
                 }
                 else
                 {
                     YellowstonePathology.Business.Common.PrintMateColumnYellow printMateColumnYellow = new Common.PrintMateColumnYellow();
                     this.m_PrintMateColumnNumber = printMateColumnYellow.ColumnNumber;
                 }                
+            }
+            else if(this.m_ClientId == 1520)
+            {
+                YellowstonePathology.Business.Common.PrintMateColumnGreen printMateColumnLilac = new Common.PrintMateColumnGreen();
+                this.m_PrintMateColumnNumber = printMateColumnLilac.ColumnNumber;
             }
         }
 
@@ -1496,8 +1501,9 @@ namespace YellowstonePathology.Business.Test
                 {
                     panelSetOrder.AssignedToId = 5088; //Assign to Dr. Emerick
                     YellowstonePathology.Business.Facility.Model.YellowstonePathologistBillings yp = new Facility.Model.YellowstonePathologistBillings();
+                    YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings ypi = new Facility.Model.YellowstonePathologyInstituteBillings();
                     panelSetOrder.ProfessionalComponentFacilityId = yp.FacilityId;
-                    panelSetOrder.ProfessionalComponentBillingFacilityId = yp.FacilityId;
+                    panelSetOrder.ProfessionalComponentBillingFacilityId = ypi.FacilityId;
                 }                
             }
             else

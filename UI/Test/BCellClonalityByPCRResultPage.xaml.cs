@@ -27,7 +27,6 @@ namespace YellowstonePathology.UI.Test
 
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private YellowstonePathology.Business.Test.BCellClonalityByPCR.BCellClonalityByPCRTestOrder m_PanelSetOrder;
 		private YellowstonePathology.Business.Test.BCellClonalityByPCR.BCellClonalityByPCRResultCollection m_ResultCollection;
 		private YellowstonePathology.Business.Test.BCellClonalityByPCR.BCellClonalityByPCRTestResults m_TestResults;
@@ -36,13 +35,11 @@ namespace YellowstonePathology.UI.Test
 
 		public BCellClonalityByPCRResultPage(YellowstonePathology.Business.Test.BCellClonalityByPCR.BCellClonalityByPCRTestOrder testOrder,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity): base(testOrder)
 		{
 			this.m_PanelSetOrder = testOrder;
 			this.m_AccessionOrder = accessionOrder;
 			this.m_SystemIdentity = systemIdentity;
-			this.m_ObjectTracker = objectTracker;
 
 			this.m_PageHeaderText = "B-Cell Clonality By PCR Results For: " + this.m_AccessionOrder.PatientDisplayName;
             this.m_ResultCollection = new YellowstonePathology.Business.Test.BCellClonalityByPCR.BCellClonalityByPCRResultCollection();
@@ -53,7 +50,20 @@ namespace YellowstonePathology.UI.Test
 			DataContext = this;
 			this.m_ControlsNotDisabledOnFinal.Add(this.ButtonNext);
 			this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockShowDocument);
+
+            Loaded += BCellClonalityByPCRResultPage_Loaded;
+            Unloaded += BCellClonalityByPCRResultPage_Unloaded;
 		}
+
+        private void BCellClonalityByPCRResultPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
+        }
+
+        private void BCellClonalityByPCRResultPage_Unloaded(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
+        }
 
         public YellowstonePathology.Business.Test.BCellClonalityByPCR.BCellClonalityByPCRTestOrder PanelSetOrder
 		{
@@ -100,10 +110,10 @@ namespace YellowstonePathology.UI.Test
 
 		public void Save()
 		{
-			this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
-		}
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
+        }
 
-		public void UpdateBindingSources()
+        public void UpdateBindingSources()
 		{
 
 		}

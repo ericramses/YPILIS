@@ -28,7 +28,6 @@ namespace YellowstonePathology.UI.Test
 
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private string m_PageHeaderText;
 
 		private YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeIHC m_PanelSetOrderLynchSyndromeIHC;
@@ -36,13 +35,11 @@ namespace YellowstonePathology.UI.Test
 
         public LynchSyndromeIHCPanelResultPage(YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeIHC panelSetOrderLynchSyndromeIHC,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 		{
 			this.m_PanelSetOrderLynchSyndromeIHC = panelSetOrderLynchSyndromeIHC;
 			this.m_AccessionOrder = accessionOrder;
 			this.m_SystemIdentity = systemIdentity;
-			this.m_ObjectTracker = objectTracker;
 
             this.m_PageHeaderText = "Lynch Syndrome IHC Results For: " + this.m_AccessionOrder.PatientDisplayName + " (" + this.m_PanelSetOrderLynchSyndromeIHC.ReportNo + ")";
 
@@ -53,9 +50,22 @@ namespace YellowstonePathology.UI.Test
 			InitializeComponent();
 
 			DataContext = this;
+
+            Loaded += LynchSyndromeIHCPanelResultPage_Loaded;
+            Unloaded += LynchSyndromeIHCPanelResultPage_Unloaded;
 		}
 
-		public string OrderedOnDescription
+        private void LynchSyndromeIHCPanelResultPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
+        }
+
+        private void LynchSyndromeIHCPanelResultPage_Unloaded(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
+        }
+
+        public string OrderedOnDescription
 		{
 			get { return this.m_OrderedOnDescription; }
 		}
@@ -90,10 +100,10 @@ namespace YellowstonePathology.UI.Test
 
 		public void Save()
 		{
-			this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
-		}
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
+        }
 
-		public void UpdateBindingSources()
+        public void UpdateBindingSources()
 		{
 
 		}			

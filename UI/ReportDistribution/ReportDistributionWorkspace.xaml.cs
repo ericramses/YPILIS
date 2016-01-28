@@ -382,7 +382,7 @@ namespace YellowstonePathology.UI.ReportDistribution
             if (physician.SendPublishNotifications == true)
             {
                 if (panelSetOrderView.Distribute == true)
-                {
+                {                    
                     string subject = "You have a result ready for review: " + panelSetOrderView.PanelSetName;
                     string body = "You have a patient report ready. You can review the report by using YPI Connect.  If you don't have access to YPI Connect please call us at (406)238-6360.";
                     
@@ -400,7 +400,7 @@ namespace YellowstonePathology.UI.ReportDistribution
                     client.Send(message);
 
                     panelSetOrderView.TimeOfLastPublishNotification = DateTime.Now;
-                    panelSetOrderView.PublishNotificationSent = true;
+                    panelSetOrderView.PublishNotificationSent = true;                 
                 }
             }
         }

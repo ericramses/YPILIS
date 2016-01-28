@@ -297,6 +297,22 @@ namespace YellowstonePathology.Business.Specimen.Model
 			specimenOrder.Accepted = false;
 		}
 
+        public int GetBlockCount()
+        {
+            int result = 0;
+            foreach(YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder in this)
+            {                
+                foreach(YellowstonePathology.Business.Test.AliquotOrder aliquotOrder in specimenOrder.AliquotOrderCollection)
+                {
+                    if(aliquotOrder.IsBlock() == true)
+                    {
+                        result += 1;
+                    }
+                }
+            }
+            return result;
+        }
+
 		public SpecimenOrder GetSpecimenOrderByBlock(string blockNumber)
 		{
 			if (string.IsNullOrEmpty(blockNumber) == false)

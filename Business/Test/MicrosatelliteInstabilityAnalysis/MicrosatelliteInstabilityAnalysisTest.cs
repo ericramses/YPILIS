@@ -20,9 +20,13 @@ namespace YellowstonePathology.Business.Test.MicrosatelliteInstabilityAnalysis
 
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.MicrosatelliteInstabilityAnalysis.MicrosatelliteInstabilityAnalysisTestOrder).AssemblyQualifiedName;
 			this.m_AllowMultiplePerAccession = true;
+			//Changed by MS and MM
 
-            string taskDescription = "Gather materials and send out to Neo.";
-			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, taskDescription));
+            string taskDescription = "Cut one H&E from both blocks and give slides and blocks to Molecular for send out.";
+			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Histology, taskDescription));
+			
+            string taskDescription2 = "Gather blocks(normal tissue and tumor) and send out to Neo.";
+			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, taskDescription2));
 
             this.m_TechnicalComponentFacility = new YellowstonePathology.Business.Facility.Model.NeogenomicsIrvine();
             this.m_TechnicalComponentBillingFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings();

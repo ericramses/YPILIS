@@ -23,8 +23,7 @@ namespace YellowstonePathology.Business.Test.BladderCancerFISHUrovysion
             
 			this.m_AllowMultiplePerAccession = true;
 
-            string taskDescription = "Gather materials (Peripheral blood (preferred): 2 EDTA tubes, 5 mL each, Bone marrow: Minimum 1 mL in EDTA, 1-3 mL preferred," +
-                "or Fresh lymph node tissue: 0.5 - 1 cm3 in RPMI) and send out to Neo.";
+            string taskDescription = "Collect urine and send to Neo .";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, taskDescription));
 
             this.m_TechnicalComponentFacility = new YellowstonePathology.Business.Facility.Model.NeogenomicsIrvine();

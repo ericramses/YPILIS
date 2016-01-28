@@ -96,6 +96,7 @@ namespace YellowstonePathology.Business.View
 					new XElement("Label", aliquotOrder.PrintLabel),
 					new XElement("GrossVerified", aliquotOrder.GrossVerified.ToString()),
 					new XElement("BlockColor", printMateColumn.ColorCode),
+                    new XElement("EmbeddingInstructions", aliquotOrder.EmbeddingInstructions),
                     new XElement("StatusDepricated", status));
 
 			XElement testCollectionElement = new XElement("TestOrderCollection");

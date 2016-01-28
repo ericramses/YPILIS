@@ -24,14 +24,12 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 		public delegate void ReturnEventHandler(object sender, UI.Navigation.PageNavigationReturnEventArgs e);
 		public event ReturnEventHandler Return;
 
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		private YellowstonePathology.Business.ClientOrder.Model.CytologyClientOrder m_CytologyClientOrder;
 		private string m_PageHeaderText = "Cytology Clinical History";
 
-		public CytologyClinicalHistoryPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Persistence.ObjectTracker objectTracker)
+		public CytologyClinicalHistoryPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{
-			this.m_ObjectTracker = objectTracker;
 			this.m_AccessionOrder = accessionOrder;
 			this.m_CytologyClientOrder = (YellowstonePathology.Business.ClientOrder.Model.CytologyClientOrder)
 				YellowstonePathology.Business.Gateway.ClientOrderGateway.GetClientOrderByClientOrderId(this.m_AccessionOrder.ClientOrderId);
@@ -40,11 +38,18 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
 			this.DataContext = this;
 			this.Loaded += new RoutedEventHandler(CytologyClinicalHistoryPage_Loaded);
+            Unloaded += CytologyClinicalHistoryPage_Unloaded;
 		}
 
-		private void CytologyClinicalHistoryPage_Loaded(object sender, RoutedEventArgs e)
+        private void CytologyClinicalHistoryPage_Loaded(object sender, RoutedEventArgs e)
 		{
-		}
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
+        }
+
+        private void CytologyClinicalHistoryPage_Unloaded(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
+        }
 
 		public string PageHeaderText
 		{
@@ -180,10 +185,10 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
 		public void Save()
 		{
-			this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
-		}
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
+        }
 
-		public void UpdateBindingSources()
+        public void UpdateBindingSources()
 		{
 		}
 	}

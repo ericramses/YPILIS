@@ -43,11 +43,9 @@ namespace YellowstonePathology.Business.Test.HPV1618
             }
             
             base.ReplaceText("report_method", panelSetOrderHPV1618.Method);
+            base.ReplaceText("report_references", panelSetOrderHPV1618.References);
 
-			//this.ReplaceText("report_date", BaseData.GetShortDateString(this.m_PanelSetOrder.FinalDate));
-			//this.SetXmlNodeData("pathologist_signature", this.m_PanelSetOrder.Signature);
-
-			this.SetReportDistribution();
+            this.SetReportDistribution();
 			this.SetCaseHistory();
 
 			this.SaveReport();

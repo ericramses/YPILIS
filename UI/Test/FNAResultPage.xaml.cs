@@ -25,19 +25,16 @@ namespace YellowstonePathology.UI.Test
 
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-        private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
         private string m_PageHeaderText;
 
         private YellowstonePathology.Business.Test.FNAAdequacyAssessment.FNAAdequacyAssessmentTestOrder m_FNAAdequacyAssessmentResult;
 
         public FNAResultPage(YellowstonePathology.Business.Test.FNAAdequacyAssessment.FNAAdequacyAssessmentTestOrder fnaAdequacyAssessmentResult,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 		{            
 			this.m_AccessionOrder = accessionOrder;			
 			this.m_SystemIdentity = systemIdentity;
-			this.m_ObjectTracker = objectTracker;
 
 			this.m_FNAAdequacyAssessmentResult = fnaAdequacyAssessmentResult;
 
@@ -45,10 +42,23 @@ namespace YellowstonePathology.UI.Test
 
 			InitializeComponent();            
 
-			this.DataContext = this;				
+			this.DataContext = this;
+
+            Loaded += FNAResultPage_Loaded;
+            Unloaded += FNAResultPage_Unloaded;				
 		}
 
-		public YellowstonePathology.Business.Test.FNAAdequacyAssessment.FNAAdequacyAssessmentTestOrder FNAAdequacyAssessmentResult
+        private void FNAResultPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
+        }
+
+        private void FNAResultPage_Unloaded(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
+        }
+
+        public YellowstonePathology.Business.Test.FNAAdequacyAssessment.FNAAdequacyAssessmentTestOrder FNAAdequacyAssessmentResult
         {
             get { return this.m_FNAAdequacyAssessmentResult; }
         }
@@ -79,10 +89,10 @@ namespace YellowstonePathology.UI.Test
 		public void Save()
 		{
             this.ValidatDataTypesAndUpdateBindingSources();
-            this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
-		}
-        
-		public void UpdateBindingSources()
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
+        }
+
+        public void UpdateBindingSources()
 		{
             
 		}                                

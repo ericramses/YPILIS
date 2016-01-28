@@ -27,7 +27,6 @@ namespace YellowstonePathology.UI.Test
 
         private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-        private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
         private YellowstonePathology.Business.Test.PDL1.PDL1ResultCollection m_ResultCollection;
         private YellowstonePathology.Business.Test.PDL1.PDL1TestOrder m_PanelSetOrder;
 
@@ -36,13 +35,11 @@ namespace YellowstonePathology.UI.Test
 
         public PDL1ResultPage(YellowstonePathology.Business.Test.PDL1.PDL1TestOrder testOrder,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-            YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
             YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             this.m_PanelSetOrder = testOrder;
             this.m_AccessionOrder = accessionOrder;
             this.m_SystemIdentity = systemIdentity;
-            this.m_ObjectTracker = objectTracker;
 
             this.m_PageHeaderText = this.m_PanelSetOrder.PanelSetName + " Result For: " + this.m_AccessionOrder.PatientDisplayName;
 
@@ -55,11 +52,18 @@ namespace YellowstonePathology.UI.Test
             DataContext = this;
             
             Loaded += PDL1ResultPage_Loaded;
+            Unloaded += PDL1ResultPage_Unloaded;
         }
-        
+
         public void PDL1ResultPage_Loaded(object sender, RoutedEventArgs e)
         {
         	this.ComboBoxResult.SelectionChanged += ComboBoxResult_SelectionChanged;
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
+        }
+
+        private void PDL1ResultPage_Unloaded(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
         }
 
         public string OrderedOnDescription
@@ -102,7 +106,7 @@ namespace YellowstonePathology.UI.Test
 
         public void Save()
         {
-            this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
         }
 
         public void UpdateBindingSources()

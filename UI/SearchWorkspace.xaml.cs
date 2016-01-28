@@ -56,15 +56,11 @@ namespace YellowstonePathology.UI
             {
                 YellowstonePathology.Business.SearchListItem item = (YellowstonePathology.Business.SearchListItem)this.listViewCaseList.SelectedItem;
 				YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(item.ReportNo);
-				YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-                objectTracker.RegisterObject(accessionOrder);
 
                 YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPath providerDistributionPath =
-                    new Login.FinalizeAccession.ProviderDistributionPath(item.ReportNo, accessionOrder, objectTracker,
+                    new Login.FinalizeAccession.ProviderDistributionPath(item.ReportNo, accessionOrder,
                     System.Windows.Visibility.Collapsed, System.Windows.Visibility.Visible, System.Windows.Visibility.Collapsed);
                 providerDistributionPath.Start();
-
-                objectTracker.SubmitChanges(accessionOrder);
             }         
         }
 

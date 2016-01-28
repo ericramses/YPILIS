@@ -48,7 +48,6 @@ namespace YellowstonePathology.UI.Billing
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private string m_PageHeaderText;
         
         private YellowstonePathology.Business.Test.PanelSetOrderCPTCodeCollection m_PanelSetOrderCPTCodeCollection;
@@ -59,12 +58,10 @@ namespace YellowstonePathology.UI.Billing
         private YellowstonePathology.Business.Facility.Model.FacilityCollection m_FacilityCollection;
 
         public BillingPage(string reportNo, YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 		{			
 			this.m_AccessionOrder = accessionOrder;
 			this.m_SystemIdentity = systemIdentity;
-			this.m_ObjectTracker = objectTracker;
             this.m_ReportNo = reportNo;
 
             this.m_FacilityCollection = YellowstonePathology.Business.Facility.Model.FacilityCollection.GetAllFacilities();
@@ -81,15 +78,22 @@ namespace YellowstonePathology.UI.Billing
 
 			DataContext = this;
             this.Loaded += new RoutedEventHandler(BillingPage_Loaded);
+            Unloaded += BillingPage_Unloaded;
 		}
 
         private void BillingPage_Loaded(object sender, RoutedEventArgs e)
         {
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
             YellowstonePathology.Business.Document.CaseDocument firstRequisition = this.m_CaseDocumentCollection.GetFirstRequisition();
             if(firstRequisition != null)
             {
                 this.ShowTIFDocument(this, new CustomEventArgs.FileNameReturnEventArgs(firstRequisition.FullFileName));
             }
+        }
+
+        private void BillingPage_Unloaded(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
         }
 
         public YellowstonePathology.Business.Facility.Model.FacilityCollection FacilityCollection
@@ -139,7 +143,7 @@ namespace YellowstonePathology.UI.Billing
 
 		public void Save()
 		{
-			this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
 		}
 
 		public void UpdateBindingSources()
@@ -295,7 +299,7 @@ namespace YellowstonePathology.UI.Billing
 
         private void ButtonICDCodes_Click(object sender, RoutedEventArgs e)
         {
-            if (this.ShowICDCodeEntry != null) this.ShowICDCodeEntry(this, new CustomEventArgs.AccessionOrderWithTrackerReturnEventArgs(this.m_AccessionOrder, this.m_ObjectTracker));
+            if (this.ShowICDCodeEntry != null) this.ShowICDCodeEntry(this, new CustomEventArgs.AccessionOrderWithTrackerReturnEventArgs(this.m_AccessionOrder));
         }
 
         private void ButtonCPTCodes_Click(object sender, RoutedEventArgs e)

@@ -171,14 +171,16 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 						XElement aliquotTypeElement = new XElement("Type", aliquotOrder.AliquotType);
 						XElement aliquotIdentificationType = new XElement("LabelType", aliquotOrder.LabelType);
 						XElement aliquotIsSelectedElement = new XElement("IsSelected", false);
+                        XElement aliquotEmbeddingInstructionsElement = new XElement("EmbeddingInstructions", aliquotOrder.EmbeddingInstructions);
 
-						aliquotElement.Add(aliquotLabelElement);                        
+                        aliquotElement.Add(aliquotLabelElement);                        
 						aliquotElement.Add(aliquotIdElement);
                         aliquotElement.Add(aliquotClientAccessionedElement);
 						aliquotElement.Add(aliquotTypeElement);
 						aliquotElement.Add(aliquotIsSelectedElement);
 						aliquotElement.Add(aliquotIdentificationType);
-						specimenElement.Add(aliquotElement);
+                        aliquotElement.Add(aliquotEmbeddingInstructionsElement);
+                        specimenElement.Add(aliquotElement);
                         
                         foreach (YellowstonePathology.Business.Test.Model.TestOrder_Base testOrderBase in aliquotOrder.TestOrderCollection)
                         {
@@ -258,6 +260,18 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                 }
             }
             return result;
+        }
+
+        public void SetEmbeddingComments()
+        {
+            foreach (XElement specimenElement in this.m_View.Elements("SpecimenOrder"))
+            {
+                foreach (XElement aliquotElement in specimenElement.Elements("AliquotOrder"))
+                {
+                    YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetAliquotOrder(aliquotElement.Element("AliquotOrderId").Value);
+                    aliquotOrder.EmbeddingInstructions = aliquotElement.Element("EmbeddingInstructions").Value;
+                }
+            }
         }
 
         public YellowstonePathology.Business.Test.AliquotOrderCollection GetAliquotsWithSelectedTests()

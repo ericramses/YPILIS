@@ -38,7 +38,8 @@ namespace YellowstonePathology.Business.Test
         protected int m_ValidatedById;
         protected string m_ValidatedBy;
         protected Nullable<DateTime> m_ValidationDate;
-        protected string m_Status;        
+        protected string m_Status;
+        protected string m_EmbeddingInstructions;    
 
         public AliquotOrder_Base()
         {
@@ -372,6 +373,23 @@ namespace YellowstonePathology.Business.Test
                 {
                     this.m_Status = value;
                     this.NotifyPropertyChanged("Status");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string EmbeddingInstructions
+        {
+            get
+            {
+                return this.m_EmbeddingInstructions;
+            }
+            set
+            {
+                if (this.m_EmbeddingInstructions != value)
+                {
+                    this.m_EmbeddingInstructions = value;
+                    this.NotifyPropertyChanged("EmbeddingInstructions");
                 }
             }
         }

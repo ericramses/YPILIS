@@ -58,8 +58,10 @@
 		<converter:ResultCodeResultConverter x:Key="ResultCodeResultConverter"/>
 
 		<converter:PanelSetIdConverter x:Key="PanelSetIdConverter"/>
+    	<converter:NullableIntConverter x:Key="NullableIntConverter" />
+        <converter:NullableDoubleConverter x:Key="NullableDoubleConverter" />
 
-		<validationRules:IntValidation x:Key="IntValidation"/>
+        <validationRules:IntValidation x:Key="IntValidation"/>
         <validationRules:ShortDateTimeValidation x:Key="ShortDateTimeValidation"/>
         <validationRules:ShortDateValidation x:Key="ShortDateValidation"/>
         <validationRules:BirthDateValidation x:Key="BirthDateValidation"/>

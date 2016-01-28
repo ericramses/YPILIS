@@ -7,7 +7,6 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 {
 	public class AliquotAndStainOrderPathWithSecurity
 	{
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 		private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
@@ -19,7 +18,6 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
         {            
             this.m_AccessionOrder = accessionOrder;
 			this.m_PanelSetOrder = panelSetOrder;
-			this.m_ObjectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
 		}
 
         public void Start()
@@ -65,9 +63,8 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             CaseLockPage caseLockPage = (CaseLockPage)sender;            
             if (caseLockPage.Lock.LockAquired == true)
             {
-				this.m_ObjectTracker.RegisterObject(this.m_AccessionOrder);
                 YellowstonePathology.UI.Login.FinalizeAccession.AliquotAndStainOrderPath stainOrderPath = 
-                    new AliquotAndStainOrderPath(this.m_AccessionOrder, this.m_ObjectTracker, this.m_PanelSetOrder, this.m_SystemIdentity, this.m_LoginPageWindow.PageNavigator);
+                    new AliquotAndStainOrderPath(this.m_AccessionOrder, this.m_PanelSetOrder, this.m_SystemIdentity, this.m_LoginPageWindow.PageNavigator);
 				stainOrderPath.Start();
                 stainOrderPath.Return += new AliquotAndStainOrderPath.ReturnEventHandler(AliquotAndStainOrderPath_Return);
             }

@@ -27,17 +27,28 @@ namespace YellowstonePathology.UI.Login.ReceiveSpecimen
         public event ReturnEventHandler Return;
                 
         YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-        YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
         YellowstonePathology.Business.View.SpecimenSurgicalDiagnosisViewCollection m_SpecimenSurgicalDiagnosisViewCollection;
 
-        public SurgicalDiagnosisPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Persistence.ObjectTracker objectTracker)
+        public SurgicalDiagnosisPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {
             this.m_AccessionOrder = accessionOrder;
-            this.m_ObjectTracker = objectTracker;
             this.m_SpecimenSurgicalDiagnosisViewCollection = new Business.View.SpecimenSurgicalDiagnosisViewCollection(this.m_AccessionOrder);            
                         
             InitializeComponent();
-            this.DataContext = this;            
+            this.DataContext = this;
+
+            Loaded += SurgicalDiagnosisPage_Loaded;
+            Unloaded += SurgicalDiagnosisPage_Unloaded;            
+        }
+
+        private void SurgicalDiagnosisPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
+        }
+
+        private void SurgicalDiagnosisPage_Unloaded(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
         }
 
         public YellowstonePathology.Business.Test.AccessionOrder AccessionOrder
@@ -63,7 +74,7 @@ namespace YellowstonePathology.UI.Login.ReceiveSpecimen
 
         public void Save()
         {
-            this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
         }
 
         public void UpdateBindingSources()

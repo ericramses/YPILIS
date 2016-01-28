@@ -31,10 +31,12 @@
                             <Code ICD9="V72.31" ICD10="Z01.419" Description="Encounter for gynecological examination (general) (routine) without abnormal findings" Test="Cytology" Quantity="1"/>
                             <Code ICD9="V76.47" ICD10="Z12.72" Description="Encounter for screening for malignant neoplasm of vagina" Test="Cytology" Quantity="1"/>
                             <Code ICD9="V15.89" ICD10="Z77.9" Description="Other contact with and (suspected) exposures hazardous to health" Test="Cytology" Quantity="1"/>
+                            <Code ICD9="" ICD10="Z79.3" Description="Long term (current) use of hormonal contraceptives" Test="Cytology" Quantity="1"/>
                             <Code ICD9="V15.89" ICD10="Z92.89" Description="Personal history of other medical treatment" Test="Cytology" Quantity="1"/>
                             <Code ICD9="V76.49" ICD10="Z12.89" Description="Encounter for screening for malignant neoplasm of other sites" Test="Cytology" Quantity="1"/>
                             <Code ICD9="V77.6" ICD10="Z13.288" Description="Encounter for screening for other metabolic disorders" Test="Cytology" Quantity="1"/>
                             <Code ICD9="V70.0" ICD10="Z00.00" Description="Encounter for general adult medical examination without abnormal findings" Test="Cytology" Quantity="1"/>
+                            <Code ICD9="" ICD10="R87.61" Description="Abnormal cytological findings in specimens from cervix uteri" Test="Cytology" Quantity="1"/>
                             <Code ICD9="795.01" ICD10="R87.610" Description="Atypical squamous cells of undetermined significance on cytologic smear of cervix (ASC-US)" Test="Cytology" Quantity="1"/>
                             <Code ICD9="795.02" ICD10="R87.611" Description="Atypical squamous cells cannot exclude high grade squamous intraepithelial lesion on cytologic smear of cervix (ASC-H)" Test="Cytology" Quantity="1"/>
                             <Code ICD9="795.03" ICD10="R87.612" Description="Low grade squamous intraepithelial lesion on cytologic smear of cervix (LGSIL)" Test="Cytology" Quantity="1"/>
@@ -78,18 +80,14 @@
                 <DataTemplate x:Key="CodeListBoxTemplate">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="30"></ColumnDefinition>
-                            <ColumnDefinition Width="70"></ColumnDefinition>
                             <ColumnDefinition Width="70"></ColumnDefinition>
                             <ColumnDefinition Width="*"></ColumnDefinition>
                             <ColumnDefinition Width="70"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         
-                        <TextBlock Grid.Column="0" Text="{Binding XPath=@Quantity}" Margin="2,2,2,2"/>
-                        <TextBlock Grid.Column="1" Text="{Binding XPath=@ICD9}" Margin="2,2,2,2" FontWeight="Bold"/>
-                        <TextBlock Grid.Column="2" Text="{Binding XPath=@ICD10}" Margin="2,2,2,2" FontWeight="Bold"/>
-                        <TextBlock Grid.Column="3" Text="{Binding XPath=@Description}" Margin="2,2,2,2" Width="300" TextWrapping="Wrap"/>
-                        <TextBlock Grid.Column="4" Text="{Binding XPath=@Test}" Margin="2,2,2,2"/>
+                        <TextBlock Grid.Column="0" Text="{Binding XPath=@ICD10}" Margin="2,2,2,2" FontWeight="Bold"/>
+                        <TextBlock Grid.Column="1" Text="{Binding XPath=@Description}" Margin="2,2,2,2" Width="300" TextWrapping="Wrap"/>
+                        <TextBlock Grid.Column="2" Text="{Binding XPath=@Test}" Margin="2,2,2,2"/>
                     </Grid>
                 </DataTemplate>                              
 
@@ -146,8 +144,7 @@
 				<Grid Grid.Column="0" Grid.Row="0" Margin="2,2,2,2">
                     
 					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="Auto"></ColumnDefinition>
-						<ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
                         <ColumnDefinition Width="Auto"></ColumnDefinition>
 						<ColumnDefinition Width="*"></ColumnDefinition>						
 					</Grid.ColumnDefinitions>
@@ -155,11 +152,10 @@
 					<Grid.RowDefinitions>
 						<RowDefinition Height="Auto"></RowDefinition>
 					</Grid.RowDefinitions>
-                    
-					<TextBlock Grid.Column="0" Grid.Row="0" Margin="10,2,2,2" VerticalAlignment="Center" Text="ICD 9/10 Code:" />
-					<TextBox Grid.Column="1" Grid.Row="0" Name="TextBoxICD9Code" Margin="2,2,2,2" Width="130"/>
-                    <TextBox Grid.Column="2" Grid.Row="0" Name="TextBoxICD10Code" Margin="2,2,2,2" Width="130"/>
-                    <TextBlock Grid.Column="3" Grid.Row="0" HorizontalAlignment="Left" TextAlignment="Left">
+
+                    <TextBlock Grid.Column="0" Grid.Row="0" Margin="10,2,2,2" VerticalAlignment="Center" Text="ICD 10 Code:" />
+                    <TextBox Grid.Column="1" Grid.Row="0" Name="TextBoxICD10Code" Margin="2,2,2,2" Width="130"/>
+                    <TextBlock Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" TextAlignment="Left">
 				        <Hyperlink Click="HyperlinkAddICDCode_Click">Add</Hyperlink>
                     </TextBlock>                    
                     
@@ -175,7 +171,6 @@
                     <ListView.View>
                         <GridView>
                             <GridViewColumn DisplayMemberBinding="{Binding Path=Quantity}" Header="Qty" Width="50"/>
-                            <GridViewColumn DisplayMemberBinding="{Binding Path=ICD9Code}" Header="ICD9 Code" Width="100"/>
                             <GridViewColumn DisplayMemberBinding="{Binding Path=ICD10Code}" Header="ICD10 Code" Width="100"/>
                             <GridViewColumn DisplayMemberBinding="{Binding Path=ReportNo}" Header="Report No" Width="100"/>
                         </GridView>

@@ -26,6 +26,18 @@ namespace YellowstonePathology.UI.Gross
             get { return this.m_SpecimenCollection; }
         }
 
+        public string RemoveLine(string text, int lineIndex)
+        {
+            string result = text;
+            string[] lines = result.Split('\n');
+            if(lines.Length >= lineIndex)
+            {
+                string lineToRemove = lines[lineIndex] + '\n';
+                result = result.Replace(lineToRemove, string.Empty);
+            }
+            return result;
+        }
+
         public int FontSize
         {
             get { return this.m_FontSize; }
@@ -66,7 +78,7 @@ namespace YellowstonePathology.UI.Gross
         }        
 
         public virtual string BuildResultText(YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder, YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
-        {
+        {            
             string result = this.ReplaceIdentifier(this.m_Text, specimenOrder, accessionOrder);
             result = this.AppendInitials(result, specimenOrder, accessionOrder, systemIdentity);
             return result;            
@@ -134,6 +146,30 @@ namespace YellowstonePathology.UI.Gross
                 statement = "Tips submitted in cassette \"" + specimenOrder.SpecimenNumber + "A\" and remainder " + specimenOrder.GetGrossRemainderSubmittedInString();
             }
             return text.Replace("[tipssubmitted]", statement);
+
+        }
+
+        protected string ReplaceTipsSubmittedWithCurettings(string text, YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder)
+        {
+            string statement = null;
+            if (specimenOrder.AliquotOrderCollection.Count == 1)
+            {
+                statement = "Entirely submitted in cassette \"" + specimenOrder.AliquotOrderCollection[0].Label + "\"";
+            }
+            else
+            {
+                statement = "Tips submitted in cassette \"" + specimenOrder.SpecimenNumber + "A\", ";
+                if (specimenOrder.AliquotOrderCollection.Count >= 2)
+                {
+                    statement += "remainder of excision in cassettes " + specimenOrder.GetGrossMiddleCassettesSubmittedInString();
+                    if (specimenOrder.AliquotOrderCollection.Count >= 3)
+                    {
+                        statement += ", curettings are filtered through a fine mesh bag and entirely submitted in cassette \"" + specimenOrder.AliquotOrderCollection.GetLastBlock().Label + "\"";
+                    }                    
+                }                
+            }
+
+            return text.Replace("[tipssubmittedwithcurettings]", statement);
 
         }
 

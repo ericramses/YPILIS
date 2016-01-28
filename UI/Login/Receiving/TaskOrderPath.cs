@@ -15,19 +15,16 @@ namespace YellowstonePathology.UI.Login.Receiving
 
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private YellowstonePathology.Business.Task.Model.TaskOrder m_TaskOrder;
 		private YellowstonePathology.UI.Navigation.PageNavigator m_PageNavigator;
 		private PageNavigationModeEnum m_PageNavigationMode;
 
 		public TaskOrderPath(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
 			YellowstonePathology.Business.Task.Model.TaskOrder taskOrder,
             YellowstonePathology.UI.Navigation.PageNavigator pageNavigator,
 			PageNavigationModeEnum pageNavigationMode)
 		{
 			this.m_AccessionOrder = accessionOrder;
-			this.m_ObjectTracker = objectTracker;
             this.m_TaskOrder = taskOrder;
 
 			this.m_PageNavigationMode = pageNavigationMode;            
@@ -68,7 +65,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 
 		private void ShowTaskOrderPage()
 		{
-			TaskOrderPage taskOrderPage = new TaskOrderPage(this.m_AccessionOrder, this.m_ObjectTracker, this.m_TaskOrder, this.m_PageNavigationMode, this.m_SystemIdentity);
+			TaskOrderPage taskOrderPage = new TaskOrderPage(this.m_AccessionOrder, this.m_TaskOrder, this.m_PageNavigationMode, this.m_SystemIdentity);
 			taskOrderPage.Back += new Receiving.TaskOrderPage.BackEventHandler(TaskOrderPage_Back);
 			taskOrderPage.Close += new Receiving.TaskOrderPage.CloseEventHandler(TaskOrderPage_Close);
 			taskOrderPage.Next += new TaskOrderPage.NextEventHandler(TaskOrderPage_Next);		
@@ -92,7 +89,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 
 		private void ShowTaskOrderEditPage(YellowstonePathology.Business.Task.Model.TaskOrderDetail taskOrderDetail)
 		{
-			TaskOrderEditPage taskOrderEditPage = new TaskOrderEditPage(taskOrderDetail, this.m_AccessionOrder, this.m_ObjectTracker, this.m_PageNavigationMode);
+			TaskOrderEditPage taskOrderEditPage = new TaskOrderEditPage(taskOrderDetail, this.m_AccessionOrder, this.m_PageNavigationMode);
 			taskOrderEditPage.Next += new Receiving.TaskOrderEditPage.NextEventHandler(TaskOrderEditPage_Next);
 			taskOrderEditPage.Back += new Receiving.TaskOrderEditPage.BackEventHandler(TaskOrderEditPage_Back);
 			taskOrderEditPage.Close += new Receiving.TaskOrderEditPage.CloseEventHandler(TaskOrderEditPage_Close);

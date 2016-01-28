@@ -23,6 +23,7 @@ namespace YellowstonePathology.UI
         private YellowstonePathology.Business.Test.PantherOrderList m_PantherHPVOrderList;
         private YellowstonePathology.Business.Test.PantherOrderList m_PantherNGCTOrderList;
         private YellowstonePathology.Business.Test.PantherOrderList m_PantherHPV1618OrderList;
+        private YellowstonePathology.Business.Test.PantherOrderList m_PantherWHPOrderList;
         private YellowstonePathology.Business.Test.PantherAliquotList m_PantherAliquotList;
         private YellowstonePathology.UI.Login.LoginPageWindow m_LoginPageWindow;
 
@@ -32,6 +33,7 @@ namespace YellowstonePathology.UI
             this.m_PantherHPVOrderList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPantherOrdersNotAcceptedHPV();
             this.m_PantherNGCTOrderList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPantherOrdersNotAcceptedNGCT();
             this.m_PantherHPV1618OrderList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPantherOrdersNotAcceptedHPV1618();
+            this.m_PantherWHPOrderList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPantherOrdersNotFinalWHP();
 
             InitializeComponent();
             this.DataContext = this;            
@@ -50,6 +52,11 @@ namespace YellowstonePathology.UI
         public YellowstonePathology.Business.Test.PantherOrderList PantherHPV1618OrderList
         {
             get { return this.m_PantherHPV1618OrderList; }
+        }
+
+        public YellowstonePathology.Business.Test.PantherOrderList PantherWHPOrderList
+        {
+            get { return this.m_PantherWHPOrderList; }
         }
 
         public YellowstonePathology.Business.Test.PantherAliquotList PantherAliquotList
@@ -82,14 +89,12 @@ namespace YellowstonePathology.UI
             {
                 YellowstonePathology.Business.Test.PantherOrderListItem pantherOrderListItem = (YellowstonePathology.Business.Test.PantherOrderListItem)this.ListViewPantherHPVOrders.SelectedItem;
                 YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(pantherOrderListItem.ReportNo);
-                YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new Business.Persistence.ObjectTracker();
-                objectTracker.RegisterObject(accessionOrder);
 
                 YellowstonePathology.Business.User.SystemIdentity systemIdentity = new Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
                 this.m_LoginPageWindow = new Login.LoginPageWindow(systemIdentity);
                 this.m_LoginPageWindow.Show();
 
-                YellowstonePathology.UI.Test.HPVResultPath hpvResultPath = new Test.HPVResultPath(pantherOrderListItem.ReportNo, accessionOrder, objectTracker, this.m_LoginPageWindow.PageNavigator);
+                YellowstonePathology.UI.Test.HPVResultPath hpvResultPath = new Test.HPVResultPath(pantherOrderListItem.ReportNo, accessionOrder, this.m_LoginPageWindow.PageNavigator);
                 hpvResultPath.Finish += HpvResultPath_Finish;
                 hpvResultPath.Start();
             }
@@ -106,6 +111,11 @@ namespace YellowstonePathology.UI
         }
 
         private void HPV1618ResultPath_Finish(object sender, EventArgs e)
+        {
+            this.m_LoginPageWindow.Close();
+        }
+
+        private void WHPResultPath_Finish(object sender, EventArgs e)
         {
             this.m_LoginPageWindow.Close();
         }
@@ -222,14 +232,12 @@ namespace YellowstonePathology.UI
             {
                 YellowstonePathology.Business.Test.PantherOrderListItem pantherOrderListItem = (YellowstonePathology.Business.Test.PantherOrderListItem)this.ListViewPantherNGCTOrders.SelectedItem;
                 YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(pantherOrderListItem.ReportNo);
-                YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new Business.Persistence.ObjectTracker();
-                objectTracker.RegisterObject(accessionOrder);
 
                 YellowstonePathology.Business.User.SystemIdentity systemIdentity = new Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
                 this.m_LoginPageWindow = new Login.LoginPageWindow(systemIdentity);
                 this.m_LoginPageWindow.Show();
 
-                YellowstonePathology.UI.Test.NGCTResultPath ngctResultPath = new Test.NGCTResultPath(pantherOrderListItem.ReportNo, accessionOrder, objectTracker, this.m_LoginPageWindow.PageNavigator);
+                YellowstonePathology.UI.Test.NGCTResultPath ngctResultPath = new Test.NGCTResultPath(pantherOrderListItem.ReportNo, accessionOrder, this.m_LoginPageWindow.PageNavigator);
                 ngctResultPath.Finish += NGCTResultPath_Finish;
                 ngctResultPath.Start();
             }
@@ -281,16 +289,102 @@ namespace YellowstonePathology.UI
             {
                 YellowstonePathology.Business.Test.PantherOrderListItem pantherOrderListItem = (YellowstonePathology.Business.Test.PantherOrderListItem)this.ListViewPantherHPV1618Orders.SelectedItem;
                 YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(pantherOrderListItem.ReportNo);
-                YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new Business.Persistence.ObjectTracker();
-                objectTracker.RegisterObject(accessionOrder);
 
                 YellowstonePathology.Business.User.SystemIdentity systemIdentity = new Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
                 this.m_LoginPageWindow = new Login.LoginPageWindow(systemIdentity);
                 this.m_LoginPageWindow.Show();
 
-                YellowstonePathology.UI.Test.HPV1618ResultPath hpv1618ResultPath = new Test.HPV1618ResultPath(pantherOrderListItem.ReportNo, accessionOrder, objectTracker, this.m_LoginPageWindow.PageNavigator);
+                YellowstonePathology.UI.Test.HPV1618ResultPath hpv1618ResultPath = new Test.HPV1618ResultPath(pantherOrderListItem.ReportNo, accessionOrder, this.m_LoginPageWindow.PageNavigator);
                 hpv1618ResultPath.Finish += HPV1618ResultPath_Finish;
                 hpv1618ResultPath.Start();
+            }
+        }
+
+        private void ButtonShowWHPResult_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.ListViewWHPOrders.SelectedItem != null)
+            {
+                YellowstonePathology.Business.Test.PantherOrderListItem pantherOrderListItem = (YellowstonePathology.Business.Test.PantherOrderListItem)this.ListViewWHPOrders.SelectedItem;
+                YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(pantherOrderListItem.ReportNo);
+                YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder = YellowstonePathology.Business.Gateway.ClientOrderGateway.GetClientOrderByClientOrderId(accessionOrder.ClientOrderId);
+
+                YellowstonePathology.Business.User.SystemIdentity systemIdentity = new Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
+                this.m_LoginPageWindow = new Login.LoginPageWindow(systemIdentity);
+                this.m_LoginPageWindow.Show();
+
+                Login.WomensHealthProfilePath womensHealthProfilePath = new Login.WomensHealthProfilePath(accessionOrder, clientOrder, this.m_LoginPageWindow.PageNavigator, Visibility.Hidden);
+                womensHealthProfilePath.Finish += WHPResultPath_Finish;
+                womensHealthProfilePath.Start();
+            }
+        }
+
+        private void ButtonFinalizeWHP_Click(object sender, RoutedEventArgs e)
+        {
+            if(this.ComboBoxListTypeWHP.SelectedIndex == 0)
+            {
+                foreach(YellowstonePathology.Business.Test.PantherOrderListItem pantherOrderListItem in this.ListViewWHPOrders.SelectedItems)
+                {
+                    YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(pantherOrderListItem.ReportNo);
+                    this.FinalWHPCase(accessionOrder, pantherOrderListItem.ReportNo);
+                }
+                
+                this.m_PantherWHPOrderList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPantherOrdersNotFinalWHP();
+                this.NotifyPropertyChanged("PantherWHPOrderList");
+            }
+            else
+            {
+                MessageBox.Show("Select WHP cases not final", "Already Final");
+            }
+        }
+
+        private void ButtonSelectAllWHP_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.ComboBoxListTypeWHP.SelectedIndex == 0)
+            {
+                this.ListViewWHPOrders.SelectAll();
+            }
+            else
+            {
+                MessageBox.Show("Select WHP cases not final", "Already Final");
+            }
+        }
+
+        private void ComboBoxListTypeWHP_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (this.IsLoaded == true)
+            {
+                switch (this.ComboBoxListTypeWHP.SelectedIndex)
+                {
+                    case 0:
+                        this.m_PantherWHPOrderList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPantherOrdersNotFinalWHP();
+                        break;
+                    case 1:
+                        this.m_PantherWHPOrderList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPantherOrdersFinalWHP();
+                        break;
+                }
+                this.NotifyPropertyChanged("PantherWHPOrderList");
+            }
+        }
+
+        private void FinalWHPCase(Business.Test.AccessionOrder accessionOrder, string reportNo)
+        {
+            YellowstonePathology.Business.Audit.Model.IsWHPAllDoneAuditCollection isWHPAllDoneAuditCollection = new Business.Audit.Model.IsWHPAllDoneAuditCollection(accessionOrder);
+            isWHPAllDoneAuditCollection.Run();
+            if (isWHPAllDoneAuditCollection.ActionRequired == true)
+            {
+                YellowstonePathology.Business.Audit.Model.ShouldWomensHealthProfileBeFinaledAudit shouldAudit = new Business.Audit.Model.ShouldWomensHealthProfileBeFinaledAudit(accessionOrder);
+                shouldAudit.Run();
+                if (shouldAudit.Message.ToString() == isWHPAllDoneAuditCollection.Message)
+                {
+                    YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(accessionOrder, this);
+                    YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder womensHealthProfileTestOrder = (Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
+                    YellowstonePathology.Business.ReportDistribution.Model.MultiTestDistributionHandler multiTestDistributionHandler = YellowstonePathology.Business.ReportDistribution.Model.MultiTestDistributionHandlerFactory.GetHandler(accessionOrder);
+                    multiTestDistributionHandler.Set();
+                    YellowstonePathology.Business.User.SystemUser user = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetSystemUserById(5134);
+                    womensHealthProfileTestOrder.Finalize(user);
+                    YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(accessionOrder, this);
+                    YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
+                }
             }
         }
     }

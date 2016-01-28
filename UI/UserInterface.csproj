@@ -29,7 +29,7 @@
     <ApplicationIcon>YPI.ico</ApplicationIcon>
     <NoWin32Manifest>true</NoWin32Manifest>
     <TargetFrameworkProfile />
-    <PublishUrl>\\Ypiidc\YPIILIS\Test\</PublishUrl>
+    <PublishUrl>\\ypiidc\YPIILIS\Application\</PublishUrl>
     <Install>false</Install>
     <InstallFrom>Unc</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -41,7 +41,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>726</ApplicationRevision>
+    <ApplicationRevision>864</ApplicationRevision>
     <ApplicationVersion>10.1.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -220,6 +220,7 @@
     <Compile Include="Converter\GatingPercentConverter.cs" />
     <Compile Include="Converter\GatingPopulationConverter.cs" />
     <Compile Include="Converter\MilitaryDateTimeConverterV2.cs" />
+    <Compile Include="Converter\NullableDoubleConverter.cs" />
     <Compile Include="Converter\PanelSetIdConverter.cs" />
     <Compile Include="Converter\ResultCodeResultConverter.cs" />
     <Compile Include="CustomEventArgs\AcknowledgeStainOrderEventArgs.cs" />
@@ -737,12 +738,6 @@
       <DependentUpon>FLT3ResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Test\FLT3ResultPath.cs" />
-    <Compile Include="Test\NeogenomicsResultTextPage.xaml.cs">
-      <DependentUpon>NeogenomicsResultTextPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Test\NeogenomicsResultPage.xaml.cs">
-      <DependentUpon>NeogenomicsResultPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Test\HighGradeLargeBCellLymphomaResultPage.xaml.cs">
       <DependentUpon>HighGradeLargeBCellLymphomaResultPage.xaml</DependentUpon>
     </Compile>
@@ -773,7 +768,6 @@
       <DependentUpon>MultipleMyelomaMGUSByFishResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Test\MultipleMyelomaMGUSByFishResultPath.cs" />
-    <Compile Include="Test\NeogenomicsResultPath.cs" />
     <Compile Include="Test\NGCTResultPage.xaml.cs">
       <DependentUpon>NGCTResultPage.xaml</DependentUpon>
     </Compile>
@@ -2351,14 +2345,6 @@
     <Page Include="Test\FLT3ResultPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Test\NeogenomicsResultTextPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Test\NeogenomicsResultPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Test\EGFRToALKReflexPage.xaml">
       <SubType>Designer</SubType>

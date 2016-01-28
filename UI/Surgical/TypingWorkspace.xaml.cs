@@ -104,10 +104,13 @@ namespace YellowstonePathology.UI.Surgical
         {
             if (this.m_TypingUI.AccessionOrder != null)
             {
+                this.m_TypingUI.ObjectTracker.SubmitChanges(this.m_TypingUI.AccessionOrder);
+                this.m_TypingUI.ObjectTracker.Deregister(this.m_TypingUI.AccessionOrder);
                 YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPath providerDistributionPath =
-					new YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPath(this.m_TypingUI.SurgicalTestOrder.ReportNo, this.m_TypingUI.AccessionOrder, this.m_TypingUI.ObjectTracker,
+					new YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPath(this.m_TypingUI.SurgicalTestOrder.ReportNo, this.m_TypingUI.AccessionOrder,
                     System.Windows.Visibility.Collapsed, System.Windows.Visibility.Visible, System.Windows.Visibility.Collapsed);
                 providerDistributionPath.Start();
+                this.m_TypingUI.ObjectTracker.RegisterObject(this.m_TypingUI.AccessionOrder);
             }
         }
 
@@ -260,7 +263,8 @@ namespace YellowstonePathology.UI.Surgical
 
                 if (System.Windows.Forms.Screen.AllScreens.Length == 2)
                 {
-                    YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPage providerDistributionPage = new Login.FinalizeAccession.ProviderDistributionPage(reportNo, this.m_TypingUI.AccessionOrder, this.m_TypingUI.ObjectTracker, this.m_SecondMonitorWindow.PageNavigator,
+                    //WHC this needs work for ObjectTrackerV2
+                    YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPage providerDistributionPage = new Login.FinalizeAccession.ProviderDistributionPage(reportNo, this.m_TypingUI.AccessionOrder, this.m_SecondMonitorWindow.PageNavigator,
                         System.Windows.Visibility.Collapsed, System.Windows.Visibility.Visible, System.Windows.Visibility.Collapsed);
                     this.m_SecondMonitorWindow.PageNavigator.Navigate(providerDistributionPage);
                 }
@@ -885,7 +889,8 @@ namespace YellowstonePathology.UI.Surgical
         {
             if (this.m_TypingUI.AccessionOrder != null)
             {
-                YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPage providerDistributionPage = new YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPage(this.m_TypingUI.SurgicalTestOrder.ReportNo, this.m_TypingUI.AccessionOrder, this.m_TypingUI.ObjectTracker, this.m_SecondMonitorWindow.PageNavigator,
+                //WHC this needs work for ObjectTrackerV2
+                YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPage providerDistributionPage = new YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPage(this.m_TypingUI.SurgicalTestOrder.ReportNo, this.m_TypingUI.AccessionOrder, this.m_SecondMonitorWindow.PageNavigator,
                     Visibility.Collapsed, Visibility.Collapsed, Visibility.Collapsed);
                 this.m_SecondMonitorWindow.PageNavigator.Navigate(providerDistributionPage);
             }

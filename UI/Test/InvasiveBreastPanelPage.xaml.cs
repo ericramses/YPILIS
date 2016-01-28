@@ -30,7 +30,6 @@ namespace YellowstonePathology.UI.Test
 		public event OrderHER2byFISHEventHandler OrderHER2byFISH;
 
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 
 		private YellowstonePathology.Business.Test.InvasiveBreastPanel.InvasiveBreastPanel m_InvasiveBreastPanel;
@@ -41,11 +40,9 @@ namespace YellowstonePathology.UI.Test
         private string m_PageHeaderText;
 
 		public InvasiveBreastPanelPage(string reportNo, YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 		{
 			this.m_AccessionOrder = accessionOrder;
-			this.m_ObjectTracker = objectTracker;			
 			this.m_SystemIdentity = systemIdentity;
 
 			this.m_InvasiveBreastPanel = (YellowstonePathology.Business.Test.InvasiveBreastPanel.InvasiveBreastPanel)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
@@ -64,9 +61,22 @@ namespace YellowstonePathology.UI.Test
 			InitializeComponent();
 
 			this.DataContext = this;
+
+            Loaded += InvasiveBreastPanelPage_Loaded;
+            Unloaded += InvasiveBreastPanelPage_Unloaded;
 		}
 
-		public YellowstonePathology.Business.Test.InvasiveBreastPanel.InvasiveBreastPanel InvasiveBreastPanel
+        private void InvasiveBreastPanelPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
+        }
+
+        private void InvasiveBreastPanelPage_Unloaded(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
+        }
+
+        public YellowstonePathology.Business.Test.InvasiveBreastPanel.InvasiveBreastPanel InvasiveBreastPanel
 		{
 			get { return this.m_InvasiveBreastPanel; }
 		}
@@ -108,10 +118,10 @@ namespace YellowstonePathology.UI.Test
 
 		public void Save()
 		{
-			this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
-		}
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
+        }
 
-		public void UpdateBindingSources()
+        public void UpdateBindingSources()
 		{
 
 		}

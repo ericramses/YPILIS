@@ -28,7 +28,6 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
         public delegate void BackEventHandler(object sender, EventArgs e);
         public event BackEventHandler Back;
         
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private YellowstonePathology.UI.Navigation.PageNavigator m_PageNavigator;
         private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
@@ -45,13 +44,11 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
         public ProviderDistributionPage(string reportNo, 
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
             YellowstonePathology.UI.Navigation.PageNavigator pageNavigator,
             Visibility nextButtonVisibility,
             Visibility closeButtonVisibility,
             Visibility backButtonVisibility)
 		{
-			this.m_ObjectTracker = objectTracker;
 			this.m_PageNavigator = pageNavigator;
             
 			this.m_AccessionOrder = accessionOrder;
@@ -71,6 +68,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
 			DataContext = this;
             this.Loaded += new RoutedEventHandler(ProviderDetailPage_Loaded);
+            Unloaded += ProviderDistributionPage_Unloaded;
 		}
 
         public YellowstonePathology.Business.User.SystemUserCollection SystemUserCollection
@@ -80,9 +78,15 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
         private void ProviderDetailPage_Loaded(object sender, RoutedEventArgs e)
         {
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
             this.m_ClientPhysicianNotSetAuditCollection.Run();
             this.SetProviderStatusColor();
             this.ButtonProviderLookup.Focus();
+        }
+
+        private void ProviderDistributionPage_Unloaded(object sender, RoutedEventArgs e)
+        {
+            //YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
         }
 
         public Visibility NextButtonVisibility
@@ -153,6 +157,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                 physicianClientSearchPage.Back += new PhysicianClientSearchPage.BackEventHandler(CopyTo_PhysicianClientSearchPage_Back);
                 physicianClientSearchPage.Next += new PhysicianClientSearchPage.NextEventHandler(CopyTo_PhysicianClientSearchPage_Next);
                 this.m_PageNavigator.Navigate(physicianClientSearchPage);
+                YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
             }
         }
 
@@ -248,8 +253,8 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
 		public void Save()
 		{
-			this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
-		}
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
+        }
 
         public void NotifyPropertyChanged(String info)
         {
@@ -294,6 +299,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             physicianClientSearchPage.Back += new PhysicianClientSearchPage.BackEventHandler(PhysicianClientSearchPage_Back);
             physicianClientSearchPage.Next += new PhysicianClientSearchPage.NextEventHandler(PhysicianClientSearchPage_Next);
             this.m_PageNavigator.Navigate(physicianClientSearchPage);
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
         }
 
         private void PhysicianClientSearchPage_Next(object sender, CustomEventArgs.PhysicianClientDistributionReturnEventArgs e)
@@ -476,6 +482,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                 testOrderReportDistributionPage.Next += new TestOrderReportDistributionPage.NextEventHandler(AddDistribution_TestOrderReportDistributionPage_Next);
                 testOrderReportDistributionPage.Back += new TestOrderReportDistributionPage.BackEventHandler(AddDistribution_TestOrderReportDistributionPage_Back);
                 this.m_PageNavigator.Navigate(testOrderReportDistributionPage);
+                YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
             }
         }
 
@@ -492,6 +499,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                 testOrderReportDistributionPage.Next += new TestOrderReportDistributionPage.NextEventHandler(AddDistribution_TestOrderReportDistributionPage_Next);
                 testOrderReportDistributionPage.Back += new TestOrderReportDistributionPage.BackEventHandler(AddDistribution_TestOrderReportDistributionPage_Back);
                 this.m_PageNavigator.Navigate(testOrderReportDistributionPage);
+                YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
             }
         }
 
@@ -537,6 +545,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                 testOrderReportDistributionPage.Next += new TestOrderReportDistributionPage.NextEventHandler(TestOrderReportDistributionPage_Next);
                 testOrderReportDistributionPage.Back += new TestOrderReportDistributionPage.BackEventHandler(TestOrderReportDistributionPage_Back);
                 this.m_PageNavigator.Navigate(testOrderReportDistributionPage);
+                YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
             }
             else
             {
@@ -554,7 +563,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                 testOrderReportDistribution.Distributed = true;
                 testOrderReportDistribution.TimeOfLastDistribution = DateTime.Now;
                 testOrderReportDistribution.ScheduledDistributionTime = null;
-                this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
+                this.Save();
             }
         }             
 	}

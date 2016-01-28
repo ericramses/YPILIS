@@ -12,17 +12,15 @@ namespace YellowstonePathology.UI.Login
 
         private YellowstonePathology.UI.Navigation.PageNavigator m_PageNavigator;
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-        private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 
 		private YellowstonePathology.Business.Specimen.Model.SpecimenOrder m_SpecimenOrder;
         private YellowstonePathology.Business.PanelSet.Model.PanelSet m_PanelSet;
         private YellowstonePathology.Business.Test.PanelSetOrder m_AddedPanelSetOrder;
 
-        public FlowCytometryOrderPath(YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet, YellowstonePathology.UI.Navigation.PageNavigator pageNavigator, YellowstonePathology.Business.Persistence.ObjectTracker objectTracker, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
+        public FlowCytometryOrderPath(YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet, YellowstonePathology.UI.Navigation.PageNavigator pageNavigator, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {
             this.m_PanelSet = panelSet;
             this.m_PageNavigator = pageNavigator;
-            this.m_ObjectTracker = objectTracker;
             this.m_AccessionOrder = accessionOrder;
         }
 
@@ -103,7 +101,7 @@ namespace YellowstonePathology.UI.Login
             bool result = false;
             if (this.m_AccessionOrder.PanelSetOrderCollection.HasSurgical() == true)
             {
-                YellowstonePathology.UI.Login.ReceiveSpecimen.SurgicalDiagnosisPage surgicalDiagnosisPage = new ReceiveSpecimen.SurgicalDiagnosisPage(this.m_AccessionOrder, this.m_ObjectTracker);
+                YellowstonePathology.UI.Login.ReceiveSpecimen.SurgicalDiagnosisPage surgicalDiagnosisPage = new ReceiveSpecimen.SurgicalDiagnosisPage(this.m_AccessionOrder);
                 surgicalDiagnosisPage.Return += new ReceiveSpecimen.SurgicalDiagnosisPage.ReturnEventHandler(SurgicalDiagnosisPage_Return);
                 this.m_PageNavigator.Navigate(surgicalDiagnosisPage);
                 result = true;
@@ -117,8 +115,8 @@ namespace YellowstonePathology.UI.Login
         }
 
         private void OrderTheReport()
-        {            
-            
+        {
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity = new YellowstonePathology.Business.User.SystemIdentity(YellowstonePathology.Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
             YellowstonePathology.Business.PanelSet.Model.FlowCytometry.PanelSetFlowCytometry panelSetFlowCytometry = null;
 
@@ -169,7 +167,8 @@ namespace YellowstonePathology.UI.Login
                 }
             }
 
-            this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
         }
         
         private void EndPath()

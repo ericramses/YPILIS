@@ -22,7 +22,7 @@ namespace YellowstonePathology.Business.Test.CCNDIBCLIGH
             
 			this.m_AllowMultiplePerAccession = true;
 
-            string taskDescription = "Gather materials and send out to Neo.";
+            string taskDescription = "Collect parafin block from Histology and send to Neo.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Flow, taskDescription));
 
             this.m_TechnicalComponentFacility = new YellowstonePathology.Business.Facility.Model.NeogenomicsIrvine();

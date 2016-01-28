@@ -17,7 +17,6 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 		private YellowstonePathology.UI.Login.FinalizeAccession.PatientLinkingPage m_PatientLinkingPage;
 
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-        private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
         private YellowstonePathology.Business.Patient.Model.PatientLinker m_PatientLinker;        
         private YellowstonePathology.Business.ClientOrder.Model.ClientOrder m_ClientOrder;
@@ -25,14 +24,12 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
         public FinalizeCytologyPath(YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-            YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
 			string reportNo,
 			YellowstonePathology.UI.Navigation.PageNavigator pageNavigator,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {                        
 			this.m_ClientOrder = clientOrder;
             this.m_AccessionOrder = accessionOrder;
-            this.m_ObjectTracker = objectTracker;
 			this.m_PageNavigator = pageNavigator;
             this.m_SystemIdentity = systemIdentity;
 			this.m_ReportNo = reportNo;
@@ -51,7 +48,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
         private void ShowPatientDetailsPage()
         {
-			FinalizeAccession.PatientDetailsPage patientDetailsPage = new FinalizeAccession.PatientDetailsPage(this.m_AccessionOrder, this.m_ObjectTracker);
+			FinalizeAccession.PatientDetailsPage patientDetailsPage = new FinalizeAccession.PatientDetailsPage(this.m_AccessionOrder);
 			patientDetailsPage.Return += new FinalizeAccession.PatientDetailsPage.ReturnEventHandler(PatientDetailsPage_Return);
 			this.m_PageNavigator.Navigate(patientDetailsPage);
         }
@@ -71,7 +68,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
 		private void ShowClinicalHistoryPage()
 		{
-			FinalizeAccession.ClinicalHistoryPage clinicalHistoryPage = new FinalizeAccession.ClinicalHistoryPage(this.m_AccessionOrder, this.m_ObjectTracker);
+			FinalizeAccession.ClinicalHistoryPage clinicalHistoryPage = new FinalizeAccession.ClinicalHistoryPage(this.m_AccessionOrder);
 			clinicalHistoryPage.Return += new FinalizeAccession.ClinicalHistoryPage.ReturnEventHandler(ClinicalHistoryPage_Return);
 			this.m_PageNavigator.Navigate(clinicalHistoryPage);
 		}
@@ -119,7 +116,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
         private void ShowProviderDistributionPage()
         {
-            FinalizeAccession.ProviderDistributionPage providerDistributionPage = new FinalizeAccession.ProviderDistributionPage(this.m_ReportNo, this.m_AccessionOrder, this.m_ObjectTracker, this.m_PageNavigator, System.Windows.Visibility.Visible,
+            FinalizeAccession.ProviderDistributionPage providerDistributionPage = new FinalizeAccession.ProviderDistributionPage(this.m_ReportNo, this.m_AccessionOrder, this.m_PageNavigator, System.Windows.Visibility.Visible,
                 System.Windows.Visibility.Collapsed, System.Windows.Visibility.Visible);
             providerDistributionPage.Next += new ProviderDistributionPage.NextEventHandler(ProviderDistributionPage_Next);
             providerDistributionPage.Back += new ProviderDistributionPage.BackEventHandler(ProviderDistributionPage_Back);
@@ -128,17 +125,23 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
         private void ProviderDistributionPage_Next(object sender, EventArgs e)
         {
+            FinalizeAccession.ProviderDistributionPage providerDistributionPage = new FinalizeAccession.ProviderDistributionPage(this.m_ReportNo, this.m_AccessionOrder, this.m_PageNavigator, System.Windows.Visibility.Visible,
+                System.Windows.Visibility.Collapsed, System.Windows.Visibility.Visible);
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(providerDistributionPage);
             this.ShowStandingOrderPage();
         }
 
         private void ProviderDistributionPage_Back(object sender, EventArgs e)
         {
+            FinalizeAccession.ProviderDistributionPage providerDistributionPage = new FinalizeAccession.ProviderDistributionPage(this.m_ReportNo, this.m_AccessionOrder, this.m_PageNavigator, System.Windows.Visibility.Visible,
+                System.Windows.Visibility.Collapsed, System.Windows.Visibility.Visible);
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(providerDistributionPage);
             this.ShowPatientLinkingPage();
         }				
 
 		private void ShowStandingOrderPage()
 		{									
-			Test.StandingOrderPage standingOrderPage = new Test.StandingOrderPage(this.m_AccessionOrder, this.m_ObjectTracker, this.m_SystemIdentity);
+			Test.StandingOrderPage standingOrderPage = new Test.StandingOrderPage(this.m_AccessionOrder, this.m_SystemIdentity);
 			standingOrderPage.Next += new Test.StandingOrderPage.NextEventHandler(StandingOrderPage_Next);
 			standingOrderPage.Back += new Test.StandingOrderPage.BackEventHandler(StandingOrderPage_Back);
 			this.m_PageNavigator.Navigate(standingOrderPage);						
@@ -156,7 +159,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
         private void ShowICDEntryPage()
         {
-            ICDEntryPage icdEntryPage = new ICDEntryPage(this.m_AccessionOrder, this.m_ObjectTracker, this.m_ReportNo, this.m_SystemIdentity);
+            ICDEntryPage icdEntryPage = new ICDEntryPage(this.m_AccessionOrder, this.m_ReportNo, this.m_SystemIdentity);
             icdEntryPage.Next += new ICDEntryPage.NextEventHandler(ICDEntryPage_Next);
             icdEntryPage.Back += new ICDEntryPage.BackEventHandler(ICDEntryPage_Back);
             this.m_PageNavigator.Navigate(icdEntryPage);
@@ -194,7 +197,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
        
 		private void ShowPrintCytologyLabelsPage()
 		{
-			PrintCytologyLabelsPage printCytologyLabelsPage = new PrintCytologyLabelsPage(this.m_ReportNo, this.m_AccessionOrder, this.m_ObjectTracker);
+			PrintCytologyLabelsPage printCytologyLabelsPage = new PrintCytologyLabelsPage(this.m_ReportNo, this.m_AccessionOrder);
 			printCytologyLabelsPage.Back += new PrintCytologyLabelsPage.BackEventHandler(PrintCytologyLabelsPage_Back);
 			printCytologyLabelsPage.Finish += new PrintCytologyLabelsPage.FinishEventHandler(PrintCytologyLabelsPage_Finish);
 			this.m_PageNavigator.Navigate(printCytologyLabelsPage);

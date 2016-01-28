@@ -44,6 +44,10 @@ namespace YellowstonePathology.Business.Persistence
                 {                    
                     propertyBridge = new IntPropertyBridge(property, obj);
                 }
+                else if (genericTypeDef == typeof(Nullable<double>))
+                {
+                    propertyBridge = new DoublePropertyBridge(property, obj);
+                }
                 else if (genericTypeDef == typeof(Nullable<bool>))
                 {
                     propertyBridge = new IntPropertyBridge(property, obj);

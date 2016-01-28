@@ -116,6 +116,7 @@
 								</Border>
 								<StackPanel Grid.Column="0" Grid.Row="1" Background="{Binding Path=Element.[BlockColor].Value}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
 									<TextBlock Margin="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Background="{Binding Path=Element.[BlockColor].Value}" TextAlignment="Center" Text="{Binding Path=Element[Label].Value}" TextWrapping="Wrap" />
+                                    <TextBlock Margin="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Background="{Binding Path=Element.[BlockColor].Value}" TextAlignment="Center" Text="{Binding Path=Element[EmbeddingInstructions].Value}" TextWrapping="Wrap" />
 								</StackPanel>
 							</Grid>
 						</Border>
