@@ -195,6 +195,7 @@ namespace YellowstonePathology.Business.Billing.Model
             result.Add(new CptCodeDefinition.CPT81276());
             result.Add(new CptCodeDefinition.CPT81311());
             result.Add(new CptCodeDefinition.CPT81314());
+            result.Add(new CptCodeDefinition.CPT81272());
             
             result.Add(new GCodeDefinitions.CPTG0123());
             result.Add(new GCodeDefinitions.CPTG0124());
