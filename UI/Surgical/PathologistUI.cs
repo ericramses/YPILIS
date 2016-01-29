@@ -18,7 +18,6 @@ namespace YellowstonePathology.UI.Surgical
 
 		protected YellowstonePathology.Business.Domain.Lock m_Lock;
 		protected YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-		protected YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 
 		private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
@@ -40,8 +39,6 @@ namespace YellowstonePathology.UI.Surgical
 
 		public PathologistUI(YellowstonePathology.Business.User.SystemIdentity systemidentity)
         {
-			this.m_ObjectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-
             this.m_SystemIdentity = systemidentity;
 			this.m_Lock = new YellowstonePathology.Business.Domain.Lock(this.m_SystemIdentity);            
 			this.m_Lock.LockStatusChanged += new YellowstonePathology.Business.Domain.LockStatusChangedEventHandler(AccessionLock_LockStatusChanged);
@@ -83,11 +80,6 @@ namespace YellowstonePathology.UI.Surgical
                 }
             }
         }
-
-		public YellowstonePathology.Business.Persistence.ObjectTracker ObjectTracker
-		{
-			get { return this.m_ObjectTracker; }
-		}
 
 		public YellowstonePathology.Business.Test.AccessionOrder AccessionOrder
 		{
@@ -180,9 +172,9 @@ namespace YellowstonePathology.UI.Surgical
 
 		public virtual void GetAccessionOrder(string masterAccessionNo, string reportNo)
 		{
-			this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(reportNo);
-			this.m_ObjectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-			this.m_ObjectTracker.RegisterObject(this.m_AccessionOrder);
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
+            this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(reportNo);
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
 			this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 			this.m_Lock.SetLockable(m_AccessionOrder);
 			this.RunWorkspaceEnableRules();
@@ -194,10 +186,10 @@ namespace YellowstonePathology.UI.Surgical
         
 		public virtual void GetAccessionOrderByReportNo(string reportNo)
 		{
-			this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(reportNo);
-			this.m_ObjectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-			this.m_ObjectTracker.RegisterObject(this.m_AccessionOrder);
-			this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
+            this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(reportNo);
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
+            this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 			this.m_AccessionOrder.PanelSetOrderCollection.PathologistTestOrderItemList.Build(this.m_AccessionOrder);
 			this.PathologistOrderCollection = this.m_AccessionOrder.PanelSetOrderCollection;
 			this.m_Lock.SetLockable(m_AccessionOrder);
@@ -258,17 +250,17 @@ namespace YellowstonePathology.UI.Surgical
 
 		public void Save()
 		{            
-            if (this.m_AccessionOrder != null)
+            if (this.m_AccessionOrder != null && this.m_Lock.LockAquired == true)
             {
                 MainWindow.MoveKeyboardFocusNextThenBack();
-                this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
+                YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
             }
-		}
+        }
 
 		public void ShowAmendmentDialog()
 		{
 			this.Save();
-			YellowstonePathology.UI.AmendmentPageController amendmentPageController = new AmendmentPageController(this.m_AccessionOrder, this.m_ObjectTracker,
+            YellowstonePathology.UI.AmendmentPageController amendmentPageController = new AmendmentPageController(this.m_AccessionOrder,
 				this.m_PanelSetOrder, this.m_SystemIdentity);
 			amendmentPageController.ShowDialog();
 			this.RunPathologistEnableRules();

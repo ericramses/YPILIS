@@ -39,8 +39,6 @@ namespace YellowstonePathology.UI.Test
 		YellowstonePathology.Business.Domain.Lock m_Lock;
 		YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
-
 		public LabUI(YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 		{            
             this.m_SystemIdentity = systemIdentity;
@@ -156,11 +154,11 @@ namespace YellowstonePathology.UI.Test
        
 		public void GetAccessionOrder(string reportNo)
 		{
-			this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(reportNo);
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
+            this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(reportNo);
 			this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 
-			this.m_ObjectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-			this.m_ObjectTracker.RegisterObject(this.m_AccessionOrder);
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
 
 			this.m_CaseDocumentCollection = new YellowstonePathology.Business.Document.CaseDocumentCollection(this.AccessionOrder, reportNo);
 			this.m_Lock.SetLockable(this.AccessionOrder);						
@@ -236,9 +234,9 @@ namespace YellowstonePathology.UI.Test
 
 		public void Save()
 		{
-			if (this.m_AccessionOrder != null)
+			if (this.m_AccessionOrder != null && this.m_Lock.LockAquired == true)
 			{
-				this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
+                YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
 			}
 		}
 
@@ -270,11 +268,6 @@ namespace YellowstonePathology.UI.Test
 		{
 			this.m_CaseDocumentCollection = new YellowstonePathology.Business.Document.CaseDocumentCollection(this.m_PanelSetOrder.ReportNo);
 			NotifyPropertyChanged("CaseDocumentCollection");
-		}
-
-		public YellowstonePathology.Business.Persistence.ObjectTracker ObjectTracker
-		{
-			get { return this.m_ObjectTracker; }
 		}
 
 		public YellowstonePathology.Business.Test.Model.TestOrderCollection TestOrders

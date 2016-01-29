@@ -30,6 +30,7 @@ namespace YellowstonePathology.Business.Persistence
         public object Value
         {
             get { return this.m_Value; }
+            set { this.m_Value = value; }
         }
 
         public List<object> RegisteredBy

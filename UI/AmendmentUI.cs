@@ -11,20 +11,19 @@ namespace YellowstonePathology.UI
 		YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
         YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
-        YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;     
 
-        public AmendmentUI(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
+        public AmendmentUI(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
 			YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             this.m_AccessionOrder = accessionOrder;
-            this.m_ObjectTracker = objectTracker;
             this.m_PanelSetOrder = panelSetOrder;
             this.m_SystemIdentity = systemIdentity;
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
         }
 
         public void Save()
-        {            
-            this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);            
+        {
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
         }
 
         public YellowstonePathology.Business.Test.AccessionOrder AccessionOrder

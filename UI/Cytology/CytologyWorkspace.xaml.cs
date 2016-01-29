@@ -123,13 +123,10 @@ namespace YellowstonePathology.UI.Cytology
         {
             if (this.m_CytologyUI.AccessionOrder != null)
             {
-                this.m_CytologyUI.ObjectTracker.SubmitChanges(this.m_CytologyUI.AccessionOrder);
-                this.m_CytologyUI.ObjectTracker.Deregister(this.m_CytologyUI.AccessionOrder);
                 YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPath providerDistributionPath =
 					new YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPath(this.m_CytologyUI.PanelSetOrderCytology.ReportNo, this.m_CytologyUI.AccessionOrder,
                     System.Windows.Visibility.Collapsed, System.Windows.Visibility.Visible, System.Windows.Visibility.Collapsed);
                 providerDistributionPath.Start();
-                this.m_CytologyUI.ObjectTracker.RegisterObject(this.m_CytologyUI.AccessionOrder);
             }
         }
 
@@ -177,13 +174,10 @@ namespace YellowstonePathology.UI.Cytology
 
         public void StartProviderDistributionPath(object target, ExecutedRoutedEventArgs args)
         {
-            this.m_CytologyUI.ObjectTracker.SubmitChanges(this.m_CytologyUI.AccessionOrder);
-            this.m_CytologyUI.ObjectTracker.Deregister(this.m_CytologyUI.AccessionOrder);
             string reportNo = this.m_CytologyUI.PanelSetOrderCytology.ReportNo;
             YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPath providerDistributionPath = new Login.FinalizeAccession.ProviderDistributionPath(reportNo, this.m_CytologyUI.AccessionOrder,
                 System.Windows.Visibility.Collapsed, System.Windows.Visibility.Visible, System.Windows.Visibility.Collapsed);
             providerDistributionPath.Start();
-            this.m_CytologyUI.ObjectTracker.RegisterObject(this.m_CytologyUI.AccessionOrder);
         }
 
         public UI.Cytology.CytologyResultsWorkspace CytologyResultsWorkspace
@@ -224,8 +218,9 @@ namespace YellowstonePathology.UI.Cytology
 		{
 			this.m_CytologyUI.Save();
 			this.m_CytologyUI.ClearLock();
-		}
-        
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this.m_CytologyUI);
+        }
+
         private void ButtonAssignTo_Click(object sender, RoutedEventArgs e)
         {
 			YellowstonePathology.Business.User.SystemUser systemUser = (YellowstonePathology.Business.User.SystemUser)this.ComboBoxAssignedToSelection.SelectedItem;

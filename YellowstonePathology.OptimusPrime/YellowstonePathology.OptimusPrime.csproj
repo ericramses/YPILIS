@@ -40,9 +40,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="TrichomonasInvalidResult.cs" />
     <Compile Include="HPVInvalidResult.cs" />
     <Compile Include="HPV1618BothNegativeResult.cs" />
     <Compile Include="HPV1618InvalidResult.cs" />
+    <Compile Include="TrichomonasPositiveResult.cs" />
+    <Compile Include="TrichomonasNegativeResult.cs" />
+    <Compile Include="TrichomonasResult.cs" />
+    <Compile Include="TrichomonasResultHandler.cs" />
     <Compile Include="NGCTInvalidResult.cs" />
     <Compile Include="HPV1618OneOrBothPositiveResult.cs" />
     <Compile Include="NGCTOneOrBothPositiveResult.cs" />

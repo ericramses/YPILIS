@@ -163,30 +163,28 @@ namespace YellowstonePathology.Business.Persistence
             PropertyInfo keyProperty = objectType.GetProperties().Where(prop => Attribute.IsDefined(prop, typeof(PersistentPrimaryKeyProperty))).Single();
             object keyPropertyValue = keyProperty.GetValue(objectToSubmit, null);
 
-            object registeredObject = null;
+            object originalValuesObject = null;
             if(this.m_RegisteredObjects.IsRegisteredBy(objectToSubmit, registeredBy) == true)
             {
                 RegisteredObject registeredObjectToSubmit = this.m_RegisteredObjects.Get(objectToSubmit);
-                registeredObject = registeredObjectToSubmit.Value;
-                //this.m_RegisteredObjects.Deregister(objectToSubmit, registeredBy);
-	            this.HandleUpdateSubmission(objectToSubmit, registeredObject, keyPropertyValue, objectSubmitter);
-                //this.RegisterObject(objectToSubmit, registeredBy);
+                originalValuesObject = registeredObjectToSubmit.Value;
+	            this.HandleUpdateSubmission(objectToSubmit, originalValuesObject, keyPropertyValue, objectSubmitter);
                 ObjectCloner objectCloner = new ObjectCloner();
                 object clonedObject = objectCloner.Clone(objectToSubmit);
-                this.m_RegisteredObjects.ResetValueOnUpdate(clonedObject);
+                registeredObjectToSubmit.Value = (clonedObject);
             }
             else if(this.m_RegisteredRootDeletes.IsRegisteredBy(objectToSubmit, registeredBy) == true)
             {
                 RegisteredObject registeredObjectToSubmit = this.m_RegisteredRootDeletes.Get(objectToSubmit);
-                registeredObject = registeredObjectToSubmit.Value;
-                this.m_RegisteredRootDeletes.Deregister(objectToSubmit, registeredBy);
-	            this.HandleRootDeleteSubmission(registeredObject, keyPropertyValue, objectSubmitter);
+                originalValuesObject = registeredObjectToSubmit.Value;
+                this.m_RegisteredRootDeletes.Remove(registeredObjectToSubmit);
+	            this.HandleRootDeleteSubmission(originalValuesObject, keyPropertyValue, objectSubmitter);
             }
             else if(this.m_RegisteredRootInserts.IsRegisteredBy(objectToSubmit, registeredBy) == true)
             {
-	            this.m_RegisteredRootInserts.Deregister(objectToSubmit, registeredBy);
+                RegisteredObject registeredObjectToSubmit = this.m_RegisteredObjects.Get(objectToSubmit);
 	            this.HandleRootInsertSubmission(objectToSubmit, keyPropertyValue, objectSubmitter, registeredBy);
-	            //this.RegisterObject(objectToSubmit, registeredBy);
+                this.m_RegisteredRootInserts.Remove(registeredObjectToSubmit);
             }
             else
             {

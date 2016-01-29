@@ -17,8 +17,6 @@ namespace YellowstonePathology.UI.Cytology
 
 		public delegate void PropertyChangedNotificationHandler(String info);
         public event PropertyChangedEventHandler PropertyChanged;
-        
-        private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 
 		YellowstonePathology.Business.Cytology.Model.ScreeningImpressionCollection m_ScreeningImpressionCollection;
 		YellowstonePathology.Business.Cytology.Model.SpecimenAdequacyCollection m_SpecimenAdequacyCollection;
@@ -133,8 +131,8 @@ namespace YellowstonePathology.UI.Cytology
 				if (element != null && element.Name != null && element.Name != "TextBoxReportNoSearch")
 				{
 					element.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
-				}				
-                this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
+				}
+                YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
 			}
         }
 
@@ -186,8 +184,6 @@ namespace YellowstonePathology.UI.Cytology
 
 				if (isWHPAllDoneAuditCollection.ActionRequired == true)
                 {
-                    this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
-                    this.m_ObjectTracker.Deregister(this.m_AccessionOrder);                    
                     YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder = null;
                     YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection clientOrders = YellowstonePathology.Business.Gateway.ClientOrderGateway.GetClientOrdersByMasterAccessionNo(this.m_AccessionOrder.MasterAccessionNo);
 
@@ -208,29 +204,11 @@ namespace YellowstonePathology.UI.Cytology
 
         private void WomensHealthProfilePath_Finished(object sender, EventArgs e)
         {
-            this.m_ObjectTracker.RegisterObject(this.m_AccessionOrder);
             this.m_PageNavigationWindow.Close();
         }
 
 		public void ScreeningFinal(YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology panelOrderToFinal, YellowstonePathology.Business.Rules.ExecutionStatus executionStatus)
         {
-            /*switch (panelOrderToFinal.ScreeningType.ToUpper())
-            {
-                case "DOT REVIEW":
-                    YellowstonePathology.Business.Rules.Cytology.DotReviewFinal dotReviewFinal = new YellowstonePathology.Business.Rules.Cytology.DotReviewFinal();
-                    dotReviewFinal.Execute(this.m_SystemIdentity.User, panelOrderToFinal, executionStatus);
-                    break;
-                case "PATHOLOGIST REVIEW":
-                    this.m_PanelSetOrderCytology.UpdateFromScreening(panelOrderToFinal);                    
-                    YellowstonePathology.Business.Rules.Cytology.ScreeningFinal screeningFinal1 = new YellowstonePathology.Business.Rules.Cytology.ScreeningFinal(YellowstonePathology.Business.ProcessingModeEnum.Production);
-					screeningFinal1.Execute(this.m_SystemIdentity.User, this.m_AccessionOrder, panelOrderToFinal, executionStatus);
-                    break;
-                default:
-                    this.m_PanelSetOrderCytology.UpdateFromScreening(panelOrderToFinal);
-                    YellowstonePathology.Business.Rules.Cytology.ScreeningFinal screeningFinal2 = new YellowstonePathology.Business.Rules.Cytology.ScreeningFinal(YellowstonePathology.Business.ProcessingModeEnum.Production);
-					screeningFinal2.Execute(this.m_SystemIdentity.User, this.m_AccessionOrder, panelOrderToFinal, executionStatus);
-					break;
-            }*/
             YellowstonePathology.Business.Audit.Model.AuditResult auditResult = this.m_PanelSetOrderCytology.IsOkToFinalize(this.m_AccessionOrder, panelOrderToFinal, this.m_SystemIdentity, executionStatus);
             if (this.m_PanelSetOrderCytology.Final == true)
             {
@@ -291,35 +269,39 @@ namespace YellowstonePathology.UI.Cytology
         public void SetAccessionOrder(YellowstonePathology.Business.Search.CytologyScreeningSearchResult searchResult)
         {			
 			this.Save();
-			this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(searchResult.ReportNo);
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
+            this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(searchResult.ReportNo);
 			this.m_PanelSetOrderCytology = (YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(searchResult.ReportNo);
             this.m_SpecimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByOrderTarget(this.m_PanelSetOrderCytology.OrderedOnId);
-			this.m_ObjectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-            this.m_ObjectTracker.RegisterObject(this.m_AccessionOrder);
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
 			this.DataLoaded();
         }
 
         public bool SetAccessionOrderByReportNo(string reportNo)
         {
             this.Save();
-			this.LoadDataByReportNo(reportNo);			
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
+            this.LoadDataByReportNo(reportNo);			
 			return this.DataLoadResult.Successful;
         }
 
         public bool SetAccessionOrderByAliquotOrderId(string aliquotOrderId)
         {
             this.Save();
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
             this.LoadDataByAliquotOrderId(aliquotOrderId);
             return this.DataLoadResult.Successful;
         }
 
 		public void SetAccessionOrder(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo)
 		{
-			this.m_AccessionOrder = accessionOrder;
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
+            this.m_AccessionOrder = accessionOrder;
 			this.m_PanelSetOrderCytology = (YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
-		}
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
+        }
 
-		public void ScreeningUnfinal(YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology cytologyPanelOrderToUnfinal, YellowstonePathology.Business.Rules.ExecutionStatus executionStatus)
+        public void ScreeningUnfinal(YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology cytologyPanelOrderToUnfinal, YellowstonePathology.Business.Rules.ExecutionStatus executionStatus)
 		{
 			YellowstonePathology.Business.Rules.Cytology.ScreeningUnfinal screeningUnfinal = new YellowstonePathology.Business.Rules.Cytology.ScreeningUnfinal();
 			screeningUnfinal.Execute(cytologyPanelOrderToUnfinal, this.m_AccessionOrder, executionStatus);
@@ -354,12 +336,6 @@ namespace YellowstonePathology.UI.Cytology
 		{
 			get { return this.m_PanelSetOrderCytology; }
 		}
-
-        public YellowstonePathology.Business.Persistence.ObjectTracker ObjectTracker
-        {
-            get { return this.m_ObjectTracker; }
-            set { this.m_ObjectTracker = value; }
-        }
 
         public YellowstonePathology.Business.ClientOrder.Model.ClientOrder ClientOrder
         {
@@ -490,8 +466,9 @@ namespace YellowstonePathology.UI.Cytology
 		public void ShowAmendmentDialog(object target, ExecutedRoutedEventArgs args)
 		{
 			this.Save();
-			YellowstonePathology.UI.AmendmentPageController amendmentPageController = new AmendmentPageController(this.m_AccessionOrder, this.m_ObjectTracker, this.m_PanelSetOrderCytology, this.m_SystemIdentity);
-			amendmentPageController.ShowDialog();			
+
+            YellowstonePathology.UI.AmendmentPageController amendmentPageController = new AmendmentPageController(this.m_AccessionOrder, this.m_PanelSetOrderCytology, this.m_SystemIdentity);
+			amendmentPageController.ShowDialog();
 		}
 
         public YellowstonePathology.Business.Domain.HpvRequisitionInstructionCollection HpvRequisitionInstructions
@@ -535,8 +512,7 @@ namespace YellowstonePathology.UI.Cytology
         {
             if (this.m_AccessionOrder != null)
             {
-				this.m_ObjectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-                this.m_ObjectTracker.RegisterObject(this.m_AccessionOrder);
+                YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
 
 				this.SpecimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByOrderTarget(this.m_PanelSetOrderCytology.OrderedOnId);
 
