@@ -19,25 +19,35 @@ namespace YellowstonePathology.UI
 		public event PropertyChangedEventHandler PropertyChanged;        
 		
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 		private string m_ReportNo;
 
 		public AmendmentControlV2(YellowstonePathology.Business.User.SystemIdentity systemIdentity,
 			string reportNo,
-			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker)
+			YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{
 			this.m_SystemIdentity = systemIdentity;
 			this.m_AccessionOrder = accessionOrder;
-			this.m_ObjectTracker = objectTracker;
 			this.m_ReportNo = reportNo;
 
 			InitializeComponent();
 			this.DataContext = this;
+
+            Loaded += AmendmentControlV2_Loaded;
+            Unloaded += AmendmentControlV2_Unloaded;
 		}
 
-		public YellowstonePathology.Business.User.SystemUser CurrentUser
+        private void AmendmentControlV2_Loaded(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
+        }
+
+        private void AmendmentControlV2_Unloaded(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
+        }
+
+        public YellowstonePathology.Business.User.SystemUser CurrentUser
 		{
 			get { return this.m_SystemIdentity.User; }
 		}
@@ -67,7 +77,7 @@ namespace YellowstonePathology.UI
 				if (this.TreeViewAmendment.SelectedItem.GetType().Name == "Amendment")
 				{
                     YellowstonePathology.Business.Amendment.Model.Amendment amendment = (YellowstonePathology.Business.Amendment.Model.Amendment)this.TreeViewAmendment.SelectedItem;                    
-					YellowstonePathology.UI.AmendmentV2 amendmentV2 = new AmendmentV2(amendment, this.m_AccessionOrder, this.m_ObjectTracker);
+					YellowstonePathology.UI.AmendmentV2 amendmentV2 = new AmendmentV2(amendment, this.m_AccessionOrder);
 					amendmentV2.ShowDialog();                    
 				}
 			}
@@ -84,7 +94,7 @@ namespace YellowstonePathology.UI
 					{
                         YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(((YellowstonePathology.Business.Amendment.Model.Amendment)this.TreeViewAmendment.SelectedItem).ReportNo);
                         panelSetOrder.DeleteAmendment(((YellowstonePathology.Business.Amendment.Model.Amendment)this.TreeViewAmendment.SelectedItem).AmendmentId);
-                        this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);                        
+                        YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
 					}
 				}
 			}

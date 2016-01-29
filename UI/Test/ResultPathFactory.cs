@@ -323,7 +323,6 @@ namespace YellowstonePathology.UI.Test
 
         public bool Start(YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-            YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
             YellowstonePathology.UI.Navigation.PageNavigator pageNavigator,
             System.Windows.Visibility backButtonVisibility)
         {

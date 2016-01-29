@@ -9,7 +9,6 @@ namespace YellowstonePathology.UI.Surgical
     {
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         private YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder m_SurgicalTestOrder;
-        private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
         private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 
         private List<Action> m_ActionList;
@@ -29,12 +28,10 @@ namespace YellowstonePathology.UI.Surgical
 
         public PathologistSignoutPath(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
             YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder,
-            YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
             YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             this.m_AccessionOrder = accessionOrder;
             this.m_SurgicalTestOrder = surgicalTestOrder;
-            this.m_ObjectTracker = objectTracker;
             this.m_SystemIdentity = systemIdentity;
 
             this.m_PathologistSignoutAuditCollection = new Business.Audit.Model.PathologistSignoutAuditCollection(this.m_AccessionOrder, this.m_SystemIdentity);
@@ -162,7 +159,7 @@ namespace YellowstonePathology.UI.Surgical
         private void HandlePapCorrelation()
         {
             this.SetWindowButtonVisibility();
-            PapCorrelationPage papCorrelationPage = new PapCorrelationPage(this.m_AccessionOrder, this.m_SurgicalTestOrder, this.m_ObjectTracker, this.m_BackButtonVisibility, this.m_NextButtonVisibility);
+            PapCorrelationPage papCorrelationPage = new PapCorrelationPage(this.m_AccessionOrder, this.m_SurgicalTestOrder, this.m_BackButtonVisibility, this.m_NextButtonVisibility);
             papCorrelationPage.Next += this.MoveForward;
             papCorrelationPage.Back += this.MoveBack;
             papCorrelationPage.Close += this.CloseDialog;
@@ -177,7 +174,7 @@ namespace YellowstonePathology.UI.Surgical
             YellowstonePathology.Business.Surgical.PQRSMeasure pqrsMeasure = pqrsIsRequiredAudit.PQRSMeasure;
             if (this.m_PQRSSignoutPage == null)
             {
-                this.m_PQRSSignoutPage = new PQRSSignoutPage(pqrsMeasure, surgicalSpecimen, this.m_SurgicalTestOrder, this.m_AccessionOrder, this.m_ObjectTracker, this.m_BackButtonVisibility, this.m_NextButtonVisibility);
+                this.m_PQRSSignoutPage = new PQRSSignoutPage(pqrsMeasure, surgicalSpecimen, this.m_SurgicalTestOrder, this.m_AccessionOrder, this.m_BackButtonVisibility, this.m_NextButtonVisibility);
                 this.m_PQRSSignoutPage.Next += this.MoveForward;
                 this.m_PQRSSignoutPage.Back +=this.MoveBack;
                 this.m_PQRSSignoutPage.Close += this.CloseDialog;
@@ -230,7 +227,7 @@ namespace YellowstonePathology.UI.Surgical
         private void HandleNonASCIICharacters()
         {
             this.SetWindowButtonVisibility();
-            NonASCIICharacterCorrectionPage nonASCIICharacterCorrectionPage = new NonASCIICharacterCorrectionPage(this.m_AccessionOrder, this.m_SurgicalTestOrder, this.m_ObjectTracker, this.m_BackButtonVisibility, this.m_NextButtonVisibility);
+            NonASCIICharacterCorrectionPage nonASCIICharacterCorrectionPage = new NonASCIICharacterCorrectionPage(this.m_AccessionOrder, this.m_SurgicalTestOrder, this.m_BackButtonVisibility, this.m_NextButtonVisibility);
             nonASCIICharacterCorrectionPage.Next += this.MoveForward;
             nonASCIICharacterCorrectionPage.Back += this.MoveBack;
             nonASCIICharacterCorrectionPage.Close += this.CloseDialog;

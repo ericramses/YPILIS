@@ -37,10 +37,10 @@ namespace YellowstonePathology.UI.Cytology
 
 			this.TextBoxReportNoSearch.IsEnabled = false;
 			this.CommandBindingToggleAccessionLockMode = new CommandBinding(MainWindow.ToggleAccessionLockModeCommand, AlterAccessionLock, CanAlterAccessionLock);
-			this.CommandBindings.Add(this.CommandBindingToggleAccessionLockMode);                        
-		}        
+			this.CommandBindings.Add(this.CommandBindingToggleAccessionLockMode);
+		}
 
-		public CytologyResultsWorkspace(CytologyUI cytologyUI)
+        public CytologyResultsWorkspace(CytologyUI cytologyUI)
 		{
 			this.m_SystemIdentity = new YellowstonePathology.Business.User.SystemIdentity(YellowstonePathology.Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
 			this.m_CytologyUI = cytologyUI;
@@ -53,7 +53,7 @@ namespace YellowstonePathology.UI.Cytology
 			this.CommandBindings.Add(this.CommandBindingToggleAccessionLockMode);                    
 		}        
 
-		public string ReportNo
+        public string ReportNo
 		{
 			get
 			{
@@ -695,8 +695,6 @@ namespace YellowstonePathology.UI.Cytology
                     clientOrder = clientOrders[0];
                 }
 
-                this.m_CytologyUI.ObjectTracker.SubmitChanges(this.m_CytologyUI.AccessionOrder);
-                this.m_CytologyUI.ObjectTracker.Deregister(this.m_CytologyUI.AccessionOrder);
                 this.m_PageNavigationWindow = new PageNavigationWindow(this.m_SystemIdentity);
 				YellowstonePathology.UI.Login.WomensHealthProfilePath womensHealthProfilePath = new YellowstonePathology.UI.Login.WomensHealthProfilePath(this.m_CytologyUI.AccessionOrder, clientOrder, this.m_PageNavigationWindow.PageNavigator, Visibility.Collapsed);
                 womensHealthProfilePath.Finish += new Login.WomensHealthProfilePath.FinishEventHandler(WomensHealthProfilePath_Finished);
@@ -712,7 +710,6 @@ namespace YellowstonePathology.UI.Cytology
 
         private void WomensHealthProfilePath_Finished(object sender, EventArgs e)
         {
-            this.m_CytologyUI.ObjectTracker.RegisterObject(this.m_CytologyUI.AccessionOrder);
             this.m_PageNavigationWindow.Close();
         }
 

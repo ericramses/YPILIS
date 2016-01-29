@@ -20,23 +20,33 @@ namespace YellowstonePathology.UI.Common
         public event PropertyChangedEventHandler PropertyChanged;
 
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-        private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 
         public TreeViewWorkspace(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-            YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             this.m_SystemIdentity = systemIdentity;
-            this.m_ObjectTracker = objectTracker;
             this.m_AccessionOrder = accessionOrder;
 
             InitializeComponent();
 
             this.DataContext = this;
+
+            Loaded += TreeViewWorkspace_Loaded;
+            Unloaded += TreeViewWorkspace_Unloaded;
         }
 
-		public YellowstonePathology.Business.User.SystemUser CurrentUser
+        private void TreeViewWorkspace_Loaded(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
+        }
+
+        private void TreeViewWorkspace_Unloaded(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
+        }
+
+        public YellowstonePathology.Business.User.SystemUser CurrentUser
         {
             get { return this.m_SystemIdentity.User; }
         }
@@ -75,7 +85,7 @@ namespace YellowstonePathology.UI.Common
                 YellowstonePathology.Business.Test.Model.TestOrder testOrder = (YellowstonePathology.Business.Test.Model.TestOrder)menuItem.Tag;                
                 YellowstonePathology.Business.Visitor.RemoveTestOrderVisitor removeTestOrderVisitor = new Business.Visitor.RemoveTestOrderVisitor(testOrder.TestOrderId);
                 this.m_AccessionOrder.TakeATrip(removeTestOrderVisitor);
-                this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
+                YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
             }
         }        
 

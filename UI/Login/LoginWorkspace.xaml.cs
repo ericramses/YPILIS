@@ -448,8 +448,6 @@ namespace YellowstonePathology.UI.Login
             if (this.ListViewAccessionOrders.SelectedItem != null)
             {
                 YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_LoginUI.AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_LoginUI.ReportNo);
-                YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-                objectTracker.RegisterObject(this.m_LoginUI.AccessionOrder);
 
                 YellowstonePathology.Business.User.SystemIdentity systemIdentity = new Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
 
@@ -457,7 +455,7 @@ namespace YellowstonePathology.UI.Login
                 resultPathFactory.Finished += new Test.ResultPathFactory.FinishedEventHandler(ResultPathFactory_Finished);
 
                 this.m_LoginPageWindow = new LoginPageWindow(systemIdentity);
-                bool started = resultPathFactory.Start(panelSetOrder, this.m_LoginUI.AccessionOrder, objectTracker, this.m_LoginPageWindow.PageNavigator, System.Windows.Visibility.Collapsed);
+                bool started = resultPathFactory.Start(panelSetOrder, this.m_LoginUI.AccessionOrder, this.m_LoginPageWindow.PageNavigator, System.Windows.Visibility.Collapsed);
                 if (started == true)
                 {
                     this.m_LoginPageWindow.ShowDialog();

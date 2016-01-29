@@ -86,12 +86,9 @@ namespace YellowstonePathology.UI.Surgical
         {
             if (this.m_PathologistUI.AccessionOrder != null)
             {
-                this.m_PathologistUI.ObjectTracker.SubmitChanges(this.m_PathologistUI.AccessionOrder);
-                this.m_PathologistUI.ObjectTracker.Deregister(this.m_PathologistUI.AccessionOrder);
                 YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPath providerDistributionPath = new YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPath(this.m_PathologistUI.PanelSetOrder.ReportNo, this.m_PathologistUI.AccessionOrder,
                     System.Windows.Visibility.Collapsed, System.Windows.Visibility.Visible, System.Windows.Visibility.Collapsed);
                 providerDistributionPath.Start();
-                this.m_PathologistUI.ObjectTracker.RegisterObject(this.m_PathologistUI.AccessionOrder);
             }
         }
 
@@ -189,7 +186,8 @@ namespace YellowstonePathology.UI.Surgical
 		private void MainWindowCommandButtonHandler_ApplicationClosing(object sender, EventArgs e)
 		{
 			this.Save();
-			this.m_PathologistUI.Lock.ReleaseLock();
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this.m_PathologistUI);
+            this.m_PathologistUI.Lock.ReleaseLock();
 		}
 
 		private void ButtonStainOrder_Click(object sender, RoutedEventArgs e)
@@ -441,7 +439,6 @@ namespace YellowstonePathology.UI.Surgical
 					this.m_CytologyResultsWorkspace = new Cytology.CytologyResultsWorkspace();
 					this.m_CytologyResultsWorkspace.CytologyUI.SetAccessionOrder(this.m_PathologistUI.AccessionOrder, this.m_PathologistUI.PanelSetOrder.ReportNo);
 					this.m_CytologyResultsWorkspace.CytologyUI.Lock = this.m_PathologistUI.Lock;
-					this.m_CytologyResultsWorkspace.CytologyUI.ObjectTracker = this.m_PathologistUI.ObjectTracker;
 					this.m_CytologyResultsWorkspace.SetReportNo(this.m_PathologistUI.PanelSetOrder.ReportNo);
 
 					YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection clientOrderCollection = YellowstonePathology.Business.Gateway.ClientOrderGateway.GetClientOrdersByMasterAccessionNo(this.m_PathologistUI.AccessionOrder.MasterAccessionNo);
@@ -657,11 +654,8 @@ namespace YellowstonePathology.UI.Surgical
 
 			if (clientOrderCollection.Count != 0)
 			{
-                this.m_PathologistUI.ObjectTracker.SubmitChanges(this.m_PathologistUI.AccessionOrder);
-                this.m_PathologistUI.ObjectTracker.Deregister(this.m_PathologistUI.AccessionOrder);
                 Login.Receiving.AccessionOrderPath accessionOrderPath = new Login.Receiving.AccessionOrderPath(accessionOrder, clientOrderCollection[0], PageNavigationModeEnum.Standalone);
 				accessionOrderPath.Start();
-                this.m_PathologistUI.ObjectTracker.RegisterObject(this.m_PathologistUI.AccessionOrder);
             }
             else
 			{
@@ -689,7 +683,7 @@ namespace YellowstonePathology.UI.Surgical
             {
                 YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder = (YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder)this.m_PathologistUI.AccessionOrder.PanelSetOrderCollection.GetSurgical();
                 PeerReviewDialog peerReviewDialog = new PeerReviewDialog();
-                PeerReviewResultPage peerReviewResultPage = new PeerReviewResultPage(surgicalTestOrder, this.m_PathologistUI.AccessionOrder, this.m_PathologistUI.ObjectTracker, this.m_SystemIdentity);
+                PeerReviewResultPage peerReviewResultPage = new PeerReviewResultPage(surgicalTestOrder, this.m_PathologistUI.AccessionOrder, this.m_SystemIdentity);
                 peerReviewDialog.PageNavigator.Navigate(peerReviewResultPage);
                 peerReviewDialog.ShowDialog();
             }

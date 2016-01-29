@@ -480,7 +480,7 @@ namespace YellowstonePathology.UI.Surgical
                 YellowstonePathology.Business.Audit.Model.AuditResult auditResult = this.PanelSetOrderSurgical.IsOkToFinalize(this.m_PathologistUI.AccessionOrder, this.m_SystemIdentity);
                 if(auditResult.Status == Business.Audit.Model.AuditStatusEnum.Failure)
                 {
-                    PathologistSignoutPath pathologistSignoutPath = new PathologistSignoutPath(this.m_PathologistUI.AccessionOrder, this.PanelSetOrderSurgical, this.m_PathologistUI.ObjectTracker, this.m_SystemIdentity);
+                    PathologistSignoutPath pathologistSignoutPath = new PathologistSignoutPath(this.m_PathologistUI.AccessionOrder, this.PanelSetOrderSurgical, this.m_SystemIdentity);
                     pathologistSignoutPath.Start();
                     this.RefreshBillingSpecimenViewCollection();
                     auditResult = pathologistSignoutPath.IsPathologistSignoutAuditSuccessful();

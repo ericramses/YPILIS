@@ -56,13 +56,12 @@ namespace YellowstonePathology.UI.Surgical
 		private void ButtonResults_Click(object sender, RoutedEventArgs e)
 		{
 			int panelSetid = this.PanelSetOrder.PanelSetId;
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = this.m_PathologistUI.ObjectTracker;
             this.m_ResultDialog = new Test.ResultDialog();            
 
 			YellowstonePathology.UI.Test.ResultPathFactory resultPathFactory = new Test.ResultPathFactory();
             resultPathFactory.Finished += new Test.ResultPathFactory.FinishedEventHandler(ResultPathFactory_Finished);
 
-			bool resultPathStarted = resultPathFactory.Start(this.m_PathologistUI.PanelSetOrder, this.m_PathologistUI.AccessionOrder, objectTracker, this.m_ResultDialog.PageNavigator, System.Windows.Visibility.Collapsed);
+			bool resultPathStarted = resultPathFactory.Start(this.m_PathologistUI.PanelSetOrder, this.m_PathologistUI.AccessionOrder, this.m_ResultDialog.PageNavigator, System.Windows.Visibility.Collapsed);
             if (resultPathStarted == false)
             {
                 string msg = "Results not yet implemented for " + this.PanelSetOrder.PanelSetName;

@@ -14,7 +14,6 @@ namespace YellowstonePathology.Business.Typing
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		private YellowstonePathology.Business.Document.CaseDocumentCollection m_CaseDocumentCollection;
 		DateTime m_CaseListDate;
@@ -38,7 +37,6 @@ namespace YellowstonePathology.Business.Typing
 		public TypingUIV2(YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 		{
 			this.m_SystemIdentity = systemIdentity;
-			this.m_ObjectTracker = new Persistence.ObjectTracker();
 			this.m_Lock = new YellowstonePathology.Business.Domain.Lock(this.m_SystemIdentity);
 
 			this.m_ParagraphTemplateCollection = new ParagraphTemplateCollection();
@@ -63,13 +61,13 @@ namespace YellowstonePathology.Business.Typing
 			this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(reportNo);
 			if (this.m_AccessionOrder != null)
 			{
-				this.m_SurgicalTestOrder = (YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
+                YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
+                this.m_SurgicalTestOrder = (YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 				this.m_Lock.SetLockable(this.m_AccessionOrder);
 
 				this.m_CaseDocumentCollection = new Business.Document.CaseDocumentCollection(this.m_AccessionOrder, reportNo);
 
-				this.m_ObjectTracker = new Persistence.ObjectTracker();
-				this.m_ObjectTracker.RegisterObject(this.m_AccessionOrder);
+				YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
 				this.RefreshBillingSpecimenViewCollection();
 
 				this.NotifyPropertyChanged("");
@@ -82,9 +80,9 @@ namespace YellowstonePathology.Business.Typing
 
 		public void Save()
 		{
-			if (this.m_AccessionOrder != null)
+			if (this.m_AccessionOrder != null && this.m_Lock.LockAquired == true)
 			{
-				this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
+                YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
 			}
 		}
 		
@@ -98,11 +96,6 @@ namespace YellowstonePathology.Business.Typing
 		{
 			get { return this.m_ParagraphTemplateCollection; }
 			set { this.m_ParagraphTemplateCollection = value; }
-		}
-
-		public YellowstonePathology.Business.Persistence.ObjectTracker ObjectTracker
-		{
-			get { return this.m_ObjectTracker; }
 		}
 
 		public YellowstonePathology.Business.Test.AccessionOrder AccessionOrder

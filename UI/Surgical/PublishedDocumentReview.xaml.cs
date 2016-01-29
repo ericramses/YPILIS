@@ -30,9 +30,9 @@ namespace YellowstonePathology.UI.Surgical
 
 			InitializeComponent();
 			this.DataContext = this.PanelSetOrder;
-		}
+        }
 
-		YellowstonePathology.Business.Test.PanelSetOrder PanelSetOrder
+        YellowstonePathology.Business.Test.PanelSetOrder PanelSetOrder
 		{
 			get { return this.m_PathologistUI.PanelSetOrder; }
 		}
@@ -40,7 +40,6 @@ namespace YellowstonePathology.UI.Surgical
         private void HyperLinkShowFinalizeDialog_Click(object sender, RoutedEventArgs e)
         {
             this.m_PageNavigationWindow = new PageNavigationWindow(this.m_SystemIdentity);
-            this.m_PathologistUI.ObjectTracker.SubmitChanges(this.m_PathologistUI.AccessionOrder);
             PublishedDocumentFinalPage publishedDocumentFinalPage = new PublishedDocumentFinalPage(this.m_PathologistUI.PanelSetOrder, this.m_PathologistUI.AccessionOrder, this.m_SystemIdentity);
             publishedDocumentFinalPage.Close += new PublishedDocumentFinalPage.CloseEventHandler(PublishedDocumentFinalPage_Close);
             this.m_PageNavigationWindow.Show();
@@ -50,8 +49,6 @@ namespace YellowstonePathology.UI.Surgical
         private void PublishedDocumentFinalPage_Close(object sender, EventArgs e)
         {
             this.m_PageNavigationWindow.Close();
-            this.m_PathologistUI.ObjectTracker.Deregister(this.m_PathologistUI.AccessionOrder);
-            this.m_PathologistUI.ObjectTracker.RegisterObject(this.m_PathologistUI.AccessionOrder);
         }
     }
 }
