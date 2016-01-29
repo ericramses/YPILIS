@@ -34,7 +34,7 @@ namespace YellowstonePathology.UI.Scanning
 
         public ProcessScannedDocumentsWindow()
         {
-            this.m_ReportNo = "15-";
+            this.m_ReportNo = DateTime.Now.ToString("yy-");
 
             this.m_ServerFolderCollection = new Scanning.ServerFolderCollection();
             InitializeComponent();
