@@ -196,7 +196,7 @@ namespace YellowstonePathology.UI.Gross
         {
             this.m_TemplateName = "Skin Excision Biopsy, Unoriented";
             this.m_Text = "[identifier]." + Environment.NewLine +                
-                "Gross Description:  Unoriented excision" + Environment.NewLine +
+                "Gross Description:  Unoriented excision." + Environment.NewLine +
                 "Measurements:  [measurements]" + Environment.NewLine +
                 "Inking:  [color]" + Environment.NewLine +
                 "Sectioning:  [description]" + Environment.NewLine +
@@ -220,7 +220,7 @@ namespace YellowstonePathology.UI.Gross
         {
             this.m_TemplateName = "Skin Excision Biopsy, Oriented";
             this.m_Text = "[identifier]." + Environment.NewLine +                
-                "Gross Description:  Oriented excision" + Environment.NewLine +
+                "Gross Description:  Oriented excision." + Environment.NewLine +
                 "Measurements:  [measurements]" + Environment.NewLine +
                 "Orientation:  [designation]" + Environment.NewLine +
                 "Inking:  12 to 3 o'clock = blue; 3 to 6 o'clock = red; 6 to 9 o'clock = green; 9 to 12 o'clock = orange; deep = black.  " + Environment.NewLine +
@@ -245,7 +245,7 @@ namespace YellowstonePathology.UI.Gross
         {
             this.m_TemplateName = "Skin Excision Biopsy with Curettings, Unoriented";
             this.m_Text = "[identifier]." + Environment.NewLine +                
-                "Gross Description:  Unoriented excision with curettings" + Environment.NewLine +
+                "Gross Description:  Unoriented excision with curettings." + Environment.NewLine +
                 "Measurements:  [measurements]; Curettings: [measurements]" + Environment.NewLine +
                 "Inking:  [color]" + Environment.NewLine +
                 "Sectioning:  [description]" + Environment.NewLine +
@@ -269,7 +269,7 @@ namespace YellowstonePathology.UI.Gross
         {
             this.m_TemplateName = "Skin Excision Biopsy with Curettings, Oriented";
             this.m_Text = "[identifier]." + Environment.NewLine +                
-                "Gross Description:  Oriented excision with curettings" + Environment.NewLine +
+                "Gross Description:  Oriented excision with curettings." + Environment.NewLine +
                 "Measurements:  [measurements]; Curettings: [measurements]" + Environment.NewLine +
                 "Orientation:  [designation]" + Environment.NewLine +
                 "Inking:  12 to 3 o'clock = blue; 3 to 6 o'clock = red; 6 to 9 o'clock = green; 9 to 12 o'clock = orange; deep = black.  " + Environment.NewLine +
@@ -506,7 +506,7 @@ namespace YellowstonePathology.UI.Gross
         {
             this.m_TemplateName = "CervicalBiopsy";
             this.m_Text = "[identifier]." + Environment.NewLine +
-                "Gross Description:  [number], tan-pink, rubbery fragment(s)." + Environment.NewLine +
+                "Gross Description:  [number], tan-pink, rubbery fragment[s]." + Environment.NewLine +
                 "Measurement:  [measurement]" + Environment.NewLine +
                 "Submitted:  Filtered through a fine mesh bag and entirely submitted in cassette [cassettelabel].  ";
 
@@ -635,14 +635,12 @@ namespace YellowstonePathology.UI.Gross
                 Environment.NewLine +
                 "Uterine Corpus:" + Environment.NewLine +
                 "   Weight:  [weight]" + Environment.NewLine +
-                "   Length:  [length]" + Environment.NewLine +
-                "   Width:  [width]" + Environment.NewLine +
-                "   Thickness:  [thickness]" + Environment.NewLine +
+                "   Dimensions:  [measurements]" + Environment.NewLine +
                 "Serosa:" + Environment.NewLine +
                 "   Uterine Serosa:  [color], [description]" + Environment.NewLine +
                 "   Cul-de-sac Serosa:  [color], [description]" + Environment.NewLine +
                 "Cervix:" + Environment.NewLine +
-                "   Measurement: [measurement] " + Environment.NewLine +
+                "   Measurement:  [measurement] " + Environment.NewLine +
                 "   Os:  [description], [measurement]" + Environment.NewLine +
                 "   Ectocervical Mucosa:  [description]" + Environment.NewLine +
                 "Sectioning of Uterus and Cervix:" + Environment.NewLine +
@@ -653,7 +651,7 @@ namespace YellowstonePathology.UI.Gross
                 "      Endometrial Thickness:  [thickness]" + Environment.NewLine +
                 "   Myometrium:" + Environment.NewLine +
                 "      Myometrial Thickness:  [thickness]" + Environment.NewLine +                
-                "      Lesions in Myometrium: [description]" + Environment.NewLine +
+                "      Lesions in Myometrium:  [description]" + Environment.NewLine +
                 Environment.NewLine +
                 "[summarysubmission].  ";            
 
@@ -679,7 +677,7 @@ namespace YellowstonePathology.UI.Gross
                 Environment.NewLine +
                 "Right Adnexal Organs:" + Environment.NewLine +
                 "   Fallopian Tube: " + Environment.NewLine +
-                "      Dimensions:  [measurements]([w/wo fimbriated ends])" + Environment.NewLine +
+                "      Dimensions:  [measurements]([w/wo] fimbriated ends)" + Environment.NewLine +
                 "      Surface:  [description/paratubal cysts absent/present]" + Environment.NewLine +
                 "      Cut Surface:  [patent/stenotic lumen]" + Environment.NewLine +
                 "   Ovary:" + Environment.NewLine +
@@ -688,7 +686,7 @@ namespace YellowstonePathology.UI.Gross
                 "      Cut Surface:  [description]" + Environment.NewLine +
                 "Left Adnexal Organs:" + Environment.NewLine +
                 "   Fallopian Tube: " + Environment.NewLine +
-                "      Dimensions:  [measurements]([w/wo fimbriated ends])" + Environment.NewLine +
+                "      Dimensions:  [measurements]([w/wo] fimbriated ends)" + Environment.NewLine +
                 "      Surface:  [description/paratubal cysts absent/present]" + Environment.NewLine +
                 "      Cut Surface:  [patent/stenotic lumen]" + Environment.NewLine +
                 "   Ovary:" + Environment.NewLine +
@@ -697,14 +695,12 @@ namespace YellowstonePathology.UI.Gross
                 "      Cut Surface:  [description]" + Environment.NewLine +
                 "Uterine Corpus:" + Environment.NewLine +
                 "   Weight:  [weight]" + Environment.NewLine +
-                "   Length:  [length]" + Environment.NewLine +
-                "   Width:  [width]" + Environment.NewLine +
-                "   Thickness:  [thickness]" + Environment.NewLine +
+                "   Dimensions: [measurements]" + Environment.NewLine +
                 "   Serosa:" + Environment.NewLine +
                 "      Uterine Serosa Description:  [description]" + Environment.NewLine +
                 "      Cul-de-sac Description:  [description]" + Environment.NewLine +
                 "Cervix:" + Environment.NewLine +
-                "   Measurement: [measurement] " + Environment.NewLine +
+                "   Measurement:  [measurement] " + Environment.NewLine +
                 "   Os:  [description], [measurement]" + Environment.NewLine +
                 "   Ectocervical Mucosa:  [description]" + Environment.NewLine +
                 "Sectioning of Uterus and Cervix:" + Environment.NewLine +
@@ -716,7 +712,7 @@ namespace YellowstonePathology.UI.Gross
                 "      Endometrial Thickness:  [thickness]" + Environment.NewLine +
                 "   Myometrium:" + Environment.NewLine +
                 "      Myometrial Thickness:  [thickness]" + Environment.NewLine +                
-                "      Lesions in Myometrium: [description]" + Environment.NewLine +
+                "      Lesions in Myometrium:  [description]" + Environment.NewLine +
                 Environment.NewLine +
                 "[summarysubmission].  ";
             
