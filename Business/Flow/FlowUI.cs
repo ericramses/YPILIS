@@ -177,10 +177,12 @@ namespace YellowstonePathology.Business.Flow
 		public void GetAccessionOrder(string reportNo, string masterAccessionNo)
 		{			
 			this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AOGW.Instance.GetByMasterAccessionNo(masterAccessionNo, true);
+
 			if(this.m_AccessionOrder.LockedAquired == true)
 			{
 				YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
 			}
+
 			this.m_ReportNo = reportNo;
 
 			this.RefreshCaseDocumentCollection(reportNo);
