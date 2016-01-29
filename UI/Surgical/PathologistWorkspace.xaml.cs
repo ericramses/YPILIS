@@ -80,7 +80,16 @@ namespace YellowstonePathology.UI.Surgical
 			this.m_MainWindowCommandButtonHandler.ApplicationClosing += new EventHandler(MainWindowCommandButtonHandler_ApplicationClosing);
 
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath += new MainWindowCommandButtonHandler.StartProviderDistributionPathEventHandler(MainWindowCommandButtonHandler_StartProviderDistributionPath);
-		}
+            if(this.m_PathologistUI.AccessionOrder != null)
+            {
+                YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_PathologistUI.AccessionOrder, this.m_PathologistUI);
+
+                if (this.m_CytologyResultsWorkspace != null)
+                {
+                    YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_PathologistUI.AccessionOrder, this.m_CytologyResultsWorkspace.CytologyUI);
+                }
+            }
+        }
 
         private void MainWindowCommandButtonHandler_StartProviderDistributionPath(object sender, EventArgs e)
         {
@@ -103,6 +112,11 @@ namespace YellowstonePathology.UI.Surgical
 			this.m_MainWindowCommandButtonHandler.ApplicationClosing -= MainWindowCommandButtonHandler_ApplicationClosing;
 
 			this.Save();
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this.m_PathologistUI);
+            if (this.m_CytologyResultsWorkspace != null)
+            {
+                YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(m_CytologyResultsWorkspace.CytologyUI);
+            }
 
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath -= MainWindowCommandButtonHandler_StartProviderDistributionPath;
 		}
@@ -426,7 +440,13 @@ namespace YellowstonePathology.UI.Surgical
 				{
 					this.m_PathologistUI.GetAccessionOrder(item.MasterAccessionNo, item.ReportNo);
 				}
-				this.SetReviewResult();
+
+                if (this.m_CytologyResultsWorkspace != null)
+                {
+                    YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this.m_CytologyResultsWorkspace.CytologyUI);
+                }
+
+                this.SetReviewResult();
 			}
 		}
 

@@ -66,6 +66,7 @@ namespace YellowstonePathology.UI
 		{
 			this.m_Timer.Stop();
 			this.m_Timer.Dispose();
+            this.SaveAndReleaseLocksOnApplicationExit();
 			base.OnExit(e);
 		}
 
@@ -139,5 +140,26 @@ namespace YellowstonePathology.UI
 			TimeSpan timeToNextNotification = DateTime.Today.AddDays(1) - DateTime.Today;
 			this.m_Timer.Interval = timeToNextNotification.TotalMilliseconds;
 		}
+
+        private void SaveAndReleaseLocksOnApplicationExit()
+        {
+            for (int idx = YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisteredObjects.Count - 1; idx > -1; idx--)
+            {
+                YellowstonePathology.Business.Persistence.RegisteredObject registeredObject = YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisteredObjects[idx];
+                object registeredBy = registeredObject.RegisteredBy[0];
+                if (registeredObject.Value is YellowstonePathology.Business.Test.AccessionOrder)
+                {
+                    YellowstonePathology.Business.Test.AccessionOrder accessonOrder = (YellowstonePathology.Business.Test.AccessionOrder)registeredObject.Value;
+                    if (accessonOrder.LockedAquired == true)
+                    {
+                        YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(accessonOrder, registeredBy, true);
+                    }
+                }
+                else
+                {
+                    YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(registeredObject.Value, registeredBy);
+                }
+            }
+        }
     }
 }
