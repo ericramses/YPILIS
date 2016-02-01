@@ -27,8 +27,8 @@ namespace YellowstonePathology.Business.Label.Model
             Image barcodeImage = barcode.Encode(BarcodeLib.TYPE.CODE128, this.m_AliquotOrderId, Color.Black, Color.White, 190, 48);
             e.Graphics.DrawImage(barcodeImage, new Point(0, 8));
 
-            string largeRectangleString = this.TruncateString(this.m_AliquotOrderId, 150) + ": " + this.TruncateString(this.m_PatientDisplayName, 150) + Environment.NewLine +
-                this.m_Birthdate.ToShortDateString() + Environment.NewLine +
+            string largeRectangleString = this.TruncateString(this.m_AliquotOrderId, 150) + ": " + this.m_Birthdate.ToShortDateString() + Environment.NewLine +
+                this.TruncateString(this.m_PatientDisplayName, 150) + Environment.NewLine +
                 this.m_SpecimenDescription;         
 
             StringFormat stringFormatLargeRectangle = new StringFormat();

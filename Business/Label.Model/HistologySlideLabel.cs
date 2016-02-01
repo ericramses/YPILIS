@@ -34,7 +34,6 @@ namespace YellowstonePathology.Business.Label.Model
             e.Graphics.DrawString(this.m_FacilityLocationAbbreviation, new System.Drawing.Font("Verdana", 4), System.Drawing.Brushes.Black, new System.Drawing.PointF(x + 29, y + 31));
             e.Graphics.DrawString(this.m_PatientLastName, new System.Drawing.Font("Verdana", 6), System.Drawing.Brushes.Black, new System.Drawing.PointF(x + 3, y + 47));
             
-
             DataMatrix.DmtxImageEncoder encoder = new DataMatrix.DmtxImageEncoder();
             DataMatrix.DmtxImageEncoderOptions options = new DataMatrix.DmtxImageEncoderOptions();
             options.ModuleSize = 1;

@@ -19,7 +19,7 @@ namespace YellowstonePathology.UI.Gross
     {
         public ProstateNeedleCoreTemplate()
         {
-            this.m_TemplateName = "Prostate Specimen";
+            this.m_TemplateName = "Prostate Needle Core";
             this.m_Text = "[identifier] and consists of [number] tan-pink cylindrical tissue fragments measuring [measurement].  " +
                 "The specimen is entirely submitted in cassette [cassettelabel].  ";            
 
@@ -39,7 +39,7 @@ namespace YellowstonePathology.UI.Gross
     {
         public ProstateTURTemplate()
         {
-            this.m_TemplateName = "Prostate Specimen";
+            this.m_TemplateName = "Prostate TUR";
             this.m_Text = "[identifier] and consists of [number] irregular ragged tan-pink tissue fragments " +
                 "weighing [weight] and measuring [measurement] in aggregate.  [representativesections]. ";                
 
