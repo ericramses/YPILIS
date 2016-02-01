@@ -114,16 +114,5 @@ namespace YellowstonePathology.Business.Persistence
         	}
         	return result;
         }
-
-        public void ResetValueOnUpdate(object objectToRegister)
-        {
-            RegisteredObject registeredObject = this.Get(objectToRegister);
-            this.Remove(registeredObject);
-
-            foreach(object registeredBy in registeredObject.RegisteredBy)
-            {
-                this.Register(objectToRegister, registeredBy);
-            }
-        }
     }
 }

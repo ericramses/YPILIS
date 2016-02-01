@@ -39,8 +39,7 @@ namespace YellowstonePathology.Business.Gateway
 		        	result = null;
 	        	}
             }
-
-	        if(this.m_AccessionOrderCollection.Exists(masterAccessionNo) == false)
+	        else
 	        {
 	            if (USEMONGO == false)
 	            {

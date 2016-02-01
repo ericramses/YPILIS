@@ -10,6 +10,7 @@ namespace YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile
 		private YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen m_SurgicalSpecimen;
 		private YellowstonePathology.Business.Specimen.Model.SpecimenOrder m_SpecimenOrder;
 		private YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder m_PanelSetOrderSurgical;
+
 		private YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeIHC m_PanelSetOrderLynchSyndromeIHC;
 		private YellowstonePathology.Business.Test.LynchSyndrome.IHCResult m_IHCResult;
 		private YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderMLH1MethylationAnalysis m_PanelSetOrderMLH1MethylationAnalysis;				
@@ -19,6 +20,9 @@ namespace YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile
 
         private YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTestOrder m_BRAFV600EKTestOrder;
         private YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTest m_BRAFV600EKTest;
+
+        private YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelTest m_RASRAFPanelTest;
+        private YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelTestOrder m_RASRAFPanelTestOrder;
 
         private KRASExon23Mutation.KRASExon23MutationTest m_KRASExon23MutationTest;
         private KRASExon23Mutation.KRASExon23MutationTestOrder m_KRASExon23MutationTestOrder;
@@ -36,6 +40,7 @@ namespace YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile
         private bool m_KRASExon23MutationIsOrdered;
         private bool m_KRASExon4MutationIsOrdered;
         private bool m_NRASMutationAnalysisIsOrdered;
+        private bool m_RASRAFIsOrdered;
 
         public ComprehensiveColonCancerProfileResult(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
 			ComprehensiveColonCancerProfile comprehensiveColonCancerProfile)
@@ -94,6 +99,13 @@ namespace YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile
                 this.m_NRASMutationAnalysisIsOrdered = true;
                 this.m_NRASMutationAnalysisTestOrder = (NRASMutationAnalysis.NRASMutationAnalysisTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_NRASMutationAnalysisTest.PanelSetId, comprehensiveColonCancerProfile.OrderedOnId, restrictToOrderedOn);
             }
+
+            this.m_RASRAFPanelTest = new RASRAFPanel.RASRAFPanelTest();
+            if(accessionOrder.PanelSetOrderCollection.Exists(this.m_RASRAFPanelTest.PanelSetId, comprehensiveColonCancerProfile.OrderedOnId, restrictToOrderedOn) == true)
+            {
+                this.m_RASRAFIsOrdered = true;
+                this.m_RASRAFPanelTestOrder = (RASRAFPanel.RASRAFPanelTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_RASRAFPanelTest.PanelSetId, comprehensiveColonCancerProfile.OrderedOnId, restrictToOrderedOn);
+            }
         }
 
         public YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen SurgicalSpecimen
@@ -150,6 +162,11 @@ namespace YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile
         {
             get { return this.m_BRAFV600EKIsOrdered; }
         }
+        
+        public bool RASRAFIsOrdered
+        {
+            get { return this.m_RASRAFIsOrdered; }
+        }
 
         public YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTestOrder BRAFV600EKTestOrder
 		{
@@ -185,6 +202,11 @@ namespace YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile
         public NRASMutationAnalysis.NRASMutationAnalysisTestOrder NRASMutationAnalysisTestOrder
         {
             get { return this.m_NRASMutationAnalysisTestOrder; }
+        }
+
+        public RASRAFPanel.RASRAFPanelTestOrder RASRAFTestOrder
+        {
+            get { return this.m_RASRAFPanelTestOrder; }
         }
     }
 }

@@ -40,7 +40,8 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
         private Visibility m_CloseButtonVisibility;
         private Visibility m_BackButtonVisibility;
 
-        private YellowstonePathology.Business.User.SystemUserCollection m_SystemUserCollection;        
+        private YellowstonePathology.Business.User.SystemUserCollection m_SystemUserCollection;
+        private bool m_Closing;        
 
         public ProviderDistributionPage(string reportNo, 
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
@@ -68,7 +69,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
 			DataContext = this;
             this.Loaded += new RoutedEventHandler(ProviderDetailPage_Loaded);
-            Unloaded += ProviderDistributionPage_Unloaded;
+            Close += ProviderDistributionPage_Close;
 		}
 
         public YellowstonePathology.Business.User.SystemUserCollection SystemUserCollection
@@ -84,9 +85,9 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             this.ButtonProviderLookup.Focus();
         }
 
-        private void ProviderDistributionPage_Unloaded(object sender, RoutedEventArgs e)
+        private void ProviderDistributionPage_Close(object sender, EventArgs e)
         {
-            //YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
+            this.m_Closing = true;
         }
 
         public Visibility NextButtonVisibility
@@ -254,6 +255,10 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 		public void Save()
 		{
             YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
+            if(this.m_Closing == true)
+            {
+                YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
+            }
         }
 
         public void NotifyPropertyChanged(String info)

@@ -198,17 +198,11 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
         private void ProviderDistributionPage_Next(object sender, EventArgs e)
         {
-            FinalizeAccession.ProviderDistributionPage providerDistributionPage = new FinalizeAccession.ProviderDistributionPage(this.m_ReportNo, this.m_AccessionOrder, this.m_PageNavigator, System.Windows.Visibility.Visible,
-                System.Windows.Visibility.Collapsed, System.Windows.Visibility.Visible);
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(providerDistributionPage);
             if (this.ShowPatientHistoryPage() == false) this.StartAliquotAndStainOrderPath();
         }
 
         private void ProviderDistributionPage_Back(object sender, EventArgs e)
         {
-            FinalizeAccession.ProviderDistributionPage providerDistributionPage = new FinalizeAccession.ProviderDistributionPage(this.m_ReportNo, this.m_AccessionOrder, this.m_PageNavigator, System.Windows.Visibility.Visible,
-                System.Windows.Visibility.Collapsed, System.Windows.Visibility.Visible);
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(providerDistributionPage);
             this.ShowPatientLinkingPage();
         }
 
