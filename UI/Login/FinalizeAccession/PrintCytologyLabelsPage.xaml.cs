@@ -25,14 +25,11 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 		public delegate void FinishEventHandler(object sender, EventArgs e);
 		public event FinishEventHandler Finish;
 
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		private string m_PageHeaderText;
 
-		public PrintCytologyLabelsPage(string reportNo, YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker)
+		public PrintCytologyLabelsPage(string reportNo, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{
-			this.m_ObjectTracker = objectTracker;
 			this.m_AccessionOrder = accessionOrder;
 
 
@@ -40,9 +37,22 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
 			InitializeComponent();
 			DataContext = this;
+
+            Loaded += PrintCytologyLabelsPage_Loaded;
+            Unloaded += PrintCytologyLabelsPage_Unloaded;
 		}
 
-		public string PageHeaderText
+        private void PrintCytologyLabelsPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
+        }
+
+        private void PrintCytologyLabelsPage_Unloaded(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
+        }
+
+        public string PageHeaderText
 		{
 			get { return this.m_PageHeaderText; }
 		}
@@ -84,7 +94,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                 if (specimenOrder.AliquotOrderCollection.HasThinPrepSlide()== false)
                 {
                     aliquotOrder = specimenOrder.AliquotOrderCollection.AddThinPrepSlide(specimenOrder, this.m_AccessionOrder.AccessionDate.Value);
-                    this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
+                    YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
                 }
                 else
                 {

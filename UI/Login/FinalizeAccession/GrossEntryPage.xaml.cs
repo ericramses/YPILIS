@@ -25,14 +25,12 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
         public delegate void NextEventHandler(object sender, EventArgs e);
         public event NextEventHandler Next;
 
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		private YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder m_PanelSetOrderSurgical;
 		private string m_PageHeaderText;
 
-        public GrossEntryPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Persistence.ObjectTracker objectTracker)
+        public GrossEntryPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{
-			this.m_ObjectTracker = objectTracker;
 			this.m_AccessionOrder = accessionOrder;
 			this.m_PanelSetOrderSurgical = this.m_AccessionOrder.PanelSetOrderCollection.GetSurgical();
 
@@ -41,10 +39,23 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
 			InitializeComponent();
 
-            this.DataContext = this;                     
-		}        
+            this.DataContext = this;
 
-		public string PageHeaderText
+            Loaded += GrossEntryPage_Loaded;
+            Unloaded += GrossEntryPage_Unloaded;                     
+		}
+
+        private void GrossEntryPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
+        }
+
+        private void GrossEntryPage_Unloaded(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
+        }
+
+        public string PageHeaderText
 		{
 			get { return this.m_PageHeaderText; }
 		}
@@ -87,7 +98,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
 		public void Save()
 		{
-			this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);            
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);            
 		}
 
 		public void UpdateBindingSources()

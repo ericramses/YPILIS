@@ -7,7 +7,6 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 {
 	public class AssignmentPath
 	{
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
         private LoginPageWindow m_LoginPageWindow;
@@ -16,7 +15,6 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 		public AssignmentPath(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {
             this.m_AccessionOrder = accessionOrder;
-			this.m_ObjectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
         }        
 
         public void Start()
@@ -62,8 +60,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             CaseLockPage caseLockPage = (CaseLockPage)sender;
             if (caseLockPage.Lock.LockAquired == true)
             {
-				this.m_ObjectTracker.RegisterObject(this.m_AccessionOrder);
-				FinalizeAccession.AssignmentPage AssignmentPage = new FinalizeAccession.AssignmentPage(this.m_AccessionOrder, this.m_ObjectTracker);
+				FinalizeAccession.AssignmentPage AssignmentPage = new FinalizeAccession.AssignmentPage(this.m_AccessionOrder);
 				AssignmentPage.Return += new FinalizeAccession.AssignmentPage.ReturnEventHandler(AssignmentPage_Return);
 				this.m_LoginPageWindow.PageNavigator.Navigate(AssignmentPage);
             }

@@ -841,12 +841,6 @@ namespace YellowstonePathology.UI
             monitorPath.Show(YellowstonePathology.UI.Monitor.MonitorPageLoadEnum.PendingTestMonitor);            
         }
 
-        private void MenuItemNeogenomicsResults_Click(object sender, RoutedEventArgs e)
-        {
-            YellowstonePathology.UI.Test.NeogenomicsResultPath neogenomicsResultPath = new Test.NeogenomicsResultPath();
-            neogenomicsResultPath.Start();
-        }        
-
         private void MenuItemMongoMigration_Click(object sender, RoutedEventArgs e)
         {
             YellowstonePathology.UI.Mongo.MongoMigrationWindow mongoMigrationWindow = new Mongo.MongoMigrationWindow();

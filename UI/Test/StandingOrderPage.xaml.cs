@@ -28,7 +28,6 @@ namespace YellowstonePathology.UI.Test
 
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-        private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;        
         
         private List<YellowstonePathology.Business.Test.AccessionOrder> m_AccessionOrderList;
         private YellowstonePathology.Business.Domain.Physician m_Physician;
@@ -39,11 +38,10 @@ namespace YellowstonePathology.UI.Test
 		private YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTest m_WomensHealthProfileTest;
 		private System.Windows.Visibility m_WomensHealthProfileVisibility;
 
-        public StandingOrderPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
+        public StandingOrderPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 		{
             this.m_AccessionOrder = accessionOrder;
-            this.m_ObjectTracker = objectTracker;
             this.m_SystemIdentity = systemIdentity;
 
 			this.m_WomensHealthProfileTest = new YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTest();
@@ -69,8 +67,21 @@ namespace YellowstonePathology.UI.Test
 
 			InitializeComponent();
 
-			DataContext = this;				
+			DataContext = this;
+
+            Loaded += StandingOrderPage_Loaded;
+            Unloaded += StandingOrderPage_Unloaded;				
 		}
+
+        private void StandingOrderPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
+        }
+
+        private void StandingOrderPage_Unloaded(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
+        }
 
         public YellowstonePathology.Business.Domain.Physician Physician
         {
@@ -124,10 +135,10 @@ namespace YellowstonePathology.UI.Test
 
 		public void Save()
 		{
-            this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
-		}
-        
-		public void UpdateBindingSources()
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
+        }
+
+        public void UpdateBindingSources()
 		{
 
 		}                               
@@ -189,7 +200,7 @@ namespace YellowstonePathology.UI.Test
 				this.m_WomensHealthProfileTestOrder = womensHealthProfileTestOrder;
 				this.m_WomensHealthProfileVisibility = System.Windows.Visibility.Visible;
                 this.UpdateWomensHealthProfile();
-                this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
+                this.Save();
                 this.NotifyPropertyChanged(string.Empty);
             }
             else

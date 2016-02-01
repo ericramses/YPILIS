@@ -29,27 +29,37 @@ namespace YellowstonePathology.UI.Login.Receiving
 		public event CloseEventHandler Close;
 
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private YellowstonePathology.Business.Task.Model.TaskOrderDetail m_TaskOrderDetail;		
 		private PageNavigationModeEnum m_PageNavigationMode;
 
 		public TaskOrderEditPage(YellowstonePathology.Business.Task.Model.TaskOrderDetail taskOrderDetail,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,			
 			PageNavigationModeEnum pageNavigationMode)
 		{
 			this.m_TaskOrderDetail = taskOrderDetail;
 			this.m_AccessionOrder = accessionOrder;
-			this.m_ObjectTracker = objectTracker;			
 			this.m_PageNavigationMode = pageNavigationMode;
 
 			InitializeComponent();
 
 			this.SetButtonVisibility();
 			this.DataContext = this;
+
+            Loaded += TaskOrderEditPage_Loaded;
+            Unloaded += TaskOrderEditPage_Unloaded;
 		}
 
-		private void SetButtonVisibility()
+        private void TaskOrderEditPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
+        }
+
+        private void TaskOrderEditPage_Unloaded(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
+        }
+
+        private void SetButtonVisibility()
 		{
 			switch (this.m_PageNavigationMode)
 			{
@@ -88,10 +98,10 @@ namespace YellowstonePathology.UI.Login.Receiving
 
 		public void Save()
 		{
-			this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
-		}
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
+        }
 
-		public void UpdateBindingSources()
+        public void UpdateBindingSources()
 		{
 		}
 

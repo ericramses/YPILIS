@@ -80,13 +80,22 @@ namespace YellowstonePathology.UI.Surgical
 			this.m_MainWindowCommandButtonHandler.ApplicationClosing += new EventHandler(MainWindowCommandButtonHandler_ApplicationClosing);
 
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath += new MainWindowCommandButtonHandler.StartProviderDistributionPathEventHandler(MainWindowCommandButtonHandler_StartProviderDistributionPath);
-		}
+            if(this.m_PathologistUI.AccessionOrder != null)
+            {
+                YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_PathologistUI.AccessionOrder, this.m_PathologistUI);
+
+                if (this.m_CytologyResultsWorkspace != null)
+                {
+                    YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_PathologistUI.AccessionOrder, this.m_CytologyResultsWorkspace.CytologyUI);
+                }
+            }
+        }
 
         private void MainWindowCommandButtonHandler_StartProviderDistributionPath(object sender, EventArgs e)
         {
             if (this.m_PathologistUI.AccessionOrder != null)
             {
-                YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPath providerDistributionPath = new YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPath(this.m_PathologistUI.PanelSetOrder.ReportNo, this.m_PathologistUI.AccessionOrder, this.m_PathologistUI.ObjectTracker,
+                YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPath providerDistributionPath = new YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPath(this.m_PathologistUI.PanelSetOrder.ReportNo, this.m_PathologistUI.AccessionOrder,
                     System.Windows.Visibility.Collapsed, System.Windows.Visibility.Visible, System.Windows.Visibility.Collapsed);
                 providerDistributionPath.Start();
             }
@@ -103,6 +112,11 @@ namespace YellowstonePathology.UI.Surgical
 			this.m_MainWindowCommandButtonHandler.ApplicationClosing -= MainWindowCommandButtonHandler_ApplicationClosing;
 
 			this.Save();
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this.m_PathologistUI);
+            if (this.m_CytologyResultsWorkspace != null)
+            {
+                YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(m_CytologyResultsWorkspace.CytologyUI);
+            }
 
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath -= MainWindowCommandButtonHandler_StartProviderDistributionPath;
 		}
@@ -186,7 +200,8 @@ namespace YellowstonePathology.UI.Surgical
 		private void MainWindowCommandButtonHandler_ApplicationClosing(object sender, EventArgs e)
 		{
 			this.Save();
-			this.m_PathologistUI.Lock.ReleaseLock();
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this.m_PathologistUI);
+            this.m_PathologistUI.Lock.ReleaseLock();
 		}
 
 		private void ButtonStainOrder_Click(object sender, RoutedEventArgs e)
@@ -425,7 +440,13 @@ namespace YellowstonePathology.UI.Surgical
 				{
 					this.m_PathologistUI.GetAccessionOrder(item.MasterAccessionNo, item.ReportNo);
 				}
-				this.SetReviewResult();
+
+                if (this.m_CytologyResultsWorkspace != null)
+                {
+                    YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this.m_CytologyResultsWorkspace.CytologyUI);
+                }
+
+                this.SetReviewResult();
 			}
 		}
 
@@ -438,7 +459,6 @@ namespace YellowstonePathology.UI.Surgical
 					this.m_CytologyResultsWorkspace = new Cytology.CytologyResultsWorkspace();
 					this.m_CytologyResultsWorkspace.CytologyUI.SetAccessionOrder(this.m_PathologistUI.AccessionOrder, this.m_PathologistUI.PanelSetOrder.ReportNo);
 					this.m_CytologyResultsWorkspace.CytologyUI.Lock = this.m_PathologistUI.Lock;
-					this.m_CytologyResultsWorkspace.CytologyUI.ObjectTracker = this.m_PathologistUI.ObjectTracker;
 					this.m_CytologyResultsWorkspace.SetReportNo(this.m_PathologistUI.PanelSetOrder.ReportNo);
 
 					YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection clientOrderCollection = YellowstonePathology.Business.Gateway.ClientOrderGateway.GetClientOrdersByMasterAccessionNo(this.m_PathologistUI.AccessionOrder.MasterAccessionNo);
@@ -654,12 +674,10 @@ namespace YellowstonePathology.UI.Surgical
 
 			if (clientOrderCollection.Count != 0)
 			{
-				this.m_PathologistUI.ObjectTracker.RegisterObject(clientOrderCollection[0]);
-				Login.Receiving.AccessionOrderPath accessionOrderPath = new Login.Receiving.AccessionOrderPath(accessionOrder, clientOrderCollection[0], this.m_PathologistUI.ObjectTracker, PageNavigationModeEnum.Standalone);
+                Login.Receiving.AccessionOrderPath accessionOrderPath = new Login.Receiving.AccessionOrderPath(accessionOrder, clientOrderCollection[0], PageNavigationModeEnum.Standalone);
 				accessionOrderPath.Start();
-				this.m_PathologistUI.ObjectTracker.Deregister(clientOrderCollection[0]);
-			}
-			else
+            }
+            else
 			{
 				MessageBox.Show("No Client Order was found.  Please contact Sid.");
 			}
@@ -685,7 +703,7 @@ namespace YellowstonePathology.UI.Surgical
             {
                 YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder = (YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder)this.m_PathologistUI.AccessionOrder.PanelSetOrderCollection.GetSurgical();
                 PeerReviewDialog peerReviewDialog = new PeerReviewDialog();
-                PeerReviewResultPage peerReviewResultPage = new PeerReviewResultPage(surgicalTestOrder, this.m_PathologistUI.AccessionOrder, this.m_PathologistUI.ObjectTracker, this.m_SystemIdentity);
+                PeerReviewResultPage peerReviewResultPage = new PeerReviewResultPage(surgicalTestOrder, this.m_PathologistUI.AccessionOrder, this.m_SystemIdentity);
                 peerReviewDialog.PageNavigator.Navigate(peerReviewResultPage);
                 peerReviewDialog.ShowDialog();
             }

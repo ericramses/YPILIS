@@ -13,7 +13,6 @@ namespace YellowstonePathology.UI.Test
         public static ResultPath GetResultPath(int panelSetId,
             string reportNo,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
             YellowstonePathology.UI.Navigation.PageNavigator pageNavigator,
             System.Windows.Visibility backButtonVisibility)
         {
@@ -21,236 +20,236 @@ namespace YellowstonePathology.UI.Test
             switch(panelSetId)
             {
 				case 1:
-					result = new JAK2V617FResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+					result = new JAK2V617FResultPath(reportNo, accessionOrder, pageNavigator);
 					break;				
 				case 3:
-					result = new NGCTResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+					result = new NGCTResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
 				case 14:
-                    result = new HPVResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+                    result = new HPVResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
 				case 18:
-					result = new BRAFV600EKResultPath(reportNo, accessionOrder, objectTracker, pageNavigator, backButtonVisibility);
+					result = new BRAFV600EKResultPath(reportNo, accessionOrder, pageNavigator, backButtonVisibility);
                     break;
 				case 19:
-					result = new PNHResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+					result = new PNHResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
 				case 27:
-					result = new KRASStandardResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+					result = new KRASStandardResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
 				case 30:
-                    result = new KRASStandardReflexResultPath(reportNo, accessionOrder, objectTracker, pageNavigator, backButtonVisibility);
+                    result = new KRASStandardReflexResultPath(reportNo, accessionOrder, pageNavigator, backButtonVisibility);
                     break;
                 case 31:
-                    result = new TechnicalOnlyResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+                    result = new TechnicalOnlyResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
                 case 32:
-					result = new FactorVLeidenResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+					result = new FactorVLeidenResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
 				case 33:
-					result = new ProthrombinResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+					result = new ProthrombinResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
 				case 36:
-					result = new BCellClonalityByPCRResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+					result = new BCellClonalityByPCRResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
 				case 46:
-					result = new HER2AmplificationByISHResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+					result = new HER2AmplificationByISHResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
 				case 50:
-					result = new ErPrSemiQuantitativeResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+					result = new ErPrSemiQuantitativeResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
 				case 60:
-                    result = new EGFRResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+                    result = new EGFRResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
                 case 61:
-					result = new TrichomonasResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+					result = new TrichomonasResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
 				case 62:
-					result = new HPV1618ResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+					result = new HPV1618ResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
                 case 213:
-                    result = new HPV1618ByPCRResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+                    result = new HPV1618ByPCRResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
                 case 66:
-					result = new TestCancelledResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+					result = new TestCancelledResultPath(reportNo, accessionOrder, pageNavigator);
                     break;				
 				case 81:
                 case 82:
-                    result = new FNAResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+                    result = new FNAResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
 				case 100:
-					result = new BCL1t1114ResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+					result = new BCL1t1114ResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
 				case 102:
-					result = new LynchSyndromeIHCPanelResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+					result = new LynchSyndromeIHCPanelResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
 				case 106:
-					result = new LynchSyndromeEvaluationResultPath(reportNo, accessionOrder, objectTracker, pageNavigator, backButtonVisibility);
+					result = new LynchSyndromeEvaluationResultPath(reportNo, accessionOrder, pageNavigator, backButtonVisibility);
                     break;
 				case 112:
-					result = new ComprehensiveColonCancerProfilePath(reportNo, accessionOrder, objectTracker, pageNavigator, backButtonVisibility);
+					result = new ComprehensiveColonCancerProfilePath(reportNo, accessionOrder, pageNavigator, backButtonVisibility);
                     break;
 				case 131:
-                    result = new ALKForNSCLCByFISHResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+                    result = new ALKForNSCLCByFISHResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
 				case 132:
-					result = new MicrosatelliteInstabilityAnalysisResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+					result = new MicrosatelliteInstabilityAnalysisResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
 				case 135:
-					result = new ABL1KinaseDomainMutationResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+					result = new ABL1KinaseDomainMutationResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
 				case 136:
-					result = new MPNStandardReflexPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+					result = new MPNStandardReflexPath(reportNo, accessionOrder, pageNavigator);
                     break;
 				case 137:
-					result = new MPNExtendedReflexPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+					result = new MPNExtendedReflexPath(reportNo, accessionOrder, pageNavigator);
                     break;
 				case 140:
-					result = new CalreticulinMutationAnalysisResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+					result = new CalreticulinMutationAnalysisResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
 				case 141:
-					result = new JAK2Exon1214ResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+					result = new JAK2Exon1214ResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
 				case 143:
-					result = new ZAP70LymphoidPanelResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+					result = new ZAP70LymphoidPanelResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
 				case 144:
-					result = new MLH1MethalationAnalysisResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+					result = new MLH1MethalationAnalysisResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
 				case 145:
-					result = new ChromosomeAnalysisResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+					result = new ChromosomeAnalysisResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
 				case 147:
-					result = new MultipleMyelomaMGUSByFishResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+					result = new MultipleMyelomaMGUSByFishResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
 				case 148:
-					result = new CCNDIBCLIGHResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+					result = new CCNDIBCLIGHResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
 				case 149:
-					result = new HighGradeLargeBCellLymphomaResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+					result = new HighGradeLargeBCellLymphomaResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
 				case 150:
-					result = new CEBPAResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+					result = new CEBPAResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
 				case 151:
-					result = new CLLByFishResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+					result = new CLLByFishResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
 				case 152:
-					result = new TCellClonalityByPCRResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+					result = new TCellClonalityByPCRResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
 				case 153:
-					result = new FLT3ResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+					result = new FLT3ResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
 				case 155:
-					result = new NPM1ResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+					result = new NPM1ResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
 				case 156:
-					result = new BCRABLByFishResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+					result = new BCRABLByFishResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
 				case 157:
-					result = new MPNFishResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+					result = new MPNFishResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
 				case 158:
-					result = new MDSByFishResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+					result = new MDSByFishResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
 				case 159:
-					result = new MPLResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+					result = new MPLResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
 				case 160:
-					result = new MultipleFISHProbePanelResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+					result = new MultipleFISHProbePanelResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
 				case 161:
-					result = new MultipleMyelomaIgHByFishResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+					result = new MultipleMyelomaIgHByFishResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
 				case 162:
-					result = new BCRABLByPCRResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+					result = new BCRABLByPCRResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
 				case 163:
-					result = new Her2AmplificationByFishResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+					result = new Her2AmplificationByFishResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
 				case 164:
-					result = new MDSExtendedPanelByFishResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+					result = new MDSExtendedPanelByFishResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
 				case 168:
-					result = new AMLStandardByFishResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+					result = new AMLStandardByFishResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
 				case 169:
-					result = new ChromosomeAnalysisForFetalAnomalyResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+					result = new ChromosomeAnalysisForFetalAnomalyResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
 				case 170:
-					result = new NonHodgkinsLymphomaFISHPanelResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+					result = new NonHodgkinsLymphomaFISHPanelResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
 				case 171:
-					result = new Her2AmplificationByIHCResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+					result = new Her2AmplificationByIHCResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
 				case 172:
-					result = new EosinophiliaByFISHResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+					result = new EosinophiliaByFISHResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
 				case 173:
-					result = new PlasmaCellMyelomaRiskStratificationResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+					result = new PlasmaCellMyelomaRiskStratificationResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
 				case 174:
-					result = new NeoARRAYSNPCytogeneticProfileResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+					result = new NeoARRAYSNPCytogeneticProfileResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
 				case 175:
-					result = new KRASExon4MutationResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+					result = new KRASExon4MutationResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
 				case 177:
-					result = new BCellGeneRearrangementResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+					result = new BCellGeneRearrangementResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
 				case 178:
-					result = new MYD88MutationAnalysisResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+					result = new MYD88MutationAnalysisResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
 				case 179:
-					result = new NRASMutationAnalysisResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+					result = new NRASMutationAnalysisResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
 				case 181:
-					result = new CKITResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+					result = new CKITResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
 				case 183:
-					result = new CysticFibrosisResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+					result = new CysticFibrosisResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
 				case 184:
-					result = new DeletionsForGlioma1p19qResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+					result = new DeletionsForGlioma1p19qResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
 				case 185:
-					result = new BladderCancerFISHUrovysionResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+					result = new BladderCancerFISHUrovysionResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
 				case 186:
-					result = new API2MALT1ResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+					result = new API2MALT1ResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
 				case 192:
-					result = new ALLAdultByFISHResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+					result = new ALLAdultByFISHResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
                 case 201:
-                    result = new IHCQCResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+                    result = new IHCQCResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
 				case 203:
-					result = new ReviewForAdditionalTestingResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+					result = new ReviewForAdditionalTestingResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
                 case 204:
-                    result = new ROS1ResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+                    result = new ROS1ResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
                 case 212:
-                    result = new MissingInformationResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+                    result = new MissingInformationResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
                 case 214:
-                    result = new TechInitiatedPeripheralSmearResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+                    result = new TechInitiatedPeripheralSmearResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
                 case 215:
-                    result = new PDL1ResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+                    result = new PDL1ResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
                 case 217:
-                    result = new KRASExon23MutationResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+                    result = new KRASExon23MutationResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
                 case 218:
-                    result = new RASRAFPanelResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+                    result = new RASRAFPanelResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
                 case 222:
-                    result = new BCellEnumerationResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+                    result = new BCellEnumerationResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
                 case 223:
-                    result = new TCellSubsetAnalysisResultPath(reportNo, accessionOrder, objectTracker, pageNavigator);
+                    result = new TCellSubsetAnalysisResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
             }
             return result;
@@ -259,14 +258,13 @@ namespace YellowstonePathology.UI.Test
 
         public bool Start(YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-            YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,                        
             YellowstonePathology.UI.Navigation.PageNavigator pageNavigator,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity,
             System.Windows.Visibility backButtonVisibility)
         {
 			bool result = false;
 
-            YellowstonePathology.UI.Test.ResultPath resultPath = YellowstonePathology.UI.Test.ResultPathFactory.GetResultPath(panelSetOrder.PanelSetId, panelSetOrder.ReportNo, accessionOrder, objectTracker, pageNavigator, System.Windows.Visibility.Collapsed);
+            YellowstonePathology.UI.Test.ResultPath resultPath = YellowstonePathology.UI.Test.ResultPathFactory.GetResultPath(panelSetOrder.PanelSetId, panelSetOrder.ReportNo, accessionOrder, pageNavigator, System.Windows.Visibility.Collapsed);
 
             if (resultPath != null)
             {
@@ -288,7 +286,7 @@ namespace YellowstonePathology.UI.Test
                         clientOrder = clientOrders[0];
                     }
 
-                    YellowstonePathology.UI.Login.WomensHealthProfilePath womensHealthProfilePath = new YellowstonePathology.UI.Login.WomensHealthProfilePath(accessionOrder, objectTracker, clientOrder, pageNavigator, System.Windows.Visibility.Collapsed);
+                    YellowstonePathology.UI.Login.WomensHealthProfilePath womensHealthProfilePath = new YellowstonePathology.UI.Login.WomensHealthProfilePath(accessionOrder, clientOrder, pageNavigator, System.Windows.Visibility.Collapsed);
                     womensHealthProfilePath.Back += new Login.WomensHealthProfilePath.BackEventHandler(WomensHealthProfilePath_Finished);
                     womensHealthProfilePath.Finish += new Login.WomensHealthProfilePath.FinishEventHandler(WomensHealthProfilePath_Finished);
                     womensHealthProfilePath.Start(systemIdentity);
@@ -296,14 +294,14 @@ namespace YellowstonePathology.UI.Test
                 else if (panelSetOrder is YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisTestOrder)
                 {
                     result = true;
-                    Test.EGFRToALKReflexPath eGFRToALKReflexPath = new Test.EGFRToALKReflexPath(panelSetOrder.ReportNo, accessionOrder, objectTracker, pageNavigator, System.Windows.Visibility.Collapsed);
+                    Test.EGFRToALKReflexPath eGFRToALKReflexPath = new Test.EGFRToALKReflexPath(panelSetOrder.ReportNo, accessionOrder, pageNavigator, System.Windows.Visibility.Collapsed);
                     eGFRToALKReflexPath.Finish += new Test.EGFRToALKReflexPath.FinishEventHandler(EGFRToALKReflexPath_Finish);
                     eGFRToALKReflexPath.Start(systemIdentity);
                 }
                 else if (panelSetOrder is YellowstonePathology.Business.Test.InvasiveBreastPanel.InvasiveBreastPanel)
                 {
                     result = true;
-                    YellowstonePathology.UI.Test.InvasiveBreastPanelPath invasiveBreastPanelPath = new Test.InvasiveBreastPanelPath(panelSetOrder.ReportNo, accessionOrder, objectTracker, pageNavigator);
+                    YellowstonePathology.UI.Test.InvasiveBreastPanelPath invasiveBreastPanelPath = new Test.InvasiveBreastPanelPath(panelSetOrder.ReportNo, accessionOrder, pageNavigator);
                     invasiveBreastPanelPath.Finish += new Test.InvasiveBreastPanelPath.FinishEventHandler(InvasiveBreastPanelPath_Finish);
                     invasiveBreastPanelPath.Start(systemIdentity);
                 }
@@ -325,12 +323,11 @@ namespace YellowstonePathology.UI.Test
 
         public bool Start(YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-            YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
             YellowstonePathology.UI.Navigation.PageNavigator pageNavigator,
             System.Windows.Visibility backButtonVisibility)
         {
             bool result = false;
-            YellowstonePathology.UI.Test.ResultPath resultPath = YellowstonePathology.UI.Test.ResultPathFactory.GetResultPath(panelSetOrder.PanelSetId, panelSetOrder.ReportNo, accessionOrder, objectTracker, pageNavigator, System.Windows.Visibility.Collapsed);
+            YellowstonePathology.UI.Test.ResultPath resultPath = YellowstonePathology.UI.Test.ResultPathFactory.GetResultPath(panelSetOrder.PanelSetId, panelSetOrder.ReportNo, accessionOrder, pageNavigator, System.Windows.Visibility.Collapsed);
 
             if (resultPath != null)
             {
@@ -352,7 +349,7 @@ namespace YellowstonePathology.UI.Test
                         clientOrder = clientOrders[0];
                     }
 
-                    YellowstonePathology.UI.Login.WomensHealthProfilePath womensHealthProfilePath = new YellowstonePathology.UI.Login.WomensHealthProfilePath(accessionOrder, objectTracker, clientOrder, pageNavigator, System.Windows.Visibility.Collapsed);
+                    YellowstonePathology.UI.Login.WomensHealthProfilePath womensHealthProfilePath = new YellowstonePathology.UI.Login.WomensHealthProfilePath(accessionOrder, clientOrder, pageNavigator, System.Windows.Visibility.Collapsed);
                     womensHealthProfilePath.Back += new Login.WomensHealthProfilePath.BackEventHandler(WomensHealthProfilePath_Finished);
                     womensHealthProfilePath.Finish += new Login.WomensHealthProfilePath.FinishEventHandler(WomensHealthProfilePath_Finished);
                     womensHealthProfilePath.Start();
@@ -360,14 +357,14 @@ namespace YellowstonePathology.UI.Test
                 else if (panelSetOrder is YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisTestOrder)
                 {
                     result = true;
-                    Test.EGFRToALKReflexPath eGFRToALKReflexPath = new Test.EGFRToALKReflexPath(panelSetOrder.ReportNo, accessionOrder, objectTracker, pageNavigator, System.Windows.Visibility.Collapsed);
+                    Test.EGFRToALKReflexPath eGFRToALKReflexPath = new Test.EGFRToALKReflexPath(panelSetOrder.ReportNo, accessionOrder, pageNavigator, System.Windows.Visibility.Collapsed);
                     eGFRToALKReflexPath.Finish += new Test.EGFRToALKReflexPath.FinishEventHandler(EGFRToALKReflexPath_Finish);
                     eGFRToALKReflexPath.Start();
                 }
                 else if (panelSetOrder is YellowstonePathology.Business.Test.InvasiveBreastPanel.InvasiveBreastPanel)
                 {
                     result = true;
-                    YellowstonePathology.UI.Test.InvasiveBreastPanelPath invasiveBreastPanelPath = new Test.InvasiveBreastPanelPath(panelSetOrder.ReportNo, accessionOrder, objectTracker, pageNavigator);
+                    YellowstonePathology.UI.Test.InvasiveBreastPanelPath invasiveBreastPanelPath = new Test.InvasiveBreastPanelPath(panelSetOrder.ReportNo, accessionOrder, pageNavigator);
                     invasiveBreastPanelPath.Finish += new Test.InvasiveBreastPanelPath.FinishEventHandler(InvasiveBreastPanelPath_Finish);
                     invasiveBreastPanelPath.Start();
                 }

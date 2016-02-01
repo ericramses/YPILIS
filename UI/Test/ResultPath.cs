@@ -15,11 +15,6 @@ namespace YellowstonePathology.UI.Test
         protected YellowstonePathology.UI.Navigation.PageNavigator m_PageNavigator;
 		protected YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 
-        //protected YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
-        //protected YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-        //protected YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
-        //protected System.Windows.Visibility m_BackButtonVisibility;
-
         protected string m_ResultPageClassName;
 
         public ResultPath(YellowstonePathology.UI.Navigation.PageNavigator pageNavigator)

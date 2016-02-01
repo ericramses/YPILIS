@@ -25,28 +25,37 @@ namespace YellowstonePathology.UI.Test
 
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-        private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private YellowstonePathology.Business.Test.IHCQC.IHCQCTestOrder m_IHCQCTestOrder;		
 
         private string m_PageHeaderText;
 
         public IHCQCResultPage(YellowstonePathology.Business.Test.IHCQC.IHCQCTestOrder ihcTestOrder,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 		{            
 			this.m_AccessionOrder = accessionOrder;			
 			this.m_SystemIdentity = systemIdentity;
-
-			this.m_ObjectTracker = objectTracker;
 
             this.m_IHCQCTestOrder = ihcTestOrder;            
             this.m_PageHeaderText = "IHC QC Results For: " + this.m_AccessionOrder.PatientDisplayName;			
 
 			InitializeComponent();
 
-			DataContext = this;				
+			DataContext = this;
+
+            Loaded += IHCQCResultPage_Loaded;
+            Unloaded += IHCQCResultPage_Unloaded;				
 		}
+
+        private void IHCQCResultPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
+        }
+
+        private void IHCQCResultPage_Unloaded(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
+        }
 
         public YellowstonePathology.Business.Test.IHCQC.IHCQCTestOrder IHCQCTestOrder
         {
@@ -78,10 +87,10 @@ namespace YellowstonePathology.UI.Test
 
 		public void Save()
 		{
-            this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
-		}
-        
-		public void UpdateBindingSources()
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
+        }
+
+        public void UpdateBindingSources()
 		{
 
 		}		

@@ -22,20 +22,31 @@ namespace YellowstonePathology.UI
 		YellowstonePathology.Business.User.SystemUserCollection m_Users;
 
 		YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-		YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 
-        public AmendmentV2(YellowstonePathology.Business.Amendment.Model.Amendment amendment, YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Persistence.ObjectTracker objectTracker)
+        public AmendmentV2(YellowstonePathology.Business.Amendment.Model.Amendment amendment, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{
 			this.m_Amendment = amendment;
 			this.m_AccessionOrder = accessionOrder;
-			this.m_ObjectTracker = objectTracker;
 
 			this.m_Users = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetUsersByRole(YellowstonePathology.Business.User.SystemUserRoleDescriptionEnum.AmendmentSigner, true);
 			InitializeComponent();
 
 			this.DataContext = this.m_Amendment;
 			this.comboBoxAmendmentUsers.ItemsSource = this.m_Users;
+
+            Loaded += AmendmentV2_Loaded;
+            Unloaded += AmendmentV2_Unloaded;
 		}
+
+        private void AmendmentV2_Loaded(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
+        }
+
+        private void AmendmentV2_Unloaded(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
+        }
 
         public void ComboBoxAmendmentUsers_SelectionChanged(object sender, RoutedEventArgs args)
         {
@@ -75,7 +86,7 @@ namespace YellowstonePathology.UI
 
         private void Save()
         {
-			m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
         }
 
         public void ButtonFinalize_Click(object sender, RoutedEventArgs args)

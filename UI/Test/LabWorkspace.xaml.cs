@@ -75,15 +75,13 @@ namespace YellowstonePathology.UI.Test
 						
 			this.m_LabUI = new LabUI(this.m_SystemIdentity);
 
-			this.m_AmendmentControl = new AmendmentControlV2(this.m_SystemIdentity, string.Empty, this.m_LabUI.AccessionOrder, this.m_LabUI.ObjectTracker);
+			this.m_AmendmentControl = new AmendmentControlV2(this.m_SystemIdentity, string.Empty, this.m_LabUI.AccessionOrder);
             this.m_DocumentViewer = new DocumentWorkspace();
-			this.m_TreeViewWorkspace = new YellowstonePathology.UI.Common.TreeViewWorkspace(this.m_LabUI.AccessionOrder, this.m_LabUI.ObjectTracker, this.m_SystemIdentity);
+			this.m_TreeViewWorkspace = new YellowstonePathology.UI.Common.TreeViewWorkspace(this.m_LabUI.AccessionOrder, this.m_SystemIdentity);
             
             InitializeComponent();
             
-			this.TabItemAmendment.Content = m_AmendmentControl;
 			this.TabItemDocumentWorkspace.Content = this.m_DocumentViewer;
-			this.TabItemTreeView.Content = this.m_TreeViewWorkspace;
 
 			this.DataContext = this.m_LabUI;
 
@@ -106,7 +104,8 @@ namespace YellowstonePathology.UI.Test
         public void CloseWorkspace(object target, ExecutedRoutedEventArgs args)
         {                        
             this.Save();
-			if (this.m_LabUI != null && m_LabUI.AccessionOrder != null && m_LabUI.PanelSetOrder != null)
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this.m_LabUI);
+            if (this.m_LabUI != null && m_LabUI.AccessionOrder != null && m_LabUI.PanelSetOrder != null)
 			{
 				this.m_LabUI.Lock.ReleaseLock();
 			}            
@@ -117,7 +116,7 @@ namespace YellowstonePathology.UI.Test
             if (this.m_LabUI.AccessionOrder != null)
             {
                 YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPath providerDistributionPath =
-                    new YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPath(this.m_LabUI.PanelSetOrder.ReportNo, this.m_LabUI.AccessionOrder, this.m_LabUI.ObjectTracker,
+                    new YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPath(this.m_LabUI.PanelSetOrder.ReportNo, this.m_LabUI.AccessionOrder,
                     System.Windows.Visibility.Collapsed, System.Windows.Visibility.Visible, System.Windows.Visibility.Collapsed);
                 providerDistributionPath.Start();
             }
@@ -126,7 +125,7 @@ namespace YellowstonePathology.UI.Test
         public void LabWorkspace_Unloaded(object sender, RoutedEventArgs e)
         {
             this.Save();
-			this.m_SystemIdentity.UserChanged -= this.UserChangedHandler;						
+            this.m_SystemIdentity.UserChanged -= this.UserChangedHandler;						
 			this.m_BarcodeScanPort.ClientScanReceived -= this.ClientScanReceived;
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath -= MainWindowCommandButtonHandler_StartProviderDistributionPath;
 		}
@@ -220,8 +219,10 @@ namespace YellowstonePathology.UI.Test
 				this.m_LabUI.Lock.SetLockable(this.m_LabUI.AccessionOrder);
                 this.CheckEnabled();
                 this.m_LabUI.NotifyPropertyChanged("");
-            }			
-		}
+                this.m_TreeViewWorkspace.IsEnabled = this.m_LabUI.Lock.LockAquired;
+                this.m_AmendmentControl.IsEnabled = this.m_LabUI.Lock.LockAquired;
+            }
+        }
 
 		private void CanAlterAccessionLock(object sender, CanExecuteRoutedEventArgs e)
 		{
@@ -250,7 +251,7 @@ namespace YellowstonePathology.UI.Test
         {
             if (this.m_LabUI.PanelSetOrder != null)
             {
-                YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPath providerDistributionPath = new Login.FinalizeAccession.ProviderDistributionPath(this.m_LabUI.PanelSetOrder.ReportNo, this.m_LabUI.AccessionOrder, this.m_LabUI.ObjectTracker,
+                YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPath providerDistributionPath = new Login.FinalizeAccession.ProviderDistributionPath(this.m_LabUI.PanelSetOrder.ReportNo, this.m_LabUI.AccessionOrder,
                     System.Windows.Visibility.Collapsed, System.Windows.Visibility.Visible, System.Windows.Visibility.Collapsed);
                 providerDistributionPath.Start();
             }
@@ -349,11 +350,13 @@ namespace YellowstonePathology.UI.Test
 
 		private void RefreshWorkspaces()
 		{
-			this.m_TreeViewWorkspace = new Common.TreeViewWorkspace(this.m_LabUI.AccessionOrder, this.m_LabUI.ObjectTracker, this.m_SystemIdentity);
+			this.m_TreeViewWorkspace = new Common.TreeViewWorkspace(this.m_LabUI.AccessionOrder, this.m_SystemIdentity);
+            this.m_TreeViewWorkspace.IsEnabled = this.m_LabUI.Lock.LockAquired;
 			this.TabItemTreeView.Content = this.m_TreeViewWorkspace;
 
-			this.m_AmendmentControl = new AmendmentControlV2(this.m_SystemIdentity, this.m_LabUI.PanelSetOrder.ReportNo, this.m_LabUI.AccessionOrder, this.m_LabUI.ObjectTracker);
-			this.TabItemAmendment.Content = this.m_AmendmentControl;			
+			this.m_AmendmentControl = new AmendmentControlV2(this.m_SystemIdentity, this.m_LabUI.PanelSetOrder.ReportNo, this.m_LabUI.AccessionOrder);
+            this.m_AmendmentControl.IsEnabled = this.m_LabUI.Lock.LockAquired;
+            this.TabItemAmendment.Content = this.m_AmendmentControl;			
 		}
 
         public void ButtonGo_Click(object sender, RoutedEventArgs args)
@@ -1189,7 +1192,7 @@ namespace YellowstonePathology.UI.Test
             YellowstonePathology.UI.Test.ResultPathFactory resultPathFactory = new Test.ResultPathFactory();
             resultPathFactory.Finished += new Test.ResultPathFactory.FinishedEventHandler(ResultPathFactory_Finished);
 
-            bool started = resultPathFactory.Start(this.m_LabUI.PanelSetOrder, this.m_LabUI.AccessionOrder, this.m_LabUI.ObjectTracker, this.m_ResultDialog.PageNavigator, System.Windows.Visibility.Collapsed);
+            bool started = resultPathFactory.Start(this.m_LabUI.PanelSetOrder, this.m_LabUI.AccessionOrder, this.m_ResultDialog.PageNavigator, System.Windows.Visibility.Collapsed);
             if (started == true)
             {
                 this.m_ResultDialog.ShowDialog();

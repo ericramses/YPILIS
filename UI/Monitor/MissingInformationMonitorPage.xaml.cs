@@ -82,8 +82,7 @@ namespace YellowstonePathology.UI.Monitor
             {
                 YellowstonePathology.Business.Monitor.Model.MissingInformation missingInformation = (YellowstonePathology.Business.Monitor.Model.MissingInformation)this.ListViewMissingInformation.SelectedItem;
                 YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(missingInformation.ReportNo);
-                YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new Business.Persistence.ObjectTracker();
-                objectTracker.RegisterObject(accessionOrder);
+                YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(accessionOrder, this);
 
                 YellowstonePathology.Business.User.SystemIdentity systemIdentity = new Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
                 this.m_LoginPageWindow = new Login.LoginPageWindow(systemIdentity);
@@ -91,13 +90,14 @@ namespace YellowstonePathology.UI.Monitor
 
                 YellowstonePathology.Business.Test.MissingInformation.MissingInformtionTestOrder missingInformationTestOrder = (YellowstonePathology.Business.Test.MissingInformation.MissingInformtionTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(missingInformation.ReportNo);
                 YellowstonePathology.UI.Test.ResultPathFactory resultPathFactory = new Test.ResultPathFactory();
-                resultPathFactory.Start(missingInformationTestOrder, accessionOrder, objectTracker, this.m_LoginPageWindow.PageNavigator, systemIdentity, Visibility.Collapsed);
+                resultPathFactory.Start(missingInformationTestOrder, accessionOrder, this.m_LoginPageWindow.PageNavigator, systemIdentity, Visibility.Collapsed);
                 resultPathFactory.Finished += ResultPathFactory_Finished;
             }
         }
 
         private void ResultPathFactory_Finished(object sender, EventArgs e)
         {
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
             this.m_LoginPageWindow.Close();
         }
     }

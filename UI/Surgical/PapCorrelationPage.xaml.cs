@@ -31,7 +31,6 @@ namespace YellowstonePathology.UI.Surgical
 
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         private YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder m_SurgicalTestOrder;
-        private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
         private YellowstonePathology.Business.Patient.Model.PatientHistoryList m_PatientHistoryList;
         private string m_PageHeaderText;
         private System.Windows.Visibility m_BackButtonVisibility;
@@ -39,13 +38,11 @@ namespace YellowstonePathology.UI.Surgical
 
         public PapCorrelationPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
             YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder,
-            YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
             System.Windows.Visibility backButtonVisibility,
             System.Windows.Visibility nextButtonVisibility)
         {
             this.m_AccessionOrder = accessionOrder;
             this.m_SurgicalTestOrder = surgicalTestOrder;
-            this.m_ObjectTracker = objectTracker;
             this.m_BackButtonVisibility = backButtonVisibility;
             this.m_NextButtonVisibility = nextButtonVisibility;
             this.m_PageHeaderText = "Pap Correlation Page";
@@ -56,6 +53,19 @@ namespace YellowstonePathology.UI.Surgical
             InitializeComponent();
 
             this.DataContext = this;
+
+            Loaded += PapCorrelationPage_Loaded;
+            Unloaded += PapCorrelationPage_Unloaded;
+        }
+
+        private void PapCorrelationPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
+        }
+
+        private void PapCorrelationPage_Unloaded(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
         }
 
         public void NotifyPropertyChanged(String info)
@@ -78,7 +88,7 @@ namespace YellowstonePathology.UI.Surgical
 
         public void Save()
         {
-            this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
         }
 
         public void UpdateBindingSources()

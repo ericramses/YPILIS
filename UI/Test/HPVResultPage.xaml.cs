@@ -28,7 +28,6 @@ namespace YellowstonePathology.UI.Test
 
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;                
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private string m_PageHeaderText;
         private YellowstonePathology.Business.Test.HPV.HPVResultCollection m_ResultCollection;
         private YellowstonePathology.Business.Test.HPV.HPVTestOrder m_HPVTestOrder;
@@ -37,14 +36,12 @@ namespace YellowstonePathology.UI.Test
 
         public HPVResultPage(YellowstonePathology.Business.Test.HPV.HPVTestOrder hpvTestOrder,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,            
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity,
 			YellowstonePathology.UI.Navigation.PageNavigator pageNavigator) : base (hpvTestOrder)
 		{
 			this.m_HPVTestOrder = hpvTestOrder;			
 			this.m_AccessionOrder = accessionOrder;                        
 			this.m_SystemIdentity = systemIdentity;
-			this.m_ObjectTracker = objectTracker;
 			this.m_PageNavigator = pageNavigator;
 
             this.m_ResultCollection = Business.Test.HPV.HPVResultCollection.GetAllResults();
@@ -73,11 +70,13 @@ namespace YellowstonePathology.UI.Test
         private void HPVResultPage_Loaded(object sender, RoutedEventArgs e)
         {
             this.ComboBoxResult.SelectionChanged += ComboBoxResult_SelectionChanged;
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
         }
 
         private void HPVResultPage_Unloaded(object sender, RoutedEventArgs e)
         {
             this.ComboBoxResult.SelectionChanged -= ComboBoxResult_SelectionChanged;
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
         }
 
         public string AdditionalTestingComment
@@ -125,10 +124,10 @@ namespace YellowstonePathology.UI.Test
 
 		public void Save()
 		{
-			this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
-		}
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
+        }
 
-		public void UpdateBindingSources()
+        public void UpdateBindingSources()
 		{
 
 		}

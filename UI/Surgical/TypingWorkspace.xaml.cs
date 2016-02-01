@@ -69,7 +69,7 @@ namespace YellowstonePathology.UI.Surgical
 			this.CommandBindings.Add(this.CommandBindingShowAmendmentDialog);                        	
 
 			this.m_TypingUI = new YellowstonePathology.Business.Typing.TypingUIV2(this.m_SystemIdentity);									
-			this.m_AmendmentControl = new AmendmentControlV2(this.m_SystemIdentity, string.Empty, this.m_TypingUI.AccessionOrder, this.m_TypingUI.ObjectTracker);			
+			this.m_AmendmentControl = new AmendmentControlV2(this.m_SystemIdentity, string.Empty, this.m_TypingUI.AccessionOrder);			
             this.m_DocumentViewer = new DocumentWorkspace();            
 
             this.m_LocalDictationList = new YellowstonePathology.Business.DictationList(Business.DictationLocationEnum.Local);            
@@ -105,7 +105,7 @@ namespace YellowstonePathology.UI.Surgical
             if (this.m_TypingUI.AccessionOrder != null)
             {
                 YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPath providerDistributionPath =
-					new YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPath(this.m_TypingUI.SurgicalTestOrder.ReportNo, this.m_TypingUI.AccessionOrder, this.m_TypingUI.ObjectTracker,
+					new YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPath(this.m_TypingUI.SurgicalTestOrder.ReportNo, this.m_TypingUI.AccessionOrder,
                     System.Windows.Visibility.Collapsed, System.Windows.Visibility.Visible, System.Windows.Visibility.Collapsed);
                 providerDistributionPath.Start();
             }
@@ -135,6 +135,7 @@ namespace YellowstonePathology.UI.Surgical
                 YellowstonePathology.Business.User.UserPreferenceInstance.Instance.SubmitChanges();
             }
             this.Save();			
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this.m_TypingUI);
         }        
 
 		public void RemoveTab(object target, ExecutedRoutedEventArgs args)
@@ -147,7 +148,9 @@ namespace YellowstonePathology.UI.Surgical
             this.m_TypingUI.Save();
 			this.m_TypingUI.Lock.ToggleLockingMode();
 			this.m_TypingUI.RunWorkspaceEnableRules();
-		}
+            this.m_TreeviewWorkspace.IsEnabled = this.m_TypingUI.Lock.LockAquired;
+            this.m_AmendmentControl.IsEnabled = this.m_TypingUI.Lock.LockAquired;
+        }
 
 		private void CanAlterAccessionLock(object sender, CanExecuteRoutedEventArgs e)
 		{
@@ -260,7 +263,7 @@ namespace YellowstonePathology.UI.Surgical
 
                 if (System.Windows.Forms.Screen.AllScreens.Length == 2)
                 {
-                    YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPage providerDistributionPage = new Login.FinalizeAccession.ProviderDistributionPage(reportNo, this.m_TypingUI.AccessionOrder, this.m_TypingUI.ObjectTracker, this.m_SecondMonitorWindow.PageNavigator,
+                    YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPage providerDistributionPage = new Login.FinalizeAccession.ProviderDistributionPage(reportNo, this.m_TypingUI.AccessionOrder, this.m_SecondMonitorWindow.PageNavigator,
                         System.Windows.Visibility.Collapsed, System.Windows.Visibility.Visible, System.Windows.Visibility.Collapsed);
                     this.m_SecondMonitorWindow.PageNavigator.Navigate(providerDistributionPage);
                 }
@@ -269,11 +272,13 @@ namespace YellowstonePathology.UI.Surgical
 
         private void RefreshWorkspaces()
         {            
-            this.m_TreeviewWorkspace = new Common.TreeViewWorkspace(this.m_TypingUI.AccessionOrder, this.m_TypingUI.ObjectTracker, this.m_SystemIdentity);
+            this.m_TreeviewWorkspace = new Common.TreeViewWorkspace(this.m_TypingUI.AccessionOrder, this.m_SystemIdentity);
+            this.m_TreeviewWorkspace.IsEnabled = this.m_TypingUI.Lock.LockAquired;
             this.tabItemTreeView.Content = this.m_TreeviewWorkspace;
 
-			this.m_AmendmentControl = new AmendmentControlV2(this.m_SystemIdentity, this.m_TypingUI.SurgicalTestOrder.ReportNo, this.m_TypingUI.AccessionOrder, this.m_TypingUI.ObjectTracker);
-            this.TabItemAmendments.Content = this.m_AmendmentControl;            
+			this.m_AmendmentControl = new AmendmentControlV2(this.m_SystemIdentity, this.m_TypingUI.SurgicalTestOrder.ReportNo, this.m_TypingUI.AccessionOrder);
+            this.m_AmendmentControl.IsEnabled = this.m_TypingUI.Lock.LockAquired;
+            this.TabItemAmendments.Content = this.m_AmendmentControl;
         }
 
         public void GridTyping_KeyUp(object sender, KeyEventArgs args)
@@ -650,7 +655,7 @@ namespace YellowstonePathology.UI.Surgical
 		private void ShowAmendmentDialog(object target, ExecutedRoutedEventArgs args)
 		{
 			this.Save();
-			YellowstonePathology.UI.AmendmentPageController amendmentPageController = new AmendmentPageController(this.m_TypingUI.AccessionOrder, this.m_TypingUI.ObjectTracker, this.m_TypingUI.SurgicalTestOrder, this.m_SystemIdentity);
+			YellowstonePathology.UI.AmendmentPageController amendmentPageController = new AmendmentPageController(this.m_TypingUI.AccessionOrder, this.m_TypingUI.SurgicalTestOrder, this.m_SystemIdentity);
 			amendmentPageController.ShowDialog();
 
             string reportNo = this.m_TypingUI.AccessionOrder.PanelSetOrderCollection.GetItem(13).ReportNo;
@@ -885,7 +890,7 @@ namespace YellowstonePathology.UI.Surgical
         {
             if (this.m_TypingUI.AccessionOrder != null)
             {
-                YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPage providerDistributionPage = new YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPage(this.m_TypingUI.SurgicalTestOrder.ReportNo, this.m_TypingUI.AccessionOrder, this.m_TypingUI.ObjectTracker, this.m_SecondMonitorWindow.PageNavigator,
+                YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPage providerDistributionPage = new YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPage(this.m_TypingUI.SurgicalTestOrder.ReportNo, this.m_TypingUI.AccessionOrder, this.m_SecondMonitorWindow.PageNavigator,
                     Visibility.Collapsed, Visibility.Collapsed, Visibility.Collapsed);
                 this.m_SecondMonitorWindow.PageNavigator.Navigate(providerDistributionPage);
             }

@@ -22,14 +22,11 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 		public delegate void ReturnEventHandler(object sender, UI.Navigation.PageNavigationReturnEventArgs e);
 		public event ReturnEventHandler Return;
 
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		private string m_PageHeaderText;
 
-		public PatientDetailsPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker)
+		public PatientDetailsPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{
-			this.m_ObjectTracker = objectTracker;
 			this.m_AccessionOrder = accessionOrder;
 
             this.m_PageHeaderText = accessionOrder.MasterAccessionNo + ": " + 
@@ -39,14 +36,21 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
             this.DataContext = this;
             this.Loaded += new RoutedEventHandler(PatientDetailsPage_Loaded);
-		}        
+            Unloaded += PatientDetailsPage_Unloaded;
+		}
 
         private void PatientDetailsPage_Loaded(object sender, RoutedEventArgs e)
         {
             this.ComboBoxSex.Focus();
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
         }
 
-		public string PageHeaderText
+        private void PatientDetailsPage_Unloaded(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
+        }
+
+        public string PageHeaderText
 		{
 			get { return this.m_PageHeaderText; }
 		}
@@ -139,10 +143,10 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
 		public void Save()
 		{
-			this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);            
-		}
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
+        }
 
-		public void UpdateBindingSources()
+        public void UpdateBindingSources()
 		{
 		}
 	}

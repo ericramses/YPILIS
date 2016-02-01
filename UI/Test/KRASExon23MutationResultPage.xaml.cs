@@ -27,7 +27,6 @@ namespace YellowstonePathology.UI.Test
 
         private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-        private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
         private string m_PageHeaderText;
 
         private YellowstonePathology.Business.Test.KRASExon23Mutation.KRASExon23MutationTestOrder m_KRASExon23MutationTestOrder;
@@ -35,13 +34,11 @@ namespace YellowstonePathology.UI.Test
 
         public KRASExon23MutationResultPage(YellowstonePathology.Business.Test.KRASExon23Mutation.KRASExon23MutationTestOrder krasExon23MutationTestOrder,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-            YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
             YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             this.m_KRASExon23MutationTestOrder = krasExon23MutationTestOrder;
             this.m_AccessionOrder = accessionOrder;
             this.m_SystemIdentity = systemIdentity;
-            this.m_ObjectTracker = objectTracker;
 
             this.m_PageHeaderText = "KRAS Exon 2,3 Mutation Analysis Result For: " + this.m_AccessionOrder.PatientDisplayName;
 
@@ -51,6 +48,19 @@ namespace YellowstonePathology.UI.Test
             InitializeComponent();
 
             DataContext = this;
+
+            Loaded += KRASExon23MutationResultPage_Loaded;
+            Unloaded += KRASExon23MutationResultPage_Unloaded;
+        }
+
+        private void KRASExon23MutationResultPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
+        }
+
+        private void KRASExon23MutationResultPage_Unloaded(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
         }
 
         public string OrderedOnDescription
@@ -88,7 +98,7 @@ namespace YellowstonePathology.UI.Test
 
         public void Save()
         {
-            this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
         }
 
         public void UpdateBindingSources()

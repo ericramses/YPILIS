@@ -35,22 +35,7 @@ namespace YellowstonePathology.Business.Persistence
             this.m_RegisteredObjects = new RegisteredObjectCollection();
             this.m_RegisteredRootInserts = new RegisteredObjectCollection();
             this.m_RegisteredRootDeletes = new RegisteredObjectCollection();
-            //Application.Current.Exit += App_Exit;          
         }
-
-        /*private void App_Exit(object sender, ExitEventArgs e)
-        {
-            for (int idx = this.m_RegisteredObjects.Count - 1; idx > -1; idx--)
-            {
-                RegisteredObject registeredObject = this.m_RegisteredObjects[idx];
-                object registeredBy = registeredObject.RegisteredBy[0];
-                Test.AccessionOrder accessonOrder = (Test.AccessionOrder)registeredObject.Value;
-                if (accessonOrder.LockedAquired == true)
-                {
-                    this.SubmitChanges(accessonOrder, registeredBy, true);
-                }
-            }
-        }*/
 
         public static ObjectTrackerV2 Instance
         {
@@ -76,7 +61,12 @@ namespace YellowstonePathology.Business.Persistence
             this.m_RegisteredObjects.CleanUp(registeredBy);
             this.m_RegisteredRootDeletes.CleanUp(registeredBy);
             this.m_RegisteredRootInserts.CleanUp(registeredBy);            
-        }        
+        }
+
+        public RegisteredObjectCollection RegisteredObjects
+        {
+            get { return this.m_RegisteredObjects; }
+        }
 
         public void RegisterRootInsert(object rootObjectToInsert, object registeredBy)
         {
@@ -85,9 +75,13 @@ namespace YellowstonePathology.Business.Persistence
 
         public void RegisterRootDelete(object rootObjectToDelete, object registeredBy)
         {
-			this.m_RegisteredObjects.Deregister(rootObjectToDelete, registeredBy);
+			if(this.m_RegisteredObjects.Exists(rootObjectToDelete) == true)
+            {
+                RegisteredObject registeredObject = this.m_RegisteredObjects.Get(rootObjectToDelete);
+                this.m_RegisteredObjects.Remove(registeredObject);
+            }
             this.m_RegisteredRootDeletes.Register(rootObjectToDelete, registeredBy);
-        }                
+        }
 
         public SubmissionResult SubmitChanges(object objectToSubmit, object registeredBy)
         {
@@ -163,27 +157,28 @@ namespace YellowstonePathology.Business.Persistence
             PropertyInfo keyProperty = objectType.GetProperties().Where(prop => Attribute.IsDefined(prop, typeof(PersistentPrimaryKeyProperty))).Single();
             object keyPropertyValue = keyProperty.GetValue(objectToSubmit, null);
 
-            object registeredObject = null;
+            object originalValuesObject = null;
             if(this.m_RegisteredObjects.IsRegisteredBy(objectToSubmit, registeredBy) == true)
             {
                 RegisteredObject registeredObjectToSubmit = this.m_RegisteredObjects.Get(objectToSubmit);
-                registeredObject = registeredObjectToSubmit.Value;
-                this.m_RegisteredObjects.Deregister(objectToSubmit, registeredBy);
-	            this.HandleUpdateSubmission(objectToSubmit, registeredObject, keyPropertyValue, objectSubmitter);
-	            this.RegisterObject(objectToSubmit, registeredBy);
+                originalValuesObject = registeredObjectToSubmit.Value;
+	            this.HandleUpdateSubmission(objectToSubmit, originalValuesObject, keyPropertyValue, objectSubmitter);
+                ObjectCloner objectCloner = new ObjectCloner();
+                object clonedObject = objectCloner.Clone(objectToSubmit);
+                registeredObjectToSubmit.Value = (clonedObject);
             }
             else if(this.m_RegisteredRootDeletes.IsRegisteredBy(objectToSubmit, registeredBy) == true)
             {
                 RegisteredObject registeredObjectToSubmit = this.m_RegisteredRootDeletes.Get(objectToSubmit);
-                registeredObject = registeredObjectToSubmit.Value;
-                this.m_RegisteredRootDeletes.Deregister(objectToSubmit, registeredBy);
-	            this.HandleRootDeleteSubmission(registeredObject, keyPropertyValue, objectSubmitter);
+                originalValuesObject = registeredObjectToSubmit.Value;
+                this.m_RegisteredRootDeletes.Remove(registeredObjectToSubmit);
+	            this.HandleRootDeleteSubmission(originalValuesObject, keyPropertyValue, objectSubmitter);
             }
             else if(this.m_RegisteredRootInserts.IsRegisteredBy(objectToSubmit, registeredBy) == true)
             {
-	            this.m_RegisteredRootInserts.Deregister(objectToSubmit, registeredBy);
+                RegisteredObject registeredObjectToSubmit = this.m_RegisteredObjects.Get(objectToSubmit);
 	            this.HandleRootInsertSubmission(objectToSubmit, keyPropertyValue, objectSubmitter, registeredBy);
-	            //this.RegisterObject(objectToSubmit, registeredBy);
+                this.m_RegisteredRootInserts.Remove(registeredObjectToSubmit);
             }
             else
             {

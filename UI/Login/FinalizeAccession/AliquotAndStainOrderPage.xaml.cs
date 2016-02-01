@@ -31,7 +31,6 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 		public delegate void ShowTaskOrderPageEventHandler(object sender, CustomEventArgs.AcknowledgeStainOrderEventArgs e);
 		public event ShowTaskOrderPageEventHandler ShowTaskOrderPage;
 
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;		
 		private string m_PageHeaderText = "Aliquots and Stains";
@@ -52,12 +51,10 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
         private YellowstonePathology.Business.Specimen.Model.EmbeddingInstructionList m_EmbeddingInstructionList;
 
 		public AliquotAndStainOrderPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
 			YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 		{
 			this.m_AllTests = YellowstonePathology.Business.Test.Model.TestCollection.GetAllTests();          
-			this.m_ObjectTracker = objectTracker;
 			this.m_AccessionOrder = accessionOrder;
 			this.m_PanelSetOrder = panelSetOrder;
 
@@ -75,7 +72,29 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
 			this.DataContext = this;
 			this.Loaded += new RoutedEventHandler(StainOrderPage_Loaded);
+            Unloaded += AliquotAndStainOrderPage_Unloaded;
 		}
+
+        private void StainOrderPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
+            int selectedIndex = -1;
+            foreach (YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder in this.ListBoxPanelSetOrders.Items)
+            {
+                selectedIndex++;
+                if (panelSetOrder.ReportNo == this.m_PanelSetOrder.ReportNo)
+                {
+                    break;
+                }
+            }
+            this.ListBoxPanelSetOrders.SelectedIndex = selectedIndex;
+            this.m_AliquotAndStainOrderView.SetSpecimenChecks(true);
+        }
+
+        private void AliquotAndStainOrderPage_Unloaded(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
+        }
 
         public YellowstonePathology.Business.Specimen.Model.EmbeddingInstructionList EmbeddingInstructionList
         {
@@ -102,21 +121,6 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             get { return this.m_PassNumber; }
             set { this.m_PassNumber = value; }
         }
-
-		private void StainOrderPage_Loaded(object sender, RoutedEventArgs e)
-		{
-            int selectedIndex = -1;
-			foreach (YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder in this.ListBoxPanelSetOrders.Items)
-			{
-				selectedIndex++;
-				if (panelSetOrder.ReportNo == this.m_PanelSetOrder.ReportNo)
-				{
-					break;
-				}
-			}
-			this.ListBoxPanelSetOrders.SelectedIndex = selectedIndex;
-            this.m_AliquotAndStainOrderView.SetSpecimenChecks(true);
-		}
 
 		public ObservableCollection<object> TestCollection
         {
@@ -233,10 +237,10 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 		public void Save()
 		{
             this.m_AliquotAndStainOrderView.SetEmbeddingComments();
-			this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);			
-		}
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
+        }
 
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
+        public bool OkToSaveOnNavigation(Type pageNavigatingTo)
 		{
 			return true;
 		}
@@ -548,9 +552,9 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                 YellowstonePathology.Business.Visitor.RemoveAliquotOrderVisitor removeAliquotOrderVisitor = new Business.Visitor.RemoveAliquotOrderVisitor(aliquotOrder);
                 this.m_AccessionOrder.TakeATrip(removeAliquotOrderVisitor);
                 this.m_AccessionOrder.SpecimenOrderCollection.SetAliquotRequestCount();
-            }		              			
+            }
 
-            this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
             this.m_AliquotAndStainOrderView.Refresh(true, this.m_PanelSetOrder);            
 			this.NotifyPropertyChanged("AliquotAndStainOrderView");
 		}        		
@@ -721,7 +725,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             }
 
             aliquotOrderPrinter.Print();
-            this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
             this.m_AliquotAndStainOrderView.SetAliquotChecks(false);
 
             this.PrintSelectedSlides();

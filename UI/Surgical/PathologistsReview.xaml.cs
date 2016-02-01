@@ -38,8 +38,7 @@ namespace YellowstonePathology.UI.Surgical
 
 			this.m_DocumentViewer = new DocumentWorkspace();
 			this.TabItemDocumentWorkspace.Content = this.m_DocumentViewer;			
-
-			this.m_TreeViewWorkspace = new YellowstonePathology.UI.Common.TreeViewWorkspace(this.m_PathologistUI.AccessionOrder, this.m_PathologistUI.ObjectTracker, this.m_SystemIdentity);
+			this.m_TreeViewWorkspace = new YellowstonePathology.UI.Common.TreeViewWorkspace(this.m_PathologistUI.AccessionOrder, this.m_SystemIdentity);
 			this.tabItemTreeView.Content = this.m_TreeViewWorkspace;
 
 			this.m_CaseDocumentCollection = new Business.Document.CaseDocumentCollection(this.AccessionOrder, this.PanelSetOrder.ReportNo);
@@ -94,16 +93,18 @@ namespace YellowstonePathology.UI.Surgical
 				}
 			}
 
-			this.m_TreeViewWorkspace = new Common.TreeViewWorkspace(this.m_PathologistUI.AccessionOrder, this.m_PathologistUI.ObjectTracker, this.m_SystemIdentity);
-			this.tabItemTreeView.Content = this.m_TreeViewWorkspace;			
+			this.m_TreeViewWorkspace = new Common.TreeViewWorkspace(this.m_PathologistUI.AccessionOrder, this.m_SystemIdentity);
+            this.m_TreeViewWorkspace.IsEnabled = this.m_PathologistUI.Lock.LockAquired;
+            this.tabItemTreeView.Content = this.m_TreeViewWorkspace;			
 		}
 
 		private void LockStatusChanged(object sender, EventArgs e)
 		{
 			this.NotifyPropertyChanged("CaseStatusTextColor");
-		}
+            this.m_TreeViewWorkspace.IsEnabled = this.m_PathologistUI.Lock.LockAquired;
+        }
 
-		public void NotifyPropertyChanged(String info)
+        public void NotifyPropertyChanged(String info)
 		{
 			if (PropertyChanged != null)
 			{
