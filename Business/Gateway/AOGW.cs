@@ -39,8 +39,9 @@ namespace YellowstonePathology.Business.Gateway
 		        	result = null;
 	        	}
             }
-	        else
-	        {
+
+            if(result == null)
+            {
 	            if (USEMONGO == false)
 	            {
 	                result = this.BuildFromSQL(masterAccessionNo, aquireLock);
