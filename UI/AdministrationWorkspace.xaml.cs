@@ -1096,7 +1096,15 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
-            
+            YellowstonePathology.Business.PanelSet.Model.PanelSetCollection ps = Business.PanelSet.Model.PanelSetCollection.GetAllActive();
+            string result = "";
+            foreach(YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet in ps)
+            {
+                if(panelSet.CaseType == YellowstonePathology.Business.CaseType.FISH)
+                {
+                    result = result + ", " + panelSet.PanelSetId;
+                }
+            }
         }
 
         private void FindY()
