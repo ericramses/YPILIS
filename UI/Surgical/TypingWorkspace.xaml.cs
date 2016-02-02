@@ -732,9 +732,12 @@ namespace YellowstonePathology.UI.Surgical
 			{
 				YellowstonePathology.UI.Common.PatientLinkingDialog patientLinkingDialog = new Common.PatientLinkingDialog(this.m_TypingUI.AccessionOrder,
 					Business.Patient.Model.PatientLinkingListModeEnum.AccessionOrder, patientLinker);
-				patientLinkingDialog.ShowDialog();
-			}
-			else
+                YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_TypingUI.AccessionOrder, patientLinkingDialog);
+                patientLinkingDialog.ShowDialog();
+                YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_TypingUI.AccessionOrder, patientLinkingDialog);
+                YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(patientLinkingDialog);
+            }
+            else
 			{
 				MessageBox.Show(patientLinker.IsOkToLink.Message, "Missing Information");
 			}
