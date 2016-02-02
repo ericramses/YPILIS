@@ -25,7 +25,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
         public delegate void ReturnEventHandler(object sender, UI.Navigation.PageNavigationReturnEventArgs e);
         public event ReturnEventHandler Return;
 
-        private YellowstonePathology.Business.Interface.IOrder m_Order;
+        private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 
 		private YellowstonePathology.Business.Patient.Model.PatientLinker m_PatientLinker;
         private bool m_ShowPageButtons;
@@ -36,27 +36,29 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 		private string m_DisplayName;
 		private string m_PatientId;
 
-        public PatientLinkingPage(YellowstonePathology.Business.Interface.IOrder order,             
+        public PatientLinkingPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,             
             bool showPageButtons,
 			YellowstonePathology.Business.Patient.Model.PatientLinkingListModeEnum mode,
 			YellowstonePathology.Business.Patient.Model.PatientLinker patientLinker)
         {
-            this.m_Order = order;            
+            this.m_AccessionOrder = accessionOrder;            
             this.m_ShowPageButtons = showPageButtons;
             this.m_Mode = mode;
 
-			this.m_PatientId = this.m_Order.PatientId;
-			this.m_DisplayName = this.m_Order.PatientDisplayName;
+			this.m_PatientId = this.m_AccessionOrder.PatientId;
+			this.m_DisplayName = this.m_AccessionOrder.PatientDisplayName;
 			this.m_PatientLinker = patientLinker;
 
 			InitializeComponent();
 
             this.DataContext = this;
             Loaded += new RoutedEventHandler(PatientLinkingPage_Loaded);
+            Unloaded += PatientLinkingPage_Unloaded;
         }
-        
-		private void PatientLinkingPage_Loaded(object sender, RoutedEventArgs e)
+
+        private void PatientLinkingPage_Loaded(object sender, RoutedEventArgs e)
         {
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
 			if (this.m_PatientLinker.IsOkToLink.IsValid == true)
 			{
 				this.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Background,
@@ -81,7 +83,12 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             }
         }
 
-		public void SetPatientLinkingListSelections()
+        private void PatientLinkingPage_Unloaded(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
+        }
+
+        public void SetPatientLinkingListSelections()
 		{
 			foreach (YellowstonePathology.Business.Patient.Model.PatientLinkingListItem item in this.m_PatientLinker.LinkingList)
 			{
@@ -97,7 +104,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
         {
             Brush brush = Brushes.LightGreen;
 
-			if (string.IsNullOrEmpty(this.m_Order.PatientId) == true || this.m_Order.PatientId == "0")
+			if (string.IsNullOrEmpty(this.m_AccessionOrder.PatientId) == true || this.m_AccessionOrder.PatientId == "0")
 			{
 				brush = Brushes.PaleVioletRed;
 			}
@@ -138,9 +145,9 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             this.Return(this, args);
         }
 
-        public YellowstonePathology.Business.Interface.IOrder Order
+        public YellowstonePathology.Business.Test.AccessionOrder AccessionOrder
         {
-            get { return this.m_Order; }
+            get { return this.m_AccessionOrder; }
         }
 
         public ObservableCollection<YellowstonePathology.Business.Patient.Model.PatientLinkingListItem> PatientLinkingList
@@ -171,7 +178,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             }
 			this.m_PatientId = this.m_PatientLinker.Link();
 
-			this.Order.PatientId = this.m_PatientId;
+			this.m_AccessionOrder.PatientId = this.m_PatientId;
 			this.NotifyPropertyChanged("PatientLinkingList");
 			this.NotifyPropertyChanged("PatientId");
 
@@ -192,7 +199,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
         public void ButtonNext_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrEmpty(this.m_Order.PatientId) == true || this.m_Order.PatientId == "0")
+            if (string.IsNullOrEmpty(this.m_AccessionOrder.PatientId) == true || this.m_AccessionOrder.PatientId == "0")
             {
                 MessageBoxResult messageBoxResult = MessageBox.Show("This patient is not linked, are you sure you want to continue.", "Patient Not Linked.", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
                 if (messageBoxResult == MessageBoxResult.Yes)
@@ -210,17 +217,17 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
         public void Save()
         {
-
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
         }
 
         public bool OkToSaveOnNavigation(Type pageNavigatingTo)
         {
-            return false;
+            return true;
         }
 
         public bool OkToSaveOnClose()
         {
-            return false;
+            return true;
         }
 
 		public void UpdateBindingSources()
