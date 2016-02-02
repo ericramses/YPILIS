@@ -18,7 +18,8 @@ namespace YellowstonePathology.Business.Test.Trichomonas
 			this.m_ResultDocumentSource = YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.YPIDatabase;
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterM();
             this.m_Active = true;            
-			this.m_AllowMultiplePerAccession = true;            
+			this.m_AllowMultiplePerAccession = true;
+            this.m_SendOrderToPanther = true;    
 
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.Trichomonas.TrichomonasTestOrder).AssemblyQualifiedName;
             string taskDescription = "Gather materials and perform testing.";
