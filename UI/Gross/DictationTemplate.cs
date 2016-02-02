@@ -87,8 +87,8 @@ namespace YellowstonePathology.UI.Gross
         protected string ReplaceIdentifier(string text, YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {
             string identifier = "Specimen " + specimenOrder.SpecimenNumber + " ";
-            if (specimenOrder.ClientFixation != YellowstonePathology.Business.Specimen.Model.FixationType.Fresh)
-            {
+            if (string.IsNullOrEmpty(specimenOrder.ClientFixation) == false && specimenOrder.ClientFixation != YellowstonePathology.Business.Specimen.Model.FixationType.Fresh)
+            {                
                 identifier += "is received in a " + specimenOrder.ClientFixation.ToLower() + " filled container labeled \"" + accessionOrder.PatientDisplayName + " - [description]\"";
             }
             else if (specimenOrder.ClientFixation == YellowstonePathology.Business.Specimen.Model.FixationType.Fresh)

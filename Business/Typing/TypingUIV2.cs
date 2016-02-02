@@ -79,11 +79,11 @@ namespace YellowstonePathology.Business.Typing
 		}
 
 		public void Save()
-		{
-			if (this.m_AccessionOrder != null && this.m_Lock.LockAquired == true)
-			{
+		{			
+            if(this.m_AccessionOrder != null)
+            {
                 YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
-			}
+            }            
 		}
 		
 		public string TemplateText

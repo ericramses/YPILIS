@@ -134,6 +134,7 @@ namespace YellowstonePathology.UI.Surgical
                 YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.LastReportNo = this.m_TypingUI.SurgicalTestOrder.ReportNo;
                 YellowstonePathology.Business.User.UserPreferenceInstance.Instance.SubmitChanges();
             }
+
             this.Save();			
             YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this.m_TypingUI);
         }        
@@ -307,8 +308,7 @@ namespace YellowstonePathology.UI.Surgical
                     {
                         this.ListViewSurgicalCaseList.SelectedIndex += 1;                        
 						YellowstonePathology.Business.Surgical.SurgicalOrderListItem item = (YellowstonePathology.Business.Surgical.SurgicalOrderListItem)this.ListViewSurgicalCaseList.SelectedItem;
-						this.TextBoxReportNoSearch.Text = item.ReportNo;
-                        this.GetSurgicalCase(item.ReportNo);
+						this.TextBoxReportNoSearch.Text = item.ReportNo;                        
                     }
                 }
                 if (upDown == -1)
@@ -317,8 +317,7 @@ namespace YellowstonePathology.UI.Surgical
                     {
                         this.ListViewSurgicalCaseList.SelectedIndex -= 1;                        
 						YellowstonePathology.Business.Surgical.SurgicalOrderListItem item = (YellowstonePathology.Business.Surgical.SurgicalOrderListItem)this.ListViewSurgicalCaseList.SelectedItem;
-						this.TextBoxReportNoSearch.Text = item.ReportNo;
-                        this.GetSurgicalCase(item.ReportNo);                        
+						this.TextBoxReportNoSearch.Text = item.ReportNo;                        
                     }
                 }
                 this.m_TypingUI.SetIsPossibleReportableCase();                
@@ -863,6 +862,8 @@ namespace YellowstonePathology.UI.Surgical
 
         private void ListViewSurgicalCaseList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            
+
             if (this.ListViewSurgicalCaseList.SelectedItem != null)
             {
                 if (this.m_TypingUI.SurgicalTestOrder != null)

@@ -62,8 +62,7 @@ namespace YellowstonePathology.UI.Flow
 
             this.tabItemDocumentViewer.Content = this.m_DocumentViewer;            
             this.tabControlFlow.SelectionChanged += new SelectionChangedEventHandler(tabControlFlow_SelectionChanged);
-
-            //this.m_FlowUI.Lock.LockStatusChanged += new YellowstonePathology.Business.Domain.LockStatusChangedEventHandler(AccessionLock_LockStatusChanged);
+            
             this.Unloaded += new RoutedEventHandler(FlowWorkspace_Unloaded);
         }
 
@@ -107,30 +106,22 @@ namespace YellowstonePathology.UI.Flow
 
         private void ApplicationClosing(object target, ExecutedRoutedEventArgs args)
         {
-            this.Save(true);
-            //this.m_FlowUI.Lock.ReleaseLock();
+            this.Save(true);            
         }
 
         private void AccessionLock_LockStatusChanged(object sender, EventArgs e)
         {
-            //((MainWindow)Application.Current.MainWindow).SetLockObject(this.m_FlowUI.Lock);
+            
         }
 
         public void AlterAccessionLock(object target, ExecutedRoutedEventArgs args)
         {
-            //Save(false);
-            //this.m_FlowUI.Lock.ToggleLockingMode();
-            //this.m_FlowUI.SetAccess();
-            //this.m_FlowUI.NotifyPropertyChanged("");
+            
         }
 
         private void CanAlterAccessionLock(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = false;
-			//if (((TabItem)this.Parent).IsSelected && this.m_FlowUI.AccessionOrder != null && this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.ReportNo != null)
-            //{
-            //    e.CanExecute = true;
-            //}
+            e.CanExecute = false;			
         }        
 
         public void GatingCount_LostFocus(object sender, RoutedEventArgs args)
@@ -176,10 +167,7 @@ namespace YellowstonePathology.UI.Flow
 
         public void ButtonAccessionLock_Click(object sender, RoutedEventArgs args)
         {
-			//if (this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.ReportNo != string.Empty)
-            //{
-            //    this.m_FlowUI.Lock.ToggleLockingMode();
-            //}
+			
         }
 
         public void MenuItemDeleteIcd9Code_Click(object sender, RoutedEventArgs args)
@@ -299,10 +287,18 @@ namespace YellowstonePathology.UI.Flow
 
         public void ListViewFlowCaseList_SelectionChanged(object sender, RoutedEventArgs args)
         {
-            if (this.ListViewFlowCaseList.SelectedItems.Count != 0)
+            if (this.ListViewFlowCaseList.SelectedIndex >= 0)
             {
                 YellowstonePathology.Business.Flow.FlowLogListItem flowLogListItem = (YellowstonePathology.Business.Flow.FlowLogListItem)this.ListViewFlowCaseList.SelectedItem;
                 this.GetCase(flowLogListItem.ReportNo, flowLogListItem.MasterAccessionNo);
+            }
+            else
+            {
+                this.m_FlowUI.AccessionOrder = null;
+                this.m_FlowUI.PanelSetOrderLeukemiaLymphoma = null;
+                this.m_FlowUI.CaseDocumentCollection = null;
+                this.m_DocumentViewer.ClearContent();
+                this.m_FlowUI.ICD9BillingCodeCollection = null;
             }
         }
 
@@ -409,6 +405,7 @@ namespace YellowstonePathology.UI.Flow
             }
 
             this.tabControlBottomLeftPane.SelectedIndex = 0;
+            this.ListViewFlowCaseList.SelectedIndex = -1;        
         }
 
         public void ListViewComments_MouseDoubleClick(object sender, RoutedEventArgs args)
@@ -575,11 +572,7 @@ namespace YellowstonePathology.UI.Flow
 
         private void ItemIsSelected(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = false;
-            //if (((TabItem)this.Parent).IsSelected && this.m_FlowUI.AccessionOrder != null && this.m_FlowUI.Lock.LockAquired)
-            //{
-            //    e.CanExecute = true;
-            //}
+            e.CanExecute = false;            
         }
 
         private void ShowAmendmentDialog(object target, ExecutedRoutedEventArgs args)
@@ -705,8 +698,7 @@ namespace YellowstonePathology.UI.Flow
         }        
        
         private void ButtonShowSpecimenDialog_Click(object sender, RoutedEventArgs e)
-        {
-        	//MessageBox.Show("Temporarily disconnected");
+        {        	
             if (this.ComboBoxSpecimen.SelectedItem != null)
             {
             	this.Save(false);
@@ -841,6 +833,11 @@ namespace YellowstonePathology.UI.Flow
                 string icd10Code = element.GetAttribute("ICD10");
                 this.m_FlowUI.AddICD9Code(icd9Code, icd10Code);
             }            
-        }                
+        }
+
+        private void ButtonUnselect_Click(object sender, RoutedEventArgs e)
+        {
+            this.ListViewFlowCaseList.SelectedIndex = -1;
+        }
     }
 }

@@ -68,6 +68,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 			InitializeComponent();
 
 			DataContext = this;
+
             this.Loaded += new RoutedEventHandler(ProviderDetailPage_Loaded);
             Close += ProviderDistributionPage_Close;
 		}

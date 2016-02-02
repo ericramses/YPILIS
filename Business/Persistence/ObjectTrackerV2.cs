@@ -93,6 +93,22 @@ namespace YellowstonePathology.Business.Persistence
             return result;
         }
 
+        public SubmissionResult SubmitChanges(object registeredBy)
+        {
+            SubmissionResult result = new SubmissionResult();
+
+            foreach(RegisteredObject registeredObject in this.m_RegisteredObjects)
+            {
+                if(registeredObject.RegisteredBy == registeredBy)
+                {
+                    SqlCommandSubmitter sqlCommandSubmitter = this.GetSqlCommands(0, registeredBy);
+                    sqlCommandSubmitter.SubmitChanges();
+                }                
+            }
+            
+            return result;
+        }
+
         public SubmissionResult SubmitChanges(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, object registeredBy, bool releaseLock)
         {
             SubmissionResult result = new SubmissionResult();

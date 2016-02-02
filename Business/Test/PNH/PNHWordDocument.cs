@@ -118,10 +118,10 @@ namespace YellowstonePathology.Business.Test.PNH
 			this.ReplaceText("gran_t2_t3", pnhResult.GranulocytesTotal.ToString("F") + "%");
 			this.ReplaceText("mono_t2_t3", pnhResult.MonocytesTotal.ToString("F") + "%");
 
-			this.ReplaceText("rbc_3", "Type III (partial CD59 deficiency) = " + pnhResult.RedBloodCellsTypeIIIResult.ToString("F") + "%");
+			this.ReplaceText("rbc_3", "Type III (complete CD59 deficiency) = " + pnhResult.RedBloodCellsTypeIIIResult.ToString("F") + "%");
 			this.ReplaceText("rbc_2", "Type II (partial CD59 deficiency) = " + pnhResult.RedBloodCellsTypeIIResult.ToString("F") + "%");
 
-			this.ReplaceText("gran_3", "TypeIII (partial FLAER/CD24 deficiency) = " + pnhResult.GranulocytesTypeIIIResult.ToString("F") + "%");
+			this.ReplaceText("gran_3", "TypeIII (complete FLAER/CD24 deficiency) = " + pnhResult.GranulocytesTypeIIIResult.ToString("F") + "%");
 			if (pnhResult.GranulocytesTypeIIResult > 0.0m && pnhResult.GranulocytesTypeIIIResult > 0.0m)
 			{
 				this.ReplaceText("gran_2", "TypeII (partial FLAER/CD24 deficiency) = " + pnhResult.GranulocytesTypeIIResult.ToString("F") + "%");
@@ -131,7 +131,7 @@ namespace YellowstonePathology.Business.Test.PNH
 				this.DeleteRow("gran_2");
 			}
 
-			this.ReplaceText("mono_3", "TypeIII (partial FLAER/CD14 deficiency) = " + pnhResult.MonocytesTypeIIIResult.ToString("F") + "%");
+			this.ReplaceText("mono_3", "TypeIII (complete FLAER/CD14 deficiency) = " + pnhResult.MonocytesTypeIIIResult.ToString("F") + "%");
 			if (pnhResult.MonocytesTypeIIResult > 0.0m)
 			{
 				this.ReplaceText("mono_2", "TypeII (partial FLAER/CD14 deficiency) = " + pnhResult.MonocytesTypeIIResult.ToString("F") + "%");
