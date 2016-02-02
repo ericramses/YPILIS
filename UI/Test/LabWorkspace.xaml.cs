@@ -683,10 +683,7 @@ namespace YellowstonePathology.UI.Test
 			if (patientLinker.IsOkToLink.IsValid == true)
 			{
 				YellowstonePathology.UI.Common.PatientLinkingDialog patientLinkingDialog = new Common.PatientLinkingDialog(this.m_LabUI.AccessionOrder, Business.Patient.Model.PatientLinkingListModeEnum.AccessionOrder, patientLinker);
-                YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_LabUI.AccessionOrder, patientLinkingDialog);
                 patientLinkingDialog.ShowDialog();
-                YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_LabUI.AccessionOrder, patientLinkingDialog);
-                YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(patientLinkingDialog);
             }
             else
 			{
