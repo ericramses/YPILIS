@@ -52,7 +52,7 @@ namespace YellowstonePathology.UI.Surgical
 
             this.m_SystemIdentity = new YellowstonePathology.Business.User.SystemIdentity(YellowstonePathology.Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
 
-            this.CommandBindingClose = new CommandBinding(MainWindow.ApplicationClosingCommand, CloseWorkspace);
+            this.CommandBindingClose = new CommandBinding(MainWindow.ApplicationClosingCommand, HandleAppClosing);
             this.CommandBindingSave = new CommandBinding(MainWindow.SaveChangesCommand, SaveData);
 			this.CommandBindingShowCaseDocument = new CommandBinding(MainWindow.ShowCaseDocumentCommand, ShowCaseDocument, ItemIsPresent);
 			this.CommandBindingToggleAccessionLockMode = new CommandBinding(MainWindow.ToggleAccessionLockModeCommand, AlterAccessionLock, CanAlterAccessionLock);
@@ -67,7 +67,7 @@ namespace YellowstonePathology.UI.Surgical
 			this.CommandBindings.Add(this.CommandBindingRemoveTab);
 			this.CommandBindings.Add(this.CommandBindingShowOrderForm);
 			this.CommandBindings.Add(this.CommandBindingShowAmendmentDialog);                        	
-
+            
 			this.m_TypingUI = new YellowstonePathology.Business.Typing.TypingUIV2(this.m_SystemIdentity);									
 			this.m_AmendmentControl = new AmendmentControlV2(this.m_SystemIdentity, string.Empty, this.m_TypingUI.AccessionOrder);			
             this.m_DocumentViewer = new DocumentWorkspace();            
@@ -127,16 +127,13 @@ namespace YellowstonePathology.UI.Surgical
             this.TabControlRightMain.SelectedIndex = 1;
         }		
 
-        public void CloseWorkspace(object target, ExecutedRoutedEventArgs args)
+        public void HandleAppClosing(object target, ExecutedRoutedEventArgs args)
         {
             if (this.m_TypingUI.SurgicalTestOrder != null)
             {
                 YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.LastReportNo = this.m_TypingUI.SurgicalTestOrder.ReportNo;
                 YellowstonePathology.Business.User.UserPreferenceInstance.Instance.SubmitChanges();
-            }
-
-            this.Save();			
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this.m_TypingUI);
+            }            
         }        
 
 		public void RemoveTab(object target, ExecutedRoutedEventArgs args)

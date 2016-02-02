@@ -53,7 +53,7 @@ namespace YellowstonePathology.Business.Typing
 
 			this.m_BillingSpecimenViewCollection = new View.BillingSpecimenViewCollection();
 
-			this.m_FieldEnabler = new YellowstonePathology.Business.Common.FieldEnabler();
+			this.m_FieldEnabler = new YellowstonePathology.Business.Common.FieldEnabler();          
 		}
 
 		public void GetAccessionOrder(string reportNo)
@@ -80,7 +80,7 @@ namespace YellowstonePathology.Business.Typing
 
 		public void Save()
 		{			
-            if(this.m_AccessionOrder != null)
+            if(this.m_AccessionOrder != null && this.m_Lock.LockAquired == true)
             {
                 YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
             }            

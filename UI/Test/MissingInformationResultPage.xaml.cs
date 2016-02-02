@@ -39,6 +39,8 @@ namespace YellowstonePathology.UI.Test
 			this.m_AccessionOrder = accessionOrder;			
 			this.m_SystemIdentity = systemIdentity;
 
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
+
 			this.m_MissingInformtionTestOrder = missingInformationTestOrder;
             this.m_PageHeaderText = "Missing Information For: " + this.m_AccessionOrder.PatientDisplayName;
 
@@ -95,7 +97,7 @@ namespace YellowstonePathology.UI.Test
 
 		public void Save()
 		{
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
+            
         }
 
         public void UpdateBindingSources()
@@ -104,9 +106,12 @@ namespace YellowstonePathology.UI.Test
 		}                                
         
 		private void ButtonNext_Click(object sender, RoutedEventArgs e)
-		{		
-		    if (this.Next != null) this.Next(this, new EventArgs());		
-		}
+		{
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
+
+            if (this.Next != null) this.Next(this, new EventArgs());            
+        }
 
 		private void HyperLinkFinalize_Click(object sender, RoutedEventArgs e)
 		{
