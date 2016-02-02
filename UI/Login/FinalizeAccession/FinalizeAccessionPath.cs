@@ -54,7 +54,9 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
 		private void PatientLinkingPage_Return(object sender, UI.Navigation.PageNavigationReturnEventArgs e)
 		{
-			switch (e.PageNavigationDirectionEnum)
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
+            switch (e.PageNavigationDirectionEnum)
 			{
 				case UI.Navigation.PageNavigationDirectionEnum.Next:
 					this.ShowProviderDistributionPage();
@@ -175,7 +177,8 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
 		private void ShowPatientLinkingPage()
 		{
-			YellowstonePathology.Business.Patient.Model.PatientLinker patientLinker = new Business.Patient.Model.PatientLinker(this.m_AccessionOrder.MasterAccessionNo,
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
+            YellowstonePathology.Business.Patient.Model.PatientLinker patientLinker = new Business.Patient.Model.PatientLinker(this.m_AccessionOrder.MasterAccessionNo,
 				this.m_ReportNo,
 				this.m_AccessionOrder.PFirstName, 
                 this.m_AccessionOrder.PLastName,

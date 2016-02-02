@@ -8,7 +8,6 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 	public class PatientLinkingPath
 	{
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-        private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
         private LoginPageWindow m_LoginPageWindow;
         private YellowstonePathology.Business.Domain.Lock m_Lock;
@@ -17,8 +16,6 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 		public PatientLinkingPath(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo)
         {
             this.m_AccessionOrder = accessionOrder;
-			this.m_ObjectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-            this.m_ObjectTracker.RegisterObject(this.m_AccessionOrder);
 			this.m_ReportNo = reportNo;
         }        
 
@@ -65,7 +62,8 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             CaseLockPage caseLockPage = (CaseLockPage)sender;
             if (caseLockPage.Lock.LockAquired == true)
             {
-				YellowstonePathology.Business.Patient.Model.PatientLinker patientLinker = new Business.Patient.Model.PatientLinker(this.m_AccessionOrder.MasterAccessionNo,
+                YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
+                YellowstonePathology.Business.Patient.Model.PatientLinker patientLinker = new Business.Patient.Model.PatientLinker(this.m_AccessionOrder.MasterAccessionNo,
 				this.m_ReportNo,
 				this.m_AccessionOrder.PFirstName,
                 this.m_AccessionOrder.PLastName, this.m_AccessionOrder.PMiddleInitial, this.m_AccessionOrder.PSSN,
@@ -82,8 +80,9 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
 		private void PatientLinkingPage_Return(object sender, UI.Navigation.PageNavigationReturnEventArgs e)
         {
-            this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
-			this.m_Lock.ReleaseUserLocks();
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
+            this.m_Lock.ReleaseUserLocks();
             this.m_LoginPageWindow.Close();
         }       
     }
