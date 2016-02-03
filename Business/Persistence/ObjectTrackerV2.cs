@@ -29,6 +29,7 @@ namespace YellowstonePathology.Business.Persistence
         
 		static ObjectTrackerV2()
 		{
+
 		}
 		
         private ObjectTrackerV2() 
