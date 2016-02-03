@@ -13,14 +13,44 @@ namespace YellowstonePathology.Business.Persistence
 
         public void Update(object objectToCount)
         {
-            foreach(ObjectCounter objectCounter in this)
+            if (this.Exists(objectToCount) == true)
             {
-                if(objectCounter.ObjectType == objectToCount.GetType())
+                ObjectCounter objectCounter = this.Get(objectToCount);
+                objectCounter.Update(objectToCount);
+            }
+            else
+            {
+                ObjectCounter objectCounter = new ObjectCounter(objectToCount.GetType());
+                this.Add(objectCounter);
+            }
+        }
+
+        private bool Exists(object objectToFind)
+        {
+            bool result = false;
+            foreach (ObjectCounter objectCounter in this)
+            {
+                if (objectCounter.ObjectType == objectToFind.GetType())
                 {
-                    objectCounter.Update(objectToCount);
+                    result = true;
                     break;
                 }
             }
+            return result;
+       }
+
+        private ObjectCounter Get(object objectToFind)
+        {
+            ObjectCounter result = null;
+            foreach (ObjectCounter objectCounter in this)
+            {
+                if (objectCounter.ObjectType == objectToFind.GetType())
+                {
+                    result = objectCounter;
+                    break;
+                }
+            }
+            return result;
         }
     }
 }

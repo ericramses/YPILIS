@@ -37,6 +37,7 @@ namespace YellowstonePathology.Business.Persistence
             this.m_RegisteredObjects = new RegisteredObjectCollection();
             this.m_RegisteredRootInserts = new RegisteredObjectCollection();
             this.m_RegisteredRootDeletes = new RegisteredObjectCollection();
+            this.m_ObjectCounterCollection = new ObjectCounterCollection();
         }
 
         public static ObjectTrackerV2 Instance
@@ -65,7 +66,8 @@ namespace YellowstonePathology.Business.Persistence
 
 			ObjectCloner objectCloner = new ObjectCloner();
 			object clonedObject = objectCloner.Clone(objectToRegister);
-			this.m_RegisteredObjects.Register(clonedObject, registeredBy);			
+			this.m_RegisteredObjects.Register(clonedObject, registeredBy);
+            this.m_ObjectCounterCollection.Update(clonedObject);
 		}
 
         public void CleanUp(object registeredBy)
