@@ -20,7 +20,7 @@ namespace YellowstonePathology.Business.Persistence
             Type objectType = this.m_Value.GetType();
             PropertyInfo keyProperty = objectType.GetProperties().Where(prop => Attribute.IsDefined(prop, typeof(PersistentPrimaryKeyProperty))).Single();
             this.m_Key = keyProperty.GetValue(this.m_Value, null);
-        }
+        }        
 
         public object Key
         {

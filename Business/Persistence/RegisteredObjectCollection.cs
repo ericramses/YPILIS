@@ -55,10 +55,12 @@ namespace YellowstonePathology.Business.Persistence
         	if(this.Exists(objectToRegister) == true)
         	{
         		RegisteredObject existingRegisteredObject = this.Get(objectToRegister);
+                existingRegisteredObject.Value = objectToRegister;
+
         		if(existingRegisteredObject.RegisteredBy.Contains(registeredBy) == false)
         		{
         			existingRegisteredObject.RegisteredBy.Add(registeredBy);
-        		}
+        		}                
         	}
         	else
         	{
