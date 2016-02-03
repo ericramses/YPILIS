@@ -83,8 +83,8 @@ namespace YellowstonePathology.UI.Gross
             this.m_Text = "[identifier]." + Environment.NewLine +
             	"Gross description:  [description]" + Environment.NewLine +
                 "Fimbriated Ends:  [description]" + Environment.NewLine +
-            	"Fallopian Tube 1:  [description]" + Environment.NewLine +                          
-				"Fallopian Tube 2:  [description]" + Environment.NewLine +
+            	"Fallopian Tube 1:  [description], [measurement]" + Environment.NewLine +                          
+				"Fallopian Tube 2:  [description], [measurement]" + Environment.NewLine +
                 "Submitted:  Serially sectioned with representative sections submitted into cassette [cassettelabel].  ";
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.FallopianTube fallopianTube = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.FallopianTube();
@@ -174,7 +174,7 @@ namespace YellowstonePathology.UI.Gross
         {
             this.m_TemplateName = "Skin Shave with Curettings Biopsy";
             this.m_Text = "[identifier]." + Environment.NewLine +
-                "Gross Description:  [description]; Curettings:  [description]" + Environment.NewLine +
+                "Gross Description:  [description]; Curettings:  [description], [measurement]" + Environment.NewLine +
                 "Measurements:  [measurements]" + Environment.NewLine +
                 "Submitted:  [submitted].  ";
 
