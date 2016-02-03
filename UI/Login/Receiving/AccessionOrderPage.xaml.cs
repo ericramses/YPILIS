@@ -63,7 +63,7 @@ namespace YellowstonePathology.UI.Login.Receiving
             YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity,        
             PageNavigationModeEnum pageNavigationMode)
-		{
+		{            
 			this.m_AccessionOrder = accessionOrder;
             this.m_PageNavigationMode = pageNavigationMode;
 
@@ -94,6 +94,7 @@ namespace YellowstonePathology.UI.Login.Receiving
         public AccessionOrderPage(ClientOrderReceivingHandler clientOrderReceivingHandler, PageNavigationModeEnum pageNavigationMode)
         {            
             this.m_AccessionOrder = clientOrderReceivingHandler.AccessionOrder;
+            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
             this.m_PageNavigationMode = pageNavigationMode;
 
             this.m_ClientOrder = clientOrderReceivingHandler.ClientOrder;

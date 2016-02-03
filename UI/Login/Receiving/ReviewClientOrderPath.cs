@@ -142,6 +142,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 
 		private void StartAccessionOrderPath()
 		{
+            this.m_ClientOrderReceivingHandler.Save();
 			AccessionOrderPath accessionOrderPath = new AccessionOrderPath(this.m_ClientOrderReceivingHandler, this.m_PageNavigator, PageNavigationModeEnum.Inline);
 			accessionOrderPath.Back += new AccessionOrderPath.BackEventHandler(AccessionOrderPath_Back);
 			accessionOrderPath.Return += new AccessionOrderPath.ReturnEventHandler(AccessionOrderPath_Return);

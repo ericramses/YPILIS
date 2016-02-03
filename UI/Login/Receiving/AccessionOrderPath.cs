@@ -83,7 +83,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 		}
 
         private void ShowAccessionOrderPage()
-        {
+        {                                   
 			Login.Receiving.AccessionOrderPage accessionOrderPage = new Login.Receiving.AccessionOrderPage(this.m_AccessionOrder, this.m_ClientOrder,
                 this.m_SystemIdentity, this.m_PageNavigationMode);
 			accessionOrderPage.Back += new Receiving.AccessionOrderPage.BackEventHandler(AccessionOrderPage_Back);
