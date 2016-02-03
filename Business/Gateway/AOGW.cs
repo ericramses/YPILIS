@@ -10,8 +10,9 @@ using System.Data.SqlClient;
 namespace YellowstonePathology.Business.Gateway
 {    
     public sealed class AOGW
-    {        
-        private static readonly AOGW instance = new AOGW();
+    {
+        private static volatile AOGW instance;
+        private static object syncRoot = new Object();
 
         private bool USEMONGO = false;
         private YellowstonePathology.Business.Test.AccessionOrderCollection m_AccessionOrderCollection;
@@ -78,6 +79,7 @@ namespace YellowstonePathology.Business.Gateway
             cmd.Parameters.Add("@LockAquiredByUserName", SqlDbType.VarChar).Value = systemIdentity.User.UserName;
             cmd.Parameters.Add("@LockAquiredByHostName", SqlDbType.VarChar).Value = System.Environment.MachineName;
             cmd.Parameters.Add("@TimeLockAquired", SqlDbType.DateTime).Value = DateTime.Now;
+
             using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
@@ -98,6 +100,15 @@ namespace YellowstonePathology.Business.Gateway
         {
             get
             {
+                if (instance == null)
+                {
+                    lock (syncRoot)
+                    {
+                        if (instance == null)
+                            instance = new AOGW();
+                    }
+                }
+
                 return instance;
             }
         }

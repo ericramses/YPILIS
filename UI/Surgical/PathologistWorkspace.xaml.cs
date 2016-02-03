@@ -75,7 +75,7 @@ namespace YellowstonePathology.UI.Surgical
 			this.m_MainWindowCommandButtonHandler.ToggleAccessionLock += new EventHandler(MainWindowCommandButtonHandler_ToggleAccessionLock);
 			this.m_MainWindowCommandButtonHandler.ShowCaseDocument += new EventHandler(MainWindowCommandButtonHandler_ShowCaseDocument);
 			this.m_MainWindowCommandButtonHandler.ShowOrderForm += new EventHandler(MainWindowCommandButtonHandler_ShowOrderForm);
-			this.m_MainWindowCommandButtonHandler.ShowAmendmentDialog += new EventHandler(MainWindowCommandButtonHandler_ShowAmendmentDialog);
+			//this.m_MainWindowCommandButtonHandler.ShowAmendmentDialog += new EventHandler(MainWindowCommandButtonHandler_ShowAmendmentDialog);
 			this.m_MainWindowCommandButtonHandler.AssignCase += new EventHandler(MainWindowCommandButtonHandler_AssignCase);
 			this.m_MainWindowCommandButtonHandler.ApplicationClosing += new EventHandler(MainWindowCommandButtonHandler_ApplicationClosing);
 

@@ -20,7 +20,8 @@ namespace YellowstonePathology.Business.Persistence
 	/// </summary>
 	public sealed class ObjectTrackerV2
 	{
-        private static ObjectTrackerV2 instance;
+        private static volatile ObjectTrackerV2 instance;
+        private static object syncRoot = new Object();        
 
         private RegisteredObjectCollection m_RegisteredObjects;
         private RegisteredObjectCollection m_RegisteredRootInserts;
@@ -43,14 +44,24 @@ namespace YellowstonePathology.Business.Persistence
             {
                 if (instance == null)
                 {
-                    instance = new ObjectTrackerV2();
+                    lock (syncRoot)
+                    {
+                        if (instance == null)
+                            instance = new ObjectTrackerV2();
+                    }
                 }
                 return instance;
             }
         }
 
         public void RegisterObject(object objectToRegister, object registeredBy)
-        {			
+        {
+            if (objectToRegister == null)
+            {
+                MessageBox.Show("There is trouble in paradise! Please call Sid (6050).");
+                return;
+            }
+
 			ObjectCloner objectCloner = new ObjectCloner();
 			object clonedObject = objectCloner.Clone(objectToRegister);
 			this.m_RegisteredObjects.Register(clonedObject, registeredBy);			
@@ -91,23 +102,7 @@ namespace YellowstonePathology.Business.Persistence
             sqlCommandSubmitter.SubmitChanges();                
 
             return result;
-        }
-
-        public SubmissionResult SubmitChanges(object registeredBy)
-        {
-            SubmissionResult result = new SubmissionResult();
-
-            foreach(RegisteredObject registeredObject in this.m_RegisteredObjects)
-            {
-                if(registeredObject.RegisteredBy == registeredBy)
-                {
-                    SqlCommandSubmitter sqlCommandSubmitter = this.GetSqlCommands(0, registeredBy);
-                    sqlCommandSubmitter.SubmitChanges();
-                }                
-            }
-            
-            return result;
-        }
+        }        
 
         public SubmissionResult SubmitChanges(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, object registeredBy, bool releaseLock)
         {
@@ -145,7 +140,7 @@ namespace YellowstonePathology.Business.Persistence
             updateCommandBuilder.Build(objectToSubmit, originalValues, objectSubmitter.SqlUpdateCommands);
 
             InsertedObjectFinder insertedObjectFinder = new InsertedObjectFinder();
-            insertedObjectFinder.Run(originalValues, objectToSubmit);
+            insertedObjectFinder.Run(originalValues, objectToSubmit);            
 
             while (insertedObjectFinder.InsertedObjects.Count != 0)
             {
@@ -198,7 +193,7 @@ namespace YellowstonePathology.Business.Persistence
             }
             else
             {
-                throw new Exception("The object you request submission on is not registered.");
+                throw new Exception("The object you requested submission on is not registered.");
             }
             return objectSubmitter;
         }

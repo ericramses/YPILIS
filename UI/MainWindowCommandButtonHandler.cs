@@ -19,7 +19,10 @@ namespace YellowstonePathology.UI
 		private EventHandler m_ApplicationClosingEventHandler;
 
         public delegate void StartProviderDistributionPathEventHandler(object sender, EventArgs e);
-        public event StartProviderDistributionPathEventHandler StartProviderDistributionPath;        
+        public event StartProviderDistributionPathEventHandler StartProviderDistributionPath;
+
+        public delegate void ShowAmendmentDialogEventHandler(object sender, EventArgs e);
+        public event ShowAmendmentDialogEventHandler ShowAmendmentDialog;
 
         public MainWindowCommandButtonHandler()
         {
@@ -48,13 +51,7 @@ namespace YellowstonePathology.UI
 		{
 			if (this.m_ShowOrderFormEventHandler != null)
 				this.m_ShowOrderFormEventHandler.Invoke(this, EventArgs.Empty);
-		}
-
-		public void OnShowAmendmentDialog()
-		{
-			if (this.m_ShowAmendmentDialogEventHandler != null)
-				this.m_ShowAmendmentDialogEventHandler.Invoke(this, EventArgs.Empty);
-		}
+		}		
 
 		public void OnAssignCase()
 		{
@@ -77,6 +74,11 @@ namespace YellowstonePathology.UI
         public void OnStartProviderDistributionPath()
         {
             if (this.StartProviderDistributionPath != null) this.StartProviderDistributionPath(this, EventArgs.Empty);
+        }
+
+        public void OnShowAmendmentDialog()
+        {
+            if (this.ShowAmendmentDialog != null) this.ShowAmendmentDialog(this, EventArgs.Empty);
         }
 
         public event EventHandler Save
@@ -133,21 +135,7 @@ namespace YellowstonePathology.UI
 				lock (this.m_EventLockObject)
 					this.m_ShowOrderFormEventHandler = null;
 			}
-		}
-
-		public event EventHandler ShowAmendmentDialog
-		{
-			add
-			{
-				lock (this.m_EventLockObject)
-					this.m_ShowAmendmentDialogEventHandler = value;
-			}
-			remove
-			{
-				lock (this.m_EventLockObject)
-					this.m_ShowAmendmentDialogEventHandler = null;
-			}
-		}
+		}		
 
 		public event EventHandler AssignCase
 		{

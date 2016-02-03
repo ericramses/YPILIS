@@ -23,8 +23,10 @@ namespace YellowstonePathology.UI
         private YellowstonePathology.Business.Test.PantherOrderList m_PantherHPVOrderList;
         private YellowstonePathology.Business.Test.PantherOrderList m_PantherNGCTOrderList;
         private YellowstonePathology.Business.Test.PantherOrderList m_PantherHPV1618OrderList;
+        private YellowstonePathology.Business.Test.PantherOrderList m_PantherTrichomonasOrderList;
         private YellowstonePathology.Business.Test.PantherOrderList m_PantherWHPOrderList;
         private YellowstonePathology.Business.Test.PantherAliquotList m_PantherAliquotList;
+
         private YellowstonePathology.UI.Login.LoginPageWindow m_LoginPageWindow;
 
         public PantherOrdersDialog()
@@ -33,6 +35,7 @@ namespace YellowstonePathology.UI
             this.m_PantherHPVOrderList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPantherOrdersNotAcceptedHPV();
             this.m_PantherNGCTOrderList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPantherOrdersNotAcceptedNGCT();
             this.m_PantherHPV1618OrderList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPantherOrdersNotAcceptedHPV1618();
+            this.m_PantherTrichomonasOrderList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPantherOrdersNotAcceptedTrichomonas();
             this.m_PantherWHPOrderList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPantherOrdersNotFinalWHP();
 
             InitializeComponent();
@@ -52,6 +55,11 @@ namespace YellowstonePathology.UI
         public YellowstonePathology.Business.Test.PantherOrderList PantherHPV1618OrderList
         {
             get { return this.m_PantherHPV1618OrderList; }
+        }
+
+        public YellowstonePathology.Business.Test.PantherOrderList PantherTrichomonasOrderList
+        {
+            get { return this.m_PantherTrichomonasOrderList; }
         }
 
         public YellowstonePathology.Business.Test.PantherOrderList PantherWHPOrderList
@@ -385,6 +393,44 @@ namespace YellowstonePathology.UI
                     YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(accessionOrder, this);
                     YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
                 }
+            }
+        }
+
+        private void ButtonShowTrichomonasResult_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ButtonResendTrichomonasPantherOrder_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.ListViewPantherTrichomonasOrders.SelectedItem != null)
+            {
+                foreach (YellowstonePathology.Business.Test.PantherOrderListItem item in this.ListViewPantherTrichomonasOrders.SelectedItems)
+                {
+                    YellowstonePathology.Business.HL7View.Panther.PantherAssay pantherAssay = new Business.HL7View.Panther.PantherAssayTrich();
+                    this.ResendPantherOrder(item, pantherAssay);
+                }
+                MessageBox.Show("The selected order(s) have been sent.");
+            }
+        }
+
+        private void ComboBoxListTypeTrichomonas_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (this.IsLoaded == true)
+            {
+                switch (this.ComboBoxListTypeTrichomonas.SelectedIndex)
+                {
+                    case 0:
+                        this.m_PantherTrichomonasOrderList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPantherOrdersNotAcceptedTrichomonas();
+                        break;
+                    case 1:
+                        //this.m_PantherHPV1618OrderList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPantherOrdersNotFinalHPV1618();
+                        break;
+                    case 2:
+                        //this.m_PantherHPV1618OrderList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPantherOrdersFinalHPV1618();
+                        break;
+                }
+                this.NotifyPropertyChanged("PantherTrichomonasOrderList");
             }
         }
     }

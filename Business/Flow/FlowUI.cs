@@ -183,10 +183,10 @@ namespace YellowstonePathology.Business.Flow
 		{			
 			this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AOGW.Instance.GetByMasterAccessionNo(masterAccessionNo, true);
 
-			if(this.m_AccessionOrder.LockedAquired == true)
-			{
+			//if(this.m_AccessionOrder.LockedAquired == true)
+			//{
 				YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
-			}
+			//}
 
             this.m_PanelSetOrderLeukemiaLymphoma = (YellowstonePathology.Business.Test.LLP.PanelSetOrderLeukemiaLymphoma)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
             this.m_ReportNo = reportNo;
@@ -333,14 +333,14 @@ namespace YellowstonePathology.Business.Flow
         {
 			if (this.AccessionOrder != null)
             {
-				if(this.AccessionOrder.LockedAquired == true)
-				{
+				//if(this.AccessionOrder.LockedAquired == true)
+				//{
 	                YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this, releaseLock);                
-					if(releaseLock == true)
-					{
-						YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
-					}
-				}
+					//if(releaseLock == true)
+					//{
+					//	YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
+					//}
+				//}
             }
         }
 

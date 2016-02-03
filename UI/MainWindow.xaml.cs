@@ -739,7 +739,7 @@ namespace YellowstonePathology.UI
         private void ToolBarButtonAddAmendment_Click(object sender, RoutedEventArgs e)
         {
 			this.m_MainWindowCommandButtonHandler.OnShowAmendmentDialog();
-			ShowAmendmentDialogCommand.Execute(null, null);
+			//ShowAmendmentDialogCommand.Execute(null, null);
         }        
 
 		private void MenuItemLockedCases_Click(object sender, RoutedEventArgs e)

@@ -69,11 +69,13 @@ namespace YellowstonePathology.Business.Persistence
 
         public void SubmitChanges()
         {
+            //Console.WriteLine("BEGIN send sql commands");
             this.RunSqlCommands(this.m_SqlUpdateCommands);
             this.RunSqlCommands(this.m_SqlDeleteFirstCommands);
             this.RunSqlCommands(this.m_SqlDeleteCommands);
             this.RunSqlCommands(this.m_SqlInsertCommands);
-            this.RunSqlCommands(this.m_SqlInsertLastCommands);            
+            this.RunSqlCommands(this.m_SqlInsertLastCommands);
+            //Console.WriteLine("END send sql commands");
         }
 
         private void RunSqlCommands(Queue<SqlCommand> sqlCommandQueue)
@@ -85,7 +87,8 @@ namespace YellowstonePathology.Business.Persistence
                 {                    
                     cn.Open();
                     cmd.Connection = cn;                    
-                    cmd.ExecuteNonQuery();                    
+                    cmd.ExecuteNonQuery();
+                    //Console.WriteLine(cmd.CommandText);             
                 }
             }
         }        

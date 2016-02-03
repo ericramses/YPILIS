@@ -1450,6 +1450,37 @@ namespace YellowstonePathology.Business.Gateway
             return result;
         }
 
+        public static YellowstonePathology.Business.Test.PantherOrderList GetPantherOrdersNotAcceptedTrichomonas()
+        {
+            YellowstonePathology.Business.Test.PantherOrderList result = new Test.PantherOrderList();
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "select pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, a.PFirstName, pso.AcceptedTime, pso.FinalTime, null as Result, t.Result, null, pso.HoldDistribution " +
+                "from tblPanelSetOrder pso " +
+                "join tblTrichomonasTestOrder t on pso.ReportNo = t.ReportNo " +
+                "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " +
+                "where TechnicalComponentInstrumentId = 'PNTHR' and pso.Accepted = 0 order by pso.OrderTime";
+
+            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        YellowstonePathology.Business.Test.PantherOrderListItem pantherOrderListItem = new Test.PantherOrderListItem();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(pantherOrderListItem, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Add(pantherOrderListItem);
+                    }
+                }
+            }
+
+            return result;
+        }
+
         public static YellowstonePathology.Business.Test.PantherOrderList GetPantherOrdersNotFinalHPV1618()
         {
             YellowstonePathology.Business.Test.PantherOrderList result = new Test.PantherOrderList();
