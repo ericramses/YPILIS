@@ -486,6 +486,8 @@
     <Compile Include="Persistence\JSONWriter.cs" />
     <Compile Include="Persistence\JSONObjectWriter.cs" />
     <Compile Include="Persistence\ObjectComparer.cs" />
+    <Compile Include="Persistence\ObjectCounter.cs" />
+    <Compile Include="Persistence\ObjectCounterCollection.cs" />
     <Compile Include="Persistence\ObjectTrackerV2.cs" />
     <Compile Include="Persistence\RegisteredObject.cs" />
     <Compile Include="Persistence\RegisteredObjectCollection.cs" />
