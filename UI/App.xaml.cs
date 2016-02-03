@@ -143,8 +143,7 @@ namespace YellowstonePathology.UI
 
         private void SaveAndReleaseLocksOnApplicationExit()
         {
-            /*
-            for (int idx = YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisteredObjects.Count - 1; idx > -1; idx--)
+            /* (int idx = YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisteredObjects.Count - 1; idx > -1; idx--)
             {
                 YellowstonePathology.Business.Persistence.RegisteredObject registeredObject = YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisteredObjects[idx];
                 object registeredBy = registeredObject.RegisteredBy[0];
@@ -160,8 +159,7 @@ namespace YellowstonePathology.UI
                 {
                     YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(registeredObject.Value, registeredBy);
                 }
-            }
-            */
+            }*/
         }
     }
 }
