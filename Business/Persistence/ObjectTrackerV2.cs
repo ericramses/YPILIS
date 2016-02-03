@@ -25,7 +25,8 @@ namespace YellowstonePathology.Business.Persistence
 
         private RegisteredObjectCollection m_RegisteredObjects;
         private RegisteredObjectCollection m_RegisteredRootInserts;
-        private RegisteredObjectCollection m_RegisteredRootDeletes;        
+        private RegisteredObjectCollection m_RegisteredRootDeletes;
+        private ObjectCounterCollection m_ObjectCounterCollection;
         
 		static ObjectTrackerV2()
 		{

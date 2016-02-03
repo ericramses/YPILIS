@@ -25,5 +25,10 @@ namespace YellowstonePathology.Business.Persistence
         {
             get { return this.m_ObjectCount; }
         }
+
+        public void Update(object objectToCount)
+        {
+            this.m_ObjectCount++;
+        }
     }
 }

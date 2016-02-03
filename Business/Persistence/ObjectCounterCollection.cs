@@ -10,5 +10,17 @@ namespace YellowstonePathology.Business.Persistence
     {
         public ObjectCounterCollection()
         { }
+
+        public void Update(object objectToCount)
+        {
+            foreach(ObjectCounter objectCounter in this)
+            {
+                if(objectCounter.ObjectType == objectToCount.GetType())
+                {
+                    objectCounter.Update(objectToCount);
+                    break;
+                }
+            }
+        }
     }
 }
