@@ -238,7 +238,8 @@ namespace YellowstonePathology.Business.Search
                     item.GroupType != "Cytology")
 				{
 					YellowstonePathology.Business.Rules.Surgical.RulesAssignPathologistId rule = YellowstonePathology.Business.Rules.Surgical.RulesAssignPathologistId.Instance;
-					YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(item.ReportNo);
+
+					YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.ObjectGatway.Instance.GetByMasterAccessionNo(item.MasterAccessionNo, true);
 					YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new Persistence.ObjectTracker();
 					objectTracker.RegisterObject(accessionOrder);
 

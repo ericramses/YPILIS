@@ -95,10 +95,8 @@ namespace YellowstonePathology.UI.Client
 		}
 
 		private void ButtonOk_Click(object sender, RoutedEventArgs e)
-		{
-			YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_ClientSupplyOrder, this);
-			this.Close();
-			YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
+		{			
+			this.Close();			
 		}
 
 		private void ListViewSupplies_MouseDoubleClick(object sender, MouseButtonEventArgs e)

@@ -53,7 +53,8 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
         {
             this.m_ReportNo = reportNo;
             this.m_ReportSaveEnum = reportSaveEnum;
-			this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(reportNo);
+
+            this.m_AccessionOrder = YellowstonePathology.Business.Persistence.ObjectGatway.Instance.GetByMasterAccessionNo(masterAccessionNo, false);
 			this.m_PanelSetOrderCytology = (YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 
             this.m_TemplateName = m_ThinPrepTemplateName;

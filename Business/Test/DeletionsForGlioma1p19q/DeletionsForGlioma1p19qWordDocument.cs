@@ -11,7 +11,7 @@ namespace YellowstonePathology.Business.Test.DeletionsForGlioma1p19q
 		{
 			this.m_ReportNo = reportNo;
 			this.m_ReportSaveEnum = reportSaveEnum;
-			this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByMasterAccessionNo(masterAccessionNo);
+			this.m_AccessionOrder = YellowstonePathology.Business.Persistence.ObjectGatway.Instance.GetByMasterAccessionNo(masterAccessionNo, true);
 			this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 			DeletionsForGlioma1p19qTestOrder testOrder = (DeletionsForGlioma1p19qTestOrder)this.m_PanelSetOrder;
 

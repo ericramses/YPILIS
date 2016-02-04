@@ -70,13 +70,13 @@ namespace YellowstonePathology.UI.Test
         private void HPVResultPage_Loaded(object sender, RoutedEventArgs e)
         {
             this.ComboBoxResult.SelectionChanged += ComboBoxResult_SelectionChanged;
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
+             
         }
 
         private void HPVResultPage_Unloaded(object sender, RoutedEventArgs e)
         {
             this.ComboBoxResult.SelectionChanged -= ComboBoxResult_SelectionChanged;
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
+             
         }
 
         public string AdditionalTestingComment
@@ -124,7 +124,7 @@ namespace YellowstonePathology.UI.Test
 
 		public void Save()
 		{
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
+            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, false);
         }
 
         public void UpdateBindingSources()

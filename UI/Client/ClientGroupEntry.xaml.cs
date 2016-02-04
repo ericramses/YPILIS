@@ -37,8 +37,7 @@ namespace YellowstonePathology.UI.Client
 
         private void ProviderEntry_Closing(object sender, CancelEventArgs e)
         {
-            this.Save();
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
+            this.Save();            
         }
 
         public void NotifyPropertyChanged(String info)

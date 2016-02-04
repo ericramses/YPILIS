@@ -24,10 +24,10 @@ namespace YellowstonePathology.UI.Test
         private Business.User.SystemIdentity m_SystemIdentity;
         private Business.Persistence.ObjectTracker m_ObjectTracker;
 
-        public AcidWashResultDialog(string reportNo)
+        public AcidWashResultDialog(string masterAccessionNo, string reportNo)
         {
             this.m_ObjectTracker = new Business.Persistence.ObjectTracker();
-            this.m_AccessionOrder = Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(reportNo);
+            this.m_AccessionOrder = Business.Persistence.ObjectGatway.Instance.GetByMasterAccessionNo(masterAccessionNo, true);
             this.m_ObjectTracker.RegisterObject(this.m_AccessionOrder);
             Business.Test.ThinPrepPap.ThinPrepPapAcidWashPanel thinPrepPapAcidWashPanel = new Business.Test.ThinPrepPap.ThinPrepPapAcidWashPanel();
             this.m_PanelOrderAcidWash = (Business.Test.ThinPrepPap.PanelOrderAcidWash)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo).PanelOrderCollection.GetPanelByPanelId(thinPrepPapAcidWashPanel.PanelId);

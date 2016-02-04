@@ -58,7 +58,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
         private void PatientLinkingPage_Loaded(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
+             
 			if (this.m_PatientLinker.IsOkToLink.IsValid == true)
 			{
 				this.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Background,
@@ -85,7 +85,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
         private void PatientLinkingPage_Unloaded(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
+            
         }
 
         public void SetPatientLinkingListSelections()
@@ -217,7 +217,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
         public void Save()
         {
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
+            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, false);
         }
 
         public bool OkToSaveOnNavigation(Type pageNavigatingTo)

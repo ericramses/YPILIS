@@ -8,6 +8,7 @@ namespace YellowstonePathology.Business.Test
 {
     public class PantherOrderListItem
     {
+        private string m_MasterAccessionNo;
         private string m_ReportNo;
         private string m_PanelSetName;
         private DateTime m_OrderTime;
@@ -21,6 +22,13 @@ namespace YellowstonePathology.Business.Test
         public PantherOrderListItem()
         {
 
+        }
+
+        [PersistentProperty()]
+        public string MasterAccessionNo
+        {
+            get { return this.m_MasterAccessionNo; }
+            set { this.m_MasterAccessionNo = value; }
         }
 
         [PersistentProperty()]

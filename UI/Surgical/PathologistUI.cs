@@ -171,10 +171,9 @@ namespace YellowstonePathology.UI.Surgical
 		}		
 
 		public virtual void GetAccessionOrder(string masterAccessionNo, string reportNo)
-		{
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
-            this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(reportNo);
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
+		{             
+            this.m_AccessionOrder = YellowstonePathology.Business.Persistence.ObjectGatway.Instance.GetByMasterAccessionNo(masterAccessionNo, true);
+             
 			this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 			this.m_Lock.SetLockable(m_AccessionOrder);
 			this.RunWorkspaceEnableRules();
@@ -186,9 +185,9 @@ namespace YellowstonePathology.UI.Surgical
         
 		public virtual void GetAccessionOrderByReportNo(string reportNo)
 		{
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
-            this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(reportNo);
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
+            string masterAccessionNo = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetMasterAccessionNoFromReportNo(reportNo);
+            this.m_AccessionOrder = YellowstonePathology.Business.Persistence.ObjectGatway.Instance.GetByMasterAccessionNo(masterAccessionNo, true);
+             
             this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 			this.m_AccessionOrder.PanelSetOrderCollection.PathologistTestOrderItemList.Build(this.m_AccessionOrder);
 			this.PathologistOrderCollection = this.m_AccessionOrder.PanelSetOrderCollection;
@@ -253,7 +252,7 @@ namespace YellowstonePathology.UI.Surgical
             if (this.m_AccessionOrder != null && this.m_Lock.LockAquired == true)
             {
                 MainWindow.MoveKeyboardFocusNextThenBack();
-                YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
+                YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, false);
             }
         }
 

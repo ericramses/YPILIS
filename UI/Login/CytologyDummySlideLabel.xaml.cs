@@ -75,6 +75,9 @@ namespace YellowstonePathology.UI.Login
 
         private string GetPatientLastName()
         {
+            MessageBox.Show("Sid Needs to work on this.  Please tell me you saw this.");
+
+            /*
             string lastName = string.Empty;
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(this.TextBoxRealReportNumber.Text);
 			if (accessionOrder != null)
@@ -82,6 +85,10 @@ namespace YellowstonePathology.UI.Login
                 lastName = accessionOrder.PLastName;
             }
             return lastName;
-        }        
+
+            */
+
+            throw new Exception("Not finished.");
+        }
     }
 }

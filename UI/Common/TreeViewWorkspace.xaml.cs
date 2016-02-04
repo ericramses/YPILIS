@@ -38,12 +38,12 @@ namespace YellowstonePathology.UI.Common
 
         private void TreeViewWorkspace_Loaded(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
+             
         }
 
         private void TreeViewWorkspace_Unloaded(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
+            
         }
 
         public YellowstonePathology.Business.User.SystemUser CurrentUser
@@ -85,7 +85,7 @@ namespace YellowstonePathology.UI.Common
                 YellowstonePathology.Business.Test.Model.TestOrder testOrder = (YellowstonePathology.Business.Test.Model.TestOrder)menuItem.Tag;                
                 YellowstonePathology.Business.Visitor.RemoveTestOrderVisitor removeTestOrderVisitor = new Business.Visitor.RemoveTestOrderVisitor(testOrder.TestOrderId);
                 this.m_AccessionOrder.TakeATrip(removeTestOrderVisitor);
-                YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
+                YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, false);
             }
         }        
 

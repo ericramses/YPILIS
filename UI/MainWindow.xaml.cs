@@ -545,10 +545,10 @@ namespace YellowstonePathology.UI
 			}            
         }
 
-        public void AddLabWorkspace(string reportNo)
+        public void AddLabWorkspace(string masterAccessionNo, string reportNo)
         {
             this.AddLabWorkspace();
-            this.m_LabWorkspace.GetCase(reportNo);
+            this.m_LabWorkspace.GetCase(masterAccessionNo, reportNo);
         }
 
         private void m_LabWorkspace_Loaded(object sender, RoutedEventArgs e)

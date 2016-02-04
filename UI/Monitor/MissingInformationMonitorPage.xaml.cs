@@ -81,8 +81,7 @@ namespace YellowstonePathology.UI.Monitor
             if(this.ListViewMissingInformation.SelectedItem != null)
             {
                 YellowstonePathology.Business.Monitor.Model.MissingInformation missingInformation = (YellowstonePathology.Business.Monitor.Model.MissingInformation)this.ListViewMissingInformation.SelectedItem;
-                YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(missingInformation.ReportNo);
-                YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(accessionOrder, this);
+                YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.ObjectGatway.Instance.GetByMasterAccessionNo(missingInformation.MasterAccessionNo, true);                
 
                 YellowstonePathology.Business.User.SystemIdentity systemIdentity = new Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
                 this.m_LoginPageWindow = new Login.LoginPageWindow(systemIdentity);
@@ -97,7 +96,7 @@ namespace YellowstonePathology.UI.Monitor
 
         private void ResultPathFactory_Finished(object sender, EventArgs e)
         {
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
+             
             this.m_LoginPageWindow.Close();
         }
     }

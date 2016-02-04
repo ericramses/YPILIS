@@ -116,7 +116,7 @@ namespace YellowstonePathology.UI.Login
 
         private void OrderTheReport()
         {
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
+             
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity = new YellowstonePathology.Business.User.SystemIdentity(YellowstonePathology.Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
             YellowstonePathology.Business.PanelSet.Model.FlowCytometry.PanelSetFlowCytometry panelSetFlowCytometry = null;
 
@@ -165,10 +165,7 @@ namespace YellowstonePathology.UI.Login
                 {
                     physicianClientDistribution.SetDistribution(panelSetOrderLeukemiaLymphoma, this.m_AccessionOrder);
                 }
-            }
-
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
+            }            
         }
         
         private void EndPath()

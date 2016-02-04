@@ -125,7 +125,7 @@ namespace YellowstonePathology.UI.ReportDistribution
 			List<YellowstonePathology.Business.Test.PanelSetOrderView> panelSetOrderViewList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetUnsetDistributions();
             foreach (YellowstonePathology.Business.Test.PanelSetOrderView panelSetOrderView in panelSetOrderViewList)
             {
-				YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(panelSetOrderView.ReportNo);
+				YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.ObjectGatway.Instance.GetByMasterAccessionNo(panelSetOrderView.MasterAccessionNo, true);
 				YellowstonePathology.Business.Persistence.ObjectTracker ot = new YellowstonePathology.Business.Persistence.ObjectTracker();
                 ot.RegisterObject(accessionOrder);
 

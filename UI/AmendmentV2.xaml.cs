@@ -40,12 +40,12 @@ namespace YellowstonePathology.UI
 
         private void AmendmentV2_Loaded(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
+             
         }
 
         private void AmendmentV2_Unloaded(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
+            
         }
 
         public void ComboBoxAmendmentUsers_SelectionChanged(object sender, RoutedEventArgs args)
@@ -86,7 +86,7 @@ namespace YellowstonePathology.UI
 
         private void Save()
         {
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
+            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, false);
         }
 
         public void ButtonFinalize_Click(object sender, RoutedEventArgs args)

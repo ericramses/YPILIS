@@ -11,7 +11,7 @@ namespace YellowstonePathology.Business.Test.JAK2V617F
             this.m_ReportNo = reportNo;
 			this.m_ReportSaveEnum = reportSaveEnum;
 
-			this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByMasterAccessionNo(masterAccessionNo);
+			this.m_AccessionOrder = YellowstonePathology.Business.Persistence.ObjectGatway.Instance.GetByMasterAccessionNo(masterAccessionNo, true);
 
 			this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 			JAK2V617FTestOrder panelSetOrderJAK2V617F = (JAK2V617FTestOrder)this.m_PanelSetOrder;

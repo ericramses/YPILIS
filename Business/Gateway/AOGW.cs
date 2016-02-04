@@ -13,9 +13,11 @@ namespace YellowstonePathology.Business.Gateway
     {
         private static volatile AOGW instance;
         private static object syncRoot = new Object();
-
+        
         private bool USEMONGO = false;
-        private YellowstonePathology.Business.Test.AccessionOrderCollection m_AccessionOrderCollection;
+
+        private List<object> m_Objects;
+        private List<object> m_OriginalValues;
 
         static AOGW()
         {
@@ -23,14 +25,16 @@ namespace YellowstonePathology.Business.Gateway
         }
 
         private AOGW()
-        {            
-            this.m_AccessionOrderCollection = new Test.AccessionOrderCollection();
+        {
+            this.m_Objects = new List<object>();
+            this.m_OriginalValues = new List<object>();
         }
 
         public YellowstonePathology.Business.Test.AccessionOrder GetByMasterAccessionNo(string masterAccessionNo, bool aquireLock)
         {
             YellowstonePathology.Business.Test.AccessionOrder result = null;
             
+            /*
 	        if (this.m_AccessionOrderCollection.Exists(masterAccessionNo) == true)
             {
 	        	result = this.m_AccessionOrderCollection.GetAccessionOrder(masterAccessionNo);
@@ -52,9 +56,14 @@ namespace YellowstonePathology.Business.Gateway
 	                result = this.BuildFromMongo(masterAccessionNo, aquireLock);
 	            }
 	            
-	            this.m_AccessionOrderCollection.Add(result);
-	        }
-	        
+	            this.m_AccessionOrderCollection.Add(result);                
+
+                YellowstonePathology.Business.Persistence.ObjectCloner objectCloner = new YellowstonePathology.Business.Persistence.ObjectCloner();
+                YellowstonePathology.Business.Test.AccessionOrder clonedAccessionOrder = (YellowstonePathology.Business.Test.AccessionOrder)objectCloner.Clone(result);
+                this.m_AccessionOrderOriginalValuesCollection.Add(clonedAccessionOrder);
+            }
+	        */
+
             return result;
         }
 
@@ -92,9 +101,27 @@ namespace YellowstonePathology.Business.Gateway
                     }
                 }
             }
-            accessionOrderBuilder.Build(document);
+
+            accessionOrderBuilder.Build(document);            
             return accessionOrderBuilder.AccessionOrder;
-        }        
+        }
+
+        public YellowstonePathology.Business.Persistence.SubmissionResult SubmitChanges(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, bool releaseLock)
+        {
+            YellowstonePathology.Business.Persistence.SubmissionResult result = new YellowstonePathology.Business.Persistence.SubmissionResult();
+            if (releaseLock == true)
+            {
+                accessionOrder.LockAquiredByHostName = null;
+                accessionOrder.LockAquiredById = null;
+                accessionOrder.LockAquiredByUserName = null;
+                accessionOrder.TimeLockAquired = null;
+            }
+
+            //YellowstonePathology.Business.Persistence.SqlCommandSubmitter sqlCommandSubmitter = this.GetSqlCommands(accessionOrder);
+            //sqlCommandSubmitter.SubmitChanges();
+
+            return result;
+        }                
 
         public static AOGW Instance
         {

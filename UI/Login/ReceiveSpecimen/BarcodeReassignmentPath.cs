@@ -116,7 +116,8 @@ namespace YellowstonePathology.UI.Login.ReceiveSpecimen
 
 		private void ReplaceContainerId(string containerId)
 		{
-			YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByContainerId(this.m_ClientOrderDetail.ContainerId); ;
+            string masterAccessionNo = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetMasterAccessionNoFromContainerId(this.m_ClientOrderDetail.ContainerId);
+            YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.ObjectGatway.Instance.GetByMasterAccessionNo(masterAccessionNo, true);             
 						
 			if (accessionOrder != null)
 			{

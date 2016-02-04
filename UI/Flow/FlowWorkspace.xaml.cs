@@ -754,7 +754,8 @@ namespace YellowstonePathology.UI.Flow
 
         private void ShowReportOrderDialog(string reportNo)
         {
-			YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(reportNo);
+            string masterAccessionNo = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetMasterAccessionNoFromReportNo(reportNo);
+			YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.ObjectGatway.Instance.GetByMasterAccessionNo(masterAccessionNo, true);
             if (accessionOrder != null)
             {
                 YellowstonePathology.Business.Gateway.ClientOrderGateway clientOrderGateway = new Business.Gateway.ClientOrderGateway();

@@ -39,12 +39,12 @@ namespace YellowstonePathology.UI
 
         private void AmendmentControlV2_Loaded(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
+             
         }
 
         private void AmendmentControlV2_Unloaded(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
+            
         }
 
         public YellowstonePathology.Business.User.SystemUser CurrentUser
@@ -94,7 +94,7 @@ namespace YellowstonePathology.UI
 					{
                         YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(((YellowstonePathology.Business.Amendment.Model.Amendment)this.TreeViewAmendment.SelectedItem).ReportNo);
                         panelSetOrder.DeleteAmendment(((YellowstonePathology.Business.Amendment.Model.Amendment)this.TreeViewAmendment.SelectedItem).AmendmentId);
-                        YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
+                        YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, false);
 					}
 				}
 			}

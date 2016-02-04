@@ -92,7 +92,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 
         private void ShowViewAccessionPage(string masterAccessionNo)
         {
-			YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByMasterAccessionNo(masterAccessionNo);
+			YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.ObjectGatway.Instance.GetByMasterAccessionNo(masterAccessionNo, true);
             ViewAccessionOrderPage viewAccessionOrderPage = new ViewAccessionOrderPage(accessionOrder);
             viewAccessionOrderPage.UseThisAccessionOrder += new ViewAccessionOrderPage.UseThisAccessionOrderEventHandler(ViewAccessionOrderPage_UseThisAccessionOrder);
             viewAccessionOrderPage.Back += new ViewAccessionOrderPage.BackEventHandler(ViewAccessionOrderPage_Back);

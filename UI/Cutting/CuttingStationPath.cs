@@ -82,7 +82,7 @@ namespace YellowstonePathology.UI.Cutting
 
         private void HandleMasterAccessionNoFound(string masterAccessionNo)
         {
-            this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByMasterAccessionNo(masterAccessionNo);
+            this.m_AccessionOrder = YellowstonePathology.Business.Persistence.ObjectGatway.Instance.GetByMasterAccessionNo(masterAccessionNo, true);
 			this.m_ObjectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
             this.m_ObjectTracker.RegisterObject(this.m_AccessionOrder);
 

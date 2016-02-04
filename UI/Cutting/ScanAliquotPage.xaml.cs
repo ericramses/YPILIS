@@ -94,13 +94,14 @@ namespace YellowstonePathology.UI.Cutting
 
         private void HandleBlockScanReceived(string aliquotOrderId)
         {
+            string masterAccessionNo = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetMasterAccessionNoFromAliquotOrderId(aliquotOrderId);
             if (this.m_AccessionOrder != null && this.m_AccessionOrder.SpecimenOrderCollection.AliquotOrderExists(aliquotOrderId) == false)
             {                
-                this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByAliquotOrderId(aliquotOrderId);             
+                this.m_AccessionOrder = YellowstonePathology.Business.Persistence.ObjectGatway.Instance.GetByMasterAccessionNo(masterAccessionNo, true);
             }
             else
             {
-                this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByAliquotOrderId(aliquotOrderId);
+                this.m_AccessionOrder = YellowstonePathology.Business.Persistence.ObjectGatway.Instance.GetByMasterAccessionNo(masterAccessionNo, true);
             }
 
             if (this.m_AccessionOrder != null)

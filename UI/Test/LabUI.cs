@@ -152,13 +152,10 @@ namespace YellowstonePathology.UI.Test
 			get { return this.m_AcknowledgeOrders; }
 		}
        
-		public void GetAccessionOrder(string reportNo)
-		{
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
-            this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(reportNo);
-			this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
-
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
+		public void GetAccessionOrder(string masterAccessionNo, string reportNo)
+		{                         
+            this.m_AccessionOrder = YellowstonePathology.Business.Persistence.ObjectGatway.Instance.GetByMasterAccessionNo(masterAccessionNo, true);
+			this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);             
 
 			this.m_CaseDocumentCollection = new YellowstonePathology.Business.Document.CaseDocumentCollection(this.AccessionOrder, reportNo);
 			this.m_Lock.SetLockable(this.AccessionOrder);						
@@ -236,7 +233,7 @@ namespace YellowstonePathology.UI.Test
 		{
 			if (this.m_AccessionOrder != null && this.m_Lock.LockAquired == true)
 			{
-                YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
+                YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, false);
 			}
 		}
 

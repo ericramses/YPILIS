@@ -14,7 +14,63 @@ namespace YellowstonePathology.Business.Gateway
 {
 	public class AccessionOrderGateway
 	{        
-		public static void SetPanelSetOrderAsCancelledTest(string reportNo)
+        public static string GetMasterAccessionNoFromReportNo(string reportNo)
+        {
+            string result = null;
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "Select MasterAccessionNo from tblPanelSetOrder where ReportNo = @ReportNo";
+            cmd.Parameters.Add("@ReportNo", SqlDbType.VarChar).Value = reportNo;
+            cmd.CommandType = CommandType.Text;
+
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                result = (string)cmd.ExecuteScalar();
+            }
+            return result;
+        }
+
+        public static string GetMasterAccessionNoFromContainerId(string containerId)
+        {
+            string result = null;
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "select MasterAccessionNo from tblSpecimenOrder where ContainerId = @ContainerId";
+            cmd.Parameters.Add("@containerId", SqlDbType.VarChar).Value = containerId;
+            cmd.CommandType = CommandType.Text;
+
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                result = (string)cmd.ExecuteScalar();
+            }
+            return result;
+        }
+
+        public static string GetMasterAccessionNoFromAliquotOrderId(string aliquotOrderId)
+        {
+            string result = null;
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "Select MasterAccessionNo " +
+                "from tblSpecimenOrder so " +
+                "join tblAliquotOrder ao on so.SpecimenORderId = ao.SpecimenOrderId " +
+                "where ao.AliquotOrderId = @AliquotOrderId";
+
+            cmd.Parameters.Add("@AliquotOrderId", SqlDbType.VarChar).Value = aliquotOrderId;
+            cmd.CommandType = CommandType.Text;
+
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                result = (string)cmd.ExecuteScalar();
+            }
+
+            return result;
+        }
+
+        public static void SetPanelSetOrderAsCancelledTest(string reportNo)
 		{
 			SqlCommand cmd = new SqlCommand();
 			cmd.CommandText = "Update tblPanelSetOrder set PanelSetid = 66, panelSetName = 'Test Cancelled', CaseType = 'Test Cancelled' where Reportno = @ReportNo";
@@ -349,6 +405,7 @@ namespace YellowstonePathology.Business.Gateway
             return result;
         }
 
+        /*
 		public static Test.AccessionOrder GetAccessionOrderByAliquotOrderId(string aliquotOrderId)
 		{
 			SqlCommand cmd = new SqlCommand();
@@ -359,9 +416,10 @@ namespace YellowstonePathology.Business.Gateway
 			XElement document = AccessionOrderGateway.GetAccessionOrderElement(cmd);
 			accessionOrderBuilder.Build(document);
 			return accessionOrderBuilder.AccessionOrder;
-		}        
+		} 
+        */       
 
-		public static Test.AccessionOrder GetAccessionOrderByContainerId(string containerId)
+		/*public static Test.AccessionOrder GetAccessionOrderByContainerId(string containerId)
 		{
 			SqlCommand cmd = new SqlCommand();
 			cmd.CommandText = "gwGetAccessionByContainerId_A7";
@@ -371,29 +429,23 @@ namespace YellowstonePathology.Business.Gateway
 			XElement document = AccessionOrderGateway.GetAccessionOrderElement(cmd);
 			accessionOrderBuilder.Build(document);
 			return accessionOrderBuilder.AccessionOrder;
-		}
+		}*/
 
-		public static Test.AccessionOrder GetAccessionOrderByMasterAccessionNo(string masterAccessionNo)
-		{
-#if MONGO
-			return AccessionOrderGatewayMongo.GetAccessionOrderByMasterAccessionNo(masterAccessionNo);
-#else
-			SqlCommand cmd = new SqlCommand();
-			cmd.CommandText = "gwGetAccessionByMasterAccessionNo_A7";
-			cmd.CommandType = CommandType.StoredProcedure;
-			cmd.Parameters.Add("@MasterAccessionNo", SqlDbType.VarChar).Value = masterAccessionNo;
-			AccessionOrderBuilder accessionOrderBuilder = new AccessionOrderBuilder();
-			XElement document = AccessionOrderGateway.GetAccessionOrderElement(cmd);
-			accessionOrderBuilder.Build(document);
-			return accessionOrderBuilder.AccessionOrder;
-#endif
-			}
+		//public static Test.AccessionOrder GetAccessionOrderByMasterAccessionNo(string masterAccessionNo)
+		//{
+		//	SqlCommand cmd = new SqlCommand();
+		//	cmd.CommandText = "gwGetAccessionByMasterAccessionNo_A7";
+		//	cmd.CommandType = CommandType.StoredProcedure;
+		//	cmd.Parameters.Add("@MasterAccessionNo", SqlDbType.VarChar).Value = masterAccessionNo;
+		//	AccessionOrderBuilder accessionOrderBuilder = new AccessionOrderBuilder();
+		//	XElement document = AccessionOrderGateway.GetAccessionOrderElement(cmd);
+		//	accessionOrderBuilder.Build(document);
+		//	return accessionOrderBuilder.AccessionOrder;
+		//}
 
+        /*
 		public static Test.AccessionOrder GetAccessionOrderByReportNo(string reportNo)
 		{
-#if MONGO
-			return AccessionOrderGatewayMongo.GetAccessionOrderByReportNo(reportNo);
-#else
 			SqlCommand cmd = new SqlCommand();
 			cmd.CommandText = "gwGetAccessionByReportNo_A7";
 			cmd.CommandType = CommandType.StoredProcedure;
@@ -402,8 +454,8 @@ namespace YellowstonePathology.Business.Gateway
 			XElement document = AccessionOrderGateway.GetAccessionOrderElement(cmd);
 			accessionOrderBuilder.Build(document);
 			return accessionOrderBuilder.AccessionOrder;
-#endif
 		}
+        */
 
 		public static Test.AccessionOrder GetAccessionOrderBySlideOrderId(string slideOrderId)
 		{
@@ -1239,7 +1291,7 @@ namespace YellowstonePathology.Business.Gateway
 
             SqlCommand cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "select pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, a.PFirstName, pso.ResultCode, pso.AcceptedTime, pso.FinalTime, psoh.Result, pso.HoldDistribution " +
+            cmd.CommandText = "select ao.masterAccessionNo, pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, a.PFirstName, pso.ResultCode, pso.AcceptedTime, pso.FinalTime, psoh.Result, pso.HoldDistribution " +
                 "from tblPanelSetOrder pso " +
                 "join tblHPVTestOrder psoh on pso.ReportNo = psoh.ReportNo " +
                 "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " +                 
@@ -1270,7 +1322,7 @@ namespace YellowstonePathology.Business.Gateway
 
             SqlCommand cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "select pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, a.PFirstName, pso.AcceptedTime, pso.FinalTime, null as Result, ngct.NeisseriaGonorrhoeaeResult, ngct.ChlamydiaTrachomatisResult, pso.HoldDistribution " +
+            cmd.CommandText = "select pso.masterAccessionNo, pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, a.PFirstName, pso.AcceptedTime, pso.FinalTime, null as Result, ngct.NeisseriaGonorrhoeaeResult, ngct.ChlamydiaTrachomatisResult, pso.HoldDistribution " +
                 "from tblPanelSetOrder pso " +
                 "join tblNGCTTestOrder ngct on pso.ReportNo = ngct.ReportNo " +
                 "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " +
@@ -1301,7 +1353,7 @@ namespace YellowstonePathology.Business.Gateway
 
             SqlCommand cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "select pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, a.PFirstName, pso.AcceptedTime, pso.FinalTime, null as Result, ngct.NeisseriaGonorrhoeaeResult, ngct.ChlamydiaTrachomatisResult, pso.HoldDistribution " +
+            cmd.CommandText = "select pso.MasterAccessionNo, pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, a.PFirstName, pso.AcceptedTime, pso.FinalTime, null as Result, ngct.NeisseriaGonorrhoeaeResult, ngct.ChlamydiaTrachomatisResult, pso.HoldDistribution " +
                 "from tblPanelSetOrder pso " +
                 "join tblNGCTTestOrder ngct on pso.ReportNo = ngct.ReportNo " +
                 "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " +
@@ -1332,7 +1384,7 @@ namespace YellowstonePathology.Business.Gateway
 
             SqlCommand cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "select pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, a.PFirstName, pso.AcceptedTime, pso.FinalTime, null as Result, ngct.NeisseriaGonorrhoeaeResult, ngct.ChlamydiaTrachomatisResult, pso.HoldDistribution " +
+            cmd.CommandText = "select pso.MasterAccessionNo, pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, a.PFirstName, pso.AcceptedTime, pso.FinalTime, null as Result, ngct.NeisseriaGonorrhoeaeResult, ngct.ChlamydiaTrachomatisResult, pso.HoldDistribution " +
                 "from tblPanelSetOrder pso " +
                 "join tblNGCTTestOrder ngct on pso.ReportNo = ngct.ReportNo " +
                 "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " +
@@ -1363,7 +1415,7 @@ namespace YellowstonePathology.Business.Gateway
 
             SqlCommand cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "select pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, a.PFirstName, pso.ResultCode, pso.AcceptedTime, pso.FinalTime, psoh.Result, pso.HoldDistribution " +
+            cmd.CommandText = "select pso.MasterAccessionNo, pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, a.PFirstName, pso.ResultCode, pso.AcceptedTime, pso.FinalTime, psoh.Result, pso.HoldDistribution " +
                 "from tblPanelSetOrder pso " +
                 "join tblHPVTestOrder psoh on pso.ReportNo = psoh.ReportNo " +
                 "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " +
@@ -1394,7 +1446,7 @@ namespace YellowstonePathology.Business.Gateway
 
             SqlCommand cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "select pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, a.PFirstName, pso.ResultCode, pso.AcceptedTime, pso.FinalTime, psoh.Result, pso.HoldDistribution " +
+            cmd.CommandText = "select pso.MasterAccessionNo, pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, a.PFirstName, pso.ResultCode, pso.AcceptedTime, pso.FinalTime, psoh.Result, pso.HoldDistribution " +
                 "from tblPanelSetOrder pso " +
                 "join tblHPVTestOrder psoh on pso.ReportNo = psoh.ReportNo " +
                 "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " +
@@ -1425,7 +1477,7 @@ namespace YellowstonePathology.Business.Gateway
 
             SqlCommand cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "select pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, a.PFirstName, pso.AcceptedTime, pso.FinalTime, null as Result, hpv.HPV16Result, hpv.HPV18Result, pso.HoldDistribution " +
+            cmd.CommandText = "select pso.MasterAccessionNo, pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, a.PFirstName, pso.AcceptedTime, pso.FinalTime, null as Result, hpv.HPV16Result, hpv.HPV18Result, pso.HoldDistribution " +
                 "from tblPanelSetOrder pso " +
                 "join tblPanelSetOrderHPV1618 hpv on pso.ReportNo = hpv.ReportNo " +
                 "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " +
@@ -1456,7 +1508,7 @@ namespace YellowstonePathology.Business.Gateway
 
             SqlCommand cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "select pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, a.PFirstName, pso.AcceptedTime, pso.FinalTime, null as Result, t.Result, null, pso.HoldDistribution " +
+            cmd.CommandText = "select pso.MasterAccessionno, pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, a.PFirstName, pso.AcceptedTime, pso.FinalTime, null as Result, t.Result, null, pso.HoldDistribution " +
                 "from tblPanelSetOrder pso " +
                 "join tblTrichomonasTestOrder t on pso.ReportNo = t.ReportNo " +
                 "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " +
@@ -1487,7 +1539,7 @@ namespace YellowstonePathology.Business.Gateway
 
             SqlCommand cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "select pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, a.PFirstName, pso.AcceptedTime, pso.FinalTime, null as Result, hpv.HPV16Result, hpv.HPV18Result, pso.HoldDistribution " +
+            cmd.CommandText = "select pso.MasterAccessionNo, pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, a.PFirstName, pso.AcceptedTime, pso.FinalTime, null as Result, hpv.HPV16Result, hpv.HPV18Result, pso.HoldDistribution " +
                 "from tblPanelSetOrder pso " +
                 "join tblPanelSetOrderHPV1618 hpv on pso.ReportNo = hpv.ReportNo " +
                 "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " +
@@ -1518,7 +1570,7 @@ namespace YellowstonePathology.Business.Gateway
 
             SqlCommand cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "select pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, a.PFirstName, pso.AcceptedTime, pso.FinalTime, null as Result, hpv.HPV16Result, hpv.HPV18Result, pso.HoldDistribution " +
+            cmd.CommandText = "select pso.MasterAccessionNo, pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, a.PFirstName, pso.AcceptedTime, pso.FinalTime, null as Result, hpv.HPV16Result, hpv.HPV18Result, pso.HoldDistribution " +
                 "from tblPanelSetOrder pso " +
                 "join tblPanelSetOrderHPV1618 hpv on pso.ReportNo = hpv.ReportNo " +
                 "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " +
@@ -1549,7 +1601,7 @@ namespace YellowstonePathology.Business.Gateway
 
             SqlCommand cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "select pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, a.PFirstName, pso.ResultCode, pso.AcceptedTime, pso.FinalTime, null as Result, pso.HoldDistribution " +
+            cmd.CommandText = "select pso.MasterAccessionNo, pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, a.PFirstName, pso.ResultCode, pso.AcceptedTime, pso.FinalTime, null as Result, pso.HoldDistribution " +
                 "from tblPanelSetOrder pso " +
                 "join tblWomensHealthProfileTestOrder psowhp on pso.ReportNo = psowhp.ReportNo " +
                 "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " +
@@ -1580,7 +1632,7 @@ namespace YellowstonePathology.Business.Gateway
 
             SqlCommand cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "select pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, a.PFirstName, pso.ResultCode, pso.AcceptedTime, pso.FinalTime, null as Result, pso.HoldDistribution " +
+            cmd.CommandText = "select pso.MasterAccessionNo, pso.MasterAccessionNo, pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, a.PFirstName, pso.ResultCode, pso.AcceptedTime, pso.FinalTime, null as Result, pso.HoldDistribution " +
                 "from tblPanelSetOrder pso " +
                 "join tblWomensHealthProfileTestOrder psowhp on pso.ReportNo = psowhp.ReportNo " +
                 "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " +

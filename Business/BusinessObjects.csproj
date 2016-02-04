@@ -422,7 +422,6 @@
     <Compile Include="Flow\FlowCommentItem.Generated.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Gateway\AOGW.cs" />
     <Compile Include="Gateway\AOSaveResult.cs" />
     <Compile Include="Gateway\LockGateway.cs">
       <SubType>Code</SubType>
@@ -488,6 +487,7 @@
     <Compile Include="Persistence\ObjectComparer.cs" />
     <Compile Include="Persistence\ObjectCounter.cs" />
     <Compile Include="Persistence\ObjectCounterCollection.cs" />
+    <Compile Include="Persistence\ObjectGateway.cs" />
     <Compile Include="Persistence\ObjectTrackerV2.cs" />
     <Compile Include="Persistence\RegisteredObject.cs" />
     <Compile Include="Persistence\RegisteredObjectCollection.cs" />

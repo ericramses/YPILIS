@@ -68,8 +68,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 			InitializeComponent();
 
 			DataContext = this;
-
-            //YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
+           
             this.Loaded += new RoutedEventHandler(ProviderDetailPage_Loaded);
             Close += ProviderDistributionPage_Close;
 		}
@@ -254,7 +253,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
 		public void Save()
 		{
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);            
+            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, false);            
         }
 
         public void NotifyPropertyChanged(String info)
@@ -300,7 +299,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             physicianClientSearchPage.Back += new PhysicianClientSearchPage.BackEventHandler(PhysicianClientSearchPage_Back);
             physicianClientSearchPage.Next += new PhysicianClientSearchPage.NextEventHandler(PhysicianClientSearchPage_Next);
             this.m_PageNavigator.Navigate(physicianClientSearchPage);
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
+             
         }
 
         private void PhysicianClientSearchPage_Next(object sender, CustomEventArgs.PhysicianClientDistributionReturnEventArgs e)
@@ -483,7 +482,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                 testOrderReportDistributionPage.Next += new TestOrderReportDistributionPage.NextEventHandler(AddDistribution_TestOrderReportDistributionPage_Next);
                 testOrderReportDistributionPage.Back += new TestOrderReportDistributionPage.BackEventHandler(AddDistribution_TestOrderReportDistributionPage_Back);
                 this.m_PageNavigator.Navigate(testOrderReportDistributionPage);
-                YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
+                 
             }
         }
 
@@ -500,7 +499,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                 testOrderReportDistributionPage.Next += new TestOrderReportDistributionPage.NextEventHandler(AddDistribution_TestOrderReportDistributionPage_Next);
                 testOrderReportDistributionPage.Back += new TestOrderReportDistributionPage.BackEventHandler(AddDistribution_TestOrderReportDistributionPage_Back);
                 this.m_PageNavigator.Navigate(testOrderReportDistributionPage);
-                YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
+                 
             }
         }
 
@@ -546,7 +545,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                 testOrderReportDistributionPage.Next += new TestOrderReportDistributionPage.NextEventHandler(TestOrderReportDistributionPage_Next);
                 testOrderReportDistributionPage.Back += new TestOrderReportDistributionPage.BackEventHandler(TestOrderReportDistributionPage_Back);
                 this.m_PageNavigator.Navigate(testOrderReportDistributionPage);
-                YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
+                 
             }
             else
             {

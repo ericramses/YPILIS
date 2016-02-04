@@ -14,6 +14,7 @@ namespace YellowstonePathology.Business.Monitor.Model
     {
 		public event PropertyChangedEventHandler PropertyChanged;
 
+        private string m_MasterAccessionNo;
         private string m_ReportNo;
         private string m_TestName;
         private DateTime m_OrderTime;        
@@ -27,6 +28,20 @@ namespace YellowstonePathology.Business.Monitor.Model
         {
 
 		}
+
+        [PersistentProperty()]
+        public string MasterAccessionNo
+        {
+            get { return this.m_MasterAccessionNo; }
+            set
+            {
+                if (this.m_MasterAccessionNo != value)
+                {
+                    this.m_MasterAccessionNo = value;
+                    this.NotifyPropertyChanged("MasterAccessionNo");
+                }
+            }
+        }
 
         [PersistentProperty()]
         public string ReportNo

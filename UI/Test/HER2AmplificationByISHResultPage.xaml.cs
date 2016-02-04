@@ -71,12 +71,12 @@ namespace YellowstonePathology.UI.Test
 
         private void HER2AmplificationByISHResultPage_Loaded(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
+             
         }
 
         private void HER2AmplificationByISHResultPage_Unloaded(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
+             
         }
 
         public YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHTestOrder PanelSetOrder
@@ -144,7 +144,7 @@ namespace YellowstonePathology.UI.Test
 
         public void Save()
         {
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
+            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, false);
         }
 
         public void UpdateBindingSources()

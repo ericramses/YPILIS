@@ -57,7 +57,7 @@ namespace YellowstonePathology.UI.Surgical
 
         private void PQRSSignoutPage_Loaded(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
+             
             YellowstonePathology.Business.Test.PanelSetOrderCPTCodeCollection panelSetOrderCPTCodeCollection = this.m_SurgicalTestOrder.PanelSetOrderCPTCodeCollection.GetSpecimenOrderCollection(this.m_SurgicalSpecimen.SpecimenOrderId);
             for(int idx = 0; idx < this.m_PQRSMeasure.PQRSCodeCollection.Count; idx++)
             {
@@ -71,7 +71,7 @@ namespace YellowstonePathology.UI.Surgical
 
         private void PQRSSignoutPage_Unloaded(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
+             
         }
 
         private void ButtonNext_Click(object sender, RoutedEventArgs e)
@@ -118,7 +118,7 @@ namespace YellowstonePathology.UI.Surgical
 
         public void Save()
         {
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
+            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, false);
         }
 
         public bool OkToSaveOnNavigation(Type pageNavigatingTo)

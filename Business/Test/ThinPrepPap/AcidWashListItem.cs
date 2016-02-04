@@ -8,6 +8,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 {
     public class AcidWashListItem
     {
+        private string m_MasterAccessionNo;
         private string m_ReportNo;
         private DateTime m_OrderDate;
         private string m_PLastName;
@@ -26,6 +27,13 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
             {
                 return Helper.PatientHelper.GetPatientDisplayName(this.m_PLastName, this.m_PFirstName, this.m_PMiddleInitial);
             }
+        }
+
+        [PersistentProperty()]
+        public string MasterAccessionNo
+        {
+            get { return this.m_MasterAccessionNo; }
+            set { this.m_MasterAccessionNo = value; }
         }
 
         [PersistentProperty()]

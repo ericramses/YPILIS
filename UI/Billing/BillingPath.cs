@@ -22,9 +22,9 @@ namespace YellowstonePathology.UI.Billing
             this.m_SystemIdentity = systemIdentity;            
         }       
 
-        private void GetAccessionOrder(string reportNo)
+        private void GetAccessionOrder(string masterAccessionNo)
         {
-			this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(reportNo);
+			this.m_AccessionOrder = YellowstonePathology.Business.Persistence.ObjectGatway.Instance.GetByMasterAccessionNo(masterAccessionNo, true);
 		}
 
         public void Start()
@@ -40,7 +40,7 @@ namespace YellowstonePathology.UI.Billing
                     this.m_BillingWindowPrimary.PageNavigator.ShowSecondMonitorWindow(this.m_BillingWindowSecondary);
                 }
 
-				this.GetAccessionOrder(this.m_ReportSearchList.CurrentReportSearchItem.ReportNo);
+				this.GetAccessionOrder(this.m_ReportSearchList.CurrentReportSearchItem.MasterAccessionNo);
 				this.ShowBillingPage(this.m_AccessionOrder);                
 			}
         }        

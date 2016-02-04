@@ -24,7 +24,7 @@ namespace YellowstonePathology.Business.Rules.Cytology
 
         public void Assign()
         {
-			this.m_CytologyAccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByMasterAccessionNo(this.m_MasterAccessionNo);
+			this.m_CytologyAccessionOrder = YellowstonePathology.Business.Persistence.ObjectGatway.Instance.GetByMasterAccessionNo(this.m_MasterAccessionNo, true);
 			this.m_PanelSetOrderCytology = (YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology)this.m_CytologyAccessionOrder.PanelSetOrderCollection.GetPAP();
 			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new Persistence.ObjectTracker();
 			objectTracker.RegisterObject(this.m_CytologyAccessionOrder);

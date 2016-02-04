@@ -58,8 +58,7 @@ namespace YellowstonePathology.UI.Client
 			int physicianId = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetLargestPhysicianId() + 1;
 			YellowstonePathology.Business.Domain.Physician physician = new Business.Domain.Physician(objectId, physicianId, "New Physician", "New Physician");
 			YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterRootInsert(physician, this);
-			YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(physician, this);
-			YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
+			YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(physician, this);			
 
 			ProviderEntry providerEntry = new ProviderEntry(physician, true);
 			providerEntry.ShowDialog();
@@ -89,8 +88,7 @@ namespace YellowstonePathology.UI.Client
 			int clientId = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetLargestClientId() + 1;
 			YellowstonePathology.Business.Client.Model.Client client = new YellowstonePathology.Business.Client.Model.Client(objectId, "New Client", clientId);
 			YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterRootInsert(client, this);
-			YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(client, this);
-			YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
+			YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(client, this);			
 
 			ClientEntryV2 clientEntry = new ClientEntryV2(client);
 			clientEntry.ShowDialog();

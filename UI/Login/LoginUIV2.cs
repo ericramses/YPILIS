@@ -278,7 +278,7 @@ namespace YellowstonePathology.UI.Login
 
         public void GetAccessionOrder(string masterAccessionNo, string reportNo)
 		{
-			this.AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByMasterAccessionNo(masterAccessionNo);            
+			this.AccessionOrder = YellowstonePathology.Business.Persistence.ObjectGatway.Instance.GetByMasterAccessionNo(masterAccessionNo, true);
 			this.ReportNo = reportNo;
             this.m_CaseDocumentCollection = new YellowstonePathology.Business.Document.CaseDocumentCollection(this.AccessionOrder, reportNo);            
 		}
@@ -286,9 +286,10 @@ namespace YellowstonePathology.UI.Login
 		public bool GetAccessionOrderByContainerId(string containerId)
 		{
 			bool result = false;
-			this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByContainerId(containerId);
+            string masterAccessionNo = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetMasterAccessionNoFromContainerId(containerId);
+            this.m_AccessionOrder = YellowstonePathology.Business.Persistence.ObjectGatway.Instance.GetByMasterAccessionNo(masterAccessionNo, true);
 
-			if (this.m_AccessionOrder != null)
+            if (this.m_AccessionOrder != null)
 			{
 				if (this.m_AccessionOrder.PanelSetOrderCollection.Count != 0)
 				{

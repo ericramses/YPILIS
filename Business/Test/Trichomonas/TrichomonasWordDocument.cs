@@ -13,7 +13,7 @@ namespace YellowstonePathology.Business.Test.Trichomonas
             this.m_ReportNo = reportNo;
 			this.m_ReportSaveEnum = reportSaveEnum;
 
-			this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByMasterAccessionNo(masterAccessionNo);
+			this.m_AccessionOrder = YellowstonePathology.Business.Persistence.ObjectGatway.Instance.GetByMasterAccessionNo(masterAccessionNo, true);
 			TrichomonasTestOrder reportOrderTrichomonas = (TrichomonasTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
             this.m_PanelSetOrder = reportOrderTrichomonas;
 

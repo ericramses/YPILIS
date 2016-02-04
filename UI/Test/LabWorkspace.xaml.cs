@@ -104,7 +104,7 @@ namespace YellowstonePathology.UI.Test
         public void CloseWorkspace(object target, ExecutedRoutedEventArgs args)
         {                        
             this.Save();
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this.m_LabUI);
+            
             if (this.m_LabUI != null && m_LabUI.AccessionOrder != null && m_LabUI.PanelSetOrder != null)
 			{
 				this.m_LabUI.Lock.ReleaseLock();
@@ -214,7 +214,7 @@ namespace YellowstonePathology.UI.Test
 			if (this.ListViewCaseList.SelectedItem != null)
             {
 				YellowstonePathology.Business.Search.ReportSearchItem item = (YellowstonePathology.Business.Search.ReportSearchItem)this.ListViewCaseList.SelectedItem;
-				this.GetCase(item.ReportNo);
+				this.GetCase(item.MasterAccessionNo, item.ReportNo);
 				this.m_LabUI.Lock.ToggleLockingMode();
 				this.m_LabUI.Lock.SetLockable(this.m_LabUI.AccessionOrder);
                 this.CheckEnabled();
@@ -294,7 +294,7 @@ namespace YellowstonePathology.UI.Test
                 return;
             }
 
-			this.GetCase(this.m_LabUI.PanelSetOrder.ReportNo);
+			this.GetCase(this.m_LabUI.PanelSetOrder.MasterAccessionNo, this.m_LabUI.PanelSetOrder.MasterAccessionNo);
 			if (this.ListViewCaseList.SelectedItem != null)
             {
 				if (this.m_LabUI.AccessionOrder.PanelSetOrderCollection.Count != 0)
@@ -319,15 +319,15 @@ namespace YellowstonePathology.UI.Test
 
 		private void GetAccessionOrder()
 		{
-			this.m_LabUI.GetAccessionOrder(this.m_LabUI.PanelSetOrder.ReportNo);
+			this.m_LabUI.GetAccessionOrder(this.m_LabUI.PanelSetOrder.MasterAccessionNo, this.m_LabUI.PanelSetOrder.ReportNo);
 			this.RefreshWorkspaces();
 		}
 
-		public void GetCase(string reportNo)
+		public void GetCase(string masterAccessionNo, string reportNo)
         {
             this.Save();
 
-			this.m_LabUI.GetAccessionOrder(reportNo);			
+			this.m_LabUI.GetAccessionOrder(masterAccessionNo, reportNo);			
 
             this.m_DocumentViewer.ClearContent();
 			if (this.m_LabUI.CaseDocumentCollection.GetFirstRequisition() != null)
@@ -344,7 +344,7 @@ namespace YellowstonePathology.UI.Test
             if (this.ListViewCaseList.SelectedItem != null)
             {
 				YellowstonePathology.Business.Search.ReportSearchItem item = (YellowstonePathology.Business.Search.ReportSearchItem)this.ListViewCaseList.SelectedItem;
-				this.GetCase(item.ReportNo);
+				this.GetCase(item.MasterAccessionNo, item.ReportNo);
             }
         }
 
@@ -409,7 +409,7 @@ namespace YellowstonePathology.UI.Test
             }
 
             this.m_LabUI.Save();
-			this.m_LabUI.GetAccessionOrder(this.m_LabUI.PanelSetOrder.ReportNo);
+			this.m_LabUI.GetAccessionOrder(this.m_LabUI.PanelSetOrder.MasterAccessionNo, this.m_LabUI.PanelSetOrder.ReportNo);
 		}
 
 		public void MenuItemUnacceptResults_Click(object sender, RoutedEventArgs args)
@@ -432,7 +432,7 @@ namespace YellowstonePathology.UI.Test
 			if (panelOrder.Accepted)
 			{
 				panelOrder.UnacceptResults();
-				this.GetCase(this.m_LabUI.PanelSetOrder.ReportNo);
+				this.GetCase(this.m_LabUI.PanelSetOrder.MasterAccessionNo, this.m_LabUI.PanelSetOrder.ReportNo);
 			}
 		}
 				
@@ -1216,11 +1216,10 @@ namespace YellowstonePathology.UI.Test
         private void MenuItemSendPantherOrder_Click(object sender, RoutedEventArgs e)
         {
             if (this.ListViewCaseList.SelectedItems.Count != 0)
-            {
-                //YellowstonePathology.Business.Search.ReportSearchItem reportSearchItem = (YellowstonePathology.Business.Search.ReportSearchItem)this.ListViewAccessionOrders.SelectedItem;
+            {                
                 foreach(YellowstonePathology.Business.Search.ReportSearchItem reportSearchitem in this.ListViewCaseList.SelectedItems)
                 {
-                    YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(reportSearchitem.ReportNo);
+                    YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.ObjectGatway.Instance.GetByMasterAccessionNo(reportSearchitem.MasterAccessionNo, false);
                     if (accessionOrder.SpecimenOrderCollection.HasThinPrepFluidSpecimen() == true)
                     {
                         YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = accessionOrder.SpecimenOrderCollection.GetThinPrep();

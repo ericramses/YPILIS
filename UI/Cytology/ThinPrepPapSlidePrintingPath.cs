@@ -64,7 +64,8 @@ namespace YellowstonePathology.UI.Cytology
 
         private void ScanAliquotPage_UseThisAliquotOrderId(object sender, string aliquotOrderId)
         {
-            this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByAliquotOrderId(aliquotOrderId);
+            string masterAccessionNo = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetMasterAccessionNoFromAliquotOrderId(aliquotOrderId);
+            this.m_AccessionOrder = YellowstonePathology.Business.Persistence.ObjectGatway.Instance.GetByMasterAccessionNo(masterAccessionNo, true);
             this.m_ObjectTracker = new Business.Persistence.ObjectTracker();
 
             if (this.m_AccessionOrder == null)
@@ -117,7 +118,8 @@ namespace YellowstonePathology.UI.Cytology
 
         private void ScanContainerPage_UseThisContainer(object sender, string containerId)
 		{
-            this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByContainerId(containerId);
+            string masterAccessionNo = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetMasterAccessionNoFromContainerId(containerId);
+            this.m_AccessionOrder = YellowstonePathology.Business.Persistence.ObjectGatway.Instance.GetByMasterAccessionNo(masterAccessionNo, true);
             this.m_ObjectTracker = new Business.Persistence.ObjectTracker();
 
             if (this.m_AccessionOrder == null)

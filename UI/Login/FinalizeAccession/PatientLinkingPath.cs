@@ -62,7 +62,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             CaseLockPage caseLockPage = (CaseLockPage)sender;
             if (caseLockPage.Lock.LockAquired == true)
             {
-                YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
+                 
                 YellowstonePathology.Business.Patient.Model.PatientLinker patientLinker = new Business.Patient.Model.PatientLinker(this.m_AccessionOrder.MasterAccessionNo,
 				this.m_ReportNo,
 				this.m_AccessionOrder.PFirstName,
@@ -79,9 +79,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
         }
 
 		private void PatientLinkingPage_Return(object sender, UI.Navigation.PageNavigationReturnEventArgs e)
-        {
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
+        {            
             this.m_Lock.ReleaseUserLocks();
             this.m_LoginPageWindow.Close();
         }       

@@ -30,7 +30,7 @@ namespace YellowstonePathology.Business.Document.Old
 		{
             this.m_ReportNo = reportNo;
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder = new YellowstonePathology.Business.Test.AccessionOrder();
-			accessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByMasterAccessionNo(masterAccessionNo);
+			accessionOrder = YellowstonePathology.Business.Persistence.ObjectGatway.Instance.GetByMasterAccessionNo(masterAccessionNo, true);
 
             YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 			this.m_ReportNo = panelSetOrder.ReportNo;

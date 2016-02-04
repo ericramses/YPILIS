@@ -314,7 +314,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 
 		public void UseThisMasterAccessionNoToGetTheAccessionOrder(string masterAccessionNo)
 		{
-			this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByMasterAccessionNo(masterAccessionNo);
+			this.m_AccessionOrder = YellowstonePathology.Business.Persistence.ObjectGatway.Instance.GetByMasterAccessionNo(masterAccessionNo, false);
 
 			this.m_ObjectTracker.RegisterObject(this.m_AccessionOrder);
 			this.m_AnAccessionOrderHasBeenAquired = true;

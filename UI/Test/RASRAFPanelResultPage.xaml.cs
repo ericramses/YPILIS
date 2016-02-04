@@ -65,12 +65,12 @@ namespace YellowstonePathology.UI.Test
             this.ComboBoxKRASResult.SelectionChanged += ComboBoxKRASResult_SelectionChanged;
             this.ComboBoxNRASResult.SelectionChanged += ComboBoxNRASResult_SelectionChanged;
             this.ComboBoxHRASResult.SelectionChanged += ComboBoxHRASResult_SelectionChanged;
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
+             
         }
 
         private void RASRAFPanelResultPage_Unloaded(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
+             
         }
 
         public string OrderedOnDescription
@@ -113,7 +113,7 @@ namespace YellowstonePathology.UI.Test
 
         public void Save()
         {
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
+            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, false);
         }
 
         public void UpdateBindingSources()

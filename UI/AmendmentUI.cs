@@ -18,12 +18,12 @@ namespace YellowstonePathology.UI
             this.m_AccessionOrder = accessionOrder;
             this.m_PanelSetOrder = panelSetOrder;
             this.m_SystemIdentity = systemIdentity;
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
+             
         }
 
         public void Save()
         {
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
+            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, false);
         }
 
         public YellowstonePathology.Business.Test.AccessionOrder AccessionOrder

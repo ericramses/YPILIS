@@ -559,7 +559,7 @@ namespace YellowstonePathology.UI.Login
             if (this.ListViewTaskOrders.SelectedItem != null)
             {
                 YellowstonePathology.Business.Task.Model.TaskOrder taskOrder = (YellowstonePathology.Business.Task.Model.TaskOrder)this.ListViewTaskOrders.SelectedItem;
-                YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(taskOrder.ReportNo);
+                YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.ObjectGatway.Instance.GetByMasterAccessionNo(taskOrder.MasterAccessionNo, false);
                 Receiving.TaskOrderDataSheet taskOrderDataSheet = new Receiving.TaskOrderDataSheet(taskOrder, accessionOrder);
 
                 System.Printing.PrintQueue printQueue = new System.Printing.LocalPrintServer().DefaultPrintQueue;
@@ -585,9 +585,7 @@ namespace YellowstonePathology.UI.Login
             if (this.ListViewTaskOrders.SelectedItem != null)
             {
                 YellowstonePathology.Business.Task.Model.TaskOrder selectedTaskOrder = (YellowstonePathology.Business.Task.Model.TaskOrder)this.ListViewTaskOrders.SelectedItem;
-
-                YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(selectedTaskOrder.ReportNo);
-
+                YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.ObjectGatway.Instance.GetByMasterAccessionNo(selectedTaskOrder.MasterAccessionNo, false);
                 YellowstonePathology.Business.Task.Model.TaskOrder taskOrder = accessionOrder.TaskOrderCollection.GetTaskOrder(selectedTaskOrder.TaskOrderId);
 
                 YellowstonePathology.Business.User.SystemIdentity systemIdentity = new Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);

@@ -77,7 +77,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
         private void StainOrderPage_Loaded(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
+             
             int selectedIndex = -1;
             foreach (YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder in this.ListBoxPanelSetOrders.Items)
             {
@@ -93,7 +93,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
         private void AliquotAndStainOrderPage_Unloaded(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
+            
         }
 
         public YellowstonePathology.Business.Specimen.Model.EmbeddingInstructionList EmbeddingInstructionList
@@ -237,7 +237,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 		public void Save()
 		{
             this.m_AliquotAndStainOrderView.SetEmbeddingComments();
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
+            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, false);
         }
 
         public bool OkToSaveOnNavigation(Type pageNavigatingTo)
@@ -554,7 +554,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                 this.m_AccessionOrder.SpecimenOrderCollection.SetAliquotRequestCount();
             }
 
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
+            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, false);
             this.m_AliquotAndStainOrderView.Refresh(true, this.m_PanelSetOrder);            
 			this.NotifyPropertyChanged("AliquotAndStainOrderView");
 		}        		
@@ -725,7 +725,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             }
 
             aliquotOrderPrinter.Print();
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
+            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, false);
             this.m_AliquotAndStainOrderView.SetAliquotChecks(false);
 
             this.PrintSelectedSlides();

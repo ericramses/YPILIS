@@ -217,8 +217,7 @@ namespace YellowstonePathology.UI.Cytology
 		public void CloseWorkspace(object target, ExecutedRoutedEventArgs args)
 		{
 			this.m_CytologyUI.Save();
-			this.m_CytologyUI.ClearLock();
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this.m_CytologyUI);
+			this.m_CytologyUI.ClearLock();            
         }
 
         private void ButtonAssignTo_Click(object sender, RoutedEventArgs e)

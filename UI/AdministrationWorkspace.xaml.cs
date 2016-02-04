@@ -747,17 +747,7 @@ namespace YellowstonePathology.UI
 
         private void ButtonCheckReportDistribution_Click(object sender, RoutedEventArgs e)
         {
-            //YellowstonePathology.Business.ClientOrder.Model.SurgicalClientOrder clientOrder = (YellowstonePathology.Business.ClientOrder.Model.SurgicalClientOrder)YellowstonePathology.Business.Gateway.ClientOrderGateway.GetClientOrderByClientOrderId("a336b436-e57b-46a2-8812-7e47893a3474");
-            //YellowstonePathology.Business.HL7View.EPIC.EpicResultView resultView = new Business.HL7View.EPIC.EpicResultView("S13-3796", true);
-            //YellowstonePathology.Business.Rules.MethodResult methodResult = new Business.Rules.MethodResult();
-            //resultView.Send(methodResult);
-
-
-			YellowstonePathology.Business.Test.AccessionOrder ao = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo("S13-3807");            
-
-            YellowstonePathology.Business.HL7View.EPIC.EpicResultView view = new Business.HL7View.EPIC.EpicResultView("S13-3807", false);
-            YellowstonePathology.Business.Rules.MethodResult methodResult = new Business.Rules.MethodResult();
-            view.Send(methodResult);
+            
         }
 
 		private void ButtonTestEGFRAccession_Click(object sender, RoutedEventArgs e)
@@ -806,13 +796,7 @@ namespace YellowstonePathology.UI
 
         private void ButtonInsertTesting_Click(object sender, RoutedEventArgs e)
         {
-            string reportNo = "M13-2883";
-			YellowstonePathology.Business.Test.AccessionOrder ao = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(reportNo);
-
-			YellowstonePathology.Business.Persistence.ObjectTracker ot = new YellowstonePathology.Business.Persistence.ObjectTracker();
-            ot.RegisterObject(ao);
-
-			YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHTestOrder pso = (YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHTestOrder)ao.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
+            
         }                		
 
         private void ButtonStartMessageHost_Click(object sender, RoutedEventArgs e)
@@ -960,21 +944,7 @@ namespace YellowstonePathology.UI
 
         private void FindMissingReportNumbers()
         {
-            for (int i = 11978; i < 13405; i++)
-            {
-                string reportNo = "S13-" + i.ToString();
-				YellowstonePathology.Business.Test.AccessionOrder ao = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(reportNo);
-                if (ao == null)
-                {
-					YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(reportNo);
-					string filePath = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser);
-                    string[] files = System.IO.Directory.GetFiles(filePath);
-                    if (files.Length != 0)
-                    {
-                        Console.WriteLine(reportNo);
-                    }
-                }
-            }
+            
         }        
 
         private void WriteAssemblyQualifiedTypeSQL()
@@ -1297,30 +1267,7 @@ namespace YellowstonePathology.UI
 
         private void GetTableNames()
         {
-            YellowstonePathology.Business.ReportNoCollection reportNoCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetReportNumbers();
-            foreach (YellowstonePathology.Business.ReportNo reportNo in reportNoCollection)
-            {
-                YellowstonePathology.Business.Test.AccessionOrder ao = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(reportNo.Value);
-                YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = ao.PanelSetOrderCollection.GetPanelSetOrder(reportNo.Value);
-
-                YellowstonePathology.Business.Persistence.PersistentClass persistentClassAttribute = (YellowstonePathology.Business.Persistence.PersistentClass)panelSetOrder.GetType().GetCustomAttributes(typeof(YellowstonePathology.Business.Persistence.PersistentClass), false).Single();
-
-                string storageName = persistentClassAttribute.StorageName;
-                if (string.IsNullOrEmpty(storageName) == true) storageName = "tblPanelSetOrder";
-
-                SqlCommand cmd = new SqlCommand();
-                cmd.CommandText = "Update tblPanelSet Set ResultTableName = @ResultTableName where PanelSetId = @PanelSetId";
-                cmd.CommandType = CommandType.Text;
-                cmd.Parameters.Add("@ResultTableName", SqlDbType.VarChar).Value = storageName;
-                cmd.Parameters.Add("@PanelSetId", SqlDbType.VarChar).Value = panelSetOrder.PanelSetId;
-
-                using (SqlConnection cn = new SqlConnection("Data Source=TestSQL;Initial Catalog=YPIData;Integrated Security=True"))
-                {
-                    cn.Open();
-                    cmd.Connection = cn;
-                    cmd.ExecuteNonQuery();
-                }
-            }
+            
         }
 	}
 }

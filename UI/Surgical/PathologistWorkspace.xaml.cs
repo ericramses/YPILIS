@@ -111,13 +111,7 @@ namespace YellowstonePathology.UI.Surgical
 			this.m_MainWindowCommandButtonHandler.AssignCase -= MainWindowCommandButtonHandler_AssignCase;
 			this.m_MainWindowCommandButtonHandler.ApplicationClosing -= MainWindowCommandButtonHandler_ApplicationClosing;
 
-			this.Save();
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this.m_PathologistUI);
-            if (this.m_CytologyResultsWorkspace != null)
-            {
-                YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(m_CytologyResultsWorkspace.CytologyUI);
-            }
-
+			this.Save();                       
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath -= MainWindowCommandButtonHandler_StartProviderDistributionPath;
 		}
 
@@ -199,8 +193,7 @@ namespace YellowstonePathology.UI.Surgical
 
 		private void MainWindowCommandButtonHandler_ApplicationClosing(object sender, EventArgs e)
 		{
-			this.Save();
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this.m_PathologistUI);
+			this.Save();            
             this.m_PathologistUI.Lock.ReleaseLock();
 		}
 
@@ -439,12 +432,7 @@ namespace YellowstonePathology.UI.Surgical
 				else
 				{
 					this.m_PathologistUI.GetAccessionOrder(item.MasterAccessionNo, item.ReportNo);
-				}
-
-                if (this.m_CytologyResultsWorkspace != null)
-                {
-                    YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this.m_CytologyResultsWorkspace.CytologyUI);
-                }
+				}                
 
                 this.SetReviewResult();
 			}

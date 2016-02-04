@@ -59,12 +59,12 @@ namespace YellowstonePathology.UI.Test
         public void ROS1ResultPage_Loaded(object sender, RoutedEventArgs e)
         {
         	this.ComboBoxResult.SelectionChanged += ComboBoxResult_SelectionChanged;
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
+             
         }
 
         private void ROS1ResultPage_Unloaded(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
+             
         }
 
         public YellowstonePathology.Business.Test.ROS1ByFISH.ROS1ByFISHResultCollection ResultCollection
@@ -107,7 +107,7 @@ namespace YellowstonePathology.UI.Test
 
 		public void Save()
 		{
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
+            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, false);
         }
 
         public void UpdateBindingSources()

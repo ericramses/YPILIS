@@ -15,8 +15,9 @@ namespace YellowstonePathology.YpiConnect.Service
 
         public string GetSummaryResultString(string reportNo)
         {
-			YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(reportNo);
-            return accessionOrder.ToResultString(reportNo);
+            throw new Exception("This is done.");
+			//YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(reportNo);
+            //return accessionOrder.ToResultString(reportNo);
         }
 
 		public YellowstonePathology.YpiConnect.Contract.MethodResult Download(ref YellowstonePathology.YpiConnect.Contract.RemoteFile remoteFile, YellowstonePathology.YpiConnect.Contract.Identity.WebServiceAccount webServiceAccount)

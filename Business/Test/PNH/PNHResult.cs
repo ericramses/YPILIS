@@ -147,7 +147,7 @@ namespace YellowstonePathology.Business.Test.PNH
 			searchEngine.FillSearchList();
 			foreach (YellowstonePathology.Business.Search.ReportSearchItem item in searchEngine.ReportSearchList)
 			{
-				accessionOrders.Add(YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByMasterAccessionNo(item.MasterAccessionNo));
+				accessionOrders.Add(YellowstonePathology.Business.Persistence.ObjectGatway.Instance.GetByMasterAccessionNo(item.MasterAccessionNo, true));
 			}
 
 			return accessionOrders;

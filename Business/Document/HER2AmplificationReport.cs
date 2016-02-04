@@ -13,7 +13,7 @@ namespace YellowstonePathology.Business.Document
             this.m_ReportNo = reportNo;
 			this.m_ReportSaveEnum = reportSaveEnum;
 
-			this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByMasterAccessionNo(masterAccessionNo);
+			this.m_AccessionOrder = YellowstonePathology.Business.Persistence.ObjectGatway.Instance.GetByMasterAccessionNo(masterAccessionNo, true);
             this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 			YellowstonePathology.Business.Test.Retired.PanelSetOrderHer2AmplificationByFishRetired2 panelSetOrderHer2AmplificationByFishRetired2 = (YellowstonePathology.Business.Test.Retired.PanelSetOrderHer2AmplificationByFishRetired2)this.m_PanelSetOrder;
 			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\HER2AmplificationByFish.5.xml";

@@ -83,7 +83,7 @@ namespace YellowstonePathology.UI.Billing
 
         private void BillingPage_Loaded(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
+             
             YellowstonePathology.Business.Document.CaseDocument firstRequisition = this.m_CaseDocumentCollection.GetFirstRequisition();
             if(firstRequisition != null)
             {
@@ -93,7 +93,7 @@ namespace YellowstonePathology.UI.Billing
 
         private void BillingPage_Unloaded(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
+            
         }
 
         public YellowstonePathology.Business.Facility.Model.FacilityCollection FacilityCollection
@@ -143,7 +143,7 @@ namespace YellowstonePathology.UI.Billing
 
 		public void Save()
 		{
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
+            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, false);
 		}
 
 		public void UpdateBindingSources()

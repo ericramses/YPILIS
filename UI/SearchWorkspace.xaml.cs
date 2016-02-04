@@ -55,7 +55,7 @@ namespace YellowstonePathology.UI
             if (this.listViewCaseList.SelectedItem != null)
             {
                 YellowstonePathology.Business.SearchListItem item = (YellowstonePathology.Business.SearchListItem)this.listViewCaseList.SelectedItem;
-				YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(item.ReportNo);
+				YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.ObjectGatway.Instance.GetByMasterAccessionNo(item.MasterAccessionNo, false);
 
                 YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPath providerDistributionPath =
                     new Login.FinalizeAccession.ProviderDistributionPath(item.ReportNo, accessionOrder,
@@ -187,7 +187,7 @@ namespace YellowstonePathology.UI
             if (this.listViewCaseList.SelectedItems.Count != 0)
             {
                 YellowstonePathology.Business.SearchListItem item = (YellowstonePathology.Business.SearchListItem)this.listViewCaseList.SelectedItem;
-				YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(item.ReportNo);
+				YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.ObjectGatway.Instance.GetByMasterAccessionNo(item.MasterAccessionNo, false);
 
                 YellowstonePathology.UI.Common.CaseHistoryDialog caseHistoryDialog = new Common.CaseHistoryDialog(accessionOrder);
                 caseHistoryDialog.ShowDialog();
@@ -200,7 +200,7 @@ namespace YellowstonePathology.UI
 			{
 				YellowstonePathology.Business.SearchListItem item = (YellowstonePathology.Business.SearchListItem)this.listViewCaseList.SelectedItem;
 				MainWindow mainWindow = (MainWindow)Window.GetWindow(this);
-				mainWindow.AddLabWorkspace(item.ReportNo);
+				mainWindow.AddLabWorkspace(item.MasterAccessionNo, item.ReportNo);
 			}
 		}		
 

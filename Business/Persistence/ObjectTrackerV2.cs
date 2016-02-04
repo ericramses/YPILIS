@@ -69,14 +69,7 @@ namespace YellowstonePathology.Business.Persistence
 			object clonedObject = objectCloner.Clone(objectToRegister);
 			this.m_RegisteredObjects.Register(clonedObject, registeredBy);
             this.m_ObjectCounterCollection.Update(clonedObject);
-		}
-
-        public void CleanUp(object registeredBy)
-        {            
-            this.m_RegisteredObjects.CleanUp(registeredBy);
-            this.m_RegisteredRootDeletes.CleanUp(registeredBy);
-            this.m_RegisteredRootInserts.CleanUp(registeredBy);            
-        }
+		}        
 
         public RegisteredObjectCollection RegisteredObjects
         {
@@ -97,7 +90,7 @@ namespace YellowstonePathology.Business.Persistence
             }
             this.m_RegisteredRootDeletes.Register(rootObjectToDelete, registeredBy);
         }
-
+       
         public SubmissionResult SubmitChanges(object objectToSubmit, object registeredBy)
         {
             SubmissionResult result = new SubmissionResult();
@@ -106,8 +99,8 @@ namespace YellowstonePathology.Business.Persistence
             sqlCommandSubmitter.SubmitChanges();                
 
             return result;
-        }        
-
+        } 
+           
         public SubmissionResult SubmitChanges(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, object registeredBy, bool releaseLock)
         {
             SubmissionResult result = new SubmissionResult();

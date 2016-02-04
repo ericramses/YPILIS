@@ -94,7 +94,7 @@ namespace YellowstonePathology.UI.Login.Receiving
         public AccessionOrderPage(ClientOrderReceivingHandler clientOrderReceivingHandler, PageNavigationModeEnum pageNavigationMode)
         {            
             this.m_AccessionOrder = clientOrderReceivingHandler.AccessionOrder;
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
+            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, false);
             this.m_PageNavigationMode = pageNavigationMode;
 
             this.m_ClientOrder = clientOrderReceivingHandler.ClientOrder;
@@ -116,13 +116,12 @@ namespace YellowstonePathology.UI.Login.Receiving
 
         private void AccessionOrderPage_Loaded(object sender, RoutedEventArgs e)
 		{
-            this.SelectTestOrder();
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_AccessionOrder, this);
+            this.SelectTestOrder();            
         }
 
         private void AccessionOrderPage_Unloaded(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.CleanUp(this);
+            
         }
 
         private void AccessionOrderPage_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -246,7 +245,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 
 		public void Save()
 		{
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_AccessionOrder, this);
+            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, false);
         }
 
         public void UpdateBindingSources()
