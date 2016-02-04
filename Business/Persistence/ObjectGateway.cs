@@ -195,44 +195,15 @@ namespace YellowstonePathology.Business.Persistence
             this.m_RegisteredRootInserts.Remove(keyPropertyValue);
         }        
 
-        public void RegisterRootInsert(object rootObjectToInsert)
+        public void SubmitRootInsert(object rootObjectToInsert)
         {
-            Type objectType = rootObjectToInsert.GetType();
-            PropertyInfo keyProperty = objectType.GetProperties().Where(prop => Attribute.IsDefined(prop, typeof(PersistentPrimaryKeyProperty))).Single();
-            object keyPropertyValue = keyProperty.GetValue(rootObjectToInsert, null);
-
-            if (this.m_RegisteredRootInserts.ContainsKey(keyPropertyValue) == false)
-            {
-                this.m_RegisteredRootInserts.Add(keyPropertyValue, rootObjectToInsert);
-            }
+            
         }
 
-        public void RegisterRootDelete(object rootObjectToDelete)
+        public void SubmitRootDelete(object rootObjectToDelete)
         {
-            Type objectType = rootObjectToDelete.GetType();
-            PropertyInfo keyProperty = objectType.GetProperties().Where(prop => Attribute.IsDefined(prop, typeof(PersistentPrimaryKeyProperty))).Single();
-            object keyPropertyValue = keyProperty.GetValue(rootObjectToDelete, null);
-
-			if (this.m_RegisteredObjects.ContainsKey(keyPropertyValue) == true)
-			{
-				this.m_RegisteredObjects.Remove(keyPropertyValue);
-			}
-
-            if (this.m_RegisteredRootDeletes.ContainsKey(keyPropertyValue) == false)
-            {
-                this.m_RegisteredRootDeletes.Add(keyPropertyValue, rootObjectToDelete);
-            }
-        }                		
-
-        //public SubmissionResult SubmitChanges(object objectToSubmit)
-        //{
-        //    SubmissionResult result = new SubmissionResult();
             
-        //    SqlCommandSubmitter sqlCommandSubmitter = this.GetSqlCommands(objectToSubmit);                
-        //    sqlCommandSubmitter.SubmitChanges();                
-
-        //    return result;
-        //}
+        }                		        
 
         private void HandleRootDeleteSubmission(object objectToSubmit, object keyPropertyValue, SqlCommandSubmitter objectSubmitter)
         {
@@ -287,18 +258,7 @@ namespace YellowstonePathology.Business.Persistence
                 this.m_RegisteredObjects.Remove(keyPropertyValue);
                 this.HandleUpdateSubmission(objectToSubmit, registeredObject, keyPropertyValue, objectSubmitter);
                 this.RegisterObject(objectToSubmit);
-            }
-            else if (this.m_RegisteredRootDeletes.TryGetValue(keyPropertyValue, out registeredObject) == true)
-            {
-                this.m_RegisteredRootDeletes.Remove(keyPropertyValue);
-                this.HandleRootDeleteSubmission(registeredObject, keyPropertyValue, objectSubmitter);
-            }
-            else if (this.m_RegisteredRootInserts.TryGetValue(keyPropertyValue, out registeredObject) == true)
-            {
-                this.m_RegisteredRootInserts.Remove(keyPropertyValue);
-                this.HandleRootInsertSubmission(objectToSubmit, registeredObject, keyPropertyValue, objectSubmitter);
-                this.RegisterObject(objectToSubmit);
-            }
+            }            
             else
             {
                 throw new Exception("The object you request submission on is not registered.");
