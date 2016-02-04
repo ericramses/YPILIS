@@ -18,8 +18,6 @@ namespace YellowstonePathology.Business.Persistence
         private static object syncRoot = new Object();
 
         private Dictionary<object, object> m_RegisteredObjects;
-        private Dictionary<object, object> m_RegisteredRootInserts;
-        private Dictionary<object, object> m_RegisteredRootDeletes;
 
         static ObjectGatway()
         {
@@ -28,8 +26,6 @@ namespace YellowstonePathology.Business.Persistence
         private ObjectGatway() 
         {            
             this.m_RegisteredObjects = new Dictionary<object, object>();
-            this.m_RegisteredRootInserts = new Dictionary<object, object>();
-            this.m_RegisteredRootDeletes = new Dictionary<object, object>();            
         }
 
         public static ObjectGatway Instance
@@ -143,15 +139,7 @@ namespace YellowstonePathology.Business.Persistence
         {
             bool result = false;            
 
-            if (this.m_RegisteredRootInserts.ContainsKey(keyPropertyValue) == true)
-            {
-                throw new Exception("Cannot register the object because it is in the Root Inserts Dictionary.");
-            }
-            else if (this.m_RegisteredRootDeletes.ContainsKey(keyPropertyValue) == true)
-            {
-                throw new Exception("Cannot register the object because it is in the Root Deletes Dictionary.");
-            }
-            else if (this.m_RegisteredObjects.ContainsKey(keyPropertyValue) == false)
+            if (this.m_RegisteredObjects.ContainsKey(keyPropertyValue) == false)
             {
                 result = true;
             }
@@ -191,31 +179,46 @@ namespace YellowstonePathology.Business.Persistence
             object keyPropertyValue = keyProperty.GetValue(objectToDeRegister, null);
 
             this.m_RegisteredObjects.Remove(keyPropertyValue);
-            this.m_RegisteredRootDeletes.Remove(keyPropertyValue);
-            this.m_RegisteredRootInserts.Remove(keyPropertyValue);
         }        
 
-        public void SubmitRootInsert(object rootObjectToInsert)
+        //Not tested yet
+        public SubmissionResult SubmitRootInsert(object rootObjectToInsert)
         {
-            
+            Type objectType = rootObjectToInsert.GetType();
+            PersistentClass persistentClassAttribute = (PersistentClass)objectType.GetCustomAttributes(typeof(PersistentClass), false).Single();
+            SqlCommandSubmitter objectSubmitter = new SqlCommandSubmitter(persistentClassAttribute.Database);
+            PropertyInfo keyProperty = objectType.GetProperties().Where(prop => Attribute.IsDefined(prop, typeof(PersistentPrimaryKeyProperty))).Single();
+            object keyPropertyValue = keyProperty.GetValue(rootObjectToInsert, null);
+            SubmissionResult result = this.HandleRootInsertSubmission(rootObjectToInsert, keyPropertyValue, objectSubmitter);
+            return result;
         }
 
-        public void SubmitRootDelete(object rootObjectToDelete)
+        //Not tested yet
+        public SubmissionResult SubmitRootDelete(object rootObjectToDelete)
         {
-            
-        }                		        
+            Type objectType = rootObjectToDelete.GetType();
+            PersistentClass persistentClassAttribute = (PersistentClass)objectType.GetCustomAttributes(typeof(PersistentClass), false).Single();
+            SqlCommandSubmitter objectSubmitter = new SqlCommandSubmitter(persistentClassAttribute.Database);
+            PropertyInfo keyProperty = objectType.GetProperties().Where(prop => Attribute.IsDefined(prop, typeof(PersistentPrimaryKeyProperty))).Single();
+            object keyPropertyValue = keyProperty.GetValue(rootObjectToDelete, null);
+            SubmissionResult result = this.HandleRootDeleteSubmission(rootObjectToDelete, keyPropertyValue, objectSubmitter);
+            return result;
+        }
 
-        private void HandleRootDeleteSubmission(object objectToSubmit, object keyPropertyValue, SqlCommandSubmitter objectSubmitter)
+        private SubmissionResult HandleRootDeleteSubmission(object objectToSubmit, object keyPropertyValue, SqlCommandSubmitter objectSubmitter)
         {
             DeleteCommandBuilder deleteCommandBuilder = new DeleteCommandBuilder();
             deleteCommandBuilder.Build(objectToSubmit, objectSubmitter.SqlDeleteFirstCommands, objectSubmitter.SqlDeleteCommands);
+            SubmissionResult result = objectSubmitter.SubmitChanges();
+            return result;
         }
 
-        private void HandleRootInsertSubmission(object objectToSubmit, object originalValues, object keyPropertyValue, SqlCommandSubmitter objectSubmitter)
+        private SubmissionResult HandleRootInsertSubmission(object objectToSubmit, object keyPropertyValue, SqlCommandSubmitter objectSubmitter)
         {
             InsertCommandBuilder insertCommandBuilder = new InsertCommandBuilder();
             insertCommandBuilder.Build(objectToSubmit, objectSubmitter.SqlInsertCommands, objectSubmitter.SqlInsertLastCommands);
-            this.m_RegisteredRootInserts.Remove(keyPropertyValue);
+            SubmissionResult result = objectSubmitter.SubmitChanges();
+            return result;
         }
 
         private void HandleUpdateSubmission(object objectToSubmit, object originalValues, object keyPropertyValue, SqlCommandSubmitter objectSubmitter)
