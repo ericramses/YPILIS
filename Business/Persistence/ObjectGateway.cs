@@ -120,9 +120,7 @@ namespace YellowstonePathology.Business.Persistence
             }            
 
             YellowstonePathology.Business.Persistence.SqlCommandSubmitter sqlCommandSubmitter = this.GetSqlCommands(objectToSubmit);
-            sqlCommandSubmitter.SubmitChanges();
-
-            YellowstonePathology.Business.Persistence.SubmissionResult result = new SubmissionResult();
+            YellowstonePathology.Business.Persistence.SubmissionResult result = sqlCommandSubmitter.SubmitChanges();
             return result;
         }
 
