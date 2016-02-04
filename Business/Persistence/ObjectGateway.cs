@@ -106,9 +106,7 @@ namespace YellowstonePathology.Business.Persistence
         }
 
         public YellowstonePathology.Business.Persistence.SubmissionResult SubmitChanges(object objectToSubmit, bool releaseLock)
-        {
-            YellowstonePathology.Business.Persistence.SubmissionResult result = new YellowstonePathology.Business.Persistence.SubmissionResult();
-
+        {            
             if(objectToSubmit is YellowstonePathology.Business.Test.AccessionOrder)
             {
                 YellowstonePathology.Business.Test.AccessionOrder accessionOrder = (YellowstonePathology.Business.Test.AccessionOrder)objectToSubmit;
@@ -124,6 +122,7 @@ namespace YellowstonePathology.Business.Persistence
             YellowstonePathology.Business.Persistence.SqlCommandSubmitter sqlCommandSubmitter = this.GetSqlCommands(objectToSubmit);
             sqlCommandSubmitter.SubmitChanges();
 
+            YellowstonePathology.Business.Persistence.SubmissionResult result = new SubmissionResult();
             return result;
         }
 
