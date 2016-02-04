@@ -187,8 +187,11 @@ namespace YellowstonePathology.UI.Billing
             {
                 for (int i = this.ListViewPanelSetOrderCPTCodeBill.SelectedItems.Count - 1; i >= 0; i--)
                 {
+                    YellowstonePathology.Business.Test.AccessionOrder ao = (YellowstonePathology.Business.Test.AccessionOrder)YellowstonePathology.Business.Persistence.ObjectGatway.Instance.m_RegisteredObjects["16-2260"];
+                    MessageBox.Show(ao.PanelSetOrderCollection[0].PanelSetOrderCPTCodeBillCollection.Count.ToString());
                     YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill = (YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill)this.ListViewPanelSetOrderCPTCodeBill.SelectedItems[i];
                     this.m_PanelSetOrderCPTCodeBillCollection.Remove(panelSetOrderCPTCodeBill);
+                    MessageBox.Show(ao.PanelSetOrderCollection[0].PanelSetOrderCPTCodeBillCollection.Count.ToString());
                 }
             }
         }        

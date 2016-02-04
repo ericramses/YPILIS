@@ -16,8 +16,8 @@ namespace YellowstonePathology.Business.Persistence
     {
         private static volatile ObjectGatway instance;
         private static object syncRoot = new Object();
-
-        private Dictionary<object, object> m_RegisteredObjects;
+        
+        public Dictionary<object, object> m_RegisteredObjects;
         private Dictionary<object, object> m_RegisteredRootInserts;
         private Dictionary<object, object> m_RegisteredRootDeletes;
 
@@ -191,8 +191,7 @@ namespace YellowstonePathology.Business.Persistence
             object keyPropertyValue = keyProperty.GetValue(objectToDeRegister, null);
 
             this.m_RegisteredObjects.Remove(keyPropertyValue);
-            this.m_RegisteredRootDeletes.Remove(keyPropertyValue);
-            this.m_RegisteredRootInserts.Remove(keyPropertyValue);
+            this.m_RegisteredRootDeletes.Remove(keyPropertyValue);            
         }        
 
         public void SubmitRootInsert(object rootObjectToInsert)
