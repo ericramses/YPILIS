@@ -112,7 +112,7 @@ namespace YellowstonePathology.Business.Persistence
             if(objectToSubmit is YellowstonePathology.Business.Test.AccessionOrder)
             {
                 YellowstonePathology.Business.Test.AccessionOrder accessionOrder = (YellowstonePathology.Business.Test.AccessionOrder)objectToSubmit;
-                if (releaseLock == true)
+                if (accessionOrder.LockedAquired == true && releaseLock == true)
                 {
                     accessionOrder.LockAquiredByHostName = null;
                     accessionOrder.LockAquiredById = null;
@@ -227,15 +227,15 @@ namespace YellowstonePathology.Business.Persistence
             }
         }                		
 
-        public SubmissionResult SubmitChanges(object objectToSubmit)
-        {
-            SubmissionResult result = new SubmissionResult();
+        //public SubmissionResult SubmitChanges(object objectToSubmit)
+        //{
+        //    SubmissionResult result = new SubmissionResult();
             
-            SqlCommandSubmitter sqlCommandSubmitter = this.GetSqlCommands(objectToSubmit);                
-            sqlCommandSubmitter.SubmitChanges();                
+        //    SqlCommandSubmitter sqlCommandSubmitter = this.GetSqlCommands(objectToSubmit);                
+        //    sqlCommandSubmitter.SubmitChanges();                
 
-            return result;
-        }
+        //    return result;
+        //}
 
         private void HandleRootDeleteSubmission(object objectToSubmit, object keyPropertyValue, SqlCommandSubmitter objectSubmitter)
         {
