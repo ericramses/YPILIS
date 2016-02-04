@@ -68,7 +68,7 @@ namespace YellowstonePathology.UI
 
         public void Save()
         {
-            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder);
+            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, false);
         }
 
         public void UpdateBindingSources()
