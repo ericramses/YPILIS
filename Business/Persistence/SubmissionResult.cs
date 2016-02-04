@@ -11,6 +11,11 @@ namespace YellowstonePathology.Business.Persistence
     {
         private bool m_Success;
         private string m_Message;
+        private bool m_HasInsertCommands;
+        private bool m_HasInsertLastCommands;
+        private bool m_HasDeleteFirstCommands;
+        private bool m_HasDeleteCommands;
+        private bool m_HasUpdateCommands;
 
         public SubmissionResult()
         {
@@ -31,5 +36,39 @@ namespace YellowstonePathology.Business.Persistence
             set { this.m_Message = value; }
         }
 
+        [DataMember]
+        public bool HasInsertCommands
+        {
+            get { return this.m_HasInsertCommands; }
+            set { this.m_HasInsertCommands = value; }
+        }
+
+        [DataMember]
+        public bool HasInsertLastCommands
+        {
+            get { return this.m_HasInsertLastCommands; }
+            set { this.m_HasInsertLastCommands = value; }
+        }
+
+        [DataMember]
+        public bool HasDeleteFirstCommands
+        {
+            get { return this.m_HasDeleteFirstCommands; }
+            set { this.m_HasDeleteFirstCommands = value; }
+        }
+
+        [DataMember]
+        public bool HasDeleteCommands
+        {
+            get { return this.m_HasDeleteCommands; }
+            set { this.m_HasDeleteCommands = value; }
+        }
+
+        [DataMember]
+        public bool HasUpdateCommands
+        {
+            get { return this.m_HasUpdateCommands; }
+            set { this.m_HasUpdateCommands = value; }
+        }
     }
 }
