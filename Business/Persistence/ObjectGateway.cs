@@ -105,18 +105,23 @@ namespace YellowstonePathology.Business.Persistence
             return accessionOrderBuilder.AccessionOrder;
         }
 
-        public YellowstonePathology.Business.Persistence.SubmissionResult SubmitChanges(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, bool releaseLock)
+        public YellowstonePathology.Business.Persistence.SubmissionResult SubmitChanges(object objectToSubmit, bool releaseLock)
         {
             YellowstonePathology.Business.Persistence.SubmissionResult result = new YellowstonePathology.Business.Persistence.SubmissionResult();
-            if (releaseLock == true)
-            {
-                accessionOrder.LockAquiredByHostName = null;
-                accessionOrder.LockAquiredById = null;
-                accessionOrder.LockAquiredByUserName = null;
-                accessionOrder.TimeLockAquired = null;
-            }
 
-            YellowstonePathology.Business.Persistence.SqlCommandSubmitter sqlCommandSubmitter = this.GetSqlCommands(accessionOrder);
+            if(objectToSubmit is YellowstonePathology.Business.Test.AccessionOrder)
+            {
+                YellowstonePathology.Business.Test.AccessionOrder accessionOrder = (YellowstonePathology.Business.Test.AccessionOrder)objectToSubmit;
+                if (releaseLock == true)
+                {
+                    accessionOrder.LockAquiredByHostName = null;
+                    accessionOrder.LockAquiredById = null;
+                    accessionOrder.LockAquiredByUserName = null;
+                    accessionOrder.TimeLockAquired = null;
+                }
+            }            
+
+            YellowstonePathology.Business.Persistence.SqlCommandSubmitter sqlCommandSubmitter = this.GetSqlCommands(objectToSubmit);
             sqlCommandSubmitter.SubmitChanges();
 
             return result;

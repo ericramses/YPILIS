@@ -32,8 +32,7 @@ namespace YellowstonePathology.UI.Client
 
 		public ClientEntryV2(YellowstonePathology.Business.Client.Model.Client client)
 		{
-			this.m_Client = client;
-			YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_Client, this);
+			this.m_Client = client;			
 			this.m_ClientPhysicianView = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientPhysicianViewByClientIdV2(this.m_Client.ClientId);
 
 			if (this.m_ClientPhysicianView == null)
@@ -127,7 +126,7 @@ namespace YellowstonePathology.UI.Client
 
         private void Save()
         {
-			YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_Client, this);
+			YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_Client, false);
         }
 
 		private void ButtonAddToClient_Click(object sender, RoutedEventArgs e)

@@ -86,11 +86,9 @@ namespace YellowstonePathology.UI.Test
                 YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetSurgical();
                 if (surgicalTestOrder.AmendmentCollection.HasAmendmentForReferenceReportNo(this.m_PanelSetOrder.ReportNo) == true)
                 {
-                    result = true;
-                    YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new Business.Persistence.ObjectTracker();
-                    objectTracker.RegisterObject(this.m_AccessionOrder);
+                    result = true;                                        
                     YellowstonePathology.Business.Amendment.Model.Amendment amendment = surgicalTestOrder.AmendmentCollection.GetAmendmentForReferenceReportNo(this.m_PanelSetOrder.ReportNo);
-                    AmendmentPage amendmentPage = new AmendmentPage(this.m_AccessionOrder, objectTracker, amendment, this.m_SystemIdentity);
+                    AmendmentPage amendmentPage = new AmendmentPage(this.m_AccessionOrder, amendment, this.m_SystemIdentity);
                     amendmentPage.Back += AmendmentPage_Back;
                     amendmentPage.Finish += AmendmentPage_Finish;
                     this.m_PageNavigator.Navigate(amendmentPage);

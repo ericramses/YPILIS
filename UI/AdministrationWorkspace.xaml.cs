@@ -807,30 +807,7 @@ namespace YellowstonePathology.UI
 
         private void ButtonSendMessageToEric_Click(object sender, RoutedEventArgs e)
         {
-            this.WriteStVincentAllInSql();
-            //this.CreateIHCTestSelectStatement();
-            //this.CreateCPTCodeTypeListForSQL();
-
-			/*
-			string reportNo = "14-18695.S";
-			YellowstonePathology.Business.Test.AccessionOrder ao = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(reportNo);
-
-			YellowstonePathology.Business.Persistence.ObjectTracker ot = new Persistence.ObjectTracker();
-			ot.RegisterObject(ao.ReportDistributionLogCollection);
-
-			string reportDistributionLogId = YellowstonePathology.Domain.OrderIdParser.GetNextReportDistributionLogId(ao.ReportDistributionLogCollection, ao.MasterAccessionNo);
-			YellowstonePathology.Business.ReportDistribution.Model.ReportDistributionLog rdl = new YellowstonePathology.Business.ReportDistribution.Model.ReportDistributionLog(reportDistributionLogId, ao.ReportDistributionCollection[0]);
-			rdl.DistributionType = "Distribute";
-			rdl.CaseDistributed = true;            
-			rdl.DateCompleted = DateTime.Now;
-			rdl.DateDistributed = DateTime.Now;
-			rdl.ReportNo = reportNo;
-			ao.ReportDistributionLogCollection.Add(rdl);
-
-			ot.SubmitChanges(ao.ReportDistributionLogCollection);
-
-			ot.SubmitChanges(ao.ReportDistributionLogCollection);
-			*/
+            
 		}
 
         private void CreateIHCTestSelectStatement()
@@ -1123,20 +1100,7 @@ namespace YellowstonePathology.UI
 
         private void FixHPV()
         {
-            /*YellowstonePathology.Business.ReportNoCollection reportNoCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetReportNumbers();
-            foreach (YellowstonePathology.Business.ReportNo reportNo in reportNoCollection)
-            {
-                string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-				YellowstonePathology.Business.Persistence.ObjectTracker ot = new YellowstonePathology.Business.Persistence.ObjectTracker();
-                YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(reportNo.Value);
-                ot.RegisterObject(accessionOrder);
-
-                YellowstonePathology.Business.Test.KRASStandard.KRASStandardTestOrder pso = (YellowstonePathology.Business.Test.KRASStandard.KRASStandardTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo.Value);
-                YellowstonePathology.Business.Test.KRASStandard.KRASStandardPanel panel = new YellowstonePathology.Business.Test.KRASStandard.KRASStandardPanel();
-                YellowstonePathology.Business.Test.PanelOrder  panelOrder = new Business.Test.PanelOrder(reportNo.Value, objectId, objectId, panel, 5051);
-                pso.PanelOrderCollection.Add(panelOrder);
-                ot.SubmitChanges(accessionOrder);
-            }*/
+            
         }
 
         private void FindNonASCICharacters()
@@ -1214,16 +1178,7 @@ namespace YellowstonePathology.UI
 
         private void BackgroundWorker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
-			List<YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution> testOrderReportDistributionList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetNextTORD();
-			YellowstonePathology.Business.Persistence.ObjectTracker ot = new YellowstonePathology.Business.Persistence.ObjectTracker();
-
-            foreach (YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution testOrderReportDistribution in testOrderReportDistributionList)
-            {
-                ot.RegisterObject(testOrderReportDistribution);
-                string _id = ObjectId.GenerateNewId().ToString();
-                //testOrderReportDistribution.TestOrderReportDistributionIdV2 = _id;
-                ot.SubmitChanges(testOrderReportDistribution);
-            }
+			
         }
 
         private void WriteNonDatabaseTests()

@@ -143,23 +143,7 @@ namespace YellowstonePathology.UI
 
         private void SaveAndReleaseLocksOnApplicationExit()
         {
-            /* (int idx = YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisteredObjects.Count - 1; idx > -1; idx--)
-            {
-                YellowstonePathology.Business.Persistence.RegisteredObject registeredObject = YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisteredObjects[idx];
-                object registeredBy = registeredObject.RegisteredBy[0];
-                if (registeredObject.Value is YellowstonePathology.Business.Test.AccessionOrder)
-                {
-                    YellowstonePathology.Business.Test.AccessionOrder accessonOrder = (YellowstonePathology.Business.Test.AccessionOrder)registeredObject.Value;
-                    if (accessonOrder.LockedAquired == true)
-                    {
-                        YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(accessonOrder, registeredBy, true);
-                    }
-                }
-                else
-                {
-                    YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(registeredObject.Value, registeredBy);
-                }
-            }*/
+            
         }
     }
 }

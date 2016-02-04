@@ -28,19 +28,16 @@ namespace YellowstonePathology.UI
         public event FinishEventHandler Finish;
 
         private YellowstonePathology.Business.User.SystemUserCollection m_AmendmentSigners;
-        private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-        private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
+        private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;        
         private YellowstonePathology.Business.Amendment.Model.Amendment m_Amendment;
         private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
         private string m_PageHeaderText;
 
-        public AmendmentPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-            YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
+        public AmendmentPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,            
             YellowstonePathology.Business.Amendment.Model.Amendment amendment,
             YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
-            this.m_AccessionOrder = accessionOrder;
-            this.m_ObjectTracker = objectTracker;
+            this.m_AccessionOrder = accessionOrder;            
             this.m_Amendment = amendment;
             this.m_SystemIdentity = systemIdentity;
             this.AmendmentSigners = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetUsersByRole(YellowstonePathology.Business.User.SystemUserRoleDescriptionEnum.AmendmentSigner, true);
@@ -71,7 +68,7 @@ namespace YellowstonePathology.UI
 
         public void Save()
         {
-            this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
+            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder);
         }
 
         public void UpdateBindingSources()
