@@ -462,6 +462,60 @@ namespace YellowstonePathology.Business.Persistence
             }            
 
             return result;
-        }        
+        }
+        
+        public void RefreshMaterialTrackingBatch(YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch materialTrackingBatch)
+        {
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "Select * from tblMaterialTrackingBatch where MaterialTrackingBatchId = @MaterialTrackingBatchId";
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.Add("@MaterialTrackingBatchId", SqlDbType.VarChar).Value = materialTrackingBatch.MaterialTrackingBatchId;
+
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.BaseData.SqlConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(materialTrackingBatch, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                    }
+                }
+            }
+
+            if (this.IsRegistered(materialTrackingBatch) == false)
+            {
+                this.RegisterObject(materialTrackingBatch);
+            }
+        }
+
+        public void RefreshMaterialTrackingLog(YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog materialTrackingLog)
+        {
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "Select * from tblMaterialTrackingLog where MaterialTrackingLogId = @MaterialTrackingLogId";
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.Add("@MaterialTrackingLogId", SqlDbType.VarChar).Value = materialTrackingLog.MaterialTrackingLogId;
+
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.BaseData.SqlConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(materialTrackingLog, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                    }
+                }
+            }
+
+            if (this.IsRegistered(materialTrackingLog) == false)
+            {
+                this.RegisterObject(materialTrackingLog);
+            }
+        }
     }
 }
