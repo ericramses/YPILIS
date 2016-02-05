@@ -53,17 +53,19 @@ namespace YellowstonePathology.Business.Label.Model
             options.ForeColor = System.Drawing.Color.Black;
 
 			string barcodeId = YellowstonePathology.Business.BarcodeScanning.BarcodePrefixEnum.HBLK + this.m_AliquotOrder.AliquotOrderId;
-            System.Drawing.Bitmap barcodeBitmap = encoder.EncodeImage(barcodeId, options);            
-            
-            e.Graphics.DrawString(this.m_AccessionOrder.MasterAccessionNo, new System.Drawing.Font("Verdana", 9), System.Drawing.Brushes.Black, new System.Drawing.PointF(x + 2, y));
-            e.Graphics.DrawImage(barcodeBitmap, new System.Drawing.Point(x + 2, y + 15));
-            
-            e.Graphics.DrawString(this.m_SlideId, new System.Drawing.Font("Verdana", 6), System.Drawing.Brushes.Black, new System.Drawing.PointF(x + 27, y + 18));                        
+            System.Drawing.Bitmap barcodeBitmap = encoder.EncodeImage(barcodeId, options);
 
-            e.Graphics.DrawString(this.m_TruncatedFirstName, new System.Drawing.Font("Verdana", 6), System.Drawing.Brushes.Black, new System.Drawing.PointF(x + 2, y + 40));
-            e.Graphics.DrawString(this.m_TruncatedLastName, new System.Drawing.Font("Verdana", 6), System.Drawing.Brushes.Black, new System.Drawing.PointF(x + 2, y + 50));
+            int xOffset = 5;
 
-            e.Graphics.DrawString(this.m_LocationDescription, new System.Drawing.Font("Verdana", 6), System.Drawing.Brushes.Black, new System.Drawing.PointF(x + 2, y + 70));            
+            e.Graphics.DrawString(this.m_AccessionOrder.MasterAccessionNo, new System.Drawing.Font("Verdana", 9), System.Drawing.Brushes.Black, new System.Drawing.PointF(x + xOffset, y));
+            e.Graphics.DrawImage(barcodeBitmap, new System.Drawing.Point(x + xOffset, y + 15));
+            
+            e.Graphics.DrawString(this.m_SlideId, new System.Drawing.Font("Verdana", 6), System.Drawing.Brushes.Black, new System.Drawing.PointF(x + xOffset + 27, y + 18));                        
+
+            e.Graphics.DrawString(this.m_TruncatedFirstName, new System.Drawing.Font("Verdana", 6), System.Drawing.Brushes.Black, new System.Drawing.PointF(x + xOffset, y + 40));
+            e.Graphics.DrawString(this.m_TruncatedLastName, new System.Drawing.Font("Verdana", 6), System.Drawing.Brushes.Black, new System.Drawing.PointF(x + xOffset, y + 50));
+
+            e.Graphics.DrawString(this.m_LocationDescription, new System.Drawing.Font("Verdana", 6), System.Drawing.Brushes.Black, new System.Drawing.PointF(x + xOffset, y + 70));            
         }
     }
 }
