@@ -25,7 +25,7 @@ namespace YellowstonePathology.UI.Test
 
         public AcidWashResultDialog(string masterAccessionNo, string reportNo)
         {            
-            this.m_AccessionOrder = Business.Persistence.ObjectGatway.Instance.GetByMasterAccessionNo(masterAccessionNo, true);            
+            this.m_AccessionOrder = Business.Persistence.ObjectGateway.Instance.GetByMasterAccessionNo(masterAccessionNo);            
             Business.Test.ThinPrepPap.ThinPrepPapAcidWashPanel thinPrepPapAcidWashPanel = new Business.Test.ThinPrepPap.ThinPrepPapAcidWashPanel();
             this.m_PanelOrderAcidWash = (Business.Test.ThinPrepPap.PanelOrderAcidWash)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo).PanelOrderCollection.GetPanelByPanelId(thinPrepPapAcidWashPanel.PanelId);
 
@@ -68,7 +68,7 @@ namespace YellowstonePathology.UI.Test
 
         private void Save(bool releaseLock)
         {
-            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, releaseLock);
+            YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_AccessionOrder, releaseLock);
         }
 
         private void ButtonClose_Click(object sender, RoutedEventArgs e)

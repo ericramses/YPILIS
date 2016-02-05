@@ -89,7 +89,7 @@ namespace YellowstonePathology.UI.Test
 		public void Save(bool releaseLock)
 		{
             this.ValidatDataTypesAndUpdateBindingSources();
-            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, false);
+            YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
         }
 
         public void UpdateBindingSources()

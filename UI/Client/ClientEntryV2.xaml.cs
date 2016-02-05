@@ -119,7 +119,7 @@ namespace YellowstonePathology.UI.Client
             {
                 if(this.m_IsNewClient == true)
                 {
-                    YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitRootInsert(this.m_Client);
+                    YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitRootInsert(this.m_Client);
                 }
 
 			    Close();
@@ -134,7 +134,7 @@ namespace YellowstonePathology.UI.Client
 
         private void Save(bool releaseLock)
         {
-			YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_Client, releaseLock);
+			YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_Client, releaseLock);
         }
 
 		private void ButtonAddToClient_Click(object sender, RoutedEventArgs e)
@@ -144,11 +144,11 @@ namespace YellowstonePathology.UI.Client
 				YellowstonePathology.Business.Domain.Physician physician = (YellowstonePathology.Business.Domain.Physician)this.ListBoxAvailableProviders.SelectedItem;
 				if (this.m_ClientPhysicianView.PhysicianExists(physician.PhysicianId) == false)
 				{
-					YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_Client, false);
+					YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_Client, false);
 
 					string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
 					YellowstonePathology.Business.Domain.PhysicianClient physicianClient = new Business.Domain.PhysicianClient(objectId, objectId, physician.PhysicianId, physician.ObjectId, this.m_Client.ClientId);
-                    YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitRootInsert(physicianClient);                    
+                    YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitRootInsert(physicianClient);                    
 					this.m_ClientPhysicianView.Physicians.Add(physician);
 					this.NotifyPropertyChanged("Physicians");
 				}
@@ -167,7 +167,7 @@ namespace YellowstonePathology.UI.Client
                     YellowstonePathology.Business.Rules.MethodResult methodResult = this.CanRemoveMember(physicianClient);
                     if (methodResult.Success == true)
                     {
-                        YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitRootDelete(physicianClient);                        
+                        YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitRootDelete(physicianClient);                        
                         this.m_ClientPhysicianView.Physicians.Remove(physician);
                         this.NotifyPropertyChanged("Physicians");
                     }
@@ -211,7 +211,7 @@ namespace YellowstonePathology.UI.Client
 		{
 			string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
 			YellowstonePathology.Business.Client.Model.ClientSupplyOrder clientSupplyOrder = new Business.Client.Model.ClientSupplyOrder(objectId, this.m_Client);
-			YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitRootInsert(clientSupplyOrder);			
+			YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitRootInsert(clientSupplyOrder);			
 			this.m_ClientSupplyOrderCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientSupplyOrderCollectionByClientId(this.m_Client.ClientId);
 			clientSupplyOrder = this.m_ClientSupplyOrderCollection.GetClientSupplyOrder(clientSupplyOrder.ObjectId);
 			ClientSupplyOrderDialog clientSupplyOrderDialog = new ClientSupplyOrderDialog(clientSupplyOrder);
@@ -224,7 +224,7 @@ namespace YellowstonePathology.UI.Client
 			if (this.ListViewOrderDetails.SelectedItem != null)
 			{
 				YellowstonePathology.Business.Client.Model.ClientSupplyOrder clientSupplyOrder = (YellowstonePathology.Business.Client.Model.ClientSupplyOrder)this.ListViewOrderDetails.SelectedItem;
-				YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitRootDelete(clientSupplyOrder);				
+				YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitRootDelete(clientSupplyOrder);				
 				this.ClientSupplyOrderCollection.Remove(clientSupplyOrder);
 				this.NotifyPropertyChanged("ClientSupplyOrderCollection");
 			}
@@ -263,7 +263,7 @@ namespace YellowstonePathology.UI.Client
                 clientLocation.DefaultOrderDetailTypeCode = "SRGCL";
 
                 this.m_Client.ClientLocationCollection.Add(clientLocation);
-                YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitRootInsert(clientLocation);                
+                YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitRootInsert(clientLocation);                
             }
         }
     }

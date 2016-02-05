@@ -52,7 +52,7 @@ namespace YellowstonePathology.UI.Test
 
 		private void ButtonOK_Click(object sender, RoutedEventArgs e)
 		{
-            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_SurgicalBillingItemCollection, false);			
+            YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_SurgicalBillingItemCollection, false);			
 			Close();
 		}
 
@@ -65,7 +65,7 @@ namespace YellowstonePathology.UI.Test
 		{
 			if (this.BlockDatePicker.SelectedDate.HasValue)
 			{
-                YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_SurgicalBillingItemCollection, false);
+                YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_SurgicalBillingItemCollection, false);
 
                 this.m_Date = this.BlockDatePicker.SelectedDate.Value;
 

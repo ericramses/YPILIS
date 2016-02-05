@@ -10,7 +10,7 @@ namespace YellowstonePathology.Business.Test.HPV
 		{
             this.m_ReportNo = reportNo;
 			this.m_ReportSaveEnum = reportSaveEnum;
-			this.m_AccessionOrder = YellowstonePathology.Business.Persistence.ObjectGatway.Instance.GetByMasterAccessionNo(masterAccessionNo, true);
+			this.m_AccessionOrder = YellowstonePathology.Business.Persistence.ObjectGateway.Instance.GetByMasterAccessionNo(masterAccessionNo);
             this.m_PanelSetOrder = m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 
 			//this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\HPVThirdWave.7.xml";

@@ -32,7 +32,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 		{
 			this.m_AccessionOrder = accessionOrder;
 			this.m_CytologyClientOrder = (YellowstonePathology.Business.ClientOrder.Model.CytologyClientOrder)
-                YellowstonePathology.Business.Persistence.ObjectGatway.Instance.GetClientOrderByClientOrderId(this.m_AccessionOrder.ClientOrderId, false);
+                YellowstonePathology.Business.Persistence.ObjectGateway.Instance.GetClientOrderByClientOrderId(this.m_AccessionOrder.ClientOrderId);
 
 			InitializeComponent();
 
@@ -185,7 +185,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
 		public void Save(bool releaseLock)
 		{
-            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, false);
+            YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
         }
 
         public void UpdateBindingSources()

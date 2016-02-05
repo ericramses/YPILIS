@@ -111,7 +111,7 @@ namespace YellowstonePathology.UI.Login.Receiving
             {
                 if (this.ShowAdditionalTestingEMailPage() == false)
                 {
-                    YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, false);
+                    YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
                      
                     CustomEventArgs.TestOrderInfoEventArgs eventArgs = new CustomEventArgs.TestOrderInfoEventArgs(this.m_TestOrderInfo);
                     if (this.Finish != null) this.Finish(this, eventArgs);
@@ -149,8 +149,8 @@ namespace YellowstonePathology.UI.Login.Receiving
             }
             else if (this.ShowAdditionalTestingEMailPage() == false)
             {
-                YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, false);
-                YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, false);
+                YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
+                YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
                 CustomEventArgs.TestOrderInfoEventArgs eventArgs = new CustomEventArgs.TestOrderInfoEventArgs(this.m_TestOrderInfo);
                 if (this.Finish != null) this.Finish(this, eventArgs);
             }
@@ -160,7 +160,7 @@ namespace YellowstonePathology.UI.Login.Receiving
         {
             if (this.ShowAdditionalTestingEMailPage() == false)
             {
-                YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, false);
+                YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
                 CustomEventArgs.TestOrderInfoEventArgs eventArgs = new CustomEventArgs.TestOrderInfoEventArgs(this.m_TestOrderInfo);
                 if (this.Finish != null) this.Finish(this, eventArgs);
             }
@@ -177,7 +177,7 @@ namespace YellowstonePathology.UI.Login.Receiving
             this.m_AccessionOrder.TakeATrip(orderTestOrderVisitor);
             this.m_TestOrderInfo.PanelSetOrder = testOrderInfo.PanelSetOrder;
             
-            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, false);            
+            YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);            
 
             if (this.ShowResultPage(testOrderInfo) == false)
             {
@@ -185,7 +185,7 @@ namespace YellowstonePathology.UI.Login.Receiving
                 {
                     if (this.ShowAdditionalTestingEMailPage() == false)
                     {
-                        YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, false);
+                        YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
 
                         CustomEventArgs.TestOrderInfoEventArgs eventArgs = new CustomEventArgs.TestOrderInfoEventArgs(this.m_TestOrderInfo);
                         if (this.Finish != null) this.Finish(this, eventArgs);
@@ -196,7 +196,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 
 		private void SpecimenSelectionPage_Back(object sender, EventArgs e)
 		{
-            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, false);
+            YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
             CustomEventArgs.TestOrderInfoEventArgs eventArgs = new CustomEventArgs.TestOrderInfoEventArgs(this.m_TestOrderInfo);
             if (this.Finish != null) this.Finish(this, eventArgs);
 		}									
@@ -263,14 +263,14 @@ namespace YellowstonePathology.UI.Login.Receiving
 
         private void AdditionalTestingEMailPage_Next(object sender, EventArgs e)
         {
-            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, false);
+            YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
             CustomEventArgs.TestOrderInfoEventArgs eventArgs = new CustomEventArgs.TestOrderInfoEventArgs(this.m_TestOrderInfo);
             if (this.Finish != null) this.Finish(this, eventArgs);
         }
 
         private void AdditionalTestingEMailPage_Back(object sender, EventArgs e)
         {
-            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, false);
+            YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
             CustomEventArgs.TestOrderInfoEventArgs eventArgs = new CustomEventArgs.TestOrderInfoEventArgs(this.m_TestOrderInfo);
             if (this.Finish != null) this.Finish(this, eventArgs);
         }

@@ -117,14 +117,14 @@ namespace YellowstonePathology.UI.ReportDistribution
 			List<YellowstonePathology.Business.Test.PanelSetOrderView> panelSetOrderViewList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetUnsetDistributions();
             foreach (YellowstonePathology.Business.Test.PanelSetOrderView panelSetOrderView in panelSetOrderViewList)
             {
-				YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.ObjectGatway.Instance.GetByMasterAccessionNo(panelSetOrderView.MasterAccessionNo, true);				
+				YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.ObjectGateway.Instance.GetByMasterAccessionNo(panelSetOrderView.MasterAccessionNo);				
 
                 YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetOrderView.ReportNo);
                 YellowstonePathology.Business.Client.PhysicianClientDistributionCollection physicianClientDistributionCollection = YellowstonePathology.Business.Gateway.ReportDistributionGateway.GetPhysicianClientDistributionCollection(accessionOrder.PhysicianId, accessionOrder.ClientId);
 
                 if (physicianClientDistributionCollection.Count != 0)
                 {                    
-                    YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(accessionOrder, false);
+                    YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(accessionOrder, false);
                     this.m_ReportDistributionLogEntryCollection.AddEntry("INFO", "Handle Unset Distribution", null, panelSetOrder.ReportNo, panelSetOrder.MasterAccessionNo,
                         accessionOrder.PhysicianName, accessionOrder.ClientName, "Distribution Set");
                 }
@@ -154,12 +154,12 @@ namespace YellowstonePathology.UI.ReportDistribution
         private void ScheduleDistribution(YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution testOrderReportDistribution)
         {			            
             testOrderReportDistribution.ScheduledDistributionTime = DateTime.Now.AddMinutes(15);
-            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(testOrderReportDistribution, false);            
+            YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(testOrderReportDistribution, false);            
 
 			YellowstonePathology.Business.Test.PanelSetOrderView panelSetOrderView = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetCaseToSchedule(testOrderReportDistribution.ReportNo);            
             panelSetOrderView.Published = false;
             panelSetOrderView.ScheduledPublishTime = DateTime.Now.AddMinutes(15);
-            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(panelSetOrderView, false);            
+            YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(panelSetOrderView, false);            
 
             this.m_ReportDistributionLogEntryCollection.AddEntry("INFO", "Schedule Distribution", testOrderReportDistribution.DistributionType, panelSetOrderView.ReportNo, 
                 panelSetOrderView.MasterAccessionNo, testOrderReportDistribution.PhysicianName, testOrderReportDistribution.ClientName, "Distribution Scheduled");
@@ -178,7 +178,7 @@ namespace YellowstonePathology.UI.ReportDistribution
                 }
 
                 panelSetOrderView.ScheduledPublishTime = scheduleTime;
-                YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(panelSetOrderView, false);                
+                YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(panelSetOrderView, false);                
                 
                 this.m_ReportDistributionLogEntryCollection.AddEntry("INFO", "Handle Unschedule Publish", null, panelSetOrderView.ReportNo, 
                     panelSetOrderView.MasterAccessionNo, null, null, "PanelSet Publish Sceduled");
@@ -193,7 +193,7 @@ namespace YellowstonePathology.UI.ReportDistribution
                             panelSetOrderView.MasterAccessionNo, testOrderReportDistribution.PhysicianName, testOrderReportDistribution.ClientName, "TestOrderReportDistribution Sceduled");
                         
                         testOrderReportDistribution.ScheduledDistributionTime = scheduleTime;
-                        YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(testOrderReportDistribution, false);                        
+                        YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(testOrderReportDistribution, false);                        
                     }                 
                 }                
             }
@@ -267,7 +267,7 @@ namespace YellowstonePathology.UI.ReportDistribution
                 testOrderReportDistribution.ScheduledDistributionTime = DateTime.Now.AddMinutes(delayMinutes);
                 testOrderReportDistribution.Rescheduled = true;
                 testOrderReportDistribution.RescheduledMessage = delayMessage;                
-                YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(testOrderReportDistribution, true);
+                YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(testOrderReportDistribution, true);
             }
         }
 
@@ -302,13 +302,13 @@ namespace YellowstonePathology.UI.ReportDistribution
                                     testOrderReportDistribution.TimeOfLastDistribution = DateTime.Now;
                                     testOrderReportDistribution.ScheduledDistributionTime = null;
                                     testOrderReportDistribution.Distributed = true;
-                                    YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(testOrderReportDistribution, false);                                    
+                                    YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(testOrderReportDistribution, false);                                    
 
                                     string testOrderReportDistributionLogId = Guid.NewGuid().ToString();
                                     string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
                                     YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistributionLog testOrderReportDistributionLog = new YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistributionLog(testOrderReportDistributionLogId, objectId);
 
-                                    YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitRootInsert(testOrderReportDistributionLog);                                    
+                                    YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitRootInsert(testOrderReportDistributionLog);                                    
                                     testOrderReportDistributionLog.TimeDistributed = DateTime.Now;                                    
 
                                     this.m_ReportDistributionLogEntryCollection.AddEntry("INFO", "Publish Next", testOrderReportDistribution.DistributionType, panelSetOrderView.ReportNo, panelSetOrderView.MasterAccessionNo,
@@ -320,7 +320,7 @@ namespace YellowstonePathology.UI.ReportDistribution
                                     testOrderReportDistribution.Rescheduled = true;
                                     testOrderReportDistribution.RescheduledMessage = distributionResult.Message;
 
-                                    YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(testOrderReportDistribution, false);
+                                    YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(testOrderReportDistribution, false);
 
                                     this.m_ReportDistributionLogEntryCollection.AddEntry("ERROR", "Publish Next", testOrderReportDistribution.DistributionType, panelSetOrderView.ReportNo, panelSetOrderView.MasterAccessionNo,
                                         testOrderReportDistribution.PhysicianName, testOrderReportDistribution.ClientName, distributionResult.Message);
@@ -339,7 +339,7 @@ namespace YellowstonePathology.UI.ReportDistribution
                         panelSetOrderView.TimeLastPublished = DateTime.Now;
                         panelSetOrderView.ScheduledPublishTime = null;
 
-                        YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(panelSetOrderView, false);                        
+                        YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(panelSetOrderView, false);                        
                     }
                 }                             
 

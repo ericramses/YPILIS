@@ -59,7 +59,7 @@ namespace YellowstonePathology.Business.Typing
 		public void GetAccessionOrder(string reportNo)
 		{
             string masterAccessionNo = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetMasterAccessionNoFromReportNo(reportNo);
-			this.m_AccessionOrder = YellowstonePathology.Business.Persistence.ObjectGatway.Instance.GetByMasterAccessionNo(masterAccessionNo, true);
+			this.m_AccessionOrder = YellowstonePathology.Business.Persistence.ObjectGateway.Instance.GetByMasterAccessionNo(masterAccessionNo);
 
 			if (this.m_AccessionOrder != null)
 			{                
@@ -82,7 +82,7 @@ namespace YellowstonePathology.Business.Typing
 		{			            
             if(this.m_AccessionOrder != null)
             {
-                YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, releaseLock);
+                YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_AccessionOrder, releaseLock);
             }            
 		}
 		

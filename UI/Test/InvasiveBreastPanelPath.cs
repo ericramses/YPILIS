@@ -53,7 +53,7 @@ namespace YellowstonePathology.UI.Test
 
 		private void ReportOrderPath_Finish(object sender, EventArgs e)
 		{
-            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, true);
+            YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_AccessionOrder, true);
 			this.m_PageNavigator.Navigate(this.m_InvasiveBreastPanelPage);
 		}
 	}

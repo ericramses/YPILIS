@@ -107,7 +107,7 @@ namespace YellowstonePathology.UI.Test
         
 		private void ButtonNext_Click(object sender, RoutedEventArgs e)
 		{
-            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, false);
+            YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
              
 
             if (this.Next != null) this.Next(this, new EventArgs());            

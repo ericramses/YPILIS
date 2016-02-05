@@ -485,6 +485,9 @@ namespace YellowstonePathology.Business.Gateway
 
 		public static Test.AccessionOrder GetAccessionOrderBySlideOrderId(string slideOrderId)
 		{
+            throw new Exception("Not Implemented");            
+
+            /*
 			SqlCommand cmd = new SqlCommand();
 			cmd.CommandText = "gwGetAccessionBySlideOrderId_A7";
 			cmd.CommandType = CommandType.StoredProcedure;
@@ -493,6 +496,7 @@ namespace YellowstonePathology.Business.Gateway
 			XElement document = AccessionOrderGateway.GetAccessionOrderElement(cmd);
 			accessionOrderBuilder.Build(document);
 			return accessionOrderBuilder.AccessionOrder;
+            */
 		}
 
 		public static XElement GetAccessionOrderDocumentByReportNo(string reportNo)

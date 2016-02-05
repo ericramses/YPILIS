@@ -212,7 +212,7 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
 			{
 				foreach (YellowstonePathology.Business.Domain.PatientHistoryResult patientHistoryResult in priorPapRelatedHistory)
 				{
-					YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.ObjectGatway.Instance.GetByMasterAccessionNo(patientHistoryResult.MasterAccessionNo, true);
+					YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.ObjectGateway.Instance.GetByMasterAccessionNo(patientHistoryResult.MasterAccessionNo);
 					foreach (YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder in accessionOrder.PanelSetOrderCollection)
 					{
 						string reportNo = null;

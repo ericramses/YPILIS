@@ -100,7 +100,8 @@ namespace YellowstonePathology.Business.Test
         private Nullable<int> m_LockAquiredById;
         private string m_LockAquiredByUserName;
         private string m_LockAquiredByHostName;
-        private Nullable<DateTime> m_TimeLockAquired; 
+        private Nullable<DateTime> m_TimeLockAquired;
+        private bool m_LockAquired;
 
 		public AccessionOrder()
         {
@@ -205,6 +206,20 @@ namespace YellowstonePathology.Business.Test
                 {
                     this.m_TimeLockAquired = value;
                     this.NotifyPropertyChanged("TimeLockAquired");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public bool LockAquired
+        {
+            get { return this.m_LockAquired; }
+            set
+            {
+                if (this.m_LockAquired != value)
+                {
+                    this.m_LockAquired = value;
+                    this.NotifyPropertyChanged("LockAquired");
                 }
             }
         }
@@ -1699,16 +1714,6 @@ namespace YellowstonePathology.Business.Test
 			result.AppendLine("Report for: " + panelSetOrder.PanelSetName);
             result.AppendLine(panelSetOrder.ToResultString(this));
             return result.ToString();
-        } 
-        
-        public bool LockedAquired
-        {
-            get
-            {
-                bool result = false;
-                if (LockAquiredByHostName == System.Environment.MachineName) result = true;
-                return result;
-            }            
-        }       
+        }                      
 	}
 }

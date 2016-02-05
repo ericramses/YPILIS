@@ -181,7 +181,7 @@ namespace YellowstonePathology.Business.Flow
 
 		public void GetAccessionOrder(string reportNo, string masterAccessionNo)
 		{			
-			this.m_AccessionOrder = YellowstonePathology.Business.Persistence.ObjectGatway.Instance.GetByMasterAccessionNo(masterAccessionNo, true);			
+			this.m_AccessionOrder = YellowstonePathology.Business.Persistence.ObjectGateway.Instance.GetByMasterAccessionNo(masterAccessionNo);			
 
             this.m_PanelSetOrderLeukemiaLymphoma = (YellowstonePathology.Business.Test.LLP.PanelSetOrderLeukemiaLymphoma)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
             this.m_ReportNo = reportNo;
@@ -232,7 +232,7 @@ namespace YellowstonePathology.Business.Flow
 
 		public void SetAccess()
 		{
-			if (this.m_AccessionOrder.LockedAquired == true)
+			if (this.m_AccessionOrder.LockAquired == true)
 			{
 				if (this.PanelSetOrderLeukemiaLymphoma.Final == true)
 				{
@@ -327,11 +327,11 @@ namespace YellowstonePathology.Business.Flow
         {
 			if (this.AccessionOrder != null)
             {
-                YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, releaseLock);
+                YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_AccessionOrder, releaseLock);
 
-				//if(this.AccessionOrder.LockedAquired == true)
+				//if(this.AccessionOrder.LockAquired == true)
 				//{
-	                //YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, this, releaseLock);                
+	                //YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_AccessionOrder, this, releaseLock);                
 					//if(releaseLock == true)
 					//{
 					//	 
@@ -410,7 +410,7 @@ namespace YellowstonePathology.Business.Flow
 			get
 			{
 				bool result = false;
-				if (this.m_AccessionOrder != null && this.m_AccessionOrder.LockedAquired == true)
+				if (this.m_AccessionOrder != null && this.m_AccessionOrder.LockAquired == true)
 				{
                     result = true;
 				}

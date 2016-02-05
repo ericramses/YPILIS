@@ -45,7 +45,7 @@ namespace YellowstonePathology.UI
                 if (result == MessageBoxResult.OK)
                 {
                     this.m_TypingShortcutCollection.Remove(typingShortcut);
-                    YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitRootDelete(typingShortcut);                    
+                    YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitRootDelete(typingShortcut);                    
                 }
             }
         }
@@ -71,7 +71,7 @@ namespace YellowstonePathology.UI
         public void ContextMenuTypingShortcutEdit_Click(object sender, RoutedEventArgs args)
         {            
             YellowstonePathology.Business.Typing.TypingShortcut typingShortcut = (YellowstonePathology.Business.Typing.TypingShortcut)this.ListViewTypingShortcut.SelectedItem;
-            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.RefreshTypingShortcut(typingShortcut);
+            YellowstonePathology.Business.Persistence.ObjectGateway.Instance.RefreshTypingShortcut(typingShortcut);
 
             YellowstonePathology.UI.TypingShorcutDialog typingShortcutDialog = new TypingShorcutDialog(typingShortcut, false);
             typingShortcutDialog.WindowStartupLocation = WindowStartupLocation.CenterScreen;

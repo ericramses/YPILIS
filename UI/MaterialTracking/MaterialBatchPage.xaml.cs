@@ -369,8 +369,8 @@ namespace YellowstonePathology.UI.MaterialTracking
 
 		public void Save(bool releaseLock)
 		{
-            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_MaterialTrackingBatch, releaseLock);
-            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_MaterialTrackingLogCollection, releaseLock);            
+            YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_MaterialTrackingBatch, releaseLock);
+            YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_MaterialTrackingLogCollection, releaseLock);            
 		}
 
 		public void UpdateBindingSources()

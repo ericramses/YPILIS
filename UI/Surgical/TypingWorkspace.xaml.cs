@@ -104,7 +104,7 @@ namespace YellowstonePathology.UI.Surgical
         {
             if (this.m_TypingUI.AccessionOrder != null)
             {
-                //YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_TypingUI.AccessionOrder, this.m_TypingUI);
+                //YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_TypingUI.AccessionOrder, this.m_TypingUI);
 
                 YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPath providerDistributionPath =
 					new YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPath(this.m_TypingUI.SurgicalTestOrder.ReportNo, this.m_TypingUI.AccessionOrder,

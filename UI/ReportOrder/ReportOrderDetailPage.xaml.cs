@@ -50,7 +50,7 @@ namespace YellowstonePathology.UI.ReportOrder
 
 		private void Save(bool releaseLock)
 		{
-            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, releaseLock);			
+            YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_AccessionOrder, releaseLock);			
 		}
 
         public string ReportDocumentPath

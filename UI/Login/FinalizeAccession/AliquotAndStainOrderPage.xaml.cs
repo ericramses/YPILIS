@@ -237,7 +237,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 		public void Save(bool releaseLock)
 		{
             this.m_AliquotAndStainOrderView.SetEmbeddingComments();
-            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, false);
+            YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
         }
 
         public bool OkToSaveOnNavigation(Type pageNavigatingTo)
@@ -554,7 +554,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                 this.m_AccessionOrder.SpecimenOrderCollection.SetAliquotRequestCount();
             }
 
-            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, false);
+            YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
             this.m_AliquotAndStainOrderView.Refresh(true, this.m_PanelSetOrder);            
 			this.NotifyPropertyChanged("AliquotAndStainOrderView");
 		}        		
@@ -725,7 +725,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             }
 
             aliquotOrderPrinter.Print();
-            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, false);
+            YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
             this.m_AliquotAndStainOrderView.SetAliquotChecks(false);
 
             this.PrintSelectedSlides();

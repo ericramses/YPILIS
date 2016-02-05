@@ -4,46 +4,48 @@ using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 using System.Xml;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace YellowstonePathology.Business.Gateway
 {
-	public class AccessionOrderBuilder : Domain.Persistence.IBuilder 
-	{
-		private Test.AccessionOrder m_AccessionOrder;        
-
+	public class AccessionOrderBuilder
+	{		        
 		public AccessionOrderBuilder()
 		{
-        
-		}
+            
+		}		
 
-		public Test.AccessionOrder AccessionOrder
+		public void Build(SqlCommand cmd, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{
-			get { return this.m_AccessionOrder; }
-		}
-
-		public void Build(XElement accessionOrderElement)
-		{
-            if (accessionOrderElement != null)
+            XElement document = null;
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.Properties.Settings.Default.CurrentConnectionString))
             {
-                YellowstonePathology.Business.Test.AccessionOrder accessionOrder = new Test.AccessionOrder();
-				YellowstonePathology.Business.Persistence.XmlPropertyWriter xmlPropertyWriter = new YellowstonePathology.Business.Persistence.XmlPropertyWriter(accessionOrderElement, accessionOrder);
+                cn.Open();
+                cmd.Connection = cn;
+                using (XmlReader xmlReader = cmd.ExecuteXmlReader())
+                {
+                    if (xmlReader.Read() == true)
+                    {
+                        document = XElement.Load(xmlReader, LoadOptions.PreserveWhitespace);
+                    }
+                }
+            }
+
+            if (document != null)
+            {                 
+				YellowstonePathology.Business.Persistence.XmlPropertyWriter xmlPropertyWriter = new YellowstonePathology.Business.Persistence.XmlPropertyWriter(document, accessionOrder);
 				xmlPropertyWriter.Write();
 
-                BuildSpecimenOrder(accessionOrder, accessionOrderElement);                
-				BuildTaskOrder(accessionOrder, accessionOrderElement);
-				BuildIcdBillingCode(accessionOrder, accessionOrderElement);
-                BuildPanelSetOrder(accessionOrder, accessionOrderElement);				
-
-                this.m_AccessionOrder = accessionOrder;
-            }
-            else
-            {
-                this.m_AccessionOrder = null;
-            }
+                BuildSpecimenOrder(accessionOrder, document);                
+				BuildTaskOrder(accessionOrder, document);
+				BuildIcdBillingCode(accessionOrder, document);
+                BuildPanelSetOrder(accessionOrder, document);				                
+            }                        
 		}        		
 
 		private void BuildSpecimenOrder(Test.AccessionOrder accessionOrder, XElement accessionOrderElement)
-		{
+		{            
             accessionOrder.SpecimenOrderCollection.IsLoading = true;
 			List<XElement> specimenOrderElements = (from item in accessionOrderElement.Elements("SpecimenOrderCollection")
 													select item).ToList<XElement>();

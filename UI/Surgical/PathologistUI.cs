@@ -172,7 +172,7 @@ namespace YellowstonePathology.UI.Surgical
 
 		public virtual void GetAccessionOrder(string masterAccessionNo, string reportNo)
 		{             
-            this.m_AccessionOrder = YellowstonePathology.Business.Persistence.ObjectGatway.Instance.GetByMasterAccessionNo(masterAccessionNo, true);
+            this.m_AccessionOrder = YellowstonePathology.Business.Persistence.ObjectGateway.Instance.GetByMasterAccessionNo(masterAccessionNo);
              
 			this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 			this.m_Lock.SetLockable(m_AccessionOrder);
@@ -186,7 +186,7 @@ namespace YellowstonePathology.UI.Surgical
 		public virtual void GetAccessionOrderByReportNo(string reportNo)
 		{
             string masterAccessionNo = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetMasterAccessionNoFromReportNo(reportNo);
-            this.m_AccessionOrder = YellowstonePathology.Business.Persistence.ObjectGatway.Instance.GetByMasterAccessionNo(masterAccessionNo, true);
+            this.m_AccessionOrder = YellowstonePathology.Business.Persistence.ObjectGateway.Instance.GetByMasterAccessionNo(masterAccessionNo);
              
             this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 			this.m_AccessionOrder.PanelSetOrderCollection.PathologistTestOrderItemList.Build(this.m_AccessionOrder);
@@ -252,7 +252,7 @@ namespace YellowstonePathology.UI.Surgical
             if (this.m_AccessionOrder != null && this.m_Lock.LockAquired == true)
             {
                 MainWindow.MoveKeyboardFocusNextThenBack();
-                YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, false);
+                YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
             }
         }
 

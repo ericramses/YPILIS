@@ -154,7 +154,7 @@ namespace YellowstonePathology.UI.Test
        
 		public void GetAccessionOrder(string masterAccessionNo, string reportNo)
 		{                         
-            this.m_AccessionOrder = YellowstonePathology.Business.Persistence.ObjectGatway.Instance.GetByMasterAccessionNo(masterAccessionNo, true);
+            this.m_AccessionOrder = YellowstonePathology.Business.Persistence.ObjectGateway.Instance.GetByMasterAccessionNo(masterAccessionNo);
 			this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);             
 
 			this.m_CaseDocumentCollection = new YellowstonePathology.Business.Document.CaseDocumentCollection(this.AccessionOrder, reportNo);
@@ -233,7 +233,7 @@ namespace YellowstonePathology.UI.Test
 		{
 			if (this.m_AccessionOrder != null && this.m_Lock.LockAquired == true)
 			{
-                YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, false);
+                YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
 			}
 		}
 

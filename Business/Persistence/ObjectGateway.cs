@@ -12,25 +12,25 @@ using System.Xml.Linq;
 
 namespace YellowstonePathology.Business.Persistence
 {
-    public class ObjectGatway
+    public class ObjectGateway
     {
-        private static volatile ObjectGatway instance;
+        private static volatile ObjectGateway instance;
         private static object syncRoot = new Object();
 
         public Dictionary<object, object> m_ClonedObjects;
         public Dictionary<object, object> m_Objects;
 
-        static ObjectGatway()
+        static ObjectGateway()
         {
 
         }
-        private ObjectGatway() 
+        private ObjectGateway() 
         {
             this.m_Objects = new Dictionary<object, object>();
             this.m_ClonedObjects = new Dictionary<object, object>();
         }
 
-        public static ObjectGatway Instance
+        public static ObjectGateway Instance
         {
             get
             {
@@ -39,7 +39,7 @@ namespace YellowstonePathology.Business.Persistence
                     lock (syncRoot)
                     {
                         if (instance == null)
-                            instance = new ObjectGatway();
+                            instance = new ObjectGateway();
                     }
                 }
 
@@ -47,80 +47,56 @@ namespace YellowstonePathology.Business.Persistence
             }
         }        
 
-        public YellowstonePathology.Business.Test.AccessionOrder GetByMasterAccessionNo(string masterAccessionNo, bool aquireLock)
-        {
-            YellowstonePathology.Business.Test.AccessionOrder result = null;
-            
-            if (this.m_Objects.ContainsKey(masterAccessionNo) == true)
-            {
-                result = (YellowstonePathology.Business.Test.AccessionOrder)this.m_Objects[masterAccessionNo];
-                if (result.LockedAquired == false)
-                {
-                    this.m_Objects.Remove(masterAccessionNo);
-                    this.m_ClonedObjects.Remove(masterAccessionNo);
-                    result = null;
-                }
-            }
-
-            if (result == null)
-            {                
-                result = this.BuildFromSQL(masterAccessionNo, aquireLock);
-                this.RegisterObject(result);                
-            }            
-
-            return result;
-        }        
-
-        private YellowstonePathology.Business.Test.AccessionOrder BuildFromSQL(string masterAccessionNo, bool aquireLock)
+        public YellowstonePathology.Business.Test.AccessionOrder GetByMasterAccessionNo(string masterAccessionNo)
         {
             YellowstonePathology.Business.User.SystemIdentity systemIdentity = new YellowstonePathology.Business.User.SystemIdentity(YellowstonePathology.Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
-            YellowstonePathology.Business.Gateway.AccessionOrderBuilder accessionOrderBuilder = new YellowstonePathology.Business.Gateway.AccessionOrderBuilder();
-            XElement document = null;
+            YellowstonePathology.Business.Test.AccessionOrder result = null;
 
             SqlCommand cmd = new SqlCommand();
             cmd.CommandText = "AOGWGetByMasterAccessionNo";
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.Add("@MasterAccessionNo", SqlDbType.VarChar).Value = masterAccessionNo;
-            cmd.Parameters.Add("@AquireLock", SqlDbType.Bit).Value = aquireLock;
+            cmd.Parameters.Add("@AquireLock", SqlDbType.Bit).Value = true;
             cmd.Parameters.Add("@LockAquiredById", SqlDbType.VarChar).Value = systemIdentity.User.UserId;
             cmd.Parameters.Add("@LockAquiredByUserName", SqlDbType.VarChar).Value = systemIdentity.User.UserName;
             cmd.Parameters.Add("@LockAquiredByHostName", SqlDbType.VarChar).Value = System.Environment.MachineName;
             cmd.Parameters.Add("@TimeLockAquired", SqlDbType.DateTime).Value = DateTime.Now;
 
-            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.Properties.Settings.Default.CurrentConnectionString))
+            YellowstonePathology.Business.Gateway.AccessionOrderBuilder builder = new YellowstonePathology.Business.Gateway.AccessionOrderBuilder();
+                       
+            if (this.m_Objects.ContainsKey(masterAccessionNo) == true)
             {
-                cn.Open();
-                cmd.Connection = cn;
-                using (XmlReader xmlReader = cmd.ExecuteXmlReader())
-                {
-                    if (xmlReader.Read() == true)
-                    {
-                        document = XElement.Load(xmlReader, LoadOptions.PreserveWhitespace);
-                    }
-                }
+                result = (YellowstonePathology.Business.Test.AccessionOrder)this.m_Objects[masterAccessionNo];
+                builder.Build(cmd, result);
             }
+            else
+            {
+                result = new Test.AccessionOrder();
+                builder.Build(cmd, result);
+                this.RegisterObject(result);
+            }                       
 
-            accessionOrderBuilder.Build(document);
-            return accessionOrderBuilder.AccessionOrder;
-        }
+            return result;
+        }                
 
-        public YellowstonePathology.Business.Persistence.SubmissionResult SubmitChanges(object objectToSubmit, bool releaseLock)
+        public YellowstonePathology.Business.Persistence.SubmissionResult SubmitChanges(object objectToSubmit, bool release)
         {            
             if(objectToSubmit is YellowstonePathology.Business.Test.AccessionOrder)
             {
-                YellowstonePathology.Business.Test.AccessionOrder accessionOrder = (YellowstonePathology.Business.Test.AccessionOrder)objectToSubmit;
-                if (accessionOrder.LockedAquired == true && releaseLock == true)
+                YellowstonePathology.Business.Test.AccessionOrder accessionOrder = (YellowstonePathology.Business.Test.AccessionOrder)objectToSubmit;                
+                if (accessionOrder.LockAquired == true && release == true)
                 {
                     accessionOrder.LockAquiredByHostName = null;
                     accessionOrder.LockAquiredById = null;
                     accessionOrder.LockAquiredByUserName = null;
                     accessionOrder.TimeLockAquired = null;
-                }
+                }                
             }            
 
             YellowstonePathology.Business.Persistence.SqlCommandSubmitter sqlCommandSubmitter = this.GetSqlCommands(objectToSubmit);
-            YellowstonePathology.Business.Persistence.SubmissionResult result = sqlCommandSubmitter.SubmitChanges();            
+            YellowstonePathology.Business.Persistence.SubmissionResult result = sqlCommandSubmitter.SubmitChanges();
 
+            if (release == true) this.Release(objectToSubmit);
             return result;
         }
 
@@ -198,15 +174,15 @@ namespace YellowstonePathology.Business.Persistence
             return result;
         }
 
-        private void Deregister(object objectToDeRegister)
+        public void Release(object objectToRelease)
         {
-            Type objectType = objectToDeRegister.GetType();
+            Type objectType = objectToRelease.GetType();
             PropertyInfo keyProperty = objectType.GetProperties().Where(prop => Attribute.IsDefined(prop, typeof(PersistentPrimaryKeyProperty))).Single();
-            object keyPropertyValue = keyProperty.GetValue(objectToDeRegister, null);
+            object keyPropertyValue = keyProperty.GetValue(objectToRelease, null);
+            this.m_Objects.Remove(keyPropertyValue);
             this.m_ClonedObjects.Remove(keyPropertyValue);
         }        
-
-        //Not tested yet
+        
         public SubmissionResult SubmitRootInsert(object rootObjectToInsert)
         {
             Type objectType = rootObjectToInsert.GetType();
@@ -218,8 +194,7 @@ namespace YellowstonePathology.Business.Persistence
             this.RegisterObject(rootObjectToInsert);
             return result;
         }
-
-        //Not tested yet
+        
         public SubmissionResult SubmitRootDelete(object rootObjectToDelete)
         {
             Type objectType = rootObjectToDelete.GetType();
@@ -431,7 +406,7 @@ namespace YellowstonePathology.Business.Persistence
             return result;
         }
 
-        public YellowstonePathology.Business.ClientOrder.Model.ClientOrder GetClientOrderByClientOrderId(string clientOrderId, bool readOnly)
+        public YellowstonePathology.Business.ClientOrder.Model.ClientOrder GetClientOrderByClientOrderId(string clientOrderId)
         {
             SqlCommand cmd = new SqlCommand();
             cmd.CommandText = "gwGetClientOrderByClientOrderId";
@@ -453,12 +428,8 @@ namespace YellowstonePathology.Business.Persistence
                 builder = new Gateway.ClientOrderBuilder(cmd);
                 Nullable<int> panelSetId = builder.GetPanelSetId();
                 result = YellowstonePathology.Business.ClientOrder.Model.ClientOrderFactory.GetClientOrder(panelSetId);
-                builder.Build(result);
-
-                if(readOnly == false)
-                {
-                    this.RegisterObject(result);
-                }                
+                builder.Build(result);                
+                this.RegisterObject(result);                
             }            
 
             return result;

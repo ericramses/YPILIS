@@ -60,7 +60,7 @@ namespace YellowstonePathology.UI
         {
             if(this.m_IsNewItem == true)
             {
-                YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitRootInsert(this.m_TypingShortcut);
+                YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitRootInsert(this.m_TypingShortcut);
             }
             else
             {
@@ -71,7 +71,7 @@ namespace YellowstonePathology.UI
 
         private void Save(bool releaseLock)
         {
-            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_TypingShortcut, releaseLock);         
+            YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_TypingShortcut, releaseLock);         
         }
     }
 }
