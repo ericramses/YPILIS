@@ -28,9 +28,7 @@ namespace YellowstonePathology.UI.Login
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 		private YellowstonePathology.Business.Domain.OrderCommentLogCollection m_OrderCommentLogCollection;
 		private YellowstonePathology.Business.Domain.CaseNotesKeyCollection m_CaseNotesKeyCollection;
-		private string m_PageHeaderText = "Case Notes";
-
-		YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
+		private string m_PageHeaderText = "Case Notes";		
 
 		public CaseNotesPage(YellowstonePathology.UI.Navigation.PageNavigator pageNavigator, YellowstonePathology.Business.User.SystemIdentity systemIdentity, YellowstonePathology.Business.Domain.CaseNotesKeyCollection caseNotesKeyCollection)
 		{
@@ -68,9 +66,7 @@ namespace YellowstonePathology.UI.Login
 
 		private void FillOrderCommentLog()
 		{
-			this.m_OrderCommentLogCollection = YellowstonePathology.Business.Gateway.OrderCommentGateway.OrderCommentLogCollectionFromCaseNotesKeys(this.m_CaseNotesKeyCollection);
-			this.m_ObjectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-			this.m_ObjectTracker.RegisterObject(this.m_OrderCommentLogCollection);
+			this.m_OrderCommentLogCollection = YellowstonePathology.Business.Gateway.OrderCommentGateway.OrderCommentLogCollectionFromCaseNotesKeys(this.m_CaseNotesKeyCollection);			
 		}
 
 		private void AddComment()
@@ -85,7 +81,8 @@ namespace YellowstonePathology.UI.Login
 				string clientOrderId = this.m_CaseNotesKeyCollection.GetId(YellowstonePathology.Business.Domain.CaseNotesKeyNameEnum.ClientOrderId);
 				this.m_OrderCommentLogCollection.Add(Business.Domain.OrderCommentEnum.ClientOrderAccessioned, this.m_SystemIdentity.User, string.Empty, 0, clientOrderId, string.Empty);
 			}
-			this.Save();
+
+			this.Save(false);
 			this.FillOrderCommentLog();
 			this.NotifyPropertyChanged("OrderCommentLogCollection");
 			this.ShowCaseNoteDetailsPage(this.m_OrderCommentLogCollection[this.m_OrderCommentLogCollection.Count - 1]);
@@ -153,9 +150,9 @@ namespace YellowstonePathology.UI.Login
 			return true;
 		}
 
-		public void Save()
+		public void Save(bool releaseLock)
 		{
-			this.m_ObjectTracker.SubmitChanges(this.m_OrderCommentLogCollection);
+            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_OrderCommentLogCollection, releaseLock);
 		}
 
 		public void UpdateBindingSources()

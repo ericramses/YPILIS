@@ -40,7 +40,7 @@ namespace YellowstonePathology.UI.Cutting
 			DataContext = this;            
 		}
         
-		public void Save()
+		public void Save(bool releaseLock)
 		{
         
 		}

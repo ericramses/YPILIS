@@ -125,7 +125,7 @@ namespace YellowstonePathology.Business.Gateway
 
 		public static YellowstonePathology.Document.Result.Data.PlacentalPathologyQuestionnaireData GetPlacentalPathologyQuestionnaire(string clientOrderId)
 		{
-            YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder = YellowstonePathology.Business.Gateway.ClientOrderGateway.GetClientOrderByClientOrderId(clientOrderId);
+            YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder = YellowstonePathology.Business.Persistence.ObjectGatway.Instance.GetClientOrderByClientOrderId(clientOrderId);
 			XElement clientOrderElement = new XElement("ClientOrder");
 			YellowstonePathology.Business.Persistence.XmlPropertyReader clientOrderPropertyWriter = new Persistence.XmlPropertyReader(clientOrder, clientOrderElement);
 			clientOrderPropertyWriter.Write();

@@ -35,7 +35,7 @@ namespace YellowstonePathology.Business.Client.Model
         private string m_BillingRuleSetId2;
 		private string m_DistributionType;		
 		private bool m_Inactive;
-        private string m_ContactName;        
+        private string m_ContactName;                
 
         public Client()
         {
@@ -176,8 +176,9 @@ namespace YellowstonePathology.Business.Client.Model
 				if (this.m_Telephone != value)
 				{
 					this.m_Telephone = value;
-					this.NotifyPropertyChanged("Telephone");					
-				}
+					this.NotifyPropertyChanged("Telephone");
+                    this.NotifyPropertyChanged("FormattedTelephone");
+                }
 			}
 		}
 
@@ -204,8 +205,9 @@ namespace YellowstonePathology.Business.Client.Model
 				if (this.m_Fax != value)
 				{
 					this.m_Fax = value;
-					this.NotifyPropertyChanged("Fax");					
-				}
+					this.NotifyPropertyChanged("Fax");
+                    this.NotifyPropertyChanged("FormattedFax");
+                }
 			}
 		}
 
@@ -323,13 +325,13 @@ namespace YellowstonePathology.Business.Client.Model
         public string FormattedFax
         {
             get
-            {
+            {                
                 string result = string.Empty;
                 if (string.IsNullOrEmpty(this.m_Fax) == false && this.m_Fax.Length == 10)
                 {
                     result = "(" + m_Fax.Substring(0, 3) + ") " + m_Fax.Substring(3, 3) + "-" + m_Fax.Substring(6, 4);
                 }
-                return result;
+                return result;             
             }
         }
 

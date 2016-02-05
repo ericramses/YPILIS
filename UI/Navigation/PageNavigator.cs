@@ -44,7 +44,7 @@ namespace YellowstonePathology.UI.Navigation
             {
 				if (navigatingFromPage.OkToSaveOnNavigation(navigatingToPage.GetType()) == true)
 				{
-					navigatingFromPage.Save();
+					navigatingFromPage.Save(true);
 				}
             }
 
@@ -92,7 +92,7 @@ namespace YellowstonePathology.UI.Navigation
 
             if (page != null)
             {
-                if (page.OkToSaveOnClose() == true) page.Save();
+                if (page.OkToSaveOnClose() == true) page.Save(true);
             }
         }       
     }

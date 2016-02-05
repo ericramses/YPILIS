@@ -188,7 +188,7 @@ namespace YellowstonePathology.UI.Surgical
             }
         }
 
-        public void Save()
+        public void Save(bool releaseLock)
         {
             
         }

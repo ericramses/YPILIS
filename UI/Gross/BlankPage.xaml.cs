@@ -22,7 +22,7 @@ namespace YellowstonePathology.UI.Gross
 			DataContext = this;
 		}				
 
-		public void Save()
+		public void Save(bool releaseLock)
 		{
             
 		}

@@ -167,7 +167,7 @@ namespace YellowstonePathology.YpiConnect.Client
             this.PasswordBoxPassword.SelectAll();
         }
 
-		public void Save()
+		public void Save(bool releaseLock)
 		{
 
 		}

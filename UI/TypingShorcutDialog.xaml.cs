@@ -20,14 +20,12 @@ namespace YellowstonePathology.UI
     {
         YellowstonePathology.Business.Typing.TypingShortcut m_TypingShortcut;
 		YellowstonePathology.Business.User.SystemUserCollection m_SystemUserCollection;
-        bool m_IsNewItem = false;
-        YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
+        bool m_IsNewItem = false;        
 
-        public TypingShorcutDialog(YellowstonePathology.Business.Typing.TypingShortcut typingShortcut, bool isNewShortcut, YellowstonePathology.Business.Persistence.ObjectTracker objectTracker)
+        public TypingShorcutDialog(YellowstonePathology.Business.Typing.TypingShortcut typingShortcut, bool isNewShortcut)
         {
             this.m_TypingShortcut = typingShortcut;
-            this.m_IsNewItem = isNewShortcut;
-            this.m_ObjectTracker = objectTracker;
+            this.m_IsNewItem = isNewShortcut;            
 
             InitializeComponent();
 
@@ -60,13 +58,20 @@ namespace YellowstonePathology.UI
 
         public void ButtonOk_Click(object sender, RoutedEventArgs args)
         {
-            this.Save();
+            if(this.m_IsNewItem == true)
+            {
+                YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitRootInsert(this.m_TypingShortcut);
+            }
+            else
+            {
+                this.Save(false);
+            }                      
             this.DialogResult = true;
         }
 
-        private void Save()
+        private void Save(bool releaseLock)
         {
-            this.m_ObjectTracker.SubmitChanges(this.m_TypingShortcut);
+            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_TypingShortcut, releaseLock);         
         }
     }
 }

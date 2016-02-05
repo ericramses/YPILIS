@@ -36,7 +36,7 @@ namespace YellowstonePathology.UI.Client
 
         private void ProviderEntry_Closing(object sender, CancelEventArgs e)
         {
-            this.Save();            
+            this.Save(false);            
         }
 
         public void NotifyPropertyChanged(String info)
@@ -67,9 +67,9 @@ namespace YellowstonePathology.UI.Client
             Close();            
 		}        
 
-        private void Save()
+        private void Save(bool releaseLock)
         {
-			YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_ClientGroup, false);
+			YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_ClientGroup, releaseLock);
         }
 
         private void ButtonAddToGroup_Click(object sender, RoutedEventArgs e)

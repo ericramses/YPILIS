@@ -239,10 +239,7 @@ namespace YellowstonePathology.Business.Search
 				{
 					YellowstonePathology.Business.Rules.Surgical.RulesAssignPathologistId rule = YellowstonePathology.Business.Rules.Surgical.RulesAssignPathologistId.Instance;
 
-					YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.ObjectGatway.Instance.GetByMasterAccessionNo(item.MasterAccessionNo, true);
-					YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new Persistence.ObjectTracker();
-					objectTracker.RegisterObject(accessionOrder);
-
+					YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.ObjectGatway.Instance.GetByMasterAccessionNo(item.MasterAccessionNo, true);					
 					YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(item.ReportNo);
 					rule.AccessionOrder = accessionOrder;
 					rule.PanelSetOrder = panelSetOrder;
@@ -250,8 +247,8 @@ namespace YellowstonePathology.Business.Search
 					rule.Run(ruleExecutionStatus);
 
 					if (ruleExecutionStatus.ExecutionHalted == false)
-					{
-						objectTracker.SubmitChanges(accessionOrder);
+					{						
+                        YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(accessionOrder, true);
 					}
 				}
 			}

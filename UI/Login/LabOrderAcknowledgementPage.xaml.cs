@@ -75,16 +75,14 @@ namespace YellowstonePathology.UI.Login
 
             if (this.m_PanelOrderIds.Length > 0)
             {
-                List<YellowstonePathology.Business.Test.PanelOrder> panelOrders = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPanelOrdersToAcknowledge(this.m_PanelOrderIds);
-				YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
+                List<YellowstonePathology.Business.Test.PanelOrder> panelOrders = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPanelOrdersToAcknowledge(this.m_PanelOrderIds);				
                 foreach (YellowstonePathology.Business.Test.PanelOrder panelOrder in panelOrders)
-                {
-                    objectTracker.RegisterObject(panelOrder);
+                {                    
                     panelOrder.Acknowledged = true;
                     panelOrder.AcknowledgedById = acknowledgementId;
                     panelOrder.AcknowledgedDate = acknowledgementDate;
                     panelOrder.AcknowledgedTime = acknowledgementTime;
-                    objectTracker.SubmitChanges(panelOrder);
+                    YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(panelOrder, true);
                 }
 
                 // make the report
@@ -97,22 +95,7 @@ namespace YellowstonePathology.UI.Login
             NotifyPropertyChanged("AcknowledgeOrders");        
 
 			this.CloseForm();
-		}
-
-        /*
-		public void FillOrderToAcknowledgeList(YellowstonePathology.Business.MessageQueues.CommandQueueBase commandQueue)
-		{
-            this.m_OrdersToAcknowledge = new YellowstonePathology.Business.Domain.XElementFromSql();
-
-			string panelOrderIds = YellowstonePathology.Business.Helper.IdStringHelper.GetPanelOrderIdStringFromOrderToAcknowledgeCommand(commandQueue.Commands);
-
-			if (string.IsNullOrEmpty(panelOrderIds) == false)
-			{
-                this.m_OrdersToAcknowledge = YellowstonePathology.Business.Gateway.XmlGateway.GetXmlOrdersToAcknowledge(panelOrderIds.ToString());
-				NotifyPropertyChanged("AcknowledgeOrders");
-			}
-		}
-        */
+		}        
 
 		private void CloseForm()
 		{
@@ -130,7 +113,7 @@ namespace YellowstonePathology.UI.Login
 			this.CloseForm();
 		}
 
-		public void Save()
+		public void Save(bool releaseLock)
 		{
 		}
 

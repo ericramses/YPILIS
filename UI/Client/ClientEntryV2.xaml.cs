@@ -29,10 +29,13 @@ namespace YellowstonePathology.UI.Client
 		private YellowstonePathology.Business.Domain.PhysicianCollection m_PhysicianCollection;
 		private YellowstonePathology.Business.Billing.Model.BillingRuleSetCollection m_BillingRuleSetCollection;
 		private YellowstonePathology.Business.Client.Model.ClientSupplyOrderCollection m_ClientSupplyOrderCollection;
+        private bool m_IsNewClient;
 
-		public ClientEntryV2(YellowstonePathology.Business.Client.Model.Client client)
+		public ClientEntryV2(YellowstonePathology.Business.Client.Model.Client client, bool isNewClient)
 		{
-			this.m_Client = client;			
+			this.m_Client = client;
+            this.m_IsNewClient = isNewClient;
+            	
 			this.m_ClientPhysicianView = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientPhysicianViewByClientIdV2(this.m_Client.ClientId);
 
 			if (this.m_ClientPhysicianView == null)
@@ -59,7 +62,7 @@ namespace YellowstonePathology.UI.Client
 
         private void ClientEntry_Closing(object sender, CancelEventArgs e)
         {
-            this.Save();            
+            this.Save(false);            
         }
 
         public void NotifyPropertyChanged(String info)
@@ -111,9 +114,14 @@ namespace YellowstonePathology.UI.Client
 		}
 
 		private void ButtonOk_Click(object sender, RoutedEventArgs e)
-		{
+		{            
             if(this.CanSave() == true)
             {
+                if(this.m_IsNewClient == true)
+                {
+                    YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitRootInsert(this.m_Client);
+                }
+
 			    Close();
             }
 		}
@@ -124,9 +132,9 @@ namespace YellowstonePathology.UI.Client
             return result;
         }
 
-        private void Save()
+        private void Save(bool releaseLock)
         {
-			YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_Client, false);
+			YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_Client, releaseLock);
         }
 
 		private void ButtonAddToClient_Click(object sender, RoutedEventArgs e)

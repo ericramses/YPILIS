@@ -71,7 +71,7 @@ namespace YellowstonePathology.UI.Cytology
             ));
         }
 
-        public void Save()
+        public void Save(bool releaseLock)
 		{
 
 		}

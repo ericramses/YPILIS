@@ -19,33 +19,6 @@ namespace YellowstonePathology.Business.User
 			cmd.CommandType = System.Data.CommandType.Text;
 			YellowstonePathology.Business.User.SystemUserCollection systemUserCollection = YellowstonePathology.Business.Domain.Persistence.SqlXmlPersistence.CrudOperations.ExecuteCollectionCommand<YellowstonePathology.Business.User.SystemUserCollection>(cmd, YellowstonePathology.Business.Domain.Persistence.DataLocationEnum.ProductionData);
 			return systemUserCollection;
-		}
-
-		public static YellowstonePathology.Business.User.UserPreference GetUserPreference()
-        {
-			string hostName = Environment.MachineName;
-			SqlCommand cmd = new SqlCommand("select * from tblUserPreference where HostName = @HostName");
-            cmd.CommandType = System.Data.CommandType.Text;
-			cmd.Parameters.Add("@HostName", System.Data.SqlDbType.VarChar).Value = hostName;
-			YellowstonePathology.Business.User.UserPreference userPreference = null;            
-
-			using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
-            {
-                cn.Open();
-                cmd.Connection = cn;
-                
-                using (SqlDataReader dr = cmd.ExecuteReader())
-                {
-                    while (dr.Read())
-                    {
-                        userPreference = new UserPreference();
-                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(userPreference, dr);
-                        sqlDataReaderPropertyWriter.WriteProperties();
-                    }
-                }
-            }
-
-            return userPreference;
-        }
+		}		
 	}
 }

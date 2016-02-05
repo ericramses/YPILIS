@@ -185,7 +185,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                     this.m_AccessionOrder.UpdateCaseAssignment(surgicalPanelSetOrder);
                 }
 
-                this.Save();
+                this.Save(false);
                 this.SetDistribution();
             }
         }		
@@ -251,7 +251,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 			return true;
 		}
 
-		public void Save()
+		public void Save(bool releaseLock)
 		{
             YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, false);            
         }
@@ -563,7 +563,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                 testOrderReportDistribution.Distributed = true;
                 testOrderReportDistribution.TimeOfLastDistribution = DateTime.Now;
                 testOrderReportDistribution.ScheduledDistributionTime = null;
-                this.Save();
+                this.Save(false);
             }
         }             
 	}

@@ -77,7 +77,7 @@ namespace YellowstonePathology.UI.Login
 			this.Return(this, args);
 		}
 
-		public void Save()
+		public void Save(bool releaseLock)
 		{
 		}
 

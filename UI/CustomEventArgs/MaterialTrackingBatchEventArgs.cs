@@ -8,8 +8,7 @@ namespace YellowstonePathology.UI.CustomEventArgs
 	public class MaterialTrackingBatchEventArgs
 	{
 		private YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch m_MaterialTrackingBatch;
-		private YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogCollection m_MaterialTrackingLogCollection;
-        private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
+		private YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogCollection m_MaterialTrackingLogCollection;        
 		private YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogViewCollection m_MaterialTrackingLogViewCollection;
 
 		public MaterialTrackingBatchEventArgs(YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch materialTrackingBatch)
@@ -25,12 +24,10 @@ namespace YellowstonePathology.UI.CustomEventArgs
         }
 
 		public MaterialTrackingBatchEventArgs(YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch materialTrackingBatch,
-			YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogCollection materialTrackingLogCollection,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker)
+			YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogCollection materialTrackingLogCollection)
         {
             this.m_MaterialTrackingBatch = materialTrackingBatch;
-            this.m_MaterialTrackingLogCollection = materialTrackingLogCollection;
-            this.m_ObjectTracker = objectTracker;
+            this.m_MaterialTrackingLogCollection = materialTrackingLogCollection;            
         }
 
 		public YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch MaterialTrackingBatch
@@ -46,11 +43,6 @@ namespace YellowstonePathology.UI.CustomEventArgs
 		public YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogViewCollection MaterialTrackingLogViewCollection
         {
             get { return this.m_MaterialTrackingLogViewCollection; }
-        }
-
-        public YellowstonePathology.Business.Persistence.ObjectTracker ObjectTracker
-        {
-            get { return this.m_ObjectTracker; }
-        }
+        }        
 	}
 }

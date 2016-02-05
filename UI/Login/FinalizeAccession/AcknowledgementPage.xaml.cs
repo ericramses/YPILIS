@@ -25,14 +25,11 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 		private string m_PageHeaderText = "Acknowledge Orders";
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
-		private ObservableCollection<YellowstonePathology.Business.Test.PanelOrder> m_PanelOrderCollection;
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;        
+		private ObservableCollection<YellowstonePathology.Business.Test.PanelOrder> m_PanelOrderCollection;		
 
-		public AcknowledgementPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
+		public AcknowledgementPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,			
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
-		{
-			this.m_ObjectTracker = objectTracker;
+		{			
 			this.m_AccessionOrder = accessionOrder;
 			this.m_SystemIdentity = systemIdentity;
             this.m_PanelOrderCollection = this.m_AccessionOrder.PanelSetOrderCollection.GetUnAcknowledgedPanelOrders();
@@ -103,9 +100,9 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 			return true;
 		}
 
-		public void Save()
+		public void Save(bool releaseLock)
 		{
-			this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
+			YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, releaseLock);
 		}
 
 		public void UpdateBindingSources()

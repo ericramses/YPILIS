@@ -137,7 +137,7 @@ namespace YellowstonePathology.UI.Login
             set { this.m_TestEndDate = value; }
         }
 
-        public void Save()
+        public void Save(bool releaseLock)
 		{
 		}
 

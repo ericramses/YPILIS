@@ -253,7 +253,7 @@ namespace YellowstonePathology.UI.Login
             return false;
         }
 
-        public void Save()
+        public void Save(bool releaseLock)
         {
         }
 

@@ -83,7 +83,7 @@ namespace YellowstonePathology.UI.Login.SlidePrinting
 			return true;
 		}
 
-		public void Save()
+		public void Save(bool releaseLock)
 		{
             
 		}

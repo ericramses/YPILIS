@@ -88,7 +88,7 @@ namespace YellowstonePathology.UI.Cytology
 
 		public void Save(object target, ExecutedRoutedEventArgs args)
 		{			
-			this.m_CytologyUI.Save();
+			this.m_CytologyUI.Save(false);
 		}
 
         public void SelectAppropriatePanel()
@@ -268,7 +268,7 @@ namespace YellowstonePathology.UI.Cytology
 
 		public void CloseWorkspace(object target, ExecutedRoutedEventArgs args)
 		{
-			this.m_CytologyUI.Save();
+			this.m_CytologyUI.Save(true);
 			this.m_CytologyUI.ClearLock();
 		}
 

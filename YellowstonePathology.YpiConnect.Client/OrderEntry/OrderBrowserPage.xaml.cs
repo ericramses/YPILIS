@@ -191,7 +191,7 @@ namespace YellowstonePathology.YpiConnect.Client.OrderEntry
 			ApplicationNavigator.ApplicationContentFrame.NavigationService.Navigate(shippingPage);
 		}
 
-		public void Save()
+		public void Save(bool releaseLock)
 		{
 
 		}

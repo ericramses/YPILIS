@@ -156,7 +156,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 
         private void ItemsReceivedPage_Next(object sender, EventArgs e)
         {
-            this.m_ClientOrderReceivingHandler.Save();
+            this.m_ClientOrderReceivingHandler.Save(false);
             this.StartReviewClientOrderPath();
         }
 
@@ -216,7 +216,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 
         private void ClientOrderDetailsPage_SaveClientOrderDetail(object sender, EventArgs e)
         {
-            this.m_ClientOrderReceivingHandler.Save();
+            this.m_ClientOrderReceivingHandler.Save(false);
         }        
 
         private void ClientOrderDetailsPage_Back(object sender, EventArgs e)

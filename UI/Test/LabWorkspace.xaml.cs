@@ -103,7 +103,7 @@ namespace YellowstonePathology.UI.Test
         
         public void CloseWorkspace(object target, ExecutedRoutedEventArgs args)
         {                        
-            this.Save();
+            this.Save(false);
             
             if (this.m_LabUI != null && m_LabUI.AccessionOrder != null && m_LabUI.PanelSetOrder != null)
 			{
@@ -124,7 +124,7 @@ namespace YellowstonePathology.UI.Test
 
         public void LabWorkspace_Unloaded(object sender, RoutedEventArgs e)
         {
-            this.Save();
+            this.Save(true);
             this.m_SystemIdentity.UserChanged -= this.UserChangedHandler;						
 			this.m_BarcodeScanPort.ClientScanReceived -= this.ClientScanReceived;
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath -= MainWindowCommandButtonHandler_StartProviderDistributionPath;
@@ -140,7 +140,7 @@ namespace YellowstonePathology.UI.Test
 
         private void ShowOrderForm(object target, ExecutedRoutedEventArgs args)
         {
-			this.Save();
+			this.Save(false);
 			YellowstonePathology.UI.Common.OrderDialog frm = new YellowstonePathology.UI.Common.OrderDialog(this.m_LabUI.AccessionOrder, this.m_LabUI.PanelSetOrder, this.m_SystemIdentity);			
             frm.ShowDialog();
 			this.GetAccessionOrder();			
@@ -152,7 +152,7 @@ namespace YellowstonePathology.UI.Test
             {
                 if (this.m_SystemIdentity.IsKnown == true)
                 {
-                    this.Save();
+                    this.Save(false);
 					YellowstonePathology.UI.Common.OrderDialog dlg = new YellowstonePathology.UI.Common.OrderDialog(this.m_LabUI.AccessionOrder, this.m_LabUI.PanelSetOrder, this.m_SystemIdentity);
                     dlg.ShowDialog();
 
@@ -210,7 +210,7 @@ namespace YellowstonePathology.UI.Test
 		
 		public void AlterAccessionLock(object target, ExecutedRoutedEventArgs args)
         {
-			this.Save();
+			this.Save(false);
 			if (this.ListViewCaseList.SelectedItem != null)
             {
 				YellowstonePathology.Business.Search.ReportSearchItem item = (YellowstonePathology.Business.Search.ReportSearchItem)this.ListViewCaseList.SelectedItem;
@@ -266,15 +266,15 @@ namespace YellowstonePathology.UI.Test
 			}
 		}        
 
-        public void Save()
+        public void Save(bool releaseLock)
         {
             ((MainWindow)Application.Current.MainWindow).MoveKeyboardInputToNext();
-			this.m_LabUI.Save();
+			this.m_LabUI.Save(releaseLock);
         }
 
         public void SaveData(object target, ExecutedRoutedEventArgs args)
         {
-            this.Save();
+            this.Save(false);
             MessageBox.Show("The Lab Workspace has been saved.");
         }
 
@@ -325,7 +325,7 @@ namespace YellowstonePathology.UI.Test
 
 		public void GetCase(string masterAccessionNo, string reportNo)
         {
-            this.Save();
+            this.Save(true);
 
 			this.m_LabUI.GetAccessionOrder(masterAccessionNo, reportNo);			
 
@@ -361,7 +361,7 @@ namespace YellowstonePathology.UI.Test
 
         public void ButtonGo_Click(object sender, RoutedEventArgs args)
         {
-			this.m_LabUI.Save();
+			this.m_LabUI.Save(true);
             this.m_LabUI.FillCaseList();
             SetListViewToTop();
         }
@@ -380,14 +380,14 @@ namespace YellowstonePathology.UI.Test
 					dialog.ShowDialog();
 					return;
 				}
-				this.Save();
+				this.Save(false);
 				this.m_LabUI.FillCaseList();
 			}            
         }
 
         public void ButtonAccessionLock_Click(object sender, RoutedEventArgs args)
         {
-            this.Save();
+            this.Save(false);
 			if (this.m_LabUI.PanelSetOrder != null && this.m_LabUI.PanelSetOrder.ReportNo != null)
             {
 				this.m_LabUI.Lock.ToggleLockingMode();
@@ -396,7 +396,7 @@ namespace YellowstonePathology.UI.Test
 
         public void MenuItemAcceptResults_Click(object sender, RoutedEventArgs args)
         {
-			this.Save();
+			this.Save(false);
             Control menuItem = (Control)sender;
             YellowstonePathology.Business.Test.PanelOrder panelOrder = (YellowstonePathology.Business.Test.PanelOrder)menuItem.Tag;
             YellowstonePathology.Business.Rules.RuleExecutionStatus ruleExecutionStatus = new YellowstonePathology.Business.Rules.RuleExecutionStatus();
@@ -408,7 +408,7 @@ namespace YellowstonePathology.UI.Test
                 ruleExecutionStatusDialog.ShowDialog();
             }
 
-            this.m_LabUI.Save();
+            this.m_LabUI.Save(false);
 			this.m_LabUI.GetAccessionOrder(this.m_LabUI.PanelSetOrder.MasterAccessionNo, this.m_LabUI.PanelSetOrder.ReportNo);
 		}
 
@@ -421,7 +421,7 @@ namespace YellowstonePathology.UI.Test
 				if (result == MessageBoxResult.No) return;
 			}
 
-			this.Save();
+			this.Save(false);
 			Control menuItem = (Control)sender;
 			string panelOrderItemId = ((YellowstonePathology.Business.Test.PanelOrder)menuItem.Tag).PanelOrderId;
 			YellowstonePathology.Business.Test.PanelOrder panelOrder = (from pso in this.m_LabUI.AccessionOrder.PanelSetOrderCollection
@@ -444,7 +444,7 @@ namespace YellowstonePathology.UI.Test
 																				where po.PanelOrderId == ((YellowstonePathology.Business.Test.PanelOrder)menuItem.Tag).PanelOrderId
 																				select po).Single<YellowstonePathology.Business.Test.PanelOrder>();
 			panelOrder.MarkAsUnassigned();
-			this.m_LabUI.Save();
+			this.m_LabUI.Save(false);
 			this.GetAccessionOrder();
 		}        
 
@@ -463,7 +463,7 @@ namespace YellowstonePathology.UI.Test
 
 		public void MenuItemRefreshDocumentList_Click(object sender, RoutedEventArgs args)
 		{
-			this.Save();			
+			this.Save(false);			
 			this.m_LabUI.RefreshCaseDocumentCollection();
 			this.ListViewDocumentList.ItemsSource = this.m_LabUI.CaseDocumentCollection;
 		}        
@@ -693,7 +693,7 @@ namespace YellowstonePathology.UI.Test
 
 		private void ButtonScan_Click(object sender, RoutedEventArgs e)
 		{
-			this.Save();            
+			this.Save(false);            
 			this.ButtonAcceptAliquotDetails.Focus();
 		}		
 
@@ -861,7 +861,7 @@ namespace YellowstonePathology.UI.Test
                     if (dialog.ShowDialog() == true)
                     {
 						this.m_LabUI.PanelSetOrder.AssignedToId = dialog.SelectedPathologistUser.UserId;                        
-						this.m_LabUI.Save();
+						this.m_LabUI.Save(false);
                     }
                 }
                 else

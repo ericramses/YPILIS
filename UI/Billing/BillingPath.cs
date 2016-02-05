@@ -20,12 +20,7 @@ namespace YellowstonePathology.UI.Billing
         {            
             this.m_ReportSearchList = reportSearchList;
             this.m_SystemIdentity = systemIdentity;            
-        }       
-
-        private void GetAccessionOrder(string masterAccessionNo)
-        {
-			this.m_AccessionOrder = YellowstonePathology.Business.Persistence.ObjectGatway.Instance.GetByMasterAccessionNo(masterAccessionNo, true);
-		}
+        }               
 
         public void Start()
         {
@@ -40,7 +35,7 @@ namespace YellowstonePathology.UI.Billing
                     this.m_BillingWindowPrimary.PageNavigator.ShowSecondMonitorWindow(this.m_BillingWindowSecondary);
                 }
 
-				this.GetAccessionOrder(this.m_ReportSearchList.CurrentReportSearchItem.MasterAccessionNo);
+                this.m_AccessionOrder = YellowstonePathology.Business.Persistence.ObjectGatway.Instance.GetByMasterAccessionNo(this.m_ReportSearchList.CurrentReportSearchItem.MasterAccessionNo, true);                
 				this.ShowBillingPage(this.m_AccessionOrder);                
 			}
         }        
@@ -217,8 +212,7 @@ namespace YellowstonePathology.UI.Billing
             this.m_ReportSearchList.MoveBack();
             if (this.m_ReportSearchList.BeginningOfList == false)
             {
-				if (this.m_TifDocumentViewer != null) this.m_TifDocumentViewer.Close();
-				this.GetAccessionOrder(this.m_ReportSearchList.CurrentReportSearchItem.ReportNo);
+				if (this.m_TifDocumentViewer != null) this.m_TifDocumentViewer.Close();				
 				this.ShowBillingPage(this.m_AccessionOrder);
 			}
             else
@@ -232,8 +226,7 @@ namespace YellowstonePathology.UI.Billing
             this.m_ReportSearchList.MoveNext();
             if (this.m_ReportSearchList.EndOfList == false)
             {
-				if (this.m_TifDocumentViewer != null) this.m_TifDocumentViewer.Close();
-				this.GetAccessionOrder(this.m_ReportSearchList.CurrentReportSearchItem.ReportNo);
+				if (this.m_TifDocumentViewer != null) this.m_TifDocumentViewer.Close();				
 				this.ShowBillingPage(this.m_AccessionOrder);
 			}
             else

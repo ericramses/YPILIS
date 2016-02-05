@@ -54,9 +54,9 @@ namespace YellowstonePathology.UI.Gross
             get { return this.m_TestOrderCollection; }
         }
 
-		public void Save()
+		public void Save(bool releaseLock)
 		{
-            //this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);	
+            
 		}
 
 		public bool OkToSaveOnNavigation(Type pageNavigatingTo)

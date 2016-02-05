@@ -16,23 +16,18 @@ namespace YellowstonePathology.Business.Persistence
     {
         private static volatile ObjectGatway instance;
         private static object syncRoot = new Object();
-<<<<<<< HEAD
-        
-        public Dictionary<object, object> m_RegisteredObjects;
-        private Dictionary<object, object> m_RegisteredRootInserts;
-        private Dictionary<object, object> m_RegisteredRootDeletes;
-=======
 
-        private Dictionary<object, object> m_RegisteredObjects;
->>>>>>> 58b6eb80a0e5613196f3bdac0259c8b78ec6b873
+        public Dictionary<object, object> m_ClonedObjects;
+        public Dictionary<object, object> m_Objects;
 
         static ObjectGatway()
         {
 
         }
         private ObjectGatway() 
-        {            
-            this.m_RegisteredObjects = new Dictionary<object, object>();
+        {
+            this.m_Objects = new Dictionary<object, object>();
+            this.m_ClonedObjects = new Dictionary<object, object>();
         }
 
         public static ObjectGatway Instance
@@ -56,12 +51,13 @@ namespace YellowstonePathology.Business.Persistence
         {
             YellowstonePathology.Business.Test.AccessionOrder result = null;
             
-            if (this.m_RegisteredObjects.ContainsKey(masterAccessionNo) == true)
+            if (this.m_Objects.ContainsKey(masterAccessionNo) == true)
             {
-                result = (YellowstonePathology.Business.Test.AccessionOrder)this.m_RegisteredObjects[masterAccessionNo];
+                result = (YellowstonePathology.Business.Test.AccessionOrder)this.m_Objects[masterAccessionNo];
                 if (result.LockedAquired == false)
                 {
-                    this.m_RegisteredObjects.Remove(masterAccessionNo);
+                    this.m_Objects.Remove(masterAccessionNo);
+                    this.m_ClonedObjects.Remove(masterAccessionNo);
                     result = null;
                 }
             }
@@ -123,11 +119,12 @@ namespace YellowstonePathology.Business.Persistence
             }            
 
             YellowstonePathology.Business.Persistence.SqlCommandSubmitter sqlCommandSubmitter = this.GetSqlCommands(objectToSubmit);
-            YellowstonePathology.Business.Persistence.SubmissionResult result = sqlCommandSubmitter.SubmitChanges();
+            YellowstonePathology.Business.Persistence.SubmissionResult result = sqlCommandSubmitter.SubmitChanges();            
+
             return result;
         }
 
-        public void RegisterObject(object objectToRegister)
+        private void RegisterObject(object objectToRegister)
         {			
 			ObjectCloner objectCloner = new ObjectCloner();
 			object clonedObject = objectCloner.Clone(objectToRegister);
@@ -138,21 +135,22 @@ namespace YellowstonePathology.Business.Persistence
 
 			if (this.IsOkToRegister(objectToRegister, objectType, keyPropertyValue) == true)
 			{
-				this.m_RegisteredObjects.Add(keyPropertyValue, clonedObject);
-			}			
-		}		
+				this.m_ClonedObjects.Add(keyPropertyValue, clonedObject);
+                this.m_Objects.Add(keyPropertyValue, objectToRegister);
+			}            
+        }		
 
         private bool IsOkToRegister(object objectToRegister, Type objectType, object keyPropertyValue)
         {
             bool result = false;            
 
-            if (this.m_RegisteredObjects.ContainsKey(keyPropertyValue) == false)
+            if (this.m_ClonedObjects.ContainsKey(keyPropertyValue) == false)
             {
                 result = true;
             }
-            else if (this.m_RegisteredObjects.ContainsKey(keyPropertyValue) == true)
+            else if (this.m_ClonedObjects.ContainsKey(keyPropertyValue) == true)
             {
-                object currentlyRegisteredObjectWithSameKey = this.m_RegisteredObjects[keyPropertyValue];
+                object currentlyRegisteredObjectWithSameKey = this.m_ClonedObjects[keyPropertyValue];
                 Type currentlyRegisteredObjectWithSameKeyType = currentlyRegisteredObjectWithSameKey.GetType();
 				if (objectType.Name != currentlyRegisteredObjectWithSameKeyType.Name)
 				{
@@ -174,22 +172,38 @@ namespace YellowstonePathology.Business.Persistence
             Type objectType = objectToCheck.GetType();
             PropertyInfo keyProperty = objectType.GetProperties().Where(prop => Attribute.IsDefined(prop, typeof(PersistentPrimaryKeyProperty))).Single();
             object keyPropertyValue = keyProperty.GetValue(objectToCheck, null);
-            result = this.m_RegisteredObjects.ContainsKey(keyPropertyValue);            
+            result = this.m_ClonedObjects.ContainsKey(keyPropertyValue);            
 
             return result;
         }
-        
+
+        private bool IsRegistered(object objectKey, Type objectType)
+        {
+            bool result = false;            
+
+            foreach(object o in this.m_Objects)
+            {                
+                if (o.GetType().Name == objectType.Name)
+                {
+                    PropertyInfo keyProperty = objectType.GetProperties().Where(prop => Attribute.IsDefined(prop, typeof(PersistentPrimaryKeyProperty))).Single();
+                    object keyPropertyValue = keyProperty.GetValue(o, null);
+                    if(keyPropertyValue == objectKey)
+                    {
+                        result = true;
+                        break;
+                    }
+                }
+            }
+
+            return result;
+        }
+
         private void Deregister(object objectToDeRegister)
         {
             Type objectType = objectToDeRegister.GetType();
             PropertyInfo keyProperty = objectType.GetProperties().Where(prop => Attribute.IsDefined(prop, typeof(PersistentPrimaryKeyProperty))).Single();
             object keyPropertyValue = keyProperty.GetValue(objectToDeRegister, null);
-
-            this.m_RegisteredObjects.Remove(keyPropertyValue);
-<<<<<<< HEAD
-            this.m_RegisteredRootDeletes.Remove(keyPropertyValue);            
-=======
->>>>>>> 58b6eb80a0e5613196f3bdac0259c8b78ec6b873
+            this.m_ClonedObjects.Remove(keyPropertyValue);
         }        
 
         //Not tested yet
@@ -201,6 +215,7 @@ namespace YellowstonePathology.Business.Persistence
             PropertyInfo keyProperty = objectType.GetProperties().Where(prop => Attribute.IsDefined(prop, typeof(PersistentPrimaryKeyProperty))).Single();
             object keyPropertyValue = keyProperty.GetValue(rootObjectToInsert, null);
             SubmissionResult result = this.HandleRootInsertSubmission(rootObjectToInsert, keyPropertyValue, objectSubmitter);
+            this.RegisterObject(rootObjectToInsert);
             return result;
         }
 
@@ -267,11 +282,14 @@ namespace YellowstonePathology.Business.Persistence
             object keyPropertyValue = keyProperty.GetValue(objectToSubmit, null);
 
             object registeredObject = null;
-            if (this.m_RegisteredObjects.TryGetValue(keyPropertyValue, out registeredObject) == true)
+            if (this.m_ClonedObjects.TryGetValue(keyPropertyValue, out registeredObject) == true)
             {
-                this.m_RegisteredObjects.Remove(keyPropertyValue);
+                this.m_ClonedObjects.Remove(keyPropertyValue);
                 this.HandleUpdateSubmission(objectToSubmit, registeredObject, keyPropertyValue, objectSubmitter);
-                this.RegisterObject(objectToSubmit);
+
+                ObjectCloner objectCloner = new ObjectCloner();
+                object clonedObject = objectCloner.Clone(objectToSubmit);
+                this.m_ClonedObjects.Add(keyPropertyValue, clonedObject);
             }            
             else
             {
@@ -279,5 +297,164 @@ namespace YellowstonePathology.Business.Persistence
             }
             return objectSubmitter;
         }
-	}
+
+        public void RefreshTypingShortcut(YellowstonePathology.Business.Typing.TypingShortcut typingShortcut)
+        {
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "select * From tblTypingShortcut where ShortcutId = @ShortcutId";
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.Add("@ShortcutId", SqlDbType.Int).Value = typingShortcut.ShortcutId;           
+
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.BaseData.SqlConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {                        
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(typingShortcut, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();                        
+                    }
+                }
+            }            
+
+            if(this.IsRegistered(typingShortcut) == false)
+            {
+                this.RegisterObject(typingShortcut);
+            }
+        }
+
+        public void RefreshClient(YellowstonePathology.Business.Client.Model.Client client)
+        {
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "select * From tblClient where ClientId = @ClientId";
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.Add("@ClientId", SqlDbType.Int).Value = client.ClientId;
+
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.BaseData.SqlConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(client, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                    }
+                }
+            }
+
+            if (this.IsRegistered(client) == false)
+            {
+                this.RegisterObject(client);
+            }
+        }
+
+        public void RefreshPhysician(YellowstonePathology.Business.Domain.Physician physician)
+        {
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "select * From tblPhysician where PhysicianId = @PhysicianId";
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.Add("@PhysicianId", SqlDbType.Int).Value = physician.PhysicianId;
+
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.BaseData.SqlConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(physician, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                    }
+                }
+            }
+
+            if (this.IsRegistered(physician) == false)
+            {
+                this.RegisterObject(physician);
+            }
+        }
+
+        public YellowstonePathology.Business.User.UserPreference GetUserPreference()
+        {
+            string hostName = Environment.MachineName;
+            SqlCommand cmd = new SqlCommand("Select * from tblUserPreference where HostName = @HostName");
+            cmd.CommandType = System.Data.CommandType.Text;
+            cmd.Parameters.Add("@HostName", System.Data.SqlDbType.VarChar).Value = hostName;
+            YellowstonePathology.Business.User.UserPreference userPreference = null;
+
+            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        userPreference = new User.UserPreference();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(userPreference, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        this.RegisterObject(userPreference);
+                    }
+                }
+            }
+
+            return userPreference;
+        }
+
+        public YellowstonePathology.Business.ApplicationVersion GetApplicationVersion()
+        {
+            YellowstonePathology.Business.ApplicationVersion result = new ApplicationVersion();
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "Select * from tblApplicationVersion";
+            cmd.CommandType = CommandType.Text;
+            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(result, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        this.RegisterObject(result);
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        public YellowstonePathology.Business.ClientOrder.Model.ClientOrder GetClientOrderByClientOrderId(string clientOrderId)
+        {
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "gwGetClientOrderByClientOrderId";
+
+            SqlParameter clientOrderIdParameter = new SqlParameter("@ClientOrderId", SqlDbType.VarChar, 100);
+            clientOrderIdParameter.Value = clientOrderId;
+            cmd.Parameters.Add(clientOrderIdParameter);
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+            YellowstonePathology.Business.ClientOrder.Model.ClientOrder result = null;
+            if (this.IsRegistered(clientOrderId, typeof(YellowstonePathology.Business.ClientOrder.Model.ClientOrder)))
+            {
+                result = (YellowstonePathology.Business.ClientOrder.Model.ClientOrder)this.m_Objects[clientOrderId];
+                YellowstonePathology.Business.Gateway.ClientOrderBuilder.Build(result, cmd);
+            }
+            else
+            {
+                result = new ClientOrder.Model.ClientOrder();
+                YellowstonePathology.Business.Gateway.ClientOrderBuilder.Build(result, cmd);
+                this.RegisterObject(result);
+            }            
+
+            return result;
+        }        
+    }
 }

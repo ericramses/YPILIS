@@ -243,7 +243,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 			return true;
 		}
 
-		public void Save()
+		public void Save(bool releaseLock)
 		{
             YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, false);
         }
@@ -397,7 +397,7 @@ namespace YellowstonePathology.UI.Login.Receiving
                 if (specimenOrder.AliquotOrderCollection.Count == 0)
                 {
                     this.m_AccessionOrder.SpecimenOrderCollection.Remove(specimenOrder);
-                    this.Save();
+                    this.Save(false);
                 }
                 else
                 {

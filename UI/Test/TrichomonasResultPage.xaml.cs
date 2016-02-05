@@ -96,7 +96,7 @@ namespace YellowstonePathology.UI.Test
 			return true;
 		}
 
-		public void Save()
+		public void Save(bool releaseLock)
 		{
             YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, false);
         }
@@ -108,7 +108,7 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
 		{
-			this.Save();
+			this.Save(false);
 			YellowstonePathology.Business.Test.Trichomonas.TrichomonasWordDocument report = new YellowstonePathology.Business.Test.Trichomonas.TrichomonasWordDocument();
 			report.Render(this.m_AccessionOrder.MasterAccessionNo, this.m_ReportOrderTrichomonas.ReportNo, Business.Document.ReportSaveModeEnum.Draft);
 

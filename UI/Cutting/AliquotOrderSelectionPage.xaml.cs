@@ -60,7 +60,7 @@ namespace YellowstonePathology.UI.Cutting
             this.Back(this, new YellowstonePathology.UI.CustomEventArgs.MasterAccessionNoReturnEventArgs(this.m_AccessionOrder.MasterAccessionNo));
         }  
 
-		public void Save()
+		public void Save(bool releaseLock)
 		{
 
 		}

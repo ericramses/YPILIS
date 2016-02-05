@@ -169,7 +169,7 @@ namespace YellowstonePathology.UI.Cytology
             IInputElement focusedElement = Keyboard.FocusedElement;
             FrameworkElement element = (FrameworkElement)focusedElement;
             element.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));      
-            this.m_CytologyUI.Save();
+            this.m_CytologyUI.Save(false);
         }       
 
         public void StartProviderDistributionPath(object target, ExecutedRoutedEventArgs args)
@@ -216,7 +216,7 @@ namespace YellowstonePathology.UI.Cytology
 
 		public void CloseWorkspace(object target, ExecutedRoutedEventArgs args)
 		{
-			this.m_CytologyUI.Save();
+			this.m_CytologyUI.Save(true);
 			this.m_CytologyUI.ClearLock();            
         }
 

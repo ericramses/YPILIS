@@ -219,14 +219,13 @@ namespace YellowstonePathology.UI
             {                
                 YellowstonePathology.Business.Test.PantherAliquotListItem pantherAliquotListItem = (YellowstonePathology.Business.Test.PantherAliquotListItem)this.ListViewPantherAliquots.SelectedItem;
                 YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.ObjectGatway.Instance.GetByMasterAccessionNo(pantherAliquotListItem.MasterAccessionNo, true);
-                YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new Business.Persistence.ObjectTracker();
-                objectTracker.RegisterObject(accessionOrder);
+
                 if (accessionOrder.SpecimenOrderCollection.HasPantherAliquot() == true)
                 {
                     YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = accessionOrder.SpecimenOrderCollection.GetPantherAliquot();
                     aliquotOrder.Validated = true;
                     aliquotOrder.ValidationDate = DateTime.Now;
-                    objectTracker.SubmitChanges(accessionOrder);                    
+                    YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(accessionOrder, true);
                 }
 
                 this.m_PantherAliquotList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPantherOrdersNotAliquoted();
@@ -314,7 +313,7 @@ namespace YellowstonePathology.UI
             {
                 YellowstonePathology.Business.Test.PantherOrderListItem pantherOrderListItem = (YellowstonePathology.Business.Test.PantherOrderListItem)this.ListViewWHPOrders.SelectedItem;
                 YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.ObjectGatway.Instance.GetByMasterAccessionNo(pantherOrderListItem.MasterAccessionNo, true);
-                YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder = YellowstonePathology.Business.Gateway.ClientOrderGateway.GetClientOrderByClientOrderId(accessionOrder.ClientOrderId);
+                YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder = YellowstonePathology.Business.Persistence.ObjectGatway.Instance.GetClientOrderByClientOrderId(accessionOrder.ClientOrderId);
 
                 YellowstonePathology.Business.User.SystemIdentity systemIdentity = new Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
                 this.m_LoginPageWindow = new Login.LoginPageWindow(systemIdentity);
@@ -383,15 +382,13 @@ namespace YellowstonePathology.UI
                 YellowstonePathology.Business.Audit.Model.ShouldWomensHealthProfileBeFinaledAudit shouldAudit = new Business.Audit.Model.ShouldWomensHealthProfileBeFinaledAudit(accessionOrder);
                 shouldAudit.Run();
                 if (shouldAudit.Message.ToString() == isWHPAllDoneAuditCollection.Message)
-                {
-                    YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(accessionOrder, this);
+                {                    
                     YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder womensHealthProfileTestOrder = (Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
                     YellowstonePathology.Business.ReportDistribution.Model.MultiTestDistributionHandler multiTestDistributionHandler = YellowstonePathology.Business.ReportDistribution.Model.MultiTestDistributionHandlerFactory.GetHandler(accessionOrder);
                     multiTestDistributionHandler.Set();
                     YellowstonePathology.Business.User.SystemUser user = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetSystemUserById(5134);
                     womensHealthProfileTestOrder.Finalize(user);
-                    YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(accessionOrder, this);
-                     
+                    YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(accessionOrder, false);                     
                 }
             }
         }

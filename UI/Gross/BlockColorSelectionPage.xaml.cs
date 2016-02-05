@@ -23,15 +23,13 @@ namespace YellowstonePathology.UI.Gross
 		public event NextEventHandler Next;
 
 		private YellowstonePathology.Business.Specimen.Model.SpecimenOrder m_SpecimenOrder;
-		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-        private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
+		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;        
         private YellowstonePathology.Business.Common.PrintMate m_PrintMate;
 
-		public BlockColorSelectionPage(YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder, YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Persistence.ObjectTracker objectTracker)
+		public BlockColorSelectionPage(YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{
             this.m_SpecimenOrder = specimenOrder;
-			this.m_AccessionOrder = accessionOrder;
-            this.m_ObjectTracker = objectTracker;
+			this.m_AccessionOrder = accessionOrder;            
 
             this.m_PrintMate = new Business.Common.PrintMate();
 
@@ -56,9 +54,9 @@ namespace YellowstonePathology.UI.Gross
 			}
 		}		
 
-		public void Save()
-		{
-            this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);	
+		public void Save(bool releaseLock)
+		{            
+            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, releaseLock);	
 		}
 
 		public bool OkToSaveOnNavigation(Type pageNavigatingTo)

@@ -7,7 +7,7 @@ namespace YellowstonePathology.Business.Interface
 {
 	public interface IPersistPageChanges
 	{
-		void Save();
+		void Save(bool releaseLock);
 		bool OkToSaveOnNavigation(Type pageNavigatingTo);
 		bool OkToSaveOnClose();        
 		void UpdateBindingSources();

@@ -247,7 +247,7 @@ namespace YellowstonePathology.UI.Surgical
 			}
 		}
 
-		public void Save()
+		public void Save(bool releaseLock)
 		{            
             if (this.m_AccessionOrder != null && this.m_Lock.LockAquired == true)
             {
@@ -258,7 +258,7 @@ namespace YellowstonePathology.UI.Surgical
 
 		public void ShowAmendmentDialog()
 		{
-			this.Save();
+			this.Save(false);
             YellowstonePathology.UI.AmendmentPageController amendmentPageController = new AmendmentPageController(this.m_AccessionOrder,
 				this.m_PanelSetOrder, this.m_SystemIdentity);
 			amendmentPageController.ShowDialog();
@@ -418,7 +418,7 @@ namespace YellowstonePathology.UI.Surgical
         public void DeleteAmendment(YellowstonePathology.Business.Amendment.Model.Amendment amendment)
 		{
 			this.m_PanelSetOrder.DeleteAmendment(amendment.AmendmentId);
-			this.Save();
+			this.Save(false);
 			this.RunPathologistEnableRules();
 		}
 
@@ -427,7 +427,7 @@ namespace YellowstonePathology.UI.Surgical
             YellowstonePathology.Business.Amendment.Model.Amendment amendment = this.PanelSetOrder.AddAmendment();
 			amendment.UserId = this.m_PanelSetOrder.AssignedToId;
 
-			this.Save();
+			this.Save(false);
 			this.RunWorkspaceEnableRules();
 			this.RunPathologistEnableRules();
 		}        
@@ -443,7 +443,7 @@ namespace YellowstonePathology.UI.Surgical
 				ruleExecutionStatusDialog.ShowDialog();
 			}
 
-			this.Save();
+			this.Save(false);
 			this.CheckEnabled();
 			this.HandleAdditionalFinalRequirements();
 		}

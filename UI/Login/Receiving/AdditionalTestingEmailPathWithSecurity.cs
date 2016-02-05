@@ -6,8 +6,7 @@ using System.Text;
 namespace YellowstonePathology.UI.Login.Receiving
 {
     public class AdditionalTestingEmailPathWithSecurity
-    {
-        private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
+    {        
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
         private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
@@ -18,8 +17,7 @@ namespace YellowstonePathology.UI.Login.Receiving
         public AdditionalTestingEmailPathWithSecurity(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder)
         {
             this.m_AccessionOrder = accessionOrder;
-            this.m_PanelSetOrder = panelSetOrder;
-            this.m_ObjectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
+            this.m_PanelSetOrder = panelSetOrder;            
         }
 
         public void Start()
@@ -64,8 +62,7 @@ namespace YellowstonePathology.UI.Login.Receiving
         {
             CaseLockPage caseLockPage = (CaseLockPage)sender;
             if (caseLockPage.Lock.LockAquired == true)
-            {
-                this.m_ObjectTracker.RegisterObject(this.m_AccessionOrder);
+            {                
                 AdditionalTestingEMailPage additionalTestingEMailPage = new AdditionalTestingEMailPage(this.m_PanelSetOrder, this.m_AccessionOrder, this.m_SystemIdentity);
                 additionalTestingEMailPage.Next += AdditionalTestingEMailPage_Finished;
                 additionalTestingEMailPage.Back += AdditionalTestingEMailPage_Finished;

@@ -35,7 +35,7 @@ namespace YellowstonePathology.UI.Test
 
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.ObjectGatway.Instance.GetByMasterAccessionNo(e.AccessionOrder.MasterAccessionNo, true);
             YellowstonePathology.Business.Test.TestCancelled.TestCancelledTestOrder testCancelledTestOrder = (YellowstonePathology.Business.Test.TestCancelled.TestCancelledTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(e.PanelSetOrder.ReportNo);
-            YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(accessionOrder, this);
+            
             testCancelledTestOrder.Distribute = false;
             testCancelledTestOrder.NoCharge = true;
             testCancelledTestOrder.Comment = e.ReasonForCancelation;
@@ -57,8 +57,7 @@ namespace YellowstonePathology.UI.Test
 		}
 
         private void ResultPage_Next(object sender, EventArgs e)
-        {
-             
+        {             
             this.Finished();
         }        
 	}

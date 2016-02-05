@@ -62,7 +62,7 @@ namespace YellowstonePathology.YpiConnect.Contract.Identity
             m_Instance.WebServiceAccount = blankWebServiceAccount;                    
         }                
 
-		public void Save()
+		public void Save(bool releaseLock)
 		{						
 			if (this.m_WebServiceAccount.EnableSaveSettings)
 			{

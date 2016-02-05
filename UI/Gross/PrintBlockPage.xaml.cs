@@ -43,8 +43,7 @@ namespace YellowstonePathology.UI.Gross
 		System.Windows.Threading.DispatcherTimer m_ListBoxBlocksMouseDownTimer;
 
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
-		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-        private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
+		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;        
 		private YellowstonePathology.Business.View.GrossBlockManagementView m_GrossBlockManagementView;
 		private XElement m_CaseNotesDocument;
 		private YellowstonePathology.Business.Document.CaseDocumentCollection m_CaseDocumentCollection;
@@ -64,13 +63,11 @@ namespace YellowstonePathology.UI.Gross
 		private YellowstonePathology.Business.Specimen.Model.SpecimenOrder m_SpecimenOrder;
 
 		public PrintBlockPage(YellowstonePathology.Business.User.SystemIdentity systemIdentity,
-			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-            YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
+			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,            
 			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder)
 		{			
 			this.m_SystemIdentity = systemIdentity;
-			this.m_AccessionOrder = accessionOrder;            
-            this.m_ObjectTracker = objectTracker;
+			this.m_AccessionOrder = accessionOrder;                        
             
             this.m_SpecimenOrder = specimenOrder;
 
@@ -194,9 +191,7 @@ namespace YellowstonePathology.UI.Gross
 					string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
 					YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog materialTrackingLog = new Business.MaterialTracking.Model.MaterialTrackingLog(objectId, barcode.ID, null, thisFacility.FacilityId, thisFacility.FacilityName,
                         thisLocation.LocationId, thisLocation.Description, this.m_SystemIdentity.User.UserId, this.m_SystemIdentity.User.UserName, "Block Scanned", "Block Scanned At Gross", "Aliquot", this.m_AccessionOrder.MasterAccessionNo, aliquotOrder.Label, aliquotOrder.ClientAccessioned);
-					YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-					objectTracker.RegisterRootInsert(materialTrackingLog);
-					objectTracker.SubmitChanges(materialTrackingLog);					
+                    YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitRootInsert(materialTrackingLog);					
 
                     this.m_SpecimenOrder.AliquotOrderCollection.ValidateBlock(barcode.ID, this.m_SystemIdentity.User.UserId);
 					this.GrossBlockManagementView = new Business.View.GrossBlockManagementView(this.m_AccessionOrder, this.m_CaseNotesDocument, this.m_SpecimenOrder);
@@ -208,7 +203,7 @@ namespace YellowstonePathology.UI.Gross
                         this.Next(this, specimenOrderReturnEventArgs);
 					}
 
-					this.Save();
+					this.Save(false);
 				}
 				else
 				{
@@ -312,16 +307,7 @@ namespace YellowstonePathology.UI.Gross
 		}
 
 		private void PrintBlocks()
-		{
-            /*
-			YellowstonePathology.Business.Common.BlockCollection blockCollection = new Business.Common.BlockCollection();
-			string patientInitials = YellowstonePathology.Business.Helper.PatientHelper.GetPatientInitials(this.m_AccessionOrder.PFirstName, this.m_AccessionOrder.PLastName);            
-			YellowstonePathology.Business.Test.AliquotOrderCollection blocksToPrintCollection = this.m_SpecimenOrder.AliquotOrderCollection.GetUnPrintedBlocks();
-			blockCollection.FromAliquotOrderItemCollection(blocksToPrintCollection, this.m_ReportNoToUse, patientInitials, this.m_AccessionOrder.PrintMateColumnNumber, true);
-			YellowstonePathology.Business.Common.PrintMate.Print(blockCollection);
-			blocksToPrintCollection.SetPrinted();
-            */
-
+		{            
             YellowstonePathology.Business.Test.AliquotOrderCollection blocksToPrintCollection = this.m_SpecimenOrder.AliquotOrderCollection.GetUnPrintedBlocks();
             YellowstonePathology.Business.Label.Model.CassettePrinter cassettePrinter = new Business.Label.Model.CassettePrinter(blocksToPrintCollection, this.m_AccessionOrder);
             if (cassettePrinter.HasItemsToPrint() == true)
@@ -329,7 +315,7 @@ namespace YellowstonePathology.UI.Gross
                 cassettePrinter.Print();
             }
 
-            this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
+            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, false);
 			this.GrossBlockManagementView = new Business.View.GrossBlockManagementView(this.m_AccessionOrder, this.m_CaseNotesDocument, this.m_SpecimenOrder);
 		}
 
@@ -341,7 +327,7 @@ namespace YellowstonePathology.UI.Gross
 				this.GrossBlockManagementView = new Business.View.GrossBlockManagementView(this.m_AccessionOrder, this.m_CaseNotesDocument, this.m_SpecimenOrder);
 				this.SetupSpecimenView();
 				this.PrintBlocks();
-				this.Save();
+				this.Save(false);
 			}			
 		}
 
@@ -353,7 +339,7 @@ namespace YellowstonePathology.UI.Gross
 				this.GrossBlockManagementView = new Business.View.GrossBlockManagementView(this.m_AccessionOrder, this.m_CaseNotesDocument, this.m_SpecimenOrder);
 				this.SetupSpecimenView();
 				this.PrintBlocks();
-				this.Save();
+				this.Save(false);
 			}			
 		}
 
@@ -365,7 +351,7 @@ namespace YellowstonePathology.UI.Gross
 				this.GrossBlockManagementView = new Business.View.GrossBlockManagementView(this.m_AccessionOrder, this.m_CaseNotesDocument, this.m_SpecimenOrder);
 				this.SetupSpecimenView();
 				this.PrintBlocks();
-				this.Save();
+				this.Save(false);
 			}			
 		}
 
@@ -408,9 +394,9 @@ namespace YellowstonePathology.UI.Gross
             this.Next(this, specimenOrderReturnEventArgs);
 		}
 
-		public void Save()
+		public void Save(bool releaseLock)
 		{
-            this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
+            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, releaseLock);
 		}
 
 		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
@@ -509,7 +495,7 @@ namespace YellowstonePathology.UI.Gross
 
 		private void ButtonDelete_Click(object sender, RoutedEventArgs e)
 		{
-			this.Save();						
+			this.Save(false);						
             YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = this.m_SpecimenOrder.AliquotOrderCollection.GetLastBlock();
 
 			if (aliquotOrder != null)

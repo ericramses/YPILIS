@@ -62,9 +62,9 @@ namespace YellowstonePathology.UI.Gross
             get { return this.m_DictationTemplate; }
         }
 
-        public void Save()
+        public void Save(bool releaseLock)
         {
-            //this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);	
+            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, releaseLock);	
         }
 
         public bool OkToSaveOnNavigation(Type pageNavigatingTo)

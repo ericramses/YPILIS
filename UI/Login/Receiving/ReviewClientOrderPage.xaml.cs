@@ -36,8 +36,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 		private YellowstonePathology.Business.Rules.Surgical.PatientRecentAccessions m_PatientRecentAccessions;
 		private string m_PageHeaderText = "Review Client Order Page";
-		private UI.Navigation.PageNavigator m_PageNavigator;
-        private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
+		private UI.Navigation.PageNavigator m_PageNavigator;        
 		private YellowstonePathology.Business.Domain.Physician m_Physician;
 
         private Visibility m_CloseButtonVisibility;
@@ -46,14 +45,12 @@ namespace YellowstonePathology.UI.Login.Receiving
 		public ReviewClientOrderPage(YellowstonePathology.Business.Rules.Surgical.PatientRecentAccessions patientRecentAccessions,
 			YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity,
-			UI.Navigation.PageNavigator pageNavigator,
-            YellowstonePathology.Business.Persistence.ObjectTracker objectTracker)
+			UI.Navigation.PageNavigator pageNavigator)
 		{
 			this.m_PatientRecentAccessions = patientRecentAccessions;
 			this.m_ClientOrder = clientOrder;            
 			this.m_SystemIdentity = systemIdentity;
-			this.m_PageNavigator = pageNavigator;
-            this.m_ObjectTracker = objectTracker;
+			this.m_PageNavigator = pageNavigator;            
 
 			InitializeComponent();
 
@@ -204,9 +201,9 @@ namespace YellowstonePathology.UI.Login.Receiving
 			return true;
 		}
 
-		public void Save()
+		public void Save(bool releaseLock)
 		{
-            this.m_ObjectTracker.SubmitChanges(this.m_ClientOrder);
+            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_ClientOrder, releaseLock);            
 		}
 
 		public void UpdateBindingSources()

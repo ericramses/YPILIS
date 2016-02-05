@@ -74,7 +74,7 @@ namespace YellowstonePathology.UI
         public void ButtonOk_Click(object sender, RoutedEventArgs args)
         {
             this.DialogResult = true;
-            this.Save();            
+            this.Save(false);            
             this.Close();
         }
 
@@ -84,9 +84,9 @@ namespace YellowstonePathology.UI
             this.Close();
         }
 
-        private void Save()
+        private void Save(bool releaseLock)
         {
-            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, false);
+            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, true);
         }
 
         public void ButtonFinalize_Click(object sender, RoutedEventArgs args)
@@ -110,7 +110,7 @@ namespace YellowstonePathology.UI
                     if (canFinal == true)
                     {
                         this.m_Amendment.Finalize(systemUser);
-                        this.Save();
+                        this.Save(false);
                     }
                 }
                 else

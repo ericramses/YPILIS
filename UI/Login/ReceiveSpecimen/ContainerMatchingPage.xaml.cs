@@ -25,8 +25,7 @@ namespace YellowstonePathology.UI.Login.ReceiveSpecimen
 
 		public delegate void ReturnEventHandler(object sender, UI.Navigation.PageNavigationReturnEventArgs e);
 		public event ReturnEventHandler Return;
-
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
+		
 		private YellowstonePathology.UI.Navigation.PageNavigator m_PageNavigator;
 		private YellowstonePathology.Business.ClientOrder.Model.ClientOrderDetail m_ClientOrderDetail;
 		private YellowstonePathology.Business.ClientOrder.Model.ClientOrderMedia m_ClientOrderMedia;
@@ -37,8 +36,7 @@ namespace YellowstonePathology.UI.Login.ReceiveSpecimen
 			YellowstonePathology.Business.ClientOrder.Model.ClientOrderDetail clientOrderDetail)
 		{
 			this.m_PageNavigator = pageNavigator;
-            this.m_FixationTypeCollection = YellowstonePathology.Business.Specimen.Model.FixationType.GetFixationTypeCollection();
-			this.m_ObjectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
+            this.m_FixationTypeCollection = YellowstonePathology.Business.Specimen.Model.FixationType.GetFixationTypeCollection();			
 
             if (string.IsNullOrEmpty(clientOrderDetail.SpecimenNumberMatchStatus) == true)
             {
@@ -238,7 +236,7 @@ namespace YellowstonePathology.UI.Login.ReceiveSpecimen
 			return false;
 		}
 
-		public void Save()
+		public void Save(bool releaseLock)
 		{
             
 		}

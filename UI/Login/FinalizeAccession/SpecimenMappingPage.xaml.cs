@@ -194,7 +194,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 			return true;
 		}
 
-		public void Save()
+		public void Save(bool releaseLock)
 		{
             YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, false);
         }
@@ -256,11 +256,9 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
         private void ButtonUpdateTrackingLog_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogCollection materialTrackingLogCollection = YellowstonePathology.Business.Gateway.SlideAccessionGateway.GetMaterialTrackingLogCollectionByMasterAccessionNo(this.m_AccessionOrder.MasterAccessionNo);
-            YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new Business.Persistence.ObjectTracker();
-            objectTracker.RegisterObject(materialTrackingLogCollection);
+            YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogCollection materialTrackingLogCollection = YellowstonePathology.Business.Gateway.SlideAccessionGateway.GetMaterialTrackingLogCollectionByMasterAccessionNo(this.m_AccessionOrder.MasterAccessionNo);            
             materialTrackingLogCollection.UpdateClientAccessioned(this.m_AccessionOrder.SpecimenOrderCollection);
-            objectTracker.SubmitChanges(materialTrackingLogCollection);
+            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(materialTrackingLogCollection, false);            
         }
 	}
 }

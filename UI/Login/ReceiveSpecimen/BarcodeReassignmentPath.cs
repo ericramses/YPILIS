@@ -121,17 +121,13 @@ namespace YellowstonePathology.UI.Login.ReceiveSpecimen
 						
 			if (accessionOrder != null)
 			{
-				YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = accessionOrder.SpecimenOrderCollection.GetSpecimenOrderByContainerId(this.m_ClientOrderDetail.ContainerId);
-				YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-				objectTracker.RegisterObject(specimenOrder);
+				YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = accessionOrder.SpecimenOrderCollection.GetSpecimenOrderByContainerId(this.m_ClientOrderDetail.ContainerId);								
 				specimenOrder.ContainerId = containerId;
-				objectTracker.SubmitChanges(specimenOrder);
+                YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(specimenOrder, false);				
 			}
-
-			YellowstonePathology.Business.Persistence.ObjectTracker tracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-			tracker.RegisterObject(this.m_ClientOrderDetail);
+						
 			this.m_ClientOrderDetail.ContainerId = containerId;
-			tracker.SubmitChanges(this.m_ClientOrderDetail);
+            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_ClientOrderDetail, false);           
 
 			ClientOrderPage clientOrderPage = new ClientOrderPage(this.m_ClientOrder);
 			clientOrderPage.Return += new Login.ClientOrderPage.ReturnEventHandler(ClientOrderPageConfirm_Return);

@@ -41,7 +41,7 @@ namespace YellowstonePathology.UI.Login
             base.Clear();
         }        
 
-        public void Save()
+        public void Save(bool releaseLock)
         {
 			
         }               

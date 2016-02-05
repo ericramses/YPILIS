@@ -141,7 +141,7 @@ namespace YellowstonePathology.UI.Billing
 			return true;
 		}
 
-		public void Save()
+		public void Save(bool releaseLock)
 		{
             YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, false);
 		}
@@ -186,12 +186,9 @@ namespace YellowstonePathology.UI.Billing
             if (this.ListViewPanelSetOrderCPTCodeBill.SelectedItems.Count != 0)
             {
                 for (int i = this.ListViewPanelSetOrderCPTCodeBill.SelectedItems.Count - 1; i >= 0; i--)
-                {
-                    YellowstonePathology.Business.Test.AccessionOrder ao = (YellowstonePathology.Business.Test.AccessionOrder)YellowstonePathology.Business.Persistence.ObjectGatway.Instance.m_RegisteredObjects["16-2260"];
-                    MessageBox.Show(ao.PanelSetOrderCollection[0].PanelSetOrderCPTCodeBillCollection.Count.ToString());
+                {                    
                     YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill = (YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill)this.ListViewPanelSetOrderCPTCodeBill.SelectedItems[i];
-                    this.m_PanelSetOrderCPTCodeBillCollection.Remove(panelSetOrderCPTCodeBill);
-                    MessageBox.Show(ao.PanelSetOrderCollection[0].PanelSetOrderCPTCodeBillCollection.Count.ToString());
+                    this.m_PanelSetOrderCPTCodeBillCollection.Remove(panelSetOrderCPTCodeBill);                 
                 }
             }
         }        

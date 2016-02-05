@@ -7,8 +7,7 @@ namespace YellowstonePathology.UI.Test
 {
 	public class InvasiveBreastPanelPath : ResultPath
 	{
-		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-        private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
+		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;        
 		private string m_ReportNo;
 
 		private InvasiveBreastPanelPage m_InvasiveBreastPanelPage;
@@ -43,10 +42,7 @@ namespace YellowstonePathology.UI.Test
 		}
 
 		private void StartReportOrderPath(YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet)
-		{
-            this.m_ObjectTracker = new Business.Persistence.ObjectTracker();
-            this.m_ObjectTracker.RegisterObject(this.m_AccessionOrder);
-
+		{            
 			YellowstonePathology.Business.Interface.IOrderTarget orderTarget = this.m_AccessionOrder.SpecimenOrderCollection.GetOrderTarget(this.m_InvasiveBreastPanel.OrderedOnId);
             YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new YellowstonePathology.Business.Test.TestOrderInfo(panelSet, orderTarget, true);
 
@@ -57,7 +53,7 @@ namespace YellowstonePathology.UI.Test
 
 		private void ReportOrderPath_Finish(object sender, EventArgs e)
 		{
-            this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
+            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, true);
 			this.m_PageNavigator.Navigate(this.m_InvasiveBreastPanelPage);
 		}
 	}

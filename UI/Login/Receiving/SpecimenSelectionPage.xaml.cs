@@ -65,7 +65,7 @@ namespace YellowstonePathology.UI.Login.Receiving
             return true;
         }
 
-        public void Save()
+        public void Save(bool releaseLock)
         {
             
         }

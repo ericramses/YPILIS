@@ -133,7 +133,7 @@ namespace YellowstonePathology.UI.Login
 			return true;
 		}
 
-		public void Save()
+		public void Save(bool releaseLock)
 		{
                         
 		}

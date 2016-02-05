@@ -87,9 +87,7 @@ namespace YellowstonePathology.Business.Task.Model
 			YellowstonePathology.Business.Rules.MethodResult result = new Rules.MethodResult();
 			YellowstonePathology.Business.Task.Model.TaskCytologySlideDisposal task = new TaskCytologySlideDisposal();
 			DateTime actionDate = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetNewestDailyTaskOrderTaskDate(task.TaskId);
-			YellowstonePathology.Business.Task.Model.TaskOrderCollection taskOrderCollection = new YellowstonePathology.Business.Task.Model.TaskOrderCollection();
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new Persistence.ObjectTracker();
-			objectTracker.RegisterObject(taskOrderCollection);
+			YellowstonePathology.Business.Task.Model.TaskOrderCollection taskOrderCollection = new YellowstonePathology.Business.Task.Model.TaskOrderCollection();			
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity = new Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
 
 			DateTime finalDate = actionDate.AddDays(days);
@@ -103,7 +101,7 @@ namespace YellowstonePathology.Business.Task.Model
 				actionDate = actionDate.AddDays(1);
 			}
 
-			objectTracker.SubmitChanges(taskOrderCollection);
+            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(taskOrderCollection, false);			
 			actionDate = actionDate.AddDays(-1);
 			result.Message = "Daily Task Order Cytology Slide Disposal have been added through " + actionDate.ToString("MM/dd/yyyy");
 			return result;
@@ -114,9 +112,7 @@ namespace YellowstonePathology.Business.Task.Model
 			YellowstonePathology.Business.Rules.MethodResult result = new Rules.MethodResult();
 			YellowstonePathology.Business.Task.Model.TaskSurgicalSpecimenDisposal task = new TaskSurgicalSpecimenDisposal();
 			DateTime actionDate = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetNewestDailyTaskOrderTaskDate(task.TaskId);
-			YellowstonePathology.Business.Task.Model.TaskOrderCollection taskOrderCollection = new YellowstonePathology.Business.Task.Model.TaskOrderCollection();
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new Persistence.ObjectTracker();
-			objectTracker.RegisterObject(taskOrderCollection);
+			YellowstonePathology.Business.Task.Model.TaskOrderCollection taskOrderCollection = new YellowstonePathology.Business.Task.Model.TaskOrderCollection();					
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity = new Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
 
 			DateTime finalDate = actionDate.AddDays(days);
@@ -130,7 +126,7 @@ namespace YellowstonePathology.Business.Task.Model
 				actionDate = actionDate.AddDays(1);
 			}
 
-			objectTracker.SubmitChanges(taskOrderCollection);
+            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(taskOrderCollection, true);			
 			actionDate = actionDate.AddDays(-1);
 			result.Message = "Daily Task Order Surgical Specimen Disposal have been added through " + actionDate.ToString("MM/dd/yyyy");
 			return result;
@@ -141,9 +137,7 @@ namespace YellowstonePathology.Business.Task.Model
 			YellowstonePathology.Business.Rules.MethodResult result = new Rules.MethodResult();
 			YellowstonePathology.Business.Task.Model.TaskPOCReport task = new TaskPOCReport();
 			DateTime actionDate = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetNewestWeeklyTaskOrderTaskDate(task.TaskId);
-			YellowstonePathology.Business.Task.Model.TaskOrderCollection taskOrderCollection = new YellowstonePathology.Business.Task.Model.TaskOrderCollection();
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new Persistence.ObjectTracker();
-			objectTracker.RegisterObject(taskOrderCollection);
+			YellowstonePathology.Business.Task.Model.TaskOrderCollection taskOrderCollection = new YellowstonePathology.Business.Task.Model.TaskOrderCollection();			
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity = new Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
 
 			DateTime finalDate = actionDate.AddDays(weeks * 7);
@@ -158,8 +152,8 @@ namespace YellowstonePathology.Business.Task.Model
 				actionDate = actionDate.AddDays(7);
 			}
 
-			objectTracker.SubmitChanges(taskOrderCollection);
-			actionDate = actionDate.AddDays(-7);
+            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(taskOrderCollection, true);
+            actionDate = actionDate.AddDays(-7);
 			result.Message = "Daily Task Order POC Report have been added through " + actionDate.ToString("MM/dd/yyyy");
 			return result;
 		}

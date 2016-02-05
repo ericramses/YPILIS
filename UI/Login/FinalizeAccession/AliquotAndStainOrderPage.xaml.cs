@@ -234,7 +234,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             Window.GetWindow(this).Close();			
 		}
 
-		public void Save()
+		public void Save(bool releaseLock)
 		{
             this.m_AliquotAndStainOrderView.SetEmbeddingComments();
             YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, false);
@@ -611,7 +611,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 				}
 			}
 
-            this.Save();						
+            this.Save(false);						
 		}
 
 		private void OrderTestOnSelectedAliquots(YellowstonePathology.Business.Test.Model.Test test, bool orderedAsDual)
@@ -710,7 +710,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
         private void ButtonPrintLabels_Click(object sender, RoutedEventArgs e)
         {
-            this.Save();
+            this.Save(false);
 
             YellowstonePathology.Business.Test.AliquotOrderCollection selectedAliquots = this.m_AliquotAndStainOrderView.GetSelectedAliquots();
             YellowstonePathology.Business.Label.Model.AliquotOrderPrinter aliquotOrderPrinter = new Business.Label.Model.AliquotOrderPrinter(selectedAliquots, this.m_AccessionOrder);

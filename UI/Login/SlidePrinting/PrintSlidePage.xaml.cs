@@ -28,16 +28,13 @@ namespace YellowstonePathology.UI.Login.SlidePrinting
 
         string m_ContainerId;
         YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-		YellowstonePathology.Business.Specimen.Model.SpecimenOrder m_SpecimenOrder;
-        YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
+		YellowstonePathology.Business.Specimen.Model.SpecimenOrder m_SpecimenOrder;        
 
         public PrintSlidePage(string containerId, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{
             this.m_ContainerId = containerId;
             this.m_AccessionOrder = accessionOrder;
-            this.m_SpecimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByContainerId(this.m_ContainerId);
-			this.m_ObjectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-            this.m_ObjectTracker.RegisterObject(this.m_AccessionOrder);
+            this.m_SpecimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByContainerId(this.m_ContainerId);			            
 
 			InitializeComponent();
 			DataContext = this;            
@@ -73,7 +70,7 @@ namespace YellowstonePathology.UI.Login.SlidePrinting
 			return true;
 		}
 
-		public void Save()
+		public void Save(bool releaseLock)
 		{
             
 		}

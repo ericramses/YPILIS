@@ -121,7 +121,7 @@ namespace YellowstonePathology.UI.Gross
             //this.UseThisContainer(this, containerReturnEventArgs);				
 		}
 
-		public void Save()
+		public void Save(bool releaseLock)
 		{
 
 		}

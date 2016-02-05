@@ -13,7 +13,33 @@ using System.IO;
 namespace YellowstonePathology.Business.Gateway
 {
 	public class AccessionOrderGateway
-	{        
+	{
+        public static YellowstonePathology.Business.Typing.TypingShortcutCollection GetTypingShortcutCollectionByUser(int userId)
+        {
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "select * From tblTypingShortcut where UserId = @UserId or Type = 'Global' order by Shortcut";
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.Add("@UserId", SqlDbType.Int).Value = userId;
+
+            YellowstonePathology.Business.Typing.TypingShortcutCollection typingShorcutCollection = new Typing.TypingShortcutCollection();
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.BaseData.SqlConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        YellowstonePathology.Business.Typing.TypingShortcut typingShortcut = new Typing.TypingShortcut();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(typingShortcut, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();                        
+                        typingShorcutCollection.Add(typingShortcut);
+                    }
+                }
+            }
+            return typingShorcutCollection;
+        }
+
         public static string GetMasterAccessionNoFromReportNo(string reportNo)
         {
             string result = null;
@@ -550,37 +576,7 @@ namespace YellowstonePathology.Business.Gateway
 			}
 			return hostCollection;
 #endif
-		}
-
-		public static YellowstonePathology.Business.Typing.TypingShortcutCollection GetTypingShortcutCollectionByUser(int userId)
-		{
-#if MONGO
-			return AccessionOrderGatewayMongo.GetTypingShortcutCollectionByUser(userId);
-#else
-			SqlCommand cmd = new SqlCommand();
-			cmd.CommandText = "select * From tblTypingShortcut where UserId = @UserId or Type = 'Global' order by Shortcut";
-			cmd.CommandType = CommandType.Text;
-			cmd.Parameters.Add("@UserId", SqlDbType.Int).Value = userId;
-
-			YellowstonePathology.Business.Typing.TypingShortcutCollection typingShorcutCollection = new Typing.TypingShortcutCollection();
-			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.BaseData.SqlConnectionString))
-			{
-				cn.Open();
-				cmd.Connection = cn;
-				using (SqlDataReader dr = cmd.ExecuteReader())
-				{
-					while (dr.Read())
-					{
-						YellowstonePathology.Business.Typing.TypingShortcut typingShortcut = new Typing.TypingShortcut();
-						YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(typingShortcut, dr);
-						sqlDataReaderPropertyWriter.WriteProperties();
-						typingShorcutCollection.Add(typingShortcut);
-					}
-				}
-			}
-			return typingShorcutCollection;
-#endif
-		}
+		}		
 
 		public static string GetNextMasterAccessionNo()
 		{
@@ -2221,29 +2217,7 @@ namespace YellowstonePathology.Business.Gateway
 			}
 
 			return result;
-		}
-
-		public static YellowstonePathology.Business.ApplicationVersion GetApplicationVersion()
-		{
-			YellowstonePathology.Business.ApplicationVersion result = new ApplicationVersion();
-			SqlCommand cmd = new SqlCommand();
-			cmd.CommandText = "Select * from tblApplicationVersion";
-			cmd.CommandType = CommandType.Text;
-			using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
-			{
-				cn.Open();
-				cmd.Connection = cn;
-				using (SqlDataReader dr = cmd.ExecuteReader())
-				{
-					while (dr.Read())
-					{
-						YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(result, dr);
-						sqlDataReaderPropertyWriter.WriteProperties();
-					}
-				}
-			}
-			return result;
-		}
+		}		
 
 		public static YellowstonePathology.Business.Test.Model.StainTest GetStainTestByTestId(int testId)
 		{

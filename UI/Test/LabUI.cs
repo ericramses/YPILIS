@@ -229,7 +229,7 @@ namespace YellowstonePathology.UI.Test
 			get { return this.m_PanelSetCaseTypeCollection; }
 		}             
 
-		public void Save()
+		public void Save(bool releaseLock)
 		{
 			if (this.m_AccessionOrder != null && this.m_Lock.LockAquired == true)
 			{

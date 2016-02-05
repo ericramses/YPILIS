@@ -3781,10 +3781,6 @@
       <Project>{0B68C6D2-6418-4ECD-95D5-93DD6F8E1782}</Project>
       <Name>DomainPersistence</Name>
     </ProjectReference>
-    <ProjectReference Include="..\YellowstonePathology.YpiConnect.Service\YellowstonePathology.YpiConnect.Service.csproj">
-      <Project>{7F3B40B5-CB0B-4AC0-A2B0-CCCFF9247484}</Project>
-      <Name>YellowstonePathology.YpiConnect.Service</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\LeftArrow.gif" />

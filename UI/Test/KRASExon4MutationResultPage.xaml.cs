@@ -96,7 +96,7 @@ namespace YellowstonePathology.UI.Test
 			return true;
 		}
 
-		public void Save()
+		public void Save(bool releaseLock)
 		{
             YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, false);
         }
@@ -122,7 +122,7 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
 		{
-			this.Save();
+			this.Save(false);
 			YellowstonePathology.Business.Test.KRASExon4Mutation.KRASExon4MutationWordDocument report = new Business.Test.KRASExon4Mutation.KRASExon4MutationWordDocument();
 			report.Render(this.m_AccessionOrder.MasterAccessionNo, this.m_KRASExon4MutationTestOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft);
 

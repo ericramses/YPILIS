@@ -40,7 +40,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 
 		private void ShowReviewClientOrderPage(YellowstonePathology.Business.Rules.Surgical.PatientRecentAccessions patientRecentAccessions)
         {
-			ReviewClientOrderPage reviewClientOrderPage = new ReviewClientOrderPage(patientRecentAccessions, this.m_ClientOrderReceivingHandler.ClientOrder, this.m_ClientOrderReceivingHandler.SystemIdentity, this.m_PageNavigator, this.m_ClientOrderReceivingHandler.ObjectTracker);
+			ReviewClientOrderPage reviewClientOrderPage = new ReviewClientOrderPage(patientRecentAccessions, this.m_ClientOrderReceivingHandler.ClientOrder, this.m_ClientOrderReceivingHandler.SystemIdentity, this.m_PageNavigator);
 			reviewClientOrderPage.Back += new ReviewClientOrderPage.BackEventHandler(ReviewClientOrderPage_Back);
 			reviewClientOrderPage.ViewAccessionOrder += new ReviewClientOrderPage.ViewAccessionOrderEventHandler(ReviewClientOrderPage_ViewAccessionOrder);
 			reviewClientOrderPage.CreateNewAccessionOrder += new ReviewClientOrderPage.CreateNewAccessionEventHandler(ReviewClientOrderPage_CreateNewAccessionOrder);
@@ -136,13 +136,13 @@ namespace YellowstonePathology.UI.Login.Receiving
                 }
             }
 
-            this.m_ClientOrderReceivingHandler.Save();
+            this.m_ClientOrderReceivingHandler.Save(false);
             this.StartAccessionOrderPath();
         }
 
 		private void StartAccessionOrderPath()
 		{
-            this.m_ClientOrderReceivingHandler.Save();
+            this.m_ClientOrderReceivingHandler.Save(false);
 			AccessionOrderPath accessionOrderPath = new AccessionOrderPath(this.m_ClientOrderReceivingHandler, this.m_PageNavigator, PageNavigationModeEnum.Inline);
 			accessionOrderPath.Back += new AccessionOrderPath.BackEventHandler(AccessionOrderPath_Back);
 			accessionOrderPath.Return += new AccessionOrderPath.ReturnEventHandler(AccessionOrderPath_Return);

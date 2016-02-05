@@ -58,7 +58,7 @@ namespace YellowstonePathology.UI.Surgical
              
         }
 
-        public void Save()
+        public void Save(bool releaseLock)
         {
             YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, false);
         }

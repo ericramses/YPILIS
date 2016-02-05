@@ -24,8 +24,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 		public event PropertyChangedEventHandler PropertyChanged;
 		public delegate void ReturnEventHandler(object sender, UI.Navigation.PageNavigationReturnEventArgs e);
 		public event ReturnEventHandler Return;
-
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
+		
 		private string m_PageHeaderText = "Fixation Details Page";
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		private ObservableCollection<string> m_FixationTypeCollection;		
@@ -33,10 +32,8 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
         private ObservableCollection<string> m_TimeToFixationTypeCollection;
         
 
-		public FixationDetailsPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker)
-		{
-			this.m_ObjectTracker = objectTracker;
+		public FixationDetailsPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
+		{			
 			this.m_AccessionOrder = accessionOrder;
 
             this.m_ProcessorRunCollection = Business.Surgical.ProcessorRunCollection.GetAll(true);
@@ -108,9 +105,9 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 			return true;
 		}
 
-		public void Save()
+		public void Save(bool releaseLock)
 		{
-			this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);			
+            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, releaseLock);			
 		}
 
 		public void UpdateBindingSources()

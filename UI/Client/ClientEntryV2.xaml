@@ -69,10 +69,10 @@
 					<CheckBox Grid.Column="1" Grid.Row="4" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Left" IsChecked="{Binding Path=Client.LongDistance}" />
 
 					<TextBlock Grid.Column="0" Grid.Row="5" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Right" >Telephone:</TextBlock>
-					<TextBox Grid.Column="1" Grid.Row="5" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Stretch" Text="{Binding Path=Client.Telephone,Converter={StaticResource PhoneNumberConverter}}" />
+					<TextBox Grid.Column="1" Grid.Row="5" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Stretch" Text="{Binding Path=Client.Telephone, Converter={StaticResource PhoneNumberConverter}}" />
 
 					<TextBlock Grid.Column="0" Grid.Row="6" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Right" >Fax:</TextBlock>
-					<TextBox Grid.Column="1" Grid.Row="6" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Stretch" Text="{Binding Path=Client.Fax,Converter={StaticResource PhoneNumberConverter}}" />
+					<TextBox Grid.Column="1" Grid.Row="6" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Stretch" Text="{Binding Path=Client.Fax, Converter={StaticResource PhoneNumberConverter}}" />
 
 					<TextBlock Grid.Column="0" Grid.Row="7" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Right" >Contact Name:</TextBlock>
 					<TextBox Grid.Column="1" Grid.Row="7" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Stretch" Text="{Binding Path=Client.ContactName}" />

@@ -142,7 +142,7 @@ namespace YellowstonePathology.UI.Test
             return true;
         }
 
-        public void Save()
+        public void Save(bool releaseLock)
         {
             YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, false);
         }
@@ -256,7 +256,7 @@ namespace YellowstonePathology.UI.Test
         {
             if (string.IsNullOrEmpty(this.m_PanelSetOrder.Indicator) == false)
             {
-                this.Save();
+                this.Save(false);
                 YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHWordDocument report = new YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHWordDocument();
                 report.Render(this.m_PanelSetOrder.MasterAccessionNo, this.m_PanelSetOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft);
 

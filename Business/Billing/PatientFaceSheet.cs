@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Billing
             
         }
 
-        public void Save()
+        public void Save(bool releaseLock)
         {
             RenderTargetBitmap bitmap = new RenderTargetBitmap(850, 1100, 300, 300, PixelFormats.Default);
 

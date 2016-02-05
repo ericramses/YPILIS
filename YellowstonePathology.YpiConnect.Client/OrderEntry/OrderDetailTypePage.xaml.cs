@@ -25,14 +25,12 @@ namespace YellowstonePathology.YpiConnect.Client.OrderEntry
 		public event ReturnEventHandler Return;
 
 		private YellowstonePathology.Business.ClientOrder.Model.ClientOrder m_ClientOrder;
-        private YellowstonePathology.Business.ClientOrder.Model.ClientOrderDetailTypeCollection m_ClientOrderDetailTypCollection;
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
+        private YellowstonePathology.Business.ClientOrder.Model.ClientOrderDetailTypeCollection m_ClientOrderDetailTypCollection;		
 
-		public OrderDetailTypePage(YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder, YellowstonePathology.Business.Persistence.ObjectTracker objectTracker)
+		public OrderDetailTypePage(YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder)
         {
 			this.m_ClientOrder = clientOrder;
-            this.m_ClientOrderDetailTypCollection = new Business.ClientOrder.Model.ClientOrderDetailTypeCollection();
-			this.m_ObjectTracker = objectTracker;          
+            this.m_ClientOrderDetailTypCollection = new Business.ClientOrder.Model.ClientOrderDetailTypeCollection();			
 
 			InitializeComponent();
             
@@ -143,12 +141,12 @@ namespace YellowstonePathology.YpiConnect.Client.OrderEntry
             return result;
 		}
 
-		public void Save()
+		public void Save(bool releaseLock)
 		{            
-			YellowstonePathology.YpiConnect.Proxy.SubmitterServiceProxy proxy = new Proxy.SubmitterServiceProxy();
-            YellowstonePathology.Business.Persistence.RemoteObjectTransferAgent remoteObjectTransferAgent = new YellowstonePathology.Business.Persistence.RemoteObjectTransferAgent();
-            this.m_ObjectTracker.PrepareRemoteTransferAgent(this.m_ClientOrder, remoteObjectTransferAgent);
-            proxy.Submit(remoteObjectTransferAgent);
+			//YellowstonePathology.YpiConnect.Proxy.SubmitterServiceProxy proxy = new Proxy.SubmitterServiceProxy();
+            //YellowstonePathology.Business.Persistence.RemoteObjectTransferAgent remoteObjectTransferAgent = new YellowstonePathology.Business.Persistence.RemoteObjectTransferAgent();
+            //this.m_ObjectTracker.PrepareRemoteTransferAgent(this.m_ClientOrder, remoteObjectTransferAgent);
+            //proxy.Submit(remoteObjectTransferAgent);
 		}
 
 		public void UpdateBindingSources()

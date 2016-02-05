@@ -24,8 +24,7 @@ namespace YellowstonePathology.UI.ReportOrder
 		private YellowstonePathology.Business.User.SystemUserCollection m_UserCollection;
 		private YellowstonePathology.Business.Facility.Model.FacilityCollection m_FacilityCollection;
         private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
-        private string m_ReportDocumentPath;
-        private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;        
+        private string m_ReportDocumentPath;        
 
         public ReportOrderDetailPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 		{			
@@ -33,10 +32,7 @@ namespace YellowstonePathology.UI.ReportOrder
             this.m_PanelSetOrder = accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
             this.m_SystemIdentity = systemIdentity;
 			this.m_UserCollection = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection;
-            this.m_FacilityCollection = Business.Facility.Model.FacilityCollection.GetAllFacilities();
-
-            this.m_ObjectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-            this.m_ObjectTracker.RegisterObject(this.m_AccessionOrder);
+            this.m_FacilityCollection = Business.Facility.Model.FacilityCollection.GetAllFacilities();            
 
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
 			this.m_ReportDocumentPath = YellowstonePathology.Business.Document.CaseDocument.GetCaseFileNamePDF(orderIdParser);
@@ -49,12 +45,12 @@ namespace YellowstonePathology.UI.ReportOrder
 
         private void ReportOrderDetailPage_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-			this.Save();
+			this.Save(false);
         }
 
-		private void Save()
+		private void Save(bool releaseLock)
 		{
-            this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);			
+            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, releaseLock);			
 		}
 
         public string ReportDocumentPath

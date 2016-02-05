@@ -123,7 +123,7 @@ namespace YellowstonePathology.UI.Test
 			return true;
 		}
 
-		public void Save()
+		public void Save(bool releaseLock)
 		{
             YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, false);
         }
@@ -195,7 +195,7 @@ namespace YellowstonePathology.UI.Test
 			YellowstonePathology.Business.Test.CysticFibrosis.CysticFibrosisTemplate cysticFibrosisTemplate  = (YellowstonePathology.Business.Test.CysticFibrosis.CysticFibrosisTemplate)this.ComboBoxTemplate.SelectedItem;
 			if (cysticFibrosisTemplate.TemplateId > 0)
 			{
-				this.Save();
+				this.Save(false);
 				YellowstonePathology.Business.Test.CysticFibrosis.CysticFibrosisWordDocument report = new YellowstonePathology.Business.Test.CysticFibrosis.CysticFibrosisWordDocument();
 				report.Render(this.m_PanelSetOrder.MasterAccessionNo, this.m_PanelSetOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft);
 

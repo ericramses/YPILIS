@@ -12,39 +12,7 @@ namespace YellowstonePathology.Business.Gateway
 {    
     public class ClientOrderGateway
     {
-        private static string ServerSqlConnectionString = "Data Source=TestSQL;Initial Catalog=YPIData;Integrated Security=True";
-
-        public static YellowstonePathology.Business.ClientOrder.Model.ClientOrder GetClientOrderByClientOrderId(string clientOrderId)
-        {            
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "gwGetClientOrderByClientOrderId";
-
-            SqlParameter clientOrderIdParameter = new SqlParameter("@ClientOrderId", SqlDbType.VarChar, 100);
-            clientOrderIdParameter.Value = clientOrderId;
-            cmd.Parameters.Add(clientOrderIdParameter);            
-            cmd.CommandType = System.Data.CommandType.StoredProcedure;
-
-            YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder = null;
-
-            using (SqlConnection cn = new SqlConnection(ServerSqlConnectionString))
-            {
-                cn.Open();
-                cmd.Connection = cn;
-                using (SqlDataReader dr = cmd.ExecuteReader())
-                {
-                    clientOrder = BuildClientOrder(dr);
-                    dr.NextResult();
-                    BuildClientOrderDetailCollection(clientOrder.ClientOrderDetailCollection, dr);
-                }                
-            }
-
-			if (clientOrder.ClientOrderId == null)
-			{
-				return null;
-			}
-
-            return clientOrder;
-        }
+        private static string ServerSqlConnectionString = "Data Source=TestSQL;Initial Catalog=YPIData;Integrated Security=True";        
 
         public static YellowstonePathology.Business.ClientOrder.Model.OrderBrowserListItemCollection GetOrderBrowserListItemsByOrderDate(DateTime orderDate)
         {
@@ -654,7 +622,7 @@ namespace YellowstonePathology.Business.Gateway
 			return result;
 		}        		
 
-		private static void BuildClientOrderDetailCollection(YellowstonePathology.Business.ClientOrder.Model.ClientOrderDetailCollection clientOrderDetailCollection, SqlDataReader dr)
+		public static void BuildClientOrderDetailCollection(YellowstonePathology.Business.ClientOrder.Model.ClientOrderDetailCollection clientOrderDetailCollection, SqlDataReader dr)
 		{        
             int clientOrderDetailCount = 0;
             while (dr.Read())
@@ -692,7 +660,7 @@ namespace YellowstonePathology.Business.Gateway
             }
 		}
 
-        private static YellowstonePathology.Business.ClientOrder.Model.ClientOrder BuildClientOrder(SqlDataReader dr)
+        public static YellowstonePathology.Business.ClientOrder.Model.ClientOrder BuildClientOrder(SqlDataReader dr)
         {
             YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder = null;
             Nullable<int> panelSetId = null;
@@ -725,7 +693,7 @@ namespace YellowstonePathology.Business.Gateway
             return clientOrder;
         }
 
-        private static void BuildClientOrderCollection(SqlDataReader dr, YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection clientOrderCollection)
+        public static void BuildClientOrderCollection(SqlDataReader dr, YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection clientOrderCollection)
         {
             int clientOrderIdCount = 0;
             while (dr.Read())
@@ -750,7 +718,7 @@ namespace YellowstonePathology.Business.Gateway
             }
         }
 
-        private static YellowstonePathology.Business.ClientOrder.Model.ClientOrderDetail BuildClientOrderDetail(SqlCommand cmd)
+        public static YellowstonePathology.Business.ClientOrder.Model.ClientOrderDetail BuildClientOrderDetail(SqlCommand cmd)
         {
             YellowstonePathology.Business.ClientOrder.Model.ClientOrderDetail clientOrderDetail = null; 
             using (SqlConnection cn = new SqlConnection(ServerSqlConnectionString))

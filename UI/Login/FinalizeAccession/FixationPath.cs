@@ -6,8 +6,7 @@ using System.Text;
 namespace YellowstonePathology.UI.Login.FinalizeAccession
 {
 	public class FixationPath
-	{
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
+	{		
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 		private LoginPageWindow m_LoginPageWindow;
@@ -16,17 +15,12 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 		public FixationPath(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{
 			this.m_AccessionOrder = accessionOrder;
-
-			this.m_ObjectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
 		}
 
 		public FixationPath(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 		{
 			this.m_AccessionOrder = accessionOrder;
-			this.m_SystemIdentity = systemIdentity;
-
-			this.m_ObjectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-            this.m_ObjectTracker.RegisterObject(this.m_AccessionOrder);
+			this.m_SystemIdentity = systemIdentity;			
 		}
 
 		public void Start()
@@ -80,8 +74,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 		{
 			CaseLockPage caseLockPage = (CaseLockPage)sender;
 			if (caseLockPage.Lock.LockAquired == true)
-			{				
-				this.m_ObjectTracker.RegisterObject(this.m_AccessionOrder);
+			{								
 				this.ShowFixationDetailsPage();
 			}
 			else
@@ -92,7 +85,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
 		private void ShowFixationDetailsPage()
 		{
-				FixationDetailsPage fixationDetailsPage = new FixationDetailsPage(this.m_AccessionOrder, this.m_ObjectTracker);
+				FixationDetailsPage fixationDetailsPage = new FixationDetailsPage(this.m_AccessionOrder);
 				fixationDetailsPage.Return += new FixationDetailsPage.ReturnEventHandler(FixationDetailsPage_Return);
 				this.m_LoginPageWindow.PageNavigator.Navigate(fixationDetailsPage);
 		}

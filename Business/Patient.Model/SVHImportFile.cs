@@ -18,9 +18,7 @@ namespace YellowstonePathology.Business.Patient.Model
         }
 
         public void ParseAndPersist()
-        {
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new Persistence.ObjectTracker();
-			objectTracker.RegisterObject(this.m_SVHBillingDataCollection);
+        {			
 			using (StreamReader sr = new StreamReader(this.m_SVHImportFileName.FullPath))
             {                
                 DateTime dateProcessed = DateTime.Now;
@@ -34,10 +32,10 @@ namespace YellowstonePathology.Business.Patient.Model
 					SVHBillingData sVHBillingData = new SVHBillingData(objectId, line, dateProcessed, this.m_SVHImportFileName.FileDate);
 					sVHBillingData.SVHBillingDataId = Guid.NewGuid().ToString();
 					this.m_SVHBillingDataCollection.AddOnlyMostRecent(sVHBillingData);
-					objectTracker.RegisterRootInsert(sVHBillingData);
+                    YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitRootInsert(sVHBillingData);					
                 }
 			}
-			objectTracker.SubmitChanges(this.m_SVHBillingDataCollection);
+            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_SVHBillingDataCollection, true);			
 		}        
     }
 }

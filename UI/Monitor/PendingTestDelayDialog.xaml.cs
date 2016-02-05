@@ -19,16 +19,12 @@ namespace YellowstonePathology.UI.Monitor
     public partial class PendingTestDelayDialog : Window
     {
         private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
-        private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
-        private YellowstonePathology.Business.Persistence.ObjectTracker m_ObectTracker;
+        private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;        
 
         public PendingTestDelayDialog(YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             this.m_PanelSetOrder = panelSetOrder;
             this.m_SystemIdentity = systemIdentity;
-
-			this.m_ObectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-            this.m_ObectTracker.RegisterObject(this.m_PanelSetOrder);
 
             InitializeComponent();
 
@@ -50,7 +46,7 @@ namespace YellowstonePathology.UI.Monitor
             if (this.IsOKToClose() == true)
             {
                 this.Close();
-                this.m_ObectTracker.SubmitChanges(this.m_PanelSetOrder);
+                YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_PanelSetOrder, false);                
             }
         }
 

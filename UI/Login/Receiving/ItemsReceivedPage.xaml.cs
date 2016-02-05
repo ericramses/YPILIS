@@ -139,7 +139,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 			return true;
 		}
 
-		public void Save()
+		public void Save(bool releaseLock)
 		{
             
 		}
@@ -168,7 +168,7 @@ namespace YellowstonePathology.UI.Login.Receiving
             if (messageBoxResult == MessageBoxResult.Yes)
             {                
                 this.m_ClientOrderReceivingHandler.ClientOrder.ClientOrderDetailCollection.Remove(clientOrderDetail);                
-                this.m_ClientOrderReceivingHandler.Save();
+                this.m_ClientOrderReceivingHandler.Save(false);
                 this.m_ClientOrderMediaCollection = new Business.ClientOrder.Model.ClientOrderMediaCollection();
                 this.m_ClientOrderReceivingHandler.ClientOrder.ClientOrderDetailCollection.LoadMedia(this.m_ClientOrderMediaCollection);
                 this.NotifyPropertyChanged("ClientOrderMediaCollection");

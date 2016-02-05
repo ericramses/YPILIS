@@ -196,7 +196,7 @@ namespace YellowstonePathology.YpiConnect.Client
 			}
 		}
 
-		public void Save()
+		public void Save(bool releaseLock)
 		{
 
 		}

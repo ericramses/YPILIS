@@ -105,7 +105,7 @@ namespace YellowstonePathology.UI.Test
 			return true;
 		}
 
-		public void Save()
+		public void Save(bool releaseLock)
 		{
             YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, false);
         }
@@ -117,7 +117,7 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
 		{
-			this.Save();
+			this.Save(false);
 			YellowstonePathology.Business.Test.MPL.MPLWordDocument report = new Business.Test.MPL.MPLWordDocument();
 			report.Render(this.m_AccessionOrder.MasterAccessionNo, this.m_PanelSetOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft);
 

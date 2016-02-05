@@ -133,7 +133,7 @@ namespace YellowstonePathology.UI.Test
 			return true;
 		}
 
-		public void Save()
+		public void Save(bool releaseLock)
 		{
             YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, false);
         }
@@ -200,7 +200,7 @@ namespace YellowstonePathology.UI.Test
 				this.m_WomensHealthProfileTestOrder = womensHealthProfileTestOrder;
 				this.m_WomensHealthProfileVisibility = System.Windows.Visibility.Visible;
                 this.UpdateWomensHealthProfile();
-                this.Save();
+                this.Save(false);
                 this.NotifyPropertyChanged(string.Empty);
             }
             else

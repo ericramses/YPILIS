@@ -176,7 +176,7 @@ namespace YellowstonePathology.UI.Login.Receiving
             YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Business.Visitor.OrderTestOrderVisitor(testOrderInfo, this.m_SystemIdentity);
             this.m_AccessionOrder.TakeATrip(orderTestOrderVisitor);
             this.m_TestOrderInfo.PanelSetOrder = testOrderInfo.PanelSetOrder;
-
+            
             YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, false);            
 
             if (this.ShowResultPage(testOrderInfo) == false)

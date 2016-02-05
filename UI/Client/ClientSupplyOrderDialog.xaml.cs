@@ -28,8 +28,7 @@ namespace YellowstonePathology.UI.Client
 
 		public ClientSupplyOrderDialog(YellowstonePathology.Business.Client.Model.ClientSupplyOrder clientSupplyOrder)
 		{
-			this.m_ClientSupplyOrder = clientSupplyOrder;
-			YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.RegisterObject(this.m_ClientSupplyOrder, this);
+			this.m_ClientSupplyOrder = clientSupplyOrder;			
             this.m_UserCollection = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetUsersByRole(Business.User.SystemUserRoleDescriptionEnum.Log, true);
 
 			InitializeComponent();

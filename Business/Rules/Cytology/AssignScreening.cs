@@ -25,9 +25,7 @@ namespace YellowstonePathology.Business.Rules.Cytology
         public void Assign()
         {
 			this.m_CytologyAccessionOrder = YellowstonePathology.Business.Persistence.ObjectGatway.Instance.GetByMasterAccessionNo(this.m_MasterAccessionNo, true);
-			this.m_PanelSetOrderCytology = (YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology)this.m_CytologyAccessionOrder.PanelSetOrderCollection.GetPAP();
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new Persistence.ObjectTracker();
-			objectTracker.RegisterObject(this.m_CytologyAccessionOrder);
+			this.m_PanelSetOrderCytology = (YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology)this.m_CytologyAccessionOrder.PanelSetOrderCollection.GetPAP();			
 
 			this.m_PanelSetOrderCytology.AssignedToId = this.m_AssignedToId;
 			foreach (YellowstonePathology.Business.Interface.IPanelOrder panelOrder in this.m_PanelSetOrderCytology.PanelOrderCollection)
@@ -43,7 +41,7 @@ namespace YellowstonePathology.Business.Rules.Cytology
                 }
             }
 
-			objectTracker.SubmitChanges(this.m_CytologyAccessionOrder);
+            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_CytologyAccessionOrder, true);			
         }
 
 		public void Execute(string masterAccessionNo, int assignToId, YellowstonePathology.Business.Rules.ExecutionStatus executionStatus)

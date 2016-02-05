@@ -73,11 +73,8 @@ namespace YellowstonePathology.UI.MaterialTracking
 			YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch materialTrackingBatch = new YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch(objectId, null, fromFacility, fromLocation, toFacility, toLocation, this.m_MasterAccessionNo);
 			YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogCollection materialTrackingLogCollection = new Business.MaterialTracking.Model.MaterialTrackingLogCollection();
 
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-            objectTracker.RegisterRootInsert(materialTrackingBatch);
-            objectTracker.RegisterObject(materialTrackingLogCollection);
-
-            this.ViewBatch(this, new YellowstonePathology.UI.CustomEventArgs.MaterialTrackingBatchEventArgs(materialTrackingBatch, materialTrackingLogCollection, objectTracker));
+            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitRootInsert(materialTrackingBatch);            
+            this.ViewBatch(this, new YellowstonePathology.UI.CustomEventArgs.MaterialTrackingBatchEventArgs(materialTrackingBatch, materialTrackingLogCollection));
         }
 
         private void HyperlinkReceiveMaterial_Click(object sender, RoutedEventArgs e)
@@ -92,13 +89,10 @@ namespace YellowstonePathology.UI.MaterialTracking
 
 			string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
 			YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch materialTrackingBatch = new YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch(objectId, null, fromFacility, fromLocation, toFacility, toLocation, this.m_MasterAccessionNo);
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-            objectTracker.RegisterRootInsert(materialTrackingBatch);
 
-			YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogCollection materialTrackingLogCollection = new Business.MaterialTracking.Model.MaterialTrackingLogCollection();
-			objectTracker.RegisterObject(materialTrackingLogCollection);
-
-            this.ViewBatch(this, new YellowstonePathology.UI.CustomEventArgs.MaterialTrackingBatchEventArgs(materialTrackingBatch, materialTrackingLogCollection, objectTracker));
+            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitRootInsert(materialTrackingBatch);
+            YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogCollection materialTrackingLogCollection = new Business.MaterialTracking.Model.MaterialTrackingLogCollection();			
+            this.ViewBatch(this, new YellowstonePathology.UI.CustomEventArgs.MaterialTrackingBatchEventArgs(materialTrackingBatch, materialTrackingLogCollection));
         }
 
         private void HyperlinkSendMaterialToDrClegg_Click(object sender, RoutedEventArgs e)
@@ -113,13 +107,10 @@ namespace YellowstonePathology.UI.MaterialTracking
 
 			string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
 			YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch materialTrackingBatch = new YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch(objectId, "Send material to Dr. Clegg", fromFacility, fromLocation, toFacility, toLocation, this.m_MasterAccessionNo);
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-            objectTracker.RegisterRootInsert(materialTrackingBatch);
+            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitRootInsert(materialTrackingBatch);
 
-			YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogCollection materialTrackingLogCollection = new Business.MaterialTracking.Model.MaterialTrackingLogCollection();
-			objectTracker.RegisterObject(materialTrackingLogCollection);
-
-            this.ViewBatch(this, new YellowstonePathology.UI.CustomEventArgs.MaterialTrackingBatchEventArgs(materialTrackingBatch, materialTrackingLogCollection, objectTracker));
+            YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogCollection materialTrackingLogCollection = new Business.MaterialTracking.Model.MaterialTrackingLogCollection();			
+            this.ViewBatch(this, new YellowstonePathology.UI.CustomEventArgs.MaterialTrackingBatchEventArgs(materialTrackingBatch, materialTrackingLogCollection));
         }
 
         private void HyperlinkReceiveMaterialFromDrClegg_Click(object sender, RoutedEventArgs e)
@@ -134,13 +125,11 @@ namespace YellowstonePathology.UI.MaterialTracking
 
 			string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
 			YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch materialTrackingBatch = new YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch(objectId, "Receive material from Dr. Clegg", fromFacility, fromLocation, toFacility, toLocation, this.m_MasterAccessionNo);
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-            objectTracker.RegisterRootInsert(materialTrackingBatch);
 
-			YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogCollection materialTrackingLogCollection = new Business.MaterialTracking.Model.MaterialTrackingLogCollection();
-			objectTracker.RegisterObject(materialTrackingLogCollection);
+            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitRootInsert(materialTrackingBatch);
 
-            this.ViewBatch(this, new YellowstonePathology.UI.CustomEventArgs.MaterialTrackingBatchEventArgs(materialTrackingBatch, materialTrackingLogCollection, objectTracker));
+            YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogCollection materialTrackingLogCollection = new Business.MaterialTracking.Model.MaterialTrackingLogCollection();			
+            this.ViewBatch(this, new YellowstonePathology.UI.CustomEventArgs.MaterialTrackingBatchEventArgs(materialTrackingBatch, materialTrackingLogCollection));
         }
 
         private void HyperlinkSendMaterialFromCodyToBillings_Click(object sender, RoutedEventArgs e)
@@ -155,13 +144,10 @@ namespace YellowstonePathology.UI.MaterialTracking
 
 			string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
 			YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch materialTrackingBatch = new YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch(objectId, "Send material to Billings", fromFacility, fromLocation, toFacility, toLocation, this.m_MasterAccessionNo);
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-            objectTracker.RegisterRootInsert(materialTrackingBatch);
+            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitRootInsert(materialTrackingBatch);
 
-			YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogCollection materialTrackingLogCollection = new Business.MaterialTracking.Model.MaterialTrackingLogCollection();
-            objectTracker.RegisterObject(materialTrackingLogCollection);
-
-            this.ViewBatch(this, new YellowstonePathology.UI.CustomEventArgs.MaterialTrackingBatchEventArgs(materialTrackingBatch, materialTrackingLogCollection, objectTracker));
+            YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogCollection materialTrackingLogCollection = new Business.MaterialTracking.Model.MaterialTrackingLogCollection();            
+            this.ViewBatch(this, new YellowstonePathology.UI.CustomEventArgs.MaterialTrackingBatchEventArgs(materialTrackingBatch, materialTrackingLogCollection));
         }
 
         private void HyperlinkReceiveMaterialFromBillings_Click(object sender, RoutedEventArgs e)
@@ -176,13 +162,10 @@ namespace YellowstonePathology.UI.MaterialTracking
 
 			string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
 			YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch materialTrackingBatch = new YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch(objectId, "Receive material from Billings", fromFacility, fromLocation, toFacility, toLocation, this.m_MasterAccessionNo);
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-            objectTracker.RegisterRootInsert(materialTrackingBatch);
+            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitRootInsert(materialTrackingBatch);
 
-			YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogCollection materialTrackingLogCollection = new Business.MaterialTracking.Model.MaterialTrackingLogCollection();
-            objectTracker.RegisterObject(materialTrackingLogCollection);
-
-            this.ViewBatch(this, new YellowstonePathology.UI.CustomEventArgs.MaterialTrackingBatchEventArgs(materialTrackingBatch, materialTrackingLogCollection, objectTracker));
+            YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogCollection materialTrackingLogCollection = new Business.MaterialTracking.Model.MaterialTrackingLogCollection();            
+            this.ViewBatch(this, new YellowstonePathology.UI.CustomEventArgs.MaterialTrackingBatchEventArgs(materialTrackingBatch, materialTrackingLogCollection));
         }
 
         private void HyperlinkSendMaterialToDrKurtzman_Click(object sender, RoutedEventArgs e)
@@ -197,13 +180,10 @@ namespace YellowstonePathology.UI.MaterialTracking
 
             string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
             YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch materialTrackingBatch = new YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch(objectId, "Send material to Dr. Kurtzman", fromFacility, fromLocation, toFacility, toLocation, this.m_MasterAccessionNo);
-            YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-            objectTracker.RegisterRootInsert(materialTrackingBatch);
+            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitRootInsert(materialTrackingBatch);
 
-            YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogCollection materialTrackingLogCollection = new Business.MaterialTracking.Model.MaterialTrackingLogCollection();
-            objectTracker.RegisterObject(materialTrackingLogCollection);
-
-            this.ViewBatch(this, new YellowstonePathology.UI.CustomEventArgs.MaterialTrackingBatchEventArgs(materialTrackingBatch, materialTrackingLogCollection, objectTracker));
+            YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogCollection materialTrackingLogCollection = new Business.MaterialTracking.Model.MaterialTrackingLogCollection();            
+            this.ViewBatch(this, new YellowstonePathology.UI.CustomEventArgs.MaterialTrackingBatchEventArgs(materialTrackingBatch, materialTrackingLogCollection));
         }
 
         private void HyperlinkReceiveMaterialFromDrKurtzman_Click(object sender, RoutedEventArgs e)
@@ -218,13 +198,10 @@ namespace YellowstonePathology.UI.MaterialTracking
 
             string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
             YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch materialTrackingBatch = new YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch(objectId, "Receive material from Dr. Kurtzman", fromFacility, fromLocation, toFacility, toLocation, this.m_MasterAccessionNo);
-            YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-            objectTracker.RegisterRootInsert(materialTrackingBatch);
+            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitRootInsert(materialTrackingBatch);
 
-            YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogCollection materialTrackingLogCollection = new Business.MaterialTracking.Model.MaterialTrackingLogCollection();
-            objectTracker.RegisterObject(materialTrackingLogCollection);
-
-            this.ViewBatch(this, new YellowstonePathology.UI.CustomEventArgs.MaterialTrackingBatchEventArgs(materialTrackingBatch, materialTrackingLogCollection, objectTracker));
+            YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogCollection materialTrackingLogCollection = new Business.MaterialTracking.Model.MaterialTrackingLogCollection();            
+            this.ViewBatch(this, new YellowstonePathology.UI.CustomEventArgs.MaterialTrackingBatchEventArgs(materialTrackingBatch, materialTrackingLogCollection));
 
         }
 
@@ -240,14 +217,10 @@ namespace YellowstonePathology.UI.MaterialTracking
 
             string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
             YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch materialTrackingBatch = new YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch(objectId, "Send material to Dr. Shannon", fromFacility, fromLocation, toFacility, toLocation, this.m_MasterAccessionNo);
-            YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-            objectTracker.RegisterRootInsert(materialTrackingBatch);
+            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitRootInsert(materialTrackingBatch);
 
-            YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogCollection materialTrackingLogCollection = new Business.MaterialTracking.Model.MaterialTrackingLogCollection();
-            objectTracker.RegisterObject(materialTrackingLogCollection);
-
-            this.ViewBatch(this, new YellowstonePathology.UI.CustomEventArgs.MaterialTrackingBatchEventArgs(materialTrackingBatch, materialTrackingLogCollection, objectTracker));
-
+            YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogCollection materialTrackingLogCollection = new Business.MaterialTracking.Model.MaterialTrackingLogCollection();            
+            this.ViewBatch(this, new YellowstonePathology.UI.CustomEventArgs.MaterialTrackingBatchEventArgs(materialTrackingBatch, materialTrackingLogCollection));
         }
 
         private void HyperlinkReceiveMaterialFromDrShannon_Click(object sender, RoutedEventArgs e)
@@ -262,13 +235,10 @@ namespace YellowstonePathology.UI.MaterialTracking
 
             string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
             YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch materialTrackingBatch = new YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch(objectId, "Receive material from Dr. Shannon", fromFacility, fromLocation, toFacility, toLocation, this.m_MasterAccessionNo);
-            YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-            objectTracker.RegisterRootInsert(materialTrackingBatch);
+            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitRootInsert(materialTrackingBatch);
 
-                YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogCollection materialTrackingLogCollection = new Business.MaterialTracking.Model.MaterialTrackingLogCollection();
-            objectTracker.RegisterObject(materialTrackingLogCollection);
-
-            this.ViewBatch(this, new YellowstonePathology.UI.CustomEventArgs.MaterialTrackingBatchEventArgs(materialTrackingBatch, materialTrackingLogCollection, objectTracker));
+            YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogCollection materialTrackingLogCollection = new Business.MaterialTracking.Model.MaterialTrackingLogCollection();            
+            this.ViewBatch(this, new YellowstonePathology.UI.CustomEventArgs.MaterialTrackingBatchEventArgs(materialTrackingBatch, materialTrackingLogCollection));
         }
 
 
@@ -291,12 +261,8 @@ namespace YellowstonePathology.UI.MaterialTracking
                 else
                 {
                     materialTrackingLogCollection = YellowstonePathology.Business.Gateway.SlideAccessionGateway.GetMaterialTrackingLogCollectionByBatchId(materialTrackingBatch.MaterialTrackingBatchId);
-                }
-
-				YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-                objectTracker.RegisterObject(materialTrackingBatch);
-                objectTracker.RegisterObject(materialTrackingLogCollection);
-                this.ViewBatch(this, new CustomEventArgs.MaterialTrackingBatchEventArgs(materialTrackingBatch, materialTrackingLogCollection, objectTracker));
+                }                                
+                this.ViewBatch(this, new CustomEventArgs.MaterialTrackingBatchEventArgs(materialTrackingBatch, materialTrackingLogCollection));
             }
             else
             {
@@ -309,9 +275,7 @@ namespace YellowstonePathology.UI.MaterialTracking
             if (this.ListBoxMaterialTrackingBatch.SelectedItem != null)
             {
 				YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch materialTrackingBatch = (YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch)this.ListBoxMaterialTrackingBatch.SelectedItem;
-				YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-                objectTracker.RegisterRootDelete(materialTrackingBatch);
-                objectTracker.SubmitChanges(materialTrackingBatch);
+                YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(materialTrackingBatch, true);                
             }
             else
             {
@@ -334,7 +298,7 @@ namespace YellowstonePathology.UI.MaterialTracking
 			return false;
 		}
 
-        public void Save()
+        public void Save(bool releaseLock)
         {
             
         }

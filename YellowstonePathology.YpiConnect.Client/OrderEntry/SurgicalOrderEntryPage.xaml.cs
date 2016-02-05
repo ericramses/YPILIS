@@ -289,7 +289,7 @@ namespace YellowstonePathology.YpiConnect.Client.OrderEntry
 			return true;
 		}
 
-		public void Save()
+		public void Save(bool releaseLock)
 		{            
             YellowstonePathology.YpiConnect.Proxy.SubmitterServiceProxy proxy = new Proxy.SubmitterServiceProxy();
 			YellowstonePathology.Business.Persistence.RemoteObjectTransferAgent remoteObjectTransferAgent = new Business.Persistence.RemoteObjectTransferAgent();

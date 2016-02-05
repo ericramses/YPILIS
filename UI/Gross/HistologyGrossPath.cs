@@ -8,9 +8,7 @@ namespace YellowstonePathology.UI.Gross
 {
 	public class HistologyGrossPath
 	{
-		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-        private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
-
+		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder; 
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
         
         private HistologyGrossDialog m_HistologyGrossDialog;
@@ -100,9 +98,7 @@ namespace YellowstonePathology.UI.Gross
         private void ScanContainerPage_UseThisContainer(object sender, string containerId)
         {
             string masterAccessionNo = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetMasterAccessionNoFromContainerId(containerId);
-            this.m_AccessionOrder = YellowstonePathology.Business.Persistence.ObjectGatway.Instance.GetByMasterAccessionNo(masterAccessionNo, true);
-
-            this.m_ObjectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
+            this.m_AccessionOrder = YellowstonePathology.Business.Persistence.ObjectGatway.Instance.GetByMasterAccessionNo(masterAccessionNo, true);            
 
             if (this.m_AccessionOrder == null)
             {
@@ -110,10 +106,8 @@ namespace YellowstonePathology.UI.Gross
                 this.ShowScanContainerPage();                
             }
             else
-            {                                
-                this.m_ObjectTracker.RegisterObject(this.m_AccessionOrder);
-				YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByContainerId(containerId);
-                
+            {                                                
+				YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByContainerId(containerId);                
                 this.AddMaterialTrackingLog(specimenOrder);
 
                 if (this.m_HistologyGrossDialog.PageNavigator.HasDualMonitors() == true)
@@ -151,9 +145,7 @@ namespace YellowstonePathology.UI.Gross
             string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
 			YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog materialTrackingLog = new Business.MaterialTracking.Model.MaterialTrackingLog(objectId, specimenOrder.SpecimenOrderId, null, thisFacility.FacilityId, thisFacility.FacilityName,
                 thisLocation.LocationId, thisLocation.Description, this.m_SystemIdentity.User.UserId, this.m_SystemIdentity.User.UserName, "Container Scan", "Container Scanned At Gross", "Specimen", this.m_AccessionOrder.MasterAccessionNo, specimenOrder.Description, specimenOrder.ClientAccessioned);
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-            objectTracker.RegisterRootInsert(materialTrackingLog);
-            objectTracker.SubmitChanges(materialTrackingLog);
+            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitRootInsert(materialTrackingLog);            
         }
 
         private void ScanContainerPage_BarcodeWontScan(object sender, EventArgs e)
@@ -184,10 +176,7 @@ namespace YellowstonePathology.UI.Gross
                 System.Windows.MessageBox.Show("The scanned container was not found.");
                 this.ShowScanContainerPage();
                 return;
-            }
-
-			this.m_ObjectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-            this.m_ObjectTracker.RegisterObject(this.m_AccessionOrder);
+            }			
 
 			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByContainerId(containerId);
             this.ShowPrintBlockPage(specimenOrder);           
@@ -208,7 +197,7 @@ namespace YellowstonePathology.UI.Gross
 
 		public void ShowBlockOptionsPage(YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder, YellowstonePathology.Business.Test.AliquotOrder aliquotOrder)
 	    {
-			BlockOptionsPage blockOptionsPage = new BlockOptionsPage(specimenOrder, aliquotOrder, this.m_AccessionOrder, this.m_ObjectTracker, this.m_SystemIdentity);
+			BlockOptionsPage blockOptionsPage = new BlockOptionsPage(specimenOrder, aliquotOrder, this.m_AccessionOrder, this.m_SystemIdentity);
             blockOptionsPage.Next += new BlockOptionsPage.NextEventHandler(BlockOptionsPage_Next);
             blockOptionsPage.Back += new BlockOptionsPage.BackEventHandler(BlockOptionsPage_Back);
             blockOptionsPage.ShowBlockColorSelectionPage += new BlockOptionsPage.ShowBlockColorSelectionPageEventHandler(BlockOptionsPage_ShowBlockColorSelectionPage);
@@ -232,7 +221,7 @@ namespace YellowstonePathology.UI.Gross
 
 		public void ShowPrintBlockPage(YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder)
 		{            
-			PrintBlockPage printBlockPage = new PrintBlockPage(this.m_SystemIdentity, this.m_AccessionOrder, this.m_ObjectTracker, specimenOrder);
+			PrintBlockPage printBlockPage = new PrintBlockPage(this.m_SystemIdentity, this.m_AccessionOrder, specimenOrder);
             printBlockPage.Next += new PrintBlockPage.NextEventHandler(PrintBlockPage_Next);
             printBlockPage.ShowBlockOptions += new PrintBlockPage.ShowBlockOptionsEventHandler(PrintBlockPage_ShowBlockOptions);
             printBlockPage.ShowStainOrderPage += new PrintBlockPage.ShowStainOrderPageEventHandler(PrintBlockPage_ShowStainOrderPage);
@@ -300,7 +289,7 @@ namespace YellowstonePathology.UI.Gross
 
 		private void ShowBlockColorSelectionPage(YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder)
 		{
-			BlockColorSelectionPage blockColorSelectionPage = new BlockColorSelectionPage(specimenOrder, this.m_AccessionOrder, this.m_ObjectTracker);
+			BlockColorSelectionPage blockColorSelectionPage = new BlockColorSelectionPage(specimenOrder, this.m_AccessionOrder);
             blockColorSelectionPage.Next += new BlockColorSelectionPage.NextEventHandler(BlockColorSelectionPage_Next);
 			this.m_HistologyGrossDialog.PageNavigator.Navigate(blockColorSelectionPage);
 		}

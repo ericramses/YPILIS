@@ -78,11 +78,11 @@ namespace YellowstonePathology.Business.Typing
 			}
 		}
 
-		public void Save()
-		{			
-            if(this.m_AccessionOrder != null && this.m_Lock.LockAquired == true)
+		public void Save(bool releaseLock)
+		{			            
+            if(this.m_AccessionOrder != null)
             {
-                YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, false);
+                YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, releaseLock);
             }            
 		}
 		

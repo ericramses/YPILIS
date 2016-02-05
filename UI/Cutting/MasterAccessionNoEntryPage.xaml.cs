@@ -71,7 +71,7 @@ namespace YellowstonePathology.UI.Cutting
             this.TextMasterAccessionNo.Text = string.Empty;
         }		
 
-		public void Save()
+		public void Save(bool releaseLock)
 		{
 
 		}

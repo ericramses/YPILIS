@@ -73,7 +73,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
 		private void ButtonLink_Click(object sender, RoutedEventArgs e)
 		{
-            this.Save();
+            this.Save(false);
 		}		
 
 		private void ButtonBack_Click(object sender, RoutedEventArgs e)
@@ -96,7 +96,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 			return true;
 		}
 
-		public void Save()
+		public void Save(bool releaseLock)
 		{
             YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, false);            
 		}

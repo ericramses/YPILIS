@@ -70,7 +70,7 @@ namespace YellowstonePathology.UI.Test
             this.CancelTest(this, this.m_CancelTestEventArgs);
         }    
 
-		public void Save()
+		public void Save(bool releaseLock)
 		{
         
 		}

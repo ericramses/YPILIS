@@ -126,9 +126,8 @@ namespace YellowstonePathology.UI.Cutting
             string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
 			YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog materialTrackingLog = new Business.MaterialTracking.Model.MaterialTrackingLog(objectId, aliquotOrder.AliquotOrderId, null, thisFacility.FacilityId, thisFacility.FacilityName,
                 thisLocation.LocationId, thisLocation.Description, this.m_SystemIdentity.User.UserId, this.m_SystemIdentity.User.UserName, "Block Scanned", "Block Scanned At Cutting", "Aliquot", this.m_AccessionOrder.MasterAccessionNo, aliquotOrder.Label, aliquotOrder.ClientAccessioned);
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-            objectTracker.RegisterRootInsert(materialTrackingLog);
-            objectTracker.SubmitChanges(materialTrackingLog);	
+
+            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitRootInsert(materialTrackingLog);            
         }
 
         private void ButtonShowMasterAccessionNoEntryPage_Click(object sender, RoutedEventArgs e)
@@ -143,9 +142,7 @@ namespace YellowstonePathology.UI.Cutting
 
         private void PrintImmunoLabels()
         {
-            YellowstonePathology.Business.Slide.Model.SlideOrderCollection_Base slideOrderCollection = YellowstonePathology.Business.Gateway.SlideAccessionGateway.GetSlideOrdersWithPrintRequest();
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-            objectTracker.RegisterObject(slideOrderCollection);
+            YellowstonePathology.Business.Slide.Model.SlideOrderCollection_Base slideOrderCollection = YellowstonePathology.Business.Gateway.SlideAccessionGateway.GetSlideOrdersWithPrintRequest();			
 
             if (slideOrderCollection.Count != 0)
             {
@@ -169,7 +166,7 @@ namespace YellowstonePathology.UI.Cutting
                 MessageBox.Show("There are not any labels waiting to be printed.");
             }
 
-            objectTracker.SubmitChanges(slideOrderCollection);
+            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(slideOrderCollection, true);            
         }        
 
         private void ButtonLastMasterAccessionNo_Click(object sender, RoutedEventArgs e)
@@ -185,7 +182,7 @@ namespace YellowstonePathology.UI.Cutting
             this.SignOut(this, new EventArgs());
         }
 
-		public void Save()
+		public void Save(bool releaseLock)
 		{
 
 		}

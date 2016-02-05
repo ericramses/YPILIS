@@ -36,8 +36,7 @@ namespace YellowstonePathology.UI.MaterialTracking
 		YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 
 		YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogCollection m_MaterialTrackingLogCollection;
-		YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch m_MaterialTrackingBatch;
-        YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
+		YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch m_MaterialTrackingBatch;        
 		YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogViewCollection m_MaterialTrackingLogViewCollection;        
 
 		private bool m_BackButtonVisible;
@@ -52,7 +51,7 @@ namespace YellowstonePathology.UI.MaterialTracking
 
 		public MaterialBatchPage(YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch materialTrackingBatch,
 			YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogCollection materialTrackingLogCollection,
-            bool backButtonVisible, bool nextButtonVisible, bool finishButtonVisible, YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
+            bool backButtonVisible, bool nextButtonVisible, bool finishButtonVisible, 
 			bool useMasterAccessionNo, string masterAccessionNo, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 		{
             this.m_SystemIdentity = systemIdentity;
@@ -61,8 +60,7 @@ namespace YellowstonePathology.UI.MaterialTracking
             this.m_LocationCollection = YellowstonePathology.Business.Facility.Model.LocationCollection.GetAllLocations();
 
 			this.m_MaterialTrackingBatch = materialTrackingBatch;
-            this.m_MaterialTrackingLogCollection = materialTrackingLogCollection;
-            this.m_ObjectTracker = objectTracker;
+            this.m_MaterialTrackingLogCollection = materialTrackingLogCollection;            
             
             this.m_UserMasterAccessionNo = useMasterAccessionNo;
             this.m_MasterAccessionNo = masterAccessionNo;
@@ -301,7 +299,7 @@ namespace YellowstonePathology.UI.MaterialTracking
             {
                 if (this.IsOKToSave() == true)
                 {
-                    this.Save();
+                    this.Save(true);
                     this.Next(this, new EventArgs());
                 }
             }
@@ -335,7 +333,7 @@ namespace YellowstonePathology.UI.MaterialTracking
 		{
             if (this.IsOKToSave() == true)
             {
-                this.Save();
+                this.Save(true);
                 this.Finish(this, new EventArgs());
             }
 		}
@@ -369,10 +367,10 @@ namespace YellowstonePathology.UI.MaterialTracking
 			return true;
 		}
 
-		public void Save()
-		{            
-            this.m_ObjectTracker.SubmitChanges(this.m_MaterialTrackingBatch);
-            this.m_ObjectTracker.SubmitChanges(this.m_MaterialTrackingLogCollection);            
+		public void Save(bool releaseLock)
+		{
+            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_MaterialTrackingBatch, releaseLock);
+            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_MaterialTrackingLogCollection, releaseLock);            
 		}
 
 		public void UpdateBindingSources()

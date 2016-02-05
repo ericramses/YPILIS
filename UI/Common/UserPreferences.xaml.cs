@@ -24,8 +24,7 @@ namespace YellowstonePathology.UI.Common
 		private YellowstonePathology.Business.Twain.Twain m_Twain;
 		private YellowstonePathology.Business.Common.PageScannerCollection m_PageScannerCollection;
         private YellowstonePathology.Business.Facility.Model.FacilityCollection m_FacilityCollection;
-        private YellowstonePathology.Business.Facility.Model.LocationCollection m_LocationCollection;
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
+        private YellowstonePathology.Business.Facility.Model.LocationCollection m_LocationCollection;		
 
         private YellowstonePathology.Business.Label.Model.LabelFormatCollection m_MolecularLabelFormatCollection;
         private System.Printing.PrintQueueCollection m_PrintQueueCollection;
@@ -34,11 +33,8 @@ namespace YellowstonePathology.UI.Common
 
 		public UserPreferences()
 		{
-            this.m_MolecularLabelFormatCollection = YellowstonePathology.Business.Label.Model.LabelFormatCollection.GetMolecularLabelCollection();
-
-			this.m_UserPreference = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference;
-			this.m_ObjectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-			this.m_ObjectTracker.RegisterObject(this.m_UserPreference);
+            this.m_MolecularLabelFormatCollection = YellowstonePathology.Business.Label.Model.LabelFormatCollection.GetMolecularLabelCollection();        
+			this.m_UserPreference = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference;			
 
             this.m_FacilityCollection = Business.Facility.Model.FacilityCollection.GetAllFacilities();
             this.m_LocationCollection = new Business.Facility.Model.LocationCollection();
@@ -46,9 +42,7 @@ namespace YellowstonePathology.UI.Common
             System.Printing.LocalPrintServer printServer = new System.Printing.LocalPrintServer();            
             this.m_PrintQueueCollection = printServer.GetPrintQueues(new[] { System.Printing.EnumeratedPrintQueueTypes.Local, System.Printing.EnumeratedPrintQueueTypes.Connections });
 
-			this.m_ApplicationVersion = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetApplicationVersion();
-			this.m_ObjectTracker.RegisterObject(this.m_ApplicationVersion);
-
+			this.m_ApplicationVersion = YellowstonePathology.Business.Persistence.ObjectGatway.Instance.GetApplicationVersion();			
             this.m_ProcessorRunCollection = Business.Surgical.ProcessorRunCollection.GetAll(true);
 
 			InitializeComponent();            
@@ -123,9 +117,10 @@ namespace YellowstonePathology.UI.Common
 		}
 
 		private void ButtonOK_Click(object sender, RoutedEventArgs e)
-		{            
-			this.m_ObjectTracker.SubmitChanges(this.m_UserPreference);
-			this.m_ObjectTracker.SubmitChanges(this.m_ApplicationVersion);
+		{
+            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_UserPreference, false);
+            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_ApplicationVersion, false);
+            
 			Close();
 		}
 

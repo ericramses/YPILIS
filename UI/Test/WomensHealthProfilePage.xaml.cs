@@ -183,7 +183,7 @@ namespace YellowstonePathology.UI.Test
             return true;
         }
 
-        public void Save()
+        public void Save(bool releaseLock)
         {
             YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, false);
         }
@@ -204,7 +204,7 @@ namespace YellowstonePathology.UI.Test
                 YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Business.Visitor.OrderTestOrderVisitor(testOrderInfo, this.m_SystemIdentity);
                 this.m_AccessionOrder.TakeATrip(orderTestOrderVisitor);
 
-                this.Save();
+                this.Save(false);
 
                 this.m_AuditCollection.Run();
                 this.NotifyPropertyChanged(string.Empty);
@@ -226,7 +226,7 @@ namespace YellowstonePathology.UI.Test
                 YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Business.Visitor.OrderTestOrderVisitor(testOrderInfo, this.m_SystemIdentity);
                 this.m_AccessionOrder.TakeATrip(orderTestOrderVisitor);             
                 
-                this.Save();
+                this.Save(false);
 
                 this.m_AuditCollection.Run();
                 this.NotifyPropertyChanged(string.Empty);
@@ -247,7 +247,7 @@ namespace YellowstonePathology.UI.Test
                 YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new Business.Test.TestOrderInfo(trichomonasTest, orderTarget, true);                
                 YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Business.Visitor.OrderTestOrderVisitor(testOrderInfo, this.m_SystemIdentity);
                 this.m_AccessionOrder.TakeATrip(orderTestOrderVisitor);
-                this.Save();
+                this.Save(false);
                 this.m_AuditCollection.Run();
                 this.NotifyPropertyChanged(string.Empty);
             }
@@ -268,7 +268,7 @@ namespace YellowstonePathology.UI.Test
 
                 YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Business.Visitor.OrderTestOrderVisitor(testOrderInfo, this.m_SystemIdentity);
                 this.m_AccessionOrder.TakeATrip(orderTestOrderVisitor);
-                this.Save();
+                this.Save(false);
 
                 this.m_AuditCollection.Run();
                 this.NotifyPropertyChanged(string.Empty);
@@ -291,7 +291,7 @@ namespace YellowstonePathology.UI.Test
                 this.m_AccessionOrder.TakeATrip(orderTestOrderVisitor);
                 this.m_AuditCollection.Run();
                 this.NotifyPropertyChanged(string.Empty);
-                this.Save();
+                this.Save(false);
             }
             else
             {
@@ -333,7 +333,7 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
 		{
-			this.Save();
+			this.Save(false);
 			YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileWordDocument report = new YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileWordDocument();
 			report.Render(this.m_AccessionOrder.MasterAccessionNo, this.m_WomensHealthProfileTestOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft);
 

@@ -423,6 +423,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Gateway\AOSaveResult.cs" />
+    <Compile Include="Gateway\ClientOrderBuilder.cs" />
     <Compile Include="Gateway\LockGateway.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -488,7 +489,6 @@
     <Compile Include="Persistence\ObjectCounter.cs" />
     <Compile Include="Persistence\ObjectCounterCollection.cs" />
     <Compile Include="Persistence\ObjectGateway.cs" />
-    <Compile Include="Persistence\ObjectTrackerV2.cs" />
     <Compile Include="Persistence\RegisteredObject.cs" />
     <Compile Include="Persistence\RegisteredObjectCollection.cs" />
     <Compile Include="ReportDistribution.Model\ScheduledFaxSubmission.cs" />
@@ -557,7 +557,6 @@
     <Compile Include="Persistence\ObjectPropertyWriter.cs" />
     <Compile Include="Persistence\ObjectSqlBuilder.cs" />
     <Compile Include="Persistence\ObjectSqlBuilderResult.cs" />
-    <Compile Include="Persistence\ObjectTracker.cs" />
     <Compile Include="Persistence\ObjectXMLBuilder.cs" />
     <Compile Include="Persistence\PersistenceHelper.cs" />
     <Compile Include="Persistence\PersistenceModeEnum.cs" />

@@ -53,7 +53,7 @@ namespace YellowstonePathology.UI.Gross
             get { return this.m_ProcessorRunCollection; }
         }
 
-		public void Save()
+		public void Save(bool releaseLock)
 		{
             
 		}

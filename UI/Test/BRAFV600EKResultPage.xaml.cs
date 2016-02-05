@@ -128,7 +128,7 @@ namespace YellowstonePathology.UI.Test
 			return true;
 		}
 
-		public void Save()
+		public void Save(bool releaseLock)
 		{
             YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, false);
         }
@@ -236,7 +236,7 @@ namespace YellowstonePathology.UI.Test
 		{
 			if (this.m_PanelSetOrder.PanelOrderCollection.GetUnacceptedPanelCount() == 0)
 			{
-				this.Save();
+				this.Save(false);
 				YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKWordDocument report = new YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKWordDocument();
 				report.Render(this.m_PanelSetOrder.MasterAccessionNo, this.m_PanelSetOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft);
 

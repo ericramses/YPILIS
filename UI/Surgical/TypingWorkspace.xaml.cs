@@ -104,7 +104,7 @@ namespace YellowstonePathology.UI.Surgical
         {
             if (this.m_TypingUI.AccessionOrder != null)
             {
-                //YellowstonePathology.Business.Persistence.ObjectTrackerV2.Instance.SubmitChanges(this.m_TypingUI.AccessionOrder, this.m_TypingUI);
+                //YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_TypingUI.AccessionOrder, this.m_TypingUI);
 
                 YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPath providerDistributionPath =
 					new YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPath(this.m_TypingUI.SurgicalTestOrder.ReportNo, this.m_TypingUI.AccessionOrder,
@@ -115,7 +115,7 @@ namespace YellowstonePathology.UI.Surgical
 
         private void TypingWorkspace_Unloaded(object sender, RoutedEventArgs e)
         {            
-			this.Save();
+			this.Save(false);
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath -= MainWindowCommandButtonHandler_StartProviderDistributionPath;
         }        
 
@@ -145,7 +145,7 @@ namespace YellowstonePathology.UI.Surgical
 
 		public void AlterAccessionLock(object target, ExecutedRoutedEventArgs args)
 		{
-            this.m_TypingUI.Save();
+            this.m_TypingUI.Save(true);
 			this.m_TypingUI.Lock.ToggleLockingMode();
 			this.m_TypingUI.RunWorkspaceEnableRules();
             this.m_TreeviewWorkspace.IsEnabled = this.m_TypingUI.Lock.LockAquired;
@@ -173,7 +173,7 @@ namespace YellowstonePathology.UI.Surgical
 
 		public void ShowCaseDocument(object target, ExecutedRoutedEventArgs args)
 		{
-			this.Save();
+			this.Save(false);
 			YellowstonePathology.Business.Test.Surgical.SurgicalWordDocument report = new YellowstonePathology.Business.Test.Surgical.SurgicalWordDocument();
             report.Render(this.m_TypingUI.AccessionOrder.MasterAccessionNo, this.m_TypingUI.SurgicalTestOrder.ReportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum.Draft);
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_TypingUI.SurgicalTestOrder.ReportNo);
@@ -183,14 +183,14 @@ namespace YellowstonePathology.UI.Surgical
 
         public void SaveData(object target, ExecutedRoutedEventArgs args)
         {
-            this.Save();
+            this.Save(false);
             MessageBox.Show("The typing workspace has been saved");
         }
 
-        public void Save()
+        public void Save(bool releaseLock)
         {
             MainWindow.MoveKeyboardFocusNextThenBack();
-            this.m_TypingUI.Save();
+            this.m_TypingUI.Save(releaseLock);
         }
 
         private void CanSaveData(object sender, CanExecuteRoutedEventArgs e)
@@ -241,7 +241,7 @@ namespace YellowstonePathology.UI.Surgical
 
 		public void GetSurgicalCase(string reportNo)
         {               
-            this.Save();
+            this.Save(false);
 			this.m_DocumentViewer.ClearContent();
 			
             this.m_TypingUI.GetAccessionOrder(reportNo);
@@ -349,7 +349,7 @@ namespace YellowstonePathology.UI.Surgical
         {
 			if (this.m_TypingUI.SurgicalTestOrder != null && this.m_TypingUI.SurgicalTestOrder.ReportNo != string.Empty)
 			{
-				this.Save();
+				this.Save(false);
 				YellowstonePathology.Business.Test.Surgical.SurgicalWordDocument report = new YellowstonePathology.Business.Test.Surgical.SurgicalWordDocument();
 				report.Render(this.m_TypingUI.SurgicalTestOrder.MasterAccessionNo, this.m_TypingUI.SurgicalTestOrder.ReportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum.Draft);
 				YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_TypingUI.SurgicalTestOrder.ReportNo);
@@ -426,7 +426,7 @@ namespace YellowstonePathology.UI.Surgical
 
         public void ContextMenuAddCptCodes_Click(object sender, RoutedEventArgs args)
         {            
-            this.Save();
+            this.Save(false);
 
             Control ctrl = (Control)args.Source;
 			YellowstonePathology.Business.View.BillingSpecimenView billingSpecimenView = (YellowstonePathology.Business.View.BillingSpecimenView)ctrl.Tag;            
@@ -438,7 +438,7 @@ namespace YellowstonePathology.UI.Surgical
 
         public void ContextMenuDeleteCptCode_Click(object sender, RoutedEventArgs args)
         {
-            this.Save();
+            this.Save(false);
             Control ctrl = (Control)args.Source;                                              
             string panelSetOrderCPTCodeId = ctrl.Tag.ToString();
 
@@ -450,7 +450,7 @@ namespace YellowstonePathology.UI.Surgical
             Control ctrl = (Control)args.Source;
             string icd9BillingId = ctrl.Tag.ToString();
 			this.m_TypingUI.DeleteIcd9Code(icd9BillingId);            
-            this.Save();
+            this.Save(false);
 		}
 
         public void TextBox_KeyUp(object sender, KeyEventArgs args)
@@ -473,7 +473,7 @@ namespace YellowstonePathology.UI.Surgical
 
         public void ContextMenuMoveServerFileToLocal_Click(object sender, RoutedEventArgs args)
         {
-            this.Save();
+            this.Save(false);
             if (this.ListViewServerDictation.SelectedItem != null)
             {
                 YellowstonePathology.Business.FileListItem item = (YellowstonePathology.Business.FileListItem)this.ListViewServerDictation.SelectedItem;
@@ -585,7 +585,7 @@ namespace YellowstonePathology.UI.Surgical
 
         public void MenuItemRefreshDocumentList_Click(object sender, RoutedEventArgs args)
         {
-            this.Save();
+            this.Save(false);
 			if (this.m_TypingUI.SurgicalTestOrder != null)
 			{				
 				this.m_TypingUI.RefreshCaseDocumentCollection(this.m_TypingUI.SurgicalTestOrder.ReportNo);
@@ -611,7 +611,7 @@ namespace YellowstonePathology.UI.Surgical
 
 		private void ShowOrderForm(object target, ExecutedRoutedEventArgs args)
 		{
-			this.Save();
+			this.Save(false);
 			YellowstonePathology.UI.Common.OrderDialog frm = new YellowstonePathology.UI.Common.OrderDialog(this.m_TypingUI.AccessionOrder, this.m_TypingUI.SurgicalTestOrder, this.m_SystemIdentity);
 			frm.ShowDialog();
 
@@ -652,7 +652,7 @@ namespace YellowstonePathology.UI.Surgical
 
 		private void ShowAmendmentDialog(object target, ExecutedRoutedEventArgs args)
 		{
-			this.Save();
+			this.Save(false);
 			YellowstonePathology.UI.AmendmentPageController amendmentPageController = new AmendmentPageController(this.m_TypingUI.AccessionOrder, this.m_TypingUI.SurgicalTestOrder, this.m_SystemIdentity);
 			amendmentPageController.ShowDialog();
 
@@ -783,7 +783,7 @@ namespace YellowstonePathology.UI.Surgical
 
         public void ContextMenuMoveLocalFileToDone_Click(object sender, RoutedEventArgs args)
         {
-            this.Save();
+            this.Save(false);
             MessageBoxResult result = MessageBox.Show("Move this dictation file to the done folder?", "Move Dictation", MessageBoxButton.OKCancel);
             if (result == MessageBoxResult.OK)
             {

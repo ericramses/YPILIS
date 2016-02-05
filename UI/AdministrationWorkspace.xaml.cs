@@ -399,52 +399,7 @@ namespace YellowstonePathology.UI
 
 		private void ButtonListInvalidShortcut_Click(object sender, RoutedEventArgs e)
 		{
-			List<int> userids = new List<int>();
-			SqlCommand cmd = new SqlCommand("Select distinct userid from tblTypingShortcut");
-			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.BaseData.SqlConnectionString))
-			{
-				cn.Open();
-				cmd.Connection = cn;
-				using (SqlDataReader dr =cmd.ExecuteReader())
-				{
-					while (dr.Read())
-					{
-						userids.Add((int)dr[0]);
-					}
-				}
-			}
-
-			using (StreamWriter streamWriter = new StreamWriter(@"C:/Testing/InvalidShortcuts.txt"))
-			{
-				foreach (int userid in userids)
-				{
-					streamWriter.WriteLine();
-					streamWriter.WriteLine(userid.ToString());
-					streamWriter.WriteLine();
-
-					YellowstonePathology.Business.Typing.TypingShortcutCollection typingShortcutCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetTypingShortcutCollectionByUser(userid);
-					
-					foreach (YellowstonePathology.Business.Typing.TypingShortcut typingShortcut in typingShortcutCollection)
-					{
-                        if (string.IsNullOrEmpty(typingShortcut.Text) == false)
-						{
-                            char[] chars = typingShortcut.Text.ToCharArray();
-
-							for (int i = chars.Length - 1; i > -1; i--)
-							{
-								char x = chars[i];
-								int tmp = (int)chars[i];
-
-								if ((int)chars[i] > 8000)
-								{
-                                    streamWriter.WriteLine(typingShortcut.Shortcut);
-									break;
-								}
-							}
-						}
-					}
-				}
-			}
+			
 		}
 
 		private void ButtonProcessSvhBillingFile_Click(object sender, RoutedEventArgs e)

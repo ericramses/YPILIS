@@ -29,20 +29,18 @@ namespace YellowstonePathology.UI.Gross
         public event ShowBlockColorSelectionPageEventHandler ShowBlockColorSelectionPage;
 
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
-		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-        private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
+		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;        
 		private YellowstonePathology.Business.Specimen.Model.SpecimenOrder m_SpecimenOrder;
 		private YellowstonePathology.Business.Test.AliquotOrder m_AliquotOrder;
         private YellowstonePathology.Business.Specimen.Model.EmbeddingInstructionList m_EmbeddingInstructionList;
 
 		public BlockOptionsPage(YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder, YellowstonePathology.Business.Test.AliquotOrder aliquotOrder,
-			YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Persistence.ObjectTracker objectTracker, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+			YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 		{
             this.m_SpecimenOrder = specimenOrder;
             this.m_AliquotOrder = aliquotOrder;			
 			this.m_AccessionOrder = accessionOrder;
-            this.m_SystemIdentity = systemIdentity;
-            this.m_ObjectTracker = objectTracker;
+            this.m_SystemIdentity = systemIdentity;            
 
             this.m_EmbeddingInstructionList = new Business.Specimen.Model.EmbeddingInstructionList();
 
@@ -111,9 +109,9 @@ namespace YellowstonePathology.UI.Gross
 			blocksToPrintCollection.SetPrinted();
 		}
 
-		public void Save()
+		public void Save(bool releaseLock)
 		{
-            this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);	
+            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, releaseLock);            
 		}
 
 		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
@@ -148,7 +146,7 @@ namespace YellowstonePathology.UI.Gross
             {
                 string embeddingInstructions = (string)this.ListBoxEmbeddingInstructionList.SelectedItem;
                 this.m_AliquotOrder.EmbeddingInstructions = embeddingInstructions;
-                this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
+                this.Save(false);
                 this.PrintBlock();
 
                 CustomEventArgs.SpecimenOrderReturnEventArgs specimenOrderReturnEventArgs = new CustomEventArgs.SpecimenOrderReturnEventArgs(this.m_SpecimenOrder);

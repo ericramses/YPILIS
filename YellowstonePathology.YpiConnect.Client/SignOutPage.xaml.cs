@@ -47,7 +47,7 @@ namespace YellowstonePathology.YpiConnect.Client
             Application.Current.Shutdown();
         }
 
-		public void Save()
+		public void Save(bool releaseLock)
 		{
 
 		}

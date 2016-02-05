@@ -82,7 +82,8 @@ namespace YellowstonePathology.Business.Typing
 				{
 					this.m_Text = value;					
 					this.NotifyPropertyChanged("Text");
-				}
+                    this.NotifyPropertyChanged("ShortText");
+                }
 			}
 		}
 

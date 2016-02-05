@@ -90,7 +90,7 @@ namespace YellowstonePathology.UI.Surgical
 			YellowstonePathology.Business.Test.Surgical.IntraoperativeConsultationResult intraoperativeConsultationResult = ((Hyperlink)sender).Tag as YellowstonePathology.Business.Test.Surgical.IntraoperativeConsultationResult;
             Test.FrozenFinalDialog frozenFinalDialog = new Test.FrozenFinalDialog(this.AccessionOrder, intraoperativeConsultationResult, this.m_TypingShortcutUserControl);
             frozenFinalDialog.ShowDialog();
-            this.m_PathologistUI.Save();
+            this.m_PathologistUI.Save(false);
         }
 
         private void HyperlinkAcceptPeerReview_Click(object sender, RoutedEventArgs e)
@@ -193,7 +193,7 @@ namespace YellowstonePathology.UI.Surgical
 
                     this.m_PathologistUI.SetSignatureButtonProperties();
                     this.NotifyPropertyChanged(string.Empty);
-                    this.Save();
+                    this.Save(false);
                 }
                 else
                 {
@@ -258,7 +258,7 @@ namespace YellowstonePathology.UI.Surgical
 
             YellowstonePathology.Business.Rules.Surgical.SetAmendmentSignatureText setAmendmentSignatureText = new Business.Rules.Surgical.SetAmendmentSignatureText();
             setAmendmentSignatureText.Execute(this.m_PathologistUI.PanelSetOrder, amendment, this.m_PathologistUI.Lock);                    
-            this.Save();
+            this.Save(false);
             this.NotifyPropertyChanged(string.Empty);
         }        
 
@@ -290,7 +290,7 @@ namespace YellowstonePathology.UI.Surgical
             {
 				Common.ReassignCaseDialog reassignCaseDialog = new Common.ReassignCaseDialog(this.PanelSetOrderSurgical, this.m_SystemIdentity);
                 reassignCaseDialog.ShowDialog();
-                this.Save();
+                this.Save(false);
             }
         }
 
@@ -358,9 +358,9 @@ namespace YellowstonePathology.UI.Surgical
 			amendment.ShowPreviousDiagnosis = false;
 		}
 
-        private void Save()
+        private void Save(bool releaseLock)
         {            
-            this.m_PathologistUI.Save();
+            this.m_PathologistUI.Save(releaseLock);
         }        
 
         public string CancerCaseSummaryVisibility
@@ -497,7 +497,7 @@ namespace YellowstonePathology.UI.Surgical
 
                 this.m_PathologistUI.SetSignatureButtonProperties();
                 this.NotifyPropertyChanged(string.Empty);
-                this.Save();
+                this.Save(false);
             }
         }
 

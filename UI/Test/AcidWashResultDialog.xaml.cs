@@ -21,14 +21,11 @@ namespace YellowstonePathology.UI.Test
         private Business.Test.AccessionOrder m_AccessionOrder;
         private Business.Test.ThinPrepPap.PanelOrderAcidWash m_PanelOrderAcidWash;
         private string m_HeaderText;
-        private Business.User.SystemIdentity m_SystemIdentity;
-        private Business.Persistence.ObjectTracker m_ObjectTracker;
+        private Business.User.SystemIdentity m_SystemIdentity;        
 
         public AcidWashResultDialog(string masterAccessionNo, string reportNo)
-        {
-            this.m_ObjectTracker = new Business.Persistence.ObjectTracker();
-            this.m_AccessionOrder = Business.Persistence.ObjectGatway.Instance.GetByMasterAccessionNo(masterAccessionNo, true);
-            this.m_ObjectTracker.RegisterObject(this.m_AccessionOrder);
+        {            
+            this.m_AccessionOrder = Business.Persistence.ObjectGatway.Instance.GetByMasterAccessionNo(masterAccessionNo, true);            
             Business.Test.ThinPrepPap.ThinPrepPapAcidWashPanel thinPrepPapAcidWashPanel = new Business.Test.ThinPrepPap.ThinPrepPapAcidWashPanel();
             this.m_PanelOrderAcidWash = (Business.Test.ThinPrepPap.PanelOrderAcidWash)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo).PanelOrderCollection.GetPanelByPanelId(thinPrepPapAcidWashPanel.PanelId);
 
@@ -69,14 +66,14 @@ namespace YellowstonePathology.UI.Test
             this.m_PanelOrderAcidWash.UnacceptResults();
         }        
 
-        private void Save()
+        private void Save(bool releaseLock)
         {
-            this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
+            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_AccessionOrder, releaseLock);
         }
 
         private void ButtonClose_Click(object sender, RoutedEventArgs e)
         {
-            this.Save();
+            this.Save(true);
             this.Close();
         }
 
