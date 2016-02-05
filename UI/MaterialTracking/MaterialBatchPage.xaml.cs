@@ -247,12 +247,12 @@ namespace YellowstonePathology.UI.MaterialTracking
 
 			string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
 			YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog materialTrackingLog = new Business.MaterialTracking.Model.MaterialTrackingLog(objectId, materialId, materialTrackingBatchId, thisFacility.FacilityId, thisFacility.FacilityName, thisLocation.LocationId, thisLocation.Description, this.m_SystemIdentity.User.UserId, this.m_SystemIdentity.User.UserName, materialType);
-
+            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitRootInsert(materialTrackingLog);
             this.m_MaterialTrackingLogCollection.Add(materialTrackingLog);
             return materialTrackingLog;
         }
 
-		private YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog AddMaterialTrackingLogEntry(YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingScannedItemView materialTrackingScannedItemView)
+		/*private YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog AddMaterialTrackingLogEntry(YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingScannedItemView materialTrackingScannedItemView)
 		{
             YellowstonePathology.Business.Facility.Model.FacilityCollection facilityCollection = Business.Facility.Model.FacilityCollection.GetAllFacilities();
             YellowstonePathology.Business.Facility.Model.LocationCollection locationCollection = Business.Facility.Model.LocationCollection.GetAllLocations();
@@ -267,7 +267,7 @@ namespace YellowstonePathology.UI.MaterialTracking
 
             this.m_MaterialTrackingLogCollection.Add(materialTrackingLog);            
             return materialTrackingLog;
-		}
+		}*/
 
 		private void ButtonBack_Click(object sender, RoutedEventArgs e)
 		{
@@ -354,6 +354,7 @@ namespace YellowstonePathology.UI.MaterialTracking
 				YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog materialTrackingLog = this.m_MaterialTrackingLogCollection.Get(materialTrackingLogView.MaterialTrackingLogId);
                 this.m_MaterialTrackingLogCollection.Remove(materialTrackingLog);                
                 this.m_MaterialTrackingLogViewCollection.Remove(materialTrackingLogView);
+                YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitRootDelete(materialTrackingLog);
             }
         }
 
@@ -370,7 +371,6 @@ namespace YellowstonePathology.UI.MaterialTracking
 		public void Save(bool releaseLock)
 		{
             YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_MaterialTrackingBatch, releaseLock);
-            YellowstonePathology.Business.Persistence.ObjectGatway.Instance.SubmitChanges(this.m_MaterialTrackingLogCollection, releaseLock);            
 		}
 
 		public void UpdateBindingSources()
