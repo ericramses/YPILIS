@@ -68,6 +68,7 @@ namespace YellowstonePathology.Document
                             Grid cptSummaryHeaderGrid = this.GetCodeSectionHeader("CPT Summary");
                             this.m_MultiPageDocument.WriteRowContent(cptSummaryHeaderGrid);
                         }
+
                         foreach (XElement panelSetOrderCPTCodeBillElement in PanelSetOrderCPTCodeBillElements)
                         {
                             string billTo = XMLHelper.GetString(panelSetOrderCPTCodeBillElement, "BillTo");

@@ -431,7 +431,7 @@ namespace YellowstonePathology.Business.Persistence
             return result;
         }
 
-        public YellowstonePathology.Business.ClientOrder.Model.ClientOrder GetClientOrderByClientOrderId(string clientOrderId)
+        public YellowstonePathology.Business.ClientOrder.Model.ClientOrder GetClientOrderByClientOrderId(string clientOrderId, bool readOnly)
         {
             SqlCommand cmd = new SqlCommand();
             cmd.CommandText = "gwGetClientOrderByClientOrderId";
@@ -442,16 +442,23 @@ namespace YellowstonePathology.Business.Persistence
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
             YellowstonePathology.Business.ClientOrder.Model.ClientOrder result = null;
-            if (this.IsRegistered(clientOrderId, typeof(YellowstonePathology.Business.ClientOrder.Model.ClientOrder)))
+            YellowstonePathology.Business.Gateway.ClientOrderBuilder builder = null;
+            if (this.m_Objects.ContainsKey(clientOrderId) == true)
             {
                 result = (YellowstonePathology.Business.ClientOrder.Model.ClientOrder)this.m_Objects[clientOrderId];
-                YellowstonePathology.Business.Gateway.ClientOrderBuilder.Build(result, cmd);
+                builder = new Gateway.ClientOrderBuilder(result, cmd);
             }
             else
             {
-                result = new ClientOrder.Model.ClientOrder();
-                YellowstonePathology.Business.Gateway.ClientOrderBuilder.Build(result, cmd);
-                this.RegisterObject(result);
+                builder = new Gateway.ClientOrderBuilder(cmd);
+                Nullable<int> panelSetId = builder.GetPanelSetId();
+                result = YellowstonePathology.Business.ClientOrder.Model.ClientOrderFactory.GetClientOrder(panelSetId);
+                builder.Build(result);
+
+                if(readOnly == false)
+                {
+                    this.RegisterObject(result);
+                }                
             }            
 
             return result;

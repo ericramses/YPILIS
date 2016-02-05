@@ -10,78 +10,104 @@ namespace YellowstonePathology.Business.Gateway
     public class ClientOrderBuilder
     {
         private static string ServerSqlConnectionString = "Data Source=TestSQL;Initial Catalog=YPIData;Integrated Security=True";
-        public static void Build(YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder, SqlCommand cmd)
+
+        SqlCommand m_Command;
+        SqlConnection m_Connection;
+        SqlDataReader m_DataReader;
+        YellowstonePathology.Business.ClientOrder.Model.ClientOrder m_ClientOrder;
+
+        public ClientOrderBuilder(SqlCommand cmd)
         {
-            using (SqlConnection cn = new SqlConnection(ServerSqlConnectionString))
-            {
-                cn.Open();
-                cmd.Connection = cn;
-                using (SqlDataReader dr = cmd.ExecuteReader())
-                {
-                    BuildClientOrder(dr, clientOrder);
-                    dr.NextResult();
-                    clientOrder.ClientOrderDetailCollection.Clear();
-                    BuildClientOrderDetailCollection(clientOrder.ClientOrderDetailCollection, dr);
-                }
-            }
+            this.m_Command = cmd;
+            this.m_Connection = new SqlConnection(ServerSqlConnectionString);
+            this.m_Connection.Open();
+            this.m_Command.Connection = this.m_Connection;
+            this.m_DataReader = this.m_Command.ExecuteReader();
         }
 
-        public static void BuildClientOrder(SqlDataReader dr, YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder)
-        {            
+        public ClientOrderBuilder(YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder, SqlCommand cmd)
+        {
+            this.m_ClientOrder = clientOrder;
+            this.m_Command = cmd;
+            this.m_Connection = new SqlConnection(ServerSqlConnectionString);
+            this.m_Connection.Open();
+            this.m_Command.Connection = this.m_Connection;
+            this.m_DataReader = this.m_Command.ExecuteReader();
+            this.m_DataReader.NextResult();
+        }
+
+        public Nullable<int> GetPanelSetId()
+        {
             Nullable<int> panelSetId = null;
-            while (dr.Read())
+            while (this.m_DataReader.Read())
             {
-                if (dr["PanelSetId"] != DBNull.Value)
+                if (this.m_DataReader["PanelSetId"] != DBNull.Value)
                 {
-                    panelSetId = Convert.ToInt32(dr["PanelSetId"].ToString());
+                    panelSetId = Convert.ToInt32(this.m_DataReader["PanelSetId"].ToString());
                 }
             }
+            this.m_DataReader.NextResult();
+            return panelSetId;
+        }
 
-            clientOrder = YellowstonePathology.Business.ClientOrder.Model.ClientOrderFactory.GetClientOrder(panelSetId);
-            dr.NextResult();
+        public void Build(YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder)
+        {
+            this.m_ClientOrder = clientOrder;
+            this.Build();
+        }
 
-            while (dr.Read())
+        public void Build()
+        {
+            BuildClientOrder();
+            this.m_DataReader.NextResult();
+            this.m_ClientOrder.ClientOrderDetailCollection.Clear();
+            BuildClientOrderDetailCollection(this.m_ClientOrder.ClientOrderDetailCollection);
+        }
+
+        public void BuildClientOrder()
+        {                        
+            while (this.m_DataReader.Read())
             {
-                YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter propertyWriter = new Persistence.SqlDataReaderPropertyWriter(clientOrder, dr);
+                YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter propertyWriter = new Persistence.SqlDataReaderPropertyWriter(this.m_ClientOrder, this.m_DataReader);
                 propertyWriter.WriteProperties();
             }
 
-            dr.NextResult();
-            while (dr.Read())
+            this.m_DataReader.NextResult();
+            while (this.m_DataReader.Read())
             {
                 YellowstonePathology.Business.Client.Model.ClientLocation clientLocation = new YellowstonePathology.Business.Client.Model.ClientLocation();
-                YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter propertyWriter = new YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter(clientLocation, dr);
+                YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter propertyWriter = new YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter(clientLocation, this.m_DataReader);
                 propertyWriter.WriteProperties();
-                clientOrder.ClientLocation = clientLocation;
+                this.m_ClientOrder.ClientLocation = clientLocation;
             }            
         }
 
-        public static void BuildClientOrderDetailCollection(YellowstonePathology.Business.ClientOrder.Model.ClientOrderDetailCollection clientOrderDetailCollection, SqlDataReader dr)
+        public void BuildClientOrderDetailCollection(YellowstonePathology.Business.ClientOrder.Model.ClientOrderDetailCollection clientOrderDetailCollection)
         {
             int clientOrderDetailCount = 0;
-            while (dr.Read())
+            while (this.m_DataReader.Read())
             {
-                clientOrderDetailCount = Convert.ToInt32(dr["ClientOrderDetailCount"].ToString());
+                clientOrderDetailCount = Convert.ToInt32(this.m_DataReader["ClientOrderDetailCount"].ToString());
             }
 
             if (clientOrderDetailCount > 0)
             {
                 for (int i = 0; i < clientOrderDetailCount; i++)
                 {
-                    dr.NextResult();
+                    this.m_DataReader.NextResult();
 
                     string orderTypeCode = null;
-                    while (dr.Read())
+                    while (this.m_DataReader.Read())
                     {
-                        orderTypeCode = dr["OrderTypeCode"].ToString();
+                        orderTypeCode = this.m_DataReader["OrderTypeCode"].ToString();
                     }
 
-                    dr.NextResult();
+                    this.m_DataReader.NextResult();
 
                     YellowstonePathology.Business.ClientOrder.Model.ClientOrderDetail clientOrderDetail = YellowstonePathology.Business.ClientOrder.Model.ClientOrderDetailFactory.GetClientOrderDetail(orderTypeCode, Persistence.PersistenceModeEnum.UpdateChangedProperties);
-                    while (dr.Read())
+                    while (this.m_DataReader.Read())
                     {
-                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter propertyWriter = new Persistence.SqlDataReaderPropertyWriter(clientOrderDetail, dr);
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter propertyWriter = new Persistence.SqlDataReaderPropertyWriter(clientOrderDetail, this.m_DataReader);
                         propertyWriter.WriteProperties();
                         clientOrderDetailCollection.Add(clientOrderDetail);
                     }
@@ -89,8 +115,8 @@ namespace YellowstonePathology.Business.Gateway
             }
             else
             {
-                dr.NextResult();
-                dr.NextResult();
+                this.m_DataReader.NextResult();
+                this.m_DataReader.NextResult();
             }
         }
     }
