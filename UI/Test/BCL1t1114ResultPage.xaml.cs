@@ -48,8 +48,6 @@ namespace YellowstonePathology.UI.Test
 			InitializeComponent();
 
 			DataContext = this;
-
-            this.m_ParentWindow = Window.GetWindow(this);           
 		}        
 
         public string OrderedOnDescription

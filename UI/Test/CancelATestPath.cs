@@ -14,8 +14,9 @@ namespace YellowstonePathology.UI.Test
         private YellowstonePathology.UI.CustomEventArgs.CancelTestEventArgs m_CancelATestEventArgs;
 
         public CancelATestPath(YellowstonePathology.UI.CustomEventArgs.CancelTestEventArgs cancelATestEventArgs, 
-            YellowstonePathology.UI.Navigation.PageNavigator pageNavigator)
-            : base(pageNavigator)
+            YellowstonePathology.UI.Navigation.PageNavigator pageNavigator,
+            System.Windows.Window window)
+            : base(pageNavigator, window)
         {
             this.m_CancelATestEventArgs = cancelATestEventArgs;
 		}
@@ -33,7 +34,7 @@ namespace YellowstonePathology.UI.Test
             YellowstonePathology.Business.Gateway.AccessionOrderGateway.SetPanelSetOrderAsCancelledTest(e.PanelSetOrder.ReportNo);
             YellowstonePathology.Business.Gateway.AccessionOrderGateway.InsertTestCancelledTestOrder(e.PanelSetOrder.ReportNo, e.PanelSetOrder.PanelSetId, e.PanelSetOrder.PanelSetName);
 
-            YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(e.AccessionOrder.MasterAccessionNo);
+            YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(e.AccessionOrder.MasterAccessionNo, this.m_Window);
             YellowstonePathology.Business.Test.TestCancelled.TestCancelledTestOrder testCancelledTestOrder = (YellowstonePathology.Business.Test.TestCancelled.TestCancelledTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(e.PanelSetOrder.ReportNo);
             
             testCancelledTestOrder.Distribute = false;

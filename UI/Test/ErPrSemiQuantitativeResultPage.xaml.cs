@@ -50,19 +50,6 @@ namespace YellowstonePathology.UI.Test
 			InitializeComponent();
 
 			DataContext = this;
-
-            Loaded += ErPrSemiQuantitativeResultPage_Loaded;
-            Unloaded += ErPrSemiQuantitativeResultPage_Unloaded;
-		}
-
-        private void ErPrSemiQuantitativeResultPage_Loaded(object sender, RoutedEventArgs e)
-        {
-             
-        }
-
-        private void ErPrSemiQuantitativeResultPage_Unloaded(object sender, RoutedEventArgs e)
-        {
-             
         }
 
         public YellowstonePathology.Business.Test.ErPrSemiQuantitative.ErPrSemiQuantitativeTestOrder PanelSetOrder
@@ -91,26 +78,6 @@ namespace YellowstonePathology.UI.Test
 		public string OrderedOnDescription
 		{
 			get { return this.m_OrderedOnDescription; }
-		}
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save(bool releaseLock)
-		{
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
-        }
-
-        public void UpdateBindingSources()
-		{
-
 		}
 
 		private void ButtonNext_Click(object sender, RoutedEventArgs e)
@@ -187,9 +154,8 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
 		{
-			this.Save(false);
 			YellowstonePathology.Business.Test.ErPrSemiQuantitative.ErPrSemiQuantitativeWordDocument report = new YellowstonePathology.Business.Test.ErPrSemiQuantitative.ErPrSemiQuantitativeWordDocument();
-			report.Render(this.m_PanelSetOrder.MasterAccessionNo, this.m_PanelSetOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft);
+			report.Render(this.m_PanelSetOrder.MasterAccessionNo, this.m_PanelSetOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft, Window.GetWindow(this));
 
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
 			string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);

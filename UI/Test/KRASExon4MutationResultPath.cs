@@ -13,8 +13,9 @@ namespace YellowstonePathology.UI.Test
 
 		public KRASExon4MutationResultPath(string reportNo,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-            YellowstonePathology.UI.Navigation.PageNavigator pageNavigator)
-            : base(pageNavigator)
+            YellowstonePathology.UI.Navigation.PageNavigator pageNavigator,
+            System.Windows.Window window)
+            : base(pageNavigator, window)
         {
             this.m_AccessionOrder = accessionOrder;
 			this.m_PanelSetOrder = (YellowstonePathology.Business.Test.KRASExon4Mutation.KRASExon4MutationTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);

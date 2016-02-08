@@ -62,19 +62,6 @@ namespace YellowstonePathology.UI.Test
 
             this.m_ParentWindow = Window.GetWindow(this);
 			DataContext = this;
-
-            Loaded += BRAFV600EKResultPage_Loaded;
-            Unloaded += BRAFV600EKResultPage_Unloaded;
-		}
-
-        private void BRAFV600EKResultPage_Loaded(object sender, RoutedEventArgs e)
-        {
-             
-        }
-
-        private void BRAFV600EKResultPage_Unloaded(object sender, RoutedEventArgs e)
-        {
-             
         }
 
         public YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKResultCollection ResultCollection
@@ -118,26 +105,6 @@ namespace YellowstonePathology.UI.Test
 		public System.Windows.Visibility BackButtonVisibility
 		{
 			get { return this.m_BackButtonVisibility; }
-		}
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save(bool releaseLock)
-		{
-            //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
-        }
-
-        public void UpdateBindingSources()
-		{
-
 		}
 
 		private void ButtonNext_Click(object sender, RoutedEventArgs e)
@@ -238,7 +205,6 @@ namespace YellowstonePathology.UI.Test
 		{
 			if (this.m_PanelSetOrder.PanelOrderCollection.GetUnacceptedPanelCount() == 0)
 			{
-				this.Save(false);
 				YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKWordDocument report = new YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKWordDocument();
 				report.Render(this.m_PanelSetOrder.MasterAccessionNo, this.m_PanelSetOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft, this.m_ParentWindow);
 

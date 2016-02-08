@@ -13,8 +13,9 @@ namespace YellowstonePathology.UI.Test
 
 		public JAK2V617FResultPath(string reportNo,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-            YellowstonePathology.UI.Navigation.PageNavigator pageNavigator)
-            : base(pageNavigator)
+            YellowstonePathology.UI.Navigation.PageNavigator pageNavigator,
+            System.Windows.Window window)
+            : base(pageNavigator, window)
         {
             this.m_AccessionOrder = accessionOrder;
 			this.m_PanelSetOrder = (YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);

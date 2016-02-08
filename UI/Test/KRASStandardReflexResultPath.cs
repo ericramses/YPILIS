@@ -19,8 +19,9 @@ namespace YellowstonePathology.UI.Test
         public KRASStandardReflexResultPath(string reportNo,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
 			YellowstonePathology.UI.Navigation.PageNavigator pageNavigator,
-			System.Windows.Visibility backButtonVisibility)
-            : base(pageNavigator)
+			System.Windows.Visibility backButtonVisibility,
+            System.Windows.Window window)
+            : base(pageNavigator, window)
         {
             this.m_AccessionOrder = accessionOrder;
             this.m_KRASStandardReflexTestOrder = (YellowstonePathology.Business.Test.KRASStandardReflex.KRASStandardReflexTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
@@ -70,7 +71,7 @@ namespace YellowstonePathology.UI.Test
 				result = true;
                 string reportNo = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetcccp.PanelSetId, this.m_KRASStandardReflexTestOrder.OrderedOnId, true).ReportNo;
 				YellowstonePathology.UI.Test.ComprehensiveColonCancerProfilePath resultPath = new YellowstonePathology.UI.Test.ComprehensiveColonCancerProfilePath(reportNo,
-					this.m_AccessionOrder, this.m_PageNavigator, System.Windows.Visibility.Collapsed);
+					this.m_AccessionOrder, this.m_PageNavigator, System.Windows.Visibility.Collapsed, this.m_Window);
 
 				resultPath.Finish += new Test.ResultPath.FinishEventHandler(ResultPath_Finish);
 				resultPath.Back += new ComprehensiveColonCancerProfilePath.BackEventHandler(ResultPath_Back);

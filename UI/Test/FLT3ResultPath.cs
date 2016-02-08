@@ -13,8 +13,9 @@ namespace YellowstonePathology.UI.Test
 
 		public FLT3ResultPath(string reportNo,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-            YellowstonePathology.UI.Navigation.PageNavigator pageNavigator)
-            : base(pageNavigator)
+            YellowstonePathology.UI.Navigation.PageNavigator pageNavigator,
+            System.Windows.Window window)
+            : base(pageNavigator, window)
         {
             this.m_AccessionOrder = accessionOrder;
 			this.m_PanelSetOrderFLT3 = (YellowstonePathology.Business.Test.FLT3.PanelSetOrderFLT3)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);

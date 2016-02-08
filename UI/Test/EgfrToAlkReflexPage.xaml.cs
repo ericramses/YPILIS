@@ -15,7 +15,7 @@ using System.ComponentModel;
 
 namespace YellowstonePathology.UI.Test
 {	
-	public partial class EGFRToALKReflexPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges, INotifyPropertyChanged
+	public partial class EGFRToALKReflexPage : UserControl, INotifyPropertyChanged
 	{
 		public delegate void PropertyChangedNotificationHandler(String info);
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -76,19 +76,6 @@ namespace YellowstonePathology.UI.Test
 			InitializeComponent();
 
 			this.DataContext = this;
-
-            Loaded += EGFRToALKReflexPage_Loaded;
-            Unloaded += EGFRToALKReflexPage_Unloaded;
-		}
-
-        private void EGFRToALKReflexPage_Loaded(object sender, RoutedEventArgs e)
-        {
-             
-        }
-
-        private void EGFRToALKReflexPage_Unloaded(object sender, RoutedEventArgs e)
-        {
-             
         }
 
         public YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisResult EGFRToALKReflexAnalysisResult
@@ -131,26 +118,6 @@ namespace YellowstonePathology.UI.Test
             get { return this.m_PageHeaderText; }
 		}
 
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save(bool releaseLock)
-		{
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
-        }
-
-        public void UpdateBindingSources()
-		{
-
-		}						      
-
         private void HyperLinkOrderALKROS1AndPDL1_Click(object sender, RoutedEventArgs e)
         {
             this.OrderALKROS1AndPDL1(this, new EventArgs());
@@ -163,9 +130,8 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
 		{
-			this.Save(false);
             YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisWordDocument report = new Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisWordDocument();
-			report.Render(this.m_AccessionOrder.MasterAccessionNo, this.m_EGFRToALKReflexAnalysisTestOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft);
+			report.Render(this.m_AccessionOrder.MasterAccessionNo, this.m_EGFRToALKReflexAnalysisTestOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft, Window.GetWindow(this));
 
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_EGFRToALKReflexAnalysisTestOrder.ReportNo);
 			string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);

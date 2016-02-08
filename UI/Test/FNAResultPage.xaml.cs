@@ -43,19 +43,6 @@ namespace YellowstonePathology.UI.Test
 			InitializeComponent();            
 
 			this.DataContext = this;
-
-            Loaded += FNAResultPage_Loaded;
-            Unloaded += FNAResultPage_Unloaded;				
-		}
-
-        private void FNAResultPage_Loaded(object sender, RoutedEventArgs e)
-        {
-             
-        }
-
-        private void FNAResultPage_Unloaded(object sender, RoutedEventArgs e)
-        {
-             
         }
 
         public YellowstonePathology.Business.Test.FNAAdequacyAssessment.FNAAdequacyAssessmentTestOrder FNAAdequacyAssessmentResult
@@ -75,27 +62,6 @@ namespace YellowstonePathology.UI.Test
 		{
 			get { return this.m_PageHeaderText; }
 		}				        
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save(bool releaseLock)
-		{
-            this.ValidatDataTypesAndUpdateBindingSources();
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
-        }
-
-        public void UpdateBindingSources()
-		{
-            
-		}                                
 
         private bool ValidationIsHandled()
         {

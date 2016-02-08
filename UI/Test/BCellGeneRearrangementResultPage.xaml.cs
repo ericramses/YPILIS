@@ -50,18 +50,6 @@ namespace YellowstonePathology.UI.Test
 
 			DataContext = this;
             this.m_ParentWindow = Window.GetWindow(this);
-            Loaded += BCellGeneRearrangementResultPage_Loaded;
-            Unloaded += BCellGeneRearrangementResultPage_Unloaded;
-		}
-
-        private void BCellGeneRearrangementResultPage_Loaded(object sender, RoutedEventArgs e)
-        {
-             
-        }
-
-        private void BCellGeneRearrangementResultPage_Unloaded(object sender, RoutedEventArgs e)
-        {
-             
         }
 
         public string OrderedOnDescription
@@ -87,26 +75,6 @@ namespace YellowstonePathology.UI.Test
 			get { return this.m_PageHeaderText; }
 		}
 
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save(bool releaseLock)
-		{
-            //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
-        }
-
-        public void UpdateBindingSources()
-		{
-
-		}
-
 		private void HyperLinkSetResults_Click(object sender, RoutedEventArgs e)
 		{
             YellowstonePathology.Business.Test.BCellGeneRearrangement.BCellGeneRearrangementResult result = new YellowstonePathology.Business.Test.BCellGeneRearrangement.BCellGeneRearrangementResult();
@@ -116,7 +84,6 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
 		{
-			this.Save(false);
 			YellowstonePathology.Business.Test.BCellGeneRearrangement.BCellGeneRearrangementWordDocument report = new Business.Test.BCellGeneRearrangement.BCellGeneRearrangementWordDocument();
 			report.Render(this.m_AccessionOrder.MasterAccessionNo, this.m_PanelSetOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft, this.m_ParentWindow);
 

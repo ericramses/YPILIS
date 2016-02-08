@@ -14,7 +14,8 @@ namespace YellowstonePathology.UI.Test
 		private YellowstonePathology.Business.Test.InvasiveBreastPanel.InvasiveBreastPanel m_InvasiveBreastPanel;
 
 		public InvasiveBreastPanelPath(string reportNo, YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.UI.Navigation.PageNavigator pageNavigator) : base(pageNavigator)
+			YellowstonePathology.UI.Navigation.PageNavigator pageNavigator,
+            System.Windows.Window window) : base(pageNavigator, window)
 		{
 			this.m_ReportNo = reportNo;
 			this.m_AccessionOrder = accessionOrder;
@@ -53,7 +54,7 @@ namespace YellowstonePathology.UI.Test
 
 		private void ReportOrderPath_Finish(object sender, EventArgs e)
 		{
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, true);
+            //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, true);
 			this.m_PageNavigator.Navigate(this.m_InvasiveBreastPanelPage);
 		}
 	}

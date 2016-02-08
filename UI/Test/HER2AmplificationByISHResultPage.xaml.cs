@@ -64,19 +64,6 @@ namespace YellowstonePathology.UI.Test
             InitializeComponent();
 
             DataContext = this;
-
-            Loaded += HER2AmplificationByISHResultPage_Loaded;
-            Unloaded += HER2AmplificationByISHResultPage_Unloaded;
-        }
-
-        private void HER2AmplificationByISHResultPage_Loaded(object sender, RoutedEventArgs e)
-        {
-             
-        }
-
-        private void HER2AmplificationByISHResultPage_Unloaded(object sender, RoutedEventArgs e)
-        {
-             
         }
 
         public YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHTestOrder PanelSetOrder
@@ -130,26 +117,6 @@ namespace YellowstonePathology.UI.Test
         public string PageHeaderText
         {
             get { return this.m_PageHeaderText; }
-        }
-
-        public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-        {
-            return true;
-        }
-
-        public bool OkToSaveOnClose()
-        {
-            return true;
-        }
-
-        public void Save(bool releaseLock)
-        {
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
-        }
-
-        public void UpdateBindingSources()
-        {
-
         }
 
         private void ButtonNext_Click(object sender, RoutedEventArgs e)
@@ -256,9 +223,8 @@ namespace YellowstonePathology.UI.Test
         {
             if (string.IsNullOrEmpty(this.m_PanelSetOrder.Indicator) == false)
             {
-                this.Save(false);
                 YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHWordDocument report = new YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHWordDocument();
-                report.Render(this.m_PanelSetOrder.MasterAccessionNo, this.m_PanelSetOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft);
+                report.Render(this.m_PanelSetOrder.MasterAccessionNo, this.m_PanelSetOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft, Window.GetWindow(this));
 
 				YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
                 string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);
@@ -283,11 +249,6 @@ namespace YellowstonePathology.UI.Test
             YellowstonePathology.UI.CustomEventArgs.CancelTestEventArgs cancelTestEventArgs = new CustomEventArgs.CancelTestEventArgs(this.m_PanelSetOrder, this.m_AccessionOrder, reasonForTestCancelation, this);
             this.CancelTest(this, cancelTestEventArgs);
         }
-
-        /*private void CancellATestPath_Finish(object sender, EventArgs e)
-        {
-            this.m_PageNavigator.Navigate(this);
-        }*/
 
 		private void HyperlinkSpecimenDetails_Click(object sender, RoutedEventArgs e)
 		{

@@ -47,19 +47,6 @@ namespace YellowstonePathology.UI.Test
 			InitializeComponent();
 
 			DataContext = this;
-
-            Loaded += HPV1618ByPCRResultPage_Loaded;
-            Unloaded += HPV1618ByPCRResultPage_Unloaded;                      
-		}
-
-        private void HPV1618ByPCRResultPage_Loaded(object sender, RoutedEventArgs e)
-        {
-             
-        }
-
-        private void HPV1618ByPCRResultPage_Unloaded(object sender, RoutedEventArgs e)
-        {
-             
         }
 
         public List<string> IndicationList
@@ -98,26 +85,6 @@ namespace YellowstonePathology.UI.Test
 		public string PageHeaderText
 		{
 			get { return this.m_PageHeaderText; }
-		}
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save(bool releaseLock)
-		{
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
-        }
-
-        public void UpdateBindingSources()
-		{
-
 		}
 
         private void ButtonNext_Click(object sender, RoutedEventArgs e)
@@ -189,9 +156,8 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
 		{
-			this.Save(false);
 			YellowstonePathology.Business.Test.HPV1618ByPCR.HPV1618ByPCRWordDocument report = new Business.Test.HPV1618ByPCR.HPV1618ByPCRWordDocument();
-			report.Render(this.m_HPV1618ByPCRTestOrder.MasterAccessionNo, this.m_HPV1618ByPCRTestOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft);
+			report.Render(this.m_HPV1618ByPCRTestOrder.MasterAccessionNo, this.m_HPV1618ByPCRTestOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft, Window.GetWindow(this));
 
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_HPV1618ByPCRTestOrder.ReportNo);
 			string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);

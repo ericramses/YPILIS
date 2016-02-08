@@ -112,26 +112,6 @@ namespace YellowstonePathology.UI.Test
 			get { return this.m_PageHeaderText; }
 		}
 
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save(bool releaseLock)
-		{
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
-        }
-
-        public void UpdateBindingSources()
-		{
-
-		}
-
         private void ButtonNext_Click(object sender, RoutedEventArgs e)
         {
             this.Next(this, new EventArgs());
@@ -199,9 +179,8 @@ namespace YellowstonePathology.UI.Test
 
         private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
         {
-            this.Save(false);
 			YellowstonePathology.Business.Test.HPV.HPVWordDocument report = new Business.Test.HPV.HPVWordDocument();
-			report.Render(this.m_HPVTestOrder.MasterAccessionNo, this.m_HPVTestOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft);
+			report.Render(this.m_HPVTestOrder.MasterAccessionNo, this.m_HPVTestOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft, Window.GetWindow(this));
 
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_HPVTestOrder.ReportNo);
             string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);

@@ -49,19 +49,6 @@ namespace YellowstonePathology.UI.Test
 			InitializeComponent();
 
 			DataContext = this;
-
-            Loaded += JAK2V617FResultPage_Loaded;
-            Unloaded += JAK2V617FResultPage_Unloaded;
-		}
-
-        private void JAK2V617FResultPage_Loaded(object sender, RoutedEventArgs e)
-        {
-             
-        }
-
-        private void JAK2V617FResultPage_Unloaded(object sender, RoutedEventArgs e)
-        {
-             
         }
 
         public YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FTestOrder PanelSetOrder

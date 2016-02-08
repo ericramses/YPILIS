@@ -18,8 +18,9 @@ namespace YellowstonePathology.UI.Test
         public ComprehensiveColonCancerProfilePath(string reportNo,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
             YellowstonePathology.UI.Navigation.PageNavigator pageNavigator,
-            System.Windows.Visibility backButtonVisibility)
-            : base(pageNavigator)
+            System.Windows.Visibility backButtonVisibility,
+            System.Windows.Window window)
+            : base(pageNavigator, window)
         {
             this.m_AccessionOrder = accessionOrder;
 			this.m_ComprehensiveColonCancerProfile = (YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile.ComprehensiveColonCancerProfile)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
