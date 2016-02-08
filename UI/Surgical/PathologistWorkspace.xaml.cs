@@ -29,13 +29,13 @@ namespace YellowstonePathology.UI.Surgical
 		private YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort m_BarcodeScanPort;
 		private MainWindowCommandButtonHandler m_MainWindowCommandButtonHandler;
 
-		public PathologistWorkspace(MainWindowCommandButtonHandler mainWindowCommandButtonHandler)
+		public PathologistWorkspace(MainWindowCommandButtonHandler mainWindowCommandButtonHandler, TabItem writer)
 		{
 			this.m_MainWindowCommandButtonHandler = mainWindowCommandButtonHandler;
 			this.m_SystemIdentity = new YellowstonePathology.Business.User.SystemIdentity(YellowstonePathology.Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
 
 			m_Loaded = false;
-			this.m_PathologistUI = new PathologistUI(this.m_SystemIdentity);
+			this.m_PathologistUI = new PathologistUI(this.m_SystemIdentity, writer);
 
 			InitializeComponent();
 
@@ -253,7 +253,7 @@ namespace YellowstonePathology.UI.Surgical
 			{
 				YellowstonePathology.Business.Search.PathologistSearchResult item = (YellowstonePathology.Business.Search.PathologistSearchResult)this.ListViewSearchResults.SelectedItem;
 				YellowstonePathology.UI.CaseDocumentViewer caseDocumentViewer = new CaseDocumentViewer();
-				caseDocumentViewer.View(item.MasterAccessionNo, item.ReportNo, item.PanelSetId);
+				caseDocumentViewer.View(item.MasterAccessionNo, item.ReportNo, item.PanelSetId, this.m_PathologistUI.Writer);
 			}
 		}
 

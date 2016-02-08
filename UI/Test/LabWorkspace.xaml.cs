@@ -50,7 +50,7 @@ namespace YellowstonePathology.UI.Test
         private YellowstonePathology.UI.Test.ResultDialog m_ResultDialog;
         private MainWindowCommandButtonHandler m_MainWindowCommandButtonHandler;
 
-        public LabWorkspace(MainWindowCommandButtonHandler mainWindowCommandButtonHandler)
+        public LabWorkspace(MainWindowCommandButtonHandler mainWindowCommandButtonHandler, TabItem writer)
         {
             this.m_MainWindowCommandButtonHandler = mainWindowCommandButtonHandler;
 			this.m_SystemIdentity = new YellowstonePathology.Business.User.SystemIdentity(YellowstonePathology.Business.User.SystemIdentityTypeEnum.CurrentlyScannedIn);
@@ -73,7 +73,7 @@ namespace YellowstonePathology.UI.Test
 			this.CommandBindings.Add(this.CommandBindingRemoveTab);			
 			this.CommandBindings.Add(this.CommandBindingShowPatientEditDialog);
 						
-			this.m_LabUI = new LabUI(this.m_SystemIdentity);
+			this.m_LabUI = new LabUI(this.m_SystemIdentity, writer);
 
 			this.m_AmendmentControl = new AmendmentControlV2(this.m_SystemIdentity, string.Empty, this.m_LabUI.AccessionOrder);
             this.m_DocumentViewer = new DocumentWorkspace();
