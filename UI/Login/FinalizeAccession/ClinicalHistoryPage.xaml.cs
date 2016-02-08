@@ -34,21 +34,8 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 			InitializeComponent();
 
             this.Loaded += new RoutedEventHandler(ClinicalHistoryPage_Loaded);
-			this.DataContext = this;
-
-            Loaded += ClinicalHistoryPage_Loaded1;
-            Unloaded += ClinicalHistoryPage_Unloaded;
-		}
-
-        private void ClinicalHistoryPage_Loaded1(object sender, RoutedEventArgs e)
-        {
-             
-        }
-
-        private void ClinicalHistoryPage_Unloaded(object sender, RoutedEventArgs e)
-        {
-            
-        }
+			this.DataContext = this;            
+		}        
 
         private void ClinicalHistoryPage_Loaded(object sender, RoutedEventArgs e)
         {
@@ -80,25 +67,6 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 		{
 			UI.Navigation.PageNavigationReturnEventArgs args = new UI.Navigation.PageNavigationReturnEventArgs(UI.Navigation.PageNavigationDirectionEnum.Next, null);
 			this.Return(this, args);
-		}
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save(bool releaseLock)
-		{
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
-        }
-
-        public void UpdateBindingSources()
-		{
-		}
+		}		
 	}
 }

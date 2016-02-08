@@ -15,7 +15,7 @@ using System.ComponentModel;
 
 namespace YellowstonePathology.UI.Test
 {    
-	public partial class CancelTestWarningPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges, INotifyPropertyChanged 
+	public partial class CancelTestWarningPage : UserControl, INotifyPropertyChanged 
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -68,27 +68,7 @@ namespace YellowstonePathology.UI.Test
         private void ButtonCancelTest_Click(object sender, RoutedEventArgs e)
         {
             this.CancelTest(this, this.m_CancelTestEventArgs);
-        }    
-
-		public void Save(bool releaseLock)
-		{
-        
-		}
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return false;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void UpdateBindingSources()
-		{
-
-		}               
+        }    		         
 
         public void NotifyPropertyChanged(String info)
         {

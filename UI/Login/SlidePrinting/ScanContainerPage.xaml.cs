@@ -16,7 +16,7 @@ using System.ComponentModel;
 
 namespace YellowstonePathology.UI.Login.SlidePrinting
 {
-	public partial class ScanContainerPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges, INotifyPropertyChanged
+	public partial class ScanContainerPage : UserControl, INotifyPropertyChanged
 	{
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -71,27 +71,7 @@ namespace YellowstonePathology.UI.Login.SlidePrinting
         private void ButtonNext_Click(object sender, RoutedEventArgs e)
         {            
             if (this.Next != null) this.Next(this, new EventArgs());            
-        }        
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return false;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save(bool releaseLock)
-		{
-            
-		}
-
-		public void UpdateBindingSources()
-		{
-
-		}        
+        }        		    
 
         public void NotifyPropertyChanged(String info)
         {

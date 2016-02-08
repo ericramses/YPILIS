@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 	/// <summary>
 	/// Interaction logic for CytologyClinicalHistoryPage.xaml
 	/// </summary>
-	public partial class CytologyClinicalHistoryPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges, INotifyPropertyChanged
+	public partial class CytologyClinicalHistoryPage : UserControl, INotifyPropertyChanged
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 		public delegate void ReturnEventHandler(object sender, UI.Navigation.PageNavigationReturnEventArgs e);
@@ -32,7 +32,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 		{
 			this.m_AccessionOrder = accessionOrder;
 			this.m_CytologyClientOrder = (YellowstonePathology.Business.ClientOrder.Model.CytologyClientOrder)
-                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.GetClientOrderByClientOrderId(this.m_AccessionOrder.ClientOrderId);
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullClientOrderByClientOrderId(this.m_AccessionOrder.ClientOrderId, Window.GetWindow(this));
 
 			InitializeComponent();
 
@@ -171,25 +171,6 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 			}
 
 			return result.ToString();
-		}
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save(bool releaseLock)
-		{
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
-        }
-
-        public void UpdateBindingSources()
-		{
-		}
+		}		
 	}
 }

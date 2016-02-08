@@ -16,7 +16,7 @@ using System.ComponentModel;
 
 namespace YellowstonePathology.UI.Login
 {	
-	public partial class SpecimenOrderDetailsPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges, INotifyPropertyChanged
+	public partial class SpecimenOrderDetailsPage : UserControl, INotifyPropertyChanged
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -125,22 +125,7 @@ namespace YellowstonePathology.UI.Login
 		private void ButtonNext_Click(object sender, RoutedEventArgs e)
 		{
             if (this.Next != null) this.Next(this, new EventArgs());
-		}
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save(bool releaseLock)
-		{
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
-        }
+		}				
 
         public ObservableCollection<string> FixationTypeCollection
 		{
@@ -155,12 +140,7 @@ namespace YellowstonePathology.UI.Login
 		public YellowstonePathology.Business.Specimen.Model.SpecimenOrder SpecimenOrder
 		{
             get { return this.m_SpecimenOrder; }
-		}
-
-		public void UpdateBindingSources()
-		{
-
-		}
+		}		
 
         private void HyperLinkReceivedFresh_Click(object sender, RoutedEventArgs e)
         {

@@ -17,7 +17,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 	/// <summary>
 	/// Interaction logic for PatientDetailsPage.xaml
 	/// </summary>
-	public partial class GrossEntryPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
+	public partial class GrossEntryPage : UserControl
 	{
 		public delegate void BackEventHandler(object sender, EventArgs e);
 		public event BackEventHandler Back;
@@ -39,21 +39,8 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
 			InitializeComponent();
 
-            this.DataContext = this;
-
-            Loaded += GrossEntryPage_Loaded;
-            Unloaded += GrossEntryPage_Unloaded;                     
-		}
-
-        private void GrossEntryPage_Loaded(object sender, RoutedEventArgs e)
-        {
-             
-        }
-
-        private void GrossEntryPage_Unloaded(object sender, RoutedEventArgs e)
-        {
-            
-        }
+            this.DataContext = this;                
+		}        
 
         public string PageHeaderText
 		{
@@ -73,7 +60,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
 		private void ButtonLink_Click(object sender, RoutedEventArgs e)
 		{
-            this.Save(false);
+            //this.Save(false);
 		}		
 
 		private void ButtonBack_Click(object sender, RoutedEventArgs e)
@@ -84,25 +71,6 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 		private void ButtonNext_Click(object sender, RoutedEventArgs e)
 		{
             if (this.Next != null) this.Next(this, new EventArgs());
-		}		
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save(bool releaseLock)
-		{
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);            
-		}
-
-		public void UpdateBindingSources()
-		{
-		}
+		}				
 	}
 }

@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Test
 	/// <summary>
 	/// Interaction logic for MPNStandardResultPage.xaml
 	/// </summary>
-	public partial class MPNStandardReflexPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges, INotifyPropertyChanged
+	public partial class MPNStandardReflexPage : UserControl, INotifyPropertyChanged
 	{
 		public delegate void PropertyChangedNotificationHandler(String info);
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -65,21 +65,8 @@ namespace YellowstonePathology.UI.Test
 
 			InitializeComponent();
 
-			this.DataContext = this;
-
-            Loaded += MPNStandardReflexPage_Loaded;
-            Unloaded += MPNStandardReflexPage_Unloaded;
-		}
-
-        private void MPNStandardReflexPage_Loaded(object sender, RoutedEventArgs e)
-        {
-             
-        }
-
-        private void MPNStandardReflexPage_Unloaded(object sender, RoutedEventArgs e)
-        {
-             
-        }
+			this.DataContext = this;            
+		}        
 
         public YellowstonePathology.Business.Specimen.Model.SpecimenOrder SpecimenOrder
         {
@@ -109,27 +96,7 @@ namespace YellowstonePathology.UI.Test
 		public string PageHeaderText
 		{
 			get { return this.m_PageHeaderText; }
-		}
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save(bool releaseLock)
-		{
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
-        }
-
-        public void UpdateBindingSources()
-		{
-
-		}
+		}		
 
 		private void HyperLinkOrderJak2Exon1214_Click(object sender, RoutedEventArgs e)
 		{
@@ -153,10 +120,9 @@ namespace YellowstonePathology.UI.Test
         }
 
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
-		{
-			this.Save(false);
+		{			
 			YellowstonePathology.Business.Test.MPNStandardReflex.MPNStandardReflexWordDocument report = new Business.Test.MPNStandardReflex.MPNStandardReflexWordDocument();
-			report.Render(this.m_AccessionOrder.MasterAccessionNo, this.m_PanelSetOrderMPNStandardReflex.ReportNo, Business.Document.ReportSaveModeEnum.Draft);
+			report.Render(this.m_AccessionOrder.MasterAccessionNo, this.m_PanelSetOrderMPNStandardReflex.ReportNo, Business.Document.ReportSaveModeEnum.Draft, Window.GetWindow(this));
 
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_PanelSetOrderMPNStandardReflex.ReportNo);
 			string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);

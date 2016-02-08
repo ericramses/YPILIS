@@ -19,7 +19,7 @@ namespace YellowstonePathology.UI
     /// <summary>
     /// Interaction logic for XpsDocumentViewer.xaml
     /// </summary>
-    public partial class XpsDocumentViewerPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
+    public partial class XpsDocumentViewerPage : UserControl
     {
         public delegate void NextEventHandler(object sender, EventArgs e);
         public event NextEventHandler Next;        
@@ -74,26 +74,7 @@ namespace YellowstonePathology.UI
 		public void LoadDocument(FixedDocument fixedDocument)
 		{
 			this.Viewer.Document = fixedDocument;
-		}
-
-        public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-        {
-            return false;
-        }
-
-        public bool OkToSaveOnClose()
-        {
-            return false;
-        }
-
-        public void Save(bool releaseLock)
-        {
-
-        }
-
-        public void UpdateBindingSources()
-        {
-        }
+		}        
 
         private void ButtonNext_Click(object sender, RoutedEventArgs e)
         {

@@ -17,7 +17,7 @@ namespace YellowstonePathology.UI.Login
 	/// <summary>
 	/// Interaction logic for SvhOrderIdLookupPage.xaml
 	/// </summary>
-	public partial class SvhOrderIdLookupPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
+	public partial class SvhOrderIdLookupPage : UserControl
 	{
 		public delegate void ReturnEventHandler(object sender, UI.Navigation.PageNavigationReturnEventArgs e);
 		public event ReturnEventHandler Return;
@@ -87,25 +87,6 @@ namespace YellowstonePathology.UI.Login
         private void ButtonClose_Click(object sender, RoutedEventArgs e)
         {
             Window.GetWindow(this).Close();
-        }
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return false;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return false;
-		}
-
-		public void Save(bool releaseLock)
-		{
-
-		}
-
-		public void UpdateBindingSources()
-		{
-		}
+        }		
 	}
 }

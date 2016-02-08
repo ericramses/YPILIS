@@ -14,7 +14,7 @@ using System.Windows.Shapes;
 
 namespace YellowstonePathology.UI.Surgical
 {    
-	public partial class PQRSMeasurePage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
+	public partial class PQRSMeasurePage : UserControl
     {
 		public delegate void AddPQRSCodeEventHandler(object sender, CustomEventArgs.AddPQRSReturnEventArgs e);
 		public event AddPQRSCodeEventHandler AddPQRSCode;
@@ -52,25 +52,7 @@ namespace YellowstonePathology.UI.Surgical
 			{
 				MessageBox.Show("Please select an option from the list.");
 			}
-		}
-
-		public void Save(bool releaseLock)
-		{
-		}
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return false;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return false;
-		}
-
-		public void UpdateBindingSources()
-		{
-		}
+		}		
 
 		public YellowstonePathology.Business.Surgical.PQRSMeasure PQRSMeasure
 		{

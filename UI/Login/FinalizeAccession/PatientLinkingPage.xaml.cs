@@ -19,7 +19,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
     /// <summary>
     /// Interaction logic for PatientLinkingPage.xaml
     /// </summary>
-    public partial class PatientLinkingPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges, INotifyPropertyChanged
+    public partial class PatientLinkingPage : UserControl, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
         public delegate void ReturnEventHandler(object sender, UI.Navigation.PageNavigationReturnEventArgs e);
@@ -213,25 +213,6 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                 UI.Navigation.PageNavigationReturnEventArgs args = new UI.Navigation.PageNavigationReturnEventArgs(UI.Navigation.PageNavigationDirectionEnum.Next, null);
                 this.Return(this, args);
             }
-        }
-
-        public void Save(bool releaseLock)
-        {
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
-        }
-
-        public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-        {
-            return true;
-        }
-
-        public bool OkToSaveOnClose()
-        {
-            return true;
-        }
-
-		public void UpdateBindingSources()
-		{
-		}
+        }        
 	}
 }

@@ -54,27 +54,7 @@ namespace YellowstonePathology.UI
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
-        }
-
-        public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-        {
-            return true;
-        }
-
-        public bool OkToSaveOnClose()
-        {
-            return true;
-        }
-
-        public void Save(bool releaseLock)
-        {
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
-        }
-
-        public void UpdateBindingSources()
-        {
-
-        }
+        }        
 
         public string PageHeaderText
         {

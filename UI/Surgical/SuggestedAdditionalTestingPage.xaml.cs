@@ -17,7 +17,7 @@ namespace YellowstonePathology.UI.Surgical
     /// <summary>
     /// Interaction logic for SuggestedAdditionalTestingPge.xaml
     /// </summary>
-    public partial class SuggestedAdditionalTestingPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
+    public partial class SuggestedAdditionalTestingPage : UserControl
     {
         public delegate void NextEventHandler(object sender, EventArgs e);
         public event NextEventHandler Next;
@@ -46,25 +46,7 @@ namespace YellowstonePathology.UI.Surgical
 
             InitializeComponent();
             DataContext = this;
-        }
-
-        public void Save(bool releaseLock)
-        {
-        }
-
-        public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-        {
-            return false;
-        }
-
-        public bool OkToSaveOnClose()
-        {
-            return false;
-        }
-
-        public void UpdateBindingSources()
-        {
-        }
+        }        
 
         public YellowstonePathology.Business.Test.AccessionOrder AccessionOrder
         {

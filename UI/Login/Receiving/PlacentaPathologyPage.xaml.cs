@@ -17,7 +17,7 @@ using System.Xml.Linq;
 
 namespace YellowstonePathology.UI.Login.Receiving
 {
-	public partial class PlacentalPathologyPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
+	public partial class PlacentalPathologyPage : UserControl
 	{
 		public delegate void ReturnEventHandler(object sender, UI.Navigation.PageNavigationReturnEventArgs e);
 		public event ReturnEventHandler Return;
@@ -68,25 +68,6 @@ namespace YellowstonePathology.UI.Login.Receiving
 		{
 			UI.Navigation.PageNavigationReturnEventArgs args = new UI.Navigation.PageNavigationReturnEventArgs(UI.Navigation.PageNavigationDirectionEnum.Next, null);
 			this.Return(this, args);
-		}
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return false;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return false;
-		}
-
-		public void Save(bool releaseLock)
-		{
-
-		}
-
-		public void UpdateBindingSources()
-		{
-		}
+		}		
 	}
 }

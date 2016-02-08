@@ -17,14 +17,8 @@ namespace YellowstonePathology.UI
         {
             this.m_AccessionOrder = accessionOrder;
             this.m_PanelSetOrder = panelSetOrder;
-            this.m_SystemIdentity = systemIdentity;
-             
-        }
-
-        public void Save(bool releaseLock)
-        {
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
-        }
+            this.m_SystemIdentity = systemIdentity;             
+        }        
 
         public YellowstonePathology.Business.Test.AccessionOrder AccessionOrder
         {

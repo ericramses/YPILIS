@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 	/// <summary>
 	/// Interaction logic for PhysicianClientSearchPage.xaml
 	/// </summary>
-    public partial class PhysicianClientSearchPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges, INotifyPropertyChanged
+    public partial class PhysicianClientSearchPage : UserControl, INotifyPropertyChanged
 	{
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -113,27 +113,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 		private void ButtonBack_Click(object sender, RoutedEventArgs e)
 		{
             if (this.Back != null) this.Back(this, new EventArgs());
-		}
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return false;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return false;
-		}
-
-		public void Save(bool releaseLock)
-		{
-
-		}
-
-		public void UpdateBindingSources()
-		{
-
-		}
+		}		
 
         public void NotifyPropertyChanged(String info)
         {

@@ -15,7 +15,7 @@ using System.ComponentModel;
 
 namespace YellowstonePathology.UI.Login.FinalizeAccession
 {	
-	public partial class ProviderDistributionPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges, INotifyPropertyChanged
+	public partial class ProviderDistributionPage : UserControl, INotifyPropertyChanged
 	{
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -185,7 +185,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                     this.m_AccessionOrder.UpdateCaseAssignment(surgicalPanelSetOrder);
                 }
 
-                this.Save(false);
+                //this.Save(false);
                 this.SetDistribution();
             }
         }		
@@ -239,22 +239,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             {
                 if (this.Next != null) this.Next(this.Next, new EventArgs());
             }
-		}		
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save(bool releaseLock)
-		{
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);            
-        }
+		}				
 
         public void NotifyPropertyChanged(String info)
         {
@@ -262,12 +247,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
-        }
-
-		public void UpdateBindingSources()
-		{
-
-		}        
+        }		    
 
         private void HyperLinkDeleteDistribution_Click(object sender, RoutedEventArgs e)
         {
@@ -563,7 +543,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                 testOrderReportDistribution.Distributed = true;
                 testOrderReportDistribution.TimeOfLastDistribution = DateTime.Now;
                 testOrderReportDistribution.ScheduledDistributionTime = null;
-                this.Save(false);
+                //this.Save(false);
             }
         }             
 	}

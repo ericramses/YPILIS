@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Login.ReceiveSpecimen
 	/// <summary>
 	/// Interaction logic for CreateClientOrderPage.xaml
 	/// </summary>
-	public partial class ClientOrderShortDetailsPage : UserControl, INotifyPropertyChanged, YellowstonePathology.Business.Interface.IPersistPageChanges
+	public partial class ClientOrderShortDetailsPage : UserControl, INotifyPropertyChanged
 	{
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -80,26 +80,7 @@ namespace YellowstonePathology.UI.Login.ReceiveSpecimen
         private void ButtonClose_Click(object sender, RoutedEventArgs e)
         {
             Window.GetWindow(this).Close();
-        }
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save(bool releaseLock)
-		{
-            //this.m_ClientOrderReceivingHandler.Save();
-		}
-
-		public void UpdateBindingSources()
-		{
-		}
+        }		
 
         private void ButtonEnterTestPatient_Click(object sender, RoutedEventArgs e)
         {

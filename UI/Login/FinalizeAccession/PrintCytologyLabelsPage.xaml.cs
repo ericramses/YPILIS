@@ -17,7 +17,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 	/// <summary>
 	/// Interaction logic for PrintCytologyLabelsPage.xaml
 	/// </summary>
-	public partial class PrintCytologyLabelsPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
+	public partial class PrintCytologyLabelsPage : UserControl
 	{
 		public delegate void BackEventHandler(object sender, EventArgs e);
 		public event BackEventHandler Back;
@@ -36,44 +36,13 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 			this.m_PageHeaderText = "Print labels for " + this.m_AccessionOrder.PFirstName + " " + this.m_AccessionOrder.PLastName + ": " + reportNo;
 
 			InitializeComponent();
-			DataContext = this;
-
-            Loaded += PrintCytologyLabelsPage_Loaded;
-            Unloaded += PrintCytologyLabelsPage_Unloaded;
-		}
-
-        private void PrintCytologyLabelsPage_Loaded(object sender, RoutedEventArgs e)
-        {
-             
-        }
-
-        private void PrintCytologyLabelsPage_Unloaded(object sender, RoutedEventArgs e)
-        {
-            
-        }
+			DataContext = this;            
+		}        
 
         public string PageHeaderText
 		{
 			get { return this.m_PageHeaderText; }
-		}
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return false;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return false;
-		}
-
-		public void Save(bool releaseLock)
-		{
-		}
-
-		public void UpdateBindingSources()
-		{
-		}
+		}			
 
 		private void ButtonBack_Click(object sender, RoutedEventArgs e)
 		{
@@ -94,7 +63,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                 if (specimenOrder.AliquotOrderCollection.HasThinPrepSlide()== false)
                 {
                     aliquotOrder = specimenOrder.AliquotOrderCollection.AddThinPrepSlide(specimenOrder, this.m_AccessionOrder.AccessionDate.Value);
-                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
+                    //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
                 }
                 else
                 {

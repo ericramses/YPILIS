@@ -19,7 +19,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 	/// <summary>
 	/// Interaction logic for FixationDetailsPage.xaml
 	/// </summary>
-	public partial class FixationDetailsPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges, INotifyPropertyChanged
+	public partial class FixationDetailsPage : UserControl, INotifyPropertyChanged
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 		public delegate void ReturnEventHandler(object sender, UI.Navigation.PageNavigationReturnEventArgs e);
@@ -93,27 +93,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 		{            
             UI.Navigation.PageNavigationReturnEventArgs args = new UI.Navigation.PageNavigationReturnEventArgs(UI.Navigation.PageNavigationDirectionEnum.Finish, null);
             this.Return(this, args);            
-		}        
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save(bool releaseLock)
-		{
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, releaseLock);			
-		}
-
-		public void UpdateBindingSources()
-		{
-
-		}               
+		}        		        
 
         private void ButtonSet_Click(object sender, RoutedEventArgs e)
         {

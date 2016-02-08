@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 	/// <summary>
 	/// Interaction logic for ViewClientOrderPage.xaml
 	/// </summary>
-	public partial class ViewAccessionOrderPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
+	public partial class ViewAccessionOrderPage : UserControl
 	{
         public delegate void UseThisAccessionOrderEventHandler(object sender, YellowstonePathology.UI.CustomEventArgs.AccessionOrderReturnEventArgs e);
         public event UseThisAccessionOrderEventHandler UseThisAccessionOrder;
@@ -48,28 +48,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 		public string PageHeaderText
 		{
 			get { return this.m_PageHeaderText; }
-		}
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return false;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return false;
-		}
-
-		public void Save(bool releaseLock)
-		{
-
-		}
-
-		public void UpdateBindingSources()
-		{
-
 		}		
-
 		private void ButtonBack_Click(object sender, RoutedEventArgs e)
 		{			
 			this.Back(this, new EventArgs());

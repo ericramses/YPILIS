@@ -18,7 +18,7 @@ using System.IO;
 
 namespace YellowstonePathology.UI.Login.FinalizeAccession
 {	
-    public partial class DocumentScanningPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges, INotifyPropertyChanged
+    public partial class DocumentScanningPage : UserControl, INotifyPropertyChanged
 	{
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -126,22 +126,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 		{
 			UI.Navigation.PageNavigationReturnEventArgs args = new UI.Navigation.PageNavigationReturnEventArgs(UI.Navigation.PageNavigationDirectionEnum.Next, null);
 			this.Return(this, args);
-		}		
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-            return false;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-            return false;
-		}
-
-		public void Save(bool releaseLock)
-		{		
-            
-		}
+		}				
 
         private void ButtonDelete_Click(object sender, RoutedEventArgs e)
         {            
@@ -174,11 +159,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
-        }
-
-		public void UpdateBindingSources()
-		{
-		}
+        }		
 
         private void ButtonPrint_Click(object sender, RoutedEventArgs e)
         {

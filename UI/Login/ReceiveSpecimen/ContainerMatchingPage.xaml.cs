@@ -19,7 +19,7 @@ namespace YellowstonePathology.UI.Login.ReceiveSpecimen
 	/// <summary>
 	/// Interaction logic for ContainerMatchingPage.xaml
 	/// </summary>
-	public partial class ContainerMatchingPage : UserControl, INotifyPropertyChanged, YellowstonePathology.Business.Interface.IPersistPageChanges
+	public partial class ContainerMatchingPage : UserControl, INotifyPropertyChanged
 	{
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -224,25 +224,6 @@ namespace YellowstonePathology.UI.Login.ReceiveSpecimen
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
-        }
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return false;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return false;
-		}
-
-		public void Save(bool releaseLock)
-		{
-            
-		}
-
-		public void UpdateBindingSources()
-		{
-		}
+        }		
 	}
 }

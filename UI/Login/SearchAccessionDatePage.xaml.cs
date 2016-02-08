@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Login
 	/// <summary>
 	/// Interaction logic for SearchAccessionDatePage.xaml
 	/// </summary>
-	public partial class SearchAccessionDatePage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges, INotifyPropertyChanged
+	public partial class SearchAccessionDatePage : UserControl, INotifyPropertyChanged
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 		public delegate void ReturnEventHandler(object sender, UI.Navigation.PageNavigationReturnEventArgs e);
@@ -75,31 +75,13 @@ namespace YellowstonePathology.UI.Login
 		{
 			UI.Navigation.PageNavigationReturnEventArgs args = new UI.Navigation.PageNavigationReturnEventArgs(UI.Navigation.PageNavigationDirectionEnum.Next, this.AccessionDate);
 			this.Return(this, args);
-		}
-
-		public void Save(bool releaseLock)
-		{
-		}
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return false;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return false;
-		}
+		}		
 
 		private void TextBoxAccessionDate_KeyUp(object sender, KeyEventArgs e)
 		{
 			Nullable<DateTime> targetDate = null;
 			bool result = YellowstonePathology.Business.Helper.TextBoxHelper.IncrementDate(this.TextBoxAccessionDate.Text, ref targetDate, e);
 			if (result == true) this.AccessionDate = targetDate.Value;
-		}
-
-		public void UpdateBindingSources()
-		{
-		}
+		}		
 	}
 }
