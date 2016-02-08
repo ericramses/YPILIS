@@ -36,7 +36,7 @@ namespace YellowstonePathology.UI.Login.SlidePrinting
 		private void ScanContainerPage_ContainerScannedReceived(object sender, Business.BarcodeScanning.ContainerBarcode containerBarcode)
         {
             string masterAccessionNo = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetMasterAccessionNoFromContainerId(containerBarcode.ToString());
-            YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.ObjectGateway.Instance.GetByMasterAccessionNo(masterAccessionNo);
+            YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo);
             this.ShowPrintSlidesPage(containerBarcode.ToString(), accessionOrder);
         }
 

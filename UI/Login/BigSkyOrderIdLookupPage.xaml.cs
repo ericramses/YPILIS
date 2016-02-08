@@ -17,7 +17,7 @@ namespace YellowstonePathology.UI.Login
 	/// <summary>
 	/// Interaction logic for BigSkyOrderIdLookupPage.xaml
 	/// </summary>
-	public partial class BigSkyOrderIdLookupPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
+	public partial class BigSkyOrderIdLookupPage : UserControl
 	{
 		public delegate void ReturnEventHandler(object sender, UI.Navigation.PageNavigationReturnEventArgs e);
 		public event ReturnEventHandler Return;
@@ -79,24 +79,5 @@ namespace YellowstonePathology.UI.Login
             Window window = Window.GetWindow(this);
             window.Close();
         }
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return false;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return false;
-		}
-
-		public void Save(bool releaseLock)
-		{
-
-		}
-
-		public void UpdateBindingSources()
-		{
-		}
 	}
 }

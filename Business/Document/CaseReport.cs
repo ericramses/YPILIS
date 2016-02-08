@@ -29,11 +29,10 @@ namespace YellowstonePathology.Business.Document
             this.m_NameSpaceManager.AddNamespace("w", "http://schemas.microsoft.com/office/word/2003/wordml");
 		}
 
-		protected void GetReportData(string reportNo)
+		protected void GetReportData(string reportNo, object writer)
 		{
             string masterAccessionNo = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetMasterAccessionNoFromReportNo(this.m_ReportNo);
-            this.m_AccessionOrder = YellowstonePathology.Business.Persistence.ObjectGateway.Instance.GetByMasterAccessionNo(masterAccessionNo);
-
+            this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, writer);
             this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);			
 		}
 
@@ -48,7 +47,7 @@ namespace YellowstonePathology.Business.Document
 			return YellowstonePathology.Business.Document.CaseDocument.DeleteCaseFiles(orderIdParser);
         }
 
-		public virtual void Render(string masterAccessionNo, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveEnum)
+		public virtual void Render(string masterAccessionNo, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveEnum, object writer)
 		{
 			throw new NotImplementedException("Not Implemented Here");
 		}

@@ -17,7 +17,7 @@ namespace YellowstonePathology.UI.Test
 	/// <summary>
 	/// Interaction logic for PublishedDocumentResultPage.xaml
 	/// </summary>
-	public partial class PublishedDocumentResultPage : UserControl, Business.Interface.IPersistPageChanges
+	public partial class PublishedDocumentResultPage : UserControl 
 	{
 		public delegate void NextEventHandler(object sender, EventArgs e);
 		public event NextEventHandler Next;

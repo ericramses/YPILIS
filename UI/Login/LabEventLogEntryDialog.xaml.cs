@@ -61,14 +61,14 @@ namespace YellowstonePathology.UI.Login
 			this.m_OrderCommentLog.SpecimenLogId = order.SpecimenLogId;
 			this.m_OrderCommentLog.FromEvent(orderComment);
 
-            YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitRootInsert(this.m_OrderCommentLog);						
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitRootInsert(this.m_OrderCommentLog);						
 			return this.m_OrderCommentLog;
         }
 
         private void ButtonOK_Click(object sender, RoutedEventArgs e)
         {
             this.DialogResult = true;
-            YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_OrderCommentLog, true);
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_OrderCommentLog, true);
             this.Close();
         }
 

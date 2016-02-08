@@ -117,17 +117,17 @@ namespace YellowstonePathology.UI.Login.ReceiveSpecimen
 		private void ReplaceContainerId(string containerId)
 		{
             string masterAccessionNo = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetMasterAccessionNoFromContainerId(this.m_ClientOrderDetail.ContainerId);
-            YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.ObjectGateway.Instance.GetByMasterAccessionNo(masterAccessionNo);             
+            YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo);             
 						
 			if (accessionOrder != null)
 			{
 				YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = accessionOrder.SpecimenOrderCollection.GetSpecimenOrderByContainerId(this.m_ClientOrderDetail.ContainerId);								
 				specimenOrder.ContainerId = containerId;
-                YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(specimenOrder, false);				
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(specimenOrder, false);				
 			}
 						
 			this.m_ClientOrderDetail.ContainerId = containerId;
-            YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_ClientOrderDetail, false);           
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_ClientOrderDetail, false);           
 
 			ClientOrderPage clientOrderPage = new ClientOrderPage(this.m_ClientOrder);
 			clientOrderPage.Return += new Login.ClientOrderPage.ReturnEventHandler(ClientOrderPageConfirm_Return);

@@ -44,7 +44,7 @@ namespace YellowstonePathology.Business.Document
 			return YellowstonePathology.Business.Document.CaseDocument.DeleteCaseFiles(orderIdParser);            
         }
 
-		public virtual void Render(string masterAccessionNo, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveEnum)
+		public virtual void Render(string masterAccessionNo, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveEnum, object writer)
         {
             throw new NotImplementedException("Not Implemented Here");
         }

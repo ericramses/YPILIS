@@ -8,7 +8,7 @@ namespace YellowstonePathology.Business.Interface
 	public interface ICaseDocument
 	{
 		YellowstonePathology.Business.Rules.MethodResult DeleteCaseFiles(YellowstonePathology.Business.OrderIdParser orderIdParser);
-		void Render(string masterAccessionNo, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveModeEnum);
+		void Render(string masterAccessionNo, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveModeEnum, object writer);
         void Publish();
         YellowstonePathology.Business.Document.NativeDocumentFormatEnum NativeDocumentFormat { get; set; }
 	}

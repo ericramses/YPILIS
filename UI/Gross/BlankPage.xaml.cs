@@ -14,31 +14,12 @@ using System.Windows.Shapes;
 
 namespace YellowstonePathology.UI.Gross
 {	
-	public partial class BlankPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
+	public partial class BlankPage : UserControl
 	{
         public BlankPage()
 		{            
 			InitializeComponent();
 			DataContext = this;
-		}				
-
-		public void Save(bool releaseLock)
-		{
-            
-		}
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void UpdateBindingSources()
-		{
-		}        
+		}						      
 	}
 }

@@ -7,7 +7,7 @@ namespace YellowstonePathology.Business.Document
 {
 	public class FISHReport : CaseReportV2
 	{
-		public override void Render(string masterAccessionNo, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveEnum)
+		public override void Render(string masterAccessionNo, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveEnum, object writer)
 		{
 
 		}

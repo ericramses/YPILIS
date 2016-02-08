@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Login.ReceiveSpecimen
     /// <summary>
     /// 
     /// </summary>
-    public partial class FlowCytometryOrderFinishPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
+    public partial class FlowCytometryOrderFinishPage : UserControl, INotifyPropertyChanged 
     {
         public event PropertyChangedEventHandler PropertyChanged;
         public delegate void ReturnEventHandler(object sender, UI.Navigation.PageNavigationReturnEventArgs e);

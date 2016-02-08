@@ -8,29 +8,29 @@ namespace ObjectGatewayTests
     {
         private void SetLockToNull(string masterAccessionNo)
         {
-            YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.ObjectGateway.Instance.GetByMasterAccessionNo(masterAccessionNo);
+            YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo);
             accessionOrder.LockAquiredByHostName = null;
             accessionOrder.LockAquiredById = null;
             accessionOrder.LockAquiredByUserName = null;
             accessionOrder.TimeLockAquired = null;
-            YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(accessionOrder, true);
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(accessionOrder, true);
         }
 
         private void SetLockToTestValue(string masterAccessionNo)
         {
-            YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.ObjectGateway.Instance.GetByMasterAccessionNo(masterAccessionNo);
+            YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo);
             accessionOrder.LockAquiredByHostName = "ImaginaryComputer";
             accessionOrder.LockAquiredById = 5000;
             accessionOrder.LockAquiredByUserName = "Bubba";
             accessionOrder.TimeLockAquired = DateTime.Now.AddDays(-1);
-            YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(accessionOrder, false);
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(accessionOrder, false);
         }
 
         [TestMethod]
         public void LockIsAcquiredWhenUnlocked()
         {
             SetLockToNull("14-1234");
-            YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.ObjectGateway.Instance.GetByMasterAccessionNo("14-1234");
+            YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder("14-1234");
             Assert.IsTrue(accessionOrder.LockAquired == true);
             SetLockToNull("14-1234");
         }
@@ -39,7 +39,7 @@ namespace ObjectGatewayTests
         public void LockIsNotAcquiredWhenLockedByOtherUser()
         {
             SetLockToTestValue("14-1234");
-            YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.ObjectGateway.Instance.GetByMasterAccessionNo("14-1234");
+            YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder("14-1234");
             Assert.IsTrue(accessionOrder.LockAquired == false);
             SetLockToNull("14-1234");
         }
@@ -48,9 +48,9 @@ namespace ObjectGatewayTests
         public void LockIsReleasedOnSave()
         {
             SetLockToNull("14-1234");
-            YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.ObjectGateway.Instance.GetByMasterAccessionNo("14-1234");
+            YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder("14-1234");
             Assert.IsTrue(accessionOrder.LockAquired == true);
-            YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(accessionOrder, true);
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(accessionOrder, true);
             Assert.IsTrue(accessionOrder.LockAquired == false);
         }
 
@@ -58,9 +58,9 @@ namespace ObjectGatewayTests
         public void LockIsRetainedOnSave()
         {
             SetLockToNull("14-1234");
-            YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.ObjectGateway.Instance.GetByMasterAccessionNo("14-1234");
+            YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder("14-1234");
             Assert.IsTrue(accessionOrder.LockAquired == true);
-            YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(accessionOrder, false);
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(accessionOrder, false);
             Assert.IsTrue(accessionOrder.LockAquired == true);
             SetLockToNull("14-1234");
         }
@@ -69,13 +69,13 @@ namespace ObjectGatewayTests
         public void LockForOtherUserRemainsOnSave()
         {
             SetLockToTestValue("14-1234");
-            YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.ObjectGateway.Instance.GetByMasterAccessionNo("14-1234");
+            YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder("14-1234");
             Assert.IsTrue(accessionOrder.LockAquired == false);
-            YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(accessionOrder, true);
-            accessionOrder = YellowstonePathology.Business.Persistence.ObjectGateway.Instance.GetByMasterAccessionNo("14-1234");
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(accessionOrder, true);
+            accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder("14-1234");
             Assert.IsTrue(accessionOrder.LockAquired == false);
 
-            YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(accessionOrder, true);
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(accessionOrder, true);
             Assert.IsTrue(accessionOrder.LockAquiredByHostName == "ImaginaryComputer");
             SetLockToNull("14-1234");
         }
@@ -86,7 +86,7 @@ namespace ObjectGatewayTests
         {
             YellowstonePathology.Business.User.SystemIdentity systemIdentity = new YellowstonePathology.Business.User.SystemIdentity(YellowstonePathology.Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
             YellowstonePathology.Business.Test.Model.CongoRed test = new YellowstonePathology.Business.Test.Model.CongoRed();
-            YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.ObjectGateway.Instance.GetByMasterAccessionNo("16-2823", true);
+            YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.ObjectGateway.Instance.PullByMasterAccessionNo("16-2823", true);
             YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = accessionOrder.SpecimenOrderCollection.GetAliquotOrder("16-2823.1A");
             YellowstonePathology.Business.Visitor.OrderTestVisitor orderTestVisitor = new YellowstonePathology.Business.Visitor.OrderTestVisitor(accessionOrder.PanelSetOrderCollection.GetSurgical().ReportNo, test, test.OrderComment, null, false, aliquotOrder, false, false, accessionOrder.TaskOrderCollection, systemIdentity);
             accessionOrder.TakeATrip(orderTestVisitor);
@@ -106,7 +106,7 @@ namespace ObjectGatewayTests
         [TestMethod]
         public void DeleteTestFromAccessionOrder()
         {
-            YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.ObjectGateway.Instance.GetByMasterAccessionNo("16-2823", true);
+            YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.ObjectGateway.Instance.PullByMasterAccessionNo("16-2823", true);
             YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder = accessionOrder.SpecimenOrderCollection.GetSlideOrder("16-2823.1A2");
             YellowstonePathology.Business.Visitor.RemoveSlideOrderVisitor removeSlideOrderVisitor = new YellowstonePathology.Business.Visitor.RemoveSlideOrderVisitor(slideOrder);
             accessionOrder.TakeATrip(removeSlideOrderVisitor);
@@ -122,14 +122,14 @@ namespace ObjectGatewayTests
         [TestMethod]
         public void UpdateAccessionOrder()
         {
-            YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.ObjectGateway.Instance.GetByMasterAccessionNo("16-2823");
+            YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder("16-2823");
             accessionOrder.PAddress1 = "123 No Street";
 
-            YellowstonePathology.Business.Persistence.SubmissionResult result = YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(accessionOrder, true);
+            YellowstonePathology.Business.Persistence.SubmissionResult result = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(accessionOrder, true);
             Assert.IsTrue(result.HasUpdateCommands);
             accessionOrder.PAddress1 = null;
 
-            result = YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(accessionOrder, true);
+            result = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(accessionOrder, true);
             Assert.IsTrue(result.HasUpdateCommands);
         }
     }

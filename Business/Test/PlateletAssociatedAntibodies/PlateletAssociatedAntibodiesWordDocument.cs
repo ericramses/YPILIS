@@ -17,10 +17,10 @@ namespace YellowstonePathology.Business.Test.PlateletAssociatedAntibodies
             this.m_PanelList.Fill();
         }
 
-		public override void Render(string masterAccessionNo, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode)
+		public override void Render(string masterAccessionNo, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode, object writer)
         {
             this.m_ReportNo = reportNo;
-			this.GetReportData(reportNo);
+			this.GetReportData(reportNo, writer);
             this.m_ReportSaveMode = reportSaveMode;
 
 			YellowstonePathology.Business.Test.LLP.PanelSetOrderLeukemiaLymphoma panelSetOrderLeukemiaLymphoma = (YellowstonePathology.Business.Test.LLP.PanelSetOrderLeukemiaLymphoma)this.m_PanelSetOrder;

@@ -20,7 +20,7 @@ namespace YellowstonePathology.UI.Login.ReceiveSpecimen
     /// <summary>
     /// 
     /// </summary>
-    public partial class SurgicalDiagnosisPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
+    public partial class SurgicalDiagnosisPage : UserControl, INotifyPropertyChanged 
     {
         public event PropertyChangedEventHandler PropertyChanged;
         public delegate void ReturnEventHandler(object sender, UI.Navigation.PageNavigationReturnEventArgs e);
@@ -74,7 +74,7 @@ namespace YellowstonePathology.UI.Login.ReceiveSpecimen
 
         public void Save(bool releaseLock)
         {
-            YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
         }
 
         public void UpdateBindingSources()

@@ -76,7 +76,7 @@ namespace YellowstonePathology.UI.Cytology
                 this.m_Lock = new Business.Domain.Lock(this.m_SystemIdentity);
                 this.m_Lock.SetLockingMode(Business.Domain.LockModeEnum.AlwaysAttemptLock);
                 
-                YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.ObjectGateway.Instance.GetByMasterAccessionNo(cytologyScreeningSearchResult.MasterAccessionNo);
+                YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(cytologyScreeningSearchResult.MasterAccessionNo);
 
                 this.m_Lock.SetLockable(accessionOrder);
 
@@ -134,7 +134,7 @@ namespace YellowstonePathology.UI.Cytology
 				{
 					element.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
 				}
-                YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
 			}
         }
 
@@ -271,7 +271,7 @@ namespace YellowstonePathology.UI.Cytology
         public void SetAccessionOrder(YellowstonePathology.Business.Search.CytologyScreeningSearchResult searchResult)
         {			
 			this.Save(false);            
-            this.m_AccessionOrder = YellowstonePathology.Business.Persistence.ObjectGateway.Instance.GetByMasterAccessionNo(searchResult.MasterAccessionNo);
+            this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(searchResult.MasterAccessionNo);
 			this.m_PanelSetOrderCytology = (YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(searchResult.ReportNo);
             this.m_SpecimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByOrderTarget(this.m_PanelSetOrderCytology.OrderedOnId);
              
@@ -491,7 +491,7 @@ namespace YellowstonePathology.UI.Cytology
         private void LoadDataByReportNo(string reportNo)
         {
             string masterAccessionNo = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetMasterAccessionNoFromReportNo(reportNo);
-			this.m_AccessionOrder = YellowstonePathology.Business.Persistence.ObjectGateway.Instance.GetByMasterAccessionNo(masterAccessionNo);
+			this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo);
             if (this.m_AccessionOrder != null)
             {
 				this.m_PanelSetOrderCytology = (YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
@@ -502,7 +502,7 @@ namespace YellowstonePathology.UI.Cytology
         private void LoadDataByAliquotOrderId(string aliquotOrderId)
         {
             string masterAccessionNo = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetMasterAccessionNoFromAliquotOrderId(aliquotOrderId);
-			this.m_AccessionOrder = YellowstonePathology.Business.Persistence.ObjectGateway.Instance.GetByMasterAccessionNo(masterAccessionNo);
+			this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo);
 			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByOrderTarget(aliquotOrderId);
 			this.m_PanelSetOrderCytology = (YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(15, specimenOrder.SpecimenOrderId, true);
             this.LoadData();

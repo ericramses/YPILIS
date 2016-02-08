@@ -16,7 +16,7 @@ using System.Collections.ObjectModel;
 
 namespace YellowstonePathology.UI.Surgical
 {	
-	public partial class PeerReviewResultPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
+	public partial class PeerReviewResultPage : UserControl, INotifyPropertyChanged 
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
         
@@ -104,7 +104,7 @@ namespace YellowstonePathology.UI.Surgical
 
 		public void Save(bool releaseLock)
 		{
-            YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
         }
 
         public void UpdateBindingSources()

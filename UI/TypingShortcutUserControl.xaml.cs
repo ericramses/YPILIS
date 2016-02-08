@@ -21,6 +21,7 @@ namespace YellowstonePathology.UI
 
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;                
         private YellowstonePathology.Business.Typing.TypingShortcutCollection m_TypingShortcutCollection;
+        private Window m_ParentWindow;
 
 		public TypingShortcutUserControl(YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {            
@@ -28,6 +29,8 @@ namespace YellowstonePathology.UI
 			this.m_TypingShortcutCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetTypingShortcutCollectionByUser(this.m_SystemIdentity.User.UserId);            
 
             InitializeComponent();
+
+            this.m_ParentWindow = Window.GetWindow(this);
             this.DataContext = this;
         }
 
@@ -45,7 +48,7 @@ namespace YellowstonePathology.UI
                 if (result == MessageBoxResult.OK)
                 {
                     this.m_TypingShortcutCollection.Remove(typingShortcut);
-                    YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitRootDelete(typingShortcut);                    
+                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.DeleteDocument(typingShortcut, this.m_ParentWindow);
                 }
             }
         }
@@ -71,7 +74,7 @@ namespace YellowstonePathology.UI
         public void ContextMenuTypingShortcutEdit_Click(object sender, RoutedEventArgs args)
         {            
             YellowstonePathology.Business.Typing.TypingShortcut typingShortcut = (YellowstonePathology.Business.Typing.TypingShortcut)this.ListViewTypingShortcut.SelectedItem;
-            YellowstonePathology.Business.Persistence.ObjectGateway.Instance.RefreshTypingShortcut(typingShortcut);
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullTypingShortcut(typingShortcut, this.m_ParentWindow);
 
             YellowstonePathology.UI.TypingShorcutDialog typingShortcutDialog = new TypingShorcutDialog(typingShortcut, false);
             typingShortcutDialog.WindowStartupLocation = WindowStartupLocation.CenterScreen;

@@ -20,7 +20,7 @@ namespace YellowstonePathology.UI
     {
         YellowstonePathology.Business.Typing.TypingShortcut m_TypingShortcut;
 		YellowstonePathology.Business.User.SystemUserCollection m_SystemUserCollection;
-        bool m_IsNewItem = false;        
+        bool m_IsNewItem = false;                      
 
         public TypingShorcutDialog(YellowstonePathology.Business.Typing.TypingShortcut typingShortcut, bool isNewShortcut)
         {
@@ -32,8 +32,8 @@ namespace YellowstonePathology.UI
 			this.m_SystemUserCollection = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetUsersByRole(YellowstonePathology.Business.User.SystemUserRoleDescriptionEnum.Typing, true);
 
             this.DataContext = this.m_TypingShortcut;
-            this.comboBoxTypingUsers.ItemsSource = this.m_SystemUserCollection;                        
-        }
+            this.comboBoxTypingUsers.ItemsSource = this.m_SystemUserCollection;         
+        }        
 
         public void GridTyping_KeyUp(object sender, KeyEventArgs args)
         {            
@@ -60,18 +60,13 @@ namespace YellowstonePathology.UI
         {
             if(this.m_IsNewItem == true)
             {
-                YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitRootInsert(this.m_TypingShortcut);
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(this.m_TypingShortcut, this);
             }
             else
             {
-                this.Save(false);
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
             }                      
             this.DialogResult = true;
-        }
-
-        private void Save(bool releaseLock)
-        {
-            YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_TypingShortcut, releaseLock);         
-        }
+        }        
     }
 }

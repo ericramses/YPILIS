@@ -20,7 +20,7 @@ namespace YellowstonePathology.UI.Login
 	/// <summary>
 	/// Interaction logic for HPV1618ResultPage.xaml
 	/// </summary>
-	public partial class ICDEntryPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
+	public partial class ICDEntryPage : UserControl, INotifyPropertyChanged 
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -94,7 +94,7 @@ namespace YellowstonePathology.UI.Login
 
 		public void Save(bool releaseLock)
 		{
-            YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
         }
 
         public void UpdateBindingSources()

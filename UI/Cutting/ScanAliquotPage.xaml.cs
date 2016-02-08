@@ -15,7 +15,7 @@ using System.ComponentModel;
 
 namespace YellowstonePathology.UI.Cutting
 {    
-	public partial class ScanAliquotPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges, INotifyPropertyChanged 
+	public partial class ScanAliquotPage : UserControl, INotifyPropertyChanged 
 	{
 		public event PropertyChangedEventHandler PropertyChanged;		
 
@@ -97,11 +97,11 @@ namespace YellowstonePathology.UI.Cutting
             string masterAccessionNo = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetMasterAccessionNoFromAliquotOrderId(aliquotOrderId);
             if (this.m_AccessionOrder != null && this.m_AccessionOrder.SpecimenOrderCollection.AliquotOrderExists(aliquotOrderId) == false)
             {                
-                this.m_AccessionOrder = YellowstonePathology.Business.Persistence.ObjectGateway.Instance.GetByMasterAccessionNo(masterAccessionNo);
+                this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo);
             }
             else
             {
-                this.m_AccessionOrder = YellowstonePathology.Business.Persistence.ObjectGateway.Instance.GetByMasterAccessionNo(masterAccessionNo);
+                this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo);
             }
 
             if (this.m_AccessionOrder != null)
@@ -127,7 +127,7 @@ namespace YellowstonePathology.UI.Cutting
 			YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog materialTrackingLog = new Business.MaterialTracking.Model.MaterialTrackingLog(objectId, aliquotOrder.AliquotOrderId, null, thisFacility.FacilityId, thisFacility.FacilityName,
                 thisLocation.LocationId, thisLocation.Description, this.m_SystemIdentity.User.UserId, this.m_SystemIdentity.User.UserName, "Block Scanned", "Block Scanned At Cutting", "Aliquot", this.m_AccessionOrder.MasterAccessionNo, aliquotOrder.Label, aliquotOrder.ClientAccessioned);
 
-            YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitRootInsert(materialTrackingLog);            
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(materialTrackingLog, Window.GetWindow(this));            
         }
 
         private void ButtonShowMasterAccessionNoEntryPage_Click(object sender, RoutedEventArgs e)
@@ -166,7 +166,7 @@ namespace YellowstonePathology.UI.Cutting
                 MessageBox.Show("There are not any labels waiting to be printed.");
             }
 
-            YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(slideOrderCollection, true);            
+            //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(slideOrderCollection, true);            
         }        
 
         private void ButtonLastMasterAccessionNo_Click(object sender, RoutedEventArgs e)

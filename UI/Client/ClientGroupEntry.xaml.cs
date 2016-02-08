@@ -69,7 +69,7 @@ namespace YellowstonePathology.UI.Client
 
         private void Save(bool releaseLock)
         {
-			YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_ClientGroup, releaseLock);
+			YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_ClientGroup, releaseLock);
         }
 
         private void ButtonAddToGroup_Click(object sender, RoutedEventArgs e)
@@ -79,12 +79,12 @@ namespace YellowstonePathology.UI.Client
                 YellowstonePathology.Business.Client.Model.Client client = (YellowstonePathology.Business.Client.Model.Client)this.ListViewSearchClient.SelectedItem;
                 if (this.m_MembersClientCollection.Exists(client.ClientId) == false)
                 {
-                    YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_ClientGroup, false);
+                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_ClientGroup, false);
                     int clientGroupClientId = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetLargestClientGroupClientId() + 1;
                     string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
                     YellowstonePathology.Business.Client.Model.ClientGroupClient clientGroupClient = new Business.Client.Model.ClientGroupClient(objectId, clientGroupClientId, client.ClientId, this.m_ClientGroup.ClientGroupId);
-                    YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitRootInsert(clientGroupClient);
-                    YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(clientGroupClient, false);
+                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitRootInsert(clientGroupClient);
+                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(clientGroupClient, false);
 
                     this.m_MembersClientCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientCollectionByClientGroupId(this.m_ClientGroup.ClientGroupId);
                     this.NotifyPropertyChanged("MembersClientCollection");

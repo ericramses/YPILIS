@@ -17,7 +17,7 @@ namespace YellowstonePathology.UI.Gross
 	/// <summary>
 	/// Interaction logic for BlockColorSelectionPage.xaml
 	/// </summary>
-	public partial class BlockColorSelectionPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
+	public partial class BlockColorSelectionPage : UserControl
 	{
 		public delegate void NextEventHandler(object sender, UI.CustomEventArgs.SpecimenOrderReturnEventArgs e);
 		public event NextEventHandler Next;
@@ -52,26 +52,6 @@ namespace YellowstonePathology.UI.Gross
                 YellowstonePathology.UI.CustomEventArgs.SpecimenOrderReturnEventArgs specimenOrderReturnEventArgs = new CustomEventArgs.SpecimenOrderReturnEventArgs(this.m_SpecimenOrder);
                 this.Next(this, specimenOrderReturnEventArgs);
 			}
-		}		
-
-		public void Save(bool releaseLock)
-		{            
-            YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_AccessionOrder, releaseLock);	
-		}
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void UpdateBindingSources()
-		{
-
-		}        
+		}				
 	}
 }

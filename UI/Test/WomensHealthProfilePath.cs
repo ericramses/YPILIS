@@ -18,7 +18,8 @@ namespace YellowstonePathology.UI.Login
         public WomensHealthProfilePath(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
 			YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder,
             YellowstonePathology.UI.Navigation.PageNavigator pageNavigator,
-            System.Windows.Visibility backButtonVisibility) : base(pageNavigator)
+            System.Windows.Window window,
+            System.Windows.Visibility backButtonVisibility) : base(pageNavigator, window)
         {            
             this.m_AccessionOrder = accessionOrder;
 			this.m_ClientOrder = clientOrder;

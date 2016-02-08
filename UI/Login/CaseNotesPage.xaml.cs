@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Login
 	/// <summary>
 	/// Interaction logic for CaseNotesPage.xaml
 	/// </summary>
-	public partial class CaseNotesPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges, INotifyPropertyChanged
+	public partial class CaseNotesPage : UserControl, INotifyPropertyChanged
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 		public delegate void ReturnEventHandler(object sender, UI.Navigation.PageNavigationReturnEventArgs e);
@@ -81,8 +81,7 @@ namespace YellowstonePathology.UI.Login
 				string clientOrderId = this.m_CaseNotesKeyCollection.GetId(YellowstonePathology.Business.Domain.CaseNotesKeyNameEnum.ClientOrderId);
 				this.m_OrderCommentLogCollection.Add(Business.Domain.OrderCommentEnum.ClientOrderAccessioned, this.m_SystemIdentity.User, string.Empty, 0, clientOrderId, string.Empty);
 			}
-
-			this.Save(false);
+			
 			this.FillOrderCommentLog();
 			this.NotifyPropertyChanged("OrderCommentLogCollection");
 			this.ShowCaseNoteDetailsPage(this.m_OrderCommentLogCollection[this.m_OrderCommentLogCollection.Count - 1]);
@@ -138,25 +137,6 @@ namespace YellowstonePathology.UI.Login
 		{
 			UI.Navigation.PageNavigationReturnEventArgs args = new UI.Navigation.PageNavigationReturnEventArgs(UI.Navigation.PageNavigationDirectionEnum.Back, null);
 			this.Return(this, args);
-		}
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save(bool releaseLock)
-		{
-            YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_OrderCommentLogCollection, releaseLock);
-		}
-
-		public void UpdateBindingSources()
-		{
-		}
+		}		
 	}
 }

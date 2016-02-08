@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Test
 	/// <summary>
 	/// Interaction logic for ALLAdultByFISHResultPage.xaml
 	/// </summary>
-	public partial class ALLAdultByFISHResultPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
+	public partial class ALLAdultByFISHResultPage : UserControl, INotifyPropertyChanged
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -31,7 +31,7 @@ namespace YellowstonePathology.UI.Test
 		private YellowstonePathology.Business.Test.ALLAdultByFISH.ALLAdultByFISHResultCollection m_ResultCollection;
 
 		private string m_PageHeaderText;
-		private string m_OrderedOnDescription;
+		private string m_OrderedOnDescription;        
 
 		public ALLAdultByFISHResultPage(YellowstonePathology.Business.Test.ALLAdultByFISH.ALLAdultByFISHTestOrder testOrder,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
@@ -49,21 +49,8 @@ namespace YellowstonePathology.UI.Test
 
 			InitializeComponent();
 
-			DataContext = this;
-
-            Loaded += ALLAdultByFISHResultPage_Loaded;
-            Unloaded += ALLAdultByFISHResultPage_Unloaded;
-		}
-
-        private void ALLAdultByFISHResultPage_Loaded(object sender, RoutedEventArgs e)
-        {
-             
-        }
-
-        private void ALLAdultByFISHResultPage_Unloaded(object sender, RoutedEventArgs e)
-        {
-             
-        }
+			DataContext = this;                        
+		}        
 
         public string OrderedOnDescription
 		{
@@ -91,33 +78,13 @@ namespace YellowstonePathology.UI.Test
 		public string PageHeaderText
 		{
 			get { return this.m_PageHeaderText; }
-		}
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save(bool releaseLock)
-		{
-            YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
-        }
-
-        public void UpdateBindingSources()
-		{
-
-		}
+		}		
 
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
 		{
 			this.Save(false);
 			YellowstonePathology.Business.Test.ALLAdultByFISH.ALLAdultByFISHWordDocument report = new YellowstonePathology.Business.Test.ALLAdultByFISH.ALLAdultByFISHWordDocument();
-            report.Render(this.m_AccessionOrder.MasterAccessionNo, this.m_PanelSetOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft);
+            report.Render(this.m_AccessionOrder.MasterAccessionNo, this.m_PanelSetOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft, Window.GetWindow(this));
 
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
 			string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);

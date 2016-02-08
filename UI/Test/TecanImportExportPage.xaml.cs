@@ -15,7 +15,7 @@ using System.ComponentModel;
 
 namespace YellowstonePathology.UI.Test
 {
-    public partial class TecanImportExportPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
+    public partial class TecanImportExportPage : UserControl, INotifyPropertyChanged 
 	{
         public delegate void PropertyChangedNotificationHandler(String info);
         public event PropertyChangedEventHandler PropertyChanged;
@@ -103,7 +103,7 @@ namespace YellowstonePathology.UI.Test
         
 		private void ButtonNext_Click(object sender, RoutedEventArgs e)
 		{
-            YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_UserPreference, false);            
+            //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_UserPreference, false);            
             if (this.Next != null) this.Next(this, new YellowstonePathology.UI.CustomEventArgs.ExcelSpreadsheetReturnEventArgs(this.m_ExcelApplication, this.m_WorkBook));
 		}                
 
@@ -176,7 +176,7 @@ namespace YellowstonePathology.UI.Test
 
         private void ButtonClose_Click(object sender, RoutedEventArgs e)
         {            
-            YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_UserPreference, true);
+            //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_UserPreference, true);
             if (this.Close != null) this.Close(this, new EventArgs());
         }
 

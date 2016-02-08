@@ -27,7 +27,7 @@ namespace YellowstonePathology.UI.Client
 		private List<YellowstonePathology.Business.Client.Model.PhysicianClientDistributionView> m_PhysicianClientDistributionViewList;
 		private string m_PhysicianClientId;
         private bool m_IsNewProvider;
-
+        private Window m_ParentWindow;
         public ProviderEntry(YellowstonePathology.Business.Domain.Physician physician, bool isNewProvider)
         {                        
             this.m_Physician = physician;            
@@ -40,6 +40,7 @@ namespace YellowstonePathology.UI.Client
             
             InitializeComponent();
 
+            this.m_ParentWindow = Window.GetWindow(this);
             this.DataContext = this;
             Loaded += ProviderEntry_Loaded;
             Closing += ProviderEntry_Closing;
@@ -103,7 +104,7 @@ namespace YellowstonePathology.UI.Client
             {
                 if (this.CanSave() == true)
                 {
-                    YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitRootInsert(this.m_Physician);
+                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(this.m_Physician, this.m_ParentWindow);
                     Close();
                 }
             }
@@ -136,7 +137,7 @@ namespace YellowstonePathology.UI.Client
 
         private void Save(bool releaseLock)
         {            
-			YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_Physician, releaseLock);
+			
         }
 
 		private void ButtonAddToClient_Click(object sender, RoutedEventArgs e)
@@ -145,12 +146,10 @@ namespace YellowstonePathology.UI.Client
 			{
 				YellowstonePathology.Business.Client.Model.Client client = (YellowstonePathology.Business.Client.Model.Client)this.ListBoxClientSelection.SelectedItem;
 				if (this.m_PhysicianClientView.ClientExists(client.ClientId) == false)
-				{
-					YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_Physician, false);
-
+				{					
 					string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
 					YellowstonePathology.Business.Domain.PhysicianClient physicianClient = new Business.Domain.PhysicianClient(objectId, objectId, this.m_Physician.PhysicianId, this.m_Physician.ObjectId, client.ClientId);
-					YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitRootInsert(physicianClient);					
+					YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(physicianClient, this.m_ParentWindow);					
 					this.m_PhysicianClientView.Clients.Add(client);
 				}
 			}
@@ -165,7 +164,7 @@ namespace YellowstonePathology.UI.Client
                 YellowstonePathology.Business.Rules.MethodResult methodResult = this.CanRemoveMember(physicianClient);
                 if (methodResult.Success == true)
                 {
-                    YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitRootDelete(physicianClient);                    
+                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.DeleteDocument(physicianClient, this.m_ParentWindow);                    
                     this.m_PhysicianClientView.Clients.Remove(client);
                 }
                 else
@@ -216,7 +215,7 @@ namespace YellowstonePathology.UI.Client
 
 					string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
 					YellowstonePathology.Business.Client.Model.PhysicianClientDistribution physicianClientDistribution = new Business.Client.Model.PhysicianClientDistribution(objectId, this.m_PhysicianClientId, physicianClientId);
-					YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitRootInsert(physicianClientDistribution);					
+					YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(physicianClientDistribution, this.m);					
 
 					this.m_PhysicianClientDistributionViewList = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClientDistributionsV2(this.m_PhysicianClientId);
 					this.NotifyPropertyChanged("PhysicianClientDistributionViewList");
@@ -232,7 +231,7 @@ namespace YellowstonePathology.UI.Client
 				if (result == MessageBoxResult.OK)
 				{
 					YellowstonePathology.Business.Client.Model.PhysicianClientDistributionView physicianClientDistributionView = (YellowstonePathology.Business.Client.Model.PhysicianClientDistributionView)this.ListBoxDistributionSelection.SelectedItem;
-					YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitRootDelete(physicianClientDistributionView.PhysicianClientDistribution);					
+					YellowstonePathology.Business.Persistence.DocumentGateway.Instance.DeleteDocument(physicianClientDistributionView.PhysicianClientDistribution, this.m_ParentWindow);					
 
 					this.m_PhysicianClientDistributionViewList = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClientDistributionsV2(this.m_PhysicianClientId);
 					this.NotifyPropertyChanged("PhysicianClientDistributionViewList");

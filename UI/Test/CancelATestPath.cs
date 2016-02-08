@@ -33,7 +33,7 @@ namespace YellowstonePathology.UI.Test
             YellowstonePathology.Business.Gateway.AccessionOrderGateway.SetPanelSetOrderAsCancelledTest(e.PanelSetOrder.ReportNo);
             YellowstonePathology.Business.Gateway.AccessionOrderGateway.InsertTestCancelledTestOrder(e.PanelSetOrder.ReportNo, e.PanelSetOrder.PanelSetId, e.PanelSetOrder.PanelSetName);
 
-            YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.ObjectGateway.Instance.GetByMasterAccessionNo(e.AccessionOrder.MasterAccessionNo);
+            YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(e.AccessionOrder.MasterAccessionNo);
             YellowstonePathology.Business.Test.TestCancelled.TestCancelledTestOrder testCancelledTestOrder = (YellowstonePathology.Business.Test.TestCancelled.TestCancelledTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(e.PanelSetOrder.ReportNo);
             
             testCancelledTestOrder.Distribute = false;

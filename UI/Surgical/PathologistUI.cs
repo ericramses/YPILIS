@@ -36,10 +36,13 @@ namespace YellowstonePathology.UI.Surgical
         private bool m_SignatureButtonIsEnabled;
 
 		private int m_SelectedTabIndex;
+        private System.Windows.Controls.TabControl m_Writer;
 
-		public PathologistUI(YellowstonePathology.Business.User.SystemIdentity systemidentity)
+		public PathologistUI(YellowstonePathology.Business.User.SystemIdentity systemidentity, System.Windows.Controls.TabControl writer)
         {
             this.m_SystemIdentity = systemidentity;
+            this.m_Writer = writer;
+
 			this.m_Lock = new YellowstonePathology.Business.Domain.Lock(this.m_SystemIdentity);            
 			this.m_Lock.LockStatusChanged += new YellowstonePathology.Business.Domain.LockStatusChangedEventHandler(AccessionLock_LockStatusChanged);
             this.m_Lock.SetLockingMode(Business.Domain.LockModeEnum.AlwaysAttemptLock);
@@ -172,7 +175,7 @@ namespace YellowstonePathology.UI.Surgical
 
 		public virtual void GetAccessionOrder(string masterAccessionNo, string reportNo)
 		{             
-            this.m_AccessionOrder = YellowstonePathology.Business.Persistence.ObjectGateway.Instance.GetByMasterAccessionNo(masterAccessionNo);
+            this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, this.m_Writer);
              
 			this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 			this.m_Lock.SetLockable(m_AccessionOrder);
@@ -186,8 +189,8 @@ namespace YellowstonePathology.UI.Surgical
 		public virtual void GetAccessionOrderByReportNo(string reportNo)
 		{
             string masterAccessionNo = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetMasterAccessionNoFromReportNo(reportNo);
-            this.m_AccessionOrder = YellowstonePathology.Business.Persistence.ObjectGateway.Instance.GetByMasterAccessionNo(masterAccessionNo);
-             
+            this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, this.m_Writer);
+
             this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 			this.m_AccessionOrder.PanelSetOrderCollection.PathologistTestOrderItemList.Build(this.m_AccessionOrder);
 			this.PathologistOrderCollection = this.m_AccessionOrder.PanelSetOrderCollection;
@@ -252,7 +255,7 @@ namespace YellowstonePathology.UI.Surgical
             if (this.m_AccessionOrder != null && this.m_Lock.LockAquired == true)
             {
                 MainWindow.MoveKeyboardFocusNextThenBack();
-                YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
+                //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
             }
         }
 
@@ -430,86 +433,6 @@ namespace YellowstonePathology.UI.Surgical
 			this.Save(false);
 			this.RunWorkspaceEnableRules();
 			this.RunPathologistEnableRules();
-		}        
-
-		/*public void SetNonSurgicalPanelSetSignature()
-		{
-			YellowstonePathology.Business.Rules.RuleExecutionStatus ruleExecutionStatus = new YellowstonePathology.Business.Rules.RuleExecutionStatus();
-			this.m_PanelSetOrder.Finalize(this.m_AccessionOrder, ruleExecutionStatus, this.m_SystemIdentity);
-
-			if (ruleExecutionStatus.ExecutionHalted)
-			{
-				YellowstonePathology.UI.RuleExecutionStatusDialog ruleExecutionStatusDialog = new RuleExecutionStatusDialog(ruleExecutionStatus);
-				ruleExecutionStatusDialog.ShowDialog();
-			}
-
-			this.Save(false);
-			this.CheckEnabled();
-			this.HandleAdditionalFinalRequirements();
-		}
-
-		private void HandleAdditionalFinalRequirements()
-		{
-			if (this.m_PanelSetOrder.Final == true)
-			{
-				if (this.m_PanelSetOrder is YellowstonePathology.Business.Test.KRASStandardReflex.KRASStandardReflexTestOrder)
-				{
-					this.HandleBraf();
-				}
-
-				if (this.m_PanelSetOrder is YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHTestOrder ||
-					this.m_PanelSetOrder is YellowstonePathology.Business.Test.ErPrSemiQuantitative.ErPrSemiQuantitativeTestOrder)
-				{
-					this.HandleHer2orErPr();
-				}
-			}
-		}
-
-		private void HandleBraf()
-		{
-			YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeEvaluationTest panelSetLse = new YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeEvaluationTest();
-			YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile.ComprehensiveColonCancerProfileTest panelSetcccp = new YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile.ComprehensiveColonCancerProfileTest();
-			if (this.m_AccessionOrder.PanelSetOrderCollection.DoesPanelSetExist(panelSetLse.PanelSetId) == true)
-			{
-				string reportNo = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetLse.PanelSetId).ReportNo;
-				this.m_ResultDialog = new Test.ResultDialog();
-				YellowstonePathology.UI.Test.LynchSyndromeEvaluationResultPath resultPath = new YellowstonePathology.UI.Test.LynchSyndromeEvaluationResultPath(reportNo,
-					this.m_AccessionOrder, this.m_ObjectTracker, this.m_ResultDialog.PageNavigator, Visibility.Visible);
-
-				resultPath.Finish += new Test.ResultPath.FinishEventHandler(ResultPath_Finish);
-				resultPath.Start();
-				this.m_ResultDialog.ShowDialog();
-			}
-			else if (this.m_AccessionOrder.PanelSetOrderCollection.DoesPanelSetExist(panelSetcccp.PanelSetId) == true)
-			{
-				string reportNo = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetcccp.PanelSetId).ReportNo;
-				this.m_ResultDialog = new Test.ResultDialog();
-				YellowstonePathology.UI.Test.ComprehensiveColonCancerProfilePath resultPath = new YellowstonePathology.UI.Test.ComprehensiveColonCancerProfilePath(reportNo,
-					this.m_AccessionOrder, this.m_ObjectTracker, this.m_ResultDialog.PageNavigator, Visibility.Collapsed);
-
-				resultPath.Finish += new Test.ResultPath.FinishEventHandler(ResultPath_Finish);
-				resultPath.Start();
-				this.m_ResultDialog.ShowDialog();
-			}
-		}
-
-		private void HandleHer2orErPr()
-		{
-			YellowstonePathology.Business.Test.InvasiveBreastPanel.InvasiveBreastPanelTest panelSetInvasiveBreastPanel = new YellowstonePathology.Business.Test.InvasiveBreastPanel.InvasiveBreastPanelTest();
-            if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(panelSetInvasiveBreastPanel.PanelSetId, this.m_PanelSetOrder.OrderedOnId, true) == true)
-			{
-                YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetInvasiveBreastPanel.PanelSetId, this.m_PanelSetOrder.OrderedOnId, true);
-				this.m_ResultDialog = new Test.ResultDialog();
-				YellowstonePathology.UI.Test.InvasiveBreastPanelPath resultPath = new Test.InvasiveBreastPanelPath(panelSetOrder.ReportNo, this.m_AccessionOrder, this.m_ObjectTracker, this.m_ResultDialog.PageNavigator);
-				resultPath.Finish += new Test.InvasiveBreastPanelPath.FinishEventHandler(ResultPath_Finish);
-				resultPath.Start();
-				this.m_ResultDialog.ShowDialog();
-			}
-		}
-
-        private void ResultPath_Finish(object sender, EventArgs e)
-        {
-            this.m_ResultDialog.Close();
-        }*/
+		}        		
 	}
 }

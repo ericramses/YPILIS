@@ -9,7 +9,7 @@ namespace YellowstonePathology.Business.Test.TechnicalOnly
     {
         private YellowstonePathology.Business.Document.NativeDocumentFormatEnum m_NativeDocumentFormat;
 
-		public void Render(string masterAccessionNo, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveEnum)
+		public void Render(string masterAccessionNo, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveEnum, object writer)
         {
             //Do Nothing
         }

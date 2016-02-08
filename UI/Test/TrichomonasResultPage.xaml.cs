@@ -19,7 +19,7 @@ namespace YellowstonePathology.UI.Test
 	/// <summary>
 	/// Interaction logic for PanelSetOrderSelectionPage.xaml
 	/// </summary>
-	public partial class TrichomonasResultPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
+	public partial class TrichomonasResultPage : UserControl, INotifyPropertyChanged 
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -53,14 +53,12 @@ namespace YellowstonePathology.UI.Test
 
         private void TrichomonasResultPage_Loaded(object sender, RoutedEventArgs e)
         {
-            this.ComboBoxResult.SelectionChanged += ComboBoxResult_SelectionChanged;
-             
+            this.ComboBoxResult.SelectionChanged += ComboBoxResult_SelectionChanged;             
         }
 
         private void TrichomonasResultPage_Unloaded(object sender, RoutedEventArgs e)
         {
-            this.ComboBoxResult.SelectionChanged -= ComboBoxResult_SelectionChanged;
-             
+            this.ComboBoxResult.SelectionChanged -= ComboBoxResult_SelectionChanged;             
         }
 
         public YellowstonePathology.Business.Test.Trichomonas.TrichomonasTestOrder ReportOrder
@@ -84,33 +82,12 @@ namespace YellowstonePathology.UI.Test
 		public string PageHeaderText
 		{
 			get { return this.m_PageHeaderText; }
-		}				        
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save(bool releaseLock)
-		{
-            YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
-        }
-
-        public void UpdateBindingSources()
-		{
-
-		}
+		}				        		
 
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
-		{
-			this.Save(false);
+		{			
 			YellowstonePathology.Business.Test.Trichomonas.TrichomonasWordDocument report = new YellowstonePathology.Business.Test.Trichomonas.TrichomonasWordDocument();
-			report.Render(this.m_AccessionOrder.MasterAccessionNo, this.m_ReportOrderTrichomonas.ReportNo, Business.Document.ReportSaveModeEnum.Draft);
+			report.Render(this.m_AccessionOrder.MasterAccessionNo, this.m_ReportOrderTrichomonas.ReportNo, Business.Document.ReportSaveModeEnum.Draft, Window.GetWindow(this));
 
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_ReportOrderTrichomonas.ReportNo);
 			string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);

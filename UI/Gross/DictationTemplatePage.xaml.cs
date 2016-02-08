@@ -14,7 +14,7 @@ using System.Windows.Shapes;
 
 namespace YellowstonePathology.UI.Gross
 {
-    public partial class DictationTemplatePage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
+    public partial class DictationTemplatePage : UserControl
     {
         private string m_GrossDescription;
         
@@ -60,27 +60,7 @@ namespace YellowstonePathology.UI.Gross
         public DictationTemplate DictationTemplate
         {
             get { return this.m_DictationTemplate; }
-        }
-
-        public void Save(bool releaseLock)
-        {
-            YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_AccessionOrder, releaseLock);	
-        }
-
-        public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-        {
-            return true;
-        }
-
-        public bool OkToSaveOnClose()
-        {
-            return true;
-        }
-
-        public void UpdateBindingSources()
-        {
-
-        }
+        }        
 
         private void ButtonBack_Click(object sender, RoutedEventArgs e)
         {
@@ -89,7 +69,7 @@ namespace YellowstonePathology.UI.Gross
 
         private void ButtonCreateParagraph_Click(object sender, RoutedEventArgs e)
         {
-            //this.m_DictationTemplate.BuildText();
+            
         }
     }
 }

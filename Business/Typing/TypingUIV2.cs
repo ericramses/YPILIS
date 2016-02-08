@@ -33,8 +33,9 @@ namespace YellowstonePathology.Business.Typing
 		private YellowstonePathology.Business.View.BillingSpecimenViewCollection m_BillingSpecimenViewCollection;
 		private YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder m_SurgicalTestOrder;
 		private string m_TemplateText;
+        private System.Windows.Controls.TabItem m_Writer;
 
-		public TypingUIV2(YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+		public TypingUIV2(YellowstonePathology.Business.User.SystemIdentity systemIdentity, System.Windows.Controls.TabItem writer)
 		{
 			this.m_SystemIdentity = systemIdentity;
 			this.m_Lock = new YellowstonePathology.Business.Domain.Lock(this.m_SystemIdentity);
@@ -53,13 +54,14 @@ namespace YellowstonePathology.Business.Typing
 
 			this.m_BillingSpecimenViewCollection = new View.BillingSpecimenViewCollection();
 
-			this.m_FieldEnabler = new YellowstonePathology.Business.Common.FieldEnabler();          
+			this.m_FieldEnabler = new YellowstonePathology.Business.Common.FieldEnabler();
+            this.m_Writer = writer;       
 		}
 
 		public void GetAccessionOrder(string reportNo)
 		{
             string masterAccessionNo = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetMasterAccessionNoFromReportNo(reportNo);
-			this.m_AccessionOrder = YellowstonePathology.Business.Persistence.ObjectGateway.Instance.GetByMasterAccessionNo(masterAccessionNo);
+			this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, this.m_Writer);
 
 			if (this.m_AccessionOrder != null)
 			{                
@@ -82,7 +84,7 @@ namespace YellowstonePathology.Business.Typing
 		{			            
             if(this.m_AccessionOrder != null)
             {
-                YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_AccessionOrder, releaseLock);
+                //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, releaseLock);
             }            
 		}
 		

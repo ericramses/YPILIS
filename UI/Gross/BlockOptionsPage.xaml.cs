@@ -17,7 +17,7 @@ namespace YellowstonePathology.UI.Gross
 	/// <summary>
 	/// Interaction logic for BlockOptionsPage.xaml
 	/// </summary>
-	public partial class BlockOptionsPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
+	public partial class BlockOptionsPage : UserControl
 	{
         public delegate void NextEventHandler(object sender, UI.CustomEventArgs.SpecimenOrderReturnEventArgs e);
         public event NextEventHandler Next;
@@ -107,26 +107,7 @@ namespace YellowstonePathology.UI.Gross
 			blockCollection.FromAliquotOrderItemCollection(blocksToPrintCollection, this.m_AccessionOrder.PanelSetOrderCollection[0].ReportNo, patientInitials, this.m_AccessionOrder.PrintMateColumnNumber, true);
 			YellowstonePathology.Business.Common.PrintMate.Print(blockCollection);
 			blocksToPrintCollection.SetPrinted();
-		}
-
-		public void Save(bool releaseLock)
-		{
-            YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_AccessionOrder, releaseLock);            
-		}
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void UpdateBindingSources()
-		{
-		}
+		}		
 
         private void ButtonChangeBlockColor_Click(object sender, RoutedEventArgs e)
         {
@@ -145,8 +126,7 @@ namespace YellowstonePathology.UI.Gross
             if(this.ListBoxEmbeddingInstructionList.SelectedItem != null)
             {
                 string embeddingInstructions = (string)this.ListBoxEmbeddingInstructionList.SelectedItem;
-                this.m_AliquotOrder.EmbeddingInstructions = embeddingInstructions;
-                this.Save(false);
+                this.m_AliquotOrder.EmbeddingInstructions = embeddingInstructions;                
                 this.PrintBlock();
 
                 CustomEventArgs.SpecimenOrderReturnEventArgs specimenOrderReturnEventArgs = new CustomEventArgs.SpecimenOrderReturnEventArgs(this.m_SpecimenOrder);

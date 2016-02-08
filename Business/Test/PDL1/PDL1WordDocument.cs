@@ -7,11 +7,11 @@ namespace YellowstonePathology.Business.Test.PDL1
 {
     public class PDL1WordDocument : YellowstonePathology.Business.Document.CaseReportV2
     {
-        public override void Render(string masterAccessionNo, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveEnum)
+        public override void Render(string masterAccessionNo, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveEnum, object writer)
         {
             this.m_ReportNo = reportNo;
             this.m_ReportSaveEnum = reportSaveEnum;
-            this.m_AccessionOrder = YellowstonePathology.Business.Persistence.ObjectGateway.Instance.GetByMasterAccessionNo(masterAccessionNo);
+            this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, writer);
             this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
             PDL1TestOrder testOrder = (PDL1TestOrder)this.m_PanelSetOrder;
 

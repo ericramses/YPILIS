@@ -12,7 +12,7 @@ namespace YellowstonePathology.Business.User
 
 		private UserPreferenceInstance()
 		{
-            this.m_UserPreference = YellowstonePathology.Business.Persistence.ObjectGateway.Instance.GetUserPreference();
+            this.m_UserPreference = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.GetUserPreference();
 		}
 
 		public static UserPreferenceInstance Instance
@@ -34,7 +34,7 @@ namespace YellowstonePathology.Business.User
 
         public void SubmitChanges()
         {
-            YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_UserPreference, false);
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_UserPreference, false);
         }
 	}
 }

@@ -23,12 +23,14 @@ namespace YellowstonePathology.UI.Login.Receiving
 		private YellowstonePathology.Business.Rules.Surgical.PatientRecentAccessions m_PatientRecentAccessions;
 
         private ClientOrderReceivingHandler m_ClientOrderReceivingHandler;
+        private object m_Writer;
 
-		public ReviewClientOrderPath(YellowstonePathology.UI.Navigation.PageNavigator pageNavigator, ClientOrderReceivingHandler clientOrderReceivingHandler)
+		public ReviewClientOrderPath(YellowstonePathology.UI.Navigation.PageNavigator pageNavigator, ClientOrderReceivingHandler clientOrderReceivingHandler, object writer)
 		{
 			this.m_PageNavigator = pageNavigator;
-            this.m_ClientOrderReceivingHandler = clientOrderReceivingHandler;			
-			this.m_OrderCommentLogCollection = new Business.Domain.OrderCommentLogCollection();
+            this.m_ClientOrderReceivingHandler = clientOrderReceivingHandler;
+            this.m_Writer = writer;
+            this.m_OrderCommentLogCollection = new Business.Domain.OrderCommentLogCollection();            
 		}
 
         public void Start()
@@ -92,7 +94,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 
         private void ShowViewAccessionPage(string masterAccessionNo)
         {
-			YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.ObjectGateway.Instance.GetByMasterAccessionNo(masterAccessionNo);
+			YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, this.m_Writer);
             ViewAccessionOrderPage viewAccessionOrderPage = new ViewAccessionOrderPage(accessionOrder);
             viewAccessionOrderPage.UseThisAccessionOrder += new ViewAccessionOrderPage.UseThisAccessionOrderEventHandler(ViewAccessionOrderPage_UseThisAccessionOrder);
             viewAccessionOrderPage.Back += new ViewAccessionOrderPage.BackEventHandler(ViewAccessionOrderPage_Back);

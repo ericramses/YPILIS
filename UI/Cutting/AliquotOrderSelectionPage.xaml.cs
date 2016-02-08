@@ -15,7 +15,7 @@ using System.ComponentModel;
 
 namespace YellowstonePathology.UI.Cutting
 {    
-	public partial class AliquotOrderSelectionPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges, INotifyPropertyChanged 
+	public partial class AliquotOrderSelectionPage : UserControl, INotifyPropertyChanged 
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -58,27 +58,7 @@ namespace YellowstonePathology.UI.Cutting
         private void ButtonBack_Click(object sender, RoutedEventArgs e)
         {
             this.Back(this, new YellowstonePathology.UI.CustomEventArgs.MasterAccessionNoReturnEventArgs(this.m_AccessionOrder.MasterAccessionNo));
-        }  
-
-		public void Save(bool releaseLock)
-		{
-
-		}
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return false;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return false;
-		}
-
-		public void UpdateBindingSources()
-		{
-
-		}               
+        }  		     
 
         public void NotifyPropertyChanged(String info)
         {

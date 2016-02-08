@@ -94,7 +94,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                 if (specimenOrder.AliquotOrderCollection.HasThinPrepSlide()== false)
                 {
                     aliquotOrder = specimenOrder.AliquotOrderCollection.AddThinPrepSlide(specimenOrder, this.m_AccessionOrder.AccessionDate.Value);
-                    YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
+                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
                 }
                 else
                 {

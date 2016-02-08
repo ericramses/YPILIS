@@ -17,7 +17,7 @@ using System.Xml.Linq;
 
 namespace YellowstonePathology.UI.Billing
 {	
-	public partial class BillingPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
+	public partial class BillingPage : UserControl, INotifyPropertyChanged 
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -143,7 +143,7 @@ namespace YellowstonePathology.UI.Billing
 
 		public void Save(bool releaseLock)
 		{
-            YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
 		}
 
 		public void UpdateBindingSources()

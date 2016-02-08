@@ -82,7 +82,7 @@ namespace YellowstonePathology.UI.Login
                     panelOrder.AcknowledgedById = acknowledgementId;
                     panelOrder.AcknowledgedDate = acknowledgementDate;
                     panelOrder.AcknowledgedTime = acknowledgementTime;
-                    YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(panelOrder, true);
+                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(panelOrder, true);
                 }
 
                 // make the report

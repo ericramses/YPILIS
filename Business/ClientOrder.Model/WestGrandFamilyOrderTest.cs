@@ -35,7 +35,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 
         public void InsertClientOrder()
         {
-            YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitRootInsert(this.m_ClientOrder);            
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitRootInsert(this.m_ClientOrder);            
         }
     }
 }

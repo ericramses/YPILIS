@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Surgical
     /// <summary>
     /// Interaction logic for PapCorrelationPage.xaml
     /// </summary>
-    public partial class PapCorrelationPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
+    public partial class PapCorrelationPage : UserControl, INotifyPropertyChanged 
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -88,7 +88,7 @@ namespace YellowstonePathology.UI.Surgical
 
         public void Save(bool releaseLock)
         {
-            YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
         }
 
         public void UpdateBindingSources()

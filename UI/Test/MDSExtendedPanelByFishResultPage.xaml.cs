@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Test
 	/// <summary>
 	/// Interaction logic for MDSExtendedByFishResultPage.xaml
 	/// </summary>
-	public partial class MDSExtendedPanelByFishResultPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
+	public partial class MDSExtendedPanelByFishResultPage : UserControl, INotifyPropertyChanged 
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -98,7 +98,7 @@ namespace YellowstonePathology.UI.Test
 
 		public void Save(bool releaseLock)
 		{
-            YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
         }
 
         public void UpdateBindingSources()
@@ -122,7 +122,7 @@ namespace YellowstonePathology.UI.Test
 		{
 			this.Save(false);
 			YellowstonePathology.Business.Test.MDSExtendedByFish.MDSExtendedByFishWordDocument report = new Business.Test.MDSExtendedByFish.MDSExtendedByFishWordDocument();
-			report.Render(this.m_AccessionOrder.MasterAccessionNo, this.m_PanelSetOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft);
+			report.Render(this.m_AccessionOrder.MasterAccessionNo, this.m_PanelSetOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft, Business.Persistence.DocumentWriterEnum.ResultWorkspace);
 
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
 			string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);

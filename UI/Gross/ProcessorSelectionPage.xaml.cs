@@ -17,7 +17,7 @@ namespace YellowstonePathology.UI.Gross
 	/// <summary>
 	/// Interaction logic for BlockOptionsPage.xaml
 	/// </summary>
-	public partial class ProcessorSelectionPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
+	public partial class ProcessorSelectionPage : UserControl
 	{
         public delegate void NextEventHandler(object sender, YellowstonePathology.UI.CustomEventArgs.SpecimenOrderReturnEventArgs e);
         public event NextEventHandler Next;
@@ -52,26 +52,7 @@ namespace YellowstonePathology.UI.Gross
         {
             get { return this.m_ProcessorRunCollection; }
         }
-
-		public void Save(bool releaseLock)
-		{
-            
-		}
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void UpdateBindingSources()
-		{
-
-		}             
+           
 
         private void ButtonNext_Click(object sender, RoutedEventArgs e)
         {

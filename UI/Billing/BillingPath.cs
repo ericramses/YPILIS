@@ -35,7 +35,7 @@ namespace YellowstonePathology.UI.Billing
                     this.m_BillingWindowPrimary.PageNavigator.ShowSecondMonitorWindow(this.m_BillingWindowSecondary);
                 }
 
-                this.m_AccessionOrder = YellowstonePathology.Business.Persistence.ObjectGateway.Instance.GetByMasterAccessionNo(this.m_ReportSearchList.CurrentReportSearchItem.MasterAccessionNo);                
+                this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(this.m_ReportSearchList.CurrentReportSearchItem.MasterAccessionNo);                
 				this.ShowBillingPage(this.m_AccessionOrder);                
 			}
         }        

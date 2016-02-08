@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Test
     /// <summary>
     /// Interaction logic for HER2AmplificationByISHResultPage.xaml
     /// </summary>
-    public partial class HER2AmplificationByISHResultPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges, IResultPage
+    public partial class HER2AmplificationByISHResultPage : UserControl, INotifyPropertyChanged , IResultPage
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -144,7 +144,7 @@ namespace YellowstonePathology.UI.Test
 
         public void Save(bool releaseLock)
         {
-            YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
         }
 
         public void UpdateBindingSources()

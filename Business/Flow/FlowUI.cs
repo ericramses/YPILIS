@@ -181,7 +181,7 @@ namespace YellowstonePathology.Business.Flow
 
 		public void GetAccessionOrder(string reportNo, string masterAccessionNo)
 		{			
-			this.m_AccessionOrder = YellowstonePathology.Business.Persistence.ObjectGateway.Instance.GetByMasterAccessionNo(masterAccessionNo);			
+			this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo);			
 
             this.m_PanelSetOrderLeukemiaLymphoma = (YellowstonePathology.Business.Test.LLP.PanelSetOrderLeukemiaLymphoma)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
             this.m_ReportNo = reportNo;
@@ -325,19 +325,7 @@ namespace YellowstonePathology.Business.Flow
 
         public void Save(bool releaseLock)
         {
-			if (this.AccessionOrder != null)
-            {
-                YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_AccessionOrder, releaseLock);
-
-				//if(this.AccessionOrder.LockAquired == true)
-				//{
-	                //YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_AccessionOrder, this, releaseLock);                
-					//if(releaseLock == true)
-					//{
-					//	 
-					//}
-				//}
-            }
+			
         }
 
         public Flow.Marker Marker

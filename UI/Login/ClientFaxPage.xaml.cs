@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Login
 	/// <summary>
 	/// Interaction logic for ClientFaxPage.xaml
 	/// </summary>
-	public partial class ClientFaxPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges, INotifyPropertyChanged
+	public partial class ClientFaxPage : UserControl, INotifyPropertyChanged
 	{
 		public delegate void PropertyChangedNotificationHandler(String info);
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -241,24 +241,6 @@ namespace YellowstonePathology.UI.Login
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
-        }
-
-        public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-        {
-            return false;
-        }
-
-        public bool OkToSaveOnClose()
-        {
-            return false;
-        }
-
-        public void Save(bool releaseLock)
-        {
-        }
-
-        public void UpdateBindingSources()
-        {
-        }
+        }        
     }
 }

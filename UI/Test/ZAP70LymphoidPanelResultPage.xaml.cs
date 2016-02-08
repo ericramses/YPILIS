@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Test
 	/// <summary>
 	/// Interaction logic for ZAP70LymphoidPanelResultPage.xaml
 	/// </summary>
-	public partial class ZAP70LymphoidPanelResultPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
+	public partial class ZAP70LymphoidPanelResultPage : UserControl, INotifyPropertyChanged 
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -32,6 +32,7 @@ namespace YellowstonePathology.UI.Test
 
 		private string m_PageHeaderText;
 		private string m_OrderedOnDescription;
+        private Window m_ParentWindow;
 
 		public ZAP70LymphoidPanelResultPage(YellowstonePathology.Business.Test.ZAP70LymphoidPanel.ZAP70LymphoidPanelTestOrder testOrder,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
@@ -50,19 +51,8 @@ namespace YellowstonePathology.UI.Test
 
 			DataContext = this;
 
-            Loaded += ZAP70LymphoidPanelResultPage_Loaded;
-            Unloaded += ZAP70LymphoidPanelResultPage_Unloaded;
-		}
-
-        private void ZAP70LymphoidPanelResultPage_Loaded(object sender, RoutedEventArgs e)
-        {
-             
-        }
-
-        private void ZAP70LymphoidPanelResultPage_Unloaded(object sender, RoutedEventArgs e)
-        {
-             
-        }
+            this.m_ParentWindow = Window.GetWindow(this);            
+		}        
 
         public string OrderedOnDescription
 		{
@@ -90,33 +80,12 @@ namespace YellowstonePathology.UI.Test
 		public string PageHeaderText
 		{
 			get { return this.m_PageHeaderText; }
-		}
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save(bool releaseLock)
-		{
-            YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
-        }
-
-        public void UpdateBindingSources()
-		{
-
-		}
+		}		
 
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
-		{
-			this.Save(false);
+		{			
             YellowstonePathology.Business.Test.ZAP70LymphoidPanel.ZAP70LymphoidPanelWordDocument report = new YellowstonePathology.Business.Test.ZAP70LymphoidPanel.ZAP70LymphoidPanelWordDocument();
-			report.Render(this.m_AccessionOrder.MasterAccessionNo, this.m_PanelSetOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft);
+			report.Render(this.m_AccessionOrder.MasterAccessionNo, this.m_PanelSetOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft, this.m_ParentWindow);
 
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
 			string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);

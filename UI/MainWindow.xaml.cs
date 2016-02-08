@@ -460,7 +460,7 @@ namespace YellowstonePathology.UI
             }
             else
             {
-                this.m_TypingWorkspace = new Surgical.TypingWorkspace(this.m_MainWindowCommandButtonHandler, secondMonitorWindow);
+                this.m_TypingWorkspace = new Surgical.TypingWorkspace(this.m_MainWindowCommandButtonHandler, secondMonitorWindow, this.m_TabItemTyping);
 				this.m_TabItemTyping.Content = this.m_TypingWorkspace;
                 this.TabControlLeftWorkspace.Items.Add(this.m_TabItemTyping);
                 this.m_TabItemTyping.Focus();                

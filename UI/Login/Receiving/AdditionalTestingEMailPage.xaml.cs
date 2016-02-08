@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Login.Receiving
     /// <summary>
     /// Interaction logic for AdditionalTestingEMailPage.xaml
     /// </summary>
-    public partial class AdditionalTestingEMailPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
+    public partial class AdditionalTestingEMailPage : UserControl, INotifyPropertyChanged 
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -86,7 +86,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 
         public void Save(bool releaseLock)
         {
-            YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
+            //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
         }
 
         public void UpdateBindingSources()

@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI
     /// <summary>
     /// Interaction logic for AmendmentPage.xaml
     /// </summary>
-    public partial class AmendmentPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
+    public partial class AmendmentPage : UserControl, INotifyPropertyChanged 
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -68,7 +68,7 @@ namespace YellowstonePathology.UI
 
         public void Save(bool releaseLock)
         {
-            YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
         }
 
         public void UpdateBindingSources()

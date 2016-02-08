@@ -15,7 +15,7 @@ using System.ComponentModel;
 
 namespace YellowstonePathology.UI.Surgical
 {	
-	public partial class PublishedDocumentFinalPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
+	public partial class PublishedDocumentFinalPage : UserControl, INotifyPropertyChanged 
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -78,7 +78,7 @@ namespace YellowstonePathology.UI.Surgical
 
 		public void Save(bool releaseLock)
 		{
-            YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
+            
         }
 
         public void UpdateBindingSources()

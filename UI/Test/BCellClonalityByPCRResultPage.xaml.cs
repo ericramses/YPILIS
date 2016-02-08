@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Test
 	/// <summary>
 	/// Interaction logic for BCellClonalityByPCRResultPage.xaml
 	/// </summary>
-	public partial class BCellClonalityByPCRResultPage : ResultControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
+	public partial class BCellClonalityByPCRResultPage : ResultControl, INotifyPropertyChanged 
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -31,7 +31,6 @@ namespace YellowstonePathology.UI.Test
 		private YellowstonePathology.Business.Test.BCellClonalityByPCR.BCellClonalityByPCRResultCollection m_ResultCollection;
 		private YellowstonePathology.Business.Test.BCellClonalityByPCR.BCellClonalityByPCRTestResults m_TestResults;
 		private string m_PageHeaderText;
-
 
 		public BCellClonalityByPCRResultPage(YellowstonePathology.Business.Test.BCellClonalityByPCR.BCellClonalityByPCRTestOrder testOrder,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
@@ -110,7 +109,7 @@ namespace YellowstonePathology.UI.Test
 
 		public void Save(bool releaseLock)
 		{
-            YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
         }
 
         public void UpdateBindingSources()

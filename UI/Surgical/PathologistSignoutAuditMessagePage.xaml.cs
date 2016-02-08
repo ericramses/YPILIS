@@ -17,7 +17,7 @@ namespace YellowstonePathology.UI.Surgical
     /// <summary>
     /// Interaction logic for PathologistSignoutAuditMessagePage.xaml
     /// </summary>
-    public partial class PathologistSignoutAuditMessagePage : UserControl, Business.Interface.IPersistPageChanges
+    public partial class PathologistSignoutAuditMessagePage : UserControl 
     {
         public delegate void NextEventHandler(object sender, EventArgs e);
         public event NextEventHandler Next;

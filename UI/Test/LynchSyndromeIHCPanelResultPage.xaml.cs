@@ -19,7 +19,7 @@ namespace YellowstonePathology.UI.Test
 	/// <summary>
 	/// Interaction logic for LynchSyndromeResultPage.xaml
 	/// </summary>
-	public partial class LynchSyndromeIHCPanelResultPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
+	public partial class LynchSyndromeIHCPanelResultPage : UserControl, INotifyPropertyChanged 
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -100,7 +100,7 @@ namespace YellowstonePathology.UI.Test
 
 		public void Save(bool releaseLock)
 		{
-            YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
+            
         }
 
         public void UpdateBindingSources()

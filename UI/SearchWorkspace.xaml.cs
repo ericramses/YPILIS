@@ -23,10 +23,13 @@ namespace YellowstonePathology.UI
         private UI.DocumentWorkspace m_DocumentViewer;
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
         private MainWindowCommandButtonHandler m_MainWindowCommandButtonHandler;
+        private System.Windows.Controls.TabItem m_Writer;
 
-        public SearchWorkspace(MainWindowCommandButtonHandler mainWindowCommandButtonHandler)
+        public SearchWorkspace(MainWindowCommandButtonHandler mainWindowCommandButtonHandler, System.Windows.Controls.TabItem writer)
         {
             this.m_MainWindowCommandButtonHandler = mainWindowCommandButtonHandler;
+            this.m_Writer = writer;
+
 			this.m_SystemIdentity = new YellowstonePathology.Business.User.SystemIdentity(YellowstonePathology.Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
             this.m_Search = new Business.SearchUI();            
             this.m_DocumentViewer = new DocumentWorkspace();            
@@ -55,7 +58,7 @@ namespace YellowstonePathology.UI
             if (this.listViewCaseList.SelectedItem != null)
             {
                 YellowstonePathology.Business.SearchListItem item = (YellowstonePathology.Business.SearchListItem)this.listViewCaseList.SelectedItem;
-				YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.ObjectGateway.Instance.GetByMasterAccessionNo(item.MasterAccessionNo);
+				YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(item.MasterAccessionNo, this.m_Writer);
 
                 YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPath providerDistributionPath =
                     new Login.FinalizeAccession.ProviderDistributionPath(item.ReportNo, accessionOrder,
@@ -187,7 +190,7 @@ namespace YellowstonePathology.UI
             if (this.listViewCaseList.SelectedItems.Count != 0)
             {
                 YellowstonePathology.Business.SearchListItem item = (YellowstonePathology.Business.SearchListItem)this.listViewCaseList.SelectedItem;
-				YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.ObjectGateway.Instance.GetByMasterAccessionNo(item.MasterAccessionNo);
+				YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(item.MasterAccessionNo, this.m_Writer);
 
                 YellowstonePathology.UI.Common.CaseHistoryDialog caseHistoryDialog = new Common.CaseHistoryDialog(accessionOrder);
                 caseHistoryDialog.ShowDialog();

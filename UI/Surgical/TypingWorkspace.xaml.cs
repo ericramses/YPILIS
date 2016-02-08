@@ -39,10 +39,12 @@ namespace YellowstonePathology.UI.Surgical
 
         private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
         private MainWindowCommandButtonHandler m_MainWindowCommandButtonHandler;
-        private PageNavigationWindow m_SecondMonitorWindow;        
+        private PageNavigationWindow m_SecondMonitorWindow;
+        private System.Windows.Controls.TabItem m_Writer;
 
-        public TypingWorkspace(MainWindowCommandButtonHandler mainWindowCommandButtonHandler, PageNavigationWindow secondMonitorWindow)
+        public TypingWorkspace(MainWindowCommandButtonHandler mainWindowCommandButtonHandler, PageNavigationWindow secondMonitorWindow, System.Windows.Controls.TabItem writer)
 		{
+            this.m_Writer = writer;
             this.m_MainWindowCommandButtonHandler = mainWindowCommandButtonHandler;
             this.m_SecondMonitorWindow = secondMonitorWindow;
             if (secondMonitorWindow != null)
@@ -105,7 +107,6 @@ namespace YellowstonePathology.UI.Surgical
             if (this.m_TypingUI.AccessionOrder != null)
             {
                 //YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_TypingUI.AccessionOrder, this.m_TypingUI);
-
                 YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPath providerDistributionPath =
 					new YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPath(this.m_TypingUI.SurgicalTestOrder.ReportNo, this.m_TypingUI.AccessionOrder,
                     System.Windows.Visibility.Collapsed, System.Windows.Visibility.Visible, System.Windows.Visibility.Collapsed);
@@ -175,7 +176,7 @@ namespace YellowstonePathology.UI.Surgical
 		{
 			this.Save(false);
 			YellowstonePathology.Business.Test.Surgical.SurgicalWordDocument report = new YellowstonePathology.Business.Test.Surgical.SurgicalWordDocument();
-            report.Render(this.m_TypingUI.AccessionOrder.MasterAccessionNo, this.m_TypingUI.SurgicalTestOrder.ReportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum.Draft);
+            report.Render(this.m_TypingUI.AccessionOrder.MasterAccessionNo, this.m_TypingUI.SurgicalTestOrder.ReportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum.Draft, this.m_Writer);
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_TypingUI.SurgicalTestOrder.ReportNo);
 			string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);
 			YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(fileName);
@@ -241,7 +242,7 @@ namespace YellowstonePathology.UI.Surgical
 
 		public void GetSurgicalCase(string reportNo)
         {               
-            this.Save(false);
+            this.Save(true);
 			this.m_DocumentViewer.ClearContent();
 			
             this.m_TypingUI.GetAccessionOrder(reportNo);
@@ -351,7 +352,7 @@ namespace YellowstonePathology.UI.Surgical
 			{
 				this.Save(false);
 				YellowstonePathology.Business.Test.Surgical.SurgicalWordDocument report = new YellowstonePathology.Business.Test.Surgical.SurgicalWordDocument();
-				report.Render(this.m_TypingUI.SurgicalTestOrder.MasterAccessionNo, this.m_TypingUI.SurgicalTestOrder.ReportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum.Draft);
+				report.Render(this.m_TypingUI.SurgicalTestOrder.MasterAccessionNo, this.m_TypingUI.SurgicalTestOrder.ReportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum.Draft, this.m_Writer);
 				YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_TypingUI.SurgicalTestOrder.ReportNo);
 				string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);
 				YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(fileName);
@@ -860,9 +861,7 @@ namespace YellowstonePathology.UI.Surgical
         }
 
         private void ListViewSurgicalCaseList_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            
-
+        {            
             if (this.ListViewSurgicalCaseList.SelectedItem != null)
             {
                 if (this.m_TypingUI.SurgicalTestOrder != null)

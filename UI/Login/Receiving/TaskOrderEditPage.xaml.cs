@@ -17,7 +17,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 	/// <summary>
 	/// Interaction logic for TaskOrderEditPage.xaml
 	/// </summary>
-	public partial class TaskOrderEditPage : UserControl, Business.Interface.IPersistPageChanges
+	public partial class TaskOrderEditPage : UserControl 
 	{
 		public delegate void NextEventHandler(object sender, EventArgs e);
 		public event NextEventHandler Next;
@@ -98,7 +98,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 
 		public void Save(bool releaseLock)
 		{
-            YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
         }
 
         public void UpdateBindingSources()

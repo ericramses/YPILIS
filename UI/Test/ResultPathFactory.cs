@@ -14,6 +14,7 @@ namespace YellowstonePathology.UI.Test
             string reportNo,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
             YellowstonePathology.UI.Navigation.PageNavigator pageNavigator,
+            System.Windows.Window window,
             System.Windows.Visibility backButtonVisibility)
         {
             ResultPath result = null;
@@ -62,7 +63,7 @@ namespace YellowstonePathology.UI.Test
                     result = new EGFRResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
                 case 61:
-					result = new TrichomonasResultPath(reportNo, accessionOrder, pageNavigator);
+					result = new TrichomonasResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
 				case 62:
 					result = new HPV1618ResultPath(reportNo, accessionOrder, pageNavigator);
@@ -90,13 +91,13 @@ namespace YellowstonePathology.UI.Test
 					result = new ComprehensiveColonCancerProfilePath(reportNo, accessionOrder, pageNavigator, backButtonVisibility);
                     break;
 				case 131:
-                    result = new ALKForNSCLCByFISHResultPath(reportNo, accessionOrder, pageNavigator);
+                    result = new ALKForNSCLCByFISHResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
 				case 132:
 					result = new MicrosatelliteInstabilityAnalysisResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
 				case 135:
-					result = new ABL1KinaseDomainMutationResultPath(reportNo, accessionOrder, pageNavigator);
+					result = new ABL1KinaseDomainMutationResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
 				case 136:
 					result = new MPNStandardReflexPath(reportNo, accessionOrder, pageNavigator);
@@ -171,7 +172,7 @@ namespace YellowstonePathology.UI.Test
 					result = new MDSExtendedPanelByFishResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
 				case 168:
-					result = new AMLStandardByFishResultPath(reportNo, accessionOrder, pageNavigator);
+					result = new AMLStandardByFishResultPath(reportNo, accessionOrder, pageNavigatorm, window);
                     break;
 				case 169:
 					result = new ChromosomeAnalysisForFetalAnomalyResultPath(reportNo, accessionOrder, pageNavigator);
@@ -219,7 +220,7 @@ namespace YellowstonePathology.UI.Test
 					result = new API2MALT1ResultPath(reportNo, accessionOrder, pageNavigator);
                     break;
 				case 192:
-					result = new ALLAdultByFISHResultPath(reportNo, accessionOrder, pageNavigator);
+					result = new ALLAdultByFISHResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
                 case 201:
                     result = new IHCQCResultPath(reportNo, accessionOrder, pageNavigator);
@@ -259,12 +260,13 @@ namespace YellowstonePathology.UI.Test
         public bool Start(YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
             YellowstonePathology.UI.Navigation.PageNavigator pageNavigator,
+            System.Windows.Window window,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity,
             System.Windows.Visibility backButtonVisibility)
         {
 			bool result = false;
 
-            YellowstonePathology.UI.Test.ResultPath resultPath = YellowstonePathology.UI.Test.ResultPathFactory.GetResultPath(panelSetOrder.PanelSetId, panelSetOrder.ReportNo, accessionOrder, pageNavigator, System.Windows.Visibility.Collapsed);
+            YellowstonePathology.UI.Test.ResultPath resultPath = YellowstonePathology.UI.Test.ResultPathFactory.GetResultPath(panelSetOrder.PanelSetId, panelSetOrder.ReportNo, accessionOrder, pageNavigator, window, System.Windows.Visibility.Collapsed);
 
             if (resultPath != null)
             {
@@ -324,10 +326,11 @@ namespace YellowstonePathology.UI.Test
         public bool Start(YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
             YellowstonePathology.UI.Navigation.PageNavigator pageNavigator,
+            System.Windows.Window window,
             System.Windows.Visibility backButtonVisibility)
         {
             bool result = false;
-            YellowstonePathology.UI.Test.ResultPath resultPath = YellowstonePathology.UI.Test.ResultPathFactory.GetResultPath(panelSetOrder.PanelSetId, panelSetOrder.ReportNo, accessionOrder, pageNavigator, System.Windows.Visibility.Collapsed);
+            YellowstonePathology.UI.Test.ResultPath resultPath = YellowstonePathology.UI.Test.ResultPathFactory.GetResultPath(panelSetOrder.PanelSetId, panelSetOrder.ReportNo, accessionOrder, pageNavigator, window, System.Windows.Visibility.Collapsed);
 
             if (resultPath != null)
             {

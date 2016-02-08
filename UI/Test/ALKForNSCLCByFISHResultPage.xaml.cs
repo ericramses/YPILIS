@@ -16,7 +16,7 @@ using System.Xml.Linq;
 
 namespace YellowstonePathology.UI.Test
 {
-	public partial class ALKForNSCLCByFISHResultPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges, IResultPage
+	public partial class ALKForNSCLCByFISHResultPage : UserControl, INotifyPropertyChanged, IResultPage
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -32,11 +32,13 @@ namespace YellowstonePathology.UI.Test
         private YellowstonePathology.Business.Test.ALKForNSCLCByFISH.ALKForNSCLCByFISHResultCollection m_ResultCollection;
         private YellowstonePathology.Business.Test.ALKForNSCLCByFISH.ALKForNSCLCByFISHTestOrder m_PanelSetOrder;
         private string m_OrderedOnDescription;
+        private Window m_ParentWindow;
 
         public ALKForNSCLCByFISHResultPage(YellowstonePathology.Business.Test.ALKForNSCLCByFISH.ALKForNSCLCByFISHTestOrder alkForNSCLCByFISHTestOrder,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 		{
+            
             this.m_PanelSetOrder = alkForNSCLCByFISHTestOrder;
 			this.m_AccessionOrder = accessionOrder;			
 			this.m_SystemIdentity = systemIdentity;
@@ -51,9 +53,11 @@ namespace YellowstonePathology.UI.Test
 
 			InitializeComponent();
 
-			DataContext = this;				
-						
-			Loaded += ALKForNSCLCByFISHResultPage_Loaded;
+			DataContext = this;
+
+            this.m_ParentWindow = Window.GetWindow(this);
+
+            Loaded += ALKForNSCLCByFISHResultPage_Loaded;
             Unloaded += ALKForNSCLCByFISHResultPage_Unloaded;
 		}
 
@@ -94,27 +98,7 @@ namespace YellowstonePathology.UI.Test
 		public string PageHeaderText
 		{
 			get { return this.m_PageHeaderText; }
-		}				        
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save(bool releaseLock)
-		{
-            YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
-        }
-
-        public void UpdateBindingSources()
-		{
-
-		}
+		}				        		
 
         private void HyperLinkClearResult_Click(object sender, RoutedEventArgs e)
         {
@@ -146,10 +130,9 @@ namespace YellowstonePathology.UI.Test
         }    
 
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
-		{
-            this.Save(false);
+		{            
             YellowstonePathology.Business.Test.ALKForNSCLCByFISH.ALKForNSCLCByFISHWordDocument report = new Business.Test.ALKForNSCLCByFISH.ALKForNSCLCByFISHWordDocument();
-            report.Render(this.m_AccessionOrder.MasterAccessionNo, this.m_PanelSetOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft);
+            report.Render(this.m_AccessionOrder.MasterAccessionNo, this.m_PanelSetOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft, this.m_ParentWindow);
 
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
             string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);

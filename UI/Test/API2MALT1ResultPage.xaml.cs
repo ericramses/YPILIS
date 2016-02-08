@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Test
 	/// <summary>
 	/// Interaction logic for API2MALT1ResultPage.xaml
 	/// </summary>
-	public partial class API2MALT1ResultPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
+	public partial class API2MALT1ResultPage : UserControl, INotifyPropertyChanged 
     {
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -49,21 +49,8 @@ namespace YellowstonePathology.UI.Test
 
 			InitializeComponent();
 
-			DataContext = this;
-
-            Loaded += API2MALT1ResultPage_Loaded;
-            Unloaded += API2MALT1ResultPage_Unloaded;
-		}
-
-        private void API2MALT1ResultPage_Loaded(object sender, RoutedEventArgs e)
-        {
-             
-        }
-
-        private void API2MALT1ResultPage_Unloaded(object sender, RoutedEventArgs e)
-        {
-             
-        }
+			DataContext = this;            
+		}        
 
         public string OrderedOnDescription
 		{
@@ -91,33 +78,12 @@ namespace YellowstonePathology.UI.Test
 		public string PageHeaderText
 		{
 			get { return this.m_PageHeaderText; }
-		}
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save(bool releaseLock)
-		{
-            YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
-        }
-
-        public void UpdateBindingSources()
-		{
-
-		}
+		}		
 
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
 		{
-			this.Save(false);
 			YellowstonePathology.Business.Test.API2MALT1.API2MALT1WordDocument report = new YellowstonePathology.Business.Test.API2MALT1.API2MALT1WordDocument();
-			report.Render(this.m_AccessionOrder.MasterAccessionNo, this.m_PanelSetOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft);
+			report.Render(this.m_AccessionOrder.MasterAccessionNo, this.m_PanelSetOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft, Window.GetWindow(this));
 
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
 			string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);

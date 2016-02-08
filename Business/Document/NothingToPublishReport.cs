@@ -25,7 +25,7 @@ namespace YellowstonePathology.Business.Document
             return methodResult;
         }
 
-		public override void Render(string masterAccessionNo, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveEnum)
+		public override void Render(string masterAccessionNo, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveEnum, object writer)
 		{
             this.m_ReportNo = reportNo;
 			this.m_ReportSaveEnum = reportSaveEnum;

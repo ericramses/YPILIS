@@ -1,12 +1,4 @@
-﻿/*
- * Created by SharpDevelop.
- * User: william.copland
- * Date: 1/6/2016
- * Time: 9:11 AM
- * 
- * To change this template use Tools | Options | Coding | Edit Standard Headers.
- */
-using System;
+﻿using System;
 
 namespace YellowstonePathology.UI.Test
 {
@@ -21,8 +13,9 @@ namespace YellowstonePathology.UI.Test
 
 		public BCellEnumerationResultPath(string reportNo,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.UI.Navigation.PageNavigator pageNavigator)
-            : base(pageNavigator)
+			YellowstonePathology.UI.Navigation.PageNavigator pageNavigator,
+            System.Windows.Window window)
+            : base(pageNavigator, window)
         {
 			this.m_AccessionOrder = accessionOrder;
 			this.m_PanelSetOrder = (YellowstonePathology.Business.Test.BCellEnumeration.BCellEnumerationTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);

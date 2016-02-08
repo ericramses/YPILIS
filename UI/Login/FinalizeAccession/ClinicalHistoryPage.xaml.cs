@@ -17,7 +17,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 	/// <summary>
 	/// Interaction logic for ClinicalHistoryPage.xaml
 	/// </summary>
-	public partial class ClinicalHistoryPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
+	public partial class ClinicalHistoryPage : UserControl
 	{
 		public delegate void ReturnEventHandler(object sender, UI.Navigation.PageNavigationReturnEventArgs e);
 		public event ReturnEventHandler Return;
@@ -94,7 +94,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
 		public void Save(bool releaseLock)
 		{
-            YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
         }
 
         public void UpdateBindingSources()

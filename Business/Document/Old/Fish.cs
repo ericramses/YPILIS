@@ -26,11 +26,11 @@ namespace YellowstonePathology.Business.Document.Old
 			return YellowstonePathology.Business.Document.CaseDocument.DeleteCaseFiles(orderIdParser);
         }
 
-		public void Render(string masterAccessionNo, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveEnum)
+		public void Render(string masterAccessionNo, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveEnum, object writer)
 		{
             this.m_ReportNo = reportNo;
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder = new YellowstonePathology.Business.Test.AccessionOrder();
-			accessionOrder = YellowstonePathology.Business.Persistence.ObjectGateway.Instance.GetByMasterAccessionNo(masterAccessionNo);
+			accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, writer);
 
             YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 			this.m_ReportNo = panelSetOrder.ReportNo;

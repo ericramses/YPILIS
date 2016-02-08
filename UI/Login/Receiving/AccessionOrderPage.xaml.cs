@@ -16,7 +16,7 @@ using System.Xml.Linq;
 
 namespace YellowstonePathology.UI.Login.Receiving
 {	
-	public partial class AccessionOrderPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
+	public partial class AccessionOrderPage : UserControl, INotifyPropertyChanged 
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -94,7 +94,7 @@ namespace YellowstonePathology.UI.Login.Receiving
         public AccessionOrderPage(ClientOrderReceivingHandler clientOrderReceivingHandler, PageNavigationModeEnum pageNavigationMode)
         {            
             this.m_AccessionOrder = clientOrderReceivingHandler.AccessionOrder;
-            YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
             this.m_PageNavigationMode = pageNavigationMode;
 
             this.m_ClientOrder = clientOrderReceivingHandler.ClientOrder;
@@ -245,7 +245,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 
 		public void Save(bool releaseLock)
 		{
-            YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
         }
 
         public void UpdateBindingSources()

@@ -15,7 +15,7 @@ using System.ComponentModel;
 
 namespace YellowstonePathology.UI.Gross
 {
-    public partial class StainOrderPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges, INotifyPropertyChanged
+    public partial class StainOrderPage : UserControl, INotifyPropertyChanged
 	{
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -52,27 +52,7 @@ namespace YellowstonePathology.UI.Gross
         public YellowstonePathology.Business.Test.Model.TestOrderCollection TestOrderCollection
         {
             get { return this.m_TestOrderCollection; }
-        }
-
-		public void Save(bool releaseLock)
-		{
-            
-		}
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void UpdateBindingSources()
-		{
-
-		}             
+        }		        
 
         private void ButtonBack_Click(object sender, RoutedEventArgs e)
         {            

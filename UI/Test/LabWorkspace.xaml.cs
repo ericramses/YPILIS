@@ -1219,7 +1219,7 @@ namespace YellowstonePathology.UI.Test
             {                
                 foreach(YellowstonePathology.Business.Search.ReportSearchItem reportSearchitem in this.ListViewCaseList.SelectedItems)
                 {
-                    YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.ObjectGateway.Instance.GetByMasterAccessionNo(reportSearchitem.MasterAccessionNo);
+                    YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(reportSearchitem.MasterAccessionNo);
                     if (accessionOrder.SpecimenOrderCollection.HasThinPrepFluidSpecimen() == true)
                     {
                         YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = accessionOrder.SpecimenOrderCollection.GetThinPrep();

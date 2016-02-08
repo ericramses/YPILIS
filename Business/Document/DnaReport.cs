@@ -36,7 +36,7 @@ namespace YellowstonePathology.Business.Document
             return methodResult;
         }
 
-		public virtual void Render(string masterAccessionNo, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveEnum)
+		public virtual void Render(string masterAccessionNo, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveEnum, object writer)
         {
 			/*
 			System.Reflection.Assembly assembly = this.GetType().Assembly;

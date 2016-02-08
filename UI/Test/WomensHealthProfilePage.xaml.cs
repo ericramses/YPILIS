@@ -42,6 +42,7 @@ namespace YellowstonePathology.UI.Test
 
         private string m_HPVStandingOrderDescription;
         private System.Windows.Visibility m_BackButtonVisibility;
+        private Window m_ParentWindow;
 
         public WomensHealthProfilePage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
             YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder,            
@@ -80,6 +81,7 @@ namespace YellowstonePathology.UI.Test
 
             this.DataContext = this;
 
+            this.m_ParentWindow = Window.GetWindow(this);
             Loaded += WomensHealthProfilePage_Loaded;
             Unloaded += WomensHealthProfilePage_Unloaded;
         }
@@ -185,7 +187,7 @@ namespace YellowstonePathology.UI.Test
 
         public void Save(bool releaseLock)
         {
-            YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
+            //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
         }
 
         public void UpdateBindingSources()
@@ -335,7 +337,7 @@ namespace YellowstonePathology.UI.Test
 		{
 			this.Save(false);
 			YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileWordDocument report = new YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileWordDocument();
-			report.Render(this.m_AccessionOrder.MasterAccessionNo, this.m_WomensHealthProfileTestOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft);
+			report.Render(this.m_AccessionOrder.MasterAccessionNo, this.m_WomensHealthProfileTestOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft, this.m_ParentWindow);
 
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_WomensHealthProfileTestOrder.ReportNo);
 			string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);

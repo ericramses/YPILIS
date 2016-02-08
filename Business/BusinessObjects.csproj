@@ -455,7 +455,6 @@
     <Compile Include="HL7View\Panther\PantherMSH.cs" />
     <Compile Include="Interface\IFlowMarker.cs" />
     <Compile Include="Interface\ILeukemiaLymphomaResult.cs" />
-    <Compile Include="Interface\IPersistPageChanges.cs" />
     <Compile Include="Label.Model\SpecimenLabel.cs" />
     <Compile Include="Label.Model\BlockLabelLegacy.cs" />
     <Compile Include="Label.Model\SpecimenLabelPrinter.cs" />
@@ -488,7 +487,13 @@
     <Compile Include="Persistence\ObjectComparer.cs" />
     <Compile Include="Persistence\ObjectCounter.cs" />
     <Compile Include="Persistence\ObjectCounterCollection.cs" />
-    <Compile Include="Persistence\ObjectGateway.cs" />
+    <Compile Include="Persistence\DocumentGateway.cs" />
+    <Compile Include="Persistence\DocumentInsert.cs" />
+    <Compile Include="Persistence\DocumentDelete.cs" />
+    <Compile Include="Persistence\DocumentId.cs" />
+    <Compile Include="Persistence\Document.cs" />
+    <Compile Include="Persistence\Stack.cs" />
+    <Compile Include="Persistence\DocumentUpdate.cs" />
     <Compile Include="Persistence\RegisteredObject.cs" />
     <Compile Include="Persistence\RegisteredObjectCollection.cs" />
     <Compile Include="ReportDistribution.Model\ScheduledFaxSubmission.cs" />

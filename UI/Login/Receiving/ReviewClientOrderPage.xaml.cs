@@ -203,7 +203,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 
 		public void Save(bool releaseLock)
 		{
-            YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_ClientOrder, releaseLock);            
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_ClientOrder, releaseLock);            
 		}
 
 		public void UpdateBindingSources()
