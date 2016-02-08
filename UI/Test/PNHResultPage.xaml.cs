@@ -46,20 +46,6 @@ namespace YellowstonePathology.UI.Test
 			InitializeComponent();
 
 			DataContext = this;
-
-            Loaded += PNHResultPage_Loaded;
-            Unloaded += PNHResultPage_Unloaded;
-
-		}
-
-        private void PNHResultPage_Loaded(object sender, RoutedEventArgs e)
-        {
-             
-        }
-
-        private void PNHResultPage_Unloaded(object sender, RoutedEventArgs e)
-        {
-            
         }
 
         public YellowstonePathology.Business.Test.PNH.PNHTestOrder PanelSetOrder
@@ -88,26 +74,6 @@ namespace YellowstonePathology.UI.Test
 		public string PageHeaderText
 		{
 			get { return this.m_PageHeaderText; }
-		}
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save(bool releaseLock)
-		{
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
-        }
-
-        public void UpdateBindingSources()
-		{
-
 		}
 
 		private void ButtonNext_Click(object sender, RoutedEventArgs e)
@@ -185,11 +151,10 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
 		{
-			this.Save(false);
 			if (string.IsNullOrEmpty(this.m_PanelSetOrder.ResultCode) == false)
 			{
 				YellowstonePathology.Business.Test.PNH.PNHWordDocument report = new YellowstonePathology.Business.Test.PNH.PNHWordDocument();
-				report.Render(this.m_PanelSetOrder.MasterAccessionNo, this.m_PanelSetOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft);
+				report.Render(this.m_PanelSetOrder.MasterAccessionNo, this.m_PanelSetOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft, Window.GetWindow(thsi));
 
 				YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
 				string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);

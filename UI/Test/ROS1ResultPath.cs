@@ -13,8 +13,9 @@ namespace YellowstonePathology.UI.Test
 
         public ROS1ResultPath(string reportNo,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-            YellowstonePathology.UI.Navigation.PageNavigator pageNavigator) 
-            : base(pageNavigator)
+            YellowstonePathology.UI.Navigation.PageNavigator pageNavigator,
+            System.Windows.Window window) 
+            : base(pageNavigator, window)
         {
             this.m_AccessionOrder = accessionOrder;
             this.m_ROS1ByFISHTestOrder = (YellowstonePathology.Business.Test.ROS1ByFISH.ROS1ByFISHTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);

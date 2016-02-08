@@ -53,18 +53,11 @@ namespace YellowstonePathology.UI.Test
 			DataContext = this;				
 			
 			Loaded += ROS1ResultPage_Loaded;
-            Unloaded += ROS1ResultPage_Unloaded;
 		}
 
         public void ROS1ResultPage_Loaded(object sender, RoutedEventArgs e)
         {
-        	this.ComboBoxResult.SelectionChanged += ComboBoxResult_SelectionChanged;
-             
-        }
-
-        private void ROS1ResultPage_Unloaded(object sender, RoutedEventArgs e)
-        {
-             
+        	this.ComboBoxResult.SelectionChanged += ComboBoxResult_SelectionChanged;             
         }
 
         public YellowstonePathology.Business.Test.ROS1ByFISH.ROS1ByFISHResultCollection ResultCollection
@@ -95,31 +88,10 @@ namespace YellowstonePathology.UI.Test
 			get { return this.m_PageHeaderText; }
 		}				        
 
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save(bool releaseLock)
-		{
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
-        }
-
-        public void UpdateBindingSources()
-		{
-
-		}                        
-
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
 		{            
-            this.Save(false);
             YellowstonePathology.Business.Test.ROS1ByFISH.ROS1ByFISHWordDocument report = new Business.Test.ROS1ByFISH.ROS1ByFISHWordDocument();
-            report.Render(this.m_AccessionOrder.MasterAccessionNo, this.m_ROS1ByFISHTestOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft);
+            report.Render(this.m_AccessionOrder.MasterAccessionNo, this.m_ROS1ByFISHTestOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft, Window.GetWindow(this));
 
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_ROS1ByFISHTestOrder.ReportNo);
             string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);

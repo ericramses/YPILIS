@@ -48,19 +48,6 @@ namespace YellowstonePathology.UI.Test
 			InitializeComponent();
 
 			DataContext = this;
-
-            Loaded += MPNFishResultPage_Loaded;
-            Unloaded += MPNFishResultPage_Unloaded;
-		}
-
-        private void MPNFishResultPage_Loaded(object sender, RoutedEventArgs e)
-        {
-             
-        }
-
-        private void MPNFishResultPage_Unloaded(object sender, RoutedEventArgs e)
-        {
-             
         }
 
         public string OrderedOnDescription
@@ -86,26 +73,6 @@ namespace YellowstonePathology.UI.Test
 			get { return this.m_PageHeaderText; }
 		}
 
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save(bool releaseLock)
-		{
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
-        }
-
-        public void UpdateBindingSources()
-		{
-
-		}
-
 		private void HyperLinkNormal_Click(object sender, RoutedEventArgs e)
 		{
 			YellowstonePathology.Business.Test.MPNFish.MPNFishNormalResult result = new Business.Test.MPNFish.MPNFishNormalResult();
@@ -120,9 +87,8 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
 		{
-			this.Save(false);
 			YellowstonePathology.Business.Test.MPNFish.MPNFishWordDocument report = new Business.Test.MPNFish.MPNFishWordDocument();
-			report.Render(this.m_AccessionOrder.MasterAccessionNo, this.m_PanelSetOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft);
+			report.Render(this.m_AccessionOrder.MasterAccessionNo, this.m_PanelSetOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft, Window.GetWindow(this));
 
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
 			string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);
@@ -155,8 +121,6 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkAcceptResults_Click(object sender, RoutedEventArgs e)
 		{
-			//if (this.ComboBoxResult.SelectedItem != null)
-			//{
 			YellowstonePathology.Business.Rules.MethodResult result = this.m_PanelSetOrder.IsOkToAccept();
 			if (result.Success == true)
 			{
@@ -166,11 +130,6 @@ namespace YellowstonePathology.UI.Test
 			{
 				MessageBox.Show(result.Message);
 			}
-			//}
-			//else
-			//{
-			//	MessageBox.Show("A result must be selected before it can be accepted.");
-			//}
 		}
 
 		private void HyperLinkUnacceptResults_Click(object sender, RoutedEventArgs e)

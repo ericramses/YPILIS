@@ -68,19 +68,6 @@ namespace YellowstonePathology.UI.Test
 			InitializeComponent();
 
 			DataContext = this;
-
-            Loaded += StandingOrderPage_Loaded;
-            Unloaded += StandingOrderPage_Unloaded;				
-		}
-
-        private void StandingOrderPage_Loaded(object sender, RoutedEventArgs e)
-        {
-             
-        }
-
-        private void StandingOrderPage_Unloaded(object sender, RoutedEventArgs e)
-        {
-             
         }
 
         public YellowstonePathology.Business.Domain.Physician Physician
@@ -122,26 +109,6 @@ namespace YellowstonePathology.UI.Test
         {
             get { return this.m_AccessionOrderList; }
         }						        
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save(bool releaseLock)
-		{
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
-        }
-
-        public void UpdateBindingSources()
-		{
-
-		}                               
 
         private void ButtonNext_Click(object sender, RoutedEventArgs e)
         {
@@ -200,7 +167,7 @@ namespace YellowstonePathology.UI.Test
 				this.m_WomensHealthProfileTestOrder = womensHealthProfileTestOrder;
 				this.m_WomensHealthProfileVisibility = System.Windows.Visibility.Visible;
                 this.UpdateWomensHealthProfile();
-                this.Save(false);
+                //this.Save(false);
                 this.NotifyPropertyChanged(string.Empty);
             }
             else

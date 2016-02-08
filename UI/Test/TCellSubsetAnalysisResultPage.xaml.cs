@@ -46,19 +46,6 @@ namespace YellowstonePathology.UI.Test
 			InitializeComponent();
 
 			DataContext = this;
-
-            Loaded += TCellSubsetAnalysisResultPage_Loaded;
-            Unloaded += TCellSubsetAnalysisResultPage_Unloaded;
-		}
-
-        private void TCellSubsetAnalysisResultPage_Loaded(object sender, RoutedEventArgs e)
-        {
-             
-        }
-
-        private void TCellSubsetAnalysisResultPage_Unloaded(object sender, RoutedEventArgs e)
-        {
-             
         }
 
         public YellowstonePathology.Business.Test.TCellSubsetAnalysis.TCellSubsetAnalysisTestOrder PanelSetOrder
@@ -144,7 +131,6 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
 		{
-			this.Save(false);			
 			YellowstonePathology.Business.Test.TCellSubsetAnalysis.TCellSubsetAnalysisWordDocument report = new YellowstonePathology.Business.Test.TCellSubsetAnalysis.TCellSubsetAnalysisWordDocument();
 			report.Render(this.m_PanelSetOrder.MasterAccessionNo, this.m_PanelSetOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft, Window.GetWindow(this));
 

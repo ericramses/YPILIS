@@ -45,7 +45,7 @@ namespace YellowstonePathology.UI.Test
             {
                 YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisTestOrder testOrder = (YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSet.PanelSetId, this.m_TestOrder.OrderedOnId, true);
                 result = true;
-				Test.EGFRToALKReflexPath eGFRToALKReflexPath = new Test.EGFRToALKReflexPath(testOrder.ReportNo, this.m_AccessionOrder, this.m_PageNavigator, System.Windows.Visibility.Visible);
+				Test.EGFRToALKReflexPath eGFRToALKReflexPath = new Test.EGFRToALKReflexPath(testOrder.ReportNo, this.m_AccessionOrder, this.m_PageNavigator, this.m_Window, System.Windows.Visibility.Visible);
 				eGFRToALKReflexPath.Finish += new Test.EGFRToALKReflexPath.FinishEventHandler(EGFRToALKReflexPath_Finish);
                 eGFRToALKReflexPath.Back += EGFRToALKReflexPath_Back;
 				eGFRToALKReflexPath.Start(this.m_SystemIdentity);

@@ -38,25 +38,6 @@ namespace YellowstonePathology.UI.Test
 			DataContext = this;
 		}
 
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return false;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return false;
-		}
-
-		public void Save(bool releaseLock)
-		{
-		}
-
-		public void UpdateBindingSources()
-		{
-
-		}
-
 		public string PageHeaderText
 		{
 			get { return this.m_PageHeaderText; }

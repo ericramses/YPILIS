@@ -44,19 +44,6 @@ namespace YellowstonePathology.UI.Test
             InitializeComponent();
 
             DataContext = this;
-
-            Loaded += TechInitiatedPeripheralSmearResultPage_Loaded;
-            Unloaded += TechInitiatedPeripheralSmearResultPage_Unloaded;
-        }
-
-        private void TechInitiatedPeripheralSmearResultPage_Loaded(object sender, RoutedEventArgs e)
-        {
-             
-        }
-
-        private void TechInitiatedPeripheralSmearResultPage_Unloaded(object sender, RoutedEventArgs e)
-        {
-             
         }
 
         public YellowstonePathology.Business.Test.TechInitiatedPeripheralSmear.TechInitiatedPeripheralSmearTestOrder PanelSetOrder
@@ -75,26 +62,6 @@ namespace YellowstonePathology.UI.Test
         public string PageHeaderText
         {
             get { return this.m_PageHeaderText; }
-        }
-
-        public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-        {
-            return true;
-        }
-
-        public bool OkToSaveOnClose()
-        {
-            return true;
-        }
-
-        public void Save(bool releaseLock)
-        {
-            //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
-        }
-
-        public void UpdateBindingSources()
-        {
-
         }
 
         private void ButtonNext_Click(object sender, RoutedEventArgs e)
@@ -156,7 +123,6 @@ namespace YellowstonePathology.UI.Test
 
         private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
         {
-            this.Save(false);
             YellowstonePathology.Business.Test.TechInitiatedPeripheralSmear.TechInitiatedPeripheralSmearWordDocument report = new YellowstonePathology.Business.Test.TechInitiatedPeripheralSmear.TechInitiatedPeripheralSmearWordDocument();
             report.Render(this.m_PanelSetOrder.MasterAccessionNo, this.m_PanelSetOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft, Window.GetWindow(this));
 

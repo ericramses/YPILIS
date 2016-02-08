@@ -47,19 +47,6 @@ namespace YellowstonePathology.UI.Test
 			InitializeComponent();            
 
 			this.DataContext = this;
-
-            Loaded += MissingInformationResultPage_Loaded;
-            Unloaded += MissingInformationResultPage_Unloaded;				
-		}
-
-        private void MissingInformationResultPage_Loaded(object sender, RoutedEventArgs e)
-        {
-             
-        }
-
-        private void MissingInformationResultPage_Unloaded(object sender, RoutedEventArgs e)
-        {
-             
         }
 
         public YellowstonePathology.Business.Test.AccessionOrder AccessionOrder
@@ -84,26 +71,6 @@ namespace YellowstonePathology.UI.Test
 		{
 			get { return this.m_PageHeaderText; }
 		}				        
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save(bool releaseLock)
-		{
-            
-        }
-
-        public void UpdateBindingSources()
-		{
-            
-		}                                
         
 		private void ButtonNext_Click(object sender, RoutedEventArgs e)
 		{

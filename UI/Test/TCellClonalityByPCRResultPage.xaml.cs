@@ -50,19 +50,6 @@ namespace YellowstonePathology.UI.Test
 			InitializeComponent();
 
 			DataContext = this;
-
-            Loaded += TCellClonalityByPCRResultPage_Loaded;
-            Unloaded += TCellClonalityByPCRResultPage_Unloaded;				
-		}
-
-        private void TCellClonalityByPCRResultPage_Loaded(object sender, RoutedEventArgs e)
-        {
-             
-        }
-
-        private void TCellClonalityByPCRResultPage_Unloaded(object sender, RoutedEventArgs e)
-        {
-             
         }
 
         public string OrderedOnDescription
@@ -88,26 +75,6 @@ namespace YellowstonePathology.UI.Test
 			get { return this.m_PageHeaderText; }
 		}				        
 
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save(bool releaseLock)
-		{
-            //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
-        }
-
-        public void UpdateBindingSources()
-		{
-
-		}        
-
         private void HyperLinkPositive_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("This result has not been implemented.");
@@ -122,7 +89,6 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
 		{
-            this.Save(false);
 			YellowstonePathology.Business.Test.TCellClonalityByPCR.TCellClonalityByPCRWordDocument report = new Business.Test.TCellClonalityByPCR.TCellClonalityByPCRWordDocument();
 			report.Render(this.m_AccessionOrder.MasterAccessionNo, this.m_PanelSetOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft, Window.GetWindow(this));
 
