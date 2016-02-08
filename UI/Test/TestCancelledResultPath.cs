@@ -12,8 +12,9 @@ namespace YellowstonePathology.UI.Test
 		private YellowstonePathology.Business.Test.TestCancelled.TestCancelledTestOrder m_TestOrder;
 
         public TestCancelledResultPath(string reportNo, YellowstonePathology.Business.Test.AccessionOrder accessionOrder, 
-            YellowstonePathology.UI.Navigation.PageNavigator pageNavigator)
-            : base(pageNavigator)
+            YellowstonePathology.UI.Navigation.PageNavigator pageNavigator,
+            System.Windows.Window window)
+            : base(pageNavigator, window)
         {
             this.m_AccessionOrder = accessionOrder;
 			this.m_TestOrder = (YellowstonePathology.Business.Test.TestCancelled.TestCancelledTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);

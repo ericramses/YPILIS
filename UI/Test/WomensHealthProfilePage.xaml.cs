@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 
 namespace YellowstonePathology.UI.Test
 {    
-    public partial class WomensHealthProfilePage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges, INotifyPropertyChanged
+    public partial class WomensHealthProfilePage : UserControl, INotifyPropertyChanged
     {
         public delegate void PropertyChangedNotificationHandler(String info);
         public event PropertyChangedEventHandler PropertyChanged;        
@@ -82,18 +82,6 @@ namespace YellowstonePathology.UI.Test
             this.DataContext = this;
 
             this.m_ParentWindow = Window.GetWindow(this);
-            Loaded += WomensHealthProfilePage_Loaded;
-            Unloaded += WomensHealthProfilePage_Unloaded;
-        }
-
-        private void WomensHealthProfilePage_Loaded(object sender, RoutedEventArgs e)
-        {
-             
-        }
-
-        private void WomensHealthProfilePage_Unloaded(object sender, RoutedEventArgs e)
-        {
-             
         }
 
         public string HPVStandingOrderDescription
@@ -175,26 +163,6 @@ namespace YellowstonePathology.UI.Test
             get { return this.m_BackButtonVisibility; }
         }
 
-        public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-        {
-            return true;
-        }
-
-        public bool OkToSaveOnClose()
-        {
-            return true;
-        }
-
-        public void Save(bool releaseLock)
-        {
-            //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
-        }
-
-        public void UpdateBindingSources()
-        {
-
-        }        
-
         private void HyperLinkOrderHPV_Click(object sender, RoutedEventArgs e)
         {
             int hpvPanelSetId = 14;
@@ -206,7 +174,7 @@ namespace YellowstonePathology.UI.Test
                 YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Business.Visitor.OrderTestOrderVisitor(testOrderInfo, this.m_SystemIdentity);
                 this.m_AccessionOrder.TakeATrip(orderTestOrderVisitor);
 
-                this.Save(false);
+                //this.Save(false);
 
                 this.m_AuditCollection.Run();
                 this.NotifyPropertyChanged(string.Empty);
@@ -228,7 +196,7 @@ namespace YellowstonePathology.UI.Test
                 YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Business.Visitor.OrderTestOrderVisitor(testOrderInfo, this.m_SystemIdentity);
                 this.m_AccessionOrder.TakeATrip(orderTestOrderVisitor);             
                 
-                this.Save(false);
+                //this.Save(false);
 
                 this.m_AuditCollection.Run();
                 this.NotifyPropertyChanged(string.Empty);
@@ -249,7 +217,7 @@ namespace YellowstonePathology.UI.Test
                 YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new Business.Test.TestOrderInfo(trichomonasTest, orderTarget, true);                
                 YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Business.Visitor.OrderTestOrderVisitor(testOrderInfo, this.m_SystemIdentity);
                 this.m_AccessionOrder.TakeATrip(orderTestOrderVisitor);
-                this.Save(false);
+                //this.Save(false);
                 this.m_AuditCollection.Run();
                 this.NotifyPropertyChanged(string.Empty);
             }
@@ -270,7 +238,7 @@ namespace YellowstonePathology.UI.Test
 
                 YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Business.Visitor.OrderTestOrderVisitor(testOrderInfo, this.m_SystemIdentity);
                 this.m_AccessionOrder.TakeATrip(orderTestOrderVisitor);
-                this.Save(false);
+                //this.Save(false);
 
                 this.m_AuditCollection.Run();
                 this.NotifyPropertyChanged(string.Empty);
@@ -293,7 +261,7 @@ namespace YellowstonePathology.UI.Test
                 this.m_AccessionOrder.TakeATrip(orderTestOrderVisitor);
                 this.m_AuditCollection.Run();
                 this.NotifyPropertyChanged(string.Empty);
-                this.Save(false);
+                //this.Save(false);
             }
             else
             {
@@ -335,7 +303,6 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
 		{
-			this.Save(false);
 			YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileWordDocument report = new YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileWordDocument();
 			report.Render(this.m_AccessionOrder.MasterAccessionNo, this.m_WomensHealthProfileTestOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft, this.m_ParentWindow);
 
