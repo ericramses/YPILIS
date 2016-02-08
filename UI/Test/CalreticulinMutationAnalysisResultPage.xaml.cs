@@ -54,19 +54,6 @@ namespace YellowstonePathology.UI.Test
 			InitializeComponent();
 
 			DataContext = this;
-
-            Loaded += CalreticulinMutationAnalysisResultPage_Loaded;
-            Unloaded += CalreticulinMutationAnalysisResultPage_Unloaded;				
-		}
-
-        private void CalreticulinMutationAnalysisResultPage_Loaded(object sender, RoutedEventArgs e)
-        {
-             
-        }
-
-        private void CalreticulinMutationAnalysisResultPage_Unloaded(object sender, RoutedEventArgs e)
-        {
-             
         }
 
         public YellowstonePathology.Business.Test.CalreticulinMutationAnalysis.CalreticulinMutationAnalysisResultCollection CalreticulinMutationAnalysisResultCollection
@@ -97,31 +84,10 @@ namespace YellowstonePathology.UI.Test
 			get { return this.m_PageHeaderText; }
 		}				        
 
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save(bool releaseLock)
-		{
-            
-        }
-
-        public void UpdateBindingSources()
-		{
-
-		}                
-
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
 		{
-            this.Save(false);
 			YellowstonePathology.Business.Test.CalreticulinMutationAnalysis.CalreticulinMutationAnalysisWordDocument report = new YellowstonePathology.Business.Test.CalreticulinMutationAnalysis.CalreticulinMutationAnalysisWordDocument();
-			report.Render(this.m_AccessionOrder.MasterAccessionNo, this.m_PanelSetOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft);
+			report.Render(this.m_AccessionOrder.MasterAccessionNo, this.m_PanelSetOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft, Window.GetWindow(this));
 
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
             string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);

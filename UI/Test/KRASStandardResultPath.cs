@@ -13,8 +13,9 @@ namespace YellowstonePathology.UI.Test
 
 		public KRASStandardResultPath(string reportNo,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-            YellowstonePathology.UI.Navigation.PageNavigator pageNavigator)
-            : base(pageNavigator)
+            YellowstonePathology.UI.Navigation.PageNavigator pageNavigator,
+            System.Windows.Window window)
+            : base(pageNavigator, window)
         {
             this.m_AccessionOrder = accessionOrder;
 			this.m_PanelSetOrder = (YellowstonePathology.Business.Test.KRASStandard.KRASStandardTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
@@ -48,7 +49,7 @@ namespace YellowstonePathology.UI.Test
                 result = true;
                 string reportNo = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(brafV600EKTest.PanelSetId).ReportNo;
                 YellowstonePathology.UI.Test.BRAFV600EKResultPath resultPath = new YellowstonePathology.UI.Test.BRAFV600EKResultPath(reportNo,
-					this.m_AccessionOrder, this.m_PageNavigator, System.Windows.Visibility.Visible);
+					this.m_AccessionOrder, this.m_PageNavigator, System.Windows.Visibility.Visible, this.m_Window);
 
                 resultPath.Finish += new Test.ResultPath.FinishEventHandler(ResultPath_Finish);
 				resultPath.Back += new BRAFV600EKResultPath.BackEventHandler(ResultPath_Back);
@@ -66,7 +67,7 @@ namespace YellowstonePathology.UI.Test
 				result = true;
                 string reportNo = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(krasStandardReflexTest.PanelSetId, this.m_PanelSetOrder.OrderedOnId, true).ReportNo;
                 YellowstonePathology.UI.Test.KRASStandardReflexResultPath resultPath = new YellowstonePathology.UI.Test.KRASStandardReflexResultPath(reportNo,
-					this.m_AccessionOrder, this.m_PageNavigator, System.Windows.Visibility.Visible);
+					this.m_AccessionOrder, this.m_PageNavigator, System.Windows.Visibility.Visible, this.m_Window);
 
 				resultPath.Finish += new Test.ResultPath.FinishEventHandler(ResultPath_Finish);
                 resultPath.Back += new KRASStandardReflexResultPath.BackEventHandler(ResultPath_Back);

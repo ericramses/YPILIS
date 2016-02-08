@@ -72,17 +72,11 @@ namespace YellowstonePathology.UI.Test
 			DataContext = this;
             			
             this.Loaded += new RoutedEventHandler(LynchSyndromeEvaluationResultPage_Loaded);
-            Unloaded += LynchSyndromeEvaluationResultPage_Unloaded;
 		}
 
         private void LynchSyndromeEvaluationResultPage_Loaded(object sender, RoutedEventArgs e)
         {
             this.SetLSEResults();
-             
-        }
-
-        private void LynchSyndromeEvaluationResultPage_Unloaded(object sender, RoutedEventArgs e)
-        {
              
         }
 
@@ -189,26 +183,6 @@ namespace YellowstonePathology.UI.Test
 			}
 		}
 
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save(bool releaseLock)
-		{
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
-        }
-
-        public void UpdateBindingSources()
-		{
-
-		}
-
 		private void ButtonNext_Click(object sender, RoutedEventArgs e)
 		{
             if (this.IWantToOrderColonCancerProfileMessage() == false)
@@ -267,9 +241,8 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
         {            
-            this.Save(false);
 			YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeEvaluationWordDocument lynchSyndromeEvaluation = new Business.Test.LynchSyndrome.LynchSyndromeEvaluationWordDocument();
-            lynchSyndromeEvaluation.Render(this.m_AccessionOrder.MasterAccessionNo, this.m_PanelSetOrderLynchSyndromeEvaluation.ReportNo, Business.Document.ReportSaveModeEnum.Draft);
+            lynchSyndromeEvaluation.Render(this.m_AccessionOrder.MasterAccessionNo, this.m_PanelSetOrderLynchSyndromeEvaluation.ReportNo, Business.Document.ReportSaveModeEnum.Draft, Window.GetWindow(this));
 
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_PanelSetOrderLynchSyndromeEvaluation.ReportNo);
             string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);

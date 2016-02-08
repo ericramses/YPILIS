@@ -54,20 +54,6 @@ namespace YellowstonePathology.UI.Test
 			InitializeComponent();
 
 			DataContext = this;
-
-            Loaded += CysticFibrosisResultPage_Loaded;
-            Unloaded += CysticFibrosisResultPage_Unloaded;                      
-
-		}
-
-        private void CysticFibrosisResultPage_Loaded(object sender, RoutedEventArgs e)
-        {
-             
-        }
-
-        private void CysticFibrosisResultPage_Unloaded(object sender, RoutedEventArgs e)
-        {
-             
         }
 
         public YellowstonePathology.Business.Test.CysticFibrosis.CysticFibrosisTestOrder PanelSetOrder
@@ -111,26 +97,6 @@ namespace YellowstonePathology.UI.Test
 		public string PageHeaderText
 		{
 			get { return this.m_PageHeaderText; }
-		}
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save(bool releaseLock)
-		{
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
-        }
-
-        public void UpdateBindingSources()
-		{
-
 		}
 
 		private void ButtonNext_Click(object sender, RoutedEventArgs e)
@@ -195,9 +161,8 @@ namespace YellowstonePathology.UI.Test
 			YellowstonePathology.Business.Test.CysticFibrosis.CysticFibrosisTemplate cysticFibrosisTemplate  = (YellowstonePathology.Business.Test.CysticFibrosis.CysticFibrosisTemplate)this.ComboBoxTemplate.SelectedItem;
 			if (cysticFibrosisTemplate.TemplateId > 0)
 			{
-				this.Save(false);
 				YellowstonePathology.Business.Test.CysticFibrosis.CysticFibrosisWordDocument report = new YellowstonePathology.Business.Test.CysticFibrosis.CysticFibrosisWordDocument();
-				report.Render(this.m_PanelSetOrder.MasterAccessionNo, this.m_PanelSetOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft);
+				report.Render(this.m_PanelSetOrder.MasterAccessionNo, this.m_PanelSetOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft, Window.GetWindow(this));
 
 				YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
 				string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);

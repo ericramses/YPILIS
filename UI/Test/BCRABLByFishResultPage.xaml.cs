@@ -32,7 +32,6 @@ namespace YellowstonePathology.UI.Test
 
 		private string m_PageHeaderText;
 		private string m_OrderedOnDescription;
-        private Window m_ParentWindow;
 
 		public BCRABLByFishResultPage(YellowstonePathology.Business.Test.BCRABLByFish.BCRABLByFishTestOrder testOrder,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
@@ -50,7 +49,6 @@ namespace YellowstonePathology.UI.Test
 
 			InitializeComponent();
 
-            this.m_ParentWindow = Window.GetWindow(this);
 			DataContext = this;           
 		}        
 

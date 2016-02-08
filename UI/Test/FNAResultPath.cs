@@ -13,8 +13,9 @@ namespace YellowstonePathology.UI.Test
 		private YellowstonePathology.Business.Test.FNAAdequacyAssessment.FNAAdequacyAssessmentTestOrder m_FNAAdequacyAssessmentResult;
 
         public FNAResultPath(string reportNo, YellowstonePathology.Business.Test.AccessionOrder accessionOrder,            
-            YellowstonePathology.UI.Navigation.PageNavigator pageNavigator)
-            : base(pageNavigator)
+            YellowstonePathology.UI.Navigation.PageNavigator pageNavigator,
+            System.Windows.Window window)
+            : base(pageNavigator, window)
         {
             this.m_AccessionOrder = accessionOrder;
 			this.m_FNAAdequacyAssessmentResult = (YellowstonePathology.Business.Test.FNAAdequacyAssessment.FNAAdequacyAssessmentTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);

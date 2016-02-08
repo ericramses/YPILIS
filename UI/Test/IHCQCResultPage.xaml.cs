@@ -42,19 +42,6 @@ namespace YellowstonePathology.UI.Test
 			InitializeComponent();
 
 			DataContext = this;
-
-            Loaded += IHCQCResultPage_Loaded;
-            Unloaded += IHCQCResultPage_Unloaded;				
-		}
-
-        private void IHCQCResultPage_Loaded(object sender, RoutedEventArgs e)
-        {
-             
-        }
-
-        private void IHCQCResultPage_Unloaded(object sender, RoutedEventArgs e)
-        {
-             
         }
 
         public YellowstonePathology.Business.Test.IHCQC.IHCQCTestOrder IHCQCTestOrder
@@ -74,26 +61,6 @@ namespace YellowstonePathology.UI.Test
 		{
 			get { return this.m_PageHeaderText; }
 		}				        
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save(bool releaseLock)
-		{
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
-        }
-
-        public void UpdateBindingSources()
-		{
-
-		}		
 
         private void HyperLinkFinalize_Click(object sender, RoutedEventArgs e)
         {
