@@ -61,7 +61,7 @@ namespace YellowstonePathology.Business.Persistence
             this.m_Stack.InsertDocument(o, writer, systemIdentity);
         }        
 
-        public YellowstonePathology.Business.Test.AccessionOrder PullAccessionOrder(string masterAccessionNo, object writer, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        public YellowstonePathology.Business.Test.AccessionOrder PullAccessionOrder(string masterAccessionNo, object writer)
         {
             DocumentId documentId = new DocumentId(typeof(YellowstonePathology.Business.Test.AccessionOrder), writer, masterAccessionNo);
             Document document = this.m_Stack.Pull(documentId);
