@@ -13,18 +13,17 @@ namespace YellowstonePathology.Business.Persistence
         protected object m_Key;
         protected object m_Value;
         protected Type m_Type;
-        protected object m_Clone;        
-        protected DateTime m_PartyTime;
+        protected object m_Clone;                
 
         protected List<object> m_Writers;
 
         public Document()
         {
 
-        }        
+        }
 
         public Document(DocumentId documentId)
-        {            
+        {
             this.m_Type = documentId.Type;
             this.m_Value = Activator.CreateInstance(documentId.Type);
 
@@ -34,8 +33,35 @@ namespace YellowstonePathology.Business.Persistence
             PropertyInfo keyProperty = this.m_Type.GetProperties().Where(prop => Attribute.IsDefined(prop, typeof(PersistentPrimaryKeyProperty))).Single();
             this.m_Key = keyProperty.GetValue(documentId.Key, null);
 
-            this.m_Writers.Add(documentId.Writer);            
+            this.m_Writers.Add(documentId.Writer);
         }
+
+        public void ReleaseLock()
+        {
+            if (this.m_Value is YellowstonePathology.Business.Test.AccessionOrder)
+            {
+                YellowstonePathology.Business.Test.AccessionOrder accessionOrder = (YellowstonePathology.Business.Test.AccessionOrder)this.m_Value;
+                if (accessionOrder.LockAquired == true)
+                {
+                    accessionOrder.LockAquiredByHostName = null;
+                    accessionOrder.LockAquiredById = null;
+                    accessionOrder.LockAquiredByUserName = null;
+                    accessionOrder.TimeLockAquired = null;
+                }
+            }
+        }
+
+        public void SetLock(YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        {
+            if (this.m_Value is YellowstonePathology.Business.Test.AccessionOrder)
+            {
+                YellowstonePathology.Business.Test.AccessionOrder accessionOrder = (YellowstonePathology.Business.Test.AccessionOrder)this.m_Value;                                
+                accessionOrder.LockAquiredByHostName = Environment.MachineName;
+                accessionOrder.LockAquiredById = systemIdentity.User.UserId;
+                accessionOrder.LockAquiredByUserName = systemIdentity.User.UserName;
+                accessionOrder.TimeLockAquired = DateTime.Now;             
+            }
+        }        
 
         public List<object> Writers
         {
@@ -63,17 +89,23 @@ namespace YellowstonePathology.Business.Persistence
         {
             get { return this.m_Clone; }
             set { this.m_Clone = value; }
-        }                
-
-        public DateTime PartyTime
-        {
-            get { return this.m_PartyTime; }
-            set { this.m_PartyTime = value; }
-        }        
+        }                             
 
         public virtual YellowstonePathology.Business.Persistence.SubmissionResult Submit()
         {
             throw new Exception("Not implemented here");
+        }
+
+        public void RemoveWriter(object writer)
+        {
+            for(int i=0; i<this.m_Writers.Count; i++)
+            {
+                if(this.m_Writers[i] == writer)
+                {
+                    this.m_Writers.Remove(this.m_Writers[i]);
+                    break;
+                }
+            }
         }
 
         public SqlCommandSubmitter GetSqlCommands(object objectToSubmit)

@@ -48,26 +48,25 @@ namespace YellowstonePathology.Business.Persistence
 
         public void Push(object writer)
         {
-
+            this.m_Stack.Push()
         }
 
-        public void DeleteDocument(object o, object party)
+        public void DeleteDocument(object o, object writer)
         {
 
         }
 
-        public void InsertDocument(object o, Object party)
+        public void InsertDocument(object o, Object writer, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
-            
+            this.m_Stack.InsertDocument(o, writer, systemIdentity);
         }        
 
-        public YellowstonePathology.Business.Test.AccessionOrder PullAccessionOrder(string masterAccessionNo, object writer)
+        public YellowstonePathology.Business.Test.AccessionOrder PullAccessionOrder(string masterAccessionNo, object writer, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             DocumentId documentId = new DocumentId(typeof(YellowstonePathology.Business.Test.AccessionOrder), writer, masterAccessionNo);
             Document document = this.m_Stack.Pull(documentId);
 
-            YellowstonePathology.Business.Test.AccessionOrder result = (YellowstonePathology.Business.Test.AccessionOrder)document.Value;
-            YellowstonePathology.Business.User.SystemIdentity systemIdentity = new YellowstonePathology.Business.User.SystemIdentity(YellowstonePathology.Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
+            YellowstonePathology.Business.Test.AccessionOrder result = (YellowstonePathology.Business.Test.AccessionOrder)document.Value;            
 
             if (documentId.LockAquired == true)
             {
