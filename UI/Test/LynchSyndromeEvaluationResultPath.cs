@@ -19,8 +19,8 @@ namespace YellowstonePathology.UI.Test
 		public LynchSyndromeEvaluationResultPath(string reportNo,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
             YellowstonePathology.UI.Navigation.PageNavigator pageNavigator,
-            System.Windows.Visibility backButtonVisibility,
-            System.Windows.Window window)
+            System.Windows.Window window,
+            System.Windows.Visibility backButtonVisibility)
             : base(pageNavigator, window)
         {
             this.m_AccessionOrder = accessionOrder;
