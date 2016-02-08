@@ -15,7 +15,7 @@ using System.ComponentModel;
 
 namespace YellowstonePathology.UI.Login.Receiving
 {	
-	public partial class ReviewClientOrderPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges, INotifyPropertyChanged
+	public partial class ReviewClientOrderPage : UserControl, INotifyPropertyChanged
 	{
 		public delegate void PropertyChangedNotificationHandler(String info);
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -189,27 +189,7 @@ namespace YellowstonePathology.UI.Login.Receiving
         private void ButtonClose_Click(object sender, RoutedEventArgs e)
         {
             Window.GetWindow(this).Close();            
-        }
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save(bool releaseLock)
-		{
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_ClientOrder, releaseLock);            
-		}
-
-		public void UpdateBindingSources()
-		{
-
-		}
+        }		
 
 		private void ClientFaxPage_Back(object sender, EventArgs e)
 		{

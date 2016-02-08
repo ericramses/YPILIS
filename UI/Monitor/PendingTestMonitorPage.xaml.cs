@@ -16,7 +16,7 @@ using System.Xml.Linq;
 
 namespace YellowstonePathology.UI.Monitor
 {
-	public partial class PendingTestMonitorPage : UserControl, INotifyPropertyChanged, YellowstonePathology.Business.Interface.IPersistPageChanges, IMonitorPage
+	public partial class PendingTestMonitorPage : UserControl, INotifyPropertyChanged, IMonitorPage
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -54,27 +54,7 @@ namespace YellowstonePathology.UI.Monitor
 				PropertyChanged(this, new PropertyChangedEventArgs(info));
 			}
 		}        	        
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save(bool releaseLock)
-		{            
-            
-		}
-
-		public void UpdateBindingSources()
-		{
-
-		}
-
+		
         private void MenuItemDelay_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Please tell Sid that you see this message.  Thank you. Sid.");

@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Login
 	/// <summary>
 	/// Interaction logic for LabOrderAcknowledgementPage.xaml
 	/// </summary>
-	public partial class LabOrderAcknowledgementPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges, INotifyPropertyChanged
+	public partial class LabOrderAcknowledgementPage : UserControl, INotifyPropertyChanged
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 		public delegate void ReturnEventHandler(object sender, UI.Navigation.PageNavigationReturnEventArgs e);
@@ -82,10 +82,9 @@ namespace YellowstonePathology.UI.Login
                     panelOrder.AcknowledgedById = acknowledgementId;
                     panelOrder.AcknowledgedDate = acknowledgementDate;
                     panelOrder.AcknowledgedTime = acknowledgementTime;
-                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(panelOrder, true);
+                    //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(panelOrder, true);
                 }
-
-                // make the report
+                
                 YellowstonePathology.Business.Reports.LabOrderSheet labOrderSheet = new YellowstonePathology.Business.Reports.LabOrderSheet();
                 labOrderSheet.CreateReport(this.m_PanelOrderIds, acknowledgementDate, acknowledgementTime);
             }
@@ -111,24 +110,6 @@ namespace YellowstonePathology.UI.Login
 		private void ButtonFinish_Click(object sender, RoutedEventArgs e)
 		{
 			this.CloseForm();
-		}
-
-		public void Save(bool releaseLock)
-		{
-		}
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return false;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return false;
-		}
-
-		public void UpdateBindingSources()
-		{
-		}
+		}		
 	}
 }

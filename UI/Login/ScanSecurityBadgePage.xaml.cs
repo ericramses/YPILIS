@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Login
 	/// <summary>
 	/// Interaction logic for ScanSecurityBadgePage.xaml
 	/// </summary>
-	public partial class ScanSecurityBadgePage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges, INotifyPropertyChanged
+	public partial class ScanSecurityBadgePage : UserControl, INotifyPropertyChanged
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -78,27 +78,7 @@ namespace YellowstonePathology.UI.Login
 			{
 				PropertyChanged(this, new PropertyChangedEventArgs(info));
 			}
-		}		
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return false;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return false;
-		}
-
-		public void Save(bool releaseLock)
-		{
-		
-		}
-
-		public void UpdateBindingSources()
-		{
-
-		}
+		}				
 
         private void ButtonClose_Click(object sender, RoutedEventArgs e)
         {

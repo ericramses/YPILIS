@@ -48,7 +48,7 @@ namespace YellowstonePathology.Business.Persistence
 
         public void Push(object writer)
         {
-            this.m_Stack.Push()
+            this.m_Stack.Push(writer);
         }
 
         public void DeleteDocument(object o, object writer)
@@ -61,7 +61,7 @@ namespace YellowstonePathology.Business.Persistence
             this.m_Stack.InsertDocument(o, writer, systemIdentity);
         }        
 
-        public YellowstonePathology.Business.Test.AccessionOrder PullAccessionOrder(string masterAccessionNo, object writer, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        public YellowstonePathology.Business.Test.AccessionOrder PullAccessionOrder(string masterAccessionNo, object writer)
         {
             DocumentId documentId = new DocumentId(typeof(YellowstonePathology.Business.Test.AccessionOrder), writer, masterAccessionNo);
             Document document = this.m_Stack.Pull(documentId);
