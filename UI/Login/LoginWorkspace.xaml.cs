@@ -810,7 +810,7 @@ namespace YellowstonePathology.UI.Login
             
             panelSetOrder.OrderedOn = e.TestOrderInfo.OrderTarget.GetOrderedOnType();
             panelSetOrder.OrderedOnId = e.TestOrderInfo.OrderTarget.GetId();
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_LoginUI.AccessionOrder, true);            
+            //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_LoginUI.AccessionOrder, true);            
             this.m_LoginPageWindow.Close();
         }
 
@@ -831,15 +831,16 @@ namespace YellowstonePathology.UI.Login
             {                
                 foreach (YellowstonePathology.Business.Task.Model.TaskOrder taskOrder in this.ListViewDailyTaskOrders.SelectedItems)
                 {
+                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullTaskOrder(taskOrder, this.m_Writer);
                     if (taskOrder.Acknowledged == false)
                     {                        
                         taskOrder.Acknowledged = true;
                         taskOrder.AcknowledgedDate = DateTime.Now;
                         taskOrder.AcknowledgedById = systemIdentity.User.UserId;
-                        taskOrder.AcknowledgedByInitials = systemIdentity.User.Initials;
-                        YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(taskOrder, true);                        
+                        taskOrder.AcknowledgedByInitials = systemIdentity.User.Initials;                        
                     }
-                }
+                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(taskOrder, this.m_Writer);
+                }                
             }
             else
             {
@@ -910,7 +911,7 @@ namespace YellowstonePathology.UI.Login
             {
                 foreach (YellowstonePathology.Business.Task.Model.TaskOrder taskOrder in this.ListViewTaskOrders.SelectedItems)
                 {
-                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(taskOrder, true);                    
+                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.DeleteDocument(taskOrder, this.m_Writer);
                 }
                 this.m_LoginUI.GetTaskOrderCollection();
             }

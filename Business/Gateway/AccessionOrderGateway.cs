@@ -1692,6 +1692,7 @@ namespace YellowstonePathology.Business.Gateway
 				"for xml Path('TaskOrderDetail'), type) [TaskOrderDetailCollection] " +
 				"from tblTaskOrder tsk where tsk.OrderDate between dateadd(dd, -30, GetDate()) and GetDate() order by tsk.OrderDate desc for xml Path('TaskOrder'), type, root('TaskOrderCollection')");
 			cmd.CommandType = CommandType.Text;
+
 			using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
 			{
 				cn.Open();
@@ -1704,6 +1705,7 @@ namespace YellowstonePathology.Business.Gateway
 					}
 				}
 			}
+
 			foreach (XElement taskOrderElement in collectionElement.Elements("TaskOrder"))
 			{
 				YellowstonePathology.Business.Task.Model.TaskOrder taskOrder = BuildTaskOrder(taskOrderElement);
