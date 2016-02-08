@@ -11,30 +11,64 @@ namespace YellowstonePathology.Business.Persistence
 {
     public class Stack
     {
-        private ObservableCollection<Document> m_Documents;
+        private DocumentCollection m_Documents;
 
         public Stack()
         {
-            this.m_Documents = new ObservableCollection<Document>();
+            this.m_Documents = new DocumentCollection();
         }
 
-        public void Push(object documentToPush, object party)
+        public void Push(object o, object writer)
         {
-            
+            DocumentId documentId = new DocumentId(o, writer);
+            if (this.KeyTypeExists(documentId) == true)
+            {
+                Document document = this.Get(documentId);
+                this.Push(document, writer);
+            }
+            else
+            {
+                throw new Exception("You are trying to push an object that is not on the stack.");
+            }
         }
+
+        public void Push(object writer)
+        {
+            foreach(Document document in this.m_Documents)
+            {
+                this.Push(document, writer);
+            }
+        }
+
+        private void Push(Document document, object writer)
+        {                                    
+            document.RemoveWriter(writer);
+
+            if (document.Writers.Count == 0)
+            {
+                document.ReleaseLock();
+                document.Submit();
+                this.m_Documents.Remove(document);
+            }
+            else
+            {
+                document.Submit();
+            }            
+        }      
 
         public Document Pull(DocumentId documentId)
         {
             Document result = null;
-
+            
             if (this.KeyTypeExists(documentId) == true)
             {
                 result = this.Get(documentId);
-                if(result.Writers.Exists(p => p == documentId.Writer) == false)
+                if (result.Writers.Exists(p => p == documentId.Writer) == false)
                 {
                     result.Writers.Add(documentId.Writer);
                 }
-            }
+                this.Push(result, documentId.Writer);
+            }              
             else
             {
                 result = new Document(documentId);
@@ -42,15 +76,14 @@ namespace YellowstonePathology.Business.Persistence
             }
 
             return result;
-        }
+        }        
 
-        public void InsertDocument(object o, object party)
+        public void InsertDocument(object o, object party, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
-            DocumentId documentId = new DocumentId(o, party);
-
-            //Need to get the lock if it is an accessionorder            
+            DocumentId documentId = new DocumentId(o, party);            
 
             DocumentInsert documentInsert = new DocumentInsert(documentId);
+            documentInsert.SetLock(systemIdentity);
             documentInsert.Submit();
 
             DocumentUpdate documentUpdate = new DocumentUpdate(documentId);
@@ -99,6 +132,22 @@ namespace YellowstonePathology.Business.Persistence
             return result;
         }
 
+        private bool TypeExists(DocumentId documentId)
+        {
+            bool result = false;
+
+            foreach (Document document in this.m_Documents)
+            {
+                if (document.Type == documentId.Type)
+                {
+                    result = true;
+                    break;
+                }
+            }
+
+            return result;
+        }
+
         public bool KeyTypeExists(DocumentId documentId)
         {
             bool result = false;
@@ -113,7 +162,7 @@ namespace YellowstonePathology.Business.Persistence
             }
 
             return result;
-        }
+        }        
 
         public bool TypeKeyLockExists(DocumentId documentId)
         {
