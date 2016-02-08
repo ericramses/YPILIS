@@ -28,10 +28,11 @@ namespace YellowstonePathology.UI.Login
         private YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort m_BarcodeScanPort;
         private bool m_LoadedHasRun;
         private MainWindowCommandButtonHandler m_MainWindowCommandButtonHandler;
+        private TabItem m_Writer;
 
         private LoginPageWindow m_LoginPageWindow;        
 
-        public LoginWorkspace(MainWindowCommandButtonHandler mainWindowCommandButtonHandler)
+        public LoginWorkspace(MainWindowCommandButtonHandler mainWindowCommandButtonHandler, TabItem tabItem)
         {
             this.m_MainWindowCommandButtonHandler = mainWindowCommandButtonHandler;
             this.m_LoadedHasRun = false;
@@ -156,10 +157,9 @@ namespace YellowstonePathology.UI.Login
             if (this.ListViewClientOrders.SelectedItem != null)
             {                
                 YellowstonePathology.Business.ClientOrder.Model.OrderBrowserListItem orderBrowserListItem = (YellowstonePathology.Business.ClientOrder.Model.OrderBrowserListItem)this.ListViewClientOrders.SelectedItem;
-                YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.GetClientOrderByClientOrderId(orderBrowserListItem.ClientOrderId);
+                YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullClientOrderByClientOrderId(orderBrowserListItem.ClientOrderId, this.m_Writer);
                 YellowstonePathology.Business.Document.ClientOrderCaseDocument clientOrderCaseDocument = new Business.Document.ClientOrderCaseDocument(clientOrder);                
-                this.m_DocumentViewer.ShowDocument(clientOrderCaseDocument);
-                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Release(clientOrder);
+                this.m_DocumentViewer.ShowDocument(clientOrderCaseDocument);                
             }
         }
 
@@ -253,7 +253,7 @@ namespace YellowstonePathology.UI.Login
                 {
                     if (string.IsNullOrEmpty(this.m_LoginUI.AccessionOrder.ClientOrderId) == false)
                     {
-                        YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.GetClientOrderByClientOrderId(this.m_LoginUI.AccessionOrder.ClientOrderId);
+                        YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullClientOrderByClientOrderId(this.m_LoginUI.AccessionOrder.ClientOrderId, this.m_Writer);
 
                         YellowstonePathology.Business.User.SystemIdentity systemIdentity = new Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
                         this.m_LoginPageWindow = new LoginPageWindow(systemIdentity);

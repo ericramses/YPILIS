@@ -16,7 +16,7 @@ using System.Xml.Linq;
 
 namespace YellowstonePathology.UI.Monitor
 {
-	public partial class CytologyScreeningMonitorPage : UserControl, INotifyPropertyChanged, YellowstonePathology.Business.Interface.IPersistPageChanges, IMonitorPage
+	public partial class CytologyScreeningMonitorPage : UserControl, INotifyPropertyChanged, IMonitorPage
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -54,26 +54,6 @@ namespace YellowstonePathology.UI.Monitor
 			{
 				PropertyChanged(this, new PropertyChangedEventArgs(info));
 			}
-		}        	        
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save(bool releaseLock)
-		{            
-            
-		}
-
-		public void UpdateBindingSources()
-		{
-
-		}		     
+		}        	        			     
 	}
 }

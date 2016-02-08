@@ -48,7 +48,7 @@ namespace YellowstonePathology.Business.Persistence
 
         public void Push(object writer)
         {
-            this.m_Stack.Push()
+            this.m_Stack.Push(writer);
         }
 
         public void DeleteDocument(object o, object writer)

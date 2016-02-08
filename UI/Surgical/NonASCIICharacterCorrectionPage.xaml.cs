@@ -17,7 +17,7 @@ namespace YellowstonePathology.UI.Surgical
     /// <summary>
     /// Interaction logic for NonASCIICharacterCorrectionPage.xaml
     /// </summary>
-    public partial class NonASCIICharacterCorrectionPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
+    public partial class NonASCIICharacterCorrectionPage : UserControl
     {
         public delegate void NextEventHandler(object sender, EventArgs e);
         public event NextEventHandler Next;
@@ -42,40 +42,8 @@ namespace YellowstonePathology.UI.Surgical
             this.m_NextButtonVisibility = nextButtonVisibility;
 
             InitializeComponent();
-            DataContext = this;
-
-            Loaded += NonASCIICharacterCorrectionPage_Loaded;
-            Unloaded += NonASCIICharacterCorrectionPage_Unloaded;
-        }
-
-        private void NonASCIICharacterCorrectionPage_Loaded(object sender, RoutedEventArgs e)
-        {
-             
-        }
-
-        private void NonASCIICharacterCorrectionPage_Unloaded(object sender, RoutedEventArgs e)
-        {
-             
-        }
-
-        public void Save(bool releaseLock)
-        {
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
-        }
-
-        public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-        {
-            return true;
-        }
-
-        public bool OkToSaveOnClose()
-        {
-            return true;
-        }
-
-        public void UpdateBindingSources()
-        {
-        }
+            DataContext = this;           
+        }                
 
         public YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder SurgicalTestOrder
         {
