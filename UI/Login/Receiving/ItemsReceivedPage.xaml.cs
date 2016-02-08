@@ -16,7 +16,7 @@ using System.ComponentModel;
 
 namespace YellowstonePathology.UI.Login.Receiving
 {
-	public partial class ItemsReceivedPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges, INotifyPropertyChanged
+	public partial class ItemsReceivedPage : UserControl, INotifyPropertyChanged
 	{
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -127,26 +127,7 @@ namespace YellowstonePathology.UI.Login.Receiving
         private void ButtonBarcodeWontScan_Click(object sender, RoutedEventArgs e)
         {
             this.BarcodeWontScan(this, new EventArgs());
-        }
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return false;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save(bool releaseLock)
-		{
-            
-		}
-
-		public void UpdateBindingSources()
-		{
-		}
+        }		
 
         private void ListBoxContainers_DoubleClick(object sender, MouseButtonEventArgs e)
         {

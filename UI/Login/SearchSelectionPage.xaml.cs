@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Login
 	/// <summary>
 	/// Interaction logic for SearchSelectionPage.xaml
 	/// </summary>
-    public partial class SearchSelectionPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges, INotifyPropertyChanged
+    public partial class SearchSelectionPage : UserControl, INotifyPropertyChanged
 	{
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -135,25 +135,7 @@ namespace YellowstonePathology.UI.Login
         {
             get { return this.m_TestEndDate; }
             set { this.m_TestEndDate = value; }
-        }
-
-        public void Save(bool releaseLock)
-		{
-		}
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return false;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return false;
-		}
-
-		public void UpdateBindingSources()
-		{
-		}
+        }        
 
         public void NotifyPropertyChanged(String info)
         {
