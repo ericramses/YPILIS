@@ -14,7 +14,7 @@ using System.Windows.Shapes;
 
 namespace YellowstonePathology.UI.Login
 {	
-	public partial class MissingInformationPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
+	public partial class MissingInformationPage : UserControl
 	{
         public delegate void BackEventHandler(object sender, EventArgs e);
         public event BackEventHandler Back;
@@ -35,20 +35,7 @@ namespace YellowstonePathology.UI.Login
 			InitializeComponent();
 
 			DataContext = this;
-
-            Loaded += MissingInformationPage_Loaded;
-            Unloaded += MissingInformationPage_Unloaded;        
-		}
-
-        private void MissingInformationPage_Loaded(object sender, RoutedEventArgs e)
-        {
-             
-        }
-
-        private void MissingInformationPage_Unloaded(object sender, RoutedEventArgs e)
-        {
-            
-        }
+		}         
 
         public string NewText
         {
@@ -69,27 +56,7 @@ namespace YellowstonePathology.UI.Login
 		private void ButtonNext_Click(object sender, RoutedEventArgs e)
 		{
             this.Next(this, new EventArgs());
-		}
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save(bool releaseLock)
-		{
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
-        }
-
-        public void UpdateBindingSources()
-		{
-
-		}
+		}		
 
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
         {

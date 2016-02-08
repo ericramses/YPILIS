@@ -15,7 +15,7 @@ using System.ComponentModel;
 
 namespace YellowstonePathology.UI.Surgical
 {
-    public partial class DictationTemplatePage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges, INotifyPropertyChanged
+    public partial class DictationTemplatePage : UserControl, INotifyPropertyChanged
 	{
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -186,26 +186,6 @@ namespace YellowstonePathology.UI.Surgical
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
-        }
-
-        public void Save(bool releaseLock)
-        {
-            
-        }
-
-        public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-        {
-            return true;
-        }
-
-        public bool OkToSaveOnClose()
-        {
-            return true;
-        }
-
-        public void UpdateBindingSources()
-        {
-
-        }        
+        }            
     }
 }

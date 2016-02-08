@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI
     /// <summary>
 	/// Interaction logic for TifDocumentViewer.xaml
     /// </summary>
-    public partial class TifDocumentViewerPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
+    public partial class TifDocumentViewerPage : UserControl
     {
         List<BitmapSource> m_BitmapSourceList;
 
@@ -58,25 +58,6 @@ namespace YellowstonePathology.UI
                 toStream.Write(buffer, 0, bytesRead);
                 bytesRead = fromStream.Read(buffer, 0, Length);
             }
-        }
-
-        public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-        {
-            return false;
-        }
-
-        public bool OkToSaveOnClose()
-        {
-            return false;
-        }
-
-        public void Save(bool releaseLock)
-        {
-
-        }
-
-        public void UpdateBindingSources()
-        {
-        }
+        }        
     }
 }

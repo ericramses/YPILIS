@@ -17,7 +17,7 @@ namespace YellowstonePathology.UI.Surgical
     /// <summary>
     /// Interaction logic for PQRSSignoutPage.xaml
     /// </summary>
-    public partial class PQRSSignoutPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
+    public partial class PQRSSignoutPage : UserControl
     {
         public delegate void NextEventHandler(object sender, EventArgs e);
         public event NextEventHandler Next;
@@ -114,26 +114,7 @@ namespace YellowstonePathology.UI.Surgical
             }
 
             return result;
-        }
-
-        public void Save(bool releaseLock)
-        {
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
-        }
-
-        public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-        {
-            return true;
-        }
-
-        public bool OkToSaveOnClose()
-        {
-            return true;
-        }
-
-        public void UpdateBindingSources()
-        {
-        }
+        }        
 
         public YellowstonePathology.Business.Surgical.PQRSMeasure PQRSMeasure
         {

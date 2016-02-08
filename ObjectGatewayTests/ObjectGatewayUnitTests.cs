@@ -6,6 +6,7 @@ namespace ObjectGatewayTests
     [TestClass]
     public class ObjectGatewayUnitTests
     {
+        /*
         private void SetLockToNull(string masterAccessionNo)
         {
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo);
@@ -79,6 +80,7 @@ namespace ObjectGatewayTests
             Assert.IsTrue(accessionOrder.LockAquiredByHostName == "ImaginaryComputer");
             SetLockToNull("14-1234");
         }
+        */
 
         /* this one and the next assume the Micky Mouse accession is in the db and the ids are as written
         [TestMethod]
@@ -119,6 +121,7 @@ namespace ObjectGatewayTests
             Assert.IsTrue(result.HasDeleteCommands || result.HasDeleteFirstCommands);
         }*/
 
+        /*
         [TestMethod]
         public void UpdateAccessionOrder()
         {
@@ -132,5 +135,6 @@ namespace ObjectGatewayTests
             result = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(accessionOrder, true);
             Assert.IsTrue(result.HasUpdateCommands);
         }
+        */
     }
 }

@@ -17,7 +17,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 	/// <summary>
 	/// Interaction logic for ClientOrderLookupPage.xaml
 	/// </summary>
-	public partial class ClientOrderLookupPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
+	public partial class ClientOrderLookupPage : UserControl
 	{
 		public delegate void ClientOrderFoundEventHandler(object sender, YellowstonePathology.UI.CustomEventArgs.ClientOrderReturnEventArgs e);
         public event ClientOrderFoundEventHandler ClientOrderFound;
@@ -152,26 +152,7 @@ namespace YellowstonePathology.UI.Login.Receiving
         private void ButtonBack_Click(object sender, RoutedEventArgs e)
         {			
 			this.Back(this, new EventArgs());
-		}
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return false;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return false;
-		}
-
-		public void Save(bool releaseLock)
-		{
-
-		}
-
-		public void UpdateBindingSources()
-		{
-		}
+		}		
 
 		private void ContainerScanReceived(YellowstonePathology.Business.BarcodeScanning.ContainerBarcode containerBarcode)
 		{

@@ -32,22 +32,23 @@ namespace YellowstonePathology.UI.Test
 
         public EGFRResultPage(YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisTestOrder egfrMutationAnalysisTestOrder,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
-		{
+            YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        {
             this.m_EGFRMutationAnalysisTestOrder = egfrMutationAnalysisTestOrder;
-			this.m_AccessionOrder = accessionOrder;			
-			this.m_SystemIdentity = systemIdentity;
-            
+            this.m_AccessionOrder = accessionOrder;
+            this.m_SystemIdentity = systemIdentity;
+
             this.m_PageHeaderText = "EGFR Results For: " + this.m_AccessionOrder.PatientDisplayName;
 
-			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByOrderTarget(this.m_EGFRMutationAnalysisTestOrder.OrderedOnId);
+            YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByOrderTarget(this.m_EGFRMutationAnalysisTestOrder.OrderedOnId);
             YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetAliquotOrder(this.m_EGFRMutationAnalysisTestOrder.OrderedOnId);
             this.m_OrderedOnDescription = specimenOrder.Description;
-            if(aliquotOrder != null) this.m_OrderedOnDescription += ": " + aliquotOrder.Label;
+            if (aliquotOrder != null) this.m_OrderedOnDescription += ": " + aliquotOrder.Label;
 
-			InitializeComponent();
+            InitializeComponent();
 
-			DataContext = this;
+            DataContext = this;
+        }
 
         public string OrderedOnDescription
         {
