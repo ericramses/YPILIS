@@ -30,8 +30,7 @@ namespace YellowstonePathology.UI.Test
 		private string m_PageHeaderText;
 
 		private YellowstonePathology.Business.Test.BCL1t1114.BCL1t1114TestOrder m_PanelSetOrder;
-		private string m_OrderedOnDescription;
-        private Window m_ParentWindow;
+		private string m_OrderedOnDescription;        
 
 		public BCL1t1114ResultPage(YellowstonePathology.Business.Test.BCL1t1114.BCL1t1114TestOrder bcl1t1114TestOrder,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
@@ -50,20 +49,8 @@ namespace YellowstonePathology.UI.Test
 
 			DataContext = this;
 
-            this.m_ParentWindow = Window.GetWindow(this);
-            Loaded += BCL1t1114ResultPage_Loaded;
-            Unloaded += BCL1t1114ResultPage_Unloaded;
-		}
-
-        private void BCL1t1114ResultPage_Loaded(object sender, RoutedEventArgs e)
-        {
-             
-        }
-
-        private void BCL1t1114ResultPage_Unloaded(object sender, RoutedEventArgs e)
-        {
-             
-        }
+            this.m_ParentWindow = Window.GetWindow(this);           
+		}        
 
         public string OrderedOnDescription
 		{
@@ -86,27 +73,7 @@ namespace YellowstonePathology.UI.Test
 		public string PageHeaderText
 		{
 			get { return this.m_PageHeaderText; }
-		}
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save(bool releaseLock)
-		{
-            //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
-        }
-
-        public void UpdateBindingSources()
-		{
-
-		}
+		}		
 
 		private void HyperLinkNotDetected_Click(object sender, RoutedEventArgs e)
 		{
@@ -121,10 +88,9 @@ namespace YellowstonePathology.UI.Test
 		}
 
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
-		{
-			this.Save(false);
+		{			
 			YellowstonePathology.Business.Test.BCL1t1114.BCL1t1114WordDocument report = new YellowstonePathology.Business.Test.BCL1t1114.BCL1t1114WordDocument();
-			report.Render(this.m_AccessionOrder.MasterAccessionNo, this.m_PanelSetOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft, this.m_ParentWindow);
+			report.Render(this.m_AccessionOrder.MasterAccessionNo, this.m_PanelSetOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft, Window.GetWindow(this));
 
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
 			string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);
@@ -156,9 +122,7 @@ namespace YellowstonePathology.UI.Test
 		}
 
 		private void HyperLinkAcceptResults_Click(object sender, RoutedEventArgs e)
-		{
-			//if (this.ComboBoxResult.SelectedItem != null)
-			//{
+		{			
 			YellowstonePathology.Business.Rules.MethodResult result = this.m_PanelSetOrder.IsOkToAccept();
 			if (result.Success == true)
 			{
@@ -167,12 +131,7 @@ namespace YellowstonePathology.UI.Test
 			else
 			{
 				MessageBox.Show(result.Message);
-			}
-			//}
-			//else
-			//{
-			//	MessageBox.Show("A result must be selected before it can be accepted.");
-			//}
+			}		
 		}
 
 		private void HyperLinkUnacceptResults_Click(object sender, RoutedEventArgs e)

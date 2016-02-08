@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 
 namespace YellowstonePathology.UI.Login.FinalizeAccession
 {	
-	public partial class SpecimenMappingPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
+	public partial class SpecimenMappingPage : UserControl
 	{
 		public delegate void NextEventHandler(object sender, EventArgs e);
 		public event NextEventHandler Next;
@@ -37,21 +37,8 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 			this.m_PathologistUsers = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetUsersByRole(YellowstonePathology.Business.User.SystemUserRoleDescriptionEnum.Pathologist, true);			
 			InitializeComponent();
 
-			DataContext = this;
-
-            Loaded += SpecimenMappingPage_Loaded;
-            Unloaded += SpecimenMappingPage_Unloaded;		
-		}
-
-        private void SpecimenMappingPage_Loaded(object sender, RoutedEventArgs e)
-        {
-             
-        }
-
-        private void SpecimenMappingPage_Unloaded(object sender, RoutedEventArgs e)
-        {
-            
-        }
+			DataContext = this;           
+		}        
 
         public string PageHeaderText
 		{
