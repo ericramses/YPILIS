@@ -38,10 +38,13 @@ namespace YellowstonePathology.UI.Test
 		YellowstonePathology.Business.Common.FieldEnabler m_FieldEnabler;
 		YellowstonePathology.Business.Domain.Lock m_Lock;
 		YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
+        System.Windows.Controls.TabItem m_Writer;
 
-		public LabUI(YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+
+        public LabUI(YellowstonePathology.Business.User.SystemIdentity systemIdentity, System.Windows.Controls.TabItem writer)
 		{            
             this.m_SystemIdentity = systemIdentity;
+            this.m_Writer = writer;
 			this.m_Lock = new YellowstonePathology.Business.Domain.Lock(this.m_SystemIdentity);
 			
 			this.m_SearchEngine = new Business.Test.SearchEngine();
@@ -151,10 +154,15 @@ namespace YellowstonePathology.UI.Test
 		{
 			get { return this.m_AcknowledgeOrders; }
 		}
-       
-		public void GetAccessionOrder(string masterAccessionNo, string reportNo)
+
+        public System.Windows.Controls.TabItem Writer
+        {
+            get { return this.m_Writer; }
+        }
+
+        public void GetAccessionOrder(string masterAccessionNo, string reportNo)
 		{                         
-            this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo);
+            this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, this.m_Writer);
 			this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);             
 
 			this.m_CaseDocumentCollection = new YellowstonePathology.Business.Document.CaseDocumentCollection(this.AccessionOrder, reportNo);
@@ -233,7 +241,7 @@ namespace YellowstonePathology.UI.Test
 		{
 			if (this.m_AccessionOrder != null && this.m_Lock.LockAquired == true)
 			{
-                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
+                //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
 			}
 		}
 

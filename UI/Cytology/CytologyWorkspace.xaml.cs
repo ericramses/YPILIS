@@ -41,7 +41,7 @@ namespace YellowstonePathology.UI.Cytology
         private YellowstonePathology.UI.LabEventsControlTab m_LabEventsControlTab;
         private MainWindowCommandButtonHandler m_MainWindowCommandButtonHandler;
 
-        public CytologyWorkspace(MainWindowCommandButtonHandler mainWindowCommandButtonHandler)
+        public CytologyWorkspace(MainWindowCommandButtonHandler mainWindowCommandButtonHandler, TabItem writer)
         {
             this.m_MainWindowCommandButtonHandler = mainWindowCommandButtonHandler;
 			this.m_SystemIdentity = new YellowstonePathology.Business.User.SystemIdentity(YellowstonePathology.Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);

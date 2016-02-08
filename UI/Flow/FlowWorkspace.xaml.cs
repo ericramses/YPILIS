@@ -34,7 +34,7 @@ namespace YellowstonePathology.UI.Flow
         private YellowstonePathology.UI.Login.LoginPageWindow m_LoginPageWindow;
         private MainWindowCommandButtonHandler m_MainWindowCommandButtonHandler;
 
-        public FlowWorkspace(MainWindowCommandButtonHandler mainWindowCommandButtonHandler)
+        public FlowWorkspace(MainWindowCommandButtonHandler mainWindowCommandButtonHandler, TabItem writer)
         {
             this.m_MainWindowCommandButtonHandler = mainWindowCommandButtonHandler;
 			this.m_SystemIdentity = new YellowstonePathology.Business.User.SystemIdentity(YellowstonePathology.Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);

@@ -36,9 +36,9 @@ namespace YellowstonePathology.UI.Surgical
         private bool m_SignatureButtonIsEnabled;
 
 		private int m_SelectedTabIndex;
-        private System.Windows.Controls.TabControl m_Writer;
+        private System.Windows.Controls.TabItem m_Writer;
 
-		public PathologistUI(YellowstonePathology.Business.User.SystemIdentity systemidentity, System.Windows.Controls.TabControl writer)
+		public PathologistUI(YellowstonePathology.Business.User.SystemIdentity systemidentity, System.Windows.Controls.TabItem writer)
         {
             this.m_SystemIdentity = systemidentity;
             this.m_Writer = writer;
@@ -115,6 +115,11 @@ namespace YellowstonePathology.UI.Surgical
 		{
 			get { return this.m_SystemIdentity.User; }
 		}
+
+        public System.Windows.Controls.TabItem Writer
+        {
+            get { return this.m_Writer; }
+        }
 
 		public void DoPatientIdSearch(YellowstonePathology.Business.Search.PathologistSearchResult selectedResult)
 		{

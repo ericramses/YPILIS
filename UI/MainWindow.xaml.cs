@@ -409,7 +409,7 @@ namespace YellowstonePathology.UI
         {            
             if (this.m_TabItemCytology.Parent == null)
             {
-                this.m_CytologyWorkspace = new Cytology.CytologyWorkspace(this.m_MainWindowCommandButtonHandler);
+                this.m_CytologyWorkspace = new Cytology.CytologyWorkspace(this.m_MainWindowCommandButtonHandler, this.m_TabItemCytology);
                 this.m_TabItemCytology.Content = this.m_CytologyWorkspace;
                 
                 this.TabControlLeftWorkspace.Items.Add(this.m_TabItemCytology);
@@ -420,7 +420,7 @@ namespace YellowstonePathology.UI
             this.m_TabItemCytology.Focus();
        }
         
-        public void AddScanProcessingWorkspace()
+        /*public void AddScanProcessingWorkspace()
         {
             if (this.m_TabItemScanning.Parent != null)
             {
@@ -433,7 +433,7 @@ namespace YellowstonePathology.UI
                 this.TabControlLeftWorkspace.Items.Add(this.m_TabItemScanning);
                 this.m_TabItemScanning.Focus();                
             }
-        }                
+        }*/                
 
         public void AddPathologistWorkspace()
         {            
@@ -443,7 +443,7 @@ namespace YellowstonePathology.UI
             }
             else
             {
-				this.m_PathologistWorkspace = new YellowstonePathology.UI.Surgical.PathologistWorkspace(this.m_MainWindowCommandButtonHandler);
+				this.m_PathologistWorkspace = new YellowstonePathology.UI.Surgical.PathologistWorkspace(this.m_MainWindowCommandButtonHandler, this.m_TabItemPathologist);
 				this.m_TabItemPathologist.Content = this.m_PathologistWorkspace;
                 this.TabControlLeftWorkspace.Items.Add(this.m_TabItemPathologist);
                 this.m_TabItemPathologist.Focus();                                
@@ -482,7 +482,7 @@ namespace YellowstonePathology.UI
             }
             else
             {
-                this.m_FlowWorkspace = new Flow.FlowWorkspace(this.m_MainWindowCommandButtonHandler);
+                this.m_FlowWorkspace = new Flow.FlowWorkspace(this.m_MainWindowCommandButtonHandler, this.m_TabItemFlow);
                 this.m_TabItemFlow.Content = this.m_FlowWorkspace;
                 this.TabControlLeftWorkspace.Items.Add(this.m_TabItemFlow);
                 this.m_TabItemFlow.Focus();                
@@ -515,7 +515,7 @@ namespace YellowstonePathology.UI
             }
             else
             {
-                this.m_SearchWorkspace = new SearchWorkspace(this.m_MainWindowCommandButtonHandler);
+                this.m_SearchWorkspace = new SearchWorkspace(this.m_MainWindowCommandButtonHandler, this.m_TabItemSearch);
                 this.m_TabItemSearch.Content = this.m_SearchWorkspace;                
                 this.TabControlLeftWorkspace.Items.Add(this.m_TabItemSearch);
                 this.m_TabItemSearch.Focus();
@@ -536,7 +536,7 @@ namespace YellowstonePathology.UI
             }
             else
             {
-                this.m_LabWorkspace = new Test.LabWorkspace(this.m_MainWindowCommandButtonHandler);
+                this.m_LabWorkspace = new Test.LabWorkspace(this.m_MainWindowCommandButtonHandler, this.m_TabItemLab);
                 this.m_TabItemLab.Content = this.m_LabWorkspace;
                 this.TabControlLeftWorkspace.Items.Add(this.m_TabItemLab);
                 this.m_TabItemLab.Focus();
@@ -594,10 +594,10 @@ namespace YellowstonePathology.UI
             this.AddFlowWorkspace();
         }        
 
-        public void ScanProcessingWorkspace_Click(object sender, RoutedEventArgs args)
-        {
-            this.AddScanProcessingWorkspace();
-        }
+        //public void ScanProcessingWorkspace_Click(object sender, RoutedEventArgs args)
+        //{
+        //    this.AddScanProcessingWorkspace();
+        //}
         
         public void ToolBarButtonPathologistWorkspace_Click(object sender, RoutedEventArgs args)
         {
@@ -767,7 +767,7 @@ namespace YellowstonePathology.UI
             }
             else
             {
-                this.m_LoginWorkspace = new Login.LoginWorkspace(this.m_MainWindowCommandButtonHandler);
+                this.m_LoginWorkspace = new Login.LoginWorkspace(this.m_MainWindowCommandButtonHandler, m_TabItemLogin);
                 this.m_TabItemLogin.Content = this.m_LoginWorkspace;
                 this.TabControlLeftWorkspace.Items.Add(this.m_TabItemLogin);
                 this.m_TabItemLogin.Focus();
