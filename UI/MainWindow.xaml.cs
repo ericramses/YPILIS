@@ -745,7 +745,7 @@ namespace YellowstonePathology.UI
 		private void MenuItemLockedCases_Click(object sender, RoutedEventArgs e)
 		{
 			UI.LockedCaseDialog lockedCaseDialog = new LockedCaseDialog();
-			lockedCaseDialog.ShowDialog();
+			lockedCaseDialog.Show();
 		}
 
 		private void SurgicalRescreen_Click(object sender, RoutedEventArgs e)
