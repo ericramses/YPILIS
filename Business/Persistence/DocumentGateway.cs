@@ -102,10 +102,11 @@ namespace YellowstonePathology.Business.Persistence
         public void PullClient(YellowstonePathology.Business.Client.Model.Client client, object writer)
         {
             SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "select * From tblClient where ClientId = @ClientId";
+            cmd.CommandText = "SELECT c.*, (SELECT * from tblClientLocation where ClientId = c.ClientId order by Location for xml path('ClientLocation'), type) ClientLocationCollection " +
+                "FROM tblClient c where c.ClientId = @ClientId for xml Path('Client'), type";
             cmd.CommandType = CommandType.Text;
             cmd.Parameters.Add("@ClientId", SqlDbType.Int).Value = client.ClientId;
-            GenericDocumentBuilder builder = new GenericDocumentBuilder(cmd);
+            ClientDocumentBuilder builder = new ClientDocumentBuilder(cmd);
 
             DocumentId documentId = new DocumentId(client, writer);
             Document document = this.m_Stack.Pull(documentId, false, client, builder);

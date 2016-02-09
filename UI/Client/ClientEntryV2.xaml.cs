@@ -264,7 +264,7 @@ namespace YellowstonePathology.UI.Client
                 clientLocation.DefaultOrderDetailTypeCode = "SRGCL";
 
                 this.m_Client.ClientLocationCollection.Add(clientLocation);
-                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(clientLocation, this.m_ParentWindow, this.m_SystemIdentity);
+                //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(clientLocation, this.m_ParentWindow, this.m_SystemIdentity);
             }
         }
     }
