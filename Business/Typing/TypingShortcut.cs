@@ -14,8 +14,7 @@ namespace YellowstonePathology.Business.Typing
 	{
         public event PropertyChangedEventHandler PropertyChanged;
 
-		private string m_ObjectId;
-        int m_ShortcutId;
+		private string m_ObjectId;        
 		string m_Shortcut = string.Empty;		
 		string m_Text = string.Empty;
 		string m_Type = string.Empty;
@@ -31,7 +30,8 @@ namespace YellowstonePathology.Business.Typing
 		}
 
 		[PersistentDocumentIdProperty()]
-		public string ObjectId
+        [PersistentPrimaryKeyProperty(false)]
+        public string ObjectId
 		{
 			get { return this.m_ObjectId; }
 			set
@@ -42,21 +42,7 @@ namespace YellowstonePathology.Business.Typing
 					this.NotifyPropertyChanged("ObjectId");
 				}
 			}
-		}
-
-        [PersistentPrimaryKeyProperty(true)]
-        public int ShortcutId
-        {
-            get { return this.m_ShortcutId; }
-            set
-            {
-                if (value != this.m_ShortcutId)
-                {
-                    this.m_ShortcutId = value;
-                    this.NotifyPropertyChanged("ShortcutId");
-                }
-            }
-        }
+		}        
 
         [PersistentProperty()]   
 		public string Shortcut
