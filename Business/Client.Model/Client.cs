@@ -50,9 +50,11 @@ namespace YellowstonePathology.Business.Client.Model
 			this.m_ClientLocationCollection = new ClientLocationCollection();
 		}
 
+        [PersistentCollection()]
         public ClientLocationCollection ClientLocationCollection
 		{
 			get { return this.m_ClientLocationCollection; }
+            set { this.m_ClientLocationCollection = value; }
 		}
 
         [PersistentDocumentIdProperty()]

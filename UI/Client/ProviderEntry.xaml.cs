@@ -32,7 +32,8 @@ namespace YellowstonePathology.UI.Client
         private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 
         public ProviderEntry(YellowstonePathology.Business.Domain.Physician physician, bool isNewProvider)
-        {                        
+        {
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullPhysician(physician, this);
             this.m_Physician = physician;            
             this.m_IsNewProvider = isNewProvider;
 
@@ -60,7 +61,7 @@ namespace YellowstonePathology.UI.Client
 
         private void ProviderEntry_Closing(object sender, CancelEventArgs e)
         {
-            this.Save(true);
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
         }
 
         public void NotifyPropertyChanged(String info)
@@ -137,11 +138,6 @@ namespace YellowstonePathology.UI.Client
                 }
             }
             return result;
-        }
-
-        private void Save(bool releaseLock)
-        {            
-			
         }
 
 		private void ButtonAddToClient_Click(object sender, RoutedEventArgs e)

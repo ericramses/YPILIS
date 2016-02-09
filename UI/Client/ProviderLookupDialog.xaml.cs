@@ -30,6 +30,7 @@ namespace YellowstonePathology.UI.Client
             this.m_ClientGroupCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientGroupCollection();
 			InitializeComponent();
 			DataContext = this;
+            this.TextBoxProviderName.Focus();
 		}
 
 		public YellowstonePathology.Business.Client.Model.ProviderClientCollection ProviderCollection
@@ -169,7 +170,6 @@ namespace YellowstonePathology.UI.Client
 			{
                 YellowstonePathology.Business.Client.Model.ProviderClient providerClient =  (YellowstonePathology.Business.Client.Model.ProviderClient)this.ListViewProviders.SelectedItem;                
                 YellowstonePathology.Business.Domain.Physician physician = providerClient.Physician;
-                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullPhysician(physician, this);
 
                 ProviderEntry providerEntry = new ProviderEntry(physician, false);
 				providerEntry.ShowDialog();
@@ -219,7 +219,6 @@ namespace YellowstonePathology.UI.Client
 			if (this.ListViewClients.SelectedItem != null)
             {
 				YellowstonePathology.Business.Client.Model.Client client = (YellowstonePathology.Business.Client.Model.Client)this.ListViewClients.SelectedItem;
-                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullClient(client, this);
 
 				ClientEntryV2 clientEntry = new ClientEntryV2(client, false);
 				clientEntry.ShowDialog();

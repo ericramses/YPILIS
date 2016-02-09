@@ -37,7 +37,8 @@ namespace YellowstonePathology.UI.Client
 
 		public ClientEntryV2(YellowstonePathology.Business.Client.Model.Client client, bool isNewClient)
 		{
-			this.m_Client = client;
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullClient(client, this);
+            this.m_Client = client;
             this.m_IsNewClient = isNewClient;
             this.m_SystemIdentity = new Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
             	
@@ -69,7 +70,7 @@ namespace YellowstonePathology.UI.Client
 
         private void ClientEntry_Closing(object sender, CancelEventArgs e)
         {
-            this.Save(false);            
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);            
         }
 
         public void NotifyPropertyChanged(String info)
@@ -137,11 +138,6 @@ namespace YellowstonePathology.UI.Client
         {
             bool result = true;
             return result;
-        }
-
-        private void Save(bool releaseLock)
-        {
-			
         }
 
 		private void ButtonAddToClient_Click(object sender, RoutedEventArgs e)
@@ -268,7 +264,7 @@ namespace YellowstonePathology.UI.Client
                 clientLocation.DefaultOrderDetailTypeCode = "SRGCL";
 
                 this.m_Client.ClientLocationCollection.Add(clientLocation);
-                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(clientLocation, this.m_ParentWindow, this.m_SystemIdentity);
+                //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(clientLocation, this.m_ParentWindow, this.m_SystemIdentity);
             }
         }
     }
