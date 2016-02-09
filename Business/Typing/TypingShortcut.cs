@@ -29,7 +29,7 @@ namespace YellowstonePathology.Business.Typing
 			this.m_ObjectId = objectId;
 		}
 
-		[PersistentDocumentIdProperty()]
+		//[PersistentDocumentIdProperty()]
         [PersistentPrimaryKeyProperty(false)]
         public string ObjectId
 		{

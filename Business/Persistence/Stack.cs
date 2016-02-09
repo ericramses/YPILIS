@@ -81,8 +81,16 @@ namespace YellowstonePathology.Business.Persistence
                 {
                     result.Writers.Add(documentId.Writer);
                 }
-                this.Push(result, documentId.Writer);
-            }              
+                result.Submit();
+            }   
+            else if(this.WriterTypeExists(documentId) == true)
+            {
+                Document outgoingDocument = this.WriterTypeGet(documentId);
+                this.PushOne(outgoingDocument, documentId.Writer);
+
+                result = new DocumentUpdate(documentId, isGlobal, documentBuilder);
+                this.m_Documents.Add(result);
+            }           
             else
             {
                 result = new DocumentUpdate(documentId, isGlobal, documentBuilder);
@@ -103,7 +111,12 @@ namespace YellowstonePathology.Business.Persistence
                 {
                     result.Writers.Add(documentId.Writer);
                 }
-                this.Push(result.Value, documentId.Writer);
+                this.PushOne(result, documentId.Writer);
+            }
+            else if (this.WriterTypeExists(documentId) == true)
+            {
+                Document outgoingDocument = this.WriterTypeGet(documentId);
+                this.PushOne(outgoingDocument, documentId.Writer);
             }
             else
             {
@@ -126,11 +139,10 @@ namespace YellowstonePathology.Business.Persistence
             this.m_Documents.Add(documentUpdate);
         }
 
-        public void DeleteDocument(object o, object party)
+        public void DeleteDocument(object o, object writer)
         {
-            DocumentId documentId = new DocumentId(o, party);
-
-            //Remove it from the stack.
+            DocumentId documentId = new DocumentId(o, writer);
+            this.m_Documents.Remove(documentId);
 
             DocumentDelete documentDelete = new DocumentDelete(documentId, o);
             documentDelete.Submit();
@@ -151,7 +163,24 @@ namespace YellowstonePathology.Business.Persistence
             }
 
             return result;
-        }        
+        }
+
+        public Document WriterTypeGet(DocumentId documentId)
+        {
+            Document result = null;
+
+            foreach (Document document in this.m_Documents)
+            {
+                if (document.Type.FullName == documentId.Type.FullName &&
+                    document.Writers.Exists(p => p == documentId.Writer))
+                {
+                    result = document;
+                    break;
+                }
+            }
+
+            return result;
+        }
 
         private bool WriterTypeExists(DocumentId documentId)
         {

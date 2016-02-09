@@ -63,7 +63,7 @@ namespace YellowstonePathology.Business.Persistence
 
         public void DeleteDocument(object o, object writer)
         {
-
+            this.m_Stack.DeleteDocument(o, writer);
         }
 
         public void InsertDocument(object o, Object writer, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
@@ -90,9 +90,9 @@ namespace YellowstonePathology.Business.Persistence
         public void PullTypingShortcut(YellowstonePathology.Business.Typing.TypingShortcut typingShortcut, object writer)
         {
             SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "select * From tblTypingShortcut where ShortcutId = @ObjectId";
+            cmd.CommandText = "select * From tblTypingShortcut where ObjectId = @ObjectId";
             cmd.CommandType = CommandType.Text;
-            cmd.Parameters.Add("@ObjectIdId", SqlDbType.Int).Value = typingShortcut.ObjectId;
+            cmd.Parameters.Add("@ObjectId", SqlDbType.VarChar).Value = typingShortcut.ObjectId;
             GenericDocumentBuilder builder = new GenericDocumentBuilder(cmd);
 
             DocumentId documentId = new DocumentId(typingShortcut, writer);
