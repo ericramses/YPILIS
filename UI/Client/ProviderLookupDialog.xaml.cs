@@ -219,7 +219,6 @@ namespace YellowstonePathology.UI.Client
 			if (this.ListViewClients.SelectedItem != null)
             {
 				YellowstonePathology.Business.Client.Model.Client client = (YellowstonePathology.Business.Client.Model.Client)this.ListViewClients.SelectedItem;
-                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullClient(client, this);
 
 				ClientEntryV2 clientEntry = new ClientEntryV2(client, false);
 				clientEntry.ShowDialog();

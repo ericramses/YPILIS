@@ -105,22 +105,10 @@ namespace YellowstonePathology.Business.Persistence
             cmd.CommandText = "select * From tblClient where ClientId = @ClientId";
             cmd.CommandType = CommandType.Text;
             cmd.Parameters.Add("@ClientId", SqlDbType.Int).Value = client.ClientId;
+            GenericDocumentBuilder builder = new GenericDocumentBuilder(cmd);
 
-            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.BaseData.SqlConnectionString))
-            {
-                cn.Open();
-                cmd.Connection = cn;
-                using (SqlDataReader dr = cmd.ExecuteReader())
-                {
-                    while (dr.Read())
-                    {
-                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(client, dr);
-                        sqlDataReaderPropertyWriter.WriteProperties();
-                    }
-                }
-            }
-
-            this.m_Stack.Push(client, writer);
+            DocumentId documentId = new DocumentId(client, writer);
+            Document document = this.m_Stack.Pull(documentId, false, client, builder);
         }
 
         public void PullPhysician(YellowstonePathology.Business.Domain.Physician physician, object writer)
@@ -129,23 +117,11 @@ namespace YellowstonePathology.Business.Persistence
             cmd.CommandText = "select * From tblPhysician where PhysicianId = @PhysicianId";
             cmd.CommandType = CommandType.Text;
             cmd.Parameters.Add("@PhysicianId", SqlDbType.Int).Value = physician.PhysicianId;
+            GenericDocumentBuilder builder = new GenericDocumentBuilder(cmd);
 
-            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.BaseData.SqlConnectionString))
-            {
-                cn.Open();
-                cmd.Connection = cn;
-                using (SqlDataReader dr = cmd.ExecuteReader())
-                {
-                    while (dr.Read())
-                    {
-                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(physician, dr);
-                        sqlDataReaderPropertyWriter.WriteProperties();
-                    }
-                }
-            }
-
-            this.m_Stack.Push(physician, writer);
-        }        
+            DocumentId documentId = new DocumentId(physician, writer);
+            Document document = this.m_Stack.Pull(documentId, false, physician, builder);
+        }
 
         public void PullTaskOrder(YellowstonePathology.Business.Task.Model.TaskOrder taskOrder, object writer)
         {
