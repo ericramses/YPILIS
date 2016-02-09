@@ -90,9 +90,9 @@ namespace YellowstonePathology.Business.Persistence
         public void PullTypingShortcut(YellowstonePathology.Business.Typing.TypingShortcut typingShortcut, object writer)
         {
             SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "select * From tblTypingShortcut where ShortcutId = @ShortcutId";
+            cmd.CommandText = "select * From tblTypingShortcut where ShortcutId = @ObjectId";
             cmd.CommandType = CommandType.Text;
-            cmd.Parameters.Add("@ShortcutId", SqlDbType.Int).Value = typingShortcut.ShortcutId;
+            cmd.Parameters.Add("@ObjectIdId", SqlDbType.Int).Value = typingShortcut.ObjectId;
             GenericDocumentBuilder builder = new GenericDocumentBuilder(cmd);
 
             DocumentId documentId = new DocumentId(typingShortcut, writer);
