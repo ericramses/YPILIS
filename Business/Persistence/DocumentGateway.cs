@@ -46,6 +46,11 @@ namespace YellowstonePathology.Business.Persistence
             }
         }
 
+        public DocumentCollection Documents
+        {
+            get { return this.m_Stack.Documents; }
+        }
+
         public void Save(object writer)
         {
             this.m_Stack.Save(writer);
