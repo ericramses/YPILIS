@@ -39,7 +39,7 @@ namespace YellowstonePathology.UI
             if(isNewShortcut == false)
             {
                 YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullTypingShortcut(typingShortcut, this);
-            }
+            }            
         }        
 
         public void GridTyping_KeyUp(object sender, KeyEventArgs args)
