@@ -16,7 +16,12 @@ namespace YellowstonePathology.Business.Persistence
         public Stack()
         {
             this.m_Documents = new DocumentCollection();
-        }        
+        }
+        
+        public DocumentCollection Documents
+        {
+            get { return this.m_Documents; }
+        }
 
         public void Push(object o, object writer)
         {

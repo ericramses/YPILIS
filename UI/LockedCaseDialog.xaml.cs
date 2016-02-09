@@ -10,31 +10,49 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.ComponentModel;
 
 namespace YellowstonePathology.UI
 {
 	/// <summary>
 	/// Interaction logic for LockedCaseDialog.xaml
 	/// </summary>
-	public partial class LockedCaseDialog : Window
-	{
-		private YellowstonePathology.Business.Domain.LockItemCollection m_LockItemCollection;
+	public partial class LockedCaseDialog : Window, INotifyPropertyChanged
+    {
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private YellowstonePathology.Business.Domain.LockItemCollection m_LockItemCollection;
+        private YellowstonePathology.Business.Domain.LockItemCollection m_NewLocks;
 
 		public LockedCaseDialog()
 		{
 			this.FillLockItemCollection();
+            this.FillNewLocks();
 			InitializeComponent();
+            DataContext = this;
 		}
 
-		private void FillLockItemCollection()
+        public void NotifyPropertyChanged(String info)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
+        }
+
+        private void FillLockItemCollection()
 		{
 			this.m_LockItemCollection = YellowstonePathology.Business.Gateway.LockGateway.GetLocks();
 			if (this.m_LockItemCollection == null)
 			{
 				this.m_LockItemCollection = new Business.Domain.LockItemCollection();
 			}
-			this.DataContext = this.m_LockItemCollection;
 		}
+
+        private void FillNewLocks()
+        {
+            this.m_NewLocks = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetLockItems();
+        }
 
 		private void ButtonDelete_Click(object sender, RoutedEventArgs e)
 		{
@@ -61,6 +79,23 @@ namespace YellowstonePathology.UI
 		private void ButtonRefresh_Click(object sender, RoutedEventArgs e)
 		{
 			this.FillLockItemCollection();
+            this.FillNewLocks();
+            this.NotifyPropertyChanged(string.Empty);
 		}
-	}
+
+        public YellowstonePathology.Business.Domain.LockItemCollection LockItemCollection
+        {
+            get { return this.m_LockItemCollection; }
+        }
+
+        public YellowstonePathology.Business.Persistence.DocumentCollection Documents
+        {
+            get { return YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Documents; }
+        }
+
+        public YellowstonePathology.Business.Domain.LockItemCollection LockedItems
+        {
+            get { return this.m_NewLocks; }
+        }
+    }
 }

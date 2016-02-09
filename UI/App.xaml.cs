@@ -143,7 +143,8 @@ namespace YellowstonePathology.UI
 
         private void SaveAndReleaseLocksOnApplicationExit()
         {
-            
+            //YellowstonePathology.Business.Domain.LockItemCollection lockItemCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetLockItems();
+
         }
     }
 }
