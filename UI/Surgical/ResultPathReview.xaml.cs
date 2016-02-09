@@ -61,7 +61,7 @@ namespace YellowstonePathology.UI.Surgical
 			YellowstonePathology.UI.Test.ResultPathFactory resultPathFactory = new Test.ResultPathFactory();
             resultPathFactory.Finished += new Test.ResultPathFactory.FinishedEventHandler(ResultPathFactory_Finished);
 
-			bool resultPathStarted = resultPathFactory.Start(this.m_PathologistUI.PanelSetOrder, this.m_PathologistUI.AccessionOrder, this.m_ResultDialog.PageNavigator, System.Windows.Visibility.Collapsed);
+			bool resultPathStarted = resultPathFactory.Start(this.m_PathologistUI.PanelSetOrder, this.m_PathologistUI.AccessionOrder, this.m_ResultDialog.PageNavigator, this.m_ResultDialog, System.Windows.Visibility.Collapsed);
             if (resultPathStarted == false)
             {
                 string msg = "Results not yet implemented for " + this.PanelSetOrder.PanelSetName;

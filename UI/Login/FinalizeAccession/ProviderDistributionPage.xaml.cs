@@ -381,7 +381,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
                 if (methodResult.Success == true)
                 {
-                    caseDocument.Render(this.m_PanelSetOrder.MasterAccessionNo, this.m_PanelSetOrder.ReportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum.Normal);
+                    caseDocument.Render(this.m_PanelSetOrder.MasterAccessionNo, this.m_PanelSetOrder.ReportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum.Normal, Window.GetWindow(this));
                     caseDocument.Publish();
                     MessageBox.Show("The document has been published.");
                 }

@@ -55,7 +55,7 @@ namespace YellowstonePathology.UI.Client
                 if(messageBoxResult == MessageBoxResult.Yes)
                 {
                     YellowstonePathology.Business.Client.Model.ClientSupplyOrder clientSupplyOrder = (YellowstonePathology.Business.Client.Model.ClientSupplyOrder)this.ListViewClientSupplyOrders.SelectedItem;
-                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitRootDelete(clientSupplyOrder);                    
+                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.DeleteDocument(clientSupplyOrder, this);                    
                     this.m_ClientSupplyOrderCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientSupplyOrderCollection();
                     this.NotifyPropertyChanged("ClientSupplyOrderCollection");
                 }

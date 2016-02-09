@@ -11,7 +11,7 @@ namespace YellowstonePathology.Business.Test.ALLAdultByFISH
 		{
 			this.m_ReportNo = reportNo;
 			this.m_ReportSaveEnum = reportSaveEnum;
-			this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo);
+			this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, writer);
 			this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 			ALLAdultByFISHTestOrder testOrder = (ALLAdultByFISHTestOrder)this.m_PanelSetOrder;
 

@@ -37,8 +37,9 @@ namespace YellowstonePathology.Business.Flow
 		private YellowstonePathology.Business.Patient.Model.PatientHistoryList m_PatientHistoryList;
 		private YellowstonePathology.Business.PanelSet.Model.PanelSetCollection m_PanelSets;
         private YellowstonePathology.Business.Billing.ICD9BillingCodeCollection m_ICD9BillingCodeCollection;
+        private object m_Writer;
 
-        public FlowUI()
+        public FlowUI(object writer)
         {
             this.m_FlowLogSearch = new FlowLogSearch();
 
@@ -181,7 +182,7 @@ namespace YellowstonePathology.Business.Flow
 
 		public void GetAccessionOrder(string reportNo, string masterAccessionNo)
 		{			
-			this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, );			
+			this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, this.m_Writer);			
 
             this.m_PanelSetOrderLeukemiaLymphoma = (YellowstonePathology.Business.Test.LLP.PanelSetOrderLeukemiaLymphoma)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
             this.m_ReportNo = reportNo;

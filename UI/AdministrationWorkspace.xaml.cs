@@ -246,15 +246,7 @@ namespace YellowstonePathology.UI
 
         private void SerializeAccessionOrder_Click(object sender, RoutedEventArgs e)
         {
-            string reportNo = "S11-16301";                        
-            YellowstonePathology.Business.HL7View.CMMC.CMMCResultView result = new Business.HL7View.CMMC.CMMCResultView(reportNo);
-            YellowstonePathology.Business.Rules.MethodResult methodResult = new Business.Rules.MethodResult();
-            result.CanSend(methodResult);
-            if (methodResult.Success == true)
-            {
-                result.Send(methodResult);
-            }
-            MessageBox.Show(methodResult.Message);
+            
         }
 
         private void ButtonShowTestWindow_Click(object sender, RoutedEventArgs e)
@@ -608,8 +600,8 @@ namespace YellowstonePathology.UI
 
         private void ButtonShowGrossWorkspace_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.UI.Gross.HistologyGrossPath histologyGrossPath = new Gross.HistologyGrossPath();
-            histologyGrossPath.Start();
+           // YellowstonePathology.UI.Gross.HistologyGrossPath histologyGrossPath = new Gross.HistologyGrossPath();
+           // histologyGrossPath.Start();
         }        
 
 		private void ButtonBillingTypeProcessorTests_Click(object sender, RoutedEventArgs e)

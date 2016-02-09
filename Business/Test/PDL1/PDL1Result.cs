@@ -1,12 +1,4 @@
-﻿/*
- * Created by SharpDevelop.
- * User: William.Copland
- * Date: 12/14/2015
- * Time: 12:57
- * 
- * To change this template use Tools | Options | Coding | Edit Standard Headers.
- */
-using System;
+﻿using System;
 
 namespace YellowstonePathology.Business.Test.PDL1
 {

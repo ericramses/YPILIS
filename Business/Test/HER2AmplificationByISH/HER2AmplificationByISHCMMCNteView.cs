@@ -18,7 +18,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
             this.m_ReportNo = reportNo;            
 		}		
 
-		public override void ToXml(XElement document)
+		public override void ToXml(XElement document, object writer)
 		{
 			HER2AmplificationByISHTestOrder panelSetOrder = (HER2AmplificationByISHTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
             this.AddCompanyHeader(document);

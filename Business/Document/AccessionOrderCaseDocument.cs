@@ -20,7 +20,7 @@ namespace YellowstonePathology.Business.Document
 			CaseDocumentType = "AccessionOrderDataSheet";
 		}
 
-		public override void Show(System.Windows.Controls.ContentControl contentControl)
+		public override void Show(System.Windows.Controls.ContentControl contentControl, object writer)
 		{
 			YellowstonePathology.Document.Result.Data.AccessionOrderDataSheetData accessionOrderDataSheetData = YellowstonePathology.Business.Gateway.XmlGateway.GetAccessionOrderDataSheetData(this.MasterAccessionNo);
 			YellowstonePathology.Document.Result.Xps.AccessionOrderDataSheet accessionOrderDataSheet = new YellowstonePathology.Document.Result.Xps.AccessionOrderDataSheet(accessionOrderDataSheetData);

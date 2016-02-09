@@ -10,7 +10,7 @@ namespace YellowstonePathology.UI.Cutting
         private CuttingWorkspaceWindow m_CuttingWorkspaceWindow;
         private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;        
-        private CuttingPage m_CuttingPage;                
+        private CuttingPage m_CuttingPage;        
 
         public CuttingStationPath()
         {
@@ -81,7 +81,7 @@ namespace YellowstonePathology.UI.Cutting
 
         private void HandleMasterAccessionNoFound(string masterAccessionNo)
         {
-            this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo);			
+            this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, m_CuttingWorkspaceWindow);			
 
             YellowstonePathology.Business.Test.AliquotOrderCollection aliquotOrderCollection = this.m_AccessionOrder.SpecimenOrderCollection.GetAliquotOrdersThatHaveTestOrders();
             AliquotOrderSelectionPage aliquotOrderSelectionPage = new AliquotOrderSelectionPage(aliquotOrderCollection, this.m_AccessionOrder);

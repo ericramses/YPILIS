@@ -33,10 +33,12 @@ namespace YellowstonePathology.UI.Flow
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
         private YellowstonePathology.UI.Login.LoginPageWindow m_LoginPageWindow;
         private MainWindowCommandButtonHandler m_MainWindowCommandButtonHandler;
+        private TabItem m_Writer;
 
         public FlowWorkspace(MainWindowCommandButtonHandler mainWindowCommandButtonHandler, TabItem writer)
         {
             this.m_MainWindowCommandButtonHandler = mainWindowCommandButtonHandler;
+            this.m_Writer = writer;
 			this.m_SystemIdentity = new YellowstonePathology.Business.User.SystemIdentity(YellowstonePathology.Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
 
             this.CommandBindingApplicationClosing = new CommandBinding(MainWindow.ApplicationClosingCommand, this.ApplicationClosing);
@@ -51,7 +53,7 @@ namespace YellowstonePathology.UI.Flow
 
             this.m_DocumentViewer = new DocumentWorkspace();
 
-            this.m_FlowUI = new YellowstonePathology.Business.Flow.FlowUI();
+            this.m_FlowUI = new YellowstonePathology.Business.Flow.FlowUI(this.m_Writer);
 
             InitializeComponent();
 
@@ -502,7 +504,7 @@ namespace YellowstonePathology.UI.Flow
             if (this.m_FlowUI.AccessionOrder != null)
             {
 				YellowstonePathology.Business.Test.LLP.LeukemiaLymphomaWordDocument report = new YellowstonePathology.Business.Test.LLP.LeukemiaLymphomaWordDocument();
-                report.Render(this.m_FlowUI.AccessionOrder.MasterAccessionNo, this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.ReportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum.Draft);
+                report.Render(this.m_FlowUI.AccessionOrder.MasterAccessionNo, this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.ReportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum.Draft, this.m_Writer);
             }
         }
 
@@ -549,7 +551,7 @@ namespace YellowstonePathology.UI.Flow
             if (this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.PanelSetId != 19 && this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.PanelSetId != 20)
             {
                 YellowstonePathology.Business.Interface.ICaseDocument caseDocument = YellowstonePathology.Business.Document.DocumentFactory.GetDocument(this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.PanelSetId);
-                caseDocument.Render(this.m_FlowUI.AccessionOrder.MasterAccessionNo, this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.ReportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum.Draft);
+                caseDocument.Render(this.m_FlowUI.AccessionOrder.MasterAccessionNo, this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.ReportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum.Draft, this.m_Writer);
 
 				YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.ReportNo);
 				string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);
@@ -565,7 +567,7 @@ namespace YellowstonePathology.UI.Flow
                 if (this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.PanelSetId == 20)
                 {
 					YellowstonePathology.Business.Test.LLP.LeukemiaLymphomaWordDocument report = new YellowstonePathology.Business.Test.LLP.LeukemiaLymphomaWordDocument();
-                    report.Render(this.m_FlowUI.AccessionOrder.MasterAccessionNo, this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.ReportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum.Draft);
+                    report.Render(this.m_FlowUI.AccessionOrder.MasterAccessionNo, this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.ReportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum.Draft, this.m_Writer);
 					YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.ReportNo);
 					string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);
 					YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(fileName);
@@ -755,7 +757,7 @@ namespace YellowstonePathology.UI.Flow
         private void ShowReportOrderDialog(string reportNo)
         {
             string masterAccessionNo = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetMasterAccessionNoFromReportNo(reportNo);
-			YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo);
+			YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, this.m_Writer);
             if (accessionOrder != null)
             {
                 YellowstonePathology.Business.Gateway.ClientOrderGateway clientOrderGateway = new Business.Gateway.ClientOrderGateway();

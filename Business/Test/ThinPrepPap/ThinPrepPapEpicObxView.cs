@@ -15,8 +15,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 		}
 	
 		public override void ToXml(XElement document)
-		{			
-            string masterAccessionNo = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetMasterAccessionNoFromReportNo(this.m_ReportNo);            
+		{			            
             YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology panelSetOrderCytology = (YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
 
             this.AddHeader(document, panelSetOrderCytology, "Thin Prep Pap Report");
@@ -43,7 +42,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
             this.AddNextObxElement(string.Empty, document, "F");
 
             this.AddNextObxElement("Specimen Description:", document, "F");
-			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = accessionOrder.SpecimenOrderCollection.GetSpecimenOrder(panelSetOrderCytology.OrderedOn, panelSetOrderCytology.OrderedOnId);
+			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(panelSetOrderCytology.OrderedOn, panelSetOrderCytology.OrderedOnId);
             this.AddNextObxElement(specimenOrder.Description, document, "F");
             this.AddNextObxElement(string.Empty, document, "F");
 

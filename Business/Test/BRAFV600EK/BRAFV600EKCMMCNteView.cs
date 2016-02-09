@@ -18,7 +18,7 @@ namespace YellowstonePathology.Business.Test.BRAFV600EK
             this.m_ReportNo = reportNo;            
 		}
 
-		public override void ToXml(XElement document)
+		public override void ToXml(XElement document, object writer)
 		{
 			BRAFV600EKTestOrder testOrder = (BRAFV600EKTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
 

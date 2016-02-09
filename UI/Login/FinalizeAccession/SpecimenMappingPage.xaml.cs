@@ -169,27 +169,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             }
 
             return result;
-        }
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save(bool releaseLock)
-		{
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
-        }
-
-        public void UpdateBindingSources()
-		{
-
-		}
+        }		
 
         private void ButtonPrint_Click(object sender, RoutedEventArgs e)
         {
@@ -245,7 +225,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
         {
             YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogCollection materialTrackingLogCollection = YellowstonePathology.Business.Gateway.SlideAccessionGateway.GetMaterialTrackingLogCollectionByMasterAccessionNo(this.m_AccessionOrder.MasterAccessionNo);            
             materialTrackingLogCollection.UpdateClientAccessioned(this.m_AccessionOrder.SpecimenOrderCollection);
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(materialTrackingLogCollection, false);            
+            //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(materialTrackingLogCollection, false);            
         }
 	}
 }

@@ -29,12 +29,17 @@ namespace YellowstonePathology.UI.Client
 		private YellowstonePathology.Business.Domain.PhysicianCollection m_PhysicianCollection;
 		private YellowstonePathology.Business.Billing.Model.BillingRuleSetCollection m_BillingRuleSetCollection;
 		private YellowstonePathology.Business.Client.Model.ClientSupplyOrderCollection m_ClientSupplyOrderCollection;
+
         private bool m_IsNewClient;
         private Window m_ParentWindow;
+
+        private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
+
 		public ClientEntryV2(YellowstonePathology.Business.Client.Model.Client client, bool isNewClient)
 		{
 			this.m_Client = client;
             this.m_IsNewClient = isNewClient;
+            this.m_SystemIdentity = new Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
             	
 			this.m_ClientPhysicianView = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientPhysicianViewByClientIdV2(this.m_Client.ClientId);
 
@@ -121,7 +126,7 @@ namespace YellowstonePathology.UI.Client
             {
                 if(this.m_IsNewClient == true)
                 {
-                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(this.m_Client, this.m_ParentWindow);
+                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(this.m_Client, this.m_ParentWindow, this.m_SystemIdentity);
                 }
 
 			    Close();
@@ -148,7 +153,7 @@ namespace YellowstonePathology.UI.Client
 				{					
 					string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
 					YellowstonePathology.Business.Domain.PhysicianClient physicianClient = new Business.Domain.PhysicianClient(objectId, objectId, physician.PhysicianId, physician.ObjectId, this.m_Client.ClientId);
-                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(physicianClient, this.m_ParentWindow);                    
+                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(physicianClient, this.m_ParentWindow, this.m_SystemIdentity);                    
 					this.m_ClientPhysicianView.Physicians.Add(physician);
 					this.NotifyPropertyChanged("Physicians");
 				}
@@ -211,7 +216,7 @@ namespace YellowstonePathology.UI.Client
 		{
 			string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
 			YellowstonePathology.Business.Client.Model.ClientSupplyOrder clientSupplyOrder = new Business.Client.Model.ClientSupplyOrder(objectId, this.m_Client);
-			YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(clientSupplyOrder, this.m_ParentWindow);
+			YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(clientSupplyOrder, this.m_ParentWindow, this.m_SystemIdentity);
 			this.m_ClientSupplyOrderCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientSupplyOrderCollectionByClientId(this.m_Client.ClientId);
 			clientSupplyOrder = this.m_ClientSupplyOrderCollection.GetClientSupplyOrder(clientSupplyOrder.ObjectId);
 			ClientSupplyOrderDialog clientSupplyOrderDialog = new ClientSupplyOrderDialog(clientSupplyOrder);
@@ -263,7 +268,7 @@ namespace YellowstonePathology.UI.Client
                 clientLocation.DefaultOrderDetailTypeCode = "SRGCL";
 
                 this.m_Client.ClientLocationCollection.Add(clientLocation);
-                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(clientLocation, this.m_ParentWindow);
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(clientLocation, this.m_ParentWindow, this.m_SystemIdentity);
             }
         }
     }

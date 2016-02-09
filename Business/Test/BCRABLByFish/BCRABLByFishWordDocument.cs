@@ -11,7 +11,7 @@ namespace YellowstonePathology.Business.Test.BCRABLByFish
 		{
 			this.m_ReportNo = reportNo;
 			this.m_ReportSaveEnum = reportSaveEnum;
-			this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo);
+			this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, writer);
 			this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 			BCRABLByFishTestOrder testOrder = (BCRABLByFishTestOrder)this.m_PanelSetOrder;
 

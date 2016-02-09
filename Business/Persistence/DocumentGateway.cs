@@ -46,6 +46,11 @@ namespace YellowstonePathology.Business.Persistence
             }
         }
 
+        public void Save(object writer)
+        {
+            this.m_Stack.Save(writer);
+        }
+
         public void Push(object writer)
         {
             this.m_Stack.Push(writer);
@@ -68,70 +73,30 @@ namespace YellowstonePathology.Business.Persistence
 
         public YellowstonePathology.Business.Test.AccessionOrder PullAccessionOrder(string masterAccessionNo, object writer)
         {
+            AODocumentBuilder documentBuilder = new AODocumentBuilder(masterAccessionNo);
             DocumentId documentId = new DocumentId(typeof(YellowstonePathology.Business.Test.AccessionOrder), writer, masterAccessionNo);
-            Document document = this.m_Stack.Pull(documentId);
-
-            YellowstonePathology.Business.Test.AccessionOrder result = (YellowstonePathology.Business.Test.AccessionOrder)document.Value;            
-
-            if (documentId.LockAquired == true)
-            {
-                document.Submit();
-            }
-            else
-            {
-                this.BuildAccessionOrder(result, masterAccessionNo);
-            }
-
-            return result;
+            Document document = this.m_Stack.Pull(documentId, false, documentBuilder);            
+            return (YellowstonePathology.Business.Test.AccessionOrder)document.Value;
         }
 
         public YellowstonePathology.Business.Test.AccessionOrder GetAccessionOrderByMasterAccessionNo(string masterAccessionNo)
         {
             YellowstonePathology.Business.Test.AccessionOrder result = new Test.AccessionOrder();
-            this.BuildAccessionOrder(result, masterAccessionNo);
-            return result;            
-        }
-
-        public void BuildAccessionOrder(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string masterAccessionNo)
-        {            
-            YellowstonePathology.Business.User.SystemIdentity systemIdentity = new YellowstonePathology.Business.User.SystemIdentity(YellowstonePathology.Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
-
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "AOGWGetByMasterAccessionNo";
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.Add("@MasterAccessionNo", SqlDbType.VarChar).Value = masterAccessionNo;
-            cmd.Parameters.Add("@AquireLock", SqlDbType.Bit).Value = true;
-            cmd.Parameters.Add("@LockAquiredById", SqlDbType.VarChar).Value = systemIdentity.User.UserId;
-            cmd.Parameters.Add("@LockAquiredByUserName", SqlDbType.VarChar).Value = systemIdentity.User.UserName;
-            cmd.Parameters.Add("@LockAquiredByHostName", SqlDbType.VarChar).Value = System.Environment.MachineName;
-            cmd.Parameters.Add("@TimeLockAquired", SqlDbType.DateTime).Value = DateTime.Now;
-
-            YellowstonePathology.Business.Gateway.AccessionOrderBuilder builder = new YellowstonePathology.Business.Gateway.AccessionOrderBuilder();
-            builder.Build(cmd, accessionOrder);            
-        }
+            AODocumentBuilder documentBuilder = new AODocumentBuilder(masterAccessionNo);
+            documentBuilder.Build(result);
+            return result;
+        }        
 
         public void PullTypingShortcut(YellowstonePathology.Business.Typing.TypingShortcut typingShortcut, object writer)
         {
             SqlCommand cmd = new SqlCommand();
             cmd.CommandText = "select * From tblTypingShortcut where ShortcutId = @ShortcutId";
             cmd.CommandType = CommandType.Text;
-            cmd.Parameters.Add("@ShortcutId", SqlDbType.Int).Value = typingShortcut.ShortcutId;           
+            cmd.Parameters.Add("@ShortcutId", SqlDbType.Int).Value = typingShortcut.ShortcutId;
+            GenericDocumentBuilder builder = new GenericDocumentBuilder(cmd);
 
-            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.BaseData.SqlConnectionString))
-            {
-                cn.Open();
-                cmd.Connection = cn;
-                using (SqlDataReader dr = cmd.ExecuteReader())
-                {
-                    while (dr.Read())
-                    {                        
-                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(typingShortcut, dr);
-                        sqlDataReaderPropertyWriter.WriteProperties();                        
-                    }
-                }
-            }
-
-            this.m_Stack.Push(typingShortcut, writer);
+            DocumentId documentId = new DocumentId(typingShortcut, writer);
+            Document document = this.m_Stack.Pull(documentId, false, typingShortcut, builder);            
         }
 
         public void PullClient(YellowstonePathology.Business.Client.Model.Client client, object writer)
@@ -185,7 +150,7 @@ namespace YellowstonePathology.Business.Persistence
         public void PullTaskOrder(YellowstonePathology.Business.Task.Model.TaskOrder taskOrder, object writer)
         {
             DocumentId documentId = new DocumentId(typeof(YellowstonePathology.Business.Task.Model.TaskOrder), writer, taskOrder.TaskOrderId);
-            Document document = this.m_Stack.Pull(documentId);
+            //Document document = this.m_Stack.Pull(documentId, false);
 
             XElement documentElement = new XElement("Document");
 
@@ -227,50 +192,22 @@ namespace YellowstonePathology.Business.Persistence
             SqlCommand cmd = new SqlCommand("Select * from tblUserPreference where HostName = @HostName");
             cmd.CommandType = System.Data.CommandType.Text;
             cmd.Parameters.Add("@HostName", System.Data.SqlDbType.VarChar).Value = hostName;
+            GenericDocumentBuilder builder = new GenericDocumentBuilder(cmd);
 
-            YellowstonePathology.Business.User.UserPreference result = null;
-
-            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
-            {
-                cn.Open();
-                cmd.Connection = cn;
-
-                using (SqlDataReader dr = cmd.ExecuteReader())
-                {
-                    while (dr.Read())
-                    {
-                        result = new User.UserPreference();
-                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(result, dr);
-                        sqlDataReaderPropertyWriter.WriteProperties();                        
-                    }
-                }
-            }
-
-            this.m_Stack.Push(result, writer);
-            return result;
+            DocumentId documentId = new DocumentId(typeof(YellowstonePathology.Business.User.UserPreference), writer, hostName);
+            Document document = this.m_Stack.Pull(documentId, true, builder);
+          
+            return (YellowstonePathology.Business.User.UserPreference)document.Value;
         }
 
-        public YellowstonePathology.Business.ApplicationVersion PullApplicationVersion(object writer)
+        public YellowstonePathology.Business.ApplicationVersion GetApplicationVersion(object writer)
         {
-            YellowstonePathology.Business.ApplicationVersion result = new ApplicationVersion();
             SqlCommand cmd = new SqlCommand();
             cmd.CommandText = "Select * from tblApplicationVersion";
             cmd.CommandType = CommandType.Text;
-            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
-            {
-                cn.Open();
-                cmd.Connection = cn;
-                using (SqlDataReader dr = cmd.ExecuteReader())
-                {
-                    while (dr.Read())
-                    {
-                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(result, dr);
-                        sqlDataReaderPropertyWriter.WriteProperties();                        
-                    }
-                }
-            }
-
-            this.m_Stack.Push(result, writer);
+            GenericDocumentBuilder builder = new GenericDocumentBuilder(cmd);
+            YellowstonePathology.Business.ApplicationVersion result = new ApplicationVersion();
+            builder.Build(result);
             return result;
         }
 

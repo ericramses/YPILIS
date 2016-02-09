@@ -53,7 +53,7 @@ namespace YellowstonePathology.UI
 		{
             YellowstonePathology.Business.Amendment.Model.Amendment amendment = this.m_AmendmentUI.PanelSetOrder.AddAmendment();
 			amendment.TestResultAmendmentFill(this.m_AmendmentUI.ReportNo, this.m_AmendmentUI.AssignedToId, "???");
-			this.m_AmendmentUI.Save(false);
+			//this.m_AmendmentUI.Save(false);
 
 			NotifyPropertyChanged("Amendments");
 			this.ListViewAmendments.SelectedIndex = 0;

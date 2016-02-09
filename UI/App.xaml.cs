@@ -128,7 +128,7 @@ namespace YellowstonePathology.UI
 		private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
 		{
 			Version currentVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
-			YellowstonePathology.Business.ApplicationVersion applicationVersion = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.GetApplicationVersion();
+			YellowstonePathology.Business.ApplicationVersion applicationVersion = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.GetApplicationVersion(this);
 			Version availableVersion = new Version(applicationVersion.Version);
 			if (availableVersion > currentVersion)
 			{

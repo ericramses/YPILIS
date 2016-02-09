@@ -19,7 +19,7 @@ namespace YellowstonePathology.Business.Document
 			CaseDocumentType = "ClientOrderDataSheet";
 		}
 
-		public override void Show(System.Windows.Controls.ContentControl contentControl)
+		public override void Show(System.Windows.Controls.ContentControl contentControl, object writer)
 		{            
             XElement clientOrderDocument = this.m_ClientOrder.ToXML(true);
             YellowstonePathology.Document.Result.Data.ClientOrderDataSheetData data = new YellowstonePathology.Document.Result.Data.ClientOrderDataSheetData(clientOrderDocument);

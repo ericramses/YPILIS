@@ -146,7 +146,7 @@ namespace YellowstonePathology.UI.Billing
             foreach (YellowstonePathology.Business.ReportNo reportNo in reportNoCollection)
             {
                 string masterAccessionNo = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetMasterAccessionNoFromReportNo(reportNo.Value);
-                YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, Business.Persistence.DocumentWriterEnum.BillingWorkspace);
+                YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.GetAccessionOrderByMasterAccessionNo(masterAccessionNo);
                 YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo.Value);
 
                 if (accessionOrder.UseBillingAgent == true)
@@ -168,8 +168,7 @@ namespace YellowstonePathology.UI.Billing
         }        
 
         private void SetupWorkingFolders(string workingFolder)
-        {
-            
+        {            
             if (Directory.Exists(workingFolder) == false)
             {
                 Directory.CreateDirectory(workingFolder);

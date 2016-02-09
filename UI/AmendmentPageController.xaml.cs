@@ -43,7 +43,7 @@ namespace YellowstonePathology.UI
                 AmendmentEditPage amendmentEditPage = (AmendmentEditPage)this.NavigationFrame.Content;
                 amendmentEditPage.TextBoxAmendment.GetBindingExpression(TextBox.TextProperty).UpdateSource();
             }
-            this.m_AmendmentUI.Save(true);            
+            //this.m_AmendmentUI.Save(true);            
         }
     }
 }

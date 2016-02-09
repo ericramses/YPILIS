@@ -11,7 +11,7 @@ namespace YellowstonePathology.Business.Test.API2MALT1
 		{
 			this.m_ReportNo = reportNo;
 			this.m_ReportSaveEnum = reportSaveEnum;
-			this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo);
+			this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, writer);
 			this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 			API2MALT1TestOrder testOrder = (API2MALT1TestOrder)this.m_PanelSetOrder;
 

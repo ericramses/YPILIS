@@ -13,8 +13,8 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 			this.m_ReportNo = reportNo;
 			this.m_ReportSaveEnum = reportSaveEnum;
 
-			this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo);
-			this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
+			this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, writer);
+            this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 			HER2AmplificationByISHTestOrder panelSetOrderHer2ByIsh = (HER2AmplificationByISHTestOrder)this.m_PanelSetOrder;
 
 			if (panelSetOrderHer2ByIsh.Indicator.ToUpper() == "BREAST")

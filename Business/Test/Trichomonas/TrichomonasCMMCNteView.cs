@@ -18,7 +18,7 @@ namespace YellowstonePathology.Business.Test.Trichomonas
             this.m_ReportNo = reportNo;            
 		}
 
-        public override void ToXml(XElement document)
+        public override void ToXml(XElement document, object writer)
         {
 			TrichomonasTestOrder panelSetOrder = (TrichomonasTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);            
 

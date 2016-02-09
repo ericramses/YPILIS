@@ -62,27 +62,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 		public YellowstonePathology.Business.Interface.ISolidTumorTesting SolidTumorTesting
 		{
 			get { return this.m_SolidTumorTesting; }
-		}		
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save(bool releaseLock)
-		{
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
-        }
-
-        public void UpdateBindingSources()
-		{
-
-		}       
+		}				    
 
 		private void ButtonNext_Click(object sender, RoutedEventArgs e)
 		{

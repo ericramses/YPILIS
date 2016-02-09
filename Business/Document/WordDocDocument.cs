@@ -13,7 +13,7 @@ namespace YellowstonePathology.Business.Document
 		{
 		}
 
-		public override void Show(System.Windows.Controls.ContentControl contentControl)
+		public override void Show(System.Windows.Controls.ContentControl contentControl, object writer)
 		{
 			string newFile = string.Empty;
 			if (File.Exists(this.FullFileName) == true)

@@ -443,7 +443,7 @@ namespace YellowstonePathology.UI.ReportDistribution
         private YellowstonePathology.Business.ReportDistribution.Model.DistributionResult HandleMTDOHDistribution(YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution testOrderReportDistribution)
         {
             YellowstonePathology.Business.Rules.MethodResult result = new Business.Rules.MethodResult();
-            YellowstonePathology.Business.HL7View.CDC.MTDohResultView mtDohResultView = new Business.HL7View.CDC.MTDohResultView(testOrderReportDistribution.ReportNo);
+            YellowstonePathology.Business.HL7View.CDC.MTDohResultView mtDohResultView = new Business.HL7View.CDC.MTDohResultView(testOrderReportDistribution.ReportNo, Window.GetWindow(this));
             mtDohResultView.CanSend(result);
             mtDohResultView.Send(result);
 
@@ -477,7 +477,7 @@ namespace YellowstonePathology.UI.ReportDistribution
         private YellowstonePathology.Business.ReportDistribution.Model.DistributionResult HandleATHENADistribution(YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution testOrderReportDistribution)
         {
             YellowstonePathology.Business.Rules.MethodResult methodResult = new Business.Rules.MethodResult();
-            YellowstonePathology.Business.HL7View.CMMC.CMMCResultView cmmcResultView = new Business.HL7View.CMMC.CMMCResultView(testOrderReportDistribution.ReportNo);
+            YellowstonePathology.Business.HL7View.CMMC.CMMCResultView cmmcResultView = new Business.HL7View.CMMC.CMMCResultView(testOrderReportDistribution.ReportNo, Window.GetWindow(this));
             YellowstonePathology.Business.Rules.MethodResult MmthodResult = new Business.Rules.MethodResult();
             cmmcResultView.Send(methodResult);
 
@@ -490,13 +490,13 @@ namespace YellowstonePathology.UI.ReportDistribution
         private YellowstonePathology.Business.ReportDistribution.Model.DistributionResult HandleMeditechDistribution(YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution testOrderReportDistribution)
         {
             YellowstonePathology.Business.ReportDistribution.Model.MeditechDistribution meditechDistribution = new Business.ReportDistribution.Model.MeditechDistribution();            
-            return meditechDistribution.Distribute(testOrderReportDistribution.ReportNo);                        
+            return meditechDistribution.Distribute(testOrderReportDistribution.ReportNo, Window.GetWindow(this));                        
         }
 
         private YellowstonePathology.Business.ReportDistribution.Model.DistributionResult HandleECWDistribution(YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution testOrderReportDistribution)
         {            
             YellowstonePathology.Business.Rules.MethodResult methodResult = new Business.Rules.MethodResult();            
-            YellowstonePathology.Business.HL7View.ECW.ECWResultView resultView = new Business.HL7View.ECW.ECWResultView(testOrderReportDistribution.ReportNo, false);
+            YellowstonePathology.Business.HL7View.ECW.ECWResultView resultView = new Business.HL7View.ECW.ECWResultView(testOrderReportDistribution.ReportNo, false, Window.GetWindow(this));
             resultView.Send(methodResult);
 
             YellowstonePathology.Business.ReportDistribution.Model.DistributionResult distributionResult = new Business.ReportDistribution.Model.DistributionResult();
@@ -514,7 +514,7 @@ namespace YellowstonePathology.UI.ReportDistribution
 
         private YellowstonePathology.Business.ReportDistribution.Model.DistributionResult HandleEPICDistribution(YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution testOrderReportDistribution)
         {
-            YellowstonePathology.Business.HL7View.IResultView resultView = YellowstonePathology.Business.HL7View.ResultViewFactory.GetResultView(testOrderReportDistribution.ReportNo, testOrderReportDistribution.ClientId, false);
+            YellowstonePathology.Business.HL7View.IResultView resultView = YellowstonePathology.Business.HL7View.ResultViewFactory.GetResultView(testOrderReportDistribution.ReportNo, testOrderReportDistribution.ClientId, false, Window.GetWindow(this));
             YellowstonePathology.Business.Rules.MethodResult methodResult = new Business.Rules.MethodResult();
             resultView.Send(methodResult);
 

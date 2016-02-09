@@ -15,9 +15,9 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
 
         }
 
-        public override YellowstonePathology.Business.Rules.MethodResult Distribute(string reportNo)
+        public override YellowstonePathology.Business.Rules.MethodResult Distribute(string reportNo, object writer)
         {
-            YellowstonePathology.Business.HL7View.CMMC.CMMCResultView cmmcResultView = new HL7View.CMMC.CMMCResultView(reportNo);            
+            YellowstonePathology.Business.HL7View.CMMC.CMMCResultView cmmcResultView = new HL7View.CMMC.CMMCResultView(reportNo, writer);            
             YellowstonePathology.Business.Rules.MethodResult result = new Rules.MethodResult();
             cmmcResultView.Send(result);            
             return result;

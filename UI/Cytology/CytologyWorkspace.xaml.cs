@@ -47,7 +47,7 @@ namespace YellowstonePathology.UI.Cytology
 			this.m_SystemIdentity = new YellowstonePathology.Business.User.SystemIdentity(YellowstonePathology.Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
 			this.m_BarcodeScanPort = YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort.Instance;
 
-            this.m_CytologyUI = new CytologyUI(this.m_SystemIdentity);
+            this.m_CytologyUI = new CytologyUI(this.m_SystemIdentity, writer);
 			this.m_CytologyResultsWorkspace = new CytologyResultsWorkspace(this.m_CytologyUI);
 			this.m_CytologyUI.AccessionChanged += new CytologyUI.AccessionChangedEventHandler(CytologyUI_AccessionChanged);
 

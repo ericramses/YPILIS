@@ -103,7 +103,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 			this.m_ClientOrder.OrderType = "Routine Surgical Pathology";
             this.m_AClientOrderHasBeenAcquired = true;
 
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(this.m_ClientOrder, this.m_Writer);			
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(this.m_ClientOrder, this.m_Writer, this.m_SystemIdentity);			
         }
 
         public void IFoundAClient(YellowstonePathology.Business.Client.Model.Client client)
@@ -244,7 +244,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 					break;
 			}
 
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(this.m_AccessionOrder, this.m_Writer);			
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(this.m_AccessionOrder, this.m_Writer, this.m_SystemIdentity);			
 			this.m_AccessionOrder.FromClientOrder(this.m_ClientOrder, this.m_SystemIdentity.User.UserId);                                   
 			//YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);			
 

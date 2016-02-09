@@ -70,7 +70,7 @@ namespace YellowstonePathology.UI.Surgical
 			this.CommandBindings.Add(this.CommandBindingShowOrderForm);
 			this.CommandBindings.Add(this.CommandBindingShowAmendmentDialog);                        	
             
-			this.m_TypingUI = new YellowstonePathology.Business.Typing.TypingUIV2(this.m_SystemIdentity);									
+			this.m_TypingUI = new YellowstonePathology.Business.Typing.TypingUIV2(this.m_SystemIdentity, this.m_Writer);									
 			this.m_AmendmentControl = new AmendmentControlV2(this.m_SystemIdentity, string.Empty, this.m_TypingUI.AccessionOrder);			
             this.m_DocumentViewer = new DocumentWorkspace();            
 
@@ -135,7 +135,7 @@ namespace YellowstonePathology.UI.Surgical
             if (this.m_TypingUI.SurgicalTestOrder != null)
             {
                 YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.LastReportNo = this.m_TypingUI.SurgicalTestOrder.ReportNo;
-                YellowstonePathology.Business.User.UserPreferenceInstance.Instance.SubmitChanges();
+                YellowstonePathology.Business.User.UserPreferenceInstance.Instance.Save();
             }            
         }        
 
@@ -224,7 +224,7 @@ namespace YellowstonePathology.UI.Surgical
             if (this.m_TypingUI.SurgicalTestOrder != null)
             {
                 YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.LastReportNo = this.m_TypingUI.SurgicalTestOrder.ReportNo;
-                YellowstonePathology.Business.User.UserPreferenceInstance.Instance.SubmitChanges();
+                YellowstonePathology.Business.User.UserPreferenceInstance.Instance.Save();
             }
 
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(masterAccessionNoOrReportNo);
@@ -867,7 +867,7 @@ namespace YellowstonePathology.UI.Surgical
                 if (this.m_TypingUI.SurgicalTestOrder != null)
                 {
                     YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.LastReportNo = this.m_TypingUI.SurgicalTestOrder.ReportNo;
-                    YellowstonePathology.Business.User.UserPreferenceInstance.Instance.SubmitChanges();
+                    YellowstonePathology.Business.User.UserPreferenceInstance.Instance.Save();
                 }
 
                 YellowstonePathology.Business.Surgical.SurgicalOrderListItem surgicalOrderListItem = (YellowstonePathology.Business.Surgical.SurgicalOrderListItem)this.ListViewSurgicalCaseList.SelectedItem;

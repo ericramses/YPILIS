@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Login
 		{
 			this.m_SystemIdentity = systemIdentity;
 			this.m_LoginPageWindow = new LoginPageWindow(this.m_SystemIdentity);			
-			this.m_ClientOrderReceivingHandler = new Receiving.ClientOrderReceivingHandler(this.m_SystemIdentity);
+			this.m_ClientOrderReceivingHandler = new Receiving.ClientOrderReceivingHandler(this.m_SystemIdentity, this.m_LoginPageWindow);
 		}
 
 		public void Start()

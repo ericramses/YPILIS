@@ -101,7 +101,8 @@ namespace YellowstonePathology.Business.Task.Model
 				actionDate = actionDate.AddDays(1);
 			}
 
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(taskOrderCollection, false);			
+            //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(taskOrderCollection, false);			
+
 			actionDate = actionDate.AddDays(-1);
 			result.Message = "Daily Task Order Cytology Slide Disposal have been added through " + actionDate.ToString("MM/dd/yyyy");
 			return result;
@@ -126,7 +127,7 @@ namespace YellowstonePathology.Business.Task.Model
 				actionDate = actionDate.AddDays(1);
 			}
 
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(taskOrderCollection, true);			
+            //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(taskOrderCollection, true);			
 			actionDate = actionDate.AddDays(-1);
 			result.Message = "Daily Task Order Surgical Specimen Disposal have been added through " + actionDate.ToString("MM/dd/yyyy");
 			return result;
@@ -152,7 +153,7 @@ namespace YellowstonePathology.Business.Task.Model
 				actionDate = actionDate.AddDays(7);
 			}
 
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(taskOrderCollection, true);
+            //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(taskOrderCollection, true);
             actionDate = actionDate.AddDays(-7);
 			result.Message = "Daily Task Order POC Report have been added through " + actionDate.ToString("MM/dd/yyyy");
 			return result;

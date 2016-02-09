@@ -538,7 +538,7 @@ namespace YellowstonePathology.UI.Mongo
 
         private void MenuItemBuildAccessionOrderObject_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder("14-24");
+            //YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder("14-24");
         }
 
         private void MenuItemBuildPanelSetCollection_Click(object sender, RoutedEventArgs e)
@@ -695,7 +695,7 @@ namespace YellowstonePathology.UI.Mongo
                 List<Business.MasterAccessionNo> masterAccessionNos = Business.Gateway.AccessionOrderGateway.GetMasterAccessionNoList(currentTransferDate);                
                 foreach (Business.MasterAccessionNo masterAccessionNo in masterAccessionNos)
                 {
-                    Business.Test.AccessionOrder ao = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo.Value);
+                    Business.Test.AccessionOrder ao = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo.Value, Window.GetWindow(this));
 
                     System.Text.StringBuilder sb = new System.Text.StringBuilder();
                     System.IO.StringWriter sw = new System.IO.StringWriter(sb);                        

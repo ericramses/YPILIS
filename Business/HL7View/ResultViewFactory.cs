@@ -7,7 +7,7 @@ namespace YellowstonePathology.Business.HL7View
 {
     public class ResultViewFactory
     {
-        public static IResultView GetResultView(string reportNo, int clientId, bool testing)
+        public static IResultView GetResultView(string reportNo, int clientId, bool testing, object writer)
         {            
             IResultView resultView = null;
             switch (clientId)
@@ -46,7 +46,7 @@ namespace YellowstonePathology.Business.HL7View
                 case 67:
                 case 673:
                 case 149:
-                    resultView = new Business.HL7View.EPIC.EpicResultView(reportNo, testing);                    
+                    resultView = new Business.HL7View.EPIC.EpicResultView(reportNo, testing, writer);                    
                     break;
                 case 203: //Richard Taylor
                 case 1177: //Spring Creek
@@ -55,13 +55,13 @@ namespace YellowstonePathology.Business.HL7View
                 case 954: // Barb Miller
                 case 1471: //Marchion
                 //case 219:
-                    resultView = new HL7View.CMMC.CMMCResultView(reportNo);                    
+                    resultView = new HL7View.CMMC.CMMCResultView(reportNo, writer);
                     break;
                 case 1337:
-                    resultView = new HL7View.CDC.MTDohResultView(reportNo);
+                    resultView = new HL7View.CDC.MTDohResultView(reportNo, writer);
                     break;
                 case 1203:
-                    resultView = new HL7View.ECW.ECWResultView(reportNo, testing);
+                    resultView = new HL7View.ECW.ECWResultView(reportNo, testing, writer);
                     break;
             }       
             return resultView;

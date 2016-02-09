@@ -125,11 +125,11 @@ namespace YellowstonePathology.UI.Login.Receiving
             bool started = false;
             if (this.m_PageNavigationMode == PageNavigationModeEnum.Inline)
             {
-                started = resultPathFactory.Start(e.PanelSetOrder, this.m_AccessionOrder, this.m_PageNavigator, systemIdentity, System.Windows.Visibility.Collapsed);
+                started = resultPathFactory.Start(e.PanelSetOrder, this.m_AccessionOrder, this.m_PageNavigator, this.m_LoginPageWindow, systemIdentity, System.Windows.Visibility.Collapsed);
             }
             else
             {
-                started = resultPathFactory.Start(e.PanelSetOrder, this.m_AccessionOrder, this.m_LoginPageWindow.PageNavigator, systemIdentity, System.Windows.Visibility.Collapsed);
+                started = resultPathFactory.Start(e.PanelSetOrder, this.m_AccessionOrder, this.m_LoginPageWindow.PageNavigator, this.m_LoginPageWindow, systemIdentity, System.Windows.Visibility.Collapsed);
             }
              
             if (started == false)
@@ -193,7 +193,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 
         private void AccessionOrderPage_OrderPanelSet(object sender, CustomEventArgs.TestOrderInfoEventArgs e)
 		{
-			ReportOrderPath reportOrderPath = new ReportOrderPath(this.m_AccessionOrder, this.m_ClientOrder, this.m_SystemIdentity, this.m_PageNavigator, this.m_PageNavigationMode);
+			ReportOrderPath reportOrderPath = new ReportOrderPath(this.m_AccessionOrder, this.m_ClientOrder, this.m_SystemIdentity, this.m_PageNavigator, this.m_PageNavigationMode, this.m_LoginPageWindow);
 			reportOrderPath.Finish += new ReportOrderPath.FinishEventHandler(ReportOrderPath_Finish);
 			reportOrderPath.Start(e.TestOrderInfo);
 		}

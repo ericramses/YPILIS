@@ -9,8 +9,8 @@ namespace YellowstonePathology.Business.HL7View.EPIC
 {
     public class TestEpicStatusMessage : EpicStatusMessage
     {
-        public TestEpicStatusMessage(string clientOrderId, OrderStatus orderStatus, YellowstonePathology.Business.ClientOrder.Model.UniversalService universalServiceId) 
-            : base(clientOrderId, orderStatus, universalServiceId)
+        public TestEpicStatusMessage(string clientOrderId, OrderStatus orderStatus, YellowstonePathology.Business.ClientOrder.Model.UniversalService universalServiceId, object writer) 
+            : base(clientOrderId, orderStatus, universalServiceId, writer)
         {
 
         }

@@ -28,9 +28,11 @@ namespace YellowstonePathology.UI.Login
         private YellowstonePathology.Business.ClientOrder.Model.OrderBrowserListItemCollection m_OrderBrowserListItemCollection;
 		private string m_ReportNo;
         private string m_SelectedItemCount;
+        private object m_Writer;
 
-        public LoginUIV2()
-		{			
+        public LoginUIV2(object writer)
+		{
+            this.m_Writer = writer;
 			this.m_LogUsers = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetUsersByRole(YellowstonePathology.Business.User.SystemUserRoleDescriptionEnum.Log, true);
             this.m_CaseTypeList = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetCaseTypes();
 			this.m_TaskAcknowledgementTypeList = YellowstonePathology.Business.Task.Model.TaskAcknowledgementType.GetAll();
@@ -278,7 +280,7 @@ namespace YellowstonePathology.UI.Login
 
         public void GetAccessionOrder(string masterAccessionNo, string reportNo)
 		{
-			this.AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo);
+			this.AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, this.m_Writer);
 			this.ReportNo = reportNo;
             this.m_CaseDocumentCollection = new YellowstonePathology.Business.Document.CaseDocumentCollection(this.AccessionOrder, reportNo);            
 		}
@@ -287,7 +289,7 @@ namespace YellowstonePathology.UI.Login
 		{
 			bool result = false;
             string masterAccessionNo = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetMasterAccessionNoFromContainerId(containerId);
-            this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo);
+            this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, this.m_Writer);
 
             if (this.m_AccessionOrder != null)
 			{

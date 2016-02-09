@@ -40,7 +40,7 @@ namespace YellowstonePathology.UI.Login
             this.CommandBindingRemoveTab = new CommandBinding(MainWindow.RemoveTabCommand, RemoveTab);
             this.CommandBindings.Add(this.CommandBindingRemoveTab);
 
-            this.m_LoginUI = new LoginUIV2();
+            this.m_LoginUI = new LoginUIV2(this.m_Writer);
             this.m_DocumentViewer = new DocumentWorkspace();
 
             this.m_BarcodeScanPort = YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort.Instance;

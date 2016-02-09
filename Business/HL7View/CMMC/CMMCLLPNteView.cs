@@ -18,7 +18,7 @@ namespace YellowstonePathology.Business.HL7View.CMMC
             this.m_ReportNo = reportNo;   
 		}
 
-        public override void ToXml(XElement document)
+        public override void ToXml(XElement document, object writer)
         {
 			YellowstonePathology.Business.Test.LLP.PanelSetOrderLeukemiaLymphoma panelSetOrder = (YellowstonePathology.Business.Test.LLP.PanelSetOrderLeukemiaLymphoma)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
 

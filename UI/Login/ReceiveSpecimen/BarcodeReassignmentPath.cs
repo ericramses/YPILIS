@@ -10,14 +10,14 @@ namespace YellowstonePathology.UI.Login.ReceiveSpecimen
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
         private LoginPageWindow m_LoginPageWindow;
 		private YellowstonePathology.Business.ClientOrder.Model.ClientOrder m_ClientOrder;
-		private YellowstonePathology.Business.ClientOrder.Model.ClientOrderDetail m_ClientOrderDetail;
+		private YellowstonePathology.Business.ClientOrder.Model.ClientOrderDetail m_ClientOrderDetail;        
 
         public BarcodeReassignmentPath()
         {
         }        
 
         public void Start()
-        {
+        {            
             this.m_LoginPageWindow = new LoginPageWindow(this.m_SystemIdentity);
 			if (Business.User.SystemIdentity.DoesLoggedInUserNeedToScanId() == true)
 			{
@@ -117,17 +117,17 @@ namespace YellowstonePathology.UI.Login.ReceiveSpecimen
 		private void ReplaceContainerId(string containerId)
 		{
             string masterAccessionNo = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetMasterAccessionNoFromContainerId(this.m_ClientOrderDetail.ContainerId);
-            YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo);             
+            YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, this.m_LoginPageWindow);             
 						
 			if (accessionOrder != null)
 			{
 				YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = accessionOrder.SpecimenOrderCollection.GetSpecimenOrderByContainerId(this.m_ClientOrderDetail.ContainerId);								
 				specimenOrder.ContainerId = containerId;
-                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(specimenOrder, false);				
+                //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(specimenOrder, false);				
 			}
 						
 			this.m_ClientOrderDetail.ContainerId = containerId;
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_ClientOrderDetail, false);           
+            //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_ClientOrderDetail, false);           
 
 			ClientOrderPage clientOrderPage = new ClientOrderPage(this.m_ClientOrder);
 			clientOrderPage.Return += new Login.ClientOrderPage.ReturnEventHandler(ClientOrderPageConfirm_Return);

@@ -85,7 +85,7 @@ namespace YellowstonePathology.UI.Common
                 YellowstonePathology.Business.Test.Model.TestOrder testOrder = (YellowstonePathology.Business.Test.Model.TestOrder)menuItem.Tag;                
                 YellowstonePathology.Business.Visitor.RemoveTestOrderVisitor removeTestOrderVisitor = new Business.Visitor.RemoveTestOrderVisitor(testOrder.TestOrderId);
                 this.m_AccessionOrder.TakeATrip(removeTestOrderVisitor);
-                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
+                //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
             }
         }        
 

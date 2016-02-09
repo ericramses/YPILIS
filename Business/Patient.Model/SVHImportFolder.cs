@@ -31,7 +31,7 @@ namespace YellowstonePathology.Business.Patient.Model
             get { return this.m_FileList; }
         }
 
-        public void Process(DateTime importDate)
+        public void Process(DateTime importDate, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             string[] files = System.IO.Directory.GetFiles(FolderPath);
             foreach (string file in files)
@@ -41,7 +41,7 @@ namespace YellowstonePathology.Business.Patient.Model
                 {
 					if (svhImportFilename.FileDate == importDate)
 					{
-						SVHImportFile svhImportFile = new SVHImportFile(svhImportFilename);
+						SVHImportFile svhImportFile = new SVHImportFile(svhImportFilename, systemIdentity);
 						svhImportFile.ParseAndPersist();
 						string destinationFileName = Path.Combine(ProcessedFolderPath, Path.GetFileName(file));
 						if (File.Exists(destinationFileName) == false) File.Move(svhImportFilename.FullPath, destinationFileName);

@@ -67,7 +67,7 @@ namespace YellowstonePathology.UI.Test
 				result = true;
                 string reportNo = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(krasStandardReflexTest.PanelSetId, this.m_PanelSetOrder.OrderedOnId, true).ReportNo;
                 YellowstonePathology.UI.Test.KRASStandardReflexResultPath resultPath = new YellowstonePathology.UI.Test.KRASStandardReflexResultPath(reportNo,
-					this.m_AccessionOrder, this.m_PageNavigator, System.Windows.Visibility.Visible, this.m_Window);
+					this.m_AccessionOrder, this.m_PageNavigator, this.m_Window, System.Windows.Visibility.Visible);
 
 				resultPath.Finish += new Test.ResultPath.FinishEventHandler(ResultPath_Finish);
                 resultPath.Back += new KRASStandardReflexResultPath.BackEventHandler(ResultPath_Back);
@@ -99,7 +99,7 @@ namespace YellowstonePathology.UI.Test
 			YellowstonePathology.Business.Interface.IOrderTarget orderTarget = this.m_AccessionOrder.SpecimenOrderCollection.GetOrderTarget(panelSetOrder.OrderedOnId);
             YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new YellowstonePathology.Business.Test.TestOrderInfo(panelSet, orderTarget, false);            
 
-			YellowstonePathology.UI.Login.Receiving.ReportOrderPath reportOrderPath = new Login.Receiving.ReportOrderPath(this.m_AccessionOrder, this.m_SystemIdentity, this.m_PageNavigator, PageNavigationModeEnum.Inline);
+			YellowstonePathology.UI.Login.Receiving.ReportOrderPath reportOrderPath = new Login.Receiving.ReportOrderPath(this.m_AccessionOrder, this.m_SystemIdentity, this.m_PageNavigator, PageNavigationModeEnum.Inline, this.m_Window);
 			reportOrderPath.Finish += new Login.Receiving.ReportOrderPath.FinishEventHandler(ReportOrderPath_Finish);
             reportOrderPath.Start(testOrderInfo);
 		}

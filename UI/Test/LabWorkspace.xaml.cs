@@ -49,10 +49,12 @@ namespace YellowstonePathology.UI.Test
         private const string m_SystemIdentityUnknowMessage = "The current operation cannot be performed because the current system user is unknown.";
         private YellowstonePathology.UI.Test.ResultDialog m_ResultDialog;
         private MainWindowCommandButtonHandler m_MainWindowCommandButtonHandler;
+        private TabItem m_Writer;
 
         public LabWorkspace(MainWindowCommandButtonHandler mainWindowCommandButtonHandler, TabItem writer)
         {
             this.m_MainWindowCommandButtonHandler = mainWindowCommandButtonHandler;
+            this.m_Writer = writer;
 			this.m_SystemIdentity = new YellowstonePathology.Business.User.SystemIdentity(YellowstonePathology.Business.User.SystemIdentityTypeEnum.CurrentlyScannedIn);
 
             this.CommandBindingApplicationClosing = new CommandBinding(MainWindow.ApplicationClosingCommand, CloseWorkspace);
@@ -300,7 +302,7 @@ namespace YellowstonePathology.UI.Test
 				if (this.m_LabUI.AccessionOrder.PanelSetOrderCollection.Count != 0)
                 {
                     YellowstonePathology.UI.CaseDocumentViewer caseDocumentViewer = new CaseDocumentViewer();
-                    caseDocumentViewer.View(this.m_LabUI.AccessionOrder.MasterAccessionNo, this.m_LabUI.PanelSetOrder.ReportNo, this.m_LabUI.PanelSetOrder.PanelSetId);
+                    caseDocumentViewer.View(this.m_LabUI.AccessionOrder.MasterAccessionNo, this.m_LabUI.PanelSetOrder.ReportNo, this.m_LabUI.PanelSetOrder.PanelSetId, this.m_Writer);
                 }
                 else
                 {
@@ -1073,7 +1075,7 @@ namespace YellowstonePathology.UI.Test
                 YellowstonePathology.Business.Rules.MethodResult methodResult = caseDocument.DeleteCaseFiles(orderIdParser);
                 if (methodResult.Success == true)
                 {
-                    caseDocument.Render(item.MasterAccessionNo, item.ReportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum.Normal);
+                    caseDocument.Render(item.MasterAccessionNo, item.ReportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum.Normal, this.m_Writer);
                     caseDocument.Publish();
                     MessageBox.Show("The document has been published");
                 }
@@ -1133,7 +1135,7 @@ namespace YellowstonePathology.UI.Test
             {
 				YellowstonePathology.Business.Search.ReportSearchItem item = (YellowstonePathology.Business.Search.ReportSearchItem)this.ListViewCaseList.SelectedItem;
                 YellowstonePathology.Business.ReportDistribution.Model.MeditechDistribution meditechDistribution = new Business.ReportDistribution.Model.MeditechDistribution();
-                meditechDistribution.Distribute(item.ReportNo);
+                meditechDistribution.Distribute(item.ReportNo, this.m_Writer);
                 MessageBox.Show("Meditech result has been sent");
             }
         }  
@@ -1143,7 +1145,7 @@ namespace YellowstonePathology.UI.Test
             if (this.ListViewCaseList.SelectedItem != null)
             {
 				YellowstonePathology.Business.Search.ReportSearchItem item = (YellowstonePathology.Business.Search.ReportSearchItem)this.ListViewCaseList.SelectedItem;
-				YellowstonePathology.Business.HL7View.IResultView resultView = YellowstonePathology.Business.HL7View.ResultViewFactory.GetResultView(item.ReportNo, this.m_LabUI.AccessionOrder.ClientId, false);
+				YellowstonePathology.Business.HL7View.IResultView resultView = YellowstonePathology.Business.HL7View.ResultViewFactory.GetResultView(item.ReportNo, this.m_LabUI.AccessionOrder.ClientId, false, this.m_Writer);
 				if (resultView != null)
 				{
 					XElement document = resultView.GetDocument();
@@ -1162,7 +1164,7 @@ namespace YellowstonePathology.UI.Test
             if (this.ListViewCaseList.SelectedItem != null)
             {
 				YellowstonePathology.Business.Search.ReportSearchItem item = (YellowstonePathology.Business.Search.ReportSearchItem)this.ListViewCaseList.SelectedItem;                
-                YellowstonePathology.Business.HL7View.IResultView resultView = YellowstonePathology.Business.HL7View.ResultViewFactory.GetResultView(item.ReportNo, this.m_LabUI.AccessionOrder.ClientId, false);
+                YellowstonePathology.Business.HL7View.IResultView resultView = YellowstonePathology.Business.HL7View.ResultViewFactory.GetResultView(item.ReportNo, this.m_LabUI.AccessionOrder.ClientId, false, this.m_Writer);
                 YellowstonePathology.Business.Rules.MethodResult methodResult = new Business.Rules.MethodResult();
                 resultView.Send(methodResult);                               
             }
@@ -1173,7 +1175,7 @@ namespace YellowstonePathology.UI.Test
             if (this.ListViewCaseList.SelectedItem != null)
             {
 				YellowstonePathology.Business.Search.ReportSearchItem item = (YellowstonePathology.Business.Search.ReportSearchItem)this.ListViewCaseList.SelectedItem;
-                YellowstonePathology.Business.HL7View.IResultView resultView = YellowstonePathology.Business.HL7View.ResultViewFactory.GetResultView(item.ReportNo, this.m_LabUI.AccessionOrder.ClientId, true);
+                YellowstonePathology.Business.HL7View.IResultView resultView = YellowstonePathology.Business.HL7View.ResultViewFactory.GetResultView(item.ReportNo, this.m_LabUI.AccessionOrder.ClientId, true, this.m_Writer);
                 YellowstonePathology.Business.Rules.MethodResult methodResult = new Business.Rules.MethodResult();
                 resultView.Send(methodResult);
             }
@@ -1192,7 +1194,7 @@ namespace YellowstonePathology.UI.Test
             YellowstonePathology.UI.Test.ResultPathFactory resultPathFactory = new Test.ResultPathFactory();
             resultPathFactory.Finished += new Test.ResultPathFactory.FinishedEventHandler(ResultPathFactory_Finished);
 
-            bool started = resultPathFactory.Start(this.m_LabUI.PanelSetOrder, this.m_LabUI.AccessionOrder, this.m_ResultDialog.PageNavigator, System.Windows.Visibility.Collapsed);
+            bool started = resultPathFactory.Start(this.m_LabUI.PanelSetOrder, this.m_LabUI.AccessionOrder, this.m_ResultDialog.PageNavigator, this.m_ResultDialog, System.Windows.Visibility.Collapsed);
             if (started == true)
             {
                 this.m_ResultDialog.ShowDialog();
@@ -1219,7 +1221,7 @@ namespace YellowstonePathology.UI.Test
             {                
                 foreach(YellowstonePathology.Business.Search.ReportSearchItem reportSearchitem in this.ListViewCaseList.SelectedItems)
                 {
-                    YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(reportSearchitem.MasterAccessionNo);
+                    YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(reportSearchitem.MasterAccessionNo, this.m_Writer);
                     if (accessionOrder.SpecimenOrderCollection.HasThinPrepFluidSpecimen() == true)
                     {
                         YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = accessionOrder.SpecimenOrderCollection.GetThinPrep();

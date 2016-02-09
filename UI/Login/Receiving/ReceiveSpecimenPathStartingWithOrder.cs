@@ -49,7 +49,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 
 		private void SetClient()
 		{			
-			this.m_ClientOrderReceivingHandler = new Receiving.ClientOrderReceivingHandler(this.m_SystemIdentity);
+			this.m_ClientOrderReceivingHandler = new Receiving.ClientOrderReceivingHandler(this.m_SystemIdentity, this.m_LoginPageWindow);
 			this.m_ClientOrderReceivingHandler.IFoundAClientOrder(this.m_ClientOrder);			
 
 			YellowstonePathology.Business.Client.Model.Client client = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientByClientId(this.m_ClientOrderReceivingHandler.ClientOrder.ClientId);
@@ -162,7 +162,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 
 		private void StartReviewClientOrderPath()
 		{
-			ReviewClientOrderPath reviewClientOrderPath = new ReviewClientOrderPath(this.m_LoginPageWindow.PageNavigator, this.m_ClientOrderReceivingHandler);
+			ReviewClientOrderPath reviewClientOrderPath = new ReviewClientOrderPath(this.m_LoginPageWindow.PageNavigator, this.m_ClientOrderReceivingHandler, this.m_LoginPageWindow);
 			reviewClientOrderPath.Return += new ReviewClientOrderPath.ReturnEventHandler(ReviewClientOrderPath_Return);
 			reviewClientOrderPath.Back += new ReviewClientOrderPath.BackEventHandler(ReviewClientOrderPath_Back);
 			reviewClientOrderPath.Finish += new ReviewClientOrderPath.FinishEventHandler(ReviewClientOrderPath_Finish);

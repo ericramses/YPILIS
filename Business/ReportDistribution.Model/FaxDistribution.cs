@@ -16,7 +16,7 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
             this.m_Priority = FAXCOMEXLib.FAX_PRIORITY_TYPE_ENUM.fptNORMAL;
         }		
 
-        public override YellowstonePathology.Business.Rules.MethodResult Distribute(string reportNo)
+        public override YellowstonePathology.Business.Rules.MethodResult Distribute(string reportNo, object writer)
         {            
             YellowstonePathology.Business.Rules.MethodResult result = new Rules.MethodResult();
 

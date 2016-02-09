@@ -19,9 +19,9 @@ namespace YellowstonePathology.Business.Document
 			CaseDocumentType = "PlacentalPathologySheet";
 		}
 
-		public override void Show(System.Windows.Controls.ContentControl contentControl)
+		public override void Show(System.Windows.Controls.ContentControl contentControl, object writer)
 		{
-			YellowstonePathology.Document.Result.Data.PlacentalPathologyQuestionnaireData placentalPathologyData = YellowstonePathology.Business.Gateway.XmlGateway.GetPlacentalPathologyQuestionnaire(this.m_PlacentalClientOrderId);
+			YellowstonePathology.Document.Result.Data.PlacentalPathologyQuestionnaireData placentalPathologyData = YellowstonePathology.Business.Gateway.XmlGateway.GetPlacentalPathologyQuestionnaire(this.m_PlacentalClientOrderId, writer);
 			if (placentalPathologyData != null)
 			{
 				YellowstonePathology.Document.PlacentalPathologyQuestionnaire placentalPathologyQuestionnare = new YellowstonePathology.Document.PlacentalPathologyQuestionnaire(placentalPathologyData);

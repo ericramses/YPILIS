@@ -19,9 +19,9 @@ namespace YellowstonePathology.Business.HL7View.EPIC
         protected string m_ServerFileName;
         protected string m_InterfaceFilename;
        
-        public EpicStatusMessage(string clientOrderId, OrderStatus orderStatus, YellowstonePathology.Business.ClientOrder.Model.UniversalService universalService)
+        public EpicStatusMessage(string clientOrderId, OrderStatus orderStatus, YellowstonePathology.Business.ClientOrder.Model.UniversalService universalService, object writer)
         {
-            this.m_ClientOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.GetClientOrderByClientOrderId(clientOrderId);            
+            this.m_ClientOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullClientOrderByClientOrderId(clientOrderId, writer);            
 			this.m_OrderingPhysician = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianByNpi(this.m_ClientOrder.ProviderId);
             this.m_OrderStatus = orderStatus;
             this.m_UniversalService = universalService;

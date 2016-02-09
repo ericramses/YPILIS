@@ -479,7 +479,10 @@
     <Compile Include="PanelSet.Model\PanelSetTCellClonalityByPCRRetired.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Persistence\AODocumentBuilder.cs" />
+    <Compile Include="Persistence\DocumentBuilder.cs" />
     <Compile Include="Persistence\DocumentCollection.cs" />
+    <Compile Include="Persistence\GenericDocumentBuilder.cs" />
     <Compile Include="Persistence\JSONIndenter.cs" />
     <Compile Include="Persistence\JSONObjectStreamWriter.cs" />
     <Compile Include="Persistence\JSONStreamWriter.cs" />

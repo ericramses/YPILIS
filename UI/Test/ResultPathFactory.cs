@@ -39,7 +39,7 @@ namespace YellowstonePathology.UI.Test
 					result = new KRASStandardResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
 				case 30:
-                    result = new KRASStandardReflexResultPath(reportNo, accessionOrder, pageNavigator, backButtonVisibility);
+                    result = new KRASStandardReflexResultPath(reportNo, accessionOrder, pageNavigator, window, backButtonVisibility);
                     break;
                 case 31:
                     result = new TechnicalOnlyResultPath(reportNo, accessionOrder, pageNavigator, window);
@@ -106,7 +106,7 @@ namespace YellowstonePathology.UI.Test
 					result = new MPNExtendedReflexPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
 				case 140:
-					result = new CalreticulinMutationAnalysisResultPath(reportNo, accessionOrder, window, pageNavigator);
+					result = new CalreticulinMutationAnalysisResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
 				case 141:
 					result = new JAK2Exon1214ResultPath(reportNo, accessionOrder, pageNavigator, window);
@@ -121,7 +121,7 @@ namespace YellowstonePathology.UI.Test
 					result = new ChromosomeAnalysisResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
 				case 147:
-					result = new MultipleMyelomaMGUSByFishResultPath(reportNo, accessionOrder, window, pageNavigator);
+					result = new MultipleMyelomaMGUSByFishResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
 				case 148:
 					result = new CCNDIBCLIGHResultPath(reportNo, accessionOrder, pageNavigator, window);
@@ -229,7 +229,7 @@ namespace YellowstonePathology.UI.Test
 					result = new ReviewForAdditionalTestingResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
                 case 204:
-                    result = new ROS1ResultPath(reportNo, accessionOrder, window, pageNavigator);
+                    result = new ROS1ResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
                 case 212:
                     result = new MissingInformationResultPath(reportNo, accessionOrder, pageNavigator, window);

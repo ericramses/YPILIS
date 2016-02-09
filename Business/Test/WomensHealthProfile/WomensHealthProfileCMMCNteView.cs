@@ -18,7 +18,7 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
 			this.m_ReportNo = reportNo;
 		}
 
-		public override void ToXml(XElement document)
+		public override void ToXml(XElement document, object writer)
 		{
 			WomensHealthProfileTestOrder womensHealthProfileTestOrder = (WomensHealthProfileTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
 			WomensHealthProfileResult womensHealthProfileResult = new WomensHealthProfileResult(this.m_AccessionOrder);
@@ -218,7 +218,7 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
 			{
 				foreach (YellowstonePathology.Business.Domain.PatientHistoryResult patientHistoryResult in priorPapRelatedHistory)
 				{
-					YellowstonePathology.Business.Test.AccessionOrder patientHistoryAccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(patientHistoryResult.MasterAccessionNo);
+					YellowstonePathology.Business.Test.AccessionOrder patientHistoryAccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(patientHistoryResult.MasterAccessionNo, writer);
 					foreach (YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder in patientHistoryAccessionOrder.PanelSetOrderCollection)
 					{
 						string reportNo = null;

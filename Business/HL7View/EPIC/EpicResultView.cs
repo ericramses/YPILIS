@@ -16,15 +16,15 @@ namespace YellowstonePathology.Business.HL7View.EPIC
 
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
-        private YellowstonePathology.Business.Domain.Physician m_OrderingPhysician;
+        private YellowstonePathology.Business.Domain.Physician m_OrderingPhysician;        
 
-        public EpicResultView(string reportNo, bool testing)
+        public EpicResultView(string reportNo, bool testing, object writer)
         {
             this.m_ReportNo = reportNo;            
             this.m_Testing = testing;
 
             string masterAccessionNo = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetMasterAccessionNoFromReportNo(this.m_ReportNo);
-            this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo);
+            this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, writer);
 
             this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 

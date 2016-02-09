@@ -20,13 +20,13 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
 
         }
 
-        public DistributionResult Distribute(string reportNo)
+        public DistributionResult Distribute(string reportNo, object writer)
         {
             DistributionResult result = new DistributionResult();
             result.IsComplete = true;
 
             string masterAccessionNo = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetMasterAccessionNoFromReportNo(reportNo);
-            YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo);            
+            YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, writer);            
 
             YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 

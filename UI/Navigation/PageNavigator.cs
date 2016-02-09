@@ -37,16 +37,16 @@ namespace YellowstonePathology.UI.Navigation
         {            
             YellowstonePathology.UI.Navigation.NavigatingEventArgs eventArgs = new NavigatingEventArgs(this.m_CurrentPage, page);
 
-			YellowstonePathology.Business.Interface.IPersistPageChanges navigatingFromPage = (YellowstonePathology.Business.Interface.IPersistPageChanges)this.m_CurrentPage;
-			YellowstonePathology.Business.Interface.IPersistPageChanges navigatingToPage = (YellowstonePathology.Business.Interface.IPersistPageChanges)page;
+			//YellowstonePathology.Business.Interface.IPersistPageChanges navigatingFromPage = (YellowstonePathology.Business.Interface.IPersistPageChanges)this.m_CurrentPage;
+			//YellowstonePathology.Business.Interface.IPersistPageChanges navigatingToPage = (YellowstonePathology.Business.Interface.IPersistPageChanges)page;
 
-			if (navigatingFromPage != null)
-            {
-				if (navigatingFromPage.OkToSaveOnNavigation(navigatingToPage.GetType()) == true)
-				{
-					navigatingFromPage.Save(true);
-				}
-            }
+			//if (navigatingFromPage != null)
+            //{
+			//	if (navigatingFromPage.OkToSaveOnNavigation(navigatingToPage.GetType()) == true)
+			//	{
+			//		navigatingFromPage.Save(true);
+			//	}
+            //}
 
             this.m_CurrentPage = page;
             this.m_ContentControl.Content = page;            
@@ -83,17 +83,17 @@ namespace YellowstonePathology.UI.Navigation
 
         public void Close()
         {
-			YellowstonePathology.Business.Interface.IPersistPageChanges page = (YellowstonePathology.Business.Interface.IPersistPageChanges)this.m_CurrentPage;
+			//YellowstonePathology.Business.Interface.IPersistPageChanges page = (YellowstonePathology.Business.Interface.IPersistPageChanges)this.m_CurrentPage;
 
             if (this.m_SecondMonitorWindow != null)
             {
                 this.m_SecondMonitorWindow.Close();
             }
 
-            if (page != null)
-            {
-                if (page.OkToSaveOnClose() == true) page.Save(true);
-            }
+            //if (page != null)
+            //{
+            //   if (page.OkToSaveOnClose() == true) page.Save(true);
+            //}
         }       
     }
 }

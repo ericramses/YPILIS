@@ -50,7 +50,7 @@ namespace YellowstonePathology.UI.ReportOrder
 
 		private void Save(bool releaseLock)
 		{
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, releaseLock);			
+            //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, releaseLock);			
 		}
 
         public string ReportDocumentPath
@@ -106,7 +106,7 @@ namespace YellowstonePathology.UI.ReportOrder
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
 		{
 			YellowstonePathology.Business.Interface.ICaseDocument caseDocument = YellowstonePathology.Business.Document.DocumentFactory.GetDocument(this.m_PanelSetOrder.PanelSetId);
-			caseDocument.Render(this.m_PanelSetOrder.MasterAccessionNo, this.m_PanelSetOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft);
+			caseDocument.Render(this.m_PanelSetOrder.MasterAccessionNo, this.m_PanelSetOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft, Window.GetWindow(this));
 
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
 			string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);
@@ -155,7 +155,7 @@ namespace YellowstonePathology.UI.ReportOrder
             if (this.DoesXPSDocumentExist() == true)
             {
                 YellowstonePathology.Business.Interface.ICaseDocument caseDocument = YellowstonePathology.Business.Document.DocumentFactory.GetDocument(this.m_PanelSetOrder.PanelSetId);
-                caseDocument.Render(this.m_PanelSetOrder.MasterAccessionNo, this.m_PanelSetOrder.ReportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum.Normal);
+                caseDocument.Render(this.m_PanelSetOrder.MasterAccessionNo, this.m_PanelSetOrder.ReportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum.Normal, Window.GetWindow(this));
                 caseDocument.Publish();
                 MessageBox.Show("The case was successfully published.");
             }

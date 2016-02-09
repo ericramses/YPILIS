@@ -82,7 +82,7 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
 		{
-			this.Save(false);
+			//this.Save(false);
 			YellowstonePathology.Business.Test.ALLAdultByFISH.ALLAdultByFISHWordDocument report = new YellowstonePathology.Business.Test.ALLAdultByFISH.ALLAdultByFISHWordDocument();
             report.Render(this.m_AccessionOrder.MasterAccessionNo, this.m_PanelSetOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft, Window.GetWindow(this));
 

@@ -244,7 +244,7 @@ namespace YellowstonePathology.UI
                 this.m_LoginPageWindow = new Login.LoginPageWindow(systemIdentity);
                 this.m_LoginPageWindow.Show();
 
-                YellowstonePathology.UI.Test.NGCTResultPath ngctResultPath = new Test.NGCTResultPath(pantherOrderListItem.ReportNo, accessionOrder, this.m_LoginPageWindow.PageNavigator);
+                YellowstonePathology.UI.Test.NGCTResultPath ngctResultPath = new Test.NGCTResultPath(pantherOrderListItem.ReportNo, accessionOrder, this.m_LoginPageWindow.PageNavigator, this.m_LoginPageWindow);
                 ngctResultPath.Finish += NGCTResultPath_Finish;
                 ngctResultPath.Start();
             }

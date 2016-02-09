@@ -52,7 +52,7 @@ namespace YellowstonePathology.UI.Test
 
 		private void MPNExtendedReflexPage_OrderTest(object sender, YellowstonePathology.UI.CustomEventArgs.TestOrderInfoEventArgs e)
 		{
-            YellowstonePathology.UI.Login.Receiving.ReportOrderPath reportOrderPath = new Login.Receiving.ReportOrderPath(this.m_AccessionOrder, this.m_SystemIdentity, this.m_PageNavigator, PageNavigationModeEnum.Inline);
+            YellowstonePathology.UI.Login.Receiving.ReportOrderPath reportOrderPath = new Login.Receiving.ReportOrderPath(this.m_AccessionOrder, this.m_SystemIdentity, this.m_PageNavigator, PageNavigationModeEnum.Inline, this.m_Window);
 			reportOrderPath.Finish += new Login.Receiving.ReportOrderPath.FinishEventHandler(ReportOrderPath_Finish);
 			reportOrderPath.Start(e.TestOrderInfo);
 		}

@@ -57,5 +57,10 @@ namespace YellowstonePathology.UI.Login
 		{
 			this.Next(this, new EventArgs());
 		}
-	}
+
+        private void BorderPanelSetOrderHeader_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
+    }
 }

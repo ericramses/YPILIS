@@ -13,13 +13,15 @@ namespace YellowstonePathology.Business.HL7View.CMMC
 
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         private YellowstonePathology.Business.Domain.Physician m_OrderingPhysician;
+        private object m_Writer;
 
-		public CMMCResultView(string reportNo)
+		public CMMCResultView(string reportNo, object writer)
         {
             this.m_ReportNo = reportNo;
+            this.m_Writer = writer;
 
             string masterAccessionNo = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetMasterAccessionNoFromReportNo(this.m_ReportNo);
-            this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, Persistence.DocumentWriterEnum.ReportDistribtuionWorkspace);
+            this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, writer);
 
             this.m_OrderingPhysician = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianByPhysicianId(this.m_AccessionOrder.PhysicianId);
 		}
@@ -66,7 +68,7 @@ namespace YellowstonePathology.Business.HL7View.CMMC
 
             YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);            
             CMMCNteView nteView = CMMCNteViewFactory.GetNteView(panelSetOrder.PanelSetId, this.m_AccessionOrder, this.m_ReportNo);
-            nteView.ToXml(this.m_Document);            
+            nteView.ToXml(this.m_Document, this.m_Writer);            
         }
 
         public void CanSend(YellowstonePathology.Business.Rules.MethodResult result)

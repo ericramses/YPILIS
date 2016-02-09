@@ -26,12 +26,14 @@ namespace YellowstonePathology.UI.Cytology
 		private CytologyUI m_CytologyUI;
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
         private YellowstonePathology.UI.PageNavigationWindow m_PageNavigationWindow;
+        private TabItem m_Writer;
 
-		public CytologyResultsWorkspace()
+		public CytologyResultsWorkspace(TabItem writer)
 		{
-			this.m_SystemIdentity = new YellowstonePathology.Business.User.SystemIdentity(YellowstonePathology.Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
-			this.m_CytologyUI = new CytologyUI(this.m_SystemIdentity);
-            this.DataContext = this.m_CytologyUI;
+            this.m_Writer = writer;
+            this.m_SystemIdentity = new YellowstonePathology.Business.User.SystemIdentity(YellowstonePathology.Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
+			this.m_CytologyUI = new CytologyUI(this.m_SystemIdentity, this.m_Writer);
+            this.DataContext = this.m_CytologyUI;            
 
             InitializeComponent();
 
@@ -677,7 +679,7 @@ namespace YellowstonePathology.UI.Cytology
 				string masterAccessionNo = this.m_CytologyUI.AccessionOrder.MasterAccessionNo;
 
                 YellowstonePathology.Business.Interface.ICaseDocument caseDocument = YellowstonePathology.Business.Document.DocumentFactory.GetDocument(panelSetId);
-                caseDocument.Render(masterAccessionNo, reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum.Normal);
+                caseDocument.Render(masterAccessionNo, reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum.Normal, this.m_Writer);
                 caseDocument.Publish();                
                 MessageBox.Show("The document has been published");
             }
@@ -696,7 +698,7 @@ namespace YellowstonePathology.UI.Cytology
                 }
 
                 this.m_PageNavigationWindow = new PageNavigationWindow(this.m_SystemIdentity);
-				YellowstonePathology.UI.Login.WomensHealthProfilePath womensHealthProfilePath = new YellowstonePathology.UI.Login.WomensHealthProfilePath(this.m_CytologyUI.AccessionOrder, clientOrder, this.m_PageNavigationWindow.PageNavigator, Visibility.Collapsed);
+				YellowstonePathology.UI.Login.WomensHealthProfilePath womensHealthProfilePath = new YellowstonePathology.UI.Login.WomensHealthProfilePath(this.m_CytologyUI.AccessionOrder, clientOrder, this.m_PageNavigationWindow.PageNavigator, this.m_PageNavigationWindow, Visibility.Collapsed);
                 womensHealthProfilePath.Finish += new Login.WomensHealthProfilePath.FinishEventHandler(WomensHealthProfilePath_Finished);
                 womensHealthProfilePath.Back += new Login.WomensHealthProfilePath.BackEventHandler(WomensHealthProfilePath_Finished);
                 womensHealthProfilePath.Start(this.m_SystemIdentity);

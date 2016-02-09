@@ -37,7 +37,7 @@ namespace YellowstonePathology.UI.Login.ReceiveSpecimen
 
 		private void PlacentalFormDisplayPage_Loaded(object sender, RoutedEventArgs e)
 		{
-			YellowstonePathology.Document.Result.Data.PlacentalPathologyQuestionnaireData placentalPathologyQuestionnaireData = YellowstonePathology.Business.Gateway.XmlGateway.GetPlacentalPathologyQuestionnaire(this.m_ClientOrderId);
+			YellowstonePathology.Document.Result.Data.PlacentalPathologyQuestionnaireData placentalPathologyQuestionnaireData = YellowstonePathology.Business.Gateway.XmlGateway.GetPlacentalPathologyQuestionnaire(this.m_ClientOrderId, Window.GetWindow(this));
 			YellowstonePathology.Document.PlacentalPathologyQuestionnaire placentalPathologyQuestionnare = new Document.PlacentalPathologyQuestionnaire(placentalPathologyQuestionnaireData);
 			this.Viewer.Document = placentalPathologyQuestionnare.FixedDocument;
 		}

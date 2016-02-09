@@ -48,7 +48,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 		private void SetClientOrderReceivingHandlerSystemIdentity(YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 		{
 			this.m_SystemIdentity = systemIdentity;
-			this.m_ClientOrderReceivingHandler = new Receiving.ClientOrderReceivingHandler(this.m_SystemIdentity);
+			this.m_ClientOrderReceivingHandler = new Receiving.ClientOrderReceivingHandler(this.m_SystemIdentity, this.m_LoginPageWindow);
 			System.Diagnostics.Debug.Assert(this.m_ClientOrderReceivingHandler.SystemIdentity.IsKnown, "The system identity must be known.");
 			System.Diagnostics.Debug.Assert((this.m_ClientOrderReceivingHandler.SystemIdentity.User != null), "The system identity must be known.");
 		}
@@ -231,7 +231,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 
 		private void StartReviewClientOrderPath()
 		{
-			ReviewClientOrderPath reviewClientOrderPath = new ReviewClientOrderPath(this.m_LoginPageWindow.PageNavigator, this.m_ClientOrderReceivingHandler);
+			ReviewClientOrderPath reviewClientOrderPath = new ReviewClientOrderPath(this.m_LoginPageWindow.PageNavigator, this.m_ClientOrderReceivingHandler, this.m_LoginPageWindow);
 			reviewClientOrderPath.Return += new ReviewClientOrderPath.ReturnEventHandler(ReviewClientOrderPath_Return);
 			reviewClientOrderPath.Back += new ReviewClientOrderPath.BackEventHandler(ReviewClientOrderPath_Back);
 			reviewClientOrderPath.Finish += new ReviewClientOrderPath.FinishEventHandler(ReviewClientOrderPath_Finish);
@@ -256,7 +256,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 					this.HandleCommand(e);
 					break;
 				case UI.Navigation.PageNavigationDirectionEnum.Finish:
-					this.m_ClientOrderReceivingHandler = new ClientOrderReceivingHandler(this.m_SystemIdentity);
+					this.m_ClientOrderReceivingHandler = new ClientOrderReceivingHandler(this.m_SystemIdentity, this.m_LoginPageWindow);
 					this.ShowClientLookupPage();
 					break;
 			}
@@ -267,7 +267,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 			switch ((ReceiveSpecimen.ReceiveSpecimenCommandTypeEnum)e.Data)
 			{
 				case ReceiveSpecimen.ReceiveSpecimenCommandTypeEnum.Finalize:
-                    this.m_ClientOrderReceivingHandler = new ClientOrderReceivingHandler(this.m_SystemIdentity);
+                    this.m_ClientOrderReceivingHandler = new ClientOrderReceivingHandler(this.m_SystemIdentity, this.m_LoginPageWindow);
 					this.ShowClientLookupPage();
 					break;
 			}

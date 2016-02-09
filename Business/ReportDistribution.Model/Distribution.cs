@@ -7,14 +7,14 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
 {
     public class Distribution
     {
-        protected string m_DistributionType;        
+        protected string m_DistributionType;                
 
         protected Distribution(string distributionType)
         {            
             this.m_DistributionType = distributionType;
         }		
 
-        public virtual YellowstonePathology.Business.Rules.MethodResult Distribute(string reportNo)
+        public virtual YellowstonePathology.Business.Rules.MethodResult Distribute(string reportNo, object writer)
         {
             throw new Exception("Not implemented in base.");
         }

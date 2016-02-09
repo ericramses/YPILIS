@@ -10,11 +10,13 @@ namespace YellowstonePathology.Business.Patient.Model
     {
         private SVHImportFileName m_SVHImportFileName;
 		private SVHBillingDataCollection m_SVHBillingDataCollection;
+        private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 
-        public SVHImportFile(SVHImportFileName svhImportFilename)
+        public SVHImportFile(SVHImportFileName svhImportFilename, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             this.m_SVHImportFileName = svhImportFilename;
-			this.m_SVHBillingDataCollection = new SVHBillingDataCollection();            
+			this.m_SVHBillingDataCollection = new SVHBillingDataCollection();
+            this.m_SystemIdentity = systemIdentity;      
         }
 
         public void ParseAndPersist()
@@ -32,12 +34,11 @@ namespace YellowstonePathology.Business.Patient.Model
 					SVHBillingData sVHBillingData = new SVHBillingData(objectId, line, dateProcessed, this.m_SVHImportFileName.FileDate);
 					sVHBillingData.SVHBillingDataId = Guid.NewGuid().ToString();
 					this.m_SVHBillingDataCollection.AddOnlyMostRecent(sVHBillingData);
-                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(sVHBillingData, this);
+                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(sVHBillingData, this, this.m_SystemIdentity);
                 }
 
                 YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
-			}
-            
+			}            
 		}        
     }
 }

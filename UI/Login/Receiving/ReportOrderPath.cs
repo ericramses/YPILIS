@@ -17,29 +17,34 @@ namespace YellowstonePathology.UI.Login.Receiving
 		private YellowstonePathology.UI.Navigation.PageNavigator m_PageNavigator;
 		private PageNavigationModeEnum m_PageNavigationMode;
         private YellowstonePathology.Business.Test.TestOrderInfo m_TestOrderInfo;
+        private System.Windows.Window m_Writer;
 
 		public ReportOrderPath(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,			
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity,
 			YellowstonePathology.UI.Navigation.PageNavigator pageNavigator,
-			PageNavigationModeEnum pageNavigationMode)
+			PageNavigationModeEnum pageNavigationMode,
+            System.Windows.Window writer)
 		{
 			this.m_AccessionOrder = accessionOrder;			
 			this.m_SystemIdentity = systemIdentity;
 			this.m_PageNavigator = pageNavigator;
 			this.m_PageNavigationMode = pageNavigationMode;
+            this.m_Writer = writer;
 		}
 
 		public ReportOrderPath(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
 			YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity,
 			YellowstonePathology.UI.Navigation.PageNavigator pageNavigator,
-			PageNavigationModeEnum pageNavigationMode)
+			PageNavigationModeEnum pageNavigationMode,
+            System.Windows.Window writer)
 		{
 			this.m_AccessionOrder = accessionOrder;
 			this.m_ClientOrder = clientOrder;
 			this.m_SystemIdentity = systemIdentity;
 			this.m_PageNavigator = pageNavigator;
 			this.m_PageNavigationMode = pageNavigationMode;
+            this.m_Writer = writer;
 		}							
 
 		public void Start(YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo)
@@ -97,7 +102,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 
                 YellowstonePathology.UI.Test.ResultPathFactory resultPathFactory = new Test.ResultPathFactory();
                 resultPathFactory.Finished += new Test.ResultPathFactory.FinishedEventHandler(ResultPathFactory_Finished);
-                resultPathFactory.Start(panelSetOrder, this.m_AccessionOrder, this.m_PageNavigator, this.m_SystemIdentity, System.Windows.Visibility.Collapsed);
+                resultPathFactory.Start(panelSetOrder, this.m_AccessionOrder, this.m_PageNavigator, this.m_Writer, this.m_SystemIdentity, System.Windows.Visibility.Collapsed);
 
                 result = true;
             }

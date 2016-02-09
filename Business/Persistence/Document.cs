@@ -13,27 +13,23 @@ namespace YellowstonePathology.Business.Persistence
         protected object m_Key;
         protected object m_Value;
         protected Type m_Type;
-        protected object m_Clone;                
+        protected object m_Clone;
+        protected bool m_IsGlobal;      
 
         protected List<object> m_Writers;
 
         public Document()
         {
-
+            this.m_Writers = new List<object>();
         }
 
-        public Document(DocumentId documentId)
+        public Document(DocumentId documentId, bool isGlobal)
         {
-            this.m_Type = documentId.Type;
-            this.m_Value = Activator.CreateInstance(documentId.Type);
-
-            ObjectCloner objectCloner = new ObjectCloner();
-            this.m_Clone = objectCloner.Clone(this.m_Value);
-
-            PropertyInfo keyProperty = this.m_Type.GetProperties().Where(prop => Attribute.IsDefined(prop, typeof(PersistentPrimaryKeyProperty))).Single();
-            this.m_Key = keyProperty.GetValue(documentId.Key, null);
-
+            this.m_Writers = new List<object>();
+            this.m_Type = documentId.Type;                                    
+            this.m_Key = documentId.Key;
             this.m_Writers.Add(documentId.Writer);
+            this.m_IsGlobal = isGlobal;
         }
 
         public void ReleaseLock()
@@ -70,26 +66,27 @@ namespace YellowstonePathology.Business.Persistence
 
         public object Key
         {
-            get { return this.m_Key; }
-            set { this.m_Key = value; }
+            get { return this.m_Key; }            
         }
 
         public object Value
         {
-            get { return this.m_Value; }
-            set { this.m_Value = value; }
+            get { return this.m_Value; }            
         }
         public Type Type
         {
-            get { return this.m_Type; }
-            set { this.m_Type = value; }
+            get { return this.m_Type; }            
         }
 
         public object Clone
         {
-            get { return this.m_Clone; }
-            set { this.m_Clone = value; }
-        }                             
+            get { return this.m_Clone; }            
+        }  
+        
+        public bool IsGlobal
+        {
+            get { return this.m_IsGlobal; }
+        }                           
 
         public virtual YellowstonePathology.Business.Persistence.SubmissionResult Submit()
         {
@@ -117,10 +114,10 @@ namespace YellowstonePathology.Business.Persistence
             PropertyInfo keyProperty = objectType.GetProperties().Where(prop => Attribute.IsDefined(prop, typeof(PersistentPrimaryKeyProperty))).Single();
             object keyPropertyValue = keyProperty.GetValue(objectToSubmit, null);
 
-            this.HandleUpdateSubmission(objectToSubmit, this.m_Value, keyPropertyValue, objectSubmitter);
+            this.HandleUpdateSubmission(objectToSubmit, this.m_Clone, keyPropertyValue, objectSubmitter);
 
             ObjectCloner objectCloner = new ObjectCloner();
-            this.Clone = objectCloner.Clone(objectToSubmit);
+            this.m_Clone = objectCloner.Clone(objectToSubmit);
 
             return objectSubmitter;
         }

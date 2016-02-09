@@ -42,7 +42,7 @@ namespace YellowstonePathology.UI.Common
             System.Printing.LocalPrintServer printServer = new System.Printing.LocalPrintServer();            
             this.m_PrintQueueCollection = printServer.GetPrintQueues(new[] { System.Printing.EnumeratedPrintQueueTypes.Local, System.Printing.EnumeratedPrintQueueTypes.Connections });
 
-			this.m_ApplicationVersion = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.GetApplicationVersion();			
+			this.m_ApplicationVersion = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.GetApplicationVersion(this);			
             this.m_ProcessorRunCollection = Business.Surgical.ProcessorRunCollection.GetAll(true);
 
 			InitializeComponent();            
@@ -117,10 +117,8 @@ namespace YellowstonePathology.UI.Common
 		}
 
 		private void ButtonOK_Click(object sender, RoutedEventArgs e)
-		{
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_UserPreference, false);
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_ApplicationVersion, false);
-            
+		{            
+            Business.Persistence.DocumentGateway.Instance.Push(this);            
 			Close();
 		}
 

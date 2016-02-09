@@ -60,27 +60,7 @@ namespace YellowstonePathology.UI.Login.ReceiveSpecimen
         public YellowstonePathology.Business.View.SpecimenSurgicalDiagnosisViewCollection SpecimenSurgicalDiagnosisViewCollection
         {
             get { return this.m_SpecimenSurgicalDiagnosisViewCollection; }
-        }
-
-        public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-        {
-            return true;
-        }
-
-        public bool OkToSaveOnClose()
-        {
-            return true;
-        }
-
-        public void Save(bool releaseLock)
-        {
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
-        }
-
-        public void UpdateBindingSources()
-        {
-
-        }
+        }        
 
         public void NotifyPropertyChanged(String info)
         {

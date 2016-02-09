@@ -14,7 +14,7 @@ namespace YellowstonePathology.UI.Billing
 		private Business.Search.ReportSearchList m_ReportSearchList;
         private Business.User.SystemIdentity m_SystemIdentity;        
         private BillingPage m_BillingPage;
-		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
+		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;        
 
 		public BillingPath(Business.Search.ReportSearchList reportSearchList, Business.User.SystemIdentity systemIdentity)
         {            
@@ -35,7 +35,7 @@ namespace YellowstonePathology.UI.Billing
                     this.m_BillingWindowPrimary.PageNavigator.ShowSecondMonitorWindow(this.m_BillingWindowSecondary);
                 }
 
-                this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(this.m_ReportSearchList.CurrentReportSearchItem.MasterAccessionNo);                
+                this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(this.m_ReportSearchList.CurrentReportSearchItem.MasterAccessionNo, this.m_BillingWindowPrimary);
 				this.ShowBillingPage(this.m_AccessionOrder);                
 			}
         }        

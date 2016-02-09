@@ -59,7 +59,7 @@ namespace YellowstonePathology.UI.Test
 			this.m_PanelOrderIds = string.Empty;
 			this.m_HasDataError = false;
 
-			this.m_PathologistSearch = new YellowstonePathology.Business.Search.PathologistSearch(this.m_SystemIdentity);
+			this.m_PathologistSearch = new YellowstonePathology.Business.Search.PathologistSearch(this.m_SystemIdentity, this.m_Writer);
 
 			this.m_PathologistUsers = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetUsersByRole(YellowstonePathology.Business.User.SystemUserRoleDescriptionEnum.Pathologist, true);			
 

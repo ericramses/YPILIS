@@ -191,7 +191,7 @@ namespace YellowstonePathology.UI.Gross
 					string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
 					YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog materialTrackingLog = new Business.MaterialTracking.Model.MaterialTrackingLog(objectId, barcode.ID, null, thisFacility.FacilityId, thisFacility.FacilityName,
                         thisLocation.LocationId, thisLocation.Description, this.m_SystemIdentity.User.UserId, this.m_SystemIdentity.User.UserName, "Block Scanned", "Block Scanned At Gross", "Aliquot", this.m_AccessionOrder.MasterAccessionNo, aliquotOrder.Label, aliquotOrder.ClientAccessioned);
-                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitRootInsert(materialTrackingLog);					
+                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(materialTrackingLog, Window.GetWindow(this), this.m_SystemIdentity);					
 
                     this.m_SpecimenOrder.AliquotOrderCollection.ValidateBlock(barcode.ID, this.m_SystemIdentity.User.UserId);
 					this.GrossBlockManagementView = new Business.View.GrossBlockManagementView(this.m_AccessionOrder, this.m_CaseNotesDocument, this.m_SpecimenOrder);
@@ -203,7 +203,7 @@ namespace YellowstonePathology.UI.Gross
                         this.Next(this, specimenOrderReturnEventArgs);
 					}
 
-					this.Save(false);
+					//this.Save(false);
 				}
 				else
 				{
@@ -338,7 +338,7 @@ namespace YellowstonePathology.UI.Gross
 				this.GrossBlockManagementView = new Business.View.GrossBlockManagementView(this.m_AccessionOrder, this.m_CaseNotesDocument, this.m_SpecimenOrder);
 				this.SetupSpecimenView();
 				this.PrintBlocks();
-				this.Save(false);
+				//this.Save(false);
 			}			
 		}
 
@@ -350,7 +350,7 @@ namespace YellowstonePathology.UI.Gross
 				this.GrossBlockManagementView = new Business.View.GrossBlockManagementView(this.m_AccessionOrder, this.m_CaseNotesDocument, this.m_SpecimenOrder);
 				this.SetupSpecimenView();
 				this.PrintBlocks();
-				this.Save(false);
+				//this.Save(false);
 			}			
 		}
 

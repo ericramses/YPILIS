@@ -12,7 +12,7 @@ namespace YellowstonePathology.Business.User
 
 		private UserPreferenceInstance()
 		{
-            this.m_UserPreference = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.GetUserPreference();
+            this.m_UserPreference = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullUserPreference(this);
 		}
 
 		public static UserPreferenceInstance Instance
@@ -32,9 +32,9 @@ namespace YellowstonePathology.Business.User
 			get { return m_UserPreference; }
 		}
 
-        public void SubmitChanges()
+        public void Save()
         {
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_UserPreference, false);
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save(this);
         }
 	}
 }

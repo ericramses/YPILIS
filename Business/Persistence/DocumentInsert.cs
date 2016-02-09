@@ -8,10 +8,10 @@ namespace YellowstonePathology.Business.Persistence
 {
     public class DocumentInsert : Document
     {
-        public DocumentInsert(DocumentId documentId) 
-            : base (documentId)
+        public DocumentInsert(DocumentId documentId, object value) 
+            : base (documentId, false)
         {
-
+            this.m_Value = value;            
         }
 
         public override YellowstonePathology.Business.Persistence.SubmissionResult Submit()

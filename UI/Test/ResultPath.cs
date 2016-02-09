@@ -49,7 +49,7 @@ namespace YellowstonePathology.UI.Test
         
         private void CancelTest(object sender, YellowstonePathology.UI.CustomEventArgs.CancelTestEventArgs e)
         {
-            CancelATestPath cancelATestPath = new CancelATestPath(e, this.m_PageNavigator);
+            CancelATestPath cancelATestPath = new CancelATestPath(e, this.m_PageNavigator, this.m_Window);
             cancelATestPath.Finish += new FinishEventHandler(CancellATestPath_Finish);
             cancelATestPath.Back += new CancelATestPath.BackEventHandler(CancellATestPath_Back);
             cancelATestPath.Start();

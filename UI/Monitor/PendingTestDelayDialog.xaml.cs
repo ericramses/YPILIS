@@ -46,7 +46,7 @@ namespace YellowstonePathology.UI.Monitor
             if (this.IsOKToClose() == true)
             {
                 this.Close();
-                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_PanelSetOrder, false);                
+                //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_PanelSetOrder, false);                
             }
         }
 

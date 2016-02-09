@@ -104,7 +104,7 @@ namespace YellowstonePathology.UI.Surgical
 
 		public void Save(bool releaseLock)
 		{
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
+            //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
         }
 
         public void UpdateBindingSources()
@@ -228,7 +228,7 @@ namespace YellowstonePathology.UI.Surgical
         private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
         {
             YellowstonePathology.UI.CaseDocumentViewer caseDocumentViewer = new CaseDocumentViewer();
-            caseDocumentViewer.View(this.m_AccessionOrder.MasterAccessionNo, this.m_SurgicalTestOrder.ReportNo, this.m_SurgicalTestOrder.PanelSetId);
+            caseDocumentViewer.View(this.m_AccessionOrder.MasterAccessionNo, this.m_SurgicalTestOrder.ReportNo, this.m_SurgicalTestOrder.PanelSetId, Window.GetWindow(this));
         }        		
 	}
 }

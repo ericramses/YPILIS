@@ -18,7 +18,7 @@ namespace YellowstonePathology.Business.Document
 			File.Delete(this.FullFileName);
 		}
 
-		public override void Show(System.Windows.Controls.ContentControl contentControl)
+		public override void Show(System.Windows.Controls.ContentControl contentControl, object writer)
 		{
 			try
 			{

@@ -11,7 +11,7 @@ namespace YellowstonePathology.Business.Persistence
         private object m_Key;
         private Type m_Type;
         private Object m_Writer;
-        private bool m_LockAquired;
+        private bool m_LockAquired;        
 
         public DocumentId(object o, object writer)
         {
@@ -20,7 +20,7 @@ namespace YellowstonePathology.Business.Persistence
             PropertyInfo keyProperty = this.m_Type.GetProperties().Where(prop => Attribute.IsDefined(prop, typeof(PersistentPrimaryKeyProperty))).Single();
             this.m_Key = keyProperty.GetValue(o, null);
 
-            this.m_Writer = writer;
+            this.m_Writer = writer;            
 
             if (o is YellowstonePathology.Business.Test.AccessionOrder)
             {
@@ -29,34 +29,31 @@ namespace YellowstonePathology.Business.Persistence
             }
         }
 
-        public DocumentId(Type type, object party, object key)
+        public DocumentId(Type type, object writer, object key)
         {
             this.m_Type = type;
             this.m_Key = key;
-            this.m_Writer = party;
+            this.m_Writer = writer;            
         }
 
         public object Key
         {
-            get { return this.m_Key; }
-            set { this.m_Key = value; }
+            get { return this.m_Key; }            
         }
         
         public Type Type
         {
-            get { return this.m_Type; }
-            set { this.m_Type = value; }
+            get { return this.m_Type; }            
         }
 
         public object Writer
         {
-            get { return this.m_Writer; }
-            set { this.m_Writer = value; }
+            get { return this.m_Writer; }            
         }  
         
         public bool LockAquired
         {
             get { return this.m_LockAquired;  }
-        }      
+        }                  
     }    
 }

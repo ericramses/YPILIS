@@ -18,7 +18,7 @@ namespace YellowstonePathology.Business.Test.HPV1618ByPCR
             this.m_ReportNo = reportNo;            
 		}
 
-        public override void ToXml(XElement document)
+        public override void ToXml(XElement document, object writer)
         {
 			YellowstonePathology.Business.Test.HPV1618ByPCR.HPV1618ByPCRTestOrder panelSetOrder = (YellowstonePathology.Business.Test.HPV1618ByPCR.HPV1618ByPCRTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
 

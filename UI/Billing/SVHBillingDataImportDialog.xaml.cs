@@ -22,12 +22,15 @@ namespace YellowstonePathology.UI.Billing
         private const string ProcessedFolderPath = @"\\ypiiinterface1\FTPData\SVBBilling\Processed";
 
         public event PropertyChangedEventHandler PropertyChanged;
-        YellowstonePathology.Business.Patient.Model.SVHImportFolder m_SVHImportFolder;
+        private YellowstonePathology.Business.Patient.Model.SVHImportFolder m_SVHImportFolder;
 		private DateTime m_ImportForDate;
+        private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 
         public SVHBillingDataImportDialog()
         {
 			this.m_ImportForDate = DateTime.Today;
+            this.m_SystemIdentity = new Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
+            
             this.m_SVHImportFolder = new Business.Patient.Model.SVHImportFolder();                    
             InitializeComponent();
             this.DataContext = this;
@@ -46,6 +49,7 @@ namespace YellowstonePathology.UI.Billing
         
         private void ButtonClose_Click(object sender, RoutedEventArgs e)
         {
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
             this.Close();
         }
 
@@ -68,7 +72,7 @@ namespace YellowstonePathology.UI.Billing
 
         private void ButtonStartImport_Click(object sender, RoutedEventArgs e)
         {            
-            this.m_SVHImportFolder.Process(this.m_ImportForDate);
+            this.m_SVHImportFolder.Process(this.m_ImportForDate, this.m_SystemIdentity);
             YellowstonePathology.Business.Gateway.BillingGateway.UpdateAccessionBillingInformationFromSVHBillingData(this.m_ImportForDate);
             this.m_SVHImportFolder = new Business.Patient.Model.SVHImportFolder();
             this.NotifyPropertyChanged("SVHImportFolder");

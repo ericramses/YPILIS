@@ -16,7 +16,7 @@ namespace YellowstonePathology.Business.Persistence
         public Stack()
         {
             this.m_Documents = new DocumentCollection();
-        }
+        }        
 
         public void Push(object o, object writer)
         {
@@ -24,7 +24,7 @@ namespace YellowstonePathology.Business.Persistence
             if (this.KeyTypeExists(documentId) == true)
             {
                 Document document = this.Get(documentId);
-                this.Push(document, writer);
+                this.PushOne(document, writer);
             }
             else
             {
@@ -33,22 +33,36 @@ namespace YellowstonePathology.Business.Persistence
         }
 
         public void Push(object writer)
-        {
-            foreach(Document document in this.m_Documents)
+        {            
+            for(int i=0; i<this.m_Documents.Count; i++)
             {
-                this.Push(document, writer);
+                this.PushOne(this.m_Documents[i], writer);
             }
         }
 
-        private void Push(Document document, object writer)
-        {                                    
-            document.RemoveWriter(writer);
+        public void Save(object writer)
+        {
+            foreach (Document document in this.m_Documents)
+            {
+                document.Submit();
+            }
+        }
 
+        private void PushOne(Document document, object writer)
+        {                                 
+            if(document.IsGlobal == false)
+            {
+                document.RemoveWriter(writer);
+            }               
+            
             if (document.Writers.Count == 0)
             {
                 document.ReleaseLock();
                 document.Submit();
-                this.m_Documents.Remove(document);
+                if(document.IsGlobal == false)
+                {
+                    this.m_Documents.Remove(document);
+                }                
             }
             else
             {
@@ -56,7 +70,7 @@ namespace YellowstonePathology.Business.Persistence
             }            
         }      
 
-        public Document Pull(DocumentId documentId)
+        public Document Pull(DocumentId documentId, bool isGlobal, DocumentBuilder documentBuilder)
         {
             Document result = null;
             
@@ -71,22 +85,44 @@ namespace YellowstonePathology.Business.Persistence
             }              
             else
             {
-                result = new Document(documentId);
+                result = new DocumentUpdate(documentId, isGlobal, documentBuilder);
                 this.m_Documents.Add(result);     
             }
 
             return result;
-        }        
+        }
 
-        public void InsertDocument(object o, object party, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        public Document Pull(DocumentId documentId, bool isGlobal, object value, DocumentBuilder documentBuilder)
         {
-            DocumentId documentId = new DocumentId(o, party);            
+            Document result = null;
 
-            DocumentInsert documentInsert = new DocumentInsert(documentId);
+            if (this.KeyTypeExists(documentId) == true)
+            {
+                result = this.Get(documentId);
+                if (result.Writers.Exists(p => p == documentId.Writer) == false)
+                {
+                    result.Writers.Add(documentId.Writer);
+                }
+                this.Push(result.Value, documentId.Writer);
+            }
+            else
+            {
+                result = new DocumentUpdate(documentId, isGlobal, value, documentBuilder);
+                this.m_Documents.Add(result);
+            }
+
+            return result;
+        }
+
+        public void InsertDocument(object o, object writer, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        {
+            DocumentId documentId = new DocumentId(o, writer);            
+
+            DocumentInsert documentInsert = new DocumentInsert(documentId, o);
             documentInsert.SetLock(systemIdentity);
             documentInsert.Submit();
 
-            DocumentUpdate documentUpdate = new DocumentUpdate(documentId);
+            DocumentUpdate documentUpdate = new DocumentUpdate(documentId, false, o);
             this.m_Documents.Add(documentUpdate);
         }
 
@@ -96,7 +132,7 @@ namespace YellowstonePathology.Business.Persistence
 
             //Remove it from the stack.
 
-            DocumentDelete documentDelete = new DocumentDelete(documentId);
+            DocumentDelete documentDelete = new DocumentDelete(documentId, o);
             documentDelete.Submit();
         }        
 
@@ -106,7 +142,8 @@ namespace YellowstonePathology.Business.Persistence
 
             foreach (Document document in this.m_Documents)
             {
-                if (document.Type == documentId.Type && document.Key == documentId.Key)
+                if (document.Type.FullName == documentId.Type.FullName 
+                    && document.Key.ToString() == documentId.Key.ToString())
                 {
                     result = document;
                     break;
@@ -122,7 +159,8 @@ namespace YellowstonePathology.Business.Persistence
 
             foreach (Document document in this.m_Documents)
             {
-                if (document.Type == documentId.Type && document.Writers.Exists(p => p == documentId.Writer))
+                if (document.Type.FullName == documentId.Type.FullName && 
+                    document.Writers.Exists(p => p == documentId.Writer))
                 {
                     result = true;
                     break;
@@ -138,7 +176,7 @@ namespace YellowstonePathology.Business.Persistence
 
             foreach (Document document in this.m_Documents)
             {
-                if (document.Type == documentId.Type)
+                if (document.Type.FullName == documentId.Type.FullName)
                 {
                     result = true;
                     break;
@@ -154,7 +192,8 @@ namespace YellowstonePathology.Business.Persistence
 
             foreach (Document document in this.m_Documents)
             {
-                if (document.Key == documentId.Key && document.Type == documentId.Type)
+                if (document.Key.ToString() == documentId.Key.ToString() && 
+                    document.Type.FullName == documentId.Type.FullName)
                 {
                     result = true;
                     break;
@@ -170,8 +209,8 @@ namespace YellowstonePathology.Business.Persistence
 
             foreach (Document document in this.m_Documents)
             {
-                if (document.Type == documentId.Type                     
-                    && document.Key == documentId.Key
+                if (document.Type.FullName == documentId.Type.FullName                     
+                    && document.Key.ToString() == documentId.Key.ToString()
                     && documentId.LockAquired == true)
                 {
                     result = true;

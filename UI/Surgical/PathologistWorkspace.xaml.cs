@@ -28,9 +28,11 @@ namespace YellowstonePathology.UI.Surgical
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 		private YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort m_BarcodeScanPort;
 		private MainWindowCommandButtonHandler m_MainWindowCommandButtonHandler;
+        private TabItem m_Writer;
 
 		public PathologistWorkspace(MainWindowCommandButtonHandler mainWindowCommandButtonHandler, TabItem writer)
 		{
+            this.m_Writer = writer;
 			this.m_MainWindowCommandButtonHandler = mainWindowCommandButtonHandler;
 			this.m_SystemIdentity = new YellowstonePathology.Business.User.SystemIdentity(YellowstonePathology.Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
 
@@ -434,7 +436,7 @@ namespace YellowstonePathology.UI.Surgical
 			{                
 				case 15:
 					this.m_PathologistsReview = null;
-					this.m_CytologyResultsWorkspace = new Cytology.CytologyResultsWorkspace();
+					this.m_CytologyResultsWorkspace = new Cytology.CytologyResultsWorkspace(this.m_Writer);
 					this.m_CytologyResultsWorkspace.CytologyUI.SetAccessionOrder(this.m_PathologistUI.AccessionOrder, this.m_PathologistUI.PanelSetOrder.ReportNo);
 					this.m_CytologyResultsWorkspace.CytologyUI.Lock = this.m_PathologistUI.Lock;
 					this.m_CytologyResultsWorkspace.SetReportNo(this.m_PathologistUI.PanelSetOrder.ReportNo);

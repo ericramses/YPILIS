@@ -34,7 +34,12 @@ namespace YellowstonePathology.UI
 			this.m_SystemUserCollection = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetUsersByRole(YellowstonePathology.Business.User.SystemUserRoleDescriptionEnum.Typing, true);
 
             this.DataContext = this.m_TypingShortcut;
-            this.comboBoxTypingUsers.ItemsSource = this.m_SystemUserCollection;         
+            this.comboBoxTypingUsers.ItemsSource = this.m_SystemUserCollection;   
+            
+            if(isNewShortcut == false)
+            {
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullTypingShortcut(typingShortcut, this);
+            }
         }        
 
         public void GridTyping_KeyUp(object sender, KeyEventArgs args)
@@ -64,10 +69,8 @@ namespace YellowstonePathology.UI
             {
                 YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(this.m_TypingShortcut, this, this.m_SystemIdentity);
             }
-            else
-            {
-                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
-            }                      
+            
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);            
             this.DialogResult = true;
         }        
     }
