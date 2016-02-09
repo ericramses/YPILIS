@@ -17,7 +17,20 @@ namespace YellowstonePathology.Business.Persistence
             this.m_SQLCommand = sqlCommand;
         }
 
-        public override void Build(object o)
+        public override object BuildNew()
+        {
+            YellowstonePathology.Business.Client.Model.Client client = new Client.Model.Client();
+            this.BuildClient(client);
+            return client;
+        }
+
+        public override void Refresh(object o)
+        {
+            YellowstonePathology.Business.Client.Model.Client client = (YellowstonePathology.Business.Client.Model.Client)o;
+            this.BuildClient(client);
+        }
+
+        private void BuildClient(YellowstonePathology.Business.Client.Model.Client client)
         {
             using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.Properties.Settings.Default.CurrentConnectionString))
             {
@@ -28,10 +41,10 @@ namespace YellowstonePathology.Business.Persistence
                     if (xmlReader.Read() == true)
                     {
                         XElement result = XElement.Load(xmlReader, LoadOptions.PreserveWhitespace);
-                        YellowstonePathology.Business.Persistence.XmlPropertyWriter xmlPropertyWriter = new Persistence.XmlPropertyWriter(result, o);
+                        YellowstonePathology.Business.Persistence.XmlPropertyWriter xmlPropertyWriter = new Persistence.XmlPropertyWriter(result, client);
                         xmlPropertyWriter.Write();
 
-                        BuildLocation((YellowstonePathology.Business.Client.Model.Client)o, result);
+                        BuildLocation(client, result);
                     }
                 }
             }

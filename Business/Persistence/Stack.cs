@@ -70,72 +70,65 @@ namespace YellowstonePathology.Business.Persistence
             }            
         }      
 
-        public Document Pull(DocumentId documentId, bool isGlobal, DocumentBuilder documentBuilder)
+        public Document Pull(DocumentId documentId, DocumentBuilder documentBuilder)
         {
-            Document result = null;
+            Document document = null;
             
             if (this.KeyTypeExists(documentId) == true)
             {
-                result = this.Get(documentId);
-                if (result.Writers.Exists(p => p == documentId.Writer) == false)
+                document = this.Get(documentId);
+                if (document.Writers.Exists(p => p == documentId.Writer) == false)
                 {
-                    result.Writers.Add(documentId.Writer);
+                    document.Writers.Add(documentId.Writer);
+                }                
+                
+                if(document.IsLockAquiredByMe == true)
+                {
+                    document.Submit();
                 }
-                result.Submit();
+                else
+                {
+                    documentBuilder.Refresh(document.Value);     
+                } 
             }   
             else if(this.WriterTypeExists(documentId) == true)
             {
                 Document outgoingDocument = this.WriterTypeGet(documentId);
                 this.PushOne(outgoingDocument, documentId.Writer);
 
-                result = new DocumentUpdate(documentId, isGlobal, documentBuilder);
-                this.m_Documents.Add(result);
+                if(documentId.HasValue == true)
+                {
+                    document = new DocumentUpdate(documentId);
+                    this.m_Documents.Add(document);
+                }
+                else
+                {
+                    object value = documentBuilder.BuildNew();
+                    documentId.Value = value;
+                    document = new DocumentUpdate(documentId);
+                    this.m_Documents.Add(document);
+                }                
             }           
             else
-            {
-                result = new DocumentUpdate(documentId, isGlobal, documentBuilder);
-                this.m_Documents.Add(result);     
+            {                
+                object value = documentBuilder.BuildNew();
+                documentId.Value = value;
+                document = new DocumentUpdate(documentId);
+                this.m_Documents.Add(document);     
             }
 
-            return result;
-        }
-
-        public Document Pull(DocumentId documentId, bool isGlobal, object value, DocumentBuilder documentBuilder)
-        {
-            Document result = null;
-
-            if (this.KeyTypeExists(documentId) == true)
-            {
-                result = this.Get(documentId);
-                if (result.Writers.Exists(p => p == documentId.Writer) == false)
-                {
-                    result.Writers.Add(documentId.Writer);
-                }
-                this.PushOne(result, documentId.Writer);
-            }
-            else if (this.WriterTypeExists(documentId) == true)
-            {
-                Document outgoingDocument = this.WriterTypeGet(documentId);
-                this.PushOne(outgoingDocument, documentId.Writer);
-            }
-            else
-            {
-                result = new DocumentUpdate(documentId, isGlobal, value, documentBuilder);
-                this.m_Documents.Add(result);
-            }
-
-            return result;
-        }
+            return document;
+        }        
 
         public void InsertDocument(object o, object writer, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             DocumentId documentId = new DocumentId(o, writer);            
 
-            DocumentInsert documentInsert = new DocumentInsert(documentId, o);
+            DocumentInsert documentInsert = new DocumentInsert(documentId);
             documentInsert.SetLock(systemIdentity);
             documentInsert.Submit();
 
-            DocumentUpdate documentUpdate = new DocumentUpdate(documentId, false, o);
+            DocumentUpdate documentUpdate = new DocumentUpdate(documentId);
             this.m_Documents.Add(documentUpdate);
         }
 
@@ -144,7 +137,7 @@ namespace YellowstonePathology.Business.Persistence
             DocumentId documentId = new DocumentId(o, writer);
             this.m_Documents.Remove(documentId);
 
-            DocumentDelete documentDelete = new DocumentDelete(documentId, o);
+            DocumentDelete documentDelete = new DocumentDelete(documentId);
             documentDelete.Submit();
         }        
 

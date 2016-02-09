@@ -1714,6 +1714,19 @@ namespace YellowstonePathology.Business.Test
 			result.AppendLine("Report for: " + panelSetOrder.PanelSetName);
             result.AppendLine(panelSetOrder.ToResultString(this));
             return result.ToString();
-        }                      
+        }   
+        
+        public bool IsLockAquiredByMe()
+        {
+            bool result = false;
+            if(this.m_LockAquired == true)
+            {
+                if (this.m_LockAquiredByHostName == Environment.MachineName)
+                {
+                    result = true;
+                }
+            }
+            return result;
+        }                   
 	}
 }

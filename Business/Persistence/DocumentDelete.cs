@@ -8,10 +8,10 @@ namespace YellowstonePathology.Business.Persistence
 {
     public class DocumentDelete : Document
     {
-        public DocumentDelete(DocumentId documentId, object value) 
-            : base (documentId, false)
+        public DocumentDelete(DocumentId documentId) 
+            : base (documentId)
         {
-            this.m_Value = value;
+            
         }
 
         public override YellowstonePathology.Business.Persistence.SubmissionResult Submit()

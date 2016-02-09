@@ -9,30 +9,36 @@ namespace YellowstonePathology.Business.Persistence
 {
     public class AODocumentBuilder : DocumentBuilder
     {
-        private string m_MasterAccessionNo;
+        private SqlCommand m_SQLCommand;
 
         public AODocumentBuilder(string masterAccessionNo)
-        {
-            this.m_MasterAccessionNo = masterAccessionNo;
-        }
-
-        public override void Build(object o)
-        {
-            YellowstonePathology.Business.Test.AccessionOrder accessionOrder = (YellowstonePathology.Business.Test.AccessionOrder)o;
+        {                        
             YellowstonePathology.Business.User.SystemIdentity systemIdentity = new YellowstonePathology.Business.User.SystemIdentity(YellowstonePathology.Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
 
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "AOGWGetByMasterAccessionNo";
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.Add("@MasterAccessionNo", SqlDbType.VarChar).Value = this.m_MasterAccessionNo;
-            cmd.Parameters.Add("@AquireLock", SqlDbType.Bit).Value = true;
-            cmd.Parameters.Add("@LockAquiredById", SqlDbType.VarChar).Value = systemIdentity.User.UserId;
-            cmd.Parameters.Add("@LockAquiredByUserName", SqlDbType.VarChar).Value = systemIdentity.User.UserName;
-            cmd.Parameters.Add("@LockAquiredByHostName", SqlDbType.VarChar).Value = System.Environment.MachineName;
-            cmd.Parameters.Add("@TimeLockAquired", SqlDbType.DateTime).Value = DateTime.Now;
+            this.m_SQLCommand = new SqlCommand();
+            m_SQLCommand.CommandText = "AOGWGetByMasterAccessionNo";
+            m_SQLCommand.CommandType = CommandType.StoredProcedure;
+            m_SQLCommand.Parameters.Add("@MasterAccessionNo", SqlDbType.VarChar).Value = masterAccessionNo;
+            m_SQLCommand.Parameters.Add("@AquireLock", SqlDbType.Bit).Value = true;
+            m_SQLCommand.Parameters.Add("@LockAquiredById", SqlDbType.VarChar).Value = systemIdentity.User.UserId;
+            m_SQLCommand.Parameters.Add("@LockAquiredByUserName", SqlDbType.VarChar).Value = systemIdentity.User.UserName;
+            m_SQLCommand.Parameters.Add("@LockAquiredByHostName", SqlDbType.VarChar).Value = System.Environment.MachineName;
+            m_SQLCommand.Parameters.Add("@TimeLockAquired", SqlDbType.DateTime).Value = DateTime.Now;
+        }
 
+        public override object BuildNew()
+        {
+            YellowstonePathology.Business.Test.AccessionOrder result = new Test.AccessionOrder();
             YellowstonePathology.Business.Gateway.AccessionOrderBuilder builder = new YellowstonePathology.Business.Gateway.AccessionOrderBuilder();
-            builder.Build(cmd, accessionOrder);
+            builder.Build(this.m_SQLCommand, result);
+            return result;
+        }
+
+        public override void Refresh(object o)
+        {
+            YellowstonePathology.Business.Test.AccessionOrder result = (YellowstonePathology.Business.Test.AccessionOrder)o;
+            YellowstonePathology.Business.Gateway.AccessionOrderBuilder builder = new YellowstonePathology.Business.Gateway.AccessionOrderBuilder();
+            builder.Build(this.m_SQLCommand, result);
         }
     }
 }

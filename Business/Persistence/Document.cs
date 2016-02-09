@@ -14,7 +14,8 @@ namespace YellowstonePathology.Business.Persistence
         protected object m_Value;
         protected Type m_Type;
         protected object m_Clone;
-        protected bool m_IsGlobal;      
+        protected bool m_IsGlobal;
+        protected bool m_IsLockAquiredByMe;
 
         protected List<object> m_Writers;
 
@@ -23,13 +24,22 @@ namespace YellowstonePathology.Business.Persistence
             this.m_Writers = new List<object>();
         }
 
-        public Document(DocumentId documentId, bool isGlobal)
+        public Document(DocumentId documentId)
         {
+            if (documentId.Value == null) throw new Exception("Can't create a new document without a value.");
+
+            this.m_Value = documentId.Value;
             this.m_Writers = new List<object>();
-            this.m_Type = documentId.Type;                                    
+            this.m_Type = documentId.Type;
             this.m_Key = documentId.Key;
             this.m_Writers.Add(documentId.Writer);
-            this.m_IsGlobal = isGlobal;
+            this.m_IsGlobal = documentId.IsGlobal;
+
+            if (this.m_Value is YellowstonePathology.Business.Test.AccessionOrder)
+            {
+                YellowstonePathology.Business.Test.AccessionOrder accessionOrder = (YellowstonePathology.Business.Test.AccessionOrder)this.m_Value;
+                this.m_IsLockAquiredByMe = accessionOrder.IsLockAquiredByMe();
+            }
         }
 
         public void ReleaseLock()
@@ -86,7 +96,12 @@ namespace YellowstonePathology.Business.Persistence
         public bool IsGlobal
         {
             get { return this.m_IsGlobal; }
-        }                           
+        }
+
+        public bool IsLockAquiredByMe
+        {
+            get { return this.m_IsLockAquiredByMe; }
+        }
 
         public virtual YellowstonePathology.Business.Persistence.SubmissionResult Submit()
         {

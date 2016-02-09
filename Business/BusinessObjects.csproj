@@ -481,6 +481,7 @@
     </Compile>
     <Compile Include="Persistence\AODocumentBuilder.cs" />
     <Compile Include="Persistence\ClientDocumentBuilder.cs" />
+    <Compile Include="Persistence\ClientOrderDocumentBuilder.cs" />
     <Compile Include="Persistence\DocumentBuilder.cs" />
     <Compile Include="Persistence\DocumentCollection.cs" />
     <Compile Include="Persistence\GenericDocumentBuilder.cs" />

@@ -75,15 +75,14 @@ namespace YellowstonePathology.Business.Persistence
         {
             AODocumentBuilder documentBuilder = new AODocumentBuilder(masterAccessionNo);
             DocumentId documentId = new DocumentId(typeof(YellowstonePathology.Business.Test.AccessionOrder), writer, masterAccessionNo);
-            Document document = this.m_Stack.Pull(documentId, false, documentBuilder);            
+            Document document = this.m_Stack.Pull(documentId, documentBuilder);            
             return (YellowstonePathology.Business.Test.AccessionOrder)document.Value;
         }
 
         public YellowstonePathology.Business.Test.AccessionOrder GetAccessionOrderByMasterAccessionNo(string masterAccessionNo)
-        {
-            YellowstonePathology.Business.Test.AccessionOrder result = new Test.AccessionOrder();
+        {             
             AODocumentBuilder documentBuilder = new AODocumentBuilder(masterAccessionNo);
-            documentBuilder.Build(result);
+            YellowstonePathology.Business.Test.AccessionOrder result = (YellowstonePathology.Business.Test.AccessionOrder)documentBuilder.BuildNew();
             return result;
         }        
 
@@ -93,10 +92,10 @@ namespace YellowstonePathology.Business.Persistence
             cmd.CommandText = "select * From tblTypingShortcut where ObjectId = @ObjectId";
             cmd.CommandType = CommandType.Text;
             cmd.Parameters.Add("@ObjectId", SqlDbType.VarChar).Value = typingShortcut.ObjectId;
-            GenericDocumentBuilder builder = new GenericDocumentBuilder(cmd);
+            GenericDocumentBuilder builder = new GenericDocumentBuilder(cmd, typeof(YellowstonePathology.Business.Typing.TypingShortcut));
 
             DocumentId documentId = new DocumentId(typingShortcut, writer);
-            Document document = this.m_Stack.Pull(documentId, false, typingShortcut, builder);            
+            Document document = this.m_Stack.Pull(documentId, builder);            
         }
 
         public void PullClient(YellowstonePathology.Business.Client.Model.Client client, object writer)
@@ -109,7 +108,7 @@ namespace YellowstonePathology.Business.Persistence
             ClientDocumentBuilder builder = new ClientDocumentBuilder(cmd);
 
             DocumentId documentId = new DocumentId(client, writer);
-            Document document = this.m_Stack.Pull(documentId, false, client, builder);
+            Document document = this.m_Stack.Pull(documentId, builder);
         }
 
         public void PullPhysician(YellowstonePathology.Business.Domain.Physician physician, object writer)
@@ -118,14 +117,15 @@ namespace YellowstonePathology.Business.Persistence
             cmd.CommandText = "select * From tblPhysician where PhysicianId = @PhysicianId";
             cmd.CommandType = CommandType.Text;
             cmd.Parameters.Add("@PhysicianId", SqlDbType.Int).Value = physician.PhysicianId;
-            GenericDocumentBuilder builder = new GenericDocumentBuilder(cmd);
+            GenericDocumentBuilder builder = new GenericDocumentBuilder(cmd, typeof(YellowstonePathology.Business.Domain.Physician));
 
             DocumentId documentId = new DocumentId(physician, writer);
-            Document document = this.m_Stack.Pull(documentId, false, physician, builder);
+            Document document = this.m_Stack.Pull(documentId, builder);
         }
 
         public void PullTaskOrder(YellowstonePathology.Business.Task.Model.TaskOrder taskOrder, object writer)
         {
+            /*
             DocumentId documentId = new DocumentId(typeof(YellowstonePathology.Business.Task.Model.TaskOrder), writer, taskOrder.TaskOrderId);
             //Document document = this.m_Stack.Pull(documentId, false);
 
@@ -160,7 +160,8 @@ namespace YellowstonePathology.Business.Persistence
                 YellowstonePathology.Business.Persistence.XmlPropertyWriter taskOrderDetailWriter = new YellowstonePathology.Business.Persistence.XmlPropertyWriter(taskOrderDetailElement, taskOrderDetail);
                 taskOrderDetailWriter.Write();
                 taskOrder.TaskOrderDetailCollection.Add(taskOrderDetail);
-            }            
+            }  
+            */          
         }
 
         public YellowstonePathology.Business.User.UserPreference PullUserPreference(object writer)
@@ -169,10 +170,11 @@ namespace YellowstonePathology.Business.Persistence
             SqlCommand cmd = new SqlCommand("Select * from tblUserPreference where HostName = @HostName");
             cmd.CommandType = System.Data.CommandType.Text;
             cmd.Parameters.Add("@HostName", System.Data.SqlDbType.VarChar).Value = hostName;
-            GenericDocumentBuilder builder = new GenericDocumentBuilder(cmd);
+            GenericDocumentBuilder builder = new GenericDocumentBuilder(cmd, typeof(YellowstonePathology.Business.User.UserPreference));
 
             DocumentId documentId = new DocumentId(typeof(YellowstonePathology.Business.User.UserPreference), writer, hostName);
-            Document document = this.m_Stack.Pull(documentId, true, builder);
+            documentId.IsGlobal = true;
+            Document document = this.m_Stack.Pull(documentId, builder);
           
             return (YellowstonePathology.Business.User.UserPreference)document.Value;
         }
@@ -182,9 +184,8 @@ namespace YellowstonePathology.Business.Persistence
             SqlCommand cmd = new SqlCommand();
             cmd.CommandText = "Select * from tblApplicationVersion";
             cmd.CommandType = CommandType.Text;
-            GenericDocumentBuilder builder = new GenericDocumentBuilder(cmd);
-            YellowstonePathology.Business.ApplicationVersion result = new ApplicationVersion();
-            builder.Build(result);
+            GenericDocumentBuilder builder = new GenericDocumentBuilder(cmd, typeof(YellowstonePathology.Business.ApplicationVersion));
+            YellowstonePathology.Business.ApplicationVersion result = (YellowstonePathology.Business.ApplicationVersion)builder.BuildNew();
             return result;
         }
 
@@ -192,23 +193,21 @@ namespace YellowstonePathology.Business.Persistence
         {
             SqlCommand cmd = new SqlCommand();
             cmd.CommandText = "gwGetClientOrderByClientOrderId";
-
             SqlParameter clientOrderIdParameter = new SqlParameter("@ClientOrderId", SqlDbType.VarChar, 100);
             clientOrderIdParameter.Value = clientOrderId;
             cmd.Parameters.Add(clientOrderIdParameter);
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            ClientOrderDocumentBuilder builder = new ClientOrderDocumentBuilder(cmd);
 
-            YellowstonePathology.Business.Gateway.ClientOrderBuilder builder = new Gateway.ClientOrderBuilder(cmd);
-            Nullable<int> panelSetId = builder.GetPanelSetId();
-            YellowstonePathology.Business.ClientOrder.Model.ClientOrder result = YellowstonePathology.Business.ClientOrder.Model.ClientOrderFactory.GetClientOrder(panelSetId);
-            builder.Build(result);  
-                          
-            this.m_Stack.Push(result, writer);            
-            return result;
+            DocumentId documentId = new DocumentId(typeof(YellowstonePathology.Business.User.UserPreference), writer, clientOrderId);
+            Document document = this.m_Stack.Pull(documentId, builder);
+
+            return (YellowstonePathology.Business.ClientOrder.Model.ClientOrder)document.Value;
         }
         
         public void PullMaterialTrackingBatch(YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch materialTrackingBatch, object writer)
         {
+            /*
             SqlCommand cmd = new SqlCommand();
             cmd.CommandText = "Select * from tblMaterialTrackingBatch where MaterialTrackingBatchId = @MaterialTrackingBatchId";
             cmd.CommandType = CommandType.Text;
@@ -229,10 +228,12 @@ namespace YellowstonePathology.Business.Persistence
             }
 
             this.m_Stack.Push(materialTrackingBatch, writer);
+            */
         }
 
         public void PullMaterialTrackingLog(YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog materialTrackingLog, object writer)
         {
+            /*
             SqlCommand cmd = new SqlCommand();
             cmd.CommandText = "Select * from tblMaterialTrackingLog where MaterialTrackingLogId = @MaterialTrackingLogId";
             cmd.CommandType = CommandType.Text;
@@ -253,6 +254,7 @@ namespace YellowstonePathology.Business.Persistence
             }
 
             this.m_Stack.Push(materialTrackingLog, writer);
+            */
         }
     }
 }

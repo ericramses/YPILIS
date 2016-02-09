@@ -10,13 +10,27 @@ namespace YellowstonePathology.Business.Persistence
     public class GenericDocumentBuilder : DocumentBuilder
     {
         private SqlCommand m_SQLCommand;
+        private Type m_Type;
 
-        public GenericDocumentBuilder(SqlCommand sqlCommand)
+        public GenericDocumentBuilder(SqlCommand sqlCommand, Type type)
         {
-            this.m_SQLCommand = sqlCommand;            
+            this.m_SQLCommand = sqlCommand;
+            this.m_Type = type;
         }
 
-        public override void Build(object o)
+        public override object BuildNew()
+        {
+            object result = Activator.CreateInstance(this.m_Type);
+            this.Build(result);
+            return result;
+        }
+
+        public override void Refresh(object o)
+        {
+            this.Build(o);
+        }
+
+        private void Build(object o)
         {
             using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
             {

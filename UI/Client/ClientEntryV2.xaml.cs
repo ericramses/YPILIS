@@ -70,7 +70,7 @@ namespace YellowstonePathology.UI.Client
 
         private void ClientEntry_Closing(object sender, CancelEventArgs e)
         {
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);            
+            
         }
 
         public void NotifyPropertyChanged(String info)
@@ -130,7 +130,8 @@ namespace YellowstonePathology.UI.Client
                     YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(this.m_Client, this.m_ParentWindow, this.m_SystemIdentity);
                 }
 
-			    Close();
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
+                Close();
             }
 		}
 
