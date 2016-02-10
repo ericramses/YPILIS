@@ -2627,5 +2627,133 @@ namespace YellowstonePathology.Business.Gateway
             }
             return result;
         }
+
+        public static List<Business.MasterAccessionNo> GetCasesWithUnscheduledAmendments()
+        {
+            List<Business.MasterAccessionNo> result = new List<Business.MasterAccessionNo>();
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "select distinct pso.MasterAccessionNo " +
+                "from tblAmendment a " +
+                "join tblTestOrderReportDistribution trd on a.ReportNo = trd.ReportNo " +
+                "join tblPanelSetOrder pso on trd.ReportNo = pso.ReportNo " +
+                "where trd.TimeOfLastDistribution < a.finalTime and trd.ScheduledDistributionTime is null";
+
+            cmd.CommandType = CommandType.Text;
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        Business.MasterAccessionNo man = Business.MasterAccessionNo.Parse(dr[0].ToString(), true);
+                        result.Add(man);
+                    }
+                }
+            }
+            return result;
+        }
+
+        public static List<Business.MasterAccessionNo> GetCasesWithUnsetDistributions()
+        {
+            List<Business.MasterAccessionNo> result = new List<Business.MasterAccessionNo>();
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "Select distinct MasterAccessionNo from tblPanelSetOrder pso where final = 1 and distribute = 1 and not exists (Select * from tblTestOrderReportDistribution where reportNo = pso.ReportNo)";
+
+            cmd.CommandType = CommandType.Text;
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        Business.MasterAccessionNo man = Business.MasterAccessionNo.Parse(dr[0].ToString(), true);
+                        result.Add(man);
+                    }
+                }
+            }
+            return result;
+        }
+
+        public static List<Business.MasterAccessionNo> GetCasesWithUnscheduledDistributions()
+        {
+            List<Business.MasterAccessionNo> result = new List<Business.MasterAccessionNo>();
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "Select distinct pso.MasterAccessionNo from tblTestOrderReportDistribution tor	" +
+                "join tblPanelSetOrder pso on tor.ReportNo = pso.ReportNo " +
+                "where tor.[Distributed] = 0 and tor.ScheduledDistributionTime is null and pso.Final = 1 and pso.Distribute = 1 and pso.HoldDistribution = 0";
+
+            cmd.CommandType = CommandType.Text;
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        Business.MasterAccessionNo man = Business.MasterAccessionNo.Parse(dr[0].ToString(), true);
+                        result.Add(man);
+                    }
+                }
+            }
+            return result;
+        }
+
+        public static List<Business.MasterAccessionNo> GetCasesWithUnscheduledPublish()
+        {
+            List<Business.MasterAccessionNo> result = new List<Business.MasterAccessionNo>();
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "Select Distinct MasterAccessionNo from tblPanelSetOrder pso where pso.Final = 1 and pso.ScheduledPublishTime is null and pso.Published = 0";
+
+            cmd.CommandType = CommandType.Text;
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        Business.MasterAccessionNo man = Business.MasterAccessionNo.Parse(dr[0].ToString(), true);
+                        result.Add(man);
+                    }
+                }
+            }
+            return result;
+        }
+
+        public static List<Business.ReportNo> GetNextReportNumbersToPublish()
+        {
+            List<Business.ReportNo> result = new List<Business.ReportNo>();
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "Select Distinct pso.ReportNo from tblPanelSetOrder pso where pso.Final = 1 and pso.ScheduledPublishTime <= getdate() union " +
+                "Select pso.* from tblPanelSetOrder pso join tblTestOrderReportDistribution trd on pso.ReportNo = trd.ReportNo " +
+                "where pso.Final = 1 and trd.ScheduledDistributionTime <= getdate() and pso.Distribute = 1";
+
+            cmd.CommandType = CommandType.Text;
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        Business.ReportNo rno = new Business.ReportNo(dr[0].ToString());
+                        result.Add(rno);
+                    }
+                }
+            }
+            return result;
+        }
     }
 }

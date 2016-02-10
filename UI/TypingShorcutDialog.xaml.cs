@@ -39,8 +39,22 @@ namespace YellowstonePathology.UI
             if(isNewShortcut == false)
             {
                 YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullTypingShortcut(typingShortcut, this);
-            }            
-        }        
+            }
+
+            this.Closing += TypingShorcutDialog_Closing;          
+        }
+
+        private void TypingShorcutDialog_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if(this.DialogResult == true)
+            {
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
+            }
+            else
+            {
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Clear(this);
+            }           
+        }
 
         public void GridTyping_KeyUp(object sender, KeyEventArgs args)
         {            
@@ -59,7 +73,7 @@ namespace YellowstonePathology.UI
         }
 
         public void ButtonCancel_Click(object sender, RoutedEventArgs args)
-        {
+        {            
             this.DialogResult = false;
         }
 
@@ -69,8 +83,7 @@ namespace YellowstonePathology.UI
             {
                 YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(this.m_TypingShortcut, this, this.m_SystemIdentity);
             }
-            
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);            
+                       
             this.DialogResult = true;
         }        
     }

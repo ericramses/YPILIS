@@ -22,8 +22,7 @@ namespace YellowstonePathology.UI.Flow
 
     public partial class FlowWorkspace : System.Windows.Controls.UserControl
     {        
-        public CommandBinding CommandBindingApplicationClosing;
-        public CommandBinding CommandBindingSaveChanges;
+        public CommandBinding CommandBindingApplicationClosing;        
         public CommandBinding CommandBindingToggleAccessionLockMode;
         public CommandBinding CommandBindingRemoveTab;        
 
@@ -41,13 +40,11 @@ namespace YellowstonePathology.UI.Flow
             this.m_Writer = writer;
 			this.m_SystemIdentity = new YellowstonePathology.Business.User.SystemIdentity(YellowstonePathology.Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
 
-            this.CommandBindingApplicationClosing = new CommandBinding(MainWindow.ApplicationClosingCommand, this.ApplicationClosing);
-            this.CommandBindingSaveChanges = new CommandBinding(MainWindow.SaveChangesCommand, SaveData);
+            this.CommandBindingApplicationClosing = new CommandBinding(MainWindow.ApplicationClosingCommand, this.ApplicationClosing);            
             this.CommandBindingToggleAccessionLockMode = new CommandBinding(MainWindow.ToggleAccessionLockModeCommand, AlterAccessionLock, CanAlterAccessionLock);
             this.CommandBindingRemoveTab = new CommandBinding(MainWindow.RemoveTabCommand, RemoveTab);            
 
-            this.CommandBindings.Add(this.CommandBindingApplicationClosing);
-            this.CommandBindings.Add(this.CommandBindingSaveChanges);
+            this.CommandBindings.Add(this.CommandBindingApplicationClosing);            
             this.CommandBindings.Add(this.CommandBindingToggleAccessionLockMode);
             this.CommandBindings.Add(this.CommandBindingRemoveTab);            
 
@@ -69,7 +66,13 @@ namespace YellowstonePathology.UI.Flow
         {
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath += new MainWindowCommandButtonHandler.StartProviderDistributionPathEventHandler(MainWindowCommandButtonHandler_StartProviderDistributionPath);
             this.m_MainWindowCommandButtonHandler.ShowAmendmentDialog += new MainWindowCommandButtonHandler.ShowAmendmentDialogEventHandler(MainWindowCommandButtonHandler_ShowAmendmentDialog);
-        }        
+            this.m_MainWindowCommandButtonHandler.Save += new MainWindowCommandButtonHandler.SaveEventHandler(MainWindowCommandButtonHandler_Save);
+        }
+
+        private void MainWindowCommandButtonHandler_Save(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
 
         private void MainWindowCommandButtonHandler_ShowAmendmentDialog(object sender, EventArgs e)
         {            

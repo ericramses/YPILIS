@@ -24,8 +24,7 @@ namespace YellowstonePathology.UI
 
         public delegate void SaveEventHandler(object sender, EventArgs e);
         public static event SaveEventHandler Save;               
-
-        public static RoutedCommand SaveChangesCommand = new RoutedCommand();
+        
         public static RoutedCommand ApplicationClosingCommand = new RoutedCommand();
         public static RoutedCommand AssignCommand = new RoutedCommand();
         public static RoutedCommand ShowOrderFormCommand = new RoutedCommand();
@@ -622,8 +621,6 @@ namespace YellowstonePathology.UI
         public void ToolBarButtonSave_Click(object sender, RoutedEventArgs args)
         {
             this.m_MainWindowCommandButtonHandler.OnSave();
-            if (MainWindow.Save != null) MainWindow.Save(this, new EventArgs());
-            MainWindow.SaveChangesCommand.Execute(null, null);            
         }
 
 		public void ToolBarButtonViewDocument_Click(object sender, RoutedEventArgs args)

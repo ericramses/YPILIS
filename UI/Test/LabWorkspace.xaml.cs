@@ -23,8 +23,7 @@ namespace YellowstonePathology.UI.Test
 
     public partial class LabWorkspace : System.Windows.Controls.UserControl
     {        
-        public CommandBinding CommandBindingApplicationClosing;
-        public CommandBinding CommandBindingSaveChanges;        
+        public CommandBinding CommandBindingApplicationClosing;        
         public CommandBinding CommandBindingShowCaseDocument;
         public CommandBinding CommandBindingToggleAccessionLockMode;        
         public CommandBinding CommandBindingShowOrderForm;		
@@ -57,8 +56,7 @@ namespace YellowstonePathology.UI.Test
             this.m_Writer = writer;
 			this.m_SystemIdentity = new YellowstonePathology.Business.User.SystemIdentity(YellowstonePathology.Business.User.SystemIdentityTypeEnum.CurrentlyScannedIn);
 
-            this.CommandBindingApplicationClosing = new CommandBinding(MainWindow.ApplicationClosingCommand, CloseWorkspace);
-            this.CommandBindingSaveChanges = new CommandBinding(MainWindow.SaveChangesCommand, SaveData);                        
+            this.CommandBindingApplicationClosing = new CommandBinding(MainWindow.ApplicationClosingCommand, CloseWorkspace);            
             this.CommandBindingShowCaseDocument = new CommandBinding(MainWindow.ShowCaseDocumentCommand, ShowCaseDocument);
 			this.CommandBindingToggleAccessionLockMode = new CommandBinding(MainWindow.ToggleAccessionLockModeCommand, AlterAccessionLock, CanAlterAccessionLock);
 			this.CommandBindingShowOrderForm = new CommandBinding(MainWindow.ShowOrderFormCommand, this.ShowOrderForm, ItemIsSelected);			
@@ -66,8 +64,7 @@ namespace YellowstonePathology.UI.Test
 			this.CommandBindingRemoveTab = new CommandBinding(MainWindow.RemoveTabCommand, RemoveTab);
 			this.CommandBindingShowPatientEditDialog = new CommandBinding(MainWindow.ShowPatientEditDialogCommand, this.ShowPatientEditDialog);
 
-            this.CommandBindings.Add(this.CommandBindingApplicationClosing);
-            this.CommandBindings.Add(this.CommandBindingSaveChanges);           
+            this.CommandBindings.Add(this.CommandBindingApplicationClosing);            
             this.CommandBindings.Add(this.CommandBindingShowCaseDocument);
             this.CommandBindings.Add(this.CommandBindingToggleAccessionLockMode);
             this.CommandBindings.Add(this.CommandBindingShowOrderForm);            
@@ -101,8 +98,16 @@ namespace YellowstonePathology.UI.Test
 			this.m_ScanLogger = new YellowstonePathology.Business.Logging.ScanLogger(this.m_SystemIdentity);
             this.m_ScanLogger.Start();
 			this.ListViewDocumentList.ItemsSource = this.m_LabUI.CaseDocumentCollection;
-		}
-        
+            
+            this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath += new MainWindowCommandButtonHandler.StartProviderDistributionPathEventHandler(MainWindowCommandButtonHandler_StartProviderDistributionPath);
+            this.m_MainWindowCommandButtonHandler.Save += new MainWindowCommandButtonHandler.SaveEventHandler(MainWindowCommandButtonHandler_Save);
+        }
+
+        private void MainWindowCommandButtonHandler_Save(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
         public void CloseWorkspace(object target, ExecutedRoutedEventArgs args)
         {                        
             this.Save(false);
@@ -169,17 +174,7 @@ namespace YellowstonePathology.UI.Test
 
 		private void LabWorkspace_Loaded(object sender, RoutedEventArgs args)
         {            
-			/*if (this.m_SystemIdentity.StationName == "BLGSCASSETTE" || this.m_SystemIdentity.StationName == "HISTOLOGYB")
-			{				
-				for (int idx = 0; idx < this.ComboBoxPanelSetType.Items.Count; idx++)
-				{
-                    if (((YellowstonePathology.Business.BatchTypeListItem)ComboBoxPanelSetType.Items[idx]).BatchTypeId == 8)
-					{
-						this.ComboBoxPanelSetType.SelectedIndex = idx;
-						break;
-					}
-				}                
-			}*/
+			
 
 			if (this.m_LabUI != null && this.m_LabUI.AccessionOrder != null && this.m_LabUI.PanelSetOrder != null)
 			{
@@ -194,11 +189,7 @@ namespace YellowstonePathology.UI.Test
 			}
 
 			this.m_SystemIdentity.UserChanged += new Business.User.SystemIdentity.UserChangedHandler(UserChangedHandler);			
-			this.m_BarcodeScanPort.ClientScanReceived += ClientScanReceived;
-
-            //Loaded is called twice so I am removing before I add.
-            this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath -= MainWindowCommandButtonHandler_StartProviderDistributionPath;
-            this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath += new MainWindowCommandButtonHandler.StartProviderDistributionPathEventHandler(MainWindowCommandButtonHandler_StartProviderDistributionPath);
+			this.m_BarcodeScanPort.ClientScanReceived += ClientScanReceived;                       
 		}
 
         public void AccessionLock_LockStatusChanged(object sender, EventArgs e)

@@ -26,8 +26,8 @@ namespace YellowstonePathology.UI
 
 		public LockedCaseDialog()
 		{
-			this.FillLockItemCollection();
-            this.FillNewLocks();
+			this.GetLockItemCollection();
+            this.GetNewLocks();
 			InitializeComponent();
             DataContext = this;
 		}
@@ -40,7 +40,7 @@ namespace YellowstonePathology.UI
             }
         }
 
-        private void FillLockItemCollection()
+        private void GetLockItemCollection()
 		{
 			this.m_LockItemCollection = YellowstonePathology.Business.Gateway.LockGateway.GetLocks();
 			if (this.m_LockItemCollection == null)
@@ -49,7 +49,7 @@ namespace YellowstonePathology.UI
 			}
 		}
 
-        private void FillNewLocks()
+        private void GetNewLocks()
         {
             this.m_NewLocks = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetLockItems();
         }
@@ -66,7 +66,7 @@ namespace YellowstonePathology.UI
 					YellowstonePathology.Business.Domain.KeyLock keyLock = new Business.Domain.KeyLock();
 					keyLock.Key = lockItem.KeyString;
 					YellowstonePathology.Business.Gateway.LockGateway.ReleaseLock(keyLock, systemUser);
-					this.FillLockItemCollection();
+					this.GetLockItemCollection();
 				}
 			}
 		}
@@ -78,8 +78,8 @@ namespace YellowstonePathology.UI
 
 		private void ButtonRefresh_Click(object sender, RoutedEventArgs e)
 		{
-			this.FillLockItemCollection();
-            this.FillNewLocks();
+			this.GetLockItemCollection();
+            this.GetNewLocks();
             this.NotifyPropertyChanged(string.Empty);
 		}
 

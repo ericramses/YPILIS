@@ -61,6 +61,11 @@ namespace YellowstonePathology.Business.Persistence
             this.m_Stack.Push(writer);
         }
 
+        public void Clear(object writer)
+        {
+            this.m_Stack.Push(writer);
+        }
+
         public void Push(Object o, object writer)
         {
             this.m_Stack.Push(o, writer);

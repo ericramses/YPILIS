@@ -9,11 +9,11 @@ namespace YellowstonePathology.UI
     {
         private readonly object m_EventLockObject = new object();
 
-        private EventHandler m_SaveEventHandler;
+        //private EventHandler m_SaveEventHandler;
         private EventHandler m_ToggleAccessionLockEventHandler;
 		private EventHandler m_ShowCaseDocumentEventHandler;
 		private EventHandler m_ShowOrderFormEventHandler;
-		private EventHandler m_ShowAmendmentDialogEventHandler;
+		//private EventHandler m_ShowAmendmentDialogEventHandler;
 		private EventHandler m_AssignCaseEventHandler;
 		private EventHandler m_RemoveTabEventHandler;
 		private EventHandler m_ApplicationClosingEventHandler;
@@ -24,6 +24,9 @@ namespace YellowstonePathology.UI
         public delegate void ShowAmendmentDialogEventHandler(object sender, EventArgs e);
         public event ShowAmendmentDialogEventHandler ShowAmendmentDialog;
 
+        public delegate void SaveEventHandler(object sender, EventArgs e);
+        public event SaveEventHandler Save;
+
         public MainWindowCommandButtonHandler()
         {
             
@@ -31,8 +34,7 @@ namespace YellowstonePathology.UI
 
         public void OnSave()
         {
-            if (this.m_SaveEventHandler != null)
-                this.m_SaveEventHandler.Invoke(this, EventArgs.Empty);
+            if (this.Save != null) this.Save(this, EventArgs.Empty);
         }
 
         public void OnToggelEventLock()
@@ -79,21 +81,7 @@ namespace YellowstonePathology.UI
         public void OnShowAmendmentDialog()
         {
             if (this.ShowAmendmentDialog != null) this.ShowAmendmentDialog(this, EventArgs.Empty);
-        }
-
-        public event EventHandler Save
-        {
-            add
-            {
-                lock(this.m_EventLockObject)
-                    this.m_SaveEventHandler = value;
-            }
-            remove
-            {
-                lock(this.m_EventLockObject)
-                    this.m_SaveEventHandler = null;
-            }
-        }
+        }        
 
         public event EventHandler ToggleAccessionLock
         {

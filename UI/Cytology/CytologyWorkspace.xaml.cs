@@ -20,8 +20,7 @@ namespace YellowstonePathology.UI.Cytology
     public partial class CytologyWorkspace : UserControl
     {                
 		public delegate void CytologyReportNoChanged();
-
-        public CommandBinding CommandBindingSave;        
+        
         public CommandBinding CommandBindingPatientLinking;
         public CommandBinding CommandBindingShowCaseDocument;        
 		public CommandBinding CommandBindingToggleAccessionLockMode;
@@ -50,15 +49,13 @@ namespace YellowstonePathology.UI.Cytology
             this.m_CytologyUI = new CytologyUI(this.m_SystemIdentity, writer);
 			this.m_CytologyResultsWorkspace = new CytologyResultsWorkspace(this.m_CytologyUI);
 			this.m_CytologyUI.AccessionChanged += new CytologyUI.AccessionChangedEventHandler(CytologyUI_AccessionChanged);
-
-            this.CommandBindingSave = new CommandBinding(MainWindow.SaveChangesCommand, Save);                        
+            
             this.CommandBindingShowCaseDocument = new CommandBinding(MainWindow.ShowCaseDocumentCommand, this.m_CytologyUI.ShowCaseDocument);            
 			this.CommandBindingApplicationClosing = new CommandBinding(MainWindow.ApplicationClosingCommand, this.CloseWorkspace);
 			this.CommandBindingShowPatientEditDialog = new CommandBinding(MainWindow.ShowPatientEditDialogCommand, this.m_CytologyUI.ShowPatientEditDialog);
 			this.CommandBindingShowAmendmentDialog = new CommandBinding(MainWindow.ShowAmendmentDialogCommand, this.m_CytologyUI.ShowAmendmentDialog, ItemIsSelected);
 			this.CommandBindingToggleAccessionLockMode = new CommandBinding(MainWindow.ToggleAccessionLockModeCommand, this.m_CytologyResultsWorkspace.AlterAccessionLock, this.m_CytologyResultsWorkspace.CanAlterAccessionLock);
-            
-            this.CommandBindings.Add(this.CommandBindingSave);                        
+                        
             this.CommandBindings.Add(this.CommandBindingShowCaseDocument);			
 			this.CommandBindings.Add(this.CommandBindingApplicationClosing);
 			this.CommandBindings.Add(this.CommandBindingShowPatientEditDialog);
@@ -85,6 +82,7 @@ namespace YellowstonePathology.UI.Cytology
         private void CytologyWorkspace_Unloaded(object sender, RoutedEventArgs e)
         {
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath -= MainWindowCommandButtonHandler_StartProviderDistributionPath;
+            this.m_MainWindowCommandButtonHandler.Save -= MainWindowCommandButtonHandler_Save;
         }
 
 		private void BarcodeScanPort_ThinPrepSlideScanReceived(Business.BarcodeScanning.Barcode barcode)
@@ -115,8 +113,16 @@ namespace YellowstonePathology.UI.Cytology
         {            
             this.ComboBoxSearchType.SelectedIndex = 0;
             this.ComboBoxScreenerSelection.SelectedIndex = this.m_CytologyUI.GetScreenerIndex();
+
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath += new MainWindowCommandButtonHandler.StartProviderDistributionPathEventHandler(MainWindowCommandButtonHandler_StartProviderDistributionPath);
+            this.m_MainWindowCommandButtonHandler.Save += new MainWindowCommandButtonHandler.SaveEventHandler(MainWindowCommandButtonHandler_Save);
+
             Keyboard.Focus(this.m_CytologyResultsWorkspace.TextBoxReportNoSearch);
+        }
+
+        private void MainWindowCommandButtonHandler_Save(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         private void MainWindowCommandButtonHandler_StartProviderDistributionPath(object sender, EventArgs e)

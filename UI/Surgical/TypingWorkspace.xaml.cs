@@ -19,8 +19,7 @@ namespace YellowstonePathology.UI.Surgical
 {
 	public partial class TypingWorkspace : UserControl
     {        
-        public CommandBinding CommandBindingClose;
-        public CommandBinding CommandBindingSave;        
+        public CommandBinding CommandBindingClose;        
 		public CommandBinding CommandBindingShowCaseDocument;
         public CommandBinding CommandBindingToggleAccessionLockMode;
 		public CommandBinding CommandBindingRemoveTab;
@@ -54,16 +53,14 @@ namespace YellowstonePathology.UI.Surgical
 
             this.m_SystemIdentity = new YellowstonePathology.Business.User.SystemIdentity(YellowstonePathology.Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
 
-            this.CommandBindingClose = new CommandBinding(MainWindow.ApplicationClosingCommand, HandleAppClosing);
-            this.CommandBindingSave = new CommandBinding(MainWindow.SaveChangesCommand, SaveData);
+            this.CommandBindingClose = new CommandBinding(MainWindow.ApplicationClosingCommand, HandleAppClosing);            
 			this.CommandBindingShowCaseDocument = new CommandBinding(MainWindow.ShowCaseDocumentCommand, ShowCaseDocument, ItemIsPresent);
 			this.CommandBindingToggleAccessionLockMode = new CommandBinding(MainWindow.ToggleAccessionLockModeCommand, AlterAccessionLock, CanAlterAccessionLock);
 			this.CommandBindingRemoveTab = new CommandBinding(MainWindow.RemoveTabCommand, RemoveTab);
 			this.CommandBindingShowOrderForm = new CommandBinding(MainWindow.ShowOrderFormCommand, this.ShowOrderForm, ItemIsSelected);
 			this.CommandBindingShowAmendmentDialog = new CommandBinding(MainWindow.ShowAmendmentDialogCommand, this.ShowAmendmentDialog, ItemIsSelected);			
 
-            this.CommandBindings.Add(this.CommandBindingClose);
-            this.CommandBindings.Add(this.CommandBindingSave);            
+            this.CommandBindings.Add(this.CommandBindingClose);            
             this.CommandBindings.Add(this.CommandBindingShowCaseDocument);
             this.CommandBindings.Add(this.CommandBindingToggleAccessionLockMode);
 			this.CommandBindings.Add(this.CommandBindingRemoveTab);
@@ -100,7 +97,14 @@ namespace YellowstonePathology.UI.Surgical
 			}
 
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath += new MainWindowCommandButtonHandler.StartProviderDistributionPathEventHandler(MainWindowCommandButtonHandler_StartProviderDistributionPath);
+            this.m_MainWindowCommandButtonHandler.Save += new MainWindowCommandButtonHandler.SaveEventHandler(MainWindowCommandButtonHandler_Save);
 		}
+
+        private void MainWindowCommandButtonHandler_Save(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            MessageBox.Show("sdf");
+        }
 
         private void MainWindowCommandButtonHandler_StartProviderDistributionPath(object sender, EventArgs e)
         {
@@ -118,6 +122,7 @@ namespace YellowstonePathology.UI.Surgical
         {            
 			this.Save(false);
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath -= MainWindowCommandButtonHandler_StartProviderDistributionPath;
+            this.m_MainWindowCommandButtonHandler.Save -= MainWindowCommandButtonHandler_Save;
         }        
 
         public void ButtonRefresh_Click(object sender, RoutedEventArgs args)
