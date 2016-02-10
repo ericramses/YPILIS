@@ -84,8 +84,8 @@ namespace YellowstonePathology.UI.ReportDistribution
                 this.m_Timer.Stop();
 
                 //this.HandleUnscheduledAmendments();
-                //this.HandleUnsetDistribution();
-                this.HandleUnscheduledPublish();
+                this.HandleUnsetDistribution();
+                //this.HandleUnscheduledPublish();
                 //this.HandleUnscheduledDistribution();                
                 //this.PublishNext();
 
@@ -201,10 +201,11 @@ namespace YellowstonePathology.UI.ReportDistribution
             List<YellowstonePathology.Business.MasterAccessionNo> caseList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetCasesWithUnscheduledPublish();
             foreach (YellowstonePathology.Business.MasterAccessionNo masterAccessionNo in caseList)
             {
+                //pso.Final = 1 and pso.ScheduledPublishTime is null and pso.Published = 0
                 YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo.Value, Window.GetWindow(this));
                 foreach (YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder in accessionOrder.PanelSetOrderCollection)
                 {
-                    if(panelSetOrder.Final == true)
+                    if(panelSetOrder.Final == true && panelSetOrder.ScheduledPublishTime == null && panelSetOrder.Published == false)
                     {
                         DateTime scheduleTime = DateTime.Now;
                         if (panelSetOrder.FinalTime > DateTime.Now.AddMinutes(-15))
