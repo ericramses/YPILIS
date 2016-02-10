@@ -40,7 +40,8 @@ namespace YellowstonePathology.UI.Login
             if (this.m_SystemIdentity != null)
             {
                 YellowstonePathology.Business.Gateway.LockGateway.ReleaseUserLocks(this.m_SystemIdentity.User);
-            }            
+            }
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);          
         }
 
 		public YellowstonePathology.Business.User.SystemIdentity SystemIdentity

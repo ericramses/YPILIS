@@ -990,13 +990,19 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.PanelSet.Model.PanelSetCollection ps = Business.PanelSet.Model.PanelSetCollection.GetAllActive();
-            string result = "";
-            foreach(YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet in ps)
-            {
-                if(panelSet.CaseType == YellowstonePathology.Business.CaseType.FISH)
+            using (StreamReader sr = new StreamReader(@"c:\temp\Test.csv"))
+            {                
+                String text = sr.ReadToEnd();
+                string[] lines = text.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
+                foreach(string line in lines)
                 {
-                    result = result + ", " + panelSet.PanelSetId;
+                    string[] fields = line.Split(',');
+                    if(fields.Length == 2)
+                    {
+                        //string masterAccessionNo = fields[1].Remove(0, 1);
+                        //masterAccessionNo = masterAccessionNo.Remove(masterAccessionNo.Length - 1, 1);
+                        Console.WriteLine("insert tblMasterAccessionNoTmp (MasterAccessionNo) values ('" + fields[1] + "')");
+                    }                                        
                 }
             }
         }

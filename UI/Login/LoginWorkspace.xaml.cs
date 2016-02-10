@@ -156,10 +156,24 @@ namespace YellowstonePathology.UI.Login
         {
             if (this.ListViewClientOrders.SelectedItem != null)
             {                
+                //YellowstonePathology.Business.ClientOrder.Model.OrderBrowserListItem orderBrowserListItem = (YellowstonePathology.Business.ClientOrder.Model.OrderBrowserListItem)this.ListViewClientOrders.SelectedItem;
+                //YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullClientOrderByClientOrderId(orderBrowserListItem.ClientOrderId, this.m_Writer);
+                //YellowstonePathology.Business.Document.ClientOrderCaseDocument clientOrderCaseDocument = new Business.Document.ClientOrderCaseDocument(clientOrder);                
+                //this.m_DocumentViewer.ShowDocument(clientOrderCaseDocument);                
+            }
+        }
+
+        private void ListViewClientOrders_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (this.ListViewClientOrders.SelectedItem != null)
+            {
+                this.m_BarcodeScanPort.ContainerScanReceived -= ContainerScanReceived;
                 YellowstonePathology.Business.ClientOrder.Model.OrderBrowserListItem orderBrowserListItem = (YellowstonePathology.Business.ClientOrder.Model.OrderBrowserListItem)this.ListViewClientOrders.SelectedItem;
                 YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullClientOrderByClientOrderId(orderBrowserListItem.ClientOrderId, this.m_Writer);
-                YellowstonePathology.Business.Document.ClientOrderCaseDocument clientOrderCaseDocument = new Business.Document.ClientOrderCaseDocument(clientOrder);                
-                this.m_DocumentViewer.ShowDocument(clientOrderCaseDocument);                
+                YellowstonePathology.UI.Login.Receiving.ReceiveSpecimenPathStartingWithOrder path = new Receiving.ReceiveSpecimenPathStartingWithOrder(clientOrder);
+                path.Start();
+                this.m_BarcodeScanPort.ContainerScanReceived += ContainerScanReceived;
+
             }
         }
 
@@ -535,21 +549,7 @@ namespace YellowstonePathology.UI.Login
         private void GrossEntryPage_Next(object sender, EventArgs e)
         {
             this.m_LoginPageWindow.Close();
-        }
-
-        private void ListViewClientOrders_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            if (this.ListViewClientOrders.SelectedItem != null)
-            {
-                this.m_BarcodeScanPort.ContainerScanReceived -= ContainerScanReceived;
-                YellowstonePathology.Business.ClientOrder.Model.OrderBrowserListItem orderBrowserListItem = (YellowstonePathology.Business.ClientOrder.Model.OrderBrowserListItem)this.ListViewClientOrders.SelectedItem;
-                YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullClientOrderByClientOrderId(orderBrowserListItem.ClientOrderId, this.m_Writer);
-                YellowstonePathology.UI.Login.Receiving.ReceiveSpecimenPathStartingWithOrder path = new Receiving.ReceiveSpecimenPathStartingWithOrder(clientOrder);
-                path.Start();
-                this.m_BarcodeScanPort.ContainerScanReceived += ContainerScanReceived;
-
-            }
-        }
+        }        
 
         private void ButtonTaskOrderRefresh_Click(object sender, RoutedEventArgs e)
         {

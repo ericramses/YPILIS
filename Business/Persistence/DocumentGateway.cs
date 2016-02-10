@@ -214,7 +214,39 @@ namespace YellowstonePathology.Business.Persistence
 
             return (YellowstonePathology.Business.ClientOrder.Model.ClientOrder)document.Value;
         }
-        
+
+        public YellowstonePathology.Business.ClientOrder.Model.ClientOrder PullClientOrder(YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder, object writer)
+        {
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "gwGetClientOrderByClientOrderId";
+            SqlParameter clientOrderIdParameter = new SqlParameter("@ClientOrderId", SqlDbType.VarChar, 100);
+            clientOrderIdParameter.Value = clientOrder.ClientOrderId;
+            cmd.Parameters.Add(clientOrderIdParameter);
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            ClientOrderDocumentBuilder builder = new ClientOrderDocumentBuilder(cmd);
+
+            DocumentId documentId = new DocumentId(typeof(YellowstonePathology.Business.User.UserPreference), writer, clientOrder.ClientOrderId);
+            Document document = this.m_Stack.Pull(documentId, builder);
+
+            return (YellowstonePathology.Business.ClientOrder.Model.ClientOrder)document.Value;
+        }
+
+        public YellowstonePathology.Business.ClientOrder.Model.ClientOrder PullClientOrderByExternalOrderId(string clientOrderId, object writer)
+        {
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "gwGetClientOrderByExternalOrderId";
+            SqlParameter clientOrderIdParameter = new SqlParameter("@ExternalOrderId", SqlDbType.VarChar, 100);
+            clientOrderIdParameter.Value = clientOrderId;
+            cmd.Parameters.Add(clientOrderIdParameter);
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            ClientOrderDocumentBuilder builder = new ClientOrderDocumentBuilder(cmd);
+
+            DocumentId documentId = new DocumentId(typeof(YellowstonePathology.Business.User.UserPreference), writer, clientOrderId);
+            Document document = this.m_Stack.Pull(documentId, builder);
+
+            return (YellowstonePathology.Business.ClientOrder.Model.ClientOrder)document.Value;
+        }
+
         public void PullMaterialTrackingBatch(YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch materialTrackingBatch, object writer)
         {
             /*

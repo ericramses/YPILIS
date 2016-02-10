@@ -26,9 +26,10 @@ namespace YellowstonePathology.Business.Persistence
         }
 
         public override void Refresh(object o)
-        {
+        {            
             YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder = (YellowstonePathology.Business.ClientOrder.Model.ClientOrder)o;
             YellowstonePathology.Business.Gateway.ClientOrderBuilder builder = new Gateway.ClientOrderBuilder(this.m_SQLCommand);
+            Nullable<int> panelSetId = builder.GetPanelSetId();
             builder.Build(clientOrder);
         }
     }
