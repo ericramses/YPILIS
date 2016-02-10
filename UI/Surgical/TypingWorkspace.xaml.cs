@@ -102,8 +102,21 @@ namespace YellowstonePathology.UI.Surgical
 
         private void MainWindowCommandButtonHandler_Save(object sender, EventArgs e)
         {
-            //throw new NotImplementedException();
-            MessageBox.Show("sdf");
+            if(this.m_TypingUI.AccessionOrder != null)
+            {
+                MainWindow.MoveKeyboardFocusNextThenBack();
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this.m_TypingUI.AccessionOrder, this.m_Writer);
+                this.m_TypingUI.AccessionOrder = null;
+                this.m_DocumentViewer.ClearContent();
+                this.m_TreeviewWorkspace = null;
+                this.tabItemTreeView.Content = this.m_TreeviewWorkspace;
+                this.m_AmendmentControl = null;
+                this.TabItemAmendments.Content = this.m_AmendmentControl;
+                this.m_TypingUI.CaseDocumentCollection.Clear();
+                this.m_TypingUI.BillingSpecimenViewCollection.Clear();
+                this.ListViewSurgicalCaseList.SelectedIndex = -1;
+                this.m_TypingUI.NotifyPropertyChanged(string.Empty);
+            }
         }
 
         private void MainWindowCommandButtonHandler_StartProviderDistributionPath(object sender, EventArgs e)
