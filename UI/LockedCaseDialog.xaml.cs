@@ -67,9 +67,27 @@ namespace YellowstonePathology.UI
 					keyLock.Key = lockItem.KeyString;
 					YellowstonePathology.Business.Gateway.LockGateway.ReleaseLock(keyLock, systemUser);
 					this.GetLockItemCollection();
-				}
-			}
-		}
+                    this.NotifyPropertyChanged(string.Empty);
+                }
+            }
+
+            if(this.ListViewNewLocks.SelectedItem != null)
+            {
+                MessageBoxResult result = MessageBox.Show("Clearing a lock may cause data loss.  Note that you may not unlock a case you have locked.  Are you sure you want to unlock this case?", "Possible data loss", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
+                {
+                    YellowstonePathology.Business.User.SystemIdentity systemIdentity = new YellowstonePathology.Business.User.SystemIdentity(YellowstonePathology.Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
+                    YellowstonePathology.Business.Domain.LockItem lockItem = (YellowstonePathology.Business.Domain.LockItem)this.ListViewNewLocks.SelectedItem;
+                    YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(lockItem.KeyString, this);
+                    if (accessionOrder.IsLockAquiredByMe() == false)
+                    {
+                        accessionOrder.SetLock(systemIdentity);
+                        YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
+                        this.GetNewLocks();
+                        this.NotifyPropertyChanged(string.Empty);
+                    }
+                }
+            }
+        }
 
 		private void ButtonOk_Click(object sender, RoutedEventArgs e)
 		{

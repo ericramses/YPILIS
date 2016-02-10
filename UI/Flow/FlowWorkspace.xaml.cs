@@ -71,7 +71,16 @@ namespace YellowstonePathology.UI.Flow
 
         private void MainWindowCommandButtonHandler_Save(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            if (this.m_FlowUI.AccessionOrder != null)
+            {
+                MainWindow.MoveKeyboardFocusNextThenBack();
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this.m_FlowUI.AccessionOrder, this.m_Writer);
+                this.ListViewFlowCaseList.SelectedIndex = -1;
+                this.m_FlowUI.AccessionOrder = null;
+                this.m_FlowUI.PatientHistoryList.CaseDocumentCollection.Clear();
+                this.m_FlowUI.PatientHistoryList.Clear();
+                this.m_FlowUI.NotifyPropertyChanged(string.Empty);
+            }
         }
 
         private void MainWindowCommandButtonHandler_ShowAmendmentDialog(object sender, EventArgs e)
@@ -843,11 +852,6 @@ namespace YellowstonePathology.UI.Flow
                 string icd10Code = element.GetAttribute("ICD10");
                 this.m_FlowUI.AddICD9Code(icd9Code, icd10Code);
             }            
-        }
-
-        private void ButtonUnselect_Click(object sender, RoutedEventArgs e)
-        {
-            this.ListViewFlowCaseList.SelectedIndex = -1;
         }
     }
 }

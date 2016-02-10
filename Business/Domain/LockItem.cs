@@ -11,7 +11,7 @@ namespace YellowstonePathology.Business.Domain
 	public class LockItem
 	{
 		private string m_KeyString;
-		private DateTime m_LockDate;
+		private DateTime? m_LockDate;
 		private string m_LockedBy;
         private string m_ComputerName;
 
@@ -27,7 +27,7 @@ namespace YellowstonePathology.Business.Domain
 		}
 
         [PersistentProperty()]
-        public DateTime LockDate
+        public DateTime? LockDate
 		{
 			get { return this.m_LockDate; }
 			set { this.m_LockDate = value; }

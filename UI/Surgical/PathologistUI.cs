@@ -87,6 +87,11 @@ namespace YellowstonePathology.UI.Surgical
 		public YellowstonePathology.Business.Test.AccessionOrder AccessionOrder
 		{
 			get { return this.m_AccessionOrder; }
+            set
+            {
+                this.m_AccessionOrder = value;
+                this.NotifyPropertyChanged("AccessionOrder");
+            }
 		}
 
 		public YellowstonePathology.Business.Test.PanelSetOrder PanelSetOrder

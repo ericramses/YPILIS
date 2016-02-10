@@ -108,11 +108,23 @@ namespace YellowstonePathology.UI.Surgical
 
 		private void MainWindowCommandButtonHandler_Save(object sender, EventArgs e)
 		{
-			this.DisplaySaveYourWorkMessage();
-			this.Save(false);
-		}
+            if (this.m_PathologistUI.AccessionOrder != null)
+            {
+                this.DisplaySaveYourWorkMessage();
+                MainWindow.MoveKeyboardFocusNextThenBack();
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this.m_PathologistUI.AccessionOrder, this.m_Writer);
+                this.m_PathologistUI.AccessionOrder = null;
+                this.m_PathologistUI.CaseDocumentCollection.Clear();
+                this.m_PathologistUI.PathologistOrderCollection.PathologistTestOrderItemList.Clear();
+                this.m_PathologistUI.PathologistOrderCollection.Clear();
+                this.ContentControlReview.Content = null;
+                this.ListViewSearchResults.SelectedIndex = -1;
+                this.m_PathologistUI.FieldEnabler.IsUnprotectedEnabled = false;
+                this.m_PathologistUI.NotifyPropertyChanged(string.Empty);
+            }
+        }
 
-		private void DisplaySaveYourWorkMessage()
+        private void DisplaySaveYourWorkMessage()
 		{
 			this.StatusBarTextBlockSaveNotification.Text = "Saving your work.";
 			System.Timers.Timer timer = new System.Timers.Timer();

@@ -45,6 +45,17 @@ namespace YellowstonePathology.Business.Persistence
             }
         }
 
+        public void Flush()
+        {
+            for (int i = this.m_Documents.Count - 1; i > -1; i--)
+            {
+                Document document = this.m_Documents[i];
+                document.ReleaseLock();
+                document.Submit();
+                this.m_Documents.Remove(document);
+            }
+        }
+
         public void Clear(object writer)
         {
             for (int i = 0; i < this.m_Documents.Count; i++)

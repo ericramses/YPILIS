@@ -63,7 +63,7 @@ namespace YellowstonePathology.UI
         SearchWorkspace m_SearchWorkspace;                
         Test.LabWorkspace m_LabWorkspace;        
         AdministrationWorkspace m_AdministrationWorkspace;
-        Scanning.ScanProcessingWorkspace m_ScanProcessingWorkspace;
+        //Scanning.ScanProcessingWorkspace m_ScanProcessingWorkspace;
         
 		YellowstonePathology.Business.Domain.Lock m_Lock;
 

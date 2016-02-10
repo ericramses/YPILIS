@@ -1727,6 +1727,27 @@ namespace YellowstonePathology.Business.Test
                 }
             }
             return result;
-        }                   
-	}
+        }
+
+        public void ReleaseLock()
+        {
+            if (this.IsLockAquiredByMe() == true)
+            {
+                this.LockAquired = false;
+                this.LockAquiredByHostName = null;
+                this.LockAquiredById = null;
+                this.LockAquiredByUserName = null;
+                this.TimeLockAquired = null;
+            }
+        }
+
+        public void SetLock(User.SystemIdentity systemIdentity)
+        {
+            this.LockAquired = true;
+            this.LockAquiredByHostName = Environment.MachineName;
+            this.LockAquiredById = systemIdentity.User.UserId;
+            this.LockAquiredByUserName = systemIdentity.User.UserName;
+            this.TimeLockAquired = DateTime.Now;
+        }
+    }
 }

@@ -47,14 +47,7 @@ namespace YellowstonePathology.Business.Persistence
             if (this.m_Value is YellowstonePathology.Business.Test.AccessionOrder)
             {
                 YellowstonePathology.Business.Test.AccessionOrder accessionOrder = (YellowstonePathology.Business.Test.AccessionOrder)this.m_Value;
-                if (accessionOrder.LockAquired == true)
-                {
-                    accessionOrder.LockAquired = false;
-                    accessionOrder.LockAquiredByHostName = null;
-                    accessionOrder.LockAquiredById = null;
-                    accessionOrder.LockAquiredByUserName = null;
-                    accessionOrder.TimeLockAquired = null;
-                }
+                accessionOrder.ReleaseLock();
             }
         }
 
