@@ -103,6 +103,11 @@ namespace YellowstonePathology.Business.Typing
 		public YellowstonePathology.Business.Test.AccessionOrder AccessionOrder
 		{
 			get { return this.m_AccessionOrder; }
+            set
+            {
+                this.m_AccessionOrder = value;
+                this.NotifyPropertyChanged("AccessionOrder");
+            }
 		}
 
 		public YellowstonePathology.Business.Domain.Lock Lock
@@ -286,5 +291,5 @@ namespace YellowstonePathology.Business.Typing
 				PropertyChanged(this, new PropertyChangedEventArgs(info));
 			}
 		}
-	}
+    }
 }
