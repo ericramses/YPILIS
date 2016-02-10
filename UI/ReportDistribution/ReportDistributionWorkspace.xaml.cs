@@ -373,6 +373,7 @@ namespace YellowstonePathology.UI.ReportDistribution
                         panelSetOrder.Published = true;
                         panelSetOrder.TimeLastPublished = DateTime.Now;
                         panelSetOrder.ScheduledPublishTime = null;
+                        YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save(this);
                     }
                 }
 
