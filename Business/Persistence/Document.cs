@@ -15,6 +15,7 @@ namespace YellowstonePathology.Business.Persistence
         protected Type m_Type;
         protected object m_Clone;
         protected bool m_IsGlobal;
+        protected bool m_IsLockAquiredByMe;
 
         protected List<object> m_Writers;
 
@@ -37,6 +38,7 @@ namespace YellowstonePathology.Business.Persistence
             if (this.m_Value is YellowstonePathology.Business.Test.AccessionOrder)
             {
                 YellowstonePathology.Business.Test.AccessionOrder accessionOrder = (YellowstonePathology.Business.Test.AccessionOrder)this.m_Value;
+                this.m_IsLockAquiredByMe = accessionOrder.IsLockAquiredByMe();
             }
         }
 
@@ -45,14 +47,7 @@ namespace YellowstonePathology.Business.Persistence
             if (this.m_Value is YellowstonePathology.Business.Test.AccessionOrder)
             {
                 YellowstonePathology.Business.Test.AccessionOrder accessionOrder = (YellowstonePathology.Business.Test.AccessionOrder)this.m_Value;
-                if (accessionOrder.IsLockAquiredByMe() == true)
-                {
-                    accessionOrder.LockAquired = false;
-                    accessionOrder.LockAquiredByHostName = null;
-                    accessionOrder.LockAquiredById = null;
-                    accessionOrder.LockAquiredByUserName = null;
-                    accessionOrder.TimeLockAquired = null;
-                }
+                accessionOrder.ReleaseLock();
             }
         }
 
@@ -96,6 +91,11 @@ namespace YellowstonePathology.Business.Persistence
         public bool IsGlobal
         {
             get { return this.m_IsGlobal; }
+        }
+
+        public bool IsLockAquiredByMe
+        {
+            get { return this.m_IsLockAquiredByMe; }
         }
 
         public virtual YellowstonePathology.Business.Persistence.SubmissionResult Submit()
