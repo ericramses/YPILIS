@@ -83,8 +83,8 @@ namespace YellowstonePathology.UI.Gross
             this.m_Text = "[identifier]." + Environment.NewLine +
             	"Gross description:  [description]" + Environment.NewLine +
                 "Fimbriated Ends:  [description]" + Environment.NewLine +
-            	"Fallopian Tube 1:  [description]" + Environment.NewLine +                          
-				"Fallopian Tube 2:  [description]" + Environment.NewLine +
+            	"Fallopian Tube 1:  [description], [measurement]" + Environment.NewLine +                          
+				"Fallopian Tube 2:  [description], [measurement]" + Environment.NewLine +
                 "Submitted:  Serially sectioned with representative sections submitted into cassette [cassettelabel].  ";
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.FallopianTube fallopianTube = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.FallopianTube();
@@ -174,8 +174,8 @@ namespace YellowstonePathology.UI.Gross
         {
             this.m_TemplateName = "Skin Shave with Curettings Biopsy";
             this.m_Text = "[identifier]." + Environment.NewLine +
-                "Gross Description:  [description]; Curettings:  [description]" + Environment.NewLine +
-                "Measurements:  [measurements]" + Environment.NewLine +
+                "Gross Description:  [description]" + Environment.NewLine +
+                "Measurements:  [measurements]; Curettings: [measurement]" + Environment.NewLine +
                 "Submitted:  [submitted].  ";
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinShavewithCurettingsBiopsy skinShavewithCurettingsBiopsy = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinShavewithCurettingsBiopsy();
@@ -575,7 +575,7 @@ namespace YellowstonePathology.UI.Gross
         public SinglePlacentaTemplate()
         {
             this.m_TemplateName = "SinglePlacenta";
-            this.m_Text = "[identifier]." + Environment.NewLine +
+            this.m_Text = "[identifier] is a singleton placenta with umbilical cord and membranes." + Environment.NewLine +
                 Environment.NewLine +
                 "Umbilical Cord:" + Environment.NewLine +
                 "   Length:  [length]" + Environment.NewLine +

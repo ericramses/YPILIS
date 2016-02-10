@@ -28,9 +28,9 @@ namespace YellowstonePathology.Business.Test.Surgical
             this.m_RequireAssignmentOnOrder = false;
             
             this.m_TechnicalComponentFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings();
-            this.m_ProfessionalComponentFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologistBillings();
-
             this.m_TechnicalComponentBillingFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings();
+
+            this.m_ProfessionalComponentFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologistBillings();
             this.m_ProfessionalComponentBillingFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings();
 
             this.m_OrderTargetTypeCollectionExclusions.Add(new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ThinPrepFluid());
