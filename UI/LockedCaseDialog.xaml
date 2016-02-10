@@ -9,23 +9,14 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <Button Grid.Row="0" Margin="5,5,5,5" Height="30" Width="100" HorizontalAlignment="Right" Click="ButtonRefresh_Click">Refresh</Button>
-        <TabControl Grid.Row="1">
+        <TabControl Grid.Row="0">
             <TabItem Header="Current Locks">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"></RowDefinition>
-                        <RowDefinition Height="Auto"></RowDefinition>
-                    </Grid.RowDefinitions>
 
-                    <ListView Name="listViewLockList" Grid.Column="0" Grid.Row="0" Margin="2" ItemsSource="{Binding Path=LockItemCollection}">
+                    <ListView Name="listViewLockList" Margin="2" ItemsSource="{Binding Path=LockItemCollection}">
                         <ListView.View>
                             <GridView AllowsColumnReorder="True">
                                 <GridViewColumn DisplayMemberBinding="{Binding Path=LockedBy}" Header="Locked By" Width="120"/>
@@ -34,17 +25,6 @@
                             </GridView>
                         </ListView.View>
                     </ListView>
-
-                    <Grid Grid.Column="0" Grid.Row="1">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-                        <Button Name="ButtonDelete" Grid.Column="0" Grid.Row="0" Style="{StaticResource NormalButton}" Width="100" HorizontalAlignment="Left" Click="ButtonDelete_Click">Clear Lock</Button>
-                        <Button Name="ButtonOk" Grid.Column="2" Grid.Row="0" Style="{StaticResource NormalButton}" Width="100" HorizontalAlignment="Right" Click="ButtonOk_Click">Ok</Button>
-                    </Grid>
-                </Grid>
 
             </TabItem>
 
@@ -71,5 +51,16 @@
                 </ListView>
             </TabItem>
         </TabControl>
+
+        <Grid Grid.Column="0" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button Name="ButtonDelete" Grid.Column="0" Grid.Row="0" Style="{StaticResource NormalButton}" Width="100" HorizontalAlignment="Left" Click="ButtonDelete_Click">Clear Lock</Button>
+            <Button Name="ButtonRefresh" Grid.Column="1" Grid.Row="0" Style="{StaticResource NormalButton}" Width="100" HorizontalAlignment="Center" Click="ButtonRefresh_Click">Refresh</Button>
+            <Button Name="ButtonOk" Grid.Column="2" Grid.Row="0" Style="{StaticResource NormalButton}" Width="100" HorizontalAlignment="Right" Click="ButtonOk_Click">Ok</Button>
+        </Grid>
     </Grid>
 </Window>

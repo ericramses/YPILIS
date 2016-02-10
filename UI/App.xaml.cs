@@ -59,14 +59,15 @@ namespace YellowstonePathology.UI
 				this.StartupUri = new System.Uri(startUpWindow, System.UriKind.Relative);
 			}                        
 
-			this.StartTimer();			
+			this.StartTimer();
+            SaveAndReleaseLocks();			
 		}
 
 		protected override void OnExit(ExitEventArgs e)
 		{
 			this.m_Timer.Stop();
 			this.m_Timer.Dispose();
-            this.SaveAndReleaseLocksOnApplicationExit();
+            this.SaveAndReleaseLocks();
 			base.OnExit(e);
 		}
 
@@ -141,10 +142,14 @@ namespace YellowstonePathology.UI
 			this.m_Timer.Interval = timeToNextNotification.TotalMilliseconds;
 		}
 
-        private void SaveAndReleaseLocksOnApplicationExit()
+        private void SaveAndReleaseLocks()
         {
-            //YellowstonePathology.Business.Domain.LockItemCollection lockItemCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetLockItems();
-
+            YellowstonePathology.Business.Domain.LockItemCollection lockItemCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetLockItems();
+            for(int idx = 0; idx > lockItemCollection.Count; idx++)
+            {
+                YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(lockItemCollection[idx].KeyString, this);
+            }
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
         }
     }
 }
