@@ -84,10 +84,10 @@ namespace YellowstonePathology.UI.ReportDistribution
                 this.m_Timer.Stop();
 
                 //this.HandleUnscheduledAmendments();
-                this.HandleUnsetDistribution();
+                //this.HandleUnsetDistribution();
                 //this.HandleUnscheduledPublish();
                 //this.HandleUnscheduledDistribution();                
-                //this.PublishNext();
+                this.PublishNext();
 
                 this.SetStatus("Idle Office Hours. Next process starts: " + DateTime.Now.Add(this.m_TimerIntervalFast));
                 this.m_Timer.Interval = this.m_TimerIntervalFast;
