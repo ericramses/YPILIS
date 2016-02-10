@@ -1740,5 +1740,14 @@ namespace YellowstonePathology.Business.Test
                 this.TimeLockAquired = null;
             }
         }
+
+        public void SetLock(User.SystemIdentity systemIdentity)
+        {
+            this.LockAquired = true;
+            this.LockAquiredByHostName = Environment.MachineName;
+            this.LockAquiredById = systemIdentity.User.UserId;
+            this.LockAquiredByUserName = systemIdentity.User.UserName;
+            this.TimeLockAquired = DateTime.Now;
+        }
     }
 }
