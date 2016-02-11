@@ -105,7 +105,20 @@ namespace YellowstonePathology.UI.Test
 
         private void MainWindowCommandButtonHandler_Save(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            if (this.m_LabUI.AccessionOrder != null)
+            {
+                MainWindow.MoveKeyboardFocusNextThenBack();
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this.m_LabUI.AccessionOrder, this.m_Writer);
+                this.m_LabUI.AccessionOrder = null;
+                this.m_LabUI.PanelSetOrder = null;
+                this.m_DocumentViewer.ClearContent();
+                if (this.m_LabUI.CaseDocumentCollection != null) this.m_LabUI.CaseDocumentCollection.Clear();
+                this.ListViewCaseList.SelectedIndex = -1;
+                this.TabItemAmendment.Content = null;
+                this.TabItemTreeView.Content = null;
+                this.m_LabUI.FieldEnabler.IsUnprotectedEnabled = false;
+                this.m_LabUI.NotifyPropertyChanged(string.Empty);
+            }
         }
 
         public void CloseWorkspace(object target, ExecutedRoutedEventArgs args)

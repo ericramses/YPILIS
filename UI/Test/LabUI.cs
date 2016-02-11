@@ -90,7 +90,12 @@ namespace YellowstonePathology.UI.Test
 
 		public YellowstonePathology.Business.Test.AccessionOrder AccessionOrder
 		{
-			get { return this.m_AccessionOrder; }			
+			get { return this.m_AccessionOrder; }
+            set
+            {
+                this.m_AccessionOrder = value;
+                this.NotifyPropertyChanged("AccessionOrder");
+            }
 		}
 
 		public YellowstonePathology.Business.Domain.Lock Lock
@@ -113,6 +118,11 @@ namespace YellowstonePathology.UI.Test
 		public YellowstonePathology.Business.Test.PanelSetOrder PanelSetOrder
 		{
 			get { return this.m_PanelSetOrder; }
+            set
+            {
+                this.m_PanelSetOrder = value;
+                this.NotifyPropertyChanged("PanelSetOrder");
+            }
 		}
 
 		public YellowstonePathology.Business.Search.ReportSearchList CaseList
