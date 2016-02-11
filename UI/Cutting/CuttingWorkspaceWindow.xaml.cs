@@ -20,7 +20,13 @@ namespace YellowstonePathology.UI.Cutting
         public CuttingWorkspaceWindow()
         {            
             InitializeComponent();            
-            this.m_PageNavigator = new UI.Navigation.PageNavigator(this.MainContent);            
+            this.m_PageNavigator = new UI.Navigation.PageNavigator(this.MainContent);
+            this.Closing += CuttingWorkspaceWindow_Closing;           
+        }
+
+        private void CuttingWorkspaceWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
         }
 
         public YellowstonePathology.UI.Navigation.PageNavigator PageNavigator

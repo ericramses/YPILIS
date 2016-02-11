@@ -74,7 +74,7 @@ namespace YellowstonePathology.UI.Gross
             scanContainerPage.UseThisContainer += new ScanContainerPage.UseThisContainerEventHandler(ScanContainerPage_UseThisContainer);
             scanContainerPage.PageTimedOut += new ScanContainerPage.PageTimedOutEventHandler(ScanContainerPage_PageTimedOut);
             scanContainerPage.BarcodeWontScan += new ScanContainerPage.BarcodeWontScanEventHandler(ScanContainerPage_BarcodeWontScan);
-            scanContainerPage.SignOut += new ScanContainerPage.SignOutEventHandler(ScanContainerPage_SignOut);			
+            scanContainerPage.SignOut += new ScanContainerPage.SignOutEventHandler(ScanContainerPage_SignOut);
 
 			this.m_HistologyGrossDialog.PageNavigator.Navigate(scanContainerPage);
 		}        
@@ -93,6 +93,7 @@ namespace YellowstonePathology.UI.Gross
         {
             this.m_SystemIdentity = null;
             this.ShowScanSecurityBadgePage();
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this.m_HistologyGrossDialog);
         }
 
         private void ScanContainerPage_UseThisContainer(object sender, string containerId)

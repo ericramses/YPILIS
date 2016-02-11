@@ -45,8 +45,9 @@ namespace YellowstonePathology.UI.Cutting
 
         public CuttingPage(YellowstonePathology.Business.Test.AliquotOrder aliquotOrder,
             YellowstonePathology.Business.Test.Model.TestOrder testOrder,
-            YellowstonePathology.Business.Test.AccessionOrder accessionOrder,              
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity,
+            YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
+            YellowstonePathology.Business.Label.Model.HistologySlidePaperLabelPrinter histologySlidePaperLabelPrinter,
+            YellowstonePathology.Business.User.SystemIdentity systemIdentity,
             YellowstonePathology.UI.Navigation.PageNavigator pageNavigator)
         {
             this.m_AliquotOrder = aliquotOrder;
@@ -162,8 +163,7 @@ namespace YellowstonePathology.UI.Cutting
         private void SlideOptionsPage_DeleteSlideOrder(object sender, CustomEventArgs.SlideOrderReturnEventArgs eventArgs)
         {
             YellowstonePathology.Business.Visitor.RemoveSlideOrderVisitor removeSlideOrderVisitor = new Business.Visitor.RemoveSlideOrderVisitor(eventArgs.SlideOrder);
-            this.m_AccessionOrder.TakeATrip(removeSlideOrderVisitor);
-            //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
+            this.m_AccessionOrder.TakeATrip(removeSlideOrderVisitor);            
             this.m_PageNavigator.Navigate(this);
         }
 
