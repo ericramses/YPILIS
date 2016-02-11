@@ -34,7 +34,10 @@ namespace YellowstonePathology.UI.Cutting
         public delegate void PageTimedOutEventHandler(object sender, EventArgs eventArgs);
         public event PageTimedOutEventHandler PageTimedOut;
 
-		private YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort m_BarcodeScanPort;
+        public delegate void PrintImmunosEventHandler(object sender, EventArgs eventArgs);
+        public event PrintImmunosEventHandler PrintImmunos;
+
+        private YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort m_BarcodeScanPort;
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         private YellowstonePathology.Business.Test.AliquotOrder m_AliquotOrder;
@@ -94,15 +97,8 @@ namespace YellowstonePathology.UI.Cutting
 
         private void HandleBlockScanReceived(string aliquotOrderId)
         {
-            string masterAccessionNo = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetMasterAccessionNoFromAliquotOrderId(aliquotOrderId);
-            if (this.m_AccessionOrder != null && this.m_AccessionOrder.SpecimenOrderCollection.AliquotOrderExists(aliquotOrderId) == false)
-            {                
-                this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, Window.GetWindow(this));
-            }
-            else
-            {
-                this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, Window.GetWindow(this));
-            }
+            string masterAccessionNo = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetMasterAccessionNoFromAliquotOrderId(aliquotOrderId);         
+            this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, Window.GetWindow(this));            
 
             if (this.m_AccessionOrder != null)
             {
@@ -142,31 +138,7 @@ namespace YellowstonePathology.UI.Cutting
 
         private void PrintImmunoLabels()
         {
-            YellowstonePathology.Business.Slide.Model.SlideOrderCollection_Base slideOrderCollection = YellowstonePathology.Business.Gateway.SlideAccessionGateway.GetSlideOrdersWithPrintRequest();			
-
-            if (slideOrderCollection.Count != 0)
-            {
-                YellowstonePathology.Business.Label.Model.HistologySlidePaperLabelPrinter histologySlidePaperLabelPrinter = new Business.Label.Model.HistologySlidePaperLabelPrinter();
-                foreach (YellowstonePathology.Business.Slide.Model.SlideOrder_Base slideOrder in slideOrderCollection)
-                {
-                    YellowstonePathology.Business.Label.Model.HistologySlidePaperLabel histologySlidePaperLabel = new Business.Label.Model.HistologySlidePaperLabel(slideOrder.SlideOrderId, slideOrder.ReportNo, slideOrder.Label, slideOrder.PatientLastName, slideOrder.TestAbbreviation, slideOrder.Location);
-                    histologySlidePaperLabelPrinter.Queue.Enqueue(histologySlidePaperLabel);                    
-                }
-
-                histologySlidePaperLabelPrinter.Print();                
-
-                MessageBoxResult result = MessageBox.Show("Did the slide labels print OK?", "Is it OK to clear print request?", MessageBoxButton.YesNo);
-                if (result == MessageBoxResult.Yes)
-                {
-                    slideOrderCollection.SetAsPrinted(this.m_SystemIdentity);
-                }
-            }
-            else
-            {
-                MessageBox.Show("There are not any labels waiting to be printed.");
-            }
-
-            //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(slideOrderCollection, true);            
+            this.PrintImmunos(this, new EventArgs());                  
         }        
 
         private void ButtonLastMasterAccessionNo_Click(object sender, RoutedEventArgs e)

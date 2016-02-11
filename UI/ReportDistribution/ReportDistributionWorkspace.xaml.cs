@@ -122,6 +122,7 @@ namespace YellowstonePathology.UI.ReportDistribution
                     }
                 }
             }
+
             YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);  
         }
 
@@ -158,9 +159,10 @@ namespace YellowstonePathology.UI.ReportDistribution
                             }
                         }
                     }
-                }
-                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
-            }            
+                }                
+            }
+
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
         }
 
         private void HandleUnscheduledDistribution()
@@ -182,7 +184,9 @@ namespace YellowstonePathology.UI.ReportDistribution
                         }
                     }                                        
                 }
-            }    
+            }
+
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
         }
 
         private void ScheduleDistribution(YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution testOrderReportDistribution, YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder)
@@ -231,9 +235,9 @@ namespace YellowstonePathology.UI.ReportDistribution
                             }
                         }
                     }                                                            
-                }
-                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
-            }           
+                }                
+            }
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
         }
 
         private bool TryPublish(YellowstonePathology.Business.Interface.ICaseDocument caseDocument, 
@@ -378,6 +382,7 @@ namespace YellowstonePathology.UI.ReportDistribution
                 processCount += 1;
                 if (processCount == maxProcessCount) break;
             }
+
             YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
         }
 

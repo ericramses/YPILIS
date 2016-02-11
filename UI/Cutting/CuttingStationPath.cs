@@ -10,11 +10,13 @@ namespace YellowstonePathology.UI.Cutting
         private CuttingWorkspaceWindow m_CuttingWorkspaceWindow;
         private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;        
-        private CuttingPage m_CuttingPage;        
+        private CuttingPage m_CuttingPage;
+
+        private YellowstonePathology.Business.Label.Model.HistologySlidePaperLabelPrinter m_HistologySlidePaperLabelPrinter;
 
         public CuttingStationPath()
         {
-            
+            this.m_HistologySlidePaperLabelPrinter = new Business.Label.Model.HistologySlidePaperLabelPrinter();
         }
 
         public void Start()
@@ -53,9 +55,23 @@ namespace YellowstonePathology.UI.Cutting
             scanAliquotPage.ShowMasterAccessionNoEntryPage += new ScanAliquotPage.ShowMasterAccessionNoEntryPageEventHandler(ScanAliquotPage_ShowMasterAccessionNoEntryPage);
             scanAliquotPage.UseLastMasterAccessionNo += new ScanAliquotPage.UseLastMasterAccessionNoEventHandler(ScanAliquotPage_UseLastMasterAccessionNo);
             scanAliquotPage.PageTimedOut += new ScanAliquotPage.PageTimedOutEventHandler(PageTimedOut);
+            scanAliquotPage.PrintImmunos += ScanAliquotPage_PrintImmunos;
             this.m_CuttingWorkspaceWindow.PageNavigator.Navigate(scanAliquotPage);
         }
-        
+
+        private void ScanAliquotPage_PrintImmunos(object sender, EventArgs eventArgs)
+        {            
+            if (this.m_HistologySlidePaperLabelPrinter.Queue.Count != 0)
+            {
+                //YellowstonePathology.Business.Label.Model.HistologySlidePaperLabel histologySlidePaperLabel = new Business.Label.Model.HistologySlidePaperLabel(slideOrder.SlideOrderId, slideOrder.ReportNo, slideOrder.Label, slideOrder.PatientLastName, slideOrder.TestAbbreviation, slideOrder.Location);
+                this.m_HistologySlidePaperLabelPrinter.Print();
+            }
+            else
+            {
+                System.Windows.MessageBox.Show("There are not any labels waiting to be printed.");
+            }
+        }
+
         private void ScanAliquotPage_UseLastMasterAccessionNo(object sender, CustomEventArgs.MasterAccessionNoReturnEventArgs eventArgs)
         {
             this.HandleMasterAccessionNoFound(eventArgs.MasterAccessionNo);
@@ -146,7 +162,7 @@ namespace YellowstonePathology.UI.Cutting
 
         private void ShowCuttingPage(YellowstonePathology.Business.Test.AliquotOrder aliquotOrder, YellowstonePathology.Business.Test.Model.TestOrder testOrder)
         {            
-            this.m_CuttingPage = new CuttingPage(aliquotOrder, testOrder, this.m_AccessionOrder, this.m_SystemIdentity, this.m_CuttingWorkspaceWindow.PageNavigator);
+            this.m_CuttingPage = new CuttingPage(aliquotOrder, testOrder, this.m_AccessionOrder, this.m_HistologySlidePaperLabelPrinter, this.m_SystemIdentity, this.m_CuttingWorkspaceWindow.PageNavigator);
             this.m_CuttingPage.Finished += new CuttingPage.FinishedEventHandler(CuttingPage_Finished);            
             this.m_CuttingPage.ShowTestOrderSelectionPage += new CuttingPage.ShowTestOrderSelectionPageEventHandler(CuttingPage_ShowTestOrderSelectionPage);
             this.m_CuttingPage.PageTimedOut += new CuttingPage.PageTimedOutEventHandler(PageTimedOut);

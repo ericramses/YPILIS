@@ -68,6 +68,11 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
                 base.ReplaceText("pdl1_result", pdl1TestOrder.Result);
             }
 
+            if (egfrToALKReflexAnalysisTestOrder.QNSForPDL1 == true)
+            {
+                base.ReplaceText("pdl1_result", "Quantity not sufficient to perform PDL-1");
+            }
+
             base.SetXMLNodeParagraphData("report_interpretation", egfrToALKReflexAnalysisTestOrder.Interpretation);
 
 			this.ReplaceText("report_date", BaseData.GetShortDateString(egfrToALKReflexAnalysisTestOrder.FinalDate));
