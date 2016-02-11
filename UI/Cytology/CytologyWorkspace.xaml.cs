@@ -39,6 +39,7 @@ namespace YellowstonePathology.UI.Cytology
 
         private YellowstonePathology.UI.LabEventsControlTab m_LabEventsControlTab;
         private MainWindowCommandButtonHandler m_MainWindowCommandButtonHandler;
+        private TabItem m_Writer;
 
         public CytologyWorkspace(MainWindowCommandButtonHandler mainWindowCommandButtonHandler, TabItem writer)
         {
@@ -46,7 +47,8 @@ namespace YellowstonePathology.UI.Cytology
 			this.m_SystemIdentity = new YellowstonePathology.Business.User.SystemIdentity(YellowstonePathology.Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
 			this.m_BarcodeScanPort = YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort.Instance;
 
-            this.m_CytologyUI = new CytologyUI(this.m_SystemIdentity, writer);
+            this.m_Writer = writer;
+            this.m_CytologyUI = new CytologyUI(this.m_SystemIdentity, this.m_Writer);
 			this.m_CytologyResultsWorkspace = new CytologyResultsWorkspace(this.m_CytologyUI);
 			this.m_CytologyUI.AccessionChanged += new CytologyUI.AccessionChangedEventHandler(CytologyUI_AccessionChanged);
             
@@ -116,13 +118,23 @@ namespace YellowstonePathology.UI.Cytology
 
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath += new MainWindowCommandButtonHandler.StartProviderDistributionPathEventHandler(MainWindowCommandButtonHandler_StartProviderDistributionPath);
             this.m_MainWindowCommandButtonHandler.Save += new MainWindowCommandButtonHandler.SaveEventHandler(MainWindowCommandButtonHandler_Save);
+            this.ListViewSearchResults.SelectedIndex = -1;
 
             Keyboard.Focus(this.m_CytologyResultsWorkspace.TextBoxReportNoSearch);
         }
 
         private void MainWindowCommandButtonHandler_Save(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            if(this.m_CytologyUI.AccessionOrder != null)
+            {
+                MainWindow.MoveKeyboardFocusNextThenBack();
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this.m_CytologyUI.AccessionOrder, this.m_Writer);
+                this.m_CytologyUI.AccessionOrder = null;
+                this.m_CytologyUI.PatientHistory.Clear();
+                this.m_DocumentViewer.ClearContent();
+                this.m_CytologyUI.PanelSetOrderCytology = null;
+                this.m_CytologyUI.NotifyPropertyChanged(string.Empty);
+            }
         }
 
         private void MainWindowCommandButtonHandler_StartProviderDistributionPath(object sender, EventArgs e)

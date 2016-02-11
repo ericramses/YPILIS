@@ -114,7 +114,7 @@ namespace YellowstonePathology.UI.Surgical
                 MainWindow.MoveKeyboardFocusNextThenBack();
                 YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this.m_PathologistUI.AccessionOrder, this.m_Writer);
                 this.m_PathologistUI.AccessionOrder = null;
-                this.m_PathologistUI.CaseDocumentCollection.Clear();
+                if(this.m_PathologistUI.CaseDocumentCollection != null) this.m_PathologistUI.CaseDocumentCollection.Clear();
                 this.m_PathologistUI.PathologistOrderCollection.PathologistTestOrderItemList.Clear();
                 this.m_PathologistUI.PathologistOrderCollection.Clear();
                 this.ContentControlReview.Content = null;
