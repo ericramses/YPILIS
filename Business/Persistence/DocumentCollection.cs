@@ -16,7 +16,8 @@ namespace YellowstonePathology.Business.Persistence
                 if(documentId.Type.FullName == document.Type.FullName &&
                     documentId.Key.ToString() == document.Key.ToString())
                 {
-                    this.Remove(documentId);
+                    this.Remove(document);
+                    break;
                 }
             }
         }

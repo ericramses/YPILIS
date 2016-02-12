@@ -105,15 +105,7 @@ namespace YellowstonePathology.UI.Client
 
 		private void ButtonOK_Click(object sender, RoutedEventArgs e)
 		{
-            if (this.m_IsNewProvider == true)
-            {
-                if (this.CanSave() == true)
-                {
-                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(this.m_Physician, this.m_ParentWindow, this.m_SystemIdentity);
-                    Close();
-                }
-            }
-            else
+            if (this.CanSave() == true)
             {
                 Close();
             }

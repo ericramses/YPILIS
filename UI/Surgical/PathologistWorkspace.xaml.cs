@@ -108,7 +108,7 @@ namespace YellowstonePathology.UI.Surgical
 
 		private void MainWindowCommandButtonHandler_Save(object sender, EventArgs e)
 		{
-            if (this.m_PathologistUI.AccessionOrder != null)
+            if (this.m_PathologistUI.AccessionOrder != null && this.m_PathologistUI.AccessionOrder.IsLockAquiredByMe() == true)
             {
                 this.DisplaySaveYourWorkMessage();
                 MainWindow.MoveKeyboardFocusNextThenBack();

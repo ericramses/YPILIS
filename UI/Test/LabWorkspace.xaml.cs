@@ -105,7 +105,7 @@ namespace YellowstonePathology.UI.Test
 
         private void MainWindowCommandButtonHandler_Save(object sender, EventArgs e)
         {
-            if (this.m_LabUI.AccessionOrder != null)
+            if (this.m_LabUI.AccessionOrder != null && this.m_LabUI.AccessionOrder.IsLockAquiredByMe() == true)
             {
                 MainWindow.MoveKeyboardFocusNextThenBack();
                 YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this.m_LabUI.AccessionOrder, this.m_Writer);

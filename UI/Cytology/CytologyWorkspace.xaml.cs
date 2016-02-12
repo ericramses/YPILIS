@@ -125,7 +125,7 @@ namespace YellowstonePathology.UI.Cytology
 
         private void MainWindowCommandButtonHandler_Save(object sender, EventArgs e)
         {
-            if(this.m_CytologyUI.AccessionOrder != null)
+            if(this.m_CytologyUI.AccessionOrder != null && this.m_CytologyUI.AccessionOrder.IsLockAquiredByMe() == true)
             {
                 MainWindow.MoveKeyboardFocusNextThenBack();
                 YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this.m_CytologyUI.AccessionOrder, this.m_Writer);
