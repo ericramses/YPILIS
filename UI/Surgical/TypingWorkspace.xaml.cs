@@ -21,7 +21,6 @@ namespace YellowstonePathology.UI.Surgical
     {        
         public CommandBinding CommandBindingClose;        
 		public CommandBinding CommandBindingShowCaseDocument;
-        public CommandBinding CommandBindingToggleAccessionLockMode;
 		public CommandBinding CommandBindingRemoveTab;
 		public CommandBinding CommandBindingShowOrderForm;
 		public CommandBinding CommandBindingShowAmendmentDialog;
@@ -55,14 +54,12 @@ namespace YellowstonePathology.UI.Surgical
 
             this.CommandBindingClose = new CommandBinding(MainWindow.ApplicationClosingCommand, HandleAppClosing);            
 			this.CommandBindingShowCaseDocument = new CommandBinding(MainWindow.ShowCaseDocumentCommand, ShowCaseDocument, ItemIsPresent);
-			this.CommandBindingToggleAccessionLockMode = new CommandBinding(MainWindow.ToggleAccessionLockModeCommand, AlterAccessionLock, CanAlterAccessionLock);
 			this.CommandBindingRemoveTab = new CommandBinding(MainWindow.RemoveTabCommand, RemoveTab);
 			this.CommandBindingShowOrderForm = new CommandBinding(MainWindow.ShowOrderFormCommand, this.ShowOrderForm, ItemIsSelected);
 			this.CommandBindingShowAmendmentDialog = new CommandBinding(MainWindow.ShowAmendmentDialogCommand, this.ShowAmendmentDialog, ItemIsSelected);			
 
             this.CommandBindings.Add(this.CommandBindingClose);            
             this.CommandBindings.Add(this.CommandBindingShowCaseDocument);
-            this.CommandBindings.Add(this.CommandBindingToggleAccessionLockMode);
 			this.CommandBindings.Add(this.CommandBindingRemoveTab);
 			this.CommandBindings.Add(this.CommandBindingShowOrderForm);
 			this.CommandBindings.Add(this.CommandBindingShowAmendmentDialog);                        	
@@ -85,17 +82,11 @@ namespace YellowstonePathology.UI.Surgical
             this.ListViewLocalDictation.ItemsSource = this.m_LocalDictationList;
             this.ListViewServerDictation.ItemsSource = this.m_ServerDictationList;
          
-			this.m_TypingUI.Lock.LockStatusChanged += new YellowstonePathology.Business.Domain.LockStatusChangedEventHandler(AccessionLock_LockStatusChanged);
             this.Unloaded += new RoutedEventHandler(TypingWorkspace_Unloaded);            			
 		}        
 
 		private void TypingWorkspace_Loaded(object sender, RoutedEventArgs e)
 		{
-			if (this.m_TypingUI.AccessionOrder != null && this.m_TypingUI.SurgicalTestOrder != null)
-			{				
-				((MainWindow)Application.Current.MainWindow).SetLockObject(this.m_TypingUI.Lock);
-			}
-
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath += new MainWindowCommandButtonHandler.StartProviderDistributionPathEventHandler(MainWindowCommandButtonHandler_StartProviderDistributionPath);
             this.m_MainWindowCommandButtonHandler.Save += new MainWindowCommandButtonHandler.SaveEventHandler(MainWindowCommandButtonHandler_Save);
 		}
@@ -106,16 +97,19 @@ namespace YellowstonePathology.UI.Surgical
             {
                 MainWindow.MoveKeyboardFocusNextThenBack();
                 YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this.m_TypingUI.AccessionOrder, this.m_Writer);
-                this.m_TypingUI.AccessionOrder = null;
-                this.m_DocumentViewer.ClearContent();
-                this.m_TreeviewWorkspace = null;
-                this.tabItemTreeView.Content = this.m_TreeviewWorkspace;
-                this.m_AmendmentControl = null;
-                this.TabItemAmendments.Content = this.m_AmendmentControl;
-                this.m_TypingUI.CaseDocumentCollection.Clear();
-                this.m_TypingUI.BillingSpecimenViewCollection.Clear();
-                this.ListViewSurgicalCaseList.SelectedIndex = -1;
-                this.m_TypingUI.NotifyPropertyChanged(string.Empty);
+                if (this.m_TypingUI.AccessionOrder.IsLockAquiredByMe() == true)
+                {
+                    this.m_TypingUI.AccessionOrder = null;
+                    this.m_DocumentViewer.ClearContent();
+                    this.m_TreeviewWorkspace = null;
+                    this.tabItemTreeView.Content = this.m_TreeviewWorkspace;
+                    this.m_AmendmentControl = null;
+                    this.TabItemAmendments.Content = this.m_AmendmentControl;
+                    this.m_TypingUI.CaseDocumentCollection.Clear();
+                    this.m_TypingUI.BillingSpecimenViewCollection.Clear();
+                    this.ListViewSurgicalCaseList.SelectedIndex = -1;
+                    this.m_TypingUI.NotifyPropertyChanged(string.Empty);
+                }
             }
         }
 
@@ -164,31 +158,10 @@ namespace YellowstonePathology.UI.Surgical
 
 		public void AlterAccessionLock(object target, ExecutedRoutedEventArgs args)
 		{
-            this.m_TypingUI.Save(true);
-			this.m_TypingUI.Lock.ToggleLockingMode();
 			this.m_TypingUI.RunWorkspaceEnableRules();
-            this.m_TreeviewWorkspace.IsEnabled = this.m_TypingUI.Lock.LockAquired;
-            this.m_AmendmentControl.IsEnabled = this.m_TypingUI.Lock.LockAquired;
+            this.m_TreeviewWorkspace.IsEnabled = this.m_TypingUI.AccessionOrder.IsLockAquiredByMe();
+            this.m_AmendmentControl.IsEnabled = this.m_TypingUI.AccessionOrder.IsLockAquiredByMe();
         }
-
-		private void CanAlterAccessionLock(object sender, CanExecuteRoutedEventArgs e)
-		{
-			e.CanExecute = false;
-			if (((TabItem)this.Parent).IsSelected)
-			{
-				if (this.m_TypingUI.AccessionOrder != null &&
-					this.m_TypingUI.SurgicalTestOrder != null &&
-					this.m_TypingUI.SurgicalTestOrder.ReportNo != string.Empty)
-				{
-					e.CanExecute = true;
-				}
-			}
-		}
-
-		private void AccessionLock_LockStatusChanged(object sender, EventArgs e)
-		{
-			((MainWindow)Application.Current.MainWindow).SetLockObject(this.m_TypingUI.Lock);
-		}
 
 		public void ShowCaseDocument(object target, ExecutedRoutedEventArgs args)
 		{
@@ -292,11 +265,11 @@ namespace YellowstonePathology.UI.Surgical
         private void RefreshWorkspaces()
         {            
             this.m_TreeviewWorkspace = new Common.TreeViewWorkspace(this.m_TypingUI.AccessionOrder, this.m_SystemIdentity);
-            this.m_TreeviewWorkspace.IsEnabled = this.m_TypingUI.Lock.LockAquired;
+            this.m_TreeviewWorkspace.IsEnabled = this.m_TypingUI.AccessionOrder.IsLockAquiredByMe();
             this.tabItemTreeView.Content = this.m_TreeviewWorkspace;
 
 			this.m_AmendmentControl = new AmendmentControlV2(this.m_SystemIdentity, this.m_TypingUI.SurgicalTestOrder.ReportNo, this.m_TypingUI.AccessionOrder);
-            this.m_AmendmentControl.IsEnabled = this.m_TypingUI.Lock.LockAquired;
+            this.m_AmendmentControl.IsEnabled = this.m_TypingUI.AccessionOrder.IsLockAquiredByMe();
             this.TabItemAmendments.Content = this.m_AmendmentControl;
         }
 
@@ -646,7 +619,7 @@ namespace YellowstonePathology.UI.Surgical
 				this.m_TypingUI.AccessionOrder != null &&
 				this.m_TypingUI.SurgicalTestOrder != null &&
 				this.m_TypingUI.SurgicalTestOrder.ReportNo != string.Empty &&
-				this.m_TypingUI.Lock.LockAquired)
+				this.m_TypingUI.AccessionOrder.IsLockAquiredByMe())
 			{
 				e.CanExecute = true;
 			}

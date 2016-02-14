@@ -323,7 +323,12 @@ namespace YellowstonePathology.UI.Cytology
 
         public YellowstonePathology.Business.Test.AccessionOrder AccessionOrder
         {
-			get { return this.m_AccessionOrder; }			
+			get { return this.m_AccessionOrder; }
+            set
+            {
+                this.m_AccessionOrder = value;
+                this.NotifyPropertyChanged("AccessionOrder");
+            }			
         }
 
 		public YellowstonePathology.Business.Specimen.Model.SpecimenOrder SpecimenOrder
@@ -335,7 +340,12 @@ namespace YellowstonePathology.UI.Cytology
 		public YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology PanelSetOrderCytology
 		{
 			get { return this.m_PanelSetOrderCytology; }
-		}
+            set
+            {
+                this.m_PanelSetOrderCytology = value;
+                this.NotifyPropertyChanged("PanelSetOrderCytology");
+            }
+        }
 
         public YellowstonePathology.Business.ClientOrder.Model.ClientOrder ClientOrder
         {

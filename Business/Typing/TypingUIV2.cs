@@ -26,7 +26,6 @@ namespace YellowstonePathology.Business.Typing
 		bool m_AuditMode = false;
 		bool m_IsPossibleReportableCase = false;
 		private YellowstonePathology.Business.Common.FieldEnabler m_FieldEnabler;
-		YellowstonePathology.Business.Domain.Lock m_Lock;
 		YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 
 		YellowstonePathology.Business.Typing.ParagraphTemplateCollection m_ParagraphTemplateCollection;
@@ -38,7 +37,6 @@ namespace YellowstonePathology.Business.Typing
 		public TypingUIV2(YellowstonePathology.Business.User.SystemIdentity systemIdentity, System.Windows.Controls.TabItem writer)
 		{
 			this.m_SystemIdentity = systemIdentity;
-			this.m_Lock = new YellowstonePathology.Business.Domain.Lock(this.m_SystemIdentity);
 
 			this.m_ParagraphTemplateCollection = new ParagraphTemplateCollection();
 
@@ -66,7 +64,6 @@ namespace YellowstonePathology.Business.Typing
 			if (this.m_AccessionOrder != null)
 			{                
                 this.m_SurgicalTestOrder = (YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
-				this.m_Lock.SetLockable(this.m_AccessionOrder);
 
 				this.m_CaseDocumentCollection = new Business.Document.CaseDocumentCollection(this.m_AccessionOrder, reportNo);
 			
@@ -108,12 +105,6 @@ namespace YellowstonePathology.Business.Typing
                 this.m_AccessionOrder = value;
                 this.NotifyPropertyChanged("AccessionOrder");
             }
-		}
-
-		public YellowstonePathology.Business.Domain.Lock Lock
-		{
-			get { return this.m_Lock; }
-			set { this.m_Lock = value; }
 		}
 
 		public YellowstonePathology.Business.Common.FieldEnabler FieldEnabler
@@ -258,7 +249,7 @@ namespace YellowstonePathology.Business.Typing
 			{
 				YellowstonePathology.Business.Rules.ExecutionStatus executionStatus = new YellowstonePathology.Business.Rules.ExecutionStatus();
 				YellowstonePathology.Business.Rules.WorkspaceEnableRules workspaceEnableRules = new Rules.WorkspaceEnableRules();
-				workspaceEnableRules.Execute(this.AccessionOrder, this.m_SurgicalTestOrder, this.m_FieldEnabler, this.m_Lock, executionStatus, this.m_SystemIdentity);
+				workspaceEnableRules.Execute(this.AccessionOrder, this.m_SurgicalTestOrder, this.m_FieldEnabler, executionStatus, this.m_SystemIdentity);
 			}
 		}
 

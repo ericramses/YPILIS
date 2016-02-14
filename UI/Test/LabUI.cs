@@ -90,7 +90,12 @@ namespace YellowstonePathology.UI.Test
 
 		public YellowstonePathology.Business.Test.AccessionOrder AccessionOrder
 		{
-			get { return this.m_AccessionOrder; }			
+			get { return this.m_AccessionOrder; }
+            set
+            {
+                this.m_AccessionOrder = value;
+                this.NotifyPropertyChanged("AccessionOrder");
+            }
 		}
 
 		public YellowstonePathology.Business.Domain.Lock Lock
@@ -113,6 +118,11 @@ namespace YellowstonePathology.UI.Test
 		public YellowstonePathology.Business.Test.PanelSetOrder PanelSetOrder
 		{
 			get { return this.m_PanelSetOrder; }
+            set
+            {
+                this.m_PanelSetOrder = value;
+                this.NotifyPropertyChanged("PanelSetOrder");
+            }
 		}
 
 		public YellowstonePathology.Business.Search.ReportSearchList CaseList
@@ -211,7 +221,7 @@ namespace YellowstonePathology.UI.Test
 		{
 			YellowstonePathology.Business.Rules.ExecutionStatus executionStatus = new YellowstonePathology.Business.Rules.ExecutionStatus();
 			YellowstonePathology.Business.Rules.WorkspaceEnableRules workspaceEnableRules = new YellowstonePathology.Business.Rules.WorkspaceEnableRules();
-			workspaceEnableRules.Execute(this.m_AccessionOrder, this.m_PanelSetOrder, this.m_FieldEnabler, this.m_Lock, executionStatus, this.m_SystemIdentity);
+			workspaceEnableRules.Execute(this.m_AccessionOrder, this.m_PanelSetOrder, this.m_FieldEnabler, executionStatus, this.m_SystemIdentity);
 		}
 
 		public string OrderedBy

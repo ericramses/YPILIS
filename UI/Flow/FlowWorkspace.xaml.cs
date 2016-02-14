@@ -71,7 +71,7 @@ namespace YellowstonePathology.UI.Flow
 
         private void MainWindowCommandButtonHandler_Save(object sender, EventArgs e)
         {
-            if (this.m_FlowUI.AccessionOrder != null)
+            if (this.m_FlowUI.AccessionOrder != null && this.m_FlowUI.AccessionOrder.IsLockAquiredByMe() == true)
             {
                 MainWindow.MoveKeyboardFocusNextThenBack();
                 YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this.m_FlowUI.AccessionOrder, this.m_Writer);

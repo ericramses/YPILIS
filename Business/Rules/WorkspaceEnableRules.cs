@@ -13,7 +13,6 @@ namespace YellowstonePathology.Business.Rules
 		YellowstonePathology.Business.Rules.Rule m_Rule;
 		YellowstonePathology.Business.Rules.ExecutionStatus m_ExecutionStatus;
 		YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-		YellowstonePathology.Business.Domain.Lock m_Lock;
 		YellowstonePathology.Business.Common.FieldEnabler m_FieldEnabler;
         YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 		YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
@@ -31,7 +30,7 @@ namespace YellowstonePathology.Business.Rules
 
 		public void LockAcquired()
 		{
-			if (this.m_Lock.LockAquired)
+			if (this.m_AccessionOrder.IsLockAquiredByMe() == true)
 			{
 				this.m_FieldEnabler.IsProtectedEnabled = true;
 				this.m_FieldEnabler.IsUnprotectedEnabled = true;
@@ -108,13 +107,11 @@ namespace YellowstonePathology.Business.Rules
 		public void Execute(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
 			YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder,
 			YellowstonePathology.Business.Common.FieldEnabler fieldEnabler, 
-            YellowstonePathology.Business.Domain.Lock theLock,
 			YellowstonePathology.Business.Rules.ExecutionStatus executionStatus,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 		{
 			this.m_AccessionOrder = accessionOrder;
 			this.m_PanelSetOrder = panelSetOrder;
-			this.m_Lock = theLock;
 			this.m_FieldEnabler = fieldEnabler;
 			this.m_ExecutionStatus = executionStatus;
             this.m_SystemIdentity = systemIdentity;
