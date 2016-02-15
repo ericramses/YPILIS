@@ -168,7 +168,6 @@ namespace YellowstonePathology.UI.Surgical
 			this.RunWorkspaceEnableRules();
 			this.m_CaseDocumentCollection = new Business.Document.CaseDocumentCollection(this.m_AccessionOrder, this.m_PanelSetOrder.ReportNo);
 			this.m_AccessionOrder.PanelSetOrderCollection.PathologistTestOrderItemList.Build(this.m_AccessionOrder);
-			this.PathologistOrderCollection = this.m_AccessionOrder.PanelSetOrderCollection;
 			this.NotifyPropertyChanged("");
 		}
         
@@ -179,7 +178,6 @@ namespace YellowstonePathology.UI.Surgical
 
             this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 			this.m_AccessionOrder.PanelSetOrderCollection.PathologistTestOrderItemList.Build(this.m_AccessionOrder);
-			this.PathologistOrderCollection = this.m_AccessionOrder.PanelSetOrderCollection;
 			this.RunWorkspaceEnableRules();            
 			this.NotifyPropertyChanged("");
 		}
@@ -222,16 +220,6 @@ namespace YellowstonePathology.UI.Surgical
 					result.Append(this.m_AccessionOrder.PSex);
 				}
 				return result.ToString();
-			}
-		}
-
-		public YellowstonePathology.Business.Test.PanelSetOrderCollection PathologistOrderCollection
-		{
-			get { return this.m_PathologistOrderCollection; }
-			set
-			{
-				this.m_PathologistOrderCollection = value;
-				NotifyPropertyChanged("PathologistOrderCollection");
 			}
 		}
 

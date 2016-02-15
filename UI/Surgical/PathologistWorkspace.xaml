@@ -223,7 +223,7 @@
 				</ToolBarTray>
 
 				<ListView Name="ListViewCaseList" Grid.Column="0" Grid.Row="4"
-					  ItemsSource="{Binding Path=PathologistOrderCollection.PathologistTestOrderItemList}">                    
+					  ItemsSource="{Binding Path=AccessionOrder.PanelSetOrderCollection.PathologistTestOrderItemList}">                    
                     <ListView.View>
 						<GridView>
 							<GridViewColumn DisplayMemberBinding="{Binding Path=TestName}" Header="Test Name" Width="250"/>

@@ -113,8 +113,6 @@ namespace YellowstonePathology.UI.Surgical
                 YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this.m_PathologistUI.AccessionOrder, this.m_Writer);
                 this.m_PathologistUI.AccessionOrder = null;
                 if(this.m_PathologistUI.CaseDocumentCollection != null) this.m_PathologistUI.CaseDocumentCollection.Clear();
-                this.m_PathologistUI.PathologistOrderCollection.PathologistTestOrderItemList.Clear();
-                this.m_PathologistUI.PathologistOrderCollection.Clear();
                 this.ContentControlReview.Content = null;
                 this.ListViewSearchResults.SelectedIndex = -1;
                 this.m_PathologistUI.FieldEnabler.IsUnprotectedEnabled = false;

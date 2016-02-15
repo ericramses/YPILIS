@@ -18,13 +18,13 @@ namespace YellowstonePathology.Business.Persistence
         public bool LockWasReleased
         {
             get { return this.m_LockWasReleased; }
-            set { this.LockWasReleased = value; }
+            set { this.m_LockWasReleased = value; }
         }
 
         public string Message
         {
             get { return this.m_Message; }
-            set { this.Message = value; }
+            set { this.m_Message = value; }
         }
 
     }

@@ -124,15 +124,15 @@ namespace YellowstonePathology.UI.Cytology
 
         private void MainWindowCommandButtonHandler_Save(object sender, EventArgs e)
         {
-            if(this.m_CytologyUI.AccessionOrder != null && this.m_CytologyUI.AccessionOrder.IsLockAquiredByMe() == true)
+            if (this.m_CytologyUI.AccessionOrder != null)
             {
                 MainWindow.MoveKeyboardFocusNextThenBack();
-                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this.m_CytologyUI.AccessionOrder, this.m_Writer);
-                this.m_CytologyUI.AccessionOrder = null;
-                this.m_CytologyUI.PatientHistory.Clear();
-                this.m_DocumentViewer.ClearContent();
-                this.m_CytologyUI.PanelSetOrderCytology = null;
-                this.m_CytologyUI.NotifyPropertyChanged(string.Empty);
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.ReleaseLock(this.m_CytologyUI.AccessionOrder, this.m_Writer);
+                if (this.m_CytologyUI.AccessionOrder.IsLockAquiredByMe() == false)
+                {
+                    //this.m_CytologyUI.RunWorkspaceEnableRules();
+                    this.m_CytologyUI.NotifyPropertyChanged(string.Empty);
+                }
             }
         }
 
