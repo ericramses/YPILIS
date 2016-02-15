@@ -106,17 +106,15 @@ namespace YellowstonePathology.UI.Surgical
 
 		private void MainWindowCommandButtonHandler_Save(object sender, EventArgs e)
 		{
-            if (this.m_PathologistUI.AccessionOrder != null && this.m_PathologistUI.AccessionOrder.IsLockAquiredByMe() == true)
+            if (this.m_PathologistUI.AccessionOrder != null)
             {
-                this.DisplaySaveYourWorkMessage();
                 MainWindow.MoveKeyboardFocusNextThenBack();
-                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this.m_PathologistUI.AccessionOrder, this.m_Writer);
-                this.m_PathologistUI.AccessionOrder = null;
-                if(this.m_PathologistUI.CaseDocumentCollection != null) this.m_PathologistUI.CaseDocumentCollection.Clear();
-                this.ContentControlReview.Content = null;
-                this.ListViewSearchResults.SelectedIndex = -1;
-                this.m_PathologistUI.FieldEnabler.IsUnprotectedEnabled = false;
-                this.m_PathologistUI.NotifyPropertyChanged(string.Empty);
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.ReleaseLock(this.m_PathologistUI.AccessionOrder, this.m_Writer);
+                if (this.m_PathologistUI.AccessionOrder.IsLockAquiredByMe() == false)
+                {
+                    this.m_PathologistUI.RunWorkspaceEnableRules();
+                    this.m_PathologistUI.NotifyPropertyChanged(string.Empty);
+                }
             }
         }
 

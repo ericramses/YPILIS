@@ -93,9 +93,6 @@ namespace YellowstonePathology.UI.Test
 			this.m_ScanLogger = new YellowstonePathology.Business.Logging.ScanLogger(this.m_SystemIdentity);
             this.m_ScanLogger.Start();
 			this.ListViewDocumentList.ItemsSource = this.m_LabUI.CaseDocumentCollection;
-            
-            this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath += new MainWindowCommandButtonHandler.StartProviderDistributionPathEventHandler(MainWindowCommandButtonHandler_StartProviderDistributionPath);
-            this.m_MainWindowCommandButtonHandler.Save += new MainWindowCommandButtonHandler.SaveEventHandler(MainWindowCommandButtonHandler_Save);
         }
 
         private void MainWindowCommandButtonHandler_Save(object sender, EventArgs e)
@@ -134,9 +131,10 @@ namespace YellowstonePathology.UI.Test
             this.m_SystemIdentity.UserChanged -= this.UserChangedHandler;						
 			this.m_BarcodeScanPort.ClientScanReceived -= this.ClientScanReceived;
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath -= MainWindowCommandButtonHandler_StartProviderDistributionPath;
-		}
+            this.m_MainWindowCommandButtonHandler.Save -= MainWindowCommandButtonHandler_Save;
+        }
 
-		public void RemoveTab(object target, ExecutedRoutedEventArgs args)
+        public void RemoveTab(object target, ExecutedRoutedEventArgs args)
 		{
 		}
 
@@ -170,10 +168,12 @@ namespace YellowstonePathology.UI.Test
 		private void LabWorkspace_Loaded(object sender, RoutedEventArgs args)
         {            
 			this.m_SystemIdentity.UserChanged += new Business.User.SystemIdentity.UserChangedHandler(UserChangedHandler);			
-			this.m_BarcodeScanPort.ClientScanReceived += ClientScanReceived;                       
-		}
+			this.m_BarcodeScanPort.ClientScanReceived += ClientScanReceived;
+            this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath += new MainWindowCommandButtonHandler.StartProviderDistributionPathEventHandler(MainWindowCommandButtonHandler_StartProviderDistributionPath);
+            this.m_MainWindowCommandButtonHandler.Save += new MainWindowCommandButtonHandler.SaveEventHandler(MainWindowCommandButtonHandler_Save);
+        }
 
-		private void ItemIsSelected(object sender, CanExecuteRoutedEventArgs e)
+        private void ItemIsSelected(object sender, CanExecuteRoutedEventArgs e)
 		{
 			e.CanExecute = false;
 			if (((TabItem)this.Parent).IsSelected && this.ListViewCaseList.SelectedItem != null && this.m_LabUI.AccessionOrder.IsLockAquiredByMe() == true && this.m_SystemIdentity.User.UserName != null)

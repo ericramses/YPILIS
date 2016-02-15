@@ -23,7 +23,6 @@ namespace YellowstonePathology.UI.Cytology
         
         public CommandBinding CommandBindingPatientLinking;
         public CommandBinding CommandBindingShowCaseDocument;        
-		public CommandBinding CommandBindingToggleAccessionLockMode;
 		public CommandBinding CommandBindingApplicationClosing;
 		public CommandBinding CommandBindingShowPatientEditDialog;
 		public CommandBinding CommandBindingShowBillingEditDialog;
@@ -61,7 +60,6 @@ namespace YellowstonePathology.UI.Cytology
 			this.CommandBindings.Add(this.CommandBindingApplicationClosing);
 			this.CommandBindings.Add(this.CommandBindingShowPatientEditDialog);
 			this.CommandBindings.Add(this.CommandBindingShowAmendmentDialog);
-			this.CommandBindings.Add(this.CommandBindingToggleAccessionLockMode);
 
             this.m_DocumentViewer = new DocumentWorkspace();
             
