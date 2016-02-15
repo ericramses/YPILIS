@@ -62,7 +62,24 @@ namespace YellowstonePathology.Business.Persistence
                 accessionOrder.LockAquiredByUserName = systemIdentity.User.UserName;
                 accessionOrder.TimeLockAquired = DateTime.Now;             
             }
-        }        
+        } 
+        
+        public bool IsThisTheOnlyWriter(object writer)
+        {
+            bool result = false;
+            foreach(object o in this.m_Writers)
+            {
+                if(o == writer)
+                {
+                    if(this.m_Writers.Count == 1)
+                    {
+                        result = true;
+                        break;
+                    }                    
+                }
+            }            
+            return result;
+        }       
 
         public List<object> Writers
         {

@@ -484,7 +484,10 @@
     <Compile Include="Persistence\ClientOrderDocumentBuilder.cs" />
     <Compile Include="Persistence\DocumentBuilder.cs" />
     <Compile Include="Persistence\DocumentCollection.cs" />
+    <Compile Include="Persistence\DocumentWriter.cs" />
+    <Compile Include="Persistence\DocumentWriterCollection.cs" />
     <Compile Include="Persistence\GenericDocumentBuilder.cs" />
+    <Compile Include="Persistence\IDocumentWriter.cs" />
     <Compile Include="Persistence\JSONIndenter.cs" />
     <Compile Include="Persistence\JSONObjectStreamWriter.cs" />
     <Compile Include="Persistence\JSONStreamWriter.cs" />
@@ -498,10 +501,12 @@
     <Compile Include="Persistence\DocumentDelete.cs" />
     <Compile Include="Persistence\DocumentId.cs" />
     <Compile Include="Persistence\Document.cs" />
+    <Compile Include="Persistence\ReleaseDocumentLockResult.cs" />
     <Compile Include="Persistence\Stack.cs" />
     <Compile Include="Persistence\DocumentUpdate.cs" />
     <Compile Include="Persistence\RegisteredObject.cs" />
     <Compile Include="Persistence\RegisteredObjectCollection.cs" />
+    <Compile Include="Persistence\WriterScopeEnum.cs" />
     <Compile Include="ReportDistribution.Model\ScheduledFaxSubmission.cs" />
     <Compile Include="Specimen.Model\EmbeddingInstructionList.cs" />
     <Compile Include="Test.Model\DispalyGroupProstate.cs" />

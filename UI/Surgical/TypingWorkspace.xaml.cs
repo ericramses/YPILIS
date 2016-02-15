@@ -96,18 +96,10 @@ namespace YellowstonePathology.UI.Surgical
             if(this.m_TypingUI.AccessionOrder != null)
             {
                 MainWindow.MoveKeyboardFocusNextThenBack();
-                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this.m_TypingUI.AccessionOrder, this.m_Writer);
-                if (this.m_TypingUI.AccessionOrder.IsLockAquiredByMe() == true)
-                {
-                    this.m_TypingUI.AccessionOrder = null;
-                    this.m_DocumentViewer.ClearContent();
-                    this.m_TreeviewWorkspace = null;
-                    this.tabItemTreeView.Content = this.m_TreeviewWorkspace;
-                    this.m_AmendmentControl = null;
-                    this.TabItemAmendments.Content = this.m_AmendmentControl;
-                    this.m_TypingUI.CaseDocumentCollection.Clear();
-                    this.m_TypingUI.BillingSpecimenViewCollection.Clear();
-                    this.ListViewSurgicalCaseList.SelectedIndex = -1;
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.ReleaseLock(this.m_TypingUI.AccessionOrder, this.m_Writer);
+                if (this.m_TypingUI.AccessionOrder.IsLockAquiredByMe() == false)
+                {                    
+                    this.m_TypingUI.RunWorkspaceEnableRules();
                     this.m_TypingUI.NotifyPropertyChanged(string.Empty);
                 }
             }

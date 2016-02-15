@@ -59,22 +59,30 @@ namespace YellowstonePathology.Business.Typing
 		public void GetAccessionOrder(string reportNo)
 		{
             string masterAccessionNo = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetMasterAccessionNoFromReportNo(reportNo);
-			this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, this.m_Writer);
+            
+            if(masterAccessionNo != null)
+            {
+                this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, this.m_Writer);
 
-			if (this.m_AccessionOrder != null)
-			{                
-                this.m_SurgicalTestOrder = (YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
+                if (this.m_AccessionOrder != null)
+                {
+                    this.m_SurgicalTestOrder = (YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 
-				this.m_CaseDocumentCollection = new Business.Document.CaseDocumentCollection(this.m_AccessionOrder, reportNo);
-			
-				this.RefreshBillingSpecimenViewCollection();
+                    this.m_CaseDocumentCollection = new Business.Document.CaseDocumentCollection(this.m_AccessionOrder, reportNo);
 
-				this.NotifyPropertyChanged("");
-			}
-			else
-			{
-				MessageBox.Show("Case Not Found.");
-			}
+                    this.RefreshBillingSpecimenViewCollection();
+
+                    this.NotifyPropertyChanged("");
+                }
+                else
+                {
+                    MessageBox.Show("Case Not Found.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Case Not Found.");
+            }		    
 		}
 
 		public void Save(bool releaseLock)

@@ -45,6 +45,35 @@ namespace YellowstonePathology.Business.Persistence
             }
         }
 
+        public ReleaseDocumentLockResult ReleaseLock(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, object writer)
+        {
+            ReleaseDocumentLockResult result = new ReleaseDocumentLockResult();            
+
+            DocumentId documentId = new DocumentId(accessionOrder, writer);
+            Document document = this.Get(documentId);
+
+            if(document != null)
+            {
+                if (document.IsThisTheOnlyWriter(writer) == true)
+                {
+                    accessionOrder.ReleaseLock();
+                    document.Submit();
+                    result.LockWasReleased = true;
+                }
+                else
+                {
+                    result.LockWasReleased = false;
+                    result.Message = "This case is open in another workspace and cannot be released.";
+                }
+            }
+            else
+            {
+                throw new Exception("You are trying to release the lock on a document that is not in the stack.");
+            }
+
+            return result;
+        }
+
         public void Flush()
         {
             for (int i = this.m_Documents.Count - 1; i > -1; i--)
@@ -112,21 +141,22 @@ namespace YellowstonePathology.Business.Persistence
                     document.Writers.Add(documentId.Writer);
                 }                
                 
-                if(document.IsLockAquiredByMe == true)
+                if(document.Value is YellowstonePathology.Business.Test.AccessionOrder)
                 {
+                    //Save even if the lock is not aquired.
                     document.Submit();
                 }
                 else
                 {
-                    documentBuilder.Refresh(document.Value);     
-                } 
+                    documentBuilder.Refresh(document.Value);
+                }
             }   
             else if(this.WriterTypeExists(documentId) == true)
             {
                 Document outgoingDocument = this.WriterTypeGet(documentId);
                 this.PushOne(outgoingDocument, documentId.Writer);
 
-                if(documentId.HasValue == true)
+                if(documentId.ValueWasPassedIn == true)
                 {
                     document = new DocumentUpdate(documentId);
                     this.m_Documents.Add(document);

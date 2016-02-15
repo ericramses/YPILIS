@@ -133,13 +133,8 @@ namespace YellowstonePathology.UI.Cutting
 
         private void ButtonPrintImmunos_Click(object sender, RoutedEventArgs e)
         {
-            this.PrintImmunoLabels();
-        }
-
-        private void PrintImmunoLabels()
-        {
-            this.PrintImmunos(this, new EventArgs());                  
-        }        
+            this.PrintImmunos(this, new EventArgs());
+        }              
 
         private void ButtonLastMasterAccessionNo_Click(object sender, RoutedEventArgs e)
         {

@@ -16,10 +16,11 @@ namespace YellowstonePathology.UI.Login
     /// <summary>
     /// Interaction logic for LoginPageWindow.xaml
     /// </summary>
-    public partial class LoginPageWindow : Window
+    public partial class LoginPageWindow : Window, YellowstonePathology.Business.Persistence.IDocumentWriter
     {
         private YellowstonePathology.UI.Navigation.PageNavigator m_PageNavigator;
-		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;        
+		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
+        private bool m_ReadOnly;      
 
 		public LoginPageWindow(YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {                        
@@ -47,6 +48,11 @@ namespace YellowstonePathology.UI.Login
 		public YellowstonePathology.Business.User.SystemIdentity SystemIdentity
 		{
 			set { this.m_SystemIdentity = value; }
-		}        
+		}  
+        
+        public bool ReadOnly
+        {
+            get { return this.m_ReadOnly; }
+        }                 
     }
 }
