@@ -41,7 +41,8 @@ namespace YellowstonePathology.UI.Cutting
 		private YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort m_BarcodeScanPort;
 
         private System.Windows.Threading.DispatcherTimer m_PageTimeoutTimer;
-        private YellowstonePathology.UI.Navigation.PageNavigator m_PageNavigator;  
+        private YellowstonePathology.UI.Navigation.PageNavigator m_PageNavigator;
+        private YellowstonePathology.Business.Label.Model.HistologySlidePaperLabelPrinter m_HistologySlidePaperLabelPrinter;
 
         public CuttingPage(YellowstonePathology.Business.Test.AliquotOrder aliquotOrder,
             YellowstonePathology.Business.Test.Model.TestOrder testOrder,
@@ -54,6 +55,7 @@ namespace YellowstonePathology.UI.Cutting
             this.m_AccessionOrder = accessionOrder;
             this.m_TestOrder = testOrder;            
             this.m_PageNavigator = pageNavigator;
+            this.m_HistologySlidePaperLabelPrinter = histologySlidePaperLabelPrinter;
             
             this.m_SpecimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByAliquotOrderId(this.m_AliquotOrder.AliquotOrderId);
             this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrderByTestOrderId(this.m_TestOrder.TestOrderId);
@@ -237,7 +239,9 @@ namespace YellowstonePathology.UI.Cutting
                     }
                     else if (slideOrder.LabelType == YellowstonePathology.Business.Slide.Model.SlideLabelTypeEnum.PaperLabel.ToString())
                     {
-                        slideOrder.Status = YellowstonePathology.Business.Slide.Model.SlideStatusEnum.PrintRequested.ToString();
+                        //slideOrder.Status = YellowstonePathology.Business.Slide.Model.SlideStatusEnum.PrintRequested.ToString();
+                        YellowstonePathology.Business.Label.Model.HistologySlidePaperLabel histologySlidePaperLabel = new Business.Label.Model.HistologySlidePaperLabel(slideOrder.SlideOrderId, slideOrder.ReportNo, slideOrder.Label, slideOrder.PatientLastName, slideOrder.TestAbbreviation, slideOrder.Location);
+                        this.m_HistologySlidePaperLabelPrinter.Queue.Enqueue(histologySlidePaperLabel);
                         this.ShowTestOrderSelectionPage(this, new CustomEventArgs.AliquotOrderReturnEventArgs(this.m_AliquotOrder));
                     }                    
                 }

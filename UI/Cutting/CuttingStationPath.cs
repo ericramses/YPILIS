@@ -62,8 +62,7 @@ namespace YellowstonePathology.UI.Cutting
         private void ScanAliquotPage_PrintImmunos(object sender, EventArgs eventArgs)
         {            
             if (this.m_HistologySlidePaperLabelPrinter.Queue.Count != 0)
-            {
-                //YellowstonePathology.Business.Label.Model.HistologySlidePaperLabel histologySlidePaperLabel = new Business.Label.Model.HistologySlidePaperLabel(slideOrder.SlideOrderId, slideOrder.ReportNo, slideOrder.Label, slideOrder.PatientLastName, slideOrder.TestAbbreviation, slideOrder.Location);
+            {                
                 this.m_HistologySlidePaperLabelPrinter.Print();
             }
             else

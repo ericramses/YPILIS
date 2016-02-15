@@ -50,6 +50,7 @@ namespace YellowstonePathology.UI.Test
 
 			InitializeComponent();
 
+            this.DataContext = this;
         }
 
         public YellowstonePathology.Business.Test.LynchSyndrome.MLH1MethylationAnalysisResultCodeCollection ResultCodeCollection

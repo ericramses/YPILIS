@@ -87,14 +87,12 @@ namespace YellowstonePathology.UI.Login.Receiving
             this.SetButtonVisibility();
 			DataContext = this;
 
-			this.Loaded += new RoutedEventHandler(AccessionOrderPage_Loaded);
-            Unloaded += AccessionOrderPage_Unloaded;
+			this.Loaded += new RoutedEventHandler(AccessionOrderPage_Loaded);            
 		}
 
         public AccessionOrderPage(ClientOrderReceivingHandler clientOrderReceivingHandler, PageNavigationModeEnum pageNavigationMode)
         {            
-            this.m_AccessionOrder = clientOrderReceivingHandler.AccessionOrder;
-            //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false, Window.GetWindow(this));
+            this.m_AccessionOrder = clientOrderReceivingHandler.AccessionOrder;            
             this.m_PageNavigationMode = pageNavigationMode;
 
             this.m_ClientOrder = clientOrderReceivingHandler.ClientOrder;
@@ -110,20 +108,14 @@ namespace YellowstonePathology.UI.Login.Receiving
             this.SetButtonVisibility();
             DataContext = this;
 
-			this.Loaded += new RoutedEventHandler(AccessionOrderPage_Loaded);
-            Unloaded += AccessionOrderPage_Unloaded;
+			this.Loaded += new RoutedEventHandler(AccessionOrderPage_Loaded);                                    
         }
 
         private void AccessionOrderPage_Loaded(object sender, RoutedEventArgs e)
 		{
             this.SelectTestOrder();            
         }
-
-        private void AccessionOrderPage_Unloaded(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
+                
         private void AccessionOrderPage_PropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
 			if (e.PropertyName == "PanelSetOrderCollection")
@@ -231,27 +223,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 		private void ButtonClose_Click(object sender, RoutedEventArgs e)
 		{
             if (this.Close != null) this.Close(this, new EventArgs());
-		}        
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save(bool releaseLock)
-		{
-            //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
-        }
-
-        public void UpdateBindingSources()
-		{
-
-		}
+		}        		
         
         private void ListBoxCaseTypes_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {            
@@ -396,8 +368,7 @@ namespace YellowstonePathology.UI.Login.Receiving
             {
                 if (specimenOrder.AliquotOrderCollection.Count == 0)
                 {
-                    this.m_AccessionOrder.SpecimenOrderCollection.Remove(specimenOrder);
-                    this.Save(false);
+                    this.m_AccessionOrder.SpecimenOrderCollection.Remove(specimenOrder);                    
                 }
                 else
                 {
