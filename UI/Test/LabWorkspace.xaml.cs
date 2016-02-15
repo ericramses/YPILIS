@@ -25,7 +25,6 @@ namespace YellowstonePathology.UI.Test
     {        
         public CommandBinding CommandBindingApplicationClosing;        
         public CommandBinding CommandBindingShowCaseDocument;
-        public CommandBinding CommandBindingToggleAccessionLockMode;        
         public CommandBinding CommandBindingShowOrderForm;		
 		public CommandBinding CommandBindingPatientLinking;        
 		public CommandBinding CommandBindingRemoveTab;		
@@ -58,7 +57,6 @@ namespace YellowstonePathology.UI.Test
 
             this.CommandBindingApplicationClosing = new CommandBinding(MainWindow.ApplicationClosingCommand, CloseWorkspace);            
             this.CommandBindingShowCaseDocument = new CommandBinding(MainWindow.ShowCaseDocumentCommand, ShowCaseDocument);
-			this.CommandBindingToggleAccessionLockMode = new CommandBinding(MainWindow.ToggleAccessionLockModeCommand, AlterAccessionLock, CanAlterAccessionLock);
 			this.CommandBindingShowOrderForm = new CommandBinding(MainWindow.ShowOrderFormCommand, this.ShowOrderForm, ItemIsSelected);			
 			this.CommandBindingPatientLinking = new CommandBinding(MainWindow.PatientLinkingCommand, this.LinkPatient, ItemIsSelected);            
 			this.CommandBindingRemoveTab = new CommandBinding(MainWindow.RemoveTabCommand, RemoveTab);
@@ -66,7 +64,6 @@ namespace YellowstonePathology.UI.Test
 
             this.CommandBindings.Add(this.CommandBindingApplicationClosing);            
             this.CommandBindings.Add(this.CommandBindingShowCaseDocument);
-            this.CommandBindings.Add(this.CommandBindingToggleAccessionLockMode);
             this.CommandBindings.Add(this.CommandBindingShowOrderForm);            
             this.CommandBindings.Add(this.CommandBindingPatientLinking);            
 			this.CommandBindings.Add(this.CommandBindingRemoveTab);			
@@ -87,8 +84,6 @@ namespace YellowstonePathology.UI.Test
 			this.ComboBoxLogLocation.SelectionChanged -= this.ComboBoxLogLocation_SelectionChanged;
 			this.ComboBoxLogLocation.SelectedIndex = 0;
 			this.ComboBoxLogLocation.SelectionChanged += this.ComboBoxLogLocation_SelectionChanged;			
-
-			this.m_LabUI.Lock.LockStatusChanged += new YellowstonePathology.Business.Domain.LockStatusChangedEventHandler(AccessionLock_LockStatusChanged);
 
             this.Loaded +=new RoutedEventHandler(LabWorkspace_Loaded);
             this.Unloaded += new RoutedEventHandler(LabWorkspace_Unloaded);
@@ -124,11 +119,6 @@ namespace YellowstonePathology.UI.Test
         public void CloseWorkspace(object target, ExecutedRoutedEventArgs args)
         {                        
             this.Save(false);
-            
-            if (this.m_LabUI != null && m_LabUI.AccessionOrder != null && m_LabUI.PanelSetOrder != null)
-			{
-				this.m_LabUI.Lock.ReleaseLock();
-			}            
 		}
 
         private void MainWindowCommandButtonHandler_StartProviderDistributionPath(object sender, EventArgs e)
@@ -152,10 +142,6 @@ namespace YellowstonePathology.UI.Test
 
 		public void RemoveTab(object target, ExecutedRoutedEventArgs args)
 		{
-			if (this.m_LabUI != null && m_LabUI.AccessionOrder != null && this.m_LabUI.PanelSetOrder != null)
-			{
-				this.m_LabUI.Lock.ReleaseLock();
-			}
 		}
 
         private void ShowOrderForm(object target, ExecutedRoutedEventArgs args)
@@ -187,62 +173,14 @@ namespace YellowstonePathology.UI.Test
 
 		private void LabWorkspace_Loaded(object sender, RoutedEventArgs args)
         {            
-			
-
-			if (this.m_LabUI != null && this.m_LabUI.AccessionOrder != null && this.m_LabUI.PanelSetOrder != null)
-			{
-				if (!String.IsNullOrEmpty(this.m_LabUI.PanelSetOrder.ReportNo))
-				{
-					if (this.m_LabUI.Lock.LockingMode == Business.Domain.LockModeEnum.AlwaysAttemptLock && !this.m_LabUI.Lock.LockAquired)
-					{
-						this.m_LabUI.Lock.GetLock();
-					}
-				}
-				((MainWindow)Application.Current.MainWindow).SetLockObject(this.m_LabUI.Lock);
-			}
-
 			this.m_SystemIdentity.UserChanged += new Business.User.SystemIdentity.UserChangedHandler(UserChangedHandler);			
 			this.m_BarcodeScanPort.ClientScanReceived += ClientScanReceived;                       
-		}
-
-        public void AccessionLock_LockStatusChanged(object sender, EventArgs e)
-        {            
-			this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate()
-			{
-				((MainWindow)Application.Current.MainWindow).SetLockObject(this.m_LabUI.Lock);
-			}
-			));
-		}        
-		
-		public void AlterAccessionLock(object target, ExecutedRoutedEventArgs args)
-        {
-			this.Save(false);
-			if (this.ListViewCaseList.SelectedItem != null)
-            {
-				YellowstonePathology.Business.Search.ReportSearchItem item = (YellowstonePathology.Business.Search.ReportSearchItem)this.ListViewCaseList.SelectedItem;
-				this.GetCase(item.MasterAccessionNo, item.ReportNo);
-				this.m_LabUI.Lock.ToggleLockingMode();
-				this.m_LabUI.Lock.SetLockable(this.m_LabUI.AccessionOrder);
-                this.CheckEnabled();
-                this.m_LabUI.NotifyPropertyChanged("");
-                this.m_TreeViewWorkspace.IsEnabled = this.m_LabUI.Lock.LockAquired;
-                this.m_AmendmentControl.IsEnabled = this.m_LabUI.Lock.LockAquired;
-            }
-        }
-
-		private void CanAlterAccessionLock(object sender, CanExecuteRoutedEventArgs e)
-		{
-			e.CanExecute = false;
-			if (((TabItem)this.Parent).IsSelected && this.m_LabUI != null && this.m_LabUI.PanelSetOrder != null && this.m_SystemIdentity.User.UserName != null)
-			{
-				e.CanExecute = true;
-			}
 		}
 
 		private void ItemIsSelected(object sender, CanExecuteRoutedEventArgs e)
 		{
 			e.CanExecute = false;
-			if (((TabItem)this.Parent).IsSelected && this.ListViewCaseList.SelectedItem != null && this.m_LabUI.Lock.LockAquired && this.m_SystemIdentity.User.UserName != null)
+			if (((TabItem)this.Parent).IsSelected && this.ListViewCaseList.SelectedItem != null && this.m_LabUI.AccessionOrder.IsLockAquiredByMe() == true && this.m_SystemIdentity.User.UserName != null)
 			{
 				e.CanExecute = true;
 			}
@@ -265,7 +203,7 @@ namespace YellowstonePathology.UI.Test
 
 		public void ShowPatientEditDialog(object target, ExecutedRoutedEventArgs args)
 		{			
-			if (this.m_LabUI.Lock.LockAquired)
+			if (this.m_LabUI.AccessionOrder.IsLockAquiredByMe() == true)
 			{
 				YellowstonePathology.UI.Common.PatientEditDialog patientEditDialog = new YellowstonePathology.UI.Common.PatientEditDialog(this.m_LabUI.AccessionOrder);
 				patientEditDialog.ShowDialog();
@@ -357,11 +295,11 @@ namespace YellowstonePathology.UI.Test
 		private void RefreshWorkspaces()
 		{
 			this.m_TreeViewWorkspace = new Common.TreeViewWorkspace(this.m_LabUI.AccessionOrder, this.m_SystemIdentity);
-            this.m_TreeViewWorkspace.IsEnabled = this.m_LabUI.Lock.LockAquired;
+            this.m_TreeViewWorkspace.IsEnabled = this.m_LabUI.AccessionOrder.IsLockAquiredByMe();
 			this.TabItemTreeView.Content = this.m_TreeViewWorkspace;
 
 			this.m_AmendmentControl = new AmendmentControlV2(this.m_SystemIdentity, this.m_LabUI.PanelSetOrder.ReportNo, this.m_LabUI.AccessionOrder);
-            this.m_AmendmentControl.IsEnabled = this.m_LabUI.Lock.LockAquired;
+            this.m_AmendmentControl.IsEnabled = this.m_LabUI.AccessionOrder.IsLockAquiredByMe();
             this.TabItemAmendment.Content = this.m_AmendmentControl;			
 		}
 
@@ -389,15 +327,6 @@ namespace YellowstonePathology.UI.Test
 				this.Save(false);
 				this.m_LabUI.FillCaseList();
 			}            
-        }
-
-        public void ButtonAccessionLock_Click(object sender, RoutedEventArgs args)
-        {
-            this.Save(false);
-			if (this.m_LabUI.PanelSetOrder != null && this.m_LabUI.PanelSetOrder.ReportNo != null)
-            {
-				this.m_LabUI.Lock.ToggleLockingMode();
-            }        
         }
 
         public void MenuItemAcceptResults_Click(object sender, RoutedEventArgs args)
@@ -954,7 +883,7 @@ namespace YellowstonePathology.UI.Test
 
         private void SvhMedicalRecordNoReceived(string scanData)
         {
-            if (this.m_LabUI.Lock.LockAquired == true)
+            if (this.m_LabUI.AccessionOrder.IsLockAquiredByMe() == true)
             {
                 if (string.IsNullOrEmpty(this.m_LabUI.AccessionOrder.SvhMedicalRecord) == true)
                 {
@@ -975,7 +904,7 @@ namespace YellowstonePathology.UI.Test
 
         private void SvhAccountNoReceived(string scanData)
         {
-            if (this.m_LabUI.Lock.LockAquired == true)
+            if (this.m_LabUI.AccessionOrder.IsLockAquiredByMe() == true)
             {
                 if (string.IsNullOrEmpty(this.m_LabUI.AccessionOrder.SvhAccount) == true)
                 {

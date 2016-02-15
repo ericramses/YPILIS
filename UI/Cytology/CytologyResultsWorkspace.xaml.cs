@@ -20,9 +20,7 @@ namespace YellowstonePathology.UI.Cytology
 	public delegate void CytologyReportNoChangeEventHandler(object sender, EventArgs e);    
 
 	public partial class CytologyResultsWorkspace : UserControl
-	{		
-		public CommandBinding CommandBindingToggleAccessionLockMode;
-
+	{
 		private CytologyUI m_CytologyUI;
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
         private YellowstonePathology.UI.PageNavigationWindow m_PageNavigationWindow;
@@ -38,8 +36,6 @@ namespace YellowstonePathology.UI.Cytology
             InitializeComponent();
 
 			this.TextBoxReportNoSearch.IsEnabled = false;
-			this.CommandBindingToggleAccessionLockMode = new CommandBinding(MainWindow.ToggleAccessionLockModeCommand, AlterAccessionLock, CanAlterAccessionLock);
-			this.CommandBindings.Add(this.CommandBindingToggleAccessionLockMode);
 		}
 
         public CytologyResultsWorkspace(CytologyUI cytologyUI)
@@ -51,8 +47,6 @@ namespace YellowstonePathology.UI.Cytology
             InitializeComponent();
 
 			this.TextBoxReportNoSearch.Focus();
-			this.CommandBindingToggleAccessionLockMode = new CommandBinding(MainWindow.ToggleAccessionLockModeCommand, AlterAccessionLock, CanAlterAccessionLock);
-			this.CommandBindings.Add(this.CommandBindingToggleAccessionLockMode);                    
 		}        
 
         public string ReportNo
@@ -130,11 +124,6 @@ namespace YellowstonePathology.UI.Cytology
                 this.ListBoxResults.SelectedIndex = -1;
             }
         }				
-
-		public void ClearLock()
-		{
-			this.m_CytologyUI.ClearLock();
-		}
 
 		public void SetFocus()
 		{
@@ -258,20 +247,9 @@ namespace YellowstonePathology.UI.Cytology
 			}
 		}
 
-		public void AlterAccessionLock(object target, ExecutedRoutedEventArgs args)
-		{
-			this.m_CytologyUI.AlterAccessionLock();
-		}
-
-		public void CanAlterAccessionLock(object sender, CanExecuteRoutedEventArgs e)
-		{
-			e.CanExecute = this.m_CytologyUI.CanAlterAccessionLock();
-		}
-
 		public void CloseWorkspace(object target, ExecutedRoutedEventArgs args)
 		{
 			this.m_CytologyUI.Save(true);
-			this.m_CytologyUI.ClearLock();
 		}
 
 		private void TextBoxReportNoSearch_GotFocus(object sender, RoutedEventArgs e)

@@ -690,6 +690,7 @@ namespace YellowstonePathology.UI
 
         private void ButtonCheckHPV_Click(object sender, RoutedEventArgs e)
         {
+            string surgicalSpecimenId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
         }
 
         private void ButtonCheckReportDistribution_Click(object sender, RoutedEventArgs e)

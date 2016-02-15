@@ -56,7 +56,6 @@ namespace YellowstonePathology.UI.Cytology
 			this.CommandBindingApplicationClosing = new CommandBinding(MainWindow.ApplicationClosingCommand, this.CloseWorkspace);
 			this.CommandBindingShowPatientEditDialog = new CommandBinding(MainWindow.ShowPatientEditDialogCommand, this.m_CytologyUI.ShowPatientEditDialog);
 			this.CommandBindingShowAmendmentDialog = new CommandBinding(MainWindow.ShowAmendmentDialogCommand, this.m_CytologyUI.ShowAmendmentDialog, ItemIsSelected);
-			this.CommandBindingToggleAccessionLockMode = new CommandBinding(MainWindow.ToggleAccessionLockModeCommand, this.m_CytologyResultsWorkspace.AlterAccessionLock, this.m_CytologyResultsWorkspace.CanAlterAccessionLock);
                         
             this.CommandBindings.Add(this.CommandBindingShowCaseDocument);			
 			this.CommandBindings.Add(this.CommandBindingApplicationClosing);
@@ -235,7 +234,6 @@ namespace YellowstonePathology.UI.Cytology
 		public void CloseWorkspace(object target, ExecutedRoutedEventArgs args)
 		{
 			this.m_CytologyUI.Save(true);
-			this.m_CytologyUI.ClearLock();            
         }
 
         private void ButtonAssignTo_Click(object sender, RoutedEventArgs e)
