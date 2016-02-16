@@ -143,6 +143,19 @@ namespace YellowstonePathology.Business.Persistence
             Document document = this.m_Stack.Pull(documentId, builder);
         }
 
+        public void PullClientSupplyOrder(YellowstonePathology.Business.Client.Model.ClientSupplyOrder clientSupplyOrder, object writer)
+        {
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "SELECT cso.*, (SELECT * from tblClientSupplyOrderDetail where clientsupplyorderid = cso.ClientSupplyOrderId for xml path('ClientSupplyOrderDetail'), type) ClientSupplyOrderDetailCollection " +
+                "FROM tblClientSupplyOrder cso where cso.ClientSupplyOrderId = @ClientSupplyOrderId for xml Path('ClientSupplyOrder'), type";
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.Add("@ClientSupplyOrderId", SqlDbType.VarChar).Value = clientSupplyOrder.ClientSupplyOrderId;
+            ClientSupplyOrderDocumentBuilder builder = new ClientSupplyOrderDocumentBuilder(cmd);
+
+            DocumentId documentId = new DocumentId(clientSupplyOrder, writer);
+            Document document = this.m_Stack.Pull(documentId, builder);
+        }
+
         public void PullTaskOrder(YellowstonePathology.Business.Task.Model.TaskOrder taskOrder, object writer)
         {
             /*

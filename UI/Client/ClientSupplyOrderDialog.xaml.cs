@@ -28,15 +28,22 @@ namespace YellowstonePathology.UI.Client
 
 		public ClientSupplyOrderDialog(YellowstonePathology.Business.Client.Model.ClientSupplyOrder clientSupplyOrder)
 		{
-			this.m_ClientSupplyOrder = clientSupplyOrder;			
+            this.m_ClientSupplyOrder = clientSupplyOrder;
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullClientSupplyOrder(this.m_ClientSupplyOrder, this);			
             this.m_UserCollection = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetUsersByRole(Business.User.SystemUserRoleDescriptionEnum.Log, true);
 
 			InitializeComponent();
 
 			this.DataContext = this;
+            Closing += ClientSupplyOrderDialog_Closing;
 		}
 
-		public void NotifyPropertyChanged(String info)
+        private void ClientSupplyOrderDialog_Closing(object sender, CancelEventArgs e)
+        {
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this.m_ClientSupplyOrder, this);
+        }
+
+        public void NotifyPropertyChanged(String info)
 		{
 			if (PropertyChanged != null)
 			{
