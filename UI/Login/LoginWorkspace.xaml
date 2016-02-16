@@ -397,13 +397,20 @@
 		<StatusBar Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2">			
             
 			<StatusBarItem>
-				<TextBlock Margin="2" TextAlignment="Right" HorizontalAlignment="Stretch" VerticalAlignment="Center">Report No:</TextBlock>
+                <TextBlock Margin="2" TextAlignment="Right" HorizontalAlignment="Stretch" VerticalAlignment="Center">User:</TextBlock>
 			</StatusBarItem>
             
 			<StatusBarItem>
 				<TextBlock Width="200" Margin="2" TextAlignment="Left" HorizontalAlignment="Stretch" VerticalAlignment="Center" Text="{Binding Path=ReportNo}"></TextBlock>
 			</StatusBarItem>
 
+            <StatusBarItem>
+                <TextBlock Margin="2" TextAlignment="Right" HorizontalAlignment="Stretch" VerticalAlignment="Center">Locked By:</TextBlock>
+            </StatusBarItem>
+            <StatusBarItem>
+                <TextBlock Width="300" Margin="2" TextAlignment="Left" HorizontalAlignment="Stretch" VerticalAlignment="Center" Text="{Binding Path=AccessionOrder.LockStatus}"></TextBlock>
+            </StatusBarItem>
+            
             <StatusBarItem>
                 <TextBlock Width="200" Margin="2" TextAlignment="Left" HorizontalAlignment="Stretch" VerticalAlignment="Center" Text="{Binding Path=SelectedItemCount}"></TextBlock>
             </StatusBarItem>

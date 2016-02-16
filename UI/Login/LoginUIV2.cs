@@ -29,6 +29,7 @@ namespace YellowstonePathology.UI.Login
 		private string m_ReportNo;
         private string m_SelectedItemCount;
         private object m_Writer;
+        private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 
         public LoginUIV2(object writer)
 		{
@@ -49,7 +50,7 @@ namespace YellowstonePathology.UI.Login
             this.m_TaskOrderCollection = e.TaskOrderCollection;
             this.NotifyPropertyChanged("TaskOrderCollection");
             YellowstonePathology.UI.TaskNotifier.Instance.Notifier.Alert -= Notifier_Alert;
-        }
+        }        
 
         public string SelectedItemCount
         {
