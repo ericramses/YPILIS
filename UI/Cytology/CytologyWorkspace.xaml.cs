@@ -23,7 +23,6 @@ namespace YellowstonePathology.UI.Cytology
         
         public CommandBinding CommandBindingPatientLinking;
         public CommandBinding CommandBindingShowCaseDocument;        
-		public CommandBinding CommandBindingToggleAccessionLockMode;
 		public CommandBinding CommandBindingApplicationClosing;
 		public CommandBinding CommandBindingShowPatientEditDialog;
 		public CommandBinding CommandBindingShowBillingEditDialog;
@@ -56,13 +55,11 @@ namespace YellowstonePathology.UI.Cytology
 			this.CommandBindingApplicationClosing = new CommandBinding(MainWindow.ApplicationClosingCommand, this.CloseWorkspace);
 			this.CommandBindingShowPatientEditDialog = new CommandBinding(MainWindow.ShowPatientEditDialogCommand, this.m_CytologyUI.ShowPatientEditDialog);
 			this.CommandBindingShowAmendmentDialog = new CommandBinding(MainWindow.ShowAmendmentDialogCommand, this.m_CytologyUI.ShowAmendmentDialog, ItemIsSelected);
-			this.CommandBindingToggleAccessionLockMode = new CommandBinding(MainWindow.ToggleAccessionLockModeCommand, this.m_CytologyResultsWorkspace.AlterAccessionLock, this.m_CytologyResultsWorkspace.CanAlterAccessionLock);
                         
             this.CommandBindings.Add(this.CommandBindingShowCaseDocument);			
 			this.CommandBindings.Add(this.CommandBindingApplicationClosing);
 			this.CommandBindings.Add(this.CommandBindingShowPatientEditDialog);
 			this.CommandBindings.Add(this.CommandBindingShowAmendmentDialog);
-			this.CommandBindings.Add(this.CommandBindingToggleAccessionLockMode);
 
             this.m_DocumentViewer = new DocumentWorkspace();
             
@@ -125,15 +122,15 @@ namespace YellowstonePathology.UI.Cytology
 
         private void MainWindowCommandButtonHandler_Save(object sender, EventArgs e)
         {
-            if(this.m_CytologyUI.AccessionOrder != null && this.m_CytologyUI.AccessionOrder.IsLockAquiredByMe() == true)
+            if (this.m_CytologyUI.AccessionOrder != null)
             {
                 MainWindow.MoveKeyboardFocusNextThenBack();
-                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this.m_CytologyUI.AccessionOrder, this.m_Writer);
-                this.m_CytologyUI.AccessionOrder = null;
-                this.m_CytologyUI.PatientHistory.Clear();
-                this.m_DocumentViewer.ClearContent();
-                this.m_CytologyUI.PanelSetOrderCytology = null;
-                this.m_CytologyUI.NotifyPropertyChanged(string.Empty);
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.ReleaseLock(this.m_CytologyUI.AccessionOrder, this.m_Writer);
+                if (this.m_CytologyUI.AccessionOrder.IsLockAquiredByMe() == false)
+                {
+                    //this.m_CytologyUI.RunWorkspaceEnableRules();
+                    this.m_CytologyUI.NotifyPropertyChanged(string.Empty);
+                }
             }
         }
 
@@ -235,7 +232,6 @@ namespace YellowstonePathology.UI.Cytology
 		public void CloseWorkspace(object target, ExecutedRoutedEventArgs args)
 		{
 			this.m_CytologyUI.Save(true);
-			this.m_CytologyUI.ClearLock();            
         }
 
         private void ButtonAssignTo_Click(object sender, RoutedEventArgs e)

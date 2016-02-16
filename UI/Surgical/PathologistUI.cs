@@ -16,7 +16,6 @@ namespace YellowstonePathology.UI.Surgical
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		protected YellowstonePathology.Business.Domain.Lock m_Lock;
 		protected YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 
@@ -30,7 +29,6 @@ namespace YellowstonePathology.UI.Surgical
 		private YellowstonePathology.Business.User.SystemUserCollection m_AmendmentUsers;
 		private YellowstonePathology.Business.Test.PanelSetOrderCollection m_PathologistOrderCollection;
 		private YellowstonePathology.Business.Common.FieldEnabler m_FieldEnabler;
-		private YellowstonePathology.UI.Test.ResultDialog m_ResultDialog;
 
         private string m_SignatureButtonText;
         private bool m_SignatureButtonIsEnabled;
@@ -43,9 +41,6 @@ namespace YellowstonePathology.UI.Surgical
             this.m_SystemIdentity = systemidentity;
             this.m_Writer = writer;
 
-			this.m_Lock = new YellowstonePathology.Business.Domain.Lock(this.m_SystemIdentity);            
-			this.m_Lock.LockStatusChanged += new YellowstonePathology.Business.Domain.LockStatusChangedEventHandler(AccessionLock_LockStatusChanged);
-            this.m_Lock.SetLockingMode(Business.Domain.LockModeEnum.AlwaysAttemptLock);
 			this.m_OrderCollection = new YellowstonePathology.Business.Test.PanelOrderCollection();			
 			this.m_PathologistHistoryList = new YellowstonePathology.Business.Surgical.PathologistHistoryList();
 
@@ -99,12 +94,6 @@ namespace YellowstonePathology.UI.Surgical
 			get { return this.m_PanelSetOrder; }
 		}
 
-		public YellowstonePathology.Business.Domain.Lock Lock
-		{
-			get { return this.m_Lock; }
-			set { this.m_Lock = value; }
-		}
-
 		public YellowstonePathology.Business.Common.FieldEnabler FieldEnabler
 		{
 			get { return this.m_FieldEnabler; }
@@ -137,18 +126,6 @@ namespace YellowstonePathology.UI.Surgical
 			set { this.m_SelectedTabIndex = value; }
 		}
 
-		public void ClearLock()
-		{
-			this.Lock.ReleaseLock();
-			NotifyPropertyChanged("CaseStatusTextColor");
-		}
-
-		void AccessionLock_LockStatusChanged(object sender, EventArgs e)
-		{
-			((MainWindow)Application.Current.MainWindow).SetLockObject(this.Lock);
-			NotifyPropertyChanged("CaseStatusTextColor");
-		}
-
         public string CaseStatusTextColor
         {
             get
@@ -160,7 +137,7 @@ namespace YellowstonePathology.UI.Surgical
                 }
                 else
                 {
-					if (this.Lock.LockAquired == true)
+					if (this.AccessionOrder != null && this.AccessionOrder.IsLockAquiredByMe() == true)
                     {
                         color = "Green";
                     }
@@ -188,11 +165,9 @@ namespace YellowstonePathology.UI.Surgical
             this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, this.m_Writer);
              
 			this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
-			this.m_Lock.SetLockable(m_AccessionOrder);
 			this.RunWorkspaceEnableRules();
 			this.m_CaseDocumentCollection = new Business.Document.CaseDocumentCollection(this.m_AccessionOrder, this.m_PanelSetOrder.ReportNo);
 			this.m_AccessionOrder.PanelSetOrderCollection.PathologistTestOrderItemList.Build(this.m_AccessionOrder);
-			this.PathologistOrderCollection = this.m_AccessionOrder.PanelSetOrderCollection;
 			this.NotifyPropertyChanged("");
 		}
         
@@ -203,8 +178,6 @@ namespace YellowstonePathology.UI.Surgical
 
             this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 			this.m_AccessionOrder.PanelSetOrderCollection.PathologistTestOrderItemList.Build(this.m_AccessionOrder);
-			this.PathologistOrderCollection = this.m_AccessionOrder.PanelSetOrderCollection;
-			this.m_Lock.SetLockable(m_AccessionOrder);
 			this.RunWorkspaceEnableRules();            
 			this.NotifyPropertyChanged("");
 		}
@@ -250,28 +223,17 @@ namespace YellowstonePathology.UI.Surgical
 			}
 		}
 
-		public YellowstonePathology.Business.Test.PanelSetOrderCollection PathologistOrderCollection
-		{
-			get { return this.m_PathologistOrderCollection; }
-			set
-			{
-				this.m_PathologistOrderCollection = value;
-				NotifyPropertyChanged("PathologistOrderCollection");
-			}
-		}
-
-		public void Save(bool releaseLock)
-		{            
-            if (this.m_AccessionOrder != null && this.m_Lock.LockAquired == true)
+        public void Save(bool releaseLock)
+        {
+            if (this.m_AccessionOrder != null && this.m_AccessionOrder.IsLockAquiredByMe() == true)
             {
                 MainWindow.MoveKeyboardFocusNextThenBack();
                 //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
             }
         }
 
-		public void ShowAmendmentDialog()
+        public void ShowAmendmentDialog()
 		{
-			this.Save(false);
             YellowstonePathology.UI.AmendmentPageController amendmentPageController = new AmendmentPageController(this.m_AccessionOrder,
 				this.m_PanelSetOrder, this.m_SystemIdentity);
 			amendmentPageController.ShowDialog();
@@ -298,7 +260,7 @@ namespace YellowstonePathology.UI.Surgical
                 foreach (YellowstonePathology.Business.Amendment.Model.Amendment amendment in panelSetOrder.AmendmentCollection)
 				{
 					YellowstonePathology.Business.Rules.Surgical.SetAmendmentSignatureText setAmendmentSignatureText = new Business.Rules.Surgical.SetAmendmentSignatureText();
-					setAmendmentSignatureText.Execute(this.m_PanelSetOrder, amendment, this.Lock);
+					setAmendmentSignatureText.Execute(this.m_AccessionOrder, this.m_PanelSetOrder, amendment);
 				}
 			}
 		}
@@ -373,17 +335,11 @@ namespace YellowstonePathology.UI.Surgical
 
 		public bool CanPlaceOrder()
 		{
-			if (this.Lock.LockAquired)
+			if (this.m_AccessionOrder != null && this.m_AccessionOrder.IsLockAquiredByMe() == true)
 			{
 				return true;
 			}
 			return false;
-		}
-
-		public void AlterAccessionLock()
-		{
-			this.Lock.ToggleLockingMode();
-			this.NotifyPropertyChanged("");
 		}
 
 		public void CheckEnabled()
@@ -431,7 +387,6 @@ namespace YellowstonePathology.UI.Surgical
         public void DeleteAmendment(YellowstonePathology.Business.Amendment.Model.Amendment amendment)
 		{
 			this.m_PanelSetOrder.DeleteAmendment(amendment.AmendmentId);
-			this.Save(false);
 			this.RunPathologistEnableRules();
 		}
 
@@ -440,7 +395,6 @@ namespace YellowstonePathology.UI.Surgical
             YellowstonePathology.Business.Amendment.Model.Amendment amendment = this.PanelSetOrder.AddAmendment();
 			amendment.UserId = this.m_PanelSetOrder.AssignedToId;
 
-			this.Save(false);
 			this.RunWorkspaceEnableRules();
 			this.RunPathologistEnableRules();
 		}        		

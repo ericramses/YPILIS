@@ -223,7 +223,7 @@
 				</ToolBarTray>
 
 				<ListView Name="ListViewCaseList" Grid.Column="0" Grid.Row="4"
-					  ItemsSource="{Binding Path=PathologistOrderCollection.PathologistTestOrderItemList}">                    
+					  ItemsSource="{Binding Path=AccessionOrder.PanelSetOrderCollection.PathologistTestOrderItemList}">                    
                     <ListView.View>
 						<GridView>
 							<GridViewColumn DisplayMemberBinding="{Binding Path=TestName}" Header="Test Name" Width="250"/>
@@ -251,10 +251,10 @@
 			</StatusBarItem>
 
 			<StatusBarItem>
-				<TextBlock Margin="2" TextAlignment="Right" HorizontalAlignment="Stretch" VerticalAlignment="Center">Lock Status:</TextBlock>
+				<TextBlock Margin="2" TextAlignment="Right" HorizontalAlignment="Stretch" VerticalAlignment="Center">Locked By:</TextBlock>
 			</StatusBarItem>
 			<StatusBarItem>
-				<TextBlock Width="300" Margin="2" TextAlignment="Left" HorizontalAlignment="Stretch" VerticalAlignment="Center" Text="{Binding Path=Lock.LockMessage}"></TextBlock>
+                <TextBlock Width="300" Margin="2" TextAlignment="Left" HorizontalAlignment="Stretch" VerticalAlignment="Center" Text="{Binding Path=AccessionOrder.LockAquiredByUserName}"></TextBlock>
 			</StatusBarItem>
 
 			<StatusBarItem>

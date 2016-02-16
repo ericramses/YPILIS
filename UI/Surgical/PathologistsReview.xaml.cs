@@ -60,7 +60,6 @@ namespace YellowstonePathology.UI.Surgical
 
 			if (this.PanelSetOrder != null)
 			{
-				this.m_PathologistUI.Lock.LockStatusChanged += new Business.Domain.LockStatusChangedEventHandler(LockStatusChanged);
 				this.m_PathologistUI.RunWorkspaceEnableRules();
 				this.m_PathologistUI.RunPathologistEnableRules();
 
@@ -94,15 +93,9 @@ namespace YellowstonePathology.UI.Surgical
 			}
 
 			this.m_TreeViewWorkspace = new Common.TreeViewWorkspace(this.m_PathologistUI.AccessionOrder, this.m_SystemIdentity);
-            this.m_TreeViewWorkspace.IsEnabled = this.m_PathologistUI.Lock.LockAquired;
+            this.m_TreeViewWorkspace.IsEnabled = this.m_PathologistUI.AccessionOrder.IsLockAquiredByMe();
             this.tabItemTreeView.Content = this.m_TreeViewWorkspace;			
 		}
-
-		private void LockStatusChanged(object sender, EventArgs e)
-		{
-			this.NotifyPropertyChanged("CaseStatusTextColor");
-            this.m_TreeViewWorkspace.IsEnabled = this.m_PathologistUI.Lock.LockAquired;
-        }
 
         public void NotifyPropertyChanged(String info)
 		{
@@ -175,7 +168,7 @@ namespace YellowstonePathology.UI.Surgical
 				}
 				else
 				{
-					if (this.m_PathologistUI.Lock.LockAquired == true)
+					if (this.m_PathologistUI.AccessionOrder.IsLockAquiredByMe() == true)
 					{
 						color = "Green";
 					}

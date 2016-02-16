@@ -257,7 +257,7 @@ namespace YellowstonePathology.UI.Surgical
             }
 
             YellowstonePathology.Business.Rules.Surgical.SetAmendmentSignatureText setAmendmentSignatureText = new Business.Rules.Surgical.SetAmendmentSignatureText();
-            setAmendmentSignatureText.Execute(this.m_PathologistUI.PanelSetOrder, amendment, this.m_PathologistUI.Lock);                    
+            setAmendmentSignatureText.Execute(this.m_PathologistUI.AccessionOrder, this.m_PathologistUI.PanelSetOrder, amendment);                    
             this.Save(false);
             this.NotifyPropertyChanged(string.Empty);
         }        

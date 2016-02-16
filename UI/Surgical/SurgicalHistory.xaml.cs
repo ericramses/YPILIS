@@ -29,17 +29,11 @@ namespace YellowstonePathology.UI.Surgical
 		{
 			this.m_PathologistUI = pathologistUI;
 			this.m_CaseHistoryPage = new Common.CaseHistoryPage(this.AccessionOrder);
-			this.m_PathologistUI.Lock.LockStatusChanged += new Business.Domain.LockStatusChangedEventHandler(LockStatusChanged);
 
 			InitializeComponent();
 
 			this.DataContext = this;
 			this.HistoryControl.Content = this.m_CaseHistoryPage;
-		}
-
-		private void LockStatusChanged(object sender, EventArgs e)
-		{
-			NotifyPropertyChanged("FieldEnabler");
 		}
 
 		public void NotifyPropertyChanged(String info)

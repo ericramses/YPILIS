@@ -772,7 +772,7 @@
 			</StatusBarItem>
 
 			<StatusBarItem>
-				<TextBlock Margin="2" TextAlignment="Right" HorizontalAlignment="Stretch" VerticalAlignment="Center">Lock Acquired By</TextBlock>
+				<TextBlock Margin="2" TextAlignment="Right" HorizontalAlignment="Stretch" VerticalAlignment="Center">Locked By</TextBlock>
 			</StatusBarItem>
 			<StatusBarItem>
 				<TextBlock Width="300" Margin="2" TextAlignment="Left" HorizontalAlignment="Stretch" VerticalAlignment="Center" Text="{Binding Path=AccessionOrder.LockAquiredByUserName}"></TextBlock>

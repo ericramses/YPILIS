@@ -41,6 +41,7 @@ namespace YellowstonePathology.Business.Flow
 
         public FlowUI(object writer)
         {
+            this.m_Writer = writer;
             this.m_FlowLogSearch = new FlowLogSearch();
 
             this.m_SystemIdentity = new YellowstonePathology.Business.User.SystemIdentity(YellowstonePathology.Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);

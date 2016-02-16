@@ -36,7 +36,6 @@ namespace YellowstonePathology.UI.Test
 		YellowstonePathology.Business.Domain.XElementFromSql m_AcknowledgeOrders;
 		private string m_PanelOrderIds;
 		YellowstonePathology.Business.Common.FieldEnabler m_FieldEnabler;
-		YellowstonePathology.Business.Domain.Lock m_Lock;
 		YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
         System.Windows.Controls.TabItem m_Writer;
 
@@ -45,7 +44,6 @@ namespace YellowstonePathology.UI.Test
 		{            
             this.m_SystemIdentity = systemIdentity;
             this.m_Writer = writer;
-			this.m_Lock = new YellowstonePathology.Business.Domain.Lock(this.m_SystemIdentity);
 			
 			this.m_SearchEngine = new Business.Test.SearchEngine();
 			this.m_MedTechUsers = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetUsersByRole(YellowstonePathology.Business.User.SystemUserRoleDescriptionEnum.MedTech, true);
@@ -98,22 +96,11 @@ namespace YellowstonePathology.UI.Test
             }
 		}
 
-		public YellowstonePathology.Business.Domain.Lock Lock
-		{
-			get { return this.m_Lock; }
-			set { this.m_Lock = value; }
-		}
-
 		public YellowstonePathology.Business.Common.FieldEnabler FieldEnabler
 		{
 			get { return this.m_FieldEnabler; }
 			set { this.m_FieldEnabler = value; }
 		}
-
-		public void ClearLock()
-		{
-			this.Lock.ReleaseLock();
-		}			
 
 		public YellowstonePathology.Business.Test.PanelSetOrder PanelSetOrder
 		{
@@ -176,7 +163,6 @@ namespace YellowstonePathology.UI.Test
 			this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);             
 
 			this.m_CaseDocumentCollection = new YellowstonePathology.Business.Document.CaseDocumentCollection(this.AccessionOrder, reportNo);
-			this.m_Lock.SetLockable(this.AccessionOrder);						
 			this.RunWorkspaceEnableRules();
 			this.NotifyPropertyChanged("");
 		}
@@ -249,7 +235,7 @@ namespace YellowstonePathology.UI.Test
 
 		public void Save(bool releaseLock)
 		{
-			if (this.m_AccessionOrder != null && this.m_Lock.LockAquired == true)
+			if (this.m_AccessionOrder != null && this.m_AccessionOrder.IsLockAquiredByMe() == true)
 			{
                 //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
 			}

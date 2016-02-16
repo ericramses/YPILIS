@@ -71,15 +71,15 @@ namespace YellowstonePathology.UI.Flow
 
         private void MainWindowCommandButtonHandler_Save(object sender, EventArgs e)
         {
-            if (this.m_FlowUI.AccessionOrder != null && this.m_FlowUI.AccessionOrder.IsLockAquiredByMe() == true)
+            if (this.m_FlowUI.AccessionOrder != null)
             {
                 MainWindow.MoveKeyboardFocusNextThenBack();
-                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this.m_FlowUI.AccessionOrder, this.m_Writer);
-                this.ListViewFlowCaseList.SelectedIndex = -1;
-                this.m_FlowUI.AccessionOrder = null;
-                this.m_FlowUI.PatientHistoryList.CaseDocumentCollection.Clear();
-                this.m_FlowUI.PatientHistoryList.Clear();
-                this.m_FlowUI.NotifyPropertyChanged(string.Empty);
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.ReleaseLock(this.m_FlowUI.AccessionOrder, this.m_Writer);
+                if (this.m_FlowUI.AccessionOrder.IsLockAquiredByMe() == false)
+                {
+                    this.m_FlowUI.SetAccess();
+                    this.m_FlowUI.NotifyPropertyChanged(string.Empty);
+                }
             }
         }
 
@@ -112,6 +112,7 @@ namespace YellowstonePathology.UI.Flow
         {
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath -= MainWindowCommandButtonHandler_StartProviderDistributionPath;
             this.m_MainWindowCommandButtonHandler.ShowAmendmentDialog -= MainWindowCommandButtonHandler_ShowAmendmentDialog;
+            this.m_MainWindowCommandButtonHandler.Save -= MainWindowCommandButtonHandler_Save;
 
             this.Save(false);
         }

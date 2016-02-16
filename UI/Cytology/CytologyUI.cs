@@ -27,8 +27,6 @@ namespace YellowstonePathology.UI.Cytology
 		YellowstonePathology.Business.Specimen.Model.SpecimenOrder m_SpecimenOrder;
 		YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology m_PanelSetOrderCytology;
 
-		YellowstonePathology.Business.Domain.Lock m_Lock;
-
         YellowstonePathology.Business.Domain.Cytology.OtherConditionCollection m_OtherConditionCollection;
         YellowstonePathology.Business.Domain.HpvRequisitionInstructionCollection m_HpvRequisitionInstructions;
 		protected YellowstonePathology.Business.Domain.PatientHistory m_PatientHistory;
@@ -54,14 +52,6 @@ namespace YellowstonePathology.UI.Cytology
 			this.m_ScreeningImpressionCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetScreeningImpressions();
 			this.m_SpecimenAdequacyCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetSpecimenAdequacy();            
 
-			this.m_Lock = new YellowstonePathology.Business.Domain.Lock(this.m_SystemIdentity);
-			this.m_Lock.LockStatusChanged += new YellowstonePathology.Business.Domain.LockStatusChangedEventHandler(AccessionLock_LockStatusChanged);
-
-			if (m_UserIsPathologist || m_UserIsCytotech)
-			{				
-                this.m_Lock.SetLockingMode(Business.Domain.LockModeEnum.AlwaysAttemptLock);
-			}
-
 			this.m_OtherConditionCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetOtherConditions();
             this.m_HpvRequisitionInstructions = new Business.Domain.HpvRequisitionInstructionCollection();
 			this.m_DataLoadResult = new Business.Domain.DataLoadResult();
@@ -71,28 +61,23 @@ namespace YellowstonePathology.UI.Cytology
 		{
 			this.Save(false);
 			YellowstonePathology.Business.Rules.ExecutionStatus executionStatus = new Business.Rules.ExecutionStatus();
+			this.m_SystemIdentity = new YellowstonePathology.Business.User.SystemIdentity(YellowstonePathology.Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
 
             foreach (YellowstonePathology.Business.Search.CytologyScreeningSearchResult cytologyScreeningSearchResult in cytologyScreeningSearchResults)
             {
-				this.m_SystemIdentity = new YellowstonePathology.Business.User.SystemIdentity(YellowstonePathology.Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
-                this.m_Lock = new Business.Domain.Lock(this.m_SystemIdentity);
-                this.m_Lock.SetLockingMode(Business.Domain.LockModeEnum.AlwaysAttemptLock);
-                
                 YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(cytologyScreeningSearchResult.MasterAccessionNo, this.m_Writer);
 
-                this.m_Lock.SetLockable(accessionOrder);
-
-                if (this.m_Lock.LockAquired)
+                if (accessionOrder.IsLockAquiredByMe() == true)
                 {
                     YellowstonePathology.Business.Rules.Cytology.AssignScreening assignScreening = new YellowstonePathology.Business.Rules.Cytology.AssignScreening(this.m_Writer);
                     assignScreening.Execute(cytologyScreeningSearchResult.MasterAccessionNo, systemUser.UserId, executionStatus);
-                    this.m_Lock.ReleaseLock();
                 }
                 else
                 {
                     YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = accessionOrder.PanelSetOrderCollection.GetPAP();
                     executionStatus.AddMessage(panelSetOrder.ReportNo + " was not assigned as it is locked.", false);
-                }         
+                }
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(accessionOrder, this.m_Writer);
             }
 
 			if (executionStatus.ExecutionMessages.Count > 0)
@@ -119,9 +104,9 @@ namespace YellowstonePathology.UI.Cytology
 		{
 			get
 			{
-				if (this.m_AccessionOrder != null)
+				if (this.m_AccessionOrder != null && this.m_AccessionOrder.IsLockAquiredByMe() == true && (this.m_UserIsCytotech || this.m_UserIsPathologist))
 				{
-					return this.m_Lock.LockAquired && (this.m_UserIsCytotech || this.m_UserIsPathologist);
+					return true ;
 				}
 				return false;
 			}
@@ -415,42 +400,6 @@ namespace YellowstonePathology.UI.Cytology
             }
         }		
 
-		public void AlterAccessionLock()
-		{
-			this.Save(false);
-			this.m_Lock.ToggleLockingMode();
-			this.LoadDataByReportNo(this.m_PanelSetOrderCytology.ReportNo);			
-		}
-
-		public bool CanAlterAccessionLock()
-		{
-			if (this.m_AccessionOrder != null && (m_UserIsCytotech || m_UserIsPathologist))
-			{
-				return true;
-			}
-			return false;
-		}
-
-		public void ClearLock()
-		{
-			if (this.m_AccessionOrder != null)
-			{
-				this.m_Lock.ReleaseLock();
-				this.NotifyPropertyChanged("");
-			}
-		}
-
-		private void AccessionLock_LockStatusChanged(object sender, EventArgs e)
-		{
-			((MainWindow)Application.Current.MainWindow).SetLockObject(this.m_Lock);
-		}
-
-		public YellowstonePathology.Business.Domain.Lock Lock
-		{
-			get { return this.m_Lock; }
-			set { this.m_Lock = value; }
-		}
-
 		public bool RequisitionValidated
 		{
 			get { return Convert.ToBoolean(this.m_PanelSetOrderCytology.TemplateId); }
@@ -553,7 +502,6 @@ namespace YellowstonePathology.UI.Cytology
 
 		public void DataLoaded()
 		{
-			this.m_Lock.SetLockable(m_AccessionOrder);
             if (string.IsNullOrEmpty(this.m_AccessionOrder.PatientId) == false)
             {
 				this.m_PatientHistory = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPatientHistory(this.m_AccessionOrder.PatientId);

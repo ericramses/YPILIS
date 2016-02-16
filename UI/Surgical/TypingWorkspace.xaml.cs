@@ -93,12 +93,12 @@ namespace YellowstonePathology.UI.Surgical
 
         private void MainWindowCommandButtonHandler_Save(object sender, EventArgs e)
         {
-            if(this.m_TypingUI.AccessionOrder != null)
+            if (this.m_TypingUI.AccessionOrder != null)
             {
                 MainWindow.MoveKeyboardFocusNextThenBack();
                 YellowstonePathology.Business.Persistence.DocumentGateway.Instance.ReleaseLock(this.m_TypingUI.AccessionOrder, this.m_Writer);
                 if (this.m_TypingUI.AccessionOrder.IsLockAquiredByMe() == false)
-                {                    
+                {
                     this.m_TypingUI.RunWorkspaceEnableRules();
                     this.m_TypingUI.NotifyPropertyChanged(string.Empty);
                 }
@@ -147,13 +147,6 @@ namespace YellowstonePathology.UI.Surgical
 		{
 			
 		}
-
-		public void AlterAccessionLock(object target, ExecutedRoutedEventArgs args)
-		{
-			this.m_TypingUI.RunWorkspaceEnableRules();
-            this.m_TreeviewWorkspace.IsEnabled = this.m_TypingUI.AccessionOrder.IsLockAquiredByMe();
-            this.m_AmendmentControl.IsEnabled = this.m_TypingUI.AccessionOrder.IsLockAquiredByMe();
-        }
 
 		public void ShowCaseDocument(object target, ExecutedRoutedEventArgs args)
 		{
@@ -634,16 +627,19 @@ namespace YellowstonePathology.UI.Surgical
             
         }
 
-		private void ShowAmendmentDialog(object target, ExecutedRoutedEventArgs args)
-		{
-			this.Save(false);
-			YellowstonePathology.UI.AmendmentPageController amendmentPageController = new AmendmentPageController(this.m_TypingUI.AccessionOrder, this.m_TypingUI.SurgicalTestOrder, this.m_SystemIdentity);
-			amendmentPageController.ShowDialog();
+        private void ShowAmendmentDialog(object target, ExecutedRoutedEventArgs args)
+        {
+            if (this.m_TypingUI.AccessionOrder != null)
+            {
+                this.Save(false);
+                YellowstonePathology.UI.AmendmentPageController amendmentPageController = new AmendmentPageController(this.m_TypingUI.AccessionOrder, this.m_TypingUI.SurgicalTestOrder, this.m_SystemIdentity);
+                amendmentPageController.ShowDialog();
 
-            string reportNo = this.m_TypingUI.AccessionOrder.PanelSetOrderCollection.GetItem(13).ReportNo;
-            this.RefreshWorkspaces();
+                string reportNo = this.m_TypingUI.AccessionOrder.PanelSetOrderCollection.GetItem(13).ReportNo;
+                this.RefreshWorkspaces();
 
-			this.m_TypingUI.RunWorkspaceEnableRules();
+                this.m_TypingUI.RunWorkspaceEnableRules();
+            }
 		}
 
         private void ButtonTemplate_Click(object sender, RoutedEventArgs e)
