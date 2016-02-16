@@ -166,8 +166,13 @@ namespace YellowstonePathology.UI.Test
 		}
 
 		private void LabWorkspace_Loaded(object sender, RoutedEventArgs args)
-        {            
-			this.m_SystemIdentity.UserChanged += new Business.User.SystemIdentity.UserChangedHandler(UserChangedHandler);			
+        {
+            this.m_SystemIdentity.UserChanged -= UserChangedHandler;
+            this.m_BarcodeScanPort.ClientScanReceived -= ClientScanReceived;
+            this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath -= MainWindowCommandButtonHandler_StartProviderDistributionPath;
+            this.m_MainWindowCommandButtonHandler.Save -= MainWindowCommandButtonHandler_Save;
+
+            this.m_SystemIdentity.UserChanged += new Business.User.SystemIdentity.UserChangedHandler(UserChangedHandler);			
 			this.m_BarcodeScanPort.ClientScanReceived += ClientScanReceived;
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath += new MainWindowCommandButtonHandler.StartProviderDistributionPathEventHandler(MainWindowCommandButtonHandler_StartProviderDistributionPath);
             this.m_MainWindowCommandButtonHandler.Save += new MainWindowCommandButtonHandler.SaveEventHandler(MainWindowCommandButtonHandler_Save);
