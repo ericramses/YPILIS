@@ -29,7 +29,7 @@ namespace YellowstonePathology.UI.Cytology
 		public CytologyResultsWorkspace(TabItem writer)
 		{
             this.m_Writer = writer;
-            this.m_SystemIdentity = new YellowstonePathology.Business.User.SystemIdentity(YellowstonePathology.Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
+            this.m_SystemIdentity = YellowstonePathology.Business.User.SystemIdentity.Instance;
 			this.m_CytologyUI = new CytologyUI(this.m_SystemIdentity, this.m_Writer);
             this.DataContext = this.m_CytologyUI;            
 
@@ -40,8 +40,8 @@ namespace YellowstonePathology.UI.Cytology
 
         public CytologyResultsWorkspace(CytologyUI cytologyUI)
 		{
-			this.m_SystemIdentity = new YellowstonePathology.Business.User.SystemIdentity(YellowstonePathology.Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
-			this.m_CytologyUI = cytologyUI;
+            this.m_SystemIdentity = YellowstonePathology.Business.User.SystemIdentity.Instance;
+            this.m_CytologyUI = cytologyUI;
             this.DataContext = this.m_CytologyUI;
 
             InitializeComponent();

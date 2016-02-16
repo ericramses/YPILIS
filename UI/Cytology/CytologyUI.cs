@@ -61,7 +61,7 @@ namespace YellowstonePathology.UI.Cytology
 		{
 			this.Save(false);
 			YellowstonePathology.Business.Rules.ExecutionStatus executionStatus = new Business.Rules.ExecutionStatus();
-			this.m_SystemIdentity = new YellowstonePathology.Business.User.SystemIdentity(YellowstonePathology.Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
+            this.m_SystemIdentity = YellowstonePathology.Business.User.SystemIdentity.Instance;
 
             foreach (YellowstonePathology.Business.Search.CytologyScreeningSearchResult cytologyScreeningSearchResult in cytologyScreeningSearchResults)
             {

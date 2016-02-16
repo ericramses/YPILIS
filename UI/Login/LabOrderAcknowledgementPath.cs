@@ -24,7 +24,7 @@ namespace YellowstonePathology.UI.Login
 			}
 			else
 			{
-				this.m_SystemIdentity = new Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
+				this.m_SystemIdentity = Business.User.SystemIdentity.Instance;
 				this.m_LoginPageWindow.SystemIdentity = this.m_SystemIdentity;
 				this.ShowLabOrderAcknowledgementPage();
 			}

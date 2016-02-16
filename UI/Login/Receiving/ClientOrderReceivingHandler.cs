@@ -20,9 +20,9 @@ namespace YellowstonePathology.UI.Login.Receiving
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         private object m_Writer;
 
-		public ClientOrderReceivingHandler(YellowstonePathology.Business.User.SystemIdentity systemIdentity, object writer)
+		public ClientOrderReceivingHandler(object writer)
         {
-            this.m_SystemIdentity = systemIdentity;
+            this.m_SystemIdentity = YellowstonePathology.Business.User.SystemIdentity.Instance;
             this.m_AClientHasBeenFound = false;
             this.m_AClientOrderHasBeenAcquired = false;
             this.m_AClientOrderHasBeenConfirmed = false;
@@ -48,12 +48,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 		public YellowstonePathology.Business.Test.AccessionOrder AccessionOrder
 		{
 			get { return this.m_AccessionOrder; }
-		}
-
-		public YellowstonePathology.Business.User.SystemIdentity SystemIdentity
-		{
-			get { return this.m_SystemIdentity; }
-		}
+		}		
 
 		public OrderTypeEnum ExpectedOrderType
 		{

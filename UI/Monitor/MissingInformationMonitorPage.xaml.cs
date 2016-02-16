@@ -62,7 +62,7 @@ namespace YellowstonePathology.UI.Monitor
                 YellowstonePathology.Business.Monitor.Model.MissingInformation missingInformation = (YellowstonePathology.Business.Monitor.Model.MissingInformation)this.ListViewMissingInformation.SelectedItem;
                 YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(missingInformation.MasterAccessionNo, Window.GetWindow(this));                
 
-                YellowstonePathology.Business.User.SystemIdentity systemIdentity = new Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
+                YellowstonePathology.Business.User.SystemIdentity systemIdentity = Business.User.SystemIdentity.Instance;
                 this.m_LoginPageWindow = new Login.LoginPageWindow(systemIdentity);
                 this.m_LoginPageWindow.Show();
 

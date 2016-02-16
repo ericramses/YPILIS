@@ -35,7 +35,7 @@ namespace YellowstonePathology.Business.Rules
         {
             get
             {                
-                return new YellowstonePathology.Business.User.SystemIdentity(YellowstonePathology.Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn).User.IsUserInRole(this.m_PermissionList);
+                return YellowstonePathology.Business.User.SystemIdentity.Instance.User.IsUserInRole(this.m_PermissionList);
 			}
         }
 

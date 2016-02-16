@@ -44,8 +44,8 @@ namespace YellowstonePathology.Business.Flow
             this.m_Writer = writer;
             this.m_FlowLogSearch = new FlowLogSearch();
 
-            this.m_SystemIdentity = new YellowstonePathology.Business.User.SystemIdentity(YellowstonePathology.Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
-			if (this.m_SystemIdentity.User.IsUserInRole(YellowstonePathology.Business.User.SystemUserRoleDescriptionEnum.Pathologist))
+            this.m_SystemIdentity = YellowstonePathology.Business.User.SystemIdentity.Instance;
+            if (this.m_SystemIdentity.User.IsUserInRole(YellowstonePathology.Business.User.SystemUserRoleDescriptionEnum.Pathologist))
 			{
 				this.m_FlowLogSearch.SetByLeukemiaNotFinal();
             }

@@ -46,7 +46,7 @@ namespace YellowstonePathology.UI.Client
             {
                 YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullClient(client, this);
             }
-            this.m_SystemIdentity = new Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
+            this.m_SystemIdentity = Business.User.SystemIdentity.Instance;
             	
 			this.m_ClientPhysicianView = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientPhysicianViewByClientIdV2(this.m_Client.ClientId);
 

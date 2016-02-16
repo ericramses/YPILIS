@@ -8,6 +8,11 @@ namespace YellowstonePathology.Business.User
 {
     public class SystemIdentity : INotifyPropertyChanged
     {
+        private static volatile SystemIdentity instance;
+        private static object syncRoot = new Object();
+
+        private SystemIdentity m_SystemIdentity;
+
         public delegate void PropertyChangedNotificationHandler(String info);
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -20,6 +25,34 @@ namespace YellowstonePathology.Business.User
 
 		YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort m_BarcodeScanPort;
 
+        static SystemIdentity()
+        {
+
+        }
+
+        private SystemIdentity()
+        {
+            this.m_SystemIdentity = new SystemIdentity();
+        }
+
+        public static SystemIdentity Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    lock (syncRoot)
+                    {
+                        if (instance == null)
+                            instance = new SystemIdentity();
+                    }
+                }
+
+                return instance;
+            }
+        }
+
+        /*
         public SystemIdentity(SystemIdentityTypeEnum systemIdentityType)
         {                        			
 			switch (systemIdentityType)
@@ -47,12 +80,14 @@ namespace YellowstonePathology.Business.User
             }
             this.SetStationName();
         }
+        */
 
 		public YellowstonePathology.Business.User.SystemUser User
         {
             get { return this.m_User; }            
         }
 
+        /*
 		public void SetSelectedUser(YellowstonePathology.Business.User.SystemUser systemUser)
         {
             this.m_User = systemUser;
@@ -63,6 +98,7 @@ namespace YellowstonePathology.Business.User
                 this.UserChanged();
             }
         }
+        */
 
         public bool IsKnown
         {
@@ -73,15 +109,15 @@ namespace YellowstonePathology.Business.User
         {
             get { return this.m_StationName; }
         }		
-
+        
         public void Clear()        
         {
             this.m_IsKnown = false;
             this.m_User = this.GetBlankUser();
             this.NotifyPropertyChanged("");
         }
-
-        public void SetUser(int userId)
+        
+        private void SetUser(int userId)
         {
 			this.m_User = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetSystemUserById(userId);
             this.m_IsKnown = true;
@@ -91,8 +127,8 @@ namespace YellowstonePathology.Business.User
             {
                 this.UserChanged();
             }
-		}        
-
+		} 
+        
         private SystemUser GetBlankUser()
         {
             SystemUser blankUser = new SystemUser();
@@ -119,6 +155,7 @@ namespace YellowstonePathology.Business.User
             this.NotifyPropertyChanged("");
         }
 
+        /*
         private void SetStationName()
         {
             string result = System.Windows.Forms.SystemInformation.ComputerName.ToUpper();
@@ -134,7 +171,8 @@ namespace YellowstonePathology.Business.User
                     break;                
             }
             this.m_StationName = result;
-        }		
+        }
+        */		
 
         public void NotifyPropertyChanged(String info)
         {
@@ -144,6 +182,7 @@ namespace YellowstonePathology.Business.User
             }
         }
 
+        /*
 		public static bool DoesLoggedInUserNeedToScanId()
 		{
             bool result = false;
@@ -165,5 +204,6 @@ namespace YellowstonePathology.Business.User
 			}
             return result;
 		}
+        */
     }
 }

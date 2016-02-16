@@ -75,7 +75,7 @@ namespace YellowstonePathology.UI
             {
                 MessageBoxResult result = MessageBox.Show("Clearing a lock may cause data loss.  Note that you may not unlock a case you have locked.  Are you sure you want to unlock this case?", "Possible data loss", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
                 {
-                    YellowstonePathology.Business.User.SystemIdentity systemIdentity = new YellowstonePathology.Business.User.SystemIdentity(YellowstonePathology.Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
+                    YellowstonePathology.Business.User.SystemIdentity systemIdentity = YellowstonePathology.Business.User.SystemIdentity.Instance;
                     YellowstonePathology.Business.Domain.LockItem lockItem = (YellowstonePathology.Business.Domain.LockItem)this.ListViewNewLocks.SelectedItem;
                     YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(lockItem.KeyString, this);
                     if (accessionOrder.IsLockAquiredByMe() == false)

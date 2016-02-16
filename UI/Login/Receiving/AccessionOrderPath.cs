@@ -58,7 +58,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 				}
 				else
 				{
-					this.m_SystemIdentity = new Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
+					this.m_SystemIdentity = Business.User.SystemIdentity.Instance;
 					this.ShowAccessionOrderPage();
 				}
 				this.m_LoginPageWindow.ShowDialog();
@@ -118,7 +118,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 
         private void AccessionOrderPage_ShowResultPage(object sender, CustomEventArgs.PanelSetOrderReturnEventArgs e)
         {                        
-            YellowstonePathology.Business.User.SystemIdentity systemIdentity = new Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);            
+            YellowstonePathology.Business.User.SystemIdentity systemIdentity = Business.User.SystemIdentity.Instance;            
             YellowstonePathology.UI.Test.ResultPathFactory resultPathFactory = new Test.ResultPathFactory();
             resultPathFactory.Finished += new Test.ResultPathFactory.FinishedEventHandler(resultPathFactory_Finished);
 

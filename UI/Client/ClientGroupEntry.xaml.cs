@@ -27,7 +27,7 @@ namespace YellowstonePathology.UI.Client
         public ClientGroupEntry(YellowstonePathology.Business.Client.Model.ClientGroup clientGroup)
         {                                
             this.m_ClientGroup = clientGroup;
-            this.m_SystemIdentity = new Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
+            this.m_SystemIdentity = Business.User.SystemIdentity.Instance;
             this.m_MembersClientCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientCollectionByClientGroupId(this.m_ClientGroup.ClientGroupId);
             
             InitializeComponent();

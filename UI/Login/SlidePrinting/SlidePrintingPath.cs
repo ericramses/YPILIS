@@ -19,7 +19,7 @@ namespace YellowstonePathology.UI.Login.SlidePrinting
 
         public void Start()
         {
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity = new Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
+			YellowstonePathology.Business.User.SystemIdentity systemIdentity = Business.User.SystemIdentity.Instance;
             this.m_LoginPageWindow = new LoginPageWindow(systemIdentity);
             this.m_LoginPageWindow.Show();
             this.ShowScanContainerPage();

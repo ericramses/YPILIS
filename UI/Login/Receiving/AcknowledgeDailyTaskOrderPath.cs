@@ -17,7 +17,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 
 		public void Start()
 		{						
-			this.m_SystemIdentity = new Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
+			this.m_SystemIdentity = Business.User.SystemIdentity.Instance;
             this.AcknowledgeTasks();
 		}		
 

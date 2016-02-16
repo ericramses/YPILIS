@@ -179,7 +179,6 @@
     <Compile Include="AmendmentPage.xaml.cs">
       <DependentUpon>AmendmentPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="AuthenticationPath.cs" />
     <Compile Include="Billing\BillingPage.xaml.cs">
       <DependentUpon>BillingPage.xaml</DependentUpon>
     </Compile>
@@ -1033,7 +1032,6 @@
       <DependentUpon>GrossEntryPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Login\FinalizeAccession\SpecimenAdequacyTypes.cs" />
-    <Compile Include="Login\FinalizeAccession\AliquotAndStainOrderPathWithSecurity.cs" />
     <Compile Include="Login\FlowCytometryOrderPath.cs" />
     <Compile Include="Login\ReceiveSpecimen\ARUPOrderPage.xaml.cs">
       <DependentUpon>ARUPOrderPage.xaml</DependentUpon>

@@ -31,7 +31,7 @@ namespace YellowstonePathology.UI.Test
 			}
 			else
 			{
-				this.m_SystemIdentity = new Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
+				this.m_SystemIdentity = Business.User.SystemIdentity.Instance;
                 this.ShowResultPage();
             }
         }

@@ -13,7 +13,7 @@ namespace YellowstonePathology.Business.Persistence
 
         public AODocumentBuilder(string masterAccessionNo)
         {                        
-            YellowstonePathology.Business.User.SystemIdentity systemIdentity = new YellowstonePathology.Business.User.SystemIdentity(YellowstonePathology.Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
+            YellowstonePathology.Business.User.SystemIdentity systemIdentity = YellowstonePathology.Business.User.SystemIdentity.Instance;
 
             this.m_SQLCommand = new SqlCommand();
             m_SQLCommand.CommandText = "AOGWGetByMasterAccessionNo";

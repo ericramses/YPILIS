@@ -28,7 +28,7 @@ namespace YellowstonePathology.UI
             }
             else
             {
-                YellowstonePathology.Business.User.SystemIdentity currentlyLoggedInuser = new Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
+                YellowstonePathology.Business.User.SystemIdentity currentlyLoggedInuser = Business.User.SystemIdentity.Instance;
                 this.AuthentificationSuccessful(this, new CustomEventArgs.SystemIdentityReturnEventArgs(currentlyLoggedInuser));
             }
         }
