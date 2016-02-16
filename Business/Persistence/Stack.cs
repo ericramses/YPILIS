@@ -48,9 +48,17 @@ namespace YellowstonePathology.Business.Persistence
             {                
                 if(accessionOrder.IsLockAquiredByMe() == true)
                 {
-                    accessionOrder.ReleaseLock();
-                    document.Submit();
-                    result.LockWasReleased = true;
+                    if(document.WriterExists(writer) == true)
+                    {
+                        document.RemoveWriter(writer);
+                        if(document.Writers.Count == 0)
+                        {
+                            accessionOrder.ReleaseLock();
+                            result.LockWasReleased = true;
+                        }
+                    }
+                    
+                    document.Submit();                    
                 }
                 else
                 {
@@ -101,6 +109,7 @@ namespace YellowstonePathology.Business.Persistence
 
         public void Push(object writer)
         {
+            this.PushObjectsWithNoWriters();
             for (int i = this.m_Documents.Count - 1; i > -1;  i--)
             {
                 this.PushOne(this.m_Documents[i], writer);
@@ -128,12 +137,25 @@ namespace YellowstonePathology.Business.Persistence
 
                 document.Submit();
             }                            
+        }
+        
+        private void PushObjectsWithNoWriters()
+        {
+            for (int i = this.m_Documents.Count - 1; i > -1; i--)
+            {
+                if(this.m_Documents[i].Writers.Count == 0)
+                {
+                    this.m_Documents[i].Submit();
+                    this.m_Documents.Remove(this.m_Documents[i]);
+                }
+            }
         }      
 
         public Document Pull(DocumentId documentId, DocumentBuilder documentBuilder)
         {
             Document document = null;
-            
+
+            this.PushObjectsWithNoWriters();
             if (this.KeyTypeExists(documentId) == true)
             {
                 document = this.Get(documentId);
