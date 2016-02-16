@@ -20,16 +20,12 @@ namespace YellowstonePathology.UI
     public partial class MainWindow : System.Windows.Window
     {
 		//System.Timers.Timer m_Timer;
-		System.Media.SoundPlayer m_WavPlayer;
-
-        public delegate void SaveEventHandler(object sender, EventArgs e);
-        public static event SaveEventHandler Save;               
+		System.Media.SoundPlayer m_WavPlayer;        
         
         public static RoutedCommand ApplicationClosingCommand = new RoutedCommand();
         public static RoutedCommand AssignCommand = new RoutedCommand();
         public static RoutedCommand ShowOrderFormCommand = new RoutedCommand();
-        public static RoutedCommand ShowWizardListCommand = new RoutedCommand();
-        public static RoutedCommand ToggleAccessionLockModeCommand = new RoutedCommand();
+        public static RoutedCommand ShowWizardListCommand = new RoutedCommand();        
         public static RoutedCommand ShowCaseDocumentCommand = new RoutedCommand();
 		public static RoutedCommand PatientLinkingCommand = new RoutedCommand();		
 		public static RoutedCommand RemoveTabCommand = new RoutedCommand();		        
@@ -62,10 +58,7 @@ namespace YellowstonePathology.UI
 
         SearchWorkspace m_SearchWorkspace;                
         Test.LabWorkspace m_LabWorkspace;        
-        AdministrationWorkspace m_AdministrationWorkspace;
-        //Scanning.ScanProcessingWorkspace m_ScanProcessingWorkspace;
-        
-		YellowstonePathology.Business.Domain.Lock m_Lock;
+        AdministrationWorkspace m_AdministrationWorkspace;                		
 
 		YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
         MainWindowCommandButtonHandler m_MainWindowCommandButtonHandler;        
@@ -77,9 +70,7 @@ namespace YellowstonePathology.UI
 
 			this.m_WavPlayer = new System.Media.SoundPlayer();
 
-			this.m_SystemIdentity = new YellowstonePathology.Business.User.SystemIdentity(YellowstonePathology.Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);            
-            this.m_Lock = new YellowstonePathology.Business.Domain.Lock(this.m_SystemIdentity);           
-			this.m_Lock.ReleaseUserLocks();            
+			this.m_SystemIdentity = new YellowstonePathology.Business.User.SystemIdentity(YellowstonePathology.Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);             
 
             this.m_TabItemFlow = new TabItem();
             this.m_TabItemFlow.Header = SetHeader("Flow", "Flow.ico");
@@ -274,22 +265,7 @@ namespace YellowstonePathology.UI
 		public YellowstonePathology.UI.Cytology.CytologyWorkspace CytologyWorkspace
 		{
 			get { return this.m_CytologyWorkspace; }
-		}        
-
-        public YellowstonePathology.Business.Domain.Lock Lock
-        {
-            get { return this.m_Lock; }
-            set { this.m_Lock = value; }
-        }
-
-		public void SetLockObject(YellowstonePathology.Business.Domain.Lock theLock)
-        {
-            this.m_Lock.LockImage = theLock.LockImage;
-            this.m_Lock.NotifyPropertyChanged("LockImage");
-			this.m_Lock.LockDate = theLock.LockDate;
-			this.m_Lock.LockedBy = theLock.LockedBy;
-			this.m_Lock.SetLockingMode(theLock.LockingMode);
-		}
+		}                
 
 		private void TabControlLeftWorkspace_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
@@ -384,8 +360,7 @@ namespace YellowstonePathology.UI
 			{
 				this.m_CytologyWorkspace.CloseWorkspace(null, null);
 			}
-
-			this.m_Lock.ReleaseUserLocks();
+			
 			App.Current.Shutdown();
         }
                 
@@ -634,13 +609,7 @@ namespace YellowstonePathology.UI
             // WHC This is here to prevent sending the click event twice which causes an IO exception:
             // "The process cannot access the file <filename> because it is being used by another process."
             e.Handled = true;
-        }
-
-        public void ToolBarButtonAccessionLock_Click(object sender, RoutedEventArgs args)
-		{
-            this.m_MainWindowCommandButtonHandler.OnToggelEventLock();
-            MainWindow.ToggleAccessionLockModeCommand.Execute(null, null);
-		}
+        }        
 
         public void ToolBarButtonOrderForm_Click(object sender, RoutedEventArgs args)
         {
@@ -878,6 +847,11 @@ namespace YellowstonePathology.UI
         {
             Test.AcidWashOrdersDialog acidWashOrdersDialog = new Test.AcidWashOrdersDialog();
             acidWashOrdersDialog.ShowDialog();
+        }
+
+        private void ToolBarButtonRefresh_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }    
 }

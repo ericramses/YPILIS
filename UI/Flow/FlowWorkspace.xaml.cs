@@ -40,8 +40,7 @@ namespace YellowstonePathology.UI.Flow
             this.m_Writer = writer;
 			this.m_SystemIdentity = new YellowstonePathology.Business.User.SystemIdentity(YellowstonePathology.Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
 
-            this.CommandBindingApplicationClosing = new CommandBinding(MainWindow.ApplicationClosingCommand, this.ApplicationClosing);            
-            this.CommandBindingToggleAccessionLockMode = new CommandBinding(MainWindow.ToggleAccessionLockModeCommand, AlterAccessionLock, CanAlterAccessionLock);
+            this.CommandBindingApplicationClosing = new CommandBinding(MainWindow.ApplicationClosingCommand, this.ApplicationClosing);                        
             this.CommandBindingRemoveTab = new CommandBinding(MainWindow.RemoveTabCommand, RemoveTab);            
 
             this.CommandBindings.Add(this.CommandBindingApplicationClosing);            
