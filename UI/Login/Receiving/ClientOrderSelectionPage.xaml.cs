@@ -49,25 +49,11 @@ namespace YellowstonePathology.UI.Login.Receiving
 		public YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection ClientOrderCollection
 		{
 			get { return this.m_ClientOrderCollection; }
-		}
-
-		private void ListViewClientOrders_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-		{
-			if(this.ListViewClientOrders.SelectedItem != null)
-			{
-				this.ReturnSelectedOrder((YellowstonePathology.Business.ClientOrder.Model.ClientOrder)this.ListViewClientOrders.SelectedItem);
-			}
 		}		
 
 		private void ButtonBack_Click(object sender, RoutedEventArgs e)
 		{			
             this.Back(this, new EventArgs());
-		}
-
-		private void ReturnSelectedOrder(YellowstonePathology.Business.ClientOrder.Model.ClientOrder selectedClientOrder)
-		{
-            YellowstonePathology.UI.CustomEventArgs.ClientOrderReturnEventArgs clientOrderReturnEventArgs = new CustomEventArgs.ClientOrderReturnEventArgs(selectedClientOrder);
-            this.ClientOrderSelected(this, clientOrderReturnEventArgs);
 		}		
 
         private void ViewClientOrderPage_Back(object sender, EventArgs e)
@@ -76,7 +62,8 @@ namespace YellowstonePathology.UI.Login.Receiving
         }
 
         private void ViewClientOrderPage_UseThisClientOrder(object sender, CustomEventArgs.ClientOrderReturnEventArgs e)
-        {
+        {            
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullClientOrder(e.ClientOrder, this.m_PageNavigator.PrimaryMonitorWindow);
             YellowstonePathology.UI.CustomEventArgs.ClientOrderReturnEventArgs clientOrderReturnEventArgs = new CustomEventArgs.ClientOrderReturnEventArgs(e.ClientOrder);
             this.ClientOrderSelected(this, clientOrderReturnEventArgs);
         }

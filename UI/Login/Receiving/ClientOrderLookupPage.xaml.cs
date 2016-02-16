@@ -165,15 +165,23 @@ namespace YellowstonePathology.UI.Login.Receiving
 
 		private void GetClientOrderByContainerId(string containerId)
 		{
-            YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder = YellowstonePathology.Business.Gateway.ClientOrderGateway.GetClientOrderByContainerId(containerId);
-			if (clientOrder != null)
-			{				
-				this.ReturnClientOrder(clientOrder);
-			}
-			else
-			{
-				MessageBox.Show("No order was found.");
-			}
+            string clientOrderId = YellowstonePathology.Business.Gateway.ClientOrderGateway.GetClientOrderByContainerId(containerId);
+            if(string.IsNullOrEmpty(clientOrderId) == false)
+            {
+                YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullClientOrderByClientOrderId(clientOrderId, Window.GetWindow(this));
+                if (clientOrder != null)
+                {
+                    this.ReturnClientOrder(clientOrder);
+                }
+                else
+                {
+                    MessageBox.Show("No order was found.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("No order was found.");
+            }
 		}       		
 	}
 }

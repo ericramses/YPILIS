@@ -239,7 +239,7 @@ namespace YellowstonePathology.UI.Cutting
                     }
                     else if (slideOrder.LabelType == YellowstonePathology.Business.Slide.Model.SlideLabelTypeEnum.PaperLabel.ToString())
                     {
-                        //slideOrder.Status = YellowstonePathology.Business.Slide.Model.SlideStatusEnum.PrintRequested.ToString();
+                        slideOrder.Status = YellowstonePathology.Business.Slide.Model.SlideStatusEnum.Printed.ToString();
                         YellowstonePathology.Business.Label.Model.HistologySlidePaperLabel histologySlidePaperLabel = new Business.Label.Model.HistologySlidePaperLabel(slideOrder.SlideOrderId, slideOrder.ReportNo, slideOrder.Label, slideOrder.PatientLastName, slideOrder.TestAbbreviation, slideOrder.Location);
                         this.m_HistologySlidePaperLabelPrinter.Queue.Enqueue(histologySlidePaperLabel);
                         this.ShowTestOrderSelectionPage(this, new CustomEventArgs.AliquotOrderReturnEventArgs(this.m_AliquotOrder));

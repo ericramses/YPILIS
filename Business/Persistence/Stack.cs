@@ -35,15 +35,7 @@ namespace YellowstonePathology.Business.Persistence
             {
                 throw new Exception("You are trying to push an object that is not on the stack.");
             }
-        }
-
-        public void Push(object writer)
-        {            
-            for(int i=0; i<this.m_Documents.Count; i++)
-            {
-                this.PushOne(this.m_Documents[i], writer);
-            }
-        }
+        }        
 
         public ReleaseDocumentLockResult ReleaseLock(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, object writer)
         {
@@ -53,8 +45,8 @@ namespace YellowstonePathology.Business.Persistence
             Document document = this.Get(documentId);
 
             if(document != null)
-            {
-                if (document.IsThisTheOnlyWriter(writer) == true)
+            {                
+                if(accessionOrder.IsLockAquiredByMe() == true)
                 {
                     accessionOrder.ReleaseLock();
                     document.Submit();
@@ -63,8 +55,8 @@ namespace YellowstonePathology.Business.Persistence
                 else
                 {
                     result.LockWasReleased = false;
-                    result.Message = "This case is open in another workspace and cannot be released.";
-                }
+                    result.Message = "Lock cannot be released because someone else has it.";
+                }             
             }
             else
             {
@@ -107,26 +99,35 @@ namespace YellowstonePathology.Business.Persistence
             }
         }
 
-        private void PushOne(Document document, object writer)
-        {                                 
-            if(document.IsGlobal == false)
+        public void Push(object writer)
+        {
+            for (int i = this.m_Documents.Count - 1; i > -1;  i--)
             {
-                document.RemoveWriter(writer);
-            }               
-            
-            if (document.Writers.Count == 0)
-            {
-                document.ReleaseLock();
-                document.Submit();
-                if(document.IsGlobal == false)
-                {
-                    this.m_Documents.Remove(document);
-                }                
+                this.PushOne(this.m_Documents[i], writer);
             }
-            else
-            {
+        }
+
+        private void PushOne(Document document, object writer)
+        {                                             
+            if (document.WriterExists(writer) == true)
+            {                
+                document.RemoveWriter(writer);
+
+                if (document.Writers.Count == 0)
+                {
+                    if(document.IsLockAquiredByMe == true)
+                    {
+                        document.ReleaseLock();
+                    }
+                    
+                    if (document.IsGlobal == false)
+                    {
+                        this.m_Documents.Remove(document);
+                    }
+                }
+
                 document.Submit();
-            }            
+            }                            
         }      
 
         public Document Pull(DocumentId documentId, DocumentBuilder documentBuilder)
@@ -170,11 +171,19 @@ namespace YellowstonePathology.Business.Persistence
                 }                
             }           
             else
-            {                
-                object value = documentBuilder.BuildNew();
-                documentId.Value = value;
+            {
+                if (documentId.ValueWasPassedIn == true)
+                {
+                    documentBuilder.Refresh(documentId.Value);                    
+                }
+                else
+                {
+                    object value = documentBuilder.BuildNew();
+                    documentId.Value = value;                    
+                }
+
                 document = new DocumentUpdate(documentId);
-                this.m_Documents.Add(document);     
+                this.m_Documents.Add(document);
             }
 
             return document;

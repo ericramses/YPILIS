@@ -18,6 +18,8 @@ namespace YellowstonePathology.Business.Persistence
 
         public DocumentId(object o, object writer)
         {
+            if (writer == null) throw new Exception("Writer can't be null");
+
             this.m_Type = o.GetType();
             this.m_Value = o;
             this.m_ValueWasPassedIn = true;
@@ -38,6 +40,9 @@ namespace YellowstonePathology.Business.Persistence
 
         public DocumentId(Type type, object writer, object key)
         {
+            if (writer == null) throw new Exception("Writer can't be null");
+            if (key == null) throw new Exception("Key can't be null");
+
             this.m_Type = type;
             this.m_Key = key;
             this.m_Writer = writer;            

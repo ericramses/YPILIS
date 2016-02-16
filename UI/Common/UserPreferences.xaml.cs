@@ -48,10 +48,19 @@ namespace YellowstonePathology.UI.Common
 			InitializeComponent();            
 
 			this.DataContext = this;
-			Loaded += new RoutedEventHandler(UserPreferences_Loaded);
-		}        
+			this.Loaded += new RoutedEventHandler(UserPreferences_Loaded);
+            this.Closing += UserPreferences_Closing;
+		}
 
-		private void UserPreferences_Loaded(object sender, RoutedEventArgs e)
+        private void UserPreferences_Closing(object sender, CancelEventArgs e)
+        {
+            if(this.DialogResult == true)
+            {
+                YellowstonePathology.Business.User.UserPreferenceInstance.Instance.Save();
+            }
+        }
+
+        private void UserPreferences_Loaded(object sender, RoutedEventArgs e)
 		{
             this.m_Twain = new Business.Twain.Twain(new WpfWindowMessageHook(Window.GetWindow(this)));
             if(Environment.OSVersion.VersionString != "Microsoft Windows NT 6.2.9200.0")
@@ -117,14 +126,15 @@ namespace YellowstonePathology.UI.Common
 		}
 
 		private void ButtonOK_Click(object sender, RoutedEventArgs e)
-		{            
-            Business.Persistence.DocumentGateway.Instance.Push(this);            
-			Close();
+		{
+            this.DialogResult = true;
+            this.Close();
 		}
 
 		private void ButtonCancel_Click(object sender, RoutedEventArgs e)
 		{
-			Close();
+            this.DialogResult = false;
+			this.Close();
 		}
 
 		private void ButtonTestBlockPrinter_Click(object sender, RoutedEventArgs e)

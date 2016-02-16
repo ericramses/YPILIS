@@ -156,6 +156,7 @@ namespace YellowstonePathology.UI
         private void SaveAndReleaseLocksOnExit()
         {
             YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Flush();
+
             YellowstonePathology.Business.Domain.LockItemCollection lockItemCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetLockItems();
             string machineName = Environment.MachineName;
             int myLockCount = 0;

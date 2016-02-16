@@ -219,7 +219,7 @@ namespace YellowstonePathology.Business.Persistence
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
             ClientOrderDocumentBuilder builder = new ClientOrderDocumentBuilder(cmd);
 
-            DocumentId documentId = new DocumentId(typeof(YellowstonePathology.Business.User.UserPreference), writer, clientOrderId);
+            DocumentId documentId = new DocumentId(typeof(YellowstonePathology.Business.ClientOrder.Model.ClientOrder), writer, clientOrderId);
             Document document = this.m_Stack.Pull(documentId, builder);
 
             return (YellowstonePathology.Business.ClientOrder.Model.ClientOrder)document.Value;
@@ -235,11 +235,11 @@ namespace YellowstonePathology.Business.Persistence
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
             ClientOrderDocumentBuilder builder = new ClientOrderDocumentBuilder(cmd);
 
-            DocumentId documentId = new DocumentId(typeof(YellowstonePathology.Business.User.UserPreference), writer, clientOrder.ClientOrderId);
+            DocumentId documentId = new DocumentId(clientOrder, writer);
             Document document = this.m_Stack.Pull(documentId, builder);
 
             return (YellowstonePathology.Business.ClientOrder.Model.ClientOrder)document.Value;
-        }
+        }        
 
         public YellowstonePathology.Business.ClientOrder.Model.ClientOrder PullClientOrderByExternalOrderId(string clientOrderId, object writer)
         {

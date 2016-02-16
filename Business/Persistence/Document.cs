@@ -39,7 +39,7 @@ namespace YellowstonePathology.Business.Persistence
             {
                 YellowstonePathology.Business.Test.AccessionOrder accessionOrder = (YellowstonePathology.Business.Test.AccessionOrder)this.m_Value;
                 this.m_IsLockAquiredByMe = accessionOrder.IsLockAquiredByMe();
-            }
+            }            
         }
 
         public void ReleaseLock()
@@ -79,7 +79,21 @@ namespace YellowstonePathology.Business.Persistence
                 }
             }            
             return result;
-        }       
+        }
+
+        public bool WriterExists(object writer)
+        {
+            bool result = false;
+            foreach (object o in this.m_Writers)
+            {
+                if (o == writer)
+                {                    
+                    result = true;
+                    break;                    
+                }
+            }
+            return result;
+        }
 
         public List<object> Writers
         {

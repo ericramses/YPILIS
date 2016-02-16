@@ -11,12 +11,12 @@ namespace YellowstonePathology.UI.Login.Receiving
         public event ReturnEventHandler Return;
 
         private YellowstonePathology.UI.Navigation.PageNavigator m_PageNavigator;        
-        private ClientOrderReceivingHandler m_ClientOrderReceivingHandler;		
+        private ClientOrderReceivingHandler m_ClientOrderReceivingHandler;        
 
         public GetClientOrderPath(ClientOrderReceivingHandler clientOrderReceivingHandler, YellowstonePathology.UI.Navigation.PageNavigator pageNavigator)
         {            
             this.m_ClientOrderReceivingHandler = clientOrderReceivingHandler;            
-            this.m_PageNavigator = pageNavigator;			
+            this.m_PageNavigator = pageNavigator;            
         }
 
         public void Start()
@@ -110,7 +110,7 @@ namespace YellowstonePathology.UI.Login.Receiving
         }
 
         private void ClientOrderSelectionPage_ClientOrderSelected(object sender, CustomEventArgs.ClientOrderReturnEventArgs e)
-        {
+        {            
             this.m_ClientOrderReceivingHandler.IFoundAClientOrder(e.ClientOrder);            
             this.HandleEndOfPath();
         }

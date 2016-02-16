@@ -396,36 +396,29 @@ namespace YellowstonePathology.Business.Gateway
 			return clientOrderCollection;
 		}        
 
-		public static YellowstonePathology.Business.ClientOrder.Model.ClientOrder GetClientOrderByContainerId(string containerId)
+		public static string GetClientOrderByContainerId(string containerId)
 		{
             SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "gwGetClientOrderByContainerId";
+            cmd.CommandText = "Select co.ClientOrderId " +
+                "from tblClientOrder co " +
+                "join tblClientOrderDetail cod on co.ClientOrderId = cod.ClientOrderId " +
+                "where cod.Containerid = @ContainerId";
 
             SqlParameter containerIdParameter = new SqlParameter("@ContainerId", SqlDbType.VarChar, 100);
             containerIdParameter.Value = containerId;
             cmd.Parameters.Add(containerIdParameter);
-            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.CommandType = System.Data.CommandType.Text;
 
-            YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder = null;
+            string result = null;
 
             using (SqlConnection cn = new SqlConnection(ServerSqlConnectionString))
             {
                 cn.Open();
                 cmd.Connection = cn;
-                using (SqlDataReader dr = cmd.ExecuteReader())
-                {
-                    clientOrder = BuildClientOrder(dr);
-                    dr.NextResult();
-                    BuildClientOrderDetailCollection(clientOrder.ClientOrderDetailCollection, dr);
-                }
-            }
+                result = (string)cmd.ExecuteScalar();
+            }			
 
-			if (clientOrder.ClientOrderId == null)
-			{
-				return null;
-			}
-
-            return clientOrder;
+            return result;
 		}
 
         public static YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection GetClientOrderCollectionByContainerIdString(string containerIdString)

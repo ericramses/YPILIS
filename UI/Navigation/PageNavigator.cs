@@ -10,7 +10,10 @@ namespace YellowstonePathology.UI.Navigation
     {        
         private ContentControl m_ContentControl;
         private UserControl m_CurrentPage;
+
+        private System.Windows.Window m_PrimaryMonitorWindow;
         private System.Windows.Window m_SecondMonitorWindow;
+        
 
         public PageNavigator(ContentControl contentControl)
         {
@@ -33,20 +36,19 @@ namespace YellowstonePathology.UI.Navigation
             get { return this.m_SecondMonitorWindow; }
         }
 
+        public System.Windows.Window PrimaryMonitorWindow
+        {
+            get
+            {
+                if (this.m_PrimaryMonitorWindow == null) throw new Exception("Primary Monitor window is null.");
+                return this.m_PrimaryMonitorWindow;
+            }
+            set { this.m_PrimaryMonitorWindow = value; }
+        }
+
         public void Navigate(UserControl page)
         {            
-            YellowstonePathology.UI.Navigation.NavigatingEventArgs eventArgs = new NavigatingEventArgs(this.m_CurrentPage, page);
-
-			//YellowstonePathology.Business.Interface.IPersistPageChanges navigatingFromPage = (YellowstonePathology.Business.Interface.IPersistPageChanges)this.m_CurrentPage;
-			//YellowstonePathology.Business.Interface.IPersistPageChanges navigatingToPage = (YellowstonePathology.Business.Interface.IPersistPageChanges)page;
-
-			//if (navigatingFromPage != null)
-            //{
-			//	if (navigatingFromPage.OkToSaveOnNavigation(navigatingToPage.GetType()) == true)
-			//	{
-			//		navigatingFromPage.Save(true);
-			//	}
-            //}
+            YellowstonePathology.UI.Navigation.NavigatingEventArgs eventArgs = new NavigatingEventArgs(this.m_CurrentPage, page);			
 
             this.m_CurrentPage = page;
             this.m_ContentControl.Content = page;            
@@ -82,18 +84,11 @@ namespace YellowstonePathology.UI.Navigation
         }
 
         public void Close()
-        {
-			//YellowstonePathology.Business.Interface.IPersistPageChanges page = (YellowstonePathology.Business.Interface.IPersistPageChanges)this.m_CurrentPage;
-
+        {			
             if (this.m_SecondMonitorWindow != null)
             {
                 this.m_SecondMonitorWindow.Close();
             }
-
-            //if (page != null)
-            //{
-            //   if (page.OkToSaveOnClose() == true) page.Save(true);
-            //}
         }       
     }
 }

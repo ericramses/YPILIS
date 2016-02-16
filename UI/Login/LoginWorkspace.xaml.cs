@@ -32,10 +32,11 @@ namespace YellowstonePathology.UI.Login
 
         private LoginPageWindow m_LoginPageWindow;        
 
-        public LoginWorkspace(MainWindowCommandButtonHandler mainWindowCommandButtonHandler, TabItem tabItem)
+        public LoginWorkspace(MainWindowCommandButtonHandler mainWindowCommandButtonHandler, TabItem writer)
         {
             this.m_MainWindowCommandButtonHandler = mainWindowCommandButtonHandler;
             this.m_LoadedHasRun = false;
+            this.m_Writer = writer;
 
             this.CommandBindingRemoveTab = new CommandBinding(MainWindow.RemoveTabCommand, RemoveTab);
             this.CommandBindings.Add(this.CommandBindingRemoveTab);

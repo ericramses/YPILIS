@@ -27,7 +27,7 @@
 				<RowDefinition Height="*"></RowDefinition>				
 			</Grid.RowDefinitions>
 
-			<ListView Name="ListViewClientOrders" Margin="10" Grid.Column="0" Grid.Row="0" ItemsSource="{Binding Path=ClientOrderCollection}" MouseDoubleClick="ListViewClientOrders_MouseDoubleClick">
+			<ListView Name="ListViewClientOrders" Margin="10" Grid.Column="0" Grid.Row="0" ItemsSource="{Binding Path=ClientOrderCollection}">
 				<ListView.View>
 					<GridView AllowsColumnReorder="True" ColumnHeaderToolTip="Client Order List">
 						<GridViewColumn DisplayMemberBinding="{Binding Path=PLastName}" Header="Last Name" Width="110"/>
