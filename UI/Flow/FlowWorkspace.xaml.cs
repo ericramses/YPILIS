@@ -22,8 +22,7 @@ namespace YellowstonePathology.UI.Flow
 
     public partial class FlowWorkspace : System.Windows.Controls.UserControl
     {        
-        public CommandBinding CommandBindingApplicationClosing;        
-        public CommandBinding CommandBindingToggleAccessionLockMode;
+        public CommandBinding CommandBindingApplicationClosing;                
         public CommandBinding CommandBindingRemoveTab;        
 
         private YellowstonePathology.Business.Flow.FlowUI m_FlowUI;        
@@ -43,8 +42,7 @@ namespace YellowstonePathology.UI.Flow
             this.CommandBindingApplicationClosing = new CommandBinding(MainWindow.ApplicationClosingCommand, this.ApplicationClosing);                        
             this.CommandBindingRemoveTab = new CommandBinding(MainWindow.RemoveTabCommand, RemoveTab);            
 
-            this.CommandBindings.Add(this.CommandBindingApplicationClosing);            
-            this.CommandBindings.Add(this.CommandBindingToggleAccessionLockMode);
+            this.CommandBindings.Add(this.CommandBindingApplicationClosing);                        
             this.CommandBindings.Add(this.CommandBindingRemoveTab);            
 
             this.m_DocumentViewer = new DocumentWorkspace();

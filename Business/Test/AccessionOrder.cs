@@ -163,7 +163,7 @@ namespace YellowstonePathology.Business.Test
                 if (this.m_LockAquiredById != value)
                 {
                     this.m_LockAquiredById = value;
-                    this.NotifyPropertyChanged("LockAquiredById");
+                    this.NotifyPropertyChanged("LockAquiredById");                    
                 }
             }
         }
@@ -178,6 +178,7 @@ namespace YellowstonePathology.Business.Test
                 {
                     this.m_LockAquiredByUserName = value;
                     this.NotifyPropertyChanged("LockAquiredByUserName");
+                    this.NotifyPropertyChanged("LockStatus");
                 }
             }
         }
@@ -192,6 +193,7 @@ namespace YellowstonePathology.Business.Test
                 {
                     this.m_LockAquiredByHostName = value;
                     this.NotifyPropertyChanged("LockAquiredByHostName");
+                    this.NotifyPropertyChanged("LockStatus");
                 }
             }
         }
@@ -206,6 +208,7 @@ namespace YellowstonePathology.Business.Test
                 {
                     this.m_TimeLockAquired = value;
                     this.NotifyPropertyChanged("TimeLockAquired");
+                    this.NotifyPropertyChanged("LockStatus");
                 }
             }
         }
@@ -220,6 +223,7 @@ namespace YellowstonePathology.Business.Test
                 {
                     this.m_LockAquired = value;
                     this.NotifyPropertyChanged("LockAquired");
+                    this.NotifyPropertyChanged("LockStatus");
                 }
             }
         }
