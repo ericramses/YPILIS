@@ -33,6 +33,11 @@ namespace YellowstonePathology.Business.Persistence
             {
                 YellowstonePathology.Business.Test.AccessionOrder accessionOrder = (YellowstonePathology.Business.Test.AccessionOrder)o;
                 this.m_LockAquired = accessionOrder.LockAquired;
+
+                if(accessionOrder.MasterAccessionNo.Contains('-') == false)
+                {
+                    System.Windows.MessageBox.Show("It happened");
+                }
             }
 
             this.m_IsGlobal = false;
@@ -42,6 +47,14 @@ namespace YellowstonePathology.Business.Persistence
         {
             if (writer == null) throw new Exception("Writer can't be null");
             if (key == null) throw new Exception("Key can't be null");
+
+            if(type.FullName == typeof(YellowstonePathology.Business.Test.AccessionOrder).FullName)
+            {
+                if(key.ToString().Contains('-') == false)
+                {
+                    System.Windows.MessageBox.Show("It happened");
+                }
+            }
 
             this.m_Type = type;
             this.m_Key = key;
