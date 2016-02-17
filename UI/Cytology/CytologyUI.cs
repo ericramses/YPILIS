@@ -121,15 +121,14 @@ namespace YellowstonePathology.UI.Cytology
 				{
 					element.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
 				}
-                //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false, this.m_Writer);
 			}
         }
 
         public void ShowCaseDocument(object target, ExecutedRoutedEventArgs args)
         {
 			this.Save(false);
-			YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapWordDocument report = new YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapWordDocument();
-			report.Render(this.m_AccessionOrder.MasterAccessionNo, this.m_PanelSetOrderCytology.ReportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum.Draft, this.m_Writer);
+			YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapWordDocument report = new YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapWordDocument(this.m_AccessionOrder, this.m_PanelSetOrderCytology.ReportNo, Business.Document.ReportSaveModeEnum.Normal);
+			report.Render();
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_PanelSetOrderCytology.ReportNo);
 			string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);
             YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(fileName);

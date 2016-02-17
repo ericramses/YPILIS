@@ -81,10 +81,9 @@ namespace YellowstonePathology.UI.Test
 		}		
 
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
-		{
-			//this.Save(false);
-			YellowstonePathology.Business.Test.ALLAdultByFISH.ALLAdultByFISHWordDocument report = new YellowstonePathology.Business.Test.ALLAdultByFISH.ALLAdultByFISHWordDocument();
-            report.Render(this.m_AccessionOrder.MasterAccessionNo, this.m_PanelSetOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft, Window.GetWindow(this));
+		{			
+			YellowstonePathology.Business.Test.ALLAdultByFISH.ALLAdultByFISHWordDocument report = new YellowstonePathology.Business.Test.ALLAdultByFISH.ALLAdultByFISHWordDocument(this.m_AccessionOrder, this.m_PanelSetOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft);
+            report.Render();
 
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
 			string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);

@@ -228,7 +228,7 @@ namespace YellowstonePathology.UI.Surgical
         private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
         {
             YellowstonePathology.UI.CaseDocumentViewer caseDocumentViewer = new CaseDocumentViewer();
-            caseDocumentViewer.View(this.m_AccessionOrder.MasterAccessionNo, this.m_SurgicalTestOrder.ReportNo, this.m_SurgicalTestOrder.PanelSetId, Window.GetWindow(this));
+            caseDocumentViewer.View(this.m_AccessionOrder, this.m_SurgicalTestOrder.ReportNo, this.m_SurgicalTestOrder.PanelSetId);
         }        		
 	}
 }

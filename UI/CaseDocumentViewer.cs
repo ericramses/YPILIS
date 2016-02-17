@@ -7,11 +7,11 @@ namespace YellowstonePathology.UI
 {
     public class CaseDocumentViewer
     {		
-		public void View(string masterAccessionNo, string reportNo, int panelSetId, object writer)
+		public void View(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int panelSetId)
         {
 			YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetAll().GetPanelSet(panelSetId);
-			YellowstonePathology.Business.Interface.ICaseDocument doc = YellowstonePathology.Business.Document.DocumentFactory.GetDocument(panelSet.PanelSetId);
-			doc.Render(masterAccessionNo, reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum.Draft, writer);
+			YellowstonePathology.Business.Interface.ICaseDocument doc = YellowstonePathology.Business.Document.DocumentFactory.GetDocument(panelSet.PanelSetId, accessionOrder, reportNo, Business.Document.ReportSaveModeEnum.Normal);
+			doc.Render();
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(reportNo);
 
 			string fileName = string.Empty;
