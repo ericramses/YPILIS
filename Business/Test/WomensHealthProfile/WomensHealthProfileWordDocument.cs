@@ -9,13 +9,14 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
 {
 	public class WomensHealthProfileWordDocument : YellowstonePathology.Business.Document.CaseReportV2
 	{
-		public override void Render(string masterAccessionNo, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveEnum, object writer)
-		{
-			this.m_ReportNo = reportNo;
-			this.m_ReportSaveEnum = reportSaveEnum;
-			this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, writer);
-			this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
+        public WomensHealthProfileWordDocument(Business.Test.AccessionOrder accessionOrder, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+            : base(accessionOrder, reportNo, reportSaveMode)
+        {
 
+        }
+
+        public override void Render()
+		{			
 			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\WomensHealthProfile.1.xml";
 			this.OpenTemplate();
 
@@ -23,7 +24,7 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
 			this.SetCurrentMolecularResults();
 			this.SetPriorResults();
 
-			WomensHealthProfileTestOrder womensHealthProfileTestOrder = (WomensHealthProfileTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
+            WomensHealthProfileTestOrder womensHealthProfileTestOrder = (WomensHealthProfileTestOrder)this.m_PanelSetOrder;
 			WomensHealthProfileResult womensHealthProfileResult = new WomensHealthProfileResult(this.m_AccessionOrder);
 
 			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByOrderTarget(womensHealthProfileTestOrder.OrderedOnId);

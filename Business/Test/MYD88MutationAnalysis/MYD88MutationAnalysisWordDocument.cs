@@ -7,12 +7,14 @@ namespace YellowstonePathology.Business.Test.MYD88MutationAnalysis
 {
 	public class MYD88MutationAnalysisWordDocument : YellowstonePathology.Business.Document.CaseReportV2
 	{
-		public override void Render(string masterAccessionNo, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveEnum, object writer)
-		{
-			this.m_ReportNo = reportNo;
-			this.m_ReportSaveEnum = reportSaveEnum;
-			this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, writer);
-			this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
+        public MYD88MutationAnalysisWordDocument(Business.Test.AccessionOrder accessionOrder, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+            : base(accessionOrder, reportNo, reportSaveMode)
+        {
+
+        }
+
+        public override void Render()
+		{			
 			MYD88MutationAnalysisTestOrder testOrder = (YellowstonePathology.Business.Test.MYD88MutationAnalysis.MYD88MutationAnalysisTestOrder)this.m_PanelSetOrder;
 
 			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\MYD88MutationAnalysis.xml";

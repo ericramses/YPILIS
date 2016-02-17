@@ -9,9 +9,7 @@ using System.Text.RegularExpressions;
 namespace YellowstonePathology.Business.Document.Old
 {
     public class BaseReport
-    {        
-        public string m_ReportNo;
-        public string m_MasterAccessionNo;
+    {                
         public ArrayList m_SqlStatements;
         public ArrayList m_TableNames;
         public DataSet m_ReportData;     
@@ -20,10 +18,16 @@ namespace YellowstonePathology.Business.Document.Old
         public Document.Old.DataClasses.BaseData m_Data;
         public string m_SaveFileName;
 
-        protected YellowstonePathology.Business.Document.ReportSaveModeEnum m_ReportSaveMode;
+        protected Business.Test.AccessionOrder m_AccessionOrder;
+        protected Business.Test.PanelSetOrder m_PanelSetOrder;
+        protected YellowstonePathology.Business.Document.ReportSaveModeEnum m_ReportSaveMode;        
 
-        public BaseReport()
+        public BaseReport(Business.Test.AccessionOrder accessionOrder, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode)
         {
+            this.m_AccessionOrder = accessionOrder;
+            this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
+            this.m_ReportSaveMode = reportSaveMode;
+
             this.m_SqlStatements = new ArrayList();
             this.m_TableNames = new ArrayList();
             this.m_Data = new YellowstonePathology.Business.Document.Old.DataClasses.BaseData();
@@ -34,15 +38,15 @@ namespace YellowstonePathology.Business.Document.Old
 
         public void OpenTemplate(string templateName)
         {            
-            this.m_SaveFileName = Common.getCasePath(this.m_ReportNo) + this.m_ReportNo + ".xml";            
+            this.m_SaveFileName = Common.getCasePath(this.m_PanelSetOrder.ReportNo) + this.m_PanelSetOrder.ReportNo + ".xml";            
             this.m_ReportXml.Load(templateName);            
         }
 
         public void GetDataSet()
         {
             this.m_TableNames.Add("tblTestOrderReportDistribution");
-            this.m_SqlStatements.Add("select * from tblTestOrderReportDistribution where ReportNo = '" + this.m_ReportNo + "'");
-            this.m_ReportData = this.m_Data.GetDataSetFromSqlStatementsWithHistory(this.m_SqlStatements, this.m_TableNames, this.m_ReportNo);
+            this.m_SqlStatements.Add("select * from tblTestOrderReportDistribution where ReportNo = '" + this.m_PanelSetOrder.ReportNo + "'");
+            this.m_ReportData = this.m_Data.GetDataSetFromSqlStatementsWithHistory(this.m_SqlStatements, this.m_TableNames, this.m_PanelSetOrder.ReportNo);
         }
 
         public void SetDemographics(string tableName)
@@ -72,13 +76,13 @@ namespace YellowstonePathology.Business.Document.Old
             this.SetXmlNodeData("patient_birthdate", birthdate);
             this.SetXmlNodeData("patient_age", patientAge);
             this.SetXmlNodeData("physician_name", physicianName);
-            this.SetXmlNodeData("accession_no", this.m_ReportNo);
+            this.SetXmlNodeData("accession_no", this.m_PanelSetOrder.ReportNo);
 
             this.SetXmlNodeData("collection_date", collectionDate);            
             this.SetXmlNodeData("accession_date", accessionDate);
 
             this.SetXmlNodeData("page2_header_patient_name", patientName);
-            this.SetXmlNodeData("page2_header_accessionno", this.m_ReportNo);
+            this.SetXmlNodeData("page2_header_accessionno", this.m_PanelSetOrder.ReportNo);
         }
 
         public void SetDemographicsV2(string tableName)
@@ -121,8 +125,8 @@ namespace YellowstonePathology.Business.Document.Old
                 collectionDate = DateTime.Parse(this.m_ReportData.Tables[tableName].Rows[0]["collectiondate"].ToString());
             }
 
-            this.ReplaceText("report_number", this.m_ReportNo);
-            this.ReplaceText("accession_no", this.m_MasterAccessionNo);
+            this.ReplaceText("report_number", this.m_PanelSetOrder.ReportNo);
+            this.ReplaceText("accession_no", this.m_AccessionOrder.MasterAccessionNo);
             this.ReplaceText("patient_name", patientName);
             this.ReplaceText("patient_age", patientAge);
 
@@ -160,7 +164,7 @@ namespace YellowstonePathology.Business.Document.Old
                 this.ReplaceText("client_account_no", this.m_ReportData.Tables[tableName].Rows[0]["SvhAccount"].ToString());
             }      
 
-            string page2Header = patientName + ", " + this.m_ReportNo;
+            string page2Header = patientName + ", " + this.m_PanelSetOrder.ReportNo;
             this.ReplaceText("page2_header", page2Header);
         }
 
@@ -257,7 +261,7 @@ namespace YellowstonePathology.Business.Document.Old
                 string caseHistory = "";
                 foreach (DataRow dr in this.m_ReportData.Tables["tblCaseHistory"].Rows)
                 {                    
-                    if (dr["ReportNo"].ToString() != this.m_ReportNo)
+                    if (dr["ReportNo"].ToString() != this.m_PanelSetOrder.ReportNo)
                     {
                         caseHistory += dr["ReportNo"].ToString() + ", ";                                        
                     }
@@ -343,14 +347,14 @@ namespace YellowstonePathology.Business.Document.Old
 
         public void SaveReport()
         {
-			YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_ReportNo);
+			YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
             switch (this.m_ReportSaveMode)
             {
                 case YellowstonePathology.Business.Document.ReportSaveModeEnum.Test:
                     this.m_ReportXml.Save(@"c:\testing\test.xml");                
                     break;
                 case YellowstonePathology.Business.Document.ReportSaveModeEnum.Draft:
-					this.m_SaveFileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + this.m_ReportNo + ".draft.xml";
+					this.m_SaveFileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + this.m_PanelSetOrder.ReportNo + ".draft.xml";
                     this.m_ReportXml.Save(this.m_SaveFileName);
                     break;
                 case YellowstonePathology.Business.Document.ReportSaveModeEnum.Normal:

@@ -1,27 +1,19 @@
-﻿/*
- * Created by SharpDevelop.
- * User: william.copland
- * Date: 1/5/2016
- * Time: 9:48 AM
- * 
- * To change this template use Tools | Options | Coding | Edit Standard Headers.
- */
-using System;
+﻿using System;
 using YellowstonePathology.Business.Helper;
 
 namespace YellowstonePathology.Business.Test.BCellEnumeration
 {
-	/// <summary>
-	/// Description of BCellEnumerationWordDocument.
-	/// </summary>
+
 	public class BCellEnumerationWordDocument : YellowstonePathology.Business.Document.CaseReportV2
 	{
-		public override void Render(string masterAccessionNo, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveEnum, object writer)
-		{
-			this.m_ReportNo = reportNo;
-			this.m_ReportSaveEnum = reportSaveEnum;
-			this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, writer);
-			this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
+        public BCellEnumerationWordDocument(Business.Test.AccessionOrder accessionOrder, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+            : base(accessionOrder, reportNo, reportSaveMode)
+        {
+
+        }
+
+        public override void Render()
+		{			
 			BCellEnumerationTestOrder testOrder = (BCellEnumerationTestOrder)this.m_PanelSetOrder;
 
 			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\BCellEnumeration.xml";

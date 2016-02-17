@@ -8,21 +8,18 @@ namespace YellowstonePathology.Business.Test.ThombocytopeniaProfile
 	public class ThombocytopeniaProfileWordDocument : YellowstonePathology.Business.Document.CaseReport
     {
         private string m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\ThrombocytopeniaProfile.6.xml";
-        private YellowstonePathology.Business.Flow.FlowMarkerPanelList m_PanelList;
+        private YellowstonePathology.Business.Flow.FlowMarkerPanelList m_PanelList;		
 
-		public ThombocytopeniaProfileWordDocument()
+        public ThombocytopeniaProfileWordDocument(Business.Test.AccessionOrder accessionOrder, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+            : base(accessionOrder, reportNo, reportSaveMode)
         {
             this.m_PanelList = new YellowstonePathology.Business.Flow.FlowMarkerPanelList();
             this.m_PanelList.SetFillCommandByPanelId(8);
             this.m_PanelList.Fill();
         }
 
-		public override void Render(string masterAccessionNo, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode, object writer)
-        {
-            this.m_ReportNo = reportNo;
-			this.GetReportData(reportNo, writer);
-            this.m_ReportSaveMode = reportSaveMode;
-
+        public override void Render()
+        {            
 			YellowstonePathology.Business.Test.LLP.PanelSetOrderLeukemiaLymphoma panelSetOrderLeukemiaLymphoma = (YellowstonePathology.Business.Test.LLP.PanelSetOrderLeukemiaLymphoma)this.m_PanelSetOrder;
 
 			base.OpenTemplate(m_TemplateName);

@@ -241,14 +241,14 @@ namespace YellowstonePathology.UI.ReportDistribution
             YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
         }
 
-        private bool TryPublish(YellowstonePathology.Business.Interface.ICaseDocument caseDocument, 
+        private bool TryPublish(YellowstonePathology.Business.Interface.ICaseDocument caseDocument, Business.Test.AccessionOrder accessionOrder,
             YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder)
         {
             bool result = true;
 
             try
             {
-                caseDocument.Render(panelSetOrder.MasterAccessionNo, panelSetOrder.ReportNo, Business.Document.ReportSaveModeEnum.Normal, this);
+                caseDocument.Render(accessionOrder, panelSetOrder.ReportNo, Business.Document.ReportSaveModeEnum.Normal, this);
                 caseDocument.Publish();
 
                 this.m_ReportDistributionLogEntryCollection.AddEntry("INFO", "Publish Next", null, panelSetOrder.ReportNo, panelSetOrder.MasterAccessionNo,

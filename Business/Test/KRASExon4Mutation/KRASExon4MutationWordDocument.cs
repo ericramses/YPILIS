@@ -7,12 +7,14 @@ namespace YellowstonePathology.Business.Test.KRASExon4Mutation
 {
 	public class KRASExon4MutationWordDocument : YellowstonePathology.Business.Document.CaseReportV2
 	{
-		public override void Render(string masterAccessionNo, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveEnum, object writer)
-		{
-			this.m_ReportNo = reportNo;
-			this.m_ReportSaveEnum = reportSaveEnum;
-			this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, writer);
-			this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
+        public KRASExon4MutationWordDocument(Business.Test.AccessionOrder accessionOrder, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+            : base(accessionOrder, reportNo, reportSaveMode)
+        {
+
+        }
+
+        public override void Render()
+		{			
 			YellowstonePathology.Business.Test.KRASExon4Mutation.KRASExon4MutationTestOrder testOrder = (YellowstonePathology.Business.Test.KRASExon4Mutation.KRASExon4MutationTestOrder)this.m_PanelSetOrder;
 
 			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\KRASExon4Mutation.xml";

@@ -21,20 +21,17 @@ namespace YellowstonePathology.Business.Document
 		protected YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;				
 		protected YellowstonePathology.Business.Document.NativeDocumentFormatEnum m_NativeDocumentFormat;
 
-        public CaseReport()
+        public CaseReport(Business.Test.AccessionOrder accessionOrder, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode)
         {
+            this.m_AccessionOrder = accessionOrder;
+            this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
+            this.m_ReportSaveMode = reportSaveMode;
+
             this.m_NativeDocumentFormat = NativeDocumentFormatEnum.Word;
             this.m_ReportXml = new XmlDocument();
             this.m_NameSpaceManager = new XmlNamespaceManager(m_ReportXml.NameTable);
             this.m_NameSpaceManager.AddNamespace("w", "http://schemas.microsoft.com/office/word/2003/wordml");
-		}
-
-		protected void GetReportData(string reportNo, object writer)
-		{
-            string masterAccessionNo = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetMasterAccessionNoFromReportNo(this.m_ReportNo);
-            this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, writer);
-            this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);			
-		}
+		}		
 
         public YellowstonePathology.Business.Document.NativeDocumentFormatEnum NativeDocumentFormat
         {
@@ -47,7 +44,7 @@ namespace YellowstonePathology.Business.Document
 			return YellowstonePathology.Business.Document.CaseDocument.DeleteCaseFiles(orderIdParser);
         }
 
-		public virtual void Render(string masterAccessionNo, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveEnum, object writer)
+		public virtual void Render()
 		{
 			throw new NotImplementedException("Not Implemented Here");
 		}

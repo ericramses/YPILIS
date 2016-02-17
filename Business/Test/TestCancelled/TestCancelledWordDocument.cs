@@ -6,12 +6,14 @@ namespace YellowstonePathology.Business.Test.TestCancelled
 {
 	public class TestCancelledWordDocument : YellowstonePathology.Business.Document.CaseReportV2
 	{
-		public override void Render(string masterAccessionNo, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveEnum, object writer)
-		{
-            this.m_ReportNo = reportNo;
-			this.m_ReportSaveEnum = reportSaveEnum;
-			this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, writer);
-            
+        public TestCancelledWordDocument(Business.Test.AccessionOrder accessionOrder, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+            : base(accessionOrder, reportNo, reportSaveMode)
+        {
+
+        }
+
+        public override void Render()
+		{            
             YellowstonePathology.Business.Test.TestCancelled.TestCancelledTestOrder reportOrderTestCancelled = (YellowstonePathology.Business.Test.TestCancelled.TestCancelledTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
             this.m_PanelSetOrder = reportOrderTestCancelled;
 

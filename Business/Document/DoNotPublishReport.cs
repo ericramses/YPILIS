@@ -7,7 +7,8 @@ namespace YellowstonePathology.Business.Document
 {
 	public class DoNotPublishReport : CaseReportV2
     {
-		public DoNotPublishReport()
+		public DoNotPublishReport(Business.Test.AccessionOrder accessionOrder, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+            : base(accessionOrder, reportNo, reportSaveMode)
 		{
 			this.m_NativeDocumentFormat = NativeDocumentFormatEnum.XPS;
 		}
@@ -26,10 +27,9 @@ namespace YellowstonePathology.Business.Document
             return methodResult;
         }
 
-		public override void Render(string masterAccessionNo, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveEnum, object writer)
+		public override void Render()
 		{
-            this.m_ReportNo = reportNo;
-			this.m_ReportSaveEnum = reportSaveEnum;
+            
         }
 
         public override void Publish()

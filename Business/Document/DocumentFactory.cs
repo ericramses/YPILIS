@@ -7,266 +7,266 @@ namespace YellowstonePathology.Business.Document
 {
 	public class DocumentFactory
 	{        
-		public static YellowstonePathology.Business.Interface.ICaseDocument GetDocument(int panelSetId)
+		public static YellowstonePathology.Business.Interface.ICaseDocument GetDocument(int panelSetId, Business.Test.AccessionOrder accessionOrder, string reportNo, ReportSaveModeEnum reportSaveMode)
 		{
             YellowstonePathology.Business.Interface.ICaseDocument document = null;
 
 			YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetAll().GetPanelSet(panelSetId);
 			if (panelSet.ResultDocumentSource == YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.PublishedDocument)
 			{
-				document = new ReferenceLabReport();
+				document = new ReferenceLabReport(accessionOrder, reportNo, reportSaveMode);
 			}
 			else if(panelSet.ResultDocumentSource == YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.RetiredTestDocument)
 			{
-				document = new DoNotPublishReport();
+				document = new DoNotPublishReport(accessionOrder, reportNo, reportSaveMode);
 			}
 			else
 			{
 				switch (panelSetId)
 				{
 					case 1: //JAK2
-						document = new YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FWordDocument();
+						document = new YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					//case 2: //Cystic Fybrosis
 					//	document = new YellowstonePathology.Business.Test.CysticFibrosis.CysticFibrosisWordDocument();
 					//	break;
 					case 3: //NGCT
-                        document = new YellowstonePathology.Business.Test.NGCT.NGCTWordDocument();
+                        document = new YellowstonePathology.Business.Test.NGCT.NGCTWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 12: //Future FISH                    
-						document = new YellowstonePathology.Business.Document.HER2AmplificationReport();
+						document = new YellowstonePathology.Business.Document.HER2AmplificationReport(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 13: //Surgical
 					case 128: //Non GYN Cytology
-						document = new YellowstonePathology.Business.Test.Surgical.SurgicalWordDocument();
+						document = new YellowstonePathology.Business.Test.Surgical.SurgicalWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 14: //HPV
-						document = new YellowstonePathology.Business.Test.HPV.HPVWordDocument();
+						document = new YellowstonePathology.Business.Test.HPV.HPVWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 15:  //Cytology                    
-						document = new YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapWordDocument();
+						document = new YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 18:  //BRAF
-						document = new YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKWordDocument();
+						document = new YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 19: //PNH
-						document = new YellowstonePathology.Business.Test.PNH.PNHWordDocument();
+						document = new YellowstonePathology.Business.Test.PNH.PNHWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 20: //Leukemia/Lymphoma Phenotyping
-						document = new YellowstonePathology.Business.Test.LLP.LeukemiaLymphomaWordDocument();
+						document = new YellowstonePathology.Business.Test.LLP.LeukemiaLymphomaWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 21: //Thrombocytopenia Profile
-						document = new YellowstonePathology.Business.Test.ThombocytopeniaProfile.ThombocytopeniaProfileWordDocument();
+						document = new YellowstonePathology.Business.Test.ThombocytopeniaProfile.ThombocytopeniaProfileWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 22: //Platelet Associated Antibodies
-						document = new YellowstonePathology.Business.Test.PlateletAssociatedAntibodies.PlateletAssociatedAntibodiesWordDocument();
+						document = new YellowstonePathology.Business.Test.PlateletAssociatedAntibodies.PlateletAssociatedAntibodiesWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 23: //Reticulated platelet Analysis
-						document = new YellowstonePathology.Business.Test.ReticulatedPlateletAnalysis.ReticulatedPlateletAnalysisWordDocument();
+						document = new YellowstonePathology.Business.Test.ReticulatedPlateletAnalysis.ReticulatedPlateletAnalysisWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 24: //Stem Cell Enumeration
-						document = new YellowstonePathology.Business.Test.StemCellEnumeration.StemCellEnumerationWordDocument();
+						document = new YellowstonePathology.Business.Test.StemCellEnumeration.StemCellEnumerationWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 27: //New KRAS
-						document = new YellowstonePathology.Business.Test.KRASStandard.KRASStandardWordDocument();
+						document = new YellowstonePathology.Business.Test.KRASStandard.KRASStandardWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 28: //Fetal Hemoglobin
-						document = new YellowstonePathology.Business.Test.FetalHemoglobin.FetalHemoglobinWordDocument();
+						document = new YellowstonePathology.Business.Test.FetalHemoglobin.FetalHemoglobinWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 29: //DNA
-						document = new YellowstonePathology.Business.Document.DnaReport();
+						document = new YellowstonePathology.Business.Document.DnaReport(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 30: //KRAS Standard Reflex
-						document = new YellowstonePathology.Business.Test.KRASStandardReflex.KRASStandardReflexWordDocument();
+						document = new YellowstonePathology.Business.Test.KRASStandardReflex.KRASStandardReflexWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 31: //TechnicalOnly
-						document = new YellowstonePathology.Business.Test.TechnicalOnly.TechnicalOnlyWordDocument();
+						document = new YellowstonePathology.Business.Test.TechnicalOnly.TechnicalOnlyWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 32: //FactorVLeiden
-						document = new YellowstonePathology.Business.Test.FactorVLeiden.FactorVLeidenWordDocument();
+						document = new YellowstonePathology.Business.Test.FactorVLeiden.FactorVLeidenWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 33: //Prothrombin
-						document = new YellowstonePathology.Business.Test.Prothrombin.ProthrombinWordDocument();
+						document = new YellowstonePathology.Business.Test.Prothrombin.ProthrombinWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 35: //Autopsy
-						document = new YellowstonePathology.Business.Test.Autopsy.AutopsyWordDocument();
+						document = new YellowstonePathology.Business.Test.Autopsy.AutopsyWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 36: //BCellClonality
-						document = new YellowstonePathology.Business.Test.BCellClonalityByPCR.BCellClonalityByPCRWordDocument();
+						document = new YellowstonePathology.Business.Test.BCellClonalityByPCR.BCellClonalityByPCRWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 46: //Her2ByIsh
-						document = new YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHWordDocument();
+						document = new YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 50: //ErPrSemiQuantitative
-						document = new YellowstonePathology.Business.Test.ErPrSemiQuantitative.ErPrSemiQuantitativeWordDocument();
+						document = new YellowstonePathology.Business.Test.ErPrSemiQuantitative.ErPrSemiQuantitativeWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 60: //EGFR
-						document = new YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisWordDocument();
+						document = new YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 61: //Trichomonas
-						document = new YellowstonePathology.Business.Test.Trichomonas.TrichomonasWordDocument();
+						document = new YellowstonePathology.Business.Test.Trichomonas.TrichomonasWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 62: //HPV 16/18
-						document = new YellowstonePathology.Business.Test.HPV1618.HPV1618WordDocument();
+						document = new YellowstonePathology.Business.Test.HPV1618.HPV1618WordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
                     case 213: //HPV 16/18
-                        document = new YellowstonePathology.Business.Test.HPV1618ByPCR.HPV1618ByPCRWordDocument();
+                        document = new YellowstonePathology.Business.Test.HPV1618ByPCR.HPV1618ByPCRWordDocument(accessionOrder, reportNo, reportSaveMode);
                         break;
                     case 66:  //Test Cancelled
-						document = new YellowstonePathology.Business.Test.TestCancelled.TestCancelledWordDocument();
+						document = new YellowstonePathology.Business.Test.TestCancelled.TestCancelledWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 100: //BCL1 t1114
-						document = new YellowstonePathology.Business.Test.BCL1t1114.BCL1t1114WordDocument();
+						document = new YellowstonePathology.Business.Test.BCL1t1114.BCL1t1114WordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 102:
-						document = new YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeIHCPanelWordDocument();
+						document = new YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeIHCPanelWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 106:
-						document = new YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeEvaluationWordDocument();
+						document = new YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeEvaluationWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 112:
-						document = new YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile.ComprehensiveColonCancerProfileWordDocument();
+						document = new YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile.ComprehensiveColonCancerProfileWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 116:
-						document = new YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileWordDocument();
+						document = new YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 124:
-						document = new YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisWordDocument();
+						document = new YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 125:
-						document = new YellowstonePathology.Business.Test.InvasiveBreastPanel.InvasiveBreastPanelWordDocument();
+						document = new YellowstonePathology.Business.Test.InvasiveBreastPanel.InvasiveBreastPanelWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 131:
-						document = new YellowstonePathology.Business.Test.ALKForNSCLCByFISH.ALKForNSCLCByFISHWordDocument();
+						document = new YellowstonePathology.Business.Test.ALKForNSCLCByFISH.ALKForNSCLCByFISHWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 132:
-						document = new YellowstonePathology.Business.Test.MicrosatelliteInstabilityAnalysis.MicrosatelliteInstabilityAnalysisWordDocument();
+						document = new YellowstonePathology.Business.Test.MicrosatelliteInstabilityAnalysis.MicrosatelliteInstabilityAnalysisWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 135:
-						document = new YellowstonePathology.Business.Test.ABL1KinaseDomainMutation.ABL1KinaseDomainMutationWordDocument();
+						document = new YellowstonePathology.Business.Test.ABL1KinaseDomainMutation.ABL1KinaseDomainMutationWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 136:
-						document = new YellowstonePathology.Business.Test.MPNStandardReflex.MPNStandardReflexWordDocument();
+						document = new YellowstonePathology.Business.Test.MPNStandardReflex.MPNStandardReflexWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 137:
-						document = new YellowstonePathology.Business.Test.MPNExtendedReflex.MPNExtendedReflexWordDocument();
+						document = new YellowstonePathology.Business.Test.MPNExtendedReflex.MPNExtendedReflexWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 140: //Calreticulin V2
-						document = new YellowstonePathology.Business.Test.CalreticulinMutationAnalysis.CalreticulinMutationAnalysisWordDocument();
+						document = new YellowstonePathology.Business.Test.CalreticulinMutationAnalysis.CalreticulinMutationAnalysisWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 141: //Jak2Exon1214 V2
-						document = new YellowstonePathology.Business.Test.JAK2Exon1214.JAK2Exon1214WordDocument();
+						document = new YellowstonePathology.Business.Test.JAK2Exon1214.JAK2Exon1214WordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 143: //ZAP 70 lymphoid panel
-						document = new YellowstonePathology.Business.Test.ZAP70LymphoidPanel.ZAP70LymphoidPanelWordDocument();
+						document = new YellowstonePathology.Business.Test.ZAP70LymphoidPanel.ZAP70LymphoidPanelWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 144: //MLH1
-						document = new YellowstonePathology.Business.Test.LynchSyndrome.MLH1MethylationAnalysisWordDocument();
+						document = new YellowstonePathology.Business.Test.LynchSyndrome.MLH1MethylationAnalysisWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 145: //Cytogenetic Analysis
-						document = new YellowstonePathology.Business.Test.ChromosomeAnalysis.ChromosomeAnalysisWordDocument();
+						document = new YellowstonePathology.Business.Test.ChromosomeAnalysis.ChromosomeAnalysisWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 147: //Multiple Myeloma MGUS by FISH
-						document = new YellowstonePathology.Business.Test.MultipleMyelomaMGUSByFish.MultipleMyelomaMGUSByFishWordDocument();
+						document = new YellowstonePathology.Business.Test.MultipleMyelomaMGUSByFish.MultipleMyelomaMGUSByFishWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 148: //CCNDI
-						document = new YellowstonePathology.Business.Test.CCNDIBCLIGH.CCNDIBCLIGHWordDocument();
+						document = new YellowstonePathology.Business.Test.CCNDIBCLIGH.CCNDIBCLIGHWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 149: //High Grade Large B Cell Lymphoma
-						document = new YellowstonePathology.Business.Test.HighGradeLargeBCellLymphoma.HighGradeLargeBCellLymphomaWordDocument();
+						document = new YellowstonePathology.Business.Test.HighGradeLargeBCellLymphoma.HighGradeLargeBCellLymphomaWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 150: // CEBPA
-						document = new YellowstonePathology.Business.Test.CEBPA.CEBPAWordDocument();
+						document = new YellowstonePathology.Business.Test.CEBPA.CEBPAWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 151: // CLL by Fish
-						document = new YellowstonePathology.Business.Test.CLLByFish.CLLByFishWordDocument();
+						document = new YellowstonePathology.Business.Test.CLLByFish.CLLByFishWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 152: // T Cell Clonality By PCR
-						document = new YellowstonePathology.Business.Test.TCellClonalityByPCR.TCellClonalityByPCRWordDocument();
+						document = new YellowstonePathology.Business.Test.TCellClonalityByPCR.TCellClonalityByPCRWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 153: // FLT3
-						document = new YellowstonePathology.Business.Test.FLT3.FLT3WordDocument();
+						document = new YellowstonePathology.Business.Test.FLT3.FLT3WordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 155: // NPM1
-						document = new YellowstonePathology.Business.Test.NPM1.NPM1WordDocument();
+						document = new YellowstonePathology.Business.Test.NPM1.NPM1WordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 156: // BCRABL Fish
-						document = new YellowstonePathology.Business.Test.BCRABLByFish.BCRABLByFishWordDocument();
+						document = new YellowstonePathology.Business.Test.BCRABLByFish.BCRABLByFishWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 157: // MPN Fish
-						document = new YellowstonePathology.Business.Test.MPNFish.MPNFishWordDocument();
+						document = new YellowstonePathology.Business.Test.MPNFish.MPNFishWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 158: // MDS by Fish
-						document = new YellowstonePathology.Business.Test.MDSByFish.MDSByFishWordDocument();
+						document = new YellowstonePathology.Business.Test.MDSByFish.MDSByFishWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 159: // MPL
-						document = new YellowstonePathology.Business.Test.MPL.MPLWordDocument();
+						document = new YellowstonePathology.Business.Test.MPL.MPLWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 160: // MultipleFISHProbePanel
-						document = new YellowstonePathology.Business.Test.MultipleFISHProbe.MultipleFISHProbeWordDocument();
+						document = new YellowstonePathology.Business.Test.MultipleFISHProbe.MultipleFISHProbeWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 161: // MultipleMyelomaIgHByFish
-						document = new YellowstonePathology.Business.Test.MultipleMyelomaIgHByFish.MultipleMyelomaIgHByFishWordDocument();
+						document = new YellowstonePathology.Business.Test.MultipleMyelomaIgHByFish.MultipleMyelomaIgHByFishWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 162: // BCRABLByPCR
-						document = new YellowstonePathology.Business.Test.BCRABLByPCR.BCRABLByPCRWordDocument();
+						document = new YellowstonePathology.Business.Test.BCRABLByPCR.BCRABLByPCRWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 163: //Her2AmplificationByFish
-						document = new YellowstonePathology.Business.Test.Her2AmplificationByFish.Her2AmplificationByFishWordDocument();
+						document = new YellowstonePathology.Business.Test.Her2AmplificationByFish.Her2AmplificationByFishWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 164: // MDS Extended Panel by Fish
-						document = new YellowstonePathology.Business.Test.MDSExtendedByFish.MDSExtendedByFishWordDocument();
+						document = new YellowstonePathology.Business.Test.MDSExtendedByFish.MDSExtendedByFishWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 168: // AML Standard By Fish
-						document = new YellowstonePathology.Business.Test.AMLStandardByFish.AMLStandardByFishWordDocument();
+						document = new YellowstonePathology.Business.Test.AMLStandardByFish.AMLStandardByFishWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 169: // Chromosome Analysis For Fetal Anomaly
-						document = new YellowstonePathology.Business.Test.ChromosomeAnalysisForFetalAnomaly.ChromosomeAnalysisForFetalAnomalyWordDocument();
+						document = new YellowstonePathology.Business.Test.ChromosomeAnalysisForFetalAnomaly.ChromosomeAnalysisForFetalAnomalyWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 170: // Non Hodgkins Lymphoma FISH Panel
-						document = new YellowstonePathology.Business.Test.NonHodgkinsLymphomaFISHPanel.NonHodgkinsLymphomaFISHPanelWordDocument();
+						document = new YellowstonePathology.Business.Test.NonHodgkinsLymphomaFISHPanel.NonHodgkinsLymphomaFISHPanelWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 171: // HER2 IHC
-						document = new YellowstonePathology.Business.Test.Her2AmplificationByIHC.Her2AmplificationByIHCWordDocument();
+						document = new YellowstonePathology.Business.Test.Her2AmplificationByIHC.Her2AmplificationByIHCWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 172: // Eosinophilia By FISH
-						document = new YellowstonePathology.Business.Test.EosinophiliaByFISH.EosinophiliaByFISHWordDocument();
+						document = new YellowstonePathology.Business.Test.EosinophiliaByFISH.EosinophiliaByFISHWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 173: // Plasma Cell Myeloma Risk Stratification
-						document = new YellowstonePathology.Business.Test.PlasmaCellMyelomaRiskStratification.PlasmaCellMyelomaRiskStratificationWordDocument();
+						document = new YellowstonePathology.Business.Test.PlasmaCellMyelomaRiskStratification.PlasmaCellMyelomaRiskStratificationWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 174: // NeoARRAY SNP Cytogenetic Profile
-						document = new YellowstonePathology.Business.Test.NeoARRAYSNPCytogeneticProfile.NeoARRAYSNPCytogeneticProfileWordDocument();
+						document = new YellowstonePathology.Business.Test.NeoARRAYSNPCytogeneticProfile.NeoARRAYSNPCytogeneticProfileWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 175: // KRAS Exon 4 Mutation
-						document = new YellowstonePathology.Business.Test.KRASExon4Mutation.KRASExon4MutationWordDocument();
+						document = new YellowstonePathology.Business.Test.KRASExon4Mutation.KRASExon4MutationWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 177: // B-Cell Gene Rearrangement
-						document = new YellowstonePathology.Business.Test.BCellGeneRearrangement.BCellGeneRearrangementWordDocument();
+						document = new YellowstonePathology.Business.Test.BCellGeneRearrangement.BCellGeneRearrangementWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 178: // MYD88 Mutation Analysis
-						document = new YellowstonePathology.Business.Test.MYD88MutationAnalysis.MYD88MutationAnalysisWordDocument();
+						document = new YellowstonePathology.Business.Test.MYD88MutationAnalysis.MYD88MutationAnalysisWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 179: // MYD88 Mutation Analysis
-						document = new YellowstonePathology.Business.Test.NRASMutationAnalysis.NRASMutationAnalysisWordDocument();
+						document = new YellowstonePathology.Business.Test.NRASMutationAnalysis.NRASMutationAnalysisWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 181:  //CKIT
-						document = new YellowstonePathology.Business.Test.CKIT.CKITWordDocument();
+						document = new YellowstonePathology.Business.Test.CKIT.CKITWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 183: //Cystic Fybrosis
-						document = new YellowstonePathology.Business.Test.CysticFibrosis.CysticFibrosisWordDocument();
+						document = new YellowstonePathology.Business.Test.CysticFibrosis.CysticFibrosisWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 184: //
-						document = new YellowstonePathology.Business.Test.DeletionsForGlioma1p19q.DeletionsForGlioma1p19qWordDocument();
+						document = new YellowstonePathology.Business.Test.DeletionsForGlioma1p19q.DeletionsForGlioma1p19qWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 185: //
-						document = new YellowstonePathology.Business.Test.BladderCancerFISHUrovysion.BladderCancerFISHUrovysionWordDocument();
+						document = new YellowstonePathology.Business.Test.BladderCancerFISHUrovysion.BladderCancerFISHUrovysionWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 186: //
-						document = new YellowstonePathology.Business.Test.API2MALT1.API2MALT1WordDocument();
+						document = new YellowstonePathology.Business.Test.API2MALT1.API2MALT1WordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
 					case 192: //
-						document = new YellowstonePathology.Business.Test.ALLAdultByFISH.ALLAdultByFISHWordDocument();
+						document = new YellowstonePathology.Business.Test.ALLAdultByFISH.ALLAdultByFISHWordDocument(accessionOrder, reportNo, reportSaveMode);
 						break;
                     case 81: //
                     case 165:
@@ -278,31 +278,31 @@ namespace YellowstonePathology.Business.Document
                     case 211:
                     case 212:
                     case 216:            
-                        document = new YellowstonePathology.Business.Document.NothingToPublishReport();                    
+                        document = new YellowstonePathology.Business.Document.NothingToPublishReport(accessionOrder, reportNo, reportSaveMode);                    
                         break;                    
                     case 203:
-                        document = new YellowstonePathology.Business.Test.ReviewForAdditionalTesting.ReviewForAdditionalTestingWordDocument();
+                        document = new YellowstonePathology.Business.Test.ReviewForAdditionalTesting.ReviewForAdditionalTestingWordDocument(accessionOrder, reportNo, reportSaveMode);
                         break;
                     case 204:
-                        document = new YellowstonePathology.Business.Test.ROS1ByFISH.ROS1ByFISHWordDocument();
+                        document = new YellowstonePathology.Business.Test.ROS1ByFISH.ROS1ByFISHWordDocument(accessionOrder, reportNo, reportSaveMode);
                         break;
                     case 214:
-                        document = new YellowstonePathology.Business.Test.TechInitiatedPeripheralSmear.TechInitiatedPeripheralSmearWordDocument();
+                        document = new YellowstonePathology.Business.Test.TechInitiatedPeripheralSmear.TechInitiatedPeripheralSmearWordDocument(accessionOrder, reportNo, reportSaveMode);
                         break;
                     case 215:
-                        document = new YellowstonePathology.Business.Test.PDL1.PDL1WordDocument();
+                        document = new YellowstonePathology.Business.Test.PDL1.PDL1WordDocument(accessionOrder, reportNo, reportSaveMode);
                         break;
                     case 217:
-                        document = new YellowstonePathology.Business.Test.KRASExon23Mutation.KRASExon23MutationWordDocument();
+                        document = new YellowstonePathology.Business.Test.KRASExon23Mutation.KRASExon23MutationWordDocument(accessionOrder, reportNo, reportSaveMode);
                         break;
                     case 218:
-                        document = new YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelWordDocument();
+                        document = new YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelWordDocument(accessionOrder, reportNo, reportSaveMode);
                         break;
                     case 222:
-                        document = new YellowstonePathology.Business.Test.BCellEnumeration.BCellEnumerationWordDocument();
+                        document = new YellowstonePathology.Business.Test.BCellEnumeration.BCellEnumerationWordDocument(accessionOrder, reportNo, reportSaveMode);
                         break;
                     case 223:
-                        document = new YellowstonePathology.Business.Test.TCellSubsetAnalysis.TCellSubsetAnalysisWordDocument();
+                        document = new YellowstonePathology.Business.Test.TCellSubsetAnalysis.TCellSubsetAnalysisWordDocument(accessionOrder, reportNo, reportSaveMode);
                         break;
                     default:
 						break;

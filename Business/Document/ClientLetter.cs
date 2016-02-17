@@ -8,6 +8,11 @@ namespace YellowstonePathology.Business.Document
 {
 	public class ClientLetter : CaseReportV2
 	{
+        public ClientLetter()
+        {
+
+        }
+
 		public void Create(string patientName, YellowstonePathology.Business.Client.Model.Client client, string letterBody)
         {
             string templateName = @"\\CFileServer\documents\ReportTemplates\XmlTemplates\ClientMissingInfoFax.xml";            

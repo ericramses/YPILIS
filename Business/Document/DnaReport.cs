@@ -16,7 +16,7 @@ namespace YellowstonePathology.Business.Document
         //private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrderItem;        
         private YellowstonePathology.Business.Document.NativeDocumentFormatEnum m_NativeDocumentFormat;
 
-        public DnaReport()
+        public DnaReport(Business.Test.AccessionOrder accessionOrder, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode)             
         {
             //this.m_NativeDocumentFormat = NativeDocumentFormatEnum.XPS;
             //this.m_AccessionOrder = new YellowstonePathology.Business.Test.AccessionOrder();
@@ -36,7 +36,7 @@ namespace YellowstonePathology.Business.Document
             return methodResult;
         }
 
-		public virtual void Render(string masterAccessionNo, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveEnum, object writer)
+		public virtual void Render()
         {
 			/*
 			System.Reflection.Assembly assembly = this.GetType().Assembly;

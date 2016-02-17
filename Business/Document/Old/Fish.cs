@@ -8,9 +8,10 @@ namespace YellowstonePathology.Business.Document.Old
     public class Fish : BaseReport, YellowstonePathology.Business.Interface.ICaseDocument
     {
         const string m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\Fish.4.xml";
-        private YellowstonePathology.Business.Document.NativeDocumentFormatEnum m_NativeDocumentFormat;        
+        private YellowstonePathology.Business.Document.NativeDocumentFormatEnum m_NativeDocumentFormat;                
 
-        public Fish()
+        public Fish(Business.Test.AccessionOrder accessionOrder, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+            : base(accessionOrder, reportNo, reportSaveMode)
         {
             this.m_NativeDocumentFormat = NativeDocumentFormatEnum.Word;
         }
@@ -26,18 +27,12 @@ namespace YellowstonePathology.Business.Document.Old
 			return YellowstonePathology.Business.Document.CaseDocument.DeleteCaseFiles(orderIdParser);
         }
 
-		public void Render(string masterAccessionNo, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveEnum, object writer)
-		{
-            this.m_ReportNo = reportNo;
-			YellowstonePathology.Business.Test.AccessionOrder accessionOrder = new YellowstonePathology.Business.Test.AccessionOrder();
-			accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, writer);
-
-            YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
-			this.m_ReportNo = panelSetOrder.ReportNo;
+		public void Render()
+		{                        
 			base.OpenTemplate(m_TemplateName);
 
-			this.m_SqlStatements.Add("select Top(1) a.* from tblAccessionOrder a JOIN tblPanelSetOrder pso ON a.[MasterAccessionNo] = pso.[MasterAccessionNo] where pso.[ReportNo] = '" + this.m_ReportNo + "'");
-			this.m_SqlStatements.Add("select * from tblFishResult where ReportNo = '" + this.m_ReportNo + "'");
+			this.m_SqlStatements.Add("select Top(1) a.* from tblAccessionOrder a JOIN tblPanelSetOrder pso ON a.[MasterAccessionNo] = pso.[MasterAccessionNo] where pso.[ReportNo] = '" + this.m_PanelSetOrder.ReportNo + "'");
+			this.m_SqlStatements.Add("select * from tblFishResult where ReportNo = '" + this.m_PanelSetOrder.ReportNo + "'");
 
 			this.m_TableNames.Add("tblAccessionOrder");
             this.m_TableNames.Add("tblFishResult");
@@ -63,9 +58,9 @@ namespace YellowstonePathology.Business.Document.Old
             this.SetXmlNodeData("interpretation_comment", reportComment);
 
 			string finalDate = string.Empty;
-			if (panelSetOrder.FinalDate.HasValue)
+			if (this.m_PanelSetOrder.FinalDate.HasValue)
 			{
-				finalDate = panelSetOrder.FinalDate.Value.ToShortDateString();
+				finalDate = this.m_PanelSetOrder.FinalDate.Value.ToShortDateString();
 			}			
 			this.SetXmlNodeData("final_date", finalDate);
 
@@ -91,9 +86,9 @@ namespace YellowstonePathology.Business.Document.Old
 
         public void Publish()
         {
-			YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_ReportNo);
+			YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
 			YellowstonePathology.Business.Document.CaseDocument.SaveXMLAsPDF(orderIdParser);
-            YellowstonePathology.Business.Helper.FileConversionHelper.SaveXpsReportToTiff(this.m_ReportNo);
+            YellowstonePathology.Business.Helper.FileConversionHelper.SaveXpsReportToTiff(this.m_PanelSetOrder.ReportNo);
         }        
     }
 }
