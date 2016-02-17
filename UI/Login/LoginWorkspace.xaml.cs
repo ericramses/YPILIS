@@ -359,9 +359,10 @@ namespace YellowstonePathology.UI.Login
         {
             if (this.ListViewAccessionOrders.SelectedItem != null)
             {
-                //YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_LoginUI.AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_LoginUI.ReportNo);
-                //YellowstonePathology.UI.Login.FinalizeAccession.AliquotAndStainOrderPath aliquotAndStainOrderPath = new FinalizeAccession.AliquotAndStainOrderPath(this.m_LoginUI.AccessionOrder, panelSetOrder);
-                //aliquotAndStainOrderPathWith.Start();
+                this.m_LoginPageWindow = new LoginPageWindow();             
+                YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_LoginUI.AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_LoginUI.ReportNo);
+                YellowstonePathology.UI.Login.FinalizeAccession.AliquotAndStainOrderPath aliquotAndStainOrderPath = new FinalizeAccession.AliquotAndStainOrderPath(this.m_LoginUI.AccessionOrder, panelSetOrder, this.m_LoginPageWindow);
+                aliquotAndStainOrderPath.Start();                
             }
         }
 

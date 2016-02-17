@@ -51,15 +51,15 @@ namespace YellowstonePathology.Business.Persistence
             }
         }
 
-        public void SetLock(YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        public void SetLock()
         {
             if (this.m_Value is YellowstonePathology.Business.Test.AccessionOrder)
             {
                 YellowstonePathology.Business.Test.AccessionOrder accessionOrder = (YellowstonePathology.Business.Test.AccessionOrder)this.m_Value;
                 accessionOrder.LockAquired = true;
                 accessionOrder.LockAquiredByHostName = Environment.MachineName;
-                accessionOrder.LockAquiredById = systemIdentity.User.UserId;
-                accessionOrder.LockAquiredByUserName = systemIdentity.User.UserName;
+                accessionOrder.LockAquiredById = Business.User.SystemIdentity.Instance.User.UserId;
+                accessionOrder.LockAquiredByUserName = Business.User.SystemIdentity.Instance.User.UserName;
                 accessionOrder.TimeLockAquired = DateTime.Now;             
             }
         } 

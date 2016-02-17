@@ -40,7 +40,7 @@ namespace YellowstonePathology.UI.Client
             this.m_IsNewClient = isNewClient;
             if (this.m_IsNewClient == true)
             {
-                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(this.m_Client, this, this.m_SystemIdentity);
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(this.m_Client, this);
             }
             else
             {
@@ -149,7 +149,7 @@ namespace YellowstonePathology.UI.Client
 				{					
 					string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
 					YellowstonePathology.Business.Domain.PhysicianClient physicianClient = new Business.Domain.PhysicianClient(objectId, objectId, physician.PhysicianId, physician.ObjectId, this.m_Client.ClientId);
-                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(physicianClient, this, this.m_SystemIdentity);                    
+                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(physicianClient, this);                    
 					this.m_ClientPhysicianView.Physicians.Add(physician);
 					this.NotifyPropertyChanged("Physicians");
 				}
@@ -212,7 +212,7 @@ namespace YellowstonePathology.UI.Client
 		{
 			string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
 			YellowstonePathology.Business.Client.Model.ClientSupplyOrder clientSupplyOrder = new Business.Client.Model.ClientSupplyOrder(objectId, this.m_Client);
-			YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(clientSupplyOrder, this, this.m_SystemIdentity);
+			YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(clientSupplyOrder, this);
 			this.m_ClientSupplyOrderCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientSupplyOrderCollectionByClientId(this.m_Client.ClientId);
 			clientSupplyOrder = this.m_ClientSupplyOrderCollection.GetClientSupplyOrder(clientSupplyOrder.ObjectId);
 			ClientSupplyOrderDialog clientSupplyOrderDialog = new ClientSupplyOrderDialog(clientSupplyOrder);

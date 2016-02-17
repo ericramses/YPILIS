@@ -59,7 +59,7 @@ namespace YellowstonePathology.UI.Client
 			int physicianId = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetLargestPhysicianId() + 1;
 			YellowstonePathology.Business.Domain.Physician physician = new Business.Domain.Physician(objectId, physicianId, "New Physician", "New Physician");
             Business.User.SystemIdentity systemIdentity = Business.User.SystemIdentity.Instance;
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(physician, this, systemIdentity);
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(physician, this);
 
             ProviderEntry providerEntry = new ProviderEntry(physician, true);
             YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);

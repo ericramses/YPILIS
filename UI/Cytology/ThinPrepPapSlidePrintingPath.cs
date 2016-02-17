@@ -107,9 +107,9 @@ namespace YellowstonePathology.UI.Cytology
 
             string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
             YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog materialTrackingLog = new Business.MaterialTracking.Model.MaterialTrackingLog(objectId, specimenOrder.SpecimenOrderId, null, thisFacility.FacilityId, thisFacility.FacilityName,
-                thisLocation.LocationId, thisLocation.Description, this.m_SystemIdentity.User.UserId, this.m_SystemIdentity.User.UserName, "Container Scan", "Container Scanned At Gross", "Specimen", this.m_AccessionOrder.MasterAccessionNo, specimenOrder.Description, specimenOrder.ClientAccessioned);
+                thisLocation.LocationId, thisLocation.Description, "Container Scan", "Container Scanned At Gross", "Specimen", this.m_AccessionOrder.MasterAccessionNo, specimenOrder.Description, specimenOrder.ClientAccessioned);
 
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(materialTrackingLog, this.m_PrintSlideDialog, this.m_SystemIdentity);            
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(materialTrackingLog, this.m_PrintSlideDialog);            
         }
 
         private void ScanContainerPage_UseThisContainer(object sender, string containerId)
@@ -137,7 +137,7 @@ namespace YellowstonePathology.UI.Cytology
 
 		private void ShowThinPrepPapSlidePrintingPage(YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder)
 		{
-			ThinPrepPapSlidePrintingPage thinPrepPapSlidePrintingPage = new ThinPrepPapSlidePrintingPage(specimenOrder, this.m_AccessionOrder, this.m_SystemIdentity);
+			ThinPrepPapSlidePrintingPage thinPrepPapSlidePrintingPage = new ThinPrepPapSlidePrintingPage(specimenOrder, this.m_AccessionOrder);
 			thinPrepPapSlidePrintingPage.Finished += new ThinPrepPapSlidePrintingPage.FinishedEventHandler(ThinPrepPapSlidePrintingPage_Finished);
             thinPrepPapSlidePrintingPage.PageTimedOut += PageTimedOut;
 			this.m_PrintSlideDialog.PageNavigator.Navigate(thinPrepPapSlidePrintingPage);

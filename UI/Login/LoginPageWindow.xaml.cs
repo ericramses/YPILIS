@@ -16,10 +16,9 @@ namespace YellowstonePathology.UI.Login
     /// <summary>
     /// Interaction logic for LoginPageWindow.xaml
     /// </summary>
-    public partial class LoginPageWindow : Window, YellowstonePathology.Business.Persistence.IDocumentWriter
+    public partial class LoginPageWindow : Window
     {
-        private YellowstonePathology.UI.Navigation.PageNavigator m_PageNavigator;		
-        private bool m_ReadOnly;      
+        private YellowstonePathology.UI.Navigation.PageNavigator m_PageNavigator;		          
 
 		public LoginPageWindow()
         {                                    
@@ -37,11 +36,6 @@ namespace YellowstonePathology.UI.Login
         {
             this.m_PageNavigator.Close();            
             YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);          
-        }		
-        
-        public bool ReadOnly
-        {
-            get { return this.m_ReadOnly; }
-        }                 
+        }		                               
     }
 }

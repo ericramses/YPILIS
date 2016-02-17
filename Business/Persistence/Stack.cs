@@ -197,12 +197,12 @@ namespace YellowstonePathology.Business.Persistence
             return document;
         }        
 
-        public void InsertDocument(object o, object writer, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        public void InsertDocument(object o, object writer)
         {
             DocumentId documentId = new DocumentId(o, writer);            
 
             DocumentInsert documentInsert = new DocumentInsert(documentId);
-            documentInsert.SetLock(systemIdentity);
+            documentInsert.SetLock();
             documentInsert.Submit();
 
             DocumentUpdate documentUpdate = new DocumentUpdate(documentId);
