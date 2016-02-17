@@ -27,20 +27,18 @@ namespace YellowstonePathology.UI.Gross
 
         public delegate void ShowBlockColorSelectionPageEventHandler(object sender, UI.CustomEventArgs.SpecimenOrderReturnEventArgs e);
         public event ShowBlockColorSelectionPageEventHandler ShowBlockColorSelectionPage;
-
-		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
+		
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;        
 		private YellowstonePathology.Business.Specimen.Model.SpecimenOrder m_SpecimenOrder;
 		private YellowstonePathology.Business.Test.AliquotOrder m_AliquotOrder;
         private YellowstonePathology.Business.Specimen.Model.EmbeddingInstructionList m_EmbeddingInstructionList;
 
 		public BlockOptionsPage(YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder, YellowstonePathology.Business.Test.AliquotOrder aliquotOrder,
-			YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+			YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{
             this.m_SpecimenOrder = specimenOrder;
             this.m_AliquotOrder = aliquotOrder;			
-			this.m_AccessionOrder = accessionOrder;
-            this.m_SystemIdentity = systemIdentity;            
+			this.m_AccessionOrder = accessionOrder;            
 
             this.m_EmbeddingInstructionList = new Business.Specimen.Model.EmbeddingInstructionList();
 
@@ -99,7 +97,7 @@ namespace YellowstonePathology.UI.Gross
 			string patientInitials = YellowstonePathology.Business.Helper.PatientHelper.GetPatientInitials(this.m_AccessionOrder.PFirstName, this.m_AccessionOrder.PLastName);
 
             YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = this.m_SpecimenOrder.AliquotOrderCollection.AddBlock(this.m_SpecimenOrder, YellowstonePathology.Business.Specimen.Model.AliquotLabelType.DirectPrint, this.m_AccessionOrder.AccessionDate.Value);
-			YellowstonePathology.Business.Visitor.OrderTestVisitor orderTestVisitor = new Business.Visitor.OrderTestVisitor(this.m_AccessionOrder.PanelSetOrderCollection[0].ReportNo, iCTest, iCTest.OrderComment, null, false, this.m_AliquotOrder, false, false, this.m_AccessionOrder.TaskOrderCollection, this.m_SystemIdentity);
+			YellowstonePathology.Business.Visitor.OrderTestVisitor orderTestVisitor = new Business.Visitor.OrderTestVisitor(this.m_AccessionOrder.PanelSetOrderCollection[0].ReportNo, iCTest, iCTest.OrderComment, null, false, this.m_AliquotOrder, false, false, this.m_AccessionOrder.TaskOrderCollection);
             this.m_AccessionOrder.TakeATrip(orderTestVisitor);
 
 			YellowstonePathology.Business.Common.BlockCollection blockCollection = new Business.Common.BlockCollection();

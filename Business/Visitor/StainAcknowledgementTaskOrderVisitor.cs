@@ -17,12 +17,11 @@ namespace YellowstonePathology.Business.Visitor
 		private YellowstonePathology.Business.Task.Model.TaskOrderDetail m_TaskOrderDetailCancelledTestOrders;  
         private string m_TaskOrderDetailComment;
 
-        public StainAcknowledgementTaskOrderVisitor(YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder,
-            YellowstonePathology.Business.User.SystemIdentity systemIdentity) 
+        public StainAcknowledgementTaskOrderVisitor(YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder) 
             : base(true, true)
         {
             this.m_PanelSetOrder = panelSetOrder;
-            this.m_SystemIdentity = systemIdentity;
+            this.m_SystemIdentity = YellowstonePathology.Business.User.SystemIdentity.Instance;
 
             this.m_AddedTestOrderCollection = new YellowstonePathology.Business.Test.Model.TestOrderCollection();
             this.m_CancelledTestOrderCollection = new YellowstonePathology.Business.Test.Model.TestOrderCollection();

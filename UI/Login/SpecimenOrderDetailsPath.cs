@@ -12,7 +12,7 @@ namespace YellowstonePathology.UI.Login
 
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;		
-		private YellowstonePathology.Business.Domain.Lock m_Lock;
+		
 		private YellowstonePathology.Business.Specimen.Model.SpecimenOrder m_SpecimenOrder;
         private YellowstonePathology.UI.Navigation.PageNavigator m_PageNavigator;
 
@@ -36,57 +36,8 @@ namespace YellowstonePathology.UI.Login
         
 		public void Start()
 		{
-			if (Business.User.SystemIdentity.DoesLoggedInUserNeedToScanId() == true)
-            {
-                this.ShowScanSecurityBadgePage();
-            }
-            else
-            {
-				this.m_SystemIdentity = new Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);				
-                this.ShowCaseLockPage();
-            }			
-		}
-
-		public void Start(YellowstonePathology.Business.User.SystemIdentity systemIdentity)
-        {
-            this.m_SystemIdentity = systemIdentity;
-			this.m_SystemIdentity = new Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
-            this.ShowCaseLockPage();            
-        }
-
-		private void ShowScanSecurityBadgePage()
-		{
-            YellowstonePathology.UI.Login.ScanSecurityBadgePage scanSecurityBadgePage = new ScanSecurityBadgePage(System.Windows.Visibility.Collapsed);
-			this.m_PageNavigator.Navigate(scanSecurityBadgePage);
-			scanSecurityBadgePage.AuthentificationSuccessful += new ScanSecurityBadgePage.AuthentificationSuccessfulEventHandler(ScanSecurityBadgePage_AuthentificationSuccessful);
-		}
-
-		private void ScanSecurityBadgePage_AuthentificationSuccessful(object sender, CustomEventArgs.SystemIdentityReturnEventArgs e)
-		{
-			this.m_SystemIdentity = e.SystemIdentity;			
-			this.ShowCaseLockPage();
-		}
-
-		private void ShowCaseLockPage()
-		{
-			this.m_Lock = new Business.Domain.Lock(this.m_SystemIdentity);
-			CaseLockPage caseLockPage = new CaseLockPage(this.m_PageNavigator, this.m_Lock, this.m_AccessionOrder);
-			caseLockPage.Return += new CaseLockPage.ReturnEventHandler(CaseLockPage_Return);
-			caseLockPage.AttemptCaseLock();
-		}
-
-		private void CaseLockPage_Return(object sender, UI.Navigation.PageNavigationReturnEventArgs e)
-		{
-			CaseLockPage caseLockPage = (CaseLockPage)sender;
-			if (caseLockPage.Lock.LockAquired == true)
-			{
-				this.ShowAccessionedSpecimenPage();
-			}
-			else
-			{
-                if (this.Finish != null) this.Finish(this, new EventArgs());
-			}
-		}
+            this.ShowAccessionedSpecimenPage();
+        }				
 
 		private void ShowAccessionedSpecimenPage()
 		{

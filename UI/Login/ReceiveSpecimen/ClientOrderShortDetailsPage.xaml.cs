@@ -25,17 +25,12 @@ namespace YellowstonePathology.UI.Login.ReceiveSpecimen
 		public delegate void ReturnEventHandler(object sender, UI.Navigation.PageNavigationReturnEventArgs e);
 		public event ReturnEventHandler Return;
 
-        private YellowstonePathology.Business.ClientOrder.Model.ClientOrder m_ClientOrder;
-		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
-
+        private YellowstonePathology.Business.ClientOrder.Model.ClientOrder m_ClientOrder;		
 		private string m_PageHeaderText = "Enter the patient information for this client order.";
 		
-		public ClientOrderShortDetailsPage(YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder,
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+		public ClientOrderShortDetailsPage(YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder)
 		{
-            this.m_ClientOrder = clientOrder;
-            this.m_SystemIdentity = systemIdentity;
-
+            this.m_ClientOrder = clientOrder;            
 			InitializeComponent();
 			DataContext = this;
 
@@ -72,7 +67,7 @@ namespace YellowstonePathology.UI.Login.ReceiveSpecimen
 
         private void ButtonNext_Click(object sender, RoutedEventArgs e)
         {
-			this.m_ClientOrder.OrderedBy = this.m_SystemIdentity.User.DisplayName;
+			this.m_ClientOrder.OrderedBy = YellowstonePathology.Business.User.SystemIdentity.Instance.User.DisplayName;
 			UI.Navigation.PageNavigationReturnEventArgs args = new UI.Navigation.PageNavigationReturnEventArgs(UI.Navigation.PageNavigationDirectionEnum.Next, null);
 			this.Return(this, args);
         }

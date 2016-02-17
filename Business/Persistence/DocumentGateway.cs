@@ -86,9 +86,9 @@ namespace YellowstonePathology.Business.Persistence
             this.m_Stack.DeleteDocument(o, writer);
         }
 
-        public void InsertDocument(object o, Object writer, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        public void InsertDocument(object o, Object writer)
         {
-            this.m_Stack.InsertDocument(o, writer, systemIdentity);
+            this.m_Stack.InsertDocument(o, writer);
         }        
 
         public YellowstonePathology.Business.Test.AccessionOrder PullAccessionOrder(string masterAccessionNo, object writer)

@@ -31,11 +31,7 @@ namespace YellowstonePathology.UI.Billing
 
         private void BillingWindowPrimary_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            this.m_PageNavigator.Close();
-            if (this.m_SystemIdentity != null)
-            {
-                YellowstonePathology.Business.Gateway.LockGateway.ReleaseUserLocks(this.m_SystemIdentity.User);
-            }
+            this.m_PageNavigator.Close();            
         }
 
         public YellowstonePathology.UI.Navigation.PageNavigator PageNavigator

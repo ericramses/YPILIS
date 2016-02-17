@@ -28,16 +28,13 @@ namespace YellowstonePathology.UI.Login.Receiving
         public event NextEventHandler Next;
 
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-        private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
-        private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
+        private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;        
 
         public AdditionalTestingEMailPage(YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder,
-            YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-            YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+            YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {
             this.m_PanelSetOrder = panelSetOrder;
-            this.m_AccessionOrder = accessionOrder;
-            this.m_SystemIdentity = systemIdentity;
+            this.m_AccessionOrder = accessionOrder;            
 
             if (string.IsNullOrEmpty(this.m_PanelSetOrder.AdditionalTestingEmailAddress) == true)
             {
@@ -72,27 +69,7 @@ namespace YellowstonePathology.UI.Login.Receiving
         public YellowstonePathology.Business.Test.PanelSetOrder PanelSetOrder
         {
             get { return this.m_PanelSetOrder; }
-        }
-
-        public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-        {
-            return true;
-        }
-
-        public bool OkToSaveOnClose()
-        {
-            return true;
-        }
-
-        public void Save(bool releaseLock)
-        {
-            //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
-        }
-
-        public void UpdateBindingSources()
-        {
-
-        }
+        }        
 
         public void NotifyPropertyChanged(String info)
         {
@@ -134,7 +111,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 
                     this.m_PanelSetOrder.AdditionalTestingEmailSent = true;
                     this.m_PanelSetOrder.TimeAdditionalTestingEmailSent = DateTime.Now;
-                    this.m_PanelSetOrder.AdditionalTestingEmailSentBy = this.m_SystemIdentity.User.UserName;
+                    this.m_PanelSetOrder.AdditionalTestingEmailSentBy = YellowstonePathology.Business.User.SystemIdentity.Instance.User.UserName;
 
                     this.NotifyPropertyChanged(string.Empty);
 

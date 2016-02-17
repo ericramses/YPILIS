@@ -31,8 +31,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 		public delegate void ShowTaskOrderPageEventHandler(object sender, CustomEventArgs.AcknowledgeStainOrderEventArgs e);
 		public event ShowTaskOrderPageEventHandler ShowTaskOrderPage;
 
-		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;		
+		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;		
 		private string m_PageHeaderText = "Aliquots and Stains";
 
         private Nullable<int> m_Aliquots;
@@ -51,8 +50,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
         private YellowstonePathology.Business.Specimen.Model.EmbeddingInstructionList m_EmbeddingInstructionList;
 
 		public AliquotAndStainOrderPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder,
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+			YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder)
 		{
 			this.m_AllTests = YellowstonePathology.Business.Test.Model.TestCollection.GetAllTests();          
 			this.m_AccessionOrder = accessionOrder;
@@ -60,13 +58,12 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
             this.m_EmbeddingInstructionList = new Business.Specimen.Model.EmbeddingInstructionList();
 
-			this.m_AliquotAndStainOrderView = new AliquotAndStainOrderView(accessionOrder, panelSetOrder);
-			this.m_SystemIdentity = systemIdentity;
+			this.m_AliquotAndStainOrderView = new AliquotAndStainOrderView(accessionOrder, panelSetOrder);			
 
 			this.m_PrintMate = new Business.Common.PrintMate();
 			this.m_PageHeaderText = this.m_AccessionOrder.MasterAccessionNo + ": " + this.m_AccessionOrder.PFirstName + " " + this.m_AccessionOrder.PLastName;
 
-			this.m_StainAcknowledgementTaskOrderVisitor = new Business.Visitor.StainAcknowledgementTaskOrderVisitor(this.m_PanelSetOrder, this.m_SystemIdentity);
+			this.m_StainAcknowledgementTaskOrderVisitor = new Business.Visitor.StainAcknowledgementTaskOrderVisitor(this.m_PanelSetOrder);
 
 			InitializeComponent();
 
@@ -574,14 +571,14 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 					specimenOrder.AliquotRequestCount = specimenOrder.AliquotOrderCollection.Count;
 					if (this.Test != null)
 					{
-						YellowstonePathology.Business.Visitor.OrderTestVisitor orderTestVisitor = new Business.Visitor.OrderTestVisitor(this.m_PanelSetOrder.ReportNo, test, test.OrderComment, null, false, aliquotOrder, false, false, this.m_AccessionOrder.TaskOrderCollection, this.m_SystemIdentity);
+						YellowstonePathology.Business.Visitor.OrderTestVisitor orderTestVisitor = new Business.Visitor.OrderTestVisitor(this.m_PanelSetOrder.ReportNo, test, test.OrderComment, null, false, aliquotOrder, false, false, this.m_AccessionOrder.TaskOrderCollection);
                         this.m_AccessionOrder.TakeATrip(orderTestVisitor);
 
 						if ((aliquotOrder.AliquotType == "Block" ||
 							aliquotOrder.AliquotType == "FrozenBlock" ||
 							aliquotOrder.AliquotType == "CellBlock"))
 						{
-							YellowstonePathology.Business.Visitor.AddSlideOrderVisitor addSlideOrderVisitor = new Business.Visitor.AddSlideOrderVisitor(aliquotOrder, orderTestVisitor.TestOrder, this.m_SystemIdentity);
+							YellowstonePathology.Business.Visitor.AddSlideOrderVisitor addSlideOrderVisitor = new Business.Visitor.AddSlideOrderVisitor(aliquotOrder, orderTestVisitor.TestOrder);
 							this.m_AccessionOrder.TakeATrip(addSlideOrderVisitor);
 						}
 
@@ -603,14 +600,14 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             YellowstonePathology.Business.Test.AliquotOrderCollection selectedAliquots = this.m_AliquotAndStainOrderView.GetSelectedAliquots();
             foreach(YellowstonePathology.Business.Test.AliquotOrder aliquotOrder in selectedAliquots)
             {
-				YellowstonePathology.Business.Visitor.OrderTestVisitor orderTestVisitor = new Business.Visitor.OrderTestVisitor(this.m_PanelSetOrder.ReportNo, test, test.OrderComment, null, orderedAsDual, aliquotOrder, false, false, this.m_AccessionOrder.TaskOrderCollection, this.m_SystemIdentity);
+				YellowstonePathology.Business.Visitor.OrderTestVisitor orderTestVisitor = new Business.Visitor.OrderTestVisitor(this.m_PanelSetOrder.ReportNo, test, test.OrderComment, null, orderedAsDual, aliquotOrder, false, false, this.m_AccessionOrder.TaskOrderCollection);
                 this.m_AccessionOrder.TakeATrip(orderTestVisitor);
 
 				if ((aliquotOrder.AliquotType == "Block" ||
 					aliquotOrder.AliquotType == "FrozenBlock" ||
 					aliquotOrder.AliquotType == "CellBlock"))
 				{
-					YellowstonePathology.Business.Visitor.AddSlideOrderVisitor addSlideOrderVisitor = new Business.Visitor.AddSlideOrderVisitor(aliquotOrder, orderTestVisitor.TestOrder, this.m_SystemIdentity);
+					YellowstonePathology.Business.Visitor.AddSlideOrderVisitor addSlideOrderVisitor = new Business.Visitor.AddSlideOrderVisitor(aliquotOrder, orderTestVisitor.TestOrder);
 					this.m_AccessionOrder.TakeATrip(addSlideOrderVisitor);
 				}
 
@@ -737,7 +734,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             foreach (YellowstonePathology.Business.Test.Model.TestOrder testOrder in testOrderCollection)
             {
                 YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetAliquotOrder(testOrder.AliquotOrder.AliquotOrderId);
-                YellowstonePathology.Business.Visitor.AddSlideOrderVisitor addSlideOrderVisitor = new Business.Visitor.AddSlideOrderVisitor(aliquotOrder, testOrder, this.m_SystemIdentity);
+                YellowstonePathology.Business.Visitor.AddSlideOrderVisitor addSlideOrderVisitor = new Business.Visitor.AddSlideOrderVisitor(aliquotOrder, testOrder);
                 this.m_AccessionOrder.TakeATrip(addSlideOrderVisitor);
             }
 

@@ -22,18 +22,13 @@ namespace YellowstonePathology.UI.Login
         public delegate void NextEventHandler(object sender, EventArgs e);
         public event NextEventHandler Next;
 
-		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-        private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
+		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;        
         private string m_NewText;     
 
-		public MissingInformationPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-            YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+		public MissingInformationPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{            
-            this.m_AccessionOrder = accessionOrder;
-            this.m_SystemIdentity = systemIdentity;
-            
+            this.m_AccessionOrder = accessionOrder;                        
 			InitializeComponent();
-
 			DataContext = this;
 		}         
 
@@ -62,7 +57,7 @@ namespace YellowstonePathology.UI.Login
         {
             if(string.IsNullOrEmpty(this.m_NewText) == false)
             {
-                string newDialog = this.m_SystemIdentity.User.DisplayName + ": " + DateTime.Now.ToString("MM/dd/yyyy HH:mm") + Environment.NewLine + this.m_NewText;
+                string newDialog = YellowstonePathology.Business.User.SystemIdentity.Instance.User.DisplayName + ": " + DateTime.Now.ToString("MM/dd/yyyy HH:mm") + Environment.NewLine + this.m_NewText;
                 if (string.IsNullOrEmpty(this.m_AccessionOrder.CaseDialog) == false)
                 {
                     this.m_AccessionOrder.CaseDialog = newDialog + Environment.NewLine + Environment.NewLine + this.m_AccessionOrder.CaseDialog;

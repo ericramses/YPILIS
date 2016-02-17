@@ -22,7 +22,7 @@ namespace YellowstonePathology.UI.Flow
 
     public partial class FlowWorkspace : System.Windows.Controls.UserControl
     {        
-        public CommandBinding CommandBindingApplicationClosing;        
+        public CommandBinding CommandBindingApplicationClosing;                
         public CommandBinding CommandBindingRemoveTab;        
 
         private YellowstonePathology.Business.Flow.FlowUI m_FlowUI;        
@@ -37,12 +37,12 @@ namespace YellowstonePathology.UI.Flow
         {
             this.m_MainWindowCommandButtonHandler = mainWindowCommandButtonHandler;
             this.m_Writer = writer;
-			this.m_SystemIdentity = new YellowstonePathology.Business.User.SystemIdentity(YellowstonePathology.Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
+            this.m_SystemIdentity = YellowstonePathology.Business.User.SystemIdentity.Instance;
 
             this.CommandBindingApplicationClosing = new CommandBinding(MainWindow.ApplicationClosingCommand, this.ApplicationClosing);                        
             this.CommandBindingRemoveTab = new CommandBinding(MainWindow.RemoveTabCommand, RemoveTab);            
 
-            this.CommandBindings.Add(this.CommandBindingApplicationClosing);            
+            this.CommandBindings.Add(this.CommandBindingApplicationClosing);                        
             this.CommandBindings.Add(this.CommandBindingRemoveTab);            
 
             this.m_DocumentViewer = new DocumentWorkspace();
@@ -699,7 +699,7 @@ namespace YellowstonePathology.UI.Flow
 				YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = (YellowstonePathology.Business.Specimen.Model.SpecimenOrder)this.ComboBoxSpecimen.SelectedItem;
                 YellowstonePathology.UI.Login.SpecimenOrderDetailsPage specimenOrderDetailsPage = new YellowstonePathology.UI.Login.SpecimenOrderDetailsPage(this.m_FlowUI.AccessionOrder, specimenOrder);
                 specimenOrderDetailsPage.Next += new Login.SpecimenOrderDetailsPage.NextEventHandler(SpecimenOrderDetailsPage_Next);
-                this.m_LoginPageWindow = new Login.LoginPageWindow(this.m_SystemIdentity);
+                this.m_LoginPageWindow = new Login.LoginPageWindow();
                 this.m_LoginPageWindow.PageNavigator.Navigate(specimenOrderDetailsPage);
                 this.m_LoginPageWindow.ShowDialog();
                 this.m_FlowUI.GetAccessionOrder(this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.ReportNo, this.m_FlowUI.AccessionOrder.MasterAccessionNo);
@@ -719,7 +719,7 @@ namespace YellowstonePathology.UI.Flow
 
         private void ButtonOrderFlowOnExistingAccession_Click(object sender, RoutedEventArgs e)
         {
-            this.m_LoginPageWindow = new Login.LoginPageWindow(this.m_SystemIdentity);
+            this.m_LoginPageWindow = new Login.LoginPageWindow();
             this.m_LoginPageWindow.Width = 300;
             this.m_LoginPageWindow.Height = 300;
 

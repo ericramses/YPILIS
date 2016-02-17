@@ -32,13 +32,13 @@ namespace YellowstonePathology.Business.Test.KRASStandardReflex
 		{
 		}
 
-		public override void OrderInitialTests(Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Interface.IOrderTarget orderTarget, Business.User.SystemIdentity systemIdentity)
+		public override void OrderInitialTests(Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Interface.IOrderTarget orderTarget)
 		{
             YellowstonePathology.Business.Test.KRASStandard.KRASStandardTest krasStandardTest = new KRASStandard.KRASStandardTest();
             if (accessionOrder.PanelSetOrderCollection.Exists(krasStandardTest.PanelSetId, orderTarget.GetId(), true) == false)
 			{
                 YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new Business.Test.TestOrderInfo(krasStandardTest, orderTarget, true);
-                YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Business.Visitor.OrderTestOrderVisitor(testOrderInfo, systemIdentity);
+                YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Business.Visitor.OrderTestOrderVisitor(testOrderInfo);
                 accessionOrder.TakeATrip(orderTestOrderVisitor);     				
 			}
 		}

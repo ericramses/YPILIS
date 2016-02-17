@@ -33,9 +33,9 @@ namespace YellowstonePathology.Business.ClientOrder.Model
             this.m_ClientOrder.ClientLocationId = 1002;
         }
 
-        public void InsertClientOrder(object writer, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        public void InsertClientOrder(object writer)
         {
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(this.m_ClientOrder, writer, systemIdentity);
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(this.m_ClientOrder, writer);
         }
     }
 }

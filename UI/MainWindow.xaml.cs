@@ -70,7 +70,7 @@ namespace YellowstonePathology.UI
 
 			this.m_WavPlayer = new System.Media.SoundPlayer();
 
-			this.m_SystemIdentity = new YellowstonePathology.Business.User.SystemIdentity(YellowstonePathology.Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);             
+            this.m_SystemIdentity = YellowstonePathology.Business.User.SystemIdentity.Instance;
 
             this.m_TabItemFlow = new TabItem();
             this.m_TabItemFlow.Header = SetHeader("Flow", "Flow.ico");
@@ -704,15 +704,8 @@ namespace YellowstonePathology.UI
 
         private void ToolBarButtonAddAmendment_Click(object sender, RoutedEventArgs e)
         {
-			this.m_MainWindowCommandButtonHandler.OnShowAmendmentDialog();
-			//ShowAmendmentDialogCommand.Execute(null, null);
-        }        
-
-		private void MenuItemLockedCases_Click(object sender, RoutedEventArgs e)
-		{
-			UI.LockedCaseDialog lockedCaseDialog = new LockedCaseDialog();
-			lockedCaseDialog.Show();
-		}
+			this.m_MainWindowCommandButtonHandler.OnShowAmendmentDialog();			
+        }        		
 
 		private void SurgicalRescreen_Click(object sender, RoutedEventArgs e)
 		{
@@ -852,6 +845,12 @@ namespace YellowstonePathology.UI
         private void ToolBarButtonRefresh_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void MenuItemLockedCases_Click(object sender, RoutedEventArgs e)
+        {
+            UI.LockedCaseDialog lockedCaseDialog = new LockedCaseDialog();
+            lockedCaseDialog.ShowDialog();
         }
     }    
 }

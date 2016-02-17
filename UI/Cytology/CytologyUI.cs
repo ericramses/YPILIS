@@ -61,7 +61,7 @@ namespace YellowstonePathology.UI.Cytology
 		{
 			this.Save(false);
 			YellowstonePathology.Business.Rules.ExecutionStatus executionStatus = new Business.Rules.ExecutionStatus();
-			this.m_SystemIdentity = new YellowstonePathology.Business.User.SystemIdentity(YellowstonePathology.Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
+            this.m_SystemIdentity = YellowstonePathology.Business.User.SystemIdentity.Instance;
 
             foreach (YellowstonePathology.Business.Search.CytologyScreeningSearchResult cytologyScreeningSearchResult in cytologyScreeningSearchResults)
             {
@@ -185,7 +185,7 @@ namespace YellowstonePathology.UI.Cytology
                     YellowstonePathology.UI.Login.WomensHealthProfilePath womensHealthProfilePath = new YellowstonePathology.UI.Login.WomensHealthProfilePath(this.m_AccessionOrder, clientOrder, this.m_PageNavigationWindow.PageNavigator, m_PageNavigationWindow, Visibility.Collapsed);
                     womensHealthProfilePath.Back += new Login.WomensHealthProfilePath.BackEventHandler(WomensHealthProfilePath_Finished);
                     womensHealthProfilePath.Finish += new Login.WomensHealthProfilePath.FinishEventHandler(WomensHealthProfilePath_Finished);
-                    womensHealthProfilePath.Start(this.m_SystemIdentity);
+                    womensHealthProfilePath.Start();
                     this.m_PageNavigationWindow.ShowDialog();                    
                 }                                
             }            

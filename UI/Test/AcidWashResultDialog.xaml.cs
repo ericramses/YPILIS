@@ -31,7 +31,7 @@ namespace YellowstonePathology.UI.Test
 
             this.m_HeaderText = "Results for " + this.m_AccessionOrder.PatientDisplayName;
 
-            this.m_SystemIdentity = new Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
+            this.m_SystemIdentity = Business.User.SystemIdentity.Instance;
 
             InitializeComponent();
 

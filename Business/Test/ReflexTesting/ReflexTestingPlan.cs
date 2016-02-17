@@ -26,7 +26,7 @@ namespace YellowstonePathology.Business.Test.ReflexTesting
             this.m_ReflexTestingPlanStepCollection = new ReflexTestingPlanStepCollection();            
 		}
 
-        public virtual void OrderInitialTests(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Interface.IOrderTarget orderTarget, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        public virtual void OrderInitialTests(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Interface.IOrderTarget orderTarget)
         {
 
         }

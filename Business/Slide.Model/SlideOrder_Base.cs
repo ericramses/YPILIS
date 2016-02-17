@@ -75,7 +75,7 @@ namespace YellowstonePathology.Business.Slide.Model
 
         public void Validate(YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
-            this.m_ValidationStation = systemIdentity.StationName;
+            this.m_ValidationStation = System.Environment.MachineName;
             this.m_ValidatedBy = systemIdentity.User.UserName;
             this.m_ValidatedById = systemIdentity.User.UserId;
             this.m_ValidationDate = DateTime.Now;
@@ -88,7 +88,7 @@ namespace YellowstonePathology.Business.Slide.Model
         {
             if (this.m_Status != YellowstonePathology.Business.Slide.Model.SlideStatusEnum.ClientAccessioned.ToString())
             {
-                this.m_PrintStation = systemIdentity.StationName;
+                this.m_PrintStation = System.Environment.MachineName;
                 this.m_PrintedBy = systemIdentity.User.UserName;
                 this.m_PrintedById = systemIdentity.User.UserId;
                 this.m_PrintDate = DateTime.Now;

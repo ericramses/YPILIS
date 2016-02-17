@@ -110,7 +110,7 @@ namespace YellowstonePathology.UI
 
         private void ButtonShowCuttingStationWindow_Click(object sender, RoutedEventArgs e)
         {
-			//YellowstonePathology.Business.User.SystemIdentity identity = new Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
+			//YellowstonePathology.Business.User.SystemIdentity identity = Business.User.SystemIdentity.Instance;
 		}        
 
         private void ButtonPublishCase_Click(object sender, RoutedEventArgs e)
@@ -573,7 +573,7 @@ namespace YellowstonePathology.UI
             //xpsDocumentViewer.ShowDialog();
 
             /*
-            YellowstonePathology.Business.User.SystemIdentity systemIdentity = new Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
+            YellowstonePathology.Business.User.SystemIdentity systemIdentity = Business.User.SystemIdentity.Instance;
             TestPage testPage = new TestPage(systemIdentity);
             testPage.ShowDialog();
 			*/

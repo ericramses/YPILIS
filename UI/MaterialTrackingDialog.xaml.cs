@@ -33,7 +33,7 @@ namespace YellowstonePathology.UI
 
         public MaterialTrackingDialog()
         {
-			this.m_SystemIdentity = new YellowstonePathology.Business.User.SystemIdentity(YellowstonePathology.Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
+            this.m_SystemIdentity = Business.User.SystemIdentity.Instance;
 
 			this.m_AccessionSlideOrderViewCollection = new Business.View.AccessionSlideOrderViewCollection();
 			this.m_MaterialLocationCollection = YellowstonePathology.Business.Gateway.SlideAccessionGateway.GetMaterialLocationCollection();

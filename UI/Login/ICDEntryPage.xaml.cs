@@ -29,19 +29,15 @@ namespace YellowstonePathology.UI.Login
 
         public delegate void BackEventHandler(object sender, EventArgs e);
         public event BackEventHandler Back;
-
-		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
+		
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		private string m_PageHeaderText;
 		private string m_ReportNo;
 		
 
-        public ICDEntryPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			string reportNo,
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        public ICDEntryPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo)
 		{			
 			this.m_AccessionOrder = accessionOrder;
-			this.m_SystemIdentity = systemIdentity;
 			this.m_ReportNo = reportNo;
 
 			this.m_PageHeaderText = "ICD Entry for: " + this.m_AccessionOrder.PatientDisplayName;

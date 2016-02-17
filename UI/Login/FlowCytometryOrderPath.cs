@@ -116,8 +116,8 @@ namespace YellowstonePathology.UI.Login
 
         private void OrderTheReport()
         {
-             
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity = new YellowstonePathology.Business.User.SystemIdentity(YellowstonePathology.Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
+
+            YellowstonePathology.Business.User.SystemIdentity systemIdentity = YellowstonePathology.Business.User.SystemIdentity.Instance;
             YellowstonePathology.Business.PanelSet.Model.FlowCytometry.PanelSetFlowCytometry panelSetFlowCytometry = null;
 
             switch (this.m_PanelSet.PanelSetId)

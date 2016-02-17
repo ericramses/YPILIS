@@ -20,8 +20,7 @@ namespace YellowstonePathology.UI.Login.Receiving
         private LoginPageWindow m_LoginPageWindow;
 		private YellowstonePathology.UI.Navigation.PageNavigator m_PageNavigator;
         private PageNavigationModeEnum m_PageNavigationMode;
-
-        private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
+        
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         private YellowstonePathology.Business.ClientOrder.Model.ClientOrder m_ClientOrder;
 
@@ -41,51 +40,20 @@ namespace YellowstonePathology.UI.Login.Receiving
             YellowstonePathology.UI.Navigation.PageNavigator pageNavigator, PageNavigationModeEnum pageNavigationMode)
         {
             this.m_AccessionOrder = clientOrderReceivingHandler.AccessionOrder;
-            this.m_ClientOrder = clientOrderReceivingHandler.ClientOrder;
-            this.m_SystemIdentity = clientOrderReceivingHandler.SystemIdentity;
+            this.m_ClientOrder = clientOrderReceivingHandler.ClientOrder;            
             this.m_PageNavigator = pageNavigator;
 
             this.m_PageNavigationMode = pageNavigationMode;  
         }
 
         public void Start()
-        {
-			if (this.m_PageNavigationMode == PageNavigationModeEnum.Standalone)
-			{
-				if (Business.User.SystemIdentity.DoesLoggedInUserNeedToScanId() == true)
-				{
-					this.ShowScanSecurityBadgePage();
-				}
-				else
-				{
-					this.m_SystemIdentity = new Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
-					this.ShowAccessionOrderPage();
-				}
-				this.m_LoginPageWindow.ShowDialog();
-			}
-			else
-			{
-				this.ShowAccessionOrderPage();
-			}
-        }
-
-		private void ShowScanSecurityBadgePage()
-		{
-            YellowstonePathology.UI.Login.ScanSecurityBadgePage scanSecurityBadgePage = new ScanSecurityBadgePage(System.Windows.Visibility.Collapsed);
-			scanSecurityBadgePage.AuthentificationSuccessful += new ScanSecurityBadgePage.AuthentificationSuccessfulEventHandler(ScanSecurityBadgePage_AuthentificationSuccessful);
-			this.m_PageNavigator.Navigate(scanSecurityBadgePage);
-		}
-
-		private void ScanSecurityBadgePage_AuthentificationSuccessful(object sender, CustomEventArgs.SystemIdentityReturnEventArgs e)
-		{
-			this.m_SystemIdentity = e.SystemIdentity;
-			this.ShowAccessionOrderPage();
-		}
+        {			
+            this.ShowAccessionOrderPage();
+        }		
 
         private void ShowAccessionOrderPage()
         {                                   
-			Login.Receiving.AccessionOrderPage accessionOrderPage = new Login.Receiving.AccessionOrderPage(this.m_AccessionOrder, this.m_ClientOrder,
-                this.m_SystemIdentity, this.m_PageNavigationMode);
+			Login.Receiving.AccessionOrderPage accessionOrderPage = new Login.Receiving.AccessionOrderPage(this.m_AccessionOrder, this.m_ClientOrder, this.m_PageNavigationMode);
 			accessionOrderPage.Back += new Receiving.AccessionOrderPage.BackEventHandler(AccessionOrderPage_Back);
 			accessionOrderPage.Close += new Receiving.AccessionOrderPage.CloseEventHandler(AccessionOrderPage_Close);
 			accessionOrderPage.Next += new Receiving.AccessionOrderPage.NextEventHandler(AccessionOrderPage_Next);
@@ -100,7 +68,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 
         private void AccessionOrderPage_ShowMissingInformationPage(object sender, EventArgs e)
         {
-            YellowstonePathology.UI.Login.MissingInformationPage missingInformationPage = new MissingInformationPage(this.m_AccessionOrder, this.m_SystemIdentity);
+            YellowstonePathology.UI.Login.MissingInformationPage missingInformationPage = new MissingInformationPage(this.m_AccessionOrder);
             missingInformationPage.Next += MissingInformationPage_Next;
             missingInformationPage.Back += MissingInformationPage_Back;
             this.m_PageNavigator.Navigate(missingInformationPage);
@@ -118,18 +86,18 @@ namespace YellowstonePathology.UI.Login.Receiving
 
         private void AccessionOrderPage_ShowResultPage(object sender, CustomEventArgs.PanelSetOrderReturnEventArgs e)
         {                        
-            YellowstonePathology.Business.User.SystemIdentity systemIdentity = new Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);            
+            YellowstonePathology.Business.User.SystemIdentity systemIdentity = Business.User.SystemIdentity.Instance;            
             YellowstonePathology.UI.Test.ResultPathFactory resultPathFactory = new Test.ResultPathFactory();
             resultPathFactory.Finished += new Test.ResultPathFactory.FinishedEventHandler(resultPathFactory_Finished);
 
             bool started = false;
             if (this.m_PageNavigationMode == PageNavigationModeEnum.Inline)
             {
-                started = resultPathFactory.Start(e.PanelSetOrder, this.m_AccessionOrder, this.m_PageNavigator, this.m_LoginPageWindow, systemIdentity, System.Windows.Visibility.Collapsed);
+                started = resultPathFactory.Start(e.PanelSetOrder, this.m_AccessionOrder, this.m_PageNavigator, this.m_LoginPageWindow, System.Windows.Visibility.Collapsed);
             }
             else
             {
-                started = resultPathFactory.Start(e.PanelSetOrder, this.m_AccessionOrder, this.m_LoginPageWindow.PageNavigator, this.m_LoginPageWindow, systemIdentity, System.Windows.Visibility.Collapsed);
+                started = resultPathFactory.Start(e.PanelSetOrder, this.m_AccessionOrder, this.m_LoginPageWindow.PageNavigator, this.m_LoginPageWindow, System.Windows.Visibility.Collapsed);
             }
              
             if (started == false)
@@ -147,7 +115,7 @@ namespace YellowstonePathology.UI.Login.Receiving
         {
             SpecimenOrderDetailsPath specimenOrderDetailsPath = new SpecimenOrderDetailsPath(e.SpecimenOrder, this.m_AccessionOrder, this.m_PageNavigator);
             specimenOrderDetailsPath.Finish += new SpecimenOrderDetailsPath.FinishEventHandler(SpecimenOrderDetailsPath_Finish);
-            specimenOrderDetailsPath.Start(this.m_SystemIdentity);
+            specimenOrderDetailsPath.Start();
         }
 
         private void SpecimenOrderDetailsPath_Finish(object sender, EventArgs e)
@@ -177,15 +145,14 @@ namespace YellowstonePathology.UI.Login.Receiving
 			{
 				YellowstonePathology.UI.Login.FinalizeAccession.FinalizeCytologyPath finalizeCytologyPath = new YellowstonePathology.UI.Login.FinalizeAccession.FinalizeCytologyPath(
 					this.m_ClientOrder, this.m_AccessionOrder,
-					e.ReportNo, this.m_PageNavigator, this.m_SystemIdentity);
+					e.ReportNo, this.m_PageNavigator);
 				finalizeCytologyPath.Return += new YellowstonePathology.UI.Login.FinalizeAccession.FinalizeCytologyPath.ReturnEventHandler(CytologyFinalizationPath_Return);
 				finalizeCytologyPath.Finish += new YellowstonePathology.UI.Login.FinalizeAccession.FinalizeCytologyPath.FinishEventHandler(CytologyFinalizationPath_Finish);
 				finalizeCytologyPath.Start();
 			}
 			else
 			{
-				FinalizeAccession.FinalizeAccessionPath finalizeAccessionPath = new FinalizeAccession.FinalizeAccessionPath(e.ReportNo, this.m_PageNavigator,
-							this.m_AccessionOrder, this.m_SystemIdentity);
+				FinalizeAccession.FinalizeAccessionPath finalizeAccessionPath = new FinalizeAccession.FinalizeAccessionPath(e.ReportNo, this.m_PageNavigator, this.m_AccessionOrder);
 				finalizeAccessionPath.Return += new FinalizeAccession.FinalizeAccessionPath.ReturnEventHandler(FinalizeAccessionPath_Return);
 				finalizeAccessionPath.Start();
 			}
@@ -193,7 +160,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 
         private void AccessionOrderPage_OrderPanelSet(object sender, CustomEventArgs.TestOrderInfoEventArgs e)
 		{
-			ReportOrderPath reportOrderPath = new ReportOrderPath(this.m_AccessionOrder, this.m_ClientOrder, this.m_SystemIdentity, this.m_PageNavigator, this.m_PageNavigationMode, this.m_LoginPageWindow);
+			ReportOrderPath reportOrderPath = new ReportOrderPath(this.m_AccessionOrder, this.m_ClientOrder, this.m_PageNavigator, this.m_PageNavigationMode, this.m_LoginPageWindow);
 			reportOrderPath.Finish += new ReportOrderPath.FinishEventHandler(ReportOrderPath_Finish);
 			reportOrderPath.Start(e.TestOrderInfo);
 		}

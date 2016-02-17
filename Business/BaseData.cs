@@ -20,8 +20,7 @@ namespace YellowstonePathology.Business
         public static string SqlConnectionString
         {
             get 
-            {                
-				//return YellowstonePathology.Business.DataAccess.DBAccess.DataActions.ConnectionStr;
+            {                				
 				return Properties.Settings.Default.CurrentConnectionString;
 			}
         }
@@ -36,7 +35,7 @@ namespace YellowstonePathology.Business
 
         public BaseData()
         {
-            this.m_CurrentUser = new YellowstonePathology.Business.User.SystemIdentity(YellowstonePathology.Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn).User;
+            this.m_CurrentUser = YellowstonePathology.Business.User.SystemIdentity.Instance.User;
 		}
 
         protected void NotifyPropertyChanged(String info)

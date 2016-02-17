@@ -10,14 +10,12 @@ namespace YellowstonePathology.UI.Login
 		public delegate void ReturnEventHandler(object sender, UI.Navigation.PageNavigationReturnEventArgs e);
 		public event ReturnEventHandler Return;
 
-		private YellowstonePathology.UI.Navigation.PageNavigator m_PageNavigator;
-		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
+		private YellowstonePathology.UI.Navigation.PageNavigator m_PageNavigator;		
 		private YellowstonePathology.Business.Domain.CaseNotesKeyCollection m_CaseNotesKeyCollection;
 
-		public CaseNotesPath(YellowstonePathology.UI.Navigation.PageNavigator pageNavigator, YellowstonePathology.Business.User.SystemIdentity systemIdentity, YellowstonePathology.Business.Domain.CaseNotesKeyCollection caseNotesKeyCollection)
+		public CaseNotesPath(YellowstonePathology.UI.Navigation.PageNavigator pageNavigator, YellowstonePathology.Business.Domain.CaseNotesKeyCollection caseNotesKeyCollection)
 		{
-			this.m_PageNavigator = pageNavigator;
-			this.m_SystemIdentity = systemIdentity;
+			this.m_PageNavigator = pageNavigator;			
 			this.m_CaseNotesKeyCollection = caseNotesKeyCollection;
 		}
 
@@ -28,7 +26,7 @@ namespace YellowstonePathology.UI.Login
 
 		private void ShowCaseNotesPage()
 		{
-			CaseNotesPage caseNotesPage = new CaseNotesPage(this.m_PageNavigator, this.m_SystemIdentity, this.m_CaseNotesKeyCollection);
+			CaseNotesPage caseNotesPage = new CaseNotesPage(this.m_PageNavigator, this.m_CaseNotesKeyCollection);
 			caseNotesPage.Return += new CaseNotesPage.ReturnEventHandler(CaseNotesPage_Return);
 			this.m_PageNavigator.Navigate(caseNotesPage);
 		}

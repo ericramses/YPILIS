@@ -55,7 +55,7 @@ namespace YellowstonePathology.UI.Test
 
         private void ResultPage_ShowICDEntry(object sender, EventArgs e)
         {
-            UI.Login.ICDEntryPage icdEntryPage = new Login.ICDEntryPage(this.m_AccessionOrder, this.m_MissingInformationTestOrder.ReportNo, this.m_SystemIdentity);
+            UI.Login.ICDEntryPage icdEntryPage = new Login.ICDEntryPage(this.m_AccessionOrder, this.m_MissingInformationTestOrder.ReportNo);
             icdEntryPage.Next += IcdEntryPage_Next;
             icdEntryPage.Back += IcdEntryPage_Back;
             this.m_PageNavigator.Navigate(icdEntryPage);

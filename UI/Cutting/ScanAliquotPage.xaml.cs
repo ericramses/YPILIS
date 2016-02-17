@@ -37,19 +37,17 @@ namespace YellowstonePathology.UI.Cutting
         public delegate void PrintImmunosEventHandler(object sender, EventArgs eventArgs);
         public event PrintImmunosEventHandler PrintImmunos;
 
-        private YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort m_BarcodeScanPort;
-		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
+        private YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort m_BarcodeScanPort;		
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         private YellowstonePathology.Business.Test.AliquotOrder m_AliquotOrder;
 
         private string m_LastMasterAccessionNo;
         private System.Windows.Threading.DispatcherTimer m_PageTimeoutTimer;
 
-		public ScanAliquotPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string lastMasterAccessionNo, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+		public ScanAliquotPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string lastMasterAccessionNo)
         {
             this.m_AccessionOrder = accessionOrder;
-            this.m_LastMasterAccessionNo = lastMasterAccessionNo;
-            this.m_SystemIdentity = systemIdentity;
+            this.m_LastMasterAccessionNo = lastMasterAccessionNo;            
 			this.m_BarcodeScanPort = YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort.Instance;			
 
 			InitializeComponent();
@@ -121,9 +119,9 @@ namespace YellowstonePathology.UI.Cutting
             
             string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
 			YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog materialTrackingLog = new Business.MaterialTracking.Model.MaterialTrackingLog(objectId, aliquotOrder.AliquotOrderId, null, thisFacility.FacilityId, thisFacility.FacilityName,
-                thisLocation.LocationId, thisLocation.Description, this.m_SystemIdentity.User.UserId, this.m_SystemIdentity.User.UserName, "Block Scanned", "Block Scanned At Cutting", "Aliquot", this.m_AccessionOrder.MasterAccessionNo, aliquotOrder.Label, aliquotOrder.ClientAccessioned);
+                thisLocation.LocationId, thisLocation.Description, "Block Scanned", "Block Scanned At Cutting", "Aliquot", this.m_AccessionOrder.MasterAccessionNo, aliquotOrder.Label, aliquotOrder.ClientAccessioned);
 
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(materialTrackingLog, Window.GetWindow(this), this.m_SystemIdentity);            
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(materialTrackingLog, Window.GetWindow(this));            
         }
 
         private void ButtonShowMasterAccessionNoEntryPage_Click(object sender, RoutedEventArgs e)

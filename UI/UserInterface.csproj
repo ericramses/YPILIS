@@ -41,7 +41,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>1002</ApplicationRevision>
+    <ApplicationRevision>1005</ApplicationRevision>
     <ApplicationVersion>10.1.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -179,7 +179,6 @@
     <Compile Include="AmendmentPage.xaml.cs">
       <DependentUpon>AmendmentPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="AuthenticationPath.cs" />
     <Compile Include="Billing\BillingPage.xaml.cs">
       <DependentUpon>BillingPage.xaml</DependentUpon>
     </Compile>
@@ -309,6 +308,9 @@
     <Compile Include="Gross\TemplateWord.cs" />
     <Compile Include="GroupingListView.cs" />
     <Compile Include="ListViewSorter.cs" />
+    <Compile Include="LockedCaseDialog.xaml.cs">
+      <DependentUpon>LockedCaseDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Login\MissingInformationPage.xaml.cs">
       <DependentUpon>MissingInformationPage.xaml</DependentUpon>
     </Compile>
@@ -1033,7 +1035,6 @@
       <DependentUpon>GrossEntryPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Login\FinalizeAccession\SpecimenAdequacyTypes.cs" />
-    <Compile Include="Login\FinalizeAccession\AliquotAndStainOrderPathWithSecurity.cs" />
     <Compile Include="Login\FlowCytometryOrderPath.cs" />
     <Compile Include="Login\ReceiveSpecimen\ARUPOrderPage.xaml.cs">
       <DependentUpon>ARUPOrderPage.xaml</DependentUpon>
@@ -1116,9 +1117,6 @@
     <Compile Include="Cutting\SlideOrderDetailDialog.xaml.cs">
       <DependentUpon>SlideOrderDetailDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="LockedCaseDialog.xaml.cs">
-      <DependentUpon>LockedCaseDialog.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Login\SpecimenOrderDetailsPage.xaml.cs">
       <DependentUpon>SpecimenOrderDetailsPage.xaml</DependentUpon>
     </Compile>
@@ -1154,9 +1152,6 @@
     <Compile Include="Login\ClientOrderReceivingHandlerFactory.cs" />
     <Compile Include="Login\ClientOrderReceivingNavigator.cs" />
     <Compile Include="Login\ClientOrderSearchModeEnum.cs" />
-    <Compile Include="Login\CaseLockPage.xaml.cs">
-      <DependentUpon>CaseLockPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Login\CytologySlideLabelGrid.cs" />
     <Compile Include="Login\FinalizeAccession\CytologyClinicalHistoryPage.xaml.cs">
       <DependentUpon>CytologyClinicalHistoryPage.xaml</DependentUpon>
@@ -1936,6 +1931,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Resource>
+    <Page Include="LockedCaseDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Login\MissingInformationPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -2807,10 +2806,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="LockedCaseDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Login\SpecimenOrderDetailsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -2834,10 +2829,6 @@
     <Page Include="Login\ClientOrderPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Login\CaseLockPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Login\DocumentListDialog.xaml">
       <SubType>Designer</SubType>

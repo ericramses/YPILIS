@@ -22,7 +22,7 @@ namespace YellowstonePathology.UI.Login
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		public delegate void AuthentificationSuccessfulEventHandler(object sender, CustomEventArgs.SystemIdentityReturnEventArgs e);
+		public delegate void AuthentificationSuccessfulEventHandler(object sender, EventArgs e);
 		public event AuthentificationSuccessfulEventHandler AuthentificationSuccessful;
 
         public delegate void CloseEventHandler(object sender, EventArgs e);
@@ -47,26 +47,23 @@ namespace YellowstonePathology.UI.Login
         }
 
         private void ButtonAutoScan_Click(object sender, RoutedEventArgs e)
-        {
-			Business.User.SystemIdentity systemIdentity = new Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.Blank);
-			systemIdentity.SetUser(5001);
-			CustomEventArgs.SystemIdentityReturnEventArgs args = new CustomEventArgs.SystemIdentityReturnEventArgs(systemIdentity);
-            this.m_BarcodeScanPort.SecurityBadgeScanReceived -= BarcodeScanPort_SecurityBadgeScanReceived;
-			this.AuthentificationSuccessful(this, args);
+        {			
+			//systemIdentity.SetUser(5001);
+			//CustomEventArgs.SystemIdentityReturnEventArgs args = new CustomEventArgs.SystemIdentityReturnEventArgs(systemIdentity);
+            //this.m_BarcodeScanPort.SecurityBadgeScanReceived -= BarcodeScanPort_SecurityBadgeScanReceived;
+			//this.AuthentificationSuccessful(this, args);
         }
 
 		private void BarcodeScanPort_SecurityBadgeScanReceived(Business.BarcodeScanning.Barcode barcode)
 		{
 			this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate()
-			{
-				Business.User.SystemIdentity systemIdentity = new Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.Blank);
+			{				
                 int scannedUserId = Convert.ToInt32(barcode.ID);
-                systemIdentity.SetUser(scannedUserId);
-				if (systemIdentity.IsKnown)
-				{
-					CustomEventArgs.SystemIdentityReturnEventArgs args = new CustomEventArgs.SystemIdentityReturnEventArgs(systemIdentity);
+                Business.User.SystemIdentity.Instance.SetUser(scannedUserId);
+				if (Business.User.SystemIdentity.Instance.IsKnown)
+				{					
 					this.m_BarcodeScanPort.SecurityBadgeScanReceived -= BarcodeScanPort_SecurityBadgeScanReceived;
-					this.AuthentificationSuccessful(this, args);
+					this.AuthentificationSuccessful(this, new EventArgs());
 				}
 			}
 			));

@@ -34,7 +34,7 @@ namespace YellowstonePathology.Business.Test
                     if (accessionOrder.PanelSetOrderCollection.Exists(panelSetTrichomonas.PanelSetId) == false)
                     {                        
                         YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new TestOrderInfo(panelSetTrichomonas, trichSpecimen, true);
-                        YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Visitor.OrderTestOrderVisitor(testOrderInfo, systemIdentity);
+                        YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Visitor.OrderTestOrderVisitor(testOrderInfo);
                         accessionOrder.TakeATrip(orderTestOrderVisitor);    
                     }
                     break;
@@ -44,7 +44,7 @@ namespace YellowstonePathology.Business.Test
                     if (accessionOrder.PanelSetOrderCollection.Exists(panelSetThinPrepPap.PanelSetId) == false)
                     {
                         YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new TestOrderInfo(panelSetThinPrepPap, papSpecimen, true);                        
-                        YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Visitor.OrderTestOrderVisitor(testOrderInfo, systemIdentity);
+                        YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Visitor.OrderTestOrderVisitor(testOrderInfo);
                         accessionOrder.TakeATrip(orderTestOrderVisitor);                        
                     }
                     break;
@@ -54,7 +54,7 @@ namespace YellowstonePathology.Business.Test
                     if (accessionOrder.PanelSetOrderCollection.Exists(panelSetNGCT.PanelSetId) == false)
                     {
                         YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new TestOrderInfo(panelSetNGCT, ngctSpecimen, true);                        
-                        YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Visitor.OrderTestOrderVisitor(testOrderInfo, systemIdentity);
+                        YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Visitor.OrderTestOrderVisitor(testOrderInfo);
                         accessionOrder.TakeATrip(orderTestOrderVisitor);  
                     }
                     break;                
@@ -64,7 +64,7 @@ namespace YellowstonePathology.Business.Test
                     if (accessionOrder.PanelSetOrderCollection.Exists(panelSetCF.PanelSetId) == false)
                     {
                         YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new TestOrderInfo(panelSetCF, cfSpecimen, true);                        
-                        YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Visitor.OrderTestOrderVisitor(testOrderInfo, systemIdentity);
+                        YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Visitor.OrderTestOrderVisitor(testOrderInfo);
                         accessionOrder.TakeATrip(orderTestOrderVisitor); 
                     }
                     break;
@@ -97,7 +97,7 @@ namespace YellowstonePathology.Business.Test
 						YellowstonePathology.Business.Specimen.Model.SpecimenOrder hpvSpecimen = accessionOrder.SpecimenOrderCollection.GetThinPrep();
 						YellowstonePathology.Business.Test.HPV.HPVTest panelSetHPV = new YellowstonePathology.Business.Test.HPV.HPVTest();
                         YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new TestOrderInfo(panelSetHPV, hpvSpecimen, true);
-                        YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Visitor.OrderTestOrderVisitor(testOrderInfo, systemIdentity);
+                        YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Visitor.OrderTestOrderVisitor(testOrderInfo);
                         accessionOrder.TakeATrip(orderTestOrderVisitor); 
                     }
                 }
@@ -135,7 +135,7 @@ namespace YellowstonePathology.Business.Test
 						YellowstonePathology.Business.Specimen.Model.SpecimenOrder hpvSpecimen = accessionOrder.SpecimenOrderCollection.GetThinPrep();
 						YellowstonePathology.Business.Test.HPV.HPVTest panelSetHPV = new YellowstonePathology.Business.Test.HPV.HPVTest();
                         YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new TestOrderInfo(panelSetHPV, hpvSpecimen, true);
-                        YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Visitor.OrderTestOrderVisitor(testOrderInfo, systemIdentity);
+                        YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Visitor.OrderTestOrderVisitor(testOrderInfo);
                         accessionOrder.TakeATrip(orderTestOrderVisitor); 
                     }
                 }

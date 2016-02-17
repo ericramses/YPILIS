@@ -53,7 +53,7 @@ namespace YellowstonePathology.UI.Test
         {
             this.m_MainWindowCommandButtonHandler = mainWindowCommandButtonHandler;
             this.m_Writer = writer;
-			this.m_SystemIdentity = new YellowstonePathology.Business.User.SystemIdentity(YellowstonePathology.Business.User.SystemIdentityTypeEnum.CurrentlyScannedIn);
+            this.m_SystemIdentity = YellowstonePathology.Business.User.SystemIdentity.Instance;
 
             this.CommandBindingApplicationClosing = new CommandBinding(MainWindow.ApplicationClosingCommand, CloseWorkspace);            
             this.CommandBindingShowCaseDocument = new CommandBinding(MainWindow.ShowCaseDocumentCommand, ShowCaseDocument);
@@ -141,7 +141,7 @@ namespace YellowstonePathology.UI.Test
         private void ShowOrderForm(object target, ExecutedRoutedEventArgs args)
         {
 			this.Save(false);
-			YellowstonePathology.UI.Common.OrderDialog frm = new YellowstonePathology.UI.Common.OrderDialog(this.m_LabUI.AccessionOrder, this.m_LabUI.PanelSetOrder, this.m_SystemIdentity);			
+			YellowstonePathology.UI.Common.OrderDialog frm = new YellowstonePathology.UI.Common.OrderDialog(this.m_LabUI.AccessionOrder, this.m_LabUI.PanelSetOrder);			
             frm.ShowDialog();
 			this.GetAccessionOrder();			
 		}
@@ -153,7 +153,7 @@ namespace YellowstonePathology.UI.Test
                 if (this.m_SystemIdentity.IsKnown == true)
                 {
                     this.Save(false);
-					YellowstonePathology.UI.Common.OrderDialog dlg = new YellowstonePathology.UI.Common.OrderDialog(this.m_LabUI.AccessionOrder, this.m_LabUI.PanelSetOrder, this.m_SystemIdentity);
+					YellowstonePathology.UI.Common.OrderDialog dlg = new YellowstonePathology.UI.Common.OrderDialog(this.m_LabUI.AccessionOrder, this.m_LabUI.PanelSetOrder);
                     dlg.ShowDialog();
 
                     this.GetAccessionOrder();                    
@@ -681,7 +681,7 @@ namespace YellowstonePathology.UI.Test
 
 		private void ShowFixationDialog()
 		{
-			Login.FinalizeAccession.FixationPath fixationPath = new Login.FinalizeAccession.FixationPath(this.m_LabUI.AccessionOrder, this.m_SystemIdentity);
+			Login.FinalizeAccession.FixationPath fixationPath = new Login.FinalizeAccession.FixationPath(this.m_LabUI.AccessionOrder);
 			fixationPath.Start();
 		}
 
@@ -871,6 +871,7 @@ namespace YellowstonePathology.UI.Test
 
 		private void ComboCurrentUser_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
+            /*
             if (this.ComboCurrentUser.SelectedItem != null)
             {
                 YellowstonePathology.Business.User.SystemUser selectedUser = (YellowstonePathology.Business.User.SystemUser)this.ComboCurrentUser.SelectedItem;
@@ -880,6 +881,7 @@ namespace YellowstonePathology.UI.Test
             {
                 this.m_SystemIdentity.Clear();                
             }
+            */
 		}
 
         private void SvhMedicalRecordNoReceived(string scanData)

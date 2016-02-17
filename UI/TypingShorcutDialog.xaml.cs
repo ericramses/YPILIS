@@ -20,14 +20,13 @@ namespace YellowstonePathology.UI
     {
         YellowstonePathology.Business.Typing.TypingShortcut m_TypingShortcut;
 		YellowstonePathology.Business.User.SystemUserCollection m_SystemUserCollection;
-        YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
+        
         bool m_IsNewItem = false;                      
 
-        public TypingShorcutDialog(YellowstonePathology.Business.Typing.TypingShortcut typingShortcut, bool isNewShortcut, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        public TypingShorcutDialog(YellowstonePathology.Business.Typing.TypingShortcut typingShortcut, bool isNewShortcut)
         {
             this.m_TypingShortcut = typingShortcut;
-            this.m_IsNewItem = isNewShortcut;
-            this.m_SystemIdentity = systemIdentity;
+            this.m_IsNewItem = isNewShortcut;            
 
             InitializeComponent();
 
@@ -81,7 +80,7 @@ namespace YellowstonePathology.UI
         {
             if(this.m_IsNewItem == true)
             {
-                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(this.m_TypingShortcut, this, this.m_SystemIdentity);
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(this.m_TypingShortcut, this);
             }
                        
             this.DialogResult = true;

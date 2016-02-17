@@ -58,8 +58,8 @@ namespace YellowstonePathology.UI.Client
 			string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
 			int physicianId = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetLargestPhysicianId() + 1;
 			YellowstonePathology.Business.Domain.Physician physician = new Business.Domain.Physician(objectId, physicianId, "New Physician", "New Physician");
-            Business.User.SystemIdentity systemIdentity = new Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(physician, this, systemIdentity);
+            Business.User.SystemIdentity systemIdentity = Business.User.SystemIdentity.Instance;
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(physician, this);
 
             ProviderEntry providerEntry = new ProviderEntry(physician, true);
             YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);

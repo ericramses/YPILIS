@@ -11,12 +11,12 @@ namespace YellowstonePathology.Business.Visitor
         private YellowstonePathology.Business.Test.Model.TestOrder m_TestOrder;
         private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 
-        public AddSlideOrderVisitor(YellowstonePathology.Business.Test.AliquotOrder aliquotOrder, YellowstonePathology.Business.Test.Model.TestOrder testOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        public AddSlideOrderVisitor(YellowstonePathology.Business.Test.AliquotOrder aliquotOrder, YellowstonePathology.Business.Test.Model.TestOrder testOrder)
             : base(true, false)
         {
             this.m_AliquotOrder = aliquotOrder;
             this.m_TestOrder = testOrder;
-            this.m_SystemIdentity = systemIdentity;
+            this.m_SystemIdentity = YellowstonePathology.Business.User.SystemIdentity.Instance;
         }
 
         public override void Visit(Test.AccessionOrder accessionOrder)
@@ -49,7 +49,7 @@ namespace YellowstonePathology.Business.Visitor
             slideOrder.OrderedById = this.m_SystemIdentity.User.UserId;
             slideOrder.OrderDate = DateTime.Now;
             slideOrder.OrderedBy = this.m_SystemIdentity.User.UserName;
-            slideOrder.OrderedFrom = this.m_SystemIdentity.StationName;
+            slideOrder.OrderedFrom = System.Environment.MachineName;
             slideOrder.Status = Business.Slide.Model.SlideStatusEnum.Created.ToString();
             slideOrder.Location = accessioningFacility.LocationAbbreviation;
             slideOrder.LabelType = slide.LabelType.ToString();

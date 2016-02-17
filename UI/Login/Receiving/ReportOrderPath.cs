@@ -8,9 +8,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 	public class ReportOrderPath
 	{
 		public delegate void FinishEventHandler(object sender, CustomEventArgs.TestOrderInfoEventArgs e);
-		public event FinishEventHandler Finish;
-
-		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
+		public event FinishEventHandler Finish;		
 
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		private YellowstonePathology.Business.ClientOrder.Model.ClientOrder m_ClientOrder;
@@ -19,14 +17,12 @@ namespace YellowstonePathology.UI.Login.Receiving
         private YellowstonePathology.Business.Test.TestOrderInfo m_TestOrderInfo;
         private System.Windows.Window m_Writer;
 
-		public ReportOrderPath(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,			
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity,
+		public ReportOrderPath(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
 			YellowstonePathology.UI.Navigation.PageNavigator pageNavigator,
 			PageNavigationModeEnum pageNavigationMode,
             System.Windows.Window writer)
 		{
-			this.m_AccessionOrder = accessionOrder;			
-			this.m_SystemIdentity = systemIdentity;
+			this.m_AccessionOrder = accessionOrder;						
 			this.m_PageNavigator = pageNavigator;
 			this.m_PageNavigationMode = pageNavigationMode;
             this.m_Writer = writer;
@@ -34,14 +30,12 @@ namespace YellowstonePathology.UI.Login.Receiving
 
 		public ReportOrderPath(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
 			YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder,
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity,
 			YellowstonePathology.UI.Navigation.PageNavigator pageNavigator,
 			PageNavigationModeEnum pageNavigationMode,
             System.Windows.Window writer)
 		{
 			this.m_AccessionOrder = accessionOrder;
-			this.m_ClientOrder = clientOrder;
-			this.m_SystemIdentity = systemIdentity;
+			this.m_ClientOrder = clientOrder;			
 			this.m_PageNavigator = pageNavigator;
 			this.m_PageNavigationMode = pageNavigationMode;
             this.m_Writer = writer;
@@ -102,7 +96,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 
                 YellowstonePathology.UI.Test.ResultPathFactory resultPathFactory = new Test.ResultPathFactory();
                 resultPathFactory.Finished += new Test.ResultPathFactory.FinishedEventHandler(ResultPathFactory_Finished);
-                resultPathFactory.Start(panelSetOrder, this.m_AccessionOrder, this.m_PageNavigator, this.m_Writer, this.m_SystemIdentity, System.Windows.Visibility.Collapsed);
+                resultPathFactory.Start(panelSetOrder, this.m_AccessionOrder, this.m_PageNavigator, this.m_Writer, System.Windows.Visibility.Collapsed);
 
                 result = true;
             }
@@ -115,8 +109,7 @@ namespace YellowstonePathology.UI.Login.Receiving
             if (this.ShowTaskOrderPage(this.m_TestOrderInfo) == false)
             {
                 if (this.ShowAdditionalTestingEMailPage() == false)
-                {
-                    //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);                     
+                {                    
                     CustomEventArgs.TestOrderInfoEventArgs eventArgs = new CustomEventArgs.TestOrderInfoEventArgs(this.m_TestOrderInfo);
                     if (this.Finish != null) this.Finish(this, eventArgs);
                 }
@@ -129,12 +122,12 @@ namespace YellowstonePathology.UI.Login.Receiving
 
             if (testOrderInfo.PanelSet.TaskCollection.Count != 0)
 			{
-				YellowstonePathology.Business.Task.Model.TaskOrder taskOrder = this.m_AccessionOrder.CreateTask(testOrderInfo, this.m_SystemIdentity);
+				YellowstonePathology.Business.Task.Model.TaskOrder taskOrder = this.m_AccessionOrder.CreateTask(testOrderInfo);
                 this.m_AccessionOrder.TaskOrderCollection.Add(taskOrder);
                     
 				TaskOrderPath taskOrderPath = new TaskOrderPath(this.m_AccessionOrder, taskOrder, this.m_PageNavigator, PageNavigationModeEnum.Inline);
 				taskOrderPath.Next += new TaskOrderPath.NextEventHandler(TaskOrderPath_Next);
-				taskOrderPath.Start(this.m_SystemIdentity);
+				taskOrderPath.Start();
 				result = true;
 			}
 			
@@ -176,19 +169,16 @@ namespace YellowstonePathology.UI.Login.Receiving
 
 		public void OrderTheTest(YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo)
 		{
-            YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Business.Visitor.OrderTestOrderVisitor(testOrderInfo, this.m_SystemIdentity);
+            YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Business.Visitor.OrderTestOrderVisitor(testOrderInfo);
             this.m_AccessionOrder.TakeATrip(orderTestOrderVisitor);
-            this.m_TestOrderInfo.PanelSetOrder = testOrderInfo.PanelSetOrder;
-            
-            //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);            
+            this.m_TestOrderInfo.PanelSetOrder = testOrderInfo.PanelSetOrder;                       
 
             if (this.ShowResultPage(testOrderInfo) == false)
             {
                 if (this.ShowTaskOrderPage(testOrderInfo) == false)
                 {
                     if (this.ShowAdditionalTestingEMailPage() == false)
-                    {
-                        //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
+                    {                        
                         CustomEventArgs.TestOrderInfoEventArgs eventArgs = new CustomEventArgs.TestOrderInfoEventArgs(this.m_TestOrderInfo);
                         if (this.Finish != null) this.Finish(this, eventArgs);
                     }
@@ -197,8 +187,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 		}					
 
 		private void SpecimenSelectionPage_Back(object sender, EventArgs e)
-		{
-            //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
+		{            
             CustomEventArgs.TestOrderInfoEventArgs eventArgs = new CustomEventArgs.TestOrderInfoEventArgs(this.m_TestOrderInfo);
             if (this.Finish != null) this.Finish(this, eventArgs);
 		}									
@@ -253,7 +242,7 @@ namespace YellowstonePathology.UI.Login.Receiving
                     if (this.m_AccessionOrder.PanelSetOrderCollection.Count > 1 && this.m_AccessionOrder.PhysicianId != 0)
                     {
                         result = true;
-                        AdditionalTestingEMailPage additionalTestingEMailPage = new AdditionalTestingEMailPage(this.m_TestOrderInfo.PanelSetOrder, this.m_AccessionOrder, this.m_SystemIdentity);
+                        AdditionalTestingEMailPage additionalTestingEMailPage = new AdditionalTestingEMailPage(this.m_TestOrderInfo.PanelSetOrder, this.m_AccessionOrder);
                         additionalTestingEMailPage.Next += AdditionalTestingEMailPage_Next;
                         additionalTestingEMailPage.Back += AdditionalTestingEMailPage_Back;
                         this.m_PageNavigator.Navigate(additionalTestingEMailPage);
@@ -264,15 +253,13 @@ namespace YellowstonePathology.UI.Login.Receiving
         }
 
         private void AdditionalTestingEMailPage_Next(object sender, EventArgs e)
-        {
-            //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
+        {            
             CustomEventArgs.TestOrderInfoEventArgs eventArgs = new CustomEventArgs.TestOrderInfoEventArgs(this.m_TestOrderInfo);
             if (this.Finish != null) this.Finish(this, eventArgs);
         }
 
         private void AdditionalTestingEMailPage_Back(object sender, EventArgs e)
-        {
-            //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
+        {         
             CustomEventArgs.TestOrderInfoEventArgs eventArgs = new CustomEventArgs.TestOrderInfoEventArgs(this.m_TestOrderInfo);
             if (this.Finish != null) this.Finish(this, eventArgs);
         }

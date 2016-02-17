@@ -48,7 +48,6 @@ namespace YellowstonePathology.UI.Cutting
             YellowstonePathology.Business.Test.Model.TestOrder testOrder,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
             YellowstonePathology.Business.Label.Model.HistologySlidePaperLabelPrinter histologySlidePaperLabelPrinter,
-            YellowstonePathology.Business.User.SystemIdentity systemIdentity,
             YellowstonePathology.UI.Navigation.PageNavigator pageNavigator)
         {
             this.m_AliquotOrder = aliquotOrder;
@@ -59,9 +58,9 @@ namespace YellowstonePathology.UI.Cutting
             
             this.m_SpecimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByAliquotOrderId(this.m_AliquotOrder.AliquotOrderId);
             this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrderByTestOrderId(this.m_TestOrder.TestOrderId);
-            this.m_PanelOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelOrderByTestOrderId(this.m_TestOrder.TestOrderId);            
+            this.m_PanelOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelOrderByTestOrderId(this.m_TestOrder.TestOrderId);
 
-            this.m_SystemIdentity = systemIdentity;
+            this.m_SystemIdentity = Business.User.SystemIdentity.Instance;
 
             this.m_ListBoxSlidesMouseDownTimer = new System.Windows.Threading.DispatcherTimer();
             this.m_ListBoxSlidesMouseDownTimer.Interval = new TimeSpan(0, 0, 0, 0, 750);
@@ -206,8 +205,8 @@ namespace YellowstonePathology.UI.Cutting
 
             string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
 			YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog materialTrackingLog = new Business.MaterialTracking.Model.MaterialTrackingLog(objectId, slideOrder.SlideOrderId, null, thisFacility.FacilityId, thisFacility.FacilityName,
-                thisLocation.LocationId, thisLocation.Description, this.m_SystemIdentity.User.UserId, this.m_SystemIdentity.User.UserName, "Slide Scanned", "Slide Scanned At Cutting", "SlideOrder", this.m_AccessionOrder.MasterAccessionNo, slideOrder.Label, slideOrder.ClientAccessioned);
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(materialTrackingLog, Window.GetWindow(this), this.m_SystemIdentity);            
+                thisLocation.LocationId, thisLocation.Description, "Slide Scanned", "Slide Scanned At Cutting", "SlideOrder", this.m_AccessionOrder.MasterAccessionNo, slideOrder.Label, slideOrder.ClientAccessioned);
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(materialTrackingLog, Window.GetWindow(this));            
         }		         
 
         public void NotifyPropertyChanged(String info)
@@ -267,7 +266,7 @@ namespace YellowstonePathology.UI.Cutting
 
         private void ButtonAddSlide_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Visitor.AddSlideOrderVisitor addSlideOrderVisitor = new Business.Visitor.AddSlideOrderVisitor(this.m_AliquotOrder, this.m_TestOrder, this.m_SystemIdentity);
+            YellowstonePathology.Business.Visitor.AddSlideOrderVisitor addSlideOrderVisitor = new Business.Visitor.AddSlideOrderVisitor(this.m_AliquotOrder, this.m_TestOrder);
             this.m_AccessionOrder.TakeATrip(addSlideOrderVisitor);            
         }
 

@@ -61,7 +61,7 @@ namespace YellowstonePathology.UI.Login
 			this.m_OrderCommentLog.SpecimenLogId = order.SpecimenLogId;
 			this.m_OrderCommentLog.FromEvent(orderComment);
 
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(this.m_OrderCommentLog, this, this.m_SystemIdentity);						
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(this.m_OrderCommentLog, this);
 			return this.m_OrderCommentLog;
         }
 

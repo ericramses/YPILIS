@@ -34,7 +34,7 @@ namespace YellowstonePathology.Business.Patient.Model
 					SVHBillingData sVHBillingData = new SVHBillingData(objectId, line, dateProcessed, this.m_SVHImportFileName.FileDate);
 					sVHBillingData.SVHBillingDataId = Guid.NewGuid().ToString();
 					this.m_SVHBillingDataCollection.AddOnlyMostRecent(sVHBillingData);
-                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(sVHBillingData, this, this.m_SystemIdentity);
+                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(sVHBillingData, this);
                 }
 
                 YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);

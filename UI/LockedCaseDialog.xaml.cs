@@ -20,15 +20,13 @@ namespace YellowstonePathology.UI
 	public partial class LockedCaseDialog : Window, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-
+        
         private YellowstonePathology.Business.Domain.LockItemCollection m_LockItemCollection;
-        private YellowstonePathology.Business.Domain.LockItemCollection m_NewLocks;
 
 		public LockedCaseDialog()
 		{
-			this.GetLockItemCollection();
-            this.GetNewLocks();
-			InitializeComponent();
+            this.m_LockItemCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetLockedAccessionOrders();
+            InitializeComponent();
             DataContext = this;
 		}
 
@@ -38,51 +36,22 @@ namespace YellowstonePathology.UI
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
-        }
-
-        private void GetLockItemCollection()
-		{
-			this.m_LockItemCollection = YellowstonePathology.Business.Gateway.LockGateway.GetLocks();
-			if (this.m_LockItemCollection == null)
-			{
-				this.m_LockItemCollection = new Business.Domain.LockItemCollection();
-			}
-		}
-
-        private void GetNewLocks()
-        {
-            this.m_NewLocks = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetLockItems();
-        }
+        }                
 
 		private void ButtonDelete_Click(object sender, RoutedEventArgs e)
-		{
-			if (this.listViewLockList.SelectedItem != null)
-			{
-				MessageBoxResult result = MessageBox.Show("Clearing a lock may cause data loss.  Are you sure you want to unlock this case?", "Possible data loss", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
-				if (result == MessageBoxResult.Yes)
-				{
-					YellowstonePathology.Business.Domain.LockItem lockItem = (YellowstonePathology.Business.Domain.LockItem)this.listViewLockList.SelectedItem;
-					YellowstonePathology.Business.User.SystemUser systemUser = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetSystemUserByUserName(lockItem.LockedBy);
-					YellowstonePathology.Business.Domain.KeyLock keyLock = new Business.Domain.KeyLock();
-					keyLock.Key = lockItem.KeyString;
-					YellowstonePathology.Business.Gateway.LockGateway.ReleaseLock(keyLock, systemUser);
-					this.GetLockItemCollection();
-                    this.NotifyPropertyChanged(string.Empty);
-                }
-            }
-
-            if(this.ListViewNewLocks.SelectedItem != null)
+		{			
+            if(this.ListViewLockedAccessionOrders.SelectedItem != null)
             {
                 MessageBoxResult result = MessageBox.Show("Clearing a lock may cause data loss.  Note that you may not unlock a case you have locked.  Are you sure you want to unlock this case?", "Possible data loss", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
                 {
-                    YellowstonePathology.Business.User.SystemIdentity systemIdentity = new YellowstonePathology.Business.User.SystemIdentity(YellowstonePathology.Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
-                    YellowstonePathology.Business.Domain.LockItem lockItem = (YellowstonePathology.Business.Domain.LockItem)this.ListViewNewLocks.SelectedItem;
+                    YellowstonePathology.Business.User.SystemIdentity systemIdentity = YellowstonePathology.Business.User.SystemIdentity.Instance;
+                    YellowstonePathology.Business.Domain.LockItem lockItem = (YellowstonePathology.Business.Domain.LockItem)this.ListViewLockedAccessionOrders.SelectedItem;
                     YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(lockItem.KeyString, this);
                     if (accessionOrder.IsLockAquiredByMe() == false)
                     {
                         accessionOrder.SetLock(systemIdentity);
                         YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
-                        this.GetNewLocks();
+                        this.m_LockItemCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetLockedAccessionOrders();
                         this.NotifyPropertyChanged(string.Empty);
                     }
                 }
@@ -95,9 +64,8 @@ namespace YellowstonePathology.UI
 		}
 
 		private void ButtonRefresh_Click(object sender, RoutedEventArgs e)
-		{
-			this.GetLockItemCollection();
-            this.GetNewLocks();
+		{			
+            
             this.NotifyPropertyChanged(string.Empty);
 		}
 
@@ -109,11 +77,6 @@ namespace YellowstonePathology.UI
         public YellowstonePathology.Business.Persistence.DocumentCollection Documents
         {
             get { return YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Documents; }
-        }
-
-        public YellowstonePathology.Business.Domain.LockItemCollection LockedItems
-        {
-            get { return this.m_NewLocks; }
-        }
+        }        
     }
 }

@@ -44,15 +44,15 @@ namespace YellowstonePathology.Business.Task.Model
 		}
 
         public TaskOrder(string taskOrderId, string objectId, string masterAccessionNo, string reportNo, Task task, YellowstonePathology.Business.Interface.IOrderTarget orderTarget, 
-            YellowstonePathology.Business.User.SystemIdentity systemIdentity, string panelSetName, string acknowledgementType)
+            string panelSetName, string acknowledgementType)
         {
             this.m_TaskOrderId = taskOrderId;
 			this.m_ObjectId = objectId;
             this.m_MasterAccessionNo = masterAccessionNo;
             this.m_ReportNo = reportNo;
             this.m_TaskName = task.TaskName;                                    
-            this.m_OrderedById = systemIdentity.User.UserId;
-			this.m_OrderedByInitials = systemIdentity.User.Initials;
+            this.m_OrderedById = YellowstonePathology.Business.User.SystemIdentity.Instance.User.UserId;
+			this.m_OrderedByInitials = YellowstonePathology.Business.User.SystemIdentity.Instance.User.Initials;
 			this.m_TargetId = orderTarget.GetId();
             this.m_TargetType = orderTarget.GetOrderedOnType();
             this.m_TargetDescription = orderTarget.GetDescription();

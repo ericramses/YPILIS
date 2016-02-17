@@ -30,10 +30,10 @@ namespace YellowstonePathology.UI.Login
 		private YellowstonePathology.Business.Domain.CaseNotesKeyCollection m_CaseNotesKeyCollection;
 		private string m_PageHeaderText = "Case Notes";		
 
-		public CaseNotesPage(YellowstonePathology.UI.Navigation.PageNavigator pageNavigator, YellowstonePathology.Business.User.SystemIdentity systemIdentity, YellowstonePathology.Business.Domain.CaseNotesKeyCollection caseNotesKeyCollection)
+		public CaseNotesPage(YellowstonePathology.UI.Navigation.PageNavigator pageNavigator, YellowstonePathology.Business.Domain.CaseNotesKeyCollection caseNotesKeyCollection)
 		{
 			this.m_PageNavigator = pageNavigator;
-			this.m_SystemIdentity = systemIdentity;
+            this.m_SystemIdentity = YellowstonePathology.Business.User.SystemIdentity.Instance;
 			this.m_CaseNotesKeyCollection = caseNotesKeyCollection;
 			this.FillOrderCommentLog();
 

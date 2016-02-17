@@ -10,15 +10,13 @@ namespace YellowstonePathology.UI.Login
 		public delegate void ReturnEventHandler(object sender, UI.Navigation.PageNavigationReturnEventArgs e);
 		public event ReturnEventHandler Return;
 
-		private LoginPageWindow m_LoginPageWindow;
-		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
+		private LoginPageWindow m_LoginPageWindow;		
 		private YellowstonePathology.UI.Login.Receiving.ClientOrderReceivingHandler m_ClientOrderReceivingHandler;
 
-		public ReceiveCytologySpecimenPath(YellowstonePathology.Business.User.SystemIdentity systemIdentity)
-		{
-			this.m_SystemIdentity = systemIdentity;
-			this.m_LoginPageWindow = new LoginPageWindow(this.m_SystemIdentity);			
-			this.m_ClientOrderReceivingHandler = new Receiving.ClientOrderReceivingHandler(this.m_SystemIdentity, this.m_LoginPageWindow);
+		public ReceiveCytologySpecimenPath()
+		{			
+			this.m_LoginPageWindow = new LoginPageWindow();
+			this.m_ClientOrderReceivingHandler = new Receiving.ClientOrderReceivingHandler(this.m_LoginPageWindow);
 		}
 
 		public void Start()

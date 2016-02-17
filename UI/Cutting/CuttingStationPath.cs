@@ -7,8 +7,7 @@ namespace YellowstonePathology.UI.Cutting
 {
     public class CuttingStationPath
     {
-        private CuttingWorkspaceWindow m_CuttingWorkspaceWindow;
-        private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
+        private CuttingWorkspaceWindow m_CuttingWorkspaceWindow;        
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;        
         private CuttingPage m_CuttingPage;
 
@@ -40,16 +39,15 @@ namespace YellowstonePathology.UI.Cutting
             this.m_CuttingWorkspaceWindow.Close();
         }
 
-        private void ScanSecurityBadgePage_AuthentificationSuccessful(object sender, CustomEventArgs.SystemIdentityReturnEventArgs e)
+        private void ScanSecurityBadgePage_AuthentificationSuccessful(object sender, EventArgs e)
         {
-            this.m_CuttingWorkspaceWindow.MenuFile.Visibility = System.Windows.Visibility.Collapsed;
-            this.m_SystemIdentity = e.SystemIdentity;
+            this.m_CuttingWorkspaceWindow.MenuFile.Visibility = System.Windows.Visibility.Collapsed;            
             this.ShowScanAliquotPage(null);
         }
 
         private void ShowScanAliquotPage(string lastMasterAccessionNo)
         {            
-            ScanAliquotPage scanAliquotPage = new ScanAliquotPage(this.m_AccessionOrder, lastMasterAccessionNo, this.m_SystemIdentity);
+            ScanAliquotPage scanAliquotPage = new ScanAliquotPage(this.m_AccessionOrder, lastMasterAccessionNo);
             scanAliquotPage.AliquotOrderSelected += new ScanAliquotPage.AliquotOrderSelectedEventHandler(ScanAliquotPage_AliquotOrderSelected);
             scanAliquotPage.SignOut += new ScanAliquotPage.SignOutEventHandler(ScanAliquotPage_SignOut);
             scanAliquotPage.ShowMasterAccessionNoEntryPage += new ScanAliquotPage.ShowMasterAccessionNoEntryPageEventHandler(ScanAliquotPage_ShowMasterAccessionNoEntryPage);
@@ -161,7 +159,7 @@ namespace YellowstonePathology.UI.Cutting
 
         private void ShowCuttingPage(YellowstonePathology.Business.Test.AliquotOrder aliquotOrder, YellowstonePathology.Business.Test.Model.TestOrder testOrder)
         {            
-            this.m_CuttingPage = new CuttingPage(aliquotOrder, testOrder, this.m_AccessionOrder, this.m_HistologySlidePaperLabelPrinter, this.m_SystemIdentity, this.m_CuttingWorkspaceWindow.PageNavigator);
+            this.m_CuttingPage = new CuttingPage(aliquotOrder, testOrder, this.m_AccessionOrder, this.m_HistologySlidePaperLabelPrinter, this.m_CuttingWorkspaceWindow.PageNavigator);
             this.m_CuttingPage.Finished += new CuttingPage.FinishedEventHandler(CuttingPage_Finished);            
             this.m_CuttingPage.ShowTestOrderSelectionPage += new CuttingPage.ShowTestOrderSelectionPageEventHandler(CuttingPage_ShowTestOrderSelectionPage);
             this.m_CuttingPage.PageTimedOut += new CuttingPage.PageTimedOutEventHandler(PageTimedOut);

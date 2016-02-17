@@ -34,7 +34,7 @@ namespace YellowstonePathology.UI.Surgical
 		{
             this.m_Writer = writer;
 			this.m_MainWindowCommandButtonHandler = mainWindowCommandButtonHandler;
-			this.m_SystemIdentity = new YellowstonePathology.Business.User.SystemIdentity(YellowstonePathology.Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
+            this.m_SystemIdentity = YellowstonePathology.Business.User.SystemIdentity.Instance;
 
 			m_Loaded = false;
 			this.m_PathologistUI = new PathologistUI(this.m_SystemIdentity, writer);
@@ -186,7 +186,7 @@ namespace YellowstonePathology.UI.Surgical
 		{
 			this.Save(false);
 
-			YellowstonePathology.UI.Common.OrderDialog orderDiaglog = new YellowstonePathology.UI.Common.OrderDialog(this.m_PathologistUI.AccessionOrder, this.m_PathologistUI.PanelSetOrder, this.m_SystemIdentity);
+			YellowstonePathology.UI.Common.OrderDialog orderDiaglog = new YellowstonePathology.UI.Common.OrderDialog(this.m_PathologistUI.AccessionOrder, this.m_PathologistUI.PanelSetOrder);
 			orderDiaglog.ShowDialog();
 
 			this.Save(false);

@@ -143,29 +143,13 @@ namespace YellowstonePathology.UI
 		}
 
         private void ReleaseLocksOnStart()
-        {
-            YellowstonePathology.Business.Domain.LockItemCollection lockItemCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetLockItems();
-            for(int idx = 0; idx < lockItemCollection.Count; idx++)
-            {
-                YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(lockItemCollection[idx].KeyString, this);
-                accessionOrder.ReleaseLock();
-            }
+        {            
             YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
         }
 
         private void SaveAndReleaseLocksOnExit()
         {
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Flush();
-
-            YellowstonePathology.Business.Domain.LockItemCollection lockItemCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetLockItems();
-            string machineName = Environment.MachineName;
-            int myLockCount = 0;
-            foreach (YellowstonePathology.Business.Domain.LockItem lockItem in lockItemCollection)
-            {
-                if (lockItem.ComputerName == machineName) myLockCount++;
-            }
-
-            if(myLockCount > 0) MessageBox.Show("There are " + myLockCount.ToString() + " items still locked by me.");
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Flush();            
         }
     }
 }

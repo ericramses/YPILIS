@@ -12,8 +12,8 @@ namespace YellowstonePathology.UI.Login
 
 		public SearchPath(LoginUIV2 loginUI)
         {
-            YellowstonePathology.Business.User.SystemIdentity systemIdentity = new Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
-            this.m_LoginPageWindow = new LoginPageWindow(systemIdentity);
+            YellowstonePathology.Business.User.SystemIdentity systemIdentity = Business.User.SystemIdentity.Instance;
+            this.m_LoginPageWindow = new LoginPageWindow();
 			this.m_LoginPageWindow.Height = 400;
 			this.m_LoginPageWindow.Width = 500;
 			this.m_LoginUI = loginUI;

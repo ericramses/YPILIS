@@ -48,7 +48,7 @@ namespace YellowstonePathology.UI.Test
 			Test.LynchSyndromeEvaluationResultPath path = new LynchSyndromeEvaluationResultPath(reportNo, this.m_AccessionOrder, this.m_PageNavigator, this.m_ResultDialog, System.Windows.Visibility.Visible);
             path.Back += new LynchSyndromeEvaluationResultPath.BackEventHandler(LynchSyndromeEvaluationResultPath_Back);
 			path.Finish += new FinishEventHandler(LynchSyndromeEvaluationResultPath_Finish);
-			path.Start(this.m_SystemIdentity);				
+			path.Start();				
 		}
 
         private void LynchSyndromeEvaluationResultPath_Back(object sender, EventArgs e)

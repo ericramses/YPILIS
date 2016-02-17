@@ -140,7 +140,7 @@ namespace YellowstonePathology.UI.Billing
 
         private void BillingPage_ShowICDCodeEntry(object sender, CustomEventArgs.AccessionOrderWithTrackerReturnEventArgs e)
         {
-			YellowstonePathology.UI.Login.ICDEntryPage icdEntryPage = new YellowstonePathology.UI.Login.ICDEntryPage(e.AccessionOrder, this.m_ReportSearchList.CurrentReportSearchItem.ReportNo, this.m_SystemIdentity);
+			YellowstonePathology.UI.Login.ICDEntryPage icdEntryPage = new YellowstonePathology.UI.Login.ICDEntryPage(e.AccessionOrder, this.m_ReportSearchList.CurrentReportSearchItem.ReportNo);
             icdEntryPage.Next += new Login.ICDEntryPage.NextEventHandler(IcdEntryPage_Next);
             this.m_BillingWindowPrimary.PageNavigator.Navigate(icdEntryPage);            
         }

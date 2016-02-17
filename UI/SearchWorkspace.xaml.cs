@@ -30,7 +30,7 @@ namespace YellowstonePathology.UI
             this.m_MainWindowCommandButtonHandler = mainWindowCommandButtonHandler;
             this.m_Writer = writer;
 
-			this.m_SystemIdentity = new YellowstonePathology.Business.User.SystemIdentity(YellowstonePathology.Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
+            this.m_SystemIdentity = YellowstonePathology.Business.User.SystemIdentity.Instance;
             this.m_Search = new Business.SearchUI();            
             this.m_DocumentViewer = new DocumentWorkspace();            
 

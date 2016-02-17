@@ -32,40 +32,13 @@ namespace YellowstonePathology.UI.Login.Receiving
 		}        
 
 		public void Start()
-		{			
-			if (Business.User.SystemIdentity.DoesLoggedInUserNeedToScanId() == true)
-			{
-				this.ShowScanSecurityBadgePage();
-			}
-			else
-			{
-				this.m_SystemIdentity = new Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
-				this.ShowTaskOrderPage();
-			}            
-		}
-
-        public void Start(YellowstonePathology.Business.User.SystemIdentity systemIdentity)
-        {
-            this.m_SystemIdentity = systemIdentity;
-            this.ShowTaskOrderPage();
-        }
-
-        private void ShowScanSecurityBadgePage()
 		{
-            YellowstonePathology.UI.Login.ScanSecurityBadgePage scanSecurityBadgePage = new ScanSecurityBadgePage(System.Windows.Visibility.Collapsed);
-			scanSecurityBadgePage.AuthentificationSuccessful += new ScanSecurityBadgePage.AuthentificationSuccessfulEventHandler(ScanSecurityBadgePage_AuthentificationSuccessful);
-			this.m_PageNavigator.Navigate(scanSecurityBadgePage);
-		}
-
-		private void ScanSecurityBadgePage_AuthentificationSuccessful(object sender, CustomEventArgs.SystemIdentityReturnEventArgs e)
-		{
-			this.m_SystemIdentity = e.SystemIdentity;
             this.ShowTaskOrderPage();
-		}		
+		}                	
 
 		private void ShowTaskOrderPage()
 		{
-			TaskOrderPage taskOrderPage = new TaskOrderPage(this.m_AccessionOrder, this.m_TaskOrder, this.m_PageNavigationMode, this.m_SystemIdentity);
+			TaskOrderPage taskOrderPage = new TaskOrderPage(this.m_AccessionOrder, this.m_TaskOrder, this.m_PageNavigationMode);
 			taskOrderPage.Back += new Receiving.TaskOrderPage.BackEventHandler(TaskOrderPage_Back);
 			taskOrderPage.Close += new Receiving.TaskOrderPage.CloseEventHandler(TaskOrderPage_Close);
 			taskOrderPage.Next += new TaskOrderPage.NextEventHandler(TaskOrderPage_Next);		

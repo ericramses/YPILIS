@@ -47,7 +47,7 @@ namespace YellowstonePathology.UI.Test
 				Test.MPNExtendedReflexPath MPNExtendedReflexPath = new Test.MPNExtendedReflexPath(panelSetOrderMPNExtendedReflex.ReportNo, this.m_AccessionOrder, this.m_PageNavigator, this.m_Window);
 				MPNExtendedReflexPath.Finish += new Test.MPNExtendedReflexPath.FinishEventHandler(MPNExtendedReflexPath_Finish);
 				MPNExtendedReflexPath.Back += new MPNExtendedReflexPath.BackEventHandler(MPNExtendedReflexPath_Back);
-				MPNExtendedReflexPath.Start(this.m_SystemIdentity);
+				MPNExtendedReflexPath.Start();
 			}
             return result;
         }
