@@ -14,22 +14,8 @@
         </Grid.RowDefinitions>
 
         <TabControl Grid.Row="0">
-            <TabItem Header="Current Locks">
-
-                    <ListView Name="listViewLockList" Margin="2" ItemsSource="{Binding Path=LockItemCollection}">
-                        <ListView.View>
-                            <GridView AllowsColumnReorder="True">
-                                <GridViewColumn DisplayMemberBinding="{Binding Path=LockedBy}" Header="Locked By" Width="120"/>
-                                <GridViewColumn DisplayMemberBinding="{Binding Path=KeyString}" Header="Master Accession No" Width="120"/>
-                                <GridViewColumn DisplayMemberBinding="{Binding Path=LockDate, Converter={StaticResource ShortDateTimeConverter}}" Header="Time" Width="120"/>
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
-
-            </TabItem>
-
-            <TabItem Header="New Locks">
-                <ListView Name="ListViewNewLocks" Grid.Column="0" Grid.Row="0" Margin="2" ItemsSource="{Binding Path=LockedItems}">
+            <TabItem Header="Locked Accession Orders">
+                <ListView Name="ListViewLockedAccessionOrders" Grid.Column="0" Grid.Row="0" Margin="2" ItemsSource="{Binding Path=LockItemCollection}">
                     <ListView.View>
                         <GridView AllowsColumnReorder="True">
                             <GridViewColumn DisplayMemberBinding="{Binding Path=LockedBy}" Header="Locked By" Width="120"/>

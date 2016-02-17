@@ -308,6 +308,9 @@
     <Compile Include="Gross\TemplateWord.cs" />
     <Compile Include="GroupingListView.cs" />
     <Compile Include="ListViewSorter.cs" />
+    <Compile Include="LockedCaseDialog.xaml.cs">
+      <DependentUpon>LockedCaseDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Login\MissingInformationPage.xaml.cs">
       <DependentUpon>MissingInformationPage.xaml</DependentUpon>
     </Compile>
@@ -1928,6 +1931,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Resource>
+    <Page Include="LockedCaseDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Login\MissingInformationPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

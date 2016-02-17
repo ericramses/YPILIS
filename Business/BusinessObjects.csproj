@@ -408,6 +408,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Domain\DataLoadStatusEnum.cs" />
+    <Compile Include="Domain\LockItem.cs" />
+    <Compile Include="Domain\LockItemCollection.cs" />
     <Compile Include="Domain\OrderLogCollection.cs" />
     <Compile Include="Domain\OrderLogItem.cs" />
     <Compile Include="Facility.Model\BozemanDeaconess.cs" />

@@ -14,6 +14,32 @@ namespace YellowstonePathology.Business.Gateway
 {
 	public class AccessionOrderGateway
 	{
+        public static YellowstonePathology.Business.Domain.LockItemCollection GetLockedAccessionOrders()
+        {
+            YellowstonePathology.Business.Domain.LockItemCollection result = new Domain.LockItemCollection();
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "Select MasterAccessionNo KeyString, LockAquiredByUserName LockedBy, LockAquiredByHostName ComputerName, TimeLockAquired LockDate from tblAccessionOrder where LockAquired = 1";
+
+            cmd.CommandType = CommandType.Text;
+
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        YellowstonePathology.Business.Domain.LockItem lockItem = new Domain.LockItem();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(lockItem, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Add(lockItem);
+                    }
+                }
+            }
+            return result;
+        }
+
         public static YellowstonePathology.Business.Typing.TypingShortcutCollection GetTypingShortcutCollectionByUser(int userId)
         {
             SqlCommand cmd = new SqlCommand();

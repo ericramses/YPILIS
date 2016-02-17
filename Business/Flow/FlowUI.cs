@@ -89,12 +89,7 @@ namespace YellowstonePathology.Business.Flow
         public void Search()
         {
 			this.m_FlowLogSearch.Search();
-        }
-
-		public Domain.Lock Lock
-		{
-			get { return this.m_Lock; }
-		}
+        }		
 
         public YellowstonePathology.Business.Billing.ICDCodeList ICDCodeList
         {
