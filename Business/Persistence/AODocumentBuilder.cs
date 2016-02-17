@@ -11,7 +11,7 @@ namespace YellowstonePathology.Business.Persistence
     {
         private SqlCommand m_SQLCommand;
 
-        public AODocumentBuilder(string masterAccessionNo)
+        public AODocumentBuilder(string masterAccessionNo, bool obtainLock)
         {                        
             YellowstonePathology.Business.User.SystemIdentity systemIdentity = YellowstonePathology.Business.User.SystemIdentity.Instance;
 
@@ -19,7 +19,7 @@ namespace YellowstonePathology.Business.Persistence
             m_SQLCommand.CommandText = "AOGWGetByMasterAccessionNo";
             m_SQLCommand.CommandType = CommandType.StoredProcedure;
             m_SQLCommand.Parameters.Add("@MasterAccessionNo", SqlDbType.VarChar).Value = masterAccessionNo;
-            m_SQLCommand.Parameters.Add("@AquireLock", SqlDbType.Bit).Value = true;
+            m_SQLCommand.Parameters.Add("@AquireLock", SqlDbType.Bit).Value = obtainLock;
             m_SQLCommand.Parameters.Add("@LockAquiredById", SqlDbType.VarChar).Value = systemIdentity.User.UserId;
             m_SQLCommand.Parameters.Add("@LockAquiredByUserName", SqlDbType.VarChar).Value = systemIdentity.User.UserName;
             m_SQLCommand.Parameters.Add("@LockAquiredByHostName", SqlDbType.VarChar).Value = System.Environment.MachineName;
