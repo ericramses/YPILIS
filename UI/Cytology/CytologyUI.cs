@@ -422,7 +422,7 @@ namespace YellowstonePathology.UI.Cytology
 			return 0;
 		}
 
-		public void ShowAmendmentDialog(object target, ExecutedRoutedEventArgs args)
+		public void ShowAmendmentDialog(object sender, EventArgs e)
 		{
 			this.Save(false);
 

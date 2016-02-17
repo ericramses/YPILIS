@@ -23,7 +23,6 @@ namespace YellowstonePathology.UI.Flow
     public partial class FlowWorkspace : System.Windows.Controls.UserControl
     {        
         public CommandBinding CommandBindingApplicationClosing;        
-        public CommandBinding CommandBindingToggleAccessionLockMode;
         public CommandBinding CommandBindingRemoveTab;        
 
         private YellowstonePathology.Business.Flow.FlowUI m_FlowUI;        
@@ -44,7 +43,6 @@ namespace YellowstonePathology.UI.Flow
             this.CommandBindingRemoveTab = new CommandBinding(MainWindow.RemoveTabCommand, RemoveTab);            
 
             this.CommandBindings.Add(this.CommandBindingApplicationClosing);            
-            this.CommandBindings.Add(this.CommandBindingToggleAccessionLockMode);
             this.CommandBindings.Add(this.CommandBindingRemoveTab);            
 
             this.m_DocumentViewer = new DocumentWorkspace();
@@ -126,21 +124,6 @@ namespace YellowstonePathology.UI.Flow
             this.Save(true);            
         }
 
-        private void AccessionLock_LockStatusChanged(object sender, EventArgs e)
-        {
-            
-        }
-
-        public void AlterAccessionLock(object target, ExecutedRoutedEventArgs args)
-        {
-            
-        }
-
-        private void CanAlterAccessionLock(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = false;			
-        }        
-
         public void GatingCount_LostFocus(object sender, RoutedEventArgs args)
         {
 			((YellowstonePathology.Business.Test.LLP.PanelSetOrderLeukemiaLymphoma)this.m_FlowUI.PanelSetOrderLeukemiaLymphoma).RefreshGatingPercent();
@@ -180,11 +163,6 @@ namespace YellowstonePathology.UI.Flow
         public void ButtonTechUnfinal_Click(object sender, RoutedEventArgs args)
         {
             this.m_FlowUI.MedTechUnfinal();
-        }
-
-        public void ButtonAccessionLock_Click(object sender, RoutedEventArgs args)
-        {
-			
         }
 
         public void MenuItemDeleteIcd9Code_Click(object sender, RoutedEventArgs args)
