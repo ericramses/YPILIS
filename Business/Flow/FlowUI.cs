@@ -30,7 +30,7 @@ namespace YellowstonePathology.Business.Flow
 		private bool m_IsEnabled = true;
 		private string m_ReportNo;
 
-        private YellowstonePathology.Business.Domain.Lock m_Lock;
+        
         private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
         private YellowstonePathology.Business.Facility.Model.FacilityCollection m_FacilityCollection;
 		private YellowstonePathology.Business.Document.CaseDocumentCollection m_CaseDocumentCollection;
@@ -52,9 +52,7 @@ namespace YellowstonePathology.Business.Flow
             else
             {
                 this.m_FlowLogSearch.SetByAccessionMonth(DateTime.Now);
-			}
-
-			this.m_Lock = new Domain.Lock(this.m_SystemIdentity);
+			}			
 
 			this.m_PathologistUsers = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetUsersByRole(YellowstonePathology.Business.User.SystemUserRoleDescriptionEnum.Pathologist, true);
 			this.m_MedTechUsers = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetUsersByRole(YellowstonePathology.Business.User.SystemUserRoleDescriptionEnum.MedTech, true);

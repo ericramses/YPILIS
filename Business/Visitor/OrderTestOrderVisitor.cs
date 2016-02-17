@@ -11,18 +11,17 @@ namespace YellowstonePathology.Business.Visitor
         protected YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         protected YellowstonePathology.Business.PanelSet.Model.PanelSet m_PanelSet;
         protected YellowstonePathology.Business.Interface.IOrderTarget m_OrderTarget;        
-        protected YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
+        
         protected string m_ReportNo;
         protected bool m_OrderTargetIsKnow;
 		protected YellowstonePathology.Business.Test.TestOrderInfo m_TestOrderInfo;
 
-        public OrderTestOrderVisitor(YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        public OrderTestOrderVisitor(YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo)
             : base(true, true)
         {
             this.m_OrderTargetIsKnow = testOrderInfo.OrderTargetIsKnown;
             this.m_PanelSet = testOrderInfo.PanelSet;
-            this.m_OrderTarget = testOrderInfo.OrderTarget;
-            this.m_SystemIdentity = systemIdentity;            
+            this.m_OrderTarget = testOrderInfo.OrderTarget;            
 			this.m_TestOrderInfo = testOrderInfo;
         }        
 
@@ -127,7 +126,7 @@ namespace YellowstonePathology.Business.Visitor
             this.m_PanelSetOrder = null;
             if (this.m_PanelSet.HasNoOrderTarget == true)
             {
-                this.m_PanelSetOrder = YellowstonePathology.Business.Test.PanelSetOrderFactory.CreatePanelSetOrder(this.m_AccessionOrder.MasterAccessionNo, this.m_ReportNo, objectId, this.m_PanelSet, distribute, this.m_SystemIdentity);
+                this.m_PanelSetOrder = YellowstonePathology.Business.Test.PanelSetOrderFactory.CreatePanelSetOrder(this.m_AccessionOrder.MasterAccessionNo, this.m_ReportNo, objectId, this.m_PanelSet, distribute);
             }
             else
             {
@@ -135,7 +134,7 @@ namespace YellowstonePathology.Business.Visitor
                 {
                     this.m_OrderTarget = this.m_AccessionOrder.SpecimenOrderCollection.GetOrderTarget(this.m_PanelSet.OrderTargetTypeCollectionRestrictions);
                 }
-                this.m_PanelSetOrder = YellowstonePathology.Business.Test.PanelSetOrderFactory.CreatePanelSetOrder(this.m_AccessionOrder.MasterAccessionNo, this.m_ReportNo, objectId, this.m_PanelSet, this.m_OrderTarget, distribute, this.m_SystemIdentity);
+                this.m_PanelSetOrder = YellowstonePathology.Business.Test.PanelSetOrderFactory.CreatePanelSetOrder(this.m_AccessionOrder.MasterAccessionNo, this.m_ReportNo, objectId, this.m_PanelSet, this.m_OrderTarget, distribute);
             }            
 
             this.m_AccessionOrder.PanelSetOrderCollection.Add(this.m_PanelSetOrder);
@@ -148,13 +147,13 @@ namespace YellowstonePathology.Business.Visitor
             foreach (YellowstonePathology.Business.Panel.Model.Panel panel in this.m_PanelSet.PanelCollection)
             {
                 string panelOrderId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-                YellowstonePathology.Business.Test.PanelOrder panelOrder = YellowstonePathology.Business.Test.PanelOrderFactory.GetPanelOrder(this.m_ReportNo, panelOrderId, panelOrderId, panel, this.m_SystemIdentity.User.UserId);
+                YellowstonePathology.Business.Test.PanelOrder panelOrder = YellowstonePathology.Business.Test.PanelOrderFactory.GetPanelOrder(this.m_ReportNo, panelOrderId, panelOrderId, panel, YellowstonePathology.Business.User.SystemIdentity.Instance.User.UserId);
                 this.m_PanelSetOrder.PanelOrderCollection.Add(panelOrder);
 
                 if (panel.AcknowledgeOnOrder == true)
                 {
                     panelOrder.Acknowledged = true;
-                    panelOrder.AcknowledgedById = this.m_SystemIdentity.User.UserId;
+                    panelOrder.AcknowledgedById = YellowstonePathology.Business.User.SystemIdentity.Instance.User.UserId;
                     panelOrder.AcknowledgedDate = DateTime.Today;
                     panelOrder.AcknowledgedTime = DateTime.Now;
                 }
@@ -208,7 +207,7 @@ namespace YellowstonePathology.Business.Visitor
             if (this.m_PanelSetOrder is YellowstonePathology.Business.Test.ReflexTesting.ReflexTestingPlan)
             {
                 YellowstonePathology.Business.Test.ReflexTesting.ReflexTestingPlan reflexTestingPlan = (YellowstonePathology.Business.Test.ReflexTesting.ReflexTestingPlan)this.m_PanelSetOrder;
-                reflexTestingPlan.OrderInitialTests(this.m_AccessionOrder, this.m_OrderTarget, this.m_SystemIdentity);
+                reflexTestingPlan.OrderInitialTests(this.m_AccessionOrder, this.m_OrderTarget);
             }
         }
 

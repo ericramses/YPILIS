@@ -31,11 +31,11 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             this.m_LynchSyndromeEvaluationType = YellowstonePathology.Business.Test.LynchSyndrome.LSEType.NOTSET;
 		}
 
-		public override void OrderInitialTests(AccessionOrder accessionOrder, YellowstonePathology.Business.Interface.IOrderTarget orderTarget, Business.User.SystemIdentity systemIdentity)
+		public override void OrderInitialTests(AccessionOrder accessionOrder, YellowstonePathology.Business.Interface.IOrderTarget orderTarget)
 		{						
             YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeIHCPanelTest lynchSyndromeIHCPanelTest = new YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeIHCPanelTest();
             YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new TestOrderInfo(lynchSyndromeIHCPanelTest, orderTarget, false);            
-            YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Visitor.OrderTestOrderVisitor(testOrderInfo, systemIdentity);            
+            YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Visitor.OrderTestOrderVisitor(testOrderInfo);            
             accessionOrder.TakeATrip(orderTestOrderVisitor);            
 		}		
 

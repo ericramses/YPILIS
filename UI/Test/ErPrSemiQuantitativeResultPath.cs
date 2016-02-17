@@ -46,7 +46,7 @@ namespace YellowstonePathology.UI.Test
 				result = true;
 				YellowstonePathology.UI.Test.InvasiveBreastPanelPath resultPath = new Test.InvasiveBreastPanelPath(panelSetOrder.ReportNo, this.m_AccessionOrder, this.m_PageNavigator, this.m_Window);
 				resultPath.Finish += new Test.InvasiveBreastPanelPath.FinishEventHandler(ResultPath_Finish);
-				resultPath.Start(this.m_SystemIdentity);
+				resultPath.Start();
 			}
 			return result;
 		}

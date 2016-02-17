@@ -11,18 +11,15 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 		public event ReturnEventHandler Return;        
 
 		private YellowstonePathology.UI.Navigation.PageNavigator m_PageNavigator;
-		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
+		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;		
 		private string m_ReportNo;
 
 		public FinalizeAccessionPath(string reportNo, 
 			YellowstonePathology.UI.Navigation.PageNavigator pageNavigator, 
-            YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+            YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{
 			this.m_PageNavigator = pageNavigator;
-			this.m_AccessionOrder = accessionOrder;
-			this.m_SystemIdentity = systemIdentity;
+			this.m_AccessionOrder = accessionOrder;			
 			this.m_ReportNo = reportNo;
 		}
 
@@ -71,23 +68,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 		private void CaseNotesPath_PatientLinkingPage_Return(object sender, UI.Navigation.PageNavigationReturnEventArgs e)
 		{
 			this.ShowPatientLinkingPage();
-		}
-
-		/*private void ProviderDetailPage_Return(object sender, UI.Navigation.PageNavigationReturnEventArgs e)
-		{
-			switch (e.PageNavigationDirectionEnum)
-			{
-				case UI.Navigation.PageNavigationDirectionEnum.Next:
-                    if (this.ShowPatientHistoryPage() == false) this.StartAliquotAndStainOrderPath();
-					break;
-				case UI.Navigation.PageNavigationDirectionEnum.Back:
-					this.ShowPatientLinkingPage();
-					break;
-				case UI.Navigation.PageNavigationDirectionEnum.Command:
-					this.ProviderDetailPage_Return_HandleCommand(e);
-					break;
-			}
-		}*/
+		}		
 
 		private void CaseNotesPath_ProviderDetailPage_Return(object sender, UI.Navigation.PageNavigationReturnEventArgs e)
 		{
@@ -146,25 +127,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                     }
 					break;
 			}
-		}
-
-        /*
-		private void FixationDetailsPage_Return(object sender, UI.Navigation.PageNavigationReturnEventArgs e)
-		{
-			switch (e.PageNavigationDirectionEnum)
-			{
-				case UI.Navigation.PageNavigationDirectionEnum.Finish:
-                    if (this.ShowPrintCytologyLabelsPage() == false)
-                    {
-                        this.Return(this, new UI.Navigation.PageNavigationReturnEventArgs(Navigation.PageNavigationDirectionEnum.Finish, null));
-                    }
-					break;
-				case UI.Navigation.PageNavigationDirectionEnum.Back:
-					this.ShowPaperScanningPage();
-					break;
-			}
-		} 
-        */
+		}        
 
 		private void ShowPatientDetailsPage()
 		{
@@ -231,7 +194,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
         private void StartAliquotAndStainOrderPath()
 		{
 			YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
-			YellowstonePathology.UI.Login.FinalizeAccession.AliquotAndStainOrderPath aliquotAndStainOrderPath = new AliquotAndStainOrderPath(this.m_AccessionOrder, panelSetOrder, this.m_SystemIdentity, this.m_PageNavigator);
+			YellowstonePathology.UI.Login.FinalizeAccession.AliquotAndStainOrderPath aliquotAndStainOrderPath = new AliquotAndStainOrderPath(this.m_AccessionOrder, panelSetOrder, this.m_PageNavigator);
             aliquotAndStainOrderPath.Return += new AliquotAndStainOrderPath.ReturnEventHandler(AliquotAndStainOrderPath_Return);
             aliquotAndStainOrderPath.Start();            			
 		}
@@ -266,16 +229,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             FinalizeAccession.DocumentScanningPage documentScanningPage = new FinalizeAccession.DocumentScanningPage(this.m_AccessionOrder);
             documentScanningPage.Return += new FinalizeAccession.DocumentScanningPage.ReturnEventHandler(PaperScanningPage_Return);
             this.m_PageNavigator.Navigate(documentScanningPage);
-		}        
-
-        /*
-		private void ShowFixationDetailsPage()
-		{                       
-            FixationDetailsPage fixationDetailsPage = new FixationDetailsPage(this.m_AccessionOrder, this.m_ObjectTracker);
-            fixationDetailsPage.Return += new FixationDetailsPage.ReturnEventHandler(FixationDetailsPage_Return);
-            this.m_PageNavigator.Navigate(fixationDetailsPage);                         
-		}
-        */
+		}               
 
 		private bool ShowPatientHistoryPage()
 		{
@@ -302,7 +256,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 			{
 				case FinalizeAccessionCommandTypeEnum.ShowCaseNotes:
 					YellowstonePathology.Business.Domain.CaseNotesKeyCollection caseNotesKeyCollection = new YellowstonePathology.Business.Domain.CaseNotesKeyCollection(this.m_AccessionOrder);
-					CaseNotesPath caseNotesPath = new CaseNotesPath(this.m_PageNavigator, this.m_SystemIdentity, caseNotesKeyCollection);
+					CaseNotesPath caseNotesPath = new CaseNotesPath(this.m_PageNavigator, caseNotesKeyCollection);
 					caseNotesPath.Return += new CaseNotesPath.ReturnEventHandler(CaseNotesPath_PatientDetailsPage_Return);
 					caseNotesPath.Start();
 					break;
@@ -315,7 +269,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 			{
 				case FinalizeAccessionCommandTypeEnum.ShowCaseNotes:
 					YellowstonePathology.Business.Domain.CaseNotesKeyCollection caseNotesKeyCollection = new YellowstonePathology.Business.Domain.CaseNotesKeyCollection(this.m_AccessionOrder);
-					CaseNotesPath caseNotesPath = new CaseNotesPath(this.m_PageNavigator, this.m_SystemIdentity, caseNotesKeyCollection);
+					CaseNotesPath caseNotesPath = new CaseNotesPath(this.m_PageNavigator, caseNotesKeyCollection);
 					caseNotesPath.Return += new CaseNotesPath.ReturnEventHandler(CaseNotesPath_PatientLinkingPage_Return);
 					caseNotesPath.Start();
 					break;
@@ -328,7 +282,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 			{
 				case FinalizeAccessionCommandTypeEnum.ShowCaseNotes:
 					YellowstonePathology.Business.Domain.CaseNotesKeyCollection caseNotesKeyCollection = new YellowstonePathology.Business.Domain.CaseNotesKeyCollection(this.m_AccessionOrder);
-					CaseNotesPath caseNotesPath = new CaseNotesPath(this.m_PageNavigator, this.m_SystemIdentity, caseNotesKeyCollection);
+					CaseNotesPath caseNotesPath = new CaseNotesPath(this.m_PageNavigator, caseNotesKeyCollection);
 					caseNotesPath.Return += new CaseNotesPath.ReturnEventHandler(CaseNotesPath_ProviderDetailPage_Return);
 					caseNotesPath.Start();
 					break;

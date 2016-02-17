@@ -9,7 +9,7 @@ using System.Xml.Linq;
 
 namespace YellowstonePathology.Business.Interface
 {
-    public interface IOrder : ILockable
+    public interface IOrder
 	{        	        
         string MasterAccessionNo { get; set; }
         int SpecimenLogId { get; set; }

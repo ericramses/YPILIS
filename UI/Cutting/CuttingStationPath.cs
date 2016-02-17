@@ -40,10 +40,10 @@ namespace YellowstonePathology.UI.Cutting
             this.m_CuttingWorkspaceWindow.Close();
         }
 
-        private void ScanSecurityBadgePage_AuthentificationSuccessful(object sender, CustomEventArgs.SystemIdentityReturnEventArgs e)
+        private void ScanSecurityBadgePage_AuthentificationSuccessful(object sender, EventArgs e)
         {
             this.m_CuttingWorkspaceWindow.MenuFile.Visibility = System.Windows.Visibility.Collapsed;
-            this.m_SystemIdentity = e.SystemIdentity;
+            this.m_SystemIdentity = YellowstonePathology.Business.User.SystemIdentity.Instance;
             this.ShowScanAliquotPage(null);
         }
 

@@ -30,8 +30,7 @@ namespace YellowstonePathology.UI.Login.Receiving
         public event SaveClientOrderDetailEventHandler SaveClientOrderDetail;        
 		
 		private YellowstonePathology.UI.Navigation.PageNavigator m_PageNavigator;
-        private YellowstonePathology.Business.ClientOrder.Model.ClientOrderDetail m_ClientOrderDetail;
-		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
+        private YellowstonePathology.Business.ClientOrder.Model.ClientOrderDetail m_ClientOrderDetail;		
 
 		private string m_PageHeaderText = "Specimen Details Page";
         private ObservableCollection<string> m_FixationTypeCollection;
@@ -43,13 +42,11 @@ namespace YellowstonePathology.UI.Login.Receiving
 
 		public ClientOrderDetailsPage(YellowstonePathology.UI.Navigation.PageNavigator pageNavigator, 
             YellowstonePathology.Business.ClientOrder.Model.ClientOrderDetail clientOrderDetail,
-            string specialInstructions,
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+            string specialInstructions)
 		{
 			this.m_PageNavigator = pageNavigator;
             this.m_ClientOrderDetail = clientOrderDetail;
-            this.m_SpecialInstructions = specialInstructions;
-            this.m_SystemIdentity = systemIdentity;
+            this.m_SpecialInstructions = specialInstructions;            
 
             this.m_TimeToFixationTypeCollection = YellowstonePathology.Business.Specimen.Model.TimeToFixationType.GetTimeToFixationTypeCollection();
             this.m_FixationTypeCollection = YellowstonePathology.Business.Specimen.Model.FixationType.GetFixationTypeCollection();

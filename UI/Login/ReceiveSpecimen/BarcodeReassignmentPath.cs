@@ -18,38 +18,12 @@ namespace YellowstonePathology.UI.Login.ReceiveSpecimen
 
         public void Start()
         {            
-            this.m_LoginPageWindow = new LoginPageWindow(this.m_SystemIdentity);
-			if (Business.User.SystemIdentity.DoesLoggedInUserNeedToScanId() == true)
-			{
-				this.ShowScanSecurityBadgePage();
-			}
-			else
-			{
-				this.m_SystemIdentity = Business.User.SystemIdentity.Instance;
-				this.m_LoginPageWindow.SystemIdentity = this.m_SystemIdentity;
-				this.ShowPatientNameLookupPage();
-			}
+            this.m_LoginPageWindow = new LoginPageWindow();
+            this.ShowPatientNameLookupPage();
 			this.m_LoginPageWindow.ShowDialog();
         }
 
-        private void ShowScanSecurityBadgePage()
-        {
-            YellowstonePathology.UI.Login.ScanSecurityBadgePage scanSecurityBadgePage = new ScanSecurityBadgePage(System.Windows.Visibility.Collapsed);
-			this.m_LoginPageWindow.PageNavigator.Navigate(scanSecurityBadgePage);
-			scanSecurityBadgePage.AuthentificationSuccessful += new ScanSecurityBadgePage.AuthentificationSuccessfulEventHandler(ScanSecurityBadgePage_AuthentificationSuccessful);
-		}
-
-		private void ScanSecurityBadgePage_AuthentificationSuccessful(object sender, CustomEventArgs.SystemIdentityReturnEventArgs e)
-		{
-			this.m_SystemIdentity = e.SystemIdentity;
-			this.m_LoginPageWindow.SystemIdentity = this.m_SystemIdentity;
-			this.ShowPatientNameLookupPage();
-		}
-
-        private void ScanSecurityBadgePage_Return(object sender, UI.Navigation.PageNavigationReturnEventArgs e)
-        {
-			this.ShowPatientNameLookupPage();
-        }
+        
 
 		private void ShowPatientNameLookupPage()
 		{			

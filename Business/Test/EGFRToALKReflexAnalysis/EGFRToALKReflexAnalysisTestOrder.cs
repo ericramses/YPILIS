@@ -32,11 +32,11 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
             
 		}
 
-        public override void OrderInitialTests(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Interface.IOrderTarget orderTarget, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        public override void OrderInitialTests(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Interface.IOrderTarget orderTarget)
         {                        
             YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisTest egfrMutationAnalysisTest = new YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisTest();
             YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new TestOrderInfo(egfrMutationAnalysisTest, orderTarget, false);
-            YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Visitor.OrderTestOrderVisitor(testOrderInfo, systemIdentity);
+            YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Visitor.OrderTestOrderVisitor(testOrderInfo);
             accessionOrder.TakeATrip(orderTestOrderVisitor);            
         }		
 

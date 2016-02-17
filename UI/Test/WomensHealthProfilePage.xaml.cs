@@ -171,7 +171,7 @@ namespace YellowstonePathology.UI.Test
                 YellowstonePathology.Business.Interface.IOrderTarget orderTarget = this.m_AccessionOrder.SpecimenOrderCollection.GetOrderTarget(this.m_WomensHealthProfileTestOrder.OrderedOnId);
 				YellowstonePathology.Business.Test.HPV.HPVTest panelSetHPV = new Business.Test.HPV.HPVTest();
                 YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new Business.Test.TestOrderInfo(panelSetHPV, orderTarget, true);                
-                YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Business.Visitor.OrderTestOrderVisitor(testOrderInfo, this.m_SystemIdentity);
+                YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Business.Visitor.OrderTestOrderVisitor(testOrderInfo);
                 this.m_AccessionOrder.TakeATrip(orderTestOrderVisitor);
 
                 //this.Save(false);
@@ -193,7 +193,7 @@ namespace YellowstonePathology.UI.Test
                 YellowstonePathology.Business.Interface.IOrderTarget orderTarget = this.m_AccessionOrder.SpecimenOrderCollection.GetOrderTarget(this.m_WomensHealthProfileTestOrder.OrderedOnId);
                 YellowstonePathology.Business.Test.NGCT.NGCTTest ngctTest = new YellowstonePathology.Business.Test.NGCT.NGCTTest();
                 YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new Business.Test.TestOrderInfo(ngctTest, orderTarget, true);                
-                YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Business.Visitor.OrderTestOrderVisitor(testOrderInfo, this.m_SystemIdentity);
+                YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Business.Visitor.OrderTestOrderVisitor(testOrderInfo);
                 this.m_AccessionOrder.TakeATrip(orderTestOrderVisitor);             
                 
                 //this.Save(false);
@@ -215,7 +215,7 @@ namespace YellowstonePathology.UI.Test
                 YellowstonePathology.Business.Interface.IOrderTarget orderTarget = this.m_AccessionOrder.SpecimenOrderCollection.GetOrderTarget(this.m_WomensHealthProfileTestOrder.OrderedOnId);
                 YellowstonePathology.Business.Test.Trichomonas.TrichomonasTest trichomonasTest = new YellowstonePathology.Business.Test.Trichomonas.TrichomonasTest();
                 YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new Business.Test.TestOrderInfo(trichomonasTest, orderTarget, true);                
-                YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Business.Visitor.OrderTestOrderVisitor(testOrderInfo, this.m_SystemIdentity);
+                YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Business.Visitor.OrderTestOrderVisitor(testOrderInfo);
                 this.m_AccessionOrder.TakeATrip(orderTestOrderVisitor);
                 //this.Save(false);
                 this.m_AuditCollection.Run();
@@ -236,7 +236,7 @@ namespace YellowstonePathology.UI.Test
                 YellowstonePathology.Business.Test.HPV1618.HPV1618Test hpv1618Test = new YellowstonePathology.Business.Test.HPV1618.HPV1618Test();
                 YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new Business.Test.TestOrderInfo(hpv1618Test, orderTarget, true);                                
 
-                YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Business.Visitor.OrderTestOrderVisitor(testOrderInfo, this.m_SystemIdentity);
+                YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Business.Visitor.OrderTestOrderVisitor(testOrderInfo);
                 this.m_AccessionOrder.TakeATrip(orderTestOrderVisitor);
                 //this.Save(false);
 
@@ -257,7 +257,7 @@ namespace YellowstonePathology.UI.Test
                 YellowstonePathology.Business.Interface.IOrderTarget orderTarget = this.m_AccessionOrder.SpecimenOrderCollection.GetOrderTarget(this.m_WomensHealthProfileTestOrder.OrderedOnId);
                 YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapTest thinPrepPapTest = new YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapTest();
                 YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new Business.Test.TestOrderInfo(thinPrepPapTest, orderTarget, true);                
-                YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Business.Visitor.OrderTestOrderVisitor(testOrderInfo, this.m_SystemIdentity);
+                YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Business.Visitor.OrderTestOrderVisitor(testOrderInfo);
                 this.m_AccessionOrder.TakeATrip(orderTestOrderVisitor);
                 this.m_AuditCollection.Run();
                 this.NotifyPropertyChanged(string.Empty);

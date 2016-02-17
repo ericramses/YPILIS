@@ -424,9 +424,6 @@
     </Compile>
     <Compile Include="Gateway\AOSaveResult.cs" />
     <Compile Include="Gateway\ClientOrderBuilder.cs" />
-    <Compile Include="Gateway\LockGateway.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Gateway\PatientLinkingGateway.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -1052,8 +1049,6 @@
     <Compile Include="Domain\Cytology\OtherConditionCollection.cs" />
     <Compile Include="Domain\HpvRequisitionInstructionCollection.cs" />
     <Compile Include="Domain\ImmunoComment.cs" />
-    <Compile Include="Domain\LockItem.cs" />
-    <Compile Include="Domain\LockItemCollection.cs" />
     <Compile Include="Domain\LockModeEnum.cs" />
     <Compile Include="Domain\OrderableTestCptCode.Generated.cs" />
     <Compile Include="Domain\OrderableTestCptCodeCollection.cs" />
@@ -1063,15 +1058,11 @@
     <Compile Include="Slide.Model\SlideLabelCollection.cs" />
     <Compile Include="Slide.Model\SlideStatusEnum.cs" />
     <Compile Include="Domain\DataLoadResult.cs" />
-    <Compile Include="Domain\Lock.cs" />
     <Compile Include="Domain\Billing\BillingChangeResult.cs" />
     <Compile Include="Domain\Billing\BillingReport.cs" />
     <Compile Include="Domain\Billing\BillingReportCollection.cs" />
     <Compile Include="Domain\Cytology\CytologyAbnormalUnsatLetter.cs" />
     <Compile Include="Domain\HpvRequisitionInstruction.cs" />
-    <Compile Include="Domain\KeyLock.cs" />
-    <Compile Include="Domain\KeyLockFactory.cs" />
-    <Compile Include="Domain\KeyLockTypeEnum.cs" />
     <Compile Include="Document\ReportSaveModeEnum.cs" />
     <Compile Include="Slide.Model\SlideOrder.cs" />
     <Compile Include="Slide.Model\SlideOrderCollection.cs">
@@ -1161,7 +1152,6 @@
     <Compile Include="Interface\ICytologyResult.cs" />
     <Compile Include="Interface\IDataContext.cs" />
     <Compile Include="Interface\IDomainGateway.cs" />
-    <Compile Include="Interface\ILockable.cs" />
     <Compile Include="Interface\IOrder.cs" />
     <Compile Include="Interface\IOrderComment.cs" />
     <Compile Include="Interface\IOrderInstruction.cs" />

@@ -99,7 +99,7 @@ namespace YellowstonePathology.UI
                 YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(pantherOrderListItem.MasterAccessionNo, this);
 
                 YellowstonePathology.Business.User.SystemIdentity systemIdentity = Business.User.SystemIdentity.Instance;
-                this.m_LoginPageWindow = new Login.LoginPageWindow(systemIdentity);
+                this.m_LoginPageWindow = new Login.LoginPageWindow();
                 this.m_LoginPageWindow.Show();
 
                 YellowstonePathology.UI.Test.HPVResultPath hpvResultPath = new Test.HPVResultPath(pantherOrderListItem.ReportNo, accessionOrder, this.m_LoginPageWindow.PageNavigator, this);
@@ -241,7 +241,7 @@ namespace YellowstonePathology.UI
                 YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(pantherOrderListItem.MasterAccessionNo, this);
 
                 YellowstonePathology.Business.User.SystemIdentity systemIdentity = Business.User.SystemIdentity.Instance;
-                this.m_LoginPageWindow = new Login.LoginPageWindow(systemIdentity);
+                this.m_LoginPageWindow = new Login.LoginPageWindow();
                 this.m_LoginPageWindow.Show();
 
                 YellowstonePathology.UI.Test.NGCTResultPath ngctResultPath = new Test.NGCTResultPath(pantherOrderListItem.ReportNo, accessionOrder, this.m_LoginPageWindow.PageNavigator, this.m_LoginPageWindow);
@@ -298,7 +298,7 @@ namespace YellowstonePathology.UI
                 YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(pantherOrderListItem.MasterAccessionNo, this);
 
                 YellowstonePathology.Business.User.SystemIdentity systemIdentity = Business.User.SystemIdentity.Instance;
-                this.m_LoginPageWindow = new Login.LoginPageWindow(systemIdentity);
+                this.m_LoginPageWindow = new Login.LoginPageWindow();
                 this.m_LoginPageWindow.Show();
 
                 YellowstonePathology.UI.Test.HPV1618ResultPath hpv1618ResultPath = new Test.HPV1618ResultPath(pantherOrderListItem.ReportNo, accessionOrder, this.m_LoginPageWindow.PageNavigator, this);
@@ -316,7 +316,7 @@ namespace YellowstonePathology.UI
                 YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullClientOrderByClientOrderId(accessionOrder.ClientOrderId, this);
 
                 YellowstonePathology.Business.User.SystemIdentity systemIdentity = Business.User.SystemIdentity.Instance;
-                this.m_LoginPageWindow = new Login.LoginPageWindow(systemIdentity);
+                this.m_LoginPageWindow = new Login.LoginPageWindow();
                 this.m_LoginPageWindow.Show();
 
                 Login.WomensHealthProfilePath womensHealthProfilePath = new Login.WomensHealthProfilePath(accessionOrder, clientOrder, this.m_LoginPageWindow.PageNavigator, this, Visibility.Hidden);

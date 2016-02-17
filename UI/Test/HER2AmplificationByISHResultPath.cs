@@ -48,7 +48,7 @@ namespace YellowstonePathology.UI.Test
             YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByOrderTarget(this.m_PanelSetOrder.OrderedOnId);
             Login.SpecimenOrderDetailsPath specimenOrderDetailsPath = new Login.SpecimenOrderDetailsPath(specimenOrder, this.m_AccessionOrder, this.m_PageNavigator);
             specimenOrderDetailsPath.Finish += new Login.SpecimenOrderDetailsPath.FinishEventHandler(SpecimenOrderDetailsPath_Finish);
-            specimenOrderDetailsPath.Start(this.m_SystemIdentity);
+            specimenOrderDetailsPath.Start();
         }
 
         private void SpecimenOrderDetailsPath_Finish(object sender, EventArgs e)
@@ -66,7 +66,7 @@ namespace YellowstonePathology.UI.Test
                 result = true;
                 YellowstonePathology.UI.Test.InvasiveBreastPanelPath resultPath = new Test.InvasiveBreastPanelPath(panelSetOrder.ReportNo, this.m_AccessionOrder, this.m_PageNavigator, this.m_Window);
                 resultPath.Finish += new Test.InvasiveBreastPanelPath.FinishEventHandler(ResultPath_Finish);
-                resultPath.Start(this.m_SystemIdentity);
+                resultPath.Start();
             }
             return result;
         }

@@ -18,21 +18,19 @@ namespace YellowstonePathology.Business.Test
 		public static PanelSetOrder CreatePanelSetOrder(string masterAccessionNo, string reportNo, string objectId,
 			YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
             YellowstonePathology.Business.Interface.IOrderTarget orderTarget,
-			bool distribute,
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity)			
+			bool distribute)			
         {
             Type panelSetType = Type.GetType(panelSet.PanelSetOrderClassName);
-            PanelSetOrder panelSetOrder = (PanelSetOrder)Activator.CreateInstance(panelSetType, masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute, systemIdentity);
+            PanelSetOrder panelSetOrder = (PanelSetOrder)Activator.CreateInstance(panelSetType, masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute);
             return panelSetOrder;
         }        
 
         public static PanelSetOrder CreatePanelSetOrder(string masterAccessionNo, string reportNo, string objectId,
             YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,            
-            bool distribute,
-            YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+            bool distribute)
         {
             Type panelSetType = Type.GetType(panelSet.PanelSetOrderClassName);
-            PanelSetOrder panelSetOrder = (PanelSetOrder)Activator.CreateInstance(panelSetType, masterAccessionNo, reportNo, objectId, panelSet, distribute, systemIdentity);
+            PanelSetOrder panelSetOrder = (PanelSetOrder)Activator.CreateInstance(panelSetType, masterAccessionNo, reportNo, objectId, panelSet, distribute);
             return panelSetOrder;
         }		
 	}

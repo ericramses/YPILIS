@@ -50,7 +50,7 @@ namespace YellowstonePathology.UI.Surgical
                 this.m_SecondMonitorWindow.WindowState = WindowState.Maximized;
             }
 
-            this.m_SystemIdentity = new YellowstonePathology.Business.User.SystemIdentity(YellowstonePathology.Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
+            this.m_SystemIdentity = YellowstonePathology.Business.User.SystemIdentity.Instance;
 
             this.CommandBindingClose = new CommandBinding(MainWindow.ApplicationClosingCommand, HandleAppClosing);            
 			this.CommandBindingShowCaseDocument = new CommandBinding(MainWindow.ShowCaseDocumentCommand, ShowCaseDocument, ItemIsPresent);
@@ -589,7 +589,7 @@ namespace YellowstonePathology.UI.Surgical
 		private void ShowOrderForm(object target, ExecutedRoutedEventArgs args)
 		{
 			this.Save(false);
-			YellowstonePathology.UI.Common.OrderDialog frm = new YellowstonePathology.UI.Common.OrderDialog(this.m_TypingUI.AccessionOrder, this.m_TypingUI.SurgicalTestOrder, this.m_SystemIdentity);
+			YellowstonePathology.UI.Common.OrderDialog frm = new YellowstonePathology.UI.Common.OrderDialog(this.m_TypingUI.AccessionOrder, this.m_TypingUI.SurgicalTestOrder);
 			frm.ShowDialog();
 
             string reportNo = this.m_TypingUI.AccessionOrder.PanelSetOrderCollection.GetItem(13).ReportNo;

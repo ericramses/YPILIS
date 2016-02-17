@@ -32,8 +32,7 @@ namespace YellowstonePathology.UI.Login.Receiving
         public delegate void NextEventHandler(object sender, EventArgs e);
         public event NextEventHandler Next;
 
-		private YellowstonePathology.Business.ClientOrder.Model.ClientOrder m_ClientOrder;
-		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
+		private YellowstonePathology.Business.ClientOrder.Model.ClientOrder m_ClientOrder;		
 		private YellowstonePathology.Business.Rules.Surgical.PatientRecentAccessions m_PatientRecentAccessions;
 		private string m_PageHeaderText = "Review Client Order Page";
 		private UI.Navigation.PageNavigator m_PageNavigator;        
@@ -44,12 +43,10 @@ namespace YellowstonePathology.UI.Login.Receiving
 
 		public ReviewClientOrderPage(YellowstonePathology.Business.Rules.Surgical.PatientRecentAccessions patientRecentAccessions,
 			YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder,
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity,
 			UI.Navigation.PageNavigator pageNavigator)
 		{
 			this.m_PatientRecentAccessions = patientRecentAccessions;
-			this.m_ClientOrder = clientOrder;            
-			this.m_SystemIdentity = systemIdentity;
+			this.m_ClientOrder = clientOrder;            			
 			this.m_PageNavigator = pageNavigator;            
 
 			InitializeComponent();

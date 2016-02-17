@@ -46,8 +46,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 
         public delegate void ShowMissingInformationPageEventHandler(object sender, EventArgs e);
         public event ShowMissingInformationPageEventHandler ShowMissingInformationPage;
-
-		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
+		
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		private YellowstonePathology.Business.ClientOrder.Model.ClientOrder m_ClientOrder;		
 
@@ -60,17 +59,15 @@ namespace YellowstonePathology.UI.Login.Receiving
         private PageNavigationModeEnum m_PageNavigationMode;
 
 		public AccessionOrderPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,             
-            YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder,
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity,        
+            YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder,        
             PageNavigationModeEnum pageNavigationMode)
 		{            
 			this.m_AccessionOrder = accessionOrder;
             this.m_PageNavigationMode = pageNavigationMode;
 
-			this.m_ClientOrder = clientOrder;
-			this.m_SystemIdentity = systemIdentity;
+			this.m_ClientOrder = clientOrder;			
 
-            if (this.m_SystemIdentity.User.IsUserInRole(Business.User.SystemUserRoleDescriptionEnum.Pathologist) == true)
+            if (YellowstonePathology.Business.User.SystemIdentity.Instance.User.IsUserInRole(Business.User.SystemUserRoleDescriptionEnum.Pathologist) == true)
             {
                 this.m_PanelSetCollectionView = Business.PanelSet.Model.PanelSetCollection.GetPathologistPanelSets();
             }
@@ -95,8 +92,7 @@ namespace YellowstonePathology.UI.Login.Receiving
             this.m_AccessionOrder = clientOrderReceivingHandler.AccessionOrder;            
             this.m_PageNavigationMode = pageNavigationMode;
 
-            this.m_ClientOrder = clientOrderReceivingHandler.ClientOrder;
-            this.m_SystemIdentity = clientOrderReceivingHandler.SystemIdentity;
+            this.m_ClientOrder = clientOrderReceivingHandler.ClientOrder;            
 
             this.m_PanelSetCollectionView = Business.PanelSet.Model.PanelSetCollection.GetHistologyPanelSets();
             this.m_FacilityCollection = YellowstonePathology.Business.Facility.Model.FacilityCollection.GetAllFacilities();

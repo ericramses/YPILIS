@@ -36,9 +36,9 @@ namespace YellowstonePathology.UI.Cytology
 			this.m_PrintSlideDialog.Close();
         }
 
-        private void ScanSecurityBadgePage_AuthentificationSuccessful(object sender, CustomEventArgs.SystemIdentityReturnEventArgs e)
+        private void ScanSecurityBadgePage_AuthentificationSuccessful(object sender, EventArgs e)
         {
-            this.m_SystemIdentity = e.SystemIdentity;
+            this.m_SystemIdentity = YellowstonePathology.Business.User.SystemIdentity.Instance;
             this.ShowScanContainerPage();
         }
 

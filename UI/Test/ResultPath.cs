@@ -25,22 +25,8 @@ namespace YellowstonePathology.UI.Test
 
         public virtual void Start()
         {
-			if (Business.User.SystemIdentity.DoesLoggedInUserNeedToScanId() == true)
-			{
-                this.ShowScanSecurityBadgePage();
-			}
-			else
-			{
-				this.m_SystemIdentity = Business.User.SystemIdentity.Instance;
-                this.ShowResultPage();
-            }
-        }
-
-        public virtual void Start(YellowstonePathology.Business.User.SystemIdentity systemIdentity)
-        {
-            this.m_SystemIdentity = systemIdentity;
             this.ShowResultPage();
-        }
+        }        
 
         public void RegisterCancelATest(IResultPage resultPage)
         {
@@ -64,20 +50,7 @@ namespace YellowstonePathology.UI.Test
         private void CancellATestPath_Finish(object sender, EventArgs e)
         {
             this.Finish(this, new EventArgs());
-        }
-
-		private void ShowScanSecurityBadgePage()
-		{
-			YellowstonePathology.UI.Login.ScanSecurityBadgePage scanSecurityBadgePage = new Login.ScanSecurityBadgePage(System.Windows.Visibility.Collapsed);
-			scanSecurityBadgePage.AuthentificationSuccessful += new Login.ScanSecurityBadgePage.AuthentificationSuccessfulEventHandler(ScanSecurityBadgePage_AuthentificationSuccessful);
-			this.m_PageNavigator.Navigate(scanSecurityBadgePage);
-		}
-
-		protected void ScanSecurityBadgePage_AuthentificationSuccessful(object sender, CustomEventArgs.SystemIdentityReturnEventArgs e)
-		{
-			this.m_SystemIdentity = e.SystemIdentity;
-            this.ShowResultPage();
-        }
+        }				
 
         public void Finished()
         {

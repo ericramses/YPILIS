@@ -23,62 +23,24 @@ namespace YellowstonePathology.UI.MaterialTracking
             
 		}
 
+        public void Start()
+        {
+            this.ShowMaterialTrackingStartPage();
+        }
+
         public MaterialTrackingPath(string masterAccessionNo)
         {
-            this.m_UseMasterAccessionNo = true;
-            this.m_MasterAccessionNo = masterAccessionNo;         
+            this.m_UseMasterAccessionNo = true;            
+            this.m_MasterAccessionNo = masterAccessionNo;
+            this.ShowMaterialTrackingStartPage();
         }
 
 		public MaterialTrackingPath(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{
 			this.m_AccessionOrder = accessionOrder;
 			this.m_StartNew = true;
-		}
-
-		public void Start()
-		{
-			this.m_LoginPageWindow = new YellowstonePathology.UI.Login.LoginPageWindow(this.m_SystemIdentity);
-			if (Business.User.SystemIdentity.DoesLoggedInUserNeedToScanId() == true)
-			{
-				this.ShowScanSecurityBadgePage();
-			}
-			else
-			{
-				this.m_SystemIdentity = Business.User.SystemIdentity.Instance;
-				this.m_LoginPageWindow.SystemIdentity = this.m_SystemIdentity;
-
-				if (this.m_StartNew == false)
-				{
-					this.ShowMaterialTrackingStartPage();
-				}
-				else
-				{
-					this.ShowMaterialTrackingCasePage();
-				}
-			}
-			this.m_LoginPageWindow.ShowDialog();
-		}
-
-		private void ShowScanSecurityBadgePage()
-		{
-            YellowstonePathology.UI.Login.ScanSecurityBadgePage scanSecurityBadgePage = new YellowstonePathology.UI.Login.ScanSecurityBadgePage(System.Windows.Visibility.Collapsed);
-			this.m_LoginPageWindow.PageNavigator.Navigate(scanSecurityBadgePage);
-			scanSecurityBadgePage.AuthentificationSuccessful += new YellowstonePathology.UI.Login.ScanSecurityBadgePage.AuthentificationSuccessfulEventHandler(ScanSecurityBadgePage_AuthentificationSuccessful);
-		}
-
-		private void ScanSecurityBadgePage_AuthentificationSuccessful(object sender, CustomEventArgs.SystemIdentityReturnEventArgs e)
-		{
-			this.m_SystemIdentity = e.SystemIdentity;
-			this.m_LoginPageWindow.SystemIdentity = this.m_SystemIdentity;
-			if (this.m_StartNew == false)
-			{
-				this.ShowMaterialTrackingStartPage();
-			}
-			else
-			{
-				this.ShowMaterialTrackingCasePage();
-			}
-		}
+            this.ShowMaterialTrackingCasePage();
+        }				
 
 		private void ShowMaterialTrackingCasePage()
 		{

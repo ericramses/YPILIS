@@ -523,7 +523,7 @@ namespace YellowstonePathology.Business.Test
         {
             if (this.m_Validated == false)
             {
-                this.m_ValidationStation = systemIdentity.StationName;
+                this.m_ValidationStation = System.Environment.MachineName;
                 this.m_ValidatedBy = systemIdentity.User.UserName;
                 this.m_ValidatedById = systemIdentity.User.UserId;
                 this.m_ValidationDate = DateTime.Now;

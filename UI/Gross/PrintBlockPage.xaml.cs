@@ -298,10 +298,10 @@ namespace YellowstonePathology.UI.Gross
                 YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetSurgical();
                 if (panelSetOrder == null) panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNoToUse);
 
-                YellowstonePathology.Business.Visitor.OrderTestVisitor orderTestVisitor = new Business.Visitor.OrderTestVisitor(panelSetOrder.ReportNo, test, test.OrderComment, null, false, aliquotOrder, false, false, this.m_AccessionOrder.TaskOrderCollection, this.m_SystemIdentity);
+                YellowstonePathology.Business.Visitor.OrderTestVisitor orderTestVisitor = new Business.Visitor.OrderTestVisitor(panelSetOrder.ReportNo, test, test.OrderComment, null, false, aliquotOrder, false, false, this.m_AccessionOrder.TaskOrderCollection);
                 this.m_AccessionOrder.TakeATrip(orderTestVisitor);
 
-                YellowstonePathology.Business.Visitor.AddSlideOrderVisitor addSlideOrderVisitor = new Business.Visitor.AddSlideOrderVisitor(aliquotOrder, orderTestVisitor.TestOrder, this.m_SystemIdentity);
+                YellowstonePathology.Business.Visitor.AddSlideOrderVisitor addSlideOrderVisitor = new Business.Visitor.AddSlideOrderVisitor(aliquotOrder, orderTestVisitor.TestOrder);
                 this.m_AccessionOrder.TakeATrip(addSlideOrderVisitor);
             }
 		}
@@ -314,8 +314,7 @@ namespace YellowstonePathology.UI.Gross
             {
                 cassettePrinter.Print();
             }
-
-            //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
+            
 			this.GrossBlockManagementView = new Business.View.GrossBlockManagementView(this.m_AccessionOrder, this.m_CaseNotesDocument, this.m_SpecimenOrder);
 		}
 
@@ -377,7 +376,7 @@ namespace YellowstonePathology.UI.Gross
 			{
 				if (aliquotOrder.AliquotOrderId == aliquotOrderId)
 				{
-					YellowstonePathology.Business.Visitor.OrderTestVisitor orderTestVisitor = new Business.Visitor.OrderTestVisitor(this.m_ReportNoToUse, test, test.OrderComment, null, false, aliquotOrder, false, false, this.m_AccessionOrder.TaskOrderCollection, this.m_SystemIdentity);
+					YellowstonePathology.Business.Visitor.OrderTestVisitor orderTestVisitor = new Business.Visitor.OrderTestVisitor(this.m_ReportNoToUse, test, test.OrderComment, null, false, aliquotOrder, false, false, this.m_AccessionOrder.TaskOrderCollection);
                     this.m_AccessionOrder.TakeATrip(orderTestVisitor);
 					break;
 				}

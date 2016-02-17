@@ -42,7 +42,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 
 		private void ShowReviewClientOrderPage(YellowstonePathology.Business.Rules.Surgical.PatientRecentAccessions patientRecentAccessions)
         {
-			ReviewClientOrderPage reviewClientOrderPage = new ReviewClientOrderPage(patientRecentAccessions, this.m_ClientOrderReceivingHandler.ClientOrder, this.m_ClientOrderReceivingHandler.SystemIdentity, this.m_PageNavigator);
+			ReviewClientOrderPage reviewClientOrderPage = new ReviewClientOrderPage(patientRecentAccessions, this.m_ClientOrderReceivingHandler.ClientOrder, this.m_PageNavigator);
 			reviewClientOrderPage.Back += new ReviewClientOrderPage.BackEventHandler(ReviewClientOrderPage_Back);
 			reviewClientOrderPage.ViewAccessionOrder += new ReviewClientOrderPage.ViewAccessionOrderEventHandler(ReviewClientOrderPage_ViewAccessionOrder);
 			reviewClientOrderPage.CreateNewAccessionOrder += new ReviewClientOrderPage.CreateNewAccessionEventHandler(ReviewClientOrderPage_CreateNewAccessionOrder);
@@ -132,7 +132,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 					else
 					{
                         this.m_ClientOrderReceivingHandler.ClientOrder.Acknowledged = true;
-                        this.m_ClientOrderReceivingHandler.ClientOrder.AcknowledgedById = this.m_ClientOrderReceivingHandler.SystemIdentity.User.UserId;
+                        this.m_ClientOrderReceivingHandler.ClientOrder.AcknowledgedById = YellowstonePathology.Business.User.SystemIdentity.Instance.User.UserId;
                         this.m_ClientOrderReceivingHandler.ClientOrder.AcknowledgedDate = DateTime.Now;
 					}
                 }

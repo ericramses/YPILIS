@@ -25,8 +25,7 @@ namespace YellowstonePathology.UI.Test
 
         public delegate void BackEventHandler(object sender, EventArgs e);
         public event BackEventHandler Back;
-
-		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
+		
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         
         private List<YellowstonePathology.Business.Test.AccessionOrder> m_AccessionOrderList;
@@ -38,11 +37,9 @@ namespace YellowstonePathology.UI.Test
 		private YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTest m_WomensHealthProfileTest;
 		private System.Windows.Visibility m_WomensHealthProfileVisibility;
 
-        public StandingOrderPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        public StandingOrderPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{
-            this.m_AccessionOrder = accessionOrder;
-            this.m_SystemIdentity = systemIdentity;
+            this.m_AccessionOrder = accessionOrder;            
 
 			this.m_WomensHealthProfileTest = new YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTest();
 			this.m_Physician = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianByPhysicianId(this.m_AccessionOrder.PhysicianId);
@@ -161,7 +158,7 @@ namespace YellowstonePathology.UI.Test
 				string reportNo = YellowstonePathology.Business.OrderIdParser.GetNextReportNo(this.m_AccessionOrder.PanelSetOrderCollection, this.m_WomensHealthProfileTest, this.m_AccessionOrder.MasterAccessionNo);
 				string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
 				string masterAccessionNo = this.m_AccessionOrder.MasterAccessionNo;
-				YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder womensHealthProfileTestOrder = (YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder)YellowstonePathology.Business.Test.PanelSetOrderFactory.CreatePanelSetOrder(masterAccessionNo, reportNo, objectId, this.m_WomensHealthProfileTest, orderTarget, false, this.m_SystemIdentity);
+				YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder womensHealthProfileTestOrder = (YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder)YellowstonePathology.Business.Test.PanelSetOrderFactory.CreatePanelSetOrder(masterAccessionNo, reportNo, objectId, this.m_WomensHealthProfileTest, orderTarget, false);
 				womensHealthProfileTestOrder.AssignedToId = 5051;
 				this.m_AccessionOrder.PanelSetOrderCollection.Add(womensHealthProfileTestOrder);
 				this.m_WomensHealthProfileTestOrder = womensHealthProfileTestOrder;

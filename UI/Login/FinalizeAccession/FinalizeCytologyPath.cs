@@ -16,8 +16,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 		private YellowstonePathology.UI.Navigation.PageNavigator m_PageNavigator;
 		private YellowstonePathology.UI.Login.FinalizeAccession.PatientLinkingPage m_PatientLinkingPage;
 
-        private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
+        private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;		
         private YellowstonePathology.Business.Patient.Model.PatientLinker m_PatientLinker;        
         private YellowstonePathology.Business.ClientOrder.Model.ClientOrder m_ClientOrder;
 		private string m_ReportNo;
@@ -25,13 +24,11 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
         public FinalizeCytologyPath(YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
 			string reportNo,
-			YellowstonePathology.UI.Navigation.PageNavigator pageNavigator,
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+			YellowstonePathology.UI.Navigation.PageNavigator pageNavigator)
         {                        
 			this.m_ClientOrder = clientOrder;
             this.m_AccessionOrder = accessionOrder;
-			this.m_PageNavigator = pageNavigator;
-            this.m_SystemIdentity = systemIdentity;
+			this.m_PageNavigator = pageNavigator;            
 			this.m_ReportNo = reportNo;
         }        
 
@@ -135,7 +132,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
 		private void ShowStandingOrderPage()
 		{									
-			Test.StandingOrderPage standingOrderPage = new Test.StandingOrderPage(this.m_AccessionOrder, this.m_SystemIdentity);
+			Test.StandingOrderPage standingOrderPage = new Test.StandingOrderPage(this.m_AccessionOrder);
 			standingOrderPage.Next += new Test.StandingOrderPage.NextEventHandler(StandingOrderPage_Next);
 			standingOrderPage.Back += new Test.StandingOrderPage.BackEventHandler(StandingOrderPage_Back);
 			this.m_PageNavigator.Navigate(standingOrderPage);						
@@ -153,7 +150,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
         private void ShowICDEntryPage()
         {
-            ICDEntryPage icdEntryPage = new ICDEntryPage(this.m_AccessionOrder, this.m_ReportNo, this.m_SystemIdentity);
+            ICDEntryPage icdEntryPage = new ICDEntryPage(this.m_AccessionOrder, this.m_ReportNo);
             icdEntryPage.Next += new ICDEntryPage.NextEventHandler(ICDEntryPage_Next);
             icdEntryPage.Back += new ICDEntryPage.BackEventHandler(ICDEntryPage_Back);
             this.m_PageNavigator.Navigate(icdEntryPage);

@@ -38,12 +38,20 @@ namespace YellowstonePathology.UI.Login
             this.m_CaseTypeList = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetCaseTypes();
 			this.m_TaskAcknowledgementTypeList = YellowstonePathology.Business.Task.Model.TaskAcknowledgementType.GetAll();
 			this.m_AccessionOrderDate = DateTime.Today;
-            this.m_ClientOrderDate = DateTime.Today;			
+            this.m_ClientOrderDate = DateTime.Today;
+            this.m_SystemIdentity = Business.User.SystemIdentity.Instance;
 
             this.GetClientOrderList();
 
             YellowstonePathology.UI.TaskNotifier.Instance.Notifier.Alert += new TaskNotifier.AlertEventHandler(Notifier_Alert);
 		}
+
+        public YellowstonePathology.Business.User.SystemIdentity SystemIdentity
+        {
+            get { return Business.User.SystemIdentity.Instance; }
+        }
+            
+
 
         private void Notifier_Alert(object sender, CustomEventArgs.TaskOrderCollectionReturnEventArgs e)
         {            

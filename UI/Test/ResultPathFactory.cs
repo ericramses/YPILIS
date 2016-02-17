@@ -261,7 +261,6 @@ namespace YellowstonePathology.UI.Test
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
             YellowstonePathology.UI.Navigation.PageNavigator pageNavigator,
             System.Windows.Window window,
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity,
             System.Windows.Visibility backButtonVisibility)
         {
 			bool result = false;
@@ -271,70 +270,6 @@ namespace YellowstonePathology.UI.Test
             if (resultPath != null)
             {
 				result = true;
-                resultPath.Finish += new Test.ResultPath.FinishEventHandler(ResultPath_Finish);
-                resultPath.Start(systemIdentity);
-            }
-            else
-            {
-                if (panelSetOrder is YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder)
-                {
-                    result = true;
-
-                    YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder = null;
-                    YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection clientOrders = YellowstonePathology.Business.Gateway.ClientOrderGateway.GetClientOrdersByMasterAccessionNo(accessionOrder.MasterAccessionNo);
-
-                    if (clientOrders.Count > 0)
-                    {
-                        clientOrder = clientOrders[0];
-                    }
-
-                    YellowstonePathology.UI.Login.WomensHealthProfilePath womensHealthProfilePath = new YellowstonePathology.UI.Login.WomensHealthProfilePath(accessionOrder, clientOrder, pageNavigator, window, System.Windows.Visibility.Collapsed);
-                    womensHealthProfilePath.Back += new Login.WomensHealthProfilePath.BackEventHandler(WomensHealthProfilePath_Finished);
-                    womensHealthProfilePath.Finish += new Login.WomensHealthProfilePath.FinishEventHandler(WomensHealthProfilePath_Finished);
-                    womensHealthProfilePath.Start(systemIdentity);
-                }
-                else if (panelSetOrder is YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisTestOrder)
-                {
-                    result = true;
-                    Test.EGFRToALKReflexPath eGFRToALKReflexPath = new Test.EGFRToALKReflexPath(panelSetOrder.ReportNo, accessionOrder, pageNavigator, window, System.Windows.Visibility.Collapsed);
-                    eGFRToALKReflexPath.Finish += new Test.EGFRToALKReflexPath.FinishEventHandler(EGFRToALKReflexPath_Finish);
-                    eGFRToALKReflexPath.Start(systemIdentity);
-                }
-                else if (panelSetOrder is YellowstonePathology.Business.Test.InvasiveBreastPanel.InvasiveBreastPanel)
-                {
-                    result = true;
-                    YellowstonePathology.UI.Test.InvasiveBreastPanelPath invasiveBreastPanelPath = new Test.InvasiveBreastPanelPath(panelSetOrder.ReportNo, accessionOrder, pageNavigator, window);
-                    invasiveBreastPanelPath.Finish += new Test.InvasiveBreastPanelPath.FinishEventHandler(InvasiveBreastPanelPath_Finish);
-                    invasiveBreastPanelPath.Start(systemIdentity);
-                }
-                else
-                {
-                    YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetAll().GetPanelSet(panelSetOrder.PanelSetId);
-                    if (panelSet.ResultDocumentSource == Business.PanelSet.Model.ResultDocumentSourceEnum.PublishedDocument)
-                    {
-                        result = true;
-                        PublishedDocumentResultPath publishedDocumentResultPath = new PublishedDocumentResultPath(panelSetOrder.ReportNo, accessionOrder, pageNavigator, window);
-                        publishedDocumentResultPath.Finish += new ResultPath.FinishEventHandler(ResultPath_Finish);
-                        publishedDocumentResultPath.Start(systemIdentity);
-                    }
-                }
-            }
-
-			return result;
-        }
-
-        public bool Start(YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder,
-            YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-            YellowstonePathology.UI.Navigation.PageNavigator pageNavigator,
-            System.Windows.Window window,
-            System.Windows.Visibility backButtonVisibility)
-        {
-            bool result = false;
-            YellowstonePathology.UI.Test.ResultPath resultPath = YellowstonePathology.UI.Test.ResultPathFactory.GetResultPath(panelSetOrder.PanelSetId, panelSetOrder.ReportNo, accessionOrder, pageNavigator, window, System.Windows.Visibility.Collapsed);
-
-            if (resultPath != null)
-            {
-                result = true;
                 resultPath.Finish += new Test.ResultPath.FinishEventHandler(ResultPath_Finish);
                 resultPath.Start();
             }
@@ -384,8 +319,8 @@ namespace YellowstonePathology.UI.Test
                 }
             }
 
-            return result;
-        }
+			return result;
+        }        
 
         private void WomensHealthProfilePath_Finished(object sender, EventArgs e)
         {

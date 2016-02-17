@@ -41,29 +41,29 @@ namespace YellowstonePathology.UI.Test
             YellowstonePathology.Business.Test.ALKForNSCLCByFISH.ALKForNSCLCByFISHTest alkForNSCLCByFISHTest = new YellowstonePathology.Business.Test.ALKForNSCLCByFISH.ALKForNSCLCByFISHTest();
             YellowstonePathology.Business.Interface.IOrderTarget orderTarget = this.m_AccessionOrder.SpecimenOrderCollection.GetOrderTarget(this.m_EGFRToALKReflexAnalysisTestOrder.OrderedOnId);
             YellowstonePathology.Business.Test.TestOrderInfo testOrderInfoALK = new YellowstonePathology.Business.Test.TestOrderInfo(alkForNSCLCByFISHTest, orderTarget, false);
-            YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderALKVisitor = new Business.Visitor.OrderTestOrderVisitor(testOrderInfoALK, this.m_SystemIdentity);
+            YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderALKVisitor = new Business.Visitor.OrderTestOrderVisitor(testOrderInfoALK);
             this.m_AccessionOrder.TakeATrip(orderALKVisitor);
             orderALKVisitor.PanelSetOrder.Distribute = false;
 
-            YellowstonePathology.Business.Task.Model.TaskOrder taskOrderALK = this.m_AccessionOrder.CreateTask(testOrderInfoALK, this.m_SystemIdentity);
+            YellowstonePathology.Business.Task.Model.TaskOrder taskOrderALK = this.m_AccessionOrder.CreateTask(testOrderInfoALK);
             this.m_AccessionOrder.TaskOrderCollection.Add(taskOrderALK);
 
             YellowstonePathology.Business.Test.ROS1ByFISH.ROS1ByFISHTest ros1ByFISHTest = new Business.Test.ROS1ByFISH.ROS1ByFISHTest();            
             YellowstonePathology.Business.Test.TestOrderInfo testOrderInfoROS1 = new YellowstonePathology.Business.Test.TestOrderInfo(ros1ByFISHTest, orderTarget, false);
-            YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderROS1Visitor = new Business.Visitor.OrderTestOrderVisitor(testOrderInfoROS1, this.m_SystemIdentity);
+            YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderROS1Visitor = new Business.Visitor.OrderTestOrderVisitor(testOrderInfoROS1);
             this.m_AccessionOrder.TakeATrip(orderROS1Visitor);            
             orderROS1Visitor.PanelSetOrder.Distribute = false;
 
-            YellowstonePathology.Business.Task.Model.TaskOrder taskOrderROS1 = this.m_AccessionOrder.CreateTask(testOrderInfoROS1, this.m_SystemIdentity);
+            YellowstonePathology.Business.Task.Model.TaskOrder taskOrderROS1 = this.m_AccessionOrder.CreateTask(testOrderInfoROS1);
             this.m_AccessionOrder.TaskOrderCollection.Add(taskOrderROS1);
 
             YellowstonePathology.Business.Test.PDL1.PDL1Test pdl1Test = new Business.Test.PDL1.PDL1Test();
             YellowstonePathology.Business.Test.TestOrderInfo testOrderInfoPDL1 = new YellowstonePathology.Business.Test.TestOrderInfo(pdl1Test, orderTarget, false);
-            YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderPDL1Visitor = new Business.Visitor.OrderTestOrderVisitor(testOrderInfoPDL1, this.m_SystemIdentity);
+            YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderPDL1Visitor = new Business.Visitor.OrderTestOrderVisitor(testOrderInfoPDL1);
             this.m_AccessionOrder.TakeATrip(orderPDL1Visitor);
             orderROS1Visitor.PanelSetOrder.Distribute = false;
 
-            YellowstonePathology.Business.Task.Model.TaskOrder taskOrderPDL1 = this.m_AccessionOrder.CreateTask(testOrderInfoPDL1, this.m_SystemIdentity);
+            YellowstonePathology.Business.Task.Model.TaskOrder taskOrderPDL1 = this.m_AccessionOrder.CreateTask(testOrderInfoPDL1);
             this.m_AccessionOrder.TaskOrderCollection.Add(taskOrderPDL1);
 
             this.m_AccessionOrder.PanelSetOrderCollection.UpdateTumorNucleiPercentage(this.m_EGFRToALKReflexAnalysisTestOrder);

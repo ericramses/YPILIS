@@ -267,7 +267,7 @@ namespace YellowstonePathology.UI.Cutting
 
         private void ButtonAddSlide_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Visitor.AddSlideOrderVisitor addSlideOrderVisitor = new Business.Visitor.AddSlideOrderVisitor(this.m_AliquotOrder, this.m_TestOrder, this.m_SystemIdentity);
+            YellowstonePathology.Business.Visitor.AddSlideOrderVisitor addSlideOrderVisitor = new Business.Visitor.AddSlideOrderVisitor(this.m_AliquotOrder, this.m_TestOrder);
             this.m_AccessionOrder.TakeATrip(addSlideOrderVisitor);            
         }
 

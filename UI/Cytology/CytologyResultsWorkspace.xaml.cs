@@ -679,7 +679,7 @@ namespace YellowstonePathology.UI.Cytology
 				YellowstonePathology.UI.Login.WomensHealthProfilePath womensHealthProfilePath = new YellowstonePathology.UI.Login.WomensHealthProfilePath(this.m_CytologyUI.AccessionOrder, clientOrder, this.m_PageNavigationWindow.PageNavigator, this.m_PageNavigationWindow, Visibility.Collapsed);
                 womensHealthProfilePath.Finish += new Login.WomensHealthProfilePath.FinishEventHandler(WomensHealthProfilePath_Finished);
                 womensHealthProfilePath.Back += new Login.WomensHealthProfilePath.BackEventHandler(WomensHealthProfilePath_Finished);
-                womensHealthProfilePath.Start(this.m_SystemIdentity);
+                womensHealthProfilePath.Start();
                 this.m_PageNavigationWindow.ShowDialog();
             }
             else

@@ -20,8 +20,7 @@ namespace YellowstonePathology.Business
         public static string SqlConnectionString
         {
             get 
-            {                
-				//return YellowstonePathology.Business.DataAccess.DBAccess.DataActions.ConnectionStr;
+            {                				
 				return Properties.Settings.Default.CurrentConnectionString;
 			}
         }

@@ -47,7 +47,7 @@ namespace YellowstonePathology.UI.Test
 				Test.EGFRToALKReflexPath egfrToALKReflexPath = new Test.EGFRToALKReflexPath(testOrder.ReportNo, this.m_AccessionOrder, this.m_PageNavigator, this.m_Window, System.Windows.Visibility.Visible);
                 egfrToALKReflexPath.Finish += new Test.EGFRToALKReflexPath.FinishEventHandler(EGFRToALKReflexPath_Finish);
                 egfrToALKReflexPath.Back += new EGFRToALKReflexPath.BackEventHandler(EGFRToALKReflexPath_Back);
-                egfrToALKReflexPath.Start(this.m_SystemIdentity);
+                egfrToALKReflexPath.Start();
 			}
             return result;
         }

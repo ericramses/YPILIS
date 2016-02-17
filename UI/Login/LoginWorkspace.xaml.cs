@@ -218,7 +218,7 @@ namespace YellowstonePathology.UI.Login
                 if (this.ContainerExistsInAccessionOrder(containerBarcode.ToString()) == true)
                 {
                     YellowstonePathology.Business.User.SystemIdentity systemIdentity = Business.User.SystemIdentity.Instance;
-                    this.m_LoginPageWindow = new LoginPageWindow(systemIdentity);
+                    this.m_LoginPageWindow = new LoginPageWindow();
 
                     SpecimenOrderDetailsPath specimenOrderDetailsPath = new SpecimenOrderDetailsPath(this.m_LoginUI.AccessionOrder, containerBarcode.ToString(), this.m_LoginPageWindow.PageNavigator);
                     specimenOrderDetailsPath.Finish += new SpecimenOrderDetailsPath.FinishEventHandler(SpecimenOrderDetailsPath_Finish);
@@ -271,10 +271,10 @@ namespace YellowstonePathology.UI.Login
                         YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullClientOrderByClientOrderId(this.m_LoginUI.AccessionOrder.ClientOrderId, this.m_Writer);
 
                         YellowstonePathology.Business.User.SystemIdentity systemIdentity = Business.User.SystemIdentity.Instance;
-                        this.m_LoginPageWindow = new LoginPageWindow(systemIdentity);
+                        this.m_LoginPageWindow = new LoginPageWindow();
                         this.m_LoginPageWindow.Show();
 
-                        YellowstonePathology.UI.Login.FinalizeAccession.FinalizeCytologyPath finalizeCytologyPath = new YellowstonePathology.UI.Login.FinalizeAccession.FinalizeCytologyPath(clientOrder, this.m_LoginUI.AccessionOrder, this.m_LoginUI.ReportNo, this.m_LoginPageWindow.PageNavigator, systemIdentity);
+                        YellowstonePathology.UI.Login.FinalizeAccession.FinalizeCytologyPath finalizeCytologyPath = new YellowstonePathology.UI.Login.FinalizeAccession.FinalizeCytologyPath(clientOrder, this.m_LoginUI.AccessionOrder, this.m_LoginUI.ReportNo, this.m_LoginPageWindow.PageNavigator);
                         finalizeCytologyPath.Start();
                         finalizeCytologyPath.Finish += new YellowstonePathology.UI.Login.FinalizeAccession.FinalizeCytologyPath.FinishEventHandler(CytologyFinalizationPath_Finish);
                         finalizeCytologyPath.Return += new FinalizeAccession.FinalizeCytologyPath.ReturnEventHandler(FinalizeCytologyPath_Return);
@@ -340,8 +340,7 @@ namespace YellowstonePathology.UI.Login
         private void TileMaterialTracking_MouseUp(object sender, MouseButtonEventArgs e)
         {
             if (this.ListViewAccessionOrders.SelectedItem != null)
-            {
-                //YellowstonePathology.UI.MaterialTracking.MaterialTrackingPath materialTrackingPath = new MaterialTracking.MaterialTrackingPath(this.m_LoginUI.AccessionOrder);
+            {                
                 YellowstonePathology.UI.MaterialTracking.MaterialTrackingPath materialTrackingPath = new MaterialTracking.MaterialTrackingPath(this.m_LoginUI.AccessionOrder.MasterAccessionNo);
                 materialTrackingPath.Start();
             }

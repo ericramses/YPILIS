@@ -401,7 +401,7 @@
 			</StatusBarItem>
             
 			<StatusBarItem>
-				<TextBlock Width="200" Margin="2" TextAlignment="Left" HorizontalAlignment="Stretch" VerticalAlignment="Center" Text="{Binding Path=ReportNo}"></TextBlock>
+                <TextBlock Width="200" Margin="2" TextAlignment="Left" HorizontalAlignment="Stretch" VerticalAlignment="Center" Text="{Binding Path=SystemIdentity.User.UserName}"></TextBlock>
 			</StatusBarItem>
 
             <StatusBarItem>

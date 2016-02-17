@@ -17,8 +17,11 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
         public void Start()
         {
-            this.m_LoginPageWindow = new LoginPageWindow();					
-			this.m_LoginPageWindow.ShowDialog();
+            this.m_LoginPageWindow = new LoginPageWindow();
+            FinalizeAccession.PatientDetailsPage patientDetailsPage = new FinalizeAccession.PatientDetailsPage(this.m_AccessionOrder);
+            patientDetailsPage.Return += new FinalizeAccession.PatientDetailsPage.ReturnEventHandler(PatientDetailsPage_Return);
+            this.m_LoginPageWindow.PageNavigator.Navigate(patientDetailsPage);
+            this.m_LoginPageWindow.ShowDialog();
         }       		        
 
         private void PatientDetailsPage_Return(object sender, UI.Navigation.PageNavigationReturnEventArgs e)

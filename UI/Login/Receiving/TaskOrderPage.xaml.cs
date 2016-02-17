@@ -32,21 +32,18 @@ namespace YellowstonePathology.UI.Login.Receiving
 		public delegate void CloseEventHandler(object sender, EventArgs e);
 		public event CloseEventHandler Close;		
 				
-		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
+		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;		
 		private YellowstonePathology.Business.Task.Model.TaskOrder m_TaskOrder;
 		private PageNavigationModeEnum m_PageNavigationMode;
         private List<string> m_TaskAssignmentList;
 
 		public TaskOrderPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
 			YellowstonePathology.Business.Task.Model.TaskOrder taskOrder,
-			PageNavigationModeEnum pageNavigationMode,
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+			PageNavigationModeEnum pageNavigationMode)
 		{
 			this.m_AccessionOrder = accessionOrder;
 			this.m_TaskOrder = taskOrder;
-			this.m_PageNavigationMode = pageNavigationMode;
-			this.m_SystemIdentity = systemIdentity;
+			this.m_PageNavigationMode = pageNavigationMode;			
 
 			this.m_TaskAssignmentList = YellowstonePathology.Business.Task.Model.TaskAssignment.GetTaskAssignmentList();
 
@@ -189,9 +186,9 @@ namespace YellowstonePathology.UI.Login.Receiving
             Hyperlink hyperLink = (Hyperlink)e.Source;
 			YellowstonePathology.Business.Task.Model.TaskOrderDetail taskOrderDetail = (YellowstonePathology.Business.Task.Model.TaskOrderDetail)hyperLink.Tag;
             taskOrderDetail.Acknowledged = true;
-            taskOrderDetail.AcknowledgedById = this.m_SystemIdentity.User.UserId;
+            taskOrderDetail.AcknowledgedById = Business.User.SystemIdentity.Instance.User.UserId;
             taskOrderDetail.AcknowledgedDate = DateTime.Now;
-            taskOrderDetail.AcknowledgedByInitials = this.m_SystemIdentity.User.Initials;
+            taskOrderDetail.AcknowledgedByInitials = Business.User.SystemIdentity.Instance.User.Initials;
 
             if (this.m_TaskOrder.TaskOrderDetailCollection.HasUnacknowledgeItems() == false)
             {

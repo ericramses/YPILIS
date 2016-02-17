@@ -63,7 +63,7 @@ namespace YellowstonePathology.UI.Test
 
 				resultPath.Finish += new Test.ResultPath.FinishEventHandler(ResultPath_Finish);
                 resultPath.Back += new KRASStandardReflexResultPath.BackEventHandler(ResultPath_Back);
-				resultPath.Start(this.m_SystemIdentity);
+				resultPath.Start();
 			}
 			else if (this.m_AccessionOrder.PanelSetOrderCollection.DoesPanelSetExist(panelSetLse.PanelSetId) == true)
 			{
@@ -74,7 +74,7 @@ namespace YellowstonePathology.UI.Test
 
 				resultPath.Finish += new Test.ResultPath.FinishEventHandler(ResultPath_Finish);
 				resultPath.Back += new LynchSyndromeEvaluationResultPath.BackEventHandler(ResultPath_Back);
-				resultPath.Start(this.m_SystemIdentity);
+				resultPath.Start();
 			}
 			else if (this.m_AccessionOrder.PanelSetOrderCollection.DoesPanelSetExist(panelSetcccp.PanelSetId) == true)
 			{
@@ -85,7 +85,7 @@ namespace YellowstonePathology.UI.Test
 
 				resultPath.Finish += new Test.ResultPath.FinishEventHandler(ResultPath_Finish);
 				resultPath.Back += new ComprehensiveColonCancerProfilePath.BackEventHandler(ResultPath_Back);
-				resultPath.Start(this.m_SystemIdentity);
+				resultPath.Start();
 			}
 			return result;
 		}

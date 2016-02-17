@@ -9,7 +9,7 @@ using YellowstonePathology.Business.Persistence;
 namespace YellowstonePathology.Business.Test
 {
 	[PersistentClass("tblAccessionOrder", "YPIDATA")]
-    public partial class AccessionOrder : INotifyPropertyChanged, Interface.IOrder, Interface.IPatientOrder, Interface.ILockable
+    public partial class AccessionOrder : INotifyPropertyChanged, Interface.IOrder, Interface.IPatientOrder
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -1438,13 +1438,7 @@ namespace YellowstonePathology.Business.Test
 		{
 			get { return this.m_ICD9BillingCodeCollection; }
 			set { this.m_ICD9BillingCodeCollection = value; }
-		}
-
-		public void GetKeyLock(Domain.KeyLock keyLock)
-		{
-			keyLock.Key = this.MasterAccessionNo.ToString();
-			keyLock.KeyLockTypeEnum = Domain.KeyLockTypeEnum.AccessionOrder;
-		}		
+		}			
         		
 		public void SubmitChanges(YellowstonePathology.Business.DataContext.YpiDataBase dataContext)
 		{
@@ -1677,12 +1671,12 @@ namespace YellowstonePathology.Business.Test
             }
         }
 
-        public YellowstonePathology.Business.Task.Model.TaskOrder CreateTask(YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        public YellowstonePathology.Business.Task.Model.TaskOrder CreateTask(YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo)
         {
 			string taskOrderId = YellowstonePathology.Business.OrderIdParser.GetNextTaskOrderId(this.TaskOrderCollection, this.MasterAccessionNo);
             string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
             YellowstonePathology.Business.Task.Model.TaskOrder taskOrder = new Business.Task.Model.TaskOrder(taskOrderId, objectId, this.MasterAccessionNo,
-                testOrderInfo.PanelSetOrder.ReportNo, testOrderInfo.PanelSet.TaskCollection[0], testOrderInfo.OrderTarget, systemIdentity, testOrderInfo.PanelSet.PanelSetName, YellowstonePathology.Business.Task.Model.TaskAcknowledgementType.Immediate);
+                testOrderInfo.PanelSetOrder.ReportNo, testOrderInfo.PanelSet.TaskCollection[0], testOrderInfo.OrderTarget, testOrderInfo.PanelSet.PanelSetName, YellowstonePathology.Business.Task.Model.TaskAcknowledgementType.Immediate);
 
             foreach (YellowstonePathology.Business.Task.Model.Task task in testOrderInfo.PanelSet.TaskCollection)
             {

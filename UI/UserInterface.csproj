@@ -1114,9 +1114,6 @@
     <Compile Include="Cutting\SlideOrderDetailDialog.xaml.cs">
       <DependentUpon>SlideOrderDetailDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="LockedCaseDialog.xaml.cs">
-      <DependentUpon>LockedCaseDialog.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Login\SpecimenOrderDetailsPage.xaml.cs">
       <DependentUpon>SpecimenOrderDetailsPage.xaml</DependentUpon>
     </Compile>
@@ -1152,9 +1149,6 @@
     <Compile Include="Login\ClientOrderReceivingHandlerFactory.cs" />
     <Compile Include="Login\ClientOrderReceivingNavigator.cs" />
     <Compile Include="Login\ClientOrderSearchModeEnum.cs" />
-    <Compile Include="Login\CaseLockPage.xaml.cs">
-      <DependentUpon>CaseLockPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Login\CytologySlideLabelGrid.cs" />
     <Compile Include="Login\FinalizeAccession\CytologyClinicalHistoryPage.xaml.cs">
       <DependentUpon>CytologyClinicalHistoryPage.xaml</DependentUpon>
@@ -2805,10 +2799,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="LockedCaseDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Login\SpecimenOrderDetailsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -2832,10 +2822,6 @@
     <Page Include="Login\ClientOrderPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Login\CaseLockPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Login\DocumentListDialog.xaml">
       <SubType>Designer</SubType>
