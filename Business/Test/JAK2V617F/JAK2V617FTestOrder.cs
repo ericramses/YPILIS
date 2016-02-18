@@ -24,9 +24,8 @@ namespace YellowstonePathology.Business.Test.JAK2V617F
 		public JAK2V617FTestOrder(string masterAccessionNo, string reportNo, string objectId,
             YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
             YellowstonePathology.Business.Interface.IOrderTarget orderTarget,
-			bool distribute,
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
-			: base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute, systemIdentity)
+			bool distribute)
+			: base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute)
 		{
 			
 		}		

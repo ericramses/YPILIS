@@ -21,9 +21,8 @@ namespace YellowstonePathology.Business.Test.TechInitiatedPeripheralSmear
 
 		public TechInitiatedPeripheralSmearTestOrder(string masterAccessionNo, string reportNo, string objectId,
             YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
-			bool distribute,
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
-            : base(masterAccessionNo, reportNo, objectId, panelSet, distribute, systemIdentity)
+			bool distribute)
+            : base(masterAccessionNo, reportNo, objectId, panelSet, distribute)
 		{
             
 		}
@@ -33,7 +32,7 @@ namespace YellowstonePathology.Business.Test.TechInitiatedPeripheralSmear
             YellowstonePathology.Business.Interface.IOrderTarget orderTarget,
             bool distribute,
             YellowstonePathology.Business.User.SystemIdentity systemIdentity)
-            :base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute, systemIdentity)
+            :base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute)
         {
 
         }

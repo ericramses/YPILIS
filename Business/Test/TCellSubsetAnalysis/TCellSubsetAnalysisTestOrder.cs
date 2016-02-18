@@ -34,9 +34,8 @@ namespace YellowstonePathology.Business.Test.TCellSubsetAnalysis
 		public TCellSubsetAnalysisTestOrder(string masterAccessionNo, string reportNo, string objectId,
 			YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
 			YellowstonePathology.Business.Interface.IOrderTarget orderTarget,
-			bool distribute,
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
-			: base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute, systemIdentity)
+			bool distribute)
+			: base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute)
 		{
 			this.m_ASRComment = "Tests utilizing Analytic Specific Reagents (ASR’s) were developed and performance characteristics determined by " +
 				"Yellowstone Pathology Institute, Inc.  They have not been cleared or approved by the U.S. Food and Drug Administration.  The FDA has " +

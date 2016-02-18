@@ -50,9 +50,8 @@ namespace YellowstonePathology.Business.Test.Surgical
 
 		public SurgicalTestOrder(string masterAccessionNo, string reportNo, string objectId,
 			YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
-			bool distribute,
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
-			: base(masterAccessionNo, reportNo, objectId, panelSet, distribute, systemIdentity)
+			bool distribute)
+			: base(masterAccessionNo, reportNo, objectId, panelSet, distribute)
 		{
 			m_SurgicalSpecimenCollection = new SurgicalSpecimenCollection();
 			m_SurgicalAuditCollection = new SurgicalAuditCollection();
@@ -62,9 +61,8 @@ namespace YellowstonePathology.Business.Test.Surgical
         public SurgicalTestOrder(string masterAccessionNo, string reportNo, string objectId,
             YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
             YellowstonePathology.Business.Interface.IOrderTarget orderTarget,
-            bool distribute,
-            YellowstonePathology.Business.User.SystemIdentity systemIdentity)
-            : base(masterAccessionNo, reportNo, objectId, panelSet, distribute, systemIdentity)
+            bool distribute)
+            : base(masterAccessionNo, reportNo, objectId, panelSet, distribute)
         {
             m_SurgicalSpecimenCollection = new SurgicalSpecimenCollection();
             m_SurgicalAuditCollection = new SurgicalAuditCollection();

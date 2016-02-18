@@ -660,7 +660,7 @@ namespace YellowstonePathology.UI.Surgical
             {
                 YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder = (YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder)this.m_PathologistUI.AccessionOrder.PanelSetOrderCollection.GetSurgical();
                 PeerReviewDialog peerReviewDialog = new PeerReviewDialog();
-                PeerReviewResultPage peerReviewResultPage = new PeerReviewResultPage(surgicalTestOrder, this.m_PathologistUI.AccessionOrder, this.m_SystemIdentity);
+                PeerReviewResultPage peerReviewResultPage = new PeerReviewResultPage(surgicalTestOrder, this.m_PathologistUI.AccessionOrder);
                 peerReviewDialog.PageNavigator.Navigate(peerReviewResultPage);
                 peerReviewDialog.ShowDialog();
             }

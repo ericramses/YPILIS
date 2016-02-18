@@ -45,9 +45,8 @@ namespace YellowstonePathology.Business.Test.Retired
 		public PanelSetOrderHer2AmplificationByFishRetired2(string masterAccessionNo, string reportNo, string objectId,
 			YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
             YellowstonePathology.Business.Test.AliquotOrder block,
-			bool distribute,
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
-			: base(masterAccessionNo, reportNo, objectId, panelSet, distribute, systemIdentity)
+			bool distribute)
+			: base(masterAccessionNo, reportNo, objectId, panelSet, distribute)
 		{
 		}
 

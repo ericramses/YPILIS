@@ -20,22 +20,19 @@ namespace YellowstonePathology.UI.Surgical
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
         
-        private YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder m_SurgicalTestOrder;
-		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
+        private YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder m_SurgicalTestOrder;		
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		private string m_PageHeaderText;
         private ObservableCollection<YellowstonePathology.Business.Test.PeerReview.PeerReviewTestOrder> m_PeerReviewTestOrderCollection;
         private YellowstonePathology.Business.User.SystemUserCollection m_PathologistUsers;
         private YellowstonePathology.Business.Test.PeerReview.PeerReviewTypeCollection m_PeerReviewTypeCollection;
 
-        public PeerReviewResultPage(YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder, YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        public PeerReviewResultPage(YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{
             this.m_PeerReviewTypeCollection = new YellowstonePathology.Business.Test.PeerReview.PeerReviewTypeCollection();                        
 
             this.m_SurgicalTestOrder = surgicalTestOrder;
-			this.m_AccessionOrder = accessionOrder;            
-			this.m_SystemIdentity = systemIdentity;
+			this.m_AccessionOrder = accessionOrder;            			
 
 			this.m_PageHeaderText = "Peer Review for: " + this.m_AccessionOrder.PatientDisplayName;
             this.m_PeerReviewTestOrderCollection = this.m_AccessionOrder.PanelSetOrderCollection.GetPeerReviewCollection();
@@ -127,7 +124,7 @@ namespace YellowstonePathology.UI.Surgical
                     YellowstonePathology.Business.Test.PeerReview.PeerReviewTest peerReviewTest = new YellowstonePathology.Business.Test.PeerReview.PeerReviewTest();
                     string reportNo = this.m_AccessionOrder.GetNextReportNo(peerReviewTest);
 					string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-                    YellowstonePathology.Business.Test.PeerReview.PeerReviewTestOrder peerReviewTestOrder = new YellowstonePathology.Business.Test.PeerReview.PeerReviewTestOrder(this.m_AccessionOrder.MasterAccessionNo, reportNo, objectId, peerReviewTest, null, false, this.m_SystemIdentity);
+                    YellowstonePathology.Business.Test.PeerReview.PeerReviewTestOrder peerReviewTestOrder = new YellowstonePathology.Business.Test.PeerReview.PeerReviewTestOrder(this.m_AccessionOrder.MasterAccessionNo, reportNo, objectId, peerReviewTest, null, false);
                     peerReviewTestOrder.AssignedToId = pathologistId;
                     peerReviewTestOrder.HoldForPeerReview = true;
                     peerReviewTestOrder.PeerReviewRequestType = YellowstonePathology.Business.Test.PeerReview.PeerReviewTypeEnum.Mandatory.ToString();
@@ -206,10 +203,10 @@ namespace YellowstonePathology.UI.Surgical
             Hyperlink hyperlink = (Hyperlink)sender;
             YellowstonePathology.Business.Test.PeerReview.PeerReviewTestOrder peerReviewTestOrder = (YellowstonePathology.Business.Test.PeerReview.PeerReviewTestOrder)hyperlink.Tag;            
             
-            if (peerReviewTestOrder.AssignedToId == this.m_SystemIdentity.User.UserId)
+            if (peerReviewTestOrder.AssignedToId == YellowstonePathology.Business.User.SystemIdentity.Instance.User.UserId)
             {
-                peerReviewTestOrder.Accept(this.m_SystemIdentity.User);
-                peerReviewTestOrder.Finalize(this.m_SystemIdentity.User);
+                peerReviewTestOrder.Accept(YellowstonePathology.Business.User.SystemIdentity.Instance.User);
+                peerReviewTestOrder.Finalize(YellowstonePathology.Business.User.SystemIdentity.Instance.User);
             }
             else
             {

@@ -114,13 +114,13 @@ namespace YellowstonePathology.Business.Test
             this.m_AmendmentCollection = new YellowstonePathology.Business.Amendment.Model.AmendmentCollection();					
 		}
 
-		public PanelSetOrder(string masterAccessionNo, string reportNo, string objectId, YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet, bool distribute, Business.User.SystemIdentity systemIdentity)
+		public PanelSetOrder(string masterAccessionNo, string reportNo, string objectId, YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet, bool distribute)
 		{
 			this.MasterAccessionNo = masterAccessionNo;
 			this.ReportNo = reportNo;
 			this.m_ObjectId = objectId;
-			this.m_OrderedById = systemIdentity.User.UserId;
-			this.m_OrderedByInitials = systemIdentity.User.Initials;
+			this.m_OrderedById = Business.User.SystemIdentity.Instance.User.UserId;
+			this.m_OrderedByInitials = Business.User.SystemIdentity.Instance.User.Initials;
 			this.OrderDate = DateTime.Today;
 			this.OrderTime = DateTime.Now;
 
@@ -164,14 +164,14 @@ namespace YellowstonePathology.Business.Test
             this.m_UniversalServiceId = universalService.UniversalServiceId;
 		}
 
-		public PanelSetOrder(string masterAccessionNo, string reportNo, string objectId, YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet, YellowstonePathology.Business.Interface.IOrderTarget orderTarget, bool distribute, Business.User.SystemIdentity systemIdentity)
+		public PanelSetOrder(string masterAccessionNo, string reportNo, string objectId, YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet, YellowstonePathology.Business.Interface.IOrderTarget orderTarget, bool distribute)
 		{
 			this.MasterAccessionNo = masterAccessionNo;
 			this.ReportNo = reportNo;
 			this.m_ObjectId = objectId;
-			this.m_OrderedById = systemIdentity.User.UserId;
-			this.m_OrderedByInitials = systemIdentity.User.Initials;
-			this.OrderDate = DateTime.Today;
+            this.m_OrderedById = Business.User.SystemIdentity.Instance.User.UserId;
+            this.m_OrderedByInitials = Business.User.SystemIdentity.Instance.User.Initials;
+            this.OrderDate = DateTime.Today;
 			this.OrderTime = DateTime.Now;
             this.m_CaseType = panelSet.CaseType;
 

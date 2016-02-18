@@ -44,6 +44,8 @@ namespace YellowstonePathology.UI.Login
         {
 			this.m_BarcodeScanPort.ClientScanReceived += new Business.BarcodeScanning.BarcodeScanPort.ClientScanReceivedHandler(BarcodeScanPort_ClientScanReceived);
             this.TextBoxClientName.Focus();
+            System.Windows.Window window = Window.GetWindow(this);
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(window);
         }
 
 		private void BarcodeScanPort_ClientScanReceived(Business.BarcodeScanning.Barcode barcode)

@@ -13,14 +13,14 @@ namespace YellowstonePathology.UI.Login.Receiving
 
         public ReceiveSpecimenPath()
         {            
-            this.m_LoginPageWindow = new Receiving.LoginPageWindow();                        
+            this.m_LoginPageWindow = new Receiving.LoginPageWindow();
+            this.m_ClientOrderReceivingHandler = new ClientOrderReceivingHandler(this.m_LoginPageWindow);
         }
 
         public void Start()
-        {           
-			
-			this.m_LoginPageWindow.ShowDialog();
+        {           						
             this.ShowClientLookupPage();
+            this.m_LoginPageWindow.ShowDialog();
         }        		
 
 		private void ShowClientLookupPage()
