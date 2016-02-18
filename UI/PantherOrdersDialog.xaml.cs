@@ -96,7 +96,6 @@ namespace YellowstonePathology.UI
             if(this.ListViewPantherHPVOrders.SelectedItem != null)
             {
                 YellowstonePathology.Business.Test.PantherOrderListItem pantherOrderListItem = (YellowstonePathology.Business.Test.PantherOrderListItem)this.ListViewPantherHPVOrders.SelectedItem;
-                YellowstonePathology.Business.User.SystemIdentity systemIdentity = Business.User.SystemIdentity.Instance;
 
                 this.m_LoginPageWindow = new Login.LoginPageWindow();
                 YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(pantherOrderListItem.MasterAccessionNo, this.m_LoginPageWindow);
@@ -238,7 +237,6 @@ namespace YellowstonePathology.UI
             if (this.ListViewPantherNGCTOrders.SelectedItem != null)
             {
                 YellowstonePathology.Business.Test.PantherOrderListItem pantherOrderListItem = (YellowstonePathology.Business.Test.PantherOrderListItem)this.ListViewPantherNGCTOrders.SelectedItem;
-                YellowstonePathology.Business.User.SystemIdentity systemIdentity = Business.User.SystemIdentity.Instance;
 
                 this.m_LoginPageWindow = new Login.LoginPageWindow();
                 YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(pantherOrderListItem.MasterAccessionNo, this.m_LoginPageWindow);
@@ -297,7 +295,6 @@ namespace YellowstonePathology.UI
                 YellowstonePathology.Business.Test.PantherOrderListItem pantherOrderListItem = (YellowstonePathology.Business.Test.PantherOrderListItem)this.ListViewPantherHPV1618Orders.SelectedItem;
                 YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(pantherOrderListItem.MasterAccessionNo, this);
 
-                YellowstonePathology.Business.User.SystemIdentity systemIdentity = Business.User.SystemIdentity.Instance;
                 this.m_LoginPageWindow = new Login.LoginPageWindow();
                 this.m_LoginPageWindow.Show();
 
@@ -312,7 +309,6 @@ namespace YellowstonePathology.UI
             if (this.ListViewWHPOrders.SelectedItem != null)
             {
                 YellowstonePathology.Business.Test.PantherOrderListItem pantherOrderListItem = (YellowstonePathology.Business.Test.PantherOrderListItem)this.ListViewWHPOrders.SelectedItem;
-                YellowstonePathology.Business.User.SystemIdentity systemIdentity = Business.User.SystemIdentity.Instance;
 
                 this.m_LoginPageWindow = new Login.LoginPageWindow();
                 YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(pantherOrderListItem.MasterAccessionNo, this.m_LoginPageWindow);
