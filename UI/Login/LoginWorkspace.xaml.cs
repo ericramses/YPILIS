@@ -103,8 +103,7 @@ namespace YellowstonePathology.UI.Login
             {
                 YellowstonePathology.Business.Search.ReportSearchItem reportSearchItem = (YellowstonePathology.Business.Search.ReportSearchItem)this.ListViewAccessionOrders.SelectedItem;
                 YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_LoginUI.AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportSearchItem.ReportNo);
-                YellowstonePathology.Business.User.SystemIdentity systemIdentity = new Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
-                YellowstonePathology.UI.AmendmentPageController amendmentPageController = new AmendmentPageController(this.m_LoginUI.AccessionOrder, panelSetOrder, systemIdentity);
+                YellowstonePathology.UI.AmendmentPageController amendmentPageController = new AmendmentPageController(this.m_LoginUI.AccessionOrder, panelSetOrder);
                 amendmentPageController.ShowDialog();
             }
         }

@@ -632,7 +632,7 @@ namespace YellowstonePathology.UI.Surgical
             if (this.m_TypingUI.AccessionOrder != null)
             {
                 this.Save(false);
-                YellowstonePathology.UI.AmendmentPageController amendmentPageController = new AmendmentPageController(this.m_TypingUI.AccessionOrder, this.m_TypingUI.SurgicalTestOrder, this.m_SystemIdentity);
+                YellowstonePathology.UI.AmendmentPageController amendmentPageController = new AmendmentPageController(this.m_TypingUI.AccessionOrder, this.m_TypingUI.SurgicalTestOrder);
                 amendmentPageController.ShowDialog();
 
                 string reportNo = this.m_TypingUI.AccessionOrder.PanelSetOrderCollection.GetItem(13).ReportNo;

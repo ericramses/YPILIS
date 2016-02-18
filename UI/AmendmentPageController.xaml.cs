@@ -21,11 +21,10 @@ namespace YellowstonePathology.UI
         AmendmentUI m_AmendmentUI;        
 
         public AmendmentPageController(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-            YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder,
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+            YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder)
         {
 
-            this.m_AmendmentUI = new AmendmentUI(accessionOrder, panelSetOrder, systemIdentity);
+            this.m_AmendmentUI = new AmendmentUI(accessionOrder, panelSetOrder);
             InitializeComponent();
 
             this.DataContext = this;

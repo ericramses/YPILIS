@@ -426,7 +426,7 @@ namespace YellowstonePathology.UI.Cytology
 		{
 			this.Save(false);
 
-            YellowstonePathology.UI.AmendmentPageController amendmentPageController = new AmendmentPageController(this.m_AccessionOrder, this.m_PanelSetOrderCytology, this.m_SystemIdentity);
+            YellowstonePathology.UI.AmendmentPageController amendmentPageController = new AmendmentPageController(this.m_AccessionOrder, this.m_PanelSetOrderCytology);
 			amendmentPageController.ShowDialog();
 		}
 
