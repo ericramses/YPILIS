@@ -36,7 +36,7 @@ namespace YellowstonePathology.Business.Persistence
             this.m_IsGlobal = documentId.IsGlobal;
 
             if (this.m_Value is YellowstonePathology.Business.Test.AccessionOrder)
-            {
+            {                
                 YellowstonePathology.Business.Test.AccessionOrder accessionOrder = (YellowstonePathology.Business.Test.AccessionOrder)this.m_Value;
                 this.m_IsLockAquiredByMe = accessionOrder.IsLockAquiredByMe();
             }            

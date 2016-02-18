@@ -179,8 +179,8 @@ namespace YellowstonePathology.UI.Test
 
         private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
         {
-			YellowstonePathology.Business.Test.HPV.HPVWordDocument report = new Business.Test.HPV.HPVWordDocument();
-			report.Render(this.m_HPVTestOrder.MasterAccessionNo, this.m_HPVTestOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft, Window.GetWindow(this));
+			YellowstonePathology.Business.Test.HPV.HPVWordDocument report = new Business.Test.HPV.HPVWordDocument(this.m_AccessionOrder, this.m_HPVTestOrder, Business.Document.ReportSaveModeEnum.Draft);
+			report.Render();
 
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_HPVTestOrder.ReportNo);
             string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);

@@ -25,9 +25,8 @@ namespace YellowstonePathology.Business.Test.HPV1618
 		public PanelSetOrderHPV1618(string masterAccessionNo, string reportNo, string objectId,
 			YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
 			YellowstonePathology.Business.Interface.IOrderTarget orderTarget,
-			bool distribute,
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
-			: base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute, systemIdentity)
+			bool distribute)
+			: base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute)
 		{
             this.m_TechnicalComponentInstrumentId = Instrument.HOLOGICPANTHERID;
             this.m_Method = HPV1618Result.Method;

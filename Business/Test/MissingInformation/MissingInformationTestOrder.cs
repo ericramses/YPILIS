@@ -47,7 +47,7 @@ namespace YellowstonePathology.Business.Test.MissingInformation
             YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
             bool distribute,
             YellowstonePathology.Business.User.SystemIdentity systemIdentity)
-            : base(masterAccessionNo, reportNo, objectId, panelSet, distribute, systemIdentity)
+            : base(masterAccessionNo, reportNo, objectId, panelSet, distribute)
 		{
 
         }       

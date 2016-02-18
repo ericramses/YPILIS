@@ -140,8 +140,8 @@ namespace YellowstonePathology.Business.Persistence
 
         public Document Pull(DocumentId documentId, DocumentBuilder documentBuilder)
         {
-            Document document = null;
-            
+            Document document = null;                       
+
             if (this.KeyTypeExists(documentId) == true)
             {
                 document = this.Get(documentId);

@@ -6,14 +6,14 @@ namespace YellowstonePathology.Business.Test.HPV
 {
 	public class HPVWordDocument : YellowstonePathology.Business.Document.CaseReportV2
 	{
-		public override void Render(string masterAccessionNo, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveEnum, object writer)
-		{
-            this.m_ReportNo = reportNo;
-			this.m_ReportSaveEnum = reportSaveEnum;
-            this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, writer);
-            this.m_PanelSetOrder = m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
+        public HPVWordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+            : base(accessionOrder, panelSetOrder, reportSaveMode)
+        {
 
-			//this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\HPVThirdWave.7.xml";
+        }
+
+        public override void Render()
+		{            
             this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\HPV.xml";
             base.OpenTemplate();
 

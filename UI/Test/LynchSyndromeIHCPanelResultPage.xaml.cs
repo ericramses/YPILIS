@@ -136,8 +136,8 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
 		{
-			YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeIHCPanelWordDocument report = new Business.Test.LynchSyndrome.LynchSyndromeIHCPanelWordDocument();
-			report.Render(this.m_AccessionOrder.MasterAccessionNo, this.m_PanelSetOrderLynchSyndromeIHC.ReportNo, Business.Document.ReportSaveModeEnum.Draft, Window.GetWindow(this));
+			YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeIHCPanelWordDocument report = new Business.Test.LynchSyndrome.LynchSyndromeIHCPanelWordDocument(this.m_AccessionOrder, this.m_PanelSetOrderLynchSyndromeIHC, Business.Document.ReportSaveModeEnum.Draft);
+			report.Render();
 
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_PanelSetOrderLynchSyndromeIHC.ReportNo);
 			string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);

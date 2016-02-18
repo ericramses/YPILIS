@@ -242,9 +242,9 @@ namespace YellowstonePathology.UI.Surgical
 			if (this.ListViewSearchResults.SelectedItem != null)
 			{
 				YellowstonePathology.Business.Search.PathologistSearchResult item = (YellowstonePathology.Business.Search.PathologistSearchResult)this.ListViewSearchResults.SelectedItem;
-				YellowstonePathology.UI.CaseDocumentViewer caseDocumentViewer = new CaseDocumentViewer();
-				caseDocumentViewer.View(item.MasterAccessionNo, item.ReportNo, item.PanelSetId, this.m_PathologistUI.Writer);
-			}
+				YellowstonePathology.UI.CaseDocumentViewer caseDocumentViewer = new CaseDocumentViewer();				
+                caseDocumentViewer.View(this.m_PathologistUI.AccessionOrder, this.m_PathologistUI.PanelSetOrder);
+            }
 		}
 
 		private void CytologySlideScanReceived(YellowstonePathology.Business.BarcodeScanning.CytycBarcode barcode)
@@ -661,7 +661,7 @@ namespace YellowstonePathology.UI.Surgical
             {
                 YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder = (YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder)this.m_PathologistUI.AccessionOrder.PanelSetOrderCollection.GetSurgical();
                 PeerReviewDialog peerReviewDialog = new PeerReviewDialog();
-                PeerReviewResultPage peerReviewResultPage = new PeerReviewResultPage(surgicalTestOrder, this.m_PathologistUI.AccessionOrder, this.m_SystemIdentity);
+                PeerReviewResultPage peerReviewResultPage = new PeerReviewResultPage(surgicalTestOrder, this.m_PathologistUI.AccessionOrder);
                 peerReviewDialog.PageNavigator.Navigate(peerReviewResultPage);
                 peerReviewDialog.ShowDialog();
             }

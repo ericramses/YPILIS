@@ -7,12 +7,12 @@ namespace YellowstonePathology.UI
 {
     public class CaseDocumentViewer
     {		
-		public void View(string masterAccessionNo, string reportNo, int panelSetId, object writer)
+		public void View(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder)
         {
-			YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetAll().GetPanelSet(panelSetId);
-			YellowstonePathology.Business.Interface.ICaseDocument doc = YellowstonePathology.Business.Document.DocumentFactory.GetDocument(panelSet.PanelSetId);
-			doc.Render(masterAccessionNo, reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum.Draft, writer);
-			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(reportNo);
+			YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetAll().GetPanelSet(panelSetOrder.PanelSetId);
+			YellowstonePathology.Business.Interface.ICaseDocument doc = YellowstonePathology.Business.Document.DocumentFactory.GetDocument(accessionOrder, panelSetOrder, Business.Document.ReportSaveModeEnum.Draft);
+			doc.Render();
+			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(panelSetOrder.ReportNo);
 
 			string fileName = string.Empty;
             if (panelSet.ResultDocumentSource == Business.PanelSet.Model.ResultDocumentSourceEnum.PublishedDocument ||

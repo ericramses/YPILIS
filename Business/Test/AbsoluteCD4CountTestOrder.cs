@@ -22,9 +22,8 @@ namespace YellowstonePathology.Business.Test.AbsoluteCD4Count
 		public AbsoluteCD4CountTestOrder(string masterAccessionNo, string reportNo, string objectId,
 			YellowstonePathology.Business.Test.AbsoluteCD4Count.AbsoluteCD4CountTest panelSet,
 			YellowstonePathology.Business.Test.AliquotOrder block,
-			bool distribute,
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
-			: base(masterAccessionNo, reportNo, objectId, panelSet, distribute, systemIdentity)
+			bool distribute)
+			: base(masterAccessionNo, reportNo, objectId, panelSet, distribute)
 		{
 		}
 

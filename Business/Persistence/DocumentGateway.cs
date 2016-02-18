@@ -93,7 +93,7 @@ namespace YellowstonePathology.Business.Persistence
 
         public YellowstonePathology.Business.Test.AccessionOrder PullAccessionOrder(string masterAccessionNo, object writer)
         {
-            AODocumentBuilder documentBuilder = new AODocumentBuilder(masterAccessionNo);
+            AODocumentBuilder documentBuilder = new AODocumentBuilder(masterAccessionNo, true);
             DocumentId documentId = new DocumentId(typeof(YellowstonePathology.Business.Test.AccessionOrder), writer, masterAccessionNo);
             Document document = this.m_Stack.Pull(documentId, documentBuilder);            
             return (YellowstonePathology.Business.Test.AccessionOrder)document.Value;
@@ -101,7 +101,7 @@ namespace YellowstonePathology.Business.Persistence
 
         public YellowstonePathology.Business.Test.AccessionOrder GetAccessionOrderByMasterAccessionNo(string masterAccessionNo)
         {             
-            AODocumentBuilder documentBuilder = new AODocumentBuilder(masterAccessionNo);
+            AODocumentBuilder documentBuilder = new AODocumentBuilder(masterAccessionNo, false);
             YellowstonePathology.Business.Test.AccessionOrder result = (YellowstonePathology.Business.Test.AccessionOrder)documentBuilder.BuildNew();
             return result;
         }        

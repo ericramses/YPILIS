@@ -7,13 +7,14 @@ namespace YellowstonePathology.Business.Test.ErPrSemiQuantitative
 {
 	public class ErPrSemiQuantitativeWordDocument : YellowstonePathology.Business.Document.CaseReportV2
 	{
-		public override void Render(string masterAccessionNo, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveEnum, object writer)
-		{
-            this.m_ReportNo = reportNo;
-			this.m_ReportSaveEnum = reportSaveEnum;
+        public ErPrSemiQuantitativeWordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+            : base(accessionOrder, panelSetOrder, reportSaveMode)
+        {
 
-			this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, writer);
-            this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
+        }
+
+        public override void Render()
+		{            
 			ErPrSemiQuantitativeTestOrder panelSetOrderErPrSemiQuantitative = (ErPrSemiQuantitativeTestOrder)this.m_PanelSetOrder;
 
 			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\ERPRSemiQuantitative.6.xml";

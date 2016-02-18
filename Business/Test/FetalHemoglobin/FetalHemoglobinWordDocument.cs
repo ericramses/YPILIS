@@ -10,19 +10,16 @@ namespace YellowstonePathology.Business.Test.FetalHemoglobin
         string m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\FetalHemoglobin.5.xml";        
 		YellowstonePathology.Business.Flow.FlowMarkerPanelList m_PanelList;
 
-		public FetalHemoglobinWordDocument()
+        public FetalHemoglobinWordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+            : base(accessionOrder, panelSetOrder, reportSaveMode)
         {
             this.m_PanelList = new YellowstonePathology.Business.Flow.FlowMarkerPanelList();
             this.m_PanelList.SetFillCommandByPanelId(8);
             this.m_PanelList.Fill();
-        }
+        }        
 
-		public override void Render(string masterAccessionNo, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode, object writer)
-        {
-            this.m_ReportNo = reportNo;
-			this.GetReportData(reportNo, writer);
-            this.m_ReportSaveMode = reportSaveMode;
-            
+		public override void Render()
+        {                        
             base.OpenTemplate(m_TemplateName);
 
 			YellowstonePathology.Business.Test.LLP.PanelSetOrderLeukemiaLymphoma panelSetOrderLeukemiaLymphoma = (YellowstonePathology.Business.Test.LLP.PanelSetOrderLeukemiaLymphoma)this.m_PanelSetOrder;

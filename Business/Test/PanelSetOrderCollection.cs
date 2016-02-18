@@ -86,7 +86,7 @@ namespace YellowstonePathology.Business.Test
                         YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTest womensHealthProfileTest = new YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTest();
                         string reportNo = accessionOrder.GetNextReportNo(womensHealthProfileTest);
 						string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-						YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder womensHealthProfileTestOrder = new YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder(accessionOrder.MasterAccessionNo, reportNo, objectId, womensHealthProfileTest, accessionOrder.SpecimenOrderCollection[0], false, systemIdentity);
+						YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder womensHealthProfileTestOrder = new YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder(accessionOrder.MasterAccessionNo, reportNo, objectId, womensHealthProfileTest, accessionOrder.SpecimenOrderCollection[0], false);
                         womensHealthProfileTestOrder.AssignedToId = 5051;
 
                         YellowstonePathology.Business.Client.Model.HPV1618ReflexOrderPAPNormalHPVPositive hpv1618ReflexOrderPAPNormalHPVPositive = new YellowstonePathology.Business.Client.Model.HPV1618ReflexOrderPAPNormalHPVPositive();
@@ -110,7 +110,7 @@ namespace YellowstonePathology.Business.Test
                         YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTest womensHealthProfileTest = new YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTest();
                         string reportNo = accessionOrder.GetNextReportNo(womensHealthProfileTest);
 						string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-						YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder womensHealthProfileTestOrder = new YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder(accessionOrder.MasterAccessionNo, reportNo, objectId, womensHealthProfileTest, accessionOrder.SpecimenOrderCollection[0], false, systemIdentity);
+						YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder womensHealthProfileTestOrder = new YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder(accessionOrder.MasterAccessionNo, reportNo, objectId, womensHealthProfileTest, accessionOrder.SpecimenOrderCollection[0], false);
                         womensHealthProfileTestOrder.AssignedToId = 5051;
 
                         YellowstonePathology.Business.Client.Model.HPVReflexOrderRule2 hpvReflexOrderRule2 = new YellowstonePathology.Business.Client.Model.HPVReflexOrderRule2();
@@ -127,7 +127,7 @@ namespace YellowstonePathology.Business.Test
                         YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTest womensHealthProfileTest = new YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTest();
                         string whpReportNo = accessionOrder.GetNextReportNo(womensHealthProfileTest);
 						string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-						YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder womensHealthProfileTestOrder = new YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder(accessionOrder.MasterAccessionNo, whpReportNo, objectId, womensHealthProfileTest, accessionOrder.SpecimenOrderCollection[0], false, systemIdentity);
+						YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder womensHealthProfileTestOrder = new YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder(accessionOrder.MasterAccessionNo, whpReportNo, objectId, womensHealthProfileTest, accessionOrder.SpecimenOrderCollection[0], false);
                         womensHealthProfileTestOrder.AssignedToId = 5051;
                         womensHealthProfileTestOrder.OrderHPV = true;
                         accessionOrder.PanelSetOrderCollection.Add(womensHealthProfileTestOrder);

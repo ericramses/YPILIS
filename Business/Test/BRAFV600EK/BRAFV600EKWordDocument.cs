@@ -7,14 +7,14 @@ namespace YellowstonePathology.Business.Test.BRAFV600EK
 {
 	public class BRAFV600EKWordDocument : YellowstonePathology.Business.Document.CaseReportV2
 	{
-		public override void Render(string masterAccessionNo, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveEnum, object writer)
-		{
-            this.m_ReportNo = reportNo;
-			this.m_ReportSaveEnum = reportSaveEnum;
+        public BRAFV600EKWordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+            : base(accessionOrder, panelSetOrder, reportSaveMode)
+        {
 
-            this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, writer);
+        }
 
-            this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
+        public override void Render()
+		{            
             YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTestOrder panelSetOrder = (YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTestOrder)this.m_PanelSetOrder;
 			base.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\BRAFV600EK.1.xml";
 			base.OpenTemplate();

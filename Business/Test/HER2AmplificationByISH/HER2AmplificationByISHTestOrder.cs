@@ -52,9 +52,8 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 		public HER2AmplificationByISHTestOrder(string masterAccessionNo, string reportNo, string objectId,
 			YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
 			YellowstonePathology.Business.Interface.IOrderTarget orderTarget,
-			bool distribute,
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
-			: base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute, systemIdentity)
+			bool distribute)
+			: base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute)
 		{
 			
 		}

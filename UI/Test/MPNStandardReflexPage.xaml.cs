@@ -121,8 +121,8 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
 		{			
-			YellowstonePathology.Business.Test.MPNStandardReflex.MPNStandardReflexWordDocument report = new Business.Test.MPNStandardReflex.MPNStandardReflexWordDocument();
-			report.Render(this.m_AccessionOrder.MasterAccessionNo, this.m_PanelSetOrderMPNStandardReflex.ReportNo, Business.Document.ReportSaveModeEnum.Draft, Window.GetWindow(this));
+			YellowstonePathology.Business.Test.MPNStandardReflex.MPNStandardReflexWordDocument report = new Business.Test.MPNStandardReflex.MPNStandardReflexWordDocument(this.m_AccessionOrder, this.m_PanelSetOrderMPNStandardReflex, Business.Document.ReportSaveModeEnum.Draft);
+			report.Render();
 
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_PanelSetOrderMPNStandardReflex.ReportNo);
 			string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);

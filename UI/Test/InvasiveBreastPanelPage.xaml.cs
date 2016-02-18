@@ -109,8 +109,8 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
 		{			
-			YellowstonePathology.Business.Test.InvasiveBreastPanel.InvasiveBreastPanelWordDocument invasiveBreastPanel = new Business.Test.InvasiveBreastPanel.InvasiveBreastPanelWordDocument();
-			invasiveBreastPanel.Render(this.m_AccessionOrder.MasterAccessionNo, this.m_InvasiveBreastPanel.ReportNo, Business.Document.ReportSaveModeEnum.Draft, Window.GetWindow(this));
+			YellowstonePathology.Business.Test.InvasiveBreastPanel.InvasiveBreastPanelWordDocument invasiveBreastPanel = new Business.Test.InvasiveBreastPanel.InvasiveBreastPanelWordDocument(this.m_AccessionOrder, this.m_InvasiveBreastPanel, Business.Document.ReportSaveModeEnum.Draft);
+			invasiveBreastPanel.Render();
 
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_InvasiveBreastPanel.ReportNo);
 			string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);

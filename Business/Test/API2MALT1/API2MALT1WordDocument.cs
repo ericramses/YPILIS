@@ -7,12 +7,14 @@ namespace YellowstonePathology.Business.Test.API2MALT1
 {
 	public class API2MALT1WordDocument : YellowstonePathology.Business.Document.CaseReportV2
 	{
-		public override void Render(string masterAccessionNo, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveEnum, object writer)
+        public API2MALT1WordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+            : base(accessionOrder, panelSetOrder, reportSaveMode)
+        {
+
+        }
+
+        public override void Render()
 		{
-			this.m_ReportNo = reportNo;
-			this.m_ReportSaveEnum = reportSaveEnum;
-			this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, writer);
-			this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 			API2MALT1TestOrder testOrder = (API2MALT1TestOrder)this.m_PanelSetOrder;
 
 			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\API2MALT1.xml";

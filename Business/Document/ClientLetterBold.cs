@@ -8,7 +8,12 @@ namespace YellowstonePathology.Business.Document
 {
 	public class ClientLetterBold : CaseReportV2
 	{
-		public void Create(string patientName, string providerName, YellowstonePathology.Business.Client.Model.Client client, string letterBody)
+        public ClientLetterBold()
+        {
+
+        }
+
+        public void Create(string patientName, string providerName, YellowstonePathology.Business.Client.Model.Client client, string letterBody)
 		{
 			string templateName = @"\\CFileServer\documents\ReportTemplates\XmlTemplates\ClientMissingInfoBoldFax.xml";
 

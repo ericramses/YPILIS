@@ -154,7 +154,7 @@ namespace YellowstonePathology.UI.Login
 			}
 
 			string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-			YellowstonePathology.Business.Test.LLP.PanelSetOrderLeukemiaLymphoma panelSetOrderLeukemiaLymphoma = new Business.Test.LLP.PanelSetOrderLeukemiaLymphoma(this.m_AccessionOrder.MasterAccessionNo, reportNo, objectId, panelSetFlowCytometry, this.m_SpecimenOrder, true, systemIdentity);            
+			YellowstonePathology.Business.Test.LLP.PanelSetOrderLeukemiaLymphoma panelSetOrderLeukemiaLymphoma = new Business.Test.LLP.PanelSetOrderLeukemiaLymphoma(this.m_AccessionOrder.MasterAccessionNo, reportNo, objectId, panelSetFlowCytometry, this.m_SpecimenOrder, true);            
             this.m_AccessionOrder.PanelSetOrderCollection.Add(panelSetOrderLeukemiaLymphoma);
             this.m_AddedPanelSetOrder = panelSetOrderLeukemiaLymphoma;
 
