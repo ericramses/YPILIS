@@ -43,6 +43,13 @@ namespace YellowstonePathology.UI.Billing
             this.m_PostDate = DateTime.Today;                                                
             InitializeComponent();
             this.DataContext = this;
+
+            Closing += PSATransferDialog_Closing;
+        }
+
+        private void PSATransferDialog_Closing(object sender, CancelEventArgs e)
+        {
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
         }
 
         public string StatusCountMessage

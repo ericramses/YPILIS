@@ -677,10 +677,9 @@ namespace YellowstonePathology.UI.Login
         {
             if (this.ListViewAccessionOrders.SelectedItem != null)
             {
-                YellowstonePathology.Business.User.SystemIdentity systemIdentity = Business.User.SystemIdentity.Instance;
                 YellowstonePathology.Business.Search.ReportSearchItem reportSearchItem = (YellowstonePathology.Business.Search.ReportSearchItem)this.ListViewAccessionOrders.SelectedItem;
                 this.m_LoginUI.ReportSearchList.SetCurrentReportSearchItem(reportSearchItem.ReportNo);
-                Billing.BillingPath billingPath = new Billing.BillingPath(this.m_LoginUI.ReportSearchList, systemIdentity);
+                Billing.BillingPath billingPath = new Billing.BillingPath(this.m_LoginUI.ReportSearchList);
                 billingPath.Start();
             }
         }
