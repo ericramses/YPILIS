@@ -246,14 +246,14 @@ namespace YellowstonePathology.UI.ReportDistribution
         {
             bool result = true;
 
-            try
-            {
+            //try
+            //{
                 caseDocument.Render();
                 caseDocument.Publish();
 
-                this.m_ReportDistributionLogEntryCollection.AddEntry("INFO", "Publish Next", null, panelSetOrder.ReportNo, panelSetOrder.MasterAccessionNo,
-                null, null, "PanelSetOrder Published");                              
-            }
+                this.m_ReportDistributionLogEntryCollection.AddEntry("INFO", "Publish Next", null, panelSetOrder.ReportNo, panelSetOrder.MasterAccessionNo, null, null, "PanelSetOrder Published");                              
+            //}            
+            /*
             catch (Exception publishException)
             {
                 this.m_ReportDistributionLogEntryCollection.AddEntry("ERROR", "Publish Next", null, panelSetOrder.ReportNo, panelSetOrder.MasterAccessionNo,
@@ -267,7 +267,8 @@ namespace YellowstonePathology.UI.ReportDistribution
                 this.DelayPublishAndDistribution(15, publishException.Message, panelSetOrder);
 
                 result = false;
-            }
+            }            
+            */
 
             return result;
         }

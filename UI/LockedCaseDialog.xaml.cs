@@ -64,8 +64,8 @@ namespace YellowstonePathology.UI
 		}
 
 		private void ButtonRefresh_Click(object sender, RoutedEventArgs e)
-		{			
-            
+		{
+            this.m_LockItemCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetLockedAccessionOrders();
             this.NotifyPropertyChanged(string.Empty);
 		}
 

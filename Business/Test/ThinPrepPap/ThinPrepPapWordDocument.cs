@@ -24,7 +24,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
         protected XmlNamespaceManager m_NameSpaceManager;
         protected string m_SaveFileName;
         protected YellowstonePathology.Business.Document.ReportSaveModeEnum m_ReportSaveEnum;
-        protected string m_ReportNo;
+        
         protected YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		protected YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology m_PanelSetOrderCytology;
 
@@ -32,12 +32,14 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 
         public ThinPrepPapWordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode)             
         {
+            this.m_AccessionOrder = accessionOrder;
+            this.m_PanelSetOrderCytology = (YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology)panelSetOrder;
+            this.m_ReportSaveEnum = reportSaveMode;
+
             this.m_NativeDocumentFormat = YellowstonePathology.Business.Document.NativeDocumentFormatEnum.Word;
             this.m_ReportXml = new XmlDocument();
             this.m_NameSpaceManager = new XmlNamespaceManager(m_ReportXml.NameTable);
-            this.m_NameSpaceManager.AddNamespace("w", "http://schemas.microsoft.com/office/word/2003/wordml");
-
-            this.m_PanelSetOrderCytology = (YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology)panelSetOrder;
+            this.m_NameSpaceManager.AddNamespace("w", "http://schemas.microsoft.com/office/word/2003/wordml");            
         }
 
         public YellowstonePathology.Business.Document.NativeDocumentFormatEnum NativeDocumentFormat
@@ -196,22 +198,22 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 
         public void Publish()
         {
-			YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_ReportNo);
+			YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_PanelSetOrderCytology.ReportNo);
             YellowstonePathology.Business.Document.CaseDocument.SaveXMLAsPDF(orderIdParser);
-            YellowstonePathology.Business.Helper.FileConversionHelper.SaveXpsReportToTiff(this.m_ReportNo);
+            YellowstonePathology.Business.Helper.FileConversionHelper.SaveXpsReportToTiff(this.m_PanelSetOrderCytology.ReportNo);
         }
 
         public void OpenTemplate()
         {
-			YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_ReportNo);
+			YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_PanelSetOrderCytology.ReportNo);
             this.m_ReportXml.Load(this.m_TemplateName);
             switch (this.m_ReportSaveEnum)
             {
                 case YellowstonePathology.Business.Document.ReportSaveModeEnum.Draft:
-					this.m_SaveFileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + this.m_ReportNo + ".draft.xml";
+					this.m_SaveFileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + this.m_PanelSetOrderCytology.ReportNo + ".draft.xml";
                     break;
                 case YellowstonePathology.Business.Document.ReportSaveModeEnum.Normal:
-					this.m_SaveFileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + this.m_ReportNo + ".xml";
+					this.m_SaveFileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + this.m_PanelSetOrderCytology.ReportNo + ".xml";
                     break;
                 case YellowstonePathology.Business.Document.ReportSaveModeEnum.Test:
                     this.m_SaveFileName = @"c:\test.xml";
@@ -220,9 +222,8 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
         }
 
         public void SetDemographics()
-        {
-            string reportNumber = this.m_ReportNo;
-            this.ReplaceText("report_number", reportNumber);
+        {         
+            this.ReplaceText("report_number", this.m_PanelSetOrderCytology.ReportNo);
             this.ReplaceText("accession_no", this.m_AccessionOrder.MasterAccessionNo.ToString());
             this.ReplaceText("patient_name", this.m_AccessionOrder.PatientDisplayName);
             this.ReplaceText("patient_age", this.m_AccessionOrder.PatientAccessionAge + ", " + this.m_AccessionOrder.PSex);
@@ -265,7 +266,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 
             this.ReplaceText("physician_name", this.m_AccessionOrder.PhysicianName);
             this.ReplaceText("client_name", this.m_AccessionOrder.ClientName);
-            this.ReplaceText("page2_header", this.m_AccessionOrder.PatientName + ", " + reportNumber);
+            this.ReplaceText("page2_header", this.m_AccessionOrder.PatientName + ", " + this.m_PanelSetOrderCytology.ReportNo);
         }
 
         public void SetReportDistribution(YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistributionCollection testOrderReportDistributionCollection)
@@ -299,7 +300,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
             XmlNode nodeTc = m_ReportXml.SelectSingleNode("descendant::w:tc[w:p/w:r/w:t='other_ypii_cases']", this.m_NameSpaceManager);
 
             YellowstonePathology.Business.Patient.Model.PatientHistoryList patientHistoryList = new Patient.Model.PatientHistoryList();
-            patientHistoryList.SetFillCommandByAccessionNo(this.m_ReportNo);
+            patientHistoryList.SetFillCommandByAccessionNo(this.m_PanelSetOrderCytology.ReportNo);
             patientHistoryList.Fill();
 
             bool hashistory = false;
@@ -308,7 +309,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
                 string caseHistory = "";
                 foreach (Business.Patient.Model.PatientHistoryListItem item in patientHistoryList)
                 {
-                    if (item.ReportNo != this.m_ReportNo)
+                    if (item.ReportNo != this.m_PanelSetOrderCytology.ReportNo)
                     {
                         caseHistory += item.ReportNo + ", ";
                     }
@@ -477,7 +478,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
                     break;
                 case YellowstonePathology.Business.Document.ReportSaveModeEnum.Normal:
                     this.m_ReportXml.Save(this.m_SaveFileName);
-					YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_ReportNo);
+					YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_PanelSetOrderCytology.ReportNo);
 					YellowstonePathology.Business.Document.CaseDocument.SaveXMLAsDoc(orderIdParser);
 					YellowstonePathology.Business.Document.CaseDocument.SaveDocAsXPS(orderIdParser);
                     break;
@@ -495,7 +496,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
                     this.m_ReportXml.Save(this.m_SaveFileName);
                     break;
                 case YellowstonePathology.Business.Document.ReportSaveModeEnum.Normal:
-					YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_ReportNo);
+					YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_PanelSetOrderCytology.ReportNo);
                     this.m_ReportXml.Save(this.m_SaveFileName);
 					YellowstonePathology.Business.Document.CaseDocument.SaveXMLAsDoc(orderIdParser);
                     break;

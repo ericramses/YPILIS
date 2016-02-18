@@ -12,10 +12,10 @@ namespace YellowstonePathology.UI.Login.Receiving
         private YellowstonePathology.UI.Login.Receiving.ClientOrderReceivingHandler m_ClientOrderReceivingHandler;        
         private YellowstonePathology.Business.ClientOrder.Model.ClientOrder m_ClientOrder;
 
-        public ReceiveSpecimenPathStartingWithOrder(YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder)
-        {
-            this.m_ClientOrder = clientOrder;            
-            this.m_LoginPageWindow = new Receiving.LoginPageWindow();                        
+        public ReceiveSpecimenPathStartingWithOrder(string clientOrderId)
+        {            
+            this.m_LoginPageWindow = new Receiving.LoginPageWindow();
+            this.m_ClientOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullClientOrderByClientOrderId(clientOrderId, this.m_LoginPageWindow);
         }
 
         public void Start()
