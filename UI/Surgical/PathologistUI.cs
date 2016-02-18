@@ -234,8 +234,7 @@ namespace YellowstonePathology.UI.Surgical
 
         public void ShowAmendmentDialog()
 		{
-            YellowstonePathology.UI.AmendmentPageController amendmentPageController = new AmendmentPageController(this.m_AccessionOrder,
-				this.m_PanelSetOrder, this.m_SystemIdentity);
+            YellowstonePathology.UI.AmendmentPageController amendmentPageController = new AmendmentPageController(this.m_AccessionOrder, this.m_PanelSetOrder);
 			amendmentPageController.ShowDialog();
 			this.RunPathologistEnableRules();
 			this.NotifyPropertyChanged("AccessonOrder");

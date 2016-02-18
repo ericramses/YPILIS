@@ -73,6 +73,7 @@ namespace YellowstonePathology.UI.Login
             this.m_MainWindowCommandButtonHandler.Save += new MainWindowCommandButtonHandler.SaveEventHandler(MainWindowCommandButtonHandler_Save);
             this.m_LoadedHasRun = true;
         }
+
         private void MainWindowCommandButtonHandler_Save(object sender, EventArgs e)
         {
             if(this.m_LoginUI.AccessionOrder != null)
@@ -103,12 +104,24 @@ namespace YellowstonePathology.UI.Login
                 providerDistributionPath.Start();
             }
         }
-        
+
+        private void MainWindowCommandButtonHandler_ShowAmendmentDialog(object sender, EventArgs e)
+        {
+            if (this.ListViewAccessionOrders.SelectedItem != null)
+            {
+                YellowstonePathology.Business.Search.ReportSearchItem reportSearchItem = (YellowstonePathology.Business.Search.ReportSearchItem)this.ListViewAccessionOrders.SelectedItem;
+                YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_LoginUI.AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportSearchItem.ReportNo);
+                YellowstonePathology.UI.AmendmentPageController amendmentPageController = new AmendmentPageController(this.m_LoginUI.AccessionOrder, panelSetOrder);
+                amendmentPageController.ShowDialog();
+            }
+        }
+
         private void LoginWorkspace_Unloaded(object sender, RoutedEventArgs e)
         {
             this.m_LoadedHasRun = false;
             this.m_BarcodeScanPort.ContainerScanReceived -= ContainerScanReceived;
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath -= MainWindowCommandButtonHandler_StartProviderDistributionPath;
+            this.m_MainWindowCommandButtonHandler.ShowAmendmentDialog -= MainWindowCommandButtonHandler_ShowAmendmentDialog;
         }
 
         public void RemoveTab(object target, ExecutedRoutedEventArgs args)
@@ -664,10 +677,9 @@ namespace YellowstonePathology.UI.Login
         {
             if (this.ListViewAccessionOrders.SelectedItem != null)
             {
-                YellowstonePathology.Business.User.SystemIdentity systemIdentity = Business.User.SystemIdentity.Instance;
                 YellowstonePathology.Business.Search.ReportSearchItem reportSearchItem = (YellowstonePathology.Business.Search.ReportSearchItem)this.ListViewAccessionOrders.SelectedItem;
                 this.m_LoginUI.ReportSearchList.SetCurrentReportSearchItem(reportSearchItem.ReportNo);
-                Billing.BillingPath billingPath = new Billing.BillingPath(this.m_LoginUI.ReportSearchList, systemIdentity);
+                Billing.BillingPath billingPath = new Billing.BillingPath(this.m_LoginUI.ReportSearchList);
                 billingPath.Start();
             }
         }

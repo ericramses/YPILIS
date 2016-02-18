@@ -481,7 +481,7 @@
 			</Grid.RowDefinitions>
 			<ToolBarTray Grid.Column="0" Grid.Row="0" Background="Gainsboro">
 				<ToolBar Grid.Column="0" Grid.Row="0">
-					<Button Click="ButtonAddAmendment_Click" ToolTip="Add Admendment" IsEnabled="{Binding Path=PathologistUI.FieldEnabler.IsProtectedEnabled}">
+					<Button Click="ButtonAddAmendment_Click" ToolTip="Add Admendment" IsEnabled="True">
 						<StackPanel Orientation="Horizontal">
 							<Image Source="/Resources/Amendments.ico" Margin="2" Height="16"></Image>
 							<TextBlock VerticalAlignment="Center" Margin="2" Text="Add Amendment"></TextBlock>

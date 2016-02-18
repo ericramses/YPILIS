@@ -25,21 +25,30 @@ namespace YellowstonePathology.UI.MaterialTracking
         public void Start()
         {
             this.m_LoginPageWindow = new Login.LoginPageWindow();
-            this.ShowMaterialTrackingStartPage();
+            this.m_LoginPageWindow.Title = "Material Tracking";
+            if (this.m_StartNew == true)
+            {
+                this.ShowMaterialTrackingCasePage();
+            }
+            else
+            {
+                this.ShowMaterialTrackingStartPage();
+            }
+            this.m_LoginPageWindow.ShowDialog();
         }
 
         public MaterialTrackingPath(string masterAccessionNo)
         {
             this.m_UseMasterAccessionNo = true;            
             this.m_MasterAccessionNo = masterAccessionNo;
-            this.ShowMaterialTrackingStartPage();
+            //this.ShowMaterialTrackingStartPage();
         }
 
 		public MaterialTrackingPath(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{
 			this.m_AccessionOrder = accessionOrder;
 			this.m_StartNew = true;
-            this.ShowMaterialTrackingCasePage();
+            //this.ShowMaterialTrackingCasePage();
         }				
 
 		private void ShowMaterialTrackingCasePage()

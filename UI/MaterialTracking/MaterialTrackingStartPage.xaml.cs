@@ -11,12 +11,15 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.ComponentModel;
 
 namespace YellowstonePathology.UI.MaterialTracking
 {
-	public partial class MaterialTrackingStartPage : UserControl
-	{		
-		public delegate void FacilitySelectionEventHandler(object sender, CustomEventArgs.FacilitySelectionReturnEventArgs e);
+	public partial class MaterialTrackingStartPage : UserControl, INotifyPropertyChanged
+	{
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public delegate void FacilitySelectionEventHandler(object sender, CustomEventArgs.FacilitySelectionReturnEventArgs e);
 		public event FacilitySelectionEventHandler FacilitySelection;
 
 		public delegate void ViewBatchEventHandler(object sender, YellowstonePathology.UI.CustomEventArgs.MaterialTrackingBatchEventArgs e);
@@ -260,7 +263,7 @@ namespace YellowstonePathology.UI.MaterialTracking
             }
             else
             {
-                MessageBox.Show("Please selecte a batch to view.");
+                MessageBox.Show("Please select a batch to view.");
             }
         }
 
@@ -268,17 +271,28 @@ namespace YellowstonePathology.UI.MaterialTracking
         {
             if (this.ListBoxMaterialTrackingBatch.SelectedItem != null)
             {
-				YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch materialTrackingBatch = (YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch)this.ListBoxMaterialTrackingBatch.SelectedItem;                
+				YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch materialTrackingBatch = (YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch)this.ListBoxMaterialTrackingBatch.SelectedItem;
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.DeleteDocument(materialTrackingBatch, Window.GetWindow(this));
+                this.m_MaterialTrackingBatchCollection.Remove(materialTrackingBatch);
+                this.NotifyPropertyChanged(string.Empty);
             }
             else
             {
-                MessageBox.Show("Please selecte a batch to delete.");
+                MessageBox.Show("Please select a batch to delete.");
             }
         }        
 		
 		private void ButtonClose_Click(object sender, RoutedEventArgs e)
 		{
             Window.GetWindow(this).Close();			
-		}                     		
+		}
+
+        public void NotifyPropertyChanged(String info)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
+        }
     }
 }

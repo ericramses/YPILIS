@@ -78,7 +78,8 @@ namespace YellowstonePathology.UI.Surgical
 			this.m_MainWindowCommandButtonHandler.ShowOrderForm += new EventHandler(MainWindowCommandButtonHandler_ShowOrderForm);			
 			this.m_MainWindowCommandButtonHandler.AssignCase += new EventHandler(MainWindowCommandButtonHandler_AssignCase);
 			this.m_MainWindowCommandButtonHandler.ApplicationClosing += new EventHandler(MainWindowCommandButtonHandler_ApplicationClosing);
-            this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath += new MainWindowCommandButtonHandler.StartProviderDistributionPathEventHandler(MainWindowCommandButtonHandler_StartProviderDistributionPath);            
+            this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath += new MainWindowCommandButtonHandler.StartProviderDistributionPathEventHandler(MainWindowCommandButtonHandler_StartProviderDistributionPath);
+            this.m_MainWindowCommandButtonHandler.ShowAmendmentDialog += MainWindowCommandButtonHandler_ShowAmendmentDialog;
         }
 
         private void MainWindowCommandButtonHandler_StartProviderDistributionPath(object sender, EventArgs e)
@@ -96,15 +97,15 @@ namespace YellowstonePathology.UI.Surgical
 			this.m_MainWindowCommandButtonHandler.Save -= MainWindowCommandButtonHandler_Save;
 			this.m_MainWindowCommandButtonHandler.ShowCaseDocument -= MainWindowCommandButtonHandler_ShowCaseDocument;
 			this.m_MainWindowCommandButtonHandler.ShowOrderForm -= MainWindowCommandButtonHandler_ShowOrderForm;
-			this.m_MainWindowCommandButtonHandler.ShowAmendmentDialog -= MainWindowCommandButtonHandler_ShowAmendmentDialog;
 			this.m_MainWindowCommandButtonHandler.AssignCase -= MainWindowCommandButtonHandler_AssignCase;
 			this.m_MainWindowCommandButtonHandler.ApplicationClosing -= MainWindowCommandButtonHandler_ApplicationClosing;
 
 			this.Save(true);                       
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath -= MainWindowCommandButtonHandler_StartProviderDistributionPath;
-		}
+            this.m_MainWindowCommandButtonHandler.ShowAmendmentDialog -= MainWindowCommandButtonHandler_ShowAmendmentDialog;
+        }
 
-		private void MainWindowCommandButtonHandler_Save(object sender, EventArgs e)
+        private void MainWindowCommandButtonHandler_Save(object sender, EventArgs e)
 		{
             if (this.m_PathologistUI.AccessionOrder != null)
             {
@@ -157,8 +158,8 @@ namespace YellowstonePathology.UI.Surgical
 			if (this.m_PathologistUI.AccessionOrder.IsLockAquiredByMe() == true)
 			{
 				this.m_PathologistUI.ShowAmendmentDialog();
-			}
-		}
+            }
+        }
 
 		private void MainWindowCommandButtonHandler_AssignCase(object sender, EventArgs e)
 		{
@@ -419,10 +420,10 @@ namespace YellowstonePathology.UI.Surgical
 
 		private void SetReviewResult()
 		{
-			switch (this.m_PathologistUI.PanelSetOrder.PanelSetId)
+            switch (this.m_PathologistUI.PanelSetOrder.PanelSetId)
 			{                
 				case 15:
-					this.m_PathologistsReview = null;
+                    this.m_PathologistsReview = null;
 					this.m_CytologyResultsWorkspace = new Cytology.CytologyResultsWorkspace(this.m_Writer);
 					this.m_CytologyResultsWorkspace.CytologyUI.SetAccessionOrder(this.m_PathologistUI.AccessionOrder, this.m_PathologistUI.PanelSetOrder.ReportNo);
 					this.m_CytologyResultsWorkspace.SetReportNo(this.m_PathologistUI.PanelSetOrder.ReportNo);

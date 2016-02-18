@@ -45,7 +45,6 @@ namespace YellowstonePathology.UI.Billing
 		public delegate void ShowPatientDetailPageEventHandler(object sender, EventArgs e);
 		public event ShowPatientDetailPageEventHandler ShowPatientDetailPage;
 
-		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
 		private string m_PageHeaderText;
@@ -57,11 +56,9 @@ namespace YellowstonePathology.UI.Billing
         private string m_ReportNo;
         private YellowstonePathology.Business.Facility.Model.FacilityCollection m_FacilityCollection;
 
-        public BillingPage(string reportNo, YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        public BillingPage(string reportNo, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{			
 			this.m_AccessionOrder = accessionOrder;
-			this.m_SystemIdentity = systemIdentity;
             this.m_ReportNo = reportNo;
 
             this.m_FacilityCollection = YellowstonePathology.Business.Facility.Model.FacilityCollection.GetAllFacilities();

@@ -48,25 +48,6 @@ namespace YellowstonePathology.UI.Billing
 			}
 		}		
 
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save(bool releaseLock)
-		{
-			
-		}
-
-		public void UpdateBindingSources()
-		{
-		}
-
 		private void ButtonNext_Click(object sender, RoutedEventArgs e)
 		{            
             if (this.Next != null) this.Next(this, new EventArgs());            

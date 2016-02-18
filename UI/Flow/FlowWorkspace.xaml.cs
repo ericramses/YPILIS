@@ -86,7 +86,7 @@ namespace YellowstonePathology.UI.Flow
             {
                 this.Save(false);
 
-                YellowstonePathology.UI.AmendmentPageController amendmentPageController = new AmendmentPageController(this.m_FlowUI.AccessionOrder, this.m_FlowUI.PanelSetOrderLeukemiaLymphoma, this.m_SystemIdentity);
+                YellowstonePathology.UI.AmendmentPageController amendmentPageController = new AmendmentPageController(this.m_FlowUI.AccessionOrder, this.m_FlowUI.PanelSetOrderLeukemiaLymphoma);
                 amendmentPageController.ShowDialog();
                 this.m_FlowUI.GetAccessionOrder(this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.ReportNo, this.m_FlowUI.AccessionOrder.MasterAccessionNo);
             }            
@@ -123,21 +123,6 @@ namespace YellowstonePathology.UI.Flow
         {
             this.Save(true);            
         }
-
-        private void AccessionLock_LockStatusChanged(object sender, EventArgs e)
-        {
-            
-        }
-
-        public void AlterAccessionLock(object target, ExecutedRoutedEventArgs args)
-        {
-            
-        }
-
-        private void CanAlterAccessionLock(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = false;			
-        }        
 
         public void GatingCount_LostFocus(object sender, RoutedEventArgs args)
         {
@@ -178,11 +163,6 @@ namespace YellowstonePathology.UI.Flow
         public void ButtonTechUnfinal_Click(object sender, RoutedEventArgs args)
         {
             this.m_FlowUI.MedTechUnfinal();
-        }
-
-        public void ButtonAccessionLock_Click(object sender, RoutedEventArgs args)
-        {
-			
         }
 
         public void MenuItemDeleteIcd9Code_Click(object sender, RoutedEventArgs args)
@@ -591,7 +571,7 @@ namespace YellowstonePathology.UI.Flow
             {
                 this.Save(false);
 
-                YellowstonePathology.UI.AmendmentPageController amendmentPageController = new AmendmentPageController(this.m_FlowUI.AccessionOrder, this.m_FlowUI.PanelSetOrderLeukemiaLymphoma, this.m_SystemIdentity);
+                YellowstonePathology.UI.AmendmentPageController amendmentPageController = new AmendmentPageController(this.m_FlowUI.AccessionOrder, this.m_FlowUI.PanelSetOrderLeukemiaLymphoma);
                 amendmentPageController.ShowDialog();
                 this.m_FlowUI.GetAccessionOrder(this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.ReportNo, this.m_FlowUI.AccessionOrder.MasterAccessionNo);
             }     	            

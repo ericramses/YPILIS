@@ -421,11 +421,11 @@ namespace YellowstonePathology.UI.Cytology
 			return 0;
 		}
 
-		public void ShowAmendmentDialog(object target, ExecutedRoutedEventArgs args)
+		public void ShowAmendmentDialog(object sender, EventArgs e)
 		{
 			this.Save(false);
 
-            YellowstonePathology.UI.AmendmentPageController amendmentPageController = new AmendmentPageController(this.m_AccessionOrder, this.m_PanelSetOrderCytology, this.m_SystemIdentity);
+            YellowstonePathology.UI.AmendmentPageController amendmentPageController = new AmendmentPageController(this.m_AccessionOrder, this.m_PanelSetOrderCytology);
 			amendmentPageController.ShowDialog();
 		}
 
