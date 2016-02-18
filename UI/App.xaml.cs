@@ -41,6 +41,7 @@ namespace YellowstonePathology.UI
         
         protected override void OnStartup(StartupEventArgs e)
         {
+            this.ReleaseLocksOnStartup();
             string startUpWindow = string.Empty;
 
 			if (System.Environment.MachineName.ToUpper() == "CUTTINGA" || System.Environment.MachineName.ToUpper() == "CUTTINGB")// || System.Environment.MachineName.ToUpper() == "COMPILE")
@@ -59,16 +60,28 @@ namespace YellowstonePathology.UI
 				this.StartupUri = new System.Uri(startUpWindow, System.UriKind.Relative);
 			}                        
 
-			this.StartTimer();
-            ReleaseLocksOnStart();			
+			this.StartTimer();            
 		}
+
+        private void ReleaseLocksOnStartup()
+        {
+            Business.Domain.LockItemCollection lockItemCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetLockedAccessionOrders();
+            foreach(Business.Domain.LockItem lockItem in lockItemCollection)
+            {
+                if(lockItem.ComputerName == Environment.MachineName)
+                {
+                    Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(lockItem.KeyString, this);                    
+                }
+            }
+            Business.Persistence.DocumentGateway.Instance.Push(this);
+        }
 
 		protected override void OnExit(ExitEventArgs e)
 		{
 			this.m_Timer.Stop();
 			this.m_Timer.Dispose();
-            this.SaveAndReleaseLocksOnExit();
-			base.OnExit(e);
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Flush();
+            base.OnExit(e);
 		}
 
         private void SetupApplicationFolders()
@@ -140,16 +153,6 @@ namespace YellowstonePathology.UI
 			}
 			TimeSpan timeToNextNotification = DateTime.Today.AddDays(1) - DateTime.Today;
 			this.m_Timer.Interval = timeToNextNotification.TotalMilliseconds;
-		}
-
-        private void ReleaseLocksOnStart()
-        {            
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
-        }
-
-        private void SaveAndReleaseLocksOnExit()
-        {
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Flush();            
-        }
+		}               
     }
 }

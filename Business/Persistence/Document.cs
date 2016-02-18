@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Reflection;
@@ -10,6 +11,8 @@ namespace YellowstonePathology.Business.Persistence
 {
     public class Document
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
         protected object m_Key;
         protected object m_Value;
         protected Type m_Type;
@@ -127,6 +130,14 @@ namespace YellowstonePathology.Business.Persistence
         public bool IsLockAquiredByMe
         {
             get { return this.m_IsLockAquiredByMe; }
+            set
+            {
+                if(this.m_IsLockAquiredByMe != value)
+                {
+                    this.m_IsLockAquiredByMe = value;
+                    this.NotifyPropertyChanged("IsLockAquiredByMe");
+                }                
+            }
         }
 
         public virtual YellowstonePathology.Business.Persistence.SubmissionResult Submit()
@@ -186,6 +197,14 @@ namespace YellowstonePathology.Business.Persistence
                 DeleteCommandBuilder deleteCommandBuilder = new DeleteCommandBuilder();
                 deleteCommandBuilder.Build(objectToDelete, objectSubmitter.SqlDeleteFirstCommands, objectSubmitter.SqlDeleteCommands);
             }
-        }        
+        }
+
+        public void NotifyPropertyChanged(String info)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
+        }
     }
 }

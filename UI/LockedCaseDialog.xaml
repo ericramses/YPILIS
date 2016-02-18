@@ -33,6 +33,7 @@
                         <GridView AllowsColumnReorder="True">
                             <GridViewColumn DisplayMemberBinding="{Binding Path=Type.Name}" Header="Object Type" Width="120"/>
                             <GridViewColumn DisplayMemberBinding="{Binding Path=Key}" Header="Key" Width="120"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=IsLockAquiredByMe}" Header="Locked" Width="120"/>
                         </GridView>
                     </ListView.View>
                 </ListView>

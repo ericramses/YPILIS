@@ -55,6 +55,7 @@ namespace YellowstonePathology.Business.Persistence
                         {
                             accessionOrder.ReleaseLock();
                             result.LockWasReleased = true;
+                            document.IsLockAquiredByMe = false;
                         }
                     }
                     

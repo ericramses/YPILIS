@@ -49,6 +49,7 @@ namespace YellowstonePathology.UI.Login.Receiving
         public void Start()
         {			
             this.ShowAccessionOrderPage();
+            if(this.m_PageNavigationMode == PageNavigationModeEnum.Standalone) this.m_LoginPageWindow.ShowDialog();
         }		
 
         private void ShowAccessionOrderPage()
