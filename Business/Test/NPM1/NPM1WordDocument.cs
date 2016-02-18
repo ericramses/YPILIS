@@ -7,8 +7,8 @@ namespace YellowstonePathology.Business.Test.NPM1
 {
 	public class NPM1WordDocument : YellowstonePathology.Business.Document.CaseReportV2
 	{
-        public NPM1WordDocument(Business.Test.AccessionOrder accessionOrder, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
-            : base(accessionOrder, reportNo, reportSaveMode)
+        public NPM1WordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+            : base(accessionOrder, panelSetOrder, reportSaveMode)
         {
 
         }

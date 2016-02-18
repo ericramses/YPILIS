@@ -241,9 +241,9 @@ namespace YellowstonePathology.UI.Surgical
 			if (this.ListViewSearchResults.SelectedItem != null)
 			{
 				YellowstonePathology.Business.Search.PathologistSearchResult item = (YellowstonePathology.Business.Search.PathologistSearchResult)this.ListViewSearchResults.SelectedItem;
-				YellowstonePathology.UI.CaseDocumentViewer caseDocumentViewer = new CaseDocumentViewer();
-				caseDocumentViewer.View(item.MasterAccessionNo, item.ReportNo, item.PanelSetId, this.m_PathologistUI.Writer);
-			}
+				YellowstonePathology.UI.CaseDocumentViewer caseDocumentViewer = new CaseDocumentViewer();				
+                caseDocumentViewer.View(this.m_PathologistUI.AccessionOrder, this.m_PathologistUI.PanelSetOrder);
+            }
 		}
 
 		private void CytologySlideScanReceived(YellowstonePathology.Business.BarcodeScanning.CytycBarcode barcode)

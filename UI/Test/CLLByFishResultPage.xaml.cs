@@ -82,7 +82,7 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
 		{
-			YellowstonePathology.Business.Test.CLLByFish.CLLByFishWordDocument report = new YellowstonePathology.Business.Test.CLLByFish.CLLByFishWordDocument(this.m_AccessionOrder, this.m_PanelSetOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft);
+			YellowstonePathology.Business.Test.CLLByFish.CLLByFishWordDocument report = new YellowstonePathology.Business.Test.CLLByFish.CLLByFishWordDocument(this.m_AccessionOrder, this.m_PanelSetOrder, Business.Document.ReportSaveModeEnum.Draft);
             report.Render();
 
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);

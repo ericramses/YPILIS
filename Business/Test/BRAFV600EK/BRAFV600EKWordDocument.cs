@@ -7,8 +7,8 @@ namespace YellowstonePathology.Business.Test.BRAFV600EK
 {
 	public class BRAFV600EKWordDocument : YellowstonePathology.Business.Document.CaseReportV2
 	{
-        public BRAFV600EKWordDocument(Business.Test.AccessionOrder accessionOrder, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
-            : base(accessionOrder, reportNo, reportSaveMode)
+        public BRAFV600EKWordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+            : base(accessionOrder, panelSetOrder, reportSaveMode)
         {
 
         }

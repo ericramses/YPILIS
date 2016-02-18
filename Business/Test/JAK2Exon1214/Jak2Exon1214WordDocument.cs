@@ -7,8 +7,8 @@ namespace YellowstonePathology.Business.Test.JAK2Exon1214
 {
 	public class JAK2Exon1214WordDocument : YellowstonePathology.Business.Document.CaseReportV2
 	{
-        public JAK2Exon1214WordDocument(Business.Test.AccessionOrder accessionOrder, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
-            : base(accessionOrder, reportNo, reportSaveMode)
+        public JAK2Exon1214WordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+            : base(accessionOrder, panelSetOrder, reportSaveMode)
         {
 
         }

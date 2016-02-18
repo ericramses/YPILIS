@@ -7,8 +7,8 @@ namespace YellowstonePathology.Business.Test.CEBPA
 {
 	public class CEBPAWordDocument : YellowstonePathology.Business.Document.CaseReportV2
 	{
-        public CEBPAWordDocument(Business.Test.AccessionOrder accessionOrder, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
-            : base(accessionOrder, reportNo, reportSaveMode)
+        public CEBPAWordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+            : base(accessionOrder, panelSetOrder, reportSaveMode)
         {
 
         }

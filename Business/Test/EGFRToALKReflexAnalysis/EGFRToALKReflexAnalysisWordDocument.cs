@@ -9,8 +9,8 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
 {
     public class EGFRToALKReflexAnalysisWordDocument : YellowstonePathology.Business.Document.CaseReportV2
 	{
-        public EGFRToALKReflexAnalysisWordDocument(Business.Test.AccessionOrder accessionOrder, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
-            : base(accessionOrder, reportNo, reportSaveMode)
+        public EGFRToALKReflexAnalysisWordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+            : base(accessionOrder, panelSetOrder, reportSaveMode)
         {
 
         }

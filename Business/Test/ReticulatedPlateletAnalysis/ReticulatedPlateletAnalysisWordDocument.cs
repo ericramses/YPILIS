@@ -10,8 +10,8 @@ namespace YellowstonePathology.Business.Test.ReticulatedPlateletAnalysis
         string m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\ReticulatedPlateletAnalysis.6.xml";        
 		YellowstonePathology.Business.Flow.FlowMarkerPanelList m_PanelList;		
 
-        public ReticulatedPlateletAnalysisWordDocument(Business.Test.AccessionOrder accessionOrder, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
-            : base(accessionOrder, reportNo, reportSaveMode)
+        public ReticulatedPlateletAnalysisWordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+            : base(accessionOrder, panelSetOrder, reportSaveMode)
         {
             this.m_PanelList = new YellowstonePathology.Business.Flow.FlowMarkerPanelList();
             this.m_PanelList.SetFillCommandByPanelId(13);

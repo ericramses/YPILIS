@@ -7,8 +7,8 @@ namespace YellowstonePathology.Business.Test.BCRABLByFish
 {
 	public class BCRABLByFishWordDocument : YellowstonePathology.Business.Document.CaseReportV2
 	{
-        public BCRABLByFishWordDocument(Business.Test.AccessionOrder accessionOrder, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
-            : base(accessionOrder, reportNo, reportSaveMode)
+        public BCRABLByFishWordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+            : base(accessionOrder, panelSetOrder, reportSaveMode)
         {
 
         }

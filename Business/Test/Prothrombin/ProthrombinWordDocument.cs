@@ -7,8 +7,8 @@ namespace YellowstonePathology.Business.Test.Prothrombin
 {
 	public class ProthrombinWordDocument : YellowstonePathology.Business.Document.CaseReportV2
 	{
-        public ProthrombinWordDocument(Business.Test.AccessionOrder accessionOrder, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
-            : base(accessionOrder, reportNo, reportSaveMode)
+        public ProthrombinWordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+            : base(accessionOrder, panelSetOrder, reportSaveMode)
         {
 
         }

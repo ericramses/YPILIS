@@ -10,8 +10,8 @@ namespace YellowstonePathology.Business.Test.PlateletAssociatedAntibodies
         string m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\PlateletAssociatedAntibodies.6.xml";        
 		YellowstonePathology.Business.Flow.FlowMarkerPanelList m_PanelList;
 
-        public PlateletAssociatedAntibodiesWordDocument(Business.Test.AccessionOrder accessionOrder, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
-            : base(accessionOrder, reportNo, reportSaveMode)
+        public PlateletAssociatedAntibodiesWordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+            : base(accessionOrder, panelSetOrder, reportSaveMode)
         {
             this.m_PanelList = new YellowstonePathology.Business.Flow.FlowMarkerPanelList();
             this.m_PanelList.SetFillCommandByPanelId(8);

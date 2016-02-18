@@ -7,8 +7,8 @@ namespace YellowstonePathology.Business.Test.API2MALT1
 {
 	public class API2MALT1WordDocument : YellowstonePathology.Business.Document.CaseReportV2
 	{
-        public API2MALT1WordDocument(Business.Test.AccessionOrder accessionOrder, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
-            : base(accessionOrder, reportNo, reportSaveMode)
+        public API2MALT1WordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+            : base(accessionOrder, panelSetOrder, reportSaveMode)
         {
 
         }

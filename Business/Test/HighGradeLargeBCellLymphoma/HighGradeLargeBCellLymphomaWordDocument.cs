@@ -7,8 +7,8 @@ namespace YellowstonePathology.Business.Test.HighGradeLargeBCellLymphoma
 {
 	public class HighGradeLargeBCellLymphomaWordDocument : YellowstonePathology.Business.Document.CaseReportV2
 	{
-        public HighGradeLargeBCellLymphomaWordDocument(Business.Test.AccessionOrder accessionOrder, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
-            : base(accessionOrder, reportNo, reportSaveMode)
+        public HighGradeLargeBCellLymphomaWordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+            : base(accessionOrder, panelSetOrder, reportSaveMode)
         {
 
         }

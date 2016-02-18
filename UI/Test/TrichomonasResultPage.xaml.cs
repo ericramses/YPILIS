@@ -86,8 +86,8 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
 		{			
-			YellowstonePathology.Business.Test.Trichomonas.TrichomonasWordDocument report = new YellowstonePathology.Business.Test.Trichomonas.TrichomonasWordDocument();
-			report.Render(this.m_AccessionOrder.MasterAccessionNo, this.m_ReportOrderTrichomonas.ReportNo, Business.Document.ReportSaveModeEnum.Draft, Window.GetWindow(this));
+			YellowstonePathology.Business.Test.Trichomonas.TrichomonasWordDocument report = new YellowstonePathology.Business.Test.Trichomonas.TrichomonasWordDocument(this.m_AccessionOrder, this.m_ReportOrderTrichomonas, Business.Document.ReportSaveModeEnum.Draft);
+			report.Render();
 
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_ReportOrderTrichomonas.ReportNo);
 			string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);

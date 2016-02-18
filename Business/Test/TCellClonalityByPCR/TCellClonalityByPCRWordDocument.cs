@@ -7,8 +7,8 @@ namespace YellowstonePathology.Business.Test.TCellClonalityByPCR
 {
 	public class TCellClonalityByPCRWordDocument : YellowstonePathology.Business.Document.CaseReportV2
 	{
-        public TCellClonalityByPCRWordDocument(Business.Test.AccessionOrder accessionOrder, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
-            : base(accessionOrder, reportNo, reportSaveMode)
+        public TCellClonalityByPCRWordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+            : base(accessionOrder, panelSetOrder, reportSaveMode)
         {
 
         }

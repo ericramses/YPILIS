@@ -7,8 +7,8 @@ namespace YellowstonePathology.Business.Test.NonHodgkinsLymphomaFISHPanel
 {
 	public class NonHodgkinsLymphomaFISHPanelWordDocument : YellowstonePathology.Business.Document.CaseReportV2
 	{
-        public NonHodgkinsLymphomaFISHPanelWordDocument(Business.Test.AccessionOrder accessionOrder, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
-            : base(accessionOrder, reportNo, reportSaveMode)
+        public NonHodgkinsLymphomaFISHPanelWordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+            : base(accessionOrder, panelSetOrder, reportSaveMode)
         {
 
         }

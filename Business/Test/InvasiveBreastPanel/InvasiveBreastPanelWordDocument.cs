@@ -9,8 +9,8 @@ namespace YellowstonePathology.Business.Test.InvasiveBreastPanel
 {
 	public class InvasiveBreastPanelWordDocument : YellowstonePathology.Business.Document.CaseReportV2
 	{
-        public InvasiveBreastPanelWordDocument(Business.Test.AccessionOrder accessionOrder, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
-            : base(accessionOrder, reportNo, reportSaveMode)
+        public InvasiveBreastPanelWordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+            : base(accessionOrder, panelSetOrder, reportSaveMode)
         {
 
         }

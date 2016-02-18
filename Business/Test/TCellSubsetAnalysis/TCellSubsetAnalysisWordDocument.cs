@@ -16,8 +16,8 @@ namespace YellowstonePathology.Business.Test.TCellSubsetAnalysis
 	/// </summary>
 	public class TCellSubsetAnalysisWordDocument : YellowstonePathology.Business.Document.CaseReportV2
 	{
-        public TCellSubsetAnalysisWordDocument(Business.Test.AccessionOrder accessionOrder, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
-            : base(accessionOrder, reportNo, reportSaveMode)
+        public TCellSubsetAnalysisWordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+            : base(accessionOrder, panelSetOrder, reportSaveMode)
         {
 
         }

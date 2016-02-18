@@ -7,8 +7,8 @@ namespace YellowstonePathology.Business.Test.DeletionsForGlioma1p19q
 {
 	public class DeletionsForGlioma1p19qWordDocument : YellowstonePathology.Business.Document.CaseReportV2
 	{
-        public DeletionsForGlioma1p19qWordDocument(Business.Test.AccessionOrder accessionOrder, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
-            : base(accessionOrder, reportNo, reportSaveMode)
+        public DeletionsForGlioma1p19qWordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+            : base(accessionOrder, panelSetOrder, reportSaveMode)
         {
 
         }

@@ -7,8 +7,8 @@ namespace YellowstonePathology.Business.Test.CalreticulinMutationAnalysis
 {
 	public class CalreticulinMutationAnalysisWordDocument : YellowstonePathology.Business.Document.CaseReportV2
 	{
-        public CalreticulinMutationAnalysisWordDocument(Business.Test.AccessionOrder accessionOrder, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
-            : base(accessionOrder, reportNo, reportSaveMode)
+        public CalreticulinMutationAnalysisWordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+            : base(accessionOrder, panelSetOrder, reportSaveMode)
         {
 
         }

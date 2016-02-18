@@ -7,8 +7,8 @@ namespace YellowstonePathology.Business.Test.ROS1ByFISH
 {
     public class ROS1ByFISHWordDocument : YellowstonePathology.Business.Document.CaseReportV2
 	{
-        public ROS1ByFISHWordDocument(Business.Test.AccessionOrder accessionOrder, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
-            : base(accessionOrder, reportNo, reportSaveMode)
+        public ROS1ByFISHWordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+            : base(accessionOrder, panelSetOrder, reportSaveMode)
         {
 
         }

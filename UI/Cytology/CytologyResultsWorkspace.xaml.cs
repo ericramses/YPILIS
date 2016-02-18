@@ -652,8 +652,7 @@ namespace YellowstonePathology.UI.Cytology
         {
             if (this.m_CytologyUI.AccessionOrder != null)
             {
-                YellowstonePathology.Business.Interface.ICaseDocument caseDocument = YellowstonePathology.Business.Document.DocumentFactory.GetDocument(this.m_CytologyUI.PanelSetOrderCytology.PanelSetId, 
-                    this.m_CytologyUI.AccessionOrder, this.m_CytologyUI.PanelSetOrderCytology.ReportNo, Business.Document.ReportSaveModeEnum.Normal);
+                YellowstonePathology.Business.Interface.ICaseDocument caseDocument = YellowstonePathology.Business.Document.DocumentFactory.GetDocument(this.m_CytologyUI.AccessionOrder, this.m_CytologyUI.PanelSetOrderCytology, Business.Document.ReportSaveModeEnum.Normal);
                 caseDocument.Render();
                 caseDocument.Publish();                
                 MessageBox.Show("The document has been published");

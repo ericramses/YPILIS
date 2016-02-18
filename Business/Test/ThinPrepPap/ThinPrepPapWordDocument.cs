@@ -30,14 +30,14 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 
         protected YellowstonePathology.Business.Document.NativeDocumentFormatEnum m_NativeDocumentFormat;		
 
-        public ThinPrepPapWordDocument(Business.Test.AccessionOrder accessionOrder, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode)             
+        public ThinPrepPapWordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode)             
         {
             this.m_NativeDocumentFormat = YellowstonePathology.Business.Document.NativeDocumentFormatEnum.Word;
             this.m_ReportXml = new XmlDocument();
             this.m_NameSpaceManager = new XmlNamespaceManager(m_ReportXml.NameTable);
             this.m_NameSpaceManager.AddNamespace("w", "http://schemas.microsoft.com/office/word/2003/wordml");
 
-            this.m_PanelSetOrderCytology = (YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
+            this.m_PanelSetOrderCytology = (YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology)panelSetOrder;
         }
 
         public YellowstonePathology.Business.Document.NativeDocumentFormatEnum NativeDocumentFormat

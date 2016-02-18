@@ -6,8 +6,8 @@ namespace YellowstonePathology.Business.Test.CysticFibrosis
 {
 	public class CysticFibrosisWordDocument : YellowstonePathology.Business.Document.CaseReportV2
     {
-        public CysticFibrosisWordDocument(Business.Test.AccessionOrder accessionOrder, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
-            : base(accessionOrder, reportNo, reportSaveMode)
+        public CysticFibrosisWordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+            : base(accessionOrder, panelSetOrder, reportSaveMode)
         {
 
         }

@@ -7,8 +7,8 @@ namespace YellowstonePathology.Business.Test.MDSExtendedByFish
 {
 	public class MDSExtendedByFishWordDocument : YellowstonePathology.Business.Document.CaseReportV2
 	{
-        public MDSExtendedByFishWordDocument(Business.Test.AccessionOrder accessionOrder, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
-            : base(accessionOrder, reportNo, reportSaveMode)
+        public MDSExtendedByFishWordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+            : base(accessionOrder, panelSetOrder, reportSaveMode)
         {
 
         }

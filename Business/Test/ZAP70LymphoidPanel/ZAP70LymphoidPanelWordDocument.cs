@@ -7,8 +7,8 @@ namespace YellowstonePathology.Business.Test.ZAP70LymphoidPanel
 {
 	public class ZAP70LymphoidPanelWordDocument : YellowstonePathology.Business.Document.CaseReportV2
 	{
-        public ZAP70LymphoidPanelWordDocument(Business.Test.AccessionOrder accessionOrder, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
-            : base(accessionOrder, reportNo, reportSaveMode)
+        public ZAP70LymphoidPanelWordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+            : base(accessionOrder, panelSetOrder, reportSaveMode)
         {
 
         }

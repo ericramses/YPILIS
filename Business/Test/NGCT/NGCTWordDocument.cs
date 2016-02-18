@@ -7,8 +7,8 @@ namespace YellowstonePathology.Business.Test.NGCT
 {
 	public class NGCTWordDocument : YellowstonePathology.Business.Document.CaseReportV2
     {
-        public NGCTWordDocument(Business.Test.AccessionOrder accessionOrder, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
-            : base(accessionOrder, reportNo, reportSaveMode)
+        public NGCTWordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+            : base(accessionOrder, panelSetOrder, reportSaveMode)
         {
 
         }

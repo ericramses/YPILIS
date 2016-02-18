@@ -7,8 +7,8 @@ namespace YellowstonePathology.Business.Test.FLT3
 {
 	public class FLT3WordDocument : YellowstonePathology.Business.Document.CaseReportV2
 	{
-        public FLT3WordDocument(Business.Test.AccessionOrder accessionOrder, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
-            : base(accessionOrder, reportNo, reportSaveMode)
+        public FLT3WordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+            : base(accessionOrder, panelSetOrder, reportSaveMode)
         {
 
         }

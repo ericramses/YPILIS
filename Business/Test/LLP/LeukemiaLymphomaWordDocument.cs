@@ -11,8 +11,8 @@ namespace YellowstonePathology.Business.Test.LLP
 {
 	public class LeukemiaLymphomaWordDocument : YellowstonePathology.Business.Document.CaseReportV2
 	{
-        public LeukemiaLymphomaWordDocument(Business.Test.AccessionOrder accessionOrder, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
-            : base(accessionOrder, reportNo, reportSaveMode)
+        public LeukemiaLymphomaWordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+            : base(accessionOrder, panelSetOrder, reportSaveMode)
         {
 
         }

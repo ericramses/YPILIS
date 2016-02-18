@@ -7,8 +7,8 @@ namespace YellowstonePathology.Business.Test.KRASExon23Mutation
 {
     public class KRASExon23MutationWordDocument : YellowstonePathology.Business.Document.CaseReportV2
     {
-        public KRASExon23MutationWordDocument(Business.Test.AccessionOrder accessionOrder, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
-            : base(accessionOrder, reportNo, reportSaveMode)
+        public KRASExon23MutationWordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+            : base(accessionOrder, panelSetOrder, reportSaveMode)
         {
 
         }

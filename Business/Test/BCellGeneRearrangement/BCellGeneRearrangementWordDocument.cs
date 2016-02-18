@@ -7,8 +7,8 @@ namespace YellowstonePathology.Business.Test.BCellGeneRearrangement
 {
 	public class BCellGeneRearrangementWordDocument : YellowstonePathology.Business.Document.CaseReportV2
 	{
-        public BCellGeneRearrangementWordDocument(Business.Test.AccessionOrder accessionOrder, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
-            : base(accessionOrder, reportNo, reportSaveMode)
+        public BCellGeneRearrangementWordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+            : base(accessionOrder, panelSetOrder, reportSaveMode)
         {
 
         }

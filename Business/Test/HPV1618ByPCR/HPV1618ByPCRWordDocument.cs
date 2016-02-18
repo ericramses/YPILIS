@@ -7,8 +7,8 @@ namespace YellowstonePathology.Business.Test.HPV1618ByPCR
 {
 	public class HPV1618ByPCRWordDocument : YellowstonePathology.Business.Document.CaseReportV2
 	{
-        public HPV1618ByPCRWordDocument(Business.Test.AccessionOrder accessionOrder, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
-            : base(accessionOrder, reportNo, reportSaveMode)
+        public HPV1618ByPCRWordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+            : base(accessionOrder, panelSetOrder, reportSaveMode)
         {
 
         }

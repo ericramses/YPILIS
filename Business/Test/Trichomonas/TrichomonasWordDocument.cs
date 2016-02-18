@@ -7,8 +7,8 @@ namespace YellowstonePathology.Business.Test.Trichomonas
 {
 	public class TrichomonasWordDocument : YellowstonePathology.Business.Document.CaseReportV2
     {
-        public TrichomonasWordDocument(Business.Test.AccessionOrder accessionOrder, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
-            : base(accessionOrder, reportNo, reportSaveMode)
+        public TrichomonasWordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+            : base(accessionOrder, panelSetOrder, reportSaveMode)
         {
 
         }

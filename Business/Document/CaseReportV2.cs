@@ -33,10 +33,10 @@ namespace YellowstonePathology.Business.Document
 
         }
 		
-		public CaseReportV2(Business.Test.AccessionOrder accessionOrder, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode)
+		public CaseReportV2(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode)
         {
             this.m_AccessionOrder = accessionOrder;
-            this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
+            this.m_PanelSetOrder = panelSetOrder;
             this.m_ReportSaveMode = reportSaveMode;
 
             this.m_ReportXml = new XmlDocument();

@@ -7,8 +7,8 @@ namespace YellowstonePathology.Business.Test.MPNFish
 {
 	public class MPNFishWordDocument : YellowstonePathology.Business.Document.CaseReportV2
 	{
-        public MPNFishWordDocument(Business.Test.AccessionOrder accessionOrder, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
-            : base(accessionOrder, reportNo, reportSaveMode)
+        public MPNFishWordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+            : base(accessionOrder, panelSetOrder, reportSaveMode)
         {
 
         }

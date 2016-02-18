@@ -7,8 +7,8 @@ namespace YellowstonePathology.Business.Test.ABL1KinaseDomainMutation
 {
 	public class ABL1KinaseDomainMutationWordDocument : YellowstonePathology.Business.Document.CaseReportV2
 	{
-        public ABL1KinaseDomainMutationWordDocument(Business.Test.AccessionOrder accessionOrder, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
-            : base(accessionOrder, reportNo, reportSaveMode)
+        public ABL1KinaseDomainMutationWordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+            : base(accessionOrder, panelSetOrder, reportSaveMode)
         {
 
         }

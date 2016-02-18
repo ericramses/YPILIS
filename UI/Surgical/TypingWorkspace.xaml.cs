@@ -151,7 +151,7 @@ namespace YellowstonePathology.UI.Surgical
 		public void ShowCaseDocument(object target, ExecutedRoutedEventArgs args)
 		{
 			this.Save(false);
-			YellowstonePathology.Business.Test.Surgical.SurgicalWordDocument report = new YellowstonePathology.Business.Test.Surgical.SurgicalWordDocument(this.m_TypingUI.AccessionOrder, this.m_TypingUI.SurgicalTestOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft);
+			YellowstonePathology.Business.Test.Surgical.SurgicalWordDocument report = new YellowstonePathology.Business.Test.Surgical.SurgicalWordDocument(this.m_TypingUI.AccessionOrder, this.m_TypingUI.SurgicalTestOrder, Business.Document.ReportSaveModeEnum.Draft);
             report.Render();
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_TypingUI.SurgicalTestOrder.ReportNo);
 			string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);
@@ -327,7 +327,7 @@ namespace YellowstonePathology.UI.Surgical
 			if (this.m_TypingUI.SurgicalTestOrder != null && this.m_TypingUI.SurgicalTestOrder.ReportNo != string.Empty)
 			{
 				this.Save(false);
-				YellowstonePathology.Business.Test.Surgical.SurgicalWordDocument report = new YellowstonePathology.Business.Test.Surgical.SurgicalWordDocument(this.m_TypingUI.AccessionOrder, this.m_TypingUI.SurgicalTestOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft);
+				YellowstonePathology.Business.Test.Surgical.SurgicalWordDocument report = new YellowstonePathology.Business.Test.Surgical.SurgicalWordDocument(this.m_TypingUI.AccessionOrder, this.m_TypingUI.SurgicalTestOrder, Business.Document.ReportSaveModeEnum.Draft);
 				report.Render();
 				YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_TypingUI.SurgicalTestOrder.ReportNo);
 				string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);

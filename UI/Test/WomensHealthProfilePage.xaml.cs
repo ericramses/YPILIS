@@ -303,8 +303,8 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
 		{
-			YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileWordDocument report = new YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileWordDocument();
-			report.Render(this.m_AccessionOrder.MasterAccessionNo, this.m_WomensHealthProfileTestOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft, this.m_ParentWindow);
+			YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileWordDocument report = new YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileWordDocument(this.m_AccessionOrder, this.m_WomensHealthProfileTestOrder, Business.Document.ReportSaveModeEnum.Draft);
+			report.Render();
 
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_WomensHealthProfileTestOrder.ReportNo);
 			string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);

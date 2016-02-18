@@ -7,8 +7,8 @@ namespace YellowstonePathology.Business.Document
 {
 	public class DoNotPublishReport : CaseReportV2
     {
-		public DoNotPublishReport(Business.Test.AccessionOrder accessionOrder, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
-            : base(accessionOrder, reportNo, reportSaveMode)
+		public DoNotPublishReport(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+            : base(accessionOrder, panelSetOrder, reportSaveMode)
 		{
 			this.m_NativeDocumentFormat = NativeDocumentFormatEnum.XPS;
 		}

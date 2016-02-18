@@ -10,8 +10,8 @@ namespace YellowstonePathology.Business.Document.Old
         const string m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\Fish.4.xml";
         private YellowstonePathology.Business.Document.NativeDocumentFormatEnum m_NativeDocumentFormat;                
 
-        public Fish(Business.Test.AccessionOrder accessionOrder, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
-            : base(accessionOrder, reportNo, reportSaveMode)
+        public Fish(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+            : base(accessionOrder, panelSetOrder, reportSaveMode)
         {
             this.m_NativeDocumentFormat = NativeDocumentFormatEnum.Word;
         }

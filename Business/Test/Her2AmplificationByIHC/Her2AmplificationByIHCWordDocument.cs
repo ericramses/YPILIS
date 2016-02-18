@@ -7,8 +7,8 @@ namespace YellowstonePathology.Business.Test.Her2AmplificationByIHC
 {
 	public class Her2AmplificationByIHCWordDocument : YellowstonePathology.Business.Document.CaseReportV2
 	{
-        public Her2AmplificationByIHCWordDocument(Business.Test.AccessionOrder accessionOrder, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
-            : base(accessionOrder, reportNo, reportSaveMode)
+        public Her2AmplificationByIHCWordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+            : base(accessionOrder, panelSetOrder, reportSaveMode)
         {
 
         }

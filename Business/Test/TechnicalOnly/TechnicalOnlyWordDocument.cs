@@ -9,7 +9,7 @@ namespace YellowstonePathology.Business.Test.TechnicalOnly
     {
         private YellowstonePathology.Business.Document.NativeDocumentFormatEnum m_NativeDocumentFormat;
 
-        public TechnicalOnlyWordDocument(Business.Test.AccessionOrder accessionOrder, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode)             
+        public TechnicalOnlyWordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode)             
         {
 
         }

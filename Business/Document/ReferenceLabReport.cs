@@ -6,8 +6,8 @@ namespace YellowstonePathology.Business.Document
 {
 	public class ReferenceLabReport : CaseReportV2
     {
-		public ReferenceLabReport(Business.Test.AccessionOrder accessionOrder, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
-            : base(accessionOrder, reportNo, reportSaveMode)
+		public ReferenceLabReport(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+            : base(accessionOrder, panelSetOrder, reportSaveMode)
 		{
 			this.m_NativeDocumentFormat = NativeDocumentFormatEnum.XPS;
 		}

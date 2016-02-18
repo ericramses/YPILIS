@@ -8,8 +8,8 @@ namespace YellowstonePathology.Business.Test.Her2AmplificationByFish
 {
 	public class Her2AmplificationByFishWordDocument : YellowstonePathology.Business.Document.CaseReportV2
 	{
-        public Her2AmplificationByFishWordDocument(Business.Test.AccessionOrder accessionOrder, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
-            : base(accessionOrder, reportNo, reportSaveMode)
+        public Her2AmplificationByFishWordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+            : base(accessionOrder, panelSetOrder, reportSaveMode)
         {
 
         }

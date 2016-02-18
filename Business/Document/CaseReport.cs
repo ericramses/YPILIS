@@ -21,10 +21,10 @@ namespace YellowstonePathology.Business.Document
 		protected YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;				
 		protected YellowstonePathology.Business.Document.NativeDocumentFormatEnum m_NativeDocumentFormat;
 
-        public CaseReport(Business.Test.AccessionOrder accessionOrder, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode)
+        public CaseReport(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode)
         {
             this.m_AccessionOrder = accessionOrder;
-            this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
+            this.m_PanelSetOrder = panelSetOrder;
             this.m_ReportSaveMode = reportSaveMode;
 
             this.m_NativeDocumentFormat = NativeDocumentFormatEnum.Word;

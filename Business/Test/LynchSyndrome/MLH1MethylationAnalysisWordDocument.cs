@@ -7,8 +7,8 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 {
 	public class MLH1MethylationAnalysisWordDocument : YellowstonePathology.Business.Document.CaseReportV2
 	{
-        public MLH1MethylationAnalysisWordDocument(Business.Test.AccessionOrder accessionOrder, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
-            : base(accessionOrder, reportNo, reportSaveMode)
+        public MLH1MethylationAnalysisWordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+            : base(accessionOrder, panelSetOrder, reportSaveMode)
         {
 
         }

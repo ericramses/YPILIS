@@ -7,8 +7,8 @@ namespace YellowstonePathology.Business.Test.BCL1t1114
 {
 	public class BCL1t1114WordDocument : YellowstonePathology.Business.Document.CaseReportV2
 	{
-        public BCL1t1114WordDocument(Business.Test.AccessionOrder accessionOrder, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
-            : base(accessionOrder, reportNo, reportSaveMode)
+        public BCL1t1114WordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+            : base(accessionOrder, panelSetOrder, reportSaveMode)
         {
 
         }

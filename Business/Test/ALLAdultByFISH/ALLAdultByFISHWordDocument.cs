@@ -7,8 +7,8 @@ namespace YellowstonePathology.Business.Test.ALLAdultByFISH
 {
 	public class ALLAdultByFISHWordDocument : YellowstonePathology.Business.Document.CaseReportV2
 	{
-        public ALLAdultByFISHWordDocument(Business.Test.AccessionOrder accessionOrder, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
-            : base(accessionOrder, reportNo, reportSaveMode)
+        public ALLAdultByFISHWordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+            : base(accessionOrder, panelSetOrder, reportSaveMode)
         {
 
         }

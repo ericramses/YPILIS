@@ -7,8 +7,8 @@ namespace YellowstonePathology.Business.Test.MicrosatelliteInstabilityAnalysis
 {
 	public class MicrosatelliteInstabilityAnalysisWordDocument : YellowstonePathology.Business.Document.CaseReportV2
 	{
-        public MicrosatelliteInstabilityAnalysisWordDocument(Business.Test.AccessionOrder accessionOrder, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
-            : base(accessionOrder, reportNo, reportSaveMode)
+        public MicrosatelliteInstabilityAnalysisWordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+            : base(accessionOrder, panelSetOrder, reportSaveMode)
         {
 
         }

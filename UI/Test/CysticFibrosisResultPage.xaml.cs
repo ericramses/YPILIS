@@ -161,7 +161,7 @@ namespace YellowstonePathology.UI.Test
 			YellowstonePathology.Business.Test.CysticFibrosis.CysticFibrosisTemplate cysticFibrosisTemplate  = (YellowstonePathology.Business.Test.CysticFibrosis.CysticFibrosisTemplate)this.ComboBoxTemplate.SelectedItem;
 			if (cysticFibrosisTemplate.TemplateId > 0)
 			{
-				YellowstonePathology.Business.Test.CysticFibrosis.CysticFibrosisWordDocument report = new YellowstonePathology.Business.Test.CysticFibrosis.CysticFibrosisWordDocument(this.m_AccessionOrder, this.m_PanelSetOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft);
+				YellowstonePathology.Business.Test.CysticFibrosis.CysticFibrosisWordDocument report = new YellowstonePathology.Business.Test.CysticFibrosis.CysticFibrosisWordDocument(this.m_AccessionOrder, this.m_PanelSetOrder, Business.Document.ReportSaveModeEnum.Draft);
 				report.Render();
 
 				YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);

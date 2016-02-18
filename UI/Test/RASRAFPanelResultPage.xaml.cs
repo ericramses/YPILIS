@@ -97,8 +97,8 @@ namespace YellowstonePathology.UI.Test
 
         private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelWordDocument report = new Business.Test.RASRAFPanel.RASRAFPanelWordDocument();
-            report.Render(this.m_AccessionOrder.MasterAccessionNo, this.m_RASRAFPanelTestOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft, Window.GetWindow(this));
+            YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelWordDocument report = new Business.Test.RASRAFPanel.RASRAFPanelWordDocument(this.m_AccessionOrder, this.m_RASRAFPanelTestOrder, Business.Document.ReportSaveModeEnum.Draft);
+            report.Render();
 
             YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_RASRAFPanelTestOrder.ReportNo);
             string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);

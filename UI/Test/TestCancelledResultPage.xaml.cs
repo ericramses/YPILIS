@@ -82,8 +82,8 @@ namespace YellowstonePathology.UI.Test
 
         private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
         {
-			YellowstonePathology.Business.Test.TestCancelled.TestCancelledWordDocument report = new Business.Test.TestCancelled.TestCancelledWordDocument();
-            report.Render(this.m_AccessionOrder.MasterAccessionNo, this.m_ReportOrderTestCancelled.ReportNo, Business.Document.ReportSaveModeEnum.Draft, Window.GetWindow(this));
+			YellowstonePathology.Business.Test.TestCancelled.TestCancelledWordDocument report = new Business.Test.TestCancelled.TestCancelledWordDocument(this.m_AccessionOrder, this.m_ReportOrderTestCancelled, Business.Document.ReportSaveModeEnum.Draft);
+            report.Render();
 
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_ReportOrderTestCancelled.ReportNo);
             string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);

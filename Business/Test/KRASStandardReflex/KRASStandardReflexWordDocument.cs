@@ -8,8 +8,8 @@ namespace YellowstonePathology.Business.Test.KRASStandardReflex
 {
 	public class KRASStandardReflexWordDocument : YellowstonePathology.Business.Document.CaseReportV2
 	{
-        public KRASStandardReflexWordDocument(Business.Test.AccessionOrder accessionOrder, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
-            : base(accessionOrder, reportNo, reportSaveMode)
+        public KRASStandardReflexWordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+            : base(accessionOrder, panelSetOrder, reportSaveMode)
         {
 
         }

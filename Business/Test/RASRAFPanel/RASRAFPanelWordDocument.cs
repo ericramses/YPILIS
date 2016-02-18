@@ -7,8 +7,8 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
 {
     public class RASRAFPanelWordDocument : YellowstonePathology.Business.Document.CaseReportV2
     {
-        public RASRAFPanelWordDocument(Business.Test.AccessionOrder accessionOrder, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
-            : base(accessionOrder, reportNo, reportSaveMode)
+        public RASRAFPanelWordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+            : base(accessionOrder, panelSetOrder, reportSaveMode)
         {
 
         }
