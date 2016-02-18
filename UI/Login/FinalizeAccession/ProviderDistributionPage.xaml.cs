@@ -375,13 +375,13 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
         {
             if (this.m_PanelSetOrder.Final == true)
             {
-                YellowstonePathology.Business.Interface.ICaseDocument caseDocument = YellowstonePathology.Business.Document.DocumentFactory.GetDocument(this.m_PanelSetOrder.PanelSetId);
+                YellowstonePathology.Business.Interface.ICaseDocument caseDocument = YellowstonePathology.Business.Document.DocumentFactory.GetDocument(this.m_AccessionOrder, this.m_PanelSetOrder, Business.Document.ReportSaveModeEnum.Normal);
 				YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
                 YellowstonePathology.Business.Rules.MethodResult methodResult = caseDocument.DeleteCaseFiles(orderIdParser);
 
                 if (methodResult.Success == true)
                 {
-                    caseDocument.Render(this.m_PanelSetOrder.MasterAccessionNo, this.m_PanelSetOrder.ReportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum.Normal, Window.GetWindow(this));
+                    caseDocument.Render();
                     caseDocument.Publish();
                     MessageBox.Show("The document has been published.");
                 }

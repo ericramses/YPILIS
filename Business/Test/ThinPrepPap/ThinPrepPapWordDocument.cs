@@ -28,14 +28,16 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
         protected YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		protected YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology m_PanelSetOrderCytology;
 
-        protected YellowstonePathology.Business.Document.NativeDocumentFormatEnum m_NativeDocumentFormat;
+        protected YellowstonePathology.Business.Document.NativeDocumentFormatEnum m_NativeDocumentFormat;		
 
-		public ThinPrepPapWordDocument()
+        public ThinPrepPapWordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode)             
         {
-			this.m_NativeDocumentFormat = YellowstonePathology.Business.Document.NativeDocumentFormatEnum.Word;
+            this.m_NativeDocumentFormat = YellowstonePathology.Business.Document.NativeDocumentFormatEnum.Word;
             this.m_ReportXml = new XmlDocument();
             this.m_NameSpaceManager = new XmlNamespaceManager(m_ReportXml.NameTable);
             this.m_NameSpaceManager.AddNamespace("w", "http://schemas.microsoft.com/office/word/2003/wordml");
+
+            this.m_PanelSetOrderCytology = (YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology)panelSetOrder;
         }
 
         public YellowstonePathology.Business.Document.NativeDocumentFormatEnum NativeDocumentFormat
@@ -49,14 +51,8 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
             return YellowstonePathology.Business.Document.CaseDocument.DeleteCaseFiles(orderIdParser);
         }
 
-        public void Render(string masterAccessionNo, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveEnum, object writer)
-        {
-            this.m_ReportNo = reportNo;
-            this.m_ReportSaveEnum = reportSaveEnum;
-
-            this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, writer);
-			this.m_PanelSetOrderCytology = (YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
-
+        public void Render()
+        {            			
             this.m_TemplateName = m_ThinPrepTemplateName;
             this.OpenTemplate();
 

@@ -7,13 +7,14 @@ namespace YellowstonePathology.Business.Test.NGCT
 {
 	public class NGCTWordDocument : YellowstonePathology.Business.Document.CaseReportV2
     {
-		public override void Render(string masterAccessionNo, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveEnum, object writer)
-		{
-            this.m_ReportNo = reportNo;
-			this.m_ReportSaveEnum = reportSaveEnum;
+        public NGCTWordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+            : base(accessionOrder, panelSetOrder, reportSaveMode)
+        {
 
-			this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, writer);
-			this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
+        }
+
+        public override void Render()
+		{            
             YellowstonePathology.Business.Test.NGCT.NGCTTestOrder testOrder = (YellowstonePathology.Business.Test.NGCT.NGCTTestOrder)this.m_PanelSetOrder;
 
 			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\NGCT.6.xml";

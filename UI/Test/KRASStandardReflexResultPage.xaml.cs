@@ -146,8 +146,8 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
 		{
-			YellowstonePathology.Business.Test.KRASStandardReflex.KRASStandardReflexWordDocument report = new YellowstonePathology.Business.Test.KRASStandardReflex.KRASStandardReflexWordDocument();
-			report.Render(this.m_KRASStandardReflexResult.KRASStandardReflexTestOrder.MasterAccessionNo, this.m_KRASStandardReflexResult.KRASStandardReflexTestOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft, Window.GetWindow(this));
+			YellowstonePathology.Business.Test.KRASStandardReflex.KRASStandardReflexWordDocument report = new YellowstonePathology.Business.Test.KRASStandardReflex.KRASStandardReflexWordDocument(this.m_AccessionOrder, this.m_KRASStandardReflexTestOrder, Business.Document.ReportSaveModeEnum.Draft);
+			report.Render();
 
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_KRASStandardReflexResult.KRASStandardReflexTestOrder.ReportNo);
 			string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);

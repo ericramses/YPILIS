@@ -223,8 +223,8 @@ namespace YellowstonePathology.UI.Test
         {
             if (string.IsNullOrEmpty(this.m_PanelSetOrder.Indicator) == false)
             {
-                YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHWordDocument report = new YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHWordDocument();
-                report.Render(this.m_PanelSetOrder.MasterAccessionNo, this.m_PanelSetOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft, Window.GetWindow(this));
+                YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHWordDocument report = new YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHWordDocument(this.m_AccessionOrder, this.m_PanelSetOrder, Business.Document.ReportSaveModeEnum.Draft);
+                report.Render();
 
 				YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
                 string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);

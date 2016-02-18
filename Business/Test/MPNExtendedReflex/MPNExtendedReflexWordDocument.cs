@@ -9,12 +9,14 @@ namespace YellowstonePathology.Business.Test.MPNExtendedReflex
 {
 	public class MPNExtendedReflexWordDocument : YellowstonePathology.Business.Document.CaseReportV2
 	{
-		public override void Render(string masterAccessionNo, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveEnum, object writer)
-		{
-			this.m_ReportNo = reportNo;
-			this.m_ReportSaveEnum = reportSaveEnum;
-			this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, writer);
-			this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
+        public MPNExtendedReflexWordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+            : base(accessionOrder, panelSetOrder, reportSaveMode)
+        {
+
+        }
+
+        public override void Render()
+		{			
 			YellowstonePathology.Business.Test.MPNExtendedReflex.MPNExtendedReflexResult mpnExtendedReflexResult = new Test.MPNExtendedReflex.MPNExtendedReflexResult(this.m_AccessionOrder);
 			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\MPNExtendedReflex.2.xml";
 			base.OpenTemplate();

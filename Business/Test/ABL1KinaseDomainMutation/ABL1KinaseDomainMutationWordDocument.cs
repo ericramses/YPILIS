@@ -7,12 +7,14 @@ namespace YellowstonePathology.Business.Test.ABL1KinaseDomainMutation
 {
 	public class ABL1KinaseDomainMutationWordDocument : YellowstonePathology.Business.Document.CaseReportV2
 	{
-		public override void Render(string masterAccessionNo, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveEnum, object writer)
-		{
-			this.m_ReportNo = reportNo;
-			this.m_ReportSaveEnum = reportSaveEnum;
-			this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, writer);
-			this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
+        public ABL1KinaseDomainMutationWordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+            : base(accessionOrder, panelSetOrder, reportSaveMode)
+        {
+
+        }
+
+        public override void Render()
+		{						
 			ABL1KinaseDomainMutationTestOrder testOrder = (ABL1KinaseDomainMutationTestOrder)this.m_PanelSetOrder;
 
 			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\ABL1KinaseDomainMutation.xml";

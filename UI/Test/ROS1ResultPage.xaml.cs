@@ -90,8 +90,8 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
 		{            
-            YellowstonePathology.Business.Test.ROS1ByFISH.ROS1ByFISHWordDocument report = new Business.Test.ROS1ByFISH.ROS1ByFISHWordDocument();
-            report.Render(this.m_AccessionOrder.MasterAccessionNo, this.m_ROS1ByFISHTestOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft, Window.GetWindow(this));
+            YellowstonePathology.Business.Test.ROS1ByFISH.ROS1ByFISHWordDocument report = new Business.Test.ROS1ByFISH.ROS1ByFISHWordDocument(this.m_AccessionOrder, this.m_ROS1ByFISHTestOrder, Business.Document.ReportSaveModeEnum.Draft);
+            report.Render();
 
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_ROS1ByFISHTestOrder.ReportNo);
             string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);

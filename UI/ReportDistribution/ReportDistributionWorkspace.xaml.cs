@@ -241,14 +241,14 @@ namespace YellowstonePathology.UI.ReportDistribution
             YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
         }
 
-        private bool TryPublish(YellowstonePathology.Business.Interface.ICaseDocument caseDocument, 
+        private bool TryPublish(YellowstonePathology.Business.Interface.ICaseDocument caseDocument, Business.Test.AccessionOrder accessionOrder,
             YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder)
         {
             bool result = true;
 
             try
             {
-                caseDocument.Render(panelSetOrder.MasterAccessionNo, panelSetOrder.ReportNo, Business.Document.ReportSaveModeEnum.Normal, this);
+                caseDocument.Render();
                 caseDocument.Publish();
 
                 this.m_ReportDistributionLogEntryCollection.AddEntry("INFO", "Publish Next", null, panelSetOrder.ReportNo, panelSetOrder.MasterAccessionNo,
@@ -327,12 +327,12 @@ namespace YellowstonePathology.UI.ReportDistribution
                 YellowstonePathology.Business.PanelSet.Model.PanelSetCollection panelSetCollection = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetAll();
                 YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet = panelSetCollection.GetPanelSet(panelSetOrder.PanelSetId);
 
-                YellowstonePathology.Business.Interface.ICaseDocument caseDocument = YellowstonePathology.Business.Document.DocumentFactory.GetDocument(panelSetOrder.PanelSetId);
+                YellowstonePathology.Business.Interface.ICaseDocument caseDocument = YellowstonePathology.Business.Document.DocumentFactory.GetDocument(accessionOrder, panelSetOrder, Business.Document.ReportSaveModeEnum.Normal);
                 YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(panelSetOrder.ReportNo);
 
                 if (this.TryDelete(panelSetOrder, caseDocument, orderIdParser) == true)
                 {
-                    if (this.TryPublish(caseDocument, panelSetOrder) == true)
+                    if (this.TryPublish(caseDocument, accessionOrder, panelSetOrder) == true)
                     {
                         if (panelSetOrder.Distribute == true)
                         {                            

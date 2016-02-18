@@ -225,33 +225,11 @@ namespace YellowstonePathology.UI.Test
 
         public void  ShowCaseDocument(object target, ExecutedRoutedEventArgs args)
         {
-			string reportNo = string.Empty;
-            int panelSetId = 0;
-            
-            if (this.m_LabUI.PanelSetOrder != null)
+            if(this.ListViewCaseList.SelectedItem != null)
             {
-                reportNo = this.m_LabUI.PanelSetOrder.ReportNo;
-                panelSetId = this.m_LabUI.PanelSetOrder.PanelSetId;
-            }
-            else
-            {
-                MessageBox.Show("The current selection does not seem to have a Panel Set Order.");
-                return;
-            }
-
-			this.GetCase(this.m_LabUI.PanelSetOrder.MasterAccessionNo, this.m_LabUI.PanelSetOrder.MasterAccessionNo);
-			if (this.ListViewCaseList.SelectedItem != null)
-            {
-				if (this.m_LabUI.AccessionOrder.PanelSetOrderCollection.Count != 0)
-                {
-                    YellowstonePathology.UI.CaseDocumentViewer caseDocumentViewer = new CaseDocumentViewer();
-                    caseDocumentViewer.View(this.m_LabUI.AccessionOrder.MasterAccessionNo, this.m_LabUI.PanelSetOrder.ReportNo, this.m_LabUI.PanelSetOrder.PanelSetId, this.m_Writer);
-                }
-                else
-                {
-                    MessageBox.Show("Not able to generate report");
-                }
-            }
+                YellowstonePathology.UI.CaseDocumentViewer caseDocumentViewer = new CaseDocumentViewer();
+                caseDocumentViewer.View(this.m_LabUI.AccessionOrder, this.m_LabUI.PanelSetOrder);
+            }                        
         }		
 
 		private void CheckEnabled()
@@ -982,36 +960,19 @@ namespace YellowstonePathology.UI.Test
                 p.StartInfo = info;
                 p.Start();
             }
-        }
-
-		/*private void ButtonPlayDictation_Click(object sender, RoutedEventArgs e)
-		{
-			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_LabUI.PanelSetOrder.ReportNo);
-			string filePath = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser);
-			string fileName = this.m_LabUI.PanelSetOrder.ReportNo + @".dct";
-			string fullFileName = System.IO.Path.Combine(filePath, fileName);
-			if (System.IO.File.Exists(fullFileName))
-			{
-				YellowstonePathology.Business.FileListItem item = new YellowstonePathology.Business.FileListItem(fullFileName);
-				YellowstonePathology.Business.FileList.OpenFile(item);
-			}
-			else
-			{
-				MessageBox.Show("Dictation file for " + this.m_LabUI.PanelSetOrder.ReportNo + " is not in the case folder.");
-			}
-		}*/
+        }		
 
         private void MenuItemPublish_Click(object sender, RoutedEventArgs e)
         {
             if (this.ListViewCaseList.SelectedItem != null)
             {
 				YellowstonePathology.Business.Search.ReportSearchItem item = (YellowstonePathology.Business.Search.ReportSearchItem)this.ListViewCaseList.SelectedItem;
-                YellowstonePathology.Business.Interface.ICaseDocument caseDocument = YellowstonePathology.Business.Document.DocumentFactory.GetDocument(item.PanelSetId);
+                YellowstonePathology.Business.Interface.ICaseDocument caseDocument = YellowstonePathology.Business.Document.DocumentFactory.GetDocument(this.m_LabUI.AccessionOrder, this.m_LabUI.PanelSetOrder, Business.Document.ReportSaveModeEnum.Normal);
 				YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(item.ReportNo);
                 YellowstonePathology.Business.Rules.MethodResult methodResult = caseDocument.DeleteCaseFiles(orderIdParser);
                 if (methodResult.Success == true)
                 {
-                    caseDocument.Render(item.MasterAccessionNo, item.ReportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum.Normal, this.m_Writer);
+                    caseDocument.Render();
                     caseDocument.Publish();
                     MessageBox.Show("The document has been published");
                 }

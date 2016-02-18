@@ -205,8 +205,8 @@ namespace YellowstonePathology.UI.Test
 		{
 			if (this.m_PanelSetOrder.PanelOrderCollection.GetUnacceptedPanelCount() == 0)
 			{
-				YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKWordDocument report = new YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKWordDocument();
-				report.Render(this.m_PanelSetOrder.MasterAccessionNo, this.m_PanelSetOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft, this.m_ParentWindow);
+				YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKWordDocument report = new YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKWordDocument(this.m_AccessionOrder, this.m_PanelSetOrder, Business.Document.ReportSaveModeEnum.Draft);
+				report.Render();
 
 				YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
 				string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);
