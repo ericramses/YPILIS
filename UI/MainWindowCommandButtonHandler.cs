@@ -27,6 +27,9 @@ namespace YellowstonePathology.UI
         public delegate void SaveEventHandler(object sender, EventArgs e);
         public event SaveEventHandler Save;
 
+        public delegate void RefreshEventHandler(object sender, EventArgs e);
+        public event RefreshEventHandler Refresh;
+
         public MainWindowCommandButtonHandler()
         {
             
@@ -35,6 +38,11 @@ namespace YellowstonePathology.UI
         public void OnSave()
         {
             if (this.Save != null) this.Save(this, EventArgs.Empty);
+        }
+
+        public void OnRefresh()
+        {
+            if (this.Refresh != null) this.Refresh(this, EventArgs.Empty);
         }
 
         public void OnToggelEventLock()

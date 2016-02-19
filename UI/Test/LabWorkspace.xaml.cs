@@ -95,6 +95,11 @@ namespace YellowstonePathology.UI.Test
 			this.ListViewDocumentList.ItemsSource = this.m_LabUI.CaseDocumentCollection;
         }
 
+        private void MainWindowCommandButtonHandler_Refresh(object sender, EventArgs e)
+        {
+
+        }
+
         private void MainWindowCommandButtonHandler_Save(object sender, EventArgs e)
         {
             if (this.m_LabUI.AccessionOrder != null)
@@ -132,6 +137,7 @@ namespace YellowstonePathology.UI.Test
 			this.m_BarcodeScanPort.ClientScanReceived -= this.ClientScanReceived;
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath -= MainWindowCommandButtonHandler_StartProviderDistributionPath;
             this.m_MainWindowCommandButtonHandler.Save -= MainWindowCommandButtonHandler_Save;
+            this.m_MainWindowCommandButtonHandler.Refresh -= MainWindowCommandButtonHandler_Refresh;
         }
 
         public void RemoveTab(object target, ExecutedRoutedEventArgs args)
@@ -170,10 +176,12 @@ namespace YellowstonePathology.UI.Test
             this.m_BarcodeScanPort.ClientScanReceived -= ClientScanReceived;
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath -= MainWindowCommandButtonHandler_StartProviderDistributionPath;
             this.m_MainWindowCommandButtonHandler.Save -= MainWindowCommandButtonHandler_Save;
-            
-			this.m_BarcodeScanPort.ClientScanReceived += ClientScanReceived;
+            this.m_MainWindowCommandButtonHandler.Refresh -= MainWindowCommandButtonHandler_Refresh;
+
+            this.m_BarcodeScanPort.ClientScanReceived += ClientScanReceived;
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath += new MainWindowCommandButtonHandler.StartProviderDistributionPathEventHandler(MainWindowCommandButtonHandler_StartProviderDistributionPath);
             this.m_MainWindowCommandButtonHandler.Save += new MainWindowCommandButtonHandler.SaveEventHandler(MainWindowCommandButtonHandler_Save);
+            this.m_MainWindowCommandButtonHandler.Refresh += MainWindowCommandButtonHandler_Refresh;
         }
 
         private void ItemIsSelected(object sender, CanExecuteRoutedEventArgs e)
