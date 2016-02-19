@@ -23,7 +23,7 @@ namespace YellowstonePathology.UI.Test
 
         protected override void ShowResultPage()
 		{
-			this.m_ResultPage = new MissingInformationResultPage(this.m_MissingInformationTestOrder, this.m_AccessionOrder, this.m_SystemIdentity);            
+			this.m_ResultPage = new MissingInformationResultPage(this.m_MissingInformationTestOrder, this.m_AccessionOrder);            
             this.m_ResultPage.Next += new MissingInformationResultPage.NextEventHandler(ResultPage_Next);
             this.m_ResultPage.ShowICDEntry += ResultPage_ShowICDEntry;
             this.m_ResultPage.ShowFaxPage += ResultPage_ShowFaxPage;

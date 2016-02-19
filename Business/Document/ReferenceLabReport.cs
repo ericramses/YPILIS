@@ -24,7 +24,12 @@ namespace YellowstonePathology.Business.Document
             YellowstonePathology.Business.Rules.MethodResult methodResult = new Rules.MethodResult();
             methodResult.Success = true;
             return methodResult;
-        }		
+        }
+
+        public override void Render()
+        {
+            //DO Nothing
+        }
 
         public override void Publish()
         {

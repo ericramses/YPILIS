@@ -252,7 +252,7 @@ namespace YellowstonePathology.UI.ReportDistribution
                 caseDocument.Publish();
 
                 this.m_ReportDistributionLogEntryCollection.AddEntry("INFO", "Publish Next", null, panelSetOrder.ReportNo, panelSetOrder.MasterAccessionNo, null, null, "PanelSetOrder Published");                              
-            //}            
+            //}                        
             /*
             catch (Exception publishException)
             {
@@ -267,7 +267,7 @@ namespace YellowstonePathology.UI.ReportDistribution
                 this.DelayPublishAndDistribution(15, publishException.Message, panelSetOrder);
 
                 result = false;
-            }            
+            }                        
             */
 
             return result;

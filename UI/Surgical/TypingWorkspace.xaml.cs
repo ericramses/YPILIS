@@ -64,7 +64,7 @@ namespace YellowstonePathology.UI.Surgical
 			this.CommandBindings.Add(this.CommandBindingShowOrderForm);
 			this.CommandBindings.Add(this.CommandBindingShowAmendmentDialog);                        	
             
-			this.m_TypingUI = new YellowstonePathology.Business.Typing.TypingUIV2(this.m_SystemIdentity, this.m_Writer);									
+			this.m_TypingUI = new YellowstonePathology.Business.Typing.TypingUIV2(this.m_Writer);									
 			this.m_AmendmentControl = new AmendmentControlV2(this.m_SystemIdentity, string.Empty, this.m_TypingUI.AccessionOrder);			
             this.m_DocumentViewer = new DocumentWorkspace();            
 
@@ -97,7 +97,7 @@ namespace YellowstonePathology.UI.Surgical
             {
                 MainWindow.MoveKeyboardFocusNextThenBack();
                 YellowstonePathology.Business.Persistence.DocumentGateway.Instance.ReleaseLock(this.m_TypingUI.AccessionOrder, this.m_Writer);
-                if (this.m_TypingUI.AccessionOrder.IsLockAquiredByMe() == false)
+                if (this.m_TypingUI.AccessionOrder.IsLockAquiredByMe == false)
                 {
                     this.m_TypingUI.RunWorkspaceEnableRules();
                     this.m_TypingUI.NotifyPropertyChanged(string.Empty);
@@ -250,11 +250,11 @@ namespace YellowstonePathology.UI.Surgical
         private void RefreshWorkspaces()
         {            
             this.m_TreeviewWorkspace = new Common.TreeViewWorkspace(this.m_TypingUI.AccessionOrder, this.m_SystemIdentity);
-            this.m_TreeviewWorkspace.IsEnabled = this.m_TypingUI.AccessionOrder.IsLockAquiredByMe();
+            this.m_TreeviewWorkspace.IsEnabled = this.m_TypingUI.AccessionOrder.IsLockAquiredByMe;
             this.tabItemTreeView.Content = this.m_TreeviewWorkspace;
 
 			this.m_AmendmentControl = new AmendmentControlV2(this.m_SystemIdentity, this.m_TypingUI.SurgicalTestOrder.ReportNo, this.m_TypingUI.AccessionOrder);
-            this.m_AmendmentControl.IsEnabled = this.m_TypingUI.AccessionOrder.IsLockAquiredByMe();
+            this.m_AmendmentControl.IsEnabled = this.m_TypingUI.AccessionOrder.IsLockAquiredByMe;
             this.TabItemAmendments.Content = this.m_AmendmentControl;
         }
 
@@ -604,7 +604,7 @@ namespace YellowstonePathology.UI.Surgical
 				this.m_TypingUI.AccessionOrder != null &&
 				this.m_TypingUI.SurgicalTestOrder != null &&
 				this.m_TypingUI.SurgicalTestOrder.ReportNo != string.Empty &&
-				this.m_TypingUI.AccessionOrder.IsLockAquiredByMe())
+				this.m_TypingUI.AccessionOrder.IsLockAquiredByMe)
 			{
 				e.CanExecute = true;
 			}

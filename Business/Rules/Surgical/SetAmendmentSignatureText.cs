@@ -61,7 +61,7 @@ namespace YellowstonePathology.Business.Rules.Surgical
 
 		public void IsNotLocked()
 		{
-			if (!this.m_AccessionOrder.IsLockAquiredByMe() == true)
+			if (!this.m_AccessionOrder.IsLockAquiredByMe == true)
 			{
 				this.m_Amendment.SignatureButtonIsEnabled = false;
 				this.m_Amendment.DeleteButtonIsEnabled = false;

@@ -59,6 +59,7 @@ namespace YellowstonePathology.UI.Login.Receiving
         private void ButtonUseThisClientOrder_Click(object sender, RoutedEventArgs e)
         {
             YellowstonePathology.UI.CustomEventArgs.ClientOrderReturnEventArgs eventArgs = new CustomEventArgs.ClientOrderReturnEventArgs(this.m_ClientOrder);
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullClientOrder(this.m_ClientOrder, System.Windows.Window.GetWindow(this));
             this.UseThisClientOrder(this, eventArgs);
         }
 	}

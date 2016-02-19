@@ -58,13 +58,9 @@ namespace YellowstonePathology.UI.Login
 		{
 			this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate()
 			{				
-                int scannedUserId = Convert.ToInt32(barcode.ID);
-                Business.User.SystemIdentity.Instance.SetUser(scannedUserId);
-				if (Business.User.SystemIdentity.Instance.IsKnown)
-				{					
-					this.m_BarcodeScanPort.SecurityBadgeScanReceived -= BarcodeScanPort_SecurityBadgeScanReceived;
-					this.AuthentificationSuccessful(this, new EventArgs());
-				}
+                int scannedUserId = Convert.ToInt32(barcode.ID);                
+				this.m_BarcodeScanPort.SecurityBadgeScanReceived -= BarcodeScanPort_SecurityBadgeScanReceived;
+				this.AuthentificationSuccessful(this, new EventArgs());				
 			}
 			));
         }

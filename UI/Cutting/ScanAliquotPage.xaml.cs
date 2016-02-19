@@ -70,6 +70,7 @@ namespace YellowstonePathology.UI.Cutting
         
         private void ScanBlockPage_Loaded(object sender, RoutedEventArgs e)
         {
+            Business.Persistence.DocumentGateway.Instance.Push(Window.GetWindow(this));
 			this.m_BarcodeScanPort.HistologyBlockScanReceived += new Business.BarcodeScanning.BarcodeScanPort.HistologyBlockScanReceivedHandler(BarcodeScanPort_HistologyBlockScanReceived);
         }
 

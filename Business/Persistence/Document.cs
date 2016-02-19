@@ -9,7 +9,7 @@ using System.Data.SqlClient;
 
 namespace YellowstonePathology.Business.Persistence
 {
-    public class Document
+    public class Document : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -41,7 +41,7 @@ namespace YellowstonePathology.Business.Persistence
             if (this.m_Value is YellowstonePathology.Business.Test.AccessionOrder)
             {                
                 YellowstonePathology.Business.Test.AccessionOrder accessionOrder = (YellowstonePathology.Business.Test.AccessionOrder)this.m_Value;
-                this.m_IsLockAquiredByMe = accessionOrder.IsLockAquiredByMe();
+                this.m_IsLockAquiredByMe = accessionOrder.IsLockAquiredByMe;
             }            
         }
 
@@ -137,6 +137,19 @@ namespace YellowstonePathology.Business.Persistence
                     this.m_IsLockAquiredByMe = value;
                     this.NotifyPropertyChanged("IsLockAquiredByMe");
                 }                
+            }
+        }
+
+        public string WriterString
+        {
+            get
+            {
+                string result = null;
+                foreach(object o in this.m_Writers)
+                {
+                    result = result + " " + o.ToString();
+                }
+                return result;
             }
         }
 

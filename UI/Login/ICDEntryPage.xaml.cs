@@ -81,9 +81,9 @@ namespace YellowstonePathology.UI.Login
 				YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder womensHealthProfileTestOrder = (YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(116);
 				if (womensHealthProfileTestOrder.OrderHPV == true)
                 {
-                    if (this.m_AccessionOrder.ICD9BillingCodeCollection.CodeExists("V73.81") == false)
+                    if (this.m_AccessionOrder.ICD9BillingCodeCollection.CodeExists("Z11.51") == false)
                     {
-                        MessageBoxResult messageBoxResult = MessageBox.Show("A routine HPV was requested but V73.81 was not found. Are you sure you want to continue.", "Routine HPV Requested", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+                        MessageBoxResult messageBoxResult = MessageBox.Show("A routine HPV was requested but to Z11.51 was not found. Are you sure you want to continue.", "Routine HPV Requested", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
                         if (messageBoxResult == MessageBoxResult.No)
                         {
                             result = false;                            

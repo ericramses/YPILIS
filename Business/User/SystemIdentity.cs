@@ -31,6 +31,25 @@ namespace YellowstonePathology.Business.User
         {            
             this.m_User = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetSystemUserByUserName(System.Windows.Forms.SystemInformation.UserName);            
             this.m_IsKnown = true;
+
+            this.m_BarcodeScanPort = YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort.Instance;
+            this.m_BarcodeScanPort.SecurityBadgeScanReceived += new Business.BarcodeScanning.BarcodeScanPort.SecurityBadgeScanReceivedHandler(BarcodeScanPort_SecurityBadgeScanReceived);
+        }
+
+        private void BarcodeScanPort_SecurityBadgeScanReceived(BarcodeScanning.Barcode barcode)
+        {
+            int systemUserId = Convert.ToInt32(barcode.ID);
+
+            if(this.m_User.UserId == systemUserId)
+            {
+                this.m_User = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetSystemUserByUserName(System.Windows.Forms.SystemInformation.UserName);
+            }
+            else
+            {
+                this.m_User = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetSystemUserById(systemUserId);
+            }
+            
+            this.NotifyPropertyChanged("User");
         }
 
         public static SystemIdentity Instance

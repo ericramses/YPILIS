@@ -37,42 +37,24 @@ namespace YellowstonePathology.Business.Persistence
             }
         }        
 
-        public ReleaseDocumentLockResult ReleaseLock(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, object writer)
-        {
-            ReleaseDocumentLockResult result = new ReleaseDocumentLockResult();            
-
+        public void ReleaseLock(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, object writer)
+        {            
             DocumentId documentId = new DocumentId(accessionOrder, writer);
             Document document = this.Get(documentId);
 
-            if(document != null)
+            if (document != null)
             {                
-                if(accessionOrder.IsLockAquiredByMe() == true)
-                {
-                    if(document.WriterExists(writer) == true)
-                    {
-                        document.RemoveWriter(writer);
-                        if(document.Writers.Count == 0)
-                        {
-                            accessionOrder.ReleaseLock();
-                            result.LockWasReleased = true;
-                            document.IsLockAquiredByMe = false;
-                        }
-                    }
-                    
-                    document.Submit();                    
+                if (accessionOrder.IsLockAquiredByMe == true)
+                {                
+                    accessionOrder.ReleaseLock();             
+                    document.IsLockAquiredByMe = false;                    
                 }
-                else
-                {
-                    result.LockWasReleased = false;
-                    result.Message = "Lock cannot be released because someone else has it.";
-                }             
+                document.Submit();
             }
             else
             {
                 throw new Exception("You are trying to release the lock on a document that is not in the stack.");
-            }
-
-            return result;
+            }         
         }
 
         public void Flush()

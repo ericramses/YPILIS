@@ -30,7 +30,7 @@ namespace YellowstonePathology.Business.Rules
 
 		public void LockAcquired()
 		{
-			if (this.m_AccessionOrder.IsLockAquiredByMe() == true)
+			if (this.m_AccessionOrder.IsLockAquiredByMe == true)
 			{
 				this.m_FieldEnabler.IsProtectedEnabled = true;
 				this.m_FieldEnabler.IsUnprotectedEnabled = true;

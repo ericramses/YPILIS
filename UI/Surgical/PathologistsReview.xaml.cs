@@ -93,7 +93,7 @@ namespace YellowstonePathology.UI.Surgical
 			}
 
 			this.m_TreeViewWorkspace = new Common.TreeViewWorkspace(this.m_PathologistUI.AccessionOrder, this.m_SystemIdentity);
-            this.m_TreeViewWorkspace.IsEnabled = this.m_PathologistUI.AccessionOrder.IsLockAquiredByMe();
+            this.m_TreeViewWorkspace.IsEnabled = this.m_PathologistUI.AccessionOrder.IsLockAquiredByMe;
             this.tabItemTreeView.Content = this.m_TreeViewWorkspace;			
 		}
 
@@ -168,7 +168,7 @@ namespace YellowstonePathology.UI.Surgical
 				}
 				else
 				{
-					if (this.m_PathologistUI.AccessionOrder.IsLockAquiredByMe() == true)
+					if (this.m_PathologistUI.AccessionOrder.IsLockAquiredByMe == true)
 					{
 						color = "Green";
 					}

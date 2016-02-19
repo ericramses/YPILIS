@@ -79,6 +79,17 @@ namespace YellowstonePathology.UI.Login
             if(this.m_LoginUI.AccessionOrder != null)
             {
                 Business.Persistence.DocumentGateway.Instance.ReleaseLock(this.m_LoginUI.AccessionOrder, this.m_Writer);
+
+                if (this.m_LoginUI.AccessionOrder.IsLockAquiredByMe == true)
+                {
+                    this.TabControlRightSide.SelectedIndex = 1;
+                    this.TabItemTasks.IsEnabled = true;
+                }
+                else
+                {
+                    this.TabControlRightSide.SelectedIndex = 0;
+                    this.TabItemTasks.IsEnabled = false;
+                }
             }            
         }
 
@@ -170,7 +181,18 @@ namespace YellowstonePathology.UI.Login
             {
                 YellowstonePathology.Business.Search.ReportSearchItem item = (YellowstonePathology.Business.Search.ReportSearchItem)this.ListViewAccessionOrders.SelectedItem;
                 this.GetCase(item.MasterAccessionNo, item.ReportNo);
-                this.m_LoginUI.SelectedItemCount = "Selected Items: " + this.ListViewAccessionOrders.SelectedItems.Count.ToString();             
+                this.m_LoginUI.SelectedItemCount = "Selected Items: " + this.ListViewAccessionOrders.SelectedItems.Count.ToString();   
+
+                if(this.m_LoginUI.AccessionOrder.IsLockAquiredByMe == true)
+                {
+                    this.TabControlRightSide.SelectedIndex = 1;
+                    this.TabItemTasks.IsEnabled = true;
+                }
+                else
+                {
+                    this.TabControlRightSide.SelectedIndex = 0;
+                    this.TabItemTasks.IsEnabled = false;
+                }
             }
         }
 
