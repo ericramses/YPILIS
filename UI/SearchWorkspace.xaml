@@ -42,8 +42,6 @@
                 <ListView.ContextMenu>
                     <ContextMenu>                        
                         <MenuItem Header="Show Patient History Dialog" Click="ContextMenuShowPatientHistoryDialog_Click"></MenuItem>
-						<MenuItem Header="Flip To Lab Workspace" Click="MenuItemFlipToLabWorkspace_Click"></MenuItem>						
-						<MenuItem Header="Flip To Flow Workspace" Click="MenuItemFlipToFlowWorkspace_Click"></MenuItem>
 					</ContextMenu>
                 </ListView.ContextMenu>              
                 <ListView.View>

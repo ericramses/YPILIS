@@ -64,6 +64,7 @@ namespace YellowstonePathology.UI
                     new Login.FinalizeAccession.ProviderDistributionPath(item.ReportNo, accessionOrder,
                     System.Windows.Visibility.Collapsed, System.Windows.Visibility.Visible, System.Windows.Visibility.Collapsed);
                 providerDistributionPath.Start();
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(accessionOrder, this.m_Writer);
             }         
         }
 
@@ -194,27 +195,8 @@ namespace YellowstonePathology.UI
 
                 YellowstonePathology.UI.Common.CaseHistoryDialog caseHistoryDialog = new Common.CaseHistoryDialog(accessionOrder);
                 caseHistoryDialog.ShowDialog();
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(accessionOrder, this.m_Writer);
             }
         }
-
-		private void MenuItemFlipToLabWorkspace_Click(object sender, RoutedEventArgs e)
-		{
-			if (this.listViewCaseList.SelectedItems.Count != 0)
-			{
-				YellowstonePathology.Business.SearchListItem item = (YellowstonePathology.Business.SearchListItem)this.listViewCaseList.SelectedItem;
-				MainWindow mainWindow = (MainWindow)Window.GetWindow(this);
-				mainWindow.AddLabWorkspace(item.MasterAccessionNo, item.ReportNo);
-			}
-		}		
-
-		private void MenuItemFlipToFlowWorkspace_Click(object sender, RoutedEventArgs e)
-		{
-            if (this.listViewCaseList.SelectedItems.Count != 0)
-            {
-				YellowstonePathology.Business.SearchListItem item = (YellowstonePathology.Business.SearchListItem)this.listViewCaseList.SelectedItem;
-				MainWindow mainWindow = (MainWindow)Window.GetWindow(this);
-				mainWindow.AddFlowWorkspace(item.ReportNo, item.MasterAccessionNo);
-			}
-		}
 	}
 }
