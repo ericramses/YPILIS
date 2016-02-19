@@ -844,7 +844,7 @@ namespace YellowstonePathology.UI
 
         private void ToolBarButtonRefresh_Click(object sender, RoutedEventArgs e)
         {
-
+            this.m_MainWindowCommandButtonHandler.OnRefresh();
         }
 
         private void MenuItemLockedCases_Click(object sender, RoutedEventArgs e)

@@ -71,7 +71,13 @@ namespace YellowstonePathology.UI.Login
 
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath += new MainWindowCommandButtonHandler.StartProviderDistributionPathEventHandler(MainWindowCommandButtonHandler_StartProviderDistributionPath);
             this.m_MainWindowCommandButtonHandler.Save += new MainWindowCommandButtonHandler.SaveEventHandler(MainWindowCommandButtonHandler_Save);
+            this.m_MainWindowCommandButtonHandler.Refresh += MainWindowCommandButtonHandler_Refresh;
             this.m_LoadedHasRun = true;
+        }
+
+        private void MainWindowCommandButtonHandler_Refresh(object sender, EventArgs e)
+        {
+
         }
 
         private void MainWindowCommandButtonHandler_Save(object sender, EventArgs e)
@@ -133,6 +139,7 @@ namespace YellowstonePathology.UI.Login
             this.m_BarcodeScanPort.ContainerScanReceived -= ContainerScanReceived;
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath -= MainWindowCommandButtonHandler_StartProviderDistributionPath;
             this.m_MainWindowCommandButtonHandler.ShowAmendmentDialog -= MainWindowCommandButtonHandler_ShowAmendmentDialog;
+            this.m_MainWindowCommandButtonHandler.Refresh -= MainWindowCommandButtonHandler_Refresh;
         }
 
         public void RemoveTab(object target, ExecutedRoutedEventArgs args)

@@ -89,7 +89,13 @@ namespace YellowstonePathology.UI.Surgical
 		{
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath += new MainWindowCommandButtonHandler.StartProviderDistributionPathEventHandler(MainWindowCommandButtonHandler_StartProviderDistributionPath);
             this.m_MainWindowCommandButtonHandler.Save += new MainWindowCommandButtonHandler.SaveEventHandler(MainWindowCommandButtonHandler_Save);
-		}
+            this.m_MainWindowCommandButtonHandler.Refresh += MainWindowCommandButtonHandler_Refresh;
+        }
+
+        private void MainWindowCommandButtonHandler_Refresh(object sender, EventArgs e)
+        {
+
+        }
 
         private void MainWindowCommandButtonHandler_Save(object sender, EventArgs e)
         {
@@ -122,7 +128,8 @@ namespace YellowstonePathology.UI.Surgical
 			this.Save(false);
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath -= MainWindowCommandButtonHandler_StartProviderDistributionPath;
             this.m_MainWindowCommandButtonHandler.Save -= MainWindowCommandButtonHandler_Save;
-        }        
+            this.m_MainWindowCommandButtonHandler.Refresh -= MainWindowCommandButtonHandler_Refresh;
+        }
 
         public void ButtonRefresh_Click(object sender, RoutedEventArgs args)
         {

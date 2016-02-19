@@ -83,9 +83,10 @@ namespace YellowstonePathology.UI.Cytology
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath -= MainWindowCommandButtonHandler_StartProviderDistributionPath;
             this.m_MainWindowCommandButtonHandler.Save -= MainWindowCommandButtonHandler_Save;
             this.m_MainWindowCommandButtonHandler.ShowAmendmentDialog -= this.m_CytologyResultsWorkspace.CytologyUI.ShowAmendmentDialog;
+            this.m_MainWindowCommandButtonHandler.Refresh -= MainWindowCommandButtonHandler_Refresh;
         }
 
-		private void BarcodeScanPort_ThinPrepSlideScanReceived(Business.BarcodeScanning.Barcode barcode)
+        private void BarcodeScanPort_ThinPrepSlideScanReceived(Business.BarcodeScanning.Barcode barcode)
         {
             this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal,
                 new Action(
@@ -117,9 +118,14 @@ namespace YellowstonePathology.UI.Cytology
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath += new MainWindowCommandButtonHandler.StartProviderDistributionPathEventHandler(MainWindowCommandButtonHandler_StartProviderDistributionPath);
             this.m_MainWindowCommandButtonHandler.Save += new MainWindowCommandButtonHandler.SaveEventHandler(MainWindowCommandButtonHandler_Save);
             this.m_MainWindowCommandButtonHandler.ShowAmendmentDialog += this.m_CytologyResultsWorkspace.CytologyUI.ShowAmendmentDialog;
+            this.m_MainWindowCommandButtonHandler.Refresh += MainWindowCommandButtonHandler_Refresh;
             this.ListViewSearchResults.SelectedIndex = -1;
 
             Keyboard.Focus(this.m_CytologyResultsWorkspace.TextBoxReportNoSearch);
+        }
+
+        private void MainWindowCommandButtonHandler_Refresh(object sender, EventArgs e)
+        {
         }
 
         private void MainWindowCommandButtonHandler_Save(object sender, EventArgs e)
