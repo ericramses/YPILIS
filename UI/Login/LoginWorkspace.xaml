@@ -318,7 +318,7 @@
 				<RowDefinition></RowDefinition>
 			</Grid.RowDefinitions>
 
-			<TabControl Grid.Column="0" Grid.Row="0">
+			<TabControl Name="TabControlRightSide" Grid.Column="0" Grid.Row="0">
 				<TabItem Name="TabItemDocumentWorkspace">
 					<TabItem.Header>
 						<StackPanel Orientation="Horizontal">
@@ -326,7 +326,7 @@
 							<TextBlock Margin="4,0,0,0" VerticalAlignment="Center">Document</TextBlock>
 						</StackPanel>
 					</TabItem.Header>
-				</TabItem>				
+				</TabItem>
                 <TabItem Name="TabItemTasks">
                     
                     <TabItem.Header>

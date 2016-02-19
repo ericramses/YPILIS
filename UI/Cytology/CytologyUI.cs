@@ -67,7 +67,7 @@ namespace YellowstonePathology.UI.Cytology
             {
                 YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(cytologyScreeningSearchResult.MasterAccessionNo, this.m_Writer);
 
-                if (accessionOrder.IsLockAquiredByMe() == true)
+                if (accessionOrder.IsLockAquiredByMe == true)
                 {
                     YellowstonePathology.Business.Rules.Cytology.AssignScreening assignScreening = new YellowstonePathology.Business.Rules.Cytology.AssignScreening(this.m_Writer);
                     assignScreening.Execute(cytologyScreeningSearchResult.MasterAccessionNo, systemUser.UserId, executionStatus);
@@ -104,7 +104,7 @@ namespace YellowstonePathology.UI.Cytology
 		{
 			get
 			{
-				if (this.m_AccessionOrder != null && this.m_AccessionOrder.IsLockAquiredByMe() == true && (this.m_UserIsCytotech || this.m_UserIsPathologist))
+				if (this.m_AccessionOrder != null && this.m_AccessionOrder.IsLockAquiredByMe == true && (this.m_UserIsCytotech || this.m_UserIsPathologist))
 				{
 					return true ;
 				}

@@ -128,7 +128,7 @@ namespace YellowstonePathology.UI.Cytology
             {
                 MainWindow.MoveKeyboardFocusNextThenBack();
                 YellowstonePathology.Business.Persistence.DocumentGateway.Instance.ReleaseLock(this.m_CytologyUI.AccessionOrder, this.m_Writer);
-                if (this.m_CytologyUI.AccessionOrder.IsLockAquiredByMe() == false)
+                if (this.m_CytologyUI.AccessionOrder.IsLockAquiredByMe == false)
                 {
                     this.m_CytologyUI.NotifyPropertyChanged(string.Empty);
                 }

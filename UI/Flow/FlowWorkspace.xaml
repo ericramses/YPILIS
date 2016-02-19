@@ -748,7 +748,7 @@
                         <Button Width="125" Height="30" Grid.Column="0" Grid.Row="0" Click="ButtonReportOrder_Click" HorizontalAlignment="Left" Margin="2,2,2,2">Additional Testing</Button>
                         <Button Width="75" Height="30" Grid.Column="0" Grid.Row="0" Click="ButtonRefresh_Click" HorizontalAlignment="Right" Margin="2,2,2,2">Refresh</Button>
 
-						<ListView Name="ListViewFlowCaseList" Grid.Column="0" Grid.Row="1" ItemsSource="{Binding Path=FlowLogSearch.FlowLogList}" IsSynchronizedWithCurrentItem="True" SelectionChanged="ListViewFlowCaseList_SelectionChanged">
+						<ListView Name="ListViewFlowCaseList" Grid.Column="0" Grid.Row="1" ItemsSource="{Binding Path=FlowLogSearch.FlowLogList}" SelectionChanged="ListViewFlowCaseList_SelectionChanged">
 							<ListView.View>
                                 <GridView AllowsColumnReorder="True" ColumnHeaderToolTip="Flow Case List">
                                     <GridViewColumn DisplayMemberBinding="{Binding Path=ReportNo}" Header="Report No" Width="85"/>

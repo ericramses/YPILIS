@@ -64,7 +64,12 @@ namespace YellowstonePathology.UI.Test
 			this.m_FieldEnabler = new YellowstonePathology.Business.Common.FieldEnabler();
 
 			this.m_PanelSetCaseTypeCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPanelSetCaseTypeCollection();            
-		}                        
+		}
+
+        public YellowstonePathology.Business.User.SystemIdentity SystemIdentity
+        {
+            get { return Business.User.SystemIdentity.Instance; }
+        }
 
         public YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection ClientOrderCollection
         {
@@ -235,10 +240,7 @@ namespace YellowstonePathology.UI.Test
 
 		public void Save(bool releaseLock)
 		{
-			if (this.m_AccessionOrder != null && this.m_AccessionOrder.IsLockAquiredByMe() == true)
-			{
-                //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
-			}
+			
 		}
 
 		public YellowstonePathology.Business.Document.CaseDocumentCollection CaseDocumentCollection

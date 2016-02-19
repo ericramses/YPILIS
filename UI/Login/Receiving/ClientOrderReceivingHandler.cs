@@ -109,13 +109,12 @@ namespace YellowstonePathology.UI.Login.Receiving
 		}
 
         public void IFoundAClientOrder(YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder)
-        {
+        {            
             if (this.m_AClientOrderHasBeenAcquired == true)
             {
                 if (this.m_ClientOrder.ClientOrderId != clientOrder.ClientOrderId)
                 {                    
-                    this.m_ClientOrder = clientOrder;
-                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullClientOrder(this.m_ClientOrder, this.m_Writer);                 
+                    this.m_ClientOrder = clientOrder;                    
                 }
             }
             else

@@ -47,9 +47,10 @@ namespace YellowstonePathology.UI
                     YellowstonePathology.Business.User.SystemIdentity systemIdentity = YellowstonePathology.Business.User.SystemIdentity.Instance;
                     YellowstonePathology.Business.Domain.LockItem lockItem = (YellowstonePathology.Business.Domain.LockItem)this.ListViewLockedAccessionOrders.SelectedItem;
                     YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(lockItem.KeyString, this);
-                    if (accessionOrder.IsLockAquiredByMe() == false)
+
+                    if (accessionOrder.IsLockAquiredByMe == false)
                     {
-                        accessionOrder.SetLock(systemIdentity);
+                        accessionOrder.ReleaseLock();
                         YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
                         this.m_LockItemCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetLockedAccessionOrders();
                         this.NotifyPropertyChanged(string.Empty);

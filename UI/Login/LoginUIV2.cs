@@ -49,9 +49,7 @@ namespace YellowstonePathology.UI.Login
         public YellowstonePathology.Business.User.SystemIdentity SystemIdentity
         {
             get { return Business.User.SystemIdentity.Instance; }
-        }
-            
-
+        }            
 
         private void Notifier_Alert(object sender, CustomEventArgs.TaskOrderCollectionReturnEventArgs e)
         {            
@@ -297,20 +295,24 @@ namespace YellowstonePathology.UI.Login
 		public bool GetAccessionOrderByContainerId(string containerId)
 		{
 			bool result = false;
+
             string masterAccessionNo = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetMasterAccessionNoFromContainerId(containerId);
-            this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, this.m_Writer);
+            if(string.IsNullOrEmpty(masterAccessionNo) == false)
+            {
+                this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, this.m_Writer);
 
-            if (this.m_AccessionOrder != null)
-			{
-				if (this.m_AccessionOrder.PanelSetOrderCollection.Count != 0)
-				{
-					result = true;
-					string reportNo = this.m_AccessionOrder.PanelSetOrderCollection[0].ReportNo;
-					this.GetReportSearchListByReportNo(reportNo);
-					this.NotifyPropertyChanged("ReportSearchList");
-				}
-			}
-
+                if (this.m_AccessionOrder != null)
+                {
+                    if (this.m_AccessionOrder.PanelSetOrderCollection.Count != 0)
+                    {
+                        result = true;
+                        string reportNo = this.m_AccessionOrder.PanelSetOrderCollection[0].ReportNo;
+                        this.GetReportSearchListByReportNo(reportNo);
+                        this.NotifyPropertyChanged("ReportSearchList");
+                    }
+                }
+            }            
+            
 			return result;
 		}		
 

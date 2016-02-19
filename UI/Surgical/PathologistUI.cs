@@ -137,7 +137,7 @@ namespace YellowstonePathology.UI.Surgical
                 }
                 else
                 {
-					if (this.AccessionOrder != null && this.AccessionOrder.IsLockAquiredByMe() == true)
+					if (this.AccessionOrder != null && this.AccessionOrder.IsLockAquiredByMe == true)
                     {
                         color = "Green";
                     }
@@ -225,7 +225,7 @@ namespace YellowstonePathology.UI.Surgical
 
         public void Save(bool releaseLock)
         {
-            if (this.m_AccessionOrder != null && this.m_AccessionOrder.IsLockAquiredByMe() == true)
+            if (this.m_AccessionOrder != null && this.m_AccessionOrder.IsLockAquiredByMe == true)
             {
                 MainWindow.MoveKeyboardFocusNextThenBack();
                 //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
@@ -334,7 +334,7 @@ namespace YellowstonePathology.UI.Surgical
 
 		public bool CanPlaceOrder()
 		{
-			if (this.m_AccessionOrder != null && this.m_AccessionOrder.IsLockAquiredByMe() == true)
+			if (this.m_AccessionOrder != null && this.m_AccessionOrder.IsLockAquiredByMe == true)
 			{
 				return true;
 			}

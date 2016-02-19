@@ -35,12 +35,12 @@ namespace YellowstonePathology.Business.Billing
 			return icd9BillingCode;
 		}
 
-        public bool CodeExists(string icd9Code)
+        public bool CodeExists(string icd10Code)
         {
             bool result = false;
 			foreach (ICD9BillingCode item in this)
             {                
-                if (item.ICD9Code == icd9Code)
+                if (item.ICD10Code == icd10Code)
                 {
                     result = true;
                     break;

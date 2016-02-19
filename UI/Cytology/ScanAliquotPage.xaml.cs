@@ -41,6 +41,7 @@ namespace YellowstonePathology.UI.Cytology
 
 		private void ScanContainerPage_Loaded(object sender, RoutedEventArgs e)
 		{
+            Business.Persistence.DocumentGateway.Instance.Push(Window.GetWindow(this));
             this.m_BarcodeScanPort.AliquotOrderIdReceived += BarcodeScanPort_AliquotOrderIdReceived;
 		}        
 

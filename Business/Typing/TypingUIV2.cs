@@ -34,9 +34,9 @@ namespace YellowstonePathology.Business.Typing
 		private string m_TemplateText;
         private System.Windows.Controls.TabItem m_Writer;
 
-		public TypingUIV2(YellowstonePathology.Business.User.SystemIdentity systemIdentity, System.Windows.Controls.TabItem writer)
+		public TypingUIV2(System.Windows.Controls.TabItem writer)
 		{
-			this.m_SystemIdentity = systemIdentity;
+            this.m_SystemIdentity = Business.User.SystemIdentity.Instance;
 
 			this.m_ParagraphTemplateCollection = new ParagraphTemplateCollection();
 
@@ -76,6 +76,11 @@ namespace YellowstonePathology.Business.Typing
                 MessageBox.Show("Case Not Found.");
 			}
 		}
+
+        public Business.User.SystemIdentity SystemIdentity
+        {
+            get { return this.m_SystemIdentity; }
+        }
 
 		public void Save(bool releaseLock)
 		{			            
@@ -251,12 +256,7 @@ namespace YellowstonePathology.Business.Typing
 				YellowstonePathology.Business.Rules.WorkspaceEnableRules workspaceEnableRules = new Rules.WorkspaceEnableRules();
 				workspaceEnableRules.Execute(this.AccessionOrder, this.m_SurgicalTestOrder, this.m_FieldEnabler, executionStatus, this.m_SystemIdentity);
 			}
-		}
-
-		public YellowstonePathology.Business.User.SystemUser CurrentUser
-		{
-			get { return this.m_SystemIdentity.User; }
-		}
+		}		
 
 		public YellowstonePathology.Business.Document.CaseDocumentCollection CaseDocumentCollection
 		{

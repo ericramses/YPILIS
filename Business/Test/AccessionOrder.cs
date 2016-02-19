@@ -224,6 +224,7 @@ namespace YellowstonePathology.Business.Test
                     this.m_LockAquired = value;
                     this.NotifyPropertyChanged("LockAquired");
                     this.NotifyPropertyChanged("LockStatus");
+                    this.NotifyPropertyChanged("IsLockAquiredByMe");
                 }
             }
         }
@@ -1714,29 +1715,29 @@ namespace YellowstonePathology.Business.Test
             return result.ToString();
         }   
         
-        public bool IsLockAquiredByMe()
+        public bool IsLockAquiredByMe
         {
-            bool result = false;
-            if(this.m_LockAquired == true)
+            get
             {
-                if (this.m_LockAquiredByHostName == Environment.MachineName)
+                bool result = false;
+                if (this.m_LockAquired == true)
                 {
-                    result = true;
+                    if (this.m_LockAquiredByHostName == Environment.MachineName)
+                    {
+                        result = true;
+                    }
                 }
-            }
-            return result;
+                return result;
+            }            
         }
 
         public void ReleaseLock()
-        {
-            if (this.IsLockAquiredByMe() == true)
-            {
-                this.LockAquired = false;
-                this.LockAquiredByHostName = null;
-                this.LockAquiredById = null;
-                this.LockAquiredByUserName = null;
-                this.TimeLockAquired = null;
-            }
+        {            
+            this.LockAquired = false;
+            this.LockAquiredByHostName = null;
+            this.LockAquiredById = null;
+            this.LockAquiredByUserName = null;
+            this.TimeLockAquired = null;            
         }
 
         public void SetLock(User.SystemIdentity systemIdentity)

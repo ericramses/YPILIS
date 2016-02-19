@@ -72,7 +72,7 @@ namespace YellowstonePathology.UI.Flow
             {
                 MainWindow.MoveKeyboardFocusNextThenBack();
                 YellowstonePathology.Business.Persistence.DocumentGateway.Instance.ReleaseLock(this.m_FlowUI.AccessionOrder, this.m_Writer);
-                if (this.m_FlowUI.AccessionOrder.IsLockAquiredByMe() == false)
+                if (this.m_FlowUI.AccessionOrder.IsLockAquiredByMe == false)
                 {
                     this.m_FlowUI.SetAccess();
                     this.m_FlowUI.NotifyPropertyChanged(string.Empty);

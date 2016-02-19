@@ -111,7 +111,7 @@ namespace YellowstonePathology.UI.Surgical
             {
                 MainWindow.MoveKeyboardFocusNextThenBack();
                 YellowstonePathology.Business.Persistence.DocumentGateway.Instance.ReleaseLock(this.m_PathologistUI.AccessionOrder, this.m_Writer);
-                if (this.m_PathologistUI.AccessionOrder.IsLockAquiredByMe() == false)
+                if (this.m_PathologistUI.AccessionOrder.IsLockAquiredByMe == false)
                 {
                     this.m_PathologistUI.RunWorkspaceEnableRules();
                     this.m_PathologistUI.NotifyPropertyChanged(string.Empty);
@@ -155,7 +155,7 @@ namespace YellowstonePathology.UI.Surgical
 
 		private void MainWindowCommandButtonHandler_ShowAmendmentDialog(object sender, EventArgs e)
 		{
-			if (this.m_PathologistUI.AccessionOrder.IsLockAquiredByMe() == true)
+			if (this.m_PathologistUI.AccessionOrder.IsLockAquiredByMe == true)
 			{
 				this.m_PathologistUI.ShowAmendmentDialog();
             }
