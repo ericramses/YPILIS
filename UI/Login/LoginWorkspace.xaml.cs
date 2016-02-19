@@ -90,6 +90,8 @@ namespace YellowstonePathology.UI.Login
                     this.TabControlRightSide.SelectedIndex = 0;
                     this.TabItemTasks.IsEnabled = false;
                 }
+
+                this.m_LoginUI.ReportSearchList.SetLockIsAquiredByMe(this.m_LoginUI.AccessionOrder);
             }            
         }
 
@@ -193,6 +195,8 @@ namespace YellowstonePathology.UI.Login
                     this.TabControlRightSide.SelectedIndex = 0;
                     this.TabItemTasks.IsEnabled = false;
                 }
+
+                this.m_LoginUI.ReportSearchList.SetLockIsAquiredByMe(this.m_LoginUI.AccessionOrder);
             }
         }
 

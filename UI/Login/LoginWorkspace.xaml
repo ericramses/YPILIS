@@ -89,6 +89,38 @@
                     </ToolBarTray>
                     <ListView Name="ListViewAccessionOrders" Margin="3" Grid.Row="1" ItemsSource="{Binding Path=ReportSearchList}" 
                               SelectionChanged="ListViewAccessionOrders_SelectionChanged" >
+
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Style.Triggers>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding Path=IsLockAquiredByMe}" Value="True"/>
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter Property="Background" Value="#cbf4c8"/>
+                                    </MultiDataTrigger>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding Path=IsLockAquiredByMe}" Value="False"/>
+                                            <Condition Binding="{Binding Path=LockAquired}" Value="true"/>
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter Property="Background" Value="#fae5e7"/>
+                                    </MultiDataTrigger>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding Path=LockAquired}" Value="False"/>
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter Property="Background" Value="#FFFFFF"/>
+                                    </MultiDataTrigger>
+                                    <MultiTrigger>
+                                        <MultiTrigger.Conditions>
+                                            <Condition Property="IsSelected" Value="true" />
+                                        </MultiTrigger.Conditions>
+                                        <Setter Property="FontWeight" Value="Bold" />
+                                    </MultiTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ListView.ItemContainerStyle>
                         
                         <ListView.ContextMenu>
                             <ContextMenu>

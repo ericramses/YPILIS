@@ -45,8 +45,7 @@ namespace YellowstonePathology.Business.Test.MissingInformation
 
         public MissingInformtionTestOrder(string masterAccessionNo, string reportNo, string objectId,
             YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
-            bool distribute,
-            YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+            bool distribute)
             : base(masterAccessionNo, reportNo, objectId, panelSet, distribute)
 		{
 

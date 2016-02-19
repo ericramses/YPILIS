@@ -227,8 +227,7 @@ namespace YellowstonePathology.UI.Surgical
         {
             if (this.m_AccessionOrder != null && this.m_AccessionOrder.IsLockAquiredByMe == true)
             {
-                MainWindow.MoveKeyboardFocusNextThenBack();
-                //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
+                MainWindow.MoveKeyboardFocusNextThenBack();                
             }
         }
 
