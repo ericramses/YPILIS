@@ -80,6 +80,7 @@ namespace YellowstonePathology.UI.Surgical
 			this.m_MainWindowCommandButtonHandler.ApplicationClosing += new EventHandler(MainWindowCommandButtonHandler_ApplicationClosing);
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath += new MainWindowCommandButtonHandler.StartProviderDistributionPathEventHandler(MainWindowCommandButtonHandler_StartProviderDistributionPath);
             this.m_MainWindowCommandButtonHandler.ShowAmendmentDialog += MainWindowCommandButtonHandler_ShowAmendmentDialog;
+            this.m_MainWindowCommandButtonHandler.Refresh += MainWindowCommandButtonHandler_Refresh;
         }
 
         private void MainWindowCommandButtonHandler_StartProviderDistributionPath(object sender, EventArgs e)
@@ -103,6 +104,12 @@ namespace YellowstonePathology.UI.Surgical
 			this.Save(true);                       
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath -= MainWindowCommandButtonHandler_StartProviderDistributionPath;
             this.m_MainWindowCommandButtonHandler.ShowAmendmentDialog -= MainWindowCommandButtonHandler_ShowAmendmentDialog;
+            this.m_MainWindowCommandButtonHandler.Refresh -= MainWindowCommandButtonHandler_Refresh;
+        }
+
+        private void MainWindowCommandButtonHandler_Refresh(object sender, EventArgs e)
+        {
+
         }
 
         private void MainWindowCommandButtonHandler_Save(object sender, EventArgs e)

@@ -61,9 +61,20 @@ namespace YellowstonePathology.UI.Flow
 
         private void FlowWorkspace_Loaded(object sender, RoutedEventArgs e)
         {
+            this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath -= new MainWindowCommandButtonHandler.StartProviderDistributionPathEventHandler(MainWindowCommandButtonHandler_StartProviderDistributionPath);
+            this.m_MainWindowCommandButtonHandler.ShowAmendmentDialog -= new MainWindowCommandButtonHandler.ShowAmendmentDialogEventHandler(MainWindowCommandButtonHandler_ShowAmendmentDialog);
+            this.m_MainWindowCommandButtonHandler.Save -= new MainWindowCommandButtonHandler.SaveEventHandler(MainWindowCommandButtonHandler_Save);
+            this.m_MainWindowCommandButtonHandler.Refresh -= MainWindowCommandButtonHandler_Refresh;
+
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath += new MainWindowCommandButtonHandler.StartProviderDistributionPathEventHandler(MainWindowCommandButtonHandler_StartProviderDistributionPath);
             this.m_MainWindowCommandButtonHandler.ShowAmendmentDialog += new MainWindowCommandButtonHandler.ShowAmendmentDialogEventHandler(MainWindowCommandButtonHandler_ShowAmendmentDialog);
             this.m_MainWindowCommandButtonHandler.Save += new MainWindowCommandButtonHandler.SaveEventHandler(MainWindowCommandButtonHandler_Save);
+            this.m_MainWindowCommandButtonHandler.Refresh += MainWindowCommandButtonHandler_Refresh;
+        }
+
+        private void MainWindowCommandButtonHandler_Refresh(object sender, EventArgs e)
+        {
+
         }
 
         private void MainWindowCommandButtonHandler_Save(object sender, EventArgs e)
@@ -110,6 +121,7 @@ namespace YellowstonePathology.UI.Flow
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath -= MainWindowCommandButtonHandler_StartProviderDistributionPath;
             this.m_MainWindowCommandButtonHandler.ShowAmendmentDialog -= MainWindowCommandButtonHandler_ShowAmendmentDialog;
             this.m_MainWindowCommandButtonHandler.Save -= MainWindowCommandButtonHandler_Save;
+            this.m_MainWindowCommandButtonHandler.Refresh -= MainWindowCommandButtonHandler_Refresh;
 
             this.Save(false);
         }
