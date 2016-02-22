@@ -254,7 +254,7 @@ namespace YellowstonePathology.Business.Typing
 			{
 				YellowstonePathology.Business.Rules.ExecutionStatus executionStatus = new YellowstonePathology.Business.Rules.ExecutionStatus();
 				YellowstonePathology.Business.Rules.WorkspaceEnableRules workspaceEnableRules = new Rules.WorkspaceEnableRules();
-				workspaceEnableRules.Execute(this.AccessionOrder, this.m_SurgicalTestOrder, this.m_FieldEnabler, executionStatus, this.m_SystemIdentity);
+				workspaceEnableRules.Execute(this.AccessionOrder, this.m_SurgicalTestOrder, this.m_FieldEnabler, executionStatus);
 			}
 		}		
 

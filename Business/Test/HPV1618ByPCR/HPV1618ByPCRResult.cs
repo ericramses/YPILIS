@@ -47,7 +47,7 @@ namespace YellowstonePathology.Business.Test.HPV1618ByPCR
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 		{
 			YellowstonePathology.Business.Test.PanelOrder panelOrder = panelSetOrder.PanelOrderCollection.GetUnacceptedPanelOrder();
-			panelOrder.AcceptResults(systemIdentity.User);
+			panelOrder.AcceptResults();
 			panelSetOrder.Accept();
 		}		
 

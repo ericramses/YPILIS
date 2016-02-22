@@ -37,7 +37,7 @@ namespace YellowstonePathology.UI.Surgical
             this.m_SystemIdentity = YellowstonePathology.Business.User.SystemIdentity.Instance;
 
 			m_Loaded = false;
-			this.m_PathologistUI = new PathologistUI(this.m_SystemIdentity, writer);
+			this.m_PathologistUI = new PathologistUI(writer);
 
 			InitializeComponent();
 
