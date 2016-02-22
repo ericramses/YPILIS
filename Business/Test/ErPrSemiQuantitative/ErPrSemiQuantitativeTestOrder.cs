@@ -249,7 +249,7 @@ namespace YellowstonePathology.Business.Test.ErPrSemiQuantitative
 			}
 		}
 
-		public override void Finalize(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Rules.RuleExecutionStatus ruleExecutionStatus, Business.User.SystemIdentity systemIdentity)
+		public override void Finalize(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Rules.RuleExecutionStatus ruleExecutionStatus)
         {
             if (accessionOrder.ClientId == 558)
             {
@@ -309,7 +309,7 @@ namespace YellowstonePathology.Business.Test.ErPrSemiQuantitative
                     panelOrder.AcceptedTime = DateTime.Now;
                 }
 
-                base.Finalize(accessionOrder, ruleExecutionStatus, systemIdentity);
+                base.Finalize(accessionOrder, ruleExecutionStatus);
             }
         }        
 

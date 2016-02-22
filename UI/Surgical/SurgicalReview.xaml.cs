@@ -222,7 +222,7 @@ namespace YellowstonePathology.UI.Surgical
 
                     if(canFinal == true)
                     {
-                        amendment.Finalize(Business.User.SystemIdentity.Instance.User);                    
+                        amendment.Finalize();                    
                     }
                 }
                 else
@@ -486,7 +486,7 @@ namespace YellowstonePathology.UI.Surgical
 
                 if (auditResult.Status == Business.Audit.Model.AuditStatusEnum.OK)
                 {
-                    this.PanelSetOrderSurgical.Finalize(Business.User.SystemIdentity.Instance.User);
+                    this.PanelSetOrderSurgical.Finalize();
                     if (this.PanelSetOrderSurgical.Accepted == false)
                     {
                         this.PanelSetOrderSurgical.Accept();

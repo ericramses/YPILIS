@@ -384,7 +384,8 @@ namespace YellowstonePathology.UI
                     YellowstonePathology.Business.ReportDistribution.Model.MultiTestDistributionHandler multiTestDistributionHandler = YellowstonePathology.Business.ReportDistribution.Model.MultiTestDistributionHandlerFactory.GetHandler(accessionOrder);
                     multiTestDistributionHandler.Set();
                     YellowstonePathology.Business.User.SystemUser user = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetSystemUserById(5134);
-                    womensHealthProfileTestOrder.Finalize(user);
+                    womensHealthProfileTestOrder.Finalize();
+
                 }
             }
         }

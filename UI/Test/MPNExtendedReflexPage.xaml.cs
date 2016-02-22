@@ -133,7 +133,7 @@ namespace YellowstonePathology.UI.Test
             Business.Audit.Model.AuditResult auditResult = this.m_MPNExtendedReflexResult.IsOkToFinalize();
             if(auditResult.Status == Business.Audit.Model.AuditStatusEnum.OK)
 			{
-				this.m_MPNExtendedReflexResult.PanelSetOrderMPNExtendedReflex.Finalize(this.m_SystemIdentity.User);
+				this.m_MPNExtendedReflexResult.PanelSetOrderMPNExtendedReflex.Finalize();
 			}
 			else
 			{

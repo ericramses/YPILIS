@@ -69,7 +69,7 @@ namespace YellowstonePathology.UI.Test
 			{
                 if (this.m_IHCQCTestOrder.ControlsReactedAppropriately == true)
                 {
-                    this.m_IHCQCTestOrder.Finalize(this.m_SystemIdentity.User);
+                    this.m_IHCQCTestOrder.Finalize();
                 }
                 else
                 {

@@ -609,16 +609,16 @@ namespace YellowstonePathology.Business.Test.Surgical
             return auditResult;
         }
 
-        public override void Finalize(AccessionOrder accessionOrder, RuleExecutionStatus ruleExecutionStatus, SystemIdentity systemIdentity)
+        public override void Finalize(AccessionOrder accessionOrder, RuleExecutionStatus ruleExecutionStatus)
         {
             this.m_ProfessionalComponentFacilityId = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId;
-            base.Finalize(accessionOrder, ruleExecutionStatus, systemIdentity);
+            base.Finalize(accessionOrder, ruleExecutionStatus);
         }
 
-        public override void Finalize(SystemUser systemUser)
+        public override void Finalize()
         {
             this.m_ProfessionalComponentFacilityId = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId;
-            base.Finalize(systemUser);
+            base.Finalize();
         }
     }
 }

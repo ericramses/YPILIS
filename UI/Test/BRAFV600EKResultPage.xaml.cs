@@ -139,7 +139,7 @@ namespace YellowstonePathology.UI.Test
 			{
 				YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKResultCollection resultCollection = YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKResultCollection.GetAll();
 				YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKResult result = resultCollection.GetResult(this.m_PanelSetOrder.ResultCode, this.m_PanelSetOrder.Indication);
-				result.FinalizeResults(this.m_PanelSetOrder, this.m_SystemIdentity);
+				result.FinalizeResults(this.m_PanelSetOrder);
 
                 YellowstonePathology.Business.Test.KRASStandardReflex.KRASStandardReflexTest krasStandardReflexTest = new YellowstonePathology.Business.Test.KRASStandardReflex.KRASStandardReflexTest();
 				if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(krasStandardReflexTest.PanelSetId) == true)

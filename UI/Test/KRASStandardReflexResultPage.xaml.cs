@@ -123,7 +123,7 @@ namespace YellowstonePathology.UI.Test
 			YellowstonePathology.Business.Rules.MethodResult methodResult = YellowstonePathology.Business.Test.KRASStandardReflex.KRASStandardReflexResult.IsOkToFinal(this.m_KRASStandardReflexResult);
 			if (methodResult.Success == true)
 			{
-				this.m_KRASStandardReflexResult.FinalizeResults(this.m_KRASStandardReflexResult.KRASStandardReflexTestOrder, this.m_SystemIdentity);
+				this.m_KRASStandardReflexResult.FinalizeResults(this.m_KRASStandardReflexResult.KRASStandardReflexTestOrder);
 			}
 			else
 			{

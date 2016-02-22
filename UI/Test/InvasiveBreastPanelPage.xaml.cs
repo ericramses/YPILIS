@@ -121,7 +121,7 @@ namespace YellowstonePathology.UI.Test
 		{
 			if (this.m_InvasiveBreastPanel.Final == false)
 			{
-				this.m_InvasiveBreastPanel.Finalize(this.m_SystemIdentity.User);				
+				this.m_InvasiveBreastPanel.Finalize();				
 			}
 		}
 
