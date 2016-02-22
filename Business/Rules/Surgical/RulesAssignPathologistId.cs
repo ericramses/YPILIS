@@ -47,8 +47,8 @@ namespace YellowstonePathology.Business.Rules.Surgical
         public void AssignPathologist()
         {
             this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_PanelSetOrder.ReportNo);
-            this.m_PanelSetOrder.AssignedToId = this.m_SystemIdentity.User.UserId;
-            this.m_AccessionOrder.CaseOwnerId = this.m_SystemIdentity.User.UserId;
+            this.m_PanelSetOrder.AssignedToId = Business.User.SystemIdentity.Instance.User.UserId;
+            this.m_AccessionOrder.CaseOwnerId = Business.User.SystemIdentity.Instance.User.UserId;
 		}
 
         public void HandleDrNeroPeerReview()
