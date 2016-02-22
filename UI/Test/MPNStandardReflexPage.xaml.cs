@@ -133,7 +133,7 @@ namespace YellowstonePathology.UI.Test
 		{
 			if (this.m_PanelSetOrderMPNStandardReflex.Final == false)
 			{
-				this.m_PanelSetOrderMPNStandardReflex.Finalize(this.m_SystemIdentity.User);
+				this.m_PanelSetOrderMPNStandardReflex.Finalize();
 			}
 		}
 

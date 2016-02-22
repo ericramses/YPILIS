@@ -359,7 +359,7 @@ namespace YellowstonePathology.UI.Test
             }
             else
             {
-                this.m_WomensHealthProfileTestOrder.Finalize(this.m_SystemIdentity.User);
+                this.m_WomensHealthProfileTestOrder.Finalize();
                 this.m_AuditCollection.Run();
                 this.NotifyPropertyChanged("");
             }                        

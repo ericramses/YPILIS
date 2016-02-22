@@ -472,7 +472,7 @@ namespace YellowstonePathology.UI.Flow
                 if (this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.AssignedToId == this.m_SystemIdentity.User.UserId)
                 {
                     YellowstonePathology.Business.Rules.RuleExecutionStatus ruleExecutionStatus = new Business.Rules.RuleExecutionStatus();
-                    this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.Finalize(this.m_FlowUI.AccessionOrder, ruleExecutionStatus, this.m_SystemIdentity);
+                    this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.Finalize(this.m_FlowUI.AccessionOrder, ruleExecutionStatus);
                     this.Save(false);
 
                     if (ruleExecutionStatus.ExecutionHalted == true)

@@ -107,7 +107,7 @@ namespace YellowstonePathology.UI.Test
 		{
             if (this.m_ComprehensiveColonCancerProfile.Final == false)
 			{
-                this.m_ComprehensiveColonCancerProfile.Finalize(this.m_SystemIdentity.User);
+                this.m_ComprehensiveColonCancerProfile.Finalize();
 			}
 			else
 			{

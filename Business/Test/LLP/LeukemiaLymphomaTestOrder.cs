@@ -653,7 +653,7 @@ namespace YellowstonePathology.Business.Test.LLP
 			}
 		}
 
-		public override void Finalize(AccessionOrder accessionOrder, Rules.RuleExecutionStatus ruleExecutionStatus, Business.User.SystemIdentity systemIdentity)
+		public override void Finalize(AccessionOrder accessionOrder, Rules.RuleExecutionStatus ruleExecutionStatus)
 		{
 			this.m_Rule = new Rules.Rule();
 			Rules.ExecutionStatus executionStatus = new Rules.ExecutionStatus();
@@ -667,8 +667,8 @@ namespace YellowstonePathology.Business.Test.LLP
 			}
 			else
 			{
-                this.m_Signature = systemIdentity.User.Signature;
-				base.Finalize(accessionOrder, ruleExecutionStatus, systemIdentity);
+                this.m_Signature = Business.User.SystemIdentity.Instance.User.Signature;
+				base.Finalize(accessionOrder, ruleExecutionStatus);
 				if (executionStatus.Halted)
 				{
 					ruleExecutionStatus.PopulateFromLinqExecutionStatus(executionStatus);

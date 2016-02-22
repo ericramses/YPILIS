@@ -301,7 +301,7 @@ namespace YellowstonePathology.UI.Test
             {
 				YellowstonePathology.Business.Rules.RuleExecutionStatus ruleExecutionStatus = new YellowstonePathology.Business.Rules.RuleExecutionStatus();
 				YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = m_LabUI.PanelSetOrder;
-				panelSetOrder.Finalize(this.m_LabUI.AccessionOrder, ruleExecutionStatus, this.m_SystemIdentity);
+				panelSetOrder.Finalize(this.m_LabUI.AccessionOrder, ruleExecutionStatus);
 
 				if (ruleExecutionStatus.ExecutionHalted == true)
 				{

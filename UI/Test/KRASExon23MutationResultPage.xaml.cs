@@ -102,7 +102,7 @@ namespace YellowstonePathology.UI.Test
             Business.Audit.Model.AuditResult auditResult = this.m_KRASExon23MutationTestOrder.IsOkToFinalize(this.m_AccessionOrder);
             if (auditResult.Status == Business.Audit.Model.AuditStatusEnum.OK)
             {
-                this.m_KRASExon23MutationTestOrder.Finalize(this.m_SystemIdentity.User);
+                this.m_KRASExon23MutationTestOrder.Finalize();
             }
             else
             {
