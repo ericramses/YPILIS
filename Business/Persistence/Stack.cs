@@ -136,7 +136,14 @@ namespace YellowstonePathology.Business.Persistence
                 if(document.Value is YellowstonePathology.Business.Test.AccessionOrder)
                 {
                     //Save even if the lock is not aquired.
-                    document.Submit();
+                    if(document.IsDirty() == true)
+                    {
+                        document.Submit();
+                    }
+                    else
+                    {
+                        documentBuilder.Refresh(document.Value);
+                    }
                 }
                 else
                 {
