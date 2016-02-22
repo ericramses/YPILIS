@@ -204,6 +204,10 @@
     <Compile Include="CellCounter.xaml.cs">
       <DependentUpon>CellCounter.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ClientOrderUI.cs" />
+    <Compile Include="ClientOrderWorkspace.xaml.cs">
+      <DependentUpon>ClientOrderWorkspace.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Client\ClientSupplyOrderDialog.xaml.cs">
       <DependentUpon>ClientSupplyOrderDialog.xaml</DependentUpon>
     </Compile>
@@ -1840,6 +1844,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="CellCounter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ClientOrderWorkspace.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

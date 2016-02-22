@@ -148,7 +148,7 @@
                 </Grid>                    
             </TabItem>
             
-            <TabItem Header="Client Orders">
+            <!--<TabItem Header="Client Orders">
                 <Grid>
 
                     <Grid.RowDefinitions>
@@ -208,7 +208,7 @@
                     </ListView>
                     
                 </Grid>
-            </TabItem>
+            </TabItem>-->
 
 			<TabItem Header="Immediate Tasks">								
 				<Grid>

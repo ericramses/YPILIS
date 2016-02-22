@@ -207,7 +207,7 @@ namespace YellowstonePathology.UI.Login
             }
         }
 
-        private void ListViewClientOrders_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        /*private void ListViewClientOrders_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (this.ListViewClientOrders.SelectedItem != null)
             {                
@@ -229,7 +229,7 @@ namespace YellowstonePathology.UI.Login
                 this.m_BarcodeScanPort.ContainerScanReceived += ContainerScanReceived;
 
             }
-        }
+        }*/
 
         public void GetCase(string masterAccessionNo, string reportNo)
         {
@@ -558,7 +558,7 @@ namespace YellowstonePathology.UI.Login
             this.m_BarcodeScanPort.ContainerScanReceived += ContainerScanReceived;
         }
 
-        private void ButtonClientOrderBack_Click(object sender, RoutedEventArgs e)
+        /*private void ButtonClientOrderBack_Click(object sender, RoutedEventArgs e)
         {
             this.m_LoginUI.ClientOrderDate = this.m_LoginUI.ClientOrderDate.AddDays(-1);
             this.m_LoginUI.GetClientOrderList();
@@ -578,7 +578,7 @@ namespace YellowstonePathology.UI.Login
         private void ButtonHoldList_Click(object sender, RoutedEventArgs e)
         {
             this.m_LoginUI.GetHoldList();
-        }
+        }*/
 
         private void TileGrossEntry_MouseUp(object sender, MouseButtonEventArgs e)
         {
@@ -804,7 +804,7 @@ namespace YellowstonePathology.UI.Login
             }
         }
 
-        private void TextBoxClientOrderSearch_KeyUp(object sender, KeyEventArgs e)
+        /*private void TextBoxClientOrderSearch_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
@@ -824,7 +824,7 @@ namespace YellowstonePathology.UI.Login
                     }
                 }
             }
-        }
+        }*/
 
         private void ButtonTasksNotAcknowledged_Click(object sender, RoutedEventArgs e)
         {
