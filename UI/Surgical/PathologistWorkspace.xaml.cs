@@ -208,7 +208,7 @@ namespace YellowstonePathology.UI.Surgical
 			orderDiaglog.ShowDialog();
 
 			this.Save(false);
-			this.LoadData();
+			//this.LoadData();
 		}
 
 		private void ItemIsSelected(object sender, CanExecuteRoutedEventArgs e)
