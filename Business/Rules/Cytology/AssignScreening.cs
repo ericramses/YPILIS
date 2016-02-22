@@ -20,6 +20,7 @@ namespace YellowstonePathology.Business.Rules.Cytology
 
 		public AssignScreening(object writer)
         {
+            this.m_Writer = writer;
             this.m_Rule = new YellowstonePathology.Business.Rules.Rule();
             this.m_Rule.ActionList.Add(this.Assign);
         }        
@@ -41,9 +42,7 @@ namespace YellowstonePathology.Business.Rules.Cytology
                         cytologyPanelOrder.AssignedToId = this.m_AssignedToId;
                     }
                 }
-            }
-
-            //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_CytologyAccessionOrder, true);			
+            }            
         }
 
 		public void Execute(string masterAccessionNo, int assignToId, YellowstonePathology.Business.Rules.ExecutionStatus executionStatus)
