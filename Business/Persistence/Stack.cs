@@ -142,7 +142,7 @@ namespace YellowstonePathology.Business.Persistence
                     }
                     else
                     {
-                        documentBuilder.Refresh(document.Value);
+                        documentBuilder.Refresh(document.Value);                        
                     }
                 }
                 else

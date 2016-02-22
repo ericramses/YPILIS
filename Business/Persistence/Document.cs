@@ -45,6 +45,15 @@ namespace YellowstonePathology.Business.Persistence
             }            
         }
 
+        public void Refresh(object o)
+        {
+            if (o is YellowstonePathology.Business.Test.AccessionOrder)
+            {
+                YellowstonePathology.Business.Test.AccessionOrder accessionOrder = (YellowstonePathology.Business.Test.AccessionOrder)this.m_Value;
+                this.m_IsLockAquiredByMe = accessionOrder.IsLockAquiredByMe;
+            }
+        }
+
         public void ReleaseLock()
         {
             if (this.m_Value is YellowstonePathology.Business.Test.AccessionOrder)

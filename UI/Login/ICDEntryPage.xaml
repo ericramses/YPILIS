@@ -25,7 +25,8 @@
                 <XmlDataProvider x:Key="ICDCodes" XPath="Codes/Code">
                     <x:XData>
                         <Codes xmlns="">
-
+                            <Code ICD9="V74.5" ICD10="Z11.3" Description="Encounter for screening for infections with a predominantly sexual mode of transmission" Test="NGCT" Quantity="1"/>
+                            <Code ICD9="V73.81" ICD10="Z11.51" Description="Encounter for screening for human papillomavirus (HPV)" Test="Routine HPV" Quantity="1"/>
                             <Code ICD9="V76.2" ICD10="Z12.4" Description="Encounter for screening for malignant neoplasm of cervix" Test="Cytology" Quantity="1"/>
                             <Code ICD9="V72.31" ICD10="Z01.411" Description="Encounter for gynecological examination (general) (routine) with abnormal findings" Test="Cytology" Quantity="1"/>
                             <Code ICD9="V72.31" ICD10="Z01.419" Description="Encounter for gynecological examination (general) (routine) without abnormal findings" Test="Cytology" Quantity="1"/>
@@ -51,8 +52,6 @@
                             <Code ICD9="V22.1" ICD10="Z34.90" Description="Encounter for supervision of normal pregnancy, unspecified, unspecified trimester" Test="Cytology" Quantity="1"/>                            
                             <Code ICD9="V24.1" ICD10="Z39.1" Description="Encounter for care and examination of lactating mother" Test="Cytology" Quantity="1"/>
                             <Code ICD9="V24.2" ICD10="Z39.2" Description="Encounter for routine postpartum follow-up" Test="Cytology" Quantity="1"/>
-                            <Code ICD9="V73.81" ICD10="Z11.51" Description="Encounter for screening for human papillomavirus (HPV)" Test="Routine HPV" Quantity="1"/>
-                            <Code ICD9="V74.5" ICD10="Z11.3" Description="Encounter for screening for infections with a predominantly sexual mode of transmission" Test="NGCT" Quantity="1"/>
                             <Code ICD9="V01.6" ICD10="Z20.2" Description="Contact with and (suspected) exposure to infections with a predominantly sexual mode of transmission" Test="NGCT" Quantity="1"/>
                             <Code ICD9="V73.98" ICD10="Z11.8" Description="Encounter for screening for other infectious and parasitic diseases" Test="NGCT" Quantity="1"/>
                             <Code ICD9="V73.88" ICD10="Z11.8" Description="Encounter for screening for other infectious and parasitic diseases" Test="NGCT" Quantity="1"/>
