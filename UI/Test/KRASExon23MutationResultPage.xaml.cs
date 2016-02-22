@@ -128,7 +128,7 @@ namespace YellowstonePathology.UI.Test
             YellowstonePathology.Business.Rules.MethodResult result = this.m_KRASExon23MutationTestOrder.IsOkToAccept();
             if (result.Success == true)
             {
-                this.m_KRASExon23MutationTestOrder.Accept(this.m_SystemIdentity.User);
+                this.m_KRASExon23MutationTestOrder.Accept();
             }
             else
             {

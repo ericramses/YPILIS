@@ -79,7 +79,7 @@ namespace YellowstonePathology.Business.Test.BRAFV600EK
 
 		public virtual void AcceptResults(YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTestOrder panelSetOrder, YellowstonePathology.Business.Test.PanelOrder panelToAccept, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 		{			
-			panelSetOrder.Accept(systemIdentity.User);
+			panelSetOrder.Accept();
 			panelToAccept.AcceptResults(systemIdentity.User);
 		}
 

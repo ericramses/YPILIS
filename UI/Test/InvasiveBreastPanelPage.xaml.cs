@@ -138,7 +138,7 @@ namespace YellowstonePathology.UI.Test
 			YellowstonePathology.Business.Rules.MethodResult result = this.m_InvasiveBreastPanel.IsOkToAccept();
 			if (result.Success == true)
 			{
-				this.m_InvasiveBreastPanel.Accept(this.m_SystemIdentity.User);
+				this.m_InvasiveBreastPanel.Accept();
 			}
 			else
 			{

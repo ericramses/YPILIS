@@ -24,6 +24,17 @@ namespace YellowstonePathology.Business.Persistence
             this.m_Clone = objectCloner.Clone(this.m_Value);
 
             return result;
-        }             
+        }
+
+        public override bool IsDirty()
+        {
+            bool result = false;
+            YellowstonePathology.Business.Persistence.SqlCommandSubmitter sqlCommandSubmitter = this.GetSqlCommands(this.m_Value);
+            if(sqlCommandSubmitter.HasChanges() == true)
+            {
+                result = true;
+            }
+            return result;
+        }
     }
 }

@@ -20,8 +20,7 @@ namespace YellowstonePathology.UI.Surgical
 	public partial class TypingWorkspace : UserControl
     {        
         public CommandBinding CommandBindingClose;        
-		public CommandBinding CommandBindingShowCaseDocument;
-		public CommandBinding CommandBindingRemoveTab;
+		public CommandBinding CommandBindingShowCaseDocument;		
 		public CommandBinding CommandBindingShowOrderForm;
 		public CommandBinding CommandBindingShowAmendmentDialog;
 
@@ -53,14 +52,12 @@ namespace YellowstonePathology.UI.Surgical
             this.m_SystemIdentity = YellowstonePathology.Business.User.SystemIdentity.Instance;
 
             this.CommandBindingClose = new CommandBinding(MainWindow.ApplicationClosingCommand, HandleAppClosing);            
-			this.CommandBindingShowCaseDocument = new CommandBinding(MainWindow.ShowCaseDocumentCommand, ShowCaseDocument, ItemIsPresent);
-			this.CommandBindingRemoveTab = new CommandBinding(MainWindow.RemoveTabCommand, RemoveTab);
+			this.CommandBindingShowCaseDocument = new CommandBinding(MainWindow.ShowCaseDocumentCommand, ShowCaseDocument, ItemIsPresent);			
 			this.CommandBindingShowOrderForm = new CommandBinding(MainWindow.ShowOrderFormCommand, this.ShowOrderForm, ItemIsSelected);
 			this.CommandBindingShowAmendmentDialog = new CommandBinding(MainWindow.ShowAmendmentDialogCommand, this.ShowAmendmentDialog, ItemIsSelected);			
 
             this.CommandBindings.Add(this.CommandBindingClose);            
-            this.CommandBindings.Add(this.CommandBindingShowCaseDocument);
-			this.CommandBindings.Add(this.CommandBindingRemoveTab);
+            this.CommandBindings.Add(this.CommandBindingShowCaseDocument);			
 			this.CommandBindings.Add(this.CommandBindingShowOrderForm);
 			this.CommandBindings.Add(this.CommandBindingShowAmendmentDialog);                        	
             
@@ -89,7 +86,14 @@ namespace YellowstonePathology.UI.Surgical
 		{
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath += new MainWindowCommandButtonHandler.StartProviderDistributionPathEventHandler(MainWindowCommandButtonHandler_StartProviderDistributionPath);
             this.m_MainWindowCommandButtonHandler.Save += new MainWindowCommandButtonHandler.SaveEventHandler(MainWindowCommandButtonHandler_Save);
-            this.m_MainWindowCommandButtonHandler.Refresh += MainWindowCommandButtonHandler_Refresh;
+            this.m_MainWindowCommandButtonHandler.Refresh += new MainWindowCommandButtonHandler.RefreshEventHandler(MainWindowCommandButtonHandler_Refresh);
+            this.m_MainWindowCommandButtonHandler.RemoveTab += new MainWindowCommandButtonHandler.RemoveTabEventHandler(MainWindowCommandButtonHandler_RemoveTab);
+            if(this.m_TypingUI.SurgicalTestOrder != null) this.m_TypingUI.RunWorkspaceEnableRules();
+        }
+
+        private void MainWindowCommandButtonHandler_RemoveTab(object sender, EventArgs e)
+        {
+            Business.Persistence.DocumentGateway.Instance.Push(this.m_Writer);
         }
 
         private void MainWindowCommandButtonHandler_Refresh(object sender, EventArgs e)
@@ -114,8 +118,7 @@ namespace YellowstonePathology.UI.Surgical
         private void MainWindowCommandButtonHandler_StartProviderDistributionPath(object sender, EventArgs e)
         {
             if (this.m_TypingUI.AccessionOrder != null)
-            {
-                //YellowstonePathology.Business.Persistence.ObjectGateway.Instance.SubmitChanges(this.m_TypingUI.AccessionOrder, this.m_TypingUI);
+            {                
                 YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPath providerDistributionPath =
 					new YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPath(this.m_TypingUI.SurgicalTestOrder.ReportNo, this.m_TypingUI.AccessionOrder,
                     System.Windows.Visibility.Collapsed, System.Windows.Visibility.Visible, System.Windows.Visibility.Collapsed);
@@ -124,11 +127,14 @@ namespace YellowstonePathology.UI.Surgical
         }
 
         private void TypingWorkspace_Unloaded(object sender, RoutedEventArgs e)
-        {            
-			this.Save(false);
+        {
+            MainWindow.MoveKeyboardFocusNextThenBack();
+            this.Save(false);
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath -= MainWindowCommandButtonHandler_StartProviderDistributionPath;
             this.m_MainWindowCommandButtonHandler.Save -= MainWindowCommandButtonHandler_Save;
             this.m_MainWindowCommandButtonHandler.Refresh -= MainWindowCommandButtonHandler_Refresh;
+            this.m_MainWindowCommandButtonHandler.RemoveTab -= MainWindowCommandButtonHandler_RemoveTab;
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save(this.m_Writer);
         }
 
         public void ButtonRefresh_Click(object sender, RoutedEventArgs args)
@@ -148,12 +154,7 @@ namespace YellowstonePathology.UI.Surgical
                 YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.LastReportNo = this.m_TypingUI.SurgicalTestOrder.ReportNo;
                 YellowstonePathology.Business.User.UserPreferenceInstance.Instance.Save();
             }            
-        }        
-
-		public void RemoveTab(object target, ExecutedRoutedEventArgs args)
-		{
-			
-		}
+        }        		
 
 		public void ShowCaseDocument(object target, ExecutedRoutedEventArgs args)
 		{

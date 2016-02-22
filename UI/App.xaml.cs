@@ -126,33 +126,15 @@ namespace YellowstonePathology.UI
 		{
 			this.m_Timer = new System.Timers.Timer();
 			this.m_Timer.Elapsed += new System.Timers.ElapsedEventHandler(Timer_Elapsed);
-
-			DateTime notificationTime = DateTime.Today.AddHours(12);
-			DateTime applicaztionStartTime = DateTime.Now;
-			if (applicaztionStartTime > notificationTime)
-			{
-				notificationTime = notificationTime.AddDays(1);
-			}
-
-			TimeSpan timeToNextNotification = notificationTime - applicaztionStartTime;
-			this.m_Timer.Interval = timeToNextNotification.TotalMilliseconds;
+						
+            TimeSpan timeToNextEvent = new TimeSpan(0, 15, 0);
+			this.m_Timer.Interval = timeToNextEvent.TotalMilliseconds;
 			this.m_Timer.Enabled = true;
 		}
 
 		private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
 		{
-			Version currentVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
-			YellowstonePathology.Business.ApplicationVersion applicationVersion = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.GetApplicationVersion(this);
-			Version availableVersion = new Version(applicationVersion.Version);
-			if (availableVersion > currentVersion)
-			{
-				if (applicationVersion.EnforceChange == true)
-				{					
-					MessageBox.Show("Please restart the LIS as a new version is available", "LIS Restart");
-				}
-			}
-			TimeSpan timeToNextNotification = DateTime.Today.AddDays(1) - DateTime.Today;
-			this.m_Timer.Interval = timeToNextNotification.TotalMilliseconds;
+			
 		}               
     }
 }

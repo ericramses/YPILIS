@@ -23,7 +23,9 @@ namespace YellowstonePathology.UI.Login
 		public LoginPageWindow()
         {                                    
             InitializeComponent();            
+
             this.m_PageNavigator = new UI.Navigation.PageNavigator(this.MainContent);
+            this.m_PageNavigator.PrimaryMonitorWindow = this;
             this.Closing += new System.ComponentModel.CancelEventHandler(LoginPageWindow_Closing);
         }
 

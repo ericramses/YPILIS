@@ -18,13 +18,13 @@ namespace YellowstonePathology.Business.Persistence
         protected Type m_Type;
         protected object m_Clone;
         protected bool m_IsGlobal;
-        protected bool m_IsLockAquiredByMe;
+        protected bool m_IsLockAquiredByMe;        
 
         protected List<object> m_Writers;
 
         public Document()
         {
-            this.m_Writers = new List<object>();
+            this.m_Writers = new List<object>();         
         }
 
         public Document(DocumentId documentId)
@@ -125,7 +125,7 @@ namespace YellowstonePathology.Business.Persistence
         public bool IsGlobal
         {
             get { return this.m_IsGlobal; }
-        }
+        }        
 
         public bool IsLockAquiredByMe
         {
@@ -154,6 +154,11 @@ namespace YellowstonePathology.Business.Persistence
         }
 
         public virtual YellowstonePathology.Business.Persistence.SubmissionResult Submit()
+        {
+            throw new Exception("Not implemented here");
+        }
+
+        public virtual bool IsDirty()
         {
             throw new Exception("Not implemented here");
         }

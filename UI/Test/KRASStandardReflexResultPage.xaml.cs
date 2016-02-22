@@ -183,7 +183,7 @@ namespace YellowstonePathology.UI.Test
 			YellowstonePathology.Business.Rules.MethodResult result = this.m_KRASStandardReflexResult.KRASStandardReflexTestOrder.IsOkToAccept();
 			if (result.Success == true)
 			{
-				this.m_KRASStandardReflexResult.KRASStandardReflexTestOrder.Accept(this.m_SystemIdentity.User);
+				this.m_KRASStandardReflexResult.KRASStandardReflexTestOrder.Accept();
 			}
 			else
 			{

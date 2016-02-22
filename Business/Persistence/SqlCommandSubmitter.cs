@@ -135,5 +135,19 @@ namespace YellowstonePathology.Business.Persistence
             }
             return result;
         }
+
+        public bool HasChanges()
+        {
+            bool result = false;
+            if (this.m_SqlUpdateCommands.Count != 0 || 
+                this.m_SqlInsertCommands.Count != 0 || 
+                this.m_SqlDeleteCommands.Count != 0 ||
+                this.m_SqlDeleteFirstCommands.Count != 0 ||
+                this.m_SqlInsertLastCommands.Count != 0)
+            {
+                result = true;
+            }
+            return result;
+        }
     }
 }

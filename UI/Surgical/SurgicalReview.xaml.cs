@@ -23,16 +23,14 @@ namespace YellowstonePathology.UI.Surgical
 		public event PropertyChangedEventHandler PropertyChanged;
 
         private PathologistUI m_PathologistUI;
-        private string m_CancerCaseSummaryVisibility;
-        private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
+        private string m_CancerCaseSummaryVisibility;        
         private YellowstonePathology.UI.TypingShortcutUserControl m_TypingShortcutUserControl;
 		private YellowstonePathology.Business.View.BillingSpecimenViewCollection m_BillingSpecimenViewCollection;
 
-        public SurgicalReview(YellowstonePathology.UI.TypingShortcutUserControl typingShortcutUserControl, PathologistUI pathologistUI, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        public SurgicalReview(YellowstonePathology.UI.TypingShortcutUserControl typingShortcutUserControl, PathologistUI pathologistUI)
         {
             this.m_TypingShortcutUserControl = typingShortcutUserControl;
-            this.m_PathologistUI = pathologistUI;
-            this.m_SystemIdentity = systemIdentity;
+            this.m_PathologistUI = pathologistUI;            
 
 			this.m_BillingSpecimenViewCollection = new Business.View.BillingSpecimenViewCollection();
 			this.RefreshBillingSpecimenViewCollection();
@@ -110,7 +108,7 @@ namespace YellowstonePathology.UI.Surgical
                 panelOrder.Accepted = true;
                 panelOrder.AcceptedDate = DateTime.Today;
                 panelOrder.AcceptedTime = DateTime.Now;
-                panelOrder.AcceptedById = this.m_SystemIdentity.User.UserId;
+                panelOrder.AcceptedById = Business.User.SystemIdentity.Instance.User.UserId;
             }
         }
 
@@ -165,7 +163,7 @@ namespace YellowstonePathology.UI.Surgical
 
         private void ButtonSignature_Click(object sender, RoutedEventArgs args)
         {
-            if ((this.m_SystemIdentity.User.UserId == 5102 || this.m_SystemIdentity.User.UserId == 5091) && this.PanelSetOrderSurgical.Final == false) //Dr. Durden only and only if signing
+            if ((Business.User.SystemIdentity.Instance.User.UserId == 5102 || Business.User.SystemIdentity.Instance.User.UserId == 5091) && this.PanelSetOrderSurgical.Final == false) //Dr. Durden only and only if signing
             {
                 this.TestSignout();
             }
@@ -184,7 +182,7 @@ namespace YellowstonePathology.UI.Surgical
 
                     YellowstonePathology.Business.Rules.ExecutionStatus executionStatus = new YellowstonePathology.Business.Rules.ExecutionStatus();
                     YellowstonePathology.Business.Rules.Surgical.PathologistFinalRules rules = new YellowstonePathology.Business.Rules.Surgical.PathologistFinalRules();
-                    rules.Execute(this.AccessionOrder, this.PanelSetOrderSurgical, this.m_SystemIdentity, executionStatus);
+                    rules.Execute(this.AccessionOrder, this.PanelSetOrderSurgical, Business.User.SystemIdentity.Instance, executionStatus);
 
                     if (executionStatus.Halted == true && string.IsNullOrEmpty(executionStatus.ExecutionMessagesString) == false)
                     {
@@ -224,7 +222,7 @@ namespace YellowstonePathology.UI.Surgical
 
                     if(canFinal == true)
                     {
-                        amendment.Finalize(this.m_SystemIdentity.User);                    
+                        amendment.Finalize(Business.User.SystemIdentity.Instance.User);                    
                     }
                 }
                 else
@@ -288,7 +286,7 @@ namespace YellowstonePathology.UI.Surgical
         {
             if (this.PanelSetOrderSurgical != null)
             {
-				Common.ReassignCaseDialog reassignCaseDialog = new Common.ReassignCaseDialog(this.PanelSetOrderSurgical, this.m_SystemIdentity);
+				Common.ReassignCaseDialog reassignCaseDialog = new Common.ReassignCaseDialog(this.PanelSetOrderSurgical, Business.User.SystemIdentity.Instance);
                 reassignCaseDialog.ShowDialog();
                 this.Save(false);
             }
@@ -477,10 +475,10 @@ namespace YellowstonePathology.UI.Surgical
             MainWindow.MoveKeyboardFocusNextThenBack();
             if (this.PanelSetOrderSurgical.Final == false)
             {
-                YellowstonePathology.Business.Audit.Model.AuditResult auditResult = this.PanelSetOrderSurgical.IsOkToFinalize(this.m_PathologistUI.AccessionOrder, this.m_SystemIdentity);
+                YellowstonePathology.Business.Audit.Model.AuditResult auditResult = this.PanelSetOrderSurgical.IsOkToFinalize(this.m_PathologistUI.AccessionOrder, Business.User.SystemIdentity.Instance);
                 if(auditResult.Status == Business.Audit.Model.AuditStatusEnum.Failure)
                 {
-                    PathologistSignoutPath pathologistSignoutPath = new PathologistSignoutPath(this.m_PathologistUI.AccessionOrder, this.PanelSetOrderSurgical, this.m_SystemIdentity);
+                    PathologistSignoutPath pathologistSignoutPath = new PathologistSignoutPath(this.m_PathologistUI.AccessionOrder, this.PanelSetOrderSurgical, Business.User.SystemIdentity.Instance);
                     pathologistSignoutPath.Start();
                     this.RefreshBillingSpecimenViewCollection();
                     auditResult = pathologistSignoutPath.IsPathologistSignoutAuditSuccessful();
@@ -488,10 +486,10 @@ namespace YellowstonePathology.UI.Surgical
 
                 if (auditResult.Status == Business.Audit.Model.AuditStatusEnum.OK)
                 {
-                    this.PanelSetOrderSurgical.Finalize(this.m_SystemIdentity.User);
+                    this.PanelSetOrderSurgical.Finalize(Business.User.SystemIdentity.Instance.User);
                     if (this.PanelSetOrderSurgical.Accepted == false)
                     {
-                        this.PanelSetOrderSurgical.Accept(this.m_SystemIdentity.User);
+                        this.PanelSetOrderSurgical.Accept();
                     }
                 }
 

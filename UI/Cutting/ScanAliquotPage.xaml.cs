@@ -37,6 +37,9 @@ namespace YellowstonePathology.UI.Cutting
         public delegate void PrintImmunosEventHandler(object sender, EventArgs eventArgs);
         public event PrintImmunosEventHandler PrintImmunos;
 
+        public delegate void ShowCaseLockedPageEventHandler(object sender, YellowstonePathology.UI.CustomEventArgs.AccessionOrderReturnEventArgs eventArgs);
+        public event ShowCaseLockedPageEventHandler ShowCaseLockedPage;
+
         private YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort m_BarcodeScanPort;		
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         private YellowstonePathology.Business.Test.AliquotOrder m_AliquotOrder;
@@ -101,9 +104,16 @@ namespace YellowstonePathology.UI.Cutting
 
             if (this.m_AccessionOrder != null)
             {
-                this.m_AliquotOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetAliquotOrder(aliquotOrderId);
-                this.AddMaterialTrackingLog(this.m_AliquotOrder);
-                this.AliquotOrderSelected(this, new CustomEventArgs.AliquotOrderAccessionOrderReturnEventArgs(this.m_AliquotOrder, this.m_AccessionOrder));
+                if(this.m_AccessionOrder.IsLockAquiredByMe == true)
+                {
+                    this.m_AliquotOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetAliquotOrder(aliquotOrderId);
+                    this.AddMaterialTrackingLog(this.m_AliquotOrder);
+                    this.AliquotOrderSelected(this, new CustomEventArgs.AliquotOrderAccessionOrderReturnEventArgs(this.m_AliquotOrder, this.m_AccessionOrder));
+                }
+                else
+                {
+                    if (this.ShowCaseLockedPage != null) this.ShowCaseLockedPage(this, new CustomEventArgs.AccessionOrderReturnEventArgs(this.m_AccessionOrder));
+                }
             }
             else
             {

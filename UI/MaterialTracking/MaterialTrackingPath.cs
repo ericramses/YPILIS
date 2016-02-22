@@ -25,7 +25,8 @@ namespace YellowstonePathology.UI.MaterialTracking
         public void Start()
         {
             this.m_LoginPageWindow = new Login.LoginPageWindow();
-            this.m_LoginPageWindow.Title = "Material Tracking";
+            this.m_LoginPageWindow.Title = "Material Tracking";            
+
             if (this.m_StartNew == true)
             {
                 this.ShowMaterialTrackingCasePage();
@@ -87,7 +88,7 @@ namespace YellowstonePathology.UI.MaterialTracking
 			YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogCollection materialTrackingLogCollection)
         {
             YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullMaterialTrackingBatch(materialTrackingBatch, m_LoginPageWindow);
-            this.m_MaterialBatchPage = new MaterialBatchPage(materialTrackingBatch, materialTrackingLogCollection, true, true, false, this.m_UseMasterAccessionNo, this.m_MasterAccessionNo);
+            this.m_MaterialBatchPage = new MaterialBatchPage(materialTrackingBatch, materialTrackingLogCollection, true, true, false, this.m_UseMasterAccessionNo, this.m_MasterAccessionNo, this.m_LoginPageWindow.PageNavigator);
             this.m_MaterialBatchPage.Back += new MaterialBatchPage.BackEventHandler(MaterialBatchPage_Back);
             this.m_MaterialBatchPage.Next += new MaterialBatchPage.NextEventHandler(MaterialBatchPage_Next);
             this.m_MaterialBatchPage.ShowTrackingDocument += new MaterialBatchPage.ShowTrackingDocumentEventHandler(MaterialBatchPage_ShowTrackingDocument);

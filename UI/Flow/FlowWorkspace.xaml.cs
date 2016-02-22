@@ -39,11 +39,8 @@ namespace YellowstonePathology.UI.Flow
             this.m_Writer = writer;
             this.m_SystemIdentity = YellowstonePathology.Business.User.SystemIdentity.Instance;
 
-            this.CommandBindingApplicationClosing = new CommandBinding(MainWindow.ApplicationClosingCommand, this.ApplicationClosing);                        
-            this.CommandBindingRemoveTab = new CommandBinding(MainWindow.RemoveTabCommand, RemoveTab);            
-
-            this.CommandBindings.Add(this.CommandBindingApplicationClosing);                        
-            this.CommandBindings.Add(this.CommandBindingRemoveTab);            
+            this.CommandBindingApplicationClosing = new CommandBinding(MainWindow.ApplicationClosingCommand, this.ApplicationClosing);                                    
+            this.CommandBindings.Add(this.CommandBindingApplicationClosing);                                    
 
             this.m_DocumentViewer = new DocumentWorkspace();
 
@@ -56,7 +53,7 @@ namespace YellowstonePathology.UI.Flow
             this.tabItemDocumentViewer.Content = this.m_DocumentViewer;            
             this.tabControlFlow.SelectionChanged += new SelectionChangedEventHandler(tabControlFlow_SelectionChanged);
             
-            this.Unloaded += new RoutedEventHandler(FlowWorkspace_Unloaded);
+            this.Unloaded += new RoutedEventHandler(FlowWorkspace_Unloaded);            
         }
 
         private void FlowWorkspace_Loaded(object sender, RoutedEventArgs e)
@@ -69,12 +66,18 @@ namespace YellowstonePathology.UI.Flow
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath += new MainWindowCommandButtonHandler.StartProviderDistributionPathEventHandler(MainWindowCommandButtonHandler_StartProviderDistributionPath);
             this.m_MainWindowCommandButtonHandler.ShowAmendmentDialog += new MainWindowCommandButtonHandler.ShowAmendmentDialogEventHandler(MainWindowCommandButtonHandler_ShowAmendmentDialog);
             this.m_MainWindowCommandButtonHandler.Save += new MainWindowCommandButtonHandler.SaveEventHandler(MainWindowCommandButtonHandler_Save);
+            this.m_MainWindowCommandButtonHandler.RemoveTab += new MainWindowCommandButtonHandler.RemoveTabEventHandler(MainWindowCommandButtonHandler_RemoveTab);
             this.m_MainWindowCommandButtonHandler.Refresh += MainWindowCommandButtonHandler_Refresh;
         }
 
         private void MainWindowCommandButtonHandler_Refresh(object sender, EventArgs e)
         {
 
+        }
+
+        private void MainWindowCommandButtonHandler_RemoveTab(object sender, EventArgs e)
+        {
+            Business.Persistence.DocumentGateway.Instance.Push(this.m_Writer);
         }
 
         private void MainWindowCommandButtonHandler_Save(object sender, EventArgs e)
@@ -122,14 +125,11 @@ namespace YellowstonePathology.UI.Flow
             this.m_MainWindowCommandButtonHandler.ShowAmendmentDialog -= MainWindowCommandButtonHandler_ShowAmendmentDialog;
             this.m_MainWindowCommandButtonHandler.Save -= MainWindowCommandButtonHandler_Save;
             this.m_MainWindowCommandButtonHandler.Refresh -= MainWindowCommandButtonHandler_Refresh;
+            this.m_MainWindowCommandButtonHandler.RemoveTab -= MainWindowCommandButtonHandler_RemoveTab;
 
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save(this.m_Writer);
             this.Save(false);
-        }
-
-        public void RemoveTab(object target, ExecutedRoutedEventArgs args)
-        {
-            this.Save(true);
-        }
+        }        
 
         private void ApplicationClosing(object target, ExecutedRoutedEventArgs args)
         {

@@ -45,8 +45,7 @@ namespace YellowstonePathology.UI.Test
         private Window m_ParentWindow;
 
         public WomensHealthProfilePage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-            YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder,            
-            YellowstonePathology.Business.User.SystemIdentity systemIdentity,
+            YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder, 
             System.Windows.Visibility backButtonVisibility)
         {
             this.m_AccessionOrder = accessionOrder;
@@ -58,7 +57,7 @@ namespace YellowstonePathology.UI.Test
             
             this.m_ClientOrder = clientOrder;
 			this.m_WomensHealthProfileTestOrder = (YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(116);
-            this.m_SystemIdentity = systemIdentity;
+            this.m_SystemIdentity = Business.User.SystemIdentity.Instance;
             this.m_BackButtonVisibility = backButtonVisibility;
 
 			this.m_Physician = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianByPhysicianId(this.m_AccessionOrder.PhysicianId);
@@ -391,7 +390,7 @@ namespace YellowstonePathology.UI.Test
 			YellowstonePathology.Business.Rules.MethodResult result = this.m_WomensHealthProfileTestOrder.IsOkToAccept();
 			if (result.Success == true)
 			{
-				this.m_WomensHealthProfileTestOrder.Accept(this.m_SystemIdentity.User);
+				this.m_WomensHealthProfileTestOrder.Accept();
 			}
 			else
 			{

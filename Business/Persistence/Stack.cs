@@ -140,7 +140,14 @@ namespace YellowstonePathology.Business.Persistence
                 }
                 else
                 {
-                    documentBuilder.Refresh(document.Value);
+                    if(document.IsDirty() == true)
+                    {
+                        System.Windows.MessageBox.Show("We have detected a problem with the system.  Please contact Sid immediately.  Thank You.");
+                    }
+                    else
+                    {
+                        documentBuilder.Refresh(document.Value);
+                    }                    
                 }
             }   
             else if(this.WriterTypeExists(documentId) == true)

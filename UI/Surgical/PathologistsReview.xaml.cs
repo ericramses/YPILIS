@@ -94,8 +94,14 @@ namespace YellowstonePathology.UI.Surgical
 
 			this.m_TreeViewWorkspace = new Common.TreeViewWorkspace(this.m_PathologistUI.AccessionOrder, this.m_SystemIdentity);
             this.m_TreeViewWorkspace.IsEnabled = this.m_PathologistUI.AccessionOrder.IsLockAquiredByMe;
-            this.tabItemTreeView.Content = this.m_TreeViewWorkspace;			
+            this.tabItemTreeView.Content = this.m_TreeViewWorkspace;
+            this.Unloaded += PathologistsReview_Unloaded;			
 		}
+
+        private void PathologistsReview_Unloaded(object sender, RoutedEventArgs e)
+        {
+            MainWindow.MoveKeyboardFocusNextThenBack();
+        }
 
         public void NotifyPropertyChanged(String info)
 		{
@@ -144,7 +150,7 @@ namespace YellowstonePathology.UI.Surgical
 						break;
 					case 13:
 					case 128:
-						reviewContent = new SurgicalReview(this.m_TypingShortcutUserControl, this.m_PathologistUI, this.m_SystemIdentity);
+						reviewContent = new SurgicalReview(this.m_TypingShortcutUserControl, this.m_PathologistUI);
 						historyContent = new SurgicalHistory(this.m_PathologistUI);
 						break;
 					default:

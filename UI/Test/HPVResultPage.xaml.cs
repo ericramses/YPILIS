@@ -169,7 +169,7 @@ namespace YellowstonePathology.UI.Test
             YellowstonePathology.Business.Rules.MethodResult methodResult = this.m_HPVTestOrder.IsOkToAccept();
             if (methodResult.Success == true)
             {                                
-                this.m_HPVTestOrder.Accept(this.m_SystemIdentity.User);
+                this.m_HPVTestOrder.Accept();
             }
             else
             {

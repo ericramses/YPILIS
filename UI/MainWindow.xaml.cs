@@ -438,8 +438,7 @@ namespace YellowstonePathology.UI
 				this.m_TabItemTyping.Content = this.m_TypingWorkspace;
                 this.TabControlLeftWorkspace.Items.Add(this.m_TabItemTyping);
                 this.m_TabItemTyping.Focus();                
-                this.m_TypingWorkspace.Loaded += new RoutedEventHandler(this.TypingWorkspace_Loaded);
-				this.CommandBindings.Add(m_TypingWorkspace.CommandBindingRemoveTab);
+                this.m_TypingWorkspace.Loaded += new RoutedEventHandler(this.TypingWorkspace_Loaded);				
 			}
         }        
 
@@ -460,8 +459,7 @@ namespace YellowstonePathology.UI
                 this.m_TabItemFlow.Content = this.m_FlowWorkspace;
                 this.TabControlLeftWorkspace.Items.Add(this.m_TabItemFlow);
                 this.m_TabItemFlow.Focus();                
-                this.m_FlowWorkspace.Loaded += new RoutedEventHandler(this.FlowWorkspace_Loaded);
-				this.CommandBindings.Add(m_FlowWorkspace.CommandBindingRemoveTab);
+                this.m_FlowWorkspace.Loaded += new RoutedEventHandler(this.FlowWorkspace_Loaded);				
 			}
         }
 

@@ -95,7 +95,7 @@ namespace YellowstonePathology.UI.ReportOrder
 			YellowstonePathology.Business.Rules.MethodResult result = this.m_PanelSetOrder.IsOkToAccept();
 			if (result.Success == true)
 			{
-				this.m_PanelSetOrder.Accept(this.m_SystemIdentity.User);
+				this.m_PanelSetOrder.Accept();
 			}
 			else
 			{

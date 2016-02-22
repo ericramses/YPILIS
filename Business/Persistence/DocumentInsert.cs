@@ -24,6 +24,11 @@ namespace YellowstonePathology.Business.Persistence
             InsertCommandBuilder insertCommandBuilder = new InsertCommandBuilder();
             insertCommandBuilder.Build(this.m_Value, objectSubmitter.SqlInsertCommands, objectSubmitter.SqlInsertLastCommands);
             return objectSubmitter.SubmitChanges();
-        }        
+        }
+
+        public override bool IsDirty()
+        {
+            return false;
+        }
     }
 }

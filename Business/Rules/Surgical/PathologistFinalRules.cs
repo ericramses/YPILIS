@@ -320,7 +320,7 @@ namespace YellowstonePathology.Business.Rules.Surgical
 				this.m_PanelSetOrderSurgical.Finalize(this.m_SystemIdentity.User);                				
 				if (this.m_PanelSetOrderSurgical.Accepted == false)
 				{
-					this.m_PanelSetOrderSurgical.Accept(this.m_SystemIdentity.User);
+					this.m_PanelSetOrderSurgical.Accept();
 				}
 			}
 		}

@@ -9,14 +9,7 @@ using System.Runtime.Serialization;
 namespace YellowstonePathology.Business.ClientOrder.Model
 {        
     public partial class ClientOrderCollection : ObservableCollection<YellowstonePathology.Business.ClientOrder.Model.ClientOrder>
-    {        
-        /*public void AddNotFoundClientOrder()
-        {            
-            YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder = new ClientOrder();
-            clientOrder.ClientName = "Not Record Found";
-            this.Add(clientOrder);
-        }*/
-
+    {                
         public YellowstonePathology.Business.ClientOrder.Model.ClientOrder GetClientOrderBySvhAccount(string svhAccount)
         {
             YellowstonePathology.Business.ClientOrder.Model.ClientOrder result = null;
@@ -85,23 +78,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 				}
 			}
 			return result;
-		}        
-
-		/*public static ClientOrder GetNewLisOrder(int panelSetId)
-		{            
-            return GetNewOrder(panelSetId, "YPIILIS");
-		}        
-
-        public static ClientOrder GetNewOrder(int panelSetId, string systemInitiatingOrder)
-        {
-            ClientOrder clientOrder = ClientOrderFactory.GetClientOrder(panelSetId);            
-            clientOrder.ClientOrderId = Guid.NewGuid().ToString();
-            clientOrder.PanelSetId = panelSetId;
-            clientOrder.SystemInitiatingOrder = systemInitiatingOrder;            
-            clientOrder.OrderDate = DateTime.Today;
-            clientOrder.OrderTime = DateTime.Now;
-            return clientOrder;
-        }*/
+		}        		
 
 		public List<ClientOrder> GetClientOrdersForSystemInitiatingOrder(string systemOriginatingOrder)
 		{

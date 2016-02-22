@@ -81,6 +81,13 @@ namespace YellowstonePathology.UI.Surgical
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath += new MainWindowCommandButtonHandler.StartProviderDistributionPathEventHandler(MainWindowCommandButtonHandler_StartProviderDistributionPath);
             this.m_MainWindowCommandButtonHandler.ShowAmendmentDialog += MainWindowCommandButtonHandler_ShowAmendmentDialog;
             this.m_MainWindowCommandButtonHandler.Refresh += MainWindowCommandButtonHandler_Refresh;
+            this.m_MainWindowCommandButtonHandler.RemoveTab += new MainWindowCommandButtonHandler.RemoveTabEventHandler(MainWindowCommandButtonHandler_RemoveTab);
+            if(this.m_PathologistUI.AccessionOrder != null) this.m_PathologistUI.RunWorkspaceEnableRules();
+        }
+
+        private void MainWindowCommandButtonHandler_RemoveTab(object sender, EventArgs e)
+        {
+            Business.Persistence.DocumentGateway.Instance.Push(this.m_Writer);
         }
 
         private void MainWindowCommandButtonHandler_StartProviderDistributionPath(object sender, EventArgs e)
@@ -95,7 +102,9 @@ namespace YellowstonePathology.UI.Surgical
 
 		public void PathologistWorkspace_Unloaded(object sender, RoutedEventArgs e)
 		{
-			this.m_MainWindowCommandButtonHandler.Save -= MainWindowCommandButtonHandler_Save;
+            MainWindow.MoveKeyboardFocusNextThenBack();
+
+            this.m_MainWindowCommandButtonHandler.Save -= MainWindowCommandButtonHandler_Save;
 			this.m_MainWindowCommandButtonHandler.ShowCaseDocument -= MainWindowCommandButtonHandler_ShowCaseDocument;
 			this.m_MainWindowCommandButtonHandler.ShowOrderForm -= MainWindowCommandButtonHandler_ShowOrderForm;
 			this.m_MainWindowCommandButtonHandler.AssignCase -= MainWindowCommandButtonHandler_AssignCase;
@@ -105,6 +114,8 @@ namespace YellowstonePathology.UI.Surgical
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath -= MainWindowCommandButtonHandler_StartProviderDistributionPath;
             this.m_MainWindowCommandButtonHandler.ShowAmendmentDialog -= MainWindowCommandButtonHandler_ShowAmendmentDialog;
             this.m_MainWindowCommandButtonHandler.Refresh -= MainWindowCommandButtonHandler_Refresh;
+            this.m_MainWindowCommandButtonHandler.RemoveTab -= MainWindowCommandButtonHandler_RemoveTab;
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save(this.m_Writer);
         }
 
         private void MainWindowCommandButtonHandler_Refresh(object sender, EventArgs e)

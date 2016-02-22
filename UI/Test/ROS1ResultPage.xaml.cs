@@ -135,7 +135,7 @@ namespace YellowstonePathology.UI.Test
             {
                 if (this.m_ROS1ByFISHTestOrder.Accepted == false)
                 {
-                    this.m_ROS1ByFISHTestOrder.Accept(this.m_SystemIdentity.User);
+                    this.m_ROS1ByFISHTestOrder.Accept();
                 }
                 else
                 {

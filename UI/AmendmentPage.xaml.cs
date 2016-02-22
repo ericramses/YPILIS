@@ -126,7 +126,7 @@ namespace YellowstonePathology.UI
             YellowstonePathology.Business.Rules.MethodResult methodResult = this.m_Amendment.IsOkToAccept();
             if (methodResult.Success == true)
             {
-                this.m_Amendment.Accept(this.m_SystemIdentity.User);
+                this.m_Amendment.Accept(Business.User.SystemIdentity.Instance.User);
             }
             else
             {

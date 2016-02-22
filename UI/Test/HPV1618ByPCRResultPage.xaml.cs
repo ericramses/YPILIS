@@ -146,7 +146,7 @@ namespace YellowstonePathology.UI.Test
 			YellowstonePathology.Business.Rules.MethodResult methodResult = YellowstonePathology.Business.Test.HPV1618ByPCR.HPV1618ByPCRResult.IsOkToAccept(this.m_HPV1618ByPCRTestOrder);
 			if (methodResult.Success == true)
 			{
-                this.m_HPV1618ByPCRTestOrder.Accept(this.m_SystemIdentity.User);
+                this.m_HPV1618ByPCRTestOrder.Accept();
 			}
 			else
 			{

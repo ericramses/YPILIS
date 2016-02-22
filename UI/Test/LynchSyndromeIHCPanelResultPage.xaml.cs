@@ -161,7 +161,7 @@ namespace YellowstonePathology.UI.Test
 			YellowstonePathology.Business.Rules.MethodResult result = this.m_PanelSetOrderLynchSyndromeIHC.IsOkToAccept();
 			if (result.Success == true)
 			{
-				this.m_PanelSetOrderLynchSyndromeIHC.Accept(this.m_SystemIdentity.User);
+				this.m_PanelSetOrderLynchSyndromeIHC.Accept();
 			}
 			else
 			{

@@ -1664,12 +1664,12 @@ namespace YellowstonePathology.Business.Test
 			return "The result string for this test has not been implemented.";
 		}
 
-		public void Accept(Business.User.SystemUser systemUser)
+		public void Accept()
 		{
 			this.m_Accepted = true;
-			this.m_AcceptedById = systemUser.UserId;
-			this.m_AcceptedBy = systemUser.DisplayName;
-			this.m_AcceptedDate = DateTime.Today;
+            this.m_AcceptedById = Business.User.SystemIdentity.Instance.User.UserId;
+			this.m_AcceptedBy = Business.User.SystemIdentity.Instance.User.DisplayName;
+            this.m_AcceptedDate = DateTime.Today;
 			this.m_AcceptedTime = DateTime.Now;
 			this.NotifyPropertyChanged(string.Empty);
 		}

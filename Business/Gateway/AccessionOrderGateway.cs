@@ -18,7 +18,7 @@ namespace YellowstonePathology.Business.Gateway
         {
             YellowstonePathology.Business.Domain.LockItemCollection result = new Domain.LockItemCollection();
             SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "Select MasterAccessionNo KeyString, LockAquiredByUserName LockedBy, LockAquiredByHostName ComputerName, TimeLockAquired LockDate from tblAccessionOrder where LockAquired = 1";
+            cmd.CommandText = "Select MasterAccessionNo KeyString, LockAquiredByUserName LockedBy, LockAquiredByHostName ComputerName, TimeLockAquired LockDate from tblAccessionOrder where LockAquired = 1 order by TimeLockAquired desc";
 
             cmd.CommandType = CommandType.Text;
 

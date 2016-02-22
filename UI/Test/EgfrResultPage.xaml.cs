@@ -174,7 +174,7 @@ namespace YellowstonePathology.UI.Test
 			YellowstonePathology.Business.Rules.MethodResult result = this.m_EGFRMutationAnalysisTestOrder.IsOkToAccept();
 			if (result.Success == true)
 			{
-				this.m_EGFRMutationAnalysisTestOrder.Accept(this.m_SystemIdentity.User);
+				this.m_EGFRMutationAnalysisTestOrder.Accept();
 			}
 			else
 			{

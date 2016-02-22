@@ -34,9 +34,10 @@ namespace YellowstonePathology.UI.MaterialTracking
             this.m_MaterialTrackingBatchCollection = materialTrackingBatchCollection;            
 			InitializeComponent();
             this.DataContext = this;
-		}
+            this.Loaded += MaterialTrackingStartPage_Loaded;
+		}        
 
-		public MaterialTrackingStartPage(YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatchCollection materialTrackingBatchCollection, string masterAccessionNo)
+        public MaterialTrackingStartPage(YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatchCollection materialTrackingBatchCollection, string masterAccessionNo)
         {
             this.m_MaterialTrackingBatchCollection = materialTrackingBatchCollection;
             this.m_UseMasterAccessionNo = true;
@@ -44,9 +45,17 @@ namespace YellowstonePathology.UI.MaterialTracking
 
             InitializeComponent();
             this.DataContext = this;
+
+
+            this.Loaded += MaterialTrackingStartPage_Loaded;
         }
 
-		public YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatchCollection MaterialTrackingBatchCollection
+        private void MaterialTrackingStartPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(Window.GetWindow(this));
+        }
+
+        public YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatchCollection MaterialTrackingBatchCollection
         {
             get { return this.m_MaterialTrackingBatchCollection; }
         }

@@ -788,7 +788,7 @@
 								Checked="RadioButtonFlowSearch_Checked"
 								Style="{StaticResource RadioButtonStyle}"
 							  GroupName="radioButtonGroupSearch">Report No:</RadioButton>
-							<TextBox Name="textBoxSearchReportNo" Width="100" Visibility="Hidden">15-</TextBox>
+							<TextBox Name="textBoxSearchReportNo" Width="100" Visibility="Hidden">16-</TextBox>
 						</StackPanel>
 						<StackPanel Orientation="Horizontal">
 							<RadioButton Name="radioButtonSearchPatientName"

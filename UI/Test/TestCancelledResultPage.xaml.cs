@@ -94,7 +94,7 @@ namespace YellowstonePathology.UI.Test
         {
             if (this.m_ReportOrderTestCancelled.Accepted == false)
             {
-                this.m_ReportOrderTestCancelled.Accept(this.m_SystemIdentity.User);
+                this.m_ReportOrderTestCancelled.Accept();
             }
             else
             {

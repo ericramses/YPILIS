@@ -149,7 +149,7 @@ namespace YellowstonePathology.UI.Test
             YellowstonePathology.Business.Rules.MethodResult result = this.m_RASRAFPanelTestOrder.IsOkToAccept();
             if (result.Success == true)
             {
-                this.m_RASRAFPanelTestOrder.Accept(this.m_SystemIdentity.User);
+                this.m_RASRAFPanelTestOrder.Accept();
             }
             else
             {

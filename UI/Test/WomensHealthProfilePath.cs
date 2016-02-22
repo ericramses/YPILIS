@@ -28,7 +28,7 @@ namespace YellowstonePathology.UI.Login
 
         protected override void ShowResultPage()
         {
-			this.m_WomensHealthProfilePage = new Test.WomensHealthProfilePage(this.m_AccessionOrder, this.m_ClientOrder, this.m_SystemIdentity, this.m_BackButtonVisibility);
+			this.m_WomensHealthProfilePage = new Test.WomensHealthProfilePage(this.m_AccessionOrder, this.m_ClientOrder, this.m_BackButtonVisibility);
 			this.m_WomensHealthProfilePage.Finished += new Test.WomensHealthProfilePage.FinishedEventHandler(WomensHealthProfilePage_Finished);
             this.m_WomensHealthProfilePage.Back += new Test.WomensHealthProfilePage.BackEventHandler(WomensHealthProfilePage_Back);
             this.m_PageNavigator.Navigate(this.m_WomensHealthProfilePage);

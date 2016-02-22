@@ -80,6 +80,11 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
         private void ProviderDetailPage_Loaded(object sender, RoutedEventArgs e)
         {            
+            if(this.m_AccessionOrder.IsLockAquiredByMe == false)
+            {
+                this.GridLeftNav.IsEnabled = false;
+            }
+
             this.m_ClientPhysicianNotSetAuditCollection.Run();
             this.SetProviderStatusColor();
             this.ButtonProviderLookup.Focus();

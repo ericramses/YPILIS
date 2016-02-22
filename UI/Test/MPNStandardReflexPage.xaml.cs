@@ -150,7 +150,7 @@ namespace YellowstonePathology.UI.Test
 			YellowstonePathology.Business.Rules.MethodResult result = this.m_PanelSetOrderMPNStandardReflex.IsOkToAccept();
 			if (result.Success == true)
 			{
-				this.m_PanelSetOrderMPNStandardReflex.Accept(this.m_SystemIdentity.User);
+				this.m_PanelSetOrderMPNStandardReflex.Accept();
 			}
 			else
 			{
