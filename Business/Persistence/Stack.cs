@@ -66,7 +66,7 @@ namespace YellowstonePathology.Business.Persistence
                 document.Submit();
                 this.m_Documents.Remove(document);
             }
-        }
+        }        
 
         public void Clear(object writer)
         {
@@ -134,7 +134,7 @@ namespace YellowstonePathology.Business.Persistence
                 }                
                 
                 if(document.Value is YellowstonePathology.Business.Test.AccessionOrder)
-                {
+                {                    
                     //Save even if the lock is not aquired.
                     if(document.IsDirty() == true)
                     {
@@ -142,7 +142,9 @@ namespace YellowstonePathology.Business.Persistence
                     }
                     else
                     {
-                        documentBuilder.Refresh(document.Value);                        
+                        documentBuilder.Refresh(document.Value);
+                        Business.Test.AccessionOrder accessionOrder = (Business.Test.AccessionOrder)document.Value;                        
+                        document.IsLockAquiredByMe = accessionOrder.IsLockAquiredByMe;
                     }
                 }
                 else
@@ -184,11 +186,17 @@ namespace YellowstonePathology.Business.Persistence
                 else
                 {
                     object value = documentBuilder.BuildNew();
-                    documentId.Value = value;                    
+                    documentId.Value = value;
                 }
 
                 document = new DocumentUpdate(documentId);
                 this.m_Documents.Add(document);
+
+                if (document.Value is YellowstonePathology.Business.Test.AccessionOrder)
+                {
+                    Business.Test.AccessionOrder accessionOrder = (Business.Test.AccessionOrder)document.Value;
+                    document.IsLockAquiredByMe = accessionOrder.IsLockAquiredByMe;
+                }
             }
 
             return document;

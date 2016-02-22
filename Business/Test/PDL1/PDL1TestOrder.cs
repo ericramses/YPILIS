@@ -20,8 +20,7 @@ namespace YellowstonePathology.Business.Test.PDL1
         public PDL1TestOrder(string masterAccessionNo, string reportNo, string objectId,
             YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
             YellowstonePathology.Business.Interface.IOrderTarget orderTarget,
-            bool distribute,
-            YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+            bool distribute)
             : base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute)
         {
 
