@@ -51,7 +51,6 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
 		private void ButtonFinish_Click(object sender, RoutedEventArgs e)
 		{
-
 			if(this.Finish != null) this.Finish(this, new EventArgs());
 		}
 
