@@ -150,7 +150,8 @@ namespace YellowstonePathology.Business.Persistence
                 {
                     if(document.IsDirty() == true)
                     {
-                        System.Windows.MessageBox.Show("We have detected a problem with the system.  Please contact Sid immediately.  Thank You.");
+                        document.Submit();
+                        //System.Windows.MessageBox.Show("We have detected a problem with the system.  Please contact Sid immediately.  Thank You.");
                     }
                     else
                     {
