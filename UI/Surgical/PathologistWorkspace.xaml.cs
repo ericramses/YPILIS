@@ -115,7 +115,7 @@ namespace YellowstonePathology.UI.Surgical
             this.m_MainWindowCommandButtonHandler.ShowAmendmentDialog -= MainWindowCommandButtonHandler_ShowAmendmentDialog;
             this.m_MainWindowCommandButtonHandler.Refresh -= MainWindowCommandButtonHandler_Refresh;
             this.m_MainWindowCommandButtonHandler.RemoveTab -= MainWindowCommandButtonHandler_RemoveTab;
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save(this.m_Writer);
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
         }
 
         private void MainWindowCommandButtonHandler_Refresh(object sender, EventArgs e)
@@ -207,8 +207,7 @@ namespace YellowstonePathology.UI.Surgical
 			YellowstonePathology.UI.Common.OrderDialog orderDiaglog = new YellowstonePathology.UI.Common.OrderDialog(this.m_PathologistUI.AccessionOrder, this.m_PathologistUI.PanelSetOrder);
 			orderDiaglog.ShowDialog();
 
-			this.Save(false);
-			//this.LoadData();
+			this.Save(false);			
 		}
 
 		private void ItemIsSelected(object sender, CanExecuteRoutedEventArgs e)

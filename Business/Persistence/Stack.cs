@@ -82,13 +82,13 @@ namespace YellowstonePathology.Business.Persistence
             }
         }
 
-        public void Save(object writer)
+        public void Save()
         {
             foreach (Document document in this.m_Documents)
             {
                 document.Submit();
             }
-        }
+        }        
 
         public void Push(object writer)
         {            

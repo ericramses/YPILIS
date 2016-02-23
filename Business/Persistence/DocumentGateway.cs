@@ -51,10 +51,10 @@ namespace YellowstonePathology.Business.Persistence
             get { return this.m_Stack.Documents; }
         }
 
-        public void Save(object writer)
+        public void Save()
         {
-            this.m_Stack.Save(writer);
-        }
+            this.m_Stack.Save();
+        }        
 
         public void Push(object writer)
         {

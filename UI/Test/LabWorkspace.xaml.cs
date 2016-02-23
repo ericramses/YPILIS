@@ -138,6 +138,8 @@ namespace YellowstonePathology.UI.Test
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath -= MainWindowCommandButtonHandler_StartProviderDistributionPath;
             this.m_MainWindowCommandButtonHandler.Save -= MainWindowCommandButtonHandler_Save;
             this.m_MainWindowCommandButtonHandler.Refresh -= MainWindowCommandButtonHandler_Refresh;
+
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
         }
 
         public void RemoveTab(object target, ExecutedRoutedEventArgs args)

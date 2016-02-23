@@ -244,7 +244,7 @@ namespace YellowstonePathology.Business.Search
 
 					if (ruleExecutionStatus.ExecutionHalted == false)
 					{
-                        YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save(this.m_Writer);
+                        YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
 					}
 				}
 			}

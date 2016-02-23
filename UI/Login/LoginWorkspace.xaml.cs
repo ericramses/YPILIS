@@ -151,7 +151,7 @@ namespace YellowstonePathology.UI.Login
             this.m_MainWindowCommandButtonHandler.Refresh -= MainWindowCommandButtonHandler_Refresh;
             this.m_MainWindowCommandButtonHandler.RemoveTab -= MainWindowCommandButtonHandler_RemoveTab;
 
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this.m_Writer);
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
         }
 
         public void RemoveTab(object target, ExecutedRoutedEventArgs args)
