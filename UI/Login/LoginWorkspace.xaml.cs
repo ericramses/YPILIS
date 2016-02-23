@@ -814,6 +814,11 @@ namespace YellowstonePathology.UI.Login
                         YellowstonePathology.Business.PatientName patientName = (YellowstonePathology.Business.PatientName)textSearchObject;
                         this.m_LoginUI.GetReportSearchListByPatientName(patientName);
                     }
+
+                    if (this.m_LoginUI.AccessionOrder != null)
+                    {
+                        YellowstonePathology.Business.Persistence.DocumentGateway.Instance.ReleaseLock(this.m_LoginUI.AccessionOrder, this.m_Writer);
+                    }
                 }
             }
         }
