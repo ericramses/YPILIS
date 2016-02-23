@@ -36,7 +36,21 @@ namespace YellowstonePathology.UI.Client
 
 			this.DataContext = this;
             Closing += ClientSupplyOrderDialog_Closing;
+            Loaded += ClientSupplyOrderDialog_Loaded;
+            Unloaded += ClientSupplyOrderDialog_Unloaded;
 		}
+
+        private void ClientSupplyOrderDialog_Loaded(object sender, RoutedEventArgs e)
+        {
+            this.CheckBoxFinal.Checked += CheckBoxFinal_Checked;
+            this.CheckBoxFinal.Unchecked += CheckBoxFinal_Unchecked;
+        }
+
+        private void ClientSupplyOrderDialog_Unloaded(object sender, RoutedEventArgs e)
+        {
+            this.CheckBoxFinal.Checked -= CheckBoxFinal_Checked;
+            this.CheckBoxFinal.Unchecked -= CheckBoxFinal_Unchecked;
+        }
 
         private void ClientSupplyOrderDialog_Closing(object sender, CancelEventArgs e)
         {
@@ -128,5 +142,15 @@ namespace YellowstonePathology.UI.Client
 				MessageBox.Show("Enter a quantity");
 			}
 		}
-	}
+
+        private void CheckBoxFinal_Checked(object sender, RoutedEventArgs e)
+        {
+            this.m_ClientSupplyOrder.DateOrderSent = DateTime.Now;
+        }
+
+        private void CheckBoxFinal_Unchecked(object sender, RoutedEventArgs e)
+        {
+            this.m_ClientSupplyOrder.DateOrderSent = null;
+        }
+    }
 }
