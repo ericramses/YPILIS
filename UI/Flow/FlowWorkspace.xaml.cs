@@ -591,6 +591,7 @@ namespace YellowstonePathology.UI.Flow
 
         private void ButtonRefresh_Click(object sender, RoutedEventArgs e)
         {
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this.m_Writer);
             this.m_FlowUI.Search();
         }                
 
