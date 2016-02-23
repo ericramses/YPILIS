@@ -556,6 +556,15 @@ namespace YellowstonePathology.UI.Surgical
 
 		private void ButtonRefresh_Click(object sender, RoutedEventArgs e)
 		{
+            if (this.m_PathologistUI.AccessionOrder != null)
+            {
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.ReleaseLock(this.m_PathologistUI.AccessionOrder, this.m_Writer);
+                this.m_PathologistUI.RunWorkspaceEnableRules();
+                if(this.m_CytologyResultsWorkspace != null)
+                {
+                    this.m_CytologyResultsWorkspace.CytologyUI.NotifyPropertyChanged(string.Empty);
+                }
+            }
 			this.m_PathologistUI.DoGenericSearch();
 		}
 
