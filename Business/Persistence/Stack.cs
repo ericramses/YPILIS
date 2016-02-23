@@ -115,10 +115,9 @@ namespace YellowstonePathology.Business.Persistence
                     {
                         this.m_Documents.Remove(document);
                     }
-                }
-
-                document.Submit();
-            }                            
+                }                
+            }
+            document.Submit();
         }                
 
         public Document Pull(DocumentId documentId, DocumentBuilder documentBuilder)

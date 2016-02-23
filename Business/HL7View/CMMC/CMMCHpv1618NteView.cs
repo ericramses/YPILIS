@@ -18,7 +18,7 @@ namespace YellowstonePathology.Business.HL7View.CMMC
             this.m_ReportNo = reportNo;            
 		}
 
-        public override void ToXml(XElement document, object writer)
+        public override void ToXml(XElement document)
         {
 			YellowstonePathology.Business.Test.HPV1618.PanelSetOrderHPV1618 panelSetOrder = (YellowstonePathology.Business.Test.HPV1618.PanelSetOrderHPV1618)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
 

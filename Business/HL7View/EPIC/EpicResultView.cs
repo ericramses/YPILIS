@@ -9,8 +9,7 @@ namespace YellowstonePathology.Business.HL7View.EPIC
 {
     public class EpicResultView : IResultView
     {        
-        private int m_ObxCount;
-        private string m_ReportNo;
+        private int m_ObxCount;        
         private bool m_SendUnsolicited;
         private bool m_Testing;        
 
@@ -18,14 +17,10 @@ namespace YellowstonePathology.Business.HL7View.EPIC
         private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
         private YellowstonePathology.Business.Domain.Physician m_OrderingPhysician;        
 
-        public EpicResultView(string reportNo, bool testing, object writer)
-        {
-            this.m_ReportNo = reportNo;            
+        public EpicResultView(string reportNo, Business.Test.AccessionOrder accessionOrder, bool testing)
+        {            
             this.m_Testing = testing;
-
-            string masterAccessionNo = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetMasterAccessionNoFromReportNo(this.m_ReportNo);
-            this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, writer);
-
+            this.m_AccessionOrder = accessionOrder;
             this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 
             if (this.m_AccessionOrder.UniversalServiceId.ToUpper() != this.m_PanelSetOrder.UniversalServiceId.ToUpper())
@@ -74,7 +69,7 @@ namespace YellowstonePathology.Business.HL7View.EPIC
             EpicOrcView orc = new EpicOrcView(this.m_AccessionOrder.ExternalOrderId, this.m_OrderingPhysician, this.m_AccessionOrder.MasterAccessionNo, OrderStatusEnum.Complete, this.m_AccessionOrder.SystemInitiatingOrder, this.m_SendUnsolicited);
             orc.ToXml(document);
 
-            YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);            
+            YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_PanelSetOrder.ReportNo);            
 
             ResultStatus resultStatus = ResultStatusEnum.Final;
             if (panelSetOrder.AmendmentCollection.Count != 0) resultStatus = ResultStatusEnum.Correction;
@@ -82,11 +77,11 @@ namespace YellowstonePathology.Business.HL7View.EPIC
             YellowstonePathology.Business.ClientOrder.Model.UniversalServiceCollection universalServiceIdCollection = YellowstonePathology.Business.ClientOrder.Model.UniversalServiceCollection.GetAll();
             YellowstonePathology.Business.ClientOrder.Model.UniversalService universalService = universalServiceIdCollection.GetByUniversalServiceId(panelSetOrder.UniversalServiceId);            
 
-            EpicObrView obr = new EpicObrView(this.m_AccessionOrder.ExternalOrderId, this.m_AccessionOrder.MasterAccessionNo, this.m_ReportNo, this.m_AccessionOrder.SpecimenOrderCollection[0].CollectionDate, this.m_AccessionOrder.SpecimenOrderCollection[0].CollectionTime, this.m_AccessionOrder.AccessionDateTime,
+            EpicObrView obr = new EpicObrView(this.m_AccessionOrder.ExternalOrderId, this.m_AccessionOrder.MasterAccessionNo, this.m_PanelSetOrder.ReportNo, this.m_AccessionOrder.SpecimenOrderCollection[0].CollectionDate, this.m_AccessionOrder.SpecimenOrderCollection[0].CollectionTime, this.m_AccessionOrder.AccessionDateTime,
                 panelSetOrder.FinalTime, this.m_OrderingPhysician, resultStatus.Value, universalService, this.m_SendUnsolicited);
             obr.ToXml(document);
             
-            EpicObxView epicObxView = EpicObxViewFactory.GetObxView(panelSetOrder.PanelSetId, this.m_AccessionOrder, this.m_ReportNo, this.m_ObxCount);
+            EpicObxView epicObxView = EpicObxViewFactory.GetObxView(panelSetOrder.PanelSetId, this.m_AccessionOrder, this.m_PanelSetOrder.ReportNo, this.m_ObxCount);
             epicObxView.ToXml(document);
             this.m_ObxCount = epicObxView.ObxCount;                            
 
@@ -97,10 +92,10 @@ namespace YellowstonePathology.Business.HL7View.EPIC
         {
             string fileExtension = ".HL7.xml";
 
-			YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_ReportNo);
-			string serverFileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + "\\" + this.m_ReportNo + fileExtension;
-            string interfaceFileName = @"\\YPIIInterface1\ChannelData\Outgoing\1002\" + this.m_ReportNo + fileExtension;
-            if (this.m_Testing == true) interfaceFileName = @"\\YPIIInterface1\ChannelData\Outgoing\1002\Test\" + this.m_ReportNo + fileExtension;            
+			YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
+			string serverFileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + "\\" + this.m_PanelSetOrder.ReportNo + fileExtension;
+            string interfaceFileName = @"\\YPIIInterface1\ChannelData\Outgoing\1002\" + this.m_PanelSetOrder.ReportNo + fileExtension;
+            if (this.m_Testing == true) interfaceFileName = @"\\YPIIInterface1\ChannelData\Outgoing\1002\Test\" + this.m_PanelSetOrder.ReportNo + fileExtension;            
             
             using (System.IO.StreamWriter sw = new System.IO.StreamWriter(serverFileName))
             {
@@ -115,7 +110,7 @@ namespace YellowstonePathology.Business.HL7View.EPIC
 
         public void CanSend(YellowstonePathology.Business.Rules.MethodResult result)
         {            
-            YellowstonePathology.Business.Test.PanelSetOrder pso = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
+            YellowstonePathology.Business.Test.PanelSetOrder pso = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_PanelSetOrder.ReportNo);
 
             if (string.IsNullOrEmpty(this.m_OrderingPhysician.Npi) == true)
             {
