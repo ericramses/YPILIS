@@ -75,6 +75,7 @@ namespace YellowstonePathology.UI.Client
 
         private void ClientEntry_Closing(object sender, CancelEventArgs e)
         {
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
         }
 
         public void NotifyPropertyChanged(String info)
