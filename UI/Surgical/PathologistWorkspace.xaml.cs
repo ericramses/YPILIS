@@ -346,6 +346,7 @@ namespace YellowstonePathology.UI.Surgical
 			{
 				if (this.TextBoxSearchANPN.Text.Length >= 1)
 				{
+                    this.ReleaseLock();
 					this.m_PathologistUI.Save(true);
 					TextSearchHandler textSearchHandler = new TextSearchHandler(this.TextBoxSearchANPN.Text);
 					object textSearchObject = textSearchHandler.GetSearchObject();
@@ -370,10 +371,6 @@ namespace YellowstonePathology.UI.Surgical
 				{
 					this.ListViewSearchResults.SelectedIndex = 0;
 				}
-                else
-                {
-                    this.ReleaseLock();
-                }
 			}
 		}
 
@@ -580,6 +577,10 @@ namespace YellowstonePathology.UI.Surgical
                 {
                     this.m_CytologyResultsWorkspace.CytologyUI.NotifyPropertyChanged(string.Empty);
                 }
+                if(this.m_PathologistsReview != null)
+                {
+                    this.m_PathologistsReview.NotifyPropertyChanged(string.Empty);
+                }
             }
         }
 
@@ -643,6 +644,7 @@ namespace YellowstonePathology.UI.Surgical
 
 		private void ButtonRedoSearch_Click(object sender, RoutedEventArgs e)
 		{
+            this.ReleaseLock();
 			this.comboBoxSearchPathologistUser.SelectionChanged -= this.comboBoxSearchPathologistUser_SelectionChanged;
 			this.comboPanelSetType.SelectionChanged -= this.comboPanelSetType_SelectionChanged;
 			this.ComboFinal.SelectionChanged -= this.ComboFinal_SelectionChanged;
@@ -662,7 +664,6 @@ namespace YellowstonePathology.UI.Surgical
 
 			this.comboPanelSetType.SelectedIndex = 0;
 			this.ComboFinal.SelectedIndex = 0;
-            this.ReleaseLock();
             this.m_PathologistUI.DoGenericSearch();
 
 			this.comboBoxSearchPathologistUser.SelectionChanged += this.comboBoxSearchPathologistUser_SelectionChanged;
