@@ -194,6 +194,7 @@ namespace YellowstonePathology.UI.ReportDistribution
             testOrderReportDistribution.ScheduledDistributionTime = DateTime.Now.AddMinutes(15);
 
             panelSetOrder.Published = false;
+            testOrderReportDistribution.Distributed = false;            
             panelSetOrder.ScheduledPublishTime = DateTime.Now.AddMinutes(15);                            
 
             this.m_ReportDistributionLogEntryCollection.AddEntry("INFO", "Schedule Distribution", testOrderReportDistribution.DistributionType, panelSetOrder.ReportNo,

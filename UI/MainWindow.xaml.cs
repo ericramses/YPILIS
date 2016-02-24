@@ -14,6 +14,7 @@ using System.IO;
 using System.Data;
 using System.Data.SqlClient;
 using System.ComponentModel;
+using Microsoft.Win32;
 
 namespace YellowstonePathology.UI
 {    
@@ -64,7 +65,9 @@ namespace YellowstonePathology.UI
         MainWindowCommandButtonHandler m_MainWindowCommandButtonHandler;        
 
         public MainWindow()
-        {            
+        {
+            SystemEvents.SessionSwitch += SystemEvents_SessionSwitch;
+
             //BindingErrorListener.Listen(m => MessageBox.Show(m));            
             this.m_MainWindowCommandButtonHandler = new MainWindowCommandButtonHandler();
 
@@ -140,7 +143,17 @@ namespace YellowstonePathology.UI
 
             this.Loaded += new RoutedEventHandler(MainWindow_Loaded);
             this.Closing +=new System.ComponentModel.CancelEventHandler(MainWindow_Closing);            
-        }        
+        }
+
+        private void SystemEvents_SessionSwitch(object sender, SessionSwitchEventArgs e)
+        {
+            switch (e.Reason)
+            {
+                case SessionSwitchReason.SessionLock:
+                    //TabItem tabItem = this.TabControlLeftWorkspace.Items[0];
+                    break;
+            }
+        }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {                        

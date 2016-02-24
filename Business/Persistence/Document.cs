@@ -57,9 +57,12 @@ namespace YellowstonePathology.Business.Persistence
         public void ReleaseLock()
         {
             if (this.m_Value is YellowstonePathology.Business.Test.AccessionOrder)
-            {
+            {                
                 YellowstonePathology.Business.Test.AccessionOrder accessionOrder = (YellowstonePathology.Business.Test.AccessionOrder)this.m_Value;
-                accessionOrder.ReleaseLock();
+                if(accessionOrder.IsLockAquiredByMe == true)
+                {
+                    accessionOrder.ReleaseLock();
+                }                
             }
         }
 
@@ -195,8 +198,8 @@ namespace YellowstonePathology.Business.Persistence
 
             this.HandleUpdateSubmission(objectToSubmit, this.m_Clone, keyPropertyValue, objectSubmitter);
 
-            ObjectCloner objectCloner = new ObjectCloner();
-            this.m_Clone = objectCloner.Clone(objectToSubmit);
+            //ObjectCloner objectCloner = new ObjectCloner();
+            //this.m_Clone = objectCloner.Clone(objectToSubmit);
 
             return objectSubmitter;
         }
