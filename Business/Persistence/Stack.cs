@@ -142,6 +142,8 @@ namespace YellowstonePathology.Business.Persistence
                     else
                     {
                         documentBuilder.Refresh(document.Value);
+                        document.ResetClone();
+
                         Business.Test.AccessionOrder accessionOrder = (Business.Test.AccessionOrder)document.Value;                        
                         document.IsLockAquiredByMe = accessionOrder.IsLockAquiredByMe;
                     }
@@ -156,6 +158,7 @@ namespace YellowstonePathology.Business.Persistence
                     else
                     {
                         documentBuilder.Refresh(document.Value);
+                        document.ResetClone();
                     }                    
                 }
             }   
@@ -181,7 +184,8 @@ namespace YellowstonePathology.Business.Persistence
             {
                 if (documentId.ValueWasPassedIn == true)
                 {
-                    documentBuilder.Refresh(documentId.Value);                    
+                    documentBuilder.Refresh(documentId.Value);
+                    document.ResetClone();
                 }
                 else
                 {
