@@ -43,16 +43,13 @@ namespace YellowstonePathology.Business.Persistence
                 YellowstonePathology.Business.Test.AccessionOrder accessionOrder = (YellowstonePathology.Business.Test.AccessionOrder)this.m_Value;
                 this.m_IsLockAquiredByMe = accessionOrder.IsLockAquiredByMe;
             }            
-        }
-
-        public void Refresh(object o)
+        }   
+        
+        public void ResetClone()
         {
-            if (o is YellowstonePathology.Business.Test.AccessionOrder)
-            {
-                YellowstonePathology.Business.Test.AccessionOrder accessionOrder = (YellowstonePathology.Business.Test.AccessionOrder)this.m_Value;
-                this.m_IsLockAquiredByMe = accessionOrder.IsLockAquiredByMe;
-            }
-        }
+            ObjectCloner objectCloner = new ObjectCloner();
+            this.m_Clone = objectCloner.Clone(this.m_Value);
+        }     
 
         public void ReleaseLock()
         {
