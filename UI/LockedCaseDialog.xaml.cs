@@ -40,9 +40,9 @@ namespace YellowstonePathology.UI
 
 		private void ButtonClearLock_Click(object sender, RoutedEventArgs e)
 		{
-
             //System.Messaging.Message message = new System.Messaging.Message("Hello World");
             //System.Messaging.MessageQueue()
+            //System.Messaging.MessageQueue.Create(@"compile\locks");
 
             //return;
 

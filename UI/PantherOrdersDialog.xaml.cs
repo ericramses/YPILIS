@@ -378,9 +378,10 @@ namespace YellowstonePathology.UI
         }
 
         private void FinalWHPCase(Business.Test.AccessionOrder accessionOrder, string reportNo)
-        {
+        {            
             YellowstonePathology.Business.Audit.Model.IsWHPAllDoneAuditCollection isWHPAllDoneAuditCollection = new Business.Audit.Model.IsWHPAllDoneAuditCollection(accessionOrder);
             isWHPAllDoneAuditCollection.Run();
+
             if (isWHPAllDoneAuditCollection.ActionRequired == true)
             {
                 YellowstonePathology.Business.Audit.Model.ShouldWomensHealthProfileBeFinaledAudit shouldAudit = new Business.Audit.Model.ShouldWomensHealthProfileBeFinaledAudit(accessionOrder);
@@ -389,10 +390,13 @@ namespace YellowstonePathology.UI
                 {                    
                     YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder womensHealthProfileTestOrder = (Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
                     YellowstonePathology.Business.ReportDistribution.Model.MultiTestDistributionHandler multiTestDistributionHandler = YellowstonePathology.Business.ReportDistribution.Model.MultiTestDistributionHandlerFactory.GetHandler(accessionOrder);
-                    multiTestDistributionHandler.Set();
-                    YellowstonePathology.Business.User.SystemUser user = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetSystemUserById(5134);
+                    multiTestDistributionHandler.Set();                    
+                    
                     womensHealthProfileTestOrder.Finalize();
 
+                    YellowstonePathology.Business.User.SystemUser user = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetSystemUserById(5134);
+                    womensHealthProfileTestOrder.FinaledById = user.UserId;
+                    womensHealthProfileTestOrder.Signature = user.Signature;
                 }
             }
         }
