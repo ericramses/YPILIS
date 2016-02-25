@@ -44,7 +44,6 @@
         <TextBlock Grid.Column="0" Grid.Row="5" Margin="2,2,2,2" FontWeight="Bold">Comment:</TextBlock>
         <TextBox Grid.Column="1" Grid.Row="5" Margin="2,2,2,2" HorizontalAlignment="Stretch" Text="{Binding Path=PanelSetOrder.DelayComment}" TextWrapping="Wrap" AcceptsReturn="True" />
         
-        <Button Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" HorizontalAlignment="Left" Width="100" Height="40" Margin="2,2,2,2" Click="ButtonCancel_Click" VerticalAlignment="Bottom">Cancel</Button>
         <Button Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" HorizontalAlignment="Right" Width="100" Height="40" Margin="2,2,2,2" Click="ButtonOK_Click" VerticalAlignment="Bottom">OK</Button>
 
     </Grid>

@@ -747,7 +747,7 @@ namespace YellowstonePathology.UI.Login
             {
                 YellowstonePathology.Business.Search.ReportSearchItem reportSearchItem = (YellowstonePathology.Business.Search.ReportSearchItem)this.ListViewAccessionOrders.SelectedItem;
                 this.m_LoginUI.ReportSearchList.SetCurrentReportSearchItem(reportSearchItem.ReportNo);
-                Billing.BillingPath billingPath = new Billing.BillingPath(this.m_LoginUI.ReportSearchList, this.m_Writer);
+                Billing.BillingPath billingPath = new Billing.BillingPath(this.m_LoginUI.ReportSearchList);
                 billingPath.Start(this.m_LoginUI.AccessionOrder);
             }
         }

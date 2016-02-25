@@ -57,22 +57,14 @@ namespace YellowstonePathology.UI.Monitor
 		
         private void MenuItemDelay_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Please tell Sid that you see this message.  Thank you. Sid.");
-            /*
             if (this.ListViewPendingTests.SelectedItem != null)
             {
                 YellowstonePathology.Business.Monitor.Model.PendingTest pendingTest = (YellowstonePathology.Business.Monitor.Model.PendingTest)this.ListViewPendingTests.SelectedItem;
-				YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(pendingTest.ReportNo);
-                
-
-                YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(pendingTest.ReportNo);
-                YellowstonePathology.Business.User.SystemIdentity systemIdentity = new YellowstonePathology.Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
-                PendingTestDelayDialog pendingTestDelayDialog = new PendingTestDelayDialog(panelSetOrder, systemIdentity);
+                PendingTestDelayDialog pendingTestDelayDialog = new PendingTestDelayDialog(pendingTest.ReportNo);
                 pendingTestDelayDialog.ShowDialog();
-                
+
                 this.Refresh();
             }
-            */
         }
 
         private void MenuItemFinalize_Click(object sender, RoutedEventArgs e)
