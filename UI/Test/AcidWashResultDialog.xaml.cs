@@ -32,6 +32,12 @@ namespace YellowstonePathology.UI.Test
             InitializeComponent();
 
             DataContext = this;
+            this.Closing += AcidWashResultDialog_Closing;
+        }
+
+        private void AcidWashResultDialog_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            Business.Persistence.DocumentGateway.Instance.Push(this);
         }
 
         public string HeaderText

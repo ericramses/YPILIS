@@ -27,6 +27,7 @@ namespace YellowstonePathology.UI.Surgical
 		private YellowstonePathology.Business.User.SystemUserCollection m_AmendmentUsers;
 		private YellowstonePathology.Business.Test.PanelSetOrderCollection m_PathologistOrderCollection;
 		private YellowstonePathology.Business.Common.FieldEnabler m_FieldEnabler;
+        private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 
         private string m_SignatureButtonText;
         private bool m_SignatureButtonIsEnabled;
@@ -37,8 +38,9 @@ namespace YellowstonePathology.UI.Surgical
 		public PathologistUI(System.Windows.Controls.TabItem writer)
         {            
             this.m_Writer = writer;
+            this.m_SystemIdentity = Business.User.SystemIdentity.Instance;
 
-			this.m_OrderCollection = new YellowstonePathology.Business.Test.PanelOrderCollection();			
+            this.m_OrderCollection = new YellowstonePathology.Business.Test.PanelOrderCollection();			
 			this.m_PathologistHistoryList = new YellowstonePathology.Business.Surgical.PathologistHistoryList();
 
 			this.m_SelectedTabIndex = 0;
@@ -49,6 +51,11 @@ namespace YellowstonePathology.UI.Surgical
 			this.m_FieldEnabler = new YellowstonePathology.Business.Common.FieldEnabler();
 			this.m_AmendmentUsers = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetUsersByRole(YellowstonePathology.Business.User.SystemUserRoleDescriptionEnum.AmendmentSigner, true);
 		}
+
+        public Business.User.SystemIdentity SystemIdentity
+        {
+            get { return this.m_SystemIdentity; }
+        }
 
         public string SignatureButtonText
         {

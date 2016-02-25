@@ -149,8 +149,12 @@ namespace YellowstonePathology.UI
         {
             switch (e.Reason)
             {
-                case SessionSwitchReason.SessionLock:
-                    //TabItem tabItem = this.TabControlLeftWorkspace.Items[0];
+                case SessionSwitchReason.SessionLock:              
+                    while(this.TabControlLeftWorkspace.Items.Count > 0)
+                    {
+                        this.TabControlLeftWorkspace.Items.RemoveAt(0);                                                
+                    }
+                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Flush();
                     break;
             }
         }
@@ -832,7 +836,7 @@ namespace YellowstonePathology.UI
         private void MenuItemPantherOrders_Click(object sender, RoutedEventArgs e)
         {
             PantherOrdersDialog pantherOrdersDialog = new PantherOrdersDialog();
-            pantherOrdersDialog.ShowDialog();
+            pantherOrdersDialog.Show();
         }
 
         private void MenuItemPantherStorage_Click(object sender, RoutedEventArgs e)

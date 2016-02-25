@@ -44,8 +44,7 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
         public RASRAFPanelTestOrder(string masterAccessionNo, string reportNo, string objectId,
             YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
             YellowstonePathology.Business.Interface.IOrderTarget orderTarget,
-            bool distribute,
-            YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+            bool distribute)
 			: base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute)
 		{
         	this.m_Method = RASRAFPanelResult.Method;

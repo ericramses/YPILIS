@@ -152,8 +152,7 @@ namespace YellowstonePathology.Business.Persistence
                 {
                     if(document.IsDirty() == true)
                     {
-                        document.Submit();
-                        //System.Windows.MessageBox.Show("We have detected a problem with the system.  Please contact Sid immediately.  Thank You.");
+                        document.Submit();                        
                     }
                     else
                     {
@@ -184,8 +183,7 @@ namespace YellowstonePathology.Business.Persistence
             {
                 if (documentId.ValueWasPassedIn == true)
                 {
-                    documentBuilder.Refresh(documentId.Value);
-                    document.ResetClone();
+                    documentBuilder.Refresh(documentId.Value);                    
                 }
                 else
                 {

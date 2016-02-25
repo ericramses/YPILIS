@@ -39,7 +39,14 @@ namespace YellowstonePathology.UI
             this.m_PantherWHPOrderList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPantherOrdersNotFinalWHP();
 
             InitializeComponent();
-            this.DataContext = this;            
+            this.DataContext = this;
+
+            this.Closing += PantherOrdersDialog_Closing;           
+        }
+
+        private void PantherOrdersDialog_Closing(object sender, CancelEventArgs e)
+        {
+            Business.Persistence.DocumentGateway.Instance.Push(this);
         }
 
         public YellowstonePathology.Business.Test.PantherOrderList PantherHPVOrderList
@@ -98,7 +105,7 @@ namespace YellowstonePathology.UI
                 YellowstonePathology.Business.Test.PantherOrderListItem pantherOrderListItem = (YellowstonePathology.Business.Test.PantherOrderListItem)this.ListViewPantherHPVOrders.SelectedItem;
 
                 this.m_LoginPageWindow = new Login.LoginPageWindow();
-                YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(pantherOrderListItem.MasterAccessionNo, this.m_LoginPageWindow);
+                YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(pantherOrderListItem.MasterAccessionNo, this);
                 this.m_LoginPageWindow.Show();
 
                 YellowstonePathology.UI.Test.HPVResultPath hpvResultPath = new Test.HPVResultPath(pantherOrderListItem.ReportNo, accessionOrder, this.m_LoginPageWindow.PageNavigator, this);
@@ -418,10 +425,10 @@ namespace YellowstonePathology.UI
                         this.m_PantherTrichomonasOrderList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPantherOrdersNotAcceptedTrichomonas();
                         break;
                     case 1:
-                        //this.m_PantherHPV1618OrderList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPantherOrdersNotFinalHPV1618();
+                        this.m_PantherTrichomonasOrderList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPantherOrdersNotFinalTrichomonas();
                         break;
                     case 2:
-                        //this.m_PantherHPV1618OrderList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPantherOrdersFinalHPV1618();
+                        this.m_PantherTrichomonasOrderList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPantherOrdersFinalTrichomonas();
                         break;
                 }
                 this.NotifyPropertyChanged("PantherTrichomonasOrderList");

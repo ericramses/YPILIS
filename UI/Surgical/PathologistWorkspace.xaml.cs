@@ -115,6 +115,7 @@ namespace YellowstonePathology.UI.Surgical
             this.m_MainWindowCommandButtonHandler.ShowAmendmentDialog -= MainWindowCommandButtonHandler_ShowAmendmentDialog;
             this.m_MainWindowCommandButtonHandler.Refresh -= MainWindowCommandButtonHandler_Refresh;
             this.m_MainWindowCommandButtonHandler.RemoveTab -= MainWindowCommandButtonHandler_RemoveTab;
+
             YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
         }
 

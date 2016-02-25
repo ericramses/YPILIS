@@ -17,10 +17,10 @@ namespace YellowstonePathology.OptimusPrime
         public async Task<string> HandleResult(IDictionary<string, object> payload)
         {
             var connectionString = "Data Source=TestSQL;Initial Catalog=YPIData;Integrated Security=True";
-            
+                        
             string testName = (string)payload["testName"];
             string aliquotOrderId = (string)payload["aliquotOrderId"];
-            string result = (string)payload["TRICH Result"];
+            string result = (string)payload["result"];
             string sql = null;
 
             if (testName == "TRICH")
@@ -74,7 +74,7 @@ namespace YellowstonePathology.OptimusPrime
                         + "and pso.OrderedOnId = '" + aliquotOrderId + "' and pso.Accepted = 0; ";                    
 
                     sql += @"Update tblPanelSetOrder set ResultCode = '" + hpvResult.ResultCode + "', "
-                    + "[HoldDistribution] = 0 "                    
+                    + "[HoldDistribution] = 1 "                    
                     + "where PanelSetId = 61 and Accepted = 0 and OrderedOnId = '" + aliquotOrderId + "';";                    
                 }
             }

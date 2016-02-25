@@ -79,7 +79,7 @@ namespace YellowstonePathology.UI.Login
 
         private void MainWindowCommandButtonHandler_RemoveTab(object sender, EventArgs e)
         {
-            Business.Persistence.DocumentGateway.Instance.Push(this.m_Writer);
+            Business.Persistence.DocumentGateway.Instance.Push(this.m_Writer);            
         }
 
         private void MainWindowCommandButtonHandler_Refresh(object sender, EventArgs e)

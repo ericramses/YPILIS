@@ -451,12 +451,19 @@ namespace YellowstonePathology.UI.Cytology
         private void LoadDataByReportNo(string reportNo)
         {
             string masterAccessionNo = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetMasterAccessionNoFromReportNo(reportNo);
-			this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, this.m_Writer);
-            if (this.m_AccessionOrder != null)
+            if(string.IsNullOrEmpty(masterAccessionNo) == false)
             {
-				this.m_PanelSetOrderCytology = (YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
+                this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, this.m_Writer);
+                if (this.m_AccessionOrder != null)
+                {
+                    this.m_PanelSetOrderCytology = (YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
+                }
+                this.LoadData();
             }
-            this.LoadData();            
+            else
+            {
+                MessageBox.Show("Case not found.");
+            }			
         }
 
         private void LoadDataByAliquotOrderId(string aliquotOrderId)
