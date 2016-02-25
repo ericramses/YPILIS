@@ -144,13 +144,14 @@
                 <CheckBox Grid.Column="1" Grid.Row="9" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Stretch" IsChecked="{Binding Path=PanelSetOrder.HasProfessionalComponent}" />
 
                 <TextBlock Grid.Column="0" Grid.Row="10" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold">Specimen:</TextBlock>
-                <ComboBox Name="ComboBoxSpecimen" Grid.Column="1" Grid.Row="10" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Stretch"
-				    ItemsSource="{Binding Path=AccessionOrder.SpecimenOrderCollection}"
-				    DisplayMemberPath="Description"
-				    SelectedValuePath="SpecimenOrderId"
-				    SelectedValue="{Binding Path=PanelSetOrder.OrderedOnId}"
-				    IsEnabled="{Binding Path=IsWorkspaceEnabled}">
-                </ComboBox>                
+
+                <StackPanel Grid.Column="1" Grid.Row="10" Orientation="Horizontal">
+
+                    <Button Name="ButtonShowSpecimenDialog" Width="100" Height="30" Margin="2,2,2,2" Click="ButtonShowSpecimenDialog_Click">Details</Button>
+
+                    <Button Name="ButtonShowSelectSpecimenDialog" Width="100" Height="30" Margin="2,2,2,2" Click="ButtonShowSelectSpecimenDialog_Click">Selection</Button>
+
+                </StackPanel>
 
                 <TextBlock Grid.Column="0" Grid.Row="12" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold">IT Audited:</TextBlock>
                 <CheckBox Grid.Column="1" Grid.Row="12" Margin="2,2,2,2" IsChecked="{Binding Path=AccessionOrder.ITAudited}"></CheckBox>

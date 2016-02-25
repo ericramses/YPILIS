@@ -14,12 +14,11 @@ namespace YellowstonePathology.UI.Billing
 		private Business.Search.ReportSearchList m_ReportSearchList;
         private BillingPage m_BillingPage;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-        private System.Windows.Controls.TabItem m_Writer;
+        private System.Windows.Window m_Writer;
 
 
-        public BillingPath(Business.Search.ReportSearchList reportSearchList, System.Windows.Controls.TabItem writer)
+        public BillingPath(Business.Search.ReportSearchList reportSearchList)
         {
-            this.m_Writer = writer;
             this.m_ReportSearchList = reportSearchList;
         }               
 
@@ -27,7 +26,9 @@ namespace YellowstonePathology.UI.Billing
         {
             if (this.m_ReportSearchList.CurrentReportSearchItem != null)
             {
-                this.m_BillingWindowPrimary = new BillingWindowPrimary();                
+                this.m_BillingWindowPrimary = new BillingWindowPrimary();
+                this.m_Writer = this.m_BillingWindowPrimary;
+                this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(accessionOrder.MasterAccessionNo, this.m_Writer);
                 this.m_BillingWindowPrimary.Show();
 
                 if (this.m_BillingWindowPrimary.PageNavigator.HasDualMonitors() == true)
@@ -36,7 +37,6 @@ namespace YellowstonePathology.UI.Billing
                     this.m_BillingWindowPrimary.PageNavigator.ShowSecondMonitorWindow(this.m_BillingWindowSecondary);
                 }
 
-                this.m_AccessionOrder = accessionOrder;
 				this.ShowBillingPage(this.m_AccessionOrder);                
 			}
         }        
