@@ -126,6 +126,13 @@ namespace YellowstonePathology.Business.Persistence
 
             if (this.KeyTypeExists(documentId) == true)
             {
+
+                if(this.WriterTypeExistsOtherThanThis(documentId) == true)
+                {
+                    Document otherDocument = this.GetWriterTypeOtherThanThis(documentId);
+                    this.Push(otherDocument);
+                }
+
                 document = this.Get(documentId);
                 if (document.Writers.Exists(p => p == documentId.Writer) == false)
                 {
@@ -270,6 +277,46 @@ namespace YellowstonePathology.Business.Persistence
                 {
                     result = true;
                     break;
+                }
+            }
+
+            return result;
+        }
+
+        private bool WriterTypeExistsOtherThanThis(DocumentId documentId)
+        {
+            bool result = false;
+
+            foreach (Document document in this.m_Documents)
+            {
+                if (document.Type.FullName == documentId.Type.FullName &&
+                    document.Writers.Exists(p => p == documentId.Writer))
+                {
+                    if(document.Key != documentId.Key)
+                    {
+                        result = true;
+                        break;
+                    }                    
+                }
+            }
+
+            return result;
+        }
+
+        private Document GetWriterTypeOtherThanThis(DocumentId documentId)
+        {
+            Document result = null;
+
+            foreach (Document document in this.m_Documents)
+            {
+                if (document.Type.FullName == documentId.Type.FullName &&
+                    document.Writers.Exists(p => p == documentId.Writer))
+                {
+                    if (document.Key != documentId.Key)
+                    {
+                        result = document;
+                        break;
+                    }
                 }
             }
 
