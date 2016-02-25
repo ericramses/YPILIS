@@ -130,7 +130,7 @@ namespace YellowstonePathology.Business.Persistence
                 if(this.WriterTypeExistsOtherThanThis(documentId) == true)
                 {
                     Document otherDocument = this.GetWriterTypeOtherThanThis(documentId);
-                    this.Push(otherDocument);
+                    this.PushOne(otherDocument, documentId.Writer);
                 }
 
                 document = this.Get(documentId);
