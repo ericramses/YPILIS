@@ -292,7 +292,7 @@ namespace YellowstonePathology.Business.Persistence
                 if (document.Type.FullName == documentId.Type.FullName &&
                     document.Writers.Exists(p => p == documentId.Writer))
                 {
-                    if(document.Key != documentId.Key)
+                    if(document.Key.ToString() != documentId.Key.ToString())
                     {
                         result = true;
                         break;
@@ -312,7 +312,7 @@ namespace YellowstonePathology.Business.Persistence
                 if (document.Type.FullName == documentId.Type.FullName &&
                     document.Writers.Exists(p => p == documentId.Writer))
                 {
-                    if (document.Key != documentId.Key)
+                    if (document.Key.ToString() != documentId.Key.ToString())
                     {
                         result = document;
                         break;

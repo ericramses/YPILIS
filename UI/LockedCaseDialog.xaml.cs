@@ -38,8 +38,14 @@ namespace YellowstonePathology.UI
             }
         }                
 
-		private void ButtonDelete_Click(object sender, RoutedEventArgs e)
-		{			
+		private void ButtonClearLock_Click(object sender, RoutedEventArgs e)
+		{
+
+            //System.Messaging.Message message = new System.Messaging.Message("Hello World");
+            //System.Messaging.MessageQueue()
+
+            //return;
+
             if(this.ListViewLockedAccessionOrders.SelectedItem != null)
             {
                 MessageBoxResult result = MessageBox.Show("Clearing a lock may cause data loss.  Are you sure you want to unlock this case?", "Possible data loss", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
