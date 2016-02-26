@@ -236,7 +236,7 @@ namespace YellowstonePathology.Business.Search
 				if (item.Assign && item.GroupType != "Flow" && item.GroupType != "Cytology")
 				{
 					YellowstonePathology.Business.Rules.Surgical.RulesAssignPathologistId rule = YellowstonePathology.Business.Rules.Surgical.RulesAssignPathologistId.Instance;
-					YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(item.MasterAccessionNo, this.m_Writer);					
+					YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(item.MasterAccessionNo, this);					
 					YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(item.ReportNo);
 					rule.AccessionOrder = accessionOrder;
 					rule.PanelSetOrder = panelSetOrder;                    
@@ -244,7 +244,7 @@ namespace YellowstonePathology.Business.Search
 
 					if (ruleExecutionStatus.ExecutionHalted == false)
 					{
-                        YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
+                        YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
 					}
 				}
 			}

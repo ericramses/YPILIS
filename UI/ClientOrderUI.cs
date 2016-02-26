@@ -15,7 +15,6 @@ namespace YellowstonePathology.UI
         private DateTime m_ClientOrderDate;
 
         private YellowstonePathology.Business.ClientOrder.Model.OrderBrowserListItemCollection m_OrderBrowserListItemCollection;
-        private string m_ReportNo;
         private string m_SelectedItemCount;
         private object m_Writer;
 
@@ -63,6 +62,11 @@ namespace YellowstonePathology.UI
                 this.m_ClientOrderDate = value;
                 NotifyPropertyChanged("ClientOrderDate");
             }
+        }
+
+        public YellowstonePathology.Business.User.SystemIdentity SystemIdentity
+        {
+            get { return YellowstonePathology.Business.User.SystemIdentity.Instance; }
         }
 
         public void GetClientOrderList()
