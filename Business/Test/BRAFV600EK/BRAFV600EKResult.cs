@@ -64,11 +64,10 @@ namespace YellowstonePathology.Business.Test.BRAFV600EK
             brafv600ekTestOrder.References = this.m_References;
         }
 
-		public virtual void FinalizeResults(YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTestOrder panelSetOrder,
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+		public virtual void FinalizeResults(YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTestOrder panelSetOrder)
 		{
-			panelSetOrder.Finalize(systemIdentity.User);
-			panelSetOrder.AssignedToId = systemIdentity.User.UserId;
+			panelSetOrder.Finalize();
+			panelSetOrder.AssignedToId = Business.User.SystemIdentity.Instance.User.UserId;
 		}
 
 		public virtual void UnFinalizeResults(YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTestOrder panelSetOrder)
@@ -79,8 +78,8 @@ namespace YellowstonePathology.Business.Test.BRAFV600EK
 
 		public virtual void AcceptResults(YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTestOrder panelSetOrder, YellowstonePathology.Business.Test.PanelOrder panelToAccept, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 		{			
-			panelSetOrder.Accept(systemIdentity.User);
-			panelToAccept.AcceptResults(systemIdentity.User);
+			panelSetOrder.Accept();
+			panelToAccept.AcceptResults();
 		}
 
 		public virtual void UnacceptResults(YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTestOrder panelSetOrder)

@@ -102,7 +102,7 @@ namespace YellowstonePathology.UI.Test
                 YellowstonePathology.Business.ReportDistribution.Model.MultiTestDistributionHandler multiTestDistributionHandler = YellowstonePathology.Business.ReportDistribution.Model.MultiTestDistributionHandlerFactory.GetHandler(this.m_AccessionOrder);
                 multiTestDistributionHandler.Set();
 
-				this.m_ReportOrderTrichomonas.Finalize(this.m_SystemIdentity.User);
+				this.m_ReportOrderTrichomonas.Finalize();
 
                 if (this.m_AccessionOrder.PanelSetOrderCollection.WomensHealthProfileExists() == true)
                 {
@@ -133,7 +133,7 @@ namespace YellowstonePathology.UI.Test
 			YellowstonePathology.Business.Rules.MethodResult result = this.m_ReportOrderTrichomonas.IsOkToAccept();
 			if (result.Success == true)
 			{
-				this.m_ReportOrderTrichomonas.Accept(this.m_SystemIdentity.User);
+				this.m_ReportOrderTrichomonas.Accept();
 			}
 			else
 			{

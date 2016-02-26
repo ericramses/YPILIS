@@ -24,7 +24,8 @@ namespace YellowstonePathology.UI.ReportOrder
 		private YellowstonePathology.Business.User.SystemUserCollection m_UserCollection;
 		private YellowstonePathology.Business.Facility.Model.FacilityCollection m_FacilityCollection;
         private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
-        private string m_ReportDocumentPath;        
+        private string m_ReportDocumentPath;
+        private YellowstonePathology.UI.Login.LoginPageWindow m_LoginPageWindow;
 
         public ReportOrderDetailPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 		{			
@@ -95,7 +96,7 @@ namespace YellowstonePathology.UI.ReportOrder
 			YellowstonePathology.Business.Rules.MethodResult result = this.m_PanelSetOrder.IsOkToAccept();
 			if (result.Success == true)
 			{
-				this.m_PanelSetOrder.Accept(this.m_SystemIdentity.User);
+				this.m_PanelSetOrder.Accept();
 			}
 			else
 			{
@@ -120,7 +121,7 @@ namespace YellowstonePathology.UI.ReportOrder
 				YellowstonePathology.Business.Rules.MethodResult result = this.m_PanelSetOrder.IsOkToFinalize();
 				if (result.Success == true)
                 {                    
-					this.m_PanelSetOrder.Finalize(this.m_SystemIdentity.User);
+					this.m_PanelSetOrder.Finalize();
                 }
 				else
 				{
@@ -214,5 +215,56 @@ namespace YellowstonePathology.UI.ReportOrder
             }
             return result;
         }
-	}
+
+        private void ButtonShowSpecimenDialog_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.m_PanelSetOrder.OrderedOnId != null)
+            {
+                YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByOrderTarget(this.m_PanelSetOrder.OrderedOnId);
+
+                YellowstonePathology.UI.Login.SpecimenOrderDetailsPage specimenOrderDetailsPage = new YellowstonePathology.UI.Login.SpecimenOrderDetailsPage(this.m_AccessionOrder, specimenOrder);
+                specimenOrderDetailsPage.Next += new Login.SpecimenOrderDetailsPage.NextEventHandler(SpecimenOrderDetailsPage_Next);
+                specimenOrderDetailsPage.Back += new Login.SpecimenOrderDetailsPage.BackEventHandler(SpecimenOrderDetailsPage_Next);
+                this.m_LoginPageWindow = new Login.LoginPageWindow();
+                this.m_LoginPageWindow.PageNavigator.Navigate(specimenOrderDetailsPage);
+                this.m_LoginPageWindow.ShowDialog();
+            }
+        }
+
+        private void ButtonShowSelectSpecimenDialog_Click(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Interface.IOrderTarget orderTarget = this.m_AccessionOrder.SpecimenOrderCollection.GetOrderTarget(this.m_PanelSetOrder.OrderedOnId);
+            YellowstonePathology.Business.PanelSet.Model.PanelSetCollection panelSetCollection = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetAll();
+            YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet = panelSetCollection.GetPanelSet(this.m_PanelSetOrder.PanelSetId);
+            YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new Business.Test.TestOrderInfo(panelSet, orderTarget, false);
+
+            if (panelSet.HasNoOrderTarget == false)
+            {
+                Login.Receiving.SpecimenSelectionPage specimenSelectionPage = new Login.Receiving.SpecimenSelectionPage(this.m_AccessionOrder, testOrderInfo);
+                specimenSelectionPage.Back += new Login.Receiving.SpecimenSelectionPage.BackEventHandler(SpecimenSelectionPage_Back);
+                specimenSelectionPage.TargetSelected += new Login.Receiving.SpecimenSelectionPage.TargetSelectedEventHandler(OrderTargetSelectionPage_TargetSelected);
+
+                this.m_LoginPageWindow = new Login.LoginPageWindow();
+                this.m_LoginPageWindow.PageNavigator.Navigate(specimenSelectionPage);
+                this.m_LoginPageWindow.ShowDialog();
+            }
+        }
+
+        private void OrderTargetSelectionPage_TargetSelected(object sender, CustomEventArgs.TestOrderInfoEventArgs e)
+        {
+            this.m_PanelSetOrder.OrderedOnId = e.TestOrderInfo.OrderTarget.GetId();
+            this.m_PanelSetOrder.OrderedOn = e.TestOrderInfo.OrderTarget.GetOrderedOnType();
+            this.m_LoginPageWindow.Close();
+        }
+
+        private void SpecimenSelectionPage_Back(object sender, EventArgs e)
+        {
+            this.m_LoginPageWindow.Close();
+        }
+
+        private void SpecimenOrderDetailsPage_Next(object sender, EventArgs e)
+        {
+            this.m_LoginPageWindow.Close();
+        }
+    }
 }

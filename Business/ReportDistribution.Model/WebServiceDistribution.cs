@@ -15,7 +15,7 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
 
         }
 
-        public override YellowstonePathology.Business.Rules.MethodResult Distribute(string reportNo, object writer)
+        public override YellowstonePathology.Business.Rules.MethodResult Distribute(string reportNo, Business.Test.AccessionOrder accessionOrder)
         {
             YellowstonePathology.Business.Rules.MethodResult result = new Rules.MethodResult();
             result.Message = "Nothing to distribute on WebService";

@@ -104,7 +104,7 @@ namespace YellowstonePathology.UI.Test
 		{
 			if (this.m_PanelSetOrder.Final == false)
 			{
-				this.m_PanelSetOrder.Finalize(this.m_SystemIdentity.User);
+				this.m_PanelSetOrder.Finalize();
 			}
 			else
 			{
@@ -129,7 +129,7 @@ namespace YellowstonePathology.UI.Test
 			YellowstonePathology.Business.Rules.MethodResult result = this.m_PanelSetOrder.IsOkToAccept();
 			if (result.Success == true)
 			{
-				this.m_PanelSetOrder.Accept(this.m_SystemIdentity.User);
+				this.m_PanelSetOrder.Accept();
 			}
 			else
 			{

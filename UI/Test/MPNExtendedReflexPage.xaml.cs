@@ -133,7 +133,7 @@ namespace YellowstonePathology.UI.Test
             Business.Audit.Model.AuditResult auditResult = this.m_MPNExtendedReflexResult.IsOkToFinalize();
             if(auditResult.Status == Business.Audit.Model.AuditStatusEnum.OK)
 			{
-				this.m_MPNExtendedReflexResult.PanelSetOrderMPNExtendedReflex.Finalize(this.m_SystemIdentity.User);
+				this.m_MPNExtendedReflexResult.PanelSetOrderMPNExtendedReflex.Finalize();
 			}
 			else
 			{
@@ -158,7 +158,7 @@ namespace YellowstonePathology.UI.Test
 			YellowstonePathology.Business.Rules.MethodResult result = this.m_MPNExtendedReflexResult.PanelSetOrderMPNExtendedReflex.IsOkToAccept();
 			if (result.Success == true)
 			{
-				this.m_MPNExtendedReflexResult.PanelSetOrderMPNExtendedReflex.Accept(this.m_SystemIdentity.User);
+				this.m_MPNExtendedReflexResult.PanelSetOrderMPNExtendedReflex.Accept();
 			}
 			else
 			{

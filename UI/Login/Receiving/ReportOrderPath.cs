@@ -145,8 +145,7 @@ namespace YellowstonePathology.UI.Login.Receiving
                 this.m_PageNavigator.Navigate(tumorNucleiPercentagePage);
             }
             else if (this.ShowAdditionalTestingEMailPage() == false)
-            {
-                //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);                
+            {                
                 CustomEventArgs.TestOrderInfoEventArgs eventArgs = new CustomEventArgs.TestOrderInfoEventArgs(this.m_TestOrderInfo);
                 if (this.Finish != null) this.Finish(this, eventArgs);
             }
@@ -155,8 +154,7 @@ namespace YellowstonePathology.UI.Login.Receiving
         private void TumorNucleiPercentagePage_Next(object sender, EventArgs e)
         {
             if (this.ShowAdditionalTestingEMailPage() == false)
-            {
-                //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
+            {             
                 CustomEventArgs.TestOrderInfoEventArgs eventArgs = new CustomEventArgs.TestOrderInfoEventArgs(this.m_TestOrderInfo);
                 if (this.Finish != null) this.Finish(this, eventArgs);
             }

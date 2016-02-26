@@ -18,6 +18,6 @@ namespace YellowstonePathology.Business.Persistence
         public virtual void Refresh(object o)
         {
             throw new Exception("Not implemented here.");
-        }
+        }        
     }
 }

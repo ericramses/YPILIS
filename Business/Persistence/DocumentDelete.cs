@@ -25,5 +25,10 @@ namespace YellowstonePathology.Business.Persistence
             deleteCommandBuilder.Build(this.m_Value, objectSubmitter.SqlDeleteFirstCommands, objectSubmitter.SqlDeleteCommands);
             return objectSubmitter.SubmitChanges();            
         }
+
+        public override bool IsDirty()
+        {
+            return false;
+        }
     }
 }

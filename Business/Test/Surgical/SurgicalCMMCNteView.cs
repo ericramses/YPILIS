@@ -18,7 +18,7 @@ namespace YellowstonePathology.Business.Test.Surgical
             this.m_ReportNo = reportNo;            
 		}		
 
-		public override void ToXml(XElement document, object writer)
+		public override void ToXml(XElement document)
 		{
 			SurgicalTestOrder panelSetOrderSurgical = (SurgicalTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
 

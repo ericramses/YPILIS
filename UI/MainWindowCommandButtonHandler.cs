@@ -8,14 +8,10 @@ namespace YellowstonePathology.UI
     public class MainWindowCommandButtonHandler
     {
         private readonly object m_EventLockObject = new object();
-
-        //private EventHandler m_SaveEventHandler;
-        private EventHandler m_ToggleAccessionLockEventHandler;
+        
 		private EventHandler m_ShowCaseDocumentEventHandler;
 		private EventHandler m_ShowOrderFormEventHandler;
-		//private EventHandler m_ShowAmendmentDialogEventHandler;
-		private EventHandler m_AssignCaseEventHandler;
-		private EventHandler m_RemoveTabEventHandler;
+		private EventHandler m_AssignCaseEventHandler;		
 		private EventHandler m_ApplicationClosingEventHandler;
 
         public delegate void StartProviderDistributionPathEventHandler(object sender, EventArgs e);
@@ -30,6 +26,9 @@ namespace YellowstonePathology.UI
         public delegate void RefreshEventHandler(object sender, EventArgs e);
         public event RefreshEventHandler Refresh;
 
+        public delegate void RemoveTabEventHandler(object sender, EventArgs e);
+        public event RemoveTabEventHandler RemoveTab;
+
         public MainWindowCommandButtonHandler()
         {
             
@@ -43,13 +42,7 @@ namespace YellowstonePathology.UI
         public void OnRefresh()
         {
             if (this.Refresh != null) this.Refresh(this, EventArgs.Empty);
-        }
-
-        public void OnToggelEventLock()
-        {
-            if (this.m_ToggleAccessionLockEventHandler != null)
-                this.m_ToggleAccessionLockEventHandler.Invoke(this, EventArgs.Empty);
-        }
+        }                
 
 		public void OnShowCaseDocument()
 		{
@@ -57,7 +50,12 @@ namespace YellowstonePathology.UI
                 this.m_ShowCaseDocumentEventHandler.Invoke(this, EventArgs.Empty);
 		}
 
-		public void OnShowOrderForm()
+        public void OnRemoveTab()
+        {
+            if (this.RemoveTab != null) this.RemoveTab(this, EventArgs.Empty);
+        }
+
+        public void OnShowOrderForm()
 		{
 			if (this.m_ShowOrderFormEventHandler != null)
 				this.m_ShowOrderFormEventHandler.Invoke(this, EventArgs.Empty);
@@ -67,13 +65,7 @@ namespace YellowstonePathology.UI
 		{
 			if (this.m_AssignCaseEventHandler != null)
 				this.m_AssignCaseEventHandler.Invoke(this, EventArgs.Empty);
-		}
-
-		public void OnRemoveTab()
-		{
-			if (this.m_RemoveTabEventHandler != null)
-				this.m_RemoveTabEventHandler.Invoke(this, EventArgs.Empty);
-		}
+		}		
 
 		public void OnApplicationClosing()
 		{
@@ -89,21 +81,7 @@ namespace YellowstonePathology.UI
         public void OnShowAmendmentDialog()
         {
             if (this.ShowAmendmentDialog != null) this.ShowAmendmentDialog(this, EventArgs.Empty);
-        }        
-
-        public event EventHandler ToggleAccessionLock
-        {
-            add
-            {
-                lock (this.m_EventLockObject)
-                    this.m_ToggleAccessionLockEventHandler = value;
-            }
-            remove
-            {
-                lock (this.m_EventLockObject)
-                    this.m_ToggleAccessionLockEventHandler = null;
-            }
-        }
+        }                
 
 		public event EventHandler ShowCaseDocument
 		{
@@ -145,21 +123,7 @@ namespace YellowstonePathology.UI
 				lock (this.m_EventLockObject)
 					this.m_AssignCaseEventHandler = null;
 			}
-		}
-
-		public event EventHandler RemoveTab
-		{
-			add
-			{
-				lock (this.m_EventLockObject)
-					this.m_RemoveTabEventHandler = value;
-			}
-			remove
-			{
-				lock (this.m_EventLockObject)
-					this.m_RemoveTabEventHandler = null;
-			}
-		}
+		}		
 
 		public event EventHandler ApplicationClosing
 		{

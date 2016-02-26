@@ -15,9 +15,9 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
 
         }
 
-        public override YellowstonePathology.Business.Rules.MethodResult Distribute(string reportNo, object writer)
+        public override YellowstonePathology.Business.Rules.MethodResult Distribute(string reportNo, Business.Test.AccessionOrder accessionOrder)
         {            
-            Business.HL7View.EPIC.EpicResultView epicResultView = new HL7View.EPIC.EpicResultView(reportNo, false, writer);
+            Business.HL7View.EPIC.EpicResultView epicResultView = new HL7View.EPIC.EpicResultView(reportNo, accessionOrder, false);
             YellowstonePathology.Business.Rules.MethodResult result = new Rules.MethodResult();
             epicResultView.CanSend(result);
             return result;            

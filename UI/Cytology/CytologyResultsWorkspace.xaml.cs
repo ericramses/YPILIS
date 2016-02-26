@@ -298,7 +298,7 @@ namespace YellowstonePathology.UI.Cytology
             Business.Rules.MethodResult methodResult = panelOrderAcidWash.IsOkToAccept();
             if(methodResult.Success == true)
             {
-                panelOrderAcidWash.AcceptResults(this.m_SystemIdentity.User);
+                panelOrderAcidWash.AcceptResults();
             }
             else
             {

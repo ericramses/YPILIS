@@ -38,23 +38,30 @@ namespace YellowstonePathology.UI
             }
         }                
 
-		private void ButtonDelete_Click(object sender, RoutedEventArgs e)
-		{			
+		private void ButtonClearLock_Click(object sender, RoutedEventArgs e)
+		{
+
+            //System.Messaging.Message message = new System.Messaging.Message("Hello World");
+            //System.Messaging.MessageQueue()
+
+            //return;
+
             if(this.ListViewLockedAccessionOrders.SelectedItem != null)
             {
-                MessageBoxResult result = MessageBox.Show("Clearing a lock may cause data loss.  Note that you may not unlock a case you have locked.  Are you sure you want to unlock this case?", "Possible data loss", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
+                MessageBoxResult result = MessageBox.Show("Clearing a lock may cause data loss.  Are you sure you want to unlock this case?", "Possible data loss", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
                 {
-                    YellowstonePathology.Business.User.SystemIdentity systemIdentity = YellowstonePathology.Business.User.SystemIdentity.Instance;
-                    YellowstonePathology.Business.Domain.LockItem lockItem = (YellowstonePathology.Business.Domain.LockItem)this.ListViewLockedAccessionOrders.SelectedItem;
-                    YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(lockItem.KeyString, this);
-
-                    if (accessionOrder.IsLockAquiredByMe == false)
+                    foreach(YellowstonePathology.Business.Domain.LockItem lockItem in this.ListViewLockedAccessionOrders.SelectedItems)
                     {
-                        accessionOrder.ReleaseLock();
-                        YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
-                        this.m_LockItemCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetLockedAccessionOrders();
-                        this.NotifyPropertyChanged(string.Empty);
+                        YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(lockItem.KeyString, this);
+
+                        if (accessionOrder.IsLockAquiredByMe == false)
+                        {
+                            accessionOrder.ReleaseLock();
+                            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);                            
+                        }
                     }
+                    this.m_LockItemCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetLockedAccessionOrders();
+                    this.NotifyPropertyChanged(string.Empty);
                 }
             }
         }

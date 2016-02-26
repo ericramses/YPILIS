@@ -135,7 +135,7 @@ namespace YellowstonePathology.UI.Test
 			YellowstonePathology.Business.Audit.Model.AuditResult auditResult = this.m_PanelSetOrder.IsOkToFinalize(this.m_AccessionOrder);
 			if (auditResult.Status == Business.Audit.Model.AuditStatusEnum.OK)
 			{
-                this.m_PanelSetOrder.Finalize(this.m_SystemIdentity.User);
+                this.m_PanelSetOrder.Finalize();
 
                 YellowstonePathology.Business.Test.KRASStandardReflex.KRASStandardReflexTest krasStandardReflexTest = new YellowstonePathology.Business.Test.KRASStandardReflex.KRASStandardReflexTest();
 				if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(krasStandardReflexTest.PanelSetId) == true)
@@ -201,7 +201,7 @@ namespace YellowstonePathology.UI.Test
 			YellowstonePathology.Business.Rules.MethodResult methodResult = this.m_PanelSetOrder.IsOkToAccept();
 			if (methodResult.Success == true)
 			{
-                this.m_PanelSetOrder.Accept(this.m_SystemIdentity.User);
+                this.m_PanelSetOrder.Accept();
 			}
 			else
 			{

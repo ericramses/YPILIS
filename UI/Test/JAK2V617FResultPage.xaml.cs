@@ -96,10 +96,10 @@ namespace YellowstonePathology.UI.Test
 			YellowstonePathology.Business.Audit.Model.AuditResult auditResult = this.m_PanelSetOrder.IsOkToFinalize(this.m_AccessionOrder);
 			if (auditResult.Status == Business.Audit.Model.AuditStatusEnum.OK)
 			{
-                this.m_PanelSetOrder.Finalize(this.m_SystemIdentity.User);
+                this.m_PanelSetOrder.Finalize();
                 if(this.m_PanelSetOrder.Accepted == false)
                 {
-                    this.m_PanelSetOrder.Accept(this.m_SystemIdentity.User);
+                    this.m_PanelSetOrder.Accept();
                 }
 			}
 			else
@@ -126,7 +126,7 @@ namespace YellowstonePathology.UI.Test
 			YellowstonePathology.Business.Rules.MethodResult methodResult = this.m_PanelSetOrder.IsOkToAccept();
 			if (methodResult.Success == true)
 			{
-                this.m_PanelSetOrder.Accept(this.m_SystemIdentity.User);
+                this.m_PanelSetOrder.Accept();
 			}
 			else
 			{

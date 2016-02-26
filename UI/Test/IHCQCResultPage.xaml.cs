@@ -69,7 +69,7 @@ namespace YellowstonePathology.UI.Test
 			{
                 if (this.m_IHCQCTestOrder.ControlsReactedAppropriately == true)
                 {
-                    this.m_IHCQCTestOrder.Finalize(this.m_SystemIdentity.User);
+                    this.m_IHCQCTestOrder.Finalize();
                 }
                 else
                 {
@@ -100,7 +100,7 @@ namespace YellowstonePathology.UI.Test
 			YellowstonePathology.Business.Rules.MethodResult result = this.m_IHCQCTestOrder.IsOkToAccept();
 			if (result.Success == true)
 			{
-				this.m_IHCQCTestOrder.Accept(this.m_SystemIdentity.User);
+				this.m_IHCQCTestOrder.Accept();
 			}
 			else
 			{

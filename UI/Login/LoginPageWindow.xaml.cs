@@ -23,7 +23,9 @@ namespace YellowstonePathology.UI.Login
 		public LoginPageWindow()
         {                                    
             InitializeComponent();            
+
             this.m_PageNavigator = new UI.Navigation.PageNavigator(this.MainContent);
+            this.m_PageNavigator.PrimaryMonitorWindow = this;
             this.Closing += new System.ComponentModel.CancelEventHandler(LoginPageWindow_Closing);
         }
 
@@ -34,8 +36,8 @@ namespace YellowstonePathology.UI.Login
 
         private void LoginPageWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            this.m_PageNavigator.Close();            
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);          
+            this.m_PageNavigator.Close();
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
         }		                               
     }
 }

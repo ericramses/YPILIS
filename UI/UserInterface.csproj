@@ -29,7 +29,7 @@
     <ApplicationIcon>YPI.ico</ApplicationIcon>
     <NoWin32Manifest>true</NoWin32Manifest>
     <TargetFrameworkProfile />
-    <PublishUrl>\\Ypiidc\YPIILIS\Test\</PublishUrl>
+    <PublishUrl>\\ypiidc\YPIILIS\Application\</PublishUrl>
     <Install>false</Install>
     <InstallFrom>Unc</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -41,7 +41,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>23</ApplicationRevision>
+    <ApplicationRevision>81</ApplicationRevision>
     <ApplicationVersion>10.1.2.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -314,6 +314,9 @@
     <Compile Include="ListViewSorter.cs" />
     <Compile Include="LockedCaseDialog.xaml.cs">
       <DependentUpon>LockedCaseDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Login\CaseLockedPage.xaml.cs">
+      <DependentUpon>CaseLockedPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Login\MissingInformationPage.xaml.cs">
       <DependentUpon>MissingInformationPage.xaml</DependentUpon>
@@ -1940,6 +1943,10 @@
       <SubType>Designer</SubType>
     </Resource>
     <Page Include="LockedCaseDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Login\CaseLockedPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -13,18 +13,22 @@ namespace YellowstonePathology.UI.Billing
 
 		private Business.Search.ReportSearchList m_ReportSearchList;
         private BillingPage m_BillingPage;
-		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;        
+		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
+        private System.Windows.Window m_Writer;
 
-		public BillingPath(Business.Search.ReportSearchList reportSearchList)
-        {            
+
+        public BillingPath(Business.Search.ReportSearchList reportSearchList)
+        {
             this.m_ReportSearchList = reportSearchList;
         }               
 
-        public void Start()
+        public void Start(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {
             if (this.m_ReportSearchList.CurrentReportSearchItem != null)
             {
-                this.m_BillingWindowPrimary = new BillingWindowPrimary();                
+                this.m_BillingWindowPrimary = new BillingWindowPrimary();
+                this.m_Writer = this.m_BillingWindowPrimary;
+                this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(accessionOrder.MasterAccessionNo, this.m_Writer);
                 this.m_BillingWindowPrimary.Show();
 
                 if (this.m_BillingWindowPrimary.PageNavigator.HasDualMonitors() == true)
@@ -33,7 +37,6 @@ namespace YellowstonePathology.UI.Billing
                     this.m_BillingWindowPrimary.PageNavigator.ShowSecondMonitorWindow(this.m_BillingWindowSecondary);
                 }
 
-                this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(this.m_ReportSearchList.CurrentReportSearchItem.MasterAccessionNo, this.m_BillingWindowPrimary);
 				this.ShowBillingPage(this.m_AccessionOrder);                
 			}
         }        
@@ -211,7 +214,7 @@ namespace YellowstonePathology.UI.Billing
             if (this.m_ReportSearchList.BeginningOfList == false)
             {
 				if (this.m_TifDocumentViewer != null) this.m_TifDocumentViewer.Close();
-                this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(this.m_ReportSearchList.CurrentReportSearchItem.MasterAccessionNo, this.m_BillingWindowPrimary);
+                this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(this.m_ReportSearchList.CurrentReportSearchItem.MasterAccessionNo, this.m_Writer);
                 this.ShowBillingPage(this.m_AccessionOrder);
 			}
             else
@@ -226,7 +229,7 @@ namespace YellowstonePathology.UI.Billing
             if (this.m_ReportSearchList.EndOfList == false)
             {
 				if (this.m_TifDocumentViewer != null) this.m_TifDocumentViewer.Close();
-                this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(this.m_ReportSearchList.CurrentReportSearchItem.MasterAccessionNo, this.m_BillingWindowPrimary);
+                this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(this.m_ReportSearchList.CurrentReportSearchItem.MasterAccessionNo, this.m_Writer);
                 this.ShowBillingPage(this.m_AccessionOrder);
 			}
             else

@@ -51,10 +51,10 @@ namespace YellowstonePathology.Business.Persistence
             get { return this.m_Stack.Documents; }
         }
 
-        public void Save(object writer)
+        public void Save()
         {
-            this.m_Stack.Save(writer);
-        }
+            this.m_Stack.Save();
+        }        
 
         public void Push(object writer)
         {
@@ -157,44 +157,16 @@ namespace YellowstonePathology.Business.Persistence
         }
 
         public void PullTaskOrder(YellowstonePathology.Business.Task.Model.TaskOrder taskOrder, object writer)
-        {
-            /*
-            DocumentId documentId = new DocumentId(typeof(YellowstonePathology.Business.Task.Model.TaskOrder), writer, taskOrder.TaskOrderId);
-            //Document document = this.m_Stack.Pull(documentId, false);
-
-            XElement documentElement = new XElement("Document");
-
+        {                                    
             SqlCommand cmd = new SqlCommand(" select tsk.*,  ( select tskd.* from tblTaskOrderDetail tskd where tskd.TaskOrderId = tsk.TaskOrderId " +
                 "for xml Path('TaskOrderDetail'), type) [TaskOrderDetailCollection] " +
                 "from tblTaskOrder tsk where tsk.TaskOrderId = @TaskOrderId  for xml Path('TaskOrder')");
             cmd.CommandType = CommandType.Text;
             cmd.Parameters.Add("@TaskOrderId", SqlDbType.VarChar).Value = taskOrder.TaskOrderId;
 
-            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
-            {
-                cn.Open();
-                cmd.Connection = cn;
-                using (XmlReader xmlReader = cmd.ExecuteXmlReader())
-                {
-                    if (xmlReader.Read() == true)
-                    {
-                        documentElement = XElement.Load(xmlReader);
-                    }
-                }
-            }
-
-            YellowstonePathology.Business.Persistence.XmlPropertyWriter taskOrderWriter = new YellowstonePathology.Business.Persistence.XmlPropertyWriter(documentElement, taskOrder);
-            taskOrderWriter.Write();
-
-            List<XElement> taskOrderDetailElements = (from item in documentElement.Elements("TaskOrderDetailCollection") select item).ToList<XElement>();
-            foreach (XElement taskOrderDetailElement in taskOrderDetailElements.Elements("TaskOrderDetail"))
-            {
-                YellowstonePathology.Business.Task.Model.TaskOrderDetail taskOrderDetail = new YellowstonePathology.Business.Task.Model.TaskOrderDetail();
-                YellowstonePathology.Business.Persistence.XmlPropertyWriter taskOrderDetailWriter = new YellowstonePathology.Business.Persistence.XmlPropertyWriter(taskOrderDetailElement, taskOrderDetail);
-                taskOrderDetailWriter.Write();
-                taskOrder.TaskOrderDetailCollection.Add(taskOrderDetail);
-            }  
-            */          
+            TaskOrderDocumentBuilder taskOrderDocumentBuilder = new TaskOrderDocumentBuilder(cmd);
+            DocumentId documentId = new DocumentId(taskOrder, writer);
+            Document document = this.m_Stack.Pull(documentId, taskOrderDocumentBuilder);
         }
 
         public YellowstonePathology.Business.User.UserPreference PullUserPreference(object writer)

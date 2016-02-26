@@ -34,7 +34,7 @@ namespace YellowstonePathology.Business.User
 
         public void Save()
         {
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save(this);
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
         }
 	}
 }

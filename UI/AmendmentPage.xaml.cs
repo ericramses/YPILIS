@@ -126,7 +126,7 @@ namespace YellowstonePathology.UI
             YellowstonePathology.Business.Rules.MethodResult methodResult = this.m_Amendment.IsOkToAccept();
             if (methodResult.Success == true)
             {
-                this.m_Amendment.Accept(this.m_SystemIdentity.User);
+                this.m_Amendment.Accept();
             }
             else
             {
@@ -151,7 +151,7 @@ namespace YellowstonePathology.UI
 
                 if (canFinal == true)
                 {
-                    this.m_Amendment.Finalize(this.m_SystemIdentity.User);
+                    this.m_Amendment.Finalize();
                 }
             }
             else

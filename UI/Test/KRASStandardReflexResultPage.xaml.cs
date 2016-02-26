@@ -123,7 +123,7 @@ namespace YellowstonePathology.UI.Test
 			YellowstonePathology.Business.Rules.MethodResult methodResult = YellowstonePathology.Business.Test.KRASStandardReflex.KRASStandardReflexResult.IsOkToFinal(this.m_KRASStandardReflexResult);
 			if (methodResult.Success == true)
 			{
-				this.m_KRASStandardReflexResult.FinalizeResults(this.m_KRASStandardReflexResult.KRASStandardReflexTestOrder, this.m_SystemIdentity);
+				this.m_KRASStandardReflexResult.FinalizeResults(this.m_KRASStandardReflexResult.KRASStandardReflexTestOrder);
 			}
 			else
 			{
@@ -183,7 +183,7 @@ namespace YellowstonePathology.UI.Test
 			YellowstonePathology.Business.Rules.MethodResult result = this.m_KRASStandardReflexResult.KRASStandardReflexTestOrder.IsOkToAccept();
 			if (result.Success == true)
 			{
-				this.m_KRASStandardReflexResult.KRASStandardReflexTestOrder.Accept(this.m_SystemIdentity.User);
+				this.m_KRASStandardReflexResult.KRASStandardReflexTestOrder.Accept();
 			}
 			else
 			{

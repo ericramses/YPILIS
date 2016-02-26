@@ -14,6 +14,7 @@ using System.IO;
 using System.Data;
 using System.Data.SqlClient;
 using System.ComponentModel;
+using Microsoft.Win32;
 
 namespace YellowstonePathology.UI
 {    
@@ -66,7 +67,9 @@ namespace YellowstonePathology.UI
         MainWindowCommandButtonHandler m_MainWindowCommandButtonHandler;        
 
         public MainWindow()
-        {            
+        {
+            SystemEvents.SessionSwitch += SystemEvents_SessionSwitch;
+
             //BindingErrorListener.Listen(m => MessageBox.Show(m));            
             this.m_MainWindowCommandButtonHandler = new MainWindowCommandButtonHandler();
 
@@ -146,7 +149,21 @@ namespace YellowstonePathology.UI
 
             this.Loaded += new RoutedEventHandler(MainWindow_Loaded);
             this.Closing +=new System.ComponentModel.CancelEventHandler(MainWindow_Closing);            
-        }        
+        }
+
+        private void SystemEvents_SessionSwitch(object sender, SessionSwitchEventArgs e)
+        {
+            switch (e.Reason)
+            {
+                case SessionSwitchReason.SessionLock:              
+                    while(this.TabControlLeftWorkspace.Items.Count > 0)
+                    {
+                        this.TabControlLeftWorkspace.Items.RemoveAt(0);                                                
+                    }
+                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Flush();
+                    break;
+            }
+        }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {                        
@@ -445,8 +462,7 @@ namespace YellowstonePathology.UI
 				this.m_TabItemTyping.Content = this.m_TypingWorkspace;
                 this.TabControlLeftWorkspace.Items.Add(this.m_TabItemTyping);
                 this.m_TabItemTyping.Focus();                
-                this.m_TypingWorkspace.Loaded += new RoutedEventHandler(this.TypingWorkspace_Loaded);
-				this.CommandBindings.Add(m_TypingWorkspace.CommandBindingRemoveTab);
+                this.m_TypingWorkspace.Loaded += new RoutedEventHandler(this.TypingWorkspace_Loaded);				
 			}
         }        
 
@@ -467,8 +483,7 @@ namespace YellowstonePathology.UI
                 this.m_TabItemFlow.Content = this.m_FlowWorkspace;
                 this.TabControlLeftWorkspace.Items.Add(this.m_TabItemFlow);
                 this.m_TabItemFlow.Focus();                
-                this.m_FlowWorkspace.Loaded += new RoutedEventHandler(this.FlowWorkspace_Loaded);
-				this.CommandBindings.Add(m_FlowWorkspace.CommandBindingRemoveTab);
+                this.m_FlowWorkspace.Loaded += new RoutedEventHandler(this.FlowWorkspace_Loaded);				
 			}
         }
 
@@ -845,7 +860,7 @@ namespace YellowstonePathology.UI
         private void MenuItemPantherOrders_Click(object sender, RoutedEventArgs e)
         {
             PantherOrdersDialog pantherOrdersDialog = new PantherOrdersDialog();
-            pantherOrdersDialog.ShowDialog();
+            pantherOrdersDialog.Show();
         }
 
         private void MenuItemPantherStorage_Click(object sender, RoutedEventArgs e)

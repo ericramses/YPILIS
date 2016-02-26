@@ -148,7 +148,7 @@ namespace YellowstonePathology.UI.Test
             {
                 if (this.m_EGFRToALKReflexAnalysisTestOrder.Final == false)
                 {
-                    this.m_EGFRToALKReflexAnalysisTestOrder.Finalize(this.m_SystemIdentity.User);
+                    this.m_EGFRToALKReflexAnalysisTestOrder.Finalize();
                 }
             }			
 		}
@@ -166,7 +166,7 @@ namespace YellowstonePathology.UI.Test
 			YellowstonePathology.Business.Rules.MethodResult result = this.m_EGFRToALKReflexAnalysisTestOrder.IsOkToAccept();
 			if (result.Success == true)
 			{
-				this.m_EGFRToALKReflexAnalysisTestOrder.Accept(this.m_SystemIdentity.User);
+				this.m_EGFRToALKReflexAnalysisTestOrder.Accept();
 			}
 			else
 			{

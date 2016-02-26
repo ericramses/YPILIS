@@ -122,7 +122,7 @@ namespace YellowstonePathology.UI.Test
             YellowstonePathology.Business.Audit.Model.AuditResult auditResult = this.m_HPVTestOrder.IsOkToFinalize(this.m_AccessionOrder);
             if (auditResult.Status == Business.Audit.Model.AuditStatusEnum.OK)
             {
-                this.m_HPVTestOrder.Finalize(this.m_SystemIdentity.User);
+                this.m_HPVTestOrder.Finalize();
 
                 YellowstonePathology.Business.ReportDistribution.Model.MultiTestDistributionHandler multiTestDistributionHandler = YellowstonePathology.Business.ReportDistribution.Model.MultiTestDistributionHandlerFactory.GetHandler(this.m_AccessionOrder);
                 multiTestDistributionHandler.Set();
@@ -169,7 +169,7 @@ namespace YellowstonePathology.UI.Test
             YellowstonePathology.Business.Rules.MethodResult methodResult = this.m_HPVTestOrder.IsOkToAccept();
             if (methodResult.Success == true)
             {                                
-                this.m_HPVTestOrder.Accept(this.m_SystemIdentity.User);
+                this.m_HPVTestOrder.Accept();
             }
             else
             {

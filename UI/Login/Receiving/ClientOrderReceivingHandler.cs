@@ -169,8 +169,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 
         public void IFoundAClientOrderDetail(YellowstonePathology.Business.ClientOrder.Model.ClientOrderDetail clientOrderDetail)
         {
-            this.m_ClientOrder.ClientOrderDetailCollection.Add(clientOrderDetail);
-            //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_ClientOrder, false);
+            this.m_ClientOrder.ClientOrderDetailCollection.Add(clientOrderDetail);            
         }
 
         private YellowstonePathology.Business.ClientOrder.Model.ClientOrderDetail FindOrCreateNewClientOrderDetail(string containerId)
@@ -219,8 +218,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 		{			
 			this.m_CurrentClientOrderDetail = clientOrderDetail;
 			this.m_ClientOrder.Receive();
-			this.m_CurrentClientOrderDetail.Receive();
-            //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_ClientOrder, false);
+			this.m_CurrentClientOrderDetail.Receive();            
         }		
 
 		public void CreateNewAccessionOrder(YellowstonePathology.Business.Test.AccessionTypeEnum accessionType)
@@ -264,9 +262,7 @@ namespace YellowstonePathology.UI.Login.Receiving
             }
 
             this.m_AccessionOrder.PanelSetOrderCollection.FromClientOrder(this.m_ClientOrder, this.m_AccessionOrder, this.m_SystemIdentity);
-            this.m_AccessionOrder.PanelSetOrderCollection.HandleReflexTestingFromClientOrder(this.m_ClientOrder, this.m_AccessionOrder, this.m_SystemIdentity);
-
-            //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_ClientOrder, false);
+            this.m_AccessionOrder.PanelSetOrderCollection.HandleReflexTestingFromClientOrder(this.m_ClientOrder, this.m_AccessionOrder, this.m_SystemIdentity);            
         }
 
 		private void SendStatusMessage()
@@ -324,8 +320,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 
 		public void Save(bool releaseLock)
 		{
-			//if (this.m_AccessionOrder != null) YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, releaseLock);
-			//if (this.m_ClientOrder != null) YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_ClientOrder, false);
+			
         }
 
 		public void ResetTheSelectedClientOrderDetailToThisOne(YellowstonePathology.Business.ClientOrder.Model.ClientOrderDetail clientOrderDetail)

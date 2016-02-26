@@ -12,18 +12,16 @@ namespace YellowstonePathology.Business.HL7View.CDC
         public static string CLIANUMBER = "27D0946844";
 
         private XElement m_Document;
-        private int m_ObxCount;
-        private string m_ReportNo;        
+        private int m_ObxCount;        
 
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
+        private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
         private YellowstonePathology.Business.Domain.Physician m_OrderingPhysician;        
 
-        public MTDohResultView(string reportNo, object writer)
+        public MTDohResultView(string reportNo, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {
-            this.m_ReportNo = reportNo;
-
-            string masterAccessionNo = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetMasterAccessionNoFromReportNo(this.m_ReportNo);
-            this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, writer);
+            this.m_AccessionOrder = accessionOrder;
+            this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 
             this.m_OrderingPhysician = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianByPhysicianId(this.m_AccessionOrder.PhysicianId);           
 		}
@@ -44,22 +42,22 @@ namespace YellowstonePathology.Business.HL7View.CDC
                 this.m_AccessionOrder.PCity, this.m_AccessionOrder.PState, this.m_AccessionOrder.PZipCode);
             pid.ToXml(this.m_Document);
             
-            MTDohOrcView orc = new MTDohOrcView(this.m_AccessionOrder.ExternalOrderId, this.m_OrderingPhysician, this.m_ReportNo, OrderStatusEnum.Complete, this.m_AccessionOrder.SystemInitiatingOrder);
+            MTDohOrcView orc = new MTDohOrcView(this.m_AccessionOrder.ExternalOrderId, this.m_OrderingPhysician, this.m_PanelSetOrder.ReportNo, OrderStatusEnum.Complete, this.m_AccessionOrder.SystemInitiatingOrder);
             orc.ToXml(this.m_Document);
 
-            YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
+            YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_PanelSetOrder.ReportNo);
             ResultStatus resultStatus = ResultStatusEnum.Final;
             if (panelSetOrder.AmendmentCollection.Count != 0) resultStatus = ResultStatusEnum.Correction;
-            MTDohObrView obr = new MTDohObrView(this.m_AccessionOrder, this.m_ReportNo, this.m_OrderingPhysician);
+            MTDohObrView obr = new MTDohObrView(this.m_AccessionOrder, this.m_PanelSetOrder.ReportNo, this.m_OrderingPhysician);
             obr.ToXml(this.m_Document);
 
-            MTDohObxView obx = new MTDohObxView(this.m_AccessionOrder, this.m_ReportNo, this.m_ObxCount);
+            MTDohObxView obx = new MTDohObxView(this.m_AccessionOrder, this.m_PanelSetOrder.ReportNo, this.m_ObxCount);
             obx.ToXml(this.m_Document);
             this.m_ObxCount = obx.ObxCount;
 
-			YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_ReportNo);
-			string serverFileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + "\\" + this.m_ReportNo + ".Mirth.xml";
-            string mirthFileName = @"\\YPIIInterface1\ChannelData\Outgoing\1004\" + this.m_ReportNo + ".Mirth.xml";
+			YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
+			string serverFileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + "\\" + this.m_PanelSetOrder.ReportNo + ".Mirth.xml";
+            string mirthFileName = @"\\YPIIInterface1\ChannelData\Outgoing\1004\" + this.m_PanelSetOrder.ReportNo + ".Mirth.xml";
             //string mirthFileName = @"C:\PHINMS\" + this.m_ReportNo + ".Mirth.xml";
                         
             System.IO.StreamWriter streamWriter = new System.IO.StreamWriter(serverFileName, false, new ASCIIEncoding());
@@ -100,7 +98,7 @@ namespace YellowstonePathology.Business.HL7View.CDC
                 result.Success = false;
             }
 
-            YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
+            YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_PanelSetOrder.ReportNo);
             if (panelSetOrder.PanelSetId != 13)
             {
                 message += "This is not a surgical case.";

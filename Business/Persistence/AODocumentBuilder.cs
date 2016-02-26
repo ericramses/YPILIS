@@ -43,6 +43,8 @@ namespace YellowstonePathology.Business.Persistence
             result.TaskOrderCollection = new Task.Model.TaskOrderCollection();
             YellowstonePathology.Business.Gateway.AccessionOrderBuilder builder = new YellowstonePathology.Business.Gateway.AccessionOrderBuilder();
             builder.Build(this.m_SQLCommand, result);
+
+            //document.IsLockAquiredByMe = result.IsLockAquiredByMe;
         }
     }
 }

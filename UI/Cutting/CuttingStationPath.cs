@@ -54,7 +54,25 @@ namespace YellowstonePathology.UI.Cutting
             scanAliquotPage.UseLastMasterAccessionNo += new ScanAliquotPage.UseLastMasterAccessionNoEventHandler(ScanAliquotPage_UseLastMasterAccessionNo);
             scanAliquotPage.PageTimedOut += new ScanAliquotPage.PageTimedOutEventHandler(PageTimedOut);
             scanAliquotPage.PrintImmunos += ScanAliquotPage_PrintImmunos;
+            scanAliquotPage.ShowCaseLockedPage += ScanAliquotPage_ShowCaseLockedPage;
             this.m_CuttingWorkspaceWindow.PageNavigator.Navigate(scanAliquotPage);
+        }
+
+        private void ScanAliquotPage_ShowCaseLockedPage(object sender, CustomEventArgs.AccessionOrderReturnEventArgs eventArgs)
+        {
+            this.ShowCaseLockedPage(eventArgs.AccessionOrder);   
+        }
+
+        private void ShowCaseLockedPage(Business.Test.AccessionOrder accessionOrder)
+        {
+            UI.Login.CaseLockedPage caseLockedPage = new Login.CaseLockedPage(accessionOrder);
+            caseLockedPage.OK += CaseLockedPage_OK;
+            this.m_CuttingWorkspaceWindow.PageNavigator.Navigate(caseLockedPage);
+        }
+
+        private void CaseLockedPage_OK(object sender, UI.CustomEventArgs.AccessionOrderReturnEventArgs e)
+        {
+            this.ShowScanAliquotPage(e.AccessionOrder.MasterAccessionNo);
         }
 
         private void ScanAliquotPage_PrintImmunos(object sender, EventArgs eventArgs)
@@ -96,11 +114,18 @@ namespace YellowstonePathology.UI.Cutting
         {
             this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, m_CuttingWorkspaceWindow);			
 
-            YellowstonePathology.Business.Test.AliquotOrderCollection aliquotOrderCollection = this.m_AccessionOrder.SpecimenOrderCollection.GetAliquotOrdersThatHaveTestOrders();
-            AliquotOrderSelectionPage aliquotOrderSelectionPage = new AliquotOrderSelectionPage(aliquotOrderCollection, this.m_AccessionOrder);
-            aliquotOrderSelectionPage.AliquotOrderSelected += new AliquotOrderSelectionPage.AliquotOrderSelectedEventHandler(AliquotOrderSelectionPage_AliquotOrderSelected);
-            aliquotOrderSelectionPage.Back += new AliquotOrderSelectionPage.BackEventHandler(AliquotOrderSelectionPage_Back);
-            this.m_CuttingWorkspaceWindow.PageNavigator.Navigate(aliquotOrderSelectionPage);
+            if(this.m_AccessionOrder.IsLockAquiredByMe == true)
+            {
+                YellowstonePathology.Business.Test.AliquotOrderCollection aliquotOrderCollection = this.m_AccessionOrder.SpecimenOrderCollection.GetAliquotOrdersThatHaveTestOrders();
+                AliquotOrderSelectionPage aliquotOrderSelectionPage = new AliquotOrderSelectionPage(aliquotOrderCollection, this.m_AccessionOrder);
+                aliquotOrderSelectionPage.AliquotOrderSelected += new AliquotOrderSelectionPage.AliquotOrderSelectedEventHandler(AliquotOrderSelectionPage_AliquotOrderSelected);
+                aliquotOrderSelectionPage.Back += new AliquotOrderSelectionPage.BackEventHandler(AliquotOrderSelectionPage_Back);
+                this.m_CuttingWorkspaceWindow.PageNavigator.Navigate(aliquotOrderSelectionPage);
+            }
+            else
+            {
+                this.ShowCaseLockedPage(this.m_AccessionOrder);
+            }
         }
 
         private void AliquotOrderSelectionPage_Back(object sender, YellowstonePathology.UI.CustomEventArgs.MasterAccessionNoReturnEventArgs eventArgs)

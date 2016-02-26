@@ -68,7 +68,7 @@ namespace YellowstonePathology.UI.Gross
             scanContainerPage.UseThisContainer += new ScanContainerPage.UseThisContainerEventHandler(ScanContainerPage_UseThisContainer);
             scanContainerPage.PageTimedOut += new ScanContainerPage.PageTimedOutEventHandler(ScanContainerPage_PageTimedOut);
             scanContainerPage.BarcodeWontScan += new ScanContainerPage.BarcodeWontScanEventHandler(ScanContainerPage_BarcodeWontScan);
-            scanContainerPage.SignOut += new ScanContainerPage.SignOutEventHandler(ScanContainerPage_SignOut);
+            scanContainerPage.SignOut += new ScanContainerPage.SignOutEventHandler(ScanContainerPage_SignOut);            
 
 			this.m_HistologyGrossDialog.PageNavigator.Navigate(scanContainerPage);
 		}        
@@ -94,43 +94,62 @@ namespace YellowstonePathology.UI.Gross
         {
             string masterAccessionNo = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetMasterAccessionNoFromContainerId(containerId);
             this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, m_HistologyGrossDialog);            
-
+            
             if (this.m_AccessionOrder == null)
             {
                 System.Windows.MessageBox.Show("The scanned container was not found.");
                 this.ShowScanContainerPage();                
             }
             else
-            {                                                
-				YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByContainerId(containerId);                
-                this.AddMaterialTrackingLog(specimenOrder);
-
-                if (this.m_HistologyGrossDialog.PageNavigator.HasDualMonitors() == true)
+            { 
+                if(this.m_AccessionOrder.IsLockAquiredByMe == true)
                 {
-                    DictationTemplatePage dictationTemplatePage = new DictationTemplatePage(specimenOrder, this.m_AccessionOrder, this.m_SystemIdentity);
-                    this.m_SecondaryWindow.PageNavigator.Navigate(dictationTemplatePage);
-                }                
+                    YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByContainerId(containerId);
+                    this.AddMaterialTrackingLog(specimenOrder);
 
-                if (string.IsNullOrEmpty(specimenOrder.ProcessorRunId) == true)
-                {
-                    YellowstonePathology.Business.Surgical.ProcessorRunCollection processorRunCollection = YellowstonePathology.Business.Surgical.ProcessorRunCollection.GetAll(false);
-                    YellowstonePathology.Business.Surgical.ProcessorRun processorRun = processorRunCollection.Get(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference);                                        
-                    specimenOrder.SetProcessor(processorRun);
-                    specimenOrder.SetFixationDuration();
-                }
+                    if (this.m_HistologyGrossDialog.PageNavigator.HasDualMonitors() == true)
+                    {
+                        DictationTemplatePage dictationTemplatePage = new DictationTemplatePage(specimenOrder, this.m_AccessionOrder, this.m_SystemIdentity);
+                        this.m_SecondaryWindow.PageNavigator.Navigate(dictationTemplatePage);
+                    }
 
-				if (this.m_AccessionOrder.PrintMateColumnNumber == 0 && this.m_AccessionOrder.PanelSetOrderCollection.HasTestBeenOrdered(48) == false)
-                {
-                    this.ShowBlockColorSelectionPage(specimenOrder);
+                    if (string.IsNullOrEmpty(specimenOrder.ProcessorRunId) == true)
+                    {
+                        YellowstonePathology.Business.Surgical.ProcessorRunCollection processorRunCollection = YellowstonePathology.Business.Surgical.ProcessorRunCollection.GetAll(false);
+                        YellowstonePathology.Business.Surgical.ProcessorRun processorRun = processorRunCollection.Get(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference);
+                        specimenOrder.SetProcessor(processorRun);
+                        specimenOrder.SetFixationDuration();
+                    }
+
+                    if (this.m_AccessionOrder.PrintMateColumnNumber == 0 && this.m_AccessionOrder.PanelSetOrderCollection.HasTestBeenOrdered(48) == false)
+                    {
+                        this.ShowBlockColorSelectionPage(specimenOrder);
+                    }
+                    else
+                    {
+                        this.ShowPrintBlockPage(specimenOrder);
+                    }
                 }
                 else
                 {
-                    this.ShowPrintBlockPage(specimenOrder);
+                    this.ShowCaseLockPage();
                 }
             }
         }
 
-		private void AddMaterialTrackingLog(YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder)
+        private void ShowCaseLockPage()
+        {
+            UI.Login.CaseLockedPage caseLockedPage = new Login.CaseLockedPage(this.m_AccessionOrder);
+            caseLockedPage.OK += CaseLockedPage_OK;
+            this.m_HistologyGrossDialog.PageNavigator.Navigate(caseLockedPage);
+        }
+
+        private void CaseLockedPage_OK(object sender, EventArgs e)
+        {
+            this.ShowScanContainerPage();
+        }
+
+        private void AddMaterialTrackingLog(YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder)
         {
             YellowstonePathology.Business.Facility.Model.FacilityCollection facilityCollection = Business.Facility.Model.FacilityCollection.GetAllFacilities();
             YellowstonePathology.Business.Facility.Model.LocationCollection locationCollection = YellowstonePathology.Business.Facility.Model.LocationCollection.GetAllLocations();

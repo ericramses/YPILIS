@@ -194,6 +194,7 @@ namespace YellowstonePathology.UI.ReportDistribution
             testOrderReportDistribution.ScheduledDistributionTime = DateTime.Now.AddMinutes(15);
 
             panelSetOrder.Published = false;
+            testOrderReportDistribution.Distributed = false;            
             panelSetOrder.ScheduledPublishTime = DateTime.Now.AddMinutes(15);                            
 
             this.m_ReportDistributionLogEntryCollection.AddEntry("INFO", "Schedule Distribution", testOrderReportDistribution.DistributionType, panelSetOrder.ReportNo,
@@ -339,37 +340,42 @@ namespace YellowstonePathology.UI.ReportDistribution
                         {                            
                             foreach (YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution testOrderReportDistribution in panelSetOrder.TestOrderReportDistributionCollection)
                             {
-                                YellowstonePathology.Business.ReportDistribution.Model.DistributionResult distributionResult = this.Distribute(testOrderReportDistribution);
-                                if (distributionResult.IsComplete == true)
+                                if(testOrderReportDistribution.Distributed == false)
                                 {
-                                    testOrderReportDistribution.TimeOfLastDistribution = DateTime.Now;
-                                    testOrderReportDistribution.ScheduledDistributionTime = null;
-                                    testOrderReportDistribution.Distributed = true;
+                                    YellowstonePathology.Business.ReportDistribution.Model.DistributionResult distributionResult = this.Distribute(testOrderReportDistribution, accessionOrder);
+                                    if (distributionResult.IsComplete == true)
+                                    {
+                                        testOrderReportDistribution.TimeOfLastDistribution = DateTime.Now;
+                                        testOrderReportDistribution.ScheduledDistributionTime = null;
+                                        testOrderReportDistribution.Distributed = true;
 
-                                    string testOrderReportDistributionLogId = Guid.NewGuid().ToString();
-                                    string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-                                    YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistributionLog testOrderReportDistributionLog = new YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistributionLog(testOrderReportDistributionLogId, objectId);
-                                    testOrderReportDistributionLog.FromTestOrderReportDistribution(testOrderReportDistribution);
-                                    testOrderReportDistributionLog.TimeDistributed = DateTime.Now;
-                                    panelSetOrder.TestOrderReportDistributionLogCollection.Add(testOrderReportDistributionLog);
+                                        string testOrderReportDistributionLogId = Guid.NewGuid().ToString();
+                                        string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
+                                        YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistributionLog testOrderReportDistributionLog = new YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistributionLog(testOrderReportDistributionLogId, objectId);
+                                        testOrderReportDistributionLog.FromTestOrderReportDistribution(testOrderReportDistribution);
+                                        testOrderReportDistributionLog.TimeDistributed = DateTime.Now;
+                                        panelSetOrder.TestOrderReportDistributionLogCollection.Add(testOrderReportDistributionLog);
 
-                                    this.m_ReportDistributionLogEntryCollection.AddEntry("INFO", "Publish Next", testOrderReportDistribution.DistributionType, panelSetOrder.ReportNo, panelSetOrder.MasterAccessionNo,
-                                        testOrderReportDistribution.PhysicianName, testOrderReportDistribution.ClientName, "TestOrderReportDistribution Distributed");
-                                }
-                                else
-                                {
-                                    testOrderReportDistribution.ScheduledDistributionTime = DateTime.Now.AddMinutes(30);
-                                    testOrderReportDistribution.Rescheduled = true;
-                                    testOrderReportDistribution.RescheduledMessage = distributionResult.Message;
+                                        Business.Persistence.DocumentGateway.Instance.Save();
 
-                                    this.m_ReportDistributionLogEntryCollection.AddEntry("ERROR", "Publish Next", testOrderReportDistribution.DistributionType, panelSetOrder.ReportNo, panelSetOrder.MasterAccessionNo,
-                                        testOrderReportDistribution.PhysicianName, testOrderReportDistribution.ClientName, distributionResult.Message);
+                                        this.m_ReportDistributionLogEntryCollection.AddEntry("INFO", "Publish Next", testOrderReportDistribution.DistributionType, panelSetOrder.ReportNo, panelSetOrder.MasterAccessionNo,
+                                            testOrderReportDistribution.PhysicianName, testOrderReportDistribution.ClientName, "TestOrderReportDistribution Distributed");
+                                    }
+                                    else
+                                    {
+                                        testOrderReportDistribution.ScheduledDistributionTime = DateTime.Now.AddMinutes(30);
+                                        testOrderReportDistribution.Rescheduled = true;
+                                        testOrderReportDistribution.RescheduledMessage = distributionResult.Message;
 
-                                    System.Net.Mail.MailMessage message = new System.Net.Mail.MailMessage("Sid.Harder@ypii.com", "Sid.Harder@ypii.com", System.Windows.Forms.SystemInformation.UserName, distributionResult.Message);
-                                    System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient("10.1.2.111");
-                                    client.Credentials = new System.Net.NetworkCredential("Administrator", "p0046e");
-                                    client.Send(message);
-                                }
+                                        this.m_ReportDistributionLogEntryCollection.AddEntry("ERROR", "Publish Next", testOrderReportDistribution.DistributionType, panelSetOrder.ReportNo, panelSetOrder.MasterAccessionNo,
+                                            testOrderReportDistribution.PhysicianName, testOrderReportDistribution.ClientName, distributionResult.Message);
+
+                                        System.Net.Mail.MailMessage message = new System.Net.Mail.MailMessage("Sid.Harder@ypii.com", "Sid.Harder@ypii.com", System.Windows.Forms.SystemInformation.UserName, distributionResult.Message);
+                                        System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient("10.1.2.111");
+                                        client.Credentials = new System.Net.NetworkCredential("Administrator", "p0046e");
+                                        client.Send(message);
+                                    }
+                                }                                
                             }
                         }
 
@@ -417,7 +423,7 @@ namespace YellowstonePathology.UI.ReportDistribution
             }
         }
 
-        private YellowstonePathology.Business.ReportDistribution.Model.DistributionResult Distribute(YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution testOrderReportDistribution)
+        private YellowstonePathology.Business.ReportDistribution.Model.DistributionResult Distribute(YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution testOrderReportDistribution, Business.Test.AccessionOrder accessionOrder)
         {
             YellowstonePathology.Business.ReportDistribution.Model.DistributionResult result = null;
 
@@ -427,13 +433,13 @@ namespace YellowstonePathology.UI.ReportDistribution
                     result = this.HandleFaxDistribution(testOrderReportDistribution);
                     break;
                 case YellowstonePathology.Business.ReportDistribution.Model.DistributionType.EPIC:
-                    result = this.HandleEPICDistribution(testOrderReportDistribution);
+                    result = this.HandleEPICDistribution(testOrderReportDistribution, accessionOrder);
                     break;                
                 case YellowstonePathology.Business.ReportDistribution.Model.DistributionType.ECW:
-                    result = this.HandleECWDistribution(testOrderReportDistribution);
+                    result = this.HandleECWDistribution(testOrderReportDistribution, accessionOrder);
                     break;
                 case YellowstonePathology.Business.ReportDistribution.Model.DistributionType.ATHENA:
-                    result = this.HandleATHENADistribution(testOrderReportDistribution);
+                    result = this.HandleATHENADistribution(testOrderReportDistribution.ReportNo, accessionOrder);
                     break;
                 case YellowstonePathology.Business.ReportDistribution.Model.DistributionType.MEDITECH:
                     result = this.HandleMeditechDistribution(testOrderReportDistribution);
@@ -445,7 +451,7 @@ namespace YellowstonePathology.UI.ReportDistribution
                     result = this.HandlePrintDistribution(testOrderReportDistribution);
                     break;
                 case YellowstonePathology.Business.ReportDistribution.Model.DistributionType.MTDOH:
-                    result = this.HandleMTDOHDistribution(testOrderReportDistribution);
+                    result = this.HandleMTDOHDistribution(testOrderReportDistribution.ReportNo, accessionOrder);
                     break;            
                 case YellowstonePathology.Business.ReportDistribution.Model.DistributionType.WYDOH:
                     result = this.HandleWYDOHDistribution(testOrderReportDistribution);
@@ -465,10 +471,10 @@ namespace YellowstonePathology.UI.ReportDistribution
             return distributionResult;
         }
 
-        private YellowstonePathology.Business.ReportDistribution.Model.DistributionResult HandleMTDOHDistribution(YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution testOrderReportDistribution)
+        private YellowstonePathology.Business.ReportDistribution.Model.DistributionResult HandleMTDOHDistribution(string reportNo, Business.Test.AccessionOrder accessionOrder)
         {
             YellowstonePathology.Business.Rules.MethodResult result = new Business.Rules.MethodResult();
-            YellowstonePathology.Business.HL7View.CDC.MTDohResultView mtDohResultView = new Business.HL7View.CDC.MTDohResultView(testOrderReportDistribution.ReportNo, this);
+            YellowstonePathology.Business.HL7View.CDC.MTDohResultView mtDohResultView = new Business.HL7View.CDC.MTDohResultView(reportNo, accessionOrder);
             mtDohResultView.CanSend(result);
             mtDohResultView.Send(result);
 
@@ -499,10 +505,10 @@ namespace YellowstonePathology.UI.ReportDistribution
             return distributionResult;
         }
 
-        private YellowstonePathology.Business.ReportDistribution.Model.DistributionResult HandleATHENADistribution(YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution testOrderReportDistribution)
+        private YellowstonePathology.Business.ReportDistribution.Model.DistributionResult HandleATHENADistribution(string reportNo, Business.Test.AccessionOrder accessionOrder)
         {
             YellowstonePathology.Business.Rules.MethodResult methodResult = new Business.Rules.MethodResult();
-            YellowstonePathology.Business.HL7View.CMMC.CMMCResultView cmmcResultView = new Business.HL7View.CMMC.CMMCResultView(testOrderReportDistribution.ReportNo, this);
+            YellowstonePathology.Business.HL7View.CMMC.CMMCResultView cmmcResultView = new Business.HL7View.CMMC.CMMCResultView(reportNo, accessionOrder);
             YellowstonePathology.Business.Rules.MethodResult MmthodResult = new Business.Rules.MethodResult();
             cmmcResultView.Send(methodResult);
 
@@ -518,10 +524,10 @@ namespace YellowstonePathology.UI.ReportDistribution
             return meditechDistribution.Distribute(testOrderReportDistribution.ReportNo, this);                        
         }
 
-        private YellowstonePathology.Business.ReportDistribution.Model.DistributionResult HandleECWDistribution(YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution testOrderReportDistribution)
+        private YellowstonePathology.Business.ReportDistribution.Model.DistributionResult HandleECWDistribution(YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution testOrderReportDistribution, Business.Test.AccessionOrder accessionOrder)
         {            
             YellowstonePathology.Business.Rules.MethodResult methodResult = new Business.Rules.MethodResult();            
-            YellowstonePathology.Business.HL7View.ECW.ECWResultView resultView = new Business.HL7View.ECW.ECWResultView(testOrderReportDistribution.ReportNo, false, this);
+            YellowstonePathology.Business.HL7View.ECW.ECWResultView resultView = new Business.HL7View.ECW.ECWResultView(testOrderReportDistribution.ReportNo, accessionOrder, false);
             resultView.Send(methodResult);
 
             YellowstonePathology.Business.ReportDistribution.Model.DistributionResult distributionResult = new Business.ReportDistribution.Model.DistributionResult();
@@ -537,9 +543,9 @@ namespace YellowstonePathology.UI.ReportDistribution
             return YellowstonePathology.Business.ReportDistribution.Model.FaxSubmission.Submit(testOrderReportDistribution.FaxNumber, testOrderReportDistribution.LongDistance, testOrderReportDistribution.ReportNo, tifCaseFileName);
         }
 
-        private YellowstonePathology.Business.ReportDistribution.Model.DistributionResult HandleEPICDistribution(YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution testOrderReportDistribution)
+        private YellowstonePathology.Business.ReportDistribution.Model.DistributionResult HandleEPICDistribution(YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution testOrderReportDistribution, Business.Test.AccessionOrder accessionOrder)
         {
-            YellowstonePathology.Business.HL7View.IResultView resultView = YellowstonePathology.Business.HL7View.ResultViewFactory.GetResultView(testOrderReportDistribution.ReportNo, testOrderReportDistribution.ClientId, false, this);
+            YellowstonePathology.Business.HL7View.IResultView resultView = YellowstonePathology.Business.HL7View.ResultViewFactory.GetResultView(testOrderReportDistribution.ReportNo, accessionOrder, testOrderReportDistribution.ClientId, false);
             YellowstonePathology.Business.Rules.MethodResult methodResult = new Business.Rules.MethodResult();
             resultView.Send(methodResult);
 

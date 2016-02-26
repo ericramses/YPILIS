@@ -101,7 +101,7 @@ namespace YellowstonePathology.UI.Test
 		{
 			if (this.m_KRASExon4MutationTestOrder.Final == false)
 			{
-				this.m_KRASExon4MutationTestOrder.Finalize(this.m_SystemIdentity.User);    
+				this.m_KRASExon4MutationTestOrder.Finalize();    
 			}
 			else
 			{
@@ -126,7 +126,7 @@ namespace YellowstonePathology.UI.Test
 			YellowstonePathology.Business.Rules.MethodResult result = this.m_KRASExon4MutationTestOrder.IsOkToAccept();
 			if (result.Success == true)
 			{
-				this.m_KRASExon4MutationTestOrder.Accept(this.m_SystemIdentity.User);
+				this.m_KRASExon4MutationTestOrder.Accept();
 			}
 			else
 			{

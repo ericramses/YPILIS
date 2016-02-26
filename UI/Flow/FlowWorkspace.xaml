@@ -126,18 +126,13 @@
 						</StackPanel>                        
                         <StackPanel Orientation="Horizontal">
                             
-							<TextBlock Style="{StaticResource HeadingTextBlock}">Specimen:</TextBlock>
-                            <ComboBox Name="ComboBoxSpecimen" Style="{StaticResource BoundTextBox}"
-									  ItemsSource="{Binding Path=AccessionOrder.SpecimenOrderCollection}"
-									  DisplayMemberPath="Description"
-									  SelectedValuePath="SpecimenOrderId"
-									  SelectedValue="{Binding Path=PanelSetOrderLeukemiaLymphoma.OrderedOnId}"
-									  IsEnabled="{Binding Path=IsWorkspaceEnabled}">
-                            </ComboBox>
-                            
-                            <Button Name="ButtonShowSpecimenDialog" Width="30" Height="20" Click="ButtonShowSpecimenDialog_Click">...</Button>
-                            
-						</StackPanel>                                              
+							<TextBlock Style="{StaticResource HeadingTextBlock}" VerticalAlignment="Center">Specimen:</TextBlock>
+
+                            <Button Name="ButtonShowSpecimenDialog" Width="100" Height="30" Margin="2,2,2,2" Click="ButtonShowSpecimenDialog_Click">Details</Button>
+
+                            <Button Name="ButtonShowSelectSpecimenDialog" Width="100" Height="30" Margin="2,2,2,2" Click="ButtonShowSelectSpecimenDialog_Click">Selection</Button>
+
+                        </StackPanel>                                              
                         
 						<StackPanel Orientation="Horizontal">
 							<TextBlock Style="{StaticResource HeadingTextBlock}">Clinical History:</TextBlock>
@@ -788,7 +783,7 @@
 								Checked="RadioButtonFlowSearch_Checked"
 								Style="{StaticResource RadioButtonStyle}"
 							  GroupName="radioButtonGroupSearch">Report No:</RadioButton>
-							<TextBox Name="textBoxSearchReportNo" Width="100" Visibility="Hidden">15-</TextBox>
+							<TextBox Name="textBoxSearchReportNo" Width="100" Visibility="Hidden">16-</TextBox>
 						</StackPanel>
 						<StackPanel Orientation="Horizontal">
 							<RadioButton Name="radioButtonSearchPatientName"

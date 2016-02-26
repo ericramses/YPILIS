@@ -62,8 +62,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                 YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = null;
                 if (specimenOrder.AliquotOrderCollection.HasThinPrepSlide()== false)
                 {
-                    aliquotOrder = specimenOrder.AliquotOrderCollection.AddThinPrepSlide(specimenOrder, this.m_AccessionOrder.AccessionDate.Value);
-                    //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
+                    aliquotOrder = specimenOrder.AliquotOrderCollection.AddThinPrepSlide(specimenOrder, this.m_AccessionOrder.AccessionDate.Value);                    
                 }
                 else
                 {

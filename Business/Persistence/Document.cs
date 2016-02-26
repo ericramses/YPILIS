@@ -18,13 +18,13 @@ namespace YellowstonePathology.Business.Persistence
         protected Type m_Type;
         protected object m_Clone;
         protected bool m_IsGlobal;
-        protected bool m_IsLockAquiredByMe;
+        protected bool m_IsLockAquiredByMe;        
 
         protected List<object> m_Writers;
 
         public Document()
         {
-            this.m_Writers = new List<object>();
+            this.m_Writers = new List<object>();         
         }
 
         public Document(DocumentId documentId)
@@ -43,14 +43,23 @@ namespace YellowstonePathology.Business.Persistence
                 YellowstonePathology.Business.Test.AccessionOrder accessionOrder = (YellowstonePathology.Business.Test.AccessionOrder)this.m_Value;
                 this.m_IsLockAquiredByMe = accessionOrder.IsLockAquiredByMe;
             }            
-        }
+        }   
+        
+        public void ResetClone()
+        {
+            ObjectCloner objectCloner = new ObjectCloner();
+            this.m_Clone = objectCloner.Clone(this.m_Value);
+        }     
 
         public void ReleaseLock()
         {
             if (this.m_Value is YellowstonePathology.Business.Test.AccessionOrder)
-            {
+            {                
                 YellowstonePathology.Business.Test.AccessionOrder accessionOrder = (YellowstonePathology.Business.Test.AccessionOrder)this.m_Value;
-                accessionOrder.ReleaseLock();
+                if(accessionOrder.IsLockAquiredByMe == true)
+                {
+                    accessionOrder.ReleaseLock();
+                }                
             }
         }
 
@@ -125,7 +134,7 @@ namespace YellowstonePathology.Business.Persistence
         public bool IsGlobal
         {
             get { return this.m_IsGlobal; }
-        }
+        }        
 
         public bool IsLockAquiredByMe
         {
@@ -158,6 +167,11 @@ namespace YellowstonePathology.Business.Persistence
             throw new Exception("Not implemented here");
         }
 
+        public virtual bool IsDirty()
+        {
+            throw new Exception("Not implemented here");
+        }
+
         public void RemoveWriter(object writer)
         {
             for(int i=0; i<this.m_Writers.Count; i++)
@@ -181,8 +195,8 @@ namespace YellowstonePathology.Business.Persistence
 
             this.HandleUpdateSubmission(objectToSubmit, this.m_Clone, keyPropertyValue, objectSubmitter);
 
-            ObjectCloner objectCloner = new ObjectCloner();
-            this.m_Clone = objectCloner.Clone(objectToSubmit);
+            //ObjectCloner objectCloner = new ObjectCloner();
+            //this.m_Clone = objectCloner.Clone(objectToSubmit);
 
             return objectSubmitter;
         }

@@ -102,7 +102,7 @@ namespace YellowstonePathology.UI.Test
             Business.Audit.Model.AuditResult auditResult = this.m_KRASExon23MutationTestOrder.IsOkToFinalize(this.m_AccessionOrder);
             if (auditResult.Status == Business.Audit.Model.AuditStatusEnum.OK)
             {
-                this.m_KRASExon23MutationTestOrder.Finalize(this.m_SystemIdentity.User);
+                this.m_KRASExon23MutationTestOrder.Finalize();
             }
             else
             {
@@ -128,7 +128,7 @@ namespace YellowstonePathology.UI.Test
             YellowstonePathology.Business.Rules.MethodResult result = this.m_KRASExon23MutationTestOrder.IsOkToAccept();
             if (result.Success == true)
             {
-                this.m_KRASExon23MutationTestOrder.Accept(this.m_SystemIdentity.User);
+                this.m_KRASExon23MutationTestOrder.Accept();
             }
             else
             {

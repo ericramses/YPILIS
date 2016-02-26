@@ -259,7 +259,7 @@ namespace YellowstonePathology.UI.Test
             {
                 if (this.m_PanelSetOrderLynchSyndromeEvaluation.Final == false)
                 {
-                    this.m_PanelSetOrderLynchSyndromeEvaluation.Finalize(this.m_SystemIdentity.User);
+                    this.m_PanelSetOrderLynchSyndromeEvaluation.Finalize();
                 }
                 else
                 {
@@ -325,7 +325,7 @@ namespace YellowstonePathology.UI.Test
 			YellowstonePathology.Business.Rules.MethodResult result = this.m_PanelSetOrderLynchSyndromeEvaluation.IsOkToAccept();
 			if (result.Success == true)
 			{
-				this.m_PanelSetOrderLynchSyndromeEvaluation.Accept(this.m_SystemIdentity.User);
+				this.m_PanelSetOrderLynchSyndromeEvaluation.Accept();
 			}
 			else
 			{

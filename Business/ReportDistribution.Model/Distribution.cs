@@ -14,7 +14,7 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
             this.m_DistributionType = distributionType;
         }		
 
-        public virtual YellowstonePathology.Business.Rules.MethodResult Distribute(string reportNo, object writer)
+        public virtual YellowstonePathology.Business.Rules.MethodResult Distribute(string reportNo, Business.Test.AccessionOrder accessionOrder)
         {
             throw new Exception("Not implemented in base.");
         }

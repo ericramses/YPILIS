@@ -48,13 +48,18 @@ namespace YellowstonePathology.UI.MaterialTracking
         private bool m_UserMasterAccessionNo;
         private string m_MasterAccessionNo;
 
-		public MaterialBatchPage(YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch materialTrackingBatch,
+        YellowstonePathology.UI.Navigation.PageNavigator m_PageNavigator;
+
+
+        public MaterialBatchPage(YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch materialTrackingBatch,
 			YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogCollection materialTrackingLogCollection,
             bool backButtonVisible, bool nextButtonVisible, bool finishButtonVisible, 
-			bool useMasterAccessionNo, string masterAccessionNo)
+			bool useMasterAccessionNo, string masterAccessionNo, YellowstonePathology.UI.Navigation.PageNavigator pageNavigator)
 		{                        
             this.m_FacilityCollection = YellowstonePathology.Business.Facility.Model.FacilityCollection.GetAllFacilities();
             this.m_LocationCollection = YellowstonePathology.Business.Facility.Model.LocationCollection.GetAllLocations();
+
+            this.m_PageNavigator = pageNavigator;
 
 			this.m_MaterialTrackingBatch = materialTrackingBatch;
             this.m_MaterialTrackingLogCollection = materialTrackingLogCollection;            
@@ -244,7 +249,7 @@ namespace YellowstonePathology.UI.MaterialTracking
 
 			string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
 			YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog materialTrackingLog = new Business.MaterialTracking.Model.MaterialTrackingLog(objectId, materialId, materialTrackingBatchId, thisFacility.FacilityId, thisFacility.FacilityName, thisLocation.LocationId, thisLocation.Description, materialType);
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(materialTrackingLog, Window.GetWindow(this));
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(materialTrackingLog, this.m_PageNavigator.PrimaryMonitorWindow);
             this.m_MaterialTrackingLogCollection.Add(materialTrackingLog);
             return materialTrackingLog;
         }		
@@ -329,7 +334,7 @@ namespace YellowstonePathology.UI.MaterialTracking
 				YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog materialTrackingLog = this.m_MaterialTrackingLogCollection.Get(materialTrackingLogView.MaterialTrackingLogId);
                 this.m_MaterialTrackingLogCollection.Remove(materialTrackingLog);                
                 this.m_MaterialTrackingLogViewCollection.Remove(materialTrackingLogView);
-                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.DeleteDocument(materialTrackingLog, Window.GetWindow(this));
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.DeleteDocument(materialTrackingLog, this.m_PageNavigator.PrimaryMonitorWindow);
             }
         }		
 
