@@ -238,30 +238,6 @@ namespace YellowstonePathology.UI.Login
             }
         }
 
-        /*private void ListViewClientOrders_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (this.ListViewClientOrders.SelectedItem != null)
-            {                
-                //YellowstonePathology.Business.ClientOrder.Model.OrderBrowserListItem orderBrowserListItem = (YellowstonePathology.Business.ClientOrder.Model.OrderBrowserListItem)this.ListViewClientOrders.SelectedItem;
-                //YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullClientOrderByClientOrderId(orderBrowserListItem.ClientOrderId, this.m_Writer);
-                //YellowstonePathology.Business.Document.ClientOrderCaseDocument clientOrderCaseDocument = new Business.Document.ClientOrderCaseDocument(clientOrder);                
-                //this.m_DocumentViewer.ShowDocument(clientOrderCaseDocument);                
-            }
-        }
-
-        private void ListViewClientOrders_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            if (this.ListViewClientOrders.SelectedItem != null)
-            {
-                this.m_BarcodeScanPort.ContainerScanReceived -= ContainerScanReceived;
-                YellowstonePathology.Business.ClientOrder.Model.OrderBrowserListItem orderBrowserListItem = (YellowstonePathology.Business.ClientOrder.Model.OrderBrowserListItem)this.ListViewClientOrders.SelectedItem;                
-                YellowstonePathology.UI.Login.Receiving.ReceiveSpecimenPathStartingWithOrder path = new Receiving.ReceiveSpecimenPathStartingWithOrder(orderBrowserListItem.ClientOrderId);
-                path.Start();
-                this.m_BarcodeScanPort.ContainerScanReceived += ContainerScanReceived;
-
-            }
-        }*/
-
         public void GetCase(string masterAccessionNo, string reportNo)
         {
             this.m_LoginUI.GetAccessionOrder(masterAccessionNo, reportNo);
@@ -591,28 +567,6 @@ namespace YellowstonePathology.UI.Login
             this.m_BarcodeScanPort.ContainerScanReceived += ContainerScanReceived;
         }
 
-        /*private void ButtonClientOrderBack_Click(object sender, RoutedEventArgs e)
-        {
-            this.m_LoginUI.ClientOrderDate = this.m_LoginUI.ClientOrderDate.AddDays(-1);
-            this.m_LoginUI.GetClientOrderList();
-        }
-
-        private void ButtonClientOrderForward_Click(object sender, RoutedEventArgs e)
-        {
-            this.m_LoginUI.ClientOrderDate = this.m_LoginUI.ClientOrderDate.AddDays(1);
-            this.m_LoginUI.GetClientOrderList();
-        }
-
-        private void ButtonClientOrderRefresh_Click(object sender, RoutedEventArgs e)
-        {
-            this.m_LoginUI.GetClientOrderList();
-        }
-
-        private void ButtonHoldList_Click(object sender, RoutedEventArgs e)
-        {
-            this.m_LoginUI.GetHoldList();
-        }*/
-
         private void TileGrossEntry_MouseUp(object sender, MouseButtonEventArgs e)
         {
             if (this.ListViewAccessionOrders.SelectedItem != null)
@@ -860,28 +814,6 @@ namespace YellowstonePathology.UI.Login
                 }
             }
         }
-
-        /*private void TextBoxClientOrderSearch_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter)
-            {
-                if (this.TextBoxClientOrderSearch.Text.Length >= 1)
-                {
-                    Surgical.TextSearchHandler textSearchHandler = new Surgical.TextSearchHandler(this.TextBoxClientOrderSearch.Text);
-                    object textSearchObject = textSearchHandler.GetSearchObject();
-                    if (textSearchObject is YellowstonePathology.Business.MasterAccessionNo)
-                    {
-                        YellowstonePathology.Business.MasterAccessionNo masterAccessionNo = (YellowstonePathology.Business.MasterAccessionNo)textSearchObject;
-                        this.m_LoginUI.GetClientOrderListByMasterAccessionNo(masterAccessionNo.Value);
-                    }
-                    else if (textSearchObject is YellowstonePathology.Business.PatientName)
-                    {
-                        YellowstonePathology.Business.PatientName patientName = (YellowstonePathology.Business.PatientName)textSearchObject;
-                        this.m_LoginUI.GetClientOrderListByPatientName(patientName);
-                    }
-                }
-            }
-        }*/
 
         private void ButtonTasksNotAcknowledged_Click(object sender, RoutedEventArgs e)
         {

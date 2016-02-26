@@ -17,7 +17,6 @@ namespace YellowstonePathology.UI.Login
 		private YellowstonePathology.Business.Task.Model.TaskOrderCollection m_DailyTaskOrderCollection;
 
 		private DateTime m_AccessionOrderDate;
-        private DateTime m_ClientOrderDate;		
         private string m_SpecimenDescriptionSearchString;
 
         private List<string> m_CaseTypeList;
@@ -25,7 +24,6 @@ namespace YellowstonePathology.UI.Login
 
 		private YellowstonePathology.Business.Search.ReportSearchList m_ReportSearchList;
         private string m_CurrentCaseType;
-        private YellowstonePathology.Business.ClientOrder.Model.OrderBrowserListItemCollection m_OrderBrowserListItemCollection;
 		private string m_ReportNo;
         private string m_SelectedItemCount;
         private object m_Writer;
@@ -38,10 +36,7 @@ namespace YellowstonePathology.UI.Login
             this.m_CaseTypeList = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetCaseTypes();
 			this.m_TaskAcknowledgementTypeList = YellowstonePathology.Business.Task.Model.TaskAcknowledgementType.GetAll();
 			this.m_AccessionOrderDate = DateTime.Today;
-            this.m_ClientOrderDate = DateTime.Today;
             this.m_SystemIdentity = Business.User.SystemIdentity.Instance;
-
-            this.GetClientOrderList();
 
             YellowstonePathology.UI.TaskNotifier.Instance.Notifier.Alert += new TaskNotifier.AlertEventHandler(Notifier_Alert);
 		}
@@ -71,10 +66,6 @@ namespace YellowstonePathology.UI.Login
             }
         }
 
-        public YellowstonePathology.Business.ClientOrder.Model.OrderBrowserListItemCollection OrderBrowserListItemCollection
-        {
-            get { return this.m_OrderBrowserListItemCollection; }
-        }
 
         public string CurrentCaseType
         {
@@ -152,44 +143,10 @@ namespace YellowstonePathology.UI.Login
 			}
 		}
 
-        public DateTime ClientOrderDate
-        {
-            get { return this.m_ClientOrderDate; }
-            set
-            {
-                this.m_ClientOrderDate = value;
-                NotifyPropertyChanged("ClientOrderDate");
-            }
-        }
-
 		public List<string> TaskAcknowledgementTypeList
 		{
 			get { return this.m_TaskAcknowledgementTypeList; }
 		}
-
-        public void GetClientOrderList()
-        {
-            this.m_OrderBrowserListItemCollection = YellowstonePathology.Business.Gateway.ClientOrderGateway.GetOrderBrowserListItemsByOrderDate(this.m_ClientOrderDate);
-            this.NotifyPropertyChanged("OrderBrowserListItemCollection");
-        }
-
-		public void GetClientOrderListByMasterAccessionNo(string masterAccessionNo)
-		{
-			this.m_OrderBrowserListItemCollection = YellowstonePathology.Business.Gateway.ClientOrderGateway.GetOrderBrowserListItemsByMasterAccessionNo(masterAccessionNo);
-			this.NotifyPropertyChanged("OrderBrowserListItemCollection");
-        }
-
-		public void GetClientOrderListByPatientName(YellowstonePathology.Business.PatientName patientName)
-		{
-			this.m_OrderBrowserListItemCollection = YellowstonePathology.Business.Gateway.ClientOrderGateway.GetOrderBrowserListItemsByPatientName(patientName.LastName, patientName.FirstName);
-			this.NotifyPropertyChanged("OrderBrowserListItemCollection");
-		}
-
-        public void GetHoldList()
-        {
-            this.m_OrderBrowserListItemCollection = YellowstonePathology.Business.Gateway.ClientOrderGateway.GetOrderBrowserListItemsByHoldStatus();
-            this.NotifyPropertyChanged("OrderBrowserListItemCollection");
-        }
 
 		public void GetReportSearchList()
 		{

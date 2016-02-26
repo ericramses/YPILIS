@@ -6,15 +6,13 @@ using System.ComponentModel;
 
 namespace YellowstonePathology.UI
 {
-    public class ClientOrderUI
+    public class ClientOrderUI : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private YellowstonePathology.Business.Document.CaseDocumentCollection m_CaseDocumentCollection;
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 
         private DateTime m_ClientOrderDate;
-        private string m_SpecimenDescriptionSearchString;
 
         private YellowstonePathology.Business.ClientOrder.Model.OrderBrowserListItemCollection m_OrderBrowserListItemCollection;
         private string m_ReportNo;
@@ -54,31 +52,6 @@ namespace YellowstonePathology.UI
             {
                 this.m_AccessionOrder = value;
                 this.NotifyPropertyChanged("AccessionOrder");
-            }
-        }
-
-        public string ReportNo
-        {
-            get { return this.m_ReportNo; }
-            private set
-            {
-                this.m_ReportNo = value;
-                this.NotifyPropertyChanged("ReportNo");
-            }
-        }
-
-        public YellowstonePathology.Business.Document.CaseDocumentCollection CaseDocumentCollection
-        {
-            get { return this.m_CaseDocumentCollection; }
-        }
-
-        public string SpecimenDescriptionSearchString
-        {
-            get { return this.m_SpecimenDescriptionSearchString; }
-            set
-            {
-                this.m_SpecimenDescriptionSearchString = value;
-                NotifyPropertyChanged("SpeicmenDescriptionSearchString");
             }
         }
 
