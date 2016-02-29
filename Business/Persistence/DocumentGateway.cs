@@ -13,7 +13,7 @@ using System.Xml.Linq;
 namespace YellowstonePathology.Business.Persistence
 {
     public class DocumentGateway
-    {
+    {        
         private static volatile DocumentGateway instance;
         private static object syncRoot = new Object();
 
@@ -64,12 +64,7 @@ namespace YellowstonePathology.Business.Persistence
         public void ReleaseLock(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, object writer)
         {
             this.m_Stack.ReleaseLock(accessionOrder, writer);
-        }
-
-        public void BluntReleaseLock(string masterAccessionNo)
-        {
-            this.m_Stack.BluntReleaseLock(masterAccessionNo);
-        }
+        }        
 
         public void Flush()
         {

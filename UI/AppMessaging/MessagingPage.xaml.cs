@@ -67,10 +67,7 @@ namespace YellowstonePathology.UI.AppMessaging
             {
                 this.m_CountDownMessage = string.Empty;
                 this.m_DispatchTimer.Stop();                
-                MessageQueues.Instance.SendLockReleaseResponse(this.m_Message);
-
-                MessageBody messageBody = (MessageBody)this.m_Message.Body;
-                Business.Persistence.DocumentGateway.Instance.BluntReleaseLock(messageBody.MasterAccessionNo);
+                MessageQueues.Instance.SendLockReleaseResponse(this.m_Message);                
                 Window window = Window.GetWindow(this);
                 window.Close();
             }

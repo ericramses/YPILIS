@@ -55,24 +55,7 @@ namespace YellowstonePathology.Business.Persistence
             {
                 throw new Exception("You are trying to release the lock on a document that is not in the stack.");
             }         
-        }
-
-        public void BluntReleaseLock(string masterAccessionNo)
-        {            
-            foreach(Document document in this.m_Documents)
-            {                
-                if (document.Key.ToString() == masterAccessionNo)
-                {
-                    Business.Test.AccessionOrder accessionOrder = (Business.Test.AccessionOrder)document.Value;
-                    if(accessionOrder.IsLockAquiredByMe == true)
-                    {
-                        accessionOrder.ReleaseLock();
-                        document.IsLockAquiredByMe = false;
-                    }                    
-                }
-                document.Submit();                
-            }            
-        }
+        }        
 
         public void Flush()
         {

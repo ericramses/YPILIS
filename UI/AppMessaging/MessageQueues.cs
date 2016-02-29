@@ -9,6 +9,9 @@ namespace YellowstonePathology.UI.AppMessaging
 {
     public class MessageQueues : INotifyPropertyChanged
     {
+        public delegate void ReleaseLockEventHandler(object sender, EventArgs e);
+        public event ReleaseLockEventHandler ReleaseLock;
+
         private static volatile MessageQueues instance;
         private static object syncRoot = new Object();
 
@@ -80,11 +83,14 @@ namespace YellowstonePathology.UI.AppMessaging
             requestMessage.ResponseQueue.Send(responseMessage);
 
             MessageQueueMessage responseMessageQueueMessage = new MessageQueueMessage(responseMessage, MessageDirectionEnum.Sent);
-            this.m_MessageCollection.Add(responseMessageQueueMessage);                        
+            this.m_MessageCollection.Add(responseMessageQueueMessage);
+
+            if (this.ReleaseLock != null) this.ReleaseLock(receivedMessageBody.MasterAccessionNo, new EventArgs());
         }
 
         private void LockReleaseRequestMessageQueue_ReceiveCompleted(object sender, System.Messaging.ReceiveCompletedEventArgs e)
         {
+            
             System.Messaging.Message receivedMessage = this.m_LockReleaseRequestQueue.EndReceive(e.AsyncResult);            
 
             MessageQueueMessage receviedMessageQueueMessage = new MessageQueueMessage(receivedMessage, MessageDirectionEnum.Received);

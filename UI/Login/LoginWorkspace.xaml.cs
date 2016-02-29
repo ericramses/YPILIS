@@ -52,8 +52,8 @@ namespace YellowstonePathology.UI.Login
             this.DataContext = this.m_LoginUI;
 
             this.Loaded += new RoutedEventHandler(LoginWorkspace_Loaded);
-            this.Unloaded += new RoutedEventHandler(LoginWorkspace_Unloaded);
-        }
+            this.Unloaded += new RoutedEventHandler(LoginWorkspace_Unloaded);            
+        }        
 
         private void LoginWorkspace_Loaded(object sender, RoutedEventArgs e)
         {
@@ -69,9 +69,20 @@ namespace YellowstonePathology.UI.Login
                 this.m_MainWindowCommandButtonHandler.Refresh += new MainWindowCommandButtonHandler.RefreshEventHandler(MainWindowCommandButtonHandler_Refresh);
                 this.m_MainWindowCommandButtonHandler.RemoveTab += new MainWindowCommandButtonHandler.RemoveTabEventHandler(MainWindowCommandButtonHandler_RemoveTab);
                 this.m_MainWindowCommandButtonHandler.ShowMessagingDialog += new MainWindowCommandButtonHandler.ShowMessagingDialogEventHandler(MainWindowCommandButtonHandler_ShowMessagingDialog);
+
+                AppMessaging.MessageQueues.Instance.ReleaseLock += Instance_ReleaseLock;
             }
 
             this.m_LoadedHasRun = true;
+        }
+
+        private void Instance_ReleaseLock(object sender, EventArgs e)
+        {
+            string masterAccessionNo = (string)sender;
+            if (this.m_LoginUI.AccessionOrder != null && this.m_LoginUI.AccessionOrder.MasterAccessionNo == masterAccessionNo)
+            {
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.ReleaseLock(this.m_LoginUI.AccessionOrder, this.m_Writer);
+            }
         }        
 
         private void MainWindowCommandButtonHandler_RemoveTab(object sender, EventArgs e)
