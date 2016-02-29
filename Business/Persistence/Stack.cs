@@ -57,6 +57,23 @@ namespace YellowstonePathology.Business.Persistence
             }         
         }
 
+        public void BluntReleaseLock(string masterAccessionNo)
+        {            
+            foreach(Document document in this.m_Documents)
+            {                
+                if (document.Key.ToString() == masterAccessionNo)
+                {
+                    Business.Test.AccessionOrder accessionOrder = (Business.Test.AccessionOrder)document.Value;
+                    if(accessionOrder.IsLockAquiredByMe == true)
+                    {
+                        accessionOrder.ReleaseLock();
+                        document.IsLockAquiredByMe = false;
+                    }                    
+                }
+                document.Submit();                
+            }            
+        }
+
         public void Flush()
         {
             for (int i = this.m_Documents.Count - 1; i > -1; i--)

@@ -66,6 +66,11 @@ namespace YellowstonePathology.Business.Persistence
             this.m_Stack.ReleaseLock(accessionOrder, writer);
         }
 
+        public void BluntReleaseLock(string masterAccessionNo)
+        {
+            this.m_Stack.BluntReleaseLock(masterAccessionNo);
+        }
+
         public void Flush()
         {
             this.m_Stack.Flush();
