@@ -16,329 +16,134 @@
 			<RowDefinition Height="Auto"></RowDefinition>
 		</Grid.RowDefinitions>				
 
-        <TabControl Grid.Column="0" Grid.Row="0">
-            <TabItem Header="Accession Orders">
-                <Grid>
+        <Grid Grid.Column="0" Grid.Row="0">
                     
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"></RowDefinition>
-                        <RowDefinition Height="*"></RowDefinition>
-                    </Grid.RowDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
                     
-                    <ToolBarTray Grid.Row="0" Background="Gainsboro" Name="MainToolbar">
-                        <ToolBar>
+            <ToolBarTray Grid.Row="0" Background="Gainsboro" Name="MainToolbar">
+                <ToolBar>
 
-                            <ComboBox Name="ComboBoxCaseType" Margin="2,2,2,2" SelectedIndex="0"												
-					            Width="120" Height="22"
-					            ItemsSource="{Binding Path=CaseTypeList}"					            
-					            SelectionChanged="ComboBoxCaseType_SelectionChanged">
-                            </ComboBox>
+                    <ComboBox Name="ComboBoxCaseType" Margin="2,2,2,2" SelectedIndex="0"												
+					    Width="120" Height="22"
+					    ItemsSource="{Binding Path=CaseTypeList}"					            
+					    SelectionChanged="ComboBoxCaseType_SelectionChanged">
+                    </ComboBox>
 
-                            <TextBox Name="TextBoxDate" Margin="2" Width="80" Text="{Binding Path=AccessionOrderDate, Converter={StaticResource ShortDateConverter}}" />
+                    <TextBox Name="TextBoxDate" Margin="2" Width="80" Text="{Binding Path=AccessionOrderDate, Converter={StaticResource ShortDateConverter}}" />
 
-                            <Button Click="ButtonAccessionOrderBack_Click">
-                                <StackPanel Orientation="Horizontal">
-                                    <Image Source="/Resources/Previous.ico" Margin="2" Height="16"></Image>
-                                </StackPanel>
-                            </Button>
+                    <Button Click="ButtonAccessionOrderBack_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/Resources/Previous.ico" Margin="2" Height="16"></Image>
+                        </StackPanel>
+                    </Button>
 
-                            <Button Click="ButtonAccessionOrderForward_Click">
-                                <StackPanel Orientation="Horizontal">
-                                    <Image Source="/Resources/Next.ico" Margin="2" Height="16"></Image>
-                                </StackPanel>
-                            </Button>
+                    <Button Click="ButtonAccessionOrderForward_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/Resources/Next.ico" Margin="2" Height="16"></Image>
+                        </StackPanel>
+                    </Button>
 
-                            <Button Margin="2" Click="ButtonAccessionOrderRefresh_Click">
-                                <StackPanel Orientation="Horizontal">
-                                    <Image Source="/Resources/Refresh.ico"></Image>
-                                    <TextBlock Margin="2,0,0,0">Refresh</TextBlock>
-                                </StackPanel>
-                            </Button>
+                    <Button Margin="2" Click="ButtonAccessionOrderRefresh_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/Resources/Refresh.ico"></Image>
+                            <TextBlock Margin="2,0,0,0">Refresh</TextBlock>
+                        </StackPanel>
+                    </Button>
 
-                            <Button Margin="2" Click="ButtonSearch_Click">
-                                <StackPanel Orientation="Horizontal">
-                                    <Image Source="/Resources/Search.ico"></Image>
-                                    <TextBlock Margin="2,0,0,0">Search</TextBlock>
-                                </StackPanel>
-                            </Button>
+                    <Button Margin="2" Click="ButtonSearch_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/Resources/Search.ico"></Image>
+                            <TextBlock Margin="2,0,0,0">Search</TextBlock>
+                        </StackPanel>
+                    </Button>
 
-                            <Button Margin="2" Click="ButtonPrintList_Click">
-                                <StackPanel Orientation="Horizontal">
-                                    <Image Source="/Resources/Printer.ico"></Image>
-                                    <TextBlock Margin="2,0,0,0">Print List</TextBlock>
-                                </StackPanel>
-                            </Button>
+                    <Button Margin="2" Click="ButtonPrintList_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/Resources/Printer.ico"></Image>
+                            <TextBlock Margin="2,0,0,0">Print List</TextBlock>
+                        </StackPanel>
+                    </Button>
 
-                            <Button Click="ButtonShowMasterLog_Click">
-                                <StackPanel Orientation="Horizontal">
-                                    <Image Source="/Resources/Log.ico" Margin="2" Height="16"></Image>
-                                    <TextBlock Margin="2" VerticalAlignment="Center">MasterLog</TextBlock>
-                                </StackPanel>
-                            </Button>
+                    <Button Click="ButtonShowMasterLog_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/Resources/Log.ico" Margin="2" Height="16"></Image>
+                            <TextBlock Margin="2" VerticalAlignment="Center">MasterLog</TextBlock>
+                        </StackPanel>
+                    </Button>
 
-                            <Button Margin="2" Click="ButtonReceiveSpecimen_Click">
-                                <StackPanel Orientation="Horizontal">
-                                    <Image Source="/Resources/Surgical.png" Height="22" Width="22"></Image>
-                                    <TextBlock Margin="2,0,0,0" VerticalAlignment="Center">Receiving</TextBlock>
-                                </StackPanel>
-                            </Button>                            
+                    <Button Margin="2" Click="ButtonReceiveSpecimen_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/Resources/Surgical.png" Height="22" Width="22"></Image>
+                            <TextBlock Margin="2,0,0,0" VerticalAlignment="Center">Receiving</TextBlock>
+                        </StackPanel>
+                    </Button>                            
 
-                            <TextBox Name="TextBoxMasterAccessionNo" Margin="2" KeyUp="TextBoxMasterAccessionNo_KeyUp" Width="150" BorderBrush="AliceBlue" BorderThickness="1" />
+                    <TextBox Name="TextBoxMasterAccessionNo" Margin="2" KeyUp="TextBoxMasterAccessionNo_KeyUp" Width="150" BorderBrush="AliceBlue" BorderThickness="1" />
 
-                        </ToolBar>
-                    </ToolBarTray>
-                    <ListView Name="ListViewAccessionOrders" Margin="3" Grid.Row="1" ItemsSource="{Binding Path=ReportSearchList}" 
-                              SelectionChanged="ListViewAccessionOrders_SelectionChanged" >
+                </ToolBar>
+            </ToolBarTray>
+            <ListView Name="ListViewAccessionOrders" Margin="3" Grid.Row="1" ItemsSource="{Binding Path=ReportSearchList}" 
+                        SelectionChanged="ListViewAccessionOrders_SelectionChanged" >
 
-                        <ListView.ItemContainerStyle>
-                            <Style TargetType="ListViewItem">
-                                <Style.Triggers>
-                                    <MultiDataTrigger>
-                                        <MultiDataTrigger.Conditions>
-                                            <Condition Binding="{Binding Path=IsLockAquiredByMe}" Value="True"/>
-                                        </MultiDataTrigger.Conditions>
-                                        <Setter Property="Background" Value="#cbf4c8"/>
-                                    </MultiDataTrigger>
-                                    <MultiDataTrigger>
-                                        <MultiDataTrigger.Conditions>
-                                            <Condition Binding="{Binding Path=IsLockAquiredByMe}" Value="False"/>
-                                            <Condition Binding="{Binding Path=LockAquired}" Value="true"/>
-                                        </MultiDataTrigger.Conditions>
-                                        <Setter Property="Background" Value="#fae5e7"/>
-                                    </MultiDataTrigger>
-                                    <MultiDataTrigger>
-                                        <MultiDataTrigger.Conditions>
-                                            <Condition Binding="{Binding Path=LockAquired}" Value="False"/>
-                                        </MultiDataTrigger.Conditions>
-                                        <Setter Property="Background" Value="#FFFFFF"/>
-                                    </MultiDataTrigger>
-                                    <MultiTrigger>
-                                        <MultiTrigger.Conditions>
-                                            <Condition Property="IsSelected" Value="true" />
-                                        </MultiTrigger.Conditions>
-                                        <Setter Property="FontWeight" Value="Bold" />
-                                    </MultiTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </ListView.ItemContainerStyle>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Style.Triggers>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding Path=IsLockAquiredByMe}" Value="True"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Background" Value="#cbf4c8"/>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding Path=IsLockAquiredByMe}" Value="False"/>
+                                    <Condition Binding="{Binding Path=LockAquired}" Value="true"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Background" Value="#fae5e7"/>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding Path=LockAquired}" Value="False"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Background" Value="#FFFFFF"/>
+                            </MultiDataTrigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsSelected" Value="true" />
+                                </MultiTrigger.Conditions>
+                                <Setter Property="FontWeight" Value="Bold" />
+                            </MultiTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ListView.ItemContainerStyle>
                         
-                        <ListView.ContextMenu>
-                            <ContextMenu>
-                                <MenuItem Header="Convert to Cancelled Test" Click="MenuItemCancelTest_Click" Tag="{Binding}"></MenuItem>
-                                <MenuItem Header="Show IT Audits" Click="MenuItemShowITAudits_Click"></MenuItem>
-                                <MenuItem Header="Send Order To Panther" Click="MenuItemSendPantherOrder_Click"></MenuItem>
-                                <MenuItem Header="Cancel Panther Order" Click="MenuItemCancelPantherOrder_Click"></MenuItem>
-                            </ContextMenu>
-                        </ListView.ContextMenu>
+                <ListView.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Convert to Cancelled Test" Click="MenuItemCancelTest_Click" Tag="{Binding}"></MenuItem>
+                        <MenuItem Header="Show IT Audits" Click="MenuItemShowITAudits_Click"></MenuItem>
+                        <MenuItem Header="Send Order To Panther" Click="MenuItemSendPantherOrder_Click"></MenuItem>
+                        <MenuItem Header="Cancel Panther Order" Click="MenuItemCancelPantherOrder_Click"></MenuItem>
+                    </ContextMenu>
+                </ListView.ContextMenu>
                         
-                        <ListView.View>
-                            <GridView AllowsColumnReorder="True" ColumnHeaderToolTip="Case List">
-                                <GridViewColumn DisplayMemberBinding="{Binding Path=ReportNo}" Header="Report No" Width="85"/>
-                                <GridViewColumn DisplayMemberBinding="{Binding Path=AccessionDate, Converter={StaticResource MilitaryDateTimeConverter}}" Header="Accession Date" Width="110"/>
-                                <GridViewColumn DisplayMemberBinding="{Binding Path=PatientName}" Header="Patient Name" Width="150"/>
-                                <GridViewColumn DisplayMemberBinding="{Binding Path=PBirthdate, Converter={StaticResource ShortDateConverter}}" Header="Birthdate" Width="90"/>                                
-                                <GridViewColumn DisplayMemberBinding="{Binding Path=OrderedBy}" Header="Ordered By" Width="100"/>
-                                <GridViewColumn DisplayMemberBinding="{Binding Path=PanelSetName}" Header="Report" Width="170"/>
-                                <GridViewColumn DisplayMemberBinding="{Binding Path=FinalDate, Converter={StaticResource ShortDateConverter}}" Header="Final" Width="150"/>
-                                <GridViewColumn DisplayMemberBinding="{Binding Path=IsPosted}" Header="Billed" Width="100"/>
-                                <GridViewColumn DisplayMemberBinding="{Binding Path=ClientName}" Header="Client" Width="200"/>
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
-                </Grid>                    
-            </TabItem>
-            
-            <!--<TabItem Header="Client Orders">
-                <Grid>
-
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"></RowDefinition>
-                        <RowDefinition Height="*"></RowDefinition>
-                    </Grid.RowDefinitions>
-
-                    <ToolBarTray Grid.Row="0" Background="Gainsboro" Name="ToolBarTrayClientOrder">
-                        <ToolBar>                            
-
-                            <TextBox Name="TextBoxClientOrderDate" Margin="2" Width="80" Text="{Binding Path=ClientOrderDate, Converter={StaticResource ShortDateConverter}}" />
-
-                            <Button Click="ButtonClientOrderBack_Click">
-                                <StackPanel Orientation="Horizontal">
-                                    <Image Source="/Resources/Previous.ico" Margin="2" Height="16"></Image>
-                                </StackPanel>
-                            </Button>
-
-                            <Button Click="ButtonClientOrderForward_Click">
-                                <StackPanel Orientation="Horizontal">
-                                    <Image Source="/Resources/Next.ico" Margin="2" Height="16"></Image>
-                                </StackPanel>
-                            </Button>
-
-                            <Button Margin="2" Click="ButtonClientOrderRefresh_Click">
-                                <StackPanel Orientation="Horizontal">
-                                    <Image Source="/Resources/Refresh.ico"></Image>
-                                    <TextBlock Margin="2,0,0,0">Refresh</TextBlock>
-                                </StackPanel>
-                            </Button>
-
-                            <Button Margin="2" Height="25" Click="ButtonHoldList_Click">
-                                <StackPanel Orientation="Horizontal">
-                                    <Image Source="/Resources/Hold.png"></Image>
-                                    <TextBlock Margin="2,0,0,0">Hold List</TextBlock>
-                                </StackPanel>
-                            </Button>
-
-							<TextBox Name="TextBoxClientOrderSearch" Margin="2" KeyUp="TextBoxClientOrderSearch_KeyUp" Width="150" BorderBrush="AliceBlue" BorderThickness="1" />
-
-						</ToolBar>
-                    </ToolBarTray>
-
-                    <ListView Name="ListViewClientOrders" Grid.Row="1" Margin="3"  ItemsSource="{Binding Path=OrderBrowserListItemCollection}" 
-                              SelectionChanged="ListViewClientOrders_SelectionChanged" MouseDoubleClick="ListViewClientOrders_MouseDoubleClick">
-                        <ListView.View>
-                            <GridView AllowsColumnReorder="True" ColumnHeaderToolTip="Case List">
-                                <GridViewColumn DisplayMemberBinding="{Binding Path=OrderTime, Converter={StaticResource MilitaryDateTimeConverter}}" Header="Date" Width="110"/>
-                                <GridViewColumn DisplayMemberBinding="{Binding Path=PFirstName}" Header="First Name" Width="150"/>
-                                <GridViewColumn DisplayMemberBinding="{Binding Path=PLastName}" Header="Last Name" Width="150"/>
-                                <GridViewColumn DisplayMemberBinding="{Binding Path=ProviderName}" Header="Provider" Width="200"/>                                
-                                <GridViewColumn DisplayMemberBinding="{Binding Path=ClientName}" Header="Client Name" Width="200"/>
-                                <GridViewColumn DisplayMemberBinding="{Binding Path=OrderType}" Header="Type" Width="100"/>
-                                <GridViewColumn DisplayMemberBinding="{Binding Path=OrderedBy}" Header="Ordered By" Width="120"/>                                
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
-                    
-                </Grid>
-            </TabItem>-->
-
-			<TabItem Header="Immediate Tasks">								
-				<Grid>
-
-					<Grid.RowDefinitions>
-						<RowDefinition Height="Auto"></RowDefinition>
-						<RowDefinition Height="*"></RowDefinition>
-					</Grid.RowDefinitions>
-
-					<ToolBarTray Grid.Row="0" Background="Gainsboro" Name="ToolBarTrayTaskOrder">
-						<ToolBar>							
-							
-							<Button Margin="2" Click="ButtonTaskOrderRefresh_Click">
-								<StackPanel Orientation="Horizontal">
-									<Image Source="/Resources/Refresh.ico"></Image>
-									<TextBlock Margin="2,0,0,0">Refresh</TextBlock>
-								</StackPanel>
-							</Button>
-
-                            <Button Margin="2" Click="ButtonTasksNotAcknowledged_Click">
-                                <StackPanel Orientation="Horizontal">
-                                    <Image Source="/Resources/Search.ico"></Image>
-                                    <TextBlock Margin="2,0,0,0">Tasks Not Acknowledged</TextBlock>
-                                </StackPanel>
-                            </Button>
-
-                            <Button Margin="2" Click="ButtonTaskOrderPrint_Click">
-								<StackPanel Orientation="Horizontal">
-									<Image Source="/Resources/Printer.ico"></Image>
-									<TextBlock Margin="2,0,0,0">Print Task</TextBlock>
-								</StackPanel>
-							</Button>
-
-						</ToolBar>
-						
-						<ToolBar FocusManager.IsFocusScope="False">
-							
-							<toolkit:DatePicker Name="DatePickerDailyLog" Margin="2" ToolTip="Select date for daily log"></toolkit:DatePicker>
-							
-							<Button Click="ButtonViewDailyLog_Click" Margin="2">
-								<StackPanel Orientation="Horizontal">
-									<Image Source="/Resources/Log.ico"></Image>
-									<TextBlock Margin="4,0,2,0" VerticalAlignment="Center">View Daily Log</TextBlock>
-								</StackPanel>
-							</Button>
-							
-						</ToolBar>
-						
-					</ToolBarTray>
-
-                    <ListView Name="ListViewTaskOrders" Margin="2,2,2,2" Grid.Row="1" ItemsSource="{Binding Path=TaskOrderCollection}" 
-                              MouseDoubleClick="ListViewTaskOrders_MouseDoubleClick">
-                        <ListView.ContextMenu>
-                            <ContextMenu>
-                                <MenuItem Header="Delete Task" Click="MenuItemDeleteTask_Click"></MenuItem>                                
-                            </ContextMenu>
-                        </ListView.ContextMenu>
-                        <ListView.View>
-                            <GridView AllowsColumnReorder="True" ColumnHeaderToolTip="Case List">
-                                <GridViewColumn DisplayMemberBinding="{Binding Path=ReportNo}" Header="Report No" Width="85"/>
-                                <GridViewColumn DisplayMemberBinding="{Binding Path=PanelSetName}" Header="Test" Width="100"/>
-                                <GridViewColumn DisplayMemberBinding="{Binding Path=TargetDescription}" Header="Ordered On" Width="100"/>                                
-                                <GridViewColumn DisplayMemberBinding="{Binding Path=OrderDate, Converter={StaticResource MilitaryDateTimeConverter}}" Header="Ordered" Width="110"/>
-                                <GridViewColumn DisplayMemberBinding="{Binding Path=OrderedByInitials}" Header="Ordered By" Width="100"/>
-                                <GridViewColumn DisplayMemberBinding="{Binding Path=AcknowledgedDate, Converter={StaticResource MilitaryDateTimeConverter}}" Header="Acknowledged" Width="110"/>                                
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
-                    
-                </Grid>
-
-			</TabItem>
-
-			<TabItem Header="Daily Tasks">
-				<Grid>
-
-					<Grid.RowDefinitions>
-						<RowDefinition Height="Auto"></RowDefinition>
-						<RowDefinition Height="*"></RowDefinition>
-					</Grid.RowDefinitions>
-
-					<ToolBarTray Grid.Row="0" Background="Gainsboro" Name="ToolBarTrayDailyTaskOrder">
-						<ToolBar>
-
-							<Button Margin="2" Click="ButtonDailyTaskOrderRefresh_Click">
-								<StackPanel Orientation="Horizontal">
-									<Image Source="/Resources/Refresh.ico"></Image>
-									<TextBlock Margin="2,0,0,0">Refresh</TextBlock>
-								</StackPanel>
-							</Button>
-
-							<Button Click="ButtonDailyTaskAcknowledge_Click" Margin="2" TabIndex="0" ToolTip="Acknowledge and print orders">
-								<StackPanel Orientation="Horizontal">
-									<Image Source="/Resources/Acknowledge.ico"></Image>
-									<TextBlock Margin="4,0,2,0" VerticalAlignment="Center">Acknowledge</TextBlock>
-								</StackPanel>
-							</Button>
-
-							<Button Margin="2" Click="ButtonDailyTaskOrderPrint_Click">
-								<StackPanel Orientation="Horizontal">
-									<Image Source="/Resources/Printer.ico"></Image>
-									<TextBlock Margin="2,0,0,0">Print Task</TextBlock>
-								</StackPanel>
-							</Button>
-
-							<Button Margin="2" Click="ButtonDailyTaskOrderHistory_Click">
-								<StackPanel Orientation="Horizontal">
-									<Image Source="/Resources/Batch.ico"></Image>
-									<TextBlock Margin="2,0,0,0">History</TextBlock>
-								</StackPanel>
-							</Button>
-
-						</ToolBar>
-					</ToolBarTray>
-
-                    <ListView Name="ListViewDailyTaskOrders" Margin="2,2,2,2" Grid.Row="1" ItemsSource="{Binding Path=DailyTaskOrderCollection}">
-                        <ListView.View>
-							<GridView AllowsColumnReorder="True" ColumnHeaderToolTip="Daily Task List">
-                                <GridViewColumn DisplayMemberBinding="{Binding Path=TaskDate, Converter={StaticResource MilitaryDateTimeConverter}}" Header="Task Date" Width="110"/>
-								<GridViewColumn DisplayMemberBinding="{Binding Path=TaskName}" Header="Task" Width="300"/>                                
-                                <GridViewColumn DisplayMemberBinding="{Binding Path=AcknowledgedDate, Converter={StaticResource MilitaryDateTimeConverter}}" Header="Acknowledged" Width="110"/>
-								<GridViewColumn DisplayMemberBinding="{Binding Path=AcknowledgedByInitials}" Header="Acknowledged By" Width="110"/>
-							</GridView>
-						</ListView.View>
-					</ListView>
-
-				</Grid>
-
-			</TabItem>
-		</TabControl>            		
+                <ListView.View>
+                    <GridView AllowsColumnReorder="True" ColumnHeaderToolTip="Case List">
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=ReportNo}" Header="Report No" Width="85"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=AccessionDate, Converter={StaticResource MilitaryDateTimeConverter}}" Header="Accession Date" Width="110"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=PatientName}" Header="Patient Name" Width="150"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=PBirthdate, Converter={StaticResource ShortDateConverter}}" Header="Birthdate" Width="90"/>                                
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=OrderedBy}" Header="Ordered By" Width="100"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=PanelSetName}" Header="Report" Width="170"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=FinalDate, Converter={StaticResource ShortDateConverter}}" Header="Final" Width="150"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=IsPosted}" Header="Billed" Width="100"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=ClientName}" Header="Client" Width="200"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>                    
 
 		<GridSplitter Width="3" Grid.Column="0"></GridSplitter>
 

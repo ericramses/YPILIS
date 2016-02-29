@@ -528,6 +528,10 @@
     <Compile Include="Surgical\SurgicalReview.xaml.cs">
       <DependentUpon>SurgicalReview.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TaskUI.cs" />
+    <Compile Include="TaskWorkspace.xaml.cs">
+      <DependentUpon>TaskWorkspace.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Test\ABL1KinaseDomainMutationResultPage.xaml.cs">
       <DependentUpon>ABL1KinaseDomainMutationResultPage.xaml</DependentUpon>
     </Compile>
@@ -2146,6 +2150,10 @@
     <Page Include="Surgical\SurgicalReview.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TaskWorkspace.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Test\ABL1KinaseDomainMutationResultPage.xaml">
       <SubType>Designer</SubType>
