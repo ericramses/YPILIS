@@ -92,6 +92,8 @@ namespace YellowstonePathology.UI.Flow
                     this.m_FlowUI.SetAccess();
                     this.m_FlowUI.NotifyPropertyChanged(string.Empty);
                 }
+
+                this.m_FlowUI.FlowLogSearch.FlowLogList.SetLockIsAquiredByMe(this.m_FlowUI.AccessionOrder);
             }
         }
 
@@ -299,6 +301,8 @@ namespace YellowstonePathology.UI.Flow
             {
                 YellowstonePathology.Business.Flow.FlowLogListItem flowLogListItem = (YellowstonePathology.Business.Flow.FlowLogListItem)this.ListViewFlowCaseList.SelectedItem;
                 this.GetCase(flowLogListItem.ReportNo, flowLogListItem.MasterAccessionNo);
+
+                this.m_FlowUI.FlowLogSearch.FlowLogList.SetLockIsAquiredByMe(this.m_FlowUI.AccessionOrder);
             }
             else
             {
