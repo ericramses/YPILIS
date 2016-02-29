@@ -45,7 +45,7 @@ namespace YellowstonePathology.UI.AppMessaging
 
         private void StartCountDownTimer()
         {
-            this.m_CurrentCountDown = 20;
+            this.m_CurrentCountDown = 60;
 
             this.m_DispatchTimer = new System.Windows.Threading.DispatcherTimer();
             this.m_DispatchTimer.Interval = new TimeSpan(0, 0, 1);
@@ -68,6 +68,9 @@ namespace YellowstonePathology.UI.AppMessaging
                 this.m_CountDownMessage = string.Empty;
                 this.m_DispatchTimer.Stop();                
                 MessageQueues.Instance.SendLockReleaseResponse(this.m_Message);
+                Business.Persistence.DocumentGateway.Instance.ReleaseLock(this.m_AccessionOrder, )
+                Window window = Window.GetWindow(this);
+                window.Close();
             }
 
             this.NotifyPropertyChanged("CountDownMessage");

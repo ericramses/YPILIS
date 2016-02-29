@@ -31,10 +31,7 @@ namespace YellowstonePathology.UI.AppMessaging
 
         private MessageQueues()
         {
-            this.m_MessageCollection = new MessageQueueCollection<MessageQueueMessage>();
-
-            this.m_MessagingDialog = new MessagingDialog();
-            this.m_MessagingDialog.Visibility = System.Windows.Visibility.Collapsed;            
+            this.m_MessageCollection = new MessageQueueCollection<MessageQueueMessage>();            
 
             this.m_LockReleaseRequestQueue = new System.Messaging.MessageQueue(Environment.MachineName + "\\" + LockReleaseRequestQueueName);
             this.m_LockReleaseRequestQueue.Formatter = new System.Messaging.XmlMessageFormatter(new Type[] { typeof(LockReleaseRequestMessageBody) });
@@ -48,11 +45,12 @@ namespace YellowstonePathology.UI.AppMessaging
         }
 
         public void StartSendLockReleaseRequest(Business.Test.AccessionOrder accessionOrder)
-        {            
+        {
+            this.m_MessagingDialog = new MessagingDialog();            
             UI.AppMessaging.MessagingPage page = new UI.AppMessaging.MessagingPage();
             page.StartSendLockReleaseRequest(accessionOrder);
             this.m_MessagingDialog.PageNavigator.Navigate(page);
-            this.m_MessagingDialog.Visibility = System.Windows.Visibility.Visible;
+            this.m_MessagingDialog.Show();
         }
 
         public MessageQueueCollection<MessageQueueMessage> MessageCollection
@@ -61,33 +59,28 @@ namespace YellowstonePathology.UI.AppMessaging
         }
 
         public void SendLockReleaseRequest(Business.Test.AccessionOrder accessionOrder)
-        {
+        {            
             LockReleaseRequestMessageBody messageBody = new LockReleaseRequestMessageBody(accessionOrder.MasterAccessionNo, accessionOrder.LockAquiredByUserName, accessionOrder.LockAquiredByHostName, accessionOrder.TimeLockAquired.Value);
             System.Messaging.Message message = new System.Messaging.Message(messageBody);            
 
             message.ResponseQueue = new System.Messaging.MessageQueue(Environment.MachineName + "\\" + LockReleaseResponseQueueName);
-            System.Messaging.MessageQueue queue = new System.Messaging.MessageQueue(messageBody.ComputerName + "\\" + LockReleaseRequestQueueName);                       
+            System.Messaging.MessageQueue queue = new System.Messaging.MessageQueue(messageBody.LockAquiredByHostName + "\\" + LockReleaseRequestQueueName);                       
             queue.Send(message);
 
             MessageQueueMessage messageQueueMessage = new MessageQueueMessage(message, MessageDirectionEnum.Sent);
-            this.m_MessageCollection.Insert(0, messageQueueMessage);
-
-            if (this.m_MessagingDialog.Visibility == System.Windows.Visibility.Collapsed) this.m_MessagingDialog.Visibility = System.Windows.Visibility.Visible;
+            this.m_MessageCollection.Insert(0, messageQueueMessage);            
         }
 
         public void SendLockReleaseResponse(System.Messaging.Message requestMessage)
-        {            
-            /*
-            System.Messaging.Message message = new System.Messaging.Message(messageBody);
+        {
+            MessageBody receivedMessageBody = (MessageBody)requestMessage.Body;
+            LockReleaseResponseMessageBody responseMessageBody = new LockReleaseResponseMessageBody(receivedMessageBody);
 
-            System.Messaging.Message responseMessage = new System.Messaging.Message();
+            System.Messaging.Message responseMessage = new System.Messaging.Message(responseMessageBody);            
             requestMessage.ResponseQueue.Send(responseMessage);
 
             MessageQueueMessage responseMessageQueueMessage = new MessageQueueMessage(responseMessage, MessageDirectionEnum.Sent);
-            this.m_MessageCollection.Add(responseMessageQueueMessage);            
-
-            if (this.m_MessagingDialog.Visibility == System.Windows.Visibility.Collapsed) this.m_MessagingDialog.Visibility = System.Windows.Visibility.Visible;            
-            */
+            this.m_MessageCollection.Add(responseMessageQueueMessage);                        
         }
 
         private void LockReleaseRequestMessageQueue_ReceiveCompleted(object sender, System.Messaging.ReceiveCompletedEventArgs e)
@@ -98,7 +91,34 @@ namespace YellowstonePathology.UI.AppMessaging
             this.m_MessageCollection.Add(receviedMessageQueueMessage);            
 
             this.m_LockReleaseRequestQueue.BeginReceive();
-            if (this.m_MessagingDialog.Visibility == System.Windows.Visibility.Collapsed) this.m_MessagingDialog.Visibility = System.Windows.Visibility.Visible;
+
+            if(this.m_MessagingDialog == null)
+            {
+                App.Current.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
+                {
+                    UI.AppMessaging.MessagingPage page = new UI.AppMessaging.MessagingPage();
+                    page.StartReceiveLockReleaseResponse(receivedMessage);
+                    this.m_MessagingDialog = new MessagingDialog();
+                    this.m_MessagingDialog.PageNavigator.Navigate(page);
+                    page.StartReceiveLockReleaseResponse(receivedMessage);
+                    this.m_MessagingDialog.Show();                    
+                }));
+            }
+            else
+            {                
+                App.Current.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
+                {
+                    if (this.m_MessagingDialog.IsLoaded == false)
+                    {
+                        UI.AppMessaging.MessagingPage page = new UI.AppMessaging.MessagingPage();
+                        page.StartReceiveLockReleaseResponse(receivedMessage);
+                        this.m_MessagingDialog = new MessagingDialog();
+                        this.m_MessagingDialog.PageNavigator.Navigate(page);
+                        page.StartReceiveLockReleaseResponse(receivedMessage);
+                        this.m_MessagingDialog.Show();
+                    }
+                }));
+            }                        
         }
 
         private void LockReleaseResponseMessageQueue_ReceiveCompleted(object sender, System.Messaging.ReceiveCompletedEventArgs e)
@@ -113,9 +133,9 @@ namespace YellowstonePathology.UI.AppMessaging
             MessagingPage messagingPage = new MessagingPage();
             messagingPage.StartReceiveLockReleaseResponse(message);
 
+            this.m_MessagingDialog = new MessagingDialog();
             this.m_MessagingDialog.PageNavigator.Navigate(messagingPage);
-
-            if (this.m_MessagingDialog.Visibility == System.Windows.Visibility.Collapsed) this.m_MessagingDialog.Visibility = System.Windows.Visibility.Visible;            
+            this.m_MessagingDialog.Show();
         }
 
         public void CreateMessageQueuesIfNotExist()

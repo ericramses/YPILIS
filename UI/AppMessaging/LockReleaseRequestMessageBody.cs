@@ -12,10 +12,10 @@ namespace YellowstonePathology.UI.AppMessaging
 
         }
 
-        public LockReleaseRequestMessageBody(string masterAccessionNo, string requestingUserName, string requestingComputerName, DateTime timeLockAquired) 
-            : base (masterAccessionNo, requestingUserName, requestingComputerName, timeLockAquired)
+        public LockReleaseRequestMessageBody(string masterAccessionNo, string lockAquiredbyUserName, string lockAquiredbyHostName, DateTime timeLockAquired) 
+            : base (masterAccessionNo, lockAquiredbyUserName, lockAquiredbyHostName, timeLockAquired)
         {            
-            this.m_Message = this.m_UserName + " would like to take " + this.m_MasterAccessionNo;
+            this.m_Message = this.m_RequestingUserName + " would like to take " + this.m_MasterAccessionNo;
         }        
     }
 }

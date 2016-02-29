@@ -10,21 +10,26 @@ namespace YellowstonePathology.UI.AppMessaging
     {
         protected string m_Message;
         protected string m_MasterAccessionNo;
-        protected string m_UserName;
-        protected string m_ComputerName;
+        protected string m_LockAquiredByUserName;
+        protected string m_LockAquiredByHostName;
         protected DateTime m_TimeLockAquired;
+        protected string m_RequestingUserName;
+        protected string m_RequestingHostName;
 
         public MessageBody()
         {
 
         }
 
-        public MessageBody(string masterAccessionNo, string requestingUserName, string requestingComputerName, DateTime timeLockAquired)
+        public MessageBody(string masterAccessionNo, string lockAquiredByUserName, string lockAquiredByHostName, DateTime timeLockAquired)
         {
             this.m_MasterAccessionNo = masterAccessionNo;
-            this.m_UserName = requestingUserName;
-            this.m_ComputerName = requestingComputerName;
+            this.m_LockAquiredByUserName = lockAquiredByUserName;
+            this.m_LockAquiredByHostName = lockAquiredByHostName;
             this.m_TimeLockAquired = timeLockAquired;
+
+            this.m_RequestingHostName = Environment.MachineName;
+            this.m_RequestingUserName = Business.User.SystemIdentity.Instance.User.UserName;
         }
 
         public string Message
@@ -39,16 +44,16 @@ namespace YellowstonePathology.UI.AppMessaging
             set { this.m_MasterAccessionNo = value; }
         }
 
-        public string UserName
+        public string LockAquiredByUserName
         {
-            get { return this.m_UserName; }
-            set { this.m_UserName = value; }
+            get { return this.m_LockAquiredByUserName; }
+            set { this.m_LockAquiredByUserName = value; }
         }
 
-        public string ComputerName
+        public string LockAquiredByHostName
         {
-            get { return this.m_ComputerName; }
-            set { this.m_ComputerName = value; }
+            get { return this.m_LockAquiredByHostName; }
+            set { this.m_LockAquiredByHostName = value; }
         }
 
         public DateTime TimeLockAquired

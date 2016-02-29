@@ -37,14 +37,23 @@ namespace YellowstonePathology.UI
 				return;
 			}
 
-            UI.AppMessaging.MessageQueues.Instance.CreateMessageQueuesIfNotExist();
+            try
+            {
+                UI.AppMessaging.MessageQueues.Instance.CreateMessageQueuesIfNotExist();
+            }
+            catch
+            {
+                //do nothing
+            }
+            
             this.DispatcherUnhandledException += new System.Windows.Threading.DispatcherUnhandledExceptionEventHandler(YellowstonePathology.Business.Logging.EmailExceptionHandler.HandleException);
 		}     
                
 
         protected override void OnStartup(StartupEventArgs e)
-        {
-            this.ReleaseLocksOnStartup();
+        {            
+            this.ReleaseLocksOnStartup();            
+            
             string startUpWindow = string.Empty;
 
 			if (System.Environment.MachineName.ToUpper() == "CUTTINGA" || System.Environment.MachineName.ToUpper() == "CUTTINGB")// || System.Environment.MachineName.ToUpper() == "COMPILE")

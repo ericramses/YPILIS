@@ -12,10 +12,10 @@ namespace YellowstonePathology.UI.AppMessaging
 
         }
 
-        public LockReleaseResponseMessageBody(string masterAccessionNo, string respondingUserName, string respondingComputerName, DateTime timeLockAquired) 
-            : base (masterAccessionNo, respondingUserName, respondingComputerName, timeLockAquired)
+        public LockReleaseResponseMessageBody(MessageBody receivedMessageBody) 
+            : base (receivedMessageBody.MasterAccessionNo, receivedMessageBody.LockAquiredByUserName, receivedMessageBody.LockAquiredByHostName, receivedMessageBody.TimeLockAquired)
         {
-            this.m_Message = this.m_UserName + " released the lock on " + this.m_MasterAccessionNo;
+            this.m_Message = this.m_RequestingUserName + " has released the lock on " + this.m_MasterAccessionNo;
         }
     }
 }
