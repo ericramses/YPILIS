@@ -84,8 +84,7 @@ namespace YellowstonePathology.UI.Gross
 		}
 
         private void ScanContainerPage_SignOut(object sender, EventArgs e)
-        {
-            this.m_SystemIdentity = null;
+        {            
             this.ShowScanSecurityBadgePage();
             YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this.m_HistologyGrossDialog);
         }

@@ -20,15 +20,22 @@ namespace YellowstonePathology.UI
 	public partial class LockedCaseDialog : Window, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        
-        private YellowstonePathology.Business.Domain.LockItemCollection m_LockItemCollection;
 
-		public LockedCaseDialog()
+        private const string LockReleaseRequestQueueName = "lockreleaserequests";
+        private const string LockReleaseResponseQueueName = "lockreleaseresponses";
+
+        private YellowstonePathology.Business.Domain.LockItemCollection m_LockItemCollection;
+        
+
+        public LockedCaseDialog()
 		{
             this.m_LockItemCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetLockedAccessionOrders();
-            InitializeComponent();
+            InitializeComponent();            
+
             DataContext = this;
 		}
+
+        
 
         public void NotifyPropertyChanged(String info)
         {
@@ -39,13 +46,7 @@ namespace YellowstonePathology.UI
         }                
 
 		private void ButtonClearLock_Click(object sender, RoutedEventArgs e)
-		{
-
-            //System.Messaging.Message message = new System.Messaging.Message("Hello World");
-            //System.Messaging.MessageQueue()
-
-            //return;
-
+		{            
             if(this.ListViewLockedAccessionOrders.SelectedItem != null)
             {
                 MessageBoxResult result = MessageBox.Show("Clearing a lock may cause data loss.  Are you sure you want to unlock this case?", "Possible data loss", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);

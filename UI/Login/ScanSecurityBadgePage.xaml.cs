@@ -35,8 +35,10 @@ namespace YellowstonePathology.UI.Login
 		{
             this.m_CloseButtonVisibility = closeButtonVisibility;
 			InitializeComponent();
+
 			DataContext = this;
 
+            Business.User.SystemIdentity.Instance.SetToLoggedInUser();
 			this.m_BarcodeScanPort = YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort.Instance;
 			this.m_BarcodeScanPort.SecurityBadgeScanReceived += new Business.BarcodeScanning.BarcodeScanPort.SecurityBadgeScanReceivedHandler(BarcodeScanPort_SecurityBadgeScanReceived);            
 		}

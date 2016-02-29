@@ -29,6 +29,9 @@ namespace YellowstonePathology.UI
         public delegate void RemoveTabEventHandler(object sender, EventArgs e);
         public event RemoveTabEventHandler RemoveTab;
 
+        public delegate void ShowMessagingDialogEventHandler(object sender, EventArgs e);
+        public event ShowMessagingDialogEventHandler ShowMessagingDialog;
+
         public MainWindowCommandButtonHandler()
         {
             
@@ -53,6 +56,11 @@ namespace YellowstonePathology.UI
         public void OnRemoveTab()
         {
             if (this.RemoveTab != null) this.RemoveTab(this, EventArgs.Empty);
+        }
+
+        public void OnShowMessagingDialog()
+        {
+            if (this.ShowMessagingDialog != null) this.ShowMessagingDialog(this, EventArgs.Empty);
         }
 
         public void OnShowOrderForm()

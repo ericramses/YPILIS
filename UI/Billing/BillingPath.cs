@@ -153,14 +153,10 @@ namespace YellowstonePathology.UI.Billing
 
         private void BillingPage_ShowTIFDocument(object sender, CustomEventArgs.FileNameReturnEventArgs e)
         {
-            if (this.m_BillingWindowPrimary.PageNavigator.HasDualMonitors() == false)
-            {
-                this.ShowTIFDocumentSingleMonitor(e.FileName);
-            }
-            else
+            if (this.m_BillingWindowPrimary.PageNavigator.HasDualMonitors() == true)
             {
                 this.ShowTIFDocumentDualMonitor(e.FileName);
-            }
+            }            
         }
 
         private void BillingPage_ShowXPSDocument(object sender, CustomEventArgs.FileNameReturnEventArgs e)

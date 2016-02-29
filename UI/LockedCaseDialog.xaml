@@ -47,11 +47,12 @@
                 <ColumnDefinition Width="*"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            
+
             <Button Name="ButtonClearLock" Grid.Column="0" Grid.Row="0" Style="{StaticResource NormalButton}" Width="100" HorizontalAlignment="Left" Click="ButtonClearLock_Click">Clear Lock</Button>
-            <Button Name="ButtonRefresh" Grid.Column="1" Grid.Row="0" Style="{StaticResource NormalButton}" Width="100" HorizontalAlignment="Center" Click="ButtonRefresh_Click">Refresh</Button>
-            <Button Name="ButtonOk" Grid.Column="2" Grid.Row="0" Style="{StaticResource NormalButton}" Width="100" HorizontalAlignment="Right" Click="ButtonOk_Click">Ok</Button>
+            <Button Name="ButtonRefresh" Grid.Column="2" Grid.Row="0" Style="{StaticResource NormalButton}" Width="100" HorizontalAlignment="Center" Click="ButtonRefresh_Click">Refresh</Button>
+            <Button Name="ButtonOk" Grid.Column="3" Grid.Row="0" Style="{StaticResource NormalButton}" Width="100" HorizontalAlignment="Right" Click="ButtonOk_Click">Ok</Button>
         </Grid>
     </Grid>
 </Window>

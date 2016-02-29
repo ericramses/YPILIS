@@ -178,7 +178,7 @@ namespace YellowstonePathology.UI.Cutting
         }
 
         private void ScanAliquotPage_SignOut(object sender, EventArgs e)
-        {
+        {            
             this.ShowScanSecurityBadgePage();
         }        
 

@@ -90,7 +90,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
         private void AliquotAndStainOrderPage_Unloaded(object sender, RoutedEventArgs e)
         {
-            
+            this.m_AliquotAndStainOrderView.SetEmbeddingComments();
         }
 
         public YellowstonePathology.Business.Specimen.Model.EmbeddingInstructionList EmbeddingInstructionList
@@ -193,8 +193,8 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 				}
 				else
 				{
-                        MessageBox.Show(auditResult.Message);
-                        return;
+                    MessageBox.Show(auditResult.Message);
+                    return;
 				}
 			}					                
 

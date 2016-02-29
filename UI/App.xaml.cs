@@ -37,8 +37,10 @@ namespace YellowstonePathology.UI
 				return;
 			}
 
+            UI.AppMessaging.MessageQueues.Instance.CreateMessageQueuesIfNotExist();
             this.DispatcherUnhandledException += new System.Windows.Threading.DispatcherUnhandledExceptionEventHandler(YellowstonePathology.Business.Logging.EmailExceptionHandler.HandleException);
-		}           
+		}     
+               
 
         protected override void OnStartup(StartupEventArgs e)
         {

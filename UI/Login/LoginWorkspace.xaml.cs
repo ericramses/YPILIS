@@ -73,6 +73,7 @@ namespace YellowstonePathology.UI.Login
             this.m_MainWindowCommandButtonHandler.Save += new MainWindowCommandButtonHandler.SaveEventHandler(MainWindowCommandButtonHandler_Save);
             this.m_MainWindowCommandButtonHandler.Refresh += new MainWindowCommandButtonHandler.RefreshEventHandler(MainWindowCommandButtonHandler_Refresh);
             this.m_MainWindowCommandButtonHandler.RemoveTab += new MainWindowCommandButtonHandler.RemoveTabEventHandler(MainWindowCommandButtonHandler_RemoveTab);
+            this.m_MainWindowCommandButtonHandler.ShowMessagingDialog += new MainWindowCommandButtonHandler.ShowMessagingDialogEventHandler(MainWindowCommandButtonHandler_ShowMessagingDialog);
 
             this.m_LoadedHasRun = true;
         }
@@ -85,6 +86,14 @@ namespace YellowstonePathology.UI.Login
         private void MainWindowCommandButtonHandler_Refresh(object sender, EventArgs e)
         {
 
+        }
+
+        private void MainWindowCommandButtonHandler_ShowMessagingDialog(object sender, EventArgs e)
+        {
+            if(this.ListViewAccessionOrders.SelectedItem != null)
+            {                
+                UI.AppMessaging.MessageQueues.Instance.StartSendLockReleaseRequest(this.m_LoginUI.AccessionOrder);
+            }            
         }
 
         private void MainWindowCommandButtonHandler_Save(object sender, EventArgs e)
