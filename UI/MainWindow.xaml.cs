@@ -46,6 +46,7 @@ namespace YellowstonePathology.UI
         TabItem m_TabItemCytology;        
 		TabItem m_TabItemLogin;
         TabItem m_TabItemClientOrder;
+        TabItem m_TabItemTask;
 
         TabItem m_TabItemTyping;		
         Surgical.TypingWorkspace m_TypingWorkspace;
@@ -58,6 +59,7 @@ namespace YellowstonePathology.UI
 
 		Login.LoginWorkspace m_LoginWorkspace;
         ClientOrderWorkspace m_ClientOrderWorkspace;
+        TaskWorkspace m_TaskWorkspace;
 
         SearchWorkspace m_SearchWorkspace;                
         Test.LabWorkspace m_LabWorkspace;        
@@ -130,6 +132,10 @@ namespace YellowstonePathology.UI
             this.m_TabItemClientOrder.Header = SetHeader("Client Order", "Batch.ico");
             this.m_TabItemClientOrder.Tag = "Client_Order";
 
+            this.m_TabItemTask = new TabItem();
+            this.m_TabItemTask.Header = SetHeader("Tasks", "AcceptResults.ico");
+            this.m_TabItemTask.Tag = "Tasks";
+
             InitializeComponent();
             
             this.AddHandler(UI.CustomControls.CloseableTabItem.CloseTabEvent, new RoutedEventHandler(this.CloseTab));            
@@ -197,6 +203,7 @@ namespace YellowstonePathology.UI
                     this.AddLabWorkspace();
                     break;
                 case "Login Workspace":
+                    this.ShowTaskWorkspace();
                     this.ShowClientOrderWorkspace();
                     this.ShowLoginWorkspace();
                     break;
@@ -737,6 +744,7 @@ namespace YellowstonePathology.UI
 
 		private void MenuItemLogin_Click(object sender, RoutedEventArgs e)
 		{
+            this.ShowTaskWorkspace();
             this.ShowClientOrderWorkspace();
             this.ShowLoginWorkspace();
 		}
@@ -770,6 +778,22 @@ namespace YellowstonePathology.UI
                 this.TabControlLeftWorkspace.Items.Add(this.m_TabItemClientOrder);
                 this.m_TabItemClientOrder.Focus();
                 this.CommandBindings.Add(m_ClientOrderWorkspace.CommandBindingRemoveTab);
+            }
+        }
+
+        private void ShowTaskWorkspace()
+        {
+            if (m_TabItemTask.Parent != null)
+            {
+                m_TabItemTask.Focus();
+            }
+            else
+            {
+                this.m_TaskWorkspace = new TaskWorkspace(this.m_MainWindowCommandButtonHandler, m_TabItemTask);
+                this.m_TabItemTask.Content = this.m_TaskWorkspace;
+                this.TabControlLeftWorkspace.Items.Add(this.m_TabItemTask);
+                this.m_TabItemTask.Focus();
+                this.CommandBindings.Add(m_TaskWorkspace.CommandBindingRemoveTab);
             }
         }
 
