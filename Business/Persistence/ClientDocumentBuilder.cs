@@ -28,6 +28,7 @@ namespace YellowstonePathology.Business.Persistence
         {
             YellowstonePathology.Business.Client.Model.Client client = (YellowstonePathology.Business.Client.Model.Client)o;
             this.BuildClient(client);
+            //document.IsLockAquiredByMe = true;
         }
 
         private void BuildClient(YellowstonePathology.Business.Client.Model.Client client)

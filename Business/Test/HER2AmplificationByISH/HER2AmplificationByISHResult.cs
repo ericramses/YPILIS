@@ -78,7 +78,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 			if (testOrder.PanelOrderCollection.GetUnacceptedPanelCount() > 0)
 			{
 				YellowstonePathology.Business.Test.PanelOrder panelOrder = testOrder.PanelOrderCollection.GetUnacceptedPanelOrder();
-				panelOrder.AcceptResults(systemIdentity.User);
+				panelOrder.AcceptResults();
 			}
 		}
 

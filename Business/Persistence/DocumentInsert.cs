@@ -23,6 +23,10 @@ namespace YellowstonePathology.Business.Persistence
 
             InsertCommandBuilder insertCommandBuilder = new InsertCommandBuilder();
             insertCommandBuilder.Build(this.m_Value, objectSubmitter.SqlInsertCommands, objectSubmitter.SqlInsertLastCommands);
+
+            ObjectCloner objectCloner = new ObjectCloner();
+            this.m_Clone = objectCloner.Clone(this.m_Value);
+
             return objectSubmitter.SubmitChanges();
         }
 

@@ -85,7 +85,7 @@ namespace YellowstonePathology.UI.Cytology
             this.m_MainWindowCommandButtonHandler.ShowAmendmentDialog -= this.m_CytologyResultsWorkspace.CytologyUI.ShowAmendmentDialog;
             this.m_MainWindowCommandButtonHandler.Refresh -= MainWindowCommandButtonHandler_Refresh;
 
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save(this.m_Writer);
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
         }
 
         private void BarcodeScanPort_ThinPrepSlideScanReceived(Business.BarcodeScanning.Barcode barcode)

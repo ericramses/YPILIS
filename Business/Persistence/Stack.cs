@@ -66,7 +66,7 @@ namespace YellowstonePathology.Business.Persistence
                 document.Submit();
                 this.m_Documents.Remove(document);
             }
-        }
+        }        
 
         public void Clear(object writer)
         {
@@ -82,13 +82,13 @@ namespace YellowstonePathology.Business.Persistence
             }
         }
 
-        public void Save(object writer)
+        public void Save()
         {
             foreach (Document document in this.m_Documents)
             {
                 document.Submit();
             }
-        }
+        }        
 
         public void Push(object writer)
         {            
@@ -115,10 +115,9 @@ namespace YellowstonePathology.Business.Persistence
                     {
                         this.m_Documents.Remove(document);
                     }
-                }
-
-                document.Submit();
-            }                            
+                }                
+            }
+            document.Submit();
         }                
 
         public Document Pull(DocumentId documentId, DocumentBuilder documentBuilder)
@@ -127,6 +126,13 @@ namespace YellowstonePathology.Business.Persistence
 
             if (this.KeyTypeExists(documentId) == true)
             {
+
+                if(this.WriterTypeExistsOtherThanThis(documentId) == true)
+                {
+                    Document otherDocument = this.GetWriterTypeOtherThanThis(documentId);
+                    this.PushOne(otherDocument, documentId.Writer);
+                }
+
                 document = this.Get(documentId);
                 if (document.Writers.Exists(p => p == documentId.Writer) == false)
                 {
@@ -134,19 +140,31 @@ namespace YellowstonePathology.Business.Persistence
                 }                
                 
                 if(document.Value is YellowstonePathology.Business.Test.AccessionOrder)
-                {
+                {                    
                     //Save even if the lock is not aquired.
-                    document.Submit();
+                    if(document.IsDirty() == true)
+                    {
+                        document.Submit();
+                    }
+                    else
+                    {
+                        documentBuilder.Refresh(document.Value);
+                        document.ResetClone();
+
+                        Business.Test.AccessionOrder accessionOrder = (Business.Test.AccessionOrder)document.Value;                        
+                        document.IsLockAquiredByMe = accessionOrder.IsLockAquiredByMe;
+                    }
                 }
                 else
                 {
                     if(document.IsDirty() == true)
                     {
-                        System.Windows.MessageBox.Show("We have detected a problem with the system.  Please contact Sid immediately.  Thank You.");
+                        document.Submit();                        
                     }
                     else
                     {
                         documentBuilder.Refresh(document.Value);
+                        document.ResetClone();
                     }                    
                 }
             }   
@@ -177,11 +195,17 @@ namespace YellowstonePathology.Business.Persistence
                 else
                 {
                     object value = documentBuilder.BuildNew();
-                    documentId.Value = value;                    
+                    documentId.Value = value;
                 }
 
                 document = new DocumentUpdate(documentId);
                 this.m_Documents.Add(document);
+
+                if (document.Value is YellowstonePathology.Business.Test.AccessionOrder)
+                {
+                    Business.Test.AccessionOrder accessionOrder = (Business.Test.AccessionOrder)document.Value;
+                    document.IsLockAquiredByMe = accessionOrder.IsLockAquiredByMe;
+                }
             }
 
             return document;
@@ -253,6 +277,46 @@ namespace YellowstonePathology.Business.Persistence
                 {
                     result = true;
                     break;
+                }
+            }
+
+            return result;
+        }
+
+        private bool WriterTypeExistsOtherThanThis(DocumentId documentId)
+        {
+            bool result = false;
+
+            foreach (Document document in this.m_Documents)
+            {
+                if (document.Type.FullName == documentId.Type.FullName &&
+                    document.Writers.Exists(p => p == documentId.Writer))
+                {
+                    if(document.Key.ToString() != documentId.Key.ToString())
+                    {
+                        result = true;
+                        break;
+                    }                    
+                }
+            }
+
+            return result;
+        }
+
+        private Document GetWriterTypeOtherThanThis(DocumentId documentId)
+        {
+            Document result = null;
+
+            foreach (Document document in this.m_Documents)
+            {
+                if (document.Type.FullName == documentId.Type.FullName &&
+                    document.Writers.Exists(p => p == documentId.Writer))
+                {
+                    if (document.Key.ToString() != documentId.Key.ToString())
+                    {
+                        result = document;
+                        break;
+                    }
                 }
             }
 

@@ -59,22 +59,29 @@ namespace YellowstonePathology.Business.Typing
 		public void GetAccessionOrder(string reportNo)
 		{
             string masterAccessionNo = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetMasterAccessionNoFromReportNo(reportNo);
-            this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, this.m_Writer);
-
-            if (this.m_AccessionOrder != null)
+            if(string.IsNullOrEmpty(masterAccessionNo) == false)
             {
-                this.m_SurgicalTestOrder = (YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
+                this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, this.m_Writer);
 
-                this.m_CaseDocumentCollection = new Business.Document.CaseDocumentCollection(this.m_AccessionOrder, reportNo);
+                if (this.m_AccessionOrder != null)
+                {
+                    this.m_SurgicalTestOrder = (YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 
-                this.RefreshBillingSpecimenViewCollection();
+                    this.m_CaseDocumentCollection = new Business.Document.CaseDocumentCollection(this.m_AccessionOrder, reportNo);
 
-                this.NotifyPropertyChanged("");
+                    this.RefreshBillingSpecimenViewCollection();
+
+                    this.NotifyPropertyChanged("");
+                }
+                else
+                {
+                    MessageBox.Show("Case Not Found.");
+                }
             }
             else
             {
                 MessageBox.Show("Case Not Found.");
-			}
+            }
 		}
 
         public Business.User.SystemIdentity SystemIdentity
@@ -84,10 +91,7 @@ namespace YellowstonePathology.Business.Typing
 
 		public void Save(bool releaseLock)
 		{			            
-            if(this.m_AccessionOrder != null)
-            {
-                //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, releaseLock);
-            }            
+            
 		}
 		
 		public string TemplateText
@@ -254,7 +258,7 @@ namespace YellowstonePathology.Business.Typing
 			{
 				YellowstonePathology.Business.Rules.ExecutionStatus executionStatus = new YellowstonePathology.Business.Rules.ExecutionStatus();
 				YellowstonePathology.Business.Rules.WorkspaceEnableRules workspaceEnableRules = new Rules.WorkspaceEnableRules();
-				workspaceEnableRules.Execute(this.AccessionOrder, this.m_SurgicalTestOrder, this.m_FieldEnabler, executionStatus, this.m_SystemIdentity);
+				workspaceEnableRules.Execute(this.AccessionOrder, this.m_SurgicalTestOrder, this.m_FieldEnabler, executionStatus);
 			}
 		}		
 

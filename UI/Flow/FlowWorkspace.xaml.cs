@@ -61,6 +61,7 @@ namespace YellowstonePathology.UI.Flow
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath -= new MainWindowCommandButtonHandler.StartProviderDistributionPathEventHandler(MainWindowCommandButtonHandler_StartProviderDistributionPath);
             this.m_MainWindowCommandButtonHandler.ShowAmendmentDialog -= new MainWindowCommandButtonHandler.ShowAmendmentDialogEventHandler(MainWindowCommandButtonHandler_ShowAmendmentDialog);
             this.m_MainWindowCommandButtonHandler.Save -= new MainWindowCommandButtonHandler.SaveEventHandler(MainWindowCommandButtonHandler_Save);
+            this.m_MainWindowCommandButtonHandler.RemoveTab -= new MainWindowCommandButtonHandler.RemoveTabEventHandler(MainWindowCommandButtonHandler_RemoveTab);
             this.m_MainWindowCommandButtonHandler.Refresh -= MainWindowCommandButtonHandler_Refresh;
 
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath += new MainWindowCommandButtonHandler.StartProviderDistributionPathEventHandler(MainWindowCommandButtonHandler_StartProviderDistributionPath);
@@ -127,7 +128,7 @@ namespace YellowstonePathology.UI.Flow
             this.m_MainWindowCommandButtonHandler.Refresh -= MainWindowCommandButtonHandler_Refresh;
             this.m_MainWindowCommandButtonHandler.RemoveTab -= MainWindowCommandButtonHandler_RemoveTab;
 
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save(this.m_Writer);
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
             this.Save(false);
         }        
 
@@ -472,7 +473,7 @@ namespace YellowstonePathology.UI.Flow
                 if (this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.AssignedToId == this.m_SystemIdentity.User.UserId)
                 {
                     YellowstonePathology.Business.Rules.RuleExecutionStatus ruleExecutionStatus = new Business.Rules.RuleExecutionStatus();
-                    this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.Finalize(this.m_FlowUI.AccessionOrder, ruleExecutionStatus, this.m_SystemIdentity);
+                    this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.Finalize(this.m_FlowUI.AccessionOrder, ruleExecutionStatus);
                     this.Save(false);
 
                     if (ruleExecutionStatus.ExecutionHalted == true)
@@ -591,6 +592,7 @@ namespace YellowstonePathology.UI.Flow
 
         private void ButtonRefresh_Click(object sender, RoutedEventArgs e)
         {
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this.m_Writer);
             this.m_FlowUI.Search();
         }                
 
@@ -705,17 +707,51 @@ namespace YellowstonePathology.UI.Flow
        
         private void ButtonShowSpecimenDialog_Click(object sender, RoutedEventArgs e)
         {        	
-            if (this.ComboBoxSpecimen.SelectedItem != null)
+            if (this.m_FlowUI.PanelSetOrderLeukemiaLymphoma != null && m_FlowUI.PanelSetOrderLeukemiaLymphoma.OrderedOnId != null)
             {
             	this.Save(false);
-				YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = (YellowstonePathology.Business.Specimen.Model.SpecimenOrder)this.ComboBoxSpecimen.SelectedItem;
+                YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_FlowUI.AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByOrderTarget(this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.OrderedOnId);
+
                 YellowstonePathology.UI.Login.SpecimenOrderDetailsPage specimenOrderDetailsPage = new YellowstonePathology.UI.Login.SpecimenOrderDetailsPage(this.m_FlowUI.AccessionOrder, specimenOrder);
                 specimenOrderDetailsPage.Next += new Login.SpecimenOrderDetailsPage.NextEventHandler(SpecimenOrderDetailsPage_Next);
+                specimenOrderDetailsPage.Back += new Login.SpecimenOrderDetailsPage.BackEventHandler(SpecimenOrderDetailsPage_Next);
                 this.m_LoginPageWindow = new Login.LoginPageWindow();
                 this.m_LoginPageWindow.PageNavigator.Navigate(specimenOrderDetailsPage);
                 this.m_LoginPageWindow.ShowDialog();
-                this.m_FlowUI.GetAccessionOrder(this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.ReportNo, this.m_FlowUI.AccessionOrder.MasterAccessionNo);
+                //this.m_FlowUI.GetAccessionOrder(this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.ReportNo, this.m_FlowUI.AccessionOrder.MasterAccessionNo);
             }
+        }
+
+        private void ButtonShowSelectSpecimenDialog_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.m_FlowUI.PanelSetOrderLeukemiaLymphoma != null)
+            {
+                this.Save(false);
+                YellowstonePathology.Business.Interface.IOrderTarget orderTarget = this.m_FlowUI.AccessionOrder.SpecimenOrderCollection.GetOrderTarget(this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.OrderedOnId);
+                YellowstonePathology.Business.PanelSet.Model.PanelSetCollection panelSetCollection = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetAll();
+                YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet = panelSetCollection.GetPanelSet(this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.PanelSetId);
+                YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new Business.Test.TestOrderInfo(panelSet, orderTarget, false);
+                Login.Receiving.SpecimenSelectionPage specimenSelectionPage = new Login.Receiving.SpecimenSelectionPage(this.m_FlowUI.AccessionOrder, testOrderInfo);
+                specimenSelectionPage.Back += new Login.Receiving.SpecimenSelectionPage.BackEventHandler(SpecimenSelectionPage_Back);
+                specimenSelectionPage.TargetSelected += new Login.Receiving.SpecimenSelectionPage.TargetSelectedEventHandler(OrderTargetSelectionPage_TargetSelected);
+
+                this.m_LoginPageWindow = new Login.LoginPageWindow();
+                this.m_LoginPageWindow.PageNavigator.Navigate(specimenSelectionPage);
+                this.m_LoginPageWindow.ShowDialog();
+                //this.m_FlowUI.GetAccessionOrder(this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.ReportNo, this.m_FlowUI.AccessionOrder.MasterAccessionNo);
+            }
+        }
+
+        private void OrderTargetSelectionPage_TargetSelected(object sender, CustomEventArgs.TestOrderInfoEventArgs e)
+        {
+            this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.OrderedOnId = e.TestOrderInfo.OrderTarget.GetId();
+            this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.OrderedOn = e.TestOrderInfo.OrderTarget.GetOrderedOnType();
+            this.m_LoginPageWindow.Close();
+        }
+
+        private void SpecimenSelectionPage_Back(object sender, EventArgs e)
+        {
+            this.m_LoginPageWindow.Close();
         }
 
         private void SpecimenOrderDetailsPage_Next(object sender, EventArgs e)

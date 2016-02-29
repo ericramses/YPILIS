@@ -247,7 +247,7 @@
 				<TextBlock Margin="25,2,2,2" TextAlignment="Right" HorizontalAlignment="Stretch" VerticalAlignment="Center">Current User:</TextBlock>
 			</StatusBarItem>
 			<StatusBarItem>
-				<TextBlock Width="120"  Margin="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Text="{Binding Path=CurrentUser.UserName}"></TextBlock>
+                <TextBlock Width="120"  Margin="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Text="{Binding Path=SystemIdentity.User.UserName}"></TextBlock>
 			</StatusBarItem>
 
 			<StatusBarItem>

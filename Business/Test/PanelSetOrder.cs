@@ -1232,11 +1232,11 @@ namespace YellowstonePathology.Business.Test
             return result;
         }        
 
-        public virtual void Finalize(Test.AccessionOrder accessionOrder, Rules.RuleExecutionStatus ruleExecutionStatus, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        public virtual void Finalize(Test.AccessionOrder accessionOrder, Rules.RuleExecutionStatus ruleExecutionStatus)
 		{
 			Rules.ExecutionStatus executionStatus = new Rules.ExecutionStatus();
 			YellowstonePathology.Business.Rules.PanelSetOrder.RulesPanelSetOrderFinalCommonV2 rulesPanelSetOrderFinalCommon = new Rules.PanelSetOrder.RulesPanelSetOrderFinalCommonV2();
-			rulesPanelSetOrderFinalCommon.Execute(executionStatus, systemIdentity, accessionOrder, this);
+			rulesPanelSetOrderFinalCommon.Execute(executionStatus, accessionOrder, this);
 
 			if (executionStatus.Halted)
 			{
@@ -1262,7 +1262,7 @@ namespace YellowstonePathology.Business.Test
 			}
 		}
 
-		public virtual void Finalize(YellowstonePathology.Business.User.SystemUser systemUser)
+		public virtual void Finalize()
 		{            			
 			YellowstonePathology.Business.PanelSet.Model.PanelSetCollection panelSetCollection = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetAll();
 			YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet = panelSetCollection.GetPanelSet(this.PanelSetId);
@@ -1270,16 +1270,16 @@ namespace YellowstonePathology.Business.Test
             this.m_Final = true;
             this.m_FinalDate = DateTime.Today;
             this.m_FinalTime = DateTime.Now;
-            this.m_FinaledById = systemUser.UserId;
-            this.m_Signature = systemUser.Signature;
+            this.m_FinaledById = Business.User.SystemIdentity.Instance.User.UserId;
+            this.m_Signature = Business.User.SystemIdentity.Instance.User.Signature;
 
 			if (panelSet.AcceptOnFinal == true)
 			{
 				this.m_Accepted = true;
 				this.m_AcceptedDate = DateTime.Today;
 				this.m_AcceptedTime = DateTime.Now;
-				this.m_AcceptedById = systemUser.UserId;
-				this.m_AcceptedBy = systemUser.DisplayName;
+				this.m_AcceptedById = Business.User.SystemIdentity.Instance.User.UserId;
+				this.m_AcceptedBy = Business.User.SystemIdentity.Instance.User.DisplayName;
 			}
 
             this.NotifyPropertyChanged(string.Empty);

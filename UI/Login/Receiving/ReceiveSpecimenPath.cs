@@ -210,6 +210,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 
 		private void ReviewClientOrderPath_Finish(object sender, EventArgs e)
 		{
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this.m_LoginPageWindow);
 			this.m_LoginPageWindow.Close();
 		}
 

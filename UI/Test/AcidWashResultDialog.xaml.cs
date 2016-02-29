@@ -20,22 +20,24 @@ namespace YellowstonePathology.UI.Test
     {
         private Business.Test.AccessionOrder m_AccessionOrder;
         private Business.Test.ThinPrepPap.PanelOrderAcidWash m_PanelOrderAcidWash;
-        private string m_HeaderText;
-        private Business.User.SystemIdentity m_SystemIdentity;        
+        private string m_HeaderText;        
 
         public AcidWashResultDialog(string masterAccessionNo, string reportNo)
         {            
             this.m_AccessionOrder = Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, this);
             Business.Test.ThinPrepPap.ThinPrepPapAcidWashPanel thinPrepPapAcidWashPanel = new Business.Test.ThinPrepPap.ThinPrepPapAcidWashPanel();
             this.m_PanelOrderAcidWash = (Business.Test.ThinPrepPap.PanelOrderAcidWash)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo).PanelOrderCollection.GetPanelByPanelId(thinPrepPapAcidWashPanel.PanelId);
-
-            this.m_HeaderText = "Results for " + this.m_AccessionOrder.PatientDisplayName;
-
-            this.m_SystemIdentity = Business.User.SystemIdentity.Instance;
+            this.m_HeaderText = "Results for " + this.m_AccessionOrder.PatientDisplayName;            
 
             InitializeComponent();
 
             DataContext = this;
+            this.Closing += AcidWashResultDialog_Closing;
+        }
+
+        private void AcidWashResultDialog_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            Business.Persistence.DocumentGateway.Instance.Push(this);
         }
 
         public string HeaderText
@@ -53,7 +55,7 @@ namespace YellowstonePathology.UI.Test
             YellowstonePathology.Business.Rules.MethodResult result = this.m_PanelOrderAcidWash.IsOkToAccept();
             if (result.Success == true)
             {
-                this.m_PanelOrderAcidWash.AcceptResults(this.m_SystemIdentity.User);
+                this.m_PanelOrderAcidWash.AcceptResults();
             }
             else
             {

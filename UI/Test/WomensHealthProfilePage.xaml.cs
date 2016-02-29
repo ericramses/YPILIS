@@ -216,7 +216,7 @@ namespace YellowstonePathology.UI.Test
                 YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new Business.Test.TestOrderInfo(trichomonasTest, orderTarget, true);                
                 YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Business.Visitor.OrderTestOrderVisitor(testOrderInfo);
                 this.m_AccessionOrder.TakeATrip(orderTestOrderVisitor);
-                //this.Save(false);
+                
                 this.m_AuditCollection.Run();
                 this.NotifyPropertyChanged(string.Empty);
             }
@@ -236,8 +236,7 @@ namespace YellowstonePathology.UI.Test
                 YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new Business.Test.TestOrderInfo(hpv1618Test, orderTarget, true);                                
 
                 YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Business.Visitor.OrderTestOrderVisitor(testOrderInfo);
-                this.m_AccessionOrder.TakeATrip(orderTestOrderVisitor);
-                //this.Save(false);
+                this.m_AccessionOrder.TakeATrip(orderTestOrderVisitor);                
 
                 this.m_AuditCollection.Run();
                 this.NotifyPropertyChanged(string.Empty);
@@ -259,8 +258,7 @@ namespace YellowstonePathology.UI.Test
                 YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Business.Visitor.OrderTestOrderVisitor(testOrderInfo);
                 this.m_AccessionOrder.TakeATrip(orderTestOrderVisitor);
                 this.m_AuditCollection.Run();
-                this.NotifyPropertyChanged(string.Empty);
-                //this.Save(false);
+                this.NotifyPropertyChanged(string.Empty);                
             }
             else
             {
@@ -359,7 +357,7 @@ namespace YellowstonePathology.UI.Test
             }
             else
             {
-                this.m_WomensHealthProfileTestOrder.Finalize(this.m_SystemIdentity.User);
+                this.m_WomensHealthProfileTestOrder.Finalize();
                 this.m_AuditCollection.Run();
                 this.NotifyPropertyChanged("");
             }                        

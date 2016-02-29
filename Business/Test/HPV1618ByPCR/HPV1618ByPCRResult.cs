@@ -47,7 +47,7 @@ namespace YellowstonePathology.Business.Test.HPV1618ByPCR
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 		{
 			YellowstonePathology.Business.Test.PanelOrder panelOrder = panelSetOrder.PanelOrderCollection.GetUnacceptedPanelOrder();
-			panelOrder.AcceptResults(systemIdentity.User);
+			panelOrder.AcceptResults();
 			panelSetOrder.Accept();
 		}		
 
@@ -62,7 +62,7 @@ namespace YellowstonePathology.Business.Test.HPV1618ByPCR
 
 		public virtual void FinalizeResults(YellowstonePathology.Business.Test.HPV1618ByPCR.HPV1618ByPCRTestOrder panelSetOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 		{
-			panelSetOrder.Finalize(systemIdentity.User);
+			panelSetOrder.Finalize();
 		}
 
 		public virtual void UnFinalizeResults(YellowstonePathology.Business.Test.HPV1618.PanelSetOrderHPV1618 panelSetOrder)

@@ -29,6 +29,7 @@ namespace YellowstonePathology.Business.Persistence
         {
             YellowstonePathology.Business.Client.Model.ClientSupplyOrder clientSupplyOrder = (YellowstonePathology.Business.Client.Model.ClientSupplyOrder)o;
             this.BuildClientSupplyOrder(clientSupplyOrder);
+            //document.IsLockAquiredByMe = true;
         }
 
         private void BuildClientSupplyOrder(YellowstonePathology.Business.Client.Model.ClientSupplyOrder clientSupplyOrder)

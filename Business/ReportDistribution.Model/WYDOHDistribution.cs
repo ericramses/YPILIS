@@ -37,10 +37,10 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
             return methodResult;
         }
 		
-        public override YellowstonePathology.Business.Rules.MethodResult Distribute(string reportNo, object writer)
+        public override YellowstonePathology.Business.Rules.MethodResult Distribute(string reportNo, Business.Test.AccessionOrder accessionOrder)
         {                        
             YellowstonePathology.Business.Rules.MethodResult result = new Rules.MethodResult();
-            YellowstonePathology.Business.HL7View.CDC.MTDohResultView mtDohResultView = new HL7View.CDC.MTDohResultView(reportNo, writer);
+            YellowstonePathology.Business.HL7View.CDC.MTDohResultView mtDohResultView = new HL7View.CDC.MTDohResultView(reportNo, accessionOrder);
             mtDohResultView.CanSend(result);            
             return result;
         }

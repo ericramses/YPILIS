@@ -134,7 +134,7 @@ namespace YellowstonePathology.UI.Surgical
             this.m_MainWindowCommandButtonHandler.Save -= MainWindowCommandButtonHandler_Save;
             this.m_MainWindowCommandButtonHandler.Refresh -= MainWindowCommandButtonHandler_Refresh;
             this.m_MainWindowCommandButtonHandler.RemoveTab -= MainWindowCommandButtonHandler_RemoveTab;
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save(this.m_Writer);
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
         }
 
         public void ButtonRefresh_Click(object sender, RoutedEventArgs args)

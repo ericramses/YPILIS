@@ -57,7 +57,7 @@ namespace YellowstonePathology.UI.Test
 			this.m_PanelOrderIds = string.Empty;
 			this.m_HasDataError = false;
 
-			this.m_PathologistSearch = new YellowstonePathology.Business.Search.PathologistSearch(this.m_SystemIdentity, this.m_Writer);
+			this.m_PathologistSearch = new YellowstonePathology.Business.Search.PathologistSearch(this.m_Writer);
 
 			this.m_PathologistUsers = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetUsersByRole(YellowstonePathology.Business.User.SystemUserRoleDescriptionEnum.Pathologist, true);			
 
@@ -212,7 +212,7 @@ namespace YellowstonePathology.UI.Test
 		{
 			YellowstonePathology.Business.Rules.ExecutionStatus executionStatus = new YellowstonePathology.Business.Rules.ExecutionStatus();
 			YellowstonePathology.Business.Rules.WorkspaceEnableRules workspaceEnableRules = new YellowstonePathology.Business.Rules.WorkspaceEnableRules();
-			workspaceEnableRules.Execute(this.m_AccessionOrder, this.m_PanelSetOrder, this.m_FieldEnabler, executionStatus, this.m_SystemIdentity);
+			workspaceEnableRules.Execute(this.m_AccessionOrder, this.m_PanelSetOrder, this.m_FieldEnabler, executionStatus);
 		}
 
 		public string OrderedBy

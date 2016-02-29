@@ -90,7 +90,7 @@ namespace YellowstonePathology.UI.Billing
 
         private void BillingPage_Unloaded(object sender, RoutedEventArgs e)
         {
-            
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
         }
 
         public YellowstonePathology.Business.Facility.Model.FacilityCollection FacilityCollection

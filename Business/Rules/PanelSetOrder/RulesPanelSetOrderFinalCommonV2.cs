@@ -100,7 +100,7 @@ namespace YellowstonePathology.Business.Rules.PanelSetOrder
         {
 			if (!this.m_Unsigning)
 			{
-				this.m_PanelSetOrder.Finalize(this.m_SystemIdentity.User);
+				this.m_PanelSetOrder.Finalize();
 			}
         }
 
@@ -112,13 +112,12 @@ namespace YellowstonePathology.Business.Rules.PanelSetOrder
 			}
 		}			
 
-        public void Execute(Rules.ExecutionStatus executionStatus,Business.User.SystemIdentity systemIdentity,
+        public void Execute(Rules.ExecutionStatus executionStatus,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
 			YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder)
         {
 			this.m_AccessionOrder = accessionOrder;
-			this.m_PanelSetOrder = panelSetOrder;
-			this.m_SystemIdentity = systemIdentity;
+			this.m_PanelSetOrder = panelSetOrder;			
 			this.m_ExecutionStatus = executionStatus;
             this.m_Rule.Execute(executionStatus);
         }

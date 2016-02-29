@@ -14,6 +14,7 @@ using System.IO;
 using System.ComponentModel;
 using System.ServiceModel;
 using System.ServiceModel.Description;
+using Microsoft.Win32;
 
 namespace YellowstonePathology.UI
 {
@@ -37,8 +38,8 @@ namespace YellowstonePathology.UI
 			}
 
             this.DispatcherUnhandledException += new System.Windows.Threading.DispatcherUnhandledExceptionEventHandler(YellowstonePathology.Business.Logging.EmailExceptionHandler.HandleException);
-		}
-        
+		}           
+
         protected override void OnStartup(StartupEventArgs e)
         {
             this.ReleaseLocksOnStartup();

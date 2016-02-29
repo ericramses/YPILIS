@@ -18,9 +18,8 @@ namespace YellowstonePathology.Business.HL7View.CMMC
             this.m_ReportNo = reportNo;            
 		}		
 
-		public override void ToXml(XElement document, object writer)
-		{
-			//YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.ObjectGateway.Instance.PullByMasterAccessionNo(this.m, true);
+		public override void ToXml(XElement document)
+		{			
             YellowstonePathology.Business.Test.HPV.HPVTestOrder panelSetOrder = (YellowstonePathology.Business.Test.HPV.HPVTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
 
             this.AddCompanyHeader(document);

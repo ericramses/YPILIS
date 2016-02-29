@@ -23,7 +23,7 @@ namespace YellowstonePathology.Business.HL7View.CMMC
             this.AddNextNteElement("(406)238-6360", document);
         }
 
-        public virtual void ToXml(XElement document, object writer)
+        public virtual void ToXml(XElement document)
         {
             throw new Exception("Not implemented in the base.");
         }

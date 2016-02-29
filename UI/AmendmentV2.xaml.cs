@@ -109,7 +109,7 @@ namespace YellowstonePathology.UI
 
                     if (canFinal == true)
                     {
-                        this.m_Amendment.Finalize(systemUser);
+                        this.m_Amendment.Finalize();
                         this.Save(false);
                     }
                 }

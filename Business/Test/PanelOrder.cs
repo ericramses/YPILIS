@@ -18,8 +18,7 @@ namespace YellowstonePathology.Business.Test
     {
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		private YellowstonePathology.Business.Test.Model.TestOrderCollection m_TestOrderCollection;
-		//private bool m_Order = false;        
+		private YellowstonePathology.Business.Test.Model.TestOrderCollection m_TestOrderCollection;		
 
 		protected string m_ObjectId;
 		protected string m_PanelOrderId;
@@ -76,12 +75,12 @@ namespace YellowstonePathology.Business.Test
 			System.Windows.MessageBox.Show("Accept Results is not implemented.");
 		}
 
-		public virtual void AcceptResults(Business.User.SystemUser acceptingUser)
+		public virtual void AcceptResults()
 		{
 			if (this.Accepted == false)
 			{
 				this.Accepted = true;
-				this.AcceptedById = acceptingUser.UserId;
+				this.AcceptedById = Business.User.SystemIdentity.Instance.User.UserId;
 				this.AcceptedDate = DateTime.Today;
 				this.AcceptedTime = DateTime.Now;
 			}

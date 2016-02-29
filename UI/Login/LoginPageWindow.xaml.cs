@@ -36,8 +36,8 @@ namespace YellowstonePathology.UI.Login
 
         private void LoginPageWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            this.m_PageNavigator.Close();            
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);          
+            this.m_PageNavigator.Close();
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
         }		                               
     }
 }

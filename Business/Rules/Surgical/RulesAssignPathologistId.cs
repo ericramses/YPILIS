@@ -8,8 +8,7 @@ namespace YellowstonePathology.Business.Rules.Surgical
     public class RulesAssignPathologistId : BaseRules
 	{
         private static RulesAssignPathologistId m_Instance;        
-        private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
-        private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
+        private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;        
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 
 		private RulesAssignPathologistId()
@@ -47,8 +46,8 @@ namespace YellowstonePathology.Business.Rules.Surgical
         public void AssignPathologist()
         {
             this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_PanelSetOrder.ReportNo);
-            this.m_PanelSetOrder.AssignedToId = this.m_SystemIdentity.User.UserId;
-            this.m_AccessionOrder.CaseOwnerId = this.m_SystemIdentity.User.UserId;
+            this.m_PanelSetOrder.AssignedToId = Business.User.SystemIdentity.Instance.User.UserId;
+            this.m_AccessionOrder.CaseOwnerId = Business.User.SystemIdentity.Instance.User.UserId;
 		}
 
         public void HandleDrNeroPeerReview()
@@ -63,7 +62,7 @@ namespace YellowstonePathology.Business.Rules.Surgical
 			switch (this.m_AccessionOrder.PhysicianId)
 			{				
 				case 58:// Dr Hawk					
-                    if (!(this.m_SystemIdentity.User.UserId == 5088))
+                    if (!(YellowstonePathology.Business.User.SystemIdentity.Instance.User.UserId == 5088))
 					{
 						msg = "Dr Hawk has requested that only Dr. Emerick sign her cases.";
 						result = false;
@@ -88,13 +87,7 @@ namespace YellowstonePathology.Business.Rules.Surgical
         {
             get { return this.m_PanelSetOrder; }
             set { this.m_PanelSetOrder = value; }
-        }
-
-        public YellowstonePathology.Business.User.SystemIdentity SystemIdentity
-        {
-            get { return this.m_SystemIdentity; }
-            set { this.m_SystemIdentity = value; }
-        }
+        }        
 
 		public YellowstonePathology.Business.Test.AccessionOrder AccessionOrder
 		{

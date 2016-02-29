@@ -52,9 +52,9 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 			this.AcknowledgedTime = DateTime.Now;
 		}
 
-        public override void AcceptResults(SystemUser acceptingUser)
+        public override void AcceptResults()
         {
-            base.AcceptResults(acceptingUser);
+            base.AcceptResults();
             this.NotifyPropertyChanged("AcceptedBy");
         }
 

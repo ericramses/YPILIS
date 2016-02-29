@@ -81,6 +81,8 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             {
                 this.ButtonBack.Visibility = System.Windows.Visibility.Collapsed;
             }
+            
+            this.ButtonLink.IsEnabled = this.m_AccessionOrder.IsLockAquiredByMe;            
         }
 
         private void PatientLinkingPage_Unloaded(object sender, RoutedEventArgs e)

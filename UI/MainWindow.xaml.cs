@@ -14,6 +14,7 @@ using System.IO;
 using System.Data;
 using System.Data.SqlClient;
 using System.ComponentModel;
+using Microsoft.Win32;
 
 namespace YellowstonePathology.UI
 {    
@@ -43,9 +44,10 @@ namespace YellowstonePathology.UI
         TabItem m_TabItemClient;
         TabItem m_TabItemBilling;
         TabItem m_TabItemCytology;        
-		TabItem m_TabItemLogin;		        
+		TabItem m_TabItemLogin;
+        TabItem m_TabItemClientOrder;
 
-		TabItem m_TabItemTyping;		
+        TabItem m_TabItemTyping;		
         Surgical.TypingWorkspace m_TypingWorkspace;
         Surgical.PathologistWorkspace m_PathologistWorkspace;
 
@@ -55,6 +57,7 @@ namespace YellowstonePathology.UI
         Cytology.CytologyWorkspace m_CytologyWorkspace;
 
 		Login.LoginWorkspace m_LoginWorkspace;
+        ClientOrderWorkspace m_ClientOrderWorkspace;
 
         SearchWorkspace m_SearchWorkspace;                
         Test.LabWorkspace m_LabWorkspace;        
@@ -64,7 +67,9 @@ namespace YellowstonePathology.UI
         MainWindowCommandButtonHandler m_MainWindowCommandButtonHandler;        
 
         public MainWindow()
-        {            
+        {
+            SystemEvents.SessionSwitch += SystemEvents_SessionSwitch;
+
             //BindingErrorListener.Listen(m => MessageBox.Show(m));            
             this.m_MainWindowCommandButtonHandler = new MainWindowCommandButtonHandler();
 
@@ -119,7 +124,11 @@ namespace YellowstonePathology.UI
 
 			this.m_TabItemLogin = new TabItem();
 			this.m_TabItemLogin.Header = SetHeader("Login", "Login.ico");
-			this.m_TabItemLogin.Tag = "Login";            
+			this.m_TabItemLogin.Tag = "Login";
+
+            this.m_TabItemClientOrder = new TabItem();
+            this.m_TabItemClientOrder.Header = SetHeader("Client Order", "Batch.ico");
+            this.m_TabItemClientOrder.Tag = "Client_Order";
 
             InitializeComponent();
             
@@ -140,7 +149,21 @@ namespace YellowstonePathology.UI
 
             this.Loaded += new RoutedEventHandler(MainWindow_Loaded);
             this.Closing +=new System.ComponentModel.CancelEventHandler(MainWindow_Closing);            
-        }        
+        }
+
+        private void SystemEvents_SessionSwitch(object sender, SessionSwitchEventArgs e)
+        {
+            switch (e.Reason)
+            {
+                case SessionSwitchReason.SessionLock:              
+                    while(this.TabControlLeftWorkspace.Items.Count > 0)
+                    {
+                        this.TabControlLeftWorkspace.Items.RemoveAt(0);                                                
+                    }
+                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Flush();
+                    break;
+            }
+        }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {                        
@@ -174,6 +197,7 @@ namespace YellowstonePathology.UI
                     this.AddLabWorkspace();
                     break;
                 case "Login Workspace":
+                    this.ShowClientOrderWorkspace();
                     this.ShowLoginWorkspace();
                     break;
                 case "Flow Workspace":
@@ -713,6 +737,7 @@ namespace YellowstonePathology.UI
 
 		private void MenuItemLogin_Click(object sender, RoutedEventArgs e)
 		{
+            this.ShowClientOrderWorkspace();
             this.ShowLoginWorkspace();
 		}
 
@@ -731,7 +756,23 @@ namespace YellowstonePathology.UI
                 this.CommandBindings.Add(m_LoginWorkspace.CommandBindingRemoveTab);
             }
         }
-        
+
+        private void ShowClientOrderWorkspace()
+        {
+            if (m_TabItemClientOrder.Parent != null)
+            {
+                m_TabItemClientOrder.Focus();
+            }
+            else
+            {
+                this.m_ClientOrderWorkspace = new ClientOrderWorkspace(this.m_MainWindowCommandButtonHandler, m_TabItemClientOrder);
+                this.m_TabItemClientOrder.Content = this.m_ClientOrderWorkspace;
+                this.TabControlLeftWorkspace.Items.Add(this.m_TabItemClientOrder);
+                this.m_TabItemClientOrder.Focus();
+                this.CommandBindings.Add(m_ClientOrderWorkspace.CommandBindingRemoveTab);
+            }
+        }
+
         private void MenuItemMaterialTracking_Click(object sender, RoutedEventArgs e)
         {			            
             YellowstonePathology.UI.MaterialTracking.MaterialTrackingPath caseCompilationPath = new MaterialTracking.MaterialTrackingPath();
@@ -819,7 +860,7 @@ namespace YellowstonePathology.UI
         private void MenuItemPantherOrders_Click(object sender, RoutedEventArgs e)
         {
             PantherOrdersDialog pantherOrdersDialog = new PantherOrdersDialog();
-            pantherOrdersDialog.ShowDialog();
+            pantherOrdersDialog.Show();
         }
 
         private void MenuItemPantherStorage_Click(object sender, RoutedEventArgs e)

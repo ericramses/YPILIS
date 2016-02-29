@@ -206,7 +206,7 @@ namespace YellowstonePathology.UI.Surgical
             if (peerReviewTestOrder.AssignedToId == YellowstonePathology.Business.User.SystemIdentity.Instance.User.UserId)
             {
                 peerReviewTestOrder.Accept();
-                peerReviewTestOrder.Finalize(YellowstonePathology.Business.User.SystemIdentity.Instance.User);
+                peerReviewTestOrder.Finalize();
             }
             else
             {

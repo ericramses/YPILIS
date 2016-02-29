@@ -16,9 +16,7 @@ namespace YellowstonePathology.UI.Surgical
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		protected YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
-
+		protected YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;		
 		private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
 
 		private YellowstonePathology.Business.Search.PathologistSearch m_PathologistSearch;
@@ -29,6 +27,7 @@ namespace YellowstonePathology.UI.Surgical
 		private YellowstonePathology.Business.User.SystemUserCollection m_AmendmentUsers;
 		private YellowstonePathology.Business.Test.PanelSetOrderCollection m_PathologistOrderCollection;
 		private YellowstonePathology.Business.Common.FieldEnabler m_FieldEnabler;
+        private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 
         private string m_SignatureButtonText;
         private bool m_SignatureButtonIsEnabled;
@@ -36,22 +35,27 @@ namespace YellowstonePathology.UI.Surgical
 		private int m_SelectedTabIndex;
         private System.Windows.Controls.TabItem m_Writer;
 
-		public PathologistUI(YellowstonePathology.Business.User.SystemIdentity systemidentity, System.Windows.Controls.TabItem writer)
-        {
-            this.m_SystemIdentity = systemidentity;
+		public PathologistUI(System.Windows.Controls.TabItem writer)
+        {            
             this.m_Writer = writer;
+            this.m_SystemIdentity = Business.User.SystemIdentity.Instance;
 
-			this.m_OrderCollection = new YellowstonePathology.Business.Test.PanelOrderCollection();			
+            this.m_OrderCollection = new YellowstonePathology.Business.Test.PanelOrderCollection();			
 			this.m_PathologistHistoryList = new YellowstonePathology.Business.Surgical.PathologistHistoryList();
 
 			this.m_SelectedTabIndex = 0;
             
-			this.m_PathologistSearch = new YellowstonePathology.Business.Search.PathologistSearch(this.m_SystemIdentity, this.m_Writer);
+			this.m_PathologistSearch = new YellowstonePathology.Business.Search.PathologistSearch(this.m_Writer);
 			this.m_PathologistUsers = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetPathologistUsers();
 
 			this.m_FieldEnabler = new YellowstonePathology.Business.Common.FieldEnabler();
 			this.m_AmendmentUsers = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetUsersByRole(YellowstonePathology.Business.User.SystemUserRoleDescriptionEnum.AmendmentSigner, true);
 		}
+
+        public Business.User.SystemIdentity SystemIdentity
+        {
+            get { return this.m_SystemIdentity; }
+        }
 
         public string SignatureButtonText
         {
@@ -107,7 +111,7 @@ namespace YellowstonePathology.UI.Surgical
 
 		public YellowstonePathology.Business.User.SystemUser CurrentUser
 		{
-			get { return this.m_SystemIdentity.User; }
+			get { return YellowstonePathology.Business.User.SystemIdentity.Instance.User; }
 		}
 
         public System.Windows.Controls.TabItem Writer
@@ -243,7 +247,7 @@ namespace YellowstonePathology.UI.Surgical
 		{
 			YellowstonePathology.Business.Rules.ExecutionStatus executionStatus = new YellowstonePathology.Business.Rules.ExecutionStatus();
 			YellowstonePathology.Business.Rules.WorkspaceEnableRules workspaceEnableRules = new YellowstonePathology.Business.Rules.WorkspaceEnableRules();
-			workspaceEnableRules.Execute(this.m_AccessionOrder, this.m_PanelSetOrder, this.m_FieldEnabler, executionStatus, this.m_SystemIdentity);
+			workspaceEnableRules.Execute(this.m_AccessionOrder, this.m_PanelSetOrder, this.m_FieldEnabler, executionStatus);
 			if (this.m_PanelSetOrder.PanelSetId == 15)
 			{
 				this.m_FieldEnabler.IsUnprotectedEnabled = false;
