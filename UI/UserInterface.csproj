@@ -41,8 +41,8 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>82</ApplicationRevision>
-    <ApplicationVersion>10.1.2.%2a</ApplicationVersion>
+    <ApplicationRevision>10</ApplicationRevision>
+    <ApplicationVersion>10.1.3.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -179,6 +179,13 @@
     <Compile Include="AmendmentPage.xaml.cs">
       <DependentUpon>AmendmentPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AppMessaging\LockReleaseRequestMessageBody.cs" />
+    <Compile Include="AppMessaging\LockReleaseResponseMessageBody.cs" />
+    <Compile Include="AppMessaging\MessageBody.cs" />
+    <Compile Include="AppMessaging\MessageDirectionEnum.cs" />
+    <Compile Include="AppMessaging\MessageQueueCollection.cs" />
+    <Compile Include="AppMessaging\MessageQueueMessage.cs" />
+    <Compile Include="AppMessaging\MessageQueues.cs" />
     <Compile Include="Billing\BillingPage.xaml.cs">
       <DependentUpon>BillingPage.xaml</DependentUpon>
     </Compile>
@@ -314,6 +321,9 @@
     <Compile Include="Login\CaseLockedPage.xaml.cs">
       <DependentUpon>CaseLockedPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AppMessaging\MessagingDialog.xaml.cs">
+      <DependentUpon>MessagingDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Login\MissingInformationPage.xaml.cs">
       <DependentUpon>MissingInformationPage.xaml</DependentUpon>
     </Compile>
@@ -330,6 +340,9 @@
     <Compile Include="Login\Receiving\AdditionalTestingEmailPathWithSecurity.cs" />
     <Compile Include="Login\Receiving\TumorNucleiPercentageEntryPage.xaml.cs">
       <DependentUpon>TumorNucleiPercentageEntryPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AppMessaging\MessagingPage.xaml.cs">
+      <DependentUpon>MessagingPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="MaterialTracking\MaterialTrackingCasePage.xaml.cs">
       <DependentUpon>MaterialTrackingCasePage.xaml</DependentUpon>
@@ -1942,6 +1955,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="AppMessaging\MessagingDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Login\MissingInformationPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1955,6 +1972,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Login\Receiving\TumorNucleiPercentageEntryPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="AppMessaging\MessagingPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -3952,6 +3973,7 @@
     <Content Include="CEFSharp\CefSharp.Wpf.dll" />
     <Content Include="CEFSharp\CefSharp.Wpf.Example.exe" />
     <Content Include="CEFSharp\CefSharp.Wpf.Example.vshost.exe" />
+    <Resource Include="Resources\message.png" />
     <EmbeddedResource Include="XMLFile2.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>

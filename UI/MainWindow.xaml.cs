@@ -867,5 +867,10 @@ namespace YellowstonePathology.UI
             UI.LockedCaseDialog lockedCaseDialog = new LockedCaseDialog();
             lockedCaseDialog.Show();
         }
+
+        private void ToolBarButtonSendMessage_Click(object sender, RoutedEventArgs e)
+        {
+            this.m_MainWindowCommandButtonHandler.OnShowMessagingDialog();
+        }
     }    
 }

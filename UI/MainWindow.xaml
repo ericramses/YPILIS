@@ -96,6 +96,7 @@
 
 		    <ToolBarTray Background="Gainsboro" Name="ToolBarTrayMain">
 			<ToolBar Name="ToolBarMain">
+                
 					<Button Click="ToolBarButtonSave_Click" ToolTip="Save Data" Margin="0,0,2,0" Name="ToolBarButtonSave">
 						<StackPanel Orientation="Horizontal">
 							<Image Source="/Resources/Save.ico"></Image>
@@ -103,10 +104,10 @@
 						</StackPanel>
 				</Button>
 
-                    <Button Click="ToolBarButtonRefresh_Click" ToolTip="Refresh" Margin="2,0,0,0" Height="22" Name="ToolBarButtonRefresh" Visibility="Collapsed">
+                    <Button Click="ToolBarButtonSendMessage_Click" ToolTip="Send Message" Margin="2,0,0,0" Height="22" Name="ToolBarButtonSendMessage" Visibility="Visible">
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="/Resources/Refresh.ico"></Image>
-                            <TextBlock Margin="2" VerticalAlignment="Center">Refresh</TextBlock>
+                            <Image Source="/Resources/message.png"></Image>
+                            <TextBlock Margin="2" VerticalAlignment="Center">Send Message</TextBlock>
                         </StackPanel>
                     </Button>
                 
