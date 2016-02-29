@@ -1471,7 +1471,7 @@
                 <OrderItems>
                 </OrderItems>
               </OrderItem>
-              <OrderItem>
+              <!-- Removed 2/29/2016 WHC<OrderItem>
                 <Id>135</Id>
                 <ParentId>19</ParentId>
                 <ChildId>0</ChildId>
@@ -1487,7 +1487,7 @@
                 <TemplateName>StandardCheckBoxTemplate</TemplateName>
                 <OrderItems>
                 </OrderItems>
-              </OrderItem>
+              </OrderItem>-->
               <OrderItem>
                 <Id>108</Id>
                 <ParentId>19</ParentId>

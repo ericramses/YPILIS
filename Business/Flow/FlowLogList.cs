@@ -15,6 +15,23 @@ namespace YellowstonePathology.Business.Flow
         public FlowLogList()
         {
          
-        }		
-	}        
+        }
+
+        public void SetLockIsAquiredByMe(Business.Test.AccessionOrder accessionOrder)
+        {
+            foreach (FlowLogListItem item in this)
+            {
+                if (item.MasterAccessionNo == accessionOrder.MasterAccessionNo)
+                {
+                    item.LockAquired = accessionOrder.LockAquired;
+                    item.IsLockAquiredByMe = accessionOrder.IsLockAquiredByMe;
+                }
+                else
+                {
+                    item.IsLockAquiredByMe = false;
+                    item.LockAquired = false;
+                }
+            }
+        }
+    }
 }

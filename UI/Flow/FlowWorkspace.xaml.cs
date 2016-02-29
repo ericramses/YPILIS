@@ -92,6 +92,8 @@ namespace YellowstonePathology.UI.Flow
                     this.m_FlowUI.SetAccess();
                     this.m_FlowUI.NotifyPropertyChanged(string.Empty);
                 }
+
+                this.m_FlowUI.FlowLogSearch.FlowLogList.SetLockIsAquiredByMe(this.m_FlowUI.AccessionOrder);
             }
         }
 
@@ -299,6 +301,8 @@ namespace YellowstonePathology.UI.Flow
             {
                 YellowstonePathology.Business.Flow.FlowLogListItem flowLogListItem = (YellowstonePathology.Business.Flow.FlowLogListItem)this.ListViewFlowCaseList.SelectedItem;
                 this.GetCase(flowLogListItem.ReportNo, flowLogListItem.MasterAccessionNo);
+
+                this.m_FlowUI.FlowLogSearch.FlowLogList.SetLockIsAquiredByMe(this.m_FlowUI.AccessionOrder);
             }
             else
             {
@@ -384,7 +388,12 @@ namespace YellowstonePathology.UI.Flow
             }
             if (this.radioButtonSearchReportNo.IsChecked == true)
             {
-                this.m_FlowUI.FlowLogSearch.SetByReportNo(this.textBoxSearchReportNo.Text);
+                String reportNo = this.ReportNoFromText(this.textBoxSearchReportNo.Text);
+                if(string.IsNullOrEmpty(reportNo) ==false && reportNo != this.textBoxSearchReportNo.Text)
+                {
+                    this.textBoxSearchReportNo.Text = reportNo;
+                }
+                this.m_FlowUI.FlowLogSearch.SetByReportNo(reportNo);
                 this.m_FlowUI.Search();
             }
             if (this.radioButtonSearchPatientName.IsChecked == true)
@@ -414,6 +423,24 @@ namespace YellowstonePathology.UI.Flow
 
             this.tabControlBottomLeftPane.SelectedIndex = 0;
             this.ListViewFlowCaseList.SelectedIndex = -1;        
+        }
+
+        private string ReportNoFromText(string text)
+        {
+            string result = string.Empty;
+            Surgical.TextSearchHandler textSearchHandler = new Surgical.TextSearchHandler(text);
+            object textSearchObject = textSearchHandler.GetSearchObject();
+            if (textSearchObject is YellowstonePathology.Business.ReportNo)
+            {
+                YellowstonePathology.Business.ReportNo reportNo = (YellowstonePathology.Business.ReportNo)textSearchObject;
+                result = reportNo.Value;
+            }
+            else if (textSearchObject is YellowstonePathology.Business.MasterAccessionNo)
+            {
+                YellowstonePathology.Business.MasterAccessionNo masterAccessionNo = (YellowstonePathology.Business.MasterAccessionNo)textSearchObject;
+                result = masterAccessionNo.Value + ".F1";
+            }
+            return result;
         }
 
         public void ListViewComments_MouseDoubleClick(object sender, RoutedEventArgs args)

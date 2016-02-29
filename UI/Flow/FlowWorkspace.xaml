@@ -744,7 +744,40 @@
                         <Button Width="75" Height="30" Grid.Column="0" Grid.Row="0" Click="ButtonRefresh_Click" HorizontalAlignment="Right" Margin="2,2,2,2">Refresh</Button>
 
 						<ListView Name="ListViewFlowCaseList" Grid.Column="0" Grid.Row="1" ItemsSource="{Binding Path=FlowLogSearch.FlowLogList}" SelectionChanged="ListViewFlowCaseList_SelectionChanged">
-							<ListView.View>
+
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
+                                    <Style.Triggers>
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding Path=IsLockAquiredByMe}" Value="True"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <Setter Property="Background" Value="#cbf4c8"/>
+                                        </MultiDataTrigger>
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding Path=IsLockAquiredByMe}" Value="False"/>
+                                                <Condition Binding="{Binding Path=LockAquired}" Value="true"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <Setter Property="Background" Value="#fae5e7"/>
+                                        </MultiDataTrigger>
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding Path=LockAquired}" Value="False"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <Setter Property="Background" Value="#FFFFFF"/>
+                                        </MultiDataTrigger>
+                                        <MultiTrigger>
+                                            <MultiTrigger.Conditions>
+                                                <Condition Property="IsSelected" Value="true" />
+                                            </MultiTrigger.Conditions>
+                                            <Setter Property="FontWeight" Value="Bold" />
+                                        </MultiTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                            
+                            <ListView.View>
                                 <GridView AllowsColumnReorder="True" ColumnHeaderToolTip="Flow Case List">
                                     <GridViewColumn DisplayMemberBinding="{Binding Path=ReportNo}" Header="Report No" Width="85"/>
                                     <GridViewColumn DisplayMemberBinding="{Binding Path=AccessionDate, Converter={StaticResource ShortDateConverter}}" Header="Accession Date" Width="85"/>
