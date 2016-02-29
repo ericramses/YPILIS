@@ -48,7 +48,6 @@ namespace YellowstonePathology.UI.Login
 
             InitializeComponent();
 
-            this.DatePickerDailyLog.SelectedDate = DateTime.Today;
             this.TabItemDocumentWorkspace.Content = this.m_DocumentViewer;
             this.DataContext = this.m_LoginUI;
 
@@ -65,15 +64,12 @@ namespace YellowstonePathology.UI.Login
                 this.m_BarcodeScanPort.HistologySlideScanReceived += new Business.BarcodeScanning.BarcodeScanPort.HistologySlideScanReceivedHandler(BarcodeScanPort_HistologySlideScanReceived);
                 this.m_BarcodeScanPort.AliquotOrderIdReceived += BarcodeScanPort_AliquotOrderIdReceived;
 
-                this.m_LoginUI.GetTaskOrderCollection();
-                this.m_LoginUI.GetDailyTaskOrderCollection();
+                this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath += new MainWindowCommandButtonHandler.StartProviderDistributionPathEventHandler(MainWindowCommandButtonHandler_StartProviderDistributionPath);
+                this.m_MainWindowCommandButtonHandler.Save += new MainWindowCommandButtonHandler.SaveEventHandler(MainWindowCommandButtonHandler_Save);
+                this.m_MainWindowCommandButtonHandler.Refresh += new MainWindowCommandButtonHandler.RefreshEventHandler(MainWindowCommandButtonHandler_Refresh);
+                this.m_MainWindowCommandButtonHandler.RemoveTab += new MainWindowCommandButtonHandler.RemoveTabEventHandler(MainWindowCommandButtonHandler_RemoveTab);
             }
 
-            this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath += new MainWindowCommandButtonHandler.StartProviderDistributionPathEventHandler(MainWindowCommandButtonHandler_StartProviderDistributionPath);
-            this.m_MainWindowCommandButtonHandler.Save += new MainWindowCommandButtonHandler.SaveEventHandler(MainWindowCommandButtonHandler_Save);
-            this.m_MainWindowCommandButtonHandler.Refresh += new MainWindowCommandButtonHandler.RefreshEventHandler(MainWindowCommandButtonHandler_Refresh);
-            this.m_MainWindowCommandButtonHandler.RemoveTab += new MainWindowCommandButtonHandler.RemoveTabEventHandler(MainWindowCommandButtonHandler_RemoveTab);
-            this.m_MainWindowCommandButtonHandler.ShowMessagingDialog += new MainWindowCommandButtonHandler.ShowMessagingDialogEventHandler(MainWindowCommandButtonHandler_ShowMessagingDialog);
 
             this.m_LoadedHasRun = true;
         }
@@ -600,56 +596,6 @@ namespace YellowstonePathology.UI.Login
             this.m_LoginPageWindow.Close();
         }        
 
-        private void ButtonTaskOrderRefresh_Click(object sender, RoutedEventArgs e)
-        {
-            this.m_LoginUI.GetTaskOrderCollection();
-        }
-
-        private void ButtonTaskOrderPrint_Click(object sender, RoutedEventArgs e)
-        {
-            if (this.ListViewTaskOrders.SelectedItem != null)
-            {
-                YellowstonePathology.Business.Task.Model.TaskOrder taskOrder = (YellowstonePathology.Business.Task.Model.TaskOrder)this.ListViewTaskOrders.SelectedItem;
-                YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(taskOrder.MasterAccessionNo, this.m_Writer);
-                Receiving.TaskOrderDataSheet taskOrderDataSheet = new Receiving.TaskOrderDataSheet(taskOrder, accessionOrder);
-
-                System.Printing.PrintQueue printQueue = new System.Printing.LocalPrintServer().DefaultPrintQueue;
-                System.Windows.Controls.PrintDialog printDialog = new System.Windows.Controls.PrintDialog();
-                printDialog.PrintTicket.PageOrientation = System.Printing.PageOrientation.Portrait;
-                printDialog.PrintQueue = printQueue;
-                printDialog.PrintDocument(taskOrderDataSheet.FixedDocument.DocumentPaginator, "Task Order Data Sheet");
-            }
-        }
-
-        private void ButtonViewDailyLog_Click(object sender, RoutedEventArgs e)
-        {
-            if (!this.DatePickerDailyLog.SelectedDate.HasValue)
-            {
-                MessageBox.Show("Select a log date to display.", "No date selected", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-                return;
-            }
-            this.m_LoginUI.ViewLabOrderLog(this.DatePickerDailyLog.SelectedDate.Value);
-        }
-
-        private void ListViewTaskOrders_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            if (this.ListViewTaskOrders.SelectedItem != null)
-            {
-                YellowstonePathology.Business.Task.Model.TaskOrder selectedTaskOrder = (YellowstonePathology.Business.Task.Model.TaskOrder)this.ListViewTaskOrders.SelectedItem;
-                YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(selectedTaskOrder.MasterAccessionNo, this.m_Writer);
-                YellowstonePathology.Business.Task.Model.TaskOrder taskOrder = accessionOrder.TaskOrderCollection.GetTaskOrder(selectedTaskOrder.TaskOrderId);
-                
-                this.m_LoginPageWindow = new LoginPageWindow();
-
-                YellowstonePathology.UI.Login.Receiving.TaskOrderPath taskOrderPath = new Receiving.TaskOrderPath(accessionOrder, taskOrder, this.m_LoginPageWindow.PageNavigator, PageNavigationModeEnum.Standalone);
-                taskOrderPath.Close += new Receiving.TaskOrderPath.CloseEventHandler(TaskOrderPath_Close);
-                taskOrderPath.Start();
-
-                this.m_LoginPageWindow.ShowDialog();
-                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(accessionOrder, this.m_Writer);
-            }
-        }
-
         private void TaskOrderPath_Close(object sender, EventArgs e)
         {
             this.m_LoginPageWindow.Close();
@@ -824,19 +770,6 @@ namespace YellowstonePathology.UI.Login
             }
         }
 
-        private void ButtonTasksNotAcknowledged_Click(object sender, RoutedEventArgs e)
-        {
-            string acknowledgeTasksFor = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.AcknowledgeTasksFor;
-            if (string.IsNullOrEmpty(acknowledgeTasksFor) == false)
-            {
-                this.m_LoginUI.GetTasksNotAcknowledged();
-            }
-            else
-            {
-                MessageBox.Show("You must select the department to acknowledge for in preferences to complete this action.");
-            }
-        }
-
         private void TileSpecimenSelection_MouseUp(object sender, MouseButtonEventArgs e)
         {
             YellowstonePathology.Business.PanelSet.Model.PanelSetCollection panelSetCollection = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetAll();
@@ -864,104 +797,6 @@ namespace YellowstonePathology.UI.Login
         private void SlidePrintingPath_Done(object sender, EventArgs e)
         {
             this.m_BarcodeScanPort.ContainerScanReceived += ContainerScanReceived;
-        }
-
-        private void ButtonDailyTaskOrderRefresh_Click(object sender, RoutedEventArgs e)
-        {
-            this.m_LoginUI.GetDailyTaskOrderCollection();
-        }
-
-        private void ButtonDailyTaskAcknowledge_Click(object sender, RoutedEventArgs e)
-        {
-            YellowstonePathology.Business.User.SystemIdentity systemIdentity = Business.User.SystemIdentity.Instance;
-            if (this.ListViewDailyTaskOrders.SelectedItems.Count > 0)
-            {                
-                foreach (YellowstonePathology.Business.Task.Model.TaskOrder taskOrder in this.ListViewDailyTaskOrders.SelectedItems)
-                {
-                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullTaskOrder(taskOrder, this.m_Writer);
-                    if (taskOrder.Acknowledged == false)
-                    {                        
-                        taskOrder.Acknowledged = true;
-                        taskOrder.AcknowledgedDate = DateTime.Now;
-                        taskOrder.AcknowledgedById = systemIdentity.User.UserId;
-                        taskOrder.AcknowledgedByInitials = systemIdentity.User.Initials;                        
-                    }
-                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(taskOrder, this.m_Writer);
-                }                
-            }
-            else
-            {
-                MessageBox.Show("Select a task to acknowledge.");
-            }
-        }
-
-        private void ButtonDailyTaskOrderPrint_Click(object sender, RoutedEventArgs e)
-        {
-            if (this.ListViewDailyTaskOrders.SelectedItems.Count > 0)
-            {
-                YellowstonePathology.Business.Task.Model.TaskCytologySlideDisposal taskCytologySlideDisposal = new Business.Task.Model.TaskCytologySlideDisposal();
-                YellowstonePathology.Business.Task.Model.TaskSurgicalSpecimenDisposal taskSurgicalSpecimenDisposal = new Business.Task.Model.TaskSurgicalSpecimenDisposal();
-                YellowstonePathology.Business.Task.Model.TaskPOCReport taskPOCReport = new Business.Task.Model.TaskPOCReport();
-
-                foreach (YellowstonePathology.Business.Task.Model.TaskOrder taskOrder in this.ListViewDailyTaskOrders.SelectedItems)
-                {
-                    if (taskOrder.TaskId == taskCytologySlideDisposal.TaskId)
-                    {
-                        YellowstonePathology.Business.Reports.CytologySlideDisposalReport report1 = new YellowstonePathology.Business.Reports.CytologySlideDisposalReport(taskOrder.TaskDate.Value);
-                        System.Windows.Controls.PrintDialog printDialog1 = new System.Windows.Controls.PrintDialog();
-
-                        printDialog1.ShowDialog();
-                        printDialog1.PrintDocument(report1.DocumentPaginator, "Cytology Slide Disposal");
-                    }
-                    else if (taskOrder.TaskId == taskSurgicalSpecimenDisposal.TaskId)
-                    {
-                        YellowstonePathology.Business.Reports.SurgicalSpecimenDisposalReport report2 = new YellowstonePathology.Business.Reports.SurgicalSpecimenDisposalReport(taskOrder.TaskDate.Value);
-                        System.Windows.Controls.PrintDialog printDialog2 = new System.Windows.Controls.PrintDialog();
-                        printDialog2.ShowDialog();
-                        printDialog2.PrintDocument(report2.DocumentPaginator, "Surgical Specimen Disposal Report for: ");
-                    }
-                    else if (taskOrder.TaskId == taskPOCReport.TaskId)
-                    {
-                        YellowstonePathology.Business.Reports.POCRetensionReport report = new YellowstonePathology.Business.Reports.POCRetensionReport(taskOrder.TaskDate.Value.AddDays(-6), taskOrder.TaskDate.Value);
-                        System.Windows.Controls.PrintDialog printDialog = new System.Windows.Controls.PrintDialog();
-                        printDialog.ShowDialog();
-                        printDialog.PrintDocument(report.DocumentPaginator, "POC ");
-                    }
-                }
-            }
-            else
-            {
-                MessageBox.Show("Select a task to print.");
-            }
-        }
-
-        private void ButtonDailyTaskOrderHistory_Click(object sender, RoutedEventArgs e)
-        {
-            this.m_LoginUI.GetDailyTaskOrderHistoryCollection();
-        }
-
-        private void ButtonDailyTaskOrderAddDays_Click(object sender, RoutedEventArgs e)
-        {
-            StringBuilder message = new StringBuilder();
-            YellowstonePathology.Business.Rules.MethodResult result = YellowstonePathology.Business.Task.Model.TaskOrderCollection.AddDailyTaskOrderCytologySlideDisposal(30);
-            message.AppendLine(result.Message);
-
-            result = YellowstonePathology.Business.Task.Model.TaskOrderCollection.AddDailyTaskOrderSurgicalSpecimenDisposal(30);
-            message.AppendLine(result.Message);
-            
-            MessageBox.Show(message.ToString());
-        }
-
-        private void MenuItemDeleteTask_Click(object sender, RoutedEventArgs e)
-        {
-            if (this.ListViewTaskOrders.SelectedItems.Count != 0)
-            {
-                foreach (YellowstonePathology.Business.Task.Model.TaskOrder taskOrder in this.ListViewTaskOrders.SelectedItems)
-                {
-                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.DeleteDocument(taskOrder, this.m_Writer);
-                }
-                this.m_LoginUI.GetTaskOrderCollection();
-            }
         }
 
         private void TileTesting_MouseUp(object sender, MouseButtonEventArgs e)
