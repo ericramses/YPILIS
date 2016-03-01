@@ -12,6 +12,9 @@ namespace YellowstonePathology.UI.AppMessaging
         public delegate void ReleaseLockEventHandler(object sender, EventArgs e);
         public event ReleaseLockEventHandler ReleaseLock;
 
+        public delegate void LockAquiredEventHandler(object sender, EventArgs e);
+        public event LockAquiredEventHandler LockAquired;
+
         private static volatile MessageQueues instance;
         private static object syncRoot = new Object();
 
@@ -84,64 +87,61 @@ namespace YellowstonePathology.UI.AppMessaging
 
             MessageQueueMessage responseMessageQueueMessage = new MessageQueueMessage(responseMessage, MessageDirectionEnum.Sent);
             this.m_MessageCollection.Add(responseMessageQueueMessage);
-
+            
             if (this.ReleaseLock != null) this.ReleaseLock(receivedMessageBody.MasterAccessionNo, new EventArgs());
         }
 
         private void LockReleaseRequestMessageQueue_ReceiveCompleted(object sender, System.Messaging.ReceiveCompletedEventArgs e)
-        {
-            
+        {            
             System.Messaging.Message receivedMessage = this.m_LockReleaseRequestQueue.EndReceive(e.AsyncResult);            
 
             MessageQueueMessage receviedMessageQueueMessage = new MessageQueueMessage(receivedMessage, MessageDirectionEnum.Received);
             this.m_MessageCollection.Add(receviedMessageQueueMessage);            
 
             this.m_LockReleaseRequestQueue.BeginReceive();
+            this.HandleDialog(receivedMessage);
+        }        
 
-            if(this.m_MessagingDialog == null)
+        private void LockReleaseResponseMessageQueue_ReceiveCompleted(object sender, System.Messaging.ReceiveCompletedEventArgs e)
+        {
+            System.Messaging.Message message = this.m_LockReleaseResponseQueue.EndReceive(e.AsyncResult);
+            MessageBody messageBody = (MessageBody)message.Body;
+
+            MessageQueueMessage messageQueueMessage = new MessageQueueMessage(message, MessageDirectionEnum.Received);
+            this.m_MessageCollection.Add(messageQueueMessage);
+
+            this.m_LockReleaseResponseQueue.BeginReceive();                        
+            if (this.LockAquired != null) this.LockAquired(messageBody.MasterAccessionNo, new EventArgs());
+            this.HandleDialog(message);
+        }
+
+        private void HandleDialog(System.Messaging.Message message)
+        {
+            if (this.m_MessagingDialog == null)
             {
                 App.Current.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
                 {
                     UI.AppMessaging.MessagingPage page = new UI.AppMessaging.MessagingPage();
-                    page.StartReceiveLockReleaseResponse(receivedMessage);
                     this.m_MessagingDialog = new MessagingDialog();
                     this.m_MessagingDialog.PageNavigator.Navigate(page);
-                    page.StartReceiveLockReleaseResponse(receivedMessage);
-                    this.m_MessagingDialog.Show();                    
+                    page.StartReceiveLockReleaseResponse(message);
+                    this.m_MessagingDialog.Show();
                 }));
             }
             else
-            {                
+            {
                 App.Current.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
                 {
                     if (this.m_MessagingDialog.IsLoaded == false)
                     {
                         UI.AppMessaging.MessagingPage page = new UI.AppMessaging.MessagingPage();
-                        page.StartReceiveLockReleaseResponse(receivedMessage);
                         this.m_MessagingDialog = new MessagingDialog();
                         this.m_MessagingDialog.PageNavigator.Navigate(page);
-                        page.StartReceiveLockReleaseResponse(receivedMessage);
+                        page.StartReceiveLockReleaseResponse(message);
                         this.m_MessagingDialog.Show();
                     }
                 }));
-            }                        
-        }
-
-        private void LockReleaseResponseMessageQueue_ReceiveCompleted(object sender, System.Messaging.ReceiveCompletedEventArgs e)
-        {
-            System.Messaging.Message message = this.m_LockReleaseResponseQueue.EndReceive(e.AsyncResult);            
-
-            MessageQueueMessage messageQueueMessage = new MessageQueueMessage(message, MessageDirectionEnum.Received);
-            this.m_MessageCollection.Add(messageQueueMessage);
-
-            this.m_LockReleaseResponseQueue.BeginReceive();
-
-            MessagingPage messagingPage = new MessagingPage();
-            messagingPage.StartReceiveLockReleaseResponse(message);
-
-            this.m_MessagingDialog = new MessagingDialog();
-            this.m_MessagingDialog.PageNavigator.Navigate(messagingPage);
-            this.m_MessagingDialog.Show();
+            }
         }
 
         public void CreateMessageQueuesIfNotExist()

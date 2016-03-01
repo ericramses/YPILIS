@@ -1550,7 +1550,7 @@ namespace YellowstonePathology.Business.Test
         {
             //Dermatology clients = Advanced Dermatology, Tallman and BSD
             bool result = false;
-            if (this.m_ClientId == 1260 || this.m_ClientId == 579 || this.m_ClientId == 14)
+            if (this.m_ClientId == 1260 || this.m_ClientId == 579 || this.m_ClientId == 14 || this.m_ClientId == 1511)
             {
                 result = true;
             }

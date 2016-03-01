@@ -70,18 +70,29 @@ namespace YellowstonePathology.UI.Login
                 this.m_MainWindowCommandButtonHandler.RemoveTab += new MainWindowCommandButtonHandler.RemoveTabEventHandler(MainWindowCommandButtonHandler_RemoveTab);
                 this.m_MainWindowCommandButtonHandler.ShowMessagingDialog += new MainWindowCommandButtonHandler.ShowMessagingDialogEventHandler(MainWindowCommandButtonHandler_ShowMessagingDialog);
 
-                AppMessaging.MessageQueues.Instance.ReleaseLock += Instance_ReleaseLock;
+                AppMessaging.MessageQueues.Instance.ReleaseLock += MessageQueue_ReleaseLock;
+                AppMessaging.MessageQueues.Instance.LockAquired += MessageQueue_LockAquired;
             }
 
             this.m_LoadedHasRun = true;
         }
 
-        private void Instance_ReleaseLock(object sender, EventArgs e)
+        private void MessageQueue_LockAquired(object sender, EventArgs e)
         {
             string masterAccessionNo = (string)sender;
             if (this.m_LoginUI.AccessionOrder != null && this.m_LoginUI.AccessionOrder.MasterAccessionNo == masterAccessionNo)
             {
-                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.ReleaseLock(this.m_LoginUI.AccessionOrder, this.m_Writer);
+                Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, this.m_Writer);
+                this.HandleAccessionOrderListChange();
+            }
+        }
+
+        private void MessageQueue_ReleaseLock(object sender, EventArgs e)
+        {            
+            string masterAccessionNo = (string)sender;
+            if (this.m_LoginUI.AccessionOrder != null && this.m_LoginUI.AccessionOrder.MasterAccessionNo == masterAccessionNo)
+            {
+                this.Save();
             }
         }        
 
@@ -105,7 +116,12 @@ namespace YellowstonePathology.UI.Login
 
         private void MainWindowCommandButtonHandler_Save(object sender, EventArgs e)
         {
-            if(this.m_LoginUI.AccessionOrder != null)
+            this.Save();
+        }
+
+        private void Save()
+        {
+            if (this.m_LoginUI.AccessionOrder != null)
             {
                 Business.Persistence.DocumentGateway.Instance.ReleaseLock(this.m_LoginUI.AccessionOrder, this.m_Writer);
 
@@ -121,7 +137,7 @@ namespace YellowstonePathology.UI.Login
                 }
 
                 this.m_LoginUI.ReportSearchList.SetLockIsAquiredByMe(this.m_LoginUI.AccessionOrder);
-            }            
+            }
         }
 
         private void BarcodeScanPort_AliquotOrderIdReceived(string scanData)
@@ -232,14 +248,22 @@ namespace YellowstonePathology.UI.Login
         }
 
         private void ListViewAccessionOrders_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
+        {            
             if (this.ListViewAccessionOrders.SelectedItem != null)
             {
                 YellowstonePathology.Business.Search.ReportSearchItem item = (YellowstonePathology.Business.Search.ReportSearchItem)this.ListViewAccessionOrders.SelectedItem;
                 this.GetCase(item.MasterAccessionNo, item.ReportNo);
-                this.m_LoginUI.SelectedItemCount = "Selected Items: " + this.ListViewAccessionOrders.SelectedItems.Count.ToString();   
+                this.HandleAccessionOrderListChange();
+            }
+        }
 
-                if(this.m_LoginUI.AccessionOrder.IsLockAquiredByMe == true)
+        private void HandleAccessionOrderListChange()
+        {
+            App.Current.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
+            {
+                this.m_LoginUI.SelectedItemCount = "Selected Items: " + this.ListViewAccessionOrders.SelectedItems.Count.ToString();
+
+                if (this.m_LoginUI.AccessionOrder.IsLockAquiredByMe == true)
                 {
                     this.TabControlRightSide.SelectedIndex = 1;
                     this.TabItemTasks.IsEnabled = true;
@@ -251,7 +275,7 @@ namespace YellowstonePathology.UI.Login
                 }
 
                 this.m_LoginUI.ReportSearchList.SetLockIsAquiredByMe(this.m_LoginUI.AccessionOrder);
-            }
+            }));            
         }
 
         public void GetCase(string masterAccessionNo, string reportNo)

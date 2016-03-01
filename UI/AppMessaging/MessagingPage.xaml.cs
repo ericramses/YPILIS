@@ -45,7 +45,7 @@ namespace YellowstonePathology.UI.AppMessaging
 
         private void StartCountDownTimer()
         {
-            this.m_CurrentCountDown = 60;
+            this.m_CurrentCountDown = 20;
 
             this.m_DispatchTimer = new System.Windows.Threading.DispatcherTimer();
             this.m_DispatchTimer.Interval = new TimeSpan(0, 0, 1);
