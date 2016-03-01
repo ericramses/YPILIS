@@ -52,8 +52,6 @@ namespace YellowstonePathology.UI
         {
             if (this.m_LoadedHasRun == false)
             {
-                this.m_TaskUI.GetTaskOrderCollection();
-                this.m_TaskUI.GetDailyTaskOrderCollection();
                 this.m_MainWindowCommandButtonHandler.Save += new MainWindowCommandButtonHandler.SaveEventHandler(MainWindowCommandButtonHandler_Save);
                 this.m_MainWindowCommandButtonHandler.Refresh += new MainWindowCommandButtonHandler.RefreshEventHandler(MainWindowCommandButtonHandler_Refresh);
                 this.m_MainWindowCommandButtonHandler.RemoveTab += new MainWindowCommandButtonHandler.RemoveTabEventHandler(MainWindowCommandButtonHandler_RemoveTab);
@@ -78,7 +76,6 @@ namespace YellowstonePathology.UI
             if (this.m_TaskUI.AccessionOrder != null)
             {
                 Business.Persistence.DocumentGateway.Instance.ReleaseLock(this.m_TaskUI.AccessionOrder, this.m_Writer);
-
             }
         }
 

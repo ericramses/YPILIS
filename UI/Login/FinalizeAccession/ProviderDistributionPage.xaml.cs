@@ -41,7 +41,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
         private Visibility m_BackButtonVisibility;
 
         private YellowstonePathology.Business.User.SystemUserCollection m_SystemUserCollection;
-        private bool m_Closing;        
+        //private bool m_Closing;        
 
         public ProviderDistributionPage(string reportNo, 
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
@@ -92,7 +92,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
         private void ProviderDistributionPage_Close(object sender, EventArgs e)
         {
-            this.m_Closing = true;
+            //this.m_Closing = true;
         }
 
         public Visibility NextButtonVisibility
@@ -301,6 +301,18 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
         private void HyperLinkSetDistribution_Click(object sender, RoutedEventArgs e)
         {
+            this.SetDistribution();
+        }
+
+        private void HyperLinkPhysicianNotFound_Click(object sender, RoutedEventArgs e)
+        {
+            Business.Client.PhysicianClientDistribution physicianClientDistribution = new Business.Client.PhysicianClientDistribution();
+            physicianClientDistribution.PhysicianId = 2371;
+            physicianClientDistribution.PhysicianName = "*** Physician Not Found *** *** Physician Not Found ***";
+            physicianClientDistribution.ClientId = 1007;
+            physicianClientDistribution.ClientName = "** Client Not Found **";
+
+            this.SetPhysicianClient(physicianClientDistribution);
             this.SetDistribution();
         }
 
