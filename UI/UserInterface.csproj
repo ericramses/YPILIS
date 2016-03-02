@@ -1194,11 +1194,6 @@
     <Compile Include="Login\FinalizeAccession\AliquotAndStainOrderPath.cs" />
     <Compile Include="Login\FinalizeAccession\PatientDemographicsPath.cs" />
     <Compile Include="Login\FinalizeAccession\PatientLinkingPath.cs" />
-    <Compile Include="Login\LabOrderAcknowledgementPage.xaml.cs">
-      <DependentUpon>LabOrderAcknowledgementPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Login\LabOrderAcknowledgementPath.cs" />
-    <Compile Include="Login\ReceiveCytologySpecimenPath.cs" />
     <Compile Include="Login\ReceiveSpecimen\BarcodeReassignmentPath.cs" />
     <Compile Include="Login\ReceiveSpecimen\BillingsClinicOrderPage.xaml.cs">
       <DependentUpon>BillingsClinicOrderPage.xaml</DependentUpon>
@@ -2879,10 +2874,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Login\FinalizeAccession\CytologyClinicalHistoryPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Login\LabOrderAcknowledgementPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
