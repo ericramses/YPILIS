@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Linq;
 
 namespace YellowstonePathology.Business.Search
 {
@@ -96,5 +97,27 @@ namespace YellowstonePathology.Business.Search
 			this.m_ScreeningFinalTime = propertyWriter.WriteNullableDateTime("ScreeningFinalTime");
 			this.m_CaseFinalTime = propertyWriter.WriteNullableDateTime("CaseFinalTime");
 		}
+
+        public void ToXml(XElement listElement)
+        {
+            string screeningFinalTime = string.Empty;
+            string caseFinalTime = string.Empty;
+            if (this.m_ScreeningFinalTime.HasValue) screeningFinalTime = this.m_ScreeningFinalTime.Value.ToString("MM/dd/yyy HH:mm");
+            if (this.m_CaseFinalTime.HasValue) caseFinalTime = this.m_CaseFinalTime.Value.ToString("MM/dd/yyy HH:mm");
+
+            XElement resultElement = new XElement("CytologyScreeningSearchResult",
+                new XElement("MasterAccessionNo", this.MasterAccessionNo),
+                new XElement("ReportNo", this.m_ReportNo),
+                new XElement("PatientName", this.m_PatientName),
+                new XElement("OrderedByName", this.m_OrderedByName),
+                new XElement("ScreenedByName", this.m_ScreenedByName),
+                new XElement("ScreeningType", this.m_ScreeningType),
+                new XElement("AssignedToName", this.m_AssignedToName),
+                new XElement("AccessionTime", this.m_AccessionTime.ToString("MM/dd/yyy HH:mm")),
+                new XElement("ScreeningFinalTime", screeningFinalTime),
+                new XElement("CaseFinalTime", caseFinalTime));
+
+            listElement.Add(resultElement);
+        }
 	}
 }
