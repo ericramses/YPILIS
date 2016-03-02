@@ -42,7 +42,11 @@
 
         </Grid>
 
-        <Button Grid.Column="1" Grid.Row="0" Width="200" Height="30" Click="ButtonSendLockReleaseRequest_Click">Send Lock Release Request</Button>
+        <StackPanel Grid.Column="1" Grid.Row="0">
+            <Button Width="200" Height="30" Click="ButtonAskToTakeCase_Click" Margin="2,2,2,2">I need this case</Button>
+            <Button Width="200" Height="30" Click="ButtonRespondTakeCase_Click" Margin="2,2,2,2">Go ahead and take it</Button>
+            <Button Width="200" Height="30" Click="ButtonRespondHoldYourHorses_Click" Margin="2,2,2,2">Hold your horses</Button>
+        </StackPanel>
 
         <ListView Name="listViewLinkingList" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Margin="2,2,2,2" ItemsSource="{Binding Path=MessageQueues.MessageCollection}">
             <ListView.View>

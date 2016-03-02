@@ -11,7 +11,8 @@ namespace YellowstonePathology.Business.Test.TestCancelled
 		{
 			this.m_PanelSetId = 66;
 			this.m_PanelSetName = "Test Cancelled";
-			this.m_HasTechnicalComponent = false;                        
+            this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterT();
+            this.m_HasTechnicalComponent = false;                        
             this.m_HasProfessionalComponent = false;
             this.m_CaseType = YellowstonePathology.Business.CaseType.TestCancelled;
 			this.m_ResultDocumentSource = YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.YPIDatabase;

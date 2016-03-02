@@ -514,6 +514,7 @@
     <Compile Include="Test.Model\P40.cs" />
     <Compile Include="Test\ALKForNSCLCByFISH\ALKForNSCLCByFISHNegativeWithMonosomyResult.cs" />
     <Compile Include="Test\ALKForNSCLCByFISH\ALKForNSCLCByFISHNegativeWithPolysomyResult.cs" />
+    <Compile Include="Test\ALKForNSCLCByFISH\ALKForNSCLCByFISHQNSResult.cs" />
     <Compile Include="Test\ALKForNSCLCByFISH\ALKForNSCLCByFISHNotInterpretableResult.cs" />
     <Compile Include="Test\BCellEnumeration\BCellEnumerationEpicObxView.cs" />
     <Compile Include="Test\BCellEnumeration\BCellEnumerationTest.cs" />

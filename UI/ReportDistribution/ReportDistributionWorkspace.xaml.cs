@@ -154,7 +154,12 @@ namespace YellowstonePathology.UI.ReportDistribution
 
                                 System.Net.Mail.MailMessage message = new System.Net.Mail.MailMessage("Support@ypii.com", "Support@ypii.com", System.Windows.Forms.SystemInformation.UserName, "No Distribution Defined: " + panelSetOrder.ReportNo);
                                 System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient("10.1.2.111");
-                                client.Credentials = new System.Net.NetworkCredential("Administrator", "p0046e");
+
+                                Uri uri = new Uri("http://tempuri.org/");
+                                System.Net.ICredentials credentials = System.Net.CredentialCache.DefaultCredentials;
+                                System.Net.NetworkCredential credential = credentials.GetCredential(uri, "Basic");
+
+                                client.Credentials = credential;
                                 client.Send(message);
                             }
                         }
@@ -252,7 +257,7 @@ namespace YellowstonePathology.UI.ReportDistribution
                 caseDocument.Render();
                 caseDocument.Publish();
 
-                this.m_ReportDistributionLogEntryCollection.AddEntry("INFO", "Publish Next", null, panelSetOrder.ReportNo, panelSetOrder.MasterAccessionNo, null, null, "PanelSetOrder Published");                              
+                this.m_ReportDistributionLogEntryCollection.AddEntry("INFO", "Publish Next", null, panelSetOrder.ReportNo, panelSetOrder.MasterAccessionNo, null, null, "PanelSetOrder Published");
             //}                        
             /*
             catch (Exception publishException)
@@ -262,7 +267,12 @@ namespace YellowstonePathology.UI.ReportDistribution
 
                 System.Net.Mail.MailMessage message = new System.Net.Mail.MailMessage("Support@ypii.com", "Support@ypii.com", System.Windows.Forms.SystemInformation.UserName, publishException.Message);
                 System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient("10.1.2.111");
-                client.Credentials = new System.Net.NetworkCredential("Administrator", "p0046e");
+
+                Uri uri = new Uri("http://tempuri.org/");
+                System.Net.ICredentials credentials = System.Net.CredentialCache.DefaultCredentials;
+                System.Net.NetworkCredential credential = credentials.GetCredential(uri, "Basic");
+
+                client.Credentials = credential;
                 client.Send(message);
 
                 this.DelayPublishAndDistribution(15, publishException.Message, panelSetOrder);
@@ -290,7 +300,12 @@ namespace YellowstonePathology.UI.ReportDistribution
 
                 System.Net.Mail.MailMessage message = new System.Net.Mail.MailMessage("Support@ypii.com", "Support@ypii.com", System.Windows.Forms.SystemInformation.UserName, "Not able to delete files prior to publishing: " + panelSetOrder.ReportNo);
                 System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient("10.1.2.111");
-                client.Credentials = new System.Net.NetworkCredential("Administrator", "p0046e");
+
+                Uri uri = new Uri("http://tempuri.org/");
+                System.Net.ICredentials credentials = System.Net.CredentialCache.DefaultCredentials;
+                System.Net.NetworkCredential credential = credentials.GetCredential(uri, "Basic");
+
+                client.Credentials = credential;
                 client.Send(message);
 
                 result = false;
@@ -372,7 +387,12 @@ namespace YellowstonePathology.UI.ReportDistribution
 
                                         System.Net.Mail.MailMessage message = new System.Net.Mail.MailMessage("Sid.Harder@ypii.com", "Sid.Harder@ypii.com", System.Windows.Forms.SystemInformation.UserName, distributionResult.Message);
                                         System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient("10.1.2.111");
-                                        client.Credentials = new System.Net.NetworkCredential("Administrator", "p0046e");
+
+                                        Uri uri = new Uri("http://tempuri.org/");
+                                        System.Net.ICredentials credentials = System.Net.CredentialCache.DefaultCredentials;
+                                        System.Net.NetworkCredential credential = credentials.GetCredential(uri, "Basic");
+
+                                        client.Credentials = credential;
                                         client.Send(message);
                                     }
                                 }                                
@@ -414,7 +434,12 @@ namespace YellowstonePathology.UI.ReportDistribution
                     message.Bcc.Add(bcc);
                     
                     System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient("10.1.2.111");
-                    client.Credentials = new System.Net.NetworkCredential("Results", "p0046ep0046e");
+
+                    Uri uri = new Uri("http://tempuri.org/");
+                    System.Net.ICredentials credentials = System.Net.CredentialCache.DefaultCredentials;
+                    System.Net.NetworkCredential credential = credentials.GetCredential(uri, "Basic");
+
+                    client.Credentials = credential;
                     client.Send(message);
 
                     panelSetOrder.TimeOfLastPublishNotification = DateTime.Now;

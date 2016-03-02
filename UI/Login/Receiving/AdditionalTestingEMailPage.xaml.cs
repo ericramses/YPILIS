@@ -116,7 +116,12 @@ namespace YellowstonePathology.UI.Login.Receiving
                     this.NotifyPropertyChanged(string.Empty);
 
                     System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient("10.1.2.111");
-                    client.Credentials = new System.Net.NetworkCredential("Results", "p0046ep0046e");
+
+                    Uri uri = new Uri("http://tempuri.org/");
+                    System.Net.ICredentials credentials = System.Net.CredentialCache.DefaultCredentials;
+                    System.Net.NetworkCredential credential = credentials.GetCredential(uri, "Basic");
+
+                    client.Credentials = credential;
                     client.Send(message);
                 }
                 else

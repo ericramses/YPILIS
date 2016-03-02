@@ -67,7 +67,7 @@ namespace YellowstonePathology.UI.AppMessaging
             {
                 this.m_CountDownMessage = string.Empty;
                 this.m_DispatchTimer.Stop();                
-                MessageQueues.Instance.SendLockReleaseResponse(this.m_Message);                
+                MessageQueues.Instance.SendLockReleaseResponse(this.m_Message, true); 
                 Window window = Window.GetWindow(this);
                 window.Close();
             }
@@ -99,9 +99,25 @@ namespace YellowstonePathology.UI.AppMessaging
         
         }
 
-        private void ButtonSendLockReleaseRequest_Click(object sender, RoutedEventArgs e)
+        private void ButtonAskToTakeCase_Click(object sender, RoutedEventArgs e)
         {            
             MessageQueues.Instance.SendLockReleaseRequest(this.m_AccessionOrder);
+        }
+
+        private void ButtonRespondTakeCase_Click(object sender, RoutedEventArgs e)
+        {            
+            this.m_DispatchTimer.Stop();
+            MessageQueues.Instance.SendLockReleaseResponse(this.m_Message, true);            
+            Window window = Window.GetWindow(this);
+            window.Close();
+        }
+
+        private void ButtonRespondHoldYourHorses_Click(object sender, RoutedEventArgs e)
+        {
+            this.m_DispatchTimer.Stop();
+            MessageQueues.Instance.SendLockReleaseResponse(this.m_Message, false);
+            Window window = Window.GetWindow(this);
+            window.Close();
         }
     }
 }

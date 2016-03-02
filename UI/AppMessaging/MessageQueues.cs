@@ -12,8 +12,8 @@ namespace YellowstonePathology.UI.AppMessaging
         public delegate void ReleaseLockEventHandler(object sender, EventArgs e);
         public event ReleaseLockEventHandler ReleaseLock;
 
-        public delegate void LockAquiredEventHandler(object sender, EventArgs e);
-        public event LockAquiredEventHandler LockAquired;
+        public delegate void AquireLockEventHandler(object sender, EventArgs e);
+        public event AquireLockEventHandler AquireLock;
 
         private static volatile MessageQueues instance;
         private static object syncRoot = new Object();
@@ -77,18 +77,18 @@ namespace YellowstonePathology.UI.AppMessaging
             this.m_MessageCollection.Insert(0, messageQueueMessage);            
         }
 
-        public void SendLockReleaseResponse(System.Messaging.Message requestMessage)
+        public void SendLockReleaseResponse(System.Messaging.Message requestMessage, bool lockWasReleased)
         {
             MessageBody receivedMessageBody = (MessageBody)requestMessage.Body;
-            LockReleaseResponseMessageBody responseMessageBody = new LockReleaseResponseMessageBody(receivedMessageBody);
+            LockReleaseResponseMessageBody responseMessageBody = new LockReleaseResponseMessageBody(receivedMessageBody, lockWasReleased);            
 
+            if (this.ReleaseLock != null) this.ReleaseLock(receivedMessageBody.MasterAccessionNo, new EventArgs());            
+            
             System.Messaging.Message responseMessage = new System.Messaging.Message(responseMessageBody);            
             requestMessage.ResponseQueue.Send(responseMessage);
 
             MessageQueueMessage responseMessageQueueMessage = new MessageQueueMessage(responseMessage, MessageDirectionEnum.Sent);
-            this.m_MessageCollection.Add(responseMessageQueueMessage);
-            
-            if (this.ReleaseLock != null) this.ReleaseLock(receivedMessageBody.MasterAccessionNo, new EventArgs());
+            this.m_MessageCollection.Add(responseMessageQueueMessage);                       
         }
 
         private void LockReleaseRequestMessageQueue_ReceiveCompleted(object sender, System.Messaging.ReceiveCompletedEventArgs e)
@@ -111,7 +111,7 @@ namespace YellowstonePathology.UI.AppMessaging
             this.m_MessageCollection.Add(messageQueueMessage);
 
             this.m_LockReleaseResponseQueue.BeginReceive();                        
-            if (this.LockAquired != null) this.LockAquired(messageBody.MasterAccessionNo, new EventArgs());
+            if (this.AquireLock != null) this.AquireLock(messageBody.MasterAccessionNo, new EventArgs());
             this.HandleDialog(message);
         }
 

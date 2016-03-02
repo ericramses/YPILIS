@@ -16,6 +16,7 @@ namespace YellowstonePathology.Business.Test.ALKForNSCLCByFISH
             this.Add(new ALKForNSCLCByFISHNegativeWithMonosomyResult());
             this.Add(new ALKForNSCLCByFISHPositiveResult());
             this.Add(new ALKForNSCLCByFISHNotInterpretableResult());
+            this.Add(new ALKForNSCLCByFISHQNSResult());
         }
 
         public ALKForNSCLCByFISHResult GetByResultCode(string resultCode)

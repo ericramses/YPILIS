@@ -71,13 +71,13 @@ namespace YellowstonePathology.UI.Login
                 this.m_MainWindowCommandButtonHandler.ShowMessagingDialog += new MainWindowCommandButtonHandler.ShowMessagingDialogEventHandler(MainWindowCommandButtonHandler_ShowMessagingDialog);
 
                 AppMessaging.MessageQueues.Instance.ReleaseLock += MessageQueue_ReleaseLock;
-                AppMessaging.MessageQueues.Instance.LockAquired += MessageQueue_LockAquired;
+                AppMessaging.MessageQueues.Instance.AquireLock += MessageQueue_AquireLock;
             }
 
             this.m_LoadedHasRun = true;
         }
 
-        private void MessageQueue_LockAquired(object sender, EventArgs e)
+        private void MessageQueue_AquireLock(object sender, EventArgs e)
         {
             string masterAccessionNo = (string)sender;
             if (this.m_LoginUI.AccessionOrder != null && this.m_LoginUI.AccessionOrder.MasterAccessionNo == masterAccessionNo)
@@ -711,10 +711,7 @@ namespace YellowstonePathology.UI.Login
         }
 
         private void MenuItemCancelTest_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("This isn't working so well right now.  Please talk to sid.");
-
-            /*
+        {                        
             if (this.ListViewAccessionOrders.SelectedItem != null)
             {
                 MessageBoxResult messageBoxResult = MessageBox.Show("Are you sure you want to cancel this test?", "Cancel Test", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes);
@@ -725,11 +722,10 @@ namespace YellowstonePathology.UI.Login
                     YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_LoginUI.AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportSearchItem.ReportNo);
 
                     if (panelSetOrder.Final == false)
-                    {
-                        //YellowstonePathology.Business.Gateway.AccessionOrderGateway.SetPanelSetOrderAsCancelledTest(panelSetOrder.ReportNo);
-                        //YellowstonePathology.Business.Gateway.AccessionOrderGateway.InsertTestCancelledTestOrder(panelSetOrder.ReportNo, panelSetOrder.PanelSetId, panelSetOrder.PanelSetName);
-
-                        string reportNo = panelSetOrder.ReportNo;                                                
+                    {                        
+                        string reportNo = panelSetOrder.ReportNo;
+                        string testName = panelSetOrder.PanelSetName;
+                        int panelSetId = panelSetOrder.PanelSetId;                                           
 
                         YellowstonePathology.Business.Interface.IOrderTarget orderTarget = this.m_LoginUI.AccessionOrder.SpecimenOrderCollection.GetOrderTarget(panelSetOrder.OrderedOnId);
                         Business.Test.TestCancelled.TestCancelledTest cancelledTest = new Business.Test.TestCancelled.TestCancelledTest();
@@ -740,6 +736,11 @@ namespace YellowstonePathology.UI.Login
                         YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
 
                         this.m_LoginUI.AccessionOrder.TakeATrip(orderTestOrderVisitor);
+                        Business.Test.TestCancelled.TestCancelledTestOrder testCancelledTestOrder = (Business.Test.TestCancelled.TestCancelledTestOrder)orderTestOrderVisitor.PanelSetOrder;
+                        testCancelledTestOrder.Comment = testName + " has been cancelled.";
+                        testCancelledTestOrder.CancelledTestId = panelSetId;
+                        testCancelledTestOrder.CancelledTestName = testName;
+
                         YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
 
                         this.m_LoginUI.GetReportSearchListByReportNo(panelSetOrder.ReportNo);
@@ -749,8 +750,7 @@ namespace YellowstonePathology.UI.Login
                         MessageBox.Show("Cannot cancel a test that has been finalized.");
                     }
                 }
-            }
-            */
+            }            
         }
 
         private void IcdEntryPage_Next(object sender, EventArgs e)
