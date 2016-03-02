@@ -111,6 +111,8 @@ namespace YellowstonePathology.UI.Test
                     this.m_LabUI.RunWorkspaceEnableRules();
                     this.m_LabUI.NotifyPropertyChanged(string.Empty);
                 }
+
+                this.m_LabUI.CaseList.SetLockIsAquiredByMe(this.m_LabUI.AccessionOrder);
             }
         }
 
@@ -276,6 +278,8 @@ namespace YellowstonePathology.UI.Test
             {
 				YellowstonePathology.Business.Search.ReportSearchItem item = (YellowstonePathology.Business.Search.ReportSearchItem)this.ListViewCaseList.SelectedItem;
 				this.GetCase(item.MasterAccessionNo, item.ReportNo);
+
+                this.m_LabUI.CaseList.SetLockIsAquiredByMe(this.m_LabUI.AccessionOrder);
             }
         }
 

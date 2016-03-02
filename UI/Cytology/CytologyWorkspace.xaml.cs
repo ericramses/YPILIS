@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using System.ComponentModel;
 using System.Xml;
 using System.ServiceModel;
+using System.Xml.Linq;
 
 namespace YellowstonePathology.UI.Cytology
 {    
@@ -267,28 +268,40 @@ namespace YellowstonePathology.UI.Cytology
 
         private void ButtonPrintList_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.UI.Cytology.ScreeningReport screeningReport;
+            XElement listElement = null;
 
             if (this.ListViewSearchResults.SelectedItems.Count != 0)
             {
-                List<YellowstonePathology.Business.Search.CytologyScreeningSearchResult> resultList = new List<YellowstonePathology.Business.Search.CytologyScreeningSearchResult>();
+                listElement = new XElement("CytologyScreeningList");
                 foreach (YellowstonePathology.Business.Search.CytologyScreeningSearchResult item in this.ListViewSearchResults.SelectedItems)
                 {
-                    resultList.Add(item);
+                    item.ToXml(listElement);
                 }
-                screeningReport = new ScreeningReport(resultList);                
+            }
+            else if(this.m_CytologyUI.Search.Results.Count != 0)
+            {
+                listElement = new XElement("CytologyScreeningList");
+                foreach (YellowstonePathology.Business.Search.CytologyScreeningSearchResult item in this.m_CytologyUI.Search.Results)
+                {
+                    item.ToXml(listElement);
+                }
+            }
+
+            if (listElement != null)
+            {
+                YellowstonePathology.Business.XPSDocument.Result.Data.CytologyScreeningListReportData cytologyScreeningListReportData = new Business.XPSDocument.Result.Data.CytologyScreeningListReportData(listElement);
+                YellowstonePathology.Business.XPSDocument.Result.Xps.CytologyScreeningListReport clientSupplyOrderReport = new Business.XPSDocument.Result.Xps.CytologyScreeningListReport(cytologyScreeningListReportData);
+                XpsDocumentViewer xpsDocumentViewer = new XpsDocumentViewer();
+                xpsDocumentViewer.LoadDocument(clientSupplyOrderReport.FixedDocument);
+                xpsDocumentViewer.ShowDialog();
             }
             else
             {
-                screeningReport = new ScreeningReport(this.m_CytologyUI.Search.Results);                
+                MessageBox.Show("Fill the list or select list entries", "Nothing to report.");
             }
-
-            PrintDialog printDialog = new PrintDialog();
-            if (printDialog.ShowDialog() != true) return;
-            printDialog.PrintDocument(screeningReport.DocumentPaginator, "Screening Report");
         }
 
-		public void ItemIsSelected(object sender, CanExecuteRoutedEventArgs e)
+        public void ItemIsSelected(object sender, CanExecuteRoutedEventArgs e)
 		{
 			e.CanExecute = false;
 			if (((TabItem)this.Parent).IsSelected && this.m_CytologyUI.CanSave)

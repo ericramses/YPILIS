@@ -2738,6 +2738,7 @@
     <Compile Include="XPSDocument\Result\Data\ClientOrderDataSheetData.cs" />
     <Compile Include="XPSDocument\Result\Data\ClientSupplyOrderReportData.cs" />
     <Compile Include="XPSDocument\Result\Data\CysticFibrosisReportData.cs" />
+    <Compile Include="XPSDocument\Result\Data\CytologyScreeningListReportData.cs" />
     <Compile Include="XPSDocument\Result\Data\Extensions.cs" />
     <Compile Include="XPSDocument\Result\Data\Her2AmplificationReportData.cs" />
     <Compile Include="XPSDocument\Result\Data\Hpv16ReportData.cs" />
@@ -2773,6 +2774,7 @@
     <Compile Include="XPSDocument\Result\Xps\ClientOrderFNADataSheet.cs" />
     <Compile Include="XPSDocument\Result\Xps\ClientSupplyOrderReport.cs" />
     <Compile Include="XPSDocument\Result\Xps\CysticFibrosisReport.cs" />
+    <Compile Include="XPSDocument\Result\Xps\CytologyScreeningListReport.cs" />
     <Compile Include="XPSDocument\Result\Xps\Her2AmplificationReport.cs" />
     <Compile Include="XPSDocument\Result\Xps\Hpv16Report.cs" />
     <Compile Include="XPSDocument\Result\Xps\HpvTwiReport.cs" />
