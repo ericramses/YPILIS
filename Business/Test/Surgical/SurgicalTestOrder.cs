@@ -602,17 +602,11 @@ namespace YellowstonePathology.Business.Test.Surgical
             }
         }
 
-        public AuditResult IsOkToFinalize(AccessionOrder accessionOrder, SystemIdentity systemIdentity)
+        public override AuditResult IsOkToFinalize(AccessionOrder accessionOrder)
         {
-            Audit.Model.PathologistSignoutAuditCollection pathologistSignoutAuditCollection = new PathologistSignoutAuditCollection(accessionOrder, systemIdentity);
+            Audit.Model.PathologistSignoutAuditCollection pathologistSignoutAuditCollection = new PathologistSignoutAuditCollection(accessionOrder);
             AuditResult auditResult = pathologistSignoutAuditCollection.Run2();
             return auditResult;
-        }
-
-        public override void Finalize(AccessionOrder accessionOrder, RuleExecutionStatus ruleExecutionStatus)
-        {
-            this.m_ProfessionalComponentFacilityId = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId;
-            base.Finalize(accessionOrder, ruleExecutionStatus);
         }
 
         public override void Finalize()

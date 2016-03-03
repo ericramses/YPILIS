@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using YellowstonePathology.Business.Audit.Model;
 using YellowstonePathology.Business.Persistence;
 
 namespace YellowstonePathology.Business.Test.LLP
@@ -653,38 +654,24 @@ namespace YellowstonePathology.Business.Test.LLP
 			}
 		}
 
-		public override void Finalize(AccessionOrder accessionOrder, Rules.RuleExecutionStatus ruleExecutionStatus)
-		{
-			this.m_Rule = new Rules.Rule();
-			Rules.ExecutionStatus executionStatus = new Rules.ExecutionStatus();
-			this.m_Rule.ActionList.Add(this.IsTechFinal);
-			this.m_Rule.ActionList.Add(this.HasQuestionMarks);
-			this.m_Rule.Execute(executionStatus);
-
-			if (executionStatus.Halted)
-			{
-				ruleExecutionStatus.PopulateFromLinqExecutionStatus(executionStatus);
-			}
-			else
-			{
-                this.m_Signature = Business.User.SystemIdentity.Instance.User.Signature;
-				base.Finalize(accessionOrder, ruleExecutionStatus);
-				if (executionStatus.Halted)
-				{
-					ruleExecutionStatus.PopulateFromLinqExecutionStatus(executionStatus);
-				}
-			}
-		}
-
-		private void IsTechFinal()
-		{
-			if (this.TechFinal == false) this.m_Rule.ExecutionStatus.AddMessage("This case cannot be finaled because it has not been Tech finaled.", true);
-		}
-
-		private void HasQuestionMarks()
-		{
-			if (this.FlowMarkerCollection.HasQuestionMarks() == true) this.m_Rule.ExecutionStatus.AddMessage("Question marks ??? were found in the markers.", true);
-		}
+        public override AuditResult IsOkToFinalize(AccessionOrder accessionOrder)
+        {
+            AuditResult result = base.IsOkToFinalize(accessionOrder);
+            if(result.Status == AuditStatusEnum.OK)
+            {
+                if (this.m_TechFinal == false)
+                {
+                    result.Status = AuditStatusEnum.Failure;
+                    result.Message = ("This case cannot be finaled because it has not been Tech finaled.");
+                }
+                else if (this.FlowMarkerCollection.HasQuestionMarks() == true)
+                {
+                    result.Status = AuditStatusEnum.Failure;
+                    result.Message = ("Question marks ??? were found in the markers.");
+                }
+            }
+            return result;
+        }
 
 		public override string ToResultString(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {

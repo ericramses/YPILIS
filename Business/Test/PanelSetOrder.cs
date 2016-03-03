@@ -1232,7 +1232,7 @@ namespace YellowstonePathology.Business.Test
             return result;
         }        
 
-        public virtual void Finalize(Test.AccessionOrder accessionOrder, Rules.RuleExecutionStatus ruleExecutionStatus)
+        /*public virtual void Finalize(Test.AccessionOrder accessionOrder, Rules.RuleExecutionStatus ruleExecutionStatus)
 		{
 			Rules.ExecutionStatus executionStatus = new Rules.ExecutionStatus();
 			YellowstonePathology.Business.Rules.PanelSetOrder.RulesPanelSetOrderFinalCommonV2 rulesPanelSetOrderFinalCommon = new Rules.PanelSetOrder.RulesPanelSetOrderFinalCommonV2();
@@ -1260,7 +1260,7 @@ namespace YellowstonePathology.Business.Test
 					}
 				}
 			}
-		}
+		}*/
 
 		public virtual void Finalize()
 		{            			
