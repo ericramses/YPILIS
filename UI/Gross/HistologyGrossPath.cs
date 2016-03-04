@@ -92,55 +92,71 @@ namespace YellowstonePathology.UI.Gross
         private void ScanContainerPage_UseThisContainer(object sender, string containerId)
         {
             string masterAccessionNo = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetMasterAccessionNoFromContainerId(containerId);
-            this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, m_HistologyGrossDialog);            
-            
-            if (this.m_AccessionOrder == null)
+            if(string.IsNullOrEmpty(masterAccessionNo) == false)
             {
-                System.Windows.MessageBox.Show("The scanned container was not found.");
-                this.ShowScanContainerPage();                
-            }
-            else
-            { 
-                if(this.m_AccessionOrder.IsLockAquiredByMe == true)
+                this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, m_HistologyGrossDialog);
+
+                if (this.m_AccessionOrder == null)
                 {
-                    YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByContainerId(containerId);
-                    this.AddMaterialTrackingLog(specimenOrder);
-
-                    if (this.m_HistologyGrossDialog.PageNavigator.HasDualMonitors() == true)
-                    {
-                        DictationTemplatePage dictationTemplatePage = new DictationTemplatePage(specimenOrder, this.m_AccessionOrder, this.m_SystemIdentity);
-                        this.m_SecondaryWindow.PageNavigator.Navigate(dictationTemplatePage);
-                    }
-
-                    if (string.IsNullOrEmpty(specimenOrder.ProcessorRunId) == true)
-                    {
-                        YellowstonePathology.Business.Surgical.ProcessorRunCollection processorRunCollection = YellowstonePathology.Business.Surgical.ProcessorRunCollection.GetAll(false);
-                        YellowstonePathology.Business.Surgical.ProcessorRun processorRun = processorRunCollection.Get(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference);
-                        specimenOrder.SetProcessor(processorRun);
-                        specimenOrder.SetFixationDuration();
-                    }
-
-                    if (this.m_AccessionOrder.PrintMateColumnNumber == 0 && this.m_AccessionOrder.PanelSetOrderCollection.HasTestBeenOrdered(48) == false)
-                    {
-                        this.ShowBlockColorSelectionPage(specimenOrder);
-                    }
-                    else
-                    {
-                        this.ShowPrintBlockPage(specimenOrder);
-                    }
+                    System.Windows.MessageBox.Show("The scanned container was not found.");
+                    this.ShowScanContainerPage();
                 }
                 else
                 {
-                    this.ShowCaseLockPage();
+                    if (this.m_AccessionOrder.IsLockAquiredByMe == true)
+                    {
+                        YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByContainerId(containerId);
+                        this.AddMaterialTrackingLog(specimenOrder);
+
+                        if (this.m_HistologyGrossDialog.PageNavigator.HasDualMonitors() == true)
+                        {
+                            DictationTemplatePage dictationTemplatePage = new DictationTemplatePage(specimenOrder, this.m_AccessionOrder, this.m_SystemIdentity);
+                            this.m_SecondaryWindow.PageNavigator.Navigate(dictationTemplatePage);
+                        }
+
+                        if (string.IsNullOrEmpty(specimenOrder.ProcessorRunId) == true)
+                        {
+                            YellowstonePathology.Business.Surgical.ProcessorRunCollection processorRunCollection = YellowstonePathology.Business.Surgical.ProcessorRunCollection.GetAll(false);
+                            YellowstonePathology.Business.Surgical.ProcessorRun processorRun = processorRunCollection.Get(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference);
+                            specimenOrder.SetProcessor(processorRun);
+                            specimenOrder.SetFixationDuration();
+                        }
+
+                        if (this.m_AccessionOrder.PrintMateColumnNumber == 0 && this.m_AccessionOrder.PanelSetOrderCollection.HasTestBeenOrdered(48) == false)
+                        {
+                            this.ShowBlockColorSelectionPage(specimenOrder);
+                        }
+                        else
+                        {
+                            this.ShowPrintBlockPage(specimenOrder);
+                        }
+                    }
+                    else
+                    {
+                        this.ShowCaseLockPage();
+                    }
                 }
             }
+            else
+            {
+                System.Windows.MessageBox.Show("The scanned container was not found.");
+                this.ShowScanContainerPage();
+
+            }            
         }
 
         private void ShowCaseLockPage()
         {
             UI.Login.CaseLockedPage caseLockedPage = new Login.CaseLockedPage(this.m_AccessionOrder);
             caseLockedPage.OK += CaseLockedPage_OK;
+            caseLockedPage.AskForLock += CaseLockedPage_AskForLock;
             this.m_HistologyGrossDialog.PageNavigator.Navigate(caseLockedPage);
+        }
+
+        private void CaseLockedPage_AskForLock(object sender, CustomEventArgs.AccessionOrderReturnEventArgs e)
+        {            
+            AppMessaging.MessagingPage messagingPage = new AppMessaging.MessagingPage(e.AccessionOrder);
+            this.m_HistologyGrossDialog.PageNavigator.Navigate(messagingPage);
         }
 
         private void CaseLockedPage_OK(object sender, EventArgs e)

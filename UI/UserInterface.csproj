@@ -41,7 +41,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>52</ApplicationRevision>
+    <ApplicationRevision>75</ApplicationRevision>
     <ApplicationVersion>10.1.3.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -239,6 +239,7 @@
     <Compile Include="CustomEventArgs\AliquotOrderReturnEventArgs.cs" />
     <Compile Include="CustomEventArgs\CancelTestEventArgs.cs" />
     <Compile Include="CustomEventArgs\EventHandlerDefinitions.cs" />
+    <Compile Include="CustomEventArgs\MessageReturnEventArgs.cs" />
     <Compile Include="CustomEventArgs\TestOrderAliquotOrderReturnEventArgs.cs" />
     <Compile Include="CustomEventArgs\TestOrderReturnEventArgs.cs" />
     <Compile Include="CustomEventArgs\SlideOrderReturnEventArgs.cs" />

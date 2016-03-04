@@ -26,26 +26,27 @@
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" VerticalAlignment="Bottom" HorizontalAlignment="Right">Master AccessionNo:</TextBlock>
-            <TextBox Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" VerticalAlignment="Stretch" Text="{Binding Path=AccessionOrder.MasterAccessionNo}"></TextBox>
+            <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" VerticalAlignment="Bottom" HorizontalAlignment="Right" FontWeight="Bold">Master AccessionNo:</TextBlock>
+            <TextBlock Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" VerticalAlignment="Stretch" Text="{Binding Path=MasterAccessionNo}"></TextBlock>
 
-            <TextBlock Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" VerticalAlignment="Bottom" HorizontalAlignment="Right">Locked By:</TextBlock>
-            <TextBox Grid.Column="1" Grid.Row="1" Margin="2,2,2,2" VerticalAlignment="Stretch" Text="{Binding Path=AccessionOrder.LockAquiredByUserName}"></TextBox>
+            <TextBlock Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" VerticalAlignment="Bottom" HorizontalAlignment="Right" FontWeight="Bold">Locked By:</TextBlock>
+            <TextBlock Grid.Column="1" Grid.Row="1" Margin="2,2,2,2" VerticalAlignment="Stretch" Text="{Binding Path=LockAquiredByUserName}"></TextBlock>
 
-            <TextBlock Grid.Column="0" Grid.Row="2" Margin="2,2,2,2" VerticalAlignment="Bottom" HorizontalAlignment="Right">Computer Name:</TextBlock>
-            <TextBox Grid.Column="1" Grid.Row="2" Margin="2,2,2,2" VerticalAlignment="Stretch" Text="{Binding Path=AccessionOrder.LockAquiredByHostName}"></TextBox>
+            <TextBlock Grid.Column="0" Grid.Row="2" Margin="2,2,2,2" VerticalAlignment="Bottom" HorizontalAlignment="Right" FontWeight="Bold">Computer Name:</TextBlock>
+            <TextBlock Grid.Column="1" Grid.Row="2" Margin="2,2,2,2" VerticalAlignment="Stretch" Text="{Binding Path=LockAquiredByHostName}"></TextBlock>
 
-            <TextBlock Grid.Column="0" Grid.Row="3" Margin="2,2,2,2" VerticalAlignment="Bottom" HorizontalAlignment="Right">Time Lock Aquired:</TextBlock>
-            <TextBox Grid.Column="1" Grid.Row="3" Margin="2,2,2,2" VerticalAlignment="Stretch" Text="{Binding Path=AccessionOrder.TimeLockAquired}"></TextBox>
+            <TextBlock Grid.Column="0" Grid.Row="3" Margin="2,2,2,2" VerticalAlignment="Bottom" HorizontalAlignment="Right" FontWeight="Bold">Time Lock Aquired:</TextBlock>
+            <TextBlock Grid.Column="1" Grid.Row="3" Margin="2,2,2,2" VerticalAlignment="Stretch" Text="{Binding Path=TimeLockAquired}"></TextBlock>
 
         </Grid>
 
         <StackPanel Grid.Column="1" Grid.Row="0">
-            <Button Width="200" Height="30" Click="ButtonAskToTakeCase_Click" Margin="2,2,2,2">I need this case</Button>
-            <Button Width="200" Height="30" Click="ButtonRespondTakeCase_Click" Margin="2,2,2,2">Go ahead and take it</Button>
-            <Button Width="200" Height="30" Click="ButtonRespondHoldYourHorses_Click" Margin="2,2,2,2">Hold your horses</Button>
+            <Button Name="ButtonRequest" Width="200" Height="30" Click="ButtonAskToTakeCase_Click" Margin="2,2,2,2" Visibility="Collapsed">Ask for the lock</Button>
+            <Button Name="ButtonTakeIt" Width="200" Height="30" Click="ButtonRespondTakeCase_Click" Margin="2,2,2,2" Visibility="Collapsed">Go ahead and take it</Button>
+            <Button Name="ButtonHoldYourHorses" Width="200" Height="30" Click="ButtonRespondHoldYourHorses_Click" Margin="2,2,2,2" Visibility="Collapsed">Hold your horses</Button>
         </StackPanel>
 
         <ListView Name="listViewLinkingList" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Margin="2,2,2,2" ItemsSource="{Binding Path=MessageQueues.MessageCollection}">
@@ -58,7 +59,8 @@
             </ListView.View>
         </ListView>
 
-        <TextBlock Grid.Column="0" Grid.Row="2" Text="{Binding Path=CountDownMessage}" Foreground="Red" FontSize="14"></TextBlock>
+        <Button Grid.Column="1" Grid.Row="2" Width="50" Height="30" Click="ButtonOK_Click" HorizontalAlignment="Right">OK</Button>
+        <TextBlock Grid.Column="0" Grid.Row="3" Text="{Binding Path=CountDownMessage}" Foreground="Red" FontSize="14"></TextBlock>
         
     </Grid>
 </UserControl>

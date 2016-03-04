@@ -50,8 +50,8 @@ namespace YellowstonePathology.UI.Surgical
 			this.m_BarcodeScanPort.CytologySlideScanReceived += new YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort.CytologySlideScanReceivedHandler(CytologySlideScanReceived);
 			this.m_BarcodeScanPort.HistologySlideScanReceived += new Business.BarcodeScanning.BarcodeScanPort.HistologySlideScanReceivedHandler(HistologySlideScanReceived);
 			this.m_BarcodeScanPort.HistologyBlockScanReceived += new Business.BarcodeScanning.BarcodeScanPort.HistologyBlockScanReceivedHandler(BarcodeScanPort_HistologyBlockScanReceived);
-			this.m_BarcodeScanPort.ThinPrepSlideScanReceived += new Business.BarcodeScanning.BarcodeScanPort.ThinPrepSlideScanReceivedHandler(BarcodeScanPort_ThinPrepSlideScanReceived);
-		}
+			this.m_BarcodeScanPort.ThinPrepSlideScanReceived += new Business.BarcodeScanning.BarcodeScanPort.ThinPrepSlideScanReceivedHandler(BarcodeScanPort_ThinPrepSlideScanReceived);            
+        }
 
 		private void BarcodeScanPort_ThinPrepSlideScanReceived(Business.BarcodeScanning.Barcode barcode)
 		{
@@ -82,7 +82,41 @@ namespace YellowstonePathology.UI.Surgical
             this.m_MainWindowCommandButtonHandler.ShowAmendmentDialog += MainWindowCommandButtonHandler_ShowAmendmentDialog;
             this.m_MainWindowCommandButtonHandler.Refresh += MainWindowCommandButtonHandler_Refresh;
             this.m_MainWindowCommandButtonHandler.RemoveTab += new MainWindowCommandButtonHandler.RemoveTabEventHandler(MainWindowCommandButtonHandler_RemoveTab);
-            if(this.m_PathologistUI.AccessionOrder != null) this.m_PathologistUI.RunWorkspaceEnableRules();
+            this.m_MainWindowCommandButtonHandler.ShowMessagingDialog += new MainWindowCommandButtonHandler.ShowMessagingDialogEventHandler(MainWindowCommandButtonHandler_ShowMessagingDialog);
+
+            AppMessaging.MessageQueues.Instance.ReleaseLock += MessageQueue_ReleaseLock;
+            AppMessaging.MessageQueues.Instance.AquireLock += MessageQueue_AquireLock;            
+
+            if (this.m_PathologistUI.AccessionOrder != null) this.m_PathologistUI.RunWorkspaceEnableRules();
+        }
+
+        private void MainWindowCommandButtonHandler_ShowMessagingDialog(object sender, EventArgs e)
+        {
+            if (this.m_PathologistUI.AccessionOrder != null)
+            {
+                AppMessaging.MessagingDialog dialog = new AppMessaging.MessagingDialog();
+                AppMessaging.MessagingPage page = new AppMessaging.MessagingPage(this.m_PathologistUI.AccessionOrder);
+                dialog.PageNavigator.Navigate(page);
+                dialog.Show();
+            }
+        }
+
+        private void MessageQueue_AquireLock(object sender, EventArgs e)
+        {
+            string masterAccessionNo = (string)sender;
+            if (this.m_PathologistUI.AccessionOrder != null && this.m_PathologistUI.AccessionOrder.MasterAccessionNo == masterAccessionNo)
+            {
+                Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, this.m_Writer);
+            }
+        }
+
+        private void MessageQueue_ReleaseLock(object sender, EventArgs e)
+        {
+            string masterAccessionNo = (string)sender;
+            if (this.m_PathologistUI.AccessionOrder != null && this.m_PathologistUI.AccessionOrder.MasterAccessionNo == masterAccessionNo)
+            {
+                this.Save();
+            }
         }
 
         private void MainWindowCommandButtonHandler_RemoveTab(object sender, EventArgs e)
@@ -126,6 +160,11 @@ namespace YellowstonePathology.UI.Surgical
 
         private void MainWindowCommandButtonHandler_Save(object sender, EventArgs e)
 		{
+            this.Save();
+        }
+
+        private void Save()
+        {
             if (this.m_PathologistUI.AccessionOrder != null)
             {
                 MainWindow.MoveKeyboardFocusNextThenBack();
@@ -135,7 +174,7 @@ namespace YellowstonePathology.UI.Surgical
                     this.m_PathologistUI.RunWorkspaceEnableRules();
                     this.m_PathologistUI.NotifyPropertyChanged(string.Empty);
                 }
-                if(this.m_CytologyResultsWorkspace != null)
+                if (this.m_CytologyResultsWorkspace != null)
                 {
                     this.m_CytologyResultsWorkspace.CytologyUI.NotifyPropertyChanged(string.Empty);
                 }

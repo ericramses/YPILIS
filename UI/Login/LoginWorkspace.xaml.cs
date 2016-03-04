@@ -30,7 +30,8 @@ namespace YellowstonePathology.UI.Login
         private MainWindowCommandButtonHandler m_MainWindowCommandButtonHandler;
         private TabItem m_Writer;
 
-        private LoginPageWindow m_LoginPageWindow;        
+        private LoginPageWindow m_LoginPageWindow;
+        private AppMessaging.MessagingDialog m_MessagingDialog;
 
         public LoginWorkspace(MainWindowCommandButtonHandler mainWindowCommandButtonHandler, TabItem writer)
         {
@@ -72,9 +73,22 @@ namespace YellowstonePathology.UI.Login
 
                 AppMessaging.MessageQueues.Instance.ReleaseLock += MessageQueue_ReleaseLock;
                 AppMessaging.MessageQueues.Instance.AquireLock += MessageQueue_AquireLock;
+                AppMessaging.MessageQueues.Instance.RequestReceived += Instance_RequestReceived;
             }
 
             this.m_LoadedHasRun = true;
+        }
+
+        private void Instance_RequestReceived(object sender, UI.CustomEventArgs.MessageReturnEventArgs e)
+        {
+            this.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
+            {
+                if (this.m_MessagingDialog == null) this.m_MessagingDialog = new AppMessaging.MessagingDialog();
+                AppMessaging.MessagingPage messagingPage = new AppMessaging.MessagingPage(e.Message);                
+                this.m_MessagingDialog.PageNavigator.Navigate(messagingPage);
+                this.m_MessagingDialog.Show();                
+            }
+            ));            
         }
 
         private void MessageQueue_AquireLock(object sender, EventArgs e)
@@ -109,8 +123,11 @@ namespace YellowstonePathology.UI.Login
         private void MainWindowCommandButtonHandler_ShowMessagingDialog(object sender, EventArgs e)
         {
             if(this.ListViewAccessionOrders.SelectedItem != null)
-            {                
-                UI.AppMessaging.MessageQueues.Instance.StartSendLockReleaseRequest(this.m_LoginUI.AccessionOrder);
+            {
+                AppMessaging.MessagingDialog dialog = new AppMessaging.MessagingDialog();
+                AppMessaging.MessagingPage page = new AppMessaging.MessagingPage(this.m_LoginUI.AccessionOrder);
+                dialog.PageNavigator.Navigate(page);
+                dialog.Show();                
             }            
         }
 
@@ -182,8 +199,9 @@ namespace YellowstonePathology.UI.Login
             this.m_MainWindowCommandButtonHandler.Save -= new MainWindowCommandButtonHandler.SaveEventHandler(MainWindowCommandButtonHandler_Save);
             this.m_MainWindowCommandButtonHandler.ShowAmendmentDialog -= MainWindowCommandButtonHandler_ShowAmendmentDialog;
             this.m_MainWindowCommandButtonHandler.Refresh -= MainWindowCommandButtonHandler_Refresh;
-            this.m_MainWindowCommandButtonHandler.RemoveTab -= MainWindowCommandButtonHandler_RemoveTab;
+            this.m_MainWindowCommandButtonHandler.RemoveTab -= MainWindowCommandButtonHandler_RemoveTab;            
 
+            this.m_MainWindowCommandButtonHandler.ShowMessagingDialog -= MainWindowCommandButtonHandler_ShowMessagingDialog;
             YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
         }
 

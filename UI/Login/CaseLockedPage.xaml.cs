@@ -24,7 +24,10 @@ namespace YellowstonePathology.UI.Login
 
 		public delegate void OKEventHandler(object sender, YellowstonePathology.UI.CustomEventArgs.AccessionOrderReturnEventArgs e);
 		public event OKEventHandler OK;
-                
+
+        public delegate void AskForLockEventHandler(object sender, YellowstonePathology.UI.CustomEventArgs.AccessionOrderReturnEventArgs e);
+        public event AskForLockEventHandler AskForLock;
+
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		private string m_PageHeaderText = "Case Lock Page";        
         private string m_PageMessage;
@@ -61,6 +64,11 @@ namespace YellowstonePathology.UI.Login
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
+        }
+
+        private void ButtonAskForLock_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.AskForLock != null) this.AskForLock(this, new CustomEventArgs.AccessionOrderReturnEventArgs(this.m_AccessionOrder));
         }
     }
 }

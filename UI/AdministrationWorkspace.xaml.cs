@@ -991,21 +991,28 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
-            using (StreamReader sr = new StreamReader(@"c:\temp\Test.csv"))
-            {                
-                String text = sr.ReadToEnd();
-                string[] lines = text.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
-                foreach(string line in lines)
-                {
-                    string[] fields = line.Split(',');
-                    if(fields.Length == 2)
-                    {
-                        //string masterAccessionNo = fields[1].Remove(0, 1);
-                        //masterAccessionNo = masterAccessionNo.Remove(masterAccessionNo.Length - 1, 1);
-                        Console.WriteLine("insert tblMasterAccessionNoTmp (MasterAccessionNo) values ('" + fields[1] + "')");
-                    }                                        
-                }
+            try
+            {
+                System.Net.Mail.MailAddress from = new System.Net.Mail.MailAddress("Support@YPII.com");
+                System.Net.Mail.MailAddress to = new System.Net.Mail.MailAddress("Support@YPII.com");
+
+                System.Net.Mail.MailMessage message = new System.Net.Mail.MailMessage(from, to);
+                message.Subject = "hello";
+                message.Body = "Hello";
+
+                System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient("10.1.2.111");
+
+                Uri uri = new Uri("http://tempuri.org/");
+                System.Net.ICredentials credentials = System.Net.CredentialCache.DefaultCredentials;
+                System.Net.NetworkCredential credential = credentials.GetCredential(uri, "Basic");
+
+                client.Credentials = credential;
+                client.Send(message);
             }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }            
         }
 
         private void FindY()

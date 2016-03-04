@@ -98,9 +98,12 @@ namespace YellowstonePathology.UI.Surgical
 
         private void MainWindowCommandButtonHandler_ShowMessagingDialog(object sender, EventArgs e)
         {
-            if (this.ListViewSurgicalCaseList.SelectedItem != null)
+            if (this.m_TypingUI.AccessionOrder != null)
             {
-                UI.AppMessaging.MessageQueues.Instance.StartSendLockReleaseRequest(this.m_TypingUI.AccessionOrder);
+                AppMessaging.MessagingDialog dialog = new AppMessaging.MessagingDialog();
+                AppMessaging.MessagingPage page = new AppMessaging.MessagingPage(this.m_TypingUI.AccessionOrder);
+                dialog.PageNavigator.Navigate(page);
+                dialog.Show();
             }
         }
 
