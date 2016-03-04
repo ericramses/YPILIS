@@ -356,6 +356,7 @@ namespace YellowstonePathology.UI.Flow
                 case "radioButtonSearchReportNo":
                     this.textBoxSearchReportNo.Visibility = Visibility.Visible;
                     this.textBoxSearchReportNo.Focus();
+                    this.textBoxSearchReportNo.CaretIndex = this.textBoxSearchReportNo.Text.Length;
                     break;
                 case "radioButtonSearchPatientName":
                     this.textBoxSearchPatientName.Visibility = Visibility.Visible;
