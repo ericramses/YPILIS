@@ -301,9 +301,9 @@ namespace YellowstonePathology.UI.Test
             SetListViewToTop();
         }
 
-        public void ButtonFinalizeCase_Click(object sender, RoutedEventArgs args)
+        /*public void ButtonFinalizeCase_Click(object sender, RoutedEventArgs args)
         {
-			if (this.m_LabUI.PanelSetOrder != null && this.m_LabUI.PanelSetOrder.Final == false)
+            if (this.m_LabUI.PanelSetOrder != null && this.m_LabUI.PanelSetOrder.Final == false)
             {
 				YellowstonePathology.Business.Rules.RuleExecutionStatus ruleExecutionStatus = new YellowstonePathology.Business.Rules.RuleExecutionStatus();
 				YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = m_LabUI.PanelSetOrder;
@@ -317,8 +317,8 @@ namespace YellowstonePathology.UI.Test
 				}
 				this.Save(false);
 				this.m_LabUI.FillCaseList();
-			}            
-        }
+			}
+        }*/
 
         public void MenuItemAcceptResults_Click(object sender, RoutedEventArgs args)
         {

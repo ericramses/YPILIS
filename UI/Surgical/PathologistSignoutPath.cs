@@ -9,7 +9,6 @@ namespace YellowstonePathology.UI.Surgical
     {
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         private YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder m_SurgicalTestOrder;
-        private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 
         private List<Action> m_ActionList;
         private int m_ActionIndex;
@@ -27,14 +26,12 @@ namespace YellowstonePathology.UI.Surgical
 
 
         public PathologistSignoutPath(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-            YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder,
-            YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+            YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder)
         {
             this.m_AccessionOrder = accessionOrder;
             this.m_SurgicalTestOrder = surgicalTestOrder;
-            this.m_SystemIdentity = systemIdentity;
 
-            this.m_PathologistSignoutAuditCollection = new Business.Audit.Model.PathologistSignoutAuditCollection(this.m_AccessionOrder, this.m_SystemIdentity);
+            this.m_PathologistSignoutAuditCollection = new Business.Audit.Model.PathologistSignoutAuditCollection(this.m_AccessionOrder);
 
             this.m_AuditResult = this.m_PathologistSignoutAuditCollection.Run2();
             if (this.m_AuditResult.Status == Business.Audit.Model.AuditStatusEnum.Failure)
@@ -61,7 +58,7 @@ namespace YellowstonePathology.UI.Surgical
 
         public YellowstonePathology.Business.Audit.Model.AuditResult IsPathologistSignoutAuditSuccessful()
         {
-            YellowstonePathology.Business.Audit.Model.PathologistSignoutIsHandledAuditCollection isPathologistSignoutHandledAuditCollection = new Business.Audit.Model.PathologistSignoutIsHandledAuditCollection(this.m_AccessionOrder, this.m_SystemIdentity);
+            YellowstonePathology.Business.Audit.Model.PathologistSignoutIsHandledAuditCollection isPathologistSignoutHandledAuditCollection = new Business.Audit.Model.PathologistSignoutIsHandledAuditCollection(this.m_AccessionOrder);
             YellowstonePathology.Business.Audit.Model.AuditResult auditResult = isPathologistSignoutHandledAuditCollection.Run2();
             return auditResult;
         }

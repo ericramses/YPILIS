@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using YellowstonePathology.Business.Audit.Model;
 using YellowstonePathology.Business.Persistence;
+using YellowstonePathology.Business.Rules;
 
 namespace YellowstonePathology.Business.Test.ErPrSemiQuantitative
 {
@@ -249,70 +251,6 @@ namespace YellowstonePathology.Business.Test.ErPrSemiQuantitative
 			}
 		}
 
-		public override void Finalize(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Rules.RuleExecutionStatus ruleExecutionStatus)
-        {
-            if (accessionOrder.ClientId == 558)
-            {
-                if (string.IsNullOrEmpty(accessionOrder.SvhAccount) == true)
-                {
-					YellowstonePathology.Business.Rules.RuleExecutionStatusItem ruleExecutionStatusItem = new YellowstonePathology.Business.Rules.RuleExecutionStatusItem();
-                    ruleExecutionStatusItem.Description = "The SVH Account is blank.";
-                    ruleExecutionStatusItem.ExecutionHalted = true;
-                    ruleExecutionStatus.RuleExecutionStatusList.Add(ruleExecutionStatusItem);
-                }
-            }
-
-            if (ruleExecutionStatus.ExecutionHalted == false)
-            {
-                if (accessionOrder.ClientId == 558)
-                {
-                    if (string.IsNullOrEmpty(accessionOrder.SvhMedicalRecord) == true)
-                    {
-						YellowstonePathology.Business.Rules.RuleExecutionStatusItem ruleExecutionStatusItem = new YellowstonePathology.Business.Rules.RuleExecutionStatusItem();
-                        ruleExecutionStatusItem.Description = "The SVH MRN is blank.";
-                        ruleExecutionStatusItem.ExecutionHalted = true;
-                        ruleExecutionStatus.RuleExecutionStatusList.Add(ruleExecutionStatusItem);
-                    }
-                }
-            }
-
-            if (ruleExecutionStatus.ExecutionHalted == false)
-            {
-                if (string.IsNullOrEmpty(this.ErResult) == true)
-                {
-					YellowstonePathology.Business.Rules.RuleExecutionStatusItem ruleExecutionStatusItem = new YellowstonePathology.Business.Rules.RuleExecutionStatusItem();
-                    ruleExecutionStatusItem.Description = "The Estrogen Receptor result is blank.";
-                    ruleExecutionStatusItem.ExecutionHalted = true;
-                    ruleExecutionStatus.RuleExecutionStatusList.Add(ruleExecutionStatusItem);
-                }
-            }
-
-            if (ruleExecutionStatus.ExecutionHalted == false)
-            {
-                if (string.IsNullOrEmpty(this.PrResult) == true)
-                {
-					YellowstonePathology.Business.Rules.RuleExecutionStatusItem ruleExecutionStatusItem = new YellowstonePathology.Business.Rules.RuleExecutionStatusItem();
-                    ruleExecutionStatusItem.Description = "The Progesterone Receptor result is blank.";
-                    ruleExecutionStatusItem.ExecutionHalted = true;
-                    ruleExecutionStatus.RuleExecutionStatusList.Add(ruleExecutionStatusItem);
-                }
-            }
-
-            if (ruleExecutionStatus.ExecutionHalted == false)
-            {
-                YellowstonePathology.Business.Test.PanelOrder panelOrder = this.PanelOrderCollection.GetPanelByPanelId(62);
-                if (panelOrder.Accepted == false)
-                {
-                    panelOrder.Accepted = true;
-                    panelOrder.AcceptedById = 5001;
-                    panelOrder.AcceptedDate = DateTime.Today;
-                    panelOrder.AcceptedTime = DateTime.Now;
-                }
-
-                base.Finalize(accessionOrder, ruleExecutionStatus);
-            }
-        }        
-
 		public override string ToResultString(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{
 			StringBuilder result = new StringBuilder();
@@ -342,5 +280,53 @@ namespace YellowstonePathology.Business.Test.ErPrSemiQuantitative
 
 			return result;
 		}
-	}
+
+        public override bool ResultsAreSet()
+        {
+            return string.IsNullOrEmpty(this.m_ErResult) == false && string.IsNullOrEmpty(this.m_PrResult) == false;
+        }
+
+        public override MethodResult IsOkToAccept()
+        {
+            MethodResult methodResult = base.IsOkToAccept();
+            if(methodResult.Success == true)
+            {
+                if(this.ResultsAreSet() == false)
+                {
+                    methodResult.Success = false;
+                    methodResult.Message = "Unable to accept until results are set.";
+                }
+            }
+            return methodResult;
+        }
+
+        public override AuditResult IsOkToFinalize(AccessionOrder accessionOrder)
+        {
+            AuditResult auditResult = base.IsOkToFinalize(accessionOrder);
+            if (auditResult.Status == AuditStatusEnum.OK)
+            {
+                YellowstonePathology.Business.Rules.MethodResult methodResult = this.IsOkToFinalize();
+                if(methodResult.Success == false)
+                {
+                    auditResult.Status = AuditStatusEnum.Failure;
+                    auditResult.Message = methodResult.Message;
+                }
+            }
+            return auditResult;
+        }
+
+        public override void Finalize()
+        {
+            YellowstonePathology.Business.Test.PanelOrder panelOrder = this.PanelOrderCollection.GetPanelByPanelId(62);
+            if (panelOrder.Accepted == false)
+            {
+                panelOrder.Accepted = true;
+                panelOrder.AcceptedById = 5001;
+                panelOrder.AcceptedDate = DateTime.Today;
+                panelOrder.AcceptedTime = DateTime.Now;
+            }
+
+            base.Finalize();
+        }
+    }
 }

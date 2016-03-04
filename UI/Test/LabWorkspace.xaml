@@ -752,7 +752,7 @@
 					</ScrollViewer>
 				</TabItem>-->
 
-				<TabItem Name="TabItemFinal">
+                <!--<TabItem Name="TabItemFinal" Visibility="Collapsed">
 					<TabItem.Header>
 						<StackPanel Orientation="Horizontal">
 							<Image Source="/Resources/Finalize.ico"></Image>
@@ -798,7 +798,7 @@
 
 						</Grid>
 					</StackPanel>
-				</TabItem>				
+				</TabItem>-->				
 
 				<TabItem Name="TabItemAmendment">
 					<TabItem.Header>

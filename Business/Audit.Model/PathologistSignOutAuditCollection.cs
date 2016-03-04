@@ -10,13 +10,12 @@ namespace YellowstonePathology.Business.Audit.Model
         public PathologistSignoutAuditCollection()
         { }
 
-        public PathologistSignoutAuditCollection(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-            YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        public PathologistSignoutAuditCollection(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {
             YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder = accessionOrder.PanelSetOrderCollection.GetSurgical();
             this.Add(new AncillaryStudiesAreHandledAudit(surgicalTestOrder));
             this.Add(new SurgicalCaseHasQuestionMarksAudit(accessionOrder, surgicalTestOrder));
-            this.Add(new SigningUserIsAssignedUserAudit(surgicalTestOrder, systemIdentity));
+            this.Add(new SigningUserIsAssignedUserAudit(surgicalTestOrder));
             this.Add(new SvhCaseHasMRNAndAccountNoAudit(accessionOrder));
             this.Add(new CaseHasNotFoundClientAudit(accessionOrder));
             this.Add(new CaseHasNotFoundProviderAudit(accessionOrder));
@@ -46,8 +45,8 @@ namespace YellowstonePathology.Business.Audit.Model
                     audit.GetType() == typeof(SvhCaseHasMRNAndAccountNoAudit) ||
                     audit.GetType() == typeof(CaseHasNotFoundClientAudit) ||
                     audit.GetType() == typeof(CaseHasNotFoundProviderAudit) ||
-                    audit.GetType() == typeof(CaseHasNotFoundProviderAudit) ||
                     audit.GetType() == typeof(DistributionCanBeSetAudit) ||
+                    audit.GetType() == typeof(CaseHasUnfinaledPeerReviewAudit) ||
                     audit.GetType() == typeof(GradedStainsAreHandledAudit) ||
                     audit.GetType() == typeof(IntraoperativeConsultationCorrelationAudit))
                 {
