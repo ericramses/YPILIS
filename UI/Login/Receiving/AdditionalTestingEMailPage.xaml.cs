@@ -99,15 +99,12 @@ namespace YellowstonePathology.UI.Login.Receiving
                     YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet = panelSetCollection.GetPanelSet(this.m_PanelSetOrder.PanelSetId);
                     string subject = "Additional Testing has been ordered: " + panelSet.PanelSetName;
 
-                    System.Net.Mail.MailAddress from = new System.Net.Mail.MailAddress("Results@YPII.com");
-                    //System.Net.Mail.MailAddress to = new System.Net.Mail.MailAddress(this.m_PanelSetOrder.AdditionalTestingEmailAddress);
-                    System.Net.Mail.MailAddress to = new System.Net.Mail.MailAddress("sid.harder@YPII.com");
-                    //System.Net.Mail.MailAddress bcc = new System.Net.Mail.MailAddress("Results@YPII.com");
+                    System.Net.Mail.MailAddress from = new System.Net.Mail.MailAddress("Results@YPII.com");                    
+                    System.Net.Mail.MailAddress to = new System.Net.Mail.MailAddress("sid.harder@YPII.com");                    
 
                     System.Net.Mail.MailMessage message = new System.Net.Mail.MailMessage(from, to);
                     message.Subject = subject;
-                    message.Body = this.m_PanelSetOrder.AdditionalTestingEmailMessage;
-                    //message.Bcc.Add(bcc);
+                    message.Body = this.m_PanelSetOrder.AdditionalTestingEmailMessage;                    
 
                     this.m_PanelSetOrder.AdditionalTestingEmailSent = true;
                     this.m_PanelSetOrder.TimeAdditionalTestingEmailSent = DateTime.Now;

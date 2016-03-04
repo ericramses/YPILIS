@@ -84,7 +84,7 @@ namespace YellowstonePathology.UI.Login
             this.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
             {
                 if (this.m_MessagingDialog == null) this.m_MessagingDialog = new AppMessaging.MessagingDialog();
-                AppMessaging.MessagingPage messagingPage = new AppMessaging.MessagingPage(e.Message);                
+                AppMessaging.LockRequestPage messagingPage = new AppMessaging.LockRequestPage(e.Message);                
                 this.m_MessagingDialog.PageNavigator.Navigate(messagingPage);
                 this.m_MessagingDialog.Show();                
             }
@@ -125,7 +125,7 @@ namespace YellowstonePathology.UI.Login
             if(this.ListViewAccessionOrders.SelectedItem != null)
             {
                 AppMessaging.MessagingDialog dialog = new AppMessaging.MessagingDialog();
-                AppMessaging.MessagingPage page = new AppMessaging.MessagingPage(this.m_LoginUI.AccessionOrder);
+                AppMessaging.LockRequestPage page = new AppMessaging.LockRequestPage(this.m_LoginUI.AccessionOrder);
                 dialog.PageNavigator.Navigate(page);
                 dialog.Show();                
             }            

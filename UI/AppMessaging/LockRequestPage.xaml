@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="YellowstonePathology.UI.AppMessaging.MessagingPage"
+﻿<UserControl x:Class="YellowstonePathology.UI.AppMessaging.LockRequestPage"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 

@@ -26,13 +26,17 @@ namespace YellowstonePathology.Business.Test.BCRABLByPCR
 
 			YellowstonePathology.Business.Document.AmendmentSection amendmentSection = new YellowstonePathology.Business.Document.AmendmentSection();
 			amendmentSection.SetAmendment(m_PanelSetOrder.AmendmentCollection, this.m_ReportXml, this.m_NameSpaceManager, true);
-
-			string result = testOrder.Result;
+			
 			if (string.IsNullOrEmpty(testOrder.DetectedLogReduction) == false)
 			{
-				result += "   " + testOrder.DetectedLogReduction;
-			}
-			this.ReplaceText("report_result", result);
+                this.ReplaceText("log_reduction", testOrder.DetectedLogReduction);
+            }
+            else
+            {
+                this.DeleteRow("log_reduction");
+            }
+
+			this.ReplaceText("report_result", testOrder.Result);
 			this.ReplaceText("fusion_transcript_type", testOrder.FusionTranscriptType);
             this.ReplaceText("percent_bcrabl", testOrder.PercentBCRABL);
             this.ReplaceText("report_interpretation", testOrder.Interpretation);

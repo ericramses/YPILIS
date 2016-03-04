@@ -15,7 +15,7 @@ using System.ComponentModel;
 
 namespace YellowstonePathology.UI.AppMessaging
 {	
-	public partial class MessagingPage : UserControl, INotifyPropertyChanged
+	public partial class LockRequestResponsePage : UserControl, INotifyPropertyChanged
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
         
@@ -29,33 +29,9 @@ namespace YellowstonePathology.UI.AppMessaging
         private string m_MasterAccessionNo;
         private string m_LockAquiredByUserName;
         private string m_LockAquiredByHostName;
-        private Nullable<DateTime> m_TimeLockAquired;        
+        private Nullable<DateTime> m_TimeLockAquired;                
 
-        public MessagingPage(Business.Test.AccessionOrder accessionOrder)
-		{
-            this.m_AccessionOrder = accessionOrder;
-            this.m_MasterAccessionNo = accessionOrder.MasterAccessionNo;
-            this.m_LockAquiredByUserName = accessionOrder.LockAquiredByUserName;
-            this.m_LockAquiredByHostName = accessionOrder.LockAquiredByHostName;
-            this.m_TimeLockAquired = accessionOrder.TimeLockAquired;
-
-            InitializeComponent();
-            DataContext = this;
-
-            if (this.m_AccessionOrder.IsLockAquiredByMe == false)
-            {
-                this.ButtonRequest.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                this.ButtonTakeIt.Visibility = Visibility.Visible;
-                this.ButtonHoldYourHorses.Visibility = Visibility.Visible;
-            }
-                        
-            AppMessaging.MessageQueues.Instance.ResponseReceived += Instance_ResponseReceived;
-		}
-
-        public MessagingPage(System.Messaging.Message message)
+        public LockRequestResponsePage(System.Messaging.Message message)
         {
             this.m_Message = message;
 

@@ -95,7 +95,7 @@ namespace YellowstonePathology.UI.Surgical
             if (this.m_PathologistUI.AccessionOrder != null)
             {
                 AppMessaging.MessagingDialog dialog = new AppMessaging.MessagingDialog();
-                AppMessaging.MessagingPage page = new AppMessaging.MessagingPage(this.m_PathologistUI.AccessionOrder);
+                AppMessaging.LockRequestPage page = new AppMessaging.LockRequestPage(this.m_PathologistUI.AccessionOrder);
                 dialog.PageNavigator.Navigate(page);
                 dialog.Show();
             }

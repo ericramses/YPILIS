@@ -155,7 +155,7 @@ namespace YellowstonePathology.UI.Gross
 
         private void CaseLockedPage_AskForLock(object sender, CustomEventArgs.AccessionOrderReturnEventArgs e)
         {            
-            AppMessaging.MessagingPage messagingPage = new AppMessaging.MessagingPage(e.AccessionOrder);
+            AppMessaging.LockRequestPage messagingPage = new AppMessaging.LockRequestPage(e.AccessionOrder);
             this.m_HistologyGrossDialog.PageNavigator.Navigate(messagingPage);
         }
 
