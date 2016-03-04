@@ -40,12 +40,25 @@ namespace YellowstonePathology.UI
             this.m_AccessionOrder = accessionOrder;            
             this.m_Amendment = amendment;
             this.m_SystemIdentity = systemIdentity;
-            this.AmendmentSigners = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetUsersByRole(YellowstonePathology.Business.User.SystemUserRoleDescriptionEnum.AmendmentSigner, true);
+            this.SetAmendmentSigners();
             this.m_PageHeaderText = "Amendment For: " + this.m_AccessionOrder.PatientDisplayName + " (" +this.m_AccessionOrder.PanelSetOrderCollection.GetSurgical().ReportNo + ")";
 
             InitializeComponent();
 
             DataContext = this;
+        }
+
+        private void SetAmendmentSigners()
+        {
+            this.AmendmentSigners = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetUsersByRole(YellowstonePathology.Business.User.SystemUserRoleDescriptionEnum.AmendmentSigner, true);
+            foreach (Business.User.SystemUser user in this.m_AmendmentSigners)
+            {
+                if (user.UserId == 5127) //monitor
+                {
+                    this.m_AmendmentSigners.Remove(user);
+                    break;
+                }
+            }
         }
 
         public void NotifyPropertyChanged(String info)
