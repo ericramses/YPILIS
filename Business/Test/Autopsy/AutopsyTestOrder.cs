@@ -21,14 +21,5 @@ namespace YellowstonePathology.Business.Test.Autopsy
 			: base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute)
 		{
 		}
-
-		public override void Finalize(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Rules.RuleExecutionStatus ruleExecutionStatus)
-        {
-            this.m_Final = true;
-            this.m_FinalDate = DateTime.Today;
-            this.m_FinalTime = DateTime.Now;
-            this.m_FinaledById = Business.User.SystemIdentity.Instance.User.UserId;
-            this.m_Signature = Business.User.SystemIdentity.Instance.User.Signature;
-        }
 	}
 }

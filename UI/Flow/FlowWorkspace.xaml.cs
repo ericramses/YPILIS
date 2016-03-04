@@ -333,7 +333,15 @@ namespace YellowstonePathology.UI.Flow
 			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_FlowUI.AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.OrderedOn, this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.OrderedOnId);
 			YellowstonePathology.Business.Helper.FlowCommentHelper comment = new YellowstonePathology.Business.Helper.FlowCommentHelper(specimenOrder.Description, this.m_FlowUI.PanelSetOrderLeukemiaLymphoma, flowMarkers);
             comment.SetInterpretiveComment();
-        }        
+        }
+
+        private void textBoxSearchReportNo_KeyUp(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Return)
+            {
+                this.Search();
+            }
+        }
 
         public void RadioButtonFlowSearch_Checked(object sender, RoutedEventArgs args)
         {
@@ -347,6 +355,8 @@ namespace YellowstonePathology.UI.Flow
             {
                 case "radioButtonSearchReportNo":
                     this.textBoxSearchReportNo.Visibility = Visibility.Visible;
+                    this.textBoxSearchReportNo.Focus();
+                    this.textBoxSearchReportNo.CaretIndex = this.textBoxSearchReportNo.Text.Length;
                     break;
                 case "radioButtonSearchPatientName":
                     this.textBoxSearchPatientName.Visibility = Visibility.Visible;
@@ -361,6 +371,11 @@ namespace YellowstonePathology.UI.Flow
         }
 
         public void ButtonSearch_Click(object sender, RoutedEventArgs args)
+        {
+            this.Search();
+        }
+
+        private void Search()
         {
             if (this.radioButtonSearchTestId.IsChecked == true)
             {
@@ -499,16 +514,31 @@ namespace YellowstonePathology.UI.Flow
             {
                 if (this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.AssignedToId == this.m_SystemIdentity.User.UserId)
                 {
-                    YellowstonePathology.Business.Rules.RuleExecutionStatus ruleExecutionStatus = new Business.Rules.RuleExecutionStatus();
-                    this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.Finalize(this.m_FlowUI.AccessionOrder, ruleExecutionStatus);
-                    this.Save(false);
-
-                    if (ruleExecutionStatus.ExecutionHalted == true)
+                    if (this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.Final == false)
                     {
-                        YellowstonePathology.UI.RuleExecutionStatusDialog dialog = new RuleExecutionStatusDialog(ruleExecutionStatus);
-                        dialog.ShowDialog();
-                    }
+                        YellowstonePathology.Business.Audit.Model.AuditResult auditResult = this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.IsOkToFinalize(this.m_FlowUI.AccessionOrder);
 
+                        if (auditResult.Status == Business.Audit.Model.AuditStatusEnum.OK)
+                        {
+                            this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.Finalize();
+                        }
+                        else
+                        {
+                            MessageBox.Show(auditResult.Message);
+                        }
+                    }
+                    else
+                    {
+                        Business.Rules.MethodResult methodResult = this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.IsOkToUnfinalize();
+                        if(methodResult.Success == true)
+                        {
+                            this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.Unfinalize();
+                        }
+                        else
+                        {
+                            MessageBox.Show(methodResult.Message);
+                        }
+                    }
                     this.m_FlowUI.NotifyPropertyChanged("SignReportButtonContent");
                     this.m_FlowUI.NotifyPropertyChanged("SignReportButtonEnabled");
                 }
