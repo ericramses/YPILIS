@@ -38,8 +38,8 @@ namespace YellowstonePathology.Business.Test.BCRABLByFish
 			string collectionDateTimeString = YellowstonePathology.Business.Helper.DateTimeExtensions.CombineDateAndTime(specimenOrder.CollectionDate, specimenOrder.CollectionTime);
 			this.SetXmlNodeData("date_time_collected", collectionDateTimeString);
 
-			this.ReplaceText("report_date", YellowstonePathology.Business.BaseData.GetShortDateString(this.m_PanelSetOrder.ReferenceLabFinalDate));
-			this.ReplaceText("pathologist_signature", this.m_PanelSetOrder.ReferenceLabSignature);
+			this.ReplaceText("report_date", YellowstonePathology.Business.BaseData.GetShortDateString(this.m_PanelSetOrder.FinalDate));
+			this.ReplaceText("pathologist_signature", this.m_PanelSetOrder.Signature);
 
 			this.SaveReport();
 		}
