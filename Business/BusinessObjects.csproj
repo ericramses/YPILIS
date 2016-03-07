@@ -162,6 +162,7 @@
     <Compile Include="Audit.Model\AccountNoAudit.cs" />
     <Compile Include="Audit.Model\AreAllWHPTestsFinalAudit.cs" />
     <Compile Include="Audit.Model\CodyCassetteColorAudit.cs" />
+    <Compile Include="Audit.Model\ComprehensiveColonCancerProfileFinalAudit.cs" />
     <Compile Include="Audit.Model\CouldBenefitFromCCCPAudit.cs" />
     <Compile Include="Audit.Model\DistributionCanBeSetAudit.cs" />
     <Compile Include="Audit.Model\FNAHasIntraOpAudit.cs" />
