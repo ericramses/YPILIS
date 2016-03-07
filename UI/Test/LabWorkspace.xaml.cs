@@ -994,10 +994,10 @@ namespace YellowstonePathology.UI.Test
         {
             if (this.ListViewCaseList.SelectedItem != null)
             {
-				YellowstonePathology.Business.Search.ReportSearchItem item = (YellowstonePathology.Business.Search.ReportSearchItem)this.ListViewCaseList.SelectedItem;
-                YellowstonePathology.Business.ReportDistribution.Model.MeditechDistribution meditechDistribution = new Business.ReportDistribution.Model.MeditechDistribution();
-                meditechDistribution.Distribute(item.ReportNo, this.m_Writer);
-                MessageBox.Show("Meditech result has been sent");
+				//YellowstonePathology.Business.Search.ReportSearchItem item = (YellowstonePathology.Business.Search.ReportSearchItem)this.ListViewCaseList.SelectedItem;
+                //YellowstonePathology.Business.ReportDistribution.Model.MeditechDistribution meditechDistribution = new Business.ReportDistribution.Model.MeditechDistribution();
+                //meditechDistribution.Distribute(item.ReportNo, );
+                //MessageBox.Show("Meditech result has been sent");
             }
         }  
 

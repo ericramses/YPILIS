@@ -19,9 +19,9 @@ namespace YellowstonePathology.Business.XPSDocument.Result.Xps
             this.m_CytologyScreeningListReportData = cytologyScreeningListReportData;
 
             YellowstonePathology.Document.Xps.PlainHeader header = new YellowstonePathology.Document.Xps.PlainHeader("Cytology Screening List");
-            YellowstonePathology.Document.Xps.PlainFooter footer = new YellowstonePathology.Document.Xps.PlainFooter(string.Empty);
+            YellowstonePathology.Document.Xps.PlainFooter footer = new YellowstonePathology.Document.Xps.PlainFooter(string.Empty);            
 
-            this.m_ReportDocument = new YellowstonePathology.Document.Xps.ReportDocument(header, footer);
+            this.m_ReportDocument = new YellowstonePathology.Document.Xps.ReportDocument(header, footer);            
 
             this.WriteHeaderGrid();
             this.WriteDetailInfo();
@@ -37,9 +37,11 @@ namespace YellowstonePathology.Business.XPSDocument.Result.Xps
             Grid grid = SetupDetailGrid();
             this.WriteHeaderText("Report No", grid, 0, 0);
             this.WriteHeaderText("Patient Name", grid, 0, 1);
-            this.WriteHeaderText("Screened By", grid, 0, 2);
-            this.WriteHeaderText("Accessioned", grid, 0, 3);
-            this.WriteHeaderText("Finaled", grid, 0, 4);
+            this.WriteHeaderText("Ordered By", grid, 0, 2);
+            this.WriteHeaderText("Assigned To", grid, 0, 3);
+            this.WriteHeaderText("Accessioned", grid, 0, 4);
+            //this.WriteHeaderText("Screened", grid, 0, 5);
+            //this.WriteHeaderText("Finaled", grid, 0, 6);
 
             this.m_ReportDocument.WriteRowContent(grid);
 
@@ -74,9 +76,11 @@ namespace YellowstonePathology.Business.XPSDocument.Result.Xps
                 Grid detailGrid = this.SetupDetailGrid();
                 this.WriteDetailReportNo(specimenElement, detailGrid);
                 this.WriteDetailPatientName(specimenElement, detailGrid);
-                this.WriteDetailScreenedByName(specimenElement, detailGrid);
-                this.WriteDetailAccessionTime(specimenElement, detailGrid);
-                this.WriteDetailScreeningFinalTime(specimenElement, detailGrid);
+                this.WriteDetailOrderedBy(specimenElement, detailGrid);
+                this.WriteDetailAssignedTo(specimenElement, detailGrid);
+                this.WriteDetailAccessioned(specimenElement, detailGrid);
+                //this.WriteDetailScreened(specimenElement, detailGrid);
+                //this.WriteDetailFinaled(specimenElement, detailGrid);
                 this.m_ReportDocument.WriteRowContent(detailGrid);
             }
         }
@@ -135,10 +139,10 @@ namespace YellowstonePathology.Business.XPSDocument.Result.Xps
             detailGrid.Children.Add(text);
         }
 
-        private void WriteDetailScreenedByName(XElement detailElement, Grid detailGrid)
+        private void WriteDetailOrderedBy(XElement detailElement, Grid detailGrid)
         {
             TextBlock text = new TextBlock();
-            text.Text = detailElement.Element("ScreenedByName").Value;
+            text.Text = detailElement.Element("OrderedBy").Value;
             text.Margin = new Thickness(2, 0, 2, 0);
             text.HorizontalAlignment = HorizontalAlignment.Left;
             text.TextWrapping = TextWrapping.Wrap;
@@ -147,14 +151,50 @@ namespace YellowstonePathology.Business.XPSDocument.Result.Xps
             detailGrid.Children.Add(text);
         }
 
-        private void WriteDetailAccessionTime(XElement detailElement, Grid detailGrid)
+        private void WriteDetailAssignedTo(XElement detailElement, Grid detailGrid)
         {
             TextBlock text = new TextBlock();
-            text.Text = detailElement.Element("AccessionTime").Value;
+            text.Text = detailElement.Element("AssignedTo").Value;
             text.Margin = new Thickness(2, 0, 2, 0);
             text.HorizontalAlignment = HorizontalAlignment.Left;
             text.TextWrapping = TextWrapping.Wrap;
             Grid.SetColumn(text, 3);
+            Grid.SetRow(text, 0);
+            detailGrid.Children.Add(text);
+        }
+
+        private void WriteDetailAccessioned(XElement detailElement, Grid detailGrid)
+        {
+            TextBlock text = new TextBlock();
+            text.Text = detailElement.Element("Accessioned").Value;
+            text.Margin = new Thickness(2, 0, 2, 0);
+            text.HorizontalAlignment = HorizontalAlignment.Left;
+            text.TextWrapping = TextWrapping.Wrap;
+            Grid.SetColumn(text, 4);
+            Grid.SetRow(text, 0);
+            detailGrid.Children.Add(text);
+        }
+
+        private void WriteDetailScreened(XElement detailElement, Grid detailGrid)
+        {
+            TextBlock text = new TextBlock();
+            text.Text = detailElement.Element("Screened").Value;
+            text.Margin = new Thickness(2, 0, 2, 0);
+            text.HorizontalAlignment = HorizontalAlignment.Left;
+            text.TextWrapping = TextWrapping.Wrap;
+            Grid.SetColumn(text, 5);
+            Grid.SetRow(text, 0);
+            detailGrid.Children.Add(text);
+        }
+
+        private void WriteDetailFinaled(XElement detailElement, Grid detailGrid)
+        {
+            TextBlock text = new TextBlock();
+            text.Text = detailElement.Element("Finaled").Value;
+            text.Margin = new Thickness(2, 0, 2, 0);
+            text.HorizontalAlignment = HorizontalAlignment.Left;
+            text.TextWrapping = TextWrapping.Wrap;
+            Grid.SetColumn(text, 6);
             Grid.SetRow(text, 0);
             detailGrid.Children.Add(text);
         }

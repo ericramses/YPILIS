@@ -41,7 +41,7 @@ namespace YellowstonePathology.Business.Test.Her2AmplificationByIHC
 			base.ReplaceText("report_disclaimer", panelSetOrder.ReportDisclaimer);
 
 			this.ReplaceText("report_date", BaseData.GetShortDateString(this.m_PanelSetOrder.ReferenceLabFinalDate));
-			this.SetXmlNodeData("pathologist_signature", this.m_PanelSetOrder.ReferenceLabSignature);
+			this.SetXmlNodeData("pathologist_signature", this.m_PanelSetOrder.Signature);
 
 			this.SetReportDistribution();
 			this.SetCaseHistory();

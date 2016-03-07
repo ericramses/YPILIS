@@ -72,9 +72,10 @@
                             <Code ICD9="626.6" ICD10="N92.0" Description="Excessive and frequent menstruation (heavy)" Test="Cytology" Quantity="1"/>
                             <Code ICD9="626.6" ICD10="N92.1" Description="Excessive and frequent menstruation (irregular)" Test="Cytology" Quantity="1"/>
                             <Code ICD9="626.6" ICD10="N92.4" Description="Excessive bleeding in the premenopausal period" Test="Cytology" Quantity="1"/>
+                            <Code ICD9="" ICD10="N93.8" Description="Other specified abnormal uterine and vaginal bleeding" Test="Cytology" Quantity="1"/>
                             <Code ICD9="" ICD10="N93.9" Description="Abnormal uterine and vaginal bleeding, unspecified" Test="Cytology" Quantity="1"/>
                             <Code ICD9="625.3" ICD10="N94.6" Description="Dysmenorrhea, unspecified (painful menstruation)" Test="Cytology" Quantity="1"/>
-                            
+
                         </Codes>
                     </x:XData>
                 </XmlDataProvider>

@@ -88,7 +88,41 @@ namespace YellowstonePathology.UI.Surgical
             this.m_MainWindowCommandButtonHandler.Save += new MainWindowCommandButtonHandler.SaveEventHandler(MainWindowCommandButtonHandler_Save);
             this.m_MainWindowCommandButtonHandler.Refresh += new MainWindowCommandButtonHandler.RefreshEventHandler(MainWindowCommandButtonHandler_Refresh);
             this.m_MainWindowCommandButtonHandler.RemoveTab += new MainWindowCommandButtonHandler.RemoveTabEventHandler(MainWindowCommandButtonHandler_RemoveTab);
-            if(this.m_TypingUI.SurgicalTestOrder != null) this.m_TypingUI.RunWorkspaceEnableRules();
+            this.m_MainWindowCommandButtonHandler.ShowMessagingDialog += new MainWindowCommandButtonHandler.ShowMessagingDialogEventHandler(MainWindowCommandButtonHandler_ShowMessagingDialog);
+
+            if (this.m_TypingUI.SurgicalTestOrder != null) this.m_TypingUI.RunWorkspaceEnableRules();
+
+            AppMessaging.MessageQueues.Instance.ReleaseLock += MessageQueue_ReleaseLock;
+            AppMessaging.MessageQueues.Instance.AquireLock += MessageQueue_AquireLock;
+        }
+
+        private void MainWindowCommandButtonHandler_ShowMessagingDialog(object sender, EventArgs e)
+        {
+            if (this.m_TypingUI.AccessionOrder != null)
+            {
+                AppMessaging.MessagingDialog dialog = new AppMessaging.MessagingDialog();
+                AppMessaging.LockRequestPage page = new AppMessaging.LockRequestPage(this.m_TypingUI.AccessionOrder);
+                dialog.PageNavigator.Navigate(page);
+                dialog.Show();
+            }
+        }
+
+        private void MessageQueue_AquireLock(object sender, EventArgs e)
+        {
+            string masterAccessionNo = (string)sender;
+            if (this.m_TypingUI.AccessionOrder != null && this.m_TypingUI.AccessionOrder.MasterAccessionNo == masterAccessionNo)
+            {
+                Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, this.m_Writer);                
+            }
+        }
+
+        private void MessageQueue_ReleaseLock(object sender, EventArgs e)
+        {
+            string masterAccessionNo = (string)sender;
+            if (this.m_TypingUI.AccessionOrder != null && this.m_TypingUI.AccessionOrder.MasterAccessionNo == masterAccessionNo)
+            {
+                this.Save();
+            }
         }
 
         private void MainWindowCommandButtonHandler_RemoveTab(object sender, EventArgs e)
@@ -102,6 +136,11 @@ namespace YellowstonePathology.UI.Surgical
         }
 
         private void MainWindowCommandButtonHandler_Save(object sender, EventArgs e)
+        {
+            this.Save();
+        }
+
+        private void Save()
         {
             if (this.m_TypingUI.AccessionOrder != null)
             {
@@ -861,7 +900,7 @@ namespace YellowstonePathology.UI.Surgical
                 this.GetSurgicalCase(surgicalOrderListItem.ReportNo);
                 this.TextBoxReportNoSearch.Text = surgicalOrderListItem.ReportNo;
             }
-        }               
+        }                
 
         private void HyperLinkShowGossTemplate_Click(object sender, RoutedEventArgs e)
         {

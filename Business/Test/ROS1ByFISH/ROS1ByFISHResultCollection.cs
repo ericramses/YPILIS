@@ -15,6 +15,7 @@ namespace YellowstonePathology.Business.Test.ROS1ByFISH
             this.Add(new ROS1ByFISHNegativeWithMonosomyResult());
             this.Add(new ROS1ByFISHAbnormalResult());
             this.Add(new ROS1ByFISHInconclusiveResult());
+            this.Add(new ROS1ByFISHQNSResult());
         }
 
         public ROS1ByFISHResult GetByResultCode(string resultCode)

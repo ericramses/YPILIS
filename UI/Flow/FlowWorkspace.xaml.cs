@@ -735,8 +735,12 @@ namespace YellowstonePathology.UI.Flow
                 mailMessage.CC.Add("yolanda.hutton@ypii.com");
                 mailMessage.CC.Add("kevin.benge@ypii.com");
 
+                Uri uri = new Uri("http://tempuri.org/");
+                System.Net.ICredentials credentials = System.Net.CredentialCache.DefaultCredentials;
+                System.Net.NetworkCredential credential = credentials.GetCredential(uri, "Basic");
+
                 System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient("10.1.2.111");
-                client.Credentials = new System.Net.NetworkCredential("Administrator", "p0046e");
+                client.Credentials = credential;
                 client.Send(mailMessage);
 
                 MessageBox.Show("A link to YPI Connect has been sent to Neogenomics regarding report " + this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.ReportNo);

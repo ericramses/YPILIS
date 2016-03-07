@@ -40,7 +40,7 @@ namespace YellowstonePathology.Business
         void m_Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
             System.Windows.MessageBox.Show("asdf");            
-            using (SqlConnection cn = new SqlConnection("Data Source=TESTSQL;Initial Catalog=YPIData;UserId=Administrator;Password=p0046e;"))
+            using (SqlConnection cn = new SqlConnection("Data Source = TestSQL; Initial Catalog = YPIData; Integrated Security = True"))
             {
                 cn.Open();
                 SqlCommand cmd = new SqlCommand();

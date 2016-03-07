@@ -12,10 +12,20 @@ namespace YellowstonePathology.UI.AppMessaging
 
         }
 
-        public LockReleaseResponseMessageBody(MessageBody receivedMessageBody) 
+        public LockReleaseResponseMessageBody(MessageBody receivedMessageBody, bool lockWasReleased) 
             : base (receivedMessageBody.MasterAccessionNo, receivedMessageBody.LockAquiredByUserName, receivedMessageBody.LockAquiredByHostName, receivedMessageBody.TimeLockAquired)
         {
-            this.m_Message = this.m_RequestingUserName + " has released the lock on " + this.m_MasterAccessionNo;
+            this.m_LockWasReleased = LockWasReleased;
+
+            if(lockWasReleased == true)
+            {
+                this.m_Message = this.m_RequestingUserName + " has released the lock on " + this.m_MasterAccessionNo;
+            }
+            else
+            {
+                this.m_Message = this.m_RequestingUserName + " says hold your horses. I'm working with " + this.m_MasterAccessionNo + ".";
+            }
+            
         }
     }
 }

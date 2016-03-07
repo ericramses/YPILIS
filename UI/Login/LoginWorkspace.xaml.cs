@@ -30,7 +30,8 @@ namespace YellowstonePathology.UI.Login
         private MainWindowCommandButtonHandler m_MainWindowCommandButtonHandler;
         private TabItem m_Writer;
 
-        private LoginPageWindow m_LoginPageWindow;        
+        private LoginPageWindow m_LoginPageWindow;
+        private AppMessaging.MessagingDialog m_MessagingDialog;
 
         public LoginWorkspace(MainWindowCommandButtonHandler mainWindowCommandButtonHandler, TabItem writer)
         {
@@ -52,8 +53,8 @@ namespace YellowstonePathology.UI.Login
             this.DataContext = this.m_LoginUI;
 
             this.Loaded += new RoutedEventHandler(LoginWorkspace_Loaded);
-            this.Unloaded += new RoutedEventHandler(LoginWorkspace_Unloaded);
-        }
+            this.Unloaded += new RoutedEventHandler(LoginWorkspace_Unloaded);            
+        }        
 
         private void LoginWorkspace_Loaded(object sender, RoutedEventArgs e)
         {
@@ -70,9 +71,44 @@ namespace YellowstonePathology.UI.Login
                 this.m_MainWindowCommandButtonHandler.Refresh += new MainWindowCommandButtonHandler.RefreshEventHandler(MainWindowCommandButtonHandler_Refresh);
                 this.m_MainWindowCommandButtonHandler.RemoveTab += new MainWindowCommandButtonHandler.RemoveTabEventHandler(MainWindowCommandButtonHandler_RemoveTab);
                 this.m_MainWindowCommandButtonHandler.ShowMessagingDialog += new MainWindowCommandButtonHandler.ShowMessagingDialogEventHandler(MainWindowCommandButtonHandler_ShowMessagingDialog);
+
+                AppMessaging.MessageQueues.Instance.ReleaseLock += MessageQueue_ReleaseLock;
+                AppMessaging.MessageQueues.Instance.AquireLock += MessageQueue_AquireLock;
+                AppMessaging.MessageQueues.Instance.RequestReceived += Instance_RequestReceived;
             }
 
             this.m_LoadedHasRun = true;
+        }
+
+        private void Instance_RequestReceived(object sender, UI.CustomEventArgs.MessageReturnEventArgs e)
+        {
+            this.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
+            {
+                if (this.m_MessagingDialog == null) this.m_MessagingDialog = new AppMessaging.MessagingDialog();
+                AppMessaging.LockRequestPage messagingPage = new AppMessaging.LockRequestPage(e.Message);                
+                this.m_MessagingDialog.PageNavigator.Navigate(messagingPage);
+                this.m_MessagingDialog.Show();                
+            }
+            ));            
+        }
+
+        private void MessageQueue_AquireLock(object sender, EventArgs e)
+        {
+            string masterAccessionNo = (string)sender;
+            if (this.m_LoginUI.AccessionOrder != null && this.m_LoginUI.AccessionOrder.MasterAccessionNo == masterAccessionNo)
+            {
+                Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, this.m_Writer);
+                this.HandleAccessionOrderListChange();
+            }
+        }
+
+        private void MessageQueue_ReleaseLock(object sender, EventArgs e)
+        {            
+            string masterAccessionNo = (string)sender;
+            if (this.m_LoginUI.AccessionOrder != null && this.m_LoginUI.AccessionOrder.MasterAccessionNo == masterAccessionNo)
+            {
+                this.Save();
+            }
         }        
 
         private void MainWindowCommandButtonHandler_RemoveTab(object sender, EventArgs e)
@@ -88,14 +124,22 @@ namespace YellowstonePathology.UI.Login
         private void MainWindowCommandButtonHandler_ShowMessagingDialog(object sender, EventArgs e)
         {
             if(this.ListViewAccessionOrders.SelectedItem != null)
-            {                
-                UI.AppMessaging.MessageQueues.Instance.StartSendLockReleaseRequest(this.m_LoginUI.AccessionOrder);
+            {
+                AppMessaging.MessagingDialog dialog = new AppMessaging.MessagingDialog();
+                AppMessaging.LockRequestPage page = new AppMessaging.LockRequestPage(this.m_LoginUI.AccessionOrder);
+                dialog.PageNavigator.Navigate(page);
+                dialog.Show();                
             }            
         }
 
         private void MainWindowCommandButtonHandler_Save(object sender, EventArgs e)
         {
-            if(this.m_LoginUI.AccessionOrder != null)
+            this.Save();
+        }
+
+        private void Save()
+        {
+            if (this.m_LoginUI.AccessionOrder != null)
             {
                 Business.Persistence.DocumentGateway.Instance.ReleaseLock(this.m_LoginUI.AccessionOrder, this.m_Writer);
 
@@ -111,7 +155,7 @@ namespace YellowstonePathology.UI.Login
                 }
 
                 this.m_LoginUI.ReportSearchList.SetLockIsAquiredByMe(this.m_LoginUI.AccessionOrder);
-            }            
+            }
         }
 
         private void BarcodeScanPort_AliquotOrderIdReceived(string scanData)
@@ -160,9 +204,9 @@ namespace YellowstonePathology.UI.Login
             this.m_MainWindowCommandButtonHandler.Save -= MainWindowCommandButtonHandler_Save;
             this.m_MainWindowCommandButtonHandler.ShowAmendmentDialog -= MainWindowCommandButtonHandler_ShowAmendmentDialog;
             this.m_MainWindowCommandButtonHandler.Refresh -= MainWindowCommandButtonHandler_Refresh;
-            this.m_MainWindowCommandButtonHandler.RemoveTab -= MainWindowCommandButtonHandler_RemoveTab;
-            this.m_MainWindowCommandButtonHandler.ShowMessagingDialog -= MainWindowCommandButtonHandler_ShowMessagingDialog;
+            this.m_MainWindowCommandButtonHandler.RemoveTab -= MainWindowCommandButtonHandler_RemoveTab;            
 
+            this.m_MainWindowCommandButtonHandler.ShowMessagingDialog -= MainWindowCommandButtonHandler_ShowMessagingDialog;
             YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
         }
 
@@ -227,14 +271,22 @@ namespace YellowstonePathology.UI.Login
         }
 
         private void ListViewAccessionOrders_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
+        {            
             if (this.ListViewAccessionOrders.SelectedItem != null)
             {
                 YellowstonePathology.Business.Search.ReportSearchItem item = (YellowstonePathology.Business.Search.ReportSearchItem)this.ListViewAccessionOrders.SelectedItem;
                 this.GetCase(item.MasterAccessionNo, item.ReportNo);
-                this.m_LoginUI.SelectedItemCount = "Selected Items: " + this.ListViewAccessionOrders.SelectedItems.Count.ToString();   
+                this.HandleAccessionOrderListChange();
+            }
+        }
 
-                if(this.m_LoginUI.AccessionOrder.IsLockAquiredByMe == true)
+        private void HandleAccessionOrderListChange()
+        {
+            App.Current.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
+            {
+                this.m_LoginUI.SelectedItemCount = "Selected Items: " + this.ListViewAccessionOrders.SelectedItems.Count.ToString();
+
+                if (this.m_LoginUI.AccessionOrder.IsLockAquiredByMe == true)
                 {
                     this.TabControlRightSide.SelectedIndex = 1;
                     this.TabItemTasks.IsEnabled = true;
@@ -246,7 +298,7 @@ namespace YellowstonePathology.UI.Login
                 }
 
                 this.m_LoginUI.ReportSearchList.SetLockIsAquiredByMe(this.m_LoginUI.AccessionOrder);
-            }
+            }));            
         }
 
         public void GetCase(string masterAccessionNo, string reportNo)
@@ -682,10 +734,7 @@ namespace YellowstonePathology.UI.Login
         }
 
         private void MenuItemCancelTest_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("This isn't working so well right now.  Please talk to sid.");
-
-            /*
+        {                        
             if (this.ListViewAccessionOrders.SelectedItem != null)
             {
                 MessageBoxResult messageBoxResult = MessageBox.Show("Are you sure you want to cancel this test?", "Cancel Test", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes);
@@ -696,11 +745,10 @@ namespace YellowstonePathology.UI.Login
                     YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_LoginUI.AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportSearchItem.ReportNo);
 
                     if (panelSetOrder.Final == false)
-                    {
-                        //YellowstonePathology.Business.Gateway.AccessionOrderGateway.SetPanelSetOrderAsCancelledTest(panelSetOrder.ReportNo);
-                        //YellowstonePathology.Business.Gateway.AccessionOrderGateway.InsertTestCancelledTestOrder(panelSetOrder.ReportNo, panelSetOrder.PanelSetId, panelSetOrder.PanelSetName);
-
-                        string reportNo = panelSetOrder.ReportNo;                                                
+                    {                        
+                        string reportNo = panelSetOrder.ReportNo;
+                        string testName = panelSetOrder.PanelSetName;
+                        int panelSetId = panelSetOrder.PanelSetId;                                           
 
                         YellowstonePathology.Business.Interface.IOrderTarget orderTarget = this.m_LoginUI.AccessionOrder.SpecimenOrderCollection.GetOrderTarget(panelSetOrder.OrderedOnId);
                         Business.Test.TestCancelled.TestCancelledTest cancelledTest = new Business.Test.TestCancelled.TestCancelledTest();
@@ -711,6 +759,11 @@ namespace YellowstonePathology.UI.Login
                         YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
 
                         this.m_LoginUI.AccessionOrder.TakeATrip(orderTestOrderVisitor);
+                        Business.Test.TestCancelled.TestCancelledTestOrder testCancelledTestOrder = (Business.Test.TestCancelled.TestCancelledTestOrder)orderTestOrderVisitor.PanelSetOrder;
+                        testCancelledTestOrder.Comment = testName + " has been cancelled.";
+                        testCancelledTestOrder.CancelledTestId = panelSetId;
+                        testCancelledTestOrder.CancelledTestName = testName;
+
                         YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
 
                         this.m_LoginUI.GetReportSearchListByReportNo(panelSetOrder.ReportNo);
@@ -720,8 +773,7 @@ namespace YellowstonePathology.UI.Login
                         MessageBox.Show("Cannot cancel a test that has been finalized.");
                     }
                 }
-            }
-            */
+            }            
         }
 
         private void IcdEntryPage_Next(object sender, EventArgs e)

@@ -99,15 +99,12 @@ namespace YellowstonePathology.UI.Login.Receiving
                     YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet = panelSetCollection.GetPanelSet(this.m_PanelSetOrder.PanelSetId);
                     string subject = "Additional Testing has been ordered: " + panelSet.PanelSetName;
 
-                    System.Net.Mail.MailAddress from = new System.Net.Mail.MailAddress("Results@YPII.com");
-                    //System.Net.Mail.MailAddress to = new System.Net.Mail.MailAddress(this.m_PanelSetOrder.AdditionalTestingEmailAddress);
-                    System.Net.Mail.MailAddress to = new System.Net.Mail.MailAddress("sid.harder@YPII.com");
-                    //System.Net.Mail.MailAddress bcc = new System.Net.Mail.MailAddress("Results@YPII.com");
+                    System.Net.Mail.MailAddress from = new System.Net.Mail.MailAddress("Results@YPII.com");                    
+                    System.Net.Mail.MailAddress to = new System.Net.Mail.MailAddress("sid.harder@YPII.com");                    
 
                     System.Net.Mail.MailMessage message = new System.Net.Mail.MailMessage(from, to);
                     message.Subject = subject;
-                    message.Body = this.m_PanelSetOrder.AdditionalTestingEmailMessage;
-                    //message.Bcc.Add(bcc);
+                    message.Body = this.m_PanelSetOrder.AdditionalTestingEmailMessage;                    
 
                     this.m_PanelSetOrder.AdditionalTestingEmailSent = true;
                     this.m_PanelSetOrder.TimeAdditionalTestingEmailSent = DateTime.Now;
@@ -116,7 +113,12 @@ namespace YellowstonePathology.UI.Login.Receiving
                     this.NotifyPropertyChanged(string.Empty);
 
                     System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient("10.1.2.111");
-                    client.Credentials = new System.Net.NetworkCredential("Results", "p0046ep0046e");
+
+                    Uri uri = new Uri("http://tempuri.org/");
+                    System.Net.ICredentials credentials = System.Net.CredentialCache.DefaultCredentials;
+                    System.Net.NetworkCredential credential = credentials.GetCredential(uri, "Basic");
+
+                    client.Credentials = credential;
                     client.Send(message);
                 }
                 else

@@ -15,6 +15,7 @@ namespace YellowstonePathology.UI.AppMessaging
         protected DateTime m_TimeLockAquired;
         protected string m_RequestingUserName;
         protected string m_RequestingHostName;
+        protected bool m_LockWasReleased;
 
         public MessageBody()
         {
@@ -60,6 +61,12 @@ namespace YellowstonePathology.UI.AppMessaging
         {
             get { return this.m_TimeLockAquired; }
             set { this.m_TimeLockAquired = value; }
+        }
+
+        public bool LockWasReleased
+        {
+            get { return this.m_LockWasReleased; }
+            set { this.m_LockWasReleased = value; }
         }
     }
 }
