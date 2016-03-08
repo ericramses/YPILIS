@@ -7,31 +7,16 @@
         
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>
-            <ColumnDefinition Width="Auto"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Column="0" Grid.Row="0">
-
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-            </Grid.RowDefinitions>
-            
-            <TextBlock Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" VerticalAlignment="Stretch" Text="{Binding Path=Message}"></TextBlock>
-
-        </Grid>
-
-        <Button Grid.Column="1" Grid.Row="2" Width="100" Height="50" Click="ButtonClose_Click" HorizontalAlignment="Right">Close</Button>
-        <TextBlock Grid.Column="0" Grid.Row="3" Text="{Binding Path=CountDownMessage}" Foreground="Red" FontSize="14"></TextBlock>
+        <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Path=Message}"></TextBlock>
+        <Button Grid.Column="0" Grid.Row="1" Width="200" Height="100" Click="ButtonClose_Click" HorizontalAlignment="Right">Close</Button>
+        <TextBlock Grid.Column="0" Grid.Row="2" Text="{Binding Path=CountDownMessage}" Foreground="Red" FontSize="20"></TextBlock>
         
     </Grid>
 </UserControl>

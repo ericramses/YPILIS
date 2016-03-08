@@ -19,11 +19,11 @@ namespace YellowstonePathology.UI.AppMessaging
 
             if(lockWasReleased == true)
             {
-                this.m_Message = this.m_RequestingUserName + " has released the lock on " + this.m_MasterAccessionNo;
+                this.m_Message = this.m_LockAquiredByHostName + "\\" + this.m_LockAquiredByUserName + " has released the lock on " + this.m_MasterAccessionNo;
             }
             else
             {
-                this.m_Message = this.m_RequestingUserName + " says hold your horses. I'm working with " + this.m_MasterAccessionNo + ".";
+                this.m_Message = this.m_LockAquiredByHostName + "\\" + this.m_LockAquiredByUserName + " says hold your horses. I'm working with " + this.m_MasterAccessionNo + ".";
             }
             
         }
