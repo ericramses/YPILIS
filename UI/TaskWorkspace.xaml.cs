@@ -26,7 +26,7 @@ namespace YellowstonePathology.UI
         private MainWindowCommandButtonHandler m_MainWindowCommandButtonHandler;
         private TabItem m_Writer;
 
-        private Login.LoginPageWindow m_LoginPageWindow;
+        private Login.Receiving.LoginPageWindow m_LoginPageWindow;
 
         public TaskWorkspace(MainWindowCommandButtonHandler mainWindowCommandButtonHandler, TabItem writer)
         {
@@ -133,7 +133,7 @@ namespace YellowstonePathology.UI
                 YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(selectedTaskOrder.MasterAccessionNo, this.m_Writer);
                 YellowstonePathology.Business.Task.Model.TaskOrder taskOrder = accessionOrder.TaskOrderCollection.GetTaskOrder(selectedTaskOrder.TaskOrderId);
 
-                this.m_LoginPageWindow = new Login.LoginPageWindow();
+                this.m_LoginPageWindow = new Login.Receiving.LoginPageWindow();
 
                 YellowstonePathology.UI.Login.Receiving.TaskOrderPath taskOrderPath = new Login.Receiving.TaskOrderPath(accessionOrder, taskOrder, this.m_LoginPageWindow.PageNavigator, PageNavigationModeEnum.Standalone);
                 taskOrderPath.Close += new Login.Receiving.TaskOrderPath.CloseEventHandler(TaskOrderPath_Close);

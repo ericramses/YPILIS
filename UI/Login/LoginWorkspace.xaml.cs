@@ -30,7 +30,7 @@ namespace YellowstonePathology.UI.Login
         private MainWindowCommandButtonHandler m_MainWindowCommandButtonHandler;
         private TabItem m_Writer;
 
-        private LoginPageWindow m_LoginPageWindow;        
+        private Login.Receiving.LoginPageWindow m_LoginPageWindow;        
 
         public LoginWorkspace(MainWindowCommandButtonHandler mainWindowCommandButtonHandler, TabItem writer)
         {
@@ -336,7 +336,7 @@ namespace YellowstonePathology.UI.Login
                 if (this.ContainerExistsInAccessionOrder(containerBarcode.ToString()) == true)
                 {
                     YellowstonePathology.Business.User.SystemIdentity systemIdentity = Business.User.SystemIdentity.Instance;
-                    this.m_LoginPageWindow = new LoginPageWindow();
+                    this.m_LoginPageWindow = new Login.Receiving.LoginPageWindow();
 
                     SpecimenOrderDetailsPath specimenOrderDetailsPath = new SpecimenOrderDetailsPath(this.m_LoginUI.AccessionOrder, containerBarcode.ToString(), this.m_LoginPageWindow.PageNavigator);
                     specimenOrderDetailsPath.Finish += new SpecimenOrderDetailsPath.FinishEventHandler(SpecimenOrderDetailsPath_Finish);
@@ -389,7 +389,7 @@ namespace YellowstonePathology.UI.Login
                         YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullClientOrderByClientOrderId(this.m_LoginUI.AccessionOrder.ClientOrderId, this.m_Writer);
 
                         YellowstonePathology.Business.User.SystemIdentity systemIdentity = Business.User.SystemIdentity.Instance;
-                        this.m_LoginPageWindow = new LoginPageWindow();
+                        this.m_LoginPageWindow = new Login.Receiving.LoginPageWindow();
                         this.m_LoginPageWindow.Show();
 
                         YellowstonePathology.UI.Login.FinalizeAccession.FinalizeCytologyPath finalizeCytologyPath = new YellowstonePathology.UI.Login.FinalizeAccession.FinalizeCytologyPath(clientOrder, this.m_LoginUI.AccessionOrder, this.m_LoginUI.ReportNo, this.m_LoginPageWindow.PageNavigator);
@@ -477,7 +477,7 @@ namespace YellowstonePathology.UI.Login
         {
             if (this.ListViewAccessionOrders.SelectedItem != null)
             {
-                this.m_LoginPageWindow = new LoginPageWindow();             
+                this.m_LoginPageWindow = new Login.Receiving.LoginPageWindow();             
                 YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_LoginUI.AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_LoginUI.ReportNo);
                 YellowstonePathology.UI.Login.FinalizeAccession.AliquotAndStainOrderPath aliquotAndStainOrderPath = new FinalizeAccession.AliquotAndStainOrderPath(this.m_LoginUI.AccessionOrder, panelSetOrder, this.m_LoginPageWindow);
                 aliquotAndStainOrderPath.Start();                
@@ -588,7 +588,7 @@ namespace YellowstonePathology.UI.Login
                 YellowstonePathology.UI.Test.ResultPathFactory resultPathFactory = new Test.ResultPathFactory();
                 resultPathFactory.Finished += new Test.ResultPathFactory.FinishedEventHandler(ResultPathFactory_Finished);
 
-                this.m_LoginPageWindow = new LoginPageWindow();
+                this.m_LoginPageWindow = new Login.Receiving.LoginPageWindow();
                 bool started = resultPathFactory.Start(panelSetOrder, this.m_LoginUI.AccessionOrder, this.m_LoginPageWindow.PageNavigator, this.m_LoginPageWindow, System.Windows.Visibility.Collapsed);
                 if (started == true)
                 {
@@ -631,7 +631,7 @@ namespace YellowstonePathology.UI.Login
                 grossEntryPage.Next += new FinalizeAccession.GrossEntryPage.NextEventHandler(GrossEntryPage_Next);
                 grossEntryPage.Back += new FinalizeAccession.GrossEntryPage.BackEventHandler(GrossEntryPage_Back);
                 
-                this.m_LoginPageWindow = new LoginPageWindow();
+                this.m_LoginPageWindow = new Login.Receiving.LoginPageWindow();
                 this.m_LoginPageWindow.PageNavigator.Navigate(grossEntryPage);
                 this.m_LoginPageWindow.ShowDialog();
             }
@@ -662,7 +662,7 @@ namespace YellowstonePathology.UI.Login
 
                 if (taskOrder != null)
                 {                    
-                    this.m_LoginPageWindow = new LoginPageWindow();
+                    this.m_LoginPageWindow = new Login.Receiving.LoginPageWindow();
 
                     YellowstonePathology.UI.Login.Receiving.TaskOrderPath taskOrderPath = new Receiving.TaskOrderPath(this.m_LoginUI.AccessionOrder, taskOrder, this.m_LoginPageWindow.PageNavigator, PageNavigationModeEnum.Standalone);
                     taskOrderPath.Close += new Receiving.TaskOrderPath.CloseEventHandler(TaskOrderPath_Close);
@@ -685,7 +685,7 @@ namespace YellowstonePathology.UI.Login
                 specimenMappingPage.Next += new FinalizeAccession.SpecimenMappingPage.NextEventHandler(SpecimenMappingPage_Next);
                 specimenMappingPage.Back += new FinalizeAccession.SpecimenMappingPage.BackEventHandler(SpecimenMappingPage_Back);
                 
-                this.m_LoginPageWindow = new LoginPageWindow();
+                this.m_LoginPageWindow = new Login.Receiving.LoginPageWindow();
                 this.m_LoginPageWindow.Show();
                 this.m_LoginPageWindow.PageNavigator.Navigate(specimenMappingPage);
             }
@@ -720,7 +720,7 @@ namespace YellowstonePathology.UI.Login
                 ICDEntryPage icdEntryPage = new ICDEntryPage(this.m_LoginUI.AccessionOrder, this.m_LoginUI.ReportNo);
                 icdEntryPage.Next += new ICDEntryPage.NextEventHandler(IcdEntryPage_Next);
 
-                this.m_LoginPageWindow = new LoginPageWindow();
+                this.m_LoginPageWindow = new Login.Receiving.LoginPageWindow();
                 this.m_LoginPageWindow.PageNavigator.Navigate(icdEntryPage);
                 this.m_LoginPageWindow.ShowDialog();
             }
@@ -829,7 +829,7 @@ namespace YellowstonePathology.UI.Login
             YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new Business.Test.TestOrderInfo(panelSet, null, true);
             YellowstonePathology.UI.Login.Receiving.SpecimenSelectionPage specimenSelectionPage = new Receiving.SpecimenSelectionPage(this.m_LoginUI.AccessionOrder, testOrderInfo);
             
-            this.m_LoginPageWindow = new LoginPageWindow();
+            this.m_LoginPageWindow = new Login.Receiving.LoginPageWindow();
             this.m_LoginPageWindow.Show();
             specimenSelectionPage.TargetSelected += new Receiving.SpecimenSelectionPage.TargetSelectedEventHandler(SpecimenSelectionPage_TargetSelected);
             this.m_LoginPageWindow.PageNavigator.Navigate(specimenSelectionPage);

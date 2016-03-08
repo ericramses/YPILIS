@@ -8,7 +8,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 	public class AssignmentPath
 	{
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;		
-        private LoginPageWindow m_LoginPageWindow;        
+        private Login.Receiving.LoginPageWindow m_LoginPageWindow;        
 
 		public AssignmentPath(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {
@@ -17,7 +17,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
         public void Start()
         {
-            this.m_LoginPageWindow = new LoginPageWindow();
+            this.m_LoginPageWindow = new Login.Receiving.LoginPageWindow();
             FinalizeAccession.AssignmentPage AssignmentPage = new FinalizeAccession.AssignmentPage(this.m_AccessionOrder);
             AssignmentPage.Return += new FinalizeAccession.AssignmentPage.ReturnEventHandler(AssignmentPage_Return);
             this.m_LoginPageWindow.PageNavigator.Navigate(AssignmentPage);

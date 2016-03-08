@@ -25,7 +25,7 @@ namespace YellowstonePathology.UI.ReportOrder
 		private YellowstonePathology.Business.Facility.Model.FacilityCollection m_FacilityCollection;
         private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
         private string m_ReportDocumentPath;
-        private YellowstonePathology.UI.Login.LoginPageWindow m_LoginPageWindow;
+        private Login.Receiving.LoginPageWindow m_LoginPageWindow;
 
         public ReportOrderDetailPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 		{			
@@ -225,7 +225,7 @@ namespace YellowstonePathology.UI.ReportOrder
                 YellowstonePathology.UI.Login.SpecimenOrderDetailsPage specimenOrderDetailsPage = new YellowstonePathology.UI.Login.SpecimenOrderDetailsPage(this.m_AccessionOrder, specimenOrder);
                 specimenOrderDetailsPage.Next += new Login.SpecimenOrderDetailsPage.NextEventHandler(SpecimenOrderDetailsPage_Next);
                 specimenOrderDetailsPage.Back += new Login.SpecimenOrderDetailsPage.BackEventHandler(SpecimenOrderDetailsPage_Next);
-                this.m_LoginPageWindow = new Login.LoginPageWindow();
+                this.m_LoginPageWindow = new Login.Receiving.LoginPageWindow();
                 this.m_LoginPageWindow.PageNavigator.Navigate(specimenOrderDetailsPage);
                 this.m_LoginPageWindow.ShowDialog();
             }
@@ -244,7 +244,7 @@ namespace YellowstonePathology.UI.ReportOrder
                 specimenSelectionPage.Back += new Login.Receiving.SpecimenSelectionPage.BackEventHandler(SpecimenSelectionPage_Back);
                 specimenSelectionPage.TargetSelected += new Login.Receiving.SpecimenSelectionPage.TargetSelectedEventHandler(OrderTargetSelectionPage_TargetSelected);
 
-                this.m_LoginPageWindow = new Login.LoginPageWindow();
+                this.m_LoginPageWindow = new Login.Receiving.LoginPageWindow();
                 this.m_LoginPageWindow.PageNavigator.Navigate(specimenSelectionPage);
                 this.m_LoginPageWindow.ShowDialog();
             }

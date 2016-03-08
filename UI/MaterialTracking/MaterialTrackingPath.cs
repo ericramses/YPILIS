@@ -7,7 +7,7 @@ namespace YellowstonePathology.UI.MaterialTracking
 {
 	public class MaterialTrackingPath
 	{				
-		private YellowstonePathology.UI.Login.LoginPageWindow m_LoginPageWindow;
+		private Login.Receiving.LoginPageWindow m_LoginPageWindow;
         
         private bool m_UseMasterAccessionNo = false;
         private string m_MasterAccessionNo;
@@ -24,7 +24,7 @@ namespace YellowstonePathology.UI.MaterialTracking
 
         public void Start()
         {
-            this.m_LoginPageWindow = new Login.LoginPageWindow();
+            this.m_LoginPageWindow = new Login.Receiving.LoginPageWindow();
             this.m_LoginPageWindow.Title = "Material Tracking";            
 
             if (this.m_StartNew == true)

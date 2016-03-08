@@ -8,7 +8,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 	public class DocumentScanningPath
 	{
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;		
-        private LoginPageWindow m_LoginPageWindow;        
+        private Login.Receiving.LoginPageWindow m_LoginPageWindow;        
 
 		public DocumentScanningPath(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {
@@ -17,7 +17,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
         public void Start()
         {
-            this.m_LoginPageWindow = new LoginPageWindow();
+            this.m_LoginPageWindow = new Login.Receiving.LoginPageWindow();
             FinalizeAccession.DocumentScanningPage documentScanningPage = new FinalizeAccession.DocumentScanningPage(this.m_AccessionOrder);
             documentScanningPage.Return += new FinalizeAccession.DocumentScanningPage.ReturnEventHandler(DocumentScanPage_Return);
             this.m_LoginPageWindow.PageNavigator.Navigate(documentScanningPage);

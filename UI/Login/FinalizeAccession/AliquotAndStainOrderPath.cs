@@ -13,7 +13,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;		
         private YellowstonePathology.UI.Navigation.PageNavigator m_PageNavigator;
 		private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
-        private YellowstonePathology.UI.Login.LoginPageWindow m_LoginPageWindow;
+        private Login.Receiving.LoginPageWindow m_LoginPageWindow;
 
 		public AliquotAndStainOrderPath(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
 			YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder,
@@ -26,7 +26,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
         public AliquotAndStainOrderPath(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
             YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder,
-            YellowstonePathology.UI.Login.LoginPageWindow loginPageWindow)
+            Login.Receiving.LoginPageWindow loginPageWindow)
         {
             this.m_AccessionOrder = accessionOrder;
             this.m_PanelSetOrder = panelSetOrder;

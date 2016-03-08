@@ -11,7 +11,7 @@ namespace YellowstonePathology.UI.Login.Receiving
         private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
         private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
 
-        private UI.Login.LoginPageWindow m_LoginPageWindow;        
+        private Login.Receiving.LoginPageWindow m_LoginPageWindow;        
 
         public AdditionalTestingEmailPathWithSecurity(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder)
         {
@@ -21,7 +21,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 
         public void Start()
         {
-            this.m_LoginPageWindow = new UI.Login.LoginPageWindow();
+            this.m_LoginPageWindow = new Login.Receiving.LoginPageWindow();
             AdditionalTestingEMailPage additionalTestingEMailPage = new AdditionalTestingEMailPage(this.m_PanelSetOrder, this.m_AccessionOrder);
             additionalTestingEMailPage.Next += AdditionalTestingEMailPage_Finished;
             additionalTestingEMailPage.Back += AdditionalTestingEMailPage_Finished;

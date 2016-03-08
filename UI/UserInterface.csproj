@@ -1269,9 +1269,6 @@
       <DependentUpon>LabEventLogDialog.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Login\LoginPageWindow.xaml.cs">
-      <DependentUpon>LoginPageWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Login\LoginWorkspace.xaml.cs">
       <DependentUpon>LoginWorkspace.xaml</DependentUpon>
     </Compile>
@@ -2973,10 +2970,6 @@
       <Generator>MSBuild:Compile</Generator>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Login\LoginPageWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Login\LoginWorkspace.xaml">
       <SubType>Designer</SubType>
