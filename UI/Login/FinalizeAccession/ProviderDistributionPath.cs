@@ -15,7 +15,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         private string m_ReportNo;        
-        private LoginPageWindow m_LoginPageWindow;        
+        private Login.Receiving.LoginPageWindow m_LoginPageWindow;        
 
         private System.Windows.Visibility m_NextButtonVisibility;
         private System.Windows.Visibility m_CloseButtonVisibility;
@@ -36,7 +36,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
         public void Start()
         {
-            this.m_LoginPageWindow = new LoginPageWindow();
+            this.m_LoginPageWindow = new Login.Receiving.LoginPageWindow();
             this.m_LoginPageWindow.Width = System.Windows.SystemParameters.PrimaryScreenWidth * 0.80;
 
             FinalizeAccession.ProviderDistributionPage providerDistributionPage = new FinalizeAccession.ProviderDistributionPage(this.m_ReportNo, this.m_AccessionOrder, this.m_LoginPageWindow.PageNavigator,

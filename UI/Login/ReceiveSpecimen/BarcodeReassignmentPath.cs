@@ -8,7 +8,7 @@ namespace YellowstonePathology.UI.Login.ReceiveSpecimen
 	public class BarcodeReassignmentPath
 	{
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
-        private LoginPageWindow m_LoginPageWindow;
+        private Login.Receiving.LoginPageWindow m_LoginPageWindow;
 		private YellowstonePathology.Business.ClientOrder.Model.ClientOrder m_ClientOrder;
 		private YellowstonePathology.Business.ClientOrder.Model.ClientOrderDetail m_ClientOrderDetail;        
 
@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Login.ReceiveSpecimen
 
         public void Start()
         {            
-            this.m_LoginPageWindow = new LoginPageWindow();
+            this.m_LoginPageWindow = new Login.Receiving.LoginPageWindow();
             this.ShowPatientNameLookupPage();
 			this.m_LoginPageWindow.ShowDialog();
         }

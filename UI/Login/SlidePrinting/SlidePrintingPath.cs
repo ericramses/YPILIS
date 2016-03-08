@@ -10,7 +10,7 @@ namespace YellowstonePathology.UI.Login.SlidePrinting
         public delegate void DoneEventHandler(object sender, EventArgs e);
         public event DoneEventHandler Done;
 
-        private YellowstonePathology.UI.Login.LoginPageWindow m_LoginPageWindow;
+        private Login.Receiving.LoginPageWindow m_LoginPageWindow;
 
         public SlidePrintingPath()
         {                        
@@ -20,7 +20,7 @@ namespace YellowstonePathology.UI.Login.SlidePrinting
         public void Start()
         {
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity = Business.User.SystemIdentity.Instance;
-            this.m_LoginPageWindow = new LoginPageWindow();
+            this.m_LoginPageWindow = new Login.Receiving.LoginPageWindow();
             this.m_LoginPageWindow.Show();
             this.ShowScanContainerPage();
         }

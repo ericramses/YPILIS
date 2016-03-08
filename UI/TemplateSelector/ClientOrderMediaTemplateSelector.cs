@@ -16,9 +16,9 @@ namespace YellowstonePathology.UI.TemplateSelector
 				UserControl userControl = null;
 				foreach (Window window in Application.Current.Windows)
 				{					
-					if (window.GetType() == typeof(YellowstonePathology.UI.Login.LoginPageWindow))
+					if (window.GetType() == typeof(Login.Receiving.LoginPageWindow))
 					{
-						YellowstonePathology.UI.Login.LoginPageWindow controller = (YellowstonePathology.UI.Login.LoginPageWindow)window;
+                        Login.Receiving.LoginPageWindow controller = (Login.Receiving.LoginPageWindow)window;
 						userControl = (UserControl)controller.MainContent.Content;
 						break;
 					}

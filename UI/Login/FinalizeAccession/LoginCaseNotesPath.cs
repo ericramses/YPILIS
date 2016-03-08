@@ -9,7 +9,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 	{
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
-		private LoginPageWindow m_LoginPageWindow;		
+		private Login.Receiving.LoginPageWindow m_LoginPageWindow;		
 
 		public LoginCaseNotesPath(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{
@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
 		public void Start()
 		{
-			this.m_LoginPageWindow = new LoginPageWindow();
+			this.m_LoginPageWindow = new Login.Receiving.LoginPageWindow();
             YellowstonePathology.Business.Domain.CaseNotesKeyCollection caseNotesKeyCollection = new YellowstonePathology.Business.Domain.CaseNotesKeyCollection(this.m_AccessionOrder);
             CaseNotesPage caseNotesPage = new CaseNotesPage(this.m_LoginPageWindow.PageNavigator, caseNotesKeyCollection);
             caseNotesPage.Return += new CaseNotesPage.ReturnEventHandler(CaseNotesPage_Return);

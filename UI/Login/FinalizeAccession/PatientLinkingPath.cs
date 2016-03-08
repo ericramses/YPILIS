@@ -8,7 +8,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 	public class PatientLinkingPath
 	{
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;		
-        private LoginPageWindow m_LoginPageWindow;        
+        private Login.Receiving.LoginPageWindow m_LoginPageWindow;        
 		private string m_ReportNo;
 
 		public PatientLinkingPath(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo)
@@ -19,7 +19,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
         public void Start()
         {
-            this.m_LoginPageWindow = new LoginPageWindow();
+            this.m_LoginPageWindow = new Login.Receiving.LoginPageWindow();
             YellowstonePathology.Business.Patient.Model.PatientLinker patientLinker = new Business.Patient.Model.PatientLinker(this.m_AccessionOrder.MasterAccessionNo,
                 this.m_ReportNo,
                 this.m_AccessionOrder.PFirstName,

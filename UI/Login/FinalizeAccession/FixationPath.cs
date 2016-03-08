@@ -8,7 +8,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 	public class FixationPath
 	{		
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;		
-		private LoginPageWindow m_LoginPageWindow;		
+		private Login.Receiving.LoginPageWindow m_LoginPageWindow;		
 
 		public FixationPath(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{
@@ -17,7 +17,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
 		public void Start()
 		{
-			this.m_LoginPageWindow = new LoginPageWindow();			
+			this.m_LoginPageWindow = new Login.Receiving.LoginPageWindow();			
 		    this.ShowFixationDetailsPage();			
 
             this.m_LoginPageWindow.WindowState = System.Windows.WindowState.Maximized;

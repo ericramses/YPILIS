@@ -29,7 +29,7 @@ namespace YellowstonePathology.UI.Flow
         private UI.DocumentWorkspace m_DocumentViewer;
 
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
-        private YellowstonePathology.UI.Login.LoginPageWindow m_LoginPageWindow;
+        private Login.Receiving.LoginPageWindow m_LoginPageWindow;
         private MainWindowCommandButtonHandler m_MainWindowCommandButtonHandler;
         private TabItem m_Writer;
 
@@ -776,10 +776,9 @@ namespace YellowstonePathology.UI.Flow
                 YellowstonePathology.UI.Login.SpecimenOrderDetailsPage specimenOrderDetailsPage = new YellowstonePathology.UI.Login.SpecimenOrderDetailsPage(this.m_FlowUI.AccessionOrder, specimenOrder);
                 specimenOrderDetailsPage.Next += new Login.SpecimenOrderDetailsPage.NextEventHandler(SpecimenOrderDetailsPage_Next);
                 specimenOrderDetailsPage.Back += new Login.SpecimenOrderDetailsPage.BackEventHandler(SpecimenOrderDetailsPage_Next);
-                this.m_LoginPageWindow = new Login.LoginPageWindow();
+                this.m_LoginPageWindow = new Login.Receiving.LoginPageWindow();
                 this.m_LoginPageWindow.PageNavigator.Navigate(specimenOrderDetailsPage);
-                this.m_LoginPageWindow.ShowDialog();
-                //this.m_FlowUI.GetAccessionOrder(this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.ReportNo, this.m_FlowUI.AccessionOrder.MasterAccessionNo);
+                this.m_LoginPageWindow.ShowDialog();                
             }
         }
 
@@ -796,7 +795,7 @@ namespace YellowstonePathology.UI.Flow
                 specimenSelectionPage.Back += new Login.Receiving.SpecimenSelectionPage.BackEventHandler(SpecimenSelectionPage_Back);
                 specimenSelectionPage.TargetSelected += new Login.Receiving.SpecimenSelectionPage.TargetSelectedEventHandler(OrderTargetSelectionPage_TargetSelected);
 
-                this.m_LoginPageWindow = new Login.LoginPageWindow();
+                this.m_LoginPageWindow = new Login.Receiving.LoginPageWindow();
                 this.m_LoginPageWindow.PageNavigator.Navigate(specimenSelectionPage);
                 this.m_LoginPageWindow.ShowDialog();
                 //this.m_FlowUI.GetAccessionOrder(this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.ReportNo, this.m_FlowUI.AccessionOrder.MasterAccessionNo);
@@ -828,7 +827,7 @@ namespace YellowstonePathology.UI.Flow
 
         private void ButtonOrderFlowOnExistingAccession_Click(object sender, RoutedEventArgs e)
         {
-            this.m_LoginPageWindow = new Login.LoginPageWindow();
+            this.m_LoginPageWindow = new Login.Receiving.LoginPageWindow();
             this.m_LoginPageWindow.Width = 300;
             this.m_LoginPageWindow.Height = 300;
 

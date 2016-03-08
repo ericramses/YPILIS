@@ -9,7 +9,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
     {
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;		
 		private string m_ReportNo;        
-        private LoginPageWindow m_LoginPageWindow;        
+        private Login.Receiving.LoginPageWindow m_LoginPageWindow;        
 
 		public FinalizeAccessionPathWithSecurity(string reportNo, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {            
@@ -19,7 +19,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
         public void Start()
         {
-            this.m_LoginPageWindow = new LoginPageWindow();
+            this.m_LoginPageWindow = new Login.Receiving.LoginPageWindow();
             YellowstonePathology.UI.Login.FinalizeAccession.FinalizeAccessionPath finalizeAccessionPath =
                     new FinalizeAccessionPath(this.m_ReportNo, this.m_LoginPageWindow.PageNavigator, this.m_AccessionOrder);
             finalizeAccessionPath.Start();
