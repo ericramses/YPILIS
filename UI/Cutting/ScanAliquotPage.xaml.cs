@@ -100,19 +100,27 @@ namespace YellowstonePathology.UI.Cutting
         private void HandleBlockScanReceived(string aliquotOrderId)
         {
             string masterAccessionNo = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetMasterAccessionNoFromAliquotOrderId(aliquotOrderId);         
-            this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, Window.GetWindow(this));            
 
-            if (this.m_AccessionOrder != null)
+            if(string.IsNullOrEmpty(masterAccessionNo) == false)
             {
-                if(this.m_AccessionOrder.IsLockAquiredByMe == true)
+                this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, Window.GetWindow(this));
+
+                if (this.m_AccessionOrder != null)
                 {
-                    this.m_AliquotOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetAliquotOrder(aliquotOrderId);
-                    this.AddMaterialTrackingLog(this.m_AliquotOrder);
-                    this.AliquotOrderSelected(this, new CustomEventArgs.AliquotOrderAccessionOrderReturnEventArgs(this.m_AliquotOrder, this.m_AccessionOrder));
+                    if (this.m_AccessionOrder.IsLockAquiredByMe == true)
+                    {
+                        this.m_AliquotOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetAliquotOrder(aliquotOrderId);
+                        this.AddMaterialTrackingLog(this.m_AliquotOrder);
+                        this.AliquotOrderSelected(this, new CustomEventArgs.AliquotOrderAccessionOrderReturnEventArgs(this.m_AliquotOrder, this.m_AccessionOrder));
+                    }
+                    else
+                    {
+                        if (this.ShowCaseLockedPage != null) this.ShowCaseLockedPage(this, new CustomEventArgs.AccessionOrderReturnEventArgs(this.m_AccessionOrder));
+                    }
                 }
                 else
                 {
-                    if (this.ShowCaseLockedPage != null) this.ShowCaseLockedPage(this, new CustomEventArgs.AccessionOrderReturnEventArgs(this.m_AccessionOrder));
+                    MessageBox.Show("The block scanned could not be found.");
                 }
             }
             else
