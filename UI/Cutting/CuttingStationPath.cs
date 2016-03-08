@@ -66,11 +66,11 @@ namespace YellowstonePathology.UI.Cutting
         private void ShowCaseLockedPage(Business.Test.AccessionOrder accessionOrder)
         {
             UI.Login.CaseLockedPage caseLockedPage = new Login.CaseLockedPage(accessionOrder);
-            caseLockedPage.OK += CaseLockedPage_OK;
+            caseLockedPage.Next += CaseLockedPage_Next;
             this.m_CuttingWorkspaceWindow.PageNavigator.Navigate(caseLockedPage);
         }
 
-        private void CaseLockedPage_OK(object sender, UI.CustomEventArgs.AccessionOrderReturnEventArgs e)
+        private void CaseLockedPage_Next(object sender, UI.CustomEventArgs.AccessionOrderReturnEventArgs e)
         {
             this.ShowScanAliquotPage(e.AccessionOrder.MasterAccessionNo);
         }
