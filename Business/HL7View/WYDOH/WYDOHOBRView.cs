@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 
-namespace YellowstonePathology.Business.HL7View.CDC
+namespace YellowstonePathology.Business.HL7View.WYDOH
 {
-	public class MTDohObrView
+	public class WYDOHOBRView
 	{
         private YellowstonePathology.Business.User.SystemUser m_SigningPathologist;
 
@@ -16,7 +16,7 @@ namespace YellowstonePathology.Business.HL7View.CDC
         private string m_ObservationResultStatus;
 		private YellowstonePathology.Business.Domain.Physician m_OrderingPhysician;
 
-		public MTDohObrView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, YellowstonePathology.Business.Domain.Physician orderingPhysician)
+		public WYDOHOBRView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, YellowstonePathology.Business.Domain.Physician orderingPhysician)
 		{
 			this.m_AccessionOrder = accessionOrder;
 			this.m_ReportNo = reportNo;
@@ -95,19 +95,11 @@ namespace YellowstonePathology.Business.HL7View.CDC
 
             XElement obr32Element = new XElement("OBR.32");
 
-            StringBuilder obr3201Data = new StringBuilder();
-            obr3201Data.Append(this.m_SigningPathologist.NationalProviderId);
-            obr3201Data.Append("&" + this.m_SigningPathologist.LastName);
-            obr3201Data.Append("&" + this.m_SigningPathologist.FirstName);
-            obr3201Data.Append("&" + this.m_SigningPathologist.Initials.Substring(1, 1));
-            obr3201Data.Append("&" + "MD");
-            obr3201Data.Append("&" + string.Empty);
-            obr3201Data.Append("&" + string.Empty);
-            obr3201Data.Append("&" + string.Empty);
-            obr3201Data.Append("&" + "MT");
-            XElement obr3201Element = new XElement("OBR.32.1", obr3201Data.ToString());
-
-            YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElementIfNotEmpty(obr32Element, obr3201Element);
+			StringBuilder obr3201Data = new StringBuilder();
+			obr3201Data.Append(this.m_SigningPathologist.NationalProviderId);			
+			XElement obr3201Element = new XElement("OBR.32.1", obr3201Data.ToString());
+            
+			YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElementIfNotEmpty(obr32Element, obr3201Element);
 			YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElementIfNotEmpty(obrElement, obr32Element);
 		}
 	}

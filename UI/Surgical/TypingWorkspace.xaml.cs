@@ -94,16 +94,23 @@ namespace YellowstonePathology.UI.Surgical
 
             AppMessaging.MessageQueues.Instance.ReleaseLock += MessageQueue_ReleaseLock;
             AppMessaging.MessageQueues.Instance.AquireLock += MessageQueue_AquireLock;
+            AppMessaging.MessageQueues.Instance.RequestReceived += MessageQueue_RequestReceived;
+        }
+
+        private void MessageQueue_RequestReceived(object sender, UI.CustomEventArgs.MessageReturnEventArgs e)
+        {
+            this.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
+            {
+                AppMessaging.MessagingPath.Instance.StartRequestReceived(e.Message);
+            }
+            ));
         }
 
         private void MainWindowCommandButtonHandler_ShowMessagingDialog(object sender, EventArgs e)
         {
             if (this.m_TypingUI.AccessionOrder != null)
             {
-                AppMessaging.MessagingDialog dialog = new AppMessaging.MessagingDialog();
-                AppMessaging.LockRequestPage page = new AppMessaging.LockRequestPage(this.m_TypingUI.AccessionOrder);
-                dialog.PageNavigator.Navigate(page);
-                dialog.Show();
+                AppMessaging.MessagingPath.Instance.Start(this.m_TypingUI.AccessionOrder);
             }
         }
 

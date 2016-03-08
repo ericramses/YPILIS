@@ -5,9 +5,9 @@ using System.Text;
 using System.Xml;
 using System.Xml.Linq;
 
-namespace YellowstonePathology.Business.HL7View.CDC
+namespace YellowstonePathology.Business.HL7View.WYDOH
 {
-    public class MTDohResultView : IResultView
+    public class WYDOHResultView : IResultView
     {
         public static string CLIANUMBER = "27D0946844";
 
@@ -18,7 +18,7 @@ namespace YellowstonePathology.Business.HL7View.CDC
         private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
         private YellowstonePathology.Business.Domain.Physician m_OrderingPhysician;        
 
-        public MTDohResultView(string reportNo, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
+        public WYDOHResultView(string reportNo, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {
             this.m_AccessionOrder = accessionOrder;            
             this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
@@ -31,34 +31,34 @@ namespace YellowstonePathology.Business.HL7View.CDC
             this.m_Document = new XElement("HL7Message");
             this.m_ObxCount = 1;
 
-            MTDoh client = new MTDoh();
+            WYDOHClient client = new WYDOHClient();
             OruR01 messageType = new OruR01();
 
-            MTDohMshView msh = new MTDohMshView(client, messageType);
+            WYDOHMSHView msh = new WYDOHMSHView(client, messageType);
             msh.ToXml(this.m_Document);
 
-            MTDohPidView pid = new MTDohPidView(this.m_AccessionOrder.PatientId, this.m_AccessionOrder.PLastName, this.m_AccessionOrder.PFirstName, this.m_AccessionOrder.PBirthdate,
+            WYDOHPIDView pid = new WYDOHPIDView(this.m_AccessionOrder.PatientId, this.m_AccessionOrder.PLastName, this.m_AccessionOrder.PFirstName, this.m_AccessionOrder.PBirthdate,
                 this.m_AccessionOrder.PSex, this.m_AccessionOrder.SvhAccount, this.m_AccessionOrder.PSSN, this.m_AccessionOrder.PAddress1, this.m_AccessionOrder.PAddress2,
                 this.m_AccessionOrder.PCity, this.m_AccessionOrder.PState, this.m_AccessionOrder.PZipCode);
             pid.ToXml(this.m_Document);
             
-            MTDohOrcView orc = new MTDohOrcView(this.m_AccessionOrder.ExternalOrderId, this.m_OrderingPhysician, this.m_PanelSetOrder.ReportNo, OrderStatusEnum.Complete, this.m_AccessionOrder.SystemInitiatingOrder);
+            WYDOHORCView orc = new WYDOHORCView(this.m_AccessionOrder.ExternalOrderId, this.m_OrderingPhysician, this.m_PanelSetOrder.ReportNo, OrderStatusEnum.Complete, this.m_AccessionOrder.SystemInitiatingOrder);
             orc.ToXml(this.m_Document);
 
             YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_PanelSetOrder.ReportNo);
             ResultStatus resultStatus = ResultStatusEnum.Final;
             if (panelSetOrder.AmendmentCollection.Count != 0) resultStatus = ResultStatusEnum.Correction;
-            MTDohObrView obr = new MTDohObrView(this.m_AccessionOrder, this.m_PanelSetOrder.ReportNo, this.m_OrderingPhysician);
+            WYDOHOBRView obr = new WYDOHOBRView(this.m_AccessionOrder, this.m_PanelSetOrder.ReportNo, this.m_OrderingPhysician);
             obr.ToXml(this.m_Document);
 
-            MTDohObxView obx = new MTDohObxView(this.m_AccessionOrder, this.m_PanelSetOrder.ReportNo, this.m_ObxCount);
+            WYDOHOBXView obx = new WYDOHOBXView(this.m_AccessionOrder, this.m_PanelSetOrder.ReportNo, this.m_ObxCount);
             obx.ToXml(this.m_Document);
             this.m_ObxCount = obx.ObxCount;
 
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
 			string serverFileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + "\\" + this.m_PanelSetOrder.ReportNo + ".Mirth.xml";
 
-            string mirthFileName = mirthFileName = @"\\YPIIInterface1\ChannelData\Outgoing\1004\" + this.m_PanelSetOrder.ReportNo + ".Mirth.xml";
+            string mirthFileName = mirthFileName = @"\\YPIIInterface1\ChannelData\Outgoing\WYCDC\" + this.m_PanelSetOrder.ReportNo + ".Mirth.xml";
 
             System.IO.StreamWriter streamWriter = new System.IO.StreamWriter(serverFileName, false, new ASCIIEncoding());
             this.m_Document.Save(streamWriter);

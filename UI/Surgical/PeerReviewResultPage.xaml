@@ -89,12 +89,13 @@
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="Auto"></RowDefinition>                    
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>					
 				</Grid.RowDefinitions>
 
 				<TextBlock Grid.Column="0" Grid.Row="0" Margin="0,3,0,0" FontWeight="Bold" FontSize="14">Add Reviewer</TextBlock>
-
+               
 				<TextBlock Grid.Column="0" Grid.Row="1" Margin="5,3,0,0">                    
                     <Hyperlink Click="HyperLinkAddDrBrown_Click">Dr. Brown</Hyperlink>
 				</TextBlock>
@@ -123,7 +124,11 @@
                     <Hyperlink Click="HyperLinkAddDrClegg_Click">Dr. Clegg</Hyperlink>
                 </TextBlock>
 
-                <TextBlock Grid.Column="0" Grid.Row="8" Margin="5,3,0,0" VerticalAlignment="Bottom">                    
+                <TextBlock Grid.Column="0" Grid.Row="8" Margin="5,3,0,0">                    
+                    <Hyperlink Click="HyperLinkAddDrMatthews_Click">Dr. Matthews</Hyperlink>
+                </TextBlock>
+
+                <TextBlock Grid.Column="0" Grid.Row="9" Margin="5,3,0,0" VerticalAlignment="Bottom">                    
                     <Hyperlink Click="HyperLinkShowDocument_Click">Show Document</Hyperlink>
                 </TextBlock>
 

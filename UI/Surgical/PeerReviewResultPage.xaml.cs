@@ -178,6 +178,11 @@ namespace YellowstonePathology.UI.Surgical
             this.AddPeerReview(5087);
         }
 
+        private void HyperLinkAddDrMatthews_Click(object sender, RoutedEventArgs e)
+        {
+            this.AddPeerReview(5136);
+        }
+
         private void HyperLinkDeleteItem_Click(object sender, RoutedEventArgs e)
         {
             Hyperlink hyperlink = (Hyperlink)sender;
@@ -226,6 +231,6 @@ namespace YellowstonePathology.UI.Surgical
         {
             YellowstonePathology.UI.CaseDocumentViewer caseDocumentViewer = new CaseDocumentViewer();
             caseDocumentViewer.View(this.m_AccessionOrder, this.m_SurgicalTestOrder);
-        }        		
-	}
+        }        
+    }
 }

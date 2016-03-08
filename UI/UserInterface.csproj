@@ -41,7 +41,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>79</ApplicationRevision>
+    <ApplicationRevision>89</ApplicationRevision>
     <ApplicationVersion>10.1.3.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -179,10 +179,17 @@
     <Compile Include="AmendmentPage.xaml.cs">
       <DependentUpon>AmendmentPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AppMessaging\LockRequestSentPage.xaml.cs">
+      <DependentUpon>LockRequestSentPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AppMessaging\MessagingPath.cs" />
     <Compile Include="AppMessaging\LockReleaseRequestMessageBody.cs" />
     <Compile Include="AppMessaging\LockReleaseResponseMessageBody.cs" />
-    <Compile Include="AppMessaging\LockRequestResponsePage.xaml.cs">
-      <DependentUpon>LockRequestResponsePage.xaml</DependentUpon>
+    <Compile Include="AppMessaging\LockRequestReceivedPage.xaml.cs">
+      <DependentUpon>LockRequestReceivedPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AppMessaging\LockRequestResponseRecievedPage.xaml.cs">
+      <DependentUpon>LockRequestResponseRecievedPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="AppMessaging\MessageBody.cs" />
     <Compile Include="AppMessaging\MessageDirectionEnum.cs" />
@@ -1826,7 +1833,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="AppMessaging\LockRequestResponsePage.xaml">
+    <Page Include="AppMessaging\LockRequestSentPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="AppMessaging\LockRequestReceivedPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="AppMessaging\LockRequestResponseRecievedPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
