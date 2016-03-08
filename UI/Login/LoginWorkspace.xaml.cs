@@ -30,8 +30,7 @@ namespace YellowstonePathology.UI.Login
         private MainWindowCommandButtonHandler m_MainWindowCommandButtonHandler;
         private TabItem m_Writer;
 
-        private LoginPageWindow m_LoginPageWindow;
-        private AppMessaging.MessagingDialog m_MessagingDialog;
+        private LoginPageWindow m_LoginPageWindow;        
 
         public LoginWorkspace(MainWindowCommandButtonHandler mainWindowCommandButtonHandler, TabItem writer)
         {
@@ -73,20 +72,17 @@ namespace YellowstonePathology.UI.Login
 
                 AppMessaging.MessageQueues.Instance.ReleaseLock += MessageQueue_ReleaseLock;
                 AppMessaging.MessageQueues.Instance.AquireLock += MessageQueue_AquireLock;
-                AppMessaging.MessageQueues.Instance.RequestReceived += Instance_RequestReceived;
+                AppMessaging.MessageQueues.Instance.RequestReceived += MessageQueue_RequestReceived;
             }
 
             this.m_LoadedHasRun = true;
         }
 
-        private void Instance_RequestReceived(object sender, UI.CustomEventArgs.MessageReturnEventArgs e)
-        {
+        private void MessageQueue_RequestReceived(object sender, UI.CustomEventArgs.MessageReturnEventArgs e)
+        {            
             this.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
             {
-                if (this.m_MessagingDialog == null) this.m_MessagingDialog = new AppMessaging.MessagingDialog();
-                AppMessaging.LockRequestPage messagingPage = new AppMessaging.LockRequestPage(e.Message);                
-                this.m_MessagingDialog.PageNavigator.Navigate(messagingPage);
-                this.m_MessagingDialog.Show();                
+                AppMessaging.MessagingPath.Instance.StartRequestReceived(e.Message);
             }
             ));            
         }
@@ -124,10 +120,7 @@ namespace YellowstonePathology.UI.Login
         {
             if(this.ListViewAccessionOrders.SelectedItem != null)
             {
-                AppMessaging.MessagingDialog dialog = new AppMessaging.MessagingDialog();
-                AppMessaging.LockRequestPage page = new AppMessaging.LockRequestPage(this.m_LoginUI.AccessionOrder);
-                dialog.PageNavigator.Navigate(page);
-                dialog.Show();                
+               AppMessaging.MessagingPath.Instance.Start(this.m_LoginUI.AccessionOrder);                
             }            
         }
 

@@ -18,86 +18,25 @@ namespace YellowstonePathology.UI.AppMessaging
 	public partial class LockRequestPage : UserControl, INotifyPropertyChanged
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
-        
-        private System.Messaging.Message m_Message;
+
+        public delegate void CloseEventHandler(object sender, EventArgs e);
+        public event CloseEventHandler Close;        
+
+        public delegate void RequestLockEventHandler(object sender, UI.CustomEventArgs.AccessionOrderReturnEventArgs e);
+        public event RequestLockEventHandler RequestLock;
+
         private Business.Test.AccessionOrder m_AccessionOrder;
 
         private System.Windows.Threading.DispatcherTimer m_DispatchTimer;
         private string m_CountDownMessage;
-        private int m_CurrentCountDown;
-
-        private string m_MasterAccessionNo;
-        private string m_LockAquiredByUserName;
-        private string m_LockAquiredByHostName;
-        private Nullable<DateTime> m_TimeLockAquired;        
+        private int m_CurrentCountDown;        
 
         public LockRequestPage(Business.Test.AccessionOrder accessionOrder)
 		{
-            this.m_AccessionOrder = accessionOrder;
-            this.m_MasterAccessionNo = accessionOrder.MasterAccessionNo;
-            this.m_LockAquiredByUserName = accessionOrder.LockAquiredByUserName;
-            this.m_LockAquiredByHostName = accessionOrder.LockAquiredByHostName;
-            this.m_TimeLockAquired = accessionOrder.TimeLockAquired;
-
+            this.m_AccessionOrder = accessionOrder;            
             InitializeComponent();
-            DataContext = this;
-
-            if (this.m_AccessionOrder.IsLockAquiredByMe == false)
-            {
-                this.ButtonRequest.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                this.ButtonTakeIt.Visibility = Visibility.Visible;
-                this.ButtonHoldYourHorses.Visibility = Visibility.Visible;
-            }
-                        
-            AppMessaging.MessageQueues.Instance.ResponseReceived += Instance_ResponseReceived;
-		}
-
-        public LockRequestPage(System.Messaging.Message message)
-        {
-            this.m_Message = message;
-
-            MessageBody messageBody = (MessageBody)message.Body;
-            this.m_LockAquiredByUserName = messageBody.LockAquiredByUserName;
-            this.m_LockAquiredByHostName = messageBody.LockAquiredByHostName;
-            this.m_MasterAccessionNo = messageBody.MasterAccessionNo;
-            this.m_TimeLockAquired = messageBody.TimeLockAquired;
-
-            InitializeComponent();
-            DataContext = this;
-            AppMessaging.MessageQueues.Instance.ResponseReceived += Instance_ResponseReceived;
-
-            this.ButtonTakeIt.Visibility = Visibility.Visible;
-            this.ButtonHoldYourHorses.Visibility = Visibility.Visible;
-            this.StartCountDownTimer();
-        }
-
-        private void Instance_ResponseReceived(object sender, EventArgs e)
-        {
-            //MessageBox.Show("Hello");
-        }                
-
-        public string MasterAccessionNo
-        {
-            get { return this.m_MasterAccessionNo; }
-        }
-
-        public string LockAquiredByUserName
-        {
-            get { return this.m_LockAquiredByUserName; }
-        }
-
-        public string LockAquiredByHostName
-        {
-            get { return this.m_LockAquiredByHostName; }
-        }
-
-        public Nullable<DateTime> TimeLockAquired
-        {
-            get { return this.m_TimeLockAquired; }
-        }
+            DataContext = this;                                               
+		}               
 
         private void StartCountDownTimer()
         {
@@ -122,10 +61,7 @@ namespace YellowstonePathology.UI.AppMessaging
             if(this.m_CurrentCountDown == 0)
             {
                 this.m_CountDownMessage = string.Empty;
-                this.m_DispatchTimer.Stop();                
-                MessageQueues.Instance.SendLockReleaseResponse(this.m_Message, true); 
-                Window window = Window.GetWindow(this);
-                window.Close();
+                this.m_DispatchTimer.Stop();                                
             }
 
             this.NotifyPropertyChanged("CountDownMessage");
@@ -134,12 +70,7 @@ namespace YellowstonePathology.UI.AppMessaging
         public Business.Test.AccessionOrder AccessionOrder
         {
             get { return this.m_AccessionOrder; }
-        }
-
-        public MessageQueues MessageQueues
-        {
-            get { return MessageQueues.Instance; }
-        }
+        }        
                
 
 		public void NotifyPropertyChanged(String info)
@@ -148,38 +79,16 @@ namespace YellowstonePathology.UI.AppMessaging
 			{
 				PropertyChanged(this, new PropertyChangedEventArgs(info));
 			}
-		}        
+		}                
+
+        private void ButtonAskToTakeCase_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.RequestLock != null) this.RequestLock(this, new CustomEventArgs.AccessionOrderReturnEventArgs(this.m_AccessionOrder));              
+        }        
 
         private void ButtonClose_Click(object sender, RoutedEventArgs e)
         {
-        
-        }
-
-        private void ButtonAskToTakeCase_Click(object sender, RoutedEventArgs e)
-        {            
-            MessageQueues.Instance.SendLockReleaseRequest(this.m_AccessionOrder);
-            //this.StartCountDownTimer();
-        }
-
-        private void ButtonRespondTakeCase_Click(object sender, RoutedEventArgs e)
-        {            
-            this.m_DispatchTimer.Stop();
-            MessageQueues.Instance.SendLockReleaseResponse(this.m_Message, true);            
-            Window window = Window.GetWindow(this);
-            window.Close();
-        }
-
-        private void ButtonRespondHoldYourHorses_Click(object sender, RoutedEventArgs e)
-        {
-            this.m_DispatchTimer.Stop();
-            MessageQueues.Instance.SendLockReleaseResponse(this.m_Message, false);
-            Window window = Window.GetWindow(this);
-            window.Close();
-        }
-
-        private void ButtonOK_Click(object sender, RoutedEventArgs e)
-        {
-            Window.GetWindow(this).Close();
+        	Window.GetWindow(this).Close();
         }
     }
 }

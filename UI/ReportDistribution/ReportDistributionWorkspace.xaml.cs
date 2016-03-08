@@ -482,7 +482,7 @@ namespace YellowstonePathology.UI.ReportDistribution
                     result = this.HandleMTDOHDistribution(testOrderReportDistribution.ReportNo, accessionOrder);
                     break;            
                 case YellowstonePathology.Business.ReportDistribution.Model.DistributionType.WYDOH:
-                    result = this.HandleWYDOHDistribution(testOrderReportDistribution);
+                    result = this.HandleWYDOHDistribution(testOrderReportDistribution.ReportNo, accessionOrder);
                     break;
                 default:
                     result = this.HandleNoImplemented(testOrderReportDistribution);
@@ -492,10 +492,16 @@ namespace YellowstonePathology.UI.ReportDistribution
             return result;
         }
 
-        private YellowstonePathology.Business.ReportDistribution.Model.DistributionResult HandleWYDOHDistribution(YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution testOrderReportDistribution)
+        private YellowstonePathology.Business.ReportDistribution.Model.DistributionResult HandleWYDOHDistribution(string reportNo, Business.Test.AccessionOrder accessionOrder)
         {
+            YellowstonePathology.Business.Rules.MethodResult result = new Business.Rules.MethodResult();
+            YellowstonePathology.Business.HL7View.WYDOH.WYDOHResultView wyYDOHResultView = new Business.HL7View.WYDOH.WYDOHResultView(reportNo, accessionOrder);
+            wyYDOHResultView.CanSend(result);
+            wyYDOHResultView.Send(result);
+
             YellowstonePathology.Business.ReportDistribution.Model.DistributionResult distributionResult = new Business.ReportDistribution.Model.DistributionResult();
-            distributionResult.IsComplete = true;            
+            distributionResult.IsComplete = result.Success;
+            distributionResult.Message = result.Message;
             return distributionResult;
         }
 

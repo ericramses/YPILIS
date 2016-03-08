@@ -61,6 +61,9 @@ namespace YellowstonePathology.Business.HL7View
                 case 1337:
                     resultView = new HL7View.CDC.MTDohResultView(reportNo, accessionOrder);
                     break;
+                case 1335:
+                    resultView = new HL7View.WYDOH.WYDOHResultView(reportNo, accessionOrder);
+                    break;
                 case 1203:
                     resultView = new HL7View.ECW.ECWResultView(reportNo, accessionOrder, testing);
                     break;

@@ -15,7 +15,7 @@ using System.ComponentModel;
 
 namespace YellowstonePathology.UI.AppMessaging
 {	
-	public partial class LockRequestResponsePage : UserControl, INotifyPropertyChanged
+	public partial class LockRequestReceivedPage : UserControl, INotifyPropertyChanged
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
         
@@ -29,9 +29,9 @@ namespace YellowstonePathology.UI.AppMessaging
         private string m_MasterAccessionNo;
         private string m_LockAquiredByUserName;
         private string m_LockAquiredByHostName;
-        private Nullable<DateTime> m_TimeLockAquired;                
+        private Nullable<DateTime> m_TimeLockAquired;
 
-        public LockRequestResponsePage(System.Messaging.Message message)
+        public LockRequestReceivedPage(System.Messaging.Message message)
         {
             this.m_Message = message;
 
@@ -44,9 +44,7 @@ namespace YellowstonePathology.UI.AppMessaging
             InitializeComponent();
             DataContext = this;
             AppMessaging.MessageQueues.Instance.ResponseReceived += Instance_ResponseReceived;
-
-            this.ButtonTakeIt.Visibility = Visibility.Visible;
-            this.ButtonHoldYourHorses.Visibility = Visibility.Visible;
+            
             this.StartCountDownTimer();
         }
 
@@ -99,9 +97,7 @@ namespace YellowstonePathology.UI.AppMessaging
             {
                 this.m_CountDownMessage = string.Empty;
                 this.m_DispatchTimer.Stop();                
-                MessageQueues.Instance.SendLockReleaseResponse(this.m_Message, true); 
-                Window window = Window.GetWindow(this);
-                window.Close();
+                MessageQueues.Instance.SendLockReleaseResponse(this.m_Message, true);                 
             }
 
             this.NotifyPropertyChanged("CountDownMessage");

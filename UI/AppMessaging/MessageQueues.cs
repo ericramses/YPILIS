@@ -9,6 +9,9 @@ namespace YellowstonePathology.UI.AppMessaging
 {
     public class MessageQueues : INotifyPropertyChanged
     {
+        private static volatile MessageQueues instance;
+        private static object syncRoot = new Object();
+
         public delegate void ReleaseLockEventHandler(object sender, EventArgs e);
         public event ReleaseLockEventHandler ReleaseLock;
 
@@ -19,10 +22,7 @@ namespace YellowstonePathology.UI.AppMessaging
         public event RequestReceivedEventHandler RequestReceived;
 
         public delegate void ResponseReceivedEventHandler(object sender, UI.CustomEventArgs.MessageReturnEventArgs e);
-        public event ResponseReceivedEventHandler ResponseReceived;
-
-        private static volatile MessageQueues instance;
-        private static object syncRoot = new Object();
+        public event ResponseReceivedEventHandler ResponseReceived;        
 
         public delegate void PropertyChangedNotificationHandler(String info);
         public event PropertyChangedEventHandler PropertyChanged;

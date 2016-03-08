@@ -452,6 +452,13 @@
     <Compile Include="HL7View\Panther\PantherPID.cs" />
     <Compile Include="HL7View\Panther\PantherHL7Client.cs" />
     <Compile Include="HL7View\Panther\PantherMSH.cs" />
+    <Compile Include="HL7View\WYDOH\WYDOHClient.cs" />
+    <Compile Include="HL7View\WYDOH\WYDOHMSHView.cs" />
+    <Compile Include="HL7View\WYDOH\WYDOHOBRView.cs" />
+    <Compile Include="HL7View\WYDOH\WYDOHOBXView.cs" />
+    <Compile Include="HL7View\WYDOH\WYDOHORCView.cs" />
+    <Compile Include="HL7View\WYDOH\WYDOHPIDView.cs" />
+    <Compile Include="HL7View\WYDOH\WYDOHResultView.cs" />
     <Compile Include="Interface\IFlowMarker.cs" />
     <Compile Include="Interface\ILeukemiaLymphomaResult.cs" />
     <Compile Include="Label.Model\SpecimenLabel.cs" />

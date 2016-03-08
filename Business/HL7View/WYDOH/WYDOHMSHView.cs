@@ -4,16 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 
-namespace YellowstonePathology.Business.HL7View
+namespace YellowstonePathology.Business.HL7View.WYDOH
 {
-	public class MTDohMshView
+	public class WYDOHMSHView
 	{
         public static string CLIANUMBER = "27D0946844";
 
         Hl7Client m_Client;
         Hl7MessageType m_MessageType;
 
-		public MTDohMshView(Hl7Client client, Hl7MessageType messageType)
+		public WYDOHMSHView(Hl7Client client, Hl7MessageType messageType)
 		{
             this.m_Client = client;
             this.m_MessageType = messageType;
@@ -45,16 +45,14 @@ namespace YellowstonePathology.Business.HL7View
             msh04Element.Add(msh0401Element);
             msh04Element.Add(msh0402Element);
             msh04Element.Add(msh0403Element);
-            mshElement.Add(msh04Element);            
+            mshElement.Add(msh04Element);
 
             XElement msh05Element = new XElement("MSH.5");
-            YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("MSH.5.1", this.m_Client.ReceivingApplication, msh05Element);
-            YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("MSH.5.2", this.m_Client.ReceivingFacility, msh05Element);
+            YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("MSH.5.1", "WCSP", msh05Element);            
             YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElementIfNotEmpty(mshElement, msh05Element);
 
             XElement msh06Element = new XElement("MSH.6");
-            YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("MSH.6.1", this.m_Client.ReceivingApplication, msh06Element);
-            YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("MSH.6.2", this.m_Client.ReceivingFacility, msh06Element);
+            YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("MSH.6.1", "WCSP", msh06Element);            
             YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElementIfNotEmpty(mshElement, msh06Element);                       
 
             XElement msh07Element = new XElement("MSH.7");
