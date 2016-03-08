@@ -38,15 +38,11 @@ namespace YellowstonePathology.UI.AppMessaging
             }
         }
 
-        public void Start(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, Navigation.PageNavigator pageNavigator)
+        public void StartSendRequest(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, Navigation.PageNavigator pageNavigator)
         {
-            if(this.m_DialogIsActive == false)
-            {
-                this.m_PageNavigator = pageNavigator;
-                AppMessaging.LockRequestPage page = new AppMessaging.LockRequestPage(accessionOrder);
-                pageNavigator.Navigate(page);
-                this.m_DialogIsActive = true;                
-            }            
+            this.m_PageNavigator = pageNavigator;
+            MessageQueues.Instance.SendLockReleaseRequest(accessionOrder);
+            this.ShowLockRequestSentPage(accessionOrder);
         }
 
         public void Start(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
