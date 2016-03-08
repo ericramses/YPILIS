@@ -7,49 +7,20 @@
         
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>
-            <ColumnDefinition Width="Auto"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Column="0" Grid.Row="0">
-
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-            </Grid.RowDefinitions>
-
-            <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" VerticalAlignment="Bottom" HorizontalAlignment="Right" FontWeight="Bold">Master AccessionNo:</TextBlock>
-            <TextBlock Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" VerticalAlignment="Stretch" Text="{Binding Path=MasterAccessionNo}"></TextBlock>
-
-            <TextBlock Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" VerticalAlignment="Bottom" HorizontalAlignment="Right" FontWeight="Bold">Locked By:</TextBlock>
-            <TextBlock Grid.Column="1" Grid.Row="1" Margin="2,2,2,2" VerticalAlignment="Stretch" Text="{Binding Path=LockAquiredByUserName}"></TextBlock>
-
-            <TextBlock Grid.Column="0" Grid.Row="2" Margin="2,2,2,2" VerticalAlignment="Bottom" HorizontalAlignment="Right" FontWeight="Bold">Computer Name:</TextBlock>
-            <TextBlock Grid.Column="1" Grid.Row="2" Margin="2,2,2,2" VerticalAlignment="Stretch" Text="{Binding Path=LockAquiredByHostName}"></TextBlock>
-
-            <TextBlock Grid.Column="0" Grid.Row="3" Margin="2,2,2,2" VerticalAlignment="Bottom" HorizontalAlignment="Right" FontWeight="Bold">Time Lock Aquired:</TextBlock>
-            <TextBlock Grid.Column="1" Grid.Row="3" Margin="2,2,2,2" VerticalAlignment="Stretch" Text="{Binding Path=TimeLockAquired}"></TextBlock>
-
-        </Grid>
-
-        <StackPanel Grid.Column="1" Grid.Row="0">
-            <Button Name="ButtonRequest" Width="200" Height="30" Click="ButtonAskToTakeCase_Click" Margin="2,2,2,2" Visibility="Collapsed">Ask for the lock</Button>
-            <Button Name="ButtonTakeIt" Width="200" Height="30" Click="ButtonRespondTakeCase_Click" Margin="2,2,2,2" Visibility="Collapsed">Go ahead and take it</Button>
-        </StackPanel>
-
-        <Button Grid.Column="1" Grid.Row="2" Width="50" Height="30" Click="ButtonOK_Click" HorizontalAlignment="Right">OK</Button>
-        <TextBlock Grid.Column="0" Grid.Row="3" Text="{Binding Path=CountDownMessage}" Foreground="Red" FontSize="14"></TextBlock>
+        <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding Path=MessageBody.Message}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+        <Button Grid.Column="0" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="ButtonRespondTakeIt_Click" Margin="2,2,2,2">Go ahead and take it</Button>
+        <Button Grid.Column="0" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="ButtonRespondHoldYourHorses_Click" Margin="2,2,2,2">Hold your horses</Button>
+        <Button Grid.Column="0" Grid.Row="3"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="ButtonClose_Click">Close</Button>
+        <TextBlock Grid.Column="0" Grid.Row="4" Text="{Binding Path=CountDownMessage}" Foreground="Red" FontSize="20"></TextBlock>
         
     </Grid>
 </UserControl>

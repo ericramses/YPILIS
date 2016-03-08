@@ -20,58 +20,27 @@ namespace YellowstonePathology.UI.AppMessaging
 		public event PropertyChangedEventHandler PropertyChanged;
         
         private System.Messaging.Message m_Message;
-        private Business.Test.AccessionOrder m_AccessionOrder;
+        private MessageBody m_MessageBody;
 
         private System.Windows.Threading.DispatcherTimer m_DispatchTimer;
         private string m_CountDownMessage;
-        private int m_CurrentCountDown;
-
-        private string m_MasterAccessionNo;
-        private string m_LockAquiredByUserName;
-        private string m_LockAquiredByHostName;
-        private Nullable<DateTime> m_TimeLockAquired;
+        private int m_CurrentCountDown;        
 
         public LockRequestReceivedPage(System.Messaging.Message message)
         {
             this.m_Message = message;
-
-            MessageBody messageBody = (MessageBody)message.Body;
-            this.m_LockAquiredByUserName = messageBody.LockAquiredByUserName;
-            this.m_LockAquiredByHostName = messageBody.LockAquiredByHostName;
-            this.m_MasterAccessionNo = messageBody.MasterAccessionNo;
-            this.m_TimeLockAquired = messageBody.TimeLockAquired;
+            this.m_MessageBody = (MessageBody)message.Body;
 
             InitializeComponent();
-            DataContext = this;
-            AppMessaging.MessageQueues.Instance.ResponseReceived += Instance_ResponseReceived;
+            DataContext = this;            
             
             this.StartCountDownTimer();
-        }
-
-        private void Instance_ResponseReceived(object sender, EventArgs e)
+        }    
+        
+        public MessageBody MessageBody
         {
-            //MessageBox.Show("Hello");
-        }                
-
-        public string MasterAccessionNo
-        {
-            get { return this.m_MasterAccessionNo; }
-        }
-
-        public string LockAquiredByUserName
-        {
-            get { return this.m_LockAquiredByUserName; }
-        }
-
-        public string LockAquiredByHostName
-        {
-            get { return this.m_LockAquiredByHostName; }
-        }
-
-        public Nullable<DateTime> TimeLockAquired
-        {
-            get { return this.m_TimeLockAquired; }
-        }
+            get { return this.m_MessageBody; }
+        }            
 
         private void StartCountDownTimer()
         {
@@ -101,39 +70,9 @@ namespace YellowstonePathology.UI.AppMessaging
             }
 
             this.NotifyPropertyChanged("CountDownMessage");
-        }
+        }                       		                       
 
-        public Business.Test.AccessionOrder AccessionOrder
-        {
-            get { return this.m_AccessionOrder; }
-        }
-
-        public MessageQueues MessageQueues
-        {
-            get { return MessageQueues.Instance; }
-        }
-               
-
-		public void NotifyPropertyChanged(String info)
-		{
-			if (PropertyChanged != null)
-			{
-				PropertyChanged(this, new PropertyChangedEventArgs(info));
-			}
-		}        
-
-        private void ButtonClose_Click(object sender, RoutedEventArgs e)
-        {
-        
-        }
-
-        private void ButtonAskToTakeCase_Click(object sender, RoutedEventArgs e)
-        {            
-            MessageQueues.Instance.SendLockReleaseRequest(this.m_AccessionOrder);
-            //this.StartCountDownTimer();
-        }
-
-        private void ButtonRespondTakeCase_Click(object sender, RoutedEventArgs e)
+        private void ButtonRespondTakeIt_Click(object sender, RoutedEventArgs e)
         {            
             this.m_DispatchTimer.Stop();
             MessageQueues.Instance.SendLockReleaseResponse(this.m_Message, true);            
@@ -149,9 +88,17 @@ namespace YellowstonePathology.UI.AppMessaging
             window.Close();
         }
 
-        private void ButtonOK_Click(object sender, RoutedEventArgs e)
+        private void ButtonClose_Click(object sender, RoutedEventArgs e)
         {
             Window.GetWindow(this).Close();
+        }
+
+        public void NotifyPropertyChanged(String info)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
         }
     }
 }
