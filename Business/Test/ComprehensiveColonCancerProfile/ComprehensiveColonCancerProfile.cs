@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using YellowstonePathology.Business.Audit.Model;
 using YellowstonePathology.Business.Persistence;
+using YellowstonePathology.Business.Rules;
 
 namespace YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile
 {
@@ -58,5 +60,24 @@ namespace YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile
 		{
 			return "Interpretation: " + this.m_Interpretation;
 		}
-	}
+
+        public override AuditResult IsOkToFinalize(AccessionOrder accessionOrder)
+        {
+            YellowstonePathology.Business.Audit.Model.AuditResult result = new AuditResult();
+            if (this.Final == true)
+            {
+                result.Status = AuditStatusEnum.Failure;
+                result.Message = "This case cannot be finalized because it is already finalized.";
+            }
+            else
+            {
+                ComprehensiveColonCancerProfileResult comprehensiveColonCancerProfileResult = new ComprehensiveColonCancerProfileResult(accessionOrder, this);
+                YellowstonePathology.Business.Audit.Model.ComprehensiveColonCancerProfileFinalAudit comprehensiveColonCancerProfileFinalAudit = new ComprehensiveColonCancerProfileFinalAudit(comprehensiveColonCancerProfileResult);
+                comprehensiveColonCancerProfileFinalAudit.Run();
+                result.Status = comprehensiveColonCancerProfileFinalAudit.Status;
+                result.Message = comprehensiveColonCancerProfileFinalAudit.Message.ToString();
+            }
+            return result;
+        }
+    }
 }

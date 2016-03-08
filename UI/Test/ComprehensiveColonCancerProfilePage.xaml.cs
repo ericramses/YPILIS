@@ -105,13 +105,22 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkFinalizeResults_Click(object sender, RoutedEventArgs e)
 		{
-            if (this.m_ComprehensiveColonCancerProfile.Final == false)
+            YellowstonePathology.Business.Audit.Model.AuditResult auditResult = this.m_ComprehensiveColonCancerProfile.IsOkToFinalize(this.m_AccessionOrder);
+            if (auditResult.Status == Business.Audit.Model.AuditStatusEnum.Failure)
 			{
-                this.m_ComprehensiveColonCancerProfile.Finalize();
+                MessageBox.Show(auditResult.Message);
 			}
+            else if(auditResult.Status == Business.Audit.Model.AuditStatusEnum.Warning)
+            {
+				MessageBoxResult messageBoxResult = MessageBox.Show(auditResult.Message, "Unnecessary Report", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes);
+                if(messageBoxResult == MessageBoxResult.Yes)
+                {
+                    MessageBox.Show("Notify IT to remove this report.");
+                }
+            }
 			else
 			{
-				MessageBox.Show("This case cannot be finalized because it is already final.");
+                this.m_ComprehensiveColonCancerProfile.Finalize();
 			}
 		}
 
