@@ -10,8 +10,12 @@ namespace YellowstonePathology.UI.AppMessaging
         private static volatile MessagingPath instance;
         private static object syncRoot = new Object();
 
+        public delegate void LockAquiredEventHandler(object sender, EventArgs e);
+        public event LockAquiredEventHandler LockAquired;
+
         private bool m_DialogIsActive;
         private Navigation.PageNavigator m_PageNavigator;
+        private bool m_PageNavigatorWasPassedIn;
 
         static MessagingPath()
         {
@@ -21,6 +25,7 @@ namespace YellowstonePathology.UI.AppMessaging
         private MessagingPath()
         {            
             this.m_DialogIsActive = false;
+            this.m_PageNavigatorWasPassedIn = false;
         }       
 
         public void StartRequestReceived(System.Messaging.Message message)
@@ -41,6 +46,7 @@ namespace YellowstonePathology.UI.AppMessaging
         public void StartSendRequest(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, Navigation.PageNavigator pageNavigator)
         {
             this.m_PageNavigator = pageNavigator;
+            this.m_PageNavigatorWasPassedIn = true;
             MessageQueues.Instance.SendLockReleaseRequest(accessionOrder);
             this.ShowLockRequestSentPage(accessionOrder);
         }
@@ -81,10 +87,25 @@ namespace YellowstonePathology.UI.AppMessaging
         }
 
         private void LockRequestSentPage_ShowResponseReceivedPage(object sender, CustomEventArgs.MessageReturnEventArgs e)
-        {                        
-            LockRequestResponseReceivedPage lockRequestResponseReceivedPage = new LockRequestResponseReceivedPage(e.Message);
+        {
+            LockRequestResponseReceivedPage lockRequestResponseReceivedPage = null;
+            if(this.m_PageNavigatorWasPassedIn == false)
+            {
+                lockRequestResponseReceivedPage = new LockRequestResponseReceivedPage(e.Message, System.Windows.Visibility.Visible, System.Windows.Visibility.Collapsed);
+            }
+            else
+            {
+                lockRequestResponseReceivedPage = new LockRequestResponseReceivedPage(e.Message, System.Windows.Visibility.Collapsed, System.Windows.Visibility.Visible);
+            }
+
+            lockRequestResponseReceivedPage.LockAquired += LockRequestResponseReceivedPage_LockAquired;
             this.m_PageNavigator.Navigate(lockRequestResponseReceivedPage);            
-        }        
+        }
+
+        private void LockRequestResponseReceivedPage_LockAquired(object sender, EventArgs e)
+        {
+            if (this.LockAquired != null) this.LockAquired(this, new EventArgs());
+        }
 
         public static MessagingPath Instance
         {
