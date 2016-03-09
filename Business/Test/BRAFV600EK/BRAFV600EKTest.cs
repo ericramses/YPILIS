@@ -34,7 +34,7 @@ namespace YellowstonePathology.Business.Test.BRAFV600EK
             this.m_HasSplitCPTCode = true;
             //Checked by MS and TK;
 
-            string taskDescription = "Cut curls and an after H&E. Give to molecular.";
+            string taskDescription = "Cut 3 x 20µm curls in a microcentrifuge tube and an after H&E. Give to molecular.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Histology, taskDescription));
 
             string task2Description = "Receive curls from Histology and perform testing.";

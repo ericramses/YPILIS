@@ -23,8 +23,11 @@ namespace YellowstonePathology.Business.Test.NRASMutationAnalysis
 
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.NRASMutationAnalysis.NRASMutationAnalysisTestOrder).AssemblyQualifiedName;
 
-            string taskDescription = "Gather materials (2 unstained and 1 stained slide with area of interest circled by pathologist) and send out to Neo.";
-			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, taskDescription));
+            string taskDescription = "Give block to molecular for sendout.";
+			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Histology, taskDescription));
+
+            string task2Description = "Receive block fron Histology and send to Neo for testing.";
+			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, task2Description));
 
             this.m_TechnicalComponentFacility = new YellowstonePathology.Business.Facility.Model.NeogenomicsIrvine();
             this.m_TechnicalComponentBillingFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings();
