@@ -18,14 +18,20 @@ namespace YellowstonePathology.UI.AppMessaging
 	public partial class LockRequestResponseReceivedPage : UserControl, INotifyPropertyChanged
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
-        
+
+        public delegate void LockAquiredEventHandler(object sender, EventArgs e);
+        public event LockAquiredEventHandler LockAquired;
+
         private MessageBody m_MessageBody;        
 
-        public LockRequestResponseReceivedPage(System.Messaging.Message message)
+        public LockRequestResponseReceivedPage(System.Messaging.Message message, System.Windows.Visibility closeButtonVisibility, System.Windows.Visibility nextButtonVisibility)
         {            
             this.m_MessageBody = (MessageBody)message.Body;                        
             InitializeComponent();
-            DataContext = this;                                    
+            DataContext = this;
+
+            this.ButtonClose.Visibility = closeButtonVisibility;
+            this.ButtonNext.Visibility = nextButtonVisibility;
         }  
         
         public MessageBody MessageBody
@@ -36,6 +42,11 @@ namespace YellowstonePathology.UI.AppMessaging
         private void ButtonClose_Click(object sender, RoutedEventArgs e)
         {
             Window.GetWindow(this).Close();
+        }
+
+        private void ButtonNext_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.LockAquired != null) this.LockAquired(this, new EventArgs());
         }
 
         public void NotifyPropertyChanged(String info)

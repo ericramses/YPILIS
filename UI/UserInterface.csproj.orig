@@ -29,7 +29,7 @@
     <ApplicationIcon>YPI.ico</ApplicationIcon>
     <NoWin32Manifest>true</NoWin32Manifest>
     <TargetFrameworkProfile />
-    <PublishUrl>\\Ypiidc\YPIILIS\Test\</PublishUrl>
+    <PublishUrl>\\ypiidc\YPIILIS\Application\</PublishUrl>
     <Install>false</Install>
     <InstallFrom>Unc</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -41,8 +41,12 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>8</ApplicationRevision>
-    <ApplicationVersion>10.1.4.%2a</ApplicationVersion>
+<<<<<<< HEAD
+    <ApplicationRevision>92</ApplicationRevision>
+=======
+    <ApplicationRevision>91</ApplicationRevision>
+>>>>>>> v10.1.4
+    <ApplicationVersion>10.1.3.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -248,7 +252,6 @@
     <Compile Include="CustomEventArgs\AliquotOrderAccessionOrderReturnEventArgs.cs" />
     <Compile Include="CustomEventArgs\AliquotOrderReturnEventArgs.cs" />
     <Compile Include="CustomEventArgs\CancelTestEventArgs.cs" />
-    <Compile Include="CustomEventArgs\BarcodReturnEventArgs.cs" />
     <Compile Include="CustomEventArgs\EventHandlerDefinitions.cs" />
     <Compile Include="CustomEventArgs\MessageReturnEventArgs.cs" />
     <Compile Include="CustomEventArgs\TestOrderAliquotOrderReturnEventArgs.cs" />

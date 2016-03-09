@@ -17,10 +17,7 @@ namespace YellowstonePathology.UI.AppMessaging
 {	
 	public partial class LockRequestSentPage : UserControl, INotifyPropertyChanged
 	{
-		public event PropertyChangedEventHandler PropertyChanged;
-
-        public delegate void CloseEventHandler(object sender, EventArgs e);
-        public event CloseEventHandler Close;
+		public event PropertyChangedEventHandler PropertyChanged;        
 
         public delegate void ShowResponseReceivedPageEventHandler(object sender, CustomEventArgs.MessageReturnEventArgs e);
         public event ShowResponseReceivedPageEventHandler ShowResponseReceivedPage;
@@ -36,7 +33,7 @@ namespace YellowstonePathology.UI.AppMessaging
         public LockRequestSentPage(Business.Test.AccessionOrder accessionOrder)
 		{
             this.m_AccessionOrder = accessionOrder;
-            this.m_Message = "A requesst for " + this.m_AccessionOrder.MasterAccessionNo + " was sent.";
+            this.m_Message = "A requesst to relase the lock on " + this.m_AccessionOrder.MasterAccessionNo + " was sent to " + this.m_AccessionOrder.LockAquiredByHostName + "\\" + this.m_AccessionOrder.LockAquiredByUserName;
             MessageQueues.Instance.ResponseReceived += MessageQueues_ResponseReceived;
             InitializeComponent();
             DataContext = this;
@@ -46,18 +43,12 @@ namespace YellowstonePathology.UI.AppMessaging
         private void MessageQueues_ResponseReceived(object sender, CustomEventArgs.MessageReturnEventArgs e)
         {
             this.m_DispatchTimer.Stop();
-
             this.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
             {
                 if (this.ShowResponseReceivedPage != null) this.ShowResponseReceivedPage(this, e);
             }
             ));
-        }
-
-        public Business.Test.AccessionOrder AccessionOrder
-        {
-            get { return this.m_AccessionOrder; }
-        }
+        }        
 
         private void StartCountDownTimer()
         {

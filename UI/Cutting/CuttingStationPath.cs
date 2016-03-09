@@ -53,8 +53,7 @@ namespace YellowstonePathology.UI.Cutting
             scanAliquotPage.ShowMasterAccessionNoEntryPage += new ScanAliquotPage.ShowMasterAccessionNoEntryPageEventHandler(ScanAliquotPage_ShowMasterAccessionNoEntryPage);
             scanAliquotPage.UseLastMasterAccessionNo += new ScanAliquotPage.UseLastMasterAccessionNoEventHandler(ScanAliquotPage_UseLastMasterAccessionNo);
             scanAliquotPage.PageTimedOut += new ScanAliquotPage.PageTimedOutEventHandler(PageTimedOut);
-            scanAliquotPage.PrintImmunos += ScanAliquotPage_PrintImmunos;
-            scanAliquotPage.ShowCaseLockedPage += ScanAliquotPage_ShowCaseLockedPage;
+            scanAliquotPage.PrintImmunos += ScanAliquotPage_PrintImmunos;            
             this.m_CuttingWorkspaceWindow.PageNavigator.Navigate(scanAliquotPage);
         }
 
@@ -66,13 +65,25 @@ namespace YellowstonePathology.UI.Cutting
         private void ShowCaseLockedPage(Business.Test.AccessionOrder accessionOrder)
         {
             UI.Login.CaseLockedPage caseLockedPage = new Login.CaseLockedPage(accessionOrder);
-            caseLockedPage.OK += CaseLockedPage_OK;
+            caseLockedPage.Next += CaseLockedPage_Next;
+            caseLockedPage.AskForLock += CaseLockedPage_AskForLock;
             this.m_CuttingWorkspaceWindow.PageNavigator.Navigate(caseLockedPage);
         }
 
-        private void CaseLockedPage_OK(object sender, UI.CustomEventArgs.AccessionOrderReturnEventArgs e)
+        private void CaseLockedPage_AskForLock(object sender, CustomEventArgs.AccessionOrderReturnEventArgs e)
         {
-            this.ShowScanAliquotPage(e.AccessionOrder.MasterAccessionNo);
+            AppMessaging.MessagingPath.Instance.StartSendRequest(e.AccessionOrder, this.m_CuttingWorkspaceWindow.PageNavigator);
+            AppMessaging.MessagingPath.Instance.LockAquired += MessageQueuePath_LockAquired;
+        }
+
+        private void MessageQueuePath_LockAquired(object sender, EventArgs e)
+        {
+            //this.HandleLockAquiredByMe();
+        }
+
+        private void CaseLockedPage_Next(object sender, UI.CustomEventArgs.AccessionOrderReturnEventArgs e)
+        {
+            //this.ShowScanAliquotPage(e.AccessionOrder.MasterAccessionNo);
         }
 
         private void ScanAliquotPage_PrintImmunos(object sender, EventArgs eventArgs)
@@ -138,10 +149,59 @@ namespace YellowstonePathology.UI.Cutting
             this.HandleAliquotOrderFound(eventArgs.AliquotOrder);
         }
 
-        private void ScanAliquotPage_AliquotOrderSelected(object sender, CustomEventArgs.AliquotOrderAccessionOrderReturnEventArgs eventArgs)
+        private void ScanAliquotPage_AliquotOrderSelected(object sender, CustomEventArgs.BarcodeReturnEventArgs eventArgs)
+        {            
+            string aliquotOrderId = eventArgs.Barcode.ID;
+            string masterAccessionNo = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetMasterAccessionNoFromAliquotOrderId(aliquotOrderId);
+
+            if (string.IsNullOrEmpty(masterAccessionNo) == false)
+            {
+                this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, this.m_CuttingWorkspaceWindow);
+
+                if (this.m_AccessionOrder != null)
+                {
+                    if (this.m_AccessionOrder.IsLockAquiredByMe == true)
+                    {
+                        Business.Test.AliquotOrder aliquotOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetAliquotOrder(aliquotOrderId);
+                        this.AddMaterialTrackingLog(aliquotOrder);
+                        this.HandleAliquotOrderFound(aliquotOrder);                      
+                    }
+                    else
+                    {
+                        this.ShowCaseLockPage();
+                    }
+                }
+                else
+                {
+                    System.Windows.MessageBox.Show("The block scanned could not be found.");
+                }
+            }
+            else
+            {
+                System.Windows.MessageBox.Show("The block scanned could not be found.");
+            }
+        }
+
+        private void ShowCaseLockPage()
         {
-            this.m_AccessionOrder = eventArgs.AccessionOrder;			
-            this.HandleAliquotOrderFound(eventArgs.AliquotOrder);            
+            UI.Login.CaseLockedPage caseLockedPage = new Login.CaseLockedPage(this.m_AccessionOrder);
+            caseLockedPage.Next += CaseLockedPage_Next;
+            caseLockedPage.AskForLock += CaseLockedPage_AskForLock;
+            this.m_CuttingWorkspaceWindow.PageNavigator.Navigate(caseLockedPage);
+        }
+
+        private void AddMaterialTrackingLog(YellowstonePathology.Business.Test.AliquotOrder aliquotOrder)
+        {
+            YellowstonePathology.Business.Facility.Model.FacilityCollection facilityCollection = Business.Facility.Model.FacilityCollection.GetAllFacilities();
+            YellowstonePathology.Business.Facility.Model.LocationCollection locationCollection = YellowstonePathology.Business.Facility.Model.LocationCollection.GetAllLocations();
+            YellowstonePathology.Business.Facility.Model.Facility thisFacility = facilityCollection.GetByFacilityId(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId);
+            YellowstonePathology.Business.Facility.Model.Location thisLocation = locationCollection.GetLocation(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.LocationId);
+
+            string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
+            YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog materialTrackingLog = new Business.MaterialTracking.Model.MaterialTrackingLog(objectId, aliquotOrder.AliquotOrderId, null, thisFacility.FacilityId, thisFacility.FacilityName,
+                thisLocation.LocationId, thisLocation.Description, "Block Scanned", "Block Scanned At Cutting", "Aliquot", this.m_AccessionOrder.MasterAccessionNo, aliquotOrder.Label, aliquotOrder.ClientAccessioned);
+
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(materialTrackingLog, this.m_CuttingWorkspaceWindow);
         }
 
         private void HandleAliquotOrderFound(YellowstonePathology.Business.Test.AliquotOrder aliquotOrder)

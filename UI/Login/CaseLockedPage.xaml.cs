@@ -22,8 +22,8 @@ namespace YellowstonePathology.UI.Login
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		public delegate void OKEventHandler(object sender, YellowstonePathology.UI.CustomEventArgs.AccessionOrderReturnEventArgs e);
-		public event OKEventHandler OK;
+		public delegate void NextEventHandler(object sender, YellowstonePathology.UI.CustomEventArgs.AccessionOrderReturnEventArgs e);
+		public event NextEventHandler Next;
 
         public delegate void AskForLockEventHandler(object sender, YellowstonePathology.UI.CustomEventArgs.AccessionOrderReturnEventArgs e);
         public event AskForLockEventHandler AskForLock;
@@ -36,7 +36,7 @@ namespace YellowstonePathology.UI.Login
         public CaseLockedPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{            
             this.m_AccessionOrder = accessionOrder;
-            this.m_PageMessage = "This case is locked by: " + this.m_AccessionOrder.LockAquiredByUserName + " on " + this.m_AccessionOrder.LockAquiredByHostName;                
+            this.m_PageMessage = "This case is locked by: " + this.m_AccessionOrder.LockAquiredByHostName + " \\ " + this.m_AccessionOrder.LockAquiredByUserName;                
 
 			InitializeComponent();
 
@@ -53,10 +53,15 @@ namespace YellowstonePathology.UI.Login
 			get { return this.m_PageHeaderText; }
 		}
 
-		private void ButtonOK_Click(object sender, RoutedEventArgs e)
+		private void ButtonNext_Click(object sender, RoutedEventArgs e)
 		{
-            if (this.OK != null) this.OK(this, new CustomEventArgs.AccessionOrderReturnEventArgs(this.m_AccessionOrder));
-		}
+            if (this.Next != null) this.Next(this, new CustomEventArgs.AccessionOrderReturnEventArgs(this.m_AccessionOrder));
+		}        
+
+        private void ButtonAskForLock_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.AskForLock != null) this.AskForLock(this, new CustomEventArgs.AccessionOrderReturnEventArgs(this.m_AccessionOrder));
+        }
 
         public void NotifyPropertyChanged(String info)
         {
@@ -64,11 +69,6 @@ namespace YellowstonePathology.UI.Login
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
-        }
-
-        private void ButtonAskForLock_Click(object sender, RoutedEventArgs e)
-        {
-            if (this.AskForLock != null) this.AskForLock(this, new CustomEventArgs.AccessionOrderReturnEventArgs(this.m_AccessionOrder));
         }
     }
 }

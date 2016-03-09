@@ -24,8 +24,7 @@ namespace YellowstonePathology.Business.Test.KRASExon4Mutation
 			
 			this.m_AllowMultiplePerAccession = true;
 
-			string task1Description = "Gather materials (FFPE solid tumor tissue: Paraffin block is preferred. " +
-				"Alternatively, send 1 H&E slide plus 5-10 unstained slides cut at 5 or more microns.Take materials to transcription for send out to Neo";
+			string task1Description = "Gather block and take to Transcription for send out to Neo.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Histology, task1Description));
 
 			string task3Description = "Receive materials from Histo and send out to Neo.";

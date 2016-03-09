@@ -14,64 +14,29 @@ using System.Windows.Shapes;
 using System.ComponentModel;
 
 namespace YellowstonePathology.UI.AppMessaging
-{	
-	public partial class LockRequestPage : UserControl, INotifyPropertyChanged
-	{
-		public event PropertyChangedEventHandler PropertyChanged;
-
-        public delegate void CloseEventHandler(object sender, EventArgs e);
-        public event CloseEventHandler Close;        
+{
+    public partial class LockRequestPage : UserControl, INotifyPropertyChanged
+    {
+        public event PropertyChangedEventHandler PropertyChanged;        
 
         public delegate void RequestLockEventHandler(object sender, UI.CustomEventArgs.AccessionOrderReturnEventArgs e);
         public event RequestLockEventHandler RequestLock;
 
         private Business.Test.AccessionOrder m_AccessionOrder;
-
-        private System.Windows.Threading.DispatcherTimer m_DispatchTimer;
-        private string m_CountDownMessage;
-        private int m_CurrentCountDown;        
+        private string m_Message;        
 
         public LockRequestPage(Business.Test.AccessionOrder accessionOrder)
-		{
-            this.m_AccessionOrder = accessionOrder;            
+        {
+            this.m_AccessionOrder = accessionOrder;
+            this.m_Message = "Ask " + this.m_AccessionOrder.LockAquiredByHostName + "\\" + this.m_AccessionOrder.LockAquiredByUserName + " for the lock on " + this.m_AccessionOrder.MasterAccessionNo;
             InitializeComponent();
-            DataContext = this;                                               
-		}               
-
-        private void StartCountDownTimer()
-        {
-            this.m_CurrentCountDown = 15;
-
-            this.m_DispatchTimer = new System.Windows.Threading.DispatcherTimer();
-            this.m_DispatchTimer.Interval = new TimeSpan(0, 0, 1);
-            this.m_DispatchTimer.Tick += DispatchTimer_Tick;
-            this.m_DispatchTimer.Start();
+            DataContext = this;
         }
 
-        public string CountDownMessage
+        public string Message
         {
-            get { return this.m_CountDownMessage; }            
-        }
-
-        private void DispatchTimer_Tick(object sender, EventArgs e)
-        {
-            this.m_CurrentCountDown -= 1;
-            this.m_CountDownMessage = "You have " + this.m_CurrentCountDown + " seconds to respond.";
-
-            if(this.m_CurrentCountDown == 0)
-            {
-                this.m_CountDownMessage = string.Empty;
-                this.m_DispatchTimer.Stop();                                
-            }
-
-            this.NotifyPropertyChanged("CountDownMessage");
-        }
-
-        public Business.Test.AccessionOrder AccessionOrder
-        {
-            get { return this.m_AccessionOrder; }
-        }        
-               
+            get { return this.m_Message; }
+        }           
 
 		public void NotifyPropertyChanged(String info)
 		{

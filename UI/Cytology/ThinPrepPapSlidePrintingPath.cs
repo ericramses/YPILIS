@@ -115,19 +115,23 @@ namespace YellowstonePathology.UI.Cytology
         private void ScanContainerPage_UseThisContainer(object sender, string containerId)
 		{
             string masterAccessionNo = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetMasterAccessionNoFromContainerId(containerId);
-            this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, this.m_PrintSlideDialog);            
 
-            if (this.m_AccessionOrder == null)
+            if(string.IsNullOrEmpty(masterAccessionNo) == false)
             {
-                System.Windows.MessageBox.Show("The scanned container was not found.");
-                this.ShowScanContainerPage();
-            }
-            else
-            {                
-                YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByContainerId(containerId);
-                this.AddMaterialTrackingLog(specimenOrder);
-                this.ShowThinPrepPapSlidePrintingPage(specimenOrder);
-            }         
+                this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, this.m_PrintSlideDialog);
+
+                if (this.m_AccessionOrder == null)
+                {
+                    System.Windows.MessageBox.Show("The scanned container was not found.");
+                    this.ShowScanContainerPage();
+                }
+                else
+                {
+                    YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByContainerId(containerId);
+                    this.AddMaterialTrackingLog(specimenOrder);
+                    this.ShowThinPrepPapSlidePrintingPage(specimenOrder);
+                }
+            }            
 		}
 
 		private void ScanContainerPage_Next(object sender, EventArgs e)
