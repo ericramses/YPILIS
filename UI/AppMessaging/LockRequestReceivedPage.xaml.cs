@@ -66,7 +66,9 @@ namespace YellowstonePathology.UI.AppMessaging
             {
                 this.m_CountDownMessage = string.Empty;
                 this.m_DispatchTimer.Stop();                
-                MessageQueues.Instance.SendLockReleaseResponse(this.m_Message, true);                 
+                MessageQueues.Instance.SendLockReleaseResponse(this.m_Message, true);
+                Window window = Window.GetWindow(this);
+                window.Close();
             }
 
             this.NotifyPropertyChanged("CountDownMessage");

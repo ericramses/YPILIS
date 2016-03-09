@@ -19,7 +19,7 @@ namespace YellowstonePathology.UI.Cutting
 	{
 		public event PropertyChangedEventHandler PropertyChanged;		
 
-        public delegate void AliquotOrderSelectedEventHandler(object sender, YellowstonePathology.UI.CustomEventArgs.AliquotOrderAccessionOrderReturnEventArgs eventArgs);
+        public delegate void AliquotOrderSelectedEventHandler(object sender, YellowstonePathology.UI.CustomEventArgs.BarcodeReturnEventArgs eventArgs);
         public event AliquotOrderSelectedEventHandler AliquotOrderSelected;          
 
         public delegate void SignOutEventHandler(object sender, EventArgs e);
@@ -35,14 +35,10 @@ namespace YellowstonePathology.UI.Cutting
         public event PageTimedOutEventHandler PageTimedOut;
 
         public delegate void PrintImmunosEventHandler(object sender, EventArgs eventArgs);
-        public event PrintImmunosEventHandler PrintImmunos;
-
-        public delegate void ShowCaseLockedPageEventHandler(object sender, YellowstonePathology.UI.CustomEventArgs.AccessionOrderReturnEventArgs eventArgs);
-        public event ShowCaseLockedPageEventHandler ShowCaseLockedPage;
+        public event PrintImmunosEventHandler PrintImmunos;        
 
         private YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort m_BarcodeScanPort;		
-        private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-        private YellowstonePathology.Business.Test.AliquotOrder m_AliquotOrder;
+        private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;        
 
         private string m_LastMasterAccessionNo;
         private System.Windows.Threading.DispatcherTimer m_PageTimeoutTimer;
@@ -87,7 +83,7 @@ namespace YellowstonePathology.UI.Cutting
         {            
             this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate()
             {
-                this.HandleBlockScanReceived(barcode.ID);
+                if (this.AliquotOrderSelected != null) this.AliquotOrderSelected(this, new CustomEventArgs.BarcodeReturnEventArgs(barcode));
             }
             ));
         }
@@ -95,53 +91,7 @@ namespace YellowstonePathology.UI.Cutting
         public string LastMasterAccessionNo
         {
             get { return this.m_LastMasterAccessionNo; }
-        }
-
-        private void HandleBlockScanReceived(string aliquotOrderId)
-        {
-            string masterAccessionNo = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetMasterAccessionNoFromAliquotOrderId(aliquotOrderId);         
-
-            if(string.IsNullOrEmpty(masterAccessionNo) == false)
-            {
-                this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, Window.GetWindow(this));
-
-                if (this.m_AccessionOrder != null)
-                {
-                    if (this.m_AccessionOrder.IsLockAquiredByMe == true)
-                    {
-                        this.m_AliquotOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetAliquotOrder(aliquotOrderId);
-                        this.AddMaterialTrackingLog(this.m_AliquotOrder);
-                        this.AliquotOrderSelected(this, new CustomEventArgs.AliquotOrderAccessionOrderReturnEventArgs(this.m_AliquotOrder, this.m_AccessionOrder));
-                    }
-                    else
-                    {
-                        if (this.ShowCaseLockedPage != null) this.ShowCaseLockedPage(this, new CustomEventArgs.AccessionOrderReturnEventArgs(this.m_AccessionOrder));
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("The block scanned could not be found.");
-                }
-            }
-            else
-            {
-                MessageBox.Show("The block scanned could not be found.");
-            }
-        }
-
-        private void AddMaterialTrackingLog(YellowstonePathology.Business.Test.AliquotOrder aliquotOrder)
-        {
-            YellowstonePathology.Business.Facility.Model.FacilityCollection facilityCollection = Business.Facility.Model.FacilityCollection.GetAllFacilities();
-            YellowstonePathology.Business.Facility.Model.LocationCollection locationCollection = YellowstonePathology.Business.Facility.Model.LocationCollection.GetAllLocations();
-			YellowstonePathology.Business.Facility.Model.Facility thisFacility = facilityCollection.GetByFacilityId(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId);
-			YellowstonePathology.Business.Facility.Model.Location thisLocation = locationCollection.GetLocation(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.LocationId);
-            
-            string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-			YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog materialTrackingLog = new Business.MaterialTracking.Model.MaterialTrackingLog(objectId, aliquotOrder.AliquotOrderId, null, thisFacility.FacilityId, thisFacility.FacilityName,
-                thisLocation.LocationId, thisLocation.Description, "Block Scanned", "Block Scanned At Cutting", "Aliquot", this.m_AccessionOrder.MasterAccessionNo, aliquotOrder.Label, aliquotOrder.ClientAccessioned);
-
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(materialTrackingLog, Window.GetWindow(this));            
-        }
+        }                
 
         private void ButtonShowMasterAccessionNoEntryPage_Click(object sender, RoutedEventArgs e)
         {
@@ -164,27 +114,7 @@ namespace YellowstonePathology.UI.Cutting
         private void ButtonSignOut_Click(object sender, RoutedEventArgs e)
         {
             this.SignOut(this, new EventArgs());
-        }
-
-		public void Save(bool releaseLock)
-		{
-
-		}
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return false;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return false;
-		}
-
-		public void UpdateBindingSources()
-		{
-
-		}               
+        }		            
 
         public void NotifyPropertyChanged(String info)
         {
