@@ -27,10 +27,10 @@ namespace YellowstonePathology.Business.Test.KRASStandardReflex
             this.m_ExpectedDuration = new TimeSpan(120, 0, 0);
             this.m_IsBillable = false;            
 
-            string taskDescription = "Cut curls and an after H&E. Give to molecular.";
+            string taskDescription = "Give block to Molecular for sendout.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Histology, taskDescription));
 
-            string task2Description = "Receive curls from Histology and perform testing.";
+            string task2Description = "Receive block from Histology and send to Neo for testing.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, task2Description));
 
             this.m_TechnicalComponentFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings();

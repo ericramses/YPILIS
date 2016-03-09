@@ -47,7 +47,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
         {
             this.m_SpecimenId = "SKSHPHMSSPCMN";
             this.m_SpecimenName = "Skin Shave Punch and Misc Biopsy";
-            this.m_Description = "Skin, [site], [procedure]";
+            this.m_Description = null;
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = "Formalin";
             this.m_RequiresGrossExamination = true;
@@ -60,7 +60,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
         {
             this.m_SpecimenId = "SKSHCSPCMN";
             this.m_SpecimenName = "Skin Shave Biopsy with Curettings";
-            this.m_Description = "Skin, [site], [procedure]";
+            this.m_Description = null;
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = "Formalin";
             this.m_RequiresGrossExamination = true;
