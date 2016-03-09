@@ -71,8 +71,7 @@ namespace YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile
             }
             else
             {
-                ComprehensiveColonCancerProfileResult comprehensiveColonCancerProfileResult = new ComprehensiveColonCancerProfileResult(accessionOrder, this);
-                YellowstonePathology.Business.Audit.Model.ComprehensiveColonCancerProfileFinalAudit comprehensiveColonCancerProfileFinalAudit = new ComprehensiveColonCancerProfileFinalAudit(comprehensiveColonCancerProfileResult);
+                YellowstonePathology.Business.Audit.Model.ComprehensiveColonCancerProfileFinalAudit comprehensiveColonCancerProfileFinalAudit = new ComprehensiveColonCancerProfileFinalAudit(accessionOrder);
                 comprehensiveColonCancerProfileFinalAudit.Run();
                 result.Status = comprehensiveColonCancerProfileFinalAudit.Status;
                 result.Message = comprehensiveColonCancerProfileFinalAudit.Message.ToString();

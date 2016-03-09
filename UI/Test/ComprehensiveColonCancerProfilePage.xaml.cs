@@ -110,14 +110,6 @@ namespace YellowstonePathology.UI.Test
 			{
                 MessageBox.Show(auditResult.Message);
 			}
-            else if(auditResult.Status == Business.Audit.Model.AuditStatusEnum.Warning)
-            {
-				MessageBoxResult messageBoxResult = MessageBox.Show(auditResult.Message, "Unnecessary Report", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes);
-                if(messageBoxResult == MessageBoxResult.Yes)
-                {
-                    MessageBox.Show("Notify IT to remove this report.");
-                }
-            }
 			else
 			{
                 this.m_ComprehensiveColonCancerProfile.Finalize();
