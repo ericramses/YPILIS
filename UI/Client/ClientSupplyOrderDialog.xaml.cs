@@ -26,10 +26,18 @@ namespace YellowstonePathology.UI.Client
 		private YellowstonePathology.Business.Client.Model.ClientSupplyOrder m_ClientSupplyOrder;
 		private YellowstonePathology.Business.User.SystemUserCollection m_UserCollection;
 
-		public ClientSupplyOrderDialog(YellowstonePathology.Business.Client.Model.ClientSupplyOrder clientSupplyOrder)
+		public ClientSupplyOrderDialog(YellowstonePathology.Business.Client.Model.ClientSupplyOrder clientSupplyOrder, bool isNewClientSupplyOrder)
 		{
             this.m_ClientSupplyOrder = clientSupplyOrder;
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullClientSupplyOrder(this.m_ClientSupplyOrder, this);			
+            if (isNewClientSupplyOrder == true)
+            {
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(this.m_ClientSupplyOrder, this);
+            }
+            else
+            {
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullClientSupplyOrder(m_ClientSupplyOrder, this);
+            }
+
             this.m_UserCollection = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetUsersByRole(Business.User.SystemUserRoleDescriptionEnum.Log, true);
 
 			InitializeComponent();
