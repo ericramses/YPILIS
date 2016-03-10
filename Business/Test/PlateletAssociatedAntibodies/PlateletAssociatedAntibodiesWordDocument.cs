@@ -88,9 +88,9 @@ namespace YellowstonePathology.Business.Test.PlateletAssociatedAntibodies
 
         public override void Publish()
         {
-			YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_ReportNo);
+			YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
 			YellowstonePathology.Business.Document.CaseDocument.SaveXMLAsPDF(orderIdParser);
-            YellowstonePathology.Business.Helper.FileConversionHelper.SaveXpsReportToTiff(this.m_ReportNo);
+            YellowstonePathology.Business.Helper.FileConversionHelper.SaveXpsReportToTiff(this.m_PanelSetOrder.ReportNo);
         }
     }
 }

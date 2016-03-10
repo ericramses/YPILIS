@@ -326,7 +326,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             {
                 this.m_SpecimenId = "UTRADNSPCMN";
                 this.m_SpecimenName = "Uterus with Adnexa Resection";
-                this.m_Description = "Uterus, cervix, [fallopian tubes], [ovaries]";
+                this.m_Description = null;
                 this.m_LabFixation = "Formalin";
                 this.m_ClientFixation = null;
                 this.m_RequiresGrossExamination = true;

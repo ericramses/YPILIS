@@ -14,8 +14,7 @@ namespace YellowstonePathology.Business.Document
         public XmlDocument m_ReportXml;
         public XmlNamespaceManager m_NameSpaceManager;        
         public string m_SaveFileName;
-
-        protected string m_ReportNo;
+        
         protected YellowstonePathology.Business.Document.ReportSaveModeEnum m_ReportSaveMode;
 		protected Business.Test.AccessionOrder m_AccessionOrder;
 		protected YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;				
@@ -51,9 +50,9 @@ namespace YellowstonePathology.Business.Document
 
         public virtual void Publish()
         {
-			YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_ReportNo);
+			YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
 			YellowstonePathology.Business.Document.CaseDocument.SaveXMLAsPDF(orderIdParser);
-            YellowstonePathology.Business.Helper.FileConversionHelper.SaveXpsReportToTiff(this.m_ReportNo);
+            YellowstonePathology.Business.Helper.FileConversionHelper.SaveXpsReportToTiff(this.m_PanelSetOrder.ReportNo);
         }
 
         public void OpenTemplate(string templateName)

@@ -33,7 +33,7 @@ namespace YellowstonePathology.UI.AppMessaging
         public LockRequestSentPage(Business.Test.AccessionOrder accessionOrder)
 		{
             this.m_AccessionOrder = accessionOrder;
-            this.m_Message = "A requesst to relase the lock on " + this.m_AccessionOrder.MasterAccessionNo + " was sent to " + this.m_AccessionOrder.LockAquiredByHostName + "\\" + this.m_AccessionOrder.LockAquiredByUserName;
+            this.m_Message = "A request to release the lock on " + this.m_AccessionOrder.MasterAccessionNo + " was sent to " + this.m_AccessionOrder.LockAquiredByHostName + "\\" + this.m_AccessionOrder.LockAquiredByUserName;
             MessageQueues.Instance.ResponseReceived += MessageQueues_ResponseReceived;
             InitializeComponent();
             DataContext = this;
