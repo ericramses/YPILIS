@@ -38,7 +38,7 @@ namespace YellowstonePathology.UI.Client
         private void ListViewClientSupplyOrders_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             YellowstonePathology.Business.Client.Model.ClientSupplyOrder clientSupplyOrder = (YellowstonePathology.Business.Client.Model.ClientSupplyOrder)this.ListViewClientSupplyOrders.SelectedItem;
-            YellowstonePathology.UI.Client.ClientSupplyOrderDialog clientSupplyOrderDialog = new ClientSupplyOrderDialog(clientSupplyOrder, false);
+            YellowstonePathology.UI.Client.ClientSupplyOrderDialog clientSupplyOrderDialog = new ClientSupplyOrderDialog(clientSupplyOrder);
             clientSupplyOrderDialog.ShowDialog();
         }
 

@@ -99,6 +99,9 @@ namespace YellowstonePathology.Business.HL7View.CMMC
 				case 116:
 					view = new YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileCMMCNteView(accessionOrder, reportNo);
 					break;
+                case 186:
+                    view = new YellowstonePathology.Business.Test.API2MALT1.API2MALT1CMMCNteView(accessionOrder, reportNo);
+                    break;
                 case 214:
                     view = new YellowstonePathology.Business.Test.TechInitiatedPeripheralSmear.TechInitiatedPeripheralSmearCMMCNteView(accessionOrder, reportNo);
                     break;
