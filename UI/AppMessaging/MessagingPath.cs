@@ -12,7 +12,10 @@ namespace YellowstonePathology.UI.AppMessaging
 
         public delegate void LockAquiredEventHandler(object sender, EventArgs e);
         public event LockAquiredEventHandler LockAquired;
-        
+
+        public delegate void NextEventHandler(object sender, UI.CustomEventArgs.AccessionOrderReturnEventArgs e);
+        public event NextEventHandler Next;
+
         private Navigation.PageNavigator m_PageNavigator;
         private bool m_PageNavigatorWasPassedIn;
 
@@ -71,9 +74,24 @@ namespace YellowstonePathology.UI.AppMessaging
 
         private void ShowLockRequestSentPage(Business.Test.AccessionOrder accessionOrder)
         {
-            LockRequestSentPage lockRequestSentPage = new LockRequestSentPage(accessionOrder);
+            LockRequestSentPage lockRequestSentPage = null;
+            if(this.m_PageNavigatorWasPassedIn == true)
+            {
+                lockRequestSentPage = new LockRequestSentPage(accessionOrder, System.Windows.Visibility.Collapsed, System.Windows.Visibility.Visible);
+            }
+            else
+            {
+                lockRequestSentPage = new LockRequestSentPage(accessionOrder, System.Windows.Visibility.Visible, System.Windows.Visibility.Collapsed);
+            }
+
             lockRequestSentPage.ShowResponseReceivedPage += LockRequestSentPage_ShowResponseReceivedPage;
+            lockRequestSentPage.Next += LockRequestSentPage_Next;
             this.m_PageNavigator.Navigate(lockRequestSentPage);
+        }
+
+        private void LockRequestSentPage_Next(object sender, UI.CustomEventArgs.AccessionOrderReturnEventArgs e)
+        {
+            if (this.Next != null) this.Next(this, e);
         }
 
         private void LockRequestSentPage_ShowResponseReceivedPage(object sender, CustomEventArgs.MessageReturnEventArgs e)

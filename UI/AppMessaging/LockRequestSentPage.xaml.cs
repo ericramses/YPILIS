@@ -17,7 +17,10 @@ namespace YellowstonePathology.UI.AppMessaging
 {	
 	public partial class LockRequestSentPage : UserControl, INotifyPropertyChanged
 	{
-		public event PropertyChangedEventHandler PropertyChanged;        
+		public event PropertyChangedEventHandler PropertyChanged;
+
+        public delegate void NextEventHandler(object sender, UI.CustomEventArgs.AccessionOrderReturnEventArgs e);
+        public event NextEventHandler Next;
 
         public delegate void ShowResponseReceivedPageEventHandler(object sender, CustomEventArgs.MessageReturnEventArgs e);
         public event ShowResponseReceivedPageEventHandler ShowResponseReceivedPage;
@@ -30,13 +33,15 @@ namespace YellowstonePathology.UI.AppMessaging
 
         private string m_Message; 
 
-        public LockRequestSentPage(Business.Test.AccessionOrder accessionOrder)
+        public LockRequestSentPage(Business.Test.AccessionOrder accessionOrder, System.Windows.Visibility closeButtonVisibility, System.Windows.Visibility nextButtonVisibility)
 		{
             this.m_AccessionOrder = accessionOrder;
             this.m_Message = "A request to release the lock on " + this.m_AccessionOrder.MasterAccessionNo + " was sent to " + this.m_AccessionOrder.LockAquiredByHostName + "\\" + this.m_AccessionOrder.LockAquiredByUserName;
             MessageQueues.Instance.ResponseReceived += MessageQueues_ResponseReceived;
             InitializeComponent();
             DataContext = this;
+            this.ButtonClose.Visibility = closeButtonVisibility;
+            this.ButtonNext.Visibility = nextButtonVisibility;
             this.StartCountDownTimer();        
 		}
 
@@ -89,12 +94,17 @@ namespace YellowstonePathology.UI.AppMessaging
         	Window.GetWindow(this).Close();
         }
 
+        private void ButtonNext_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.Next != null) this.Next(this, new CustomEventArgs.AccessionOrderReturnEventArgs(this.m_AccessionOrder));
+        }
+
         public void NotifyPropertyChanged(String info)
         {
             if (PropertyChanged != null)
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
-        }
+        }        
     }
 }

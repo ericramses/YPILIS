@@ -1230,37 +1230,7 @@ namespace YellowstonePathology.Business.Test
                 result.Message = "This case cannot be finalized because the results have not been accepted.";
             }
             return result;
-        }        
-
-        /*public virtual void Finalize(Test.AccessionOrder accessionOrder, Rules.RuleExecutionStatus ruleExecutionStatus)
-		{
-			Rules.ExecutionStatus executionStatus = new Rules.ExecutionStatus();
-			YellowstonePathology.Business.Rules.PanelSetOrder.RulesPanelSetOrderFinalCommonV2 rulesPanelSetOrderFinalCommon = new Rules.PanelSetOrder.RulesPanelSetOrderFinalCommonV2();
-			rulesPanelSetOrderFinalCommon.Execute(executionStatus, accessionOrder, this);
-
-			if (executionStatus.Halted)
-			{
-				ruleExecutionStatus.PopulateFromLinqExecutionStatus(executionStatus);
-			}
-			else
-			{
-				if (accessionOrder != null)
-				{
-					string surgicalReportNo = string.Empty;
-					List<PanelSetOrder> panelSetOrders = (from pso in accessionOrder.PanelSetOrderCollection
-														  where pso.PanelSetId == 13
-														  select pso).ToList<PanelSetOrder>();
-					if (panelSetOrders.Count > 0)
-					{
-						surgicalReportNo = panelSetOrders[0].ReportNo;
-					}
-					else
-					{
-						surgicalReportNo = accessionOrder.SurgicalAccessionNo;
-					}
-				}
-			}
-		}*/
+        }                
 
 		public virtual void Finalize()
 		{            			

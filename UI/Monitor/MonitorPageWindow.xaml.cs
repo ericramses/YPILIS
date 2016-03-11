@@ -31,7 +31,8 @@ namespace YellowstonePathology.UI.Monitor
 
         private void LoginPageWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            this.m_PageNavigator.Close();                     
+            this.m_PageNavigator.Close();
+            Business.Persistence.DocumentGateway.Instance.Push(this);
         }        		
     }
 }

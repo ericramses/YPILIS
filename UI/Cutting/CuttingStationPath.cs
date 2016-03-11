@@ -75,6 +75,12 @@ namespace YellowstonePathology.UI.Cutting
         {
             AppMessaging.MessagingPath.Instance.StartSendRequest(e.AccessionOrder, this.m_CuttingWorkspaceWindow.PageNavigator);
             AppMessaging.MessagingPath.Instance.LockAquired += MessageQueuePath_LockAquired;
+            AppMessaging.MessagingPath.Instance.Next += MessageQueuePath_Next;
+        }
+
+        private void MessageQueuePath_Next(object sender, UI.CustomEventArgs.AccessionOrderReturnEventArgs e)
+        {
+            this.ShowScanAliquotPage(e.AccessionOrder.MasterAccessionNo);
         }
 
         private void MessageQueuePath_LockAquired(object sender, EventArgs e)
