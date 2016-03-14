@@ -20,7 +20,7 @@ namespace YellowstonePathology.Business.Label.Model
             this.m_SlideNumber = slideNumber;
             this.m_PatientLastName = patientLastName;
             this.m_Barcode = barcode;
-            this.m_LocationAbbreviation = locationAbbreviation;
+            this.m_LocationAbbreviation = locationAbbreviation;            
         }
 
         public string GetLine()

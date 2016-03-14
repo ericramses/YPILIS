@@ -524,6 +524,7 @@
     <Compile Include="Test\ALKForNSCLCByFISH\ALKForNSCLCByFISHNegativeWithPolysomyResult.cs" />
     <Compile Include="Test\ALKForNSCLCByFISH\ALKForNSCLCByFISHQNSResult.cs" />
     <Compile Include="Test\ALKForNSCLCByFISH\ALKForNSCLCByFISHNotInterpretableResult.cs" />
+    <Compile Include="Test\API2MALT1\API2MALT1CMMCNteView.cs" />
     <Compile Include="Test\BCellEnumeration\BCellEnumerationEpicObxView.cs" />
     <Compile Include="Test\BCellEnumeration\BCellEnumerationTest.cs" />
     <Compile Include="Test\BCellEnumeration\BCellEnumerationTestOrder.cs" />

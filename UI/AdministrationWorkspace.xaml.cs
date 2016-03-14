@@ -990,29 +990,11 @@ namespace YellowstonePathology.UI
         }
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                System.Net.Mail.MailAddress from = new System.Net.Mail.MailAddress("Support@YPII.com");
-                System.Net.Mail.MailAddress to = new System.Net.Mail.MailAddress("Support@YPII.com");
-
-                System.Net.Mail.MailMessage message = new System.Net.Mail.MailMessage(from, to);
-                message.Subject = "hello";
-                message.Body = "Hello";
-
-                System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient("10.1.2.111");
-
-                Uri uri = new Uri("http://tempuri.org/");
-                System.Net.ICredentials credentials = System.Net.CredentialCache.DefaultCredentials;
-                System.Net.NetworkCredential credential = credentials.GetCredential(uri, "Basic");
-
-                client.Credentials = credential;
-                client.Send(message);
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }            
+        {            
+            YellowstonePathology.Business.Label.Model.HistologySlideLabel histologySlideLabel = new Business.Label.Model.HistologySlideLabel("16-123.1A1", "16-123.S", "1A1", "Harder", "SURG", "YPI", "MD6-1234");
+            YellowstonePathology.Business.Label.Model.ThermoFisherHistologySlidePrinter thermoFisherSlidePrinter = new Business.Label.Model.ThermoFisherHistologySlidePrinter();
+            thermoFisherSlidePrinter.Queue.Enqueue(histologySlideLabel);
+            thermoFisherSlidePrinter.Print();
         }
 
         private void FindY()
