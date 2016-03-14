@@ -77,6 +77,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                     if (telephoneNumberAudit.ActionRequired == true)
                     {
                         MessageBox.Show(telephoneNumberAudit.Message.ToString(), "Invalid Fax Number", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                        result = false;
                     }
                 }
                 else

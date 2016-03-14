@@ -64,7 +64,16 @@ namespace YellowstonePathology.Business
 
         public string Birthdate
         {
-            get { return this.m_SearchString; }
+            get
+            {
+                DateTime date;
+                bool isValid = DateTime.TryParse(this.m_SearchString, out date);
+                if (isValid)
+                {
+                    return date.ToShortDateString();
+                }
+                return "1/1/1800";
+            }
         }
 
         public string SSN
