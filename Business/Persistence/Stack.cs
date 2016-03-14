@@ -157,14 +157,25 @@ namespace YellowstonePathology.Business.Persistence
                 }
                 else
                 {
-                    if(document.IsDirty() == true)
+                    if(documentId.ValueWasPassedIn == true)
                     {
-                        document.Submit();                        
+                        Document existingDocument = this.Get(documentId);
+                        if (existingDocument.IsDirty() == true) existingDocument.Submit();
+                        this.m_Documents.Remove(existingDocument);
+                        documentBuilder.Refresh(document.Value);
+                        document.ResetClone();
                     }
                     else
                     {
-                        documentBuilder.Refresh(document.Value);
-                        document.ResetClone();
+                        if (document.IsDirty() == true)
+                        {
+                            document.Submit();
+                        }
+                        else
+                        {
+                            documentBuilder.Refresh(document.Value);
+                            document.ResetClone();
+                        }
                     }                    
                 }
             }   
@@ -209,7 +220,7 @@ namespace YellowstonePathology.Business.Persistence
             }
 
             return document;
-        }        
+        }               
 
         public void InsertDocument(object o, object writer)
         {
