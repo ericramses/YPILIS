@@ -35,12 +35,12 @@
                     <RowDefinition Height="Auto"></RowDefinition>                    
                     <RowDefinition Height="Auto"></RowDefinition>                                 
                     <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="20"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="20"></RowDefinition>                                        
+                    <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="20"></RowDefinition>
@@ -62,27 +62,30 @@
 
                 <Button Name="ButtonProviderLookup" Margin="2,2,2,2" Grid.Column="0" Grid.Row="1" Click="HyperLinkShowProviderLookup_Click">Provider Lookup</Button>
 
-                <Button Name="ButtonPhysicianNotFound" Margin="2,2,2,2" Grid.Column="0" Grid.Row="2" Click="HyperLinkPhysicianNotFound_Click">Physician/Client Not Found</Button>
-
-                <TextBlock Grid.Column="0" Grid.Row="3" Margin="5,3,0,0">
+                <TextBlock Grid.Column="0" Grid.Row="2" Margin="5,3,0,0">
                     <Hyperlink Click="HyperLinkSetDistribution_Click">Set Distribution</Hyperlink>
                 </TextBlock>
 
-                <TextBlock Grid.Column="0" Grid.Row="5" Margin="5,3,0,0">
+                <TextBlock Grid.Column="0" Grid.Row="4" Margin="5,3,0,0">
                     <Hyperlink Click="HyperLinkAddCopyTo_Click">Add Copy To</Hyperlink>
                 </TextBlock>
-                <TextBlock Grid.Column="0" Grid.Row="6" Margin="5,3,0,0">
+                <TextBlock Grid.Column="0" Grid.Row="5" Margin="5,3,0,0">
                     <Hyperlink Click="HyperLinkEditDistribution_Click">Edit Distribution</Hyperlink>
                 </TextBlock>
-                <TextBlock Grid.Column="0" Grid.Row="7" Margin="5,3,0,5">
+                <TextBlock Grid.Column="0" Grid.Row="6" Margin="5,3,0,5">
                     <Hyperlink Click="HyperLinkDeleteDistribution_Click">Delete Distribution</Hyperlink>
                 </TextBlock>
 
-                <TextBlock Grid.Column="0" Grid.Row="9" Margin="5,3,0,5">
+                <TextBlock Grid.Column="0" Grid.Row="8" Margin="5,3,0,5">
                     <Hyperlink Click="HyperLinkPublish_Click">Publish</Hyperlink>
                 </TextBlock>
-                <TextBlock Grid.Column="0" Grid.Row="10" Margin="5,3,0,5">
+                
+                <TextBlock Grid.Column="0" Grid.Row="9" Margin="5,3,0,5">
                     <Hyperlink Click="HyperLinkOpenDocumentFolder_Click">Open Document Folder</Hyperlink>
+                </TextBlock>
+
+                <TextBlock Grid.Column="0" Grid.Row="10" Margin="5,3,0,5">
+                    <Hyperlink Click="HyperLinkPhysicianNotFound_Click">Not Found</Hyperlink>
                 </TextBlock>
 
                 <TextBlock Grid.Column="0" Grid.Row="12" Margin="0,3,0,0" FontWeight="Bold" FontSize="14">Schedule Distribution</TextBlock>
