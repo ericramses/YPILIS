@@ -58,40 +58,76 @@ namespace YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile
 			this.AddNextObxElement("Reference Report: " + comprehensiveColonCancerProfileResult.PanelSetOrderLynchSyndromeIHC.ReportNo, document, "F");
 			this.AddNextObxElement("", document, "F");
 
-			if (comprehensiveColonCancerProfileResult.BRAFV600EKIsOrdered == true ||
-				comprehensiveColonCancerProfileResult.KRASStandardIsOrderd == true ||
-				comprehensiveColonCancerProfileResult.MLHIsOrdered == true)
-			{
-				this.AddNextObxElement("Molecular Analysis", document, "F");
-				this.AddNextObxElement("", document, "F");
-			}
-
-			if (comprehensiveColonCancerProfileResult.PanelSetOrderMLH1MethylationAnalysis != null)
-			{
-				this.AddNextObxElement("MLH1 Promoter Methylation Analysis:  " + comprehensiveColonCancerProfileResult.PanelSetOrderMLH1MethylationAnalysis.ReportNo, document, "F");
-				this.AddNextObxElement("Result: " + comprehensiveColonCancerProfileResult.PanelSetOrderMLH1MethylationAnalysis.Result, document, "F");
-				this.AddNextObxElement("", document, "F");
-			}
-
-			if (comprehensiveColonCancerProfileResult.RASRAFIsOrdered == true)
+            DateTime testChangeDate = DateTime.Parse("11/23/2015");
+            if (comprehensiveColonCancerProfile.OrderDate.Value > testChangeDate)
             {
-				this.AddNextObxElement("KRAS Mutation Analysis: " + comprehensiveColonCancerProfileResult.RASRAFTestOrder.ReportNo, document, "F");
-                this.AddNextObxElement("Result: " + comprehensiveColonCancerProfileResult.RASRAFTestOrder.KRASResult, document, "F");                
-                this.AddNextObxElement("", document, "F");
-
-                this.AddNextObxElement("BRAF V600E/K Mutation Analysis: " + comprehensiveColonCancerProfileResult.RASRAFTestOrder.ReportNo, document, "F");
-                this.AddNextObxElement("Result: " + comprehensiveColonCancerProfileResult.RASRAFTestOrder.BRAFResult, document, "F");
-                this.AddNextObxElement("", document, "F");
-
-                this.AddNextObxElement("NRAS Mutation Analysis: " + comprehensiveColonCancerProfileResult.RASRAFTestOrder.ReportNo, document, "F");
-                this.AddNextObxElement("Result: " + comprehensiveColonCancerProfileResult.RASRAFTestOrder.NRASResult, document, "F");
-                this.AddNextObxElement("", document, "F");
-
-                this.AddNextObxElement("HRAS Mutation Analysis: " + comprehensiveColonCancerProfileResult.RASRAFTestOrder.ReportNo, document, "F");
-                this.AddNextObxElement("Result: " + comprehensiveColonCancerProfileResult.RASRAFTestOrder.HRASResult, document, "F");
-                this.AddNextObxElement("", document, "F");
+                if (comprehensiveColonCancerProfileResult.RASRAFIsOrdered == true)
+                {
+                    this.AddNextObxElement("Molecular Analysis", document, "F");
+                    this.AddNextObxElement("KRAS Mutation Analysis:  " + comprehensiveColonCancerProfileResult.RASRAFTestOrder.KRASResult, document, "F");
+                    this.AddNextObxElement("BRAF V600E/K Mutation Analysis:  " + comprehensiveColonCancerProfileResult.RASRAFTestOrder.BRAFResult, document, "F");
+                    this.AddNextObxElement("NRAS Mutation Analysis:  " + comprehensiveColonCancerProfileResult.RASRAFTestOrder.NRASResult, document, "F");
+                    this.AddNextObxElement("HRAS Mutation Analysis:  " + comprehensiveColonCancerProfileResult.RASRAFTestOrder.HRASResult, document, "F");
+                    this.AddNextObxElement("Reference Report:  " + comprehensiveColonCancerProfileResult.RASRAFTestOrder.ReportNo, document, "F");
+                    this.AddNextObxElement("", document, "F");
+                }
             }
-		            
+            else
+            {
+                if (comprehensiveColonCancerProfileResult.BRAFV600EKIsOrdered == true ||
+                    comprehensiveColonCancerProfileResult.KRASStandardIsOrderd == true ||
+                    comprehensiveColonCancerProfileResult.KRASExon23MutationIsOrdered ||
+                    comprehensiveColonCancerProfileResult.KRASExon4MutationIsOrdered ||
+                    comprehensiveColonCancerProfileResult.KRASExon4MutationIsOrdered ||
+                    comprehensiveColonCancerProfileResult.NRASMutationAnalysisIsOrdered ||
+                    comprehensiveColonCancerProfileResult.MLHIsOrdered == true)
+                {
+                    this.AddNextObxElement("Molecular Analysis", document, "F");
+                    this.AddNextObxElement("", document, "F");
+                }
+
+                if (comprehensiveColonCancerProfileResult.PanelSetOrderMLH1MethylationAnalysis != null)
+                {
+                    this.AddNextObxElement("MLH1 Promoter Methylation Analysis:  " + comprehensiveColonCancerProfileResult.PanelSetOrderMLH1MethylationAnalysis.Result, document, "F");
+                    this.AddNextObxElement("Reference Report: " + comprehensiveColonCancerProfileResult.PanelSetOrderMLH1MethylationAnalysis.ReportNo, document, "F");
+                    this.AddNextObxElement("", document, "F");
+                }
+
+                if (comprehensiveColonCancerProfileResult.KRASStandardIsOrderd == true)
+                {
+                    this.AddNextObxElement("KRAS Mutation Analysis:  " + comprehensiveColonCancerProfileResult.KRASStandardTestOrder.Result, document, "F");
+                    this.AddNextObxElement("Reference Report: " + comprehensiveColonCancerProfileResult.KRASStandardTestOrder.ReportNo, document, "F");
+                    this.AddNextObxElement("", document, "F");
+                }
+
+                if (comprehensiveColonCancerProfileResult.KRASExon23MutationIsOrdered == true)
+                {
+                    this.AddNextObxElement("KRAS Exon 23 Mutation Analysis:  " + comprehensiveColonCancerProfileResult.KRASExon23MutationTestOrder.Result, document, "F");
+                    this.AddNextObxElement("Reference Report: " + comprehensiveColonCancerProfileResult.KRASExon23MutationTestOrder.ReportNo, document, "F");
+                    this.AddNextObxElement("", document, "F");
+                }
+
+                if (comprehensiveColonCancerProfileResult.KRASExon4MutationIsOrdered == true)
+                {
+                    this.AddNextObxElement("KRAS Exon 4 Mutation Analysis: " + comprehensiveColonCancerProfileResult.KRASExon4MutationTestOrder.Result, document, "F");
+                    this.AddNextObxElement("Reference Report: " + comprehensiveColonCancerProfileResult.KRASExon4MutationTestOrder.ReportNo, document, "F");
+                    this.AddNextObxElement("", document, "F");
+                }
+
+                if (comprehensiveColonCancerProfileResult.BRAFV600EKIsOrdered == true)
+                {
+                    this.AddNextObxElement("BRAF V600E/K Mutation Analysis: " + comprehensiveColonCancerProfileResult.BRAFV600EKTestOrder.Result, document, "F");
+                    this.AddNextObxElement("Reference Report: " + comprehensiveColonCancerProfileResult.BRAFV600EKTestOrder.ReportNo, document, "F");
+                    this.AddNextObxElement("", document, "F");
+                }
+
+                if (comprehensiveColonCancerProfileResult.NRASMutationAnalysisIsOrdered == true)
+                {
+                    this.AddNextObxElement("NRAS Mutation Analysis: " + comprehensiveColonCancerProfileResult.NRASMutationAnalysisTestOrder.Result, document, "F");
+                    this.AddNextObxElement("Reference Report: " + comprehensiveColonCancerProfileResult.NRASMutationAnalysisTestOrder.ReportNo, document, "F");
+                    this.AddNextObxElement("", document, "F");
+                }
+            }
         }
     }
 }
