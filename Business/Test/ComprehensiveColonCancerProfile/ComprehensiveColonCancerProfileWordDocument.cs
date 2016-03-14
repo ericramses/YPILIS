@@ -100,6 +100,7 @@ namespace YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile
 
                 base.ReplaceText("hras_result", comprehensiveColonCancerProfileResult.RASRAFTestOrder.HRASResult);
                 base.ReplaceText("hras_reportno", comprehensiveColonCancerProfile.ReportNo);
+                this.DeleteRow("None Performed");
             }
             else
             {
@@ -114,17 +115,20 @@ namespace YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile
             ComprehensiveColonCancerProfileResult comprehensiveColonCancerProfileResult)
         {
             bool deleteKrasResult = true;
+            bool hasMolecularTest = false;
             if (comprehensiveColonCancerProfileResult.KRASStandardIsOrderd == true)
             {
                 base.ReplaceText("kras_result", comprehensiveColonCancerProfileResult.KRASStandardTestOrder.Result);
                 base.ReplaceText("kras_reportno", comprehensiveColonCancerProfileResult.KRASStandardTestOrder.ReportNo);
                 deleteKrasResult = false;
+                hasMolecularTest = true;
             }
 
             if (comprehensiveColonCancerProfileResult.BRAFV600EKIsOrdered == true)
             {
                 base.ReplaceText("braf_result", comprehensiveColonCancerProfileResult.BRAFV600EKTestOrder.Result);
                 base.ReplaceText("braf_reportno", comprehensiveColonCancerProfileResult.BRAFV600EKTestOrder.ReportNo);
+                hasMolecularTest = true;
             }
             else
             {
@@ -136,6 +140,7 @@ namespace YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile
                 base.ReplaceText("kras_result", comprehensiveColonCancerProfileResult.KRASExon23MutationTestOrder.Result);
                 base.ReplaceText("kras_reportno", comprehensiveColonCancerProfileResult.KRASExon23MutationTestOrder.ReportNo);
                 deleteKrasResult = false;
+                hasMolecularTest = true;
             }
 
             if (comprehensiveColonCancerProfileResult.KRASExon4MutationIsOrdered == true)
@@ -143,12 +148,14 @@ namespace YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile
                 base.ReplaceText("kras_result", comprehensiveColonCancerProfileResult.KRASExon4MutationTestOrder.Result);
                 base.ReplaceText("kras_reportno", comprehensiveColonCancerProfileResult.KRASExon4MutationTestOrder.ReportNo);
                 deleteKrasResult = false;
+                hasMolecularTest = true;
             }
 
             if (comprehensiveColonCancerProfileResult.NRASMutationAnalysisIsOrdered == true)
             {
                 base.ReplaceText("nras_result", comprehensiveColonCancerProfileResult.NRASMutationAnalysisTestOrder.Result);
                 base.ReplaceText("nras_reportno", comprehensiveColonCancerProfileResult.NRASMutationAnalysisTestOrder.ReportNo);
+                hasMolecularTest = true;
             }
             else
             {
@@ -159,7 +166,13 @@ namespace YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile
             {
                 this.DeleteRow("kras_result");
             }
+
+            if(hasMolecularTest == true)
+            {
+                this.DeleteRow("None Performed");
+            }
             this.DeleteRow("hras_result");
+
         }
 
         public override void Publish()
