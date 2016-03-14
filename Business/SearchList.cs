@@ -64,16 +64,7 @@ namespace YellowstonePathology.Business
 
         public string Birthdate
         {
-            get
-            {
-                DateTime date;
-                bool isValid = DateTime.TryParse(this.m_SearchString, out date);
-                if (isValid)
-                {
-                    return date.ToShortDateString();
-                }
-                return "1/1/1800";
-            }
+            get { return DateTime.Parse(this.m_SearchString).ToShortDateString(); }
         }
 
         public string SSN
@@ -96,8 +87,9 @@ namespace YellowstonePathology.Business
 			get  {return this.m_SearchString; }
 		}
 
-        public void SetFill()
-        {            
+        public YellowstonePathology.Business.Rules.MethodResult SetFill()
+        {
+            YellowstonePathology.Business.Rules.MethodResult methodResult = new Rules.MethodResult();
             switch (this.m_SearchType.ToUpper())
             {
                 case "PN":
@@ -109,8 +101,12 @@ namespace YellowstonePathology.Business
                     this.Fill();
                     break;                
                 case "BD":
-                    this.SetFillByBirthdate();
-                    this.Fill();
+                    this.DateIsValid(methodResult);
+                    if (methodResult.Success == true)
+                    {
+                        this.SetFillByBirthdate();
+                        this.Fill();
+                    }
                     break;
                 case "SN":
                     this.SetFillBySSN();
@@ -122,9 +118,10 @@ namespace YellowstonePathology.Business
                     break;
 				case "MA":
 					this.SetFillByMasterAccessionNo();
-					this.Fill();
+                    this.Fill();
 					break;
-			}            
+			}
+            return methodResult;
         }
 
         public void SetFillByAccessionNo()
@@ -193,6 +190,15 @@ namespace YellowstonePathology.Business
                     }
                 }                
             }
-        }        
+        }
+        
+        private void DateIsValid(YellowstonePathology.Business.Rules.MethodResult methodResult)
+        {
+            if(YellowstonePathology.Business.Helper.DateTimeExtensions.IsStringAValidDate(this.m_SearchString) == false)
+            {
+                methodResult.Success = false;
+                methodResult.Message = "The date is not valid";
+            }
+        }
     }    
 }
