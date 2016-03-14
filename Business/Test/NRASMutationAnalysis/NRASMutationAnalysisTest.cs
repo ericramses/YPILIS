@@ -19,9 +19,9 @@ namespace YellowstonePathology.Business.Test.NRASMutationAnalysis
             this.m_Active = true;
             
 			this.m_AllowMultiplePerAccession = true;
+            this.m_EpicDistributionIsImplemented = true;
 
-
-			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.NRASMutationAnalysis.NRASMutationAnalysisTestOrder).AssemblyQualifiedName;
+            this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.NRASMutationAnalysis.NRASMutationAnalysisTestOrder).AssemblyQualifiedName;
 
             string taskDescription = "Give block to molecular for sendout.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Histology, taskDescription));

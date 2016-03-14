@@ -14,6 +14,7 @@ namespace YellowstonePathology.Business.Test.ThrombocytopeniaProfile
             //this.m_TestId = 13;
 			this.m_AllowMultiplePerAccession = true;
             this.m_ExpectedDuration = new TimeSpan(24, 0, 0);
+            this.m_EpicDistributionIsImplemented = true;
 
             string taskDescription = "Perform thrombocytopenia profile testing.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Flow, taskDescription));

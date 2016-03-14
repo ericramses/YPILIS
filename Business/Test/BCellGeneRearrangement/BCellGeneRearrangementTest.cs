@@ -23,7 +23,8 @@ namespace YellowstonePathology.Business.Test.BCellGeneRearrangement
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.BCellGeneRearrangement.BCellGeneRearrangementTestOrder).AssemblyQualifiedName;
             
 			this.m_AllowMultiplePerAccession = true;
-			//Changed by MS and TK;
+            //Changed by MS and TK;
+            this.m_EpicDistributionIsImplemented = true;
 
             string taskDescription1 = "Cut H&E slide and give to pathologist to circle tumor for tech only. Give the paraffin block to Flow so they can send to NEO.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Histology, taskDescription1));

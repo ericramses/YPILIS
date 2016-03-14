@@ -21,7 +21,8 @@ namespace YellowstonePathology.Business.Test.CLLByFish
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.CLLByFish.CLLByFishTestOrder).AssemblyQualifiedName;
             
 			this.m_AllowMultiplePerAccession = true;
-			//changed by MS and Tk;
+            //changed by MS and Tk;
+            this.m_EpicDistributionIsImplemented = true;
 
             string taskDescription = "Gather materials (Peripheral blood: 2-5 mL in sodium heparin tube, 2x5 mL in EDTA tube; " +
             "Bone marrow: 1-2 mL in sodium heparin tube or 2 mL in EDTA tube; Fresh unfixed tissue in RPMI) and send out to Neo.";

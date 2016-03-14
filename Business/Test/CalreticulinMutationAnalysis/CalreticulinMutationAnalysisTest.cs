@@ -21,7 +21,8 @@ namespace YellowstonePathology.Business.Test.CalreticulinMutationAnalysis
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.CalreticulinMutationAnalysis.CalreticulinMutationAnalysisTestOrder).AssemblyQualifiedName;
             
 			this.m_AllowMultiplePerAccession = true;
-			//Changed by MS and TK;
+            //Changed by MS and TK;
+            this.m_EpicDistributionIsImplemented = true;
 
             string taskDescription2 = "Collect (Peripheral blood: 5 mL in EDTA tube ONLY; " +
             "Bone marrow: 2 mL in EDTA tube ONLY) and send to Neogenomics.";

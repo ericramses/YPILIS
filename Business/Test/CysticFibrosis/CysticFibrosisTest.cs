@@ -21,6 +21,7 @@ namespace YellowstonePathology.Business.Test.CysticFibrosis
 
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.CysticFibrosis.CysticFibrosisTestOrder).AssemblyQualifiedName;            
 			this.m_AllowMultiplePerAccession = true;
+            this.m_EpicDistributionIsImplemented = true;
 
             string taskDescription = "Perform CF testing.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, taskDescription));

@@ -20,6 +20,7 @@ namespace YellowstonePathology.Business.Test.TestCancelled
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.TestCancelled.TestCancelledTestOrder).AssemblyQualifiedName;
 			this.m_AllowMultiplePerAccession = true;
             this.m_IsBillable = false;
+            this.m_EpicDistributionIsImplemented = true;
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceMiscellaneous());
 		}

@@ -20,7 +20,8 @@ namespace YellowstonePathology.Business.Test.MicrosatelliteInstabilityAnalysis
 
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.MicrosatelliteInstabilityAnalysis.MicrosatelliteInstabilityAnalysisTestOrder).AssemblyQualifiedName;
 			this.m_AllowMultiplePerAccession = true;
-			//Changed by MS and MM
+            //Changed by MS and MM
+            this.m_EpicDistributionIsImplemented = true;
 
             string taskDescription = "Cut one H&E from both blocks and give slides and blocks to Molecular for send out.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Histology, taskDescription));
