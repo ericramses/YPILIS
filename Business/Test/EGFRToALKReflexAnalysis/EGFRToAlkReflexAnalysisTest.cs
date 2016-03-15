@@ -27,6 +27,7 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
             this.m_IsBillable = false;
             this.m_ExpectedDuration = TimeSpan.FromDays(14);
             //Checked by MS and TK;
+            this.m_EpicDistributionIsImplemented = true;
 
             string taskDescription1 = "Cut curls and an H&E after slide. Give the H&E after slide, paraffin block and curls to Molecular." +
            	"Pathologist should circle tumor on H&E slide in preparation for ALK and ROS1 and then hand off material to Molecular.";

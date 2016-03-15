@@ -10,9 +10,11 @@ namespace YellowstonePathology.Business.PanelSet.Model
         public PanelSetNonGYNCytology()
 		{
 			this.m_PanelSetId = 128;
-			this.m_PanelSetName = "Non GYN Cytology";			
+			this.m_PanelSetName = "Non GYN Cytology";
 
-			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder).AssemblyQualifiedName;
+            this.m_EpicDistributionIsImplemented = true;
+
+            this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder).AssemblyQualifiedName;
             string taskDescription = "Perform testing.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Histology, taskDescription));
 

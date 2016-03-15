@@ -21,6 +21,7 @@ namespace YellowstonePathology.Business.Test.ErPrSemiQuantitative
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.ErPrSemiQuantitative.ErPrSemiQuantitativeTestOrder).AssemblyQualifiedName;
             
 			this.m_AllowMultiplePerAccession = false;
+            this.m_EpicDistributionIsImplemented = true;
 
             string taskDescription = "Gather materials and perform testing.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Histology, taskDescription));

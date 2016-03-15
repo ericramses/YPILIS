@@ -69,16 +69,21 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
             if (this.m_TestOrderReportDistribution.DistributionType == YellowstonePathology.Business.ReportDistribution.Model.DistributionType.FAX)
             {
-                YellowstonePathology.Business.Audit.Model.TelephoneNumberAudit telephoneNumberAudit = new Business.Audit.Model.TelephoneNumberAudit(this.m_TestOrderReportDistribution.FaxNumber);
-                telephoneNumberAudit.Run();
-
-                if (telephoneNumberAudit.ActionRequired == true)
+                if (string.IsNullOrEmpty(this.m_TestOrderReportDistribution.FaxNumber) == false)
                 {
-                    MessageBoxResult messageBoxResult = MessageBox.Show(telephoneNumberAudit.Message + " Are you sure you want to continue?", "Continue?", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
-                    if (messageBoxResult == MessageBoxResult.No)
+                    YellowstonePathology.Business.Audit.Model.TelephoneNumberAudit telephoneNumberAudit = new Business.Audit.Model.TelephoneNumberAudit(this.m_TestOrderReportDistribution.FaxNumber);
+                    telephoneNumberAudit.Run();
+
+                    if (telephoneNumberAudit.ActionRequired == true)
                     {
+                        MessageBox.Show(telephoneNumberAudit.Message.ToString(), "Invalid Fax Number", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                         result = false;
                     }
+                }
+                else
+                {
+                    MessageBox.Show("Enter a fax number.", "No Fax Number", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    result = false;
                 }
             }
 

@@ -162,8 +162,9 @@ namespace YellowstonePathology.Business.Persistence
                         Document existingDocument = this.Get(documentId);
                         if (existingDocument.IsDirty() == true) existingDocument.Submit();
                         this.m_Documents.Remove(existingDocument);
-                        documentBuilder.Refresh(document.Value);
-                        document.ResetClone();
+                        documentBuilder.Refresh(documentId.Value);
+                        document = new DocumentUpdate(documentId);
+                        this.m_Documents.Add(document);
                     }
                     else
                     {

@@ -20,7 +20,8 @@ namespace YellowstonePathology.Business.Test.ZAP70LymphoidPanel
 
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.ZAP70LymphoidPanel.ZAP70LymphoidPanelTestOrder).AssemblyQualifiedName;
 			this.m_AllowMultiplePerAccession = true;
-			//Changed by MS and TK;
+            //Changed by MS and TK;
+            this.m_EpicDistributionIsImplemented = true;
 
             string taskDescription2 = "Collect (Peripheral blood: 2-5 mL in sodium heparin tube, 2x5 mL in EDTA tube; " +
             "Bone marrow: 1-2 mL in sodium heparin tube or 2 mL in EDTA tube; Fresh unfixed tissue in RPMI) and send to Neogenomics.";

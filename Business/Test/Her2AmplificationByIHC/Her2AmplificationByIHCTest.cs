@@ -23,7 +23,8 @@ namespace YellowstonePathology.Business.Test.Her2AmplificationByIHC
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.Her2AmplificationByIHC.PanelSetOrderHer2AmplificationByIHC).AssemblyQualifiedName;
             
 			this.m_AllowMultiplePerAccession = true;
-			//Changed by MS and Tk;
+            //Changed by MS and Tk;
+            this.m_EpicDistributionIsImplemented = true;
 
             string taskDescription2 = "Get block from histology and send out to Neo.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, taskDescription2));

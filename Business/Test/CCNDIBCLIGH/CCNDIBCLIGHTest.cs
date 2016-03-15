@@ -21,6 +21,7 @@ namespace YellowstonePathology.Business.Test.CCNDIBCLIGH
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.CCNDIBCLIGH.PanelSetOrderCCNDIBCLIGH).AssemblyQualifiedName;
             
 			this.m_AllowMultiplePerAccession = true;
+            this.m_EpicDistributionIsImplemented = true;
 
             string taskDescription = "Collect parafin block from Histology and send to Neo.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Flow, taskDescription));
