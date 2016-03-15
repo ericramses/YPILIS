@@ -22,6 +22,7 @@ namespace YellowstonePathology.Business.Test.DeletionsForGlioma1p19q
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.DeletionsForGlioma1p19q.DeletionsForGlioma1p19qTestOrder).AssemblyQualifiedName;
             
 			this.m_AllowMultiplePerAccession = true;
+            this.m_EpicDistributionIsImplemented = true;
 
             string taskDescription = "Collect the block from Histology and send to Neo.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Flow, taskDescription)); 

@@ -21,7 +21,8 @@ namespace YellowstonePathology.Business.Test.JAK2V617F
 
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FTestOrder).AssemblyQualifiedName;
 			this.m_AllowMultiplePerAccession = true;
-			
+            this.m_EpicDistributionIsImplemented = true;
+
             this.m_ExpectedDuration = new TimeSpan(3, 0, 0, 0);
 
             this.m_TechnicalComponentFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings();

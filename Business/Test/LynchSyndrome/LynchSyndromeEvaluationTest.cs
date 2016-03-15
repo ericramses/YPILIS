@@ -28,6 +28,8 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 			this.m_AllowMultiplePerAccession = true;
             this.m_IsBillable = false;
             this.m_ExpectedDuration = new TimeSpan(14, 0, 0, 0);
+            this.m_EpicDistributionIsImplemented = true;
+            this.m_CMMCDistributionIsImplemented = true;
 
             string taskDescription = "Perform IHC testing.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Histology, taskDescription));

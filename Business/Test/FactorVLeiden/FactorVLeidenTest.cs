@@ -21,6 +21,7 @@ namespace YellowstonePathology.Business.Test.FactorVLeiden
 
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.FactorVLeiden.FactorVLeidenTestOrder).AssemblyQualifiedName;
 			this.m_AllowMultiplePerAccession = true;
+            this.m_EpicDistributionIsImplemented = true;
 
             string taskDescription = "Gather materials and send to St. V's Healthcare for testing.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, taskDescription));

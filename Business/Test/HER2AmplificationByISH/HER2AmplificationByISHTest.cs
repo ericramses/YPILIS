@@ -23,6 +23,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
             
 			this.m_AllowMultiplePerAccession = true;
             this.m_ExpectedDuration = new TimeSpan(4, 0, 0, 0);
+            this.m_EpicDistributionIsImplemented = true;
 
             this.m_TechnicalComponentFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings();
             this.m_TechnicalComponentBillingFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings();
@@ -30,7 +31,9 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
             this.m_ProfessionalComponentFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologistBillings();
             this.m_ProfessionalComponentBillingFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings();
             
-            this.m_HasSplitCPTCode = false;            
+            this.m_HasSplitCPTCode = false;
+
+            this.m_CMMCDistributionIsImplemented = true;
 
             YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88377(), 1);
             this.m_PanelSetCptCodeCollection.Add(panelSetCptCode);

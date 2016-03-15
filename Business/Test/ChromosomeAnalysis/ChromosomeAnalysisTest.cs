@@ -21,7 +21,8 @@ namespace YellowstonePathology.Business.Test.ChromosomeAnalysis
             this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.ChromosomeAnalysis.ChromosomeAnalysisTestOrder).AssemblyQualifiedName;
             
 			this.m_AllowMultiplePerAccession = true;
-			//Changed by MS and TK;
+            //Changed by MS and TK;
+            this.m_EpicDistributionIsImplemented = true;
 
             string taskDescription2 = "Collect (Peripheral blood: 2-5 mL in Sodium Heparin tube ONLY; " +
             "Bone marrow: 2 mL in Sodium Heparin tube ONLY; Fresh unfixed tissue in RPMI) and send to Neogenomics.";

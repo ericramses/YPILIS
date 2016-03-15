@@ -27,7 +27,8 @@ namespace YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile
 			this.m_IsReflexPanel = true;
 			this.m_AllowMultiplePerAccession = true;
             this.m_IsBillable = false;
-            this.m_NeverDistribute = true;            
+            this.m_NeverDistribute = true;
+            this.m_EpicDistributionIsImplemented = true;
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServicePathSummary());
 		}

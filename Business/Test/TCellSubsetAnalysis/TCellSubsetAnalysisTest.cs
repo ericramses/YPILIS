@@ -29,6 +29,7 @@ namespace YellowstonePathology.Business.Test.TCellSubsetAnalysis
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.TCellSubsetAnalysis.TCellSubsetAnalysisTestOrder).AssemblyQualifiedName;
             
 			this.m_AllowMultiplePerAccession = true;
+            this.m_EpicDistributionIsImplemented = true;
 
             YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT86356(), 3);
             this.m_PanelSetCptCodeCollection.Add(panelSetCptCode);

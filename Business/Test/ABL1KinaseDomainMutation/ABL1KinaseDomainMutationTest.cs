@@ -21,7 +21,8 @@ namespace YellowstonePathology.Business.Test.ABL1KinaseDomainMutation
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.ABL1KinaseDomainMutation.ABL1KinaseDomainMutationTestOrder).AssemblyQualifiedName;
             
             this.m_AllowMultiplePerAccession = true;
-			//Changed by MS and TK;
+            //Changed by MS and TK;
+            this.m_EpicDistributionIsImplemented = true;
 
             string taskDescription2 = "Collect (Peripheral blood: 5 mL in EDTA tube ONLY; " +
             "Bone marrow: 2 mL in EDTA tube ONLY) and send to Neogenomics.";

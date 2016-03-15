@@ -76,11 +76,8 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
                     if (telephoneNumberAudit.ActionRequired == true)
                     {
-                        MessageBoxResult messageBoxResult = MessageBox.Show(telephoneNumberAudit.Message + " Are you sure you want to continue?", "Continue?", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
-                        if (messageBoxResult == MessageBoxResult.No)
-                        {
-                            result = false;
-                        }
+                        MessageBox.Show(telephoneNumberAudit.Message.ToString(), "Invalid Fax Number", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                        result = false;
                     }
                 }
                 else

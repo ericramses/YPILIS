@@ -22,7 +22,8 @@ namespace YellowstonePathology.Business.Test.MDSExtendedByFish
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.MDSExtendedByFish.PanelSetOrderMDSExtendedByFish).AssemblyQualifiedName;
             
 			this.m_AllowMultiplePerAccession = true;
-			//checked by MS and TK;
+            //checked by MS and TK;
+            this.m_EpicDistributionIsImplemented = true;
 
             string taskDescription = "Gather materials (Peripheral blood: 2-5 mL in sodium heparin tube and 2x5 mL in EDTA tube or" +
             "Bone marrow: 1-2 mL in sodium heparin tube and 2 mL in EDTA tube or Fresh unfixed tissue in RPMI) and send out to Neo.";
