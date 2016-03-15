@@ -8,7 +8,8 @@ namespace YellowstonePathology.UI.Cutting
     public class CuttingStationPath
     {
         private CuttingWorkspaceWindow m_CuttingWorkspaceWindow;        
-        private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;        
+        private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
+        private string m_AliquotOrderId;   
         private CuttingPage m_CuttingPage;
 
         private YellowstonePathology.Business.Label.Model.HistologySlidePaperLabelPrinter m_HistologySlidePaperLabelPrinter;
@@ -73,17 +74,29 @@ namespace YellowstonePathology.UI.Cutting
         private void CaseLockedPage_AskForLock(object sender, CustomEventArgs.AccessionOrderReturnEventArgs e)
         {
             AppMessaging.MessagingPath.Instance.StartSendRequest(e.AccessionOrder, this.m_CuttingWorkspaceWindow.PageNavigator);
-            AppMessaging.MessagingPath.Instance.LockAquired += MessageQueuePath_LockAquired;
+            AppMessaging.MessagingPath.Instance.LockWasReleased += MessageQueuePath_LockWasReleased;
+            AppMessaging.MessagingPath.Instance.HoldYourHorses += Instance_HoldYourHorses;
+            AppMessaging.MessagingPath.Instance.Next += MessageQueuePath_Next;
         }
 
-        private void MessageQueuePath_LockAquired(object sender, EventArgs e)
+        private void Instance_HoldYourHorses(object sender, EventArgs e)
         {
-            //this.HandleLockAquiredByMe();
+            this.ShowScanAliquotPage(this.m_AccessionOrder.MasterAccessionNo);
+        }
+
+        private void MessageQueuePath_Next(object sender, UI.CustomEventArgs.AccessionOrderReturnEventArgs e)
+        {
+            this.ShowScanAliquotPage(e.AccessionOrder.MasterAccessionNo);
+        }
+
+        private void MessageQueuePath_LockWasReleased(object sender, EventArgs e)
+        {
+            this.HandleLockAquiredByMe();
         }
 
         private void CaseLockedPage_Next(object sender, UI.CustomEventArgs.AccessionOrderReturnEventArgs e)
         {
-            //this.ShowScanAliquotPage(e.AccessionOrder.MasterAccessionNo);
+            this.ShowScanAliquotPage(e.AccessionOrder.MasterAccessionNo);
         }
 
         private void ScanAliquotPage_PrintImmunos(object sender, EventArgs eventArgs)
@@ -151,8 +164,8 @@ namespace YellowstonePathology.UI.Cutting
 
         private void ScanAliquotPage_AliquotOrderSelected(object sender, CustomEventArgs.BarcodeReturnEventArgs eventArgs)
         {            
-            string aliquotOrderId = eventArgs.Barcode.ID;
-            string masterAccessionNo = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetMasterAccessionNoFromAliquotOrderId(aliquotOrderId);
+            this.m_AliquotOrderId = eventArgs.Barcode.ID;
+            string masterAccessionNo = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetMasterAccessionNoFromAliquotOrderId(this.m_AliquotOrderId);
 
             if (string.IsNullOrEmpty(masterAccessionNo) == false)
             {
@@ -162,9 +175,7 @@ namespace YellowstonePathology.UI.Cutting
                 {
                     if (this.m_AccessionOrder.IsLockAquiredByMe == true)
                     {
-                        Business.Test.AliquotOrder aliquotOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetAliquotOrder(aliquotOrderId);
-                        this.AddMaterialTrackingLog(aliquotOrder);
-                        this.HandleAliquotOrderFound(aliquotOrder);                      
+                        this.HandleLockAquiredByMe();     
                     }
                     else
                     {
@@ -180,6 +191,13 @@ namespace YellowstonePathology.UI.Cutting
             {
                 System.Windows.MessageBox.Show("The block scanned could not be found.");
             }
+        }
+
+        private void HandleLockAquiredByMe()
+        {
+            Business.Test.AliquotOrder aliquotOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetAliquotOrder(this.m_AliquotOrderId);
+            this.AddMaterialTrackingLog(aliquotOrder);
+            this.HandleAliquotOrderFound(aliquotOrder);
         }
 
         private void ShowCaseLockPage()

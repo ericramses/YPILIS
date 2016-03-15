@@ -164,10 +164,16 @@ namespace YellowstonePathology.UI.Gross
         private void CaseLockedPage_AskForLock(object sender, CustomEventArgs.AccessionOrderReturnEventArgs e)
         {
             AppMessaging.MessagingPath.Instance.StartSendRequest(e.AccessionOrder, this.m_HistologyGrossDialog.PageNavigator);
-            AppMessaging.MessagingPath.Instance.LockAquired += MessageQueuePath_LockAquired;
+            AppMessaging.MessagingPath.Instance.LockWasReleased += MessageQueuePath_LockWasReleased;
+            AppMessaging.MessagingPath.Instance.HoldYourHorses += Instance_HoldYourHorses;
         }
 
-        private void MessageQueuePath_LockAquired(object sender, EventArgs e)
+        private void Instance_HoldYourHorses(object sender, EventArgs e)
+        {
+            this.ShowScanContainerPage();
+        }
+
+        private void MessageQueuePath_LockWasReleased(object sender, EventArgs e)
         {
             this.HandleLockAquiredByMe();
         }

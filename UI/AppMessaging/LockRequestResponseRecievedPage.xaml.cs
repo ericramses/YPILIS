@@ -19,8 +19,11 @@ namespace YellowstonePathology.UI.AppMessaging
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
-        public delegate void LockAquiredEventHandler(object sender, EventArgs e);
-        public event LockAquiredEventHandler LockAquired;
+        public delegate void LockWasReleasedEventHandler(object sender, EventArgs e);
+        public event LockWasReleasedEventHandler LockWasReleased;
+
+        public delegate void HoldYourHorsesEventHandler(object sender, EventArgs e);
+        public event HoldYourHorsesEventHandler HoldYourHorses;
 
         private MessageBody m_MessageBody;        
 
@@ -46,7 +49,14 @@ namespace YellowstonePathology.UI.AppMessaging
 
         private void ButtonNext_Click(object sender, RoutedEventArgs e)
         {
-            if (this.LockAquired != null) this.LockAquired(this, new EventArgs());
+            if(MessageBody.LockWasReleased == true)
+            {
+                if (this.LockWasReleased != null) this.LockWasReleased(this, new EventArgs());
+            }
+            else
+            {
+                if (this.HoldYourHorses != null) this.HoldYourHorses(this, new EventArgs());
+            }            
         }
 
         public void NotifyPropertyChanged(String info)

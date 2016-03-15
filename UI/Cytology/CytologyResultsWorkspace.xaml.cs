@@ -333,7 +333,9 @@ namespace YellowstonePathology.UI.Cytology
                 {
 					YellowstonePathology.Business.Rules.ExecutionStatus executionStatus = new YellowstonePathology.Business.Rules.ExecutionStatus();
 					YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology cytologyPanelOrder = (YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology)this.ListBoxResults.SelectedItem;
-					this.m_CytologyUI.ScreeningFinal(cytologyPanelOrder, executionStatus);					
+					this.m_CytologyUI.ScreeningFinal(cytologyPanelOrder, executionStatus);
+                    //Business.Persistence.DocumentGateway.Instance.Save();
+                    			
 					try
 					{
 						YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology panelOrder = (YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology)this.ListBoxResults.SelectedItem;

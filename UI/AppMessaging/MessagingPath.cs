@@ -10,9 +10,15 @@ namespace YellowstonePathology.UI.AppMessaging
         private static volatile MessagingPath instance;
         private static object syncRoot = new Object();
 
-        public delegate void LockAquiredEventHandler(object sender, EventArgs e);
-        public event LockAquiredEventHandler LockAquired;
-        
+        public delegate void LockWasReleasedEventHandler(object sender, EventArgs e);
+        public event LockWasReleasedEventHandler LockWasReleased;
+
+        public delegate void HoldYourHorsesEventHandler(object sender, EventArgs e);
+        public event HoldYourHorsesEventHandler HoldYourHorses;
+
+        public delegate void NextEventHandler(object sender, UI.CustomEventArgs.AccessionOrderReturnEventArgs e);
+        public event NextEventHandler Next;
+
         private Navigation.PageNavigator m_PageNavigator;
         private bool m_PageNavigatorWasPassedIn;
 
@@ -71,9 +77,24 @@ namespace YellowstonePathology.UI.AppMessaging
 
         private void ShowLockRequestSentPage(Business.Test.AccessionOrder accessionOrder)
         {
-            LockRequestSentPage lockRequestSentPage = new LockRequestSentPage(accessionOrder);
+            LockRequestSentPage lockRequestSentPage = null;
+            if(this.m_PageNavigatorWasPassedIn == true)
+            {
+                lockRequestSentPage = new LockRequestSentPage(accessionOrder, System.Windows.Visibility.Collapsed, System.Windows.Visibility.Visible);
+            }
+            else
+            {
+                lockRequestSentPage = new LockRequestSentPage(accessionOrder, System.Windows.Visibility.Visible, System.Windows.Visibility.Collapsed);
+            }
+
             lockRequestSentPage.ShowResponseReceivedPage += LockRequestSentPage_ShowResponseReceivedPage;
+            lockRequestSentPage.Next += LockRequestSentPage_Next;
             this.m_PageNavigator.Navigate(lockRequestSentPage);
+        }
+
+        private void LockRequestSentPage_Next(object sender, UI.CustomEventArgs.AccessionOrderReturnEventArgs e)
+        {
+            if (this.Next != null) this.Next(this, e);
         }
 
         private void LockRequestSentPage_ShowResponseReceivedPage(object sender, CustomEventArgs.MessageReturnEventArgs e)
@@ -88,13 +109,19 @@ namespace YellowstonePathology.UI.AppMessaging
                 lockRequestResponseReceivedPage = new LockRequestResponseReceivedPage(e.Message, System.Windows.Visibility.Collapsed, System.Windows.Visibility.Visible);
             }
 
-            lockRequestResponseReceivedPage.LockAquired += LockRequestResponseReceivedPage_LockAquired;
+            lockRequestResponseReceivedPage.LockWasReleased += LockRequestResponseReceivedPage_LockWasReleased;
+            lockRequestResponseReceivedPage.HoldYourHorses += LockRequestResponseReceivedPage_HoldYourHorses;
             this.m_PageNavigator.Navigate(lockRequestResponseReceivedPage);            
         }
 
-        private void LockRequestResponseReceivedPage_LockAquired(object sender, EventArgs e)
+        private void LockRequestResponseReceivedPage_HoldYourHorses(object sender, EventArgs e)
         {
-            if (this.LockAquired != null) this.LockAquired(this, new EventArgs());
+            if (HoldYourHorses != null) this.HoldYourHorses(this, new EventArgs());
+        }
+
+        private void LockRequestResponseReceivedPage_LockWasReleased(object sender, EventArgs e)
+        {
+            if (this.LockWasReleased != null) this.LockWasReleased(this, new EventArgs());
         }
 
         public static MessagingPath Instance

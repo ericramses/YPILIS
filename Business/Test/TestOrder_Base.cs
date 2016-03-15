@@ -28,6 +28,7 @@ namespace YellowstonePathology.Business.Test.Model
         protected string m_Comment;
         protected bool m_OrderedAsDual;
         protected bool m_NoCharge;
+        protected string m_ClientAccessionNo;
 
         public TestOrder_Base()
         {
@@ -184,6 +185,20 @@ namespace YellowstonePathology.Business.Test.Model
                 {
                     this.m_NoCharge = value;
                     this.NotifyPropertyChanged("NoCharge");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string ClientAccessionNo
+        {
+            get { return this.m_ClientAccessionNo; }
+            set
+            {
+                if (this.m_ClientAccessionNo != value)
+                {
+                    this.m_ClientAccessionNo = value;
+                    this.NotifyPropertyChanged("ClientAccessionNo");
                 }
             }
         }

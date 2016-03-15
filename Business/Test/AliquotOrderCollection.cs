@@ -266,7 +266,7 @@ namespace YellowstonePathology.Business.Test
             aliquotOrder.SpecimenOrderId = specimenOrder.SpecimenOrderId;
             aliquotOrder.Description = string.Empty;
             aliquotOrder.AliquotType = aliquot.AliquotType;
-            aliquotOrder.LabelPrefix = string.Empty;
+            aliquotOrder.LabelPrefix = string.Empty;        
             aliquotOrder.Status = YellowstonePathology.Business.TrackedItemStatusEnum.Created.ToString();
             this.Add(aliquotOrder);
             this.SetSlideLabels(specimenOrder.SpecimenNumber);
