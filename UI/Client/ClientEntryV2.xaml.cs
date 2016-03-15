@@ -219,7 +219,6 @@ namespace YellowstonePathology.UI.Client
             ClientSupplyOrderDialog clientSupplyOrderDialog = new ClientSupplyOrderDialog(clientSupplyOrder);
 			clientSupplyOrderDialog.ShowDialog();
 			this.m_ClientSupplyOrderCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientSupplyOrderCollectionByClientId(this.m_Client.ClientId);
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(clientSupplyOrder, this);
             this.NotifyPropertyChanged("ClientSupplyOrderCollection");
 		}
 
