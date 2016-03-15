@@ -47,7 +47,7 @@ namespace YellowstonePathology.Business.Slide.Model
         protected string m_Location;
         protected string m_ReportNo;
         protected string m_LabelType;
-        protected bool m_OrderedAsDual;
+        protected bool m_OrderedAsDual;        
 
         private string m_LocationId;
         private string m_FacilityId;
@@ -70,7 +70,7 @@ namespace YellowstonePathology.Business.Slide.Model
             this.m_OrderedBy = systemIdentity.User.UserName;
             this.m_OrderedById = systemIdentity.User.UserId;
             this.m_OrderedFrom = Environment.MachineName;
-            this.m_OrderedAsDual = testOrder.OrderedAsDual;       
+            this.m_OrderedAsDual = testOrder.OrderedAsDual;        
         }
 
         public void Validate(YellowstonePathology.Business.User.SystemIdentity systemIdentity)
@@ -142,7 +142,7 @@ namespace YellowstonePathology.Business.Slide.Model
                     this.NotifyPropertyChanged("ClientAccessioned");
                 }
             }
-        }
+        }        
 
         [PersistentProperty()]
         public string AliquotOrderId

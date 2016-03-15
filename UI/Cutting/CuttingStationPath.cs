@@ -74,8 +74,14 @@ namespace YellowstonePathology.UI.Cutting
         private void CaseLockedPage_AskForLock(object sender, CustomEventArgs.AccessionOrderReturnEventArgs e)
         {
             AppMessaging.MessagingPath.Instance.StartSendRequest(e.AccessionOrder, this.m_CuttingWorkspaceWindow.PageNavigator);
-            AppMessaging.MessagingPath.Instance.LockAquired += MessageQueuePath_LockAquired;
+            AppMessaging.MessagingPath.Instance.LockWasReleased += MessageQueuePath_LockWasReleased;
+            AppMessaging.MessagingPath.Instance.HoldYourHorses += Instance_HoldYourHorses;
             AppMessaging.MessagingPath.Instance.Next += MessageQueuePath_Next;
+        }
+
+        private void Instance_HoldYourHorses(object sender, EventArgs e)
+        {
+            this.ShowScanAliquotPage(this.m_AccessionOrder.MasterAccessionNo);
         }
 
         private void MessageQueuePath_Next(object sender, UI.CustomEventArgs.AccessionOrderReturnEventArgs e)
@@ -83,7 +89,7 @@ namespace YellowstonePathology.UI.Cutting
             this.ShowScanAliquotPage(e.AccessionOrder.MasterAccessionNo);
         }
 
-        private void MessageQueuePath_LockAquired(object sender, EventArgs e)
+        private void MessageQueuePath_LockWasReleased(object sender, EventArgs e)
         {
             this.HandleLockAquiredByMe();
         }

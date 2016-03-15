@@ -991,10 +991,7 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {            
-            YellowstonePathology.Business.Label.Model.HistologySlideLabel histologySlideLabel = new Business.Label.Model.HistologySlideLabel("16-123.1A1", "16-123.S", "1A1", "Harder", "SURG", "YPI", "MD6-1234");
-            YellowstonePathology.Business.Label.Model.ThermoFisherHistologySlidePrinter thermoFisherSlidePrinter = new Business.Label.Model.ThermoFisherHistologySlidePrinter();
-            thermoFisherSlidePrinter.Queue.Enqueue(histologySlideLabel);
-            thermoFisherSlidePrinter.Print();
+            
         }
 
         private void FindY()

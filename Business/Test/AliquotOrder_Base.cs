@@ -18,7 +18,7 @@ namespace YellowstonePathology.Business.Test
         protected string m_ObjectId;
         protected string m_AliquotOrderId;
         protected string m_SpecimenOrderId;
-        protected bool m_ClientAccessioned;
+        protected bool m_ClientAccessioned;        
         protected string m_TestOrderId;
         protected string m_AliquotType;
         protected string m_Description;
@@ -100,7 +100,7 @@ namespace YellowstonePathology.Business.Test
                     this.NotifyPropertyChanged("ClientAccessioned");
                 }
             }
-        }
+        }        
 
         [PersistentProperty()]
         public string TestOrderId

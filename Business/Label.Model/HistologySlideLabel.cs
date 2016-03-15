@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Label.Model
         private string m_ClientAccessionNo;        
 		private YellowstonePathology.Business.BarcodeScanning.BarcodeVersion2 m_Barcode;
 
-        public HistologySlideLabel(string slideOrderId, string reportNo, string slideNumber, string patientLastName, string testAbbreviation, string facilityLocationAbbreviation, string clientAccessionNo)
+        public HistologySlideLabel(string slideOrderId, string reportNo, string slideNumber, string patientLastName, string testAbbreviation, string facilityLocationAbbreviation, Business.Test.AccessionOrder accessionOrder)
         {
             this.m_SlideOrderId = slideOrderId;
             this.m_ReportNo = reportNo;
@@ -25,7 +25,7 @@ namespace YellowstonePathology.Business.Label.Model
             this.m_PatientLastName = patientLastName;
             this.m_TestAbbreviation = testAbbreviation;
             this.m_FacilityLocationAbbreviation = facilityLocationAbbreviation;
-            this.m_ClientAccessionNo = clientAccessionNo;
+            this.m_ClientAccessionNo = accessionOrder.ClientAccessionNo;
 			this.m_Barcode = new YellowstonePathology.Business.BarcodeScanning.BarcodeVersion2(Business.BarcodeScanning.BarcodePrefixEnum.HSLD, this.m_SlideOrderId);            
         }
 

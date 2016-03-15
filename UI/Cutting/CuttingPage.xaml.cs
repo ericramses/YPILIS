@@ -255,7 +255,7 @@ namespace YellowstonePathology.UI.Cutting
 
         private void PrintSlide(YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder)
         {			
-            YellowstonePathology.Business.Label.Model.HistologySlideLabel histologySlideLabel = new Business.Label.Model.HistologySlideLabel(slideOrder.SlideOrderId, slideOrder.ReportNo, slideOrder.Label, slideOrder.PatientLastName, slideOrder.TestAbbreviation, slideOrder.Location, null);
+            YellowstonePathology.Business.Label.Model.HistologySlideLabel histologySlideLabel = new Business.Label.Model.HistologySlideLabel(slideOrder.SlideOrderId, slideOrder.ReportNo, slideOrder.Label, slideOrder.PatientLastName, slideOrder.TestAbbreviation, slideOrder.Location, this.m_AccessionOrder);
             YellowstonePathology.Business.Label.Model.ThermoFisherHistologySlidePrinter thermoFisherSlidePrinter = new Business.Label.Model.ThermoFisherHistologySlidePrinter();
             thermoFisherSlidePrinter.Queue.Enqueue(histologySlideLabel);
             thermoFisherSlidePrinter.Print();

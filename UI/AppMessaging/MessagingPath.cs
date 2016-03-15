@@ -10,8 +10,11 @@ namespace YellowstonePathology.UI.AppMessaging
         private static volatile MessagingPath instance;
         private static object syncRoot = new Object();
 
-        public delegate void LockAquiredEventHandler(object sender, EventArgs e);
-        public event LockAquiredEventHandler LockAquired;
+        public delegate void LockWasReleasedEventHandler(object sender, EventArgs e);
+        public event LockWasReleasedEventHandler LockWasReleased;
+
+        public delegate void HoldYourHorsesEventHandler(object sender, EventArgs e);
+        public event HoldYourHorsesEventHandler HoldYourHorses;
 
         public delegate void NextEventHandler(object sender, UI.CustomEventArgs.AccessionOrderReturnEventArgs e);
         public event NextEventHandler Next;
@@ -106,13 +109,19 @@ namespace YellowstonePathology.UI.AppMessaging
                 lockRequestResponseReceivedPage = new LockRequestResponseReceivedPage(e.Message, System.Windows.Visibility.Collapsed, System.Windows.Visibility.Visible);
             }
 
-            lockRequestResponseReceivedPage.LockAquired += LockRequestResponseReceivedPage_LockAquired;
+            lockRequestResponseReceivedPage.LockWasReleased += LockRequestResponseReceivedPage_LockWasReleased;
+            lockRequestResponseReceivedPage.HoldYourHorses += LockRequestResponseReceivedPage_HoldYourHorses;
             this.m_PageNavigator.Navigate(lockRequestResponseReceivedPage);            
         }
 
-        private void LockRequestResponseReceivedPage_LockAquired(object sender, EventArgs e)
+        private void LockRequestResponseReceivedPage_HoldYourHorses(object sender, EventArgs e)
         {
-            if (this.LockAquired != null) this.LockAquired(this, new EventArgs());
+            if (HoldYourHorses != null) this.HoldYourHorses(this, new EventArgs());
+        }
+
+        private void LockRequestResponseReceivedPage_LockWasReleased(object sender, EventArgs e)
+        {
+            if (this.LockWasReleased != null) this.LockWasReleased(this, new EventArgs());
         }
 
         public static MessagingPath Instance
