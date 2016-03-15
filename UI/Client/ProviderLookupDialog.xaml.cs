@@ -92,6 +92,10 @@ namespace YellowstonePathology.UI.Client
 
 			ClientEntryV2 clientEntry = new ClientEntryV2(client, true);
 			clientEntry.ShowDialog();
+            if(this.m_ClientCollection == null)
+            {
+                this.m_ClientCollection = new Business.Client.Model.ClientCollection();
+            }
             this.m_ClientCollection.Insert(0, client);
 		}
 
