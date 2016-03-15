@@ -19,7 +19,8 @@ namespace YellowstonePathology.Business.Test.EosinophiliaByFISH
             this.m_Active = true;
             
             this.m_AllowMultiplePerAccession = true;
-			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.EosinophiliaByFISH.EosinophiliaByFISHTestOrder).AssemblyQualifiedName;
+            this.m_EpicDistributionIsImplemented = true;
+            this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.EosinophiliaByFISH.EosinophiliaByFISHTestOrder).AssemblyQualifiedName;
 			//changed by MS and Tk;
 
             string taskDescription = "Gather materials (Peripheral blood: 2-5 mL in sodium heparin tube, 2x5 mL in EDTA tube; " +

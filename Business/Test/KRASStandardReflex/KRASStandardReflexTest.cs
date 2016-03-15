@@ -25,7 +25,8 @@ namespace YellowstonePathology.Business.Test.KRASStandardReflex
 			this.m_AllowMultiplePerAccession = true;
 			this.m_AcceptOnFinal = true;
             this.m_ExpectedDuration = new TimeSpan(120, 0, 0);
-            this.m_IsBillable = false;            
+            this.m_IsBillable = false;
+            this.m_EpicDistributionIsImplemented = true;
 
             string taskDescription = "Give block to Molecular for sendout.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Histology, taskDescription));

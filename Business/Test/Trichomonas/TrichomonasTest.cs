@@ -19,6 +19,8 @@ namespace YellowstonePathology.Business.Test.Trichomonas
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterM();
             this.m_Active = true;            
 			this.m_AllowMultiplePerAccession = true;
+            this.m_EpicDistributionIsImplemented = true;
+            this.m_CMMCDistributionIsImplemented = true;
 
             this.m_AddAliquotOnOrder = true;
             this.m_AliquotToAddOnOrder = new YellowstonePathology.Business.Specimen.Model.PantherAliquot();

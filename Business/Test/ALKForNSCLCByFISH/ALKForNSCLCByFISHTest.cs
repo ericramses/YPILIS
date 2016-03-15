@@ -20,6 +20,8 @@ namespace YellowstonePathology.Business.Test.ALKForNSCLCByFISH
             this.m_Active = true;
             
 			this.m_AllowMultiplePerAccession = true;
+            this.m_EpicDistributionIsImplemented = true;
+
             this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.ALKForNSCLCByFISH.ALKForNSCLCByFISHTestOrder).AssemblyQualifiedName;
 			//Changed by MS and TK;
 

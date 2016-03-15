@@ -19,7 +19,8 @@ namespace YellowstonePathology.Business.Test.MPL
             this.m_Active = true;
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.MPL.PanelSetOrderMPL).AssemblyQualifiedName;            
 			this.m_AllowMultiplePerAccession = true;
-			//Changed by MS and TK;
+            //Changed by MS and TK;
+            this.m_EpicDistributionIsImplemented = true;
 
             string taskDescription2 = "Collect (Peripheral blood: 2-5 mL in EDTA tube ONLY; " +
             "Bone marrow: 2 mL in EDTA tube ONLY) and send to Neogenomics.";

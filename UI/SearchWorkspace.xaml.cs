@@ -135,7 +135,11 @@ namespace YellowstonePathology.UI
             {                
                 this.m_Search.SearchList.SearchType = this.textBoxSearchCriteria.Text.Substring(0, 2);
                 this.m_Search.SearchList.SearchString = this.textBoxSearchCriteria.Text.Substring(3, this.textBoxSearchCriteria.Text.Length - 3);
-                this.m_Search.SearchList.SetFill();                                                        
+                YellowstonePathology.Business.Rules.MethodResult methodResult = this.m_Search.SearchList.SetFill();
+                if(methodResult.Success == false)
+                {
+                    MessageBox.Show(methodResult.Message);
+                }
             }            
         }
 

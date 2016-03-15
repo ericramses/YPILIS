@@ -22,8 +22,9 @@ namespace YellowstonePathology.Business.Test.EGFRMutationAnalysis
             this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisTestOrder).AssemblyQualifiedName;
             
 			this.m_AllowMultiplePerAccession = true;
-            this.m_ExpectedDuration = new TimeSpan(5, 0, 0, 0); 
-			//Checked by MS and TK;            
+            this.m_ExpectedDuration = new TimeSpan(5, 0, 0, 0);
+            //Checked by MS and TK;            
+            this.m_EpicDistributionIsImplemented = true;
 
             string taskDescription = "Cut curls and an after H&E. Also, cut 2 unstained slides and an after H&E for possible ALK. Give materials to molecular.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Histology, taskDescription));

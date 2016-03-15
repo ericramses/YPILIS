@@ -23,7 +23,8 @@ namespace YellowstonePathology.Business.Test.KRASStandard
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.KRASStandard.KRASStandardTestOrder).AssemblyQualifiedName;
             
 			this.m_AllowMultiplePerAccession = true;
-            this.m_ExpectedDuration = new TimeSpan(120, 0, 0);            
+            this.m_ExpectedDuration = new TimeSpan(120, 0, 0);
+            this.m_EpicDistributionIsImplemented = true;
 
             this.m_TechnicalComponentFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings();
             this.m_TechnicalComponentBillingFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings();

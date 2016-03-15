@@ -24,6 +24,7 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
 
             this.m_AllowMultiplePerAccession = true;
             this.m_ExpectedDuration = TimeSpan.FromDays(10);
+            this.m_EpicDistributionIsImplemented = true;
 
             string taskDescription = "Give block to molecular for sendout.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Histology, taskDescription));

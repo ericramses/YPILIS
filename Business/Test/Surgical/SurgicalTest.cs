@@ -24,9 +24,11 @@ namespace YellowstonePathology.Business.Test.Surgical
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder).AssemblyQualifiedName;
 			this.m_AllowMultiplePerAccession = false;            
             this.m_ExpectedDuration = new TimeSpan(3, 0, 0, 0);
+            this.m_EpicDistributionIsImplemented = true;
+            this.m_CMMCDistributionIsImplemented = true;
 
             this.m_RequireAssignmentOnOrder = false;
-            
+
             this.m_TechnicalComponentFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings();
             this.m_TechnicalComponentBillingFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings();
 
