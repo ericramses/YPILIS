@@ -42,6 +42,10 @@ namespace YellowstonePathology.Business.Test.PDL1
             this.AddNextObxElement(panelSetOrder.StainPercent, document, "F");
 
             this.AddNextObxElement("", document, "F");
+            this.AddNextObxElement("Method:", document, "F");
+            this.HandleLongString(panelSetOrder.Method, document, "F");
+
+            this.AddNextObxElement("", document, "F");
             string locationComment = panelSetOrder.GetLocationPerformedComment();
             this.HandleLongString(locationComment, document, "F");
             this.AddNextObxElement(string.Empty, document, "F");
