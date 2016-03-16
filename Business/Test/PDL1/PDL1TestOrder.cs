@@ -11,6 +11,7 @@ namespace YellowstonePathology.Business.Test.PDL1
     {
         private string m_Result;
         private string m_StainPercent;
+        private string m_Method;
 
         public PDL1TestOrder()
         {
@@ -50,6 +51,20 @@ namespace YellowstonePathology.Business.Test.PDL1
                 {
                     this.m_StainPercent = value;
                     this.NotifyPropertyChanged("StainPercent");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string Method
+        {
+            get { return this.m_Method; }
+            set
+            {
+                if (this.m_Method != value)
+                {
+                    this.m_Method = value;
+                    this.NotifyPropertyChanged("Method");
                 }
             }
         }

@@ -137,6 +137,10 @@ namespace YellowstonePathology.UI.Login.Receiving
                 {
                     MessageBox.Show("This order cannot be accessioned because the provider cannot be mapped.", "Unable to map the provider.", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 }
+                else if(this.m_ClientOrder.SystemInitiatingOrder == "EPIC" && this.PhysicianHasDistributionsForThisClient() == false)
+                {
+                    MessageBox.Show("This order cannot be accessioned because the provider has no report distributions for the client.", "Unable to create report distributions.", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                }
                 else
                 {
                     if (this.CreateNewAccessionOrder != null)
@@ -147,7 +151,7 @@ namespace YellowstonePathology.UI.Login.Receiving
             }
             else
             {
-                MessageBox.Show("This cliet order is already accessioned.");
+                MessageBox.Show("This client order is already accessioned.");
             }
 		}
 		
@@ -244,6 +248,23 @@ namespace YellowstonePathology.UI.Login.Receiving
         private void ProviderSelectionPage_Back(object sender, EventArgs e)
         {
             this.m_PageNavigator.Navigate(this);            
-        }        
-	}
+        }
+        
+        private bool PhysicianHasDistributionsForThisClient()
+        {
+            bool result = false;
+            YellowstonePathology.Business.Domain.PhysicianClient physicianClient = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClient(this.m_Physician.ObjectId, this.m_ClientOrder.ClientId);
+            if (physicianClient != null)
+            {
+                YellowstonePathology.Business.Client.Model.PhysicianClientDistributionCollection physicianClientDistributionCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClientDistributionByPhysicianClientId(physicianClient.PhysicianClientId);
+                if (physicianClientDistributionCollection.Count > 0)
+                {
+                    result = true;
+                }
+            }
+
+            return result;
+        }
+
+    }
 }

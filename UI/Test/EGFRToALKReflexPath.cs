@@ -58,14 +58,16 @@ namespace YellowstonePathology.UI.Test
             this.m_AccessionOrder.TaskOrderCollection.Add(taskOrderROS1);
 
             YellowstonePathology.Business.Test.PDL1.PDL1Test pdl1Test = new Business.Test.PDL1.PDL1Test();
-            YellowstonePathology.Business.Test.TestOrderInfo testOrderInfoPDL1 = new YellowstonePathology.Business.Test.TestOrderInfo(pdl1Test, orderTarget, false);
-            YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderPDL1Visitor = new Business.Visitor.OrderTestOrderVisitor(testOrderInfoPDL1);
-            this.m_AccessionOrder.TakeATrip(orderPDL1Visitor);
-            orderROS1Visitor.PanelSetOrder.Distribute = false;
+            if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(pdl1Test.PanelSetId, this.m_EGFRToALKReflexAnalysisTestOrder.OrderedOnId, true) == false)
+            {
+                YellowstonePathology.Business.Test.TestOrderInfo testOrderInfoPDL1 = new YellowstonePathology.Business.Test.TestOrderInfo(pdl1Test, orderTarget, false);
+                YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderPDL1Visitor = new Business.Visitor.OrderTestOrderVisitor(testOrderInfoPDL1);
+                this.m_AccessionOrder.TakeATrip(orderPDL1Visitor);
+                orderPDL1Visitor.PanelSetOrder.Distribute = false;
 
-            YellowstonePathology.Business.Task.Model.TaskOrder taskOrderPDL1 = this.m_AccessionOrder.CreateTask(testOrderInfoPDL1);
-            this.m_AccessionOrder.TaskOrderCollection.Add(taskOrderPDL1);
-
+                YellowstonePathology.Business.Task.Model.TaskOrder taskOrderPDL1 = this.m_AccessionOrder.CreateTask(testOrderInfoPDL1);
+                this.m_AccessionOrder.TaskOrderCollection.Add(taskOrderPDL1);
+            }
             this.m_AccessionOrder.PanelSetOrderCollection.UpdateTumorNucleiPercentage(this.m_EGFRToALKReflexAnalysisTestOrder);
         }              
 
