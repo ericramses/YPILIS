@@ -21,16 +21,15 @@ namespace YellowstonePathology.UI
 
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;                
         private YellowstonePathology.Business.Typing.TypingShortcutCollection m_TypingShortcutCollection;
-        private Window m_ParentWindow;
+        private object m_Writer;
 
-		public TypingShortcutUserControl(YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+		public TypingShortcutUserControl(YellowstonePathology.Business.User.SystemIdentity systemIdentity, object writer)
         {            
             this.m_SystemIdentity = systemIdentity;            
-			this.m_TypingShortcutCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetTypingShortcutCollectionByUser(this.m_SystemIdentity.User.UserId);            
-
+			this.m_TypingShortcutCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetTypingShortcutCollectionByUser(this.m_SystemIdentity.User.UserId);
+            this.m_Writer = writer;
             InitializeComponent();
 
-            this.m_ParentWindow = Window.GetWindow(this);
             this.DataContext = this;
         }
 
@@ -48,7 +47,7 @@ namespace YellowstonePathology.UI
                 if (result == MessageBoxResult.OK)
                 {
                     this.m_TypingShortcutCollection.Remove(typingShortcut);
-                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.DeleteDocument(typingShortcut, this.m_ParentWindow);
+                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.DeleteDocument(typingShortcut, this.m_Writer);
                 }
             }
         }
