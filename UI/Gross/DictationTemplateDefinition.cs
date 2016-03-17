@@ -41,7 +41,7 @@ namespace YellowstonePathology.UI.Gross
         {
             this.m_TemplateName = "Prostate TUR";
             this.m_Text = "[identifier] and consists of [number] irregular ragged tan-pink tissue fragments " +
-                "weighing [weight] and measuring [measurement] in aggregate.  [representativesections]. ";                
+                "weighing [weight] and measuring [measurement] in aggregate.  [representativesections].  ";                
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ProstateTUR tur = new Business.Specimen.Model.SpecimenDefinition.ProstateTUR();
             this.m_SpecimenCollection.Add(tur);
@@ -83,8 +83,8 @@ namespace YellowstonePathology.UI.Gross
             this.m_Text = "[identifier]." + Environment.NewLine +
             	"Gross description:  [description]" + Environment.NewLine +
                 "Fimbriated Ends:  [description]" + Environment.NewLine +
-            	"Fallopian Tube 1:  [description], [measurement]" + Environment.NewLine +                          
-				"Fallopian Tube 2:  [description], [measurement]" + Environment.NewLine +
+            	"Fallopian Tube 1:  [description], [measurement], [inked]" + Environment.NewLine +                          
+				"Fallopian Tube 2:  [description], [measurement], [inked]" + Environment.NewLine +
                 "Submitted:  Serially sectioned with representative sections submitted into cassette [cassettelabel].  ";
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.FallopianTube fallopianTube = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.FallopianTube();
@@ -575,7 +575,7 @@ namespace YellowstonePathology.UI.Gross
         public SinglePlacentaTemplate()
         {
             this.m_TemplateName = "SinglePlacenta";
-            this.m_Text = "[identifier] is a singleton placenta with umbilical cord and membranes." + Environment.NewLine +
+            this.m_Text = "[identifier] and consists of a singleton placenta with umbilical cord and membranes." + Environment.NewLine +
                 Environment.NewLine +
                 "Umbilical Cord:" + Environment.NewLine +
                 "   Length:  [length]" + Environment.NewLine +
@@ -673,22 +673,24 @@ namespace YellowstonePathology.UI.Gross
         {
             this.m_TemplateName = "Uterus with Adnexa";
             this.m_FontSize = 16;
-            this.m_Text = "[identifier]." + Environment.NewLine +
+            this.m_Text = "[identifier] and consists of uterus, cervix, bilateral fallopian tubes, and ovaries." + Environment.NewLine +
                 Environment.NewLine +
                 "Right Adnexal Organs:" + Environment.NewLine +
                 "   Fallopian Tube: " + Environment.NewLine +
-                "      Dimensions:  [measurements]([w/wo] fimbriated ends)" + Environment.NewLine +
+                "      Dimensions:  [measurements]([w/wo] fimbriated end)" + Environment.NewLine +
                 "      Surface:  [description/paratubal cysts absent/present]" + Environment.NewLine +
                 "      Cut Surface:  [patent/stenotic lumen]" + Environment.NewLine +
+                "      Inked:  [color]" + Environment.NewLine +
                 "   Ovary:" + Environment.NewLine +
                 "      Dimensions:  [measurement]" + Environment.NewLine +
                 "      Surface:  [description]" + Environment.NewLine +
                 "      Cut Surface:  [description]" + Environment.NewLine +
                 "Left Adnexal Organs:" + Environment.NewLine +
                 "   Fallopian Tube: " + Environment.NewLine +
-                "      Dimensions:  [measurements]([w/wo] fimbriated ends)" + Environment.NewLine +
+                "      Dimensions:  [measurements]([w/wo] fimbriated end)" + Environment.NewLine +
                 "      Surface:  [description/paratubal cysts absent/present]" + Environment.NewLine +
                 "      Cut Surface:  [patent/stenotic lumen]" + Environment.NewLine +
+                "      Inked:  [color]" + Environment.NewLine +
                 "   Ovary:" + Environment.NewLine +
                 "      Dimensions:  [measurement]" + Environment.NewLine +
                 "      Surface:  [description]" + Environment.NewLine +
