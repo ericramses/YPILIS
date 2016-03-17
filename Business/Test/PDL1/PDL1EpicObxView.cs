@@ -22,6 +22,9 @@ namespace YellowstonePathology.Business.Test.PDL1
             string result = "Result: " + panelSetOrder.Result;
 
             this.AddNextObxElement("", document, "F");
+            string comment = "Comment: " + panelSetOrder.Comment;
+
+            this.AddNextObxElement("", document, "F");
             this.AddNextObxElement("Pathologist: " + panelSetOrder.Signature, document, "F");
             if (panelSetOrder.FinalTime.HasValue == true)
             {

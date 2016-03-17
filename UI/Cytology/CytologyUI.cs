@@ -106,7 +106,7 @@ namespace YellowstonePathology.UI.Cytology
 			{
 				if (this.m_AccessionOrder != null && this.m_AccessionOrder.IsLockAquiredByMe == true && (this.m_UserIsCytotech || this.m_UserIsPathologist))
 				{
-					return true ;
+					return true;
 				}
 				return false;
 			}

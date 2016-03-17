@@ -364,17 +364,7 @@ namespace YellowstonePathology.UI.Cytology
 		}
 
 		private void ButtonAddPathologistReview_Click(object sender, RoutedEventArgs e)
-		{
-            //YellowstonePathology.Business.User.SystemIdentity systemIdentity = new YellowstonePathology.Business.User.SystemIdentity(YellowstonePathology.Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
-            //YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapScreeningPanel thinPrepPapScreeningPanel = new YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapScreeningPanel();
-            //thinPrepPapScreeningPanel.ScreeningType = "Primary Screening";
-
-            //string panelOrderId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-            //YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology panelOrderCytology = new YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology(this.m_CytologyUI.PanelSetOrderCytology.ReportNo, panelOrderId, panelOrderId, thinPrepPapScreeningPanel, systemIdentity.User.UserId);            
-            //this.m_CytologyUI.PanelSetOrderCytology.PanelOrderCollection.Add(panelOrderCytology);
-
-            //return;
-
+		{            
 			if (this.ListBoxResults.SelectedItem != null)
 			{
                 Type objectType = this.ListBoxResults.SelectedItem.GetType();

@@ -14,7 +14,7 @@ namespace YellowstonePathology.Business.Domain.Billing
         }        
 
         public override void SetPanelSetOrderCPTCodes()
-        {
+        {        
             int blockCount = this.m_AccessionOrder.SpecimenOrderCollection.GetBlockCount();
             YellowstonePathology.Business.Billing.Model.CptCodeDefinition.AutopsyBlock autopsyBlock = new Business.Billing.Model.CptCodeDefinition.AutopsyBlock();
             if (this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.Exists(autopsyBlock.Code, blockCount) == false)
@@ -29,6 +29,9 @@ namespace YellowstonePathology.Business.Domain.Billing
                 panelSetOrderCPTCode.ClientId = this.m_AccessionOrder.ClientId;
                 this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.Add(panelSetOrderCPTCode);
             }
+
+            BillableObjectStains billableObjectStains = new BillableObjectStains(this.m_AccessionOrder, this.m_PanelSetOrder.ReportNo);
+            billableObjectStains.SetPanelSetOrderCPTCodes();
         }
 
 		public override void PostTechnical(string billTo, string billBy)
@@ -36,16 +39,21 @@ namespace YellowstonePathology.Business.Domain.Billing
             int blockCount = this.m_AccessionOrder.SpecimenOrderCollection.GetBlockCount();
             YellowstonePathology.Business.Billing.Model.CptCodeDefinition.AutopsyBlock autopsyBlock = new Business.Billing.Model.CptCodeDefinition.AutopsyBlock();
             foreach (YellowstonePathology.Business.Test.PanelSetOrderCPTCode panelSetOrderCPTCode in this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection)
-            {                                
-                YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill item = this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.GetNextItem(this.m_PanelSetOrder.ReportNo);
-                item.FromPanelSetOrderCPTCode(panelSetOrderCPTCode);
-                item.BillTo = billTo;
-                item.BillBy = billBy;
-                item.Quantity = blockCount;
-                item.Modifier = autopsyBlock.Modifier;                    
-
-                this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.Add(item);                
+            {                              
+                if(panelSetOrderCPTCode.CPTCode == autopsyBlock.Code)
+                {
+                    YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill item = this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.GetNextItem(this.m_PanelSetOrder.ReportNo);
+                    item.FromPanelSetOrderCPTCode(panelSetOrderCPTCode);
+                    item.BillTo = billTo;
+                    item.BillBy = billBy;
+                    item.Quantity = blockCount;
+                    item.Modifier = autopsyBlock.Modifier;
+                    this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.Add(item);
+                }                 
             }
+
+            BillableObjectStains billableObjectStains = new BillableObjectStains(this.m_AccessionOrder, this.m_PanelSetOrder.ReportNo);
+            billableObjectStains.PostTechnical(billTo, billBy);
         }
 
 		public override void PostProfessional(string billTo, string billBy)

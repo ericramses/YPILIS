@@ -81,7 +81,7 @@ namespace YellowstonePathology.UI.Login
 
         private void MessageQueue_RequestReceived(object sender, UI.CustomEventArgs.MessageReturnEventArgs e)
         {            
-            this.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
+            this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
             {
                 AppMessaging.MessagingPath.Instance.StartRequestReceived(e.Message);
             }
