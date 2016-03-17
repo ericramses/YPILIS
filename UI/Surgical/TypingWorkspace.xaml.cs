@@ -70,7 +70,7 @@ namespace YellowstonePathology.UI.Surgical
 
             InitializeComponent();
 
-            this.m_TypingShortcutUserControl = new TypingShortcutUserControl(this.m_SystemIdentity);
+            this.m_TypingShortcutUserControl = new TypingShortcutUserControl(this.m_SystemIdentity, this.m_Writer);
             this.TabItemTypingShortCuts.Content = this.m_TypingShortcutUserControl;
 
             this.DataContext = this.m_TypingUI;			            
