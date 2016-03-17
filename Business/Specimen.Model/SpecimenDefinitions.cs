@@ -306,6 +306,32 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
                 this.m_RequiresGrossExamination = true;
             }
         }
+        
+        public class Twin1Placenta : Specimen
+        {
+            public Twin1Placenta()
+            {
+                this.m_SpecimenId = "TWNPLCNTWMSPCMN";
+                this.m_SpecimenName = "Twin Placenta with Dividing Membrane";
+                this.m_Description = "Twin Placenta";
+                this.m_LabFixation = "Formalin";
+                this.m_ClientFixation = null;
+                this.m_RequiresGrossExamination = true;
+            }
+        }
+        
+        public class Twin2Placenta : Specimen
+        {
+            public Twin2Placenta()
+            {
+                this.m_SpecimenId = "TWNPLCNTWOMSPCMN";
+                this.m_SpecimenName = "Twin Placenta without Dividing Membrane";
+                this.m_Description = "Twin Placenta";
+                this.m_LabFixation = "Formalin";
+                this.m_ClientFixation = null;
+                this.m_RequiresGrossExamination = true;
+            }
+        }
 
         public class Uterus : Specimen
         {
