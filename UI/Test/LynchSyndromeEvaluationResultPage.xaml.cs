@@ -321,17 +321,36 @@ namespace YellowstonePathology.UI.Test
 		}
 
 		private void HyperLinkAcceptResults_Click(object sender, RoutedEventArgs e)
-		{			
-			YellowstonePathology.Business.Rules.MethodResult result = this.m_PanelSetOrderLynchSyndromeEvaluation.IsOkToAccept();
-			if (result.Success == true)
-			{
+		{
+            YellowstonePathology.Business.Persistence.ObjectCloner objectCloner = new Business.Persistence.ObjectCloner();
+            YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation clone = (YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation)objectCloner.Clone(this.m_PanelSetOrderLynchSyndromeEvaluation);
+            YellowstonePathology.Business.Persistence.DocumentId documentId = new Business.Persistence.DocumentId(clone, this);
+            YellowstonePathology.Business.Persistence.DocumentUpdate document = new Business.Persistence.DocumentUpdate(documentId);
+            YellowstonePathology.Business.Rules.MethodResult methodResult = this.SetCloneResults(clone);
+            if (methodResult.Success == true)
+            {
+                if (document.IsDirty() == false)
+                {
+                    YellowstonePathology.Business.Rules.MethodResult result = this.m_PanelSetOrderLynchSyndromeEvaluation.IsOkToAccept();
+                    if (result.Success == true)
+                    {
 
-				this.m_PanelSetOrderLynchSyndromeEvaluation.Accept();
-			}
-			else
-			{
-				MessageBox.Show(result.Message);
-			}			
+                        this.m_PanelSetOrderLynchSyndromeEvaluation.Accept();
+                    }
+                    else
+                    {
+                        MessageBox.Show(result.Message);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Looks like the results have not been set.");
+                }
+            }
+            else
+            {
+                MessageBox.Show(methodResult.Message);
+            }			
 		}
 
 		private void HyperLinkUnacceptResults_Click(object sender, RoutedEventArgs e)
@@ -345,6 +364,43 @@ namespace YellowstonePathology.UI.Test
 			{
 				MessageBox.Show(result.Message);
 			}
-		}        
-	}
+		}
+
+
+        private YellowstonePathology.Business.Rules.MethodResult SetCloneResults(YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation clone)
+        {
+            YellowstonePathology.Business.Rules.MethodResult result = new Business.Rules.MethodResult();
+
+            if (clone.Final == false)
+            {
+                YellowstonePathology.Business.Test.LynchSyndrome.LSEResult cloneLSEResult = this.SetCloneLSEResults(clone);
+                cloneLSEResult.SetResults(this.m_AccessionOrder, clone);
+            }
+            else
+            {
+                result.Success = false;
+                result.Message = "Results cannot be set because the case is final.";
+            }
+            return result;
+        }
+
+        private YellowstonePathology.Business.Test.LynchSyndrome.LSEResult SetCloneLSEResults(YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation clone)
+        {
+            YellowstonePathology.Business.Test.LynchSyndrome.LSEResult cloneLSEResult = null;
+
+            YellowstonePathology.Business.Test.LynchSyndrome.LSEResult lseResult = YellowstonePathology.Business.Test.LynchSyndrome.LSEResult.GetResult(this.m_AccessionOrder, clone);
+            YellowstonePathology.Business.Test.LynchSyndrome.LSEResult accessionLSEResult = YellowstonePathology.Business.Test.LynchSyndrome.LSEResultCollection.GetResult(lseResult, clone.LynchSyndromeEvaluationType);
+
+            if (accessionLSEResult == null)
+            {
+                cloneLSEResult = lseResult;
+            }
+            else
+            {
+                cloneLSEResult = accessionLSEResult;
+            }
+
+            return cloneLSEResult;
+        }
+    }
 }

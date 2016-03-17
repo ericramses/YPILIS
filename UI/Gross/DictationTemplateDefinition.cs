@@ -644,26 +644,26 @@ namespace YellowstonePathology.UI.Gross
                 Environment.NewLine +
                 "Umbilical Cord:" + Environment.NewLine +
             	"   Designations:" + Environment.NewLine +
-            	"      Twin A:" + Environment.NewLine +
-            	"      Twin B:" + Environment.NewLine +
-                "   Length:  [length]" + Environment.NewLine +
-            	"      Twin A:" + Environment.NewLine +
-            	"      Twin B:" + Environment.NewLine +
-                "   Insertion:  [insertion]" + Environment.NewLine +
-            	"      Twin A" + Environment.NewLine +
-            	"      Twin B:" + Environment.NewLine +
-                "   Vessels:  [number]" + Environment.NewLine +
-            	"      Twin A:" + Environment.NewLine +
-            	"      Twin B:" + Environment.NewLine +
-                "   Knots:  [description]" + Environment.NewLine +
-            	"      Twin A:" + Environment.NewLine +
-            	"      Twin B:" + Environment.NewLine +
-                "   Coiling:  [description]" + Environment.NewLine +
-            	"      Twin A:" + Environment.NewLine +
-            	"      Twin B:" + Environment.NewLine +
-                "   Other:  [description]" + Environment.NewLine +
-            	"      Twin A:" + Environment.NewLine +
-            	"      Twin B" + Environment.NewLine +
+            	"      Twin A: [designation]" + Environment.NewLine +
+            	"      Twin B: [designation]" + Environment.NewLine +
+                "   Length:" + Environment.NewLine +
+            	"      Twin A: [length]" + Environment.NewLine +
+            	"      Twin B: [length]" + Environment.NewLine +
+                "   Insertion:" + Environment.NewLine +
+            	"      Twin A: [insertion]" + Environment.NewLine +
+            	"      Twin B: [insertion]" + Environment.NewLine +
+                "   Vessels:" + Environment.NewLine +
+            	"      Twin A: [number]" + Environment.NewLine +
+            	"      Twin B: [number]" + Environment.NewLine +
+                "   Knots:" + Environment.NewLine +
+            	"      Twin A: [description]" + Environment.NewLine +
+            	"      Twin B: [description]" + Environment.NewLine +
+                "   Coiling:" + Environment.NewLine +
+            	"      Twin A: [description]" + Environment.NewLine +
+            	"      Twin B: [description]" + Environment.NewLine +
+                "   Other:" + Environment.NewLine +
+            	"      Twin A: [description]" + Environment.NewLine +
+            	"      Twin B: [description]" + Environment.NewLine +
                 Environment.NewLine +
             	"Placental Disc:" + Environment.NewLine +
                 "   Weight:  [weight]" + Environment.NewLine +
@@ -719,26 +719,26 @@ namespace YellowstonePathology.UI.Gross
                 Environment.NewLine +
                 "Umbilical Cord:" + Environment.NewLine +
             	"   Designations:" + Environment.NewLine +
-            	"      Twin A:" + Environment.NewLine +
-            	"      Twin B:" + Environment.NewLine +
-                "   Length:  [length]" + Environment.NewLine +
-            	"      Twin A:" + Environment.NewLine +
-            	"      Twin B:" + Environment.NewLine +
-                "   Insertion:  [insertion]" + Environment.NewLine +
-            	"      Twin A" + Environment.NewLine +
-            	"      Twin B:" + Environment.NewLine +
-                "   Vessels:  [number]" + Environment.NewLine +
-            	"      Twin A:" + Environment.NewLine +
-            	"      Twin B:" + Environment.NewLine +
-                "   Knots:  [description]" + Environment.NewLine +
-            	"      Twin A:" + Environment.NewLine +
-            	"      Twin B:" + Environment.NewLine +
-                "   Coiling:  [description]" + Environment.NewLine +
-            	"      Twin A:" + Environment.NewLine +
-            	"      Twin B:" + Environment.NewLine +
-                "   Other:  [description]" + Environment.NewLine +
-            	"      Twin A:" + Environment.NewLine +
-            	"      Twin B" + Environment.NewLine +
+            	"      Twin A: [designation]" + Environment.NewLine +
+            	"      Twin B: [designation]" + Environment.NewLine +
+                "   Length:" + Environment.NewLine +
+            	"      Twin A: [length]" + Environment.NewLine +
+            	"      Twin B: [length]" + Environment.NewLine +
+                "   Insertion:" + Environment.NewLine +
+            	"      Twin A: [insertion]" + Environment.NewLine +
+            	"      Twin B: [insertion]" + Environment.NewLine +
+                "   Vessels:" + Environment.NewLine +
+            	"      Twin A: [number]" + Environment.NewLine +
+            	"      Twin B: [number]" + Environment.NewLine +
+                "   Knots:" + Environment.NewLine +
+            	"      Twin A: [description]" + Environment.NewLine +
+            	"      Twin B: [description]" + Environment.NewLine +
+                "   Coiling:" + Environment.NewLine +
+            	"      Twin A: [description]" + Environment.NewLine +
+            	"      Twin B: [description]" + Environment.NewLine +
+                "   Other:" + Environment.NewLine +
+            	"      Twin A: [description]" + Environment.NewLine +
+            	"      Twin B: [description]" + Environment.NewLine +
                 Environment.NewLine +
             	"Placental Disc:" + Environment.NewLine +
                 "   Weight:  [weight]" + Environment.NewLine +
