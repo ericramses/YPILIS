@@ -47,7 +47,7 @@ namespace YellowstonePathology.UI.Surgical
 
 			this.m_DocumentViewer.ClearContent();
 
-            this.m_TypingShortcutUserControl = new TypingShortcutUserControl(this.m_SystemIdentity);
+            this.m_TypingShortcutUserControl = new TypingShortcutUserControl(this.m_SystemIdentity, this.m_PathologistUI.Writer);
             this.TabItemTypingShortCuts.Content = this.m_TypingShortcutUserControl;
 
 			if (this.m_CaseDocumentCollection.Count != 0)
