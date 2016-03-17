@@ -54,6 +54,8 @@ namespace YellowstonePathology.Business.Domain.Billing
 
             BillableObjectStains billableObjectStains = new BillableObjectStains(this.m_AccessionOrder, this.m_PanelSetOrder.ReportNo);
             billableObjectStains.PostTechnical(billTo, billBy);
+
+            this.m_PanelSetOrder.TechnicalComponentBillingFacilityId = "YPIBLGS";
         }
 
 		public override void PostProfessional(string billTo, string billBy)
