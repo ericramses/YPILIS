@@ -28,6 +28,7 @@ namespace YellowstonePathology.Business.Test.PDL1
             amendmentSection.SetAmendment(m_PanelSetOrder.AmendmentCollection, this.m_ReportXml, this.m_NameSpaceManager, true);
 
             this.ReplaceText("report_result", testOrder.Result);
+            this.ReplaceText("report_comment", testOrder.Comment);
             this.ReplaceText("stain_percent", testOrder.StainPercent);
             this.ReplaceText("report_method", testOrder.Method);
 

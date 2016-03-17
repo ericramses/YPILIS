@@ -15,7 +15,7 @@ namespace YellowstonePathology.UI.AppMessaging
         public LockReleaseResponseMessageBody(MessageBody receivedMessageBody, bool lockWasReleased) 
             : base (receivedMessageBody.MasterAccessionNo, receivedMessageBody.LockAquiredByUserName, receivedMessageBody.LockAquiredByHostName, receivedMessageBody.TimeLockAquired)
         {
-            this.m_LockWasReleased = LockWasReleased;
+            this.m_LockWasReleased = lockWasReleased;
 
             if(lockWasReleased == true)
             {

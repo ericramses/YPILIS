@@ -164,10 +164,10 @@ namespace YellowstonePathology.UI.Gross
                 statement = "Tips submitted in cassette \"" + specimenOrder.SpecimenNumber + "A\", ";
                 if (specimenOrder.AliquotOrderCollection.Count >= 2)
                 {
-                    statement += "remainder of excision in cassettes " + specimenOrder.GetGrossMiddleCassettesSubmittedInString();
+                    statement += "remainder of excision in cassettes " + specimenOrder.GetGrossMiddleCassettesSubmittedInString() + ".";
                     if (specimenOrder.AliquotOrderCollection.Count >= 3)
                     {
-                        statement += ", curettings are filtered through a fine mesh bag and entirely submitted in cassette \"" + specimenOrder.AliquotOrderCollection.GetLastBlock().Label + "\"";
+                        statement += " The curettings are filtered through a fine mesh bag and entirely submitted in cassette \"" + specimenOrder.AliquotOrderCollection.GetLastBlock().Label + "\"";
                     }                    
                 }                
             }
@@ -215,7 +215,15 @@ namespace YellowstonePathology.UI.Gross
 
                     string typedByInitials = systemIdentity.User.Initials.ToLower();
 
-                    initials = grossedByInitials + "/" + supervisedByInitials + "/" + typedByInitials;
+                    if(grossedByInitials != supervisedByInitials)
+                    {
+                        initials = grossedByInitials + "/" + supervisedByInitials + "/" + typedByInitials;
+                    }
+                    else
+                    {
+                        initials = grossedByInitials + "/" + typedByInitials;
+                    }
+                    
                     result = result + initials;
                 }
             }

@@ -76,9 +76,12 @@ namespace YellowstonePathology.UI.AppMessaging
         public void SendLockReleaseResponse(System.Messaging.Message requestMessage, bool releaseLock)
         {
             MessageBody receivedMessageBody = (MessageBody)requestMessage.Body;
-            LockReleaseResponseMessageBody responseMessageBody = new LockReleaseResponseMessageBody(receivedMessageBody, releaseLock);            
+            LockReleaseResponseMessageBody responseMessageBody = new LockReleaseResponseMessageBody(receivedMessageBody, releaseLock);
 
-            if(releaseLock == true) if (this.ReleaseLock != null) this.ReleaseLock(receivedMessageBody.MasterAccessionNo, new EventArgs());            
+            if (releaseLock == true)
+            {
+                if(this.ReleaseLock != null) this.ReleaseLock(receivedMessageBody.MasterAccessionNo, new EventArgs());
+            }
             
             System.Messaging.Message responseMessage = new System.Messaging.Message(responseMessageBody);            
             requestMessage.ResponseQueue.Send(responseMessage);
