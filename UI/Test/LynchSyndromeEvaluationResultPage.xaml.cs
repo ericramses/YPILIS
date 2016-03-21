@@ -322,36 +322,27 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkAcceptResults_Click(object sender, RoutedEventArgs e)
 		{
-            YellowstonePathology.Business.Persistence.ObjectCloner objectCloner = new Business.Persistence.ObjectCloner();
-            YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation clone = (YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation)objectCloner.Clone(this.m_PanelSetOrderLynchSyndromeEvaluation);
-            YellowstonePathology.Business.Persistence.DocumentId documentId = new Business.Persistence.DocumentId(clone, this);
-            YellowstonePathology.Business.Persistence.DocumentUpdate document = new Business.Persistence.DocumentUpdate(documentId);
-            YellowstonePathology.Business.Rules.MethodResult methodResult = this.SetCloneResults(clone);
-
-            if (methodResult.Success == true)
+            YellowstonePathology.Business.Rules.MethodResult result = this.m_PanelSetOrderLynchSyndromeEvaluation.IsOkToAccept();
+            if (result.Success == true)
             {
-                if (document.IsDirty() == false)
+                YellowstonePathology.Business.Rules.MethodResult methodResult = this.m_PanelSetOrderLynchSyndromeEvaluation.HaveResultsBeenSet(this.m_AccessionOrder);
+                if (methodResult.Success == true)
                 {
-                    YellowstonePathology.Business.Rules.MethodResult result = this.m_PanelSetOrderLynchSyndromeEvaluation.IsOkToAccept();
-                    if (result.Success == true)
-                    {
-
-                        this.m_PanelSetOrderLynchSyndromeEvaluation.Accept();
-                    }
-                    else
-                    {
-                        MessageBox.Show(result.Message);
-                    }
+                    this.m_PanelSetOrderLynchSyndromeEvaluation.Accept();
                 }
                 else
                 {
-                    MessageBox.Show("Looks like the results have not been set.");
+                    MessageBoxResult messageBoxResult = MessageBox.Show("Have the results been set?", "Set Results", MessageBoxButton.YesNo, MessageBoxImage.Exclamation, MessageBoxResult.Yes);
+                    if(messageBoxResult == MessageBoxResult.Yes)
+                    {
+                        this.m_PanelSetOrderLynchSyndromeEvaluation.Accept();
+                    }
                 }
             }
             else
             {
-                MessageBox.Show(methodResult.Message);
-            }			
+                MessageBox.Show(result.Message);
+            }
 		}
 
 		private void HyperLinkUnacceptResults_Click(object sender, RoutedEventArgs e)

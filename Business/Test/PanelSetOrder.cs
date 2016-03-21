@@ -1695,6 +1695,26 @@ namespace YellowstonePathology.Business.Test
         public virtual void PullOver(YellowstonePathology.Business.Visitor.AccessionTreeVisitor accessionTreeVisitor)
         {
             accessionTreeVisitor.Visit(this);
-        }        
-	}
+        }
+        
+        public Rules.MethodResult HaveResultsBeenSet(AccessionOrder accessionOrder)
+        {
+            YellowstonePathology.Business.Persistence.ObjectCloner objectCloner = new Business.Persistence.ObjectCloner();
+            object clone = objectCloner.Clone(this);
+            YellowstonePathology.Business.Persistence.DocumentId documentId = new Business.Persistence.DocumentId(clone, this);
+            YellowstonePathology.Business.Persistence.DocumentUpdate document = new Business.Persistence.DocumentUpdate(documentId);
+            Rules.MethodResult result = new Rules.MethodResult();
+            this.CheckResults(accessionOrder, clone);
+            if(document.IsDirty() == true)
+            {
+                result.Success = false;
+                result.Message = "Results have not been set.";
+            }
+            return result;
+        }
+
+        protected virtual void CheckResults(AccessionOrder accessionOrder, object clone)
+        {
+        }
+    }
 }
