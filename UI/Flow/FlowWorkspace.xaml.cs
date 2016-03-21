@@ -520,7 +520,7 @@ namespace YellowstonePathology.UI.Flow
 
                         if (auditResult.Status == Business.Audit.Model.AuditStatusEnum.OK)
                         {
-                            this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.Finalize();
+                            this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.Finish();
                         }
                         else
                         {

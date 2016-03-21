@@ -97,7 +97,7 @@ namespace YellowstonePathology.Business.Test.KRASStandardReflex
 
         public virtual void FinalizeResults(KRASStandardReflexTestOrder testOrder)
 		{
-			testOrder.Finalize();
+			testOrder.Finish();
 		}
 
         public virtual void UnFinalizeResults(KRASStandardReflexTestOrder testOrder)

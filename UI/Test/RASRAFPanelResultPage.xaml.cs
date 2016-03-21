@@ -109,7 +109,7 @@ namespace YellowstonePathology.UI.Test
         {            
             if (this.m_RASRAFPanelTestOrder.Final == false)
             {
-                this.m_RASRAFPanelTestOrder.Finalize();
+                this.m_RASRAFPanelTestOrder.Finish();
             }
             else
             {

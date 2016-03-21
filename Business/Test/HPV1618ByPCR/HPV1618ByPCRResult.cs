@@ -62,7 +62,7 @@ namespace YellowstonePathology.Business.Test.HPV1618ByPCR
 
 		public virtual void FinalizeResults(YellowstonePathology.Business.Test.HPV1618ByPCR.HPV1618ByPCRTestOrder panelSetOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 		{
-			panelSetOrder.Finalize();
+			panelSetOrder.Finish();
 		}
 
 		public virtual void UnFinalizeResults(YellowstonePathology.Business.Test.HPV1618.PanelSetOrderHPV1618 panelSetOrder)
