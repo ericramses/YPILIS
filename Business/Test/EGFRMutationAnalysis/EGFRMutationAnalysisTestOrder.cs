@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using YellowstonePathology.Business.Persistence;
+using YellowstonePathology.Business.Rules;
 
 namespace YellowstonePathology.Business.Test.EGFRMutationAnalysis
 {
@@ -202,5 +203,20 @@ namespace YellowstonePathology.Business.Test.EGFRMutationAnalysis
         {
             return base.IsOkToFinalize(accessionOrder);
         }
-	}
+
+        public override MethodResult IsOkToAccept()
+        {
+            MethodResult result = base.IsOkToAccept();
+            if(result.Success == true)
+            {
+                if(string.IsNullOrEmpty(this.m_ResultCode) == true)
+                {
+                    result.Success = false;
+                    result.Message = "This case cannot be accepted because the results are not set.";
+                }
+            }
+
+            return result;
+        }
+    }
 }

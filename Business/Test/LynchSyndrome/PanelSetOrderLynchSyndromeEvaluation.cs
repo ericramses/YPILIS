@@ -133,5 +133,24 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 
 			return result.ToString();
 		}
-	}
+
+        protected override void CheckResults(AccessionOrder accessionOrder, object clone)
+        {
+            PanelSetOrderLynchSyndromeEvaluation panelSetToCheck = (PanelSetOrderLynchSyndromeEvaluation)clone;
+            YellowstonePathology.Business.Test.LynchSyndrome.LSEResult cloneLSEResult = null;
+            YellowstonePathology.Business.Test.LynchSyndrome.LSEResult lseResult = YellowstonePathology.Business.Test.LynchSyndrome.LSEResult.GetResult(accessionOrder, panelSetToCheck);
+            YellowstonePathology.Business.Test.LynchSyndrome.LSEResult accessionLSEResult = YellowstonePathology.Business.Test.LynchSyndrome.LSEResultCollection.GetResult(lseResult, panelSetToCheck.LynchSyndromeEvaluationType);
+
+            if (accessionLSEResult == null)
+            {
+                cloneLSEResult = lseResult;
+            }
+            else
+            {
+                cloneLSEResult = accessionLSEResult;
+            }
+
+            cloneLSEResult.SetResults(accessionOrder, panelSetToCheck);
+        }
+    }
 }

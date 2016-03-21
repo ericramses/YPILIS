@@ -193,5 +193,11 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
 
 			return result.ToString();
 		}
-	}
+
+        protected override void CheckResults(AccessionOrder accessionOrder, object clone)
+        {
+            EGFRToALKReflexAnalysisTestOrder testOrderToCheck = (EGFRToALKReflexAnalysisTestOrder)clone;
+            testOrderToCheck.SetResults(accessionOrder);
+        }
+    }
 }
