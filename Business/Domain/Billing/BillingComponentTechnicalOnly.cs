@@ -26,9 +26,9 @@ namespace YellowstonePathology.Business.Domain.Billing
 					billableObject.PostClientGCodes(YellowstonePathology.Business.Billing.Model.BillingComponentEnum.Technical);
                     break;
                 case "Client":
+                    billableObject.PanelSetOrder.TechnicalComponentBillingFacilityId = "YPBLGS";
                     billableObject.PostTechnical("Client", "YPBLGS");
-					billableObject.PostClientGCodes(YellowstonePathology.Business.Billing.Model.BillingComponentEnum.Technical);                      
-					billableObject.PanelSetOrder.TechnicalComponentBillingFacilityId = "YPBLGS";
+					billableObject.PostClientGCodes(YellowstonePathology.Business.Billing.Model.BillingComponentEnum.Technical);                                               					
                     break;
             }
         }
