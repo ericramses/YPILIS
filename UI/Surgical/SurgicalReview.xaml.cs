@@ -87,8 +87,7 @@ namespace YellowstonePathology.UI.Surgical
         {
 			YellowstonePathology.Business.Test.Surgical.IntraoperativeConsultationResult intraoperativeConsultationResult = ((Hyperlink)sender).Tag as YellowstonePathology.Business.Test.Surgical.IntraoperativeConsultationResult;
             Test.FrozenFinalDialog frozenFinalDialog = new Test.FrozenFinalDialog(this.AccessionOrder, intraoperativeConsultationResult, this.m_TypingShortcutUserControl);
-            frozenFinalDialog.ShowDialog();
-            this.m_PathologistUI.Save(false);
+            frozenFinalDialog.ShowDialog();            
         }
 
         private void HyperlinkAcceptPeerReview_Click(object sender, RoutedEventArgs e)
@@ -190,8 +189,7 @@ namespace YellowstonePathology.UI.Surgical
                     }
 
                     this.m_PathologistUI.SetSignatureButtonProperties();
-                    this.NotifyPropertyChanged(string.Empty);
-                    this.Save(false);
+                    this.NotifyPropertyChanged(string.Empty);                    
                 }
                 else
                 {
@@ -255,8 +253,7 @@ namespace YellowstonePathology.UI.Surgical
             }
 
             YellowstonePathology.Business.Rules.Surgical.SetAmendmentSignatureText setAmendmentSignatureText = new Business.Rules.Surgical.SetAmendmentSignatureText();
-            setAmendmentSignatureText.Execute(this.m_PathologistUI.AccessionOrder, this.m_PathologistUI.PanelSetOrder, amendment);                    
-            this.Save(false);
+            setAmendmentSignatureText.Execute(this.m_PathologistUI.AccessionOrder, this.m_PathologistUI.PanelSetOrder, amendment);                                
             this.NotifyPropertyChanged(string.Empty);
         }        
 
@@ -287,8 +284,7 @@ namespace YellowstonePathology.UI.Surgical
             if (this.PanelSetOrderSurgical != null)
             {
 				Common.ReassignCaseDialog reassignCaseDialog = new Common.ReassignCaseDialog(this.PanelSetOrderSurgical, Business.User.SystemIdentity.Instance);
-                reassignCaseDialog.ShowDialog();
-                this.Save(false);
+                reassignCaseDialog.ShowDialog();                
             }
         }
 
@@ -354,12 +350,7 @@ namespace YellowstonePathology.UI.Surgical
 			CheckBox checkBox = (CheckBox)sender;
             YellowstonePathology.Business.Amendment.Model.Amendment amendment = (YellowstonePathology.Business.Amendment.Model.Amendment)checkBox.Tag;
 			amendment.ShowPreviousDiagnosis = false;
-		}
-
-        private void Save(bool releaseLock)
-        {            
-            this.m_PathologistUI.Save(releaseLock);
-        }        
+		}        
 
         public string CancerCaseSummaryVisibility
         {
@@ -494,8 +485,7 @@ namespace YellowstonePathology.UI.Surgical
                 }
 
                 this.m_PathologistUI.SetSignatureButtonProperties();
-                this.NotifyPropertyChanged(string.Empty);
-                this.Save(false);
+                this.NotifyPropertyChanged(string.Empty);                
             }
         }
 
