@@ -48,7 +48,7 @@ namespace YellowstonePathology.UI.Cytology
             this.m_BarcodeScanPort = YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort.Instance;
 
             this.m_Writer = writer;
-            this.m_CytologyUI = new CytologyUI(this.m_SystemIdentity, this.m_Writer);
+            this.m_CytologyUI = new CytologyUI(this.m_Writer);
 			this.m_CytologyResultsWorkspace = new CytologyResultsWorkspace(this.m_CytologyUI);
 			this.m_CytologyUI.AccessionChanged += new CytologyUI.AccessionChangedEventHandler(CytologyUI_AccessionChanged);
             
@@ -190,12 +190,11 @@ namespace YellowstonePathology.UI.Cytology
             this.m_CytologyResultsWorkspace.SelectAppropriatePanel();
 		}
 
-		public void Save(object target, ExecutedRoutedEventArgs args)
+		public void MoveFocus(object target, ExecutedRoutedEventArgs args)
         {
             IInputElement focusedElement = Keyboard.FocusedElement;
             FrameworkElement element = (FrameworkElement)focusedElement;
-            element.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));      
-            this.m_CytologyUI.Save(false);
+            element.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));                  
         }       
 
         public void StartProviderDistributionPath(object target, ExecutedRoutedEventArgs args)
@@ -242,7 +241,7 @@ namespace YellowstonePathology.UI.Cytology
 
 		public void CloseWorkspace(object target, ExecutedRoutedEventArgs args)
 		{
-			this.m_CytologyUI.Save(true);
+			
         }
 
         private void ButtonAssignTo_Click(object sender, RoutedEventArgs e)
@@ -300,15 +299,14 @@ namespace YellowstonePathology.UI.Cytology
             {
                 MessageBox.Show("Fill the list or select list entries", "Nothing to report.");
             }
-        }
-
+        }       
         public void ItemIsSelected(object sender, CanExecuteRoutedEventArgs e)
 		{
 			e.CanExecute = false;
-			if (((TabItem)this.Parent).IsSelected && this.m_CytologyUI.CanSave)
+			if (((TabItem)this.Parent).IsSelected)
 			{
 				e.CanExecute = true;
 			}
-		}
+		}        
 	}
 }

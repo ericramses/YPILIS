@@ -110,15 +110,18 @@ namespace YellowstonePathology.UI.Surgical
         
         private bool SelectNextInput(int startingPosition)
         {
-            bool result = false;                  
-            int positionOfNextLeftBracket = this.TextBoxGrossDescription.Text.IndexOf("[", startingPosition + 1);
-            if (positionOfNextLeftBracket != -1)
+            bool result = false;   
+            if(startingPosition != this.TextBoxGrossDescription.Text.Length)
             {
-                int positionOfNextRightBracket = this.TextBoxGrossDescription.Text.IndexOf("]", positionOfNextLeftBracket);
-                this.TextBoxGrossDescription.SelectionStart = positionOfNextLeftBracket;
-                this.TextBoxGrossDescription.SelectionLength = positionOfNextRightBracket - positionOfNextLeftBracket + 1;
-                result = true;
-            }
+                int positionOfNextLeftBracket = this.TextBoxGrossDescription.Text.IndexOf("[", startingPosition + 1);
+                if (positionOfNextLeftBracket != -1)
+                {
+                    int positionOfNextRightBracket = this.TextBoxGrossDescription.Text.IndexOf("]", positionOfNextLeftBracket);
+                    this.TextBoxGrossDescription.SelectionStart = positionOfNextLeftBracket;
+                    this.TextBoxGrossDescription.SelectionLength = positionOfNextRightBracket - positionOfNextLeftBracket + 1;
+                    result = true;
+                }
+            }                           
             return result;
         }    
         
