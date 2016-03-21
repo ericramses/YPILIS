@@ -86,6 +86,9 @@
         
         <Button Click="ButtonRunMethod_Click" Width="200" Height="30" Margin="5,5,5,5">Run Method</Button>
 
+        <Button Click="ButtonPublish_Click" Width="200" Height="30" Margin="5,5,5,5">Publish</Button>
+        <Button Click="ButtonSubscribe_Click" Width="200" Height="30" Margin="5,5,5,5">Subscribe</Button>
+
 
     </WrapPanel>                
 </UserControl>
