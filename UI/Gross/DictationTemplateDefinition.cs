@@ -634,9 +634,9 @@ namespace YellowstonePathology.UI.Gross
             this.m_Text = "[identifier] and consists of a twin placenta with two umbilical cord and attached membranes." + Environment.NewLine +
                 Environment.NewLine +
                 "Extraplacental Membranes:" + Environment.NewLine +
-            	"   Dividing Membrane: Present"+ Environment.NewLine +
-                "      Description: [description]" + Environment.NewLine +
-            	"      Intervening chorion: [present/absent]" + Environment.NewLine +
+            	"   Dividing Membrane:  Present"+ Environment.NewLine +
+                "      Description:  [description]" + Environment.NewLine +
+            	"      Intervening chorion:  [present/absent]" + Environment.NewLine +
                 "   Color:  [color]" + Environment.NewLine +
                 "   Amnion Nodosum:  [description]" + Environment.NewLine +
                 "   Cysts:  [description]" + Environment.NewLine +
@@ -644,26 +644,26 @@ namespace YellowstonePathology.UI.Gross
                 Environment.NewLine +
                 "Umbilical Cord:" + Environment.NewLine +
             	"   Designations:" + Environment.NewLine +
-            	"      Twin A: [designation]" + Environment.NewLine +
-            	"      Twin B: [designation]" + Environment.NewLine +
+            	"      Twin A:  [designation]" + Environment.NewLine +
+            	"      Twin B:  [designation]" + Environment.NewLine +
                 "   Length:" + Environment.NewLine +
-            	"      Twin A: [length]" + Environment.NewLine +
-            	"      Twin B: [length]" + Environment.NewLine +
+            	"      Twin A:  [length]" + Environment.NewLine +
+            	"      Twin B:  [length]" + Environment.NewLine +
                 "   Insertion:" + Environment.NewLine +
-            	"      Twin A: [insertion]" + Environment.NewLine +
-            	"      Twin B: [insertion]" + Environment.NewLine +
+            	"      Twin A:  [insertion]" + Environment.NewLine +
+            	"      Twin B:  [insertion]" + Environment.NewLine +
                 "   Vessels:" + Environment.NewLine +
-            	"      Twin A: [number]" + Environment.NewLine +
-            	"      Twin B: [number]" + Environment.NewLine +
+            	"      Twin A:  [number]" + Environment.NewLine +
+            	"      Twin B:  [number]" + Environment.NewLine +
                 "   Knots:" + Environment.NewLine +
-            	"      Twin A: [description]" + Environment.NewLine +
-            	"      Twin B: [description]" + Environment.NewLine +
+            	"      Twin A:  [description]" + Environment.NewLine +
+            	"      Twin B:  [description]" + Environment.NewLine +
                 "   Coiling:" + Environment.NewLine +
-            	"      Twin A: [description]" + Environment.NewLine +
-            	"      Twin B: [description]" + Environment.NewLine +
+            	"      Twin A:  [description]" + Environment.NewLine +
+            	"      Twin B:  [description]" + Environment.NewLine +
                 "   Other:" + Environment.NewLine +
-            	"      Twin A: [description]" + Environment.NewLine +
-            	"      Twin B: [description]" + Environment.NewLine +
+            	"      Twin A:  [description]" + Environment.NewLine +
+            	"      Twin B:  [description]" + Environment.NewLine +
                 Environment.NewLine +
             	"Placental Disc:" + Environment.NewLine +
                 "   Weight:  [weight]" + Environment.NewLine +
@@ -711,7 +711,7 @@ namespace YellowstonePathology.UI.Gross
             this.m_Text = "[identifier] and consists of a twin placenta with two umbilical cord and attached membranes." + Environment.NewLine +
                 Environment.NewLine +
                 "Extraplacental Membranes:" + Environment.NewLine +
-            	"   Dividing Membrane: Absent"+ Environment.NewLine +
+            	"   Dividing Membrane:  Absent"+ Environment.NewLine +
                 "   Color:  [color]" + Environment.NewLine +
                 "   Amnion Nodosum:  [description]" + Environment.NewLine +
                 "   Cysts:  [description]" + Environment.NewLine +
@@ -719,26 +719,26 @@ namespace YellowstonePathology.UI.Gross
                 Environment.NewLine +
                 "Umbilical Cord:" + Environment.NewLine +
             	"   Designations:" + Environment.NewLine +
-            	"      Twin A: [designation]" + Environment.NewLine +
-            	"      Twin B: [designation]" + Environment.NewLine +
+            	"      Twin A:  [designation]" + Environment.NewLine +
+            	"      Twin B:  [designation]" + Environment.NewLine +
                 "   Length:" + Environment.NewLine +
-            	"      Twin A: [length]" + Environment.NewLine +
-            	"      Twin B: [length]" + Environment.NewLine +
+            	"      Twin A:  [length]" + Environment.NewLine +
+            	"      Twin B:  [length]" + Environment.NewLine +
                 "   Insertion:" + Environment.NewLine +
-            	"      Twin A: [insertion]" + Environment.NewLine +
-            	"      Twin B: [insertion]" + Environment.NewLine +
+            	"      Twin A:  [insertion]" + Environment.NewLine +
+            	"      Twin B:  [insertion]" + Environment.NewLine +
                 "   Vessels:" + Environment.NewLine +
-            	"      Twin A: [number]" + Environment.NewLine +
-            	"      Twin B: [number]" + Environment.NewLine +
+            	"      Twin A:  [number]" + Environment.NewLine +
+            	"      Twin B:  [number]" + Environment.NewLine +
                 "   Knots:" + Environment.NewLine +
-            	"      Twin A: [description]" + Environment.NewLine +
-            	"      Twin B: [description]" + Environment.NewLine +
+            	"      Twin A:  [description]" + Environment.NewLine +
+            	"      Twin B:  [description]" + Environment.NewLine +
                 "   Coiling:" + Environment.NewLine +
-            	"      Twin A: [description]" + Environment.NewLine +
-            	"      Twin B: [description]" + Environment.NewLine +
+            	"      Twin A:  [description]" + Environment.NewLine +
+            	"      Twin B:  [description]" + Environment.NewLine +
                 "   Other:" + Environment.NewLine +
-            	"      Twin A: [description]" + Environment.NewLine +
-            	"      Twin B: [description]" + Environment.NewLine +
+            	"      Twin A:  [description]" + Environment.NewLine +
+            	"      Twin B:  [description]" + Environment.NewLine +
                 Environment.NewLine +
             	"Placental Disc:" + Environment.NewLine +
                 "   Weight:  [weight]" + Environment.NewLine +

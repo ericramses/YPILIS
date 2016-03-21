@@ -166,7 +166,19 @@ namespace YellowstonePathology.UI.Test
 			YellowstonePathology.Business.Rules.MethodResult result = this.m_EGFRToALKReflexAnalysisTestOrder.IsOkToAccept();
 			if (result.Success == true)
 			{
-				this.m_EGFRToALKReflexAnalysisTestOrder.Accept();
+                YellowstonePathology.Business.Rules.MethodResult methodResult = this.m_EGFRToALKReflexAnalysisTestOrder.HaveResultsBeenSet(this.m_AccessionOrder);
+                if (methodResult.Success == true)
+                {
+                    this.m_EGFRToALKReflexAnalysisTestOrder.Accept();
+                }
+                else
+                {
+                    MessageBoxResult messageBoxResult = MessageBox.Show("Have the results been set?", "Set Results", MessageBoxButton.YesNo, MessageBoxImage.Exclamation, MessageBoxResult.Yes);
+                    if (messageBoxResult == MessageBoxResult.Yes)
+                    {
+                        this.m_EGFRToALKReflexAnalysisTestOrder.Accept();
+                    }
+                }
 			}
 			else
 			{

@@ -227,9 +227,9 @@ namespace YellowstonePathology.UI.Surgical
 			}
 		}
 
-        public void Save(bool releaseLock)
+        public void MoveFocus()
         {
-            if (this.m_AccessionOrder != null && this.m_AccessionOrder.IsLockAquiredByMe == true)
+            if (this.m_AccessionOrder != null)
             {
                 MainWindow.MoveKeyboardFocusNextThenBack();                
             }

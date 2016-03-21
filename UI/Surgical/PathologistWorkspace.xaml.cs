@@ -61,7 +61,7 @@ namespace YellowstonePathology.UI.Surgical
 					{
 						if (barcode.IsValidated == true)
 						{
-							this.Save(false);							
+							this.Save();							
 							this.DoAliquotOrderIdSearch(barcode.ID, 15);                            
                         }
 						else
@@ -151,7 +151,7 @@ namespace YellowstonePathology.UI.Surgical
 			this.m_MainWindowCommandButtonHandler.AssignCase -= MainWindowCommandButtonHandler_AssignCase;
 			this.m_MainWindowCommandButtonHandler.ApplicationClosing -= MainWindowCommandButtonHandler_ApplicationClosing;
 
-			this.Save(true);                       
+			this.Save();                       
 
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath -= MainWindowCommandButtonHandler_StartProviderDistributionPath;
             this.m_MainWindowCommandButtonHandler.ShowAmendmentDialog -= MainWindowCommandButtonHandler_ShowAmendmentDialog;
@@ -254,7 +254,7 @@ namespace YellowstonePathology.UI.Surgical
 
 		private void MainWindowCommandButtonHandler_ApplicationClosing(object sender, EventArgs e)
 		{
-			this.Save(true);            
+			this.Save();            
 		}
 
 		private void ButtonStainOrder_Click(object sender, RoutedEventArgs e)
@@ -264,12 +264,12 @@ namespace YellowstonePathology.UI.Surgical
 
 		private void ShowStainOrderForm()
 		{
-			this.Save(false);
+			this.Save();
 
 			YellowstonePathology.UI.Common.OrderDialog orderDiaglog = new YellowstonePathology.UI.Common.OrderDialog(this.m_PathologistUI.AccessionOrder, this.m_PathologistUI.PanelSetOrder);
 			orderDiaglog.ShowDialog();
 
-			this.Save(false);			
+			this.Save();			
 		}
 
 		private void ItemIsSelected(object sender, CanExecuteRoutedEventArgs e)
@@ -287,21 +287,9 @@ namespace YellowstonePathology.UI.Surgical
 
 		public void SaveData(object target, ExecutedRoutedEventArgs args)
 		{
-			this.Save(false);
+			this.Save();
 			MessageBox.Show("The Pathologist workspace has been saved.");
-		}
-
-		public void Save(bool releaseLock)
-		{
-			if (this.m_PathologistsReview != null)
-			{
-				this.m_PathologistUI.Save(releaseLock);
-			}
-			else if (this.m_CytologyResultsWorkspace != null)
-			{
-				this.m_CytologyResultsWorkspace.CytologyUI.Save(releaseLock);
-			}
-		}
+		}		
 
 		private void CanShowCaseDocument(object sender, CanExecuteRoutedEventArgs e)
 		{
@@ -317,7 +305,7 @@ namespace YellowstonePathology.UI.Surgical
 
 		public void ShowCaseDocument()
 		{
-			this.Save(false);
+			this.Save();
 			if (this.ListViewSearchResults.SelectedItem != null)
 			{
 				YellowstonePathology.Business.Search.PathologistSearchResult item = (YellowstonePathology.Business.Search.PathologistSearchResult)this.ListViewSearchResults.SelectedItem;
@@ -335,7 +323,7 @@ namespace YellowstonePathology.UI.Surgical
 						if (barcode.IsValidated == true)
 						{
 
-							this.Save(false);
+							this.Save();
 							bool found = false;
 							for (int i = 0; i < this.ListViewSearchResults.Items.Count; i++)
 							{
@@ -375,7 +363,7 @@ namespace YellowstonePathology.UI.Surgical
 
 						if (barcode.IsValidated == true)
 						{
-							this.Save(false);
+							this.Save();
 							this.DoSlideOrderIdSearch(barcode.ID);
 						}
 						else
@@ -391,7 +379,7 @@ namespace YellowstonePathology.UI.Surgical
 				new Action(
 					delegate()
 					{
-						this.Save(false);
+						this.Save();
 						this.DoAliquotOrderIdSearch(barcode.ID, 13);
 					}));
 		}
@@ -407,8 +395,7 @@ namespace YellowstonePathology.UI.Surgical
 			{
 				if (this.TextBoxSearchANPN.Text.Length >= 1)
 				{
-                    this.ReleaseLock();
-					this.m_PathologistUI.Save(true);
+                    this.ReleaseLock();					
 					TextSearchHandler textSearchHandler = new TextSearchHandler(this.TextBoxSearchANPN.Text);
 					object textSearchObject = textSearchHandler.GetSearchObject();
 					if (textSearchObject is YellowstonePathology.Business.ReportNo)
@@ -480,7 +467,7 @@ namespace YellowstonePathology.UI.Surgical
 
 		private void ListViewSearchResults_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			this.Save(true);
+			this.Save();
 			LoadData();
 		}
 

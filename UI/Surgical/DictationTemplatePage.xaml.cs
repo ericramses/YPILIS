@@ -110,25 +110,29 @@ namespace YellowstonePathology.UI.Surgical
         
         private bool SelectNextInput(int startingPosition)
         {
-            bool result = false;                  
-            int positionOfNextLeftBracket = this.TextBoxGrossDescription.Text.IndexOf("[", startingPosition + 1);
-            if (positionOfNextLeftBracket != -1)
+            bool result = false;   
+            if(startingPosition != this.TextBoxGrossDescription.Text.Length)
             {
-                int positionOfNextRightBracket = this.TextBoxGrossDescription.Text.IndexOf("]", positionOfNextLeftBracket);
-                this.TextBoxGrossDescription.SelectionStart = positionOfNextLeftBracket;
-                this.TextBoxGrossDescription.SelectionLength = positionOfNextRightBracket - positionOfNextLeftBracket + 1;
-                result = true;
-            }
+                int positionOfNextLeftBracket = this.TextBoxGrossDescription.Text.IndexOf("[", startingPosition + 1);
+                if (positionOfNextLeftBracket != -1)
+                {
+                    int positionOfNextRightBracket = this.TextBoxGrossDescription.Text.IndexOf("]", positionOfNextLeftBracket);
+                    this.TextBoxGrossDescription.SelectionStart = positionOfNextLeftBracket;
+                    this.TextBoxGrossDescription.SelectionLength = positionOfNextRightBracket - positionOfNextLeftBracket + 1;
+                    result = true;
+                }
+            }                           
             return result;
         }    
         
         private void HandleTextBoxGrossDescriptionTab()
         {
-            int startingPosition = 0;
+            int startingPosition = this.TextBoxGrossDescription.SelectionStart;
             if (string.IsNullOrEmpty(this.TextBoxGrossDescription.SelectedText) == false)
             {
                 startingPosition = this.TextBoxGrossDescription.SelectionStart;
             }
+
             if(startingPosition == 0)
             {
                 SelectNextInput(startingPosition);
