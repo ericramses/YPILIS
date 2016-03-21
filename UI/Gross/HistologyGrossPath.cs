@@ -175,6 +175,7 @@ namespace YellowstonePathology.UI.Gross
 
         private void MessageQueuePath_LockWasReleased(object sender, EventArgs e)
         {
+            this.m_AccessionOrder = Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(this.m_AccessionOrder.MasterAccessionNo, this.m_HistologyGrossDialog);
             this.HandleLockAquiredByMe();
         }
 

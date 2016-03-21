@@ -17,17 +17,20 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
 
         public override void Render()
 		{			
-			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\WomensHealthProfile.1.xml";
+			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\WomensHealthProfile.2.xml";
 			this.OpenTemplate();
 
 			this.SetCurrentPapResults();
 			this.SetCurrentMolecularResults();
-			this.SetPriorResults();
+			this.SetPriorResults();            
 
             WomensHealthProfileTestOrder womensHealthProfileTestOrder = (WomensHealthProfileTestOrder)this.m_PanelSetOrder;
 			WomensHealthProfileResult womensHealthProfileResult = new WomensHealthProfileResult(this.m_AccessionOrder);
 
-			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByOrderTarget(womensHealthProfileTestOrder.OrderedOnId);
+            YellowstonePathology.Business.Document.AmendmentSection amendmentSection = new YellowstonePathology.Business.Document.AmendmentSection();
+            amendmentSection.SetAmendment(womensHealthProfileTestOrder.AmendmentCollection, this.m_ReportXml, this.m_NameSpaceManager, true);
+
+            YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByOrderTarget(womensHealthProfileTestOrder.OrderedOnId);
 			this.SetXmlNodeData("specimen_source", specimenOrder.SpecimenSource);
 			string collectionDateTimeString = specimenOrder.GetCollectionDateTimeString();
 			this.SetXmlNodeData("collection_date_time", collectionDateTimeString);

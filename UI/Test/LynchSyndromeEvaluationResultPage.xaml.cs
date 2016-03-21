@@ -327,6 +327,7 @@ namespace YellowstonePathology.UI.Test
             YellowstonePathology.Business.Persistence.DocumentId documentId = new Business.Persistence.DocumentId(clone, this);
             YellowstonePathology.Business.Persistence.DocumentUpdate document = new Business.Persistence.DocumentUpdate(documentId);
             YellowstonePathology.Business.Rules.MethodResult methodResult = this.SetCloneResults(clone);
+
             if (methodResult.Success == true)
             {
                 if (document.IsDirty() == false)
