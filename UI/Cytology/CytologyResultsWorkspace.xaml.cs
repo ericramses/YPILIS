@@ -30,7 +30,7 @@ namespace YellowstonePathology.UI.Cytology
 		{
             this.m_Writer = writer;
             this.m_SystemIdentity = YellowstonePathology.Business.User.SystemIdentity.Instance;
-			this.m_CytologyUI = new CytologyUI(this.m_SystemIdentity, this.m_Writer);
+			this.m_CytologyUI = new CytologyUI(this.m_Writer);
             this.DataContext = this.m_CytologyUI;            
 
             InitializeComponent();
@@ -80,12 +80,7 @@ namespace YellowstonePathology.UI.Cytology
 		public YellowstonePathology.UI.Cytology.CytologyUI CytologyUI
 		{
 			get { return this.m_CytologyUI; }
-		}        
-
-		public void Save(object target, ExecutedRoutedEventArgs args)
-		{			
-			this.m_CytologyUI.Save(false);
-		}
+		}        		
 
         public void SelectAppropriatePanel()
         {
@@ -249,7 +244,7 @@ namespace YellowstonePathology.UI.Cytology
 
 		public void CloseWorkspace(object target, ExecutedRoutedEventArgs args)
 		{
-			this.m_CytologyUI.Save(true);
+			
 		}
 
 		private void TextBoxReportNoSearch_GotFocus(object sender, RoutedEventArgs e)
