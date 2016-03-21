@@ -31,8 +31,8 @@ namespace YellowstonePathology.UI.Gross
         public delegate void ShowStainOrderPageEventHandler(object sender, CustomEventArgs.SpecimenOrderAliquotOrderReturnEventArgs e);
         public event ShowStainOrderPageEventHandler ShowStainOrderPage;
 
-        public delegate void TimeOutEventHandler(object sender, CustomEventArgs.SpecimenOrderReturnEventArgs e);
-        public event TimeOutEventHandler TimeOut;
+        //public delegate void TimeOutEventHandler(object sender, CustomEventArgs.SpecimenOrderReturnEventArgs e);
+        //public event TimeOutEventHandler TimeOut;
 
         public delegate void NextEventHandler(object sender, UI.CustomEventArgs.SpecimenOrderReturnEventArgs e);
         public event NextEventHandler Next;

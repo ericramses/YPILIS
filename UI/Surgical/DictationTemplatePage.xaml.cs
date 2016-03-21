@@ -124,11 +124,12 @@ namespace YellowstonePathology.UI.Surgical
         
         private void HandleTextBoxGrossDescriptionTab()
         {
-            int startingPosition = 0;
+            int startingPosition = this.TextBoxGrossDescription.SelectionStart;
             if (string.IsNullOrEmpty(this.TextBoxGrossDescription.SelectedText) == false)
             {
                 startingPosition = this.TextBoxGrossDescription.SelectionStart;
             }
+
             if(startingPosition == 0)
             {
                 SelectNextInput(startingPosition);

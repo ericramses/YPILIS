@@ -25,7 +25,7 @@ namespace YellowstonePathology.Business.Domain.Billing
             YellowstonePathology.Business.Facility.Model.FacilityCollection facilityCollection = YellowstonePathology.Business.Facility.Model.FacilityCollection.GetAllFacilities();
             YellowstonePathology.Business.Facility.Model.Facility technicalComponentBillingFacility = facilityCollection.GetByFacilityId(panelSetOrder.TechnicalComponentBillingFacilityId);
             YellowstonePathology.Business.Facility.Model.Facility professionalComponentBillingFacility = facilityCollection.GetByFacilityId(panelSetOrder.ProfessionalComponentBillingFacilityId);
-
+            
             if (panelSetOrder.HasTechnicalComponent == true && panelSetOrder.HasProfessionalComponent == true)
             {
                 if (YellowstonePathology.Business.Facility.Model.FacilityCollection.IsAYellowstonePathologyFacility(technicalComponentBillingFacility) &&

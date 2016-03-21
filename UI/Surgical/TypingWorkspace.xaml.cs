@@ -709,7 +709,7 @@ namespace YellowstonePathology.UI.Surgical
 
         private void ButtonCAPLink_Click(object sender, RoutedEventArgs e)
         {
-            System.Diagnostics.Process.Start(@"http://www.cap.org/apps/cap.portal?_nfpb=true&cntvwrPtlt_actionOverride=%2Fportlets%2FcontentViewer%2Fshow&_windowLabel=cntvwrPtlt&cntvwrPtlt%7BactionForm.contentReference%7D=committees%2Fcancer%2Fcancer_protocols%2Fprotocols_index.html&_state=maximized&_pageLabel=cntvwr");
+            System.Diagnostics.Process.Start(@"http://www.cap.org/web/home/resources/cancer-reporting-tools/cancer-protocol-templates?_adf.ctrl-state=dqakeocns_55&_afrLoop=977071090428152#!%40%40%3F_afrLoop%3D977071090428152%26_adf.ctrl-state%3Djmv67olsb_30");
         }
 
         private void MenuItemShowRequisition_Click(object sender, RoutedEventArgs e)
