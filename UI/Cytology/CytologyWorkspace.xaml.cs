@@ -56,7 +56,7 @@ namespace YellowstonePathology.UI.Cytology
 			this.CommandBindingApplicationClosing = new CommandBinding(MainWindow.ApplicationClosingCommand, this.CloseWorkspace);
 			this.CommandBindingShowPatientEditDialog = new CommandBinding(MainWindow.ShowPatientEditDialogCommand, this.m_CytologyUI.ShowPatientEditDialog);
 			this.CommandBindingShowAmendmentDialog = new CommandBinding(MainWindow.ShowAmendmentDialogCommand, this.m_CytologyUI.ShowAmendmentDialog, ItemIsSelected);
-                        
+
             this.CommandBindings.Add(this.CommandBindingShowCaseDocument);			
 			this.CommandBindings.Add(this.CommandBindingApplicationClosing);
 			this.CommandBindings.Add(this.CommandBindingShowPatientEditDialog);
@@ -85,6 +85,7 @@ namespace YellowstonePathology.UI.Cytology
             this.m_MainWindowCommandButtonHandler.Save -= MainWindowCommandButtonHandler_Save;
             this.m_MainWindowCommandButtonHandler.ShowAmendmentDialog -= this.m_CytologyResultsWorkspace.CytologyUI.ShowAmendmentDialog;
             this.m_MainWindowCommandButtonHandler.Refresh -= MainWindowCommandButtonHandler_Refresh;
+            this.m_MainWindowCommandButtonHandler.RemoveTab -= MainWindowCommandButtonHandler_RemoveTab;
 
             YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
         }
@@ -122,6 +123,7 @@ namespace YellowstonePathology.UI.Cytology
             this.m_MainWindowCommandButtonHandler.Save += new MainWindowCommandButtonHandler.SaveEventHandler(MainWindowCommandButtonHandler_Save);
             this.m_MainWindowCommandButtonHandler.ShowAmendmentDialog += this.m_CytologyResultsWorkspace.CytologyUI.ShowAmendmentDialog;
             this.m_MainWindowCommandButtonHandler.Refresh += MainWindowCommandButtonHandler_Refresh;
+            this.m_MainWindowCommandButtonHandler.RemoveTab += MainWindowCommandButtonHandler_RemoveTab;
             this.ListViewSearchResults.SelectedIndex = -1;
 
             Keyboard.Focus(this.m_CytologyResultsWorkspace.TextBoxReportNoSearch);
@@ -156,7 +158,12 @@ namespace YellowstonePathology.UI.Cytology
             }
         }
 
-		private void CytologySlideScanReceived(YellowstonePathology.Business.BarcodeScanning.CytycBarcode cytycBarcode)
+        private void MainWindowCommandButtonHandler_RemoveTab(object sender, EventArgs e)
+        {
+            Business.Persistence.DocumentGateway.Instance.Push(this.m_Writer);
+        }
+
+        private void CytologySlideScanReceived(YellowstonePathology.Business.BarcodeScanning.CytycBarcode cytycBarcode)
         {            
             this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal,
                 new Action(

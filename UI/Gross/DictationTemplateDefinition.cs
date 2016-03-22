@@ -522,11 +522,11 @@ namespace YellowstonePathology.UI.Gross
         }
     }
 
-    public class LEEPConeTemplate : DictationTemplate
+    public class LEEPTemplate : DictationTemplate
     {
-        public LEEPConeTemplate()
+        public LEEPTemplate()
         {
-            this.m_TemplateName = "LEEPCone";
+            this.m_TemplateName = "LEEP";
             this.m_Text = "[identifier]." + Environment.NewLine +
                 "Gross Description:  [color], [characteristics]" + Environment.NewLine +
                 "Measurement:  [measurement]" + Environment.NewLine +
@@ -534,8 +534,32 @@ namespace YellowstonePathology.UI.Gross
                 "Inking:  [description]" + Environment.NewLine +
                 "Submitted:  [submitted].  ";            
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.LEEPCone leepCone = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.LEEPCone();
-            this.m_SpecimenCollection.Add(leepCone);
+            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.LEEP leep = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.LEEP();
+            this.m_SpecimenCollection.Add(leep);
+        }
+
+        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        {
+            string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
+            result = this.ReplaceSubmitted(result, specimenOrder);
+            return result;
+        }
+    }
+    
+    public class CervicalConeTemplate : DictationTemplate
+     {
+        public CervicalConeTemplate()
+        {
+            this.m_TemplateName = "CervicalCone";
+            this.m_Text = "[identifier]." + Environment.NewLine +
+                "Gross Description:  [color], [characteristics]" + Environment.NewLine +
+                "Measurement:  [measurement]" + Environment.NewLine +
+                "Os:  [description], [measurement]" + Environment.NewLine +
+                "Inking:  [description]" + Environment.NewLine +
+                "Submitted:  [submitted].  ";            
+
+            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.CervicalCone cervicalCone = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.CervicalCone();
+            this.m_SpecimenCollection.Add(cervicalCone);
         }
 
         public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
