@@ -7,7 +7,7 @@
 			 xmlns:sys="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="700"
-			 Name="SurgicalReviewControl" FocusManager.IsFocusScope="True">
+			 Name="SurgicalReviewControl">
 	<UserControl.Resources>
 
 		<DataTemplate x:Key="DataTemplatePeerReviewPanel">
