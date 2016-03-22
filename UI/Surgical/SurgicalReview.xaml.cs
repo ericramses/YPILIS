@@ -35,10 +35,16 @@ namespace YellowstonePathology.UI.Surgical
 			this.m_BillingSpecimenViewCollection = new Business.View.BillingSpecimenViewCollection();
 			this.RefreshBillingSpecimenViewCollection();
 
-            InitializeComponent();            
-
+            InitializeComponent();
+            
+            this.LostKeyboardFocus += SurgicalReview_LostKeyboardFocus;   
             this.DataContext = this;            
-		}        
+        }
+
+        private void SurgicalReview_LostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            MainWindow.UpdateBindingSources(this);
+        }
 
         public void NotifyPropertyChanged(String info)
         {
@@ -220,7 +226,7 @@ namespace YellowstonePathology.UI.Surgical
 
                     if(canFinal == true)
                     {
-                        amendment.Finalize();                    
+                        amendment.Finish();                    
                     }
                 }
                 else
@@ -477,7 +483,7 @@ namespace YellowstonePathology.UI.Surgical
 
                 if (auditResult.Status == Business.Audit.Model.AuditStatusEnum.OK)
                 {
-                    this.PanelSetOrderSurgical.Finalize();
+                    this.PanelSetOrderSurgical.Finish();
                     if (this.PanelSetOrderSurgical.Accepted == false)
                     {
                         this.PanelSetOrderSurgical.Accept();

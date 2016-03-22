@@ -18,9 +18,9 @@ namespace YellowstonePathology.Business.Test.FactorVLeiden
 				"characterized by a substitution of glutamine for arginine at position 506 (R506Q), alters a site on the factor V protein that is normally " +
 				"cleaved by activated protein C, thereby causing impaired clot degradation.  Studies have demonstrated that individuals who harbor " +
 				"heterozygous Factor V Leiden mutations are 5 to 10 times more likely to experience a thromboembolic event when compared to the general " +
-				"population, while homozygous Factor V Leiden carriers are at significantly higher risk (50 to 80-fold).  Knowledge of a patient’s Factor V " +
+				"population, while homozygous Factor V Leiden carriers are at significantly higher risk (50 to 80-fold).  Knowledge of a patient's Factor V " +
 				"Leiden mutation status is valuable, as it may influence treatment regimens as well as allow for timely pre-operative and genetic " +
-				"counseling.  Molecular testing of the patient’s specimen reveals that this individual DOES NOT harbor the factor V Leiden (R506Q) " +
+				"counseling.  Molecular testing of the patient's specimen reveals that this individual DOES NOT harbor the factor V Leiden (R506Q) " +
 				"mutation.   Although the factor V Leiden mutation is absent, the individual may have other genetic and environmental risk factors for " +
 				"thrombosis. Consider additional testing for hemostatic disorders associated with increased thrombosis risk, if indicated.";
 		}

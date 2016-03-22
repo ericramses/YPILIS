@@ -148,7 +148,7 @@ namespace YellowstonePathology.UI.Test
             {
                 if (this.m_EGFRToALKReflexAnalysisTestOrder.Final == false)
                 {
-                    this.m_EGFRToALKReflexAnalysisTestOrder.Finalize();
+                    this.m_EGFRToALKReflexAnalysisTestOrder.Finish();
                 }
             }			
 		}

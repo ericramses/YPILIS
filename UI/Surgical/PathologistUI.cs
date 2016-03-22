@@ -225,15 +225,7 @@ namespace YellowstonePathology.UI.Surgical
 				}
 				return result.ToString();
 			}
-		}
-
-        public void MoveFocus()
-        {
-            if (this.m_AccessionOrder != null)
-            {
-                MainWindow.MoveKeyboardFocusNextThenBack();                
-            }
-        }
+		}       
 
         public void ShowAmendmentDialog()
 		{

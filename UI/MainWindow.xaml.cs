@@ -190,6 +190,16 @@ namespace YellowstonePathology.UI
             }
         }
 
+        public static void UpdateBindingSources(DependencyObject element)
+        {
+            object focusObj = FocusManager.GetFocusedElement(element);
+            if (focusObj != null && focusObj is TextBox)
+            {
+                var binding = (focusObj as TextBox).GetBindingExpression(TextBox.TextProperty);
+                binding.UpdateSource();
+            }
+        }
+
 		private void ShowStartupPage()
 		{
 			switch (YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.StartupPage)

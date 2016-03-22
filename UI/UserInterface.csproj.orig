@@ -29,7 +29,7 @@
     <ApplicationIcon>YPI.ico</ApplicationIcon>
     <NoWin32Manifest>true</NoWin32Manifest>
     <TargetFrameworkProfile />
-    <PublishUrl>\\ypiidc\YPIILIS\Application\</PublishUrl>
+    <PublishUrl>\\Ypiidc\YPIILIS\Test\</PublishUrl>
     <Install>false</Install>
     <InstallFrom>Unc</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -42,11 +42,11 @@
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
 <<<<<<< HEAD
-    <ApplicationRevision>92</ApplicationRevision>
+    <ApplicationRevision>50</ApplicationRevision>
 =======
-    <ApplicationRevision>91</ApplicationRevision>
+    <ApplicationRevision>49</ApplicationRevision>
 >>>>>>> v10.1.4
-    <ApplicationVersion>10.1.3.%2a</ApplicationVersion>
+    <ApplicationVersion>10.1.4.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -252,6 +252,7 @@
     <Compile Include="CustomEventArgs\AliquotOrderAccessionOrderReturnEventArgs.cs" />
     <Compile Include="CustomEventArgs\AliquotOrderReturnEventArgs.cs" />
     <Compile Include="CustomEventArgs\CancelTestEventArgs.cs" />
+    <Compile Include="CustomEventArgs\BarcodReturnEventArgs.cs" />
     <Compile Include="CustomEventArgs\EventHandlerDefinitions.cs" />
     <Compile Include="CustomEventArgs\MessageReturnEventArgs.cs" />
     <Compile Include="CustomEventArgs\TestOrderAliquotOrderReturnEventArgs.cs" />
@@ -3826,6 +3827,10 @@
     <ProjectReference Include="..\DomainPersistence\DomainPersistence.csproj">
       <Project>{0B68C6D2-6418-4ECD-95D5-93DD6F8E1782}</Project>
       <Name>DomainPersistence</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YellowstonePathology.NetMQ\NetMQ.csproj">
+      <Project>{82934bac-07fb-41ac-ae59-46fee6026a40}</Project>
+      <Name>NetMQ</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

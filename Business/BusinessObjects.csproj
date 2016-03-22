@@ -414,6 +414,7 @@
     <Compile Include="Domain\OrderLogCollection.cs" />
     <Compile Include="Domain\OrderLogItem.cs" />
     <Compile Include="Facility.Model\BozemanDeaconess.cs" />
+    <Compile Include="Facility.Model\UniversityOfMiami.cs" />
     <Compile Include="Facility.Model\CMMC.cs" />
     <Compile Include="Facility.Model\MontanaDepartmentofJustice.cs" />
     <Compile Include="Facility.Model\StJamesHospital.cs" />

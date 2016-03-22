@@ -618,7 +618,7 @@ namespace YellowstonePathology.Business.Amendment.Model
             this.NotifyPropertyChanged(string.Empty);
         }
 
-        public void Finalize()
+        public void Finish()
         {
             if (this.Accepted == false)
             {
