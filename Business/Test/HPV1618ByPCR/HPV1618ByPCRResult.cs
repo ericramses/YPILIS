@@ -16,7 +16,7 @@ namespace YellowstonePathology.Business.Test.HPV1618ByPCR
         protected string m_HPV18Result;        
         protected string m_SquamousCellCarcinomaInterpretation;
 
-        protected string m_Method = "DNA was extracted from the patient’s specimen using an automated method.  Real-time PCR amplification was " +
+        protected string m_Method = "DNA was extracted from the patient's specimen using an automated method.  Real-time PCR amplification was " +
 			"performed using primers and hydrolysis probes specific for HPV types 16 and 18. The beta-actin gene was used as an internal control. " +
 			"The real-time PCR curves were analyzed to determine the presence of HPV types 16 and 18 in the specimen.";
 

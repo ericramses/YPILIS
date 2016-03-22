@@ -35,10 +35,20 @@ namespace YellowstonePathology.UI.Surgical
 			this.m_BillingSpecimenViewCollection = new Business.View.BillingSpecimenViewCollection();
 			this.RefreshBillingSpecimenViewCollection();
 
-            InitializeComponent();            
+            InitializeComponent();
 
-            this.DataContext = this;            
-		}        
+            
+            //this.LostKeyboardFocus += SurgicalReview_LostKeyboardFocus;   
+            this.DataContext = this;
+
+            // MainWindow.MoveKeyboardFocusNextThenBack();    
+        }
+
+        private void SurgicalReview_LostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            var xx = FocusManager.GetFocusedElement(this);
+            Console.WriteLine(xx.ToString());
+        }
 
         public void NotifyPropertyChanged(String info)
         {

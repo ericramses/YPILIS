@@ -411,9 +411,9 @@ namespace YellowstonePathology.UI.Surgical
 		public void TextBoxSearchANPN_KeyUp(object sender, KeyEventArgs args)
 		{
 			if (args.Key == Key.Return)
-			{
+			{                
 				if (this.TextBoxSearchANPN.Text.Length >= 1)
-				{
+				{                    
                     this.ReleaseLock();					
 					TextSearchHandler textSearchHandler = new TextSearchHandler(this.TextBoxSearchANPN.Text);
 					object textSearchObject = textSearchHandler.GetSearchObject();

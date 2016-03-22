@@ -25,7 +25,7 @@ namespace YellowstonePathology.Business.Test.Trichomonas
 
             this.AddAmendments(document);
 
-            string method = "DNA was extracted from the patient’s specimen using an automated method.  Real time PCR amplification was performed for organism detection and identification.";
+            string method = "DNA was extracted from the patient's specimen using an automated method.  Real time PCR amplification was performed for organism detection and identification.";
             this.AddNextObxElement("Method:", document, "F");
             this.HandleLongString(method, document, "F");
             this.AddNextObxElement("", document, "F");

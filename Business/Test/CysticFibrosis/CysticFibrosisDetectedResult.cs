@@ -18,10 +18,10 @@ namespace YellowstonePathology.Business.Test.CysticFibrosis
 				"detects the 23 most common mutations (frequency > 0.1%) to identify CF carriers among couples contemplating pregnancy, as well as newborn " +
 				"screening for CF and in diagnostic confirmatory testing in newborns and children." + Environment.NewLine + Environment.NewLine + "Based on the results of the assay one copy of the XXX " +
 				"detected.  Therefore this individual is a carrier of Cystic Fibrosis (CF). This interpretation is based on the assumption that this individual " +
-				"is not clinically symptomatic with CF.  If this patient’s reproductive partner is of European Caucasian descent, the risk that any offspring " +
+				"is not clinically symptomatic with CF.  If this patient's reproductive partner is of European Caucasian descent, the risk that any offspring " +
 				"of this patient will have Cystic Fibrosis is now estimated to be 1 in 100.  It is recommended that CF carrier testing by DNA mutation analysis " +
-				"be offered to this patient’s reproductive partner to more accurately assess their risk of having a child affected with Cystic Fibrosis.  " +
-				"Additionally, these results could have implications for this patient’s relatives.  Genetic counseling regarding the significance of these results is recommended.";
+				"be offered to this patient's reproductive partner to more accurately assess their risk of having a child affected with Cystic Fibrosis.  " +
+				"Additionally, these results could have implications for this patient's relatives.  Genetic counseling regarding the significance of these results is recommended.";
 		}
 
 		public override void SetResults(CysticFibrosisTestOrder testOrder, CysticFibrosisEthnicGroup cysticFibrosisEthnicGroup)
