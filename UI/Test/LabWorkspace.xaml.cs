@@ -301,25 +301,6 @@ namespace YellowstonePathology.UI.Test
             SetListViewToTop();
         }
 
-        /*public void ButtonFinalizeCase_Click(object sender, RoutedEventArgs args)
-        {
-            if (this.m_LabUI.PanelSetOrder != null && this.m_LabUI.PanelSetOrder.Final == false)
-            {
-				YellowstonePathology.Business.Rules.RuleExecutionStatus ruleExecutionStatus = new YellowstonePathology.Business.Rules.RuleExecutionStatus();
-				YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = m_LabUI.PanelSetOrder;
-				panelSetOrder.Finalize(this.m_LabUI.AccessionOrder, ruleExecutionStatus);
-
-				if (ruleExecutionStatus.ExecutionHalted == true)
-				{
-					YellowstonePathology.UI.RuleExecutionStatusDialog dialog = new RuleExecutionStatusDialog(ruleExecutionStatus);
-					dialog.ShowDialog();
-					return;
-				}
-				this.Save(false);
-				this.m_LabUI.FillCaseList();
-			}
-        }*/
-
         public void MenuItemAcceptResults_Click(object sender, RoutedEventArgs args)
         {
 			this.Save(false);

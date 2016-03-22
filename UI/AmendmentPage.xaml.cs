@@ -152,7 +152,7 @@ namespace YellowstonePathology.UI
 
                 if (canFinal == true)
                 {
-                    this.m_Amendment.Finalize();
+                    this.m_Amendment.Finish();
                 }
             }
             else

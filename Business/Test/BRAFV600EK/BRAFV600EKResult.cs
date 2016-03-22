@@ -66,7 +66,7 @@ namespace YellowstonePathology.Business.Test.BRAFV600EK
 
 		public virtual void FinalizeResults(YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTestOrder panelSetOrder)
 		{
-			panelSetOrder.Finalize();
+			panelSetOrder.Finish();
 			panelSetOrder.AssignedToId = Business.User.SystemIdentity.Instance.User.UserId;
 		}
 
