@@ -91,6 +91,7 @@ namespace YellowstonePathology.UI.Cutting
 
         private void MessageQueuePath_LockWasReleased(object sender, EventArgs e)
         {
+            Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(this.m_AccessionOrder.MasterAccessionNo, this.m_CuttingWorkspaceWindow);
             this.HandleLockAquiredByMe();
         }
 
