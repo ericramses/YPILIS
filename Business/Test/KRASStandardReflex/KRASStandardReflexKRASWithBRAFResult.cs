@@ -12,7 +12,7 @@ namespace YellowstonePathology.Business.Test.KRASStandardReflex
             this.m_Method = "DNA was isolated from cells or microdissection-enriched FFPE tissue. Tumor in FFPE must be present in at least 20% of the tissue. " +
                 "Mutations were evaluated for entire KRAS exons 2 and 3 high-sensitivity Sanger sequencing which improves the lower detection limit in mutation hotspot " +
                 "regions to approximately 1% abnormal DNA. This includes codons 12, 13, 14, and 61. Mutation detection outside these hotspot regions has a typical lower " +
-                "detection limit of 10-15% mutated KRAS in a wild-type background. The patient’s sequence is compared to the GenBank database: AF493917. The DNA was also " +
+                "detection limit of 10-15% mutated KRAS in a wild-type background. The patient's sequence is compared to the GenBank database: AF493917. The DNA was also " +
                 "evaluated for the presence of BRAF V600E/K by PCR and fragment size anaylsis. Various factors including quantity and quality of nucleic acid, sample " +
                 "preparation and sample age can affect assay performance.";            
 

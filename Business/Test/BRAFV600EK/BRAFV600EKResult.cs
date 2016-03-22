@@ -39,7 +39,7 @@ namespace YellowstonePathology.Business.Test.BRAFV600EK
 
 		public BRAFV600EKResult()
 		{
-            this.m_Method = "DNA was first extracted from the patient’s paraffin-embedded specimen using an automated DNA extraction system.  KRAS allele-specific PCR was then performed on the patient’s sample.  " +
+            this.m_Method = "DNA was first extracted from the patient's paraffin-embedded specimen using an automated DNA extraction system.  KRAS allele-specific PCR was then performed on the patient's sample.  " +
                 "The products generated from this reaction were then subjected to a second PCR step employing fluorescently-labeled nucleotides and primers designed to detect both mutant and wild-type forms " +
                 "of the KRAS gene.  Utilizing the SHIFTED TERMINATION ASSAY (STA), the presence of any of the 12 KRAS point mutations causes termination of complementary DNA chain synthesis during " +
                 "amplification. Thus, complementary DNA strands are formed with lengths that are specific to the particular KRAS point mutation present. The products of the STA reaction were analyzed using " +

@@ -13,7 +13,7 @@ namespace YellowstonePathology.Document.Result.Data
 		#region Private constants
 		/// <summary>"Method" section's body text
 		/// </summary>
-		private const string m_MethodData = "DNA was extracted from the patient’s specimen using an automated method. Real time PCR amplification was performed for organism detection and identification.";
+		private const string m_MethodData = "DNA was extracted from the patient's specimen using an automated method. Real time PCR amplification was performed for organism detection and identification.";
 		#endregion Private constants
 
 		#region Constructors

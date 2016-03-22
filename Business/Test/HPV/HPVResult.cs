@@ -29,9 +29,9 @@ namespace YellowstonePathology.Business.Test.HPV
             "may be tested with the Aptima HPV assay. The assay is used with the Panther System. The use of the test is indicated: 1. To screen women 21 years and " +
             "older with atypical squamous cells of undetermined significance (ASC-US) cervical cytology results to determine the need for referral to colposcopy. The " +
             "results of this test are not intended to prevent women from proceeding to colposcopy. 2. In women 30 years and older, the Aptima HPV assay can be used with " +
-            "cervical cytology to adjunctively screen to assess the presence or absence of high-risk HPV types. This information, together with the physician’s " +
-            "assessment of cytology history, other risk factors, and professional guidelines, may be used to guide patient management. * Broom-type device (e.g., " +
-            "Wallach Pipette) or endocervical brush/spatula. This assay is not intended for use as a screening device for women under age 30 with normal cervical " +
+            "cervical cytology to adjunctively screen to assess the presence or absence of high-risk HPV types. This information, together with the physician's " +
+            "assessment of cytology history, other risk factors, and professional guidelines, may be used to guide patient management. This assay is not intended for use " +
+            "as a screening device for women under age 30 with normal cervical " +
             "cytology. The Aptima HPV assay is not intended to substitute for regular cervical cytology screening. Detection of HPV using the Aptima HPV assay does not " +
             "differentiate HPV types and cannot evaluate persistence of any one type. The use of this assay has not been evaluated for the management of HPV vaccinated " +
             "women, women with prior ablative or excisional therapy, hysterectomy, who are pregnant, or who have other risk factors (e.g., HIV +, immunocompromised, " +

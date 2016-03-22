@@ -36,7 +36,7 @@ namespace YellowstonePathology.Document.Result.Data
 		/// <summary>"Method" section's body text
 		/// </summary>
 		private const string m_MethodData =
-			"DNA was extracted from the patient’s specimen.  Multiplex PCR was performed to amplify the target genes.  " +
+			"DNA was extracted from the patient's specimen.  Multiplex PCR was performed to amplify the target genes.  " +
 			"Enzymatic digestion was performed to generate single stranded DNA.  Sample DNA was hybridized to capture " +
 			"probes with signal detection by alternating current voltammetry.";
 		/// <summary>"References" section's body text
