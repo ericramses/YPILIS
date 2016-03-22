@@ -1232,7 +1232,7 @@ namespace YellowstonePathology.Business.Test
             return result;
         }                
 
-		public virtual void Finalize()
+		public virtual void Finish()
 		{            			
 			YellowstonePathology.Business.PanelSet.Model.PanelSetCollection panelSetCollection = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetAll();
 			YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet = panelSetCollection.GetPanelSet(this.PanelSetId);

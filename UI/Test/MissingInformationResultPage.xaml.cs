@@ -76,7 +76,7 @@ namespace YellowstonePathology.UI.Test
 		{
 			if (this.m_MissingInformtionTestOrder.Final == false)
 			{				
-				this.m_MissingInformtionTestOrder.Finalize();				
+				this.m_MissingInformtionTestOrder.Finish();				
 			}
 			else
 			{

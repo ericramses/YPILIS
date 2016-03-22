@@ -118,7 +118,7 @@ namespace YellowstonePathology.UI
                 }
                 if (canFinal == true)
                 {
-                    this.SelectedAmendment.Finalize();
+                    this.SelectedAmendment.Finish();
                 }
             }
             else

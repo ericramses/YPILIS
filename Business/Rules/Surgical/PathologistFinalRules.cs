@@ -317,7 +317,7 @@ namespace YellowstonePathology.Business.Rules.Surgical
 		{
 			if (this.m_IsSigning == true)
 			{
-				this.m_PanelSetOrderSurgical.Finalize();                				
+				this.m_PanelSetOrderSurgical.Finish();                				
 				if (this.m_PanelSetOrderSurgical.Accepted == false)
 				{
 					this.m_PanelSetOrderSurgical.Accept();

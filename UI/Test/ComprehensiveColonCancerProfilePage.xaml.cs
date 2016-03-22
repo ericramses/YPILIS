@@ -112,7 +112,7 @@ namespace YellowstonePathology.UI.Test
 			}
 			else
 			{
-                this.m_ComprehensiveColonCancerProfile.Finalize();
+                this.m_ComprehensiveColonCancerProfile.Finish();
 			}
 		}
 

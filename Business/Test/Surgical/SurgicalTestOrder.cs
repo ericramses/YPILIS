@@ -609,10 +609,10 @@ namespace YellowstonePathology.Business.Test.Surgical
             return auditResult;
         }
 
-        public override void Finalize()
+        public override void Finish()
         {
             this.m_ProfessionalComponentFacilityId = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId;
-            base.Finalize();
+            base.Finish();
         }
     }
 }
