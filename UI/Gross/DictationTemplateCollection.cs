@@ -45,7 +45,8 @@ namespace YellowstonePathology.UI.Gross
             result.Add(new GallbladderExcisionTemplate());
             result.Add(new GITemplate());
             result.Add(new KneeTissueTemplate());
-            result.Add(new LEEPConeTemplate());
+            result.Add(new LEEPTemplate());
+            result.Add(new CervicalConeTemplate());
             result.Add(new LEEPPiecesTemplate());
             result.Add(new MitralValveTemplate());
             result.Add(new NeedleCoreBiopsyTemplate());
