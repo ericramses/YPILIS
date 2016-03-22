@@ -414,7 +414,19 @@ namespace YellowstonePathology.UI.Cytology
 			}
 		}
 
-		public YellowstonePathology.Business.Domain.DataLoadResult DataLoadResult
+        public bool ButtonEnabled
+        {
+            get
+            {
+                if (this.m_AccessionOrder != null && this.m_AccessionOrder.IsLockAquiredByMe == true && (this.m_UserIsCytotech || this.m_UserIsPathologist))
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
+
+        public YellowstonePathology.Business.Domain.DataLoadResult DataLoadResult
 		{
 			get { return this.m_DataLoadResult; }
 			set { this.m_DataLoadResult = value; }

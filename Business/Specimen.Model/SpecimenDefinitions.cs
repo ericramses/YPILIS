@@ -372,13 +372,26 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             }
         }
 
-        public class LEEPCone : Specimen
+        public class LEEP : Specimen
         {
-            public LEEPCone()
+            public LEEP()
             {
-                this.m_SpecimenId = "LPCNSPCMN";
-                this.m_SpecimenName = "LEEP Cone";
-                this.m_Description = "Cervix, LEEP cone excision";
+                this.m_SpecimenId = "LPSPCMN";
+                this.m_SpecimenName = "LEEP";
+                this.m_Description = "Cervix, LEEP";
+                this.m_LabFixation = "Formalin";
+                this.m_ClientFixation = null;
+                this.m_RequiresGrossExamination = true;
+            }
+        }
+        
+        public class CervicalCone : Specimen
+        {
+           public CervicalCone()
+            {
+                this.m_SpecimenId = "CXCNSPCMN";
+                this.m_SpecimenName = " Cervical Cone";
+                this.m_Description = "Cervix, cone, excision";
                 this.m_LabFixation = "Formalin";
                 this.m_ClientFixation = null;
                 this.m_RequiresGrossExamination = true;
