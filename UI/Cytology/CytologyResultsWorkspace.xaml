@@ -506,7 +506,7 @@
 		</Grid>
 
 		<Border Grid.Column="1" Grid.Row="0" CornerRadius="5">
-			<Grid IsEnabled="{Binding ElementName=CytologyResultUserControl, Path=DataContext.CanSave}">
+            <Grid IsEnabled="{Binding ElementName=CytologyResultUserControl, Path=DataContext.ButtonEnabled}">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="150"></ColumnDefinition>
 				</Grid.ColumnDefinitions>
