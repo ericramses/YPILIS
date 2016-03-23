@@ -213,6 +213,38 @@
     <Compile Include="Audit.Model\WHPStandingOrderMismatchAudit.cs" />
     <Compile Include="Audit.Model\WHPStandingOrderNotSetAudit.cs" />
     <Compile Include="Audit.Model\ShouldWomensHealthProfileBeFinaledAudit.cs" />
+    <Compile Include="BarcodeLib\BarcodeCommon.cs" />
+    <Compile Include="BarcodeLib\BarcodeLib.cs" />
+    <Compile Include="BarcodeLib\BarcodeXML.Designer.cs" />
+    <Compile Include="BarcodeLib\BarcodeXML1.Designer.cs" />
+    <Compile Include="BarcodeLib\BarcodeXML2.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BarcodeXML.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="BarcodeLib\IBarcode.cs" />
+    <Compile Include="BarcodeLib\Symbologies\Blank.cs" />
+    <Compile Include="BarcodeLib\Symbologies\Codabar.cs" />
+    <Compile Include="BarcodeLib\Symbologies\Code11.cs" />
+    <Compile Include="BarcodeLib\Symbologies\Code128.cs" />
+    <Compile Include="BarcodeLib\Symbologies\Code39.cs" />
+    <Compile Include="BarcodeLib\Symbologies\Code93.cs" />
+    <Compile Include="BarcodeLib\Symbologies\EAN13.cs" />
+    <Compile Include="BarcodeLib\Symbologies\EAN8.cs" />
+    <Compile Include="BarcodeLib\Symbologies\FIM.cs" />
+    <Compile Include="BarcodeLib\Symbologies\Interleaved2of5.cs" />
+    <Compile Include="BarcodeLib\Symbologies\ISBN.cs" />
+    <Compile Include="BarcodeLib\Symbologies\ITF14.cs" />
+    <Compile Include="BarcodeLib\Symbologies\JAN13.cs" />
+    <Compile Include="BarcodeLib\Symbologies\MSI.cs" />
+    <Compile Include="BarcodeLib\Symbologies\Pharmacode.cs" />
+    <Compile Include="BarcodeLib\Symbologies\Postnet.cs" />
+    <Compile Include="BarcodeLib\Symbologies\Standard2of5.cs" />
+    <Compile Include="BarcodeLib\Symbologies\Telepen.cs" />
+    <Compile Include="BarcodeLib\Symbologies\UPCA.cs" />
+    <Compile Include="BarcodeLib\Symbologies\UPCE.cs" />
+    <Compile Include="BarcodeLib\Symbologies\UPCSupplement2.cs" />
+    <Compile Include="BarcodeLib\Symbologies\UPCSupplement5.cs" />
     <Compile Include="BarcodeScanning\Barcode.cs" />
     <Compile Include="BarcodeScanning\BarcodePrefixEnum.cs" />
     <Compile Include="BarcodeScanning\BarcodeScan.cs" />
@@ -2791,6 +2823,17 @@
     <EmbeddedResource Include="XmlSchema\LabEventLogSchema.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <None Include="BarcodeLib\BarcodeXML.xsc">
+      <DependentUpon>BarcodeXML.xsd</DependentUpon>
+    </None>
+    <None Include="BarcodeLib\BarcodeXML.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>BarcodeXML2.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="BarcodeLib\BarcodeXML.xss">
+      <DependentUpon>BarcodeXML.xsd</DependentUpon>
+    </None>
     <None Include="YellowstonePathology.Business.pfx" />
     <None Include="YellowstonePathology.Business.snk" />
   </ItemGroup>
