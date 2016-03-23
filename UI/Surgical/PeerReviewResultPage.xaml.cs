@@ -118,24 +118,17 @@ namespace YellowstonePathology.UI.Surgical
         private void AddPeerReview(int pathologistId)
         {
             if (string.IsNullOrEmpty(this.m_SurgicalTestOrder.PeerReviewRequestType) == false)
-            {
-                if (this.m_AccessionOrder.PanelSetOrderCollection.HasPathologistReviewFor(pathologistId) == false)
-                {
-                    YellowstonePathology.Business.Test.PeerReview.PeerReviewTest peerReviewTest = new YellowstonePathology.Business.Test.PeerReview.PeerReviewTest();
-                    string reportNo = this.m_AccessionOrder.GetNextReportNo(peerReviewTest);
-					string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-                    YellowstonePathology.Business.Test.PeerReview.PeerReviewTestOrder peerReviewTestOrder = new YellowstonePathology.Business.Test.PeerReview.PeerReviewTestOrder(this.m_AccessionOrder.MasterAccessionNo, reportNo, objectId, peerReviewTest, null, false);
-                    peerReviewTestOrder.AssignedToId = pathologistId;
-                    peerReviewTestOrder.HoldForPeerReview = true;
-                    peerReviewTestOrder.PeerReviewRequestType = YellowstonePathology.Business.Test.PeerReview.PeerReviewTypeEnum.Mandatory.ToString();
-                    this.m_AccessionOrder.PanelSetOrderCollection.Add(peerReviewTestOrder);
-                    this.m_PeerReviewTestOrderCollection = this.m_AccessionOrder.PanelSetOrderCollection.GetPeerReviewCollection();
-                    this.NotifyPropertyChanged("PeerReviewTestOrderCollection");
-                }
-                else
-                {
-                    MessageBox.Show("The selected pathologist has already been added as a reviewer.");
-                }
+            {                
+                YellowstonePathology.Business.Test.PeerReview.PeerReviewTest peerReviewTest = new YellowstonePathology.Business.Test.PeerReview.PeerReviewTest();
+                string reportNo = this.m_AccessionOrder.GetNextReportNo(peerReviewTest);
+				string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
+                YellowstonePathology.Business.Test.PeerReview.PeerReviewTestOrder peerReviewTestOrder = new YellowstonePathology.Business.Test.PeerReview.PeerReviewTestOrder(this.m_AccessionOrder.MasterAccessionNo, reportNo, objectId, peerReviewTest, null, false);
+                peerReviewTestOrder.AssignedToId = pathologistId;
+                peerReviewTestOrder.HoldForPeerReview = true;
+                peerReviewTestOrder.PeerReviewRequestType = YellowstonePathology.Business.Test.PeerReview.PeerReviewTypeEnum.Mandatory.ToString();
+                this.m_AccessionOrder.PanelSetOrderCollection.Add(peerReviewTestOrder);
+                this.m_PeerReviewTestOrderCollection = this.m_AccessionOrder.PanelSetOrderCollection.GetPeerReviewCollection();
+                this.NotifyPropertyChanged("PeerReviewTestOrderCollection");                
             }
             else
             {
