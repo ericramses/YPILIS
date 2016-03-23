@@ -16,7 +16,7 @@
     </UpgradeBackupLocation>
     <OldToolsVersion>3.5</OldToolsVersion>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
     <AssemblyOriginatorKeyFile>YellowstonePathology.Business.pfx</AssemblyOriginatorKeyFile>
     <ProjectGuid>{0712F3D4-5C03-4446-B8FE-B8F5BE9495B1}</ProjectGuid>
     <PublishUrl>publish\</PublishUrl>
@@ -71,6 +71,10 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EdgeJs, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Edge.js.4.0.0\lib\EdgeJs.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Interop.FAXCOMEXLib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=8aa395087185f434, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <EmbedInteropTypes>True</EmbedInteropTypes>
@@ -213,38 +217,6 @@
     <Compile Include="Audit.Model\WHPStandingOrderMismatchAudit.cs" />
     <Compile Include="Audit.Model\WHPStandingOrderNotSetAudit.cs" />
     <Compile Include="Audit.Model\ShouldWomensHealthProfileBeFinaledAudit.cs" />
-    <Compile Include="BarcodeLib\BarcodeCommon.cs" />
-    <Compile Include="BarcodeLib\BarcodeLib.cs" />
-    <Compile Include="BarcodeLib\BarcodeXML.Designer.cs" />
-    <Compile Include="BarcodeLib\BarcodeXML1.Designer.cs" />
-    <Compile Include="BarcodeLib\BarcodeXML2.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>BarcodeXML.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="BarcodeLib\IBarcode.cs" />
-    <Compile Include="BarcodeLib\Symbologies\Blank.cs" />
-    <Compile Include="BarcodeLib\Symbologies\Codabar.cs" />
-    <Compile Include="BarcodeLib\Symbologies\Code11.cs" />
-    <Compile Include="BarcodeLib\Symbologies\Code128.cs" />
-    <Compile Include="BarcodeLib\Symbologies\Code39.cs" />
-    <Compile Include="BarcodeLib\Symbologies\Code93.cs" />
-    <Compile Include="BarcodeLib\Symbologies\EAN13.cs" />
-    <Compile Include="BarcodeLib\Symbologies\EAN8.cs" />
-    <Compile Include="BarcodeLib\Symbologies\FIM.cs" />
-    <Compile Include="BarcodeLib\Symbologies\Interleaved2of5.cs" />
-    <Compile Include="BarcodeLib\Symbologies\ISBN.cs" />
-    <Compile Include="BarcodeLib\Symbologies\ITF14.cs" />
-    <Compile Include="BarcodeLib\Symbologies\JAN13.cs" />
-    <Compile Include="BarcodeLib\Symbologies\MSI.cs" />
-    <Compile Include="BarcodeLib\Symbologies\Pharmacode.cs" />
-    <Compile Include="BarcodeLib\Symbologies\Postnet.cs" />
-    <Compile Include="BarcodeLib\Symbologies\Standard2of5.cs" />
-    <Compile Include="BarcodeLib\Symbologies\Telepen.cs" />
-    <Compile Include="BarcodeLib\Symbologies\UPCA.cs" />
-    <Compile Include="BarcodeLib\Symbologies\UPCE.cs" />
-    <Compile Include="BarcodeLib\Symbologies\UPCSupplement2.cs" />
-    <Compile Include="BarcodeLib\Symbologies\UPCSupplement5.cs" />
     <Compile Include="BarcodeScanning\Barcode.cs" />
     <Compile Include="BarcodeScanning\BarcodePrefixEnum.cs" />
     <Compile Include="BarcodeScanning\BarcodeScan.cs" />
@@ -493,6 +465,7 @@
     <Compile Include="Monitor.Model\MissingInformationCollection.cs" />
     <Compile Include="NeogenomicsResult.cs" />
     <Compile Include="NeogenomicsResultCollection.cs" />
+    <Compile Include="nodejs\HelloWorld.cs" />
     <Compile Include="PanelSet.Model\PanelSetTCellClonalityByPCRRetired.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -2823,17 +2796,13 @@
     <EmbeddedResource Include="XmlSchema\LabEventLogSchema.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <None Include="BarcodeLib\BarcodeXML.xsc">
-      <DependentUpon>BarcodeXML.xsd</DependentUpon>
+    <None Include="edge\x64\edge.node">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="BarcodeLib\BarcodeXML.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>BarcodeXML2.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
+    <None Include="edge\x86\edge.node">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="BarcodeLib\BarcodeXML.xss">
-      <DependentUpon>BarcodeXML.xsd</DependentUpon>
-    </None>
+    <None Include="packages.config" />
     <None Include="YellowstonePathology.Business.pfx" />
     <None Include="YellowstonePathology.Business.snk" />
   </ItemGroup>
@@ -3070,6 +3039,18 @@
     <Content Include="dll\MongoDB.Driver.xml" />
     <Content Include="Document\CaseHeader.xml" />
     <Content Include="dll\Interop.FAXCOMEXLib.dll" />
+    <Content Include="edge\double_edge.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="edge\edge.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="edge\x64\node.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="edge\x86\node.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <EmbeddedResource Include="XPSDocument\Xps\ReportLogo.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
