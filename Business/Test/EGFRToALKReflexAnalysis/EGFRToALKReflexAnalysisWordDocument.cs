@@ -35,7 +35,7 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
             {
                 base.ReplaceText("alk_result", "Not Indicated");
                 base.ReplaceText("ros1_result", "Not Indicated");
-                base.ReplaceText("pdl1_result", "Not Indicated");
+                base.ReplaceText("pdl1_stainpercentage", "Not Indicated");
             }
 
             if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(131) == true)
@@ -66,12 +66,12 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
             if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(215) == true)
             {
                 YellowstonePathology.Business.Test.PDL1.PDL1TestOrder pdl1TestOrder = (YellowstonePathology.Business.Test.PDL1.PDL1TestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(215);
-                base.ReplaceText("pdl1_result", pdl1TestOrder.Result);
+                base.ReplaceText("pdl1_stainpercentage", pdl1TestOrder.StainPercent);
             }
 
             if (egfrToALKReflexAnalysisTestOrder.QNSForPDL1 == true)
             {
-                base.ReplaceText("pdl1_result", "Quantity not sufficient to perform PDL-1");
+                base.ReplaceText("pdl1_stainpercentage", "Quantity not sufficient to perform PDL-1");
             }
 
             base.SetXMLNodeParagraphData("report_interpretation", egfrToALKReflexAnalysisTestOrder.Interpretation);

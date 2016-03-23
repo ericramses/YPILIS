@@ -59,11 +59,11 @@ namespace YellowstonePathology.UI.Cutting
             this.m_PageTimeoutTimer.Start();
 
             this.Loaded += new RoutedEventHandler(ScanBlockPage_Loaded);
-            this.Unloaded += new RoutedEventHandler(ScanBlockPage_Unloaded);
+            this.Unloaded += new RoutedEventHandler(ScanBlockPage_Unloaded);            
 		}
 
         private void PageTimeoutTimer_Tick(object sender, EventArgs e)
-        {
+        {            
             this.PageTimedOut(this, new EventArgs());
         } 
         

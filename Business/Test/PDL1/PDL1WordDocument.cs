@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Test.PDL1
         {            
             PDL1TestOrder testOrder = (PDL1TestOrder)this.m_PanelSetOrder;
 
-            this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\PDL1.1.xml";
+            this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\PDL1.2.xml";
             base.OpenTemplate();
 
             this.SetDemographicsV2();
@@ -27,9 +27,8 @@ namespace YellowstonePathology.Business.Test.PDL1
             YellowstonePathology.Business.Document.AmendmentSection amendmentSection = new YellowstonePathology.Business.Document.AmendmentSection();
             amendmentSection.SetAmendment(m_PanelSetOrder.AmendmentCollection, this.m_ReportXml, this.m_NameSpaceManager, true);
 
-            this.ReplaceText("report_result", testOrder.Result);
-            this.ReplaceText("report_comment", testOrder.Comment);
             this.ReplaceText("stain_percent", testOrder.StainPercent);
+            this.ReplaceText("report_comment", testOrder.Comment);
             this.ReplaceText("report_method", testOrder.Method);
 
             YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrder.OrderedOn, this.m_PanelSetOrder.OrderedOnId);
