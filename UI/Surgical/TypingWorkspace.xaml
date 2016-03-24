@@ -233,7 +233,7 @@
 							 Style="{StaticResource NewTextBox}" Width="200" HorizontalAlignment="Left" IsEnabled="{Binding Path=FieldEnabler.IsUnprotectedEnabled}"></TextBox>
 
 					<TextBlock Grid.Column="2" Grid.Row="3" Style="{StaticResource TextBlockHeaderRight}">Address 2:</TextBlock>
-					<TextBox Grid.Column="3" Grid.Row="3" Text="{Binding Path=AccessionOrder.PAddress2}"
+					<TextBox Name="TextBoxAddress2" Grid.Column="3" Grid.Row="3" Text="{Binding Path=AccessionOrder.PAddress2}"
 							 Style="{StaticResource NewTextBox}" Width="200" HorizontalAlignment="Left" IsEnabled="{Binding Path=FieldEnabler.IsUnprotectedEnabled}"></TextBox>
 
 					<TextBlock Grid.Column="2" Grid.Row="4" Style="{StaticResource TextBlockHeaderRight}">City:</TextBlock>

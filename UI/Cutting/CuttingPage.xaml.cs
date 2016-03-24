@@ -77,7 +77,7 @@ namespace YellowstonePathology.UI.Cutting
             this.m_PageTimeoutTimer.Start();
 
             this.Loaded += new RoutedEventHandler(CuttingPage_Loaded);
-            this.Unloaded += new RoutedEventHandler(CuttingPage_Unloaded);
+            this.Unloaded += new RoutedEventHandler(CuttingPage_Unloaded);            
 		}
 
         private void CuttingPage_Loaded(object sender, RoutedEventArgs e)
@@ -88,11 +88,11 @@ namespace YellowstonePathology.UI.Cutting
         private void CuttingPage_Unloaded(object sender, RoutedEventArgs e)
         {
             this.m_BarcodeScanPort.HistologySlideScanReceived -= BarcodeScanPort_HistologySlideScanReceived;
-            this.m_PageTimeoutTimer.Stop();
+            this.m_PageTimeoutTimer.Stop();            
         }
 
         private void PageTimeoutTimer_Tick(object sender, EventArgs e)
-        {
+        {            
             this.PageTimedOut(this, new EventArgs());
         }
 

@@ -990,8 +990,8 @@ namespace YellowstonePathology.UI
         }
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
-        {            
-            
+        {
+            Business.nodejs.HelloWorld.DoIt();
         }
 
         private void FindY()
