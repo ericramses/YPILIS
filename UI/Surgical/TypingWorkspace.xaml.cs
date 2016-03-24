@@ -79,10 +79,10 @@ namespace YellowstonePathology.UI.Surgical
             this.ListViewLocalDictation.ItemsSource = this.m_LocalDictationList;
             this.ListViewServerDictation.ItemsSource = this.m_ServerDictationList;
          
-            this.Unloaded += new RoutedEventHandler(TypingWorkspace_Unloaded);            			
-		}        
+            this.Unloaded += new RoutedEventHandler(TypingWorkspace_Unloaded);
+		}
 
-		private void TypingWorkspace_Loaded(object sender, RoutedEventArgs e)
+        private void TypingWorkspace_Loaded(object sender, RoutedEventArgs e)
 		{
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath += new MainWindowCommandButtonHandler.StartProviderDistributionPathEventHandler(MainWindowCommandButtonHandler_StartProviderDistributionPath);
             this.m_MainWindowCommandButtonHandler.Save += new MainWindowCommandButtonHandler.SaveEventHandler(MainWindowCommandButtonHandler_Save);

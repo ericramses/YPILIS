@@ -190,7 +190,7 @@ namespace YellowstonePathology.UI
             }
         }
 
-        public static void UpdateBindingSources(DependencyObject element)
+       public static void UpdateBindingSources(DependencyObject element)
         {
             object focusObj = FocusManager.GetFocusedElement(element);
             if (focusObj != null && focusObj is TextBox)
@@ -200,7 +200,7 @@ namespace YellowstonePathology.UI
             }
         }
 
-		private void ShowStartupPage()
+        private void ShowStartupPage()
 		{
 			switch (YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.StartupPage)
             {

@@ -123,7 +123,7 @@ namespace YellowstonePathology.UI.Surgical
             string masterAccessionNo = (string)sender;
             if (this.m_PathologistUI.AccessionOrder != null && this.m_PathologistUI.AccessionOrder.MasterAccessionNo == masterAccessionNo)
             {
-                this.ReleaseLockOnRequest();
+                this.ReleaseLock();
             }
         }
 
@@ -187,11 +187,11 @@ namespace YellowstonePathology.UI.Surgical
             //this.Save();
             if (this.m_PathologistUI.AccessionOrder != null)
             {
-                this.ReleaseLockOnRequest();
+                this.ReleaseLock();
             }
         }
 
-        private void ReleaseLockOnRequest()
+        private void ReleaseLock()
         {
             if (this.m_PathologistUI.AccessionOrder != null)
             {
@@ -633,23 +633,6 @@ namespace YellowstonePathology.UI.Surgical
             this.ReleaseLock();
 			this.m_PathologistUI.DoGenericSearch();
 		}
-
-        private void ReleaseLock()
-        {
-            if (this.m_PathologistUI.AccessionOrder != null)
-            {
-                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.ReleaseLock(this.m_PathologistUI.AccessionOrder, this.m_Writer);
-                this.m_PathologistUI.RunWorkspaceEnableRules();
-                if (this.m_CytologyResultsWorkspace != null)
-                {
-                    this.m_CytologyResultsWorkspace.CytologyUI.NotifyPropertyChanged(string.Empty);
-                }
-                if(this.m_PathologistsReview != null)
-                {
-                    this.m_PathologistsReview.NotifyPropertyChanged(string.Empty);
-                }
-            }
-        }
 
         public void ButtonViewDocument_Click(object sender, RoutedEventArgs args)
 		{
