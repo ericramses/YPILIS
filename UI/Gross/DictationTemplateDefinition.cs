@@ -74,6 +74,26 @@ namespace YellowstonePathology.UI.Gross
             return result;
         }
     }
+    
+        public class BXTemplate : DictationTemplate
+    {
+        public BXTemplate()
+        {
+            this.m_TemplateName = "Biopsy Specimen";
+            this.m_Text = "[identifier] and consists of [number] tan-pink tissue fragments measuring [measurement] in aggregate.  " +
+                "The specimen is filtered through a fine mesh bag and entirely submitted in cassette [cassettelabel].  ";            
+
+            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Biopsy bx = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Biopsy();
+            this.m_SpecimenCollection.Add(bx);
+        }
+
+        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        {
+            string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
+            result = this.ReplaceCassetteLabel(result, specimenOrder);
+            return result;
+        }
+    }
 
     public class FallopianTubeTemplate : DictationTemplate
     {
