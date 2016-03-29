@@ -407,6 +407,6 @@ namespace YellowstonePathology.Business.Document
                 result = date.ToString("MM/dd/yyy HH:mm");
             }
             return result;            
-		}                
-	}
+		}        
+    }
 }

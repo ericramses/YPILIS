@@ -7,9 +7,17 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 {
 	public class LynchSyndromeEvaluationTest : YellowstonePathology.Business.PanelSet.Model.PanelSet
 	{
+        private List<int> m_PanelSetIDList;
+
 		public LynchSyndromeEvaluationTest()
 		{
-			this.m_PanelSetId = 106;
+            this.m_PanelSetIDList = new List<int>();
+            this.m_PanelSetIDList.Add(13); //Surgical
+            this.m_PanelSetIDList.Add(102); //IHC
+            this.m_PanelSetIDList.Add(18); //BRAF
+            this.m_PanelSetIDList.Add(144); //MLH1
+
+            this.m_PanelSetId = 106;
 			this.m_PanelSetName = "Lynch Syndrome Evaluation";
 			this.m_CaseType = YellowstonePathology.Business.CaseType.ReflexTesting;
 			this.m_HasTechnicalComponent = true;
@@ -42,5 +50,10 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServicePathSummary());
 		}
+
+        public List<int> PanelSetIDList
+        {
+            get { return this.m_PanelSetIDList; }
+        }
 	}
 }

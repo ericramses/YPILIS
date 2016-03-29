@@ -17,8 +17,10 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 
         public override void Render()
         {
+            Business.Test.LynchSyndrome.LynchSyndromeEvaluationTest lynchSyndromeEvaluationTest = new LynchSyndromeEvaluationTest();
+
             int molecularTestCount = 0;            
-            this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\LynchSyndromeEvaluation.6.xml";
+            this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\LynchSyndromeEvaluation.7.xml";
             this.OpenTemplate();
             this.SetDemographicsV2();
             this.SetReportDistribution();
@@ -80,6 +82,9 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             base.ReplaceText("report_references", panelSetOrderLynchSyndromeEvaluation.References);            
 			base.ReplaceText("report_method", panelSetOrderLynchSyndromeEvaluation.Method);
             base.ReplaceText("pathologist_signature", panelSetOrderLynchSyndromeEvaluation.Signature);
+
+            
+            base.ReplaceText("summary_location_performed", this.m_AccessionOrder.PanelSetOrderCollection.GetLocationPerformedSummary(lynchSyndromeEvaluationTest.PanelSetIDList));
 
             this.SaveReport();
         }

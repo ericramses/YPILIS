@@ -94,21 +94,17 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
         }        
 
         private void ButtonScan_Click(object sender, RoutedEventArgs e)
-        {            
-            this.IsEnabled = false;
-
+        {                        
             try
-            {                
-                YellowstonePathology.Business.Common.PageScanner pageScanner = this.m_PageScannerCollection.SelectedPageScanner;                            
+            {
+                YellowstonePathology.Business.Common.PageScanner pageScanner = this.m_PageScannerCollection.SelectedPageScanner;                    
                 this.m_Twain.SelectSource(pageScanner.ScannerName);
-                this.m_Twain.StartScanning(pageScanner.ScanSettings);                
-            }            
+                this.m_Twain.StartScanning(pageScanner.ScanSettings);
+            }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);         
-            }
-
-            this.IsEnabled = true;
+                MessageBox.Show(ex.Message);
+            }            
         }
 
 		public string PageHeaderText

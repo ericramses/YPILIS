@@ -848,6 +848,20 @@ namespace YellowstonePathology.Business.Test
             }
         }
 
+        public virtual string GetLocationPerformedSummary(List<int> panelSetIDList)
+        {
+            string result = null;
+            for(int i=0; i<this.Count; i++)
+            {
+                if(panelSetIDList.Contains(this[i].PanelSetId) == true)
+                {
+                    result += this[i].PanelSetName + ": " + this[i].GetLocationPerformedComment();
+                    if (i != this.Count - 1) result += " ";
+                }                
+            }
+            return result;
+        }
+
         public virtual void PullOver(YellowstonePathology.Business.Visitor.AccessionTreeVisitor accessionTreeVisitor)
         {
             accessionTreeVisitor.Visit(this);
