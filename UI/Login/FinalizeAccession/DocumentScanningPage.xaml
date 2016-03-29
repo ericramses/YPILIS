@@ -37,7 +37,7 @@
             </Grid.RowDefinitions>
 
             <StackPanel Grid.Column="0" Grid.Row="0" VerticalAlignment="Top">                
-                <Button Margin="2,2,2,2" Height="50" Click="ButtonScan_Click">Scan</Button>                                                
+                <Button Name="ButtonScan" Margin="2,2,2,2" Height="50" Click="ButtonScan_Click">Scan</Button>                                                
             </StackPanel>
 
             <StackPanel Grid.Column="0" Grid.Row="0" VerticalAlignment="Bottom">

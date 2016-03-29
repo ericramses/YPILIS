@@ -41,13 +41,12 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
             this.AddNextObxElement("Ratio: " + panelSetOrder.Her2Chr17Ratio, document, "F");
             this.AddNextObxElement("Average HER2 Copy Number = " + panelSetOrder.AverageHer2NeuSignal, document, "F");
             this.AddNextObxElement(string.Empty, document, "F");
-            this.AddNextObxElement("Reference Range: " + referenceRange, document, "F");
 
             if (string.IsNullOrEmpty(panelSetOrder.ResultComment) != true)
             {
 				this.HandleLongString("Comment: " + panelSetOrder.ResultComment, document, "F");
+                this.AddNextObxElement(string.Empty, document, "F");
             }
-            this.AddNextObxElement(string.Empty, document, "F");
 
             this.AddNextObxElement("Pathologist: " + panelSetOrder.Signature, document, "F");
             if (panelSetOrder.FinalTime.HasValue == true)
@@ -59,26 +58,41 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 
             this.AddNextObxElement("Number of invasive tumor cells counted: " + panelSetOrder.CellsCounted.ToString(), document, "F");
             this.AddNextObxElement("Number of observers: " + panelSetOrder.NumberOfObservers.ToString(), document, "F");
-            this.AddNextObxElement("HER2 average copy number per nucleus: " + panelSetOrder.AverageHer2NeuSignal, document, "F");
-            this.AddNextObxElement("Chr17 average copy number per nucleus: " + panelSetOrder.AverageChr17Signal, document, "F");
+            this.AddNextObxElement("HER2 average copy number: " + panelSetOrder.AverageHer2NeuSignal, document, "F");
+            this.AddNextObxElement("Chr17 average copy number: " + panelSetOrder.AverageChr17Signal, document, "F");
             this.AddNextObxElement("Ratio of average HER2/Chr17 signals: " + panelSetOrder.Her2Chr17Ratio, document, "F");
             this.AddNextObxElement(string.Empty, document, "F");
 
 			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(panelSetOrder.OrderedOn, panelSetOrder.OrderedOnId);
             YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = (YellowstonePathology.Business.Test.AliquotOrder)this.m_AccessionOrder.SpecimenOrderCollection.GetOrderTarget(panelSetOrder.OrderedOnId);
-            string specimenDescriptionString = specimenOrder.Description + " - " + aliquotOrder.Label;
+            string blockDescription = string.Empty;
+            if (aliquotOrder != null)
+            {
+                blockDescription = " - Block " + aliquotOrder.Label;
+            }
 
-            this.AddNextObxElement("Specimen Description: " + specimenDescriptionString, document, "F");            
-
-            this.AddNextObxElement("Fixation Type: " + specimenOrder.LabFixation, document, "F");
+            this.AddNextObxElement("Specimen site and type: " + specimenOrder.Description + blockDescription, document, "F");
+            this.AddNextObxElement("Specimen fixation type: " + specimenOrder.LabFixation, document, "F");
             this.AddNextObxElement("Time to fixation: " + specimenOrder.TimeToFixationHourString, document, "F");
+            this.AddNextObxElement("Duration of fixation: " + specimenOrder.FixationDurationString, document, "F");
+            this.AddNextObxElement("Sample adequacy: " + panelSetOrder.SampleAdequacy, document, "F");
 
-            this.AddNextObxElement("Fixation Duration: " + specimenOrder.FixationDurationString, document, "F");
+            string collectionDateTimeString = YellowstonePathology.Business.Helper.DateTimeExtensions.CombineDateAndTime(specimenOrder.CollectionDate, specimenOrder.CollectionTime);
+            this.AddNextObxElement("Collection Date/Time: " + collectionDateTimeString, document, "F");
             this.AddNextObxElement(string.Empty, document, "F");
-
+            
             this.AddNextObxElement("Interpretation: ", document, "F");
             this.HandleLongString(panelSetOrder.InterpretiveComment, document, "F");
             this.AddNextObxElement(string.Empty, document, "F");
+
+            this.AddNextObxElement("Reference Range: " + referenceRange, document, "F");
+            this.AddNextObxElement(string.Empty, document, "F");
+
+            if (string.IsNullOrEmpty(specimenOrder.FixationComment) == false)
+            {
+                this.HandleLongString("Fixation Comment:" + specimenOrder.FixationComment, document, "F");
+                this.AddNextObxElement(string.Empty, document, "F");
+            }
 
             this.AddNextObxElement("Method: ", document, "F");
 			this.HandleLongString(panelSetOrder.Method, document, "F");
@@ -87,17 +101,6 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
             this.AddNextObxElement("References: ", document, "F");
 			this.HandleLongString(panelSetOrder.ReportReference, document, "F");
             this.AddNextObxElement(string.Empty, document, "F");
-
-            foreach (YellowstonePathology.Business.Amendment.Model.Amendment amendment in panelSetOrder.AmendmentCollection)
-            {
-                this.AddNextObxElement(amendment.AmendmentType + ": " + amendment.AmendmentDate.Value.ToString("MM/dd/yyyy"), document, "C");
-                this.HandleLongString(amendment.Text, document, "C");
-                if (amendment.RequirePathologistSignature == true)
-                {
-                    this.AddNextObxElement("Signature: " + amendment.PathologistSignature, document, "C");
-                }
-                this.AddNextObxElement("", document, "C");
-            }
 
 			this.HandleLongString(panelSetOrder.ASRComment, document, "F");
 
@@ -138,18 +141,31 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 
 			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(panelSetOrder.OrderedOn, panelSetOrder.OrderedOnId);
             YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = (YellowstonePathology.Business.Test.AliquotOrder)this.m_AccessionOrder.SpecimenOrderCollection.GetOrderTarget(panelSetOrder.OrderedOnId);
-            string specimenDescriptionString = specimenOrder.Description + " - " + aliquotOrder.Label;
+            string blockDescription = string.Empty;
+            if (aliquotOrder != null)
+            {
+                blockDescription = " - Block " + aliquotOrder.Label;
+            }
 
-            this.AddNextObxElement("Specimen Description: " + specimenDescriptionString, document, "F");            
+            this.AddNextObxElement("Specimen site and type: " + specimenOrder.Description + blockDescription, document, "F");
+            this.AddNextObxElement("Specimen fixation type: " + specimenOrder.LabFixation, document, "F");
+            this.AddNextObxElement("Time to fixation: " + specimenOrder.TimeToFixationHourString, document, "F");
+            this.AddNextObxElement("Duration of fixation: " + specimenOrder.FixationDurationString, document, "F");
+            this.AddNextObxElement("Sample adequacy: " + panelSetOrder.SampleAdequacy, document, "F");
 
-            this.AddNextObxElement("Fixation Type: " + specimenOrder.LabFixation, document, "F");
-            this.AddNextObxElement("Time to fixation: " + specimenOrder.TimeToFixationHourString, document, "F");            
-            this.AddNextObxElement("Fixation Duration: " + specimenOrder.FixationDurationString, document, "F");
+            string collectionDateTimeString = YellowstonePathology.Business.Helper.DateTimeExtensions.CombineDateAndTime(specimenOrder.CollectionDate, specimenOrder.CollectionTime);
+            this.AddNextObxElement("Collection Date/Time: " + collectionDateTimeString, document, "F");
             this.AddNextObxElement(string.Empty, document, "F");
 
             this.AddNextObxElement("Interpretation: ", document, "F");
             this.HandleLongString(panelSetOrder.InterpretiveComment, document, "F");
             this.AddNextObxElement(string.Empty, document, "F");
+
+            if (string.IsNullOrEmpty(specimenOrder.FixationComment) == false)
+            {
+                this.HandleLongString("Fixation Comment:" + specimenOrder.FixationComment, document, "F");
+                this.AddNextObxElement(string.Empty, document, "F");
+            }
 
             this.AddNextObxElement("Method: ", document, "F");
 			this.HandleLongString(panelSetOrder.Method, document, "F");
@@ -158,17 +174,6 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
             this.AddNextObxElement("References: ", document, "F");
 			this.HandleLongString(panelSetOrder.ReportReference, document, "F");
             this.AddNextObxElement(string.Empty, document, "F");
-
-            foreach (YellowstonePathology.Business.Amendment.Model.Amendment amendment in panelSetOrder.AmendmentCollection)
-            {
-                this.AddNextObxElement(amendment.AmendmentType + ": " + amendment.AmendmentDate.Value.ToString("MM/dd/yyyy"), document, "C");
-                this.HandleLongString(amendment.Text, document, "C");
-                if (amendment.RequirePathologistSignature == true)
-                {
-                    this.AddNextObxElement("Signature: " + amendment.PathologistSignature, document, "C");
-                }
-                this.AddNextObxElement("", document, "C");
-            }
 
             this.AddNextObxElement(panelSetOrder.ASRComment, document, "F");
 

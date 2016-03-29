@@ -108,6 +108,11 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             get { return this.m_AccessionOrder; }
         }
 
+        public YellowstonePathology.Business.Test.PanelSetOrder PanelSetOrder
+        {
+            get { return this.m_PanelSetOrder; }
+        }
+
         public AliquotAndStainOrderView AliquotAndStainOrderView
         {
             get { return this.m_AliquotAndStainOrderView; }

@@ -114,20 +114,6 @@
                     <GridViewColumn>
                         <GridViewColumn.HeaderTemplate>
                             <DataTemplate>
-                                <TextBlock Text="Scheduled" HorizontalAlignment="Stretch" Width="150" Margin="2,2,2,2"/>
-                            </DataTemplate>
-                        </GridViewColumn.HeaderTemplate>
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Grid Width="150">
-                                    <TextBlock Text="{Binding ScheduledDistributionTime, Converter={StaticResource MilitaryDateTimeConverter}}" HorizontalAlignment="Stretch"/>
-                                </Grid>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn>
-                        <GridViewColumn.HeaderTemplate>
-                            <DataTemplate>
                                 <TextBlock Text="Minutes Since Final" HorizontalAlignment="Stretch" Width="150" Margin="2,2,2,2"/>
                             </DataTemplate>
                         </GridViewColumn.HeaderTemplate>
