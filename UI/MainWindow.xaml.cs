@@ -695,12 +695,6 @@ namespace YellowstonePathology.UI
 			this.AddTypingWorkspace();
 		}        
 
-		private void MenuItemSurgicalBlocks_Click(object sender, RoutedEventArgs e)
-		{
-			YellowstonePathology.UI.Test.SurgicalBlocks dlg = new YellowstonePathology.UI.Test.SurgicalBlocks();
-			dlg.ShowDialog();
-		}
-
 		private void MenuItemMasterLog_Click(object sender, RoutedEventArgs e)
 		{
 			YellowstonePathology.Business.Reports.Surgical.SurgicalMasterLog report = new YellowstonePathology.Business.Reports.Surgical.SurgicalMasterLog();

@@ -47,7 +47,6 @@
 
 			<MenuItem Header="Lab" Name="MenuItemLab">
 				<MenuItem Header="_Lab" Click="MenuItemLabWorkspace_Click"></MenuItem>
-				<MenuItem Header="Surgical Blocks" Click="MenuItemSurgicalBlocks_Click"></MenuItem>				
 				<MenuItem Header="Master Log" Click="MenuItemMasterLog_Click"></MenuItem>
 				<MenuItem Header="Login" Click="MenuItemLogin_Click" />
                 <MenuItem Header="Material Tracking" Click="MenuItemMaterialTracking_Click" />
