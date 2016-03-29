@@ -47,10 +47,12 @@ namespace YellowstonePathology.Business.Test.HPV1618ByPCR
             {
                 this.AddNextObxElement("Comment:", document, "F");
                 this.AddNextObxElement(panelSetOrder.Comment, document, "F");                
-            }            
+            }
 
-            YellowstonePathology.Business.Interface.IOrderTarget orderTarget = this.m_AccessionOrder.SpecimenOrderCollection.GetOrderTarget(panelSetOrder.OrderedOnId);
-            this.AddNextObxElement("Specimen: " + orderTarget.GetDescription(), document, "F");
+            YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(panelSetOrder.OrderedOn, panelSetOrder.OrderedOnId);
+            YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = specimenOrder.AliquotOrderCollection.GetByAliquotOrderId(panelSetOrder.OrderedOnId);
+            string description = specimenOrder.Description + ": " + aliquotOrder.GetDescription();
+            this.AddNextObxElement("Specimen: " + description, document, "F");
             this.AddNextObxElement("", document, "F");
 
             this.AddNextObxElement("Method: ", document, "F");            
