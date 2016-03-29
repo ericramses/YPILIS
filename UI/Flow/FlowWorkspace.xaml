@@ -527,8 +527,8 @@
 					<Grid Background="White">
 						<Grid.ContextMenu>
 							<ContextMenu>
-								<MenuItem Name="MenuItemSetCptCodes" Header="Set CPT Codes" Click="MenuItemSetCptCodes_Click"></MenuItem>
-								<MenuItem Name="MeunuItemAddIcd9Code" Header="Insert ICD9 Code" Click="MenuItemAddIcd9Code_Click"></MenuItem>
+                                <!--<MenuItem Name="MenuItemSetCptCodes" Header="Set CPT Codes" Click="MenuItemSetCptCodes_Click"></MenuItem>-->
+                                <MenuItem Name="MeunuItemAddIcd9Code" Header="Insert ICD9 Code" Click="MenuItemAddIcd9Code_Click"></MenuItem>
 								<MenuItem></MenuItem>
 								<MenuItem Name="MeunuItemDeleteIcd9Code" Header="Delete ICD9 Code" Click="MenuItemDeleteIcd9Code_Click"></MenuItem>
 							</ContextMenu>							
@@ -538,33 +538,10 @@
 						</Grid.ColumnDefinitions>
 						<Grid.RowDefinitions>
 							<RowDefinition></RowDefinition>
-							<RowDefinition></RowDefinition>
 							<RowDefinition Height="80"></RowDefinition>
 						</Grid.RowDefinitions>
-						<ListView Grid.Column="0" Grid.Row="0" Name="listViewCptCodes" ItemsSource="{Binding Path=AccessionOrder.PanelSetOrderCPTCodeBillCollection}">						
-							<ListView.View>
-								<GridView AllowsColumnReorder="True" ColumnHeaderToolTip="Cpt Codes">
-									<GridViewColumn DisplayMemberBinding="{Binding Path=CptCode}" Header="CPT Code" Width="100"/>                  
-									<GridViewColumn Header="Quantity">
-										<GridViewColumn.CellTemplate>
-											<DataTemplate>
-												<StackPanel Orientation="Horizontal">
-													<TextBox Text="{Binding Path=Quantity}" Width="70" Margin="5"></TextBox>                          
-												</StackPanel>
-											</DataTemplate>
-										</GridViewColumn.CellTemplate>
-									</GridViewColumn>
-                  <GridViewColumn DisplayMemberBinding="{Binding Path=PostDate, Converter={StaticResource ShortDateConverter}}" Header="Date" Width="100"/>
-                  <GridViewColumn DisplayMemberBinding="{Binding Path=PrimaryInsurance}" Header="Insurance" Width="100"/>
-                  <GridViewColumn DisplayMemberBinding="{Binding Path=PatientType}" Header="Patient Type" Width="100"/>
-                  <GridViewColumn DisplayMemberBinding="{Binding Path=BillingType}" Header="Billing" Width="100"/>
-                  <GridViewColumn DisplayMemberBinding="{Binding Path=ClientId}" Header="Client" Width="100"/>
-                  <GridViewColumn DisplayMemberBinding="{Binding Path=NoCharge}" Header="No Charge" Width="100"/>
-                </GridView>
-							</ListView.View>
-						</ListView>
 
-            <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Horizontal">
+            <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
             <ListView Name="ListViewICD9BillingCodeCollection" ItemsSource="{Binding Path=ICD9BillingCodeCollection}" IsSynchronizedWithCurrentItem="True">
                 <ListView.View>
                   <GridView>
@@ -585,7 +562,7 @@
               </ListView>
             </StackPanel>
             
-            <StackPanel Grid.Column="0" Grid.Row="2" Orientation="Horizontal">              
+            <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Horizontal">              
               <Button VerticalAlignment="Top" Width="200" Style="{StaticResource NormalButton}" Click="ButtonRemoveICDCode_Click">Remove ICD Code</Button>
             </StackPanel>
 					</Grid>

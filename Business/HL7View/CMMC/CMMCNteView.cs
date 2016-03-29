@@ -72,6 +72,23 @@ namespace YellowstonePathology.Business.HL7View.CMMC
                     this.AddNextNteElement(text.Trim(), document);
                 }
             }
-        }		
+        }
+
+        public virtual void AddAmendments(XElement document, YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder)
+        {
+            foreach (YellowstonePathology.Business.Amendment.Model.Amendment amendment in panelSetOrder.AmendmentCollection)
+            {
+                if (amendment.Final == true)
+                {
+                    this.AddNextNteElement(amendment.AmendmentType + ": " + amendment.AmendmentDate.Value.ToString("MM/dd/yyyy"), document);
+                    this.HandleLongString(amendment.Text, document);
+                    if (amendment.RequirePathologistSignature == true)
+                    {
+                        this.AddNextNteElement("Signature: " + amendment.PathologistSignature, document);
+                    }
+                    this.AddBlankNteElement(document);
+                }
+            }
+        }
     }
 }

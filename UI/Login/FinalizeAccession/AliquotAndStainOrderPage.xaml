@@ -259,7 +259,7 @@
 				</Grid>
 
                 <ListBox Name="ListBoxPanelSetOrders" Grid.Column="0" Grid.Row="2" Margin="2,2,2,2" ItemsSource="{Binding Path=AccessionOrder.PanelSetOrderCollection}" SelectionChanged="ListBoxPanelSetOrders_SelectionChanged"
-				    ItemTemplate="{StaticResource PanelSetOrderTemplate}" ItemContainerStyle="{StaticResource PanelSetOrderStyle}" SelectedItem="{Binding Path=WorkingPanelSetOrder}" BorderThickness="0" VerticalAlignment="Stretch">
+				    ItemTemplate="{StaticResource PanelSetOrderTemplate}" ItemContainerStyle="{StaticResource PanelSetOrderStyle}" SelectedItem="{Binding Path=PanelSetOrder, Mode=OneWay}" BorderThickness="0" VerticalAlignment="Stretch">
                 </ListBox>
 
                 <Border Grid.Column="0" Grid.Row="3" CornerRadius="5" BorderThickness="1" BorderBrush="Black" />				                

@@ -190,7 +190,7 @@ namespace YellowstonePathology.UI
             }
         }
 
-        public static void UpdateBindingSources(DependencyObject element)
+       public static void UpdateBindingSources(DependencyObject element)
         {
             object focusObj = FocusManager.GetFocusedElement(element);
             if (focusObj != null && focusObj is TextBox)
@@ -200,7 +200,7 @@ namespace YellowstonePathology.UI
             }
         }
 
-		private void ShowStartupPage()
+        private void ShowStartupPage()
 		{
 			switch (YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.StartupPage)
             {
@@ -694,12 +694,6 @@ namespace YellowstonePathology.UI
 		{
 			this.AddTypingWorkspace();
 		}        
-
-		private void MenuItemSurgicalBlocks_Click(object sender, RoutedEventArgs e)
-		{
-			YellowstonePathology.UI.Test.SurgicalBlocks dlg = new YellowstonePathology.UI.Test.SurgicalBlocks();
-			dlg.ShowDialog();
-		}
 
 		private void MenuItemMasterLog_Click(object sender, RoutedEventArgs e)
 		{

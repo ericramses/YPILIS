@@ -34,8 +34,7 @@
                             <GridViewColumn DisplayMemberBinding="{Binding Path=Type.Name}" Header="Object Type" Width="120"/>
                             <GridViewColumn DisplayMemberBinding="{Binding Path=Key}" Header="Key" Width="120"/>
                             <GridViewColumn DisplayMemberBinding="{Binding Path=IsLockAquiredByMe}" Header="Locked" Width="120"/>
-                            <GridViewColumn DisplayMemberBinding="{Binding Path=WriterString}" Header="Writers" Width="200"/>
-                            <GridViewColumn DisplayMemberBinding="{Binding Path=TimeCreated}" Header="Time" Width="120"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=WriterString}" Header="Writers" Width="570"/>
                         </GridView>
                     </ListView.View>
                 </ListView>
