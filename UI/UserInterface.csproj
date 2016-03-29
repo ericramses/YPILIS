@@ -1814,9 +1814,6 @@
     <Compile Include="Surgical\SpecimenSelection.xaml.cs">
       <DependentUpon>SpecimenSelection.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Test\SurgicalBlocks.xaml.cs">
-      <DependentUpon>SurgicalBlocks.xaml</DependentUpon>
-    </Compile>
     <Compile Include="TypingShorcutDialog.xaml.cs">
       <DependentUpon>TypingShorcutDialog.xaml</DependentUpon>
     </Compile>
@@ -3480,12 +3477,6 @@
     <Page Include="Surgical\SpecimenSelection.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Test\SurgicalBlocks.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

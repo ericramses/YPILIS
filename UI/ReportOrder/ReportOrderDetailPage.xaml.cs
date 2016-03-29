@@ -54,6 +54,11 @@ namespace YellowstonePathology.UI.ReportOrder
             //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, releaseLock);			
 		}
 
+        public string PageHeaderText
+        {
+            get { return string.Empty; }
+        }
+
         public string ReportDocumentPath
         {
             get { return this.m_ReportDocumentPath; }

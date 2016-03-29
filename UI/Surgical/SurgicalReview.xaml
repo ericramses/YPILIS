@@ -177,11 +177,11 @@
 			</StackPanel>
 		</HierarchicalDataTemplate>
 
-		<x:Array x:Key="PeerReviewResults" Type="sys:String">
+		<!--<x:Array x:Key="PeerReviewResults" Type="sys:String">
 			<sys:String>Not Performed</sys:String>
 			<sys:String>Agree</sys:String>
 			<sys:String>Disagree</sys:String>
-		</x:Array>
+		</x:Array>-->
 		
 		<DataTemplate x:Key="CPTBillingTemplate">
 			<Grid>
@@ -241,7 +241,7 @@
 			</Grid>
 		</DataTemplate>
 
-		<DataTemplate x:Key="DataTemplatePeerReview">
+		<!--<DataTemplate x:Key="DataTemplatePeerReview">
 			<Grid>
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition></ColumnDefinition>
@@ -287,7 +287,7 @@
 				<TextBox Grid.Column="0" Grid.Row="2" Margin="2" TextWrapping="Wrap" AcceptsReturn="True" 
 						 Text="{Binding Path=ResultComment}" HorizontalAlignment="Stretch"></TextBox>
 			</Grid>
-		</DataTemplate>
+		</DataTemplate>-->
 
 		<DataTemplate x:Key="IntraoperativeConsultationTemplate">
 			<Grid>
@@ -447,7 +447,7 @@
 
 				</Grid>
 
-				<StackPanel Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2">
+				<!--<StackPanel Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2">
 					<ItemsControl KeyboardNavigation.IsTabStop="False"
 							  ItemsSource="{Binding Path=SpecimenOrder.PeerReviewResults}"							  
 							  ItemTemplate="{StaticResource DataTemplatePeerReview}">
@@ -457,7 +457,7 @@
 							</ItemsPanelTemplate>
 						</ItemsControl.ItemsPanel>
 					</ItemsControl>
-				</StackPanel>
+				</StackPanel>-->
 
 			</Grid>
 		</DataTemplate>
@@ -581,8 +581,6 @@
 						</ItemsControl>
 
 					</Grid>
-
-					<ItemsControl ItemsSource="{Binding Path=PanelSetOrderSurgical.PeerReviewPanelOrders}" KeyboardNavigation.IsTabStop="False" ItemTemplate="{StaticResource DataTemplatePeerReviewPanel}" />
 
 					<StackPanel Name="PanelCancerCase2" Visibility="{Binding ElementName=SurgicalReviewControl, Path=DataContext.CancerCaseSummaryVisibility}">
                         <StackPanel Orientation="Horizontal">
