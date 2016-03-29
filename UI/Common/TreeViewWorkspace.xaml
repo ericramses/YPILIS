@@ -7,17 +7,11 @@
 			<Setter Property="IsExpanded" Value="True"/>
 		</Style>
 
-        <DataTemplate x:Key="DataTemplateAliquotOrderItemList">
-            <StackPanel Orientation="Horizontal" Margin="2,2,2,2">
-                <TextBlock Margin="2,2,2,2" VerticalAlignment="Center" Text="{Binding Path=Display}" Width="200"></TextBlock>
+        <DataTemplate x:Key="DataTemplateCaseTreeTestOrder">
+            <StackPanel Orientation="Horizontal" Margin="2,2,2,2">				
+				<TextBlock Margin="2,2,2,2" VerticalAlignment="Center" Text="{Binding Path=DisplayString}" Width="400"></TextBlock>
             </StackPanel>
         </DataTemplate>
-
-        <HierarchicalDataTemplate x:Key="DataTemplateCaseTreeTestOrder" ItemsSource="{Binding Path=AliquotOrderCollection}"  ItemTemplate="{StaticResource DataTemplateAliquotOrderItemList}">
-			<StackPanel Orientation="Horizontal" Margin="2,2,2,2">				
-				<TextBlock Margin="2,2,2,2" VerticalAlignment="Center" Text="{Binding Path=TestName}" Width="200"></TextBlock>
-			</StackPanel>
-        </HierarchicalDataTemplate>
 
 		<HierarchicalDataTemplate x:Key="DataTemplateCaseTreeTestListOrder">
 			<StackPanel Orientation="Horizontal" Margin="2,2,2,2">
@@ -26,8 +20,7 @@
 						<MenuItem Header="Cancel Test" Click="MenuItemCancelTest_Click" Tag="{Binding}" IsEnabled="True"></MenuItem>
 					</ContextMenu>
 				</StackPanel.ContextMenu>
-				<TextBlock Margin="2,2,2,2" VerticalAlignment="Center" Text="{Binding Path=TestName}" Width="200"></TextBlock>                
-                <TextBlock Margin="2,2,2,2" VerticalAlignment="Center" Text="{Binding Path=OrderedBy}"></TextBlock>
+				<TextBlock Margin="2,2,2,2" VerticalAlignment="Center" Text="{Binding Path=TestName}" Width="200"></TextBlock>
             </StackPanel>
 		</HierarchicalDataTemplate>
 
@@ -77,9 +70,6 @@
 					<TextBlock FontWeight="Bold" Margin="2,2,2,2" VerticalAlignment="Center">Specimen:</TextBlock>
 					<TextBlock Margin="2,2,2,2" VerticalAlignment="Center" Text="{Binding Path=Description}" Width="300"></TextBlock>
 				</StackPanel>
-				<TreeView BorderThickness="0" ItemsSource="{Binding Path=TestSpecimenOrderList}"
-						  ItemTemplate="{StaticResource DataTemplateTestSpecimenOrder}">
-				</TreeView>
 				<TreeView BorderThickness="0" ItemsSource="{Binding Path=AliquotOrderCollection}"
 						  ItemTemplate="{StaticResource DataTemplateCaseTreeAliquotOrder}">
 				</TreeView>				
