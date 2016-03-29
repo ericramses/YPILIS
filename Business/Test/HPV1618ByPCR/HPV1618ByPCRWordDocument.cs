@@ -24,7 +24,7 @@ namespace YellowstonePathology.Business.Test.HPV1618ByPCR
 
 			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrder.OrderedOn, this.m_PanelSetOrder.OrderedOnId);
             YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = specimenOrder.AliquotOrderCollection.GetByAliquotOrderId(this.m_PanelSetOrder.OrderedOnId);
-            string description = specimenOrder.Description + ": " + aliquotOrder.GetDescription();
+            string description = specimenOrder.Description + " - Block " + aliquotOrder.GetDescription();
             base.ReplaceText("specimen_description", description);            
 
 			string collectionDateTimeString = YellowstonePathology.Business.Helper.DateTimeExtensions.CombineDateAndTime(specimenOrder.CollectionDate, specimenOrder.CollectionTime);
