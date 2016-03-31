@@ -30,10 +30,11 @@ namespace YellowstonePathology.Business.Test.PNH
 			this.m_References = "Diagnosis and Management of PNH.  Parker C, et al.  Blood. 2005 Dec 1; 106(12):3699-709." + Environment.NewLine + 
 				"Guidelines for the diagnosis and monitoring of paroxysmal nocturnal hemoglobinuria and related disorders by flow cytometry. Borowitz MJ, Craig FE, " +
 				"DiGiuseppe JA, Illingworth AJ, Rosse W, Sutherland DR, Wittwer CT, Richards SJ. Cytometry B (Clin Cytometry) 2010 Jul; 78B(4): 211-30.";
-			this.m_ASRComment = "This test was developed and its performance characteristics determined by Yellowstone Pathology Institute, Inc.  It has not been " +
-				"cleared or approved by the U.S. Food and Drug Administration. The FDA has determined that such clearance or approval is not necessary.  This test " +
-				"is used for clinical purposes.  It should not be regarded as investigational or for research.  This laboratory is certified under the Clinical " +
-				"Laboratory Improvement Amendments of 1988 (CLIA-88) as qualified to perform high complexity clinical laboratory testing.";
+			this.m_ASRComment = "Tests utilizing Analytic Specific Regents (ASRs) were developed and performance characteristics determined " +
+                "by Yellowstone Pathology Institute, Inc.  They have not been cleared or approved by the U.S. Food and Drug Administration.  " +
+                "The FDA has determined that such clearance or approval is not necessary.  ASRs may be used for clinical purposes and should " +
+                "not be regarded as investigational or for research.  This laboratory is certified under the Clinical Laboratory Improvement " +
+                "Amendments of 1988 (CLIA-88) as qualified to perform high complexity clinical laboratory testing.";
 		}
 
 		public decimal RedBloodCellsTypeIIResult
