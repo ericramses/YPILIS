@@ -36,10 +36,18 @@ namespace YellowstonePathology.Business.Test.LLP
 			this.AddNextObxElement("", document, "F");
             this.AddAmendments(document);
 
-            this.AddNextObxElement("Cell Population Of Interest:", document, "F");
-			this.HandleLongString(panelSetOrder.CellPopulationOfInterest, document, "F");
+            this.AddNextObxElement("Cell Population Of Interest: " + panelSetOrder.CellPopulationOfInterest, document, "F");
+            this.AddNextObxElement("", document, "F");
 
-			this.AddNextObxElement("", document, "F");
+            this.AddNextObxElement("Markers:", document, "F");
+            foreach(YellowstonePathology.Business.Flow.FlowMarkerItem flowMarkerItem in panelSetOrder.FlowMarkerCollection)
+            {
+                this.AddNextObxElement(flowMarkerItem.Name, document, "F");
+                this.AddNextObxElement("Interpretation: " + flowMarkerItem.Interpretation, document, "F");
+                this.AddNextObxElement("Intensity: " + flowMarkerItem.Intensity, document, "F");
+            }
+
+            this.AddNextObxElement("", document, "F");
 			this.AddNextObxElement("Cell Distribution:", document, "F");
 
 			double LymphCnt = Convert.ToDouble(panelSetOrder.LymphocyteCount);
@@ -75,21 +83,24 @@ namespace YellowstonePathology.Business.Test.LLP
 			this.AddNextObxElement("Clinical History:", document, "F");
 			this.HandleLongString(this.m_AccessionOrder.ClinicalHistory, document, "F");
 
-			this.AddNextObxElement("", document, "F");
-			this.AddNextObxElement("Specimen Type ", document, "F");
-			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(panelSetOrder.OrderedOn, panelSetOrder.OrderedOnId);
-            this.HandleLongString(specimenOrder.Description, document, "F");
-			this.AddNextObxElement("", document, "F");
-
-			this.AddNextObxElement("Specimen Adequacy:", document, "F");
-			this.HandleLongString(specimenOrder.SpecimenAdequacy, document, "F");
             this.AddNextObxElement("", document, "F");
-
             this.AddNextObxElement("Method: Qualitative Flow Cytometry", document, "F");            
+
+			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(panelSetOrder.OrderedOn, panelSetOrder.OrderedOnId);
+			this.AddNextObxElement("", document, "F");
+			this.AddNextObxElement("Specimen: " + specimenOrder.Description, document, "F");
+			this.AddNextObxElement("", document, "F");
+
+            string collectionDateTimeString = YellowstonePathology.Business.Helper.DateTimeExtensions.CombineDateAndTime(specimenOrder.CollectionDate, specimenOrder.CollectionTime);
+            this.AddNextObxElement("Collection Date/Time: " + collectionDateTimeString, document, "F");
+            this.AddNextObxElement(string.Empty, document, "F");
+
+            this.AddNextObxElement("Specimen Adequacy: " + specimenOrder.SpecimenAdequacy, document, "F");
             this.AddNextObxElement("", document, "F");
 
             string asrStatement = "Tests utilizing Analytic Specific Reagents (ASR's) were developed and performance characteristics determined by Yellowstone Pathology Institute, Inc.  They have not been cleared or approved by the U.S. Food and Drug Administration.  The FDA has determined that such clearance or approval is not necessary.  ASR's may be used for clinical purposes and should not be regarded as investigational or for research.  This laboratory is certified under the Clinical Laboratory Improvement Amendments of 1988 (CLIA-88) as qualified to perform high complexity clinical laboratory testing.";            
             this.HandleLongString(asrStatement, document, "F");
+            this.AddNextObxElement(string.Empty, document, "F");
 
             string locationPerformed = panelSetOrder.GetLocationPerformedComment();
             this.AddNextObxElement(locationPerformed, document, "F");

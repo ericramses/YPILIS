@@ -124,6 +124,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
             this.AddBlankNteElement(document);
 
             this.AddNextNteElement(panelSetOrder.ASRComment, document);
+            this.AddBlankNteElement(document);
 
             string locationPerformed = panelSetOrder.GetLocationPerformedComment();
             this.AddNextNteElement(locationPerformed, document);
@@ -199,6 +200,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
             this.AddBlankNteElement(document);
 
             this.AddNextNteElement(panelSetOrder.ASRComment, document);
+            this.AddBlankNteElement(document);
 
             string locationPerformed = panelSetOrder.GetLocationPerformedComment();
             this.AddNextNteElement(locationPerformed, document);
@@ -274,6 +276,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
             this.AddBlankNteElement(document);
 
             this.AddNextNteElement(panelSetOrder.ASRComment, document);
+            this.AddBlankNteElement(document);
 
             string locationPerformed = panelSetOrder.GetLocationPerformedComment();
             this.AddNextNteElement(locationPerformed, document);
