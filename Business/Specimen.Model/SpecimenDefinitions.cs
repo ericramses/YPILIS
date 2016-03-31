@@ -403,7 +403,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
            public CervicalCone()
             {
                 this.m_SpecimenId = "CXCNSPCMN";
-                this.m_SpecimenName = " Cervical Cone";
+                this.m_SpecimenName = "Cervical Cone";
                 this.m_Description = "Cervix, cone, excision";
                 this.m_LabFixation = "Formalin";
                 this.m_ClientFixation = null;
