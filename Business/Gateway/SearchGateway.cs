@@ -53,12 +53,11 @@ namespace YellowstonePathology.Business.Gateway
 			return this.BuildResultList(cmd);
 		}
 
-        public YellowstonePathology.Business.Search.PathologistSearchResult PathologistAliquotOrderIdSearch(string aliquotOrderId, int panelSetId)
+        public YellowstonePathology.Business.Search.PathologistSearchResult PathologistAliquotOrderIdSearch(string aliquotOrderId)
         {
-            SqlCommand cmd = new SqlCommand("pPathologistAliquotOrderIdSearch_4");
+            SqlCommand cmd = new SqlCommand("pPathologistAliquotOrderIdSearch_5");
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.Add("@AliquotOrderId", SqlDbType.VarChar).Value = aliquotOrderId;
-            cmd.Parameters.Add("@PanelSetId", SqlDbType.Int).Value = panelSetId;
+            cmd.Parameters.Add("@AliquotOrderId", SqlDbType.VarChar).Value = aliquotOrderId;            
 
             YellowstonePathology.Business.Search.PathologistSearchResult result = null;
 

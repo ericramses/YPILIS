@@ -62,7 +62,7 @@ namespace YellowstonePathology.UI.Surgical
 						if (barcode.IsValidated == true)
 						{
 							//this.Save();							
-							this.DoAliquotOrderIdSearch(barcode.ID, 15);                            
+							this.DoAliquotOrderIdSearch(barcode.ID);                            
                         }
 						else
 						{
@@ -397,9 +397,8 @@ namespace YellowstonePathology.UI.Surgical
 			this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal,
 				new Action(
 					delegate()
-					{
-						//this.Save();
-						this.DoAliquotOrderIdSearch(barcode.ID, 13);
+					{						
+						this.DoAliquotOrderIdSearch(barcode.ID);
 					}));
 		}
 
@@ -463,9 +462,9 @@ namespace YellowstonePathology.UI.Surgical
             }
 		}
 
-		private void DoAliquotOrderIdSearch(string aliquotOrderId, int panelSetId)
+		private void DoAliquotOrderIdSearch(string aliquotOrderId)
 		{            
-			YellowstonePathology.Business.Search.PathologistSearchResult result = this.m_PathologistUI.DoAliquotOrderIdSearch(aliquotOrderId, panelSetId);
+			YellowstonePathology.Business.Search.PathologistSearchResult result = this.m_PathologistUI.DoAliquotOrderIdSearch(aliquotOrderId);
 			if (result != null)
 			{
 				for (int i = 0; i < this.ListViewSearchResults.Items.Count; i++)

@@ -18,7 +18,6 @@ namespace YellowstonePathology.Business.Test.BCRABLByPCR
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterR();
             this.m_Active = true;
 
-
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.BCRABLByPCR.BCRABLByPCRTestOrder).AssemblyQualifiedName;
             
 			this.m_AllowMultiplePerAccession = true;

@@ -110,10 +110,10 @@ namespace YellowstonePathology.Business.Search
             return pathologistSearchResultCollection;
 		}
 
-        public YellowstonePathology.Business.Search.PathologistSearchResult ExecuteAliquotOrderIdSearch(string slideOrderId, int panelSetId)
+        public YellowstonePathology.Business.Search.PathologistSearchResult ExecuteAliquotOrderIdSearch(string slideOrderId)
         {
             YellowstonePathology.Business.Gateway.SearchGateway gateway = new Gateway.SearchGateway();
-            YellowstonePathology.Business.Search.PathologistSearchResult pathologistSearchResult = gateway.PathologistAliquotOrderIdSearch(slideOrderId, panelSetId);
+            YellowstonePathology.Business.Search.PathologistSearchResult pathologistSearchResult = gateway.PathologistAliquotOrderIdSearch(slideOrderId);
 
             if (this.m_Results.ReportNoExists(pathologistSearchResult.ReportNo) == false)
             {                
