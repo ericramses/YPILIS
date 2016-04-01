@@ -16,10 +16,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
             this.m_HasProfessionalComponent = true;
 			this.m_ResultDocumentSource = ResultDocumentSourceEnum.PublishedDocument;
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterR();
-            this.m_Active = true;
-
-            
-			
+            this.m_Active = false;            			
             
 			this.m_AllowMultiplePerAccession = true;
 

@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
 
         public override void Render()
         {            
-            this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\EGFRToALKReflexAnalysis.4.xml";
+            this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\EGFRToALKReflexAnalysis.5.xml";
             this.OpenTemplate();
             this.SetDemographicsV2();
             this.SetReportDistribution();
@@ -29,6 +29,9 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
             YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisTestOrder egfrMutationAnalysisTestOrder = (YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(60);
             base.ReplaceText("egfr_result", egfrMutationAnalysisTestOrder.Result);
             base.SetXMLNodeParagraphData("egfr_comment", egfrMutationAnalysisTestOrder.Comment);
+
+            YellowstonePathology.Business.Document.AmendmentSection amendmentSection = new YellowstonePathology.Business.Document.AmendmentSection();
+            amendmentSection.SetAmendment(egfrToALKReflexAnalysisTestOrder.AmendmentCollection, this.m_ReportXml, this.m_NameSpaceManager, true);
 
             YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisDetectedResult egfrMutationAnalysisDetectedResult = new EGFRMutationAnalysis.EGFRMutationAnalysisDetectedResult();
             if (egfrMutationAnalysisTestOrder.ResultCode == egfrMutationAnalysisDetectedResult.ResultCode)
@@ -99,6 +102,7 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
         public override void Publish()
         {
             base.Publish();
-        }
-	}
+        }        
+
+    }
 }

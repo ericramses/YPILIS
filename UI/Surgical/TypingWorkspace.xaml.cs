@@ -965,5 +965,10 @@ namespace YellowstonePathology.UI.Surgical
                 this.m_TypingUI.NotifyPropertyChanged("TemplateText");
             }
         }
+
+        private void HyperLinkCleanClinicalInformation_Click(object sender, RoutedEventArgs e)
+        {
+            this.m_TypingUI.AccessionOrder.ClinicalHistory = this.m_TypingUI.AccessionOrder.ClinicalHistory.Replace("Comprehensive Consult:->No", "");
+;        }
     }    
 }

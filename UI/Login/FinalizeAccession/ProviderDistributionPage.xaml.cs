@@ -173,7 +173,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
         private void CopyTo_PhysicianClientSearchPage_Next(object sender, CustomEventArgs.PhysicianClientDistributionReturnEventArgs e)
         {            
-            e.PhysicianClientDistribution.SetDistribution(this.m_PanelSetOrder, this.m_AccessionOrder);
+            e.PhysicianClientDistribution.SetDistribution(this.m_AccessionOrder);
             this.m_PageNavigator.Navigate(this);         
         }
 
@@ -557,9 +557,15 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                 this.m_PanelSetOrder.ScheduledPublishTime = null;
                 testOrderReportDistribution.Distributed = true;
                 testOrderReportDistribution.TimeOfLastDistribution = DateTime.Now;
-                testOrderReportDistribution.ScheduledDistributionTime = null;
-                //this.Save(false);
+                testOrderReportDistribution.ScheduledDistributionTime = null;                
             }
-        }             
-	}
+        }
+
+        private void HyperLinkAddOPNDistribution_Click(object sender, RoutedEventArgs e)
+        {                        
+            string testOrderReportDistributionId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
+			this.m_PanelSetOrder.TestOrderReportDistributionCollection.AddNext(testOrderReportDistributionId, testOrderReportDistributionId, this.m_PanelSetOrder.ReportNo, 3946, "Cari Williams, RN",
+                1542, "Oncology Patient Navigator", YellowstonePathology.Business.ReportDistribution.Model.DistributionType.WEBSERVICE);
+        }
+    }
 }

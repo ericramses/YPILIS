@@ -106,12 +106,7 @@ namespace YellowstonePathology.Business.Test.PDL1
 				{
 					result.Success = false;
 					result.Message = "The results cannot be accepted because the stain percent is not set.";
-				}
-				else if(string.IsNullOrEmpty(this.m_Result) == true)
-				{
-					result.Success = false;
-					result.Message = "The results cannot be accepted because the result is not set.";
-				}
+				}				
 			}
 			return result;
 		}

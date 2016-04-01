@@ -16,10 +16,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
 			this.m_HasProfessionalComponent = true;
 			this.m_ResultDocumentSource = YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.RetiredTestDocument;
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterM();
-            this.m_Active = true;
-            
-			
-            
+            this.m_Active = false;            
 			this.m_AllowMultiplePerAccession = true;
 
             string taskDescription = "Perform CF testing.";
