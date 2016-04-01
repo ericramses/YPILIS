@@ -512,6 +512,12 @@
     <Compile Include="Test\BCellEnumeration\BCellEnumerationTest.cs" />
     <Compile Include="Test\BCellEnumeration\BCellEnumerationTestOrder.cs" />
     <Compile Include="Test\BCellEnumeration\BCellEnumerationWordDocument.cs" />
+    <Compile Include="Test\BCL2t1418\BCL2t1418EpicObxView.cs" />
+    <Compile Include="Test\BCL2t1418\BCL2t1418Result.cs" />
+    <Compile Include="Test\BCL2t1418\BCL2t1418ResultCollection.cs" />
+    <Compile Include="Test\BCL2t1418\BCL2t1418Test.cs" />
+    <Compile Include="Test\BCL2t1418\BCL2t1418TestOrder.cs" />
+    <Compile Include="Test\BCL2t1418\BCL2t1418WordDocument.cs" />
     <Compile Include="Test\CD1a\CD1aTest.cs" />
     <Compile Include="Test\ChromosomeAnalysis\ChromosomeAnalysisIncompleteResult.cs" />
     <Compile Include="Test\EGFRMutationAnalysis\EGFRMutationAnalysisPanel.cs" />
