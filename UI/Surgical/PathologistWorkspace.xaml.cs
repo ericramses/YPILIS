@@ -484,8 +484,7 @@ namespace YellowstonePathology.UI.Surgical
 		}
 
 		private void ListViewSearchResults_SelectionChanged(object sender, SelectionChangedEventArgs e)
-		{
-			//this.Save();
+		{			
 			LoadData();
 		}
 

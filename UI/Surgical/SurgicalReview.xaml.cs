@@ -34,16 +34,15 @@ namespace YellowstonePathology.UI.Surgical
 
 			this.m_BillingSpecimenViewCollection = new Business.View.BillingSpecimenViewCollection();
 			this.RefreshBillingSpecimenViewCollection();
+            this.PreviewLostKeyboardFocus += SurgicalReview_PreviewLostKeyboardFocus;
 
-            InitializeComponent();
-            
-            this.LostKeyboardFocus += SurgicalReview_LostKeyboardFocus;   
+            InitializeComponent();                    
             this.DataContext = this;            
         }
 
-        private void SurgicalReview_LostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        private void SurgicalReview_PreviewLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
         {
-            MainWindow.UpdateBindingSources(this);
+            MainWindow.UpdateFocusedBindingSource(this);
         }
 
         public void NotifyPropertyChanged(String info)
@@ -501,6 +500,6 @@ namespace YellowstonePathology.UI.Surgical
             //MenuItem menuItem = (MenuItem)sender;
             //YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen = (YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen)menuItem.Tag;
             //YellowstonePathology.Business.Visitor.OrderTestVisitor orderTestVisitor = new Business.Visitor.OrderTestVisitor(this.m_PathologistUI.PanelSetOrder.ReportNo, intraoperativeConsultation, null, null, false, )
-        }
+        }        
     }
 }

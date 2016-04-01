@@ -115,10 +115,13 @@ namespace YellowstonePathology.Business.Search
             YellowstonePathology.Business.Gateway.SearchGateway gateway = new Gateway.SearchGateway();
             YellowstonePathology.Business.Search.PathologistSearchResult pathologistSearchResult = gateway.PathologistAliquotOrderIdSearch(slideOrderId);
 
-            if (this.m_Results.ReportNoExists(pathologistSearchResult.ReportNo) == false)
-            {                
-                this.m_Results.Add(pathologistSearchResult);
-            }
+            if(pathologistSearchResult != null)
+            {
+                if (this.m_Results.ReportNoExists(pathologistSearchResult.ReportNo) == false)
+                {
+                    this.m_Results.Add(pathologistSearchResult);
+                }
+            }            
                         
             this.NotifyPropertyChanged("Results");
             return pathologistSearchResult;

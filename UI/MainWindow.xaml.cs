@@ -190,7 +190,7 @@ namespace YellowstonePathology.UI
             }
         }
 
-       public static void UpdateBindingSources(DependencyObject element)
+       public static void UpdateFocusedBindingSource(DependencyObject element)
         {
             object focusObj = FocusManager.GetFocusedElement(element);
             if (focusObj != null && focusObj is TextBox)

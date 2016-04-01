@@ -7,7 +7,7 @@
 			 xmlns:sys="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="700"
-			 Name="SurgicalReviewControl">
+			 Name="SurgicalReviewControl" FocusManager.IsFocusScope="True">
 	<UserControl.Resources>
 
 		<DataTemplate x:Key="DataTemplatePeerReviewPanel">
@@ -601,7 +601,7 @@
 					<StackPanel Orientation="Horizontal" Margin="2,2,2,2" Visibility="{Binding ElementName=SurgicalReviewControl, Path=DataContext.CancerCaseSummaryVisibility}">
 						<TextBlock VerticalAlignment="Center" Margin="5, 2, 2, 2">Pathologic TNM Stage:</TextBlock>
                         <TextBox Width="300" Margin="2,2,2,2" RequestBringIntoView="Any_RequestBringIntoView"
-							Text="{Binding Path=PanelSetOrderSurgical.AJCCStage}"
+							Text="{Binding Path=PanelSetOrderSurgical.AJCCStage, UpdateSourceTrigger=PropertyChanged}"
 							IsEnabled="{Binding Path=FieldEnabler.IsUnprotectedEnabled}" TextWrapping="Wrap" AcceptsReturn="True">
 						</TextBox>
 					</StackPanel>
