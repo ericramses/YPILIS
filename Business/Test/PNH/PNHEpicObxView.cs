@@ -59,15 +59,22 @@ namespace YellowstonePathology.Business.Test.PNH
 
             this.AddNextObxElement("Method: ", document, "F");
             this.HandleLongString(testOrder.Method, document, "F");
-            this.AddNextObxElement("", document, "F");            
+            this.AddNextObxElement("", document, "F");
+
+            this.AddNextObxElement("Result Data: ", document, "F");
+            this.AddNextObxElement("RBC: No evidence of PNH Clone or GPI - linked antibodies", document, "F");
+            this.AddNextObxElement("WBC - Granulocytes:	No evidence of PNH Clone or GPI - linked antibodies", document, "F");
+            this.AddNextObxElement("WBC - Monocytes:	No evidence of PNH Clone or GPI - linked antibodies", document, "F");
+            this.AddNextObxElement("", document, "F");
 
             this.AddNextObxElement("References: ", document, "F");
             this.HandleLongString(testOrder.References, document, "F");
             this.AddNextObxElement("", document, "F");
             
             this.HandleLongString(testOrder.ASRComment, document, "F");
+            this.AddNextObxElement("", document, "F");
 
-			string locationPerformed = testOrder.GetLocationPerformedComment();
+            string locationPerformed = testOrder.GetLocationPerformedComment();
             this.HandleLongString(locationPerformed, document, "F");
             this.AddNextObxElement(string.Empty, document, "F");
         }
@@ -109,6 +116,7 @@ namespace YellowstonePathology.Business.Test.PNH
 
             PNHResult pnhResult = new PNHResult();
             pnhResult.SetTotals(testOrder);
+            this.AddNextObxElement("Result Data:)", document, "F");
             this.AddNextObxElement("RBC(Total)", document, "F");
             this.AddNextObxElement("PNH Clone (Type II + Type III):", document, "F");
             this.AddNextObxElement("Type III (complete CD59 deficiency) = " + pnhResult.RedBloodCellsTypeIIIResult.ToString("F") + "%", document, "F");
@@ -155,6 +163,7 @@ namespace YellowstonePathology.Business.Test.PNH
 
             this.AddNextObxElement("", document, "F");
             this.HandleLongString(testOrder.ASRComment, document, "F");
+            this.AddNextObxElement("", document, "F");
 
             string locationPerformed = testOrder.GetLocationPerformedComment();
             this.HandleLongString(locationPerformed, document, "F");

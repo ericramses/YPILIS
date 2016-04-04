@@ -110,6 +110,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
             this.AddNextObxElement(string.Empty, document, "F");
 
 			this.HandleLongString(panelSetOrder.ASRComment, document, "F");
+            this.AddNextObxElement(string.Empty, document, "F");
 
             string locationPerformed = panelSetOrder.GetLocationPerformedComment();
             this.AddNextObxElement(locationPerformed, document, "F");
@@ -186,6 +187,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
             this.AddNextObxElement(string.Empty, document, "F");
 
             this.AddNextObxElement(panelSetOrder.ASRComment, document, "F");
+            this.AddNextObxElement(string.Empty, document, "F");
 
             string locationPerformed = panelSetOrder.GetLocationPerformedComment();
             this.AddNextObxElement(locationPerformed, document, "F");
@@ -262,6 +264,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
             this.AddNextObxElement(string.Empty, document, "F");
 
             this.AddNextObxElement(panelSetOrder.ASRComment, document, "F");
+            this.AddNextObxElement(string.Empty, document, "F");
 
             string locationPerformed = panelSetOrder.GetLocationPerformedComment();
             this.AddNextObxElement(locationPerformed, document, "F");
