@@ -12,17 +12,6 @@ namespace YellowstonePathology.Business.Domain.Persistence.SqlXmlPersistence
 {
     public class CrudOperations
     {
-        public static void ExecuteNonQuery(SqlCommand sqlCommand, DataLocationEnum dataLocation)
-        {
-            string connectionString = GetSqlConnectionString(dataLocation);            
-            using (SqlConnection cn = new SqlConnection(connectionString))
-            {
-                cn.Open();
-                sqlCommand.Connection = cn;
-                sqlCommand.ExecuteNonQuery();
-            }            
-        }            
-
 		public static T ExecuteCollectionCommand<T>(SqlCommand sqlCommand, DataLocationEnum dataLocation)
         {         
 			string connectionString = GetSqlConnectionString(dataLocation);
