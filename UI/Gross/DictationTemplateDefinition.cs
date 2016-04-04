@@ -462,7 +462,7 @@ namespace YellowstonePathology.UI.Gross
                 "Weight:  [weight]" + Environment.NewLine +
                 "Measurement:  [measurement]" + Environment.NewLine +
                 "Cut Surface:  [description]" + Environment.NewLine +
-                "Submitted:  [submitted].  ";            
+                "Submitted:  [representativesections].  ";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.BreastReduction breastReduction = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.BreastReduction();
             this.m_SpecimenCollection.Add(breastReduction);
@@ -471,7 +471,7 @@ namespace YellowstonePathology.UI.Gross
         public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
-            result = this.ReplaceSubmitted(result, specimenOrder);
+            result = this.ReplaceRepresentativeSections(result, specimenOrder);
             return result;
         }
     }
