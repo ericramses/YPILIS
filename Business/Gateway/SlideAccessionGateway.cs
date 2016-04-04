@@ -109,7 +109,20 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.CommandType = System.Data.CommandType.StoredProcedure;
 			cmd.Parameters.Add("@ReportNo", System.Data.SqlDbType.VarChar).Value = reportNo;
 
-			XElement collectionElement = YellowstonePathology.Business.Domain.Persistence.SqlXmlPersistence.CrudOperations.ExecuteCommand(cmd, Domain.Persistence.DataLocationEnum.ProductionData);
+            XElement collectionElement = null;
+            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (XmlReader xmlReader = cmd.ExecuteXmlReader())
+                {
+                    if (xmlReader.Read() == true)
+                    {
+                        collectionElement = XElement.Load(xmlReader);
+                    }
+                }
+            }
+
             if (collectionElement != null)
             {
                 List<XElement> aliquotElements = (from item in collectionElement.Elements("AliquotOrder") select item).ToList<XElement>();
