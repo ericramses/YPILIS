@@ -96,7 +96,7 @@
 					</DataTemplate>
 				</Grid.Resources>
 
-				<ToolBarPanel Grid.Column="0" Grid.Row="0" Name="ToolBarPanelPathologistSearch" FocusManager.IsFocusScope="False">
+				<ToolBarPanel Grid.Column="0" Grid.Row="0" Name="ToolBarPanelPathologistSearch">
 					<ToolBarTray Background="Gainsboro">
 						<ToolBar>
 							<StackPanel>
