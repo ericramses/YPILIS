@@ -6,7 +6,7 @@ using System.Xml.Linq;
 
 namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
 {
-	public class EGFRToALKReflexAnalysisEPICOBXView : YellowstonePathology.Business.HL7View.EPIC.EpicObxView
+	public class EGFRToALKReflexAnalysisEPICOBXView : YellowstonePathology.Business.HL7View.EPIC.EPICObxView
     {
         public EGFRToALKReflexAnalysisEPICOBXView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount) 
             : base(accessionOrder, reportNo, obxCount)

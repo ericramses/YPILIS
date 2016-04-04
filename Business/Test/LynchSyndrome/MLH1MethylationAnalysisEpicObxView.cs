@@ -6,7 +6,7 @@ using System.Xml.Linq;
 
 namespace YellowstonePathology.Business.Test.LynchSyndrome
 {
-	public class MLH1MethylationAnalysisEpicObxView : YellowstonePathology.Business.HL7View.EPIC.EpicObxView
+	public class MLH1MethylationAnalysisEpicObxView : YellowstonePathology.Business.HL7View.EPIC.EPICObxView
 	{
 		public MLH1MethylationAnalysisEpicObxView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount)
 			: base(accessionOrder, reportNo, obxCount)

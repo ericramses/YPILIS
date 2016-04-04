@@ -17,9 +17,9 @@ namespace YellowstonePathology.Business.Test.BCellEnumeration
 	/// <summary>
 	/// Description of BCellEnumerationEpic.
 	/// </summary>
-	public class BCellEnumerationEpicObxView : YellowstonePathology.Business.HL7View.EPIC.EpicObxView
+	public class BCellEnumerationEPICObxView : YellowstonePathology.Business.HL7View.EPIC.EPICObxView
 	{
-		public BCellEnumerationEpicObxView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount)
+		public BCellEnumerationEPICObxView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount)
 			: base(accessionOrder, reportNo, obxCount)
 		{
 		}

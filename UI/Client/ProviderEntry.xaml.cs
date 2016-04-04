@@ -169,8 +169,8 @@ namespace YellowstonePathology.UI.Client
         private YellowstonePathology.Business.Rules.MethodResult CanRemoveMember(YellowstonePathology.Business.Domain.PhysicianClient physicianClient)
         {
             YellowstonePathology.Business.Rules.MethodResult result = new Business.Rules.MethodResult();
-            YellowstonePathology.Business.Client.Model.PhysicianClientDistributionCollection physicianClientDistributionCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClientDistributionByPhysicianClientId(physicianClient.PhysicianClientId);
-            if(physicianClientDistributionCollection.Count > 0)
+            List<Business.Client.Model.PhysicianClientDistributionView> physicianClientDistributionViewList = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClientDistributionsV2(physicianClient.PhysicianClientId);
+            if(physicianClientDistributionViewList.Count > 0)
             {
                 result.Success = false;
                 result.Message = "This provider has distributions for this client.  These distributions must be removed before the provider can be removed from the client membership.";

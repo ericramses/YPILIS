@@ -6,9 +6,9 @@ using System.Xml.Linq;
 
 namespace YellowstonePathology.Business.Test.TCellClonalityByPCR
 {
-	class TCellClonalityByPCREpicObxView : YellowstonePathology.Business.HL7View.EPIC.EpicObxView
+	class TCellClonalityByPCREPICObxView : YellowstonePathology.Business.HL7View.EPIC.EPICObxView
 	{
-		public TCellClonalityByPCREpicObxView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount)
+		public TCellClonalityByPCREPICObxView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount)
 			: base(accessionOrder, reportNo, obxCount)
 		{
 		}
