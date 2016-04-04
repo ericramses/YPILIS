@@ -5,9 +5,9 @@ using System.Text;
 
 namespace YellowstonePathology.Business.HL7View.EPIC
 {
-    public class EpicHl7Client : Hl7Client
+    public class EPICHl7Client : Hl7Client
     {
-        public EpicHl7Client() : base("COPATH", "SVH")
+        public EPICHl7Client() : base("COPATH", "SVH")
         {
 
         }

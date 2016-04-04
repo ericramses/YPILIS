@@ -6,9 +6,9 @@ using System.Xml.Linq;
 
 namespace YellowstonePathology.Business.Test.FactorVLeiden
 {
-    public class FactorVEpicObxView : YellowstonePathology.Business.HL7View.EPIC.EpicObxView
+    public class FactorVEPICObxView : YellowstonePathology.Business.HL7View.EPIC.EPICObxView
     {
-		public FactorVEpicObxView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount) 
+		public FactorVEPICObxView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount) 
             : base(accessionOrder, reportNo, obxCount)
 		{
 			

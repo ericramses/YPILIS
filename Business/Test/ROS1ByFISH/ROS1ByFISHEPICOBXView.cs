@@ -6,7 +6,7 @@ using System.Xml.Linq;
 
 namespace YellowstonePathology.Business.Test.ROS1ByFISH
 {
-	public class ROS1ByFISHEPICOBXView : YellowstonePathology.Business.HL7View.EPIC.EpicObxView
+	public class ROS1ByFISHEPICOBXView : YellowstonePathology.Business.HL7View.EPIC.EPICObxView
 	{
         public ROS1ByFISHEPICOBXView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount)
 			: base(accessionOrder, reportNo, obxCount)

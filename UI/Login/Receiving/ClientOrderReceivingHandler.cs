@@ -274,7 +274,7 @@ namespace YellowstonePathology.UI.Login.Receiving
                     YellowstonePathology.Business.ClientOrder.Model.UniversalServiceCollection universalServiceIdCollection = YellowstonePathology.Business.ClientOrder.Model.UniversalServiceCollection.GetAll();
                     YellowstonePathology.Business.ClientOrder.Model.UniversalService universalService = universalServiceIdCollection.GetByUniversalServiceId(this.m_ClientOrder.UniversalServiceId);
 
-					YellowstonePathology.Business.HL7View.EPIC.EpicStatusMessage statusMessage = new Business.HL7View.EPIC.EpicStatusMessage(this.m_ClientOrder, YellowstonePathology.Business.HL7View.OrderStatusEnum.InProcess, universalService);
+					YellowstonePathology.Business.HL7View.EPIC.EPICStatusMessage statusMessage = new Business.HL7View.EPIC.EPICStatusMessage(this.m_ClientOrder, YellowstonePathology.Business.HL7View.OrderStatusEnum.InProcess, universalService);
 					YellowstonePathology.Business.Rules.MethodResult result = statusMessage.Send();
 
 					if (result.Success == false)

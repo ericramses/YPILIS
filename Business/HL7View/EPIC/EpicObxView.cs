@@ -6,14 +6,14 @@ using System.Xml.Linq;
 
 namespace YellowstonePathology.Business.HL7View.EPIC
 {
-    public class EpicObxView
+    public class EPICObxView
     {
         protected int m_ObxCount;
         protected YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         protected string m_DateFormat = "yyyyMMddHHmm";
         protected string m_ReportNo;    
 
-        public EpicObxView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount)
+        public EPICObxView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount)
         {
             this.m_AccessionOrder = accessionOrder;
 			this.m_ReportNo = reportNo;

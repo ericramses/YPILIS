@@ -7,7 +7,7 @@ using System.Xml.Linq;
 
 namespace YellowstonePathology.Business.HL7View.EPIC
 {
-    public class EpicStatusMessage
+    public class EPICStatusMessage
     {
         private int m_ObxCount;
         private XElement m_Document;
@@ -19,7 +19,7 @@ namespace YellowstonePathology.Business.HL7View.EPIC
         protected string m_ServerFileName;
         protected string m_InterfaceFilename;
        
-        public EpicStatusMessage(string clientOrderId, OrderStatus orderStatus, YellowstonePathology.Business.ClientOrder.Model.UniversalService universalService, object writer)
+        public EPICStatusMessage(string clientOrderId, OrderStatus orderStatus, YellowstonePathology.Business.ClientOrder.Model.UniversalService universalService, object writer)
         {
             this.m_ClientOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullClientOrderByClientOrderId(clientOrderId, writer);            
 			this.m_OrderingPhysician = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianByNpi(this.m_ClientOrder.ProviderId);
@@ -28,7 +28,7 @@ namespace YellowstonePathology.Business.HL7View.EPIC
             this.SetupFileNames();
         }
 
-        public EpicStatusMessage(YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder, OrderStatus orderStatus, YellowstonePathology.Business.ClientOrder.Model.UniversalService universalService)
+        public EPICStatusMessage(YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder, OrderStatus orderStatus, YellowstonePathology.Business.ClientOrder.Model.UniversalService universalService)
 		{
 			this.m_ClientOrder = clientOrder;
 			this.m_OrderingPhysician = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianByNpi(this.m_ClientOrder.ProviderId);
@@ -52,7 +52,7 @@ namespace YellowstonePathology.Business.HL7View.EPIC
                 this.m_Document = new XElement("HL7Message");
                 this.m_ObxCount = 1;
 
-                EpicHl7Client client = new EpicHl7Client();
+                EPICHl7Client client = new EPICHl7Client();
                 OruR01 messageType = new OruR01();
 
                 string locationCode = "YPIIBILLINGS";
@@ -61,20 +61,20 @@ namespace YellowstonePathology.Business.HL7View.EPIC
                     locationCode = "SVHNPATH";
                 }
 
-                EpicMshView msh = new EpicMshView(client, messageType, locationCode);                
+                EPICMshView msh = new EPICMshView(client, messageType, locationCode);                
                 msh.ToXml(this.m_Document);
 
                 PidView pid = new PidView(this.m_ClientOrder.SvhMedicalRecord, this.m_ClientOrder.PLastName, this.m_ClientOrder.PFirstName, this.m_ClientOrder.PBirthdate,
                     this.m_ClientOrder.PSex, this.m_ClientOrder.SvhAccountNo, this.m_ClientOrder.PSSN);
                 pid.ToXml(this.m_Document);
 
-                EpicStatusOrcView orc = new EpicStatusOrcView(this.m_ClientOrder.ExternalOrderId, this.m_OrderingPhysician, this.m_OrderStatus);
+                EPICStatusOrcView orc = new EPICStatusOrcView(this.m_ClientOrder.ExternalOrderId, this.m_OrderingPhysician, this.m_OrderStatus);
                 orc.ToXml(this.m_Document);
 
-                EpicStatusObrView obr = new EpicStatusObrView(this.m_ClientOrder.ExternalOrderId, string.Empty, this.m_ClientOrder.OrderTime, null, this.m_OrderingPhysician, ResultStatusEnum.InProcess.Value, this.m_UniversalService);
+                EPICStatusObrView obr = new EPICStatusObrView(this.m_ClientOrder.ExternalOrderId, string.Empty, this.m_ClientOrder.OrderTime, null, this.m_OrderingPhysician, ResultStatusEnum.InProcess.Value, this.m_UniversalService);
                 obr.ToXml(this.m_Document);
 
-                EpicStatusObxView obx = new EpicStatusObxView(m_ObxCount);
+                EPICStatusObxView obx = new EPICStatusObxView(m_ObxCount);
                 obx.ToXml(this.m_Document);
                 this.m_ObxCount = obx.ObxCount;                
 
