@@ -15,7 +15,7 @@ namespace YellowstonePathology.Business.Test.BCL2t1418
 
 		public override void ToXml(XElement document)
 		{
-			BCL1t1114TestOrder panelSetOrder = (BCL1t1114TestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
+			BCL2t1418TestOrder panelSetOrder = (BCL2t1418TestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
 			this.AddHeader(document, panelSetOrder, "CCND1 (BCL1, t(11;14))");
 
 			this.AddNextObxElement("", document, "F");

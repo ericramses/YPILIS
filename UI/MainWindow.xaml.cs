@@ -196,7 +196,10 @@ namespace YellowstonePathology.UI
             if (focusObj != null && focusObj is TextBox)
             {
                 var binding = (focusObj as TextBox).GetBindingExpression(TextBox.TextProperty);
-                binding.UpdateSource();
+                if(binding != null)
+                {
+                    binding.UpdateSource();
+                }                
             }
         }
 
