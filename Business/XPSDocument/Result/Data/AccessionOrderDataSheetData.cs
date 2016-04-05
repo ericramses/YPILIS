@@ -46,10 +46,9 @@ namespace YellowstonePathology.Document.Result.Data
             XElement masterAccessionNoElement = new XElement("MasterAccessionNo", masterAccessionNo);
             this.Add(masterAccessionNoElement);
 
-			DateTime oDate = DateTime.Parse(accessionOrderDocument.Element("CollectionDate").Value);
-			string orderDateString = oDate.ToShortDateString();
-			XElement orderDateElement = new XElement("OrderDate", orderDateString);
-			this.Add(orderDateElement);
+			DateTime accessionTime = DateTime.Parse(accessionOrderDocument.Element("AccessionTime").Value);			
+			XElement accessionTimeElement = new XElement("AccessionTime", accessionTime.ToString("MM/dd/yyyy HH:mm"));
+			this.Add(accessionTimeElement);
 
 			XElement medRecordElement = new XElement("SvhMedicalRecord", accessionOrderDocument.Element("SvhMedicalRecord").Value);
 			this.Add(medRecordElement);
