@@ -97,7 +97,7 @@ namespace YellowstonePathology.UI.Test
 			YellowstonePathology.Business.Rules.MethodResult result = this.m_PanelSetOrder.IsOkToFinalize();
 			if (result.Success == true)
 			{
-				this.m_PanelSetOrder.Finish();
+				this.m_PanelSetOrder.Finish(this.m_AccessionOrder);
 			}
 			else
 			{

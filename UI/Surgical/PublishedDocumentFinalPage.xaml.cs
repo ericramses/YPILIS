@@ -90,7 +90,7 @@ namespace YellowstonePathology.UI.Surgical
         {
 			if (this.m_PanelSetOrder.Final == false)
 			{
-				this.m_PanelSetOrder.Finish();
+				this.m_PanelSetOrder.Finish(this.m_AccessionOrder);
 			}
 			else
 			{

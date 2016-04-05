@@ -1232,7 +1232,7 @@ namespace YellowstonePathology.Business.Test
             return result;
         }                
 
-		public virtual void Finish()
+		public virtual void Finish(Business.Test.AccessionOrder accessionOrder)
 		{            			
 			YellowstonePathology.Business.PanelSet.Model.PanelSetCollection panelSetCollection = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetAll();
 			YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet = panelSetCollection.GetPanelSet(this.PanelSetId);
@@ -1251,6 +1251,9 @@ namespace YellowstonePathology.Business.Test
 				this.m_AcceptedById = Business.User.SystemIdentity.Instance.User.UserId;
 				this.m_AcceptedBy = Business.User.SystemIdentity.Instance.User.DisplayName;
 			}
+
+            YellowstonePathology.Business.Client.PhysicianClientDistributionCollection physicianClientDistributionCollection = YellowstonePathology.Business.Gateway.ReportDistributionGateway.GetPhysicianClientDistributionCollection(accessionOrder.PhysicianId, accessionOrder.ClientId);
+            physicianClientDistributionCollection.SetDistribution(this, accessionOrder);
 
             this.NotifyPropertyChanged(string.Empty);
 		}

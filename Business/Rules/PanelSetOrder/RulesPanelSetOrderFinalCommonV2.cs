@@ -100,7 +100,7 @@ namespace YellowstonePathology.Business.Rules.PanelSetOrder
         {
 			if (!this.m_Unsigning)
 			{
-				this.m_PanelSetOrder.Finish();
+				this.m_PanelSetOrder.Finish(this.m_AccessionOrder);
 			}
         }
 

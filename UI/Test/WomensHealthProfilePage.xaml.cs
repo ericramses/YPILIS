@@ -357,7 +357,7 @@ namespace YellowstonePathology.UI.Test
             }
             else
             {
-                this.m_WomensHealthProfileTestOrder.Finish();
+                this.m_WomensHealthProfileTestOrder.Finish(this.m_AccessionOrder);
                 this.m_AuditCollection.Run();
                 this.NotifyPropertyChanged("");
             }                        

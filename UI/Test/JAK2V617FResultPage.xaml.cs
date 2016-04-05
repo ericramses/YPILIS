@@ -96,7 +96,7 @@ namespace YellowstonePathology.UI.Test
 			YellowstonePathology.Business.Audit.Model.AuditResult auditResult = this.m_PanelSetOrder.IsOkToFinalize(this.m_AccessionOrder);
 			if (auditResult.Status == Business.Audit.Model.AuditStatusEnum.OK)
 			{
-                this.m_PanelSetOrder.Finish();
+                this.m_PanelSetOrder.Finish(this.m_AccessionOrder);
                 if(this.m_PanelSetOrder.Accepted == false)
                 {
                     this.m_PanelSetOrder.Accept();

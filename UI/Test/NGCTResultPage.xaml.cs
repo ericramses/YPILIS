@@ -112,7 +112,7 @@ namespace YellowstonePathology.UI.Test
                 YellowstonePathology.Business.ReportDistribution.Model.MultiTestDistributionHandler multiTestDistributionHandler = YellowstonePathology.Business.ReportDistribution.Model.MultiTestDistributionHandlerFactory.GetHandler(this.m_AccessionOrder);
                 multiTestDistributionHandler.Set();                
 
-				this.m_PanelSetOrder.Finish();
+				this.m_PanelSetOrder.Finish(this.m_AccessionOrder);
 
                 if (this.m_AccessionOrder.PanelSetOrderCollection.WomensHealthProfileExists() == true)
                 {

@@ -101,7 +101,7 @@ namespace YellowstonePathology.UI.Test
 		{
 			if (this.m_KRASExon4MutationTestOrder.Final == false)
 			{
-				this.m_KRASExon4MutationTestOrder.Finish();    
+				this.m_KRASExon4MutationTestOrder.Finish(this.m_AccessionOrder);    
 			}
 			else
 			{

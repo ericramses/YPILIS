@@ -147,7 +147,7 @@ namespace YellowstonePathology.UI.Test
 			{
 				if (this.ValidationIsHandled() == true)
 				{
-					this.m_FNAAdequacyAssessmentResult.Finish();
+					this.m_FNAAdequacyAssessmentResult.Finish(this.m_AccessionOrder);
 				}
 			}
 			else

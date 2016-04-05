@@ -60,9 +60,9 @@ namespace YellowstonePathology.Business.Test.HPV1618ByPCR
             hpv1618ByPCRTestOrder.HPV18Result = null;
         }
 
-		public virtual void FinalizeResults(YellowstonePathology.Business.Test.HPV1618ByPCR.HPV1618ByPCRTestOrder panelSetOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+		public virtual void FinalizeResults(YellowstonePathology.Business.Test.HPV1618ByPCR.HPV1618ByPCRTestOrder panelSetOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity, Business.Test.AccessionOrder accessionOrder)
 		{
-			panelSetOrder.Finish();
+			panelSetOrder.Finish(accessionOrder);
 		}
 
 		public virtual void UnFinalizeResults(YellowstonePathology.Business.Test.HPV1618.PanelSetOrderHPV1618 panelSetOrder)

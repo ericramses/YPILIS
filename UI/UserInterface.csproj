@@ -41,7 +41,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>81</ApplicationRevision>
+    <ApplicationRevision>85</ApplicationRevision>
     <ApplicationVersion>10.1.4.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -565,6 +565,7 @@
     <Compile Include="TaskWorkspace.xaml.cs">
       <DependentUpon>TaskWorkspace.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Testing.cs" />
     <Compile Include="Test\ABL1KinaseDomainMutationResultPage.xaml.cs">
       <DependentUpon>ABL1KinaseDomainMutationResultPage.xaml</DependentUpon>
     </Compile>

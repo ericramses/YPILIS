@@ -104,7 +104,7 @@ namespace YellowstonePathology.UI.Test
             {
                 if (this.m_ROS1ByFISHTestOrder.Final == false)
                 {
-                    this.m_ROS1ByFISHTestOrder.Finish();
+                    this.m_ROS1ByFISHTestOrder.Finish(this.m_AccessionOrder);
                 }
                 else
                 {
