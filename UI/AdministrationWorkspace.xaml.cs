@@ -991,7 +991,14 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
-            Business.nodejs.HelloWorld.DoIt();
+            Testing testing = new Testing();
+            testing.OnCallBack1 += CallBackOne;
+            testing.DoIt();
+        }   
+        
+        private string CallBackOne(string x)
+        {
+            return "Purple";
         }
 
         private void FindY()

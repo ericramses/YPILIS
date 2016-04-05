@@ -279,7 +279,7 @@ namespace YellowstonePathology.Document.Result.Xps
 		private void WriteOrderDate()
 		{
 			TextBlock label = new TextBlock();
-			label.Text = "Order Date:";
+			label.Text = "Accession Time:";
 			label.Margin = new Thickness(2, 0, 2, 0);
 			label.HorizontalAlignment = HorizontalAlignment.Right;
 			Grid.SetColumn(label, 2);
@@ -287,7 +287,7 @@ namespace YellowstonePathology.Document.Result.Xps
 			this.m_PatientInfoGrid.Children.Add(label);
 
 			TextBlock text = new TextBlock();
-			text.Text = this.m_AccessionOrderDataSheetData.Element("OrderDate").Value;
+			text.Text = this.m_AccessionOrderDataSheetData.Element("AccessionTime").Value;
 			text.Margin = new Thickness(2, 0, 2, 0);
 			text.HorizontalAlignment = HorizontalAlignment.Left;
 			text.FontWeight = FontWeight.FromOpenTypeWeight(700);
