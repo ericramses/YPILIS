@@ -78,7 +78,12 @@ namespace YellowstonePathology.Business.Gateway
             cmd.CommandType = System.Data.CommandType.Text;
 			cmd.CommandText = "Update tblSlideOrder set Validated = 1, ValidationDate = GetDate(), Status = 'Validated' where SlideOrderId = @SlideOrderId ";
 			cmd.Parameters.Add("@SlideOrderId", System.Data.SqlDbType.VarChar).Value = slideOrderId;
-            YellowstonePathology.Business.Domain.Persistence.SqlXmlPersistence.CrudOperations.ExecuteNonQuery(cmd, Domain.Persistence.DataLocationEnum.ProductionData);
+            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                cmd.ExecuteNonQuery();
+            }
         }
 
 		public static void UpdateSlideOrderStatus(string slideOrderId, string status)
@@ -88,8 +93,13 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.CommandText = "Update tblSlideOrder set Status = @Status where SlideOrderId = @SlideOrderId ";
 			cmd.Parameters.Add("@SlideOrderId", System.Data.SqlDbType.VarChar).Value = slideOrderId;
             cmd.Parameters.Add("Status", System.Data.SqlDbType.VarChar, 50).Value = status;
-            YellowstonePathology.Business.Domain.Persistence.SqlXmlPersistence.CrudOperations.ExecuteNonQuery(cmd, Domain.Persistence.DataLocationEnum.ProductionData);
-        }                
+            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                cmd.ExecuteNonQuery();
+            }
+        }
 
         public static YellowstonePathology.Business.Test.AliquotOrderCollection GetAliquotOrderCollectionByReportNo(string reportNo)
         {
@@ -99,7 +109,20 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.CommandType = System.Data.CommandType.StoredProcedure;
 			cmd.Parameters.Add("@ReportNo", System.Data.SqlDbType.VarChar).Value = reportNo;
 
-			XElement collectionElement = YellowstonePathology.Business.Domain.Persistence.SqlXmlPersistence.CrudOperations.ExecuteCommand(cmd, Domain.Persistence.DataLocationEnum.ProductionData);
+            XElement collectionElement = null;
+            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (XmlReader xmlReader = cmd.ExecuteXmlReader())
+                {
+                    if (xmlReader.Read() == true)
+                    {
+                        collectionElement = XElement.Load(xmlReader);
+                    }
+                }
+            }
+
             if (collectionElement != null)
             {
                 List<XElement> aliquotElements = (from item in collectionElement.Elements("AliquotOrder") select item).ToList<XElement>();
@@ -120,7 +143,12 @@ namespace YellowstonePathology.Business.Gateway
             cmd.CommandText = "Delete tblSlideOrder where SlideOrderId = @SlideOrderId ";
             cmd.CommandType = System.Data.CommandType.Text;
             cmd.Parameters.Add("@SlideOrderId", System.Data.SqlDbType.VarChar).Value = slideOrderId;
-            YellowstonePathology.Business.Domain.Persistence.SqlXmlPersistence.CrudOperations.ExecuteNonQuery(cmd, Domain.Persistence.DataLocationEnum.ProductionData);
+            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                cmd.ExecuteNonQuery();
+            }
         }
         
 		public static View.AccessionSlideOrderView GetAccessionSlideOrderViewBySlideOrderId(string slideOrderId)
