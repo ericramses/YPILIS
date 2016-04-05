@@ -472,6 +472,7 @@
     <Compile Include="Persistence\AODocumentBuilder.cs" />
     <Compile Include="Persistence\ClientDocumentBuilder.cs" />
     <Compile Include="Persistence\ClientOrderDocumentBuilder.cs" />
+    <Compile Include="Persistence\SqlCommandHelper.cs" />
     <Compile Include="Persistence\TaskOrderDocumentBuilder.cs" />
     <Compile Include="Persistence\ClientSupplyOrderDocumentBuilder.cs" />
     <Compile Include="Persistence\DocumentBuilder.cs" />
@@ -3003,10 +3004,6 @@
     <ProjectReference Include="..\DomainPersistence\DomainPersistence.csproj">
       <Project>{0B68C6D2-6418-4ECD-95D5-93DD6F8E1782}</Project>
       <Name>DomainPersistence</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SqlXmlPersistence\SqlXmlPersistence.csproj">
-      <Project>{C64F59D1-3A32-40DF-8294-89E0DCD19BE3}</Project>
-      <Name>SqlXmlPersistence</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
