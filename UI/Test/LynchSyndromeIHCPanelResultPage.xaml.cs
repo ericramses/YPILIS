@@ -126,7 +126,7 @@ namespace YellowstonePathology.UI.Test
 		{
 			if (this.m_PanelSetOrderLynchSyndromeIHC.Final == false)
 			{
-				this.m_PanelSetOrderLynchSyndromeIHC.Finish();
+				this.m_PanelSetOrderLynchSyndromeIHC.Finish(this.m_AccessionOrder);
 			}
 			else
 			{

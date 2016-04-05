@@ -122,7 +122,7 @@ namespace YellowstonePathology.UI.Test
 			YellowstonePathology.Business.Rules.MethodResult methodResult =  this.m_TestOrder.IsOkToFinalize();
 			if(methodResult.Success == true)
 			{
-				this.m_TestOrder.Finish();
+				this.m_TestOrder.Finish(this.m_AccessionOrder);
             }
             else
             {

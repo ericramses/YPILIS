@@ -64,9 +64,9 @@ namespace YellowstonePathology.Business.Test.BRAFV600EK
             brafv600ekTestOrder.References = this.m_References;
         }
 
-		public virtual void FinalizeResults(YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTestOrder panelSetOrder)
+		public virtual void FinalizeResults(YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTestOrder panelSetOrder, Business.Test.AccessionOrder accessionOrder)
 		{
-			panelSetOrder.Finish();
+			panelSetOrder.Finish(accessionOrder);
 			panelSetOrder.AssignedToId = Business.User.SystemIdentity.Instance.User.UserId;
 		}
 

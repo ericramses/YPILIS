@@ -99,7 +99,7 @@ namespace YellowstonePathology.UI.Test
 			{
 				YellowstonePathology.Business.Test.HPV1618ByPCR.HPV1618ByPCRResultCollection resultCollection = YellowstonePathology.Business.Test.HPV1618ByPCR.HPV1618ByPCRResultCollection.GetAllResults();
 				YellowstonePathology.Business.Test.HPV1618ByPCR.HPV1618ByPCRResult hpv1618Result = resultCollection.GetResult(this.m_HPV1618ByPCRTestOrder.ResultCode);
-				hpv1618Result.FinalizeResults(this.m_HPV1618ByPCRTestOrder, this.m_SystemIdentity);
+				hpv1618Result.FinalizeResults(this.m_HPV1618ByPCRTestOrder, this.m_SystemIdentity, this.m_AccessionOrder);
 
                 YellowstonePathology.Business.ReportDistribution.Model.MultiTestDistributionHandler multiTestDistributionHandler = YellowstonePathology.Business.ReportDistribution.Model.MultiTestDistributionHandlerFactory.GetHandler(this.m_AccessionOrder);
                 multiTestDistributionHandler.Set();

@@ -482,7 +482,7 @@ namespace YellowstonePathology.UI.Surgical
 
                 if (auditResult.Status == Business.Audit.Model.AuditStatusEnum.OK)
                 {
-                    this.PanelSetOrderSurgical.Finish();
+                    this.PanelSetOrderSurgical.Finish(this.m_PathologistUI.AccessionOrder);
                     if (this.PanelSetOrderSurgical.Accepted == false)
                     {
                         this.PanelSetOrderSurgical.Accept();
