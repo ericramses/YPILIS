@@ -304,6 +304,9 @@ namespace YellowstonePathology.Business.Document
                     case 223:
                         document = new YellowstonePathology.Business.Test.TCellSubsetAnalysis.TCellSubsetAnalysisWordDocument(accessionOrder, panelSetOrder, reportSaveMode);
                         break;
+                    case 225:
+                        document = new YellowstonePathology.Business.Test.BCL2t1418ByPCR.BCL2t1418ByPCRWordDocument(accessionOrder, panelSetOrder, reportSaveMode);
+                        break;
                     default:
 						break;
 				}

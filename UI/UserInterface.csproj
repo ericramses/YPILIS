@@ -608,6 +608,10 @@
       <DependentUpon>BCL1t1114ResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Test\BCL1t1114ResultPath.cs" />
+    <Compile Include="Test\BCL2t1418ByPCRResultPage.xaml.cs">
+      <DependentUpon>BCL2t1418ByPCRResultPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Test\BCL2t1418ByPCRResultPath.cs" />
     <Compile Include="Test\BCRABLByFishResultPage.xaml.cs">
       <DependentUpon>BCRABLByFishResultPage.xaml</DependentUpon>
     </Compile>
@@ -2242,6 +2246,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Test\BCL1t1114ResultPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Test\BCL2t1418ByPCRResultPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

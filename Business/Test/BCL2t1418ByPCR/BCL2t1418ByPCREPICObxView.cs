@@ -4,18 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 
-namespace YellowstonePathology.Business.Test.BCL2t1418
+namespace YellowstonePathology.Business.Test.BCL2t1418ByPCR
 {
-	public class BCL2t1418EPICObxView : YellowstonePathology.Business.HL7View.EPIC.EPICObxView
+	public class BCL2t1418ByPCREPICObxView : YellowstonePathology.Business.HL7View.EPIC.EPICObxView
 	{
-		public BCL2t1418EPICObxView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount)
+		public BCL2t1418ByPCREPICObxView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount)
 			: base(accessionOrder, reportNo, obxCount)
 		{
 		}
 
 		public override void ToXml(XElement document)
 		{
-			BCL2t1418TestOrder panelSetOrder = (BCL2t1418TestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
+            BCL2t1418ByPCRTestOrder panelSetOrder = (BCL2t1418ByPCRTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
 			this.AddHeader(document, panelSetOrder, "CCND1 (BCL1, t(11;14))");
 
 			this.AddNextObxElement("", document, "F");
