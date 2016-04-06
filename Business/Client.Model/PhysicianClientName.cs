@@ -96,5 +96,10 @@ namespace YellowstonePathology.Business.Client.Model
 				return result;
 			}
 		}
+
+        public string DisplayName
+        {
+            get { return this.PhysicianName + "/" + this.ClientName; }
+        }
 	}
 }
