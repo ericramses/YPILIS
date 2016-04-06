@@ -3,21 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace YellowstonePathology.Business.Test.BCL2t1418
+namespace YellowstonePathology.Business.Test.BCL2t1418ByPCR
 {
-	public class BCL2t1418WordDocument : YellowstonePathology.Business.Document.CaseReportV2
+	public class BCL2t1418ByPCRWordDocument : YellowstonePathology.Business.Document.CaseReportV2
 	{
-        public BCL2t1418WordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+        public BCL2t1418ByPCRWordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
             : base(accessionOrder, panelSetOrder, reportSaveMode)
         {
 
         }
 
         public override void Render()
-		{			
-			BCL2t1418TestOrder panelSetOrder = (BCL2t1418TestOrder)this.m_PanelSetOrder;
+		{
+            BCL2t1418ByPCRTestOrder panelSetOrder = (BCL2t1418ByPCRTestOrder)this.m_PanelSetOrder;
 
-			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\BCL2t1418.xml";
+			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\BCL2t1418ByPCR.xml";
 			base.OpenTemplate();
 
 			this.SetDemographicsV2();
