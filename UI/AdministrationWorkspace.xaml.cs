@@ -991,9 +991,9 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
-            Testing testing = new Testing();
-            testing.OnCallBack1 += CallBackOne;
-            testing.DoIt();
+            //Testing testing = new Testing();
+            //testing.OnCallBack1 += CallBackOne;
+            //testing.DoIt();
         }   
         
         private string CallBackOne(string x)

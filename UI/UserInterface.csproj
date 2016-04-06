@@ -565,7 +565,6 @@
     <Compile Include="TaskWorkspace.xaml.cs">
       <DependentUpon>TaskWorkspace.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Testing.cs" />
     <Compile Include="Test\ABL1KinaseDomainMutationResultPage.xaml.cs">
       <DependentUpon>ABL1KinaseDomainMutationResultPage.xaml</DependentUpon>
     </Compile>

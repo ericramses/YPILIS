@@ -6,6 +6,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Collections.ObjectModel;
 using System.Xml.Linq;
+using System.Xml;
 
 namespace YellowstonePathology.Business.Gateway
 {
@@ -116,21 +117,6 @@ namespace YellowstonePathology.Business.Gateway
 #endif
 		}
 
-		public static Flow.FlowMarkerCollection GetFlowMarkerCollectionByReportNo(string reportNo)
-		{
-#if MONGO
-            return FlowGatewayMongo.GetFlowMarkerCollectionByReportNo(reportNo);
-#else
-			SqlCommand cmd = new SqlCommand();
-			cmd.CommandType = CommandType.Text;
-			cmd.CommandText = "select fl.* from tblFlowMarkers fl left outer join tblMarkers m on fl.Name = m.MarkerName " +
-				"where fl.ReportNo = @ReportNo order by m.OrderFlag, m.MarkerName for xml path('FlowMarkerItem'), root('FlowMarkerCollection')";
-			cmd.Parameters.Add("@ReportNo", SqlDbType.VarChar).Value = reportNo;
-			XElement flowMarkerCollectionElement = Domain.Persistence.SqlXmlPersistence.CrudOperations.ExecuteXmlReaderCommand(cmd, Domain.Persistence.DataLocationEnum.ProductionData);
-			return BuildFlowMarkerCollection(flowMarkerCollectionElement);
-#endif
-		}
-
 		public static Flow.FlowMarkerCollection GetFlowMarkerCollectionByPanelId(string reportNo, int panelId)
 		{
 #if MONGO
@@ -143,7 +129,21 @@ namespace YellowstonePathology.Business.Gateway
 				"order by m.OrderFlag, m.MarkerName for xml path('FlowMarkerItem'), type, root('FlowMarkerCollection')";
 			cmd.Parameters.Add("@ReportNo", SqlDbType.VarChar).Value = reportNo;
 			cmd.Parameters.Add("@PanelId", SqlDbType.Int).Value = panelId;
-			XElement flowMarkerCollectionElement = Domain.Persistence.SqlXmlPersistence.CrudOperations.ExecuteXmlReaderCommand(cmd, Domain.Persistence.DataLocationEnum.ProductionData);
+
+            XElement flowMarkerCollectionElement = null;
+            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (XmlReader xmlReader = cmd.ExecuteXmlReader())
+                {
+                    if (xmlReader.Read() == true)
+                    {
+                        flowMarkerCollectionElement = XElement.Load(xmlReader, LoadOptions.PreserveWhitespace);
+                    }
+                }
+            }
+
 			return BuildFlowMarkerCollection(flowMarkerCollectionElement);
 #endif
 		}
