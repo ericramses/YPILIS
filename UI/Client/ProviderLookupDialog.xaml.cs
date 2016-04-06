@@ -90,7 +90,7 @@ namespace YellowstonePathology.UI.Client
 			int clientId = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetLargestClientId() + 1;
 			YellowstonePathology.Business.Client.Model.Client client = new YellowstonePathology.Business.Client.Model.Client(objectId, "New Client", clientId);			
 
-			ClientEntryV2 clientEntry = new ClientEntryV2(client, true);
+			ClientEntry clientEntry = new ClientEntry(client, true);
 			clientEntry.ShowDialog();
             if(this.m_ClientCollection == null)
             {
@@ -227,7 +227,7 @@ namespace YellowstonePathology.UI.Client
             {
 				YellowstonePathology.Business.Client.Model.Client client = (YellowstonePathology.Business.Client.Model.Client)this.ListViewClients.SelectedItem;
 
-				ClientEntryV2 clientEntry = new ClientEntryV2(client, false);
+                ClientEntry clientEntry = new ClientEntry(client, false);
 				clientEntry.ShowDialog();
             }
         }

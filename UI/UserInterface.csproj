@@ -977,8 +977,8 @@
       <DependentUpon>TypingShortcutUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Client\OncologyRequisition.cs" />
-    <Compile Include="Client\ClientEntryV2.xaml.cs">
-      <DependentUpon>ClientEntryV2.xaml</DependentUpon>
+    <Compile Include="Client\ClientEntry.xaml.cs">
+      <DependentUpon>ClientEntry.xaml</DependentUpon>
     </Compile>
     <Compile Include="Common\CaseHistoryPage.xaml.cs">
       <DependentUpon>CaseHistoryPage.xaml</DependentUpon>
@@ -2595,7 +2595,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Client\ClientEntryV2.xaml">
+    <Page Include="Client\ClientEntry.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
