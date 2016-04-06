@@ -426,5 +426,21 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
         		
         	return methodResult;
         }
+
+        public void SetBrafSummaryResult(YellowstonePathology.Business.Test.LynchSyndrome.LSEResult lSEResult)
+        {
+            if (string.IsNullOrEmpty(this.m_BRAFResult) == false)
+            {
+                if (this.m_BRAFResult == "Not Detected")
+                {
+                    lSEResult.BrafResult = YellowstonePathology.Business.Test.LynchSyndrome.LSEResultEnum.Negative;
+                }
+                else if (this.m_BRAFResult == "Detected")
+                {
+                    lSEResult.BrafResult = YellowstonePathology.Business.Test.LynchSyndrome.LSEResultEnum.Positive;
+                }
+            }
+        }
+
     }
 }

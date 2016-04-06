@@ -252,6 +252,9 @@ namespace YellowstonePathology.UI.Test
                 case 223:
                     result = new TCellSubsetAnalysisResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
+                case 225:
+                    result = new BCL2t1418ByPCRResultPath(reportNo, accessionOrder, pageNavigator, window);
+                    break;
             }
             return result;
         }

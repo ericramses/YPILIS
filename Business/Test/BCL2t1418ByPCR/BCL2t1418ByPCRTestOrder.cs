@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using YellowstonePathology.Business.Persistence;
 
-namespace YellowstonePathology.Business.Test.BCL2t1418
+namespace YellowstonePathology.Business.Test.BCL2t1418ByPCR
 {
-	[PersistentClass("tblBCL2t1418TestOrder", "tblPanelSetOrder", "YPIDATA")]
-	public class BCL2t1418TestOrder : YellowstonePathology.Business.Test.PanelSetOrder
+	[PersistentClass("tblBCL2t1418ByPCRTestOrder", "tblPanelSetOrder", "YPIDATA")]
+	public class BCL2t1418ByPCRTestOrder : YellowstonePathology.Business.Test.PanelSetOrder
 	{
 		private string m_Result;
 		private string m_Interpretation;
@@ -15,11 +15,11 @@ namespace YellowstonePathology.Business.Test.BCL2t1418
 		private string m_References;
 		private string m_ReportDisclaimer;
 
-		public BCL2t1418TestOrder()
+		public BCL2t1418ByPCRTestOrder()
 		{
 		}
 
-		public BCL2t1418TestOrder(string masterAccessionNo, string reportNo, string objectId,
+		public BCL2t1418ByPCRTestOrder(string masterAccessionNo, string reportNo, string objectId,
 			YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
 			YellowstonePathology.Business.Interface.IOrderTarget orderTarget,
 			bool distribute)

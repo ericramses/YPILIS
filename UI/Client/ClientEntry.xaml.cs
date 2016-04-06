@@ -29,6 +29,7 @@ namespace YellowstonePathology.UI.Client
 		private YellowstonePathology.Business.Domain.PhysicianCollection m_PhysicianCollection;
 		private YellowstonePathology.Business.Billing.Model.BillingRuleSetCollection m_BillingRuleSetCollection;
 		private YellowstonePathology.Business.Client.Model.ClientSupplyOrderCollection m_ClientSupplyOrderCollection;
+        private YellowstonePathology.Business.Client.Model.PhysicianClientNameCollection m_ReferringProviderClientCollection;
 
         private bool m_IsNewClient;
 
@@ -126,7 +127,12 @@ namespace YellowstonePathology.UI.Client
 			get { return this.m_ClientSupplyOrderCollection; }
 		}
 
-		private void ButtonOk_Click(object sender, RoutedEventArgs e)
+        public YellowstonePathology.Business.Client.Model.PhysicianClientNameCollection ReferringProviderClientCollection
+        {
+            get { return this.m_ReferringProviderClientCollection; }
+        }
+
+        private void ButtonOk_Click(object sender, RoutedEventArgs e)
 		{            
             if(this.CanSave() == true)
             {
@@ -270,12 +276,35 @@ namespace YellowstonePathology.UI.Client
 
         private void ButtonAddReferringProviderClient_Click(object sender, RoutedEventArgs e)
         {
-
+            if(this.ListBoxReferringProviders.SelectedItem != null)
+            {
+                YellowstonePathology.Business.Client.Model.PhysicianClientName physicianClientName = (YellowstonePathology.Business.Client.Model.PhysicianClientName)this.ListBoxReferringProviders.SelectedItem;
+                this.m_Client.ReferringProviderClientId = physicianClientName.PhysicianClientId;
+                this.m_Client.ReferringProviderClientName = physicianClientName.DisplayName;
+                this.m_Client.HasReferringProvider = true;
+            }
         }
 
         private void ButtonRemoveReferringProviderClient_Click(object sender, RoutedEventArgs e)
         {
+            this.m_Client.ReferringProviderClientId = null;
+            this.m_Client.ReferringProviderClientName = null;
+            this.m_Client.HasReferringProvider = false;
+        }
 
+        private void TextBoxReferringProviderClient_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (this.TextBoxReferringProviderClient.Text.Length > 0)
+            {
+                string[] splitName = this.TextBoxReferringProviderClient.Text.Split(' ');
+                if (splitName.Length > 1)
+                {
+                    string providerName = splitName[0].Trim();
+                    string clientName = splitName[1].Trim();
+                    this.m_ReferringProviderClientCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClientNameCollectionV2(clientName, providerName);
+                    NotifyPropertyChanged("ReferringProviderClientCollection");
+                }
+            }
         }
     }
 }

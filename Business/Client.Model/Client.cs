@@ -37,7 +37,7 @@ namespace YellowstonePathology.Business.Client.Model
 		private bool m_Inactive;
         private string m_ContactName;
         private bool m_HasReferringProvider;
-        private Nullable<int> m_ReferringProviderClientId;
+        private string m_ReferringProviderClientId;
         private string m_ReferringProviderClientName;
 
         public Client()
@@ -329,7 +329,7 @@ namespace YellowstonePathology.Business.Client.Model
         }
 
         [PersistentProperty()]
-        public Nullable<int> ReferringProviderClientId
+        public string ReferringProviderClientId
         {
             get { return this.m_ReferringProviderClientId; }
             set

@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace YellowstonePathology.Business.Test.BCL2t1418
+namespace YellowstonePathology.Business.Test.BCL2t1418ByPCR
 {
-	public class BCL2t1418Test : YellowstonePathology.Business.PanelSet.Model.PanelSet
+	public class BCL2t1418ByPCRTest : YellowstonePathology.Business.PanelSet.Model.PanelSet
 	{
-        public BCL2t1418Test()
+        public BCL2t1418ByPCRTest()
 		{
 			this.m_PanelSetId = 225;
 			this.m_PanelSetName = "BCL2 t(14;18)";
@@ -18,7 +18,7 @@ namespace YellowstonePathology.Business.Test.BCL2t1418
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterR();
             this.m_Active = true;
 
-			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.BCL1t1114.BCL1t1114TestOrder).AssemblyQualifiedName;
+			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.BCL2t1418ByPCR.BCL2t1418ByPCRTestOrder).AssemblyQualifiedName;
             
 			this.m_AllowMultiplePerAccession = true;
             //Changed by MS and TK;
