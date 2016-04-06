@@ -1088,13 +1088,13 @@ namespace YellowstonePathology.Business.Gateway
 			return result;
 		}
 
-		public static View.PhysicianClientView GetPhysicianClientView(string objectId)
+		public static View.PhysicianClientView GetPhysicianClientView(string physicianId)
 		{
 			SqlCommand cmd = new SqlCommand();
 			cmd.CommandText = "select * from tblPhysician where ObjectId = @ObjectId;" +
 				" select c.* from tblClient c join tblPhysicianClient pc on c.ClientId = pc.ClientId where pc.ProviderId = @ObjectId order by ClientName";
 			cmd.CommandType = CommandType.Text;
-			cmd.Parameters.Add("@ObjectId", SqlDbType.VarChar).Value = objectId;
+			cmd.Parameters.Add("@ObjectId", SqlDbType.VarChar).Value = physicianId;
 			return BuildPhysicianClientView(cmd);
 		}
 

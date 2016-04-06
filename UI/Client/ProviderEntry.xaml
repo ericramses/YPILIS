@@ -91,22 +91,22 @@
 
 					<Grid.RowDefinitions>
 						<RowDefinition Height="Auto"></RowDefinition>
-						<RowDefinition Height="*"></RowDefinition>
-					</Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
 
 					<TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" Text="Client Membership:" VerticalAlignment="Center"/>
 
-					<ListBox Name="ListBoxClients" Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" HorizontalAlignment="Stretch" IsTabStop="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding Path=ProviderClients}">
-						<ListBox.ItemTemplate>
-							<DataTemplate>
-								<StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
-									<TextBlock Margin="2" Text="{Binding Path=ClientName}" />
-								</StackPanel>
-							</DataTemplate>
-						</ListBox.ItemTemplate>
-					</ListBox>
+                    <ListBox Name="ListBoxClients" Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" HorizontalAlignment="Stretch" IsTabStop="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding Path=ProviderClients}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
+                                    <TextBlock Margin="2" Text="{Binding Path=ClientName}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
 
-					<StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical" Margin="2,2,2,2" VerticalAlignment="Center">
+                    <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical" Margin="2,2,2,2" VerticalAlignment="Center">
 						<Button Name="ButtonAddToClient" Width="70" Height="30" Margin="5,5,5,5" Click="ButtonAddToClient_Click">&lt; Add</Button>
 						<Button Name="ButtonRemoveFromClient" Width="70" Height="30" Margin="5,5,5,5" Click="ButtonRemoveFromClient_Click">Remove ></Button>
 					</StackPanel>
