@@ -42,19 +42,16 @@ namespace YellowstonePathology.UI
                 {
                     if (string.IsNullOrEmpty(cols[0]) == false)
                     {
-						YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(cols[0]);
-						if (orderIdParser.IsLegacyPSAReportNo == true)
-						{
-							string reportNo = orderIdParser.LegacyReportNoFromLegacyPSAReportNo;
+                        if(cols[0] != "NO ACC")
+                        {
+                            string reportNo = cols[0].Insert(2, "-");
+                            int indexOfFirstChar = this.FindFirstLetter(reportNo);
+                            reportNo = reportNo.Insert(indexOfFirstChar, ".");
                             DateTime postDate = DateTime.Parse(cols[1].Trim());
                             importList.Add(new PsaImport(reportNo, postDate));
                             string insert = "Insert tblPsaImport (ReportNo, PostDate) values ('" + reportNo + "', '" + postDate.ToShortDateString() + "');";
                             insertStatements.AppendLine(insert);
-                        }
-                        else
-                        {
-                            Console.WriteLine("ReportNo Not Valid: " + row);
-                        }
+                        }						                        
                     }
                 }
                 else
@@ -64,7 +61,19 @@ namespace YellowstonePathology.UI
             }
             this.TextBoxText.Text = insertStatements.ToString();
         }
-    }
+
+        private int FindFirstLetter(string str)
+        {
+            for (int ctr = 0; ctr < str.Length; ctr++)
+            {
+                if (Char.IsLetter(str[ctr]))
+                {
+                    return ctr;
+                }
+            }
+            return -1;
+        }
+    }    
 
     public class PsaImport
     {

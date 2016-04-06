@@ -927,5 +927,11 @@ namespace YellowstonePathology.UI
         {
             this.m_MainWindowCommandButtonHandler.OnShowMessagingDialog();
         }
+
+        private void MenuItemParsePSAData_Click(object sender, RoutedEventArgs e)
+        {
+            ParsePsaAccessionsWindow window = new ParsePsaAccessionsWindow();
+            window.Show();
+        }
     }    
 }
