@@ -321,9 +321,9 @@ namespace YellowstonePathology.UI.Surgical
 			return this.m_PathologistSearch.ExecuteSlideOrderIdSearch(slideOrderId);
 		}
 
-        public YellowstonePathology.Business.Search.PathologistSearchResult DoAliquotOrderIdSearch(string aliquotOrderId)
+        public YellowstonePathology.Business.Search.PathologistSearchResult DoAliquotOrderIdSearch(string aliquotOrderId, int panelSetIdHint)
         {
-            return this.m_PathologistSearch.ExecuteAliquotOrderIdSearch(aliquotOrderId);
+            return this.m_PathologistSearch.ExecuteAliquotOrderIdSearch(aliquotOrderId, panelSetIdHint);
         }
 
 		public bool CanPlaceOrder()
