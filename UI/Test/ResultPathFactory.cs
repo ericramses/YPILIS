@@ -255,6 +255,9 @@ namespace YellowstonePathology.UI.Test
                 case 225:
                     result = new BCL2t1418ByPCRResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
+                case 226:
+                    result = new BCL2t1418ByFISHResultPath(reportNo, accessionOrder, pageNavigator, window);
+                    break;
             }
             return result;
         }
