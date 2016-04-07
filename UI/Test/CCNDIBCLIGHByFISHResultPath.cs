@@ -5,26 +5,26 @@ using System.Text;
 
 namespace YellowstonePathology.UI.Test
 {
-	class CCNDIBCLIGHResultPath : ResultPath
+	class CCNDIBCLIGHByFISHResultPath : ResultPath
 	{
-		CCNDIBCLIGHResultPage m_ResultPage;
+        CCNDIBCLIGHByFISHResultPage m_ResultPage;
 		YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-		YellowstonePathology.Business.Test.CCNDIBCLIGH.PanelSetOrderCCNDIBCLIGH m_PanelSetOrder;
+		YellowstonePathology.Business.Test.CCNDIBCLIGHByFISH.CCNDIBCLIGHByFISHTestOrder m_PanelSetOrder;
 
-		public CCNDIBCLIGHResultPath(string reportNo,
+		public CCNDIBCLIGHByFISHResultPath(string reportNo,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
 			YellowstonePathology.UI.Navigation.PageNavigator pageNavigator,
             System.Windows.Window window)
             : base(pageNavigator, window)
         {
 			this.m_AccessionOrder = accessionOrder;
-			this.m_PanelSetOrder = (YellowstonePathology.Business.Test.CCNDIBCLIGH.PanelSetOrderCCNDIBCLIGH)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
+			this.m_PanelSetOrder = (YellowstonePathology.Business.Test.CCNDIBCLIGHByFISH.CCNDIBCLIGHByFISHTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 		}
 
         protected override void ShowResultPage()
 		{
-			this.m_ResultPage = new CCNDIBCLIGHResultPage(this.m_PanelSetOrder, this.m_AccessionOrder, this.m_SystemIdentity);
-			this.m_ResultPage.Next += new CCNDIBCLIGHResultPage.NextEventHandler(ResultPage_Next);
+			this.m_ResultPage = new CCNDIBCLIGHByFISHResultPage(this.m_PanelSetOrder, this.m_AccessionOrder, this.m_SystemIdentity);
+			this.m_ResultPage.Next += new CCNDIBCLIGHByFISHResultPage.NextEventHandler(ResultPage_Next);
 			this.m_PageNavigator.Navigate(this.m_ResultPage);
 		}
 

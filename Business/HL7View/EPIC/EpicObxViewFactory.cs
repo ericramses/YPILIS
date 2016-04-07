@@ -128,7 +128,7 @@ namespace YellowstonePathology.Business.HL7View.EPIC
 					view = new YellowstonePathology.Business.Test.MultipleMyelomaMGUSByFish.MultipleMyelomaMGUSByFishEPICObxView(accessionOrder, reportNo, obxCount);
 					break;
 				case 148:
-					view = new YellowstonePathology.Business.Test.CCNDIBCLIGH.CCNDIBCLIGHEPICObxView(accessionOrder, reportNo, obxCount);
+					view = new YellowstonePathology.Business.Test.CCNDIBCLIGHByFISH.CCNDIBCLIGHByFISHEPICObxView(accessionOrder, reportNo, obxCount);
 					break;
 				case 149:
 					view = new YellowstonePathology.Business.Test.HighGradeLargeBCellLymphoma.HighGradeLargeBCellLymphomaEPICObxView(accessionOrder, reportNo, obxCount);
@@ -249,6 +249,9 @@ namespace YellowstonePathology.Business.HL7View.EPIC
                     break;
                 case 225:
                     view = new YellowstonePathology.Business.Test.BCL2t1418ByPCR.BCL2t1418ByPCREPICObxView(accessionOrder, reportNo, obxCount);
+                    break;
+                case 226:
+                    view = new YellowstonePathology.Business.Test.BCL2t1418ByFISH.BCL2t1418ByFISHEPICObxView(accessionOrder, reportNo, obxCount);
                     break;
             }
             return view;

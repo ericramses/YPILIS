@@ -15,7 +15,7 @@ namespace YellowstonePathology.Business.Test.JAK2V617F
         public override void Render()
 		{            
 			JAK2V617FTestOrder panelSetOrderJAK2V617F = (JAK2V617FTestOrder)this.m_PanelSetOrder;
-			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\JAK2V617F.2.xml";
+			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\JAK2V617F.3.xml";
 			base.OpenTemplate();
 
             this.SetDemographicsV2();
@@ -42,6 +42,7 @@ namespace YellowstonePathology.Business.Test.JAK2V617F
 			this.ReplaceText("report_interpretation", panelSetOrderJAK2V617F.Interpretation);
 			this.ReplaceText("report_method", panelSetOrderJAK2V617F.Method);
 			this.ReplaceText("report_reference", panelSetOrderJAK2V617F.Reference);
+            this.ReplaceText("disclosure_statement", panelSetOrderJAK2V617F.Disclosure);
 
 			this.ReplaceText("report_date", YellowstonePathology.Business.BaseData.GetShortDateString(this.m_PanelSetOrder.FinalDate));
 			this.ReplaceText("pathologist_signature", this.m_PanelSetOrder.Signature);

@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace YellowstonePathology.Business.Test.CCNDIBCLIGH
+namespace YellowstonePathology.Business.Test.CCNDIBCLIGHByFISH
 {
-	public class CCNDIBCLIGHAbnormalResult : CCNDIBCLIGHResult
+	public class CCNDIBCLIGHByFISHAbnormalResult : CCNDIBCLIGHByFISHResult
 	{
-		public CCNDIBCLIGHAbnormalResult()
+		public CCNDIBCLIGHByFISHAbnormalResult()
 		{
 			this.m_Result = "Abnormal";
 			this.m_Interpretation = "POSITIVE FOR ADDITIONAL COPIES OF THE CCND1(BCL1) GENE OR CHROMOSOME 11\r\n" +

@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Test
 	/// <summary>
 	/// Interaction logic for CCNDIBCLIGHResultPage.xaml
 	/// </summary>
-	public partial class CCNDIBCLIGHResultPage : UserControl, INotifyPropertyChanged 
+	public partial class CCNDIBCLIGHByFISHResultPage : UserControl, INotifyPropertyChanged 
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -29,10 +29,10 @@ namespace YellowstonePathology.UI.Test
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		private string m_PageHeaderText;
 
-		private YellowstonePathology.Business.Test.CCNDIBCLIGH.PanelSetOrderCCNDIBCLIGH m_PanelSetOrder;
+		private YellowstonePathology.Business.Test.CCNDIBCLIGHByFISH.CCNDIBCLIGHByFISHTestOrder m_PanelSetOrder;
 		private string m_OrderedOnDescription;
 
-		public CCNDIBCLIGHResultPage(YellowstonePathology.Business.Test.CCNDIBCLIGH.PanelSetOrderCCNDIBCLIGH panelSetOrderCCNDIBCLIGH,
+		public CCNDIBCLIGHByFISHResultPage(YellowstonePathology.Business.Test.CCNDIBCLIGHByFISH.CCNDIBCLIGHByFISHTestOrder panelSetOrderCCNDIBCLIGH,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 		{
@@ -40,7 +40,7 @@ namespace YellowstonePathology.UI.Test
 			this.m_AccessionOrder = accessionOrder;
 			this.m_SystemIdentity = systemIdentity;
 
-			this.m_PageHeaderText = "CCND1/IgH t(11;14) by Fish Analysis Result For: " + this.m_AccessionOrder.PatientDisplayName;
+			this.m_PageHeaderText = "CCND1/IgH t(11;14) by FISH Analysis Result For: " + this.m_AccessionOrder.PatientDisplayName;
 
 			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrder.OrderedOn, this.m_PanelSetOrder.OrderedOnId);
 			this.m_OrderedOnDescription = specimenOrder.Description;
@@ -55,7 +55,7 @@ namespace YellowstonePathology.UI.Test
 			get { return this.m_OrderedOnDescription; }
 		}
 
-		public YellowstonePathology.Business.Test.CCNDIBCLIGH.PanelSetOrderCCNDIBCLIGH PanelSetOrder
+		public YellowstonePathology.Business.Test.CCNDIBCLIGHByFISH.CCNDIBCLIGHByFISHTestOrder PanelSetOrder
 		{
 			get { return this.m_PanelSetOrder; }
 		}
@@ -80,14 +80,14 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkAbnormal_Click(object sender, RoutedEventArgs e)
 		{
-			YellowstonePathology.Business.Test.CCNDIBCLIGH.CCNDIBCLIGHAbnormalResult result = new Business.Test.CCNDIBCLIGH.CCNDIBCLIGHAbnormalResult();
+			YellowstonePathology.Business.Test.CCNDIBCLIGHByFISH.CCNDIBCLIGHByFISHAbnormalResult result = new Business.Test.CCNDIBCLIGHByFISH.CCNDIBCLIGHByFISHAbnormalResult();
 			result.SetResults(this.m_PanelSetOrder);
 			this.NotifyPropertyChanged("PanelSetOrder");
 		}
 
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
 		{
-			YellowstonePathology.Business.Test.CCNDIBCLIGH.CCNDIBCLIGHWordDocument report = new Business.Test.CCNDIBCLIGH.CCNDIBCLIGHWordDocument(this.m_AccessionOrder, this.m_PanelSetOrder, Business.Document.ReportSaveModeEnum.Draft);
+			YellowstonePathology.Business.Test.CCNDIBCLIGHByFISH.CCNDIBCLIGHByFISHWordDocument report = new Business.Test.CCNDIBCLIGHByFISH.CCNDIBCLIGHByFISHWordDocument(this.m_AccessionOrder, this.m_PanelSetOrder, Business.Document.ReportSaveModeEnum.Draft);
 			report.Render();
 
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
