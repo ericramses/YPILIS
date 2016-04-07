@@ -49,23 +49,47 @@ namespace YellowstonePathology.Business.HL7View.CMMC
 				this.AddBlankNteElement(document);
 			}
 
-			if (panelSetOrder.BRAFIsIndicated == true)
-			{
+            YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTest brafV600EKTest = new YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTest();
+            YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelTest rasRAFPanelTest = new YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelTest();
+            YellowstonePathology.Business.Test.LynchSyndrome.MLH1MethylationAnalysisTest panelSetMLH1 = new YellowstonePathology.Business.Test.LynchSyndrome.MLH1MethylationAnalysisTest();
+            if (((this.m_AccessionOrder.PanelSetOrderCollection.Exists(brafV600EKTest.PanelSetId, panelSetOrder.OrderedOnId, true) == true ||
+                this.m_AccessionOrder.PanelSetOrderCollection.Exists(rasRAFPanelTest.PanelSetId, panelSetOrder.OrderedOnId, true) == true) &&
+                panelSetOrder.BRAFIsIndicated == true) ||
+                this.m_AccessionOrder.PanelSetOrderCollection.Exists(panelSetMLH1.PanelSetId, panelSetOrder.OrderedOnId, true) == true)
+            {
 				this.AddNextNteElement("Molecular Analysis", document);
 				this.AddBlankNteElement(document);
+            }
 
-				if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(18) == true) //BRAF
+            if (panelSetOrder.BRAFIsIndicated == true)
+			{
+                if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(brafV600EKTest.PanelSetId, panelSetOrder.OrderedOnId, true) == true)
 				{
-                    YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTest brafV600EKTest = new YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTest();
-                    YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTestOrder panelSetOrderBraf = (YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(brafV600EKTest.PanelSetId);
+                    YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTestOrder panelSetOrderBraf = (YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(brafV600EKTest.PanelSetId, panelSetOrder.OrderedOnId, true);
 
 					this.AddNextNteElement("BRAF V600E Mutation by PCR: " + panelSetOrderBraf.ReportNo, document);
 					this.AddNextNteElement("Result: " + panelSetOrderBraf.Result, document);
 					this.AddBlankNteElement(document);
 				}
-			}
+                else if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(rasRAFPanelTest.PanelSetId, panelSetOrder.OrderedOnId, true) == true)
+                {
+                    YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelTestOrder panelSetOrderRASRAF = (YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(rasRAFPanelTest.PanelSetId, panelSetOrder.OrderedOnId, true);
 
-			this.AddNextNteElement("Method: ", document);
+                    this.AddNextNteElement("BRAF V600E Mutation by PCR: " + panelSetOrderRASRAF.ReportNo, document);
+                    this.AddNextNteElement("Result: " + panelSetOrderRASRAF.BRAFResult, document);
+                    this.AddBlankNteElement(document);
+                }
+            }
+
+            if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(panelSetMLH1.PanelSetId, panelSetOrder.OrderedOnId, true) == true)
+            {
+                YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderMLH1MethylationAnalysis panelSetOrderMLH1MethylationAnalysis = (YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderMLH1MethylationAnalysis)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetMLH1.PanelSetId, panelSetOrder.OrderedOnId, true);
+                this.AddNextNteElement("MLH1 Methylation Analysis: " + panelSetOrderMLH1MethylationAnalysis.ReportNo, document);
+                this.AddNextNteElement("Result: " + panelSetOrderMLH1MethylationAnalysis.Result, document);
+                this.AddBlankNteElement(document);
+            }
+
+            this.AddNextNteElement("Method: ", document);
 			this.HandleLongString(panelSetOrder.Method, document);
 			this.AddBlankNteElement(document);
 
