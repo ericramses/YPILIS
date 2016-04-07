@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using YellowstonePathology.Business.Persistence;
 
-namespace YellowstonePathology.Business.Test.CCNDIBCLIGH
+namespace YellowstonePathology.Business.Test.CCNDIBCLIGHByFISH
 {
-	[PersistentClass("tblPanelSetOrderCCNDIBCLIGH", "tblPanelSetOrder", "YPIDATA")]
-	public class PanelSetOrderCCNDIBCLIGH : PanelSetOrder
+	[PersistentClass("tblCCNDIBCLIGHByFISHTestOrder", "tblPanelSetOrder", "YPIDATA")]
+	public class CCNDIBCLIGHByFISHTestOrder : PanelSetOrder
 	{
 		private string m_Result;
 		private string m_Interpretation;
@@ -15,11 +15,11 @@ namespace YellowstonePathology.Business.Test.CCNDIBCLIGH
 		private string m_NucleiScored;
 		private string m_References;
 
-		public PanelSetOrderCCNDIBCLIGH()
+		public CCNDIBCLIGHByFISHTestOrder()
 		{
 		}
 
-		public PanelSetOrderCCNDIBCLIGH(string masterAccessionNo, string reportNo, string objectId,
+		public CCNDIBCLIGHByFISHTestOrder(string masterAccessionNo, string reportNo, string objectId,
 			YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
 			YellowstonePathology.Business.Interface.IOrderTarget orderTarget,
 			bool distribute)

@@ -636,10 +636,10 @@
       <DependentUpon>CalreticulinMutationAnalysisResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Test\CalreticulinMutationAnalysisResultPath.cs" />
-    <Compile Include="Test\CCNDIBCLIGHResultPage.xaml.cs">
-      <DependentUpon>CCNDIBCLIGHResultPage.xaml</DependentUpon>
+    <Compile Include="Test\CCNDIBCLIGHByFISHResultPage.xaml.cs">
+      <DependentUpon>CCNDIBCLIGHByFISHResultPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Test\CCNDIBCLIGHResultPath.cs" />
+    <Compile Include="Test\CCNDIBCLIGHByFISHResultPath.cs" />
     <Compile Include="Test\CEBPAResultPage.xaml.cs">
       <DependentUpon>CEBPAResultPage.xaml</DependentUpon>
     </Compile>
@@ -2281,7 +2281,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Test\CCNDIBCLIGHResultPage.xaml">
+    <Page Include="Test\CCNDIBCLIGHByFISHResultPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

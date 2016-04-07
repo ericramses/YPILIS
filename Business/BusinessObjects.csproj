@@ -1534,7 +1534,7 @@
     <Compile Include="Test\BladderCancerFISHUrovysion\BladderCancerFISHUrovysionTest.cs" />
     <Compile Include="Test\BRAFV600EK\BRAFV600EKTest.cs" />
     <Compile Include="Test\CalreticulinMutationAnalysis\CalreticulinMutationAnalysisTest.cs" />
-    <Compile Include="Test\CCNDIBCLIGH\CCNDIBCLIGHTest.cs" />
+    <Compile Include="Test\CCNDIBCLIGHByFISH\CCNDIBCLIGHByFISHTest.cs" />
     <Compile Include="Test\CEBPA\CEBPATest.cs" />
     <Compile Include="Test\ChromosomeAnalysisForFetalAnomaly\ChromosomeAnalysisForFetalAnomalyTest.cs" />
     <Compile Include="Test\ChromosomeAnalysis\ChromosomeAnalysisTest.cs" />
@@ -1726,11 +1726,11 @@
     <Compile Include="Test\CalreticulinMutationAnalysis\CalreticulinMutationAnalysisResultNotDetected.cs" />
     <Compile Include="Test\CalreticulinMutationAnalysis\CalreticulinMutationAnalysisTestOrder.cs" />
     <Compile Include="Test\CalreticulinMutationAnalysis\CalreticulinMutationAnalysisWordDocument.cs" />
-    <Compile Include="Test\CCNDIBCLIGH\CCNDIBCLIGHAbnormalResult.cs" />
-    <Compile Include="Test\CCNDIBCLIGH\CCNDIBCLIGHWordDocument.cs" />
-    <Compile Include="Test\CCNDIBCLIGH\CCNDIBCLIGHResult.cs" />
-    <Compile Include="Test\CCNDIBCLIGH\CCNDIBCLIGHEPICObxView.cs" />
-    <Compile Include="Test\CCNDIBCLIGH\PanelSetOrderCCNDIBCLIGH.cs" />
+    <Compile Include="Test\CCNDIBCLIGHByFISH\CCNDIBCLIGHByFISHAbnormalResult.cs" />
+    <Compile Include="Test\CCNDIBCLIGHByFISH\CCNDIBCLIGHByFISHWordDocument.cs" />
+    <Compile Include="Test\CCNDIBCLIGHByFISH\CCNDIBCLIGHByFISHResult.cs" />
+    <Compile Include="Test\CCNDIBCLIGHByFISH\CCNDIBCLIGHByFISHEPICObxView.cs" />
+    <Compile Include="Test\CCNDIBCLIGHByFISH\CCNDIBCLIGHByFISHTestOrder.cs" />
     <Compile Include="Test\CEBPA\CEBPANotDetectedResult.cs" />
     <Compile Include="Test\CEBPA\CEBPAWordDocument.cs" />
     <Compile Include="Test\CEBPA\CEBPAResult.cs" />

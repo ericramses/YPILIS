@@ -83,7 +83,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
             panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetHerpesVirus8ByImmunohistochemistry());  
             panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetHighRiskMultipleMyelomaMGUSByFish());
 			panelSetCollection.Add(new YellowstonePathology.Business.Test.ZAP70LymphoidPanel.ZAP70LymphoidPanelTest());
-            panelSetCollection.Add(new YellowstonePathology.Business.Test.CCNDIBCLIGH.CCNDIBCLIGHTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.CCNDIBCLIGHByFISH.CCNDIBCLIGHByFISHTest());
 			panelSetCollection.Add(new YellowstonePathology.Business.Test.MultipleMyelomaIgHByFish.MultipleMyelomaIgHByFishTest());
             panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetIgHMAFByFish());
             panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetP53ByFish());
