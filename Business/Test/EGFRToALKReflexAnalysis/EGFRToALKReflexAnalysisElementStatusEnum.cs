@@ -14,6 +14,7 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
         OrderRequired,        
         Ordered,      
         Accepted,  
-        Final        
+        Final,
+        NotGoingToPerform
     }
 }

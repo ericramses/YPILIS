@@ -20,7 +20,11 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
             YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisTestOrder egfrToALKReflexAnalysisTestOrder)
             : base(accessionOrder, 215)
         {
-            if (egfrToALKReflexAnalysisTestOrder.QNSForPDL1 == true)
+            if(egfrToALKReflexAnalysisTestOrder.DoNotPerformPDL1 == true)
+            {
+                this.m_Status = EGFRToALKReflexAnalysisElementStatusEnum.NotGoingToPerform;
+            }
+            else if (egfrToALKReflexAnalysisTestOrder.QNSForPDL1 == true)
             {
                 this.m_Status = EGFRToALKReflexAnalysisElementStatusEnum.QNS;
             }

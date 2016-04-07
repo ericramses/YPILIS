@@ -16,6 +16,7 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
         private bool m_QNSForALK;
         private bool m_QNSForROS1;
         private bool m_QNSForPDL1;
+        private bool m_DoNotPerformPDL1;
 
 		public EGFRToALKReflexAnalysisTestOrder() 
         {
@@ -166,7 +167,18 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
             }
         }
 
-		public override string ToResultString(Business.Test.AccessionOrder accessionOrder)
+        [PersistentProperty]
+        public bool DoNotPerformPDL1
+        {
+            get { return this.m_DoNotPerformPDL1; }
+            set
+            {
+                this.m_DoNotPerformPDL1 = value;
+                NotifyPropertyChanged("DoNotPerformPDL1");
+            }
+        }
+
+        public override string ToResultString(Business.Test.AccessionOrder accessionOrder)
 		{
 			StringBuilder result = new StringBuilder();
 			result.AppendLine("EGFR Mutation Analysis");

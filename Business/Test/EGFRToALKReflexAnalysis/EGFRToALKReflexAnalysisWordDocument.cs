@@ -76,6 +76,10 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
             {
                 base.ReplaceText("pdl1_stainpercentage", "Quantity not sufficient to perform PDL-1");
             }
+            else if(egfrToALKReflexAnalysisTestOrder.DoNotPerformPDL1 == true)
+            {
+                base.ReplaceText("pdl1_stainpercentage", "Not Performed");
+            }
 
             base.SetXMLNodeParagraphData("report_interpretation", egfrToALKReflexAnalysisTestOrder.Interpretation);
 
