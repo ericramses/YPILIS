@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace YellowstonePathology.Business.Test.CCNDIBCLIGH
+namespace YellowstonePathology.Business.Test.CCNDIBCLIGHByFISH
 {
-	public class CCNDIBCLIGHWordDocument : YellowstonePathology.Business.Document.CaseReportV2
+	public class CCNDIBCLIGHByFISHWordDocument : YellowstonePathology.Business.Document.CaseReportV2
 	{
-        public CCNDIBCLIGHWordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+        public CCNDIBCLIGHByFISHWordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
             : base(accessionOrder, panelSetOrder, reportSaveMode)
         {
 
@@ -15,9 +15,9 @@ namespace YellowstonePathology.Business.Test.CCNDIBCLIGH
 
         public override void Render()
 		{			
-			PanelSetOrderCCNDIBCLIGH panelSetOrderCCNDIBCLIGH = (PanelSetOrderCCNDIBCLIGH)this.m_PanelSetOrder;
+			CCNDIBCLIGHByFISHTestOrder panelSetOrderCCNDIBCLIGH = (CCNDIBCLIGHByFISHTestOrder)this.m_PanelSetOrder;
 
-			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\CCNDIBCLIGH.xml";
+			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\CCNDIBCLIGHByFISH.xml";
 			base.OpenTemplate();
 
 			this.SetDemographicsV2();

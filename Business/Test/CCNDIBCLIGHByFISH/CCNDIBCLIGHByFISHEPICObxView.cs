@@ -4,19 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 
-namespace YellowstonePathology.Business.Test.CCNDIBCLIGH
+namespace YellowstonePathology.Business.Test.CCNDIBCLIGHByFISH
 {
-	public class CCNDIBCLIGHEPICObxView : YellowstonePathology.Business.HL7View.EPIC.EPICObxView
+	public class CCNDIBCLIGHByFISHEPICObxView : YellowstonePathology.Business.HL7View.EPIC.EPICObxView
 	{
-		public CCNDIBCLIGHEPICObxView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount)
+		public CCNDIBCLIGHByFISHEPICObxView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount)
 			: base(accessionOrder, reportNo, obxCount)
 		{
 		}
 
 		public override void ToXml(XElement document)
 		{
-			PanelSetOrderCCNDIBCLIGH panelSetOrder = (PanelSetOrderCCNDIBCLIGH)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
-			this.AddHeader(document, panelSetOrder, "CCND1/IgH t(11;14) by Fish");
+			CCNDIBCLIGHByFISHTestOrder panelSetOrder = (CCNDIBCLIGHByFISHTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
+			this.AddHeader(document, panelSetOrder, "CCND1/IgH t(11;14) by FISH Analysis");
 
 			this.AddNextObxElement("", document, "F");
 			string result = "Result: " + panelSetOrder.Result;

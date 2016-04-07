@@ -17,9 +17,9 @@ using System.ComponentModel;
 namespace YellowstonePathology.UI.Test
 {
     /// <summary>
-    /// Interaction logic for BCL2t1418ByPCRResultPage.xaml
+    /// Interaction logic for BCL2t1418ByFISHResultPage.xaml
     /// </summary>
-    public partial class BCL2t1418ByPCRResultPage : UserControl, INotifyPropertyChanged
+    public partial class BCL2t1418ByFISHResultPage : UserControl, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -30,18 +30,18 @@ namespace YellowstonePathology.UI.Test
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         private string m_PageHeaderText;
 
-        private YellowstonePathology.Business.Test.BCL2t1418ByPCR.BCL2t1418ByPCRTestOrder m_PanelSetOrder;
+        private YellowstonePathology.Business.Test.BCL2t1418ByFISH.BCL2t1418ByFISHTestOrder m_PanelSetOrder;
         private string m_OrderedOnDescription;
 
-        public BCL2t1418ByPCRResultPage(YellowstonePathology.Business.Test.BCL2t1418ByPCR.BCL2t1418ByPCRTestOrder bcl2t1418ByPCRTestOrder,
+        public BCL2t1418ByFISHResultPage(YellowstonePathology.Business.Test.BCL2t1418ByFISH.BCL2t1418ByFISHTestOrder bcl2t1418ByFISHTestOrder,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
             YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
-            this.m_PanelSetOrder = bcl2t1418ByPCRTestOrder;
+            this.m_PanelSetOrder = bcl2t1418ByFISHTestOrder;
             this.m_AccessionOrder = accessionOrder;
             this.m_SystemIdentity = systemIdentity;
 
-            this.m_PageHeaderText = "BCL1,t(1114) By PCR Result For: " + this.m_AccessionOrder.PatientDisplayName;
+            this.m_PageHeaderText = "BCL1,t(1114) By FISH Result For: " + this.m_AccessionOrder.PatientDisplayName;
 
             YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrder.OrderedOn, this.m_PanelSetOrder.OrderedOnId);
             this.m_OrderedOnDescription = specimenOrder.Description;
@@ -56,7 +56,7 @@ namespace YellowstonePathology.UI.Test
             get { return this.m_OrderedOnDescription; }
         }
 
-        public YellowstonePathology.Business.Test.BCL2t1418ByPCR.BCL2t1418ByPCRTestOrder PanelSetOrder
+        public YellowstonePathology.Business.Test.BCL2t1418ByFISH.BCL2t1418ByFISHTestOrder PanelSetOrder
         {
             get { return this.m_PanelSetOrder; }
         }
@@ -76,7 +76,7 @@ namespace YellowstonePathology.UI.Test
 
         private void HyperLinkNotDetected_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Test.BCL2t1418ByPCR.BCL2t1418ByPCRResult result = new YellowstonePathology.Business.Test.BCL2t1418ByPCR.BCL2t1418ByPCRResult();
+            YellowstonePathology.Business.Test.BCL2t1418ByFISH.BCL2t1418ByFISHResult result = new YellowstonePathology.Business.Test.BCL2t1418ByFISH.BCL2t1418ByFISHResult();
             result.SetResults(this.m_PanelSetOrder);
             this.NotifyPropertyChanged("PanelSetOrder");
         }
@@ -88,7 +88,7 @@ namespace YellowstonePathology.UI.Test
 
         private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Test.BCL2t1418ByPCR.BCL2t1418ByPCRWordDocument report = new YellowstonePathology.Business.Test.BCL2t1418ByPCR.BCL2t1418ByPCRWordDocument(this.m_AccessionOrder, this.m_PanelSetOrder, Business.Document.ReportSaveModeEnum.Draft);
+            YellowstonePathology.Business.Test.BCL2t1418ByFISH.BCL2t1418ByFISHWordDocument report = new YellowstonePathology.Business.Test.BCL2t1418ByFISH.BCL2t1418ByFISHWordDocument(this.m_AccessionOrder, this.m_PanelSetOrder, Business.Document.ReportSaveModeEnum.Draft);
             report.Render();
 
             YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
@@ -152,3 +152,4 @@ namespace YellowstonePathology.UI.Test
         }
     }
 }
+

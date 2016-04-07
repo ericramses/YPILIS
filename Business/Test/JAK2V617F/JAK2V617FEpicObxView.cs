@@ -44,6 +44,9 @@ namespace YellowstonePathology.Business.Test.JAK2V617F
             this.HandleLongString(panelSetOrder.Reference, document, "F");
             this.AddNextObxElement("", document, "F");
 
+            this.AddNextObxElement(panelSetOrder.Disclosure, document, "F");
+            this.AddNextObxElement(string.Empty, document, "F");
+
             string locationPerformed = panelSetOrder.GetLocationPerformedComment();
             this.AddNextObxElement(locationPerformed, document, "F");
             this.AddNextObxElement(string.Empty, document, "F");
