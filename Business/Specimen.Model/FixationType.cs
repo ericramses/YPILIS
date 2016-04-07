@@ -19,6 +19,7 @@ namespace YellowstonePathology.Business.Specimen.Model
         public const string SodiumHeparin = "Sodium Heparin";
         public const string ACD = "ACD";
         public const string FreshInRPMI = "Fresh in RPMI";
+        public const string MichelsTransport = "Michels Transport";
 
 
         public static ObservableCollection<string> GetFixationTypeCollection()
@@ -35,6 +36,7 @@ namespace YellowstonePathology.Business.Specimen.Model
             result.Add(SodiumHeparin);
             result.Add(ACD);
             result.Add(FreshInRPMI);
+            result.Add(MichelsTransport);
             return result;
         }
     }

@@ -506,7 +506,7 @@ namespace YellowstonePathology.UI.Gross
             this.m_Text = "[identifier]." + Environment.NewLine +
                 "Gross Description:  Multiple tan-pink fragments of tissue and mucus." + Environment.NewLine +
                 "Measurement:  [measurement]" + Environment.NewLine +
-                "Submitted:  Filtered through a fine mesh bag and entirely submitted in cassette [cassettelabel].  ";            
+                "Submitted:  Filtered through a fine mesh bag and [cassettesummary].  ";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.EMB emb = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.EMB();
             this.m_SpecimenCollection.Add(emb);
@@ -515,7 +515,7 @@ namespace YellowstonePathology.UI.Gross
         public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
-            result = this.ReplaceCassetteLabel(result, specimenOrder);
+            result = this.ReplaceCassetteSummary(result, specimenOrder);
             return result;
         }
     }

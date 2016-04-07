@@ -107,8 +107,8 @@ namespace YellowstonePathology.UI.Gross
         }
 
         protected string ReplaceCassetteSummary(string text, YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder)
-        {
-            return text.Replace("[cassettesummary]", "\"" + specimenOrder.SpecimenNumber.ToString() + "A\"");
+        {            
+            return text.Replace("[cassettesummary]", specimenOrder.GetGrossSubmittedInString());
         }
 
         protected string ReplaceRepresentativeSectionsAgeRestricted(string text, YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
