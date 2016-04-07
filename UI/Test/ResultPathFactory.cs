@@ -124,7 +124,7 @@ namespace YellowstonePathology.UI.Test
 					result = new MultipleMyelomaMGUSByFishResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
 				case 148:
-					result = new CCNDIBCLIGHResultPath(reportNo, accessionOrder, pageNavigator, window);
+					result = new CCNDIBCLIGHByFISHResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
 				case 149:
 					result = new HighGradeLargeBCellLymphomaResultPath(reportNo, accessionOrder, pageNavigator, window);
@@ -254,6 +254,9 @@ namespace YellowstonePathology.UI.Test
                     break;
                 case 225:
                     result = new BCL2t1418ByPCRResultPath(reportNo, accessionOrder, pageNavigator, window);
+                    break;
+                case 226:
+                    result = new BCL2t1418ByFISHResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
             }
             return result;

@@ -170,7 +170,7 @@ namespace YellowstonePathology.Business.Document
 						document = new YellowstonePathology.Business.Test.MultipleMyelomaMGUSByFish.MultipleMyelomaMGUSByFishWordDocument(accessionOrder, panelSetOrder, reportSaveMode);
 						break;
 					case 148: //CCNDI
-						document = new YellowstonePathology.Business.Test.CCNDIBCLIGH.CCNDIBCLIGHWordDocument(accessionOrder, panelSetOrder, reportSaveMode);
+						document = new YellowstonePathology.Business.Test.CCNDIBCLIGHByFISH.CCNDIBCLIGHByFISHWordDocument(accessionOrder, panelSetOrder, reportSaveMode);
 						break;
 					case 149: //High Grade Large B Cell Lymphoma
 						document = new YellowstonePathology.Business.Test.HighGradeLargeBCellLymphoma.HighGradeLargeBCellLymphomaWordDocument(accessionOrder, panelSetOrder, reportSaveMode);
@@ -306,6 +306,9 @@ namespace YellowstonePathology.Business.Document
                         break;
                     case 225:
                         document = new YellowstonePathology.Business.Test.BCL2t1418ByPCR.BCL2t1418ByPCRWordDocument(accessionOrder, panelSetOrder, reportSaveMode);
+                        break;
+                    case 226:
+                        document = new YellowstonePathology.Business.Test.BCL2t1418ByFISH.BCL2t1418ByFISHWordDocument(accessionOrder, panelSetOrder, reportSaveMode);
                         break;
                     default:
 						break;

@@ -16,7 +16,7 @@ namespace YellowstonePathology.Business.Test.BCL2t1418ByPCR
 		public override void ToXml(XElement document)
 		{
             BCL2t1418ByPCRTestOrder panelSetOrder = (BCL2t1418ByPCRTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
-			this.AddHeader(document, panelSetOrder, "BCL2 t(14;18)");
+			this.AddHeader(document, panelSetOrder, "BCL2 t(14;18) By PCR");
 
 			this.AddNextObxElement("", document, "F");
 			string result = "Result: " + panelSetOrder.Result;

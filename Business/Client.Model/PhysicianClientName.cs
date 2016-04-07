@@ -99,7 +99,7 @@ namespace YellowstonePathology.Business.Client.Model
 
         public string DisplayName
         {
-            get { return this.PhysicianName + "/" + this.ClientName; }
+            get { return this.PhysicianName + " - " + this.ClientName; }
         }
 	}
 }
