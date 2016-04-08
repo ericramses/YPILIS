@@ -310,6 +310,9 @@ namespace YellowstonePathology.Business.Document
                     case 226:
                         document = new YellowstonePathology.Business.Test.BCL2t1418ByFISH.BCL2t1418ByFISHWordDocument(accessionOrder, panelSetOrder, reportSaveMode);
                         break;
+                    case 227:
+                        document = new YellowstonePathology.Business.Test.CCNDIBCLIGHByPCR.CCNDIBCLIGHByPCRWordDocument(accessionOrder, panelSetOrder, reportSaveMode);
+                        break;
                     default:
 						break;
 				}

@@ -640,6 +640,10 @@
       <DependentUpon>CCNDIBCLIGHByFISHResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Test\CCNDIBCLIGHByFISHResultPath.cs" />
+    <Compile Include="Test\CCNDIBCLIGHByPCRResultPage.xaml.cs">
+      <DependentUpon>CCNDIBCLIGHByPCRResultPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Test\CCNDIBCLIGHByPCRResultPath.cs" />
     <Compile Include="Test\CEBPAResultPage.xaml.cs">
       <DependentUpon>CEBPAResultPage.xaml</DependentUpon>
     </Compile>
@@ -2282,6 +2286,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Test\CCNDIBCLIGHByFISHResultPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Test\CCNDIBCLIGHByPCRResultPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
