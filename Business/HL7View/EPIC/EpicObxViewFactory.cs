@@ -253,6 +253,9 @@ namespace YellowstonePathology.Business.HL7View.EPIC
                 case 226:
                     view = new YellowstonePathology.Business.Test.BCL2t1418ByFISH.BCL2t1418ByFISHEPICObxView(accessionOrder, reportNo, obxCount);
                     break;
+                case 227:
+                    view = new YellowstonePathology.Business.Test.CCNDIBCLIGHByPCR.CCNDIBCLIGHByPCREPICOBXView(accessionOrder, reportNo, obxCount);
+                    break;
             }
             return view;
         }
