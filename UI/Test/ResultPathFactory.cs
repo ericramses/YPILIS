@@ -217,7 +217,7 @@ namespace YellowstonePathology.UI.Test
 					result = new BladderCancerFISHUrovysionResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
 				case 186:
-					result = new API2MALT1ResultPath(reportNo, accessionOrder, pageNavigator, window);
+					result = new API2MALT1ByFISHResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
 				case 192:
 					result = new ALLAdultByFISHResultPath(reportNo, accessionOrder, pageNavigator, window);
@@ -260,6 +260,9 @@ namespace YellowstonePathology.UI.Test
                     break;
                 case 227:
                     result = new CCNDIBCLIGHByPCRResultPath(reportNo, accessionOrder, pageNavigator, window);
+                    break;
+                case 228:
+                    result = new API2MALT1ByPCRResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
             }
             return result;
