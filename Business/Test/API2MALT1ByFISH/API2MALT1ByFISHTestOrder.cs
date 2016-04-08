@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using YellowstonePathology.Business.Persistence;
 
-namespace YellowstonePathology.Business.Test.API2MALT1
+namespace YellowstonePathology.Business.Test.API2MALT1ByFISH
 {
-	[PersistentClass("tblAPI2MALT1TestOrder", "tblPanelSetOrder", "YPIDATA")]
-	public class API2MALT1TestOrder : YellowstonePathology.Business.Test.PanelSetOrder
+	[PersistentClass("tblAPI2MALT1ByFISHTestOrder", "tblPanelSetOrder", "YPIDATA")]
+	public class API2MALT1ByFISHTestOrder : YellowstonePathology.Business.Test.PanelSetOrder
 	{
 		private string m_Result;
 		private string m_ResultDescription;
@@ -16,11 +16,11 @@ namespace YellowstonePathology.Business.Test.API2MALT1
 		private string m_NucleiScored;
 		private string m_References;
 
-		public API2MALT1TestOrder()
+		public API2MALT1ByFISHTestOrder()
 		{
 		}
 
-		public API2MALT1TestOrder(string masterAccessionNo, string reportNo, string objectId,
+		public API2MALT1ByFISHTestOrder(string masterAccessionNo, string reportNo, string objectId,
 			YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
 			YellowstonePathology.Business.Interface.IOrderTarget orderTarget,
 			bool distribute)

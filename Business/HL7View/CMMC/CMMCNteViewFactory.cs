@@ -100,10 +100,13 @@ namespace YellowstonePathology.Business.HL7View.CMMC
 					view = new YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileCMMCNteView(accessionOrder, reportNo);
 					break;
                 case 186:
-                    view = new YellowstonePathology.Business.Test.API2MALT1.API2MALT1CMMCNteView(accessionOrder, reportNo);
+                    view = new YellowstonePathology.Business.Test.API2MALT1ByFISH.API2MALT1ByFISHCMMCNteView(accessionOrder, reportNo);
                     break;
                 case 214:
                     view = new YellowstonePathology.Business.Test.TechInitiatedPeripheralSmear.TechInitiatedPeripheralSmearCMMCNteView(accessionOrder, reportNo);
+                    break;
+                case 228:
+                    view = new YellowstonePathology.Business.Test.API2MALT1ByPCR.API2MALT1ByPCRCMMCNTEView(accessionOrder, reportNo);
                     break;
             }
             return view;
