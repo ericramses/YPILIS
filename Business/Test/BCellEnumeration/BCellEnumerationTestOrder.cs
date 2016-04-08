@@ -47,7 +47,7 @@ namespace YellowstonePathology.Business.Test.BCellEnumeration
 				"determined that such clearance or approval is not necessary.  ASR's may be used for clinical purposes and should not be regarded as " +
 				"investigational or for research.  This laboratory is certified under the Clinical Laboratory Improvement Amendments of 1988 (CLIA-88) " +
 				"as qualified to perform high complexity clinical laboratory testing.";
-			this.m_Method = "Not Set Yet";
+			this.m_Method = "Quantitative Flow Cytometry.";
             this.m_References = "1. Fried AJ, Bonilla FA.  Pathogenesis, Diagnosis, and Management of Primary Antibody Deficiencies and Infections.  Clinical Microbiology Review.  2009 Jul; 22:  396 - 414. " + Environment.NewLine +
                 "2. Kotylo PK, Fineberg NS, et al.Reference ranges for lymphocyte subsets in pediactric patients.American Journal of Clinical Pathology. 1993; 100: 111 - 115. " + Environment.NewLine +
                 "3. Prescovitz  MD.Rituximab, and Anti-CD20 Monoclonal Antibody:  History and Mechanism of Action.American Journal of Transplantation. 2006; 6: 859 - 866. " + Environment.NewLine +
