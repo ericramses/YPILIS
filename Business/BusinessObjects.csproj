@@ -525,6 +525,12 @@
     <Compile Include="Test\BCL2t1418ByPCR\BCL2t1418ByPCRTest.cs" />
     <Compile Include="Test\BCL2t1418ByPCR\BCL2t1418ByPCRTestOrder.cs" />
     <Compile Include="Test\BCL2t1418ByPCR\BCL2t1418ByPCRWordDocument.cs" />
+    <Compile Include="Test\CCNDIBCLIGHByPCR\CCNDIBCLIGHByPCRAbnormalResult.cs" />
+    <Compile Include="Test\CCNDIBCLIGHByPCR\CCNDIBCLIGHByPCREPICOBXView.cs" />
+    <Compile Include="Test\CCNDIBCLIGHByPCR\CCNDIBCLIGHByPCRResult.cs" />
+    <Compile Include="Test\CCNDIBCLIGHByPCR\CCNDIBCLIGHByPCRTest.cs" />
+    <Compile Include="Test\CCNDIBCLIGHByPCR\CCNDIBCLIGHByPCRTestOrder.cs" />
+    <Compile Include="Test\CCNDIBCLIGHByPCR\CCNDIBCLIGHByPCRWordDocument.cs" />
     <Compile Include="Test\CD1a\CD1aTest.cs" />
     <Compile Include="Test\ChromosomeAnalysis\ChromosomeAnalysisIncompleteResult.cs" />
     <Compile Include="Test\EGFRMutationAnalysis\EGFRMutationAnalysisPanel.cs" />
