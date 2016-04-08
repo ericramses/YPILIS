@@ -4,18 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 
-namespace YellowstonePathology.Business.Test.API2MALT1
+namespace YellowstonePathology.Business.Test.API2MALT1ByFISH
 {
-	public class API2MALT1EPICObxView : YellowstonePathology.Business.HL7View.EPIC.EPICObxView
+	public class API2MALT1ByFISHEPICObxView : YellowstonePathology.Business.HL7View.EPIC.EPICObxView
 	{
-		public API2MALT1EPICObxView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount)
+		public API2MALT1ByFISHEPICObxView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount)
 			: base(accessionOrder, reportNo, obxCount)
 		{
 		}
 
 		public override void ToXml(XElement document)
 		{
-			API2MALT1TestOrder testOrder = (API2MALT1TestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
+			API2MALT1ByFISHTestOrder testOrder = (API2MALT1ByFISHTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
 			this.AddHeader(document, testOrder, "API2/MALT1 t(11:18)");
 
 			this.AddNextObxElement("", document, "F");

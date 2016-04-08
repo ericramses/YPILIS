@@ -221,7 +221,7 @@ namespace YellowstonePathology.Business.HL7View.EPIC
 					view = new YellowstonePathology.Business.Test.BladderCancerFISHUrovysion.BladderCancerFISHUrovysionEPICObxView(accessionOrder, reportNo, obxCount);
 					break;
 				case 186:
-					view = new YellowstonePathology.Business.Test.API2MALT1.API2MALT1EPICObxView(accessionOrder, reportNo, obxCount);
+					view = new YellowstonePathology.Business.Test.API2MALT1ByFISH.API2MALT1ByFISHEPICObxView(accessionOrder, reportNo, obxCount);
 					break;
 				case 192:
 					view = new YellowstonePathology.Business.Test.ALLAdultByFISH.ALLAdultByFISHEPICObxView(accessionOrder, reportNo, obxCount);
@@ -255,6 +255,9 @@ namespace YellowstonePathology.Business.HL7View.EPIC
                     break;
                 case 227:
                     view = new YellowstonePathology.Business.Test.CCNDIBCLIGHByPCR.CCNDIBCLIGHByPCREPICOBXView(accessionOrder, reportNo, obxCount);
+                    break;
+                case 228:
+                    view = new YellowstonePathology.Business.Test.API2MALT1ByPCR.API2MALT1ByPCREPICOBXView(accessionOrder, reportNo, obxCount);
                     break;
             }
             return view;

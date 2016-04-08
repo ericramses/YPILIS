@@ -4,15 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 
-namespace YellowstonePathology.Business.Test.API2MALT1
+namespace YellowstonePathology.Business.Test.API2MALT1ByFISH
 {
-    public class API2MALT1CMMCNteView : YellowstonePathology.Business.HL7View.CMMC.CMMCNteView
+    public class API2MALT1ByFISHCMMCNteView : YellowstonePathology.Business.HL7View.CMMC.CMMCNteView
     {
         protected YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         protected string m_DateFormat = "yyyyMMddHHmm";
         protected string m_ReportNo;
 
-        public API2MALT1CMMCNteView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo)
+        public API2MALT1ByFISHCMMCNteView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo)
         {
             this.m_AccessionOrder = accessionOrder;
             this.m_ReportNo = reportNo;
@@ -20,7 +20,7 @@ namespace YellowstonePathology.Business.Test.API2MALT1
 
         public override void ToXml(XElement document)
         {
-            API2MALT1TestOrder panelSetOrder = (API2MALT1TestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
+            API2MALT1ByFISHTestOrder panelSetOrder = (API2MALT1ByFISHTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
 
             this.AddCompanyHeader(document);
             this.AddBlankNteElement(document);

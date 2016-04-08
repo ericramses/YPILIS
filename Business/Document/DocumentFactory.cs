@@ -263,7 +263,7 @@ namespace YellowstonePathology.Business.Document
 						document = new YellowstonePathology.Business.Test.BladderCancerFISHUrovysion.BladderCancerFISHUrovysionWordDocument(accessionOrder, panelSetOrder, reportSaveMode);
 						break;
 					case 186: //
-						document = new YellowstonePathology.Business.Test.API2MALT1.API2MALT1WordDocument(accessionOrder, panelSetOrder, reportSaveMode);
+						document = new YellowstonePathology.Business.Test.API2MALT1ByFISH.API2MALT1ByFISHWordDocument(accessionOrder, panelSetOrder, reportSaveMode);
 						break;
 					case 192: //
 						document = new YellowstonePathology.Business.Test.ALLAdultByFISH.ALLAdultByFISHWordDocument(accessionOrder, panelSetOrder, reportSaveMode);
@@ -312,6 +312,9 @@ namespace YellowstonePathology.Business.Document
                         break;
                     case 227:
                         document = new YellowstonePathology.Business.Test.CCNDIBCLIGHByPCR.CCNDIBCLIGHByPCRWordDocument(accessionOrder, panelSetOrder, reportSaveMode);
+                        break;
+                    case 228:
+                        document = new YellowstonePathology.Business.Test.API2MALT1ByPCR.API2MALT1ByPCRWordDocument(accessionOrder, panelSetOrder, reportSaveMode);
                         break;
                     default:
 						break;
