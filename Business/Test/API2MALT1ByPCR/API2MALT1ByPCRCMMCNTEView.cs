@@ -26,7 +26,7 @@ namespace YellowstonePathology.Business.Test.API2MALT1ByPCR
             this.AddCompanyHeader(document);
             this.AddBlankNteElement(document);
 
-            this.AddNextNteElement("API2/MALT1 t(11:18)", document);
+            this.AddNextNteElement("API2/MALT1 t(11:18) By PCR", document);
             this.AddNextNteElement("Master Accession #: " + panelSetOrder.MasterAccessionNo, document);
             this.AddNextNteElement("Report #: " + panelSetOrder.ReportNo, document);
             this.AddBlankNteElement(document);

@@ -25,7 +25,7 @@ namespace YellowstonePathology.Business.Test.API2MALT1ByFISH
             this.AddCompanyHeader(document);
             this.AddBlankNteElement(document);
 
-            this.AddNextNteElement("API2/MALT1 t(11:18)", document);
+            this.AddNextNteElement("API2/MALT1 t(11:18) By FISH", document);
             this.AddNextNteElement("Master Accession #: " + panelSetOrder.MasterAccessionNo, document);
             this.AddNextNteElement("Report #: " + panelSetOrder.ReportNo, document);
             this.AddBlankNteElement(document);

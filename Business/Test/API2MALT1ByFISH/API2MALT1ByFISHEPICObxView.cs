@@ -16,7 +16,7 @@ namespace YellowstonePathology.Business.Test.API2MALT1ByFISH
 		public override void ToXml(XElement document)
 		{
 			API2MALT1ByFISHTestOrder testOrder = (API2MALT1ByFISHTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
-			this.AddHeader(document, testOrder, "API2/MALT1 t(11:18)");
+			this.AddHeader(document, testOrder, "API2/MALT1 t(11:18) By FISH");
 
 			this.AddNextObxElement("", document, "F");
 			string result = testOrder.Result;
