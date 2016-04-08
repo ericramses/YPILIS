@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace YellowstonePathology.Business.Test.API2MALT1
+namespace YellowstonePathology.Business.Test.API2MALT1ByFISH
 {
-	public class API2MALT1WordDocument : YellowstonePathology.Business.Document.CaseReportV2
+	public class API2MALT1ByFISHWordDocument : YellowstonePathology.Business.Document.CaseReportV2
 	{
-        public API2MALT1WordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+        public API2MALT1ByFISHWordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
             : base(accessionOrder, panelSetOrder, reportSaveMode)
         {
 
@@ -15,9 +15,9 @@ namespace YellowstonePathology.Business.Test.API2MALT1
 
         public override void Render()
 		{
-			API2MALT1TestOrder testOrder = (API2MALT1TestOrder)this.m_PanelSetOrder;
+			API2MALT1ByFISHTestOrder testOrder = (API2MALT1ByFISHTestOrder)this.m_PanelSetOrder;
 
-			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\API2MALT1.xml";
+			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\API2MALT1ByFISH.xml";
 			base.OpenTemplate();
 
 			this.SetDemographicsV2();

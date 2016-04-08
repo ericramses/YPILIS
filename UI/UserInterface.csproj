@@ -587,10 +587,14 @@
       <DependentUpon>AMLStandardByFishResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Test\AMLStandardByFishResultPath.cs" />
-    <Compile Include="Test\API2MALT1ResultPage.xaml.cs">
-      <DependentUpon>API2MALT1ResultPage.xaml</DependentUpon>
+    <Compile Include="Test\API2MALT1ByFISHResultPage.xaml.cs">
+      <DependentUpon>API2MALT1ByFISHResultPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Test\API2MALT1ResultPath.cs" />
+    <Compile Include="Test\API2MALT1ByFISHResultPath.cs" />
+    <Compile Include="Test\API2MALT1ByPCRResultPage.xaml.cs">
+      <DependentUpon>API2MALT1ByPCRResultPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Test\API2MALT1ByPCRResultPath.cs" />
     <Compile Include="Test\BCellClonalityByPCRResultPage.xaml.cs">
       <DependentUpon>BCellClonalityByPCRResultPage.xaml</DependentUpon>
     </Compile>
@@ -2240,7 +2244,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Test\API2MALT1ResultPage.xaml">
+    <Page Include="Test\API2MALT1ByFISHResultPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Test\API2MALT1ByPCRResultPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

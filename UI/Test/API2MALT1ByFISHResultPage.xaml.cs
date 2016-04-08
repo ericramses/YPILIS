@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Test
 	/// <summary>
 	/// Interaction logic for API2MALT1ResultPage.xaml
 	/// </summary>
-	public partial class API2MALT1ResultPage : UserControl, INotifyPropertyChanged 
+	public partial class API2MALT1ByFISHResultPage : UserControl, INotifyPropertyChanged 
     {
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -27,13 +27,13 @@ namespace YellowstonePathology.UI.Test
 
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-		private YellowstonePathology.Business.Test.API2MALT1.API2MALT1TestOrder m_PanelSetOrder;
-		private YellowstonePathology.Business.Test.API2MALT1.API2MALT1ResultCollection m_ResultCollection;
+		private YellowstonePathology.Business.Test.API2MALT1ByFISH.API2MALT1ByFISHTestOrder m_PanelSetOrder;
+		private YellowstonePathology.Business.Test.API2MALT1ByFISH.API2MALT1ByFISHResultCollection m_ResultCollection;
 		private string m_PageHeaderText;
 
 		private string m_OrderedOnDescription;
 
-		public API2MALT1ResultPage(YellowstonePathology.Business.Test.API2MALT1.API2MALT1TestOrder testOrder,
+		public API2MALT1ByFISHResultPage(YellowstonePathology.Business.Test.API2MALT1ByFISH.API2MALT1ByFISHTestOrder testOrder,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 		{
@@ -41,8 +41,8 @@ namespace YellowstonePathology.UI.Test
 			this.m_AccessionOrder = accessionOrder;
 			this.m_SystemIdentity = systemIdentity;
 
-			this.m_PageHeaderText = "API2/MALT1 t(11:18) For: " + this.m_AccessionOrder.PatientDisplayName;
-            this.m_ResultCollection = new YellowstonePathology.Business.Test.API2MALT1.API2MALT1ResultCollection();
+			this.m_PageHeaderText = "API2/MALT1 t(11:18) By FISH Results For: " + this.m_AccessionOrder.PatientDisplayName;
+            this.m_ResultCollection = new YellowstonePathology.Business.Test.API2MALT1ByFISH.API2MALT1ByFISHResultCollection();
 
 			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrder.OrderedOn, this.m_PanelSetOrder.OrderedOnId);
 			this.m_OrderedOnDescription = specimenOrder.Description;
@@ -57,12 +57,12 @@ namespace YellowstonePathology.UI.Test
 			get { return this.m_OrderedOnDescription; }
 		}
 
-		public YellowstonePathology.Business.Test.API2MALT1.API2MALT1TestOrder PanelSetOrder
+		public YellowstonePathology.Business.Test.API2MALT1ByFISH.API2MALT1ByFISHTestOrder PanelSetOrder
 		{
 			get { return this.m_PanelSetOrder; }
 		}
 
-		public YellowstonePathology.Business.Test.API2MALT1.API2MALT1ResultCollection ResultCollection
+		public YellowstonePathology.Business.Test.API2MALT1ByFISH.API2MALT1ByFISHResultCollection ResultCollection
 		{
 			get { return this.m_ResultCollection; }
 		}
@@ -82,7 +82,7 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
 		{
-			YellowstonePathology.Business.Test.API2MALT1.API2MALT1WordDocument report = new YellowstonePathology.Business.Test.API2MALT1.API2MALT1WordDocument(this.m_AccessionOrder, this.m_PanelSetOrder, Business.Document.ReportSaveModeEnum.Draft);
+			YellowstonePathology.Business.Test.API2MALT1ByFISH.API2MALT1ByFISHWordDocument report = new YellowstonePathology.Business.Test.API2MALT1ByFISH.API2MALT1ByFISHWordDocument(this.m_AccessionOrder, this.m_PanelSetOrder, Business.Document.ReportSaveModeEnum.Draft);
 			report.Render();
 
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
