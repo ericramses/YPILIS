@@ -191,6 +191,7 @@ namespace YellowstonePathology.UI.Login.Receiving
                 {
                     if (this.Next != null)
                     {
+                        YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
                         YellowstonePathology.UI.CustomEventArgs.ReportNoReturnEventArgs returnEventArgs = new CustomEventArgs.ReportNoReturnEventArgs(((YellowstonePathology.Business.Test.PanelSetOrder)this.ListViewPanelSetOrder.SelectedItem).ReportNo);
                         this.Next(this, returnEventArgs);
                     }

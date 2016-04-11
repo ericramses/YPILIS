@@ -72,6 +72,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
             if (this.IsOkToGoNext() == true)
             {
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
                 this.Next(this, new EventArgs());
             }
 		}

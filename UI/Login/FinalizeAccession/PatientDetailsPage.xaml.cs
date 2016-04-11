@@ -93,6 +93,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 		{
             if (this.DataIsValid() == true)
             {
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
                 UI.Navigation.PageNavigationReturnEventArgs args = new UI.Navigation.PageNavigationReturnEventArgs(UI.Navigation.PageNavigationDirectionEnum.Next, null);
                 this.Return(this, args);
             }

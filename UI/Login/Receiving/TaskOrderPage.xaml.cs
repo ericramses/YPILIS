@@ -104,12 +104,16 @@ namespace YellowstonePathology.UI.Login.Receiving
 		public YellowstonePathology.Business.Test.AccessionOrder AccessionOrder
 		{
 			get { return this.m_AccessionOrder; }
-		}				
-
-		private void ButtonNext_Click(object sender, RoutedEventArgs e)
-		{
-			if (this.Next != null) this.Next(this, new EventArgs());
 		}
+
+        private void ButtonNext_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.Next != null)
+            {
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
+                this.Next(this, new EventArgs());
+            }
+        }
 
 		private void ButtonBack_Click(object sender, RoutedEventArgs e)
 		{

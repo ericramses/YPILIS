@@ -20,18 +20,18 @@ namespace YellowstonePathology.UI.Surgical
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
         
-        private YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder m_SurgicalTestOrder;		
+        private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;		
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		private string m_PageHeaderText;
         private ObservableCollection<YellowstonePathology.Business.Test.PeerReview.PeerReviewTestOrder> m_PeerReviewTestOrderCollection;
         private YellowstonePathology.Business.User.SystemUserCollection m_PathologistUsers;
         private YellowstonePathology.Business.Test.PeerReview.PeerReviewTypeCollection m_PeerReviewTypeCollection;
 
-        public PeerReviewResultPage(YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
+        public PeerReviewResultPage(YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{
             this.m_PeerReviewTypeCollection = new YellowstonePathology.Business.Test.PeerReview.PeerReviewTypeCollection();                        
 
-            this.m_SurgicalTestOrder = surgicalTestOrder;
+            this.m_PanelSetOrder = panelSetOrder;
 			this.m_AccessionOrder = accessionOrder;            			
 
 			this.m_PageHeaderText = "Peer Review for: " + this.m_AccessionOrder.PatientDisplayName;
@@ -61,9 +61,9 @@ namespace YellowstonePathology.UI.Surgical
             get { return this.m_PeerReviewTypeCollection; }
         }
 
-        public YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder SurgicalTestOrder
+        public YellowstonePathology.Business.Test.PanelSetOrder PanelSetOrder
         {
-            get { return this.m_SurgicalTestOrder; }
+            get { return this.m_PanelSetOrder; }
         }
 
         public YellowstonePathology.Business.User.SystemUserCollection PathologistUsers
@@ -87,7 +87,7 @@ namespace YellowstonePathology.UI.Surgical
 		public string PageHeaderText
 		{
 			get { return this.m_PageHeaderText; }
-		}						
+		}					
 
 		private void ButtonClose_Click(object sender, RoutedEventArgs e)
 		{
@@ -97,7 +97,7 @@ namespace YellowstonePathology.UI.Surgical
 
         private void AddPeerReview(int pathologistId)
         {
-            if (string.IsNullOrEmpty(this.m_SurgicalTestOrder.PeerReviewRequestType) == false)
+            if (string.IsNullOrEmpty(this.m_PanelSetOrder.PeerReviewRequestType) == false)
             {                
                 YellowstonePathology.Business.Test.PeerReview.PeerReviewTest peerReviewTest = new YellowstonePathology.Business.Test.PeerReview.PeerReviewTest();
                 string reportNo = this.m_AccessionOrder.GetNextReportNo(peerReviewTest);
@@ -203,7 +203,7 @@ namespace YellowstonePathology.UI.Surgical
         private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
         {
             YellowstonePathology.UI.CaseDocumentViewer caseDocumentViewer = new CaseDocumentViewer();
-            caseDocumentViewer.View(this.m_AccessionOrder, this.m_SurgicalTestOrder);
+            caseDocumentViewer.View(this.m_AccessionOrder, this.m_PanelSetOrder);
         }        
     }
 }
