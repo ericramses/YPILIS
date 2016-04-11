@@ -24,10 +24,8 @@ namespace YellowstonePathology.Business.Test.BCellEnumeration
 		private string m_References;
 		private string m_ASRComment;
 		private double? m_WBC;
-		private double? m_LymphocytePercentage;
-		private double? m_CD19BCellPositiveCount;
-		private double? m_CD19BCellPositivePercent;
-		private double? m_CD20BCellPositiveCount;
+		private double? m_LymphocytePercentage;		
+		private double? m_CD19BCellPositivePercent;		
 		private double? m_CD20BCellPositivePercent;
 		private double? m_CD19AbsoluteCount;
 		private double? m_CD20AbsoluteCount;
@@ -126,21 +124,7 @@ namespace YellowstonePathology.Business.Test.BCellEnumeration
 					this.SetCD20AbsoluteCount();
 				}
 			}
-		}
-
-		[PersistentProperty()]
-		public double? CD19BCellPositiveCount
-		{
-			get { return this.m_CD19BCellPositiveCount; }
-			set
-			{
-				if (this.m_CD19BCellPositiveCount != value)
-				{
-					this.m_CD19BCellPositiveCount = value;
-					this.NotifyPropertyChanged("CD19BCellPositiveCount");
-				}
-			}
-		}
+		}		
 
 		[PersistentProperty()]
 		public double? CD19BCellPositivePercent
@@ -155,21 +139,7 @@ namespace YellowstonePathology.Business.Test.BCellEnumeration
 					this.SetCD19AbsoluteCount();
 				}
 			}
-		}
-
-		[PersistentProperty()]
-		public double? CD20BCellPositiveCount
-		{
-			get { return this.m_CD20BCellPositiveCount; }
-			set
-			{
-				if (this.m_CD20BCellPositiveCount != value)
-				{
-					this.m_CD20BCellPositiveCount = value;
-					this.NotifyPropertyChanged("CD20BCellPositiveCount");
-				}
-			}
-		}
+		}		
 
 		[PersistentProperty()]
 		public double? CD20BCellPositivePercent
@@ -238,20 +208,11 @@ namespace YellowstonePathology.Business.Test.BCellEnumeration
 		{
 			StringBuilder result = new StringBuilder();
 			
-			result.AppendLine("WBC: " + this.m_WBC.ToString());
-			
-			result.AppendLine("Lymphocyte Percentage: " + this.m_LymphocytePercentage.ToString().StringAsPercent());
-			
-			result.AppendLine("CD19 B-Cell Positive Count: " + this.m_CD19BCellPositiveCount.ToString());
-			
-			result.AppendLine("CD19 B-Cell Positive Percent: " + this.m_CD19BCellPositivePercent.ToString().StringAsPercent());
-			
-			result.AppendLine("CD20 B-Cell Positive Count: " + this.m_CD20BCellPositiveCount.ToString());
-			
-			result.AppendLine("CD20 B-Cell Positive Percent: " + this.m_CD20BCellPositivePercent.ToString().StringAsPercent());
-			
-			result.AppendLine("CD19 Absolute Count: " + this.m_CD19AbsoluteCount.ToString());
-			
+			result.AppendLine("WBC: " + this.m_WBC.ToString());			
+			result.AppendLine("Lymphocyte Percentage: " + this.m_LymphocytePercentage.ToString().StringAsPercent());								
+			result.AppendLine("CD19 B-Cell Positive Percent: " + this.m_CD19BCellPositivePercent.ToString().StringAsPercent());							
+			result.AppendLine("CD20 B-Cell Positive Percent: " + this.m_CD20BCellPositivePercent.ToString().StringAsPercent());			
+			result.AppendLine("CD19 Absolute Count: " + this.m_CD19AbsoluteCount.ToString());			
 			result.AppendLine("CD20 Absolute Count: " + this.m_CD20AbsoluteCount.ToString());
 
 			return result.ToString();

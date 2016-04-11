@@ -33,13 +33,9 @@ namespace YellowstonePathology.Business.Test.BCellEnumeration
 			StringBuilder result = new StringBuilder("WBC: " + panelSetOrder.WBC.ToString());
 			this.AddNextObxElement(result.ToString(), document, "F");
 			result = new StringBuilder("Lymphocyte Percentage: " + panelSetOrder.LymphocytePercentage.ToString().StringAsPercent());
-			this.AddNextObxElement(result.ToString(), document, "F");
-			result = new StringBuilder("CD19 B-Cell Positive Count: " + panelSetOrder.CD19BCellPositiveCount.ToString());
-			this.AddNextObxElement(result.ToString(), document, "F");
+			this.AddNextObxElement(result.ToString(), document, "F");			
 			result = new StringBuilder("CD19 B-Cell Positive Percent: " + panelSetOrder.CD19BCellPositivePercent.ToString().StringAsPercent());
-			this.AddNextObxElement(result.ToString(), document, "F");
-			result = new StringBuilder("CD20 B-Cell Positive Count: " + panelSetOrder.CD20BCellPositiveCount.ToString());
-			this.AddNextObxElement(result.ToString(), document, "F");
+			this.AddNextObxElement(result.ToString(), document, "F");			
 			result = new StringBuilder("CD20 B-Cell Positive Percent: " + panelSetOrder.CD20BCellPositivePercent.ToString().StringAsPercent());
 			this.AddNextObxElement(result.ToString(), document, "F");
 			result = new StringBuilder("CD19 Absolute Count: " + panelSetOrder.CD19AbsoluteCount.ToString());
