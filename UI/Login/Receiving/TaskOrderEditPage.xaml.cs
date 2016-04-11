@@ -88,7 +88,11 @@ namespace YellowstonePathology.UI.Login.Receiving
 
 		private void ButtonNext_Click(object sender, RoutedEventArgs e)
 		{
-			if(this.Next != null) this.Next(this, new EventArgs());
+            if (this.Next != null)
+            {
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
+                this.Next(this, new EventArgs());
+            }
 		}
 
 		private void ButtonBack_Click(object sender, RoutedEventArgs e)

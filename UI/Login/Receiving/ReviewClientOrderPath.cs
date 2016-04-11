@@ -65,6 +65,7 @@ namespace YellowstonePathology.UI.Login.Receiving
             }
 
             this.m_ClientOrderReceivingHandler.AccessionClientOrder();
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
             this.StartAccessionOrderPath();
         }
 

@@ -187,12 +187,14 @@ namespace YellowstonePathology.UI.Login.Receiving
                         if (messageBoxResult == MessageBoxResult.Yes)
                         {
                             this.m_BarcodeScanPort.ContainerScanReceived -= ContainerScanReceived;
+                            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
                             this.Next(this, new EventArgs());
                         }
                     }
                     else
                     {
                         this.m_BarcodeScanPort.ContainerScanReceived -= ContainerScanReceived;
+                        YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
                         this.Next(this, new EventArgs());
                     }
                 }
@@ -200,6 +202,7 @@ namespace YellowstonePathology.UI.Login.Receiving
             else
             {
                 this.m_BarcodeScanPort.ContainerScanReceived -= ContainerScanReceived;
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
                 this.Next(this, new EventArgs());
             }
         }

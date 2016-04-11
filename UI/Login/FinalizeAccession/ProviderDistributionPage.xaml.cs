@@ -240,7 +240,11 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             }            
             else
             {
-                if (this.Next != null) this.Next(this.Next, new EventArgs());
+                if (this.Next != null)
+                {
+                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
+                    this.Next(this.Next, new EventArgs());
+                }
             }
 		}				
 

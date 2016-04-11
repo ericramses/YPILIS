@@ -207,13 +207,15 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 			{
 				if (this.ShowTaskOrderPage != null)
 				{
-					CustomEventArgs.AcknowledgeStainOrderEventArgs args = new CustomEventArgs.AcknowledgeStainOrderEventArgs(this.m_StainAcknowledgementTaskOrderVisitor.TaskOrderStainAcknowlegedment);
+                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
+                    CustomEventArgs.AcknowledgeStainOrderEventArgs args = new CustomEventArgs.AcknowledgeStainOrderEventArgs(this.m_StainAcknowledgementTaskOrderVisitor.TaskOrderStainAcknowlegedment);
 					this.ShowTaskOrderPage(this, args);
 				}
 			}
 			else
 			{
-				UI.Navigation.PageNavigationReturnEventArgs args = new UI.Navigation.PageNavigationReturnEventArgs(UI.Navigation.PageNavigationDirectionEnum.Next, this.m_StainAcknowledgementTaskOrderVisitor.TaskOrderStainAcknowlegedment);
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
+                UI.Navigation.PageNavigationReturnEventArgs args = new UI.Navigation.PageNavigationReturnEventArgs(UI.Navigation.PageNavigationDirectionEnum.Next, this.m_StainAcknowledgementTaskOrderVisitor.TaskOrderStainAcknowlegedment);
 				this.Return(this, args);
 			}			
 		}        

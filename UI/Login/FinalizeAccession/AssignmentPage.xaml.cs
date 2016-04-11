@@ -91,12 +91,14 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                     MessageBoxResult messageBoxResult = MessageBox.Show("A Gross Only has been ordered but the case has not been assigned.  Are you sure you want to continue?", "Assignement", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
                     if (messageBoxResult == MessageBoxResult.Yes)
                     {
+                        YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
                         UI.Navigation.PageNavigationReturnEventArgs args = new UI.Navigation.PageNavigationReturnEventArgs(UI.Navigation.PageNavigationDirectionEnum.Next, null);
                         this.Return(this, args);
                     }
                 }
                 else
                 {
+                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
                     UI.Navigation.PageNavigationReturnEventArgs args = new UI.Navigation.PageNavigationReturnEventArgs(UI.Navigation.PageNavigationDirectionEnum.Next, null);
                     this.Return(this, args);
                 }
@@ -106,12 +108,14 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                 MessageBoxResult messageBoxResult = MessageBox.Show("There is an order that has not been assigned are you sure you want to continue?", "Assignement", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
                 if (messageBoxResult == MessageBoxResult.Yes)
                 {
+                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
                     UI.Navigation.PageNavigationReturnEventArgs args = new UI.Navigation.PageNavigationReturnEventArgs(UI.Navigation.PageNavigationDirectionEnum.Next, null);
                     this.Return(this, args);
                 }
             }
             else
             {
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
                 UI.Navigation.PageNavigationReturnEventArgs args = new UI.Navigation.PageNavigationReturnEventArgs(UI.Navigation.PageNavigationDirectionEnum.Next, null);
                 this.Return(this, args);
             }
