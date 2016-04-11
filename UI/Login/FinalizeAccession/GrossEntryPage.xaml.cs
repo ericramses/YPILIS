@@ -70,7 +70,11 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
 		private void ButtonNext_Click(object sender, RoutedEventArgs e)
 		{
-            if (this.Next != null) this.Next(this, new EventArgs());
+            if (this.Next != null)
+            {
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
+                this.Next(this, new EventArgs());
+            }
 		}				
 	}
 }

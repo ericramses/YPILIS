@@ -35,7 +35,9 @@ namespace YellowstonePathology.UI.Surgical
 		private int m_SelectedTabIndex;
         private System.Windows.Controls.TabItem m_Writer;
 
-		public PathologistUI(System.Windows.Controls.TabItem writer)
+        private List<int> m_PanelSetIdsThatCanOrderStains;
+
+        public PathologistUI(System.Windows.Controls.TabItem writer)
         {            
             this.m_Writer = writer;
             this.m_SystemIdentity = Business.User.SystemIdentity.Instance;
@@ -50,7 +52,15 @@ namespace YellowstonePathology.UI.Surgical
 
 			this.m_FieldEnabler = new YellowstonePathology.Business.Common.FieldEnabler();
 			this.m_AmendmentUsers = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetUsersByRole(YellowstonePathology.Business.User.SystemUserRoleDescriptionEnum.AmendmentSigner, true);
-		}
+
+            this.m_PanelSetIdsThatCanOrderStains = new List<int>();
+            YellowstonePathology.Business.Test.Surgical.SurgicalTest surgicalTest = new Business.Test.Surgical.SurgicalTest();
+            this.m_PanelSetIdsThatCanOrderStains.Add(surgicalTest.PanelSetId);
+            YellowstonePathology.Business.Test.TechnicalOnly.TechnicalOnlyTest technicalOnlyTest = new Business.Test.TechnicalOnly.TechnicalOnlyTest();
+            this.m_PanelSetIdsThatCanOrderStains.Add(technicalOnlyTest.PanelSetId);
+            YellowstonePathology.Business.Test.ReviewForAdditionalTesting.ReviewForAdditionalTestingTest reviewForAdditionalTestingTest = new Business.Test.ReviewForAdditionalTesting.ReviewForAdditionalTestingTest();
+            this.m_PanelSetIdsThatCanOrderStains.Add(reviewForAdditionalTestingTest.PanelSetId);
+        }
 
         public Business.User.SystemIdentity SystemIdentity
         {
@@ -390,6 +400,15 @@ namespace YellowstonePathology.UI.Surgical
 
 			this.RunWorkspaceEnableRules();
 			this.RunPathologistEnableRules();
-		}        		
+		}
+        
+        public bool StainOrderButtonIsEnabled
+        {
+            get
+            {
+                return this.m_FieldEnabler.IsUnprotectedEnabled &&
+                    this.m_PanelSetOrder != null && this.m_PanelSetIdsThatCanOrderStains.Contains(this.m_PanelSetOrder.PanelSetId);
+            }
+        }      		
 	}
 }
