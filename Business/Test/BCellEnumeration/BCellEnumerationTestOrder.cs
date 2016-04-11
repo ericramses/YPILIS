@@ -218,10 +218,8 @@ namespace YellowstonePathology.Business.Test.BCellEnumeration
 		{
             double? result = null;
 			if(this.m_WBC.HasValue && this.m_LymphocytePercentage.HasValue && this.m_CD19BCellPositivePercent.HasValue)
-			{
-				double lpDenominator = this.m_LymphocytePercentage.Value < 10.0 ? 10.0 : 100.0;
-				double cdDenominator = this.m_CD19BCellPositivePercent.Value < 10.0 ? 10.0 : 100.0;
-				result = Math.Round((this.m_WBC.Value * this.m_LymphocytePercentage.Value * this.m_CD19BCellPositivePercent.Value / lpDenominator / cdDenominator), 2);
+			{				
+				result = Math.Round((this.m_WBC.Value * this.m_LymphocytePercentage.Value * this.m_CD19BCellPositivePercent.Value/10000), 2);
 			}
 			this.CD19AbsoluteCount = result;
 		}
@@ -230,10 +228,8 @@ namespace YellowstonePathology.Business.Test.BCellEnumeration
 		{
             double? result = null;
 			if(this.m_WBC.HasValue && this.m_LymphocytePercentage.HasValue && this.m_CD20BCellPositivePercent.HasValue)
-			{
-                double lpDenominator = this.m_LymphocytePercentage.Value < 10.0 ? 10.0 : 100.0;
-                double cdDenominator = this.m_CD20BCellPositivePercent.Value < 10.0 ? 10.0 : 100.0;
-				result = Math.Round((this.m_WBC.Value * this.m_LymphocytePercentage.Value * this.m_CD20BCellPositivePercent.Value / lpDenominator / cdDenominator), 2);
+			{                
+				result = Math.Round((this.m_WBC.Value * this.m_LymphocytePercentage.Value * this.m_CD20BCellPositivePercent.Value / 10000), 2);
 			}
 			this.CD20AbsoluteCount = result;
 		}
