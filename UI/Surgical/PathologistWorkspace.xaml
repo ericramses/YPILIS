@@ -197,7 +197,7 @@
 					<ToolBar>
 						<Button Name="ButtonStainOrder" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center"
 							HorizontalAlignment="Center" Click="ButtonStainOrder_Click" Background="Gainsboro"
-							IsEnabled="{Binding Path=FieldEnabler.IsUnprotectedEnabled}">
+							IsEnabled="{Binding Path=StainOrderButtonIsEnabled}">
 							<StackPanel Orientation="Horizontal">
 								<Image Margin="2" Height="16" Source="/UserInterface;component/Resources/Order.ico"></Image>
 								<TextBlock Margin="2" VerticalAlignment="Center">Stain Order ...</TextBlock>
