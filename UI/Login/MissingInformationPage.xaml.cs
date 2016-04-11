@@ -50,6 +50,7 @@ namespace YellowstonePathology.UI.Login
 
 		private void ButtonNext_Click(object sender, RoutedEventArgs e)
 		{
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
             this.Next(this, new EventArgs());
 		}		
 

@@ -69,7 +69,11 @@ namespace YellowstonePathology.UI.Login
         {
             if (this.IsOkToGoNext() == true)
             {
-                if (this.Next != null) this.Next(this, new EventArgs());
+                if (this.Next != null)
+                {
+                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
+                    this.Next(this, new EventArgs());
+                }
             }
         }
 
