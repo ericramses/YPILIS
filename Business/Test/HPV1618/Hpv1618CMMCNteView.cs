@@ -4,15 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 
-namespace YellowstonePathology.Business.HL7View.CMMC
+namespace YellowstonePathology.Business.Test.HPV1618
 {
-	public class CMMCHpv1618NteView : CMMCNteView
-	{
+	public class HPV1618CMMCNteView : YellowstonePathology.Business.HL7View.CMMC.CMMCNteView
+    {
         protected YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         protected string m_DateFormat = "yyyyMMddHHmm";
         protected string m_ReportNo;
 
-		public CMMCHpv1618NteView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo)
+		public HPV1618CMMCNteView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo)
 		{
             this.m_AccessionOrder = accessionOrder;
             this.m_ReportNo = reportNo;            

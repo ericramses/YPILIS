@@ -560,20 +560,25 @@
     <Compile Include="Test\HPV1618ByPCR\HPV1618ByPCRResultCollection.cs" />
     <Compile Include="Test\HPV1618ByPCR\HPV16NegativeHPV18PositiveResult.cs" />
     <Compile Include="Test\HPV1618ByPCR\HPV16PositiveHPV18NegativeResult.cs" />
+    <Compile Include="Test\HPV1618\Hpv1618CMMCNteView.cs" />
     <Compile Include="Test\HPV1618\HPV1618Genotype16NegativeResult.cs" />
     <Compile Include="Test\HPV1618\HPV1618Genotype16PositiveResult.cs" />
     <Compile Include="Test\HPV1618\HPV1618Genotype18NegativeResult.cs" />
     <Compile Include="Test\HPV1618\HPV1618Genotype18PositiveResult.cs" />
+    <Compile Include="Test\HPV\HPVCMMCNteView.cs" />
     <Compile Include="Test\HPV\HPVInvalidResult.cs" />
     <Compile Include="Test\HPV\HPVNoResult.cs" />
     <Compile Include="Test\IDH1IDH2MutationAnalsysis\IDH1IDH2MutationAnalsysisTest.cs" />
+    <Compile Include="Test\InformalConsult\InformalConsultWordDocument.cs" />
     <Compile Include="Test\KRASExon23Mutation\KRASExon23MutationEPICObxView.cs" />
     <Compile Include="Test\KRASExon23Mutation\KRASExon23MutationResult.cs" />
     <Compile Include="Test\KRASExon23Mutation\KRASExon23MutationTest.cs" />
     <Compile Include="Test\KRASExon23Mutation\KRASExon23MutationTestOrder.cs" />
     <Compile Include="Test\KRASExon23Mutation\KRASExon23MutationWordDocument.cs" />
     <Compile Include="Test\KRASStandard\KRASStandardPanel.cs" />
+    <Compile Include="Test\LLP\LLPCMMCNteView.cs" />
     <Compile Include="Test\LynchSyndrome\LSEGYNResult3.cs" />
+    <Compile Include="Test\LynchSyndrome\LynchSyndromeEvaluationCMMCNteView.cs" />
     <Compile Include="Test\LynchSyndrome\LynchSyndromeIHCPanel.cs" />
     <Compile Include="Test\MGMTPromoterMethylationAnalysis\MGMTPromoterMethylationAnalysisTest.cs" />
     <Compile Include="Test\MissingInformation\MissingInformationTest.cs" />
@@ -678,8 +683,6 @@
     <Compile Include="Domain\Billing\BillableObjectMedicareProstateNeedleBiopsy.cs" />
     <Compile Include="Domain\Billing\LSEIHCStainSpecimen.cs" />
     <Compile Include="Domain\PhysicianClientCollection.cs" />
-    <Compile Include="HL7View\CMMC\CMMCHpv1618NteView.cs" />
-    <Compile Include="HL7View\CMMC\CMMCLynchSyndromeEvaluationNteView.cs" />
     <Compile Include="HL7View\ECW\ECWResultView.cs" />
     <Compile Include="HL7View\ECW\ECWHl7Client.cs" />
     <Compile Include="HL7View\ECW\ECWMSHView.cs" />
@@ -741,6 +744,7 @@
     <Compile Include="Test\TechInitiatedPeripheralSmear\TechInitiatedPeripheralSmearWordDocument.cs" />
     <Compile Include="Test\ThinPrepPap\AcidWashListItem.cs" />
     <Compile Include="Test\ThinPrepPap\AcidWashList.cs" />
+    <Compile Include="Test\ThinPrepPap\ThinPrepPapCMMCNteView.cs" />
     <Compile Include="Test\Trichomonas\TrichomonasInvalidResult.cs" />
     <Compile Include="Test\Trisomy21ByFISH\Trisomy21ByFISHTest.cs" />
     <Compile Include="TrackedItemStatusEnum.cs" />
@@ -1023,8 +1027,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Helper\PhysicianConfirmation.cs" />
-    <Compile Include="HL7View\CMMC\CMMCHighRiskHpvNteView.cs" />
-    <Compile Include="HL7View\CMMC\CMMCLLPNteView.cs" />
     <Compile Include="HL7View\ResultViewFactory.cs" />
     <Compile Include="HL7View\EPIC\EPICResultView.cs" />
     <Compile Include="HL7View\Orders\ARUPMSH.cs" />
@@ -1121,7 +1123,6 @@
     <Compile Include="HL7View\CMMC\CMMCNteView.cs" />
     <Compile Include="HL7View\CMMC\CMMCMshView.cs" />
     <Compile Include="HL7View\CMMC\CMMCHl7Client.cs" />
-    <Compile Include="HL7View\CMMC\CMMCCytologyNteView.cs" />
     <Compile Include="HL7View\CMMC\CMMCNteViewFactory.cs" />
     <Compile Include="HL7View\EPIC\AllResultTypeTest.cs" />
     <Compile Include="HL7View\EPIC\EPICUniversalSerivceIdDictionary.cs" />

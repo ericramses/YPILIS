@@ -240,6 +240,9 @@ namespace YellowstonePathology.UI.Test
                 case 215:
                     result = new PDL1ResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
+                case 216:
+                    result = new InformalConsultResultPath(reportNo, accessionOrder, pageNavigator, window);
+                    break;
                 case 217:
                     result = new KRASExon23MutationResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
