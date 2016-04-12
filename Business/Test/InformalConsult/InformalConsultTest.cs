@@ -21,7 +21,7 @@ namespace YellowstonePathology.Business.Test.InformalConsult
 			                    
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.InformalConsult.InformalConsultTestOrder).AssemblyQualifiedName;
 			this.m_AllowMultiplePerAccession = true;
-            this.m_NeverDistribute = true;            
+            this.m_NeverDistribute = false;            
 			this.m_AcceptOnFinal = true;
             this.m_HasNoOrderTarget = true;
             this.m_IsBillable = false;

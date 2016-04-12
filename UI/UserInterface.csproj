@@ -681,6 +681,10 @@
     <Compile Include="Test\HPV1618ByPCRResultPage.xaml.cs">
       <DependentUpon>HPV1618ByPCRResultPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Test\InformalConsultResultPage.xaml.cs">
+      <DependentUpon>InformalConsultResultPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Test\InformalConsultResultPath.cs" />
     <Compile Include="Test\KRASExon23MutationResultPage.xaml.cs">
       <DependentUpon>KRASExon23MutationResultPage.xaml</DependentUpon>
     </Compile>
@@ -2332,6 +2336,10 @@
     <Page Include="Test\HPV1618ByPCRResultPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Test\InformalConsultResultPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Test\KRASExon23MutationResultPage.xaml">
       <SubType>Designer</SubType>

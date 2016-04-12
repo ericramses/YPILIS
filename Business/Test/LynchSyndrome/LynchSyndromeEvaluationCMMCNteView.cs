@@ -4,15 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 
-namespace YellowstonePathology.Business.HL7View.CMMC
+namespace YellowstonePathology.Business.Test.LynchSyndrome
 {
-	class CMMCLynchSyndromeEvaluationNteView : CMMCNteView
-	{
+	class LynchSyndromeEvaluationCMMCNteView : YellowstonePathology.Business.HL7View.CMMC.CMMCNteView
+    {
         protected YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         protected string m_DateFormat = "yyyyMMddHHmm";
         protected string m_ReportNo;
 
-		public CMMCLynchSyndromeEvaluationNteView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo)
+		public LynchSyndromeEvaluationCMMCNteView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo)
 		{
             this.m_AccessionOrder = accessionOrder;
             this.m_ReportNo = reportNo;            
@@ -96,6 +96,15 @@ namespace YellowstonePathology.Business.HL7View.CMMC
 			this.AddNextNteElement("References: ", document);
 			this.HandleLongString(panelSetOrder.References, document);
 			this.AddBlankNteElement(document);
-		}
-	}
+
+            string asr = "This test was developed and its performance characteristics determined by Yellowstone Pathology Institute, Inc.  It has not been cleared or approved by the U.S. Food and Drug Administration. The FDA has determined that such clearance or approval is not necessary.  This test is used for clinical purposes.  It should not be regarded as investigational or for research.  This laboratory is certified under the Clinical Laboratory Improvement Amendments of 1988 (CLIA-88) as qualified to perform high complexity clinical laboratory testing.";
+            this.AddNextNteElement(asr, document);
+            this.AddBlankNteElement(document);
+
+            YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeEvaluationTest lynchSyndromeEvaluationTest = new YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeEvaluationTest();
+            string peformedAtLocation = this.m_AccessionOrder.PanelSetOrderCollection.GetLocationPerformedSummary(lynchSyndromeEvaluationTest.PanelSetIDList);
+            this.HandleLongString(peformedAtLocation, document);
+            this.AddBlankNteElement(document);
+        }
+    }
 }
