@@ -6,9 +6,11 @@ using YellowstonePathology.Business.Persistence;
 
 namespace YellowstonePathology.Business.Test.InformalConsult
 {
-	[PersistentClass(true, "tblPanelSetOrder", "YPIDATA")]
+	[PersistentClass("tblInformalConsultTestOrder", "tblPanelSetOrder", "YPIDATA")]
 	public class InformalConsultTestOrder : PanelSetOrder
 	{
+        private string m_Comment;
+
 		public InformalConsultTestOrder()
 		{
             
@@ -22,9 +24,24 @@ namespace YellowstonePathology.Business.Test.InformalConsult
             
 		}
 
-		public override string ToResultString(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
+
+        [PersistentProperty()]
+        public string Comment
+        {
+            get { return this.m_Comment; }
+            set
+            {
+                if (this.m_Comment != value)
+                {
+                    this.m_Comment = value;
+                    this.NotifyPropertyChanged("Comment");
+                }
+            }
+        }
+
+        public override string ToResultString(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{
-			return string.Empty;
+			return this.m_Comment;
 		}
 	}
 }

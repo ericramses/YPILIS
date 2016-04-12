@@ -567,6 +567,7 @@
     <Compile Include="Test\HPV\HPVInvalidResult.cs" />
     <Compile Include="Test\HPV\HPVNoResult.cs" />
     <Compile Include="Test\IDH1IDH2MutationAnalsysis\IDH1IDH2MutationAnalsysisTest.cs" />
+    <Compile Include="Test\InformalConsult\InformalConsultWordDocument.cs" />
     <Compile Include="Test\KRASExon23Mutation\KRASExon23MutationEPICObxView.cs" />
     <Compile Include="Test\KRASExon23Mutation\KRASExon23MutationResult.cs" />
     <Compile Include="Test\KRASExon23Mutation\KRASExon23MutationTest.cs" />
