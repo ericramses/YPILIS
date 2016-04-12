@@ -26,8 +26,11 @@ namespace YellowstonePathology.Business.Test.InformalConsult
 
             InformalConsultTestOrder panelSetOrder = (InformalConsultTestOrder)this.m_PanelSetOrder;
 
-            if (string.IsNullOrEmpty(panelSetOrder.Comment) == false) base.ReplaceText("report_comment", panelSetOrder.Comment);
-            else base.DeleteRow("report_comment");
+            if (string.IsNullOrEmpty(panelSetOrder.Request) == false) base.ReplaceText("report_request", panelSetOrder.Request);
+            else base.DeleteRow("report_request");
+
+            if (string.IsNullOrEmpty(panelSetOrder.Result) == false) base.ReplaceText("report_result", panelSetOrder.Result);
+            else base.DeleteRow("report_result");
 
             this.ReplaceText("report_date", BaseData.GetShortDateString(this.m_PanelSetOrder.FinalDate));
             this.SetXmlNodeData("pathologist_signature", this.m_PanelSetOrder.Signature);

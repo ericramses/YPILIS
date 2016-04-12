@@ -9,9 +9,10 @@ namespace YellowstonePathology.Business.Test.InformalConsult
 	[PersistentClass("tblInformalConsultTestOrder", "tblPanelSetOrder", "YPIDATA")]
 	public class InformalConsultTestOrder : PanelSetOrder
 	{
-        private string m_Comment;
+        private string m_Request;
+        private string m_Result;
 
-		public InformalConsultTestOrder()
+        public InformalConsultTestOrder()
 		{
             
 		}
@@ -24,24 +25,37 @@ namespace YellowstonePathology.Business.Test.InformalConsult
             
 		}
 
-
         [PersistentProperty()]
-        public string Comment
+        public string Request
         {
-            get { return this.m_Comment; }
+            get { return this.m_Request; }
             set
             {
-                if (this.m_Comment != value)
+                if (this.m_Request != value)
                 {
-                    this.m_Comment = value;
-                    this.NotifyPropertyChanged("Comment");
+                    this.m_Request = value;
+                    this.NotifyPropertyChanged("Request");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string Result
+        {
+            get { return this.m_Result; }
+            set
+            {
+                if (this.m_Result != value)
+                {
+                    this.m_Result = value;
+                    this.NotifyPropertyChanged("Result");
                 }
             }
         }
 
         public override string ToResultString(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{
-			return this.m_Comment;
+			return this.m_Result;
 		}
 	}
 }
