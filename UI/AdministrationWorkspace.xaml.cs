@@ -34,6 +34,7 @@ using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using MongoDB.Driver.Builders;
 using MongoDB.Driver.GridFS;
+using System.ComponentModel;
 
 namespace YellowstonePathology.UI
 {    
@@ -989,13 +990,30 @@ namespace YellowstonePathology.UI
             //Console.WriteLine("CRC: " + crc);            
         }
 
+        Business.Test.AccessionOrder m_AccessionOrder = null;
+        string masterAccessionNo = "16-9590";
+        string actNo = "1";
+        string writer = "W1";
+
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
-            //Testing testing = new Testing();
-            //testing.OnCallBack1 += CallBackOne;
-            //testing.DoIt();
-        }   
-        
+            for(int i=0; i<5; i++)
+            {
+                BackgroundWorker t1 = new BackgroundWorker();
+                t1.DoWork += T1_DoWork;
+                t1.RunWorkerAsync();
+            }            
+        }
+
+        private void T1_DoWork(object sender, DoWorkEventArgs e)
+        {
+            this.m_AccessionOrder = Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, writer);
+            actNo = actNo + "2";            
+            this.m_AccessionOrder.SvhAccount = actNo;
+            Business.Persistence.DocumentGateway.Instance.Push(writer);
+            writer = writer + "2";
+        }
+
         private string CallBackOne(string x)
         {
             return "Purple";
