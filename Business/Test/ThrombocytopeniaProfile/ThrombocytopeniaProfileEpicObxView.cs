@@ -36,7 +36,7 @@ namespace YellowstonePathology.Business.Test.ThrombocytopeniaProfile
             YellowstonePathology.Business.Flow.FlowMarkerItem rpaMarker = panelSetOrder.FlowMarkerCollection.GetMarkerByName("Reticulated Platelet Analysis");
             this.AddNextObxElement("Test: " + rpaMarker.Name, document, "F");
             this.AddNextObxElement("Result: " + rpaMarker.Result, document, "F");
-            this.AddNextObxElement("Reference Range: 0-0.55%", document, "F");
+            this.AddNextObxElement("Reference Range: 0-0.37%", document, "F");
             this.AddNextObxElement("", document, "F");
 
             this.AddAmendments(document);
