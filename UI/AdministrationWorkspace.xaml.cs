@@ -1007,10 +1007,10 @@ namespace YellowstonePathology.UI
 
         private void T1_DoWork(object sender, DoWorkEventArgs e)
         {
-            this.m_AccessionOrder = Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, writer);
+            this.m_AccessionOrder = Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, this);
             actNo = actNo + "2";            
             this.m_AccessionOrder.SvhAccount = actNo;
-            Business.Persistence.DocumentGateway.Instance.Push(writer);
+            Business.Persistence.DocumentGateway.Instance.Push(this);
             writer = writer + "2";
         }
 

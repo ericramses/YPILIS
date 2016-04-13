@@ -195,9 +195,6 @@ namespace YellowstonePathology.Business.Persistence
 
             this.HandleUpdateSubmission(objectToSubmit, this.m_Clone, keyPropertyValue, objectSubmitter);
 
-            //ObjectCloner objectCloner = new ObjectCloner();
-            //this.m_Clone = objectCloner.Clone(objectToSubmit);
-
             return objectSubmitter;
         }
 

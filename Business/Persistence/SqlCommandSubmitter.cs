@@ -68,23 +68,19 @@ namespace YellowstonePathology.Business.Persistence
         }
 
         public SubmissionResult SubmitChanges()
-        {                                    
-            //Console.WriteLine("BEGIN send sql commands");
+        {                                                
             SubmissionResult result = new SubmissionResult();
             result.HasUpdateCommands = this.m_SqlUpdateCommands.Count > 0;
             result.HasDeleteFirstCommands = this.m_SqlDeleteFirstCommands.Count > 0;
             result.HasDeleteCommands = this.m_SqlDeleteCommands.Count > 0;
             result.HasInsertCommands = this.m_SqlInsertCommands.Count > 0;
-            result.HasInsertLastCommands = this.m_SqlInsertLastCommands.Count > 0;
-
-            //if (result.HasDeleteCommands || result.HasDeleteFirstCommands) System.Windows.MessageBox.Show("Delete Commands - pause and step");
+            result.HasInsertLastCommands = this.m_SqlInsertLastCommands.Count > 0;            
 
             this.RunSqlCommands(this.m_SqlUpdateCommands);
             this.RunSqlCommands(this.m_SqlDeleteFirstCommands);
             this.RunSqlCommands(this.m_SqlDeleteCommands);
             this.RunSqlCommands(this.m_SqlInsertCommands);
-            this.RunSqlCommands(this.m_SqlInsertLastCommands);
-            //Console.WriteLine("END send sql commands");
+            this.RunSqlCommands(this.m_SqlInsertLastCommands);            
             return result;
         }
 
@@ -97,8 +93,7 @@ namespace YellowstonePathology.Business.Persistence
                 {                    
                     cn.Open();
                     cmd.Connection = cn;                    
-                    cmd.ExecuteNonQuery();
-                    //Console.WriteLine(cmd.CommandText);             
+                    cmd.ExecuteNonQuery();                    
                 }
             }
         }        
@@ -112,8 +107,7 @@ namespace YellowstonePathology.Business.Persistence
                 {                    
                     cn.Open();
                     cmd.Connection = cn;
-                    cmd.ExecuteNonQuery();
-                    Console.WriteLine(cmd.CommandText);
+                    cmd.ExecuteNonQuery();                    
                 }
             }
         }
