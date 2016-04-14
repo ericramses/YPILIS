@@ -25,6 +25,7 @@ namespace YellowstonePathology.Business.Test.InformalConsult
 			this.m_AcceptOnFinal = true;
             this.m_HasNoOrderTarget = true;
             this.m_IsBillable = false;
+            this.m_ShowResultPageOnOrder = true;
 
             this.m_ProfessionalComponentFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologistBillings();
             this.m_ProfessionalComponentBillingFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings();
