@@ -1655,10 +1655,6 @@
       <SubType>Code</SubType>
       <DependentUpon>FlowDiagnosis.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Flow\FlowReport.xaml.cs">
-      <SubType>Code</SubType>
-      <DependentUpon>FlowReport.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Flow\FlowWorkspace.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>FlowWorkspace.xaml</DependentUpon>
@@ -3186,12 +3182,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Flow\FlowReport.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Flow\FlowWorkspace.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -3693,10 +3683,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Billing\CodeSelection.xml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\Images\" />
-    <Folder Include="Resources\Styles\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Surgical\TypingTemplate.xml" />
   </ItemGroup>
