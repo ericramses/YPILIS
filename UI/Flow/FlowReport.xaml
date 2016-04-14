@@ -11,7 +11,7 @@
 			<BlockUIContainer>
 				<StackPanel>
 					<StackPanel Orientation="Horizontal" Margin="0" Height="75">
-						<Image Source="Graphics/Logo.jpg" Height="125" Width="125" VerticalAlignment="Top"></Image>
+						<Image Source="../Resources/Logo.jpg" Height="125" Width="125" VerticalAlignment="Top"></Image>
 						<StackPanel HorizontalAlignment="Right" Width="560" Margin="0">
 							<StackPanel.Style>
 								<Style>
