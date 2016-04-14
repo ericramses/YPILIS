@@ -271,15 +271,17 @@ namespace YellowstonePathology.Business.Document
                     case 81: //
                     case 165:
                     case 189:
-                    case 190:
-                    case 197:
+                    case 190:                    
                     case 201:
                     case 208:
                     case 211:
-                    case 212:
-                    case 216:            
-                        document = new YellowstonePathology.Business.Test.InformalConsult.InformalConsultWordDocument(accessionOrder, panelSetOrder, reportSaveMode);                    
-                        break;                    
+                    case 212:                    
+                    case 197:            
+                        document = new YellowstonePathology.Business.Document.NothingToPublishReport(accessionOrder, panelSetOrder, reportSaveMode);                    
+                        break;
+                    case 216:
+                        document = new YellowstonePathology.Business.Test.InformalConsult.InformalConsultWordDocument(accessionOrder, panelSetOrder, reportSaveMode);
+                        break;
                     case 203:
                         document = new YellowstonePathology.Business.Test.ReviewForAdditionalTesting.ReviewForAdditionalTestingWordDocument(accessionOrder, panelSetOrder, reportSaveMode);
                         break;

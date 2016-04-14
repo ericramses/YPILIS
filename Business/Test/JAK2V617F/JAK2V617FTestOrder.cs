@@ -35,7 +35,7 @@ namespace YellowstonePathology.Business.Test.JAK2V617F
                 "of 1988 (CLIA-88) as qualified to perform high complexity clinical laboratory testing.";
         }
 
-    public YellowstonePathology.Business.Rules.MethodResult IsOkToSetResults()
+        public YellowstonePathology.Business.Rules.MethodResult IsOkToSetResults()
 		{
 			YellowstonePathology.Business.Rules.MethodResult result = new YellowstonePathology.Business.Rules.MethodResult();
             if(string.IsNullOrEmpty(this.m_ResultCode) == true)
