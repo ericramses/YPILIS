@@ -12,7 +12,7 @@
     <MinFrameworkVersionRequired>3.0</MinFrameworkVersionRequired>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <TargetZone>LocalIntranet</TargetZone>
-    <GenerateManifests>true</GenerateManifests>
+    <GenerateManifests>false</GenerateManifests>
     <SignManifests>false</SignManifests>
     <ManifestCertificateThumbprint>A5D9223B0EA83E7653817CA36B63666AB6FD1B49</ManifestCertificateThumbprint>
     <ManifestKeyFile>UserInterface_1_TemporaryKey.pfx</ManifestKeyFile>
@@ -27,7 +27,6 @@
     <AssemblyOriginatorKeyFile>
     </AssemblyOriginatorKeyFile>
     <ApplicationIcon>YPI.ico</ApplicationIcon>
-    <NoWin32Manifest>true</NoWin32Manifest>
     <TargetFrameworkProfile />
     <PublishUrl>\\ypiidc\YPIILIS\Application\</PublishUrl>
     <Install>false</Install>
@@ -79,6 +78,7 @@
     <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup />
   <ItemGroup>
     <Reference Include="CefSharp">
       <HintPath>CEFSharp\CefSharp.dll</HintPath>
