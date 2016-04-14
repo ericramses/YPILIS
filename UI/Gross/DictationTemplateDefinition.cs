@@ -649,10 +649,10 @@ namespace YellowstonePathology.UI.Gross
                 "         Adherent:  [measurement], [description]" + Environment.NewLine +
                 "         Non-Adherent:  [measurement]" + Environment.NewLine +
                 "      Maternal Surface:  [description]" + Environment.NewLine +
-                "      Infarcts:  [description]" + Environment.NewLine +
+                "      Surface Infarcts:  [description]" + Environment.NewLine +
                 "      Other:  [description]" + Environment.NewLine +
                 "   Sectioned at 1 cm intervals:" + Environment.NewLine +
-                "       Surface Infarcts:  [description]" + Environment.NewLine +
+                "       Infarcts:  [description]" + Environment.NewLine +
                 "       Cysts:  [description]" + Environment.NewLine + 
             	Environment.NewLine +
                 "Cassette Summary: " + Environment.NewLine +
@@ -722,10 +722,10 @@ namespace YellowstonePathology.UI.Gross
                 "         Adherent:  [measurement], [description]" + Environment.NewLine +
                 "         Non-Adherent:  [measurement]" + Environment.NewLine +
                 "      Maternal Surface:  [description]" + Environment.NewLine +
-                "      Infarcts:  [description]" + Environment.NewLine +
+                "      Surface Infarcts:  [description]" + Environment.NewLine +
                 "      Other:  [description]" + Environment.NewLine +
                 "   Sectioned at 1 cm intervals:" + Environment.NewLine +
-                "       Surface Infarcts:  [description]" + Environment.NewLine +
+                "       Infarcts:  [description]" + Environment.NewLine +
                 "       Cysts:  [description]" + Environment.NewLine + 
             	Environment.NewLine +
                 "Cassette Summary: " + Environment.NewLine +
@@ -797,10 +797,10 @@ namespace YellowstonePathology.UI.Gross
                 "         Adherent:  [measurement], [description]" + Environment.NewLine +
                 "         Non-Adherent:  [measurement]" + Environment.NewLine +
                 "      Maternal Surface:  [description]" + Environment.NewLine +
-                "      Infarcts:  [description]" + Environment.NewLine +
+                "      Surface Infarcts:  [description]" + Environment.NewLine +
                 "      Other:  [description]" + Environment.NewLine +
                 "   Sectioned at 1 cm intervals:" + Environment.NewLine +
-                "       Surface Infarcts:  [description]" + Environment.NewLine +
+                "       Infarcts:  [description]" + Environment.NewLine +
                 "       Cysts:  [description]" + Environment.NewLine + 
             	Environment.NewLine +
                 "Cassette Summary: " + Environment.NewLine +
@@ -872,7 +872,6 @@ namespace YellowstonePathology.UI.Gross
                 "   Fallopian Tube: " + Environment.NewLine +
                 "      Dimensions:  [measurements]([w/wo] fimbriated end)" + Environment.NewLine +
                 "      Surface:  [description/paratubal cysts absent/present]" + Environment.NewLine +
-                "      Cut Surface:  [patent/stenotic lumen]" + Environment.NewLine +
                 "      Inked:  [color]" + Environment.NewLine +
                 "   Ovary:" + Environment.NewLine +
                 "      Dimensions:  [measurement]" + Environment.NewLine +
@@ -882,7 +881,6 @@ namespace YellowstonePathology.UI.Gross
                 "   Fallopian Tube: " + Environment.NewLine +
                 "      Dimensions:  [measurements]([w/wo] fimbriated end)" + Environment.NewLine +
                 "      Surface:  [description/paratubal cysts absent/present]" + Environment.NewLine +
-                "      Cut Surface:  [patent/stenotic lumen]" + Environment.NewLine +
                 "      Inked:  [color]" + Environment.NewLine +
                 "   Ovary:" + Environment.NewLine +
                 "      Dimensions:  [measurement]" + Environment.NewLine +
