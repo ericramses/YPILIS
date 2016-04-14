@@ -94,7 +94,7 @@
 			</Grid.RowDefinitions>
 			<StackPanel Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Orientation="Horizontal">
 				<Button Click="ButtonViewDocument_Click" KeyboardNavigation.IsTabStop="False" Width="25" Height="25">
-				  <Image Source="/Graphics/Document.jpg"></Image>
+                    <Image Source="/Resources/Document.jpg"></Image>
 				</Button>				
 			<StackPanel Orientation="Horizontal">
                     <TextBlock Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.ReportNo}" VerticalAlignment="Center" Margin="2,2,2,2" FontWeight="Bold"></TextBlock>

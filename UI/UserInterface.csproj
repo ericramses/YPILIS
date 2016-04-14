@@ -1655,10 +1655,6 @@
       <SubType>Code</SubType>
       <DependentUpon>FlowDiagnosis.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Flow\FlowReport.xaml.cs">
-      <SubType>Code</SubType>
-      <DependentUpon>FlowReport.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Flow\FlowWorkspace.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>FlowWorkspace.xaml</DependentUpon>
@@ -3180,67 +3176,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Resources\Styles\BrushStyles.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\Styles\ButtonStyles.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\Styles\ComboBoxStyles.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\Styles\ListBoxStyles.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\Styles\ListViewStyles.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\Styles\LoginStyles.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\Styles\TextBlockStyles.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\Styles\TextBoxStyles.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\Styles\TreeViewStyles.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Flow\FlowDiagnosis.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Flow\FlowReport.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -3536,65 +3472,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Graphics\Cytology.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Graphics\Disk.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Graphics\doc.gif">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Graphics\Document.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Graphics\Flow.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Graphics\Locked.gif">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Graphics\Logo.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Graphics\Microscope1.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Graphics\MinusBox.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Graphics\MinusSign.gif">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Graphics\People1.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Graphics\Plusbox.gif">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Graphics\PlusSign.gif">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Graphics\printer.gif">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Graphics\Search.gif">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Graphics\spellcheck.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Graphics\Surgical.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Graphics\Typewriter3.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Graphics\Unlocked.gif">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
       <Visible>False</Visible>
       <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
@@ -3622,72 +3499,21 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Graphics\Microscope2.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Graphics\microscope1.ico">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Graphics\MainForm.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Graphics\Find.gif">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Graphics\gears.gif">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="YPII.ico" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Add.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Resources\AddBatch.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
     <Resource Include="Resources\Delete.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Distribute.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\New.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Printer.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Resources\Unassigned.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Accession.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\GetAutoOrder.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Molecular.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
     <Resource Include="Resources\Typing.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\FISH.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
@@ -3717,23 +3543,7 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Automated.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\Billing.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\GetHPVOrder.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\GetNGCTOrder.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Tasks.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
@@ -3754,11 +3564,8 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\AcceptResults.ico" />
-    <Resource Include="Resources\ResultsToNormal.ico" />
     <Resource Include="Resources\Specimen.ico" />
-    <Resource Include="Resources\Specimens.ico" />
     <Resource Include="Resources\Tree.ico" />
-    <Resource Include="Resources\Trees.ico" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Lab.ico" />
@@ -3767,14 +3574,8 @@
     <Resource Include="Resources\Magnify.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Document.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\Comments.ico" />
     <Resource Include="Resources\Documents.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Fixation.ico" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\SpecialStains.ico" />
@@ -3787,7 +3588,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Amendments.ico" />
-    <Resource Include="Resources\Coding.ico" />
     <Resource Include="Resources\Distribution.ico" />
     <Resource Include="Resources\Login.ico" />
     <Resource Include="Resources\Results.ico" />
@@ -3799,9 +3599,6 @@
     <Resource Include="Resources\List.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\OutsideConsult.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\caplogo.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -3809,7 +3606,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Assign.ico" />
-    <Resource Include="Resources\Frozen.ico" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Refresh.ico" />
@@ -3835,9 +3631,7 @@
     <Resource Include="Resources\Log.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Blocks.ico" />
     <Resource Include="Resources\DataCheck.ico" />
-    <Resource Include="Resources\SlideLabel.ico" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Go.ico" />
@@ -3847,9 +3641,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Previous.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\SurgPathOnlyOrder.ico" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Wand.ico" />
@@ -3872,56 +3663,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\LeftArrow.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\RightArrow.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\LogDocument.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Patient.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Doctor.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\add.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Add_Line.gif" />
-    <Resource Include="Resources\Edit_Line.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Link.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\action_down.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\register.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\ffwd.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\expand.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\EditLog.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Microphone.gif" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="VoiceStuff.txt" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Cytology\CytologyClientLetterText.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Exit.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="YPI.ico" />
@@ -3933,15 +3678,6 @@
     <Resource Include="Resources\Home.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Images\Delete.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Images\Delete2.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Images\Add1.bmp" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="TextFile1.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -3950,30 +3686,6 @@
   <ItemGroup />
   <ItemGroup>
     <Resource Include="Surgical\TypingTemplate.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\DownArrow.gif" />
-    <Resource Include="Resources\UpArrow.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Graphics\2dbarcode.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Graphics\BarcodedSpecimenBottle.png" />
-    <Resource Include="Graphics\Requisition.png" />
-    <Resource Include="Graphics\specimenbottle.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Graphics\PatientId.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Graphics\SpecimenId.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Graphics\person.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Graphics\HandheldScanner.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\TwoDBarcode.jpg" />
@@ -4004,13 +3716,6 @@
     <Resource Include="Resources\Surgical.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Butterfly.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\ARUP.png" />
-    <Resource Include="Resources\NeoGenomics.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\Gears.jpg" />
   </ItemGroup>
   <ItemGroup>
@@ -4021,15 +3726,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="XMLFile1.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\PaperLabel1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\PaperLabel2.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Circle.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="CEFSharp\avcodec-54.dll" />
@@ -4055,12 +3751,12 @@
     <Content Include="edge\x86\node.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\Logo.jpg" />
+    <Resource Include="Resources\Document.jpg" />
     <Resource Include="Resources\message.png" />
     <EmbeddedResource Include="XMLFile2.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <Resource Include="Resources\Report.jpg" />
-    <Resource Include="Resources\missinginfo.jpg" />
     <Resource Include="Resources\Restore.png" />
     <Resource Include="CEFSharp\CefSharp.Wpf.xml" />
     <Resource Include="CEFSharp\CefSharp.xml" />
@@ -4077,7 +3773,6 @@
     <Content Include="dll\Xceed.Wpf.DataGrid.dll" />
     <Content Include="dll\Xceed.Wpf.Toolkit.dll" />
     <Resource Include="Resources\out2.png" />
-    <Resource Include="Resources\out1.png" />
     <Resource Include="dll\MongoDB.Bson.xml" />
     <Content Include="dll\MongoDB.Driver.dll" />
     <Resource Include="dll\MongoDB.Driver.xml" />
