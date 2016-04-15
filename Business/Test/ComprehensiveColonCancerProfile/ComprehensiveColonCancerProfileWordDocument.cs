@@ -25,16 +25,49 @@ namespace YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile
 			ComprehensiveColonCancerProfile comprehensiveColonCancerProfile = (ComprehensiveColonCancerProfile)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_PanelSetOrder.ReportNo);
 			ComprehensiveColonCancerProfileResult comprehensiveColonCancerProfileResult = new ComprehensiveColonCancerProfileResult(this.m_AccessionOrder, comprehensiveColonCancerProfile);
 
-			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByOrderTarget(comprehensiveColonCancerProfile.OrderedOnId);
-            YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetAliquotOrder(comprehensiveColonCancerProfile.OrderedOnId);
-            string specimenDescription = specimenOrder.Description;
-            if (aliquotOrder != null) specimenDescription += ": " + aliquotOrder.Label;
-
 			base.ReplaceText("report_interpretation", comprehensiveColonCancerProfile.Interpretation);
-            base.ReplaceText("specimen_description", specimenDescription);
-			base.ReplaceText("surgical_reportno", comprehensiveColonCancerProfileResult.PanelSetOrderSurgical.ReportNo);
-			base.ReplaceText("specimen_diagnosis", comprehensiveColonCancerProfileResult.SurgicalSpecimen.Diagnosis);
 			base.ReplaceText("ajcc_stage", comprehensiveColonCancerProfileResult.PanelSetOrderSurgical.AJCCStage);
+
+            YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeEvaluationTest lynchSyndromeEvaluationTest = new LynchSyndrome.LynchSyndromeEvaluationTest();
+            XmlNode diagnosisTableNode = this.m_ReportXml.SelectSingleNode("descendant::w:tbl[w:tr/w:tc/w:p/w:r/w:t='specimen_description']", this.m_NameSpaceManager);
+            XmlNode rowSpecimenNode = diagnosisTableNode.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='specimen_description']", this.m_NameSpaceManager);
+            XmlNode rowDiagnosisNode = diagnosisTableNode.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='specimen_diagnosis']", this.m_NameSpaceManager);
+            XmlNode insertAfterRow = rowSpecimenNode;
+            int count = 0;
+            foreach (YellowstonePathology.Business.Test.PanelSetOrder pso in this.m_AccessionOrder.PanelSetOrderCollection)
+            {
+                if(pso.PanelSetId == lynchSyndromeEvaluationTest.PanelSetId)
+                {
+                    count++;
+                    YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByOrderTarget(pso.OrderedOnId);
+                    YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen = comprehensiveColonCancerProfileResult.PanelSetOrderSurgical.SurgicalSpecimenCollection.GetBySpecimenOrderId(specimenOrder.SpecimenOrderId);
+                    YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetAliquotOrder(pso.OrderedOnId);
+                    string specimenDescription = specimenOrder.Description;
+                    if (aliquotOrder != null) specimenDescription += ": " + aliquotOrder.Label;
+
+                    XmlNode rowSpecimenNodeClone = rowSpecimenNode.Clone();
+                    rowSpecimenNodeClone.SelectSingleNode("descendant::w:r[w:t='specimen_description']/w:t", this.m_NameSpaceManager).InnerText = specimenDescription;
+                    if (count == 1)
+                    {
+                        rowSpecimenNodeClone.SelectSingleNode("descendant::w:r[w:t='surgical_reportno']/w:t", this.m_NameSpaceManager).InnerText = comprehensiveColonCancerProfileResult.PanelSetOrderSurgical.ReportNo;
+                    }
+                    else
+                    {
+                        rowSpecimenNodeClone.SelectSingleNode("descendant::w:r[w:t='surgical_reportno']/w:t", this.m_NameSpaceManager).InnerText = string.Empty;
+                    }
+                    diagnosisTableNode.InsertAfter(rowSpecimenNodeClone, insertAfterRow);
+
+                    XmlNode rowDiagnosisNodeClone = rowDiagnosisNode.Clone();
+                    string diagnosis = surgicalSpecimen.Diagnosis;
+
+                    this.SetXMLNodeParagraphDataNode(rowDiagnosisNodeClone, "specimen_diagnosis", diagnosis);
+                    diagnosisTableNode.InsertAfter(rowDiagnosisNodeClone, rowSpecimenNodeClone);
+
+                    insertAfterRow = rowDiagnosisNodeClone;
+                }
+            }
+            diagnosisTableNode.RemoveChild(rowSpecimenNode);
+            diagnosisTableNode.RemoveChild(rowDiagnosisNode);
 
             if (comprehensiveColonCancerProfileResult.IHCResult != null)
             {
