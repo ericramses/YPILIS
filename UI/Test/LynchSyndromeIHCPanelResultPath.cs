@@ -31,7 +31,7 @@ namespace YellowstonePathology.UI.Test
 		private void LynchSyndromeIHCPanelResultPage_Next(object sender, EventArgs e)
         {
 			YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeEvaluationTest panelSet = new YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeEvaluationTest();
-            if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(panelSet.PanelSetId) == true)
+            if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(panelSet.PanelSetId, this.m_PanelSetOrderLynchSyndromeIHC.OrderedOnId, true) == true)
             {
                 this.StartLynchSyndromeEvaluationResultPath();
             }
