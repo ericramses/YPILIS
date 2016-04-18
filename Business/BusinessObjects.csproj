@@ -535,6 +535,7 @@
     <Compile Include="Test\BCL2t1418ByPCR\BCL2t1418ByPCRWordDocument.cs" />
     <Compile Include="Test\CCNDIBCLIGHByPCR\CCNDIBCLIGHByPCRAbnormalResult.cs" />
     <Compile Include="Test\CCNDIBCLIGHByPCR\CCNDIBCLIGHByPCREPICOBXView.cs" />
+    <Compile Include="Test\CCNDIBCLIGHByPCR\CCNDIBCLIGHByPCRNotDetectedResult.cs" />
     <Compile Include="Test\CCNDIBCLIGHByPCR\CCNDIBCLIGHByPCRResult.cs" />
     <Compile Include="Test\CCNDIBCLIGHByPCR\CCNDIBCLIGHByPCRTest.cs" />
     <Compile Include="Test\CCNDIBCLIGHByPCR\CCNDIBCLIGHByPCRTestOrder.cs" />
