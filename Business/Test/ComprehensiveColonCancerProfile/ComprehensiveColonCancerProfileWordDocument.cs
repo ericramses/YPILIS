@@ -24,72 +24,78 @@ namespace YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile
 
 			ComprehensiveColonCancerProfile comprehensiveColonCancerProfile = (ComprehensiveColonCancerProfile)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_PanelSetOrder.ReportNo);
 			ComprehensiveColonCancerProfileResult comprehensiveColonCancerProfileResult = new ComprehensiveColonCancerProfileResult(this.m_AccessionOrder, comprehensiveColonCancerProfile);
+            YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetSurgical();
 
-			base.ReplaceText("report_interpretation", comprehensiveColonCancerProfile.Interpretation);
-			base.ReplaceText("ajcc_stage", comprehensiveColonCancerProfileResult.PanelSetOrderSurgical.AJCCStage);
+            base.ReplaceText("report_interpretation", comprehensiveColonCancerProfile.Interpretation);
+			base.ReplaceText("ajcc_stage", surgicalTestOrder.AJCCStage);
 
             YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeEvaluationTest lynchSyndromeEvaluationTest = new LynchSyndrome.LynchSyndromeEvaluationTest();
             XmlNode diagnosisTableNode = this.m_ReportXml.SelectSingleNode("descendant::w:tbl[w:tr/w:tc/w:p/w:r/w:t='specimen_description']", this.m_NameSpaceManager);
             XmlNode rowSpecimenNode = diagnosisTableNode.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='specimen_description']", this.m_NameSpaceManager);
             XmlNode rowDiagnosisNode = diagnosisTableNode.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='specimen_diagnosis']", this.m_NameSpaceManager);
             XmlNode insertAfterRow = rowSpecimenNode;
-            int count = 0;
-            foreach (YellowstonePathology.Business.Test.PanelSetOrder pso in this.m_AccessionOrder.PanelSetOrderCollection)
+            foreach (YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder in this.m_AccessionOrder.SpecimenOrderCollection)
             {
-                if(pso.PanelSetId == lynchSyndromeEvaluationTest.PanelSetId)
+                if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(lynchSyndromeEvaluationTest.PanelSetId, specimenOrder.SpecimenOrderId, true) == true)
                 {
-                    count++;
-                    YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByOrderTarget(pso.OrderedOnId);
-                    YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen = comprehensiveColonCancerProfileResult.PanelSetOrderSurgical.SurgicalSpecimenCollection.GetBySpecimenOrderId(specimenOrder.SpecimenOrderId);
-                    YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetAliquotOrder(pso.OrderedOnId);
-                    string specimenDescription = specimenOrder.Description;
-                    if (aliquotOrder != null) specimenDescription += ": " + aliquotOrder.Label;
-
-                    XmlNode rowSpecimenNodeClone = rowSpecimenNode.Clone();
-                    rowSpecimenNodeClone.SelectSingleNode("descendant::w:r[w:t='specimen_description']/w:t", this.m_NameSpaceManager).InnerText = specimenDescription;
-                    if (count == 1)
+                    this.SetSpecimenDescription(specimenOrder, specimenOrder.SpecimenOrderId, diagnosisTableNode, rowSpecimenNode, rowDiagnosisNode, insertAfterRow, surgicalTestOrder);
+                }
+                foreach (YellowstonePathology.Business.Test.AliquotOrder aliquotOrder in specimenOrder.AliquotOrderCollection)
+                {
+                    if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(lynchSyndromeEvaluationTest.PanelSetId, aliquotOrder.AliquotOrderId, true) == true)
                     {
-                        rowSpecimenNodeClone.SelectSingleNode("descendant::w:r[w:t='surgical_reportno']/w:t", this.m_NameSpaceManager).InnerText = comprehensiveColonCancerProfileResult.PanelSetOrderSurgical.ReportNo;
+                        this.SetSpecimenDescription(specimenOrder, aliquotOrder.AliquotOrderId, diagnosisTableNode, rowSpecimenNode, rowDiagnosisNode, insertAfterRow, surgicalTestOrder);
                     }
-                    else
-                    {
-                        rowSpecimenNodeClone.SelectSingleNode("descendant::w:r[w:t='surgical_reportno']/w:t", this.m_NameSpaceManager).InnerText = string.Empty;
-                    }
-                    diagnosisTableNode.InsertAfter(rowSpecimenNodeClone, insertAfterRow);
-
-                    XmlNode rowDiagnosisNodeClone = rowDiagnosisNode.Clone();
-                    string diagnosis = surgicalSpecimen.Diagnosis;
-
-                    this.SetXMLNodeParagraphDataNode(rowDiagnosisNodeClone, "specimen_diagnosis", diagnosis);
-                    diagnosisTableNode.InsertAfter(rowDiagnosisNodeClone, rowSpecimenNodeClone);
-
-                    insertAfterRow = rowDiagnosisNodeClone;
                 }
             }
             diagnosisTableNode.RemoveChild(rowSpecimenNode);
             diagnosisTableNode.RemoveChild(rowDiagnosisNode);
 
-            if (comprehensiveColonCancerProfileResult.IHCResult != null)
+            YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeIHCPanelTest panelSetLynchSyndromeIHCPanel = new YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeIHCPanelTest();
+            YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeIHC panelSetOrderLynchSyndromeIHC = null;
+            YellowstonePathology.Business.Test.LynchSyndrome.IHCResult ihcResult = null;
+            XmlNode ichTableNode = this.m_ReportXml.SelectSingleNode("descendant::w:tbl[w:tr/w:tc/w:p/w:r/w:t='mlh1_result']", this.m_NameSpaceManager);
+            XmlNode rowmlh1Node = ichTableNode.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='mlh1_result']", this.m_NameSpaceManager);
+            XmlNode rowmsh2Node = ichTableNode.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='msh2_result']", this.m_NameSpaceManager);
+            XmlNode rowmsh6Node = ichTableNode.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='msh6_result']", this.m_NameSpaceManager);
+            XmlNode rowpms2Node = ichTableNode.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='pms2_result']", this.m_NameSpaceManager);
+            XmlNode insertAfterichRow = rowmlh1Node;
+            bool ichOrdered = false;
+            foreach (YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder in this.m_AccessionOrder.SpecimenOrderCollection)
             {
-                base.ReplaceText("mlh1_result", comprehensiveColonCancerProfileResult.IHCResult.MLH1Result.Description);
-                base.ReplaceText("msh2_result", comprehensiveColonCancerProfileResult.IHCResult.MSH2Result.Description);
-                base.ReplaceText("msh6_result", comprehensiveColonCancerProfileResult.IHCResult.MSH6Result.Description);
-                base.ReplaceText("pms2_result", comprehensiveColonCancerProfileResult.IHCResult.PMS2Result.Description);
+                if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(panelSetLynchSyndromeIHCPanel.PanelSetId, specimenOrder.SpecimenOrderId, true) == true)
+                {
+                    ichOrdered = true;
+                    panelSetOrderLynchSyndromeIHC = (LynchSyndrome.PanelSetOrderLynchSyndromeIHC)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetLynchSyndromeIHCPanel.PanelSetId, specimenOrder.SpecimenOrderId, true);
+                    ihcResult = YellowstonePathology.Business.Test.LynchSyndrome.IHCResult.CreateResultFromResultCode(panelSetOrderLynchSyndromeIHC.ResultCode);
+                    this.SetIHCResults(ihcResult, panelSetOrderLynchSyndromeIHC.ReportNo, ichTableNode, rowmlh1Node, rowmsh2Node, rowmsh6Node, rowpms2Node, insertAfterichRow);
+                }
+                foreach (YellowstonePathology.Business.Test.AliquotOrder aliquotOrder in specimenOrder.AliquotOrderCollection)
+                {
+                    if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(panelSetLynchSyndromeIHCPanel.PanelSetId, aliquotOrder.AliquotOrderId, true) == true)
+                    {
+                        ichOrdered = true;
+                        panelSetOrderLynchSyndromeIHC = (LynchSyndrome.PanelSetOrderLynchSyndromeIHC)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetLynchSyndromeIHCPanel.PanelSetId, aliquotOrder.AliquotOrderId, true);
+                        ihcResult = YellowstonePathology.Business.Test.LynchSyndrome.IHCResult.CreateResultFromResultCode(panelSetOrderLynchSyndromeIHC.ResultCode);
+                        this.SetIHCResults(ihcResult, panelSetOrderLynchSyndromeIHC.ReportNo, ichTableNode, rowmlh1Node, rowmsh2Node, rowmsh6Node, rowpms2Node, insertAfterichRow);
+                    }
+                }
             }
-            else
+
+            if(ichOrdered == true)
             {
-                base.ReplaceText("mlh1_result", "Not Included");
-                base.ReplaceText("msh2_result", "Not Included");
-                base.ReplaceText("msh6_result", "Not Included");
-                base.ReplaceText("pms2_result", "Not Included");
-            }
-            if (comprehensiveColonCancerProfileResult.PanelSetOrderLynchSyndromeIHC != null)
-            {
-                base.ReplaceText("ihc_reportno", comprehensiveColonCancerProfileResult.PanelSetOrderLynchSyndromeIHC.ReportNo);
+                ichTableNode.RemoveChild(rowmlh1Node);
+                ichTableNode.RemoveChild(rowmsh2Node);
+                ichTableNode.RemoveChild(rowmsh6Node);
+                ichTableNode.RemoveChild(rowpms2Node);
             }
             else
             {
                 base.ReplaceText("ihc_reportno", "Not Included");
+                base.ReplaceText("mlh1_result", "Not Included");
+                base.ReplaceText("msh2_result", "Not Included");
+                base.ReplaceText("msh6_result", "Not Included");
+                base.ReplaceText("pms2_result", "Not Included");
             }
 
             DateTime testChangeDate = DateTime.Parse("11/23/2015");
@@ -206,6 +212,52 @@ namespace YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile
             }
             this.DeleteRow("hras_result");
 
+        }
+
+        private void SetSpecimenDescription(YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder, string orderTargetId,
+            XmlNode diagnosisTableNode, XmlNode rowSpecimenNode, XmlNode rowDiagnosisNode, XmlNode insertAfterRow,
+            YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder)
+        {
+            YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen = surgicalTestOrder.SurgicalSpecimenCollection.GetBySpecimenOrderId(specimenOrder.SpecimenOrderId);
+            YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetAliquotOrder(orderTargetId);
+            string specimenDescription = specimenOrder.Description;
+            if (aliquotOrder != null) specimenDescription += ": " + aliquotOrder.Label;
+
+            XmlNode rowSpecimenNodeClone = rowSpecimenNode.Clone();
+            rowSpecimenNodeClone.SelectSingleNode("descendant::w:r[w:t='specimen_description']/w:t", this.m_NameSpaceManager).InnerText = specimenDescription;
+            rowSpecimenNodeClone.SelectSingleNode("descendant::w:r[w:t='surgical_reportno']/w:t", this.m_NameSpaceManager).InnerText = surgicalTestOrder.ReportNo;
+            diagnosisTableNode.InsertAfter(rowSpecimenNodeClone, insertAfterRow);
+
+            XmlNode rowDiagnosisNodeClone = rowDiagnosisNode.Clone();
+            string diagnosis = surgicalSpecimen.Diagnosis;
+
+            this.SetXMLNodeParagraphDataNode(rowDiagnosisNodeClone, "specimen_diagnosis", diagnosis);
+            diagnosisTableNode.InsertAfter(rowDiagnosisNodeClone, rowSpecimenNodeClone);
+
+            insertAfterRow = rowDiagnosisNodeClone;
+        }
+
+        private void SetIHCResults(LynchSyndrome.IHCResult ihcResult, string reportNo, XmlNode ichTableNode, XmlNode rowmlh1Node,
+            XmlNode rowmsh2Node, XmlNode rowmsh6Node, XmlNode rowpms2Node, XmlNode insertAfterichRow)
+        {
+            XmlNode rowmlh1NodeClone = rowmlh1Node.Clone();
+            rowmlh1NodeClone.SelectSingleNode("descendant::w:r[w:t='mlh1_result']/w:t", this.m_NameSpaceManager).InnerText = ihcResult.MLH1Result.Description;
+            rowmlh1NodeClone.SelectSingleNode("descendant::w:r[w:t='ihc_reportno']/w:t", this.m_NameSpaceManager).InnerText = reportNo;
+            ichTableNode.InsertAfter(rowmlh1NodeClone, insertAfterichRow);
+
+            XmlNode rowmsh2NodeClone = rowmsh2Node.Clone();
+            rowmsh2NodeClone.SelectSingleNode("descendant::w:r[w:t='msh2_result']/w:t", this.m_NameSpaceManager).InnerText = ihcResult.MSH2Result.Description;
+            ichTableNode.InsertAfter(rowmsh2NodeClone, rowmlh1NodeClone);
+
+            XmlNode rowmsh6NodeClone = rowmsh6Node.Clone();
+            rowmsh6NodeClone.SelectSingleNode("descendant::w:r[w:t='msh6_result']/w:t", this.m_NameSpaceManager).InnerText = ihcResult.MSH6Result.Description;
+            ichTableNode.InsertAfter(rowmsh6NodeClone, rowmsh2NodeClone);
+
+            XmlNode rowpms2NodeClone = rowpms2Node.Clone();
+            rowpms2NodeClone.SelectSingleNode("descendant::w:r[w:t='pms2_result']/w:t", this.m_NameSpaceManager).InnerText = ihcResult.PMS2Result.Description;
+            ichTableNode.InsertAfter(rowpms2NodeClone, rowmsh6NodeClone);
+
+            insertAfterichRow = rowpms2NodeClone;
         }
 
         public override void Publish()
