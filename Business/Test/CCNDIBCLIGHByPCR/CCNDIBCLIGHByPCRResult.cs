@@ -10,21 +10,22 @@ namespace YellowstonePathology.Business.Test.CCNDIBCLIGHByPCR
     {
         public static string NucleiScored = "200";
         protected string m_Result;
+        protected string m_ResultCode;
         protected string m_Interpretation;
-        protected string m_ProbeSetDetail;
+        protected string m_Method;
         protected string m_References;
 
         public CCNDIBCLIGHByPCRResult()
         {
         }
 
-        public void SetResults(CCNDIBCLIGHByPCRTestOrder panelSetOrder)
+        public void SetResults(CCNDIBCLIGHByPCRTestOrder testOrder)
         {
-            panelSetOrder.Result = this.m_Result;
-            panelSetOrder.Interpretation = this.m_Interpretation;
-            panelSetOrder.ProbeSetDetail = this.m_ProbeSetDetail;
-            panelSetOrder.References = this.m_References;
-            panelSetOrder.NucleiScored = CCNDIBCLIGHByPCRResult.NucleiScored;
+            testOrder.Result = this.m_Result;
+            testOrder.ResultCode = this.m_ResultCode;
+            testOrder.Interpretation = this.m_Interpretation;
+            testOrder.Method = this.m_Method;
+            testOrder.References = this.m_References;
         }
     }
 }
