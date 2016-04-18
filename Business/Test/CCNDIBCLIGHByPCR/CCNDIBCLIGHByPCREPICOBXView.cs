@@ -44,12 +44,8 @@ namespace YellowstonePathology.Business.Test.CCNDIBCLIGHByPCR
             this.HandleLongString(panelSetOrder.Interpretation, document, "F");
 
             this.AddNextObxElement("", document, "F");
-            this.AddNextObxElement("Probe Set Details:", document, "F");
-            this.HandleLongString(panelSetOrder.ProbeSetDetail, document, "F");
-
-            this.AddNextObxElement("", document, "F");
-            this.AddNextObxElement("Nuclei Scored:", document, "F");
-            this.HandleLongString(panelSetOrder.NucleiScored, document, "F");
+            this.AddNextObxElement("Method:", document, "F");
+            this.HandleLongString(panelSetOrder.Method, document, "F");
 
             this.AddNextObxElement("", document, "F");
             this.AddNextObxElement("References:", document, "F");
@@ -58,6 +54,9 @@ namespace YellowstonePathology.Business.Test.CCNDIBCLIGHByPCR
             this.AddNextObxElement("", document, "F");
             string locationPerformed = panelSetOrder.GetLocationPerformedComment();
             this.AddNextObxElement(locationPerformed, document, "F");
+            this.AddNextObxElement(string.Empty, document, "F");
+
+            this.AddNextObxElement(panelSetOrder.ACR, document, "F");
             this.AddNextObxElement(string.Empty, document, "F");
         }
     }

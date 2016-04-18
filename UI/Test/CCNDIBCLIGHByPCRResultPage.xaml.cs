@@ -74,12 +74,14 @@ namespace YellowstonePathology.UI.Test
             get { return this.m_PageHeaderText; }
         }
 
-        private void HyperLinkNormal_Click(object sender, RoutedEventArgs e)
+        private void HyperLinkNotDetected_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("The Normal result is not yet implemented.", "Not implemented yet.");
+            YellowstonePathology.Business.Test.CCNDIBCLIGHByPCR.CCNDIBCLIGHByPCRNotDetectedResult result = new Business.Test.CCNDIBCLIGHByPCR.CCNDIBCLIGHByPCRNotDetectedResult();
+            result.SetResults(this.m_PanelSetOrder);
+            this.NotifyPropertyChanged("PanelSetOrder");
         }
 
-        private void HyperLinkAbnormal_Click(object sender, RoutedEventArgs e)
+        private void HyperLinkDetected_Click(object sender, RoutedEventArgs e)
         {
             YellowstonePathology.Business.Test.CCNDIBCLIGHByPCR.CCNDIBCLIGHByPCRAbnormalResult result = new Business.Test.CCNDIBCLIGHByPCR.CCNDIBCLIGHByPCRAbnormalResult();
             result.SetResults(this.m_PanelSetOrder);
@@ -98,25 +100,27 @@ namespace YellowstonePathology.UI.Test
 
         private void HyperLinkFinalizeResults_Click(object sender, RoutedEventArgs e)
         {
-            if (this.m_PanelSetOrder.Final == false)
+            Business.Rules.MethodResult methodResult = this.m_PanelSetOrder.IsOkToFinalize();
+            if(methodResult.Success == true)
             {
                 this.m_PanelSetOrder.Finish(this.m_AccessionOrder);
             }
             else
             {
-                MessageBox.Show("This case cannot be finalized because it is already final.");
+                MessageBox.Show(methodResult.Message);
             }
         }
 
         private void HyperLinkUnfinalResults_Click(object sender, RoutedEventArgs e)
         {
-            if (this.m_PanelSetOrder.Final == true)
+            YellowstonePathology.Business.Rules.MethodResult result = this.m_PanelSetOrder.IsOkToUnfinalize();
+            if (result.Success == true)
             {
                 this.m_PanelSetOrder.Unfinalize();
             }
             else
             {
-                MessageBox.Show("This case cannot be unfinalized because it is not final.");
+                MessageBox.Show(result.Message);
             }
         }
 
