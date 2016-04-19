@@ -51,45 +51,114 @@ namespace YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile
             diagnosisTableNode.RemoveChild(rowSpecimenNode);
             diagnosisTableNode.RemoveChild(rowDiagnosisNode);
 
-            YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeIHCPanelTest panelSetLynchSyndromeIHCPanel = new YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeIHCPanelTest();
-            YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeIHC panelSetOrderLynchSyndromeIHC = null;
-            YellowstonePathology.Business.Test.LynchSyndrome.IHCResult ihcResult = null;
-            XmlNode ichTableNode = this.m_ReportXml.SelectSingleNode("descendant::w:tbl[w:tr/w:tc/w:p/w:r/w:t='mlh1_result']", this.m_NameSpaceManager);
-            XmlNode rowmlh1Node = ichTableNode.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='mlh1_result']", this.m_NameSpaceManager);
-            XmlNode rowmsh2Node = ichTableNode.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='msh2_result']", this.m_NameSpaceManager);
-            XmlNode rowmsh6Node = ichTableNode.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='msh6_result']", this.m_NameSpaceManager);
-            XmlNode rowpms2Node = ichTableNode.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='pms2_result']", this.m_NameSpaceManager);
-            XmlNode insertAfterichRow = rowmlh1Node;
             bool ichOrdered = false;
-            foreach (YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder in this.m_AccessionOrder.SpecimenOrderCollection)
+            bool hasMolecularTest = false;
+
+            XmlNode tableNode = this.m_ReportXml.SelectSingleNode("descendant::w:tbl[w:tr/w:tc/w:p/w:r/w:t='mlh1_result']", this.m_NameSpaceManager);
+            XmlNode rowResultNode = tableNode.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='mlh1promoter_result']", this.m_NameSpaceManager);
+
+            foreach (YellowstonePathology.Business.Test.PanelSetOrder testOrder in this.m_AccessionOrder.PanelSetOrderCollection)
             {
-                if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(panelSetLynchSyndromeIHCPanel.PanelSetId, specimenOrder.SpecimenOrderId, true) == true)
+                YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimen = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByOrderTarget(testOrder.OrderedOnId);
+                if (specimen != null)
                 {
-                    string block = specimenOrder.Description;
-                    ichOrdered = true;
-                    panelSetOrderLynchSyndromeIHC = (LynchSyndrome.PanelSetOrderLynchSyndromeIHC)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetLynchSyndromeIHCPanel.PanelSetId, specimenOrder.SpecimenOrderId, true);
-                    ihcResult = YellowstonePathology.Business.Test.LynchSyndrome.IHCResult.CreateResultFromResultCode(panelSetOrderLynchSyndromeIHC.ResultCode);
-                    this.SetIHCResults(ihcResult, panelSetOrderLynchSyndromeIHC.ReportNo, block, ichTableNode, rowmlh1Node, rowmsh2Node, rowmsh6Node, rowpms2Node, insertAfterichRow);
-                }
-                foreach (YellowstonePathology.Business.Test.AliquotOrder aliquotOrder in specimenOrder.AliquotOrderCollection)
-                {
-                    if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(panelSetLynchSyndromeIHCPanel.PanelSetId, aliquotOrder.AliquotOrderId, true) == true)
+                    YellowstonePathology.Business.Test.AliquotOrder aliquot = specimen.AliquotOrderCollection.GetByAliquotOrderId(testOrder.OrderedOnId);
+                    if (testOrder is YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeIHC)
                     {
-                        string block = aliquotOrder.Label;
+                        XmlNode rowmlh1Node = tableNode.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='mlh1_result']", this.m_NameSpaceManager);
+                        XmlNode rowmsh2Node = tableNode.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='msh2_result']", this.m_NameSpaceManager);
+                        XmlNode rowmsh6Node = tableNode.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='msh6_result']", this.m_NameSpaceManager);
+                        XmlNode rowpms2Node = tableNode.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='pms2_result']", this.m_NameSpaceManager);
+                        insertAfterRow = rowmlh1Node;
                         ichOrdered = true;
-                        panelSetOrderLynchSyndromeIHC = (LynchSyndrome.PanelSetOrderLynchSyndromeIHC)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetLynchSyndromeIHCPanel.PanelSetId, aliquotOrder.AliquotOrderId, true);
-                        ihcResult = YellowstonePathology.Business.Test.LynchSyndrome.IHCResult.CreateResultFromResultCode(panelSetOrderLynchSyndromeIHC.ResultCode);
-                        this.SetIHCResults(ihcResult, panelSetOrderLynchSyndromeIHC.ReportNo, block, ichTableNode, rowmlh1Node, rowmsh2Node, rowmsh6Node, rowpms2Node, insertAfterichRow);
+                        YellowstonePathology.Business.Test.LynchSyndrome.IHCResult ihcResult = YellowstonePathology.Business.Test.LynchSyndrome.IHCResult.CreateResultFromResultCode(((LynchSyndrome.PanelSetOrderLynchSyndromeIHC)testOrder).ResultCode);
+                        this.SetIHCResults(ihcResult, testOrder.ReportNo, aliquot.Label, tableNode, rowmlh1Node, rowmsh2Node, rowmsh6Node, rowpms2Node, insertAfterRow);
+                    }
+                    else if (testOrder is LynchSyndrome.PanelSetOrderMLH1MethylationAnalysis)
+                    {
+                        tableNode = this.m_ReportXml.SelectSingleNode("descendant::w:tbl[w:tr/w:tc/w:p/w:r/w:t='mlh1promoter_result']", this.m_NameSpaceManager); insertAfterRow = rowResultNode;
+                        insertAfterRow = rowResultNode;
+                        this.SetTestResults("mlh1promoter", ((LynchSyndrome.PanelSetOrderMLH1MethylationAnalysis)testOrder).Result, testOrder.ReportNo, aliquot.Label, tableNode, rowResultNode, insertAfterRow);
+                        hasMolecularTest = true;
+                    }
+                    else if (testOrder is KRASStandard.KRASStandardTestOrder)
+                    {
+                        tableNode = this.m_ReportXml.SelectSingleNode("descendant::w:tbl[w:tr/w:tc/w:p/w:r/w:t='kras_result']", this.m_NameSpaceManager);
+                        rowResultNode = tableNode.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='kras_result']", this.m_NameSpaceManager);
+                        insertAfterRow = rowResultNode;
+                        this.SetTestResults("kras", ((KRASStandard.KRASStandardTestOrder)testOrder).Result, testOrder.ReportNo, aliquot.Label, tableNode, rowResultNode, insertAfterRow);
+                        hasMolecularTest = true;
+                    }
+                    else if (testOrder is KRASExon23Mutation.KRASExon23MutationTestOrder)
+                    {
+                        tableNode = this.m_ReportXml.SelectSingleNode("descendant::w:tbl[w:tr/w:tc/w:p/w:r/w:t='kras_result']", this.m_NameSpaceManager);
+                        rowResultNode = tableNode.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='kras_result']", this.m_NameSpaceManager);
+                        insertAfterRow = rowResultNode;
+                        this.SetTestResults("kras", ((KRASExon23Mutation.KRASExon23MutationTestOrder)testOrder).Result, testOrder.ReportNo, aliquot.Label, tableNode, rowResultNode, insertAfterRow);
+                        hasMolecularTest = true;
+                    }
+                    else if (testOrder is KRASExon4Mutation.KRASExon4MutationTestOrder)
+                    {
+                        tableNode = this.m_ReportXml.SelectSingleNode("descendant::w:tbl[w:tr/w:tc/w:p/w:r/w:t='kras_result']", this.m_NameSpaceManager);
+                        rowResultNode = tableNode.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='kras_result']", this.m_NameSpaceManager);
+                        insertAfterRow = rowResultNode;
+                        this.SetTestResults("kras", ((KRASExon4Mutation.KRASExon4MutationTestOrder)testOrder).Result, testOrder.ReportNo, aliquot.Label, tableNode, rowResultNode, insertAfterRow);
+                        hasMolecularTest = true;
+                    }
+                    else if (testOrder is BRAFV600EK.BRAFV600EKTestOrder)
+                    {
+                        tableNode = this.m_ReportXml.SelectSingleNode("descendant::w:tbl[w:tr/w:tc/w:p/w:r/w:t='braf_result']", this.m_NameSpaceManager);
+                        rowResultNode = tableNode.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='braf_result']", this.m_NameSpaceManager);
+                        insertAfterRow = rowResultNode;
+                        this.SetTestResults("braf", ((BRAFV600EK.BRAFV600EKTestOrder)testOrder).Result, testOrder.ReportNo, aliquot.Label, tableNode, rowResultNode, insertAfterRow);
+                        hasMolecularTest = true;
+                    }
+                    else if (testOrder is NRASMutationAnalysis.NRASMutationAnalysisTestOrder)
+                    {
+                        tableNode = this.m_ReportXml.SelectSingleNode("descendant::w:tbl[w:tr/w:tc/w:p/w:r/w:t='nras_result']", this.m_NameSpaceManager);
+                        rowResultNode = tableNode.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='nras_result']", this.m_NameSpaceManager);
+                        insertAfterRow = rowResultNode;
+                        this.SetTestResults("nras", ((NRASMutationAnalysis.NRASMutationAnalysisTestOrder)testOrder).Result, testOrder.ReportNo, aliquot.Label, tableNode, rowResultNode, insertAfterRow);
+                        hasMolecularTest = true;
+                    }
+                    else if (testOrder is RASRAFPanel.RASRAFPanelTestOrder)
+                    {
+                        tableNode = this.m_ReportXml.SelectSingleNode("descendant::w:tbl[w:tr/w:tc/w:p/w:r/w:t='kras_result']", this.m_NameSpaceManager);
+                        rowResultNode = tableNode.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='kras_result']", this.m_NameSpaceManager);
+                        insertAfterRow = rowResultNode;
+                        this.SetTestResults("kras", ((RASRAFPanel.RASRAFPanelTestOrder)testOrder).KRASResult, testOrder.ReportNo, aliquot.Label, tableNode, rowResultNode, insertAfterRow);
+
+                        tableNode = this.m_ReportXml.SelectSingleNode("descendant::w:tbl[w:tr/w:tc/w:p/w:r/w:t='braf_result']", this.m_NameSpaceManager);
+                        rowResultNode = tableNode.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='braf_result']", this.m_NameSpaceManager);
+                        insertAfterRow = rowResultNode;
+                        this.SetTestResults("braf", ((RASRAFPanel.RASRAFPanelTestOrder)testOrder).BRAFResult, testOrder.ReportNo, aliquot.Label, tableNode, rowResultNode, insertAfterRow);
+
+                        tableNode = this.m_ReportXml.SelectSingleNode("descendant::w:tbl[w:tr/w:tc/w:p/w:r/w:t='nras_result']", this.m_NameSpaceManager);
+                        rowResultNode = tableNode.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='nras_result']", this.m_NameSpaceManager);
+                        insertAfterRow = rowResultNode;
+                        this.SetTestResults("nras", ((RASRAFPanel.RASRAFPanelTestOrder)testOrder).NRASResult, testOrder.ReportNo, aliquot.Label, tableNode, rowResultNode, insertAfterRow);
+
+                        tableNode = this.m_ReportXml.SelectSingleNode("descendant::w:tbl[w:tr/w:tc/w:p/w:r/w:t='hras_result']", this.m_NameSpaceManager);
+                        rowResultNode = tableNode.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='hras_result']", this.m_NameSpaceManager);
+                        insertAfterRow = rowResultNode;
+                        this.SetTestResults("hras", ((RASRAFPanel.RASRAFPanelTestOrder)testOrder).HRASResult, testOrder.ReportNo, aliquot.Label, tableNode, rowResultNode, insertAfterRow);
+                        hasMolecularTest = true;
                     }
                 }
             }
 
-            if(ichOrdered == true)
+            this.DeleteRow("mlh1promoter_result");
+            this.DeleteRow("kras_result");
+            this.DeleteRow("braf_result");
+            this.DeleteRow("nras_result");
+            this.DeleteRow("hras_result");
+
+            if (ichOrdered == true)
             {
-                ichTableNode.RemoveChild(rowmlh1Node);
-                ichTableNode.RemoveChild(rowmsh2Node);
-                ichTableNode.RemoveChild(rowmsh6Node);
-                ichTableNode.RemoveChild(rowpms2Node);
+                this.DeleteRow("mlh1_result");
+                this.DeleteRow("msh2_result");
+                this.DeleteRow("msh6_result");
+                this.DeleteRow("pms2_result");
             }
             else
             {
@@ -100,246 +169,16 @@ namespace YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile
                 base.ReplaceText("pms2_result", "Not Included");
             }
 
-            RenderRasRafResults(comprehensiveColonCancerProfile, comprehensiveColonCancerProfileResult);
-            RenderSeparateTestResults(comprehensiveColonCancerProfile, comprehensiveColonCancerProfileResult);
+            if(hasMolecularTest == true)
+            {
+                this.DeleteRow("None Performed");
+            }
 
             base.ReplaceText("pathologist_signature", comprehensiveColonCancerProfile.Signature);
 
 			this.SaveReport();
 		}
 
-        private void RenderRasRafResults(ComprehensiveColonCancerProfile comprehensiveColonCancerProfile,
-            ComprehensiveColonCancerProfileResult comprehensiveColonCancerProfileResult)
-        {
-            if (comprehensiveColonCancerProfileResult.RASRAFIsOrdered == true)
-            {
-                base.ReplaceText("braf_result", comprehensiveColonCancerProfileResult.RASRAFTestOrder.BRAFResult);
-                base.ReplaceText("braf_reportno", comprehensiveColonCancerProfile.ReportNo);
-
-                base.ReplaceText("kras_result", comprehensiveColonCancerProfileResult.RASRAFTestOrder.KRASResult);
-                base.ReplaceText("kras_reportno", comprehensiveColonCancerProfile.ReportNo);
-
-                base.ReplaceText("nras_result", comprehensiveColonCancerProfileResult.RASRAFTestOrder.NRASResult);
-                base.ReplaceText("nras_reportno", comprehensiveColonCancerProfile.ReportNo);
-
-                base.ReplaceText("hras_result", comprehensiveColonCancerProfileResult.RASRAFTestOrder.HRASResult);
-                base.ReplaceText("hras_reportno", comprehensiveColonCancerProfile.ReportNo);
-                this.DeleteRow("None Performed");
-            }
-        }
-
-        private void RenderSeparateTestResults(ComprehensiveColonCancerProfile comprehensiveColonCancerProfile, 
-            ComprehensiveColonCancerProfileResult comprehensiveColonCancerProfileResult)
-        {
-            bool hasMolecularTest = false;
-            string test =string.Empty;
-            string result = string.Empty;
-            string reportNo = string.Empty;
-            string block = string.Empty;
-
-            LynchSyndrome.MLH1MethylationAnalysisTest mlh1MethylationAnalysisTest = new LynchSyndrome.MLH1MethylationAnalysisTest();
-
-            XmlNode tableNode = this.m_ReportXml.SelectSingleNode("descendant::w:tbl[w:tr/w:tc/w:p/w:r/w:t='mlh1promoter_result']", this.m_NameSpaceManager);
-            XmlNode rowResultNode = tableNode.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='mlh1promoter_result']", this.m_NameSpaceManager);
-            XmlNode insertAfterRow = rowResultNode;
-
-            foreach (YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder in this.m_AccessionOrder.SpecimenOrderCollection)
-            {
-                if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(mlh1MethylationAnalysisTest.PanelSetId, specimenOrder.SpecimenOrderId, true) == true)
-                {
-                    LynchSyndrome.PanelSetOrderMLH1MethylationAnalysis panelSetOrderMLH1MethylationAnalysis = (LynchSyndrome.PanelSetOrderMLH1MethylationAnalysis)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(mlh1MethylationAnalysisTest.PanelSetId, specimenOrder.SpecimenOrderId, true);
-                    test = "mlh1promoter";
-                    reportNo = panelSetOrderMLH1MethylationAnalysis.ReportNo;
-                    result = panelSetOrderMLH1MethylationAnalysis.Result;
-                    block = specimenOrder.Description;
-                    this.SetTestResults(test, result, reportNo, block, tableNode, rowResultNode, insertAfterRow);
-                    hasMolecularTest = true;
-                }
-                foreach (YellowstonePathology.Business.Test.AliquotOrder aliquotOrder in specimenOrder.AliquotOrderCollection)
-                {
-                    if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(mlh1MethylationAnalysisTest.PanelSetId, aliquotOrder.AliquotOrderId, true) == true)
-                    {
-                        LynchSyndrome.PanelSetOrderMLH1MethylationAnalysis panelSetOrderMLH1MethylationAnalysis = (LynchSyndrome.PanelSetOrderMLH1MethylationAnalysis)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(mlh1MethylationAnalysisTest.PanelSetId, aliquotOrder.AliquotOrderId, true);
-                        test = "mlh1promoter";
-                        reportNo = panelSetOrderMLH1MethylationAnalysis.ReportNo;
-                        result = panelSetOrderMLH1MethylationAnalysis.Result;
-                        block = aliquotOrder.Label;
-                        this.SetTestResults(test, result, reportNo, block, tableNode, rowResultNode, insertAfterRow);
-                        hasMolecularTest = true;
-                    }
-                }
-            }
-            tableNode.RemoveChild(rowResultNode);
-
-            KRASStandard.KRASStandardTest krasStandardTest = new KRASStandard.KRASStandardTest();
-            tableNode = this.m_ReportXml.SelectSingleNode("descendant::w:tbl[w:tr/w:tc/w:p/w:r/w:t='kras_result']", this.m_NameSpaceManager);
-            rowResultNode = tableNode.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='kras_result']", this.m_NameSpaceManager);
-            insertAfterRow = rowResultNode;
-
-            foreach (YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder in this.m_AccessionOrder.SpecimenOrderCollection)
-            {
-                if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(krasStandardTest.PanelSetId, specimenOrder.SpecimenOrderId, true) == true)
-                {
-                    KRASStandard.KRASStandardTestOrder krasStandardTestOrder = (KRASStandard.KRASStandardTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(krasStandardTest.PanelSetId, specimenOrder.SpecimenOrderId, true);
-                    test = "kras";
-                    reportNo = krasStandardTestOrder.ReportNo;
-                    result = krasStandardTestOrder.Result;
-                    block = specimenOrder.Description;
-                    this.SetTestResults(test, result, reportNo, block, tableNode, rowResultNode, insertAfterRow);
-                    hasMolecularTest = true;
-                }
-                foreach (YellowstonePathology.Business.Test.AliquotOrder aliquotOrder in specimenOrder.AliquotOrderCollection)
-                {
-                    if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(krasStandardTest.PanelSetId, aliquotOrder.AliquotOrderId, true) == true)
-                    {
-                        KRASStandard.KRASStandardTestOrder krasStandardTestOrder = (KRASStandard.KRASStandardTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(krasStandardTest.PanelSetId, aliquotOrder.AliquotOrderId, true);
-                        test = "kras";
-                        reportNo = krasStandardTestOrder.ReportNo;
-                        result = krasStandardTestOrder.Result;
-                        block = aliquotOrder.Label;
-                        this.SetTestResults(test, result, reportNo, block, tableNode, rowResultNode, insertAfterRow);
-                        hasMolecularTest = true;
-                    }
-                }
-            }
-
-            KRASExon23Mutation.KRASExon23MutationTest krasExon23MutationTest = new KRASExon23Mutation.KRASExon23MutationTest();
-            insertAfterRow = rowResultNode;
-
-            foreach (YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder in this.m_AccessionOrder.SpecimenOrderCollection)
-            {
-                if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(krasExon23MutationTest.PanelSetId, specimenOrder.SpecimenOrderId, true) == true)
-                {
-                    KRASExon23Mutation.KRASExon23MutationTestOrder krasExon23MutationTestOrder = (KRASExon23Mutation.KRASExon23MutationTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(krasExon23MutationTest.PanelSetId, specimenOrder.SpecimenOrderId, true);
-                    test = "kras";
-                    reportNo = krasExon23MutationTestOrder.ReportNo;
-                    result = krasExon23MutationTestOrder.Result;
-                    block = specimenOrder.Description;
-                    this.SetTestResults(test, result, reportNo, block, tableNode, rowResultNode, insertAfterRow);
-                    hasMolecularTest = true;
-                }
-                foreach (YellowstonePathology.Business.Test.AliquotOrder aliquotOrder in specimenOrder.AliquotOrderCollection)
-                {
-                    if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(krasExon23MutationTest.PanelSetId, aliquotOrder.AliquotOrderId, true) == true)
-                    {
-                        KRASExon23Mutation.KRASExon23MutationTestOrder krasExon23MutationTestOrder = (KRASExon23Mutation.KRASExon23MutationTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(krasExon23MutationTest.PanelSetId, aliquotOrder.AliquotOrderId, true);
-                        test = "kras";
-                        reportNo = krasExon23MutationTestOrder.ReportNo;
-                        result = krasExon23MutationTestOrder.Result;
-                        block = aliquotOrder.Label;
-                        this.SetTestResults(test, result, reportNo, block, tableNode, rowResultNode, insertAfterRow);
-                        hasMolecularTest = true;
-                    }
-                }
-            }
-
-            KRASExon4Mutation.KRASExon4MutationTest krasExon4MutationTest = new KRASExon4Mutation.KRASExon4MutationTest();
-            insertAfterRow = rowResultNode;
-
-            foreach (YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder in this.m_AccessionOrder.SpecimenOrderCollection)
-            {
-                if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(krasExon4MutationTest.PanelSetId, specimenOrder.SpecimenOrderId, true) == true)
-                {
-                    KRASExon4Mutation.KRASExon4MutationTestOrder krasExon4MutationTestOrder = (KRASExon4Mutation.KRASExon4MutationTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(krasExon4MutationTest.PanelSetId, specimenOrder.SpecimenOrderId, true);
-                    test = "kras";
-                    reportNo = krasExon4MutationTestOrder.ReportNo;
-                    result = krasExon4MutationTestOrder.Result;
-                    block = specimenOrder.Description;
-                    this.SetTestResults(test, result, reportNo, block, tableNode, rowResultNode, insertAfterRow);
-                    hasMolecularTest = true;
-                }
-                foreach (YellowstonePathology.Business.Test.AliquotOrder aliquotOrder in specimenOrder.AliquotOrderCollection)
-                {
-                    if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(krasExon4MutationTest.PanelSetId, aliquotOrder.AliquotOrderId, true) == true)
-                    {
-                        if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(mlh1MethylationAnalysisTest.PanelSetId, aliquotOrder.AliquotOrderId, true) == true)
-                        {
-                            KRASExon4Mutation.KRASExon4MutationTestOrder krasExon4MutationTestOrder = (KRASExon4Mutation.KRASExon4MutationTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(krasExon4MutationTest.PanelSetId, aliquotOrder.AliquotOrderId, true);
-                            test = "kras";
-                            reportNo = krasExon4MutationTestOrder.ReportNo;
-                            result = krasExon4MutationTestOrder.Result;
-                            block = aliquotOrder.Label;
-                            this.SetTestResults(test, result, reportNo, block, tableNode, rowResultNode, insertAfterRow);
-                            hasMolecularTest = true;
-                        }
-                    }
-                }
-            }
-            tableNode.RemoveChild(rowResultNode);
-
-            BRAFV600EK.BRAFV600EKTest brafV600EKTest = new BRAFV600EK.BRAFV600EKTest();
-            tableNode = this.m_ReportXml.SelectSingleNode("descendant::w:tbl[w:tr/w:tc/w:p/w:r/w:t='braf_result']", this.m_NameSpaceManager);
-            rowResultNode = tableNode.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='braf_result']", this.m_NameSpaceManager);
-            insertAfterRow = rowResultNode;
-
-            foreach (YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder in this.m_AccessionOrder.SpecimenOrderCollection)
-            {
-                if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(brafV600EKTest.PanelSetId, specimenOrder.SpecimenOrderId, true) == true)
-                {
-                    BRAFV600EK.BRAFV600EKTestOrder brafV600EKTestOrder = (BRAFV600EK.BRAFV600EKTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(brafV600EKTest.PanelSetId, specimenOrder.SpecimenOrderId, true);
-                    test = "braf";
-                    reportNo = brafV600EKTestOrder.ReportNo;
-                    result = brafV600EKTestOrder.Result;
-                    block = specimenOrder.Description;
-                    this.SetTestResults(test, result, reportNo, block, tableNode, rowResultNode, insertAfterRow);
-                    hasMolecularTest = true;
-                }
-                foreach (YellowstonePathology.Business.Test.AliquotOrder aliquotOrder in specimenOrder.AliquotOrderCollection)
-                {
-                    if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(brafV600EKTest.PanelSetId, aliquotOrder.AliquotOrderId, true) == true)
-                    {
-                        BRAFV600EK.BRAFV600EKTestOrder brafV600EKTestOrder = (BRAFV600EK.BRAFV600EKTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(brafV600EKTest.PanelSetId, aliquotOrder.AliquotOrderId, true);
-                        test = "braf";
-                        reportNo = brafV600EKTestOrder.ReportNo;
-                        result = string.IsNullOrEmpty(brafV600EKTestOrder.Result) ? string.Empty : brafV600EKTestOrder.Result;
-                        block = aliquotOrder.Label;
-                        this.SetTestResults(test, result, reportNo, block, tableNode, rowResultNode, insertAfterRow);
-                        hasMolecularTest = true;
-                    }
-                }
-            }
-            tableNode.RemoveChild(rowResultNode);
-
-            NRASMutationAnalysis.NRASMutationAnalysisTest nrasMutationAnalysisTest = new NRASMutationAnalysis.NRASMutationAnalysisTest();
-            tableNode = this.m_ReportXml.SelectSingleNode("descendant::w:tbl[w:tr/w:tc/w:p/w:r/w:t='nras_result']", this.m_NameSpaceManager);
-            rowResultNode = tableNode.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='nras_result']", this.m_NameSpaceManager);
-            insertAfterRow = rowResultNode;
-
-            foreach (YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder in this.m_AccessionOrder.SpecimenOrderCollection)
-            {
-                if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(nrasMutationAnalysisTest.PanelSetId, specimenOrder.SpecimenOrderId, true) == true)
-                {
-                    NRASMutationAnalysis.NRASMutationAnalysisTestOrder nrasMutationAnalysisTestOrder = (NRASMutationAnalysis.NRASMutationAnalysisTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(nrasMutationAnalysisTest.PanelSetId, specimenOrder.SpecimenOrderId, true);
-                    test = "nras";
-                    reportNo = nrasMutationAnalysisTestOrder.ReportNo;
-                    result = nrasMutationAnalysisTestOrder.Result;
-                    block = specimenOrder.Description;
-                    this.SetTestResults(test, result, reportNo, block, tableNode, rowResultNode, insertAfterRow);
-                    hasMolecularTest = true;
-                }
-                foreach (YellowstonePathology.Business.Test.AliquotOrder aliquotOrder in specimenOrder.AliquotOrderCollection)
-                {
-                    if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(nrasMutationAnalysisTest.PanelSetId, aliquotOrder.AliquotOrderId, true) == true)
-                    {
-                        NRASMutationAnalysis.NRASMutationAnalysisTestOrder nrasMutationAnalysisTestOrder = (NRASMutationAnalysis.NRASMutationAnalysisTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(nrasMutationAnalysisTest.PanelSetId, aliquotOrder.AliquotOrderId, true);
-                        test = "nras";
-                        reportNo = nrasMutationAnalysisTestOrder.ReportNo;
-                        result = nrasMutationAnalysisTestOrder.Result;
-                        block = aliquotOrder.Label;
-                        this.SetTestResults(test, result, reportNo, block, tableNode, rowResultNode, insertAfterRow);
-                        hasMolecularTest = true;
-                    }
-                }
-            }
-            tableNode.RemoveChild(rowResultNode);
-
-            if (hasMolecularTest == true)
-            {
-                this.DeleteRow("None Performed");
-            }
-            this.DeleteRow("hras_result");
-
-        }
 
         private void SetSpecimenDescription(YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder, string orderTargetId,
             XmlNode diagnosisTableNode, XmlNode rowSpecimenNode, XmlNode rowDiagnosisNode, XmlNode insertAfterRow,
@@ -364,28 +203,28 @@ namespace YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile
             insertAfterRow = rowDiagnosisNodeClone;
         }
 
-        private void SetIHCResults(LynchSyndrome.IHCResult ihcResult, string reportNo, string block, XmlNode ichTableNode, XmlNode rowmlh1Node,
-            XmlNode rowmsh2Node, XmlNode rowmsh6Node, XmlNode rowpms2Node, XmlNode insertAfterichRow)
+        private void SetIHCResults(LynchSyndrome.IHCResult ihcResult, string reportNo, string block, XmlNode tableNode, XmlNode rowmlh1Node,
+            XmlNode rowmsh2Node, XmlNode rowmsh6Node, XmlNode rowpms2Node, XmlNode insertAfterRow)
         {
             XmlNode rowmlh1NodeClone = rowmlh1Node.Clone();
             rowmlh1NodeClone.SelectSingleNode("descendant::w:r[w:t='mlh1_result']/w:t", this.m_NameSpaceManager).InnerText = ihcResult.MLH1Result.Description;
             rowmlh1NodeClone.SelectSingleNode("descendant::w:r[w:t='ihc_reportno']/w:t", this.m_NameSpaceManager).InnerText = reportNo;
             rowmlh1NodeClone.SelectSingleNode("descendant::w:r[w:t='ihc_block_label']/w:t", this.m_NameSpaceManager).InnerText = block;
-            ichTableNode.InsertAfter(rowmlh1NodeClone, insertAfterichRow);
+            tableNode.InsertAfter(rowmlh1NodeClone, insertAfterRow);
 
             XmlNode rowmsh2NodeClone = rowmsh2Node.Clone();
             rowmsh2NodeClone.SelectSingleNode("descendant::w:r[w:t='msh2_result']/w:t", this.m_NameSpaceManager).InnerText = ihcResult.MSH2Result.Description;
-            ichTableNode.InsertAfter(rowmsh2NodeClone, rowmlh1NodeClone);
+            tableNode.InsertAfter(rowmsh2NodeClone, rowmlh1NodeClone);
 
             XmlNode rowmsh6NodeClone = rowmsh6Node.Clone();
             rowmsh6NodeClone.SelectSingleNode("descendant::w:r[w:t='msh6_result']/w:t", this.m_NameSpaceManager).InnerText = ihcResult.MSH6Result.Description;
-            ichTableNode.InsertAfter(rowmsh6NodeClone, rowmsh2NodeClone);
+            tableNode.InsertAfter(rowmsh6NodeClone, rowmsh2NodeClone);
 
             XmlNode rowpms2NodeClone = rowpms2Node.Clone();
             rowpms2NodeClone.SelectSingleNode("descendant::w:r[w:t='pms2_result']/w:t", this.m_NameSpaceManager).InnerText = ihcResult.PMS2Result.Description;
-            ichTableNode.InsertAfter(rowpms2NodeClone, rowmsh6NodeClone);
+            tableNode.InsertAfter(rowpms2NodeClone, rowmsh6NodeClone);
 
-            insertAfterichRow = rowpms2NodeClone;
+            insertAfterRow = rowpms2NodeClone;
         }
 
         private void SetTestResults(string test, string result, string reportNo, string block, XmlNode tableNode, XmlNode rowNode, XmlNode insertAfterRow)
