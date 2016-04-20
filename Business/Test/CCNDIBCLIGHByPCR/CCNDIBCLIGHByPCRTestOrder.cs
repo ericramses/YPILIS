@@ -12,9 +12,9 @@ namespace YellowstonePathology.Business.Test.CCNDIBCLIGHByPCR
     {
         private string m_Result;
         private string m_Interpretation;
-        private string m_ProbeSetDetail;
-        private string m_NucleiScored;
+        private string m_Method;
         private string m_References;
+        private string m_ACR;
 
         public CCNDIBCLIGHByPCRTestOrder()
         {
@@ -26,6 +26,9 @@ namespace YellowstonePathology.Business.Test.CCNDIBCLIGHByPCR
             bool distribute)
 			: base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute)
 		{
+            this.m_ACR = "The performance characteristics of this test have been determined by NeoGenomics Laboratories. This test has not " +
+                "been approved by the FDA.The FDA has determined such clearance or approval is not necessary.This laboratory is CLIA " +
+                "certified to perform high complexity clinical testing.";
         }
 
         [PersistentProperty()]
@@ -57,29 +60,15 @@ namespace YellowstonePathology.Business.Test.CCNDIBCLIGHByPCR
         }
 
         [PersistentProperty()]
-        public string ProbeSetDetail
+        public string Method
         {
-            get { return this.m_ProbeSetDetail; }
+            get { return this.m_Method; }
             set
             {
-                if (this.m_ProbeSetDetail != value)
+                if (this.m_Method != value)
                 {
-                    this.m_ProbeSetDetail = value;
-                    this.NotifyPropertyChanged("ProbeSetDetail");
-                }
-            }
-        }
-
-        [PersistentProperty()]
-        public string NucleiScored
-        {
-            get { return this.m_NucleiScored; }
-            set
-            {
-                if (this.m_NucleiScored != value)
-                {
-                    this.m_NucleiScored = value;
-                    this.NotifyPropertyChanged("NucleiScored");
+                    this.m_Method = value;
+                    this.NotifyPropertyChanged("Method");
                 }
             }
         }
@@ -94,6 +83,20 @@ namespace YellowstonePathology.Business.Test.CCNDIBCLIGHByPCR
                 {
                     this.m_References = value;
                     this.NotifyPropertyChanged("References");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string ACR
+        {
+            get { return this.m_ACR; }
+            set
+            {
+                if (this.m_ACR != value)
+                {
+                    this.m_ACR = value;
+                    this.NotifyPropertyChanged("ACR");
                 }
             }
         }
