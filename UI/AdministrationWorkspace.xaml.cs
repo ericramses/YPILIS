@@ -34,8 +34,6 @@ using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using MongoDB.Driver.Builders;
 using MongoDB.Driver.GridFS;
-using NetMQ;
-using NetMQ.Sockets;
 
 namespace YellowstonePathology.UI
 {    
@@ -998,22 +996,8 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
-            for(int i=0; i<5; i++)
-            {
-                BackgroundWorker t1 = new BackgroundWorker();
-                t1.DoWork += T1_DoWork;
-                t1.RunWorkerAsync();
-            }            
-        }
-
-        private void T1_DoWork(object sender, DoWorkEventArgs e)
-        {
-            this.m_AccessionOrder = Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, this);
-            actNo = actNo + "2";            
-            this.m_AccessionOrder.SvhAccount = actNo;
-            Business.Persistence.DocumentGateway.Instance.Push(this);
-            writer = writer + "2";
-        }
+                     
+        }        
 
         private string CallBackOne(string x)
         {
@@ -1189,35 +1173,6 @@ namespace YellowstonePathology.UI
         private void GetTableNames()
         {
             
-        }
-
-        private void ButtonPublish_Click(object sender, RoutedEventArgs e)
-        {
-            using (var pubSocket = new PublisherSocket(">tcp://10.1.2.14:5678"))
-            {
-                Console.WriteLine("Publisher socket connecting...");
-                pubSocket.Options.SendHighWatermark = 1000;
-
-                var msg = "World";
-                Console.WriteLine("Sending message : {0}", msg);
-                pubSocket.SendMoreFrame("Hello").SendFrame(msg);
-            }
-        }
-
-        private void ButtonSubscribe_Click(object sender, RoutedEventArgs e)
-        {
-            string topic = "Hello"; // one of "TopicA" or "TopicB"
-
-            using (var subSocket = new SubscriberSocket(">tcp://10.1.2.14:1234"))
-            {
-                subSocket.Options.ReceiveHighWatermark = 1000;
-                subSocket.Subscribe(topic);
-                Console.WriteLine("Subscriber socket connecting...");
-                
-                string messageTopicReceived = subSocket.ReceiveFrameString();
-                string messageReceived = subSocket.ReceiveFrameString();
-                System.Windows.MessageBox.Show(messageReceived);
-            }
         }
     }
 }
