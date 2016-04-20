@@ -141,16 +141,42 @@ namespace YellowstonePathology.UI.Cutting
 
             if(this.m_AccessionOrder.IsLockAquiredByMe == true)
             {
-                YellowstonePathology.Business.Test.AliquotOrderCollection aliquotOrderCollection = this.m_AccessionOrder.SpecimenOrderCollection.GetAliquotOrdersThatHaveTestOrders();
-                AliquotOrderSelectionPage aliquotOrderSelectionPage = new AliquotOrderSelectionPage(aliquotOrderCollection, this.m_AccessionOrder);
-                aliquotOrderSelectionPage.AliquotOrderSelected += new AliquotOrderSelectionPage.AliquotOrderSelectedEventHandler(AliquotOrderSelectionPage_AliquotOrderSelected);
-                aliquotOrderSelectionPage.Back += new AliquotOrderSelectionPage.BackEventHandler(AliquotOrderSelectionPage_Back);
-                this.m_CuttingWorkspaceWindow.PageNavigator.Navigate(aliquotOrderSelectionPage);
+                this.ShowAliquotOrderSelectionPage();
             }
             else
             {
-                this.ShowCaseLockedPage(this.m_AccessionOrder);
+                this.ShowCaseLockedPageManualMA(this.m_AccessionOrder);
             }
+        }
+
+        private void ShowCaseLockedPageManualMA(Business.Test.AccessionOrder accessionOrder)
+        {
+            UI.Login.CaseLockedPage caseLockedPage = new Login.CaseLockedPage(accessionOrder);
+            caseLockedPage.Next += CaseLockedPage_Next;
+            caseLockedPage.AskForLock += CaseLockedPage_AskForLockManualMA;
+            this.m_CuttingWorkspaceWindow.PageNavigator.Navigate(caseLockedPage);
+        }
+
+        private void CaseLockedPage_AskForLockManualMA(object sender, CustomEventArgs.AccessionOrderReturnEventArgs e)
+        {
+            AppMessaging.MessagingPath.Instance.StartSendRequest(e.AccessionOrder, this.m_CuttingWorkspaceWindow.PageNavigator);
+            AppMessaging.MessagingPath.Instance.LockWasReleased += MessageQueuePath_LockWasReleasedManualMA;
+            AppMessaging.MessagingPath.Instance.HoldYourHorses += Instance_HoldYourHorses;
+            AppMessaging.MessagingPath.Instance.Next += MessageQueuePath_Next;
+        }
+
+        private void MessageQueuePath_LockWasReleasedManualMA(object sender, EventArgs e)
+        {
+            this.ShowAliquotOrderSelectionPage();
+        }
+
+        private void ShowAliquotOrderSelectionPage()
+        {
+            YellowstonePathology.Business.Test.AliquotOrderCollection aliquotOrderCollection = this.m_AccessionOrder.SpecimenOrderCollection.GetAliquotOrdersThatHaveTestOrders();
+            AliquotOrderSelectionPage aliquotOrderSelectionPage = new AliquotOrderSelectionPage(aliquotOrderCollection, this.m_AccessionOrder);
+            aliquotOrderSelectionPage.AliquotOrderSelected += new AliquotOrderSelectionPage.AliquotOrderSelectedEventHandler(AliquotOrderSelectionPage_AliquotOrderSelected);
+            aliquotOrderSelectionPage.Back += new AliquotOrderSelectionPage.BackEventHandler(AliquotOrderSelectionPage_Back);
+            this.m_CuttingWorkspaceWindow.PageNavigator.Navigate(aliquotOrderSelectionPage);
         }
 
         private void AliquotOrderSelectionPage_Back(object sender, YellowstonePathology.UI.CustomEventArgs.MasterAccessionNoReturnEventArgs eventArgs)
