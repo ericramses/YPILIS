@@ -190,17 +190,20 @@ namespace YellowstonePathology.UI
             }
         }
 
-        public static void UpdateBindingSources(DependencyObject element)
+       public static void UpdateFocusedBindingSource(DependencyObject element)
         {
             object focusObj = FocusManager.GetFocusedElement(element);
             if (focusObj != null && focusObj is TextBox)
             {
                 var binding = (focusObj as TextBox).GetBindingExpression(TextBox.TextProperty);
-                binding.UpdateSource();
+                if(binding != null)
+                {
+                    binding.UpdateSource();
+                }                
             }
         }
 
-		private void ShowStartupPage()
+        private void ShowStartupPage()
 		{
 			switch (YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.StartupPage)
             {
@@ -695,12 +698,6 @@ namespace YellowstonePathology.UI
 			this.AddTypingWorkspace();
 		}        
 
-		private void MenuItemSurgicalBlocks_Click(object sender, RoutedEventArgs e)
-		{
-			YellowstonePathology.UI.Test.SurgicalBlocks dlg = new YellowstonePathology.UI.Test.SurgicalBlocks();
-			dlg.ShowDialog();
-		}
-
 		private void MenuItemMasterLog_Click(object sender, RoutedEventArgs e)
 		{
 			YellowstonePathology.Business.Reports.Surgical.SurgicalMasterLog report = new YellowstonePathology.Business.Reports.Surgical.SurgicalMasterLog();
@@ -929,6 +926,12 @@ namespace YellowstonePathology.UI
         private void ToolBarButtonSendMessage_Click(object sender, RoutedEventArgs e)
         {
             this.m_MainWindowCommandButtonHandler.OnShowMessagingDialog();
+        }
+
+        private void MenuItemParsePSAData_Click(object sender, RoutedEventArgs e)
+        {
+            ParsePsaAccessionsWindow window = new ParsePsaAccessionsWindow();
+            window.Show();
         }
     }    
 }

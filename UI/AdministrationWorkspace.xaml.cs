@@ -991,9 +991,33 @@ namespace YellowstonePathology.UI
             //Console.WriteLine("CRC: " + crc);            
         }
 
+        Business.Test.AccessionOrder m_AccessionOrder = null;
+        string masterAccessionNo = "16-9590";
+        string actNo = "1";
+        string writer = "W1";
+
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
-            
+            for(int i=0; i<5; i++)
+            {
+                BackgroundWorker t1 = new BackgroundWorker();
+                t1.DoWork += T1_DoWork;
+                t1.RunWorkerAsync();
+            }            
+        }
+
+        private void T1_DoWork(object sender, DoWorkEventArgs e)
+        {
+            this.m_AccessionOrder = Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, this);
+            actNo = actNo + "2";            
+            this.m_AccessionOrder.SvhAccount = actNo;
+            Business.Persistence.DocumentGateway.Instance.Push(this);
+            writer = writer + "2";
+        }
+
+        private string CallBackOne(string x)
+        {
+            return "Purple";
         }
 
         private void FindY()

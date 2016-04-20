@@ -6,9 +6,9 @@ using System.Xml.Linq;
 
 namespace YellowstonePathology.Business.Test.KRASStandard
 {
-	public class KRASStandardEpicObxView : YellowstonePathology.Business.HL7View.EPIC.EpicObxView
+	public class KRASStandardEPICObxView : YellowstonePathology.Business.HL7View.EPIC.EPICObxView
     {
-		public KRASStandardEpicObxView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount) 
+		public KRASStandardEPICObxView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount) 
             : base(accessionOrder, reportNo, obxCount)
 		{
 			

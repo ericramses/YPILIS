@@ -19,13 +19,13 @@ namespace YellowstonePathology.Business.HL7View.EPIC
                 
         private XElement m_TestOrderDocument;
 
-        private EpicUniversalSerivceIdDictionary m_USI;
+        private EPICUniversalSerivceIdDictionary m_USI;
         private string m_MasterAccessionNo = "2013099123";        
 
         public AllResultTypeTest()
         {                                    
             this.m_TestOrderDocument = XElement.Load(this.m_TestOrderFileName);
-            this.m_USI = new EpicUniversalSerivceIdDictionary();            
+            this.m_USI = new EPICUniversalSerivceIdDictionary();            
         }
 
         public void Run()

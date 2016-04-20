@@ -35,7 +35,10 @@ namespace YellowstonePathology.Business.Client.Model
         private string m_BillingRuleSetId2;
 		private string m_DistributionType;		
 		private bool m_Inactive;
-        private string m_ContactName;                
+        private string m_ContactName;
+        private bool m_HasReferringProvider;
+        private string m_ReferringProviderClientId;
+        private string m_ReferringProviderClientName;
 
         public Client()
         {
@@ -306,11 +309,53 @@ namespace YellowstonePathology.Business.Client.Model
                 if (this.m_ContactName != value)
                 {
                     this.m_ContactName = value;
-                    this.NotifyPropertyChanged("m_ContactName");
+                    this.NotifyPropertyChanged("ContactName");
                 }
             }
-        }  
-        
+        }
+
+        [PersistentProperty()]
+        public bool HasReferringProvider
+        {
+            get { return this.m_HasReferringProvider; }
+            set
+            {
+                if (this.m_HasReferringProvider != value)
+                {
+                    this.m_HasReferringProvider = value;
+                    this.NotifyPropertyChanged("HasReferringProvider");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string ReferringProviderClientId
+        {
+            get { return this.m_ReferringProviderClientId; }
+            set
+            {
+                if (this.m_ReferringProviderClientId != value)
+                {
+                    this.m_ReferringProviderClientId = value;
+                    this.NotifyPropertyChanged("ReferringProviderClientId");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string ReferringProviderClientName
+        {
+            get { return this.m_ReferringProviderClientName; }
+            set
+            {
+                if (this.m_ReferringProviderClientName != value)
+                {
+                    this.m_ReferringProviderClientName = value;
+                    this.NotifyPropertyChanged("ReferringProviderClientName");
+                }
+            }
+        }
+
         public string FormattedTelephone
         {
             get

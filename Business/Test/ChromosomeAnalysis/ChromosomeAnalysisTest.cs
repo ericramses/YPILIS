@@ -20,8 +20,7 @@ namespace YellowstonePathology.Business.Test.ChromosomeAnalysis
             this.m_ExpectedDuration = new TimeSpan(14, 0, 0, 0);
             this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.ChromosomeAnalysis.ChromosomeAnalysisTestOrder).AssemblyQualifiedName;
             
-			this.m_AllowMultiplePerAccession = true;
-            //Changed by MS and TK;
+			this.m_AllowMultiplePerAccession = true;           
             this.m_EpicDistributionIsImplemented = true;
 
             string taskDescription2 = "Collect (Peripheral blood: 2-5 mL in Sodium Heparin tube ONLY; " +

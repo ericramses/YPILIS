@@ -515,7 +515,7 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.CommandText = "select ClientId, ClientName, Address, Telephone, Fax from tblClient where clientName like @ClientName + '%' Order By 2 for xml Path('ClientSearchViewItem'), root('ClientSearchView')";
 			cmd.CommandType = CommandType.Text;
 			cmd.Parameters.Add("@ClientName", SqlDbType.VarChar).Value = clientName;
-			View.ClientSearchView results = Domain.Persistence.SqlXmlPersistence.CrudOperations.ExecuteCollectionCommand<View.ClientSearchView>(cmd, Domain.Persistence.DataLocationEnum.ProductionData);
+			View.ClientSearchView results = Persistence.SqlCommandHelper.ExecuteCollectionCommand<View.ClientSearchView>(cmd);
 			if (results == null)
 			{
 				results = new View.ClientSearchView();
@@ -534,7 +534,7 @@ namespace YellowstonePathology.Business.Gateway
 				"for xml path('ClientLocationView'), type, root('ClientLocationViewCollection')";
 			cmd.CommandType = CommandType.Text;
 			cmd.Parameters.Add("@ClientName", SqlDbType.VarChar).Value = clientName;
-			View.ClientLocationViewCollection results = Domain.Persistence.SqlXmlPersistence.CrudOperations.ExecuteCollectionCommand<View.ClientLocationViewCollection>(cmd, Domain.Persistence.DataLocationEnum.ProductionData);
+			View.ClientLocationViewCollection results = Persistence.SqlCommandHelper.ExecuteCollectionCommand<View.ClientLocationViewCollection>(cmd);
 			if (results == null)
 			{
 				results = new View.ClientLocationViewCollection();
@@ -1088,13 +1088,13 @@ namespace YellowstonePathology.Business.Gateway
 			return result;
 		}
 
-		public static View.PhysicianClientView GetPhysicianClientView(string objectId)
+		public static View.PhysicianClientView GetPhysicianClientView(string physicianId)
 		{
 			SqlCommand cmd = new SqlCommand();
 			cmd.CommandText = "select * from tblPhysician where ObjectId = @ObjectId;" +
 				" select c.* from tblClient c join tblPhysicianClient pc on c.ClientId = pc.ClientId where pc.ProviderId = @ObjectId order by ClientName";
 			cmd.CommandType = CommandType.Text;
-			cmd.Parameters.Add("@ObjectId", SqlDbType.VarChar).Value = objectId;
+			cmd.Parameters.Add("@ObjectId", SqlDbType.VarChar).Value = physicianId;
 			return BuildPhysicianClientView(cmd);
 		}
 

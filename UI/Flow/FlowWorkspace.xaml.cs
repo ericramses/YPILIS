@@ -53,7 +53,13 @@ namespace YellowstonePathology.UI.Flow
             this.tabItemDocumentViewer.Content = this.m_DocumentViewer;            
             this.tabControlFlow.SelectionChanged += new SelectionChangedEventHandler(tabControlFlow_SelectionChanged);
             
-            this.Unloaded += new RoutedEventHandler(FlowWorkspace_Unloaded);            
+            this.Unloaded += new RoutedEventHandler(FlowWorkspace_Unloaded);
+            this.PreviewLostKeyboardFocus += FlowWorkspace_PreviewLostKeyboardFocus;            
+        }
+
+        private void FlowWorkspace_PreviewLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            MainWindow.UpdateFocusedBindingSource(this);
         }
 
         private void FlowWorkspace_Loaded(object sender, RoutedEventArgs e)
@@ -520,7 +526,7 @@ namespace YellowstonePathology.UI.Flow
 
                         if (auditResult.Status == Business.Audit.Model.AuditStatusEnum.OK)
                         {
-                            this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.Finish();
+                            this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.Finish(this.m_FlowUI.AccessionOrder);
                         }
                         else
                         {

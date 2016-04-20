@@ -20,7 +20,11 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
             YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisTestOrder egfrToALKReflexAnalysisTestOrder)
             : base(accessionOrder, 215)
         {
-            if (egfrToALKReflexAnalysisTestOrder.QNSForPDL1 == true)
+            if(egfrToALKReflexAnalysisTestOrder.DoNotPerformPDL1 == true)
+            {
+                this.m_Status = EGFRToALKReflexAnalysisElementStatusEnum.NotGoingToPerform;
+            }
+            else if (egfrToALKReflexAnalysisTestOrder.QNSForPDL1 == true)
             {
                 this.m_Status = EGFRToALKReflexAnalysisElementStatusEnum.QNS;
             }
@@ -40,10 +44,9 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
                             this.m_Status = EGFRToALKReflexAnalysisElementStatusEnum.OrderRequired;
                         }
                         if (this.m_Final == true)
-                        {
-                        	YellowstonePathology.Business.Test.PDL1.PDL1ResultCollection pdl1ResultCollection = new PDL1.PDL1ResultCollection();
+                        {                        	
                             YellowstonePathology.Business.Test.PDL1.PDL1TestOrder pdl1TestOrder = (YellowstonePathology.Business.Test.PDL1.PDL1TestOrder)this.m_PanelSetOrder;
-                            this.m_ResultAbbreviation = pdl1ResultCollection.GetByResultCode(pdl1TestOrder.ResultCode).ResultAbbreviation;
+                            this.m_ResultAbbreviation = pdl1TestOrder.StainPercent;
                         }
                     }
                 }

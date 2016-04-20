@@ -21,5 +21,20 @@ namespace YellowstonePathology.Business.Persistence
                 }
             }
         }
+
+        public bool HasMultipleSameAO(string masterAccessionNo)
+        {
+            bool result = false;
+            int count = 0;
+            foreach(Document document in this)
+            {
+                if(document.Key.ToString() == masterAccessionNo)
+                {
+                    count += 1;
+                }
+            }
+            if (count > 1) result = true;
+            return result;
+        }
     }
 }

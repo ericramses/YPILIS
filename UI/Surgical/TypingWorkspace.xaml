@@ -233,7 +233,7 @@
 							 Style="{StaticResource NewTextBox}" Width="200" HorizontalAlignment="Left" IsEnabled="{Binding Path=FieldEnabler.IsUnprotectedEnabled}"></TextBox>
 
 					<TextBlock Grid.Column="2" Grid.Row="3" Style="{StaticResource TextBlockHeaderRight}">Address 2:</TextBlock>
-					<TextBox Grid.Column="3" Grid.Row="3" Text="{Binding Path=AccessionOrder.PAddress2}"
+					<TextBox Name="TextBoxAddress2" Grid.Column="3" Grid.Row="3" Text="{Binding Path=AccessionOrder.PAddress2}"
 							 Style="{StaticResource NewTextBox}" Width="200" HorizontalAlignment="Left" IsEnabled="{Binding Path=FieldEnabler.IsUnprotectedEnabled}"></TextBox>
 
 					<TextBlock Grid.Column="2" Grid.Row="4" Style="{StaticResource TextBlockHeaderRight}">City:</TextBlock>
@@ -252,152 +252,202 @@
 
 			<TabItem Name="TabItemSurgical" Header="Surgical" KeyboardNavigation.IsTabStop="False">
 				<ScrollViewer>
-					<Grid>
-						<StackPanel>
-							<TextBlock Margin="0,5,0,0" FontWeight="Bold">Clinical Information:</TextBlock>
-							<TextBox Name="TextBoxClinical" TextWrapping="Wrap" AcceptsReturn="True"
-									 Text="{Binding Path=AccessionOrder.ClinicalHistory}"
-									 KeyUp="TextBox_KeyUp" FontSize="12" IsEnabled="{Binding Path=FieldEnabler.IsProtectedEnabled}" 
-									 Style="{StaticResource NewTextBox}" SpellCheck.IsEnabled="False">
-								<TextBox.ContextMenu>
-									<ContextMenu>
-										<MenuItem Header="Import Preop Diagnosis" Click="MenuItemImportPreopDiagnosis_Click"></MenuItem>
-										<MenuItem Header="Import Special Instructions" Click="MenuItemImportSpecialInstructions_Click"></MenuItem>
-									</ContextMenu>
-								</TextBox.ContextMenu>
-							</TextBox>
+					<Grid Margin="2,2,2,2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+						
+                        <TextBlock Grid.Column="0" Grid.Row="0" FontWeight="Bold">Clinical Information:</TextBlock>
+                        <TextBlock Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right" Margin="0,0,2,0">                    
+                            <Hyperlink Click="HyperLinkCleanClinicalInformation_Click">Clean</Hyperlink>
+                        </TextBlock>
 
-							<TextBlock Margin="0,5,0,0" FontWeight="Bold">Gross Description:</TextBlock>
-							<TextBox Name="TextBoxGross"
-									 TextWrapping="Wrap" AcceptsReturn="True"
-									 Text="{Binding Path=SurgicalTestOrder.GrossX, UpdateSourceTrigger=PropertyChanged}"
-									 KeyUp="TextBox_KeyUp" FontSize="12" IsEnabled="{Binding Path=FieldEnabler.IsProtectedEnabled}" MinWidth="200"
-									 Style="{StaticResource NewTextBox}" SpellCheck.IsEnabled="False"></TextBox>
+                        <TextBox Name="TextBoxClinical"  Grid.Column="0" Grid.Row="1" TextWrapping="Wrap" AcceptsReturn="True"
+									Text="{Binding Path=AccessionOrder.ClinicalHistory}"
+									KeyUp="TextBox_KeyUp" FontSize="12" IsEnabled="{Binding Path=FieldEnabler.IsProtectedEnabled}" 
+									Style="{StaticResource NewTextBox}" SpellCheck.IsEnabled="False">
+							<TextBox.ContextMenu>
+								<ContextMenu>
+									<MenuItem Header="Import Preop Diagnosis" Click="MenuItemImportPreopDiagnosis_Click"></MenuItem>
+									<MenuItem Header="Import Special Instructions" Click="MenuItemImportSpecialInstructions_Click"></MenuItem>
+								</ContextMenu>
+							</TextBox.ContextMenu>
+						</TextBox>
 
-							<TextBlock Margin="0,5,0,0" FontWeight="Bold">Microscopic Description:</TextBlock>
-							<TextBox Name="TextBoxMicroscopic" TextWrapping="Wrap" AcceptsReturn="True"
-									 Text="{Binding Path=SurgicalTestOrder.MicroscopicX}"
-									 KeyUp="TextBox_KeyUp" FontSize="12" IsEnabled="{Binding Path=FieldEnabler.IsProtectedEnabled}"
-									 MinWidth="200" Style="{StaticResource NewTextBox}" SpellCheck.IsEnabled="False"></TextBox>
+                        <TextBlock  Grid.Column="0" Grid.Row="2" FontWeight="Bold">Gross Description:</TextBlock>
+                        <TextBox Name="TextBoxGross"  Grid.Column="0" Grid.Row="3"
+									TextWrapping="Wrap" AcceptsReturn="True"
+									Text="{Binding Path=SurgicalTestOrder.GrossX, UpdateSourceTrigger=PropertyChanged}"
+									KeyUp="TextBox_KeyUp" FontSize="12" IsEnabled="{Binding Path=FieldEnabler.IsProtectedEnabled}" MinWidth="200"
+									Style="{StaticResource NewTextBox}" SpellCheck.IsEnabled="False"></TextBox>
 
-							<Grid>
-								<Button ToolTip="Visit CAP Website, cancer section" HorizontalAlignment="Left" Width="200">
-									<StackPanel Orientation="Horizontal">
-										<Image Source="/Resources/caplogo.ico" Margin="2" Height="16"></Image>
-										<TextBlock VerticalAlignment="Center" Margin="2">
-												<Hyperlink Click="ButtonCAPLink_Click">Cancer Case Summary:</Hyperlink>
-										</TextBlock>
-									</StackPanel>
-								</Button>
+                        <TextBlock  Grid.Column="0" Grid.Row="4" FontWeight="Bold">Microscopic Description:</TextBlock>
+                        <TextBox Name="TextBoxMicroscopic"  Grid.Column="0" Grid.Row="5" TextWrapping="Wrap" AcceptsReturn="True"
+									Text="{Binding Path=SurgicalTestOrder.MicroscopicX}"
+									KeyUp="TextBox_KeyUp" FontSize="12" IsEnabled="{Binding Path=FieldEnabler.IsProtectedEnabled}"
+									MinWidth="200" Style="{StaticResource NewTextBox}" SpellCheck.IsEnabled="False"></TextBox>
 
-								<StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-									<TextBlock VerticalAlignment="Center" Margin="2,2,2,2">AJCC Stage:</TextBlock>
-									<TextBox Width="200" IsEnabled="{Binding Path=FieldEnabler.IsProtectedEnabled}" Margin="2,2,2,2"
-											 Text="{Binding Path=SurgicalTestOrder.AJCCStage}"></TextBox>
+                        <Grid Grid.Column="0" Grid.Row="6">
+							<Button ToolTip="Visit CAP Website, cancer section" HorizontalAlignment="Left" Width="200">
+								<StackPanel Orientation="Horizontal">
+									<Image Source="/Resources/caplogo.ico" Margin="2" Height="16"></Image>
+									<TextBlock VerticalAlignment="Center" Margin="2">
+											<Hyperlink Click="ButtonCAPLink_Click">Cancer Case Summary:</Hyperlink>
+									</TextBlock>
 								</StackPanel>
-							</Grid>
+							</Button>
 
-							<TextBox Name="TextBoxCancerSummary" TextWrapping="Wrap" AcceptsReturn="True"
-									 Text="{Binding Path=SurgicalTestOrder.CancerSummary}" 
-									 KeyUp="TextBox_KeyUp" FontSize="12" IsEnabled="{Binding Path=FieldEnabler.IsProtectedEnabled}"
-									 MinWidth="200" Style="{StaticResource NewTextBox}" SpellCheck.IsEnabled="False"></TextBox>
+							<StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+								<TextBlock VerticalAlignment="Center" Margin="2,2,2,2">AJCC Stage:</TextBlock>
+								<TextBox Width="200" IsEnabled="{Binding Path=FieldEnabler.IsProtectedEnabled}" Margin="2,2,2,2"
+											Text="{Binding Path=SurgicalTestOrder.AJCCStage}"></TextBox>
+							</StackPanel>
+						</Grid>
 
-							<TextBlock Margin="0,5,0,0" FontWeight="Bold" Text="Specimen:" />
+                        <TextBox Name="TextBoxCancerSummary"  Grid.Column="0" Grid.Row="7" TextWrapping="Wrap" AcceptsReturn="True"
+									Text="{Binding Path=SurgicalTestOrder.CancerSummary}" 
+									KeyUp="TextBox_KeyUp" FontSize="12" IsEnabled="{Binding Path=FieldEnabler.IsProtectedEnabled}"
+									MinWidth="200" Style="{StaticResource NewTextBox}" SpellCheck.IsEnabled="False"></TextBox>
 
-							<ItemsControl Name="ItemsControlSpecimen"
-										  ItemsSource="{Binding Path=BillingSpecimenViewCollection}"
-										  KeyboardNavigation.IsTabStop="False">
-								<ItemsControl.Template>
-									<ControlTemplate TargetType="ItemsControl">
-										<Grid>
-											<Grid.ColumnDefinitions>
-												<ColumnDefinition></ColumnDefinition>
-											</Grid.ColumnDefinitions>
-											<Grid.RowDefinitions>
-												<RowDefinition></RowDefinition>
-											</Grid.RowDefinitions>
-											<ItemsPresenter Grid.Column="0" Grid.Row="0" Margin="5"/>
-										</Grid>
-									</ControlTemplate>
-								</ItemsControl.Template>
+                        <TextBlock  Grid.Column="0" Grid.Row="8" FontWeight="Bold" Text="Specimen:" />
 
-								<ItemsControl.ItemTemplate>
-									<DataTemplate>
-										<Grid>
-											<Grid.ColumnDefinitions>
-												<ColumnDefinition Width="22"></ColumnDefinition>
-												<ColumnDefinition Width="*"></ColumnDefinition>
-											</Grid.ColumnDefinitions>
-											<Grid.RowDefinitions>
-												<RowDefinition></RowDefinition>
-												<RowDefinition></RowDefinition>
-												<RowDefinition></RowDefinition>
-												<RowDefinition></RowDefinition>
-												<RowDefinition></RowDefinition>
-												<RowDefinition></RowDefinition>
-											</Grid.RowDefinitions>
+                        <ItemsControl Name="ItemsControlSpecimen"  Grid.Column="0" Grid.Row="9"
+										ItemsSource="{Binding Path=BillingSpecimenViewCollection}"
+										KeyboardNavigation.IsTabStop="False">
+							<ItemsControl.Template>
+								<ControlTemplate TargetType="ItemsControl">
+									<Grid>
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition></ColumnDefinition>
+										</Grid.ColumnDefinitions>
+										<Grid.RowDefinitions>
+											<RowDefinition></RowDefinition>
+										</Grid.RowDefinitions>
+										<ItemsPresenter Grid.Column="0" Grid.Row="0" Margin="5"/>
+									</Grid>
+								</ControlTemplate>
+							</ItemsControl.Template>
 
-											<TextBlock Text="{Binding Path=SurgicalSpecimen.DiagnosisIdFormatted}" Margin="5">
-												<TextBlock.ContextMenu>
-													<ContextMenu Opened="ContextMenu_Opened">
-														<MenuItem Tag="{Binding}" Header="Add CPT Codes" Click="ContextMenuAddCptCodes_Click"></MenuItem>
-													</ContextMenu>
-												</TextBlock.ContextMenu>
-											</TextBlock>
+							<ItemsControl.ItemTemplate>
+								<DataTemplate>
+									<Grid>
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition Width="22"></ColumnDefinition>
+											<ColumnDefinition Width="*"></ColumnDefinition>
+										</Grid.ColumnDefinitions>
+										<Grid.RowDefinitions>
+											<RowDefinition></RowDefinition>
+											<RowDefinition></RowDefinition>
+											<RowDefinition></RowDefinition>
+											<RowDefinition></RowDefinition>
+											<RowDefinition></RowDefinition>
+											<RowDefinition></RowDefinition>
+										</Grid.RowDefinitions>
 
-											<TextBox Name="TextBoxSpecimenType" Text="{Binding Path=SpecimenOrder.Description}" TextWrapping="Wrap"
-													 AcceptsReturn="True" Margin="2" Grid.Row="0" Grid.Column="1" 
-													 KeyUp="TextBox_KeyUp" FontSize="12" FontWeight="Bold"
-													 IsEnabled="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.FieldEnabler.IsProtectedEnabled}" 
-													 MinWidth="300" Style="{StaticResource NewTextBox}" SpellCheck.IsEnabled="False">
-											</TextBox>
-											<ComboBox Grid.Column="1" Grid.Row="1" Margin="2,2,2,2" HorizontalAlignment="Stretch" ItemsSource="{Binding Path=SpecimenCollection}" 
-                                                      SelectedValuePath="SpecimenId" DisplayMemberPath="SpecimenName" SelectedValue="{Binding Path=SpecimenOrder.SpecimenId}" />
+										<TextBlock Text="{Binding Path=SurgicalSpecimen.DiagnosisIdFormatted}" Margin="5">
+											<TextBlock.ContextMenu>
+												<ContextMenu Opened="ContextMenu_Opened">
+													<MenuItem Tag="{Binding}" Header="Add CPT Codes" Click="ContextMenuAddCptCodes_Click"></MenuItem>
+												</ContextMenu>
+											</TextBlock.ContextMenu>
+										</TextBlock>
 
-											<TextBox Name="TextBoxDiagnosis" Text="{Binding Path=SurgicalSpecimen.Diagnosis}" TextWrapping="Wrap" AcceptsReturn="True"
-													 Margin="2" Grid.Row="2" Grid.Column="1"  MinWidth="300"
-													 KeyUp="TextBox_KeyUp" FontSize="12" IsEnabled="{Binding ElementName=TextBoxClinical, Path=IsEnabled}" 
-													 Style="{StaticResource NewTextBox}" SpellCheck.IsEnabled="False"/>
+										<TextBox Name="TextBoxSpecimenType" Text="{Binding Path=SpecimenOrder.Description}" TextWrapping="Wrap"
+													AcceptsReturn="True" Margin="2" Grid.Row="0" Grid.Column="1" 
+													KeyUp="TextBox_KeyUp" FontSize="12" FontWeight="Bold"
+													IsEnabled="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.FieldEnabler.IsProtectedEnabled}" 
+													MinWidth="300" Style="{StaticResource NewTextBox}" SpellCheck.IsEnabled="False">
+										</TextBox>
+										<ComboBox Grid.Column="1" Grid.Row="1" Margin="2,2,2,2" HorizontalAlignment="Stretch" ItemsSource="{Binding Path=SpecimenCollection}" 
+                                                    SelectedValuePath="SpecimenId" DisplayMemberPath="SpecimenName" SelectedValue="{Binding Path=SpecimenOrder.SpecimenId}" />
+
+										<TextBox Name="TextBoxDiagnosis" Text="{Binding Path=SurgicalSpecimen.Diagnosis}" TextWrapping="Wrap" AcceptsReturn="True"
+													Margin="2" Grid.Row="2" Grid.Column="1"  MinWidth="300"
+													KeyUp="TextBox_KeyUp" FontSize="12" IsEnabled="{Binding ElementName=TextBoxClinical, Path=IsEnabled}" 
+													Style="{StaticResource NewTextBox}" SpellCheck.IsEnabled="False"/>
 
 
-											<ItemsControl ItemsSource="{Binding Path=SurgicalSpecimen.IntraoperativeConsultationResultCollection}"  IsEnabled="{Binding ElementName=TextBoxClinical, Path=IsEnabled}"
-														  Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2"  KeyboardNavigation.IsTabStop="False">
-												<ItemsControl.Template>
-													<ControlTemplate TargetType="ItemsControl">
-														<Grid>
-															<Grid.ColumnDefinitions>
-																<ColumnDefinition></ColumnDefinition>
-															</Grid.ColumnDefinitions>
-															<Grid.RowDefinitions>
-																<RowDefinition></RowDefinition>
-															</Grid.RowDefinitions>
-															<ItemsPresenter Grid.Column="0" Grid.Row="0" Margin="5"/>
-														</Grid>
-													</ControlTemplate>
-												</ItemsControl.Template>
+										<ItemsControl ItemsSource="{Binding Path=SurgicalSpecimen.IntraoperativeConsultationResultCollection}"  IsEnabled="{Binding ElementName=TextBoxClinical, Path=IsEnabled}"
+														Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2"  KeyboardNavigation.IsTabStop="False">
+											<ItemsControl.Template>
+												<ControlTemplate TargetType="ItemsControl">
+													<Grid>
+														<Grid.ColumnDefinitions>
+															<ColumnDefinition></ColumnDefinition>
+														</Grid.ColumnDefinitions>
+														<Grid.RowDefinitions>
+															<RowDefinition></RowDefinition>
+														</Grid.RowDefinitions>
+														<ItemsPresenter Grid.Column="0" Grid.Row="0" Margin="5"/>
+													</Grid>
+												</ControlTemplate>
+											</ItemsControl.Template>
 
-												<ItemsControl.ItemsPanel>
-													<ItemsPanelTemplate>
-														<StackPanel/>
-													</ItemsPanelTemplate>
-												</ItemsControl.ItemsPanel>
+											<ItemsControl.ItemsPanel>
+												<ItemsPanelTemplate>
+													<StackPanel/>
+												</ItemsPanelTemplate>
+											</ItemsControl.ItemsPanel>
 
-												<ItemsControl.ItemTemplate>
-													<DataTemplate>
-														<Grid>
-															<Grid.ColumnDefinitions>
-																<ColumnDefinition Width="21"></ColumnDefinition>
-																<ColumnDefinition></ColumnDefinition>
-															</Grid.ColumnDefinitions>
-															<Grid.RowDefinitions>
-																<RowDefinition></RowDefinition>
-																<RowDefinition></RowDefinition>
-															</Grid.RowDefinitions>
-															<TextBlock Grid.Column="0" Grid.Row="0" Margin="0,3,0,0">Fs:</TextBlock>
+											<ItemsControl.ItemTemplate>
+												<DataTemplate>
+													<Grid>
+														<Grid.ColumnDefinitions>
+															<ColumnDefinition Width="21"></ColumnDefinition>
+															<ColumnDefinition></ColumnDefinition>
+														</Grid.ColumnDefinitions>
+														<Grid.RowDefinitions>
+															<RowDefinition></RowDefinition>
+															<RowDefinition></RowDefinition>
+														</Grid.RowDefinitions>
+														<TextBlock Grid.Column="0" Grid.Row="0" Margin="0,3,0,0">Fs:</TextBlock>
 
-															<TextBox HorizontalAlignment="Stretch" Height="75" Margin="2,2,2,2" AcceptsReturn="True"
-																	 Text="{Binding Path=Result}"
-																	 KeyUp="TextBox_KeyUp" TextWrapping="Wrap" Grid.Column="1" Grid.Row="0">
+														<TextBox HorizontalAlignment="Stretch" Height="75" Margin="2,2,2,2" AcceptsReturn="True"
+																	Text="{Binding Path=Result}"
+																	KeyUp="TextBox_KeyUp" TextWrapping="Wrap" Grid.Column="1" Grid.Row="0">
+															<TextBox.Style>
+																<Style TargetType="TextBox">
+																	<Setter Property="HorizontalAlignment" Value="Left"/>
+																	<Setter Property="Margin" Value="2"/>
+																	<Setter Property="HorizontalAlignment" Value="Stretch"/>
+																	<Style.Triggers>
+																		<Trigger Property="TextBox.IsEnabled" Value="False">
+																			<Setter Property="TextBox.Foreground" Value="Black"/>
+																		</Trigger>
+																		<Trigger Property="TextBox.IsEnabled" Value="True">
+																			<Setter Property="TextBox.Foreground" Value="Black"/>
+																		</Trigger>
+																	</Style.Triggers>
+																</Style>
+															</TextBox.Style>
+														</TextBox>
+
+														<StackPanel Orientation="Horizontal"  Grid.Column="1" Grid.Row="1">
+
+															<ComboBox Name="ComboBoxImmediateUsers"
+																		ItemsSource="{Binding ElementName=UserControlTypingWorkspace, Path=DataContext.PathologistUsers}" 								 								 
+																		DisplayMemberPath="DisplayName"
+																		SelectedValuePath="UserId"
+																		SelectedValue="{Binding Path=FinaledById}"
+																		Margin="3" MinWidth="150">
+															</ComboBox>
+
+															<TextBox Text="{Binding Path=StartDate}" Width="120" HorizontalAlignment="Stretch"
+																		Height="20" Margin="2,2,2,2">
 																<TextBox.Style>
 																	<Style TargetType="TextBox">
 																		<Setter Property="HorizontalAlignment" Value="Left"/>
@@ -415,127 +465,98 @@
 																</TextBox.Style>
 															</TextBox>
 
-															<StackPanel Orientation="Horizontal"  Grid.Column="1" Grid.Row="1">
-
-																<ComboBox Name="ComboBoxImmediateUsers"
-																		  ItemsSource="{Binding ElementName=UserControlTypingWorkspace, Path=DataContext.PathologistUsers}" 								 								 
-																		  DisplayMemberPath="DisplayName"
-																		  SelectedValuePath="UserId"
-																		  SelectedValue="{Binding Path=FinaledById}"
-																		  Margin="3" MinWidth="150">
-																</ComboBox>
-
-																<TextBox Text="{Binding Path=StartDate}" Width="120" HorizontalAlignment="Stretch"
-																		 Height="20" Margin="2,2,2,2">
-																	<TextBox.Style>
-																		<Style TargetType="TextBox">
-																			<Setter Property="HorizontalAlignment" Value="Left"/>
-																			<Setter Property="Margin" Value="2"/>
-																			<Setter Property="HorizontalAlignment" Value="Stretch"/>
-																			<Style.Triggers>
-																				<Trigger Property="TextBox.IsEnabled" Value="False">
-																					<Setter Property="TextBox.Foreground" Value="Black"/>
-																				</Trigger>
-																				<Trigger Property="TextBox.IsEnabled" Value="True">
-																					<Setter Property="TextBox.Foreground" Value="Black"/>
-																				</Trigger>
-																			</Style.Triggers>
-																		</Style>
-																	</TextBox.Style>
-																</TextBox>
-
-																<TextBox Text="{Binding Path=EndDate}" Width="120" HorizontalAlignment="Stretch"
-																		 Height="20" Margin="2,2,2,2">
-																	<TextBox.Style>
-																		<Style TargetType="TextBox">
-																			<Setter Property="HorizontalAlignment" Value="Left"/>
-																			<Setter Property="Margin" Value="2"/>
-																			<Setter Property="HorizontalAlignment" Value="Stretch"/>
-																			<Style.Triggers>
-																				<Trigger Property="TextBox.IsEnabled" Value="False">
-																					<Setter Property="TextBox.Foreground" Value="Black"/>
-																				</Trigger>
-																				<Trigger Property="TextBox.IsEnabled" Value="True">
-																					<Setter Property="TextBox.Foreground" Value="Black"/>
-																				</Trigger>
-																			</Style.Triggers>
-																		</Style>
-																	</TextBox.Style>
-																</TextBox>
-
-															</StackPanel>
-
-														</Grid>
-													</DataTemplate>
-												</ItemsControl.ItemTemplate>
-											</ItemsControl>
-
-											<ItemsControl ItemsSource="{Binding Path=PanelSetOrderCPTCodeCollection}" Grid.Row="4" Grid.Column="1" KeyboardNavigation.IsTabStop="False"
-														  IsEnabled="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.FieldEnabler.IsBillingAuditEnabled}">
-												<ItemsControl.Template>
-													<ControlTemplate TargetType="ItemsControl">
-														<StackPanel Margin="0,0,0,10">
-															<ItemsPresenter/>
-														</StackPanel>
-													</ControlTemplate>
-												</ItemsControl.Template>
-												<ItemsControl.ItemTemplate>
-													<DataTemplate>
-														<StackPanel Orientation="Horizontal">
-															<StackPanel.ContextMenu>
-																<ContextMenu Opened="ContextMenu_Opened">
-																	<MenuItem Tag="{Binding Path=PanelSetOrderCPTCodeId}" Header="Delete CPT Code" Click="ContextMenuDeleteCptCode_Click"></MenuItem>
-																</ContextMenu>
-															</StackPanel.ContextMenu>
-															<TextBox Width="20" Text="{Binding Path=Quantity}" Margin="2"
-																	  HorizontalAlignment="Left" KeyboardNavigation.IsTabStop="False" FontWeight="Bold" ToolTip="Quantity">
+															<TextBox Text="{Binding Path=EndDate}" Width="120" HorizontalAlignment="Stretch"
+																		Height="20" Margin="2,2,2,2">
+																<TextBox.Style>
+																	<Style TargetType="TextBox">
+																		<Setter Property="HorizontalAlignment" Value="Left"/>
+																		<Setter Property="Margin" Value="2"/>
+																		<Setter Property="HorizontalAlignment" Value="Stretch"/>
+																		<Style.Triggers>
+																			<Trigger Property="TextBox.IsEnabled" Value="False">
+																				<Setter Property="TextBox.Foreground" Value="Black"/>
+																			</Trigger>
+																			<Trigger Property="TextBox.IsEnabled" Value="True">
+																				<Setter Property="TextBox.Foreground" Value="Black"/>
+																			</Trigger>
+																		</Style.Triggers>
+																	</Style>
+																</TextBox.Style>
 															</TextBox>
-															<TextBox Text="{Binding Path=CPTCode}" VerticalAlignment="Center" FontWeight="Bold" Margin="2" Width="70"
-																	 ToolTip="CPT Code"></TextBox>
-															<TextBlock Text="{Binding Path=PostDateProxy}" VerticalAlignment="Center" Margin="2" Width="80" ToolTip="Post Date"/>
 
 														</StackPanel>
-													</DataTemplate>
-												</ItemsControl.ItemTemplate>
-											</ItemsControl>
 
-											<ItemsControl ItemsSource="{Binding Path=ICD9BillingCodeCollection}" Grid.Row="5" Grid.Column="1" KeyboardNavigation.IsTabStop="False"
-														  IsEnabled="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.FieldEnabler.IsBillingAuditEnabled}">
-												<ItemsControl.Template>
-													<ControlTemplate TargetType="ItemsControl">
-														<StackPanel>
-															<ItemsPresenter/>
-														</StackPanel>
-													</ControlTemplate>
-												</ItemsControl.Template>
-												<ItemsControl.ItemTemplate>
-													<DataTemplate>
-														<StackPanel Orientation="Horizontal">
-															<StackPanel.ContextMenu>
-																<ContextMenu Opened="ContextMenu_Opened">
-																	<MenuItem Tag="{Binding Path=Icd9BillingId}" Header="Delete ICD9 Code" Click="ContextMenuDeleteIcd9Code_Click"></MenuItem>
-																</ContextMenu>
-															</StackPanel.ContextMenu>
-															<TextBlock Text="{Binding Path=Quantity}" VerticalAlignment="Center"/>
-															<TextBlock Text=" - " VerticalAlignment="Center"></TextBlock>
-															<TextBlock Text="{Binding Path=Icd9Code}" VerticalAlignment="Center" Margin="2,2,10,2"/>
-															<TextBlock Text="{Binding Path=BillingDateProxy}" VerticalAlignment="Center"/>
-														</StackPanel>
-													</DataTemplate>
-												</ItemsControl.ItemTemplate>
-											</ItemsControl>
+													</Grid>
+												</DataTemplate>
+											</ItemsControl.ItemTemplate>
+										</ItemsControl>
 
-										</Grid>
-									</DataTemplate>
-								</ItemsControl.ItemTemplate>
-							</ItemsControl>
+										<ItemsControl ItemsSource="{Binding Path=PanelSetOrderCPTCodeCollection}" Grid.Row="4" Grid.Column="1" KeyboardNavigation.IsTabStop="False"
+														IsEnabled="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.FieldEnabler.IsBillingAuditEnabled}">
+											<ItemsControl.Template>
+												<ControlTemplate TargetType="ItemsControl">
+													<StackPanel Margin="0,0,0,10">
+														<ItemsPresenter/>
+													</StackPanel>
+												</ControlTemplate>
+											</ItemsControl.Template>
+											<ItemsControl.ItemTemplate>
+												<DataTemplate>
+													<StackPanel Orientation="Horizontal">
+														<StackPanel.ContextMenu>
+															<ContextMenu Opened="ContextMenu_Opened">
+																<MenuItem Tag="{Binding Path=PanelSetOrderCPTCodeId}" Header="Delete CPT Code" Click="ContextMenuDeleteCptCode_Click"></MenuItem>
+															</ContextMenu>
+														</StackPanel.ContextMenu>
+														<TextBox Width="20" Text="{Binding Path=Quantity}" Margin="2"
+																	HorizontalAlignment="Left" KeyboardNavigation.IsTabStop="False" FontWeight="Bold" ToolTip="Quantity">
+														</TextBox>
+														<TextBox Text="{Binding Path=CPTCode}" VerticalAlignment="Center" FontWeight="Bold" Margin="2" Width="70"
+																	ToolTip="CPT Code"></TextBox>
+														<TextBlock Text="{Binding Path=PostDateProxy}" VerticalAlignment="Center" Margin="2" Width="80" ToolTip="Post Date"/>
 
-							<TextBlock Margin="0,5,0,0" FontWeight="Bold">Comment:</TextBlock>
-							<TextBox Name="textBoxComment" Margin="0,0,0,10" TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding Path=SurgicalTestOrder.Comment}"
-									 KeyUp="TextBox_KeyUp" FontSize="12" IsEnabled="{Binding Path=FieldEnabler.IsProtectedEnabled}" MinWidth="200"
-									 Style="{StaticResource NewTextBox}" SpellCheck.IsEnabled="False"></TextBox>
-						</StackPanel>
-					</Grid>
+													</StackPanel>
+												</DataTemplate>
+											</ItemsControl.ItemTemplate>
+										</ItemsControl>
+
+										<ItemsControl ItemsSource="{Binding Path=ICD9BillingCodeCollection}" Grid.Row="5" Grid.Column="1" KeyboardNavigation.IsTabStop="False"
+														IsEnabled="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.FieldEnabler.IsBillingAuditEnabled}">
+											<ItemsControl.Template>
+												<ControlTemplate TargetType="ItemsControl">
+													<StackPanel>
+														<ItemsPresenter/>
+													</StackPanel>
+												</ControlTemplate>
+											</ItemsControl.Template>
+											<ItemsControl.ItemTemplate>
+												<DataTemplate>
+													<StackPanel Orientation="Horizontal">
+														<StackPanel.ContextMenu>
+															<ContextMenu Opened="ContextMenu_Opened">
+																<MenuItem Tag="{Binding Path=Icd9BillingId}" Header="Delete ICD9 Code" Click="ContextMenuDeleteIcd9Code_Click"></MenuItem>
+															</ContextMenu>
+														</StackPanel.ContextMenu>
+														<TextBlock Text="{Binding Path=Quantity}" VerticalAlignment="Center"/>
+														<TextBlock Text=" - " VerticalAlignment="Center"></TextBlock>
+														<TextBlock Text="{Binding Path=Icd9Code}" VerticalAlignment="Center" Margin="2,2,10,2"/>
+														<TextBlock Text="{Binding Path=BillingDateProxy}" VerticalAlignment="Center"/>
+													</StackPanel>
+												</DataTemplate>
+											</ItemsControl.ItemTemplate>
+										</ItemsControl>
+
+									</Grid>
+								</DataTemplate>
+							</ItemsControl.ItemTemplate>
+						</ItemsControl>
+
+                        <TextBlock  Grid.Column="0" Grid.Row="10" FontWeight="Bold">Comment:</TextBlock>
+                        <TextBox Name="textBoxComment"  Grid.Column="0" Grid.Row="11" TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding Path=SurgicalTestOrder.Comment}"
+									KeyUp="TextBox_KeyUp" FontSize="12" IsEnabled="{Binding Path=FieldEnabler.IsProtectedEnabled}" MinWidth="200"
+									Style="{StaticResource NewTextBox}" SpellCheck.IsEnabled="False"></TextBox>
+
+                    </Grid>
 				</ScrollViewer>
 			</TabItem>
 

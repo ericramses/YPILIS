@@ -6,9 +6,9 @@ using System.Xml.Linq;
 
 namespace YellowstonePathology.Business.Test.ThrombocytopeniaProfile
 {
-	public class ThrombocytopeniaProfileEpicObxView : YellowstonePathology.Business.HL7View.EPIC.EpicObxView
+	public class ThrombocytopeniaProfileEPICObxView : YellowstonePathology.Business.HL7View.EPIC.EPICObxView
     {
-		public ThrombocytopeniaProfileEpicObxView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount) 
+		public ThrombocytopeniaProfileEPICObxView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount) 
             : base(accessionOrder, reportNo, obxCount)
 		{
 			
@@ -36,7 +36,7 @@ namespace YellowstonePathology.Business.Test.ThrombocytopeniaProfile
             YellowstonePathology.Business.Flow.FlowMarkerItem rpaMarker = panelSetOrder.FlowMarkerCollection.GetMarkerByName("Reticulated Platelet Analysis");
             this.AddNextObxElement("Test: " + rpaMarker.Name, document, "F");
             this.AddNextObxElement("Result: " + rpaMarker.Result, document, "F");
-            this.AddNextObxElement("Reference Range: 0-0.55%", document, "F");
+            this.AddNextObxElement("Reference Range: 0-0.37%", document, "F");
             this.AddNextObxElement("", document, "F");
 
             this.AddAmendments(document);

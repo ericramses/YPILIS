@@ -220,6 +220,8 @@ namespace YellowstonePathology.Business.Persistence
                 }
             }
 
+
+            //if (this.m_Documents.HasMultipleSameAO("16-9590") == true) System.Windows.MessageBox.Show("Stack has multple AO with same MA");
             return document;
         }               
 

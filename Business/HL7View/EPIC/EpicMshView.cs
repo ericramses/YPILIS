@@ -6,7 +6,7 @@ using System.Xml.Linq;
 
 namespace YellowstonePathology.Business.HL7View.EPIC
 {
-	public class EpicMshView
+	public class EPICMshView
 	{
         public static string CLIANUMBER = "27D0946844";
 
@@ -14,7 +14,7 @@ namespace YellowstonePathology.Business.HL7View.EPIC
         Hl7MessageType m_MessageType;
         string m_LocationCode;
 
-		public EpicMshView(Hl7Client client, Hl7MessageType messageType, string locationCode)
+		public EPICMshView(Hl7Client client, Hl7MessageType messageType, string locationCode)
 		{
             this.m_Client = client;
             this.m_MessageType = messageType;

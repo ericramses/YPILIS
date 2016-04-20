@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.ComponentModel;
+using YellowstonePathology.Business.Persistence;
 
 namespace YellowstonePathology.Business.Domain
 {
@@ -29,6 +30,7 @@ namespace YellowstonePathology.Business.Domain
 			}
 		}
 
+        [PersistentPrimaryKeyProperty(true)]
 		public int MaterialLocationId
 		{
 			get { return this.m_MaterialLocationId; }
@@ -42,6 +44,7 @@ namespace YellowstonePathology.Business.Domain
 			}
 		}
 
+        [PersistentProperty]
 		public string Name
 		{
 			get { return this.m_Name; }
@@ -55,7 +58,8 @@ namespace YellowstonePathology.Business.Domain
 			}
 		}
 
-		public string Address
+        [PersistentProperty]
+        public string Address
 		{
 			get { return this.m_Address; }
 			set
@@ -68,7 +72,8 @@ namespace YellowstonePathology.Business.Domain
 			}
 		}
 
-		public string City
+        [PersistentProperty]
+        public string City
 		{
 			get { return this.m_City; }
 			set
@@ -81,7 +86,8 @@ namespace YellowstonePathology.Business.Domain
 			}
 		}
 
-		public string State
+        [PersistentProperty]
+        public string State
 		{
 			get { return this.m_State; }
 			set
@@ -94,7 +100,8 @@ namespace YellowstonePathology.Business.Domain
 			}
 		}
 
-		public string Zip
+        [PersistentProperty]
+        public string Zip
 		{
 			get { return this.m_Zip; }
 			set
@@ -105,26 +112,6 @@ namespace YellowstonePathology.Business.Domain
 					this.NotifyPropertyChanged("Zip");
 				}
 			}
-		}
-
-		public void WriteProperties(YellowstonePathology.Business.Domain.Persistence.IPropertyWriter propertyWriter)
-		{
-			this.m_MaterialLocationId = propertyWriter.WriteInt("MaterialLocationId");
-			this.m_Name = propertyWriter.WriteString("Name");
-			this.m_Address = propertyWriter.WriteString("Address");
-			this.m_City = propertyWriter.WriteString("City");
-			this.m_State = propertyWriter.WriteString("State");
-			this.m_Zip = propertyWriter.WriteString("Zip");
-		}
-
-		public void ReadProperties(YellowstonePathology.Business.Domain.Persistence.IPropertyReader propertyReader)
-		{
-			propertyReader.ReadInt("MaterialLocationId", MaterialLocationId);
-			propertyReader.ReadString("Name", Name);
-			propertyReader.ReadString("Address", Address);
-			propertyReader.ReadString("City", City);
-			propertyReader.ReadString("State", State);
-			propertyReader.ReadString("Zip", Zip);
 		}
 	}
 }

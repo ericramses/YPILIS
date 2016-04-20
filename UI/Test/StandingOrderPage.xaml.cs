@@ -111,7 +111,11 @@ namespace YellowstonePathology.UI.Test
         {
             if (this.IsOkToContinue() == true)
             {
-                if (this.Next != null) this.Next(this, new EventArgs());
+                if (this.Next != null)
+                {
+                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
+                    this.Next(this, new EventArgs());
+                }
             }
         }
 

@@ -6,11 +6,11 @@ using System.Xml.Linq;
 
 namespace YellowstonePathology.Business.HL7View.EPIC
 {
-	public class EpicStatusObxView
+	public class EPICStatusObxView
 	{		
 		int m_ObxCount;
 
-        public EpicStatusObxView(int obxCount)
+        public EPICStatusObxView(int obxCount)
 		{			
 			this.m_ObxCount = obxCount;
 		}

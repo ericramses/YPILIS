@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -17,7 +17,7 @@
     <ManifestCertificateThumbprint>A5D9223B0EA83E7653817CA36B63666AB6FD1B49</ManifestCertificateThumbprint>
     <ManifestKeyFile>UserInterface_1_TemporaryKey.pfx</ManifestKeyFile>
     <ApplicationExtension>.application</ApplicationExtension>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
@@ -27,9 +27,8 @@
     <AssemblyOriginatorKeyFile>
     </AssemblyOriginatorKeyFile>
     <ApplicationIcon>YPI.ico</ApplicationIcon>
-    <NoWin32Manifest>true</NoWin32Manifest>
     <TargetFrameworkProfile />
-    <PublishUrl>\\Ypiidc\YPIILIS\Test\</PublishUrl>
+    <PublishUrl>\\ypiidc\YPIILIS\Application\</PublishUrl>
     <Install>false</Install>
     <InstallFrom>Unc</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -41,15 +40,12 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-<<<<<<< HEAD
-    <ApplicationRevision>50</ApplicationRevision>
-=======
-    <ApplicationRevision>49</ApplicationRevision>
->>>>>>> v10.1.4
+    <ApplicationRevision>109</ApplicationRevision>
     <ApplicationVersion>10.1.4.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <BootstrapperComponentsLocation>Relative</BootstrapperComponentsLocation>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -62,6 +58,7 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <NoWarn>
     </NoWarn>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>false</DebugSymbols>
@@ -70,6 +67,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Mongo|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
@@ -78,13 +76,19 @@
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
     <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup />
   <ItemGroup>
     <Reference Include="CefSharp">
       <HintPath>CEFSharp\CefSharp.dll</HintPath>
     </Reference>
     <Reference Include="CefSharp.Wpf">
       <HintPath>CEFSharp\CefSharp.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="EdgeJs, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Edge.js.4.0.0\lib\EdgeJs.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
@@ -583,10 +587,14 @@
       <DependentUpon>AMLStandardByFishResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Test\AMLStandardByFishResultPath.cs" />
-    <Compile Include="Test\API2MALT1ResultPage.xaml.cs">
-      <DependentUpon>API2MALT1ResultPage.xaml</DependentUpon>
+    <Compile Include="Test\API2MALT1ByFISHResultPage.xaml.cs">
+      <DependentUpon>API2MALT1ByFISHResultPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Test\API2MALT1ResultPath.cs" />
+    <Compile Include="Test\API2MALT1ByFISHResultPath.cs" />
+    <Compile Include="Test\API2MALT1ByPCRResultPage.xaml.cs">
+      <DependentUpon>API2MALT1ByPCRResultPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Test\API2MALT1ByPCRResultPath.cs" />
     <Compile Include="Test\BCellClonalityByPCRResultPage.xaml.cs">
       <DependentUpon>BCellClonalityByPCRResultPage.xaml</DependentUpon>
     </Compile>
@@ -604,6 +612,14 @@
       <DependentUpon>BCL1t1114ResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Test\BCL1t1114ResultPath.cs" />
+    <Compile Include="Test\BCL2t1418ByFISHResultPage.xaml.cs">
+      <DependentUpon>BCL2t1418ByFISHResultPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Test\BCL2t1418ByFISHResultPath.cs" />
+    <Compile Include="Test\BCL2t1418ByPCRResultPage.xaml.cs">
+      <DependentUpon>BCL2t1418ByPCRResultPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Test\BCL2t1418ByPCRResultPath.cs" />
     <Compile Include="Test\BCRABLByFishResultPage.xaml.cs">
       <DependentUpon>BCRABLByFishResultPage.xaml</DependentUpon>
     </Compile>
@@ -624,10 +640,14 @@
       <DependentUpon>CalreticulinMutationAnalysisResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Test\CalreticulinMutationAnalysisResultPath.cs" />
-    <Compile Include="Test\CCNDIBCLIGHResultPage.xaml.cs">
-      <DependentUpon>CCNDIBCLIGHResultPage.xaml</DependentUpon>
+    <Compile Include="Test\CCNDIBCLIGHByFISHResultPage.xaml.cs">
+      <DependentUpon>CCNDIBCLIGHByFISHResultPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Test\CCNDIBCLIGHResultPath.cs" />
+    <Compile Include="Test\CCNDIBCLIGHByFISHResultPath.cs" />
+    <Compile Include="Test\CCNDIBCLIGHByPCRResultPage.xaml.cs">
+      <DependentUpon>CCNDIBCLIGHByPCRResultPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Test\CCNDIBCLIGHByPCRResultPath.cs" />
     <Compile Include="Test\CEBPAResultPage.xaml.cs">
       <DependentUpon>CEBPAResultPage.xaml</DependentUpon>
     </Compile>
@@ -661,6 +681,10 @@
     <Compile Include="Test\HPV1618ByPCRResultPage.xaml.cs">
       <DependentUpon>HPV1618ByPCRResultPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Test\InformalConsultResultPage.xaml.cs">
+      <DependentUpon>InformalConsultResultPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Test\InformalConsultResultPath.cs" />
     <Compile Include="Test\KRASExon23MutationResultPage.xaml.cs">
       <DependentUpon>KRASExon23MutationResultPage.xaml</DependentUpon>
     </Compile>
@@ -972,8 +996,8 @@
       <DependentUpon>TypingShortcutUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Client\OncologyRequisition.cs" />
-    <Compile Include="Client\ClientEntryV2.xaml.cs">
-      <DependentUpon>ClientEntryV2.xaml</DependentUpon>
+    <Compile Include="Client\ClientEntry.xaml.cs">
+      <DependentUpon>ClientEntry.xaml</DependentUpon>
     </Compile>
     <Compile Include="Common\CaseHistoryPage.xaml.cs">
       <DependentUpon>CaseHistoryPage.xaml</DependentUpon>
@@ -1631,10 +1655,6 @@
       <SubType>Code</SubType>
       <DependentUpon>FlowDiagnosis.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Flow\FlowReport.xaml.cs">
-      <SubType>Code</SubType>
-      <DependentUpon>FlowReport.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Flow\FlowWorkspace.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>FlowWorkspace.xaml</DependentUpon>
@@ -1747,6 +1767,13 @@
     <None Include="CEFSharp\locales\vi.pak" />
     <None Include="CEFSharp\locales\zh-CN.pak" />
     <None Include="CEFSharp\locales\zh-TW.pak" />
+    <None Include="edge\x64\edge.node">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="edge\x86\edge.node">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -1802,9 +1829,6 @@
     </Compile>
     <Compile Include="Surgical\SpecimenSelection.xaml.cs">
       <DependentUpon>SpecimenSelection.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Test\SurgicalBlocks.xaml.cs">
-      <DependentUpon>SurgicalBlocks.xaml</DependentUpon>
     </Compile>
     <Compile Include="TypingShorcutDialog.xaml.cs">
       <DependentUpon>TypingShorcutDialog.xaml</DependentUpon>
@@ -2132,6 +2156,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Resources\Styles\LoginStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Surgical\SuggestedAdditionalTestingPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -2220,7 +2248,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Test\API2MALT1ResultPage.xaml">
+    <Page Include="Test\API2MALT1ByFISHResultPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Test\API2MALT1ByPCRResultPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -2234,6 +2266,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Test\BCL1t1114ResultPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Test\BCL2t1418ByFISHResultPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Test\BCL2t1418ByPCRResultPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -2257,7 +2297,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Test\CCNDIBCLIGHResultPage.xaml">
+    <Page Include="Test\CCNDIBCLIGHByFISHResultPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Test\CCNDIBCLIGHByPCRResultPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -2292,6 +2336,10 @@
     <Page Include="Test\HPV1618ByPCRResultPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Test\InformalConsultResultPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Test\KRASExon23MutationResultPage.xaml">
       <SubType>Designer</SubType>
@@ -2586,7 +2634,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Client\ClientEntryV2.xaml">
+    <Page Include="Client\ClientEntry.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -3132,67 +3180,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Resources\Styles\BrushStyles.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\Styles\ButtonStyles.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\Styles\ComboBoxStyles.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\Styles\ListBoxStyles.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\Styles\ListViewStyles.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\Styles\LoginStyles.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\Styles\TextBlockStyles.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\Styles\TextBoxStyles.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\Styles\TreeViewStyles.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Flow\FlowDiagnosis.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Flow\FlowReport.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -3472,12 +3460,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Test\SurgicalBlocks.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="TypingShorcutDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -3492,65 +3474,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Graphics\Cytology.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Graphics\Disk.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Graphics\doc.gif">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Graphics\Document.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Graphics\Flow.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Graphics\Locked.gif">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Graphics\Logo.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Graphics\Microscope1.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Graphics\MinusBox.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Graphics\MinusSign.gif">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Graphics\People1.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Graphics\Plusbox.gif">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Graphics\PlusSign.gif">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Graphics\printer.gif">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Graphics\Search.gif">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Graphics\spellcheck.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Graphics\Surgical.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Graphics\Typewriter3.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Graphics\Unlocked.gif">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -3576,31 +3499,8 @@
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
       <Visible>False</Visible>
       <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>true</Install>
+      <Install>false</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Graphics\Microscope2.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Graphics\microscope1.ico">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Graphics\MainForm.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Graphics\Find.gif">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Graphics\gears.gif">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="YPII.ico" />
@@ -3609,43 +3509,15 @@
     <Resource Include="Resources\Add.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Resources\AddBatch.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
     <Resource Include="Resources\Delete.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Distribute.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\New.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Printer.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Resources\Unassigned.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Accession.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\GetAutoOrder.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Molecular.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
     <Resource Include="Resources\Typing.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\FISH.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
@@ -3675,23 +3547,7 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Automated.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\Billing.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\GetHPVOrder.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\GetNGCTOrder.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Tasks.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
@@ -3712,11 +3568,8 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\AcceptResults.ico" />
-    <Resource Include="Resources\ResultsToNormal.ico" />
     <Resource Include="Resources\Specimen.ico" />
-    <Resource Include="Resources\Specimens.ico" />
     <Resource Include="Resources\Tree.ico" />
-    <Resource Include="Resources\Trees.ico" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Lab.ico" />
@@ -3725,14 +3578,8 @@
     <Resource Include="Resources\Magnify.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Document.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\Comments.ico" />
     <Resource Include="Resources\Documents.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Fixation.ico" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\SpecialStains.ico" />
@@ -3745,7 +3592,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Amendments.ico" />
-    <Resource Include="Resources\Coding.ico" />
     <Resource Include="Resources\Distribution.ico" />
     <Resource Include="Resources\Login.ico" />
     <Resource Include="Resources\Results.ico" />
@@ -3757,9 +3603,6 @@
     <Resource Include="Resources\List.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\OutsideConsult.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\caplogo.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -3767,7 +3610,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Assign.ico" />
-    <Resource Include="Resources\Frozen.ico" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Refresh.ico" />
@@ -3793,9 +3635,7 @@
     <Resource Include="Resources\Log.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Blocks.ico" />
     <Resource Include="Resources\DataCheck.ico" />
-    <Resource Include="Resources\SlideLabel.ico" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Go.ico" />
@@ -3805,9 +3645,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Previous.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\SurgPathOnlyOrder.ico" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Wand.ico" />
@@ -3834,56 +3671,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\LeftArrow.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\RightArrow.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\LogDocument.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Patient.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Doctor.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\add.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Add_Line.gif" />
-    <Resource Include="Resources\Edit_Line.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Link.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\action_down.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\register.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\ffwd.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\expand.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\EditLog.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Microphone.gif" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="VoiceStuff.txt" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Cytology\CytologyClientLetterText.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Exit.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="YPI.ico" />
@@ -3895,15 +3686,6 @@
     <Resource Include="Resources\Home.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Images\Delete.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Images\Delete2.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Images\Add1.bmp" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="TextFile1.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -3912,30 +3694,6 @@
   <ItemGroup />
   <ItemGroup>
     <Resource Include="Surgical\TypingTemplate.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\DownArrow.gif" />
-    <Resource Include="Resources\UpArrow.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Graphics\2dbarcode.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Graphics\BarcodedSpecimenBottle.png" />
-    <Resource Include="Graphics\Requisition.png" />
-    <Resource Include="Graphics\specimenbottle.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Graphics\PatientId.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Graphics\SpecimenId.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Graphics\person.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Graphics\HandheldScanner.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\TwoDBarcode.jpg" />
@@ -3966,13 +3724,6 @@
     <Resource Include="Resources\Surgical.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Butterfly.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\ARUP.png" />
-    <Resource Include="Resources\NeoGenomics.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\Gears.jpg" />
   </ItemGroup>
   <ItemGroup>
@@ -3983,15 +3734,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="XMLFile1.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\PaperLabel1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\PaperLabel2.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Circle.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="CEFSharp\avcodec-54.dll" />
@@ -4005,12 +3747,24 @@
     <Content Include="CEFSharp\CefSharp.Wpf.dll" />
     <Content Include="CEFSharp\CefSharp.Wpf.Example.exe" />
     <Content Include="CEFSharp\CefSharp.Wpf.Example.vshost.exe" />
+    <Content Include="edge\double_edge.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="edge\edge.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="edge\x64\node.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="edge\x86\node.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Resources\Logo.jpg" />
+    <Resource Include="Resources\Document.jpg" />
     <Resource Include="Resources\message.png" />
     <EmbeddedResource Include="XMLFile2.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <Resource Include="Resources\Report.jpg" />
-    <Resource Include="Resources\missinginfo.jpg" />
     <Resource Include="Resources\Restore.png" />
     <Resource Include="CEFSharp\CefSharp.Wpf.xml" />
     <Resource Include="CEFSharp\CefSharp.xml" />
@@ -4027,7 +3781,6 @@
     <Content Include="dll\Xceed.Wpf.DataGrid.dll" />
     <Content Include="dll\Xceed.Wpf.Toolkit.dll" />
     <Resource Include="Resources\out2.png" />
-    <Resource Include="Resources\out1.png" />
     <Resource Include="dll\MongoDB.Bson.xml" />
     <Content Include="dll\MongoDB.Driver.dll" />
     <Resource Include="dll\MongoDB.Driver.xml" />

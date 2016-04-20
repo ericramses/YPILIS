@@ -148,7 +148,7 @@ namespace YellowstonePathology.UI.Test
             {
                 if (this.m_EGFRToALKReflexAnalysisTestOrder.Final == false)
                 {
-                    this.m_EGFRToALKReflexAnalysisTestOrder.Finish();
+                    this.m_EGFRToALKReflexAnalysisTestOrder.Finish(this.m_AccessionOrder);
                 }
             }			
 		}
@@ -251,6 +251,16 @@ namespace YellowstonePathology.UI.Test
         {
             this.m_EGFRToALKReflexAnalysisResult = new Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisResult(this.m_AccessionOrder, this.m_EGFRToALKReflexAnalysisTestOrder);
             this.NotifyPropertyChanged(string.Empty);
-        }                    
-	}
+        }
+
+        private void CheckBoxDoNotPerformPDL1_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void CheckBoxDoNotPerformPDL1_Unchecked(object sender, RoutedEventArgs e)
+        {
+
+        }
+    }
 }

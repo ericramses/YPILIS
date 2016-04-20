@@ -388,7 +388,7 @@ namespace YellowstonePathology.Business.Rules.Cytology
         
         private void FinalPanelSetOrder()
         {
-			this.m_PanelSetOrderCytology.Finish();
+			this.m_PanelSetOrderCytology.Finish(this.m_AccessionOrder);
 			this.m_PanelSetOrderCytology.AssignedToId = this.m_UserPerformingFinal.UserId;
 			this.m_PanelSetOrderCytology.Audited = true;            
 

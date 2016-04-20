@@ -12,18 +12,7 @@ namespace YellowstonePathology.Business.Domain.Persistence.SqlXmlPersistence
 {
     public class CrudOperations
     {
-        public static void ExecuteNonQuery(SqlCommand sqlCommand, DataLocationEnum dataLocation)
-        {
-            string connectionString = GetSqlConnectionString(dataLocation);            
-            using (SqlConnection cn = new SqlConnection(connectionString))
-            {
-                cn.Open();
-                sqlCommand.Connection = cn;
-                sqlCommand.ExecuteNonQuery();
-            }            
-        }            
-
-		public static T ExecuteCollectionCommand<T>(SqlCommand sqlCommand, DataLocationEnum dataLocation)
+		/*public static T ExecuteCollectionCommand<T>(SqlCommand sqlCommand, DataLocationEnum dataLocation)
         {         
 			string connectionString = GetSqlConnectionString(dataLocation);
             StringBuilder xmlString = new StringBuilder();
@@ -40,7 +29,7 @@ namespace YellowstonePathology.Business.Domain.Persistence.SqlXmlPersistence
                 }                
             }
             return SerializationHelper.DeserializeCollection<T>(xmlString.ToString());
-        }
+        }*/
 
         public static T ExecuteCommand<T>(SqlCommand sqlCommand, DataLocationEnum dataLocation)
         {

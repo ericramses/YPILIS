@@ -27,10 +27,8 @@ namespace YellowstonePathology.Business.Test.BCellEnumeration
 			amendmentSection.SetAmendment(m_PanelSetOrder.AmendmentCollection, this.m_ReportXml, this.m_NameSpaceManager, true);
 
 			this.ReplaceText("wbc_count", testOrder.WBC.ToString());
-			this.ReplaceText("lymphocyte_percentage", testOrder.LymphocytePercentage.ToString().StringAsPercent());
-			this.ReplaceText("cd19_bcell_positive_count", testOrder.CD19BCellPositiveCount.ToString());
-			this.ReplaceText("cd19_bcell_positive_percent", testOrder.CD19BCellPositivePercent.ToString().StringAsPercent());
-			this.ReplaceText("cd20_bcell_positive_count", testOrder.CD20BCellPositiveCount.ToString());
+			this.ReplaceText("lymphocyte_percentage", testOrder.LymphocytePercentage.ToString().StringAsPercent());			
+			this.ReplaceText("cd19_bcell_positive_percent", testOrder.CD19BCellPositivePercent.ToString().StringAsPercent());			
 			this.ReplaceText("cd20_bcell_positive_percent", testOrder.CD20BCellPositivePercent.ToString().StringAsPercent());
 			this.ReplaceText("cd19_absolute_count", testOrder.CD19AbsoluteCount.ToString());
 			this.ReplaceText("cd20_absolute_count", testOrder.CD20AbsoluteCount.ToString());

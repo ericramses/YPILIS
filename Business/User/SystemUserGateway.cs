@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.User
             cmd.CommandText = "select su.UserId, su.Active, su.UserName, su.FirstName, su.LastName, su.Initials, su.Signature, su.DisplayName, su.EmailAddress, su.NationalProviderId, (select sr.* from tblSystemUserRole sr where sr.UserId = su.UserId " +
 				"for xml Path('SystemUserRole'), type) [SystemUserRoleCollection] from tblSystemUser su order by su.UserName for xml Path('SystemUser'), root('SystemUserCollection')";
 			cmd.CommandType = System.Data.CommandType.Text;
-			YellowstonePathology.Business.User.SystemUserCollection systemUserCollection = YellowstonePathology.Business.Domain.Persistence.SqlXmlPersistence.CrudOperations.ExecuteCollectionCommand<YellowstonePathology.Business.User.SystemUserCollection>(cmd, YellowstonePathology.Business.Domain.Persistence.DataLocationEnum.ProductionData);
+			YellowstonePathology.Business.User.SystemUserCollection systemUserCollection = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.User.SystemUserCollection>(cmd);
 			return systemUserCollection;
 		}		
 	}

@@ -3,8 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008">
-	<Grid Margin="10,10,10,10">
-        
+    <Grid Margin="10,10,10,10">
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
@@ -14,10 +14,10 @@
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Path=Message}"></TextBlock>
+        <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Path=Message}" FontSize="16"></TextBlock>
         <Button Name="ButtonClose" Grid.Column="0" Grid.Row="1" Width="200" Height="100" Click="ButtonClose_Click" HorizontalAlignment="Right" Visibility="Collapsed">Close</Button>
         <Button Name="ButtonNext" Grid.Column="0" Grid.Row="1" Width="200" Height="100" Click="ButtonNext_Click" HorizontalAlignment="Right" Visibility="Collapsed">Next</Button>
-        <TextBlock Grid.Column="0" Grid.Row="2" Text="{Binding Path=CountDownMessage}" Foreground="Red" FontSize="20"></TextBlock>
-        
+        <TextBlock Grid.Column="0" Grid.Row="2" Text="{Binding Path=CountDownMessage}" Foreground="Red" FontSize="24" Margin="30"></TextBlock>
+
     </Grid>
 </UserControl>

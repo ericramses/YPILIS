@@ -16,9 +16,9 @@ namespace YellowstonePathology.Business.Test.TCellSubsetAnalysis
 	/// <summary>
 	/// Description of TCellSubsetAnalysisEpicObxView.
 	/// </summary>
-	public class TCellSubsetAnalysisEpicObxView : YellowstonePathology.Business.HL7View.EPIC.EpicObxView
+	public class TCellSubsetAnalysisEPICObxView : YellowstonePathology.Business.HL7View.EPIC.EPICObxView
 	{
-		public TCellSubsetAnalysisEpicObxView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount)
+		public TCellSubsetAnalysisEPICObxView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount)
 			: base(accessionOrder, reportNo, obxCount)
 		{
 		}

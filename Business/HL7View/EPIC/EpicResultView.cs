@@ -7,7 +7,7 @@ using System.Xml.Linq;
 
 namespace YellowstonePathology.Business.HL7View.EPIC
 {
-    public class EpicResultView : IResultView
+    public class EPICResultView : IResultView
     {        
         private int m_ObxCount;        
         private bool m_SendUnsolicited;
@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.HL7View.EPIC
         private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
         private YellowstonePathology.Business.Domain.Physician m_OrderingPhysician;        
 
-        public EpicResultView(string reportNo, Business.Test.AccessionOrder accessionOrder, bool testing)
+        public EPICResultView(string reportNo, Business.Test.AccessionOrder accessionOrder, bool testing)
         {            
             this.m_Testing = testing;
             this.m_AccessionOrder = accessionOrder;
@@ -50,7 +50,7 @@ namespace YellowstonePathology.Business.HL7View.EPIC
             XElement document = new XElement("HL7Message");
             this.m_ObxCount = 1;
 
-            EpicHl7Client client = new EpicHl7Client();
+            EPICHl7Client client = new EPICHl7Client();
             OruR01 messageType = new OruR01();
 
             string locationCode = "YPIIBILLINGS";
@@ -59,14 +59,14 @@ namespace YellowstonePathology.Business.HL7View.EPIC
                 locationCode = "SVHNPATH";
             }
 
-            EpicMshView msh = new EpicMshView(client, messageType, locationCode);
+            EPICMshView msh = new EPICMshView(client, messageType, locationCode);
             msh.ToXml(document);
 
             EpicPidView pid = new EpicPidView(this.m_AccessionOrder.SvhMedicalRecord, this.m_AccessionOrder.PLastName, this.m_AccessionOrder.PFirstName, this.m_AccessionOrder.PBirthdate,
                 this.m_AccessionOrder.PSex, this.m_AccessionOrder.SvhAccount, this.m_AccessionOrder.PSSN);
             pid.ToXml(document);
 
-            EpicOrcView orc = new EpicOrcView(this.m_AccessionOrder.ExternalOrderId, this.m_OrderingPhysician, this.m_AccessionOrder.MasterAccessionNo, OrderStatusEnum.Complete, this.m_AccessionOrder.SystemInitiatingOrder, this.m_SendUnsolicited);
+            EPICOrcView orc = new EPICOrcView(this.m_AccessionOrder.ExternalOrderId, this.m_OrderingPhysician, this.m_AccessionOrder.MasterAccessionNo, OrderStatusEnum.Complete, this.m_AccessionOrder.SystemInitiatingOrder, this.m_SendUnsolicited);
             orc.ToXml(document);
 
             YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_PanelSetOrder.ReportNo);            
@@ -77,11 +77,11 @@ namespace YellowstonePathology.Business.HL7View.EPIC
             YellowstonePathology.Business.ClientOrder.Model.UniversalServiceCollection universalServiceIdCollection = YellowstonePathology.Business.ClientOrder.Model.UniversalServiceCollection.GetAll();
             YellowstonePathology.Business.ClientOrder.Model.UniversalService universalService = universalServiceIdCollection.GetByUniversalServiceId(panelSetOrder.UniversalServiceId);            
 
-            EpicObrView obr = new EpicObrView(this.m_AccessionOrder.ExternalOrderId, this.m_AccessionOrder.MasterAccessionNo, this.m_PanelSetOrder.ReportNo, this.m_AccessionOrder.SpecimenOrderCollection[0].CollectionDate, this.m_AccessionOrder.SpecimenOrderCollection[0].CollectionTime, this.m_AccessionOrder.AccessionDateTime,
+            EPICObrView obr = new EPICObrView(this.m_AccessionOrder.ExternalOrderId, this.m_AccessionOrder.MasterAccessionNo, this.m_PanelSetOrder.ReportNo, this.m_AccessionOrder.SpecimenOrderCollection[0].CollectionDate, this.m_AccessionOrder.SpecimenOrderCollection[0].CollectionTime, this.m_AccessionOrder.AccessionDateTime,
                 panelSetOrder.FinalTime, this.m_OrderingPhysician, resultStatus.Value, universalService, this.m_SendUnsolicited);
             obr.ToXml(document);
             
-            EpicObxView epicObxView = EpicObxViewFactory.GetObxView(panelSetOrder.PanelSetId, this.m_AccessionOrder, this.m_PanelSetOrder.ReportNo, this.m_ObxCount);
+            EPICObxView epicObxView = EPICObxViewFactory.GetObxView(panelSetOrder.PanelSetId, this.m_AccessionOrder, this.m_PanelSetOrder.ReportNo, this.m_ObxCount);
             epicObxView.ToXml(document);
             this.m_ObxCount = epicObxView.ObxCount;                            
 

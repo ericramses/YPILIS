@@ -36,7 +36,8 @@ namespace YellowstonePathology.UI.Cytology
             InitializeComponent();
 
 			this.TextBoxReportNoSearch.IsEnabled = false;
-		}
+            this.PreviewLostKeyboardFocus += CytologyResultsWorkspace_PreviewLostKeyboardFocus;
+        }
 
         public CytologyResultsWorkspace(CytologyUI cytologyUI)
 		{
@@ -47,7 +48,13 @@ namespace YellowstonePathology.UI.Cytology
             InitializeComponent();
 
 			this.TextBoxReportNoSearch.Focus();
-		}        
+            this.PreviewLostKeyboardFocus += CytologyResultsWorkspace_PreviewLostKeyboardFocus;
+        }
+
+        private void CytologyResultsWorkspace_PreviewLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            MainWindow.UpdateFocusedBindingSource(this);
+        }
 
         public string ReportNo
 		{

@@ -130,7 +130,7 @@ namespace YellowstonePathology.UI.Test
             if (methodResult.Success == true)
             {
                 YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrder.OrderedOn, this.m_PanelSetOrder.OrderedOnId);                    
-                this.m_PanelSetOrder.Finish();
+                this.m_PanelSetOrder.Finish(this.m_AccessionOrder);
 
                 YellowstonePathology.Business.Test.Surgical.SurgicalTest panelSetSurgical = new YellowstonePathology.Business.Test.Surgical.SurgicalTest();
 

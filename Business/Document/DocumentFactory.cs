@@ -170,7 +170,7 @@ namespace YellowstonePathology.Business.Document
 						document = new YellowstonePathology.Business.Test.MultipleMyelomaMGUSByFish.MultipleMyelomaMGUSByFishWordDocument(accessionOrder, panelSetOrder, reportSaveMode);
 						break;
 					case 148: //CCNDI
-						document = new YellowstonePathology.Business.Test.CCNDIBCLIGH.CCNDIBCLIGHWordDocument(accessionOrder, panelSetOrder, reportSaveMode);
+						document = new YellowstonePathology.Business.Test.CCNDIBCLIGHByFISH.CCNDIBCLIGHByFISHWordDocument(accessionOrder, panelSetOrder, reportSaveMode);
 						break;
 					case 149: //High Grade Large B Cell Lymphoma
 						document = new YellowstonePathology.Business.Test.HighGradeLargeBCellLymphoma.HighGradeLargeBCellLymphomaWordDocument(accessionOrder, panelSetOrder, reportSaveMode);
@@ -263,7 +263,7 @@ namespace YellowstonePathology.Business.Document
 						document = new YellowstonePathology.Business.Test.BladderCancerFISHUrovysion.BladderCancerFISHUrovysionWordDocument(accessionOrder, panelSetOrder, reportSaveMode);
 						break;
 					case 186: //
-						document = new YellowstonePathology.Business.Test.API2MALT1.API2MALT1WordDocument(accessionOrder, panelSetOrder, reportSaveMode);
+						document = new YellowstonePathology.Business.Test.API2MALT1ByFISH.API2MALT1ByFISHWordDocument(accessionOrder, panelSetOrder, reportSaveMode);
 						break;
 					case 192: //
 						document = new YellowstonePathology.Business.Test.ALLAdultByFISH.ALLAdultByFISHWordDocument(accessionOrder, panelSetOrder, reportSaveMode);
@@ -271,15 +271,17 @@ namespace YellowstonePathology.Business.Document
                     case 81: //
                     case 165:
                     case 189:
-                    case 190:
-                    case 197:
+                    case 190:                    
                     case 201:
                     case 208:
                     case 211:
-                    case 212:
-                    case 216:            
+                    case 212:                    
+                    case 197:            
                         document = new YellowstonePathology.Business.Document.NothingToPublishReport(accessionOrder, panelSetOrder, reportSaveMode);                    
-                        break;                    
+                        break;
+                    case 216:
+                        document = new YellowstonePathology.Business.Test.InformalConsult.InformalConsultWordDocument(accessionOrder, panelSetOrder, reportSaveMode);
+                        break;
                     case 203:
                         document = new YellowstonePathology.Business.Test.ReviewForAdditionalTesting.ReviewForAdditionalTestingWordDocument(accessionOrder, panelSetOrder, reportSaveMode);
                         break;
@@ -303,6 +305,18 @@ namespace YellowstonePathology.Business.Document
                         break;
                     case 223:
                         document = new YellowstonePathology.Business.Test.TCellSubsetAnalysis.TCellSubsetAnalysisWordDocument(accessionOrder, panelSetOrder, reportSaveMode);
+                        break;
+                    case 225:
+                        document = new YellowstonePathology.Business.Test.BCL2t1418ByPCR.BCL2t1418ByPCRWordDocument(accessionOrder, panelSetOrder, reportSaveMode);
+                        break;
+                    case 226:
+                        document = new YellowstonePathology.Business.Test.BCL2t1418ByFISH.BCL2t1418ByFISHWordDocument(accessionOrder, panelSetOrder, reportSaveMode);
+                        break;
+                    case 227:
+                        document = new YellowstonePathology.Business.Test.CCNDIBCLIGHByPCR.CCNDIBCLIGHByPCRWordDocument(accessionOrder, panelSetOrder, reportSaveMode);
+                        break;
+                    case 228:
+                        document = new YellowstonePathology.Business.Test.API2MALT1ByPCR.API2MALT1ByPCRWordDocument(accessionOrder, panelSetOrder, reportSaveMode);
                         break;
                     default:
 						break;

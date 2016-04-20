@@ -135,7 +135,7 @@ namespace YellowstonePathology.UI.Test
 			YellowstonePathology.Business.Audit.Model.AuditResult auditResult = this.m_PanelSetOrder.IsOkToFinalize(this.m_AccessionOrder);
 			if (auditResult.Status == Business.Audit.Model.AuditStatusEnum.OK)
 			{
-                this.m_PanelSetOrder.Finish();
+                this.m_PanelSetOrder.Finish(this.m_AccessionOrder);
 
                 YellowstonePathology.Business.Test.KRASStandardReflex.KRASStandardReflexTest krasStandardReflexTest = new YellowstonePathology.Business.Test.KRASStandardReflex.KRASStandardReflexTest();
 				if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(krasStandardReflexTest.PanelSetId) == true)

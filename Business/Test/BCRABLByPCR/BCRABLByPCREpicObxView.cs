@@ -6,9 +6,9 @@ using System.Xml.Linq;
 
 namespace YellowstonePathology.Business.Test.BCRABLByPCR
 {
-	public class BCRABLByPCREpicObxView : YellowstonePathology.Business.HL7View.EPIC.EpicObxView
+	public class BCRABLByPCREPICObxView : YellowstonePathology.Business.HL7View.EPIC.EPICObxView
 	{
-		public BCRABLByPCREpicObxView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount)
+		public BCRABLByPCREPICObxView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount)
 			: base(accessionOrder, reportNo, obxCount)
 		{
 		}

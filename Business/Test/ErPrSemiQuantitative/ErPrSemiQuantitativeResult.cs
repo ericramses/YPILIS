@@ -8,7 +8,7 @@ namespace YellowstonePathology.Business.Test.ErPrSemiQuantitative
 	public class ErPrSemiQuantitativeResult : YellowstonePathology.Business.Test.TestResult
 	{
 		private string m_ReportReferences = "Hammond et al., ASCO/CAP Guideline Recommendations for testing ER/PR in breast cancer, Arch Path Lab Med 2010, 134:907-22.";
-		private string m_Method = "The estrogen (ER) and progesterone (PR) immunohistochemical assays were performed on paraffin embedded tissue with the ER (SP1) and PR (Y85) rabbit monoclonal antibodies.  The test was performed according to ASCO/CAP guidelines.";
+		private string m_Method = "The estrogen (ER) and progesterone (PR) immunohistochemical assays were performed on paraffin embedded tissue with the ER (SP1) and PR (SP42) rabbit monoclonal antibodies.  The test was performed according to ASCO/CAP guidelines.";
 
 		protected string m_ErResult;
 		protected string m_PrResult;

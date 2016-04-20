@@ -74,6 +74,26 @@ namespace YellowstonePathology.UI.Gross
             return result;
         }
     }
+    
+        public class BXTemplate : DictationTemplate
+    {
+        public BXTemplate()
+        {
+            this.m_TemplateName = "Biopsy Specimen";
+            this.m_Text = "[identifier] and consists of [number] tan-pink tissue fragments measuring [measurement] in aggregate.  " +
+                "The specimen is filtered through a fine mesh bag and entirely submitted in cassette [cassettelabel].  ";            
+
+            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Biopsy bx = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Biopsy();
+            this.m_SpecimenCollection.Add(bx);
+        }
+
+        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        {
+            string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
+            result = this.ReplaceCassetteLabel(result, specimenOrder);
+            return result;
+        }
+    }
 
     public class FallopianTubeTemplate : DictationTemplate
     {
@@ -442,7 +462,7 @@ namespace YellowstonePathology.UI.Gross
                 "Weight:  [weight]" + Environment.NewLine +
                 "Measurement:  [measurement]" + Environment.NewLine +
                 "Cut Surface:  [description]" + Environment.NewLine +
-                "Submitted:  [submitted].  ";            
+                "Submitted:  [representativesections].  ";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.BreastReduction breastReduction = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.BreastReduction();
             this.m_SpecimenCollection.Add(breastReduction);
@@ -451,7 +471,7 @@ namespace YellowstonePathology.UI.Gross
         public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
-            result = this.ReplaceSubmitted(result, specimenOrder);
+            result = this.ReplaceRepresentativeSections(result, specimenOrder);
             return result;
         }
     }
@@ -486,7 +506,7 @@ namespace YellowstonePathology.UI.Gross
             this.m_Text = "[identifier]." + Environment.NewLine +
                 "Gross Description:  Multiple tan-pink fragments of tissue and mucus." + Environment.NewLine +
                 "Measurement:  [measurement]" + Environment.NewLine +
-                "Submitted:  Filtered through a fine mesh bag and entirely submitted in cassette [cassettelabel].  ";            
+                "Submitted:  Filtered through a fine mesh bag and [cassettesummary].  ";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.EMB emb = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.EMB();
             this.m_SpecimenCollection.Add(emb);
@@ -495,7 +515,7 @@ namespace YellowstonePathology.UI.Gross
         public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
-            result = this.ReplaceCassetteLabel(result, specimenOrder);
+            result = this.ReplaceCassetteSummary(result, specimenOrder);
             return result;
         }
     }
@@ -522,11 +542,11 @@ namespace YellowstonePathology.UI.Gross
         }
     }
 
-    public class LEEPConeTemplate : DictationTemplate
+    public class LEEPTemplate : DictationTemplate
     {
-        public LEEPConeTemplate()
+        public LEEPTemplate()
         {
-            this.m_TemplateName = "LEEPCone";
+            this.m_TemplateName = "LEEP";
             this.m_Text = "[identifier]." + Environment.NewLine +
                 "Gross Description:  [color], [characteristics]" + Environment.NewLine +
                 "Measurement:  [measurement]" + Environment.NewLine +
@@ -534,8 +554,32 @@ namespace YellowstonePathology.UI.Gross
                 "Inking:  [description]" + Environment.NewLine +
                 "Submitted:  [submitted].  ";            
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.LEEPCone leepCone = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.LEEPCone();
-            this.m_SpecimenCollection.Add(leepCone);
+            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.LEEP leep = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.LEEP();
+            this.m_SpecimenCollection.Add(leep);
+        }
+
+        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        {
+            string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
+            result = this.ReplaceSubmitted(result, specimenOrder);
+            return result;
+        }
+    }
+    
+    public class CervicalConeTemplate : DictationTemplate
+     {
+        public CervicalConeTemplate()
+        {
+            this.m_TemplateName = "CervicalCone";
+            this.m_Text = "[identifier]." + Environment.NewLine +
+                "Gross Description:  [color], [characteristics]" + Environment.NewLine +
+                "Measurement:  [measurement]" + Environment.NewLine +
+                "Os:  [description], [measurement]" + Environment.NewLine +
+                "Inking:  [description]" + Environment.NewLine +
+                "Submitted:  [submitted].  ";            
+
+            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.CervicalCone cervicalCone = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.CervicalCone();
+            this.m_SpecimenCollection.Add(cervicalCone);
         }
 
         public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
@@ -605,10 +649,10 @@ namespace YellowstonePathology.UI.Gross
                 "         Adherent:  [measurement], [description]" + Environment.NewLine +
                 "         Non-Adherent:  [measurement]" + Environment.NewLine +
                 "      Maternal Surface:  [description]" + Environment.NewLine +
-                "      Infarcts:  [description]" + Environment.NewLine +
+                "      Surface Infarcts:  [description]" + Environment.NewLine +
                 "      Other:  [description]" + Environment.NewLine +
                 "   Sectioned at 1 cm intervals:" + Environment.NewLine +
-                "       Surface Infarcts:  [description]" + Environment.NewLine +
+                "       Infarcts:  [description]" + Environment.NewLine +
                 "       Cysts:  [description]" + Environment.NewLine + 
             	Environment.NewLine +
                 "Cassette Summary: " + Environment.NewLine +
@@ -678,10 +722,10 @@ namespace YellowstonePathology.UI.Gross
                 "         Adherent:  [measurement], [description]" + Environment.NewLine +
                 "         Non-Adherent:  [measurement]" + Environment.NewLine +
                 "      Maternal Surface:  [description]" + Environment.NewLine +
-                "      Infarcts:  [description]" + Environment.NewLine +
+                "      Surface Infarcts:  [description]" + Environment.NewLine +
                 "      Other:  [description]" + Environment.NewLine +
                 "   Sectioned at 1 cm intervals:" + Environment.NewLine +
-                "       Surface Infarcts:  [description]" + Environment.NewLine +
+                "       Infarcts:  [description]" + Environment.NewLine +
                 "       Cysts:  [description]" + Environment.NewLine + 
             	Environment.NewLine +
                 "Cassette Summary: " + Environment.NewLine +
@@ -753,10 +797,10 @@ namespace YellowstonePathology.UI.Gross
                 "         Adherent:  [measurement], [description]" + Environment.NewLine +
                 "         Non-Adherent:  [measurement]" + Environment.NewLine +
                 "      Maternal Surface:  [description]" + Environment.NewLine +
-                "      Infarcts:  [description]" + Environment.NewLine +
+                "      Surface Infarcts:  [description]" + Environment.NewLine +
                 "      Other:  [description]" + Environment.NewLine +
                 "   Sectioned at 1 cm intervals:" + Environment.NewLine +
-                "       Surface Infarcts:  [description]" + Environment.NewLine +
+                "       Infarcts:  [description]" + Environment.NewLine +
                 "       Cysts:  [description]" + Environment.NewLine + 
             	Environment.NewLine +
                 "Cassette Summary: " + Environment.NewLine +
@@ -828,7 +872,6 @@ namespace YellowstonePathology.UI.Gross
                 "   Fallopian Tube: " + Environment.NewLine +
                 "      Dimensions:  [measurements]([w/wo] fimbriated end)" + Environment.NewLine +
                 "      Surface:  [description/paratubal cysts absent/present]" + Environment.NewLine +
-                "      Cut Surface:  [patent/stenotic lumen]" + Environment.NewLine +
                 "      Inked:  [color]" + Environment.NewLine +
                 "   Ovary:" + Environment.NewLine +
                 "      Dimensions:  [measurement]" + Environment.NewLine +
@@ -838,7 +881,6 @@ namespace YellowstonePathology.UI.Gross
                 "   Fallopian Tube: " + Environment.NewLine +
                 "      Dimensions:  [measurements]([w/wo] fimbriated end)" + Environment.NewLine +
                 "      Surface:  [description/paratubal cysts absent/present]" + Environment.NewLine +
-                "      Cut Surface:  [patent/stenotic lumen]" + Environment.NewLine +
                 "      Inked:  [color]" + Environment.NewLine +
                 "   Ovary:" + Environment.NewLine +
                 "      Dimensions:  [measurement]" + Environment.NewLine +

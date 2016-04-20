@@ -107,8 +107,8 @@ namespace YellowstonePathology.UI.Gross
         }
 
         protected string ReplaceCassetteSummary(string text, YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder)
-        {
-            return text.Replace("[cassettesummary]", "\"" + specimenOrder.SpecimenNumber.ToString() + "A\"");
+        {            
+            return text.Replace("[cassettesummary]", specimenOrder.GetGrossSubmittedInString());
         }
 
         protected string ReplaceRepresentativeSectionsAgeRestricted(string text, YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
@@ -164,7 +164,7 @@ namespace YellowstonePathology.UI.Gross
                 statement = "Tips submitted in cassette \"" + specimenOrder.SpecimenNumber + "A\", ";
                 if (specimenOrder.AliquotOrderCollection.Count >= 2)
                 {
-                    statement += "remainder of excision in cassettes " + specimenOrder.GetGrossMiddleCassettesSubmittedInString() + ".";
+                    statement += "remainder of excision in cassettes" + specimenOrder.GetGrossMiddleCassettesSubmittedInString() + ". ";
                     if (specimenOrder.AliquotOrderCollection.Count >= 3)
                     {
                         statement += " The curettings are filtered through a fine mesh bag and entirely submitted in cassette \"" + specimenOrder.AliquotOrderCollection.GetLastBlock().Label + "\"";

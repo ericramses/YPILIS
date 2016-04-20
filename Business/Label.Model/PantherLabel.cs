@@ -22,7 +22,8 @@ namespace YellowstonePathology.Business.Label.Model
         }
 
         public override void DrawLabel(int x, int y, System.Drawing.Printing.PrintPageEventArgs e)
-        {
+        {            
+            /*
             BarcodeLib.Barcode barcode = new BarcodeLib.Barcode();
             Image barcodeImage = barcode.Encode(BarcodeLib.TYPE.CODE128, this.m_AliquotOrderId, Color.Black, Color.White, 190, 48);
             e.Graphics.DrawImage(barcodeImage, new Point(0, 8));
@@ -42,7 +43,7 @@ namespace YellowstonePathology.Business.Label.Model
                 e.Graphics.DrawString(largeRectangleString, font, Brushes.Black, rectangle, stringFormatLargeRectangle);                
             }            
 
-            
+            */
         }        
     }
 }

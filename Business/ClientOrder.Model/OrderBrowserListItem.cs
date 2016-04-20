@@ -13,7 +13,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
         private string m_PLastName;
         private string m_PFirstName;
         private string m_OrderedBy;
-        private DateTime m_OrderTime;
+        private Nullable<DateTime> m_OrderTime;
         private string m_ProviderName;
         private string m_ClientName;
         private bool m_Submitted;
@@ -61,7 +61,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
         }
 
         [DataMember]
-        public DateTime OrderTime
+        public Nullable<DateTime> OrderTime
         {
             get { return this.m_OrderTime; }
             set { this.m_OrderTime = value; }
@@ -108,7 +108,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
             this.m_PanelSetId = propertyWriter.WriteNullableInt("PanelSetId");
             this.m_Received = propertyWriter.WriteBoolean("Received");
             this.m_Submitted = propertyWriter.WriteBoolean("Submitted");            
-            this.m_OrderTime = propertyWriter.WriteDateTime("OrderTime");
+            this.m_OrderTime = propertyWriter.WriteNullableDateTime("OrderTime");
             this.m_OrderedBy = propertyWriter.WriteString("OrderedBy");
             this.m_PFirstName = propertyWriter.WriteString("PFirstName");
             this.m_PLastName = propertyWriter.WriteString("PLastName");

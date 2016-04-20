@@ -6,9 +6,9 @@ using System.Xml.Linq;
 
 namespace YellowstonePathology.Business.Test.PlasmaCellMyelomaRiskStratification
 {
-	public class PlasmaCellMyelomaRiskStratificationEpicObxView : YellowstonePathology.Business.HL7View.EPIC.EpicObxView
+	public class PlasmaCellMyelomaRiskStratificationEPICObxView : YellowstonePathology.Business.HL7View.EPIC.EPICObxView
 	{
-		public PlasmaCellMyelomaRiskStratificationEpicObxView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount)
+		public PlasmaCellMyelomaRiskStratificationEPICObxView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount)
 			: base(accessionOrder, reportNo, obxCount)
 		{
 		}

@@ -54,6 +54,7 @@
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>                    
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
@@ -108,13 +109,16 @@
                     <Hyperlink Click="HyperLinkAddWYDOHDistribution_Click">WYDOH</Hyperlink>
                 </TextBlock>
                 <TextBlock Grid.Column="0" Grid.Row="21" Margin="5,3,0,0">
-                    <Hyperlink Click="HyperLinkAddFaxDistribution_Click">Fax</Hyperlink>
+                    <Hyperlink Click="HyperLinkAddOPNDistribution_Click">OPN</Hyperlink>
                 </TextBlock>
                 <TextBlock Grid.Column="0" Grid.Row="22" Margin="5,3,0,0">
+                    <Hyperlink Click="HyperLinkAddFaxDistribution_Click">Fax</Hyperlink>
+                </TextBlock>
+                <TextBlock Grid.Column="0" Grid.Row="23" Margin="5,3,0,0">
                     <Hyperlink Click="HyperLinkAddPrintDistribution_Click">Print</Hyperlink>
                 </TextBlock>
 
-                <TextBlock Grid.Column="0" Grid.Row="23" Margin="5,3,0,0" VerticalAlignment="Bottom">
+                <TextBlock Grid.Column="0" Grid.Row="24" Margin="5,3,0,0" VerticalAlignment="Bottom">
                     <Hyperlink Click="HyperLinkAddComplete_Click">Complete</Hyperlink>
                 </TextBlock>
 
@@ -216,7 +220,7 @@
                 		
 		<Border Grid.Row="2" BorderBrush="Transparent" BorderThickness="0" Background="{DynamicResource {x:Static SystemColors.InactiveCaptionBrushKey}}"></Border>
         <Button Grid.Column="0" Grid.Row="2" Name="ButtonBack" Margin="5,5,5,5" Click="ButtonBack_Click" Width="100" Height="40" HorizontalAlignment="Left" Visibility="{Binding Path=BackButtonVisibility}">&lt; Back</Button>
-        <Button Grid.Column="1" Grid.Row="2" Name="ButtonNext" Margin="5,5,5,5" Click="ButtonNext_Click" Width="100" Height="40" HorizontalAlignment="Right" Visibility="{Binding Path=NextButtonVisiblity}">Next ></Button>
+        <Button Grid.Column="1" Grid.Row="2" Name="ButtonNext" Margin="5,5,5,5" Click="ButtonNext_Click" Width="100" Height="40" HorizontalAlignment="Right" Visibility="{Binding Path=NextButtonVisibility}">Next ></Button>
         <Button Grid.Column="1" Grid.Row="2" Name="ButtonClose" Margin="5,5,5,5" Click="ButtonClose_Click" Width="100" Height="40" HorizontalAlignment="Right" Visibility="{Binding Path=CloseButtonVisibility}">Close</Button>
                 
 	</Grid>

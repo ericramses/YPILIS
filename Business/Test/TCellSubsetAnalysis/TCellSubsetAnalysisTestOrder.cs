@@ -42,8 +42,9 @@ namespace YellowstonePathology.Business.Test.TCellSubsetAnalysis
 				"determined that such clearance or approval is not necessary.  ASR's may be used for clinical purposes and should not be regarded as " +
 				"investigational or for research.  This laboratory is certified under the Clinical Laboratory Improvement Amendments of 1988 (CLIA-88) " +
 				"as qualified to perform high complexity clinical laboratory testing.";
-			this.m_Method = "Not Set Yet";
-			this.m_References = "Not Set Yet";
+			this.m_Method = "Quantitative Flow Cytometry.";
+            this.m_References = "1. Meyer, K. C., Raghu, G., Baughman, R. P., Brown, K. K., Costabel, U., du Bois, R. M., Drent, M., Haslam, P. L., Soon Kim, D., Nagai, S., Rottoli, P., Saltini, C., Selman, M., Strange, C., Wood, B. An Official American Thoracic Society Clinical Practice Guideline: The Clinical Utility of Bronchoalveolar Lavage Cellular Analysis in Interstitial Lung Disease. American Journal of Respiratory Critical Care. May 2012. 185:9 (1004-1014)." + Environment.NewLine +
+                "2. Drent, M., Mansour, K., Linssen, C.Bronchoalveolar Lavage in Sarcoidosis.Seminars in Respiratory and Critical Care Medicine. 2007. 28:5. (486 - 495).";
 		}
 
 		[PersistentProperty()]

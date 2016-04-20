@@ -6,9 +6,9 @@ using System.Xml.Linq;
 
 namespace YellowstonePathology.Business.Test.PDL1
 {
-    public class PDL1EpicObxView : YellowstonePathology.Business.HL7View.EPIC.EpicObxView
+    public class PDL1EPICObxView : YellowstonePathology.Business.HL7View.EPIC.EPICObxView
     {
-        public PDL1EpicObxView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount)
+        public PDL1EPICObxView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount)
 			: base(accessionOrder, reportNo, obxCount)
 		{
         }
@@ -19,7 +19,7 @@ namespace YellowstonePathology.Business.Test.PDL1
             this.AddHeader(document, panelSetOrder, "PD-L1 Analysis");
 
             this.AddNextObxElement("", document, "F");
-            string result = "Result: " + panelSetOrder.Result;
+            this.AddNextObxElement("Stain Percent: " + panelSetOrder.StainPercent, document, "F");            
 
             this.AddNextObxElement("", document, "F");
             string comment = "Comment: " + panelSetOrder.Comment;
@@ -38,11 +38,7 @@ namespace YellowstonePathology.Business.Test.PDL1
             YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(panelSetOrder.OrderedOn, panelSetOrder.OrderedOnId);
             this.AddNextObxElement("Specimen Identification: " + specimenOrder.Description, document, "F");
             string collectionDateTimeString = YellowstonePathology.Business.Helper.DateTimeExtensions.CombineDateAndTime(specimenOrder.CollectionDate, specimenOrder.CollectionTime);
-            this.AddNextObxElement("Collection Date/Time: " + collectionDateTimeString, document, "F");
-
-            this.AddNextObxElement("", document, "F");
-            this.AddNextObxElement("Stain Percent:", document, "F");
-            this.AddNextObxElement(panelSetOrder.StainPercent, document, "F");
+            this.AddNextObxElement("Collection Date/Time: " + collectionDateTimeString, document, "F");            
 
             this.AddNextObxElement("", document, "F");
             this.AddNextObxElement("Method:", document, "F");

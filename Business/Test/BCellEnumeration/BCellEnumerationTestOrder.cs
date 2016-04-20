@@ -24,10 +24,8 @@ namespace YellowstonePathology.Business.Test.BCellEnumeration
 		private string m_References;
 		private string m_ASRComment;
 		private double? m_WBC;
-		private double? m_LymphocytePercentage;
-		private double? m_CD19BCellPositiveCount;
-		private double? m_CD19BCellPositivePercent;
-		private double? m_CD20BCellPositiveCount;
+		private double? m_LymphocytePercentage;		
+		private double? m_CD19BCellPositivePercent;		
 		private double? m_CD20BCellPositivePercent;
 		private double? m_CD19AbsoluteCount;
 		private double? m_CD20AbsoluteCount;
@@ -47,7 +45,7 @@ namespace YellowstonePathology.Business.Test.BCellEnumeration
 				"determined that such clearance or approval is not necessary.  ASR's may be used for clinical purposes and should not be regarded as " +
 				"investigational or for research.  This laboratory is certified under the Clinical Laboratory Improvement Amendments of 1988 (CLIA-88) " +
 				"as qualified to perform high complexity clinical laboratory testing.";
-			this.m_Method = "Not Set Yet";
+			this.m_Method = "Quantitative Flow Cytometry.";
             this.m_References = "1. Fried AJ, Bonilla FA.  Pathogenesis, Diagnosis, and Management of Primary Antibody Deficiencies and Infections.  Clinical Microbiology Review.  2009 Jul; 22:  396 - 414. " + Environment.NewLine +
                 "2. Kotylo PK, Fineberg NS, et al.Reference ranges for lymphocyte subsets in pediactric patients.American Journal of Clinical Pathology. 1993; 100: 111 - 115. " + Environment.NewLine +
                 "3. Prescovitz  MD.Rituximab, and Anti-CD20 Monoclonal Antibody:  History and Mechanism of Action.American Journal of Transplantation. 2006; 6: 859 - 866. " + Environment.NewLine +
@@ -126,21 +124,7 @@ namespace YellowstonePathology.Business.Test.BCellEnumeration
 					this.SetCD20AbsoluteCount();
 				}
 			}
-		}
-
-		[PersistentProperty()]
-		public double? CD19BCellPositiveCount
-		{
-			get { return this.m_CD19BCellPositiveCount; }
-			set
-			{
-				if (this.m_CD19BCellPositiveCount != value)
-				{
-					this.m_CD19BCellPositiveCount = value;
-					this.NotifyPropertyChanged("CD19BCellPositiveCount");
-				}
-			}
-		}
+		}		
 
 		[PersistentProperty()]
 		public double? CD19BCellPositivePercent
@@ -155,21 +139,7 @@ namespace YellowstonePathology.Business.Test.BCellEnumeration
 					this.SetCD19AbsoluteCount();
 				}
 			}
-		}
-
-		[PersistentProperty()]
-		public double? CD20BCellPositiveCount
-		{
-			get { return this.m_CD20BCellPositiveCount; }
-			set
-			{
-				if (this.m_CD20BCellPositiveCount != value)
-				{
-					this.m_CD20BCellPositiveCount = value;
-					this.NotifyPropertyChanged("CD20BCellPositiveCount");
-				}
-			}
-		}
+		}		
 
 		[PersistentProperty()]
 		public double? CD20BCellPositivePercent
@@ -218,10 +188,8 @@ namespace YellowstonePathology.Business.Test.BCellEnumeration
 		{
             double? result = null;
 			if(this.m_WBC.HasValue && this.m_LymphocytePercentage.HasValue && this.m_CD19BCellPositivePercent.HasValue)
-			{
-				double lpDenominator = this.m_LymphocytePercentage.Value < 10.0 ? 10.0 : 100.0;
-				double cdDenominator = this.m_CD19BCellPositivePercent.Value < 10.0 ? 10.0 : 100.0;
-				result = Math.Round((this.m_WBC.Value * this.m_LymphocytePercentage.Value * this.m_CD19BCellPositivePercent.Value / lpDenominator / cdDenominator), 2);
+			{				
+				result = Math.Round((this.m_WBC.Value * this.m_LymphocytePercentage.Value * this.m_CD19BCellPositivePercent.Value/10000), 2);
 			}
 			this.CD19AbsoluteCount = result;
 		}
@@ -230,10 +198,8 @@ namespace YellowstonePathology.Business.Test.BCellEnumeration
 		{
             double? result = null;
 			if(this.m_WBC.HasValue && this.m_LymphocytePercentage.HasValue && this.m_CD20BCellPositivePercent.HasValue)
-			{
-                double lpDenominator = this.m_LymphocytePercentage.Value < 10.0 ? 10.0 : 100.0;
-                double cdDenominator = this.m_CD20BCellPositivePercent.Value < 10.0 ? 10.0 : 100.0;
-				result = Math.Round((this.m_WBC.Value * this.m_LymphocytePercentage.Value * this.m_CD20BCellPositivePercent.Value / lpDenominator / cdDenominator), 2);
+			{                
+				result = Math.Round((this.m_WBC.Value * this.m_LymphocytePercentage.Value * this.m_CD20BCellPositivePercent.Value / 10000), 2);
 			}
 			this.CD20AbsoluteCount = result;
 		}
@@ -242,20 +208,11 @@ namespace YellowstonePathology.Business.Test.BCellEnumeration
 		{
 			StringBuilder result = new StringBuilder();
 			
-			result.AppendLine("WBC: " + this.m_WBC.ToString());
-			
-			result.AppendLine("Lymphocyte Percentage: " + this.m_LymphocytePercentage.ToString().StringAsPercent());
-			
-			result.AppendLine("CD19 B-Cell Positive Count: " + this.m_CD19BCellPositiveCount.ToString());
-			
-			result.AppendLine("CD19 B-Cell Positive Percent: " + this.m_CD19BCellPositivePercent.ToString().StringAsPercent());
-			
-			result.AppendLine("CD20 B-Cell Positive Count: " + this.m_CD20BCellPositiveCount.ToString());
-			
-			result.AppendLine("CD20 B-Cell Positive Percent: " + this.m_CD20BCellPositivePercent.ToString().StringAsPercent());
-			
-			result.AppendLine("CD19 Absolute Count: " + this.m_CD19AbsoluteCount.ToString());
-			
+			result.AppendLine("WBC: " + this.m_WBC.ToString());			
+			result.AppendLine("Lymphocyte Percentage: " + this.m_LymphocytePercentage.ToString().StringAsPercent());								
+			result.AppendLine("CD19 B-Cell Positive Percent: " + this.m_CD19BCellPositivePercent.ToString().StringAsPercent());							
+			result.AppendLine("CD20 B-Cell Positive Percent: " + this.m_CD20BCellPositivePercent.ToString().StringAsPercent());			
+			result.AppendLine("CD19 Absolute Count: " + this.m_CD19AbsoluteCount.ToString());			
 			result.AppendLine("CD20 Absolute Count: " + this.m_CD20AbsoluteCount.ToString());
 
 			return result.ToString();

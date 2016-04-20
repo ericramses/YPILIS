@@ -79,10 +79,10 @@ namespace YellowstonePathology.UI.Surgical
             this.ListViewLocalDictation.ItemsSource = this.m_LocalDictationList;
             this.ListViewServerDictation.ItemsSource = this.m_ServerDictationList;
          
-            this.Unloaded += new RoutedEventHandler(TypingWorkspace_Unloaded);            			
-		}        
+            this.Unloaded += new RoutedEventHandler(TypingWorkspace_Unloaded);
+		}
 
-		private void TypingWorkspace_Loaded(object sender, RoutedEventArgs e)
+        private void TypingWorkspace_Loaded(object sender, RoutedEventArgs e)
 		{
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath += new MainWindowCommandButtonHandler.StartProviderDistributionPathEventHandler(MainWindowCommandButtonHandler_StartProviderDistributionPath);
             this.m_MainWindowCommandButtonHandler.Save += new MainWindowCommandButtonHandler.SaveEventHandler(MainWindowCommandButtonHandler_Save);
@@ -94,16 +94,21 @@ namespace YellowstonePathology.UI.Surgical
 
             AppMessaging.MessageQueues.Instance.ReleaseLock += MessageQueue_ReleaseLock;
             AppMessaging.MessageQueues.Instance.AquireLock += MessageQueue_AquireLock;
-            AppMessaging.MessageQueues.Instance.RequestReceived += MessageQueue_RequestReceived;
-        }
+            AppMessaging.MessageQueues.Instance.RequestReceived += MessageQueue_RequestReceived;            
+        }        
 
         private void MessageQueue_RequestReceived(object sender, UI.CustomEventArgs.MessageReturnEventArgs e)
-        {
-            this.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
+        {                        
+            this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
             {
+                foreach (BindingExpressionBase be in BindingOperations.GetSourceUpdatingBindings(this))
+                {
+                    be.UpdateSource();
+                }
+
                 AppMessaging.MessagingPath.Instance.StartRequestReceived(e.Message);
             }
-            ));
+            ));           
         }
 
         private void MainWindowCommandButtonHandler_ShowMessagingDialog(object sender, EventArgs e)
@@ -960,5 +965,10 @@ namespace YellowstonePathology.UI.Surgical
                 this.m_TypingUI.NotifyPropertyChanged("TemplateText");
             }
         }
+
+        private void HyperLinkCleanClinicalInformation_Click(object sender, RoutedEventArgs e)
+        {
+            this.m_TypingUI.AccessionOrder.ClinicalHistory = this.m_TypingUI.AccessionOrder.ClinicalHistory.Replace("Comprehensive Consult:->No", "");
+;        }
     }    
 }

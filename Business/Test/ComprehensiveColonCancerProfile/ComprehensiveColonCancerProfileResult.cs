@@ -57,6 +57,18 @@ namespace YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile
                 this.m_PanelSetOrderLynchSyndromeIHC = (YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeIHC)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetLynchSyndromeIHCPanel.PanelSetId, comprehensiveColonCancerProfile.OrderedOnId, restrictToOrderedOn);
 				this.m_IHCResult = YellowstonePathology.Business.Test.LynchSyndrome.IHCResult.CreateResultFromResultCode(this.m_PanelSetOrderLynchSyndromeIHC.ResultCode);
 			}
+            else
+            {
+                YellowstonePathology.Business.Domain.PatientHistory patientHistory = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPatientHistory(accessionOrder.PatientId);
+                if(patientHistory.PanelSetIdExists(102) == true)
+                {
+                    YellowstonePathology.Business.Domain.PatientHistoryResult patientHistoryResult = patientHistory.GetByPanelSetId(102);
+                    YellowstonePathology.Business.Test.AccessionOrder lseIHCAccessionOrder = Business.Persistence.DocumentGateway.Instance.GetAccessionOrderByMasterAccessionNo(patientHistoryResult.MasterAccessionNo);
+                    this.m_LSEIHCIsOrdered = true;
+                    this.m_PanelSetOrderLynchSyndromeIHC = (YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeIHC)lseIHCAccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetLynchSyndromeIHCPanel.PanelSetId, comprehensiveColonCancerProfile.OrderedOnId, restrictToOrderedOn);
+                    this.m_IHCResult = YellowstonePathology.Business.Test.LynchSyndrome.IHCResult.CreateResultFromResultCode(this.m_PanelSetOrderLynchSyndromeIHC.ResultCode);
+                }
+            }
 
 			YellowstonePathology.Business.Test.LynchSyndrome.MLH1MethylationAnalysisTest panelSetMLH1 = new YellowstonePathology.Business.Test.LynchSyndrome.MLH1MethylationAnalysisTest();
             if (accessionOrder.PanelSetOrderCollection.Exists(panelSetMLH1.PanelSetId, comprehensiveColonCancerProfile.OrderedOnId, restrictToOrderedOn) == true)

@@ -124,7 +124,7 @@ namespace YellowstonePathology.UI.Test
 					result = new MultipleMyelomaMGUSByFishResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
 				case 148:
-					result = new CCNDIBCLIGHResultPath(reportNo, accessionOrder, pageNavigator, window);
+					result = new CCNDIBCLIGHByFISHResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
 				case 149:
 					result = new HighGradeLargeBCellLymphomaResultPath(reportNo, accessionOrder, pageNavigator, window);
@@ -217,7 +217,7 @@ namespace YellowstonePathology.UI.Test
 					result = new BladderCancerFISHUrovysionResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
 				case 186:
-					result = new API2MALT1ResultPath(reportNo, accessionOrder, pageNavigator, window);
+					result = new API2MALT1ByFISHResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
 				case 192:
 					result = new ALLAdultByFISHResultPath(reportNo, accessionOrder, pageNavigator, window);
@@ -240,6 +240,9 @@ namespace YellowstonePathology.UI.Test
                 case 215:
                     result = new PDL1ResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
+                case 216:
+                    result = new InformalConsultResultPath(reportNo, accessionOrder, pageNavigator, window);
+                    break;
                 case 217:
                     result = new KRASExon23MutationResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
@@ -251,6 +254,18 @@ namespace YellowstonePathology.UI.Test
                     break;
                 case 223:
                     result = new TCellSubsetAnalysisResultPath(reportNo, accessionOrder, pageNavigator, window);
+                    break;
+                case 225:
+                    result = new BCL2t1418ByPCRResultPath(reportNo, accessionOrder, pageNavigator, window);
+                    break;
+                case 226:
+                    result = new BCL2t1418ByFISHResultPath(reportNo, accessionOrder, pageNavigator, window);
+                    break;
+                case 227:
+                    result = new CCNDIBCLIGHByPCRResultPath(reportNo, accessionOrder, pageNavigator, window);
+                    break;
+                case 228:
+                    result = new API2MALT1ByPCRResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
             }
             return result;

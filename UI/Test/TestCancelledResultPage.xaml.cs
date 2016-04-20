@@ -67,7 +67,7 @@ namespace YellowstonePathology.UI.Test
         {
 			if (this.m_ReportOrderTestCancelled.Final == false)
 			{
-				this.m_ReportOrderTestCancelled.Finish();
+				this.m_ReportOrderTestCancelled.Finish(this.m_AccessionOrder);
 			}
 			else
 			{
