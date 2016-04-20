@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Collections.ObjectModel;
 
 namespace YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile
 {
@@ -32,6 +33,10 @@ namespace YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile
 
         private NRASMutationAnalysis.NRASMutationAnalysisTest m_NRASMutationAnalysisTest;
         private NRASMutationAnalysis.NRASMutationAnalysisTestOrder m_NRASMutationAnalysisTestOrder;
+
+        private YellowstonePathology.Business.Test.Surgical.SurgicalSpecimenCollection m_SurgicalSpecimenCollection;
+        private Collection<YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeIHC> m_PanelSetOrderLynchSyndromeIHCCollection;
+        private YellowstonePathology.Business.Test.PanelSetOrderCollection m_MolecularTestOrderCollection;
 
         private bool m_LSEIHCIsOrdered;
         private bool m_MLHIsOrdered;
@@ -118,6 +123,54 @@ namespace YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile
                 this.m_RASRAFIsOrdered = true;
                 this.m_RASRAFPanelTestOrder = (RASRAFPanel.RASRAFPanelTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_RASRAFPanelTest.PanelSetId, comprehensiveColonCancerProfile.OrderedOnId, restrictToOrderedOn);
             }
+
+            this.m_SurgicalSpecimenCollection = new YellowstonePathology.Business.Test.Surgical.SurgicalSpecimenCollection();
+            foreach (YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder in accessionOrder.SpecimenOrderCollection)
+            {
+                YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen = this.m_PanelSetOrderSurgical.SurgicalSpecimenCollection.GetBySpecimenOrderId(specimenOrder.SpecimenOrderId);
+                if (surgicalSpecimen != null)
+                {
+                    this.m_SurgicalSpecimenCollection.Add(surgicalSpecimen);
+                }
+            }
+
+            this.m_PanelSetOrderLynchSyndromeIHCCollection = new Collection<LynchSyndrome.PanelSetOrderLynchSyndromeIHC>();
+            this.m_MolecularTestOrderCollection = new PanelSetOrderCollection();
+            foreach(YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder in accessionOrder.PanelSetOrderCollection)
+            {
+                if(panelSetOrder is YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeIHC)
+                {
+                    this.m_PanelSetOrderLynchSyndromeIHCCollection.Add((YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeIHC)panelSetOrder);
+                }
+                else
+                {
+                    if(panelSetOrder is LynchSyndrome.PanelSetOrderMLH1MethylationAnalysis ||
+                        panelSetOrder is KRASStandard.KRASStandardTestOrder ||
+                        panelSetOrder is KRASExon23Mutation.KRASExon23MutationTestOrder ||
+                        panelSetOrder is KRASExon4Mutation.KRASExon4MutationTestOrder ||
+                        panelSetOrder is BRAFV600EK.BRAFV600EKTestOrder ||
+                        panelSetOrder is NRASMutationAnalysis.NRASMutationAnalysisTestOrder ||
+                        panelSetOrder is RASRAFPanel.RASRAFPanelTestOrder)
+                    {
+                        this.m_MolecularTestOrderCollection.Add(panelSetOrder);
+                    }
+                }
+            }
+        }
+
+        public YellowstonePathology.Business.Test.Surgical.SurgicalSpecimenCollection SurgicalSpecimenCollection
+        {
+            get { return this.m_SurgicalSpecimenCollection; }
+        }
+
+        public Collection<LynchSyndrome.PanelSetOrderLynchSyndromeIHC> PanelSetOrderLynchSyndromeIHCCollection
+        {
+            get { return this.m_PanelSetOrderLynchSyndromeIHCCollection; }
+        }
+
+        public YellowstonePathology.Business.Test.PanelSetOrderCollection MolecularTestOrderCollection
+        {
+            get { return this.m_MolecularTestOrderCollection; }
         }
 
         public YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen SurgicalSpecimen
