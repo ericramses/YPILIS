@@ -54,7 +54,7 @@ namespace YellowstonePathology.UI.Test
 		{
             throw new Exception("I don't think this is being used");
             //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_SurgicalBillingItemCollection, false);			
-			Close();
+			//Close();
 		}
 
 		private void ButtonCancel_Click(object sender, RoutedEventArgs e)
