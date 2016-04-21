@@ -45,7 +45,8 @@ namespace YellowstonePathology.UI.Test
 		{
 			YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeEvaluationTest panelSet = new YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeEvaluationTest();
             string reportNo = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSet.PanelSetId, this.m_PanelSetOrderLynchSyndromeIHC.OrderedOnId, true).ReportNo;
-			Test.LynchSyndromeEvaluationResultPath path = new LynchSyndromeEvaluationResultPath(reportNo, this.m_AccessionOrder, this.m_PageNavigator, this.m_ResultDialog, System.Windows.Visibility.Visible);
+
+            Test.LynchSyndromeEvaluationResultPath path = new LynchSyndromeEvaluationResultPath(reportNo, this.m_AccessionOrder, this.m_PageNavigator, this.m_ResultDialog, System.Windows.Visibility.Visible);
             path.Back += new LynchSyndromeEvaluationResultPath.BackEventHandler(LynchSyndromeEvaluationResultPath_Back);
 			path.Finish += new FinishEventHandler(LynchSyndromeEvaluationResultPath_Finish);
 			path.Start();				

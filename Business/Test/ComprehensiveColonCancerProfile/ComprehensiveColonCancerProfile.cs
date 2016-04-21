@@ -16,7 +16,9 @@ namespace YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile
 
 		public ComprehensiveColonCancerProfile() 
         {
-            
+            this.m_Interpretation = "The results are compatible with a (sporadically occurring / Lynch Syndrome-associated) tumor.  Furthermore, the tumor exhibits " +
+                "(wild-type KRAS and BRAF / a ___ KRAS mutation / wild-type KRAS with BRAF V600E mutation), which indicates that the patient (may respond to anti-EGFR therapy " +
+                "/ is unlikely to respond to anti-EGFR therapy).";
         }
 
 		public ComprehensiveColonCancerProfile(string masterAccessionNo, string reportNo, string objectId,
