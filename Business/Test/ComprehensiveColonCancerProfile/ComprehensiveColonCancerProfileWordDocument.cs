@@ -122,9 +122,9 @@ namespace YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile
 
         private void SetMolecularResults(ComprehensiveColonCancerProfileResult comprehensiveColonCancerProfileResult)
         {
-            XmlNode tableNode = this.m_ReportXml.SelectSingleNode("descendant::w:tbl[w:tr/w:tc/w:p/w:r/w:t='mlh1promoter_result']", this.m_NameSpaceManager);
-            XmlNode rowResultNode = tableNode.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='mlh1promoter_result']", this.m_NameSpaceManager);
-            XmlNode insertAfterRow = rowResultNode;
+            XmlNode tableNode = null;
+            XmlNode rowResultNode = null;
+            XmlNode insertAfterRow = null;
 
             foreach (YellowstonePathology.Business.Test.PanelSetOrder testOrder in comprehensiveColonCancerProfileResult.MolecularTestOrderCollection)
             {
@@ -132,6 +132,9 @@ namespace YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile
                 YellowstonePathology.Business.Test.AliquotOrder aliquot = specimen.AliquotOrderCollection.GetByAliquotOrderId(testOrder.OrderedOnId);
                 if (testOrder is LynchSyndrome.PanelSetOrderMLH1MethylationAnalysis)
                 {
+                    tableNode = this.m_ReportXml.SelectSingleNode("descendant::w:tbl[w:tr/w:tc/w:p/w:r/w:t='mlh1promoter_result']", this.m_NameSpaceManager);
+                    rowResultNode = tableNode.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='mlh1promoter_result']", this.m_NameSpaceManager);
+                    insertAfterRow = rowResultNode;
                     this.SetTestResults("mlh1promoter", ((LynchSyndrome.PanelSetOrderMLH1MethylationAnalysis)testOrder).Result, testOrder.ReportNo, aliquot.Label, tableNode, rowResultNode, insertAfterRow);
                 }
                 else if (testOrder is KRASStandard.KRASStandardTestOrder)

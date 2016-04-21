@@ -7,8 +7,8 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 {
     public class LSEResultStatusCompleteAfterMSI : LSEResultStatus
     {        
-        public LSEResultStatusCompleteAfterMSI(LSEResult lseResult, YellowstonePathology.Business.Test.AccessionOrder accessionOrder) 
-            : base(lseResult, accessionOrder)
+        public LSEResultStatusCompleteAfterMSI(LSEResult lseResult, YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string orderedOnId) 
+            : base(lseResult, accessionOrder, orderedOnId)
         {
             LSEResult result1 = new LSEResult();
             result1.MLH1Result = LSEResultEnum.Positive;

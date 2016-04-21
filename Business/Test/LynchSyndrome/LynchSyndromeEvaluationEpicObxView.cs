@@ -37,9 +37,10 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             this.AddNextObxElement("", document, "F");
             this.AddAmendments(document);
 
-            YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeIHC panelSetOrderLynchSyndromeIHC = (YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeIHC)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(102, panelSetOrderLynchSyndromeEvaluation.OrderedOnId, true);
-            if (panelSetOrderLynchSyndromeIHC != null)
+            LynchSyndromeIHCPanelTest lynchSyndromeIHCPanelTest = new LynchSyndromeIHCPanelTest();
+            if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(lynchSyndromeIHCPanelTest.PanelSetId, panelSetOrderLynchSyndromeEvaluation.OrderedOnId, true) == true)
             {
+                PanelSetOrderLynchSyndromeIHC panelSetOrderLynchSyndromeIHC = (PanelSetOrderLynchSyndromeIHC)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(lynchSyndromeIHCPanelTest.PanelSetId, panelSetOrderLynchSyndromeEvaluation.OrderedOnId, true);
                 this.AddNextObxElement("Mismatch Repair Protein Expression by Immunohistochemistry: ", document, "F");
                 this.AddNextObxElement("MLH1: " + panelSetOrderLynchSyndromeIHC.MLH1Result, document, "F");
                 this.AddNextObxElement("MSH2: " + panelSetOrderLynchSyndromeIHC.MSH2Result, document, "F");
