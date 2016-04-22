@@ -101,7 +101,7 @@ namespace YellowstonePathology.UI.Surgical
 
         private void MainWindowCommandButtonHandler_ShowMessagingDialog(object sender, EventArgs e)
         {
-            if (this.m_PathologistUI.AccessionOrder != null)
+            if (this.m_PathologistUI.AccessionOrder != null && this.m_PathologistUI.AccessionOrder.IsLockAquiredByMe == false && this.PathologistUI.AccessionOrder.LockAquired == true)
             {
                 AppMessaging.MessagingPath.Instance.Start(this.m_PathologistUI.AccessionOrder);
             }
@@ -112,7 +112,9 @@ namespace YellowstonePathology.UI.Surgical
             string masterAccessionNo = (string)sender;
             if (this.m_PathologistUI.AccessionOrder != null && this.m_PathologistUI.AccessionOrder.MasterAccessionNo == masterAccessionNo)
             {
-                Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, this.m_Writer);
+                this.m_PathologistUI.GetAccessionOrderByReportNo(this.m_PathologistUI.PanelSetOrder.ReportNo);
+
+                //Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, this.m_Writer);
             }
         }
 
