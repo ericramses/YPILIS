@@ -51,6 +51,15 @@ namespace YellowstonePathology.UI.Cytology
             this.PreviewLostKeyboardFocus += CytologyResultsWorkspace_PreviewLostKeyboardFocus;
         }
 
+        public string Testing()
+        {
+            //YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology panelOrder = (YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology)this.m_CytologyUI.AccessionOrder.PanelSetOrderCollection[1].PanelOrderCollection[0];
+            //this.m_CytologyUI.NotifyPropertyChanged(string.Empty);
+
+            YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology panelOrder = (YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology)this.m_CytologyUI.PanelSetOrderCytology.PanelOrderCollection[0];
+            return panelOrder.ScreenerComment;            
+        }
+
         private void CytologyResultsWorkspace_PreviewLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
         {
             MainWindow.UpdateFocusedBindingSource(this);

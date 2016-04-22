@@ -175,11 +175,16 @@ namespace YellowstonePathology.UI.Cytology
 
         private void MessageQueue_AquireLock(object sender, EventArgs e)
         {
-            string masterAccessionNo = (string)sender;
-            if (this.m_CytologyUI.AccessionOrder != null && this.m_CytologyUI.AccessionOrder.MasterAccessionNo == masterAccessionNo)
-            {
-                Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, this.m_Writer);
-            }
+            this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal,
+                new Action(
+                    delegate ()
+                    {
+                        string masterAccessionNo = (string)sender;
+                        if (this.m_CytologyUI.AccessionOrder != null && this.m_CytologyUI.AccessionOrder.MasterAccessionNo == masterAccessionNo)
+                        {
+                            this.m_CytologyUI.LoadDataByReportNo(this.m_CytologyUI.PanelSetOrderCytology.ReportNo);
+                        }
+                    }));            
         }
 
         private void MessageQueue_ReleaseLock(object sender, EventArgs e)

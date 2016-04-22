@@ -18,15 +18,17 @@ namespace YellowstonePathology.Business.Audit.Model
         {
             this.m_Status = AuditStatusEnum.OK;
             this.m_Message.Clear();
+
             YellowstonePathology.Business.Test.Surgical.SurgicalTest surgicalTest = new Test.Surgical.SurgicalTest();
             YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeIHCPanelTest lynchSyndromeIHCPanelTest = new Test.LynchSyndrome.LynchSyndromeIHCPanelTest();
             YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeEvaluationTest lynchSyndromeEvaluationTest = new Test.LynchSyndrome.LynchSyndromeEvaluationTest();
             YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile.ComprehensiveColonCancerProfileTest comprehensiveColonCancerProfileTest = new Test.ComprehensiveColonCancerProfile.ComprehensiveColonCancerProfileTest();
-            if (this.m_AccessionOrder.PanelSetOrderCollection.Count == 4 &&
+
+            if (this.m_AccessionOrder.PanelSetOrderCollection.Count >= 4 &&
                 this.m_AccessionOrder.PanelSetOrderCollection.Exists(surgicalTest.PanelSetId) &&
                 this.m_AccessionOrder.PanelSetOrderCollection.Exists(lynchSyndromeIHCPanelTest.PanelSetId) &&
                 this.m_AccessionOrder.PanelSetOrderCollection.Exists(lynchSyndromeEvaluationTest.PanelSetId) &&
-                this.m_AccessionOrder.PanelSetOrderCollection.Exists(comprehensiveColonCancerProfileTest.PanelSetId))
+                this.m_AccessionOrder.PanelSetOrderCollection.Exists(comprehensiveColonCancerProfileTest.PanelSetId) == false)
             {
                 this.m_Status = AuditStatusEnum.Failure;
                 this.m_Message.Append("This Comprehensive Colon Cancer Profile Test is not necessary. Notify IT to remove it.");

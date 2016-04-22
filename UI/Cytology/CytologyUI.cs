@@ -432,7 +432,7 @@ namespace YellowstonePathology.UI.Cytology
 			set { this.m_DataLoadResult = value; }
 		}
 
-        private void LoadDataByReportNo(string reportNo)
+        public void LoadDataByReportNo(string reportNo)
         {
             string masterAccessionNo = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetMasterAccessionNoFromReportNo(reportNo);
             if(string.IsNullOrEmpty(masterAccessionNo) == false)
@@ -463,8 +463,6 @@ namespace YellowstonePathology.UI.Cytology
         {
             if (this.m_AccessionOrder != null)
             {
-                 
-
 				this.SpecimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByOrderTarget(this.m_PanelSetOrderCytology.OrderedOnId);
 
 				this.m_DataLoadResult.DataLoadStatusEnum = YellowstonePathology.Business.Domain.DataLoadStatusEnum.NotFound;
