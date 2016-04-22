@@ -47,7 +47,7 @@ namespace YellowstonePathology.UI.Test
             if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(brafV600EKTest.PanelSetId, this.m_PanelSetOrder.OrderedOnId, true))
             {
                 result = true;
-                string reportNo = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(brafV600EKTest.PanelSetId).ReportNo;
+                string reportNo = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(brafV600EKTest.PanelSetId, this.m_PanelSetOrder.OrderedOnId, true).ReportNo;
                 YellowstonePathology.UI.Test.BRAFV600EKResultPath resultPath = new YellowstonePathology.UI.Test.BRAFV600EKResultPath(reportNo,
 					this.m_AccessionOrder, this.m_PageNavigator, System.Windows.Visibility.Visible, this.m_Window);
 
