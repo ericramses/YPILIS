@@ -43,7 +43,10 @@ namespace YellowstonePathology.Business.Test.HPV1618ByPCR
             string task2Description = "Receive materials from histology and run test.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, task2Description));
 
-            this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceHPV1618GEN());                    
-		}
+            this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceHPV1618GEN());
+
+            HPV1618ByPCRPanel hpv1618ByPCRPanel = new HPV1618ByPCRPanel();
+            this.m_PanelCollection.Add(hpv1618ByPCRPanel);
+        }
 	}
 }

@@ -94,7 +94,29 @@ namespace YellowstonePathology.UI.MaterialTracking
 			this.m_BarcodeScanPort.HistologyBlockScanReceived += new Business.BarcodeScanning.BarcodeScanPort.HistologyBlockScanReceivedHandler(BarcodeScanPort_HistologyBlockScanReceived);
             this.m_BarcodeScanPort.ContainerScanReceived += new Business.BarcodeScanning.BarcodeScanPort.ContainerScanReceivedHandler(BarcodeScanPort_ContainerScanReceived);
 			this.m_BarcodeScanPort.USPostalServiceCertifiedMailReceived += new Business.BarcodeScanning.BarcodeScanPort.USPostalServiceCertifiedMailReceivedHandler(BarcodeScanPort_USPostalServiceCertifiedMailReceived);
+            this.m_BarcodeScanPort.ThinPrepSlideScanReceived += BarcodeScanPort_ThinPrepSlideScanReceived;
 		}
+
+        private void BarcodeScanPort_ThinPrepSlideScanReceived(Business.BarcodeScanning.Barcode barcode)
+        {
+            this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal,
+                new Action(
+                    delegate ()
+                    {
+                        if (this.m_MaterialTrackingLogViewCollection.MaterialIdExists(barcode.ID) == false)
+                        {
+                            YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog materialTrackingLog = this.AddMaterialTrackingLogScan(barcode.ID, "PSLD", this.m_MaterialTrackingBatch.MaterialTrackingBatchId);
+                            YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogView materialTrackingLogView = new Business.MaterialTracking.Model.MaterialTrackingLogView();
+                            materialTrackingLogView.FromScannedItemView(materialTrackingLog);
+                            this.m_MaterialTrackingLogViewCollection.Add(materialTrackingLogView);
+                            this.NotifyPropertyChanged("MaterialCount");
+                        }
+                        else
+                        {
+                            this.SelectMaterialTrackingLogView(barcode.ID);
+                        }
+                    }));
+        }
 
         private void BarcodeScanPort_ContainerScanReceived(Business.BarcodeScanning.ContainerBarcode containerBarcode)
         {
@@ -358,6 +380,7 @@ namespace YellowstonePathology.UI.MaterialTracking
 				YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingScannedItemView materialTrackingScannedItemView = null; 
                 switch (materialTrackingLog.MaterialType)
                 {
+                    case "PSLD":
                     case "NGYNSLD":
                     case "FNASLD":
                     case "Aliquot":

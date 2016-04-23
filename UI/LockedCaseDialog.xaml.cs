@@ -58,7 +58,17 @@ namespace YellowstonePathology.UI
                         if (accessionOrder.IsLockAquiredByMe == false)
                         {
                             accessionOrder.ReleaseLock();
-                            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);                            
+                            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
+
+                            System.Net.Mail.MailMessage message = new System.Net.Mail.MailMessage("support@ypii.com", "Sid.Harder@ypii.com", System.Windows.Forms.SystemInformation.UserName, "A lock wash cleared on case: " + accessionOrder.MasterAccessionNo + " by " + YellowstonePathology.Business.User.SystemIdentity.Instance.User.DisplayName);
+                            System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient("10.1.2.111");
+
+                            Uri uri = new Uri("http://tempuri.org/");
+                            System.Net.ICredentials credentials = System.Net.CredentialCache.DefaultCredentials;
+                            System.Net.NetworkCredential credential = credentials.GetCredential(uri, "Basic");
+
+                            client.Credentials = credential;
+                            client.Send(message);
                         }
                     }
                     this.m_LockItemCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetLockedAccessionOrders();

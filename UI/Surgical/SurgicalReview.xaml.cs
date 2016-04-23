@@ -194,7 +194,10 @@ namespace YellowstonePathology.UI.Surgical
                     }
 
                     this.m_PathologistUI.SetSignatureButtonProperties();
-                    this.NotifyPropertyChanged(string.Empty);                    
+                    this.NotifyPropertyChanged(string.Empty);
+
+                    this.m_PathologistUI.RunWorkspaceEnableRules();
+                    this.m_PathologistUI.RunPathologistEnableRules();
                 }
                 else
                 {
