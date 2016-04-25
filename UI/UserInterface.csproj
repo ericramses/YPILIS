@@ -187,6 +187,7 @@
     <Compile Include="AmendmentPage.xaml.cs">
       <DependentUpon>AmendmentPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AOBuilder.cs" />
     <Compile Include="AppMessaging\LockRequestSentPage.xaml.cs">
       <DependentUpon>LockRequestSentPage.xaml</DependentUpon>
     </Compile>

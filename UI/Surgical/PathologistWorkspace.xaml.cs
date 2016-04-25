@@ -276,10 +276,12 @@ namespace YellowstonePathology.UI.Surgical
 		private void ShowStainOrderForm()
 		{			
 			YellowstonePathology.UI.Common.OrderDialog orderDiaglog = new YellowstonePathology.UI.Common.OrderDialog(this.m_PathologistUI.AccessionOrder, this.m_PathologistUI.PanelSetOrder);
-			orderDiaglog.ShowDialog();			
-		}
+			orderDiaglog.ShowDialog();
+            this.m_PathologistUI.AccessionOrder.PanelSetOrderCollection.PathologistTestOrderItemList.Build(this.m_PathologistUI.AccessionOrder);
+            this.m_PathologistUI.NotifyPropertyChanged("AccessionOrder.PanelSetOrderCollection.PathologistTestOrderItemList");
+        }
 
-		private void ItemIsSelected(object sender, CanExecuteRoutedEventArgs e)
+        private void ItemIsSelected(object sender, CanExecuteRoutedEventArgs e)
 		{
 			e.CanExecute = false;
 			if (((TabItem)this.Parent).IsSelected && this.ListViewSearchResults.SelectedItem != null && this.m_PathologistUI.CanPlaceOrder())
