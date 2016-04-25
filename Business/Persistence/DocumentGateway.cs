@@ -136,7 +136,7 @@ namespace YellowstonePathology.Business.Persistence
                 YellowstonePathology.Business.Test.AccessionOrder result = (YellowstonePathology.Business.Test.AccessionOrder)documentBuilder.BuildNew();
                 return result;
             }
-        }        
+        }
 
         public void PullTypingShortcut(YellowstonePathology.Business.Typing.TypingShortcut typingShortcut, object writer)
         {
@@ -153,19 +153,14 @@ namespace YellowstonePathology.Business.Persistence
             }
         }
 
-        public void PullClient(YellowstonePathology.Business.Client.Model.Client client, object writer)
+        public YellowstonePathology.Business.Client.Model.Client PullClient(int clientId, object writer)
         {
             lock (locker)
-            {
-                SqlCommand cmd = new SqlCommand();
-                cmd.CommandText = "SELECT c.*, (SELECT * from tblClientLocation where ClientId = c.ClientId order by Location for xml path('ClientLocation'), type) ClientLocationCollection " +
-                    "FROM tblClient c where c.ClientId = @ClientId for xml Path('Client'), type";
-                cmd.CommandType = CommandType.Text;
-                cmd.Parameters.Add("@ClientId", SqlDbType.Int).Value = client.ClientId;
-                ClientDocumentBuilder builder = new ClientDocumentBuilder(cmd);
-
-                DocumentId documentId = new DocumentId(client, writer);
-                Document document = this.m_Stack.Pull(documentId, builder);
+            {                                
+                ClientDocumentBuilder documentBuilder = new ClientDocumentBuilder(clientId);
+                DocumentId documentId = new DocumentId(typeof(YellowstonePathology.Business.Client.Model.Client), writer, clientId);
+                Document document = this.m_Stack.Pull(documentId, documentBuilder);
+                return (YellowstonePathology.Business.Client.Model.Client)document.Value;                
             }
         }
 

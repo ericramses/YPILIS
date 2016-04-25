@@ -22,14 +22,7 @@ namespace YellowstonePathology.Business.Persistence
             YellowstonePathology.Business.Task.Model.TaskOrder taskOrder = new Task.Model.TaskOrder();
             this.Build(taskOrder);
             return taskOrder;
-        }
-
-        public override void Refresh(object o)
-        {
-            YellowstonePathology.Business.Task.Model.TaskOrder taskOrder = (YellowstonePathology.Business.Task.Model.TaskOrder)o;
-            this.Build(taskOrder);
-            //document.IsLockAquiredByMe = true;
-        }
+        }        
 
         private void Build(YellowstonePathology.Business.Task.Model.TaskOrder taskOrder)
         {

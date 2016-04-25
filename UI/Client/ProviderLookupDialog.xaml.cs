@@ -85,19 +85,21 @@ namespace YellowstonePathology.UI.Client
         }
 
         private void ButtonNewClient_Click(object sender, RoutedEventArgs e)
-		{
-			string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-			int clientId = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetLargestClientId() + 1;
-			YellowstonePathology.Business.Client.Model.Client client = new YellowstonePathology.Business.Client.Model.Client(objectId, "New Client", clientId);			
+        {
+            string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
+            int clientId = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetLargestClientId() + 1;
+            YellowstonePathology.Business.Client.Model.Client client = new YellowstonePathology.Business.Client.Model.Client(objectId, "New Client", clientId);
 
-			ClientEntry clientEntry = new ClientEntry(client, true);
-			clientEntry.ShowDialog();
-            if(this.m_ClientCollection == null)
+            ClientEntry clientEntry = new ClientEntry(client);
+            clientEntry.ShowDialog();
+            if (this.m_ClientCollection == null)
             {
                 this.m_ClientCollection = new Business.Client.Model.ClientCollection();
             }
+
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(client, this);
             this.m_ClientCollection.Insert(0, client);
-		}
+        }
 
         private void ButtonDeleteClient_Click(object sender, RoutedEventArgs e)
         {
@@ -225,9 +227,10 @@ namespace YellowstonePathology.UI.Client
         {
 			if (this.ListViewClients.SelectedItem != null)
             {
-				YellowstonePathology.Business.Client.Model.Client client = (YellowstonePathology.Business.Client.Model.Client)this.ListViewClients.SelectedItem;
+				YellowstonePathology.Business.Client.Model.Client listClient = (YellowstonePathology.Business.Client.Model.Client)this.ListViewClients.SelectedItem;
+                YellowstonePathology.Business.Client.Model.Client pulledClient = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullClient(listClient.ClientId, this);
 
-                ClientEntry clientEntry = new ClientEntry(client, false);
+                ClientEntry clientEntry = new ClientEntry(pulledClient);
 				clientEntry.ShowDialog();
             }
         }

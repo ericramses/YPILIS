@@ -145,70 +145,23 @@ namespace YellowstonePathology.Business.Persistence
                     if(document.IsDirty() == true)
                     {
                         document.Submit();
-                    }
-                    else
-                    {
-                        documentBuilder.Refresh(document.Value);
-                        document.ResetClone();
-
-                        Business.Test.AccessionOrder accessionOrder = (Business.Test.AccessionOrder)document.Value;                        
-                        document.IsLockAquiredByMe = accessionOrder.IsLockAquiredByMe;
-                    }
-                }
-                else
-                {
-                    if(documentId.ValueWasPassedIn == true)
-                    {
-                        Document existingDocument = this.Get(documentId);
-                        if (existingDocument.IsDirty() == true) existingDocument.Submit();
-                        this.m_Documents.Remove(existingDocument);
-                        documentBuilder.Refresh(documentId.Value);
-                        document = new DocumentUpdate(documentId);
-                        this.m_Documents.Add(document);
-                    }
-                    else
-                    {
-                        if (document.IsDirty() == true)
-                        {
-                            document.Submit();
-                        }
-                        else
-                        {
-                            documentBuilder.Refresh(document.Value);
-                            document.ResetClone();
-                        }
                     }                    
-                }
+                }                
             }   
             else if(this.WriterTypeExists(documentId) == true)
             {
                 Document outgoingDocument = this.WriterTypeGet(documentId);
                 this.PushOne(outgoingDocument, documentId.Writer);
-
-                if(documentId.ValueWasPassedIn == true)
-                {
-                    document = new DocumentUpdate(documentId);
-                    this.m_Documents.Add(document);
-                }
-                else
-                {
-                    object value = documentBuilder.BuildNew();
-                    documentId.Value = value;
-                    document = new DocumentUpdate(documentId);
-                    this.m_Documents.Add(document);
-                }                
+                
+                object value = documentBuilder.BuildNew();
+                documentId.Value = value;
+                document = new DocumentUpdate(documentId);
+                this.m_Documents.Add(document);                
             }           
             else
             {
-                if (documentId.ValueWasPassedIn == true)
-                {
-                    documentBuilder.Refresh(documentId.Value);                    
-                }
-                else
-                {
-                    object value = documentBuilder.BuildNew();
-                    documentId.Value = value;
-                }
+                object value = documentBuilder.BuildNew();
+                documentId.Value = value;
 
                 document = new DocumentUpdate(documentId);
                 this.m_Documents.Add(document);
@@ -220,8 +173,6 @@ namespace YellowstonePathology.Business.Persistence
                 }
             }
 
-
-            //if (this.m_Documents.HasMultipleSameAO("16-9590") == true) System.Windows.MessageBox.Show("Stack has multple AO with same MA");
             return document;
         }               
 

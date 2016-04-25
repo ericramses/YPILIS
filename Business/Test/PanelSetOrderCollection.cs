@@ -14,11 +14,17 @@ namespace YellowstonePathology.Business.Test
 	public class PanelSetOrderCollection : ObservableCollection<PanelSetOrder>
 	{
 		private PathologistTestOrderItemList m_PathologistTestOrderItemList;
+        private PanelSetOrder m_CurrentPanelSetOrder;
 
 		public PanelSetOrderCollection()
 		{
 			m_PathologistTestOrderItemList = new PathologistTestOrderItemList();
 		}
+
+        public PanelSetOrder CurrentPanelSetOrder
+        {
+            get { return this.m_CurrentPanelSetOrder; }
+        }
 
         public string FromClientOrder(YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder, 
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,                         

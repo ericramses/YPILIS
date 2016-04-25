@@ -11,8 +11,7 @@ namespace YellowstonePathology.Business.Persistence
         private object m_Key;
         private Type m_Type;
         private Object m_Writer;
-        private bool m_LockAquired;
-        private bool m_ValueWasPassedIn;
+        private bool m_LockAquired;        
         private object m_Value;
         private bool m_IsGlobal;
 
@@ -22,7 +21,6 @@ namespace YellowstonePathology.Business.Persistence
 
             this.m_Type = o.GetType();
             this.m_Value = o;
-            this.m_ValueWasPassedIn = true;
 
             PropertyInfo keyProperty = this.m_Type.GetProperties().Where(prop => Attribute.IsDefined(prop, typeof(PersistentPrimaryKeyProperty))).Single();
             this.m_Key = keyProperty.GetValue(o, null);
@@ -66,12 +64,7 @@ namespace YellowstonePathology.Business.Persistence
         public bool LockAquired
         {
             get { return this.m_LockAquired;  }
-        } 
-        
-        public bool ValueWasPassedIn
-        {
-            get { return this.m_ValueWasPassedIn; }
-        }                 
+        }                               
 
         public object Value
         {

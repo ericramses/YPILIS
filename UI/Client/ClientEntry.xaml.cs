@@ -31,48 +31,37 @@ namespace YellowstonePathology.UI.Client
 		private YellowstonePathology.Business.Client.Model.ClientSupplyOrderCollection m_ClientSupplyOrderCollection;
         private YellowstonePathology.Business.Client.Model.PhysicianClientNameCollection m_ReferringProviderClientCollection;
 
-        private bool m_IsNewClient;
-
         private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 
-		public ClientEntry(YellowstonePathology.Business.Client.Model.Client client, bool isNewClient)
-		{
-            this.m_Client = client;
-            this.m_IsNewClient = isNewClient;
-            if (this.m_IsNewClient == true)
-            {
-                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(this.m_Client, this);
-            }
-            else
-            {
-                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullClient(client, this);
-            }
+        public ClientEntry(YellowstonePathology.Business.Client.Model.Client client)
+        {
+            this.m_Client = client;                        
             this.m_SystemIdentity = Business.User.SystemIdentity.Instance;
-            	
-			this.m_ClientPhysicianView = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientPhysicianViewByClientIdV2(this.m_Client.ClientId);
 
-			if (this.m_ClientPhysicianView == null)
-			{
-				this.m_ClientPhysicianView = new Business.View.ClientPhysicianView();
-			}
+            this.m_ClientPhysicianView = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientPhysicianViewByClientIdV2(this.m_Client.ClientId);
 
-			this.m_InsuranceTypeCollection = new Business.Billing.InsuranceTypeCollection(true);
-			
-			this.m_FacilityTypes = new List<string>();
-			this.m_FacilityTypes.Add("Hospital");
-			this.m_FacilityTypes.Add("Hospital Owned Clinic");
-			this.m_FacilityTypes.Add("Non-Grandfathered Hospital");
-			this.m_FacilityTypes.Add("Non-Hospital");
+            if (this.m_ClientPhysicianView == null)
+            {
+                this.m_ClientPhysicianView = new Business.View.ClientPhysicianView();
+            }
+
+            this.m_InsuranceTypeCollection = new Business.Billing.InsuranceTypeCollection(true);
+
+            this.m_FacilityTypes = new List<string>();
+            this.m_FacilityTypes.Add("Hospital");
+            this.m_FacilityTypes.Add("Hospital Owned Clinic");
+            this.m_FacilityTypes.Add("Non-Grandfathered Hospital");
+            this.m_FacilityTypes.Add("Non-Hospital");
 
             this.m_DistributionTypeList = new YellowstonePathology.Business.ReportDistribution.Model.DistributionTypeList();
-			this.m_BillingRuleSetCollection = YellowstonePathology.Business.Billing.Model.BillingRuleSetCollection.GetAllRuleSets();
-			this.m_ClientSupplyOrderCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientSupplyOrderCollectionByClientId(this.m_Client.ClientId);
+            this.m_BillingRuleSetCollection = YellowstonePathology.Business.Billing.Model.BillingRuleSetCollection.GetAllRuleSets();
+            this.m_ClientSupplyOrderCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientSupplyOrderCollectionByClientId(this.m_Client.ClientId);
 
-			InitializeComponent();
+            InitializeComponent();
 
-			this.DataContext = this;
+            this.DataContext = this;
             Closing += ClientEntry_Closing;
-		}
+        }
 
         private void ClientEntry_Closing(object sender, CancelEventArgs e)
         {

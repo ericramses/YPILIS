@@ -33,18 +33,6 @@ namespace YellowstonePathology.Business.Persistence
             YellowstonePathology.Business.Gateway.AccessionOrderBuilder builder = new YellowstonePathology.Business.Gateway.AccessionOrderBuilder();
             builder.Build(this.m_SQLCommand, result);
             return result;            
-        }
-
-        public override void Refresh(object o)
-        {                        
-            Console.WriteLine("AO Refreshed.");
-            YellowstonePathology.Business.Test.AccessionOrder result = (YellowstonePathology.Business.Test.AccessionOrder)o;
-            result.SpecimenOrderCollection = new Specimen.Model.SpecimenOrderCollection();
-            result.PanelSetOrderCollection = new Test.PanelSetOrderCollection();
-            result.ICD9BillingCodeCollection = new Billing.ICD9BillingCodeCollection();
-            result.TaskOrderCollection = new Task.Model.TaskOrderCollection();
-            YellowstonePathology.Business.Gateway.AccessionOrderBuilder builder = new YellowstonePathology.Business.Gateway.AccessionOrderBuilder();
-            builder.Build(this.m_SQLCommand, result);            
-        }
+        }        
     }
 }

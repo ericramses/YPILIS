@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Data;
 using System.Data.SqlClient;
 using System.Xml;
 using System.Xml.Linq;
@@ -12,9 +13,13 @@ namespace YellowstonePathology.Business.Persistence
     {
         private SqlCommand m_SQLCommand;
 
-        public ClientDocumentBuilder(SqlCommand sqlCommand)
-        {
-            this.m_SQLCommand = sqlCommand;
+        public ClientDocumentBuilder(int clientId)
+        {            
+            this.m_SQLCommand = new SqlCommand();
+            this.m_SQLCommand.CommandText = "SELECT c.*, (SELECT * from tblClientLocation where ClientId = c.ClientId order by Location for xml path('ClientLocation'), type) ClientLocationCollection " +
+                "FROM tblClient c where c.ClientId = @ClientId for xml Path('Client'), type";
+            this.m_SQLCommand.CommandType = CommandType.Text;
+            this.m_SQLCommand.Parameters.Add("@ClientId",  SqlDbType.Int).Value = clientId;
         }
 
         public override object BuildNew()
@@ -22,14 +27,7 @@ namespace YellowstonePathology.Business.Persistence
             YellowstonePathology.Business.Client.Model.Client client = new Client.Model.Client();
             this.BuildClient(client);
             return client;
-        }
-
-        public override void Refresh(object o)
-        {
-            YellowstonePathology.Business.Client.Model.Client client = (YellowstonePathology.Business.Client.Model.Client)o;
-            this.BuildClient(client);
-            //document.IsLockAquiredByMe = true;
-        }
+        }        
 
         private void BuildClient(YellowstonePathology.Business.Client.Model.Client client)
         {

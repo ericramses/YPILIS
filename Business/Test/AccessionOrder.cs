@@ -11,7 +11,7 @@ namespace YellowstonePathology.Business.Test
 	[PersistentClass("tblAccessionOrder", "YPIDATA")]
     public partial class AccessionOrder : INotifyPropertyChanged, Interface.IOrder, Interface.IPatientOrder
 	{
-		public event PropertyChangedEventHandler PropertyChanged;
+		public event PropertyChangedEventHandler PropertyChanged;        
 
 		private YellowstonePathology.Business.DataTemplateSpecimenOrderEnum m_SpecimenOrderDataTemplate;
 
@@ -124,7 +124,7 @@ namespace YellowstonePathology.Business.Test
 			this.m_SpecimenOrderDataTemplate = YellowstonePathology.Business.DataTemplateSpecimenOrderEnum.DataTemplateAccessionTreeView;            
 			this.m_ICD9BillingCodeCollection = new Billing.ICD9BillingCodeCollection();
 			this.m_TaskOrderCollection = new YellowstonePathology.Business.Task.Model.TaskOrderCollection();
-        }
+        }        
 
 		[PersistentDocumentIdProperty()]
 		public string ObjectId

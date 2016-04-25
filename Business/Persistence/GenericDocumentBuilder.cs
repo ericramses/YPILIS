@@ -25,11 +25,6 @@ namespace YellowstonePathology.Business.Persistence
             return result;
         }
 
-        public override void Refresh(object o)
-        {
-            this.Build(o);
-        }
-
         private void Build(object o)
         {
             using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
