@@ -75,6 +75,11 @@ namespace YellowstonePathology.UI.Flow
             this.m_MainWindowCommandButtonHandler.Save += new MainWindowCommandButtonHandler.SaveEventHandler(MainWindowCommandButtonHandler_Save);
             this.m_MainWindowCommandButtonHandler.RemoveTab += new MainWindowCommandButtonHandler.RemoveTabEventHandler(MainWindowCommandButtonHandler_RemoveTab);
             this.m_MainWindowCommandButtonHandler.Refresh += MainWindowCommandButtonHandler_Refresh;
+            this.m_MainWindowCommandButtonHandler.ShowMessagingDialog += new MainWindowCommandButtonHandler.ShowMessagingDialogEventHandler(MainWindowCommandButtonHandler_ShowMessagingDialog);
+
+            AppMessaging.MessageQueues.Instance.ReleaseLock += MessageQueue_ReleaseLock;
+            AppMessaging.MessageQueues.Instance.AquireLock += MessageQueue_AquireLock;
+            AppMessaging.MessageQueues.Instance.RequestReceived += MessageQueue_RequestReceived;
         }
 
         private void MainWindowCommandButtonHandler_Refresh(object sender, EventArgs e)
@@ -128,6 +133,50 @@ namespace YellowstonePathology.UI.Flow
             }
         }
 
+        private void MessageQueue_RequestReceived(object sender, UI.CustomEventArgs.MessageReturnEventArgs e)
+        {
+            this.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
+            {
+                AppMessaging.MessagingPath.Instance.StartRequestReceived(e.Message);
+            }
+            ));
+        }
+
+        private void MainWindowCommandButtonHandler_ShowMessagingDialog(object sender, EventArgs e)
+        {
+            if (this.m_FlowUI.AccessionOrder != null && this.m_FlowUI.AccessionOrder.IsLockAquiredByMe == false && this.m_FlowUI.AccessionOrder.LockAquired == true)
+            {
+                AppMessaging.MessagingPath.Instance.Start(this.m_FlowUI.AccessionOrder);
+            }
+        }
+
+        private void MessageQueue_AquireLock(object sender, EventArgs e)
+        {
+            string masterAccessionNo = (string)sender;
+            if (this.m_FlowUI.AccessionOrder != null && this.m_FlowUI.AccessionOrder.MasterAccessionNo == masterAccessionNo)
+            {
+                this.m_FlowUI.GetAccessionOrder(this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.ReportNo, masterAccessionNo);
+                this.m_FlowUI.FlowLogSearch.FlowLogList.SetLockIsAquiredByMe(this.m_FlowUI.AccessionOrder);
+            }
+        }
+
+        private void MessageQueue_ReleaseLock(object sender, EventArgs e)
+        {
+            string masterAccessionNo = (string)sender;
+            if (this.m_FlowUI.AccessionOrder != null && this.m_FlowUI.AccessionOrder.MasterAccessionNo == masterAccessionNo)
+            {
+                MainWindow.MoveKeyboardFocusNextThenBack();
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.ReleaseLock(this.m_FlowUI.AccessionOrder, this.m_Writer);
+                if (this.m_FlowUI.AccessionOrder.IsLockAquiredByMe == false)
+                {
+                    this.m_FlowUI.SetAccess();
+                    this.m_FlowUI.NotifyPropertyChanged(string.Empty);
+                }
+
+                this.m_FlowUI.FlowLogSearch.FlowLogList.SetLockIsAquiredByMe(this.m_FlowUI.AccessionOrder);
+            }
+        }
+
         private void FlowWorkspace_Unloaded(object sender, RoutedEventArgs e)
         {
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath -= MainWindowCommandButtonHandler_StartProviderDistributionPath;
@@ -135,6 +184,11 @@ namespace YellowstonePathology.UI.Flow
             this.m_MainWindowCommandButtonHandler.Save -= MainWindowCommandButtonHandler_Save;
             this.m_MainWindowCommandButtonHandler.Refresh -= MainWindowCommandButtonHandler_Refresh;
             this.m_MainWindowCommandButtonHandler.RemoveTab -= MainWindowCommandButtonHandler_RemoveTab;
+            this.m_MainWindowCommandButtonHandler.ShowMessagingDialog -= MainWindowCommandButtonHandler_ShowMessagingDialog;
+
+            AppMessaging.MessageQueues.Instance.ReleaseLock -= MessageQueue_ReleaseLock;
+            AppMessaging.MessageQueues.Instance.AquireLock -= MessageQueue_AquireLock;
+            AppMessaging.MessageQueues.Instance.RequestReceived -= MessageQueue_RequestReceived;
 
             YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
             this.Save(false);

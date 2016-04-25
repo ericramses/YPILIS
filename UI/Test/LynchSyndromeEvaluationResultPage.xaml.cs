@@ -232,7 +232,7 @@ namespace YellowstonePathology.UI.Test
 				result = true;
 			}
 
-			YellowstonePathology.Business.Test.LynchSyndrome.LSEResultStatusCollection lseResultStatusCollection = new Business.Test.LynchSyndrome.LSEResultStatusCollection(this.m_LSEResult, this.m_AccessionOrder, this.m_PanelSetOrderLynchSyndromeEvaluation.LynchSyndromeEvaluationType);
+			YellowstonePathology.Business.Test.LynchSyndrome.LSEResultStatusCollection lseResultStatusCollection = new Business.Test.LynchSyndrome.LSEResultStatusCollection(this.m_LSEResult, this.m_AccessionOrder, this.m_PanelSetOrderLynchSyndromeEvaluation.LynchSyndromeEvaluationType, this.m_PanelSetOrderLynchSyndromeEvaluation.OrderedOnId);
 			this.m_LSEResultStatus = lseResultStatusCollection.GetMatch();
 
 			this.NotifyPropertyChanged("");
