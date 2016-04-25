@@ -195,8 +195,6 @@ namespace YellowstonePathology.UI.Test
                 YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Business.Visitor.OrderTestOrderVisitor(testOrderInfo);
                 this.m_AccessionOrder.TakeATrip(orderTestOrderVisitor);             
                 
-                //this.Save(false);
-
                 this.m_AuditCollection.Run();
                 this.NotifyPropertyChanged(string.Empty);
             }
