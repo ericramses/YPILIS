@@ -95,6 +95,27 @@ namespace YellowstonePathology.UI.Test
 			this.ListViewDocumentList.ItemsSource = this.m_LabUI.CaseDocumentCollection;
         }
 
+        private void LabWorkspace_Loaded(object sender, RoutedEventArgs args)
+        {
+            this.m_BarcodeScanPort.ClientScanReceived -= ClientScanReceived;
+            this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath -= MainWindowCommandButtonHandler_StartProviderDistributionPath;
+            this.m_MainWindowCommandButtonHandler.Save -= MainWindowCommandButtonHandler_Save;
+            this.m_MainWindowCommandButtonHandler.Refresh -= MainWindowCommandButtonHandler_Refresh;
+
+            this.m_BarcodeScanPort.ClientScanReceived += ClientScanReceived;
+            this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath += new MainWindowCommandButtonHandler.StartProviderDistributionPathEventHandler(MainWindowCommandButtonHandler_StartProviderDistributionPath);
+            this.m_MainWindowCommandButtonHandler.Save += new MainWindowCommandButtonHandler.SaveEventHandler(MainWindowCommandButtonHandler_Save);
+            this.m_MainWindowCommandButtonHandler.Refresh += MainWindowCommandButtonHandler_Refresh;
+
+            AppMessaging.MessageQueues.Instance.ReleaseLock -= MessageQueue_ReleaseLock;
+            AppMessaging.MessageQueues.Instance.AquireLock -= MessageQueue_AquireLock;
+            AppMessaging.MessageQueues.Instance.RequestReceived -= MessageQueue_RequestReceived;
+
+            AppMessaging.MessageQueues.Instance.ReleaseLock += MessageQueue_ReleaseLock;
+            AppMessaging.MessageQueues.Instance.AquireLock += MessageQueue_AquireLock;
+            AppMessaging.MessageQueues.Instance.RequestReceived += MessageQueue_RequestReceived;
+        }
+
         private void MainWindowCommandButtonHandler_Refresh(object sender, EventArgs e)
         {
 
@@ -132,6 +153,50 @@ namespace YellowstonePathology.UI.Test
             }
         }
 
+        private void MessageQueue_RequestReceived(object sender, UI.CustomEventArgs.MessageReturnEventArgs e)
+        {
+            this.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
+            {
+                AppMessaging.MessagingPath.Instance.StartRequestReceived(e.Message);
+            }
+            ));
+        }
+
+        private void MainWindowCommandButtonHandler_ShowMessagingDialog(object sender, EventArgs e)
+        {
+            if (this.m_LabUI.AccessionOrder != null && this.m_LabUI.AccessionOrder.IsLockAquiredByMe == false && this.m_LabUI.AccessionOrder.LockAquired == true)
+            {
+                AppMessaging.MessagingPath.Instance.Start(this.m_LabUI.AccessionOrder);
+            }
+        }
+
+        private void MessageQueue_AquireLock(object sender, EventArgs e)
+        {
+            string masterAccessionNo = (string)sender;
+            if (this.m_LabUI.AccessionOrder != null && this.m_LabUI.AccessionOrder.MasterAccessionNo == masterAccessionNo)
+            {
+                this.GetAccessionOrder();
+                this.m_LabUI.CaseList.SetLockIsAquiredByMe(this.m_LabUI.AccessionOrder);
+            }
+        }
+
+        private void MessageQueue_ReleaseLock(object sender, EventArgs e)
+        {
+            string masterAccessionNo = (string)sender;
+            if (this.m_LabUI.AccessionOrder != null && this.m_LabUI.AccessionOrder.MasterAccessionNo == masterAccessionNo)
+            {
+                MainWindow.MoveKeyboardFocusNextThenBack();
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.ReleaseLock(this.m_LabUI.AccessionOrder, this.m_Writer);
+                if (this.m_LabUI.AccessionOrder.IsLockAquiredByMe == false)
+                {
+                    this.m_LabUI.RunWorkspaceEnableRules();
+                    this.m_LabUI.NotifyPropertyChanged(string.Empty);
+                }
+
+                this.m_LabUI.CaseList.SetLockIsAquiredByMe(this.m_LabUI.AccessionOrder);
+            }
+        }
+
         public void LabWorkspace_Unloaded(object sender, RoutedEventArgs e)
         {
             this.Save(true);
@@ -140,6 +205,10 @@ namespace YellowstonePathology.UI.Test
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath -= MainWindowCommandButtonHandler_StartProviderDistributionPath;
             this.m_MainWindowCommandButtonHandler.Save -= MainWindowCommandButtonHandler_Save;
             this.m_MainWindowCommandButtonHandler.Refresh -= MainWindowCommandButtonHandler_Refresh;
+
+            AppMessaging.MessageQueues.Instance.ReleaseLock -= MessageQueue_ReleaseLock;
+            AppMessaging.MessageQueues.Instance.AquireLock -= MessageQueue_AquireLock;
+            AppMessaging.MessageQueues.Instance.RequestReceived -= MessageQueue_RequestReceived;
 
             YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
         }
@@ -174,19 +243,6 @@ namespace YellowstonePathology.UI.Test
                 MessageBox.Show("Technical only orders cannot be placed in this window.");
             }
 		}
-
-		private void LabWorkspace_Loaded(object sender, RoutedEventArgs args)
-        {            
-            this.m_BarcodeScanPort.ClientScanReceived -= ClientScanReceived;
-            this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath -= MainWindowCommandButtonHandler_StartProviderDistributionPath;
-            this.m_MainWindowCommandButtonHandler.Save -= MainWindowCommandButtonHandler_Save;
-            this.m_MainWindowCommandButtonHandler.Refresh -= MainWindowCommandButtonHandler_Refresh;
-
-            this.m_BarcodeScanPort.ClientScanReceived += ClientScanReceived;
-            this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath += new MainWindowCommandButtonHandler.StartProviderDistributionPathEventHandler(MainWindowCommandButtonHandler_StartProviderDistributionPath);
-            this.m_MainWindowCommandButtonHandler.Save += new MainWindowCommandButtonHandler.SaveEventHandler(MainWindowCommandButtonHandler_Save);
-            this.m_MainWindowCommandButtonHandler.Refresh += MainWindowCommandButtonHandler_Refresh;
-        }
 
         private void ItemIsSelected(object sender, CanExecuteRoutedEventArgs e)
 		{
