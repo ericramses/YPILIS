@@ -36,5 +36,19 @@ namespace YellowstonePathology.Business.Persistence
             if (count > 1) result = true;
             return result;
         }
+
+        public bool Exists(string key, object writer)
+        {
+            bool result = false;
+            foreach(Document doc in this)
+            {
+                if(doc.Key.ToString() == key && doc.WriterExists(writer) == true)
+                {
+                    result = true;
+                    break;
+                }
+            }
+            return result;
+        }
     }
 }

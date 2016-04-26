@@ -12,6 +12,21 @@ namespace YellowstonePathology.Business.Domain
 	{
 		public LockItemCollection()
 		{
+
 		}
+
+        public bool Exists(string key, string lockedBy)
+        {
+            bool result = false;
+            foreach(LockItem lockItem in this)
+            {
+                if(lockItem.KeyString == key && lockItem.LockedBy == lockedBy)
+                {
+                    result = true;
+                    break;
+                }
+            }
+            return result;
+        }
 	}
 }
