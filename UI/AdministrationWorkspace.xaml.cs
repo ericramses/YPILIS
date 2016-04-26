@@ -697,10 +697,6 @@ namespace YellowstonePathology.UI
 
         private void ButtonAccessionMickyMouseRemove_Click(object sender, RoutedEventArgs e)
         {
-            Login.Receiving.LoginPageWindow loginPageWindow = new Login.Receiving.LoginPageWindow();
-            AORemoverPage aoRemoverPage = new AORemoverPage();
-            loginPageWindow.PageNavigator.Navigate(aoRemoverPage);
-            loginPageWindow.ShowDialog();
         }
 
 		private void ButtonTestEGFRAccession_Click(object sender, RoutedEventArgs e)
