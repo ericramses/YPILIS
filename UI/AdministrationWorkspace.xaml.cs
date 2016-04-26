@@ -688,16 +688,19 @@ namespace YellowstonePathology.UI
 		{
 		}
 
-        private void ButtonAccessionMickyMouse_Click(object sender, RoutedEventArgs e)
+        private void ButtonAccessionMickyMouseCreate_Click(object sender, RoutedEventArgs e)
         {
             AOBuilder aoBuilder = new AOBuilder();
             Business.Test.AccessionOrder accessionOrder = aoBuilder.Build();
             YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(aoBuilder);
         }
 
-        private void ButtonCheckReportDistribution_Click(object sender, RoutedEventArgs e)
+        private void ButtonAccessionMickyMouseRemove_Click(object sender, RoutedEventArgs e)
         {
-            
+            Login.Receiving.LoginPageWindow loginPageWindow = new Login.Receiving.LoginPageWindow();
+            AORemoverPage aoRemoverPage = new AORemoverPage();
+            loginPageWindow.PageNavigator.Navigate(aoRemoverPage);
+            loginPageWindow.ShowDialog();
         }
 
 		private void ButtonTestEGFRAccession_Click(object sender, RoutedEventArgs e)

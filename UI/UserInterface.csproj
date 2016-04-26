@@ -188,6 +188,10 @@
       <DependentUpon>AmendmentPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="AOBuilder.cs" />
+    <Compile Include="AORemover.cs" />
+    <Compile Include="AORemoverPage.xaml.cs">
+      <DependentUpon>AORemoverPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AppMessaging\LockRequestSentPage.xaml.cs">
       <DependentUpon>LockRequestSentPage.xaml</DependentUpon>
     </Compile>
@@ -1857,6 +1861,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AmendmentPageController.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AORemoverPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
