@@ -31,9 +31,16 @@ namespace YellowstonePathology.UI.Client
 			InitializeComponent();
 			DataContext = this;
             this.TextBoxProviderName.Focus();
+
+            Closing += ProviderLookupDialog_Closing;
 		}
 
-		public YellowstonePathology.Business.Client.Model.ProviderClientCollection ProviderCollection
+        private void ProviderLookupDialog_Closing(object sender, CancelEventArgs e)
+        {
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
+        }
+
+        public YellowstonePathology.Business.Client.Model.ProviderClientCollection ProviderCollection
 		{
 			get { return this.m_ProviderCollection; }
 			private set
@@ -89,6 +96,7 @@ namespace YellowstonePathology.UI.Client
             string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
             int clientId = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetLargestClientId() + 1;
             YellowstonePathology.Business.Client.Model.Client client = new YellowstonePathology.Business.Client.Model.Client(objectId, "New Client", clientId);
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(client, this);
 
             ClientEntry clientEntry = new ClientEntry(client);
             clientEntry.ShowDialog();
@@ -97,7 +105,6 @@ namespace YellowstonePathology.UI.Client
                 this.m_ClientCollection = new Business.Client.Model.ClientCollection();
             }
 
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(client, this);
             this.m_ClientCollection.Insert(0, client);
         }
 
@@ -154,7 +161,7 @@ namespace YellowstonePathology.UI.Client
 
 		private void ButtonOK_Click(object sender, RoutedEventArgs e)
 		{
-			this.Close();
+            this.Close();
 		}
 
 		private void TextBoxProviderName_KeyUp(object sender, KeyEventArgs e)

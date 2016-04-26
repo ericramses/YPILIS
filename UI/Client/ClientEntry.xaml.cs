@@ -125,7 +125,6 @@ namespace YellowstonePathology.UI.Client
 		{            
             if(this.CanSave() == true)
             {
-                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
                 Close();
             }
 		}
