@@ -175,19 +175,15 @@ namespace YellowstonePathology.Business.Persistence
             }
         }
 
-        public void PullClientSupplyOrder(YellowstonePathology.Business.Client.Model.ClientSupplyOrder clientSupplyOrder, object writer)
+        public YellowstonePathology.Business.Client.Model.ClientSupplyOrder PullClientSupplyOrder(string clientSupplyOrderId, object writer)
         {
             lock (locker)
             {
-                SqlCommand cmd = new SqlCommand();
-                cmd.CommandText = "SELECT cso.*, (SELECT * from tblClientSupplyOrderDetail where clientsupplyorderid = cso.ClientSupplyOrderId for xml path('ClientSupplyOrderDetail'), type) ClientSupplyOrderDetailCollection " +
-                    "FROM tblClientSupplyOrder cso where cso.ClientSupplyOrderId = @ClientSupplyOrderId for xml Path('ClientSupplyOrder'), type";
-                cmd.CommandType = CommandType.Text;
-                cmd.Parameters.Add("@ClientSupplyOrderId", SqlDbType.VarChar).Value = clientSupplyOrder.ClientSupplyOrderId;
-                ClientSupplyOrderDocumentBuilder builder = new ClientSupplyOrderDocumentBuilder(cmd);
+                ClientSupplyOrderDocumentBuilder builder = new ClientSupplyOrderDocumentBuilder(clientSupplyOrderId);
 
-                DocumentId documentId = new DocumentId(clientSupplyOrder, writer);
+                DocumentId documentId = new DocumentId(typeof(YellowstonePathology.Business.Client.Model.ClientSupplyOrder), writer, clientSupplyOrderId);
                 Document document = this.m_Stack.Pull(documentId, builder);
+                return (YellowstonePathology.Business.Client.Model.ClientSupplyOrder)document.Value;
             }
         }
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Data;
 using System.Data.SqlClient;
 using System.Xml;
 using System.Xml.Linq;
@@ -12,9 +13,14 @@ namespace YellowstonePathology.Business.Persistence
     {
         SqlCommand m_SQLCommand;
 
-        public ClientSupplyOrderDocumentBuilder(SqlCommand sqlCommand)
+        public ClientSupplyOrderDocumentBuilder(string clientSupplyOrderId)
         {
-            this.m_SQLCommand = sqlCommand;
+            this.m_SQLCommand = new SqlCommand();
+            this.m_SQLCommand.CommandText = "SELECT cso.*, (SELECT * from tblClientSupplyOrderDetail where clientsupplyorderid = " +
+                "cso.ClientSupplyOrderId for xml path('ClientSupplyOrderDetail'), type) ClientSupplyOrderDetailCollection " +
+                "FROM tblClientSupplyOrder cso where cso.ClientSupplyOrderId = @ClientSupplyOrderId for xml Path('ClientSupplyOrder'), type";
+            this.m_SQLCommand.CommandType = CommandType.Text;
+            this.m_SQLCommand.Parameters.Add("@ClientSupplyOrderId", SqlDbType.VarChar).Value = clientSupplyOrderId;
         }
 
 

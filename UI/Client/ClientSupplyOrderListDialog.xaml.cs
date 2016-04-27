@@ -37,9 +37,13 @@ namespace YellowstonePathology.UI.Client
 
         private void ListViewClientSupplyOrders_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            YellowstonePathology.Business.Client.Model.ClientSupplyOrder clientSupplyOrder = (YellowstonePathology.Business.Client.Model.ClientSupplyOrder)this.ListViewClientSupplyOrders.SelectedItem;
-            YellowstonePathology.UI.Client.ClientSupplyOrderDialog clientSupplyOrderDialog = new ClientSupplyOrderDialog(clientSupplyOrder);
-            clientSupplyOrderDialog.ShowDialog();
+            if (this.ListViewClientSupplyOrders.SelectedItem != null)
+            {
+                YellowstonePathology.Business.Client.Model.ClientSupplyOrder clientSupplyOrder = (YellowstonePathology.Business.Client.Model.ClientSupplyOrder)this.ListViewClientSupplyOrders.SelectedItem;
+                YellowstonePathology.UI.Client.ClientSupplyOrderDialog clientSupplyOrderDialog = new ClientSupplyOrderDialog(clientSupplyOrder.ClientSupplyOrderId);
+                clientSupplyOrderDialog.ShowDialog();
+                this.FillClientSupplyOrderCollection();
+            }
         }
 
         private void ButtonClose_Click(object sender, RoutedEventArgs e)
@@ -56,8 +60,7 @@ namespace YellowstonePathology.UI.Client
                 {
                     YellowstonePathology.Business.Client.Model.ClientSupplyOrder clientSupplyOrder = (YellowstonePathology.Business.Client.Model.ClientSupplyOrder)this.ListViewClientSupplyOrders.SelectedItem;
                     YellowstonePathology.Business.Persistence.DocumentGateway.Instance.DeleteDocument(clientSupplyOrder, this);                    
-                    this.m_ClientSupplyOrderCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientSupplyOrderCollection();
-                    this.NotifyPropertyChanged("ClientSupplyOrderCollection");
+                    this.FillClientSupplyOrderCollection();
                 }
             }
             else
@@ -90,13 +93,18 @@ namespace YellowstonePathology.UI.Client
 
         private void ComboBoxOrderSelection_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if(this.ComboBoxOrderSelection.SelectedItem != null)
+            this.FillClientSupplyOrderCollection();
+        }
+
+        private void FillClientSupplyOrderCollection()
+        {
+            if (this.ComboBoxOrderSelection.SelectedItem != null)
             {
                 if (this.ComboBoxOrderSelection.SelectedIndex == 0)
                 {
                     this.m_ClientSupplyOrderCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientSupplyOrderCollection();
                 }
-                else if(this.ComboBoxOrderSelection.SelectedIndex == 1)
+                else if (this.ComboBoxOrderSelection.SelectedIndex == 1)
                 {
                     this.m_ClientSupplyOrderCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientSupplyOrderCollectionByFinal(false);
                 }
