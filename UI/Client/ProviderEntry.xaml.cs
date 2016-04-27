@@ -31,11 +31,9 @@ namespace YellowstonePathology.UI.Client
         private Window m_ParentWindow;
         private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 
-        public ProviderEntry(YellowstonePathology.Business.Domain.Physician physician, bool isNewProvider)
+        public ProviderEntry(YellowstonePathology.Business.Domain.Physician physician)
         {
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullPhysician(physician, this);
             this.m_Physician = physician;            
-            this.m_IsNewProvider = isNewProvider;
 
             this.m_SystemIdentity = Business.User.SystemIdentity.Instance;
 			this.m_PhysicianClientView = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClientView(this.m_Physician.ObjectId);

@@ -164,18 +164,14 @@ namespace YellowstonePathology.Business.Persistence
             }
         }
 
-        public void PullPhysician(YellowstonePathology.Business.Domain.Physician physician, object writer)
+        public YellowstonePathology.Business.Domain.Physician PullPhysician(int physicianId, object writer)
         {
             lock (locker)
             {
-                SqlCommand cmd = new SqlCommand();
-                cmd.CommandText = "select * From tblPhysician where PhysicianId = @PhysicianId";
-                cmd.CommandType = CommandType.Text;
-                cmd.Parameters.Add("@PhysicianId", SqlDbType.Int).Value = physician.PhysicianId;
-                GenericDocumentBuilder builder = new GenericDocumentBuilder(cmd, typeof(YellowstonePathology.Business.Domain.Physician));
-
-                DocumentId documentId = new DocumentId(physician, writer);
-                Document document = this.m_Stack.Pull(documentId, builder);
+                ProviderDocumentBuilder documentBuilder = new ProviderDocumentBuilder(physicianId);
+                DocumentId documentId = new DocumentId(typeof(YellowstonePathology.Business.Domain.Physician), writer, physicianId);
+                Document document = this.m_Stack.Pull(documentId, documentBuilder);
+                return (YellowstonePathology.Business.Domain.Physician)document.Value;
             }
         }
 

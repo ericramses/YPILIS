@@ -472,6 +472,7 @@
     <Compile Include="Persistence\AODocumentBuilder.cs" />
     <Compile Include="Persistence\ClientDocumentBuilder.cs" />
     <Compile Include="Persistence\ClientOrderDocumentBuilder.cs" />
+    <Compile Include="Persistence\ProviderDocumentBuilder.cs" />
     <Compile Include="Persistence\SqlCommandHelper.cs" />
     <Compile Include="Persistence\TaskOrderDocumentBuilder.cs" />
     <Compile Include="Persistence\ClientSupplyOrderDocumentBuilder.cs" />

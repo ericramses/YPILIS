@@ -65,11 +65,9 @@ namespace YellowstonePathology.UI.Client
 			string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
 			int physicianId = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetLargestPhysicianId() + 1;
 			YellowstonePathology.Business.Domain.Physician physician = new Business.Domain.Physician(objectId, physicianId, "New Physician", "New Physician");
-            Business.User.SystemIdentity systemIdentity = Business.User.SystemIdentity.Instance;
             YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(physician, this);
 
-            ProviderEntry providerEntry = new ProviderEntry(physician, true);
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
+            ProviderEntry providerEntry = new ProviderEntry(physician);
             providerEntry.ShowDialog();
 		}
 
@@ -185,9 +183,9 @@ namespace YellowstonePathology.UI.Client
 			if (this.ListViewProviders.SelectedItem != null)
 			{
                 YellowstonePathology.Business.Client.Model.ProviderClient providerClient =  (YellowstonePathology.Business.Client.Model.ProviderClient)this.ListViewProviders.SelectedItem;                
-                YellowstonePathology.Business.Domain.Physician physician = providerClient.Physician;
+                YellowstonePathology.Business.Domain.Physician physician = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullPhysician(providerClient.Physician.PhysicianId, this);
 
-                ProviderEntry providerEntry = new ProviderEntry(physician, false);
+                ProviderEntry providerEntry = new ProviderEntry(physician);
 				providerEntry.ShowDialog();
 			}
 		}
