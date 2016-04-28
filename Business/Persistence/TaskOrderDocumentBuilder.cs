@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Data;
 using System.Data.SqlClient;
 using System.Xml;
 using System.Xml.Linq;
@@ -12,9 +13,13 @@ namespace YellowstonePathology.Business.Persistence
     {
         SqlCommand m_SQLCommand;
 
-        public TaskOrderDocumentBuilder(SqlCommand sqlCommand)
+        public TaskOrderDocumentBuilder(string taskOrderId)
         {
-            this.m_SQLCommand = sqlCommand;
+            this.m_SQLCommand = new SqlCommand("select tsk.*, ( select tskd.* from tblTaskOrderDetail tskd where tskd.TaskOrderId = tsk.TaskOrderId " +
+                "for xml Path('TaskOrderDetail'), type) [TaskOrderDetailCollection] " +
+                "from tblTaskOrder tsk where tsk.TaskOrderId = @TaskOrderId  for xml Path('TaskOrder')");
+            this.m_SQLCommand.CommandType = CommandType.Text;
+            this.m_SQLCommand.Parameters.Add("@TaskOrderId", SqlDbType.VarChar).Value = taskOrderId;
         }
 
         public override object BuildNew()
@@ -22,7 +27,7 @@ namespace YellowstonePathology.Business.Persistence
             YellowstonePathology.Business.Task.Model.TaskOrder taskOrder = new Task.Model.TaskOrder();
             this.Build(taskOrder);
             return taskOrder;
-        }        
+        }
 
         private void Build(YellowstonePathology.Business.Task.Model.TaskOrder taskOrder)
         {

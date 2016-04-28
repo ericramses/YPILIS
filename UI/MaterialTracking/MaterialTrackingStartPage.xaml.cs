@@ -293,7 +293,9 @@ namespace YellowstonePathology.UI.MaterialTracking
         {
             if (this.ListBoxMaterialTrackingBatch.SelectedItem != null)
             {
-				YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch materialTrackingBatch = (YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch)this.ListBoxMaterialTrackingBatch.SelectedItem;
+                string materialTrackingBatchId = ((YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch)this.ListBoxMaterialTrackingBatch.SelectedItem).MaterialTrackingBatchId;
+
+                YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch materialTrackingBatch = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullMaterialTrackingBatch(materialTrackingBatchId, Window.GetWindow(this));
 				YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogCollection materialTrackingLogCollection = null;
 
                 if (this.m_UseMasterAccessionNo == true)
