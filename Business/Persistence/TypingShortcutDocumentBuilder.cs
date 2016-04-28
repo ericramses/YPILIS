@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
 using System.Xml;
@@ -8,26 +10,26 @@ using System.Xml.Linq;
 
 namespace YellowstonePathology.Business.Persistence
 {
-    public class ProviderDocumentBuilder : DocumentBuilder
+    class TypingShortcutDocumentBuilder : DocumentBuilder
     {
-        private SqlCommand m_SQLCommand;
+        SqlCommand m_SQLCommand;
 
-        public ProviderDocumentBuilder(int physicianId)
+        public TypingShortcutDocumentBuilder(string objectId)
         {
             this.m_SQLCommand = new SqlCommand();
-            this.m_SQLCommand.CommandText = "select * From tblPhysician where PhysicianId = @PhysicianId";
+            this.m_SQLCommand.CommandText = "select * From tblTypingShortcut where ObjectId = @ObjectId";
             this.m_SQLCommand.CommandType = CommandType.Text;
-            this.m_SQLCommand.Parameters.Add("@PhysicianId", SqlDbType.Int).Value = physicianId;
+            this.m_SQLCommand.Parameters.Add("@ObjectId", SqlDbType.VarChar).Value = objectId;
         }
 
         public override object BuildNew()
         {
-            YellowstonePathology.Business.Domain.Physician physician = new Domain.Physician();
-            this.Build(physician);
-            return physician;
+            YellowstonePathology.Business.Typing.TypingShortcut typingShortcut = new Typing.TypingShortcut();
+            this.BuildTypingShortcut(typingShortcut);
+            return typingShortcut;
         }
 
-        private void Build(YellowstonePathology.Business.Domain.Physician physician)
+        private void BuildTypingShortcut(YellowstonePathology.Business.Typing.TypingShortcut typingShortcut)
         {
             using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
             {
@@ -38,7 +40,7 @@ namespace YellowstonePathology.Business.Persistence
                 {
                     while (dr.Read())
                     {
-                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(physician, dr);
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(typingShortcut, dr);
                         sqlDataReaderPropertyWriter.WriteProperties();
                     }
                 }
@@ -46,3 +48,4 @@ namespace YellowstonePathology.Business.Persistence
         }
     }
 }
+

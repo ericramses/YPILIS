@@ -172,17 +172,22 @@ namespace YellowstonePathology.UI
             YellowstonePathology.Business.User.SystemIdentity systemIdentity = Business.User.SystemIdentity.Instance;
             if (this.ListViewDailyTaskOrders.SelectedItems.Count > 0)
             {
-                foreach (YellowstonePathology.Business.Task.Model.TaskOrder taskOrder in this.ListViewDailyTaskOrders.SelectedItems)
+                foreach (YellowstonePathology.Business.Task.Model.TaskOrder listTaskOrder in this.ListViewDailyTaskOrders.SelectedItems)
                 {
-                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullTaskOrder(taskOrder, this.m_Writer);
-                    if (taskOrder.Acknowledged == false)
+                    YellowstonePathology.Business.Task.Model.TaskOrder pulledTaskOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullTaskOrder(listTaskOrder.TaskOrderId, this.m_Writer);
+                    if (pulledTaskOrder.Acknowledged == false)
                     {
-                        taskOrder.Acknowledged = true;
-                        taskOrder.AcknowledgedDate = DateTime.Now;
-                        taskOrder.AcknowledgedById = systemIdentity.User.UserId;
-                        taskOrder.AcknowledgedByInitials = systemIdentity.User.Initials;
+                        listTaskOrder.Acknowledged = true;
+                        listTaskOrder.AcknowledgedDate = DateTime.Now;
+                        listTaskOrder.AcknowledgedById = systemIdentity.User.UserId;
+                        listTaskOrder.AcknowledgedByInitials = systemIdentity.User.Initials;
+
+                        pulledTaskOrder.Acknowledged = listTaskOrder.Acknowledged;
+                        pulledTaskOrder.AcknowledgedDate = listTaskOrder.AcknowledgedDate;
+                        pulledTaskOrder.AcknowledgedById = listTaskOrder.AcknowledgedById;
+                        pulledTaskOrder.AcknowledgedByInitials = listTaskOrder.AcknowledgedByInitials;
                     }
-                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(taskOrder, this.m_Writer);
+                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(pulledTaskOrder, this.m_Writer);
                 }
             }
             else

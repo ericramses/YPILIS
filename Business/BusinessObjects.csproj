@@ -472,6 +472,7 @@
     <Compile Include="Persistence\AODocumentBuilder.cs" />
     <Compile Include="Persistence\ClientDocumentBuilder.cs" />
     <Compile Include="Persistence\ClientOrderDocumentBuilder.cs" />
+    <Compile Include="Persistence\MaterialTrackingBatchDocumentBuilder.cs" />
     <Compile Include="Persistence\ProviderDocumentBuilder.cs" />
     <Compile Include="Persistence\SqlCommandHelper.cs" />
     <Compile Include="Persistence\TaskOrderDocumentBuilder.cs" />
@@ -500,6 +501,7 @@
     <Compile Include="Persistence\DocumentUpdate.cs" />
     <Compile Include="Persistence\RegisteredObject.cs" />
     <Compile Include="Persistence\RegisteredObjectCollection.cs" />
+    <Compile Include="Persistence\TypingShortcutDocumentBuilder.cs" />
     <Compile Include="Persistence\WriterScopeEnum.cs" />
     <Compile Include="ReportDistribution.Model\ScheduledFaxSubmission.cs" />
     <Compile Include="Specimen.Model\EmbeddingInstructionList.cs" />

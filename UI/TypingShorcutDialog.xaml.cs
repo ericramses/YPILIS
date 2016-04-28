@@ -21,26 +21,26 @@ namespace YellowstonePathology.UI
         YellowstonePathology.Business.Typing.TypingShortcut m_TypingShortcut;
 		YellowstonePathology.Business.User.SystemUserCollection m_SystemUserCollection;
         
-        bool m_IsNewItem = false;                      
+        bool m_IsNewItem = false;
 
         public TypingShorcutDialog(YellowstonePathology.Business.Typing.TypingShortcut typingShortcut, bool isNewShortcut)
         {
             this.m_TypingShortcut = typingShortcut;
-            this.m_IsNewItem = isNewShortcut;            
+            this.m_IsNewItem = isNewShortcut;
 
             InitializeComponent();
 
-			this.m_SystemUserCollection = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetUsersByRole(YellowstonePathology.Business.User.SystemUserRoleDescriptionEnum.Typing, true);
+            this.m_SystemUserCollection = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetUsersByRole(YellowstonePathology.Business.User.SystemUserRoleDescriptionEnum.Typing, true);
 
             this.DataContext = this.m_TypingShortcut;
-            this.comboBoxTypingUsers.ItemsSource = this.m_SystemUserCollection;   
-            
-            if(isNewShortcut == false)
+            this.comboBoxTypingUsers.ItemsSource = this.m_SystemUserCollection;
+
+            if (isNewShortcut == false)
             {
-                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullTypingShortcut(typingShortcut, this);
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullTypingShortcut(typingShortcut.ObjectId, this);
             }
 
-            this.Closing += TypingShorcutDialog_Closing;          
+            this.Closing += TypingShorcutDialog_Closing;
         }
 
         private void TypingShorcutDialog_Closing(object sender, System.ComponentModel.CancelEventArgs e)

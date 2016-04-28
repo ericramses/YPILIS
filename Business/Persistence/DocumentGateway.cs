@@ -138,18 +138,15 @@ namespace YellowstonePathology.Business.Persistence
             }
         }
 
-        public void PullTypingShortcut(YellowstonePathology.Business.Typing.TypingShortcut typingShortcut, object writer)
+        public YellowstonePathology.Business.Typing.TypingShortcut PullTypingShortcut(string objectId, object writer)
         {
             lock (locker)
             {
                 SqlCommand cmd = new SqlCommand();
-                cmd.CommandText = "select * From tblTypingShortcut where ObjectId = @ObjectId";
-                cmd.CommandType = CommandType.Text;
-                cmd.Parameters.Add("@ObjectId", SqlDbType.VarChar).Value = typingShortcut.ObjectId;
-                GenericDocumentBuilder builder = new GenericDocumentBuilder(cmd, typeof(YellowstonePathology.Business.Typing.TypingShortcut));
-
-                DocumentId documentId = new DocumentId(typingShortcut, writer);
+                TypingShortcutDocumentBuilder builder = new TypingShortcutDocumentBuilder(objectId);
+                DocumentId documentId = new DocumentId(typeof(YellowstonePathology.Business.Typing.TypingShortcut), writer, objectId);
                 Document document = this.m_Stack.Pull(documentId, builder);
+                return (YellowstonePathology.Business.Typing.TypingShortcut)document.Value;
             }
         }
 
@@ -187,19 +184,14 @@ namespace YellowstonePathology.Business.Persistence
             }
         }
 
-        public void PullTaskOrder(YellowstonePathology.Business.Task.Model.TaskOrder taskOrder, object writer)
+        public YellowstonePathology.Business.Task.Model.TaskOrder PullTaskOrder(string taskOrderId, object writer)
         {
             lock (locker)
             {
-                SqlCommand cmd = new SqlCommand(" select tsk.*,  ( select tskd.* from tblTaskOrderDetail tskd where tskd.TaskOrderId = tsk.TaskOrderId " +
-                   "for xml Path('TaskOrderDetail'), type) [TaskOrderDetailCollection] " +
-                    "from tblTaskOrder tsk where tsk.TaskOrderId = @TaskOrderId  for xml Path('TaskOrder')");
-                cmd.CommandType = CommandType.Text;
-                cmd.Parameters.Add("@TaskOrderId", SqlDbType.VarChar).Value = taskOrder.TaskOrderId;
-
-                TaskOrderDocumentBuilder taskOrderDocumentBuilder = new TaskOrderDocumentBuilder(cmd);
-                DocumentId documentId = new DocumentId(taskOrder, writer);
+                TaskOrderDocumentBuilder taskOrderDocumentBuilder = new TaskOrderDocumentBuilder(taskOrderId);
+                DocumentId documentId = new DocumentId(typeof(YellowstonePathology.Business.Task.Model.TaskOrder), writer, taskOrderId);
                 Document document = this.m_Stack.Pull(documentId, taskOrderDocumentBuilder);
+                return (YellowstonePathology.Business.Task.Model.TaskOrder)document.Value;
             }
         }
 
@@ -291,19 +283,14 @@ namespace YellowstonePathology.Business.Persistence
             }
         }
 
-        public void PullMaterialTrackingBatch(YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch materialTrackingBatch, object writer)
+        public YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch PullMaterialTrackingBatch(string materialTrackingBatchId, object writer)
         {
             lock (locker)
             {
-                SqlCommand cmd = new SqlCommand();
-                cmd.CommandText = "Select * from tblMaterialTrackingBatch where MaterialTrackingBatchId = @MaterialTrackingBatchId";
-                cmd.CommandType = CommandType.Text;
-                cmd.Parameters.Add("@MaterialTrackingBatchId", SqlDbType.VarChar).Value = materialTrackingBatch.MaterialTrackingBatchId;
-
-                GenericDocumentBuilder builder = new GenericDocumentBuilder(cmd, typeof(YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch));
-
-                DocumentId documentId = new DocumentId(materialTrackingBatch, writer);
+                MaterialTrackingBatchDocumentBuilder builder = new MaterialTrackingBatchDocumentBuilder(materialTrackingBatchId);
+                DocumentId documentId = new DocumentId(typeof(YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch), writer, materialTrackingBatchId);
                 Document document = this.m_Stack.Pull(documentId, builder);
+                return (YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch)document.Value;
             }
         }
     }
