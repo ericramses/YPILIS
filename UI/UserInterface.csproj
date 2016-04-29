@@ -28,7 +28,7 @@
     </AssemblyOriginatorKeyFile>
     <ApplicationIcon>YPI.ico</ApplicationIcon>
     <TargetFrameworkProfile />
-    <PublishUrl>\\ypiidc\YPIILIS\Application\</PublishUrl>
+    <PublishUrl>\\Ypiidc\YPIILIS\Test\</PublishUrl>
     <Install>false</Install>
     <InstallFrom>Unc</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -40,7 +40,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>132</ApplicationRevision>
+    <ApplicationRevision>141</ApplicationRevision>
     <ApplicationVersion>10.1.4.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>

@@ -14,7 +14,7 @@ namespace YellowstonePathology.Business.Test.PDL1
             this.m_Abbreviation = "PD-L1";
             this.m_CaseType = YellowstonePathology.Business.CaseType.IHC;
 			this.m_HasTechnicalComponent = true;			
-			this.m_HasProfessionalComponent = false;
+			this.m_HasProfessionalComponent = true;
             this.m_ResultDocumentSource = PanelSet.Model.ResultDocumentSourceEnum.YPIDatabase;
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterR();
             this.m_Active = true;
@@ -36,7 +36,10 @@ namespace YellowstonePathology.Business.Test.PDL1
             this.m_PanelSetCptCodeCollection.Add(panelSetCptCode);
 
             this.m_TechnicalComponentFacility = new YellowstonePathology.Business.Facility.Model.NeogenomicsIrvine();
-            this.m_TechnicalComponentBillingFacility = new YellowstonePathology.Business.Facility.Model.NeogenomicsIrvine();            
+            this.m_TechnicalComponentBillingFacility = new YellowstonePathology.Business.Facility.Model.NeogenomicsIrvine();
+
+            this.m_ProfessionalComponentFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologistBillings();
+            this.m_ProfessionalComponentBillingFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings();
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceMOLEGEN());
 		}
