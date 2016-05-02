@@ -63,12 +63,40 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
             return result;
         }
 
-        public bool Exists(string distributionType)
+        public TestOrderReportDistribution Get(string testOrderReportDistributionId)
+        {
+            TestOrderReportDistribution result = null;
+            foreach (TestOrderReportDistribution testOrderReportDistribution in this)
+            {
+                if (testOrderReportDistribution.TestOrderReportDistributionId == testOrderReportDistributionId)
+                {
+                    result = testOrderReportDistribution;
+                    break;
+                }
+            }
+            return result;
+        }
+
+        public bool DistributionTypeExists(string distributionType)
         {
             bool result = false;
             foreach (TestOrderReportDistribution testOrderReportDistribution in this)
             {
                 if (testOrderReportDistribution.DistributionType == distributionType)
+                {
+                    result = true;
+                    break;
+                }
+            }
+            return result;
+        }
+
+        public bool Exists(string testOrderReportDistributionId)
+        {
+            bool result = false;
+            foreach (TestOrderReportDistribution testOrderReportDistribution in this)
+            {
+                if (testOrderReportDistribution.TestOrderReportDistributionId == testOrderReportDistributionId)
                 {
                     result = true;
                     break;

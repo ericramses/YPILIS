@@ -49,6 +49,20 @@ namespace YellowstonePathology.Business.Billing
             return result;
         }
 
+        public bool Exists(string icd9BillingId)
+        {
+            bool result = false;
+            foreach (ICD9BillingCode item in this)
+            {
+                if (item.Icd9BillingId == icd9BillingId)
+                {
+                    result = true;
+                    break;
+                }
+            }
+            return result;
+        }
+
         public bool PapMedicareCodesExist()
         {
             bool result = false;
@@ -101,7 +115,19 @@ namespace YellowstonePathology.Business.Billing
 			return null;
 		}
 
-		public ICD9BillingCodeCollection GetSurgicalSpecimenCollection(string surgicalSpecimenId)
+        public ICD9BillingCode Get(string icd9BillingCodeId)
+        {
+            foreach (ICD9BillingCode item in this)
+            {
+                if (item.Icd9BillingId == icd9BillingCodeId)
+                {
+                    return item;
+                }
+            }
+            return null;
+        }
+
+        public ICD9BillingCodeCollection GetSurgicalSpecimenCollection(string surgicalSpecimenId)
 		{
 			ICD9BillingCodeCollection result = new ICD9BillingCodeCollection();
 			foreach (ICD9BillingCode icd9BillingCode in this)

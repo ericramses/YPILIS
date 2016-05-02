@@ -29,7 +29,7 @@ namespace YellowstonePathology.Business.Domain.Billing
                 {
                     if (ihcTestCollection.Exists(testOrder.TestId) == true)
                     {
-                        if (this.m_StainResultCollection.Exists(testOrder.TestOrderId) == true)
+                        if (this.m_StainResultCollection.TestOrderExists(testOrder.TestOrderId) == true)
                         {
                             YellowstonePathology.Business.SpecialStain.StainResultItem stainResult = this.m_StainResultCollection.GetStainResult(testOrder.TestOrderId);
                             if (stainResult.IsGraded == false)
@@ -66,7 +66,7 @@ namespace YellowstonePathology.Business.Domain.Billing
                             }
                         }
                     }
-                    else if (this.m_StainResultCollection.Exists(testOrder.TestOrderId) == true)
+                    else if (this.m_StainResultCollection.TestOrderExists(testOrder.TestOrderId) == true)
                     {
                         YellowstonePathology.Business.SpecialStain.StainResultItem stainResult = this.m_StainResultCollection.GetStainResult(testOrder.TestOrderId);
                         if (stainResult.IsGraded == true)

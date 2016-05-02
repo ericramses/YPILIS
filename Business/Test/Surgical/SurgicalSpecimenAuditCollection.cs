@@ -23,5 +23,33 @@ namespace YellowstonePathology.Business.Test.Surgical
 
 			return surgicalSpecimenAudit;
 		}
-	}
+
+        public bool Exists(string surgicalSpecimenAuditId)
+        {
+            bool result = false;
+            foreach(SurgicalSpecimenAudit surgicalSpecimenAudit in this)
+            {
+                if(surgicalSpecimenAudit.SurgicalSpecimenAuditId == surgicalSpecimenAuditId)
+                {
+                    result = true;
+                    break;
+                }
+            }
+            return result;
+        }
+
+        public SurgicalSpecimenAudit Get(string surgicalSpecimenAuditId)
+        {
+            SurgicalSpecimenAudit result = null;
+            foreach (SurgicalSpecimenAudit surgicalSpecimenAudit in this)
+            {
+                if (surgicalSpecimenAudit.SurgicalSpecimenAuditId == surgicalSpecimenAuditId)
+                {
+                    result = surgicalSpecimenAudit;
+                    break;
+                }
+            }
+            return result;
+        }
+    }
 }

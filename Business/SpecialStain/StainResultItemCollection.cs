@@ -43,7 +43,7 @@ namespace YellowstonePathology.Business.SpecialStain
             }
         }
 
-		public StainResultItem GetCurrent(string stainResultId)
+		public StainResultItem Get(string stainResultId)
 		{
 			foreach (StainResultItem item in this)
 			{
@@ -53,7 +53,19 @@ namespace YellowstonePathology.Business.SpecialStain
 				}
 			}
 			return null;
-		}		
+		}
+
+        public StainResultItem GetCurrent(string stainResultId)
+        {
+            foreach (StainResultItem item in this)
+            {
+                if (item.StainResultId == stainResultId)
+                {
+                    return item;
+                }
+            }
+            return null;
+        }
 
         public bool HasDuplicates()
         {
@@ -166,12 +178,26 @@ namespace YellowstonePathology.Business.SpecialStain
             return result;
         }        
 
-        public bool Exists(string testOrderId)
+        public bool TestOrderExists(string testOrderId)
         {
             bool result = false;            
             foreach (StainResultItem stainresult in this)
             {
                 if (stainresult.TestOrderId == testOrderId)
+                {
+                    result = true;
+                    break;
+                }
+            }
+            return result;
+        }
+
+        public bool Exists(string stainResultId)
+        {
+            bool result = false;
+            foreach (StainResultItem stainresult in this)
+            {
+                if (stainresult.StainResultId == stainResultId)
                 {
                     result = true;
                     break;

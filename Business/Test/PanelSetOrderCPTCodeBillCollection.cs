@@ -23,7 +23,7 @@ namespace YellowstonePathology.Business.Test
             return panelSetOrderCPTCodeBill;
         }        
 
-        public bool Exists(YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill)
+        public bool CPTCodeExists(YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill)
         {
             bool result = false;
             foreach (PanelSetOrderCPTCodeBill item in this)
@@ -64,6 +64,20 @@ namespace YellowstonePathology.Business.Test
             return result;
         }
 
+        public YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill Get(string panelSetOrderCPTCodeBillId)
+        {
+            YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill result = null;
+            foreach (PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill in this)
+            {
+                if (panelSetOrderCPTCodeBill.PanelSetOrderCPTCodeBillId == panelSetOrderCPTCodeBillId)
+                {
+                    result = panelSetOrderCPTCodeBill;
+                    break;
+                }
+            }
+            return result;
+        }
+
         public YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBillCollection GetMissing(YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBillCollection shouldBeIncludedOnBillCollection)
         {
             YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBillCollection result = new PanelSetOrderCPTCodeBillCollection();
@@ -76,7 +90,7 @@ namespace YellowstonePathology.Business.Test
             YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBillCollection result = new PanelSetOrderCPTCodeBillCollection();
             foreach (YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill in this)
             {
-                if (result.Exists(panelSetOrderCPTCodeBill) == false)
+                if (result.CPTCodeExists(panelSetOrderCPTCodeBill) == false)
                 {
                     result.Add(panelSetOrderCPTCodeBill);
                 }

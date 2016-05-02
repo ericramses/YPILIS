@@ -40,14 +40,40 @@ namespace YellowstonePathology.Business.Test.Surgical
 				}
 			}
 			return null;
-		}		
+		}
 
-        public bool Exists(string testOrderId)
+        public IntraoperativeConsultationResult Get(string intraoperativeConsultationResultId)
+        {
+            foreach (IntraoperativeConsultationResult item in this)
+            {
+                if (item.IntraoperativeConsultationResultId == intraoperativeConsultationResultId)
+                {
+                    return item;
+                }
+            }
+            return null;
+        }
+
+        public bool TestOrderIdExists(string testOrderId)
         {
             bool result = false;
             foreach (IntraoperativeConsultationResult icr in this)
             {
                 if (icr.TestOrderId == testOrderId)
+                {
+                    result = true;
+                    break;
+                }
+            }
+            return result;
+        }
+
+        public bool Exists(string intraoperativeConsultationResultId)
+        {
+            bool result = false;
+            foreach (IntraoperativeConsultationResult icr in this)
+            {
+                if (icr.IntraoperativeConsultationResultId == intraoperativeConsultationResultId)
                 {
                     result = true;
                     break;

@@ -43,12 +43,12 @@ namespace YellowstonePathology.Business.Task.Model
             return result;
         }
 
-		public bool Exists(string taskId)
+		public bool Exists(string taskOrderDetailId)
 		{
 			bool result = false;
 			foreach (TaskOrderDetail taskOrderDetail in this)
 			{
-				if (taskId == taskOrderDetail.TaskId)
+				if (taskOrderDetail.TaskOrderDetailId == taskOrderDetailId)
 				{
 					result = true;
 					break;
@@ -57,12 +57,12 @@ namespace YellowstonePathology.Business.Task.Model
 			return result;
 		}
 
-		public TaskOrderDetail GetTaskOrderDetail(string taskId)
+		public TaskOrderDetail Get(string taskOrderDetailId)
 		{
 			TaskOrderDetail result = null;
 			foreach (TaskOrderDetail taskOrderDetail in this)
 			{
-				if (taskId == taskOrderDetail.TaskId)
+				if (taskOrderDetail.TaskOrderDetailId == taskOrderDetailId)
 				{
 					result = taskOrderDetail;
 					break;

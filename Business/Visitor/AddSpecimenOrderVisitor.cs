@@ -20,7 +20,7 @@ namespace YellowstonePathology.Business.Visitor
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ThinPrepFluid thinPrepFluid = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ThinPrepFluid();
             if (this.m_SpecimenOrder.SpecimenId != thinPrepFluid.SpecimenId)
             {
-                if (surgicalTestOrder.SurgicalSpecimenCollection.Exists(this.m_SpecimenOrder.SpecimenOrderId) == false)
+                if (surgicalTestOrder.SurgicalSpecimenCollection.SpecimenOrderExists(this.m_SpecimenOrder.SpecimenOrderId) == false)
                 {
                     YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen = surgicalTestOrder.SurgicalSpecimenCollection.Add(surgicalTestOrder.ReportNo);
                     surgicalSpecimen.FromSpecimenOrder(this.m_SpecimenOrder);

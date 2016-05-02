@@ -17,6 +17,34 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
         public TestOrderReportDistributionLogCollection()
         {
 
-		}        
-	}
+		}  
+        
+        public bool Exists(string testOrderReportDistributionLogId)
+        {
+            bool result = false;
+            foreach (TestOrderReportDistributionLog item in this)
+            {
+                if(item.TestOrderReportDistributionLogId == testOrderReportDistributionLogId)
+                {
+                    result = true;
+                    break;    
+                }
+            }
+            return result;
+        }
+
+        public TestOrderReportDistributionLog Get(string testOrderReportDistributionLogId)
+        {
+            TestOrderReportDistributionLog result = null;
+            foreach (TestOrderReportDistributionLog item in this)
+            {
+                if (item.TestOrderReportDistributionLogId == testOrderReportDistributionLogId)
+                {
+                    result = item;
+                    break;
+                }
+            }
+            return result;
+        }
+    }
 }

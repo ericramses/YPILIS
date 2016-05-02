@@ -93,6 +93,20 @@ namespace YellowstonePathology.Business.Test
             return result;
         }
 
+        public AliquotOrder Get(string aliquotOrderId)
+        {
+            AliquotOrder result = null;
+            foreach (AliquotOrder item in this)
+            {
+                if (item.AliquotOrderId == aliquotOrderId)
+                {
+                    result = item;
+                    break;
+                }
+            }
+            return result;
+        }
+
         public AliquotOrder GetPantherAliquot()
         {
             YellowstonePathology.Business.Specimen.Model.PantherAliquot pantherAliquot = new Specimen.Model.PantherAliquot();

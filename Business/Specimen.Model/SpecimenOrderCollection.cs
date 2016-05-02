@@ -708,21 +708,19 @@ namespace YellowstonePathology.Business.Specimen.Model
             return result;
         }
 
-        /*
-        public YellowstonePathology.Business.Interface.IOrderTarget GetOrderTarget(YellowstonePathology.Business.OrderTargetTypeCollection orderTargetTypeCollection)
+        public bool Exists(string specimenOrderId)
         {
-            YellowstonePathology.Business.Interface.IOrderTarget result = null;
+            bool result = false;
             foreach (SpecimenOrder specimenOrder in this)
             {
-                if (orderTargetTypeCollection.Exists(specimenOrder) == true)
+                if (specimenOrder.SpecimenOrderId == specimenOrderId)
                 {
-                    result = specimenOrder;
+                    result = true;
                     break;
                 }
             }
             return result;
         }
-        */
 
         public YellowstonePathology.Business.Interface.IOrderTarget GetOrderTarget(YellowstonePathology.Business.OrderTargetTypeCollection orderTargetTypeCollection)
         {

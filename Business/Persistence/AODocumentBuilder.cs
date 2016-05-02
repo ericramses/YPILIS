@@ -27,12 +27,18 @@ namespace YellowstonePathology.Business.Persistence
         }
 
         public override object BuildNew()
-        {
-            Console.WriteLine("AO BuildNew.");            
+        {         
             YellowstonePathology.Business.Test.AccessionOrder result = new Test.AccessionOrder();
             YellowstonePathology.Business.Gateway.AccessionOrderBuilder builder = new YellowstonePathology.Business.Gateway.AccessionOrderBuilder();
             builder.Build(this.m_SQLCommand, result);
             return result;            
-        }        
+        }
+
+        public override void Refresh(object o)
+        {
+            YellowstonePathology.Business.Test.AccessionOrder accessionOrder = (YellowstonePathology.Business.Test.AccessionOrder)o;
+            YellowstonePathology.Business.Gateway.AccessionOrderBuilder builder = new YellowstonePathology.Business.Gateway.AccessionOrderBuilder();
+            builder.Build(this.m_SQLCommand, accessionOrder);
+        }
     }
 }

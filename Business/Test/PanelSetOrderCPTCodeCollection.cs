@@ -64,9 +64,35 @@ namespace YellowstonePathology.Business.Test
                 }
             }
             return result;
-        }        
+        }
 
-		public PanelSetOrderCPTCode GetPanelSetOrderCPTCode(string panelSetOrderCPTCodeId)
+        public bool Exists(string panelSetOrderCptCodeId)
+        {
+            bool result = false;
+            foreach (PanelSetOrderCPTCode panelSetOrderCPTCode in this)
+            {
+                if (panelSetOrderCPTCode.PanelSetOrderCPTCodeId == panelSetOrderCptCodeId)
+                {
+                    result = true;
+                }
+            }
+            return result;
+        }
+
+        public PanelSetOrderCPTCode Get(string panelSetOrderCptCodeId)
+        {
+            PanelSetOrderCPTCode result = null;
+            foreach (PanelSetOrderCPTCode panelSetOrderCPTCode in this)
+            {
+                if (panelSetOrderCPTCode.PanelSetOrderCPTCodeId == panelSetOrderCptCodeId)
+                {
+                    result = panelSetOrderCPTCode;
+                }
+            }
+            return result;
+        }
+
+        public PanelSetOrderCPTCode GetPanelSetOrderCPTCode(string panelSetOrderCPTCodeId)
 		{
 			PanelSetOrderCPTCode result = null;
 			foreach(PanelSetOrderCPTCode panelSetOrderCPTCode in this)

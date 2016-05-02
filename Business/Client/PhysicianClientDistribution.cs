@@ -193,7 +193,7 @@ namespace YellowstonePathology.Business.Client
         private bool HandleAddEPICDistribution(YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {
             bool result = true;
-            if (panelSetOrder.TestOrderReportDistributionCollection.Exists(YellowstonePathology.Business.ReportDistribution.Model.DistributionType.EPIC) == false)
+            if (panelSetOrder.TestOrderReportDistributionCollection.DistributionTypeExists(YellowstonePathology.Business.ReportDistribution.Model.DistributionType.EPIC) == false)
             {
                 List<int> clientGroupIds = new List<int>();
                 clientGroupIds.Add(1);
@@ -267,7 +267,7 @@ namespace YellowstonePathology.Business.Client
         private bool HandleAddAthenaDistribution(YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {
             bool result = true;
-            if (panelSetOrder.TestOrderReportDistributionCollection.Exists(YellowstonePathology.Business.ReportDistribution.Model.DistributionType.ATHENA) == false)
+            if (panelSetOrder.TestOrderReportDistributionCollection.DistributionTypeExists(YellowstonePathology.Business.ReportDistribution.Model.DistributionType.ATHENA) == false)
             {
                 YellowstonePathology.Business.PanelSet.Model.PanelSetCollection panelSetCollection = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetAll();
                 YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet = panelSetCollection.GetPanelSet(panelSetOrder.PanelSetId);
@@ -286,7 +286,7 @@ namespace YellowstonePathology.Business.Client
         private bool HandleAddECWDistribution(YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {
             bool result = true;
-            if (panelSetOrder.TestOrderReportDistributionCollection.Exists(YellowstonePathology.Business.ReportDistribution.Model.DistributionType.ECW) == false)
+            if (panelSetOrder.TestOrderReportDistributionCollection.DistributionTypeExists(YellowstonePathology.Business.ReportDistribution.Model.DistributionType.ECW) == false)
             {
                 if (accessionOrder.ClientId == 1203)
                 {
@@ -299,7 +299,7 @@ namespace YellowstonePathology.Business.Client
         private bool HandleAddMEDITECHDistribution(YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {
             bool result = true;
-            if (panelSetOrder.TestOrderReportDistributionCollection.Exists(YellowstonePathology.Business.ReportDistribution.Model.DistributionType.MEDITECH) == false)
+            if (panelSetOrder.TestOrderReportDistributionCollection.DistributionTypeExists(YellowstonePathology.Business.ReportDistribution.Model.DistributionType.MEDITECH) == false)
             {
                 YellowstonePathology.Business.Client.Model.ClientGroupClientCollection westParkHospitalGroup = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientGroupClientCollectionByClientGroupId(36);
                 if (westParkHospitalGroup.ClientIdExists(accessionOrder.ClientId) == true)

@@ -51,11 +51,23 @@ namespace YellowstonePathology.Business.Gateway
 													select item).ToList<XElement>();
 			foreach (XElement specimenOrderElement in specimenOrderElements.Elements("SpecimenOrder"))
 			{
-				Specimen.Model.SpecimenOrder specimenOrder = new Specimen.Model.SpecimenOrder();
+                string specimenOrderId = specimenOrderElement.Element("SpecimenOrderId").Value;
+                Specimen.Model.SpecimenOrder specimenOrder = null;
+
+                if (accessionOrder.SpecimenOrderCollection.Exists(specimenOrderId) == true)
+                {
+                    specimenOrder = accessionOrder.SpecimenOrderCollection.GetSpecimenOrder(specimenOrderId);
+                }
+                else
+                {
+                    specimenOrder = new Specimen.Model.SpecimenOrder();
+                    accessionOrder.SpecimenOrderCollection.Add(specimenOrder);
+                }
+				
 				YellowstonePathology.Business.Persistence.XmlPropertyWriter xmlPropertyWriter = new Persistence.XmlPropertyWriter(specimenOrderElement, specimenOrder);
 				xmlPropertyWriter.Write();
 				BuildAliquotOrderLeftSide(specimenOrder, specimenOrderElement);
-				accessionOrder.SpecimenOrderCollection.Add(specimenOrder);
+				
 			}
             accessionOrder.SpecimenOrderCollection.IsLoading = false;
 		}
@@ -66,13 +78,23 @@ namespace YellowstonePathology.Business.Gateway
 												   select item).ToList<XElement>();
 			foreach (XElement aliquotOrderElement in aliquotOrderElements.Elements("AliquotOrder"))
 			{
-				YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = new Test.AliquotOrder();
+                string aliquotOrderId = aliquotOrderElement.Element("AliquotOrderId").Value;
+                YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = null;
+                if (specimenOrder.AliquotOrderCollection.Exists(aliquotOrderId) == true)
+                {
+                    aliquotOrder = specimenOrder.AliquotOrderCollection.Get(aliquotOrderId);
+                }
+                else
+                {
+                    aliquotOrder = new Test.AliquotOrder();
+                    specimenOrder.AliquotOrderCollection.Add(aliquotOrder);
+                }
+				
 				YellowstonePathology.Business.Persistence.XmlPropertyWriter xmlPropertyWriter = new Persistence.XmlPropertyWriter(aliquotOrderElement, aliquotOrder);
 				xmlPropertyWriter.Write();
               
                 BuildAliquotOrderTestOrder(aliquotOrder, aliquotOrderElement);
-                BuildAliquotOrderSlideOrderCollection(aliquotOrder, aliquotOrderElement);
-				specimenOrder.AliquotOrderCollection.Add(aliquotOrder);
+                BuildAliquotOrderSlideOrderCollection(aliquotOrder, aliquotOrderElement);				
 			}
 		}
 
@@ -106,10 +128,20 @@ namespace YellowstonePathology.Business.Gateway
                                                    select item).ToList<XElement>();
             foreach (XElement testOrderElement in aliquotOrderElements.Elements("TestOrder"))
             {
-                YellowstonePathology.Business.Test.Model.TestOrder testOrder = new YellowstonePathology.Business.Test.Model.TestOrder();
+                string testOrderId = testOrderElement.Element("TestOrderId").Value;
+                YellowstonePathology.Business.Test.Model.TestOrder_Base testOrder = null;
+                if (aliquotOrder.TestOrderCollection.Exists(testOrderId) == true)
+                {
+                    testOrder = aliquotOrder.TestOrderCollection.GetBase(testOrderId);
+                }
+                else
+                {
+                    testOrder = new YellowstonePathology.Business.Test.Model.TestOrder();
+                    aliquotOrder.TestOrderCollection.Add(testOrder);
+                }
+                
 				YellowstonePathology.Business.Persistence.XmlPropertyWriter xmlPropertyWriter = new Persistence.XmlPropertyWriter(testOrderElement, testOrder);
 				xmlPropertyWriter.Write();
-				aliquotOrder.TestOrderCollection.Add(testOrder);
             }
         }		
 
@@ -119,10 +151,20 @@ namespace YellowstonePathology.Business.Gateway
                                                            select item).ToList<XElement>();
             foreach (XElement slideOrderElement in slideOrderElements.Elements("SlideOrder"))
             {
+                string slideOrderId = slideOrderElement.Element("SlideOrderId").Value;
                 YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder = new YellowstonePathology.Business.Slide.Model.SlideOrder();
+                if (testOrder.SlideOrderCollection.Exists(slideOrderId) == true)
+                {
+                    slideOrder = testOrder.SlideOrderCollection.Get(slideOrderId);
+                }
+                else
+                {
+                    slideOrder = new YellowstonePathology.Business.Slide.Model.SlideOrder();
+                    testOrder.SlideOrderCollection.Add(slideOrder);
+                }
+
                 YellowstonePathology.Business.Persistence.XmlPropertyWriter xmlPropertyWriter = new YellowstonePathology.Business.Persistence.XmlPropertyWriter(slideOrderElement, slideOrder);
                 xmlPropertyWriter.Write();                
-                testOrder.SlideOrderCollection.Add(slideOrder);
             }
         }
 
@@ -132,10 +174,21 @@ namespace YellowstonePathology.Business.Gateway
                                                  select item).ToList<XElement>();
             foreach (XElement slideOrderElement in slideOrderElements.Elements("SlideOrder"))
             {
-                YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder = new YellowstonePathology.Business.Slide.Model.SlideOrder();
+                string slideOrderId = slideOrderElement.Element("SlideOrderId").Value;
+                YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder = null;
+                if (aliquotOrder.SlideOrderCollection.Exists(slideOrderId) == true)
+                {
+                    slideOrder = aliquotOrder.SlideOrderCollection.Get(slideOrderId);
+                }
+                else
+                {
+                    slideOrder = new YellowstonePathology.Business.Slide.Model.SlideOrder();
+                    aliquotOrder.SlideOrderCollection.Add(slideOrder);
+                }
+
                 YellowstonePathology.Business.Persistence.XmlPropertyWriter xmlPropertyWriter = new YellowstonePathology.Business.Persistence.XmlPropertyWriter(slideOrderElement, slideOrder);
                 xmlPropertyWriter.Write();
-                aliquotOrder.SlideOrderCollection.Add(slideOrder);
+                
             }
         }   
 
@@ -149,9 +202,18 @@ namespace YellowstonePathology.Business.Gateway
 			{
                 int panelSetId = Convert.ToInt32(panelSetOrderElement.Element("PanelSetId").Value);
                 string reportNo = panelSetOrderElement.Element("ReportNo").Value;
-
-                YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet = panelSetCollection.GetPanelSet(panelSetId);
-				Test.PanelSetOrder panelSetOrder = Test.PanelSetOrderFactory.CreatePanelSetOrder(panelSet);
+                Test.PanelSetOrder panelSetOrder = null;
+                if (accessionOrder.PanelSetOrderCollection.Exists(reportNo) == true)
+                {
+                    panelSetOrder = accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
+                }
+                else
+                {
+                    YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet = panelSetCollection.GetPanelSet(panelSetId);
+                    panelSetOrder = Test.PanelSetOrderFactory.CreatePanelSetOrder(panelSet);
+                    accessionOrder.PanelSetOrderCollection.Add(panelSetOrder);
+                }
+				
 				YellowstonePathology.Business.Persistence.XmlPropertyWriter xmlPropertyWriter = new YellowstonePathology.Business.Persistence.XmlPropertyWriter(panelSetOrderElement, panelSetOrder);
 				xmlPropertyWriter.Write();
 
@@ -165,7 +227,6 @@ namespace YellowstonePathology.Business.Gateway
                 BuildTestOrderReportDistributionLog(panelSetOrder, panelSetOrderElement);
 				BuildPanelOrder(panelSetOrder, panelSetOrderElement);
 				BuildSurgicalSpecific(accessionOrder, panelSetOrder, panelSetOrderElement);
-				accessionOrder.PanelSetOrderCollection.Add(panelSetOrder);
 			}
 		}
 
@@ -199,10 +260,21 @@ namespace YellowstonePathology.Business.Gateway
 												 select item).ToList<XElement>();
 			foreach (XElement amendmentElement in amendmentElements.Elements("Amendment"))
 			{
-                YellowstonePathology.Business.Amendment.Model.Amendment amendment = new YellowstonePathology.Business.Amendment.Model.Amendment();
+                string amendmentId = amendmentElement.Element("AmendmentId").Value;
+                YellowstonePathology.Business.Amendment.Model.Amendment amendment = null;
+                if (panelSetOrder.AmendmentCollection.Exists(amendmentId) == true)
+                {
+                    amendment = panelSetOrder.AmendmentCollection.GetAmendment(amendmentId);
+                }
+                else
+                {
+                    amendment = new YellowstonePathology.Business.Amendment.Model.Amendment();
+                    panelSetOrder.AmendmentCollection.Add(amendment);
+                }
+
+                
 				YellowstonePathology.Business.Persistence.XmlPropertyWriter xmlPropertyWriter = new YellowstonePathology.Business.Persistence.XmlPropertyWriter(amendmentElement, amendment);
 				xmlPropertyWriter.Write();
-				panelSetOrder.AmendmentCollection.Add(amendment);
 			}
 		}
 
@@ -212,10 +284,20 @@ namespace YellowstonePathology.Business.Gateway
                                                            select item).ToList<XElement>();
             foreach (XElement testOrderReportDistributionElement in testOrderReportDistributionElements.Elements("TestOrderReportDistribution"))
             {
-                YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution testOrderReportDistribution = new YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution();
+                string testOrderReportDistributionId = testOrderReportDistributionElement.Element("TestOrderReportDistributionId").Value;
+                YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution testOrderReportDistribution = null;
+                if (panelSetOrder.TestOrderReportDistributionCollection.Exists(testOrderReportDistributionId) == true)
+                {
+                    testOrderReportDistribution = panelSetOrder.TestOrderReportDistributionCollection.Get(testOrderReportDistributionId);
+                }
+                else
+                {
+                    testOrderReportDistribution = new YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution();
+                    panelSetOrder.TestOrderReportDistributionCollection.Add(testOrderReportDistribution);
+                }
+                
                 YellowstonePathology.Business.Persistence.XmlPropertyWriter xmlPropertyWriter = new YellowstonePathology.Business.Persistence.XmlPropertyWriter(testOrderReportDistributionElement, testOrderReportDistribution);
-                xmlPropertyWriter.Write();
-                panelSetOrder.TestOrderReportDistributionCollection.Add(testOrderReportDistribution);
+                xmlPropertyWriter.Write();                
             }
         }
 
@@ -225,10 +307,20 @@ namespace YellowstonePathology.Business.Gateway
                                                                       select item).ToList<XElement>();
             foreach (XElement testOrderReportDistributionLogElement in testOrderReportDistributionLogElements.Elements("TestOrderReportDistributionLog"))
             {
-                YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistributionLog testOrderReportDistributionLog = new YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistributionLog();
+                string testOrderReportDistributionLogId = testOrderReportDistributionLogElement.Element("TestOrderReportDistributionLogId").Value;
+                YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistributionLog testOrderReportDistributionLog = null;
+                if (panelSetOrder.TestOrderReportDistributionLogCollection.Exists(testOrderReportDistributionLogId) == true)
+                {
+                    testOrderReportDistributionLog = panelSetOrder.TestOrderReportDistributionLogCollection.Get(testOrderReportDistributionLogId);
+                }
+                else
+                {
+                    testOrderReportDistributionLog = new YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistributionLog();
+                    panelSetOrder.TestOrderReportDistributionLogCollection.Add(testOrderReportDistributionLog);
+                }
+
                 YellowstonePathology.Business.Persistence.XmlPropertyWriter xmlPropertyWriter = new YellowstonePathology.Business.Persistence.XmlPropertyWriter(testOrderReportDistributionLogElement, testOrderReportDistributionLog);
                 xmlPropertyWriter.Write();
-                panelSetOrder.TestOrderReportDistributionLogCollection.Add(testOrderReportDistributionLog);
             }
         }
 
@@ -238,10 +330,20 @@ namespace YellowstonePathology.Business.Gateway
                                                            select item).ToList<XElement>();
             foreach (XElement panelSetOrderCPTCodeElement in panelSetOrderCPTCodeElements.Elements("PanelSetOrderCPTCode"))
             {
-                YellowstonePathology.Business.Test.PanelSetOrderCPTCode panelSetOrderCPTCode = new Test.PanelSetOrderCPTCode();
+                string panelSetOrderCPTCodeId = panelSetOrderCPTCodeElement.Element("PanelSetOrderCPTCodeId").Value;
+                YellowstonePathology.Business.Test.PanelSetOrderCPTCode panelSetOrderCPTCode = null;
+                if (panelSetOrder.PanelSetOrderCPTCodeCollection.Exists(panelSetOrderCPTCodeId) == true)
+                {
+                    panelSetOrderCPTCode = panelSetOrder.PanelSetOrderCPTCodeCollection.Get(panelSetOrderCPTCodeId);
+                }
+                else
+                {
+                    panelSetOrderCPTCode = new Test.PanelSetOrderCPTCode();
+                    panelSetOrder.PanelSetOrderCPTCodeCollection.Add(panelSetOrderCPTCode);
+                }
+
 				YellowstonePathology.Business.Persistence.XmlPropertyWriter xmlPropertyWriter = new YellowstonePathology.Business.Persistence.XmlPropertyWriter(panelSetOrderCPTCodeElement, panelSetOrderCPTCode);
 				xmlPropertyWriter.Write();
-                panelSetOrder.PanelSetOrderCPTCodeCollection.Add(panelSetOrderCPTCode);
             }
         }
 
@@ -251,10 +353,21 @@ namespace YellowstonePathology.Business.Gateway
                                                            select item).ToList<XElement>();
             foreach (XElement panelSetOrderCPTCodeBillElement in panelSetOrderCPTCodeBillElements.Elements("PanelSetOrderCPTCodeBill"))
             {
-                YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill = new Test.PanelSetOrderCPTCodeBill();
+                string panelSetOrderCPTCodeBillId = panelSetOrderCPTCodeBillElement.Element("panelSetOrderCPTCodeBillId").Value;
+                YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill = null;
+                if (panelSetOrder.PanelSetOrderCPTCodeBillCollection.Exists(panelSetOrderCPTCodeBillId) == true)
+                {
+                    panelSetOrder.PanelSetOrderCPTCodeBillCollection.Get(panelSetOrderCPTCodeBillId);
+                }
+                else
+                {
+                    panelSetOrderCPTCodeBill = new Test.PanelSetOrderCPTCodeBill();
+                    panelSetOrder.PanelSetOrderCPTCodeBillCollection.Add(panelSetOrderCPTCodeBill);
+                }
+                
 				YellowstonePathology.Business.Persistence.XmlPropertyWriter xmlPropertyWriter = new YellowstonePathology.Business.Persistence.XmlPropertyWriter(panelSetOrderCPTCodeBillElement, panelSetOrderCPTCodeBill);
 				xmlPropertyWriter.Write();
-                panelSetOrder.PanelSetOrderCPTCodeBillCollection.Add(panelSetOrderCPTCodeBill);
+                
             }
         }
 
@@ -264,18 +377,26 @@ namespace YellowstonePathology.Business.Gateway
 												 select poc).ToList<XElement>();
 
             YellowstonePathology.Business.Panel.Model.PanelCollection panelCollection = YellowstonePathology.Business.Panel.Model.PanelCollection.GetAll();
-            
-
 			foreach (XElement panelOrderElement in panelOrderElements.Elements("PanelOrder"))
 			{
-				int panelId = Convert.ToInt32(panelOrderElement.Element("PanelId").Value);
-                YellowstonePathology.Business.Panel.Model.Panel panel = panelCollection.GetPanel(panelId);
-				Test.PanelOrder panelOrder = Test.PanelOrderFactory.GetPanelOrder(panel);
+                string panelOrderId = panelOrderElement.Element("PanelOrderId").Value;
+                Test.PanelOrder panelOrder = null;
+                if (panelSetOrder.PanelOrderCollection.Exists(panelOrderId) == true)
+                {
+                    panelOrder = panelSetOrder.Get(panelOrderId);
+                }
+                else
+                {
+                    int panelId = Convert.ToInt32(panelOrderElement.Element("PanelId").Value);
+                    YellowstonePathology.Business.Panel.Model.Panel panel = panelCollection.GetPanel(panelId);
+
+                    panelOrder = Test.PanelOrderFactory.GetPanelOrder(panel);
+                    panelSetOrder.PanelOrderCollection.Add(panelOrder);
+                }
 
 				YellowstonePathology.Business.Persistence.XmlPropertyWriter xmlPropertyWriter = new YellowstonePathology.Business.Persistence.XmlPropertyWriter(panelOrderElement, panelOrder);
 				xmlPropertyWriter.Write();
                 BuildTestOrderRightSide(panelOrder, panelOrderElement);
-				panelSetOrder.PanelOrderCollection.Add(panelOrder);
 			}
 		}
 
@@ -285,13 +406,23 @@ namespace YellowstonePathology.Business.Gateway
 												select item).ToList<XElement>();
 			foreach (XElement testOrderElement in testOrderElements.Elements("TestOrder"))
 			{
-				YellowstonePathology.Business.Test.Model.TestOrder testOrder = new YellowstonePathology.Business.Test.Model.TestOrder();
+                string testOrderId = testOrderElement.Element("TestOrderId").Value;
+                YellowstonePathology.Business.Test.Model.TestOrder testOrder = null;
+                if (panelOrder.TestOrderCollection.Exists(testOrderId) == true)
+                {
+                    testOrder = panelOrder.TestOrderCollection.Get(testOrderId);
+                }
+                else
+                {
+                    testOrder = new YellowstonePathology.Business.Test.Model.TestOrder();
+                    panelOrder.TestOrderCollection.Add(testOrder);
+                }
+				
 				YellowstonePathology.Business.Persistence.XmlPropertyWriter xmlPropertyWriter = new Persistence.XmlPropertyWriter(testOrderElement, testOrder);
 				xmlPropertyWriter.Write();
 
                 BuildTestOrderAliquotOrder(testOrder, testOrderElement);
                 BuildTestOrderSlideOrderCollection(testOrder, testOrderElement);
-				panelOrder.TestOrderCollection.Add(testOrder);
 			}
 		}				
 
@@ -355,11 +486,22 @@ namespace YellowstonePathology.Business.Gateway
 														 select item).ToList<XElement>();
 			foreach (XElement taskOrderElement in taskOrderElements.Elements("TaskOrder"))
 			{
-				YellowstonePathology.Business.Task.Model.TaskOrder taskOrder = new YellowstonePathology.Business.Task.Model.TaskOrder();
+                string taskOrderId = taskOrderElement.Element("TaskOrderId").Value;
+                YellowstonePathology.Business.Task.Model.TaskOrder taskOrder = null;
+
+                if (accessionOrder.TaskOrderCollection.Exists(taskOrderId) == true)
+                {
+                    taskOrder = accessionOrder.TaskOrderCollection.GetTaskOrder(taskOrderId);
+                }
+                else
+                {
+                    taskOrder = new YellowstonePathology.Business.Task.Model.TaskOrder();
+                    accessionOrder.TaskOrderCollection.Add(taskOrder);
+                }
+
 				YellowstonePathology.Business.Persistence.XmlPropertyWriter xmlPropertyWriter = new YellowstonePathology.Business.Persistence.XmlPropertyWriter(taskOrderElement, taskOrder);
 				xmlPropertyWriter.Write();
 				this.BuildTaskOrderDetail(taskOrder, taskOrderElement);
-				accessionOrder.TaskOrderCollection.Add(taskOrder);
 			}
 		}
 
@@ -369,10 +511,20 @@ namespace YellowstonePathology.Business.Gateway
 												select item).ToList<XElement>();
 			foreach (XElement taskOrderDetailElement in taskOrderDetailElements.Elements("TaskOrderDetail"))
 			{
-				YellowstonePathology.Business.Task.Model.TaskOrderDetail taskOrderDetail = new YellowstonePathology.Business.Task.Model.TaskOrderDetail();
+                string taskOrderDetailId = taskOrderDetailElement.Element("TaskOrderDetailId").Value;
+                YellowstonePathology.Business.Task.Model.TaskOrderDetail taskOrderDetail = null;
+                if (taskOrder.TaskOrderDetailCollection.Exists(taskOrderDetailId) == true)
+                {
+                    taskOrderDetail = taskOrder.TaskOrderDetailCollection.Get(taskOrderDetailId);
+                }
+                else
+                {
+                    taskOrderDetail = new YellowstonePathology.Business.Task.Model.TaskOrderDetail();
+                    taskOrder.TaskOrderDetailCollection.Add(taskOrderDetail);
+                }
+
 				YellowstonePathology.Business.Persistence.XmlPropertyWriter xmlPropertyWriter = new YellowstonePathology.Business.Persistence.XmlPropertyWriter(taskOrderDetailElement, taskOrderDetail);
 				xmlPropertyWriter.Write();
-				taskOrder.TaskOrderDetailCollection.Add(taskOrderDetail);
 			}
 		}
 
@@ -382,10 +534,20 @@ namespace YellowstonePathology.Business.Gateway
 													 select item).ToList<XElement>();
 			foreach (XElement icd9BillingCodeElement in icd9BillingCodeElements.Elements("ICD9BillingCode"))
 			{
-				YellowstonePathology.Business.Billing.ICD9BillingCode icd9BillingCode = new Billing.ICD9BillingCode();
+                string icd9BillingCodeId = icd9BillingCodeElement.Element("Icd9BillingId").Value;
+                YellowstonePathology.Business.Billing.ICD9BillingCode icd9BillingCode = null;
+                if (accessionOrder.ICD9BillingCodeCollection.Exists(icd9BillingCodeId) == true)
+                {
+                    icd9BillingCode = accessionOrder.ICD9BillingCodeCollection.Get(icd9BillingCodeId);
+                }
+                else
+                {
+                    icd9BillingCode = new Billing.ICD9BillingCode();
+                    accessionOrder.ICD9BillingCodeCollection.Add(icd9BillingCode);
+                }
+				
 				YellowstonePathology.Business.Persistence.XmlPropertyWriter xmlPropertyWriter = new YellowstonePathology.Business.Persistence.XmlPropertyWriter(icd9BillingCodeElement, icd9BillingCode);
 				xmlPropertyWriter.Write();
-				accessionOrder.ICD9BillingCodeCollection.Add(icd9BillingCode);
 			}
 		}
 
@@ -399,6 +561,8 @@ namespace YellowstonePathology.Business.Gateway
 																	 select item).ToList<XElement>();
 				foreach (XElement surgicalSpecimenElement in surgicalSpecimenElements.Elements("SurgicalSpecimen"))
 				{
+                    string surgicalSpecimenId = surgicalSpecimenElement.Element("SurgicalSpecimenId").Value;
+                    //if(panelSetOrderSurgical.SurgicalSpecimenCollection.Exists())
 					YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen = new YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen();
 					YellowstonePathology.Business.Persistence.XmlPropertyWriter xmlPropertyWriter = new YellowstonePathology.Business.Persistence.XmlPropertyWriter(surgicalSpecimenElement, surgicalSpecimen);
 					xmlPropertyWriter.Write();
@@ -423,6 +587,8 @@ namespace YellowstonePathology.Business.Gateway
 												 select item).ToList<XElement>();
 			foreach (XElement surgicalAuditElement in collectionElements.Elements("SurgicalAudit"))
 			{
+                string surgicalAuditId = surgicalAuditElement.Element("SurgicalAuditId").Value;
+
 				YellowstonePathology.Business.Test.Surgical.SurgicalAudit surgicalAudit = new YellowstonePathology.Business.Test.Surgical.SurgicalAudit();
 				YellowstonePathology.Business.Persistence.XmlPropertyWriter xmlPropertyWriter = new YellowstonePathology.Business.Persistence.XmlPropertyWriter(surgicalAuditElement, surgicalAudit);
 				xmlPropertyWriter.Write();
@@ -437,10 +603,20 @@ namespace YellowstonePathology.Business.Gateway
 												 select item).ToList<XElement>();
 			foreach (XElement surgicalSpecimenResultAuditElement in collectionElements.Elements("SurgicalSpecimenAudit"))
 			{
-				YellowstonePathology.Business.Test.Surgical.SurgicalSpecimenAudit surgicalSpecimenAudit = new YellowstonePathology.Business.Test.Surgical.SurgicalSpecimenAudit();
+                string surgicalSpecimenAuditId = surgicalSpecimenResultAuditElement.Element("SurgicalSpecimenAuditId").Value;
+                YellowstonePathology.Business.Test.Surgical.SurgicalSpecimenAudit surgicalSpecimenAudit = null;
+                if (surgicalAudit.SurgicalSpecimenAuditCollection.Exists(surgicalSpecimenAuditId) == true)
+                {
+                    surgicalSpecimenAudit = surgicalAudit.SurgicalSpecimenAuditCollection.Get(surgicalSpecimenAuditId);
+                }
+                else
+                {
+                    surgicalSpecimenAudit = new YellowstonePathology.Business.Test.Surgical.SurgicalSpecimenAudit();
+                    surgicalAudit.SurgicalSpecimenAuditCollection.Add(surgicalSpecimenAudit);
+                }
+
 				YellowstonePathology.Business.Persistence.XmlPropertyWriter xmlPropertyWriter = new YellowstonePathology.Business.Persistence.XmlPropertyWriter(surgicalSpecimenResultAuditElement, surgicalSpecimenAudit);
-				xmlPropertyWriter.Write();
-				surgicalAudit.SurgicalSpecimenAuditCollection.Add(surgicalSpecimenAudit);
+				xmlPropertyWriter.Write();				
 			}
 		}
 
@@ -450,10 +626,20 @@ namespace YellowstonePathology.Business.Gateway
 												 select item).ToList<XElement>();
 			foreach (XElement icd9BillingElement in collectionElements.Elements("ICD9BillingCode"))
 			{
-				YellowstonePathology.Business.Billing.ICD9BillingCode icd9Billing = new YellowstonePathology.Business.Billing.ICD9BillingCode();
+                string icd9BillingId = icd9BillingElement.Element("Icd9BillingId").Value;
+                YellowstonePathology.Business.Billing.ICD9BillingCode icd9Billing = null;
+                if (surgicalSpecimen.ICD9BillingCodeCollection.Exists(icd9BillingId) == true)
+                {
+                    surgicalSpecimen.ICD9BillingCodeCollection.Get(icd9BillingId);
+                }
+                else
+                {
+                    icd9Billing = new YellowstonePathology.Business.Billing.ICD9BillingCode();
+                    surgicalSpecimen.ICD9BillingCodeCollection.Add(icd9Billing);
+                }
+
 				YellowstonePathology.Business.Persistence.XmlPropertyWriter xmlPropertyWriter = new YellowstonePathology.Business.Persistence.XmlPropertyWriter(icd9BillingElement, icd9Billing);
 				xmlPropertyWriter.Write();
-				surgicalSpecimen.ICD9BillingCodeCollection.Add(icd9Billing);
 			}
 		}
 
@@ -463,10 +649,20 @@ namespace YellowstonePathology.Business.Gateway
 												 select item).ToList<XElement>();
 			foreach (XElement intraoperativeConsultationResultElement in collectionElements.Elements("IntraoperativeConsultationResult"))
 			{
-				YellowstonePathology.Business.Test.Surgical.IntraoperativeConsultationResult intraoperativeConsultationResult = new YellowstonePathology.Business.Test.Surgical.IntraoperativeConsultationResult();
+                string icResultId = intraoperativeConsultationResultElement.Element("IntraoperativeConsultResultId").Value;
+                YellowstonePathology.Business.Test.Surgical.IntraoperativeConsultationResult intraoperativeConsultationResult = null;
+                if (surgicalSpecimen.IntraoperativeConsultationResultCollection.Exists(icResultId) == true)
+                {
+                    intraoperativeConsultationResult = surgicalSpecimen.IntraoperativeConsultationResultCollection.Get(icResultId);
+                }
+                else
+                {
+                    intraoperativeConsultationResult = new YellowstonePathology.Business.Test.Surgical.IntraoperativeConsultationResult();
+                    surgicalSpecimen.IntraoperativeConsultationResultCollection.Add(intraoperativeConsultationResult);
+                }
+
 				YellowstonePathology.Business.Persistence.XmlPropertyWriter xmlPropertyWriter = new YellowstonePathology.Business.Persistence.XmlPropertyWriter(intraoperativeConsultationResultElement, intraoperativeConsultationResult);
 				xmlPropertyWriter.Write();
-				surgicalSpecimen.IntraoperativeConsultationResultCollection.Add(intraoperativeConsultationResult);
 			}
 		}
 
@@ -476,10 +672,19 @@ namespace YellowstonePathology.Business.Gateway
 												 select item).ToList<XElement>();
 			foreach (XElement stainResultElement in collectionElements.Elements("StainResultItem"))
 			{
-				YellowstonePathology.Business.SpecialStain.StainResultItem stainResultItem = new SpecialStain.StainResultItem();
+                string stainResultId = stainResultElement.Element("StainResultId").Value;
+                YellowstonePathology.Business.SpecialStain.StainResultItem stainResultItem = null;
+                if (surgicalSpecimen.StainResultItemCollection.Exists(stainResultId) == true)
+                {
+                    stainResultItem = surgicalSpecimen.StainResultItemCollection.Get(stainResultId);
+                }
+                else
+                {
+                    stainResultItem = new SpecialStain.StainResultItem();
+                    surgicalSpecimen.StainResultItemCollection.Add(stainResultItem);
+                }
 				YellowstonePathology.Business.Persistence.XmlPropertyWriter xmlPropertyWriter = new YellowstonePathology.Business.Persistence.XmlPropertyWriter(stainResultElement, stainResultItem);
 				xmlPropertyWriter.Write();
-				surgicalSpecimen.StainResultItemCollection.Add(stainResultItem);
 			}
 		}		
 	}

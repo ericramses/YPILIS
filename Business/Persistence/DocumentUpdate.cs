@@ -32,6 +32,7 @@ namespace YellowstonePathology.Business.Persistence
             YellowstonePathology.Business.Persistence.SqlCommandSubmitter sqlCommandSubmitter = this.GetSqlCommands(this.m_Value);
             if(sqlCommandSubmitter.HasChanges() == true)
             {
+                sqlCommandSubmitter.LogCommands();
                 result = true;
             }
             return result;

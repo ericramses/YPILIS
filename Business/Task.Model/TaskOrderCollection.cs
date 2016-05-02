@@ -26,12 +26,12 @@ namespace YellowstonePathology.Business.Task.Model
 			return result;
 		}
 
-		public bool Exists(string taskName)
+		public bool Exists(string taskOrderId)
 		{
 			bool result = false;
 			foreach (TaskOrder taskOrder in this)
 			{
-				if (taskOrder.TaskName == taskName)
+				if (taskOrder.TaskOrderId == taskOrderId)
 				{
 					result = true;
 					break;

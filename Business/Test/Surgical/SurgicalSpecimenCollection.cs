@@ -65,7 +65,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			return null;
 		}
 
-        public bool Exists(string specimenOrderId)
+        public bool SpecimenOrderExists(string specimenOrderId)
         {
             bool result = false;
             foreach (SurgicalSpecimen surgicalSpecimen in this)

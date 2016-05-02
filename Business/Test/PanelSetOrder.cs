@@ -1312,7 +1312,21 @@ namespace YellowstonePathology.Business.Test
             return result;
         }
 
-		public YellowstonePathology.Business.Test.Model.TestOrderCollection GetTestOrders()
+        public YellowstonePathology.Business.Test.PanelOrder Get(string panelOrderId)
+        {
+            YellowstonePathology.Business.Test.PanelOrder result = null;
+            foreach (YellowstonePathology.Business.Test.PanelOrder panelOrder in this.PanelOrderCollection)
+            {
+                if (panelOrder.PanelOrderId == panelOrderId)
+                {
+                    result = panelOrder;
+                    break;
+                }
+            }
+            return result;
+        }
+
+        public YellowstonePathology.Business.Test.Model.TestOrderCollection GetTestOrders()
 		{
 			YellowstonePathology.Business.Test.Model.TestOrderCollection result = new YellowstonePathology.Business.Test.Model.TestOrderCollection();
 			foreach (YellowstonePathology.Business.Test.PanelOrder panelOrder in this.PanelOrderCollection)

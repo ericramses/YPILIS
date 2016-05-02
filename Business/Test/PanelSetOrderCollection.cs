@@ -728,6 +728,20 @@ namespace YellowstonePathology.Business.Test
 			return result;
 		}
 
+        public bool Exists(string reportNo)
+        {
+            bool result = false;
+            foreach (YellowstonePathology.Business.Test.PanelSetOrder item in this)
+            {
+                if (item.ReportNo == reportNo)
+                {
+                    result = true;
+                    break;
+                }
+            }
+            return result;
+        }
+
         public bool Exists(int panelSetId, string orderedOnId, bool restrictToOrderedOn)
         {
             bool result = false;

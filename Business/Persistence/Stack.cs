@@ -140,11 +140,23 @@ namespace YellowstonePathology.Business.Persistence
                 }                
                 
                 if(document.Value is YellowstonePathology.Business.Test.AccessionOrder)
-                {                    
-                    //Save even if the lock is not aquired.
-                    if(document.IsDirty() == true)
-                    {
+                {
+                    YellowstonePathology.Business.Test.AccessionOrder ao = (YellowstonePathology.Business.Test.AccessionOrder)document.Value;
+                    if(ao.IsLockAquiredByMe == true)
+                    {                        
                         document.Submit();
+                    }
+                    else
+                    {
+                        if (document.IsDirty() == true)
+                        {
+                            throw new Exception("Lock is not aquired and data is dirty.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Lock is not aquired so We are Refreshing now.");
+                            documentBuilder.Refresh(document.Value);
+                        }
                     }                    
                 }                
             }   

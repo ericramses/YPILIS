@@ -43,31 +43,17 @@ namespace YellowstonePathology.Business.Visitor
 
         public override void Visit(YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen)
         {
-            if (surgicalSpecimen.StainResultItemCollection.Exists(this.m_TestOrderId) == true)
+            if (surgicalSpecimen.StainResultItemCollection.TestOrderExists(this.m_TestOrderId) == true)
             {
                 YellowstonePathology.Business.SpecialStain.StainResultItem stainResult = surgicalSpecimen.StainResultItemCollection.GetStainResult(this.m_TestOrderId);
                 surgicalSpecimen.StainResultItemCollection.Remove(stainResult);
             }
 
-            if (surgicalSpecimen.IntraoperativeConsultationResultCollection.Exists(this.m_TestOrderId) == true)
+            if (surgicalSpecimen.IntraoperativeConsultationResultCollection.TestOrderIdExists(this.m_TestOrderId) == true)
             {
                 YellowstonePathology.Business.Test.Surgical.IntraoperativeConsultationResult icResult = surgicalSpecimen.IntraoperativeConsultationResultCollection.GetIntraoperativeConsultationResult(this.m_TestOrderId);
                 surgicalSpecimen.IntraoperativeConsultationResultCollection.Remove(icResult);
             }
-        }
-
-        /*
-        public YellowstonePathology.Business.Test.Model.TestOrder TestOrder
-        {
-            get { return this.m_TestOrder; }
-        }
-        */
-
-        /*
-        public YellowstonePathology.Business.Test.PanelOrder PanelOrder
-        {
-            get { return this.m_PanelOrder; }
-        }
-        */
+        }        
     }
 }

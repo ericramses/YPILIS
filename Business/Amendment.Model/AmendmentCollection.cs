@@ -54,6 +54,20 @@ namespace YellowstonePathology.Business.Amendment.Model
             return result;
         }
 
+        public bool Exists(string amendmentId)
+        {
+            bool result = false;
+            foreach (Amendment item in this)
+            {
+                if (item.AmendmentId == amendmentId)
+                {
+                    result = true;
+                    break;                    
+                }
+            }
+            return result;
+        }
+
         public Amendment GetMostRecentAmendment()
         {
             Amendment amendment = null;

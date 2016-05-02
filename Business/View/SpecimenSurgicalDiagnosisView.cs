@@ -27,7 +27,7 @@ namespace YellowstonePathology.Business.View
             if (accessionOrder.PanelSetOrderCollection.HasSurgical() == true)
             {
 				YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder panelSetOrderSurgical = accessionOrder.PanelSetOrderCollection.GetSurgical();
-				if (panelSetOrderSurgical.SurgicalSpecimenCollection.Exists(specimenOrder.SpecimenOrderId) == true)
+				if (panelSetOrderSurgical.SurgicalSpecimenCollection.SpecimenOrderExists(specimenOrder.SpecimenOrderId) == true)
                 {
 					YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen = panelSetOrderSurgical.SurgicalSpecimenCollection.GetBySpecimenOrderId(specimenOrder.SpecimenOrderId);
                     result.SurgicalSpecimen = surgicalSpecimen;

@@ -56,11 +56,11 @@ namespace YellowstonePathology.Business.Visitor
 
         public override void Visit(YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen)
         {
-            if (surgicalSpecimen.StainResultItemCollection.Exists(this.m_TestOrder.TestOrderId) == true)
+            if (surgicalSpecimen.StainResultItemCollection.TestOrderExists(this.m_TestOrder.TestOrderId) == true)
             {
                 this.m_StainResultHasBeenAdded = true;
             }
-            if (surgicalSpecimen.IntraoperativeConsultationResultCollection.Exists(this.m_TestOrder.TestOrderId) == true)
+            if (surgicalSpecimen.IntraoperativeConsultationResultCollection.TestOrderIdExists(this.m_TestOrder.TestOrderId) == true)
             {
                 this.m_ICHasBeenAdded = true;
             }

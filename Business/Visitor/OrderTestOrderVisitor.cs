@@ -217,7 +217,7 @@ namespace YellowstonePathology.Business.Visitor
             {
                 if (this.m_PanelSet.OrderTargetTypeCollectionExclusions.Exists(specimenOrder) == false)
                 {
-                    if (surgicalTestOrder.SurgicalSpecimenCollection.Exists(specimenOrder.SpecimenOrderId) == false)
+                    if (surgicalTestOrder.SurgicalSpecimenCollection.SpecimenOrderExists(specimenOrder.SpecimenOrderId) == false)
                     {
                         YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen = surgicalTestOrder.SurgicalSpecimenCollection.Add(this.m_ReportNo);
                         surgicalSpecimen.FromSpecimenOrder(specimenOrder);

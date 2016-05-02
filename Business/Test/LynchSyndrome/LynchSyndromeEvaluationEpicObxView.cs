@@ -91,7 +91,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             }
 
             YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(panelSetOrderLynchSyndromeEvaluation.OrderedOn, panelSetOrderLynchSyndromeEvaluation.OrderedOnId);
-            this.AddNextObxElement("Specimem: " + specimenOrder.Description, document, "F");
+            this.AddNextObxElement("Specimen: " + specimenOrder.Description, document, "F");
             this.AddNextObxElement("", document, "F");
 
             this.AddNextObxElement("Method: ", document, "F");

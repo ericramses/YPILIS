@@ -139,9 +139,17 @@ namespace YellowstonePathology.Business.Persistence
                 this.m_SqlDeleteFirstCommands.Count != 0 ||
                 this.m_SqlInsertLastCommands.Count != 0)
             {
-                result = true;
+                result = true;                
             }
             return result;
+        }
+
+        public void LogCommands()
+        {
+            foreach(SqlCommand cmd in this.m_SqlUpdateCommands)
+            {
+                Console.WriteLine(cmd.CommandText);
+            }
         }
     }
 }

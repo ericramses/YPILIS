@@ -116,7 +116,7 @@ namespace YellowstonePathology.UI.Login.ReceiveSpecimen
                 YellowstonePathology.Business.View.SpecimenSurgicalDiagnosisView specimenSurgicalDiagnosisView = (YellowstonePathology.Business.View.SpecimenSurgicalDiagnosisView)this.ListViewSpecimenSurgicalDiagnosis.SelectedItem;
 				YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder panelSetOrderSurgical = this.m_AccessionOrder.PanelSetOrderCollection.GetSurgical();
 
-				if (panelSetOrderSurgical.SurgicalSpecimenCollection.Exists(specimenSurgicalDiagnosisView.SpecimenOrder.SpecimenOrderId) == false)
+				if (panelSetOrderSurgical.SurgicalSpecimenCollection.SpecimenOrderExists(specimenSurgicalDiagnosisView.SpecimenOrder.SpecimenOrderId) == false)
                 {
 					YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen = panelSetOrderSurgical.SurgicalSpecimenCollection.GetNextItem(panelSetOrderSurgical.ReportNo);
                     surgicalSpecimen.SpecimenOrderId = specimenSurgicalDiagnosisView.SpecimenOrder.SpecimenOrderId;
