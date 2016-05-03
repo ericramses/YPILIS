@@ -5,6 +5,7 @@ using System.Text;
 using System.Data;
 using System.Data.SqlClient;
 using System.Xml.Serialization;
+using System.Xml.Linq;
 
 namespace YellowstonePathology.Business.Test.Surgical
 {
@@ -17,7 +18,28 @@ namespace YellowstonePathology.Business.Test.Surgical
 
         }
 
-		public IntraoperativeConsultationResult GetNextItem(string surgicalSpecimenId)
+        public void RemoveDeleted(IEnumerable<XElement> elements)
+        {
+            for (int i = this.Count - 1; i > -1; i--)
+            {
+                bool found = false;
+                foreach (XElement element in elements)
+                {
+                    string intraoperativeConsultationResultId = element.Element("IntraoperativeConsultationResultId").Value;
+                    if (this[i].IntraoperativeConsultationResultId == intraoperativeConsultationResultId)
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+                if (found == false)
+                {
+                    this.RemoveItem(i);
+                }
+            }
+        }
+
+        public IntraoperativeConsultationResult GetNextItem(string surgicalSpecimenId)
 		{
 			string intraoperativeConsultationResultId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
 			IntraoperativeConsultationResult intraoperativeConsultationResult = new IntraoperativeConsultationResult(intraoperativeConsultationResultId, intraoperativeConsultationResultId, surgicalSpecimenId);

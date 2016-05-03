@@ -138,7 +138,7 @@ namespace YellowstonePathology.UI.Login.Receiving
             if (this.ListBoxClientOrderMedia.SelectedItems.Count != 0)
             {
                 YellowstonePathology.Business.ClientOrder.Model.ClientOrderMedia clientOrderMedia = (YellowstonePathology.Business.ClientOrder.Model.ClientOrderMedia)this.ListBoxClientOrderMedia.SelectedItem;
-                YellowstonePathology.Business.ClientOrder.Model.ClientOrderDetail clientOrderDetail = this.m_ClientOrderReceivingHandler.ClientOrder.ClientOrderDetailCollection.GetByClientOrderDetailId(clientOrderMedia.ClientOrderDetailId);
+                YellowstonePathology.Business.ClientOrder.Model.ClientOrderDetail clientOrderDetail = this.m_ClientOrderReceivingHandler.ClientOrder.ClientOrderDetailCollection.GetByClientOrderDetailId(clientOrderMedia.ClientOrderDetailId);                
 				this.ShowClientOrderDetailsPage(this, new CustomEventArgs.ClientOrderDetailReturnEventArgs(clientOrderDetail));
             }
         }

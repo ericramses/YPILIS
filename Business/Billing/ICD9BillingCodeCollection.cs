@@ -5,6 +5,7 @@ using System.Text;
 using System.Data;
 using System.Data.SqlClient;
 using System.Xml.Serialization;
+using System.Xml.Linq;
 
 namespace YellowstonePathology.Business.Billing
 {
@@ -16,10 +17,30 @@ namespace YellowstonePathology.Business.Billing
 		public ICD9BillingCodeCollection()
         {
 
-		}
+		}        
 
-		//WHC remove reportNo when changing to new Billing Accession
-		public void UpdateMasterAccessionNo(string masterAccessionNo, string reportNo)
+        public void RemoveDeleted(IEnumerable<XElement> elements)
+        {
+            for (int i = this.Count - 1; i > -1; i--)
+            {
+                bool found = false;
+                foreach (XElement element in elements)
+                {
+                    string icd9BillingId = element.Element("Icd9BillingId").Value;
+                    if (this[i].Icd9BillingId == icd9BillingId)
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+                if (found == false)
+                {
+                    this.RemoveItem(i);
+                }
+            }
+        }
+
+        public void UpdateMasterAccessionNo(string masterAccessionNo, string reportNo)
         {
 			foreach (ICD9BillingCode icd9BillingCode in this)
             {

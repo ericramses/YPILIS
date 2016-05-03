@@ -8,6 +8,7 @@ using System.Windows.Data;
 using System.Data.SqlClient;
 using System.Xml.Serialization;
 using System.Linq;
+using System.Xml.Linq;
 
 
 namespace YellowstonePathology.Business.Test.Model
@@ -17,7 +18,28 @@ namespace YellowstonePathology.Business.Test.Model
         public TestOrderCollection_Base()
 		{
             
-		}        
+		}
+
+        public void RemoveDeleted(IEnumerable<XElement> elements)
+        {
+            for (int i = this.Count - 1; i > -1; i--)
+            {
+                bool found = false;
+                foreach (XElement element in elements)
+                {
+                    string testOrderId = element.Element("TestOrderId").Value;
+                    if (this[i].TestOrderId == testOrderId)
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+                if (found == false)
+                {
+                    this.RemoveItem(i);
+                }
+            }
+        }
 
         public TestOrder_Base GetTestOrderBase(int testId)
         {

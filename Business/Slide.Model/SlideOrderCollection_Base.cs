@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Data.Linq;
+using System.Xml.Linq;
 
 namespace YellowstonePathology.Business.Slide.Model
 {
@@ -15,7 +16,28 @@ namespace YellowstonePathology.Business.Slide.Model
             
         }
 
-		public void SetAsPrinted(YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        public void RemoveDeleted(IEnumerable<XElement> elements)
+        {
+            for (int i = this.Count - 1; i > -1; i--)
+            {
+                bool found = false;
+                foreach (XElement element in elements)
+                {
+                    string slideOrderId = element.Element("SlideOrderId").Value;
+                    if (this[i].SlideOrderId == slideOrderId)
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+                if (found == false)
+                {
+                    this.RemoveItem(i);
+                }
+            }
+        }
+
+        public void SetAsPrinted(YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             foreach (SlideOrder_Base slideOrder in this)
             {

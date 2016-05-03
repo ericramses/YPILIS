@@ -319,7 +319,7 @@ namespace YellowstonePathology.UI
 
                 this.m_LoginPageWindow = new Login.Receiving.LoginPageWindow();
                 YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(pantherOrderListItem.MasterAccessionNo, this.m_LoginPageWindow);
-                YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullClientOrderByClientOrderId(accessionOrder.ClientOrderId, this.m_LoginPageWindow);
+                YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullClientOrder(accessionOrder.ClientOrderId, this.m_LoginPageWindow);
                 this.m_LoginPageWindow.Show();
 
                 Login.WomensHealthProfilePath womensHealthProfilePath = new Login.WomensHealthProfilePath(accessionOrder, clientOrder, this.m_LoginPageWindow.PageNavigator, this, Visibility.Hidden);

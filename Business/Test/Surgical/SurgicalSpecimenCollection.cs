@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Data.Linq;
 using System.Linq;
 using System.Xml.Serialization;
+using System.Xml.Linq;
 
 namespace YellowstonePathology.Business.Test.Surgical
 {
@@ -18,6 +19,27 @@ namespace YellowstonePathology.Business.Test.Surgical
         {
 
 		}
+
+        public void RemoveDeleted(IEnumerable<XElement> elements)
+        {
+            for (int i = this.Count - 1; i > -1; i--)
+            {
+                bool found = false;
+                foreach (XElement element in elements)
+                {
+                    string surgicalSpecimenId = element.Element("SurgicalSpecimenId").Value;
+                    if (this[i].SurgicalSpecimenId == surgicalSpecimenId)
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+                if (found == false)
+                {
+                    this.RemoveItem(i);
+                }
+            }
+        }
 
         public bool HasStainResult(string testOrderId)
         {
@@ -78,7 +100,20 @@ namespace YellowstonePathology.Business.Test.Surgical
             return result;
         }
 
-		public SurgicalSpecimen GetBySpecimenOrderId(string specimenOrderId)
+        public bool Exists(string surgicalSpecimenId)
+        {
+            bool result = false;
+            foreach (SurgicalSpecimen surgicalSpecimen in this)
+            {
+                if (surgicalSpecimen.SurgicalSpecimenId == surgicalSpecimenId)
+                {
+                    result = true;
+                }
+            }
+            return result;
+        }
+
+        public SurgicalSpecimen GetBySpecimenOrderId(string specimenOrderId)
 		{
 			foreach (SurgicalSpecimen surgicalSpecimen in this)
 			{
@@ -90,7 +125,19 @@ namespace YellowstonePathology.Business.Test.Surgical
 			return null;
 		}
 
-		public void SetDiagnosisIds()
+        public SurgicalSpecimen Get(string surgicalSpecimenId)
+        {
+            foreach (SurgicalSpecimen surgicalSpecimen in this)
+            {
+                if (surgicalSpecimen.SurgicalSpecimenId == surgicalSpecimenId)
+                {
+                    return surgicalSpecimen;
+                }
+            }
+            return null;
+        }
+
+        public void SetDiagnosisIds()
 		{
 			List<SurgicalSpecimen> surgicalSpecimenResultItems = (from ssr in this
 																			orderby ssr.SurgicalSpecimenId

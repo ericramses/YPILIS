@@ -38,14 +38,15 @@ namespace YellowstonePathology.Business.Test.Surgical
 
 		private SurgicalSpecimenCollection m_SurgicalSpecimenCollection;
 		private YellowstonePathology.Business.Specimen.Model.SpecimenOrderCollection m_SpecimenOrderCollection;
-		private Collection<YellowstonePathology.Business.SpecialStain.StainResultItem> m_TypingStainCollection;
+		private YellowstonePathology.Business.SpecialStain.StainResultItemCollection m_TypingStainCollection;
 		private SurgicalAuditCollection m_SurgicalAuditCollection;		
 
 		public SurgicalTestOrder()
 		{
-			m_SurgicalSpecimenCollection = new SurgicalSpecimenCollection();
-			m_SurgicalAuditCollection = new SurgicalAuditCollection();
-			m_SpecimenOrderCollection = new YellowstonePathology.Business.Specimen.Model.SpecimenOrderCollection();
+            this.m_SurgicalSpecimenCollection = new SurgicalSpecimenCollection();
+            this.m_SurgicalAuditCollection = new SurgicalAuditCollection();
+            this.m_TypingStainCollection = new SpecialStain.StainResultItemCollection();
+            this.m_SpecimenOrderCollection = new YellowstonePathology.Business.Specimen.Model.SpecimenOrderCollection();
 		}
 
 		public SurgicalTestOrder(string masterAccessionNo, string reportNo, string objectId,
@@ -53,9 +54,10 @@ namespace YellowstonePathology.Business.Test.Surgical
 			bool distribute)
 			: base(masterAccessionNo, reportNo, objectId, panelSet, distribute)
 		{
-			m_SurgicalSpecimenCollection = new SurgicalSpecimenCollection();
-			m_SurgicalAuditCollection = new SurgicalAuditCollection();
-			m_SpecimenOrderCollection = new YellowstonePathology.Business.Specimen.Model.SpecimenOrderCollection();			
+			this.m_SurgicalSpecimenCollection = new SurgicalSpecimenCollection();
+            this.m_SurgicalAuditCollection = new SurgicalAuditCollection();
+            this.m_TypingStainCollection = new SpecialStain.StainResultItemCollection();
+            this.m_SpecimenOrderCollection = new YellowstonePathology.Business.Specimen.Model.SpecimenOrderCollection();			
 		}
 
         public SurgicalTestOrder(string masterAccessionNo, string reportNo, string objectId,
@@ -64,9 +66,10 @@ namespace YellowstonePathology.Business.Test.Surgical
             bool distribute)
             : base(masterAccessionNo, reportNo, objectId, panelSet, distribute)
         {
-            m_SurgicalSpecimenCollection = new SurgicalSpecimenCollection();
-            m_SurgicalAuditCollection = new SurgicalAuditCollection();
-			m_SpecimenOrderCollection = new YellowstonePathology.Business.Specimen.Model.SpecimenOrderCollection();
+            this.m_SurgicalSpecimenCollection = new SurgicalSpecimenCollection();
+            this.m_SurgicalAuditCollection = new SurgicalAuditCollection();
+            this.m_TypingStainCollection = new SpecialStain.StainResultItemCollection();
+            this.m_SpecimenOrderCollection = new YellowstonePathology.Business.Specimen.Model.SpecimenOrderCollection();
         }
 
         public override YellowstonePathology.Business.Amendment.Model.Amendment AddAmendment()
@@ -423,23 +426,9 @@ namespace YellowstonePathology.Business.Test.Surgical
             }
         }
 
-        public Collection<YellowstonePathology.Business.SpecialStain.StainResultItem> TypingStainCollection
+        public YellowstonePathology.Business.SpecialStain.StainResultItemCollection TypingStainCollection
 		{
-			get
-			{
-				if (m_TypingStainCollection == null)
-				{
-					m_TypingStainCollection = new Collection<YellowstonePathology.Business.SpecialStain.StainResultItem>();
-					foreach (SurgicalSpecimen surgicalSpecimen in this.m_SurgicalSpecimenCollection)
-					{
-						foreach (YellowstonePathology.Business.SpecialStain.StainResultItem stainResultItem in surgicalSpecimen.StainResultItemCollection)
-						{
-							m_TypingStainCollection.Add(stainResultItem);
-						}
-					}
-				}
-				return m_TypingStainCollection;
-			}
+			get	{ return this.m_TypingStainCollection; }
 		}
 
 		public string GetAncillaryStudyComment()

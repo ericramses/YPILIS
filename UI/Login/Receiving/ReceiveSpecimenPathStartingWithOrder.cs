@@ -15,7 +15,7 @@ namespace YellowstonePathology.UI.Login.Receiving
         public ReceiveSpecimenPathStartingWithOrder(string clientOrderId)
         {            
             this.m_LoginPageWindow = new Receiving.LoginPageWindow();
-            this.m_ClientOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullClientOrderByClientOrderId(clientOrderId, this.m_LoginPageWindow);
+            this.m_ClientOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullClientOrder(clientOrderId, this.m_LoginPageWindow);
         }
 
         public void Start()

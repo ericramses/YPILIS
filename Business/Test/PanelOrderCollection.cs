@@ -7,6 +7,7 @@ using System.Data;
 using System.Windows.Data;
 using System.Data.SqlClient;
 using System.Xml.Serialization;
+using System.Xml.Linq;
 
 namespace YellowstonePathology.Business.Test
 {
@@ -17,7 +18,28 @@ namespace YellowstonePathology.Business.Test
 		{
 
 		}
-        
+
+        public void RemoveDeleted(IEnumerable<XElement> elements)
+        {
+            for (int i = this.Count - 1; i > -1; i--)
+            {
+                bool found = false;
+                foreach (XElement element in elements)
+                {
+                    string panelOrderId = element.Element("PanelOrderId").Value;
+                    if (this[i].PanelOrderId == panelOrderId)
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+                if (found == false)
+                {
+                    this.RemoveItem(i);
+                }
+            }
+        }
+
         public bool HasPriorUnacceptedPanelOrder(PanelOrder currentPanelOrder, int panelId)
         {
             bool result = false;

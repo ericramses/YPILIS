@@ -32,6 +32,10 @@ namespace YellowstonePathology.UI.Login.Receiving
 		public ViewClientOrderPage(YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder)
 		{
 			this.m_ClientOrder = clientOrder;
+
+            this.m_ClientOrder.MasterAccessionNo = "99999";
+            object o = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Documents;
+
 			InitializeComponent();
 			DataContext = this;
 
@@ -58,8 +62,8 @@ namespace YellowstonePathology.UI.Login.Receiving
 
         private void ButtonUseThisClientOrder_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.UI.CustomEventArgs.ClientOrderReturnEventArgs eventArgs = new CustomEventArgs.ClientOrderReturnEventArgs(this.m_ClientOrder);
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullClientOrder(this.m_ClientOrder, System.Windows.Window.GetWindow(this));
+            YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder =  YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullClientOrder(this.m_ClientOrder.ClientOrderId, System.Windows.Window.GetWindow(this));
+            YellowstonePathology.UI.CustomEventArgs.ClientOrderReturnEventArgs eventArgs = new CustomEventArgs.ClientOrderReturnEventArgs(clientOrder);
             this.UseThisClientOrder(this, eventArgs);
         }
 	}

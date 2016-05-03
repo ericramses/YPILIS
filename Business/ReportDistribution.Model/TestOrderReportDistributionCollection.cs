@@ -7,6 +7,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Data;
 using System.Xml.Serialization;
+using System.Xml.Linq;
 
 namespace YellowstonePathology.Business.ReportDistribution.Model
 {
@@ -15,7 +16,28 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
         public TestOrderReportDistributionCollection()
         {
             
-		}        
+		}
+
+        public void RemoveDeleted(IEnumerable<XElement> elements)
+        {
+            for (int i = this.Count - 1; i > -1; i--)
+            {
+                bool found = false;
+                foreach (XElement element in elements)
+                {
+                    string testOrderReportDistributionId = element.Element("TestOrderReportDistributionId").Value;
+                    if (this[i].TestOrderReportDistributionId == testOrderReportDistributionId)
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+                if (found == false)
+                {
+                    this.RemoveItem(i);
+                }
+            }
+        }
 
         public void ScheduleDistribution(DateTime timeToSchedule)
         {

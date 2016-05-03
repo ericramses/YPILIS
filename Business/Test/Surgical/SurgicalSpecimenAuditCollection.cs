@@ -5,6 +5,7 @@ using System.Text;
 using System.Data;
 using System.Data.SqlClient;
 using System.Xml.Serialization;
+using System.Xml.Linq;
 
 namespace YellowstonePathology.Business.Test.Surgical
 {
@@ -14,9 +15,31 @@ namespace YellowstonePathology.Business.Test.Surgical
 
 		public SurgicalSpecimenAuditCollection()
         {
+
         }
 
-		public SurgicalSpecimenAudit GetNextItem(string surgicalAuditId, YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen, string amendmentId)
+        public void RemoveDeleted(IEnumerable<XElement> elements)
+        {
+            for (int i = this.Count - 1; i > -1; i--)
+            {
+                bool found = false;
+                foreach (XElement element in elements)
+                {
+                    string surgicalSpecimenAuditId = element.Element("SurgicalSpecimenAuditId").Value;
+                    if (this[i].SurgicalSpecimenAuditId == surgicalSpecimenAuditId)
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+                if (found == false)
+                {
+                    this.RemoveItem(i);
+                }
+            }
+        }
+
+        public SurgicalSpecimenAudit GetNextItem(string surgicalAuditId, YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen, string amendmentId)
 		{
 			string surgicalSpecimenAuditId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
 			SurgicalSpecimenAudit surgicalSpecimenAudit = new SurgicalSpecimenAudit(surgicalSpecimenAuditId, surgicalSpecimenAuditId, surgicalAuditId, surgicalSpecimen, amendmentId);

@@ -115,7 +115,7 @@ namespace YellowstonePathology.UI
             if (this.ListViewClientOrders.SelectedItem != null)
             {
                 YellowstonePathology.Business.ClientOrder.Model.OrderBrowserListItem orderBrowserListItem = (YellowstonePathology.Business.ClientOrder.Model.OrderBrowserListItem)this.ListViewClientOrders.SelectedItem;
-                YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullClientOrderByClientOrderId(orderBrowserListItem.ClientOrderId, this.m_Writer);
+                YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullClientOrder(orderBrowserListItem.ClientOrderId, this.m_Writer);
                 YellowstonePathology.Business.Document.ClientOrderCaseDocument clientOrderCaseDocument = new Business.Document.ClientOrderCaseDocument(clientOrder);                
                 this.m_DocumentViewer.ShowDocument(clientOrderCaseDocument);                
             }

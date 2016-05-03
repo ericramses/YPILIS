@@ -168,7 +168,7 @@ namespace YellowstonePathology.UI.Login.Receiving
             string clientOrderId = YellowstonePathology.Business.Gateway.ClientOrderGateway.GetClientOrderByContainerId(containerId);
             if(string.IsNullOrEmpty(clientOrderId) == false)
             {
-                YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullClientOrderByClientOrderId(clientOrderId, Window.GetWindow(this));
+                YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullClientOrder(clientOrderId, Window.GetWindow(this));
                 if (clientOrder != null)
                 {
                     this.ReturnClientOrder(clientOrder);

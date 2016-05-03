@@ -49,6 +49,8 @@ namespace YellowstonePathology.Business.Gateway
             accessionOrder.SpecimenOrderCollection.IsLoading = true;
 			List<XElement> specimenOrderElements = (from item in accessionOrderElement.Elements("SpecimenOrderCollection")
 													select item).ToList<XElement>();
+
+            accessionOrder.SpecimenOrderCollection.RemoveDeleted(specimenOrderElements.Elements("SpecimenOrder"));
 			foreach (XElement specimenOrderElement in specimenOrderElements.Elements("SpecimenOrder"))
 			{
                 string specimenOrderId = specimenOrderElement.Element("SpecimenOrderId").Value;
@@ -76,6 +78,8 @@ namespace YellowstonePathology.Business.Gateway
 		{
 			List<XElement> aliquotOrderElements = (from item in specimenOrderElement.Elements("AliquotOrderCollection")
 												   select item).ToList<XElement>();
+
+            specimenOrder.AliquotOrderCollection.RemoveDeleted(aliquotOrderElements.Elements("AliquotOrder"));
 			foreach (XElement aliquotOrderElement in aliquotOrderElements.Elements("AliquotOrder"))
 			{
                 string aliquotOrderId = aliquotOrderElement.Element("AliquotOrderId").Value;
@@ -126,6 +130,7 @@ namespace YellowstonePathology.Business.Gateway
         {
             List<XElement> aliquotOrderElements = (from item in aliquotOrderElement.Elements("TestOrderCollection")
                                                    select item).ToList<XElement>();
+            aliquotOrder.TestOrderCollection.RemoveDeleted(aliquotOrderElements.Elements("TestOrder"));
             foreach (XElement testOrderElement in aliquotOrderElements.Elements("TestOrder"))
             {
                 string testOrderId = testOrderElement.Element("TestOrderId").Value;
@@ -149,6 +154,8 @@ namespace YellowstonePathology.Business.Gateway
         {
             List<XElement> slideOrderElements = (from item in testOrderElement.Elements("SlideOrderCollection")
                                                            select item).ToList<XElement>();
+
+            testOrder.SlideOrderCollection.RemoveDeleted(slideOrderElements.Elements("SlideOrder"));
             foreach (XElement slideOrderElement in slideOrderElements.Elements("SlideOrder"))
             {
                 string slideOrderId = slideOrderElement.Element("SlideOrderId").Value;
@@ -172,6 +179,8 @@ namespace YellowstonePathology.Business.Gateway
         {
             List<XElement> slideOrderElements = (from item in aliquotOrderElement.Elements("SlideOrderCollection")
                                                  select item).ToList<XElement>();
+
+            aliquotOrder.SlideOrderCollection.RemoveDeleted(slideOrderElements.Elements("SlideOrder"));
             foreach (XElement slideOrderElement in slideOrderElements.Elements("SlideOrder"))
             {
                 string slideOrderId = slideOrderElement.Element("SlideOrderId").Value;
@@ -198,6 +207,8 @@ namespace YellowstonePathology.Business.Gateway
 
 			List<XElement> panelSetOrderElements = (from psoc in accessionOrderElement.Elements("PanelSetOrderCollection")
 														select psoc).ToList<XElement>();
+
+            accessionOrder.PanelSetOrderCollection.RemoveDeleted(panelSetOrderElements.Elements("PanelSetOrder"));
 			foreach (XElement panelSetOrderElement in panelSetOrderElements.Elements("PanelSetOrder"))
 			{
                 int panelSetId = Convert.ToInt32(panelSetOrderElement.Element("PanelSetId").Value);
@@ -282,6 +293,7 @@ namespace YellowstonePathology.Business.Gateway
         {
             List<XElement> testOrderReportDistributionElements = (from item in panelSetOrderElement.Elements("TestOrderReportDistributionCollection")
                                                            select item).ToList<XElement>();
+            panelSetOrder.TestOrderReportDistributionCollection.RemoveDeleted(testOrderReportDistributionElements.Elements("TestOrderReportDistribution"));
             foreach (XElement testOrderReportDistributionElement in testOrderReportDistributionElements.Elements("TestOrderReportDistribution"))
             {
                 string testOrderReportDistributionId = testOrderReportDistributionElement.Element("TestOrderReportDistributionId").Value;
@@ -305,6 +317,8 @@ namespace YellowstonePathology.Business.Gateway
         {
             List<XElement> testOrderReportDistributionLogElements = (from item in panelSetOrderElement.Elements("TestOrderReportDistributionLogCollection")
                                                                       select item).ToList<XElement>();
+
+            panelSetOrder.TestOrderReportDistributionLogCollection.RemoveDeleted(testOrderReportDistributionLogElements.Elements("TestOrderReportDistributionLog"));
             foreach (XElement testOrderReportDistributionLogElement in testOrderReportDistributionLogElements.Elements("TestOrderReportDistributionLog"))
             {
                 string testOrderReportDistributionLogId = testOrderReportDistributionLogElement.Element("TestOrderReportDistributionLogId").Value;
@@ -328,6 +342,7 @@ namespace YellowstonePathology.Business.Gateway
         {
             List<XElement> panelSetOrderCPTCodeElements = (from item in panelSetOrderElement.Elements("PanelSetOrderCPTCodeCollection")
                                                            select item).ToList<XElement>();
+            panelSetOrder.PanelSetOrderCPTCodeCollection.RemoveDeleted(panelSetOrderCPTCodeElements.Elements("PanelSetOrderCPTCode"));
             foreach (XElement panelSetOrderCPTCodeElement in panelSetOrderCPTCodeElements.Elements("PanelSetOrderCPTCode"))
             {
                 string panelSetOrderCPTCodeId = panelSetOrderCPTCodeElement.Element("PanelSetOrderCPTCodeId").Value;
@@ -351,9 +366,10 @@ namespace YellowstonePathology.Business.Gateway
         {
             List<XElement> panelSetOrderCPTCodeBillElements = (from item in panelSetOrderElement.Elements("PanelSetOrderCPTCodeBillCollection")
                                                            select item).ToList<XElement>();
+            panelSetOrder.PanelSetOrderCPTCodeBillCollection.RemoveDeleted(panelSetOrderCPTCodeBillElements.Elements("PanelSetOrderCPTCodeBill"));
             foreach (XElement panelSetOrderCPTCodeBillElement in panelSetOrderCPTCodeBillElements.Elements("PanelSetOrderCPTCodeBill"))
             {
-                string panelSetOrderCPTCodeBillId = panelSetOrderCPTCodeBillElement.Element("panelSetOrderCPTCodeBillId").Value;
+                string panelSetOrderCPTCodeBillId = panelSetOrderCPTCodeBillElement.Element("PanelSetOrderCPTCodeBillId").Value;
                 YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill = null;
                 if (panelSetOrder.PanelSetOrderCPTCodeBillCollection.Exists(panelSetOrderCPTCodeBillId) == true)
                 {
@@ -377,6 +393,7 @@ namespace YellowstonePathology.Business.Gateway
 												 select poc).ToList<XElement>();
 
             YellowstonePathology.Business.Panel.Model.PanelCollection panelCollection = YellowstonePathology.Business.Panel.Model.PanelCollection.GetAll();
+            panelSetOrder.PanelOrderCollection.RemoveDeleted(panelOrderElements.Elements("PanelOrder"));
 			foreach (XElement panelOrderElement in panelOrderElements.Elements("PanelOrder"))
 			{
                 string panelOrderId = panelOrderElement.Element("PanelOrderId").Value;
@@ -404,6 +421,8 @@ namespace YellowstonePathology.Business.Gateway
 		{
 			List<XElement> testOrderElements = (from item in panelOrderElement.Elements("TestOrderCollection")
 												select item).ToList<XElement>();
+
+            panelOrder.TestOrderCollection.RemoveDeleted(testOrderElements.Elements("TestOrder"));
 			foreach (XElement testOrderElement in testOrderElements.Elements("TestOrder"))
 			{
                 string testOrderId = testOrderElement.Element("TestOrderId").Value;
@@ -484,6 +503,8 @@ namespace YellowstonePathology.Business.Gateway
 		{
 			List<XElement> taskOrderElements = (from item in accessionOrderElement.Elements("TaskOrderCollection")
 														 select item).ToList<XElement>();
+
+            accessionOrder.TaskOrderCollection.RemoveDeleted(taskOrderElements.Elements("TaskOrder"));
 			foreach (XElement taskOrderElement in taskOrderElements.Elements("TaskOrder"))
 			{
                 string taskOrderId = taskOrderElement.Element("TaskOrderId").Value;
@@ -509,6 +530,7 @@ namespace YellowstonePathology.Business.Gateway
 		{
 			List<XElement> taskOrderDetailElements = (from item in taskOrderElement.Elements("TaskOrderDetailCollection")
 												select item).ToList<XElement>();
+            taskOrder.TaskOrderDetailCollection.RemoveDeleted(taskOrderDetailElements.Elements("TaskOrderDetail"));
 			foreach (XElement taskOrderDetailElement in taskOrderDetailElements.Elements("TaskOrderDetail"))
 			{
                 string taskOrderDetailId = taskOrderDetailElement.Element("TaskOrderDetailId").Value;
@@ -532,6 +554,8 @@ namespace YellowstonePathology.Business.Gateway
 		{
 			List<XElement> icd9BillingCodeElements = (from item in accessionOrderElement.Elements("ICD9BillingCodeCollection")
 													 select item).ToList<XElement>();
+
+            accessionOrder.ICD9BillingCodeCollection.RemoveDeleted(icd9BillingCodeElements.Elements("ICD9BillingCode"));
 			foreach (XElement icd9BillingCodeElement in icd9BillingCodeElements.Elements("ICD9BillingCode"))
 			{
                 string icd9BillingCodeId = icd9BillingCodeElement.Element("Icd9BillingId").Value;
@@ -559,17 +583,28 @@ namespace YellowstonePathology.Business.Gateway
 				YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder panelSetOrderSurgical = (YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder)panelSetOrder;
 				List<XElement> surgicalSpecimenElements = (from item in panelSetOrderElement.Elements("SurgicalSpecimenCollection")
 																	 select item).ToList<XElement>();
+
+                panelSetOrderSurgical.SurgicalSpecimenCollection.RemoveDeleted(surgicalSpecimenElements.Elements("SurgicalSpecimen"));
 				foreach (XElement surgicalSpecimenElement in surgicalSpecimenElements.Elements("SurgicalSpecimen"))
 				{
                     string surgicalSpecimenId = surgicalSpecimenElement.Element("SurgicalSpecimenId").Value;
-                    //if(panelSetOrderSurgical.SurgicalSpecimenCollection.Exists())
-					YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen = new YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen();
+                    YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen = null;
+                    if (panelSetOrderSurgical.SurgicalSpecimenCollection.Exists(surgicalSpecimenId) == true)
+                    {
+                        surgicalSpecimen = panelSetOrderSurgical.SurgicalSpecimenCollection.Get(surgicalSpecimenId);
+                    }
+                    else
+                    {
+                        surgicalSpecimen = new YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen();
+                        panelSetOrderSurgical.SurgicalSpecimenCollection.Add(surgicalSpecimen);
+                    }
+
 					YellowstonePathology.Business.Persistence.XmlPropertyWriter xmlPropertyWriter = new YellowstonePathology.Business.Persistence.XmlPropertyWriter(surgicalSpecimenElement, surgicalSpecimen);
 					xmlPropertyWriter.Write();
 					BuildICD9Code(surgicalSpecimen, surgicalSpecimenElement);
 					BuildIntraoperativeConsultationResult(surgicalSpecimen, surgicalSpecimenElement);
 					BuildStainResult(surgicalSpecimen, surgicalSpecimenElement);
-					panelSetOrderSurgical.SurgicalSpecimenCollection.Add(surgicalSpecimen);
+                    BuildTypingStainCollection(panelSetOrderSurgical);
 				}
 
 				BuildSurgicalAudit(panelSetOrderSurgical, panelSetOrderElement);
@@ -585,6 +620,8 @@ namespace YellowstonePathology.Business.Gateway
 		{
 			List<XElement> collectionElements = (from item in panelSetOrderElement.Elements("SurgicalAuditCollection")
 												 select item).ToList<XElement>();
+
+            panelSetOrder.SurgicalAuditCollection.RemoveDeleted(collectionElements.Elements("SurgicalAudit"));
 			foreach (XElement surgicalAuditElement in collectionElements.Elements("SurgicalAudit"))
 			{
                 string surgicalAuditId = surgicalAuditElement.Element("SurgicalAuditId").Value;
@@ -601,6 +638,8 @@ namespace YellowstonePathology.Business.Gateway
 		{
 			List<XElement> collectionElements = (from item in surgicalAuditElement.Elements("SurgicalSpecimenAuditCollection")
 												 select item).ToList<XElement>();
+
+            surgicalAudit.SurgicalSpecimenAuditCollection.RemoveDeleted(collectionElements.Elements("SurgicalSpecimenAudit"));
 			foreach (XElement surgicalSpecimenResultAuditElement in collectionElements.Elements("SurgicalSpecimenAudit"))
 			{
                 string surgicalSpecimenAuditId = surgicalSpecimenResultAuditElement.Element("SurgicalSpecimenAuditId").Value;
@@ -624,6 +663,8 @@ namespace YellowstonePathology.Business.Gateway
 		{
 			List<XElement> collectionElements = (from item in surgicalSpecimenElement.Elements("ICD9BillingCodeCollection")
 												 select item).ToList<XElement>();
+
+            surgicalSpecimen.ICD9BillingCodeCollection.RemoveDeleted(collectionElements.Elements("ICD9BillingCode"));
 			foreach (XElement icd9BillingElement in collectionElements.Elements("ICD9BillingCode"))
 			{
                 string icd9BillingId = icd9BillingElement.Element("Icd9BillingId").Value;
@@ -647,9 +688,11 @@ namespace YellowstonePathology.Business.Gateway
 		{
 			List<XElement> collectionElements = (from item in surgicalSpecimenElement.Elements("IntraoperativeConsultationResultCollection")
 												 select item).ToList<XElement>();
+
+            surgicalSpecimen.IntraoperativeConsultationResultCollection.RemoveDeleted(collectionElements.Elements("IntraoperativeConsultationResult"));
 			foreach (XElement intraoperativeConsultationResultElement in collectionElements.Elements("IntraoperativeConsultationResult"))
 			{
-                string icResultId = intraoperativeConsultationResultElement.Element("IntraoperativeConsultResultId").Value;
+                string icResultId = intraoperativeConsultationResultElement.Element("IntraoperativeConsultationResultId").Value;
                 YellowstonePathology.Business.Test.Surgical.IntraoperativeConsultationResult intraoperativeConsultationResult = null;
                 if (surgicalSpecimen.IntraoperativeConsultationResultCollection.Exists(icResultId) == true)
                 {
@@ -670,6 +713,8 @@ namespace YellowstonePathology.Business.Gateway
 		{
 			List<XElement> collectionElements = (from item in surgicalSpecimenElement.Elements("StainResultItemCollection")
 												 select item).ToList<XElement>();
+
+            surgicalSpecimen.StainResultItemCollection.RemoveDeleted(collectionElements.Elements("StainResultItem"));
 			foreach (XElement stainResultElement in collectionElements.Elements("StainResultItem"))
 			{
                 string stainResultId = stainResultElement.Element("StainResultId").Value;
@@ -686,6 +731,23 @@ namespace YellowstonePathology.Business.Gateway
 				YellowstonePathology.Business.Persistence.XmlPropertyWriter xmlPropertyWriter = new YellowstonePathology.Business.Persistence.XmlPropertyWriter(stainResultElement, stainResultItem);
 				xmlPropertyWriter.Write();
 			}
-		}		
+		}
+        
+        private void BuildTypingStainCollection(YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder)
+        {
+            List<string> stainResultIdList = new List<string>();
+            foreach (Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen in surgicalTestOrder.SurgicalSpecimenCollection)
+            {
+                foreach (YellowstonePathology.Business.SpecialStain.StainResultItem stainResultItem in surgicalSpecimen.StainResultItemCollection)
+                {
+                    stainResultIdList.Add(stainResultItem.StainResultId);
+                    if(surgicalTestOrder.TypingStainCollection.Exists(stainResultItem.StainResultId) == false)
+                    {
+                        surgicalTestOrder.TypingStainCollection.Add(stainResultItem);
+                    }                    
+                }
+            }
+            surgicalTestOrder.TypingStainCollection.RemoveDeleted(stainResultIdList);
+        }		
 	}
 }

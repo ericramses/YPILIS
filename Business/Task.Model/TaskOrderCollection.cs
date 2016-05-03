@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Collections.ObjectModel;
+using System.Xml.Linq;
 
 namespace YellowstonePathology.Business.Task.Model
 {
@@ -13,9 +14,30 @@ namespace YellowstonePathology.Business.Task.Model
 		public TaskOrderCollection()
 		{
 
-		}        
+		}
 
-		public TaskOrderCollection TaskOrderCollectionForReport(string reportNo)
+        public void RemoveDeleted(IEnumerable<XElement> elements)
+        {
+            for (int i = this.Count - 1; i > -1; i--)
+            {
+                bool found = false;
+                foreach (XElement element in elements)
+                {
+                    string taskOrderId = element.Element("TaskOrderId").Value;
+                    if (this[i].TaskOrderId == taskOrderId)
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+                if (found == false)
+                {
+                    this.RemoveItem(i);
+                }
+            }
+        }
+
+        public TaskOrderCollection TaskOrderCollectionForReport(string reportNo)
 		{
 			TaskOrderCollection result = new TaskOrderCollection();
 			foreach (TaskOrder taskOrder in this)

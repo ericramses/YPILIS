@@ -156,6 +156,7 @@ namespace YellowstonePathology.Business.Persistence
                         {
                             Console.WriteLine("Lock is not aquired so We are Refreshing now.");
                             documentBuilder.Refresh(document.Value);
+                            document.ResetClone();
                         }
                     }                    
                 }                

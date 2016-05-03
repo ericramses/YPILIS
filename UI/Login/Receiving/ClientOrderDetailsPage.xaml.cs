@@ -67,15 +67,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 
         private void ClientOrderDetailsPage_Loaded(object sender, RoutedEventArgs e)
         {
-            //This line to ensure that "ContainerScanReceived" is not already hooked up. I have found that the event is fireing twice.
-            //this.m_BarcodeScanPort.ContainerScanReceived -= ContainerScanReceived;
-            this.m_BarcodeScanPort.ContainerScanReceived += ContainerScanReceived;                  
-
-            if(this.m_BarcodeScanPort.GetContainerScanReceivedInvocationCount() != 1)
-            {
-                //MessageBox.Show(this.m_BarcodeScanPort.GetContainerScanReceivedTargetString());
-            }
-
+            this.m_BarcodeScanPort.ContainerScanReceived += ContainerScanReceived;                              
             this.FixTimes();
 
             this.TextBoxAccessionAs.Focus();
@@ -99,7 +91,6 @@ namespace YellowstonePathology.UI.Login.Receiving
                 textBox.LostFocus += TextBoxInComboBox_LostFocus;
             }
 
-            //this.ComboBoxSpecimenId.LostFocus += ComboBoxSpecimenId_LostFocus;
             this.ComboBoxReceivedIn.SelectionChanged += new SelectionChangedEventHandler(ComboBoxReceivedIn_SelectionChanged);
             this.CheckBoxClientAccessioned.Checked +=new RoutedEventHandler(CheckBoxClientAccessioned_Checked);
             this.CheckBoxClientAccessioned.Unchecked +=new RoutedEventHandler(CheckBoxClientAccessioned_Unchecked);

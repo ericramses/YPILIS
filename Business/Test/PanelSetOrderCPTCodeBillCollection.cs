@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Xml.Linq;
 
 namespace YellowstonePathology.Business.Test
 {    
@@ -13,7 +14,28 @@ namespace YellowstonePathology.Business.Test
         public PanelSetOrderCPTCodeBillCollection()
         {
 
-        }                
+        }
+
+        public void RemoveDeleted(IEnumerable<XElement> elements)
+        {
+            for (int i = this.Count - 1; i > -1; i--)
+            {
+                bool found = false;
+                foreach (XElement element in elements)
+                {
+                    string panelSetOrderCPTCodeBillId = element.Element("PanelSetOrderCPTCodeBillId").Value;
+                    if (this[i].PanelSetOrderCPTCodeBillId == panelSetOrderCPTCodeBillId)
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+                if (found == false)
+                {
+                    this.RemoveItem(i);
+                }
+            }
+        }
 
         public PanelSetOrderCPTCodeBill GetNextItem(string reportNo)
         {

@@ -226,7 +226,7 @@ namespace YellowstonePathology.Business.Persistence
             }
         }
 
-        public YellowstonePathology.Business.ClientOrder.Model.ClientOrder PullClientOrderByClientOrderId(string clientOrderId, object writer)
+        public YellowstonePathology.Business.ClientOrder.Model.ClientOrder PullClientOrder(string clientOrderId, object writer)
         {
             lock (locker)
             {
@@ -243,26 +243,7 @@ namespace YellowstonePathology.Business.Persistence
 
                 return (YellowstonePathology.Business.ClientOrder.Model.ClientOrder)document.Value;
             }
-        }
-
-        public YellowstonePathology.Business.ClientOrder.Model.ClientOrder PullClientOrder(YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder, object writer)
-        {
-            lock (locker)
-            {
-                SqlCommand cmd = new SqlCommand();
-                cmd.CommandText = "gwGetClientOrderByClientOrderId";
-                SqlParameter clientOrderIdParameter = new SqlParameter("@ClientOrderId", SqlDbType.VarChar, 100);
-                clientOrderIdParameter.Value = clientOrder.ClientOrderId;
-                cmd.Parameters.Add(clientOrderIdParameter);
-                cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                ClientOrderDocumentBuilder builder = new ClientOrderDocumentBuilder(cmd);
-
-                DocumentId documentId = new DocumentId(clientOrder, writer);
-                Document document = this.m_Stack.Pull(documentId, builder);
-
-                return (YellowstonePathology.Business.ClientOrder.Model.ClientOrder)document.Value;
-            }
-        }        
+        }              
 
         public YellowstonePathology.Business.ClientOrder.Model.ClientOrder PullClientOrderByExternalOrderId(string clientOrderId, object writer)
         {

@@ -21,7 +21,7 @@ namespace YellowstonePathology.Business.HL7View.EPIC
        
         public EPICStatusMessage(string clientOrderId, OrderStatus orderStatus, YellowstonePathology.Business.ClientOrder.Model.UniversalService universalService, object writer)
         {
-            this.m_ClientOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullClientOrderByClientOrderId(clientOrderId, writer);            
+            this.m_ClientOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullClientOrder(clientOrderId, writer);            
 			this.m_OrderingPhysician = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianByNpi(this.m_ClientOrder.ProviderId);
             this.m_OrderStatus = orderStatus;
             this.m_UniversalService = universalService;

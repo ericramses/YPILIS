@@ -390,7 +390,7 @@ namespace YellowstonePathology.UI.Login
                 {
                     if (string.IsNullOrEmpty(this.m_LoginUI.AccessionOrder.ClientOrderId) == false)
                     {
-                        YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullClientOrderByClientOrderId(this.m_LoginUI.AccessionOrder.ClientOrderId, this.m_Writer);
+                        YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullClientOrder(this.m_LoginUI.AccessionOrder.ClientOrderId, this.m_Writer);
 
                         YellowstonePathology.Business.User.SystemIdentity systemIdentity = Business.User.SystemIdentity.Instance;
                         this.m_LoginPageWindow = new Login.Receiving.LoginPageWindow();

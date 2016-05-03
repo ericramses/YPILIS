@@ -26,6 +26,27 @@ namespace YellowstonePathology.Business.Test
             get { return this.m_CurrentPanelSetOrder; }
         }
 
+        public void RemoveDeleted(IEnumerable<XElement> elements)
+        {
+            for (int i = this.Count - 1; i > -1; i--)
+            {
+                bool found = false;
+                foreach (XElement element in elements)
+                {
+                    string reportNo = element.Element("ReportNo").Value;
+                    if (this[i].ReportNo == reportNo)
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+                if (found == false)
+                {
+                    this.RemoveItem(i);
+                }
+            }
+        }
+
         public string FromClientOrder(YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder, 
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,                         
             YellowstonePathology.Business.User.SystemIdentity systemIdentity)

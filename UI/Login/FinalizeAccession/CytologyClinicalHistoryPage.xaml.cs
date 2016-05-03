@@ -32,7 +32,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 		{
 			this.m_AccessionOrder = accessionOrder;
 			this.m_CytologyClientOrder = (YellowstonePathology.Business.ClientOrder.Model.CytologyClientOrder)
-                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullClientOrderByClientOrderId(this.m_AccessionOrder.ClientOrderId, Window.GetWindow(this));
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullClientOrder(this.m_AccessionOrder.ClientOrderId, Window.GetWindow(this));
 
 			InitializeComponent();
 

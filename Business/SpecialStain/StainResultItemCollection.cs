@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Xml.Serialization;
 using System.Data.Linq;
 using System.Linq;
+using System.Xml.Linq;
 
 namespace YellowstonePathology.Business.SpecialStain
 {
@@ -16,9 +17,51 @@ namespace YellowstonePathology.Business.SpecialStain
 
         public StainResultItemCollection()
         {
+
         }
 
-		public StainResultItem GetNextItem(string surgicalSpecimenId)
+        public void RemoveDeleted(List<string> stainResultIdList)
+        {
+            for (int i = this.Count - 1; i > -1; i--)
+            {
+                bool found = false;
+                foreach (string id in stainResultIdList)
+                {
+                    if (this[i].StainResultId == id)
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+                if (found == false)
+                {
+                    this.RemoveItem(i);
+                }
+            }
+        }
+
+        public void RemoveDeleted(IEnumerable<XElement> elements)
+        {
+            for (int i = this.Count - 1; i > -1; i--)
+            {
+                bool found = false;
+                foreach (XElement element in elements)
+                {
+                    string stainResultId = element.Element("StainResultId").Value;
+                    if (this[i].StainResultId == stainResultId)
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+                if (found == false)
+                {
+                    this.RemoveItem(i);
+                }
+            }
+        }
+
+        public StainResultItem GetNextItem(string surgicalSpecimenId)
 		{
 			string stainResultId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
 			string objectId = stainResultId;
