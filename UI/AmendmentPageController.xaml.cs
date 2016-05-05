@@ -21,12 +21,10 @@ namespace YellowstonePathology.UI
         AmendmentUI m_AmendmentUI;        
 
         public AmendmentPageController(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-            YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
-            YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder,
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+            YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder)
         {
 
-            this.m_AmendmentUI = new AmendmentUI(accessionOrder, objectTracker, panelSetOrder, systemIdentity);
+            this.m_AmendmentUI = new AmendmentUI(accessionOrder, panelSetOrder);
             InitializeComponent();
 
             this.DataContext = this;
@@ -44,7 +42,7 @@ namespace YellowstonePathology.UI
                 AmendmentEditPage amendmentEditPage = (AmendmentEditPage)this.NavigationFrame.Content;
                 amendmentEditPage.TextBoxAmendment.GetBindingExpression(TextBox.TextProperty).UpdateSource();
             }
-            this.m_AmendmentUI.Save();
+            //this.m_AmendmentUI.Save(true);            
         }
     }
 }

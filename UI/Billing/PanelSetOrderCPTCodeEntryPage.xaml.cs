@@ -16,7 +16,7 @@ using System.ComponentModel;
 
 namespace YellowstonePathology.UI.Billing
 {	
-	public partial class PanelSetOrderCPTCodeEntryPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
+	public partial class PanelSetOrderCPTCodeEntryPage : UserControl, INotifyPropertyChanged 
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -73,7 +73,7 @@ namespace YellowstonePathology.UI.Billing
 			return true;
 		}
 
-		public void Save()
+		public void Save(bool releaseLock)
 		{
 			
 		}

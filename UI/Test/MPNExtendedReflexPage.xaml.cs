@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Test
 	/// <summary>
 	/// Interaction logic for MPNExtendedReflexPage.xaml
 	/// </summary>
-	public partial class MPNExtendedReflexPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges, INotifyPropertyChanged
+	public partial class MPNExtendedReflexPage : UserControl, INotifyPropertyChanged
 	{
 		public delegate void PropertyChangedNotificationHandler(String info);
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -34,18 +34,15 @@ namespace YellowstonePathology.UI.Test
 		
 
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 		private YellowstonePathology.Business.Test.MPNExtendedReflex.MPNExtendedReflexResult m_MPNExtendedReflexResult;
 		private string m_PageHeaderText;
 		private string m_OrderedOnDescription;
 
 		public MPNExtendedReflexPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 		{
 			this.m_AccessionOrder = accessionOrder;
-			this.m_ObjectTracker = objectTracker;
 			this.m_SystemIdentity = systemIdentity;
 			this.m_MPNExtendedReflexResult = new Business.Test.MPNExtendedReflex.MPNExtendedReflexResult(this.m_AccessionOrder);
 			this.m_OrderedOnDescription = this.m_MPNExtendedReflexResult.SpecimenOrder.Description;
@@ -55,9 +52,9 @@ namespace YellowstonePathology.UI.Test
 			InitializeComponent();
 
 			this.DataContext = this;
-		}
+        }
 
-		public YellowstonePathology.Business.Test.MPNExtendedReflex.PanelSetOrderMPNExtendedReflex PanelSetOrder
+        public YellowstonePathology.Business.Test.MPNExtendedReflex.PanelSetOrderMPNExtendedReflex PanelSetOrder
 		{
 			get { return this.m_MPNExtendedReflexResult.PanelSetOrderMPNExtendedReflex; }
 		}
@@ -80,26 +77,6 @@ namespace YellowstonePathology.UI.Test
 		public string OrderedOnDescription
 		{
 			get { return this.m_OrderedOnDescription; }
-		}
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save()
-		{
-			this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
-		}
-
-		public void UpdateBindingSources()
-		{
-
 		}
 		
         private void HyperLinkOrderMLP_Click(object sender, RoutedEventArgs e)
@@ -143,9 +120,8 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
 		{
-			this.Save();
-			YellowstonePathology.Business.Test.MPNExtendedReflex.MPNExtendedReflexWordDocument report = new Business.Test.MPNExtendedReflex.MPNExtendedReflexWordDocument();
-			report.Render(this.m_AccessionOrder.MasterAccessionNo, this.m_MPNExtendedReflexResult.PanelSetOrderMPNExtendedReflex.ReportNo, Business.Document.ReportSaveModeEnum.Draft);
+			YellowstonePathology.Business.Test.MPNExtendedReflex.MPNExtendedReflexWordDocument report = new Business.Test.MPNExtendedReflex.MPNExtendedReflexWordDocument(this.m_AccessionOrder, this.m_MPNExtendedReflexResult.PanelSetOrderMPNExtendedReflex, Business.Document.ReportSaveModeEnum.Draft);
+			report.Render();
 
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_MPNExtendedReflexResult.PanelSetOrderMPNExtendedReflex.ReportNo);
 			string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);
@@ -157,7 +133,7 @@ namespace YellowstonePathology.UI.Test
             Business.Audit.Model.AuditResult auditResult = this.m_MPNExtendedReflexResult.IsOkToFinalize();
             if(auditResult.Status == Business.Audit.Model.AuditStatusEnum.OK)
 			{
-				this.m_MPNExtendedReflexResult.PanelSetOrderMPNExtendedReflex.Finalize(this.m_SystemIdentity.User);
+				this.m_MPNExtendedReflexResult.PanelSetOrderMPNExtendedReflex.Finish(this.m_AccessionOrder);
 			}
 			else
 			{
@@ -182,7 +158,7 @@ namespace YellowstonePathology.UI.Test
 			YellowstonePathology.Business.Rules.MethodResult result = this.m_MPNExtendedReflexResult.PanelSetOrderMPNExtendedReflex.IsOkToAccept();
 			if (result.Success == true)
 			{
-				this.m_MPNExtendedReflexResult.PanelSetOrderMPNExtendedReflex.Accept(this.m_SystemIdentity.User);
+				this.m_MPNExtendedReflexResult.PanelSetOrderMPNExtendedReflex.Accept();
 			}
 			else
 			{

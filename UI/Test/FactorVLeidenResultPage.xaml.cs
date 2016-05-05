@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Test
 	/// <summary>
 	/// Interaction logic for FactorVLeidenResultPage.xaml
 	/// </summary>
-	public partial class FactorVLeidenResultPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
+	public partial class FactorVLeidenResultPage : UserControl, INotifyPropertyChanged 
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -27,7 +27,6 @@ namespace YellowstonePathology.UI.Test
 
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private YellowstonePathology.UI.Navigation.PageNavigator m_PageNavigator;
 		private string m_PageHeaderText;
 		private string m_OrderedOnDescription;
@@ -36,14 +35,12 @@ namespace YellowstonePathology.UI.Test
 
 		public FactorVLeidenResultPage(YellowstonePathology.Business.Test.FactorVLeiden.FactorVLeidenTestOrder testOrder,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity,
 			YellowstonePathology.UI.Navigation.PageNavigator pageNavigator)
 		{
 			this.m_PanelSetOrder = testOrder;
 			this.m_AccessionOrder = accessionOrder;
 			this.m_SystemIdentity = systemIdentity;
-			this.m_ObjectTracker = objectTracker;
 			this.m_PageNavigator = pageNavigator;
 
 			this.m_PageHeaderText = "Factor V Leiden Analysis Results For: " + this.m_AccessionOrder.PatientDisplayName;
@@ -53,10 +50,10 @@ namespace YellowstonePathology.UI.Test
 
 			InitializeComponent();
 
-			DataContext = this;                      
-		}
+			DataContext = this;
+        }
 
-		public YellowstonePathology.Business.Test.FactorVLeiden.FactorVLeidenTestOrder PanelSetOrder
+        public YellowstonePathology.Business.Test.FactorVLeiden.FactorVLeidenTestOrder PanelSetOrder
 		{
 			get { return this.m_PanelSetOrder; }
 		}
@@ -89,26 +86,6 @@ namespace YellowstonePathology.UI.Test
 			get { return this.m_OrderedOnDescription; }
 		}
 
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save()
-		{
-			this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
-		}
-
-		public void UpdateBindingSources()
-		{
-
-		}
-
 		private void ButtonNext_Click(object sender, RoutedEventArgs e)
 		{
 			this.Next(this, new EventArgs());
@@ -119,7 +96,7 @@ namespace YellowstonePathology.UI.Test
 			YellowstonePathology.Business.Rules.MethodResult methodResult = this.m_PanelSetOrder.IsOkToFinalize();
 			if (methodResult.Success == true)
 			{
-				this.m_PanelSetOrder.Finalize(this.m_SystemIdentity.User);
+				this.m_PanelSetOrder.Finish(this.m_AccessionOrder);
 			}
 			else
 			{
@@ -170,7 +147,7 @@ namespace YellowstonePathology.UI.Test
 			YellowstonePathology.Business.Rules.MethodResult methodResult = this.m_PanelSetOrder.IsOkToAccept();
 			if (methodResult.Success == true)
 			{
-				this.m_PanelSetOrder.Accept(this.m_SystemIdentity.User);
+				this.m_PanelSetOrder.Accept();
 			}
 			else
 			{
@@ -193,9 +170,8 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
 		{
-			this.Save();
-			YellowstonePathology.Business.Test.FactorVLeiden.FactorVLeidenWordDocument report = new YellowstonePathology.Business.Test.FactorVLeiden.FactorVLeidenWordDocument();
-			report.Render(this.m_PanelSetOrder.MasterAccessionNo, this.m_PanelSetOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft);
+			YellowstonePathology.Business.Test.FactorVLeiden.FactorVLeidenWordDocument report = new YellowstonePathology.Business.Test.FactorVLeiden.FactorVLeidenWordDocument(this.m_AccessionOrder, this.m_PanelSetOrder, Business.Document.ReportSaveModeEnum.Draft);
+            report.Render();
 
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
 			string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);
@@ -204,10 +180,11 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkProvider_Click(object sender, RoutedEventArgs e)
 		{
-            YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPath providerDistributionPath = new Login.FinalizeAccession.ProviderDistributionPath(this.m_PanelSetOrder.ReportNo, this.m_AccessionOrder, this.m_ObjectTracker, System.Windows.Visibility.Visible, System.Windows.Visibility.Collapsed, System.Windows.Visibility.Visible);
+            MessageBox.Show("Not Implemented");
+            YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPath providerDistributionPath = new Login.FinalizeAccession.ProviderDistributionPath(this.m_PanelSetOrder.ReportNo, this.m_AccessionOrder, System.Windows.Visibility.Visible, System.Windows.Visibility.Collapsed, System.Windows.Visibility.Visible);
             providerDistributionPath.Back += new Login.FinalizeAccession.ProviderDistributionPath.BackEventHandler(ProviderDistributionPath_Back);
             providerDistributionPath.Next += new Login.FinalizeAccession.ProviderDistributionPath.NextEventHandler(ProviderDistributionPath_Next);
-            providerDistributionPath.Start(this.m_SystemIdentity);
+            providerDistributionPath.Start();
 		}
 
         private void ProviderDistributionPath_Next(object sender, EventArgs e)

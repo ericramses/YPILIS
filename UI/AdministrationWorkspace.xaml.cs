@@ -31,6 +31,9 @@ using YellowstonePathology.Business.Helper;
 using System.Collections.ObjectModel;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using MongoDB.Driver.Linq;
+using MongoDB.Driver.Builders;
+using MongoDB.Driver.GridFS;
 
 namespace YellowstonePathology.UI
 {    
@@ -107,7 +110,7 @@ namespace YellowstonePathology.UI
 
         private void ButtonShowCuttingStationWindow_Click(object sender, RoutedEventArgs e)
         {
-			//YellowstonePathology.Business.User.SystemIdentity identity = new Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
+			//YellowstonePathology.Business.User.SystemIdentity identity = Business.User.SystemIdentity.Instance;
 		}        
 
         private void ButtonPublishCase_Click(object sender, RoutedEventArgs e)
@@ -243,15 +246,7 @@ namespace YellowstonePathology.UI
 
         private void SerializeAccessionOrder_Click(object sender, RoutedEventArgs e)
         {
-            string reportNo = "S11-16301";                        
-            YellowstonePathology.Business.HL7View.CMMC.CMMCResultView result = new Business.HL7View.CMMC.CMMCResultView(reportNo);
-            YellowstonePathology.Business.Rules.MethodResult methodResult = new Business.Rules.MethodResult();
-            result.CanSend(methodResult);
-            if (methodResult.Success == true)
-            {
-                result.Send(methodResult);
-            }
-            MessageBox.Show(methodResult.Message);
+            
         }
 
         private void ButtonShowTestWindow_Click(object sender, RoutedEventArgs e)
@@ -325,7 +320,7 @@ namespace YellowstonePathology.UI
             YellowstonePathology.UI.Login.SerumLabel label = new Login.SerumLabel("Serum", "84165-26");                        
 
             System.Windows.Controls.PrintDialog printDialog = new System.Windows.Controls.PrintDialog();
-            printDialog.PrintTicket.CopyCount = 100;
+            printDialog.PrintTicket.CopyCount = 50;
             printDialog.PrintTicket.PageMediaSize = new PageMediaSize(384, 96);
             printDialog.PrintQueue = printQueue;
 
@@ -340,7 +335,7 @@ namespace YellowstonePathology.UI
             
             YellowstonePathology.UI.Login.FormalinAddedLabel label = new Login.FormalinAddedLabel();
             System.Windows.Controls.PrintDialog printDialog = new System.Windows.Controls.PrintDialog();
-            printDialog.PrintTicket.CopyCount = 100;
+            printDialog.PrintTicket.CopyCount = 50;
             printDialog.PrintTicket.PageMediaSize = new PageMediaSize(384, 96);
             printDialog.PrintQueue = printQueue;
 
@@ -355,7 +350,7 @@ namespace YellowstonePathology.UI
 
             YellowstonePathology.UI.Login.IFELabel label = new Login.IFELabel();
             System.Windows.Controls.PrintDialog printDialog = new System.Windows.Controls.PrintDialog();
-            printDialog.PrintTicket.CopyCount = 100;
+            printDialog.PrintTicket.CopyCount = 50;
             printDialog.PrintTicket.PageMediaSize = new PageMediaSize(384, 96);
             printDialog.PrintQueue = printQueue;
 
@@ -370,7 +365,7 @@ namespace YellowstonePathology.UI
             YellowstonePathology.UI.Login.SerumLabel serumLabel = new Login.SerumLabel("Urine", "84166-26");
             System.Windows.Controls.PrintDialog printDialog = new System.Windows.Controls.PrintDialog();
 
-            printDialog.PrintTicket.CopyCount = 100;
+            printDialog.PrintTicket.CopyCount = 50;
             printDialog.PrintTicket.PageMediaSize = new PageMediaSize(384, 96);
             printDialog.PrintQueue = printQueue;
             printDialog.PrintDocument(serumLabel.DocumentPaginator, "Urine Labels");           
@@ -396,52 +391,7 @@ namespace YellowstonePathology.UI
 
 		private void ButtonListInvalidShortcut_Click(object sender, RoutedEventArgs e)
 		{
-			List<int> userids = new List<int>();
-			SqlCommand cmd = new SqlCommand("Select distinct userid from tblTypingShortcut");
-			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.BaseData.SqlConnectionString))
-			{
-				cn.Open();
-				cmd.Connection = cn;
-				using (SqlDataReader dr =cmd.ExecuteReader())
-				{
-					while (dr.Read())
-					{
-						userids.Add((int)dr[0]);
-					}
-				}
-			}
-
-			using (StreamWriter streamWriter = new StreamWriter(@"C:/Testing/InvalidShortcuts.txt"))
-			{
-				foreach (int userid in userids)
-				{
-					streamWriter.WriteLine();
-					streamWriter.WriteLine(userid.ToString());
-					streamWriter.WriteLine();
-
-					YellowstonePathology.Business.Typing.TypingShortcutCollection typingShortcutCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetTypingShortcutCollectionByUser(userid);
-					
-					foreach (YellowstonePathology.Business.Typing.TypingShortcut typingShortcut in typingShortcutCollection)
-					{
-                        if (string.IsNullOrEmpty(typingShortcut.Text) == false)
-						{
-                            char[] chars = typingShortcut.Text.ToCharArray();
-
-							for (int i = chars.Length - 1; i > -1; i--)
-							{
-								char x = chars[i];
-								int tmp = (int)chars[i];
-
-								if ((int)chars[i] > 8000)
-								{
-                                    streamWriter.WriteLine(typingShortcut.Shortcut);
-									break;
-								}
-							}
-						}
-					}
-				}
-			}
+			
 		}
 
 		private void ButtonProcessSvhBillingFile_Click(object sender, RoutedEventArgs e)
@@ -623,7 +573,7 @@ namespace YellowstonePathology.UI
             //xpsDocumentViewer.ShowDialog();
 
             /*
-            YellowstonePathology.Business.User.SystemIdentity systemIdentity = new Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
+            YellowstonePathology.Business.User.SystemIdentity systemIdentity = Business.User.SystemIdentity.Instance;
             TestPage testPage = new TestPage(systemIdentity);
             testPage.ShowDialog();
 			*/
@@ -650,8 +600,8 @@ namespace YellowstonePathology.UI
 
         private void ButtonShowGrossWorkspace_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.UI.Gross.HistologyGrossPath histologyGrossPath = new Gross.HistologyGrossPath();
-            histologyGrossPath.Start();
+           // YellowstonePathology.UI.Gross.HistologyGrossPath histologyGrossPath = new Gross.HistologyGrossPath();
+           // histologyGrossPath.Start();
         }        
 
 		private void ButtonBillingTypeProcessorTests_Click(object sender, RoutedEventArgs e)
@@ -738,32 +688,15 @@ namespace YellowstonePathology.UI
 		{
 		}
 
-        private void ButtonCheckHPV_Click(object sender, RoutedEventArgs e)
+        private void ButtonAccessionMickyMouseCreate_Click(object sender, RoutedEventArgs e)
         {
-            /*Business.Test.AccessionOrder ao = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByMasterAccessionNo("15-23916");
-            Business.Persistence.JSONObjectWriter jsonObjectWriter = new Business.Persistence.JSONObjectWriter();
-            string s = Business.Persistence.JSONObjectWriter.Write(ao);
-            StreamWriter sw = new StreamWriter("C:\\TEMP\\Test.txt", true);
-            sw.Write(s);
-            sw.Close();
-            */
-            //Business.Test.AccessionOrder ao =  YellowstonePathology.Business.Gateway.AOGW.Instance.GetByReportNo("15-123.S", true);
-            //ao = YellowstonePathology.Business.Gateway.AOGW.Instance.Refresh(ao, false);
+            AOBuilder aoBuilder = new AOBuilder();
+            Business.Test.AccessionOrder accessionOrder = aoBuilder.Build();
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(aoBuilder);
         }
 
-        private void ButtonCheckReportDistribution_Click(object sender, RoutedEventArgs e)
+        private void ButtonAccessionMickyMouseRemove_Click(object sender, RoutedEventArgs e)
         {
-            //YellowstonePathology.Business.ClientOrder.Model.SurgicalClientOrder clientOrder = (YellowstonePathology.Business.ClientOrder.Model.SurgicalClientOrder)YellowstonePathology.Business.Gateway.ClientOrderGateway.GetClientOrderByClientOrderId("a336b436-e57b-46a2-8812-7e47893a3474");
-            //YellowstonePathology.Business.HL7View.EPIC.EpicResultView resultView = new Business.HL7View.EPIC.EpicResultView("S13-3796", true);
-            //YellowstonePathology.Business.Rules.MethodResult methodResult = new Business.Rules.MethodResult();
-            //resultView.Send(methodResult);
-
-
-			YellowstonePathology.Business.Test.AccessionOrder ao = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo("S13-3807");            
-
-            YellowstonePathology.Business.HL7View.EPIC.EpicResultView view = new Business.HL7View.EPIC.EpicResultView("S13-3807", false);
-            YellowstonePathology.Business.Rules.MethodResult methodResult = new Business.Rules.MethodResult();
-            view.Send(methodResult);
         }
 
 		private void ButtonTestEGFRAccession_Click(object sender, RoutedEventArgs e)
@@ -812,13 +745,7 @@ namespace YellowstonePathology.UI
 
         private void ButtonInsertTesting_Click(object sender, RoutedEventArgs e)
         {
-            string reportNo = "M13-2883";
-			YellowstonePathology.Business.Test.AccessionOrder ao = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(reportNo);
-
-			YellowstonePathology.Business.Persistence.ObjectTracker ot = new YellowstonePathology.Business.Persistence.ObjectTracker();
-            ot.RegisterObject(ao);
-
-			YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHTestOrder pso = (YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHTestOrder)ao.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
+            
         }                		
 
         private void ButtonStartMessageHost_Click(object sender, RoutedEventArgs e)
@@ -829,30 +756,7 @@ namespace YellowstonePathology.UI
 
         private void ButtonSendMessageToEric_Click(object sender, RoutedEventArgs e)
         {
-            this.WriteStVincentAllInSql();
-            //this.CreateIHCTestSelectStatement();
-            //this.CreateCPTCodeTypeListForSQL();
-
-			/*
-			string reportNo = "14-18695.S";
-			YellowstonePathology.Business.Test.AccessionOrder ao = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(reportNo);
-
-			YellowstonePathology.Business.Persistence.ObjectTracker ot = new Persistence.ObjectTracker();
-			ot.RegisterObject(ao.ReportDistributionLogCollection);
-
-			string reportDistributionLogId = YellowstonePathology.Domain.OrderIdParser.GetNextReportDistributionLogId(ao.ReportDistributionLogCollection, ao.MasterAccessionNo);
-			YellowstonePathology.Business.ReportDistribution.Model.ReportDistributionLog rdl = new YellowstonePathology.Business.ReportDistribution.Model.ReportDistributionLog(reportDistributionLogId, ao.ReportDistributionCollection[0]);
-			rdl.DistributionType = "Distribute";
-			rdl.CaseDistributed = true;            
-			rdl.DateCompleted = DateTime.Now;
-			rdl.DateDistributed = DateTime.Now;
-			rdl.ReportNo = reportNo;
-			ao.ReportDistributionLogCollection.Add(rdl);
-
-			ot.SubmitChanges(ao.ReportDistributionLogCollection);
-
-			ot.SubmitChanges(ao.ReportDistributionLogCollection);
-			*/
+            
 		}
 
         private void CreateIHCTestSelectStatement()
@@ -966,21 +870,7 @@ namespace YellowstonePathology.UI
 
         private void FindMissingReportNumbers()
         {
-            for (int i = 11978; i < 13405; i++)
-            {
-                string reportNo = "S13-" + i.ToString();
-				YellowstonePathology.Business.Test.AccessionOrder ao = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(reportNo);
-                if (ao == null)
-                {
-					YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(reportNo);
-					string filePath = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser);
-                    string[] files = System.IO.Directory.GetFiles(filePath);
-                    if (files.Length != 0)
-                    {
-                        Console.WriteLine(reportNo);
-                    }
-                }
-            }
+            
         }        
 
         private void WriteAssemblyQualifiedTypeSQL()
@@ -1100,12 +990,19 @@ namespace YellowstonePathology.UI
             //Console.WriteLine("CRC: " + crc);            
         }
 
+        Business.Test.AccessionOrder m_AccessionOrder = null;
+        string masterAccessionNo = "16-9590";
+        string actNo = "1";
+        string writer = "W1";
+
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByMasterAccessionNo("15-27221");
+                     
+        }        
 
-            string json = YellowstonePathology.Business.Persistence.JSONObjectWriter.Write(accessionOrder);
-            System.IO.File.WriteAllText(@"C:\node\test.json", json);                       
+        private string CallBackOne(string x)
+        {
+            return "Purple";
         }
 
         private void FindY()
@@ -1154,20 +1051,7 @@ namespace YellowstonePathology.UI
 
         private void FixHPV()
         {
-            /*YellowstonePathology.Business.ReportNoCollection reportNoCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetReportNumbers();
-            foreach (YellowstonePathology.Business.ReportNo reportNo in reportNoCollection)
-            {
-                string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-				YellowstonePathology.Business.Persistence.ObjectTracker ot = new YellowstonePathology.Business.Persistence.ObjectTracker();
-                YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(reportNo.Value);
-                ot.RegisterObject(accessionOrder);
-
-                YellowstonePathology.Business.Test.KRASStandard.KRASStandardTestOrder pso = (YellowstonePathology.Business.Test.KRASStandard.KRASStandardTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo.Value);
-                YellowstonePathology.Business.Test.KRASStandard.KRASStandardPanel panel = new YellowstonePathology.Business.Test.KRASStandard.KRASStandardPanel();
-                YellowstonePathology.Business.Test.PanelOrder  panelOrder = new Business.Test.PanelOrder(reportNo.Value, objectId, objectId, panel, 5051);
-                pso.PanelOrderCollection.Add(panelOrder);
-                ot.SubmitChanges(accessionOrder);
-            }*/
+            
         }
 
         private void FindNonASCICharacters()
@@ -1245,16 +1129,7 @@ namespace YellowstonePathology.UI
 
         private void BackgroundWorker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
-			List<YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution> testOrderReportDistributionList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetNextTORD();
-			YellowstonePathology.Business.Persistence.ObjectTracker ot = new YellowstonePathology.Business.Persistence.ObjectTracker();
-
-            foreach (YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution testOrderReportDistribution in testOrderReportDistributionList)
-            {
-                ot.RegisterObject(testOrderReportDistribution);
-                string _id = ObjectId.GenerateNewId().ToString();
-                //testOrderReportDistribution.TestOrderReportDistributionIdV2 = _id;
-                ot.SubmitChanges(testOrderReportDistribution);
-            }
+			
         }
 
         private void WriteNonDatabaseTests()
@@ -1298,30 +1173,7 @@ namespace YellowstonePathology.UI
 
         private void GetTableNames()
         {
-            YellowstonePathology.Business.ReportNoCollection reportNoCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetReportNumbers();
-            foreach (YellowstonePathology.Business.ReportNo reportNo in reportNoCollection)
-            {
-                YellowstonePathology.Business.Test.AccessionOrder ao = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(reportNo.Value);
-                YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = ao.PanelSetOrderCollection.GetPanelSetOrder(reportNo.Value);
-
-                YellowstonePathology.Business.Persistence.PersistentClass persistentClassAttribute = (YellowstonePathology.Business.Persistence.PersistentClass)panelSetOrder.GetType().GetCustomAttributes(typeof(YellowstonePathology.Business.Persistence.PersistentClass), false).Single();
-
-                string storageName = persistentClassAttribute.StorageName;
-                if (string.IsNullOrEmpty(storageName) == true) storageName = "tblPanelSetOrder";
-
-                SqlCommand cmd = new SqlCommand();
-                cmd.CommandText = "Update tblPanelSet Set ResultTableName = @ResultTableName where PanelSetId = @PanelSetId";
-                cmd.CommandType = CommandType.Text;
-                cmd.Parameters.Add("@ResultTableName", SqlDbType.VarChar).Value = storageName;
-                cmd.Parameters.Add("@PanelSetId", SqlDbType.VarChar).Value = panelSetOrder.PanelSetId;
-
-                using (SqlConnection cn = new SqlConnection("Data Source=TestSQL;Initial Catalog=YPIData;Integrated Security=True"))
-                {
-                    cn.Open();
-                    cmd.Connection = cn;
-                    cmd.ExecuteNonQuery();
-                }
-            }
+            
         }
-	}
+    }
 }

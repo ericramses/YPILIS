@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Login.ReceiveSpecimen
     /// <summary>
     /// 
     /// </summary>
-    public partial class FlowCytometryOrderPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
+    public partial class FlowCytometryOrderPage : UserControl, INotifyPropertyChanged 
     {
         public event PropertyChangedEventHandler PropertyChanged;
         public delegate void ReturnEventHandler(object sender, UI.Navigation.PageNavigationReturnEventArgs e);
@@ -49,7 +49,7 @@ namespace YellowstonePathology.UI.Login.ReceiveSpecimen
             return true;
         }
 
-        public void Save()
+        public void Save(bool releaseLock)
         {
             
         }

@@ -33,11 +33,7 @@ namespace YellowstonePathology.UI
 
         private void LoginPageWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            this.m_PageNavigator.Close();
-            if (this.m_SystemIdentity != null)
-            {
-                YellowstonePathology.Business.Gateway.LockGateway.ReleaseUserLocks(this.m_SystemIdentity.User);
-            }            
+            this.m_PageNavigator.Close();            
         }        
 
 		public YellowstonePathology.Business.User.SystemIdentity SystemIdentity

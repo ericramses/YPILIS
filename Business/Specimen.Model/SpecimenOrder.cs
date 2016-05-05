@@ -145,27 +145,57 @@ namespace YellowstonePathology.Business.Specimen.Model
 			return result;
 		}		
 
-        public string GetGrossSubmittedInString(string cassetteColor)
+        public string GetGrossSubmittedInString()
         {
             string result = null;
             if (this.m_AliquotOrderCollection.Count != 0)
-            {                
-                result = "entirely submitted into " + cassetteColor.ToLower();
+            {
+                result = "entirely submitted into ";
                 if (this.m_AliquotOrderCollection.Count == 1)
                 {
-                    result += " cassette ";
+                	result += "cassette \"" + this.m_AliquotOrderCollection[0].Label + "\"";
                 }
                 else
                 {
-                    result += " cassettes ";
-                }
-                
-                foreach (YellowstonePathology.Business.Test.AliquotOrder aliquotOrder in this.m_AliquotOrderCollection)
-                {                    
-                    result += "\"" + aliquotOrder.Label + "\", ";                    
-                }            
+                    result += "cassettes \"" + this.m_AliquotOrderCollection[0].Label + "\" - \"" + this.m_AliquotOrderCollection[this.m_AliquotOrderCollection.Count - 1].Label + "\"";
+                }                                              
+            }
+            return result;
+        }
 
-                result = result.Remove(result.Length - 2, 2);                
+        public string GetSummarySubmissionString()
+        { 
+            StringBuilder result = new StringBuilder("CASSETTE SUMMARY: ");
+            result.AppendLine();
+            for(int i=0; i<this.m_AliquotOrderCollection.Count; i++)
+            {
+                string text = "\"" + this.m_AliquotOrderCollection[i].Label + "\" - [???]";
+                if(i < this.m_AliquotOrderCollection.Count - 1)
+                {
+                    result.AppendLine(text);
+                }
+                else
+                {
+                    result.Append(text);                    
+                }                
+            }                        
+            return result.ToString();
+        }
+
+        public string GetRepresentativeSectionsSubmittedIn()
+        {
+            string result = null;
+            if (this.m_AliquotOrderCollection.Count != 0)
+            {
+                result = "Representative sections are submitted to ";               
+                if (this.m_AliquotOrderCollection.Count == 1)
+                {
+                    result += "cassette \"" + this.m_AliquotOrderCollection[0].Label + "\"";
+                }
+                else
+                {
+                    result += "cassettes \"" + this.m_AliquotOrderCollection[0].Label + "\" - \"" + this.m_AliquotOrderCollection[this.m_AliquotOrderCollection.Count - 1].Label + "\"";
+                }               
             }
             return result;
         }
@@ -178,23 +208,26 @@ namespace YellowstonePathology.Business.Specimen.Model
                 result = "entirely submitted into ";
                 if (this.m_AliquotOrderCollection.Count == 2)
                 {
-                    result += "cassette ";
+                    result += "cassette \"" + this.m_AliquotOrderCollection[1].Label + "\"";
                 }
-                else
+                else if (this.m_AliquotOrderCollection.Count > 2)
                 {
-                    result += "cassettes ";
-                }
+                    result += "cassettes \"" + this.m_AliquotOrderCollection[1].Label + "\" - \"" + this.m_AliquotOrderCollection[this.m_AliquotOrderCollection.Count - 1].Label + "\"";
+                }                
+            }
+            return result;
+        }
 
-                int index = 0;
-                foreach (YellowstonePathology.Business.Test.AliquotOrder aliquotOrder in this.m_AliquotOrderCollection)
-                {
-                    if (index != 0)
-                    {
-                        result += "\"" + aliquotOrder.Label + "\", ";
-                    }                    
-                    index += 1;
-                }
-                result = result.Remove(result.Length - 2, 2);
+        public string GetGrossMiddleCassettesSubmittedInString()
+        {
+            string result = null;
+            if (this.m_AliquotOrderCollection.Count == 3)
+            {
+                result += " \"" + this.m_AliquotOrderCollection[1].Label + "\" ";
+            }
+            else if (this.m_AliquotOrderCollection.Count > 3)
+            {                                
+                result += " \"" + this.m_AliquotOrderCollection[1].Label + "\" - \"" + this.m_AliquotOrderCollection[this.m_AliquotOrderCollection.Count - 2].Label + "\" ";                
             }
             return result;
         }

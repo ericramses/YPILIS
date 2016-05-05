@@ -17,7 +17,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 	/// <summary>
 	/// Interaction logic for TaskOrderEditPage.xaml
 	/// </summary>
-	public partial class TaskOrderEditPage : UserControl, Business.Interface.IPersistPageChanges
+	public partial class TaskOrderEditPage : UserControl 
 	{
 		public delegate void NextEventHandler(object sender, EventArgs e);
 		public event NextEventHandler Next;
@@ -29,27 +29,37 @@ namespace YellowstonePathology.UI.Login.Receiving
 		public event CloseEventHandler Close;
 
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private YellowstonePathology.Business.Task.Model.TaskOrderDetail m_TaskOrderDetail;		
 		private PageNavigationModeEnum m_PageNavigationMode;
 
 		public TaskOrderEditPage(YellowstonePathology.Business.Task.Model.TaskOrderDetail taskOrderDetail,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,			
 			PageNavigationModeEnum pageNavigationMode)
 		{
 			this.m_TaskOrderDetail = taskOrderDetail;
 			this.m_AccessionOrder = accessionOrder;
-			this.m_ObjectTracker = objectTracker;			
 			this.m_PageNavigationMode = pageNavigationMode;
 
 			InitializeComponent();
 
 			this.SetButtonVisibility();
 			this.DataContext = this;
+
+            Loaded += TaskOrderEditPage_Loaded;
+            Unloaded += TaskOrderEditPage_Unloaded;
 		}
 
-		private void SetButtonVisibility()
+        private void TaskOrderEditPage_Loaded(object sender, RoutedEventArgs e)
+        {
+             
+        }
+
+        private void TaskOrderEditPage_Unloaded(object sender, RoutedEventArgs e)
+        {
+             
+        }
+
+        private void SetButtonVisibility()
 		{
 			switch (this.m_PageNavigationMode)
 			{
@@ -74,30 +84,15 @@ namespace YellowstonePathology.UI.Login.Receiving
 		public YellowstonePathology.Business.Test.AccessionOrder AccessionOrder
 		{
 			get { return this.m_AccessionOrder; }
-		}		
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save()
-		{
-			this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
-		}
-
-		public void UpdateBindingSources()
-		{
-		}
+		}				
 
 		private void ButtonNext_Click(object sender, RoutedEventArgs e)
 		{
-			if(this.Next != null) this.Next(this, new EventArgs());
+            if (this.Next != null)
+            {
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
+                this.Next(this, new EventArgs());
+            }
 		}
 
 		private void ButtonBack_Click(object sender, RoutedEventArgs e)

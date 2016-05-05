@@ -16,7 +16,7 @@ using System.Xml.Linq;
 
 namespace YellowstonePathology.UI.Test
 {	
-	public partial class StandingOrderPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
+	public partial class StandingOrderPage : UserControl, INotifyPropertyChanged 
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -25,10 +25,8 @@ namespace YellowstonePathology.UI.Test
 
         public delegate void BackEventHandler(object sender, EventArgs e);
         public event BackEventHandler Back;
-
-		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
+		
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-        private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;        
         
         private List<YellowstonePathology.Business.Test.AccessionOrder> m_AccessionOrderList;
         private YellowstonePathology.Business.Domain.Physician m_Physician;
@@ -39,12 +37,9 @@ namespace YellowstonePathology.UI.Test
 		private YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTest m_WomensHealthProfileTest;
 		private System.Windows.Visibility m_WomensHealthProfileVisibility;
 
-        public StandingOrderPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        public StandingOrderPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{
-            this.m_AccessionOrder = accessionOrder;
-            this.m_ObjectTracker = objectTracker;
-            this.m_SystemIdentity = systemIdentity;
+            this.m_AccessionOrder = accessionOrder;            
 
 			this.m_WomensHealthProfileTest = new YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTest();
 			this.m_Physician = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianByPhysicianId(this.m_AccessionOrder.PhysicianId);
@@ -69,8 +64,8 @@ namespace YellowstonePathology.UI.Test
 
 			InitializeComponent();
 
-			DataContext = this;				
-		}
+			DataContext = this;
+        }
 
         public YellowstonePathology.Business.Domain.Physician Physician
         {
@@ -112,31 +107,15 @@ namespace YellowstonePathology.UI.Test
             get { return this.m_AccessionOrderList; }
         }						        
 
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save()
-		{
-            this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
-		}
-        
-		public void UpdateBindingSources()
-		{
-
-		}                               
-
         private void ButtonNext_Click(object sender, RoutedEventArgs e)
         {
             if (this.IsOkToContinue() == true)
             {
-                if (this.Next != null) this.Next(this, new EventArgs());
+                if (this.Next != null)
+                {
+                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
+                    this.Next(this, new EventArgs());
+                }
             }
         }
 
@@ -183,13 +162,13 @@ namespace YellowstonePathology.UI.Test
 				string reportNo = YellowstonePathology.Business.OrderIdParser.GetNextReportNo(this.m_AccessionOrder.PanelSetOrderCollection, this.m_WomensHealthProfileTest, this.m_AccessionOrder.MasterAccessionNo);
 				string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
 				string masterAccessionNo = this.m_AccessionOrder.MasterAccessionNo;
-				YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder womensHealthProfileTestOrder = (YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder)YellowstonePathology.Business.Test.PanelSetOrderFactory.CreatePanelSetOrder(masterAccessionNo, reportNo, objectId, this.m_WomensHealthProfileTest, orderTarget, false, this.m_SystemIdentity);
+				YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder womensHealthProfileTestOrder = (YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder)YellowstonePathology.Business.Test.PanelSetOrderFactory.CreatePanelSetOrder(masterAccessionNo, reportNo, objectId, this.m_WomensHealthProfileTest, orderTarget, false);
 				womensHealthProfileTestOrder.AssignedToId = 5051;
 				this.m_AccessionOrder.PanelSetOrderCollection.Add(womensHealthProfileTestOrder);
 				this.m_WomensHealthProfileTestOrder = womensHealthProfileTestOrder;
 				this.m_WomensHealthProfileVisibility = System.Windows.Visibility.Visible;
                 this.UpdateWomensHealthProfile();
-                this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
+                //this.Save(false);
                 this.NotifyPropertyChanged(string.Empty);
             }
             else

@@ -19,11 +19,9 @@ namespace YellowstonePathology.UI.Billing
     public partial class BillingWindowPrimary : Window
     {
         private YellowstonePathology.UI.Navigation.PageNavigator m_PageNavigator;
-        private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 
-        public BillingWindowPrimary(YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        public BillingWindowPrimary()
         {
-            this.m_SystemIdentity = systemIdentity;
             InitializeComponent();
             this.m_PageNavigator = new UI.Navigation.PageNavigator(this.MainContent);
             this.Closing += new System.ComponentModel.CancelEventHandler(BillingWindowPrimary_Closing);
@@ -32,10 +30,7 @@ namespace YellowstonePathology.UI.Billing
         private void BillingWindowPrimary_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             this.m_PageNavigator.Close();
-            if (this.m_SystemIdentity != null)
-            {
-                YellowstonePathology.Business.Gateway.LockGateway.ReleaseUserLocks(this.m_SystemIdentity.User);
-            }
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
         }
 
         public YellowstonePathology.UI.Navigation.PageNavigator PageNavigator

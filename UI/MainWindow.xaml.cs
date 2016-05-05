@@ -14,23 +14,19 @@ using System.IO;
 using System.Data;
 using System.Data.SqlClient;
 using System.ComponentModel;
+using Microsoft.Win32;
 
 namespace YellowstonePathology.UI
 {    
     public partial class MainWindow : System.Windows.Window
     {
 		//System.Timers.Timer m_Timer;
-		System.Media.SoundPlayer m_WavPlayer;
-
-        public delegate void SaveEventHandler(object sender, EventArgs e);
-        public static event SaveEventHandler Save;               
-
-        public static RoutedCommand SaveChangesCommand = new RoutedCommand();
+		System.Media.SoundPlayer m_WavPlayer;        
+        
         public static RoutedCommand ApplicationClosingCommand = new RoutedCommand();
         public static RoutedCommand AssignCommand = new RoutedCommand();
         public static RoutedCommand ShowOrderFormCommand = new RoutedCommand();
-        public static RoutedCommand ShowWizardListCommand = new RoutedCommand();
-        public static RoutedCommand ToggleAccessionLockModeCommand = new RoutedCommand();
+        public static RoutedCommand ShowWizardListCommand = new RoutedCommand();        
         public static RoutedCommand ShowCaseDocumentCommand = new RoutedCommand();
 		public static RoutedCommand PatientLinkingCommand = new RoutedCommand();		
 		public static RoutedCommand RemoveTabCommand = new RoutedCommand();		        
@@ -48,9 +44,11 @@ namespace YellowstonePathology.UI
         TabItem m_TabItemClient;
         TabItem m_TabItemBilling;
         TabItem m_TabItemCytology;        
-		TabItem m_TabItemLogin;		        
+		TabItem m_TabItemLogin;
+        TabItem m_TabItemClientOrder;
+        TabItem m_TabItemTask;
 
-		TabItem m_TabItemTyping;		
+        TabItem m_TabItemTyping;		
         Surgical.TypingWorkspace m_TypingWorkspace;
         Surgical.PathologistWorkspace m_PathologistWorkspace;
 
@@ -60,27 +58,26 @@ namespace YellowstonePathology.UI
         Cytology.CytologyWorkspace m_CytologyWorkspace;
 
 		Login.LoginWorkspace m_LoginWorkspace;
+        ClientOrderWorkspace m_ClientOrderWorkspace;
+        TaskWorkspace m_TaskWorkspace;
 
         SearchWorkspace m_SearchWorkspace;                
         Test.LabWorkspace m_LabWorkspace;        
-        AdministrationWorkspace m_AdministrationWorkspace;
-        Scanning.ScanProcessingWorkspace m_ScanProcessingWorkspace;
-        
-		YellowstonePathology.Business.Domain.Lock m_Lock;
+        AdministrationWorkspace m_AdministrationWorkspace;                		
 
 		YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
         MainWindowCommandButtonHandler m_MainWindowCommandButtonHandler;        
 
         public MainWindow()
-        {            
+        {
+            SystemEvents.SessionSwitch += SystemEvents_SessionSwitch;
+
             //BindingErrorListener.Listen(m => MessageBox.Show(m));            
             this.m_MainWindowCommandButtonHandler = new MainWindowCommandButtonHandler();
 
 			this.m_WavPlayer = new System.Media.SoundPlayer();
 
-			this.m_SystemIdentity = new YellowstonePathology.Business.User.SystemIdentity(YellowstonePathology.Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);            
-            this.m_Lock = new YellowstonePathology.Business.Domain.Lock(this.m_SystemIdentity);           
-			this.m_Lock.ReleaseUserLocks();            
+            this.m_SystemIdentity = YellowstonePathology.Business.User.SystemIdentity.Instance;
 
             this.m_TabItemFlow = new TabItem();
             this.m_TabItemFlow.Header = SetHeader("Flow", "Flow.ico");
@@ -129,7 +126,15 @@ namespace YellowstonePathology.UI
 
 			this.m_TabItemLogin = new TabItem();
 			this.m_TabItemLogin.Header = SetHeader("Login", "Login.ico");
-			this.m_TabItemLogin.Tag = "Login";            
+			this.m_TabItemLogin.Tag = "Login";
+
+            this.m_TabItemClientOrder = new TabItem();
+            this.m_TabItemClientOrder.Header = SetHeader("Client Order", "Batch.ico");
+            this.m_TabItemClientOrder.Tag = "Client_Order";
+
+            this.m_TabItemTask = new TabItem();
+            this.m_TabItemTask.Header = SetHeader("Tasks", "AcceptResults.ico");
+            this.m_TabItemTask.Tag = "Tasks";
 
             InitializeComponent();
             
@@ -137,8 +142,7 @@ namespace YellowstonePathology.UI
 
 			this.TabControlLeftWorkspace.SelectionChanged += new SelectionChangedEventHandler(TabControlLeftWorkspace_SelectionChanged);
 			if (this.m_SystemIdentity.User.UserId != 5001 && this.m_SystemIdentity.User.UserId != 5051 && this.m_SystemIdentity.User.UserId != 5126)
-			{
-                //this.MenuItemAdministration.IsEnabled = true;
+			{                
                 this.MenuItemReportDistribution.IsEnabled = false;
             }
 
@@ -151,12 +155,24 @@ namespace YellowstonePathology.UI
 
             this.Loaded += new RoutedEventHandler(MainWindow_Loaded);
             this.Closing +=new System.ComponentModel.CancelEventHandler(MainWindow_Closing);            
-        }        
+        }
+
+        private void SystemEvents_SessionSwitch(object sender, SessionSwitchEventArgs e)
+        {
+            switch (e.Reason)
+            {
+                case SessionSwitchReason.SessionLock:              
+                    while(this.TabControlLeftWorkspace.Items.Count > 0)
+                    {
+                        this.TabControlLeftWorkspace.Items.RemoveAt(0);                                                
+                    }
+                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Flush();
+                    break;
+            }
+        }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
-        {            
-            //HostSetupHandler hostSetupHandler = new HostSetupHandler();
-            //hostSetupHandler.HandleSetup();
+        {                        
             this.ShowStartupPage();
         }        
 
@@ -174,7 +190,20 @@ namespace YellowstonePathology.UI
             }
         }
 
-		private void ShowStartupPage()
+       public static void UpdateFocusedBindingSource(DependencyObject element)
+        {
+            object focusObj = FocusManager.GetFocusedElement(element);
+            if (focusObj != null && focusObj is TextBox)
+            {
+                var binding = (focusObj as TextBox).GetBindingExpression(TextBox.TextProperty);
+                if(binding != null)
+                {
+                    binding.UpdateSource();
+                }                
+            }
+        }
+
+        private void ShowStartupPage()
 		{
 			switch (YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.StartupPage)
             {
@@ -187,6 +216,8 @@ namespace YellowstonePathology.UI
                     this.AddLabWorkspace();
                     break;
                 case "Login Workspace":
+                    this.ShowTaskWorkspace();
+                    this.ShowClientOrderWorkspace();
                     this.ShowLoginWorkspace();
                     break;
                 case "Flow Workspace":
@@ -263,33 +294,7 @@ namespace YellowstonePathology.UI
                     }
 				}				
 			}
-        }
-
-        /*
-		public void StartTimer()
-		{
-			this.m_Timer = new System.Timers.Timer();
-			this.m_Timer.Elapsed += new System.Timers.ElapsedEventHandler(m_Timer_Elapsed);
-
-            this.m_Timer.Interval = 1000 * 5 *60;
-			this.m_Timer.Enabled = true;
-		}
-        */
-
-		/*private void m_Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
-		{
-			string ids = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPanelOrderIdsToAcknowledge();            
-
-            if (ids.Length > 0)
-			{
-                this.m_WavPlayer.Play();
-                this.m_Timer.Interval = 1000 * 30;
-            }
-            else
-            {
-                this.m_Timer.Interval = 1000 * 60 * 5;
-            }			
-		}*/
+        }        
         
         public YellowstonePathology.UI.Test.LabWorkspace LabWorkspace
         {
@@ -304,22 +309,7 @@ namespace YellowstonePathology.UI
 		public YellowstonePathology.UI.Cytology.CytologyWorkspace CytologyWorkspace
 		{
 			get { return this.m_CytologyWorkspace; }
-		}        
-
-        public YellowstonePathology.Business.Domain.Lock Lock
-        {
-            get { return this.m_Lock; }
-            set { this.m_Lock = value; }
-        }
-
-		public void SetLockObject(YellowstonePathology.Business.Domain.Lock theLock)
-        {
-            this.m_Lock.LockImage = theLock.LockImage;
-            this.m_Lock.NotifyPropertyChanged("LockImage");
-			this.m_Lock.LockDate = theLock.LockDate;
-			this.m_Lock.LockedBy = theLock.LockedBy;
-			this.m_Lock.SetLockingMode(theLock.LockingMode);
-		}
+		}                
 
 		private void TabControlLeftWorkspace_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
@@ -414,8 +404,7 @@ namespace YellowstonePathology.UI
 			{
 				this.m_CytologyWorkspace.CloseWorkspace(null, null);
 			}
-
-			this.m_Lock.ReleaseUserLocks();
+			
 			App.Current.Shutdown();
         }
                 
@@ -438,7 +427,7 @@ namespace YellowstonePathology.UI
         {            
             if (this.m_TabItemCytology.Parent == null)
             {
-                this.m_CytologyWorkspace = new Cytology.CytologyWorkspace(this.m_MainWindowCommandButtonHandler);
+                this.m_CytologyWorkspace = new Cytology.CytologyWorkspace(this.m_MainWindowCommandButtonHandler, this.m_TabItemCytology);
                 this.m_TabItemCytology.Content = this.m_CytologyWorkspace;
                 
                 this.TabControlLeftWorkspace.Items.Add(this.m_TabItemCytology);
@@ -449,7 +438,7 @@ namespace YellowstonePathology.UI
             this.m_TabItemCytology.Focus();
        }
         
-        public void AddScanProcessingWorkspace()
+        /*public void AddScanProcessingWorkspace()
         {
             if (this.m_TabItemScanning.Parent != null)
             {
@@ -462,7 +451,7 @@ namespace YellowstonePathology.UI
                 this.TabControlLeftWorkspace.Items.Add(this.m_TabItemScanning);
                 this.m_TabItemScanning.Focus();                
             }
-        }                
+        }*/                
 
         public void AddPathologistWorkspace()
         {            
@@ -472,7 +461,7 @@ namespace YellowstonePathology.UI
             }
             else
             {
-				this.m_PathologistWorkspace = new YellowstonePathology.UI.Surgical.PathologistWorkspace(this.m_MainWindowCommandButtonHandler);
+				this.m_PathologistWorkspace = new YellowstonePathology.UI.Surgical.PathologistWorkspace(this.m_MainWindowCommandButtonHandler, this.m_TabItemPathologist);
 				this.m_TabItemPathologist.Content = this.m_PathologistWorkspace;
                 this.TabControlLeftWorkspace.Items.Add(this.m_TabItemPathologist);
                 this.m_TabItemPathologist.Focus();                                
@@ -489,12 +478,11 @@ namespace YellowstonePathology.UI
             }
             else
             {
-                this.m_TypingWorkspace = new Surgical.TypingWorkspace(this.m_MainWindowCommandButtonHandler, secondMonitorWindow);
+                this.m_TypingWorkspace = new Surgical.TypingWorkspace(this.m_MainWindowCommandButtonHandler, secondMonitorWindow, this.m_TabItemTyping);
 				this.m_TabItemTyping.Content = this.m_TypingWorkspace;
                 this.TabControlLeftWorkspace.Items.Add(this.m_TabItemTyping);
                 this.m_TabItemTyping.Focus();                
-                this.m_TypingWorkspace.Loaded += new RoutedEventHandler(this.TypingWorkspace_Loaded);
-				this.CommandBindings.Add(m_TypingWorkspace.CommandBindingRemoveTab);
+                this.m_TypingWorkspace.Loaded += new RoutedEventHandler(this.TypingWorkspace_Loaded);				
 			}
         }        
 
@@ -511,19 +499,18 @@ namespace YellowstonePathology.UI
             }
             else
             {
-                this.m_FlowWorkspace = new Flow.FlowWorkspace(this.m_MainWindowCommandButtonHandler);
+                this.m_FlowWorkspace = new Flow.FlowWorkspace(this.m_MainWindowCommandButtonHandler, this.m_TabItemFlow);
                 this.m_TabItemFlow.Content = this.m_FlowWorkspace;
                 this.TabControlLeftWorkspace.Items.Add(this.m_TabItemFlow);
                 this.m_TabItemFlow.Focus();                
-                this.m_FlowWorkspace.Loaded += new RoutedEventHandler(this.FlowWorkspace_Loaded);
-				this.CommandBindings.Add(m_FlowWorkspace.CommandBindingRemoveTab);
+                this.m_FlowWorkspace.Loaded += new RoutedEventHandler(this.FlowWorkspace_Loaded);				
 			}
         }
 
-        public void AddFlowWorkspace(string reportNo)
+        public void AddFlowWorkspace(string reportNo, string masterAccessionNo)
         {
             this.AddFlowWorkspace();
-            this.m_FlowWorkspace.GetCase(reportNo);
+            this.m_FlowWorkspace.GetCase(reportNo, masterAccessionNo);
         }
 
         private void FlowWorkspace_Loaded(object sender, RoutedEventArgs e)
@@ -544,7 +531,7 @@ namespace YellowstonePathology.UI
             }
             else
             {
-                this.m_SearchWorkspace = new SearchWorkspace(this.m_MainWindowCommandButtonHandler);
+                this.m_SearchWorkspace = new SearchWorkspace(this.m_MainWindowCommandButtonHandler, this.m_TabItemSearch);
                 this.m_TabItemSearch.Content = this.m_SearchWorkspace;                
                 this.TabControlLeftWorkspace.Items.Add(this.m_TabItemSearch);
                 this.m_TabItemSearch.Focus();
@@ -565,7 +552,7 @@ namespace YellowstonePathology.UI
             }
             else
             {
-                this.m_LabWorkspace = new Test.LabWorkspace(this.m_MainWindowCommandButtonHandler);
+                this.m_LabWorkspace = new Test.LabWorkspace(this.m_MainWindowCommandButtonHandler, this.m_TabItemLab);
                 this.m_TabItemLab.Content = this.m_LabWorkspace;
                 this.TabControlLeftWorkspace.Items.Add(this.m_TabItemLab);
                 this.m_TabItemLab.Focus();
@@ -574,10 +561,10 @@ namespace YellowstonePathology.UI
 			}            
         }
 
-        public void AddLabWorkspace(string reportNo)
+        public void AddLabWorkspace(string masterAccessionNo, string reportNo)
         {
             this.AddLabWorkspace();
-            this.m_LabWorkspace.GetCase(reportNo);
+            this.m_LabWorkspace.GetCase(masterAccessionNo, reportNo);
         }
 
         private void m_LabWorkspace_Loaded(object sender, RoutedEventArgs e)
@@ -623,10 +610,10 @@ namespace YellowstonePathology.UI
             this.AddFlowWorkspace();
         }        
 
-        public void ScanProcessingWorkspace_Click(object sender, RoutedEventArgs args)
-        {
-            this.AddScanProcessingWorkspace();
-        }
+        //public void ScanProcessingWorkspace_Click(object sender, RoutedEventArgs args)
+        //{
+        //    this.AddScanProcessingWorkspace();
+        //}
         
         public void ToolBarButtonPathologistWorkspace_Click(object sender, RoutedEventArgs args)
         {
@@ -651,8 +638,6 @@ namespace YellowstonePathology.UI
         public void ToolBarButtonSave_Click(object sender, RoutedEventArgs args)
         {
             this.m_MainWindowCommandButtonHandler.OnSave();
-            if (MainWindow.Save != null) MainWindow.Save(this, new EventArgs());
-            MainWindow.SaveChangesCommand.Execute(null, null);            
         }
 
 		public void ToolBarButtonViewDocument_Click(object sender, RoutedEventArgs args)
@@ -666,13 +651,7 @@ namespace YellowstonePathology.UI
             // WHC This is here to prevent sending the click event twice which causes an IO exception:
             // "The process cannot access the file <filename> because it is being used by another process."
             e.Handled = true;
-        }
-
-        public void ToolBarButtonAccessionLock_Click(object sender, RoutedEventArgs args)
-		{
-            this.m_MainWindowCommandButtonHandler.OnToggelEventLock();
-            MainWindow.ToggleAccessionLockModeCommand.Execute(null, null);
-		}
+        }        
 
         public void ToolBarButtonOrderForm_Click(object sender, RoutedEventArgs args)
         {
@@ -719,12 +698,6 @@ namespace YellowstonePathology.UI
 			this.AddTypingWorkspace();
 		}        
 
-		private void MenuItemSurgicalBlocks_Click(object sender, RoutedEventArgs e)
-		{
-			YellowstonePathology.UI.Test.SurgicalBlocks dlg = new YellowstonePathology.UI.Test.SurgicalBlocks();
-			dlg.ShowDialog();
-		}
-
 		private void MenuItemMasterLog_Click(object sender, RoutedEventArgs e)
 		{
 			YellowstonePathology.Business.Reports.Surgical.SurgicalMasterLog report = new YellowstonePathology.Business.Reports.Surgical.SurgicalMasterLog();
@@ -763,29 +736,12 @@ namespace YellowstonePathology.UI
 		public void Restart()
 		{
 			Close();
-		}        
-
-        /*private void UpdateLocalData_Click(object sender, RoutedEventArgs e)
-        {
-			Cursor holdCursor = this.Cursor;
-			this.Cursor = Cursors.Wait;
-			YellowstonePathology.Business.DataContext.SetupLocalData setupLocalData = new YellowstonePathology.Business.DataContext.SetupLocalData();
-            setupLocalData.ExecuteFullSetup(true);
-			this.Cursor = holdCursor;
-			MessageBox.Show("Local data has been updated.");
-        }*/        
+		}                    
 
         private void ToolBarButtonAddAmendment_Click(object sender, RoutedEventArgs e)
         {
-			this.m_MainWindowCommandButtonHandler.OnShowAmendmentDialog();
-			ShowAmendmentDialogCommand.Execute(null, null);
-        }        
-
-		private void MenuItemLockedCases_Click(object sender, RoutedEventArgs e)
-		{
-			UI.LockedCaseDialog lockedCaseDialog = new LockedCaseDialog();
-			lockedCaseDialog.ShowDialog();
-		}
+			this.m_MainWindowCommandButtonHandler.OnShowAmendmentDialog();			
+        }        		
 
 		private void SurgicalRescreen_Click(object sender, RoutedEventArgs e)
 		{
@@ -795,6 +751,8 @@ namespace YellowstonePathology.UI
 
 		private void MenuItemLogin_Click(object sender, RoutedEventArgs e)
 		{
+            this.ShowTaskWorkspace();
+            this.ShowClientOrderWorkspace();
             this.ShowLoginWorkspace();
 		}
 
@@ -806,14 +764,46 @@ namespace YellowstonePathology.UI
             }
             else
             {
-                this.m_LoginWorkspace = new Login.LoginWorkspace(this.m_MainWindowCommandButtonHandler);
+                this.m_LoginWorkspace = new Login.LoginWorkspace(this.m_MainWindowCommandButtonHandler, m_TabItemLogin);
                 this.m_TabItemLogin.Content = this.m_LoginWorkspace;
                 this.TabControlLeftWorkspace.Items.Add(this.m_TabItemLogin);
                 this.m_TabItemLogin.Focus();
                 this.CommandBindings.Add(m_LoginWorkspace.CommandBindingRemoveTab);
             }
         }
-        
+
+        private void ShowClientOrderWorkspace()
+        {
+            if (m_TabItemClientOrder.Parent != null)
+            {
+                m_TabItemClientOrder.Focus();
+            }
+            else
+            {
+                this.m_ClientOrderWorkspace = new ClientOrderWorkspace(this.m_MainWindowCommandButtonHandler, m_TabItemClientOrder);
+                this.m_TabItemClientOrder.Content = this.m_ClientOrderWorkspace;
+                this.TabControlLeftWorkspace.Items.Add(this.m_TabItemClientOrder);
+                this.m_TabItemClientOrder.Focus();
+                this.CommandBindings.Add(m_ClientOrderWorkspace.CommandBindingRemoveTab);
+            }
+        }
+
+        private void ShowTaskWorkspace()
+        {
+            if (m_TabItemTask.Parent != null)
+            {
+                m_TabItemTask.Focus();
+            }
+            else
+            {
+                this.m_TaskWorkspace = new TaskWorkspace(this.m_MainWindowCommandButtonHandler, m_TabItemTask);
+                this.m_TabItemTask.Content = this.m_TaskWorkspace;
+                this.TabControlLeftWorkspace.Items.Add(this.m_TabItemTask);
+                this.m_TabItemTask.Focus();
+                this.CommandBindings.Add(m_TaskWorkspace.CommandBindingRemoveTab);
+            }
+        }
+
         private void MenuItemMaterialTracking_Click(object sender, RoutedEventArgs e)
         {			            
             YellowstonePathology.UI.MaterialTracking.MaterialTrackingPath caseCompilationPath = new MaterialTracking.MaterialTrackingPath();
@@ -880,12 +870,6 @@ namespace YellowstonePathology.UI
             monitorPath.Show(YellowstonePathology.UI.Monitor.MonitorPageLoadEnum.PendingTestMonitor);            
         }
 
-        private void MenuItemNeogenomicsResults_Click(object sender, RoutedEventArgs e)
-        {
-            YellowstonePathology.UI.Test.NeogenomicsResultPath neogenomicsResultPath = new Test.NeogenomicsResultPath();
-            neogenomicsResultPath.Start();
-        }        
-
         private void MenuItemMongoMigration_Click(object sender, RoutedEventArgs e)
         {
             YellowstonePathology.UI.Mongo.MongoMigrationWindow mongoMigrationWindow = new Mongo.MongoMigrationWindow();
@@ -907,7 +891,7 @@ namespace YellowstonePathology.UI
         private void MenuItemPantherOrders_Click(object sender, RoutedEventArgs e)
         {
             PantherOrdersDialog pantherOrdersDialog = new PantherOrdersDialog();
-            pantherOrdersDialog.ShowDialog();
+            pantherOrdersDialog.Show();
         }
 
         private void MenuItemPantherStorage_Click(object sender, RoutedEventArgs e)
@@ -926,6 +910,28 @@ namespace YellowstonePathology.UI
         {
             Test.AcidWashOrdersDialog acidWashOrdersDialog = new Test.AcidWashOrdersDialog();
             acidWashOrdersDialog.ShowDialog();
+        }
+
+        private void ToolBarButtonRefresh_Click(object sender, RoutedEventArgs e)
+        {
+            this.m_MainWindowCommandButtonHandler.OnRefresh();
+        }
+
+        private void MenuItemLockedCases_Click(object sender, RoutedEventArgs e)
+        {
+            UI.LockedCaseDialog lockedCaseDialog = new LockedCaseDialog();
+            lockedCaseDialog.Show();
+        }
+
+        private void ToolBarButtonSendMessage_Click(object sender, RoutedEventArgs e)
+        {
+            this.m_MainWindowCommandButtonHandler.OnShowMessagingDialog();
+        }
+
+        private void MenuItemParsePSAData_Click(object sender, RoutedEventArgs e)
+        {
+            ParsePsaAccessionsWindow window = new ParsePsaAccessionsWindow();
+            window.Show();
         }
     }    
 }

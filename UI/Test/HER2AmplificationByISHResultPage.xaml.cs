@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Test
     /// <summary>
     /// Interaction logic for HER2AmplificationByISHResultPage.xaml
     /// </summary>
-    public partial class HER2AmplificationByISHResultPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges, IResultPage
+    public partial class HER2AmplificationByISHResultPage : UserControl, INotifyPropertyChanged , IResultPage
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -32,7 +32,6 @@ namespace YellowstonePathology.UI.Test
 
         private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-        private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
         private YellowstonePathology.UI.Navigation.PageNavigator m_PageNavigator;
         private YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHTestOrder m_PanelSetOrder;
         private YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHResultCollection m_ResultCollection;
@@ -46,14 +45,12 @@ namespace YellowstonePathology.UI.Test
 
         public HER2AmplificationByISHResultPage(YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHTestOrder testOrder,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-            YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
             YellowstonePathology.Business.User.SystemIdentity systemIdentity,
             YellowstonePathology.UI.Navigation.PageNavigator pageNavigator)
         {
             this.m_PanelSetOrder = testOrder;
             this.m_AccessionOrder = accessionOrder;
             this.m_SystemIdentity = systemIdentity;
-            this.m_ObjectTracker = objectTracker;
             this.m_PageNavigator = pageNavigator;
 
             this.m_PageHeaderText = "HER2 Amplification By ISH Results For: " + this.m_AccessionOrder.PatientDisplayName;
@@ -67,7 +64,6 @@ namespace YellowstonePathology.UI.Test
             InitializeComponent();
 
             DataContext = this;
-
         }
 
         public YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHTestOrder PanelSetOrder
@@ -123,26 +119,6 @@ namespace YellowstonePathology.UI.Test
             get { return this.m_PageHeaderText; }
         }
 
-        public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-        {
-            return true;
-        }
-
-        public bool OkToSaveOnClose()
-        {
-            return true;
-        }
-
-        public void Save()
-        {
-            this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
-        }
-
-        public void UpdateBindingSources()
-        {
-
-        }
-
         private void ButtonNext_Click(object sender, RoutedEventArgs e)
         {
             this.Next(this, new EventArgs());
@@ -154,7 +130,7 @@ namespace YellowstonePathology.UI.Test
             if (methodResult.Success == true)
             {
                 YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrder.OrderedOn, this.m_PanelSetOrder.OrderedOnId);                    
-                this.m_PanelSetOrder.Finalize(this.m_SystemIdentity.User);
+                this.m_PanelSetOrder.Finish(this.m_AccessionOrder);
 
                 YellowstonePathology.Business.Test.Surgical.SurgicalTest panelSetSurgical = new YellowstonePathology.Business.Test.Surgical.SurgicalTest();
 
@@ -247,9 +223,8 @@ namespace YellowstonePathology.UI.Test
         {
             if (string.IsNullOrEmpty(this.m_PanelSetOrder.Indicator) == false)
             {
-                this.Save();
-                YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHWordDocument report = new YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHWordDocument();
-                report.Render(this.m_PanelSetOrder.MasterAccessionNo, this.m_PanelSetOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft);
+                YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHWordDocument report = new YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHWordDocument(this.m_AccessionOrder, this.m_PanelSetOrder, Business.Document.ReportSaveModeEnum.Draft);
+                report.Render();
 
 				YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
                 string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);
@@ -264,20 +239,15 @@ namespace YellowstonePathology.UI.Test
         private void HyperLinkCancelTestInsufficient_Click(object sender, RoutedEventArgs e)
         {
             string reasonForTestCancelation = this.m_PanelSetOrder.PanelSetName + " testing has been cancelled due to insufficient specimen.";
-            YellowstonePathology.UI.CustomEventArgs.CancelTestEventArgs cancelTestEventArgs = new CustomEventArgs.CancelTestEventArgs(this.m_PanelSetOrder, this.m_AccessionOrder, reasonForTestCancelation, this, this.m_ObjectTracker);
+            YellowstonePathology.UI.CustomEventArgs.CancelTestEventArgs cancelTestEventArgs = new CustomEventArgs.CancelTestEventArgs(this.m_PanelSetOrder, this.m_AccessionOrder, reasonForTestCancelation, this);
             this.CancelTest(this, cancelTestEventArgs);
         }
 
         private void HyperLinkCancelTestUniterpretable_Click(object sender, RoutedEventArgs e)
         {
             string reasonForTestCancelation = this.m_PanelSetOrder.PanelSetName + " testing has been cancelled due to an uninterpretable result.";
-            YellowstonePathology.UI.CustomEventArgs.CancelTestEventArgs cancelTestEventArgs = new CustomEventArgs.CancelTestEventArgs(this.m_PanelSetOrder, this.m_AccessionOrder, reasonForTestCancelation, this, this.m_ObjectTracker);
+            YellowstonePathology.UI.CustomEventArgs.CancelTestEventArgs cancelTestEventArgs = new CustomEventArgs.CancelTestEventArgs(this.m_PanelSetOrder, this.m_AccessionOrder, reasonForTestCancelation, this);
             this.CancelTest(this, cancelTestEventArgs);
-        }
-
-        private void CancellATestPath_Finish(object sender, EventArgs e)
-        {
-            this.m_PageNavigator.Navigate(this);
         }
 
 		private void HyperlinkSpecimenDetails_Click(object sender, RoutedEventArgs e)

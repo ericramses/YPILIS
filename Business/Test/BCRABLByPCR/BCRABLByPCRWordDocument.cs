@@ -7,12 +7,14 @@ namespace YellowstonePathology.Business.Test.BCRABLByPCR
 {
 	public class BCRABLByPCRWordDocument : YellowstonePathology.Business.Document.CaseReportV2
 	{
-		public override void Render(string masterAccessionNo, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveEnum)
-		{
-			this.m_ReportNo = reportNo;
-			this.m_ReportSaveEnum = reportSaveEnum;
-			this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByMasterAccessionNo(masterAccessionNo);
-			this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
+        public BCRABLByPCRWordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+            : base(accessionOrder, panelSetOrder, reportSaveMode)
+        {
+
+        }
+
+        public override void Render()
+		{			
 			BCRABLByPCRTestOrder testOrder = (BCRABLByPCRTestOrder)this.m_PanelSetOrder;
 
 			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\BCRABLByPCR.xml";
@@ -24,15 +26,20 @@ namespace YellowstonePathology.Business.Test.BCRABLByPCR
 
 			YellowstonePathology.Business.Document.AmendmentSection amendmentSection = new YellowstonePathology.Business.Document.AmendmentSection();
 			amendmentSection.SetAmendment(m_PanelSetOrder.AmendmentCollection, this.m_ReportXml, this.m_NameSpaceManager, true);
-
-			string result = testOrder.Result;
+			
 			if (string.IsNullOrEmpty(testOrder.DetectedLogReduction) == false)
 			{
-				result += "   " + testOrder.DetectedLogReduction;
-			}
-			this.ReplaceText("report_result", result);
+                this.ReplaceText("log_reduction", testOrder.DetectedLogReduction);
+            }
+            else
+            {
+                this.DeleteRow("log_reduction");
+            }
+
+			this.ReplaceText("report_result", testOrder.Result);
 			this.ReplaceText("fusion_transcript_type", testOrder.FusionTranscriptType);
-			this.ReplaceText("report_interpretation", testOrder.Interpretation);
+            this.ReplaceText("percent_bcrabl", testOrder.PercentBCRABL);
+            this.ReplaceText("report_interpretation", testOrder.Interpretation);
 			this.ReplaceText("report_method", testOrder.Method);
 			this.ReplaceText("report_references", testOrder.References);
 

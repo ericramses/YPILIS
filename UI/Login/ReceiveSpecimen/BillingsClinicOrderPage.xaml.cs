@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Login.ReceiveSpecimen
     /// <summary>
     /// Interaction logic for YpiMolecularOrderPage.xaml
     /// </summary>
-    public partial class BillingsClinicOrderPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
+    public partial class BillingsClinicOrderPage : UserControl, INotifyPropertyChanged 
     {
         public event PropertyChangedEventHandler PropertyChanged;
         public delegate void ReturnEventHandler(object sender, UI.Navigation.PageNavigationReturnEventArgs e);
@@ -41,7 +41,7 @@ namespace YellowstonePathology.UI.Login.ReceiveSpecimen
             return true;
         }
 
-        public void Save()
+        public void Save(bool releaseLock)
         {
             
         }

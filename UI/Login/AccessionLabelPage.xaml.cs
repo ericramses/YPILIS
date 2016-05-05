@@ -15,7 +15,7 @@ using System.ComponentModel;
 
 namespace YellowstonePathology.UI.Login
 {    
-	public partial class AccessionLabelPage : UserControl, INotifyPropertyChanged, YellowstonePathology.Business.Interface.IPersistPageChanges
+	public partial class AccessionLabelPage : UserControl, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -54,25 +54,6 @@ namespace YellowstonePathology.UI.Login
         private void ButtonClose_Click(object sender, RoutedEventArgs e)
         {
             Window.GetWindow(this).Close(); 
-        }        
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return false;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return false;
-		}
-
-        public void Save()
-        {
-
-        }
-
-		public void UpdateBindingSources()
-		{
-		}
+        }        		
 	}
 }

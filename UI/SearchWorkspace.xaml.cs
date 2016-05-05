@@ -23,11 +23,14 @@ namespace YellowstonePathology.UI
         private UI.DocumentWorkspace m_DocumentViewer;
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
         private MainWindowCommandButtonHandler m_MainWindowCommandButtonHandler;
+        private System.Windows.Controls.TabItem m_Writer;
 
-        public SearchWorkspace(MainWindowCommandButtonHandler mainWindowCommandButtonHandler)
+        public SearchWorkspace(MainWindowCommandButtonHandler mainWindowCommandButtonHandler, System.Windows.Controls.TabItem writer)
         {
             this.m_MainWindowCommandButtonHandler = mainWindowCommandButtonHandler;
-			this.m_SystemIdentity = new YellowstonePathology.Business.User.SystemIdentity(YellowstonePathology.Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
+            this.m_Writer = writer;
+
+            this.m_SystemIdentity = YellowstonePathology.Business.User.SystemIdentity.Instance;
             this.m_Search = new Business.SearchUI();            
             this.m_DocumentViewer = new DocumentWorkspace();            
 
@@ -55,16 +58,13 @@ namespace YellowstonePathology.UI
             if (this.listViewCaseList.SelectedItem != null)
             {
                 YellowstonePathology.Business.SearchListItem item = (YellowstonePathology.Business.SearchListItem)this.listViewCaseList.SelectedItem;
-				YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(item.ReportNo);
-				YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-                objectTracker.RegisterObject(accessionOrder);
+				YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(item.MasterAccessionNo, this.m_Writer);
 
                 YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPath providerDistributionPath =
-                    new Login.FinalizeAccession.ProviderDistributionPath(item.ReportNo, accessionOrder, objectTracker,
+                    new Login.FinalizeAccession.ProviderDistributionPath(item.ReportNo, accessionOrder,
                     System.Windows.Visibility.Collapsed, System.Windows.Visibility.Visible, System.Windows.Visibility.Collapsed);
                 providerDistributionPath.Start();
-
-                objectTracker.SubmitChanges(accessionOrder);
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(accessionOrder, this.m_Writer);
             }         
         }
 
@@ -135,7 +135,11 @@ namespace YellowstonePathology.UI
             {                
                 this.m_Search.SearchList.SearchType = this.textBoxSearchCriteria.Text.Substring(0, 2);
                 this.m_Search.SearchList.SearchString = this.textBoxSearchCriteria.Text.Substring(3, this.textBoxSearchCriteria.Text.Length - 3);
-                this.m_Search.SearchList.SetFill();                                                        
+                YellowstonePathology.Business.Rules.MethodResult methodResult = this.m_Search.SearchList.SetFill();
+                if(methodResult.Success == false)
+                {
+                    MessageBox.Show(methodResult.Message);
+                }
             }            
         }
 
@@ -191,31 +195,12 @@ namespace YellowstonePathology.UI
             if (this.listViewCaseList.SelectedItems.Count != 0)
             {
                 YellowstonePathology.Business.SearchListItem item = (YellowstonePathology.Business.SearchListItem)this.listViewCaseList.SelectedItem;
-				YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(item.ReportNo);
+				YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(item.MasterAccessionNo, this.m_Writer);
 
                 YellowstonePathology.UI.Common.CaseHistoryDialog caseHistoryDialog = new Common.CaseHistoryDialog(accessionOrder);
                 caseHistoryDialog.ShowDialog();
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(accessionOrder, this.m_Writer);
             }
         }
-
-		private void MenuItemFlipToLabWorkspace_Click(object sender, RoutedEventArgs e)
-		{
-			if (this.listViewCaseList.SelectedItems.Count != 0)
-			{
-				YellowstonePathology.Business.SearchListItem item = (YellowstonePathology.Business.SearchListItem)this.listViewCaseList.SelectedItem;
-				MainWindow mainWindow = (MainWindow)Window.GetWindow(this);
-				mainWindow.AddLabWorkspace(item.ReportNo);
-			}
-		}		
-
-		private void MenuItemFlipToFlowWorkspace_Click(object sender, RoutedEventArgs e)
-		{
-            if (this.listViewCaseList.SelectedItems.Count != 0)
-            {
-				YellowstonePathology.Business.SearchListItem item = (YellowstonePathology.Business.SearchListItem)this.listViewCaseList.SelectedItem;
-				MainWindow mainWindow = (MainWindow)Window.GetWindow(this);
-				mainWindow.AddFlowWorkspace(item.ReportNo);
-			}
-		}
 	}
 }

@@ -9,85 +9,190 @@ namespace YellowstonePathology.Business.Persistence
 {
     public static class JSONWriter
     {
-        public static string Write(object o, int indentCount)
-        {
-            Type type = o.GetType();
-            StringBuilder result = new StringBuilder();
-            JSONIndenter.AddTabs(result, indentCount);
-            indentCount += 1;
-            result.Append("{" + Environment.NewLine);
+        public static void WritProperties(StringBuilder result, object o)
+        {            
             PropertyInfo[] properties = o.GetType().GetProperties().
                 Where(prop => Attribute.IsDefined(prop, typeof(PersistentProperty)) || Attribute.IsDefined(prop, typeof(PersistentPrimaryKeyProperty))).ToArray();
-            foreach (PropertyInfo property in properties)
+
+            for (int i=0; i<properties.Length - 1; i++)
             {
-                JSONIndenter.AddTabs(result, indentCount);
-                Type dataType = property.PropertyType;
-                if (dataType == typeof(string))
+                PropertyInfo property = properties[i];
+                if (property.Name != "JSON")
                 {
-                    WriteString(result, property, o);
+                    Type dataType = property.PropertyType;
+                    if (dataType == typeof(string))
+                    {
+                        WriteString(result, property, o);
+                    }
+                    else if (dataType == typeof(int))
+                    {
+                        WriteNumber(result, property, o);
+                    }
+                    else if (dataType == typeof(double))
+                    {
+                        WriteNumber(result, property, o);
+                    }
+                    else if (dataType == typeof(Nullable<int>))
+                    {
+                        WriteNumber(result, property, o);
+                    }
+                    else if (dataType == typeof(DateTime))
+                    {
+                        WriteDate(result, property, o);
+                    }
+                    else if (dataType == typeof(bool))
+                    {
+                        WriteBoolean(result, property, o);
+                    }
+                    else if (dataType == typeof(Nullable<bool>))
+                    {
+                        WriteBoolean(result, property, o);
+                    }
+                    else if (dataType == typeof(Nullable<DateTime>))
+                    {
+                        WriteDate(result, property, o);
+                    }
+                    else
+                    {
+                        throw new Exception("This Data Type is Not Implemented: " + dataType.Name);
+                    }
                 }
-                else if (dataType == typeof(int))
+            }
+
+            if (properties.Length != 0)
+            {
+                result.Replace(",", string.Empty, result.Length - 3, 2);
+            }            
+        }
+
+        public static string Write(object o)
+        {
+            Type type = o.GetType();
+            StringBuilder result = new StringBuilder();                        
+            result.Append("{");
+            PropertyInfo[] properties = o.GetType().GetProperties().
+                Where(prop => Attribute.IsDefined(prop, typeof(PersistentProperty)) || Attribute.IsDefined(prop, typeof(PersistentPrimaryKeyProperty))).ToArray();
+            
+            foreach (PropertyInfo property in properties)
+            {                
+                if(property.Name != "JSON")
                 {
-                    WriteNumber(result, property, o);
-                }
-                else if (dataType == typeof(double))
-                {
-                    WriteNumber(result, property, o);
-                }
-                else if (dataType == typeof(Nullable<int>))
-                {
-                    WriteNumber(result, property, o);
-                }
-                else if (dataType == typeof(DateTime))
-                {
-                    WriteDate(result, property, o);
-                }
-                else if (dataType == typeof(bool))
-                {
-                    WriteBoolean(result, property, o);
-                }
-                else if (dataType == typeof(Nullable<bool>))
-                {
-                    WriteBoolean(result, property, o);
-                }
-                else if (dataType == typeof(Nullable<DateTime>))
-                {
-                    WriteDate(result, property, o);
-                }
-                else
-                {
-                    throw new Exception("This Data Type is Not Implemented: " + dataType.Name);
-                }
+                    Type dataType = property.PropertyType;
+                    if (dataType == typeof(string))
+                    {
+                        WriteString(result, property, o);
+                    }
+                    else if (dataType == typeof(int))
+                    {
+                        WriteNumber(result, property, o);
+                    }
+                    else if (dataType == typeof(double))
+                    {
+                        WriteNumber(result, property, o);
+                    }
+                    else if (dataType == typeof(Nullable<int>))
+                    {
+                        WriteNumber(result, property, o);
+                    }
+                    else if (dataType == typeof(DateTime))
+                    {
+                        WriteDate(result, property, o);
+                    }
+                    else if (dataType == typeof(bool))
+                    {
+                        WriteBoolean(result, property, o);
+                    }
+                    else if (dataType == typeof(Nullable<bool>))
+                    {
+                        WriteBoolean(result, property, o);
+                    }
+                    else if (dataType == typeof(Nullable<DateTime>))
+                    {
+                        WriteDate(result, property, o);
+                    }
+                    else
+                    {
+                        throw new Exception("This Data Type is Not Implemented: " + dataType.Name);
+                    }
+                }            
             }
             
             if (properties.Length != 0)
             {
-                result.Replace(",", string.Empty, result.Length - 3, 1);                
+                result.Replace(",", string.Empty, result.Length - 3, 2);                
             }
-
-            indentCount -= 1;            
-            JSONIndenter.AddTabs(result, indentCount);
-            result.Append("}");            
+                     
+            
+            result.Append("}");                              
             return result.ToString();
         }
 
-        private static string EscapeJSON(string json)
-        {
-            //json = json.Replace(Environment.NewLine, "\\n");
-            json = json.Replace("\r", string.Empty);
-            json = json.Replace("\n", "\\n");
-            return json.Replace("\"", "\\\"");
+        private static string EscapeJSON(string s)
+        {            
+            if (s == null || s.Length == 0)
+            {
+                return "";
+            }
+
+            char c = '\0';
+            int i;
+            int len = s.Length;
+            StringBuilder sb = new StringBuilder(len + 4);
+            String t;
+
+            for (i = 0; i < len; i += 1)
+            {
+                c = s[i];
+                switch (c)
+                {
+                    case '\\':
+                    case '"':
+                        sb.Append('\\');
+                        sb.Append(c);
+                        break;
+                    case '/':
+                        sb.Append('\\');
+                        sb.Append(c);
+                        break;
+                    case '\b':
+                        sb.Append("\\b");
+                        break;
+                    case '\t':
+                        sb.Append("\\t");
+                        break;
+                    case '\n':
+                        sb.Append("\\n");
+                        break;
+                    case '\f':
+                        sb.Append("\\f");
+                        break;
+                    case '\r':
+                        sb.Append("\\r");
+                        break;
+                    default:
+                        if (c < ' ')
+                        {
+                            t = "000" + String.Format("X", c);
+                            sb.Append("\\u" + t.Substring(t.Length - 4));
+                        }
+                        else {
+                            sb.Append(c);
+                        }
+                        break;
+                }
+            }
+            return sb.ToString();           
         }
 
         private static void WriteString(StringBuilder result, PropertyInfo property, object o)
         {
             if (property.GetValue(o, null) != null)
             {             
-                result.Append("\"" + property.Name + "\": \"" + EscapeJSON(property.GetValue(o, null).ToString()) + "\", \n");
+                result.Append("\"" + property.Name + "\": \"" + EscapeJSON(property.GetValue(o, null).ToString()) + "\", ");
             }
             else
             {             
-                result.Append("\"" + property.Name + "\": null, \n");
+                result.Append("\"" + property.Name + "\": null, ");
             }
         }
 
@@ -95,11 +200,11 @@ namespace YellowstonePathology.Business.Persistence
         {
             if (property.GetValue(o, null) != null)
             {             
-                result.Append("\"" + property.Name + "\": " + property.GetValue(o, null) + ", \n");
+                result.Append("\"" + property.Name + "\": " + property.GetValue(o, null) + ", ");
             }
             else
             {             
-                result.Append("\"" + property.Name + "\": null, \n");
+                result.Append("\"" + property.Name + "\": null, ");
             }
         }
 
@@ -109,11 +214,11 @@ namespace YellowstonePathology.Business.Persistence
             {
                 DateTime dotNetDate = DateTime.Parse(property.GetValue(o, null).ToString());
                 string jsonDate = dotNetDate.Year.ToString() + "-" + dotNetDate.Month.ToString() + "-" + dotNetDate.Day.ToString() + "T" + dotNetDate.Hour.ToString() + ":" + dotNetDate.Minute + ":" + dotNetDate.Second.ToString() + "." + dotNetDate.Millisecond + "Z";                
-                result.Append("\"" + property.Name + "\": \"" + jsonDate + "\", \n");
+                result.Append("\"" + property.Name + "\": \"" + jsonDate + "\", ");
             }
             else
             {                
-                result.Append("\"" + property.Name + "\": null, \n");
+                result.Append("\"" + property.Name + "\": null, ");
             }
         }
 
@@ -131,12 +236,12 @@ namespace YellowstonePathology.Business.Persistence
                 {
                     jsonValue = "false";
                 }                
-                result.Append("\"" + property.Name + "\": " + jsonValue + ", \n");
+                result.Append("\"" + property.Name + "\": " + jsonValue + ", ");
             }
             else
             {                
-                result.Append("\"" + property.Name + "\": null, \n");
-            }
+                result.Append("\"" + property.Name + "\": null, ");
+            }           
         }        
     }
 }

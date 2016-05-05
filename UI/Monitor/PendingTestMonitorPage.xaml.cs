@@ -16,7 +16,7 @@ using System.Xml.Linq;
 
 namespace YellowstonePathology.UI.Monitor
 {
-	public partial class PendingTestMonitorPage : UserControl, INotifyPropertyChanged, YellowstonePathology.Business.Interface.IPersistPageChanges, IMonitorPage
+	public partial class PendingTestMonitorPage : UserControl, INotifyPropertyChanged, IMonitorPage
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -54,62 +54,22 @@ namespace YellowstonePathology.UI.Monitor
 				PropertyChanged(this, new PropertyChangedEventArgs(info));
 			}
 		}        	        
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save()
-		{            
-            
-		}
-
-		public void UpdateBindingSources()
-		{
-
-		}
-
+		
         private void MenuItemDelay_Click(object sender, RoutedEventArgs e)
         {
             if (this.ListViewPendingTests.SelectedItem != null)
             {
                 YellowstonePathology.Business.Monitor.Model.PendingTest pendingTest = (YellowstonePathology.Business.Monitor.Model.PendingTest)this.ListViewPendingTests.SelectedItem;
-				YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(pendingTest.ReportNo);
-                
-
-                YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(pendingTest.ReportNo);
-                YellowstonePathology.Business.User.SystemIdentity systemIdentity = new YellowstonePathology.Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
-                PendingTestDelayDialog pendingTestDelayDialog = new PendingTestDelayDialog(panelSetOrder, systemIdentity);
+                PendingTestDelayDialog pendingTestDelayDialog = new PendingTestDelayDialog(pendingTest.ReportNo);
                 pendingTestDelayDialog.ShowDialog();
-                
+
                 this.Refresh();
             }
         }
 
         private void MenuItemFinalize_Click(object sender, RoutedEventArgs e)
         {
-            if (this.ListViewPendingTests.SelectedItem != null)
-            {
-                YellowstonePathology.Business.Monitor.Model.PendingTest pendingTest = (YellowstonePathology.Business.Monitor.Model.PendingTest)this.ListViewPendingTests.SelectedItem;
-				YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(pendingTest.ReportNo);
-
-                YellowstonePathology.Business.User.SystemIdentity systemIdentity = new YellowstonePathology.Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
-
-                YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(pendingTest.ReportNo);
-				panelSetOrder.Finalize(systemIdentity.User);
-                //panelSetOrder.Final = true;
-                //panelSetOrder.FinalDate = DateTime.Today;
-                //panelSetOrder.FinalTime = DateTime.Now;
-                //panelSetOrder.FinaledById = systemIdentity.User.UserId;
-
-                this.Refresh();
-            }
+            
         }		     
 	}
 }

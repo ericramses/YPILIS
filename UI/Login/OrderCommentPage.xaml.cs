@@ -17,7 +17,7 @@ namespace YellowstonePathology.UI.Login
 	/// <summary>
 	/// Interaction logic for OrderCommentPage.xaml
 	/// </summary>
-	public partial class OrderCommentPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
+	public partial class OrderCommentPage : UserControl
 	{
 		public delegate void BackEventHandler(object sender, EventArgs e);
 		public event BackEventHandler Back;
@@ -36,30 +36,7 @@ namespace YellowstonePathology.UI.Login
 			InitializeComponent();
 
 			this.DataContext = this;            
-		}
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return false;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return false;
-		}
-
-		public void Save()
-		{
-		}
-
-		public void UpdateBindingSources()
-		{
-		}
-
-        private void BorderPanelSetOrderHeader_Loaded(object sender, RoutedEventArgs e)
-        {
-
-        }
+		}		        
 
 		public string PageHeaderText
 		{
@@ -80,5 +57,10 @@ namespace YellowstonePathology.UI.Login
 		{
 			this.Next(this, new EventArgs());
 		}
-	}
+
+        private void BorderPanelSetOrderHeader_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
+    }
 }

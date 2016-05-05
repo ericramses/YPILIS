@@ -16,7 +16,7 @@ using System.Xml.Linq;
 
 namespace YellowstonePathology.UI.Test
 {	
-	public partial class ComprehensiveColonCancerProfilePage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
+	public partial class ComprehensiveColonCancerProfilePage : UserControl, INotifyPropertyChanged 
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -28,7 +28,6 @@ namespace YellowstonePathology.UI.Test
 
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private string m_PageHeaderText;
         private System.Windows.Visibility m_BackButtonVisibility;
 
@@ -39,14 +38,12 @@ namespace YellowstonePathology.UI.Test
 
 		public ComprehensiveColonCancerProfilePage(YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile.ComprehensiveColonCancerProfile comprehensiveColonCancerProfile,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity,
             System.Windows.Visibility backButtonVisibility)
 		{
 			this.m_ComprehensiveColonCancerProfile = comprehensiveColonCancerProfile;
 			this.m_AccessionOrder = accessionOrder;
 			this.m_SystemIdentity = systemIdentity;
-			this.m_ObjectTracker = objectTracker;
             this.m_BackButtonVisibility = backButtonVisibility;
 
 			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByOrderTarget(comprehensiveColonCancerProfile.OrderedOnId);
@@ -61,7 +58,7 @@ namespace YellowstonePathology.UI.Test
 			InitializeComponent();
 
 			DataContext = this;
-		}
+        }
 
         public System.Windows.Visibility BackButtonVisibility
         {
@@ -96,26 +93,6 @@ namespace YellowstonePathology.UI.Test
 			get { return this.m_PageHeaderText; }
 		}
 
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save()
-		{
-			this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
-		}
-
-		public void UpdateBindingSources()
-		{
-
-		}			
-
 		private void ButtonNext_Click(object sender, RoutedEventArgs e)
 		{
 			if (this.Next != null) this.Next(this, new EventArgs());
@@ -128,21 +105,21 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkFinalizeResults_Click(object sender, RoutedEventArgs e)
 		{
-            if (this.m_ComprehensiveColonCancerProfile.Final == false)
+            YellowstonePathology.Business.Audit.Model.AuditResult auditResult = this.m_ComprehensiveColonCancerProfile.IsOkToFinalize(this.m_AccessionOrder);
+            if (auditResult.Status == Business.Audit.Model.AuditStatusEnum.Failure)
 			{
-                this.m_ComprehensiveColonCancerProfile.Finalize(this.m_SystemIdentity.User);
+                MessageBox.Show(auditResult.Message);
 			}
 			else
 			{
-				MessageBox.Show("This case cannot be finalized because it is already final.");
+                this.m_ComprehensiveColonCancerProfile.Finish(this.m_AccessionOrder);
 			}
 		}
 
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
 		{
-			this.Save();
-			YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile.ComprehensiveColonCancerProfileWordDocument report = new Business.Test.ComprehensiveColonCancerProfile.ComprehensiveColonCancerProfileWordDocument();
-			report.Render(this.m_AccessionOrder.MasterAccessionNo, this.m_ComprehensiveColonCancerProfile.ReportNo, Business.Document.ReportSaveModeEnum.Draft);
+			YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile.ComprehensiveColonCancerProfileWordDocument report = new Business.Test.ComprehensiveColonCancerProfile.ComprehensiveColonCancerProfileWordDocument(this.m_AccessionOrder, this.m_ComprehensiveColonCancerProfile, Business.Document.ReportSaveModeEnum.Draft);
+            report.Render();
 
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_ComprehensiveColonCancerProfile.ReportNo);
 			string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);

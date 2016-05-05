@@ -16,7 +16,7 @@ using System.ComponentModel;
 
 namespace YellowstonePathology.UI.Login.SlidePrinting
 {
-	public partial class PrintSlidePage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges, INotifyPropertyChanged
+	public partial class PrintSlidePage : UserControl, INotifyPropertyChanged
 	{
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -28,16 +28,13 @@ namespace YellowstonePathology.UI.Login.SlidePrinting
 
         string m_ContainerId;
         YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-		YellowstonePathology.Business.Specimen.Model.SpecimenOrder m_SpecimenOrder;
-        YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
+		YellowstonePathology.Business.Specimen.Model.SpecimenOrder m_SpecimenOrder;        
 
         public PrintSlidePage(string containerId, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{
             this.m_ContainerId = containerId;
             this.m_AccessionOrder = accessionOrder;
-            this.m_SpecimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByContainerId(this.m_ContainerId);
-			this.m_ObjectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-            this.m_ObjectTracker.RegisterObject(this.m_AccessionOrder);
+            this.m_SpecimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByContainerId(this.m_ContainerId);			            
 
 			InitializeComponent();
 			DataContext = this;            
@@ -61,27 +58,7 @@ namespace YellowstonePathology.UI.Login.SlidePrinting
         private void ButtonNext_Click(object sender, RoutedEventArgs e)
         {            
             if (this.Next != null) this.Next(this, new EventArgs());            
-        }        
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return false;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save()
-		{
-            
-		}
-
-		public void UpdateBindingSources()
-		{
-
-		}        
+        }        		  
 
         public void NotifyPropertyChanged(String info)
         {

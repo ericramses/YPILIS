@@ -598,11 +598,11 @@ namespace YellowstonePathology.Business.Amendment.Model
             return result;
         }
 
-        public void Accept(Business.User.SystemUser systemUser)
+        public void Accept()
         {
             this.m_Accepted = true;
-            this.m_AcceptedById = systemUser.UserId;
-            this.m_AcceptedBy = systemUser.DisplayName;
+            this.m_AcceptedById = Business.User.SystemIdentity.Instance.User.UserId;
+            this.m_AcceptedBy = Business.User.SystemIdentity.Instance.User.DisplayName;
             this.m_AcceptedDate = DateTime.Today;
             this.m_AcceptedTime = DateTime.Now;
             this.NotifyPropertyChanged(string.Empty);
@@ -618,15 +618,15 @@ namespace YellowstonePathology.Business.Amendment.Model
             this.NotifyPropertyChanged(string.Empty);
         }
 
-        public void Finalize(YellowstonePathology.Business.User.SystemUser systemUser)
+        public void Finish()
         {
             if (this.Accepted == false)
             {
-                this.Accept(systemUser);
+                this.Accept();
             }
 
-            this.m_PathologistSignature = systemUser.Signature;
-            this.m_UserId = systemUser.UserId;
+            this.m_PathologistSignature = Business.User.SystemIdentity.Instance.User.Signature;
+            this.m_UserId = Business.User.SystemIdentity.Instance.User.UserId;
             this.m_Final = true;
             this.m_FinalDate = DateTime.Today;
             this.m_FinalTime = DateTime.Now;

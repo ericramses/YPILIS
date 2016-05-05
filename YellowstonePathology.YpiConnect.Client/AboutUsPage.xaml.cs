@@ -121,7 +121,7 @@ namespace YellowstonePathology.YpiConnect.Client
 			ApplicationNavigator.ApplicationContentFrame.NavigationService.Navigate(desktopShortcutPage);
 		}
 
-		public void Save()
+		public void Save(bool releaseLock)
 		{
 
 		}

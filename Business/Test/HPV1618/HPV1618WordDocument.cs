@@ -7,13 +7,14 @@ namespace YellowstonePathology.Business.Test.HPV1618
 {
 	public class HPV1618WordDocument : YellowstonePathology.Business.Document.CaseReportV2
 	{
-		public override void Render(string masterAccessionNo, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveEnum)
-		{
-			this.m_ReportNo = reportNo;
-			this.m_ReportSaveEnum = reportSaveEnum;
-			this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByMasterAccessionNo(masterAccessionNo);
+        public HPV1618WordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+            : base(accessionOrder, panelSetOrder, reportSaveMode)
+        {
 
-			this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
+        }
+
+        public override void Render()
+        {			
 			YellowstonePathology.Business.Test.HPV1618.PanelSetOrderHPV1618 panelSetOrderHPV1618 = (YellowstonePathology.Business.Test.HPV1618.PanelSetOrderHPV1618)this.m_PanelSetOrder;
 
 			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\HPV1618Genotyping.7.xml";
@@ -43,11 +44,9 @@ namespace YellowstonePathology.Business.Test.HPV1618
             }
             
             base.ReplaceText("report_method", panelSetOrderHPV1618.Method);
+            base.ReplaceText("report_references", panelSetOrderHPV1618.References);
 
-			//this.ReplaceText("report_date", BaseData.GetShortDateString(this.m_PanelSetOrder.FinalDate));
-			//this.SetXmlNodeData("pathologist_signature", this.m_PanelSetOrder.Signature);
-
-			this.SetReportDistribution();
+            this.SetReportDistribution();
 			this.SetCaseHistory();
 
 			this.SaveReport();

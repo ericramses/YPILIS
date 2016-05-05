@@ -7,9 +7,9 @@ namespace YellowstonePathology.Business.Rules.Surgical
 {
 	public class SetAmendmentSignatureText
 	{
-		protected YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
+        protected YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
+        protected YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
 		protected YellowstonePathology.Business.Amendment.Model.Amendment m_Amendment;
-        protected YellowstonePathology.Business.Domain.Lock m_Lock;
 		protected YellowstonePathology.Business.Rules.ExecutionStatus m_ExecutionStatus;
 		protected YellowstonePathology.Business.Rules.Rule m_Rule;
 
@@ -61,18 +61,18 @@ namespace YellowstonePathology.Business.Rules.Surgical
 
 		public void IsNotLocked()
 		{
-			if (!this.m_Lock.LockAquired)
+			if (!this.m_AccessionOrder.IsLockAquiredByMe == true)
 			{
 				this.m_Amendment.SignatureButtonIsEnabled = false;
 				this.m_Amendment.DeleteButtonIsEnabled = false;
 			}
 		}
 
-		public void Execute(YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Amendment.Model.Amendment amendment, YellowstonePathology.Business.Domain.Lock theLock)
+		public void Execute(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Amendment.Model.Amendment amendment)
 		{
+            this.m_AccessionOrder = accessionOrder;
             this.m_PanelSetOrder = panelSetOrder;
 			this.m_Amendment = amendment;
-			this.m_Lock = theLock;
 			this.m_ExecutionStatus = new ExecutionStatus();
 			this.m_Rule.Execute(m_ExecutionStatus);
 		}

@@ -17,7 +17,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 	/// <summary>
 	/// Interaction logic for ClientOrderLookupPage.xaml
 	/// </summary>
-	public partial class ClientOrderLookupPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
+	public partial class ClientOrderLookupPage : UserControl
 	{
 		public delegate void ClientOrderFoundEventHandler(object sender, YellowstonePathology.UI.CustomEventArgs.ClientOrderReturnEventArgs e);
         public event ClientOrderFoundEventHandler ClientOrderFound;
@@ -152,26 +152,7 @@ namespace YellowstonePathology.UI.Login.Receiving
         private void ButtonBack_Click(object sender, RoutedEventArgs e)
         {			
 			this.Back(this, new EventArgs());
-		}
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return false;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return false;
-		}
-
-		public void Save()
-		{
-
-		}
-
-		public void UpdateBindingSources()
-		{
-		}
+		}		
 
 		private void ContainerScanReceived(YellowstonePathology.Business.BarcodeScanning.ContainerBarcode containerBarcode)
 		{
@@ -184,15 +165,23 @@ namespace YellowstonePathology.UI.Login.Receiving
 
 		private void GetClientOrderByContainerId(string containerId)
 		{
-            YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder = YellowstonePathology.Business.Gateway.ClientOrderGateway.GetClientOrderByContainerId(containerId);
-			if (clientOrder != null)
-			{				
-				this.ReturnClientOrder(clientOrder);
-			}
-			else
-			{
-				MessageBox.Show("No order was found.");
-			}
+            string clientOrderId = YellowstonePathology.Business.Gateway.ClientOrderGateway.GetClientOrderByContainerId(containerId);
+            if(string.IsNullOrEmpty(clientOrderId) == false)
+            {
+                YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullClientOrderByClientOrderId(clientOrderId, Window.GetWindow(this));
+                if (clientOrder != null)
+                {
+                    this.ReturnClientOrder(clientOrder);
+                }
+                else
+                {
+                    MessageBox.Show("No order was found.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("No order was found.");
+            }
 		}       		
 	}
 }

@@ -94,13 +94,13 @@
 			</Grid.RowDefinitions>
 			<StackPanel Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Orientation="Horizontal">
 				<Button Click="ButtonViewDocument_Click" KeyboardNavigation.IsTabStop="False" Width="25" Height="25">
-				  <Image Source="/Graphics/Document.jpg"></Image>
+                    <Image Source="/Resources/Document.jpg"></Image>
 				</Button>				
 			<StackPanel Orientation="Horizontal">
-				<TextBlock Text="{Binding Path=CaseHeader}" VerticalAlignment="Center" Margin="5" FontWeight="Bold"></TextBlock>        
-				<TextBlock Style="{StaticResource HeadingTextBlock}" VerticalAlignment="Center">Locked By:</TextBlock>
-				<TextBlock Name="textBoxLockMessage" Style="{StaticResource HeadingTextBlock}" VerticalAlignment="Center" Text="{Binding Path=Lock.LockMessage}" Width="200" TextAlignment="Left"></TextBlock>
-			</StackPanel>
+                    <TextBlock Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.ReportNo}" VerticalAlignment="Center" Margin="2,2,2,2" FontWeight="Bold"></TextBlock>
+                    <TextBlock Text=":" VerticalAlignment="Center" Margin="2,2,2,2" FontWeight="Bold"></TextBlock>
+                    <TextBlock Text="{Binding Path=AccessionOrder.PatientDisplayName}" VerticalAlignment="Center" Margin="2,2,2,2" FontWeight="Bold"></TextBlock>
+            </StackPanel>
 			</StackPanel>
 			<TabControl Grid.Column="0" Grid.Row="1" Name="tabControlFlow">
 				<TabItem Header="General" Name="TabItemGeneral">					
@@ -126,18 +126,13 @@
 						</StackPanel>                        
                         <StackPanel Orientation="Horizontal">
                             
-							<TextBlock Style="{StaticResource HeadingTextBlock}">Specimen:</TextBlock>
-                            <ComboBox Name="ComboBoxSpecimen" Style="{StaticResource BoundTextBox}"
-									  ItemsSource="{Binding Path=AccessionOrder.SpecimenOrderCollection}"
-									  DisplayMemberPath="Description"
-									  SelectedValuePath="SpecimenOrderId"
-									  SelectedValue="{Binding Path=PanelSetOrderLeukemiaLymphoma.OrderedOnId}"
-									  IsEnabled="{Binding Path=IsWorkspaceEnabled}">
-                            </ComboBox>
-                            
-                            <Button Name="ButtonShowSpecimenDialog" Width="30" Height="20" Click="ButtonShowSpecimenDialog_Click">...</Button>
-                            
-						</StackPanel>                                              
+							<TextBlock Style="{StaticResource HeadingTextBlock}" VerticalAlignment="Center">Specimen:</TextBlock>
+
+                            <Button Name="ButtonShowSpecimenDialog" Width="100" Height="30" Margin="2,2,2,2" Click="ButtonShowSpecimenDialog_Click">Details</Button>
+
+                            <Button Name="ButtonShowSelectSpecimenDialog" Width="100" Height="30" Margin="2,2,2,2" Click="ButtonShowSelectSpecimenDialog_Click">Selection</Button>
+
+                        </StackPanel>                                              
                         
 						<StackPanel Orientation="Horizontal">
 							<TextBlock Style="{StaticResource HeadingTextBlock}">Clinical History:</TextBlock>
@@ -259,19 +254,19 @@
             <TextBox Name="textBoxPBirthdate" Grid.Column="1" 
                Grid.Row="5" Style="{StaticResource TextBoxInput}" 
                PreviewLostKeyboardFocus="TextBoxPBirthdate_PreviewLostKeyboardFocus" 
-               Text="{Binding Path=AccessionOrder.PBirthdate, Converter={StaticResource ShortDateConverter}}" IsEnabled="{Binding Path=Lock.LockAquired}">
+               Text="{Binding Path=AccessionOrder.PBirthdate, Converter={StaticResource ShortDateConverter}}" IsEnabled="{Binding Path=IsWorkspaceEnabled}">
             </TextBox>
-						<ComboBox Grid.Column="1" Grid.Row="6" Text="{Binding Path=AccessionOrder.PSex}" Margin="3" Width="50" HorizontalAlignment="Left" IsEnabled="{Binding Path=Lock.LockAquired}" IsEditable="True">
+                        <ComboBox Grid.Column="1" Grid.Row="6" Text="{Binding Path=AccessionOrder.PSex}" Margin="3" Width="50" HorizontalAlignment="Left" IsEnabled="{Binding Path=IsWorkspaceEnabled}" IsEditable="True">
 							<ComboBoxItem>F</ComboBoxItem>
 							<ComboBoxItem>M</ComboBoxItem>
 						</ComboBox>
-						<TextBox Grid.Column="1" Grid.Row="7" Text="{Binding Path=AccessionOrder.PSSN, Converter={StaticResource SocialSecurityNumberConverter}}" Style="{StaticResource TextBoxInput}" IsEnabled="{Binding Path=Lock.LockAquired}"></TextBox>
-						<ComboBox Grid.Column="1" Grid.Row="8" Text="{Binding Path=AccessionOrder.PatientType}" Margin="3" Width="100" HorizontalAlignment="Left" IsEnabled="{Binding Path=Lock.LockAquired}" IsEditable="True">
+                        <TextBox Grid.Column="1" Grid.Row="7" Text="{Binding Path=AccessionOrder.PSSN, Converter={StaticResource SocialSecurityNumberConverter}}" Style="{StaticResource TextBoxInput}" IsEnabled="{Binding Path=IsWorkspaceEnabled}"></TextBox>
+                        <ComboBox Grid.Column="1" Grid.Row="8" Text="{Binding Path=AccessionOrder.PatientType}" Margin="3" Width="100" HorizontalAlignment="Left" IsEnabled="{Binding Path=IsWorkspaceEnabled}" IsEditable="True">
 							<ComboBoxItem>IP</ComboBoxItem>
 							<ComboBoxItem>OP</ComboBoxItem>
 							<ComboBoxItem>Not Selected</ComboBoxItem>
 						</ComboBox>
-						<ComboBox Grid.Column="1" Grid.Row="9" Text="{Binding Path=AccessionOrder.PrimaryInsurance}" Margin="3" Width="100" HorizontalAlignment="Left" IsEnabled="{Binding Path=Lock.LockAquired}" IsEditable="True">
+                        <ComboBox Grid.Column="1" Grid.Row="9" Text="{Binding Path=AccessionOrder.PrimaryInsurance}" Margin="3" Width="100" HorizontalAlignment="Left" IsEnabled="{Binding Path=IsWorkspaceEnabled}" IsEditable="True">
                             <ComboBoxItem Content="Not Selected"></ComboBoxItem>
                             <ComboBoxItem Content="Medicare"></ComboBoxItem>
                             <ComboBoxItem Content="Medicaid"></ComboBoxItem>
@@ -281,13 +276,13 @@
                             <ComboBoxItem Content="Commercial"></ComboBoxItem>
                         </ComboBox>
 						<StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="10">
-							<TextBox Text="{Binding Path=AccessionOrder.SvhMedicalRecord}" Style="{StaticResource TextBoxInput}" Width="75" IsEnabled="{Binding Path=Lock.LockAquired}"></TextBox>
-							<TextBox Text="{Binding Path=AccessionOrder.SvhAccount}" Style="{StaticResource TextBoxInput}" Width="75" IsEnabled="{Binding Path=Lock.LockAquired}"></TextBox>
+                            <TextBox Text="{Binding Path=AccessionOrder.SvhMedicalRecord}" Style="{StaticResource TextBoxInput}" Width="75" IsEnabled="{Binding Path=IsWorkspaceEnabled}"></TextBox>
+                            <TextBox Text="{Binding Path=AccessionOrder.SvhAccount}" Style="{StaticResource TextBoxInput}" Width="75" IsEnabled="{Binding Path=IsWorkspaceEnabled}"></TextBox>
 						</StackPanel>
 						
 						<TextBlock Grid.Column="1" Grid.Row="11" Margin="3" Width="100" Text="{Binding Path=AccessionOrder.PatientId}" Style="{StaticResource TextBoxInput}"></TextBlock>
 
-						<Button Grid.Column="1" Grid.Row="12" Margin="2" Click="ButtonPatientLinking_Click" Width="145" HorizontalAlignment="Left" IsEnabled="{Binding Path=Lock.LockAquired}">Patient Linking</Button>
+                        <Button Grid.Column="1" Grid.Row="12" Margin="2" Click="ButtonPatientLinking_Click" Width="145" HorizontalAlignment="Left" IsEnabled="{Binding Path=IsWorkspaceEnabled}">Patient Linking</Button>
 					</Grid>
 				</TabItem>                       				                       
                 <TabItem Name="TabItemPatientHistory" Header="Data">
@@ -532,8 +527,8 @@
 					<Grid Background="White">
 						<Grid.ContextMenu>
 							<ContextMenu>
-								<MenuItem Name="MenuItemSetCptCodes" Header="Set CPT Codes" Click="MenuItemSetCptCodes_Click"></MenuItem>
-								<MenuItem Name="MeunuItemAddIcd9Code" Header="Insert ICD9 Code" Click="MenuItemAddIcd9Code_Click"></MenuItem>
+                                <!--<MenuItem Name="MenuItemSetCptCodes" Header="Set CPT Codes" Click="MenuItemSetCptCodes_Click"></MenuItem>-->
+                                <MenuItem Name="MeunuItemAddIcd9Code" Header="Insert ICD9 Code" Click="MenuItemAddIcd9Code_Click"></MenuItem>
 								<MenuItem></MenuItem>
 								<MenuItem Name="MeunuItemDeleteIcd9Code" Header="Delete ICD9 Code" Click="MenuItemDeleteIcd9Code_Click"></MenuItem>
 							</ContextMenu>							
@@ -543,33 +538,10 @@
 						</Grid.ColumnDefinitions>
 						<Grid.RowDefinitions>
 							<RowDefinition></RowDefinition>
-							<RowDefinition></RowDefinition>
 							<RowDefinition Height="80"></RowDefinition>
 						</Grid.RowDefinitions>
-						<ListView Grid.Column="0" Grid.Row="0" Name="listViewCptCodes" ItemsSource="{Binding Path=AccessionOrder.PanelSetOrderCPTCodeBillCollection}">						
-							<ListView.View>
-								<GridView AllowsColumnReorder="True" ColumnHeaderToolTip="Cpt Codes">
-									<GridViewColumn DisplayMemberBinding="{Binding Path=CptCode}" Header="CPT Code" Width="100"/>                  
-									<GridViewColumn Header="Quantity">
-										<GridViewColumn.CellTemplate>
-											<DataTemplate>
-												<StackPanel Orientation="Horizontal">
-													<TextBox Text="{Binding Path=Quantity}" Width="70" Margin="5"></TextBox>                          
-												</StackPanel>
-											</DataTemplate>
-										</GridViewColumn.CellTemplate>
-									</GridViewColumn>
-                  <GridViewColumn DisplayMemberBinding="{Binding Path=PostDate, Converter={StaticResource ShortDateConverter}}" Header="Date" Width="100"/>
-                  <GridViewColumn DisplayMemberBinding="{Binding Path=PrimaryInsurance}" Header="Insurance" Width="100"/>
-                  <GridViewColumn DisplayMemberBinding="{Binding Path=PatientType}" Header="Patient Type" Width="100"/>
-                  <GridViewColumn DisplayMemberBinding="{Binding Path=BillingType}" Header="Billing" Width="100"/>
-                  <GridViewColumn DisplayMemberBinding="{Binding Path=ClientId}" Header="Client" Width="100"/>
-                  <GridViewColumn DisplayMemberBinding="{Binding Path=NoCharge}" Header="No Charge" Width="100"/>
-                </GridView>
-							</ListView.View>
-						</ListView>
 
-            <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Horizontal">
+            <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
             <ListView Name="ListViewICD9BillingCodeCollection" ItemsSource="{Binding Path=ICD9BillingCodeCollection}" IsSynchronizedWithCurrentItem="True">
                 <ListView.View>
                   <GridView>
@@ -590,7 +562,7 @@
               </ListView>
             </StackPanel>
             
-            <StackPanel Grid.Column="0" Grid.Row="2" Orientation="Horizontal">              
+            <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Horizontal">              
               <Button VerticalAlignment="Top" Width="200" Style="{StaticResource NormalButton}" Click="ButtonRemoveICDCode_Click">Remove ICD Code</Button>
             </StackPanel>
 					</Grid>
@@ -748,8 +720,41 @@
                         <Button Width="125" Height="30" Grid.Column="0" Grid.Row="0" Click="ButtonReportOrder_Click" HorizontalAlignment="Left" Margin="2,2,2,2">Additional Testing</Button>
                         <Button Width="75" Height="30" Grid.Column="0" Grid.Row="0" Click="ButtonRefresh_Click" HorizontalAlignment="Right" Margin="2,2,2,2">Refresh</Button>
 
-						<ListView Name="ListViewFlowCaseList" Grid.Column="0" Grid.Row="1" ItemsSource="{Binding Path=FlowLogSearch.FlowLogList}" IsSynchronizedWithCurrentItem="True" SelectionChanged="ListViewFlowCaseList_SelectionChanged">
-							<ListView.View>
+						<ListView Name="ListViewFlowCaseList" Grid.Column="0" Grid.Row="1" ItemsSource="{Binding Path=FlowLogSearch.FlowLogList}" SelectionChanged="ListViewFlowCaseList_SelectionChanged">
+
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
+                                    <Style.Triggers>
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding Path=IsLockAquiredByMe}" Value="True"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <Setter Property="Background" Value="#cbf4c8"/>
+                                        </MultiDataTrigger>
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding Path=IsLockAquiredByMe}" Value="False"/>
+                                                <Condition Binding="{Binding Path=LockAquired}" Value="true"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <Setter Property="Background" Value="#fae5e7"/>
+                                        </MultiDataTrigger>
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding Path=LockAquired}" Value="False"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <Setter Property="Background" Value="#FFFFFF"/>
+                                        </MultiDataTrigger>
+                                        <MultiTrigger>
+                                            <MultiTrigger.Conditions>
+                                                <Condition Property="IsSelected" Value="true" />
+                                            </MultiTrigger.Conditions>
+                                            <Setter Property="FontWeight" Value="Bold" />
+                                        </MultiTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                            
+                            <ListView.View>
                                 <GridView AllowsColumnReorder="True" ColumnHeaderToolTip="Flow Case List">
                                     <GridViewColumn DisplayMemberBinding="{Binding Path=ReportNo}" Header="Report No" Width="85"/>
                                     <GridViewColumn DisplayMemberBinding="{Binding Path=AccessionDate, Converter={StaticResource ShortDateConverter}}" Header="Accession Date" Width="85"/>
@@ -788,7 +793,7 @@
 								Checked="RadioButtonFlowSearch_Checked"
 								Style="{StaticResource RadioButtonStyle}"
 							  GroupName="radioButtonGroupSearch">Report No:</RadioButton>
-							<TextBox Name="textBoxSearchReportNo" Width="100" Visibility="Hidden">15-</TextBox>
+							<TextBox Name="textBoxSearchReportNo" Width="100" Visibility="Hidden" KeyUp="textBoxSearchReportNo_KeyUp">16-</TextBox>
 						</StackPanel>
 						<StackPanel Orientation="Horizontal">
 							<RadioButton Name="radioButtonSearchPatientName"
@@ -964,10 +969,10 @@
 			</StatusBarItem>
 
 			<StatusBarItem>
-				<TextBlock Margin="2" TextAlignment="Right" HorizontalAlignment="Stretch" VerticalAlignment="Center">Lock Status:</TextBlock>
+				<TextBlock Margin="2" TextAlignment="Right" HorizontalAlignment="Stretch" VerticalAlignment="Center">Locked By:</TextBlock>
 			</StatusBarItem>
 			<StatusBarItem>
-				<TextBlock Width="300" Margin="2" TextAlignment="Left" HorizontalAlignment="Stretch" VerticalAlignment="Center" Text="{Binding Path=Lock.LockMessage}"></TextBlock>
+                <TextBlock Width="300" Margin="2" TextAlignment="Left" HorizontalAlignment="Stretch" VerticalAlignment="Center" Text="{Binding Path=AccessionOrder.LockStatus}"></TextBlock>
 			</StatusBarItem>
 
 			<StatusBarItem>

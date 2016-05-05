@@ -10,33 +10,49 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
         public delegate void ReturnEventHandler(object sender, UI.Navigation.PageNavigationReturnEventArgs e);
         public event ReturnEventHandler Return;
 
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
-		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
+		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;		
         private YellowstonePathology.UI.Navigation.PageNavigator m_PageNavigator;
 		private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
+        private Login.Receiving.LoginPageWindow m_LoginPageWindow;
 
 		public AliquotAndStainOrderPath(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
 			YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder,
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity,
 			YellowstonePathology.UI.Navigation.PageNavigator pageNavigator)
 		{
-			this.m_ObjectTracker = objectTracker;
 			this.m_AccessionOrder = accessionOrder;
-			this.m_PanelSetOrder = panelSetOrder;
-			this.m_SystemIdentity = systemIdentity;
+			this.m_PanelSetOrder = panelSetOrder;			
 			this.m_PageNavigator = pageNavigator;
 		}
 
-		public void Start()
+        public AliquotAndStainOrderPath(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
+            YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder,
+            Login.Receiving.LoginPageWindow loginPageWindow)
         {
-            this.ShowAliquotAndStainOrderPage();            
-		}
+            this.m_AccessionOrder = accessionOrder;
+            this.m_PanelSetOrder = panelSetOrder;
+            this.m_LoginPageWindow = loginPageWindow;
+            this.m_PageNavigator = loginPageWindow.PageNavigator;
+        }
+
+        public void Start()
+        {            
+            this.ShowAliquotAndStainOrderPage();
+
+            if (this.m_LoginPageWindow != null)
+            {
+                this.Return += AliquotAndStainOrderPath_Return;
+                this.m_LoginPageWindow.ShowDialog();                
+            }
+        }
+
+        private void AliquotAndStainOrderPath_Return(object sender, Navigation.PageNavigationReturnEventArgs e)
+        {
+            this.m_LoginPageWindow.Close();
+        }
 
         private void ShowAliquotAndStainOrderPage()
         {
-			FinalizeAccession.AliquotAndStainOrderPage aliquotAndStainOrderPage = new FinalizeAccession.AliquotAndStainOrderPage(this.m_AccessionOrder, this.m_ObjectTracker, this.m_PanelSetOrder, this.m_SystemIdentity);
+			FinalizeAccession.AliquotAndStainOrderPage aliquotAndStainOrderPage = new FinalizeAccession.AliquotAndStainOrderPage(this.m_AccessionOrder, this.m_PanelSetOrder);
             aliquotAndStainOrderPage.Return += new FinalizeAccession.AliquotAndStainOrderPage.ReturnEventHandler(AliquotAndStainOrderPage_Return);
 			aliquotAndStainOrderPage.ShowTaskOrderPage += new AliquotAndStainOrderPage.ShowTaskOrderPageEventHandler(AliquotAndStainOrderPage_ShowTaskOrderPage);
             aliquotAndStainOrderPage.ShowSpecimenMappingPage += new AliquotAndStainOrderPage.ShowSpecimenMappingPageEventHandler(AliquotAndStainOrderPage_ShowSpecimenMappingPage);
@@ -45,7 +61,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
         private void AliquotAndStainOrderPage_ShowSpecimenMappingPage(object sender, EventArgs e)
         {
-            SpecimenMappingPage specimenMappingPage = new SpecimenMappingPage(this.m_AccessionOrder, this.m_ObjectTracker);
+            SpecimenMappingPage specimenMappingPage = new SpecimenMappingPage(this.m_AccessionOrder);
             specimenMappingPage.Next += new SpecimenMappingPage.NextEventHandler(SpecimenMappingPage_Next);
             specimenMappingPage.Back += new SpecimenMappingPage.BackEventHandler(SpecimenMappingPage_Back);
             this.m_PageNavigator.Navigate(specimenMappingPage);
@@ -66,11 +82,8 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 			YellowstonePathology.Business.Task.Model.TaskOrder taskOrder = (YellowstonePathology.Business.Task.Model.TaskOrder)e.Data;
 			switch (e.PageNavigationDirectionEnum)
 			{
-				case UI.Navigation.PageNavigationDirectionEnum.Next:
-					if (this.SpecialOrdersNeedHandled() == false)
-					{
-						this.Return(this, new UI.Navigation.PageNavigationReturnEventArgs(UI.Navigation.PageNavigationDirectionEnum.Next, null));
-					}
+				case UI.Navigation.PageNavigationDirectionEnum.Next:					
+					this.Return(this, new UI.Navigation.PageNavigationReturnEventArgs(UI.Navigation.PageNavigationDirectionEnum.Next, null));					
 					break;
 				case UI.Navigation.PageNavigationDirectionEnum.Back:
 					this.Return(this, new UI.Navigation.PageNavigationReturnEventArgs(UI.Navigation.PageNavigationDirectionEnum.Back, null));
@@ -79,16 +92,13 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
         }
 
 		private void AliquotAndStainOrderPage_ShowTaskOrderPage(object sender, CustomEventArgs.AcknowledgeStainOrderEventArgs e)
-		{
-			if (this.SpecialOrdersNeedHandled() == false)
-			{
-				this.ShowTaskOrderPage(e.TaskOrderStainAcknowledgement);
-			}
+		{			
+			this.ShowTaskOrderPage(e.TaskOrderStainAcknowledgement);			
 		}
 
 		private void ShowTaskOrderPage(YellowstonePathology.Business.Task.Model.TaskOrder taskOrder)
 		{
-			YellowstonePathology.UI.Login.Receiving.TaskOrderPage taskOrderPage = new Receiving.TaskOrderPage(this.m_AccessionOrder, this.m_ObjectTracker, taskOrder, PageNavigationModeEnum.Inline, this.m_SystemIdentity);
+			YellowstonePathology.UI.Login.Receiving.TaskOrderPage taskOrderPage = new Receiving.TaskOrderPage(this.m_AccessionOrder, taskOrder, PageNavigationModeEnum.Inline);
 			taskOrderPage.Back += new Receiving.TaskOrderPage.BackEventHandler(TaskOrderPage_Back);
 			taskOrderPage.Next += new Receiving.TaskOrderPage.NextEventHandler(TaskOrderPage_Next);
 			this.m_PageNavigator.Navigate(taskOrderPage);
@@ -96,26 +106,12 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
 		private void TaskOrderPage_Next(object sender, EventArgs e)
 		{
-			this.Return(this, new UI.Navigation.PageNavigationReturnEventArgs(UI.Navigation.PageNavigationDirectionEnum.Next, null));
+            this.Return(this, new UI.Navigation.PageNavigationReturnEventArgs(UI.Navigation.PageNavigationDirectionEnum.Next, null));
 		}
 
 		private void TaskOrderPage_Back(object sender, EventArgs e)
 		{
-			this.ShowAliquotAndStainOrderPage();
-		}
-
-		private bool SpecialOrdersNeedHandled()
-		{
-			YellowstonePathology.Business.Rules.Common.RulesAutomatedStainOrder rulesAutomatedStainOrder = new Business.Rules.Common.RulesAutomatedStainOrder();
-			YellowstonePathology.Business.Rules.ExecutionStatus executionStatus = new Business.Rules.ExecutionStatus();
-			rulesAutomatedStainOrder.Execute(executionStatus, this.m_AccessionOrder);
-
-			if (executionStatus.Halted == false)
-			{
-				System.Windows.MessageBox.Show(executionStatus.ExecutionMessagesString);
-			}
-
-			return !executionStatus.Halted;
-		}
-	}
+            this.ShowAliquotAndStainOrderPage();
+        }
+    }
 }

@@ -6,9 +6,9 @@ using System.Xml.Linq;
 
 namespace YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile
 {
-	public class ComprehensiveColonCancerProfileEpicObxView : YellowstonePathology.Business.HL7View.EPIC.EpicObxView
+	public class ComprehensiveColonCancerProfileEPICObxView : YellowstonePathology.Business.HL7View.EPIC.EPICObxView
 	{
-		public ComprehensiveColonCancerProfileEpicObxView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount) 
+		public ComprehensiveColonCancerProfileEPICObxView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount) 
             : base(accessionOrder, reportNo, obxCount)
 		{
 			
@@ -34,77 +34,132 @@ namespace YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile
             this.AddNextObxElement("", document, "F");
             this.AddAmendments(document);
 
-            string specimenDescription = comprehensiveColonCancerProfileResult.SpecimenOrder.GetSpecimenDescriptionString();
-			this.HandleLongString("Specimen:", document, "F");
-            this.HandleLongString(specimenDescription, document, "F");
-            this.AddNextObxElement("", document, "F");
+            foreach(YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen in comprehensiveColonCancerProfileResult.SurgicalSpecimenCollection)
+            {
+                YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(surgicalSpecimen.SpecimenOrderId);
+                StringBuilder specimenDescription = new StringBuilder();
+                specimenDescription.Append(specimenOrder.Description + ": ");
+                foreach (YellowstonePathology.Business.Test.AliquotOrder aliquotOrder in specimenOrder.AliquotOrderCollection)
+                {
+                    specimenDescription.Append(aliquotOrder.Label + ", ");
+                }
+                specimenDescription.Remove(specimenDescription.Length - 2, 2);
+                this.AddNextObxElement("Specimen:", document, "F");
+                this.HandleLongString(specimenDescription.ToString(), document, "F");
+                this.AddNextObxElement("", document, "F");
 
-			this.HandleLongString("Diagnosis:", document, "F");
-            this.HandleLongString(comprehensiveColonCancerProfileResult.SurgicalSpecimen.Diagnosis, document, "F");
-            this.AddNextObxElement("", document, "F");
+                this.HandleLongString("Diagnosis:", document, "F");
+                this.HandleLongString(surgicalSpecimen.Diagnosis, document, "F");
+                this.AddNextObxElement("", document, "F");
+            }
 
 			this.HandleLongString("AJCC Pathologic Staging:", document, "F");
             this.HandleLongString(comprehensiveColonCancerProfileResult.PanelSetOrderSurgical.AJCCStage, document, "F");
             this.AddNextObxElement("", document, "F");
 
-			this.AddNextObxElement("Reference Report: " + comprehensiveColonCancerProfileResult.PanelSetOrderSurgical.ReportNo, document, "F");
-			this.AddNextObxElement("", document, "F");            
-
-            this.AddNextObxElement("Mismatch Repair Protein Expression by Immunohistochemistry: ", document, "F");
-			this.AddNextObxElement("MLH1: " + comprehensiveColonCancerProfileResult.PanelSetOrderLynchSyndromeIHC.MLH1Result, document, "F");
-			this.AddNextObxElement("MSH2: " + comprehensiveColonCancerProfileResult.PanelSetOrderLynchSyndromeIHC.MSH2Result, document, "F");
-			this.AddNextObxElement("MSH6: " + comprehensiveColonCancerProfileResult.PanelSetOrderLynchSyndromeIHC.MSH6Result, document, "F");
-			this.AddNextObxElement("PMS2: " + comprehensiveColonCancerProfileResult.PanelSetOrderLynchSyndromeIHC.PMS2Result, document, "F");
-			this.AddNextObxElement("Reference Report: " + comprehensiveColonCancerProfileResult.PanelSetOrderLynchSyndromeIHC.ReportNo, document, "F");
+            this.AddNextObxElement("Reference Report: " + comprehensiveColonCancerProfileResult.PanelSetOrderSurgical.ReportNo, document, "F");
 			this.AddNextObxElement("", document, "F");
 
-			if (comprehensiveColonCancerProfileResult.BRAFV600EKIsOrdered == true ||
-				comprehensiveColonCancerProfileResult.KRASStandardIsOrderd == true ||
-				comprehensiveColonCancerProfileResult.MLHIsOrdered == true)
-			{
-				this.AddNextObxElement("Molecular Analysis", document, "F");
-				this.AddNextObxElement("", document, "F");
-			}
-
-			if (comprehensiveColonCancerProfileResult.PanelSetOrderMLH1MethylationAnalysis != null)
-			{
-				this.AddNextObxElement("MLH1 Promoter Methylation Analysis:  " + comprehensiveColonCancerProfileResult.PanelSetOrderMLH1MethylationAnalysis.ReportNo, document, "F");
-				this.AddNextObxElement("Result: " + comprehensiveColonCancerProfileResult.PanelSetOrderMLH1MethylationAnalysis.Result, document, "F");
-				this.AddNextObxElement("", document, "F");
-			}
-
-			if (comprehensiveColonCancerProfileResult.KRASStandardIsOrderd == true)
+            this.AddNextObxElement("Mismatch Repair Protein Expression by Immunohistochemistry: ", document, "F");
+            if (comprehensiveColonCancerProfileResult.PanelSetOrderLynchSyndromeIHCCollection.Count > 0)
             {
-				this.AddNextObxElement("KRAS Standard Mutation Analysis: " + comprehensiveColonCancerProfileResult.KRASStandardTestOrder.ReportNo, document, "F");
-                this.AddNextObxElement("Result: " + comprehensiveColonCancerProfileResult.KRASStandardTestOrder.Result, document, "F");                
-                this.AddNextObxElement("", document, "F");
-			}
-
-			if (comprehensiveColonCancerProfileResult.BRAFV600EKIsOrdered == true)
-            {
-				this.AddNextObxElement("BRAF V600E/K Mutation by PCR: " + comprehensiveColonCancerProfileResult.BRAFV600EKTestOrder.ReportNo, document, "F");
-				this.AddNextObxElement("Result: " + comprehensiveColonCancerProfileResult.BRAFV600EKTestOrder.Result, document, "F");
-				this.AddNextObxElement("", document, "F");
+                foreach (YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeIHC testOrder in comprehensiveColonCancerProfileResult.PanelSetOrderLynchSyndromeIHCCollection)
+                {
+                    this.AddNextObxElement("MLH1: " + testOrder.MLH1Result, document, "F");
+                    this.AddNextObxElement("MSH2: " + testOrder.MSH2Result, document, "F");
+                    this.AddNextObxElement("MSH6: " + testOrder.MSH6Result, document, "F");
+                    this.AddNextObxElement("PMS2: " + testOrder.PMS2Result, document, "F");
+                    this.AddNextObxElement("Reference Report: " + testOrder.ReportNo, document, "F");
+                    this.AddNextObxElement("", document, "F");
+                }
             }
-
-            if (comprehensiveColonCancerProfileResult.KRASExon23MutationIsOrdered == true)
+            else
             {
-                this.AddNextObxElement("KRAS Exon 2,3 Mutation Analysis: " + comprehensiveColonCancerProfileResult.KRASExon23MutationTestOrder.ReportNo, document, "F");
-                this.AddNextObxElement("Result: " + comprehensiveColonCancerProfileResult.KRASExon23MutationTestOrder.Result, document, "F");
+                this.AddNextObxElement("MLH1: " + "Not Included", document, "F");
+                this.AddNextObxElement("MSH2: " + "Not Included", document, "F");
+                this.AddNextObxElement("MSH6: " + "Not Included", document, "F");
+                this.AddNextObxElement("PMS2: " + "Not Included", document, "F");
                 this.AddNextObxElement("", document, "F");
             }
 
-            if (comprehensiveColonCancerProfileResult.KRASExon4MutationIsOrdered == true)
+            this.AddNextObxElement("Molecular Analysis", document, "F");
+            if (comprehensiveColonCancerProfileResult.MolecularTestOrderCollection.Count > 0)
             {
-                this.AddNextObxElement("KRAS Exon 4 Mutation Analysis: " + comprehensiveColonCancerProfileResult.KRASExon4MutationTestOrder.ReportNo, document, "F");
-                this.AddNextObxElement("Result: " + comprehensiveColonCancerProfileResult.KRASExon4MutationTestOrder.Result, document, "F");
-                this.AddNextObxElement("", document, "F");
-            }
 
-            if (comprehensiveColonCancerProfileResult.NRASMutationAnalysisIsOrdered == true)
-            {
-                this.AddNextObxElement("NRAS Mutation Analysis: " + comprehensiveColonCancerProfileResult.NRASMutationAnalysisTestOrder.ReportNo, document, "F");
-                this.AddNextObxElement("Result: " + comprehensiveColonCancerProfileResult.NRASMutationAnalysisTestOrder.Result, document, "F");
+                foreach (YellowstonePathology.Business.Test.PanelSetOrder testOrder in comprehensiveColonCancerProfileResult.MolecularTestOrderCollection)
+                {
+                    YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimen = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByOrderTarget(testOrder.OrderedOnId);
+                    YellowstonePathology.Business.Test.AliquotOrder aliquot = specimen.AliquotOrderCollection.GetByAliquotOrderId(testOrder.OrderedOnId);
+                    if (testOrder is LynchSyndrome.PanelSetOrderMLH1MethylationAnalysis)
+                    {
+                        this.AddNextObxElement("MLH1 Promoter Methylation Analysis: " + ((LynchSyndrome.PanelSetOrderMLH1MethylationAnalysis)testOrder).Result, document, "F");
+                        this.AddNextObxElement("Specimen: " + aliquot.Label, document, "F");
+                        this.AddNextObxElement("Reference Report: " + testOrder.ReportNo, document, "F");
+                        this.AddNextObxElement("", document, "F");
+
+                    }
+                    else if (testOrder is KRASStandard.KRASStandardTestOrder)
+                    {
+                        this.AddNextObxElement("KRAS Mutation Analysis: " + ((KRASStandard.KRASStandardTestOrder)testOrder).Result, document, "F");
+                        this.AddNextObxElement("Specimen: " + aliquot.Label, document, "F");
+                        this.AddNextObxElement("Reference Report: " + testOrder.ReportNo, document, "F");
+                        this.AddNextObxElement("", document, "F");
+                    }
+                    else if (testOrder is KRASExon23Mutation.KRASExon23MutationTestOrder)
+                    {
+                        this.AddNextObxElement("KRAS Exon 23 Mutation Analysis: " + ((KRASExon23Mutation.KRASExon23MutationTestOrder)testOrder).Result, document, "F");
+                        this.AddNextObxElement("Specimen: " + aliquot.Label, document, "F");
+                        this.AddNextObxElement("Reference Report: " + testOrder.ReportNo, document, "F");
+                        this.AddNextObxElement("", document, "F");
+                    }
+                    else if (testOrder is KRASExon4Mutation.KRASExon4MutationTestOrder)
+                    {
+                        this.AddNextObxElement("KRAS Exon 4 Mutation Analysis: " + ((KRASExon4Mutation.KRASExon4MutationTestOrder)testOrder).Result, document, "F");
+                        this.AddNextObxElement("Specimen: " + aliquot.Label, document, "F");
+                        this.AddNextObxElement("Reference Report: " + testOrder.ReportNo, document, "F");
+                        this.AddNextObxElement("", document, "F");
+                    }
+                    else if (testOrder is BRAFV600EK.BRAFV600EKTestOrder)
+                    {
+                        this.AddNextObxElement("BRAF V600E Mutation Analysis: " + ((BRAFV600EK.BRAFV600EKTestOrder)testOrder).Result, document, "F");
+                        this.AddNextObxElement("Specimen: " + aliquot.Label, document, "F");
+                        this.AddNextObxElement("Reference Report: " + testOrder.ReportNo, document, "F");
+                        this.AddNextObxElement("", document, "F");
+                    }
+                    else if (testOrder is NRASMutationAnalysis.NRASMutationAnalysisTestOrder)
+                    {
+                        this.AddNextObxElement("NRAS Mutation Analysis: " + ((NRASMutationAnalysis.NRASMutationAnalysisTestOrder)testOrder).Result, document, "F");
+                        this.AddNextObxElement("Specimen: " + aliquot.Label, document, "F");
+                        this.AddNextObxElement("Reference Report: " + testOrder.ReportNo, document, "F");
+                        this.AddNextObxElement("", document, "F");
+                    }
+                    else if (testOrder is RASRAFPanel.RASRAFPanelTestOrder)
+                    {
+                        this.AddNextObxElement("KRAS Mutation Analysis: " + ((RASRAFPanel.RASRAFPanelTestOrder)testOrder).KRASResult, document, "F");
+                        this.AddNextObxElement("Specimen: " + aliquot.Label, document, "F");
+                        this.AddNextObxElement("Reference Report: " + testOrder.ReportNo, document, "F");
+                        this.AddNextObxElement("", document, "F");
+
+                        this.AddNextObxElement("BRAF V600E/K Mutation Analysis: " + ((RASRAFPanel.RASRAFPanelTestOrder)testOrder).BRAFResult, document, "F");
+                        this.AddNextObxElement("Specimen: " + aliquot.Label, document, "F");
+                        this.AddNextObxElement("Reference Report: " + testOrder.ReportNo, document, "F");
+                        this.AddNextObxElement("", document, "F");
+
+                        this.AddNextObxElement("NRAS Mutation Analysis: " + ((RASRAFPanel.RASRAFPanelTestOrder)testOrder).NRASResult, document, "F");
+                        this.AddNextObxElement("Specimen: " + aliquot.Label, document, "F");
+                        this.AddNextObxElement("Reference Report: " + testOrder.ReportNo, document, "F");
+                        this.AddNextObxElement("", document, "F");
+
+                        this.AddNextObxElement("HRAS Mutation Analysis: " + ((RASRAFPanel.RASRAFPanelTestOrder)testOrder).HRASResult, document, "F");
+                        this.AddNextObxElement("Specimen: " + aliquot.Label, document, "F");
+                        this.AddNextObxElement("Reference Report: " + testOrder.ReportNo, document, "F");
+                        this.AddNextObxElement("", document, "F");
+                    }
+                }
+            }
+            else
+            {                        
+                this.AddNextObxElement("None Performed", document, "F");
                 this.AddNextObxElement("", document, "F");
             }
         }

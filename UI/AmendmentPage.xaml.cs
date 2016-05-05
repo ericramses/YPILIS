@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI
     /// <summary>
     /// Interaction logic for AmendmentPage.xaml
     /// </summary>
-    public partial class AmendmentPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
+    public partial class AmendmentPage : UserControl, INotifyPropertyChanged 
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -28,22 +28,20 @@ namespace YellowstonePathology.UI
         public event FinishEventHandler Finish;
 
         private YellowstonePathology.Business.User.SystemUserCollection m_AmendmentSigners;
-        private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-        private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
+        private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;        
         private YellowstonePathology.Business.Amendment.Model.Amendment m_Amendment;
         private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
         private string m_PageHeaderText;
 
-        public AmendmentPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-            YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
+        public AmendmentPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,            
             YellowstonePathology.Business.Amendment.Model.Amendment amendment,
             YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
-            this.m_AccessionOrder = accessionOrder;
-            this.m_ObjectTracker = objectTracker;
+            this.m_AccessionOrder = accessionOrder;            
             this.m_Amendment = amendment;
             this.m_SystemIdentity = systemIdentity;
             this.AmendmentSigners = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetUsersByRole(YellowstonePathology.Business.User.SystemUserRoleDescriptionEnum.AmendmentSigner, true);
+
             this.m_PageHeaderText = "Amendment For: " + this.m_AccessionOrder.PatientDisplayName + " (" +this.m_AccessionOrder.PanelSetOrderCollection.GetSurgical().ReportNo + ")";
 
             InitializeComponent();
@@ -57,27 +55,7 @@ namespace YellowstonePathology.UI
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
-        }
-
-        public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-        {
-            return true;
-        }
-
-        public bool OkToSaveOnClose()
-        {
-            return true;
-        }
-
-        public void Save()
-        {
-            this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
-        }
-
-        public void UpdateBindingSources()
-        {
-
-        }
+        }        
 
         public string PageHeaderText
         {
@@ -149,7 +127,7 @@ namespace YellowstonePathology.UI
             YellowstonePathology.Business.Rules.MethodResult methodResult = this.m_Amendment.IsOkToAccept();
             if (methodResult.Success == true)
             {
-                this.m_Amendment.Accept(this.m_SystemIdentity.User);
+                this.m_Amendment.Accept();
             }
             else
             {
@@ -174,7 +152,7 @@ namespace YellowstonePathology.UI
 
                 if (canFinal == true)
                 {
-                    this.m_Amendment.Finalize(this.m_SystemIdentity.User);
+                    this.m_Amendment.Finish();
                 }
             }
             else

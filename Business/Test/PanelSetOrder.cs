@@ -114,13 +114,13 @@ namespace YellowstonePathology.Business.Test
             this.m_AmendmentCollection = new YellowstonePathology.Business.Amendment.Model.AmendmentCollection();					
 		}
 
-		public PanelSetOrder(string masterAccessionNo, string reportNo, string objectId, YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet, bool distribute, Business.User.SystemIdentity systemIdentity)
+		public PanelSetOrder(string masterAccessionNo, string reportNo, string objectId, YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet, bool distribute)
 		{
 			this.MasterAccessionNo = masterAccessionNo;
 			this.ReportNo = reportNo;
 			this.m_ObjectId = objectId;
-			this.m_OrderedById = systemIdentity.User.UserId;
-			this.m_OrderedByInitials = systemIdentity.User.Initials;
+			this.m_OrderedById = Business.User.SystemIdentity.Instance.User.UserId;
+			this.m_OrderedByInitials = Business.User.SystemIdentity.Instance.User.Initials;
 			this.OrderDate = DateTime.Today;
 			this.OrderTime = DateTime.Now;
 
@@ -164,14 +164,14 @@ namespace YellowstonePathology.Business.Test
             this.m_UniversalServiceId = universalService.UniversalServiceId;
 		}
 
-		public PanelSetOrder(string masterAccessionNo, string reportNo, string objectId, YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet, YellowstonePathology.Business.Interface.IOrderTarget orderTarget, bool distribute, Business.User.SystemIdentity systemIdentity)
+		public PanelSetOrder(string masterAccessionNo, string reportNo, string objectId, YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet, YellowstonePathology.Business.Interface.IOrderTarget orderTarget, bool distribute)
 		{
 			this.MasterAccessionNo = masterAccessionNo;
 			this.ReportNo = reportNo;
 			this.m_ObjectId = objectId;
-			this.m_OrderedById = systemIdentity.User.UserId;
-			this.m_OrderedByInitials = systemIdentity.User.Initials;
-			this.OrderDate = DateTime.Today;
+            this.m_OrderedById = Business.User.SystemIdentity.Instance.User.UserId;
+            this.m_OrderedByInitials = Business.User.SystemIdentity.Instance.User.Initials;
+            this.OrderDate = DateTime.Today;
 			this.OrderTime = DateTime.Now;
             this.m_CaseType = panelSet.CaseType;
 
@@ -1230,39 +1230,9 @@ namespace YellowstonePathology.Business.Test
                 result.Message = "This case cannot be finalized because the results have not been accepted.";
             }
             return result;
-        }        
+        }                
 
-        public virtual void Finalize(Test.AccessionOrder accessionOrder, Rules.RuleExecutionStatus ruleExecutionStatus, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
-		{
-			Rules.ExecutionStatus executionStatus = new Rules.ExecutionStatus();
-			YellowstonePathology.Business.Rules.PanelSetOrder.RulesPanelSetOrderFinalCommonV2 rulesPanelSetOrderFinalCommon = new Rules.PanelSetOrder.RulesPanelSetOrderFinalCommonV2();
-			rulesPanelSetOrderFinalCommon.Execute(executionStatus, systemIdentity, accessionOrder, this);
-
-			if (executionStatus.Halted)
-			{
-				ruleExecutionStatus.PopulateFromLinqExecutionStatus(executionStatus);
-			}
-			else
-			{
-				if (accessionOrder != null)
-				{
-					string surgicalReportNo = string.Empty;
-					List<PanelSetOrder> panelSetOrders = (from pso in accessionOrder.PanelSetOrderCollection
-														  where pso.PanelSetId == 13
-														  select pso).ToList<PanelSetOrder>();
-					if (panelSetOrders.Count > 0)
-					{
-						surgicalReportNo = panelSetOrders[0].ReportNo;
-					}
-					else
-					{
-						surgicalReportNo = accessionOrder.SurgicalAccessionNo;
-					}
-				}
-			}
-		}
-
-		public virtual void Finalize(YellowstonePathology.Business.User.SystemUser systemUser)
+		public virtual void Finish(Business.Test.AccessionOrder accessionOrder)
 		{            			
 			YellowstonePathology.Business.PanelSet.Model.PanelSetCollection panelSetCollection = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetAll();
 			YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet = panelSetCollection.GetPanelSet(this.PanelSetId);
@@ -1270,17 +1240,20 @@ namespace YellowstonePathology.Business.Test
             this.m_Final = true;
             this.m_FinalDate = DateTime.Today;
             this.m_FinalTime = DateTime.Now;
-            this.m_FinaledById = systemUser.UserId;
-            this.m_Signature = systemUser.Signature;
+            this.m_FinaledById = Business.User.SystemIdentity.Instance.User.UserId;
+            this.m_Signature = Business.User.SystemIdentity.Instance.User.Signature;
 
 			if (panelSet.AcceptOnFinal == true)
 			{
 				this.m_Accepted = true;
 				this.m_AcceptedDate = DateTime.Today;
 				this.m_AcceptedTime = DateTime.Now;
-				this.m_AcceptedById = systemUser.UserId;
-				this.m_AcceptedBy = systemUser.DisplayName;
+				this.m_AcceptedById = Business.User.SystemIdentity.Instance.User.UserId;
+				this.m_AcceptedBy = Business.User.SystemIdentity.Instance.User.DisplayName;
 			}
+
+            YellowstonePathology.Business.Client.PhysicianClientDistributionCollection physicianClientDistributionCollection = YellowstonePathology.Business.Gateway.ReportDistributionGateway.GetPhysicianClientDistributionCollection(accessionOrder.PhysicianId, accessionOrder.ClientId);
+            physicianClientDistributionCollection.SetDistribution(this, accessionOrder);
 
             this.NotifyPropertyChanged(string.Empty);
 		}
@@ -1664,12 +1637,12 @@ namespace YellowstonePathology.Business.Test
 			return "The result string for this test has not been implemented.";
 		}
 
-		public void Accept(Business.User.SystemUser systemUser)
+		public void Accept()
 		{
 			this.m_Accepted = true;
-			this.m_AcceptedById = systemUser.UserId;
-			this.m_AcceptedBy = systemUser.DisplayName;
-			this.m_AcceptedDate = DateTime.Today;
+            this.m_AcceptedById = Business.User.SystemIdentity.Instance.User.UserId;
+			this.m_AcceptedBy = Business.User.SystemIdentity.Instance.User.DisplayName;
+            this.m_AcceptedDate = DateTime.Today;
 			this.m_AcceptedTime = DateTime.Now;
 			this.NotifyPropertyChanged(string.Empty);
 		}
@@ -1725,6 +1698,26 @@ namespace YellowstonePathology.Business.Test
         public virtual void PullOver(YellowstonePathology.Business.Visitor.AccessionTreeVisitor accessionTreeVisitor)
         {
             accessionTreeVisitor.Visit(this);
-        }        
-	}
+        }
+        
+        public Rules.MethodResult HaveResultsBeenSet(AccessionOrder accessionOrder)
+        {
+            YellowstonePathology.Business.Persistence.ObjectCloner objectCloner = new Business.Persistence.ObjectCloner();
+            object clone = objectCloner.Clone(this);
+            YellowstonePathology.Business.Persistence.DocumentId documentId = new Business.Persistence.DocumentId(clone, this);
+            YellowstonePathology.Business.Persistence.DocumentUpdate document = new Business.Persistence.DocumentUpdate(documentId);
+            Rules.MethodResult result = new Rules.MethodResult();
+            this.CheckResults(accessionOrder, clone);
+            if(document.IsDirty() == true)
+            {
+                result.Success = false;
+                result.Message = "Results have not been set.";
+            }
+            return result;
+        }
+
+        protected virtual void CheckResults(AccessionOrder accessionOrder, object clone)
+        {
+        }
+    }
 }

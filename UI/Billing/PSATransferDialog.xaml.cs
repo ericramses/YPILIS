@@ -43,6 +43,13 @@ namespace YellowstonePathology.UI.Billing
             this.m_PostDate = DateTime.Today;                                                
             InitializeComponent();
             this.DataContext = this;
+
+            Closing += PSATransferDialog_Closing;
+        }
+
+        private void PSATransferDialog_Closing(object sender, CancelEventArgs e)
+        {
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
         }
 
         public string StatusCountMessage
@@ -145,7 +152,8 @@ namespace YellowstonePathology.UI.Billing
 
             foreach (YellowstonePathology.Business.ReportNo reportNo in reportNoCollection)
             {
-				YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(reportNo.Value);
+                string masterAccessionNo = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetMasterAccessionNoFromReportNo(reportNo.Value);
+                YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.GetAccessionOrderByMasterAccessionNo(masterAccessionNo);
                 YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo.Value);
 
                 if (accessionOrder.UseBillingAgent == true)
@@ -167,8 +175,7 @@ namespace YellowstonePathology.UI.Billing
         }        
 
         private void SetupWorkingFolders(string workingFolder)
-        {
-            
+        {            
             if (Directory.Exists(workingFolder) == false)
             {
                 Directory.CreateDirectory(workingFolder);

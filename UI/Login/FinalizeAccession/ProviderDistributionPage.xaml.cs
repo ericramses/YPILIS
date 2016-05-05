@@ -15,7 +15,7 @@ using System.ComponentModel;
 
 namespace YellowstonePathology.UI.Login.FinalizeAccession
 {	
-	public partial class ProviderDistributionPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges, INotifyPropertyChanged
+	public partial class ProviderDistributionPage : UserControl, INotifyPropertyChanged
 	{
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -28,7 +28,6 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
         public delegate void BackEventHandler(object sender, EventArgs e);
         public event BackEventHandler Back;
         
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private YellowstonePathology.UI.Navigation.PageNavigator m_PageNavigator;
         private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
@@ -41,17 +40,16 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
         private Visibility m_CloseButtonVisibility;
         private Visibility m_BackButtonVisibility;
 
-        private YellowstonePathology.Business.User.SystemUserCollection m_SystemUserCollection;        
+        private YellowstonePathology.Business.User.SystemUserCollection m_SystemUserCollection;
+        //private bool m_Closing;        
 
         public ProviderDistributionPage(string reportNo, 
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
             YellowstonePathology.UI.Navigation.PageNavigator pageNavigator,
             Visibility nextButtonVisibility,
             Visibility closeButtonVisibility,
             Visibility backButtonVisibility)
 		{
-			this.m_ObjectTracker = objectTracker;
 			this.m_PageNavigator = pageNavigator;
             
 			this.m_AccessionOrder = accessionOrder;
@@ -70,7 +68,9 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 			InitializeComponent();
 
 			DataContext = this;
+           
             this.Loaded += new RoutedEventHandler(ProviderDetailPage_Loaded);
+            Close += ProviderDistributionPage_Close;
 		}
 
         public YellowstonePathology.Business.User.SystemUserCollection SystemUserCollection
@@ -79,10 +79,20 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
         }
 
         private void ProviderDetailPage_Loaded(object sender, RoutedEventArgs e)
-        {
+        {            
+            if(this.m_AccessionOrder.IsLockAquiredByMe == false)
+            {
+                this.GridLeftNav.IsEnabled = false;
+            }
+
             this.m_ClientPhysicianNotSetAuditCollection.Run();
             this.SetProviderStatusColor();
             this.ButtonProviderLookup.Focus();
+        }
+
+        private void ProviderDistributionPage_Close(object sender, EventArgs e)
+        {
+            //this.m_Closing = true;
         }
 
         public Visibility NextButtonVisibility
@@ -152,7 +162,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                 PhysicianClientSearchPage physicianClientSearchPage = new PhysicianClientSearchPage(this.m_AccessionOrder, this.m_AccessionOrder.ClientId, true);
                 physicianClientSearchPage.Back += new PhysicianClientSearchPage.BackEventHandler(CopyTo_PhysicianClientSearchPage_Back);
                 physicianClientSearchPage.Next += new PhysicianClientSearchPage.NextEventHandler(CopyTo_PhysicianClientSearchPage_Next);
-                this.m_PageNavigator.Navigate(physicianClientSearchPage);
+                this.m_PageNavigator.Navigate(physicianClientSearchPage);                
             }
         }
 
@@ -163,7 +173,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
         private void CopyTo_PhysicianClientSearchPage_Next(object sender, CustomEventArgs.PhysicianClientDistributionReturnEventArgs e)
         {            
-            e.PhysicianClientDistribution.SetDistribution(this.m_PanelSetOrder, this.m_AccessionOrder);
+            e.PhysicianClientDistribution.SetDistribution(this.m_AccessionOrder);
             this.m_PageNavigator.Navigate(this);         
         }
 
@@ -178,9 +188,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                 {
                     YellowstonePathology.Business.Test.PanelSetOrder surgicalPanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetSurgical();
                     this.m_AccessionOrder.UpdateCaseAssignment(surgicalPanelSetOrder);
-                }
-
-                this.Save();
+                }                
                 this.SetDistribution();
             }
         }		
@@ -232,24 +240,13 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             }            
             else
             {
-                if (this.Next != null) this.Next(this.Next, new EventArgs());
+                if (this.Next != null)
+                {
+                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
+                    this.Next(this.Next, new EventArgs());
+                }
             }
-		}		
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save()
-		{
-			this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
-		}
+		}				
 
         public void NotifyPropertyChanged(String info)
         {
@@ -257,12 +254,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
-        }
-
-		public void UpdateBindingSources()
-		{
-
-		}        
+        }		    
 
         private void HyperLinkDeleteDistribution_Click(object sender, RoutedEventArgs e)
         {
@@ -294,6 +286,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             physicianClientSearchPage.Back += new PhysicianClientSearchPage.BackEventHandler(PhysicianClientSearchPage_Back);
             physicianClientSearchPage.Next += new PhysicianClientSearchPage.NextEventHandler(PhysicianClientSearchPage_Next);
             this.m_PageNavigator.Navigate(physicianClientSearchPage);
+             
         }
 
         private void PhysicianClientSearchPage_Next(object sender, CustomEventArgs.PhysicianClientDistributionReturnEventArgs e)
@@ -310,6 +303,18 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
         private void HyperLinkSetDistribution_Click(object sender, RoutedEventArgs e)
         {
+            this.SetDistribution();
+        }
+
+        private void HyperLinkPhysicianNotFound_Click(object sender, RoutedEventArgs e)
+        {
+            Business.Client.PhysicianClientDistribution physicianClientDistribution = new Business.Client.PhysicianClientDistribution();
+            physicianClientDistribution.PhysicianId = 2371;
+            physicianClientDistribution.PhysicianName = "*** Physician Not Found *** *** Physician Not Found ***";
+            physicianClientDistribution.ClientId = 1007;
+            physicianClientDistribution.ClientName = "** Client Not Found **";
+
+            this.SetPhysicianClient(physicianClientDistribution);
             this.SetDistribution();
         }
 
@@ -389,13 +394,13 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
         {
             if (this.m_PanelSetOrder.Final == true)
             {
-                YellowstonePathology.Business.Interface.ICaseDocument caseDocument = YellowstonePathology.Business.Document.DocumentFactory.GetDocument(this.m_PanelSetOrder.PanelSetId);
+                YellowstonePathology.Business.Interface.ICaseDocument caseDocument = YellowstonePathology.Business.Document.DocumentFactory.GetDocument(this.m_AccessionOrder, this.m_PanelSetOrder, Business.Document.ReportSaveModeEnum.Normal);
 				YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
                 YellowstonePathology.Business.Rules.MethodResult methodResult = caseDocument.DeleteCaseFiles(orderIdParser);
 
                 if (methodResult.Success == true)
                 {
-                    caseDocument.Render(this.m_PanelSetOrder.MasterAccessionNo, this.m_PanelSetOrder.ReportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum.Normal);
+                    caseDocument.Render();
                     caseDocument.Publish();
                     MessageBox.Show("The document has been published.");
                 }
@@ -476,6 +481,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                 testOrderReportDistributionPage.Next += new TestOrderReportDistributionPage.NextEventHandler(AddDistribution_TestOrderReportDistributionPage_Next);
                 testOrderReportDistributionPage.Back += new TestOrderReportDistributionPage.BackEventHandler(AddDistribution_TestOrderReportDistributionPage_Back);
                 this.m_PageNavigator.Navigate(testOrderReportDistributionPage);
+                 
             }
         }
 
@@ -492,6 +498,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                 testOrderReportDistributionPage.Next += new TestOrderReportDistributionPage.NextEventHandler(AddDistribution_TestOrderReportDistributionPage_Next);
                 testOrderReportDistributionPage.Back += new TestOrderReportDistributionPage.BackEventHandler(AddDistribution_TestOrderReportDistributionPage_Back);
                 this.m_PageNavigator.Navigate(testOrderReportDistributionPage);
+                 
             }
         }
 
@@ -537,6 +544,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                 testOrderReportDistributionPage.Next += new TestOrderReportDistributionPage.NextEventHandler(TestOrderReportDistributionPage_Next);
                 testOrderReportDistributionPage.Back += new TestOrderReportDistributionPage.BackEventHandler(TestOrderReportDistributionPage_Back);
                 this.m_PageNavigator.Navigate(testOrderReportDistributionPage);
+                 
             }
             else
             {
@@ -553,9 +561,15 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                 this.m_PanelSetOrder.ScheduledPublishTime = null;
                 testOrderReportDistribution.Distributed = true;
                 testOrderReportDistribution.TimeOfLastDistribution = DateTime.Now;
-                testOrderReportDistribution.ScheduledDistributionTime = null;
-                this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
+                testOrderReportDistribution.ScheduledDistributionTime = null;                
             }
-        }             
-	}
+        }
+
+        private void HyperLinkAddOPNDistribution_Click(object sender, RoutedEventArgs e)
+        {                        
+            string testOrderReportDistributionId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
+			this.m_PanelSetOrder.TestOrderReportDistributionCollection.AddNext(testOrderReportDistributionId, testOrderReportDistributionId, this.m_PanelSetOrder.ReportNo, 3946, "Cari Williams, RN",
+                1542, "Oncology Patient Navigator", YellowstonePathology.Business.ReportDistribution.Model.DistributionType.WEBSERVICE);
+        }
+    }
 }

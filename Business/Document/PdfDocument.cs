@@ -13,7 +13,7 @@ namespace YellowstonePathology.Business.Document
 		{
 		}
 
-		public override void Show(System.Windows.Controls.ContentControl contentControl)
+		public override void Show(System.Windows.Controls.ContentControl contentControl, object writer)
 		{
 			Process p = new Process();
 			ProcessStartInfo info = new ProcessStartInfo(this.FullFileName);

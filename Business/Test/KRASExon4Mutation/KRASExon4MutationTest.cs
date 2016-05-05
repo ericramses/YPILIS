@@ -23,9 +23,9 @@ namespace YellowstonePathology.Business.Test.KRASExon4Mutation
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.KRASExon4Mutation.KRASExon4MutationTestOrder).AssemblyQualifiedName;
 			
 			this.m_AllowMultiplePerAccession = true;
+            this.m_EpicDistributionIsImplemented = true;
 
-			string task1Description = "Gather materials (FFPE solid tumor tissue: Paraffin block is preferred. " +
-				"Alternatively, send 1 H&E slide plus 5-10 unstained slides cut at 5 or more microns.Take materials to transcription for send out to Neo";
+            string task1Description = "Gather block and take to Transcription for send out to Neo.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Histology, task1Description));
 
 			string task3Description = "Receive materials from Histo and send out to Neo.";
@@ -37,7 +37,7 @@ namespace YellowstonePathology.Business.Test.KRASExon4Mutation
 			YellowstonePathology.Business.Task.Model.TaskSendBlockToNeogenomics taskSendBlockToNeogenomics = new YellowstonePathology.Business.Task.Model.TaskSendBlockToNeogenomics();
 			this.m_TaskCollection.Add(taskSendBlockToNeogenomics);
 
-            YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT81479(), 1);
+            YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT81276(), 1);
 			this.m_PanelSetCptCodeCollection.Add(panelSetCptCode);
 
 			this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceMiscellaneous());

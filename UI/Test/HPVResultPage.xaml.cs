@@ -19,7 +19,7 @@ namespace YellowstonePathology.UI.Test
 	/// <summary>
 	/// Interaction logic for HPVResultPage.xaml
 	/// </summary>
-	public partial class HPVResultPage : ResultControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
+	public partial class HPVResultPage : ResultControl, INotifyPropertyChanged 
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -28,7 +28,6 @@ namespace YellowstonePathology.UI.Test
 
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;                
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private string m_PageHeaderText;
         private YellowstonePathology.Business.Test.HPV.HPVResultCollection m_ResultCollection;
         private YellowstonePathology.Business.Test.HPV.HPVTestOrder m_HPVTestOrder;
@@ -37,14 +36,12 @@ namespace YellowstonePathology.UI.Test
 
         public HPVResultPage(YellowstonePathology.Business.Test.HPV.HPVTestOrder hpvTestOrder,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,            
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity,
 			YellowstonePathology.UI.Navigation.PageNavigator pageNavigator) : base (hpvTestOrder)
 		{
 			this.m_HPVTestOrder = hpvTestOrder;			
 			this.m_AccessionOrder = accessionOrder;                        
 			this.m_SystemIdentity = systemIdentity;
-			this.m_ObjectTracker = objectTracker;
 			this.m_PageNavigator = pageNavigator;
 
             this.m_ResultCollection = Business.Test.HPV.HPVResultCollection.GetAllResults();
@@ -65,16 +62,21 @@ namespace YellowstonePathology.UI.Test
 			DataContext = this;
             Loaded += HPVResultPage_Loaded;
             Unloaded += HPVResultPage_Unloaded;
+            
+            this.m_ControlsNotDisabledOnFinal.Add(this.ButtonNext);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockShowDocument);
 		}
 
         private void HPVResultPage_Loaded(object sender, RoutedEventArgs e)
         {
             this.ComboBoxResult.SelectionChanged += ComboBoxResult_SelectionChanged;
+             
         }
 
         private void HPVResultPage_Unloaded(object sender, RoutedEventArgs e)
         {
             this.ComboBoxResult.SelectionChanged -= ComboBoxResult_SelectionChanged;
+             
         }
 
         public string AdditionalTestingComment
@@ -110,26 +112,6 @@ namespace YellowstonePathology.UI.Test
 			get { return this.m_PageHeaderText; }
 		}
 
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save()
-		{
-			this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
-		}
-
-		public void UpdateBindingSources()
-		{
-
-		}
-
         private void ButtonNext_Click(object sender, RoutedEventArgs e)
         {
             this.Next(this, new EventArgs());
@@ -140,7 +122,7 @@ namespace YellowstonePathology.UI.Test
             YellowstonePathology.Business.Audit.Model.AuditResult auditResult = this.m_HPVTestOrder.IsOkToFinalize(this.m_AccessionOrder);
             if (auditResult.Status == Business.Audit.Model.AuditStatusEnum.OK)
             {
-                this.m_HPVTestOrder.Finalize(this.m_SystemIdentity.User);
+                this.m_HPVTestOrder.Finish(this.m_AccessionOrder);
 
                 YellowstonePathology.Business.ReportDistribution.Model.MultiTestDistributionHandler multiTestDistributionHandler = YellowstonePathology.Business.ReportDistribution.Model.MultiTestDistributionHandlerFactory.GetHandler(this.m_AccessionOrder);
                 multiTestDistributionHandler.Set();
@@ -187,7 +169,7 @@ namespace YellowstonePathology.UI.Test
             YellowstonePathology.Business.Rules.MethodResult methodResult = this.m_HPVTestOrder.IsOkToAccept();
             if (methodResult.Success == true)
             {                                
-                this.m_HPVTestOrder.Accept(this.m_SystemIdentity.User);
+                this.m_HPVTestOrder.Accept();
             }
             else
             {
@@ -197,9 +179,8 @@ namespace YellowstonePathology.UI.Test
 
         private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
         {
-            this.Save();
-			YellowstonePathology.Business.Test.HPV.HPVWordDocument report = new Business.Test.HPV.HPVWordDocument();
-			report.Render(this.m_HPVTestOrder.MasterAccessionNo, this.m_HPVTestOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft);
+			YellowstonePathology.Business.Test.HPV.HPVWordDocument report = new Business.Test.HPV.HPVWordDocument(this.m_AccessionOrder, this.m_HPVTestOrder, Business.Document.ReportSaveModeEnum.Draft);
+			report.Render();
 
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_HPVTestOrder.ReportNo);
             string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);

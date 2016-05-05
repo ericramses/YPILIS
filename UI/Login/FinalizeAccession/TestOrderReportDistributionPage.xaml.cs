@@ -15,7 +15,7 @@ using System.ComponentModel;
 
 namespace YellowstonePathology.UI.Login.FinalizeAccession
 {	
-	public partial class TestOrderReportDistributionPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges, INotifyPropertyChanged
+	public partial class TestOrderReportDistributionPage : UserControl, INotifyPropertyChanged
 	{
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -69,16 +69,21 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
             if (this.m_TestOrderReportDistribution.DistributionType == YellowstonePathology.Business.ReportDistribution.Model.DistributionType.FAX)
             {
-                YellowstonePathology.Business.Audit.Model.TelephoneNumberAudit telephoneNumberAudit = new Business.Audit.Model.TelephoneNumberAudit(this.m_TestOrderReportDistribution.FaxNumber);
-                telephoneNumberAudit.Run();
-
-                if (telephoneNumberAudit.ActionRequired == true)
+                if (string.IsNullOrEmpty(this.m_TestOrderReportDistribution.FaxNumber) == false)
                 {
-                    MessageBoxResult messageBoxResult = MessageBox.Show(telephoneNumberAudit.Message + " Are you sure you want to continue?", "Continue?", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
-                    if (messageBoxResult == MessageBoxResult.No)
+                    YellowstonePathology.Business.Audit.Model.TelephoneNumberAudit telephoneNumberAudit = new Business.Audit.Model.TelephoneNumberAudit(this.m_TestOrderReportDistribution.FaxNumber);
+                    telephoneNumberAudit.Run();
+
+                    if (telephoneNumberAudit.ActionRequired == true)
                     {
+                        MessageBox.Show(telephoneNumberAudit.Message.ToString(), "Invalid Fax Number", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                         result = false;
                     }
+                }
+                else
+                {
+                    MessageBox.Show("Enter a fax number.", "No Fax Number", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    result = false;
                 }
             }
 
@@ -95,7 +100,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 			return true;
 		}
 
-		public void Save()
+		public void Save(bool releaseLock)
 		{
 			
 		}

@@ -16,7 +16,7 @@ using System.Xml.Linq;
 
 namespace YellowstonePathology.UI.MaterialTracking
 {
-	public partial class MaterialBatchPage : UserControl, INotifyPropertyChanged, YellowstonePathology.Business.Interface.IPersistPageChanges
+	public partial class MaterialBatchPage : UserControl, INotifyPropertyChanged
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -32,12 +32,10 @@ namespace YellowstonePathology.UI.MaterialTracking
         public delegate void ShowTrackingDocumentEventHandler(object sender, YellowstonePathology.UI.CustomEventArgs.MaterialTrackingBatchEventArgs e);
         public event ShowTrackingDocumentEventHandler ShowTrackingDocument;
 
-		YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort m_BarcodeScanPort;
-		YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
+		YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort m_BarcodeScanPort;		
 
 		YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogCollection m_MaterialTrackingLogCollection;
-		YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch m_MaterialTrackingBatch;
-        YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
+		YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch m_MaterialTrackingBatch;        
 		YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogViewCollection m_MaterialTrackingLogViewCollection;        
 
 		private bool m_BackButtonVisible;
@@ -50,19 +48,21 @@ namespace YellowstonePathology.UI.MaterialTracking
         private bool m_UserMasterAccessionNo;
         private string m_MasterAccessionNo;
 
-		public MaterialBatchPage(YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch materialTrackingBatch,
+        YellowstonePathology.UI.Navigation.PageNavigator m_PageNavigator;
+
+
+        public MaterialBatchPage(YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch materialTrackingBatch,
 			YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogCollection materialTrackingLogCollection,
-            bool backButtonVisible, bool nextButtonVisible, bool finishButtonVisible, YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
-			bool useMasterAccessionNo, string masterAccessionNo, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
-		{
-            this.m_SystemIdentity = systemIdentity;
-            
+            bool backButtonVisible, bool nextButtonVisible, bool finishButtonVisible, 
+			bool useMasterAccessionNo, string masterAccessionNo, YellowstonePathology.UI.Navigation.PageNavigator pageNavigator)
+		{                        
             this.m_FacilityCollection = YellowstonePathology.Business.Facility.Model.FacilityCollection.GetAllFacilities();
             this.m_LocationCollection = YellowstonePathology.Business.Facility.Model.LocationCollection.GetAllLocations();
 
+            this.m_PageNavigator = pageNavigator;
+
 			this.m_MaterialTrackingBatch = materialTrackingBatch;
-            this.m_MaterialTrackingLogCollection = materialTrackingLogCollection;
-            this.m_ObjectTracker = objectTracker;
+            this.m_MaterialTrackingLogCollection = materialTrackingLogCollection;            
             
             this.m_UserMasterAccessionNo = useMasterAccessionNo;
             this.m_MasterAccessionNo = masterAccessionNo;
@@ -248,28 +248,11 @@ namespace YellowstonePathology.UI.MaterialTracking
 			YellowstonePathology.Business.Facility.Model.Location thisLocation = locationCollection.GetLocation(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.LocationId);
 
 			string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-			YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog materialTrackingLog = new Business.MaterialTracking.Model.MaterialTrackingLog(objectId, materialId, materialTrackingBatchId, thisFacility.FacilityId, thisFacility.FacilityName, thisLocation.LocationId, thisLocation.Description, this.m_SystemIdentity.User.UserId, this.m_SystemIdentity.User.UserName, materialType);
-
+			YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog materialTrackingLog = new Business.MaterialTracking.Model.MaterialTrackingLog(objectId, materialId, materialTrackingBatchId, thisFacility.FacilityId, thisFacility.FacilityName, thisLocation.LocationId, thisLocation.Description, materialType);
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(materialTrackingLog, this.m_PageNavigator.PrimaryMonitorWindow);
             this.m_MaterialTrackingLogCollection.Add(materialTrackingLog);
             return materialTrackingLog;
-        }
-
-		private YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog AddMaterialTrackingLogEntry(YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingScannedItemView materialTrackingScannedItemView)
-		{
-            YellowstonePathology.Business.Facility.Model.FacilityCollection facilityCollection = Business.Facility.Model.FacilityCollection.GetAllFacilities();
-            YellowstonePathology.Business.Facility.Model.LocationCollection locationCollection = Business.Facility.Model.LocationCollection.GetAllLocations();
-
-			YellowstonePathology.Business.Facility.Model.Facility thisFacility = facilityCollection.GetByFacilityId(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId);
-			YellowstonePathology.Business.Facility.Model.Location thisLocation = locationCollection.GetLocation(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.LocationId);
-
-			string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-			YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog materialTrackingLog = new Business.MaterialTracking.Model.MaterialTrackingLog(objectId, materialTrackingScannedItemView.MaterialId, m_MaterialTrackingBatch.MaterialTrackingBatchId,
-               thisFacility.FacilityId, thisFacility.FacilityName, thisLocation.LocationId, thisLocation.Description, this.m_SystemIdentity.User.UserId, 
-               this.m_SystemIdentity.User.UserName, "Material Scanned", m_MaterialTrackingBatch.Description, materialTrackingScannedItemView.MaterialType, materialTrackingScannedItemView.MasterAccessionNo, materialTrackingScannedItemView.MaterialLabel, false);
-
-            this.m_MaterialTrackingLogCollection.Add(materialTrackingLog);            
-            return materialTrackingLog;
-		}
+        }		
 
 		private void ButtonBack_Click(object sender, RoutedEventArgs e)
 		{
@@ -300,8 +283,7 @@ namespace YellowstonePathology.UI.MaterialTracking
             if (this.IsOkToMoveNext() == true)
             {
                 if (this.IsOKToSave() == true)
-                {
-                    this.Save();
+                {                    
                     this.Next(this, new EventArgs());
                 }
             }
@@ -332,12 +314,8 @@ namespace YellowstonePathology.UI.MaterialTracking
         }
 		
 		private void ButtonFinish_Click(object sender, RoutedEventArgs e)
-		{
-            if (this.IsOKToSave() == true)
-            {
-                this.Save();
-                this.Finish(this, new EventArgs());
-            }
+		{            
+            this.Finish(this, new EventArgs());            
 		}
 
 		public void NotifyPropertyChanged(String info)
@@ -356,29 +334,9 @@ namespace YellowstonePathology.UI.MaterialTracking
 				YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog materialTrackingLog = this.m_MaterialTrackingLogCollection.Get(materialTrackingLogView.MaterialTrackingLogId);
                 this.m_MaterialTrackingLogCollection.Remove(materialTrackingLog);                
                 this.m_MaterialTrackingLogViewCollection.Remove(materialTrackingLogView);
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.DeleteDocument(materialTrackingLog, this.m_PageNavigator.PrimaryMonitorWindow);
             }
-        }
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save()
-		{            
-            this.m_ObjectTracker.SubmitChanges(this.m_MaterialTrackingBatch);
-            this.m_ObjectTracker.SubmitChanges(this.m_MaterialTrackingLogCollection);            
-		}
-
-		public void UpdateBindingSources()
-		{
-
-		}
+        }		
 
         private void ButtonPrintTrackingDocument_Click(object sender, RoutedEventArgs e)
         {

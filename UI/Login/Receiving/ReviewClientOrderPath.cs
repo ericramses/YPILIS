@@ -23,12 +23,14 @@ namespace YellowstonePathology.UI.Login.Receiving
 		private YellowstonePathology.Business.Rules.Surgical.PatientRecentAccessions m_PatientRecentAccessions;
 
         private ClientOrderReceivingHandler m_ClientOrderReceivingHandler;
+        private object m_Writer;
 
-		public ReviewClientOrderPath(YellowstonePathology.UI.Navigation.PageNavigator pageNavigator, ClientOrderReceivingHandler clientOrderReceivingHandler)
+		public ReviewClientOrderPath(YellowstonePathology.UI.Navigation.PageNavigator pageNavigator, ClientOrderReceivingHandler clientOrderReceivingHandler, object writer)
 		{
 			this.m_PageNavigator = pageNavigator;
-            this.m_ClientOrderReceivingHandler = clientOrderReceivingHandler;			
-			this.m_OrderCommentLogCollection = new Business.Domain.OrderCommentLogCollection();
+            this.m_ClientOrderReceivingHandler = clientOrderReceivingHandler;
+            this.m_Writer = writer;
+            this.m_OrderCommentLogCollection = new Business.Domain.OrderCommentLogCollection();            
 		}
 
         public void Start()
@@ -40,7 +42,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 
 		private void ShowReviewClientOrderPage(YellowstonePathology.Business.Rules.Surgical.PatientRecentAccessions patientRecentAccessions)
         {
-			ReviewClientOrderPage reviewClientOrderPage = new ReviewClientOrderPage(patientRecentAccessions, this.m_ClientOrderReceivingHandler.ClientOrder, this.m_ClientOrderReceivingHandler.SystemIdentity, this.m_PageNavigator, this.m_ClientOrderReceivingHandler.ObjectTracker);
+			ReviewClientOrderPage reviewClientOrderPage = new ReviewClientOrderPage(patientRecentAccessions, this.m_ClientOrderReceivingHandler.ClientOrder, this.m_PageNavigator);
 			reviewClientOrderPage.Back += new ReviewClientOrderPage.BackEventHandler(ReviewClientOrderPage_Back);
 			reviewClientOrderPage.ViewAccessionOrder += new ReviewClientOrderPage.ViewAccessionOrderEventHandler(ReviewClientOrderPage_ViewAccessionOrder);
 			reviewClientOrderPage.CreateNewAccessionOrder += new ReviewClientOrderPage.CreateNewAccessionEventHandler(ReviewClientOrderPage_CreateNewAccessionOrder);
@@ -63,6 +65,7 @@ namespace YellowstonePathology.UI.Login.Receiving
             }
 
             this.m_ClientOrderReceivingHandler.AccessionClientOrder();
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
             this.StartAccessionOrderPath();
         }
 
@@ -92,7 +95,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 
         private void ShowViewAccessionPage(string masterAccessionNo)
         {
-			YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByMasterAccessionNo(masterAccessionNo);
+			YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, this.m_Writer);
             ViewAccessionOrderPage viewAccessionOrderPage = new ViewAccessionOrderPage(accessionOrder);
             viewAccessionOrderPage.UseThisAccessionOrder += new ViewAccessionOrderPage.UseThisAccessionOrderEventHandler(ViewAccessionOrderPage_UseThisAccessionOrder);
             viewAccessionOrderPage.Back += new ViewAccessionOrderPage.BackEventHandler(ViewAccessionOrderPage_Back);
@@ -120,7 +123,7 @@ namespace YellowstonePathology.UI.Login.Receiving
                     YellowstonePathology.Business.ClientOrder.Model.UniversalServiceCollection universalServiceIdCollection = YellowstonePathology.Business.ClientOrder.Model.UniversalServiceCollection.GetAll();
                     YellowstonePathology.Business.ClientOrder.Model.UniversalService universalServiceId = universalServiceIdCollection.GetByUniversalServiceId(this.m_ClientOrderReceivingHandler.ClientOrder.UniversalServiceId);
 
-                    YellowstonePathology.Business.HL7View.EPIC.EpicStatusMessage statusMessage = new Business.HL7View.EPIC.EpicStatusMessage(this.m_ClientOrderReceivingHandler.ClientOrder, YellowstonePathology.Business.HL7View.OrderStatusEnum.InProcess, universalServiceId);
+                    YellowstonePathology.Business.HL7View.EPIC.EPICStatusMessage statusMessage = new Business.HL7View.EPIC.EPICStatusMessage(this.m_ClientOrderReceivingHandler.ClientOrder, YellowstonePathology.Business.HL7View.OrderStatusEnum.InProcess, universalServiceId);
 					YellowstonePathology.Business.Rules.MethodResult result = statusMessage.Send();
 
 					if (result.Success == false)
@@ -130,18 +133,19 @@ namespace YellowstonePathology.UI.Login.Receiving
 					else
 					{
                         this.m_ClientOrderReceivingHandler.ClientOrder.Acknowledged = true;
-                        this.m_ClientOrderReceivingHandler.ClientOrder.AcknowledgedById = this.m_ClientOrderReceivingHandler.SystemIdentity.User.UserId;
+                        this.m_ClientOrderReceivingHandler.ClientOrder.AcknowledgedById = YellowstonePathology.Business.User.SystemIdentity.Instance.User.UserId;
                         this.m_ClientOrderReceivingHandler.ClientOrder.AcknowledgedDate = DateTime.Now;
 					}
                 }
             }
 
-            this.m_ClientOrderReceivingHandler.Save();
+            this.m_ClientOrderReceivingHandler.Save(false);
             this.StartAccessionOrderPath();
         }
 
 		private void StartAccessionOrderPath()
 		{
+            this.m_ClientOrderReceivingHandler.Save(false);
 			AccessionOrderPath accessionOrderPath = new AccessionOrderPath(this.m_ClientOrderReceivingHandler, this.m_PageNavigator, PageNavigationModeEnum.Inline);
 			accessionOrderPath.Back += new AccessionOrderPath.BackEventHandler(AccessionOrderPath_Back);
 			accessionOrderPath.Return += new AccessionOrderPath.ReturnEventHandler(AccessionOrderPath_Return);

@@ -8,21 +8,18 @@ namespace YellowstonePathology.Business.Test.StemCellEnumeration
 	public class StemCellEnumerationWordDocument : YellowstonePathology.Business.Document.CaseReport
     {        
         string m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\StemCellEnumeration.6.xml";        
-		YellowstonePathology.Business.Flow.FlowMarkerPanelList m_PanelList;
+		YellowstonePathology.Business.Flow.FlowMarkerPanelList m_PanelList;		
 
-		public StemCellEnumerationWordDocument()
+        public StemCellEnumerationWordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+            : base(accessionOrder, panelSetOrder, reportSaveMode)
         {
-			this.m_PanelList = new YellowstonePathology.Business.Flow.FlowMarkerPanelList();
+            this.m_PanelList = new YellowstonePathology.Business.Flow.FlowMarkerPanelList();
             this.m_PanelList.SetFillCommandByPanelId(8);
             this.m_PanelList.Fill();
         }
 
-		public override void Render(string masterAccessionNo, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode)
-        {
-            this.m_ReportNo = reportNo;
-			this.GetReportData(reportNo);
-			this.m_ReportSaveMode = reportSaveMode;
-            
+        public override void Render()
+        {            
             base.OpenTemplate(m_TemplateName);            
 
             this.SetDemographicsV2();

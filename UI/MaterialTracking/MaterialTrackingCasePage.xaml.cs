@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.MaterialTracking
 	/// <summary>
 	/// Interaction logic for MaterialTrackingCasePage.xaml
 	/// </summary>
-    public partial class MaterialTrackingCasePage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges, INotifyPropertyChanged
+    public partial class MaterialTrackingCasePage : UserControl, INotifyPropertyChanged
 	{
         public delegate void PropertyChangedNotificationHandler(String info);
         public event PropertyChangedEventHandler PropertyChanged;
@@ -28,21 +28,19 @@ namespace YellowstonePathology.UI.MaterialTracking
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		private YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogCollection m_MaterialTrackingLogCollection;
         private List<YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog> m_MaterialTrackingLogList;
-		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
+		
 		private string m_PageHeaderText;
         private List<string> m_MaterialIdList;
 
 		public MaterialTrackingCasePage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogCollection materialTrackingLogCollection,
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+			YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogCollection materialTrackingLogCollection)
 		{
             this.m_MaterialIdList = new List<string>();
 
 			this.m_AccessionOrder = accessionOrder;
 			this.m_MaterialTrackingLogCollection = materialTrackingLogCollection;
             this.m_MaterialTrackingLogList = this.m_MaterialTrackingLogCollection.ToList<YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog>();
-
-            this.m_SystemIdentity = systemIdentity;
+            
 			this.m_PageHeaderText = "Material Tracking For Case: " + this.m_AccessionOrder.MasterAccessionNo + " - " + this.m_AccessionOrder.PatientDisplayName;
 			this.m_BarcodeScanPort = YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort.Instance;			
 
@@ -111,10 +109,9 @@ namespace YellowstonePathology.UI.MaterialTracking
 
 			string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
 			YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog materialTrackingLog = new Business.MaterialTracking.Model.MaterialTrackingLog(objectId, aliquotOrder.AliquotOrderId, null, thisFacility.FacilityId, thisFacility.FacilityName,
-				thisLocation.LocationId, thisLocation.Description, this.m_SystemIdentity.User.UserId, this.m_SystemIdentity.User.UserName, "Block Scanned", scanLocation, "Aliquot", this.m_AccessionOrder.MasterAccessionNo, aliquotOrder.Label, aliquotOrder.ClientAccessioned);
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-			objectTracker.RegisterRootInsert(materialTrackingLog);
-			objectTracker.SubmitChanges(materialTrackingLog);
+				thisLocation.LocationId, thisLocation.Description, "Block Scanned", scanLocation, "Aliquot", this.m_AccessionOrder.MasterAccessionNo, aliquotOrder.Label, aliquotOrder.ClientAccessioned);
+
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(materialTrackingLog, Window.GetWindow(this));			
 			this.m_MaterialTrackingLogCollection.Insert(0, materialTrackingLog);
 		}
 
@@ -150,37 +147,16 @@ namespace YellowstonePathology.UI.MaterialTracking
 
 			string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
 			YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog materialTrackingLog = new Business.MaterialTracking.Model.MaterialTrackingLog(objectId, slideOrder.SlideOrderId, null, thisFacility.FacilityId, thisFacility.FacilityName,
-				thisLocation.LocationId, thisLocation.Description, this.m_SystemIdentity.User.UserId, this.m_SystemIdentity.User.UserName, "Slide Scan", scanLocation, "SlideOrder", this.m_AccessionOrder.MasterAccessionNo, slideOrder.Label, slideOrder.ClientAccessioned);
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-			objectTracker.RegisterRootInsert(materialTrackingLog);
-			objectTracker.SubmitChanges(materialTrackingLog);
+				thisLocation.LocationId, thisLocation.Description, "Slide Scan", scanLocation, "SlideOrder", this.m_AccessionOrder.MasterAccessionNo, slideOrder.Label, slideOrder.ClientAccessioned);
+
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(materialTrackingLog, Window.GetWindow(this));			
 			this.m_MaterialTrackingLogCollection.Insert(0, materialTrackingLog);
 		}
 
 		private void ButtonClose_Click(object sender, RoutedEventArgs e)
 		{
             Window.GetWindow(this).Close();			
-		}                     
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return false;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return false;
-		}
-
-        public void Save()
-        {
-            
-        }
-
-		public void UpdateBindingSources()
-		{
-
-		}
+		}                     		
 
         private void CheckBoxSlideOrder_Checked(object sender, RoutedEventArgs e)
         {

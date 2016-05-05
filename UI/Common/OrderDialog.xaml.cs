@@ -28,20 +28,18 @@ namespace YellowstonePathology.UI.Common
 
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;        
         private OrderItemView m_OrderItemView;
-        private YellowstonePathology.UI.Login.FinalizeAccession.AliquotAndStainOrderView m_AliquotAndStainOrderView;
-		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
+        private YellowstonePathology.UI.Login.FinalizeAccession.AliquotAndStainOrderView m_AliquotAndStainOrderView;		
         private string m_PanelOrderComment;
 		private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
         private YellowstonePathology.Business.Visitor.StainAcknowledgementTaskOrderVisitor m_StainAcknowledgementTaskOrderVisitor;
 
-		public OrderDialog(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+		public OrderDialog(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder)
 		{
             this.m_AccessionOrder = accessionOrder;
-			this.m_PanelSetOrder = panelSetOrder;
-            this.m_SystemIdentity = systemIdentity;			
+			this.m_PanelSetOrder = panelSetOrder;            
 
             this.m_OrderItemView = new OrderItemView();
-            this.m_StainAcknowledgementTaskOrderVisitor = new Business.Visitor.StainAcknowledgementTaskOrderVisitor(this.m_PanelSetOrder, this.m_SystemIdentity);
+            this.m_StainAcknowledgementTaskOrderVisitor = new Business.Visitor.StainAcknowledgementTaskOrderVisitor(this.m_PanelSetOrder);
             this.m_AliquotAndStainOrderView = new Login.FinalizeAccession.AliquotAndStainOrderView(this.m_AccessionOrder, this.m_PanelSetOrder);
 
             InitializeComponent();
@@ -184,11 +182,11 @@ namespace YellowstonePathology.UI.Common
                     bool orderAsDual = true;
                     bool acknowledgeOnOrder = false;
 
-                    YellowstonePathology.Business.Visitor.OrderTestVisitor orderTestVisitorFirstTest = new Business.Visitor.OrderTestVisitor(this.m_PanelSetOrder.ReportNo, dualStain.FirstTest, dualStain.FirstTest.OrderComment, this.m_PanelOrderComment, orderAsDual, aliquotOrder, acknowledgeOnOrder, false, this.m_AccessionOrder.TaskOrderCollection, this.m_SystemIdentity);
+                    YellowstonePathology.Business.Visitor.OrderTestVisitor orderTestVisitorFirstTest = new Business.Visitor.OrderTestVisitor(this.m_PanelSetOrder.ReportNo, dualStain.FirstTest, dualStain.FirstTest.OrderComment, this.m_PanelOrderComment, orderAsDual, aliquotOrder, acknowledgeOnOrder, false, this.m_AccessionOrder.TaskOrderCollection);
                     this.m_AccessionOrder.TakeATrip(orderTestVisitorFirstTest);
                     this.m_StainAcknowledgementTaskOrderVisitor.AddTestOrder(orderTestVisitorFirstTest.TestOrder);
 
-                    YellowstonePathology.Business.Visitor.OrderTestVisitor orderTestVisitorSecondTest = new Business.Visitor.OrderTestVisitor(this.m_PanelSetOrder.ReportNo, dualStain.SecondTest, dualStain.SecondTest.OrderComment, this.m_PanelOrderComment, orderAsDual, aliquotOrder, acknowledgeOnOrder, false, this.m_AccessionOrder.TaskOrderCollection, this.m_SystemIdentity);
+                    YellowstonePathology.Business.Visitor.OrderTestVisitor orderTestVisitorSecondTest = new Business.Visitor.OrderTestVisitor(this.m_PanelSetOrder.ReportNo, dualStain.SecondTest, dualStain.SecondTest.OrderComment, this.m_PanelOrderComment, orderAsDual, aliquotOrder, acknowledgeOnOrder, false, this.m_AccessionOrder.TaskOrderCollection);
                     this.m_AccessionOrder.TakeATrip(orderTestVisitorSecondTest);
                     this.m_StainAcknowledgementTaskOrderVisitor.AddTestOrder(orderTestVisitorSecondTest.TestOrder);
                 }
@@ -204,7 +202,7 @@ namespace YellowstonePathology.UI.Common
                     bool orderAsDual = false;
                     bool acknowledgeOnOrder = false;                    
 
-                    YellowstonePathology.Business.Visitor.OrderTestVisitor orderTestVisitorTest = new Business.Visitor.OrderTestVisitor(this.m_PanelSetOrder.ReportNo, test, test.OrderComment, this.m_PanelOrderComment, orderAsDual, aliquotOrder, acknowledgeOnOrder, false, this.m_AccessionOrder.TaskOrderCollection, this.m_SystemIdentity);
+                    YellowstonePathology.Business.Visitor.OrderTestVisitor orderTestVisitorTest = new Business.Visitor.OrderTestVisitor(this.m_PanelSetOrder.ReportNo, test, test.OrderComment, this.m_PanelOrderComment, orderAsDual, aliquotOrder, acknowledgeOnOrder, false, this.m_AccessionOrder.TaskOrderCollection);
                     this.m_AccessionOrder.TakeATrip(orderTestVisitorTest);
                     this.m_StainAcknowledgementTaskOrderVisitor.AddTestOrder(orderTestVisitorTest.TestOrder);
                 }

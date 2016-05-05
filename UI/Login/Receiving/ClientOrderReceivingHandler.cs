@@ -11,29 +11,24 @@ namespace YellowstonePathology.UI.Login.Receiving
         private bool m_AClientOrderHasBeenAcquired;
         private bool m_AClientOrderHasBeenConfirmed;
 		private bool m_AnAccessionOrderHasBeenAquired;
-
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
+		
 		private YellowstonePathology.Business.Client.Model.Client m_Client;
         private YellowstonePathology.Business.ClientOrder.Model.ClientOrder m_ClientOrder;
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
         private OrderTypeEnum m_ExpectedOrderType;		
 		private YellowstonePathology.Business.ClientOrder.Model.ClientOrderDetail m_CurrentClientOrderDetail;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
+        private object m_Writer;
 
-		public ClientOrderReceivingHandler(YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+		public ClientOrderReceivingHandler(object writer)
         {
-			this.m_ObjectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-            this.m_SystemIdentity = systemIdentity;
+            this.m_SystemIdentity = YellowstonePathology.Business.User.SystemIdentity.Instance;
             this.m_AClientHasBeenFound = false;
             this.m_AClientOrderHasBeenAcquired = false;
             this.m_AClientOrderHasBeenConfirmed = false;
-			this.m_AnAccessionOrderHasBeenAquired = false;			
-        }
-       
-		public YellowstonePathology.Business.Persistence.ObjectTracker ObjectTracker
-		{
-			get { return this.m_ObjectTracker; }
-		}
+			this.m_AnAccessionOrderHasBeenAquired = false;
+            this.m_Writer = writer;
+        }      		
 
 		public YellowstonePathology.Business.Client.Model.Client Client
 		{
@@ -53,12 +48,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 		public YellowstonePathology.Business.Test.AccessionOrder AccessionOrder
 		{
 			get { return this.m_AccessionOrder; }
-		}
-
-		public YellowstonePathology.Business.User.SystemIdentity SystemIdentity
-		{
-			get { return this.m_SystemIdentity; }
-		}
+		}		
 
 		public OrderTypeEnum ExpectedOrderType
 		{
@@ -107,7 +97,8 @@ namespace YellowstonePathology.UI.Login.Receiving
 			
 			this.m_ClientOrder.OrderType = "Routine Surgical Pathology";
             this.m_AClientOrderHasBeenAcquired = true;
-			this.m_ObjectTracker.RegisterRootInsert(this.m_ClientOrder);
+
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(this.m_ClientOrder, this.m_Writer);			
         }
 
         public void IFoundAClient(YellowstonePathology.Business.Client.Model.Client client)
@@ -118,20 +109,17 @@ namespace YellowstonePathology.UI.Login.Receiving
 		}
 
         public void IFoundAClientOrder(YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder)
-        {
+        {            
             if (this.m_AClientOrderHasBeenAcquired == true)
             {
                 if (this.m_ClientOrder.ClientOrderId != clientOrder.ClientOrderId)
-                {
-                    this.m_ObjectTracker.Deregister(this.m_ClientOrder);
-                    this.m_ClientOrder = clientOrder;
-                    this.m_ObjectTracker.RegisterObject(this.m_ClientOrder);
+                {                    
+                    this.m_ClientOrder = clientOrder;                    
                 }
             }
             else
             {                
-                this.m_ClientOrder = clientOrder;
-                this.m_ObjectTracker.RegisterObject(this.m_ClientOrder);
+                this.m_ClientOrder = clientOrder;                
             }
 
             this.m_AClientOrderHasBeenAcquired = true;
@@ -181,8 +169,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 
         public void IFoundAClientOrderDetail(YellowstonePathology.Business.ClientOrder.Model.ClientOrderDetail clientOrderDetail)
         {
-            this.m_ClientOrder.ClientOrderDetailCollection.Add(clientOrderDetail);
-            this.m_ObjectTracker.RegisterObject(clientOrderDetail);
+            this.m_ClientOrder.ClientOrderDetailCollection.Add(clientOrderDetail);            
         }
 
         private YellowstonePathology.Business.ClientOrder.Model.ClientOrderDetail FindOrCreateNewClientOrderDetail(string containerId)
@@ -231,14 +218,13 @@ namespace YellowstonePathology.UI.Login.Receiving
 		{			
 			this.m_CurrentClientOrderDetail = clientOrderDetail;
 			this.m_ClientOrder.Receive();
-			this.m_CurrentClientOrderDetail.Receive();
-			this.m_ObjectTracker.SubmitChanges(this.m_ClientOrder);
-		}		
+			this.m_CurrentClientOrderDetail.Receive();            
+        }		
 
 		public void CreateNewAccessionOrder(YellowstonePathology.Business.Test.AccessionTypeEnum accessionType)
 		{
-			string masterAccessionNo = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetNextMasterAccessionNo();
-			string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
+            string masterAccessionNo = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetNextMasterAccessionNo();            
+            string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
 			switch (accessionType)
 			{				
 				case Business.Test.AccessionTypeEnum.ThinPrepPap:
@@ -249,11 +235,8 @@ namespace YellowstonePathology.UI.Login.Receiving
 					break;
 			}
 
-			this.m_ObjectTracker.RegisterRootInsert(this.m_AccessionOrder);
-			this.m_AccessionOrder.FromClientOrder(this.m_ClientOrder, this.m_SystemIdentity.User.UserId);                                   
-
-			this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
-			this.m_ObjectTracker.SubmitChanges(this.m_ClientOrder);
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(this.m_AccessionOrder, this.m_Writer);			
+			this.m_AccessionOrder.FromClientOrder(this.m_ClientOrder, this.m_SystemIdentity.User.UserId);                                   			
 
 			this.m_AnAccessionOrderHasBeenAquired = true;
 		}
@@ -261,9 +244,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 		public void AccessionClientOrder()
 		{
 			this.m_ClientOrder.Accession(this.m_AccessionOrder.MasterAccessionNo);
-			this.SendStatusMessage();
-
-			this.m_ObjectTracker.SubmitChanges(this.m_ClientOrder);
+			this.SendStatusMessage();            
 			this.m_AccessionOrder.AccessionSpecimen(this.m_ClientOrder.ClientOrderDetailCollection);
 
             YellowstonePathology.Business.ClientOrder.Model.EPICClinicalHistoryExtractor epicClinicalHistoryConverter = new Business.ClientOrder.Model.EPICClinicalHistoryExtractor();
@@ -281,10 +262,8 @@ namespace YellowstonePathology.UI.Login.Receiving
             }
 
             this.m_AccessionOrder.PanelSetOrderCollection.FromClientOrder(this.m_ClientOrder, this.m_AccessionOrder, this.m_SystemIdentity);
-            this.m_AccessionOrder.PanelSetOrderCollection.HandleReflexTestingFromClientOrder(this.m_ClientOrder, this.m_AccessionOrder, this.m_SystemIdentity);
-
-            this.m_ObjectTracker.SubmitChanges(this.m_ClientOrder);
-		}
+            this.m_AccessionOrder.PanelSetOrderCollection.HandleReflexTestingFromClientOrder(this.m_ClientOrder, this.m_AccessionOrder, this.m_SystemIdentity);            
+        }
 
 		private void SendStatusMessage()
 		{
@@ -295,7 +274,7 @@ namespace YellowstonePathology.UI.Login.Receiving
                     YellowstonePathology.Business.ClientOrder.Model.UniversalServiceCollection universalServiceIdCollection = YellowstonePathology.Business.ClientOrder.Model.UniversalServiceCollection.GetAll();
                     YellowstonePathology.Business.ClientOrder.Model.UniversalService universalService = universalServiceIdCollection.GetByUniversalServiceId(this.m_ClientOrder.UniversalServiceId);
 
-					YellowstonePathology.Business.HL7View.EPIC.EpicStatusMessage statusMessage = new Business.HL7View.EPIC.EpicStatusMessage(this.m_ClientOrder, YellowstonePathology.Business.HL7View.OrderStatusEnum.InProcess, universalService);
+					YellowstonePathology.Business.HL7View.EPIC.EPICStatusMessage statusMessage = new Business.HL7View.EPIC.EPICStatusMessage(this.m_ClientOrder, YellowstonePathology.Business.HL7View.OrderStatusEnum.InProcess, universalService);
 					YellowstonePathology.Business.Rules.MethodResult result = statusMessage.Send();
 
 					if (result.Success == false)
@@ -314,9 +293,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 
 		public void UseThisMasterAccessionNoToGetTheAccessionOrder(string masterAccessionNo)
 		{
-			this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByMasterAccessionNo(masterAccessionNo);
-
-			this.m_ObjectTracker.RegisterObject(this.m_AccessionOrder);
+			this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, this.m_Writer);			
 			this.m_AnAccessionOrderHasBeenAquired = true;
 		}
 
@@ -341,11 +318,10 @@ namespace YellowstonePathology.UI.Login.Receiving
 			return result;
 		}
 
-		public void Save()
+		public void Save(bool releaseLock)
 		{
-			if (this.m_AccessionOrder != null) this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
-			if (this.m_ClientOrder != null) this.m_ObjectTracker.SubmitChanges(this.m_ClientOrder);
-		}
+			
+        }
 
 		public void ResetTheSelectedClientOrderDetailToThisOne(YellowstonePathology.Business.ClientOrder.Model.ClientOrderDetail clientOrderDetail)
 		{

@@ -35,7 +35,10 @@ namespace YellowstonePathology.Business.Client.Model
         private string m_BillingRuleSetId2;
 		private string m_DistributionType;		
 		private bool m_Inactive;
-        private string m_ContactName;        
+        private string m_ContactName;
+        private bool m_HasReferringProvider;
+        private string m_ReferringProviderClientId;
+        private string m_ReferringProviderClientName;
 
         public Client()
         {
@@ -50,9 +53,11 @@ namespace YellowstonePathology.Business.Client.Model
 			this.m_ClientLocationCollection = new ClientLocationCollection();
 		}
 
+        [PersistentCollection()]
         public ClientLocationCollection ClientLocationCollection
 		{
 			get { return this.m_ClientLocationCollection; }
+            set { this.m_ClientLocationCollection = value; }
 		}
 
         [PersistentDocumentIdProperty()]
@@ -176,8 +181,9 @@ namespace YellowstonePathology.Business.Client.Model
 				if (this.m_Telephone != value)
 				{
 					this.m_Telephone = value;
-					this.NotifyPropertyChanged("Telephone");					
-				}
+					this.NotifyPropertyChanged("Telephone");
+                    this.NotifyPropertyChanged("FormattedTelephone");
+                }
 			}
 		}
 
@@ -204,8 +210,9 @@ namespace YellowstonePathology.Business.Client.Model
 				if (this.m_Fax != value)
 				{
 					this.m_Fax = value;
-					this.NotifyPropertyChanged("Fax");					
-				}
+					this.NotifyPropertyChanged("Fax");
+                    this.NotifyPropertyChanged("FormattedFax");
+                }
 			}
 		}
 
@@ -302,11 +309,53 @@ namespace YellowstonePathology.Business.Client.Model
                 if (this.m_ContactName != value)
                 {
                     this.m_ContactName = value;
-                    this.NotifyPropertyChanged("m_ContactName");
+                    this.NotifyPropertyChanged("ContactName");
                 }
             }
-        }  
-        
+        }
+
+        [PersistentProperty()]
+        public bool HasReferringProvider
+        {
+            get { return this.m_HasReferringProvider; }
+            set
+            {
+                if (this.m_HasReferringProvider != value)
+                {
+                    this.m_HasReferringProvider = value;
+                    this.NotifyPropertyChanged("HasReferringProvider");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string ReferringProviderClientId
+        {
+            get { return this.m_ReferringProviderClientId; }
+            set
+            {
+                if (this.m_ReferringProviderClientId != value)
+                {
+                    this.m_ReferringProviderClientId = value;
+                    this.NotifyPropertyChanged("ReferringProviderClientId");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string ReferringProviderClientName
+        {
+            get { return this.m_ReferringProviderClientName; }
+            set
+            {
+                if (this.m_ReferringProviderClientName != value)
+                {
+                    this.m_ReferringProviderClientName = value;
+                    this.NotifyPropertyChanged("ReferringProviderClientName");
+                }
+            }
+        }
+
         public string FormattedTelephone
         {
             get
@@ -323,13 +372,13 @@ namespace YellowstonePathology.Business.Client.Model
         public string FormattedFax
         {
             get
-            {
+            {                
                 string result = string.Empty;
                 if (string.IsNullOrEmpty(this.m_Fax) == false && this.m_Fax.Length == 10)
                 {
                     result = "(" + m_Fax.Substring(0, 3) + ") " + m_Fax.Substring(3, 3) + "-" + m_Fax.Substring(6, 4);
                 }
-                return result;
+                return result;             
             }
         }
 

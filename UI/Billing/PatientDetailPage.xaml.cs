@@ -16,7 +16,7 @@ using System.ComponentModel;
 
 namespace YellowstonePathology.UI.Billing
 {	
-	public partial class PatientDetailPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
+	public partial class PatientDetailPage : UserControl, INotifyPropertyChanged 
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -47,25 +47,6 @@ namespace YellowstonePathology.UI.Billing
 				PropertyChanged(this, new PropertyChangedEventArgs(info));
 			}
 		}		
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save()
-		{
-			
-		}
-
-		public void UpdateBindingSources()
-		{
-		}
 
 		private void ButtonNext_Click(object sender, RoutedEventArgs e)
 		{            

@@ -6,7 +6,7 @@ using System.Xml.Linq;
 
 namespace YellowstonePathology.Business.Test.ALKForNSCLCByFISH
 {
-	public class ALKForNSCLCByFISHEPICOBXView : YellowstonePathology.Business.HL7View.EPIC.EpicObxView
+	public class ALKForNSCLCByFISHEPICOBXView : YellowstonePathology.Business.HL7View.EPIC.EPICObxView
 	{
         public ALKForNSCLCByFISHEPICOBXView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount)
 			: base(accessionOrder, reportNo, obxCount)

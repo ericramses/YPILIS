@@ -24,9 +24,15 @@ namespace YellowstonePathology.UI.Cytology
 		{
 			InitializeComponent();
 			this.m_PageNavigator = new UI.Navigation.PageNavigator(this.MainContent);
+            this.Closing += PrintSlideDialog_Closing;
 		}
 
-		public YellowstonePathology.UI.Navigation.PageNavigator PageNavigator
+        private void PrintSlideDialog_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
+        }
+
+        public YellowstonePathology.UI.Navigation.PageNavigator PageNavigator
 		{
 			get { return this.m_PageNavigator; }
 		}

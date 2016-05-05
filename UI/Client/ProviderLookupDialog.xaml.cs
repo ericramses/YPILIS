@@ -30,6 +30,7 @@ namespace YellowstonePathology.UI.Client
             this.m_ClientGroupCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientGroupCollection();
 			InitializeComponent();
 			DataContext = this;
+            this.TextBoxProviderName.Focus();
 		}
 
 		public YellowstonePathology.Business.Client.Model.ProviderClientCollection ProviderCollection
@@ -54,14 +55,15 @@ namespace YellowstonePathology.UI.Client
 
         private void ButtonNewProvider_Click(object sender, RoutedEventArgs e)
 		{
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
 			string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
 			int physicianId = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetLargestPhysicianId() + 1;
 			YellowstonePathology.Business.Domain.Physician physician = new Business.Domain.Physician(objectId, physicianId, "New Physician", "New Physician");
-			objectTracker.RegisterRootInsert(physician);
+            Business.User.SystemIdentity systemIdentity = Business.User.SystemIdentity.Instance;
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(physician, this);
 
-			ProviderEntry providerEntry = new ProviderEntry(physician, objectTracker, true);
-			providerEntry.ShowDialog();
+            ProviderEntry providerEntry = new ProviderEntry(physician, true);
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
+            providerEntry.ShowDialog();
 		}
 
         private void ButtonDeleteProvider_Click(object sender, RoutedEventArgs e)
@@ -84,14 +86,17 @@ namespace YellowstonePathology.UI.Client
 
         private void ButtonNewClient_Click(object sender, RoutedEventArgs e)
 		{
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
 			string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
 			int clientId = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetLargestClientId() + 1;
-			YellowstonePathology.Business.Client.Model.Client client = new YellowstonePathology.Business.Client.Model.Client(objectId, "New Client", clientId);
-			objectTracker.RegisterRootInsert(client);
+			YellowstonePathology.Business.Client.Model.Client client = new YellowstonePathology.Business.Client.Model.Client(objectId, "New Client", clientId);			
 
-			ClientEntryV2 clientEntry = new ClientEntryV2(client, objectTracker);
+			ClientEntry clientEntry = new ClientEntry(client, true);
 			clientEntry.ShowDialog();
+            if(this.m_ClientCollection == null)
+            {
+                this.m_ClientCollection = new Business.Client.Model.ClientCollection();
+            }
+            this.m_ClientCollection.Insert(0, client);
 		}
 
         private void ButtonDeleteClient_Click(object sender, RoutedEventArgs e)
@@ -170,12 +175,10 @@ namespace YellowstonePathology.UI.Client
 		{
 			if (this.ListViewProviders.SelectedItem != null)
 			{
-                YellowstonePathology.Business.Client.Model.ProviderClient providerClient =  (YellowstonePathology.Business.Client.Model.ProviderClient)this.ListViewProviders.SelectedItem;
+                YellowstonePathology.Business.Client.Model.ProviderClient providerClient =  (YellowstonePathology.Business.Client.Model.ProviderClient)this.ListViewProviders.SelectedItem;                
                 YellowstonePathology.Business.Domain.Physician physician = providerClient.Physician;
-				YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-                objectTracker.RegisterObject(physician);
 
-				ProviderEntry providerEntry = new ProviderEntry(physician, objectTracker, false);
+                ProviderEntry providerEntry = new ProviderEntry(physician, false);
 				providerEntry.ShowDialog();
 			}
 		}
@@ -223,9 +226,8 @@ namespace YellowstonePathology.UI.Client
 			if (this.ListViewClients.SelectedItem != null)
             {
 				YellowstonePathology.Business.Client.Model.Client client = (YellowstonePathology.Business.Client.Model.Client)this.ListViewClients.SelectedItem;
-				YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-                objectTracker.RegisterObject(client);
-				ClientEntryV2 clientEntry = new ClientEntryV2(client, objectTracker);
+
+                ClientEntry clientEntry = new ClientEntry(client, false);
 				clientEntry.ShowDialog();
             }
         }
@@ -268,9 +270,7 @@ namespace YellowstonePathology.UI.Client
 
         private void DeleteProvider(YellowstonePathology.Business.Domain.Physician physician)
         {
-            YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new Business.Persistence.ObjectTracker();
-            objectTracker.RegisterRootDelete(physician);
-            objectTracker.SubmitChanges(physician);            
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.DeleteDocument(physician, this);            
         }
 
         private YellowstonePathology.Business.Rules.MethodResult CanDeleteClient(YellowstonePathology.Business.Client.Model.Client client)
@@ -311,9 +311,12 @@ namespace YellowstonePathology.UI.Client
 
         private void DeleteClient(YellowstonePathology.Business.Client.Model.Client client)
         {
-            YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new Business.Persistence.ObjectTracker();
-            objectTracker.RegisterRootDelete(client);
-            objectTracker.SubmitChanges(client);
+            YellowstonePathology.Business.Client.Model.ClientLocationCollection clientLocationCollection = client.ClientLocationCollection;            
+            for (int i = clientLocationCollection.Count - 1; i > -1; i--)
+            {
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.DeleteDocument(clientLocationCollection[i], this);                
+            }
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.DeleteDocument(client, this);            
         }
 
         private void ListViewClientGroups_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -321,9 +324,7 @@ namespace YellowstonePathology.UI.Client
             if(this.ListViewClientGroups.SelectedItem != null)
             {
                 YellowstonePathology.Business.Client.Model.ClientGroup clientGroup = (YellowstonePathology.Business.Client.Model.ClientGroup)this.ListViewClientGroups.SelectedItem;
-                YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new Business.Persistence.ObjectTracker();
-                objectTracker.RegisterObject(clientGroup);
-                ClientGroupEntry clientGroupEntry = new ClientGroupEntry(clientGroup, objectTracker);
+                ClientGroupEntry clientGroupEntry = new ClientGroupEntry(clientGroup);
                 clientGroupEntry.ShowDialog();
             }
         }

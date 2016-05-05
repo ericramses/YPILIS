@@ -18,7 +18,7 @@ namespace YellowstonePathology.Business.Test
         protected string m_ObjectId;
         protected string m_AliquotOrderId;
         protected string m_SpecimenOrderId;
-        protected bool m_ClientAccessioned;
+        protected bool m_ClientAccessioned;        
         protected string m_TestOrderId;
         protected string m_AliquotType;
         protected string m_Description;
@@ -38,7 +38,8 @@ namespace YellowstonePathology.Business.Test
         protected int m_ValidatedById;
         protected string m_ValidatedBy;
         protected Nullable<DateTime> m_ValidationDate;
-        protected string m_Status;        
+        protected string m_Status;
+        protected string m_EmbeddingInstructions;    
 
         public AliquotOrder_Base()
         {
@@ -99,7 +100,7 @@ namespace YellowstonePathology.Business.Test
                     this.NotifyPropertyChanged("ClientAccessioned");
                 }
             }
-        }
+        }        
 
         [PersistentProperty()]
         public string TestOrderId
@@ -376,6 +377,23 @@ namespace YellowstonePathology.Business.Test
             }
         }
 
+        [PersistentProperty()]
+        public string EmbeddingInstructions
+        {
+            get
+            {
+                return this.m_EmbeddingInstructions;
+            }
+            set
+            {
+                if (this.m_EmbeddingInstructions != value)
+                {
+                    this.m_EmbeddingInstructions = value;
+                    this.NotifyPropertyChanged("EmbeddingInstructions");
+                }
+            }
+        }
+
         public bool IsNotIntraoperative
         {
             get
@@ -501,13 +519,13 @@ namespace YellowstonePathology.Business.Test
             return result;
         }
 
-        public void Validate(YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        public void Validate()
         {
             if (this.m_Validated == false)
             {
-                this.m_ValidationStation = systemIdentity.StationName;
-                this.m_ValidatedBy = systemIdentity.User.UserName;
-                this.m_ValidatedById = systemIdentity.User.UserId;
+                this.m_ValidationStation = System.Environment.MachineName;
+                this.m_ValidatedBy = Business.User.SystemIdentity.Instance.User.UserName;
+                this.m_ValidatedById = Business.User.SystemIdentity.Instance.User.UserId;
                 this.m_ValidationDate = DateTime.Now;
                 this.m_Validated = true;
                 this.m_Status = YellowstonePathology.Business.Slide.Model.SlideStatusEnum.Validated.ToString();

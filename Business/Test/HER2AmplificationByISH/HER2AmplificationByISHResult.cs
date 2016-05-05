@@ -74,11 +74,11 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 
 		public static void AcceptResults(HER2AmplificationByISHTestOrder testOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 		{
-			testOrder.Accept(systemIdentity.User);
+			testOrder.Accept();
 			if (testOrder.PanelOrderCollection.GetUnacceptedPanelCount() > 0)
 			{
 				YellowstonePathology.Business.Test.PanelOrder panelOrder = testOrder.PanelOrderCollection.GetUnacceptedPanelOrder();
-				panelOrder.AcceptResults(systemIdentity.User);
+				panelOrder.AcceptResults();
 			}
 		}
 

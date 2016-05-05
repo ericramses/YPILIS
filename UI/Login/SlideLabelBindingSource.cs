@@ -8,10 +8,12 @@ namespace YellowstonePathology.UI.Login
 {
 	public class SlideLabelBindingSource : System.Windows.Forms.BindingSource
 	{
-        ObservableCollection<YellowstonePathology.Business.Label.Model.AccessionLabel> m_AccessionLabelCollection;        
+        ObservableCollection<YellowstonePathology.Business.Label.Model.AccessionLabel> m_AccessionLabelCollection;
+        object m_Writer;
 
-        public SlideLabelBindingSource()
+        public SlideLabelBindingSource(object writer)
         {
+            this.m_Writer = writer;
             this.m_AccessionLabelCollection = new ObservableCollection<Business.Label.Model.AccessionLabel>();
             this.DataSource = this.m_AccessionLabelCollection;
         }
@@ -26,7 +28,7 @@ namespace YellowstonePathology.UI.Login
             string reportNumbers = string.Empty;
             foreach (YellowstonePathology.Business.Label.Model.AccessionLabel accessionNameLabel in this.m_AccessionLabelCollection)
             {
-				YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByMasterAccessionNo(accessionNameLabel.MasterAccessionNo);
+				YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(accessionNameLabel.MasterAccessionNo, this.m_Writer);
                 accessionNameLabel.PatientLastName = accessionOrder.PLastName;
                 accessionNameLabel.PatientFirstName = accessionOrder.PFirstName;
             }            
@@ -41,7 +43,7 @@ namespace YellowstonePathology.UI.Login
             base.Clear();
         }        
 
-        public void Save()
+        public void Save(bool releaseLock)
         {
 			
         }               

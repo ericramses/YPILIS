@@ -17,18 +17,17 @@ namespace YellowstonePathology.Business.Test.InvasiveBreastPanel
 		public InvasiveBreastPanel(string masterAccessionNo, string reportNo, string objectId,
 			YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
             YellowstonePathology.Business.Interface.IOrderTarget orderTarget,
-			bool distribute,
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
-			: base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute, systemIdentity)
+			bool distribute)
+			: base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute)
 		{
             
 		}
 
-        public override void OrderInitialTests(AccessionOrder accessionOrder, YellowstonePathology.Business.Interface.IOrderTarget orderTarget, Business.User.SystemIdentity systemIdentity)
+        public override void OrderInitialTests(AccessionOrder accessionOrder, YellowstonePathology.Business.Interface.IOrderTarget orderTarget)
         {
             YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHTest her2AmplificationByISHTest = new YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHTest();
             YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new TestOrderInfo(her2AmplificationByISHTest, orderTarget, true);            
-            YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Visitor.OrderTestOrderVisitor(testOrderInfo, systemIdentity);
+            YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Visitor.OrderTestOrderVisitor(testOrderInfo);
             accessionOrder.TakeATrip(orderTestOrderVisitor);            
 
             bool hasSurgical = accessionOrder.PanelSetOrderCollection.Exists(13);
@@ -38,18 +37,18 @@ namespace YellowstonePathology.Business.Test.InvasiveBreastPanel
                 YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = (YellowstonePathology.Business.Test.AliquotOrder)orderTarget;
 
                 YellowstonePathology.Business.Test.Model.EstrogenReceptorSemiquant er = new YellowstonePathology.Business.Test.Model.EstrogenReceptorSemiquant();                				
-                YellowstonePathology.Business.Visitor.OrderTestVisitor orderERTestVisitor = new Visitor.OrderTestVisitor(surgicalReportNo, er, er.OrderComment, null, false, aliquotOrder, false, false, accessionOrder.TaskOrderCollection, systemIdentity);
+                YellowstonePathology.Business.Visitor.OrderTestVisitor orderERTestVisitor = new Visitor.OrderTestVisitor(surgicalReportNo, er, er.OrderComment, null, false, aliquotOrder, false, false, accessionOrder.TaskOrderCollection);
                 accessionOrder.TakeATrip(orderERTestVisitor);
 
                 YellowstonePathology.Business.Test.Model.ProgesteroneReceptorSemiquant pr = new YellowstonePathology.Business.Test.Model.ProgesteroneReceptorSemiquant();
-				YellowstonePathology.Business.Visitor.OrderTestVisitor orderPRTestVisitor = new Visitor.OrderTestVisitor(surgicalReportNo, pr, pr.OrderComment, null, false, aliquotOrder, false, false, accessionOrder.TaskOrderCollection, systemIdentity);
+				YellowstonePathology.Business.Visitor.OrderTestVisitor orderPRTestVisitor = new Visitor.OrderTestVisitor(surgicalReportNo, pr, pr.OrderComment, null, false, aliquotOrder, false, false, accessionOrder.TaskOrderCollection);
                 accessionOrder.TakeATrip(orderPRTestVisitor);
             }
             else
             {
 				YellowstonePathology.Business.Test.ErPrSemiQuantitative.ErPrSemiQuantitativeTest erPrSemiQuantitativeTest = new YellowstonePathology.Business.Test.ErPrSemiQuantitative.ErPrSemiQuantitativeTest();
                 YellowstonePathology.Business.Test.TestOrderInfo testOrderInfoERPR = new TestOrderInfo(erPrSemiQuantitativeTest, orderTarget, true);                
-                YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitorERPR = new Visitor.OrderTestOrderVisitor(testOrderInfoERPR, systemIdentity);
+                YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitorERPR = new Visitor.OrderTestOrderVisitor(testOrderInfoERPR);
                 accessionOrder.TakeATrip(orderTestOrderVisitorERPR);     
             }
         }

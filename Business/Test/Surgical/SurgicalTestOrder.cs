@@ -50,9 +50,8 @@ namespace YellowstonePathology.Business.Test.Surgical
 
 		public SurgicalTestOrder(string masterAccessionNo, string reportNo, string objectId,
 			YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
-			bool distribute,
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
-			: base(masterAccessionNo, reportNo, objectId, panelSet, distribute, systemIdentity)
+			bool distribute)
+			: base(masterAccessionNo, reportNo, objectId, panelSet, distribute)
 		{
 			m_SurgicalSpecimenCollection = new SurgicalSpecimenCollection();
 			m_SurgicalAuditCollection = new SurgicalAuditCollection();
@@ -62,9 +61,8 @@ namespace YellowstonePathology.Business.Test.Surgical
         public SurgicalTestOrder(string masterAccessionNo, string reportNo, string objectId,
             YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
             YellowstonePathology.Business.Interface.IOrderTarget orderTarget,
-            bool distribute,
-            YellowstonePathology.Business.User.SystemIdentity systemIdentity)
-            : base(masterAccessionNo, reportNo, objectId, panelSet, distribute, systemIdentity)
+            bool distribute)
+            : base(masterAccessionNo, reportNo, objectId, panelSet, distribute)
         {
             m_SurgicalSpecimenCollection = new SurgicalSpecimenCollection();
             m_SurgicalAuditCollection = new SurgicalAuditCollection();
@@ -604,23 +602,17 @@ namespace YellowstonePathology.Business.Test.Surgical
             }
         }
 
-        public AuditResult IsOkToFinalize(AccessionOrder accessionOrder, SystemIdentity systemIdentity)
+        public override AuditResult IsOkToFinalize(AccessionOrder accessionOrder)
         {
-            Audit.Model.PathologistSignoutAuditCollection pathologistSignoutAuditCollection = new PathologistSignoutAuditCollection(accessionOrder, systemIdentity);
+            Audit.Model.PathologistSignoutAuditCollection pathologistSignoutAuditCollection = new PathologistSignoutAuditCollection(accessionOrder);
             AuditResult auditResult = pathologistSignoutAuditCollection.Run2();
             return auditResult;
         }
 
-        public override void Finalize(AccessionOrder accessionOrder, RuleExecutionStatus ruleExecutionStatus, SystemIdentity systemIdentity)
+        public override void Finish(Business.Test.AccessionOrder accessionOrder)
         {
             this.m_ProfessionalComponentFacilityId = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId;
-            base.Finalize(accessionOrder, ruleExecutionStatus, systemIdentity);
-        }
-
-        public override void Finalize(SystemUser systemUser)
-        {
-            this.m_ProfessionalComponentFacilityId = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId;
-            base.Finalize(systemUser);
+            base.Finish(accessionOrder);
         }
     }
 }

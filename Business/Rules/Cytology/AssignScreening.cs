@@ -16,18 +16,19 @@ namespace YellowstonePathology.Business.Rules.Cytology
         YellowstonePathology.Business.Rules.Rule m_Rule;
         YellowstonePathology.Business.Rules.ExecutionStatus m_ExecutionStatus;
 
-		public AssignScreening()
+        object m_Writer;
+
+		public AssignScreening(object writer)
         {
+            this.m_Writer = writer;
             this.m_Rule = new YellowstonePathology.Business.Rules.Rule();
             this.m_Rule.ActionList.Add(this.Assign);
         }        
 
         public void Assign()
         {
-			this.m_CytologyAccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByMasterAccessionNo(this.m_MasterAccessionNo);
-			this.m_PanelSetOrderCytology = (YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology)this.m_CytologyAccessionOrder.PanelSetOrderCollection.GetPAP();
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new Persistence.ObjectTracker();
-			objectTracker.RegisterObject(this.m_CytologyAccessionOrder);
+			this.m_CytologyAccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(this.m_MasterAccessionNo, this.m_Writer);
+			this.m_PanelSetOrderCytology = (YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology)this.m_CytologyAccessionOrder.PanelSetOrderCollection.GetPAP();			
 
 			this.m_PanelSetOrderCytology.AssignedToId = this.m_AssignedToId;
 			foreach (YellowstonePathology.Business.Interface.IPanelOrder panelOrder in this.m_PanelSetOrderCytology.PanelOrderCollection)
@@ -41,9 +42,7 @@ namespace YellowstonePathology.Business.Rules.Cytology
                         cytologyPanelOrder.AssignedToId = this.m_AssignedToId;
                     }
                 }
-            }
-
-			objectTracker.SubmitChanges(this.m_CytologyAccessionOrder);
+            }            
         }
 
 		public void Execute(string masterAccessionNo, int assignToId, YellowstonePathology.Business.Rules.ExecutionStatus executionStatus)

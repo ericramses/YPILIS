@@ -14,26 +14,23 @@ namespace YellowstonePathology.Business.Document
         public XmlDocument m_ReportXml;
         public XmlNamespaceManager m_NameSpaceManager;        
         public string m_SaveFileName;
-
-        protected string m_ReportNo;
+        
         protected YellowstonePathology.Business.Document.ReportSaveModeEnum m_ReportSaveMode;
 		protected Business.Test.AccessionOrder m_AccessionOrder;
 		protected YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;				
 		protected YellowstonePathology.Business.Document.NativeDocumentFormatEnum m_NativeDocumentFormat;
 
-        public CaseReport()
+        public CaseReport(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode)
         {
+            this.m_AccessionOrder = accessionOrder;
+            this.m_PanelSetOrder = panelSetOrder;
+            this.m_ReportSaveMode = reportSaveMode;
+
             this.m_NativeDocumentFormat = NativeDocumentFormatEnum.Word;
             this.m_ReportXml = new XmlDocument();
             this.m_NameSpaceManager = new XmlNamespaceManager(m_ReportXml.NameTable);
             this.m_NameSpaceManager.AddNamespace("w", "http://schemas.microsoft.com/office/word/2003/wordml");
-		}
-
-		protected void GetReportData(string reportNo)
-		{
-			this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(reportNo);
-            this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);			
-		}
+		}		
 
         public YellowstonePathology.Business.Document.NativeDocumentFormatEnum NativeDocumentFormat
         {
@@ -46,16 +43,16 @@ namespace YellowstonePathology.Business.Document
 			return YellowstonePathology.Business.Document.CaseDocument.DeleteCaseFiles(orderIdParser);
         }
 
-		public virtual void Render(string masterAccessionNo, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveEnum)
+		public virtual void Render()
 		{
 			throw new NotImplementedException("Not Implemented Here");
 		}
 
         public virtual void Publish()
         {
-			YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_ReportNo);
+			YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
 			YellowstonePathology.Business.Document.CaseDocument.SaveXMLAsPDF(orderIdParser);
-            YellowstonePathology.Business.Helper.FileConversionHelper.SaveXpsReportToTiff(this.m_ReportNo);
+            YellowstonePathology.Business.Helper.FileConversionHelper.SaveXpsReportToTiff(this.m_PanelSetOrder.ReportNo);
         }
 
         public void OpenTemplate(string templateName)

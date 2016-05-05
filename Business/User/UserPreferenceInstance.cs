@@ -8,14 +8,11 @@ namespace YellowstonePathology.Business.User
 	public class UserPreferenceInstance
 	{
 		private static UserPreferenceInstance instance;
-		private UserPreference m_UserPreference;
-        private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
+		private UserPreference m_UserPreference;        
 
 		private UserPreferenceInstance()
 		{
-            this.m_ObjectTracker = new Persistence.ObjectTracker();
-			this.m_UserPreference = YellowstonePathology.Business.User.SystemUserGateway.GetUserPreference();            
-            this.m_ObjectTracker.RegisterObject(this.m_UserPreference);
+            this.m_UserPreference = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullUserPreference(this);
 		}
 
 		public static UserPreferenceInstance Instance
@@ -35,9 +32,9 @@ namespace YellowstonePathology.Business.User
 			get { return m_UserPreference; }
 		}
 
-        public void SubmitChanges()
+        public void Save()
         {
-            this.m_ObjectTracker.SubmitChanges(this.m_UserPreference);
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
         }
 	}
 }

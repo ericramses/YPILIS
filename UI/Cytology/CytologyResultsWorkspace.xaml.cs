@@ -20,40 +20,52 @@ namespace YellowstonePathology.UI.Cytology
 	public delegate void CytologyReportNoChangeEventHandler(object sender, EventArgs e);    
 
 	public partial class CytologyResultsWorkspace : UserControl
-	{		
-		public CommandBinding CommandBindingToggleAccessionLockMode;
-
+	{
 		private CytologyUI m_CytologyUI;
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
         private YellowstonePathology.UI.PageNavigationWindow m_PageNavigationWindow;
+        private TabItem m_Writer;
 
-		public CytologyResultsWorkspace()
+		public CytologyResultsWorkspace(TabItem writer)
 		{
-			this.m_SystemIdentity = new YellowstonePathology.Business.User.SystemIdentity(YellowstonePathology.Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
-			this.m_CytologyUI = new CytologyUI(this.m_SystemIdentity);
-            this.DataContext = this.m_CytologyUI;
+            this.m_Writer = writer;
+            this.m_SystemIdentity = YellowstonePathology.Business.User.SystemIdentity.Instance;
+			this.m_CytologyUI = new CytologyUI(this.m_Writer);
+            this.DataContext = this.m_CytologyUI;            
 
             InitializeComponent();
 
 			this.TextBoxReportNoSearch.IsEnabled = false;
-			this.CommandBindingToggleAccessionLockMode = new CommandBinding(MainWindow.ToggleAccessionLockModeCommand, AlterAccessionLock, CanAlterAccessionLock);
-			this.CommandBindings.Add(this.CommandBindingToggleAccessionLockMode);                        
-		}        
+            this.PreviewLostKeyboardFocus += CytologyResultsWorkspace_PreviewLostKeyboardFocus;
+        }
 
-		public CytologyResultsWorkspace(CytologyUI cytologyUI)
+        public CytologyResultsWorkspace(CytologyUI cytologyUI)
 		{
-			this.m_SystemIdentity = new YellowstonePathology.Business.User.SystemIdentity(YellowstonePathology.Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
-			this.m_CytologyUI = cytologyUI;
+            this.m_SystemIdentity = YellowstonePathology.Business.User.SystemIdentity.Instance;
+            this.m_CytologyUI = cytologyUI;
             this.DataContext = this.m_CytologyUI;
 
             InitializeComponent();
 
 			this.TextBoxReportNoSearch.Focus();
-			this.CommandBindingToggleAccessionLockMode = new CommandBinding(MainWindow.ToggleAccessionLockModeCommand, AlterAccessionLock, CanAlterAccessionLock);
-			this.CommandBindings.Add(this.CommandBindingToggleAccessionLockMode);                    
-		}        
+            this.PreviewLostKeyboardFocus += CytologyResultsWorkspace_PreviewLostKeyboardFocus;
+        }
 
-		public string ReportNo
+        public string Testing()
+        {
+            //YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology panelOrder = (YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology)this.m_CytologyUI.AccessionOrder.PanelSetOrderCollection[1].PanelOrderCollection[0];
+            //this.m_CytologyUI.NotifyPropertyChanged(string.Empty);
+
+            YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology panelOrder = (YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology)this.m_CytologyUI.PanelSetOrderCytology.PanelOrderCollection[0];
+            return panelOrder.ScreenerComment;            
+        }
+
+        private void CytologyResultsWorkspace_PreviewLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            MainWindow.UpdateFocusedBindingSource(this);
+        }
+
+        public string ReportNo
 		{
 			get
 			{
@@ -84,12 +96,7 @@ namespace YellowstonePathology.UI.Cytology
 		public YellowstonePathology.UI.Cytology.CytologyUI CytologyUI
 		{
 			get { return this.m_CytologyUI; }
-		}        
-
-		public void Save(object target, ExecutedRoutedEventArgs args)
-		{			
-			this.m_CytologyUI.Save();
-		}
+		}        		
 
         public void SelectAppropriatePanel()
         {
@@ -128,11 +135,6 @@ namespace YellowstonePathology.UI.Cytology
                 this.ListBoxResults.SelectedIndex = -1;
             }
         }				
-
-		public void ClearLock()
-		{
-			this.m_CytologyUI.ClearLock();
-		}
 
 		public void SetFocus()
 		{
@@ -256,20 +258,9 @@ namespace YellowstonePathology.UI.Cytology
 			}
 		}
 
-		public void AlterAccessionLock(object target, ExecutedRoutedEventArgs args)
-		{
-			this.m_CytologyUI.AlterAccessionLock();
-		}
-
-		public void CanAlterAccessionLock(object sender, CanExecuteRoutedEventArgs e)
-		{
-			e.CanExecute = this.m_CytologyUI.CanAlterAccessionLock();
-		}
-
 		public void CloseWorkspace(object target, ExecutedRoutedEventArgs args)
 		{
-			this.m_CytologyUI.Save();
-			this.m_CytologyUI.ClearLock();
+			
 		}
 
 		private void TextBoxReportNoSearch_GotFocus(object sender, RoutedEventArgs e)
@@ -318,7 +309,7 @@ namespace YellowstonePathology.UI.Cytology
             Business.Rules.MethodResult methodResult = panelOrderAcidWash.IsOkToAccept();
             if(methodResult.Success == true)
             {
-                panelOrderAcidWash.AcceptResults(this.m_SystemIdentity.User);
+                panelOrderAcidWash.AcceptResults();
             }
             else
             {
@@ -353,7 +344,9 @@ namespace YellowstonePathology.UI.Cytology
                 {
 					YellowstonePathology.Business.Rules.ExecutionStatus executionStatus = new YellowstonePathology.Business.Rules.ExecutionStatus();
 					YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology cytologyPanelOrder = (YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology)this.ListBoxResults.SelectedItem;
-					this.m_CytologyUI.ScreeningFinal(cytologyPanelOrder, executionStatus);					
+					this.m_CytologyUI.ScreeningFinal(cytologyPanelOrder, executionStatus);
+                    //Business.Persistence.DocumentGateway.Instance.Save();
+                    			
 					try
 					{
 						YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology panelOrder = (YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology)this.ListBoxResults.SelectedItem;
@@ -382,17 +375,7 @@ namespace YellowstonePathology.UI.Cytology
 		}
 
 		private void ButtonAddPathologistReview_Click(object sender, RoutedEventArgs e)
-		{
-            //YellowstonePathology.Business.User.SystemIdentity systemIdentity = new YellowstonePathology.Business.User.SystemIdentity(YellowstonePathology.Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
-            //YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapScreeningPanel thinPrepPapScreeningPanel = new YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapScreeningPanel();
-            //thinPrepPapScreeningPanel.ScreeningType = "Primary Screening";
-
-            //string panelOrderId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-            //YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology panelOrderCytology = new YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology(this.m_CytologyUI.PanelSetOrderCytology.ReportNo, panelOrderId, panelOrderId, thinPrepPapScreeningPanel, systemIdentity.User.UserId);            
-            //this.m_CytologyUI.PanelSetOrderCytology.PanelOrderCollection.Add(panelOrderCytology);
-
-            //return;
-
+		{            
 			if (this.ListBoxResults.SelectedItem != null)
 			{
                 Type objectType = this.ListBoxResults.SelectedItem.GetType();
@@ -672,12 +655,8 @@ namespace YellowstonePathology.UI.Cytology
         {
             if (this.m_CytologyUI.AccessionOrder != null)
             {
-				string reportNo = this.m_CytologyUI.PanelSetOrderCytology.ReportNo;
-				int panelSetId = this.m_CytologyUI.PanelSetOrderCytology.PanelSetId;
-				string masterAccessionNo = this.m_CytologyUI.AccessionOrder.MasterAccessionNo;
-
-                YellowstonePathology.Business.Interface.ICaseDocument caseDocument = YellowstonePathology.Business.Document.DocumentFactory.GetDocument(panelSetId);
-                caseDocument.Render(masterAccessionNo, reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum.Normal);
+                YellowstonePathology.Business.Interface.ICaseDocument caseDocument = YellowstonePathology.Business.Document.DocumentFactory.GetDocument(this.m_CytologyUI.AccessionOrder, this.m_CytologyUI.PanelSetOrderCytology, Business.Document.ReportSaveModeEnum.Normal);
+                caseDocument.Render();
                 caseDocument.Publish();                
                 MessageBox.Show("The document has been published");
             }
@@ -696,10 +675,10 @@ namespace YellowstonePathology.UI.Cytology
                 }
 
                 this.m_PageNavigationWindow = new PageNavigationWindow(this.m_SystemIdentity);
-				YellowstonePathology.UI.Login.WomensHealthProfilePath womensHealthProfilePath = new YellowstonePathology.UI.Login.WomensHealthProfilePath(this.m_CytologyUI.AccessionOrder, this.m_CytologyUI.ObjectTracker, clientOrder, this.m_PageNavigationWindow.PageNavigator, Visibility.Collapsed);
+				YellowstonePathology.UI.Login.WomensHealthProfilePath womensHealthProfilePath = new YellowstonePathology.UI.Login.WomensHealthProfilePath(this.m_CytologyUI.AccessionOrder, clientOrder, this.m_PageNavigationWindow.PageNavigator, this.m_PageNavigationWindow, Visibility.Collapsed);
                 womensHealthProfilePath.Finish += new Login.WomensHealthProfilePath.FinishEventHandler(WomensHealthProfilePath_Finished);
                 womensHealthProfilePath.Back += new Login.WomensHealthProfilePath.BackEventHandler(WomensHealthProfilePath_Finished);
-                womensHealthProfilePath.Start(this.m_SystemIdentity);
+                womensHealthProfilePath.Start();
                 this.m_PageNavigationWindow.ShowDialog();
             }
             else

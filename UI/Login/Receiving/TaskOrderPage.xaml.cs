@@ -19,7 +19,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 	/// <summary>
 	/// Interaction logic for TaskOrderPage.xaml
 	/// </summary>
-	public partial class TaskOrderPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
+	public partial class TaskOrderPage : UserControl, INotifyPropertyChanged 
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -32,24 +32,18 @@ namespace YellowstonePathology.UI.Login.Receiving
 		public delegate void CloseEventHandler(object sender, EventArgs e);
 		public event CloseEventHandler Close;		
 				
-		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
-		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
+		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;		
 		private YellowstonePathology.Business.Task.Model.TaskOrder m_TaskOrder;
 		private PageNavigationModeEnum m_PageNavigationMode;
         private List<string> m_TaskAssignmentList;
 
 		public TaskOrderPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
 			YellowstonePathology.Business.Task.Model.TaskOrder taskOrder,
-			PageNavigationModeEnum pageNavigationMode,
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+			PageNavigationModeEnum pageNavigationMode)
 		{
 			this.m_AccessionOrder = accessionOrder;
-			this.m_ObjectTracker = objectTracker;			
 			this.m_TaskOrder = taskOrder;
-			this.m_PageNavigationMode = pageNavigationMode;
-			this.m_SystemIdentity = systemIdentity;
+			this.m_PageNavigationMode = pageNavigationMode;			
 
 			this.m_TaskAssignmentList = YellowstonePathology.Business.Task.Model.TaskAssignment.GetTaskAssignmentList();
 
@@ -57,9 +51,22 @@ namespace YellowstonePathology.UI.Login.Receiving
 
 			this.SetButtonVisibility();
 			DataContext = this;
+
+            Loaded += TaskOrderPage_Loaded;
+            Unloaded += TaskOrderPage_Unloaded;
 		}
 
-		public void NotifyPropertyChanged(String info)
+        private void TaskOrderPage_Loaded(object sender, RoutedEventArgs e)
+        {
+             
+        }
+
+        private void TaskOrderPage_Unloaded(object sender, RoutedEventArgs e)
+        {
+             
+        }
+
+        public void NotifyPropertyChanged(String info)
 		{
 			if (PropertyChanged != null)
 			{
@@ -97,32 +104,16 @@ namespace YellowstonePathology.UI.Login.Receiving
 		public YellowstonePathology.Business.Test.AccessionOrder AccessionOrder
 		{
 			get { return this.m_AccessionOrder; }
-		}		
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
 		}
 
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save()
-		{
-			this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
-		}
-
-		public void UpdateBindingSources()
-		{
-
-		}
-
-		private void ButtonNext_Click(object sender, RoutedEventArgs e)
-		{
-			if (this.Next != null) this.Next(this, new EventArgs());
-		}
+        private void ButtonNext_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.Next != null)
+            {
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
+                this.Next(this, new EventArgs());
+            }
+        }
 
 		private void ButtonBack_Click(object sender, RoutedEventArgs e)
 		{
@@ -199,9 +190,9 @@ namespace YellowstonePathology.UI.Login.Receiving
             Hyperlink hyperLink = (Hyperlink)e.Source;
 			YellowstonePathology.Business.Task.Model.TaskOrderDetail taskOrderDetail = (YellowstonePathology.Business.Task.Model.TaskOrderDetail)hyperLink.Tag;
             taskOrderDetail.Acknowledged = true;
-            taskOrderDetail.AcknowledgedById = this.m_SystemIdentity.User.UserId;
+            taskOrderDetail.AcknowledgedById = Business.User.SystemIdentity.Instance.User.UserId;
             taskOrderDetail.AcknowledgedDate = DateTime.Now;
-            taskOrderDetail.AcknowledgedByInitials = this.m_SystemIdentity.User.Initials;
+            taskOrderDetail.AcknowledgedByInitials = Business.User.SystemIdentity.Instance.User.Initials;
 
             if (this.m_TaskOrder.TaskOrderDetailCollection.HasUnacknowledgeItems() == false)
             {

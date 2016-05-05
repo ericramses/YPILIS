@@ -6,9 +6,9 @@ using System.Xml.Linq;
 
 namespace YellowstonePathology.Business.Test.JAK2V617F
 {
-	public class JAK2V617FEpicObxView : YellowstonePathology.Business.HL7View.EPIC.EpicObxView
+	public class JAK2V617FEPICObxView : YellowstonePathology.Business.HL7View.EPIC.EPICObxView
     {
-        public JAK2V617FEpicObxView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount) 
+        public JAK2V617FEPICObxView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount) 
             : base(accessionOrder, reportNo, obxCount)
 		{
 			
@@ -43,6 +43,9 @@ namespace YellowstonePathology.Business.Test.JAK2V617F
             this.AddNextObxElement("References: ", document, "F");            
             this.HandleLongString(panelSetOrder.Reference, document, "F");
             this.AddNextObxElement("", document, "F");
+
+            this.AddNextObxElement(panelSetOrder.Disclosure, document, "F");
+            this.AddNextObxElement(string.Empty, document, "F");
 
             string locationPerformed = panelSetOrder.GetLocationPerformedComment();
             this.AddNextObxElement(locationPerformed, document, "F");

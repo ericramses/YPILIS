@@ -17,19 +17,16 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 	/// <summary>
 	/// Interaction logic for PatientDetailsPage.xaml
 	/// </summary>
-	public partial class PatientDetailsPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
+	public partial class PatientDetailsPage : UserControl
 	{
 		public delegate void ReturnEventHandler(object sender, UI.Navigation.PageNavigationReturnEventArgs e);
 		public event ReturnEventHandler Return;
 
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		private string m_PageHeaderText;
 
-		public PatientDetailsPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker)
+		public PatientDetailsPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{
-			this.m_ObjectTracker = objectTracker;
 			this.m_AccessionOrder = accessionOrder;
 
             this.m_PageHeaderText = accessionOrder.MasterAccessionNo + ": " + 
@@ -39,14 +36,21 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
             this.DataContext = this;
             this.Loaded += new RoutedEventHandler(PatientDetailsPage_Loaded);
-		}        
+            Unloaded += PatientDetailsPage_Unloaded;
+		}
 
         private void PatientDetailsPage_Loaded(object sender, RoutedEventArgs e)
         {
             this.ComboBoxSex.Focus();
+             
         }
 
-		public string PageHeaderText
+        private void PatientDetailsPage_Unloaded(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        public string PageHeaderText
 		{
 			get { return this.m_PageHeaderText; }
 		}
@@ -70,7 +74,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
 		private void ButtonLink_Click(object sender, RoutedEventArgs e)
 		{
-            this.Save();
+            //this.Save(false);
 		}
 
 		private void ButtonCaseNotes_Click(object sender, RoutedEventArgs e)
@@ -89,6 +93,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 		{
             if (this.DataIsValid() == true)
             {
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
                 UI.Navigation.PageNavigationReturnEventArgs args = new UI.Navigation.PageNavigationReturnEventArgs(UI.Navigation.PageNavigationDirectionEnum.Next, null);
                 this.Return(this, args);
             }
@@ -125,25 +130,6 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             }
 
             return result;
-        }
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save()
-		{
-			this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);            
-		}
-
-		public void UpdateBindingSources()
-		{
-		}
+        }		
 	}
 }

@@ -8,48 +8,22 @@ namespace YellowstonePathology.UI.Login.ReceiveSpecimen
 	public class BarcodeReassignmentPath
 	{
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
-        private LoginPageWindow m_LoginPageWindow;
+        private Login.Receiving.LoginPageWindow m_LoginPageWindow;
 		private YellowstonePathology.Business.ClientOrder.Model.ClientOrder m_ClientOrder;
-		private YellowstonePathology.Business.ClientOrder.Model.ClientOrderDetail m_ClientOrderDetail;
+		private YellowstonePathology.Business.ClientOrder.Model.ClientOrderDetail m_ClientOrderDetail;        
 
         public BarcodeReassignmentPath()
         {
         }        
 
         public void Start()
-        {
-            this.m_LoginPageWindow = new LoginPageWindow(this.m_SystemIdentity);
-			if (Business.User.SystemIdentity.DoesLoggedInUserNeedToScanId() == true)
-			{
-				this.ShowScanSecurityBadgePage();
-			}
-			else
-			{
-				this.m_SystemIdentity = new Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
-				this.m_LoginPageWindow.SystemIdentity = this.m_SystemIdentity;
-				this.ShowPatientNameLookupPage();
-			}
+        {            
+            this.m_LoginPageWindow = new Login.Receiving.LoginPageWindow();
+            this.ShowPatientNameLookupPage();
 			this.m_LoginPageWindow.ShowDialog();
         }
 
-        private void ShowScanSecurityBadgePage()
-        {
-            YellowstonePathology.UI.Login.ScanSecurityBadgePage scanSecurityBadgePage = new ScanSecurityBadgePage(System.Windows.Visibility.Collapsed);
-			this.m_LoginPageWindow.PageNavigator.Navigate(scanSecurityBadgePage);
-			scanSecurityBadgePage.AuthentificationSuccessful += new ScanSecurityBadgePage.AuthentificationSuccessfulEventHandler(ScanSecurityBadgePage_AuthentificationSuccessful);
-		}
-
-		private void ScanSecurityBadgePage_AuthentificationSuccessful(object sender, CustomEventArgs.SystemIdentityReturnEventArgs e)
-		{
-			this.m_SystemIdentity = e.SystemIdentity;
-			this.m_LoginPageWindow.SystemIdentity = this.m_SystemIdentity;
-			this.ShowPatientNameLookupPage();
-		}
-
-        private void ScanSecurityBadgePage_Return(object sender, UI.Navigation.PageNavigationReturnEventArgs e)
-        {
-			this.ShowPatientNameLookupPage();
-        }
+        
 
 		private void ShowPatientNameLookupPage()
 		{			
@@ -116,21 +90,18 @@ namespace YellowstonePathology.UI.Login.ReceiveSpecimen
 
 		private void ReplaceContainerId(string containerId)
 		{
-			YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByContainerId(this.m_ClientOrderDetail.ContainerId); ;
+            string masterAccessionNo = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetMasterAccessionNoFromContainerId(this.m_ClientOrderDetail.ContainerId);
+            YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, this.m_LoginPageWindow);             
 						
 			if (accessionOrder != null)
 			{
-				YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = accessionOrder.SpecimenOrderCollection.GetSpecimenOrderByContainerId(this.m_ClientOrderDetail.ContainerId);
-				YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-				objectTracker.RegisterObject(specimenOrder);
+				YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = accessionOrder.SpecimenOrderCollection.GetSpecimenOrderByContainerId(this.m_ClientOrderDetail.ContainerId);								
 				specimenOrder.ContainerId = containerId;
-				objectTracker.SubmitChanges(specimenOrder);
+                //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(specimenOrder, false);				
 			}
-
-			YellowstonePathology.Business.Persistence.ObjectTracker tracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-			tracker.RegisterObject(this.m_ClientOrderDetail);
+						
 			this.m_ClientOrderDetail.ContainerId = containerId;
-			tracker.SubmitChanges(this.m_ClientOrderDetail);
+            //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_ClientOrderDetail, false);           
 
 			ClientOrderPage clientOrderPage = new ClientOrderPage(this.m_ClientOrder);
 			clientOrderPage.Return += new Login.ClientOrderPage.ReturnEventHandler(ClientOrderPageConfirm_Return);

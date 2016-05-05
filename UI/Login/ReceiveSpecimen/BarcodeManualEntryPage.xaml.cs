@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Login.ReceiveSpecimen
 	/// <summary>
 	/// Interaction logic for BarcodeManualEntryPage.xaml
 	/// </summary>
-	public partial class BarcodeManualEntryPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges, INotifyPropertyChanged
+	public partial class BarcodeManualEntryPage : UserControl, INotifyPropertyChanged
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 		public delegate void ReturnEventHandler(object sender, string containerId);
@@ -100,26 +100,6 @@ namespace YellowstonePathology.UI.Login.ReceiveSpecimen
 				string containerId = YellowstonePathology.Business.Gateway.ClientOrderGateway.GetContainerIdByLast12Characters(this.IdString);				
 				this.Return(this, containerId);				
 			}
-		}		
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return false;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return false;
-		}
-
-		public void Save()
-		{
-
-		}
-
-		public void UpdateBindingSources()
-		{
-
-		}
+		}				
 	}
 }

@@ -45,9 +45,8 @@ namespace YellowstonePathology.Business.Test.MissingInformation
 
         public MissingInformtionTestOrder(string masterAccessionNo, string reportNo, string objectId,
             YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
-            bool distribute,
-            YellowstonePathology.Business.User.SystemIdentity systemIdentity)
-            : base(masterAccessionNo, reportNo, objectId, panelSet, distribute, systemIdentity)
+            bool distribute)
+            : base(masterAccessionNo, reportNo, objectId, panelSet, distribute)
 		{
 
         }       
@@ -332,28 +331,28 @@ namespace YellowstonePathology.Business.Test.MissingInformation
             }
         }
 
-        public void SetFirstCall(YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        public void SetFirstCall()
         {
             this.m_FirstCall = true;
-            this.m_FirstCallMadeBy = systemIdentity.User.DisplayName;
+            this.m_FirstCallMadeBy = Business.User.SystemIdentity.Instance.User.DisplayName;
             this.m_TimeOfFirstCall = DateTime.Now;
             this.m_FirstCallComment = "Made By " + this.m_FirstCallMadeBy + " @ " + this.m_TimeOfFirstCall.Value.ToString("MM/dd/yyyy HH:mm");
             this.NotifyPropertyChanged(string.Empty);
         }
 
-        public void SetSecondCall(YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        public void SetSecondCall()
         {
             this.m_SecondCall = true;
-            this.m_SecondCallMadeBy = systemIdentity.User.DisplayName;
+            this.m_SecondCallMadeBy = Business.User.SystemIdentity.Instance.User.DisplayName;
             this.m_TimeOfSecondCall = DateTime.Now;
             this.m_SecondCallComment = "Made By " + this.m_SecondCallMadeBy + " @ " + this.m_TimeOfSecondCall.Value.ToString("MM/dd/yyyy HH:mm");
             this.NotifyPropertyChanged(string.Empty);
         }
 
-        public void SetThirdCall(YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        public void SetThirdCall()
         {
             this.m_ThirdCall = true;
-            this.m_ThirdCallMadeBy = systemIdentity.User.DisplayName;
+            this.m_ThirdCallMadeBy = Business.User.SystemIdentity.Instance.User.DisplayName;
             this.m_TimeOfThirdCall = DateTime.Now;
             this.m_ThirdCallComment = "Made By " + this.m_ThirdCallMadeBy + " @ " + this.m_TimeOfThirdCall.Value.ToString("MM/dd/yyyy HH:mm");
             this.NotifyPropertyChanged(string.Empty);

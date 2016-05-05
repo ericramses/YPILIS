@@ -15,7 +15,7 @@ using System.ComponentModel;
 
 namespace YellowstonePathology.UI.Login
 {    
-	public partial class ClientLookupPage : UserControl, INotifyPropertyChanged, YellowstonePathology.Business.Interface.IPersistPageChanges
+	public partial class ClientLookupPage : UserControl, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 		public delegate void ReturnEventHandler(object sender, UI.Navigation.PageNavigationReturnEventArgs e);
@@ -44,6 +44,8 @@ namespace YellowstonePathology.UI.Login
         {
 			this.m_BarcodeScanPort.ClientScanReceived += new Business.BarcodeScanning.BarcodeScanPort.ClientScanReceivedHandler(BarcodeScanPort_ClientScanReceived);
             this.TextBoxClientName.Focus();
+            System.Windows.Window window = Window.GetWindow(this);
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(window);
         }
 
 		private void BarcodeScanPort_ClientScanReceived(Business.BarcodeScanning.Barcode barcode)
@@ -162,25 +164,6 @@ namespace YellowstonePathology.UI.Login
         {
 			UI.Navigation.PageNavigationReturnEventArgs args = new UI.Navigation.PageNavigationReturnEventArgs(UI.Navigation.PageNavigationDirectionEnum.Back, null);
 			this.Return(this, args);			
-		}
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return false;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return false;
-		}
-
-        public void Save()
-        {
-
-        }
-
-		public void UpdateBindingSources()
-		{
-		}
+		}		
 	}
 }

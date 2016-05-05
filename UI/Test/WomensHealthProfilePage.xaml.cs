@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 
 namespace YellowstonePathology.UI.Test
 {    
-    public partial class WomensHealthProfilePage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges, INotifyPropertyChanged
+    public partial class WomensHealthProfilePage : UserControl, INotifyPropertyChanged
     {
         public delegate void PropertyChangedNotificationHandler(String info);
         public event PropertyChangedEventHandler PropertyChanged;        
@@ -26,7 +26,6 @@ namespace YellowstonePathology.UI.Test
         public event BackEventHandler Back;
 
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-        private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
         private YellowstonePathology.Business.ClientOrder.Model.ClientOrder m_ClientOrder;
         private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
         private YellowstonePathology.Business.Domain.Physician m_Physician;
@@ -43,15 +42,13 @@ namespace YellowstonePathology.UI.Test
 
         private string m_HPVStandingOrderDescription;
         private System.Windows.Visibility m_BackButtonVisibility;
+        private Window m_ParentWindow;
 
         public WomensHealthProfilePage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-            YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
-            YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder,            
-            YellowstonePathology.Business.User.SystemIdentity systemIdentity,
+            YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder, 
             System.Windows.Visibility backButtonVisibility)
         {
             this.m_AccessionOrder = accessionOrder;
-            this.m_ObjectTracker = objectTracker;            
             
             this.m_HPVReflexOrderCollection = YellowstonePathology.Business.Client.Model.ReflexOrderCollection.GetHPVRequisitionReflexOrders();
             this.m_HPVStandingOrderCollection = YellowstonePathology.Business.Client.Model.StandingOrderCollection.GetHPVStandingOrders();
@@ -60,7 +57,7 @@ namespace YellowstonePathology.UI.Test
             
             this.m_ClientOrder = clientOrder;
 			this.m_WomensHealthProfileTestOrder = (YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(116);
-            this.m_SystemIdentity = systemIdentity;
+            this.m_SystemIdentity = Business.User.SystemIdentity.Instance;
             this.m_BackButtonVisibility = backButtonVisibility;
 
 			this.m_Physician = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianByPhysicianId(this.m_AccessionOrder.PhysicianId);
@@ -82,7 +79,9 @@ namespace YellowstonePathology.UI.Test
             InitializeComponent();
 
             this.DataContext = this;
-        }        
+
+            this.m_ParentWindow = Window.GetWindow(this);
+        }
 
         public string HPVStandingOrderDescription
         {
@@ -163,26 +162,6 @@ namespace YellowstonePathology.UI.Test
             get { return this.m_BackButtonVisibility; }
         }
 
-        public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-        {
-            return true;
-        }
-
-        public bool OkToSaveOnClose()
-        {
-            return true;
-        }
-
-        public void Save()
-        {
-            this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
-        }
-
-        public void UpdateBindingSources()
-        {
-
-        }        
-
         private void HyperLinkOrderHPV_Click(object sender, RoutedEventArgs e)
         {
             int hpvPanelSetId = 14;
@@ -191,10 +170,10 @@ namespace YellowstonePathology.UI.Test
                 YellowstonePathology.Business.Interface.IOrderTarget orderTarget = this.m_AccessionOrder.SpecimenOrderCollection.GetOrderTarget(this.m_WomensHealthProfileTestOrder.OrderedOnId);
 				YellowstonePathology.Business.Test.HPV.HPVTest panelSetHPV = new Business.Test.HPV.HPVTest();
                 YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new Business.Test.TestOrderInfo(panelSetHPV, orderTarget, true);                
-                YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Business.Visitor.OrderTestOrderVisitor(testOrderInfo, this.m_SystemIdentity);
+                YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Business.Visitor.OrderTestOrderVisitor(testOrderInfo);
                 this.m_AccessionOrder.TakeATrip(orderTestOrderVisitor);
 
-                this.Save();
+                //this.Save(false);
 
                 this.m_AuditCollection.Run();
                 this.NotifyPropertyChanged(string.Empty);
@@ -213,10 +192,10 @@ namespace YellowstonePathology.UI.Test
                 YellowstonePathology.Business.Interface.IOrderTarget orderTarget = this.m_AccessionOrder.SpecimenOrderCollection.GetOrderTarget(this.m_WomensHealthProfileTestOrder.OrderedOnId);
                 YellowstonePathology.Business.Test.NGCT.NGCTTest ngctTest = new YellowstonePathology.Business.Test.NGCT.NGCTTest();
                 YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new Business.Test.TestOrderInfo(ngctTest, orderTarget, true);                
-                YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Business.Visitor.OrderTestOrderVisitor(testOrderInfo, this.m_SystemIdentity);
+                YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Business.Visitor.OrderTestOrderVisitor(testOrderInfo);
                 this.m_AccessionOrder.TakeATrip(orderTestOrderVisitor);             
                 
-                this.Save();
+                //this.Save(false);
 
                 this.m_AuditCollection.Run();
                 this.NotifyPropertyChanged(string.Empty);
@@ -235,9 +214,9 @@ namespace YellowstonePathology.UI.Test
                 YellowstonePathology.Business.Interface.IOrderTarget orderTarget = this.m_AccessionOrder.SpecimenOrderCollection.GetOrderTarget(this.m_WomensHealthProfileTestOrder.OrderedOnId);
                 YellowstonePathology.Business.Test.Trichomonas.TrichomonasTest trichomonasTest = new YellowstonePathology.Business.Test.Trichomonas.TrichomonasTest();
                 YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new Business.Test.TestOrderInfo(trichomonasTest, orderTarget, true);                
-                YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Business.Visitor.OrderTestOrderVisitor(testOrderInfo, this.m_SystemIdentity);
+                YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Business.Visitor.OrderTestOrderVisitor(testOrderInfo);
                 this.m_AccessionOrder.TakeATrip(orderTestOrderVisitor);
-                this.Save();
+                
                 this.m_AuditCollection.Run();
                 this.NotifyPropertyChanged(string.Empty);
             }
@@ -256,9 +235,8 @@ namespace YellowstonePathology.UI.Test
                 YellowstonePathology.Business.Test.HPV1618.HPV1618Test hpv1618Test = new YellowstonePathology.Business.Test.HPV1618.HPV1618Test();
                 YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new Business.Test.TestOrderInfo(hpv1618Test, orderTarget, true);                                
 
-                YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Business.Visitor.OrderTestOrderVisitor(testOrderInfo, this.m_SystemIdentity);
-                this.m_AccessionOrder.TakeATrip(orderTestOrderVisitor);
-                this.Save();
+                YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Business.Visitor.OrderTestOrderVisitor(testOrderInfo);
+                this.m_AccessionOrder.TakeATrip(orderTestOrderVisitor);                
 
                 this.m_AuditCollection.Run();
                 this.NotifyPropertyChanged(string.Empty);
@@ -277,11 +255,10 @@ namespace YellowstonePathology.UI.Test
                 YellowstonePathology.Business.Interface.IOrderTarget orderTarget = this.m_AccessionOrder.SpecimenOrderCollection.GetOrderTarget(this.m_WomensHealthProfileTestOrder.OrderedOnId);
                 YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapTest thinPrepPapTest = new YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapTest();
                 YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new Business.Test.TestOrderInfo(thinPrepPapTest, orderTarget, true);                
-                YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Business.Visitor.OrderTestOrderVisitor(testOrderInfo, this.m_SystemIdentity);
+                YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Business.Visitor.OrderTestOrderVisitor(testOrderInfo);
                 this.m_AccessionOrder.TakeATrip(orderTestOrderVisitor);
                 this.m_AuditCollection.Run();
-                this.NotifyPropertyChanged(string.Empty);
-                this.Save();
+                this.NotifyPropertyChanged(string.Empty);                
             }
             else
             {
@@ -323,9 +300,8 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
 		{
-			this.Save();
-			YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileWordDocument report = new YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileWordDocument();
-			report.Render(this.m_AccessionOrder.MasterAccessionNo, this.m_WomensHealthProfileTestOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft);
+			YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileWordDocument report = new YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileWordDocument(this.m_AccessionOrder, this.m_WomensHealthProfileTestOrder, Business.Document.ReportSaveModeEnum.Draft);
+			report.Render();
 
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_WomensHealthProfileTestOrder.ReportNo);
 			string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);
@@ -381,7 +357,7 @@ namespace YellowstonePathology.UI.Test
             }
             else
             {
-                this.m_WomensHealthProfileTestOrder.Finalize(this.m_SystemIdentity.User);
+                this.m_WomensHealthProfileTestOrder.Finish(this.m_AccessionOrder);
                 this.m_AuditCollection.Run();
                 this.NotifyPropertyChanged("");
             }                        
@@ -412,7 +388,7 @@ namespace YellowstonePathology.UI.Test
 			YellowstonePathology.Business.Rules.MethodResult result = this.m_WomensHealthProfileTestOrder.IsOkToAccept();
 			if (result.Success == true)
 			{
-				this.m_WomensHealthProfileTestOrder.Accept(this.m_SystemIdentity.User);
+				this.m_WomensHealthProfileTestOrder.Accept();
 			}
 			else
 			{

@@ -6,6 +6,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Collections.ObjectModel;
 using System.Xml.Linq;
+using System.Xml;
 
 namespace YellowstonePathology.Business.Gateway
 {
@@ -16,7 +17,7 @@ namespace YellowstonePathology.Business.Gateway
 #if MONGO
             return FlowGatewayMongo.GetByLeukemiaNotFinal();
 #else
-            SqlCommand cmd = new SqlCommand("select pso.ReportNo, ao.PLastName, ao.PFirstName, ao.AccessionDate, pso.FinalDate, pso.PanelSetName [TestName], pso.ObjectId " +
+            SqlCommand cmd = new SqlCommand("select pso.ReportNo, ao.PLastName, ao.PFirstName, ao.AccessionDate, pso.FinalDate, pso.PanelSetName [TestName], pso.ObjectId, pso.MasterAccessionNo " +
 				"from tblPanelSetOrder pso join tblAccessionOrder ao on pso.MasterAccessionNo = ao.MasterAccessionNo " +
 				"where pso.PanelSetId = 20 and pso.Final = 0 order by ao.AccessionDate desc, pso.ReportNo desc");
 			cmd.CommandType = CommandType.Text;
@@ -29,7 +30,7 @@ namespace YellowstonePathology.Business.Gateway
 #if MONGO
             return FlowGatewayMongo.GetByTestType(panelSetId);
 #else
-			SqlCommand cmd = new SqlCommand("select pso.ReportNo, ao.PLastName, ao.PFirstName, ao.AccessionDate, pso.FinalDate, pso.PanelSetName [TestName], pso.ObjectId " +
+			SqlCommand cmd = new SqlCommand("select pso.ReportNo, ao.PLastName, ao.PFirstName, ao.AccessionDate, pso.FinalDate, pso.PanelSetName [TestName], pso.ObjectId, pso.MasterAccessionNo " +
                 "from tblPanelSetOrder pso join tblAccessionOrder ao on pso.MasterAccessionNo = ao.MasterAccessionNo " +
 				"Where PanelSetId = @PanelSetId order by ao.AccessionDate desc, pso.ReportNo desc");
 			cmd.CommandType = CommandType.Text;
@@ -43,9 +44,9 @@ namespace YellowstonePathology.Business.Gateway
 #if MONGO
             return FlowGatewayMongo.GetFlowLogListByReportNo(reportNo);
 #else
-			SqlCommand cmd = new SqlCommand("select pso.ReportNo, ao.PLastName, ao.PFirstName, ao.AccessionDate, pso.FinalDate, pso.PanelSetName [TestName], pso.ObjectId " +
+			SqlCommand cmd = new SqlCommand("select pso.ReportNo, ao.PLastName, ao.PFirstName, ao.AccessionDate, pso.FinalDate, pso.PanelSetName [TestName], pso.ObjectId, pso.MasterAccessionNo " +
 				"from tblPanelSetOrder pso join tblAccessionOrder ao on pso.MasterAccessionNo = ao.MasterAccessionNo " +
-                "where pso.PanelSetId not in (19,143,211) and pso.CaseType = 'Flow Cytometry' and pso.ReportNo = @ReportNo ");
+                "where pso.PanelSetId not in (19,143,211,222,223) and pso.CaseType = 'Flow Cytometry' and pso.ReportNo = @ReportNo ");
 			cmd.CommandType = CommandType.Text;
 			cmd.Parameters.Add("@ReportNo", SqlDbType.VarChar).Value = reportNo;
 			return BuildFlowLogList(cmd);
@@ -57,9 +58,9 @@ namespace YellowstonePathology.Business.Gateway
 #if MONGO
             return FlowGatewayMongo.GetByAccessionMonth(date);
 #else
-			SqlCommand cmd = new SqlCommand("Select pso.ReportNo, ao.PLastName, ao.PFirstName, ao.AccessionDate, pso.FinalDate, pso.PanelSetName [TestName], pso.ObjectId " +
+			SqlCommand cmd = new SqlCommand("Select pso.ReportNo, ao.PLastName, ao.PFirstName, ao.AccessionDate, pso.FinalDate, pso.PanelSetName [TestName], pso.ObjectId, pso.MasterAccessionNo " +
                 "from tblPanelSetOrder pso join tblAccessionOrder ao on pso.MasterAccessionNo = ao.MasterAccessionNo " +
-				"where pso.PanelSetId not in (19,143,211) and pso.CaseType = 'Flow Cytometry' and month(ao.AccessionDate) = @Month and Year(ao.AccessionDate) = @Year " +
+				"where pso.PanelSetId not in (19,143,211,222,223) and pso.CaseType = 'Flow Cytometry' and month(ao.AccessionDate) = @Month and Year(ao.AccessionDate) = @Year " +
 				"order by ao.AccessionDate desc, pso.ReportNo desc");
 			cmd.Parameters.Add("@Month", SqlDbType.Int).Value = date.Month;
 			cmd.Parameters.Add("@Year", SqlDbType.Int).Value = date.Year;
@@ -77,9 +78,9 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.CommandType = CommandType.Text;
 
 			string whereClause = string.Empty;
-			string sql = "select pso.ReportNo, ao.PLastName, ao.PFirstName, ao.AccessionDate, pso.FinalDate, pso.PanelSetName [TestName], pso.ObjectId " +
+			string sql = "select pso.ReportNo, ao.PLastName, ao.PFirstName, ao.AccessionDate, pso.FinalDate, pso.PanelSetName [TestName], pso.ObjectId, pso.MasterAccessionNo " +
                 "from tblPanelSetOrder pso join tblAccessionOrder ao on pso.MasterAccessionNo = ao.MasterAccessionNo " +
-                "Where pso.PanelSetId not in (19,143,211) and pso.CaseType = 'Flow Cytometry' ";
+                "Where pso.PanelSetId not in (19,143,211,222,223) and pso.CaseType = 'Flow Cytometry' ";
 
 			string[] commaSplit = patientName.Split(',');
 			switch (commaSplit.Length)
@@ -106,28 +107,13 @@ namespace YellowstonePathology.Business.Gateway
 #if MONGO
             return FlowGatewayMongo.GetByPathologistId(pathologistId);
 #else
-			SqlCommand cmd = new SqlCommand("select pso.ReportNo, ao.PLastName, ao.PFirstName, ao.AccessionDate, pso.FinalDate, pso.PanelSetName [TestName], pso.ObjectId " +
+			SqlCommand cmd = new SqlCommand("select pso.ReportNo, ao.PLastName, ao.PFirstName, ao.AccessionDate, pso.FinalDate, pso.PanelSetName [TestName], pso.ObjectId, pso.MasterAccessionNo " +
                 "from tblPanelSetOrder pso join tblAccessionOrder ao on pso.MasterAccessionNo = ao.MasterAccessionNo " +
                 "where dateadd(yy, +1, ao.AccessionDate) > getDate() and pso.AssignedToId = @PathologistId " +
 				"order by ao.AccessionDate desc, pso.ReportNo desc");
 			cmd.CommandType = CommandType.Text;
 			cmd.Parameters.Add("@PathologistId", SqlDbType.Int).Value = pathologistId;
 			return BuildFlowLogList(cmd);
-#endif
-		}
-
-		public static Flow.FlowMarkerCollection GetFlowMarkerCollectionByReportNo(string reportNo)
-		{
-#if MONGO
-            return FlowGatewayMongo.GetFlowMarkerCollectionByReportNo(reportNo);
-#else
-			SqlCommand cmd = new SqlCommand();
-			cmd.CommandType = CommandType.Text;
-			cmd.CommandText = "select fl.* from tblFlowMarkers fl left outer join tblMarkers m on fl.Name = m.MarkerName " +
-				"where fl.ReportNo = @ReportNo order by m.OrderFlag, m.MarkerName for xml path('FlowMarkerItem'), root('FlowMarkerCollection')";
-			cmd.Parameters.Add("@ReportNo", SqlDbType.VarChar).Value = reportNo;
-			XElement flowMarkerCollectionElement = Domain.Persistence.SqlXmlPersistence.CrudOperations.ExecuteXmlReaderCommand(cmd, Domain.Persistence.DataLocationEnum.ProductionData);
-			return BuildFlowMarkerCollection(flowMarkerCollectionElement);
 #endif
 		}
 
@@ -143,7 +129,21 @@ namespace YellowstonePathology.Business.Gateway
 				"order by m.OrderFlag, m.MarkerName for xml path('FlowMarkerItem'), type, root('FlowMarkerCollection')";
 			cmd.Parameters.Add("@ReportNo", SqlDbType.VarChar).Value = reportNo;
 			cmd.Parameters.Add("@PanelId", SqlDbType.Int).Value = panelId;
-			XElement flowMarkerCollectionElement = Domain.Persistence.SqlXmlPersistence.CrudOperations.ExecuteXmlReaderCommand(cmd, Domain.Persistence.DataLocationEnum.ProductionData);
+
+            XElement flowMarkerCollectionElement = null;
+            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (XmlReader xmlReader = cmd.ExecuteXmlReader())
+                {
+                    if (xmlReader.Read() == true)
+                    {
+                        flowMarkerCollectionElement = XElement.Load(xmlReader, LoadOptions.PreserveWhitespace);
+                    }
+                }
+            }
+
 			return BuildFlowMarkerCollection(flowMarkerCollectionElement);
 #endif
 		}

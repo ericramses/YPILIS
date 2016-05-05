@@ -33,14 +33,28 @@ namespace YellowstonePathology.Business.Specimen.Model
         public bool IsLastSpecimen(string specimenOrderId)
         {
             bool result = false;
-            if(this[this.Count -1].SpecimenOrderId == specimenOrderId)
+            if(this.Count != 0)
             {
-            	result = true;
+                if (this[this.Count - 1].SpecimenOrderId == specimenOrderId)
+                {
+                    result = true;
+                }
+            }            
+            return result;
+        }
+
+        public bool IsLastNonPAPSpecimen(string specimenOrderId)
+        {
+            bool result = false;
+            YellowstonePathology.Business.Specimen.Model.SpecimenOrderCollection specimenWithBlocks = this.GetNonPAPSpecimen();
+            if(specimenWithBlocks.IsLastSpecimen(specimenOrderId) == true)
+            {
+                result = true;
             }
             return result;
         }
 
-		public YellowstonePathology.Business.Specimen.Model.SpecimenOrder GetThinPrep()
+        public YellowstonePathology.Business.Specimen.Model.SpecimenOrder GetThinPrep()
         {
 			YellowstonePathology.Business.Specimen.Model.SpecimenOrder result = null;
 			foreach (YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder in this)
@@ -297,6 +311,22 @@ namespace YellowstonePathology.Business.Specimen.Model
 			specimenOrder.Accepted = false;
 		}
 
+        public int GetBlockCount()
+        {
+            int result = 0;
+            foreach(YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder in this)
+            {                
+                foreach(YellowstonePathology.Business.Test.AliquotOrder aliquotOrder in specimenOrder.AliquotOrderCollection)
+                {
+                    if(aliquotOrder.IsBlock() == true)
+                    {
+                        result += 1;
+                    }
+                }
+            }
+            return result;
+        }
+
 		public SpecimenOrder GetSpecimenOrderByBlock(string blockNumber)
 		{
 			if (string.IsNullOrEmpty(blockNumber) == false)
@@ -369,7 +399,34 @@ namespace YellowstonePathology.Business.Specimen.Model
             return result;
         }
 
-		public SpecimenOrder GetSpecimenOrderByContainerId(string containerId)
+        public SpecimenOrderCollection GetSpecimenWithBlocks()
+        {
+            SpecimenOrderCollection result = new SpecimenOrderCollection();
+            foreach (SpecimenOrder specimenOrder in this)
+            {
+                if (specimenOrder.AliquotOrderCollection.HasBlocks() == true)
+                {
+                    result.Add(specimenOrder);
+                }
+            }
+            return result;
+        }
+
+        public SpecimenOrderCollection GetNonPAPSpecimen()
+        {
+            SpecimenOrderCollection result = new SpecimenOrderCollection();
+            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ThinPrepFluid thinPrepFluid = new SpecimenDefinition.ThinPrepFluid();
+            foreach (SpecimenOrder specimenOrder in this)
+            {
+                if (specimenOrder.SpecimenId != thinPrepFluid.SpecimenId)
+                {
+                    result.Add(specimenOrder);
+                }
+            }
+            return result;
+        }
+
+        public SpecimenOrder GetSpecimenOrderByContainerId(string containerId)
 		{
 			SpecimenOrder result = null;
 			foreach (SpecimenOrder specimenOrder in this)

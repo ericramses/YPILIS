@@ -7,15 +7,14 @@ namespace YellowstonePathology.Business.Test.ALKForNSCLCByFISH
 {
 	public class ALKForNSCLCByFISHWordDocument : YellowstonePathology.Business.Document.CaseReportV2
 	{
-		public override void Render(string masterAccessionNo, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveEnum)
-		{
-			this.m_ReportNo = reportNo;
-			this.m_ReportSaveEnum = reportSaveEnum;
+        public ALKForNSCLCByFISHWordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+            : base(accessionOrder, panelSetOrder, reportSaveMode)
+        {
 
-			this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByMasterAccessionNo(masterAccessionNo);
+        }
 
-			this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
-
+        public override void Render()
+		{						
 			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\ALKForNSCLCByFISH.2.xml";
 			base.OpenTemplate();
 

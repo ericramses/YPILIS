@@ -35,7 +35,7 @@ namespace YellowstonePathology.OptimusPrime
                         + "and pso.OrderedOnId = '" + aliquotOrderId + "' and pso.Accepted = 0; ";                        
 
                     sql += @"Update tblPanelSetOrder set ResultCode = '" + hpvResult.ResultCode + "', "
-                    + "[HoldDistribution] = 0, "
+                    + "[HoldDistribution] = 1, "
                     + "[Accepted] = 1, "
                     + "[AcceptedBy] = 'Optimus Prime', "
                     + "[AcceptedById] = 5134, "
@@ -57,7 +57,7 @@ namespace YellowstonePathology.OptimusPrime
                         + "and pso.OrderedOnId = '" + aliquotOrderId + "' and pso.Accepted = 0; ";                        
 
                     sql += @"Update tblPanelSetOrder set ResultCode = '" + hpvResult.ResultCode + "', "
-                    + "[HoldDistribution] = 0, "
+                    + "[HoldDistribution] = 1, "
                     + "[Accepted] = 1, "
                     + "[AcceptedBy] = 'Optimus Prime', "
                     + "[AcceptedById] = 5134, "
@@ -74,7 +74,7 @@ namespace YellowstonePathology.OptimusPrime
                         + "and pso.OrderedOnId = '" + aliquotOrderId + "' and pso.Accepted = 0; ";                    
 
                     sql += @"Update tblPanelSetOrder set ResultCode = '" + hpvResult.ResultCode + "', "
-                    + "[HoldDistribution] = 0 "                    
+                    + "[HoldDistribution] = 1 "                    
                     + "where PanelSetId = 14 and Accepted = 0 and OrderedOnId = '" + aliquotOrderId + "';";                    
                 }
             }

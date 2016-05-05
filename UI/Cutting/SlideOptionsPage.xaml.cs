@@ -15,7 +15,7 @@ using System.ComponentModel;
 
 namespace YellowstonePathology.UI.Cutting
 {    
-	public partial class SlideOptionsPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges, INotifyPropertyChanged 
+	public partial class SlideOptionsPage : UserControl, INotifyPropertyChanged 
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -38,27 +38,7 @@ namespace YellowstonePathology.UI.Cutting
             this.m_SlideOrder = slideOrder;
 			InitializeComponent();
 			DataContext = this;            
-		}
-        
-		public void Save()
-		{
-        
-		}
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return false;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void UpdateBindingSources()
-		{
-
-		}               
+		}       		           
 
         public void NotifyPropertyChanged(String info)
         {

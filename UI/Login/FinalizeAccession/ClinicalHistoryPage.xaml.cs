@@ -17,28 +17,25 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 	/// <summary>
 	/// Interaction logic for ClinicalHistoryPage.xaml
 	/// </summary>
-	public partial class ClinicalHistoryPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
+	public partial class ClinicalHistoryPage : UserControl
 	{
 		public delegate void ReturnEventHandler(object sender, UI.Navigation.PageNavigationReturnEventArgs e);
 		public event ReturnEventHandler Return;
 
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private string m_PageHeaderText;
 
-		public ClinicalHistoryPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker)
+		public ClinicalHistoryPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{
 			this.m_AccessionOrder = accessionOrder;
-			this.m_ObjectTracker = objectTracker;
 			this.m_PageHeaderText = accessionOrder.MasterAccessionNo + ": " +
 				accessionOrder.PFirstName + " " + accessionOrder.PLastName;
 
 			InitializeComponent();
 
             this.Loaded += new RoutedEventHandler(ClinicalHistoryPage_Loaded);
-			this.DataContext = this;
-		}
+			this.DataContext = this;            
+		}        
 
         private void ClinicalHistoryPage_Loaded(object sender, RoutedEventArgs e)
         {
@@ -68,27 +65,9 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
 		private void ButtonNext_Click(object sender, RoutedEventArgs e)
 		{
-			UI.Navigation.PageNavigationReturnEventArgs args = new UI.Navigation.PageNavigationReturnEventArgs(UI.Navigation.PageNavigationDirectionEnum.Next, null);
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
+            UI.Navigation.PageNavigationReturnEventArgs args = new UI.Navigation.PageNavigationReturnEventArgs(UI.Navigation.PageNavigationDirectionEnum.Next, null);
 			this.Return(this, args);
-		}
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save()
-		{
-			this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
-		}
-
-		public void UpdateBindingSources()
-		{
-		}
+		}		
 	}
 }

@@ -15,7 +15,7 @@ using System.ComponentModel;
 
 namespace YellowstonePathology.UI.Cutting
 {    
-	public partial class CuttingPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges, INotifyPropertyChanged 
+	public partial class CuttingPage : UserControl, INotifyPropertyChanged 
 	{            
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -35,33 +35,32 @@ namespace YellowstonePathology.UI.Cutting
         private YellowstonePathology.Business.Test.AliquotOrder m_AliquotOrder;
         private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
         private YellowstonePathology.Business.Test.PanelOrder m_PanelOrder;
-        private YellowstonePathology.Business.Test.Model.TestOrder m_TestOrder;
-        private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
+        private YellowstonePathology.Business.Test.Model.TestOrder m_TestOrder;        
 
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 		private YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort m_BarcodeScanPort;
 
         private System.Windows.Threading.DispatcherTimer m_PageTimeoutTimer;
-        private YellowstonePathology.UI.Navigation.PageNavigator m_PageNavigator;  
+        private YellowstonePathology.UI.Navigation.PageNavigator m_PageNavigator;
+        private YellowstonePathology.Business.Label.Model.HistologySlidePaperLabelPrinter m_HistologySlidePaperLabelPrinter;
 
         public CuttingPage(YellowstonePathology.Business.Test.AliquotOrder aliquotOrder,
             YellowstonePathology.Business.Test.Model.TestOrder testOrder,
-            YellowstonePathology.Business.Test.AccessionOrder accessionOrder,  
-            YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity,
+            YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
+            YellowstonePathology.Business.Label.Model.HistologySlidePaperLabelPrinter histologySlidePaperLabelPrinter,
             YellowstonePathology.UI.Navigation.PageNavigator pageNavigator)
         {
             this.m_AliquotOrder = aliquotOrder;
             this.m_AccessionOrder = accessionOrder;
-            this.m_TestOrder = testOrder;
-            this.m_ObjectTracker = objectTracker;
+            this.m_TestOrder = testOrder;            
             this.m_PageNavigator = pageNavigator;
+            this.m_HistologySlidePaperLabelPrinter = histologySlidePaperLabelPrinter;
             
             this.m_SpecimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByAliquotOrderId(this.m_AliquotOrder.AliquotOrderId);
             this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrderByTestOrderId(this.m_TestOrder.TestOrderId);
-            this.m_PanelOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelOrderByTestOrderId(this.m_TestOrder.TestOrderId);            
+            this.m_PanelOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelOrderByTestOrderId(this.m_TestOrder.TestOrderId);
 
-            this.m_SystemIdentity = systemIdentity;
+            this.m_SystemIdentity = Business.User.SystemIdentity.Instance;
 
             this.m_ListBoxSlidesMouseDownTimer = new System.Windows.Threading.DispatcherTimer();
             this.m_ListBoxSlidesMouseDownTimer.Interval = new TimeSpan(0, 0, 0, 0, 750);
@@ -78,7 +77,7 @@ namespace YellowstonePathology.UI.Cutting
             this.m_PageTimeoutTimer.Start();
 
             this.Loaded += new RoutedEventHandler(CuttingPage_Loaded);
-            this.Unloaded += new RoutedEventHandler(CuttingPage_Unloaded);
+            this.Unloaded += new RoutedEventHandler(CuttingPage_Unloaded);            
 		}
 
         private void CuttingPage_Loaded(object sender, RoutedEventArgs e)
@@ -89,11 +88,11 @@ namespace YellowstonePathology.UI.Cutting
         private void CuttingPage_Unloaded(object sender, RoutedEventArgs e)
         {
             this.m_BarcodeScanPort.HistologySlideScanReceived -= BarcodeScanPort_HistologySlideScanReceived;
-            this.m_PageTimeoutTimer.Stop();
+            this.m_PageTimeoutTimer.Stop();            
         }
 
         private void PageTimeoutTimer_Tick(object sender, EventArgs e)
-        {
+        {            
             this.PageTimedOut(this, new EventArgs());
         }
 
@@ -165,8 +164,7 @@ namespace YellowstonePathology.UI.Cutting
         private void SlideOptionsPage_DeleteSlideOrder(object sender, CustomEventArgs.SlideOrderReturnEventArgs eventArgs)
         {
             YellowstonePathology.Business.Visitor.RemoveSlideOrderVisitor removeSlideOrderVisitor = new Business.Visitor.RemoveSlideOrderVisitor(eventArgs.SlideOrder);
-            this.m_AccessionOrder.TakeATrip(removeSlideOrderVisitor);
-            this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
+            this.m_AccessionOrder.TakeATrip(removeSlideOrderVisitor);            
             this.m_PageNavigator.Navigate(this);
         }
 
@@ -207,31 +205,9 @@ namespace YellowstonePathology.UI.Cutting
 
             string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
 			YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog materialTrackingLog = new Business.MaterialTracking.Model.MaterialTrackingLog(objectId, slideOrder.SlideOrderId, null, thisFacility.FacilityId, thisFacility.FacilityName,
-                thisLocation.LocationId, thisLocation.Description, this.m_SystemIdentity.User.UserId, this.m_SystemIdentity.User.UserName, "Slide Scanned", "Slide Scanned At Cutting", "SlideOrder", this.m_AccessionOrder.MasterAccessionNo, slideOrder.Label, slideOrder.ClientAccessioned);
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-            objectTracker.RegisterRootInsert(materialTrackingLog);
-            objectTracker.SubmitChanges(materialTrackingLog);
-        }
-
-		public void Save()
-		{
-            this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
-		}
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void UpdateBindingSources()
-		{
-
-		}               
+                thisLocation.LocationId, thisLocation.Description, "Slide Scanned", "Slide Scanned At Cutting", "SlideOrder", this.m_AccessionOrder.MasterAccessionNo, slideOrder.Label, slideOrder.ClientAccessioned);
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(materialTrackingLog, Window.GetWindow(this));            
+        }		         
 
         public void NotifyPropertyChanged(String info)
         {
@@ -262,7 +238,9 @@ namespace YellowstonePathology.UI.Cutting
                     }
                     else if (slideOrder.LabelType == YellowstonePathology.Business.Slide.Model.SlideLabelTypeEnum.PaperLabel.ToString())
                     {
-                        slideOrder.Status = YellowstonePathology.Business.Slide.Model.SlideStatusEnum.PrintRequested.ToString();
+                        slideOrder.Status = YellowstonePathology.Business.Slide.Model.SlideStatusEnum.Printed.ToString();
+                        YellowstonePathology.Business.Label.Model.HistologySlidePaperLabel histologySlidePaperLabel = new Business.Label.Model.HistologySlidePaperLabel(slideOrder.SlideOrderId, slideOrder.ReportNo, slideOrder.Label, slideOrder.PatientLastName, slideOrder.TestAbbreviation, slideOrder.Location);
+                        this.m_HistologySlidePaperLabelPrinter.Queue.Enqueue(histologySlidePaperLabel);
                         this.ShowTestOrderSelectionPage(this, new CustomEventArgs.AliquotOrderReturnEventArgs(this.m_AliquotOrder));
                     }                    
                 }
@@ -276,9 +254,8 @@ namespace YellowstonePathology.UI.Cutting
         }
 
         private void PrintSlide(YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder)
-        {
-			YellowstonePathology.Business.BarcodeScanning.BarcodeVersion2 barcode = new Business.BarcodeScanning.BarcodeVersion2(Business.BarcodeScanning.BarcodePrefixEnum.HSLD, slideOrder.SlideOrderId);
-            YellowstonePathology.Business.Label.Model.HistologySlideLabel histologySlideLabel = new Business.Label.Model.HistologySlideLabel(slideOrder.SlideOrderId, slideOrder.ReportNo, slideOrder.Label, slideOrder.PatientLastName, slideOrder.TestAbbreviation, slideOrder.Location);
+        {			
+            YellowstonePathology.Business.Label.Model.HistologySlideLabel histologySlideLabel = new Business.Label.Model.HistologySlideLabel(slideOrder.SlideOrderId, slideOrder.ReportNo, slideOrder.Label, slideOrder.PatientLastName, slideOrder.TestAbbreviation, slideOrder.Location, this.m_AccessionOrder);
             YellowstonePathology.Business.Label.Model.ThermoFisherHistologySlidePrinter thermoFisherSlidePrinter = new Business.Label.Model.ThermoFisherHistologySlidePrinter();
             thermoFisherSlidePrinter.Queue.Enqueue(histologySlideLabel);
             thermoFisherSlidePrinter.Print();
@@ -288,7 +265,7 @@ namespace YellowstonePathology.UI.Cutting
 
         private void ButtonAddSlide_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Visitor.AddSlideOrderVisitor addSlideOrderVisitor = new Business.Visitor.AddSlideOrderVisitor(this.m_AliquotOrder, this.m_TestOrder, this.m_SystemIdentity);
+            YellowstonePathology.Business.Visitor.AddSlideOrderVisitor addSlideOrderVisitor = new Business.Visitor.AddSlideOrderVisitor(this.m_AliquotOrder, this.m_TestOrder);
             this.m_AccessionOrder.TakeATrip(addSlideOrderVisitor);            
         }
 

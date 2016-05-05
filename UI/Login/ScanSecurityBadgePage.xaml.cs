@@ -18,11 +18,11 @@ namespace YellowstonePathology.UI.Login
 	/// <summary>
 	/// Interaction logic for ScanSecurityBadgePage.xaml
 	/// </summary>
-	public partial class ScanSecurityBadgePage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges, INotifyPropertyChanged
+	public partial class ScanSecurityBadgePage : UserControl, INotifyPropertyChanged
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		public delegate void AuthentificationSuccessfulEventHandler(object sender, CustomEventArgs.SystemIdentityReturnEventArgs e);
+		public delegate void AuthentificationSuccessfulEventHandler(object sender, EventArgs e);
 		public event AuthentificationSuccessfulEventHandler AuthentificationSuccessful;
 
         public delegate void CloseEventHandler(object sender, EventArgs e);
@@ -35,8 +35,10 @@ namespace YellowstonePathology.UI.Login
 		{
             this.m_CloseButtonVisibility = closeButtonVisibility;
 			InitializeComponent();
+
 			DataContext = this;
 
+            Business.User.SystemIdentity.Instance.SetToLoggedInUser();
 			this.m_BarcodeScanPort = YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort.Instance;
 			this.m_BarcodeScanPort.SecurityBadgeScanReceived += new Business.BarcodeScanning.BarcodeScanPort.SecurityBadgeScanReceivedHandler(BarcodeScanPort_SecurityBadgeScanReceived);            
 		}
@@ -47,27 +49,20 @@ namespace YellowstonePathology.UI.Login
         }
 
         private void ButtonAutoScan_Click(object sender, RoutedEventArgs e)
-        {
-			Business.User.SystemIdentity systemIdentity = new Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.Blank);
-			systemIdentity.SetUser(5001);
-			CustomEventArgs.SystemIdentityReturnEventArgs args = new CustomEventArgs.SystemIdentityReturnEventArgs(systemIdentity);
-            this.m_BarcodeScanPort.SecurityBadgeScanReceived -= BarcodeScanPort_SecurityBadgeScanReceived;
-			this.AuthentificationSuccessful(this, args);
+        {			
+			//systemIdentity.SetUser(5001);
+			//CustomEventArgs.SystemIdentityReturnEventArgs args = new CustomEventArgs.SystemIdentityReturnEventArgs(systemIdentity);
+            //this.m_BarcodeScanPort.SecurityBadgeScanReceived -= BarcodeScanPort_SecurityBadgeScanReceived;
+			//this.AuthentificationSuccessful(this, args);
         }
 
 		private void BarcodeScanPort_SecurityBadgeScanReceived(Business.BarcodeScanning.Barcode barcode)
 		{
 			this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate()
-			{
-				Business.User.SystemIdentity systemIdentity = new Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.Blank);
-                int scannedUserId = Convert.ToInt32(barcode.ID);
-                systemIdentity.SetUser(scannedUserId);
-				if (systemIdentity.IsKnown)
-				{
-					CustomEventArgs.SystemIdentityReturnEventArgs args = new CustomEventArgs.SystemIdentityReturnEventArgs(systemIdentity);
-					this.m_BarcodeScanPort.SecurityBadgeScanReceived -= BarcodeScanPort_SecurityBadgeScanReceived;
-					this.AuthentificationSuccessful(this, args);
-				}
+			{				
+                int scannedUserId = Convert.ToInt32(barcode.ID);                
+				this.m_BarcodeScanPort.SecurityBadgeScanReceived -= BarcodeScanPort_SecurityBadgeScanReceived;
+				this.AuthentificationSuccessful(this, new EventArgs());				
 			}
 			));
         }
@@ -78,27 +73,7 @@ namespace YellowstonePathology.UI.Login
 			{
 				PropertyChanged(this, new PropertyChangedEventArgs(info));
 			}
-		}		
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return false;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return false;
-		}
-
-		public void Save()
-		{
-		
-		}
-
-		public void UpdateBindingSources()
-		{
-
-		}
+		}				
 
         private void ButtonClose_Click(object sender, RoutedEventArgs e)
         {

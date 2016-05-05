@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Gross
     /// <summary>
 	/// Interaction logic for ScanContainerPage.xaml
     /// </summary>
-	public partial class ScanContainerPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges, INotifyPropertyChanged 
+	public partial class ScanContainerPage : UserControl, INotifyPropertyChanged 
 	{
 		public event PropertyChangedEventHandler PropertyChanged;		
 
@@ -61,6 +61,7 @@ namespace YellowstonePathology.UI.Gross
 
 		private void ScanContainerPage_Loaded(object sender, RoutedEventArgs e)
 		{
+            Business.Persistence.DocumentGateway.Instance.Push(Window.GetWindow(this));
 			this.m_BarcodeScanPort.ContainerScanReceived += this.ContainerScanReceived;
 			this.m_PageTimeOutTimer.Start();
 		}
@@ -119,27 +120,7 @@ namespace YellowstonePathology.UI.Gross
 
             //CustomEventArgs.ContainerReturnEventArgs containerReturnEventArgs = new CustomEventArgs.ContainerReturnEventArgs(container);
             //this.UseThisContainer(this, containerReturnEventArgs);				
-		}
-
-		public void Save()
-		{
-
-		}
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return false;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return false;
-		}
-
-		public void UpdateBindingSources()
-		{
-
-		}                
+		}		            
 
         public string SystemUserDisplayText
         {

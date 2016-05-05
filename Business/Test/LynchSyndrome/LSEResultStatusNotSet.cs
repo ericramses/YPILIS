@@ -7,8 +7,8 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 {
 	public class LSEResultStatusNotSet : LSEResultStatus
 	{
-		public LSEResultStatusNotSet(LSEResult lseResult, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
-			: base(lseResult, accessionOrder)
+		public LSEResultStatusNotSet(LSEResult lseResult, YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string orderedOnId)
+			: base(lseResult, accessionOrder, orderedOnId)
 		{
 			this.m_IsOrdered = false;
 			this.m_Status = "The LSE Type must be set before a status can be set.";

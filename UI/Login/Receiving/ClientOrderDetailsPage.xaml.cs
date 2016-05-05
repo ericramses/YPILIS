@@ -16,7 +16,7 @@ using System.Collections.ObjectModel;
 
 namespace YellowstonePathology.UI.Login.Receiving
 {	
-	public partial class ClientOrderDetailsPage : UserControl, INotifyPropertyChanged, YellowstonePathology.Business.Interface.IPersistPageChanges
+	public partial class ClientOrderDetailsPage : UserControl, INotifyPropertyChanged
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -30,8 +30,7 @@ namespace YellowstonePathology.UI.Login.Receiving
         public event SaveClientOrderDetailEventHandler SaveClientOrderDetail;        
 		
 		private YellowstonePathology.UI.Navigation.PageNavigator m_PageNavigator;
-        private YellowstonePathology.Business.ClientOrder.Model.ClientOrderDetail m_ClientOrderDetail;
-		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
+        private YellowstonePathology.Business.ClientOrder.Model.ClientOrderDetail m_ClientOrderDetail;		
 
 		private string m_PageHeaderText = "Specimen Details Page";
         private ObservableCollection<string> m_FixationTypeCollection;
@@ -43,13 +42,11 @@ namespace YellowstonePathology.UI.Login.Receiving
 
 		public ClientOrderDetailsPage(YellowstonePathology.UI.Navigation.PageNavigator pageNavigator, 
             YellowstonePathology.Business.ClientOrder.Model.ClientOrderDetail clientOrderDetail,
-            string specialInstructions,
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+            string specialInstructions)
 		{
 			this.m_PageNavigator = pageNavigator;
             this.m_ClientOrderDetail = clientOrderDetail;
-            this.m_SpecialInstructions = specialInstructions;
-            this.m_SystemIdentity = systemIdentity;
+            this.m_SpecialInstructions = specialInstructions;            
 
             this.m_TimeToFixationTypeCollection = YellowstonePathology.Business.Specimen.Model.TimeToFixationType.GetTimeToFixationTypeCollection();
             this.m_FixationTypeCollection = YellowstonePathology.Business.Specimen.Model.FixationType.GetFixationTypeCollection();
@@ -175,29 +172,40 @@ namespace YellowstonePathology.UI.Login.Receiving
             if(this.Back != null) this.Back(this, new EventArgs());
 		}
 
-		private void ButtonNext_Click(object sender, RoutedEventArgs e)
-		{
-			if(this.HandleBreastFixationTime() == true && this.ClientOrderDetail.ClientAccessioned == false)
+        private void ButtonNext_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.ClientOrderDetail.ClientAccessioned == false)
             {
-                this.m_ClientOrderDetail.ValidateObject();
-
-                if (this.m_ClientOrderDetail.ValidationErrors.Count > 0)
+                if (this.HandleBreastFixationTime() == true)
                 {
-                    this.CheckFixationStartTimeOrCollectionTimeValidationErrors();
-                    MessageBoxResult messageBoxResult = MessageBox.Show("There are validation errors on this form.  Are you sure you want to continue?", "Validation Errors", MessageBoxButton.YesNo);
-                    if (messageBoxResult == MessageBoxResult.Yes)
+                    this.m_ClientOrderDetail.ValidateObject();
+
+                    if (this.m_ClientOrderDetail.ValidationErrors.Count > 0)
+                    {
+                        this.CheckFixationStartTimeOrCollectionTimeValidationErrors();
+                        MessageBoxResult messageBoxResult = MessageBox.Show("There are validation errors on this form.  Are you sure you want to continue?", "Validation Errors", MessageBoxButton.YesNo);
+                        if (messageBoxResult == MessageBoxResult.Yes)
+                        {
+                            this.m_BarcodeScanPort.ContainerScanReceived -= ContainerScanReceived;
+                            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
+                            this.Next(this, new EventArgs());
+                        }
+                    }
+                    else
                     {
                         this.m_BarcodeScanPort.ContainerScanReceived -= ContainerScanReceived;
+                        YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
                         this.Next(this, new EventArgs());
                     }
                 }
-                else
-                {
-                    this.m_BarcodeScanPort.ContainerScanReceived -= ContainerScanReceived;
-                    this.Next(this, new EventArgs());
-                }
-            }            
-		}
+            }
+            else
+            {
+                this.m_BarcodeScanPort.ContainerScanReceived -= ContainerScanReceived;
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
+                this.Next(this, new EventArgs());
+            }
+        }
 
         private bool HandleBreastFixationTime()
         {
@@ -299,27 +307,7 @@ namespace YellowstonePathology.UI.Login.Receiving
             }
 
             return result;
-        }
-       
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save()
-		{
-            if (this.SaveClientOrderDetail != null) this.SaveClientOrderDetail(this, new EventArgs());
-		}
-
-		public void UpdateBindingSources()
-		{
-         
-		}
+        }      		
 
         public void NotifyPropertyChanged(String info)
         {
@@ -327,27 +315,7 @@ namespace YellowstonePathology.UI.Login.Receiving
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
-        }
-       
-        //private void ComboBoxSpecimenId_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        //{
-        //}
-
-        /*private void ComboBoxSpecimenId_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (this.ComboBoxSpecimenId.SelectedItem != null && this.ComboBoxSpecimenId.SelectedItem.GetType() != typeof(YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.NullSpecimen))
-            {
-                YellowstonePathology.Business.Specimen.Model.Specimen specimen = (YellowstonePathology.Business.Specimen.Model.Specimen)this.ComboBoxSpecimenId.SelectedItem;
-                if (string.IsNullOrEmpty(this.m_ClientOrderDetail.DescriptionToAccessionBinding) == true)
-                {
-                    this.m_ClientOrderDetail.DescriptionToAccessionBinding = specimen.Description;
-                }
-                this.m_ClientOrderDetail.LabFixationBinding = specimen.LabFixation;
-                this.m_ClientOrderDetail.ClientFixationBinding = specimen.ClientFixation;
-                this.m_ClientOrderDetail.RequiresGrossExamination = specimen.RequiresGrossExamination;
-                this.NotifyPropertyChanged("");
-            }
-        }*/
+        }              
 
         private void TextBoxAccessionAs_GotFocus(object sender, RoutedEventArgs e)
         {

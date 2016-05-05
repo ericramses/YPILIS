@@ -45,7 +45,7 @@ namespace YellowstonePathology.Business.HL7View
             msh04Element.Add(msh0401Element);
             msh04Element.Add(msh0402Element);
             msh04Element.Add(msh0403Element);
-            mshElement.Add(msh04Element);
+            mshElement.Add(msh04Element);            
 
             XElement msh05Element = new XElement("MSH.5");
             YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("MSH.5.1", this.m_Client.ReceivingApplication, msh05Element);
@@ -80,7 +80,7 @@ namespace YellowstonePathology.Business.HL7View
             mshElement.Add(msh11Element);
 
             XElement msh12Element = new XElement("MSH.12");
-            XElement msh1201Element = new XElement("MSH.12.1", "2.3");
+            XElement msh1201Element = new XElement("MSH.12.1", "2.5.1");
             msh12Element.Add(msh1201Element);
             mshElement.Add(msh12Element);
         }        

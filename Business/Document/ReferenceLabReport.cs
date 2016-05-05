@@ -6,7 +6,8 @@ namespace YellowstonePathology.Business.Document
 {
 	public class ReferenceLabReport : CaseReportV2
     {
-		public ReferenceLabReport()
+		public ReferenceLabReport(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+            : base(accessionOrder, panelSetOrder, reportSaveMode)
 		{
 			this.m_NativeDocumentFormat = NativeDocumentFormatEnum.XPS;
 		}
@@ -25,15 +26,14 @@ namespace YellowstonePathology.Business.Document
             return methodResult;
         }
 
-		public override void Render(string masterAccessionNo, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveEnum)
-		{
-            this.m_ReportNo = reportNo;
-			this.m_ReportSaveEnum = reportSaveEnum;
+        public override void Render()
+        {
+            //DO Nothing
         }
 
         public override void Publish()
         {
-			YellowstonePathology.Business.Helper.FileConversionHelper.SaveXpsReportToTiff(this.m_ReportNo);
+			YellowstonePathology.Business.Helper.FileConversionHelper.SaveXpsReportToTiff(this.m_PanelSetOrder.ReportNo);
         }
     }
 }

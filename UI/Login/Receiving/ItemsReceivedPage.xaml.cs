@@ -16,7 +16,7 @@ using System.ComponentModel;
 
 namespace YellowstonePathology.UI.Login.Receiving
 {
-	public partial class ItemsReceivedPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges, INotifyPropertyChanged
+	public partial class ItemsReceivedPage : UserControl, INotifyPropertyChanged
 	{
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -105,8 +105,12 @@ namespace YellowstonePathology.UI.Login.Receiving
         private void ButtonNext_Click(object sender, RoutedEventArgs e)
         {
             if (this.IsOkToGoNext() == true)
-            {                
-                if (this.Next != null) this.Next(this, new EventArgs());
+            {
+                if (this.Next != null)
+                {
+                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
+                    this.Next(this, new EventArgs());
+                }
             }
         }
 
@@ -127,26 +131,7 @@ namespace YellowstonePathology.UI.Login.Receiving
         private void ButtonBarcodeWontScan_Click(object sender, RoutedEventArgs e)
         {
             this.BarcodeWontScan(this, new EventArgs());
-        }
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return false;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save()
-		{
-            
-		}
-
-		public void UpdateBindingSources()
-		{
-		}
+        }		
 
         private void ListBoxContainers_DoubleClick(object sender, MouseButtonEventArgs e)
         {
@@ -168,7 +153,7 @@ namespace YellowstonePathology.UI.Login.Receiving
             if (messageBoxResult == MessageBoxResult.Yes)
             {                
                 this.m_ClientOrderReceivingHandler.ClientOrder.ClientOrderDetailCollection.Remove(clientOrderDetail);                
-                this.m_ClientOrderReceivingHandler.Save();
+                this.m_ClientOrderReceivingHandler.Save(false);
                 this.m_ClientOrderMediaCollection = new Business.ClientOrder.Model.ClientOrderMediaCollection();
                 this.m_ClientOrderReceivingHandler.ClientOrder.ClientOrderDetailCollection.LoadMedia(this.m_ClientOrderMediaCollection);
                 this.NotifyPropertyChanged("ClientOrderMediaCollection");

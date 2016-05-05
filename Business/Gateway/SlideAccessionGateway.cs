@@ -78,7 +78,12 @@ namespace YellowstonePathology.Business.Gateway
             cmd.CommandType = System.Data.CommandType.Text;
 			cmd.CommandText = "Update tblSlideOrder set Validated = 1, ValidationDate = GetDate(), Status = 'Validated' where SlideOrderId = @SlideOrderId ";
 			cmd.Parameters.Add("@SlideOrderId", System.Data.SqlDbType.VarChar).Value = slideOrderId;
-            YellowstonePathology.Business.Domain.Persistence.SqlXmlPersistence.CrudOperations.ExecuteNonQuery(cmd, Domain.Persistence.DataLocationEnum.ProductionData);
+            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                cmd.ExecuteNonQuery();
+            }
         }
 
 		public static void UpdateSlideOrderStatus(string slideOrderId, string status)
@@ -88,10 +93,15 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.CommandText = "Update tblSlideOrder set Status = @Status where SlideOrderId = @SlideOrderId ";
 			cmd.Parameters.Add("@SlideOrderId", System.Data.SqlDbType.VarChar).Value = slideOrderId;
             cmd.Parameters.Add("Status", System.Data.SqlDbType.VarChar, 50).Value = status;
-            YellowstonePathology.Business.Domain.Persistence.SqlXmlPersistence.CrudOperations.ExecuteNonQuery(cmd, Domain.Persistence.DataLocationEnum.ProductionData);
-        }                
+            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                cmd.ExecuteNonQuery();
+            }
+        }
 
-        public static YellowstonePathology.Business.Test.AliquotOrderCollection GetAliquotOrderCollectionByReportNo(string reportNo)
+        /*public static YellowstonePathology.Business.Test.AliquotOrderCollection GetAliquotOrderCollectionByReportNo(string reportNo)
         {
             YellowstonePathology.Business.Test.AliquotOrderCollection result = new Test.AliquotOrderCollection();
 			SqlCommand cmd = new SqlCommand();
@@ -99,7 +109,20 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.CommandType = System.Data.CommandType.StoredProcedure;
 			cmd.Parameters.Add("@ReportNo", System.Data.SqlDbType.VarChar).Value = reportNo;
 
-			XElement collectionElement = YellowstonePathology.Business.Domain.Persistence.SqlXmlPersistence.CrudOperations.ExecuteCommand(cmd, Domain.Persistence.DataLocationEnum.ProductionData);
+            XElement collectionElement = null;
+            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (XmlReader xmlReader = cmd.ExecuteXmlReader())
+                {
+                    if (xmlReader.Read() == true)
+                    {
+                        collectionElement = XElement.Load(xmlReader);
+                    }
+                }
+            }
+
             if (collectionElement != null)
             {
                 List<XElement> aliquotElements = (from item in collectionElement.Elements("AliquotOrder") select item).ToList<XElement>();
@@ -112,7 +135,7 @@ namespace YellowstonePathology.Business.Gateway
                 }
             }
 			return result;
-		}                
+		}*/                
         
         public static void DeleteSlideOrder(string slideOrderId)
         {
@@ -120,7 +143,12 @@ namespace YellowstonePathology.Business.Gateway
             cmd.CommandText = "Delete tblSlideOrder where SlideOrderId = @SlideOrderId ";
             cmd.CommandType = System.Data.CommandType.Text;
             cmd.Parameters.Add("@SlideOrderId", System.Data.SqlDbType.VarChar).Value = slideOrderId;
-            YellowstonePathology.Business.Domain.Persistence.SqlXmlPersistence.CrudOperations.ExecuteNonQuery(cmd, Domain.Persistence.DataLocationEnum.ProductionData);
+            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                cmd.ExecuteNonQuery();
+            }
         }
         
 		public static View.AccessionSlideOrderView GetAccessionSlideOrderViewBySlideOrderId(string slideOrderId)
@@ -141,9 +169,24 @@ namespace YellowstonePathology.Business.Gateway
 
 			cmd.CommandType = System.Data.CommandType.Text;
 			cmd.Parameters.Add("@SlideOrderId", System.Data.SqlDbType.VarChar).Value = slideOrderId;
-			AccessionSlideOrderViewBuilder accessionSlideOrderViewBuilder = new AccessionSlideOrderViewBuilder();
-			Domain.Persistence.SqlXmlPersistence.CrudOperations.ExecuteXmlReaderCommand(cmd, Domain.Persistence.DataLocationEnum.ProductionData, accessionSlideOrderViewBuilder);
-			return accessionSlideOrderViewBuilder.AccessionSlideOrderView;
+
+            XElement viewElement = null;
+            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (XmlReader xmlReader = cmd.ExecuteXmlReader())
+                {
+                    if (xmlReader.Read() == true)
+                    {
+                        viewElement = XElement.Load(xmlReader);
+                    }
+                }
+            }
+
+            AccessionSlideOrderViewBuilder accessionSlideOrderViewBuilder = new AccessionSlideOrderViewBuilder();
+            accessionSlideOrderViewBuilder.Build(viewElement);
+            return accessionSlideOrderViewBuilder.AccessionSlideOrderView;
 		}
 
 		public static View.AccessionSlideOrderViewCollection GetAccessionSlideOrderViewCollectionByBatchId(string batchId)
@@ -163,28 +206,21 @@ namespace YellowstonePathology.Business.Gateway
                 "for xml path('AccessionSlideOrderView'), type, root('AccessionSlideOrderViewCollection')";
 			cmd.CommandType = System.Data.CommandType.Text;
 			cmd.Parameters.Add("@BatchId", System.Data.SqlDbType.VarChar).Value = batchId;
-			XElement resultElement = Domain.Persistence.SqlXmlPersistence.CrudOperations.ExecuteXmlReaderCommand(cmd, Domain.Persistence.DataLocationEnum.ProductionData);
-			return BuildAccessionSlideOrderViewCollection(resultElement);
-		}
 
-		public static View.AccessionSlideOrderViewCollection GetAccessionSlideOrderViewCollectionByPhysicianIdForDate(int physicianId, DateTime accessionDate)
-		{
-			SqlCommand cmd = new SqlCommand("gwGetSlideOrderAccessionCollectionByPhysicianId");
-			cmd.CommandType = System.Data.CommandType.StoredProcedure;
-			cmd.Parameters.Add("@PhysicianId", System.Data.SqlDbType.Int).Value = physicianId;
-			cmd.Parameters.Add("@AccessionDate", System.Data.SqlDbType.DateTime).Value = accessionDate;
-			XElement resultElement = Domain.Persistence.SqlXmlPersistence.CrudOperations.ExecuteXmlReaderCommand(cmd, Domain.Persistence.DataLocationEnum.ProductionData);
-			return BuildAccessionSlideOrderViewCollection(resultElement);
-		}
-
-		public static View.AccessionSlideOrderViewCollection GetAccessionSlideOrderViewCollectionByClientIdForDate(int clientId, DateTime accessionDate)
-		{
-			SqlCommand cmd = new SqlCommand("gwGetSlideOrderAccessionCollectionByClientId");
-			cmd.CommandType = System.Data.CommandType.StoredProcedure;
-			cmd.Parameters.Add("@ClientId", System.Data.SqlDbType.Int).Value = clientId;
-			cmd.Parameters.Add("@AccessionDate", System.Data.SqlDbType.DateTime).Value = accessionDate;
-			XElement resultElement = Domain.Persistence.SqlXmlPersistence.CrudOperations.ExecuteXmlReaderCommand(cmd, Domain.Persistence.DataLocationEnum.ProductionData);
-			return BuildAccessionSlideOrderViewCollection(resultElement);
+            XElement resultElement = null;
+            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (XmlReader xmlReader = cmd.ExecuteXmlReader())
+                {
+                    if (xmlReader.Read() == true)
+                    {
+                        resultElement = XElement.Load(xmlReader);
+                    }
+                }
+            }
+            return BuildAccessionSlideOrderViewCollection(resultElement);
 		}
 
 		public static YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogCollection GetMaterialTrackingLogCollectionByBatchDate(DateTime batchDate)
@@ -217,11 +253,27 @@ namespace YellowstonePathology.Business.Gateway
 
 		public static Domain.MaterialLocationCollection GetMaterialLocationCollection()
 		{
+            YellowstonePathology.Business.Domain.MaterialLocationCollection result = new Domain.MaterialLocationCollection();
 			SqlCommand cmd = new SqlCommand();
-			cmd.CommandText = "Select * from tblMaterialLocation order by Name for xml path('MaterialLocation'), type, root('MaterialLocationCollection')";
-			cmd.CommandType = System.Data.CommandType.Text;
-			XElement resultElenment = Domain.Persistence.SqlXmlPersistence.CrudOperations.ExecuteXmlReaderCommand(cmd, Domain.Persistence.DataLocationEnum.ProductionData);
-			return BuildMaterialLocationCollection(resultElenment);
+			cmd.CommandText = "Select * from tblMaterialLocation order by Name";
+            cmd.CommandType = System.Data.CommandType.Text;
+
+            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        YellowstonePathology.Business.Domain.MaterialLocation materialLocation = new YellowstonePathology.Business.Domain.MaterialLocation();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(materialLocation, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Add(materialLocation);
+                    }
+                }
+            }
+            return result;
 		}
 
 		public static YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatchCollection GetMaterialTrackingBatchCollection()
@@ -427,53 +479,6 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.Parameters.Add("@TestOrderId", System.Data.SqlDbType.VarChar).Value = testOrderId;
 			return BuildSlideOrderCollection(cmd);
 		}        
-
-		public static XElement SlideDistributionReportData(string masterAccessionNoString)
-		{
-			XElement resultElement = null;
-			if (string.IsNullOrEmpty(masterAccessionNoString))
-			{
-				resultElement = new XElement("MasterAccessionCollection");
-			}
-			else
-			{
-				SqlCommand cmd = new SqlCommand();
-				cmd.CommandType = System.Data.CommandType.Text;
-				cmd.CommandText = "with m as(select MasterAccessionNo from tblAccessionOrder where MasterAccessionNo in (" + masterAccessionNoString + ")) " +
-					"select MasterAccessionNo, " +
-					" (Select pso.* from tblPanelSetOrder pso where pso.MasterAccessionNo = m.MasterAccessionNo for xml path('PanelSetOrder'), type) PanelSetOrderCollection, " +
-					" (Select so.* from tblSpecimenOrder so where so.MasterAccessionno = m.MasterAccessionNo for xml path('SpecimenOrder'), type) SpecimenOrderCollection, " +
-					" (Select so.SpecimenOrderId, slo.* from tblSlideOrder slo join tblAliquotOrder a on slo.AliquotOrderId = a.AliquotOrderId  " +
-					" join tblSpecimenOrder so on a.SpecimenOrderId = so.SpecimenOrderId where so.MasterAccessionno = m.MasterAccessionNo for xml path('SlideOrder'), type) SlideOrderCollection " +
-					"from m for xml path('MasterAccession'), type, root('MasterAccessionCollection')";
-				resultElement = Domain.Persistence.SqlXmlPersistence.CrudOperations.ExecuteXmlReaderCommand(cmd, Domain.Persistence.DataLocationEnum.ProductionData);
-			}
-			return resultElement;
-		}
-        
-       	private static Domain.MaterialLocationCollection BuildMaterialLocationCollection(XElement sourceElement)
-		{
-			Domain.MaterialLocationCollection materialLocationCollection = new Domain.MaterialLocationCollection();
-			if (sourceElement != null)
-			{
-				foreach (XElement materialLocationElement in sourceElement.Elements("MaterialLocation"))
-				{
-					materialLocationCollection.Add(BuildMaterialLocation(materialLocationElement));
-				}
-			}
-			return materialLocationCollection;
-		}
-
-		private static Domain.MaterialLocation BuildMaterialLocation(XElement sourceElement)
-		{
-			Domain.MaterialLocation materialLocation = new Domain.MaterialLocation();
-			if (sourceElement != null)
-			{
-				Domain.Persistence.SqlXmlPropertyWriter xmlPropertyWriter = new Domain.Persistence.SqlXmlPropertyWriter(sourceElement);
-				materialLocation.WriteProperties(xmlPropertyWriter);
-			}
-			return materialLocation;
-		}		        
 
 		private static View.AccessionSlideOrderViewCollection BuildAccessionSlideOrderViewCollection(XElement sourceElement)
 		{

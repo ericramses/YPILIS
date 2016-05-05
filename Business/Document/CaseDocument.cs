@@ -171,7 +171,7 @@ namespace YellowstonePathology.Business.Document
             return result;
         }
 
-		public virtual void Show(System.Windows.Controls.ContentControl contentControl)
+		public virtual void Show(System.Windows.Controls.ContentControl contentControl, object writer)
 		{
 
 		}

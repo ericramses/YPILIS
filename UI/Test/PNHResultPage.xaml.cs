@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Test
 	/// <summary>
 	/// Interaction logic for PNHResultPage.xaml
 	/// </summary>
-	public partial class PNHResultPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
+	public partial class PNHResultPage : UserControl, INotifyPropertyChanged 
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -27,7 +27,6 @@ namespace YellowstonePathology.UI.Test
 
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private YellowstonePathology.Business.Test.PNH.PNHTestOrder m_PanelSetOrder;
 		private YellowstonePathology.Business.Test.PNH.PNHResultCollection m_ResultCollection;
 		private string m_PageHeaderText;
@@ -35,13 +34,11 @@ namespace YellowstonePathology.UI.Test
 
 		public PNHResultPage(YellowstonePathology.Business.Test.PNH.PNHTestOrder testOrder,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 		{
 			this.m_PanelSetOrder = testOrder;
 			this.m_AccessionOrder = accessionOrder;
 			this.m_SystemIdentity = systemIdentity;
-			this.m_ObjectTracker = objectTracker;
 
 			this.m_PageHeaderText = "PNH, Highly Sensitive(FLAER) Results For: " + this.m_AccessionOrder.PatientDisplayName;
             this.m_ResultCollection = new YellowstonePathology.Business.Test.PNH.PNHResultCollection();
@@ -49,10 +46,9 @@ namespace YellowstonePathology.UI.Test
 			InitializeComponent();
 
 			DataContext = this;
+        }
 
-		}
-
-		public YellowstonePathology.Business.Test.PNH.PNHTestOrder PanelSetOrder
+        public YellowstonePathology.Business.Test.PNH.PNHTestOrder PanelSetOrder
 		{
 			get { return this.m_PanelSetOrder; }
 		}
@@ -80,26 +76,6 @@ namespace YellowstonePathology.UI.Test
 			get { return this.m_PageHeaderText; }
 		}
 
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save()
-		{
-			this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
-		}
-
-		public void UpdateBindingSources()
-		{
-
-		}
-
 		private void ButtonNext_Click(object sender, RoutedEventArgs e)
 		{
 			this.Next(this, new EventArgs());
@@ -110,7 +86,7 @@ namespace YellowstonePathology.UI.Test
 			YellowstonePathology.Business.Rules.MethodResult methodResult = this.m_PanelSetOrder.IsOkToFinalize();
 			if (methodResult.Success == true)
 			{
-				this.m_PanelSetOrder.Finalize(this.m_SystemIdentity.User);
+				this.m_PanelSetOrder.Finish(this.m_AccessionOrder);
 			}
 			else
 			{
@@ -136,7 +112,7 @@ namespace YellowstonePathology.UI.Test
 			YellowstonePathology.Business.Rules.MethodResult methodResult = this.m_PanelSetOrder.IsOkToAccept();
 			if (methodResult.Success == true)
 			{
-				this.m_PanelSetOrder.Accept(this.m_SystemIdentity.User);
+				this.m_PanelSetOrder.Accept();
 				this.NotifyPropertyChanged("");
 			}
 			else
@@ -175,11 +151,10 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
 		{
-			this.Save();
 			if (string.IsNullOrEmpty(this.m_PanelSetOrder.ResultCode) == false)
 			{
-				YellowstonePathology.Business.Test.PNH.PNHWordDocument report = new YellowstonePathology.Business.Test.PNH.PNHWordDocument();
-				report.Render(this.m_PanelSetOrder.MasterAccessionNo, this.m_PanelSetOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft);
+				YellowstonePathology.Business.Test.PNH.PNHWordDocument report = new YellowstonePathology.Business.Test.PNH.PNHWordDocument(this.m_AccessionOrder, this.m_PanelSetOrder, Business.Document.ReportSaveModeEnum.Draft);
+				report.Render();
 
 				YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
 				string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);

@@ -46,24 +46,3 @@ namespace YellowstonePathology.Business.Mongo
         }
     }
 }
-
-
-/*
-            for(int i=0; i< bsonParent.ElementCount; i++)
-            {
-                if(bsonParent[i].IsBsonArray == true)                
-                {
-                    //object collectionObject = Activator.CreateInstance("sdf");
-                    //IList castedResult = (IList)result;  
-
-                    BsonArray childCollection = bsonParent[i].AsBsonArray;
-                    foreach (BsonDocument childBsonDocument in childCollection)
-                    {
-                        string assemblyQualifiedName = childBsonDocument.GetValue("AssemblyQualifiedName").ToString();
-                        Type childType = Type.GetType(assemblyQualifiedName);
-                        object childObject = Activator.CreateInstance(childType);
-                        BSONPropertyWriter.Write(childBsonDocument, childObject);
-                    }
-                }                
-            }
-            */

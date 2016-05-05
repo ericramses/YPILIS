@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Test
 	/// <summary>
 	/// Interaction logic for KRASBRAFReflexResultPage.xaml
 	/// </summary>
-	public partial class KRASStandardReflexResultPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
+	public partial class KRASStandardReflexResultPage : UserControl, INotifyPropertyChanged 
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -31,7 +31,6 @@ namespace YellowstonePathology.UI.Test
 
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private YellowstonePathology.UI.Navigation.PageNavigator m_PageNavigator;
 		private string m_PageHeaderText;
 		private string m_OrderedOnDescription;
@@ -43,7 +42,6 @@ namespace YellowstonePathology.UI.Test
 
         public KRASStandardReflexResultPage(YellowstonePathology.Business.Test.KRASStandardReflex.KRASStandardReflexTestOrder krasStandardReflexTestOrder,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity,
 			YellowstonePathology.UI.Navigation.PageNavigator pageNavigator,
 			System.Windows.Visibility backButtonVisibility)
@@ -51,7 +49,6 @@ namespace YellowstonePathology.UI.Test
             this.m_KRASStandardReflexTestOrder = krasStandardReflexTestOrder;
 			this.m_AccessionOrder = accessionOrder;
 			this.m_SystemIdentity = systemIdentity;
-			this.m_ObjectTracker = objectTracker;
 			this.m_PageNavigator = pageNavigator;
 			this.m_BackButtonVisibility = backButtonVisibility;
 
@@ -65,8 +62,8 @@ namespace YellowstonePathology.UI.Test
 
 			InitializeComponent();
 
-			DataContext = this;                      
-		}
+			DataContext = this;
+        }
 
         public YellowstonePathology.Business.Test.KRASStandardReflex.KRASStandardReflexTestOrder PanelSetOrder
         {
@@ -111,26 +108,6 @@ namespace YellowstonePathology.UI.Test
 			get { return this.m_BackButtonVisibility; }
 		}
 
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save()
-		{
-			this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
-		}
-
-		public void UpdateBindingSources()
-		{
-
-		}
-
 		private void ButtonNext_Click(object sender, RoutedEventArgs e)
 		{
 			this.Next(this, new EventArgs());
@@ -146,7 +123,7 @@ namespace YellowstonePathology.UI.Test
 			YellowstonePathology.Business.Rules.MethodResult methodResult = YellowstonePathology.Business.Test.KRASStandardReflex.KRASStandardReflexResult.IsOkToFinal(this.m_KRASStandardReflexResult);
 			if (methodResult.Success == true)
 			{
-				this.m_KRASStandardReflexResult.FinalizeResults(this.m_KRASStandardReflexResult.KRASStandardReflexTestOrder, this.m_SystemIdentity);
+				this.m_KRASStandardReflexResult.FinalizeResults(this.m_KRASStandardReflexResult.KRASStandardReflexTestOrder);
 			}
 			else
 			{
@@ -169,9 +146,8 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
 		{
-			this.Save();
-			YellowstonePathology.Business.Test.KRASStandardReflex.KRASStandardReflexWordDocument report = new YellowstonePathology.Business.Test.KRASStandardReflex.KRASStandardReflexWordDocument();
-			report.Render(this.m_KRASStandardReflexResult.KRASStandardReflexTestOrder.MasterAccessionNo, this.m_KRASStandardReflexResult.KRASStandardReflexTestOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft);
+			YellowstonePathology.Business.Test.KRASStandardReflex.KRASStandardReflexWordDocument report = new YellowstonePathology.Business.Test.KRASStandardReflex.KRASStandardReflexWordDocument(this.m_AccessionOrder, this.m_KRASStandardReflexTestOrder, Business.Document.ReportSaveModeEnum.Draft);
+			report.Render();
 
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_KRASStandardReflexResult.KRASStandardReflexTestOrder.ReportNo);
 			string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);
@@ -207,7 +183,7 @@ namespace YellowstonePathology.UI.Test
 			YellowstonePathology.Business.Rules.MethodResult result = this.m_KRASStandardReflexResult.KRASStandardReflexTestOrder.IsOkToAccept();
 			if (result.Success == true)
 			{
-				this.m_KRASStandardReflexResult.KRASStandardReflexTestOrder.Accept(this.m_SystemIdentity.User);
+				this.m_KRASStandardReflexResult.KRASStandardReflexTestOrder.Accept();
 			}
 			else
 			{

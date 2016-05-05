@@ -26,11 +26,9 @@ namespace YellowstonePathology.UI.Test
         public AcidWashOrdersDialog()
         {
             this.m_AcidWashList = Business.Gateway.ReportSearchGateway.GetAcidWashList(DateTime.Today.AddMonths(-3));
-
             InitializeComponent();
-
-            DataContext = this;
-        }
+            DataContext = this;            
+        }        
 
         public Business.Test.ThinPrepPap.AcidWashList AcidWashList
         {
@@ -55,7 +53,7 @@ namespace YellowstonePathology.UI.Test
             if (this.ListViewAcidWashList.SelectedItem != null)
             {
                 Business.Test.ThinPrepPap.AcidWashListItem acidWashListItem = (Business.Test.ThinPrepPap.AcidWashListItem)this.ListViewAcidWashList.SelectedItem;
-                AcidWashResultDialog acidWashResultDialog = new AcidWashResultDialog(acidWashListItem.ReportNo);
+                AcidWashResultDialog acidWashResultDialog = new AcidWashResultDialog(acidWashListItem.MasterAccessionNo, acidWashListItem.ReportNo);
                 acidWashResultDialog.ShowDialog();
                 this.m_AcidWashList = Business.Gateway.ReportSearchGateway.GetAcidWashList(DateTime.Today.AddMonths(-3));
                 this.NotifyPropertyChanged("AcidWashList");

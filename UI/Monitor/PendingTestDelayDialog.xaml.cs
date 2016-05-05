@@ -18,21 +18,25 @@ namespace YellowstonePathology.UI.Monitor
     /// </summary>
     public partial class PendingTestDelayDialog : Window
     {
+        private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
-        private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
-        private YellowstonePathology.Business.Persistence.ObjectTracker m_ObectTracker;
 
-        public PendingTestDelayDialog(YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        public PendingTestDelayDialog(string reportNo)
         {
-            this.m_PanelSetOrder = panelSetOrder;
-            this.m_SystemIdentity = systemIdentity;
-
-			this.m_ObectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-            this.m_ObectTracker.RegisterObject(this.m_PanelSetOrder);
+            string masterAccessionNo = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetMasterAccessionNoFromReportNo(reportNo);
+            this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, this);
+            this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 
             InitializeComponent();
 
-            this.DataContext = this;                        
+            this.DataContext = this;
+
+            Closing += PendingTestDelayDialog_Closing;                        
+        }
+
+        private void PendingTestDelayDialog_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
         }
 
         public YellowstonePathology.Business.Test.PanelSetOrder PanelSetOrder
@@ -40,17 +44,11 @@ namespace YellowstonePathology.UI.Monitor
             get { return this.m_PanelSetOrder; }
         }
 
-        private void ButtonCancel_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-
         private void ButtonOK_Click(object sender, RoutedEventArgs e)
         {
             if (this.IsOKToClose() == true)
             {
                 this.Close();
-                this.m_ObectTracker.SubmitChanges(this.m_PanelSetOrder);
             }
         }
 
@@ -74,7 +72,7 @@ namespace YellowstonePathology.UI.Monitor
             int daysToDelay = Convert.ToInt32(comboBoxItem.Tag.ToString());
             TimeSpan timeSpanDelay = new TimeSpan(daysToDelay,0,0,0);
             this.m_PanelSetOrder.Delayed = true;
-            this.m_PanelSetOrder.DelayedBy = this.m_SystemIdentity.User.DisplayName;
+            this.m_PanelSetOrder.DelayedBy = YellowstonePathology.Business.User.SystemIdentity.Instance.User.DisplayName;
             this.m_PanelSetOrder.DelayedDate = DateTime.Now;
 
             this.m_PanelSetOrder.ExpectedFinalTime = YellowstonePathology.Business.Helper.DateTimeExtensions.GetEndDateConsideringWeekends(this.m_PanelSetOrder.ExpectedFinalTime.Value, timeSpanDelay);

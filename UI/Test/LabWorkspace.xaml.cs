@@ -23,10 +23,8 @@ namespace YellowstonePathology.UI.Test
 
     public partial class LabWorkspace : System.Windows.Controls.UserControl
     {        
-        public CommandBinding CommandBindingApplicationClosing;
-        public CommandBinding CommandBindingSaveChanges;        
+        public CommandBinding CommandBindingApplicationClosing;        
         public CommandBinding CommandBindingShowCaseDocument;
-        public CommandBinding CommandBindingToggleAccessionLockMode;        
         public CommandBinding CommandBindingShowOrderForm;		
 		public CommandBinding CommandBindingPatientLinking;        
 		public CommandBinding CommandBindingRemoveTab;		
@@ -49,49 +47,43 @@ namespace YellowstonePathology.UI.Test
         private const string m_SystemIdentityUnknowMessage = "The current operation cannot be performed because the current system user is unknown.";
         private YellowstonePathology.UI.Test.ResultDialog m_ResultDialog;
         private MainWindowCommandButtonHandler m_MainWindowCommandButtonHandler;
+        private TabItem m_Writer;
 
-        public LabWorkspace(MainWindowCommandButtonHandler mainWindowCommandButtonHandler)
+        public LabWorkspace(MainWindowCommandButtonHandler mainWindowCommandButtonHandler, TabItem writer)
         {
             this.m_MainWindowCommandButtonHandler = mainWindowCommandButtonHandler;
-			this.m_SystemIdentity = new YellowstonePathology.Business.User.SystemIdentity(YellowstonePathology.Business.User.SystemIdentityTypeEnum.CurrentlyScannedIn);
+            this.m_Writer = writer;
+            this.m_SystemIdentity = YellowstonePathology.Business.User.SystemIdentity.Instance;
 
-            this.CommandBindingApplicationClosing = new CommandBinding(MainWindow.ApplicationClosingCommand, CloseWorkspace);
-            this.CommandBindingSaveChanges = new CommandBinding(MainWindow.SaveChangesCommand, SaveData);                        
+            this.CommandBindingApplicationClosing = new CommandBinding(MainWindow.ApplicationClosingCommand, CloseWorkspace);            
             this.CommandBindingShowCaseDocument = new CommandBinding(MainWindow.ShowCaseDocumentCommand, ShowCaseDocument);
-			this.CommandBindingToggleAccessionLockMode = new CommandBinding(MainWindow.ToggleAccessionLockModeCommand, AlterAccessionLock, CanAlterAccessionLock);
 			this.CommandBindingShowOrderForm = new CommandBinding(MainWindow.ShowOrderFormCommand, this.ShowOrderForm, ItemIsSelected);			
 			this.CommandBindingPatientLinking = new CommandBinding(MainWindow.PatientLinkingCommand, this.LinkPatient, ItemIsSelected);            
 			this.CommandBindingRemoveTab = new CommandBinding(MainWindow.RemoveTabCommand, RemoveTab);
 			this.CommandBindingShowPatientEditDialog = new CommandBinding(MainWindow.ShowPatientEditDialogCommand, this.ShowPatientEditDialog);
 
-            this.CommandBindings.Add(this.CommandBindingApplicationClosing);
-            this.CommandBindings.Add(this.CommandBindingSaveChanges);           
+            this.CommandBindings.Add(this.CommandBindingApplicationClosing);            
             this.CommandBindings.Add(this.CommandBindingShowCaseDocument);
-            this.CommandBindings.Add(this.CommandBindingToggleAccessionLockMode);
             this.CommandBindings.Add(this.CommandBindingShowOrderForm);            
             this.CommandBindings.Add(this.CommandBindingPatientLinking);            
 			this.CommandBindings.Add(this.CommandBindingRemoveTab);			
 			this.CommandBindings.Add(this.CommandBindingShowPatientEditDialog);
 						
-			this.m_LabUI = new LabUI(this.m_SystemIdentity);
+			this.m_LabUI = new LabUI(this.m_SystemIdentity, writer);
 
-			this.m_AmendmentControl = new AmendmentControlV2(this.m_SystemIdentity, string.Empty, this.m_LabUI.AccessionOrder, this.m_LabUI.ObjectTracker);
+			this.m_AmendmentControl = new AmendmentControlV2(this.m_SystemIdentity, string.Empty, this.m_LabUI.AccessionOrder);
             this.m_DocumentViewer = new DocumentWorkspace();
-			this.m_TreeViewWorkspace = new YellowstonePathology.UI.Common.TreeViewWorkspace(this.m_LabUI.AccessionOrder, this.m_LabUI.ObjectTracker, this.m_SystemIdentity);
+			this.m_TreeViewWorkspace = new YellowstonePathology.UI.Common.TreeViewWorkspace(this.m_LabUI.AccessionOrder, this.m_SystemIdentity);
             
             InitializeComponent();
             
-			this.TabItemAmendment.Content = m_AmendmentControl;
 			this.TabItemDocumentWorkspace.Content = this.m_DocumentViewer;
-			this.TabItemTreeView.Content = this.m_TreeViewWorkspace;
 
 			this.DataContext = this.m_LabUI;
 
 			this.ComboBoxLogLocation.SelectionChanged -= this.ComboBoxLogLocation_SelectionChanged;
 			this.ComboBoxLogLocation.SelectedIndex = 0;
 			this.ComboBoxLogLocation.SelectionChanged += this.ComboBoxLogLocation_SelectionChanged;			
-
-			this.m_LabUI.Lock.LockStatusChanged += new YellowstonePathology.Business.Domain.LockStatusChangedEventHandler(AccessionLock_LockStatusChanged);
 
             this.Loaded +=new RoutedEventHandler(LabWorkspace_Loaded);
             this.Unloaded += new RoutedEventHandler(LabWorkspace_Unloaded);
@@ -101,15 +93,53 @@ namespace YellowstonePathology.UI.Test
 			this.m_ScanLogger = new YellowstonePathology.Business.Logging.ScanLogger(this.m_SystemIdentity);
             this.m_ScanLogger.Start();
 			this.ListViewDocumentList.ItemsSource = this.m_LabUI.CaseDocumentCollection;
-		}
-        
+        }
+
+        private void LabWorkspace_Loaded(object sender, RoutedEventArgs args)
+        {
+            this.m_BarcodeScanPort.ClientScanReceived -= ClientScanReceived;
+            this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath -= MainWindowCommandButtonHandler_StartProviderDistributionPath;
+            this.m_MainWindowCommandButtonHandler.Save -= MainWindowCommandButtonHandler_Save;
+            this.m_MainWindowCommandButtonHandler.Refresh -= MainWindowCommandButtonHandler_Refresh;
+
+            this.m_BarcodeScanPort.ClientScanReceived += ClientScanReceived;
+            this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath += new MainWindowCommandButtonHandler.StartProviderDistributionPathEventHandler(MainWindowCommandButtonHandler_StartProviderDistributionPath);
+            this.m_MainWindowCommandButtonHandler.Save += new MainWindowCommandButtonHandler.SaveEventHandler(MainWindowCommandButtonHandler_Save);
+            this.m_MainWindowCommandButtonHandler.Refresh += MainWindowCommandButtonHandler_Refresh;
+
+            AppMessaging.MessageQueues.Instance.ReleaseLock -= MessageQueue_ReleaseLock;
+            AppMessaging.MessageQueues.Instance.AquireLock -= MessageQueue_AquireLock;
+            AppMessaging.MessageQueues.Instance.RequestReceived -= MessageQueue_RequestReceived;
+
+            AppMessaging.MessageQueues.Instance.ReleaseLock += MessageQueue_ReleaseLock;
+            AppMessaging.MessageQueues.Instance.AquireLock += MessageQueue_AquireLock;
+            AppMessaging.MessageQueues.Instance.RequestReceived += MessageQueue_RequestReceived;
+        }
+
+        private void MainWindowCommandButtonHandler_Refresh(object sender, EventArgs e)
+        {
+
+        }
+
+        private void MainWindowCommandButtonHandler_Save(object sender, EventArgs e)
+        {
+            if (this.m_LabUI.AccessionOrder != null)
+            {
+                MainWindow.MoveKeyboardFocusNextThenBack();
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.ReleaseLock(this.m_LabUI.AccessionOrder, this.m_Writer);
+                if (this.m_LabUI.AccessionOrder.IsLockAquiredByMe == false)
+                {
+                    this.m_LabUI.RunWorkspaceEnableRules();
+                    this.m_LabUI.NotifyPropertyChanged(string.Empty);
+                }
+
+                this.m_LabUI.CaseList.SetLockIsAquiredByMe(this.m_LabUI.AccessionOrder);
+            }
+        }
+
         public void CloseWorkspace(object target, ExecutedRoutedEventArgs args)
         {                        
-            this.Save();
-			if (this.m_LabUI != null && m_LabUI.AccessionOrder != null && m_LabUI.PanelSetOrder != null)
-			{
-				this.m_LabUI.Lock.ReleaseLock();
-			}            
+            this.Save(false);
 		}
 
         private void MainWindowCommandButtonHandler_StartProviderDistributionPath(object sender, EventArgs e)
@@ -117,32 +147,80 @@ namespace YellowstonePathology.UI.Test
             if (this.m_LabUI.AccessionOrder != null)
             {
                 YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPath providerDistributionPath =
-                    new YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPath(this.m_LabUI.PanelSetOrder.ReportNo, this.m_LabUI.AccessionOrder, this.m_LabUI.ObjectTracker,
+                    new YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPath(this.m_LabUI.PanelSetOrder.ReportNo, this.m_LabUI.AccessionOrder,
                     System.Windows.Visibility.Collapsed, System.Windows.Visibility.Visible, System.Windows.Visibility.Collapsed);
                 providerDistributionPath.Start();
             }
         }
 
+        private void MessageQueue_RequestReceived(object sender, UI.CustomEventArgs.MessageReturnEventArgs e)
+        {
+            this.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
+            {
+                AppMessaging.MessagingPath.Instance.StartRequestReceived(e.Message);
+            }
+            ));
+        }
+
+        private void MainWindowCommandButtonHandler_ShowMessagingDialog(object sender, EventArgs e)
+        {
+            if (this.m_LabUI.AccessionOrder != null && this.m_LabUI.AccessionOrder.IsLockAquiredByMe == false && this.m_LabUI.AccessionOrder.LockAquired == true)
+            {
+                AppMessaging.MessagingPath.Instance.Start(this.m_LabUI.AccessionOrder);
+            }
+        }
+
+        private void MessageQueue_AquireLock(object sender, EventArgs e)
+        {
+            string masterAccessionNo = (string)sender;
+            if (this.m_LabUI.AccessionOrder != null && this.m_LabUI.AccessionOrder.MasterAccessionNo == masterAccessionNo)
+            {
+                this.GetAccessionOrder();
+                this.m_LabUI.CaseList.SetLockIsAquiredByMe(this.m_LabUI.AccessionOrder);
+            }
+        }
+
+        private void MessageQueue_ReleaseLock(object sender, EventArgs e)
+        {
+            string masterAccessionNo = (string)sender;
+            if (this.m_LabUI.AccessionOrder != null && this.m_LabUI.AccessionOrder.MasterAccessionNo == masterAccessionNo)
+            {
+                MainWindow.MoveKeyboardFocusNextThenBack();
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.ReleaseLock(this.m_LabUI.AccessionOrder, this.m_Writer);
+                if (this.m_LabUI.AccessionOrder.IsLockAquiredByMe == false)
+                {
+                    this.m_LabUI.RunWorkspaceEnableRules();
+                    this.m_LabUI.NotifyPropertyChanged(string.Empty);
+                }
+
+                this.m_LabUI.CaseList.SetLockIsAquiredByMe(this.m_LabUI.AccessionOrder);
+            }
+        }
+
         public void LabWorkspace_Unloaded(object sender, RoutedEventArgs e)
         {
-            this.Save();
-			this.m_SystemIdentity.UserChanged -= this.UserChangedHandler;						
+            this.Save(true);
+            
 			this.m_BarcodeScanPort.ClientScanReceived -= this.ClientScanReceived;
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath -= MainWindowCommandButtonHandler_StartProviderDistributionPath;
-		}
+            this.m_MainWindowCommandButtonHandler.Save -= MainWindowCommandButtonHandler_Save;
+            this.m_MainWindowCommandButtonHandler.Refresh -= MainWindowCommandButtonHandler_Refresh;
 
-		public void RemoveTab(object target, ExecutedRoutedEventArgs args)
+            AppMessaging.MessageQueues.Instance.ReleaseLock -= MessageQueue_ReleaseLock;
+            AppMessaging.MessageQueues.Instance.AquireLock -= MessageQueue_AquireLock;
+            AppMessaging.MessageQueues.Instance.RequestReceived -= MessageQueue_RequestReceived;
+
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
+        }
+
+        public void RemoveTab(object target, ExecutedRoutedEventArgs args)
 		{
-			if (this.m_LabUI != null && m_LabUI.AccessionOrder != null && this.m_LabUI.PanelSetOrder != null)
-			{
-				this.m_LabUI.Lock.ReleaseLock();
-			}
 		}
 
         private void ShowOrderForm(object target, ExecutedRoutedEventArgs args)
         {
-			this.Save();
-			YellowstonePathology.UI.Common.OrderDialog frm = new YellowstonePathology.UI.Common.OrderDialog(this.m_LabUI.AccessionOrder, this.m_LabUI.PanelSetOrder, this.m_SystemIdentity);			
+			this.Save(false);
+			YellowstonePathology.UI.Common.OrderDialog frm = new YellowstonePathology.UI.Common.OrderDialog(this.m_LabUI.AccessionOrder, this.m_LabUI.PanelSetOrder);			
             frm.ShowDialog();
 			this.GetAccessionOrder();			
 		}
@@ -153,8 +231,8 @@ namespace YellowstonePathology.UI.Test
             {
                 if (this.m_SystemIdentity.IsKnown == true)
                 {
-                    this.Save();
-					YellowstonePathology.UI.Common.OrderDialog dlg = new YellowstonePathology.UI.Common.OrderDialog(this.m_LabUI.AccessionOrder, this.m_LabUI.PanelSetOrder, this.m_SystemIdentity);
+                    this.Save(false);
+					YellowstonePathology.UI.Common.OrderDialog dlg = new YellowstonePathology.UI.Common.OrderDialog(this.m_LabUI.AccessionOrder, this.m_LabUI.PanelSetOrder);
                     dlg.ShowDialog();
 
                     this.GetAccessionOrder();                    
@@ -166,76 +244,10 @@ namespace YellowstonePathology.UI.Test
             }
 		}
 
-		private void LabWorkspace_Loaded(object sender, RoutedEventArgs args)
-        {            
-			/*if (this.m_SystemIdentity.StationName == "BLGSCASSETTE" || this.m_SystemIdentity.StationName == "HISTOLOGYB")
-			{				
-				for (int idx = 0; idx < this.ComboBoxPanelSetType.Items.Count; idx++)
-				{
-                    if (((YellowstonePathology.Business.BatchTypeListItem)ComboBoxPanelSetType.Items[idx]).BatchTypeId == 8)
-					{
-						this.ComboBoxPanelSetType.SelectedIndex = idx;
-						break;
-					}
-				}                
-			}*/
-
-			if (this.m_LabUI != null && this.m_LabUI.AccessionOrder != null && this.m_LabUI.PanelSetOrder != null)
-			{
-				if (!String.IsNullOrEmpty(this.m_LabUI.PanelSetOrder.ReportNo))
-				{
-					if (this.m_LabUI.Lock.LockingMode == Business.Domain.LockModeEnum.AlwaysAttemptLock && !this.m_LabUI.Lock.LockAquired)
-					{
-						this.m_LabUI.Lock.GetLock();
-					}
-				}
-				((MainWindow)Application.Current.MainWindow).SetLockObject(this.m_LabUI.Lock);
-			}
-
-			this.m_SystemIdentity.UserChanged += new Business.User.SystemIdentity.UserChangedHandler(UserChangedHandler);			
-			this.m_BarcodeScanPort.ClientScanReceived += ClientScanReceived;
-
-            //Loaded is called twice so I am removing before I add.
-            this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath -= MainWindowCommandButtonHandler_StartProviderDistributionPath;
-            this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath += new MainWindowCommandButtonHandler.StartProviderDistributionPathEventHandler(MainWindowCommandButtonHandler_StartProviderDistributionPath);
-		}
-
-        public void AccessionLock_LockStatusChanged(object sender, EventArgs e)
-        {            
-			this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate()
-			{
-				((MainWindow)Application.Current.MainWindow).SetLockObject(this.m_LabUI.Lock);
-			}
-			));
-		}        
-		
-		public void AlterAccessionLock(object target, ExecutedRoutedEventArgs args)
-        {
-			this.Save();
-			if (this.ListViewCaseList.SelectedItem != null)
-            {
-				YellowstonePathology.Business.Search.ReportSearchItem item = (YellowstonePathology.Business.Search.ReportSearchItem)this.ListViewCaseList.SelectedItem;
-				this.GetCase(item.ReportNo);
-				this.m_LabUI.Lock.ToggleLockingMode();
-				this.m_LabUI.Lock.SetLockable(this.m_LabUI.AccessionOrder);
-                this.CheckEnabled();
-                this.m_LabUI.NotifyPropertyChanged("");
-            }			
-		}
-
-		private void CanAlterAccessionLock(object sender, CanExecuteRoutedEventArgs e)
+        private void ItemIsSelected(object sender, CanExecuteRoutedEventArgs e)
 		{
 			e.CanExecute = false;
-			if (((TabItem)this.Parent).IsSelected && this.m_LabUI != null && this.m_LabUI.PanelSetOrder != null && this.m_SystemIdentity.User.UserName != null)
-			{
-				e.CanExecute = true;
-			}
-		}
-
-		private void ItemIsSelected(object sender, CanExecuteRoutedEventArgs e)
-		{
-			e.CanExecute = false;
-			if (((TabItem)this.Parent).IsSelected && this.ListViewCaseList.SelectedItem != null && this.m_LabUI.Lock.LockAquired && this.m_SystemIdentity.User.UserName != null)
+			if (((TabItem)this.Parent).IsSelected && this.ListViewCaseList.SelectedItem != null && this.m_LabUI.AccessionOrder.IsLockAquiredByMe == true && this.m_SystemIdentity.User.UserName != null)
 			{
 				e.CanExecute = true;
 			}
@@ -250,7 +262,7 @@ namespace YellowstonePathology.UI.Test
         {
             if (this.m_LabUI.PanelSetOrder != null)
             {
-                YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPath providerDistributionPath = new Login.FinalizeAccession.ProviderDistributionPath(this.m_LabUI.PanelSetOrder.ReportNo, this.m_LabUI.AccessionOrder, this.m_LabUI.ObjectTracker,
+                YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPath providerDistributionPath = new Login.FinalizeAccession.ProviderDistributionPath(this.m_LabUI.PanelSetOrder.ReportNo, this.m_LabUI.AccessionOrder,
                     System.Windows.Visibility.Collapsed, System.Windows.Visibility.Visible, System.Windows.Visibility.Collapsed);
                 providerDistributionPath.Start();
             }
@@ -258,54 +270,32 @@ namespace YellowstonePathology.UI.Test
 
 		public void ShowPatientEditDialog(object target, ExecutedRoutedEventArgs args)
 		{			
-			if (this.m_LabUI.Lock.LockAquired)
+			if (this.m_LabUI.AccessionOrder.IsLockAquiredByMe == true)
 			{
 				YellowstonePathology.UI.Common.PatientEditDialog patientEditDialog = new YellowstonePathology.UI.Common.PatientEditDialog(this.m_LabUI.AccessionOrder);
 				patientEditDialog.ShowDialog();
 			}
 		}        
 
-        public void Save()
+        public void Save(bool releaseLock)
         {
             ((MainWindow)Application.Current.MainWindow).MoveKeyboardInputToNext();
-			this.m_LabUI.Save();
+			this.m_LabUI.Save(releaseLock);
         }
 
         public void SaveData(object target, ExecutedRoutedEventArgs args)
         {
-            this.Save();
+            this.Save(false);
             MessageBox.Show("The Lab Workspace has been saved.");
         }
 
         public void  ShowCaseDocument(object target, ExecutedRoutedEventArgs args)
         {
-			string reportNo = string.Empty;
-            int panelSetId = 0;
-            
-            if (this.m_LabUI.PanelSetOrder != null)
+            if(this.ListViewCaseList.SelectedItem != null)
             {
-                reportNo = this.m_LabUI.PanelSetOrder.ReportNo;
-                panelSetId = this.m_LabUI.PanelSetOrder.PanelSetId;
-            }
-            else
-            {
-                MessageBox.Show("The current selection does not seem to have a Panel Set Order.");
-                return;
-            }
-
-			this.GetCase(this.m_LabUI.PanelSetOrder.ReportNo);
-			if (this.ListViewCaseList.SelectedItem != null)
-            {
-				if (this.m_LabUI.AccessionOrder.PanelSetOrderCollection.Count != 0)
-                {
-                    YellowstonePathology.UI.CaseDocumentViewer caseDocumentViewer = new CaseDocumentViewer();
-                    caseDocumentViewer.View(this.m_LabUI.AccessionOrder.MasterAccessionNo, this.m_LabUI.PanelSetOrder.ReportNo, this.m_LabUI.PanelSetOrder.PanelSetId);
-                }
-                else
-                {
-                    MessageBox.Show("Not able to generate report");
-                }
-            }
+                YellowstonePathology.UI.CaseDocumentViewer caseDocumentViewer = new CaseDocumentViewer();
+                caseDocumentViewer.View(this.m_LabUI.AccessionOrder, this.m_LabUI.PanelSetOrder);
+            }                        
         }		
 
 		private void CheckEnabled()
@@ -318,15 +308,15 @@ namespace YellowstonePathology.UI.Test
 
 		private void GetAccessionOrder()
 		{
-			this.m_LabUI.GetAccessionOrder(this.m_LabUI.PanelSetOrder.ReportNo);
+			this.m_LabUI.GetAccessionOrder(this.m_LabUI.PanelSetOrder.MasterAccessionNo, this.m_LabUI.PanelSetOrder.ReportNo);
 			this.RefreshWorkspaces();
 		}
 
-		public void GetCase(string reportNo)
+		public void GetCase(string masterAccessionNo, string reportNo)
         {
-            this.Save();
+            this.Save(true);
 
-			this.m_LabUI.GetAccessionOrder(reportNo);			
+			this.m_LabUI.GetAccessionOrder(masterAccessionNo, reportNo);			
 
             this.m_DocumentViewer.ClearContent();
 			if (this.m_LabUI.CaseDocumentCollection.GetFirstRequisition() != null)
@@ -343,57 +333,33 @@ namespace YellowstonePathology.UI.Test
             if (this.ListViewCaseList.SelectedItem != null)
             {
 				YellowstonePathology.Business.Search.ReportSearchItem item = (YellowstonePathology.Business.Search.ReportSearchItem)this.ListViewCaseList.SelectedItem;
-				this.GetCase(item.ReportNo);
+				this.GetCase(item.MasterAccessionNo, item.ReportNo);
+
+                this.m_LabUI.CaseList.SetLockIsAquiredByMe(this.m_LabUI.AccessionOrder);
             }
         }
 
 		private void RefreshWorkspaces()
 		{
-			this.m_TreeViewWorkspace = new Common.TreeViewWorkspace(this.m_LabUI.AccessionOrder, this.m_LabUI.ObjectTracker, this.m_SystemIdentity);
+			this.m_TreeViewWorkspace = new Common.TreeViewWorkspace(this.m_LabUI.AccessionOrder, this.m_SystemIdentity);
+            this.m_TreeViewWorkspace.IsEnabled = this.m_LabUI.AccessionOrder.IsLockAquiredByMe;
 			this.TabItemTreeView.Content = this.m_TreeViewWorkspace;
 
-			this.m_AmendmentControl = new AmendmentControlV2(this.m_SystemIdentity, this.m_LabUI.PanelSetOrder.ReportNo, this.m_LabUI.AccessionOrder, this.m_LabUI.ObjectTracker);
-			this.TabItemAmendment.Content = this.m_AmendmentControl;			
+			this.m_AmendmentControl = new AmendmentControlV2(this.m_SystemIdentity, this.m_LabUI.PanelSetOrder.ReportNo, this.m_LabUI.AccessionOrder);
+            this.m_AmendmentControl.IsEnabled = this.m_LabUI.AccessionOrder.IsLockAquiredByMe;
+            this.TabItemAmendment.Content = this.m_AmendmentControl;			
 		}
 
         public void ButtonGo_Click(object sender, RoutedEventArgs args)
         {
-			this.m_LabUI.Save();
+			this.m_LabUI.Save(true);
             this.m_LabUI.FillCaseList();
             SetListViewToTop();
         }
 
-        public void ButtonFinalizeCase_Click(object sender, RoutedEventArgs args)
-        {
-			if (this.m_LabUI.PanelSetOrder != null && this.m_LabUI.PanelSetOrder.Final == false)
-            {
-				YellowstonePathology.Business.Rules.RuleExecutionStatus ruleExecutionStatus = new YellowstonePathology.Business.Rules.RuleExecutionStatus();
-				YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = m_LabUI.PanelSetOrder;
-				panelSetOrder.Finalize(this.m_LabUI.AccessionOrder, ruleExecutionStatus, this.m_SystemIdentity);
-
-				if (ruleExecutionStatus.ExecutionHalted == true)
-				{
-					YellowstonePathology.UI.RuleExecutionStatusDialog dialog = new RuleExecutionStatusDialog(ruleExecutionStatus);
-					dialog.ShowDialog();
-					return;
-				}
-				this.Save();
-				this.m_LabUI.FillCaseList();
-			}            
-        }
-
-        public void ButtonAccessionLock_Click(object sender, RoutedEventArgs args)
-        {
-            this.Save();
-			if (this.m_LabUI.PanelSetOrder != null && this.m_LabUI.PanelSetOrder.ReportNo != null)
-            {
-				this.m_LabUI.Lock.ToggleLockingMode();
-            }        
-        }
-
         public void MenuItemAcceptResults_Click(object sender, RoutedEventArgs args)
         {
-			this.Save();
+			this.Save(false);
             Control menuItem = (Control)sender;
             YellowstonePathology.Business.Test.PanelOrder panelOrder = (YellowstonePathology.Business.Test.PanelOrder)menuItem.Tag;
             YellowstonePathology.Business.Rules.RuleExecutionStatus ruleExecutionStatus = new YellowstonePathology.Business.Rules.RuleExecutionStatus();
@@ -405,8 +371,8 @@ namespace YellowstonePathology.UI.Test
                 ruleExecutionStatusDialog.ShowDialog();
             }
 
-            this.m_LabUI.Save();
-			this.m_LabUI.GetAccessionOrder(this.m_LabUI.PanelSetOrder.ReportNo);
+            this.m_LabUI.Save(false);
+			this.m_LabUI.GetAccessionOrder(this.m_LabUI.PanelSetOrder.MasterAccessionNo, this.m_LabUI.PanelSetOrder.ReportNo);
 		}
 
 		public void MenuItemUnacceptResults_Click(object sender, RoutedEventArgs args)
@@ -418,7 +384,7 @@ namespace YellowstonePathology.UI.Test
 				if (result == MessageBoxResult.No) return;
 			}
 
-			this.Save();
+			this.Save(false);
 			Control menuItem = (Control)sender;
 			string panelOrderItemId = ((YellowstonePathology.Business.Test.PanelOrder)menuItem.Tag).PanelOrderId;
 			YellowstonePathology.Business.Test.PanelOrder panelOrder = (from pso in this.m_LabUI.AccessionOrder.PanelSetOrderCollection
@@ -429,7 +395,7 @@ namespace YellowstonePathology.UI.Test
 			if (panelOrder.Accepted)
 			{
 				panelOrder.UnacceptResults();
-				this.GetCase(this.m_LabUI.PanelSetOrder.ReportNo);
+				this.GetCase(this.m_LabUI.PanelSetOrder.MasterAccessionNo, this.m_LabUI.PanelSetOrder.ReportNo);
 			}
 		}
 				
@@ -441,7 +407,7 @@ namespace YellowstonePathology.UI.Test
 																				where po.PanelOrderId == ((YellowstonePathology.Business.Test.PanelOrder)menuItem.Tag).PanelOrderId
 																				select po).Single<YellowstonePathology.Business.Test.PanelOrder>();
 			panelOrder.MarkAsUnassigned();
-			this.m_LabUI.Save();
+			this.m_LabUI.Save(false);
 			this.GetAccessionOrder();
 		}        
 
@@ -460,7 +426,7 @@ namespace YellowstonePathology.UI.Test
 
 		public void MenuItemRefreshDocumentList_Click(object sender, RoutedEventArgs args)
 		{
-			this.Save();			
+			this.Save(false);			
 			this.m_LabUI.RefreshCaseDocumentCollection();
 			this.ListViewDocumentList.ItemsSource = this.m_LabUI.CaseDocumentCollection;
 		}        
@@ -680,9 +646,9 @@ namespace YellowstonePathology.UI.Test
 			if (patientLinker.IsOkToLink.IsValid == true)
 			{
 				YellowstonePathology.UI.Common.PatientLinkingDialog patientLinkingDialog = new Common.PatientLinkingDialog(this.m_LabUI.AccessionOrder, Business.Patient.Model.PatientLinkingListModeEnum.AccessionOrder, patientLinker);
-				patientLinkingDialog.ShowDialog();
-			}
-			else
+                patientLinkingDialog.ShowDialog();
+            }
+            else
 			{
 				MessageBox.Show(patientLinker.IsOkToLink.Message, "Missing Information");
 			}
@@ -690,7 +656,7 @@ namespace YellowstonePathology.UI.Test
 
 		private void ButtonScan_Click(object sender, RoutedEventArgs e)
 		{
-			this.Save();            
+			this.Save(false);            
 			this.ButtonAcceptAliquotDetails.Focus();
 		}		
 
@@ -742,7 +708,7 @@ namespace YellowstonePathology.UI.Test
 
 		private void ShowFixationDialog()
 		{
-			Login.FinalizeAccession.FixationPath fixationPath = new Login.FinalizeAccession.FixationPath(this.m_LabUI.AccessionOrder, this.m_SystemIdentity);
+			Login.FinalizeAccession.FixationPath fixationPath = new Login.FinalizeAccession.FixationPath(this.m_LabUI.AccessionOrder);
 			fixationPath.Start();
 		}
 
@@ -858,7 +824,7 @@ namespace YellowstonePathology.UI.Test
                     if (dialog.ShowDialog() == true)
                     {
 						this.m_LabUI.PanelSetOrder.AssignedToId = dialog.SelectedPathologistUser.UserId;                        
-						this.m_LabUI.Save();
+						this.m_LabUI.Save(false);
                     }
                 }
                 else
@@ -895,57 +861,11 @@ namespace YellowstonePathology.UI.Test
         {
             YellowstonePathology.UI.Common.CaseHistoryDialog caseHistoryDialog = new Common.CaseHistoryDialog(this.m_LabUI.AccessionOrder);
             caseHistoryDialog.ShowDialog();
-        }        
-
-		private void UserChangedHandler()
-		{			
-			this.ComboCurrentUser.SelectionChanged -= this.ComboCurrentUser_SelectionChanged;
-			if (!this.m_SystemIdentity.IsKnown)
-			{
-				this.SetSelectedUser(-1);                
-			}
-			else
-			{
-				int index = 0;
-				foreach (YellowstonePathology.Business.User.SystemUser systemUser in this.ComboCurrentUser.Items)
-				{
-					if (systemUser.UserId == this.m_SystemIdentity.User.UserId)
-					{
-						this.SetSelectedUser(index);
-						break;
-					}
-					index += 1;
-				}
-			}
-			this.ComboCurrentUser.SelectionChanged += this.ComboCurrentUser_SelectionChanged;
-		}
-
-        private void SetSelectedUser(int index)
-        {
-            this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal,
-                new Action(
-                    delegate()
-                    {
-                        this.ComboCurrentUser.SelectedIndex = index;                        
-                    }));            
-        }
-
-		private void ComboCurrentUser_SelectionChanged(object sender, SelectionChangedEventArgs e)
-		{
-            if (this.ComboCurrentUser.SelectedItem != null)
-            {
-                YellowstonePathology.Business.User.SystemUser selectedUser = (YellowstonePathology.Business.User.SystemUser)this.ComboCurrentUser.SelectedItem;
-                this.m_SystemIdentity.SetSelectedUser(selectedUser);
-            }
-            else
-            {
-                this.m_SystemIdentity.Clear();                
-            }
-		}
+        }        				
 
         private void SvhMedicalRecordNoReceived(string scanData)
         {
-            if (this.m_LabUI.Lock.LockAquired == true)
+            if (this.m_LabUI.AccessionOrder.IsLockAquiredByMe == true)
             {
                 if (string.IsNullOrEmpty(this.m_LabUI.AccessionOrder.SvhMedicalRecord) == true)
                 {
@@ -966,7 +886,7 @@ namespace YellowstonePathology.UI.Test
 
         private void SvhAccountNoReceived(string scanData)
         {
-            if (this.m_LabUI.Lock.LockAquired == true)
+            if (this.m_LabUI.AccessionOrder.IsLockAquiredByMe == true)
             {
                 if (string.IsNullOrEmpty(this.m_LabUI.AccessionOrder.SvhAccount) == true)
                 {
@@ -1041,36 +961,19 @@ namespace YellowstonePathology.UI.Test
                 p.StartInfo = info;
                 p.Start();
             }
-        }
-
-		/*private void ButtonPlayDictation_Click(object sender, RoutedEventArgs e)
-		{
-			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_LabUI.PanelSetOrder.ReportNo);
-			string filePath = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser);
-			string fileName = this.m_LabUI.PanelSetOrder.ReportNo + @".dct";
-			string fullFileName = System.IO.Path.Combine(filePath, fileName);
-			if (System.IO.File.Exists(fullFileName))
-			{
-				YellowstonePathology.Business.FileListItem item = new YellowstonePathology.Business.FileListItem(fullFileName);
-				YellowstonePathology.Business.FileList.OpenFile(item);
-			}
-			else
-			{
-				MessageBox.Show("Dictation file for " + this.m_LabUI.PanelSetOrder.ReportNo + " is not in the case folder.");
-			}
-		}*/
+        }		
 
         private void MenuItemPublish_Click(object sender, RoutedEventArgs e)
         {
             if (this.ListViewCaseList.SelectedItem != null)
             {
 				YellowstonePathology.Business.Search.ReportSearchItem item = (YellowstonePathology.Business.Search.ReportSearchItem)this.ListViewCaseList.SelectedItem;
-                YellowstonePathology.Business.Interface.ICaseDocument caseDocument = YellowstonePathology.Business.Document.DocumentFactory.GetDocument(item.PanelSetId);
+                YellowstonePathology.Business.Interface.ICaseDocument caseDocument = YellowstonePathology.Business.Document.DocumentFactory.GetDocument(this.m_LabUI.AccessionOrder, this.m_LabUI.PanelSetOrder, Business.Document.ReportSaveModeEnum.Normal);
 				YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(item.ReportNo);
                 YellowstonePathology.Business.Rules.MethodResult methodResult = caseDocument.DeleteCaseFiles(orderIdParser);
                 if (methodResult.Success == true)
                 {
-                    caseDocument.Render(item.MasterAccessionNo, item.ReportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum.Normal);
+                    caseDocument.Render();
                     caseDocument.Publish();
                     MessageBox.Show("The document has been published");
                 }
@@ -1104,7 +1007,7 @@ namespace YellowstonePathology.UI.Test
                 YellowstonePathology.Business.ClientOrder.Model.UniversalServiceCollection universalServiceIdCollection = YellowstonePathology.Business.ClientOrder.Model.UniversalServiceCollection.GetAll();
                 YellowstonePathology.Business.ClientOrder.Model.UniversalService universalService = universalServiceIdCollection.GetByUniversalServiceId(clientOrderCollection[0].UniversalServiceId);
 
-                YellowstonePathology.Business.HL7View.EPIC.EpicStatusMessage statusMessage = new Business.HL7View.EPIC.EpicStatusMessage(clientOrderCollection[0], YellowstonePathology.Business.HL7View.OrderStatusEnum.InProcess, universalService);
+                YellowstonePathology.Business.HL7View.EPIC.EPICStatusMessage statusMessage = new Business.HL7View.EPIC.EPICStatusMessage(clientOrderCollection[0], YellowstonePathology.Business.HL7View.OrderStatusEnum.InProcess, universalService);
                 YellowstonePathology.Business.Rules.MethodResult result = statusMessage.Send();
 
                 if (result.Success == false)
@@ -1128,10 +1031,10 @@ namespace YellowstonePathology.UI.Test
         {
             if (this.ListViewCaseList.SelectedItem != null)
             {
-				YellowstonePathology.Business.Search.ReportSearchItem item = (YellowstonePathology.Business.Search.ReportSearchItem)this.ListViewCaseList.SelectedItem;
-                YellowstonePathology.Business.ReportDistribution.Model.MeditechDistribution meditechDistribution = new Business.ReportDistribution.Model.MeditechDistribution();
-                meditechDistribution.Distribute(item.ReportNo);
-                MessageBox.Show("Meditech result has been sent");
+				//YellowstonePathology.Business.Search.ReportSearchItem item = (YellowstonePathology.Business.Search.ReportSearchItem)this.ListViewCaseList.SelectedItem;
+                //YellowstonePathology.Business.ReportDistribution.Model.MeditechDistribution meditechDistribution = new Business.ReportDistribution.Model.MeditechDistribution();
+                //meditechDistribution.Distribute(item.ReportNo, );
+                //MessageBox.Show("Meditech result has been sent");
             }
         }  
 
@@ -1140,7 +1043,7 @@ namespace YellowstonePathology.UI.Test
             if (this.ListViewCaseList.SelectedItem != null)
             {
 				YellowstonePathology.Business.Search.ReportSearchItem item = (YellowstonePathology.Business.Search.ReportSearchItem)this.ListViewCaseList.SelectedItem;
-				YellowstonePathology.Business.HL7View.IResultView resultView = YellowstonePathology.Business.HL7View.ResultViewFactory.GetResultView(item.ReportNo, this.m_LabUI.AccessionOrder.ClientId, false);
+				YellowstonePathology.Business.HL7View.IResultView resultView = YellowstonePathology.Business.HL7View.ResultViewFactory.GetResultView(item.ReportNo, this.m_LabUI.AccessionOrder, this.m_LabUI.AccessionOrder.ClientId, false);
 				if (resultView != null)
 				{
 					XElement document = resultView.GetDocument();
@@ -1159,7 +1062,7 @@ namespace YellowstonePathology.UI.Test
             if (this.ListViewCaseList.SelectedItem != null)
             {
 				YellowstonePathology.Business.Search.ReportSearchItem item = (YellowstonePathology.Business.Search.ReportSearchItem)this.ListViewCaseList.SelectedItem;                
-                YellowstonePathology.Business.HL7View.IResultView resultView = YellowstonePathology.Business.HL7View.ResultViewFactory.GetResultView(item.ReportNo, this.m_LabUI.AccessionOrder.ClientId, false);
+                YellowstonePathology.Business.HL7View.IResultView resultView = YellowstonePathology.Business.HL7View.ResultViewFactory.GetResultView(item.ReportNo, this.m_LabUI.AccessionOrder, this.m_LabUI.AccessionOrder.ClientId, false);
                 YellowstonePathology.Business.Rules.MethodResult methodResult = new Business.Rules.MethodResult();
                 resultView.Send(methodResult);                               
             }
@@ -1170,7 +1073,7 @@ namespace YellowstonePathology.UI.Test
             if (this.ListViewCaseList.SelectedItem != null)
             {
 				YellowstonePathology.Business.Search.ReportSearchItem item = (YellowstonePathology.Business.Search.ReportSearchItem)this.ListViewCaseList.SelectedItem;
-                YellowstonePathology.Business.HL7View.IResultView resultView = YellowstonePathology.Business.HL7View.ResultViewFactory.GetResultView(item.ReportNo, this.m_LabUI.AccessionOrder.ClientId, true);
+                YellowstonePathology.Business.HL7View.IResultView resultView = YellowstonePathology.Business.HL7View.ResultViewFactory.GetResultView(item.ReportNo, this.m_LabUI.AccessionOrder, this.m_LabUI.AccessionOrder.ClientId, true);
                 YellowstonePathology.Business.Rules.MethodResult methodResult = new Business.Rules.MethodResult();
                 resultView.Send(methodResult);
             }
@@ -1189,7 +1092,7 @@ namespace YellowstonePathology.UI.Test
             YellowstonePathology.UI.Test.ResultPathFactory resultPathFactory = new Test.ResultPathFactory();
             resultPathFactory.Finished += new Test.ResultPathFactory.FinishedEventHandler(ResultPathFactory_Finished);
 
-            bool started = resultPathFactory.Start(this.m_LabUI.PanelSetOrder, this.m_LabUI.AccessionOrder, this.m_LabUI.ObjectTracker, this.m_ResultDialog.PageNavigator, System.Windows.Visibility.Collapsed);
+            bool started = resultPathFactory.Start(this.m_LabUI.PanelSetOrder, this.m_LabUI.AccessionOrder, this.m_ResultDialog.PageNavigator, this.m_ResultDialog, System.Windows.Visibility.Collapsed);
             if (started == true)
             {
                 this.m_ResultDialog.ShowDialog();
@@ -1213,11 +1116,10 @@ namespace YellowstonePathology.UI.Test
         private void MenuItemSendPantherOrder_Click(object sender, RoutedEventArgs e)
         {
             if (this.ListViewCaseList.SelectedItems.Count != 0)
-            {
-                //YellowstonePathology.Business.Search.ReportSearchItem reportSearchItem = (YellowstonePathology.Business.Search.ReportSearchItem)this.ListViewAccessionOrders.SelectedItem;
+            {                
                 foreach(YellowstonePathology.Business.Search.ReportSearchItem reportSearchitem in this.ListViewCaseList.SelectedItems)
                 {
-                    YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(reportSearchitem.ReportNo);
+                    YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(reportSearchitem.MasterAccessionNo, this.m_Writer);
                     if (accessionOrder.SpecimenOrderCollection.HasThinPrepFluidSpecimen() == true)
                     {
                         YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = accessionOrder.SpecimenOrderCollection.GetThinPrep();

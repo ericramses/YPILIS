@@ -53,14 +53,14 @@ namespace YellowstonePathology.Business.Gateway
 			return this.BuildResultList(cmd);
 		}
 
-        public YellowstonePathology.Business.Search.PathologistSearchResult PathologistAliquotOrderIdSearch(string aliquotOrderId, int panelSetId)
+        public YellowstonePathology.Business.Search.PathologistSearchResult PathologistAliquotOrderIdSearch(string aliquotOrderId, int panelSetIdHint)
         {
-            SqlCommand cmd = new SqlCommand("pPathologistAliquotOrderIdSearch_4");
+
+            SqlCommand cmd = new SqlCommand("pPathologistAliquotOrderIdSearch_5");
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.Add("@AliquotOrderId", SqlDbType.VarChar).Value = aliquotOrderId;
-            cmd.Parameters.Add("@PanelSetId", SqlDbType.Int).Value = panelSetId;
 
-            YellowstonePathology.Business.Search.PathologistSearchResult result = null;
+            List<YellowstonePathology.Business.Search.PathologistSearchResult> resultList = new List<Search.PathologistSearchResult>();
 
             using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.Properties.Settings.Default.CurrentConnectionString))
             {
@@ -70,14 +70,30 @@ namespace YellowstonePathology.Business.Gateway
                 {
                     while (dr.Read())
                     {
-                        result = new Search.PathologistSearchResult();
+                        YellowstonePathology.Business.Search.PathologistSearchResult result = new Search.PathologistSearchResult();
                         YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderProperyWriter = new Persistence.SqlDataReaderPropertyWriter(result, dr);
-                        sqlDataReaderProperyWriter.WriteProperties();                        
+                        sqlDataReaderProperyWriter.WriteProperties();
+                        resultList.Add(result);        
                     }
                 }
             }
 
-            return result;
+            if(resultList.Count == 0)
+            {
+                return null;
+            }
+            else if(resultList.Count == 1)
+            {
+                return resultList[0];
+            }
+            else
+            {
+                foreach (YellowstonePathology.Business.Search.PathologistSearchResult item in resultList)
+                {
+                    if (item.PanelSetId == panelSetIdHint) return item;
+                }
+                return resultList[0];
+            }                       
         }
 
         public YellowstonePathology.Business.Search.PathologistSearchResultCollection GetPathologistSearchListByReportNo(string reportNo)

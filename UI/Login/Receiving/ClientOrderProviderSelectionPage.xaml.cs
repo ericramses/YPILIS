@@ -15,7 +15,7 @@ using System.ComponentModel;
 
 namespace YellowstonePathology.UI.Login.Receiving
 {	
-	public partial class ClientOrderProviderSelectionPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges, INotifyPropertyChanged
+	public partial class ClientOrderProviderSelectionPage : UserControl, INotifyPropertyChanged
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -125,25 +125,7 @@ namespace YellowstonePathology.UI.Login.Receiving
             {
                 MessageBox.Show("Please select a provider before continuing.");                   
             }
-		}
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return false;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return false;
-		}
-
-		public void Save()
-		{
-		}
-
-		public void UpdateBindingSources()
-		{
-		}
+		}		
 
 		public void NotifyPropertyChanged(String info)
 		{

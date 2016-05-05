@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Test
 	/// <summary>
 	/// Interaction logic for JAK2V617FResultPage.xaml
 	/// </summary>
-	public partial class JAK2V617FResultPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
+	public partial class JAK2V617FResultPage : UserControl, INotifyPropertyChanged
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -27,7 +27,6 @@ namespace YellowstonePathology.UI.Test
 
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private YellowstonePathology.UI.Navigation.PageNavigator m_PageNavigator;
 		private YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FTestOrder m_PanelSetOrder;
 		private YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FResultCollection m_ResultCollection;
@@ -36,14 +35,12 @@ namespace YellowstonePathology.UI.Test
 
 		public JAK2V617FResultPage(YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FTestOrder testOrder,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity,
 			YellowstonePathology.UI.Navigation.PageNavigator pageNavigator)
 		{			
 			this.m_PanelSetOrder = testOrder;
 			this.m_AccessionOrder = accessionOrder;
 			this.m_SystemIdentity = systemIdentity;
-			this.m_ObjectTracker = objectTracker;
 			this.m_PageNavigator = pageNavigator;
 
 			this.m_PageHeaderText = "JAK2 Mutation V617F Results For: " + this.m_AccessionOrder.PatientDisplayName;
@@ -51,11 +48,10 @@ namespace YellowstonePathology.UI.Test
 
 			InitializeComponent();
 
-			DataContext = this;                      
+			DataContext = this;
+        }
 
-		}
-
-		public YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FTestOrder PanelSetOrder
+        public YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FTestOrder PanelSetOrder
 		{
 			get { return this.m_PanelSetOrder; }
 		}
@@ -83,22 +79,9 @@ namespace YellowstonePathology.UI.Test
 			get { return this.m_PageHeaderText; }
 		}
 
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
+		
 
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save()
-		{
-			this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
-		}
-
-		public void UpdateBindingSources()
+        public void UpdateBindingSources()
 		{
 
 		}
@@ -113,10 +96,10 @@ namespace YellowstonePathology.UI.Test
 			YellowstonePathology.Business.Audit.Model.AuditResult auditResult = this.m_PanelSetOrder.IsOkToFinalize(this.m_AccessionOrder);
 			if (auditResult.Status == Business.Audit.Model.AuditStatusEnum.OK)
 			{
-                this.m_PanelSetOrder.Finalize(this.m_SystemIdentity.User);
+                this.m_PanelSetOrder.Finish(this.m_AccessionOrder);
                 if(this.m_PanelSetOrder.Accepted == false)
                 {
-                    this.m_PanelSetOrder.Accept(this.m_SystemIdentity.User);
+                    this.m_PanelSetOrder.Accept();
                 }
 			}
 			else
@@ -143,7 +126,7 @@ namespace YellowstonePathology.UI.Test
 			YellowstonePathology.Business.Rules.MethodResult methodResult = this.m_PanelSetOrder.IsOkToAccept();
 			if (methodResult.Success == true)
 			{
-                this.m_PanelSetOrder.Accept(this.m_SystemIdentity.User);
+                this.m_PanelSetOrder.Accept();
 			}
 			else
 			{
@@ -187,10 +170,9 @@ namespace YellowstonePathology.UI.Test
 		}
 
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
-		{			
-			this.Save();
-			YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FWordDocument report = new YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FWordDocument();
-			report.Render(this.m_PanelSetOrder.MasterAccessionNo, this.m_PanelSetOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft);
+		{						
+			YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FWordDocument report = new YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FWordDocument(this.m_AccessionOrder, this.m_PanelSetOrder, Business.Document.ReportSaveModeEnum.Draft);
+			report.Render();
 
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
 			string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);

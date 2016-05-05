@@ -24,16 +24,19 @@ namespace YellowstonePathology.Business.Test.BRAFV600EK
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTestOrder).AssemblyQualifiedName;
 			this.m_AllowMultiplePerAccession = true;
             this.m_ExpectedDuration = new TimeSpan(120, 0, 0);            
+            this.m_EpicDistributionIsImplemented = true;
+            this.m_CMMCDistributionIsImplemented = true;
 
             this.m_TechnicalComponentFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings();
-            this.m_ProfessionalComponentFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologistBillings();
-
             this.m_TechnicalComponentBillingFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings();
+
+            this.m_ProfessionalComponentFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologistBillings();
             this.m_ProfessionalComponentBillingFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings();
 
             this.m_HasSplitCPTCode = true;
+            //Checked by MS and TK;
 
-            string taskDescription = "Cut curls and an after H&E. Give to molecular.";
+            string taskDescription = "Cut 3 x 20µm curls in a microcentrifuge tube and an after H&E. Give to molecular.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Histology, taskDescription));
 
             string task2Description = "Receive curls from Histology and perform testing.";

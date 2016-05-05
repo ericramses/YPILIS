@@ -16,7 +16,7 @@ using System.Xml.Linq;
 
 namespace YellowstonePathology.UI.Test
 {	
-	public partial class EGFRResultPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
+	public partial class EGFRResultPage : UserControl, INotifyPropertyChanged 
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -25,7 +25,6 @@ namespace YellowstonePathology.UI.Test
 
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-        private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
         private string m_PageHeaderText;
 
         private YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisTestOrder m_EGFRMutationAnalysisTestOrder;
@@ -33,25 +32,23 @@ namespace YellowstonePathology.UI.Test
 
         public EGFRResultPage(YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisTestOrder egfrMutationAnalysisTestOrder,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
-		{
+            YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        {
             this.m_EGFRMutationAnalysisTestOrder = egfrMutationAnalysisTestOrder;
-			this.m_AccessionOrder = accessionOrder;			
-			this.m_SystemIdentity = systemIdentity;
-			this.m_ObjectTracker = objectTracker;            
-            
+            this.m_AccessionOrder = accessionOrder;
+            this.m_SystemIdentity = systemIdentity;
+
             this.m_PageHeaderText = "EGFR Results For: " + this.m_AccessionOrder.PatientDisplayName;
 
-			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByOrderTarget(this.m_EGFRMutationAnalysisTestOrder.OrderedOnId);
+            YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByOrderTarget(this.m_EGFRMutationAnalysisTestOrder.OrderedOnId);
             YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetAliquotOrder(this.m_EGFRMutationAnalysisTestOrder.OrderedOnId);
             this.m_OrderedOnDescription = specimenOrder.Description;
-            if(aliquotOrder != null) this.m_OrderedOnDescription += ": " + aliquotOrder.Label;
+            if (aliquotOrder != null) this.m_OrderedOnDescription += ": " + aliquotOrder.Label;
 
-			InitializeComponent();
+            InitializeComponent();
 
-			DataContext = this;				
-		}
+            DataContext = this;
+        }
 
         public string OrderedOnDescription
         {
@@ -75,26 +72,6 @@ namespace YellowstonePathology.UI.Test
 		{
 			get { return this.m_PageHeaderText; }
 		}				        
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save()
-		{
-            this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
-		}
-        
-		public void UpdateBindingSources()
-		{
-
-		}        
 
         private void HyperLinkPositiveL858R_Click(object sender, RoutedEventArgs e)
         {
@@ -158,9 +135,8 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
 		{
-            this.Save();
-			YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisWordDocument report = new Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisWordDocument();
-            report.Render(this.m_AccessionOrder.MasterAccessionNo, this.m_EGFRMutationAnalysisTestOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft);
+			YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisWordDocument report = new Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisWordDocument(this.m_AccessionOrder, this.m_EGFRMutationAnalysisTestOrder, Business.Document.ReportSaveModeEnum.Draft);
+            report.Render();
 
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_EGFRMutationAnalysisTestOrder.ReportNo);
             string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);
@@ -172,7 +148,7 @@ namespace YellowstonePathology.UI.Test
 			YellowstonePathology.Business.Rules.MethodResult result = this.m_EGFRMutationAnalysisTestOrder.IsOkToFinalize();
             if (result.Success == true)
             {
-                this.m_EGFRMutationAnalysisTestOrder.Finalize(this.m_SystemIdentity.User);
+                this.m_EGFRMutationAnalysisTestOrder.Finish(this.m_AccessionOrder);
             }
             else
             {
@@ -195,22 +171,15 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkAcceptResults_Click(object sender, RoutedEventArgs e)
 		{
-			//if (this.ComboBoxResult.SelectedItem != null)
-			//{
 			YellowstonePathology.Business.Rules.MethodResult result = this.m_EGFRMutationAnalysisTestOrder.IsOkToAccept();
 			if (result.Success == true)
 			{
-				this.m_EGFRMutationAnalysisTestOrder.Accept(this.m_SystemIdentity.User);
+				this.m_EGFRMutationAnalysisTestOrder.Accept();
 			}
 			else
 			{
 				MessageBox.Show(result.Message);
 			}
-			//}
-			//else
-			//{
-			//	MessageBox.Show("A result must be selected before it can be accepted.");
-			//}
 		}
 
 		private void HyperLinkUnacceptResults_Click(object sender, RoutedEventArgs e)

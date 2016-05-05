@@ -20,14 +20,10 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
 
         }
 
-        public DistributionResult Distribute(string reportNo)
+        public DistributionResult Distribute(string reportNo, Business.Test.AccessionOrder accessionOrder)
         {
             DistributionResult result = new DistributionResult();
-            result.IsComplete = true;
-
-			YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(reportNo);
-
-            YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
+            result.IsComplete = true;                        
 
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(reportNo);
 			string tifDocumentPath = YellowstonePathology.Business.Document.CaseDocument.GetCaseFileNameTif(orderIdParser);

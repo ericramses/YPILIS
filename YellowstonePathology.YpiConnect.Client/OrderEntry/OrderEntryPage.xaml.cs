@@ -37,15 +37,13 @@ namespace YellowstonePathology.YpiConnect.Client.OrderEntry
         private YellowstonePathology.Business.Rules.ExecutionStatus executionStatus = new Business.Rules.ExecutionStatus();
         
         private bool m_ShowInactiveSpecimen;		
-        private bool m_IsLoadingSpecimen;
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
+        private bool m_IsLoadingSpecimen;		
 
-		public OrderEntryPage(YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder, YellowstonePathology.Business.Persistence.ObjectTracker objectTracker)
+		public OrderEntryPage(YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder)
         {
             this.m_ShowInactiveSpecimen = false;
             this.m_IsLoadingSpecimen = false;		
-			this.m_ClientOrder = clientOrder;
-			this.m_ObjectTracker = objectTracker;
+			this.m_ClientOrder = clientOrder;			
 
             this.m_ClientOrderDetailViewCollection = new ClientOrderDetailViewCollection(this.m_ClientOrder.ClientOrderDetailCollection, this.m_ShowInactiveSpecimen);
 
@@ -66,7 +64,7 @@ namespace YellowstonePathology.YpiConnect.Client.OrderEntry
         {
             YellowstonePathology.YpiConnect.Proxy.SubmitterServiceProxy proxy = new Proxy.SubmitterServiceProxy();
 			YellowstonePathology.Business.Persistence.RemoteObjectTransferAgent remoteObjectTransferAgent = new Business.Persistence.RemoteObjectTransferAgent();
-            this.m_ObjectTracker.PrepareRemoteTransferAgent(this.m_ClientOrder, remoteObjectTransferAgent);
+            
             proxy.Submit(remoteObjectTransferAgent);
 		}
 
@@ -173,7 +171,7 @@ namespace YellowstonePathology.YpiConnect.Client.OrderEntry
             {
                 this.m_ClientOrder.Submitted = true;
                 this.m_ClientOrder.ClientOrderDetailCollection.MarkAsSubmitted();                
-				Save();
+				Save(false);
 
 				YellowstonePathology.YpiConnect.Client.PageNavigationReturnEventArgs args = new YellowstonePathology.YpiConnect.Client.PageNavigationReturnEventArgs(YellowstonePathology.YpiConnect.Client.PageNavigationDirectionEnum.Back, null);
 				Return(this, args);
@@ -202,7 +200,7 @@ namespace YellowstonePathology.YpiConnect.Client.OrderEntry
 
 		private void ShowOrdrDetailTypePage()
 		{
-			OrderDetailTypePage orderDetailTypePage = new OrderDetailTypePage(this.m_ClientOrder, this.m_ObjectTracker);
+			OrderDetailTypePage orderDetailTypePage = new OrderDetailTypePage(this.m_ClientOrder);
 			orderDetailTypePage.Return += new OrderDetailTypePage.ReturnEventHandler(OrderDetailTypePage_Return);
 			ApplicationNavigator.ApplicationContentFrame.NavigationService.Navigate(orderDetailTypePage);
 		}
@@ -237,11 +235,11 @@ namespace YellowstonePathology.YpiConnect.Client.OrderEntry
 			switch (e.PageNavigationDirectionEnum)
 			{
 				case YellowstonePathology.YpiConnect.Client.PageNavigationDirectionEnum.Back:
-					this.Save();
+					this.Save(true);
 					ApplicationNavigator.ApplicationContentFrame.NavigationService.Navigate(this);
 					break;
 				case YellowstonePathology.YpiConnect.Client.PageNavigationDirectionEnum.Next:
-					this.Save();
+					this.Save(true);
 					ApplicationNavigator.ApplicationContentFrame.NavigationService.Navigate(this);
 					break;
 			}
@@ -263,7 +261,7 @@ namespace YellowstonePathology.YpiConnect.Client.OrderEntry
 
         private void HyperlinkOwnership_Click(object sender, RoutedEventArgs e)
         {
-			OwnershipPage ownershipPage = new OwnershipPage(this.m_ClientOrder, this.m_ObjectTracker);
+			OwnershipPage ownershipPage = new OwnershipPage(this.m_ClientOrder);
 			ownershipPage.Return += new OwnershipPage.ReturnEventHandler(OwnershipPage_Return);
 			ApplicationNavigator.ApplicationContentFrame.Navigate(ownershipPage);
         }
@@ -290,12 +288,12 @@ namespace YellowstonePathology.YpiConnect.Client.OrderEntry
 			return true;
 		}
 
-		public void Save()
+		public void Save(bool releaseLock)
 		{
-            YellowstonePathology.YpiConnect.Proxy.SubmitterServiceProxy proxy = new Proxy.SubmitterServiceProxy();
-			YellowstonePathology.Business.Persistence.RemoteObjectTransferAgent remoteObjectTransferAgent = new Business.Persistence.RemoteObjectTransferAgent();
-            this.m_ObjectTracker.PrepareRemoteTransferAgent(this.m_ClientOrder, remoteObjectTransferAgent);
-            proxy.Submit(remoteObjectTransferAgent);
+            //YellowstonePathology.YpiConnect.Proxy.SubmitterServiceProxy proxy = new Proxy.SubmitterServiceProxy();
+			//YellowstonePathology.Business.Persistence.RemoteObjectTransferAgent remoteObjectTransferAgent = new Business.Persistence.RemoteObjectTransferAgent();
+            //this.m_ObjectTracker.PrepareRemoteTransferAgent(this.m_ClientOrder, remoteObjectTransferAgent);
+            //proxy.Submit(remoteObjectTransferAgent);
 		}             
 
         private void TextBoxSpecimenDescription_Loaded(object sender, RoutedEventArgs e)

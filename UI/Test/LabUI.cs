@@ -36,15 +36,14 @@ namespace YellowstonePathology.UI.Test
 		YellowstonePathology.Business.Domain.XElementFromSql m_AcknowledgeOrders;
 		private string m_PanelOrderIds;
 		YellowstonePathology.Business.Common.FieldEnabler m_FieldEnabler;
-		YellowstonePathology.Business.Domain.Lock m_Lock;
 		YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
+        System.Windows.Controls.TabItem m_Writer;
 
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 
-		public LabUI(YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        public LabUI(YellowstonePathology.Business.User.SystemIdentity systemIdentity, System.Windows.Controls.TabItem writer)
 		{            
             this.m_SystemIdentity = systemIdentity;
-			this.m_Lock = new YellowstonePathology.Business.Domain.Lock(this.m_SystemIdentity);
+            this.m_Writer = writer;
 			
 			this.m_SearchEngine = new Business.Test.SearchEngine();
 			this.m_MedTechUsers = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetUsersByRole(YellowstonePathology.Business.User.SystemUserRoleDescriptionEnum.MedTech, true);
@@ -58,14 +57,19 @@ namespace YellowstonePathology.UI.Test
 			this.m_PanelOrderIds = string.Empty;
 			this.m_HasDataError = false;
 
-			this.m_PathologistSearch = new YellowstonePathology.Business.Search.PathologistSearch(this.m_SystemIdentity);
+			this.m_PathologistSearch = new YellowstonePathology.Business.Search.PathologistSearch(this.m_Writer);
 
 			this.m_PathologistUsers = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetUsersByRole(YellowstonePathology.Business.User.SystemUserRoleDescriptionEnum.Pathologist, true);			
 
 			this.m_FieldEnabler = new YellowstonePathology.Business.Common.FieldEnabler();
 
 			this.m_PanelSetCaseTypeCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPanelSetCaseTypeCollection();            
-		}                        
+		}
+
+        public YellowstonePathology.Business.User.SystemIdentity SystemIdentity
+        {
+            get { return Business.User.SystemIdentity.Instance; }
+        }
 
         public YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection ClientOrderCollection
         {
@@ -89,13 +93,12 @@ namespace YellowstonePathology.UI.Test
 
 		public YellowstonePathology.Business.Test.AccessionOrder AccessionOrder
 		{
-			get { return this.m_AccessionOrder; }			
-		}
-
-		public YellowstonePathology.Business.Domain.Lock Lock
-		{
-			get { return this.m_Lock; }
-			set { this.m_Lock = value; }
+			get { return this.m_AccessionOrder; }
+            set
+            {
+                this.m_AccessionOrder = value;
+                this.NotifyPropertyChanged("AccessionOrder");
+            }
 		}
 
 		public YellowstonePathology.Business.Common.FieldEnabler FieldEnabler
@@ -104,14 +107,14 @@ namespace YellowstonePathology.UI.Test
 			set { this.m_FieldEnabler = value; }
 		}
 
-		public void ClearLock()
-		{
-			this.Lock.ReleaseLock();
-		}			
-
 		public YellowstonePathology.Business.Test.PanelSetOrder PanelSetOrder
 		{
 			get { return this.m_PanelSetOrder; }
+            set
+            {
+                this.m_PanelSetOrder = value;
+                this.NotifyPropertyChanged("PanelSetOrder");
+            }
 		}
 
 		public YellowstonePathology.Business.Search.ReportSearchList CaseList
@@ -153,17 +156,18 @@ namespace YellowstonePathology.UI.Test
 		{
 			get { return this.m_AcknowledgeOrders; }
 		}
-       
-		public void GetAccessionOrder(string reportNo)
-		{
-			this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(reportNo);
-			this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 
-			this.m_ObjectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-			this.m_ObjectTracker.RegisterObject(this.m_AccessionOrder);
+        public System.Windows.Controls.TabItem Writer
+        {
+            get { return this.m_Writer; }
+        }
+
+        public void GetAccessionOrder(string masterAccessionNo, string reportNo)
+		{                         
+            this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, this.m_Writer);
+			this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);             
 
 			this.m_CaseDocumentCollection = new YellowstonePathology.Business.Document.CaseDocumentCollection(this.AccessionOrder, reportNo);
-			this.m_Lock.SetLockable(this.AccessionOrder);						
 			this.RunWorkspaceEnableRules();
 			this.NotifyPropertyChanged("");
 		}
@@ -208,7 +212,7 @@ namespace YellowstonePathology.UI.Test
 		{
 			YellowstonePathology.Business.Rules.ExecutionStatus executionStatus = new YellowstonePathology.Business.Rules.ExecutionStatus();
 			YellowstonePathology.Business.Rules.WorkspaceEnableRules workspaceEnableRules = new YellowstonePathology.Business.Rules.WorkspaceEnableRules();
-			workspaceEnableRules.Execute(this.m_AccessionOrder, this.m_PanelSetOrder, this.m_FieldEnabler, this.m_Lock, executionStatus, this.m_SystemIdentity);
+			workspaceEnableRules.Execute(this.m_AccessionOrder, this.m_PanelSetOrder, this.m_FieldEnabler, executionStatus);
 		}
 
 		public string OrderedBy
@@ -234,12 +238,9 @@ namespace YellowstonePathology.UI.Test
 			get { return this.m_PanelSetCaseTypeCollection; }
 		}             
 
-		public void Save()
+		public void Save(bool releaseLock)
 		{
-			if (this.m_AccessionOrder != null)
-			{
-				this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
-			}
+			
 		}
 
 		public YellowstonePathology.Business.Document.CaseDocumentCollection CaseDocumentCollection
@@ -270,11 +271,6 @@ namespace YellowstonePathology.UI.Test
 		{
 			this.m_CaseDocumentCollection = new YellowstonePathology.Business.Document.CaseDocumentCollection(this.m_PanelSetOrder.ReportNo);
 			NotifyPropertyChanged("CaseDocumentCollection");
-		}
-
-		public YellowstonePathology.Business.Persistence.ObjectTracker ObjectTracker
-		{
-			get { return this.m_ObjectTracker; }
 		}
 
 		public YellowstonePathology.Business.Test.Model.TestOrderCollection TestOrders

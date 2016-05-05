@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Test
 	/// <summary>
 	/// Interaction logic for MPNStandardResultPage.xaml
 	/// </summary>
-	public partial class MPNStandardReflexPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges, INotifyPropertyChanged
+	public partial class MPNStandardReflexPage : UserControl, INotifyPropertyChanged
 	{
 		public delegate void PropertyChangedNotificationHandler(String info);
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -39,18 +39,15 @@ namespace YellowstonePathology.UI.Test
         private string m_JAK2V617FResult;
 		private YellowstonePathology.Business.Specimen.Model.SpecimenOrder m_SpecimenOrder;
 
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 		
 		private string m_PageHeaderText;
 
 
 		public MPNStandardReflexPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 		{
 			this.m_AccessionOrder = accessionOrder;            
-			this.m_ObjectTracker = objectTracker;
 			this.m_SystemIdentity = systemIdentity;
 
 			YellowstonePathology.Business.Test.MPNStandardReflex.MPNStandardReflexTest panelSetMPNStandardReflex = new YellowstonePathology.Business.Test.MPNStandardReflex.MPNStandardReflexTest();
@@ -68,10 +65,10 @@ namespace YellowstonePathology.UI.Test
 
 			InitializeComponent();
 
-			this.DataContext = this;
-		}
+			this.DataContext = this;            
+		}        
 
-		public YellowstonePathology.Business.Specimen.Model.SpecimenOrder SpecimenOrder
+        public YellowstonePathology.Business.Specimen.Model.SpecimenOrder SpecimenOrder
         {
             get { return this.m_SpecimenOrder; }
         }
@@ -99,27 +96,7 @@ namespace YellowstonePathology.UI.Test
 		public string PageHeaderText
 		{
 			get { return this.m_PageHeaderText; }
-		}
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save()
-		{
-			this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
-		}
-
-		public void UpdateBindingSources()
-		{
-
-		}
+		}		
 
 		private void HyperLinkOrderJak2Exon1214_Click(object sender, RoutedEventArgs e)
 		{
@@ -143,10 +120,9 @@ namespace YellowstonePathology.UI.Test
         }
 
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
-		{
-			this.Save();
-			YellowstonePathology.Business.Test.MPNStandardReflex.MPNStandardReflexWordDocument report = new Business.Test.MPNStandardReflex.MPNStandardReflexWordDocument();
-			report.Render(this.m_AccessionOrder.MasterAccessionNo, this.m_PanelSetOrderMPNStandardReflex.ReportNo, Business.Document.ReportSaveModeEnum.Draft);
+		{			
+			YellowstonePathology.Business.Test.MPNStandardReflex.MPNStandardReflexWordDocument report = new Business.Test.MPNStandardReflex.MPNStandardReflexWordDocument(this.m_AccessionOrder, this.m_PanelSetOrderMPNStandardReflex, Business.Document.ReportSaveModeEnum.Draft);
+			report.Render();
 
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_PanelSetOrderMPNStandardReflex.ReportNo);
 			string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);
@@ -157,7 +133,7 @@ namespace YellowstonePathology.UI.Test
 		{
 			if (this.m_PanelSetOrderMPNStandardReflex.Final == false)
 			{
-				this.m_PanelSetOrderMPNStandardReflex.Finalize(this.m_SystemIdentity.User);
+				this.m_PanelSetOrderMPNStandardReflex.Finish(this.m_AccessionOrder);
 			}
 		}
 
@@ -174,7 +150,7 @@ namespace YellowstonePathology.UI.Test
 			YellowstonePathology.Business.Rules.MethodResult result = this.m_PanelSetOrderMPNStandardReflex.IsOkToAccept();
 			if (result.Success == true)
 			{
-				this.m_PanelSetOrderMPNStandardReflex.Accept(this.m_SystemIdentity.User);
+				this.m_PanelSetOrderMPNStandardReflex.Accept();
 			}
 			else
 			{

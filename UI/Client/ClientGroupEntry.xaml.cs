@@ -20,14 +20,14 @@ namespace YellowstonePathology.UI.Client
 		public event PropertyChangedEventHandler PropertyChanged;
 		
 		private YellowstonePathology.Business.Client.Model.ClientGroup m_ClientGroup;
-        private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;		
 		private YellowstonePathology.Business.Client.Model.ClientCollection m_MembersClientCollection;
         private YellowstonePathology.Business.Client.Model.ClientCollection m_SearchClientCollection;
+        private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 
-        public ClientGroupEntry(YellowstonePathology.Business.Client.Model.ClientGroup clientGroup, YellowstonePathology.Business.Persistence.ObjectTracker objectTracker)
+        public ClientGroupEntry(YellowstonePathology.Business.Client.Model.ClientGroup clientGroup)
         {                                
-            this.m_ObjectTracker = objectTracker;
             this.m_ClientGroup = clientGroup;
+            this.m_SystemIdentity = Business.User.SystemIdentity.Instance;
             this.m_MembersClientCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientCollectionByClientGroupId(this.m_ClientGroup.ClientGroupId);
             
             InitializeComponent();
@@ -38,7 +38,7 @@ namespace YellowstonePathology.UI.Client
 
         private void ProviderEntry_Closing(object sender, CancelEventArgs e)
         {
-            this.Save();
+            this.Save(false);            
         }
 
         public void NotifyPropertyChanged(String info)
@@ -69,9 +69,9 @@ namespace YellowstonePathology.UI.Client
             Close();            
 		}        
 
-        private void Save()
+        private void Save(bool releaseLock)
         {
-			this.m_ObjectTracker.SubmitChanges(this.m_ClientGroup);
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
         }
 
         private void ButtonAddToGroup_Click(object sender, RoutedEventArgs e)
@@ -80,14 +80,11 @@ namespace YellowstonePathology.UI.Client
             {
                 YellowstonePathology.Business.Client.Model.Client client = (YellowstonePathology.Business.Client.Model.Client)this.ListViewSearchClient.SelectedItem;
                 if (this.m_MembersClientCollection.Exists(client.ClientId) == false)
-                {
-                    this.m_ObjectTracker.SubmitChanges(this.m_ClientGroup);
+                {                    
                     int clientGroupClientId = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetLargestClientGroupClientId() + 1;
                     string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
                     YellowstonePathology.Business.Client.Model.ClientGroupClient clientGroupClient = new Business.Client.Model.ClientGroupClient(objectId, clientGroupClientId, client.ClientId, this.m_ClientGroup.ClientGroupId);
-                    YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-                    objectTracker.RegisterRootInsert(clientGroupClient);
-                    objectTracker.SubmitChanges(clientGroupClient);
+                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(clientGroupClient, this);                    
 
                     this.m_MembersClientCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientCollectionByClientGroupId(this.m_ClientGroup.ClientGroupId);
                     this.NotifyPropertyChanged("MembersClientCollection");

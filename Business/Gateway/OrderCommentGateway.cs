@@ -17,9 +17,23 @@ namespace YellowstonePathology.Business.Gateway
 			SqlCommand cmd = new SqlCommand();
 			cmd.CommandText = "gwOrderCommentsByClientOrderId";
 			cmd.CommandType = System.Data.CommandType.StoredProcedure;
-			cmd.Parameters.Add("@ClientOrderId", System.Data.SqlDbType.VarChar).Value = clientOrderId;			
-			XElement xelement = Domain.Persistence.SqlXmlPersistence.CrudOperations.ExecuteXmlReaderCommand(cmd, Domain.Persistence.DataLocationEnum.ProductionData);
-			return BuildOrderCommentLogCollection(xelement);
+			cmd.Parameters.Add("@ClientOrderId", System.Data.SqlDbType.VarChar).Value = clientOrderId;
+
+            XElement xelement = null;
+            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (XmlReader xmlReader = cmd.ExecuteXmlReader())
+                {
+                    if (xmlReader.Read() == true)
+                    {
+                        xelement = XElement.Load(xmlReader, LoadOptions.PreserveWhitespace);
+                    }
+                }
+            }
+
+            return BuildOrderCommentLogCollection(xelement);
 		}
 
 		public static Domain.OrderCommentLogCollection GetOrderCommentLogCollectionByMasterAccessionNo(string masterAccessionNo)
@@ -28,8 +42,22 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.CommandText = "gwOrderCommentsByMasterAccessionNo";
 			cmd.CommandType = System.Data.CommandType.StoredProcedure;
 			cmd.Parameters.Add("@MasterAccessionNo", System.Data.SqlDbType.VarChar).Value = masterAccessionNo;
-			XElement xelement = Domain.Persistence.SqlXmlPersistence.CrudOperations.ExecuteXmlReaderCommand(cmd, Domain.Persistence.DataLocationEnum.ProductionData);
-			return BuildOrderCommentLogCollection(xelement);
+
+            XElement xelement = null;
+            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (XmlReader xmlReader = cmd.ExecuteXmlReader())
+                {
+                    if (xmlReader.Read() == true)
+                    {
+                        xelement = XElement.Load(xmlReader, LoadOptions.PreserveWhitespace);
+                    }
+                }
+            }
+
+            return BuildOrderCommentLogCollection(xelement);
 		}
 
 		public static Domain.OrderCommentLogCollection GetOrderCommentsForSpecimenLogId(int specimenLogId)
@@ -38,8 +66,22 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.CommandText = "SELECT * from tblOrderCommentLog where SpecimenLogId = @SpecimenLogId order by LogDate desc for xml Path('OrderCommentLog'), root('OrderCommentLogCollection')";
 			cmd.CommandType = System.Data.CommandType.Text;
 			cmd.Parameters.Add("@SpecimenLogId", System.Data.SqlDbType.Int).Value = specimenLogId;
-            XElement xelement = Domain.Persistence.SqlXmlPersistence.CrudOperations.ExecuteXmlReaderCommand(cmd, Domain.Persistence.DataLocationEnum.ProductionData);
-			return BuildOrderCommentLogCollection(xelement);
+
+            XElement xelement = null;
+            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (XmlReader xmlReader = cmd.ExecuteXmlReader())
+                {
+                    if (xmlReader.Read() == true)
+                    {
+                        xelement = XElement.Load(xmlReader, LoadOptions.PreserveWhitespace);
+                    }
+                }
+            }
+
+            return BuildOrderCommentLogCollection(xelement);
 		}
 
 		public static Domain.OrderCommentLogCollection OrderCommentLogCollectionFromCaseNotesKeys(Domain.CaseNotesKeyCollection caseNotesKeyCollection)
@@ -65,8 +107,22 @@ namespace YellowstonePathology.Business.Gateway
 						break;
 				}
 
-				XElement xelement = Domain.Persistence.SqlXmlPersistence.CrudOperations.ExecuteXmlReaderCommand(cmd, Domain.Persistence.DataLocationEnum.ProductionData);
-				Domain.OrderCommentLogCollection midCollection = BuildOrderCommentLogCollection(xelement);
+
+                XElement xelement = null;
+                using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+                {
+                    cn.Open();
+                    cmd.Connection = cn;
+                    using (XmlReader xmlReader = cmd.ExecuteXmlReader())
+                    {
+                        if (xmlReader.Read() == true)
+                        {
+                            xelement = XElement.Load(xmlReader, LoadOptions.PreserveWhitespace);
+                        }
+                    }
+                }
+
+                Domain.OrderCommentLogCollection midCollection = BuildOrderCommentLogCollection(xelement);
 
 				foreach (Domain.OrderCommentLog orderCommentLog in midCollection)
 				{

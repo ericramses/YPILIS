@@ -7,24 +7,21 @@ namespace YellowstonePathology.UI.Test
 {
     public class TrichomonasResultPath : ResultPath
     {
-        TrichomonasResultPage m_ResultPage;
-        YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
-		private YellowstonePathology.Business.Test.Trichomonas.TrichomonasTestOrder m_TestOrder;
+        private TrichomonasResultPage m_ResultPage;
+        private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
+		private YellowstonePathology.Business.Test.Trichomonas.TrichomonasTestOrder m_TestOrder;        
 
         public TrichomonasResultPath(string reportNo, YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
-            YellowstonePathology.UI.Navigation.PageNavigator pageNavigator)
-            : base(pageNavigator)
+            YellowstonePathology.UI.Navigation.PageNavigator pageNavigator, System.Windows.Window window)
+            : base(pageNavigator, window)
         {
             this.m_AccessionOrder = accessionOrder;
-			this.m_TestOrder = (YellowstonePathology.Business.Test.Trichomonas.TrichomonasTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
-			this.m_ObjectTracker = objectTracker;
+			this.m_TestOrder = (YellowstonePathology.Business.Test.Trichomonas.TrichomonasTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);            
 		}
 
         protected override void ShowResultPage()
 		{
-			this.m_ResultPage = new TrichomonasResultPage(this.m_TestOrder, this.m_AccessionOrder, this.m_ObjectTracker, this.m_SystemIdentity);
+			this.m_ResultPage = new TrichomonasResultPage(this.m_TestOrder, this.m_AccessionOrder, this.m_SystemIdentity);
 			this.m_ResultPage.Next += new TrichomonasResultPage.NextEventHandler(TrichomonasResultPage_Next);
             this.m_PageNavigator.Navigate(this.m_ResultPage);
 		}
@@ -44,8 +41,8 @@ namespace YellowstonePathology.UI.Test
 			{
 				YellowstonePathology.Business.Domain.Physician physician = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianByPhysicianId(this.m_AccessionOrder.PhysicianId);
 
-				YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder = YellowstonePathology.Business.Gateway.ClientOrderGateway.GetClientOrderByClientOrderId(this.m_AccessionOrder.ClientOrderId);
-				WomensHealthProfilePage womensHealthProfilePage = new WomensHealthProfilePage(this.m_AccessionOrder, this.m_ObjectTracker, clientOrder, this.m_SystemIdentity, System.Windows.Visibility.Visible);
+				YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullClientOrderByClientOrderId(this.m_AccessionOrder.ClientOrderId, this.m_Window);
+				WomensHealthProfilePage womensHealthProfilePage = new WomensHealthProfilePage(this.m_AccessionOrder, clientOrder, System.Windows.Visibility.Visible);
 				womensHealthProfilePage.Finished += new WomensHealthProfilePage.FinishedEventHandler(WomensHealthProfilePage_Finished);
                 womensHealthProfilePage.Back += new WomensHealthProfilePage.BackEventHandler(WomensHealthProfilePage_Back);
                 this.m_PageNavigator.Navigate(womensHealthProfilePage);

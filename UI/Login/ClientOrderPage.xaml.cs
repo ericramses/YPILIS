@@ -19,7 +19,7 @@ namespace YellowstonePathology.UI.Login
 	/// <summary>
 	/// Interaction logic for ClientOrderPage.xaml
 	/// </summary>
-	public partial class ClientOrderPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
+	public partial class ClientOrderPage : UserControl
 	{
 		public delegate void ReturnEventHandler(object sender, UI.Navigation.PageNavigationReturnEventArgs e);
 		public event ReturnEventHandler Return;
@@ -121,22 +121,7 @@ namespace YellowstonePathology.UI.Login
         private void ButtonClose_Click(object sender, RoutedEventArgs e)
         {
             Window.GetWindow(this).Close();
-        }
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save()
-		{
-                        
-		}
+        }		
 
 		private void ListViewClientOrderSpecimen_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
@@ -149,10 +134,6 @@ namespace YellowstonePathology.UI.Login
 		public YellowstonePathology.Business.ClientOrder.Model.ClientOrderDetail SelectedClientOrderDetail
 		{
 			get { return this.m_SelectedClientOrderDetail; }
-		}
-
-		public void UpdateBindingSources()
-		{
-		}
+		}		
 	}
 }

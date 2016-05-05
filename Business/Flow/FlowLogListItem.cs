@@ -20,8 +20,11 @@ namespace YellowstonePathology.Business.Flow
 		private Nullable<DateTime> m_AccessionDate;
 		private Nullable<DateTime> m_FinalDate;
 		private string m_TestName;
+		private string m_MasterAccessionNo;
+        private bool m_IsLockAquiredByMe;
+        private bool m_LockAquired;
 
-		public FlowLogListItem()
+        public FlowLogListItem()
         {
         }
 
@@ -116,5 +119,38 @@ namespace YellowstonePathology.Business.Flow
 				}
 			}
 		}
-	}
+
+		[PersistentProperty]
+		public string MasterAccessionNo
+		{
+			get { return this.m_MasterAccessionNo; }
+			set { this.m_MasterAccessionNo = value; }
+		}
+
+        public bool IsLockAquiredByMe
+        {
+            get { return this.m_IsLockAquiredByMe; }
+            set
+            {
+                if (value != this.m_IsLockAquiredByMe)
+                {
+                    this.m_IsLockAquiredByMe = value;
+                    this.NotifyPropertyChanged("IsLockAquiredByMe");
+                }
+            }
+        }
+
+        public bool LockAquired
+        {
+            get { return this.m_LockAquired; }
+            set
+            {
+                if (value != this.m_LockAquired)
+                {
+                    this.m_LockAquired = value;
+                    this.NotifyPropertyChanged("LockAquired");
+                }
+            }
+        }
+    }
 }

@@ -8,8 +8,8 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
     public class LSEResultStatusBRAFRequired : LSEResultStatus
     {        
 
-        public LSEResultStatusBRAFRequired(LSEResult lseResult, YellowstonePathology.Business.Test.AccessionOrder accessionOrder) 
-            : base(lseResult, accessionOrder)
+        public LSEResultStatusBRAFRequired(LSEResult lseResult, YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string orderedOnId) 
+            : base(lseResult, accessionOrder, orderedOnId)
         {
             LSEResult result1 = new LSEResult();
             result1.MLH1Result = LSEResultEnum.Negative;
@@ -28,11 +28,11 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             if (this.IsMatch() == true)
             {
                 this.m_IsMatch = true;
-                if (accessionOrder.PanelSetOrderCollection.Exists(18) ||
-                    accessionOrder.PanelSetOrderCollection.Exists(30) == true)
+                if (accessionOrder.PanelSetOrderCollection.Exists(18, orderedOnId, true) ||
+                    accessionOrder.PanelSetOrderCollection.Exists(30, orderedOnId, true) == true)
                 {
-                    YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(30);
-                    if (panelSetOrder == null) panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(18);
+                    YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(30, orderedOnId, true);
+                    if (panelSetOrder == null) panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(18, orderedOnId, true);
 
                     if (panelSetOrder.Final == true)
                     {

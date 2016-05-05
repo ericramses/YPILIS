@@ -106,7 +106,7 @@ namespace YellowstonePathology.Business
             get { return this.m_Thumbnails; }
         }
 
-        public void Save()
+        public void Save(bool releaseLock)
         {
             if (this.m_Pages.Count > 0)
             {

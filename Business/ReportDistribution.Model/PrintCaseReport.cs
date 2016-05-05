@@ -13,8 +13,7 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
 
         public PrintCaseReport(long reportDistributionlogId)
         {
-            this.m_ReportDistributionLogId = reportDistributionlogId;
-            //this.m_ReportNo = YellowstonePathology.Business.ReportDistribution.ReportDistributionLogItem.GetAccessionNo(reportDistributionlogId);
+            this.m_ReportDistributionLogId = reportDistributionlogId;            
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_ReportNo);
 			this.m_FileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser);
         }

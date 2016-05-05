@@ -21,13 +21,11 @@ namespace YellowstonePathology.Business.Test.InformalConsult
 			                    
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.InformalConsult.InformalConsultTestOrder).AssemblyQualifiedName;
 			this.m_AllowMultiplePerAccession = true;
-            this.m_NeverDistribute = true;            
+            this.m_NeverDistribute = false;            
 			this.m_AcceptOnFinal = true;
             this.m_HasNoOrderTarget = true;
             this.m_IsBillable = false;
-
-            this.m_TechnicalComponentFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings();            
-            this.m_TechnicalComponentBillingFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings();
+            this.m_ShowResultPageOnOrder = true;
 
             this.m_ProfessionalComponentFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologistBillings();
             this.m_ProfessionalComponentBillingFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings();

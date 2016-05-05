@@ -16,7 +16,7 @@ using System.Xml.Linq;
 
 namespace YellowstonePathology.UI.Test
 {
-	public partial class MissingInformationResultPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
+	public partial class MissingInformationResultPage : UserControl, INotifyPropertyChanged 
 	{
 		public event PropertyChangedEventHandler PropertyChanged;        
 
@@ -25,30 +25,24 @@ namespace YellowstonePathology.UI.Test
 
         public event EventHandler ShowICDEntry;
         public event EventHandler ShowFaxPage;
-
-        private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
+        
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-        private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;        
         private string m_PageHeaderText;
 
         private YellowstonePathology.Business.Test.MissingInformation.MissingInformtionTestOrder m_MissingInformtionTestOrder;
 
         public MissingInformationResultPage(YellowstonePathology.Business.Test.MissingInformation.MissingInformtionTestOrder missingInformationTestOrder,
-			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+			YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{            
-			this.m_AccessionOrder = accessionOrder;			
-			this.m_SystemIdentity = systemIdentity;
-			this.m_ObjectTracker = objectTracker;
+			this.m_AccessionOrder = accessionOrder;						             
 
 			this.m_MissingInformtionTestOrder = missingInformationTestOrder;
             this.m_PageHeaderText = "Missing Information For: " + this.m_AccessionOrder.PatientDisplayName;
 
 			InitializeComponent();            
 
-			this.DataContext = this;				
-		}
+			this.DataContext = this;
+        }
 
         public YellowstonePathology.Business.Test.AccessionOrder AccessionOrder
         {
@@ -72,37 +66,17 @@ namespace YellowstonePathology.UI.Test
 		{
 			get { return this.m_PageHeaderText; }
 		}				        
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save()
-		{            
-            this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
-		}
-        
-		public void UpdateBindingSources()
-		{
-            
-		}                                
         
 		private void ButtonNext_Click(object sender, RoutedEventArgs e)
-		{		
-		    if (this.Next != null) this.Next(this, new EventArgs());		
-		}
+		{            
+            if (this.Next != null) this.Next(this, new EventArgs());            
+        }
 
 		private void HyperLinkFinalize_Click(object sender, RoutedEventArgs e)
 		{
 			if (this.m_MissingInformtionTestOrder.Final == false)
 			{				
-				this.m_MissingInformtionTestOrder.Finalize(this.m_SystemIdentity.User);				
+				this.m_MissingInformtionTestOrder.Finish(this.m_AccessionOrder);				
 			}
 			else
 			{
@@ -126,7 +100,7 @@ namespace YellowstonePathology.UI.Test
         {            
             if (this.m_MissingInformtionTestOrder.FirstCall == false)
             {
-                this.m_MissingInformtionTestOrder.SetFirstCall(this.m_SystemIdentity);
+                this.m_MissingInformtionTestOrder.SetFirstCall();
             }
             else
             {
@@ -138,7 +112,7 @@ namespace YellowstonePathology.UI.Test
         {
             if (this.m_MissingInformtionTestOrder.SecondCall == false)
             {
-                this.m_MissingInformtionTestOrder.SetSecondCall(this.m_SystemIdentity);
+                this.m_MissingInformtionTestOrder.SetSecondCall();
             }
             else
             {
@@ -150,7 +124,7 @@ namespace YellowstonePathology.UI.Test
         {
             if (this.m_MissingInformtionTestOrder.ThirdCall == false)
             {
-                this.m_MissingInformtionTestOrder.SetThirdCall(this.m_SystemIdentity);
+                this.m_MissingInformtionTestOrder.SetThirdCall();
             }
             else
             {
@@ -163,7 +137,7 @@ namespace YellowstonePathology.UI.Test
             if (this.m_MissingInformtionTestOrder.Fax == false)
             {
                 this.m_MissingInformtionTestOrder.Fax = true;
-                this.m_MissingInformtionTestOrder.FaxSentBy = this.m_SystemIdentity.User.DisplayName;
+                this.m_MissingInformtionTestOrder.FaxSentBy = Business.User.SystemIdentity.Instance.User.DisplayName;
                 this.m_MissingInformtionTestOrder.TimeFaxSent = DateTime.Now;
                 this.NotifyPropertyChanged("FaxDisplayString");
             }
@@ -178,7 +152,7 @@ namespace YellowstonePathology.UI.Test
             if (this.m_MissingInformtionTestOrder.ClientSystemLookup == false)
             {
                 this.m_MissingInformtionTestOrder.ClientSystemLookup = true;
-                this.m_MissingInformtionTestOrder.ClientSystemLookupBy = this.m_SystemIdentity.User.DisplayName;
+                this.m_MissingInformtionTestOrder.ClientSystemLookupBy = Business.User.SystemIdentity.Instance.User.DisplayName;
                 this.m_MissingInformtionTestOrder.TimeOfClientSystemLookup = DateTime.Now;
                 this.NotifyPropertyChanged("ClientSystemLookupDisplayString");
             }

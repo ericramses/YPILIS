@@ -45,7 +45,7 @@ namespace YellowstonePathology.Business.User
         private string m_ThermoFisherSlidePrinter;
         private string m_LaserCassettePrinter;
         private bool m_UseLaserCassettePrinter;
-        private Nullable<int> m_GPathologistId;
+        private Nullable<int> m_GPathologistId;        
 
         public UserPreference()
         {

@@ -29,11 +29,12 @@ namespace YellowstonePathology.Business.Label.Model
 
         public override void DrawLabel(int x, int y, System.Drawing.Printing.PrintPageEventArgs e)
         {
-            e.Graphics.DrawString(this.m_ReportNo, new System.Drawing.Font("Verdana", 9), System.Drawing.Brushes.Black, new System.Drawing.PointF(x + 3, y + 6));
-            e.Graphics.DrawString(this.m_SlideNumber, new System.Drawing.Font("Verdana", 8, System.Drawing.FontStyle.Bold), System.Drawing.Brushes.Black, new System.Drawing.PointF(x + 33, y + 34));
-            e.Graphics.DrawString(this.m_PatientLastName, new System.Drawing.Font("Verdana", 6), System.Drawing.Brushes.Black, new System.Drawing.PointF(x + 3, y + 56));
-            e.Graphics.DrawString(this.m_TestAbbreviation, new System.Drawing.Font("Verdana", 6), System.Drawing.Brushes.Black, new System.Drawing.PointF(x + 3, y + 66));
-            e.Graphics.DrawString(this.m_FacilityLocationAbbreviation, new System.Drawing.Font("Verdana", 4), System.Drawing.Brushes.Black, new System.Drawing.PointF(x + 27, y + 83));
+            int xOffset = 9;
+            e.Graphics.DrawString(this.m_ReportNo, new System.Drawing.Font("Verdana", 9), System.Drawing.Brushes.Black, new System.Drawing.PointF(x + xOffset, y + 6));
+            e.Graphics.DrawString(this.m_SlideNumber, new System.Drawing.Font("Verdana", 8, System.Drawing.FontStyle.Bold), System.Drawing.Brushes.Black, new System.Drawing.PointF(x + xOffset + 30, y + 34));
+            e.Graphics.DrawString(this.m_PatientLastName, new System.Drawing.Font("Verdana", 6), System.Drawing.Brushes.Black, new System.Drawing.PointF(x + xOffset, y + 56));
+            e.Graphics.DrawString(this.m_TestAbbreviation, new System.Drawing.Font("Verdana", 6), System.Drawing.Brushes.Black, new System.Drawing.PointF(x + xOffset, y + 66));
+            e.Graphics.DrawString(this.m_FacilityLocationAbbreviation, new System.Drawing.Font("Verdana", 4), System.Drawing.Brushes.Black, new System.Drawing.PointF(x + xOffset + 24, y + 83));
 
             DataMatrix.DmtxImageEncoder encoder = new DataMatrix.DmtxImageEncoder();
             DataMatrix.DmtxImageEncoderOptions options = new DataMatrix.DmtxImageEncoderOptions();
@@ -42,7 +43,7 @@ namespace YellowstonePathology.Business.Label.Model
             options.BackColor = System.Drawing.Color.White;
             options.ForeColor = System.Drawing.Color.Black;
             Bitmap bitmap = encoder.EncodeImage(this.m_Barcode.ToString(), options);
-            e.Graphics.DrawImage(bitmap, new PointF(x + 3, y + 26));
+            e.Graphics.DrawImage(bitmap, new PointF(x + xOffset, y + 26));
         }
     }
 }

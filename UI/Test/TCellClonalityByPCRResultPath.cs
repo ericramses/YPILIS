@@ -10,22 +10,20 @@ namespace YellowstonePathology.UI.Test
 		TCellClonalityByPCRResultPage m_TCellClonalityByPCRResultPage;
 		YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		YellowstonePathology.Business.Test.TCellClonalityByPCR.PanelSetOrderTCellClonalityByPCR m_PanelSetOrderTCellClonalityByPCR;
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 
 		public TCellClonalityByPCRResultPath(string reportNo,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
-			YellowstonePathology.UI.Navigation.PageNavigator pageNavigator)
-            : base(pageNavigator)
+			YellowstonePathology.UI.Navigation.PageNavigator pageNavigator,
+            System.Windows.Window window)
+            : base(pageNavigator, window)
         {
 			this.m_AccessionOrder = accessionOrder;
 			this.m_PanelSetOrderTCellClonalityByPCR = (YellowstonePathology.Business.Test.TCellClonalityByPCR.PanelSetOrderTCellClonalityByPCR)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
-			this.m_ObjectTracker = objectTracker;
 		}
 
         protected override void ShowResultPage()
 		{
-			this.m_TCellClonalityByPCRResultPage = new TCellClonalityByPCRResultPage(this.m_PanelSetOrderTCellClonalityByPCR, this.m_AccessionOrder, this.m_ObjectTracker, this.m_SystemIdentity);
+			this.m_TCellClonalityByPCRResultPage = new TCellClonalityByPCRResultPage(this.m_PanelSetOrderTCellClonalityByPCR, this.m_AccessionOrder, this.m_SystemIdentity);
 			this.m_TCellClonalityByPCRResultPage.Next += new TCellClonalityByPCRResultPage.NextEventHandler(TCellClonalityByPCRResultPage_Next);
 			this.m_PageNavigator.Navigate(this.m_TCellClonalityByPCRResultPage);
 		}

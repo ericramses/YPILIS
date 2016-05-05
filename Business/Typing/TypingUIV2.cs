@@ -14,7 +14,6 @@ namespace YellowstonePathology.Business.Typing
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		private YellowstonePathology.Business.Document.CaseDocumentCollection m_CaseDocumentCollection;
 		DateTime m_CaseListDate;
@@ -27,19 +26,17 @@ namespace YellowstonePathology.Business.Typing
 		bool m_AuditMode = false;
 		bool m_IsPossibleReportableCase = false;
 		private YellowstonePathology.Business.Common.FieldEnabler m_FieldEnabler;
-		YellowstonePathology.Business.Domain.Lock m_Lock;
 		YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 
 		YellowstonePathology.Business.Typing.ParagraphTemplateCollection m_ParagraphTemplateCollection;
 		private YellowstonePathology.Business.View.BillingSpecimenViewCollection m_BillingSpecimenViewCollection;
 		private YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder m_SurgicalTestOrder;
 		private string m_TemplateText;
+        private System.Windows.Controls.TabItem m_Writer;
 
-		public TypingUIV2(YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+		public TypingUIV2(System.Windows.Controls.TabItem writer)
 		{
-			this.m_SystemIdentity = systemIdentity;
-			this.m_ObjectTracker = new Persistence.ObjectTracker();
-			this.m_Lock = new YellowstonePathology.Business.Domain.Lock(this.m_SystemIdentity);
+            this.m_SystemIdentity = Business.User.SystemIdentity.Instance;
 
 			this.m_ParagraphTemplateCollection = new ParagraphTemplateCollection();
 
@@ -56,36 +53,45 @@ namespace YellowstonePathology.Business.Typing
 			this.m_BillingSpecimenViewCollection = new View.BillingSpecimenViewCollection();
 
 			this.m_FieldEnabler = new YellowstonePathology.Business.Common.FieldEnabler();
+            this.m_Writer = writer;       
 		}
 
 		public void GetAccessionOrder(string reportNo)
 		{
-			this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(reportNo);
-			if (this.m_AccessionOrder != null)
-			{
-				this.m_SurgicalTestOrder = (YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
-				this.m_Lock.SetLockable(this.m_AccessionOrder);
+            string masterAccessionNo = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetMasterAccessionNoFromReportNo(reportNo);
+            if(string.IsNullOrEmpty(masterAccessionNo) == false)
+            {
+                this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, this.m_Writer);
 
-				this.m_CaseDocumentCollection = new Business.Document.CaseDocumentCollection(this.m_AccessionOrder, reportNo);
+                if (this.m_AccessionOrder != null)
+                {
+                    this.m_SurgicalTestOrder = (YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 
-				this.m_ObjectTracker = new Persistence.ObjectTracker();
-				this.m_ObjectTracker.RegisterObject(this.m_AccessionOrder);
-				this.RefreshBillingSpecimenViewCollection();
+                    this.m_CaseDocumentCollection = new Business.Document.CaseDocumentCollection(this.m_AccessionOrder, reportNo);
 
-				this.NotifyPropertyChanged("");
-			}
-			else
-			{
-				MessageBox.Show("Case Not Found.");
-			}
+                    this.RefreshBillingSpecimenViewCollection();
+
+                    this.NotifyPropertyChanged("");
+                }
+                else
+                {
+                    MessageBox.Show("Case Not Found.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Case Not Found.");
+            }
 		}
 
-		public void Save()
-		{
-			if (this.m_AccessionOrder != null)
-			{
-				this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
-			}
+        public Business.User.SystemIdentity SystemIdentity
+        {
+            get { return this.m_SystemIdentity; }
+        }
+
+		public void Save(bool releaseLock)
+		{			            
+            
 		}
 		
 		public string TemplateText
@@ -100,20 +106,14 @@ namespace YellowstonePathology.Business.Typing
 			set { this.m_ParagraphTemplateCollection = value; }
 		}
 
-		public YellowstonePathology.Business.Persistence.ObjectTracker ObjectTracker
-		{
-			get { return this.m_ObjectTracker; }
-		}
-
 		public YellowstonePathology.Business.Test.AccessionOrder AccessionOrder
 		{
 			get { return this.m_AccessionOrder; }
-		}
-
-		public YellowstonePathology.Business.Domain.Lock Lock
-		{
-			get { return this.m_Lock; }
-			set { this.m_Lock = value; }
+            set
+            {
+                this.m_AccessionOrder = value;
+                this.NotifyPropertyChanged("AccessionOrder");
+            }
 		}
 
 		public YellowstonePathology.Business.Common.FieldEnabler FieldEnabler
@@ -258,14 +258,9 @@ namespace YellowstonePathology.Business.Typing
 			{
 				YellowstonePathology.Business.Rules.ExecutionStatus executionStatus = new YellowstonePathology.Business.Rules.ExecutionStatus();
 				YellowstonePathology.Business.Rules.WorkspaceEnableRules workspaceEnableRules = new Rules.WorkspaceEnableRules();
-				workspaceEnableRules.Execute(this.AccessionOrder, this.m_SurgicalTestOrder, this.m_FieldEnabler, this.m_Lock, executionStatus, this.m_SystemIdentity);
+				workspaceEnableRules.Execute(this.AccessionOrder, this.m_SurgicalTestOrder, this.m_FieldEnabler, executionStatus);
 			}
-		}
-
-		public YellowstonePathology.Business.User.SystemUser CurrentUser
-		{
-			get { return this.m_SystemIdentity.User; }
-		}
+		}		
 
 		public YellowstonePathology.Business.Document.CaseDocumentCollection CaseDocumentCollection
 		{
@@ -291,5 +286,5 @@ namespace YellowstonePathology.Business.Typing
 				PropertyChanged(this, new PropertyChangedEventArgs(info));
 			}
 		}
-	}
+    }
 }

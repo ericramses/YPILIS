@@ -7,12 +7,10 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 {
     public class WestGrandFamilyOrderTest
     {
-        ClientOrder m_ClientOrder;
-        YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
+        ClientOrder m_ClientOrder;        
 
         public WestGrandFamilyOrderTest()
-        {
-            this.m_ObjectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
+        {            
 			string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
             this.m_ClientOrder = new ClientOrder(objectId);
             this.m_ClientOrder.ClientOrderId = Guid.NewGuid().ToString();            
@@ -35,10 +33,9 @@ namespace YellowstonePathology.Business.ClientOrder.Model
             this.m_ClientOrder.ClientLocationId = 1002;
         }
 
-        public void InsertClientOrder()
+        public void InsertClientOrder(object writer)
         {
-            this.m_ObjectTracker.RegisterRootInsert(this.m_ClientOrder);
-            this.m_ObjectTracker.SubmitChanges(this.m_ClientOrder);            
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(this.m_ClientOrder, writer);
         }
     }
 }

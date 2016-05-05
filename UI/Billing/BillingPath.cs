@@ -12,29 +12,23 @@ namespace YellowstonePathology.UI.Billing
 		private TifDocumentViewer m_TifDocumentViewer;
 
 		private Business.Search.ReportSearchList m_ReportSearchList;
-        private Business.User.SystemIdentity m_SystemIdentity;        
         private BillingPage m_BillingPage;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
+        private System.Windows.Window m_Writer;
 
-		public BillingPath(Business.Search.ReportSearchList reportSearchList, Business.User.SystemIdentity systemIdentity)
-        {            
-            this.m_ReportSearchList = reportSearchList;
-            this.m_SystemIdentity = systemIdentity;            
-        }       
 
-        private void GetAccessionOrder(string reportNo)
+        public BillingPath(Business.Search.ReportSearchList reportSearchList)
         {
-			this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(reportNo);
-			this.m_ObjectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-			this.m_ObjectTracker.RegisterObject(this.m_AccessionOrder);
-		}
+            this.m_ReportSearchList = reportSearchList;
+        }               
 
-        public void Start()
+        public void Start(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {
             if (this.m_ReportSearchList.CurrentReportSearchItem != null)
             {
-                this.m_BillingWindowPrimary = new BillingWindowPrimary(this.m_SystemIdentity);                
+                this.m_BillingWindowPrimary = new BillingWindowPrimary();
+                this.m_Writer = this.m_BillingWindowPrimary;
+                this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(accessionOrder.MasterAccessionNo, this.m_Writer);
                 this.m_BillingWindowPrimary.Show();
 
                 if (this.m_BillingWindowPrimary.PageNavigator.HasDualMonitors() == true)
@@ -43,14 +37,13 @@ namespace YellowstonePathology.UI.Billing
                     this.m_BillingWindowPrimary.PageNavigator.ShowSecondMonitorWindow(this.m_BillingWindowSecondary);
                 }
 
-				this.GetAccessionOrder(this.m_ReportSearchList.CurrentReportSearchItem.ReportNo);
-				this.ShowBillingPage(this.m_AccessionOrder, this.m_ObjectTracker);                
+				this.ShowBillingPage(this.m_AccessionOrder);                
 			}
         }        
 
-        private void ShowBillingPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Persistence.ObjectTracker objectTracker)
+        private void ShowBillingPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {            
-            this.m_BillingPage = new BillingPage(this.m_ReportSearchList.CurrentReportSearchItem.ReportNo, accessionOrder, objectTracker, this.m_SystemIdentity);
+            this.m_BillingPage = new BillingPage(this.m_ReportSearchList.CurrentReportSearchItem.ReportNo, accessionOrder);
             this.m_BillingPage.Next += new BillingPage.NextEventHandler(BillingPage_Next);
             this.m_BillingPage.Back += new BillingPage.BackEventHandler(BillingPage_Back);
             this.m_BillingPage.Close += new BillingPage.CloseEventHandler(BillingPage_Close);
@@ -148,7 +141,7 @@ namespace YellowstonePathology.UI.Billing
 
         private void BillingPage_ShowICDCodeEntry(object sender, CustomEventArgs.AccessionOrderWithTrackerReturnEventArgs e)
         {
-			YellowstonePathology.UI.Login.ICDEntryPage icdEntryPage = new YellowstonePathology.UI.Login.ICDEntryPage(e.AccessionOrder, e.ObjectTracker, this.m_ReportSearchList.CurrentReportSearchItem.ReportNo, this.m_SystemIdentity);
+			YellowstonePathology.UI.Login.ICDEntryPage icdEntryPage = new YellowstonePathology.UI.Login.ICDEntryPage(e.AccessionOrder, this.m_ReportSearchList.CurrentReportSearchItem.ReportNo);
             icdEntryPage.Next += new Login.ICDEntryPage.NextEventHandler(IcdEntryPage_Next);
             this.m_BillingWindowPrimary.PageNavigator.Navigate(icdEntryPage);            
         }
@@ -160,14 +153,10 @@ namespace YellowstonePathology.UI.Billing
 
         private void BillingPage_ShowTIFDocument(object sender, CustomEventArgs.FileNameReturnEventArgs e)
         {
-            if (this.m_BillingWindowPrimary.PageNavigator.HasDualMonitors() == false)
-            {
-                this.ShowTIFDocumentSingleMonitor(e.FileName);
-            }
-            else
+            if (this.m_BillingWindowPrimary.PageNavigator.HasDualMonitors() == true)
             {
                 this.ShowTIFDocumentDualMonitor(e.FileName);
-            }
+            }            
         }
 
         private void BillingPage_ShowXPSDocument(object sender, CustomEventArgs.FileNameReturnEventArgs e)
@@ -221,8 +210,8 @@ namespace YellowstonePathology.UI.Billing
             if (this.m_ReportSearchList.BeginningOfList == false)
             {
 				if (this.m_TifDocumentViewer != null) this.m_TifDocumentViewer.Close();
-				this.GetAccessionOrder(this.m_ReportSearchList.CurrentReportSearchItem.ReportNo);
-				this.ShowBillingPage(this.m_AccessionOrder, this.m_ObjectTracker);
+                this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(this.m_ReportSearchList.CurrentReportSearchItem.MasterAccessionNo, this.m_Writer);
+                this.ShowBillingPage(this.m_AccessionOrder);
 			}
             else
             {
@@ -236,8 +225,8 @@ namespace YellowstonePathology.UI.Billing
             if (this.m_ReportSearchList.EndOfList == false)
             {
 				if (this.m_TifDocumentViewer != null) this.m_TifDocumentViewer.Close();
-				this.GetAccessionOrder(this.m_ReportSearchList.CurrentReportSearchItem.ReportNo);
-				this.ShowBillingPage(this.m_AccessionOrder, this.m_ObjectTracker);
+                this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(this.m_ReportSearchList.CurrentReportSearchItem.MasterAccessionNo, this.m_Writer);
+                this.ShowBillingPage(this.m_AccessionOrder);
 			}
             else
             {

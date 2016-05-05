@@ -10,17 +10,17 @@ namespace YellowstonePathology.Business.Patient.Model
     {
         private SVHImportFileName m_SVHImportFileName;
 		private SVHBillingDataCollection m_SVHBillingDataCollection;
+        private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 
-        public SVHImportFile(SVHImportFileName svhImportFilename)
+        public SVHImportFile(SVHImportFileName svhImportFilename, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             this.m_SVHImportFileName = svhImportFilename;
-			this.m_SVHBillingDataCollection = new SVHBillingDataCollection();            
+			this.m_SVHBillingDataCollection = new SVHBillingDataCollection();
+            this.m_SystemIdentity = systemIdentity;      
         }
 
         public void ParseAndPersist()
-        {
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new Persistence.ObjectTracker();
-			objectTracker.RegisterObject(this.m_SVHBillingDataCollection);
+        {			
 			using (StreamReader sr = new StreamReader(this.m_SVHImportFileName.FullPath))
             {                
                 DateTime dateProcessed = DateTime.Now;
@@ -34,10 +34,11 @@ namespace YellowstonePathology.Business.Patient.Model
 					SVHBillingData sVHBillingData = new SVHBillingData(objectId, line, dateProcessed, this.m_SVHImportFileName.FileDate);
 					sVHBillingData.SVHBillingDataId = Guid.NewGuid().ToString();
 					this.m_SVHBillingDataCollection.AddOnlyMostRecent(sVHBillingData);
-					objectTracker.RegisterRootInsert(sVHBillingData);
+                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(sVHBillingData, this);
                 }
-			}
-			objectTracker.SubmitChanges(this.m_SVHBillingDataCollection);
+
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
+			}            
 		}        
     }
 }

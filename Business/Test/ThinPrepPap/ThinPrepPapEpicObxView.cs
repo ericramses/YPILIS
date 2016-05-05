@@ -6,18 +6,17 @@ using System.Xml.Linq;
 
 namespace YellowstonePathology.Business.Test.ThinPrepPap
 {
-	public class ThinPrepPapEpicObxView : YellowstonePathology.Business.HL7View.EPIC.EpicObxView
+	public class ThinPrepPapEPICObxView : YellowstonePathology.Business.HL7View.EPIC.EPICObxView
 	{
-		public ThinPrepPapEpicObxView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount) 
+		public ThinPrepPapEPICObxView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount) 
             : base(accessionOrder, reportNo, obxCount)
 		{
 			
 		}
 	
 		public override void ToXml(XElement document)
-		{
-			YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(this.m_ReportNo);
-			YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology panelSetOrderCytology = (YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
+		{			            
+            YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology panelSetOrderCytology = (YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
 
             this.AddHeader(document, panelSetOrderCytology, "Thin Prep Pap Report");
             this.AddNextObxElement("", document, "F");
@@ -25,11 +24,25 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
             this.AddNextObxElement("##############################################", document, "F");
             this.AddNextObxElement("Epithelial Cell Description:", document, "F");            
             this.AddNextObxElement(panelSetOrderCytology.ScreeningImpression.ToUpper(), document, "F");
+
+            this.AddNextObxElement(string.Empty, document, "F");
+
+            this.AddNextObxElement("Other Conditions:", document, "F");
+            string otherConditions = panelSetOrderCytology.OtherConditions;
+            if (string.IsNullOrEmpty(otherConditions) == true)
+            {
+                otherConditions = "None.";
+            }
+            else
+            {
+                this.HandleLongString(otherConditions, document, "F");
+            }
+
             this.AddNextObxElement("##############################################", document, "F");
             this.AddNextObxElement(string.Empty, document, "F");
 
             this.AddNextObxElement("Specimen Description:", document, "F");
-			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = accessionOrder.SpecimenOrderCollection.GetSpecimenOrder(panelSetOrderCytology.OrderedOn, panelSetOrderCytology.OrderedOnId);
+			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(panelSetOrderCytology.OrderedOn, panelSetOrderCytology.OrderedOnId);
             this.AddNextObxElement(specimenOrder.Description, document, "F");
             this.AddNextObxElement(string.Empty, document, "F");
 
@@ -44,17 +57,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
                 this.HandleLongString(reportComment, document, "F");
                 this.AddNextObxElement(string.Empty, document, "F");
             }                      
-
-            this.AddNextObxElement("Other Conditions:", document, "F");
-            string otherConditions = panelSetOrderCytology.OtherConditions;
-            if (string.IsNullOrEmpty(otherConditions) == true)
-            {
-                otherConditions = "None.";
-            }
-            else
-            {
-                this.HandleLongString(otherConditions, document, "F");
-            }            
+                    
             this.AddNextObxElement(string.Empty, document, "F");
 
             bool hpvHasBeenOrdered = this.m_AccessionOrder.PanelSetOrderCollection.Exists(14);            

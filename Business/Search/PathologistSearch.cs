@@ -22,12 +22,12 @@ namespace YellowstonePathology.Business.Search
         private int m_SelectedPathologistId;
         private string m_FinalDateValue;
         private string m_SearchValue;
+        
+        object m_Writer;
 
-        private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
-
-		public PathologistSearch(YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+		public PathologistSearch(object writer)
         {
-            this.m_SystemIdentity = systemIdentity;
+            this.m_Writer = writer;
 
 			this.m_FinalDates = new List<string>();
 			this.m_FinalDates.Add("Not Final");
@@ -50,9 +50,9 @@ namespace YellowstonePathology.Business.Search
 
 			this.m_SelectedPanelSetId = 0;
 			this.m_SelectedPathologistId = -1;
-            if (this.m_SystemIdentity.User.IsUserInRole(YellowstonePathology.Business.User.SystemUserRoleDescriptionEnum.Pathologist))
+            if (YellowstonePathology.Business.User.SystemIdentity.Instance.User.IsUserInRole(YellowstonePathology.Business.User.SystemUserRoleDescriptionEnum.Pathologist))
 			{				
-                this.m_SelectedPathologistId = this.m_SystemIdentity.User.UserId;
+                this.m_SelectedPathologistId = YellowstonePathology.Business.User.SystemIdentity.Instance.User.UserId;
 			}
 
 			m_SearchValue = string.Empty;
@@ -110,15 +110,18 @@ namespace YellowstonePathology.Business.Search
             return pathologistSearchResultCollection;
 		}
 
-        public YellowstonePathology.Business.Search.PathologistSearchResult ExecuteAliquotOrderIdSearch(string slideOrderId, int panelSetId)
+        public YellowstonePathology.Business.Search.PathologistSearchResult ExecuteAliquotOrderIdSearch(string slideOrderId, int panelSetIdHint)
         {
             YellowstonePathology.Business.Gateway.SearchGateway gateway = new Gateway.SearchGateway();
-            YellowstonePathology.Business.Search.PathologistSearchResult pathologistSearchResult = gateway.PathologistAliquotOrderIdSearch(slideOrderId, panelSetId);
+            YellowstonePathology.Business.Search.PathologistSearchResult pathologistSearchResult = gateway.PathologistAliquotOrderIdSearch(slideOrderId, panelSetIdHint);
 
-            if (this.m_Results.ReportNoExists(pathologistSearchResult.ReportNo) == false)
-            {                
-                this.m_Results.Add(pathologistSearchResult);
-            }
+            if(pathologistSearchResult != null)
+            {
+                if (this.m_Results.ReportNoExists(pathologistSearchResult.ReportNo) == false)
+                {
+                    this.m_Results.Add(pathologistSearchResult);
+                }
+            }            
                         
             this.NotifyPropertyChanged("Results");
             return pathologistSearchResult;
@@ -233,24 +236,18 @@ namespace YellowstonePathology.Business.Search
 			YellowstonePathology.Business.Rules.RuleExecutionStatus ruleExecutionStatus = new YellowstonePathology.Business.Rules.RuleExecutionStatus();
 			foreach (YellowstonePathology.Business.Search.PathologistSearchResult item in this.m_Results)
 			{
-				if (item.Assign &&
-                    item.GroupType != "Flow" &&
-                    item.GroupType != "Cytology")
+				if (item.Assign && item.GroupType != "Flow" && item.GroupType != "Cytology")
 				{
 					YellowstonePathology.Business.Rules.Surgical.RulesAssignPathologistId rule = YellowstonePathology.Business.Rules.Surgical.RulesAssignPathologistId.Instance;
-					YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(item.ReportNo);
-					YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new Persistence.ObjectTracker();
-					objectTracker.RegisterObject(accessionOrder);
-
+					YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(item.MasterAccessionNo, this);					
 					YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(item.ReportNo);
 					rule.AccessionOrder = accessionOrder;
-					rule.PanelSetOrder = panelSetOrder;
-                    rule.SystemIdentity = this.m_SystemIdentity;
+					rule.PanelSetOrder = panelSetOrder;                    
 					rule.Run(ruleExecutionStatus);
 
 					if (ruleExecutionStatus.ExecutionHalted == false)
 					{
-						objectTracker.SubmitChanges(accessionOrder);
+                        YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
 					}
 				}
 			}

@@ -15,6 +15,7 @@ namespace YellowstonePathology.Business.Test.JAK2V617F
 		private string m_Comment;
 		private string m_Method;
 		private string m_Reference;
+        private string m_Disclosure;
 
         public JAK2V617FTestOrder()
         {
@@ -24,14 +25,17 @@ namespace YellowstonePathology.Business.Test.JAK2V617F
 		public JAK2V617FTestOrder(string masterAccessionNo, string reportNo, string objectId,
             YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
             YellowstonePathology.Business.Interface.IOrderTarget orderTarget,
-			bool distribute,
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
-			: base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute, systemIdentity)
+			bool distribute)
+			: base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute)
 		{
-			
-		}		
+            this.m_Disclosure = "This test was developed and its performance characteristics determined by Yellowstone Pathology " +
+                "Institute, Inc.  It has not been cleared or approved by the U.S. Food and Drug Administration.  The FDA has determined " +
+                "that such clearance or approval is not necessary.  This test is used for clinical purposes.  It should not be regarded " +
+                "as investigational or for research.  This laboratory is certified under the Clinical Laboratory Improvement Amendments " +
+                "of 1988 (CLIA-88) as qualified to perform high complexity clinical laboratory testing.";
+        }
 
-		public YellowstonePathology.Business.Rules.MethodResult IsOkToSetResults()
+        public YellowstonePathology.Business.Rules.MethodResult IsOkToSetResults()
 		{
 			YellowstonePathology.Business.Rules.MethodResult result = new YellowstonePathology.Business.Rules.MethodResult();
             if(string.IsNullOrEmpty(this.m_ResultCode) == true)
@@ -145,7 +149,21 @@ namespace YellowstonePathology.Business.Test.JAK2V617F
 			}
 		}
 
-		public override string ToResultString(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
+        [PersistentProperty()]
+        public string Disclosure
+        {
+            get { return this.m_Disclosure; }
+            set
+            {
+                if (this.m_Disclosure != value)
+                {
+                    this.m_Disclosure = value;
+                    this.NotifyPropertyChanged("Disclosure");
+                }
+            }
+        }
+
+        public override string ToResultString(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {
             StringBuilder result = new StringBuilder();
             result.AppendLine("Result: " + this.Result);

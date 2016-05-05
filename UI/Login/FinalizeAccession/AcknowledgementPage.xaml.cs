@@ -17,7 +17,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 	/// <summary>
 	/// Interaction logic for AcknowledgementPage.xaml
 	/// </summary>
-	public partial class AcknowledgementPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
+	public partial class AcknowledgementPage : UserControl
 	{
 		public delegate void ReturnEventHandler(object sender, UI.Navigation.PageNavigationReturnEventArgs e);
 		public event ReturnEventHandler Return;
@@ -25,14 +25,11 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 		private string m_PageHeaderText = "Acknowledge Orders";
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
-		private ObservableCollection<YellowstonePathology.Business.Test.PanelOrder> m_PanelOrderCollection;
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;        
+		private ObservableCollection<YellowstonePathology.Business.Test.PanelOrder> m_PanelOrderCollection;		
 
-		public AcknowledgementPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
+		public AcknowledgementPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,			
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
-		{
-			this.m_ObjectTracker = objectTracker;
+		{			
 			this.m_AccessionOrder = accessionOrder;
 			this.m_SystemIdentity = systemIdentity;
             this.m_PanelOrderCollection = this.m_AccessionOrder.PanelSetOrderCollection.GetUnAcknowledgedPanelOrders();
@@ -91,25 +88,6 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 		{
 			UI.Navigation.PageNavigationReturnEventArgs args = new UI.Navigation.PageNavigationReturnEventArgs(UI.Navigation.PageNavigationDirectionEnum.Next, null);
 			this.Return(this, args);
-		}		
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save()
-		{
-			this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
-		}
-
-		public void UpdateBindingSources()
-		{
-		}
+		}				
 	}
 }

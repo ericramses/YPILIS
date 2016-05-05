@@ -17,7 +17,7 @@ using System.Xml.Linq;
 
 namespace YellowstonePathology.UI.Billing
 {	
-	public partial class BillingPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
+	public partial class BillingPage : UserControl, INotifyPropertyChanged 
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -45,10 +45,8 @@ namespace YellowstonePathology.UI.Billing
 		public delegate void ShowPatientDetailPageEventHandler(object sender, EventArgs e);
 		public event ShowPatientDetailPageEventHandler ShowPatientDetailPage;
 
-		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private string m_PageHeaderText;
         
         private YellowstonePathology.Business.Test.PanelSetOrderCPTCodeCollection m_PanelSetOrderCPTCodeCollection;
@@ -58,13 +56,9 @@ namespace YellowstonePathology.UI.Billing
         private string m_ReportNo;
         private YellowstonePathology.Business.Facility.Model.FacilityCollection m_FacilityCollection;
 
-        public BillingPage(string reportNo, YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        public BillingPage(string reportNo, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{			
 			this.m_AccessionOrder = accessionOrder;
-			this.m_SystemIdentity = systemIdentity;
-			this.m_ObjectTracker = objectTracker;
             this.m_ReportNo = reportNo;
 
             this.m_FacilityCollection = YellowstonePathology.Business.Facility.Model.FacilityCollection.GetAllFacilities();
@@ -81,15 +75,22 @@ namespace YellowstonePathology.UI.Billing
 
 			DataContext = this;
             this.Loaded += new RoutedEventHandler(BillingPage_Loaded);
+            Unloaded += BillingPage_Unloaded;
 		}
 
         private void BillingPage_Loaded(object sender, RoutedEventArgs e)
         {
+             
             YellowstonePathology.Business.Document.CaseDocument firstRequisition = this.m_CaseDocumentCollection.GetFirstRequisition();
             if(firstRequisition != null)
             {
                 this.ShowTIFDocument(this, new CustomEventArgs.FileNameReturnEventArgs(firstRequisition.FullFileName));
             }
+        }
+
+        private void BillingPage_Unloaded(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
         }
 
         public YellowstonePathology.Business.Facility.Model.FacilityCollection FacilityCollection
@@ -125,27 +126,7 @@ namespace YellowstonePathology.UI.Billing
 		public YellowstonePathology.Business.Test.AccessionOrder AccessionOrder
 		{
 			get { return this.m_AccessionOrder; }
-		}
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save()
-		{
-			this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
-		}
-
-		public void UpdateBindingSources()
-		{
-
-		}
+		}		
 
         private void ButtonNext_Click(object sender, RoutedEventArgs e)
         {
@@ -182,9 +163,9 @@ namespace YellowstonePathology.UI.Billing
             if (this.ListViewPanelSetOrderCPTCodeBill.SelectedItems.Count != 0)
             {
                 for (int i = this.ListViewPanelSetOrderCPTCodeBill.SelectedItems.Count - 1; i >= 0; i--)
-                {
+                {                    
                     YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill = (YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill)this.ListViewPanelSetOrderCPTCodeBill.SelectedItems[i];
-                    this.m_PanelSetOrderCPTCodeBillCollection.Remove(panelSetOrderCPTCodeBill);
+                    this.m_PanelSetOrderCPTCodeBillCollection.Remove(panelSetOrderCPTCodeBill);                 
                 }
             }
         }        
@@ -295,7 +276,7 @@ namespace YellowstonePathology.UI.Billing
 
         private void ButtonICDCodes_Click(object sender, RoutedEventArgs e)
         {
-            if (this.ShowICDCodeEntry != null) this.ShowICDCodeEntry(this, new CustomEventArgs.AccessionOrderWithTrackerReturnEventArgs(this.m_AccessionOrder, this.m_ObjectTracker));
+            if (this.ShowICDCodeEntry != null) this.ShowICDCodeEntry(this, new CustomEventArgs.AccessionOrderWithTrackerReturnEventArgs(this.m_AccessionOrder));
         }
 
         private void ButtonCPTCodes_Click(object sender, RoutedEventArgs e)

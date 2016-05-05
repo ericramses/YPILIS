@@ -10,19 +10,16 @@ namespace YellowstonePathology.Business.Test.PlateletAssociatedAntibodies
         string m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\PlateletAssociatedAntibodies.6.xml";        
 		YellowstonePathology.Business.Flow.FlowMarkerPanelList m_PanelList;
 
-		public PlateletAssociatedAntibodiesWordDocument()
+        public PlateletAssociatedAntibodiesWordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+            : base(accessionOrder, panelSetOrder, reportSaveMode)
         {
             this.m_PanelList = new YellowstonePathology.Business.Flow.FlowMarkerPanelList();
             this.m_PanelList.SetFillCommandByPanelId(8);
             this.m_PanelList.Fill();
-        }
+        }        
 
-		public override void Render(string masterAccessionNo, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode)
-        {
-            this.m_ReportNo = reportNo;
-			this.GetReportData(reportNo);
-            this.m_ReportSaveMode = reportSaveMode;
-
+		public override void Render()
+        {            			
 			YellowstonePathology.Business.Test.LLP.PanelSetOrderLeukemiaLymphoma panelSetOrderLeukemiaLymphoma = (YellowstonePathology.Business.Test.LLP.PanelSetOrderLeukemiaLymphoma)this.m_PanelSetOrder;
 
             base.OpenTemplate(m_TemplateName);
@@ -91,9 +88,9 @@ namespace YellowstonePathology.Business.Test.PlateletAssociatedAntibodies
 
         public override void Publish()
         {
-			YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_ReportNo);
+			YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
 			YellowstonePathology.Business.Document.CaseDocument.SaveXMLAsPDF(orderIdParser);
-            YellowstonePathology.Business.Helper.FileConversionHelper.SaveXpsReportToTiff(this.m_ReportNo);
+            YellowstonePathology.Business.Helper.FileConversionHelper.SaveXpsReportToTiff(this.m_PanelSetOrder.ReportNo);
         }
     }
 }

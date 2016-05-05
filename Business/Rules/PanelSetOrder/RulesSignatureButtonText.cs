@@ -8,8 +8,7 @@ namespace YellowstonePathology.Business.Rules.PanelSetOrder
 	public class RulesSignatureButtonText : BaseRules
 	{
 		private static Rules.PanelSetOrder.RulesSignatureButtonText m_Instance;
-		private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrderItem;
-		YellowstonePathology.Business.Domain.Lock m_Lock;
+		private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrderItem;		
 		YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 
 
@@ -33,13 +32,7 @@ namespace YellowstonePathology.Business.Rules.PanelSetOrder
         {
 			get { return this.m_PanelSetOrderItem; }
 			set { this.m_PanelSetOrderItem = value; }
-        }
-
-		public YellowstonePathology.Business.Domain.Lock Lock
-		{
-			get { return this.m_Lock; }
-			set { this.m_Lock = value; }
-		}		
+        }			
 
         private bool CaseIsDistributed
         {

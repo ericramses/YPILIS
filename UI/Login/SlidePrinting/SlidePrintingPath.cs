@@ -10,7 +10,7 @@ namespace YellowstonePathology.UI.Login.SlidePrinting
         public delegate void DoneEventHandler(object sender, EventArgs e);
         public event DoneEventHandler Done;
 
-        private YellowstonePathology.UI.Login.LoginPageWindow m_LoginPageWindow;
+        private Login.Receiving.LoginPageWindow m_LoginPageWindow;
 
         public SlidePrintingPath()
         {                        
@@ -19,8 +19,8 @@ namespace YellowstonePathology.UI.Login.SlidePrinting
 
         public void Start()
         {
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity = new Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
-            this.m_LoginPageWindow = new LoginPageWindow(systemIdentity);
+			YellowstonePathology.Business.User.SystemIdentity systemIdentity = Business.User.SystemIdentity.Instance;
+            this.m_LoginPageWindow = new Login.Receiving.LoginPageWindow();
             this.m_LoginPageWindow.Show();
             this.ShowScanContainerPage();
         }
@@ -35,7 +35,8 @@ namespace YellowstonePathology.UI.Login.SlidePrinting
 
 		private void ScanContainerPage_ContainerScannedReceived(object sender, Business.BarcodeScanning.ContainerBarcode containerBarcode)
         {
-			YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByContainerId(containerBarcode.ToString());
+            string masterAccessionNo = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetMasterAccessionNoFromContainerId(containerBarcode.ToString());
+            YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, this.m_LoginPageWindow);
             this.ShowPrintSlidesPage(containerBarcode.ToString(), accessionOrder);
         }
 

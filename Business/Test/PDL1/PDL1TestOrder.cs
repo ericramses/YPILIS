@@ -11,6 +11,8 @@ namespace YellowstonePathology.Business.Test.PDL1
     {
         private string m_Result;
         private string m_StainPercent;
+        private string m_Method;
+        private string m_Comment;
 
         public PDL1TestOrder()
         {
@@ -20,9 +22,8 @@ namespace YellowstonePathology.Business.Test.PDL1
         public PDL1TestOrder(string masterAccessionNo, string reportNo, string objectId,
             YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
             YellowstonePathology.Business.Interface.IOrderTarget orderTarget,
-            bool distribute,
-            YellowstonePathology.Business.User.SystemIdentity systemIdentity)
-            : base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute, systemIdentity)
+            bool distribute)
+            : base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute)
         {
 
         }
@@ -55,6 +56,34 @@ namespace YellowstonePathology.Business.Test.PDL1
             }
         }
 
+        [PersistentProperty()]
+        public string Method
+        {
+            get { return this.m_Method; }
+            set
+            {
+                if (this.m_Method != value)
+                {
+                    this.m_Method = value;
+                    this.NotifyPropertyChanged("Method");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string Comment
+        {
+            get { return this.m_Comment; }
+            set
+            {
+                if (this.m_Comment != value)
+                {
+                    this.m_Comment = value;
+                    this.NotifyPropertyChanged("Comment");
+                }
+            }
+        }
+
         public override string ToResultString(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {
             StringBuilder result = new StringBuilder();
@@ -77,12 +106,7 @@ namespace YellowstonePathology.Business.Test.PDL1
 				{
 					result.Success = false;
 					result.Message = "The results cannot be accepted because the stain percent is not set.";
-				}
-				else if(string.IsNullOrEmpty(this.m_Result) == true)
-				{
-					result.Success = false;
-					result.Message = "The results cannot be accepted because the result is not set.";
-				}
+				}				
 			}
 			return result;
 		}

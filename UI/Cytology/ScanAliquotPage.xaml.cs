@@ -15,7 +15,7 @@ using System.ComponentModel;
 
 namespace YellowstonePathology.UI.Cytology
 {   
-	public partial class ScanAliquotPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges, INotifyPropertyChanged 
+	public partial class ScanAliquotPage : UserControl, INotifyPropertyChanged 
 	{
 		public event PropertyChangedEventHandler PropertyChanged;		
 
@@ -41,6 +41,7 @@ namespace YellowstonePathology.UI.Cytology
 
 		private void ScanContainerPage_Loaded(object sender, RoutedEventArgs e)
 		{
+            Business.Persistence.DocumentGateway.Instance.Push(Window.GetWindow(this));
             this.m_BarcodeScanPort.AliquotOrderIdReceived += BarcodeScanPort_AliquotOrderIdReceived;
 		}        
 
@@ -69,27 +70,7 @@ namespace YellowstonePathology.UI.Cytology
                 this.UseThisAliquotOrderId(this, scanData);
             }
             ));
-        }
-
-        public void Save()
-		{
-
-		}
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return false;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return false;
-		}
-
-		public void UpdateBindingSources()
-		{
-
-		}                
+        }               
 
         public string SystemUserDisplayText
         {

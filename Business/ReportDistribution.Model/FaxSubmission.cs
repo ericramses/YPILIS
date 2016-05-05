@@ -16,7 +16,7 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
 
             FAXCOMEXLib.FaxDocument faxDoc = new FAXCOMEXLib.FaxDocument();
             faxDoc.Body = fileName;                          
-
+            
             if (longDistance == true)
             {
                 faxNumber = "1" + faxNumber;
@@ -25,10 +25,9 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
             faxDoc.Recipients.Add(faxNumber, subject);
             faxDoc.DocumentName = subject;
             faxDoc.Sender.Company = "YPII";
-            faxDoc.Subject = subject;
+            faxDoc.Subject = subject;            
 
-            faxDoc.Priority = FAXCOMEXLib.FAX_PRIORITY_TYPE_ENUM.fptLOW;
-
+            faxDoc.Priority = FAXCOMEXLib.FAX_PRIORITY_TYPE_ENUM.fptLOW;            
             faxDoc.ConnectedSubmit(faxServer);            
             faxServer.Disconnect();
 

@@ -15,7 +15,7 @@ using System.ComponentModel;
 
 namespace YellowstonePathology.UI.Surgical
 {
-    public partial class DictationTemplatePage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges, INotifyPropertyChanged
+    public partial class DictationTemplatePage : UserControl, INotifyPropertyChanged
 	{
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -97,66 +97,7 @@ namespace YellowstonePathology.UI.Surgical
                     
                     if(this.m_DictationTemplate is YellowstonePathology.UI.Gross.TemplateNotFound == false)
                     {
-	                    this.m_GrossDescription = this.m_DictationTemplate.Text;
-	
-	                    string identifier = "Specimen " + specimenOrder.SpecimenNumber + " ";
-	                    if (specimenOrder.ClientFixation != YellowstonePathology.Business.Specimen.Model.FixationType.Fresh)
-	                    {
-	                        identifier += "is received in a formalin filled container labeled \"" + this.m_AccessionOrder.PatientDisplayName + " - [description]\"";
-	                    }
-	                    else if (specimenOrder.ClientFixation == YellowstonePathology.Business.Specimen.Model.FixationType.Fresh)
-	                    {
-	                        identifier += " is received fresh in a container labeled \"" + this.m_AccessionOrder.PatientDisplayName + " - [description]\"";
-	                    }
-	
-	                    this.m_GrossDescription = this.m_GrossDescription.Replace("[identifier]", identifier);
-	
-	                    YellowstonePathology.Business.Common.PrintMateCarousel printMateCarousel = new Business.Common.PrintMateCarousel();
-	                    YellowstonePathology.Business.Common.PrintMateColumn printMateColumn = printMateCarousel.GetColumn(this.m_AccessionOrder.PrintMateColumnNumber);
-	
-	                    if (this.m_GrossDescription.Contains("[submitted]") == true)
-	                    {
-	                        string submittedStatement = "[procedure] and " + specimenOrder.GetGrossSubmittedInString(printMateColumn.Color);
-	                        this.m_GrossDescription = this.m_GrossDescription.Replace("[submitted]", submittedStatement);
-	                    }
-	                    else if (this.m_GrossDescription.Contains("[cassettelabel]") == true)
-	                    {
-	                        this.m_GrossDescription = this.m_GrossDescription.Replace("[cassettelabel]", "\"" + specimenOrder.SpecimenNumber.ToString() + "A\"");
-	                    }
-	                    else if (this.m_GrossDescription.Contains("[remaindersubmission]") == true)
-	                    {
-	                        string remainderSubmittedStatement = specimenOrder.GetGrossRemainderSubmittedInString();
-	                        this.m_GrossDescription = this.m_GrossDescription.Replace("[remaindersubmission]", remainderSubmittedStatement);
-	                    }	                    
-	                        
-	                    string initials = string.Empty;
-	                    if (specimenOrder.AliquotOrderCollection.Count != 0)
-	                    {
-	                        if(this.m_AccessionOrder.SpecimenOrderCollection.IsLastSpecimen(specimenOrder.SpecimenOrderId) == true)
-	                        {
-		                        int grossVerifiedById = specimenOrder.AliquotOrderCollection[0].GrossVerifiedById;
-		                        string grossedByInitials = "[??]";
-		
-		                        if (grossVerifiedById != 0)
-		                        {
-		                            YellowstonePathology.Business.User.SystemUser grossedBy = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetSystemUserById(grossVerifiedById);
-		                            grossedByInitials = grossedBy.Initials.ToUpper();
-		                        }
-		
-		                        string supervisedByInitials = "[??]";
-		                        if (this.m_UserPreference.GPathologistId.HasValue == true)
-		                        {
-		                            YellowstonePathology.Business.User.SystemUser supervisedBy = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetSystemUserById(this.m_UserPreference.GPathologistId.Value);
-		                            supervisedByInitials = supervisedBy.Initials.ToUpper();
-		                        }
-		
-		                        string typedByInitials = this.m_SystemIdentity.User.Initials.ToLower();
-		
-		                        initials = grossedByInitials + "/" + supervisedByInitials + "/" + typedByInitials;
-		                        this.m_GrossDescription = this.m_GrossDescription + initials;
-	                        }
-	                    }
-	
+	                    this.m_GrossDescription = this.m_DictationTemplate.BuildResultText(specimenOrder, this.m_AccessionOrder, this.m_SystemIdentity);	                    	                    
 	                    this.NotifyPropertyChanged(string.Empty);
 	                    this.TextBoxGrossDescription.Focus();
 	                    this.SelectNextInput(0);
@@ -169,25 +110,29 @@ namespace YellowstonePathology.UI.Surgical
         
         private bool SelectNextInput(int startingPosition)
         {
-            bool result = false;                  
-            int positionOfNextLeftBracket = this.TextBoxGrossDescription.Text.IndexOf("[", startingPosition + 1);
-            if (positionOfNextLeftBracket != -1)
+            bool result = false;   
+            if(startingPosition != this.TextBoxGrossDescription.Text.Length)
             {
-                int positionOfNextRightBracket = this.TextBoxGrossDescription.Text.IndexOf("]", positionOfNextLeftBracket);
-                this.TextBoxGrossDescription.SelectionStart = positionOfNextLeftBracket;
-                this.TextBoxGrossDescription.SelectionLength = positionOfNextRightBracket - positionOfNextLeftBracket + 1;
-                result = true;
-            }
+                int positionOfNextLeftBracket = this.TextBoxGrossDescription.Text.IndexOf("[", startingPosition + 1);
+                if (positionOfNextLeftBracket != -1)
+                {
+                    int positionOfNextRightBracket = this.TextBoxGrossDescription.Text.IndexOf("]", positionOfNextLeftBracket);
+                    this.TextBoxGrossDescription.SelectionStart = positionOfNextLeftBracket;
+                    this.TextBoxGrossDescription.SelectionLength = positionOfNextRightBracket - positionOfNextLeftBracket + 1;
+                    result = true;
+                }
+            }                           
             return result;
         }    
         
         private void HandleTextBoxGrossDescriptionTab()
         {
-            int startingPosition = 0;
+            int startingPosition = this.TextBoxGrossDescription.SelectionStart;
             if (string.IsNullOrEmpty(this.TextBoxGrossDescription.SelectedText) == false)
             {
                 startingPosition = this.TextBoxGrossDescription.SelectionStart;
             }
+
             if(startingPosition == 0)
             {
                 SelectNextInput(startingPosition);
@@ -245,26 +190,6 @@ namespace YellowstonePathology.UI.Surgical
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
-        }
-
-        public void Save()
-        {
-            //this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);	
-        }
-
-        public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-        {
-            return true;
-        }
-
-        public bool OkToSaveOnClose()
-        {
-            return true;
-        }
-
-        public void UpdateBindingSources()
-        {
-
-        }        
+        }            
     }
 }

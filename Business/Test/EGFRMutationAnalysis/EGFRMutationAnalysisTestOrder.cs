@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using YellowstonePathology.Business.Persistence;
+using YellowstonePathology.Business.Rules;
 
 namespace YellowstonePathology.Business.Test.EGFRMutationAnalysis
 {
@@ -17,7 +18,8 @@ namespace YellowstonePathology.Business.Test.EGFRMutationAnalysis
         private string m_Interpretation;
         private bool m_MicrodisectionPerformed;
         private string m_Comment;        
-        private string m_TumorNucleiPercentage;                
+        private string m_TumorNucleiPercentage;
+        private string m_ReportDisclaimer;
 
         public EGFRMutationAnalysisTestOrder()
         {
@@ -27,9 +29,8 @@ namespace YellowstonePathology.Business.Test.EGFRMutationAnalysis
 		public EGFRMutationAnalysisTestOrder(string masterAccessionNo, string reportNo, string objectId,
 			YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
             YellowstonePathology.Business.Interface.IOrderTarget orderTarget,
-			bool distribute,
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
-			: base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute, systemIdentity)
+			bool distribute)
+			: base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute)
 		{
 			
 		}
@@ -158,9 +159,23 @@ namespace YellowstonePathology.Business.Test.EGFRMutationAnalysis
                     this.NotifyPropertyChanged("MicrodisectionPerformed");
                 }
             }
-        }		  
+        }
 
-		public override string ToResultString(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
+        [PersistentProperty()]
+        public string ReportDisclaimer
+        {
+            get { return this.m_ReportDisclaimer; }
+            set
+            {
+                if (this.m_ReportDisclaimer != value)
+                {
+                    this.m_ReportDisclaimer = value;
+                    this.NotifyPropertyChanged("ReportDisclaimer");
+                }
+            }
+        }
+
+        public override string ToResultString(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{
 			StringBuilder result = new StringBuilder();
 
@@ -203,5 +218,20 @@ namespace YellowstonePathology.Business.Test.EGFRMutationAnalysis
         {
             return base.IsOkToFinalize(accessionOrder);
         }
-	}
+
+        public override MethodResult IsOkToAccept()
+        {
+            MethodResult result = base.IsOkToAccept();
+            if(result.Success == true)
+            {
+                if(string.IsNullOrEmpty(this.m_ResultCode) == true)
+                {
+                    result.Success = false;
+                    result.Message = "This case cannot be accepted because the results are not set.";
+                }
+            }
+
+            return result;
+        }
+    }
 }

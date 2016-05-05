@@ -16,7 +16,7 @@ using System.Xml.Linq;
 
 namespace YellowstonePathology.UI.Test
 {	
-	public partial class HPV1618ByPCRResultPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
+	public partial class HPV1618ByPCRResultPage : UserControl, INotifyPropertyChanged 
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -25,7 +25,6 @@ namespace YellowstonePathology.UI.Test
 
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private string m_PageHeaderText;
 
 		private YellowstonePathology.Business.Test.HPV1618ByPCR.HPV1618ByPCRTestOrder m_HPV1618ByPCRTestOrder;
@@ -34,14 +33,12 @@ namespace YellowstonePathology.UI.Test
 
 		public HPV1618ByPCRResultPage(YellowstonePathology.Business.Test.HPV1618ByPCR.HPV1618ByPCRTestOrder hpv1618ByPCRTestOrder,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity,
 			YellowstonePathology.UI.Navigation.PageNavigator pageNavigator)
 		{
 			this.m_HPV1618ByPCRTestOrder = hpv1618ByPCRTestOrder;
 			this.m_AccessionOrder = accessionOrder;
 			this.m_SystemIdentity = systemIdentity;
-			this.m_ObjectTracker = objectTracker;
 			this.m_PageNavigator = pageNavigator;
 
             this.m_IndicationList = YellowstonePathology.Business.Test.HPV1618ByPCR.HPV1618ByPCRIndication.GetIndicationList();
@@ -49,8 +46,8 @@ namespace YellowstonePathology.UI.Test
 			
 			InitializeComponent();
 
-			DataContext = this;                      
-		}
+			DataContext = this;
+        }
 
         public List<string> IndicationList
         {
@@ -90,26 +87,6 @@ namespace YellowstonePathology.UI.Test
 			get { return this.m_PageHeaderText; }
 		}
 
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save()
-		{
-			this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
-		}
-
-		public void UpdateBindingSources()
-		{
-
-		}
-
         private void ButtonNext_Click(object sender, RoutedEventArgs e)
         {
             this.Next(this, new EventArgs());
@@ -122,7 +99,7 @@ namespace YellowstonePathology.UI.Test
 			{
 				YellowstonePathology.Business.Test.HPV1618ByPCR.HPV1618ByPCRResultCollection resultCollection = YellowstonePathology.Business.Test.HPV1618ByPCR.HPV1618ByPCRResultCollection.GetAllResults();
 				YellowstonePathology.Business.Test.HPV1618ByPCR.HPV1618ByPCRResult hpv1618Result = resultCollection.GetResult(this.m_HPV1618ByPCRTestOrder.ResultCode);
-				hpv1618Result.FinalizeResults(this.m_HPV1618ByPCRTestOrder, this.m_SystemIdentity);
+				hpv1618Result.FinalizeResults(this.m_HPV1618ByPCRTestOrder, this.m_SystemIdentity, this.m_AccessionOrder);
 
                 YellowstonePathology.Business.ReportDistribution.Model.MultiTestDistributionHandler multiTestDistributionHandler = YellowstonePathology.Business.ReportDistribution.Model.MultiTestDistributionHandlerFactory.GetHandler(this.m_AccessionOrder);
                 multiTestDistributionHandler.Set();
@@ -169,7 +146,7 @@ namespace YellowstonePathology.UI.Test
 			YellowstonePathology.Business.Rules.MethodResult methodResult = YellowstonePathology.Business.Test.HPV1618ByPCR.HPV1618ByPCRResult.IsOkToAccept(this.m_HPV1618ByPCRTestOrder);
 			if (methodResult.Success == true)
 			{
-                this.m_HPV1618ByPCRTestOrder.Accept(this.m_SystemIdentity.User);
+                this.m_HPV1618ByPCRTestOrder.Accept();
 			}
 			else
 			{
@@ -179,9 +156,8 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
 		{
-			this.Save();
-			YellowstonePathology.Business.Test.HPV1618ByPCR.HPV1618ByPCRWordDocument report = new Business.Test.HPV1618ByPCR.HPV1618ByPCRWordDocument();
-			report.Render(this.m_HPV1618ByPCRTestOrder.MasterAccessionNo, this.m_HPV1618ByPCRTestOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft);
+			YellowstonePathology.Business.Test.HPV1618ByPCR.HPV1618ByPCRWordDocument report = new Business.Test.HPV1618ByPCR.HPV1618ByPCRWordDocument(this.m_AccessionOrder, this.m_HPV1618ByPCRTestOrder, Business.Document.ReportSaveModeEnum.Draft);
+			report.Render();
 
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_HPV1618ByPCRTestOrder.ReportNo);
 			string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);
@@ -260,10 +236,11 @@ namespace YellowstonePathology.UI.Test
 
         private void HyperLinkProvider_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPath providerDistributionPath = new Login.FinalizeAccession.ProviderDistributionPath(this.m_HPV1618ByPCRTestOrder.ReportNo, this.m_AccessionOrder, this.m_ObjectTracker, System.Windows.Visibility.Visible, System.Windows.Visibility.Collapsed, System.Windows.Visibility.Visible);
+            MessageBox.Show("Not Implemented");
+            YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPath providerDistributionPath = new Login.FinalizeAccession.ProviderDistributionPath(this.m_HPV1618ByPCRTestOrder.ReportNo, this.m_AccessionOrder, System.Windows.Visibility.Visible, System.Windows.Visibility.Collapsed, System.Windows.Visibility.Visible);
             providerDistributionPath.Back += new Login.FinalizeAccession.ProviderDistributionPath.BackEventHandler(ProviderDistributionPath_Back);
             providerDistributionPath.Next += new Login.FinalizeAccession.ProviderDistributionPath.NextEventHandler(ProviderDistributionPath_Next);
-            providerDistributionPath.Start(this.m_SystemIdentity);
+            providerDistributionPath.Start();
         }
 
         private void ProviderDistributionPath_Next(object sender, EventArgs e)

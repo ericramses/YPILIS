@@ -37,7 +37,7 @@ namespace YellowstonePathology.YpiConnect.Client
 			ApplicationNavigator.ApplicationContentFrame.NavigationService.GoBack();
 		}
 
-		public void Save()
+		public void Save(bool releaseLock)
 		{
 
 		}

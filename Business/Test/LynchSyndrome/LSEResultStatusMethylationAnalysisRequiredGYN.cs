@@ -7,8 +7,8 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 {
     public class LSEResultStatusMethylationAnalysisRequiredGYN : LSEResultStatus
     {
-        public LSEResultStatusMethylationAnalysisRequiredGYN(LSEResult lseResult, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
-            : base(lseResult, accessionOrder)
+        public LSEResultStatusMethylationAnalysisRequiredGYN(LSEResult lseResult, YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string orderedOnId)
+            : base(lseResult, accessionOrder, orderedOnId)
         {
             LSEResult result1 = new LSEResult();
             result1.MLH1Result = LSEResultEnum.Negative;            
@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             if (this.IsMatch() == true)
             {
                 this.m_IsMatch = true;
-                if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(64) == true || this.m_AccessionOrder.PanelSetOrderCollection.Exists(144))
+                if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(64, orderedOnId, true) == true || this.m_AccessionOrder.PanelSetOrderCollection.Exists(144, orderedOnId, true))
                 {
                     this.m_Status = "Methylation Analysis testing is required and has been ordered.";
                     this.m_IsOrdered = true;

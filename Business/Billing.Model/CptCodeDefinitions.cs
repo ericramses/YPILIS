@@ -5,11 +5,38 @@ using System.Text;
 
 namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
 {
+    public class AutopsyBlock : CptCode
+    {
+        public AutopsyBlock()
+        {
+            this.m_Code = "AUTOPSYBLOCK";
+            this.m_FeeSchedule = FeeScheduleEnum.Clinical;
+            this.m_HasProfessionalComponent = false;
+            this.m_HasTechnicalComponent = true;
+            this.m_IsBillable = true;
+            this.m_CodeType = CPTCodeTypeEnum.TechnicalOnly;
+            this.m_Modifier = "TC";
+        }
+    }
+
     public class CPT81288 : CptCode
     {
         public CPT81288()
         {
             this.m_Code = "81288";
+            this.m_FeeSchedule = FeeScheduleEnum.Clinical;
+            this.m_HasProfessionalComponent = false;
+            this.m_HasTechnicalComponent = true;
+            this.m_IsBillable = true;
+            this.m_CodeType = CPTCodeTypeEnum.TechnicalOnly;
+        }
+    }
+
+    public class CPT81246 : CptCode
+    {
+        public CPT81246()
+        {
+            this.m_Code = "81246";
             this.m_FeeSchedule = FeeScheduleEnum.Clinical;
             this.m_HasProfessionalComponent = false;
             this.m_HasTechnicalComponent = true;
@@ -36,6 +63,19 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
         public CPT88369()
         {
             this.m_Code = "88369";
+            this.m_FeeSchedule = FeeScheduleEnum.Clinical;
+            this.m_HasProfessionalComponent = true;
+            this.m_HasTechnicalComponent = true;
+            this.m_IsBillable = true;
+            this.m_CodeType = CPTCodeTypeEnum.Global;
+        }
+    }
+
+    public class CPT83540 : CptCode
+    {
+        public CPT83540()
+        {
+            this.m_Code = "83540";
             this.m_FeeSchedule = FeeScheduleEnum.Clinical;
             this.m_HasProfessionalComponent = true;
             this.m_HasTechnicalComponent = true;
@@ -96,6 +136,19 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
         }
     }
 
+    public class CPT88347 : CptCode
+    {
+        public CPT88347()
+        {
+            this.m_Code = "88347";
+            this.m_FeeSchedule = FeeScheduleEnum.Physician;
+            this.m_HasProfessionalComponent = true;
+            this.m_HasTechnicalComponent = true;
+            this.m_IsBillable = true;
+            this.m_CodeType = CPTCodeTypeEnum.Global;
+        }
+    }
+
     public class CPT88348 : CptCode
     {
         public CPT88348()
@@ -114,6 +167,19 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
         public CPT87624()
         {
             this.m_Code = "87624";
+            this.m_FeeSchedule = FeeScheduleEnum.Clinical;
+            this.m_HasProfessionalComponent = false;
+            this.m_HasTechnicalComponent = true;
+            this.m_IsBillable = true;
+            this.m_CodeType = CPTCodeTypeEnum.TechnicalOnly;
+        }
+    }
+
+    public class CPT87661 : CptCode
+    {
+        public CPT87661()
+        {
+            this.m_Code = "87661";
             this.m_FeeSchedule = FeeScheduleEnum.Clinical;
             this.m_HasProfessionalComponent = false;
             this.m_HasTechnicalComponent = true;
@@ -192,6 +258,19 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
         public CPT88285()
         {
             this.m_Code = "88285";
+            this.m_FeeSchedule = FeeScheduleEnum.Clinical;
+            this.m_HasProfessionalComponent = false;
+            this.m_HasTechnicalComponent = true;
+            this.m_IsBillable = true;
+            this.m_CodeType = CPTCodeTypeEnum.TechnicalOnly;
+        }
+    }
+
+    public class CPT81287 : CptCode
+    {
+        public CPT81287()
+        {
+            this.m_Code = "81287";
             this.m_FeeSchedule = FeeScheduleEnum.Clinical;
             this.m_HasProfessionalComponent = false;
             this.m_HasTechnicalComponent = true;
@@ -998,7 +1077,20 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
 		}
 	}
 
-	public class CPT88237 : CptCode
+    public class CPT88230 : CptCode
+    {
+        public CPT88230()
+        {
+            this.m_Code = "88230";
+            this.m_FeeSchedule = FeeScheduleEnum.Clinical;
+            this.m_HasProfessionalComponent = false;
+            this.m_HasTechnicalComponent = true;
+            this.m_IsBillable = true;
+            this.m_CodeType = CPTCodeTypeEnum.TechnicalOnly;
+        }
+    }
+
+    public class CPT88237 : CptCode
 	{
 		public CPT88237()
 		{
@@ -1523,7 +1615,20 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
 		}
 	}
 
-	public class CPT8127026 : CptCode
+    public class CPT81264 : CptCode
+    {
+        public CPT81264()
+        {
+            this.m_Code = "81264";
+            this.m_FeeSchedule = FeeScheduleEnum.Clinical;
+            this.m_HasProfessionalComponent = false;
+            this.m_HasTechnicalComponent = true;
+            this.m_IsBillable = true;
+            this.m_CodeType = CPTCodeTypeEnum.TechnicalOnly;
+        }
+    }
+
+    public class CPT8127026 : CptCode
 	{
 		public CPT8127026()
 		{
@@ -1770,4 +1875,95 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
             this.m_CodeType = CPTCodeTypeEnum.ProfessionalOnly;
 		}
 	}
+	
+	public class CPT81170 : CptCode
+	{
+		public CPT81170()
+		{
+			this.m_Code = "81170";
+			this.m_FeeSchedule = FeeScheduleEnum.Clinical;
+			this.m_HasProfessionalComponent = false;
+			this.m_HasTechnicalComponent = true;
+			this.m_IsBillable = true;
+            this.m_CodeType = CPTCodeTypeEnum.ProfessionalOnly;
+		}
+	}
+		
+	public class CPT81219 : CptCode
+	{
+		public CPT81219()
+		{
+			this.m_Code = "81219";
+			this.m_FeeSchedule = FeeScheduleEnum.Clinical;
+			this.m_HasProfessionalComponent = false;
+			this.m_HasTechnicalComponent = true;
+			this.m_IsBillable = true;
+            this.m_CodeType = CPTCodeTypeEnum.ProfessionalOnly;
+		}
+	}
+		
+	public class CPT81218 : CptCode
+	{
+		public CPT81218()
+		{
+			this.m_Code = "81218";
+			this.m_FeeSchedule = FeeScheduleEnum.Clinical;
+			this.m_HasProfessionalComponent = false;
+			this.m_HasTechnicalComponent = true;
+			this.m_IsBillable = true;
+            this.m_CodeType = CPTCodeTypeEnum.ProfessionalOnly;
+		}
+	}
+			
+	public class CPT81276 : CptCode
+	{
+		public CPT81276()
+		{
+			this.m_Code = "81276";
+			this.m_FeeSchedule = FeeScheduleEnum.Clinical;
+			this.m_HasProfessionalComponent = false;
+			this.m_HasTechnicalComponent = true;
+			this.m_IsBillable = true;
+            this.m_CodeType = CPTCodeTypeEnum.ProfessionalOnly;
+		}
+	}
+			
+	public class CPT81311 : CptCode
+	{
+		public CPT81311()
+		{
+			this.m_Code = "81311";
+			this.m_FeeSchedule = FeeScheduleEnum.Clinical;
+			this.m_HasProfessionalComponent = false;
+			this.m_HasTechnicalComponent = true;
+			this.m_IsBillable = true;
+            this.m_CodeType = CPTCodeTypeEnum.ProfessionalOnly;
+		}
+	}
+	
+	public class CPT81314 : CptCode
+	{
+		public CPT81314()
+		{
+			this.m_Code = "81314";
+			this.m_FeeSchedule = FeeScheduleEnum.Clinical;
+			this.m_HasProfessionalComponent = false;
+			this.m_HasTechnicalComponent = true;
+			this.m_IsBillable = true;
+            this.m_CodeType = CPTCodeTypeEnum.ProfessionalOnly;
+		}
+	}	
+		
+	public class CPT81272 : CptCode
+	{
+		public CPT81272()
+		{
+			this.m_Code = "81272";
+			this.m_FeeSchedule = FeeScheduleEnum.Clinical;
+			this.m_HasProfessionalComponent = false;
+			this.m_HasTechnicalComponent = true;
+			this.m_IsBillable = true;
+            this.m_CodeType = CPTCodeTypeEnum.ProfessionalOnly;
+		}
+	}	
 }

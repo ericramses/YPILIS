@@ -20,7 +20,7 @@ namespace YellowstonePathology.UI.Login
 	/// <summary>
 	/// Interaction logic for HPV1618ResultPage.xaml
 	/// </summary>
-	public partial class ICDEntryPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
+	public partial class ICDEntryPage : UserControl, INotifyPropertyChanged 
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -29,32 +29,25 @@ namespace YellowstonePathology.UI.Login
 
         public delegate void BackEventHandler(object sender, EventArgs e);
         public event BackEventHandler Back;
-
-		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
+		
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private string m_PageHeaderText;
 		private string m_ReportNo;
 		
 
-        public ICDEntryPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
-			string reportNo,
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        public ICDEntryPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo)
 		{			
 			this.m_AccessionOrder = accessionOrder;
-			this.m_SystemIdentity = systemIdentity;
-			this.m_ObjectTracker = objectTracker;
 			this.m_ReportNo = reportNo;
 
 			this.m_PageHeaderText = "ICD Entry for: " + this.m_AccessionOrder.PatientDisplayName;
 			
 			InitializeComponent();
 
-			DataContext = this;                      
-		}		
+			DataContext = this;
+		}        
 
-		public void NotifyPropertyChanged(String info)
+        public void NotifyPropertyChanged(String info)
 		{
 			if (PropertyChanged != null)
 			{
@@ -70,33 +63,17 @@ namespace YellowstonePathology.UI.Login
 		public YellowstonePathology.Business.Test.AccessionOrder AccessionOrder
 		{
 			get { return this.m_AccessionOrder; }
-		}
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save()
-		{
-			this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
-		}
-
-		public void UpdateBindingSources()
-		{
-
-		}
+		}		
 
         private void ButtonNext_Click(object sender, RoutedEventArgs e)
         {
             if (this.IsOkToGoNext() == true)
             {
-                if (this.Next != null) this.Next(this, new EventArgs());
+                if (this.Next != null)
+                {
+                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
+                    this.Next(this, new EventArgs());
+                }
             }
         }
 
@@ -108,9 +85,9 @@ namespace YellowstonePathology.UI.Login
 				YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder womensHealthProfileTestOrder = (YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(116);
 				if (womensHealthProfileTestOrder.OrderHPV == true)
                 {
-                    if (this.m_AccessionOrder.ICD9BillingCodeCollection.CodeExists("V73.81") == false)
+                    if (this.m_AccessionOrder.ICD9BillingCodeCollection.CodeExists("Z11.51") == false)
                     {
-                        MessageBoxResult messageBoxResult = MessageBox.Show("A routine HPV was requested but V73.81 was not found. Are you sure you want to continue.", "Routine HPV Requested", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+                        MessageBoxResult messageBoxResult = MessageBox.Show("A routine HPV was requested but to Z11.51 was not found. Are you sure you want to continue.", "Routine HPV Requested", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
                         if (messageBoxResult == MessageBoxResult.No)
                         {
                             result = false;                            
@@ -147,9 +124,9 @@ namespace YellowstonePathology.UI.Login
 
         private void HyperlinkAddICDCode_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrEmpty(this.TextBoxICD9Code.Text) == false || string.IsNullOrEmpty(this.TextBoxICD10Code.Text) == false)
+            if (string.IsNullOrEmpty(this.TextBoxICD10Code.Text) == false)
             {
-                this.AddICD9Code(this.TextBoxICD9Code.Text, this.TextBoxICD10Code.Text, 1);
+                this.AddICD9Code(null, this.TextBoxICD10Code.Text, 1);
             }            
         }
 

@@ -16,7 +16,7 @@ using System.ComponentModel;
 
 namespace YellowstonePathology.UI.Login
 {	
-	public partial class SpecimenOrderDetailsPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges, INotifyPropertyChanged
+	public partial class SpecimenOrderDetailsPage : UserControl, INotifyPropertyChanged
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -32,16 +32,13 @@ namespace YellowstonePathology.UI.Login
         private YellowstonePathology.UI.Login.FinalizeAccession.SpecimenAdequacyTypes m_SpecimenAdequacyTypes;        
 		private YellowstonePathology.Business.Specimen.Model.SpecimenOrder m_SpecimenOrder;
         private YellowstonePathology.Business.Surgical.ProcessorRunCollection m_ProcessorRunCollection;
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 
         private YellowstonePathology.Business.Specimen.Model.SpecimenCollection m_SpecimenCollection;
 
         public SpecimenOrderDetailsPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
 			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder)
 		{
 			this.m_AccessionOrder = accessionOrder;
-			this.m_ObjectTracker = objectTracker;
 			this.m_SpecimenOrder = specimenOrder;
 
             this.m_ProcessorRunCollection = Business.Surgical.ProcessorRunCollection.GetAll(true);
@@ -53,10 +50,12 @@ namespace YellowstonePathology.UI.Login
 			InitializeComponent();
 			DataContext = this;
             this.Loaded += new RoutedEventHandler(SpecimenOrderDetailsPage_Loaded);
+            Unloaded += SpecimenOrderDetailsPage_Unloaded;
 		}
 
         private void SpecimenOrderDetailsPage_Loaded(object sender, RoutedEventArgs e)
         {
+             
             this.TextBoxDescription.Focus();
             if(string.IsNullOrEmpty(this.m_SpecimenOrder.SpecimenId) == true)
             {
@@ -76,6 +75,11 @@ namespace YellowstonePathology.UI.Login
             this.ComboBoxReceivedIn.SelectionChanged += new SelectionChangedEventHandler(ComboBoxReceivedIn_SelectionChanged);
             this.CheckBoxClientAccessioned.Checked +=new RoutedEventHandler(CheckBoxClientAccessioned_Checked);
             this.CheckBoxClientAccessioned.Unchecked +=new RoutedEventHandler(CheckBoxClientAccessioned_Unchecked);
+        }
+
+        private void SpecimenOrderDetailsPage_Unloaded(object sender, RoutedEventArgs e)
+        {
+             
         }
 
         private void ComboBoxReceivedIn_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -120,25 +124,14 @@ namespace YellowstonePathology.UI.Login
 
 		private void ButtonNext_Click(object sender, RoutedEventArgs e)
 		{
-            if (this.Next != null) this.Next(this, new EventArgs());
-		}
+            if (this.Next != null)
+            {
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
+                this.Next(this, new EventArgs());
+            }
+		}				
 
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save()
-		{
-			this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
-		}
-
-		public ObservableCollection<string> FixationTypeCollection
+        public ObservableCollection<string> FixationTypeCollection
 		{
 			get { return this.m_FixationTypeCollection; }
 		}
@@ -151,12 +144,7 @@ namespace YellowstonePathology.UI.Login
 		public YellowstonePathology.Business.Specimen.Model.SpecimenOrder SpecimenOrder
 		{
             get { return this.m_SpecimenOrder; }
-		}
-
-		public void UpdateBindingSources()
-		{
-
-		}
+		}		
 
         private void HyperLinkReceivedFresh_Click(object sender, RoutedEventArgs e)
         {

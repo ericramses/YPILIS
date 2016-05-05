@@ -19,7 +19,7 @@ namespace YellowstonePathology.UI.Test
 	/// <summary>
 	/// Interaction logic for ReviewForAdditionalTestingResultPage.xaml
 	/// </summary>
-	public partial class ReviewForAdditionalTestingResultPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
+	public partial class ReviewForAdditionalTestingResultPage : UserControl, INotifyPropertyChanged 
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -28,7 +28,6 @@ namespace YellowstonePathology.UI.Test
 
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-        private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private YellowstonePathology.Business.Test.ReviewForAdditionalTesting.ReviewForAdditionalTestingTestOrder m_TestOrder;
 
         private string m_OrderedOnDescription;
@@ -36,13 +35,10 @@ namespace YellowstonePathology.UI.Test
 
 		public ReviewForAdditionalTestingResultPage(YellowstonePathology.Business.Test.ReviewForAdditionalTesting.ReviewForAdditionalTestingTestOrder testOrder,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 		{            
 			this.m_AccessionOrder = accessionOrder;			
 			this.m_SystemIdentity = systemIdentity;
-
-			this.m_ObjectTracker = objectTracker;
 
             this.m_TestOrder = testOrder;
 			this.m_PageHeaderText = "Review For Additional Testing Results For: " + this.m_AccessionOrder.PatientDisplayName;
@@ -52,8 +48,8 @@ namespace YellowstonePathology.UI.Test
 
 			InitializeComponent();
 
-			DataContext = this;				
-		}
+			DataContext = this;
+        }
 
         public string OrderedOnDescription
         {
@@ -82,26 +78,6 @@ namespace YellowstonePathology.UI.Test
 		{
 			get { return this.m_PageHeaderText; }
 		}				        
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save()
-		{
-            this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
-		}
-        
-		public void UpdateBindingSources()
-		{
-
-		}
 
 		private void HyperLinkSufficientTissue_Click(object sender, RoutedEventArgs e)
 		{
@@ -133,9 +109,8 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
 		{
-			this.Save();
-			YellowstonePathology.Business.Test.ReviewForAdditionalTesting.ReviewForAdditionalTestingWordDocument report = new YellowstonePathology.Business.Test.ReviewForAdditionalTesting.ReviewForAdditionalTestingWordDocument();
-			report.Render(this.m_AccessionOrder.MasterAccessionNo, this.m_TestOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft);
+			YellowstonePathology.Business.Test.ReviewForAdditionalTesting.ReviewForAdditionalTestingWordDocument report = new YellowstonePathology.Business.Test.ReviewForAdditionalTesting.ReviewForAdditionalTestingWordDocument(this.m_AccessionOrder, this.m_TestOrder, Business.Document.ReportSaveModeEnum.Draft);
+			report.Render();
 
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_TestOrder.ReportNo);
 			string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);
@@ -147,7 +122,7 @@ namespace YellowstonePathology.UI.Test
 			YellowstonePathology.Business.Rules.MethodResult methodResult =  this.m_TestOrder.IsOkToFinalize();
 			if(methodResult.Success == true)
 			{
-				this.m_TestOrder.Finalize(this.m_SystemIdentity.User);
+				this.m_TestOrder.Finish(this.m_AccessionOrder);
             }
             else
             {
@@ -173,7 +148,7 @@ namespace YellowstonePathology.UI.Test
 			YellowstonePathology.Business.Rules.MethodResult result = this.m_TestOrder.IsOkToAccept();
 			if (result.Success == true)
 			{
-				this.m_TestOrder.Accept(this.m_SystemIdentity.User);
+				this.m_TestOrder.Accept();
 			}
 			else
 			{

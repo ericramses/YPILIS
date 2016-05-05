@@ -17,14 +17,13 @@ using System.Xml.Linq;
 
 namespace YellowstonePathology.UI.Login.ReceiveSpecimen
 {
-	public partial class PlacentalPathologyPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
+	public partial class PlacentalPathologyPage : UserControl
 	{
 		public delegate void ReturnEventHandler(object sender, UI.Navigation.PageNavigationReturnEventArgs e);
 		public event ReturnEventHandler Return;
 
 		private string m_PageHeaderText = "Placental Pathology Questionnaire Page";
-        private string m_ClientOrderId;
-        //private YellowstonePathology.YpiConnect.Contract.Order.PlacentalPathologyQuestionnaireCollection m_PlacentalPathologyQuestionnaireCollection;
+        private string m_ClientOrderId;        
 
 		public PlacentalPathologyPage(string clientOrderId)
 		{
@@ -38,7 +37,7 @@ namespace YellowstonePathology.UI.Login.ReceiveSpecimen
 
 		private void PlacentalFormDisplayPage_Loaded(object sender, RoutedEventArgs e)
 		{
-			YellowstonePathology.Document.Result.Data.PlacentalPathologyQuestionnaireData placentalPathologyQuestionnaireData = YellowstonePathology.Business.Gateway.XmlGateway.GetPlacentalPathologyQuestionnaire(this.m_ClientOrderId);
+			YellowstonePathology.Document.Result.Data.PlacentalPathologyQuestionnaireData placentalPathologyQuestionnaireData = YellowstonePathology.Business.Gateway.XmlGateway.GetPlacentalPathologyQuestionnaire(this.m_ClientOrderId, Window.GetWindow(this));
 			YellowstonePathology.Document.PlacentalPathologyQuestionnaire placentalPathologyQuestionnare = new Document.PlacentalPathologyQuestionnaire(placentalPathologyQuestionnaireData);
 			this.Viewer.Document = placentalPathologyQuestionnare.FixedDocument;
 		}
@@ -58,25 +57,6 @@ namespace YellowstonePathology.UI.Login.ReceiveSpecimen
 		{
 			UI.Navigation.PageNavigationReturnEventArgs args = new UI.Navigation.PageNavigationReturnEventArgs(UI.Navigation.PageNavigationDirectionEnum.Next, null);
 			this.Return(this, args);
-		}
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return false;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return false;
-		}
-
-		public void Save()
-		{
-
-		}
-
-		public void UpdateBindingSources()
-		{
-		}
+		}		
 	}
 }

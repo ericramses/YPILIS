@@ -17,21 +17,19 @@ namespace YellowstonePathology.UI.Gross
 	/// <summary>
 	/// Interaction logic for BlockColorSelectionPage.xaml
 	/// </summary>
-	public partial class BlockColorSelectionPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
+	public partial class BlockColorSelectionPage : UserControl
 	{
 		public delegate void NextEventHandler(object sender, UI.CustomEventArgs.SpecimenOrderReturnEventArgs e);
 		public event NextEventHandler Next;
 
 		private YellowstonePathology.Business.Specimen.Model.SpecimenOrder m_SpecimenOrder;
-		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-        private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
+		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;        
         private YellowstonePathology.Business.Common.PrintMate m_PrintMate;
 
-		public BlockColorSelectionPage(YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder, YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Persistence.ObjectTracker objectTracker)
+		public BlockColorSelectionPage(YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{
             this.m_SpecimenOrder = specimenOrder;
-			this.m_AccessionOrder = accessionOrder;
-            this.m_ObjectTracker = objectTracker;
+			this.m_AccessionOrder = accessionOrder;            
 
             this.m_PrintMate = new Business.Common.PrintMate();
 
@@ -54,26 +52,6 @@ namespace YellowstonePathology.UI.Gross
                 YellowstonePathology.UI.CustomEventArgs.SpecimenOrderReturnEventArgs specimenOrderReturnEventArgs = new CustomEventArgs.SpecimenOrderReturnEventArgs(this.m_SpecimenOrder);
                 this.Next(this, specimenOrderReturnEventArgs);
 			}
-		}		
-
-		public void Save()
-		{
-            this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);	
-		}
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void UpdateBindingSources()
-		{
-
-		}        
+		}				
 	}
 }

@@ -77,9 +77,9 @@
 						<RowDefinition Height="Auto"></RowDefinition>
 					</Grid.RowDefinitions>
 
-                    <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,5" FontWeight="Bold">Include Tests Performed On Other Blocks:</TextBlock>
+                    <!--<TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,5" FontWeight="Bold">Include Tests Performed On Other Blocks:</TextBlock>
                     <CheckBox Grid.Column="1" Grid.Row="0" Margin="2,2,2,5" IsChecked="{Binding Path=PanelSetOrder.IncludeTestsPerformedOnOtherBlocks}" 
-                              Checked="CheckBoxIncludeTestsPerformedOnOtherBlocks_Checked" Unchecked="CheckBoxIncludeTestsPerformedOnOtherBlocks_UnChecked"/>
+                              Checked="CheckBoxIncludeTestsPerformedOnOtherBlocks_Checked" Unchecked="CheckBoxIncludeTestsPerformedOnOtherBlocks_UnChecked"/>-->
                     
                     <TextBlock Grid.Column="0" Grid.Row="1" Margin="2,2,2,5" FontWeight="Bold">Specimen:</TextBlock>
 					<TextBlock Grid.Column="1" Grid.Row="1" Margin="2,2,2,5" Text="{Binding Path=OrderedOnDescription}"></TextBlock>

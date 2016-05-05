@@ -22,10 +22,7 @@ namespace YellowstonePathology.UI.Login
         public delegate void PropertyChangedNotificationHandler(String info);
         public event PropertyChangedEventHandler PropertyChanged;
 
-		YellowstonePathology.Business.Domain.OrderCommentLog m_OrderCommentLog;
-
-		YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
-
+		YellowstonePathology.Business.Domain.OrderCommentLog m_OrderCommentLog;       
 		YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 
 		public LabEventLogEntryDialog(YellowstonePathology.Business.User.SystemIdentity systemIdentity)
@@ -51,9 +48,7 @@ namespace YellowstonePathology.UI.Login
 
 		public void SetEventLog(YellowstonePathology.Business.Domain.OrderCommentLog orderCommentLog)
         {
-			this.m_OrderCommentLog = orderCommentLog;
-			this.m_ObjectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-			this.m_ObjectTracker.RegisterObject(this.m_OrderCommentLog);
+			this.m_OrderCommentLog = orderCommentLog;			
         }
 
 		public YellowstonePathology.Business.Domain.OrderCommentLog CreateOrderCommentLog(YellowstonePathology.Business.Interface.IOrder order, YellowstonePathology.Business.Interface.IOrderComment orderComment)
@@ -66,16 +61,14 @@ namespace YellowstonePathology.UI.Login
 			this.m_OrderCommentLog.SpecimenLogId = order.SpecimenLogId;
 			this.m_OrderCommentLog.FromEvent(orderComment);
 
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-			objectTracker.RegisterRootInsert(this.m_OrderCommentLog);
-			objectTracker.SubmitChanges(this.m_OrderCommentLog);
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(this.m_OrderCommentLog, this);
 			return this.m_OrderCommentLog;
         }
 
         private void ButtonOK_Click(object sender, RoutedEventArgs e)
         {
             this.DialogResult = true;
-			if (this.m_ObjectTracker != null) this.m_ObjectTracker.SubmitChanges(this.m_OrderCommentLog);
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
             this.Close();
         }
 

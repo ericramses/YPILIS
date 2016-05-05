@@ -22,20 +22,31 @@ namespace YellowstonePathology.UI
 		YellowstonePathology.Business.User.SystemUserCollection m_Users;
 
 		YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-		YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 
-        public AmendmentV2(YellowstonePathology.Business.Amendment.Model.Amendment amendment, YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Persistence.ObjectTracker objectTracker)
+        public AmendmentV2(YellowstonePathology.Business.Amendment.Model.Amendment amendment, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{
 			this.m_Amendment = amendment;
 			this.m_AccessionOrder = accessionOrder;
-			this.m_ObjectTracker = objectTracker;
 
 			this.m_Users = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetUsersByRole(YellowstonePathology.Business.User.SystemUserRoleDescriptionEnum.AmendmentSigner, true);
 			InitializeComponent();
 
 			this.DataContext = this.m_Amendment;
 			this.comboBoxAmendmentUsers.ItemsSource = this.m_Users;
+
+            Loaded += AmendmentV2_Loaded;
+            Unloaded += AmendmentV2_Unloaded;
 		}
+
+        private void AmendmentV2_Loaded(object sender, RoutedEventArgs e)
+        {
+             
+        }
+
+        private void AmendmentV2_Unloaded(object sender, RoutedEventArgs e)
+        {
+            
+        }
 
         public void ComboBoxAmendmentUsers_SelectionChanged(object sender, RoutedEventArgs args)
         {
@@ -63,7 +74,7 @@ namespace YellowstonePathology.UI
         public void ButtonOk_Click(object sender, RoutedEventArgs args)
         {
             this.DialogResult = true;
-            this.Save();            
+            this.Save(false);            
             this.Close();
         }
 
@@ -73,9 +84,9 @@ namespace YellowstonePathology.UI
             this.Close();
         }
 
-        private void Save()
+        private void Save(bool releaseLock)
         {
-			m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
+            //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, true);
         }
 
         public void ButtonFinalize_Click(object sender, RoutedEventArgs args)
@@ -98,8 +109,8 @@ namespace YellowstonePathology.UI
 
                     if (canFinal == true)
                     {
-                        this.m_Amendment.Finalize(systemUser);
-                        this.Save();
+                        this.m_Amendment.Finish();
+                        this.Save(false);
                     }
                 }
                 else

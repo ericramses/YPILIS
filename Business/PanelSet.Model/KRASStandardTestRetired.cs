@@ -16,11 +16,10 @@ namespace YellowstonePathology.Business.PanelSet.Model
 			this.m_HasProfessionalComponent = true;
             this.m_ResultDocumentSource = ResultDocumentSourceEnum.PublishedDocument;
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterM();
-            this.m_Active = true;
+            this.m_Active = false;
             
 			this.m_SurgicalAmendmentRequired = true;
-			
-            
+			            
 			this.m_AllowMultiplePerAccession = true;
             this.m_ExpectedDuration = new TimeSpan(120, 0, 0);            
 

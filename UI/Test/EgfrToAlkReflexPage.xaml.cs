@@ -15,7 +15,7 @@ using System.ComponentModel;
 
 namespace YellowstonePathology.UI.Test
 {	
-	public partial class EGFRToALKReflexPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges, INotifyPropertyChanged
+	public partial class EGFRToALKReflexPage : UserControl, INotifyPropertyChanged
 	{
 		public delegate void PropertyChangedNotificationHandler(String info);
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -30,7 +30,6 @@ namespace YellowstonePathology.UI.Test
         public event OrderALKROS1AndPDL1EventHandler OrderALKROS1AndPDL1;
 
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 
         private YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisTestOrder m_EGFRToALKReflexAnalysisTestOrder;
@@ -43,12 +42,10 @@ namespace YellowstonePathology.UI.Test
 
         public EGFRToALKReflexPage(YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisTestOrder testOrder,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity,
             System.Windows.Visibility backButtonVisibility)
 		{
 			this.m_AccessionOrder = accessionOrder;
-			this.m_ObjectTracker = objectTracker;			
 			this.m_SystemIdentity = systemIdentity;
             this.m_BackButtonVisibility = backButtonVisibility;
 
@@ -79,7 +76,7 @@ namespace YellowstonePathology.UI.Test
 			InitializeComponent();
 
 			this.DataContext = this;
-		}
+        }
 
         public YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisResult EGFRToALKReflexAnalysisResult
         {
@@ -121,26 +118,6 @@ namespace YellowstonePathology.UI.Test
             get { return this.m_PageHeaderText; }
 		}
 
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save()
-		{
-			this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
-		}
-
-		public void UpdateBindingSources()
-		{
-
-		}						      
-
         private void HyperLinkOrderALKROS1AndPDL1_Click(object sender, RoutedEventArgs e)
         {
             this.OrderALKROS1AndPDL1(this, new EventArgs());
@@ -153,9 +130,8 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
 		{
-			this.Save();
-            YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisWordDocument report = new Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisWordDocument();
-			report.Render(this.m_AccessionOrder.MasterAccessionNo, this.m_EGFRToALKReflexAnalysisTestOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft);
+            YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisWordDocument report = new Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisWordDocument(this.m_AccessionOrder, this.m_EGFRToALKReflexAnalysisTestOrder, Business.Document.ReportSaveModeEnum.Draft);
+            report.Render();
 
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_EGFRToALKReflexAnalysisTestOrder.ReportNo);
 			string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);
@@ -172,7 +148,7 @@ namespace YellowstonePathology.UI.Test
             {
                 if (this.m_EGFRToALKReflexAnalysisTestOrder.Final == false)
                 {
-                    this.m_EGFRToALKReflexAnalysisTestOrder.Finalize(this.m_SystemIdentity.User);
+                    this.m_EGFRToALKReflexAnalysisTestOrder.Finish(this.m_AccessionOrder);
                 }
             }			
 		}
@@ -190,7 +166,19 @@ namespace YellowstonePathology.UI.Test
 			YellowstonePathology.Business.Rules.MethodResult result = this.m_EGFRToALKReflexAnalysisTestOrder.IsOkToAccept();
 			if (result.Success == true)
 			{
-				this.m_EGFRToALKReflexAnalysisTestOrder.Accept(this.m_SystemIdentity.User);
+                YellowstonePathology.Business.Rules.MethodResult methodResult = this.m_EGFRToALKReflexAnalysisTestOrder.HaveResultsBeenSet(this.m_AccessionOrder);
+                if (methodResult.Success == true)
+                {
+                    this.m_EGFRToALKReflexAnalysisTestOrder.Accept();
+                }
+                else
+                {
+                    MessageBoxResult messageBoxResult = MessageBox.Show("Have the results been set?", "Set Results", MessageBoxButton.YesNo, MessageBoxImage.Exclamation, MessageBoxResult.Yes);
+                    if (messageBoxResult == MessageBoxResult.Yes)
+                    {
+                        this.m_EGFRToALKReflexAnalysisTestOrder.Accept();
+                    }
+                }
 			}
 			else
 			{
@@ -263,6 +251,16 @@ namespace YellowstonePathology.UI.Test
         {
             this.m_EGFRToALKReflexAnalysisResult = new Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisResult(this.m_AccessionOrder, this.m_EGFRToALKReflexAnalysisTestOrder);
             this.NotifyPropertyChanged(string.Empty);
-        }                    
-	}
+        }
+
+        private void CheckBoxDoNotPerformPDL1_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void CheckBoxDoNotPerformPDL1_Unchecked(object sender, RoutedEventArgs e)
+        {
+
+        }
+    }
 }

@@ -14,6 +14,7 @@ using System.IO;
 using System.ComponentModel;
 using System.ServiceModel;
 using System.ServiceModel.Description;
+using Microsoft.Win32;
 
 namespace YellowstonePathology.UI
 {
@@ -36,14 +37,26 @@ namespace YellowstonePathology.UI
 				return;
 			}
 
+            try
+            {
+                UI.AppMessaging.MessageQueues.Instance.CreateMessageQueuesIfNotExist();
+            }
+            catch
+            {
+                //do nothing
+            }
+            
             this.DispatcherUnhandledException += new System.Windows.Threading.DispatcherUnhandledExceptionEventHandler(YellowstonePathology.Business.Logging.EmailExceptionHandler.HandleException);
-		}
-        
+		}     
+               
+
         protected override void OnStartup(StartupEventArgs e)
-        {
+        {            
+            this.ReleaseLocksOnStartup();            
+            
             string startUpWindow = string.Empty;
 
-			if (System.Environment.MachineName.ToUpper() == "CUTTINGA" || System.Environment.MachineName.ToUpper() == "CUTTINGB")// || System.Environment.MachineName.ToUpper() == "SIDHARDERWIN8")
+			if (System.Environment.MachineName.ToUpper() == "CUTTINGA" || System.Environment.MachineName.ToUpper() == "CUTTINGB")// || System.Environment.MachineName.ToUpper() == "COMPILE")
             {                
                 YellowstonePathology.UI.Cutting.CuttingStationPath cuttingStationPath = new Cutting.CuttingStationPath();
                 cuttingStationPath.Start();
@@ -59,14 +72,28 @@ namespace YellowstonePathology.UI
 				this.StartupUri = new System.Uri(startUpWindow, System.UriKind.Relative);
 			}                        
 
-			this.StartTimer();			
+			this.StartTimer();            
 		}
+
+        private void ReleaseLocksOnStartup()
+        {
+            Business.Domain.LockItemCollection lockItemCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetLockedAccessionOrders();
+            foreach(Business.Domain.LockItem lockItem in lockItemCollection)
+            {
+                if(lockItem.ComputerName == Environment.MachineName)
+                {
+                    Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(lockItem.KeyString, this);                    
+                }
+            }
+            Business.Persistence.DocumentGateway.Instance.Push(this);
+        }
 
 		protected override void OnExit(ExitEventArgs e)
 		{
 			this.m_Timer.Stop();
 			this.m_Timer.Dispose();
-			base.OnExit(e);
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Flush();
+            base.OnExit(e);
 		}
 
         private void SetupApplicationFolders()
@@ -111,33 +138,15 @@ namespace YellowstonePathology.UI
 		{
 			this.m_Timer = new System.Timers.Timer();
 			this.m_Timer.Elapsed += new System.Timers.ElapsedEventHandler(Timer_Elapsed);
-
-			DateTime notificationTime = DateTime.Today.AddHours(12);
-			DateTime applicaztionStartTime = DateTime.Now;
-			if (applicaztionStartTime > notificationTime)
-			{
-				notificationTime = notificationTime.AddDays(1);
-			}
-
-			TimeSpan timeToNextNotification = notificationTime - applicaztionStartTime;
-			this.m_Timer.Interval = timeToNextNotification.TotalMilliseconds;
+						
+            TimeSpan timeToNextEvent = new TimeSpan(0, 15, 0);
+			this.m_Timer.Interval = timeToNextEvent.TotalMilliseconds;
 			this.m_Timer.Enabled = true;
 		}
 
 		private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
 		{
-			Version currentVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
-			YellowstonePathology.Business.ApplicationVersion applicationVersion = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetApplicationVersion();
-			Version availableVersion = new Version(applicationVersion.Version);
-			if (availableVersion > currentVersion)
-			{
-				if (applicationVersion.EnforceChange == true)
-				{					
-					MessageBox.Show("Please restart the LIS as a new version is available", "LIS Restart");
-				}
-			}
-			TimeSpan timeToNextNotification = DateTime.Today.AddDays(1) - DateTime.Today;
-			this.m_Timer.Interval = timeToNextNotification.TotalMilliseconds;
-		}
+			
+		}               
     }
 }

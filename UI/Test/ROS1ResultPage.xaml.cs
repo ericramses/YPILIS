@@ -16,7 +16,7 @@ using System.Xml.Linq;
 
 namespace YellowstonePathology.UI.Test
 {	
-	public partial class ROS1ResultPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
+	public partial class ROS1ResultPage : UserControl, INotifyPropertyChanged 
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -25,7 +25,6 @@ namespace YellowstonePathology.UI.Test
 
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-        private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
         private string m_PageHeaderText;
 
         private YellowstonePathology.Business.Test.ROS1ByFISH.ROS1ByFISHTestOrder m_ROS1ByFISHTestOrder;
@@ -35,13 +34,11 @@ namespace YellowstonePathology.UI.Test
 
         public ROS1ResultPage(YellowstonePathology.Business.Test.ROS1ByFISH.ROS1ByFISHTestOrder ros1ByFISHTestOrder,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 		{
             this.m_ROS1ByFISHTestOrder = ros1ByFISHTestOrder;
 			this.m_AccessionOrder = accessionOrder;			
 			this.m_SystemIdentity = systemIdentity;
-			this.m_ObjectTracker = objectTracker;
 
             this.m_ResultCollection = new Business.Test.ROS1ByFISH.ROS1ByFISHResultCollection();
             this.m_PageHeaderText = "ROS1 Results For: " + this.m_AccessionOrder.PatientDisplayName;
@@ -57,10 +54,10 @@ namespace YellowstonePathology.UI.Test
 			
 			Loaded += ROS1ResultPage_Loaded;
 		}
-        
+
         public void ROS1ResultPage_Loaded(object sender, RoutedEventArgs e)
         {
-        	this.ComboBoxResult.SelectionChanged += ComboBoxResult_SelectionChanged;
+        	this.ComboBoxResult.SelectionChanged += ComboBoxResult_SelectionChanged;             
         }
 
         public YellowstonePathology.Business.Test.ROS1ByFISH.ROS1ByFISHResultCollection ResultCollection
@@ -91,31 +88,10 @@ namespace YellowstonePathology.UI.Test
 			get { return this.m_PageHeaderText; }
 		}				        
 
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save()
-		{
-            this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
-		}
-        
-		public void UpdateBindingSources()
-		{
-
-		}                        
-
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
 		{            
-            this.Save();
-            YellowstonePathology.Business.Test.ROS1ByFISH.ROS1ByFISHWordDocument report = new Business.Test.ROS1ByFISH.ROS1ByFISHWordDocument();
-            report.Render(this.m_AccessionOrder.MasterAccessionNo, this.m_ROS1ByFISHTestOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft);
+            YellowstonePathology.Business.Test.ROS1ByFISH.ROS1ByFISHWordDocument report = new Business.Test.ROS1ByFISH.ROS1ByFISHWordDocument(this.m_AccessionOrder, this.m_ROS1ByFISHTestOrder, Business.Document.ReportSaveModeEnum.Draft);
+            report.Render();
 
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_ROS1ByFISHTestOrder.ReportNo);
             string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);
@@ -128,7 +104,7 @@ namespace YellowstonePathology.UI.Test
             {
                 if (this.m_ROS1ByFISHTestOrder.Final == false)
                 {
-                    this.m_ROS1ByFISHTestOrder.Finalize(this.m_SystemIdentity.User);
+                    this.m_ROS1ByFISHTestOrder.Finish(this.m_AccessionOrder);
                 }
                 else
                 {
@@ -159,7 +135,7 @@ namespace YellowstonePathology.UI.Test
             {
                 if (this.m_ROS1ByFISHTestOrder.Accepted == false)
                 {
-                    this.m_ROS1ByFISHTestOrder.Accept(this.m_SystemIdentity.User);
+                    this.m_ROS1ByFISHTestOrder.Accept();
                 }
                 else
                 {

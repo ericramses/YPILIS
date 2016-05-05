@@ -17,23 +17,20 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 	/// <summary>
 	/// Interaction logic for AssignmentPage.xaml
 	/// </summary>
-	public partial class AssignmentPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
+	public partial class AssignmentPage : UserControl
 	{
 		public delegate void ReturnEventHandler(object sender, UI.Navigation.PageNavigationReturnEventArgs e);
 		public event ReturnEventHandler Return;
 
         private bool m_IsLoaded;
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		private string m_PageHeaderText = "Case Asssignment Page";
 		private YellowstonePathology.Business.User.SystemUserCollection m_PathologistUsers;
         private YellowstonePathology.Business.Facility.Model.FacilityCollection m_FacilityCollection;
 
-		public AssignmentPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker)
+		public AssignmentPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{
             this.m_IsLoaded = false;
-			this.m_ObjectTracker = objectTracker;
 			this.m_AccessionOrder = accessionOrder;
             this.m_FacilityCollection = Business.Facility.Model.FacilityCollection.GetAllFacilities();
 
@@ -43,14 +40,21 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
 			DataContext = this;
             this.Loaded += new RoutedEventHandler(AssignmentPage_Loaded);
+            Unloaded += AssignmentPage_Unloaded;
 		}
 
         private void AssignmentPage_Loaded(object sender, RoutedEventArgs e)
         {
             this.m_IsLoaded = true;
-        }		
+             
+        }
 
-		public string PageHeaderText
+        private void AssignmentPage_Unloaded(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        public string PageHeaderText
 		{
 			get { return this.m_PageHeaderText; }
 		}
@@ -87,12 +91,14 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                     MessageBoxResult messageBoxResult = MessageBox.Show("A Gross Only has been ordered but the case has not been assigned.  Are you sure you want to continue?", "Assignement", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
                     if (messageBoxResult == MessageBoxResult.Yes)
                     {
+                        YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
                         UI.Navigation.PageNavigationReturnEventArgs args = new UI.Navigation.PageNavigationReturnEventArgs(UI.Navigation.PageNavigationDirectionEnum.Next, null);
                         this.Return(this, args);
                     }
                 }
                 else
                 {
+                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
                     UI.Navigation.PageNavigationReturnEventArgs args = new UI.Navigation.PageNavigationReturnEventArgs(UI.Navigation.PageNavigationDirectionEnum.Next, null);
                     this.Return(this, args);
                 }
@@ -102,36 +108,18 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                 MessageBoxResult messageBoxResult = MessageBox.Show("There is an order that has not been assigned are you sure you want to continue?", "Assignement", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
                 if (messageBoxResult == MessageBoxResult.Yes)
                 {
+                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
                     UI.Navigation.PageNavigationReturnEventArgs args = new UI.Navigation.PageNavigationReturnEventArgs(UI.Navigation.PageNavigationDirectionEnum.Next, null);
                     this.Return(this, args);
                 }
             }
             else
             {
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
                 UI.Navigation.PageNavigationReturnEventArgs args = new UI.Navigation.PageNavigationReturnEventArgs(UI.Navigation.PageNavigationDirectionEnum.Next, null);
                 this.Return(this, args);
             }
-		}
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save()
-		{
-			this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
-		}
-
-		public void UpdateBindingSources()
-		{
-
-		}
+		}		
 
         private void ComboBoxUser_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

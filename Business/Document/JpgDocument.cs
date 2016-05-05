@@ -15,7 +15,7 @@ namespace YellowstonePathology.Business.Document
 
 		}
 
-		public override void Show(System.Windows.Controls.ContentControl contentControl)
+		public override void Show(System.Windows.Controls.ContentControl contentControl, object writer)
 		{
 			FileStream imageStreamSource = new FileStream(this.FullFileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
 			Image image = new Image();

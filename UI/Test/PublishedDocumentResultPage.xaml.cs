@@ -17,7 +17,7 @@ namespace YellowstonePathology.UI.Test
 	/// <summary>
 	/// Interaction logic for PublishedDocumentResultPage.xaml
 	/// </summary>
-	public partial class PublishedDocumentResultPage : UserControl, Business.Interface.IPersistPageChanges
+	public partial class PublishedDocumentResultPage : UserControl 
 	{
 		public delegate void NextEventHandler(object sender, EventArgs e);
 		public event NextEventHandler Next;
@@ -36,25 +36,6 @@ namespace YellowstonePathology.UI.Test
 			InitializeComponent();
 
 			DataContext = this;
-		}
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return false;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return false;
-		}
-
-		public void Save()
-		{
-		}
-
-		public void UpdateBindingSources()
-		{
-
 		}
 
 		public string PageHeaderText

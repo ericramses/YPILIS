@@ -48,7 +48,10 @@
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="20"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="Auto"></RowDefinition>                    
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="20"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
@@ -87,18 +90,25 @@
 				    <Hyperlink Click="HyperlinkReceiveMaterialFromDrShannon_Click">Receive Material From Dr. Shannon</Hyperlink>
                 </TextBlock>
 
-                <TextBlock Grid.Column="0" Grid.Row="14" Margin="2,2,2,2">Location Cody</TextBlock>
+                <TextBlock Grid.Column="0" Grid.Row="14" Margin="2,2,2,2">
+				    <Hyperlink Click="HyperlinkSendMaterialToDrMatthews_Click">Send Material to Dr. Matthews</Hyperlink>
+                </TextBlock>
                 <TextBlock Grid.Column="0" Grid.Row="15" Margin="2,2,2,2">
+				    <Hyperlink Click="HyperlinkReceiveMaterialFromDrMatthews_Click">Receive Material From Dr. Matthews</Hyperlink>
+                </TextBlock>
+
+                <TextBlock Grid.Column="0" Grid.Row="17" Margin="2,2,2,2">Location Cody</TextBlock>
+                <TextBlock Grid.Column="0" Grid.Row="18" Margin="2,2,2,2">
 				    <Hyperlink Click="HyperlinkSendMaterialFromCodyToBillings_Click">Send Material to Billings</Hyperlink>
                 </TextBlock>
-                <TextBlock Grid.Column="0" Grid.Row="16" Margin="2,2,2,2">
+                <TextBlock Grid.Column="0" Grid.Row="19" Margin="2,2,2,2">
 				    <Hyperlink Click="HyperlinkReceiveMaterialFromBillings_Click">Receive Material From Billings</Hyperlink>
                 </TextBlock>
 
-                <TextBlock Grid.Column="0" Grid.Row="17" Margin="2,2,2,2">
+                <TextBlock Grid.Column="0" Grid.Row="21" Margin="2,2,2,2">
 				    <Hyperlink Click="HyperlinkViewSelectedBatch_Click">View Selected Batch</Hyperlink>
                 </TextBlock>
-                <TextBlock Grid.Column="0" Grid.Row="18" Margin="2,2,2,2">
+                <TextBlock Grid.Column="0" Grid.Row="22" Margin="2,2,2,2">
 				    <Hyperlink Click="HyperlinkDeleteSelectedBatch_Click">Delete Selected Batch</Hyperlink>
                 </TextBlock>
 

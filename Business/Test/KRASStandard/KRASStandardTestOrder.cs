@@ -30,7 +30,7 @@ namespace YellowstonePathology.Business.Test.KRASStandard
             YellowstonePathology.Business.Interface.IOrderTarget orderTarget,
             bool distribute,
             YellowstonePathology.Business.User.SystemIdentity systemIdentity)
-            : base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute, systemIdentity)
+            : base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute)
         {
 
         }

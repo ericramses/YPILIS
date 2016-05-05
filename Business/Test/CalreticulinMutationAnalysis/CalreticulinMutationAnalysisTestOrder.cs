@@ -10,6 +10,8 @@ namespace YellowstonePathology.Business.Test.CalreticulinMutationAnalysis
 	public class CalreticulinMutationAnalysisTestOrder : YellowstonePathology.Business.Test.PanelSetOrder
 	{
         private string m_Result;
+        private string m_Percentage;
+        private string m_Mutations;
         private string m_Interpretation;
         private string m_Method;
         private string m_References;
@@ -22,9 +24,8 @@ namespace YellowstonePathology.Business.Test.CalreticulinMutationAnalysis
 		public CalreticulinMutationAnalysisTestOrder(string masterAccessionNo, string reportNo, string objectId,
             YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
             YellowstonePathology.Business.Interface.IOrderTarget orderTarget,
-			bool distribute,
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
-			: base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute, systemIdentity)
+			bool distribute)
+			: base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute)
         {
 
         }
@@ -39,6 +40,34 @@ namespace YellowstonePathology.Business.Test.CalreticulinMutationAnalysis
                 {
                     this.m_Result = value;
                     this.NotifyPropertyChanged("Result");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string Percentage
+        {
+            get { return this.m_Percentage; }
+            set
+            {
+                if (this.m_Percentage != value)
+                {
+                    this.m_Percentage = value;
+                    this.NotifyPropertyChanged("Percentage");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string Mutations
+        {
+            get { return this.m_Mutations; }
+            set
+            {
+                if (this.m_Mutations != value)
+                {
+                    this.m_Mutations = value;
+                    this.NotifyPropertyChanged("Mutations");
                 }
             }
         }

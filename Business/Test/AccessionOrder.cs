@@ -9,7 +9,7 @@ using YellowstonePathology.Business.Persistence;
 namespace YellowstonePathology.Business.Test
 {
 	[PersistentClass("tblAccessionOrder", "YPIDATA")]
-    public partial class AccessionOrder : INotifyPropertyChanged, Interface.IOrder, Interface.IPatientOrder, Interface.ILockable
+    public partial class AccessionOrder : INotifyPropertyChanged, Interface.IOrder, Interface.IPatientOrder
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -96,12 +96,12 @@ namespace YellowstonePathology.Business.Test
         private bool m_ITAuditRequired;
         private bool m_ITAudited;
         private int m_ITAuditPriority;
-        private string m_CaseDialog;
-        private string m_JSON;
+        private string m_CaseDialog;        
         private Nullable<int> m_LockAquiredById;
         private string m_LockAquiredByUserName;
         private string m_LockAquiredByHostName;
-        private Nullable<DateTime> m_TimeLockAquired; 
+        private Nullable<DateTime> m_TimeLockAquired;
+        private bool m_LockAquired;
 
 		public AccessionOrder()
         {
@@ -152,21 +152,7 @@ namespace YellowstonePathology.Business.Test
 					this.NotifyPropertyChanged("MasterAccessionNo");
 				}
 			}
-		}
-
-        [PersistentProperty()]
-        public string JSON
-        {
-            get { return this.m_JSON; }
-            set
-            {
-                if (this.m_JSON != value)
-                {
-                    this.m_JSON = value;
-                    this.NotifyPropertyChanged("JSON");
-                }
-            }
-        }
+		}        
 
         [PersistentProperty()]
         public Nullable<int> LockAquiredById
@@ -177,7 +163,7 @@ namespace YellowstonePathology.Business.Test
                 if (this.m_LockAquiredById != value)
                 {
                     this.m_LockAquiredById = value;
-                    this.NotifyPropertyChanged("LockAquiredById");
+                    this.NotifyPropertyChanged("LockAquiredById");                    
                 }
             }
         }
@@ -192,6 +178,7 @@ namespace YellowstonePathology.Business.Test
                 {
                     this.m_LockAquiredByUserName = value;
                     this.NotifyPropertyChanged("LockAquiredByUserName");
+                    this.NotifyPropertyChanged("LockStatus");
                 }
             }
         }
@@ -206,6 +193,7 @@ namespace YellowstonePathology.Business.Test
                 {
                     this.m_LockAquiredByHostName = value;
                     this.NotifyPropertyChanged("LockAquiredByHostName");
+                    this.NotifyPropertyChanged("LockStatus");
                 }
             }
         }
@@ -220,6 +208,23 @@ namespace YellowstonePathology.Business.Test
                 {
                     this.m_TimeLockAquired = value;
                     this.NotifyPropertyChanged("TimeLockAquired");
+                    this.NotifyPropertyChanged("LockStatus");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public bool LockAquired
+        {
+            get { return this.m_LockAquired; }
+            set
+            {
+                if (this.m_LockAquired != value)
+                {
+                    this.m_LockAquired = value;
+                    this.NotifyPropertyChanged("LockAquired");
+                    this.NotifyPropertyChanged("LockStatus");
+                    this.NotifyPropertyChanged("IsLockAquiredByMe");
                 }
             }
         }
@@ -1434,13 +1439,7 @@ namespace YellowstonePathology.Business.Test
 		{
 			get { return this.m_ICD9BillingCodeCollection; }
 			set { this.m_ICD9BillingCodeCollection = value; }
-		}
-
-		public void GetKeyLock(Domain.KeyLock keyLock)
-		{
-			keyLock.Key = this.MasterAccessionNo.ToString();
-			keyLock.KeyLockTypeEnum = Domain.KeyLockTypeEnum.AccessionOrder;
-		}		
+		}			
         		
 		public void SubmitChanges(YellowstonePathology.Business.DataContext.YpiDataBase dataContext)
 		{
@@ -1482,16 +1481,21 @@ namespace YellowstonePathology.Business.Test
         {
             if (this.IsDermatologyClient() == true)
             {
-                if(this.m_ClientId == 1260) //Advanced Dermatology
+                if(this.m_ClientId == 1260 || this.m_ClientId == 1511) //Advanced Dermatology, diagnositics
                 {
-                    YellowstonePathology.Business.Common.PrintMateColumnGreen printMateColumnGreen = new Common.PrintMateColumnGreen();
-                    this.m_PrintMateColumnNumber = printMateColumnGreen.ColumnNumber;
+                    YellowstonePathology.Business.Common.PrintMateColumnLilac printMateColumnLilac = new Common.PrintMateColumnLilac();
+                    this.m_PrintMateColumnNumber = printMateColumnLilac.ColumnNumber;
                 }
                 else
                 {
                     YellowstonePathology.Business.Common.PrintMateColumnYellow printMateColumnYellow = new Common.PrintMateColumnYellow();
                     this.m_PrintMateColumnNumber = printMateColumnYellow.ColumnNumber;
                 }                
+            }
+            else if(this.m_ClientId == 1520)
+            {
+                YellowstonePathology.Business.Common.PrintMateColumnGreen printMateColumnLilac = new Common.PrintMateColumnGreen();
+                this.m_PrintMateColumnNumber = printMateColumnLilac.ColumnNumber;
             }
         }
 
@@ -1511,8 +1515,9 @@ namespace YellowstonePathology.Business.Test
                 {
                     panelSetOrder.AssignedToId = 5088; //Assign to Dr. Emerick
                     YellowstonePathology.Business.Facility.Model.YellowstonePathologistBillings yp = new Facility.Model.YellowstonePathologistBillings();
+                    YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings ypi = new Facility.Model.YellowstonePathologyInstituteBillings();
                     panelSetOrder.ProfessionalComponentFacilityId = yp.FacilityId;
-                    panelSetOrder.ProfessionalComponentBillingFacilityId = yp.FacilityId;
+                    panelSetOrder.ProfessionalComponentBillingFacilityId = ypi.FacilityId;
                 }                
             }
             else
@@ -1545,7 +1550,7 @@ namespace YellowstonePathology.Business.Test
         {
             //Dermatology clients = Advanced Dermatology, Tallman and BSD
             bool result = false;
-            if (this.m_ClientId == 1260 || this.m_ClientId == 579 || this.m_ClientId == 14)
+            if (this.m_ClientId == 1260 || this.m_ClientId == 579 || this.m_ClientId == 14 || this.m_ClientId == 1511)
             {
                 result = true;
             }
@@ -1667,12 +1672,12 @@ namespace YellowstonePathology.Business.Test
             }
         }
 
-        public YellowstonePathology.Business.Task.Model.TaskOrder CreateTask(YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        public YellowstonePathology.Business.Task.Model.TaskOrder CreateTask(YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo)
         {
 			string taskOrderId = YellowstonePathology.Business.OrderIdParser.GetNextTaskOrderId(this.TaskOrderCollection, this.MasterAccessionNo);
             string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
             YellowstonePathology.Business.Task.Model.TaskOrder taskOrder = new Business.Task.Model.TaskOrder(taskOrderId, objectId, this.MasterAccessionNo,
-                testOrderInfo.PanelSetOrder.ReportNo, testOrderInfo.PanelSet.TaskCollection[0], testOrderInfo.OrderTarget, systemIdentity, testOrderInfo.PanelSet.PanelSetName, YellowstonePathology.Business.Task.Model.TaskAcknowledgementType.Immediate);
+                testOrderInfo.PanelSetOrder.ReportNo, testOrderInfo.PanelSet.TaskCollection[0], testOrderInfo.OrderTarget, testOrderInfo.PanelSet.PanelSetName, YellowstonePathology.Business.Task.Model.TaskAcknowledgementType.Immediate);
 
             foreach (YellowstonePathology.Business.Task.Model.Task task in testOrderInfo.PanelSet.TaskCollection)
             {
@@ -1708,16 +1713,53 @@ namespace YellowstonePathology.Business.Test
 			result.AppendLine("Report for: " + panelSetOrder.PanelSetName);
             result.AppendLine(panelSetOrder.ToResultString(this));
             return result.ToString();
-        } 
+        }   
         
-        public bool LockedAquired
+        public bool IsLockAquiredByMe
         {
             get
             {
                 bool result = false;
-                if (LockAquiredByHostName == System.Environment.MachineName) result = true;
+                if (this.m_LockAquired == true)
+                {
+                    if (this.m_LockAquiredByHostName == Environment.MachineName)
+                    {
+                        result = true;
+                    }
+                }
                 return result;
             }            
-        }       
-	}
+        }
+
+        public void ReleaseLock()
+        {            
+            this.LockAquired = false;
+            this.LockAquiredByHostName = null;
+            this.LockAquiredById = null;
+            this.LockAquiredByUserName = null;
+            this.TimeLockAquired = null;            
+        }
+
+        public void SetLock(User.SystemIdentity systemIdentity)
+        {
+            this.LockAquired = true;
+            this.LockAquiredByHostName = Environment.MachineName;
+            this.LockAquiredById = systemIdentity.User.UserId;
+            this.LockAquiredByUserName = systemIdentity.User.UserName;
+            this.TimeLockAquired = DateTime.Now;
+        }
+
+        public string LockStatus
+        {
+            get
+            {
+                string result = null;
+                if(this.m_LockAquired == true)
+                {
+                    result = this.m_LockAquiredByHostName + "\\" + this.m_LockAquiredByUserName + " at " + this.m_TimeLockAquired.Value.ToString("MM/dd/yyyy HH:mm");
+                }
+                return result;
+            }
+        }
+    }
 }

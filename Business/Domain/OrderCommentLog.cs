@@ -153,7 +153,12 @@ namespace YellowstonePathology.Business.Domain
 			string message = this.ToString();
 			System.Net.Mail.MailMessage mailMessage = new System.Net.Mail.MailMessage("Administrator@ypii.com", this.NotificationAddress, user.DisplayName + " - Event Notification", message);
 			System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient("10.1.2.111");
-			client.Credentials = new System.Net.NetworkCredential("Administrator", "p0046e");
+
+            Uri uri = new Uri("http://tempuri.org/");
+            System.Net.ICredentials credentials = System.Net.CredentialCache.DefaultCredentials;
+            System.Net.NetworkCredential credential = credentials.GetCredential(uri, "Basic");
+
+            client.Credentials = credential;
 			client.Send(mailMessage);
 		}
 

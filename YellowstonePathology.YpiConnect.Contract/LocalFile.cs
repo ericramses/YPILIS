@@ -67,7 +67,7 @@ namespace YellowstonePathology.YpiConnect.Contract
 			}
 		}
 
-		public void Save()
+		public void Save(bool releaseLock)
 		{			
             System.IO.FileStream fileStream = new System.IO.FileStream(this.FullPath, System.IO.FileMode.Create);
             byte [] bytes = this.m_MemoryStream.ToArray();

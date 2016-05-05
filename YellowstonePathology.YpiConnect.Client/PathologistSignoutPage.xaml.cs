@@ -157,7 +157,7 @@ namespace YellowstonePathology.YpiConnect.Client
 			this.ViewDocument();
 		}
 
-		public void Save()
+		public void Save(bool releaseLock)
 		{
 
 		}

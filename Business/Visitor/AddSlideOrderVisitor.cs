@@ -11,12 +11,12 @@ namespace YellowstonePathology.Business.Visitor
         private YellowstonePathology.Business.Test.Model.TestOrder m_TestOrder;
         private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 
-        public AddSlideOrderVisitor(YellowstonePathology.Business.Test.AliquotOrder aliquotOrder, YellowstonePathology.Business.Test.Model.TestOrder testOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        public AddSlideOrderVisitor(YellowstonePathology.Business.Test.AliquotOrder aliquotOrder, YellowstonePathology.Business.Test.Model.TestOrder testOrder)
             : base(true, false)
         {
             this.m_AliquotOrder = aliquotOrder;
             this.m_TestOrder = testOrder;
-            this.m_SystemIdentity = systemIdentity;
+            this.m_SystemIdentity = YellowstonePathology.Business.User.SystemIdentity.Instance;
         }
 
         public override void Visit(Test.AccessionOrder accessionOrder)
@@ -28,14 +28,14 @@ namespace YellowstonePathology.Business.Visitor
 
             Slide.Model.Slide slide = Slide.Model.SlideFactory.Get(this.m_TestOrder.TestId);
 
-            int nextSlideNumber = this.m_AliquotOrder.SlideOrderCollection.Count() + 1; //this.m_AliquotOrder.SlideOrderCollection.GetNextSlideNumber(this.m_AliquotOrder.Label);
+            int nextSlideNumber = this.m_AliquotOrder.SlideOrderCollection.Count() + 1; 
             string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();            
             string slideOrderId = YellowstonePathology.Business.OrderIdParser.GetNextSlideOrderId(this.m_AliquotOrder.SlideOrderCollection, this.m_AliquotOrder.AliquotOrderId);            
 
             YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder = new Business.Slide.Model.SlideOrder();                        
             slideOrder.ObjectId = objectId;
             slideOrder.SlideOrderId = slideOrderId;
-            slideOrder.AliquotOrderId = this.m_AliquotOrder.AliquotOrderId;
+            slideOrder.AliquotOrderId = this.m_AliquotOrder.AliquotOrderId;            
             slideOrder.Label = YellowstonePathology.Business.Slide.Model.SlideOrder.GetSlideLabel(nextSlideNumber, this.m_AliquotOrder.Label, this.m_AliquotOrder.AliquotType);
             slideOrder.TestOrder = this.m_TestOrder;
             slideOrder.ReportNo = panelSetOrder.ReportNo;
@@ -49,7 +49,7 @@ namespace YellowstonePathology.Business.Visitor
             slideOrder.OrderedById = this.m_SystemIdentity.User.UserId;
             slideOrder.OrderDate = DateTime.Now;
             slideOrder.OrderedBy = this.m_SystemIdentity.User.UserName;
-            slideOrder.OrderedFrom = this.m_SystemIdentity.StationName;
+            slideOrder.OrderedFrom = System.Environment.MachineName;
             slideOrder.Status = Business.Slide.Model.SlideStatusEnum.Created.ToString();
             slideOrder.Location = accessioningFacility.LocationAbbreviation;
             slideOrder.LabelType = slide.LabelType.ToString();

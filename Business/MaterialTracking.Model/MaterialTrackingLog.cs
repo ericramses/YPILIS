@@ -37,7 +37,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
         }
 
         public MaterialTrackingLog(string objectId, string materialId, string materialTrackingBatchId, string facilityId, string facilityName, 
-            string locationId, string locationName, int loggedById, string loggedBy, string action, string description, string materialType, string masterAccessionNo, string materialLabel, bool clientAccessioned)
+            string locationId, string locationName, string action, string description, string materialType, string masterAccessionNo, string materialLabel, bool clientAccessioned)
         {
             this.m_MaterialTrackingLogId = Guid.NewGuid().ToString();
 			this.m_ObjectId = objectId;
@@ -48,8 +48,8 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
             this.m_LocationId = locationId;
             this.m_LocationName = locationName;
             this.m_LogDate = DateTime.Now;
-            this.m_LoggedById = loggedById;
-            this.m_LoggedBy = loggedBy;
+            this.m_LoggedById = Business.User.SystemIdentity.Instance.User.UserId;
+            this.m_LoggedBy = Business.User.SystemIdentity.Instance.User.UserName;
             this.m_Description = description;
             this.m_Action = action;
             this.m_MaterialType = materialType;
@@ -58,7 +58,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
             this.m_ClientAccessioned = clientAccessioned;
         }
 
-        public MaterialTrackingLog(string objectId, string materialId, string materialTrackingBatchId, string facilityId, string facilityName, string locationId, string locationName, int loggedById, string loggedBy, string materialType)
+        public MaterialTrackingLog(string objectId, string materialId, string materialTrackingBatchId, string facilityId, string facilityName, string locationId, string locationName, string materialType)
         {
             this.m_MaterialTrackingLogId = Guid.NewGuid().ToString();
 			this.m_ObjectId = objectId;
@@ -69,8 +69,8 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
             this.m_LocationId = locationId;
             this.m_LocationName = locationName;
             this.m_LogDate = DateTime.Now;
-            this.m_LoggedById = loggedById;
-            this.m_LoggedBy = loggedBy;            
+            this.m_LoggedById = Business.User.SystemIdentity.Instance.User.UserId;
+            this.m_LoggedBy = Business.User.SystemIdentity.Instance.User.UserName;
             this.m_MaterialType = materialType;            
         }
 

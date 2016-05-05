@@ -6,9 +6,9 @@ using System.Xml.Linq;
 
 namespace YellowstonePathology.Business.Test.HPV1618
 {
-	public class HPV1618EpicObxView : YellowstonePathology.Business.HL7View.EPIC.EpicObxView
+	public class HPV1618EPICObxView : YellowstonePathology.Business.HL7View.EPIC.EPICObxView
     {
-		public HPV1618EpicObxView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount) 
+		public HPV1618EPICObxView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount) 
             : base(accessionOrder, reportNo, obxCount)
 		{
 			
@@ -48,9 +48,7 @@ namespace YellowstonePathology.Business.Test.HPV1618
 
             this.AddNextObxElement("References:", document, "F");            
             this.AddNextObxElement(panelSetOrder.References, document, "F");
-            this.AddNextObxElement("", document, "F");
-
-            this.AddNextObxElement("This test was developed and its performance characteristics determined by Yellowstone Pathology Institute, Inc.  It has not been cleared or approved by the U.S. Food and Drug Administration. The FDA has determined that such clearance or approval is not necessary.  This test is used for clinical purposes.  It should not be regarded as investigational or for research.  This laboratory is certified under the Clinical Laboratory Improvement Amendments of 1988 (CLIA-88) as qualified to perform high complexity clinical laboratory testing.", document, "F");
+            this.AddNextObxElement("", document, "F");            
 
             string locationPerformed = panelSetOrder.GetLocationPerformedComment();
             this.AddNextObxElement(locationPerformed, document, "F");

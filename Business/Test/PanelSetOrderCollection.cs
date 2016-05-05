@@ -34,7 +34,7 @@ namespace YellowstonePathology.Business.Test
                     if (accessionOrder.PanelSetOrderCollection.Exists(panelSetTrichomonas.PanelSetId) == false)
                     {                        
                         YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new TestOrderInfo(panelSetTrichomonas, trichSpecimen, true);
-                        YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Visitor.OrderTestOrderVisitor(testOrderInfo, systemIdentity);
+                        YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Visitor.OrderTestOrderVisitor(testOrderInfo);
                         accessionOrder.TakeATrip(orderTestOrderVisitor);    
                     }
                     break;
@@ -44,7 +44,7 @@ namespace YellowstonePathology.Business.Test
                     if (accessionOrder.PanelSetOrderCollection.Exists(panelSetThinPrepPap.PanelSetId) == false)
                     {
                         YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new TestOrderInfo(panelSetThinPrepPap, papSpecimen, true);                        
-                        YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Visitor.OrderTestOrderVisitor(testOrderInfo, systemIdentity);
+                        YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Visitor.OrderTestOrderVisitor(testOrderInfo);
                         accessionOrder.TakeATrip(orderTestOrderVisitor);                        
                     }
                     break;
@@ -54,7 +54,7 @@ namespace YellowstonePathology.Business.Test
                     if (accessionOrder.PanelSetOrderCollection.Exists(panelSetNGCT.PanelSetId) == false)
                     {
                         YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new TestOrderInfo(panelSetNGCT, ngctSpecimen, true);                        
-                        YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Visitor.OrderTestOrderVisitor(testOrderInfo, systemIdentity);
+                        YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Visitor.OrderTestOrderVisitor(testOrderInfo);
                         accessionOrder.TakeATrip(orderTestOrderVisitor);  
                     }
                     break;                
@@ -64,7 +64,7 @@ namespace YellowstonePathology.Business.Test
                     if (accessionOrder.PanelSetOrderCollection.Exists(panelSetCF.PanelSetId) == false)
                     {
                         YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new TestOrderInfo(panelSetCF, cfSpecimen, true);                        
-                        YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Visitor.OrderTestOrderVisitor(testOrderInfo, systemIdentity);
+                        YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Visitor.OrderTestOrderVisitor(testOrderInfo);
                         accessionOrder.TakeATrip(orderTestOrderVisitor); 
                     }
                     break;
@@ -86,7 +86,7 @@ namespace YellowstonePathology.Business.Test
                         YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTest womensHealthProfileTest = new YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTest();
                         string reportNo = accessionOrder.GetNextReportNo(womensHealthProfileTest);
 						string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-						YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder womensHealthProfileTestOrder = new YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder(accessionOrder.MasterAccessionNo, reportNo, objectId, womensHealthProfileTest, accessionOrder.SpecimenOrderCollection[0], false, systemIdentity);
+						YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder womensHealthProfileTestOrder = new YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder(accessionOrder.MasterAccessionNo, reportNo, objectId, womensHealthProfileTest, accessionOrder.SpecimenOrderCollection[0], false);
                         womensHealthProfileTestOrder.AssignedToId = 5051;
 
                         YellowstonePathology.Business.Client.Model.HPV1618ReflexOrderPAPNormalHPVPositive hpv1618ReflexOrderPAPNormalHPVPositive = new YellowstonePathology.Business.Client.Model.HPV1618ReflexOrderPAPNormalHPVPositive();
@@ -97,7 +97,7 @@ namespace YellowstonePathology.Business.Test
 						YellowstonePathology.Business.Specimen.Model.SpecimenOrder hpvSpecimen = accessionOrder.SpecimenOrderCollection.GetThinPrep();
 						YellowstonePathology.Business.Test.HPV.HPVTest panelSetHPV = new YellowstonePathology.Business.Test.HPV.HPVTest();
                         YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new TestOrderInfo(panelSetHPV, hpvSpecimen, true);
-                        YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Visitor.OrderTestOrderVisitor(testOrderInfo, systemIdentity);
+                        YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Visitor.OrderTestOrderVisitor(testOrderInfo);
                         accessionOrder.TakeATrip(orderTestOrderVisitor); 
                     }
                 }
@@ -110,7 +110,7 @@ namespace YellowstonePathology.Business.Test
                         YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTest womensHealthProfileTest = new YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTest();
                         string reportNo = accessionOrder.GetNextReportNo(womensHealthProfileTest);
 						string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-						YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder womensHealthProfileTestOrder = new YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder(accessionOrder.MasterAccessionNo, reportNo, objectId, womensHealthProfileTest, accessionOrder.SpecimenOrderCollection[0], false, systemIdentity);
+						YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder womensHealthProfileTestOrder = new YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder(accessionOrder.MasterAccessionNo, reportNo, objectId, womensHealthProfileTest, accessionOrder.SpecimenOrderCollection[0], false);
                         womensHealthProfileTestOrder.AssignedToId = 5051;
 
                         YellowstonePathology.Business.Client.Model.HPVReflexOrderRule2 hpvReflexOrderRule2 = new YellowstonePathology.Business.Client.Model.HPVReflexOrderRule2();
@@ -127,7 +127,7 @@ namespace YellowstonePathology.Business.Test
                         YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTest womensHealthProfileTest = new YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTest();
                         string whpReportNo = accessionOrder.GetNextReportNo(womensHealthProfileTest);
 						string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-						YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder womensHealthProfileTestOrder = new YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder(accessionOrder.MasterAccessionNo, whpReportNo, objectId, womensHealthProfileTest, accessionOrder.SpecimenOrderCollection[0], false, systemIdentity);
+						YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder womensHealthProfileTestOrder = new YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder(accessionOrder.MasterAccessionNo, whpReportNo, objectId, womensHealthProfileTest, accessionOrder.SpecimenOrderCollection[0], false);
                         womensHealthProfileTestOrder.AssignedToId = 5051;
                         womensHealthProfileTestOrder.OrderHPV = true;
                         accessionOrder.PanelSetOrderCollection.Add(womensHealthProfileTestOrder);
@@ -135,7 +135,7 @@ namespace YellowstonePathology.Business.Test
 						YellowstonePathology.Business.Specimen.Model.SpecimenOrder hpvSpecimen = accessionOrder.SpecimenOrderCollection.GetThinPrep();
 						YellowstonePathology.Business.Test.HPV.HPVTest panelSetHPV = new YellowstonePathology.Business.Test.HPV.HPVTest();
                         YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new TestOrderInfo(panelSetHPV, hpvSpecimen, true);
-                        YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Visitor.OrderTestOrderVisitor(testOrderInfo, systemIdentity);
+                        YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Visitor.OrderTestOrderVisitor(testOrderInfo);
                         accessionOrder.TakeATrip(orderTestOrderVisitor); 
                     }
                 }
@@ -622,7 +622,7 @@ namespace YellowstonePathology.Business.Test
             }
             return result;
         }
-
+                
         public YellowstonePathology.Business.Test.PanelSetOrder GetBrafPanelSetOrder()
         {
             YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = null;
@@ -846,6 +846,20 @@ namespace YellowstonePathology.Business.Test
                     }
                 }
             }
+        }
+
+        public virtual string GetLocationPerformedSummary(List<int> panelSetIDList)
+        {
+            string result = null;
+            for(int i=0; i<this.Count; i++)
+            {
+                if(panelSetIDList.Contains(this[i].PanelSetId) == true)
+                {
+                    result += this[i].PanelSetName + ": " + this[i].GetLocationPerformedComment();
+                    if (i != this.Count - 1) result += " ";
+                }                
+            }
+            return result;
         }
 
         public virtual void PullOver(YellowstonePathology.Business.Visitor.AccessionTreeVisitor accessionTreeVisitor)

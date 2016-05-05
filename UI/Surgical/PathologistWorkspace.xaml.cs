@@ -28,14 +28,16 @@ namespace YellowstonePathology.UI.Surgical
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 		private YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort m_BarcodeScanPort;
 		private MainWindowCommandButtonHandler m_MainWindowCommandButtonHandler;
+        private TabItem m_Writer;
 
-		public PathologistWorkspace(MainWindowCommandButtonHandler mainWindowCommandButtonHandler)
+		public PathologistWorkspace(MainWindowCommandButtonHandler mainWindowCommandButtonHandler, TabItem writer)
 		{
+            this.m_Writer = writer;
 			this.m_MainWindowCommandButtonHandler = mainWindowCommandButtonHandler;
-			this.m_SystemIdentity = new YellowstonePathology.Business.User.SystemIdentity(YellowstonePathology.Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
+            this.m_SystemIdentity = YellowstonePathology.Business.User.SystemIdentity.Instance;
 
 			m_Loaded = false;
-			this.m_PathologistUI = new PathologistUI(this.m_SystemIdentity);
+			this.m_PathologistUI = new PathologistUI(writer);
 
 			InitializeComponent();
 
@@ -48,8 +50,8 @@ namespace YellowstonePathology.UI.Surgical
 			this.m_BarcodeScanPort.CytologySlideScanReceived += new YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort.CytologySlideScanReceivedHandler(CytologySlideScanReceived);
 			this.m_BarcodeScanPort.HistologySlideScanReceived += new Business.BarcodeScanning.BarcodeScanPort.HistologySlideScanReceivedHandler(HistologySlideScanReceived);
 			this.m_BarcodeScanPort.HistologyBlockScanReceived += new Business.BarcodeScanning.BarcodeScanPort.HistologyBlockScanReceivedHandler(BarcodeScanPort_HistologyBlockScanReceived);
-			this.m_BarcodeScanPort.ThinPrepSlideScanReceived += new Business.BarcodeScanning.BarcodeScanPort.ThinPrepSlideScanReceivedHandler(BarcodeScanPort_ThinPrepSlideScanReceived);
-		}
+			this.m_BarcodeScanPort.ThinPrepSlideScanReceived += new Business.BarcodeScanning.BarcodeScanPort.ThinPrepSlideScanReceivedHandler(BarcodeScanPort_ThinPrepSlideScanReceived);            
+        }
 
 		private void BarcodeScanPort_ThinPrepSlideScanReceived(Business.BarcodeScanning.Barcode barcode)
 		{
@@ -58,9 +60,8 @@ namespace YellowstonePathology.UI.Surgical
 					delegate()
 					{
 						if (barcode.IsValidated == true)
-						{
-							this.Save();							
-							this.DoAliquotOrderIdSearch(barcode.ID, 15);                            
+						{							
+							this.DoAliquotOrderIdSearch(barcode.ID, 15);
                         }
 						else
 						{
@@ -71,49 +72,149 @@ namespace YellowstonePathology.UI.Surgical
 
 		private void PathologistWorkspace_Loaded(object sender, RoutedEventArgs e)
 		{
-			this.m_MainWindowCommandButtonHandler.Save += new EventHandler(MainWindowCommandButtonHandler_Save);
-			this.m_MainWindowCommandButtonHandler.ToggleAccessionLock += new EventHandler(MainWindowCommandButtonHandler_ToggleAccessionLock);
+			this.m_MainWindowCommandButtonHandler.Save += new MainWindowCommandButtonHandler.SaveEventHandler(MainWindowCommandButtonHandler_Save);
 			this.m_MainWindowCommandButtonHandler.ShowCaseDocument += new EventHandler(MainWindowCommandButtonHandler_ShowCaseDocument);
-			this.m_MainWindowCommandButtonHandler.ShowOrderForm += new EventHandler(MainWindowCommandButtonHandler_ShowOrderForm);
-			this.m_MainWindowCommandButtonHandler.ShowAmendmentDialog += new EventHandler(MainWindowCommandButtonHandler_ShowAmendmentDialog);
-			this.m_MainWindowCommandButtonHandler.AssignCase += new EventHandler(MainWindowCommandButtonHandler_AssignCase);
-			this.m_MainWindowCommandButtonHandler.ApplicationClosing += new EventHandler(MainWindowCommandButtonHandler_ApplicationClosing);
-
+			this.m_MainWindowCommandButtonHandler.ShowOrderForm += new EventHandler(MainWindowCommandButtonHandler_ShowOrderForm);			
+			this.m_MainWindowCommandButtonHandler.AssignCase += new EventHandler(MainWindowCommandButtonHandler_AssignCase);			
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath += new MainWindowCommandButtonHandler.StartProviderDistributionPathEventHandler(MainWindowCommandButtonHandler_StartProviderDistributionPath);
-		}
+            this.m_MainWindowCommandButtonHandler.ShowAmendmentDialog += MainWindowCommandButtonHandler_ShowAmendmentDialog;
+            this.m_MainWindowCommandButtonHandler.Refresh += MainWindowCommandButtonHandler_Refresh;
+            this.m_MainWindowCommandButtonHandler.RemoveTab += new MainWindowCommandButtonHandler.RemoveTabEventHandler(MainWindowCommandButtonHandler_RemoveTab);
+            this.m_MainWindowCommandButtonHandler.ShowMessagingDialog += new MainWindowCommandButtonHandler.ShowMessagingDialogEventHandler(MainWindowCommandButtonHandler_ShowMessagingDialog);
+
+            AppMessaging.MessageQueues.Instance.ReleaseLock += MessageQueue_ReleaseLock;
+            AppMessaging.MessageQueues.Instance.AquireLock += MessageQueue_AquireLock;
+            AppMessaging.MessageQueues.Instance.RequestReceived += MessageQueue_RequestReceived;
+
+            if (this.m_PathologistUI.AccessionOrder != null) this.m_PathologistUI.RunWorkspaceEnableRules();
+            this.m_PathologistUI.PropertyChanged += PathologistUI_PropertyChanged;
+        }
+
+        private void MessageQueue_RequestReceived(object sender, UI.CustomEventArgs.MessageReturnEventArgs e)
+        {
+            this.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
+            {
+                AppMessaging.MessagingPath.Instance.StartRequestReceived(e.Message);
+            }
+            ));
+        }
+
+        private void MainWindowCommandButtonHandler_ShowMessagingDialog(object sender, EventArgs e)
+        {
+            if (this.m_PathologistUI.AccessionOrder != null && this.m_PathologistUI.AccessionOrder.IsLockAquiredByMe == false && this.PathologistUI.AccessionOrder.LockAquired == true)
+            {
+                AppMessaging.MessagingPath.Instance.Start(this.m_PathologistUI.AccessionOrder);
+            }
+        }
+
+        private void MessageQueue_AquireLock(object sender, EventArgs e)
+        {
+            string masterAccessionNo = (string)sender;
+            if (this.m_PathologistUI.AccessionOrder != null && this.m_PathologistUI.AccessionOrder.MasterAccessionNo == masterAccessionNo)
+            {
+                this.m_PathologistUI.GetAccessionOrderByReportNo(this.m_PathologistUI.PanelSetOrder.ReportNo);
+
+                //Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, this.m_Writer);
+            }
+        }
+
+        private void MessageQueue_ReleaseLock(object sender, EventArgs e)
+        {
+            string masterAccessionNo = (string)sender;
+            if (this.m_PathologistUI.AccessionOrder != null && this.m_PathologistUI.AccessionOrder.MasterAccessionNo == masterAccessionNo)
+            {
+                this.ReleaseLock();
+            }
+        }
+
+        private void MainWindowCommandButtonHandler_RemoveTab(object sender, EventArgs e)
+        {
+            Business.Persistence.DocumentGateway.Instance.Push(this.m_Writer);
+        }
 
         private void MainWindowCommandButtonHandler_StartProviderDistributionPath(object sender, EventArgs e)
         {
             if (this.m_PathologistUI.AccessionOrder != null)
             {
-                YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPath providerDistributionPath = new YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPath(this.m_PathologistUI.PanelSetOrder.ReportNo, this.m_PathologistUI.AccessionOrder, this.m_PathologistUI.ObjectTracker,
+                YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPath providerDistributionPath = new YellowstonePathology.UI.Login.FinalizeAccession.ProviderDistributionPath(this.m_PathologistUI.PanelSetOrder.ReportNo, this.m_PathologistUI.AccessionOrder,
                     System.Windows.Visibility.Collapsed, System.Windows.Visibility.Visible, System.Windows.Visibility.Collapsed);
                 providerDistributionPath.Start();
             }
         }
 
-		public void PathologistWorkspace_Unloaded(object sender, RoutedEventArgs e)
+        private void PathologistUI_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (this.m_PathologistUI.AccessionOrder != null)
+            {
+                this.PassOnPropertyChanged();
+            }
+        }
+
+        public void PathologistWorkspace_Unloaded(object sender, RoutedEventArgs e)
 		{
-			this.m_MainWindowCommandButtonHandler.Save -= MainWindowCommandButtonHandler_Save;
-			this.m_MainWindowCommandButtonHandler.ToggleAccessionLock -= MainWindowCommandButtonHandler_ToggleAccessionLock;
+            MainWindow.MoveKeyboardFocusNextThenBack();
+
+            this.m_MainWindowCommandButtonHandler.Save -= MainWindowCommandButtonHandler_Save;
 			this.m_MainWindowCommandButtonHandler.ShowCaseDocument -= MainWindowCommandButtonHandler_ShowCaseDocument;
 			this.m_MainWindowCommandButtonHandler.ShowOrderForm -= MainWindowCommandButtonHandler_ShowOrderForm;
-			this.m_MainWindowCommandButtonHandler.ShowAmendmentDialog -= MainWindowCommandButtonHandler_ShowAmendmentDialog;
-			this.m_MainWindowCommandButtonHandler.AssignCase -= MainWindowCommandButtonHandler_AssignCase;
-			this.m_MainWindowCommandButtonHandler.ApplicationClosing -= MainWindowCommandButtonHandler_ApplicationClosing;
-
-			this.Save();
+			this.m_MainWindowCommandButtonHandler.AssignCase -= MainWindowCommandButtonHandler_AssignCase;						
 
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath -= MainWindowCommandButtonHandler_StartProviderDistributionPath;
-		}
+            this.m_MainWindowCommandButtonHandler.ShowAmendmentDialog -= MainWindowCommandButtonHandler_ShowAmendmentDialog;
+            this.m_MainWindowCommandButtonHandler.Refresh -= MainWindowCommandButtonHandler_Refresh;
+            this.m_MainWindowCommandButtonHandler.RemoveTab -= MainWindowCommandButtonHandler_RemoveTab;
+            this.m_MainWindowCommandButtonHandler.ShowMessagingDialog -= MainWindowCommandButtonHandler_ShowMessagingDialog;
 
-		private void MainWindowCommandButtonHandler_Save(object sender, EventArgs e)
+            AppMessaging.MessageQueues.Instance.ReleaseLock -= MessageQueue_ReleaseLock;
+            AppMessaging.MessageQueues.Instance.AquireLock -= MessageQueue_AquireLock;
+            AppMessaging.MessageQueues.Instance.RequestReceived -= MessageQueue_RequestReceived;
+
+            this.m_PathologistUI.PropertyChanged -= PathologistUI_PropertyChanged;
+
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
+        }
+
+        private void MainWindowCommandButtonHandler_Refresh(object sender, EventArgs e)
+        {
+
+        }
+
+        private void MainWindowCommandButtonHandler_Save(object sender, EventArgs e)
 		{
-			this.DisplaySaveYourWorkMessage();
-			this.Save();
-		}
+            //this.Save();
+            if (this.m_PathologistUI.AccessionOrder != null)
+            {
+                this.ReleaseLock();
+            }
+        }
 
-		private void DisplaySaveYourWorkMessage()
+        private void ReleaseLock()
+        {
+            if (this.m_PathologistUI.AccessionOrder != null)
+            {
+                MainWindow.MoveKeyboardFocusNextThenBack();
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.ReleaseLock(this.m_PathologistUI.AccessionOrder, this.m_Writer);
+                this.PassOnPropertyChanged();
+            }
+        }
+
+        private void PassOnPropertyChanged()
+        {
+            if (this.m_PathologistUI.AccessionOrder.IsLockAquiredByMe == false)
+            {
+                this.m_PathologistUI.RunWorkspaceEnableRules();
+            }
+            if (this.m_PathologistsReview != null)
+            {
+                this.m_PathologistsReview.NotifyPropertyChanged(string.Empty);
+            }
+            if (this.m_CytologyResultsWorkspace != null)
+            {
+                this.m_CytologyResultsWorkspace.CytologyUI.NotifyPropertyChanged(string.Empty);
+            }
+        }
+
+        private void DisplaySaveYourWorkMessage()
 		{
 			this.StatusBarTextBlockSaveNotification.Text = "Saving your work.";
 			System.Timers.Timer timer = new System.Timers.Timer();
@@ -136,23 +237,6 @@ namespace YellowstonePathology.UI.Surgical
 					}));
 		}
 
-		private void MainWindowCommandButtonHandler_ToggleAccessionLock(object sender, EventArgs e)
-		{
-			if (this.m_PathologistUI.AccessionOrder != null)
-			{
-				this.Save();
-				if (this.m_CytologyResultsWorkspace != null)
-				{
-					this.m_CytologyResultsWorkspace.AlterAccessionLock(null, null);
-				}
-				else
-				{
-					this.m_PathologistUI.AlterAccessionLock();
-				}
-				this.CheckEnabled();
-			}
-		}
-
 		private void MainWindowCommandButtonHandler_ShowCaseDocument(object sender, EventArgs e)
 		{
             this.ShowCaseDocument();
@@ -166,11 +250,11 @@ namespace YellowstonePathology.UI.Surgical
 
 		private void MainWindowCommandButtonHandler_ShowAmendmentDialog(object sender, EventArgs e)
 		{
-			if (this.m_PathologistUI.Lock.LockAquired)
+			if (this.m_PathologistUI.AccessionOrder.IsLockAquiredByMe == true)
 			{
 				this.m_PathologistUI.ShowAmendmentDialog();
-			}
-		}
+            }
+        }
 
 		private void MainWindowCommandButtonHandler_AssignCase(object sender, EventArgs e)
 		{
@@ -180,14 +264,9 @@ namespace YellowstonePathology.UI.Surgical
 				YellowstonePathology.UI.RuleExecutionStatusDialog dialog = new RuleExecutionStatusDialog(ruleExecutionStatus);
 				dialog.ShowDialog();
 			}
-			this.m_PathologistUI.DoGenericSearch();
-		}
-
-		private void MainWindowCommandButtonHandler_ApplicationClosing(object sender, EventArgs e)
-		{
-			this.Save();
-			this.m_PathologistUI.Lock.ReleaseLock();
-		}
+            this.ReleaseLock();
+            this.m_PathologistUI.DoGenericSearch();
+		}		
 
 		private void ButtonStainOrder_Click(object sender, RoutedEventArgs e)
 		{
@@ -195,17 +274,14 @@ namespace YellowstonePathology.UI.Surgical
 		}
 
 		private void ShowStainOrderForm()
-		{
-			this.Save();
-
-			YellowstonePathology.UI.Common.OrderDialog orderDiaglog = new YellowstonePathology.UI.Common.OrderDialog(this.m_PathologistUI.AccessionOrder, this.m_PathologistUI.PanelSetOrder, this.m_SystemIdentity);
+		{			
+			YellowstonePathology.UI.Common.OrderDialog orderDiaglog = new YellowstonePathology.UI.Common.OrderDialog(this.m_PathologistUI.AccessionOrder, this.m_PathologistUI.PanelSetOrder);
 			orderDiaglog.ShowDialog();
+            this.m_PathologistUI.AccessionOrder.PanelSetOrderCollection.PathologistTestOrderItemList.Build(this.m_PathologistUI.AccessionOrder);
+            this.m_PathologistUI.NotifyPropertyChanged("AccessionOrder.PanelSetOrderCollection.PathologistTestOrderItemList");
+        }
 
-			this.Save();
-			this.LoadData();
-		}
-
-		private void ItemIsSelected(object sender, CanExecuteRoutedEventArgs e)
+        private void ItemIsSelected(object sender, CanExecuteRoutedEventArgs e)
 		{
 			e.CanExecute = false;
 			if (((TabItem)this.Parent).IsSelected && this.ListViewSearchResults.SelectedItem != null && this.m_PathologistUI.CanPlaceOrder())
@@ -216,25 +292,7 @@ namespace YellowstonePathology.UI.Surgical
 		public YellowstonePathology.UI.Surgical.PathologistUI PathologistUI
 		{
 			get { return this.m_PathologistUI; }
-		}
-
-		public void SaveData(object target, ExecutedRoutedEventArgs args)
-		{
-			this.Save();
-			MessageBox.Show("The Pathologist workspace has been saved.");
-		}
-
-		public void Save()
-		{
-			if (this.m_PathologistsReview != null)
-			{
-				this.m_PathologistUI.Save();
-			}
-			else if (this.m_CytologyResultsWorkspace != null)
-			{
-				this.m_CytologyResultsWorkspace.CytologyUI.Save();
-			}
-		}
+		}		
 
 		private void CanShowCaseDocument(object sender, CanExecuteRoutedEventArgs e)
 		{
@@ -250,13 +308,13 @@ namespace YellowstonePathology.UI.Surgical
 
 		public void ShowCaseDocument()
 		{
-			this.Save();
+			//this.Save();
 			if (this.ListViewSearchResults.SelectedItem != null)
 			{
 				YellowstonePathology.Business.Search.PathologistSearchResult item = (YellowstonePathology.Business.Search.PathologistSearchResult)this.ListViewSearchResults.SelectedItem;
-				YellowstonePathology.UI.CaseDocumentViewer caseDocumentViewer = new CaseDocumentViewer();
-				caseDocumentViewer.View(item.MasterAccessionNo, item.ReportNo, item.PanelSetId);
-			}
+				YellowstonePathology.UI.CaseDocumentViewer caseDocumentViewer = new CaseDocumentViewer();				
+                caseDocumentViewer.View(this.m_PathologistUI.AccessionOrder, this.m_PathologistUI.PanelSetOrder);
+            }
 		}
 
 		private void CytologySlideScanReceived(YellowstonePathology.Business.BarcodeScanning.CytycBarcode barcode)
@@ -267,8 +325,7 @@ namespace YellowstonePathology.UI.Surgical
 					{
 						if (barcode.IsValidated == true)
 						{
-
-							this.Save();
+							
 							bool found = false;
 							for (int i = 0; i < this.ListViewSearchResults.Items.Count; i++)
 							{
@@ -286,6 +343,10 @@ namespace YellowstonePathology.UI.Surgical
 								{
 									this.ListViewSearchResults.SelectedIndex = 0;
 								}
+                                else
+                                {
+                                    this.ReleaseLock();
+                                }
 							}
 						}
 						else
@@ -304,7 +365,7 @@ namespace YellowstonePathology.UI.Surgical
 
 						if (barcode.IsValidated == true)
 						{
-							this.Save();
+							//this.Save();
 							this.DoSlideOrderIdSearch(barcode.ID);
 						}
 						else
@@ -319,8 +380,7 @@ namespace YellowstonePathology.UI.Surgical
 			this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal,
 				new Action(
 					delegate()
-					{
-						this.Save();
+					{						
 						this.DoAliquotOrderIdSearch(barcode.ID, 13);
 					}));
 		}
@@ -333,10 +393,10 @@ namespace YellowstonePathology.UI.Surgical
 		public void TextBoxSearchANPN_KeyUp(object sender, KeyEventArgs args)
 		{
 			if (args.Key == Key.Return)
-			{
+			{                
 				if (this.TextBoxSearchANPN.Text.Length >= 1)
-				{
-					this.m_PathologistUI.Save();
+				{                    
+                    this.ReleaseLock();					
 					TextSearchHandler textSearchHandler = new TextSearchHandler(this.TextBoxSearchANPN.Text);
 					object textSearchObject = textSearchHandler.GetSearchObject();
 					if (textSearchObject is YellowstonePathology.Business.ReportNo)
@@ -385,9 +445,9 @@ namespace YellowstonePathology.UI.Surgical
             }
 		}
 
-		private void DoAliquotOrderIdSearch(string aliquotOrderId, int panelSetId)
+		private void DoAliquotOrderIdSearch(string aliquotOrderId, int panelSetIdHint)
 		{            
-			YellowstonePathology.Business.Search.PathologistSearchResult result = this.m_PathologistUI.DoAliquotOrderIdSearch(aliquotOrderId, panelSetId);
+			YellowstonePathology.Business.Search.PathologistSearchResult result = this.m_PathologistUI.DoAliquotOrderIdSearch(aliquotOrderId, panelSetIdHint);
 			if (result != null)
 			{
 				for (int i = 0; i < this.ListViewSearchResults.Items.Count; i++)
@@ -407,8 +467,7 @@ namespace YellowstonePathology.UI.Surgical
 		}
 
 		private void ListViewSearchResults_SelectionChanged(object sender, SelectionChangedEventArgs e)
-		{
-			this.Save();
+		{			
 			LoadData();
 		}
 
@@ -424,21 +483,20 @@ namespace YellowstonePathology.UI.Surgical
 				else
 				{
 					this.m_PathologistUI.GetAccessionOrder(item.MasterAccessionNo, item.ReportNo);
-				}
-				this.SetReviewResult();
+				}                
+
+                this.SetReviewResult();
 			}
 		}
 
 		private void SetReviewResult()
 		{
-			switch (this.m_PathologistUI.PanelSetOrder.PanelSetId)
+            switch (this.m_PathologistUI.PanelSetOrder.PanelSetId)
 			{                
 				case 15:
-					this.m_PathologistsReview = null;
-					this.m_CytologyResultsWorkspace = new Cytology.CytologyResultsWorkspace();
+                    this.m_PathologistsReview = null;
+					this.m_CytologyResultsWorkspace = new Cytology.CytologyResultsWorkspace(this.m_Writer);
 					this.m_CytologyResultsWorkspace.CytologyUI.SetAccessionOrder(this.m_PathologistUI.AccessionOrder, this.m_PathologistUI.PanelSetOrder.ReportNo);
-					this.m_CytologyResultsWorkspace.CytologyUI.Lock = this.m_PathologistUI.Lock;
-					this.m_CytologyResultsWorkspace.CytologyUI.ObjectTracker = this.m_PathologistUI.ObjectTracker;
 					this.m_CytologyResultsWorkspace.SetReportNo(this.m_PathologistUI.PanelSetOrder.ReportNo);
 
 					YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection clientOrderCollection = YellowstonePathology.Business.Gateway.ClientOrderGateway.GetClientOrdersByMasterAccessionNo(this.m_PathologistUI.AccessionOrder.MasterAccessionNo);
@@ -476,14 +534,15 @@ namespace YellowstonePathology.UI.Surgical
 		{
 			if (this.ListViewSearchResults.SelectedItem != null)
 			{
-				this.m_PathologistUI.DoPatientIdSearch((YellowstonePathology.Business.Search.PathologistSearchResult)this.ListViewSearchResults.SelectedItem);
+                this.ReleaseLock();
+                this.m_PathologistUI.DoPatientIdSearch((YellowstonePathology.Business.Search.PathologistSearchResult)this.ListViewSearchResults.SelectedItem);
 			}
 		}
 
-		public void DoSearch()
+		/*public void DoSearch()
 		{
 			this.m_PathologistUI.DoGenericSearch();
-		}
+		}*/
 
 		private void CheckEnabled()
 		{
@@ -547,24 +606,16 @@ namespace YellowstonePathology.UI.Surgical
 					}
 					m_Loaded = true;
 				}
-
-				if (string.IsNullOrEmpty(this.m_PathologistUI.ReportNo) == false)
-				{
-					if (this.m_PathologistUI.Lock.LockingMode == Business.Domain.LockModeEnum.AlwaysAttemptLock && !this.m_PathologistUI.Lock.LockAquired)
-					{
-						this.m_PathologistUI.Lock.GetLock();
-					}
-				}
-				((MainWindow)Application.Current.MainWindow).SetLockObject(this.m_PathologistUI.Lock);
 			}
 		}
 
 		private void ButtonRefresh_Click(object sender, RoutedEventArgs e)
 		{
+            this.ReleaseLock();
 			this.m_PathologistUI.DoGenericSearch();
 		}
 
-		public void ButtonViewDocument_Click(object sender, RoutedEventArgs args)
+        public void ButtonViewDocument_Click(object sender, RoutedEventArgs args)
 		{
 			this.ShowCaseDocument();
 		}
@@ -599,7 +650,8 @@ namespace YellowstonePathology.UI.Surgical
 		{
 			if (this.ComboFinal.SelectedItem != null)
 			{
-				this.m_PathologistUI.DoGenericSearch();
+                this.ReleaseLock();
+                this.m_PathologistUI.DoGenericSearch();
 			}
 		}
 
@@ -607,7 +659,8 @@ namespace YellowstonePathology.UI.Surgical
 		{
 			if (this.comboPanelSetType.SelectedItem != null)
 			{
-				this.m_PathologistUI.DoGenericSearch();
+                this.ReleaseLock();
+                this.m_PathologistUI.DoGenericSearch();
 			}
 		}
 
@@ -615,12 +668,14 @@ namespace YellowstonePathology.UI.Surgical
 		{
 			if (this.comboBoxSearchPathologistUser.SelectedItem != null)
 			{
-				this.m_PathologistUI.DoGenericSearch();
+                this.ReleaseLock();
+                this.m_PathologistUI.DoGenericSearch();
 			}
 		}
 
 		private void ButtonRedoSearch_Click(object sender, RoutedEventArgs e)
 		{
+            this.ReleaseLock();
 			this.comboBoxSearchPathologistUser.SelectionChanged -= this.comboBoxSearchPathologistUser_SelectionChanged;
 			this.comboPanelSetType.SelectionChanged -= this.comboPanelSetType_SelectionChanged;
 			this.ComboFinal.SelectionChanged -= this.ComboFinal_SelectionChanged;
@@ -640,7 +695,7 @@ namespace YellowstonePathology.UI.Surgical
 
 			this.comboPanelSetType.SelectedIndex = 0;
 			this.ComboFinal.SelectedIndex = 0;
-			this.m_PathologistUI.DoGenericSearch();
+            this.m_PathologistUI.DoGenericSearch();
 
 			this.comboBoxSearchPathologistUser.SelectionChanged += this.comboBoxSearchPathologistUser_SelectionChanged;
 			this.comboPanelSetType.SelectionChanged += this.comboPanelSetType_SelectionChanged;
@@ -654,12 +709,10 @@ namespace YellowstonePathology.UI.Surgical
 
 			if (clientOrderCollection.Count != 0)
 			{
-				this.m_PathologistUI.ObjectTracker.RegisterObject(clientOrderCollection[0]);
-				Login.Receiving.AccessionOrderPath accessionOrderPath = new Login.Receiving.AccessionOrderPath(accessionOrder, clientOrderCollection[0], this.m_PathologistUI.ObjectTracker, PageNavigationModeEnum.Standalone);
+                Login.Receiving.AccessionOrderPath accessionOrderPath = new Login.Receiving.AccessionOrderPath(accessionOrder, clientOrderCollection[0], PageNavigationModeEnum.Standalone);
 				accessionOrderPath.Start();
-				this.m_PathologistUI.ObjectTracker.Deregister(clientOrderCollection[0]);
-			}
-			else
+            }
+            else
 			{
 				MessageBox.Show("No Client Order was found.  Please contact Sid.");
 			}
@@ -685,7 +738,7 @@ namespace YellowstonePathology.UI.Surgical
             {
                 YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder = (YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder)this.m_PathologistUI.AccessionOrder.PanelSetOrderCollection.GetSurgical();
                 PeerReviewDialog peerReviewDialog = new PeerReviewDialog();
-                PeerReviewResultPage peerReviewResultPage = new PeerReviewResultPage(surgicalTestOrder, this.m_PathologistUI.AccessionOrder, this.m_PathologistUI.ObjectTracker, this.m_SystemIdentity);
+                PeerReviewResultPage peerReviewResultPage = new PeerReviewResultPage(surgicalTestOrder, this.m_PathologistUI.AccessionOrder);
                 peerReviewDialog.PageNavigator.Navigate(peerReviewResultPage);
                 peerReviewDialog.ShowDialog();
             }
@@ -700,6 +753,7 @@ namespace YellowstonePathology.UI.Surgical
             if (this.ListViewSearchResults.SelectedItem != null)
             {
                 YellowstonePathology.Business.Search.PathologistSearchResult item = (YellowstonePathology.Business.Search.PathologistSearchResult)this.ListViewSearchResults.SelectedItem;
+                this.ReleaseLock();
                 this.m_PathologistUI.DoMasterAccessionNoSearch(item.MasterAccessionNo);
             }
         }

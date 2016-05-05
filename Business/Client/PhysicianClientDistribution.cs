@@ -104,6 +104,16 @@ namespace YellowstonePathology.Business.Client
             }
         }
 
+        public bool SetDistribution(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
+        {
+            bool result = true;
+            foreach(YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder in accessionOrder.PanelSetOrderCollection)
+            {
+                result = SetDistribution(panelSetOrder, accessionOrder);
+            }
+            return result;
+        }
+
         public bool SetDistribution(YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {
             bool result = true;

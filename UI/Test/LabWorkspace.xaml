@@ -214,6 +214,39 @@
 								</ToolBar>
 							</ToolBarTray>
 							<ListView Name="ListViewCaseList" Grid.Column="0" Grid.Row="1" ItemsSource="{Binding Path=CaseList}" SelectionChanged="ListViewCaseList_SelectionChanged" FontSize="12">
+
+                                <ListView.ItemContainerStyle>
+                                    <Style TargetType="ListViewItem">
+                                        <Style.Triggers>
+                                            <MultiDataTrigger>
+                                                <MultiDataTrigger.Conditions>
+                                                    <Condition Binding="{Binding Path=IsLockAquiredByMe}" Value="True"/>
+                                                </MultiDataTrigger.Conditions>
+                                                <Setter Property="Background" Value="#cbf4c8"/>
+                                            </MultiDataTrigger>
+                                            <MultiDataTrigger>
+                                                <MultiDataTrigger.Conditions>
+                                                    <Condition Binding="{Binding Path=IsLockAquiredByMe}" Value="False"/>
+                                                    <Condition Binding="{Binding Path=LockAquired}" Value="true"/>
+                                                </MultiDataTrigger.Conditions>
+                                                <Setter Property="Background" Value="#fae5e7"/>
+                                            </MultiDataTrigger>
+                                            <MultiDataTrigger>
+                                                <MultiDataTrigger.Conditions>
+                                                    <Condition Binding="{Binding Path=LockAquired}" Value="False"/>
+                                                </MultiDataTrigger.Conditions>
+                                                <Setter Property="Background" Value="#FFFFFF"/>
+                                            </MultiDataTrigger>
+                                            <MultiTrigger>
+                                                <MultiTrigger.Conditions>
+                                                    <Condition Property="IsSelected" Value="true" />
+                                                </MultiTrigger.Conditions>
+                                                <Setter Property="FontWeight" Value="Bold" />
+                                            </MultiTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ListView.ItemContainerStyle>
+
                                 <ListView.ContextMenu>
                                     <ContextMenu>
                                         <MenuItem Header="Print Selected" Click="MenuItemPrintSelected_Click"></MenuItem>
@@ -719,7 +752,7 @@
 					</ScrollViewer>
 				</TabItem>-->
 
-				<TabItem Name="TabItemFinal">
+                <!--<TabItem Name="TabItemFinal" Visibility="Collapsed">
 					<TabItem.Header>
 						<StackPanel Orientation="Horizontal">
 							<Image Source="/Resources/Finalize.ico"></Image>
@@ -765,7 +798,7 @@
 
 						</Grid>
 					</StackPanel>
-				</TabItem>				
+				</TabItem>-->				
 
 				<TabItem Name="TabItemAmendment">
 					<TabItem.Header>
@@ -814,23 +847,21 @@
 				<TextBlock Margin="25,2,2,2" TextAlignment="Right" HorizontalAlignment="Stretch" VerticalAlignment="Center">Current User:</TextBlock>
 			</StatusBarItem>
 			<StatusBarItem>
-				<ComboBox Name="ComboCurrentUser" Width="120"  Margin="2" HorizontalAlignment="Stretch"
-                        VerticalAlignment="Center" ItemsSource="{Binding Path=LogUsers}" DisplayMemberPath="DisplayName"
-						BorderBrush="LightGray" BorderThickness="1" SelectionChanged="ComboCurrentUser_SelectionChanged"></ComboBox>
-			</StatusBarItem>
+                <TextBlock Width="200" Margin="2" TextAlignment="Left" HorizontalAlignment="Stretch" VerticalAlignment="Center" Text="{Binding Path=SystemIdentity.User.UserName}"></TextBlock>
+            </StatusBarItem>
 
 			<StatusBarItem>
-				<TextBlock Margin="2" TextAlignment="Right" HorizontalAlignment="Stretch" VerticalAlignment="Center">Lock Status:</TextBlock>
+				<TextBlock Margin="2" TextAlignment="Right" HorizontalAlignment="Stretch" VerticalAlignment="Center">Locked By:</TextBlock>
 			</StatusBarItem>
 			<StatusBarItem>
-				<TextBlock Width="300" Margin="2" TextAlignment="Left" HorizontalAlignment="Stretch" VerticalAlignment="Center" Text="{Binding Path=Lock.LockMessage}"></TextBlock>
+                <TextBlock Width="300" Margin="2" TextAlignment="Left" HorizontalAlignment="Stretch" VerticalAlignment="Center" Text="{Binding Path=AccessionOrder.LockStatus}"></TextBlock>
 			</StatusBarItem>
 
 			<StatusBarItem>
 				<TextBlock Margin="2" TextAlignment="Right" HorizontalAlignment="Stretch" VerticalAlignment="Center">Report No:</TextBlock>
 			</StatusBarItem>
 			<StatusBarItem>
-				<TextBlock Width="60" Margin="2" TextAlignment="Left" HorizontalAlignment="Stretch" VerticalAlignment="Center" Text="{Binding Path=PanelSetOrder.ReportNo}"></TextBlock>
+				<TextBlock Width="100" Margin="2" TextAlignment="Left" HorizontalAlignment="Stretch" VerticalAlignment="Center" Text="{Binding Path=PanelSetOrder.ReportNo}"></TextBlock>
 			</StatusBarItem>
             
         </StatusBar>

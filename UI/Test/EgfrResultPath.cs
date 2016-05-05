@@ -10,22 +10,20 @@ namespace YellowstonePathology.UI.Test
 		EGFRResultPage m_EGFRResultPage;
         YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisTestOrder m_EGFRMutationAnalysisTestOrder;
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 
         public EGFRResultPath(string reportNo,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
-            YellowstonePathology.UI.Navigation.PageNavigator pageNavigator)
-            : base(pageNavigator)
+            YellowstonePathology.UI.Navigation.PageNavigator pageNavigator,
+            System.Windows.Window window)
+            : base(pageNavigator, window)
         {
             this.m_AccessionOrder = accessionOrder;
             this.m_EGFRMutationAnalysisTestOrder = (YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
-			this.m_ObjectTracker = objectTracker;
 		}
 
         protected override void ShowResultPage()
         {
-            this.m_EGFRResultPage = new EGFRResultPage(this.m_EGFRMutationAnalysisTestOrder, this.m_AccessionOrder, this.m_ObjectTracker, this.m_SystemIdentity);
+            this.m_EGFRResultPage = new EGFRResultPage(this.m_EGFRMutationAnalysisTestOrder, this.m_AccessionOrder, this.m_SystemIdentity);
             this.m_EGFRResultPage.Next += new EGFRResultPage.NextEventHandler(EgfrResultPage_Next);
             this.m_PageNavigator.Navigate(this.m_EGFRResultPage);
         }
@@ -46,10 +44,10 @@ namespace YellowstonePathology.UI.Test
             {
                 YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisTestOrder testOrder = (YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSet.PanelSetId, this.m_EGFRMutationAnalysisTestOrder.OrderedOnId, true);
 				result = true;
-				Test.EGFRToALKReflexPath egfrToALKReflexPath = new Test.EGFRToALKReflexPath(testOrder.ReportNo, this.m_AccessionOrder, this.m_ObjectTracker, this.m_PageNavigator, System.Windows.Visibility.Visible);
+				Test.EGFRToALKReflexPath egfrToALKReflexPath = new Test.EGFRToALKReflexPath(testOrder.ReportNo, this.m_AccessionOrder, this.m_PageNavigator, this.m_Window, System.Windows.Visibility.Visible);
                 egfrToALKReflexPath.Finish += new Test.EGFRToALKReflexPath.FinishEventHandler(EGFRToALKReflexPath_Finish);
                 egfrToALKReflexPath.Back += new EGFRToALKReflexPath.BackEventHandler(EGFRToALKReflexPath_Back);
-                egfrToALKReflexPath.Start(this.m_SystemIdentity);
+                egfrToALKReflexPath.Start();
 			}
             return result;
         }

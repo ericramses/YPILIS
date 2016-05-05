@@ -24,7 +24,7 @@ namespace YellowstonePathology.Business.Document
             xpsPackage.Close();
         }
 
-		public override void Show(System.Windows.Controls.ContentControl contentControl)
+		public override void Show(System.Windows.Controls.ContentControl contentControl, object writer)
 		{
 			this.m_XpsDocument = new XpsDocument(this.FullFileName, System.IO.FileAccess.Read);
 			System.Windows.Controls.DocumentViewer documentViewer = new System.Windows.Controls.DocumentViewer();

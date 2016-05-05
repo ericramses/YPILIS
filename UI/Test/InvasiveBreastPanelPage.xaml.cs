@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Test
 	/// <summary>
 	/// Interaction logic for InvasiveBreastPanelPage.xaml
 	/// </summary>
-	public partial class InvasiveBreastPanelPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges, INotifyPropertyChanged
+	public partial class InvasiveBreastPanelPage : UserControl, INotifyPropertyChanged
 	{
 		public delegate void PropertyChangedNotificationHandler(String info);
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -30,7 +30,6 @@ namespace YellowstonePathology.UI.Test
 		public event OrderHER2byFISHEventHandler OrderHER2byFISH;
 
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 
 		private YellowstonePathology.Business.Test.InvasiveBreastPanel.InvasiveBreastPanel m_InvasiveBreastPanel;
@@ -41,11 +40,9 @@ namespace YellowstonePathology.UI.Test
         private string m_PageHeaderText;
 
 		public InvasiveBreastPanelPage(string reportNo, YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 		{
 			this.m_AccessionOrder = accessionOrder;
-			this.m_ObjectTracker = objectTracker;			
 			this.m_SystemIdentity = systemIdentity;
 
 			this.m_InvasiveBreastPanel = (YellowstonePathology.Business.Test.InvasiveBreastPanel.InvasiveBreastPanel)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
@@ -63,10 +60,10 @@ namespace YellowstonePathology.UI.Test
 
 			InitializeComponent();
 
-			this.DataContext = this;
-		}
+			this.DataContext = this;            
+		}        
 
-		public YellowstonePathology.Business.Test.InvasiveBreastPanel.InvasiveBreastPanel InvasiveBreastPanel
+        public YellowstonePathology.Business.Test.InvasiveBreastPanel.InvasiveBreastPanel InvasiveBreastPanel
 		{
 			get { return this.m_InvasiveBreastPanel; }
 		}
@@ -94,27 +91,7 @@ namespace YellowstonePathology.UI.Test
 		public string PageHeaderText
 		{
             get { return this.m_PageHeaderText; }
-		}
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save()
-		{
-			this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
-		}
-
-		public void UpdateBindingSources()
-		{
-
-		}
+		}		
 
 		private void HyperLinkOrderFISH_Click(object sender, RoutedEventArgs e)
 		{
@@ -131,10 +108,9 @@ namespace YellowstonePathology.UI.Test
 		}		
 
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
-		{
-			this.Save();
-			YellowstonePathology.Business.Test.InvasiveBreastPanel.InvasiveBreastPanelWordDocument invasiveBreastPanel = new Business.Test.InvasiveBreastPanel.InvasiveBreastPanelWordDocument();
-			invasiveBreastPanel.Render(this.m_AccessionOrder.MasterAccessionNo, this.m_InvasiveBreastPanel.ReportNo, Business.Document.ReportSaveModeEnum.Draft);
+		{			
+			YellowstonePathology.Business.Test.InvasiveBreastPanel.InvasiveBreastPanelWordDocument invasiveBreastPanel = new Business.Test.InvasiveBreastPanel.InvasiveBreastPanelWordDocument(this.m_AccessionOrder, this.m_InvasiveBreastPanel, Business.Document.ReportSaveModeEnum.Draft);
+			invasiveBreastPanel.Render();
 
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_InvasiveBreastPanel.ReportNo);
 			string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);
@@ -145,7 +121,7 @@ namespace YellowstonePathology.UI.Test
 		{
 			if (this.m_InvasiveBreastPanel.Final == false)
 			{
-				this.m_InvasiveBreastPanel.Finalize(this.m_SystemIdentity.User);				
+				this.m_InvasiveBreastPanel.Finish(this.m_AccessionOrder);				
 			}
 		}
 
@@ -158,23 +134,16 @@ namespace YellowstonePathology.UI.Test
 		}
 
 		private void HyperLinkAcceptResults_Click(object sender, RoutedEventArgs e)
-		{
-			//if (this.ComboBoxResult.SelectedItem != null)
-			//{
+		{			
 			YellowstonePathology.Business.Rules.MethodResult result = this.m_InvasiveBreastPanel.IsOkToAccept();
 			if (result.Success == true)
 			{
-				this.m_InvasiveBreastPanel.Accept(this.m_SystemIdentity.User);
+				this.m_InvasiveBreastPanel.Accept();
 			}
 			else
 			{
 				MessageBox.Show(result.Message);
-			}
-			//}
-			//else
-			//{
-			//	MessageBox.Show("A result must be selected before it can be accepted.");
-			//}
+			}		
 		}
 
 		private void HyperLinkUnacceptResults_Click(object sender, RoutedEventArgs e)

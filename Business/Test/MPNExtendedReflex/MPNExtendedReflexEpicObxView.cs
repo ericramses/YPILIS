@@ -6,9 +6,9 @@ using System.Xml.Linq;
 
 namespace YellowstonePathology.Business.Test.MPNExtendedReflex
 {
-	public class MPNExtendedReflexEpicObxView : YellowstonePathology.Business.HL7View.EPIC.EpicObxView
+	public class MPNExtendedReflexEPICObxView : YellowstonePathology.Business.HL7View.EPIC.EPICObxView
     {
-		public MPNExtendedReflexEpicObxView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount) 
+		public MPNExtendedReflexEPICObxView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount) 
             : base(accessionOrder, reportNo, obxCount)
 		{
 			

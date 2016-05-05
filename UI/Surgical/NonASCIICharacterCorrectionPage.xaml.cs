@@ -17,7 +17,7 @@ namespace YellowstonePathology.UI.Surgical
     /// <summary>
     /// Interaction logic for NonASCIICharacterCorrectionPage.xaml
     /// </summary>
-    public partial class NonASCIICharacterCorrectionPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
+    public partial class NonASCIICharacterCorrectionPage : UserControl
     {
         public delegate void NextEventHandler(object sender, EventArgs e);
         public event NextEventHandler Next;
@@ -28,44 +28,22 @@ namespace YellowstonePathology.UI.Surgical
 
         YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder m_SurgicalTestOrder;
-        private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
         private System.Windows.Visibility m_BackButtonVisibility;
         private System.Windows.Visibility m_NextButtonVisibility;
 
         public NonASCIICharacterCorrectionPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
             YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder,
-            YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
         System.Windows.Visibility backButtonVisibility,
             System.Windows.Visibility nextButtonVisibility)
         {
             this.m_AccessionOrder = accessionOrder;
             this.m_SurgicalTestOrder = surgicalTestOrder;
-            this.m_ObjectTracker = objectTracker;
             this.m_BackButtonVisibility = backButtonVisibility;
             this.m_NextButtonVisibility = nextButtonVisibility;
 
             InitializeComponent();
-            DataContext = this;
-        }
-
-        public void Save()
-        {
-            this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
-        }
-
-        public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-        {
-            return true;
-        }
-
-        public bool OkToSaveOnClose()
-        {
-            return true;
-        }
-
-        public void UpdateBindingSources()
-        {
-        }
+            DataContext = this;           
+        }                
 
         public YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder SurgicalTestOrder
         {

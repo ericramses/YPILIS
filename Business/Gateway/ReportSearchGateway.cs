@@ -26,7 +26,7 @@ namespace YellowstonePathology.Business.Gateway
                 "for xml path('ReportSearchItem'), type, root('ReportSearchList')";
             cmd.Parameters.Add("@ReportNo", SqlDbType.VarChar).Value = reportNo;
 
-			YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Domain.Persistence.SqlXmlPersistence.CrudOperations.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd, Domain.Persistence.DataLocationEnum.ProductionData);
+			YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd);
             return reportSearchList;
         }
 
@@ -43,7 +43,7 @@ namespace YellowstonePathology.Business.Gateway
                 "for xml path('ReportSearchItem'), type, root('ReportSearchList')";
 
             cmd.Parameters.Add("@FinalDate", SqlDbType.DateTime).Value = finalDate;
-			YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Domain.Persistence.SqlXmlPersistence.CrudOperations.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd, Domain.Persistence.DataLocationEnum.ProductionData);
+			YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd);
             return reportSearchList;
         }
 
@@ -59,7 +59,7 @@ namespace YellowstonePathology.Business.Gateway
                 "WHERE pso.Final = 1 and pso.IsPosted = 0 and pso.OrderDate >= '1/1/2014' and pso.IsBillable = 1 Order By pso.FinalDate, pso.PanelSetId, a.AccessionTime " +
                 "for xml path('ReportSearchItem'), type, root('ReportSearchList')";
 
-			YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Domain.Persistence.SqlXmlPersistence.CrudOperations.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd, Domain.Persistence.DataLocationEnum.ProductionData);
+			YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd);
             return reportSearchList;
         }
 
@@ -78,7 +78,7 @@ namespace YellowstonePathology.Business.Gateway
                 "for xml path('ReportSearchItem'), type, root('ReportSearchList')";
 
             cmd.Parameters.Add("@PostDate", SqlDbType.DateTime).Value = postDate;
-			YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Domain.Persistence.SqlXmlPersistence.CrudOperations.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd, Domain.Persistence.DataLocationEnum.ProductionData);
+			YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd);
             return reportSearchList;
         }
 
@@ -100,7 +100,7 @@ namespace YellowstonePathology.Business.Gateway
 
             cmd.Parameters.Add("@StartDate", SqlDbType.DateTime).Value = startDate;
             cmd.Parameters.Add("@EndDate", SqlDbType.DateTime).Value = endDate;
-			YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Domain.Persistence.SqlXmlPersistence.CrudOperations.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd, Domain.Persistence.DataLocationEnum.ProductionData);
+			YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd);
             return reportSearchList;
         }
 
@@ -117,7 +117,7 @@ namespace YellowstonePathology.Business.Gateway
                 "where pso.PanelSetId = 35 Order By pso.OrderDate desc " +
                 "for xml path('ReportSearchItem'), type, root('ReportSearchList')";
 
-			YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Domain.Persistence.SqlXmlPersistence.CrudOperations.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd, Domain.Persistence.DataLocationEnum.ProductionData);
+			YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd);
             return reportSearchList;
         }
 
@@ -134,11 +134,28 @@ namespace YellowstonePathology.Business.Gateway
                 "where a.ClientAccessioned = 1 Order By pso.OrderDate desc " +
                 "for xml path('ReportSearchItem'), type, root('ReportSearchList')";
 
-            YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Domain.Persistence.SqlXmlPersistence.CrudOperations.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd, Domain.Persistence.DataLocationEnum.ProductionData);
+            YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd);
             return reportSearchList;
         }
 
-		public static YellowstonePathology.Business.Search.ReportSearchList GetReportSearchListBySpecimenKeyword(string specimenDescription, DateTime startDate, DateTime endDate)
+        public static YellowstonePathology.Business.Search.ReportSearchList GetReportSearchListByDrKurtzman()
+        {
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT pso.[MasterAccessionNo], pso.[ReportNo], a.AccessionTime [AccessionDate],  pso.[PanelSetId], a.[PFirstName] + ' ' + a.[PLastName] AS [PatientName], " +
+                "a.[PLastName], a.[PFirstName], a.[ClientName], a.[PhysicianName], a.[PBirthdate], pso.[OriginatingLocation], pso.[FinalDate], pso.PanelSetName, su.UserName as [OrderedBy], " +
+                "a.ColorCode, '' ForeignAccessionNo, pso.IsPosted " +
+                "FROM tblAccessionOrder a " +
+                "join tblPanelSetOrder pso ON a.[MasterAccessionNo] = pso.[MasterAccessionNo] " +
+                "Left Outer Join tblSystemUser su on pso.OrderedById = su.UserId " +
+                "where a.ClientId = 1520 Order By pso.OrderDate desc " +
+                "for xml path('ReportSearchItem'), type, root('ReportSearchList')";
+
+            YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd);
+            return reportSearchList;
+        }
+
+        public static YellowstonePathology.Business.Search.ReportSearchList GetReportSearchListBySpecimenKeyword(string specimenDescription, DateTime startDate, DateTime endDate)
         {
             SqlCommand cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
@@ -158,7 +175,7 @@ namespace YellowstonePathology.Business.Gateway
             cmd.Parameters.Add("@StartDate", SqlDbType.DateTime).Value = startDate;
             cmd.Parameters.Add("@EndDate", SqlDbType.DateTime).Value = endDate;
 
-			YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Domain.Persistence.SqlXmlPersistence.CrudOperations.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd, Domain.Persistence.DataLocationEnum.ProductionData);
+			YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd);
             return reportSearchList;
         }
 
@@ -178,7 +195,7 @@ namespace YellowstonePathology.Business.Gateway
                 "for xml path('ReportSearchItem'), type, root('ReportSearchList')";
             cmd.Parameters.Add("@AccessionDate", SqlDbType.VarChar).Value = accessionDate;
 
-			YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Domain.Persistence.SqlXmlPersistence.CrudOperations.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd, Domain.Persistence.DataLocationEnum.ProductionData);
+			YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd);
             return reportSearchList;
         }
 
@@ -196,9 +213,28 @@ namespace YellowstonePathology.Business.Gateway
 				"for xml path('ReportSearchItem'), type, root('ReportSearchList')";
 			cmd.Parameters.Add("@MasterAccessionNo", SqlDbType.VarChar).Value = masterAccessionNo;
 
-			YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Domain.Persistence.SqlXmlPersistence.CrudOperations.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd, Domain.Persistence.DataLocationEnum.ProductionData);
+			YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd);
 			return reportSearchList;
 		}
+
+        public static YellowstonePathology.Business.Search.ReportSearchList GetReportSearchListByAliquotOrderId(string aliquotOrderId)
+        {
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT pso.[MasterAccessionNo], pso.[ReportNo], a.AccessionTime [AccessionDate],  pso.[PanelSetId], a.[PFirstName] + ' ' + a.[PLastName] AS [PatientName], " +
+               "a.[PLastName], a.[PFirstName], a.[ClientName], a.[PhysicianName], a.[PBirthdate], pso.[OriginatingLocation], pso.[FinalDate], pso.PanelSetName, su.UserName as [OrderedBy], " +
+               "a.ColorCode, '' ForeignAccessionNo, pso.IsPosted " +
+               "FROM tblAccessionOrder a " +
+               "JOIN tblPanelSetOrder pso ON a.[MasterAccessionNo] = pso.[MasterAccessionNo] " +
+               "Left Outer Join tblSystemUser su on pso.OrderedById = su.UserId " +
+               "WHERE a.MasterAccessionNo in " +
+               "(Select MasterAccessionNo from tblSpecimenOrder so join tblAliquotOrder ao on so.SpecimenOrderId = ao.SpecimenOrderId where ao.AliquotOrderId = @AliquotOrderId) " +               
+               "for xml path('ReportSearchItem'), type, root('ReportSearchList')";
+            cmd.Parameters.Add("@AliquotOrderId", SqlDbType.VarChar).Value = aliquotOrderId;
+
+            YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd);
+            return reportSearchList;
+        }
 
         public static YellowstonePathology.Business.Search.ReportSearchList GetReportSearchListByITAudit(YellowstonePathology.Business.Test.ITAuditPriorityEnum itAuditPriority)
         {
@@ -213,7 +249,7 @@ namespace YellowstonePathology.Business.Gateway
                 "WHERE a.ITAuditRequired = 1 and a.ITAudited = 0 and a.ITAuditPriority = @ITAuditPriority " +
                 "for xml path('ReportSearchItem'), type, root('ReportSearchList')";
             cmd.Parameters.Add("@ITAuditPriority", SqlDbType.Int).Value = (int)itAuditPriority;
-            YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Domain.Persistence.SqlXmlPersistence.CrudOperations.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd, Domain.Persistence.DataLocationEnum.ProductionData);
+            YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd);
             return reportSearchList;
         }
 
@@ -223,7 +259,7 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.CommandType = CommandType.StoredProcedure;
 			cmd.CommandText = "gwAccessionOrderListByBatchIdFill";
 			cmd.Parameters.Add("@PanelOrderBatchId", SqlDbType.Int).Value = parameters[0];
-			YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Domain.Persistence.SqlXmlPersistence.CrudOperations.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd, Domain.Persistence.DataLocationEnum.ProductionData);
+			YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd);
 			return reportSearchList;
 		}
 
@@ -235,7 +271,7 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.Parameters.Add("@AccessionDate", SqlDbType.VarChar).Value = ((DateTime)parameters[0]).ToShortDateString();
 			cmd.Parameters.Add("@BatchTypeId", SqlDbType.Int).Value = parameters[1];
 			cmd.Parameters.Add("@FacilityId", SqlDbType.VarChar).Value = parameters[2];
-			YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Domain.Persistence.SqlXmlPersistence.CrudOperations.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd, Domain.Persistence.DataLocationEnum.ProductionData);
+			YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd);
 			return reportSearchList;
 		}
 
@@ -248,7 +284,7 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.Parameters.Add("@EndDate", SqlDbType.DateTime).Value = parameters[1];
 			cmd.Parameters.Add("@BatchTypeId", SqlDbType.VarChar).Value = parameters[2];
 			cmd.Parameters.Add("@OriginatingLocation", SqlDbType.VarChar).Value = parameters[3];
-			YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Domain.Persistence.SqlXmlPersistence.CrudOperations.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd, Domain.Persistence.DataLocationEnum.ProductionData);
+			YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd);
 			return reportSearchList;
 		}
 
@@ -260,7 +296,7 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.Parameters.Add("@StartDate", SqlDbType.DateTime).Value = parameters[0];
 			cmd.Parameters.Add("@EndDate", SqlDbType.DateTime).Value = parameters[1];
 			cmd.Parameters.Add("@PanelSetId", SqlDbType.VarChar).Value = parameters[2];
-			YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Domain.Persistence.SqlXmlPersistence.CrudOperations.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd, Domain.Persistence.DataLocationEnum.ProductionData);
+			YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd);
 			return reportSearchList;
 		}
 
@@ -273,7 +309,7 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.Parameters.Add("@EndDate", SqlDbType.DateTime).Value = parameters[1];
 			cmd.Parameters.Add("@PanelSetId", SqlDbType.VarChar).Value = parameters[2];
 			cmd.Parameters.Add("@OriginatingLocation", SqlDbType.VarChar).Value = parameters[3];
-			YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Domain.Persistence.SqlXmlPersistence.CrudOperations.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd, Domain.Persistence.DataLocationEnum.ProductionData);
+			YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd);
 			return reportSearchList;
 		}
 
@@ -283,7 +319,7 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.CommandType = CommandType.StoredProcedure;
 			cmd.CommandText = "gwAccessionOrderListByAccessionNoFill";
 			cmd.Parameters.Add("@ReportNo", SqlDbType.VarChar).Value = parameters[0];
-			YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Domain.Persistence.SqlXmlPersistence.CrudOperations.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd, Domain.Persistence.DataLocationEnum.ProductionData);
+			YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd);
 			return reportSearchList;
 		}
 
@@ -293,7 +329,7 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.CommandType = CommandType.StoredProcedure;
 			cmd.CommandText = "gwAccessionOrderListByUnDistributedFill";
 			cmd.Parameters.Add("@PanelId", SqlDbType.Int).Value = parameters[0];
-			YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Domain.Persistence.SqlXmlPersistence.CrudOperations.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd, Domain.Persistence.DataLocationEnum.ProductionData);
+			YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd);
 			return reportSearchList;
 		}
 
@@ -303,7 +339,7 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.CommandType = CommandType.StoredProcedure;
 			cmd.CommandText = "gwAccessionOrderListByNotFinalFillAll";
 			cmd.Parameters.Add("@OriginatingLocation", SqlDbType.VarChar).Value = parameters[0];
-			YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Domain.Persistence.SqlXmlPersistence.CrudOperations.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd, Domain.Persistence.DataLocationEnum.ProductionData);
+			YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd);
 			return reportSearchList;
 		}
 
@@ -313,7 +349,7 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.CommandType = CommandType.StoredProcedure;
 			cmd.CommandText = "gwAccessionOrderListByNotFinalFill";
 			cmd.Parameters.Add("@PanelId", SqlDbType.Int).Value = parameters[0];
-			YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Domain.Persistence.SqlXmlPersistence.CrudOperations.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd, Domain.Persistence.DataLocationEnum.ProductionData);
+			YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd);
 			return reportSearchList;
 		}
 
@@ -322,7 +358,7 @@ namespace YellowstonePathology.Business.Gateway
             SqlCommand cmd = new SqlCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "gwAccessionOrderListByInHouseMolecularPending";
-			YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Domain.Persistence.SqlXmlPersistence.CrudOperations.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd, Domain.Persistence.DataLocationEnum.ProductionData);
+			YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd);
             return reportSearchList;
         }
 
@@ -332,7 +368,7 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.CommandType = CommandType.StoredProcedure;
 			cmd.CommandText = "gwAccessionOrderListByUnBatchedBatchTypeIdFill";
 			cmd.Parameters.Add("@BatchTypeId", SqlDbType.Int).Value = parameters[0];
-			YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Domain.Persistence.SqlXmlPersistence.CrudOperations.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd, Domain.Persistence.DataLocationEnum.ProductionData);
+			YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd);
 			return reportSearchList;
 		}
 
@@ -344,7 +380,7 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.Parameters.Add("@PLastName", SqlDbType.VarChar).Value = parameters[0].ToString();
 			if (parameters[1] == null) cmd.Parameters.Add("@PFirstName", SqlDbType.VarChar).Value = DBNull.Value;
 			else  cmd.Parameters.Add("@PFirstName", SqlDbType.VarChar).Value = parameters[1].ToString();
-			YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Domain.Persistence.SqlXmlPersistence.CrudOperations.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd, Domain.Persistence.DataLocationEnum.ProductionData);
+			YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd);
 			return reportSearchList;
 		}
 
@@ -354,7 +390,7 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.CommandType = CommandType.StoredProcedure;
 			cmd.CommandText = "gwAccessionOrderListByMasterAccessionNoFill";
 			cmd.Parameters.Add("@MasterAccessionNo", SqlDbType.VarChar).Value = parameters[0];
-			YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Domain.Persistence.SqlXmlPersistence.CrudOperations.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd, Domain.Persistence.DataLocationEnum.ProductionData);
+			YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd);
 			return reportSearchList;
 		}
 
@@ -364,7 +400,7 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.CommandType = CommandType.StoredProcedure;
 			cmd.CommandText = "gwAccessionOrderListByNotAudited";
 			cmd.Parameters.Add("CaseType", SqlDbType.VarChar).Value = parameters[0];
-			YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Domain.Persistence.SqlXmlPersistence.CrudOperations.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd, Domain.Persistence.DataLocationEnum.ProductionData);
+			YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd);
 			return reportSearchList;
 		}
 
@@ -374,7 +410,7 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.CommandType = CommandType.StoredProcedure;
 			cmd.CommandText = "gwAccessionOrderListByPatientId";
 			cmd.Parameters.Add("@PatientId", SqlDbType.VarChar).Value = parameters[0].ToString();
-			YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Domain.Persistence.SqlXmlPersistence.CrudOperations.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd, Domain.Persistence.DataLocationEnum.ProductionData);
+			YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd);
 			return reportSearchList;
 		}
 
@@ -384,7 +420,7 @@ namespace YellowstonePathology.Business.Gateway
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "gwAccessionOrderListByKutsch";
             cmd.Parameters.Add("@AccessionDate", SqlDbType.DateTime).Value = parameters[0].ToString();
-			YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Domain.Persistence.SqlXmlPersistence.CrudOperations.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd, Domain.Persistence.DataLocationEnum.ProductionData);
+			YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd);
             return reportSearchList;
         }
 
@@ -394,7 +430,7 @@ namespace YellowstonePathology.Business.Gateway
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "gwAccessionOrderListByEmerick";
             cmd.Parameters.Add("@AccessionDate", SqlDbType.DateTime).Value = parameters[0].ToString();
-			YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Domain.Persistence.SqlXmlPersistence.CrudOperations.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd, Domain.Persistence.DataLocationEnum.ProductionData);
+			YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd);
             return reportSearchList;
         }
 
@@ -404,7 +440,7 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.CommandType = CommandType.StoredProcedure;
 			cmd.CommandText = "gwAccessionOrderListByNotVerified";
 			cmd.Parameters.Add("@PanelSetId", SqlDbType.Int).Value = parameters[0];
-			YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Domain.Persistence.SqlXmlPersistence.CrudOperations.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd, Domain.Persistence.DataLocationEnum.ProductionData);
+			YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd);
 			return reportSearchList;
 		}
 
@@ -415,7 +451,29 @@ namespace YellowstonePathology.Business.Gateway
             cmd.CommandText = "gwAccessionOrderListByPanelSetId_2";
             cmd.Parameters.Add("@PanelSetId", SqlDbType.Int).Value = parameters[0];
             cmd.Parameters.Add("@AccessionDate", SqlDbType.DateTime).Value = parameters[1];
-            YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Domain.Persistence.SqlXmlPersistence.CrudOperations.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd, Domain.Persistence.DataLocationEnum.ProductionData);
+            YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd);
+            return reportSearchList;
+        }
+
+        public static YellowstonePathology.Business.Search.ReportSearchList GetReportSearchListByTest(int panelSetId, DateTime startDate, DateTime endDate)
+        {
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT pso.[MasterAccessionNo], pso.[ReportNo], a.AccessionTime [AccessionDate],  pso.[PanelSetId], a.[PFirstName] + ' ' + a.[PLastName] AS [PatientName], " +
+                "a.[PLastName], a.[PFirstName], a.[ClientName], a.[PhysicianName], a.[PBirthdate], pso.[OriginatingLocation], pso.[FinalDate], pso.PanelSetName, su.UserName as [OrderedBy], " +
+                "a.ColorCode, '' ForeignAccessionNo, pso.IsPosted " +
+                "FROM tblAccessionOrder a " +
+                "JOIN tblPanelSetOrder pso ON a.[MasterAccessionNo] = pso.[MasterAccessionNo] " +
+                "Left Outer Join tblSystemUser su on pso.OrderedById = su.UserId " +
+                "WHERE pso.PanelSetId  =  @PanelSetId " +
+                "and pso.OrderDate between @StartDate and @EndDate " +
+                "for xml path('ReportSearchItem'), type, root('ReportSearchList')";
+
+            cmd.Parameters.Add("@PanelSetId", SqlDbType.Int).Value = panelSetId;
+            cmd.Parameters.Add("@StartDate", SqlDbType.DateTime).Value = startDate;
+            cmd.Parameters.Add("@EndDate", SqlDbType.DateTime).Value = endDate;
+
+            YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd);
             return reportSearchList;
         }
 
@@ -424,7 +482,7 @@ namespace YellowstonePathology.Business.Gateway
             Test.ThinPrepPap.AcidWashList result = new Test.ThinPrepPap.AcidWashList();
             SqlCommand cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "Select po.ReportNo, po.OrderDate, po.Accepted, a.PLastName, a.PFirstName, a.PMiddleInitial from tblPanelOrder po join tblPanelSetOrder pso on po.ReportNo = pso.ReportNo " +
+            cmd.CommandText = "Select pso.MasterAccessionNo, po.ReportNo, po.OrderDate, po.Accepted, a.PLastName, a.PFirstName, a.PMiddleInitial from tblPanelOrder po join tblPanelSetOrder pso on po.ReportNo = pso.ReportNo " +
                 " join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo where po.PanelId = 39 and po.OrderDate >= @StartDate  order by po.OrderDate Desc";
             cmd.Parameters.Add("@StartDate", SqlDbType.DateTime).Value = startDate;
 

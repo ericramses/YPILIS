@@ -16,7 +16,7 @@ using System.Xml.Linq;
 
 namespace YellowstonePathology.UI.Test
 {	
-	public partial class IHCQCResultPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
+	public partial class IHCQCResultPage : UserControl, INotifyPropertyChanged 
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -25,28 +25,24 @@ namespace YellowstonePathology.UI.Test
 
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-        private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private YellowstonePathology.Business.Test.IHCQC.IHCQCTestOrder m_IHCQCTestOrder;		
 
         private string m_PageHeaderText;
 
         public IHCQCResultPage(YellowstonePathology.Business.Test.IHCQC.IHCQCTestOrder ihcTestOrder,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 		{            
 			this.m_AccessionOrder = accessionOrder;			
 			this.m_SystemIdentity = systemIdentity;
-
-			this.m_ObjectTracker = objectTracker;
 
             this.m_IHCQCTestOrder = ihcTestOrder;            
             this.m_PageHeaderText = "IHC QC Results For: " + this.m_AccessionOrder.PatientDisplayName;			
 
 			InitializeComponent();
 
-			DataContext = this;				
-		}
+			DataContext = this;
+        }
 
         public YellowstonePathology.Business.Test.IHCQC.IHCQCTestOrder IHCQCTestOrder
         {
@@ -66,26 +62,6 @@ namespace YellowstonePathology.UI.Test
 			get { return this.m_PageHeaderText; }
 		}				        
 
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save()
-		{
-            this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
-		}
-        
-		public void UpdateBindingSources()
-		{
-
-		}		
-
         private void HyperLinkFinalize_Click(object sender, RoutedEventArgs e)
         {
 			YellowstonePathology.Business.Rules.MethodResult methodResult =  this.m_IHCQCTestOrder.IsOkToFinalize();
@@ -93,7 +69,7 @@ namespace YellowstonePathology.UI.Test
 			{
                 if (this.m_IHCQCTestOrder.ControlsReactedAppropriately == true)
                 {
-                    this.m_IHCQCTestOrder.Finalize(this.m_SystemIdentity.User);
+                    this.m_IHCQCTestOrder.Finish(this.m_AccessionOrder);
                 }
                 else
                 {
@@ -124,7 +100,7 @@ namespace YellowstonePathology.UI.Test
 			YellowstonePathology.Business.Rules.MethodResult result = this.m_IHCQCTestOrder.IsOkToAccept();
 			if (result.Success == true)
 			{
-				this.m_IHCQCTestOrder.Accept(this.m_SystemIdentity.User);
+				this.m_IHCQCTestOrder.Accept();
 			}
 			else
 			{

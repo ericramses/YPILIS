@@ -65,9 +65,9 @@
 		<Button Click="ButtonVoiceSpecimenDescription_Click" Width="200" Height="30" Margin="5,5,5,5">Specimen Voice Description now PQRI</Button>		        
 		
         <Button Click="ButtonDoStuff_Click" Width="200" Height="30" Margin="5,5,5,5">Do Stuff</Button>
-        <Button Click="ButtonCheckHPV_Click" Width="200" Height="30" Margin="5,5,5,5">Check HPV</Button>
+        <Button Click="ButtonAccessionMickyMouseCreate_Click" Width="200" Height="30" Margin="5,5,5,5">Create Micky Mouse Accession</Button>
 
-        <Button Click="ButtonCheckReportDistribution_Click" Width="200" Height="30" Margin="5,5,5,5">Report Distribution</Button>
+        <Button Click="ButtonAccessionMickyMouseRemove_Click" Width="200" Height="30" Margin="5,5,5,5">Remove Micky Mouse Accession</Button>
 
 		<Button Click="ButtonFLowSpecimenOrder_Click" Width="200" Height="30" Margin="5,5,5,5">Flow Specimen Order Create</Button>
 		<Button Click="ButtonTestEGFRAccession_Click" Width="200" Height="30" Margin="5,5,5,5">Test EGFR Accession</Button>
@@ -83,7 +83,7 @@
 
 
         <Button Click="ButtonRunShowTemplatePage_Click" Width="200" Height="30" Margin="5,5,5,5">Show Template Page</Button>
-        
+
         <Button Click="ButtonRunMethod_Click" Width="200" Height="30" Margin="5,5,5,5">Run Method</Button>
 
 

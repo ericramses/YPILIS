@@ -16,7 +16,7 @@ namespace YellowstonePathology.Business.Flow
 
         private YellowstonePathology.Business.Flow.FlowLogSearch m_FlowLogSearch;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-        private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
+        private YellowstonePathology.Business.Test.LLP.PanelSetOrderLeukemiaLymphoma m_PanelSetOrderLeukemiaLymphoma;
 
         private YellowstonePathology.Business.User.SystemUserCollection m_PathologistUsers;
         private YellowstonePathology.Business.User.SystemUserCollection m_MedTechUsers;
@@ -30,29 +30,29 @@ namespace YellowstonePathology.Business.Flow
 		private bool m_IsEnabled = true;
 		private string m_ReportNo;
 
-        private YellowstonePathology.Business.Domain.Lock m_Lock;
+        
         private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
         private YellowstonePathology.Business.Facility.Model.FacilityCollection m_FacilityCollection;
 		private YellowstonePathology.Business.Document.CaseDocumentCollection m_CaseDocumentCollection;
 		private YellowstonePathology.Business.Patient.Model.PatientHistoryList m_PatientHistoryList;
 		private YellowstonePathology.Business.PanelSet.Model.PanelSetCollection m_PanelSets;
         private YellowstonePathology.Business.Billing.ICD9BillingCodeCollection m_ICD9BillingCodeCollection;
+        private object m_Writer;
 
-        public FlowUI()
+        public FlowUI(object writer)
         {
+            this.m_Writer = writer;
             this.m_FlowLogSearch = new FlowLogSearch();
 
-            this.m_SystemIdentity = new YellowstonePathology.Business.User.SystemIdentity(YellowstonePathology.Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
-			if (this.m_SystemIdentity.User.IsUserInRole(YellowstonePathology.Business.User.SystemUserRoleDescriptionEnum.Pathologist))
+            this.m_SystemIdentity = YellowstonePathology.Business.User.SystemIdentity.Instance;
+            if (this.m_SystemIdentity.User.IsUserInRole(YellowstonePathology.Business.User.SystemUserRoleDescriptionEnum.Pathologist))
 			{
 				this.m_FlowLogSearch.SetByLeukemiaNotFinal();
             }
             else
             {
                 this.m_FlowLogSearch.SetByAccessionMonth(DateTime.Now);
-			}
-
-			this.m_Lock = new Domain.Lock(this.m_SystemIdentity);
+			}			
 
 			this.m_PathologistUsers = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetUsersByRole(YellowstonePathology.Business.User.SystemUserRoleDescriptionEnum.Pathologist, true);
 			this.m_MedTechUsers = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetUsersByRole(YellowstonePathology.Business.User.SystemUserRoleDescriptionEnum.MedTech, true);
@@ -89,12 +89,7 @@ namespace YellowstonePathology.Business.Flow
         public void Search()
         {
 			this.m_FlowLogSearch.Search();
-        }
-
-		public Domain.Lock Lock
-		{
-			get { return this.m_Lock; }
-		}
+        }		
 
         public YellowstonePathology.Business.Billing.ICDCodeList ICDCodeList
         {
@@ -104,31 +99,27 @@ namespace YellowstonePathology.Business.Flow
 		public Test.AccessionOrder AccessionOrder
 		{
 			get { return this.m_AccessionOrder; }
+            set
+            {
+                if(this.m_AccessionOrder != value)
+                {
+                    this.m_AccessionOrder = value;
+                    this.NotifyPropertyChanged("AccessionOrder");                    
+                }                
+            }
 		}
-
-        public YellowstonePathology.Business.Persistence.ObjectTracker ObjectTracker
-        {
-            get { return this.m_ObjectTracker; }
-        }
 
 		public YellowstonePathology.Business.Test.LLP.PanelSetOrderLeukemiaLymphoma PanelSetOrderLeukemiaLymphoma
 		{
-			get
-			{
-				YellowstonePathology.Business.Test.LLP.PanelSetOrderLeukemiaLymphoma result = null;
-				if (this.m_AccessionOrder != null)
-				{
-                    YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
-                    if (panelSetOrder != null)
-                    {
-						if (panelSetOrder is YellowstonePathology.Business.Test.LLP.PanelSetOrderLeukemiaLymphoma)
-                        {
-							result = (YellowstonePathology.Business.Test.LLP.PanelSetOrderLeukemiaLymphoma)panelSetOrder;
-                        }
-                    }					
-				}
-                return result;
-			}
+			get	{ return this.m_PanelSetOrderLeukemiaLymphoma;	}
+            set
+            {
+                if(this.m_PanelSetOrderLeukemiaLymphoma != value)
+                {
+                    this.m_PanelSetOrderLeukemiaLymphoma = value;
+                    this.NotifyPropertyChanged("PanelSetOrderLeukemiaLymphoma");
+                }
+            }
 		}
 
 		public Document.CaseDocumentCollection CaseDocumentCollection
@@ -136,8 +127,11 @@ namespace YellowstonePathology.Business.Flow
 			get { return this.m_CaseDocumentCollection; }
 			set
 			{
-				this.m_CaseDocumentCollection = value;
-				this.NotifyPropertyChanged("CaseDocumentCollection");
+                if(this.m_CaseDocumentCollection != value)
+                {
+                    this.m_CaseDocumentCollection = value;
+                    this.NotifyPropertyChanged("CaseDocumentCollection");
+                }				
 			}
 		}
 
@@ -162,7 +156,6 @@ namespace YellowstonePathology.Business.Flow
                     this.m_ICD9BillingCodeCollection = value;
                     this.NotifyPropertyChanged("ICD9BillingCodeCollection");
                 }
-
             }
 		}
 
@@ -181,19 +174,18 @@ namespace YellowstonePathology.Business.Flow
             get { return this.m_FlowPanelList; }
         }
 
-		public void GetAccessionOrder(string reportNo)
+		public void GetAccessionOrder(string reportNo, string masterAccessionNo)
 		{			
-			this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(reportNo);
-            this.m_ObjectTracker = new Persistence.ObjectTracker();
-            this.m_ObjectTracker.RegisterObject(this.m_AccessionOrder);
-			this.m_ReportNo = reportNo;
+			this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, this.m_Writer);			
+
+            this.m_PanelSetOrderLeukemiaLymphoma = (YellowstonePathology.Business.Test.LLP.PanelSetOrderLeukemiaLymphoma)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
+            this.m_ReportNo = reportNo;
 
 			this.RefreshCaseDocumentCollection(reportNo);
 			this.m_PatientHistoryList.SetFillCommandByAccessionNo(reportNo);
 			this.m_PatientHistoryList.Fill();
 			this.m_PatientHistoryList.SetCaseDocumentCollection(reportNo);
-
-			this.m_Lock.SetLockable(this.m_AccessionOrder);
+			
 			this.NotifyPropertyChanged("AccessionOrder");
 			this.NotifyPropertyChanged("PanelSetOrderLeukemiaLymphoma");
 			this.NotifyPropertyChanged("PatientHistoryList");
@@ -201,10 +193,10 @@ namespace YellowstonePathology.Business.Flow
 			this.NotifyPropertyChanged("CaseHeader");
 			this.NotifyPropertyChanged("SignReportButtonContent");
 			this.NotifyPropertyChanged("SignReportButtonEnabled");
-			this.SetAccess(this.m_Lock);
-		}
+			this.SetAccess();            
+        }
 
-		public bool IsWorkspaceEnabled
+        public bool IsWorkspaceEnabled
 		{
 			get { return this.m_IsEnabled; }
 			set
@@ -233,9 +225,9 @@ namespace YellowstonePathology.Business.Flow
 			}
 		}
 
-		public void SetAccess(YellowstonePathology.Business.Domain.Lock theLock)
+		public void SetAccess()
 		{
-			if (theLock.LockAquired == true)
+			if (this.m_AccessionOrder.LockAquired == true)
 			{
 				if (this.PanelSetOrderLeukemiaLymphoma.Final == true)
 				{
@@ -279,7 +271,6 @@ namespace YellowstonePathology.Business.Flow
 							this.PanelSetOrderLeukemiaLymphoma.FinalDate = null;
 							this.PanelSetOrderLeukemiaLymphoma.FinalTime = null;
                         }
-
                     }
                 }
             }
@@ -318,7 +309,7 @@ namespace YellowstonePathology.Business.Flow
 					this.PanelSetOrderLeukemiaLymphoma.TechFinalDate = DateTime.Today;
 					this.PanelSetOrderLeukemiaLymphoma.TechFinalTime = DateTime.Now;
 
-					this.Save();
+					this.Save(false);
 				}
                 else
                 {
@@ -327,13 +318,10 @@ namespace YellowstonePathology.Business.Flow
             }
         }
 
-        public void Save()
+        public void Save(bool releaseLock)
         {
-			if (this.AccessionOrder != null)
-            {                
-                this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);                
-            }
-        }        
+			
+        }
 
         public Flow.Marker Marker
         {
@@ -384,7 +372,7 @@ namespace YellowstonePathology.Business.Flow
 
 			Flow.FlowMarkerCollection panelCollection = Gateway.FlowGateway.GetFlowMarkerCollectionByPanelId(this.PanelSetOrderLeukemiaLymphoma.ReportNo, panelId);
 			this.PanelSetOrderLeukemiaLymphoma.FlowMarkerCollection.Insert(panelCollection, this.PanelSetOrderLeukemiaLymphoma.ReportNo);
-			this.Save();			
+			this.Save(false);			
 		}		
 
 		public string SignReportButtonContent
@@ -405,7 +393,7 @@ namespace YellowstonePathology.Business.Flow
 			get
 			{
 				bool result = false;
-				if (this.m_Lock.LockAquired == true)
+				if (this.m_AccessionOrder != null && this.m_AccessionOrder.LockAquired == true)
 				{
                     result = true;
 				}

@@ -9,49 +9,19 @@ namespace YellowstonePathology.UI.Login.Receiving
 	public class ReceiveSpecimenPath
 	{				
         private YellowstonePathology.UI.Login.Receiving.LoginPageWindow m_LoginPageWindow;
-        private YellowstonePathology.UI.Login.Receiving.ClientOrderReceivingHandler m_ClientOrderReceivingHandler;
-        private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
+        private YellowstonePathology.UI.Login.Receiving.ClientOrderReceivingHandler m_ClientOrderReceivingHandler;        
 
         public ReceiveSpecimenPath()
-        {
-            this.m_SystemIdentity = new Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.Blank);
-            this.m_LoginPageWindow = new Receiving.LoginPageWindow();                        
+        {            
+            this.m_LoginPageWindow = new Receiving.LoginPageWindow();
+            this.m_ClientOrderReceivingHandler = new ClientOrderReceivingHandler(this.m_LoginPageWindow);
         }
 
         public void Start()
-        {           
-			if (Business.User.SystemIdentity.DoesLoggedInUserNeedToScanId() == true)
-			{
-				this.ShowScanSecurityBadgePage();
-			}
-			else
-			{
-				this.SetClientOrderReceivingHandlerSystemIdentity(new Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn));
-				this.ShowClientLookupPage();
-			}
-			this.m_LoginPageWindow.ShowDialog();
-        }
-
-        private void ShowScanSecurityBadgePage()
-        {
-            YellowstonePathology.UI.Login.ScanSecurityBadgePage scanSecurityBadgePage = new ScanSecurityBadgePage(System.Windows.Visibility.Collapsed);
-			scanSecurityBadgePage.AuthentificationSuccessful += new ScanSecurityBadgePage.AuthentificationSuccessfulEventHandler(ScanSecurityBadgePage_AuthentificationSuccessful);
-            this.m_LoginPageWindow.PageNavigator.Navigate(scanSecurityBadgePage);
-        }
-
-		private void ScanSecurityBadgePage_AuthentificationSuccessful(object sender, CustomEventArgs.SystemIdentityReturnEventArgs e)
-        {
-			this.SetClientOrderReceivingHandlerSystemIdentity(e.SystemIdentity);
-          	this.ShowClientLookupPage();
-        }
-
-		private void SetClientOrderReceivingHandlerSystemIdentity(YellowstonePathology.Business.User.SystemIdentity systemIdentity)
-		{
-			this.m_SystemIdentity = systemIdentity;
-			this.m_ClientOrderReceivingHandler = new Receiving.ClientOrderReceivingHandler(this.m_SystemIdentity);
-			System.Diagnostics.Debug.Assert(this.m_ClientOrderReceivingHandler.SystemIdentity.IsKnown, "The system identity must be known.");
-			System.Diagnostics.Debug.Assert((this.m_ClientOrderReceivingHandler.SystemIdentity.User != null), "The system identity must be known.");
-		}
+        {           						
+            this.ShowClientLookupPage();
+            this.m_LoginPageWindow.ShowDialog();
+        }        		
 
 		private void ShowClientLookupPage()
 		{
@@ -156,7 +126,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 
         private void ItemsReceivedPage_Next(object sender, EventArgs e)
         {
-            this.m_ClientOrderReceivingHandler.Save();
+            this.m_ClientOrderReceivingHandler.Save(false);
             this.StartReviewClientOrderPath();
         }
 
@@ -207,7 +177,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 
 		private void ShowClientOrderDetailsPage(YellowstonePathology.Business.ClientOrder.Model.ClientOrderDetail clientOrderDetail)
 		{            
-            Receiving.ClientOrderDetailsPage clientOrderDetailsPage = new Receiving.ClientOrderDetailsPage(this.m_LoginPageWindow.PageNavigator, clientOrderDetail, this.m_ClientOrderReceivingHandler.ClientOrder.SpecialInstructions, this.m_ClientOrderReceivingHandler.SystemIdentity);
+            Receiving.ClientOrderDetailsPage clientOrderDetailsPage = new Receiving.ClientOrderDetailsPage(this.m_LoginPageWindow.PageNavigator, clientOrderDetail, this.m_ClientOrderReceivingHandler.ClientOrder.SpecialInstructions);
             clientOrderDetailsPage.Next += new ClientOrderDetailsPage.NextEventHandler(ClientOrderDetailsPage_Next);
             clientOrderDetailsPage.Back += new ClientOrderDetailsPage.BackEventHandler(ClientOrderDetailsPage_Back);
             clientOrderDetailsPage.SaveClientOrderDetail += new ClientOrderDetailsPage.SaveClientOrderDetailEventHandler(ClientOrderDetailsPage_SaveClientOrderDetail);            
@@ -216,7 +186,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 
         private void ClientOrderDetailsPage_SaveClientOrderDetail(object sender, EventArgs e)
         {
-            this.m_ClientOrderReceivingHandler.Save();
+            this.m_ClientOrderReceivingHandler.Save(false);
         }        
 
         private void ClientOrderDetailsPage_Back(object sender, EventArgs e)
@@ -231,7 +201,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 
 		private void StartReviewClientOrderPath()
 		{
-			ReviewClientOrderPath reviewClientOrderPath = new ReviewClientOrderPath(this.m_LoginPageWindow.PageNavigator, this.m_ClientOrderReceivingHandler);
+			ReviewClientOrderPath reviewClientOrderPath = new ReviewClientOrderPath(this.m_LoginPageWindow.PageNavigator, this.m_ClientOrderReceivingHandler, this.m_LoginPageWindow);
 			reviewClientOrderPath.Return += new ReviewClientOrderPath.ReturnEventHandler(ReviewClientOrderPath_Return);
 			reviewClientOrderPath.Back += new ReviewClientOrderPath.BackEventHandler(ReviewClientOrderPath_Back);
 			reviewClientOrderPath.Finish += new ReviewClientOrderPath.FinishEventHandler(ReviewClientOrderPath_Finish);
@@ -240,6 +210,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 
 		private void ReviewClientOrderPath_Finish(object sender, EventArgs e)
 		{
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this.m_LoginPageWindow);
 			this.m_LoginPageWindow.Close();
 		}
 
@@ -256,7 +227,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 					this.HandleCommand(e);
 					break;
 				case UI.Navigation.PageNavigationDirectionEnum.Finish:
-					this.m_ClientOrderReceivingHandler = new ClientOrderReceivingHandler(this.m_SystemIdentity);
+					this.m_ClientOrderReceivingHandler = new ClientOrderReceivingHandler(this.m_LoginPageWindow);
 					this.ShowClientLookupPage();
 					break;
 			}
@@ -267,7 +238,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 			switch ((ReceiveSpecimen.ReceiveSpecimenCommandTypeEnum)e.Data)
 			{
 				case ReceiveSpecimen.ReceiveSpecimenCommandTypeEnum.Finalize:
-                    this.m_ClientOrderReceivingHandler = new ClientOrderReceivingHandler(this.m_SystemIdentity);
+                    this.m_ClientOrderReceivingHandler = new ClientOrderReceivingHandler(this.m_LoginPageWindow);
 					this.ShowClientLookupPage();
 					break;
 			}

@@ -14,37 +14,19 @@ namespace YellowstonePathology.UI.Test
 		protected ResultDialog m_ResultDialog;
         protected YellowstonePathology.UI.Navigation.PageNavigator m_PageNavigator;
 		protected YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
-
-        //protected YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
-        //protected YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-        //protected YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
-        //protected System.Windows.Visibility m_BackButtonVisibility;
-
+        protected System.Windows.Window m_Window;
         protected string m_ResultPageClassName;
 
-        public ResultPath(YellowstonePathology.UI.Navigation.PageNavigator pageNavigator)
+        public ResultPath(YellowstonePathology.UI.Navigation.PageNavigator pageNavigator, System.Windows.Window window)
         {
-			this.m_PageNavigator = pageNavigator;         
+			this.m_PageNavigator = pageNavigator;
+            this.m_Window = window;     
         }
 
         public virtual void Start()
         {
-			if (Business.User.SystemIdentity.DoesLoggedInUserNeedToScanId() == true)
-			{
-                this.ShowScanSecurityBadgePage();
-			}
-			else
-			{
-				this.m_SystemIdentity = new Business.User.SystemIdentity(Business.User.SystemIdentityTypeEnum.CurrentlyLoggedIn);
-                this.ShowResultPage();
-            }
-        }
-
-        public virtual void Start(YellowstonePathology.Business.User.SystemIdentity systemIdentity)
-        {
-            this.m_SystemIdentity = systemIdentity;
             this.ShowResultPage();
-        }
+        }        
 
         public void RegisterCancelATest(IResultPage resultPage)
         {
@@ -53,7 +35,7 @@ namespace YellowstonePathology.UI.Test
         
         private void CancelTest(object sender, YellowstonePathology.UI.CustomEventArgs.CancelTestEventArgs e)
         {
-            CancelATestPath cancelATestPath = new CancelATestPath(e, this.m_PageNavigator);
+            CancelATestPath cancelATestPath = new CancelATestPath(e, this.m_PageNavigator, this.m_Window);
             cancelATestPath.Finish += new FinishEventHandler(CancellATestPath_Finish);
             cancelATestPath.Back += new CancelATestPath.BackEventHandler(CancellATestPath_Back);
             cancelATestPath.Start();
@@ -68,20 +50,7 @@ namespace YellowstonePathology.UI.Test
         private void CancellATestPath_Finish(object sender, EventArgs e)
         {
             this.Finish(this, new EventArgs());
-        }
-
-		private void ShowScanSecurityBadgePage()
-		{
-			YellowstonePathology.UI.Login.ScanSecurityBadgePage scanSecurityBadgePage = new Login.ScanSecurityBadgePage(System.Windows.Visibility.Collapsed);
-			scanSecurityBadgePage.AuthentificationSuccessful += new Login.ScanSecurityBadgePage.AuthentificationSuccessfulEventHandler(ScanSecurityBadgePage_AuthentificationSuccessful);
-			this.m_PageNavigator.Navigate(scanSecurityBadgePage);
-		}
-
-		protected void ScanSecurityBadgePage_AuthentificationSuccessful(object sender, CustomEventArgs.SystemIdentityReturnEventArgs e)
-		{
-			this.m_SystemIdentity = e.SystemIdentity;
-            this.ShowResultPage();
-        }
+        }				
 
         public void Finished()
         {

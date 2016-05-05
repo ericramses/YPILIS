@@ -6,7 +6,7 @@ using System.Xml.Linq;
 
 namespace YellowstonePathology.Business.HL7View.EPIC
 {
-	public class EpicObrView
+	public class EPICObrView
 	{        
         private string m_ExternalOrderId;
         private string m_DateFormat = "yyyyMMddHHmm";
@@ -23,7 +23,7 @@ namespace YellowstonePathology.Business.HL7View.EPIC
         YellowstonePathology.Business.Domain.Physician m_OrderingPhysician;
         YellowstonePathology.Business.ClientOrder.Model.UniversalService m_UniversalService;
 
-        public EpicObrView(string externalOrderId, string masterAccessionNo, string reportNo, Nullable<DateTime> collectionDate, Nullable<DateTime> collectionTime, Nullable<DateTime> accessionTime, Nullable<DateTime> finalTime,
+        public EPICObrView(string externalOrderId, string masterAccessionNo, string reportNo, Nullable<DateTime> collectionDate, Nullable<DateTime> collectionTime, Nullable<DateTime> accessionTime, Nullable<DateTime> finalTime,
             YellowstonePathology.Business.Domain.Physician orderingPhysician, string observationResultStatus, YellowstonePathology.Business.ClientOrder.Model.UniversalService universalService, bool sendUnsolicited)
         {         
             this.m_ExternalOrderId = externalOrderId;

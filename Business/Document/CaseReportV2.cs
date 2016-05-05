@@ -20,23 +20,29 @@ namespace YellowstonePathology.Business.Document
         protected string m_TemplateName;
 		protected XmlDocument m_ReportXml;
 		protected XmlNamespaceManager m_NameSpaceManager;
-		protected string m_SaveFileName;
-		protected YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-		protected YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
-		protected YellowstonePathology.Business.Document.ReportSaveModeEnum m_ReportSaveEnum;
-		protected string m_ReportNo;
+		protected string m_SaveFileName;				
+
+		protected YellowstonePathology.Business.Document.ReportSaveModeEnum m_ReportSaveMode;		
+        protected Business.Test.AccessionOrder m_AccessionOrder;
+        protected Business.Test.PanelSetOrder m_PanelSetOrder;
 
         protected YellowstonePathology.Business.Document.NativeDocumentFormatEnum m_NativeDocumentFormat;
 		
+        public CaseReportV2()
+        {
+
+        }
 		
-		public CaseReportV2()
-        {                        
+		public CaseReportV2(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode)
+        {
+            this.m_AccessionOrder = accessionOrder;
+            this.m_PanelSetOrder = panelSetOrder;
+            this.m_ReportSaveMode = reportSaveMode;
+
             this.m_ReportXml = new XmlDocument();
             this.m_NativeDocumentFormat = NativeDocumentFormatEnum.Word;
             this.m_NameSpaceManager = new XmlNamespaceManager(m_ReportXml.NameTable);
-            this.m_NameSpaceManager.AddNamespace("w", "http://schemas.microsoft.com/office/word/2003/wordml");
-            this.m_AccessionOrder = new YellowstonePathology.Business.Test.AccessionOrder();
-			this.m_PanelSetOrder = new YellowstonePathology.Business.Test.PanelSetOrder();
+            this.m_NameSpaceManager.AddNamespace("w", "http://schemas.microsoft.com/office/word/2003/wordml");            			
 		}
 
 		public virtual YellowstonePathology.Business.Rules.MethodResult DeleteCaseFiles(YellowstonePathology.Business.OrderIdParser orderIdParser)
@@ -44,16 +50,16 @@ namespace YellowstonePathology.Business.Document
 			return YellowstonePathology.Business.Document.CaseDocument.DeleteCaseFiles(orderIdParser);            
         }
 
-		public virtual void Render(string masterAccessionNo, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveEnum)
+		public virtual void Render()
         {
             throw new NotImplementedException("Not Implemented Here");
         }
 
         public virtual void Publish()
         {
-			YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_ReportNo);
+			YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
 			YellowstonePathology.Business.Document.CaseDocument.SaveXMLAsPDF(orderIdParser);
-            YellowstonePathology.Business.Helper.FileConversionHelper.SaveXpsReportToTiff(this.m_ReportNo);
+            YellowstonePathology.Business.Helper.FileConversionHelper.SaveXpsReportToTiff(this.m_PanelSetOrder.ReportNo);
         }
 
         public YellowstonePathology.Business.Document.NativeDocumentFormatEnum NativeDocumentFormat
@@ -66,7 +72,7 @@ namespace YellowstonePathology.Business.Document
         {
             this.m_ReportXml.Load(this.m_TemplateName);
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
-            switch (this.m_ReportSaveEnum)
+            switch (this.m_ReportSaveMode)
             {
                 case YellowstonePathology.Business.Document.ReportSaveModeEnum.Draft:
 					this.m_SaveFileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + this.m_PanelSetOrder.ReportNo + ".draft.xml";
@@ -372,7 +378,7 @@ namespace YellowstonePathology.Business.Document
 
         public void SaveReport()
         {            
-            switch (this.m_ReportSaveEnum)
+            switch (this.m_ReportSaveMode)
             {
                 case YellowstonePathology.Business.Document.ReportSaveModeEnum.Draft:                                        
                     this.m_ReportXml.Save(this.m_SaveFileName);
@@ -401,6 +407,6 @@ namespace YellowstonePathology.Business.Document
                 result = date.ToString("MM/dd/yyy HH:mm");
             }
             return result;            
-		}                
-	}
+		}        
+    }
 }

@@ -15,7 +15,7 @@ using System.ComponentModel;
 
 namespace YellowstonePathology.UI.Test
 {
-    public partial class TecanImportExportPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
+    public partial class TecanImportExportPage : UserControl, INotifyPropertyChanged 
 	{
         public delegate void PropertyChangedNotificationHandler(String info);
         public event PropertyChangedEventHandler PropertyChanged;
@@ -28,8 +28,7 @@ namespace YellowstonePathology.UI.Test
 
         private Microsoft.Office.Interop.Excel.Application m_ExcelApplication;
         private Microsoft.Office.Interop.Excel.Workbook m_WorkBook;
-        private YellowstonePathology.Business.User.UserPreference m_UserPreference;
-        private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
+        private YellowstonePathology.Business.User.UserPreference m_UserPreference;        
         private List<string> m_FileList;
         private Visibility m_NextButtonVisibility;
         private Visibility m_CloseButtonVisibility;
@@ -41,9 +40,7 @@ namespace YellowstonePathology.UI.Test
             this.m_NextButtonVisibility = nextButtonVisibility;
             this.m_CloseButtonVisibility = closeButtonVisibility;
 
-            this.m_UserPreference = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference;
-			this.m_ObjectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-            this.m_ObjectTracker.RegisterObject(this.m_UserPreference);
+            this.m_UserPreference = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference;			
             this.BuildFileList();
 
 			InitializeComponent();
@@ -94,7 +91,7 @@ namespace YellowstonePathology.UI.Test
             return true;
         }
 
-        public void Save()
+        public void Save(bool releaseLock)
         {
             
         }
@@ -106,7 +103,7 @@ namespace YellowstonePathology.UI.Test
         
 		private void ButtonNext_Click(object sender, RoutedEventArgs e)
 		{
-            this.m_ObjectTracker.SubmitChanges(this.m_UserPreference);
+            //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_UserPreference, false);            
             if (this.Next != null) this.Next(this, new YellowstonePathology.UI.CustomEventArgs.ExcelSpreadsheetReturnEventArgs(this.m_ExcelApplication, this.m_WorkBook));
 		}                
 
@@ -178,8 +175,8 @@ namespace YellowstonePathology.UI.Test
         }
 
         private void ButtonClose_Click(object sender, RoutedEventArgs e)
-        {
-            this.m_ObjectTracker.SubmitChanges(this.m_UserPreference);
+        {            
+            //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_UserPreference, true);
             if (this.Close != null) this.Close(this, new EventArgs());
         }
 

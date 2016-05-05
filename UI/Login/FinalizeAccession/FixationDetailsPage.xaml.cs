@@ -19,13 +19,12 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 	/// <summary>
 	/// Interaction logic for FixationDetailsPage.xaml
 	/// </summary>
-	public partial class FixationDetailsPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges, INotifyPropertyChanged
+	public partial class FixationDetailsPage : UserControl, INotifyPropertyChanged
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 		public delegate void ReturnEventHandler(object sender, UI.Navigation.PageNavigationReturnEventArgs e);
 		public event ReturnEventHandler Return;
-
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
+		
 		private string m_PageHeaderText = "Fixation Details Page";
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		private ObservableCollection<string> m_FixationTypeCollection;		
@@ -33,10 +32,8 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
         private ObservableCollection<string> m_TimeToFixationTypeCollection;
         
 
-		public FixationDetailsPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker)
-		{
-			this.m_ObjectTracker = objectTracker;
+		public FixationDetailsPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
+		{			
 			this.m_AccessionOrder = accessionOrder;
 
             this.m_ProcessorRunCollection = Business.Surgical.ProcessorRunCollection.GetAll(true);
@@ -96,27 +93,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 		{            
             UI.Navigation.PageNavigationReturnEventArgs args = new UI.Navigation.PageNavigationReturnEventArgs(UI.Navigation.PageNavigationDirectionEnum.Finish, null);
             this.Return(this, args);            
-		}        
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save()
-		{
-			this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);			
-		}
-
-		public void UpdateBindingSources()
-		{
-
-		}               
+		}        		        
 
         private void ButtonSet_Click(object sender, RoutedEventArgs e)
         {

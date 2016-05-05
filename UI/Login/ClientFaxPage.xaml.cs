@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Login
 	/// <summary>
 	/// Interaction logic for ClientFaxPage.xaml
 	/// </summary>
-	public partial class ClientFaxPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges, INotifyPropertyChanged
+	public partial class ClientFaxPage : UserControl, INotifyPropertyChanged
 	{
 		public delegate void PropertyChangedNotificationHandler(String info);
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -112,9 +112,13 @@ namespace YellowstonePathology.UI.Login
 					clientLetter.Create(this.m_PatientNameWithBirthDate, client, letterBody);
 				}
 
-                //YellowstonePathology.Business.ReportDistribution.Model.FaxSubmission.Submit(client.Fax, client.LongDistance, "Missing Information", YellowstonePathology.UI.Properties.Settings.Default.ClientMissingInformationLetterFileName);
-                YellowstonePathology.Business.ReportDistribution.Model.FaxSubmission.Submit(client.Fax, client.LongDistance, "Missing Information", @"C:\Program Files\Yellowstone Pathology Institute\test.tif");
-                //MessageBox.Show("The fax was successfully submitted.");				
+                DateTime timeToSchedule = DateTime.Parse(DateTime.Today.ToShortDateString() + " 13:00");
+                if(DateTime.Now >= timeToSchedule)
+                {
+                    timeToSchedule = timeToSchedule.AddDays(1);
+                }
+
+                YellowstonePathology.Business.ReportDistribution.Model.ScheduledFaxSubmission.Submit(client.Fax, client.LongDistance, "Missing Information", @"C:\\Program Files\\Yellowstone Pathology Institute\\ClientMissingInformationLetter.xml", timeToSchedule);
             }
 			else
 			{
@@ -237,24 +241,6 @@ namespace YellowstonePathology.UI.Login
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
-        }
-
-        public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-        {
-            return false;
-        }
-
-        public bool OkToSaveOnClose()
-        {
-            return false;
-        }
-
-        public void Save()
-        {
-        }
-
-        public void UpdateBindingSources()
-        {
-        }
+        }        
     }
 }

@@ -9,8 +9,7 @@ namespace YellowstonePathology.UI.Cytology
 	{
         private PrintSlideDialog m_PrintSlideDialog;
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
-        private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-        private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
+        private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;        
 
 		public ThinPrepPapSlidePrintingPath()
         {
@@ -18,7 +17,7 @@ namespace YellowstonePathology.UI.Cytology
         }
 
         public void Start()
-        {
+        {            
 			this.m_PrintSlideDialog = new PrintSlideDialog();
             this.ShowScanSecurityBadgePage();
 			this.m_PrintSlideDialog.ShowDialog();
@@ -37,9 +36,9 @@ namespace YellowstonePathology.UI.Cytology
 			this.m_PrintSlideDialog.Close();
         }
 
-        private void ScanSecurityBadgePage_AuthentificationSuccessful(object sender, CustomEventArgs.SystemIdentityReturnEventArgs e)
+        private void ScanSecurityBadgePage_AuthentificationSuccessful(object sender, EventArgs e)
         {
-            this.m_SystemIdentity = e.SystemIdentity;
+            this.m_SystemIdentity = YellowstonePathology.Business.User.SystemIdentity.Instance;
             this.ShowScanContainerPage();
         }
 
@@ -64,8 +63,8 @@ namespace YellowstonePathology.UI.Cytology
 
         private void ScanAliquotPage_UseThisAliquotOrderId(object sender, string aliquotOrderId)
         {
-            this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByAliquotOrderId(aliquotOrderId);
-            this.m_ObjectTracker = new Business.Persistence.ObjectTracker();
+            string masterAccessionNo = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetMasterAccessionNoFromAliquotOrderId(aliquotOrderId);
+            this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, this.m_PrintSlideDialog);            
 
             if (this.m_AccessionOrder == null)
             {
@@ -73,8 +72,7 @@ namespace YellowstonePathology.UI.Cytology
                 this.ShowScanContainerPage();
             }
             else
-            {
-                this.m_ObjectTracker.RegisterObject(this.m_AccessionOrder);
+            {                
                 YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByAliquotOrderId(aliquotOrderId);
                 this.AddMaterialTrackingLog(specimenOrder);
                 this.ShowThinPrepPapSlidePrintingPage(specimenOrder);
@@ -109,29 +107,31 @@ namespace YellowstonePathology.UI.Cytology
 
             string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
             YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog materialTrackingLog = new Business.MaterialTracking.Model.MaterialTrackingLog(objectId, specimenOrder.SpecimenOrderId, null, thisFacility.FacilityId, thisFacility.FacilityName,
-                thisLocation.LocationId, thisLocation.Description, this.m_SystemIdentity.User.UserId, this.m_SystemIdentity.User.UserName, "Container Scan", "Container Scanned At Gross", "Specimen", this.m_AccessionOrder.MasterAccessionNo, specimenOrder.Description, specimenOrder.ClientAccessioned);
-            YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-            objectTracker.RegisterRootInsert(materialTrackingLog);
-            objectTracker.SubmitChanges(materialTrackingLog);
+                thisLocation.LocationId, thisLocation.Description, "Container Scan", "Container Scanned At Gross", "Specimen", this.m_AccessionOrder.MasterAccessionNo, specimenOrder.Description, specimenOrder.ClientAccessioned);
+
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(materialTrackingLog, this.m_PrintSlideDialog);            
         }
 
         private void ScanContainerPage_UseThisContainer(object sender, string containerId)
 		{
-            this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByContainerId(containerId);
-            this.m_ObjectTracker = new Business.Persistence.ObjectTracker();
+            string masterAccessionNo = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetMasterAccessionNoFromContainerId(containerId);
 
-            if (this.m_AccessionOrder == null)
+            if(string.IsNullOrEmpty(masterAccessionNo) == false)
             {
-                System.Windows.MessageBox.Show("The scanned container was not found.");
-                this.ShowScanContainerPage();
-            }
-            else
-            {
-                this.m_ObjectTracker.RegisterObject(this.m_AccessionOrder);
-                YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByContainerId(containerId);
-                this.AddMaterialTrackingLog(specimenOrder);
-                this.ShowThinPrepPapSlidePrintingPage(specimenOrder);
-            }         
+                this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, this.m_PrintSlideDialog);
+
+                if (this.m_AccessionOrder == null)
+                {
+                    System.Windows.MessageBox.Show("The scanned container was not found.");
+                    this.ShowScanContainerPage();
+                }
+                else
+                {
+                    YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByContainerId(containerId);
+                    this.AddMaterialTrackingLog(specimenOrder);
+                    this.ShowThinPrepPapSlidePrintingPage(specimenOrder);
+                }
+            }            
 		}
 
 		private void ScanContainerPage_Next(object sender, EventArgs e)
@@ -141,7 +141,7 @@ namespace YellowstonePathology.UI.Cytology
 
 		private void ShowThinPrepPapSlidePrintingPage(YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder)
 		{
-			ThinPrepPapSlidePrintingPage thinPrepPapSlidePrintingPage = new ThinPrepPapSlidePrintingPage(specimenOrder, this.m_AccessionOrder, this.m_ObjectTracker, this.m_SystemIdentity);
+			ThinPrepPapSlidePrintingPage thinPrepPapSlidePrintingPage = new ThinPrepPapSlidePrintingPage(specimenOrder, this.m_AccessionOrder);
 			thinPrepPapSlidePrintingPage.Finished += new ThinPrepPapSlidePrintingPage.FinishedEventHandler(ThinPrepPapSlidePrintingPage_Finished);
             thinPrepPapSlidePrintingPage.PageTimedOut += PageTimedOut;
 			this.m_PrintSlideDialog.PageNavigator.Navigate(thinPrepPapSlidePrintingPage);

@@ -38,8 +38,7 @@ namespace YellowstonePathology.UI.Surgical
 
 			this.m_DocumentViewer = new DocumentWorkspace();
 			this.TabItemDocumentWorkspace.Content = this.m_DocumentViewer;			
-
-			this.m_TreeViewWorkspace = new YellowstonePathology.UI.Common.TreeViewWorkspace(this.m_PathologistUI.AccessionOrder, this.m_PathologistUI.ObjectTracker, this.m_SystemIdentity);
+			this.m_TreeViewWorkspace = new YellowstonePathology.UI.Common.TreeViewWorkspace(this.m_PathologistUI.AccessionOrder, this.m_SystemIdentity);
 			this.tabItemTreeView.Content = this.m_TreeViewWorkspace;
 
 			this.m_CaseDocumentCollection = new Business.Document.CaseDocumentCollection(this.AccessionOrder, this.PanelSetOrder.ReportNo);
@@ -48,7 +47,7 @@ namespace YellowstonePathology.UI.Surgical
 
 			this.m_DocumentViewer.ClearContent();
 
-            this.m_TypingShortcutUserControl = new TypingShortcutUserControl(this.m_SystemIdentity);
+            this.m_TypingShortcutUserControl = new TypingShortcutUserControl(this.m_SystemIdentity, this.m_PathologistUI.Writer);
             this.TabItemTypingShortCuts.Content = this.m_TypingShortcutUserControl;
 
 			if (this.m_CaseDocumentCollection.Count != 0)
@@ -61,7 +60,6 @@ namespace YellowstonePathology.UI.Surgical
 
 			if (this.PanelSetOrder != null)
 			{
-				this.m_PathologistUI.Lock.LockStatusChanged += new Business.Domain.LockStatusChangedEventHandler(LockStatusChanged);
 				this.m_PathologistUI.RunWorkspaceEnableRules();
 				this.m_PathologistUI.RunPathologistEnableRules();
 
@@ -94,16 +92,18 @@ namespace YellowstonePathology.UI.Surgical
 				}
 			}
 
-			this.m_TreeViewWorkspace = new Common.TreeViewWorkspace(this.m_PathologistUI.AccessionOrder, this.m_PathologistUI.ObjectTracker, this.m_SystemIdentity);
-			this.tabItemTreeView.Content = this.m_TreeViewWorkspace;			
+			this.m_TreeViewWorkspace = new Common.TreeViewWorkspace(this.m_PathologistUI.AccessionOrder, this.m_SystemIdentity);
+            this.m_TreeViewWorkspace.IsEnabled = this.m_PathologistUI.AccessionOrder.IsLockAquiredByMe;
+            this.tabItemTreeView.Content = this.m_TreeViewWorkspace;
+            this.Unloaded += PathologistsReview_Unloaded;			
 		}
 
-		private void LockStatusChanged(object sender, EventArgs e)
-		{
-			this.NotifyPropertyChanged("CaseStatusTextColor");
-		}
+        private void PathologistsReview_Unloaded(object sender, RoutedEventArgs e)
+        {
+            MainWindow.MoveKeyboardFocusNextThenBack();
+        }
 
-		public void NotifyPropertyChanged(String info)
+        public void NotifyPropertyChanged(String info)
 		{
 			if (PropertyChanged != null)
 			{
@@ -150,7 +150,7 @@ namespace YellowstonePathology.UI.Surgical
 						break;
 					case 13:
 					case 128:
-						reviewContent = new SurgicalReview(this.m_TypingShortcutUserControl, this.m_PathologistUI, this.m_SystemIdentity);
+						reviewContent = new SurgicalReview(this.m_TypingShortcutUserControl, this.m_PathologistUI);
 						historyContent = new SurgicalHistory(this.m_PathologistUI);
 						break;
 					default:
@@ -174,7 +174,7 @@ namespace YellowstonePathology.UI.Surgical
 				}
 				else
 				{
-					if (this.m_PathologistUI.Lock.LockAquired == true)
+					if (this.m_PathologistUI.AccessionOrder.IsLockAquiredByMe == true)
 					{
 						color = "Green";
 					}

@@ -16,6 +16,7 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
         private bool m_QNSForALK;
         private bool m_QNSForROS1;
         private bool m_QNSForPDL1;
+        private bool m_DoNotPerformPDL1;
 
 		public EGFRToALKReflexAnalysisTestOrder() 
         {
@@ -25,18 +26,17 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
 		public EGFRToALKReflexAnalysisTestOrder(string masterAccessionNo, string reportNo, string objectId,
 			YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
             YellowstonePathology.Business.Interface.IOrderTarget orderTarget,
-			bool distribute,
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
-			: base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute, systemIdentity)
+			bool distribute)
+			: base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute)
 		{
             
 		}
 
-        public override void OrderInitialTests(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Interface.IOrderTarget orderTarget, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        public override void OrderInitialTests(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Interface.IOrderTarget orderTarget)
         {                        
             YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisTest egfrMutationAnalysisTest = new YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisTest();
             YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new TestOrderInfo(egfrMutationAnalysisTest, orderTarget, false);
-            YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Visitor.OrderTestOrderVisitor(testOrderInfo, systemIdentity);
+            YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Visitor.OrderTestOrderVisitor(testOrderInfo);
             accessionOrder.TakeATrip(orderTestOrderVisitor);            
         }		
 
@@ -167,7 +167,18 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
             }
         }
 
-		public override string ToResultString(Business.Test.AccessionOrder accessionOrder)
+        [PersistentProperty]
+        public bool DoNotPerformPDL1
+        {
+            get { return this.m_DoNotPerformPDL1; }
+            set
+            {
+                this.m_DoNotPerformPDL1 = value;
+                NotifyPropertyChanged("DoNotPerformPDL1");
+            }
+        }
+
+        public override string ToResultString(Business.Test.AccessionOrder accessionOrder)
 		{
 			StringBuilder result = new StringBuilder();
 			result.AppendLine("EGFR Mutation Analysis");
@@ -194,5 +205,11 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
 
 			return result.ToString();
 		}
-	}
+
+        protected override void CheckResults(AccessionOrder accessionOrder, object clone)
+        {
+            EGFRToALKReflexAnalysisTestOrder testOrderToCheck = (EGFRToALKReflexAnalysisTestOrder)clone;
+            testOrderToCheck.SetResults(accessionOrder);
+        }
+    }
 }

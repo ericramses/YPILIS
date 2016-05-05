@@ -8,24 +8,15 @@ namespace YellowstonePathology.UI
     public class AmendmentUI
     {
         YellowstonePathology.Business.Amendment.Model.Amendment m_SelectedAmendment;
-		YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
         YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
-        YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;     
 
-        public AmendmentUI(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
-			YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        public AmendmentUI(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
+			YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder)
         {
             this.m_AccessionOrder = accessionOrder;
-            this.m_ObjectTracker = objectTracker;
             this.m_PanelSetOrder = panelSetOrder;
-            this.m_SystemIdentity = systemIdentity;
-        }
-
-        public void Save()
-        {            
-            this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);            
-        }
+        }        
 
         public YellowstonePathology.Business.Test.AccessionOrder AccessionOrder
         {
@@ -63,7 +54,7 @@ namespace YellowstonePathology.UI
 
 		public YellowstonePathology.Business.User.SystemIdentity SystemIdentity
         {
-            get { return this.m_SystemIdentity; }
+            get { return YellowstonePathology.Business.User.SystemIdentity.Instance; }
         }
     }
 }

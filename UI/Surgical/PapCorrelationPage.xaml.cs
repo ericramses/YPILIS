@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Surgical
     /// <summary>
     /// Interaction logic for PapCorrelationPage.xaml
     /// </summary>
-    public partial class PapCorrelationPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
+    public partial class PapCorrelationPage : UserControl, INotifyPropertyChanged 
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -31,7 +31,6 @@ namespace YellowstonePathology.UI.Surgical
 
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         private YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder m_SurgicalTestOrder;
-        private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
         private YellowstonePathology.Business.Patient.Model.PatientHistoryList m_PatientHistoryList;
         private string m_PageHeaderText;
         private System.Windows.Visibility m_BackButtonVisibility;
@@ -39,13 +38,11 @@ namespace YellowstonePathology.UI.Surgical
 
         public PapCorrelationPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
             YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder,
-            YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
             System.Windows.Visibility backButtonVisibility,
             System.Windows.Visibility nextButtonVisibility)
         {
             this.m_AccessionOrder = accessionOrder;
             this.m_SurgicalTestOrder = surgicalTestOrder;
-            this.m_ObjectTracker = objectTracker;
             this.m_BackButtonVisibility = backButtonVisibility;
             this.m_NextButtonVisibility = nextButtonVisibility;
             this.m_PageHeaderText = "Pap Correlation Page";
@@ -56,6 +53,19 @@ namespace YellowstonePathology.UI.Surgical
             InitializeComponent();
 
             this.DataContext = this;
+
+            Loaded += PapCorrelationPage_Loaded;
+            Unloaded += PapCorrelationPage_Unloaded;
+        }
+
+        private void PapCorrelationPage_Loaded(object sender, RoutedEventArgs e)
+        {
+             
+        }
+
+        private void PapCorrelationPage_Unloaded(object sender, RoutedEventArgs e)
+        {
+             
         }
 
         public void NotifyPropertyChanged(String info)
@@ -76,9 +86,9 @@ namespace YellowstonePathology.UI.Surgical
             return true;
         }
 
-        public void Save()
+        public void Save(bool releaseLock)
         {
-            this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
+            //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
         }
 
         public void UpdateBindingSources()

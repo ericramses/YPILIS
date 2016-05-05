@@ -6,9 +6,9 @@ using System.Xml.Linq;
 
 namespace YellowstonePathology.Business.Test.TechInitiatedPeripheralSmear
 {
-    public class TechInitiatedPeripheralSmearEpicObxView : YellowstonePathology.Business.HL7View.EPIC.EpicObxView
+    public class TechInitiatedPeripheralSmearEPICObxView : YellowstonePathology.Business.HL7View.EPIC.EPICObxView
     {
-        public TechInitiatedPeripheralSmearEpicObxView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount) 
+        public TechInitiatedPeripheralSmearEPICObxView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount) 
             : base(accessionOrder, reportNo, obxCount)
 		{
 

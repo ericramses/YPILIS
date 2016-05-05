@@ -6,9 +6,9 @@ using System.Xml.Linq;
 
 namespace YellowstonePathology.Business.Test.ThrombocytopeniaProfile
 {
-	public class ThrombocytopeniaProfileEpicObxView : YellowstonePathology.Business.HL7View.EPIC.EpicObxView
+	public class ThrombocytopeniaProfileEPICObxView : YellowstonePathology.Business.HL7View.EPIC.EPICObxView
     {
-		public ThrombocytopeniaProfileEpicObxView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount) 
+		public ThrombocytopeniaProfileEPICObxView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount) 
             : base(accessionOrder, reportNo, obxCount)
 		{
 			
@@ -36,7 +36,7 @@ namespace YellowstonePathology.Business.Test.ThrombocytopeniaProfile
             YellowstonePathology.Business.Flow.FlowMarkerItem rpaMarker = panelSetOrder.FlowMarkerCollection.GetMarkerByName("Reticulated Platelet Analysis");
             this.AddNextObxElement("Test: " + rpaMarker.Name, document, "F");
             this.AddNextObxElement("Result: " + rpaMarker.Result, document, "F");
-            this.AddNextObxElement("Reference Range: 0-0.55%", document, "F");
+            this.AddNextObxElement("Reference Range: 0-0.37%", document, "F");
             this.AddNextObxElement("", document, "F");
 
             this.AddAmendments(document);
@@ -55,7 +55,7 @@ namespace YellowstonePathology.Business.Test.ThrombocytopeniaProfile
             this.HandleLongString(interpretiveComment, document, "F");
             this.AddNextObxElement("", document, "F");
 
-            string disclaimer = "Tests utilizing Analytic Specific Reagents (ASRs) were developed and performance characteristics determined by Yellowstone Pathology Institute, Inc.  They have not been cleared or approved by the U.S. Food and Drug Administration.  The FDA has determined that such clearance or approval is not necessary.  ASR’s may be used for clinical purposes and should not be regarded as investigational or for research.   This laboratory is certified under the Clinical Laboratory Improvement Amendments of 1988 (CLIA-88) as qualified to perform high complexity clinical laboratory testing.";
+            string disclaimer = "Tests utilizing Analytic Specific Reagents (ASRs) were developed and performance characteristics determined by Yellowstone Pathology Institute, Inc.  They have not been cleared or approved by the U.S. Food and Drug Administration.  The FDA has determined that such clearance or approval is not necessary.  ASR's may be used for clinical purposes and should not be regarded as investigational or for research.   This laboratory is certified under the Clinical Laboratory Improvement Amendments of 1988 (CLIA-88) as qualified to perform high complexity clinical laboratory testing.";
             this.HandleLongString(disclaimer, document, "F");
             this.AddNextObxElement("", document, "F");
 

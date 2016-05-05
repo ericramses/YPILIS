@@ -18,7 +18,7 @@ using System.IO;
 
 namespace YellowstonePathology.UI.Login.FinalizeAccession
 {	
-    public partial class DocumentScanningPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges, INotifyPropertyChanged
+    public partial class DocumentScanningPage : UserControl, INotifyPropertyChanged
 	{
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -94,21 +94,17 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
         }        
 
         private void ButtonScan_Click(object sender, RoutedEventArgs e)
-        {            
-            this.IsEnabled = false;
-
+        {                        
             try
-            {                
-                YellowstonePathology.Business.Common.PageScanner pageScanner = this.m_PageScannerCollection.SelectedPageScanner;                            
+            {
+                YellowstonePathology.Business.Common.PageScanner pageScanner = this.m_PageScannerCollection.SelectedPageScanner;                    
                 this.m_Twain.SelectSource(pageScanner.ScannerName);
-                this.m_Twain.StartScanning(pageScanner.ScanSettings);                
-            }            
+                this.m_Twain.StartScanning(pageScanner.ScanSettings);
+            }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);         
-            }
-
-            this.IsEnabled = true;
+                MessageBox.Show(ex.Message);
+            }            
         }
 
 		public string PageHeaderText
@@ -126,22 +122,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 		{
 			UI.Navigation.PageNavigationReturnEventArgs args = new UI.Navigation.PageNavigationReturnEventArgs(UI.Navigation.PageNavigationDirectionEnum.Next, null);
 			this.Return(this, args);
-		}		
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-            return false;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-            return false;
-		}
-
-		public void Save()
-		{		
-            
-		}
+		}				
 
         private void ButtonDelete_Click(object sender, RoutedEventArgs e)
         {            
@@ -174,11 +155,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
-        }
-
-		public void UpdateBindingSources()
-		{
-		}
+        }		
 
         private void ButtonPrint_Click(object sender, RoutedEventArgs e)
         {

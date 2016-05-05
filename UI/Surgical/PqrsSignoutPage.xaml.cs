@@ -17,7 +17,7 @@ namespace YellowstonePathology.UI.Surgical
     /// <summary>
     /// Interaction logic for PQRSSignoutPage.xaml
     /// </summary>
-    public partial class PQRSSignoutPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
+    public partial class PQRSSignoutPage : UserControl
     {
         public delegate void NextEventHandler(object sender, EventArgs e);
         public event NextEventHandler Next;
@@ -30,7 +30,6 @@ namespace YellowstonePathology.UI.Surgical
         private YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen m_SurgicalSpecimen;
         private YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder m_SurgicalTestOrder;
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-        private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
         private System.Windows.Visibility m_BackButtonVisibility;
         private System.Windows.Visibility m_NextButtonVisibility;
 
@@ -38,7 +37,6 @@ namespace YellowstonePathology.UI.Surgical
             YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen,
             YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-            YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
             System.Windows.Visibility backButtonVisibility,
             System.Windows.Visibility nextButtonVisibility)
         {
@@ -46,7 +44,6 @@ namespace YellowstonePathology.UI.Surgical
             this.m_SurgicalSpecimen = surgicalSpecimen;
             this.m_SurgicalTestOrder = surgicalTestOrder;
             this.m_AccessionOrder = accessionOrder;
-            this.m_ObjectTracker = objectTracker;
             this.m_BackButtonVisibility = backButtonVisibility;
             this.m_NextButtonVisibility = nextButtonVisibility;
 
@@ -55,12 +52,13 @@ namespace YellowstonePathology.UI.Surgical
             InitializeComponent();
             this.DataContext = this;
             this.Loaded += PQRSSignoutPage_Loaded;
+            Unloaded += PQRSSignoutPage_Unloaded;
         }
 
         private void PQRSSignoutPage_Loaded(object sender, RoutedEventArgs e)
         {
+             
             YellowstonePathology.Business.Test.PanelSetOrderCPTCodeCollection panelSetOrderCPTCodeCollection = this.m_SurgicalTestOrder.PanelSetOrderCPTCodeCollection.GetSpecimenOrderCollection(this.m_SurgicalSpecimen.SpecimenOrderId);
-            //foreach (YellowstonePathology.Business.Billing.Model.PQRSCode pqrsCode in this.m_PQRSMeasure.PQRSCodeCollection)
             for(int idx = 0; idx < this.m_PQRSMeasure.PQRSCodeCollection.Count; idx++)
             {
                 if (panelSetOrderCPTCodeCollection.Exists(this.m_PQRSMeasure.PQRSCodeCollection[idx].Code, 1) == true)
@@ -69,7 +67,11 @@ namespace YellowstonePathology.UI.Surgical
                     break;
                 }
             }
+        }
 
+        private void PQRSSignoutPage_Unloaded(object sender, RoutedEventArgs e)
+        {
+             
         }
 
         private void ButtonNext_Click(object sender, RoutedEventArgs e)
@@ -112,26 +114,7 @@ namespace YellowstonePathology.UI.Surgical
             }
 
             return result;
-        }
-
-        public void Save()
-        {
-            this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
-        }
-
-        public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-        {
-            return true;
-        }
-
-        public bool OkToSaveOnClose()
-        {
-            return true;
-        }
-
-        public void UpdateBindingSources()
-        {
-        }
+        }        
 
         public YellowstonePathology.Business.Surgical.PQRSMeasure PQRSMeasure
         {

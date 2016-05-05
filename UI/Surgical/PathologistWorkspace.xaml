@@ -96,7 +96,7 @@
 					</DataTemplate>
 				</Grid.Resources>
 
-				<ToolBarPanel Grid.Column="0" Grid.Row="0" Name="ToolBarPanelPathologistSearch" FocusManager.IsFocusScope="False">
+				<ToolBarPanel Grid.Column="0" Grid.Row="0" Name="ToolBarPanelPathologistSearch">
 					<ToolBarTray Background="Gainsboro">
 						<ToolBar>
 							<StackPanel>
@@ -197,7 +197,7 @@
 					<ToolBar>
 						<Button Name="ButtonStainOrder" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center"
 							HorizontalAlignment="Center" Click="ButtonStainOrder_Click" Background="Gainsboro"
-							IsEnabled="{Binding Path=FieldEnabler.IsUnprotectedEnabled}">
+							IsEnabled="{Binding Path=StainOrderButtonIsEnabled}">
 							<StackPanel Orientation="Horizontal">
 								<Image Margin="2" Height="16" Source="/UserInterface;component/Resources/Order.ico"></Image>
 								<TextBlock Margin="2" VerticalAlignment="Center">Stain Order ...</TextBlock>
@@ -223,7 +223,7 @@
 				</ToolBarTray>
 
 				<ListView Name="ListViewCaseList" Grid.Column="0" Grid.Row="4"
-					  ItemsSource="{Binding Path=PathologistOrderCollection.PathologistTestOrderItemList}">                    
+					  ItemsSource="{Binding Path=AccessionOrder.PanelSetOrderCollection.PathologistTestOrderItemList}">                    
                     <ListView.View>
 						<GridView>
 							<GridViewColumn DisplayMemberBinding="{Binding Path=TestName}" Header="Test Name" Width="250"/>
@@ -247,14 +247,14 @@
 				<TextBlock Margin="25,2,2,2" TextAlignment="Right" HorizontalAlignment="Stretch" VerticalAlignment="Center">Current User:</TextBlock>
 			</StatusBarItem>
 			<StatusBarItem>
-				<TextBlock Width="120"  Margin="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Text="{Binding Path=CurrentUser.UserName}"></TextBlock>
+                <TextBlock Width="120"  Margin="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Text="{Binding Path=SystemIdentity.User.UserName}"></TextBlock>
 			</StatusBarItem>
 
 			<StatusBarItem>
-				<TextBlock Margin="2" TextAlignment="Right" HorizontalAlignment="Stretch" VerticalAlignment="Center">Lock Status:</TextBlock>
+				<TextBlock Margin="2" TextAlignment="Right" HorizontalAlignment="Stretch" VerticalAlignment="Center">Locked By:</TextBlock>
 			</StatusBarItem>
 			<StatusBarItem>
-				<TextBlock Width="300" Margin="2" TextAlignment="Left" HorizontalAlignment="Stretch" VerticalAlignment="Center" Text="{Binding Path=Lock.LockMessage}"></TextBlock>
+                <TextBlock Width="300" Margin="2" TextAlignment="Left" HorizontalAlignment="Stretch" VerticalAlignment="Center" Text="{Binding Path=AccessionOrder.LockStatus}"></TextBlock>
 			</StatusBarItem>
 
 			<StatusBarItem>

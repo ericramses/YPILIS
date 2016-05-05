@@ -7,15 +7,17 @@ namespace YellowstonePathology.Business.Test.PDL1
 {
     public class PDL1WordDocument : YellowstonePathology.Business.Document.CaseReportV2
     {
-        public override void Render(string masterAccessionNo, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveEnum)
+        public PDL1WordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+            : base(accessionOrder, panelSetOrder, reportSaveMode)
         {
-            this.m_ReportNo = reportNo;
-            this.m_ReportSaveEnum = reportSaveEnum;
-            this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByMasterAccessionNo(masterAccessionNo);
-            this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
+
+        }
+
+        public override void Render()
+        {            
             PDL1TestOrder testOrder = (PDL1TestOrder)this.m_PanelSetOrder;
 
-            this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\PDL1.xml";
+            this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\PDL1.2.xml";
             base.OpenTemplate();
 
             this.SetDemographicsV2();
@@ -25,8 +27,9 @@ namespace YellowstonePathology.Business.Test.PDL1
             YellowstonePathology.Business.Document.AmendmentSection amendmentSection = new YellowstonePathology.Business.Document.AmendmentSection();
             amendmentSection.SetAmendment(m_PanelSetOrder.AmendmentCollection, this.m_ReportXml, this.m_NameSpaceManager, true);
 
-            this.ReplaceText("report_result", testOrder.Result);
             this.ReplaceText("stain_percent", testOrder.StainPercent);
+            this.ReplaceText("report_comment", testOrder.Comment);
+            this.ReplaceText("report_method", testOrder.Method);
 
             YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrder.OrderedOn, this.m_PanelSetOrder.OrderedOnId);
             base.ReplaceText("specimen_description", specimenOrder.Description);

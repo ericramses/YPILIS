@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Login
 	/// <summary>
 	/// Interaction logic for SearchAccessionDatePage.xaml
 	/// </summary>
-	public partial class SearchSpecimenKeywordPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges, INotifyPropertyChanged
+	public partial class SearchSpecimenKeywordPage : UserControl, INotifyPropertyChanged
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 		public delegate void ReturnEventHandler(object sender, UI.Navigation.PageNavigationReturnEventArgs e);
@@ -74,25 +74,6 @@ namespace YellowstonePathology.UI.Login
 		{
 			UI.Navigation.PageNavigationReturnEventArgs args = new UI.Navigation.PageNavigationReturnEventArgs(UI.Navigation.PageNavigationDirectionEnum.Next, this.m_SpecimenDescription);
 			this.Return(this, args);
-		}
-
-		public void Save()
-		{
-		}
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return false;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return false;
 		}		
-
-		public void UpdateBindingSources()
-		{
-
-		}
 	}
 }

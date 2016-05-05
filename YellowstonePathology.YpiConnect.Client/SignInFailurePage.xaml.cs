@@ -24,7 +24,7 @@ namespace YellowstonePathology.YpiConnect.Client
             InitializeComponent();            
         }
 
-		public void Save()
+		public void Save(bool releaseLock)
 		{
 
 		}

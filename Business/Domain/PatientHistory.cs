@@ -14,6 +14,34 @@ namespace YellowstonePathology.Business.Domain
 
         }
 
+        public bool PanelSetIdExists(int panelSetId)
+        {
+            bool result = false;
+            foreach(PatientHistoryResult patientHistoryResult in this)
+            {
+                if(patientHistoryResult.PanelSetId == panelSetId)
+                {
+                    result = true;
+                    break;
+                }
+            }
+            return result;
+        }
+
+        public PatientHistoryResult GetByPanelSetId(int panelSetId)
+        {
+            PatientHistoryResult result = null;
+            foreach (PatientHistoryResult patientHistoryResult in this)
+            {
+                if (patientHistoryResult.PanelSetId == panelSetId)
+                {
+                    result = patientHistoryResult;
+                    break;
+                }
+            }
+            return result;
+        }
+
         public Nullable<DateTime> GetDateOfPreviousHpv(DateTime thisAccessionDate)
         {
             Nullable<DateTime> result = null;

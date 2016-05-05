@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Test
 	/// <summary>
 	/// Interaction logic for NeogenomicsResultAccessionPage.xaml
 	/// </summary>
-	public partial class NeogenomicsResultAccessionPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges, INotifyPropertyChanged
+	public partial class NeogenomicsResultAccessionPage : UserControl, INotifyPropertyChanged
 	{        
 		public delegate void PropertyChangedNotificationHandler(String info);
 		public event PropertyChangedEventHandler PropertyChanged;        
@@ -56,26 +56,6 @@ namespace YellowstonePathology.UI.Test
         {
             get { return this.m_NeogenomicsResult; }
         }
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save()
-		{
-			
-		}
-
-		public void UpdateBindingSources()
-		{
-
-		}				        
 
         private void ButtonBack_Click(object sender, RoutedEventArgs e)
         {

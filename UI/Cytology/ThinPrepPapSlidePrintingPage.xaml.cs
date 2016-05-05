@@ -14,11 +14,8 @@ using System.Windows.Shapes;
 using System.ComponentModel;
 
 namespace YellowstonePathology.UI.Cytology
-{
-	/// <summary>
-	/// Interaction logic for ThinPrepPapSlidePrintingPage.xaml
-	/// </summary>
-	public partial class ThinPrepPapSlidePrintingPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
+{	
+	public partial class ThinPrepPapSlidePrintingPage : UserControl, INotifyPropertyChanged 
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -31,22 +28,16 @@ namespace YellowstonePathology.UI.Cytology
         private System.Windows.Threading.DispatcherTimer m_PageTimeOutTimer;
 
         private YellowstonePathology.Business.Specimen.Model.SpecimenOrder m_SpecimenOrder;
-        private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-        private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
-        private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
+        private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;                
 
         private YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort m_BarcodeScanPort;
 		private string m_PageHeaderText;        
 
 		public ThinPrepPapSlidePrintingPage(YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder, 
-            YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-            YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
-            YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+            YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{
             this.m_SpecimenOrder = specimenOrder;
-            this.m_AccessionOrder = accessionOrder;
-            this.m_ObjectTracker = objectTracker;
-            this.m_SystemIdentity = systemIdentity;
+            this.m_AccessionOrder = accessionOrder;                        
 			this.m_PageHeaderText = "Slide Printing Page ";
 
             this.m_BarcodeScanPort = Business.BarcodeScanning.BarcodeScanPort.Instance;
@@ -99,18 +90,15 @@ namespace YellowstonePathology.UI.Cytology
                             YellowstonePathology.Business.Facility.Model.Location thisLocation = locationCollection.GetLocation(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.LocationId);
 
                             YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = this.m_SpecimenOrder.AliquotOrderCollection.GetByAliquotOrderId(scanData);
-                            aliquotOrder.Validate(this.m_SystemIdentity);
+                            aliquotOrder.Validate();
 
                             string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
                             YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog materialTrackingLog = new Business.MaterialTracking.Model.MaterialTrackingLog(objectId, scanData, null, thisFacility.FacilityId, thisFacility.FacilityName,
-                                thisLocation.LocationId, thisLocation.Description, this.m_SystemIdentity.User.UserId, this.m_SystemIdentity.User.UserName, "Panther Aliquot Scanned", "Panther aliquot scanned at cytology aliquoting", "Aliquot", this.m_AccessionOrder.MasterAccessionNo, aliquotOrder.Label, aliquotOrder.ClientAccessioned);
-                            YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-                            objectTracker.RegisterRootInsert(materialTrackingLog);
-                            objectTracker.SubmitChanges(materialTrackingLog);
+                                thisLocation.LocationId, thisLocation.Description, "Panther Aliquot Scanned", "Panther aliquot scanned at cytology aliquoting", "Aliquot", this.m_AccessionOrder.MasterAccessionNo, aliquotOrder.Label, aliquotOrder.ClientAccessioned);
+                            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(materialTrackingLog, Window.GetWindow(this));
 
                             if (this.m_SpecimenOrder.AliquotOrderCollection.HasUnvalidatedItems() == false)
-                            {
-                                this.Save();
+                            {                                
                                 this.Finished(this, new EventArgs());
                             }
                         }
@@ -137,18 +125,15 @@ namespace YellowstonePathology.UI.Cytology
                                 YellowstonePathology.Business.Facility.Model.Location thisLocation = locationCollection.GetLocation(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.LocationId);                                
 
                                 YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = this.m_SpecimenOrder.AliquotOrderCollection.GetByAliquotOrderId(barcode.ID);
-                                aliquotOrder.Validate(this.m_SystemIdentity);
+                                aliquotOrder.Validate();
 
                                 string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
                                 YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog materialTrackingLog = new Business.MaterialTracking.Model.MaterialTrackingLog(objectId, barcode.ID, null, thisFacility.FacilityId, thisFacility.FacilityName,
-                                    thisLocation.LocationId, thisLocation.Description, this.m_SystemIdentity.User.UserId, this.m_SystemIdentity.User.UserName, "Slide Scanned", "Slide scanned at cytology aliquoting", "Aliquot", this.m_AccessionOrder.MasterAccessionNo, aliquotOrder.Label, aliquotOrder.ClientAccessioned);
-                                YellowstonePathology.Business.Persistence.ObjectTracker objectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-                                objectTracker.RegisterRootInsert(materialTrackingLog);
-                                objectTracker.SubmitChanges(materialTrackingLog);
+                                    thisLocation.LocationId, thisLocation.Description, "Slide Scanned", "Slide scanned at cytology aliquoting", "Aliquot", this.m_AccessionOrder.MasterAccessionNo, aliquotOrder.Label, aliquotOrder.ClientAccessioned);
+                                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(materialTrackingLog, Window.GetWindow(this));
 
                                 if (this.m_SpecimenOrder.AliquotOrderCollection.HasUnvalidatedItems() == false)
-                                {
-                                    this.Save();
+                                {                                    
                                     this.Finished(this, new EventArgs());
                                 }
                             }
@@ -177,27 +162,7 @@ namespace YellowstonePathology.UI.Cytology
         public YellowstonePathology.Business.Test.AccessionOrder AccessionOrder
         {
             get { return this.m_AccessionOrder; }
-        }
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return false;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save()
-		{
-            this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
-		}
-
-		public void UpdateBindingSources()
-		{
-
-		}
+        }		
 
 		public void NotifyPropertyChanged(String info)
 		{
@@ -212,8 +177,7 @@ namespace YellowstonePathology.UI.Cytology
             YellowstonePathology.Business.Specimen.Model.ThinPrepSlide thinPrepSlide = new Business.Specimen.Model.ThinPrepSlide();
             if (this.m_SpecimenOrder.AliquotOrderCollection.Exists(thinPrepSlide) == false)
             {
-                YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = this.m_SpecimenOrder.AliquotOrderCollection.AddAliquot(thinPrepSlide, this.m_SpecimenOrder, this.m_AccessionOrder.AccessionDate.Value);
-                this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);            
+                YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = this.m_SpecimenOrder.AliquotOrderCollection.AddAliquot(thinPrepSlide, this.m_SpecimenOrder, this.m_AccessionOrder.AccessionDate.Value);                
             }
             else
             {
@@ -268,8 +232,7 @@ namespace YellowstonePathology.UI.Cytology
         }
 
         private void ButtonFinished_Click(object sender, RoutedEventArgs e)
-        {
-            this.Save();
+        {            
             if (this.Finished != null) this.Finished(this, new EventArgs());
         }        
 

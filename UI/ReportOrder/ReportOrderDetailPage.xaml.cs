@@ -25,7 +25,7 @@ namespace YellowstonePathology.UI.ReportOrder
 		private YellowstonePathology.Business.Facility.Model.FacilityCollection m_FacilityCollection;
         private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
         private string m_ReportDocumentPath;
-        private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;        
+        private Login.Receiving.LoginPageWindow m_LoginPageWindow;
 
         public ReportOrderDetailPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 		{			
@@ -33,10 +33,7 @@ namespace YellowstonePathology.UI.ReportOrder
             this.m_PanelSetOrder = accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
             this.m_SystemIdentity = systemIdentity;
 			this.m_UserCollection = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection;
-            this.m_FacilityCollection = Business.Facility.Model.FacilityCollection.GetAllFacilities();
-
-            this.m_ObjectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-            this.m_ObjectTracker.RegisterObject(this.m_AccessionOrder);
+            this.m_FacilityCollection = Business.Facility.Model.FacilityCollection.GetAllFacilities();            
 
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
 			this.m_ReportDocumentPath = YellowstonePathology.Business.Document.CaseDocument.GetCaseFileNamePDF(orderIdParser);
@@ -49,13 +46,18 @@ namespace YellowstonePathology.UI.ReportOrder
 
         private void ReportOrderDetailPage_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-			this.Save();
+			this.Save(false);
         }
 
-		private void Save()
+		private void Save(bool releaseLock)
 		{
-            this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);			
+            //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, releaseLock);			
 		}
+
+        public string PageHeaderText
+        {
+            get { return string.Empty; }
+        }
 
         public string ReportDocumentPath
         {
@@ -99,7 +101,7 @@ namespace YellowstonePathology.UI.ReportOrder
 			YellowstonePathology.Business.Rules.MethodResult result = this.m_PanelSetOrder.IsOkToAccept();
 			if (result.Success == true)
 			{
-				this.m_PanelSetOrder.Accept(this.m_SystemIdentity.User);
+				this.m_PanelSetOrder.Accept();
 			}
 			else
 			{
@@ -109,8 +111,8 @@ namespace YellowstonePathology.UI.ReportOrder
 
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
 		{
-			YellowstonePathology.Business.Interface.ICaseDocument caseDocument = YellowstonePathology.Business.Document.DocumentFactory.GetDocument(this.m_PanelSetOrder.PanelSetId);
-			caseDocument.Render(this.m_PanelSetOrder.MasterAccessionNo, this.m_PanelSetOrder.ReportNo, Business.Document.ReportSaveModeEnum.Draft);
+			YellowstonePathology.Business.Interface.ICaseDocument caseDocument = YellowstonePathology.Business.Document.DocumentFactory.GetDocument(this.m_AccessionOrder, this.m_PanelSetOrder, Business.Document.ReportSaveModeEnum.Draft);
+			caseDocument.Render();
 
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
 			string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);
@@ -124,7 +126,7 @@ namespace YellowstonePathology.UI.ReportOrder
 				YellowstonePathology.Business.Rules.MethodResult result = this.m_PanelSetOrder.IsOkToFinalize();
 				if (result.Success == true)
                 {                    
-					this.m_PanelSetOrder.Finalize(this.m_SystemIdentity.User);
+					this.m_PanelSetOrder.Finish(this.m_AccessionOrder);
                 }
 				else
 				{
@@ -158,8 +160,8 @@ namespace YellowstonePathology.UI.ReportOrder
 		{
             if (this.DoesXPSDocumentExist() == true)
             {
-                YellowstonePathology.Business.Interface.ICaseDocument caseDocument = YellowstonePathology.Business.Document.DocumentFactory.GetDocument(this.m_PanelSetOrder.PanelSetId);
-                caseDocument.Render(this.m_PanelSetOrder.MasterAccessionNo, this.m_PanelSetOrder.ReportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum.Normal);
+                YellowstonePathology.Business.Interface.ICaseDocument caseDocument = YellowstonePathology.Business.Document.DocumentFactory.GetDocument(this.m_AccessionOrder, this.m_PanelSetOrder, Business.Document.ReportSaveModeEnum.Normal);
+                caseDocument.Render();
                 caseDocument.Publish();
                 MessageBox.Show("The case was successfully published.");
             }
@@ -218,5 +220,56 @@ namespace YellowstonePathology.UI.ReportOrder
             }
             return result;
         }
-	}
+
+        private void ButtonShowSpecimenDialog_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.m_PanelSetOrder.OrderedOnId != null)
+            {
+                YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByOrderTarget(this.m_PanelSetOrder.OrderedOnId);
+
+                YellowstonePathology.UI.Login.SpecimenOrderDetailsPage specimenOrderDetailsPage = new YellowstonePathology.UI.Login.SpecimenOrderDetailsPage(this.m_AccessionOrder, specimenOrder);
+                specimenOrderDetailsPage.Next += new Login.SpecimenOrderDetailsPage.NextEventHandler(SpecimenOrderDetailsPage_Next);
+                specimenOrderDetailsPage.Back += new Login.SpecimenOrderDetailsPage.BackEventHandler(SpecimenOrderDetailsPage_Next);
+                this.m_LoginPageWindow = new Login.Receiving.LoginPageWindow();
+                this.m_LoginPageWindow.PageNavigator.Navigate(specimenOrderDetailsPage);
+                this.m_LoginPageWindow.ShowDialog();
+            }
+        }
+
+        private void ButtonShowSelectSpecimenDialog_Click(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Interface.IOrderTarget orderTarget = this.m_AccessionOrder.SpecimenOrderCollection.GetOrderTarget(this.m_PanelSetOrder.OrderedOnId);
+            YellowstonePathology.Business.PanelSet.Model.PanelSetCollection panelSetCollection = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetAll();
+            YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet = panelSetCollection.GetPanelSet(this.m_PanelSetOrder.PanelSetId);
+            YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new Business.Test.TestOrderInfo(panelSet, orderTarget, false);
+
+            if (panelSet.HasNoOrderTarget == false)
+            {
+                Login.Receiving.SpecimenSelectionPage specimenSelectionPage = new Login.Receiving.SpecimenSelectionPage(this.m_AccessionOrder, testOrderInfo);
+                specimenSelectionPage.Back += new Login.Receiving.SpecimenSelectionPage.BackEventHandler(SpecimenSelectionPage_Back);
+                specimenSelectionPage.TargetSelected += new Login.Receiving.SpecimenSelectionPage.TargetSelectedEventHandler(OrderTargetSelectionPage_TargetSelected);
+
+                this.m_LoginPageWindow = new Login.Receiving.LoginPageWindow();
+                this.m_LoginPageWindow.PageNavigator.Navigate(specimenSelectionPage);
+                this.m_LoginPageWindow.ShowDialog();
+            }
+        }
+
+        private void OrderTargetSelectionPage_TargetSelected(object sender, CustomEventArgs.TestOrderInfoEventArgs e)
+        {
+            this.m_PanelSetOrder.OrderedOnId = e.TestOrderInfo.OrderTarget.GetId();
+            this.m_PanelSetOrder.OrderedOn = e.TestOrderInfo.OrderTarget.GetOrderedOnType();
+            this.m_LoginPageWindow.Close();
+        }
+
+        private void SpecimenSelectionPage_Back(object sender, EventArgs e)
+        {
+            this.m_LoginPageWindow.Close();
+        }
+
+        private void SpecimenOrderDetailsPage_Next(object sender, EventArgs e)
+        {
+            this.m_LoginPageWindow.Close();
+        }
+    }
 }

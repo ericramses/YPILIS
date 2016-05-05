@@ -20,21 +20,39 @@ namespace YellowstonePathology.UI
     {
         YellowstonePathology.Business.Typing.TypingShortcut m_TypingShortcut;
 		YellowstonePathology.Business.User.SystemUserCollection m_SystemUserCollection;
-        bool m_IsNewItem = false;
-        YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
+        
+        bool m_IsNewItem = false;                      
 
-        public TypingShorcutDialog(YellowstonePathology.Business.Typing.TypingShortcut typingShortcut, bool isNewShortcut, YellowstonePathology.Business.Persistence.ObjectTracker objectTracker)
+        public TypingShorcutDialog(YellowstonePathology.Business.Typing.TypingShortcut typingShortcut, bool isNewShortcut)
         {
             this.m_TypingShortcut = typingShortcut;
-            this.m_IsNewItem = isNewShortcut;
-            this.m_ObjectTracker = objectTracker;
+            this.m_IsNewItem = isNewShortcut;            
 
             InitializeComponent();
 
 			this.m_SystemUserCollection = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetUsersByRole(YellowstonePathology.Business.User.SystemUserRoleDescriptionEnum.Typing, true);
 
             this.DataContext = this.m_TypingShortcut;
-            this.comboBoxTypingUsers.ItemsSource = this.m_SystemUserCollection;                        
+            this.comboBoxTypingUsers.ItemsSource = this.m_SystemUserCollection;   
+            
+            if(isNewShortcut == false)
+            {
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullTypingShortcut(typingShortcut, this);
+            }
+
+            this.Closing += TypingShorcutDialog_Closing;          
+        }
+
+        private void TypingShorcutDialog_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if(this.DialogResult == true)
+            {
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
+            }
+            else
+            {
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Clear(this);
+            }           
         }
 
         public void GridTyping_KeyUp(object sender, KeyEventArgs args)
@@ -54,19 +72,18 @@ namespace YellowstonePathology.UI
         }
 
         public void ButtonCancel_Click(object sender, RoutedEventArgs args)
-        {
+        {            
             this.DialogResult = false;
         }
 
         public void ButtonOk_Click(object sender, RoutedEventArgs args)
         {
-            this.Save();
+            if(this.m_IsNewItem == true)
+            {
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(this.m_TypingShortcut, this);
+            }
+                       
             this.DialogResult = true;
-        }
-
-        private void Save()
-        {
-            this.m_ObjectTracker.SubmitChanges(this.m_TypingShortcut);
-        }
+        }        
     }
 }

@@ -65,7 +65,7 @@
 			</ListView>
 
 			<StackPanel Grid.Column="1" Grid.Row="3" Margin="5,30,5,5" HorizontalAlignment="Center" VerticalAlignment="top">
-				<Button  Margin="5" Height="35" Width="100" Click="ButtonLink_Click">Link</Button>
+				<Button Name="ButtonLink"  Margin="5" Height="35" Width="100" Click="ButtonLink_Click">Link</Button>
 				<Button Name="ButtonPrint"  Margin="5" Height="35" Width="100" Click="ButtonPrint_Click">Print</Button>
 			</StackPanel>
             

@@ -77,7 +77,7 @@ namespace YellowstonePathology.YpiConnect.Client
 			ApplicationNavigator.ApplicationContentFrame.NavigationService.Navigate(messageSentPage);		
 		}       		
 
-		public void Save()
+		public void Save(bool releaseLock)
 		{
             //Do nothing.
 		}

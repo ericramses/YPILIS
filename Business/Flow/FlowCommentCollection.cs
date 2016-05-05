@@ -54,11 +54,11 @@ namespace YellowstonePathology.Business.Flow
             }
         }
 
-        public void Save()
+        public void Save(bool releaseLock)
         {
             foreach (FlowCommentItem item in this)
             {
-                item.Save();
+                item.Save(releaseLock);
             }
         }
 

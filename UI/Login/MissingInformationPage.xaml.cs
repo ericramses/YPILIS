@@ -14,7 +14,7 @@ using System.Windows.Shapes;
 
 namespace YellowstonePathology.UI.Login
 {	
-	public partial class MissingInformationPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
+	public partial class MissingInformationPage : UserControl
 	{
         public delegate void BackEventHandler(object sender, EventArgs e);
         public event BackEventHandler Back;
@@ -22,23 +22,16 @@ namespace YellowstonePathology.UI.Login
         public delegate void NextEventHandler(object sender, EventArgs e);
         public event NextEventHandler Next;
 
-        private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
-		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-        private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
+		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;        
         private string m_NewText;     
 
-		public MissingInformationPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+		public MissingInformationPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{            
-			this.m_ObjectTracker = objectTracker;
-            this.m_AccessionOrder = accessionOrder;
-            this.m_SystemIdentity = systemIdentity;
-            
+            this.m_AccessionOrder = accessionOrder;                        
 			InitializeComponent();
+			DataContext = this;
+		}         
 
-			DataContext = this;        
-		}
-        			
         public string NewText
         {
             get { return this.m_NewText; }
@@ -57,34 +50,15 @@ namespace YellowstonePathology.UI.Login
 
 		private void ButtonNext_Click(object sender, RoutedEventArgs e)
 		{
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
             this.Next(this, new EventArgs());
-		}
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save()
-		{
-			this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
-		}
-
-		public void UpdateBindingSources()
-		{
-
-		}
+		}		
 
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
         {
             if(string.IsNullOrEmpty(this.m_NewText) == false)
             {
-                string newDialog = this.m_SystemIdentity.User.DisplayName + ": " + DateTime.Now.ToString("MM/dd/yyyy HH:mm") + Environment.NewLine + this.m_NewText;
+                string newDialog = YellowstonePathology.Business.User.SystemIdentity.Instance.User.DisplayName + ": " + DateTime.Now.ToString("MM/dd/yyyy HH:mm") + Environment.NewLine + this.m_NewText;
                 if (string.IsNullOrEmpty(this.m_AccessionOrder.CaseDialog) == false)
                 {
                     this.m_AccessionOrder.CaseDialog = newDialog + Environment.NewLine + Environment.NewLine + this.m_AccessionOrder.CaseDialog;

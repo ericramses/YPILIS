@@ -8,21 +8,20 @@ namespace YellowstonePathology.Business.Document
 {
 	public class ClientOrderCaseDocument : CaseDocument
 	{
-		private string m_ClientOrderId;
+        private YellowstonePathology.Business.ClientOrder.Model.ClientOrder m_ClientOrder;
 
-        public ClientOrderCaseDocument(string clientOrderId)
+        public ClientOrderCaseDocument(YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder)
 		{
-            this.m_ClientOrderId = clientOrderId;
+            this.m_ClientOrder = clientOrder;
 			FullFileName = null;
 			FileName = "Client Order Data Sheet.xps";
 			FilePath = null;
 			CaseDocumentType = "ClientOrderDataSheet";
 		}
 
-		public override void Show(System.Windows.Controls.ContentControl contentControl)
-		{
-            YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder = YellowstonePathology.Business.Gateway.ClientOrderGateway.GetClientOrderByClientOrderId(this.m_ClientOrderId);
-            XElement clientOrderDocument = clientOrder.ToXML(true);
+		public override void Show(System.Windows.Controls.ContentControl contentControl, object writer)
+		{            
+            XElement clientOrderDocument = this.m_ClientOrder.ToXML(true);
             YellowstonePathology.Document.Result.Data.ClientOrderDataSheetData data = new YellowstonePathology.Document.Result.Data.ClientOrderDataSheetData(clientOrderDocument);
             YellowstonePathology.Document.Result.Xps.ClientOrderDataSheet clientOrderDataSheet = new YellowstonePathology.Document.Result.Xps.ClientOrderDataSheet(data);
 

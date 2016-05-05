@@ -40,7 +40,20 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_RequiresGrossExamination = true;
         }
     }
- 
+
+    public class Biopsy : Specimen
+    {
+        public Biopsy()
+        {
+            this.m_SpecimenId = "BXSPCMN";
+            this.m_SpecimenName = "Biopsy";
+            this.m_Description = null;
+            this.m_LabFixation = "Formalin";
+            this.m_ClientFixation = "Formalin";
+            this.m_RequiresGrossExamination = true;
+        }
+    }
+    
     public class SkinShavePunchMiscBiopsy : Specimen
     {
         public SkinShavePunchMiscBiopsy()
@@ -53,7 +66,20 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_RequiresGrossExamination = true;
         }
     }
-    
+
+    public class SkinShavewithCurettingsBiopsy : Specimen
+    {
+        public SkinShavewithCurettingsBiopsy()
+        {
+            this.m_SpecimenId = "SKSHCSPCMN";
+            this.m_SpecimenName = "Skin Shave Biopsy with Curettings";
+            this.m_Description = null;
+            this.m_LabFixation = "Formalin";
+            this.m_ClientFixation = "Formalin";
+            this.m_RequiresGrossExamination = true;
+        }
+    }
+
     public class GallbladderExcision : Specimen
     {
         public GallbladderExcision()
@@ -66,13 +92,14 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_RequiresGrossExamination = true;
         }
     }
+    
     public class SkinExcisionOrientedBiopsy : Specimen
     {
         public SkinExcisionOrientedBiopsy()
         {
             this.m_SpecimenId = "SKEXOSPCMN";
             this.m_SpecimenName = "Skin Excision Biopsy, Oriented";
-            this.m_Description = null;
+            this.m_Description = "Skin, [site], excisional biopsy";
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = "Formalin";
             this.m_RequiresGrossExamination = true;
@@ -84,7 +111,32 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
         {
             this.m_SpecimenId = "SKEXUOSPCMN";
             this.m_SpecimenName = "Skin Excision Biopsy, Unoriented";
-            this.m_Description = null;
+            this.m_Description = "Skin, [site], excisional biopsy";
+            this.m_LabFixation = "Formalin";
+            this.m_ClientFixation = "Formalin";
+            this.m_RequiresGrossExamination = true;
+        }
+    }
+    
+        public class SkinExcisionOrientedwithCurettingsBiopsy : Specimen
+    {
+        public SkinExcisionOrientedwithCurettingsBiopsy()
+        {
+            this.m_SpecimenId = "SKEXOCSPCMN";
+            this.m_SpecimenName = "Skin Excision Biopsy with Curettings, Oriented";
+            this.m_Description = "Skin, [site], excisional biopsy";
+            this.m_LabFixation = "Formalin";
+            this.m_ClientFixation = "Formalin";
+            this.m_RequiresGrossExamination = true;
+        }
+    }
+    public class SkinExcisionUnorientedwithCurettingsBiopsy : Specimen
+    {
+        public SkinExcisionUnorientedwithCurettingsBiopsy()
+        {
+            this.m_SpecimenId = "SKEXUOCSPCMN";
+            this.m_SpecimenName = "Skin Excision Biopsy with Curettings, Unoriented";
+            this.m_Description = "Skin, [site], excisional biopsy";
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = "Formalin";
             this.m_RequiresGrossExamination = true;
@@ -156,7 +208,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
         {
             this.m_SpecimenId = "ADSPCM";
             this.m_SpecimenName = "Adenoid Excision";
-            this.m_Description = null;
+            this.m_Description = "Adenoid, excision";
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = null;
             this.m_RequiresGrossExamination = true;
@@ -169,7 +221,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
         {
             this.m_SpecimenId = "TNSLSPCM";
             this.m_SpecimenName = "Tonsil Excision";
-            this.m_Description = null;
+            this.m_Description = "Right and left tonsils, excision";
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = null;
             this.m_RequiresGrossExamination = true;
@@ -182,7 +234,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
         {
             this.m_SpecimenId = "TNSLADSPCM";
             this.m_SpecimenName = "Tonsil and Adenoids Excision";
-            this.m_Description = null;
+            this.m_Description = "Right and left tonsils with adenoids, excision";
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = null;
             this.m_RequiresGrossExamination = true;
@@ -247,7 +299,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
         {
             this.m_SpecimenId = "CVCLBSPYSPCMN";
             this.m_SpecimenName = "Cervical Biopsy";
-            this.m_Description = "Cervix, biopsy";
+            this.m_Description = "Cervix, [site], biopsy";
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = null;
             this.m_RequiresGrossExamination = true;
@@ -267,6 +319,32 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
                 this.m_RequiresGrossExamination = true;
             }
         }
+        
+        public class Twin1Placenta : Specimen
+        {
+            public Twin1Placenta()
+            {
+                this.m_SpecimenId = "TWNPLCNTWMSPCMN";
+                this.m_SpecimenName = "Twin Placenta with Dividing Membrane";
+                this.m_Description = "Twin Placenta";
+                this.m_LabFixation = "Formalin";
+                this.m_ClientFixation = null;
+                this.m_RequiresGrossExamination = true;
+            }
+        }
+        
+        public class Twin2Placenta : Specimen
+        {
+            public Twin2Placenta()
+            {
+                this.m_SpecimenId = "TWNPLCNTWOMSPCMN";
+                this.m_SpecimenName = "Twin Placenta without Dividing Membrane";
+                this.m_Description = "Twin Placenta";
+                this.m_LabFixation = "Formalin";
+                this.m_ClientFixation = null;
+                this.m_RequiresGrossExamination = true;
+            }
+        }
 
         public class Uterus : Specimen
         {
@@ -274,7 +352,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             {
                 this.m_SpecimenId = "UTRSSPCMN";
                 this.m_SpecimenName = "Uterus Resection";
-                this.m_Description = null;
+                this.m_Description = "Uterus and cervix, resection";
                 this.m_LabFixation = "Formalin";
                 this.m_ClientFixation = null;
                 this.m_RequiresGrossExamination = true;
@@ -307,13 +385,26 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             }
         }
 
-        public class LEEPCone : Specimen
+        public class LEEP : Specimen
         {
-            public LEEPCone()
+            public LEEP()
             {
-                this.m_SpecimenId = "LPCNSPCMN";
-                this.m_SpecimenName = "LEEP Cone";
-                this.m_Description = "Cervix, LEEP cone excision";
+                this.m_SpecimenId = "LPSPCMN";
+                this.m_SpecimenName = "LEEP";
+                this.m_Description = "Cervix, LEEP";
+                this.m_LabFixation = "Formalin";
+                this.m_ClientFixation = null;
+                this.m_RequiresGrossExamination = true;
+            }
+        }
+        
+        public class CervicalCone : Specimen
+        {
+           public CervicalCone()
+            {
+                this.m_SpecimenId = "CXCNSPCMN";
+                this.m_SpecimenName = "Cervical Cone";
+                this.m_Description = "Cervix, cone, excision";
                 this.m_LabFixation = "Formalin";
                 this.m_ClientFixation = null;
                 this.m_RequiresGrossExamination = true;
@@ -386,25 +477,25 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
         }
 
         public class FallopianTube : Specimen
-    {
-            public FallopianTube()
         {
+            public FallopianTube()
+            {
                 this.m_SpecimenId = "FTSPCMN";
                 this.m_SpecimenName = "Fallopian Tube";
-                this.m_Description = null;
+                this.m_Description = "[Right/Left] fallopian tube, segmental resection";
                 this.m_LabFixation = "Formalin";
                 this.m_ClientFixation = null;
                 this.m_RequiresGrossExamination = true;
+            }
         }
-    }
 
         public class SinusContent : Specimen
-    {
-            public SinusContent()
         {
+            public SinusContent()
+            {
                 this.m_SpecimenId = "SCSPCMN";
                 this.m_SpecimenName = "Sinus Content";
-                this.m_Description = null;
+                this.m_Description = "[Right/Left] sinus content";
                 this.m_LabFixation = "Formalin";
                 this.m_ClientFixation = null;
                 this.m_RequiresGrossExamination = true;

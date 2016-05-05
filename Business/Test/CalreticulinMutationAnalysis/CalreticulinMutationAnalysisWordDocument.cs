@@ -7,12 +7,14 @@ namespace YellowstonePathology.Business.Test.CalreticulinMutationAnalysis
 {
 	public class CalreticulinMutationAnalysisWordDocument : YellowstonePathology.Business.Document.CaseReportV2
 	{
-		public override void Render(string masterAccessionNo, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveEnum)
-		{
-			this.m_ReportNo = reportNo;
-			this.m_ReportSaveEnum = reportSaveEnum;
-			this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByMasterAccessionNo(masterAccessionNo);
-			this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
+        public CalreticulinMutationAnalysisWordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+            : base(accessionOrder, panelSetOrder, reportSaveMode)
+        {
+
+        }
+
+        public override void Render()
+		{			
 			CalreticulinMutationAnalysisTestOrder reportOrderCalreticulinMutationAnalysis = (CalreticulinMutationAnalysisTestOrder)this.m_PanelSetOrder;
 
 			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\CalreticulinMutationAnalysis.xml";
@@ -30,7 +32,13 @@ namespace YellowstonePathology.Business.Test.CalreticulinMutationAnalysis
 			{
 				reportResult = string.Empty;
 			}
-			this.ReplaceText("report_result", reportResult);
+
+            if(reportOrderCalreticulinMutationAnalysis.Result == "Detected")
+            {
+                reportResult = reportResult + "(" + reportOrderCalreticulinMutationAnalysis.Mutations + ")";
+            }
+
+			this.ReplaceText("report_result", reportResult);            
 
             this.ReplaceText("report_interpretation", reportOrderCalreticulinMutationAnalysis.Interpretation);
             this.ReplaceText("report_method", reportOrderCalreticulinMutationAnalysis.Method);

@@ -342,14 +342,6 @@
       <Project>{0B68C6D2-6418-4ECD-95D5-93DD6F8E1782}</Project>
       <Name>DomainPersistence</Name>
     </ProjectReference>
-    <ProjectReference Include="..\YellowstonePathology.YpiConnect.Contract\YellowstonePathology.YpiConnect.Contract.csproj">
-      <Project>{012A95F3-57EE-4ADD-A8D4-5CDE1146812F}</Project>
-      <Name>YellowstonePathology.YpiConnect.Contract</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\YellowstonePathology.YpiConnect.Proxy\YellowstonePathology.YpiConnect.Proxy.csproj">
-      <Project>{61287C68-71AD-415B-B334-90AC335C1C58}</Project>
-      <Name>YellowstonePathology.YpiConnect.Proxy</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

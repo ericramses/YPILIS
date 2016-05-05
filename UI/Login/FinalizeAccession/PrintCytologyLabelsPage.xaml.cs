@@ -17,7 +17,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 	/// <summary>
 	/// Interaction logic for PrintCytologyLabelsPage.xaml
 	/// </summary>
-	public partial class PrintCytologyLabelsPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
+	public partial class PrintCytologyLabelsPage : UserControl
 	{
 		public delegate void BackEventHandler(object sender, EventArgs e);
 		public event BackEventHandler Back;
@@ -25,45 +25,24 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 		public delegate void FinishEventHandler(object sender, EventArgs e);
 		public event FinishEventHandler Finish;
 
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		private string m_PageHeaderText;
 
-		public PrintCytologyLabelsPage(string reportNo, YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker)
+		public PrintCytologyLabelsPage(string reportNo, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{
-			this.m_ObjectTracker = objectTracker;
 			this.m_AccessionOrder = accessionOrder;
 
 
 			this.m_PageHeaderText = "Print labels for " + this.m_AccessionOrder.PFirstName + " " + this.m_AccessionOrder.PLastName + ": " + reportNo;
 
 			InitializeComponent();
-			DataContext = this;
-		}
+			DataContext = this;            
+		}        
 
-		public string PageHeaderText
+        public string PageHeaderText
 		{
 			get { return this.m_PageHeaderText; }
-		}
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return false;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return false;
-		}
-
-		public void Save()
-		{
-		}
-
-		public void UpdateBindingSources()
-		{
-		}
+		}			
 
 		private void ButtonBack_Click(object sender, RoutedEventArgs e)
 		{
@@ -83,8 +62,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                 YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = null;
                 if (specimenOrder.AliquotOrderCollection.HasThinPrepSlide()== false)
                 {
-                    aliquotOrder = specimenOrder.AliquotOrderCollection.AddThinPrepSlide(specimenOrder, this.m_AccessionOrder.AccessionDate.Value);
-                    this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
+                    aliquotOrder = specimenOrder.AliquotOrderCollection.AddThinPrepSlide(specimenOrder, this.m_AccessionOrder.AccessionDate.Value);                    
                 }
                 else
                 {

@@ -20,14 +20,11 @@ namespace YellowstonePathology.UI.Test
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 		private YellowstonePathology.Business.Surgical.SurgicalBillingItemCollection m_SurgicalBillingItemCollection;
-		private DateTime m_Date;
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
+		private DateTime m_Date;		
 
 		public SurgicalBlocks()
 		{
 			this.m_SurgicalBillingItemCollection = new YellowstonePathology.Business.Surgical.SurgicalBillingItemCollection();
-			this.m_ObjectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-			this.m_ObjectTracker.RegisterObject(this.m_SurgicalBillingItemCollection);
 			m_Date = DateTime.Today;
 			DataContext = this;
 
@@ -55,8 +52,9 @@ namespace YellowstonePathology.UI.Test
 
 		private void ButtonOK_Click(object sender, RoutedEventArgs e)
 		{
-			this.m_ObjectTracker.SubmitChanges(this.m_SurgicalBillingItemCollection);
-			Close();
+            throw new Exception("I don't think this is being used");
+            //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_SurgicalBillingItemCollection, false);			
+			//Close();
 		}
 
 		private void ButtonCancel_Click(object sender, RoutedEventArgs e)
@@ -68,27 +66,11 @@ namespace YellowstonePathology.UI.Test
 		{
 			if (this.BlockDatePicker.SelectedDate.HasValue)
 			{
-				this.m_ObjectTracker.SubmitChanges(this.m_SurgicalBillingItemCollection);
-
-				this.m_Date = this.BlockDatePicker.SelectedDate.Value;
-
-				this.m_SurgicalBillingItemCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetSurgicalBillingItemCollectionByDate(m_Date);
-				this.m_ObjectTracker = new YellowstonePathology.Business.Persistence.ObjectTracker();
-				this.m_ObjectTracker.RegisterObject(this.m_SurgicalBillingItemCollection);
+                //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_SurgicalBillingItemCollection, false);
+                this.m_Date = this.BlockDatePicker.SelectedDate.Value;
+				this.m_SurgicalBillingItemCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetSurgicalBillingItemCollectionByDate(m_Date);				
 				this.NotifyPropertyChanged("SurgicalBillingItemCollection");
-				//for (int idx = m_SurgicalBillingItemCollection.Count - 1; idx > -1; idx--)
-				//{
-				//	m_SurgicalBillingItemCollection.RemoveAt(idx);
-				//}
-
-				//YellowstonePathology.Business.Surgical.SurgicalBillingItemCollection collection = this.m_AccessionOrderGateway.GetSurgicalBillingItemCollectionByDate(m_Date);
-				//if (collection != null)
-				//{
-				//	foreach (YellowstonePathology.Business.Surgical.SurgicalBillingItem item in collection) this.m_SurgicalBillingItemCollection.Add(item);
-				//}
-				//this.m_SurgicalBillingItemCollection.Clear();
 			}
 		}
-
 	}
 }

@@ -89,12 +89,13 @@
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="Auto"></RowDefinition>                    
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>					
 				</Grid.RowDefinitions>
 
 				<TextBlock Grid.Column="0" Grid.Row="0" Margin="0,3,0,0" FontWeight="Bold" FontSize="14">Add Reviewer</TextBlock>
-
+               
 				<TextBlock Grid.Column="0" Grid.Row="1" Margin="5,3,0,0">                    
                     <Hyperlink Click="HyperLinkAddDrBrown_Click">Dr. Brown</Hyperlink>
 				</TextBlock>
@@ -123,7 +124,11 @@
                     <Hyperlink Click="HyperLinkAddDrClegg_Click">Dr. Clegg</Hyperlink>
                 </TextBlock>
 
-                <TextBlock Grid.Column="0" Grid.Row="8" Margin="5,3,0,0" VerticalAlignment="Bottom">                    
+                <TextBlock Grid.Column="0" Grid.Row="8" Margin="5,3,0,0">                    
+                    <Hyperlink Click="HyperLinkAddDrMatthews_Click">Dr. Matthews</Hyperlink>
+                </TextBlock>
+
+                <TextBlock Grid.Column="0" Grid.Row="9" Margin="5,3,0,0" VerticalAlignment="Bottom">                    
                     <Hyperlink Click="HyperLinkShowDocument_Click">Show Document</Hyperlink>
                 </TextBlock>
 
@@ -149,20 +154,20 @@
                 <ComboBox Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" ItemsSource="{Binding ElementName=UserControlPeerReviewPage, Path=DataContext.PathologistUsers}"
 								      SelectedValuePath="UserId"
 								      DisplayMemberPath="DisplayName"
-								      SelectedValue="{Binding Path=SurgicalTestOrder.AssignedToId}" HorizontalAlignment="Stretch"/>
+								      SelectedValue="{Binding Path=PanelSetOrder.AssignedToId}" HorizontalAlignment="Stretch"/>
 
                 <TextBlock Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right">Review Type:</TextBlock>
                 <ComboBox Grid.Column="1" Grid.Row="1" Margin="2,2,2,2" ItemsSource="{Binding ElementName=UserControlPeerReviewPage, Path=DataContext.PeerReviewTypeCollection}"								      
-								      SelectedValue="{Binding Path=SurgicalTestOrder.PeerReviewRequestType}" HorizontalAlignment="Stretch"/>
+								      SelectedValue="{Binding Path=PanelSetOrder.PeerReviewRequestType}" HorizontalAlignment="Stretch"/>
 
                 <TextBlock Grid.Column="0" Grid.Row="2" Margin="2,2,2,2" FontWeight="Bold" VerticalAlignment="Top" HorizontalAlignment="Right">Comment:</TextBlock>
-                <TextBox Grid.Column="1" Grid.Row="2" Margin="2,2,2,2" Text="{Binding Path=SurgicalTestOrder.PeerReviewRequestComment}" TextWrapping="Wrap" AcceptsReturn="True" Height="60"></TextBox>
+                <TextBox Grid.Column="1" Grid.Row="2" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.PeerReviewRequestComment}" TextWrapping="Wrap" AcceptsReturn="True" Height="60"></TextBox>
 
                 <TextBlock Grid.Column="0" Grid.Row="3" Margin="2,2,2,2" FontWeight="Bold" VerticalAlignment="Top" HorizontalAlignment="Right">Hold case for Peer Review:</TextBlock>
-                <CheckBox Grid.Column="1" Grid.Row="3" Margin="2,2,2,2" IsChecked="{Binding Path=SurgicalTestOrder.HoldForPeerReview}"/>
+                <CheckBox Grid.Column="1" Grid.Row="3" Margin="2,2,2,2" IsChecked="{Binding Path=PanelSetOrder.HoldForPeerReview}"/>
                 
                 <TextBlock Grid.Column="0" Grid.Row="4" Margin="2,2,2,2" FontWeight="Bold" VerticalAlignment="Top" HorizontalAlignment="Right">Case Final Date:</TextBlock>
-                <TextBox Grid.Column="1" Grid.Row="4" Margin="2,2,2,2" Text="{Binding Path=SurgicalTestOrder.FinalTime}" IsEnabled="False"></TextBox>
+                <TextBox Grid.Column="1" Grid.Row="4" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.FinalTime}" IsEnabled="False"></TextBox>
 
                 <ListBox Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="4" ItemsSource="{Binding Path=PeerReviewTestOrderCollection}" ItemTemplate="{StaticResource PeerReviewTemplate}" Margin="2,2,2,2"
 							ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0">

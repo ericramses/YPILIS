@@ -75,6 +75,40 @@ namespace YellowstonePathology.Business.Gateway
                 }
             }
             return result;
-        }        
+        }
+
+        public static YellowstonePathology.Business.Client.PhysicianClientDistribution GetPhysicianClientDistributionCollection(string physicianClientId)
+        {
+            YellowstonePathology.Business.Client.PhysicianClientDistribution result = null;
+            string sql = "Select c.ClientId, c.ClientName, ph.PhysicianId, ph.DisplayName [PhysicianName], c.DistributionType, c.Fax [FaxNumber], c.LongDistance " +
+                "from tblPhysicianClient pc " +
+                "join tblPhysicianClientDistribution pcd on pc.PhysicianClientId = pcd.PhysicianClientId " +
+                "join tblPhysicianClient pc2 on pcd.DistributionId = pc2.PhysicianClientId " +
+                "join tblClient c on pc2.ClientId = c.ClientId " +
+                "join tblPhysician ph on pc2.Physicianid = ph.PhysicianId " +
+                "where pc.PhysicianClientId = @PhysicianClientId";
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = sql;
+            cmd.Parameters.Add("@PhysicianClientId", SqlDbType.VarChar).Value = physicianClientId;            
+            cmd.CommandType = CommandType.Text;
+
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        string distributionType = dr["DistributionType"].ToString();
+                        result = YellowstonePathology.Business.Client.PhysicianClientDistributionFactory.GetPhysicianClientDistribution(distributionType);
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(result, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();                        
+                    }
+                }
+            }
+            return result;
+        }
     }
 }

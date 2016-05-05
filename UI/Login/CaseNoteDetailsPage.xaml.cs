@@ -17,7 +17,7 @@ namespace YellowstonePathology.UI.Login
 	/// <summary>
 	/// Interaction logic for CaseNoteDetails.xaml
 	/// </summary>
-	public partial class CaseNoteDetailsPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
+	public partial class CaseNoteDetailsPage : UserControl
 	{
 		public delegate void ReturnEventHandler(object sender, UI.Navigation.PageNavigationReturnEventArgs e);
 		public event ReturnEventHandler Return;
@@ -52,25 +52,6 @@ namespace YellowstonePathology.UI.Login
 		{
 			UI.Navigation.PageNavigationReturnEventArgs args = new UI.Navigation.PageNavigationReturnEventArgs(UI.Navigation.PageNavigationDirectionEnum.Next, null);
 			this.Return(this, args);
-		}
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save()
-		{
-
-		}
-
-		public void UpdateBindingSources()
-		{
-		}
+		}		
 	}
 }

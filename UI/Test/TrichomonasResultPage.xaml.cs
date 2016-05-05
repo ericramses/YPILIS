@@ -19,7 +19,7 @@ namespace YellowstonePathology.UI.Test
 	/// <summary>
 	/// Interaction logic for PanelSetOrderSelectionPage.xaml
 	/// </summary>
-	public partial class TrichomonasResultPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
+	public partial class TrichomonasResultPage : UserControl, INotifyPropertyChanged 
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -28,7 +28,6 @@ namespace YellowstonePathology.UI.Test
 
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-        private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private YellowstonePathology.Business.Test.Trichomonas.TrichomonasTestOrder m_ReportOrderTrichomonas;
 		private YellowstonePathology.Business.Test.Trichomonas.TrichomonasResultCollection m_ResultCollection;
 
@@ -36,13 +35,10 @@ namespace YellowstonePathology.UI.Test
 
         public TrichomonasResultPage(YellowstonePathology.Business.Test.Trichomonas.TrichomonasTestOrder trichomonasTestOrder,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 		{            
 			this.m_AccessionOrder = accessionOrder;			
 			this.m_SystemIdentity = systemIdentity;
-
-			this.m_ObjectTracker = objectTracker;
 
 			this.m_ReportOrderTrichomonas = trichomonasTestOrder;            
             this.m_PageHeaderText = "Trichomonas Results For: " + this.m_AccessionOrder.PatientDisplayName;
@@ -57,12 +53,12 @@ namespace YellowstonePathology.UI.Test
 
         private void TrichomonasResultPage_Loaded(object sender, RoutedEventArgs e)
         {
-            this.ComboBoxResult.SelectionChanged += ComboBoxResult_SelectionChanged;
+            this.ComboBoxResult.SelectionChanged += ComboBoxResult_SelectionChanged;             
         }
 
         private void TrichomonasResultPage_Unloaded(object sender, RoutedEventArgs e)
         {
-            this.ComboBoxResult.SelectionChanged -= ComboBoxResult_SelectionChanged;
+            this.ComboBoxResult.SelectionChanged -= ComboBoxResult_SelectionChanged;             
         }
 
         public YellowstonePathology.Business.Test.Trichomonas.TrichomonasTestOrder ReportOrder
@@ -86,33 +82,12 @@ namespace YellowstonePathology.UI.Test
 		public string PageHeaderText
 		{
 			get { return this.m_PageHeaderText; }
-		}				        
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save()
-		{
-            this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
-		}
-        
-		public void UpdateBindingSources()
-		{
-
-		}
+		}				        		
 
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
-		{
-			this.Save();
-			YellowstonePathology.Business.Test.Trichomonas.TrichomonasWordDocument report = new YellowstonePathology.Business.Test.Trichomonas.TrichomonasWordDocument();
-			report.Render(this.m_AccessionOrder.MasterAccessionNo, this.m_ReportOrderTrichomonas.ReportNo, Business.Document.ReportSaveModeEnum.Draft);
+		{			
+			YellowstonePathology.Business.Test.Trichomonas.TrichomonasWordDocument report = new YellowstonePathology.Business.Test.Trichomonas.TrichomonasWordDocument(this.m_AccessionOrder, this.m_ReportOrderTrichomonas, Business.Document.ReportSaveModeEnum.Draft);
+			report.Render();
 
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_ReportOrderTrichomonas.ReportNo);
 			string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);
@@ -127,7 +102,7 @@ namespace YellowstonePathology.UI.Test
                 YellowstonePathology.Business.ReportDistribution.Model.MultiTestDistributionHandler multiTestDistributionHandler = YellowstonePathology.Business.ReportDistribution.Model.MultiTestDistributionHandlerFactory.GetHandler(this.m_AccessionOrder);
                 multiTestDistributionHandler.Set();
 
-				this.m_ReportOrderTrichomonas.Finalize(this.m_SystemIdentity.User);
+				this.m_ReportOrderTrichomonas.Finish(this.m_AccessionOrder);
 
                 if (this.m_AccessionOrder.PanelSetOrderCollection.WomensHealthProfileExists() == true)
                 {
@@ -158,7 +133,7 @@ namespace YellowstonePathology.UI.Test
 			YellowstonePathology.Business.Rules.MethodResult result = this.m_ReportOrderTrichomonas.IsOkToAccept();
 			if (result.Success == true)
 			{
-				this.m_ReportOrderTrichomonas.Accept(this.m_SystemIdentity.User);
+				this.m_ReportOrderTrichomonas.Accept();
 			}
 			else
 			{

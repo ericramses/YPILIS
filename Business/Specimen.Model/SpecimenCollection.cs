@@ -66,9 +66,11 @@ namespace YellowstonePathology.Business.Specimen.Model
             result.Add(new SpecimenDefinition.FemoralHead());
             result.Add(new SpecimenDefinition.FallopianTube());
             result.Add(new SpecimenDefinition.GallbladderExcision());
+            result.Add(new SpecimenDefinition.Biopsy());
             result.Add(new SpecimenDefinition.GIBiopsy());
             result.Add(new SpecimenDefinition.KneeTissue());
-            result.Add(new SpecimenDefinition.LEEPCone());
+            result.Add(new SpecimenDefinition.LEEP());
+            result.Add(new SpecimenDefinition.CervicalCone());            
             result.Add(new SpecimenDefinition.LEEPPieces());
             result.Add(new SpecimenDefinition.MitralValve());
             result.Add(new SpecimenDefinition.NeedleCoreBiopsy());
@@ -79,9 +81,14 @@ namespace YellowstonePathology.Business.Specimen.Model
             result.Add(new SpecimenDefinition.ProstateTUR());
             result.Add(new SpecimenDefinition.SinusContent());
             result.Add(new SpecimenDefinition.SinglePlacenta());
+            result.Add(new SpecimenDefinition.Twin1Placenta());
+            result.Add(new SpecimenDefinition.Twin2Placenta());
             result.Add(new SpecimenDefinition.SkinExcisionOrientedBiopsy());
             result.Add(new SpecimenDefinition.SkinExcisionUnorientedBiopsy());
+            result.Add(new SpecimenDefinition.SkinExcisionOrientedwithCurettingsBiopsy());
+            result.Add(new SpecimenDefinition.SkinExcisionUnorientedwithCurettingsBiopsy());            
             result.Add(new SpecimenDefinition.SkinShavePunchMiscBiopsy());
+            result.Add(new SpecimenDefinition.SkinShavewithCurettingsBiopsy());
             result.Add(new SpecimenDefinition.ThinPrepFluid());
             result.Add(new SpecimenDefinition.TonsilAdenoidExcision());
             result.Add(new SpecimenDefinition.TonsilExcision());

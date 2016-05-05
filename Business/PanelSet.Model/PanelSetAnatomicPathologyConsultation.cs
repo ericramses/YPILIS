@@ -18,14 +18,10 @@ namespace YellowstonePathology.Business.PanelSet.Model
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterR();
             this.m_Active = true;
             
-			this.m_AllowMultiplePerAccession = true;
-
-            
-			
+			this.m_AllowMultiplePerAccession = true;           			
 
             string taskDescription = "Gather materials and send out to consulting pathologist.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Transcription, taskDescription));
-
 
             this.m_TechnicalComponentFacility = new YellowstonePathology.Business.Facility.Model.MLabs();
             this.m_ProfessionalComponentFacility = new YellowstonePathology.Business.Facility.Model.MLabs();

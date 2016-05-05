@@ -16,7 +16,7 @@ using System.ComponentModel;
 
 namespace YellowstonePathology.UI.Login.Receiving
 {	
-	public partial class TumorNucleiPercentageEntryPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
+	public partial class TumorNucleiPercentageEntryPage : UserControl, INotifyPropertyChanged 
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -28,20 +28,30 @@ namespace YellowstonePathology.UI.Login.Receiving
 				
 		private YellowstonePathology.Business.Interface.ISolidTumorTesting m_SolidTumorTesting;
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-        private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 
-        public TumorNucleiPercentageEntryPage(YellowstonePathology.Business.Interface.ISolidTumorTesting solidTumorTesting, YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-            YellowstonePathology.Business.Persistence.ObjectTracker objectTracker)
+        public TumorNucleiPercentageEntryPage(YellowstonePathology.Business.Interface.ISolidTumorTesting solidTumorTesting, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{
             this.m_SolidTumorTesting = solidTumorTesting;
             this.m_AccessionOrder = accessionOrder;
-            this.m_ObjectTracker = objectTracker;
 
 			InitializeComponent();			
 			DataContext = this;
+
+            Loaded += TumorNucleiPercentageEntryPage_Loaded;
+            Unloaded += TumorNucleiPercentageEntryPage_Unloaded;
 		}
 
-		public void NotifyPropertyChanged(String info)
+        private void TumorNucleiPercentageEntryPage_Loaded(object sender, RoutedEventArgs e)
+        {
+             
+        }
+
+        private void TumorNucleiPercentageEntryPage_Unloaded(object sender, RoutedEventArgs e)
+        {
+             
+        }
+
+        public void NotifyPropertyChanged(String info)
 		{
 			if (PropertyChanged != null)
 			{
@@ -52,27 +62,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 		public YellowstonePathology.Business.Interface.ISolidTumorTesting SolidTumorTesting
 		{
 			get { return this.m_SolidTumorTesting; }
-		}		
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save()
-		{
-            this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
-		}
-
-		public void UpdateBindingSources()
-		{
-
-		}       
+		}				    
 
 		private void ButtonNext_Click(object sender, RoutedEventArgs e)
 		{

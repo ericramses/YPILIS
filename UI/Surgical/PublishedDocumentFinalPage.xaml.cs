@@ -15,7 +15,7 @@ using System.ComponentModel;
 
 namespace YellowstonePathology.UI.Surgical
 {	
-	public partial class PublishedDocumentFinalPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
+	public partial class PublishedDocumentFinalPage : UserControl, INotifyPropertyChanged 
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -24,29 +24,39 @@ namespace YellowstonePathology.UI.Surgical
 
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 		private string m_PageHeaderText;
 
 		private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;		
 
         public PublishedDocumentFinalPage(YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 		{
             this.m_PanelSetOrder = panelSetOrder;
 			this.m_AccessionOrder = accessionOrder;
 			this.m_SystemIdentity = systemIdentity;
-			this.m_ObjectTracker = objectTracker;
 
 			this.m_PageHeaderText = "Published Document Final Page: " + this.m_AccessionOrder.PatientDisplayName;			
 
 			InitializeComponent();
 
 			DataContext = this;
-		}		
 
-		public YellowstonePathology.Business.Test.PanelSetOrder PanelSetOrder
+            Loaded += PublishedDocumentFinalPage_Loaded;
+            Unloaded += PublishedDocumentFinalPage_Unloaded;
+		}
+
+        private void PublishedDocumentFinalPage_Loaded(object sender, RoutedEventArgs e)
+        {
+             
+        }
+
+        private void PublishedDocumentFinalPage_Unloaded(object sender, RoutedEventArgs e)
+        {
+             
+        }
+
+        public YellowstonePathology.Business.Test.PanelSetOrder PanelSetOrder
 		{
 			get { return this.m_PanelSetOrder; }
 		}		
@@ -66,12 +76,12 @@ namespace YellowstonePathology.UI.Surgical
 			return true;
 		}
 
-		public void Save()
+		public void Save(bool releaseLock)
 		{
-			this.m_ObjectTracker.SubmitChanges(this.m_AccessionOrder);
-		}
+            
+        }
 
-		public void UpdateBindingSources()
+        public void UpdateBindingSources()
 		{
 
 		}		
@@ -80,7 +90,7 @@ namespace YellowstonePathology.UI.Surgical
         {
 			if (this.m_PanelSetOrder.Final == false)
 			{
-				this.m_PanelSetOrder.Finalize(this.m_SystemIdentity.User);
+				this.m_PanelSetOrder.Finish(this.m_AccessionOrder);
 			}
 			else
 			{
@@ -105,7 +115,7 @@ namespace YellowstonePathology.UI.Surgical
 			YellowstonePathology.Business.Rules.MethodResult result = this.m_PanelSetOrder.IsOkToAccept();
 			if (result.Success == true)
 			{
-				this.m_PanelSetOrder.Accept(this.m_SystemIdentity.User);
+				this.m_PanelSetOrder.Accept();
 			}
 			else
 			{

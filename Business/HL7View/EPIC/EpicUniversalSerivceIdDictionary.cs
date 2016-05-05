@@ -5,9 +5,9 @@ using System.Text;
 
 namespace YellowstonePathology.Business.HL7View.EPIC
 {
-    public class EpicUniversalSerivceIdDictionary : Dictionary<string, string>
+    public class EPICUniversalSerivceIdDictionary : Dictionary<string, string>
     {
-        public EpicUniversalSerivceIdDictionary()
+        public EPICUniversalSerivceIdDictionary()
         {
             this.Add("SRGCL", "Surgical Pathology");
             this.Add("JAK2MUT", "JAK2 Mutation V617F");

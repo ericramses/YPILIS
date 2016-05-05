@@ -6,9 +6,9 @@ using System.Xml.Linq;
 
 namespace YellowstonePathology.Business.Test.ErPrSemiQuantitative
 {
-	public class ErPrSemiQuantitativeEpicObxView : YellowstonePathology.Business.HL7View.EPIC.EpicObxView
+	public class ErPrSemiQuantitativeEPICObxView : YellowstonePathology.Business.HL7View.EPIC.EPICObxView
 	{
-		public ErPrSemiQuantitativeEpicObxView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount) 
+		public ErPrSemiQuantitativeEPICObxView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount) 
             : base(accessionOrder, reportNo, obxCount)
 		{
 		}

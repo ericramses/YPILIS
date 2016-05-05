@@ -43,9 +43,11 @@ namespace YellowstonePathology.UI.Gross
             result.Add(new FemoralHeadTemplate());
             result.Add(new FallopianTubeTemplate());
             result.Add(new GallbladderExcisionTemplate());
+            result.Add(new BXTemplate());
             result.Add(new GITemplate());
             result.Add(new KneeTissueTemplate());
-            result.Add(new LEEPConeTemplate());
+            result.Add(new LEEPTemplate());
+            result.Add(new CervicalConeTemplate());
             result.Add(new LEEPPiecesTemplate());
             result.Add(new MitralValveTemplate());
             result.Add(new NeedleCoreBiopsyTemplate());
@@ -54,8 +56,13 @@ namespace YellowstonePathology.UI.Gross
             result.Add(new ProstateTURTemplate());
             result.Add(new SinusContentTemplate());
             result.Add(new SinglePlacentaTemplate());
+            result.Add(new Twin1PlacentaTemplate());
+            result.Add(new Twin2PlacentaTemplate());
             result.Add(new SkinExcisionOrientedTemplate());
             result.Add(new SkinExcisionUnorientedTemplate());
+            result.Add(new SkinExcisionOrientedwithCurettingsTemplate());
+            result.Add(new SkinExcisionUnorientedwithCurettingsTemplate());
+            result.Add(new SkinShavewithCurettingsTemplate());
             result.Add(new SkinShavePunchMiscTemplate());
             result.Add(new TonsilAdenoidExcisionTemplate());
             result.Add(new TonsilExcisionTemplate());

@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Login
 	/// <summary>
 	/// Interaction logic for PatientNameLookupPage.xaml
 	/// </summary>
-	public partial class PatientNameLookupPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges
+	public partial class PatientNameLookupPage : UserControl
 	{
 		public delegate void ReturnEventHandler(object sender, UI.Navigation.PageNavigationReturnEventArgs e);
 		public event ReturnEventHandler Return;
@@ -117,25 +117,6 @@ namespace YellowstonePathology.UI.Login
 					this.Search();
 				}
 			}
-		}
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return false;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return false;
-		}
-
-		public void Save()
-		{
-
-		}
-
-		public void UpdateBindingSources()
-		{
-		}
+		}		
 	}
 }

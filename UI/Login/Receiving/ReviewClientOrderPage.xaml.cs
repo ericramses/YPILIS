@@ -15,7 +15,7 @@ using System.ComponentModel;
 
 namespace YellowstonePathology.UI.Login.Receiving
 {	
-	public partial class ReviewClientOrderPage : UserControl, YellowstonePathology.Business.Interface.IPersistPageChanges, INotifyPropertyChanged
+	public partial class ReviewClientOrderPage : UserControl, INotifyPropertyChanged
 	{
 		public delegate void PropertyChangedNotificationHandler(String info);
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -32,12 +32,10 @@ namespace YellowstonePathology.UI.Login.Receiving
         public delegate void NextEventHandler(object sender, EventArgs e);
         public event NextEventHandler Next;
 
-		private YellowstonePathology.Business.ClientOrder.Model.ClientOrder m_ClientOrder;
-		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
+		private YellowstonePathology.Business.ClientOrder.Model.ClientOrder m_ClientOrder;		
 		private YellowstonePathology.Business.Rules.Surgical.PatientRecentAccessions m_PatientRecentAccessions;
 		private string m_PageHeaderText = "Review Client Order Page";
-		private UI.Navigation.PageNavigator m_PageNavigator;
-        private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
+		private UI.Navigation.PageNavigator m_PageNavigator;        
 		private YellowstonePathology.Business.Domain.Physician m_Physician;
 
         private Visibility m_CloseButtonVisibility;
@@ -45,15 +43,11 @@ namespace YellowstonePathology.UI.Login.Receiving
 
 		public ReviewClientOrderPage(YellowstonePathology.Business.Rules.Surgical.PatientRecentAccessions patientRecentAccessions,
 			YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder,
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity,
-			UI.Navigation.PageNavigator pageNavigator,
-            YellowstonePathology.Business.Persistence.ObjectTracker objectTracker)
+			UI.Navigation.PageNavigator pageNavigator)
 		{
 			this.m_PatientRecentAccessions = patientRecentAccessions;
-			this.m_ClientOrder = clientOrder;            
-			this.m_SystemIdentity = systemIdentity;
-			this.m_PageNavigator = pageNavigator;
-            this.m_ObjectTracker = objectTracker;
+			this.m_ClientOrder = clientOrder;            			
+			this.m_PageNavigator = pageNavigator;            
 
 			InitializeComponent();
 
@@ -143,6 +137,10 @@ namespace YellowstonePathology.UI.Login.Receiving
                 {
                     MessageBox.Show("This order cannot be accessioned because the provider cannot be mapped.", "Unable to map the provider.", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 }
+                else if(this.m_ClientOrder.SystemInitiatingOrder == "EPIC" && this.PhysicianHasDistributionsForThisClient() == false)
+                {
+                    MessageBox.Show("This order cannot be accessioned because the provider has no report distributions for the client.", "Unable to create report distributions.", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                }
                 else
                 {
                     if (this.CreateNewAccessionOrder != null)
@@ -153,7 +151,7 @@ namespace YellowstonePathology.UI.Login.Receiving
             }
             else
             {
-                MessageBox.Show("This cliet order is already accessioned.");
+                MessageBox.Show("This client order is already accessioned.");
             }
 		}
 		
@@ -192,27 +190,7 @@ namespace YellowstonePathology.UI.Login.Receiving
         private void ButtonClose_Click(object sender, RoutedEventArgs e)
         {
             Window.GetWindow(this).Close();            
-        }
-
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
-		{
-			return true;
-		}
-
-		public bool OkToSaveOnClose()
-		{
-			return true;
-		}
-
-		public void Save()
-		{
-            this.m_ObjectTracker.SubmitChanges(this.m_ClientOrder);
-		}
-
-		public void UpdateBindingSources()
-		{
-
-		}
+        }		
 
 		private void ClientFaxPage_Back(object sender, EventArgs e)
 		{
@@ -270,6 +248,23 @@ namespace YellowstonePathology.UI.Login.Receiving
         private void ProviderSelectionPage_Back(object sender, EventArgs e)
         {
             this.m_PageNavigator.Navigate(this);            
-        }        
-	}
+        }
+        
+        private bool PhysicianHasDistributionsForThisClient()
+        {
+            bool result = false;
+            YellowstonePathology.Business.Domain.PhysicianClient physicianClient = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClient(this.m_Physician.ObjectId, this.m_ClientOrder.ClientId);
+            if (physicianClient != null)
+            {
+                YellowstonePathology.Business.Client.Model.PhysicianClientDistributionCollection physicianClientDistributionCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClientDistributionByPhysicianClientId(physicianClient.PhysicianClientId);
+                if (physicianClientDistributionCollection.Count > 0)
+                {
+                    result = true;
+                }
+            }
+
+            return result;
+        }
+
+    }
 }

@@ -95,19 +95,19 @@ namespace YellowstonePathology.Business.HL7View.CDC
 
             XElement obr32Element = new XElement("OBR.32");
 
-			StringBuilder obr3201Data = new StringBuilder();
-			obr3201Data.Append(this.m_SigningPathologist.NationalProviderId);
-			obr3201Data.Append("&" + this.m_SigningPathologist.LastName);
-			obr3201Data.Append("&" + this.m_SigningPathologist.FirstName);
-			obr3201Data.Append("&" + this.m_SigningPathologist.Initials.Substring(1, 1));
+            StringBuilder obr3201Data = new StringBuilder();
+            obr3201Data.Append(this.m_SigningPathologist.NationalProviderId);
+            obr3201Data.Append("&" + this.m_SigningPathologist.LastName);
+            obr3201Data.Append("&" + this.m_SigningPathologist.FirstName);
+            obr3201Data.Append("&" + this.m_SigningPathologist.Initials.Substring(1, 1));
             obr3201Data.Append("&" + "MD");
             obr3201Data.Append("&" + string.Empty);
             obr3201Data.Append("&" + string.Empty);
             obr3201Data.Append("&" + string.Empty);
-			obr3201Data.Append("&" + "MT");
-			XElement obr3201Element = new XElement("OBR.32.1", obr3201Data.ToString());
-            
-			YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElementIfNotEmpty(obr32Element, obr3201Element);
+            obr3201Data.Append("&" + "MT");
+            XElement obr3201Element = new XElement("OBR.32.1", obr3201Data.ToString());
+
+            YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElementIfNotEmpty(obr32Element, obr3201Element);
 			YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElementIfNotEmpty(obrElement, obr32Element);
 		}
 	}

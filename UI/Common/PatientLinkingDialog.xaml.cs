@@ -17,9 +17,9 @@ namespace YellowstonePathology.UI.Common
 	{       
 		private Login.FinalizeAccession.PatientLinkingPage m_PatientLinkingPage;
 
-        public PatientLinkingDialog(YellowstonePathology.Business.Interface.IOrder iOrder, YellowstonePathology.Business.Patient.Model.PatientLinkingListModeEnum mode, YellowstonePathology.Business.Patient.Model.PatientLinker patientLinker)
+        public PatientLinkingDialog(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Patient.Model.PatientLinkingListModeEnum mode, YellowstonePathology.Business.Patient.Model.PatientLinker patientLinker)
 		{
-			this.m_PatientLinkingPage = new Login.FinalizeAccession.PatientLinkingPage(iOrder, false, mode, patientLinker);
+			this.m_PatientLinkingPage = new Login.FinalizeAccession.PatientLinkingPage(accessionOrder, false, mode, patientLinker);
 			this.m_PatientLinkingPage.Return += new Login.FinalizeAccession.PatientLinkingPage.ReturnEventHandler(PatientLinkingPage_Return);
 	
 			InitializeComponent();

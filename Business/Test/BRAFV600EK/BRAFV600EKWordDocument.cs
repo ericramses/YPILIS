@@ -7,14 +7,14 @@ namespace YellowstonePathology.Business.Test.BRAFV600EK
 {
 	public class BRAFV600EKWordDocument : YellowstonePathology.Business.Document.CaseReportV2
 	{
-		public override void Render(string masterAccessionNo, string reportNo, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveEnum)
-		{
-            this.m_ReportNo = reportNo;
-			this.m_ReportSaveEnum = reportSaveEnum;
+        public BRAFV600EKWordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+            : base(accessionOrder, panelSetOrder, reportSaveMode)
+        {
 
-			this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(reportNo);
+        }
 
-            this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
+        public override void Render()
+		{            
             YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTestOrder panelSetOrder = (YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTestOrder)this.m_PanelSetOrder;
 			base.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\BRAFV600EK.1.xml";
 			base.OpenTemplate();
@@ -47,8 +47,9 @@ namespace YellowstonePathology.Business.Test.BRAFV600EK
 			this.ReplaceText("tumor_nuclei_percent", panelSetOrder.TumorNucleiPercentage);
 			this.ReplaceText("report_method", panelSetOrder.Method);
 			this.ReplaceText("report_reference", panelSetOrder.References);
+            this.ReplaceText("report_disclaimer", panelSetOrder.ReportDisclaimer);
 
-			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrder.OrderedOn, this.m_PanelSetOrder.OrderedOnId);
+            YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrder.OrderedOn, this.m_PanelSetOrder.OrderedOnId);
 			this.ReplaceText("specimen_description", specimenOrder.Description);
 
             string collectionDateTimeString = YellowstonePathology.Business.Helper.DateTimeExtensions.CombineDateAndTime(specimenOrder.CollectionDate, specimenOrder.CollectionTime);

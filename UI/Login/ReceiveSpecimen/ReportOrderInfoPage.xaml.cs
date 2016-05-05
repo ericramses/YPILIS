@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Login.ReceiveSpecimen
     /// <summary>
     /// 
     /// </summary>
-    public partial class ReportOrderInfoPage : UserControl, INotifyPropertyChanged, Business.Interface.IPersistPageChanges
+    public partial class ReportOrderInfoPage : UserControl, INotifyPropertyChanged 
     {
         public event PropertyChangedEventHandler PropertyChanged;
         public delegate void ReturnEventHandler(object sender, EventArgs e);
@@ -58,7 +58,7 @@ namespace YellowstonePathology.UI.Login.ReceiveSpecimen
             return true;
         }
 
-        public void Save()
+        public void Save(bool releaseLock)
         {
             
         }

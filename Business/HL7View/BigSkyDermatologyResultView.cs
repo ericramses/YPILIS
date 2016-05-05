@@ -17,12 +17,13 @@ namespace YellowstonePathology.Business.HL7View
         YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         YellowstonePathology.Business.Domain.Physician m_OrderingPhysician;
 
-        public BigSkyDermatologyResultView(string reportNo, OrderStatus orderStatus)
+        public BigSkyDermatologyResultView(string reportNo, OrderStatus orderStatus, object writer)
         {
             this.m_ReportNo = reportNo;
             this.m_OrderStatus = orderStatus;
 
-			this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderByReportNo(this.m_ReportNo);
+            string masterAccessionNo = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetMasterAccessionNoFromReportNo(this.m_ReportNo);
+            this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, writer);
 
 			this.m_OrderingPhysician = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianByPhysicianId(this.m_AccessionOrder.PhysicianId);           
 		}        

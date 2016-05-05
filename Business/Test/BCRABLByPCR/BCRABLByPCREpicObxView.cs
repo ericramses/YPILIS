@@ -6,9 +6,9 @@ using System.Xml.Linq;
 
 namespace YellowstonePathology.Business.Test.BCRABLByPCR
 {
-	public class BCRABLByPCREpicObxView : YellowstonePathology.Business.HL7View.EPIC.EpicObxView
+	public class BCRABLByPCREPICObxView : YellowstonePathology.Business.HL7View.EPIC.EPICObxView
 	{
-		public BCRABLByPCREpicObxView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount)
+		public BCRABLByPCREPICObxView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount)
 			: base(accessionOrder, reportNo, obxCount)
 		{
 		}
@@ -21,14 +21,23 @@ namespace YellowstonePathology.Business.Test.BCRABLByPCR
 			this.AddNextObxElement("", document, "F");
 			string result = "Result: " + panelSetOrder.Result;
 			this.AddNextObxElement(result, document, "F");
-			result = "  Fusion Transcript Type: " + panelSetOrder.FusionTranscriptType;
+            if (string.IsNullOrEmpty(panelSetOrder.DetectedLogReduction) == false)
+            {
+                result = "Detected Log Reduction: " + panelSetOrder.DetectedLogReduction;
+                this.AddNextObxElement(result, document, "F");
+            }
+
+            result = "Fusion Transcript Type: " + panelSetOrder.FusionTranscriptType;
 			this.AddNextObxElement(result, document, "F");
 
-			this.AddNextObxElement("", document, "F");
-			this.AddNextObxElement("Pathologist: " + panelSetOrder.Signature, document, "F");
+            result = "% BCR - ABL1 / ABL1(IS): " + panelSetOrder.PercentBCRABL;
+            this.AddNextObxElement(result, document, "F");
+
+            this.AddNextObxElement("", document, "F");
+			this.AddNextObxElement("Pathologist: " + panelSetOrder.ReferenceLabSignature, document, "F");
 			if (panelSetOrder.FinalTime.HasValue == true)
 			{
-				this.AddNextObxElement("E-signed " + panelSetOrder.FinalTime.Value.ToString("MM/dd/yyyy HH:mm"), document, "F");
+				this.AddNextObxElement("E-signed " + panelSetOrder.ReferenceLabFinalDate.Value.ToString("MM/dd/yyyy HH:mm"), document, "F");
 			}
 			this.AddNextObxElement("", document, "F");
 

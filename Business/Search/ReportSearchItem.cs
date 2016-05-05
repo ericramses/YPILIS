@@ -37,8 +37,10 @@ namespace YellowstonePathology.Business.Search
 		private bool m_Verified;
 		private bool m_Finalized;
         private bool m_IsPosted;
+        private bool m_IsLockAquiredByMe;
+        private bool m_LockAquired;
 
-		public ReportSearchItem()
+        public ReportSearchItem()
 		{
 		}
 
@@ -336,5 +338,31 @@ namespace YellowstonePathology.Business.Search
                 this.NotifyPropertyChanged("IsPosted");
             }
         }
-	}
+
+        public bool IsLockAquiredByMe
+        {
+            get { return this.m_IsLockAquiredByMe; }
+            set
+            {
+                if (value != this.m_IsLockAquiredByMe)
+                {
+                    this.m_IsLockAquiredByMe = value;
+                    this.NotifyPropertyChanged("IsLockAquiredByMe");
+                }
+            }
+        }
+
+        public bool LockAquired
+        {
+            get { return this.m_LockAquired; }
+            set
+            {
+                if (value != this.m_LockAquired)
+                {
+                    this.m_LockAquired = value;
+                    this.NotifyPropertyChanged("LockAquired");
+                }
+            }
+        }
+    }
 }

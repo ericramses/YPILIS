@@ -21,13 +21,14 @@ namespace YellowstonePathology.Business.Test.JAK2V617F
 
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FTestOrder).AssemblyQualifiedName;
 			this.m_AllowMultiplePerAccession = true;
-			
+            this.m_EpicDistributionIsImplemented = true;
+
             this.m_ExpectedDuration = new TimeSpan(3, 0, 0, 0);
 
             this.m_TechnicalComponentFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings();
-            this.m_ProfessionalComponentFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologistBillings();
-
             this.m_TechnicalComponentBillingFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings();
+
+            this.m_ProfessionalComponentFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologistBillings();
             this.m_ProfessionalComponentBillingFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings();
 
             this.m_HasSplitCPTCode = true;            
@@ -36,9 +37,9 @@ namespace YellowstonePathology.Business.Test.JAK2V617F
             this.m_PanelSetCptCodeCollection.Add(panelSetCptCode);
 
 			YellowstonePathology.Business.Task.Model.TaskParaffinCurlPreparation paraffinCurlPreparation = new YellowstonePathology.Business.Task.Model.TaskParaffinCurlPreparation();
-            this.m_TaskCollection.Add(paraffinCurlPreparation);
-
-            string task2Description = "Receive curls from Histology and perform testing.";
+            this.m_TaskCollection.Add(paraffinCurlPreparation);            
+            
+            string task2Description = "Gather materials and get to work.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, task2Description));
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceJAK2());

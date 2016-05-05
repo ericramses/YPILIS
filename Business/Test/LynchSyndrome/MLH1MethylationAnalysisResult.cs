@@ -7,7 +7,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 {
 	public class MLH1MethylationAnalysisResult
 	{        
-		public static string Method = "This assay use bisulfite treated DNA followed by methylation specific real-time PCR.  Each patient’s bisulfite treated DNA " +
+		public static string Method = "This assay use bisulfite treated DNA followed by methylation specific real-time PCR.  Each patient's bisulfite treated DNA " +
 			"sample will have 2 reaction wells using methylated and unmethylated MMX. Standard curve is used to quantify methylated and unmethylated DNA. The % of " +
 			"methylation for each sample is calculated according to the formula:\r\n\r\n% of Methylation = methylated DNA pg / (methylated pg + unmethylated pg) *100%";
 

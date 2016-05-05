@@ -14,9 +14,10 @@ namespace YellowstonePathology.Business.Label.Model
         private string m_PatientLastName;
         private string m_TestAbbreviation;
         private string m_FacilityLocationAbbreviation;
+        private string m_ClientAccessionNo;        
 		private YellowstonePathology.Business.BarcodeScanning.BarcodeVersion2 m_Barcode;
 
-        public HistologySlideLabel(string slideOrderId, string reportNo, string slideNumber, string patientLastName, string testAbbreviation, string facilityLocationAbbreviation)
+        public HistologySlideLabel(string slideOrderId, string reportNo, string slideNumber, string patientLastName, string testAbbreviation, string facilityLocationAbbreviation, Business.Test.AccessionOrder accessionOrder)
         {
             this.m_SlideOrderId = slideOrderId;
             this.m_ReportNo = reportNo;
@@ -24,6 +25,7 @@ namespace YellowstonePathology.Business.Label.Model
             this.m_PatientLastName = patientLastName;
             this.m_TestAbbreviation = testAbbreviation;
             this.m_FacilityLocationAbbreviation = facilityLocationAbbreviation;
+            this.m_ClientAccessionNo = accessionOrder.ClientAccessionNo;
 			this.m_Barcode = new YellowstonePathology.Business.BarcodeScanning.BarcodeVersion2(Business.BarcodeScanning.BarcodePrefixEnum.HSLD, this.m_SlideOrderId);            
         }
 
@@ -32,9 +34,9 @@ namespace YellowstonePathology.Business.Label.Model
             e.Graphics.DrawString(this.m_ReportNo, new System.Drawing.Font("Verdana", 9), System.Drawing.Brushes.Black, new System.Drawing.PointF(x + 3, y + 0));            
             e.Graphics.DrawString(this.m_SlideNumber, new System.Drawing.Font("Verdana", 8, System.Drawing.FontStyle.Bold), System.Drawing.Brushes.Black, new System.Drawing.PointF(x + 26, y + 17));
             e.Graphics.DrawString(this.m_FacilityLocationAbbreviation, new System.Drawing.Font("Verdana", 4), System.Drawing.Brushes.Black, new System.Drawing.PointF(x + 29, y + 31));
+            e.Graphics.DrawString(this.m_ClientAccessionNo, new System.Drawing.Font("Verdana", 6), System.Drawing.Brushes.Black, new System.Drawing.PointF(x + 3, y + 39));
             e.Graphics.DrawString(this.m_PatientLastName, new System.Drawing.Font("Verdana", 6), System.Drawing.Brushes.Black, new System.Drawing.PointF(x + 3, y + 47));
             
-
             DataMatrix.DmtxImageEncoder encoder = new DataMatrix.DmtxImageEncoder();
             DataMatrix.DmtxImageEncoderOptions options = new DataMatrix.DmtxImageEncoderOptions();
             options.ModuleSize = 1;

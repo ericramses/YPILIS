@@ -10,22 +10,20 @@ namespace YellowstonePathology.UI.Test
         private ALKForNSCLCByFISHResultPage m_ResultPage;
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         private YellowstonePathology.Business.Test.ALKForNSCLCByFISH.ALKForNSCLCByFISHTestOrder m_TestOrder;
-		private YellowstonePathology.Business.Persistence.ObjectTracker m_ObjectTracker;
 
         public ALKForNSCLCByFISHResultPath(string reportNo,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Persistence.ObjectTracker objectTracker,
-            YellowstonePathology.UI.Navigation.PageNavigator pageNavigator)
-            : base(pageNavigator)
+            YellowstonePathology.UI.Navigation.PageNavigator pageNavigator,
+            System.Windows.Window window)
+            : base(pageNavigator, window)
         {
             this.m_AccessionOrder = accessionOrder;
             this.m_TestOrder = (YellowstonePathology.Business.Test.ALKForNSCLCByFISH.ALKForNSCLCByFISHTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
-			this.m_ObjectTracker = objectTracker;
 		}
 
         protected override void ShowResultPage()
         {
-            this.m_ResultPage = new ALKForNSCLCByFISHResultPage(this.m_TestOrder, this.m_AccessionOrder, this.m_ObjectTracker, this.m_SystemIdentity);
+            this.m_ResultPage = new ALKForNSCLCByFISHResultPage(this.m_TestOrder, this.m_AccessionOrder, this.m_SystemIdentity);
             this.m_ResultPage.Next += new ALKForNSCLCByFISHResultPage.NextEventHandler(ResultPage_Next);
             this.RegisterCancelATest(this.m_ResultPage);
             this.m_PageNavigator.Navigate(this.m_ResultPage);
@@ -47,10 +45,10 @@ namespace YellowstonePathology.UI.Test
             {
                 YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisTestOrder testOrder = (YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSet.PanelSetId, this.m_TestOrder.OrderedOnId, true);
                 result = true;
-				Test.EGFRToALKReflexPath eGFRToALKReflexPath = new Test.EGFRToALKReflexPath(testOrder.ReportNo, this.m_AccessionOrder, this.m_ObjectTracker, this.m_PageNavigator, System.Windows.Visibility.Visible);
+				Test.EGFRToALKReflexPath eGFRToALKReflexPath = new Test.EGFRToALKReflexPath(testOrder.ReportNo, this.m_AccessionOrder, this.m_PageNavigator, this.m_Window, System.Windows.Visibility.Visible);
 				eGFRToALKReflexPath.Finish += new Test.EGFRToALKReflexPath.FinishEventHandler(EGFRToALKReflexPath_Finish);
                 eGFRToALKReflexPath.Back += EGFRToALKReflexPath_Back;
-				eGFRToALKReflexPath.Start(this.m_SystemIdentity);
+				eGFRToALKReflexPath.Start();
 			}
             return result;
         }

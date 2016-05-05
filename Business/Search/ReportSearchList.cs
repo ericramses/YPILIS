@@ -28,6 +28,23 @@ namespace YellowstonePathology.Business.Search
             get { return this.m_CurrentReportSearchItem; }            
         }
 
+        public void SetLockIsAquiredByMe(Business.Test.AccessionOrder accessionOrder)
+        {
+            foreach(ReportSearchItem item in this)
+            {                
+                if (item.MasterAccessionNo == accessionOrder.MasterAccessionNo)
+                {
+                    item.LockAquired = accessionOrder.LockAquired;
+                    item.IsLockAquiredByMe = accessionOrder.IsLockAquiredByMe;                    
+                }
+                else
+                {
+                    item.IsLockAquiredByMe = false;
+                    item.LockAquired = false;
+                }
+            }
+        }
+
         public List<string> GetMasterAccessionNoList()
         {
             List<string> resultList = new List<string>();

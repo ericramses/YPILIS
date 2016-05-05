@@ -26,8 +26,7 @@ namespace YellowstonePathology.Business.Visitor
 
         public OrderTestVisitor(string reportNo, YellowstonePathology.Business.Test.Model.Test test, string testOrderComment, string panelOrderComment, bool orderedAsDual,
 			YellowstonePathology.Business.Test.AliquotOrder aliquotOrder, bool acknowledgeOnOrder, bool orderAsSlide,
-            YellowstonePathology.Business.Task.Model.TaskOrderCollection taskOrderCollection, 
-            YellowstonePathology.Business.User.SystemIdentity systemIdentity) 
+            YellowstonePathology.Business.Task.Model.TaskOrderCollection taskOrderCollection) 
             : base(true, true)
         {
             this.m_ReportNo = reportNo;
@@ -36,7 +35,7 @@ namespace YellowstonePathology.Business.Visitor
             this.m_TestOrderComment = testOrderComment;
             this.m_PanelOrderComment = panelOrderComment;
             this.m_AliquotOrder = aliquotOrder;
-            this.m_SystemIdentity = systemIdentity;
+            this.m_SystemIdentity = YellowstonePathology.Business.User.SystemIdentity.Instance;
             this.m_AcknowledgeOnOrder = acknowledgeOnOrder;
             this.m_OrderAsSlide = orderAsSlide;
 			this.m_TaskOrderCollection = taskOrderCollection;
@@ -153,7 +152,7 @@ namespace YellowstonePathology.Business.Visitor
                 string slideOrderId = YellowstonePathology.Business.OrderIdParser.GetNextSlideOrderId(this.m_AliquotOrder.SlideOrderCollection, this.m_AliquotOrder.AliquotOrderId);
                 string slideOrderObjectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
 
-                YellowstonePathology.Business.Visitor.AddSlideOrderVisitor addSlideOrderVisitor = new AddSlideOrderVisitor(this.m_AliquotOrder, this.m_TestOrder, this.m_SystemIdentity);
+                YellowstonePathology.Business.Visitor.AddSlideOrderVisitor addSlideOrderVisitor = new AddSlideOrderVisitor(this.m_AliquotOrder, this.m_TestOrder);
                 this.m_AccessionOrder.TakeATrip(addSlideOrderVisitor);                
             }
         }

@@ -22,7 +22,7 @@ namespace YellowstonePathology.Business.Document
             this.m_ImageStreamSource.Close();
         }
 
-		public override void Show(System.Windows.Controls.ContentControl contentControl)
+		public override void Show(System.Windows.Controls.ContentControl contentControl, object writer)
 		{
             ScrollViewer scrollViewer = new ScrollViewer();            
             StackPanel stackPanel = new StackPanel();
