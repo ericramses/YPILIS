@@ -971,5 +971,11 @@ namespace YellowstonePathology.UI.Surgical
         {
             this.m_TypingUI.AccessionOrder.ClinicalHistory = this.m_TypingUI.AccessionOrder.ClinicalHistory.Replace("Comprehensive Consult:->No", "");
 ;        }
+
+        private void HyperLinkSpellCheck_Click(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.UI.NHunspell nhunspell = new NHunspell(this.m_TypingUI.AccessionOrder);
+            nhunspell.ShowDialog();
+        }
     }    
 }

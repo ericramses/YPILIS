@@ -112,6 +112,9 @@
       <HintPath>dll\MongoDB.Driver.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib" />
+    <Reference Include="NHunspell">
+      <HintPath>..\..\..\..\Users\sid.harder\Desktop\NHunspell.1.2.5554.16953\NHunspell.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationFramework.Luna" />
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -389,6 +392,9 @@
     </Compile>
     <Compile Include="Monitor\MissingInformationMonitorPage.xaml.cs">
       <DependentUpon>MissingInformationMonitorPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="NHunspell.xaml.cs">
+      <DependentUpon>NHunspell.xaml</DependentUpon>
     </Compile>
     <Compile Include="PageNavigationWindow.xaml.cs">
       <DependentUpon>PageNavigationWindow.xaml</DependentUpon>
@@ -2054,6 +2060,10 @@
     <Page Include="Monitor\MissingInformationMonitorPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="NHunspell.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PageNavigationWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

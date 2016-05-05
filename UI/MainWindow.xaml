@@ -29,8 +29,8 @@
 					<MenuItem Header="Preferences" Click="MenuItemPreferences_Click"></MenuItem>
 					<MenuItem Header="Database" Click="MenuItemDatabase_Click"></MenuItem>
                     <MenuItem Header="Application Validation" Click="MenuItemValidate_Click"></MenuItem>
-                    <MenuItem Header="Locked Cases" Click="MenuItemLockedCases_Click"></MenuItem>                    
-				</MenuItem>			
+                    <MenuItem Header="Locked Cases" Click="MenuItemLockedCases_Click"></MenuItem>
+                </MenuItem>			
         
 			<MenuItem Header="_Surgical" Name="MenuItemSurgical">
 				<MenuItem Header="_Typing" Click="ToolBarButtonTypingWorkspace_Click"></MenuItem>				

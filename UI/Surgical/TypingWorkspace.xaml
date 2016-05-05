@@ -808,7 +808,10 @@
 
             <StatusBarItem HorizontalAlignment="Right">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Margin="2,2,2,2">
+                    <TextBlock Margin="2,2,10,2">
+                        <Hyperlink Click="HyperLinkSpellCheck_Click">Spell Checker</Hyperlink>
+                    </TextBlock>
+                    <TextBlock Margin="2,2,10,2">
                         <Hyperlink Click="HyperLinkShowProviderDistribution_Click">Provider Distribution</Hyperlink>
                     </TextBlock>
                     <TextBlock Margin="2,2,2,2">

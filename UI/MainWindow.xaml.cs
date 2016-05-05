@@ -932,6 +932,6 @@ namespace YellowstonePathology.UI
         {
             ParsePsaAccessionsWindow window = new ParsePsaAccessionsWindow();
             window.Show();
-        }
+        }        
     }    
 }
