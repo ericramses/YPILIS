@@ -723,6 +723,7 @@
     <Compile Include="Test\PDL1\PDL1Test.cs" />
     <Compile Include="Test\PDL1\PDL1TestOrder.cs" />
     <Compile Include="Test\PDL1\PDL1WordDocument.cs" />
+    <Compile Include="Test\PNH\PNHCMMCNTEView.cs" />
     <Compile Include="Test\RASRAFPanel\DetectedResult.cs" />
     <Compile Include="Test\RASRAFPanel\NotDetectedResult.cs" />
     <Compile Include="Test\RASRAFPanel\RASRAFPanelEPICObxView.cs" />
