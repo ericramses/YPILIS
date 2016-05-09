@@ -56,7 +56,7 @@ namespace YellowstonePathology.Business.HL7View
                 case 954: // Barb Miller
                 case 1471: //Marchion
                 case 861:
-                //case 219:
+                case 219:
                     resultView = new HL7View.CMMC.CMMCResultView(reportNo, accessionOrder);
                     break;
                 case 1337:
