@@ -997,7 +997,8 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
-                     
+            YellowstonePathology.UI.MakeDictionary make = new MakeDictionary();
+            make.DoIt();
         }        
 
         private string CallBackOne(string x)

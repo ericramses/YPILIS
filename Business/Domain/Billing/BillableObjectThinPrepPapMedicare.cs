@@ -126,7 +126,7 @@ namespace YellowstonePathology.Business.Domain.Billing
 			if (this.IsOkToPost() == true)
 			{                
                 YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88175 cpt88175 = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88175();
-                if (this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.Exists(cpt88175.Code) == true)
+                if (this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.CPTCodeExists(cpt88175.Code) == true)
                 {
                     YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill = this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.GetByCPTCode(cpt88175.Code);
                     if (panelSetOrderCPTCodeBill.BillTo == "Client")
@@ -136,7 +136,7 @@ namespace YellowstonePathology.Business.Domain.Billing
                 }
 
                 YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88142 cpt88142 = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88142();
-                if (this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.Exists(cpt88142.Code) == true)
+                if (this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.CPTCodeExists(cpt88142.Code) == true)
                 {
                     YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill = this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.GetByCPTCode(cpt88142.Code);
                     if (panelSetOrderCPTCodeBill.BillTo == "Client")

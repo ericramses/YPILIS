@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using NHunspell;
 using System.ComponentModel;
+using System.Reflection;
 
 namespace YellowstonePathology.UI
 {
@@ -29,52 +30,52 @@ namespace YellowstonePathology.UI
 
         private int m_CurrentSelectionStart;
         private int m_CurrentSelectionLength;
+        private string m_Text;
 
-        
-        YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-        List<Binding> m_BindingList;
+        private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
+        private SpellCheckAccessionOrder m_SpellCheckAccessionOrder;
 
         public NHunspell(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {
             this.m_AccessionOrder = accessionOrder;
-
+            this.m_SpellCheckAccessionOrder = new SpellCheckAccessionOrder(this.m_AccessionOrder);
+            
             this.m_Hunspell = new Hunspell();
             //this.m_Hunspell.Load(@"C:\Program Files\Yellowstone Pathology Institute\en_US-custom.aff", @"C:\Program Files\Yellowstone Pathology Institute\en_US-custom.dic");
             //this.m_Hunspell.Load(@"C:\Program Files\Yellowstone Pathology Institute\en_med_glut.aff", @"C:\Program Files\Yellowstone Pathology Institute\en_med_glut.dic");
-            this.m_Hunspell.Load(@"C:\Program Files\Yellowstone Pathology Institute\ypi-custom.aff", @"C:\Program Files\Yellowstone Pathology Institute\ypi-custom.dic");
 
-            InitializeComponent();
-            
+            this.m_Hunspell.Load(YellowstonePathology.UI.Properties.Settings.Default.LocalAFFFile, YellowstonePathology.UI.Properties.Settings.Default.LocalDICFile);
+
+            InitializeComponent();            
             this.DataContext = this;
-            this.Loaded += NHunspell_Loaded;
+
+            this.Loaded += NHunspell_Loaded;            
+        }
+
+        public SpellCheckAccessionOrder SpellCheckAccessionOrder
+        {
+            get { return this.m_SpellCheckAccessionOrder; }
         }
 
         private void NHunspell_Loaded(object sender, RoutedEventArgs e)
         {
-            this.m_BindingList = new List<Binding>();
-            YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetSurgical();
+            this.ListViewProperties.SelectedIndex = 0;
+            this.ListViewProperties.MouseLeftButtonUp += ListViewProperties_MouseLeftButtonUp;         
+            SpellCheckProperty spellCheckProperty = this.GetNextProperty();
+            this.CheckSpelling(spellCheckProperty);            
+        }        
 
-            Binding grossBinding = new Binding();
-            grossBinding.Source = surgicalTestOrder;
-            grossBinding.Path = new PropertyPath("GrossX");
-            grossBinding.Mode = BindingMode.TwoWay;
-            grossBinding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
-
-            Binding clinicalInfoBinding = new Binding();
-            clinicalInfoBinding.Source = surgicalTestOrder;
-            clinicalInfoBinding.Path = new PropertyPath("ClinicalInfo");
-            clinicalInfoBinding.Mode = BindingMode.TwoWay;
-            clinicalInfoBinding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
-
-            this.m_BindingList.Add(grossBinding);
-            this.m_BindingList.Add(clinicalInfoBinding);
-
-            BindingOperations.SetBinding(this.TextBoxText, TextBox.TextProperty, grossBinding);
-        }
-
-        public List<Binding> BindingList
+        public string Text
         {
-            get { return this.m_BindingList; }
+            get { return this.m_Text; }
+            set
+            {
+                if(this.m_Text != value)
+                {
+                    this.m_Text = value;
+                    this.NotifyPropertyChanged("Text");
+                }
+            }
         }
 
         public List<string> SuggestedWordList
@@ -82,62 +83,110 @@ namespace YellowstonePathology.UI
             get { return this.m_SuggestedWordList; }
         }
 
-        private void ButtonSpellCheck_Click(object sender, RoutedEventArgs e)
+        private void ButtonNextProperty_Click(object sender, RoutedEventArgs e)
         {
-            this.CheckSpelling();
+            if(this.m_SpellCheckAccessionOrder.HasNextProperty() == true)
+            {
+                SpellCheckProperty spellCheckProperty = this.GetNextProperty();                
+                this.CheckSpelling(spellCheckProperty);
+                this.ListViewProperties.SelectedIndex = this.m_SpellCheckAccessionOrder.CurrentPropertyListIndex;
+            }
         }
 
-        private void CheckSpelling()
+        private SpellCheckProperty GetNextProperty()
         {
-            List<System.Text.RegularExpressions.Match> matches = this.GetWordList(this.TextBoxText.Text);
-            foreach (System.Text.RegularExpressions.Match match in matches)
+            if (this.m_SpellCheckAccessionOrder.HasNextProperty() == true)
             {
+                SpellCheckProperty spellCheckProperty = this.m_SpellCheckAccessionOrder.GetNextProperty();
+                this.SetProperty(spellCheckProperty);
+                return spellCheckProperty;
+            }
+            else
+            {
+                //MessageBox.Show("You have reached the end.");
+                return null;
+            }
+        } 
+        
+        private void SetProperty(SpellCheckProperty spellCheckProperty)
+        {
+            this.m_Text = spellCheckProperty.GetText();
+            this.Title = spellCheckProperty.Description;
+            this.NotifyPropertyChanged("Text");
+        }      
+
+        private void CheckSpelling(SpellCheckProperty spellCheckProperty)
+        {
+            if(spellCheckProperty.HasNextMatch() == true)
+            {                
+                System.Text.RegularExpressions.Match match = spellCheckProperty.GetNextMatch();
                 bool correct = this.m_Hunspell.Spell(match.Value);
                 if (correct == false)
+                {                    
+                    this.m_SuggestedWordList = this.m_Hunspell.Suggest(match.Value);
+                    this.NotifyPropertyChanged("SuggestedWordList");
+
+                    this.TextBoxText.Focus();
+                    this.TextBoxText.SelectionStart = match.Index;
+                    this.TextBoxText.SelectionLength = match.Length;
+
+                    this.m_CurrentSelectionStart = match.Index;
+                    this.m_CurrentSelectionLength = match.Length;
+
+                    return;
+                }
+                else
                 {
-                    if(match.Index > this.m_CurrentSelectionStart)
-                    {
-                        this.m_SuggestedWordList = this.m_Hunspell.Suggest(match.Value);
-                        this.NotifyPropertyChanged("SuggestedWordList");
-
-                        this.TextBoxText.Focus();
-                        this.TextBoxText.SelectionStart = match.Index;
-                        this.TextBoxText.SelectionLength = match.Length;
-
-                        this.m_CurrentSelectionStart = match.Index;
-                        this.m_CurrentSelectionLength = match.Length;
-
-                        break;
-                    }                    
+                    this.CheckSpelling(spellCheckProperty);
                 }
             }
+            else
+            {
+                //MessageBox.Show("All done.");
+            }            
         }
 
-        private List<System.Text.RegularExpressions.Match> GetWordList(string text)
+        private void ButtonSkip_Click(object sender, RoutedEventArgs e)
         {            
-            List<System.Text.RegularExpressions.Match> result = new List<System.Text.RegularExpressions.Match>();
-            System.Text.RegularExpressions.Regex rx = new System.Text.RegularExpressions.Regex(@"\b\w+\b");
-            foreach (System.Text.RegularExpressions.Match match in rx.Matches(text))
-            {                
-                result.Add(match);
-            }
-            return result;
-        }        
+            this.m_SuggestedWordList = new List<string>();
+            this.NotifyPropertyChanged("SuggestedWordList");
+            this.m_SpellCheckAccessionOrder.Skip();
+
+            SpellCheckProperty spellCheckProperty = this.m_SpellCheckAccessionOrder.GetCurrentProperty();
+            if(spellCheckProperty.HasNextMatch() == true)
+            {
+                this.CheckSpelling(spellCheckProperty);
+            }            
+        }            
 
         private void ListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if(this.ListViewSuggestedWordList.SelectedItems.Count != 0)
             {
                 string selectedWord = (string)this.ListViewSuggestedWordList.SelectedItem;                
-                //this.m_Text = this.m_Text.Remove(this.m_CurrentSelectionStart, this.m_CurrentSelectionLength);
-                //this.m_Text = this.m_Text.Insert(this.m_CurrentSelectionStart, selectedWord);
+                this.m_Text = this.m_Text.Remove(this.m_CurrentSelectionStart, this.m_CurrentSelectionLength);
+                this.m_Text = this.m_Text.Insert(this.m_CurrentSelectionStart, selectedWord);
                 this.m_SuggestedWordList = new List<string>();
 
                 this.NotifyPropertyChanged("Text");
-                this.NotifyPropertyChanged("SuggestedWordList");                
+                this.NotifyPropertyChanged("SuggestedWordList");
 
-                this.CheckSpelling();                
+                SpellCheckProperty spellCheckProperty = this.m_SpellCheckAccessionOrder.GetCurrentProperty();
+                spellCheckProperty.Reset(this.m_Text);
+                this.CheckSpelling(spellCheckProperty);
             }            
+        }        
+
+        private void ListViewProperties_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            if(this.ListViewProperties.SelectedItem != null)
+            {
+                SpellCheckProperty spellCheckProperty = (SpellCheckProperty)this.ListViewProperties.SelectedItem;
+                this.m_SpellCheckAccessionOrder.SetCurrentProperty(this.ListViewProperties.SelectedIndex);
+
+                this.SetProperty(spellCheckProperty);
+                this.CheckSpelling(spellCheckProperty);
+            }
         }
 
         private void ButtonClose_Click(object sender, RoutedEventArgs e)
@@ -161,13 +210,6 @@ namespace YellowstonePathology.UI
                     writefile.WriteLine("Insert tblWord (Word) values ('" + line + "')");
                 }
             }
-        }
-
-        private void ButtonSkip_Click(object sender, RoutedEventArgs e)
-        {
-            this.CheckSpelling();
-            this.m_SuggestedWordList = new List<string>();
-            this.NotifyPropertyChanged("SuggestedWordList");
         }
 
         public void NotifyPropertyChanged(String info)
@@ -208,6 +250,6 @@ namespace YellowstonePathology.UI
                     writefile.WriteLine(word);
                 }
             }
-        }
+        }        
     }
 }

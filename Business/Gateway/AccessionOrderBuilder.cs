@@ -230,6 +230,7 @@ namespace YellowstonePathology.Business.Gateway
 
                 YellowstonePathology.Business.Builder.PanelSetOrderBuilder builder = YellowstonePathology.Business.Builder.PanelSetOrderBuilderFactory.GetBuilder(panelSetId);
 				builder.Build(panelSetOrder, panelSetOrderElement);
+
                 this.SetOrderedOnDescription(panelSetOrder, accessionOrder);
 				BuildAmendment(panelSetOrder, panelSetOrderElement);
                 BuildPanelSetOrderCPTCode(panelSetOrder, panelSetOrderElement);
@@ -373,7 +374,7 @@ namespace YellowstonePathology.Business.Gateway
                 YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill = null;
                 if (panelSetOrder.PanelSetOrderCPTCodeBillCollection.Exists(panelSetOrderCPTCodeBillId) == true)
                 {
-                    panelSetOrder.PanelSetOrderCPTCodeBillCollection.Get(panelSetOrderCPTCodeBillId);
+                    panelSetOrderCPTCodeBill = panelSetOrder.PanelSetOrderCPTCodeBillCollection.Get(panelSetOrderCPTCodeBillId);
                 }
                 else
                 {

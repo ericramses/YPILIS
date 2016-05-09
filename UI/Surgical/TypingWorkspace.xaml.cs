@@ -974,8 +974,11 @@ namespace YellowstonePathology.UI.Surgical
 
         private void HyperLinkSpellCheck_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.UI.NHunspell nhunspell = new NHunspell(this.m_TypingUI.AccessionOrder);
-            nhunspell.ShowDialog();
+            if(this.m_TypingUI.AccessionOrder != null)
+            {
+                YellowstonePathology.UI.NHunspell nhunspell = new NHunspell(this.m_TypingUI.AccessionOrder);
+                nhunspell.ShowDialog();
+            }
         }
     }    
 }

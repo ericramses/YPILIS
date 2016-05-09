@@ -37,19 +37,29 @@ namespace YellowstonePathology.Business.Persistence
             this.m_Key = documentId.Key;
             this.m_Writers.Add(documentId.Writer);
             this.m_IsGlobal = documentId.IsGlobal;
-
-            if (this.m_Value is YellowstonePathology.Business.Test.AccessionOrder)
-            {                
-                YellowstonePathology.Business.Test.AccessionOrder accessionOrder = (YellowstonePathology.Business.Test.AccessionOrder)this.m_Value;
-                this.m_IsLockAquiredByMe = accessionOrder.IsLockAquiredByMe;
-            }            
+            this.SetHasLock();
         }   
         
         public void ResetClone()
         {
             ObjectCloner objectCloner = new ObjectCloner();
             this.m_Clone = objectCloner.Clone(this.m_Value);
-        }     
+        }    
+        
+        public void Refresh()
+        {
+            this.SetHasLock();
+            this.ResetClone();
+        } 
+
+        private void SetHasLock()
+        {
+            if (this.m_Value is YellowstonePathology.Business.Test.AccessionOrder)
+            {
+                YellowstonePathology.Business.Test.AccessionOrder accessionOrder = (YellowstonePathology.Business.Test.AccessionOrder)this.m_Value;
+                this.m_IsLockAquiredByMe = accessionOrder.IsLockAquiredByMe;
+            }
+        }
 
         public void ReleaseLock()
         {

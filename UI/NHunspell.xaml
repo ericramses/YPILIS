@@ -5,9 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YellowstonePathology.UI"
         mc:Ignorable="d"
-        Title="Spell Checking" Height="500" Width="600" WindowStyle="ToolWindow">
+        Title="Spell Checking" Height="500" Width="800" WindowStyle="ToolWindow">
     <Grid Margin="10,10,10,10">
+        
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -16,9 +18,17 @@
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <TextBox Name="TextBoxText" Grid.Column="0" Grid.Row="0" TextWrapping="Wrap" AcceptsReturn="True" Margin="2,2,2,2"></TextBox>
+        <ListView Name="ListViewProperties" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Margin="2,2,2,2" ItemsSource="{Binding Path=SpellCheckAccessionOrder.PropertyList}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Fields" Width="150" DisplayMemberBinding="{Binding Path=Description}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+        
+        <TextBox Name="TextBoxText" Grid.Column="1" Grid.Row="0" TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding Path=Text}"  Margin="2,2,2,2"></TextBox>
 
-        <ListView Name="ListViewSuggestedWordList" Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" ItemsSource="{Binding Path=SuggestedWordList}" MouseDoubleClick="ListView_MouseDoubleClick">
+        <ListView Name="ListViewSuggestedWordList" Grid.Column="1" Grid.Row="1" Margin="2,2,2,2" ItemsSource="{Binding Path=SuggestedWordList}" MouseDoubleClick="ListView_MouseDoubleClick">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Word" Width="200" DisplayMemberBinding="{Binding}" />
@@ -26,13 +36,11 @@
             </ListView.View>
         </ListView>
 
-        <StackPanel Grid.Column="1" Grid.Row="2" HorizontalAlignment="Right" Orientation="Horizontal">
-            <Button Height="30" Width="100" Click="ButtonTesting_Click" Margin="2,2,2,2">Testing</Button>
-            <Button Height="30" Width="100" Click="ButtonSpellCheck_Click" Margin="2,2,2,2">Check Spelling</Button>
+        <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" HorizontalAlignment="Right" Orientation="Horizontal">
+            <Button Height="30" Width="100" Click="ButtonNextProperty_Click" Margin="2,2,2,2">Next</Button>
             <Button Height="30" Width="100" Click="ButtonSkip_Click" Margin="2,2,2,2">Skip</Button>
             <Button Height="30" Width="100" Click="ButtonClose_Click" Margin="2,2,2,2">Close</Button>
         </StackPanel>
-        
                 
     </Grid>
 </Window>

@@ -212,12 +212,26 @@ namespace YellowstonePathology.Business.Test
             return result;
         }
 
-        public bool Exists(string cptCode)
+        public bool CPTCodeExists(string cptCode)
         {
             bool result = false;
             foreach (PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill in this)
             {
                 if (panelSetOrderCPTCodeBill.CPTCode == cptCode)
+                {
+                    result = true;
+                    break;
+                }
+            }
+            return result;
+        }
+
+        public bool Exists(string panelSetOrderCPTCodeBillId)
+        {
+            bool result = false;
+            foreach (PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill in this)
+            {
+                if (panelSetOrderCPTCodeBill.PanelSetOrderCPTCodeBillId == panelSetOrderCPTCodeBillId)
                 {
                     result = true;
                     break;

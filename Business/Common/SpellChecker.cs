@@ -64,6 +64,7 @@ namespace YellowstonePathology.Business.Common
 				{
 				    Microsoft.Office.Interop.Word._Document document = this.m_WordApp.Documents.Add(ref oMissing, ref oMissing, ref oMissing, ref oFalse);
                     document.Words.First.InsertBefore(value.ToString());
+
                     Microsoft.Office.Interop.Word.ProofreadingErrors spellingErrors = document.SpellingErrors;
 
                     if (spellingErrors.Count > 0)

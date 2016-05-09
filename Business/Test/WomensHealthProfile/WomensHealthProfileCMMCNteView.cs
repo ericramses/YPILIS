@@ -183,7 +183,7 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
 			this.AddNextNteElement("Specimen Description: Thin Prep Fluid", document);
 			this.AddNextNteElement("Specimen Source: " + this.m_AccessionOrder.SpecimenOrderCollection[0].SpecimenSource, document);
 			string collectionDateTimeString = this.m_AccessionOrder.SpecimenOrderCollection[0].GetCollectionDateTimeString();
-			this.AddNextNteElement("Result: " + collectionDateTimeString, document);
+			this.AddNextNteElement("Collection Time: " + collectionDateTimeString, document);
 			this.AddBlankNteElement(document);
 
 			this.AddNextNteElement("Clinical History: ", document);
@@ -240,6 +240,10 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
 				}
 			}
 			this.AddBlankNteElement(document);
-		}
+
+            string disclaimer = "This Pap test is only a screening test. A negative result does not definitively rule out the presence of disease. Women should, therefore, in consultation with their physician, have this test performed at mutually agreed intervals.";
+            this.AddNextNteElement(disclaimer, document);
+            this.AddBlankNteElement(document);
+        }
 	}
 }

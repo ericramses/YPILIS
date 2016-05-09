@@ -40,7 +40,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>150</ApplicationRevision>
+    <ApplicationRevision>163</ApplicationRevision>
     <ApplicationVersion>10.1.4.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -113,7 +113,8 @@
     </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="NHunspell">
-      <HintPath>..\..\..\..\Users\sid.harder\Desktop\NHunspell.1.2.5554.16953\NHunspell.dll</HintPath>
+      <HintPath>..\..\..\..\Program Files\Yellowstone Pathology Institute\Dictionary\NHunspell.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
     <Reference Include="PresentationFramework.Luna" />
     <Reference Include="System" />
@@ -373,6 +374,7 @@
     <Compile Include="AppMessaging\LockRequestPage.xaml.cs">
       <DependentUpon>LockRequestPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MakeDictionary.cs" />
     <Compile Include="MaterialTracking\MaterialTrackingCasePage.xaml.cs">
       <DependentUpon>MaterialTrackingCasePage.xaml</DependentUpon>
     </Compile>
@@ -503,6 +505,8 @@
       <DependentUpon>ReportOrderMolecularAnalysisDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="SortDirectionAdorner.cs" />
+    <Compile Include="SpellCheckAccessionOrder.cs" />
+    <Compile Include="SpellCheckProperty.cs" />
     <Compile Include="Surgical\SuggestedAdditionalTestingPage.xaml.cs">
       <DependentUpon>SuggestedAdditionalTestingPage.xaml</DependentUpon>
     </Compile>

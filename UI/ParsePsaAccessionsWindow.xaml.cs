@@ -42,7 +42,7 @@ namespace YellowstonePathology.UI
                 {
                     if (string.IsNullOrEmpty(cols[0]) == false)
                     {
-                        if(cols[0] != "NO ACC")
+                        if(cols[0] != "NO ACC" && cols[0] != ".NO-" && cols[0] != "NO")
                         {
                             string reportNo = cols[0].Insert(2, "-");
                             int indexOfFirstChar = this.FindFirstLetter(reportNo);
