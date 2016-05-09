@@ -52,7 +52,7 @@ namespace YellowstonePathology.UI
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            this.HandledictionarySetup();
+            //this.HandledictionarySetup();
             this.ReleaseLocksOnStartup();            
             
             string startUpWindow = string.Empty;

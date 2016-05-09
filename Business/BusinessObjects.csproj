@@ -186,6 +186,7 @@
     <Compile Include="Audit.Model\PapCorrelationIsRequiredAudit.cs" />
     <Compile Include="Audit.Model\PapCorrelationIsHandledAudit.cs" />
     <Compile Include="Audit.Model\PathologistSignoutAuditCollection.cs" />
+    <Compile Include="Audit.Model\PDL1Audit.cs" />
     <Compile Include="Audit.Model\PhoneNumberAudit.cs" />
     <Compile Include="Audit.Model\PNHOnBoneMarrowSpecimenAudit.cs" />
     <Compile Include="Audit.Model\PQRSIsHandledAudit.cs" />
@@ -723,6 +724,7 @@
     <Compile Include="Test\PDL1\PDL1Test.cs" />
     <Compile Include="Test\PDL1\PDL1TestOrder.cs" />
     <Compile Include="Test\PDL1\PDL1WordDocument.cs" />
+    <Compile Include="Test\PNH\PNHCMMCNTEView.cs" />
     <Compile Include="Test\RASRAFPanel\DetectedResult.cs" />
     <Compile Include="Test\RASRAFPanel\NotDetectedResult.cs" />
     <Compile Include="Test\RASRAFPanel\RASRAFPanelEPICObxView.cs" />

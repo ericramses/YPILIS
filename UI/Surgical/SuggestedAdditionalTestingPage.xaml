@@ -59,6 +59,10 @@
                 <TextBlock Grid.Column="0" Grid.Row="6" Margin="5,3,0,0" TextWrapping="Wrap">                    
                     <Hyperlink Click="HyperLinkPNH_Click">PNH</Hyperlink>
                 </TextBlock>
+
+                <TextBlock Grid.Column="0" Grid.Row="7" Margin="5,3,0,0" TextWrapping="Wrap">                    
+                    <Hyperlink Click="HyperLinkPDL1_Click">PD-L1</Hyperlink>
+                </TextBlock>
             </Grid>
 
             <Grid Grid.Column="1">

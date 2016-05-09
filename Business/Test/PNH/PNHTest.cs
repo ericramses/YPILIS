@@ -22,6 +22,7 @@ namespace YellowstonePathology.Business.Test.PNH
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.PNH.PNHTestOrder).AssemblyQualifiedName;
 			this.m_AllowMultiplePerAccession = true;
             this.m_EpicDistributionIsImplemented = true;
+            this.m_CMMCDistributionIsImplemented = true;
 
             string taskDescription = "Gather materials and perform testing.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Flow, taskDescription));

@@ -34,7 +34,7 @@ namespace YellowstonePathology.Business.HL7View.CMMC
 					view = new YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKCMMCNteView(accessionOrder, reportNo);
                     break;
                 case 19:
-                    //view = new CMMCPnhNteView(accessionOrder, reportNo);
+                    view = new YellowstonePathology.Business.Test.PNH.PNHCMMCNTEView(accessionOrder, reportNo);
                     break;
                 case 20:
                     view = new YellowstonePathology.Business.Test.LLP.LLPCMMCNteView(accessionOrder, reportNo);

@@ -49,9 +49,12 @@ namespace YellowstonePathology.UI.Cytology
 
             this.m_Writer = writer;
             this.m_CytologyUI = new CytologyUI(this.m_Writer);
-			this.m_CytologyResultsWorkspace = new CytologyResultsWorkspace(this.m_CytologyUI);
 			this.m_CytologyUI.AccessionChanged += new CytologyUI.AccessionChangedEventHandler(CytologyUI_AccessionChanged);
             
+			this.m_CytologyResultsWorkspace = new CytologyResultsWorkspace(this.m_CytologyUI);
+            this.m_CytologyResultsWorkspace.WHPOpened += CytologyResultsWorkspace_WHPOpened;
+            this.m_CytologyResultsWorkspace.WHPClosed += CytologyResultsWorkspace_WHPClosed;
+
             this.CommandBindingShowCaseDocument = new CommandBinding(MainWindow.ShowCaseDocumentCommand, this.m_CytologyUI.ShowCaseDocument);            
 			this.CommandBindingApplicationClosing = new CommandBinding(MainWindow.ApplicationClosingCommand, this.CloseWorkspace);
 			this.CommandBindingShowPatientEditDialog = new CommandBinding(MainWindow.ShowPatientEditDialogCommand, this.m_CytologyUI.ShowPatientEditDialog);
@@ -363,6 +366,7 @@ namespace YellowstonePathology.UI.Cytology
                 MessageBox.Show("Fill the list or select list entries", "Nothing to report.");
             }
         }       
+
         public void ItemIsSelected(object sender, CanExecuteRoutedEventArgs e)
 		{
 			e.CanExecute = false;
@@ -370,6 +374,18 @@ namespace YellowstonePathology.UI.Cytology
 			{
 				e.CanExecute = true;
 			}
-		}        
-	}
+		}
+
+        private void CytologyResultsWorkspace_WHPOpened(object sender, EventArgs e)
+        {
+            this.m_BarcodeScanPort.CytologySlideScanReceived -= CytologySlideScanReceived;
+            this.m_BarcodeScanPort.ThinPrepSlideScanReceived -= BarcodeScanPort_ThinPrepSlideScanReceived;
+        }
+
+        private void CytologyResultsWorkspace_WHPClosed(object sender, EventArgs e)
+        {
+            this.m_BarcodeScanPort.CytologySlideScanReceived += new YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort.CytologySlideScanReceivedHandler(CytologySlideScanReceived);
+            this.m_BarcodeScanPort.ThinPrepSlideScanReceived += new Business.BarcodeScanning.BarcodeScanPort.ThinPrepSlideScanReceivedHandler(BarcodeScanPort_ThinPrepSlideScanReceived);
+        }
+    }
 }
