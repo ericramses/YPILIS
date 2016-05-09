@@ -148,5 +148,14 @@ namespace YellowstonePathology.UI.Surgical
                 this.OrderTest(this, new CustomEventArgs.PanelSetReturnEventArgs(pnhTest));
             }
         }
+
+        private void HyperLinkPDL1_Click(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Test.PDL1.PDL1Test pdl1Test = new Business.Test.PDL1.PDL1Test();
+            if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(pdl1Test.PanelSetId) == false)
+            {
+                this.OrderTest(this, new CustomEventArgs.PanelSetReturnEventArgs(pdl1Test));
+            }
+        }
     }
 }

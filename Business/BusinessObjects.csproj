@@ -186,6 +186,7 @@
     <Compile Include="Audit.Model\PapCorrelationIsRequiredAudit.cs" />
     <Compile Include="Audit.Model\PapCorrelationIsHandledAudit.cs" />
     <Compile Include="Audit.Model\PathologistSignoutAuditCollection.cs" />
+    <Compile Include="Audit.Model\PDL1Audit.cs" />
     <Compile Include="Audit.Model\PhoneNumberAudit.cs" />
     <Compile Include="Audit.Model\PNHOnBoneMarrowSpecimenAudit.cs" />
     <Compile Include="Audit.Model\PQRSIsHandledAudit.cs" />
