@@ -40,7 +40,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>163</ApplicationRevision>
+    <ApplicationRevision>170</ApplicationRevision>
     <ApplicationVersion>10.1.4.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -113,7 +113,8 @@
     </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="NHunspell">
-      <HintPath>dll\NHunspell.dll</HintPath>
+      <HintPath>..\..\..\..\Program Files\Yellowstone Pathology Institute\Dictionary\NHunspell.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
     <Reference Include="PresentationFramework.Luna" />
     <Reference Include="System" />
@@ -3770,6 +3771,12 @@
     </Content>
     <Content Include="edge\x86\node.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Hunspellx64.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Hunspellx86.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Resource Include="Resources\Logo.jpg" />
     <Resource Include="Resources\Document.jpg" />
