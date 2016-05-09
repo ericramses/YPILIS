@@ -98,7 +98,7 @@ namespace YellowstonePathology.UI.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Program Files\\Yellowstone Pathology Institute\\Dictionary\\ypi-custom.dic")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Program Files\\Yellowstone Pathology Institute\\ypi-custom.dic")]
         public string LocalDICFile {
             get {
                 return ((string)(this["LocalDICFile"]));
@@ -107,7 +107,7 @@ namespace YellowstonePathology.UI.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Program Files\\Yellowstone Pathology Institute\\Dictionary\\ypi-custom.aff")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Program Files\\Yellowstone Pathology Institute\\ypi-custom.aff")]
         public string LocalAFFFile {
             get {
                 return ((string)(this["LocalAFFFile"]));
