@@ -21,7 +21,13 @@ namespace YellowstonePathology.UI.Cytology
 
 	public partial class CytologyResultsWorkspace : UserControl
 	{
-		private CytologyUI m_CytologyUI;
+        public delegate void WHPOpenedEventHandler(object sender, EventArgs e);
+        public event WHPOpenedEventHandler WHPOpened;
+
+        public delegate void WHPClosedEventHandler(object sender, EventArgs e);
+        public event WHPClosedEventHandler WHPClosed;
+
+        private CytologyUI m_CytologyUI;
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
         private YellowstonePathology.UI.PageNavigationWindow m_PageNavigationWindow;
         private TabItem m_Writer;
@@ -666,6 +672,11 @@ namespace YellowstonePathology.UI.Cytology
         {
 			if (this.m_CytologyUI.AccessionOrder.PanelSetOrderCollection.HasWomensHealthProfileOrder() == true)
             {
+                if(this.WHPOpened != null)
+                {
+                    this.WHPOpened(this, new EventArgs());
+                }
+
                 YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder = null;
                 YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection clientOrders = YellowstonePathology.Business.Gateway.ClientOrderGateway.GetClientOrdersByMasterAccessionNo(this.m_CytologyUI.AccessionOrder.MasterAccessionNo);
 
@@ -690,6 +701,10 @@ namespace YellowstonePathology.UI.Cytology
         private void WomensHealthProfilePath_Finished(object sender, EventArgs e)
         {
             this.m_PageNavigationWindow.Close();
+            if(this.WHPClosed != null)
+            {
+                this.WHPClosed(this, new EventArgs());
+            }
         }
 
 		public void SetReportNo(string reportNo)
