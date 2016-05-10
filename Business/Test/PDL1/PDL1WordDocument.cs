@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Test.PDL1
         {            
             PDL1TestOrder testOrder = (PDL1TestOrder)this.m_PanelSetOrder;
 
-            this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\PDL1.2.xml";
+            this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\PDL1.3.xml";
             base.OpenTemplate();
 
             this.SetDemographicsV2();
@@ -29,7 +29,9 @@ namespace YellowstonePathology.Business.Test.PDL1
 
             this.ReplaceText("stain_percent", testOrder.StainPercent);
             this.ReplaceText("report_comment", testOrder.Comment);
+            this.ReplaceText("report_interpretation", testOrder.Interpretation);
             this.ReplaceText("report_method", testOrder.Method);
+            this.ReplaceText("report_references", testOrder.References);
 
             YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrder.OrderedOn, this.m_PanelSetOrder.OrderedOnId);
             base.ReplaceText("specimen_description", specimenOrder.Description);
