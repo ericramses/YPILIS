@@ -15,7 +15,13 @@ namespace YellowstonePathology.UI.Cytology
 		public delegate void AccessionChangedEventHandler(object sender, EventArgs e);
 		public event AccessionChangedEventHandler AccessionChanged;
 
-		public delegate void PropertyChangedNotificationHandler(String info);
+        public delegate void WHPOpenedEventHandler(object sender, EventArgs e);
+        public event WHPOpenedEventHandler WHPOpened;
+
+        public delegate void WHPClosedEventHandler(object sender, EventArgs e);
+        public event WHPClosedEventHandler WHPClosed;
+
+        public delegate void PropertyChangedNotificationHandler(String info);
         public event PropertyChangedEventHandler PropertyChanged;
 
 		YellowstonePathology.Business.Cytology.Model.ScreeningImpressionCollection m_ScreeningImpressionCollection;
@@ -153,6 +159,7 @@ namespace YellowstonePathology.UI.Cytology
 
 				if (isWHPAllDoneAuditCollection.ActionRequired == true)
                 {
+                    this.HandleWHPOpened();
                     YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder = null;
                     YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection clientOrders = YellowstonePathology.Business.Gateway.ClientOrderGateway.GetClientOrdersByMasterAccessionNo(this.m_AccessionOrder.MasterAccessionNo);
 
@@ -174,6 +181,7 @@ namespace YellowstonePathology.UI.Cytology
         private void WomensHealthProfilePath_Finished(object sender, EventArgs e)
         {
             this.m_PageNavigationWindow.Close();
+            this.HandleWHPClosed();
         }
 
 		public void ScreeningFinal(YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology panelOrderToFinal, YellowstonePathology.Business.Rules.ExecutionStatus executionStatus)
@@ -510,5 +518,21 @@ namespace YellowstonePathology.UI.Cytology
 				AccessionChanged(this, e);
 			}
 		}
-	}
+
+        public void HandleWHPOpened()
+        {
+            if(this.WHPOpened != null)
+            {
+                this.WHPOpened(this, new EventArgs());
+            }
+        }
+
+        public void HandleWHPClosed()
+        {
+            if (this.WHPClosed != null)
+            {
+                this.WHPClosed(this, new EventArgs());
+            }
+        }
+    }
 }
