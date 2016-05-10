@@ -52,7 +52,7 @@ namespace YellowstonePathology.UI
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            //this.HandledictionarySetup();
+            this.HandledictionarySetup();
             this.ReleaseLocksOnStartup();            
             
             string startUpWindow = string.Empty;
@@ -78,15 +78,15 @@ namespace YellowstonePathology.UI
 
         private void HandledictionarySetup()
         {
-            if(System.IO.File.Exists(YellowstonePathology.UI.Properties.Settings.Default.LocalDICFile) == false)
-            {
-                System.IO.File.Copy(YellowstonePathology.UI.Properties.Settings.Default.ServerDICFile, YellowstonePathology.UI.Properties.Settings.Default.LocalDICFile);
-            }
+            //if(System.IO.File.Exists(YellowstonePathology.UI.Properties.Settings.Default.LocalDICFile) == false)
+            //{
+                System.IO.File.Copy(YellowstonePathology.UI.Properties.Settings.Default.ServerDICFile, YellowstonePathology.UI.Properties.Settings.Default.LocalDICFile, true);
+            //}
 
-            if (System.IO.File.Exists(YellowstonePathology.UI.Properties.Settings.Default.LocalAFFFile) == false)
-            {
-                System.IO.File.Copy(YellowstonePathology.UI.Properties.Settings.Default.ServerAFFFile, YellowstonePathology.UI.Properties.Settings.Default.LocalAFFFile);
-            }
+            //if (System.IO.File.Exists(YellowstonePathology.UI.Properties.Settings.Default.LocalAFFFile) == false)
+            //{
+                System.IO.File.Copy(YellowstonePathology.UI.Properties.Settings.Default.ServerAFFFile, YellowstonePathology.UI.Properties.Settings.Default.LocalAFFFile, true);
+            //}
         }
 
         private void ReleaseLocksOnStartup()

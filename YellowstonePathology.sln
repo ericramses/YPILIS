@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserInterface", "UI\UserInterface.csproj", "{B592C3C3-C7D0-4B34-A932-06605568E45F}"
 EndProject
@@ -26,6 +26,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessObjects", "Business\BusinessObjects.csproj", "{0712F3D4-5C03-4446-B8FE-B8F5BE9495B1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObjectGatewayTests", "ObjectGatewayTests\ObjectGatewayTests.csproj", "{CF0E4FD1-040C-4C49-ABB3-85E979F6BFE7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetMQ", "YellowstonePathology.NetMQ\NetMQ.csproj", "{82934BAC-07FB-41AC-AE59-46FEE6026A40}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -172,6 +174,36 @@ Global
 		{CF0E4FD1-040C-4C49-ABB3-85E979F6BFE7}.Release|x64.Build.0 = Release|Any CPU
 		{CF0E4FD1-040C-4C49-ABB3-85E979F6BFE7}.Release|x86.ActiveCfg = Release|Any CPU
 		{CF0E4FD1-040C-4C49-ABB3-85E979F6BFE7}.Release|x86.Build.0 = Release|Any CPU
+		{82934BAC-07FB-41AC-AE59-46FEE6026A40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82934BAC-07FB-41AC-AE59-46FEE6026A40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82934BAC-07FB-41AC-AE59-46FEE6026A40}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{82934BAC-07FB-41AC-AE59-46FEE6026A40}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{82934BAC-07FB-41AC-AE59-46FEE6026A40}.Debug|Win32.ActiveCfg = Debug|x86
+		{82934BAC-07FB-41AC-AE59-46FEE6026A40}.Debug|Win32.Build.0 = Debug|x86
+		{82934BAC-07FB-41AC-AE59-46FEE6026A40}.Debug|x64.ActiveCfg = Debug|x64
+		{82934BAC-07FB-41AC-AE59-46FEE6026A40}.Debug|x64.Build.0 = Debug|x64
+		{82934BAC-07FB-41AC-AE59-46FEE6026A40}.Debug|x86.ActiveCfg = Debug|x86
+		{82934BAC-07FB-41AC-AE59-46FEE6026A40}.Debug|x86.Build.0 = Debug|x86
+		{82934BAC-07FB-41AC-AE59-46FEE6026A40}.Mongo|Any CPU.ActiveCfg = Release|Any CPU
+		{82934BAC-07FB-41AC-AE59-46FEE6026A40}.Mongo|Any CPU.Build.0 = Release|Any CPU
+		{82934BAC-07FB-41AC-AE59-46FEE6026A40}.Mongo|Mixed Platforms.ActiveCfg = Release|x86
+		{82934BAC-07FB-41AC-AE59-46FEE6026A40}.Mongo|Mixed Platforms.Build.0 = Release|x86
+		{82934BAC-07FB-41AC-AE59-46FEE6026A40}.Mongo|Win32.ActiveCfg = Release|x86
+		{82934BAC-07FB-41AC-AE59-46FEE6026A40}.Mongo|Win32.Build.0 = Release|x86
+		{82934BAC-07FB-41AC-AE59-46FEE6026A40}.Mongo|x64.ActiveCfg = Release|x64
+		{82934BAC-07FB-41AC-AE59-46FEE6026A40}.Mongo|x64.Build.0 = Release|x64
+		{82934BAC-07FB-41AC-AE59-46FEE6026A40}.Mongo|x86.ActiveCfg = Release|x86
+		{82934BAC-07FB-41AC-AE59-46FEE6026A40}.Mongo|x86.Build.0 = Release|x86
+		{82934BAC-07FB-41AC-AE59-46FEE6026A40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82934BAC-07FB-41AC-AE59-46FEE6026A40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82934BAC-07FB-41AC-AE59-46FEE6026A40}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{82934BAC-07FB-41AC-AE59-46FEE6026A40}.Release|Mixed Platforms.Build.0 = Release|x86
+		{82934BAC-07FB-41AC-AE59-46FEE6026A40}.Release|Win32.ActiveCfg = Release|x86
+		{82934BAC-07FB-41AC-AE59-46FEE6026A40}.Release|Win32.Build.0 = Release|x86
+		{82934BAC-07FB-41AC-AE59-46FEE6026A40}.Release|x64.ActiveCfg = Release|x64
+		{82934BAC-07FB-41AC-AE59-46FEE6026A40}.Release|x64.Build.0 = Release|x64
+		{82934BAC-07FB-41AC-AE59-46FEE6026A40}.Release|x86.ActiveCfg = Release|x86
+		{82934BAC-07FB-41AC-AE59-46FEE6026A40}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
