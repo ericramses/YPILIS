@@ -499,7 +499,10 @@ namespace YellowstonePathology.UI.Surgical
 					this.m_CytologyResultsWorkspace.CytologyUI.SetAccessionOrder(this.m_PathologistUI.AccessionOrder, this.m_PathologistUI.PanelSetOrder.ReportNo);
 					this.m_CytologyResultsWorkspace.SetReportNo(this.m_PathologistUI.PanelSetOrder.ReportNo);
 
-					YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection clientOrderCollection = YellowstonePathology.Business.Gateway.ClientOrderGateway.GetClientOrdersByMasterAccessionNo(this.m_PathologistUI.AccessionOrder.MasterAccessionNo);
+                    this.m_CytologyResultsWorkspace.CytologyUI.WHPOpened += CytologyUI_WHPOpened;
+                    this.m_CytologyResultsWorkspace.CytologyUI.WHPClosed += CytologyUI_WHPClosed;
+
+                    YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection clientOrderCollection = YellowstonePathology.Business.Gateway.ClientOrderGateway.GetClientOrdersByMasterAccessionNo(this.m_PathologistUI.AccessionOrder.MasterAccessionNo);
 					this.m_CytologyResultsWorkspace.CytologyUI.DataLoadResult.DataLoadStatusEnum = YellowstonePathology.Business.Domain.DataLoadStatusEnum.Successful;
 					switch (clientOrderCollection.Count)
 					{
@@ -518,14 +521,19 @@ namespace YellowstonePathology.UI.Surgical
 					this.m_CytologyResultsWorkspace.SelectAppropriatePanel();
 					break;
 				default:
-					this.m_CytologyResultsWorkspace = null;
+                    if(this.m_CytologyResultsWorkspace != null)
+                    {
+                        this.m_CytologyResultsWorkspace.CytologyUI.WHPOpened -= CytologyUI_WHPOpened;
+                        this.m_CytologyResultsWorkspace.CytologyUI.WHPClosed -= CytologyUI_WHPClosed;
+                    }
+                    this.m_CytologyResultsWorkspace = null;
 					this.m_PathologistsReview = new PathologistsReview(this.m_PathologistUI, this.m_SystemIdentity);
 					this.ContentControlReview.Content = this.m_PathologistsReview;
 					break;
 			}
 		}
 
-		public Cytology.CytologyResultsWorkspace CytologyResultsWorkspace
+        public Cytology.CytologyResultsWorkspace CytologyResultsWorkspace
 		{
 			get { return this.m_CytologyResultsWorkspace; }
 		}
@@ -757,5 +765,21 @@ namespace YellowstonePathology.UI.Surgical
                 this.m_PathologistUI.DoMasterAccessionNoSearch(item.MasterAccessionNo);
             }
         }
-	}
+
+        private void CytologyUI_WHPOpened(object sender, EventArgs e)
+        {
+            this.m_BarcodeScanPort.CytologySlideScanReceived -= CytologySlideScanReceived;
+            this.m_BarcodeScanPort.HistologySlideScanReceived -= HistologySlideScanReceived;
+            this.m_BarcodeScanPort.HistologyBlockScanReceived -= BarcodeScanPort_HistologyBlockScanReceived;
+            this.m_BarcodeScanPort.ThinPrepSlideScanReceived -= BarcodeScanPort_ThinPrepSlideScanReceived;
+        }
+
+        private void CytologyUI_WHPClosed(object sender, EventArgs e)
+        {
+            this.m_BarcodeScanPort.CytologySlideScanReceived += new YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort.CytologySlideScanReceivedHandler(CytologySlideScanReceived);
+            this.m_BarcodeScanPort.HistologySlideScanReceived += new Business.BarcodeScanning.BarcodeScanPort.HistologySlideScanReceivedHandler(HistologySlideScanReceived);
+            this.m_BarcodeScanPort.HistologyBlockScanReceived += new Business.BarcodeScanning.BarcodeScanPort.HistologyBlockScanReceivedHandler(BarcodeScanPort_HistologyBlockScanReceived);
+            this.m_BarcodeScanPort.ThinPrepSlideScanReceived += new Business.BarcodeScanning.BarcodeScanPort.ThinPrepSlideScanReceivedHandler(BarcodeScanPort_ThinPrepSlideScanReceived);
+        }
+    }
 }

@@ -52,8 +52,8 @@ namespace YellowstonePathology.UI.Cytology
 			this.m_CytologyUI.AccessionChanged += new CytologyUI.AccessionChangedEventHandler(CytologyUI_AccessionChanged);
             
 			this.m_CytologyResultsWorkspace = new CytologyResultsWorkspace(this.m_CytologyUI);
-            this.m_CytologyResultsWorkspace.WHPOpened += CytologyResultsWorkspace_WHPOpened;
-            this.m_CytologyResultsWorkspace.WHPClosed += CytologyResultsWorkspace_WHPClosed;
+            this.m_CytologyUI.WHPOpened += CytologyUI_WHPOpened;
+            this.m_CytologyUI.WHPClosed += CytologyUI_WHPClosed;
 
             this.CommandBindingShowCaseDocument = new CommandBinding(MainWindow.ShowCaseDocumentCommand, this.m_CytologyUI.ShowCaseDocument);            
 			this.CommandBindingApplicationClosing = new CommandBinding(MainWindow.ApplicationClosingCommand, this.CloseWorkspace);
@@ -376,13 +376,13 @@ namespace YellowstonePathology.UI.Cytology
 			}
 		}
 
-        private void CytologyResultsWorkspace_WHPOpened(object sender, EventArgs e)
+        private void CytologyUI_WHPOpened(object sender, EventArgs e)
         {
             this.m_BarcodeScanPort.CytologySlideScanReceived -= CytologySlideScanReceived;
             this.m_BarcodeScanPort.ThinPrepSlideScanReceived -= BarcodeScanPort_ThinPrepSlideScanReceived;
         }
 
-        private void CytologyResultsWorkspace_WHPClosed(object sender, EventArgs e)
+        private void CytologyUI_WHPClosed(object sender, EventArgs e)
         {
             this.m_BarcodeScanPort.CytologySlideScanReceived += new YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort.CytologySlideScanReceivedHandler(CytologySlideScanReceived);
             this.m_BarcodeScanPort.ThinPrepSlideScanReceived += new Business.BarcodeScanning.BarcodeScanPort.ThinPrepSlideScanReceivedHandler(BarcodeScanPort_ThinPrepSlideScanReceived);
