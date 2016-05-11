@@ -46,7 +46,7 @@
             <Hyperlink Click="HyperLinkAddDicationToGross_Click">Add Dictation To Gross</Hyperlink>
         </TextBlock>
         <TextBox Name="TextBoxGrossDescription"  Grid.Column="1" Grid.Row="3" Margin="2,2,2,2" TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding Path=GrossDescription}" 
-                 FontSize="14" KeyUp="TextBoxGrossDescription_KeyUp" AcceptsTab="True" PreviewKeyDown="TextBoxGrossDescription_PreviewKeyDown"></TextBox>
+                 FontSize="14" AcceptsTab="True" PreviewKeyDown="TextBoxGrossDescription_PreviewKeyDown"></TextBox>
 
     </Grid>
 </UserControl>

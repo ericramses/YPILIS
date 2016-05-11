@@ -932,6 +932,14 @@ namespace YellowstonePathology.UI
         {
             ParsePsaAccessionsWindow window = new ParsePsaAccessionsWindow();
             window.Show();
-        }        
+        }
+
+        private void MenuItemUpdateSpellDictionary_Click(object sender, RoutedEventArgs e)
+        {
+            if(App.HandledictionarySetup() == true)
+            {
+                MessageBox.Show("The dictionary was successfully updated.");
+            }
+        }
     }    
 }
