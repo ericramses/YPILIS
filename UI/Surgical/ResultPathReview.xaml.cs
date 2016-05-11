@@ -45,7 +45,17 @@ namespace YellowstonePathology.UI.Surgical
 
         public string ResultString
 		{
-			get { return this.m_PathologistUI.AccessionOrder.ToResultString(this.m_PathologistUI.PanelSetOrder.ReportNo); }
+			get
+            {
+                if (this.m_PathologistUI.AccessionOrder.PanelSetOrderCollection.Exists(this.PanelSetOrder.ReportNo) == true)
+                {
+                    return this.m_PathologistUI.AccessionOrder.ToResultString(this.PanelSetOrder.ReportNo);
+                }
+                else
+                {
+                    return string.Empty;
+                }
+            }
 		}
 
 		YellowstonePathology.Business.Test.PanelSetOrder PanelSetOrder
