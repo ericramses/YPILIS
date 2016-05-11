@@ -151,7 +151,7 @@
                     <TextBlock Grid.Column="0" Grid.Row="4" Margin="2,2,2,2" FontWeight="Bold">Tumor Nuclei Percentage:</TextBlock>
                     <TextBox Grid.Column="1" Grid.Row="4" Margin="2,2,2,2" Text="{Binding Path=EGFRMutationAnalysisTestOrder.TumorNucleiPercentage}"></TextBox>
 
-                    <TextBlock Grid.Column="0" Grid.Row="5" Margin="2,2,2,2" FontWeight="Bold">Microdisection Performed:</TextBlock>
+                    <TextBlock Grid.Column="0" Grid.Row="5" Margin="2,2,2,2" FontWeight="Bold">Microdissection Performed:</TextBlock>
                     <CheckBox Grid.Column="1" Grid.Row="5" Margin="2,2,2,2" IsChecked="{Binding Path=EGFRMutationAnalysisTestOrder.MicrodisectionPerformed}"></CheckBox>
 
                     <TextBlock Grid.Column="0" Grid.Row="6" Margin="2,2,2,2" FontWeight="Bold">Comment:</TextBlock>
