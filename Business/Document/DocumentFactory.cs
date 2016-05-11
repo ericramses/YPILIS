@@ -318,6 +318,9 @@ namespace YellowstonePathology.Business.Document
                     case 228:
                         document = new YellowstonePathology.Business.Test.API2MALT1ByPCR.API2MALT1ByPCRWordDocument(accessionOrder, panelSetOrder, reportSaveMode);
                         break;
+                    case 229:
+                        document = new YellowstonePathology.Business.Test.AMLNonFavorableRisk.AMLNonFavorableRiskWordDocument(accessionOrder, panelSetOrder, reportSaveMode);
+                        break;
                     default:
 						break;
 				}

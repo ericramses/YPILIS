@@ -512,6 +512,11 @@
     <Compile Include="Test\ALKForNSCLCByFISH\ALKForNSCLCByFISHNegativeWithPolysomyResult.cs" />
     <Compile Include="Test\ALKForNSCLCByFISH\ALKForNSCLCByFISHQNSResult.cs" />
     <Compile Include="Test\ALKForNSCLCByFISH\ALKForNSCLCByFISHNotInterpretableResult.cs" />
+    <Compile Include="Test\AMLNonFavorableRisk\AMLNonFavorableRiskEPICOBXView.cs" />
+    <Compile Include="Test\AMLNonFavorableRisk\AMLNonFavorableRiskResult.cs" />
+    <Compile Include="Test\AMLNonFavorableRisk\AMLNonFavorableRiskTest.cs" />
+    <Compile Include="Test\AMLNonFavorableRisk\AMLNonFavorableRiskTestOrder.cs" />
+    <Compile Include="Test\AMLNonFavorableRisk\AMLNonFavorableRiskWordDocument.cs" />
     <Compile Include="Test\API2MALT1ByFISH\API2MALT1ByFISHCMMCNteView.cs" />
     <Compile Include="Test\API2MALT1ByPCR\API2MALT1ByPCRCMMCNTEView.cs" />
     <Compile Include="Test\API2MALT1ByPCR\API2MALT1ByPCREPICOBXView.cs" />

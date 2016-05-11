@@ -119,6 +119,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
             panelSetCollection.Add(new YellowstonePathology.Business.Test.BCL2t1418ByFISH.BCL2t1418ByFISHTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.CCNDIBCLIGHByPCR.CCNDIBCLIGHByPCRTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.API2MALT1ByPCR.API2MALT1ByPCRTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.AMLNonFavorableRisk.AMLNonFavorableRiskTest());
 
             //ARUP
             panelSetCollection.Add(new YellowstonePathology.Business.Test.HPV1618.HPV1618Test());
