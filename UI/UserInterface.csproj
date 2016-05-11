@@ -596,6 +596,10 @@
       <DependentUpon>ALLAdultByFISHResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Test\ALLAdultByFISHResultPath.cs" />
+    <Compile Include="Test\AMLNonFavorableRiskResultPage.xaml.cs">
+      <DependentUpon>AMLNonFavorableRiskResultPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Test\AMLNonFavorableRiskResultPath.cs" />
     <Compile Include="Test\AMLStandardByFishResultPage.xaml.cs">
       <DependentUpon>AMLStandardByFishResultPage.xaml</DependentUpon>
     </Compile>
@@ -2258,6 +2262,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Test\ALLAdultByFISHResultPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Test\AMLNonFavorableRiskResultPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

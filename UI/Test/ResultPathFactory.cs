@@ -267,6 +267,9 @@ namespace YellowstonePathology.UI.Test
                 case 228:
                     result = new API2MALT1ByPCRResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
+                case 229:
+                    result = new AMLNonFavorableRiskResultPath(reportNo, accessionOrder, pageNavigator, window);
+                    break;
             }
             return result;
         }
