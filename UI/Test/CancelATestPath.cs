@@ -31,17 +31,22 @@ namespace YellowstonePathology.UI.Test
 
         private void CancelTestWarningPage_CancelTest(object sender, CustomEventArgs.CancelTestEventArgs e)
         {
-            YellowstonePathology.Business.Gateway.AccessionOrderGateway.SetPanelSetOrderAsCancelledTest(e.PanelSetOrder.ReportNo);
-            YellowstonePathology.Business.Gateway.AccessionOrderGateway.InsertTestCancelledTestOrder(e.PanelSetOrder.ReportNo, e.PanelSetOrder.PanelSetId, e.PanelSetOrder.PanelSetName);
+            YellowstonePathology.Business.Interface.IOrderTarget orderTarget = e.AccessionOrder.SpecimenOrderCollection.GetOrderTarget(e.PanelSetOrder.OrderedOnId);
+            Business.Test.TestCancelled.TestCancelledTest cancelledTest = new Business.Test.TestCancelled.TestCancelledTest();
+            YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new Business.Test.TestOrderInfo(cancelledTest, orderTarget, true);
+            YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Business.Visitor.OrderTestOrderVisitor(testOrderInfo);
 
-            YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(e.AccessionOrder.MasterAccessionNo, this.m_Window);
-            YellowstonePathology.Business.Test.TestCancelled.TestCancelledTestOrder testCancelledTestOrder = (YellowstonePathology.Business.Test.TestCancelled.TestCancelledTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(e.PanelSetOrder.ReportNo);
-            
+            e.AccessionOrder.PanelSetOrderCollection.Remove(e.PanelSetOrder);
+
+            e.AccessionOrder.TakeATrip(orderTestOrderVisitor);
+            Business.Test.TestCancelled.TestCancelledTestOrder testCancelledTestOrder = (Business.Test.TestCancelled.TestCancelledTestOrder)orderTestOrderVisitor.PanelSetOrder;
+            testCancelledTestOrder.CancelledTestId = e.PanelSetOrder.PanelSetId;
+            testCancelledTestOrder.CancelledTestName = e.PanelSetOrder.PanelSetName;
             testCancelledTestOrder.Distribute = false;
             testCancelledTestOrder.NoCharge = true;
             testCancelledTestOrder.Comment = e.ReasonForCancelation;
 
-            this.ShowTestCancelledResultPage(testCancelledTestOrder, accessionOrder);
+            this.ShowTestCancelledResultPage(testCancelledTestOrder, e.AccessionOrder);
         }
 
         private void CancelTestWarningPage_Back(object sender, YellowstonePathology.UI.CustomEventArgs.CancelTestEventArgs e)
