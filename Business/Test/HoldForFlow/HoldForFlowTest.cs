@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace YellowstonePathology.Business.Test.HoldForFLow
+namespace YellowstonePathology.Business.Test.HoldForFlow
 {
 	public class HoldForFlowTest : YellowstonePathology.Business.PanelSet.Model.PanelSet
 	{
@@ -20,7 +20,7 @@ namespace YellowstonePathology.Business.Test.HoldForFLow
             this.m_Active = true;
             this.m_NeverDistribute = true;
             this.m_ExpectedDuration = new TimeSpan(2, 0, 0, 0);
-            this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.PanelSetOrder).AssemblyQualifiedName;
+            this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.HoldForFlow.HoldForFlowTestOrder).AssemblyQualifiedName;
             this.m_RequiresPathologistSignature = false;
             this.m_AcceptOnFinal = false;
 			this.m_AllowMultiplePerAccession = false;                                   

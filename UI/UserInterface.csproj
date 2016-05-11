@@ -694,6 +694,10 @@
     </Compile>
     <Compile Include="Test\CancelATestPath.cs" />
     <Compile Include="Test\EGFRToALKReflexAnalysisStatusColorConverter.cs" />
+    <Compile Include="Test\HoldForFlowResultPage.xaml.cs">
+      <DependentUpon>HoldForFlowResultPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Test\HoldForFlowResultPath.cs" />
     <Compile Include="Test\HPV1618ByPCRResultPath.cs" />
     <Compile Include="Test\HPV1618ByPCRResultPage.xaml.cs">
       <DependentUpon>HPV1618ByPCRResultPage.xaml</DependentUpon>
@@ -2357,6 +2361,10 @@
     <Page Include="Test\AccessionLabelDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Test\HoldForFlowResultPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Test\HPV1618ByPCRResultPage.xaml">
       <Generator>MSBuild:Compile</Generator>
