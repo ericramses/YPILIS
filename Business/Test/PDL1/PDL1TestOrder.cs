@@ -34,18 +34,18 @@ namespace YellowstonePathology.Business.Test.PDL1
                 "or negativity for PD - L1, however some published studies have used 5 % of tumor cells with moderate to strong staining as " +
                 "the positive cut - off.";
             this.m_Interpretation = "PD-L1 is one of the receptors for PD-1. PD-L1 is inducibly expressed on both hematopoietic and " +
-                "non-hematopoietic cells following cellspecific stimulation and plays a role in maintenance of peripheral tolerance.PD - L1 " +
+                "non-hematopoietic cells following cellspecific stimulation and plays a role in maintenance of peripheral tolerance.  PD - L1 " +
                 "expression has been linked to poorer prognosis and shorter survival in some tumor types.  On - going clinical trials are " +
                 "evaluating the efficacy of inhibition of PD - L1 in various tumors.";
             this.m_References = "1. Ohaegbulam KC, Assal A, Lazar-Molnar E, et al. Human cancer immunotherapy with antibodies to the PD-1 and " +
                 "PD-L1 pathway. Trends Mol Med. 2015; 21(1):24 - 33." + Environment.NewLine +
-                "2.D'Incecco A, Andreozzi M, et al.PD - 1 and PD - L1 expression in molecularly selected non - small - cell lung cancer " +
+                "2. D'Incecco A, Andreozzi M, et al.PD - 1 and PD - L1 expression in molecularly selected non - small - cell lung cancer " +
                 "patients.Br J Cancer. 2015; 112(1):95 - 102." + Environment.NewLine +
-                "3.Massi D, Brusa D, Merelli B, et al. PD - L1 marks a subset of melanomas with a shorter overall survival and distinct genetic " +
+                "3. Massi D, Brusa D, Merelli B, et al. PD - L1 marks a subset of melanomas with a shorter overall survival and distinct genetic " +
                 "and morphological characteristics. Ann Oncol. 2014; 25(12):2433 - 42." + Environment.NewLine +
-                "4.Chen BJ, Chapuy B, Ouyang J, et al. PD - L1 expression is characteristic of a subset of aggressive B-cell lymphomas and " +
+                "4. Chen BJ, Chapuy B, Ouyang J, et al. PD - L1 expression is characteristic of a subset of aggressive B-cell lymphomas and " +
                 "virusassociated malignancies.Clin Cancer Res. 2013; 19(13):3462 - 73." + Environment.NewLine +
-                "5.Zhang Y, Kang S, Shen J, et al. Prognostic significance of programmed cell death 1(PD - 1) or PD-1 ligand 1(PD - L1) Expression " +
+                "5. Zhang Y, Kang S, Shen J, et al. Prognostic significance of programmed cell death 1(PD - 1) or PD-1 ligand 1(PD - L1) Expression " +
                 "in epithelial - originated cancer: a meta-analysis.Medicine(Baltimore). 2015; 94(6):e515.";
         }
 
