@@ -54,6 +54,7 @@
                 <MenuItem Header="Panther Orders" Click="MenuItemPantherOrders_Click" />
                 <MenuItem Header="Panther Storage" Click="MenuItemPantherStorage_Click" />
                 <MenuItem Header="Acid Wash Orders" Click="MenuItemAcidWashOrders_Click" />
+                <MenuItem Header="Embedding" Click="MenuItemEmbedding_Click" />
             </MenuItem>
 
             <MenuItem Header="_Client" Name="MenuItemClient">

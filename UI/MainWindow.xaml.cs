@@ -941,6 +941,12 @@ namespace YellowstonePathology.UI
             {
                 MessageBox.Show("The dictionary was successfully updated.");
             }
-        }        
+        }
+
+        private void MenuItemEmbedding_Click(object sender, RoutedEventArgs e)
+        {
+            EmbeddingDialog embeddingDialog = new EmbeddingDialog();
+            embeddingDialog.ShowDialog();
+        }
     }    
 }

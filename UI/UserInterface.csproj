@@ -40,7 +40,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>193</ApplicationRevision>
+    <ApplicationRevision>194</ApplicationRevision>
     <ApplicationVersion>10.1.4.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -300,6 +300,9 @@
       <DependentUpon>ThinPrepPapSlidePrintingPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Cytology\ThinPrepPapSlidePrintingPath.cs" />
+    <Compile Include="EmbeddingDialog.xaml.cs">
+      <DependentUpon>EmbeddingDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="FaxTesting.cs" />
     <Compile Include="Gross\BlankPage.xaml.cs">
       <DependentUpon>BlankPage.xaml</DependentUpon>
@@ -1976,6 +1979,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Cytology\ThinPrepPapSlidePrintingPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EmbeddingDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
