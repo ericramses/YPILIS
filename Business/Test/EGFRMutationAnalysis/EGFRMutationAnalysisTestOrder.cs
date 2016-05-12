@@ -16,7 +16,7 @@ namespace YellowstonePathology.Business.Test.EGFRMutationAnalysis
         private string m_References;
         private string m_Indication;
         private string m_Interpretation;
-        private bool m_MicrodisectionPerformed;
+        private bool m_MicrodissectionPerformed;
         private string m_Comment;        
         private string m_TumorNucleiPercentage;
         private string m_ReportDisclaimer;
@@ -148,15 +148,15 @@ namespace YellowstonePathology.Business.Test.EGFRMutationAnalysis
         }
 
 		[PersistentProperty()]
-		public bool MicrodisectionPerformed
+		public bool MicrodissectionPerformed
         {
-            get { return this.m_MicrodisectionPerformed; }
+            get { return this.m_MicrodissectionPerformed; }
             set
             {
-                if (this.m_MicrodisectionPerformed != value)
+                if (this.m_MicrodissectionPerformed != value)
                 {
-                    this.m_MicrodisectionPerformed = value;
-                    this.NotifyPropertyChanged("MicrodisectionPerformed");
+                    this.m_MicrodissectionPerformed = value;
+                    this.NotifyPropertyChanged("MicrodissectionPerformed");
                 }
             }
         }

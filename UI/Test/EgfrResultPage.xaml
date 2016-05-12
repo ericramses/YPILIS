@@ -151,8 +151,8 @@
                     <TextBlock Grid.Column="0" Grid.Row="4" Margin="2,2,2,2" FontWeight="Bold">Tumor Nuclei Percentage:</TextBlock>
                     <TextBox Grid.Column="1" Grid.Row="4" Margin="2,2,2,2" Text="{Binding Path=EGFRMutationAnalysisTestOrder.TumorNucleiPercentage}"></TextBox>
 
-                    <TextBlock Grid.Column="0" Grid.Row="5" Margin="2,2,2,2" FontWeight="Bold">Microdisection Performed:</TextBlock>
-                    <CheckBox Grid.Column="1" Grid.Row="5" Margin="2,2,2,2" IsChecked="{Binding Path=EGFRMutationAnalysisTestOrder.MicrodisectionPerformed}"></CheckBox>
+                    <TextBlock Grid.Column="0" Grid.Row="5" Margin="2,2,2,2" FontWeight="Bold">Microdissection Performed:</TextBlock>
+                    <CheckBox Grid.Column="1" Grid.Row="5" Margin="2,2,2,2" IsChecked="{Binding Path=EGFRMutationAnalysisTestOrder.MicrodissectionPerformed}"></CheckBox>
 
                     <TextBlock Grid.Column="0" Grid.Row="6" Margin="2,2,2,2" FontWeight="Bold">Comment:</TextBlock>
                     <TextBox Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2" Margin="2,2,2,2" Text="{Binding Path=EGFRMutationAnalysisTestOrder.Comment}" TextWrapping="Wrap" AcceptsReturn="True"></TextBox>
