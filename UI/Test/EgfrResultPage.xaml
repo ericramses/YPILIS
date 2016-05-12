@@ -133,6 +133,7 @@
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="*"></RowDefinition>
                     </Grid.RowDefinitions>                
 
@@ -170,10 +171,10 @@
                     <TextBox Grid.Column="0" Grid.Row="15" Grid.ColumnSpan="2" Margin="2,2,2,2" Text="{Binding Path=EGFRMutationAnalysisTestOrder.ReportDisclaimer}" TextWrapping="Wrap" AcceptsReturn="True"></TextBox>
 
                     <TextBlock Grid.Column="0" Grid.Row="16" Margin="2,2,2,2" FontWeight="Bold">Distribute:</TextBlock>
-                    <CheckBox Grid.Column="1" Grid.Row="17" Margin="2,2,2,2" IsChecked="{Binding Path=EGFRMutationAnalysisTestOrder.Distribute}"></CheckBox>
+                    <CheckBox Grid.Column="1" Grid.Row="16" Margin="2,2,2,2" IsChecked="{Binding Path=EGFRMutationAnalysisTestOrder.Distribute}"></CheckBox>
 
-					<TextBlock Grid.Column="0" Grid.Row="18" Margin="2,2,2,2" FontWeight="Bold">No Charge:</TextBlock>
-					<CheckBox Grid.Column="1" Grid.Row="18" Margin="2,2,2,2" IsChecked="{Binding Path=EGFRMutationAnalysisTestOrder.NoCharge}"></CheckBox>
+					<TextBlock Grid.Column="0" Grid.Row="17" Margin="2,2,2,2" FontWeight="Bold">No Charge:</TextBlock>
+					<CheckBox Grid.Column="1" Grid.Row="17" Margin="2,2,2,2" IsChecked="{Binding Path=EGFRMutationAnalysisTestOrder.NoCharge}"></CheckBox>
 
 					<Grid Grid.Column="0" Grid.Row="19" Grid.ColumnSpan="2">
 						<Grid.ColumnDefinitions>
