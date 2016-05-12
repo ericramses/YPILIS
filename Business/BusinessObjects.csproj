@@ -554,6 +554,8 @@
     <Compile Include="Test\EGFRMutationAnalysis\EGFRMutationAnalysisPanel.cs" />
     <Compile Include="Test\EGFRToALKReflexAnalysis\EGFRToALKReflexAnalysisPDL1Result.cs" />
     <Compile Include="Test\ErPrSemiQuantitative\ERPRSemiQuanititativePanel.cs" />
+    <Compile Include="Test\ExtractAndHoldForFlow\ExtractAndHoldForFlowTest.cs" />
+    <Compile Include="Test\ExtractAndHoldForFlow\ExtractAndHoldForFlowTestOrder.cs" />
     <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHPanel.cs" />
     <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHSystemGeneratedAmendmentText.cs" />
     <Compile Include="Test\HoldForFlow\HoldForFlowTestOrder.cs" />
