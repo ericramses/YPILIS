@@ -46,7 +46,14 @@ namespace YellowstonePathology.UI.Common
 
 			this.DataContext = this;			
             this.Loaded += new RoutedEventHandler(OrderWorkspace_Loaded);
+            this.Closing += OrderDialog_Closing;
+
 		}
+
+        private void OrderDialog_Closing(object sender, CancelEventArgs e)
+        {
+            //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
+        }
 
         private void OrderWorkspace_Loaded(object sender, RoutedEventArgs e)
         {

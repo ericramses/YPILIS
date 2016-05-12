@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -940,6 +941,6 @@ namespace YellowstonePathology.UI
             {
                 MessageBox.Show("The dictionary was successfully updated.");
             }
-        }
+        }        
     }    
 }

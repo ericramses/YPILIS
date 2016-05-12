@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 			 xmlns:TemplateSelectorUI="clr-namespace:YellowstonePathology.UI.TemplateSelector"
 			 xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:system="clr-namespace:System;assembly=system"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="700"
 			 Name="SurgicalReviewControl">
@@ -373,9 +374,12 @@
 						 IsEnabled="{Binding ElementName=SurgicalReviewControl, Path=DataContext.FieldEnabler.IsProtectedEnabled}">
 				</TextBox>
 				<TextBox Name="TextBoxDiagnosis" Grid.Row="1" Grid.Column="1" Margin="2" TextWrapping="Wrap" AcceptsReturn="True"
-						 FontSize="12" MinWidth="300" SpellCheck.IsEnabled="False" KeyUp="TextBox_KeyUp"
+						 FontSize="12" MinWidth="300" SpellCheck.IsEnabled="True" KeyUp="TextBox_KeyUp"
 						 Text="{Binding Path=SurgicalSpecimen.Diagnosis}" RequestBringIntoView="Any_RequestBringIntoView"
 						 IsEnabled="{Binding ElementName=SurgicalReviewControl, Path=DataContext.FieldEnabler.IsProtectedEnabled}">
+                    <SpellCheck.CustomDictionaries>
+                        <system:Uri>pack://application:,,,/ypi-custom.lex</system:Uri>
+                    </SpellCheck.CustomDictionaries>
 				</TextBox>
 
 				<ItemsControl Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2"  KeyboardNavigation.IsTabStop="False"
