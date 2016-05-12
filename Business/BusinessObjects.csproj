@@ -556,6 +556,7 @@
     <Compile Include="Test\ErPrSemiQuantitative\ERPRSemiQuanititativePanel.cs" />
     <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHPanel.cs" />
     <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHSystemGeneratedAmendmentText.cs" />
+    <Compile Include="Test\HoldForFlow\HoldForFlowTestOrder.cs" />
     <Compile Include="Test\HPV1618ByPCR\HPV1618ByPCRPanel.cs" />
     <Compile Include="Test\HPV1618ByPCR\HPV1618ByPCRCMMCView.cs" />
     <Compile Include="Test\HPV1618ByPCR\HPV1618BothPositiveResult.cs" />
