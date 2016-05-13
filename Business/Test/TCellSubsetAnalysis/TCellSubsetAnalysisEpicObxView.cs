@@ -39,9 +39,10 @@ namespace YellowstonePathology.Business.Test.TCellSubsetAnalysis
 			if(panelSetOrder.CD4CD8Ratio.HasValue) value = Math.Round(panelSetOrder.CD4CD8Ratio.Value, 2).ToString();
 			result = "CD4/CD8 Ratio: " + value;
 			this.AddNextObxElement(result, document, "F");
-
+            this.AddNextObxElement("Reference Range: " + panelSetOrder.ReferenceRange, document, "F");
 			this.AddNextObxElement("", document, "F");
-			this.AddNextObxElement("Pathologist: " + panelSetOrder.Signature, document, "F");
+
+            this.AddNextObxElement("Pathologist: " + panelSetOrder.Signature, document, "F");
 			if (panelSetOrder.FinalTime.HasValue == true)
 			{
 				this.AddNextObxElement("E-signed " + panelSetOrder.FinalDate.Value.ToString("MM/dd/yyyy HH:mm"), document, "F");
