@@ -54,10 +54,10 @@ namespace YellowstonePathology.Business.Test.EGFRMutationAnalysis
             this.AddNextObxElement(egfrMutationAnalysisTestOrder.TumorNucleiPercentage, document, "F");
 
             this.AddNextObxElement("", document, "F");
-            this.AddNextObxElement("Microdisection Performed:", document, "F");
-            string microdisectionPerformed = "No";
-            if (egfrMutationAnalysisTestOrder.MicrodisectionPerformed == true) microdisectionPerformed = "Yes";
-            this.AddNextObxElement(microdisectionPerformed, document, "F");            
+            this.AddNextObxElement("Microdissection Performed:", document, "F");
+            string microdissectionPerformed = "No";
+            if (egfrMutationAnalysisTestOrder.MicrodissectionPerformed == true) microdissectionPerformed = "Yes";
+            this.AddNextObxElement(microdissectionPerformed, document, "F");            
 
             this.AddNextObxElement("", document, "F");
             this.AddNextObxElement("Method:", document, "F");

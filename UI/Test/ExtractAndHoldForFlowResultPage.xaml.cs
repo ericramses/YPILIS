@@ -10,9 +10,9 @@ using System.ComponentModel;
 namespace YellowstonePathology.UI.Test
 {
     /// <summary>
-    /// Interaction logic for HoldForFlowResultPage.xaml
+    /// Interaction logic for ExtractAndHoldForFlowResultPage.xaml
     /// </summary>
-    public partial class HoldForFlowResultPage : UserControl, INotifyPropertyChanged
+    public partial class ExtractAndHoldForFlowResultPage : UserControl, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -23,10 +23,10 @@ namespace YellowstonePathology.UI.Test
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         private string m_PageHeaderText;
 
-        private YellowstonePathology.Business.Test.HoldForFlow.HoldForFlowTestOrder m_PanelSetOrder;
+        private YellowstonePathology.Business.Test.ExtractAndHoldForFlow.ExtractAndHoldForFlowTestOrder m_PanelSetOrder;
         private string m_OrderedOnDescription;
 
-        public HoldForFlowResultPage(YellowstonePathology.Business.Test.HoldForFlow.HoldForFlowTestOrder testOrder,
+        public ExtractAndHoldForFlowResultPage(YellowstonePathology.Business.Test.ExtractAndHoldForFlow.ExtractAndHoldForFlowTestOrder testOrder,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
             YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
@@ -49,7 +49,7 @@ namespace YellowstonePathology.UI.Test
             get { return this.m_OrderedOnDescription; }
         }
 
-        public YellowstonePathology.Business.Test.HoldForFlow.HoldForFlowTestOrder PanelSetOrder
+        public YellowstonePathology.Business.Test.ExtractAndHoldForFlow.ExtractAndHoldForFlowTestOrder PanelSetOrder
         {
             get { return this.m_PanelSetOrder; }
         }

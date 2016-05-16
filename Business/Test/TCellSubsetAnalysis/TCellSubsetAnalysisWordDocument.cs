@@ -26,7 +26,7 @@ namespace YellowstonePathology.Business.Test.TCellSubsetAnalysis
 		{			
 			TCellSubsetAnalysisTestOrder testOrder = (TCellSubsetAnalysisTestOrder)this.m_PanelSetOrder;
 
-			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\TCellSubsetAnalysis.xml";
+			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\TCellSubsetAnalysis.1.xml";
 			base.OpenTemplate();
 
 			this.SetDemographicsV2();
@@ -39,9 +39,10 @@ namespace YellowstonePathology.Business.Test.TCellSubsetAnalysis
 			this.ReplaceText("report_cd3_percent", testOrder.CD3Percent.ToString().StringAsPercent());
 			this.ReplaceText("report_cd4_percent", testOrder.CD4Percent.ToString().StringAsPercent());
 			this.ReplaceText("report_cd8_percent", testOrder.CD8Percent.ToString().StringAsPercent());
-			string value = string.Empty;
+            string value = string.Empty;
 			if(testOrder.CD4CD8Ratio.HasValue) value = Math.Round(testOrder.CD4CD8Ratio.Value, 2).ToString();
 			this.ReplaceText("report_cd4cd8_ratio", value);
+            this.ReplaceText("report_reference_range", testOrder.ReferenceRange);
 			this.ReplaceText("report_method", testOrder.Method);
 			this.ReplaceText("report_references", testOrder.References);
 			this.ReplaceText("asr_comment", testOrder.ASRComment);

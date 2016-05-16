@@ -40,7 +40,11 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
 			{
                 YellowstonePathology.Business.Test.ALKForNSCLCByFISH.ALKForNSCLCByFISHTestOrder alkForNSCLCByFISHTestOrderReportedSeparately = new YellowstonePathology.Business.Test.ALKForNSCLCByFISH.ALKForNSCLCByFISHTestOrderReportedSeparately();
 				alkResult = alkForNSCLCByFISHTestOrderReportedSeparately.Result;
-			}            
+			}
+            else if(egfrToALKReflexAnalysisTestOrder.QNSForALK == true)
+            {
+                alkResult = "Quantity not sufficient to perform ALK";
+            }            
 
 			this.AddNextObxElement("ALK Rearrangement Analysis: " + alkResult, document, "F");
             this.AddNextObxElement("", document, "F");
@@ -53,6 +57,25 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
             }
 
             this.AddNextObxElement("ROS1 Rearrangement Analysis: " + ros1Result, document, "F");
+            this.AddNextObxElement("", document, "F");
+
+            string pdl1Result = "Not Performed";
+            if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(215) == true)
+            {
+                YellowstonePathology.Business.Test.PDL1.PDL1TestOrder pdl1TestOrder = (YellowstonePathology.Business.Test.PDL1.PDL1TestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(215);
+                pdl1Result = pdl1TestOrder.StainPercent;
+            }
+
+            if (egfrToALKReflexAnalysisTestOrder.QNSForPDL1 == true)
+            {
+                pdl1Result = "Quantity not sufficient to perform PD-L1";
+            }
+            else if (egfrToALKReflexAnalysisTestOrder.DoNotPerformPDL1 == true)
+            {
+                pdl1Result = "Not Performed";
+            }
+
+            this.AddNextObxElement("PD-L1 Stain Percent: " + pdl1Result, document, "F");
             this.AddNextObxElement("", document, "F");
 
             this.AddNextObxElement("Pathologist: " + egfrToALKReflexAnalysisTestOrder.Signature, document, "F");

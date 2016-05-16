@@ -35,7 +35,7 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
                     YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisDetectedResult egfrMutationAnalysisDetectedResult = new EGFRMutationAnalysis.EGFRMutationAnalysisDetectedResult();
                     if (egfrMutationAnalysisResult.ResultCode == egfrMutationAnalysisDetectedResult.ResultCode)
                     {
-                        this.m_Status = EGFRToALKReflexAnalysisElementStatusEnum.NotIndicated;
+                        this.m_Status = EGFRToALKReflexAnalysisElementStatusEnum.NotGoingToPerform; //NotIndicated;
                     }
                     else
                     {

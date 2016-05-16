@@ -143,9 +143,9 @@ namespace YellowstonePathology.UI.Login.Receiving
 			this.HandleAddTask(task);
 		}
 
-		private void HyperLinkMicrodisectionForMolecular_Click(object sender, RoutedEventArgs e)
+		private void HyperLinkMicrodissectionForMolecular_Click(object sender, RoutedEventArgs e)
 		{
-			YellowstonePathology.Business.Task.Model.TaskMicrodisectionForMolecular task = new Business.Task.Model.TaskMicrodisectionForMolecular();
+			YellowstonePathology.Business.Task.Model.TaskMicrodissectionForMolecular task = new Business.Task.Model.TaskMicrodissectionForMolecular();
 			this.HandleAddTask(task);			
 		}
 

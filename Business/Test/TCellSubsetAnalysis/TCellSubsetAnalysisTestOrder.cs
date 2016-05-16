@@ -26,6 +26,7 @@ namespace YellowstonePathology.Business.Test.TCellSubsetAnalysis
 		private double? m_CD4Percent;
 		private double? m_CD8Percent;
 		private double? m_CD4CD8Ratio;
+        private string m_ReferenceRange;
 		
 		public TCellSubsetAnalysisTestOrder()
 		{
@@ -45,6 +46,7 @@ namespace YellowstonePathology.Business.Test.TCellSubsetAnalysis
 			this.m_Method = "Quantitative Flow Cytometry.";
             this.m_References = "1. Meyer, K. C., Raghu, G., Baughman, R. P., Brown, K. K., Costabel, U., du Bois, R. M., Drent, M., Haslam, P. L., Soon Kim, D., Nagai, S., Rottoli, P., Saltini, C., Selman, M., Strange, C., Wood, B. An Official American Thoracic Society Clinical Practice Guideline: The Clinical Utility of Bronchoalveolar Lavage Cellular Analysis in Interstitial Lung Disease. American Journal of Respiratory Critical Care. May 2012. 185:9 (1004-1014)." + Environment.NewLine +
                 "2. Drent, M., Mansour, K., Linssen, C.Bronchoalveolar Lavage in Sarcoidosis.Seminars in Respiratory and Critical Care Medicine. 2007. 28:5. (486 - 495).";
+            this.m_ReferenceRange = "A CD4/CD8 ratio greater or equal to 3.5 is supportive of a diagnosis of Sarcoidosis.";
 		}
 
 		[PersistentProperty()]
@@ -146,8 +148,22 @@ namespace YellowstonePathology.Business.Test.TCellSubsetAnalysis
 				}
 			}
 		}
-		
-		private void SetCD4CD8Ratio()
+
+        [PersistentProperty()]
+        public string ReferenceRange
+        {
+            get { return this.m_ReferenceRange; }
+            set
+            {
+                if (this.m_ReferenceRange != value)
+                {
+                    this.m_ReferenceRange = value;
+                    this.NotifyPropertyChanged("ReferenceRange");
+                }
+            }
+        }
+
+        private void SetCD4CD8Ratio()
 		{
 			double? result = null;
 			if(this.m_CD4Percent.HasValue && this.m_CD8Percent.HasValue)
@@ -167,7 +183,8 @@ namespace YellowstonePathology.Business.Test.TCellSubsetAnalysis
 			string value =  string.Empty;
 			if(this.m_CD4CD8Ratio.HasValue) value = Math.Round(this.m_CD4CD8Ratio.Value, 2).ToString();
 			result.AppendLine("CD4/CD8 Ratio: " + value);
-			result.AppendLine();
+            result.AppendLine("Reference Range: " + this.m_ReferenceRange);
+            result.AppendLine();
 
 			return result.ToString();
 		}

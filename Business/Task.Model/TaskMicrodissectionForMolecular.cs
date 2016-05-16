@@ -5,13 +5,13 @@ using System.Text;
 
 namespace YellowstonePathology.Business.Task.Model
 {
-    public class TaskMicrodisectionForMolecular : Task
+    public class TaskMicrodissectionForMolecular : Task
     {
-        public TaskMicrodisectionForMolecular()
+        public TaskMicrodissectionForMolecular()
         {
             this.m_TaskId = "MDFMPREP";
-            this.m_TaskName = "Microdisection for Molecular";
-            this.m_Description = "Microdisection for Molecular";
+            this.m_TaskName = "Microdissection for Molecular";
+            this.m_Description = "Microdissection for Molecular";
             this.m_AssignedTo = TaskAssignment.Histology;            
         }
     }
