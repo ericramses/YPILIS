@@ -52,6 +52,7 @@ namespace YellowstonePathology.UI.Test
             Unloaded += NGCTResultPage_Unloaded;
 
             this.m_ControlsNotDisabledOnFinal.Add(this.ButtonNext);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockShowDocument);
             this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockUnfinalizeResults);
 		}
 
