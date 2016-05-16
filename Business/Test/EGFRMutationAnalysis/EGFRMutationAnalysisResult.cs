@@ -95,7 +95,7 @@ namespace YellowstonePathology.Business.Test.EGFRMutationAnalysis
             egfrMutationAnalysisTestOrder.Method = null;
             egfrMutationAnalysisTestOrder.References = null;
             egfrMutationAnalysisTestOrder.TumorNucleiPercentage = null;
-            egfrMutationAnalysisTestOrder.MicrodisectionPerformed = false;
+            egfrMutationAnalysisTestOrder.MicrodissectionPerformed = false;
             egfrMutationAnalysisTestOrder.Interpretation = null;
             egfrMutationAnalysisTestOrder.Mutation = null;
             egfrMutationAnalysisTestOrder.ResultCode = null;            

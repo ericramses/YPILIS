@@ -15,7 +15,7 @@ namespace YellowstonePathology.Business.Test.EGFRMutationAnalysis
 
         public override void Render()
 		{                        
-			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\EGFR.5.xml";
+			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\EGFR.6.xml";
 			base.OpenTemplate();
 
 			this.SetDemographicsV2();
@@ -43,13 +43,13 @@ namespace YellowstonePathology.Business.Test.EGFRMutationAnalysis
             this.ReplaceText("report_indication", egfrMutationAnalysisTestOrder.Indication);
             this.ReplaceText("tumor_nuclei_percentage", egfrMutationAnalysisTestOrder.TumorNucleiPercentage);
 
-            if (egfrMutationAnalysisTestOrder.MicrodisectionPerformed == true)
+            if (egfrMutationAnalysisTestOrder.MicrodissectionPerformed == true)
             {
-                this.ReplaceText("microdisection_performed", "Yes");
+                this.ReplaceText("microdissection_performed", "Yes");
             }
             else
             {
-                this.ReplaceText("microdisection_performed", "No");
+                this.ReplaceText("microdissection_performed", "No");
             }
 
             this.SetXMLNodeParagraphData("report_method", egfrMutationAnalysisTestOrder.Method);

@@ -7,7 +7,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
 {
     public class PreparationProcedure
     {
-        public const string Microdisection = "Microdisection";
+        public const string Microdissection = "Microdissection";
         public const string ParaffinCurls = "ParaffinCurls";
         public const string UnstainedSlide = "Unstained Slide(s)";
         public const string Aliquot = "Aliquot";
@@ -16,7 +16,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
         public static List<string> GetList()
         {
             List<string> list = new List<string>();
-            list.Add(Microdisection);
+            list.Add(Microdissection);
             list.Add(ParaffinCurls);
             list.Add(UnstainedSlide);
             list.Add(Aliquot);

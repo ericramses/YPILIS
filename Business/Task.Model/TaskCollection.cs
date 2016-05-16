@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Task.Model
             TaskCollection result = new TaskCollection();
             result.Add(new TaskParaffinCurlPreparation());
             result.Add(new TaskUnstainedSlideWithAfterSlidePreparation());
-            result.Add(new TaskMicrodisectionForMolecular());
+            result.Add(new TaskMicrodissectionForMolecular());
             return result;
         }
     }
