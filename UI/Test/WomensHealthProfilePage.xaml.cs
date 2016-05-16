@@ -47,7 +47,7 @@ namespace YellowstonePathology.UI.Test
         public WomensHealthProfilePage(YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder womensHealthProfileTestOrder,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
             YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder, 
-            System.Windows.Visibility backButtonVisibility): base(womensHealthProfileTestOrder)
+            System.Windows.Visibility backButtonVisibility): base(womensHealthProfileTestOrder, accessionOrder)
         {
             this.m_AccessionOrder = accessionOrder;
             

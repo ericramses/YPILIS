@@ -34,7 +34,7 @@ namespace YellowstonePathology.UI.Test
 
 		public BCellClonalityByPCRResultPage(YellowstonePathology.Business.Test.BCellClonalityByPCR.BCellClonalityByPCRTestOrder testOrder,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity): base(testOrder)
+			YellowstonePathology.Business.User.SystemIdentity systemIdentity): base(testOrder, accessionOrder)
 		{
 			this.m_PanelSetOrder = testOrder;
 			this.m_AccessionOrder = accessionOrder;
