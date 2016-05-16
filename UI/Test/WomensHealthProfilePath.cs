@@ -13,6 +13,7 @@ namespace YellowstonePathology.UI.Login
         private YellowstonePathology.UI.Test.WomensHealthProfilePage m_WomensHealthProfilePage;        
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		private YellowstonePathology.Business.ClientOrder.Model.ClientOrder m_ClientOrder;
+
         private System.Windows.Visibility m_BackButtonVisibility;
 
         public WomensHealthProfilePath(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
@@ -28,7 +29,9 @@ namespace YellowstonePathology.UI.Login
 
         protected override void ShowResultPage()
         {
-			this.m_WomensHealthProfilePage = new Test.WomensHealthProfilePage(this.m_AccessionOrder, this.m_ClientOrder, this.m_BackButtonVisibility);
+            YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTest womensHealthProfileTest = new Business.Test.WomensHealthProfile.WomensHealthProfileTest();
+            YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder womensHealthProfileTestOrder = (YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(womensHealthProfileTest.PanelSetId);
+            this.m_WomensHealthProfilePage = new Test.WomensHealthProfilePage(womensHealthProfileTestOrder, this.m_AccessionOrder, this.m_ClientOrder, this.m_BackButtonVisibility);
 			this.m_WomensHealthProfilePage.Finished += new Test.WomensHealthProfilePage.FinishedEventHandler(WomensHealthProfilePage_Finished);
             this.m_WomensHealthProfilePage.Back += new Test.WomensHealthProfilePage.BackEventHandler(WomensHealthProfilePage_Back);
             this.m_PageNavigator.Navigate(this.m_WomensHealthProfilePage);

@@ -1573,10 +1573,10 @@ namespace YellowstonePathology.Business.Test
 			}
 		}
 
-		public void AccessionClientOrder(YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder)
+		/*public void AccessionClientOrder(YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder)
 		{			
 			clientOrder.Accession(this.m_MasterAccessionNo);					
-		}
+		}*/
 
 		public bool Exists(string containerId)
 		{
