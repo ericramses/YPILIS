@@ -506,6 +506,7 @@
     <Compile Include="Persistence\WriterScopeEnum.cs" />
     <Compile Include="ReportDistribution.Model\ScheduledFaxSubmission.cs" />
     <Compile Include="Specimen.Model\EmbeddingInstructionList.cs" />
+    <Compile Include="Task.Model\TaskMicrodissectionForMolecular.cs" />
     <Compile Include="Test.Model\DispalyGroupProstate.cs" />
     <Compile Include="Test.Model\P40.cs" />
     <Compile Include="Test\ALKForNSCLCByFISH\ALKForNSCLCByFISHNegativeWithMonosomyResult.cs" />
@@ -1349,7 +1350,6 @@
     <Compile Include="Task.Model\TaskCytologySlideDisposal.cs" />
     <Compile Include="Task.Model\TaskDeliverBlockToTranscription.cs" />
     <Compile Include="Task.Model\TaskInternalDelivery.cs" />
-    <Compile Include="Task.Model\TaskMicrodissectionForMolecular.cs" />
     <Compile Include="Task.Model\TaskOrder.cs" />
     <Compile Include="Task.Model\TaskOrderCollection.cs" />
     <Compile Include="Task.Model\TaskOrderCytologySlideDisposal.cs" />
