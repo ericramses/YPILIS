@@ -57,7 +57,7 @@ namespace YellowstonePathology.Business.Test.TCellSubsetAnalysis
 
 			this.SaveReport();
 		}
-
+        
 		public override void Publish()
 		{
 			base.Publish();
