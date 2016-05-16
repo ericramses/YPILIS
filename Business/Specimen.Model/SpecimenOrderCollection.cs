@@ -609,7 +609,20 @@ namespace YellowstonePathology.Business.Specimen.Model
             return result;
         }
 
-		public YellowstonePathology.Business.Test.AliquotOrder GetAliquotOrder(string aliquotOrderId)
+        public int SpecimenIdCount(string specimenId)
+        {
+            int result = 0;
+            foreach(SpecimenOrder specimenOrder in this)
+            {
+                if(specimenOrder.SpecimenId == specimenId)
+                {
+                    result += 1;
+                }
+            }
+            return result;
+        }
+
+        public YellowstonePathology.Business.Test.AliquotOrder GetAliquotOrder(string aliquotOrderId)
 		{
 			YellowstonePathology.Business.Test.AliquotOrder result = null;
 			foreach (YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder in this)

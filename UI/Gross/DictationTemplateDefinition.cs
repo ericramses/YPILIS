@@ -383,8 +383,8 @@ namespace YellowstonePathology.UI.Gross
         public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
-            
-            if (accessionOrder.SpecimenOrderCollection.Count == 2)
+                        
+            if (accessionOrder.SpecimenOrderCollection.SpecimenIdCount(specimenOrder.SpecimenId) != 1)
             {
                 result = result.Replace("[quantity]", "One");
                 result = result.Replace("[tonsils]", "tonsil");
@@ -392,8 +392,7 @@ namespace YellowstonePathology.UI.Gross
             }
             else
             {
-                string measurementString = "Measurement Tonsil 1:  [measurement]" + Environment.NewLine +
-                    "Measurement Tonsil 2:  [measurement]";
+                string measurementString = "Measurement Tonsil 1:  [measurement]" + Environment.NewLine + "Measurement Tonsil 2:  [measurement]";
                 result = result.Replace("[tonsils]", "tonsils");
                 result = result.Replace("[quantity]", "Two");
                 result = result.Replace("[measurementstring]", measurementString);
