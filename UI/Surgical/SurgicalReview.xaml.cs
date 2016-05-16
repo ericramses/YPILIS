@@ -169,6 +169,8 @@ namespace YellowstonePathology.UI.Surgical
         {
             if ((Business.User.SystemIdentity.Instance.User.UserId == 5102 ||
                 Business.User.SystemIdentity.Instance.User.UserId == 5111 ||
+                Business.User.SystemIdentity.Instance.User.UserId == 5129 ||
+                Business.User.SystemIdentity.Instance.User.UserId == 5088 ||
                 Business.User.SystemIdentity.Instance.User.UserId == 5091) && this.PanelSetOrderSurgical.Final == false) //Dr. Durden only and only if signing
             {
                 this.TestSignout();

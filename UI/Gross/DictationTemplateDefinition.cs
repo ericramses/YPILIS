@@ -20,7 +20,7 @@ namespace YellowstonePathology.UI.Gross
         public ProstateNeedleCoreTemplate()
         {
             this.m_TemplateName = "Prostate Needle Core";
-            this.m_Text = "[identifier] and consists of [number] tan-pink cylindrical tissue fragments measuring [measurement].  " +
+            this.m_Text = "[identifier] and consists of [number] tan-pink cylindrical tissue fragments measuring [measurement] in aggregate.  " +
                 "The specimen is entirely submitted in cassette [cassettelabel].  ";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ProstateNeedleBiopsy nb = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ProstateNeedleBiopsy();
@@ -60,8 +60,8 @@ namespace YellowstonePathology.UI.Gross
         public GITemplate()
         {
             this.m_TemplateName = "GI Specimen";
-            this.m_Text = "[identifier] and consists of [number] tan-pink tissue fragments measuring [measurement] in aggregate.  " +
-                "The specimen is filtered through a fine mesh bag and entirely submitted in cassette [cassettelabel].  ";            
+            this.m_Text = "[identifier] and consists of [number] tan-pink tissue fragment[?s?] measuring [measurement][? in aggregate?].  " +
+                "The specimen is filtered through a fine mesh bag and entirely submitted in [cassettesummary].  ";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.GIBiopsy gi = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.GIBiopsy();
             this.m_SpecimenCollection.Add(gi);
@@ -70,7 +70,7 @@ namespace YellowstonePathology.UI.Gross
         public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
-            result = this.ReplaceCassetteLabel(result, specimenOrder);
+            result = this.ReplaceCassetteSummary(result, specimenOrder);
             return result;
         }
     }
@@ -125,7 +125,7 @@ namespace YellowstonePathology.UI.Gross
         {
             this.m_TemplateName = "Sinus Content Specimen";
             this.m_Text = "[identifier] and consists of multiple fragments of tan-pink tissue and bone aggregating to [measurement].  " +
-                "They are filtered through a fine mesh bag and entirely submitted in cassette [cassettelabel] for decalcification prior to processing.  ";
+                "They are filtered through a fine mesh bag and entirely submitted in cassette [cassettelabel][? for decalcification prior to processing?].  ";
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SinusContent sinusContent = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SinusContent();
             this.m_SpecimenCollection.Add(sinusContent);
@@ -645,7 +645,7 @@ namespace YellowstonePathology.UI.Gross
                 "      Amnion Nodosum:  [description]" + Environment.NewLine +
                 "      Cysts:  [description]" + Environment.NewLine +
                 "   Maternal Surface:" + Environment.NewLine +
-                "      Hemorrhage:  [description]" + Environment.NewLine +
+                "      Hemorrhage:  " + Environment.NewLine +
                 "         Adherent:  [measurement], [description]" + Environment.NewLine +
                 "         Non-Adherent:  [measurement]" + Environment.NewLine +
                 "      Maternal Surface:  [description]" + Environment.NewLine +
@@ -735,7 +735,7 @@ namespace YellowstonePathology.UI.Gross
             	"\"1E\" - Dividing membranes" + Environment.NewLine +
             	"\"1F\" -Twin B umbilical cord and membranes" + Environment.NewLine +
             	"\"1G\" -Twin B placenta at cord insertion site" + Environment.NewLine +
-            	"\"1H\" - \"1I\" - Twin B placenta" ;
+                "\"1H\" - \"1I\" - Twin B placenta  ";
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Twin1Placenta twin1Placenta = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Twin1Placenta();
             this.m_SpecimenCollection.Add(twin1Placenta);
@@ -807,7 +807,7 @@ namespace YellowstonePathology.UI.Gross
                 "\"1A\" - Twin A umbilical cord, " + Environment.NewLine +
                 "\"1B\" - Twin B umbilical cord, " + Environment.NewLine +
                 "\"1C\" - Membranes.  " + Environment.NewLine +
-            	"\"1D\" - \"1G\" - Placental Disc. " ;
+                "\"1D\" - \"1G\" - Placental Disc.  ";
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Twin2Placenta twin2Placenta = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Twin2Placenta();
             this.m_SpecimenCollection.Add(twin2Placenta);
@@ -953,7 +953,7 @@ namespace YellowstonePathology.UI.Gross
                 "Measurements:  [measurements]" + Environment.NewLine +
                 "Calcification:  [present/not present]" + Environment.NewLine +
                 "Vegetation:  [present/not present]" + Environment.NewLine +
-                "Submitted:  [representativesections] for decalcification prior to processing.  ";
+                "Submitted:  [representativesections][? for decalcification prior to processing?].  ";
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.AorticValve aorticValve = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.AorticValve();
             this.m_SpecimenCollection.Add(aorticValve);
@@ -977,7 +977,7 @@ namespace YellowstonePathology.UI.Gross
                "Leaflets Description:  [description]" + Environment.NewLine +
                "Measurements:  [measurements]" + Environment.NewLine +
                "Chordae:  [description]" + Environment.NewLine +               
-               "Submitted:  [representativesections] for decalcification prior to processing.  ";
+               "Submitted:  [representativesections][? for decalcification prior to processing?].  ";
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.MitralValve mitralValve = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.MitralValve();
             this.m_SpecimenCollection.Add(mitralValve);
@@ -1018,7 +1018,7 @@ namespace YellowstonePathology.UI.Gross
             this.m_TemplateName = "Femoral Head";
             this.m_Text = "[identifier] and consists of a [description] femoral head with attached femoral neck measuring [measurement].  " +
                 "The femoral neck margin is [description]. The articular surface shows [percent] eburnation and [percent] osteophyte formation.  " +
-                "Sectioning reveals tan-yellow trabecular bone. [representativesections] following overnight decalcification.  ";            
+                "Sectioning reveals tan-yellow trabecular bone. [representativesections][? following overnight decalcification?].  ";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.FemoralHead femoralHead = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.FemoralHead();
             this.m_SpecimenCollection.Add(femoralHead);

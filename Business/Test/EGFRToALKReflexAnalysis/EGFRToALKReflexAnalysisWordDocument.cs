@@ -38,7 +38,7 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
             {
                 base.ReplaceText("alk_result", "Not Indicated");
                 base.ReplaceText("ros1_result", "Not Indicated");
-                base.ReplaceText("pdl1_stainpercentage", "Not Indicated");
+                //base.ReplaceText("pdl1_stainpercentage", "Not Indicated");
             }
 
             if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(131) == true)

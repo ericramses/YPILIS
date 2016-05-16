@@ -26,8 +26,13 @@ namespace YellowstonePathology.Business.Test
         protected string m_ClientLabel;
         protected string m_LabelPrefix;
         protected bool m_GrossVerified;
-        protected int m_GrossVerifiedById;
+        protected Nullable<int> m_GrossVerifiedById;
+        protected string m_GrossVerifiedBy;
         protected Nullable<DateTime> m_GrossVerifiedDate;
+        protected bool m_EmbeddingVerified;
+        protected Nullable<int> m_EmbeddingVerifiedById;
+        protected string m_EmbeddingVerifiedBy;
+        protected Nullable<DateTime> m_EmbeddingVerifiedDate;
         protected bool m_Printed;
         protected string m_LabelType;
         private string m_LocationId;
@@ -201,7 +206,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
-        public int GrossVerifiedById
+        public Nullable<int> GrossVerifiedById
         {
             get { return this.m_GrossVerifiedById; }
             set
@@ -210,6 +215,20 @@ namespace YellowstonePathology.Business.Test
                 {
                     this.m_GrossVerifiedById = value;
                     this.NotifyPropertyChanged("GrossVerifiedById");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string GrossVerifiedBy
+        {
+            get { return this.m_GrossVerifiedBy; }
+            set
+            {
+                if (this.m_GrossVerifiedBy != value)
+                {
+                    this.m_GrossVerifiedBy = value;
+                    this.NotifyPropertyChanged("GrossVerifiedBy");
                 }
             }
         }
@@ -390,6 +409,62 @@ namespace YellowstonePathology.Business.Test
                 {
                     this.m_EmbeddingInstructions = value;
                     this.NotifyPropertyChanged("EmbeddingInstructions");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public bool EmbeddingVerified
+        {
+            get { return this.m_EmbeddingVerified; }
+            set
+            {
+                if (this.m_EmbeddingVerified != value)
+                {
+                    this.m_EmbeddingVerified = value;
+                    this.NotifyPropertyChanged("EmbeddingVerified");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public Nullable<int> EmbeddingVerifiedById
+        {
+            get { return this.m_EmbeddingVerifiedById; }
+            set
+            {
+                if (this.m_EmbeddingVerifiedById != value)
+                {
+                    this.m_EmbeddingVerifiedById = value;
+                    this.NotifyPropertyChanged("EmbeddingVerifiedById");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string EmbeddingVerifiedBy
+        {
+            get { return this.m_EmbeddingVerifiedBy; }
+            set
+            {
+                if (this.m_EmbeddingVerifiedBy != value)
+                {
+                    this.m_EmbeddingVerifiedBy = value;
+                    this.NotifyPropertyChanged("EmbeddingVerifiedBy");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public Nullable<DateTime> EmbeddingVerifiedDate
+        {
+            get { return this.m_EmbeddingVerifiedDate; }
+            set
+            {
+                if (this.m_EmbeddingVerifiedDate != value)
+                {
+                    this.m_EmbeddingVerifiedDate = value;
+                    this.NotifyPropertyChanged("EmbeddingVerifiedDate");
                 }
             }
         }

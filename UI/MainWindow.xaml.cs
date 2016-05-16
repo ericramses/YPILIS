@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -932,6 +933,20 @@ namespace YellowstonePathology.UI
         {
             ParsePsaAccessionsWindow window = new ParsePsaAccessionsWindow();
             window.Show();
-        }        
+        }
+
+        private void MenuItemUpdateSpellDictionary_Click(object sender, RoutedEventArgs e)
+        {
+            if(App.HandledictionarySetup() == true)
+            {
+                MessageBox.Show("The dictionary was successfully updated.");
+            }
+        }
+
+        private void MenuItemEmbedding_Click(object sender, RoutedEventArgs e)
+        {
+            EmbeddingDialog embeddingDialog = new EmbeddingDialog();
+            embeddingDialog.ShowDialog();
+        }
     }    
 }

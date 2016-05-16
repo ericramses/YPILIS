@@ -125,27 +125,6 @@ namespace YellowstonePathology.UI.Surgical
             return result;
         }    
         
-        private void HandleTextBoxGrossDescriptionTab()
-        {
-            int startingPosition = this.TextBoxGrossDescription.SelectionStart;
-            if (string.IsNullOrEmpty(this.TextBoxGrossDescription.SelectedText) == false)
-            {
-                startingPosition = this.TextBoxGrossDescription.SelectionStart;
-            }
-
-            if(startingPosition == 0)
-            {
-                SelectNextInput(startingPosition);
-            }
-            else
-            {
-                if(SelectNextInput(startingPosition) == false)
-                {
-                    SelectNextInput(0);
-                }
-            }
-        }    
-
         private void HyperLinkAddDicationToGross_Click(object sender, RoutedEventArgs e)
         {
             if (this.m_SurgicalTestOrder.GrossX == "???") this.m_SurgicalTestOrder.GrossX = null;
@@ -173,15 +152,52 @@ namespace YellowstonePathology.UI.Surgical
             if (e.Key == Key.Tab)
             {
                 e.Handled = true;
-            }
-        }
-
-        private void TextBoxGrossDescription_KeyUp(object sender, KeyEventArgs e)
-        {
-            if(e.Key == Key.Tab)
-            {
                 this.HandleTextBoxGrossDescriptionTab();
-            }            
+            }
+            else if(e.Key == Key.Enter)
+            {
+                if(this.TextBoxGrossDescription.SelectedText.Length > 0)
+                {
+                    if (this.TextBoxGrossDescription.SelectedText.Substring(0, 2) == "[?")
+                    {
+                        e.Handled = true;
+
+                        int selectedTextStart = this.TextBoxGrossDescription.SelectionStart;
+                        int selectedTextLength = this.TextBoxGrossDescription.SelectionLength;
+                        string selectedText = this.TextBoxGrossDescription.Text.Substring(selectedTextStart, selectedTextLength);
+                        this.TextBoxGrossDescription.Text = this.TextBoxGrossDescription.Text.Remove(selectedTextStart, selectedTextLength);
+
+                        selectedText = selectedText.Replace("[?", "");
+                        selectedText = selectedText.Replace("?]", "");
+
+                        this.TextBoxGrossDescription.Text = this.TextBoxGrossDescription.Text.Insert(selectedTextStart, selectedText);
+
+                        this.TextBoxGrossDescription.SelectionStart = selectedTextStart;
+                        this.TextBoxGrossDescription.SelectionLength = selectedTextLength - 4;
+                    }
+                }                
+            }
+        }        
+
+        private void HandleTextBoxGrossDescriptionTab()
+        {
+            int startingPosition = this.TextBoxGrossDescription.SelectionStart;
+            if (string.IsNullOrEmpty(this.TextBoxGrossDescription.SelectedText) == false)
+            {
+                startingPosition = this.TextBoxGrossDescription.SelectionStart;
+            }
+
+            if (startingPosition == 0)
+            {
+                SelectNextInput(startingPosition);
+            }
+            else
+            {
+                if (SelectNextInput(startingPosition) == false)
+                {
+                    SelectNextInput(0);
+                }
+            }
         }
 
         public void NotifyPropertyChanged(String info)

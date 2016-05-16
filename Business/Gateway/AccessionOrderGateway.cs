@@ -14,6 +14,39 @@ namespace YellowstonePathology.Business.Gateway
 {
 	public class AccessionOrderGateway
 	{
+        public static YellowstonePathology.Business.Test.AliquotOrderCollection GetEmbeddingCollection(DateTime accessionDate)
+        {
+            YellowstonePathology.Business.Test.AliquotOrderCollection result = new Test.AliquotOrderCollection();
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "select a.*, null as [TestOrderId] " +
+                "from tblAccessionOrder ao " +
+                "join tblSpecimenOrder s on ao.MasterAccessionNo = s.masterAccessionNo " +
+                "join tblAliquotOrder a on s.SpecimenOrderId = a.SpecimenOrderId " +
+                "where ao.AccessionDate = @AccessionDate " +
+                "and AliquotType = 'Block' " +
+                "order by ao.AccessionTime desc";
+
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.Add("@AccessionDate", SqlDbType.DateTime).Value = accessionDate;
+
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = new Test.AliquotOrder();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(aliquotOrder, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Add(aliquotOrder);
+                    }
+                }
+            }
+            return result;
+        }
+
         public static YellowstonePathology.Business.Domain.LockItemCollection GetLockedAccessionOrders()
         {
             YellowstonePathology.Business.Domain.LockItemCollection result = new Domain.LockItemCollection();
