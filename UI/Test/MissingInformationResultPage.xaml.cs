@@ -16,7 +16,7 @@ using System.Xml.Linq;
 
 namespace YellowstonePathology.UI.Test
 {
-	public partial class MissingInformationResultPage : UserControl, INotifyPropertyChanged 
+	public partial class MissingInformationResultPage : ResultControl, INotifyPropertyChanged 
 	{
 		public event PropertyChangedEventHandler PropertyChanged;        
 
@@ -32,7 +32,7 @@ namespace YellowstonePathology.UI.Test
         private YellowstonePathology.Business.Test.MissingInformation.MissingInformtionTestOrder m_MissingInformtionTestOrder;
 
         public MissingInformationResultPage(YellowstonePathology.Business.Test.MissingInformation.MissingInformtionTestOrder missingInformationTestOrder,
-			YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
+			YellowstonePathology.Business.Test.AccessionOrder accessionOrder) : base(missingInformationTestOrder, accessionOrder)
 		{            
 			this.m_AccessionOrder = accessionOrder;						             
 
@@ -42,6 +42,9 @@ namespace YellowstonePathology.UI.Test
 			InitializeComponent();            
 
 			this.DataContext = this;
+
+            this.m_ControlsNotDisabledOnFinal.Add(this.ButtonNext);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockUnfinalResults);
         }
 
         public YellowstonePathology.Business.Test.AccessionOrder AccessionOrder
