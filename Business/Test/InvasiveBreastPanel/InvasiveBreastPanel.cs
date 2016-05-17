@@ -34,15 +34,28 @@ namespace YellowstonePathology.Business.Test.InvasiveBreastPanel
             if (hasSurgical == true)
             {
                 string surgicalReportNo = accessionOrder.PanelSetOrderCollection.GetSurgical().ReportNo;
-                YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = (YellowstonePathology.Business.Test.AliquotOrder)orderTarget;
+                YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(surgicalReportNo);
 
-                YellowstonePathology.Business.Test.Model.EstrogenReceptorSemiquant er = new YellowstonePathology.Business.Test.Model.EstrogenReceptorSemiquant();                				
-                YellowstonePathology.Business.Visitor.OrderTestVisitor orderERTestVisitor = new Visitor.OrderTestVisitor(surgicalReportNo, er, er.OrderComment, null, false, aliquotOrder, false, false, accessionOrder.TaskOrderCollection);
-                accessionOrder.TakeATrip(orderERTestVisitor);
+                if (panelSetOrder.AssignedToId != 5132)
+                {
+                    YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = (YellowstonePathology.Business.Test.AliquotOrder)orderTarget;
 
-                YellowstonePathology.Business.Test.Model.ProgesteroneReceptorSemiquant pr = new YellowstonePathology.Business.Test.Model.ProgesteroneReceptorSemiquant();
-				YellowstonePathology.Business.Visitor.OrderTestVisitor orderPRTestVisitor = new Visitor.OrderTestVisitor(surgicalReportNo, pr, pr.OrderComment, null, false, aliquotOrder, false, false, accessionOrder.TaskOrderCollection);
-                accessionOrder.TakeATrip(orderPRTestVisitor);
+                    YellowstonePathology.Business.Test.Model.EstrogenReceptorSemiquant er = new YellowstonePathology.Business.Test.Model.EstrogenReceptorSemiquant();
+                    YellowstonePathology.Business.Visitor.OrderTestVisitor orderERTestVisitor = new Visitor.OrderTestVisitor(surgicalReportNo, er, er.OrderComment, null, false, aliquotOrder, false, false, accessionOrder.TaskOrderCollection);
+                    accessionOrder.TakeATrip(orderERTestVisitor);
+
+                    YellowstonePathology.Business.Test.Model.ProgesteroneReceptorSemiquant pr = new YellowstonePathology.Business.Test.Model.ProgesteroneReceptorSemiquant();
+                    YellowstonePathology.Business.Visitor.OrderTestVisitor orderPRTestVisitor = new Visitor.OrderTestVisitor(surgicalReportNo, pr, pr.OrderComment, null, false, aliquotOrder, false, false, accessionOrder.TaskOrderCollection);
+                    accessionOrder.TakeATrip(orderPRTestVisitor);
+                }
+                else
+                {
+                    //If Dr Shannon order separte ERPR
+                    YellowstonePathology.Business.Test.ErPrSemiQuantitative.ErPrSemiQuantitativeTest erPrSemiQuantitativeTest = new YellowstonePathology.Business.Test.ErPrSemiQuantitative.ErPrSemiQuantitativeTest();
+                    YellowstonePathology.Business.Test.TestOrderInfo testOrderInfoERPR = new TestOrderInfo(erPrSemiQuantitativeTest, orderTarget, true);
+                    YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitorERPR = new Visitor.OrderTestOrderVisitor(testOrderInfoERPR);
+                    accessionOrder.TakeATrip(orderTestOrderVisitorERPR);
+                }
             }
             else
             {

@@ -31,6 +31,14 @@ namespace YellowstonePathology.UI
             SpellCheckProperty microscopicX = new SpellCheckProperty(microscopicXProperty, surgicalTestOrder, "Microscopic");
             this.m_PropertyList.Add(microscopicX);
 
+            PropertyInfo commentProperty = typeof(YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder).GetProperty("Comment");
+            SpellCheckProperty comment = new SpellCheckProperty(commentProperty, surgicalTestOrder, "Comment");
+            this.m_PropertyList.Add(comment);
+
+            PropertyInfo cancerSummaryProperty = typeof(YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder).GetProperty("CancerSummary");
+            SpellCheckProperty cancerSummary = new SpellCheckProperty(cancerSummaryProperty, surgicalTestOrder, "Cancer Summary");
+            this.m_PropertyList.Add(cancerSummary);
+
             foreach (YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder in accessionOrder.SpecimenOrderCollection)
             {
                 PropertyInfo specimenDescriptionProperty = typeof(YellowstonePathology.Business.Specimen.Model.SpecimenOrder).GetProperty("Description");
@@ -43,6 +51,17 @@ namespace YellowstonePathology.UI
                 PropertyInfo diagnosisProperty = typeof(YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen).GetProperty("Diagnosis");
                 SpellCheckProperty diagnosis = new SpellCheckProperty(diagnosisProperty, surgicalSpecimen, "Specimen Diagnosis");
                 this.m_PropertyList.Add(diagnosis);
+
+                foreach(YellowstonePathology.Business.SpecialStain.StainResultItem stainResultItem in surgicalSpecimen.StainResultItemCollection)
+                {
+                    PropertyInfo stainResultProperty = typeof(YellowstonePathology.Business.SpecialStain.StainResultItem).GetProperty("Result");
+                    SpellCheckProperty stainResult = new SpellCheckProperty(stainResultProperty, stainResultItem, "Stain Result");
+                    this.m_PropertyList.Add(stainResult);
+
+                    PropertyInfo stainCommentProperty = typeof(YellowstonePathology.Business.SpecialStain.StainResultItem).GetProperty("Comment");
+                    SpellCheckProperty stainCommentResult = new SpellCheckProperty(stainCommentProperty, stainResultItem, "Stain Comment");
+                    this.m_PropertyList.Add(stainCommentResult);
+                }
             }
             
             this.m_CurrentPropertyListIndex = -1;

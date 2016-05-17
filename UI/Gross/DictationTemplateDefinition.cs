@@ -61,7 +61,7 @@ namespace YellowstonePathology.UI.Gross
         {
             this.m_TemplateName = "GI Specimen";
             this.m_Text = "[identifier] and consists of [number] tan-pink tissue fragment[?s?] measuring [measurement][? in aggregate?].  " +
-                "The specimen is filtered through a fine mesh bag and entirely submitted in [cassettesummary].  ";            
+                "The specimen is filtered through a fine mesh bag and [cassettesummary].  ";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.GIBiopsy gi = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.GIBiopsy();
             this.m_SpecimenCollection.Add(gi);
