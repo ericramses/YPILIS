@@ -27,6 +27,8 @@ namespace YellowstonePathology.Business.Test.TCellSubsetAnalysis
 		private double? m_CD8Percent;
 		private double? m_CD4CD8Ratio;
         private string m_ReferenceRange;
+        private string m_Disclosure;
+        private string m_Interpretation;
 		
 		public TCellSubsetAnalysisTestOrder()
 		{
@@ -46,7 +48,10 @@ namespace YellowstonePathology.Business.Test.TCellSubsetAnalysis
 			this.m_Method = "Quantitative Flow Cytometry.";
             this.m_References = "1. Meyer, K. C., Raghu, G., Baughman, R. P., Brown, K. K., Costabel, U., du Bois, R. M., Drent, M., Haslam, P. L., Soon Kim, D., Nagai, S., Rottoli, P., Saltini, C., Selman, M., Strange, C., Wood, B. An Official American Thoracic Society Clinical Practice Guideline: The Clinical Utility of Bronchoalveolar Lavage Cellular Analysis in Interstitial Lung Disease. American Journal of Respiratory Critical Care. May 2012. 185:9 (1004-1014)." + Environment.NewLine +
                 "2. Drent, M., Mansour, K., Linssen, C.Bronchoalveolar Lavage in Sarcoidosis.Seminars in Respiratory and Critical Care Medicine. 2007. 28:5. (486 - 495).";
-            this.m_ReferenceRange = "A CD4/CD8 ratio greater or equal to 3.5 is supportive of a diagnosis of Sarcoidosis.";
+            this.m_ReferenceRange = "Normal non-smoker 0.9-2.5";
+            this.m_Interpretation = "A CD4/CD8 ratio greater or equal to 3.5 is supportive of a diagnosis of Sarcoidosis.";
+            this.m_Disclosure = "Please interpret results of BAL-T-cell lymphocyte subset analysis with caution.  If the specimen is contaminated " +
+                "with peripheral blood, the analysis includes both peripheral blood lymphocytes and BAL lymphocytes.";
 		}
 
 		[PersistentProperty()]
@@ -159,6 +164,34 @@ namespace YellowstonePathology.Business.Test.TCellSubsetAnalysis
                 {
                     this.m_ReferenceRange = value;
                     this.NotifyPropertyChanged("ReferenceRange");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string Disclosure
+        {
+            get { return this.m_Disclosure; }
+            set
+            {
+                if (this.m_Disclosure != value)
+                {
+                    this.m_Disclosure = value;
+                    this.NotifyPropertyChanged("Disclosure");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string Interpretation
+        {
+            get { return this.m_Interpretation; }
+            set
+            {
+                if (this.m_Interpretation != value)
+                {
+                    this.m_Interpretation = value;
+                    this.NotifyPropertyChanged("Interpretation");
                 }
             }
         }

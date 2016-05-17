@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Test
     /// <summary>
     /// Interaction logic for HER2AmplificationByISHResultPage.xaml
     /// </summary>
-    public partial class HER2AmplificationByISHResultPage : UserControl, INotifyPropertyChanged , IResultPage
+    public partial class HER2AmplificationByISHResultPage : ResultControl, INotifyPropertyChanged , IResultPage
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -46,7 +46,7 @@ namespace YellowstonePathology.UI.Test
         public HER2AmplificationByISHResultPage(YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHTestOrder testOrder,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
             YellowstonePathology.Business.User.SystemIdentity systemIdentity,
-            YellowstonePathology.UI.Navigation.PageNavigator pageNavigator)
+            YellowstonePathology.UI.Navigation.PageNavigator pageNavigator) : base(testOrder, accessionOrder)
         {
             this.m_PanelSetOrder = testOrder;
             this.m_AccessionOrder = accessionOrder;
@@ -64,6 +64,10 @@ namespace YellowstonePathology.UI.Test
             InitializeComponent();
 
             DataContext = this;
+
+            this.m_ControlsNotDisabledOnFinal.Add(this.ButtonNext);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockShowDocument);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockUnfinalResults);
         }
 
         public YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHTestOrder PanelSetOrder

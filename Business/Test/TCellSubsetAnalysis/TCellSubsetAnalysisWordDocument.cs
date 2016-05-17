@@ -26,7 +26,7 @@ namespace YellowstonePathology.Business.Test.TCellSubsetAnalysis
 		{			
 			TCellSubsetAnalysisTestOrder testOrder = (TCellSubsetAnalysisTestOrder)this.m_PanelSetOrder;
 
-			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\TCellSubsetAnalysis.1.xml";
+			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\TCellSubsetAnalysis.2.xml";
 			base.OpenTemplate();
 
 			this.SetDemographicsV2();
@@ -43,9 +43,11 @@ namespace YellowstonePathology.Business.Test.TCellSubsetAnalysis
 			if(testOrder.CD4CD8Ratio.HasValue) value = Math.Round(testOrder.CD4CD8Ratio.Value, 2).ToString();
 			this.ReplaceText("report_cd4cd8_ratio", value);
             this.ReplaceText("report_reference_range", testOrder.ReferenceRange);
-			this.ReplaceText("report_method", testOrder.Method);
+            this.ReplaceText("report_interpretation", testOrder.Interpretation);
+            this.ReplaceText("report_method", testOrder.Method);
 			this.ReplaceText("report_references", testOrder.References);
-			this.ReplaceText("asr_comment", testOrder.ASRComment);
+            this.ReplaceText("report_disclosure", testOrder.Disclosure);
+            this.ReplaceText("asr_comment", testOrder.ASRComment);
 
 			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrder.OrderedOn, this.m_PanelSetOrder.OrderedOnId);
 			base.ReplaceText("specimen_description", specimenOrder.Description);
