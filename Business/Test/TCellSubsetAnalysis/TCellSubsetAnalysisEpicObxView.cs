@@ -57,7 +57,10 @@ namespace YellowstonePathology.Business.Test.TCellSubsetAnalysis
 			string collectionDateTimeString = YellowstonePathology.Business.Helper.DateTimeExtensions.CombineDateAndTime(specimenOrder.CollectionDate, specimenOrder.CollectionTime);
 			this.AddNextObxElement("Collection Date/Time: " + collectionDateTimeString, document, "F");
 
-			this.AddNextObxElement("", document, "F");
+            this.AddNextObxElement("", document, "F");
+            this.AddNextObxElement("Interpretation: " + panelSetOrder.Interpretation, document, "F");
+
+            this.AddNextObxElement("", document, "F");
 			this.AddNextObxElement("Method:", document, "F");
 			this.HandleLongString(panelSetOrder.Method, document, "F");
 
@@ -66,7 +69,10 @@ namespace YellowstonePathology.Business.Test.TCellSubsetAnalysis
 			this.HandleLongString(panelSetOrder.References, document, "F");
 			this.AddNextObxElement("", document, "F");
 
-			this.AddNextObxElement(panelSetOrder.ASRComment, document, "F");
+            this.AddNextObxElement(panelSetOrder.Disclosure, document, "F");
+            this.AddNextObxElement(string.Empty, document, "F");
+
+            this.AddNextObxElement(panelSetOrder.ASRComment, document, "F");
 			this.AddNextObxElement(string.Empty, document, "F");
 
 			this.AddNextObxElement(panelSetOrder.GetLocationPerformedComment(), document, "F");
