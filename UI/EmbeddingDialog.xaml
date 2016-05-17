@@ -35,6 +35,7 @@
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Block" Width="100" DisplayMemberBinding="{Binding Path=AliquotOrderId}" />
+                    <GridViewColumn Header="Label" Width="100" DisplayMemberBinding="{Binding Path=Label}" />
                     <GridViewColumn Header="Gross" Width="130" DisplayMemberBinding="{Binding Path=GrossVerifiedDate}" />
                     <GridViewColumn Header="By" Width="100" DisplayMemberBinding="{Binding Path=GrossVerifiedBy}" />
                     <GridViewColumn Header="Embedded" Width="130" DisplayMemberBinding="{Binding Path=EmbeddingVerifiedDate}" />

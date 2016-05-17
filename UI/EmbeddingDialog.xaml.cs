@@ -24,13 +24,48 @@ namespace YellowstonePathology.UI
 
         private DateTime m_WorkDate;
         private YellowstonePathology.Business.Test.AliquotOrderCollection m_AliquotOrderCollection;
+        private YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort m_BarcodeScanPort;
 
         public EmbeddingDialog()
         {
+            this.m_BarcodeScanPort = YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort.Instance;
             this.m_WorkDate = DateTime.Today;
             this.m_AliquotOrderCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetEmbeddingCollection(this.WorkDate);
             InitializeComponent();
             this.DataContext = this;
+            this.Loaded += EmbeddingDialog_Loaded;
+            this.Unloaded += EmbeddingDialog_Unloaded;
+        }
+
+        private void EmbeddingDialog_Unloaded(object sender, RoutedEventArgs e)
+        {
+            this.m_BarcodeScanPort.HistologyBlockScanReceived -= this.HistologyBlockScanReceived;
+        }
+
+        private void EmbeddingDialog_Loaded(object sender, RoutedEventArgs e)
+        {
+            this.m_BarcodeScanPort.HistologyBlockScanReceived += this.HistologyBlockScanReceived;
+        }
+
+        private void HistologyBlockScanReceived(YellowstonePathology.Business.BarcodeScanning.Barcode barcode)
+        {
+            this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
+            {
+                if(this.m_AliquotOrderCollection.Exists(barcode.ID) == true)
+                {
+                    YellowstonePathology.Business.Test.AliquotOrder listAliquotOrder = this.m_AliquotOrderCollection.Get(barcode.ID);
+                    listAliquotOrder.EmbeddingVerify(YellowstonePathology.Business.User.SystemIdentity.Instance.User);
+
+                    YellowstonePathology.Business.Test.AliquotOrder dbAliquotOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAliquotOrder(barcode.ID, this);
+                    dbAliquotOrder.EmbeddingVerify(YellowstonePathology.Business.User.SystemIdentity.Instance.User);
+                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();                    
+                }
+                else
+                {
+                    MessageBox.Show("Block not found in local collection.");
+                }
+            }
+            ));
         }
 
         public DateTime WorkDate

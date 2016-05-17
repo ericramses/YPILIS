@@ -23,7 +23,7 @@ namespace YellowstonePathology.Business.Gateway
                 "join tblSpecimenOrder s on ao.MasterAccessionNo = s.masterAccessionNo " +
                 "join tblAliquotOrder a on s.SpecimenOrderId = a.SpecimenOrderId " +
                 "where ao.AccessionDate = @AccessionDate " +
-                "and AliquotType = 'Block' " +
+                "and AliquotType = 'Block' and s.RequiresGrossExamination = 1 " +
                 "order by ao.AccessionTime desc";
 
             cmd.CommandType = CommandType.Text;

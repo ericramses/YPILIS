@@ -476,6 +476,7 @@
     <Compile Include="Persistence\MaterialTrackingBatchDocumentBuilder.cs" />
     <Compile Include="Persistence\ProviderDocumentBuilder.cs" />
     <Compile Include="Persistence\SqlCommandHelper.cs" />
+    <Compile Include="Persistence\AliquotOrderDocumentBuilder.cs" />
     <Compile Include="Persistence\TaskOrderDocumentBuilder.cs" />
     <Compile Include="Persistence\ClientSupplyOrderDocumentBuilder.cs" />
     <Compile Include="Persistence\DocumentBuilder.cs" />

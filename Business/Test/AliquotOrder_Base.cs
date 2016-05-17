@@ -608,6 +608,28 @@ namespace YellowstonePathology.Business.Test
             }
         }
 
+        public void GrossVerify(YellowstonePathology.Business.User.SystemUser systemUser)
+        {
+            if (this.GrossVerified == false)
+            {
+                this.GrossVerified = true;
+                this.GrossVerifiedById = systemUser.UserId;
+                this.GrossVerifiedDate = DateTime.Now;
+                this.GrossVerifiedBy = systemUser.UserName;
+            }
+        }
+
+        public void EmbeddingVerify(YellowstonePathology.Business.User.SystemUser systemUser)
+        {
+            if (this.EmbeddingVerified == false)
+            {
+                this.EmbeddingVerified = true;
+                this.EmbeddingVerifiedById = systemUser.UserId;
+                this.EmbeddingVerifiedDate = DateTime.Now;
+                this.EmbeddingVerifiedBy = systemUser.UserName;
+            }
+        }
+
         public YellowstonePathology.Business.Slide.Model.SlideStatusEnum StatusDepricated
         {
             get
