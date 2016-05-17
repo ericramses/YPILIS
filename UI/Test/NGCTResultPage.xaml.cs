@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Test
 	/// <summary>
 	/// Interaction logic for NGCTResultPage.xaml
 	/// </summary>
-	public partial class NGCTResultPage : UserControl, INotifyPropertyChanged 
+	public partial class NGCTResultPage : ResultControl, INotifyPropertyChanged 
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -35,7 +35,7 @@ namespace YellowstonePathology.UI.Test
 
 		public NGCTResultPage(YellowstonePathology.Business.Test.NGCT.NGCTTestOrder testOrder,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+			YellowstonePathology.Business.User.SystemIdentity systemIdentity) : base(testOrder, accessionOrder)
 		{
 			this.m_PanelSetOrder = testOrder;
 			this.m_AccessionOrder = accessionOrder;
@@ -50,6 +50,10 @@ namespace YellowstonePathology.UI.Test
 			DataContext = this;
             Loaded += NGCTResultPage_Loaded;
             Unloaded += NGCTResultPage_Unloaded;
+
+            this.m_ControlsNotDisabledOnFinal.Add(this.ButtonNext);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockShowDocument);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockUnfinalizeResults);
 		}
 
         private void NGCTResultPage_Loaded(object sender, RoutedEventArgs e)

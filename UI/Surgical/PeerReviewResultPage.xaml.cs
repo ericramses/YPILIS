@@ -16,7 +16,7 @@ using System.Collections.ObjectModel;
 
 namespace YellowstonePathology.UI.Surgical
 {	
-	public partial class PeerReviewResultPage : UserControl, INotifyPropertyChanged 
+	public partial class PeerReviewResultPage : Test.ResultControl, INotifyPropertyChanged 
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
         
@@ -27,7 +27,8 @@ namespace YellowstonePathology.UI.Surgical
         private YellowstonePathology.Business.User.SystemUserCollection m_PathologistUsers;
         private YellowstonePathology.Business.Test.PeerReview.PeerReviewTypeCollection m_PeerReviewTypeCollection;
 
-        public PeerReviewResultPage(YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
+        public PeerReviewResultPage(YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder,
+            YellowstonePathology.Business.Test.AccessionOrder accessionOrder) : base(panelSetOrder, accessionOrder)
 		{
             this.m_PeerReviewTypeCollection = new YellowstonePathology.Business.Test.PeerReview.PeerReviewTypeCollection();                        
 
@@ -44,6 +45,8 @@ namespace YellowstonePathology.UI.Surgical
 
             Loaded += PeerReviewResultPage_Loaded;
             Unloaded += PeerReviewResultPage_Unloaded;
+
+            this.m_ControlsNotDisabledOnFinal.Add(this.ButtonClose);
 		}
 
         private void PeerReviewResultPage_Loaded(object sender, RoutedEventArgs e)

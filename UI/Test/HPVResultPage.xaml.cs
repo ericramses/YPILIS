@@ -37,7 +37,7 @@ namespace YellowstonePathology.UI.Test
         public HPVResultPage(YellowstonePathology.Business.Test.HPV.HPVTestOrder hpvTestOrder,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,            
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity,
-			YellowstonePathology.UI.Navigation.PageNavigator pageNavigator) : base (hpvTestOrder)
+			YellowstonePathology.UI.Navigation.PageNavigator pageNavigator) : base (hpvTestOrder, accessionOrder)
 		{
 			this.m_HPVTestOrder = hpvTestOrder;			
 			this.m_AccessionOrder = accessionOrder;                        

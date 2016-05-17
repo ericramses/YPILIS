@@ -14,12 +14,14 @@ namespace YellowstonePathology.UI.Test
         private bool m_DisableRequired;
         protected List<FrameworkElement> m_ControlsNotDisabledOnFinal;
 
-        public ResultControl(YellowstonePathology.Business.Test.PanelSetOrder testOrder)
+        public ResultControl(YellowstonePathology.Business.Test.PanelSetOrder testOrder,
+            YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {
             this.m_TestOrder = testOrder;
             this.m_ControlsNotDisabledOnFinal = new List<FrameworkElement>();
-            if (this.m_TestOrder.Final == true &&
-                (this.m_TestOrder.Distribute == false || this.m_TestOrder.TestOrderReportDistributionCollection.HasDistributedItems()))
+            if (accessionOrder.IsLockAquiredByMe == false ||
+                (this.m_TestOrder.Final == true &&
+                (this.m_TestOrder.Distribute == false || this.m_TestOrder.TestOrderReportDistributionCollection.HasDistributedItems())))
             {
                 this.m_DisableRequired = true;
             }
