@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 
 namespace YellowstonePathology.UI.Test
 {    
-    public partial class WomensHealthProfilePage : UserControl, INotifyPropertyChanged
+    public partial class WomensHealthProfilePage : ResultControl, INotifyPropertyChanged
     {
         public delegate void PropertyChangedNotificationHandler(String info);
         public event PropertyChangedEventHandler PropertyChanged;        
@@ -44,9 +44,10 @@ namespace YellowstonePathology.UI.Test
         private System.Windows.Visibility m_BackButtonVisibility;
         private Window m_ParentWindow;
 
-        public WomensHealthProfilePage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
+        public WomensHealthProfilePage(YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder womensHealthProfileTestOrder,
+            YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
             YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder, 
-            System.Windows.Visibility backButtonVisibility)
+            System.Windows.Visibility backButtonVisibility): base(womensHealthProfileTestOrder, accessionOrder)
         {
             this.m_AccessionOrder = accessionOrder;
             
@@ -56,7 +57,8 @@ namespace YellowstonePathology.UI.Test
             this.m_HPV1618StandingOrderCollection = YellowstonePathology.Business.Client.Model.StandingOrderCollection.GetHPV1618StandingOrders();
             
             this.m_ClientOrder = clientOrder;
-			this.m_WomensHealthProfileTestOrder = (YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(116);
+			//this.m_WomensHealthProfileTestOrder = (YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(116);
+            this.m_WomensHealthProfileTestOrder = womensHealthProfileTestOrder;
             this.m_SystemIdentity = Business.User.SystemIdentity.Instance;
             this.m_BackButtonVisibility = backButtonVisibility;
 
@@ -81,6 +83,12 @@ namespace YellowstonePathology.UI.Test
             this.DataContext = this;
 
             this.m_ParentWindow = Window.GetWindow(this);
+
+            this.m_ControlsNotDisabledOnFinal.Add(this.ButtonClose);
+            this.m_ControlsNotDisabledOnFinal.Add(this.ButtonBack);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockShowDocument);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockUnfinalize);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockNext);
         }
 
         public string HPVStandingOrderDescription

@@ -16,7 +16,7 @@ using System.Xml.Linq;
 
 namespace YellowstonePathology.UI.Test
 {	
-	public partial class TestCancelledResultPage : UserControl, INotifyPropertyChanged 
+	public partial class TestCancelledResultPage : ResultControl, INotifyPropertyChanged 
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -32,7 +32,7 @@ namespace YellowstonePathology.UI.Test
 
         public TestCancelledResultPage(YellowstonePathology.Business.Test.TestCancelled.TestCancelledTestOrder testCancelledTestOrder,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+			YellowstonePathology.Business.User.SystemIdentity systemIdentity) : base(testCancelledTestOrder, accessionOrder)
 		{
 			this.m_AccessionOrder = accessionOrder;			
 			this.m_SystemIdentity = systemIdentity;
@@ -43,6 +43,11 @@ namespace YellowstonePathology.UI.Test
 			InitializeComponent();
 
 			DataContext = this;
+
+            this.m_ControlsNotDisabledOnFinal.Add(this.ButtonClose);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockShowDocument);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockClose);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockUnfinalResults);
 		}        
 
         public YellowstonePathology.Business.Test.TestCancelled.TestCancelledTestOrder ReportOrder
