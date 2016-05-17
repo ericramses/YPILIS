@@ -15,7 +15,7 @@ using System.ComponentModel;
 
 namespace YellowstonePathology.UI.Surgical
 {	
-	public partial class PublishedDocumentFinalPage : UserControl, INotifyPropertyChanged 
+	public partial class PublishedDocumentFinalPage : Test.ResultControl, INotifyPropertyChanged 
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -30,7 +30,7 @@ namespace YellowstonePathology.UI.Surgical
 
         public PublishedDocumentFinalPage(YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+			YellowstonePathology.Business.User.SystemIdentity systemIdentity) : base(panelSetOrder, accessionOrder)
 		{
             this.m_PanelSetOrder = panelSetOrder;
 			this.m_AccessionOrder = accessionOrder;
@@ -44,6 +44,9 @@ namespace YellowstonePathology.UI.Surgical
 
             Loaded += PublishedDocumentFinalPage_Loaded;
             Unloaded += PublishedDocumentFinalPage_Unloaded;
+
+            this.m_ControlsNotDisabledOnFinal.Add(this.ButtonClose);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockUnfinalResults);
 		}
 
         private void PublishedDocumentFinalPage_Loaded(object sender, RoutedEventArgs e)
