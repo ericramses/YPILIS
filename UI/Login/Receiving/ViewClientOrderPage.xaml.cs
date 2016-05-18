@@ -31,9 +31,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 
 		public ViewClientOrderPage(YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder)
 		{
-			this.m_ClientOrder = clientOrder;
-
-            this.m_ClientOrder.MasterAccessionNo = "99999";
+			this.m_ClientOrder = clientOrder;            
             object o = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Documents;
 
 			InitializeComponent();
