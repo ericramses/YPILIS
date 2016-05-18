@@ -15,7 +15,7 @@ using System.ComponentModel;
 
 namespace YellowstonePathology.UI.Test
 {	
-	public partial class EGFRToALKReflexPage : UserControl, INotifyPropertyChanged
+	public partial class EGFRToALKReflexPage : ResultControl, INotifyPropertyChanged
 	{
 		public delegate void PropertyChangedNotificationHandler(String info);
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -43,7 +43,7 @@ namespace YellowstonePathology.UI.Test
         public EGFRToALKReflexPage(YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisTestOrder testOrder,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity,
-            System.Windows.Visibility backButtonVisibility)
+            System.Windows.Visibility backButtonVisibility) : base(testOrder, accessionOrder)
 		{
 			this.m_AccessionOrder = accessionOrder;
 			this.m_SystemIdentity = systemIdentity;
@@ -76,6 +76,11 @@ namespace YellowstonePathology.UI.Test
 			InitializeComponent();
 
 			this.DataContext = this;
+
+            this.m_ControlsNotDisabledOnFinal.Add(this.ButtonBack);
+            this.m_ControlsNotDisabledOnFinal.Add(this.ButtonFinish);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockShowDocument);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockUnfinalResults);
         }
 
         public YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisResult EGFRToALKReflexAnalysisResult
