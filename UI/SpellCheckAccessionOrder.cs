@@ -58,7 +58,7 @@ namespace YellowstonePathology.UI
                     SpellCheckProperty stainResult = new SpellCheckProperty(stainResultProperty, stainResultItem, "Stain Result");
                     this.m_PropertyList.Add(stainResult);
 
-                    PropertyInfo stainCommentProperty = typeof(YellowstonePathology.Business.SpecialStain.StainResultItem).GetProperty("Comment");
+                    PropertyInfo stainCommentProperty = typeof(YellowstonePathology.Business.SpecialStain.StainResultItem).GetProperty("ReportComment");
                     SpellCheckProperty stainCommentResult = new SpellCheckProperty(stainCommentProperty, stainResultItem, "Stain Comment");
                     this.m_PropertyList.Add(stainCommentResult);
                 }

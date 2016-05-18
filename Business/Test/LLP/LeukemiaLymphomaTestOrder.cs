@@ -46,7 +46,6 @@ namespace YellowstonePathology.Business.Test.LLP
 		private bool m_TestCancelled;		
 
 		private Flow.FlowMarkerCollection m_FlowMarkerCollection;
-		YellowstonePathology.Business.Rules.Rule m_Rule;		
 
 		public PanelSetOrderLeukemiaLymphoma()
 		{
@@ -60,7 +59,6 @@ namespace YellowstonePathology.Business.Test.LLP
 			: base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute)
 		{
             YellowstonePathology.Business.PanelSet.Model.FlowCytometry.PanelSetFlowCytometry panelSetFlowCytometry = (YellowstonePathology.Business.PanelSet.Model.FlowCytometry.PanelSetFlowCytometry)panelSet;
-                       
 			this.m_FlowMarkerCollection = new Flow.FlowMarkerCollection();            
 		}
 

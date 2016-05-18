@@ -5,6 +5,7 @@ using System.Text;
 using System.Windows;
 using System.Data;
 using System.Data.SqlClient;
+using System.Xml.Linq;
 
 namespace YellowstonePathology.Business.Flow
 {
@@ -17,7 +18,28 @@ namespace YellowstonePathology.Business.Flow
 
         }
 
-		public YellowstonePathology.Business.Flow.FlowMarkerItem GetNextItem(string reportNo, string name)
+        public void RemoveDeleted(IEnumerable<XElement> elements)
+        {
+            for (int i = this.Count - 1; i > -1; i--)
+            {
+                bool found = false;
+                foreach (XElement element in elements)
+                {
+                    string flowMarkerId = element.Element("FlowMarkerId").Value;
+                    if (this[i].FlowMarkerId == flowMarkerId)
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+                if (found == false)
+                {
+                    this.RemoveItem(i);
+                }
+            }
+        }
+
+        public YellowstonePathology.Business.Flow.FlowMarkerItem GetNextItem(string reportNo, string name)
 		{
 			string flowMarkerId = this.GetNextId(reportNo);
 			string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
@@ -39,8 +61,36 @@ namespace YellowstonePathology.Business.Flow
             return result;
         }
 
-		//WHC MOVE TO ORDERIDPARSER
-		public string GetNextId(string reportNo)
+        public bool Exists(string flowMarkerId)
+        {
+            bool result = false;
+            foreach (FlowMarkerItem flowMarker in this)
+            {
+                if (flowMarker.FlowMarkerId == flowMarkerId)
+                {
+                    result = true;
+                    break;
+                }
+            }
+            return result;
+        }
+
+        public YellowstonePathology.Business.Flow.FlowMarkerItem Get(string flowMarkerId)
+        {
+            YellowstonePathology.Business.Flow.FlowMarkerItem result = null;
+            foreach (FlowMarkerItem flowMarker in this)
+            {
+                if (flowMarker.FlowMarkerId == flowMarkerId)
+                {
+                    result = flowMarker;
+                    break;
+                }
+            }
+            return result;
+        }
+
+        //WHC MOVE TO ORDERIDPARSER
+        public string GetNextId(string reportNo)
 		{
 			int largestId = 0;
 			foreach (FlowMarkerItem flowMarker in this)

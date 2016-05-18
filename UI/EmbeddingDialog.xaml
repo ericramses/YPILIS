@@ -31,7 +31,7 @@
             </Button>
         </StackPanel>
         
-        <ListView Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" ItemsSource="{Binding Path=AliquotOrderCollection}">
+        <ListView Name="ListViewAliquotOrders" Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" ItemsSource="{Binding Path=AliquotOrderCollection}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Block" Width="100" DisplayMemberBinding="{Binding Path=AliquotOrderId}" />
