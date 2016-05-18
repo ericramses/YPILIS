@@ -53,7 +53,7 @@
                 </TextBlock>
 
                 <TextBlock Grid.Column="0" Grid.Row="5" Margin="5,3,0,0" TextWrapping="Wrap">                    
-                    <Hyperlink Click="HyperLinkKRASStandardMutationAnalysis_Click">KRAS Standard Mutation Analysis</Hyperlink>
+                    <Hyperlink Click="HyperLinkRASRAFPanel_Click">RAS/RAF Panel</Hyperlink>
                 </TextBlock>
 
                 <TextBlock Grid.Column="0" Grid.Row="6" Margin="5,3,0,0" TextWrapping="Wrap">                    
