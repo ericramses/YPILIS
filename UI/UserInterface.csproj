@@ -697,10 +697,10 @@
     </Compile>
     <Compile Include="Test\CancelATestPath.cs" />
     <Compile Include="Test\EGFRToALKReflexAnalysisStatusColorConverter.cs" />
-    <Compile Include="Test\ExtractAndHoldForFlowResultPage.xaml.cs">
-      <DependentUpon>ExtractAndHoldForFlowResultPage.xaml</DependentUpon>
+    <Compile Include="Test\ExtractAndHoldForMolecularResultPage.xaml.cs">
+      <DependentUpon>ExtractAndHoldForMolecularResultPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Test\ExtractAndHoldForFlowResultPath.cs" />
+    <Compile Include="Test\ExtractAndHoldForMolecularResultPath.cs" />
     <Compile Include="Test\HoldForFlowResultPage.xaml.cs">
       <DependentUpon>HoldForFlowResultPage.xaml</DependentUpon>
     </Compile>
@@ -2376,7 +2376,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Test\ExtractAndHoldForFlowResultPage.xaml">
+    <Page Include="Test\ExtractAndHoldForMolecularResultPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
