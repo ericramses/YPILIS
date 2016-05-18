@@ -195,6 +195,17 @@ namespace YellowstonePathology.Business.Persistence
             }
         }
 
+        public YellowstonePathology.Business.Test.AliquotOrder PullAliquotOrder(string aliquotOrderId, object writer)
+        {
+            lock (locker)
+            {
+                AliquotOrderDocumentBuilder aliquotOrderDocumentBuilder = new AliquotOrderDocumentBuilder(aliquotOrderId);
+                DocumentId documentId = new DocumentId(typeof(YellowstonePathology.Business.Task.Model.TaskOrder), writer, aliquotOrderId);
+                Document document = this.m_Stack.Pull(documentId, aliquotOrderDocumentBuilder);
+                return (YellowstonePathology.Business.Test.AliquotOrder)document.Value;
+            }
+        }
+
         public YellowstonePathology.Business.User.UserPreference PullUserPreference(object writer)
         {
             lock (locker)

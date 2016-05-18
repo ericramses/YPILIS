@@ -566,24 +566,9 @@ namespace YellowstonePathology.Business.Test
 			return result;
 		}
 
-		public void ValidateBlock(string aliquotOrderId, int validatingUserId)
-		{
-			foreach (YellowstonePathology.Business.Test.AliquotOrder aliquotOrder in this)
-			{
-				if (aliquotOrder.AliquotOrderId == aliquotOrderId)
-				{
-					if (aliquotOrder.GrossVerified == false)
-					{
-						aliquotOrder.GrossVerified = true;
-						aliquotOrder.GrossVerifiedById = validatingUserId;
-						aliquotOrder.GrossVerifiedDate = DateTime.Now;
-						break;
-					}
-				}
-			}
-		}
+		
 
-		public bool Exists(string aliquotOrderId)
+        public bool Exists(string aliquotOrderId)
 		{
 			bool result = false;
 			foreach (AliquotOrder aliquotOrder in this)

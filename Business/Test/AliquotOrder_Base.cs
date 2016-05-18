@@ -19,7 +19,6 @@ namespace YellowstonePathology.Business.Test
         protected string m_AliquotOrderId;
         protected string m_SpecimenOrderId;
         protected bool m_ClientAccessioned;        
-        protected string m_TestOrderId;
         protected string m_AliquotType;
         protected string m_Description;
         protected string m_Label;
@@ -105,21 +104,7 @@ namespace YellowstonePathology.Business.Test
                     this.NotifyPropertyChanged("ClientAccessioned");
                 }
             }
-        }        
-
-        [PersistentProperty()]
-        public string TestOrderId
-        {
-            get { return this.m_TestOrderId; }
-            set
-            {
-                if (this.m_TestOrderId != value)
-                {
-                    this.m_TestOrderId = value;
-                    this.NotifyPropertyChanged("TestOrderId");
-                }
-            }
-        }
+        }       
 
         [PersistentProperty()]
         public string AliquotType
@@ -605,6 +590,28 @@ namespace YellowstonePathology.Business.Test
                 this.m_Validated = true;
                 this.m_Status = YellowstonePathology.Business.Slide.Model.SlideStatusEnum.Validated.ToString();
                 this.NotifyPropertyChanged(string.Empty);
+            }
+        }
+
+        public void GrossVerify(YellowstonePathology.Business.User.SystemUser systemUser)
+        {
+            if (this.GrossVerified == false)
+            {
+                this.GrossVerified = true;
+                this.GrossVerifiedById = systemUser.UserId;
+                this.GrossVerifiedDate = DateTime.Now;
+                this.GrossVerifiedBy = systemUser.UserName;
+            }
+        }
+
+        public void EmbeddingVerify(YellowstonePathology.Business.User.SystemUser systemUser)
+        {
+            if (this.EmbeddingVerified == false)
+            {
+                this.EmbeddingVerified = true;
+                this.EmbeddingVerifiedById = systemUser.UserId;
+                this.EmbeddingVerifiedDate = DateTime.Now;
+                this.EmbeddingVerifiedBy = systemUser.UserName;
             }
         }
 

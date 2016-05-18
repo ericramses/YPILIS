@@ -31,9 +31,6 @@ namespace YellowstonePathology.UI.Gross
         public delegate void ShowStainOrderPageEventHandler(object sender, CustomEventArgs.SpecimenOrderAliquotOrderReturnEventArgs e);
         public event ShowStainOrderPageEventHandler ShowStainOrderPage;
 
-        //public delegate void TimeOutEventHandler(object sender, CustomEventArgs.SpecimenOrderReturnEventArgs e);
-        //public event TimeOutEventHandler TimeOut;
-
         public delegate void NextEventHandler(object sender, UI.CustomEventArgs.SpecimenOrderReturnEventArgs e);
         public event NextEventHandler Next;
 
@@ -193,7 +190,7 @@ namespace YellowstonePathology.UI.Gross
                         thisLocation.LocationId, thisLocation.Description, "Block Scanned", "Block Scanned At Gross", "Aliquot", this.m_AccessionOrder.MasterAccessionNo, aliquotOrder.Label, aliquotOrder.ClientAccessioned);
                     YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(materialTrackingLog, Window.GetWindow(this));					
 
-                    this.m_SpecimenOrder.AliquotOrderCollection.ValidateBlock(barcode.ID, this.m_SystemIdentity.User.UserId);
+                    aliquotOrder.GrossVerify(this.m_SystemIdentity.User);
 					this.GrossBlockManagementView = new Business.View.GrossBlockManagementView(this.m_AccessionOrder, this.m_CaseNotesDocument, this.m_SpecimenOrder);
 					this.SetupSpecimenView();
 
