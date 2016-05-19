@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Test
 	/// <summary>
 	/// Interaction logic for BRAFV600EResultPage.xaml
 	/// </summary>
-	public partial class BRAFV600EKResultPage : UserControl, INotifyPropertyChanged 
+	public partial class BRAFV600EKResultPage : ResultControl, INotifyPropertyChanged 
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -42,7 +42,7 @@ namespace YellowstonePathology.UI.Test
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity,
 			YellowstonePathology.UI.Navigation.PageNavigator pageNavigator,
-			System.Windows.Visibility backButtonVisibility)
+			System.Windows.Visibility backButtonVisibility) : base(panelSetOrderBraf, accessionOrder)
 		{
 			this.m_PanelSetOrder = panelSetOrderBraf;
 			this.m_AccessionOrder = accessionOrder;
@@ -62,6 +62,11 @@ namespace YellowstonePathology.UI.Test
 
             this.m_ParentWindow = Window.GetWindow(this);
 			DataContext = this;
+
+            this.m_ControlsNotDisabledOnFinal.Add(this.ButtonBack);
+            this.m_ControlsNotDisabledOnFinal.Add(this.ButtonNext);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockShowDocument);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockUnfinalResults);
         }
 
         public YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKResultCollection ResultCollection
