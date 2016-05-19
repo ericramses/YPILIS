@@ -377,9 +377,11 @@
 						 FontSize="12" MinWidth="300" SpellCheck.IsEnabled="True" KeyUp="TextBox_KeyUp"
 						 Text="{Binding Path=SurgicalSpecimen.Diagnosis}" RequestBringIntoView="Any_RequestBringIntoView"
 						 IsEnabled="{Binding ElementName=SurgicalReviewControl, Path=DataContext.FieldEnabler.IsProtectedEnabled}">
+                    <!--
                     <SpellCheck.CustomDictionaries>
                         <system:Uri>pack://application:,,,/ypi-custom.lex</system:Uri>
                     </SpellCheck.CustomDictionaries>
+                    -->
 				</TextBox>
 
 				<ItemsControl Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2"  KeyboardNavigation.IsTabStop="False"

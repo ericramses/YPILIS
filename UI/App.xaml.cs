@@ -45,10 +45,15 @@ namespace YellowstonePathology.UI
             {
                 //do nothing
             }
-            
+
             this.DispatcherUnhandledException += new System.Windows.Threading.DispatcherUnhandledExceptionEventHandler(YellowstonePathology.Business.Logging.EmailExceptionHandler.HandleException);
-		}     
-               
+		}        
+
+        private void TextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            (sender as TextBox).SelectAll();
+        }
+
 
         protected override void OnStartup(StartupEventArgs e)
         {
@@ -71,9 +76,12 @@ namespace YellowstonePathology.UI
 			{
 				startUpWindow = "MainWindow.xaml";
 				this.StartupUri = new System.Uri(startUpWindow, System.UriKind.Relative);
-			}                        
+			}
 
-			this.StartTimer();            
+            EventManager.RegisterClassHandler(typeof(TextBox), TextBox.GotFocusEvent, new RoutedEventHandler(TextBox_GotFocus));
+            base.OnStartup(e);
+
+            this.StartTimer();            
 		}
 
         public static bool HandledictionarySetup()

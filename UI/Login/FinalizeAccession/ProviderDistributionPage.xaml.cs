@@ -41,7 +41,6 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
         private Visibility m_BackButtonVisibility;
 
         private YellowstonePathology.Business.User.SystemUserCollection m_SystemUserCollection;
-        //private bool m_Closing;        
 
         public ProviderDistributionPage(string reportNo, 
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
@@ -239,7 +238,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                 MessageBox.Show("You cannot continue because the provider has not been set.", "Continue?", MessageBoxButton.OK);                
             }            
             else
-            {
+            {                                
                 if (this.Next != null)
                 {
                     YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
@@ -293,7 +292,11 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
         {
             this.m_PageNavigator.Navigate(this);
             this.SetPhysicianClient(e.PhysicianClientDistribution);
-            this.SetDistribution();
+
+            YellowstonePathology.Business.ReportDistribution.Model.MultiTestDistributionHandler multiTestDistributionHandler = YellowstonePathology.Business.ReportDistribution.Model.MultiTestDistributionHandlerFactory.GetHandler(this.m_AccessionOrder);
+            multiTestDistributionHandler.Set();
+
+            this.SetDistribution();            
         }
 
         private void PhysicianClientSearchPage_Back(object sender, EventArgs e)
