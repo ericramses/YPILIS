@@ -26,8 +26,8 @@ namespace YellowstonePathology.UI.Test
         public delegate void BackEventHandler(object sender, EventArgs e);
         public event BackEventHandler Back;        
 
-        public delegate void OrderALKROS1AndPDL1EventHandler(object sender, EventArgs e);
-        public event OrderALKROS1AndPDL1EventHandler OrderALKROS1AndPDL1;
+        public delegate void OrderALKAndROS1EventHandler(object sender, EventArgs e);
+        public event OrderALKAndROS1EventHandler OrderALKAndROS1;
 
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
@@ -123,9 +123,9 @@ namespace YellowstonePathology.UI.Test
             get { return this.m_PageHeaderText; }
 		}
 
-        private void HyperLinkOrderALKROS1AndPDL1_Click(object sender, RoutedEventArgs e)
+        private void HyperLinkOrderALKAndROS1_Click(object sender, RoutedEventArgs e)
         {
-            this.OrderALKROS1AndPDL1(this, new EventArgs());
+            this.OrderALKAndROS1(this, new EventArgs());
         }  
 
 		private void HyperLinkSetResults_Click(object sender, RoutedEventArgs e)
@@ -245,27 +245,5 @@ namespace YellowstonePathology.UI.Test
             this.m_EGFRToALKReflexAnalysisResult = new Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisResult(this.m_AccessionOrder, this.m_EGFRToALKReflexAnalysisTestOrder);
             this.NotifyPropertyChanged(string.Empty);
         }                    
-
-        private void CheckBoxQNSForPDL1_Checked(object sender, RoutedEventArgs e)
-        {
-            this.m_EGFRToALKReflexAnalysisResult = new Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisResult(this.m_AccessionOrder, this.m_EGFRToALKReflexAnalysisTestOrder);
-            this.NotifyPropertyChanged(string.Empty);
-        }
-
-        private void CheckBoxQNSForPDL1_Unchecked(object sender, RoutedEventArgs e)
-        {
-            this.m_EGFRToALKReflexAnalysisResult = new Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisResult(this.m_AccessionOrder, this.m_EGFRToALKReflexAnalysisTestOrder);
-            this.NotifyPropertyChanged(string.Empty);
-        }
-
-        private void CheckBoxDoNotPerformPDL1_Checked(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void CheckBoxDoNotPerformPDL1_Unchecked(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }

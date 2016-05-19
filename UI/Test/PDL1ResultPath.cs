@@ -30,36 +30,39 @@ namespace YellowstonePathology.UI.Test
 
         private void ResultPage_Next(object sender, EventArgs e)
         {
-            if (this.ShowReflexTestPage() == false)
+            if (this.ShowAmendmentPage() == false)
             {
 				this.Finished();
 			}
-        }        
+        }
 
-        private bool ShowReflexTestPage()
+        private bool ShowAmendmentPage()
         {
             bool result = false;
-            YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisTest panelSet = new Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisTest();
-            if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(panelSet.PanelSetId, this.m_PanelSetOrder.OrderedOnId, true) == true)
+            if (this.m_AccessionOrder.PanelSetOrderCollection.HasSurgical() == true)
             {
-                YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisTestOrder testOrder = (YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSet.PanelSetId, this.m_PanelSetOrder.OrderedOnId, true);
-				result = true;
-				Test.EGFRToALKReflexPath egfrToALKReflexPath = new Test.EGFRToALKReflexPath(testOrder.ReportNo, this.m_AccessionOrder, this.m_PageNavigator, this.m_Window, System.Windows.Visibility.Visible);
-                egfrToALKReflexPath.Finish += new Test.EGFRToALKReflexPath.FinishEventHandler(EGFRToALKReflexPath_Finish);
-                egfrToALKReflexPath.Back += new EGFRToALKReflexPath.BackEventHandler(EGFRToALKReflexPath_Back);
-                egfrToALKReflexPath.Start();
-			}
+                YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetSurgical();
+                if (surgicalTestOrder.AmendmentCollection.HasAmendmentForReferenceReportNo(this.m_PanelSetOrder.ReportNo) == true)
+                {
+                    result = true;
+                    YellowstonePathology.Business.Amendment.Model.Amendment amendment = surgicalTestOrder.AmendmentCollection.GetAmendmentForReferenceReportNo(this.m_PanelSetOrder.ReportNo);
+                    AmendmentPage amendmentPage = new AmendmentPage(this.m_AccessionOrder, amendment, this.m_SystemIdentity);
+                    amendmentPage.Back += AmendmentPage_Back;
+                    amendmentPage.Finish += AmendmentPage_Finish;
+                    this.m_PageNavigator.Navigate(amendmentPage);
+                }
+            }
             return result;
         }
 
-        private void EGFRToALKReflexPath_Back(object sender, EventArgs e)
+        private void AmendmentPage_Finish(object sender, EventArgs e)
+        {
+            base.Finished();
+        }
+
+        private void AmendmentPage_Back(object sender, EventArgs e)
         {
             this.ShowResultPage();
         }
-
-		private void EGFRToALKReflexPath_Finish(object sender, EventArgs e)
-        {
-            base.Finished();
-		}
     }
 }

@@ -554,7 +554,6 @@
     <Compile Include="Test\CD1a\CD1aTest.cs" />
     <Compile Include="Test\ChromosomeAnalysis\ChromosomeAnalysisIncompleteResult.cs" />
     <Compile Include="Test\EGFRMutationAnalysis\EGFRMutationAnalysisPanel.cs" />
-    <Compile Include="Test\EGFRToALKReflexAnalysis\EGFRToALKReflexAnalysisPDL1Result.cs" />
     <Compile Include="Test\ErPrSemiQuantitative\ERPRSemiQuanititativePanel.cs" />
     <Compile Include="Test\ExtractAndHoldForMolecular\ExtractAndHoldForMolecularTest.cs" />
     <Compile Include="Test\ExtractAndHoldForMolecular\ExtractAndHoldForMolecularTestOrder.cs" />
@@ -731,6 +730,7 @@
     <Compile Include="Test\PantherOrderListItemNGCT.cs" />
     <Compile Include="Test\PantherOrderListItem.cs" />
     <Compile Include="Test\PDL1\PDL1EPICObxView.cs" />
+    <Compile Include="Test\PDL1\PDL1SystemGeneratedAmendmentText.cs" />
     <Compile Include="Test\PDL1\PDL1Test.cs" />
     <Compile Include="Test\PDL1\PDL1TestOrder.cs" />
     <Compile Include="Test\PDL1\PDL1WordDocument.cs" />

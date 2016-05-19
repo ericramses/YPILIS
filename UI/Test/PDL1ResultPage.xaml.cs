@@ -93,6 +93,22 @@ namespace YellowstonePathology.UI.Test
             if (result.Success == true)
             {
                 this.m_PanelSetOrder.Finish(this.m_AccessionOrder);
+                YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrder.OrderedOn, this.m_PanelSetOrder.OrderedOnId);
+
+                YellowstonePathology.Business.Test.Surgical.SurgicalTest panelSetSurgical = new YellowstonePathology.Business.Test.Surgical.SurgicalTest();
+
+                if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(panelSetSurgical.PanelSetId) == true)
+                {
+                    YellowstonePathology.Business.Test.PanelSetOrder surgicalPanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetSurgical.PanelSetId);
+                    if (surgicalPanelSetOrder.AmendmentCollection.HasAmendmentForReport(this.m_PanelSetOrder.ReportNo) == false)
+                    {
+                        string amendmentText = YellowstonePathology.Business.Test.PDL1.PDL1SystemGeneratedAmendmentText.AmendmentText(this.m_PanelSetOrder);
+                        YellowstonePathology.Business.Amendment.Model.Amendment amendment = surgicalPanelSetOrder.AddAmendment();
+                        amendment.TestResultAmendmentFill(surgicalPanelSetOrder.ReportNo, surgicalPanelSetOrder.AssignedToId, amendmentText);
+                        amendment.ReferenceReportNo = this.m_PanelSetOrder.ReportNo;
+                        amendment.SystemGenerated = true;
+                    }
+                }
             }
             else
             {
