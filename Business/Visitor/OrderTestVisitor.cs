@@ -44,6 +44,9 @@ namespace YellowstonePathology.Business.Visitor
         public override void Visit(Test.AccessionOrder accessionOrder)
         {
             this.m_AccessionOrder = accessionOrder;
+
+            YellowstonePathology.Business.ReportDistribution.Model.MultiTestDistributionHandler multiTestDistributionHandler = YellowstonePathology.Business.ReportDistribution.Model.MultiTestDistributionHandlerFactory.GetHandler(this.m_AccessionOrder);
+            multiTestDistributionHandler.Set();
         }
 
         public override void Visit(YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder)

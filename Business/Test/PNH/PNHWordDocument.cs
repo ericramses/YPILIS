@@ -65,7 +65,8 @@ namespace YellowstonePathology.Business.Test.PNH
 				this.HandleResultMonitor(testOrder.ResultCode);
 			}
 
-			this.ReplaceText("report_comment", testOrder.Comment);
+            this.ReplaceText("report_result", testOrder.Result);
+            this.ReplaceText("report_comment", testOrder.Comment);
 			this.ReplaceText("report_method", testOrder.Method);
 			this.ReplaceText("report_references", testOrder.References);
 			this.ReplaceText("asr_comment", testOrder.ASRComment);

@@ -9,10 +9,10 @@ namespace YellowstonePathology.Business.Test.PNH
 	{
 		public PNHSignificantPositiveResult()
 		{
-			this.m_Result = "Positive (Significant PNH clone identified)";
+			this.m_Result = "PNH clone identified.";
 			this.m_ResultCode = "PNHSGNFCNTPSTV";
-			this.m_Comment = "Flow cytometric analysis identified a significant PNH clonal population within the granulocytes (GRANULOCYTETOTAL%), " +
-				"monocytes (MONOCYTETOTAL%), and RBC's (REDBLOODTOTAL%).  These findings are consistent with paroxysmal nocturnal hemoglobinuria.  " +
+			this.m_Comment = "Flow cytometric analysis identified a PNH clonal population within the granulocytes (GRANULOCYTETOTAL%), " +
+				"monocytes (MONOCYTETOTAL%), and RBC's (REDBLOODTOTAL%).  " +
 				"Consider follow-up testing in 6 months to monitor PNH clone size.";
 		}
 

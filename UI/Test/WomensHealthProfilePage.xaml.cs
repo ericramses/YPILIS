@@ -180,10 +180,11 @@ namespace YellowstonePathology.UI.Test
                 YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new Business.Test.TestOrderInfo(panelSetHPV, orderTarget, true);                
                 YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Business.Visitor.OrderTestOrderVisitor(testOrderInfo);
                 this.m_AccessionOrder.TakeATrip(orderTestOrderVisitor);
-
-                //this.Save(false);
-
                 this.m_AuditCollection.Run();
+
+                YellowstonePathology.Business.ReportDistribution.Model.MultiTestDistributionHandler multiTestDistributionHandler = YellowstonePathology.Business.ReportDistribution.Model.MultiTestDistributionHandlerFactory.GetHandler(this.m_AccessionOrder);
+                multiTestDistributionHandler.Set();
+
                 this.NotifyPropertyChanged(string.Empty);
             }
             else
@@ -201,8 +202,11 @@ namespace YellowstonePathology.UI.Test
                 YellowstonePathology.Business.Test.NGCT.NGCTTest ngctTest = new YellowstonePathology.Business.Test.NGCT.NGCTTest();
                 YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new Business.Test.TestOrderInfo(ngctTest, orderTarget, true);                
                 YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Business.Visitor.OrderTestOrderVisitor(testOrderInfo);
-                this.m_AccessionOrder.TakeATrip(orderTestOrderVisitor);             
-                
+                this.m_AccessionOrder.TakeATrip(orderTestOrderVisitor);
+
+                YellowstonePathology.Business.ReportDistribution.Model.MultiTestDistributionHandler multiTestDistributionHandler = YellowstonePathology.Business.ReportDistribution.Model.MultiTestDistributionHandlerFactory.GetHandler(this.m_AccessionOrder);
+                multiTestDistributionHandler.Set();
+
                 this.m_AuditCollection.Run();
                 this.NotifyPropertyChanged(string.Empty);
             }
@@ -222,7 +226,10 @@ namespace YellowstonePathology.UI.Test
                 YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new Business.Test.TestOrderInfo(trichomonasTest, orderTarget, true);                
                 YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Business.Visitor.OrderTestOrderVisitor(testOrderInfo);
                 this.m_AccessionOrder.TakeATrip(orderTestOrderVisitor);
-                
+
+                YellowstonePathology.Business.ReportDistribution.Model.MultiTestDistributionHandler multiTestDistributionHandler = YellowstonePathology.Business.ReportDistribution.Model.MultiTestDistributionHandlerFactory.GetHandler(this.m_AccessionOrder);
+                multiTestDistributionHandler.Set();
+
                 this.m_AuditCollection.Run();
                 this.NotifyPropertyChanged(string.Empty);
             }
@@ -242,7 +249,10 @@ namespace YellowstonePathology.UI.Test
                 YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new Business.Test.TestOrderInfo(hpv1618Test, orderTarget, true);                                
 
                 YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Business.Visitor.OrderTestOrderVisitor(testOrderInfo);
-                this.m_AccessionOrder.TakeATrip(orderTestOrderVisitor);                
+                this.m_AccessionOrder.TakeATrip(orderTestOrderVisitor);
+
+                YellowstonePathology.Business.ReportDistribution.Model.MultiTestDistributionHandler multiTestDistributionHandler = YellowstonePathology.Business.ReportDistribution.Model.MultiTestDistributionHandlerFactory.GetHandler(this.m_AccessionOrder);
+                multiTestDistributionHandler.Set();
 
                 this.m_AuditCollection.Run();
                 this.NotifyPropertyChanged(string.Empty);
@@ -263,6 +273,10 @@ namespace YellowstonePathology.UI.Test
                 YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new Business.Test.TestOrderInfo(thinPrepPapTest, orderTarget, true);                
                 YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Business.Visitor.OrderTestOrderVisitor(testOrderInfo);
                 this.m_AccessionOrder.TakeATrip(orderTestOrderVisitor);
+
+                YellowstonePathology.Business.ReportDistribution.Model.MultiTestDistributionHandler multiTestDistributionHandler = YellowstonePathology.Business.ReportDistribution.Model.MultiTestDistributionHandlerFactory.GetHandler(this.m_AccessionOrder);
+                multiTestDistributionHandler.Set();
+
                 this.m_AuditCollection.Run();
                 this.NotifyPropertyChanged(string.Empty);                
             }

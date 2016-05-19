@@ -15,7 +15,8 @@ namespace YellowstonePathology.Business.Test.PNH
 			this.Add(new PNHSignificantPositiveResult());
 			this.Add(new PNHPersistentPositiveResult());
 			this.Add(new PNHGpiDeficientResult());
-			this.Add(new YellowstonePathology.Business.Test.TestResultNoResult());
+            this.Add(new PNHRareResult());
+            this.Add(new YellowstonePathology.Business.Test.TestResultNoResult());
 		}
 
 		public static PNHResult GetResult(PNHTestOrder pnhTestOrder, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
@@ -37,19 +38,24 @@ namespace YellowstonePathology.Business.Test.PNH
 			{
 				result = new PNHNegativeResult();
 			}
-			else if (result.IsSmallPositiveResult == true)
+            else if (result.IsRareResult == true)
+            {
+                result = new PNHRareResult();
+            }
+            else if (result.IsSmallPositiveResult == true)
 			{
 				result = new PNHSmallPositiveResult();
-			}
-			else if (result.IsSignificantPositiveResult == true)
+			}            
+            else if (result.IsSignificantPositiveResult == true)
 			{
 				result = new PNHSignificantPositiveResult();
 			}
 			else if (result.IsGpiDeficientResult == true)
 			{
 				result = new PNHGpiDeficientResult();
-			}
-			result.SetTotals(pnhTestOrder);
+			}            
+
+            result.SetTotals(pnhTestOrder);
 			return result;
 		}
 	}
