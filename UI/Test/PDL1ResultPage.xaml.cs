@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Test
     /// <summary>
     /// Interaction logic for PDL1ResultPage.xaml
     /// </summary>
-    public partial class PDL1ResultPage : UserControl, INotifyPropertyChanged 
+    public partial class PDL1ResultPage : ResultControl, INotifyPropertyChanged 
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -34,7 +34,7 @@ namespace YellowstonePathology.UI.Test
 
         public PDL1ResultPage(YellowstonePathology.Business.Test.PDL1.PDL1TestOrder testOrder,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-            YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+            YellowstonePathology.Business.User.SystemIdentity systemIdentity) : base(testOrder, accessionOrder)
         {
             this.m_PanelSetOrder = testOrder;
             this.m_AccessionOrder = accessionOrder;
@@ -47,7 +47,11 @@ namespace YellowstonePathology.UI.Test
             
             InitializeComponent();
 
-            DataContext = this;                   
+            DataContext = this;
+
+            this.m_ControlsNotDisabledOnFinal.Add(this.ButtonNext);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockShowDocument);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockUnfinalResults);
         }        
 
         public string OrderedOnDescription

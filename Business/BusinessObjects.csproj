@@ -180,7 +180,6 @@
     <Compile Include="Audit.Model\IntraoperativeConsultationCorrelationAudit.cs" />
     <Compile Include="Audit.Model\IntraoperativeConsultationFinalAudit.cs" />
     <Compile Include="Audit.Model\PathologistSignoutIsHandledAuditCollection.cs" />
-    <Compile Include="Audit.Model\KRASForMetastaticColorectalCancerAudit.cs" />
     <Compile Include="Audit.Model\LynchSyndromeAudit.cs" />
     <Compile Include="Audit.Model\NonASCIICharacterAudit.cs" />
     <Compile Include="Audit.Model\PapCorrelationIsRequiredAudit.cs" />
@@ -195,6 +194,7 @@
     <Compile Include="Audit.Model\ProviderDisplayNameAudit.cs" />
     <Compile Include="Audit.Model\ProviderHomeBaseAudit.cs" />
     <Compile Include="Audit.Model\ProviderNpiAudit.cs" />
+    <Compile Include="Audit.Model\RASRAForMetastaticColorectalCancerAudit.cs" />
     <Compile Include="Audit.Model\SigningUserIsAssignedUserAudit.cs" />
     <Compile Include="Audit.Model\SpecimenOrderAudit.cs" />
     <Compile Include="Audit.Model\IsOKToAdjustWHPExpectedFinalTimeAuditCollection.cs" />
@@ -556,8 +556,8 @@
     <Compile Include="Test\EGFRMutationAnalysis\EGFRMutationAnalysisPanel.cs" />
     <Compile Include="Test\EGFRToALKReflexAnalysis\EGFRToALKReflexAnalysisPDL1Result.cs" />
     <Compile Include="Test\ErPrSemiQuantitative\ERPRSemiQuanititativePanel.cs" />
-    <Compile Include="Test\ExtractAndHoldForFlow\ExtractAndHoldForFlowTest.cs" />
-    <Compile Include="Test\ExtractAndHoldForFlow\ExtractAndHoldForFlowTestOrder.cs" />
+    <Compile Include="Test\ExtractAndHoldForMolecular\ExtractAndHoldForMolecularTest.cs" />
+    <Compile Include="Test\ExtractAndHoldForMolecular\ExtractAndHoldForMolecularTestOrder.cs" />
     <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHPanel.cs" />
     <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHSystemGeneratedAmendmentText.cs" />
     <Compile Include="Test\HoldForFlow\HoldForFlowTestOrder.cs" />

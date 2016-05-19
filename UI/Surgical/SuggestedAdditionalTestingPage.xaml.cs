@@ -131,12 +131,12 @@ namespace YellowstonePathology.UI.Surgical
             }
         }
 
-        private void HyperLinkKRASStandardMutationAnalysis_Click(object sender, RoutedEventArgs e)
+        private void HyperLinkRASRAFPanel_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Test.KRASStandard.KRASStandardTest krasStandardTest = new Business.Test.KRASStandard.KRASStandardTest();
-            if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(krasStandardTest.PanelSetId) == false)
+            YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelTest rasRAFPanelTest = new Business.Test.RASRAFPanel.RASRAFPanelTest();
+            if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(rasRAFPanelTest.PanelSetId) == false)
             {
-                this.OrderTest(this, new CustomEventArgs.PanelSetReturnEventArgs(krasStandardTest));
+                this.OrderTest(this, new CustomEventArgs.PanelSetReturnEventArgs(rasRAFPanelTest));
             }
         }
 

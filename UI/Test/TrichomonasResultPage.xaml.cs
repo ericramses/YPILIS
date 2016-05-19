@@ -19,7 +19,7 @@ namespace YellowstonePathology.UI.Test
 	/// <summary>
 	/// Interaction logic for PanelSetOrderSelectionPage.xaml
 	/// </summary>
-	public partial class TrichomonasResultPage : UserControl, INotifyPropertyChanged 
+	public partial class TrichomonasResultPage : ResultControl, INotifyPropertyChanged 
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -35,7 +35,7 @@ namespace YellowstonePathology.UI.Test
 
         public TrichomonasResultPage(YellowstonePathology.Business.Test.Trichomonas.TrichomonasTestOrder trichomonasTestOrder,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+			YellowstonePathology.Business.User.SystemIdentity systemIdentity) : base(trichomonasTestOrder, accessionOrder)
 		{            
 			this.m_AccessionOrder = accessionOrder;			
 			this.m_SystemIdentity = systemIdentity;
@@ -49,6 +49,10 @@ namespace YellowstonePathology.UI.Test
 			DataContext = this;
             Loaded += TrichomonasResultPage_Loaded;
             Unloaded += TrichomonasResultPage_Unloaded;
+
+            this.m_ControlsNotDisabledOnFinal.Add(this.ButtonNext);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockShowDocument);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockUnfinalResults);
 		}
 
         private void TrichomonasResultPage_Loaded(object sender, RoutedEventArgs e)

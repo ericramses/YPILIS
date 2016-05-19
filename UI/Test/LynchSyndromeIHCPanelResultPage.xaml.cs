@@ -19,7 +19,7 @@ namespace YellowstonePathology.UI.Test
 	/// <summary>
 	/// Interaction logic for LynchSyndromeResultPage.xaml
 	/// </summary>
-	public partial class LynchSyndromeIHCPanelResultPage : UserControl, INotifyPropertyChanged 
+	public partial class LynchSyndromeIHCPanelResultPage : ResultControl, INotifyPropertyChanged 
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -35,7 +35,7 @@ namespace YellowstonePathology.UI.Test
 
         public LynchSyndromeIHCPanelResultPage(YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeIHC panelSetOrderLynchSyndromeIHC,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+			YellowstonePathology.Business.User.SystemIdentity systemIdentity) : base(panelSetOrderLynchSyndromeIHC, accessionOrder)
 		{
 			this.m_PanelSetOrderLynchSyndromeIHC = panelSetOrderLynchSyndromeIHC;
 			this.m_AccessionOrder = accessionOrder;
@@ -50,6 +50,10 @@ namespace YellowstonePathology.UI.Test
 			InitializeComponent();
 
 			DataContext = this;
+
+            this.m_ControlsNotDisabledOnFinal.Add(this.ButtonNext);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockShowDocument);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockUnfinalResults);
         }
 
         public string OrderedOnDescription

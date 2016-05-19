@@ -25,7 +25,7 @@ namespace YellowstonePathology.UI.Test
 
         protected override void ShowResultPage()
 		{
-            this.m_InvasiveBreastPanelPage = new InvasiveBreastPanelPage(this.m_ReportNo, this.m_AccessionOrder, this.m_SystemIdentity);
+            this.m_InvasiveBreastPanelPage = new InvasiveBreastPanelPage(this.m_InvasiveBreastPanel, this.m_AccessionOrder, this.m_SystemIdentity);
             this.m_InvasiveBreastPanelPage.Next += new InvasiveBreastPanelPage.NextEventHandler(InvasiveBreastPanelPage_Next);
             this.m_InvasiveBreastPanelPage.OrderHER2byFISH += new InvasiveBreastPanelPage.OrderHER2byFISHEventHandler(InvasiveBreastPanelPage_OrderHER2byFISH);
 			this.m_PageNavigator.Navigate(this.m_InvasiveBreastPanelPage);

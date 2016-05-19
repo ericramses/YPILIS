@@ -1,17 +1,17 @@
 ﻿using System;
 using YellowstonePathology.Business.Persistence;
 
-namespace YellowstonePathology.Business.Test.ExtractAndHoldForFlow
+namespace YellowstonePathology.Business.Test.ExtractAndHoldForMolecular
 {
-    [PersistentClass("tblExtractAndHoldForFlowTestOrder", "tblPanelSetOrder", "YPIDATA")]
-    public class ExtractAndHoldForFlowTestOrder : YellowstonePathology.Business.Test.PanelSetOrder
+    [PersistentClass("tblExtractAndHoldForMolecularTestOrder", "tblPanelSetOrder", "YPIDATA")]
+    public class ExtractAndHoldForMolecularTestOrder : YellowstonePathology.Business.Test.PanelSetOrder
     {
         private string m_Comment;
 
-        public ExtractAndHoldForFlowTestOrder()
+        public ExtractAndHoldForMolecularTestOrder()
         { }
 
-        public ExtractAndHoldForFlowTestOrder(string masterAccessionNo, string reportNo, string objectId,
+        public ExtractAndHoldForMolecularTestOrder(string masterAccessionNo, string reportNo, string objectId,
             YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
             YellowstonePathology.Business.Interface.IOrderTarget orderTarget,
             bool distribute)
