@@ -413,6 +413,7 @@
     <Compile Include="Gateway\PatientLinkingGateway.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Hello4.cs" />
     <Compile Include="Helper\DateTimeJoiner.cs" />
     <Compile Include="Helper\DateTimeSplitter.cs" />
     <Compile Include="Helper\EnumDiscriptionValuePair.cs" />

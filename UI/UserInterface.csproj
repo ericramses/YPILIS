@@ -28,7 +28,7 @@
     </AssemblyOriginatorKeyFile>
     <ApplicationIcon>YPI.ico</ApplicationIcon>
     <TargetFrameworkProfile />
-    <PublishUrl>\\ypiidc\YPIILIS\Application\</PublishUrl>
+    <PublishUrl>\\Ypiidc\YPIILIS\Test\</PublishUrl>
     <Install>false</Install>
     <InstallFrom>Unc</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -40,7 +40,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>221</ApplicationRevision>
+    <ApplicationRevision>227</ApplicationRevision>
     <ApplicationVersion>10.1.4.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -397,6 +397,9 @@
     </Compile>
     <Compile Include="Monitor\MissingInformationMonitorPage.xaml.cs">
       <DependentUpon>MissingInformationMonitorPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="NetMQTesting.xaml.cs">
+      <DependentUpon>NetMQTesting.xaml</DependentUpon>
     </Compile>
     <Compile Include="NHunspell.xaml.cs">
       <DependentUpon>NHunspell.xaml</DependentUpon>
@@ -2087,6 +2090,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="NetMQTesting.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="NHunspell.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -3709,12 +3716,16 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Business\BusinessObjects.csproj">
-      <Project>{0712F3D4-5C03-4446-B8FE-B8F5BE9495B1}</Project>
+      <Project>{0712f3d4-5c03-4446-b8fe-b8f5be9495b1}</Project>
       <Name>BusinessObjects</Name>
     </ProjectReference>
     <ProjectReference Include="..\DomainPersistence\DomainPersistence.csproj">
       <Project>{0B68C6D2-6418-4ECD-95D5-93DD6F8E1782}</Project>
       <Name>DomainPersistence</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YellowstonePathology.NetMQ\NetMQ.csproj">
+      <Project>{82934bac-07fb-41ac-ae59-46fee6026a40}</Project>
+      <Name>NetMQ</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -948,5 +948,11 @@ namespace YellowstonePathology.UI
             EmbeddingDialog embeddingDialog = new EmbeddingDialog();
             embeddingDialog.ShowDialog();
         }
+
+        private void MenuItemNetMQ_Click(object sender, RoutedEventArgs e)
+        {
+            NetMQTesting netMQTesting = new NetMQTesting();
+            netMQTesting.Show();
+        }
     }    
 }
