@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Test
 	/// <summary>
 	/// Interaction logic for MLH1MethalationAnalysisResultPage.xaml
 	/// </summary>
-	public partial class MLH1MethalationAnalysisResultPage : UserControl, INotifyPropertyChanged 
+	public partial class MLH1MethalationAnalysisResultPage : ResultControl, INotifyPropertyChanged 
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -35,7 +35,7 @@ namespace YellowstonePathology.UI.Test
 
 		public MLH1MethalationAnalysisResultPage(YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderMLH1MethylationAnalysis panelSetOrderMLH1MethylationAnalysis,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+			YellowstonePathology.Business.User.SystemIdentity systemIdentity): base(panelSetOrderMLH1MethylationAnalysis, accessionOrder)
 		{
 			this.m_PanelSetOrder = panelSetOrderMLH1MethylationAnalysis;
 			this.m_AccessionOrder = accessionOrder;
@@ -51,6 +51,10 @@ namespace YellowstonePathology.UI.Test
 			InitializeComponent();
 
             this.DataContext = this;
+
+            this.m_ControlsNotDisabledOnFinal.Add(this.ButtonNext);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockShowDocument);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockUnfinalResults);
         }
 
         public YellowstonePathology.Business.Test.LynchSyndrome.MLH1MethylationAnalysisResultCodeCollection ResultCodeCollection
