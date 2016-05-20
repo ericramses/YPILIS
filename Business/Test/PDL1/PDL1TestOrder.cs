@@ -47,6 +47,8 @@ namespace YellowstonePathology.Business.Test.PDL1
                 "virusassociated malignancies.Clin Cancer Res. 2013; 19(13):3462 - 73." + Environment.NewLine +
                 "5. Zhang Y, Kang S, Shen J, et al. Prognostic significance of programmed cell death 1(PD - 1) or PD-1 ligand 1(PD - L1) Expression " +
                 "in epithelial - originated cancer: a meta-analysis.Medicine(Baltimore). 2015; 94(6):e515.";
+            this.m_Comment = "This test utilizes PD-L1 antibody clone SP142.  In general, higher levels of PD-L1 expression are associated with " +
+                "better response to PD-1 antagonists.";
         }
 
         [PersistentProperty()]

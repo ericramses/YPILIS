@@ -16,7 +16,7 @@ using System.Xml.Linq;
 
 namespace YellowstonePathology.UI.Test
 {	
-	public partial class HPV1618ByPCRResultPage : UserControl, INotifyPropertyChanged 
+	public partial class HPV1618ByPCRResultPage : ResultControl, INotifyPropertyChanged 
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -34,7 +34,7 @@ namespace YellowstonePathology.UI.Test
 		public HPV1618ByPCRResultPage(YellowstonePathology.Business.Test.HPV1618ByPCR.HPV1618ByPCRTestOrder hpv1618ByPCRTestOrder,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity,
-			YellowstonePathology.UI.Navigation.PageNavigator pageNavigator)
+			YellowstonePathology.UI.Navigation.PageNavigator pageNavigator) : base(hpv1618ByPCRTestOrder, accessionOrder)
 		{
 			this.m_HPV1618ByPCRTestOrder = hpv1618ByPCRTestOrder;
 			this.m_AccessionOrder = accessionOrder;
@@ -47,6 +47,10 @@ namespace YellowstonePathology.UI.Test
 			InitializeComponent();
 
 			DataContext = this;
+
+            this.m_ControlsNotDisabledOnFinal.Add(this.ButtonNext);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockShowDocument);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockUnfinalResults);
         }
 
         public List<string> IndicationList

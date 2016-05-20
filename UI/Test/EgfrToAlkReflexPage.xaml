@@ -46,7 +46,7 @@
             <TextBlock Grid.Column="0" Grid.Row="0" Margin="0,5,0,0" FontWeight="Bold" FontSize="16">Order</TextBlock>
 
             <TextBlock Grid.Column="0" Grid.Row="1" Margin="5,3,0,0">
-                <Hyperlink Click="HyperLinkOrderALKROS1AndPDL1_Click" FontSize="14">ALK ROS1 and PDL1</Hyperlink>
+                <Hyperlink Click="HyperLinkOrderALKAndROS1_Click" FontSize="14">ALK and ROS1</Hyperlink>
             </TextBlock>
 
             <TextBlock Grid.Column="0" Grid.Row="3" Margin="0,20,0,0" FontWeight="Bold" FontSize="16">Options</TextBlock>
@@ -218,39 +218,6 @@
                         </Grid>
                     </Border>
 
-                    <Border Grid.Column="3" Grid.Row="1">
-                        <Border.Style>
-                            <Style>
-                                <Setter Property="Border.Background" Value="{Binding Path=EGFRToALKReflexAnalysisResult.EGFRToALKReflexAnalysisPDL1Result.Status, Converter={StaticResource EGFRToALKReflexAnalysisStatusColorConverter}}"/>
-                                <Setter Property="Border.BorderBrush" Value="Gray"/>
-                                <Setter Property="Border.BorderThickness" Value="1"/>
-                                <Setter Property="Border.Padding" Value="1"/>
-                            </Style>
-                        </Border.Style>
-                        <Grid Width="200" Height="60" Margin="2,2,2,2">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"></ColumnDefinition>
-                                <ColumnDefinition Width="*"></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"></RowDefinition>
-                                <RowDefinition Height="Auto"></RowDefinition>
-                                <RowDefinition Height="Auto"></RowDefinition>
-                                <RowDefinition Height="*"></RowDefinition>
-                            </Grid.RowDefinitions>
-
-                            <TextBlock Grid.Column="0" Grid.Row="0" FontWeight="Bold" Margin="2,2,2,2" HorizontalAlignment="Right">Test:</TextBlock>
-                            <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Path=EGFRToALKReflexAnalysisResult.EGFRToALKReflexAnalysisPDL1Result.TestAbbreviation}" Margin="2,2,2,2"/>
-
-                            <TextBlock Grid.Column="0" Grid.Row="1" FontWeight="Bold" Margin="2,2,2,2" HorizontalAlignment="Right">Status:</TextBlock>
-                            <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Path=EGFRToALKReflexAnalysisResult.EGFRToALKReflexAnalysisPDL1Result.Status}" Margin="2,2,2,2"/>                            
-
-                            <TextBlock Grid.Column="0" Grid.Row="2" FontWeight="Bold" Margin="2,2,2,2" HorizontalAlignment="Right">Result:</TextBlock>
-                            <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding Path=EGFRToALKReflexAnalysisResult.EGFRToALKReflexAnalysisPDL1Result.ResultAbbreviation}" Margin="2,2,2,2"/>
-
-                        </Grid>
-                    </Border>
-
                 </Grid>
                 
                 <TextBlock Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" FontWeight="Bold">Ordered On:</TextBlock>
@@ -264,12 +231,6 @@
 
                 <TextBlock Grid.Column="0" Grid.Row="4" Margin="2,2,2,2" VerticalAlignment="Center" FontWeight="Bold" HorizontalAlignment="Left">QNS for ROS1:</TextBlock>
                 <CheckBox Grid.Column="1" Grid.Row="4" Margin="2,2,2,2" IsChecked="{Binding Path=EGFRToALKReflexAnalysisTestOrder.QNSForROS1}" Checked="CheckBoxQNSForROS1_Checked" Unchecked="CheckBoxQNSForROS1_Unchecked"/>
-
-                <TextBlock Grid.Column="0" Grid.Row="5" Margin="2,2,2,2" VerticalAlignment="Center" FontWeight="Bold" HorizontalAlignment="Left">QNS for PDL1:</TextBlock>
-                <CheckBox Grid.Column="1" Grid.Row="5" Margin="2,2,2,2" IsChecked="{Binding Path=EGFRToALKReflexAnalysisTestOrder.QNSForPDL1}" Checked="CheckBoxQNSForPDL1_Checked" Unchecked="CheckBoxQNSForPDL1_Unchecked"/>
-
-                <TextBlock Grid.Column="0" Grid.Row="6" Margin="2,2,2,2" VerticalAlignment="Center" FontWeight="Bold" HorizontalAlignment="Left">Do Not Perform PDL1:</TextBlock>
-                <CheckBox Grid.Column="1" Grid.Row="6" Margin="2,2,2,2" IsChecked="{Binding Path=EGFRToALKReflexAnalysisTestOrder.DoNotPerformPDL1}" Checked="CheckBoxDoNotPerformPDL1_Checked" Unchecked="CheckBoxDoNotPerformPDL1_Unchecked"/>
 
                 <TextBlock Grid.Column="0" Grid.Row="7" FontWeight="Bold" Margin="2,2,2,2">Interpretation:</TextBlock>
 				<TextBox Grid.Column="0" Grid.Row="8" Grid.ColumnSpan="2" Margin="2,2,2,2" Text="{Binding Path=EGFRToALKReflexAnalysisTestOrder.Interpretation}" TextWrapping="Wrap" AcceptsReturn="True" />
