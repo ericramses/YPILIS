@@ -19,7 +19,7 @@ namespace YellowstonePathology.UI.Test
 	/// <summary>
 	/// Interaction logic for LynchSyndromeEvaluationResultPage.xaml
 	/// </summary>
-	public partial class LynchSyndromeEvaluationResultPage : UserControl, INotifyPropertyChanged 
+	public partial class LynchSyndromeEvaluationResultPage : ResultControl, INotifyPropertyChanged 
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -53,7 +53,7 @@ namespace YellowstonePathology.UI.Test
 		public LynchSyndromeEvaluationResultPage(YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromeEvaluation,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity,
-            System.Windows.Visibility backButtonVisibility)
+            System.Windows.Visibility backButtonVisibility) : base(panelSetOrderLynchSyndromeEvaluation, accessionOrder)
 		{
 			this.m_PanelSetOrderLynchSyndromeEvaluation = panelSetOrderLynchSyndromeEvaluation;
 			this.m_AccessionOrder = accessionOrder;
@@ -72,7 +72,12 @@ namespace YellowstonePathology.UI.Test
 			DataContext = this;
             			
             this.Loaded += new RoutedEventHandler(LynchSyndromeEvaluationResultPage_Loaded);
-		}
+
+            this.m_ControlsNotDisabledOnFinal.Add(this.ButtonBack);
+            this.m_ControlsNotDisabledOnFinal.Add(this.ButtonNext);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockShowDocument);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockUnfinalResults);
+        }
 
         private void LynchSyndromeEvaluationResultPage_Loaded(object sender, RoutedEventArgs e)
         {

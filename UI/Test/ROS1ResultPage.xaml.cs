@@ -16,7 +16,7 @@ using System.Xml.Linq;
 
 namespace YellowstonePathology.UI.Test
 {	
-	public partial class ROS1ResultPage : UserControl, INotifyPropertyChanged 
+	public partial class ROS1ResultPage : ResultControl, INotifyPropertyChanged 
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -34,7 +34,7 @@ namespace YellowstonePathology.UI.Test
 
         public ROS1ResultPage(YellowstonePathology.Business.Test.ROS1ByFISH.ROS1ByFISHTestOrder ros1ByFISHTestOrder,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+			YellowstonePathology.Business.User.SystemIdentity systemIdentity) : base(ros1ByFISHTestOrder, accessionOrder)
 		{
             this.m_ROS1ByFISHTestOrder = ros1ByFISHTestOrder;
 			this.m_AccessionOrder = accessionOrder;			
@@ -53,7 +53,11 @@ namespace YellowstonePathology.UI.Test
 			DataContext = this;				
 			
 			Loaded += ROS1ResultPage_Loaded;
-		}
+
+            this.m_ControlsNotDisabledOnFinal.Add(this.ButtonNext);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockShowDocument);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockUnfinalResults);
+        }
 
         public void ROS1ResultPage_Loaded(object sender, RoutedEventArgs e)
         {

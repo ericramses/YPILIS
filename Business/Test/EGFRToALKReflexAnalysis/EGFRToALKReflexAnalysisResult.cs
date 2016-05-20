@@ -10,7 +10,6 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
         private EGFRToALKReflexAnalysisEGFRResult m_EGFRToALKReflexAnalysisEGFRResult;
         private EGFRToALKReflexAnalysisALKResult m_EGFRToALKReflexAnalysisALKResult;
         private EGFRToALKReflexAnalysisROS1Result m_EGFRToALKReflexAnalysisROS1RResult;
-        private EGFRToALKReflexAnalysisPDL1Result m_EGFRToALKReflexAnalysisPDL1RResult;
 
         public EGFRToALKReflexAnalysisResult(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, 
             YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisTestOrder egfrToALKReflexAnalysisTestOrder)
@@ -18,7 +17,6 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
             this.m_EGFRToALKReflexAnalysisEGFRResult = new EGFRToALKReflexAnalysisEGFRResult(accessionOrder);
             this.m_EGFRToALKReflexAnalysisALKResult = new EGFRToALKReflexAnalysisALKResult(accessionOrder, this.m_EGFRToALKReflexAnalysisEGFRResult.EGFRMutationAnalysisResult, egfrToALKReflexAnalysisTestOrder);
             this.m_EGFRToALKReflexAnalysisROS1RResult = new EGFRToALKReflexAnalysisROS1Result(accessionOrder, this.m_EGFRToALKReflexAnalysisEGFRResult.EGFRMutationAnalysisResult, egfrToALKReflexAnalysisTestOrder);
-            this.m_EGFRToALKReflexAnalysisPDL1RResult = new EGFRToALKReflexAnalysisPDL1Result(accessionOrder, this.m_EGFRToALKReflexAnalysisEGFRResult.EGFRMutationAnalysisResult, egfrToALKReflexAnalysisTestOrder);
         }
 
         public EGFRToALKReflexAnalysisEGFRResult EGFRToALKReflexAnalysisEGFRResult
@@ -34,11 +32,6 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
         public EGFRToALKReflexAnalysisROS1Result EGFRToALKReflexAnalysisROS1Result
         {
             get { return this.m_EGFRToALKReflexAnalysisROS1RResult; }
-        }
-
-        public EGFRToALKReflexAnalysisPDL1Result EGFRToALKReflexAnalysisPDL1Result
-        {
-            get { return this.m_EGFRToALKReflexAnalysisPDL1RResult; }
         }
     }
 }

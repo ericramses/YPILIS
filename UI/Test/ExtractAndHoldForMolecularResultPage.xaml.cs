@@ -10,9 +10,9 @@ using System.ComponentModel;
 namespace YellowstonePathology.UI.Test
 {
     /// <summary>
-    /// Interaction logic for ExtractAndHoldForFlowResultPage.xaml
+    /// Interaction logic for ExtractAndHoldForMolecularResultPage.xaml
     /// </summary>
-    public partial class ExtractAndHoldForFlowResultPage : UserControl, INotifyPropertyChanged
+    public partial class ExtractAndHoldForMolecularResultPage : ResultControl, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -23,12 +23,12 @@ namespace YellowstonePathology.UI.Test
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         private string m_PageHeaderText;
 
-        private YellowstonePathology.Business.Test.ExtractAndHoldForFlow.ExtractAndHoldForFlowTestOrder m_PanelSetOrder;
+        private YellowstonePathology.Business.Test.ExtractAndHoldForMolecular.ExtractAndHoldForMolecularTestOrder m_PanelSetOrder;
         private string m_OrderedOnDescription;
 
-        public ExtractAndHoldForFlowResultPage(YellowstonePathology.Business.Test.ExtractAndHoldForFlow.ExtractAndHoldForFlowTestOrder testOrder,
+        public ExtractAndHoldForMolecularResultPage(YellowstonePathology.Business.Test.ExtractAndHoldForMolecular.ExtractAndHoldForMolecularTestOrder testOrder,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-            YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+            YellowstonePathology.Business.User.SystemIdentity systemIdentity) : base(testOrder, accessionOrder)
         {
             this.m_PanelSetOrder = testOrder;
             this.m_AccessionOrder = accessionOrder;
@@ -42,6 +42,8 @@ namespace YellowstonePathology.UI.Test
             InitializeComponent();
 
             DataContext = this;
+
+            
         }
 
         public string OrderedOnDescription
@@ -49,7 +51,7 @@ namespace YellowstonePathology.UI.Test
             get { return this.m_OrderedOnDescription; }
         }
 
-        public YellowstonePathology.Business.Test.ExtractAndHoldForFlow.ExtractAndHoldForFlowTestOrder PanelSetOrder
+        public YellowstonePathology.Business.Test.ExtractAndHoldForMolecular.ExtractAndHoldForMolecularTestOrder PanelSetOrder
         {
             get { return this.m_PanelSetOrder; }
         }

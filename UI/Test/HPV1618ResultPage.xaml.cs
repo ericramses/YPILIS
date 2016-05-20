@@ -19,7 +19,7 @@ namespace YellowstonePathology.UI.Test
 	/// <summary>
 	/// Interaction logic for HPV1618ResultPage.xaml
 	/// </summary>
-	public partial class HPV1618ResultPage : UserControl, INotifyPropertyChanged 
+	public partial class HPV1618ResultPage : ResultControl, INotifyPropertyChanged 
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -38,7 +38,7 @@ namespace YellowstonePathology.UI.Test
 		public HPV1618ResultPage(YellowstonePathology.Business.Test.HPV1618.PanelSetOrderHPV1618 panelSetOrderHPV1618,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity,
-			YellowstonePathology.UI.Navigation.PageNavigator pageNavigator)
+			YellowstonePathology.UI.Navigation.PageNavigator pageNavigator) : base(panelSetOrderHPV1618, accessionOrder)
 		{
 			this.m_PanelSetOrder = panelSetOrderHPV1618;
 			this.m_AccessionOrder = accessionOrder;
@@ -56,7 +56,12 @@ namespace YellowstonePathology.UI.Test
 
             this.Loaded += HPV1618ResultPage_Loaded;
             this.Unloaded += HPV1618ResultPage_Unloaded;
-		}
+
+            this.m_ControlsNotDisabledOnFinal.Add(this.ButtonNext);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockShowDocument);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockUnfinalResults);
+
+        }
 
         private void HPV1618ResultPage_Loaded(object sender, RoutedEventArgs e)
         {

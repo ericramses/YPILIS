@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Test
 	/// <summary>
 	/// Interaction logic for CysticFibrosisResultPage.xaml
 	/// </summary>
-	public partial class CysticFibrosisResultPage : UserControl, INotifyPropertyChanged 
+	public partial class CysticFibrosisResultPage : ResultControl, INotifyPropertyChanged 
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -38,7 +38,7 @@ namespace YellowstonePathology.UI.Test
 		public CysticFibrosisResultPage(YellowstonePathology.Business.Test.CysticFibrosis.CysticFibrosisTestOrder panelSetOrder,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity,
-			YellowstonePathology.UI.Navigation.PageNavigator pageNavigator)
+			YellowstonePathology.UI.Navigation.PageNavigator pageNavigator) : base(panelSetOrder, accessionOrder)
 		{
 			this.m_PanelSetOrder = panelSetOrder;
 			this.m_AccessionOrder = accessionOrder;
@@ -54,6 +54,10 @@ namespace YellowstonePathology.UI.Test
 			InitializeComponent();
 
 			DataContext = this;
+
+            this.m_ControlsNotDisabledOnFinal.Add(this.ButtonNext);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockShowDocument);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockUnfinalResults);
         }
 
         public YellowstonePathology.Business.Test.CysticFibrosis.CysticFibrosisTestOrder PanelSetOrder

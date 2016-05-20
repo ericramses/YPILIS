@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace YellowstonePathology.Business.Test.ExtractAndHoldForFlow
+namespace YellowstonePathology.Business.Test.ExtractAndHoldForMolecular
 {
-    public class ExtractAndHoldForFlowTest : YellowstonePathology.Business.PanelSet.Model.PanelSet
+    public class ExtractAndHoldForMolecularTest : YellowstonePathology.Business.PanelSet.Model.PanelSet
     {
-        public ExtractAndHoldForFlowTest()
+        public ExtractAndHoldForMolecularTest()
         {
             this.m_PanelSetId = 230;
             this.m_PanelSetName = "Extract And Hold For Flow";
@@ -21,7 +21,7 @@ namespace YellowstonePathology.Business.Test.ExtractAndHoldForFlow
             this.m_Active = true;
             this.m_NeverDistribute = true;
             this.m_ExpectedDuration = new TimeSpan(2, 0, 0, 0);
-            this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.ExtractAndHoldForFlow.ExtractAndHoldForFlowTestOrder).AssemblyQualifiedName;
+            this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.ExtractAndHoldForMolecular.ExtractAndHoldForMolecularTestOrder).AssemblyQualifiedName;
             this.m_RequiresPathologistSignature = false;
             this.m_AcceptOnFinal = false;
             this.m_AllowMultiplePerAccession = false;

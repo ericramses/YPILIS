@@ -16,7 +16,7 @@ using System.Xml.Linq;
 
 namespace YellowstonePathology.UI.Test
 {
-	public partial class ALKForNSCLCByFISHResultPage : UserControl, INotifyPropertyChanged, IResultPage
+	public partial class ALKForNSCLCByFISHResultPage : ResultControl, INotifyPropertyChanged, IResultPage
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -36,7 +36,7 @@ namespace YellowstonePathology.UI.Test
 
         public ALKForNSCLCByFISHResultPage(YellowstonePathology.Business.Test.ALKForNSCLCByFISH.ALKForNSCLCByFISHTestOrder alkForNSCLCByFISHTestOrder,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+			YellowstonePathology.Business.User.SystemIdentity systemIdentity) : base(alkForNSCLCByFISHTestOrder, accessionOrder)
 		{
             
             this.m_PanelSetOrder = alkForNSCLCByFISHTestOrder;
@@ -59,7 +59,11 @@ namespace YellowstonePathology.UI.Test
 
             Loaded += ALKForNSCLCByFISHResultPage_Loaded;
             Unloaded += ALKForNSCLCByFISHResultPage_Unloaded;
-		}
+
+            this.m_ControlsNotDisabledOnFinal.Add(this.ButtonNext);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockShowDocument);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockUnfinalResults);
+        }
 
         public void ALKForNSCLCByFISHResultPage_Loaded(object sender, RoutedEventArgs e)
         {

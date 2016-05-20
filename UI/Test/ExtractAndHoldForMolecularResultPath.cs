@@ -6,26 +6,26 @@ using System.Threading.Tasks;
 
 namespace YellowstonePathology.UI.Test
 {
-    public class ExtractAndHoldForFlowResultPath : ResultPath
+    public class ExtractAndHoldForMolecularResultPath : ResultPath
     {
-        ExtractAndHoldForFlowResultPage m_ResultPage;
+        ExtractAndHoldForMolecularResultPage m_ResultPage;
         YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-        YellowstonePathology.Business.Test.ExtractAndHoldForFlow.ExtractAndHoldForFlowTestOrder m_PanelSetOrder;
+        YellowstonePathology.Business.Test.ExtractAndHoldForMolecular.ExtractAndHoldForMolecularTestOrder m_PanelSetOrder;
 
-        public ExtractAndHoldForFlowResultPath(string reportNo,
+        public ExtractAndHoldForMolecularResultPath(string reportNo,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
             YellowstonePathology.UI.Navigation.PageNavigator pageNavigator,
             System.Windows.Window window)
             : base(pageNavigator, window)
         {
             this.m_AccessionOrder = accessionOrder;
-            this.m_PanelSetOrder = (YellowstonePathology.Business.Test.ExtractAndHoldForFlow.ExtractAndHoldForFlowTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
+            this.m_PanelSetOrder = (YellowstonePathology.Business.Test.ExtractAndHoldForMolecular.ExtractAndHoldForMolecularTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
         }
 
         protected override void ShowResultPage()
         {
-            this.m_ResultPage = new ExtractAndHoldForFlowResultPage(this.m_PanelSetOrder, this.m_AccessionOrder, this.m_SystemIdentity);
-            this.m_ResultPage.Next += new ExtractAndHoldForFlowResultPage.NextEventHandler(ResultPage_Next);
+            this.m_ResultPage = new ExtractAndHoldForMolecularResultPage(this.m_PanelSetOrder, this.m_AccessionOrder, this.m_SystemIdentity);
+            this.m_ResultPage.Next += new ExtractAndHoldForMolecularResultPage.NextEventHandler(ResultPage_Next);
             this.m_PageNavigator.Navigate(this.m_ResultPage);
         }
 
