@@ -12,7 +12,7 @@ namespace YellowstonePathology.UI.Test
     /// <summary>
     /// Interaction logic for HoldForFlowResultPage.xaml
     /// </summary>
-    public partial class HoldForFlowResultPage : UserControl, INotifyPropertyChanged
+    public partial class HoldForFlowResultPage : ResultControl, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -28,7 +28,7 @@ namespace YellowstonePathology.UI.Test
 
         public HoldForFlowResultPage(YellowstonePathology.Business.Test.HoldForFlow.HoldForFlowTestOrder testOrder,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-            YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+            YellowstonePathology.Business.User.SystemIdentity systemIdentity) : base(testOrder, accessionOrder)
         {
             this.m_PanelSetOrder = testOrder;
             this.m_AccessionOrder = accessionOrder;
@@ -42,6 +42,9 @@ namespace YellowstonePathology.UI.Test
             InitializeComponent();
 
             DataContext = this;
+
+            this.m_ControlsNotDisabledOnFinal.Add(this.ButtonNext);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockUnfinalResults);
         }
 
         public string OrderedOnDescription
