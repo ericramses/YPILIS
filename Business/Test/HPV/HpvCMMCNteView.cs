@@ -57,16 +57,12 @@ namespace YellowstonePathology.Business.Test.HPV
             this.AddNextNteElement("Test Information: ", document);
             this.HandleLongString(YellowstonePathology.Business.Test.HPV.HPVResult.TestInformation, document);
             this.AddBlankNteElement(document);
-
-            this.AddNextNteElement("References:", document);
-            this.HandleLongString(panelSetOrder.References, document);
+            
+            this.AddNextNteElement("References: ", document);
+            this.HandleLongString(YellowstonePathology.Business.Test.HPV.HPVResult.References, document);
             this.AddBlankNteElement(document);
-
-            this.AddNextNteElement(panelSetOrder.ASRComment, document);
-
-            string locationPerformed = panelSetOrder.GetLocationPerformedComment();
-            this.AddNextNteElement(locationPerformed, document);
-            this.AddBlankNteElement(document);
+            
+            this.HandleLongString(panelSetOrder.ASRComment, document);            
 		}        
 	}
 }

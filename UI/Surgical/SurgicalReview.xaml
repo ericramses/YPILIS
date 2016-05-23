@@ -373,8 +373,8 @@
 						 Text="{Binding Path=SpecimenOrder.Description}"  KeyUp="TextBox_KeyUp"
 						 IsEnabled="{Binding ElementName=SurgicalReviewControl, Path=DataContext.FieldEnabler.IsProtectedEnabled}">
 				</TextBox>
-				<TextBox Name="TextBoxDiagnosis" Grid.Row="1" Grid.Column="1" Margin="2" TextWrapping="Wrap" AcceptsReturn="True"
-						 FontSize="12" MinWidth="300" SpellCheck.IsEnabled="True" KeyUp="TextBox_KeyUp"
+                <TextBox Name="TextBoxDiagnosis" Grid.Row="1" Grid.Column="1" Margin="2" TextWrapping="Wrap" AcceptsReturn="True"
+						 FontSize="12" MinWidth="300" SpellCheck.IsEnabled="False" KeyUp="TextBox_KeyUp"
 						 Text="{Binding Path=SurgicalSpecimen.Diagnosis}" RequestBringIntoView="Any_RequestBringIntoView"
 						 IsEnabled="{Binding ElementName=SurgicalReviewControl, Path=DataContext.FieldEnabler.IsProtectedEnabled}">
                     <!--
@@ -382,7 +382,7 @@
                         <system:Uri>pack://application:,,,/ypi-custom.lex</system:Uri>
                     </SpellCheck.CustomDictionaries>
                     -->
-				</TextBox>
+                </TextBox>
 
 				<ItemsControl Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2"  KeyboardNavigation.IsTabStop="False"
 							  ItemsSource="{Binding Path=SurgicalSpecimen.IntraoperativeConsultationResultCollection}"
@@ -559,8 +559,11 @@
 							<TextBlock Margin="2, 2, 2, 2" FontWeight="Bold" TextAlignment="Left">Comment:</TextBlock>
 							<TextBox Name="textBoxComment" Margin="2, 2, 2, 2" TextWrapping="Wrap" AcceptsReturn="True" FontSize="12" RequestBringIntoView="Any_RequestBringIntoView"
 										Text="{Binding Path=PanelSetOrderSurgical.Comment}"
-										IsEnabled="{Binding Path=FieldEnabler.IsProtectedEnabled}" KeyUp="TextBox_KeyUp">
-							</TextBox>
+										IsEnabled="{Binding Path=FieldEnabler.IsProtectedEnabled}" KeyUp="TextBox_KeyUp" SpellCheck.IsEnabled="False">
+                                <SpellCheck.CustomDictionaries>
+                                    <system:Uri>pack://application:,,,/ypi-custom.lex</system:Uri>
+                                </SpellCheck.CustomDictionaries>
+                            </TextBox>
 						</StackPanel>
 
 						<TextBlock Name="TextBlockSignature" Margin="2, 2, 30, 2" HorizontalAlignment="Right" Grid.Column="0" Grid.Row="3"
