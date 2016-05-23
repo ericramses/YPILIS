@@ -38,13 +38,13 @@ namespace YellowstonePathology.UI
         public NHunspell(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {
             this.m_AccessionOrder = accessionOrder;
-            this.m_SpellCheckAccessionOrder = new SpellCheckAccessionOrder(this.m_AccessionOrder);
-            
+            this.m_SpellCheckAccessionOrder = new SpellCheckAccessionOrder(this.m_AccessionOrder);                    
             this.m_Hunspell = new Hunspell();
             //this.m_Hunspell.Load(@"C:\Program Files\Yellowstone Pathology Institute\en_US-custom.aff", @"C:\Program Files\Yellowstone Pathology Institute\en_US-custom.dic");
             //this.m_Hunspell.Load(@"C:\Program Files\Yellowstone Pathology Institute\en_med_glut.aff", @"C:\Program Files\Yellowstone Pathology Institute\en_med_glut.dic");
 
             this.m_Hunspell.Load(YellowstonePathology.UI.Properties.Settings.Default.LocalAFFFile, YellowstonePathology.UI.Properties.Settings.Default.LocalDICFile);
+            this.m_SpellCheckAccessionOrder.SetErrorCounts(this.m_Hunspell);
 
             InitializeComponent();            
             this.DataContext = this;
@@ -59,10 +59,11 @@ namespace YellowstonePathology.UI
 
         private void NHunspell_Loaded(object sender, RoutedEventArgs e)
         {
-            this.ListViewProperties.SelectedIndex = 0;
+            
+            //this.ListViewProperties.SelectedIndex = 0;
             this.ListViewProperties.MouseLeftButtonUp += ListViewProperties_MouseLeftButtonUp;         
-            SpellCheckProperty spellCheckProperty = this.GetNextProperty();
-            this.CheckSpelling(spellCheckProperty);            
+            //SpellCheckProperty spellCheckProperty = this.GetNextProperty();
+            //this.CheckSpelling(spellCheckProperty);            
         }        
 
         public string Text

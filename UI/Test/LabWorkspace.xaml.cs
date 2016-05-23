@@ -172,29 +172,37 @@ namespace YellowstonePathology.UI.Test
 
         private void MessageQueue_AquireLock(object sender, EventArgs e)
         {
-            string masterAccessionNo = (string)sender;
-            if (this.m_LabUI.AccessionOrder != null && this.m_LabUI.AccessionOrder.MasterAccessionNo == masterAccessionNo)
+            this.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
             {
-                this.GetAccessionOrder();
-                this.m_LabUI.CaseList.SetLockIsAquiredByMe(this.m_LabUI.AccessionOrder);
+                string masterAccessionNo = (string)sender;
+                if (this.m_LabUI.AccessionOrder != null && this.m_LabUI.AccessionOrder.MasterAccessionNo == masterAccessionNo)
+                {
+                    this.GetAccessionOrder();
+                    this.m_LabUI.CaseList.SetLockIsAquiredByMe(this.m_LabUI.AccessionOrder);
+                }
             }
+            ));            
         }
 
         private void MessageQueue_ReleaseLock(object sender, EventArgs e)
         {
-            string masterAccessionNo = (string)sender;
-            if (this.m_LabUI.AccessionOrder != null && this.m_LabUI.AccessionOrder.MasterAccessionNo == masterAccessionNo)
+            this.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
             {
-                MainWindow.MoveKeyboardFocusNextThenBack();
-                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.ReleaseLock(this.m_LabUI.AccessionOrder, this.m_Writer);
-                if (this.m_LabUI.AccessionOrder.IsLockAquiredByMe == false)
+                string masterAccessionNo = (string)sender;
+                if (this.m_LabUI.AccessionOrder != null && this.m_LabUI.AccessionOrder.MasterAccessionNo == masterAccessionNo)
                 {
-                    this.m_LabUI.RunWorkspaceEnableRules();
-                    this.m_LabUI.NotifyPropertyChanged(string.Empty);
-                }
+                    MainWindow.MoveKeyboardFocusNextThenBack();
+                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.ReleaseLock(this.m_LabUI.AccessionOrder, this.m_Writer);
+                    if (this.m_LabUI.AccessionOrder.IsLockAquiredByMe == false)
+                    {
+                        this.m_LabUI.RunWorkspaceEnableRules();
+                        this.m_LabUI.NotifyPropertyChanged(string.Empty);
+                    }
 
-                this.m_LabUI.CaseList.SetLockIsAquiredByMe(this.m_LabUI.AccessionOrder);
+                    this.m_LabUI.CaseList.SetLockIsAquiredByMe(this.m_LabUI.AccessionOrder);
+                }
             }
+            ));            
         }
 
         public void LabWorkspace_Unloaded(object sender, RoutedEventArgs e)
@@ -215,6 +223,7 @@ namespace YellowstonePathology.UI.Test
 
         public void RemoveTab(object target, ExecutedRoutedEventArgs args)
 		{
+
 		}
 
         private void ShowOrderForm(object target, ExecutedRoutedEventArgs args)

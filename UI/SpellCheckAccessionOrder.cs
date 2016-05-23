@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
+using NHunspell;
 
 namespace YellowstonePathology.UI
 {
@@ -66,6 +67,14 @@ namespace YellowstonePathology.UI
             
             this.m_CurrentPropertyListIndex = -1;
             this.m_Regex = new System.Text.RegularExpressions.Regex(@"\b\w+\b");
+        }
+
+        public void SetErrorCounts(Hunspell hunspell)
+        {
+            foreach(SpellCheckProperty spellCheckProperty in this.m_PropertyList)
+            {
+                spellCheckProperty.SetErrorCount(hunspell);
+            }
         }
 
         public int CurrentPropertyListIndex

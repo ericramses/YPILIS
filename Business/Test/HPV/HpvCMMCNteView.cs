@@ -45,9 +45,8 @@ namespace YellowstonePathology.Business.Test.HPV
             this.AddNextNteElement("References: ", document);
             this.HandleLongString(YellowstonePathology.Business.Test.HPV.HPVResult.References, document);
             this.AddBlankNteElement(document);
-
-            string asrComment = "This test was performed using a US FDA approved DNA probe kit.  The FDA procedure was performed using a modified DNA extraction method for test optimization, and the modified procedure was validated by Yellowstone Pathology Institute (YPI).  YPI assumes the responsibility for test performance.";
-            this.HandleLongString(asrComment, document);            
+            
+            this.HandleLongString(panelSetOrder.ASRComment, document);            
 		}        
 	}
 }
