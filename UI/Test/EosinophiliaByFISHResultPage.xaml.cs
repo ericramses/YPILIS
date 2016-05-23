@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Test
 	/// <summary>
 	/// Interaction logic for EosinophiliaByFISHResultPage.xaml
 	/// </summary>
-	public partial class EosinophiliaByFISHResultPage : UserControl, INotifyPropertyChanged 
+	public partial class EosinophiliaByFISHResultPage : ResultControl, INotifyPropertyChanged 
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -34,7 +34,7 @@ namespace YellowstonePathology.UI.Test
 
 		public EosinophiliaByFISHResultPage(YellowstonePathology.Business.Test.EosinophiliaByFISH.EosinophiliaByFISHTestOrder eosinophiliaByFISHTestOrder,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+			YellowstonePathology.Business.User.SystemIdentity systemIdentity) : base(eosinophiliaByFISHTestOrder, accessionOrder)
 		{
 			this.m_PanelSetOrder = eosinophiliaByFISHTestOrder;
 			this.m_AccessionOrder = accessionOrder;
@@ -48,6 +48,10 @@ namespace YellowstonePathology.UI.Test
 			InitializeComponent();
 
 			DataContext = this;
+
+            this.m_ControlsNotDisabledOnFinal.Add(this.ButtonNext);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockShowDocument);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockUnfinalResults);
         }
 
         public string OrderedOnDescription

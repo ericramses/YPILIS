@@ -38,16 +38,35 @@ namespace YellowstonePathology.Business.Test.HPV
             this.AddNextNteElement("Specimen: ThinPrep fluid", document);
             this.AddBlankNteElement(document);
 
-            this.AddNextNteElement("Test Information: ", document);            
-            this.HandleLongString(YellowstonePathology.Business.Test.HPV.HPVResult.TestInformation, document);
-            this.AddBlankNteElement(document);
-            
-            this.AddNextNteElement("References: ", document);
-            this.HandleLongString(YellowstonePathology.Business.Test.HPV.HPVResult.References, document);
+            bool hpvHasBeenOrdered = this.m_AccessionOrder.PanelSetOrderCollection.Exists(62);
+
+            string additionalTestingComment = string.Empty;
+            if (hpvHasBeenOrdered == true)
+            {
+                additionalTestingComment = YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapWordDocument.HPV1618HasBeenOrderedComment;
+            }
+            else
+            {
+                additionalTestingComment = YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapWordDocument.NoAdditionalTestingOrderedComment;
+            }
+
+            this.AddNextNteElement("Additional Testing:", document);
+            this.AddNextNteElement(additionalTestingComment, document);
             this.AddBlankNteElement(document);
 
-            string asrComment = "This test was performed using a US FDA approved DNA probe kit.  The FDA procedure was performed using a modified DNA extraction method for test optimization, and the modified procedure was validated by Yellowstone Pathology Institute (YPI).  YPI assumes the responsibility for test performance.";
-            this.HandleLongString(asrComment, document);            
+            this.AddNextNteElement("Test Information: ", document);
+            this.HandleLongString(YellowstonePathology.Business.Test.HPV.HPVResult.TestInformation, document);
+            this.AddBlankNteElement(document);
+
+            this.AddNextNteElement("References:", document);
+            this.HandleLongString(panelSetOrder.References, document);
+            this.AddBlankNteElement(document);
+
+            this.AddNextNteElement(panelSetOrder.ASRComment, document);
+
+            string locationPerformed = panelSetOrder.GetLocationPerformedComment();
+            this.AddNextNteElement(locationPerformed, document);
+            this.AddBlankNteElement(document);
 		}        
 	}
 }

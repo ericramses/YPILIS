@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Test
 	/// <summary>
 	/// Interaction logic for MultipleMyelomaIgHByFishResultPage.xaml
 	/// </summary>
-	public partial class MultipleMyelomaIgHByFishResultPage : UserControl, INotifyPropertyChanged 
+	public partial class MultipleMyelomaIgHByFishResultPage : ResultControl, INotifyPropertyChanged 
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -34,7 +34,7 @@ namespace YellowstonePathology.UI.Test
 
 		public MultipleMyelomaIgHByFishResultPage(YellowstonePathology.Business.Test.MultipleMyelomaIgHByFish.PanelSetOrderMultipleMyelomaIgHComplexByFish panelSetOrderMultipleMyelomaIgHComplexByFish,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+			YellowstonePathology.Business.User.SystemIdentity systemIdentity) : base(panelSetOrderMultipleMyelomaIgHComplexByFish, accessionOrder)
 		{
             this.m_PanelSetOrder = panelSetOrderMultipleMyelomaIgHComplexByFish;
 			this.m_AccessionOrder = accessionOrder;
@@ -48,6 +48,10 @@ namespace YellowstonePathology.UI.Test
 			InitializeComponent();
 
 			DataContext = this;
+
+            this.m_ControlsNotDisabledOnFinal.Add(this.ButtonNext);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockShowDocument);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockUnfinalResults);
         }
 
         public string OrderedOnDescription
