@@ -50,9 +50,7 @@
 				</TextBlock>
 
 				<TextBlock Grid.Column="0" Grid.Row="4" Margin="5,3,0,5">
-					<Hyperlink Click="HyperLinkFinalizeResults_Click">
-						<TextBlock Text="Finalize" />
-					</Hyperlink>
+					<Hyperlink Click="HyperLinkFinalizeResults_Click">Finalize</Hyperlink>
 				</TextBlock>
 
 				<TextBlock Grid.Column="0" Grid.Row="6" Margin="5,3,0,0">                    
@@ -60,9 +58,7 @@
 				</TextBlock>
 
                 <TextBlock Name="TextBlockUnfinalResults" Grid.Column="0" Grid.Row="7" Margin="5,3,0,0">                    
-                    <Hyperlink Click="HyperLinkUnfinalResults_Click">
-						<TextBlock Text="Unfinalize Results" />
-					</Hyperlink>
+                    <Hyperlink Click="HyperLinkUnfinalResults_Click">Unfinalize Results</Hyperlink>
 				</TextBlock>
 
 			</Grid>
