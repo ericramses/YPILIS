@@ -825,9 +825,6 @@
       <DependentUpon>NeoARRAYSNPCytogeneticProfileResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Test\NeoARRAYSNPCytogeneticProfileResultPath.cs" />
-    <Compile Include="Test\NeogenomicsResultAccessionPage.xaml.cs">
-      <DependentUpon>NeogenomicsResultAccessionPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Test\FLT3ResultPage.xaml.cs">
       <DependentUpon>FLT3ResultPage.xaml</DependentUpon>
     </Compile>
@@ -2499,10 +2496,6 @@
     <Page Include="Test\NeoARRAYSNPCytogeneticProfileResultPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Test\NeogenomicsResultAccessionPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Test\FLT3ResultPage.xaml">
       <SubType>Designer</SubType>
