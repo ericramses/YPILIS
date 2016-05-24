@@ -276,6 +276,9 @@ namespace YellowstonePathology.UI.Test
                 case 230:
                     result = new ExtractAndHoldForMolecularResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
+                case 231:
+                    result = new RUNX1RUNX1T1AML1ETOTranslocationResultPath(reportNo, accessionOrder, pageNavigator, window);
+                    break;
             }
             return result;
         }
