@@ -26,7 +26,7 @@ namespace YellowstonePathology.UI.Test
 
         protected override void ShowResultPage()
         {
-			this.m_MPNExtendedReflexPage = new MPNExtendedReflexPage(this.m_AccessionOrder, this.m_SystemIdentity);
+			this.m_MPNExtendedReflexPage = new MPNExtendedReflexPage(this.m_PanelSetOrderMPNExtendedReflex, this.m_AccessionOrder, this.m_SystemIdentity);
 			this.m_MPNExtendedReflexPage.Back += new MPNExtendedReflexPage.BackEventHandler(MPNExtendedReflexPage_Back);
 			this.m_MPNExtendedReflexPage.Finish += new MPNExtendedReflexPage.FinishEventHandler(MPNExtendedReflexPage_Finish);
             this.m_MPNExtendedReflexPage.OrderTest += new MPNExtendedReflexPage.OrderTestEventHandler(MPNExtendedReflexPage_OrderTest);			

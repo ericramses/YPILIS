@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Test
 	/// <summary>
 	/// Interaction logic for MPNExtendedReflexPage.xaml
 	/// </summary>
-	public partial class MPNExtendedReflexPage : UserControl, INotifyPropertyChanged
+	public partial class MPNExtendedReflexPage : ResultControl, INotifyPropertyChanged
 	{
 		public delegate void PropertyChangedNotificationHandler(String info);
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -39,8 +39,9 @@ namespace YellowstonePathology.UI.Test
 		private string m_PageHeaderText;
 		private string m_OrderedOnDescription;
 
-		public MPNExtendedReflexPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+		public MPNExtendedReflexPage(YellowstonePathology.Business.Test.MPNExtendedReflex.PanelSetOrderMPNExtendedReflex testOrder,
+            YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
+			YellowstonePathology.Business.User.SystemIdentity systemIdentity) : base(testOrder, accessionOrder)
 		{
 			this.m_AccessionOrder = accessionOrder;
 			this.m_SystemIdentity = systemIdentity;
@@ -52,6 +53,11 @@ namespace YellowstonePathology.UI.Test
 			InitializeComponent();
 
 			this.DataContext = this;
+
+            this.m_ControlsNotDisabledOnFinal.Add(this.ButtonBack);
+            this.m_ControlsNotDisabledOnFinal.Add(this.ButtonFinish);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockShowDocument);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockUnfinalResults);
         }
 
         public YellowstonePathology.Business.Test.MPNExtendedReflex.PanelSetOrderMPNExtendedReflex PanelSetOrder

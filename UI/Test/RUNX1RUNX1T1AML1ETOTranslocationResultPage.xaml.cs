@@ -17,9 +17,9 @@ using System.ComponentModel;
 namespace YellowstonePathology.UI.Test
 {
     /// <summary>
-    /// Interaction logic for CCNDIBCLIGHByPCRResultPage.xaml
+    /// Interaction logic for RUNX1RUNX1T1AML1ETOTranslocationResultPage.xaml
     /// </summary>
-    public partial class CCNDIBCLIGHByPCRResultPage : ResultControl, INotifyPropertyChanged
+    public partial class RUNX1RUNX1T1AML1ETOTranslocationResultPage : ResultControl, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -28,20 +28,20 @@ namespace YellowstonePathology.UI.Test
 
         private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-        private string m_PageHeaderText;
+        private YellowstonePathology.Business.Test.RUNX1RUNX1T1AML1ETOTranslocation.RUNX1RUNX1T1AML1ETOTranslocationTestOrder m_PanelSetOrder;
 
-        private YellowstonePathology.Business.Test.CCNDIBCLIGHByPCR.CCNDIBCLIGHByPCRTestOrder m_PanelSetOrder;
+        private string m_PageHeaderText;
         private string m_OrderedOnDescription;
 
-        public CCNDIBCLIGHByPCRResultPage(YellowstonePathology.Business.Test.CCNDIBCLIGHByPCR.CCNDIBCLIGHByPCRTestOrder panelSetOrderCCNDIBCLIGH,
+        public RUNX1RUNX1T1AML1ETOTranslocationResultPage(YellowstonePathology.Business.Test.RUNX1RUNX1T1AML1ETOTranslocation.RUNX1RUNX1T1AML1ETOTranslocationTestOrder testOrder,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-            YellowstonePathology.Business.User.SystemIdentity systemIdentity) : base(panelSetOrderCCNDIBCLIGH, accessionOrder)
+            YellowstonePathology.Business.User.SystemIdentity systemIdentity) : base(testOrder, accessionOrder)
         {
-            this.m_PanelSetOrder = panelSetOrderCCNDIBCLIGH;
+            this.m_PanelSetOrder = testOrder;
             this.m_AccessionOrder = accessionOrder;
             this.m_SystemIdentity = systemIdentity;
 
-            this.m_PageHeaderText = "CCND1/IgH t(11;14) by PCR Analysis Result For: " + this.m_AccessionOrder.PatientDisplayName;
+            this.m_PageHeaderText = this.m_PanelSetOrder.PanelSetName + " Result For: " + this.m_AccessionOrder.PatientDisplayName;
 
             YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrder.OrderedOn, this.m_PanelSetOrder.OrderedOnId);
             this.m_OrderedOnDescription = specimenOrder.Description;
@@ -60,7 +60,7 @@ namespace YellowstonePathology.UI.Test
             get { return this.m_OrderedOnDescription; }
         }
 
-        public YellowstonePathology.Business.Test.CCNDIBCLIGHByPCR.CCNDIBCLIGHByPCRTestOrder PanelSetOrder
+        public YellowstonePathology.Business.Test.RUNX1RUNX1T1AML1ETOTranslocation.RUNX1RUNX1T1AML1ETOTranslocationTestOrder PanelSetOrder
         {
             get { return this.m_PanelSetOrder; }
         }
@@ -78,23 +78,9 @@ namespace YellowstonePathology.UI.Test
             get { return this.m_PageHeaderText; }
         }
 
-        private void HyperLinkNotDetected_Click(object sender, RoutedEventArgs e)
-        {
-            YellowstonePathology.Business.Test.CCNDIBCLIGHByPCR.CCNDIBCLIGHByPCRNotDetectedResult result = new Business.Test.CCNDIBCLIGHByPCR.CCNDIBCLIGHByPCRNotDetectedResult();
-            result.SetResults(this.m_PanelSetOrder);
-            this.NotifyPropertyChanged("PanelSetOrder");
-        }
-
-        private void HyperLinkDetected_Click(object sender, RoutedEventArgs e)
-        {
-            YellowstonePathology.Business.Test.CCNDIBCLIGHByPCR.CCNDIBCLIGHByPCRAbnormalResult result = new Business.Test.CCNDIBCLIGHByPCR.CCNDIBCLIGHByPCRAbnormalResult();
-            result.SetResults(this.m_PanelSetOrder);
-            this.NotifyPropertyChanged("PanelSetOrder");
-        }
-
         private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Test.CCNDIBCLIGHByPCR.CCNDIBCLIGHByPCRWordDocument report = new Business.Test.CCNDIBCLIGHByPCR.CCNDIBCLIGHByPCRWordDocument(this.m_AccessionOrder, this.m_PanelSetOrder, Business.Document.ReportSaveModeEnum.Draft);
+            YellowstonePathology.Business.Test.RUNX1RUNX1T1AML1ETOTranslocation.RUNX1RUNX1T1AML1ETOTranslocationWordDocument report = new YellowstonePathology.Business.Test.RUNX1RUNX1T1AML1ETOTranslocation.RUNX1RUNX1T1AML1ETOTranslocationWordDocument(this.m_AccessionOrder, this.m_PanelSetOrder, Business.Document.ReportSaveModeEnum.Draft);
             report.Render();
 
             YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
@@ -104,14 +90,14 @@ namespace YellowstonePathology.UI.Test
 
         private void HyperLinkFinalizeResults_Click(object sender, RoutedEventArgs e)
         {
-            Business.Rules.MethodResult methodResult = this.m_PanelSetOrder.IsOkToFinalize();
-            if(methodResult.Success == true)
+            YellowstonePathology.Business.Rules.MethodResult result = this.m_PanelSetOrder.IsOkToFinalize();
+            if (result.Success == true)
             {
                 this.m_PanelSetOrder.Finish(this.m_AccessionOrder);
             }
             else
             {
-                MessageBox.Show(methodResult.Message);
+                MessageBox.Show(result.Message);
             }
         }
 
@@ -160,3 +146,4 @@ namespace YellowstonePathology.UI.Test
         }
     }
 }
+

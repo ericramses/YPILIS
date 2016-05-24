@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Test
     /// <summary>
     /// Interaction logic for KRASExon23MutationResultPage.xaml
     /// </summary>
-    public partial class KRASExon23MutationResultPage : UserControl, INotifyPropertyChanged 
+    public partial class KRASExon23MutationResultPage : ResultControl, INotifyPropertyChanged 
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -34,7 +34,7 @@ namespace YellowstonePathology.UI.Test
 
         public KRASExon23MutationResultPage(YellowstonePathology.Business.Test.KRASExon23Mutation.KRASExon23MutationTestOrder krasExon23MutationTestOrder,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-            YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+            YellowstonePathology.Business.User.SystemIdentity systemIdentity) : base(krasExon23MutationTestOrder, accessionOrder)
         {
             this.m_KRASExon23MutationTestOrder = krasExon23MutationTestOrder;
             this.m_AccessionOrder = accessionOrder;
@@ -48,6 +48,10 @@ namespace YellowstonePathology.UI.Test
             InitializeComponent();
 
             DataContext = this;
+
+            this.m_ControlsNotDisabledOnFinal.Add(this.ButtonNext);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockShowDocument);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockUnfinalResults);
         }
 
         public string OrderedOnDescription

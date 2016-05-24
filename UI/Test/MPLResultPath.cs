@@ -40,7 +40,8 @@ namespace YellowstonePathology.UI.Test
 			if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(panelSet.PanelSetId) == true)
 			{
 				result = true;
-				MPNExtendedReflexPage mPNExtendedReflexPage = new MPNExtendedReflexPage(this.m_AccessionOrder, this.m_SystemIdentity);
+                YellowstonePathology.Business.Test.MPNExtendedReflex.PanelSetOrderMPNExtendedReflex testOrder = (YellowstonePathology.Business.Test.MPNExtendedReflex.PanelSetOrderMPNExtendedReflex)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSet.PanelSetId);
+                MPNExtendedReflexPage mPNExtendedReflexPage = new MPNExtendedReflexPage(testOrder, this.m_AccessionOrder, this.m_SystemIdentity);
 				mPNExtendedReflexPage.Back += new MPNExtendedReflexPage.BackEventHandler(MPNExtendedReflexPage_Back);
 				mPNExtendedReflexPage.Finish += new MPNExtendedReflexPage.FinishEventHandler(MPNExtendedReflexPage_Finish);
 				mPNExtendedReflexPage.OrderTest += new MPNExtendedReflexPage.OrderTestEventHandler(MPNExtendedReflexPage_OrderTest);

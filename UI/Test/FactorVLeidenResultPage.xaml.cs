@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Test
 	/// <summary>
 	/// Interaction logic for FactorVLeidenResultPage.xaml
 	/// </summary>
-	public partial class FactorVLeidenResultPage : UserControl, INotifyPropertyChanged 
+	public partial class FactorVLeidenResultPage : ResultControl, INotifyPropertyChanged 
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -36,7 +36,7 @@ namespace YellowstonePathology.UI.Test
 		public FactorVLeidenResultPage(YellowstonePathology.Business.Test.FactorVLeiden.FactorVLeidenTestOrder testOrder,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity,
-			YellowstonePathology.UI.Navigation.PageNavigator pageNavigator)
+			YellowstonePathology.UI.Navigation.PageNavigator pageNavigator) : base(testOrder, accessionOrder)
 		{
 			this.m_PanelSetOrder = testOrder;
 			this.m_AccessionOrder = accessionOrder;
@@ -51,6 +51,10 @@ namespace YellowstonePathology.UI.Test
 			InitializeComponent();
 
 			DataContext = this;
+
+            this.m_ControlsNotDisabledOnFinal.Add(this.ButtonNext);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockShowDocument);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockUnfinalResults);
         }
 
         public YellowstonePathology.Business.Test.FactorVLeiden.FactorVLeidenTestOrder PanelSetOrder
