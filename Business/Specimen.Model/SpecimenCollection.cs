@@ -94,6 +94,11 @@ namespace YellowstonePathology.Business.Specimen.Model
             result.Add(new SpecimenDefinition.TonsilExcision());
             result.Add(new SpecimenDefinition.Uterus());            
             result.Add(new SpecimenDefinition.UterusAdnexa());
+            result.Add(new SpecimenDefinition.GenericSpecimenGrossOnly());
+            result.Add(new SpecimenDefinition.GenericSpecimenGrossRequiredWithBlocks());
+            result.Add(new SpecimenDefinition.AutopsySpecimen());
+            result.Add(new SpecimenDefinition.FluidWithCellBlock());
+            result.Add(new SpecimenDefinition.Urine());
             return Sort(result);
         }
     }

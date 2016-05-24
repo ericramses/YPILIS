@@ -149,14 +149,17 @@ namespace YellowstonePathology.UI
 
         private void ButtonSkip_Click(object sender, RoutedEventArgs e)
         {            
-            this.m_SuggestedWordList = new List<string>();
-            this.NotifyPropertyChanged("SuggestedWordList");
-            this.m_SpellCheckAccessionOrder.Skip();
-
-            SpellCheckProperty spellCheckProperty = this.m_SpellCheckAccessionOrder.GetCurrentProperty();
-            if(spellCheckProperty.HasNextMatch() == true)
+            if(this.m_SpellCheckAccessionOrder.CurrentPropertyListIndex > -1)
             {
-                this.CheckSpelling(spellCheckProperty);
+                this.m_SuggestedWordList = new List<string>();
+                this.NotifyPropertyChanged("SuggestedWordList");
+                this.m_SpellCheckAccessionOrder.Skip();
+
+                SpellCheckProperty spellCheckProperty = this.m_SpellCheckAccessionOrder.GetCurrentProperty();
+                if (spellCheckProperty.HasNextMatch() == true)
+                {
+                    this.CheckSpelling(spellCheckProperty);
+                }
             }            
         }            
 
