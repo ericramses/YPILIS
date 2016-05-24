@@ -54,6 +54,10 @@ namespace YellowstonePathology.UI.Test
                     DisableContents(element);
                 }
             }
+            else if(o is CheckBox)
+            {
+                ((UIElement)o).IsEnabled = false;
+            }
             else if (o is ContentControl)
             {
                 ContentControl contentControl = (ContentControl)o;

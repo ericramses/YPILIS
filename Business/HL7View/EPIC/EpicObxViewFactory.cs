@@ -262,6 +262,9 @@ namespace YellowstonePathology.Business.HL7View.EPIC
                 case 229:
                     view = new YellowstonePathology.Business.Test.AMLNonFavorableRisk.AMLNonFavorableRiskEPICOBXView(accessionOrder, reportNo, obxCount);
                     break;
+                case 231:
+                    view = new YellowstonePathology.Business.Test.RUNX1RUNX1T1AML1ETOTranslocation.RUNX1RUNX1T1AML1ETOTranslocationEPICOBXView(accessionOrder, reportNo, obxCount);
+                    break;
             }
             return view;
         }

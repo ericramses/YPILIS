@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Test
 	/// <summary>
 	/// Interaction logic for MultipleFISHProbePanelResultPage.xaml
 	/// </summary>
-	public partial class MultipleFISHProbePanelResultPage : UserControl, INotifyPropertyChanged 
+	public partial class MultipleFISHProbePanelResultPage : ResultControl, INotifyPropertyChanged 
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -34,7 +34,7 @@ namespace YellowstonePathology.UI.Test
 
 		public MultipleFISHProbePanelResultPage(YellowstonePathology.Business.Test.MultipleFISHProbe.PanelSetOrderMultipleFISHProbePanel panelSetOrderMultipleFISHProbePanel,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+			YellowstonePathology.Business.User.SystemIdentity systemIdentity) : base(panelSetOrderMultipleFISHProbePanel, accessionOrder)
 		{
 			this.m_PanelSetOrder = panelSetOrderMultipleFISHProbePanel;
 			this.m_AccessionOrder = accessionOrder;
@@ -48,6 +48,10 @@ namespace YellowstonePathology.UI.Test
 			InitializeComponent();
 
 			DataContext = this;
+
+            this.m_ControlsNotDisabledOnFinal.Add(this.ButtonNext);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockShowDocument);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockUnfinalResults);
         }
 
         public string OrderedOnDescription

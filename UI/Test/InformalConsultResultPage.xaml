@@ -49,15 +49,11 @@
                 </TextBlock>
 
                 <TextBlock Grid.Column="0" Grid.Row="3" Margin="5,3,0,5">
-					<Hyperlink Click="HyperLinkFinalize_Click">
-						<TextBlock Text="Finalize" />
-					</Hyperlink>
+					<Hyperlink Click="HyperLinkFinalize_Click">Finalize</Hyperlink>
 				</TextBlock>
 
                 <TextBlock Grid.Column="0" Grid.Row="5" Margin="5,3,0,0">                    
-                    <Hyperlink Click="HyperLinkUnacceptResults_Click">
-						<TextBlock Text="Unaccept Results" />
-					</Hyperlink>
+                    <Hyperlink Click="HyperLinkUnacceptResults_Click">Unaccept Results</Hyperlink>
 				</TextBlock>
 
                 <TextBlock Name="TextBlockUnfinalResults" Grid.Column="0" Grid.Row="6" Margin="5,3,0,0">                    

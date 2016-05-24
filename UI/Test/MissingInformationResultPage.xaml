@@ -52,63 +52,43 @@
                 <TextBlock Grid.Column="0" Grid.Row="0" Margin="0,3,0,0" FontWeight="Bold" FontSize="14">Set Call</TextBlock>
 
                 <TextBlock Grid.Column="0" Grid.Row="1" Margin="5,3,0,0">                    
-					<Hyperlink Click="HyperLinkFirstCall_Click">
-						<TextBlock Text="First Call" />
-					</Hyperlink>
+					<Hyperlink Click="HyperLinkFirstCall_Click">First Call</Hyperlink>
 				</TextBlock>
 
                 <TextBlock Grid.Column="0" Grid.Row="2" Margin="5,3,0,0">                    
-					<Hyperlink Click="HyperLinkSecondCall_Click">
-						<TextBlock Text="Second Call" />
-					</Hyperlink>
+					<Hyperlink Click="HyperLinkSecondCall_Click">Second Call</Hyperlink>
 				</TextBlock>
 
                 <TextBlock Grid.Column="0" Grid.Row="3" Margin="5,3,0,0">                    
-					<Hyperlink Click="HyperLinkFax_Click">
-						<TextBlock Text="Fax" />
-					</Hyperlink>
+					<Hyperlink Click="HyperLinkFax_Click">Fax</Hyperlink>
 				</TextBlock>
 
                 <TextBlock Grid.Column="0" Grid.Row="4" Margin="5,3,0,0">                    
-					<Hyperlink Click="HyperLinkThirdCall_Click">
-						<TextBlock Text="Third Call" />
-					</Hyperlink>
+					<Hyperlink Click="HyperLinkThirdCall_Click">Third Call</Hyperlink>
 				</TextBlock>
 
                 <TextBlock Grid.Column="0" Grid.Row="5" Margin="5,3,0,0">                    
-					<Hyperlink Click="HyperLinkClientSystemLookup_Click">
-						<TextBlock Text="Client System Lookup" />
-					</Hyperlink>
+					<Hyperlink Click="HyperLinkClientSystemLookup_Click">Client System Lookup</Hyperlink>
 				</TextBlock>
                 
                 <TextBlock Grid.Column="0" Grid.Row="7" Margin="5,3,0,0">                    
-                    <Hyperlink Click="HyperLinkShowFaxPage_Click">
-						<TextBlock Text="Send Fax" />
-					</Hyperlink>
+                    <Hyperlink Click="HyperLinkShowFaxPage_Click">Send Fax</Hyperlink>
 				</TextBlock>
                 
                 <TextBlock Grid.Column="0" Grid.Row="8" Margin="5,3,0,0">                    
-                    <Hyperlink Click="HyperLinkShowICDEntryPage_Click">
-						<TextBlock Text="ICD Entry" />
-					</Hyperlink>
+                    <Hyperlink Click="HyperLinkShowICDEntryPage_Click">ICD Entry</Hyperlink>
 				</TextBlock>
 
                 <TextBlock Grid.Column="0" Grid.Row="10" Margin="5,3,0,0">                    
-					<Hyperlink Click="HyperLinkFinalize_Click">
-						<TextBlock Text="Finalize" />
-					</Hyperlink>
+					<Hyperlink Click="HyperLinkFinalize_Click">Finalize</Hyperlink>
 				</TextBlock>
 
                 <TextBlock Name="TextBlockUnfinalResults" Grid.Column="0" Grid.Row="11" Margin="5,3,0,0">                    
-                    <Hyperlink Click="HyperLinkUnfinalResults_Click">
-						<TextBlock Text="Unfinalize" />
-					</Hyperlink>
+                    <Hyperlink Click="HyperLinkUnfinalResults_Click">Unfinalize</Hyperlink>
 				</TextBlock>
 
                 <TextBlock Grid.Column="0" Grid.Row="12" Margin="5,3,0,0">                    
-                    <Hyperlink Click="HyperLinkClearResults_Click">
-						<TextBlock Text="Clear" />
-					</Hyperlink>
+                    <Hyperlink Click="HyperLinkClearResults_Click">Clear</Hyperlink>
 				</TextBlock>
 
             </Grid>
