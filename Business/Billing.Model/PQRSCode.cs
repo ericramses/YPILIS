@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using YellowstonePathology.Business.Persistence;
 
 namespace YellowstonePathology.Business.Billing.Model
 {
@@ -15,12 +16,14 @@ namespace YellowstonePathology.Business.Billing.Model
 
         }
 
+        [PersistentProperty()]
         public string ReportingDefinition
         {
             get { return this.m_ReportingDefinition; }
         }
 
-		public string Header
+        [PersistentProperty()]
+        public string Header
 		{
 			get { return this.m_Header; }
 		}

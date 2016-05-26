@@ -9,7 +9,14 @@ using System.IO;
 namespace YellowstonePathology.Business.Persistence
 {
     public class JSONObjectWriter
-    {        
+    {
+        public static void WriteIndented(StringBuilder result, object objectToWrite, int indentCount)
+        {
+            StringBuilder oString = new StringBuilder();
+            Type objectType = objectToWrite.GetType();
+            JSONWriter.WriteIndented(result, objectToWrite, indentCount);
+            //HandlePersistentChildCollections(objectToWrite, oString, null);
+        }
         public static String Write(object objectToWrite)
         {
             StringBuilder oString = new StringBuilder();            
