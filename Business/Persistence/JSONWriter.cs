@@ -177,7 +177,7 @@ namespace YellowstonePathology.Business.Persistence
                     }
                     else if (dataType.BaseType == typeof(Enum))
                     {
-                        WriteString(result, property, o);
+                        WriteEnum(result, property, o);
                     }
                     else
                     {
@@ -311,6 +311,20 @@ namespace YellowstonePathology.Business.Persistence
             {                
                 result.Append("\"" + property.Name + "\": null, ");
             }           
+        }
+
+        private static void WriteEnum(StringBuilder result, PropertyInfo property, object o)
+        {
+            if (property.GetValue(o, null) != null)
+            {
+                object value = property.GetValue(o, null);
+                object underlyingValue = Convert.ChangeType(value, Enum.GetUnderlyingType(value.GetType()));
+                result.Append("\"" + property.Name + "\": " + underlyingValue.ToString() + ", ");
+            }
+            else
+            {
+                result.Append("\"" + property.Name + "\": null, ");
+            }
         }
     }
 }
