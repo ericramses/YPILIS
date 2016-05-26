@@ -127,6 +127,75 @@ namespace YellowstonePathology.Business.Persistence
             return result.ToString();
         }
 
+        public static void WriteIndented(StringBuilder result, object o, int indentCount)
+        {
+            Type type = o.GetType();
+            result.AppendLine();
+            JSONIndenter.AddTabs(result, indentCount);
+            result.Append("{");
+            PropertyInfo[] properties = o.GetType().GetProperties().
+                Where(prop => Attribute.IsDefined(prop, typeof(PersistentProperty)) || Attribute.IsDefined(prop, typeof(PersistentPrimaryKeyProperty))).ToArray();
+
+            foreach (PropertyInfo property in properties)
+            {
+                result.AppendLine();
+                JSONIndenter.AddTabs(result, indentCount + 1);
+                if (property.Name != "JSON")
+                {
+                    Type dataType = property.PropertyType;
+                    if (dataType == typeof(string))
+                    {
+                        WriteString(result, property, o);
+                    }
+                    else if (dataType == typeof(int))
+                    {
+                        WriteNumber(result, property, o);
+                    }
+                    else if (dataType == typeof(double))
+                    {
+                        WriteNumber(result, property, o);
+                    }
+                    else if (dataType == typeof(Nullable<int>))
+                    {
+                        WriteNumber(result, property, o);
+                    }
+                    else if (dataType == typeof(DateTime))
+                    {
+                        WriteDate(result, property, o);
+                    }
+                    else if (dataType == typeof(bool))
+                    {
+                        WriteBoolean(result, property, o);
+                    }
+                    else if (dataType == typeof(Nullable<bool>))
+                    {
+                        WriteBoolean(result, property, o);
+                    }
+                    else if (dataType == typeof(Nullable<DateTime>))
+                    {
+                        WriteDate(result, property, o);
+                    }
+                    else if (dataType.BaseType == typeof(Enum))
+                    {
+                        WriteString(result, property, o);
+                    }
+                    else
+                    {
+                        throw new Exception("This Data Type is Not Implemented: " + dataType.Name);
+                    }
+                }
+            }
+
+            if (properties.Length != 0)
+            {
+                result.Replace(",", string.Empty, result.Length - 3, 2);
+            }
+
+            result.AppendLine();
+            JSONIndenter.AddTabs(result, indentCount);
+            result.Append("}");
+        }
+
         private static string EscapeJSON(string s)
         {            
             if (s == null || s.Length == 0)
@@ -242,6 +311,6 @@ namespace YellowstonePathology.Business.Persistence
             {                
                 result.Append("\"" + property.Name + "\": null, ");
             }           
-        }        
+        }
     }
 }
