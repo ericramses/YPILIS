@@ -2,8 +2,8 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:LocalUI="clr-namespace:YellowstonePathology.UI">        
-    <WrapPanel Grid.Column="0" Grid.Row="0">                
-        <Button Click="VerificationStuff_Click" Width="200" Height="30" Margin="5,5,5,5">Verification Stuff</Button>
+    <WrapPanel Grid.Column="0" Grid.Row="0">
+        <Button Click="ButtonBuildJson_Click" Width="200" Height="30" Margin="5,5,5,5">CPT Codes to JSON</Button>
         <Button Name="ButtonPOCRetension" Click="ButtonPOCRetension_Click" Width="200" Height="30" Margin="5,5,5,5">POC Retension</Button>
         <Button Name="ButtonCytologyUnsatLetters" Click="ButtonCytologyUnsatLetters_Click" Width="200" Height="30" Margin="5,5,5,5">Cytology Unsat Letters</Button>
         <Button Name="ButtonConvertXPSToPDF" Click="ButtonConvertXPSToPDF_Click" Width="200" Height="30" Margin="5,5,5,5">Convert XPS To PDF</Button>                        
