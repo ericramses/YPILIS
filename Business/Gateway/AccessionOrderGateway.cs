@@ -14,7 +14,7 @@ namespace YellowstonePathology.Business.Gateway
 {
 	public class AccessionOrderGateway
 	{
-        public static YellowstonePathology.Business.Test.AliquotOrderCollection GetEmbeddingCollection(DateTime accessionDate)
+        public static YellowstonePathology.Business.Test.AliquotOrderCollection GetEmbeddingCollection(DateTime embeddingVerifiedDate)
         {
             YellowstonePathology.Business.Test.AliquotOrderCollection result = new Test.AliquotOrderCollection();
             SqlCommand cmd = new SqlCommand();
@@ -22,12 +22,12 @@ namespace YellowstonePathology.Business.Gateway
                 "from tblAccessionOrder ao " +
                 "join tblSpecimenOrder s on ao.MasterAccessionNo = s.masterAccessionNo " +
                 "join tblAliquotOrder a on s.SpecimenOrderId = a.SpecimenOrderId " +
-                "where ao.AccessionDate = @AccessionDate " +
-                "and AliquotType = 'Block' and s.RequiresGrossExamination = 1 " +
+                "where a.EmbeddingVerifiedDate between @EmbeddingVerifiedDate and @EmbeddingVerifiedDatePlus1 " +                
                 "order by ao.AccessionTime desc";
 
             cmd.CommandType = CommandType.Text;
-            cmd.Parameters.Add("@AccessionDate", SqlDbType.DateTime).Value = accessionDate;
+            cmd.Parameters.Add("@EmbeddingVerifiedDate", SqlDbType.DateTime).Value = embeddingVerifiedDate;
+            cmd.Parameters.Add("@EmbeddingVerifiedDatePlus1", SqlDbType.DateTime).Value = embeddingVerifiedDate.AddDays(1);
 
             using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.Properties.Settings.Default.CurrentConnectionString))
             {
@@ -41,6 +41,86 @@ namespace YellowstonePathology.Business.Gateway
                         YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(aliquotOrder, dr);
                         sqlDataReaderPropertyWriter.WriteProperties();
                         result.Add(aliquotOrder);
+                    }
+                }
+            }
+            return result;
+        }
+
+        public static YellowstonePathology.Business.Specimen.Model.SpecimenOrderCollection GetSpecimenOrderHoldCollection()
+        {
+            YellowstonePathology.Business.Specimen.Model.SpecimenOrderCollection result = new Specimen.Model.SpecimenOrderCollection();
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "Select * from tblSpecimenOrder where ProcessorRunId = 'HOLD'";
+            cmd.CommandType = CommandType.Text;
+
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = new Specimen.Model.SpecimenOrder();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(specimenOrder, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Add(specimenOrder);
+                    }
+                }
+            }
+            return result;
+        }
+
+        public static YellowstonePathology.Business.Specimen.Model.SpecimenOrderCollection GetSpecimenOrderCollection(DateTime embeddingVerifiedDate)
+        {
+            YellowstonePathology.Business.Specimen.Model.SpecimenOrderCollection result = new Specimen.Model.SpecimenOrderCollection();
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "Select s.* from tblSpecimenOrder s " +
+                "where exists(select * from tblAliquotOrder where specimenOrderId = s.SpecimenOrderId and EmbeddingVerifiedDate between @EmbeddingVerifiedDate and @EmbeddingVerifiedDatePlus1)";
+            cmd.Parameters.Add("@EmbeddingVerifiedDate", SqlDbType.VarChar).Value = embeddingVerifiedDate;
+            cmd.Parameters.Add("@EmbeddingVerifiedDatePlus1", SqlDbType.VarChar).Value = embeddingVerifiedDate.AddDays(1);
+            cmd.CommandType = CommandType.Text;
+
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = new Specimen.Model.SpecimenOrder();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(specimenOrder, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Add(specimenOrder);
+                    }
+                }
+            }
+            return result;
+        }
+
+        public static YellowstonePathology.Business.Specimen.Model.SpecimenOrderCollection GetSpecimenOrderCollection(string containId)
+        {
+            YellowstonePathology.Business.Specimen.Model.SpecimenOrderCollection result = new Specimen.Model.SpecimenOrderCollection();
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "Select * from tblSpecimenOrder where ContainId = @ContainerId";
+
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.Add("@ContainerId", SqlDbType.DateTime).Value = containId;
+
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = new Specimen.Model.SpecimenOrder();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(specimenOrder, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Add(specimenOrder);
                     }
                 }
             }

@@ -470,6 +470,7 @@
     <Compile Include="PanelSet.Model\PanelSetTCellClonalityByPCRRetired.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Persistence\SpecimenOrderDocumentBuilder.cs" />
     <Compile Include="Persistence\AODocumentBuilder.cs" />
     <Compile Include="Persistence\ClientDocumentBuilder.cs" />
     <Compile Include="Persistence\ClientOrderDocumentBuilder.cs" />
@@ -507,6 +508,7 @@
     <Compile Include="Persistence\WriterScopeEnum.cs" />
     <Compile Include="ReportDistribution.Model\ScheduledFaxSubmission.cs" />
     <Compile Include="Specimen.Model\EmbeddingInstructionList.cs" />
+    <Compile Include="Surgical\HoldProcessor.cs" />
     <Compile Include="Task.Model\TaskMicrodissectionForMolecular.cs" />
     <Compile Include="Test.Model\DispalyGroupProstate.cs" />
     <Compile Include="Test.Model\P40.cs" />

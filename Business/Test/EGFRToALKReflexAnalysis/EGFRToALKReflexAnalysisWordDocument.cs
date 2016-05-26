@@ -53,6 +53,7 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
             else if (egfrToALKReflexAnalysisTestOrder.QNSForALK == true)
             {
                 base.ReplaceText("alk_result", "Quantity not sufficient to perform ALK");
+                base.ReplaceText("ros1_result", "Quantity not sufficient to perform ROS1");
             }
             else
             {
@@ -60,7 +61,7 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
             }
 
             if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(204) == true)
-            {
+            {                
                 YellowstonePathology.Business.Test.ROS1ByFISH.ROS1ByFISHTestOrder ros1ByFISHTestOrder = (YellowstonePathology.Business.Test.ROS1ByFISH.ROS1ByFISHTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(204);
                 base.ReplaceText("ros1_result", ros1ByFISHTestOrder.Result);
             }

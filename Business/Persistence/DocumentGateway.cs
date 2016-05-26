@@ -206,6 +206,30 @@ namespace YellowstonePathology.Business.Persistence
             }
         }
 
+        public YellowstonePathology.Business.Specimen.Model.SpecimenOrder PullSpecimenOrderByContainerId(string containerId, object writer)
+        {
+            lock (locker)
+            {
+                SpecimenOrderDocumentBuilder specimenOrderDocumentBuilder = new SpecimenOrderDocumentBuilder();
+                specimenOrderDocumentBuilder.SetSqlByContainerId(containerId);
+                DocumentId documentId = new DocumentId(typeof(YellowstonePathology.Business.Specimen.Model.SpecimenOrder), writer, containerId);
+                Document document = this.m_Stack.Pull(documentId, specimenOrderDocumentBuilder);
+                return (YellowstonePathology.Business.Specimen.Model.SpecimenOrder)document.Value;
+            }
+        }
+
+        public YellowstonePathology.Business.Specimen.Model.SpecimenOrder PullSpecimenOrder(string specimenOrderId, object writer)
+        {
+            lock (locker)
+            {
+                SpecimenOrderDocumentBuilder specimenOrderDocumentBuilder = new SpecimenOrderDocumentBuilder();
+                specimenOrderDocumentBuilder.SetSqlBySpecimenOrderId(specimenOrderId);
+                DocumentId documentId = new DocumentId(typeof(YellowstonePathology.Business.Specimen.Model.SpecimenOrder), writer, specimenOrderId);
+                Document document = this.m_Stack.Pull(documentId, specimenOrderDocumentBuilder);
+                return (YellowstonePathology.Business.Specimen.Model.SpecimenOrder)document.Value;
+            }
+        }
+
         public YellowstonePathology.Business.User.UserPreference PullUserPreference(object writer)
         {
             lock (locker)

@@ -68,6 +68,7 @@ namespace YellowstonePathology.UI.Gross
             result.Add(new TonsilExcisionTemplate());
             result.Add(new UterusAdnexaTemplate());
             result.Add(new UterusTemplate());
+            result.Add(new FluidTemplate());
             return result;
         }               
     }
