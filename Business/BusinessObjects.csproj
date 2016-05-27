@@ -436,6 +436,14 @@
     <Compile Include="HL7View\Panther\PantherPID.cs" />
     <Compile Include="HL7View\Panther\PantherHL7Client.cs" />
     <Compile Include="HL7View\Panther\PantherMSH.cs" />
+    <Compile Include="HL7View\WPH\WPHHl7Client.cs" />
+    <Compile Include="HL7View\WPH\WPHMSHView.cs" />
+    <Compile Include="HL7View\WPH\WPHOBRView.cs" />
+    <Compile Include="HL7View\WPH\WPHOBXView.cs" />
+    <Compile Include="HL7View\WPH\WPHOBXViewFactory.cs" />
+    <Compile Include="HL7View\WPH\WPHORCView.cs" />
+    <Compile Include="HL7View\WPH\WPHPIDView.cs" />
+    <Compile Include="HL7View\WPH\WPHResultView.cs" />
     <Compile Include="HL7View\WYDOH\WYDOHClient.cs" />
     <Compile Include="HL7View\WYDOH\WYDOHMSHView.cs" />
     <Compile Include="HL7View\WYDOH\WYDOHOBRView.cs" />

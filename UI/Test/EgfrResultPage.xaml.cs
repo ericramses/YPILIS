@@ -127,7 +127,7 @@ namespace YellowstonePathology.UI.Test
 
         private void HyperLinkUninterpretable_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisDetectedResult result = new Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisDetectedResult();
+            YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisUninterpretableResult result = new Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisUninterpretableResult();
             result.SetResult(this.m_EGFRMutationAnalysisTestOrder, null);
         }        
 

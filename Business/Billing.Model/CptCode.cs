@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using YellowstonePathology.Business.Persistence;
 
 namespace YellowstonePathology.Business.Billing.Model
 {
@@ -22,59 +23,70 @@ namespace YellowstonePathology.Business.Billing.Model
         public CptCode()
         {
             this.m_HasMedicareQuantityLimit = false;            
-        }        
+        }
 
+        [PersistentProperty()]
         public string Code
         {
             get { return this.m_Code; }
         }
 
+        [PersistentProperty()]
         public string Description
         {
             get { return this.m_Description; }
         }
 
+        [PersistentProperty()]
         public string Modifier
         {
             get { return this.m_Modifier; }
             set { this.m_Modifier = value; }
         }
 
+        [PersistentProperty()]
         public FeeScheduleEnum FeeSchedule
         {
             get { return this.m_FeeSchedule; }
         }
 
+        [PersistentProperty()]
         public bool HasTechnicalComponent
         {
             get { return this.m_HasTechnicalComponent; }
         }
 
+        [PersistentProperty()]
         public bool HasProfessionalComponent
         {
             get { return this.m_HasProfessionalComponent; }
         }
 
+        [PersistentProperty()]
         public CPTCodeTypeEnum CodeType
         {
             get { return this.m_CodeType; }
         }
 
+        [PersistentProperty()]
         public bool IsBillable
         {
             get { return this.m_IsBillable; }
         }
 
+        [PersistentProperty()]
         public string GCode
         {
             get { return this.m_GCode; }
         }
 
+        [PersistentProperty()]
         public bool HasMedicareQuantityLimit
         {
             get { return this.m_HasMedicareQuantityLimit; }
         }
 
+        [PersistentProperty()]
         public int MedicareQuantityLimit
         {
             get { return this.m_MedicareQuantityLimit; }

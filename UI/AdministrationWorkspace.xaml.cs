@@ -216,8 +216,29 @@ namespace YellowstonePathology.UI
 		{
 		}
 
-        private void VerificationStuff_Click(object sender, RoutedEventArgs e)
+        private void ButtonBuildJson_Click(object sender, RoutedEventArgs e)
         {
+            YellowstonePathology.Business.Billing.Model.CptCodeCollection cptCodes = YellowstonePathology.Business.Billing.Model.CptCodeCollection.GetAll();
+            StringBuilder result = new StringBuilder();
+            using (System.IO.StreamWriter streamWriter = new System.IO.StreamWriter(@"C:\TEMP\CPTCodeDefinitions.txt", true))
+            {
+                result.Append("[");
+
+                foreach (YellowstonePathology.Business.Billing.Model.CptCode cptCode in cptCodes)
+                {
+                    if (cptCode is YellowstonePathology.Business.Billing.Model.PQRSCode) continue;
+
+                    YellowstonePathology.Business.Persistence.JSONObjectWriter.WriteIndented(result, cptCode, 1);
+                    result.Append(",");
+                }
+                if(result.Length > 1)
+                {
+                    result.Remove(result.Length - 1, 1);
+                }
+                result.AppendLine("]");
+                streamWriter.Write(result);
+            }
+            MessageBox.Show("Done");
         }
 
         private void PrintRequisition_Click(object sender, RoutedEventArgs e)
