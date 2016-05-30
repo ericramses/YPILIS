@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using StackExchange.Redis;
 
 namespace YellowstonePathology.UI
 {
@@ -18,30 +19,23 @@ namespace YellowstonePathology.UI
     /// </summary>
     public partial class TestWindow : Window
     {
-        private DateTime m_WorkDate;
-        private string m_Test;
 
+        ConnectionMultiplexer m_Redis;
         public TestWindow()
-        {                        
+        {
+            this.m_Redis = ConnectionMultiplexer.Connect("10.1.2.25");
             InitializeComponent();
             this.DataContext = this;
-        }
-
-        public DateTime WorkDate
-        {
-            get { return this.m_WorkDate; }
-            set { this.m_WorkDate = value; }
-        }
-
-        public string Test
-        {
-            get { return this.m_Test; }
-            set { this.m_Test = value; }
-        }
+        }        
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-			YellowstonePathology.Business.Persistence.ObjectSqlBuilder objectSqlBuilder = new YellowstonePathology.Business.Persistence.ObjectSqlBuilder(typeof(YellowstonePathology.Business.Test.AccessionOrder), "14-123");            
+            IDatabase db = this.m_Redis.GetDatabase();
+            string lastName = "Mouse";
+            db.StringSet("LastName", lastName);
+
+            string result = db.StringGet("LastName");
+            MessageBox.Show(result);
         }
     }
 }

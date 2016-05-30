@@ -71,12 +71,13 @@ namespace YellowstonePathology.UI
             this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
             {
                 YellowstonePathology.Business.Surgical.HoldProcessor holdProcessor = new Business.Surgical.HoldProcessor();
-                YellowstonePathology.Business.Specimen.Model.SpecimenOrder dbSpecimenOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullSpecimenOrder(containerBarcode.ID, this);
-                dbSpecimenOrder.ProcessorRun = holdProcessor.ProcessorRunCollection[0].Name;
-                dbSpecimenOrder.ProcessorRunId = holdProcessor.ProcessorRunCollection[0].ProcessorRunId;
+                YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullSpecimenOrderByContainerId(containerBarcode.ToString(), this);
+                specimenOrder.ProcessorRun = holdProcessor.ProcessorRunCollection[0].Name;
+                specimenOrder.ProcessorRunId = holdProcessor.ProcessorRunCollection[0].ProcessorRunId;
                 YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
 
                 this.m_SpecimenOrderHoldCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetSpecimenOrderHoldCollection();
+                this.NotifyPropertyChanged("SpecimenOrderHoldCollection");
             }
             ));
         }

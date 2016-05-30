@@ -22,8 +22,8 @@ namespace YellowstonePathology.Business.Gateway
                 "from tblAccessionOrder ao " +
                 "join tblSpecimenOrder s on ao.MasterAccessionNo = s.masterAccessionNo " +
                 "join tblAliquotOrder a on s.SpecimenOrderId = a.SpecimenOrderId " +
-                "where a.EmbeddingVerifiedDate between @EmbeddingVerifiedDate and @EmbeddingVerifiedDatePlus1 " +                
-                "order by ao.AccessionTime desc";
+                "where a.EmbeddingVerifiedDate between @EmbeddingVerifiedDate and @EmbeddingVerifiedDatePlus1 " +
+                "order by a.EmbeddingVerifiedDate desc";
 
             cmd.CommandType = CommandType.Text;
             cmd.Parameters.Add("@EmbeddingVerifiedDate", SqlDbType.DateTime).Value = embeddingVerifiedDate;
