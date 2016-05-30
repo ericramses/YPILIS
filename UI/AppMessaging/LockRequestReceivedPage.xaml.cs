@@ -19,28 +19,20 @@ namespace YellowstonePathology.UI.AppMessaging
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
         
-        private System.Messaging.Message m_Message;
-        private MessageBody m_MessageBody;
+        private string m_Message;
 
         private System.Windows.Threading.DispatcherTimer m_DispatchTimer;
         private string m_CountDownMessage;
         private int m_CurrentCountDown;        
 
-        public LockRequestReceivedPage(System.Messaging.Message message)
+        public LockRequestReceivedPage(string message)
         {
             this.m_Message = message;
-            this.m_MessageBody = (MessageBody)message.Body;
-
             InitializeComponent();
             DataContext = this;            
             
             this.StartCountDownTimer();
-        }    
-        
-        public MessageBody MessageBody
-        {
-            get { return this.m_MessageBody; }
-        }            
+        }                             
 
         private void StartCountDownTimer()
         {
@@ -66,7 +58,7 @@ namespace YellowstonePathology.UI.AppMessaging
             {
                 this.m_CountDownMessage = string.Empty;
                 this.m_DispatchTimer.Stop();                
-                MessageQueues.Instance.SendLockReleaseResponse(this.m_Message, true);
+                //MessageQueues.Instance.SendLockReleaseResponse(this.m_Message, true);
                 Window window = Window.GetWindow(this);
                 window.Close();
             }
@@ -77,7 +69,7 @@ namespace YellowstonePathology.UI.AppMessaging
         private void ButtonRespondTakeIt_Click(object sender, RoutedEventArgs e)
         {            
             this.m_DispatchTimer.Stop();
-            MessageQueues.Instance.SendLockReleaseResponse(this.m_Message, true);            
+            //MessageQueues.Instance.SendLockReleaseResponse(this.m_Message, true);            
             Window window = Window.GetWindow(this);
             window.Close();
         }
@@ -85,7 +77,7 @@ namespace YellowstonePathology.UI.AppMessaging
         private void ButtonRespondHoldYourHorses_Click(object sender, RoutedEventArgs e)
         {
             this.m_DispatchTimer.Stop();
-            MessageQueues.Instance.SendLockReleaseResponse(this.m_Message, false);
+            //MessageQueues.Instance.SendLockReleaseResponse(this.m_Message, false);
             Window window = Window.GetWindow(this);
             window.Close();
         }

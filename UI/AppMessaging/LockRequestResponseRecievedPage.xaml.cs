@@ -25,11 +25,11 @@ namespace YellowstonePathology.UI.AppMessaging
         public delegate void HoldYourHorsesEventHandler(object sender, EventArgs e);
         public event HoldYourHorsesEventHandler HoldYourHorses;
 
-        private MessageBody m_MessageBody;        
+        private string m_Message;        
 
-        public LockRequestResponseReceivedPage(System.Messaging.Message message, System.Windows.Visibility closeButtonVisibility, System.Windows.Visibility nextButtonVisibility)
-        {            
-            this.m_MessageBody = (MessageBody)message.Body;                        
+        public LockRequestResponseReceivedPage(string message, System.Windows.Visibility closeButtonVisibility, System.Windows.Visibility nextButtonVisibility)
+        {
+            this.m_Message = message;
             InitializeComponent();
             DataContext = this;
 
@@ -37,9 +37,9 @@ namespace YellowstonePathology.UI.AppMessaging
             this.ButtonNext.Visibility = nextButtonVisibility;
         }  
         
-        public MessageBody MessageBody
+        public string Message
         {
-            get { return this.m_MessageBody; }
+            get { return this.m_Message; }
         }                                                                		                   
 
         private void ButtonClose_Click(object sender, RoutedEventArgs e)
@@ -49,6 +49,7 @@ namespace YellowstonePathology.UI.AppMessaging
 
         private void ButtonNext_Click(object sender, RoutedEventArgs e)
         {
+            /*
             if(MessageBody.LockWasReleased == true)
             {
                 if (this.LockWasReleased != null) this.LockWasReleased(this, new EventArgs());
@@ -56,7 +57,8 @@ namespace YellowstonePathology.UI.AppMessaging
             else
             {
                 if (this.HoldYourHorses != null) this.HoldYourHorses(this, new EventArgs());
-            }            
+            } 
+            */           
         }
 
         public void NotifyPropertyChanged(String info)

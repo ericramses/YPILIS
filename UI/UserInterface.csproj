@@ -131,7 +131,6 @@
     </Reference>
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Messaging" />
     <Reference Include="System.Speech">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
@@ -201,19 +200,12 @@
       <DependentUpon>LockRequestSentPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="AppMessaging\MessagingPath.cs" />
-    <Compile Include="AppMessaging\LockReleaseRequestMessageBody.cs" />
-    <Compile Include="AppMessaging\LockReleaseResponseMessageBody.cs" />
     <Compile Include="AppMessaging\LockRequestReceivedPage.xaml.cs">
       <DependentUpon>LockRequestReceivedPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="AppMessaging\LockRequestResponseRecievedPage.xaml.cs">
       <DependentUpon>LockRequestResponseRecievedPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="AppMessaging\MessageBody.cs" />
-    <Compile Include="AppMessaging\MessageDirectionEnum.cs" />
-    <Compile Include="AppMessaging\MessageQueueCollection.cs" />
-    <Compile Include="AppMessaging\MessageQueueMessage.cs" />
-    <Compile Include="AppMessaging\MessageQueues.cs" />
     <Compile Include="Billing\BillingPage.xaml.cs">
       <DependentUpon>BillingPage.xaml</DependentUpon>
     </Compile>
@@ -268,7 +260,6 @@
     <Compile Include="CustomEventArgs\CancelTestEventArgs.cs" />
     <Compile Include="CustomEventArgs\BarcodReturnEventArgs.cs" />
     <Compile Include="CustomEventArgs\EventHandlerDefinitions.cs" />
-    <Compile Include="CustomEventArgs\MessageReturnEventArgs.cs" />
     <Compile Include="CustomEventArgs\TestOrderAliquotOrderReturnEventArgs.cs" />
     <Compile Include="CustomEventArgs\TestOrderReturnEventArgs.cs" />
     <Compile Include="CustomEventArgs\SlideOrderReturnEventArgs.cs" />

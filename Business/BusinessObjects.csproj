@@ -115,7 +115,6 @@
     <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Drawing.Design" />
-    <Reference Include="System.Messaging" />
     <Reference Include="System.Printing">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
@@ -519,6 +518,7 @@
     <Compile Include="Persistence\RegisteredObjectCollection.cs" />
     <Compile Include="Persistence\TypingShortcutDocumentBuilder.cs" />
     <Compile Include="Persistence\WriterScopeEnum.cs" />
+    <Compile Include="RedisConnection.cs" />
     <Compile Include="ReportDistribution.Model\ScheduledFaxSubmission.cs" />
     <Compile Include="Specimen.Model\EmbeddingInstructionList.cs" />
     <Compile Include="Surgical\HoldProcessor.cs" />

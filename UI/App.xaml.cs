@@ -39,7 +39,7 @@ namespace YellowstonePathology.UI
 
             try
             {
-                UI.AppMessaging.MessageQueues.Instance.CreateMessageQueuesIfNotExist();
+                //UI.AppMessaging.MessageQueues.Instance.CreateMessageQueuesIfNotExist();
             }
             catch
             {

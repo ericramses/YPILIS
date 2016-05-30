@@ -91,9 +91,9 @@ namespace YellowstonePathology.UI.Cytology
             this.m_MainWindowCommandButtonHandler.RemoveTab -= MainWindowCommandButtonHandler_RemoveTab;
             this.m_MainWindowCommandButtonHandler.ShowMessagingDialog -= MainWindowCommandButtonHandler_ShowMessagingDialog;
 
-            AppMessaging.MessageQueues.Instance.ReleaseLock -= MessageQueue_ReleaseLock;
-            AppMessaging.MessageQueues.Instance.AquireLock -= MessageQueue_AquireLock;
-            AppMessaging.MessageQueues.Instance.RequestReceived -= MessageQueue_RequestReceived;
+            //AppMessaging.MessageQueues.Instance.ReleaseLock -= MessageQueue_ReleaseLock;
+            //AppMessaging.MessageQueues.Instance.AquireLock -= MessageQueue_AquireLock;
+            //AppMessaging.MessageQueues.Instance.RequestReceived -= MessageQueue_RequestReceived;
 
             YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
         }
@@ -134,9 +134,9 @@ namespace YellowstonePathology.UI.Cytology
             this.m_MainWindowCommandButtonHandler.RemoveTab += MainWindowCommandButtonHandler_RemoveTab;
             this.m_MainWindowCommandButtonHandler.ShowMessagingDialog += new MainWindowCommandButtonHandler.ShowMessagingDialogEventHandler(MainWindowCommandButtonHandler_ShowMessagingDialog);
 
-            AppMessaging.MessageQueues.Instance.ReleaseLock += MessageQueue_ReleaseLock;
-            AppMessaging.MessageQueues.Instance.AquireLock += MessageQueue_AquireLock;
-            AppMessaging.MessageQueues.Instance.RequestReceived += MessageQueue_RequestReceived;
+            //AppMessaging.MessageQueues.Instance.ReleaseLock += MessageQueue_ReleaseLock;
+            //AppMessaging.MessageQueues.Instance.AquireLock += MessageQueue_AquireLock;
+            //AppMessaging.MessageQueues.Instance.RequestReceived += MessageQueue_RequestReceived;
 
             this.ListViewSearchResults.SelectedIndex = -1;
 
@@ -199,11 +199,11 @@ namespace YellowstonePathology.UI.Cytology
             }
         }
 
-        private void MessageQueue_RequestReceived(object sender, UI.CustomEventArgs.MessageReturnEventArgs e)
+        private void MessageQueue_RequestReceived(object sender, EventArgs e)
         {
             this.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
             {
-                AppMessaging.MessagingPath.Instance.StartRequestReceived(e.Message);
+                //AppMessaging.MessagingPath.Instance.StartRequestReceived(e.Message);
             }
             ));
         }

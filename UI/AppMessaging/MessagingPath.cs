@@ -32,7 +32,7 @@ namespace YellowstonePathology.UI.AppMessaging
             this.m_PageNavigatorWasPassedIn = false;
         }       
 
-        public void StartRequestReceived(System.Messaging.Message message)
+        public void StartRequestReceived(string message)
         {            
             MessagingDialog messagingDialog = new MessagingDialog();
             this.m_PageNavigator = messagingDialog.PageNavigator;
@@ -47,7 +47,7 @@ namespace YellowstonePathology.UI.AppMessaging
         {
             this.m_PageNavigator = pageNavigator;
             this.m_PageNavigatorWasPassedIn = true;
-            MessageQueues.Instance.SendLockReleaseRequest(accessionOrder);
+            //MessageQueues.Instance.SendLockReleaseRequest(accessionOrder);
             this.ShowLockRequestSentPage(accessionOrder);
         }
 
@@ -71,8 +71,8 @@ namespace YellowstonePathology.UI.AppMessaging
 
         private void LockRequestPage_RequestLock(object sender, CustomEventArgs.AccessionOrderReturnEventArgs e)
         {
-            MessageQueues.Instance.SendLockReleaseRequest(e.AccessionOrder);
-            this.ShowLockRequestSentPage(e.AccessionOrder);
+            //MessageQueues.Instance.SendLockReleaseRequest(e.AccessionOrder);
+            //this.ShowLockRequestSentPage(e.AccessionOrder);
         }
 
         private void ShowLockRequestSentPage(Business.Test.AccessionOrder accessionOrder)
@@ -87,9 +87,9 @@ namespace YellowstonePathology.UI.AppMessaging
                 lockRequestSentPage = new LockRequestSentPage(accessionOrder, System.Windows.Visibility.Visible, System.Windows.Visibility.Collapsed);
             }
 
-            lockRequestSentPage.ShowResponseReceivedPage += LockRequestSentPage_ShowResponseReceivedPage;
-            lockRequestSentPage.Next += LockRequestSentPage_Next;
-            this.m_PageNavigator.Navigate(lockRequestSentPage);
+            //lockRequestSentPage.ShowResponseReceivedPage += LockRequestSentPage_ShowResponseReceivedPage;
+            //lockRequestSentPage.Next += LockRequestSentPage_Next;
+            //this.m_PageNavigator.Navigate(lockRequestSentPage);
         }
 
         private void LockRequestSentPage_Next(object sender, UI.CustomEventArgs.AccessionOrderReturnEventArgs e)
@@ -97,16 +97,16 @@ namespace YellowstonePathology.UI.AppMessaging
             if (this.Next != null) this.Next(this, e);
         }
 
-        private void LockRequestSentPage_ShowResponseReceivedPage(object sender, CustomEventArgs.MessageReturnEventArgs e)
+        private void LockRequestSentPage_ShowResponseReceivedPage(object sender, EventArgs e)
         {
             LockRequestResponseReceivedPage lockRequestResponseReceivedPage = null;
             if(this.m_PageNavigatorWasPassedIn == false)
             {
-                lockRequestResponseReceivedPage = new LockRequestResponseReceivedPage(e.Message, System.Windows.Visibility.Visible, System.Windows.Visibility.Collapsed);
+                //lockRequestResponseReceivedPage = new LockRequestResponseReceivedPage(e.Message, System.Windows.Visibility.Visible, System.Windows.Visibility.Collapsed);
             }
             else
             {
-                lockRequestResponseReceivedPage = new LockRequestResponseReceivedPage(e.Message, System.Windows.Visibility.Collapsed, System.Windows.Visibility.Visible);
+                //lockRequestResponseReceivedPage = new LockRequestResponseReceivedPage(e.Message, System.Windows.Visibility.Collapsed, System.Windows.Visibility.Visible);
             }
 
             lockRequestResponseReceivedPage.LockWasReleased += LockRequestResponseReceivedPage_LockWasReleased;

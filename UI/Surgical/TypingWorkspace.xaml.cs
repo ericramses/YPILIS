@@ -92,12 +92,12 @@ namespace YellowstonePathology.UI.Surgical
 
             if (this.m_TypingUI.SurgicalTestOrder != null) this.m_TypingUI.RunWorkspaceEnableRules();
 
-            AppMessaging.MessageQueues.Instance.ReleaseLock += MessageQueue_ReleaseLock;
-            AppMessaging.MessageQueues.Instance.AquireLock += MessageQueue_AquireLock;
-            AppMessaging.MessageQueues.Instance.RequestReceived += MessageQueue_RequestReceived;            
+            //AppMessaging.MessageQueues.Instance.ReleaseLock += MessageQueue_ReleaseLock;
+            //AppMessaging.MessageQueues.Instance.AquireLock += MessageQueue_AquireLock;
+            //AppMessaging.MessageQueues.Instance.RequestReceived += MessageQueue_RequestReceived;            
         }        
 
-        private void MessageQueue_RequestReceived(object sender, UI.CustomEventArgs.MessageReturnEventArgs e)
+        private void MessageQueue_RequestReceived(object sender, EventArgs e)
         {                        
             this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
             {
@@ -105,7 +105,7 @@ namespace YellowstonePathology.UI.Surgical
                 {
                     be.UpdateSource();
                 }
-                AppMessaging.MessagingPath.Instance.StartRequestReceived(e.Message);
+                //AppMessaging.MessagingPath.Instance.StartRequestReceived(e.Message);
             }
             ));           
         }
@@ -194,9 +194,9 @@ namespace YellowstonePathology.UI.Surgical
             this.m_MainWindowCommandButtonHandler.RemoveTab -= MainWindowCommandButtonHandler_RemoveTab;
             this.m_MainWindowCommandButtonHandler.ShowMessagingDialog -= MainWindowCommandButtonHandler_ShowMessagingDialog;
 
-            AppMessaging.MessageQueues.Instance.ReleaseLock -= MessageQueue_ReleaseLock;
-            AppMessaging.MessageQueues.Instance.AquireLock -= MessageQueue_AquireLock;
-            AppMessaging.MessageQueues.Instance.RequestReceived -= MessageQueue_RequestReceived;
+            //AppMessaging.MessageQueues.Instance.ReleaseLock -= MessageQueue_ReleaseLock;
+            //AppMessaging.MessageQueues.Instance.AquireLock -= MessageQueue_AquireLock;
+            //AppMessaging.MessageQueues.Instance.RequestReceived -= MessageQueue_RequestReceived;
 
             YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
         }

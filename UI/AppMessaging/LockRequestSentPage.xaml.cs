@@ -22,7 +22,7 @@ namespace YellowstonePathology.UI.AppMessaging
         public delegate void NextEventHandler(object sender, UI.CustomEventArgs.AccessionOrderReturnEventArgs e);
         public event NextEventHandler Next;
 
-        public delegate void ShowResponseReceivedPageEventHandler(object sender, CustomEventArgs.MessageReturnEventArgs e);
+        public delegate void ShowResponseReceivedPageEventHandler(object sender, EventArgs e);
         public event ShowResponseReceivedPageEventHandler ShowResponseReceivedPage;
 
         private Business.Test.AccessionOrder m_AccessionOrder;
@@ -37,7 +37,7 @@ namespace YellowstonePathology.UI.AppMessaging
 		{
             this.m_AccessionOrder = accessionOrder;
             this.m_Message = "A request to release the lock on " + this.m_AccessionOrder.MasterAccessionNo + " was sent to " + this.m_AccessionOrder.LockAquiredByHostName + "\\" + this.m_AccessionOrder.LockAquiredByUserName;
-            MessageQueues.Instance.ResponseReceived += MessageQueues_ResponseReceived;
+            //MessageQueues.Instance.ResponseReceived += MessageQueues_ResponseReceived;
             InitializeComponent();
             DataContext = this;
             this.ButtonClose.Visibility = closeButtonVisibility;
@@ -45,7 +45,7 @@ namespace YellowstonePathology.UI.AppMessaging
             this.StartCountDownTimer();        
 		}
 
-        private void MessageQueues_ResponseReceived(object sender, CustomEventArgs.MessageReturnEventArgs e)
+        private void MessageQueues_ResponseReceived(object sender, EventArgs e)
         {
             this.m_DispatchTimer.Stop();
             this.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()

@@ -124,7 +124,10 @@ namespace YellowstonePathology.Business.Persistence
                 AODocumentBuilder documentBuilder = new AODocumentBuilder(masterAccessionNo, true);
                 DocumentId documentId = new DocumentId(typeof(YellowstonePathology.Business.Test.AccessionOrder), writer, masterAccessionNo);
                 Document document = this.m_Stack.Pull(documentId, documentBuilder);
-                return (YellowstonePathology.Business.Test.AccessionOrder)document.Value;
+                
+
+                YellowstonePathology.Business.Test.AccessionOrder accessionOrder = (YellowstonePathology.Business.Test.AccessionOrder)document.Value;
+                return accessionOrder;
             }            
         }
 

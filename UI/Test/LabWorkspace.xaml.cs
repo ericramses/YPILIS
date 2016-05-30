@@ -107,13 +107,13 @@ namespace YellowstonePathology.UI.Test
             this.m_MainWindowCommandButtonHandler.Save += new MainWindowCommandButtonHandler.SaveEventHandler(MainWindowCommandButtonHandler_Save);
             this.m_MainWindowCommandButtonHandler.Refresh += MainWindowCommandButtonHandler_Refresh;
 
-            AppMessaging.MessageQueues.Instance.ReleaseLock -= MessageQueue_ReleaseLock;
-            AppMessaging.MessageQueues.Instance.AquireLock -= MessageQueue_AquireLock;
-            AppMessaging.MessageQueues.Instance.RequestReceived -= MessageQueue_RequestReceived;
+            //AppMessaging.MessageQueues.Instance.ReleaseLock -= MessageQueue_ReleaseLock;
+            //AppMessaging.MessageQueues.Instance.AquireLock -= MessageQueue_AquireLock;
+            //AppMessaging.MessageQueues.Instance.RequestReceived -= MessageQueue_RequestReceived;
 
-            AppMessaging.MessageQueues.Instance.ReleaseLock += MessageQueue_ReleaseLock;
-            AppMessaging.MessageQueues.Instance.AquireLock += MessageQueue_AquireLock;
-            AppMessaging.MessageQueues.Instance.RequestReceived += MessageQueue_RequestReceived;
+            //AppMessaging.MessageQueues.Instance.ReleaseLock += MessageQueue_ReleaseLock;
+            //AppMessaging.MessageQueues.Instance.AquireLock += MessageQueue_AquireLock;
+            //AppMessaging.MessageQueues.Instance.RequestReceived += MessageQueue_RequestReceived;
         }
 
         private void MainWindowCommandButtonHandler_Refresh(object sender, EventArgs e)
@@ -153,11 +153,11 @@ namespace YellowstonePathology.UI.Test
             }
         }
 
-        private void MessageQueue_RequestReceived(object sender, UI.CustomEventArgs.MessageReturnEventArgs e)
+        private void MessageQueue_RequestReceived(object sender, EventArgs e)
         {
             this.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
             {
-                AppMessaging.MessagingPath.Instance.StartRequestReceived(e.Message);
+                //AppMessaging.MessagingPath.Instance.StartRequestReceived(e.Message);
             }
             ));
         }
@@ -214,9 +214,9 @@ namespace YellowstonePathology.UI.Test
             this.m_MainWindowCommandButtonHandler.Save -= MainWindowCommandButtonHandler_Save;
             this.m_MainWindowCommandButtonHandler.Refresh -= MainWindowCommandButtonHandler_Refresh;
 
-            AppMessaging.MessageQueues.Instance.ReleaseLock -= MessageQueue_ReleaseLock;
-            AppMessaging.MessageQueues.Instance.AquireLock -= MessageQueue_AquireLock;
-            AppMessaging.MessageQueues.Instance.RequestReceived -= MessageQueue_RequestReceived;
+            //AppMessaging.MessageQueues.Instance.ReleaseLock -= MessageQueue_ReleaseLock;
+            //AppMessaging.MessageQueues.Instance.AquireLock -= MessageQueue_AquireLock;
+            //AppMessaging.MessageQueues.Instance.RequestReceived -= MessageQueue_RequestReceived;
 
             YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
         }

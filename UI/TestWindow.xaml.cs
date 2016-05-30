@@ -19,23 +19,29 @@ namespace YellowstonePathology.UI
     /// </summary>
     public partial class TestWindow : Window
     {
+        private IDatabase m_DB;
+        private ISubscriber m_SUB;
 
-        ConnectionMultiplexer m_Redis;
         public TestWindow()
         {
-            this.m_Redis = ConnectionMultiplexer.Connect("10.1.2.25");
             InitializeComponent();
             this.DataContext = this;
-        }        
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+            this.m_DB = YellowstonePathology.Business.RedisConnection.Instance.GetDatabase();
+            this.m_SUB = YellowstonePathology.Business.RedisConnection.Instance.GetSubscriber();
+        }                
+
+        private void Button_SubscribeClick(object sender, RoutedEventArgs e)
         {
-            IDatabase db = this.m_Redis.GetDatabase();
-            string lastName = "Mouse";
-            db.StringSet("LastName", lastName);
+            this.m_SUB.Subscribe("Messages", (channel, message) =>
+            {
+                MessageBox.Show((string)message);
+            });
+        }
 
-            string result = db.StringGet("LastName");
-            MessageBox.Show(result);
+        private void Button_PublishClick(object sender, RoutedEventArgs e)
+        {
+            this.m_SUB.Publish("16-12345", "hello word");            
         }
     }
 }

@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Reflection;
 using System.Data;
 using System.Data.SqlClient;
+using StackExchange.Redis;
 
 namespace YellowstonePathology.Business.Persistence
 {
@@ -115,6 +116,13 @@ namespace YellowstonePathology.Business.Persistence
                     {
                         this.m_Documents.Remove(document);
                     }
+
+                    if (document.Value is YellowstonePathology.Business.Test.AccessionOrder)
+                    {
+                        Business.Test.AccessionOrder accessionOrder = (Business.Test.AccessionOrder)document.Value;                        
+                        ISubscriber subscriber = Business.RedisConnection.Instance.GetSubscriber();
+                        subscriber.Unsubscribe(accessionOrder.MasterAccessionNo);
+                    }
                 }                
             }
             document.Submit();
@@ -168,12 +176,13 @@ namespace YellowstonePathology.Business.Persistence
                 object value = documentBuilder.BuildNew();
                 documentId.Value = value;
                 document = new DocumentUpdate(documentId);
+                this.SubscribeToChannel(document);
                 this.m_Documents.Add(document);                
             }           
             else
             {
                 object value = documentBuilder.BuildNew();
-                documentId.Value = value;
+                documentId.Value = value;                
 
                 document = new DocumentUpdate(documentId);
                 this.m_Documents.Add(document);
@@ -182,11 +191,25 @@ namespace YellowstonePathology.Business.Persistence
                 {
                     Business.Test.AccessionOrder accessionOrder = (Business.Test.AccessionOrder)document.Value;
                     document.IsLockAquiredByMe = accessionOrder.IsLockAquiredByMe;
+                    this.SubscribeToChannel(document);                    
                 }
             }
 
             return document;
-        }               
+        }  
+        
+        private void SubscribeToChannel(Document document)
+        {
+            if (document.Value is YellowstonePathology.Business.Test.AccessionOrder)
+            {
+                Business.Test.AccessionOrder accessionOrder = (Business.Test.AccessionOrder)document.Value;
+                ISubscriber subscriber = Business.RedisConnection.Instance.GetSubscriber();
+                subscriber.Subscribe(accessionOrder.MasterAccessionNo, (channel, message) =>
+                {
+                    System.Windows.MessageBox.Show(message);
+                });
+            }            
+        }             
 
         public void InsertDocument(object o, object writer)
         {
