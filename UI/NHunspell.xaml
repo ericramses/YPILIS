@@ -22,6 +22,7 @@
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Fields" Width="150" DisplayMemberBinding="{Binding Path=Description}" />
+                    <GridViewColumn Header="Errors" Width="100" DisplayMemberBinding="{Binding Path=ErrorCount}" />
                 </GridView>
             </ListView.View>
         </ListView>

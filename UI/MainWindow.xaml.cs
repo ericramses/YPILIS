@@ -949,10 +949,10 @@ namespace YellowstonePathology.UI
             embeddingDialog.ShowDialog();
         }
 
-        private void MenuItemNetMQ_Click(object sender, RoutedEventArgs e)
+        private void MenuItemTesting_Click(object sender, RoutedEventArgs e)
         {
-            NetMQTesting netMQTesting = new NetMQTesting();
-            netMQTesting.Show();
+            TestWindow window = new TestWindow();
+            window.Show();
         }
     }    
 }

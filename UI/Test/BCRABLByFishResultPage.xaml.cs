@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Test
 	/// <summary>
 	/// Interaction logic for BCRABLByFishResultPage.xaml
 	/// </summary>
-	public partial class BCRABLByFishResultPage : UserControl, INotifyPropertyChanged 
+	public partial class BCRABLByFishResultPage : ResultControl, INotifyPropertyChanged 
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -35,7 +35,7 @@ namespace YellowstonePathology.UI.Test
 
 		public BCRABLByFishResultPage(YellowstonePathology.Business.Test.BCRABLByFish.BCRABLByFishTestOrder testOrder,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+			YellowstonePathology.Business.User.SystemIdentity systemIdentity) : base(testOrder, accessionOrder)
 		{
             this.m_PanelSetOrder = testOrder;
 			this.m_AccessionOrder = accessionOrder;
@@ -49,8 +49,12 @@ namespace YellowstonePathology.UI.Test
 
 			InitializeComponent();
 
-			DataContext = this;           
-		}        
+			DataContext = this;
+
+            this.m_ControlsNotDisabledOnFinal.Add(this.ButtonNext);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockShowDocument);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockUnfinalResults);
+        }
 
         public string OrderedOnDescription
 		{

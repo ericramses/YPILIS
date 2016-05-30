@@ -9,7 +9,7 @@ namespace YellowstonePathology.Business.Test.Trisomy21ByFISH
 	{
         public Trisomy21ByFISHTest()
 		{
-			this.m_PanelSetId = 206;
+			this.m_PanelSetId = 224;
             this.m_PanelSetName = "Trisomy 21 By FISH";
             this.m_Abbreviation = "+21 By FISH";
             this.m_CaseType = YellowstonePathology.Business.CaseType.Molecular;

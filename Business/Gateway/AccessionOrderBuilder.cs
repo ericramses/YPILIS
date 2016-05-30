@@ -626,12 +626,21 @@ namespace YellowstonePathology.Business.Gateway
 			foreach (XElement surgicalAuditElement in collectionElements.Elements("SurgicalAudit"))
 			{
                 string surgicalAuditId = surgicalAuditElement.Element("SurgicalAuditId").Value;
+                YellowstonePathology.Business.Test.Surgical.SurgicalAudit surgicalAudit = null;
 
-				YellowstonePathology.Business.Test.Surgical.SurgicalAudit surgicalAudit = new YellowstonePathology.Business.Test.Surgical.SurgicalAudit();
+                if(panelSetOrder.SurgicalAuditCollection.Exists(surgicalAuditId) == true)
+                {
+                    surgicalAudit = panelSetOrder.SurgicalAuditCollection.Get(surgicalAuditId);
+                }
+                else
+                {
+                    surgicalAudit = new Test.Surgical.SurgicalAudit();
+                    panelSetOrder.SurgicalAuditCollection.Add(surgicalAudit);
+                }
+
 				YellowstonePathology.Business.Persistence.XmlPropertyWriter xmlPropertyWriter = new YellowstonePathology.Business.Persistence.XmlPropertyWriter(surgicalAuditElement, surgicalAudit);
 				xmlPropertyWriter.Write();
 				BuildSurgicalSpecimenAuditResult(surgicalAudit, surgicalAuditElement);
-				panelSetOrder.SurgicalAuditCollection.Add(surgicalAudit);
 			}
 		}
 

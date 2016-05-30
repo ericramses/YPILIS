@@ -75,7 +75,7 @@ namespace YellowstonePathology.UI.Gross
         }
     }
     
-        public class BXTemplate : DictationTemplate
+    public class BXTemplate : DictationTemplate
     {
         public BXTemplate()
         {
@@ -91,6 +91,24 @@ namespace YellowstonePathology.UI.Gross
         {
             string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
             result = this.ReplaceCassetteLabel(result, specimenOrder);
+            return result;
+        }
+    }
+
+    public class FluidTemplate : DictationTemplate
+    {
+        public FluidTemplate()
+        {
+            this.m_TemplateName = "Fluid Specimen";
+            this.m_Text = "The specimen is received in CytoLyt in a container labeled \"[description]\" and consists of [Quantity] ml of [Color] fluid.The specimen is submitted for selective cellular enhancement processing.";
+
+            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Urine urine = new Business.Specimen.Model.SpecimenDefinition.Urine();
+            this.m_SpecimenCollection.Add(urine);
+        }
+
+        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        {
+            string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
             return result;
         }
     }

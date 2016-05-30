@@ -98,6 +98,10 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="ReachFramework" />
+    <Reference Include="StackExchange.Redis, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\StackExchange.Redis.1.1.603\lib\net46\StackExchange.Redis.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -180,7 +184,6 @@
     <Compile Include="Audit.Model\IntraoperativeConsultationCorrelationAudit.cs" />
     <Compile Include="Audit.Model\IntraoperativeConsultationFinalAudit.cs" />
     <Compile Include="Audit.Model\PathologistSignoutIsHandledAuditCollection.cs" />
-    <Compile Include="Audit.Model\KRASForMetastaticColorectalCancerAudit.cs" />
     <Compile Include="Audit.Model\LynchSyndromeAudit.cs" />
     <Compile Include="Audit.Model\NonASCIICharacterAudit.cs" />
     <Compile Include="Audit.Model\PapCorrelationIsRequiredAudit.cs" />
@@ -195,6 +198,7 @@
     <Compile Include="Audit.Model\ProviderDisplayNameAudit.cs" />
     <Compile Include="Audit.Model\ProviderHomeBaseAudit.cs" />
     <Compile Include="Audit.Model\ProviderNpiAudit.cs" />
+    <Compile Include="Audit.Model\RASRAForMetastaticColorectalCancerAudit.cs" />
     <Compile Include="Audit.Model\SigningUserIsAssignedUserAudit.cs" />
     <Compile Include="Audit.Model\SpecimenOrderAudit.cs" />
     <Compile Include="Audit.Model\IsOKToAdjustWHPExpectedFinalTimeAuditCollection.cs" />
@@ -437,6 +441,14 @@
     <Compile Include="HL7View\Panther\PantherPID.cs" />
     <Compile Include="HL7View\Panther\PantherHL7Client.cs" />
     <Compile Include="HL7View\Panther\PantherMSH.cs" />
+    <Compile Include="HL7View\WPH\WPHHl7Client.cs" />
+    <Compile Include="HL7View\WPH\WPHMSHView.cs" />
+    <Compile Include="HL7View\WPH\WPHOBRView.cs" />
+    <Compile Include="HL7View\WPH\WPHOBXView.cs" />
+    <Compile Include="HL7View\WPH\WPHOBXViewFactory.cs" />
+    <Compile Include="HL7View\WPH\WPHORCView.cs" />
+    <Compile Include="HL7View\WPH\WPHPIDView.cs" />
+    <Compile Include="HL7View\WPH\WPHResultView.cs" />
     <Compile Include="HL7View\WYDOH\WYDOHClient.cs" />
     <Compile Include="HL7View\WYDOH\WYDOHMSHView.cs" />
     <Compile Include="HL7View\WYDOH\WYDOHOBRView.cs" />
@@ -471,6 +483,7 @@
     <Compile Include="PanelSet.Model\PanelSetTCellClonalityByPCRRetired.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Persistence\SpecimenOrderDocumentBuilder.cs" />
     <Compile Include="Persistence\AODocumentBuilder.cs" />
     <Compile Include="Persistence\ClientDocumentBuilder.cs" />
     <Compile Include="Persistence\ClientOrderDocumentBuilder.cs" />
@@ -508,6 +521,7 @@
     <Compile Include="Persistence\WriterScopeEnum.cs" />
     <Compile Include="ReportDistribution.Model\ScheduledFaxSubmission.cs" />
     <Compile Include="Specimen.Model\EmbeddingInstructionList.cs" />
+    <Compile Include="Surgical\HoldProcessor.cs" />
     <Compile Include="Task.Model\TaskMicrodissectionForMolecular.cs" />
     <Compile Include="Test.Model\DispalyGroupProstate.cs" />
     <Compile Include="Test.Model\P40.cs" />
@@ -555,10 +569,9 @@
     <Compile Include="Test\CD1a\CD1aTest.cs" />
     <Compile Include="Test\ChromosomeAnalysis\ChromosomeAnalysisIncompleteResult.cs" />
     <Compile Include="Test\EGFRMutationAnalysis\EGFRMutationAnalysisPanel.cs" />
-    <Compile Include="Test\EGFRToALKReflexAnalysis\EGFRToALKReflexAnalysisPDL1Result.cs" />
     <Compile Include="Test\ErPrSemiQuantitative\ERPRSemiQuanititativePanel.cs" />
-    <Compile Include="Test\ExtractAndHoldForFlow\ExtractAndHoldForFlowTest.cs" />
-    <Compile Include="Test\ExtractAndHoldForFlow\ExtractAndHoldForFlowTestOrder.cs" />
+    <Compile Include="Test\ExtractAndHoldForMolecular\ExtractAndHoldForMolecularTest.cs" />
+    <Compile Include="Test\ExtractAndHoldForMolecular\ExtractAndHoldForMolecularTestOrder.cs" />
     <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHPanel.cs" />
     <Compile Include="Test\HER2AmplificationByISH\HER2AmplificationByISHSystemGeneratedAmendmentText.cs" />
     <Compile Include="Test\HoldForFlow\HoldForFlowTestOrder.cs" />
@@ -732,6 +745,7 @@
     <Compile Include="Test\PantherOrderListItemNGCT.cs" />
     <Compile Include="Test\PantherOrderListItem.cs" />
     <Compile Include="Test\PDL1\PDL1EPICObxView.cs" />
+    <Compile Include="Test\PDL1\PDL1SystemGeneratedAmendmentText.cs" />
     <Compile Include="Test\PDL1\PDL1Test.cs" />
     <Compile Include="Test\PDL1\PDL1TestOrder.cs" />
     <Compile Include="Test\PDL1\PDL1WordDocument.cs" />
@@ -749,6 +763,10 @@
     <Compile Include="Test\ROS1ByFISH\ROS1ByFISHInconclusiveResult.cs" />
     <Compile Include="Test\ROS1ByFISH\ROS1ByFISHNegativeWithMonosomyResult.cs" />
     <Compile Include="Test\ROS1ByFISH\ROS1ByFISHNegativeWithPolysomyResult.cs" />
+    <Compile Include="Test\RUNX1RUNX1T1AML1ETOTranslocation\RUNX1RUNX1T1AML1ETOTranslocationEPICOBXView.cs" />
+    <Compile Include="Test\RUNX1RUNX1T1AML1ETOTranslocation\RUNX1RUNX1T1AML1ETOTranslocationTest.cs" />
+    <Compile Include="Test\RUNX1RUNX1T1AML1ETOTranslocation\RUNX1RUNX1T1AML1ETOTranslocationTestOrder.cs" />
+    <Compile Include="Test\RUNX1RUNX1T1AML1ETOTranslocation\RUNX1RUNX1T1AML1ETOTranslocationWordDocument.cs" />
     <Compile Include="Test\Surgical\IntraoperativeConsultationResult.Validation.cs" />
     <Compile Include="Test\InformalConsult\InformalConsultTest.cs" />
     <Compile Include="Test\InformalConsult\InformalConsultTestOrder.cs" />

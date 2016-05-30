@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YellowstonePathology.UI.Login"
         mc:Ignorable="d"
-        Title="Messaging" Height="400" Width="600" WindowStyle="ToolWindow">
+        Title="Messaging" Height="400" Width="800" WindowStyle="ToolWindow">
     <Grid>
         <ContentControl Name="MainContent" ></ContentControl>
     </Grid>

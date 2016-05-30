@@ -40,7 +40,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>227</ApplicationRevision>
+    <ApplicationRevision>254</ApplicationRevision>
     <ApplicationVersion>10.1.4.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -117,6 +117,10 @@
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
     <Reference Include="PresentationFramework.Luna" />
+    <Reference Include="StackExchange.Redis, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\StackExchange.Redis.1.1.603\lib\net46\StackExchange.Redis.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -700,10 +704,10 @@
     </Compile>
     <Compile Include="Test\CancelATestPath.cs" />
     <Compile Include="Test\EGFRToALKReflexAnalysisStatusColorConverter.cs" />
-    <Compile Include="Test\ExtractAndHoldForFlowResultPage.xaml.cs">
-      <DependentUpon>ExtractAndHoldForFlowResultPage.xaml</DependentUpon>
+    <Compile Include="Test\ExtractAndHoldForMolecularResultPage.xaml.cs">
+      <DependentUpon>ExtractAndHoldForMolecularResultPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Test\ExtractAndHoldForFlowResultPath.cs" />
+    <Compile Include="Test\ExtractAndHoldForMolecularResultPath.cs" />
     <Compile Include="Test\HoldForFlowResultPage.xaml.cs">
       <DependentUpon>HoldForFlowResultPage.xaml</DependentUpon>
     </Compile>
@@ -828,9 +832,6 @@
       <DependentUpon>NeoARRAYSNPCytogeneticProfileResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Test\NeoARRAYSNPCytogeneticProfileResultPath.cs" />
-    <Compile Include="Test\NeogenomicsResultAccessionPage.xaml.cs">
-      <DependentUpon>NeogenomicsResultAccessionPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Test\FLT3ResultPage.xaml.cs">
       <DependentUpon>FLT3ResultPage.xaml</DependentUpon>
     </Compile>
@@ -907,6 +908,10 @@
     <Compile Include="Test\CancelTestWarningPage.xaml.cs">
       <DependentUpon>CancelTestWarningPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Test\RUNX1RUNX1T1AML1ETOTranslocationResultPage.xaml.cs">
+      <DependentUpon>RUNX1RUNX1T1AML1ETOTranslocationResultPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Test\RUNX1RUNX1T1AML1ETOTranslocationResultPath.cs" />
     <Compile Include="Test\TCellSubsetAnalysisResultPage.xaml.cs">
       <DependentUpon>TCellSubsetAnalysisResultPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -2383,7 +2388,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Test\ExtractAndHoldForFlowResultPage.xaml">
+    <Page Include="Test\ExtractAndHoldForMolecularResultPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -2507,10 +2512,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Test\NeogenomicsResultAccessionPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Test\FLT3ResultPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -2586,6 +2587,10 @@
     <Page Include="Test\CancelTestWarningPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Test\RUNX1RUNX1T1AML1ETOTranslocationResultPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Test\TCellSubsetAnalysisResultPage.xaml" />
     <Page Include="Test\TecanImportExportPage.xaml">

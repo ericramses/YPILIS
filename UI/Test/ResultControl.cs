@@ -21,8 +21,9 @@ namespace YellowstonePathology.UI.Test
             this.m_ControlsNotDisabledOnFinal = new List<FrameworkElement>();
             if (accessionOrder.IsLockAquiredByMe == false ||
                 (this.m_TestOrder.Final == true &&
-                (this.m_TestOrder.Distribute == false || this.m_TestOrder.TestOrderReportDistributionCollection.HasDistributedItems())))
+                (this.m_TestOrder.Distribute == false)))
             {
+                //|| this.m_TestOrder.TestOrderReportDistributionCollection.HasDistributedItems()
                 this.m_DisableRequired = true;
             }
 
@@ -52,6 +53,10 @@ namespace YellowstonePathology.UI.Test
                 {
                     DisableContents(element);
                 }
+            }
+            else if(o is CheckBox)
+            {
+                ((UIElement)o).IsEnabled = false;
             }
             else if (o is ContentControl)
             {

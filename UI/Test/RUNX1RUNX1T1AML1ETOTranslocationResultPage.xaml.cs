@@ -5,14 +5,21 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
 using System.ComponentModel;
 
 namespace YellowstonePathology.UI.Test
 {
     /// <summary>
-    /// Interaction logic for ExtractAndHoldForFlowResultPage.xaml
+    /// Interaction logic for RUNX1RUNX1T1AML1ETOTranslocationResultPage.xaml
     /// </summary>
-    public partial class ExtractAndHoldForFlowResultPage : UserControl, INotifyPropertyChanged
+    public partial class RUNX1RUNX1T1AML1ETOTranslocationResultPage : ResultControl, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -21,14 +28,14 @@ namespace YellowstonePathology.UI.Test
 
         private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-        private string m_PageHeaderText;
+        private YellowstonePathology.Business.Test.RUNX1RUNX1T1AML1ETOTranslocation.RUNX1RUNX1T1AML1ETOTranslocationTestOrder m_PanelSetOrder;
 
-        private YellowstonePathology.Business.Test.ExtractAndHoldForFlow.ExtractAndHoldForFlowTestOrder m_PanelSetOrder;
+        private string m_PageHeaderText;
         private string m_OrderedOnDescription;
 
-        public ExtractAndHoldForFlowResultPage(YellowstonePathology.Business.Test.ExtractAndHoldForFlow.ExtractAndHoldForFlowTestOrder testOrder,
+        public RUNX1RUNX1T1AML1ETOTranslocationResultPage(YellowstonePathology.Business.Test.RUNX1RUNX1T1AML1ETOTranslocation.RUNX1RUNX1T1AML1ETOTranslocationTestOrder testOrder,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-            YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+            YellowstonePathology.Business.User.SystemIdentity systemIdentity) : base(testOrder, accessionOrder)
         {
             this.m_PanelSetOrder = testOrder;
             this.m_AccessionOrder = accessionOrder;
@@ -42,6 +49,10 @@ namespace YellowstonePathology.UI.Test
             InitializeComponent();
 
             DataContext = this;
+
+            this.m_ControlsNotDisabledOnFinal.Add(this.ButtonNext);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockShowDocument);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockUnfinalResults);
         }
 
         public string OrderedOnDescription
@@ -49,7 +60,7 @@ namespace YellowstonePathology.UI.Test
             get { return this.m_OrderedOnDescription; }
         }
 
-        public YellowstonePathology.Business.Test.ExtractAndHoldForFlow.ExtractAndHoldForFlowTestOrder PanelSetOrder
+        public YellowstonePathology.Business.Test.RUNX1RUNX1T1AML1ETOTranslocation.RUNX1RUNX1T1AML1ETOTranslocationTestOrder PanelSetOrder
         {
             get { return this.m_PanelSetOrder; }
         }
@@ -67,7 +78,17 @@ namespace YellowstonePathology.UI.Test
             get { return this.m_PageHeaderText; }
         }
 
-        private void HyperLinkFinalize_Click(object sender, RoutedEventArgs e)
+        private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Test.RUNX1RUNX1T1AML1ETOTranslocation.RUNX1RUNX1T1AML1ETOTranslocationWordDocument report = new YellowstonePathology.Business.Test.RUNX1RUNX1T1AML1ETOTranslocation.RUNX1RUNX1T1AML1ETOTranslocationWordDocument(this.m_AccessionOrder, this.m_PanelSetOrder, Business.Document.ReportSaveModeEnum.Draft);
+            report.Render();
+
+            YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
+            string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);
+            YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(fileName);
+        }
+
+        private void HyperLinkFinalizeResults_Click(object sender, RoutedEventArgs e)
         {
             YellowstonePathology.Business.Rules.MethodResult result = this.m_PanelSetOrder.IsOkToFinalize();
             if (result.Success == true)
@@ -125,3 +146,4 @@ namespace YellowstonePathology.UI.Test
         }
     }
 }
+

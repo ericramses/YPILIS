@@ -15,7 +15,7 @@ using System.ComponentModel;
 
 namespace YellowstonePathology.UI.Test
 {	
-	public partial class EGFRToALKReflexPage : UserControl, INotifyPropertyChanged
+	public partial class EGFRToALKReflexPage : ResultControl, INotifyPropertyChanged
 	{
 		public delegate void PropertyChangedNotificationHandler(String info);
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -26,8 +26,8 @@ namespace YellowstonePathology.UI.Test
         public delegate void BackEventHandler(object sender, EventArgs e);
         public event BackEventHandler Back;        
 
-        public delegate void OrderALKROS1AndPDL1EventHandler(object sender, EventArgs e);
-        public event OrderALKROS1AndPDL1EventHandler OrderALKROS1AndPDL1;
+        public delegate void OrderALKAndROS1EventHandler(object sender, EventArgs e);
+        public event OrderALKAndROS1EventHandler OrderALKAndROS1;
 
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
@@ -43,7 +43,7 @@ namespace YellowstonePathology.UI.Test
         public EGFRToALKReflexPage(YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisTestOrder testOrder,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity,
-            System.Windows.Visibility backButtonVisibility)
+            System.Windows.Visibility backButtonVisibility) : base(testOrder, accessionOrder)
 		{
 			this.m_AccessionOrder = accessionOrder;
 			this.m_SystemIdentity = systemIdentity;
@@ -76,6 +76,11 @@ namespace YellowstonePathology.UI.Test
 			InitializeComponent();
 
 			this.DataContext = this;
+
+            this.m_ControlsNotDisabledOnFinal.Add(this.ButtonBack);
+            this.m_ControlsNotDisabledOnFinal.Add(this.ButtonFinish);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockShowDocument);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockUnfinalResults);
         }
 
         public YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisResult EGFRToALKReflexAnalysisResult
@@ -118,9 +123,9 @@ namespace YellowstonePathology.UI.Test
             get { return this.m_PageHeaderText; }
 		}
 
-        private void HyperLinkOrderALKROS1AndPDL1_Click(object sender, RoutedEventArgs e)
+        private void HyperLinkOrderALKAndROS1_Click(object sender, RoutedEventArgs e)
         {
-            this.OrderALKROS1AndPDL1(this, new EventArgs());
+            this.OrderALKAndROS1(this, new EventArgs());
         }  
 
 		private void HyperLinkSetResults_Click(object sender, RoutedEventArgs e)
@@ -240,27 +245,5 @@ namespace YellowstonePathology.UI.Test
             this.m_EGFRToALKReflexAnalysisResult = new Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisResult(this.m_AccessionOrder, this.m_EGFRToALKReflexAnalysisTestOrder);
             this.NotifyPropertyChanged(string.Empty);
         }                    
-
-        private void CheckBoxQNSForPDL1_Checked(object sender, RoutedEventArgs e)
-        {
-            this.m_EGFRToALKReflexAnalysisResult = new Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisResult(this.m_AccessionOrder, this.m_EGFRToALKReflexAnalysisTestOrder);
-            this.NotifyPropertyChanged(string.Empty);
-        }
-
-        private void CheckBoxQNSForPDL1_Unchecked(object sender, RoutedEventArgs e)
-        {
-            this.m_EGFRToALKReflexAnalysisResult = new Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisResult(this.m_AccessionOrder, this.m_EGFRToALKReflexAnalysisTestOrder);
-            this.NotifyPropertyChanged(string.Empty);
-        }
-
-        private void CheckBoxDoNotPerformPDL1_Checked(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void CheckBoxDoNotPerformPDL1_Unchecked(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }

@@ -57,9 +57,7 @@
 				</TextBlock>
 
 				<TextBlock Grid.Column="0" Grid.Row="5" Margin="5,3,0,5">
-					<Hyperlink Click="HyperLinkFinalize_Click">
-						<TextBlock Text="Finalize" />
-					</Hyperlink>
+					<Hyperlink Click="HyperLinkFinalize_Click">Finalize</Hyperlink>
 				</TextBlock>
 
 				<TextBlock Grid.Column="0" Grid.Row="7" Margin="5,3,0,0">                    
@@ -67,21 +65,15 @@
 				</TextBlock>
 
 				<TextBlock Grid.Column="0" Grid.Row="8" Margin="5,3,0,0">                    
-                    <Hyperlink Click="HyperLinkCancelTestUniterpretable_Click">
-						<TextBlock Text="Cancel (Uninterpretable)" />
-					</Hyperlink>
+                    <Hyperlink Click="HyperLinkCancelTestUniterpretable_Click">Cancel (Uninterpretable)</Hyperlink>
 				</TextBlock>
 
                 <TextBlock Grid.Column="0" Grid.Row="9" Margin="5,3,0,0">                    
-                    <Hyperlink Click="HyperLinkCancelTestInsufficient_Click">
-						<TextBlock Text="Cancel (Insufficient)" />
-					</Hyperlink>
+                    <Hyperlink Click="HyperLinkCancelTestInsufficient_Click">Cancel (Insufficient)</Hyperlink>
 				</TextBlock>
 
                 <TextBlock Grid.Column="0" Grid.Row="10" Margin="5,3,0,0">                    
-                    <Hyperlink Click="HyperLinkUnacceptResults_Click">
-						<TextBlock Text="Unaccept Results" />
-					</Hyperlink>
+                    <Hyperlink Click="HyperLinkUnacceptResults_Click">Unaccept Results</Hyperlink>
 				</TextBlock>
 
                 <TextBlock Name="TextBlockUnfinalResults" Grid.Column="0" Grid.Row="11" Margin="5,3,0,0">                    

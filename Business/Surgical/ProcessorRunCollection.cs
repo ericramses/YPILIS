@@ -73,7 +73,13 @@ namespace YellowstonePathology.Business.Surgical
             foreach (ProcessorRun processorRun in drFez.ProcessorRunCollection)
             {
                 result.Add(processorRun);
-            }            
+            }
+
+            HoldProcessor holdProcessor = new HoldProcessor();
+            foreach (ProcessorRun processorRun in holdProcessor.ProcessorRunCollection)
+            {
+                result.Add(processorRun);
+            }
 
             return result;
         }

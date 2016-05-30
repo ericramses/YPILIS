@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Test
 	/// <summary>
 	/// Interaction logic for MPNStandardResultPage.xaml
 	/// </summary>
-	public partial class MPNStandardReflexPage : UserControl, INotifyPropertyChanged
+	public partial class MPNStandardReflexPage : ResultControl, INotifyPropertyChanged
 	{
 		public delegate void PropertyChangedNotificationHandler(String info);
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -44,8 +44,9 @@ namespace YellowstonePathology.UI.Test
 		private string m_PageHeaderText;
 
 
-		public MPNStandardReflexPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+		public MPNStandardReflexPage(YellowstonePathology.Business.Test.MPNStandardReflex.PanelSetOrderMPNStandardReflex testOrder,
+            YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
+			YellowstonePathology.Business.User.SystemIdentity systemIdentity) : base(testOrder, accessionOrder)
 		{
 			this.m_AccessionOrder = accessionOrder;            
 			this.m_SystemIdentity = systemIdentity;
@@ -65,8 +66,13 @@ namespace YellowstonePathology.UI.Test
 
 			InitializeComponent();
 
-			this.DataContext = this;            
-		}        
+			this.DataContext = this;
+
+            this.m_ControlsNotDisabledOnFinal.Add(this.ButtonBack);
+            this.m_ControlsNotDisabledOnFinal.Add(this.ButtonFinish);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockShowDocument);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockUnfinalResults);
+        }
 
         public YellowstonePathology.Business.Specimen.Model.SpecimenOrder SpecimenOrder
         {

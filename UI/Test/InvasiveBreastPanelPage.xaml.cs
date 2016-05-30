@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Test
 	/// <summary>
 	/// Interaction logic for InvasiveBreastPanelPage.xaml
 	/// </summary>
-	public partial class InvasiveBreastPanelPage : UserControl, INotifyPropertyChanged
+	public partial class InvasiveBreastPanelPage : ResultControl, INotifyPropertyChanged
 	{
 		public delegate void PropertyChangedNotificationHandler(String info);
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -39,13 +39,14 @@ namespace YellowstonePathology.UI.Test
 
         private string m_PageHeaderText;
 
-		public InvasiveBreastPanelPage(string reportNo, YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+		public InvasiveBreastPanelPage(YellowstonePathology.Business.Test.InvasiveBreastPanel.InvasiveBreastPanel testOrder,
+            YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
+			YellowstonePathology.Business.User.SystemIdentity systemIdentity) : base(testOrder, accessionOrder)
 		{
 			this.m_AccessionOrder = accessionOrder;
 			this.m_SystemIdentity = systemIdentity;
 
-			this.m_InvasiveBreastPanel = (YellowstonePathology.Business.Test.InvasiveBreastPanel.InvasiveBreastPanel)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
+			this.m_InvasiveBreastPanel = testOrder;
 			this.m_InvasiveBreastPanel.SetStatus(this.m_AccessionOrder.PanelSetOrderCollection);
 
 			this.m_InvasiveBreastPanelResult = new Business.Test.InvasiveBreastPanel.InvasiveBreastPanelResult(this.m_AccessionOrder);
@@ -60,7 +61,11 @@ namespace YellowstonePathology.UI.Test
 
 			InitializeComponent();
 
-			this.DataContext = this;            
+			this.DataContext = this;
+
+            this.m_ControlsNotDisabledOnFinal.Add(this.ButtonNext);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockShowDocument);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockUnfinalResults);
 		}        
 
         public YellowstonePathology.Business.Test.InvasiveBreastPanel.InvasiveBreastPanel InvasiveBreastPanel

@@ -4,16 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace YellowstonePathology.Business.Test.ExtractAndHoldForFlow
+namespace YellowstonePathology.Business.Test.ExtractAndHoldForMolecular
 {
-    public class ExtractAndHoldForFlowTest : YellowstonePathology.Business.PanelSet.Model.PanelSet
+    public class ExtractAndHoldForMolecularTest : YellowstonePathology.Business.PanelSet.Model.PanelSet
     {
-        public ExtractAndHoldForFlowTest()
+        public ExtractAndHoldForMolecularTest()
         {
             this.m_PanelSetId = 230;
-            this.m_PanelSetName = "Extract And Hold For Flow";
-            this.m_Abbreviation = "Extract And Hold For Flow";
-            this.m_CaseType = YellowstonePathology.Business.CaseType.FlowCytometry;
+            this.m_PanelSetName = "Extract And Hold For Molecular";
+            this.m_Abbreviation = "Extract And Hold For Molecular";
+            this.m_CaseType = YellowstonePathology.Business.CaseType.Molecular;
             this.m_HasTechnicalComponent = false;
             this.m_HasProfessionalComponent = false;
             this.m_ResultDocumentSource = YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.None;
@@ -21,7 +21,7 @@ namespace YellowstonePathology.Business.Test.ExtractAndHoldForFlow
             this.m_Active = true;
             this.m_NeverDistribute = true;
             this.m_ExpectedDuration = new TimeSpan(2, 0, 0, 0);
-            this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.ExtractAndHoldForFlow.ExtractAndHoldForFlowTestOrder).AssemblyQualifiedName;
+            this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.ExtractAndHoldForMolecular.ExtractAndHoldForMolecularTestOrder).AssemblyQualifiedName;
             this.m_RequiresPathologistSignature = false;
             this.m_AcceptOnFinal = false;
             this.m_AllowMultiplePerAccession = false;

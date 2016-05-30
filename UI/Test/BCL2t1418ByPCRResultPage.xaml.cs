@@ -19,7 +19,7 @@ namespace YellowstonePathology.UI.Test
     /// <summary>
     /// Interaction logic for BCL2t1418ByPCRResultPage.xaml
     /// </summary>
-    public partial class BCL2t1418ByPCRResultPage : UserControl, INotifyPropertyChanged
+    public partial class BCL2t1418ByPCRResultPage : ResultControl, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -35,7 +35,7 @@ namespace YellowstonePathology.UI.Test
 
         public BCL2t1418ByPCRResultPage(YellowstonePathology.Business.Test.BCL2t1418ByPCR.BCL2t1418ByPCRTestOrder bcl2t1418ByPCRTestOrder,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-            YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+            YellowstonePathology.Business.User.SystemIdentity systemIdentity) : base(bcl2t1418ByPCRTestOrder, accessionOrder)
         {
             this.m_PanelSetOrder = bcl2t1418ByPCRTestOrder;
             this.m_AccessionOrder = accessionOrder;
@@ -49,6 +49,10 @@ namespace YellowstonePathology.UI.Test
             InitializeComponent();
 
             DataContext = this;
+
+            this.m_ControlsNotDisabledOnFinal.Add(this.ButtonNext);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockShowDocument);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockUnfinalResults);
         }
 
         public string OrderedOnDescription

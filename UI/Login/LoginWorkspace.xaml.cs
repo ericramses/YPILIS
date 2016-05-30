@@ -90,21 +90,29 @@ namespace YellowstonePathology.UI.Login
 
         private void MessageQueue_AquireLock(object sender, EventArgs e)
         {
-            string masterAccessionNo = (string)sender;
-            if (this.m_LoginUI.AccessionOrder != null && this.m_LoginUI.AccessionOrder.MasterAccessionNo == masterAccessionNo)
+            this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
             {
-                Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, this.m_Writer);
-                this.HandleAccessionOrderListChange();
+                string masterAccessionNo = (string)sender;
+                if (this.m_LoginUI.AccessionOrder != null && this.m_LoginUI.AccessionOrder.MasterAccessionNo == masterAccessionNo)
+                {
+                    Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, this.m_Writer);
+                    this.HandleAccessionOrderListChange();
+                }
             }
+            ));            
         }
 
         private void MessageQueue_ReleaseLock(object sender, EventArgs e)
-        {            
-            string masterAccessionNo = (string)sender;
-            if (this.m_LoginUI.AccessionOrder != null && this.m_LoginUI.AccessionOrder.MasterAccessionNo == masterAccessionNo)
+        {
+            this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
             {
-                this.Save();
+                string masterAccessionNo = (string)sender;
+                if (this.m_LoginUI.AccessionOrder != null && this.m_LoginUI.AccessionOrder.MasterAccessionNo == masterAccessionNo)
+                {
+                    this.Save();
+                }
             }
+            ));            
         }        
 
         private void MainWindowCommandButtonHandler_RemoveTab(object sender, EventArgs e)

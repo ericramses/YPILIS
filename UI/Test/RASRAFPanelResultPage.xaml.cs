@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Test
     /// <summary>
     /// Interaction logic for RASRAFPanelResultPage.xaml
     /// </summary>
-    public partial class RASRAFPanelResultPage : UserControl, INotifyPropertyChanged 
+    public partial class RASRAFPanelResultPage : ResultControl, INotifyPropertyChanged 
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -36,7 +36,7 @@ namespace YellowstonePathology.UI.Test
 
         public RASRAFPanelResultPage(YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelTestOrder rasRAFPanelTestOrder,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-            YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+            YellowstonePathology.Business.User.SystemIdentity systemIdentity) : base(rasRAFPanelTestOrder, accessionOrder)
         {
             this.m_RASRAFPanelTestOrder = rasRAFPanelTestOrder;
             this.m_AccessionOrder = accessionOrder;
@@ -56,6 +56,10 @@ namespace YellowstonePathology.UI.Test
 
             DataContext = this;
             Loaded += this.RASRAFPanelResultPage_Loaded;
+
+            this.m_ControlsNotDisabledOnFinal.Add(this.ButtonNext);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockShowDocument);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockUnfinalResults);
         }
 
         public void RASRAFPanelResultPage_Loaded(object sender, RoutedEventArgs e)

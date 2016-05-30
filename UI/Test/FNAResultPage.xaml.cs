@@ -16,7 +16,7 @@ using System.Xml.Linq;
 
 namespace YellowstonePathology.UI.Test
 {
-	public partial class FNAResultPage : UserControl, INotifyPropertyChanged 
+	public partial class FNAResultPage : ResultControl, INotifyPropertyChanged 
 	{
 		public event PropertyChangedEventHandler PropertyChanged;        
 
@@ -31,7 +31,7 @@ namespace YellowstonePathology.UI.Test
 
         public FNAResultPage(YellowstonePathology.Business.Test.FNAAdequacyAssessment.FNAAdequacyAssessmentTestOrder fnaAdequacyAssessmentResult,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+			YellowstonePathology.Business.User.SystemIdentity systemIdentity) : base(fnaAdequacyAssessmentResult, accessionOrder)
 		{            
 			this.m_AccessionOrder = accessionOrder;			
 			this.m_SystemIdentity = systemIdentity;
@@ -43,6 +43,9 @@ namespace YellowstonePathology.UI.Test
 			InitializeComponent();            
 
 			this.DataContext = this;
+
+            this.m_ControlsNotDisabledOnFinal.Add(this.ButtonNext);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockUnfinalResults);
         }
 
         public YellowstonePathology.Business.Test.FNAAdequacyAssessment.FNAAdequacyAssessmentTestOrder FNAAdequacyAssessmentResult

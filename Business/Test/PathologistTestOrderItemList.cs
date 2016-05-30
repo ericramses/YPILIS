@@ -19,7 +19,7 @@ namespace YellowstonePathology.Business.Test
 
 		public void Build(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{
-            this.Clear();
+            this.ClearItems();
             this.AddPanelSets(accessionOrder);
             if (accessionOrder.PanelSetOrderCollection.HasSurgical() == true)
             {

@@ -16,7 +16,7 @@ using System.Xml.Linq;
 
 namespace YellowstonePathology.UI.Test
 {	
-	public partial class EGFRResultPage : UserControl, INotifyPropertyChanged 
+	public partial class EGFRResultPage : ResultControl, INotifyPropertyChanged 
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -32,7 +32,7 @@ namespace YellowstonePathology.UI.Test
 
         public EGFRResultPage(YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisTestOrder egfrMutationAnalysisTestOrder,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-            YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+            YellowstonePathology.Business.User.SystemIdentity systemIdentity) : base(egfrMutationAnalysisTestOrder, accessionOrder)
         {
             this.m_EGFRMutationAnalysisTestOrder = egfrMutationAnalysisTestOrder;
             this.m_AccessionOrder = accessionOrder;
@@ -48,6 +48,10 @@ namespace YellowstonePathology.UI.Test
             InitializeComponent();
 
             DataContext = this;
+
+            this.m_ControlsNotDisabledOnFinal.Add(this.ButtonNext);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockShowDocument);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockUnfinalResults);
         }
 
         public string OrderedOnDescription
@@ -123,7 +127,7 @@ namespace YellowstonePathology.UI.Test
 
         private void HyperLinkUninterpretable_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisDetectedResult result = new Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisDetectedResult();
+            YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisUninterpretableResult result = new Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisUninterpretableResult();
             result.SetResult(this.m_EGFRMutationAnalysisTestOrder, null);
         }        
 

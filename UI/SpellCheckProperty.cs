@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using NHunspell;
 
 namespace YellowstonePathology.UI
 {
@@ -16,8 +17,7 @@ namespace YellowstonePathology.UI
         private MatchCollection m_Matches;
         private Regex m_Regex;
         private int m_CurrentMatchIndex;
-        private int m_CurrentSelectionStart;
-        private int m_CurrentSelectionLength;
+        private int m_ErrorCount;
 
         public SpellCheckProperty(PropertyInfo property, object o, string description)
         {
@@ -27,6 +27,7 @@ namespace YellowstonePathology.UI
             this.m_O = o;
             this.m_Description = description;
             string text = string.Empty;
+
             if (property.GetValue(this.m_O) != null)
             {
                 text = (string)property.GetValue(this.m_O);
@@ -47,6 +48,11 @@ namespace YellowstonePathology.UI
         public string Description
         {
             get { return this.m_Description; }
+        }
+
+        public int ErrorCount
+        {
+            get { return this.m_ErrorCount; }
         }
 
         public MatchCollection Matches
@@ -79,6 +85,19 @@ namespace YellowstonePathology.UI
         {
             this.m_Property.SetValue(this.m_O, text);
             this.m_Matches = this.m_Regex.Matches(this.m_Property.GetValue(this.m_O).ToString());
+        }
+
+        public void SetErrorCount(Hunspell hunspell)
+        {
+            int errorCount = 0;
+            foreach(Match match in this.Matches)
+            {
+                if(hunspell.Spell(match.Value) == false)
+                {
+                    errorCount += 1;
+                }
+            }
+            this.m_ErrorCount = errorCount;
         }
     }
 }

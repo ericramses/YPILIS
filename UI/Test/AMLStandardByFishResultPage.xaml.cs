@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Test
 	/// <summary>
 	/// Interaction logic for AMLStandardByFishResultPage.xaml
 	/// </summary>
-	public partial class AMLStandardByFishResultPage : UserControl, INotifyPropertyChanged 
+	public partial class AMLStandardByFishResultPage : ResultControl, INotifyPropertyChanged 
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -34,7 +34,7 @@ namespace YellowstonePathology.UI.Test
 
 		public AMLStandardByFishResultPage(YellowstonePathology.Business.Test.AMLStandardByFish.AMLStandardByFishTestOrder amlStandardByFishTestOrder,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+			YellowstonePathology.Business.User.SystemIdentity systemIdentity) : base(amlStandardByFishTestOrder, accessionOrder)
 		{
 			this.m_PanelSetOrder = amlStandardByFishTestOrder;
 			this.m_AccessionOrder = accessionOrder;
@@ -46,8 +46,12 @@ namespace YellowstonePathology.UI.Test
 			this.m_OrderedOnDescription = specimenOrder.Description;
 
 			InitializeComponent();
-			DataContext = this;           
-		}        
+			DataContext = this;
+
+            this.m_ControlsNotDisabledOnFinal.Add(this.ButtonNext);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockShowDocument);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockUnfinalResults);
+        }
 
         public string OrderedOnDescription
 		{

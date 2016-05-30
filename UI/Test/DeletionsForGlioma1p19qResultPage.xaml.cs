@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Test
 	/// <summary>
 	/// Interaction logic for DeletionsForGlioma1p19qResultPage.xaml
 	/// </summary>
-	public partial class DeletionsForGlioma1p19qResultPage : UserControl, INotifyPropertyChanged 
+	public partial class DeletionsForGlioma1p19qResultPage : ResultControl, INotifyPropertyChanged 
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -35,7 +35,7 @@ namespace YellowstonePathology.UI.Test
 
 		public DeletionsForGlioma1p19qResultPage(YellowstonePathology.Business.Test.DeletionsForGlioma1p19q.DeletionsForGlioma1p19qTestOrder testOrder,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+			YellowstonePathology.Business.User.SystemIdentity systemIdentity) : base(testOrder, accessionOrder)
 		{
 			this.m_PanelSetOrder = testOrder;
 			this.m_AccessionOrder = accessionOrder;
@@ -50,6 +50,10 @@ namespace YellowstonePathology.UI.Test
 			InitializeComponent();
 
 			DataContext = this;
+
+            this.m_ControlsNotDisabledOnFinal.Add(this.ButtonNext);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockShowDocument);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockUnfinalResults);
         }
 
         public string OrderedOnDescription

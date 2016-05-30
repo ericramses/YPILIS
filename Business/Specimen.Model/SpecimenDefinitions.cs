@@ -13,7 +13,72 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_SpecimenName = null;
             this.m_Description = null;
         }
-    }    
+    }
+
+    public class AutopsySpecimen : Specimen
+    {
+        public AutopsySpecimen()
+        {
+            this.m_SpecimenId = "SPCMNAUTOPSY";
+            this.m_SpecimenName = "Autopsy Specimen";
+            this.m_Description = null;
+            this.m_LabFixation = "Fomalin";
+            this.m_ClientFixation = "Formalin";
+            this.m_RequiresGrossExamination = false;
+        }
+    }
+
+    public class Urine : Specimen
+    {
+        public Urine()
+        {
+            this.m_SpecimenId = "SPCMNURINE";
+            this.m_SpecimenName = "Urine";
+            this.m_Description = "Urine";
+            this.m_LabFixation = null;
+            this.m_ClientFixation = null;
+            this.m_RequiresGrossExamination = false;
+        }
+    }
+
+    public class GenericSpecimenGrossRequiredWithBlocks : Specimen
+    {
+        public GenericSpecimenGrossRequiredWithBlocks()
+        {
+            this.m_SpecimenId = "SPCMGENERICGRWBLCKS";
+            this.m_SpecimenName = "Generic Specimen, Gross Required With Blocks";
+            this.m_Description = null;
+            this.m_LabFixation = "Fomalin";
+            this.m_ClientFixation = "Formalin";
+            this.m_RequiresGrossExamination = true;
+        }
+    }
+
+    public class GenericSpecimenGrossOnly : Specimen
+    {
+        public GenericSpecimenGrossOnly()
+        {
+            this.m_SpecimenId = "SPCMGENERICGO";
+            this.m_SpecimenName = "Generic Specimen, Gross Only";
+            this.m_Description = null;
+            this.m_LabFixation = "Fomalin";
+            this.m_ClientFixation = "Formalin";
+            this.m_RequiresGrossExamination = false;
+        }
+    }
+
+    public class FluidWithCellBlock : Specimen
+    {
+        public FluidWithCellBlock()
+        {
+            this.m_SpecimenId = "SPCMFLUIDCB";
+            this.m_SpecimenName = "Fluid With Cell Block";
+            this.m_Description = "Fluid With Cell Block";
+            this.m_LabFixation = null;
+            this.m_ClientFixation = null;
+            this.m_RequiresGrossExamination = true;
+        }
+    }
 
     public class ThinPrepFluid : Specimen
     {

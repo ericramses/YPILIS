@@ -18,6 +18,34 @@ namespace YellowstonePathology.Business.Test.Surgical
 
 		}
 
+        public bool Exists(string surgicalAuditId)
+        {
+            bool result = false;
+            foreach(SurgicalAudit surgicalAudit in this)
+            {
+                if(surgicalAudit.SurgicalAuditId == surgicalAuditId)
+                {
+                    result = true;
+                    break;
+                }
+            }
+            return result;
+        }
+
+        public SurgicalAudit Get(string surgicalAuditId)
+        {
+            SurgicalAudit result = null;
+            foreach (SurgicalAudit surgicalAudit in this)
+            {
+                if (surgicalAudit.SurgicalAuditId == surgicalAuditId)
+                {
+                    result = surgicalAudit;
+                    break;
+                }
+            }
+            return result;
+        }
+
         public void RemoveDeleted(IEnumerable<XElement> elements)
         {
             for (int i = this.Count - 1; i > -1; i--)

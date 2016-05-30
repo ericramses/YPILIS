@@ -322,6 +322,9 @@ namespace YellowstonePathology.Business.Document
                     case 229:
                         document = new YellowstonePathology.Business.Test.AMLNonFavorableRisk.AMLNonFavorableRiskWordDocument(accessionOrder, panelSetOrder, reportSaveMode);
                         break;
+                    case 231:
+                        document = new YellowstonePathology.Business.Test.RUNX1RUNX1T1AML1ETOTranslocation.RUNX1RUNX1T1AML1ETOTranslocationWordDocument(accessionOrder, panelSetOrder, reportSaveMode);
+                        break;
                     default:
 						break;
 				}

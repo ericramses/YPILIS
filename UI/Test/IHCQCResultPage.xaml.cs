@@ -16,7 +16,7 @@ using System.Xml.Linq;
 
 namespace YellowstonePathology.UI.Test
 {	
-	public partial class IHCQCResultPage : UserControl, INotifyPropertyChanged 
+	public partial class IHCQCResultPage : ResultControl, INotifyPropertyChanged 
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -31,7 +31,7 @@ namespace YellowstonePathology.UI.Test
 
         public IHCQCResultPage(YellowstonePathology.Business.Test.IHCQC.IHCQCTestOrder ihcTestOrder,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+			YellowstonePathology.Business.User.SystemIdentity systemIdentity) : base(ihcTestOrder, accessionOrder)
 		{            
 			this.m_AccessionOrder = accessionOrder;			
 			this.m_SystemIdentity = systemIdentity;
@@ -42,6 +42,9 @@ namespace YellowstonePathology.UI.Test
 			InitializeComponent();
 
 			DataContext = this;
+
+            this.m_ControlsNotDisabledOnFinal.Add(this.ButtonNext);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockUnfinalResults);
         }
 
         public YellowstonePathology.Business.Test.IHCQC.IHCQCTestOrder IHCQCTestOrder

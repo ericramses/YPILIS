@@ -274,7 +274,10 @@ namespace YellowstonePathology.UI.Test
                     result = new AMLNonFavorableRiskResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
                 case 230:
-                    result = new ExtractAndHoldForFlowResultPath(reportNo, accessionOrder, pageNavigator, window);
+                    result = new ExtractAndHoldForMolecularResultPath(reportNo, accessionOrder, pageNavigator, window);
+                    break;
+                case 231:
+                    result = new RUNX1RUNX1T1AML1ETOTranslocationResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
             }
             return result;

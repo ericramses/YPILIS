@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Test
     /// <summary>
     /// Interaction logic for PDL1ResultPage.xaml
     /// </summary>
-    public partial class PDL1ResultPage : UserControl, INotifyPropertyChanged 
+    public partial class PDL1ResultPage : ResultControl, INotifyPropertyChanged 
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -34,7 +34,7 @@ namespace YellowstonePathology.UI.Test
 
         public PDL1ResultPage(YellowstonePathology.Business.Test.PDL1.PDL1TestOrder testOrder,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-            YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+            YellowstonePathology.Business.User.SystemIdentity systemIdentity) : base(testOrder, accessionOrder)
         {
             this.m_PanelSetOrder = testOrder;
             this.m_AccessionOrder = accessionOrder;
@@ -47,7 +47,11 @@ namespace YellowstonePathology.UI.Test
             
             InitializeComponent();
 
-            DataContext = this;                   
+            DataContext = this;
+
+            this.m_ControlsNotDisabledOnFinal.Add(this.ButtonNext);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockShowDocument);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockUnfinalResults);
         }        
 
         public string OrderedOnDescription
@@ -89,6 +93,22 @@ namespace YellowstonePathology.UI.Test
             if (result.Success == true)
             {
                 this.m_PanelSetOrder.Finish(this.m_AccessionOrder);
+                YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrder.OrderedOn, this.m_PanelSetOrder.OrderedOnId);
+
+                YellowstonePathology.Business.Test.Surgical.SurgicalTest panelSetSurgical = new YellowstonePathology.Business.Test.Surgical.SurgicalTest();
+
+                if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(panelSetSurgical.PanelSetId) == true)
+                {
+                    YellowstonePathology.Business.Test.PanelSetOrder surgicalPanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetSurgical.PanelSetId);
+                    if (surgicalPanelSetOrder.AmendmentCollection.HasAmendmentForReport(this.m_PanelSetOrder.ReportNo) == false)
+                    {
+                        string amendmentText = YellowstonePathology.Business.Test.PDL1.PDL1SystemGeneratedAmendmentText.AmendmentText(this.m_PanelSetOrder);
+                        YellowstonePathology.Business.Amendment.Model.Amendment amendment = surgicalPanelSetOrder.AddAmendment();
+                        amendment.TestResultAmendmentFill(surgicalPanelSetOrder.ReportNo, surgicalPanelSetOrder.AssignedToId, amendmentText);
+                        amendment.ReferenceReportNo = this.m_PanelSetOrder.ReportNo;
+                        amendment.SystemGenerated = true;
+                    }
+                }
             }
             else
             {
