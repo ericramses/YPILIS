@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace YellowstonePathology.UI.Properties {
+namespace YellowstonePathology.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
