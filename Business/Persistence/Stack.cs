@@ -206,7 +206,7 @@ namespace YellowstonePathology.Business.Persistence
                 ISubscriber subscriber = Business.RedisConnection.Instance.GetSubscriber();
                 subscriber.Subscribe(accessionOrder.MasterAccessionNo, (channel, message) =>
                 {
-                    System.Windows.MessageBox.Show(message);
+                    accessionOrder.OnMessageRecieved(message);
                 });
             }            
         }             

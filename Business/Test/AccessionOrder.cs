@@ -11,9 +11,12 @@ namespace YellowstonePathology.Business.Test
 	[PersistentClass("tblAccessionOrder", "YPIDATA")]
     public partial class AccessionOrder : INotifyPropertyChanged, Interface.IOrder, Interface.IPatientOrder
 	{
-		public event PropertyChangedEventHandler PropertyChanged;        
+		public event PropertyChangedEventHandler PropertyChanged;
 
-		private YellowstonePathology.Business.DataTemplateSpecimenOrderEnum m_SpecimenOrderDataTemplate;
+        public delegate void MessageReceivedHandler(string message);
+        public event MessageReceivedHandler MessageRecieved;
+
+        private YellowstonePathology.Business.DataTemplateSpecimenOrderEnum m_SpecimenOrderDataTemplate;
 
 		private YellowstonePathology.Business.Specimen.Model.SpecimenOrderCollection m_SpecimenOrderCollection;
 		private YellowstonePathology.Business.Test.PanelSetOrderCollection m_PanelSetOrderCollection;
@@ -1747,6 +1750,14 @@ namespace YellowstonePathology.Business.Test
             this.LockAquiredById = systemIdentity.User.UserId;
             this.LockAquiredByUserName = systemIdentity.User.UserName;
             this.TimeLockAquired = DateTime.Now;
+        }
+
+        public void OnMessageRecieved(string message)
+        {
+            if(this.MessageRecieved != null)
+            {
+                this.MessageRecieved(message);
+            }
         }
 
         public string LockStatus
