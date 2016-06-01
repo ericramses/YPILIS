@@ -40,8 +40,8 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>254</ApplicationRevision>
-    <ApplicationVersion>10.1.4.%2a</ApplicationVersion>
+    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationVersion>10.1.5.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -6710,10 +6710,10 @@
     <Content Include="UI\CEFSharp\CefSharp.Wpf.dll" />
     <Content Include="UI\CEFSharp\CefSharp.Wpf.Example.exe" />
     <Content Include="UI\CEFSharp\CefSharp.Wpf.Example.vshost.exe" />
-    <Content Include="UI\Hunspellx64.dll">
+    <Content Include="Hunspellx64.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="UI\Hunspellx86.dll">
+    <Content Include="Hunspellx86.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Resource Include="Resources\Logo.jpg" />
