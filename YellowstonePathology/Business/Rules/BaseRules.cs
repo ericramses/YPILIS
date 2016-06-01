@@ -48,7 +48,8 @@ namespace YellowstonePathology.Business.Rules
         {
             get
             {
-                System.Reflection.Assembly assembly = this.GetType().Assembly;            
+                System.Reflection.Assembly assembly = this.GetType().Assembly;
+                string[] names = assembly.GetManifestResourceNames();
                 System.IO.Stream stream = assembly.GetManifestResourceStream(this.RuleResourceName);                
                 return stream;
             }
