@@ -80,12 +80,6 @@
   </PropertyGroup>
   <PropertyGroup />
   <ItemGroup>
-    <Reference Include="CefSharp">
-      <HintPath>CEFSharp\CefSharp.dll</HintPath>
-    </Reference>
-    <Reference Include="CefSharp.Wpf">
-      <HintPath>CEFSharp\CefSharp.Wpf.dll</HintPath>
-    </Reference>
     <Reference Include="Interop.FAXCOMEXLib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=8aa395087185f434, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <EmbedInteropTypes>True</EmbedInteropTypes>
@@ -114,8 +108,7 @@
     </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="NHunspell">
-      <HintPath>..\..\..\..\Program Files\Yellowstone Pathology Institute\Dictionary\NHunspell.dll</HintPath>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <HintPath>dll\NHunspell.dll</HintPath>
     </Reference>
     <Reference Include="PresentationFramework.Luna" />
     <Reference Include="StackExchange.Redis, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -4752,7 +4745,7 @@
     <Resource Include="Business\Rules\PanelOrder\RulesAcceptPeerReviewResults.xml" />
     <Resource Include="Business\Rules\PanelSetOrder\RulesSignatureButtonText.xml" />
     <Resource Include="Business\Rules\Surgical\PathologistFinalRules.xml" />
-    <Resource Include="Business\Rules\Surgical\RulesAssignPathologistId.xml" />
+    <EmbeddedResource Include="Business\Rules\Surgical\RulesAssignPathologistId.xml" />
     <Resource Include="Business\XMLTemplates\AccessionSummaryBreastCancer.xml" />
     <Resource Include="Business\XMLTemplates\AccessionSummaryColorectalCancer.xml" />
     <Resource Include="Business\XMLTemplates\AccessionSummaryHematoPathology.xml" />
