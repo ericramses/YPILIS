@@ -34,6 +34,7 @@ using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using MongoDB.Driver.Builders;
 using MongoDB.Driver.GridFS;
+using Newtonsoft.Json;
 
 namespace YellowstonePathology.UI
 {    
@@ -73,7 +74,29 @@ namespace YellowstonePathology.UI
                 return m_Instance;
             }
         }
-        
+
+        private void ButtonBuildJson_Click(object sender, RoutedEventArgs e)
+        {
+            string filePath = "YellowstonePathology.Business.Billing.Model.JSONCPTCodes.txt";
+            string jsonString = string.Empty;
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            using (StreamReader sr = new StreamReader(assembly.GetManifestResourceStream(filePath)))
+            {
+                jsonString = sr.ReadToEnd();
+            }
+
+            YellowstonePathology.Business.Billing.Model.CptCodeCollection cptCodes = YellowstonePathology.Business.Billing.Model.CptCodeCollection.FromJSON();
+            string resultString = cptCodes.ToJSON();
+            if (jsonString == resultString)
+            {
+                MessageBox.Show("Matches");
+            }
+            else
+            {
+                MessageBox.Show("Not Matched");
+            }
+        }
+
         private void ButtonPOCRetension_Click(object sender, RoutedEventArgs e)
         {
             YellowstonePathology.Business.Reports.POCRetensionReport report = new Business.Reports.POCRetensionReport(DateTime.Parse("3/26/2011"), DateTime.Parse("5/04/2011"));
@@ -215,31 +238,6 @@ namespace YellowstonePathology.UI
 		private void GrossWorkspace_Click(object sender, RoutedEventArgs e)
 		{
 		}
-
-        private void ButtonBuildJson_Click(object sender, RoutedEventArgs e)
-        {
-            YellowstonePathology.Business.Billing.Model.CptCodeCollection cptCodes = YellowstonePathology.Business.Billing.Model.CptCodeCollection.GetAll();
-            StringBuilder result = new StringBuilder();
-            using (System.IO.StreamWriter streamWriter = new System.IO.StreamWriter(@"C:\TEMP\CPTCodeDefinitions.txt", true))
-            {
-                result.Append("[");
-
-                foreach (YellowstonePathology.Business.Billing.Model.CptCode cptCode in cptCodes)
-                {
-                    if (cptCode is YellowstonePathology.Business.Billing.Model.PQRSCode) continue;
-
-                    YellowstonePathology.Business.Persistence.JSONObjectWriter.WriteIndented(result, cptCode, 1);
-                    result.Append(",");
-                }
-                if(result.Length > 1)
-                {
-                    result.Remove(result.Length - 1, 1);
-                }
-                result.AppendLine("]");
-                streamWriter.Write(result);
-            }
-            MessageBox.Show("Done");
-        }
 
         private void PrintRequisition_Click(object sender, RoutedEventArgs e)
         {

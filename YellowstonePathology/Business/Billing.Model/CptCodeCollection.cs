@@ -2,11 +2,34 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
+using System.Reflection;
+using Newtonsoft.Json;
 
 namespace YellowstonePathology.Business.Billing.Model
 {
     public class CptCodeCollection : List<CptCode>
     {
+        private static volatile CptCodeCollection instance;
+        private static object syncRoot = new Object();
+
+        public static CptCodeCollection Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    lock (syncRoot)
+                    {
+                        if (instance == null)
+                            instance = FromJSON();
+                    }
+                }
+
+                return instance;
+            }
+        }
+
         public CptCodeCollection()
         {
 
@@ -68,7 +91,8 @@ namespace YellowstonePathology.Business.Billing.Model
 
         public static CptCodeCollection GetAll()
         {
-            CptCodeCollection result = new CptCodeCollection();                                    
+            return Instance;
+            /*CptCodeCollection result = new CptCodeCollection();                                    
             result.Add(new CptCodeDefinition.CPT81210());
             result.Add(new CptCodeDefinition.CPT8121026());
             result.Add(new CptCodeDefinition.CPT81220());
@@ -240,7 +264,7 @@ namespace YellowstonePathology.Business.Billing.Model
 
             result.Add(new CptCodeDefinition.AutopsyBlock());
 
-            return GetSorted(result);
+            return GetSorted(result);*/
         }
 
         public static CptCodeCollection GetSorted(CptCodeCollection cptCodeCollection)
@@ -251,6 +275,34 @@ namespace YellowstonePathology.Business.Billing.Model
             {
                 result.Add(cptCode);
             }
+            return result;
+        }
+
+        public string ToJSON()
+        {
+            string result = JsonConvert.SerializeObject(this, Newtonsoft.Json.Formatting.Indented, new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.All
+            });
+
+            return result;
+        }
+
+        public static CptCodeCollection FromJSON()
+        {
+            string jsonString = string.Empty;
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            using (StreamReader sr = new StreamReader(assembly.GetManifestResourceStream("YellowstonePathology.Business.Billing.Model.JSONCPTCodes.txt")))
+            {
+                jsonString = sr.ReadToEnd();
+            }
+
+            YellowstonePathology.Business.Billing.Model.CptCodeCollection result = JsonConvert.DeserializeObject<Business.Billing.Model.CptCodeCollection>(jsonString, new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.All,
+                ObjectCreationHandling = ObjectCreationHandling.Replace
+            });
+
             return result;
         }
     }

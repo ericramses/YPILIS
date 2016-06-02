@@ -129,9 +129,17 @@ namespace YellowstonePathology.Business.Persistence
 
         public static void WriteIndented(StringBuilder result, object o, int indentCount)
         {
+            int currentIndent = indentCount;
             Type type = o.GetType();
+            string qualifiedName = type.AssemblyQualifiedName;
             result.AppendLine();
-            JSONIndenter.AddTabs(result, indentCount);
+            JSONIndenter.AddTabs(result, currentIndent++);
+            result.Append("{");
+            result.AppendLine();
+            JSONIndenter.AddTabs(result, currentIndent);
+            WriteMetaData(result, qualifiedName);
+            result.AppendLine();
+            JSONIndenter.AddTabs(result, currentIndent++);
             result.Append("{");
             PropertyInfo[] properties = o.GetType().GetProperties().
                 Where(prop => Attribute.IsDefined(prop, typeof(PersistentProperty)) || Attribute.IsDefined(prop, typeof(PersistentPrimaryKeyProperty))).ToArray();
@@ -139,7 +147,7 @@ namespace YellowstonePathology.Business.Persistence
             foreach (PropertyInfo property in properties)
             {
                 result.AppendLine();
-                JSONIndenter.AddTabs(result, indentCount + 1);
+                JSONIndenter.AddTabs(result, currentIndent);
                 if (property.Name != "JSON")
                 {
                     Type dataType = property.PropertyType;
@@ -192,7 +200,10 @@ namespace YellowstonePathology.Business.Persistence
             }
 
             result.AppendLine();
-            JSONIndenter.AddTabs(result, indentCount);
+            JSONIndenter.AddTabs(result, --currentIndent);
+            result.Append("}");
+            result.AppendLine();
+            JSONIndenter.AddTabs(result, --currentIndent);
             result.Append("}");
         }
 
@@ -325,6 +336,11 @@ namespace YellowstonePathology.Business.Persistence
             {
                 result.Append("\"" + property.Name + "\": null, ");
             }
+        }
+
+        private static void WriteMetaData(StringBuilder result, string qualifiedName)
+        {
+            result.Append("\"" + qualifiedName + "\":");
         }
     }
 }

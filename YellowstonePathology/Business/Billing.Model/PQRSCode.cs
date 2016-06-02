@@ -20,15 +20,17 @@ namespace YellowstonePathology.Business.Billing.Model
         public string ReportingDefinition
         {
             get { return this.m_ReportingDefinition; }
+            set { this.m_ReportingDefinition = value; }
         }
 
         [PersistentProperty()]
         public string Header
 		{
 			get { return this.m_Header; }
-		}
+            set { this.m_Header = value; }
+        }
 
-		public string FormattedReportingDefinition
+        public string FormattedReportingDefinition
 		{
 			get
 			{
