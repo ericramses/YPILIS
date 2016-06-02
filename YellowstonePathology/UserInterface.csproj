@@ -133,6 +133,7 @@
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Workflow.Activities">
@@ -1240,9 +1241,11 @@
     <Compile Include="Business\Persistence\InsertCommandBuilder.cs" />
     <Compile Include="Business\Persistence\InsertedObjectFinder.cs" />
     <Compile Include="Business\Persistence\IntPropertyBridge.cs" />
+    <Compile Include="Business\Persistence\JSONDeserializer.cs" />
     <Compile Include="Business\Persistence\JSONIndenter.cs" />
     <Compile Include="Business\Persistence\JSONObjectStreamWriter.cs" />
     <Compile Include="Business\Persistence\JSONObjectWriter.cs" />
+    <Compile Include="Business\Persistence\JSONReaderPropertyWriter.cs" />
     <Compile Include="Business\Persistence\JSONStreamWriter.cs" />
     <Compile Include="Business\Persistence\JSONWriter.cs" />
     <Compile Include="Business\Persistence\MaterialTrackingBatchDocumentBuilder.cs" />
@@ -4759,6 +4762,7 @@
     <Resource Include="Business\XMLTemplates\CytologyOrderInstructions.xml" />
     <Resource Include="Business\XMLTemplates\DNADefaultExtension.xml" />
     <Resource Include="Business\XPSDocument\Xps\ReportLogo.jpg" />
+    <EmbeddedResource Include="Business\Billing.Model\JSONCPTCodes.txt" />
     <Content Include="dll\Interop.FAXCOMEXLib.dll" />
     <Content Include="ypi-custom.lex">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
