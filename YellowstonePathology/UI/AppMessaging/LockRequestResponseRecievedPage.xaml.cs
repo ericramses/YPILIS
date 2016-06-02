@@ -19,15 +19,9 @@ namespace YellowstonePathology.UI.AppMessaging
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
-        public delegate void LockWasReleasedEventHandler(object sender, EventArgs e);
-        public event LockWasReleasedEventHandler LockWasReleased;
+        private AccessionLockMessage m_Message;        
 
-        public delegate void HoldYourHorsesEventHandler(object sender, EventArgs e);
-        public event HoldYourHorsesEventHandler HoldYourHorses;
-
-        private string m_Message;        
-
-        public LockRequestResponseReceivedPage(string message, System.Windows.Visibility closeButtonVisibility, System.Windows.Visibility nextButtonVisibility)
+        public LockRequestResponseReceivedPage(AccessionLockMessage message, System.Windows.Visibility closeButtonVisibility, System.Windows.Visibility nextButtonVisibility)
         {
             this.m_Message = message;
             InitializeComponent();
@@ -37,7 +31,7 @@ namespace YellowstonePathology.UI.AppMessaging
             this.ButtonNext.Visibility = nextButtonVisibility;
         }  
         
-        public string Message
+        public AccessionLockMessage Message
         {
             get { return this.m_Message; }
         }                                                                		                   
@@ -49,7 +43,7 @@ namespace YellowstonePathology.UI.AppMessaging
 
         private void ButtonNext_Click(object sender, RoutedEventArgs e)
         {
-            /*
+            /*            
             if(MessageBody.LockWasReleased == true)
             {
                 if (this.LockWasReleased != null) this.LockWasReleased(this, new EventArgs());

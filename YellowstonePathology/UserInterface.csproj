@@ -40,7 +40,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationRevision>2</ApplicationRevision>
     <ApplicationVersion>10.1.5.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -107,6 +107,10 @@
       <HintPath>dll\MongoDB.Driver.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib" />
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="NHunspell">
       <HintPath>dll\NHunspell.dll</HintPath>
     </Reference>
@@ -2945,6 +2949,8 @@
     </Compile>
     <Compile Include="UI\AOBuilder.cs" />
     <Compile Include="UI\AORemover.cs" />
+    <Compile Include="UI\AppMessaging\AccessionLockMessage.cs" />
+    <Compile Include="UI\AppMessaging\AccessionLockMessageIdEnum.cs" />
     <Compile Include="UI\AppMessaging\LockRequestSentPage.xaml.cs">
       <DependentUpon>LockRequestSentPage.xaml</DependentUpon>
     </Compile>
@@ -3009,6 +3015,7 @@
     <Compile Include="UI\CustomEventArgs\CancelTestEventArgs.cs" />
     <Compile Include="UI\CustomEventArgs\BarcodReturnEventArgs.cs" />
     <Compile Include="UI\CustomEventArgs\EventHandlerDefinitions.cs" />
+    <Compile Include="UI\CustomEventArgs\AccessionLockMessageReturnEventArgs.cs" />
     <Compile Include="UI\CustomEventArgs\TestOrderAliquotOrderReturnEventArgs.cs" />
     <Compile Include="UI\CustomEventArgs\TestOrderReturnEventArgs.cs" />
     <Compile Include="UI\CustomEventArgs\SlideOrderReturnEventArgs.cs" />

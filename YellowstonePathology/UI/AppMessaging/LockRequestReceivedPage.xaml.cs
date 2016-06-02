@@ -12,6 +12,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.ComponentModel;
+using Newtonsoft.Json;
+using StackExchange.Redis;
 
 namespace YellowstonePathology.UI.AppMessaging
 {	
@@ -19,20 +21,25 @@ namespace YellowstonePathology.UI.AppMessaging
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
         
-        private string m_Message;
+        private AccessionLockMessage m_Message;
 
         private System.Windows.Threading.DispatcherTimer m_DispatchTimer;
         private string m_CountDownMessage;
         private int m_CurrentCountDown;        
 
-        public LockRequestReceivedPage(string message)
+        public LockRequestReceivedPage(AccessionLockMessage message)
         {
             this.m_Message = message;
             InitializeComponent();
             DataContext = this;            
             
             this.StartCountDownTimer();
-        }                             
+        }   
+        
+        public AccessionLockMessage Message
+        {
+            get { return this.m_Message; }
+        }                          
 
         private void StartCountDownTimer()
         {
@@ -57,10 +64,14 @@ namespace YellowstonePathology.UI.AppMessaging
             if(this.m_CurrentCountDown == 0)
             {
                 this.m_CountDownMessage = string.Empty;
-                this.m_DispatchTimer.Stop();                
-                //MessageQueues.Instance.SendLockReleaseResponse(this.m_Message, true);
-                Window window = Window.GetWindow(this);
-                window.Close();
+                this.m_DispatchTimer.Stop();
+
+                UI.AppMessaging.AccessionLockMessage message = new AccessionLockMessage(this.m_Message.MasterAccessionNo, this.m_Message.ComputerName, this.m_Message.UserName, AccessionLockMessageIdEnum.GIVE);
+                ISubscriber subscriber = Business.RedisConnection.Instance.GetSubscriber();
+                subscriber.Publish(message.MasterAccessionNo, JsonConvert.SerializeObject(message));
+                                
+                //Window window = Window.GetWindow(this);
+                //window.Close();
             }
 
             this.NotifyPropertyChanged("CountDownMessage");
@@ -69,7 +80,11 @@ namespace YellowstonePathology.UI.AppMessaging
         private void ButtonRespondTakeIt_Click(object sender, RoutedEventArgs e)
         {            
             this.m_DispatchTimer.Stop();
-            //MessageQueues.Instance.SendLockReleaseResponse(this.m_Message, true);            
+
+            UI.AppMessaging.AccessionLockMessage message = new AccessionLockMessage(this.m_Message.MasterAccessionNo, this.m_Message.ComputerName, this.m_Message.UserName, AccessionLockMessageIdEnum.GIVE);
+            ISubscriber subscriber = Business.RedisConnection.Instance.GetSubscriber();
+            subscriber.Publish(message.MasterAccessionNo, JsonConvert.SerializeObject(message));
+
             Window window = Window.GetWindow(this);
             window.Close();
         }
@@ -77,7 +92,11 @@ namespace YellowstonePathology.UI.AppMessaging
         private void ButtonRespondHoldYourHorses_Click(object sender, RoutedEventArgs e)
         {
             this.m_DispatchTimer.Stop();
-            //MessageQueues.Instance.SendLockReleaseResponse(this.m_Message, false);
+            
+            UI.AppMessaging.AccessionLockMessage message = new AccessionLockMessage(this.m_Message.MasterAccessionNo, this.m_Message.ComputerName, this.m_Message.UserName, AccessionLockMessageIdEnum.HOLD);
+            ISubscriber subscriber = Business.RedisConnection.Instance.GetSubscriber();
+            subscriber.Publish(message.MasterAccessionNo, JsonConvert.SerializeObject(message));
+
             Window window = Window.GetWindow(this);
             window.Close();
         }

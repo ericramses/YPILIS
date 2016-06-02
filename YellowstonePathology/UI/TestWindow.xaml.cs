@@ -41,7 +41,11 @@ namespace YellowstonePathology.UI
 
         private void Button_PublishClick(object sender, RoutedEventArgs e)
         {
-            this.m_SUB.Publish("16-12345", "hello word");            
+            string masterAccessionno = "16-12345";
+            YellowstonePathology.Business.User.SystemUser user = YellowstonePathology.Business.User.SystemIdentity.Instance.User;
+            UI.AppMessaging.AccessionLockMessage message = new AppMessaging.AccessionLockMessage(masterAccessionno, System.Environment.MachineName, user.UserName, AppMessaging.AccessionLockMessageIdEnum.ASK);
+            string messageJSON = message.ToJSON();
+            this.m_SUB.Publish(masterAccessionno, messageJSON);        
         }
     }
 }

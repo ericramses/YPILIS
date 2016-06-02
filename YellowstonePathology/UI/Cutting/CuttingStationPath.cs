@@ -74,8 +74,8 @@ namespace YellowstonePathology.UI.Cutting
         private void CaseLockedPage_AskForLock(object sender, CustomEventArgs.AccessionOrderReturnEventArgs e)
         {
             AppMessaging.MessagingPath.Instance.StartSendRequest(e.AccessionOrder, this.m_CuttingWorkspaceWindow.PageNavigator);
-            AppMessaging.MessagingPath.Instance.LockWasReleased += MessageQueuePath_LockWasReleased;
-            AppMessaging.MessagingPath.Instance.HoldYourHorses += Instance_HoldYourHorses;
+            //AppMessaging.MessagingPath.Instance.LockWasReleased += MessageQueuePath_LockWasReleased;
+            //AppMessaging.MessagingPath.Instance.HoldYourHorses += Instance_HoldYourHorses;
             AppMessaging.MessagingPath.Instance.Next += MessageQueuePath_Next;
         }
 
@@ -160,8 +160,8 @@ namespace YellowstonePathology.UI.Cutting
         private void CaseLockedPage_AskForLockManualMA(object sender, CustomEventArgs.AccessionOrderReturnEventArgs e)
         {
             AppMessaging.MessagingPath.Instance.StartSendRequest(e.AccessionOrder, this.m_CuttingWorkspaceWindow.PageNavigator);
-            AppMessaging.MessagingPath.Instance.LockWasReleased += MessageQueuePath_LockWasReleasedManualMA;
-            AppMessaging.MessagingPath.Instance.HoldYourHorses += Instance_HoldYourHorses;
+            //AppMessaging.MessagingPath.Instance.LockWasReleased += MessageQueuePath_LockWasReleasedManualMA;
+            //AppMessaging.MessagingPath.Instance.HoldYourHorses += Instance_HoldYourHorses;
             AppMessaging.MessagingPath.Instance.Next += MessageQueuePath_Next;
         }
 

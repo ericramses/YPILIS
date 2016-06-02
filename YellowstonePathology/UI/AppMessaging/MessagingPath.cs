@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using StackExchange.Redis;
+using Newtonsoft.Json;
 
 namespace YellowstonePathology.UI.AppMessaging
 {
@@ -9,12 +11,6 @@ namespace YellowstonePathology.UI.AppMessaging
 	{
         private static volatile MessagingPath instance;
         private static object syncRoot = new Object();
-
-        public delegate void LockWasReleasedEventHandler(object sender, EventArgs e);
-        public event LockWasReleasedEventHandler LockWasReleased;
-
-        public delegate void HoldYourHorsesEventHandler(object sender, EventArgs e);
-        public event HoldYourHorsesEventHandler HoldYourHorses;
 
         public delegate void NextEventHandler(object sender, UI.CustomEventArgs.AccessionOrderReturnEventArgs e);
         public event NextEventHandler Next;
@@ -30,9 +26,24 @@ namespace YellowstonePathology.UI.AppMessaging
         private MessagingPath()
         {                        
             this.m_PageNavigatorWasPassedIn = false;
-        }       
+        }
 
-        public void StartRequestReceived(string message)
+        public void HandleMessageRecieved(string channel, AccessionLockMessage accessionLockMessage)
+        {            
+            switch(accessionLockMessage.MessageId)
+            {
+                case AccessionLockMessageIdEnum.ASK:
+                    this.HandleASKRecieved(accessionLockMessage);
+                    break;
+                case AccessionLockMessageIdEnum.GIVE:
+                    this.ShowResponseReceivedPage(accessionLockMessage);
+                    break;
+                case AccessionLockMessageIdEnum.HOLD:
+                    break;
+            }
+        }
+
+        public void HandleASKRecieved(AccessionLockMessage message)
         {            
             MessagingDialog messagingDialog = new MessagingDialog();
             this.m_PageNavigator = messagingDialog.PageNavigator;
@@ -47,8 +58,12 @@ namespace YellowstonePathology.UI.AppMessaging
         {
             this.m_PageNavigator = pageNavigator;
             this.m_PageNavigatorWasPassedIn = true;
-            //MessageQueues.Instance.SendLockReleaseRequest(accessionOrder);
-            this.ShowLockRequestSentPage(accessionOrder);
+
+            UI.AppMessaging.AccessionLockMessage message = new AccessionLockMessage(accessionOrder.MasterAccessionNo, System.Environment.MachineName, Business.User.SystemIdentity.Instance.User.UserName, AccessionLockMessageIdEnum.ASK);
+            ISubscriber subscriber = Business.RedisConnection.Instance.GetSubscriber();
+            subscriber.Publish(message.MasterAccessionNo, JsonConvert.SerializeObject(message));
+
+            this.ShowLockRequestSentPage(message);
         }
 
         public void Start(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
@@ -57,7 +72,8 @@ namespace YellowstonePathology.UI.AppMessaging
             this.m_PageNavigator = messagingDialog.PageNavigator;
             messagingDialog.Closed += MessagingDialog_Closed;
 
-            AppMessaging.LockRequestPage lockRequestPage = new AppMessaging.LockRequestPage(accessionOrder);                
+            UI.AppMessaging.AccessionLockMessage message = new AccessionLockMessage(accessionOrder.MasterAccessionNo, System.Environment.MachineName, Business.User.SystemIdentity.Instance.User.UserName, AccessionLockMessageIdEnum.ASK);
+            AppMessaging.LockRequestPage lockRequestPage = new AppMessaging.LockRequestPage(message);                
             lockRequestPage.RequestLock += LockRequestPage_RequestLock;
 
             messagingDialog.PageNavigator.Navigate(lockRequestPage);
@@ -69,60 +85,49 @@ namespace YellowstonePathology.UI.AppMessaging
             
         }
 
-        private void LockRequestPage_RequestLock(object sender, CustomEventArgs.AccessionOrderReturnEventArgs e)
+        private void LockRequestPage_RequestLock(object sender, CustomEventArgs.AccessionLockMessageReturnEventArgs e)
         {
-            //MessageQueues.Instance.SendLockReleaseRequest(e.AccessionOrder);
-            //this.ShowLockRequestSentPage(e.AccessionOrder);
+            UI.AppMessaging.AccessionLockMessage message = new AccessionLockMessage(e.Message.MasterAccessionNo, System.Environment.MachineName, Business.User.SystemIdentity.Instance.User.UserName, AccessionLockMessageIdEnum.ASK);
+            ISubscriber subscriber = Business.RedisConnection.Instance.GetSubscriber();
+            subscriber.Publish(message.MasterAccessionNo, JsonConvert.SerializeObject(message));
+            this.ShowLockRequestSentPage(e.Message);
         }
 
-        private void ShowLockRequestSentPage(Business.Test.AccessionOrder accessionOrder)
+        private void ShowLockRequestSentPage(UI.AppMessaging.AccessionLockMessage message)
         {
             LockRequestSentPage lockRequestSentPage = null;
             if(this.m_PageNavigatorWasPassedIn == true)
             {
-                lockRequestSentPage = new LockRequestSentPage(accessionOrder, System.Windows.Visibility.Collapsed, System.Windows.Visibility.Visible);
+                lockRequestSentPage = new LockRequestSentPage(message, System.Windows.Visibility.Collapsed, System.Windows.Visibility.Visible);
             }
             else
             {
-                lockRequestSentPage = new LockRequestSentPage(accessionOrder, System.Windows.Visibility.Visible, System.Windows.Visibility.Collapsed);
+                lockRequestSentPage = new LockRequestSentPage(message, System.Windows.Visibility.Visible, System.Windows.Visibility.Collapsed);
             }
 
-            //lockRequestSentPage.ShowResponseReceivedPage += LockRequestSentPage_ShowResponseReceivedPage;
             //lockRequestSentPage.Next += LockRequestSentPage_Next;
-            //this.m_PageNavigator.Navigate(lockRequestSentPage);
+            this.m_PageNavigator.Navigate(lockRequestSentPage);
         }
 
-        private void LockRequestSentPage_Next(object sender, UI.CustomEventArgs.AccessionOrderReturnEventArgs e)
+        private void LockRequestSentPage_Next(object sender, CustomEventArgs.AccessionOrderReturnEventArgs e)
         {
             if (this.Next != null) this.Next(this, e);
-        }
+        }        
 
-        private void LockRequestSentPage_ShowResponseReceivedPage(object sender, EventArgs e)
+        private void ShowResponseReceivedPage(AccessionLockMessage message)
         {
             LockRequestResponseReceivedPage lockRequestResponseReceivedPage = null;
             if(this.m_PageNavigatorWasPassedIn == false)
             {
-                //lockRequestResponseReceivedPage = new LockRequestResponseReceivedPage(e.Message, System.Windows.Visibility.Visible, System.Windows.Visibility.Collapsed);
+                lockRequestResponseReceivedPage = new LockRequestResponseReceivedPage(message, System.Windows.Visibility.Visible, System.Windows.Visibility.Collapsed);
             }
             else
             {
-                //lockRequestResponseReceivedPage = new LockRequestResponseReceivedPage(e.Message, System.Windows.Visibility.Collapsed, System.Windows.Visibility.Visible);
+                lockRequestResponseReceivedPage = new LockRequestResponseReceivedPage(message, System.Windows.Visibility.Collapsed, System.Windows.Visibility.Visible);
             }
 
-            lockRequestResponseReceivedPage.LockWasReleased += LockRequestResponseReceivedPage_LockWasReleased;
-            lockRequestResponseReceivedPage.HoldYourHorses += LockRequestResponseReceivedPage_HoldYourHorses;
             this.m_PageNavigator.Navigate(lockRequestResponseReceivedPage);            
-        }
-
-        private void LockRequestResponseReceivedPage_HoldYourHorses(object sender, EventArgs e)
-        {
-            if (HoldYourHorses != null) this.HoldYourHorses(this, new EventArgs());
-        }
-
-        private void LockRequestResponseReceivedPage_LockWasReleased(object sender, EventArgs e)
-        {
-            if (this.LockWasReleased != null) this.LockWasReleased(this, new EventArgs());
-        }
+        }        
 
         public static MessagingPath Instance
         {

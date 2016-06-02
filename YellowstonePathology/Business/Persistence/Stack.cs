@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Data;
 using System.Data.SqlClient;
 using StackExchange.Redis;
+using Newtonsoft.Json;
 
 namespace YellowstonePathology.Business.Persistence
 {
@@ -204,9 +205,15 @@ namespace YellowstonePathology.Business.Persistence
             {
                 Business.Test.AccessionOrder accessionOrder = (Business.Test.AccessionOrder)document.Value;
                 ISubscriber subscriber = Business.RedisConnection.Instance.GetSubscriber();
+                
                 subscriber.Subscribe(accessionOrder.MasterAccessionNo, (channel, message) =>
-                {
-                    accessionOrder.OnMessageRecieved(message);
+                {                    
+                    System.Windows.Application.Current.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
+                    {
+                        UI.AppMessaging.AccessionLockMessage accessionLockMessage = JsonConvert.DeserializeObject<UI.AppMessaging.AccessionLockMessage>(message);
+                        YellowstonePathology.UI.AppMessaging.MessagingPath.Instance.HandleMessageRecieved(channel, accessionLockMessage);
+                    }
+                    ));                    
                 });
             }            
         }             

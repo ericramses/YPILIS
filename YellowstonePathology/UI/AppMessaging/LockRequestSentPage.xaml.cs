@@ -19,41 +19,26 @@ namespace YellowstonePathology.UI.AppMessaging
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
-        public delegate void NextEventHandler(object sender, UI.CustomEventArgs.AccessionOrderReturnEventArgs e);
-        public event NextEventHandler Next;
+        public delegate void NextEventHandler(object sender, UI.CustomEventArgs.AccessionLockMessageReturnEventArgs e);
+        public event NextEventHandler Next;        
 
-        public delegate void ShowResponseReceivedPageEventHandler(object sender, EventArgs e);
-        public event ShowResponseReceivedPageEventHandler ShowResponseReceivedPage;
-
-        private Business.Test.AccessionOrder m_AccessionOrder;
+        private UI.AppMessaging.AccessionLockMessage m_AccessionLockMessage;
 
         private System.Windows.Threading.DispatcherTimer m_DispatchTimer;
         private string m_CountDownMessage;
         private int m_CurrentCountDown;
 
-        private string m_Message; 
+        private AccessionLockMessage m_Message; 
 
-        public LockRequestSentPage(Business.Test.AccessionOrder accessionOrder, System.Windows.Visibility closeButtonVisibility, System.Windows.Visibility nextButtonVisibility)
+        public LockRequestSentPage(AccessionLockMessage message, System.Windows.Visibility closeButtonVisibility, System.Windows.Visibility nextButtonVisibility)
 		{
-            this.m_AccessionOrder = accessionOrder;
-            this.m_Message = "A request to release the lock on " + this.m_AccessionOrder.MasterAccessionNo + " was sent to " + this.m_AccessionOrder.LockAquiredByHostName + "\\" + this.m_AccessionOrder.LockAquiredByUserName;
-            //MessageQueues.Instance.ResponseReceived += MessageQueues_ResponseReceived;
+            this.m_AccessionLockMessage = message;            
             InitializeComponent();
             DataContext = this;
             this.ButtonClose.Visibility = closeButtonVisibility;
             this.ButtonNext.Visibility = nextButtonVisibility;
             this.StartCountDownTimer();        
-		}
-
-        private void MessageQueues_ResponseReceived(object sender, EventArgs e)
-        {
-            this.m_DispatchTimer.Stop();
-            this.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
-            {
-                if (this.ShowResponseReceivedPage != null) this.ShowResponseReceivedPage(this, e);
-            }
-            ));
-        }        
+		}        
 
         private void StartCountDownTimer()
         {
@@ -65,7 +50,7 @@ namespace YellowstonePathology.UI.AppMessaging
             this.m_DispatchTimer.Start();
         }
 
-        public string Message
+        public AccessionLockMessage Message
         {
             get { return this.m_Message; }
         }
@@ -96,7 +81,7 @@ namespace YellowstonePathology.UI.AppMessaging
 
         private void ButtonNext_Click(object sender, RoutedEventArgs e)
         {
-            if (this.Next != null) this.Next(this, new CustomEventArgs.AccessionOrderReturnEventArgs(this.m_AccessionOrder));
+            if (this.Next != null) this.Next(this, new CustomEventArgs.AccessionLockMessageReturnEventArgs(this.m_Message));
         }
 
         public void NotifyPropertyChanged(String info)

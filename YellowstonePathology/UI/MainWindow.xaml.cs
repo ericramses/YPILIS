@@ -67,7 +67,7 @@ namespace YellowstonePathology.UI
         AdministrationWorkspace m_AdministrationWorkspace;                		
 
 		YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
-        MainWindowCommandButtonHandler m_MainWindowCommandButtonHandler;        
+        MainWindowCommandButtonHandler m_MainWindowCommandButtonHandler;
 
         public MainWindow()
         {
@@ -156,7 +156,7 @@ namespace YellowstonePathology.UI
 
             this.Loaded += new RoutedEventHandler(MainWindow_Loaded);
             this.Closing +=new System.ComponentModel.CancelEventHandler(MainWindow_Closing);            
-        }
+        }        
 
         private void SystemEvents_SessionSwitch(object sender, SessionSwitchEventArgs e)
         {
@@ -170,7 +170,7 @@ namespace YellowstonePathology.UI
                     YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Flush();
                     break;
             }
-        }
+        }        
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {                        
