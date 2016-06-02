@@ -20,8 +20,15 @@ namespace YellowstonePathology.UI.AppMessaging
 	public partial class LockRequestReceivedPage : UserControl, INotifyPropertyChanged
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
-        
+
+        public delegate void TakeHandler(object sender, UI.CustomEventArgs.AccessionLockMessageReturnEventArgs e);
+        public event TakeHandler Take;
+
+        public delegate void HoldHandler(object sender, UI.CustomEventArgs.AccessionLockMessageReturnEventArgs e);
+        public event HoldHandler Hold;
+
         private AccessionLockMessage m_Message;
+        private string m_DisplayMessage;
 
         private System.Windows.Threading.DispatcherTimer m_DispatchTimer;
         private string m_CountDownMessage;
@@ -30,16 +37,18 @@ namespace YellowstonePathology.UI.AppMessaging
         public LockRequestReceivedPage(AccessionLockMessage message)
         {
             this.m_Message = message;
+
+            this.m_DisplayMessage = this.m_Message.ComputerName + "\\" + this.m_Message.UserName + " is asking for the lock on " + this.m_Message.MasterAccessionNo + ".";
             InitializeComponent();
             DataContext = this;            
             
             this.StartCountDownTimer();
-        }   
+        }                  
         
-        public AccessionLockMessage Message
+        public string DisplayMessage
         {
-            get { return this.m_Message; }
-        }                          
+            get { return this.m_DisplayMessage; }
+        }                         
 
         private void StartCountDownTimer()
         {
@@ -65,13 +74,7 @@ namespace YellowstonePathology.UI.AppMessaging
             {
                 this.m_CountDownMessage = string.Empty;
                 this.m_DispatchTimer.Stop();
-
-                UI.AppMessaging.AccessionLockMessage message = new AccessionLockMessage(this.m_Message.MasterAccessionNo, this.m_Message.ComputerName, this.m_Message.UserName, AccessionLockMessageIdEnum.GIVE);
-                ISubscriber subscriber = Business.RedisConnection.Instance.GetSubscriber();
-                subscriber.Publish(message.MasterAccessionNo, JsonConvert.SerializeObject(message));
-                                
-                //Window window = Window.GetWindow(this);
-                //window.Close();
+                this.Take(this, new CustomEventArgs.AccessionLockMessageReturnEventArgs(this.m_Message));
             }
 
             this.NotifyPropertyChanged("CountDownMessage");
@@ -80,25 +83,13 @@ namespace YellowstonePathology.UI.AppMessaging
         private void ButtonRespondTakeIt_Click(object sender, RoutedEventArgs e)
         {            
             this.m_DispatchTimer.Stop();
-
-            UI.AppMessaging.AccessionLockMessage message = new AccessionLockMessage(this.m_Message.MasterAccessionNo, this.m_Message.ComputerName, this.m_Message.UserName, AccessionLockMessageIdEnum.GIVE);
-            ISubscriber subscriber = Business.RedisConnection.Instance.GetSubscriber();
-            subscriber.Publish(message.MasterAccessionNo, JsonConvert.SerializeObject(message));
-
-            Window window = Window.GetWindow(this);
-            window.Close();
+            this.Take(this, new CustomEventArgs.AccessionLockMessageReturnEventArgs(this.m_Message));
         }
 
         private void ButtonRespondHoldYourHorses_Click(object sender, RoutedEventArgs e)
         {
             this.m_DispatchTimer.Stop();
-            
-            UI.AppMessaging.AccessionLockMessage message = new AccessionLockMessage(this.m_Message.MasterAccessionNo, this.m_Message.ComputerName, this.m_Message.UserName, AccessionLockMessageIdEnum.HOLD);
-            ISubscriber subscriber = Business.RedisConnection.Instance.GetSubscriber();
-            subscriber.Publish(message.MasterAccessionNo, JsonConvert.SerializeObject(message));
-
-            Window window = Window.GetWindow(this);
-            window.Close();
+            this.Hold(this, new CustomEventArgs.AccessionLockMessageReturnEventArgs(this.m_Message));
         }
 
         private void ButtonClose_Click(object sender, RoutedEventArgs e)

@@ -14,7 +14,7 @@
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Path=Message.Message}" FontSize="16"></TextBlock>
+        <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Path=DisplayMessage}" FontSize="16"></TextBlock>
         <Button Name="ButtonClose" Grid.Column="0" Grid.Row="1" Width="200" Height="100" Click="ButtonClose_Click" HorizontalAlignment="Right" Visibility="Collapsed">Close</Button>
         <Button Name="ButtonNext" Grid.Column="0" Grid.Row="1" Width="200" Height="100" Click="ButtonNext_Click" HorizontalAlignment="Right" Visibility="Collapsed">Next</Button>
         <TextBlock Grid.Column="0" Grid.Row="2" Text="{Binding Path=CountDownMessage}" Foreground="Red" FontSize="24" Margin="30"></TextBlock>

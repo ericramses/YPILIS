@@ -50,5 +50,33 @@ namespace YellowstonePathology.Business.Persistence
             }
             return result;
         }
+
+        public bool Exists(string key)
+        {
+            bool result = false;
+            foreach (Document doc in this)
+            {
+                if (doc.Key.ToString() == key)
+                {
+                    result = true;
+                    break;
+                }
+            }
+            return result;
+        }
+
+        public Document Get(string key)
+        {
+            Document result = null;
+            foreach (Document doc in this)
+            {
+                if (doc.Key.ToString() == key)
+                {
+                    result = doc;
+                    break;
+                }
+            }
+            return result;
+        }
     }
 }

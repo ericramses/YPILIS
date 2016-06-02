@@ -19,23 +19,25 @@ namespace YellowstonePathology.UI.AppMessaging
     {
         public event PropertyChangedEventHandler PropertyChanged;        
 
-        public delegate void RequestLockEventHandler(object sender, UI.CustomEventArgs.AccessionLockMessageReturnEventArgs e);
+        public delegate void RequestLockEventHandler(object sender, UI.CustomEventArgs.AccessionOrderReturnEventArgs e);
         public event RequestLockEventHandler RequestLock;
 
         private Business.Test.AccessionOrder m_AccessionOrder;
-        private AccessionLockMessage m_Message;        
+        private string m_DisplayMessage;
 
-        public LockRequestPage(AccessionLockMessage message)
+        public LockRequestPage(Business.Test.AccessionOrder accessionOrder)
         {
-            this.m_Message = message;
+            this.m_AccessionOrder = accessionOrder;
+            this.m_DisplayMessage = "Ask " + accessionOrder.LockAquiredByUserName + "\\" + accessionOrder.LockAquiredByHostName + " for the lock on " + accessionOrder.MasterAccessionNo + ".";
+
             InitializeComponent();
             DataContext = this;
         }
 
-        public AccessionLockMessage Message
+        public string DisplayMessage
         {
-            get { return this.m_Message; }
-        }           
+            get { return this.m_DisplayMessage; }
+        }         
 
 		public void NotifyPropertyChanged(String info)
 		{
@@ -47,7 +49,7 @@ namespace YellowstonePathology.UI.AppMessaging
 
         private void ButtonAskToTakeCase_Click(object sender, RoutedEventArgs e)
         {
-            if (this.RequestLock != null) this.RequestLock(this, new CustomEventArgs.AccessionLockMessageReturnEventArgs(this.m_Message));              
+            if (this.RequestLock != null) this.RequestLock(this, new CustomEventArgs.AccessionOrderReturnEventArgs(this.m_AccessionOrder));         
         }        
 
         private void ButtonClose_Click(object sender, RoutedEventArgs e)

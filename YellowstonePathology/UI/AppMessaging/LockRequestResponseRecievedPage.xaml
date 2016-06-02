@@ -13,7 +13,7 @@
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" Text="{Binding Path=MessageBody.Message}" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="16"></TextBlock>
+        <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" Text="{Binding Path=DisplayMessage}" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="16"></TextBlock>
         <Button Name="ButtonClose"  Grid.Column="0" Grid.Row="1" Width="200" Height="100" Click="ButtonClose_Click" HorizontalAlignment="Right">Close</Button>
         <Button Name="ButtonNext"  Grid.Column="0" Grid.Row="1" Width="200" Height="100" Click="ButtonNext_Click" HorizontalAlignment="Right">Next</Button>
 

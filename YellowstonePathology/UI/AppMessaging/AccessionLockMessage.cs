@@ -59,11 +59,21 @@ namespace YellowstonePathology.UI.AppMessaging
         public string Message
         {
             get { return this.m_Message; }
-        }
+        }        
 
         public string ToJSON()
         {
             return JsonConvert.SerializeObject(this);
+        }
+        
+        public bool DidISendThis()
+        {
+            bool result = false;
+            if(this.m_ComputerName == System.Environment.MachineName)
+            {
+                result = true;
+            }
+            return result;
         }        
     }
 }
