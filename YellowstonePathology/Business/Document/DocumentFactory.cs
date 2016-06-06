@@ -325,6 +325,9 @@ namespace YellowstonePathology.Business.Document
                     case 231:
                         document = new YellowstonePathology.Business.Test.RUNX1RUNX1T1AML1ETOTranslocation.RUNX1RUNX1T1AML1ETOTranslocationWordDocument(accessionOrder, panelSetOrder, reportSaveMode);
                         break;
+                    case 232:
+                        document = new YellowstonePathology.Business.Test.FGFR1.FGFR1WordDocument(accessionOrder, panelSetOrder, reportSaveMode);
+                        break;
                     default:
 						break;
 				}

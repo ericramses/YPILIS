@@ -279,6 +279,9 @@ namespace YellowstonePathology.UI.Test
                 case 231:
                     result = new RUNX1RUNX1T1AML1ETOTranslocationResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
+                case 232:
+                    result = new FGFR1ResultPath(reportNo, accessionOrder, pageNavigator, window);
+                    break;
             }
             return result;
         }

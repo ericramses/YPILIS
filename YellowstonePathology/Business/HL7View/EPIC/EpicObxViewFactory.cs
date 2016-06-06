@@ -265,6 +265,9 @@ namespace YellowstonePathology.Business.HL7View.EPIC
                 case 231:
                     view = new YellowstonePathology.Business.Test.RUNX1RUNX1T1AML1ETOTranslocation.RUNX1RUNX1T1AML1ETOTranslocationEPICOBXView(accessionOrder, reportNo, obxCount);
                     break;
+                case 232:
+                    view = new YellowstonePathology.Business.Test.FGFR1.FGFR1EPICOBXView(accessionOrder, reportNo, obxCount);
+                    break;
             }
             return view;
         }
