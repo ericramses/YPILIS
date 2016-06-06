@@ -2080,6 +2080,10 @@
     <Compile Include="Business\Test\FactorVLeiden\FactorVLeidenWordDocument.cs" />
     <Compile Include="Business\Test\FetalHemoglobin\FetalHemoglobinTest.cs" />
     <Compile Include="Business\Test\FetalHemoglobin\FetalHemoglobinWordDocument.cs" />
+    <Compile Include="Business\Test\FGFR1\FGFR1EPICOBXView.cs" />
+    <Compile Include="Business\Test\FGFR1\FGFR1Test.cs" />
+    <Compile Include="Business\Test\FGFR1\FGFR1TestOrder.cs" />
+    <Compile Include="Business\Test\FGFR1\FGFR1WordDocument.cs" />
     <Compile Include="Business\Test\FishAnalysisTestOrder.cs" />
     <Compile Include="Business\Test\FLT3\FLT3EpicObxView.cs" />
     <Compile Include="Business\Test\FLT3\FLT3NotDetectedResult.cs" />
@@ -3455,6 +3459,10 @@
       <DependentUpon>ExtractAndHoldForMolecularResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Test\ExtractAndHoldForMolecularResultPath.cs" />
+    <Compile Include="UI\Test\FGFR1ResultPage.xaml.cs">
+      <DependentUpon>FGFR1ResultPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Test\FGFR1ResultPath.cs" />
     <Compile Include="UI\Test\HoldForFlowResultPage.xaml.cs">
       <DependentUpon>HoldForFlowResultPage.xaml</DependentUpon>
     </Compile>
@@ -5308,6 +5316,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\Test\ExtractAndHoldForMolecularResultPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Test\FGFR1ResultPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

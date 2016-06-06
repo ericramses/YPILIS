@@ -1,4 +1,4 @@
-﻿<Test:ResultControl x:Class="YellowstonePathology.UI.Surgical.PeerReviewResultPage"
+﻿<UserControl x:Class="YellowstonePathology.UI.Surgical.PeerReviewResultPage"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -193,4 +193,4 @@
 		<Button Name="ButtonClose" Grid.Column="0" Grid.Row="2" Width="100" Height="40" HorizontalAlignment="Right" Margin="5,5,5,5" Click="ButtonClose_Click">Close</Button>
 
 	</Grid>
-</Test:ResultControl>
+</UserControl>
