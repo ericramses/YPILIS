@@ -5,6 +5,7 @@ using System.Text;
 using System.IO;
 using System.Reflection;
 using Newtonsoft.Json;
+using StackExchange.Redis;
 
 namespace YellowstonePathology.Business.Billing.Model
 {
@@ -22,7 +23,7 @@ namespace YellowstonePathology.Business.Billing.Model
                     lock (syncRoot)
                     {
                         if (instance == null)
-                            instance = FromJSON();
+                            instance = FromJSON();                            
                     }
                 }
 
@@ -33,6 +34,23 @@ namespace YellowstonePathology.Business.Billing.Model
         public CptCodeCollection()
         {
 
+        }
+
+        public void WriteToRedis()
+        {
+            IDatabase db = Business.RedisConnection.Instance.GetDatabase();
+            db.KeyDelete("cptcodes");
+
+            foreach (CptCode cptCode in this)
+            {
+                string result = JsonConvert.SerializeObject(cptCode, Newtonsoft.Json.Formatting.Indented, new JsonSerializerSettings
+                {
+                    TypeNameHandling = TypeNameHandling.All
+                });
+
+                db.ListRightPush("cptcodes:", "cptcode:" + cptCode.Code);
+                db.StringSet("cptcode:" + cptCode.Code, result);
+            }
         }
 
         public bool IsMedicareCode(string cptCode)

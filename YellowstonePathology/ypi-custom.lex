@@ -7304,6 +7304,7 @@ canal
 canaled
 Canaletto
 canalicular
+canaliculus
 canalization
 canalize
 canals

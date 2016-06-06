@@ -308,20 +308,13 @@ namespace YellowstonePathology.Business.Flow
 					this.PanelSetOrderLeukemiaLymphoma.TechFinal = true;
 					this.PanelSetOrderLeukemiaLymphoma.TechFinalDate = DateTime.Today;
 					this.PanelSetOrderLeukemiaLymphoma.TechFinalTime = DateTime.Now;
-
-					this.Save(false);
 				}
                 else
                 {
                     MessageBox.Show("You do not have permission to perform this action.");
                 }
             }
-        }
-
-        public void Save(bool releaseLock)
-        {
-			
-        }
+        }        
 
         public Flow.Marker Marker
         {
@@ -372,7 +365,6 @@ namespace YellowstonePathology.Business.Flow
 
 			Flow.FlowMarkerCollection panelCollection = Gateway.FlowGateway.GetFlowMarkerCollectionByPanelId(this.PanelSetOrderLeukemiaLymphoma.ReportNo, panelId);
 			this.PanelSetOrderLeukemiaLymphoma.FlowMarkerCollection.Insert(panelCollection, this.PanelSetOrderLeukemiaLymphoma.ReportNo);
-			this.Save(false);			
 		}		
 
 		public string SignReportButtonContent
