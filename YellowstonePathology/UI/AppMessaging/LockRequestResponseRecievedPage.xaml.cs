@@ -19,21 +19,42 @@ namespace YellowstonePathology.UI.AppMessaging
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
-        private AccessionLockMessage m_Message;        
+        public delegate void LockWasReleasedEventHandler(object sender, EventArgs e);
+        public event LockWasReleasedEventHandler LockWasReleased;
+
+        public delegate void HoldYourHorsesEventHandler(object sender, EventArgs e);
+        public event HoldYourHorsesEventHandler HoldYourHorses;
+
+        private AccessionLockMessage m_Message;
+        private string m_DisplayMessage;    
 
         public LockRequestResponseReceivedPage(AccessionLockMessage message, System.Windows.Visibility closeButtonVisibility, System.Windows.Visibility nextButtonVisibility)
         {
             this.m_Message = message;
+            this.SetDisplayMessage(message);
+
             InitializeComponent();
             DataContext = this;
 
             this.ButtonClose.Visibility = closeButtonVisibility;
             this.ButtonNext.Visibility = nextButtonVisibility;
         }  
-        
-        public AccessionLockMessage Message
+
+        private void SetDisplayMessage(AccessionLockMessage message)
         {
-            get { return this.m_Message; }
+            if(message.MessageId == AccessionLockMessageIdEnum.GIVE)
+            {
+                this.m_DisplayMessage = this.m_Message.ComputerName + "\\" + this.m_Message.UserName + " says " + this.m_Message.MasterAccessionNo + " is all yours.";
+            }
+            else if (message.MessageId == AccessionLockMessageIdEnum.HOLD)
+            {
+                this.m_DisplayMessage = this.m_Message.ComputerName + "\\" + this.m_Message.UserName + " says hold your horses I'm working on " + this.m_Message.MasterAccessionNo + ".";
+            }
+        }
+        
+        public string DisplayMessage
+        {
+            get { return this.m_DisplayMessage; }
         }                                                                		                   
 
         private void ButtonClose_Click(object sender, RoutedEventArgs e)
@@ -42,17 +63,15 @@ namespace YellowstonePathology.UI.AppMessaging
         }
 
         private void ButtonNext_Click(object sender, RoutedEventArgs e)
-        {
-            /*            
-            if(MessageBody.LockWasReleased == true)
+        {                     
+            if(this.m_Message.MessageId == AccessionLockMessageIdEnum.GIVE)
             {
                 if (this.LockWasReleased != null) this.LockWasReleased(this, new EventArgs());
             }
-            else
+            else if (this.m_Message.MessageId == AccessionLockMessageIdEnum.HOLD)
             {
                 if (this.HoldYourHorses != null) this.HoldYourHorses(this, new EventArgs());
             } 
-            */           
         }
 
         public void NotifyPropertyChanged(String info)

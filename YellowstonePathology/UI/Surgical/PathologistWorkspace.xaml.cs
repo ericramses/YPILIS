@@ -82,22 +82,12 @@ namespace YellowstonePathology.UI.Surgical
             this.m_MainWindowCommandButtonHandler.RemoveTab += new MainWindowCommandButtonHandler.RemoveTabEventHandler(MainWindowCommandButtonHandler_RemoveTab);
             this.m_MainWindowCommandButtonHandler.ShowMessagingDialog += new MainWindowCommandButtonHandler.ShowMessagingDialogEventHandler(MainWindowCommandButtonHandler_ShowMessagingDialog);
 
-            //AppMessaging.MessageQueues.Instance.ReleaseLock += MessageQueue_ReleaseLock;
-            //AppMessaging.MessageQueues.Instance.AquireLock += MessageQueue_AquireLock;
-            //AppMessaging.MessageQueues.Instance.RequestReceived += MessageQueue_RequestReceived;
+            UI.AppMessaging.MessagingPath.Instance.LockReleasedActionList.Add(this.ReleaseLock);
+            UI.AppMessaging.MessagingPath.Instance.LockAquiredActionList.Add(this.PassOnPropertyChanged);
 
             if (this.m_PathologistUI.AccessionOrder != null) this.m_PathologistUI.RunWorkspaceEnableRules();
             this.m_PathologistUI.PropertyChanged += PathologistUI_PropertyChanged;
-        }
-
-        private void MessageQueue_RequestReceived(object sender, EventArgs e)
-        {
-            this.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
-            {
-                //AppMessaging.MessagingPath.Instance.StartRequestReceived(e.Message);
-            }
-            ));
-        }
+        }        
 
         private void MainWindowCommandButtonHandler_ShowMessagingDialog(object sender, EventArgs e)
         {            
@@ -105,33 +95,7 @@ namespace YellowstonePathology.UI.Surgical
             {
                 AppMessaging.MessagingPath.Instance.Start(this.m_PathologistUI.AccessionOrder);
             }            
-        }
-
-        private void MessageQueue_AquireLock(object sender, EventArgs e)
-        {
-            this.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
-            {
-                string masterAccessionNo = (string)sender;
-                if (this.m_PathologistUI.AccessionOrder != null && this.m_PathologistUI.AccessionOrder.MasterAccessionNo == masterAccessionNo)
-                {
-                    this.m_PathologistUI.GetAccessionOrderByReportNo(this.m_PathologistUI.PanelSetOrder.ReportNo);
-                }
-            }
-            ));            
-        }
-
-        private void MessageQueue_ReleaseLock(object sender, EventArgs e)
-        {
-            this.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
-            {
-                string masterAccessionNo = (string)sender;
-                if (this.m_PathologistUI.AccessionOrder != null && this.m_PathologistUI.AccessionOrder.MasterAccessionNo == masterAccessionNo)
-                {
-                    this.ReleaseLock();
-                }
-            }
-            ));
-        }
+        }                
 
         private void MainWindowCommandButtonHandler_RemoveTab(object sender, EventArgs e)
         {
@@ -171,9 +135,8 @@ namespace YellowstonePathology.UI.Surgical
             this.m_MainWindowCommandButtonHandler.RemoveTab -= MainWindowCommandButtonHandler_RemoveTab;
             this.m_MainWindowCommandButtonHandler.ShowMessagingDialog -= MainWindowCommandButtonHandler_ShowMessagingDialog;
 
-            //AppMessaging.MessageQueues.Instance.ReleaseLock -= MessageQueue_ReleaseLock;
-            //AppMessaging.MessageQueues.Instance.AquireLock -= MessageQueue_AquireLock;
-            //AppMessaging.MessageQueues.Instance.RequestReceived -= MessageQueue_RequestReceived;
+            UI.AppMessaging.MessagingPath.Instance.LockReleasedActionList.Remove(this.ReleaseLock);
+            UI.AppMessaging.MessagingPath.Instance.LockAquiredActionList.Remove(this.PassOnPropertyChanged);
 
             this.m_PathologistUI.PropertyChanged -= PathologistUI_PropertyChanged;
 
@@ -187,7 +150,6 @@ namespace YellowstonePathology.UI.Surgical
 
         private void MainWindowCommandButtonHandler_Save(object sender, EventArgs e)
 		{
-            //this.Save();
             if (this.m_PathologistUI.AccessionOrder != null)
             {
                 this.ReleaseLock();

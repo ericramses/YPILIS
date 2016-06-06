@@ -236,12 +236,7 @@ namespace YellowstonePathology.UI.Test
 		public YellowstonePathology.Business.PanelSet.Model.PanelSetCaseTypeCollection PanelSetCaseTypeCollection
 		{
 			get { return this.m_PanelSetCaseTypeCollection; }
-		}             
-
-		public void Save(bool releaseLock)
-		{
-			
-		}
+		}             		
 
 		public YellowstonePathology.Business.Document.CaseDocumentCollection CaseDocumentCollection
 		{

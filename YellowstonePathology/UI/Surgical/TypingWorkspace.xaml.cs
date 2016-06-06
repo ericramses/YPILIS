@@ -92,23 +92,9 @@ namespace YellowstonePathology.UI.Surgical
 
             if (this.m_TypingUI.SurgicalTestOrder != null) this.m_TypingUI.RunWorkspaceEnableRules();
 
-            //AppMessaging.MessageQueues.Instance.ReleaseLock += MessageQueue_ReleaseLock;
-            //AppMessaging.MessageQueues.Instance.AquireLock += MessageQueue_AquireLock;
-            //AppMessaging.MessageQueues.Instance.RequestReceived += MessageQueue_RequestReceived;            
-        }        
-
-        private void MessageQueue_RequestReceived(object sender, EventArgs e)
-        {                        
-            this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
-            {
-                foreach (BindingExpressionBase be in BindingOperations.GetSourceUpdatingBindings(this))
-                {
-                    be.UpdateSource();
-                }
-                //AppMessaging.MessagingPath.Instance.StartRequestReceived(e.Message);
-            }
-            ));           
-        }
+            UI.AppMessaging.MessagingPath.Instance.LockReleasedActionList.Add(this.Save);
+            UI.AppMessaging.MessagingPath.Instance.LockAquiredActionList.Add(this.m_TypingUI.RunWorkspaceEnableRules);
+        }                
 
         private void MainWindowCommandButtonHandler_ShowMessagingDialog(object sender, EventArgs e)
         {
@@ -116,33 +102,7 @@ namespace YellowstonePathology.UI.Surgical
             {
                 AppMessaging.MessagingPath.Instance.Start(this.m_TypingUI.AccessionOrder);
             }
-        }
-
-        private void MessageQueue_AquireLock(object sender, EventArgs e)
-        {
-            this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
-            {
-                string masterAccessionNo = (string)sender;
-                if (this.m_TypingUI.AccessionOrder != null && this.m_TypingUI.AccessionOrder.MasterAccessionNo == masterAccessionNo)
-                {
-                    Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, this.m_Writer);
-                }
-            }
-            ));            
-        }
-
-        private void MessageQueue_ReleaseLock(object sender, EventArgs e)
-        {
-            this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
-            {
-                string masterAccessionNo = (string)sender;
-                if (this.m_TypingUI.AccessionOrder != null && this.m_TypingUI.AccessionOrder.MasterAccessionNo == masterAccessionNo)
-                {
-                    this.Save();                    
-                }
-            }
-            ));
-        }
+        }                
 
         private void MainWindowCommandButtonHandler_RemoveTab(object sender, EventArgs e)
         {
@@ -194,9 +154,8 @@ namespace YellowstonePathology.UI.Surgical
             this.m_MainWindowCommandButtonHandler.RemoveTab -= MainWindowCommandButtonHandler_RemoveTab;
             this.m_MainWindowCommandButtonHandler.ShowMessagingDialog -= MainWindowCommandButtonHandler_ShowMessagingDialog;
 
-            //AppMessaging.MessageQueues.Instance.ReleaseLock -= MessageQueue_ReleaseLock;
-            //AppMessaging.MessageQueues.Instance.AquireLock -= MessageQueue_AquireLock;
-            //AppMessaging.MessageQueues.Instance.RequestReceived -= MessageQueue_RequestReceived;
+            UI.AppMessaging.MessagingPath.Instance.LockReleasedActionList.Remove(this.Save);
+            UI.AppMessaging.MessagingPath.Instance.LockAquiredActionList.Remove(this.m_TypingUI.RunWorkspaceEnableRules);
 
             YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
         }

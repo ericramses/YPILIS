@@ -22,23 +22,27 @@ namespace YellowstonePathology.UI.AppMessaging
         public delegate void NextEventHandler(object sender, UI.CustomEventArgs.AccessionLockMessageReturnEventArgs e);
         public event NextEventHandler Next;        
 
-        private UI.AppMessaging.AccessionLockMessage m_AccessionLockMessage;
-
         private System.Windows.Threading.DispatcherTimer m_DispatchTimer;
         private string m_CountDownMessage;
-        private int m_CurrentCountDown;
+        private int m_CurrentCountDown;        
+        private string m_DisplayMessage;
 
-        private AccessionLockMessage m_Message; 
-
-        public LockRequestSentPage(AccessionLockMessage message, System.Windows.Visibility closeButtonVisibility, System.Windows.Visibility nextButtonVisibility)
+        public LockRequestSentPage(string username, string computerName, string masterAccessionNo, System.Windows.Visibility closeButtonVisibility, System.Windows.Visibility nextButtonVisibility)
 		{
-            this.m_AccessionLockMessage = message;            
+            this.m_DisplayMessage = "A resquest was sent to " + computerName + "\\" + username + " for the lock on " + masterAccessionNo + ".";
+
             InitializeComponent();
+
             DataContext = this;
             this.ButtonClose.Visibility = closeButtonVisibility;
             this.ButtonNext.Visibility = nextButtonVisibility;
             this.StartCountDownTimer();        
-		}        
+		}
+
+        public string DisplayMessage
+        {
+            get { return this.m_DisplayMessage; }
+        }
 
         private void StartCountDownTimer()
         {
@@ -48,12 +52,7 @@ namespace YellowstonePathology.UI.AppMessaging
             this.m_DispatchTimer.Interval = new TimeSpan(0, 0, 1);
             this.m_DispatchTimer.Tick += DispatchTimer_Tick;
             this.m_DispatchTimer.Start();
-        }
-
-        public AccessionLockMessage Message
-        {
-            get { return this.m_Message; }
-        }
+        }        
 
         public string CountDownMessage
         {
@@ -81,7 +80,7 @@ namespace YellowstonePathology.UI.AppMessaging
 
         private void ButtonNext_Click(object sender, RoutedEventArgs e)
         {
-            if (this.Next != null) this.Next(this, new CustomEventArgs.AccessionLockMessageReturnEventArgs(this.m_Message));
+            //if (this.Next != null) this.Next(this, new CustomEventArgs.AccessionLockMessageReturnEventArgs()
         }
 
         public void NotifyPropertyChanged(String info)

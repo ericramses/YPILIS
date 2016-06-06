@@ -75,7 +75,18 @@ namespace YellowstonePathology.Business.Persistence
             {
                 this.m_Stack.ReleaseLock(accessionOrder, writer);
             }
-        }        
+        }
+
+        public void RefreshAccessionOrder(string masterAccessionNo)
+        {
+            lock (locker)
+            {
+                AODocumentBuilder documentBuilder = new AODocumentBuilder(masterAccessionNo, true);
+                Document document = this.m_Stack.Documents.Get(masterAccessionNo);
+                YellowstonePathology.Business.Test.AccessionOrder accessionOrder = (YellowstonePathology.Business.Test.AccessionOrder)document.Value;
+                documentBuilder.Refresh(accessionOrder);
+            }
+        }
 
         public void Flush()
         {

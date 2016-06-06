@@ -91,9 +91,8 @@ namespace YellowstonePathology.UI.Cytology
             this.m_MainWindowCommandButtonHandler.RemoveTab -= MainWindowCommandButtonHandler_RemoveTab;
             this.m_MainWindowCommandButtonHandler.ShowMessagingDialog -= MainWindowCommandButtonHandler_ShowMessagingDialog;
 
-            //AppMessaging.MessageQueues.Instance.ReleaseLock -= MessageQueue_ReleaseLock;
-            //AppMessaging.MessageQueues.Instance.AquireLock -= MessageQueue_AquireLock;
-            //AppMessaging.MessageQueues.Instance.RequestReceived -= MessageQueue_RequestReceived;
+            UI.AppMessaging.MessagingPath.Instance.LockReleasedActionList.Add(this.ReleaseLock);
+            UI.AppMessaging.MessagingPath.Instance.LockAquiredActionList.Add(this.m_CytologyUI.DataLoaded);
 
             YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
         }
@@ -134,9 +133,8 @@ namespace YellowstonePathology.UI.Cytology
             this.m_MainWindowCommandButtonHandler.RemoveTab += MainWindowCommandButtonHandler_RemoveTab;
             this.m_MainWindowCommandButtonHandler.ShowMessagingDialog += new MainWindowCommandButtonHandler.ShowMessagingDialogEventHandler(MainWindowCommandButtonHandler_ShowMessagingDialog);
 
-            //AppMessaging.MessageQueues.Instance.ReleaseLock += MessageQueue_ReleaseLock;
-            //AppMessaging.MessageQueues.Instance.AquireLock += MessageQueue_AquireLock;
-            //AppMessaging.MessageQueues.Instance.RequestReceived += MessageQueue_RequestReceived;
+            UI.AppMessaging.MessagingPath.Instance.LockReleasedActionList.Remove(this.ReleaseLock);
+            UI.AppMessaging.MessagingPath.Instance.LockAquiredActionList.Remove(this.m_CytologyUI.DataLoaded);
 
             this.ListViewSearchResults.SelectedIndex = -1;
 
@@ -145,6 +143,7 @@ namespace YellowstonePathology.UI.Cytology
 
         private void MainWindowCommandButtonHandler_Refresh(object sender, EventArgs e)
         {
+
         }
 
         private void MainWindowCommandButtonHandler_Save(object sender, EventArgs e)
@@ -283,10 +282,7 @@ namespace YellowstonePathology.UI.Cytology
             {
                 YellowstonePathology.Business.Search.CytologyScreeningSearchResult selectedSearchResult = (YellowstonePathology.Business.Search.CytologyScreeningSearchResult)this.ListViewSearchResults.SelectedItem;                
                 this.m_CytologyUI.SetAccessionOrder(selectedSearchResult);				
-			}
-			DateTime done = DateTime.Now;
-			TimeSpan elapsed = done - hit;
-			Console.WriteLine(" *** ElapsedTime = " + elapsed.TotalMilliseconds.ToString() + " ***");
+			}			
         }
                 
 		private void ButtonGetList_Click(object sender, RoutedEventArgs e)

@@ -75,15 +75,7 @@ namespace YellowstonePathology.UI.Gross
         public string Message
         {
             get { return this.m_Message; }
-        }				
-
-		public void NotifyPropertyChanged(String info)
-		{
-			if (PropertyChanged != null)
-			{
-				PropertyChanged(this, new PropertyChangedEventArgs(info));
-			}
-		}
+        }						
 
 		private void ContainerScanReceived(YellowstonePathology.Business.BarcodeScanning.ContainerBarcode containerBarcode)
 		{
@@ -139,6 +131,14 @@ namespace YellowstonePathology.UI.Gross
         private void ButtonScanAliquot_Click(object sender, RoutedEventArgs e)
         {
             this.ScanAliquot(this, new EventArgs());
+        }
+
+        public void NotifyPropertyChanged(String info)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
         }
     }
 }
