@@ -50,6 +50,7 @@ namespace YellowstonePathology.Business.Billing.Model.GCodeDefinitions
             this.m_HasProfessionalComponent = false;
             this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
+            this.m_SVHCDM = "760804033";
         }
     }
 
