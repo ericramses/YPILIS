@@ -23,9 +23,12 @@ namespace YellowstonePathology.Business.Test.CSF3RMutationAnalysis
             string result = "Result: " + testOrder.Result;
             this.AddNextObxElement(result, document, "F");
 
-            this.AddNextObxElement("", document, "F");
-            this.AddNextObxElement("Comment:", document, "F");
-            this.HandleLongString(testOrder.Comment, document, "F");
+            if (string.IsNullOrEmpty(testOrder.Comment) == false)
+            {
+                this.AddNextObxElement("", document, "F");
+                this.AddNextObxElement("Comment:", document, "F");
+                this.HandleLongString(testOrder.Comment, document, "F");
+            }
 
             this.AddNextObxElement("", document, "F");
             this.AddNextObxElement("Pathologist: " + testOrder.Signature, document, "F");

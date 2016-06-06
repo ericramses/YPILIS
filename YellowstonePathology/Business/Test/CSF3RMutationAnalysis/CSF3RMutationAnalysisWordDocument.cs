@@ -38,8 +38,16 @@ namespace YellowstonePathology.Business.Test.CSF3RMutationAnalysis
             string collectionDateTimeString = YellowstonePathology.Business.Helper.DateTimeExtensions.CombineDateAndTime(specimenOrder.CollectionDate, specimenOrder.CollectionTime);
             this.SetXmlNodeData("date_time_collected", collectionDateTimeString);
 
+            if (string.IsNullOrEmpty(testOrder.Comment) == true)
+            {
+                this.SetXMLNodeParagraphData("report_comment", testOrder.Comment);
+            }
+            else
+            {
+                this.DeleteRow("report_comment");
+            }
+
             this.SetXMLNodeParagraphData("report_result", testOrder.Result);
-            this.SetXMLNodeParagraphData("report_comment", testOrder.Comment);
             this.SetXMLNodeParagraphData("report_interpretation", testOrder.Interpretation);
             this.SetXMLNodeParagraphData("report_method", testOrder.Method);
             this.SetXMLNodeParagraphData("report_references", testOrder.References);

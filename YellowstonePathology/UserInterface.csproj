@@ -888,6 +888,7 @@
     <Compile Include="Business\HL7View\ECW\ECWPIDView.cs" />
     <Compile Include="Business\HL7View\ECW\ECWResultView.cs" />
     <Compile Include="Business\HL7View\EPIC\AllResultTypeTest.cs" />
+    <Compile Include="Business\HL7View\EPIC\EPICFT1View.cs" />
     <Compile Include="Business\HL7View\EPIC\EpicHl7Client.cs" />
     <Compile Include="Business\HL7View\EPIC\EpicMshView.cs" />
     <Compile Include="Business\HL7View\EPIC\EpicObrView.cs" />
