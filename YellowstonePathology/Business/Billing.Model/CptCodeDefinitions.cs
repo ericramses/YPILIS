@@ -55,6 +55,7 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
             this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.Global;
+            this.m_SVHCDM = "760803367";
         }
     }
 
@@ -68,6 +69,7 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
             this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.Global;
+            this.m_SVHCDM = "760806281";
         }
     }
 
@@ -94,6 +96,7 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
             this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.Global;
+            this.m_SVHCDM = "760806282";
         }
     }
 
@@ -107,6 +110,7 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
             this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.Global;
+            this.m_SVHCDM = "760806283";
         }
     }
 
@@ -120,6 +124,7 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
             this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.Global;
+            this.m_SVHCDM = "760806277";
         }
     }
 
@@ -289,6 +294,7 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
             this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.TechnicalOnly;
+            this.m_SVHCDM = "760806446";
         }
     }
 
@@ -315,6 +321,7 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
             this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.TechnicalOnly;
+            this.m_SVHCDM = "760805571";
         }
     }
 
@@ -354,6 +361,7 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
             this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.TechnicalOnly;
+            this.m_SVHCDM = "760805684";
         }
     }
 
@@ -380,6 +388,7 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
             this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.TechnicalOnly;
+            this.m_SVHCDM = "760805723";
         }
     }
 
@@ -393,6 +402,7 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
             this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.TechnicalOnly;
+            this.m_SVHCDM = "760804017";
         }
     }
 
@@ -432,6 +442,7 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
             this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.TechnicalOnly;
+            this.m_SVHCDM = "760805647";
         }
     }
 
@@ -458,6 +469,7 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
             this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.TechnicalOnly;
+            this.m_SVHCDM = "760805645";
         }
     }
 
@@ -471,6 +483,7 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
             this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.TechnicalOnly;
+            this.m_SVHCDM = "760805646";
         }
     }
 
@@ -484,6 +497,7 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
             this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.Global;
+            this.m_SVHCDM = "760805629";
         }
     }
 
@@ -863,6 +877,7 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
 			this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.Global;
+            this.m_SVHCDM = "760805885";
 		}
 	}
 
@@ -889,6 +904,7 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
 			this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.Global;
+            this.m_SVHCDM = "760402247";
 		}
 	}
 
@@ -956,6 +972,7 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
 			this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.Global;
+            this.m_SVHCDM = "760402250";
 		}
 	}	
 
@@ -969,8 +986,9 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
 			this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.Global;
-		}
-	}
+            this.m_SVHCDM = "760402253";
+        }
+    }
 
 	public class CPT88175 : CptCode
 	{
@@ -983,8 +1001,9 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
             this.m_IsBillable = true;
             this.m_GCode = "G0145";
             this.m_CodeType = CPTCodeTypeEnum.TechnicalOnly;
-		}
-	}
+            this.m_SVHCDM = "760403862";
+        }
+    }
 
     public class CPT88177 : CptCode
     {
@@ -1100,6 +1119,7 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
 			this.m_HasTechnicalComponent = true;
 			this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.TechnicalOnly;
+            this.m_SVHCDM = "760802264";
 		}
 	}
 
@@ -1113,6 +1133,7 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
             this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.TechnicalOnly;
+            this.m_SVHCDM = "760802727";
         }
     }
 
@@ -1126,8 +1147,9 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
 			this.m_HasTechnicalComponent = true;
 			this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.TechnicalOnly;
-		}
-	}
+            this.m_SVHCDM = "760803848";
+        }
+    }
 
     public class CPT88233 : CptCode
     {
@@ -1139,6 +1161,7 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
             this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.TechnicalOnly;
+            this.m_SVHCDM = "760802263";
         }
     }
 
@@ -1178,6 +1201,7 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
 			this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.Global;
+            this.m_SVHCDM = "760402279";
 		}
 	}
 
@@ -1191,8 +1215,9 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
 			this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.Global;
-		}
-	}
+            this.m_SVHCDM = "760402280";
+        }
+    }
 
 	public class CPT88304 : CptCode
 	{
@@ -1204,8 +1229,9 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
 			this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.Global;
-		}
-	}
+            this.m_SVHCDM = "760402281";
+        }
+    }
 
 	public class CPT88305 : CptCode
 	{
@@ -1217,8 +1243,9 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
 			this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.Global;
-		}
-	}
+            this.m_SVHCDM = "760402282";
+        }
+    }
 
 	public class CPT88307 : CptCode
 	{
@@ -1230,8 +1257,9 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
 			this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.Global;
-		}
-	}
+            this.m_SVHCDM = "760402283";
+        }
+    }
 
 	public class CPT88309 : CptCode
 	{
@@ -1243,8 +1271,9 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
 			this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.Global;
-		}
-	}
+            this.m_SVHCDM = "760402284";
+        }
+    }
 
 	public class CPT88311 : CptCode
 	{
@@ -1256,8 +1285,9 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
 			this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.Global;
-		}
-	}
+            this.m_SVHCDM = "760402285";
+        }
+    }
 
 	public class CPT88312 : CptCode
 	{
@@ -1269,8 +1299,9 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
 			this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.Global;
-		}
-	}
+            this.m_SVHCDM = "760402286";
+        }
+    }
 
 	public class CPT88313 : CptCode
 	{
@@ -1282,8 +1313,9 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
 			this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.Global;
-		}
-	}
+            this.m_SVHCDM = "760402287";
+        }
+    }
 
     public class CPT88314 : CptCode
     {
@@ -1373,6 +1405,7 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
 			this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.Global;
+            this.m_SVHCDM = "760402292";
 		}
 	}
 
@@ -1386,8 +1419,9 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
 			this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.Global;
-		}
-	}
+            this.m_SVHCDM = "760402293";
+        }
+    }
 
 	public class CPT88333 : CptCode
 	{
@@ -1425,6 +1459,7 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
 			this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.Global;
+            this.m_SVHCDM = "760402296";
 		}
 	}
 
@@ -1451,6 +1486,7 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
 			this.m_HasTechnicalComponent = true;
 			this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.Global;
+            this.m_SVHCDM = "760805981";
 		}
 	}
 
@@ -1464,8 +1500,9 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
 			this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.Global;
-		}
-	}
+            this.m_SVHCDM = "760402732";
+        }
+    }
 
     public class CPT88365 : CptCode
     {
@@ -1477,6 +1514,7 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
             this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.Global;
+            this.m_SVHCDM = "760802301";
         }
     }
 
@@ -1492,6 +1530,7 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
             this.m_HasMedicareQuantityLimit = true;
             this.m_MedicareQuantityLimit = 1;
             this.m_CodeType = CPTCodeTypeEnum.Global;
+            this.m_SVHCDM = "760802268";
         }
     }
 
@@ -1521,6 +1560,7 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
             this.m_IsBillable = true;
             this.m_HasMedicareQuantityLimit = false;            
             this.m_CodeType = CPTCodeTypeEnum.Global;
+            this.m_SVHCDM = "760806284";
         }
     }
 
@@ -1573,6 +1613,7 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
 			this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.TechnicalOnly;
+            this.m_SVHCDM = "760805576";
 		}
 	}
 
@@ -1599,6 +1640,7 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
 			this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.TechnicalOnly;
+            this.m_SVHCDM = "760805634";
 		}
 	}
 
@@ -1612,6 +1654,7 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
 			this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.TechnicalOnly;
+            this.m_SVHCDM = "760805628";
 		}
 	}
 

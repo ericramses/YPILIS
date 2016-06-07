@@ -282,6 +282,9 @@ namespace YellowstonePathology.UI.Test
                 case 232:
                     result = new FGFR1ResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
+                case 233:
+                    result = new CSF3RMutationAnalysisResultPath(reportNo, accessionOrder, pageNavigator, window);
+                    break;
             }
             return result;
         }

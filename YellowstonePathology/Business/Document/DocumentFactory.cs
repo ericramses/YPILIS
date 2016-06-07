@@ -328,6 +328,9 @@ namespace YellowstonePathology.Business.Document
                     case 232:
                         document = new YellowstonePathology.Business.Test.FGFR1.FGFR1WordDocument(accessionOrder, panelSetOrder, reportSaveMode);
                         break;
+                    case 233:
+                        document = new YellowstonePathology.Business.Test.CSF3RMutationAnalysis.CSF3RMutationAnalysisWordDocument(accessionOrder, panelSetOrder, reportSaveMode);
+                        break;
                     default:
 						break;
 				}
