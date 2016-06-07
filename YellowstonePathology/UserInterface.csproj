@@ -28,7 +28,7 @@
     </AssemblyOriginatorKeyFile>
     <ApplicationIcon>YPI.ico</ApplicationIcon>
     <TargetFrameworkProfile />
-    <PublishUrl>\\Ypiidc\YPIILIS\Test\</PublishUrl>
+    <PublishUrl>\\ypiidc\YPIILIS\Application\</PublishUrl>
     <Install>false</Install>
     <InstallFrom>Unc</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -40,7 +40,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>25</ApplicationRevision>
+    <ApplicationRevision>32</ApplicationRevision>
     <ApplicationVersion>10.1.5.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -472,14 +472,17 @@
     <Compile Include="Business\Client\HPVCompoundStandingOrderRule1.cs" />
     <Compile Include="Business\Client\HPVCompoundStandingOrderRule2.cs" />
     <Compile Include="Business\Client\HPVCompoundStandingOrderRule3.cs" />
+    <Compile Include="Business\Client\HPVCompoundStandingOrderRule5.cs" />
     <Compile Include="Business\Client\HPVCompoundStandingOrderRule4.cs" />
     <Compile Include="Business\Client\HPVReflexOrderRule1.cs" />
+    <Compile Include="Business\Client\HPVReflexOrderRule16.cs" />
     <Compile Include="Business\Client\HPVReflexOrderRule10.cs" />
     <Compile Include="Business\Client\HPVReflexOrderRule11.cs" />
     <Compile Include="Business\Client\HPVReflexOrderRule12.cs" />
     <Compile Include="Business\Client\HPVReflexOrderRule13.cs" />
     <Compile Include="Business\Client\HPVReflexOrderRule14.cs" />
     <Compile Include="Business\Client\HPVReflexOrderRule2.cs" />
+    <Compile Include="Business\Client\HPVReflexOrderRule15.cs" />
     <Compile Include="Business\Client\HPVReflexOrderRule3.cs" />
     <Compile Include="Business\Client\HPVReflexOrderRule4.cs" />
     <Compile Include="Business\Client\HPVReflexOrderRule5.cs" />
