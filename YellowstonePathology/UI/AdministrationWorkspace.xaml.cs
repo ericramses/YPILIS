@@ -1007,17 +1007,14 @@ namespace YellowstonePathology.UI
         {
             //string crc = YellowstonePathology.Business.BarcodeScanning.CRC32V.CRC32("15-1234.1.1");
             //Console.WriteLine("CRC: " + crc);            
-        }
-
-        Business.Test.AccessionOrder m_AccessionOrder = null;
-        string masterAccessionNo = "16-9590";
-        string actNo = "1";
-        string writer = "W1";
+        }        
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
             Business.Billing.Model.CptCodeCollection result = Business.Billing.Model.CptCodeCollection.Instance;
             result.WriteToRedis();
+
+            Business.Billing.Model.CptCodeCollection result1 = Business.Billing.Model.CptCodeCollection.BuildFromRedis();
         }        
 
         private string CallBackOne(string x)

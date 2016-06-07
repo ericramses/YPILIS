@@ -43,14 +43,37 @@ namespace YellowstonePathology.Business.Billing.Model
 
             foreach (CptCode cptCode in this)
             {
+                db.KeyDelete("cptcode:" + cptCode.Code);
+
                 string result = JsonConvert.SerializeObject(cptCode, Newtonsoft.Json.Formatting.Indented, new JsonSerializerSettings
                 {
                     TypeNameHandling = TypeNameHandling.All
                 });
 
-                db.ListRightPush("cptcodes:", "cptcode:" + cptCode.Code);
+                db.ListRightPush("cptcodes", "cptcode:" + cptCode.Code);
                 db.StringSet("cptcode:" + cptCode.Code, result);
             }
+        }
+
+        public static CptCodeCollection BuildFromRedis()
+        {
+            CptCodeCollection result = new CptCodeCollection();
+            IDatabase db = Business.RedisConnection.Instance.GetDatabase();
+            RedisValue[] items = db.ListRange("cptcodes", 0, -1);
+
+            for(int i=0; i<items.Length; i++)
+            {
+                RedisValue json = db.StringGet(items[i].ToString());
+                YellowstonePathology.Business.Billing.Model.CptCode cptCode = JsonConvert.DeserializeObject<Business.Billing.Model.CptCode>(json, new JsonSerializerSettings
+                {
+                    TypeNameHandling = TypeNameHandling.All,
+                    ObjectCreationHandling = ObjectCreationHandling.Replace
+                });
+
+                result.Add(cptCode);
+            }
+
+            return result;
         }
 
         public bool IsMedicareCode(string cptCode)

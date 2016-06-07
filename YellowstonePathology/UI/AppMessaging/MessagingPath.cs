@@ -28,6 +28,7 @@ namespace YellowstonePathology.UI.AppMessaging
         private List<Action> m_LockReleasedActionList;
 
         private MessagingDialog m_MessagingDialog;
+        private List<string> m_AlwaysHoldList;
 
         static MessagingPath()
         {
@@ -39,6 +40,15 @@ namespace YellowstonePathology.UI.AppMessaging
             this.m_PageNavigatorWasPassedIn = false;
             this.m_LockAquiredActionList = new List<Action>();
             this.m_LockReleasedActionList = new List<Action>();
+
+            this.m_AlwaysHoldList = new List<string>();
+            this.m_AlwaysHoldList.Add("CUTTINGA");
+            this.m_AlwaysHoldList.Add("CUTTINGB");
+            this.m_AlwaysHoldList.Add("GROSSA");
+            this.m_AlwaysHoldList.Add("GROSSB-PC");
+            this.m_AlwaysHoldList.Add("GROSS2-PC");
+            this.m_AlwaysHoldList.Add("CODYHISTOLOGY01");
+            this.m_AlwaysHoldList.Add("COMPILE");
         }
 
         public List<Action> LockAquiredActionList
@@ -90,16 +100,24 @@ namespace YellowstonePathology.UI.AppMessaging
 
         public void HandleASKRecieved(AccessionLockMessage message)
         {
-            this.m_MessagingDialog = new MessagingDialog();
-            this.m_PageNavigator = this.m_MessagingDialog.PageNavigator;
-            this.m_MessagingDialog.Closed += MessagingDialog_Closed;
-            
+            if (this.m_AlwaysHoldList.Exists(e => e == System.Environment.MachineName.ToUpper()))
+            {
+                UI.AppMessaging.AccessionLockMessage holdMessage = new AccessionLockMessage(message.MasterAccessionNo, System.Environment.MachineName, Business.User.SystemIdentity.Instance.User.UserName, AccessionLockMessageIdEnum.HOLD);
+                ISubscriber subscriber = Business.RedisConnection.Instance.GetSubscriber();
+                subscriber.Publish(holdMessage.MasterAccessionNo, JsonConvert.SerializeObject(holdMessage));
+            }
+            else
+            {
+                this.m_MessagingDialog = new MessagingDialog();
+                this.m_PageNavigator = this.m_MessagingDialog.PageNavigator;
+                this.m_MessagingDialog.Closed += MessagingDialog_Closed;
 
-            AppMessaging.LockRequestReceivedPage lockRequestReceivedPage = new AppMessaging.LockRequestReceivedPage(message);
-            lockRequestReceivedPage.Take += LockRequestReceivedPage_Take;
-            lockRequestReceivedPage.Hold += LockRequestReceivedPage_Hold;
-            this.m_MessagingDialog.PageNavigator.Navigate(lockRequestReceivedPage);
-            this.m_MessagingDialog.Show();            
+                AppMessaging.LockRequestReceivedPage lockRequestReceivedPage = new AppMessaging.LockRequestReceivedPage(message);
+                lockRequestReceivedPage.Take += LockRequestReceivedPage_Take;
+                lockRequestReceivedPage.Hold += LockRequestReceivedPage_Hold;
+                this.m_MessagingDialog.PageNavigator.Navigate(lockRequestReceivedPage);
+                this.m_MessagingDialog.Show();
+            }           
         }
 
         private void LockRequestReceivedPage_Hold(object sender, CustomEventArgs.AccessionLockMessageReturnEventArgs e)

@@ -22,6 +22,7 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
 			this.Add(690); //Aimee Brown
 			this.Add(425); //Kris Miller
 			this.Add(2986); //Nero
+            this.Add(9); //Ieva bailey
         }
 
 		public bool Exists(int physicianId)

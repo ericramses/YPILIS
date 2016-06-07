@@ -83,7 +83,7 @@ namespace YellowstonePathology.UI.Surgical
             this.m_MainWindowCommandButtonHandler.ShowMessagingDialog += new MainWindowCommandButtonHandler.ShowMessagingDialogEventHandler(MainWindowCommandButtonHandler_ShowMessagingDialog);
 
             UI.AppMessaging.MessagingPath.Instance.LockReleasedActionList.Add(this.ReleaseLock);
-            UI.AppMessaging.MessagingPath.Instance.LockAquiredActionList.Add(this.PassOnPropertyChanged);
+            UI.AppMessaging.MessagingPath.Instance.LockAquiredActionList.Add(this.m_PathologistUI.RunWorkspaceEnableRules);
 
             if (this.m_PathologistUI.AccessionOrder != null) this.m_PathologistUI.RunWorkspaceEnableRules();
             this.m_PathologistUI.PropertyChanged += PathologistUI_PropertyChanged;
@@ -136,7 +136,7 @@ namespace YellowstonePathology.UI.Surgical
             this.m_MainWindowCommandButtonHandler.ShowMessagingDialog -= MainWindowCommandButtonHandler_ShowMessagingDialog;
 
             UI.AppMessaging.MessagingPath.Instance.LockReleasedActionList.Remove(this.ReleaseLock);
-            UI.AppMessaging.MessagingPath.Instance.LockAquiredActionList.Remove(this.PassOnPropertyChanged);
+            UI.AppMessaging.MessagingPath.Instance.LockAquiredActionList.Remove(this.m_PathologistUI.RunWorkspaceEnableRules);
 
             this.m_PathologistUI.PropertyChanged -= PathologistUI_PropertyChanged;
 
