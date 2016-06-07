@@ -888,6 +888,7 @@
     <Compile Include="Business\HL7View\ECW\ECWPIDView.cs" />
     <Compile Include="Business\HL7View\ECW\ECWResultView.cs" />
     <Compile Include="Business\HL7View\EPIC\AllResultTypeTest.cs" />
+    <Compile Include="Business\HL7View\EPIC\EPICFT1View.cs" />
     <Compile Include="Business\HL7View\EPIC\EpicHl7Client.cs" />
     <Compile Include="Business\HL7View\EPIC\EpicMshView.cs" />
     <Compile Include="Business\HL7View\EPIC\EpicObrView.cs" />
@@ -1997,6 +1998,10 @@
     <Compile Include="Business\Test\ComprehensiveColonCancerProfile\ComprehensiveColonCancerProfileResult.cs" />
     <Compile Include="Business\Test\ComprehensiveColonCancerProfile\ComprehensiveColonCancerProfileTest.cs" />
     <Compile Include="Business\Test\ComprehensiveColonCancerProfile\ComprehensiveColonCancerProfileWordDocument.cs" />
+    <Compile Include="Business\Test\CSF3RMutationAnalysis\CSF3RMutationAnalysisEPICOBXView.cs" />
+    <Compile Include="Business\Test\CSF3RMutationAnalysis\CSF3RMutationAnalysisTest.cs" />
+    <Compile Include="Business\Test\CSF3RMutationAnalysis\CSF3RMutationAnalysisTestOrder.cs" />
+    <Compile Include="Business\Test\CSF3RMutationAnalysis\CSF3RMutationAnalysisWordDocument.cs" />
     <Compile Include="Business\Test\CysticFibrosis\CysticFibrosisDetectedResult.cs" />
     <Compile Include="Business\Test\CysticFibrosis\CysticFibrosisEpicObxView.cs" />
     <Compile Include="Business\Test\CysticFibrosis\CysticFibrosisEthnicGroup.cs" />
@@ -3454,6 +3459,10 @@
       <DependentUpon>AccessionLabelDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Test\CancelATestPath.cs" />
+    <Compile Include="UI\Test\CSF3RMutationAnalysisResultPage.xaml.cs">
+      <DependentUpon>CSF3RMutationAnalysisResultPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Test\CSF3RMutationAnalysisResultPath.cs" />
     <Compile Include="UI\Test\EGFRToALKReflexAnalysisStatusColorConverter.cs" />
     <Compile Include="UI\Test\ExtractAndHoldForMolecularResultPage.xaml.cs">
       <DependentUpon>ExtractAndHoldForMolecularResultPage.xaml</DependentUpon>
@@ -5314,6 +5323,10 @@
     <Page Include="UI\Test\AccessionLabelDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Test\CSF3RMutationAnalysisResultPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Test\ExtractAndHoldForMolecularResultPage.xaml">
       <SubType>Designer</SubType>
