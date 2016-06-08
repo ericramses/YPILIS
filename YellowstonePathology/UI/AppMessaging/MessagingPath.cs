@@ -156,7 +156,7 @@ namespace YellowstonePathology.UI.AppMessaging
             this.m_PageNavigator = messagingDialog.PageNavigator;
             messagingDialog.Closed += MessagingDialog_Closed;
 
-            UI.AppMessaging.AccessionLockMessage message = new AccessionLockMessage(accessionOrder.MasterAccessionNo, accessionOrder.LockAquiredByHostName, accessionOrder.LockAquiredByUserName, AccessionLockMessageIdEnum.ASK);
+            UI.AppMessaging.AccessionLockMessage message = new AccessionLockMessage(accessionOrder.MasterAccessionNo, accessionOrder.AccessionLock.HostName, accessionOrder.AccessionLock.UserName, AccessionLockMessageIdEnum.ASK);
             AppMessaging.LockRequestPage lockRequestPage = new AppMessaging.LockRequestPage(accessionOrder);                
             lockRequestPage.RequestLock += LockRequestPage_RequestLock;
 
@@ -182,11 +182,11 @@ namespace YellowstonePathology.UI.AppMessaging
             LockRequestSentPage lockRequestSentPage = null;
             if(this.m_PageNavigatorWasPassedIn == true)
             {
-                lockRequestSentPage = new LockRequestSentPage(accessionOrder.LockAquiredByUserName, accessionOrder.LockAquiredByHostName, accessionOrder.MasterAccessionNo, System.Windows.Visibility.Collapsed, System.Windows.Visibility.Visible);
+                lockRequestSentPage = new LockRequestSentPage(accessionOrder.AccessionLock.UserName, accessionOrder.AccessionLock.HostName, accessionOrder.MasterAccessionNo, System.Windows.Visibility.Collapsed, System.Windows.Visibility.Visible);
             }
             else
             {
-                lockRequestSentPage = new LockRequestSentPage(accessionOrder.LockAquiredByUserName, accessionOrder.LockAquiredByHostName, accessionOrder.MasterAccessionNo, System.Windows.Visibility.Visible, System.Windows.Visibility.Collapsed);
+                lockRequestSentPage = new LockRequestSentPage(accessionOrder.AccessionLock.UserName, accessionOrder.AccessionLock.HostName, accessionOrder.MasterAccessionNo, System.Windows.Visibility.Visible, System.Windows.Visibility.Collapsed);
             }
 
             //lockRequestSentPage.Next += LockRequestSentPage_Next;

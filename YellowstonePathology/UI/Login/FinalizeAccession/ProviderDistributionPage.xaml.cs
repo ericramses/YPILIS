@@ -79,7 +79,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
         private void ProviderDetailPage_Loaded(object sender, RoutedEventArgs e)
         {            
-            if(this.m_AccessionOrder.IsLockAquiredByMe == false)
+            if(this.m_AccessionOrder.AccessionLock.IsLockAquiredByMe == false)
             {
                 this.GridLeftNav.IsEnabled = false;
             }

@@ -106,7 +106,7 @@ namespace YellowstonePathology.UI.Gross
                 }
                 else
                 {
-                    if (this.m_AccessionOrder.IsLockAquiredByMe == true)
+                    if (this.m_AccessionOrder.AccessionLock.IsLockAquiredByMe == true)
                     {
                         this.HandleLockAquiredByMe();
                     }

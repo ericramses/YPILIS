@@ -30,7 +30,7 @@ namespace YellowstonePathology.Business.Persistence
             if (o is YellowstonePathology.Business.Test.AccessionOrder)
             {
                 YellowstonePathology.Business.Test.AccessionOrder accessionOrder = (YellowstonePathology.Business.Test.AccessionOrder)o;
-                this.m_LockAquired = accessionOrder.LockAquired;                
+                this.m_LockAquired = accessionOrder.AccessionLock.IsLockAquired;
             }
 
             this.m_IsGlobal = false;

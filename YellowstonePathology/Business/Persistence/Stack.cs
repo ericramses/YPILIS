@@ -46,9 +46,9 @@ namespace YellowstonePathology.Business.Persistence
 
             if (document != null)
             {                
-                if (accessionOrder.IsLockAquiredByMe == true)
-                {                
-                    accessionOrder.ReleaseLock();             
+                if (accessionOrder.AccessionLock.IsLockAquiredByMe == true)
+                {
+                    accessionOrder.AccessionLock.ReleaseLock();
                     document.IsLockAquiredByMe = false;                    
                 }
                 document.Submit();
@@ -151,7 +151,7 @@ namespace YellowstonePathology.Business.Persistence
                 if(document.Value is YellowstonePathology.Business.Test.AccessionOrder)
                 {
                     YellowstonePathology.Business.Test.AccessionOrder ao = (YellowstonePathology.Business.Test.AccessionOrder)document.Value;
-                    if(ao.IsLockAquiredByMe == true)
+                    if(ao.AccessionLock.IsLockAquiredByMe == true)
                     {                        
                         document.Submit();
                     }
@@ -191,7 +191,7 @@ namespace YellowstonePathology.Business.Persistence
                 if (document.Value is YellowstonePathology.Business.Test.AccessionOrder)
                 {
                     Business.Test.AccessionOrder accessionOrder = (Business.Test.AccessionOrder)document.Value;
-                    document.IsLockAquiredByMe = accessionOrder.IsLockAquiredByMe;
+                    document.IsLockAquiredByMe = accessionOrder.AccessionLock.IsLockAquiredByMe;
                     this.SubscribeToChannel(document);                    
                 }
             }
@@ -215,6 +215,8 @@ namespace YellowstonePathology.Business.Persistence
                     }
                     ));                    
                 });
+
+
             }            
         }             
 

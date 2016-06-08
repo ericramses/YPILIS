@@ -151,7 +151,7 @@ namespace YellowstonePathology.UI.Surgical
                 }
                 else
                 {
-					if (this.AccessionOrder != null && this.AccessionOrder.IsLockAquiredByMe == true)
+					if (this.AccessionOrder != null && this.AccessionOrder.AccessionLock.IsLockAquiredByMe == true)
                     {
                         color = "Green";
                     }
@@ -338,7 +338,7 @@ namespace YellowstonePathology.UI.Surgical
 
 		public bool CanPlaceOrder()
 		{
-			if (this.m_AccessionOrder != null && this.m_AccessionOrder.IsLockAquiredByMe == true)
+			if (this.m_AccessionOrder != null && this.m_AccessionOrder.AccessionLock.IsLockAquiredByMe == true)
 			{
 				return true;
 			}

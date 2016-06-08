@@ -34,8 +34,8 @@ namespace YellowstonePathology.Business.Search
             {                
                 if (item.MasterAccessionNo == accessionOrder.MasterAccessionNo)
                 {
-                    item.LockAquired = accessionOrder.LockAquired;
-                    item.IsLockAquiredByMe = accessionOrder.IsLockAquiredByMe;                    
+                    item.LockAquired = accessionOrder.AccessionLock.IsLockAquired;
+                    item.IsLockAquiredByMe = accessionOrder.AccessionLock.IsLockAquiredByMe;                    
                 }
                 else
                 {

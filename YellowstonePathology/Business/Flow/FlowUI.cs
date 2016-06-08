@@ -227,7 +227,7 @@ namespace YellowstonePathology.Business.Flow
 
 		public void SetAccess()
 		{
-			if (this.m_AccessionOrder.LockAquired == true)
+			if (this.m_AccessionOrder.AccessionLock.IsLockAquired == true)
 			{
 				if (this.PanelSetOrderLeukemiaLymphoma.Final == true)
 				{
@@ -385,7 +385,7 @@ namespace YellowstonePathology.Business.Flow
 			get
 			{
 				bool result = false;
-				if (this.m_AccessionOrder != null && this.m_AccessionOrder.LockAquired == true)
+				if (this.m_AccessionOrder != null && this.m_AccessionOrder.AccessionLock.IsLockAquired == true)
 				{
                     result = true;
 				}

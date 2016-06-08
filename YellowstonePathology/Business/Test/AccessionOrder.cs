@@ -16,6 +16,7 @@ namespace YellowstonePathology.Business.Test
         public delegate void MessageReceivedHandler(string message);
         public event MessageReceivedHandler MessageRecieved;
 
+        private AccessionLock m_AccessionLock;
         private YellowstonePathology.Business.DataTemplateSpecimenOrderEnum m_SpecimenOrderDataTemplate;
 
 		private YellowstonePathology.Business.Specimen.Model.SpecimenOrderCollection m_SpecimenOrderCollection;
@@ -99,15 +100,11 @@ namespace YellowstonePathology.Business.Test
         private bool m_ITAuditRequired;
         private bool m_ITAudited;
         private int m_ITAuditPriority;
-        private string m_CaseDialog;        
-        private Nullable<int> m_LockAquiredById;
-        private string m_LockAquiredByUserName;
-        private string m_LockAquiredByHostName;
-        private Nullable<DateTime> m_TimeLockAquired;
-        private bool m_LockAquired;
+        private string m_CaseDialog;                
 
 		public AccessionOrder()
         {
+            this.m_AccessionLock = new AccessionLock();
 			this.m_SpecimenOrderCollection = new YellowstonePathology.Business.Specimen.Model.SpecimenOrderCollection();
 			this.m_PanelSetOrderCollection = new YellowstonePathology.Business.Test.PanelSetOrderCollection();
 			this.m_SpecimenOrderDataTemplate = YellowstonePathology.Business.DataTemplateSpecimenOrderEnum.DataTemplateAccessionTreeView;			
@@ -117,6 +114,7 @@ namespace YellowstonePathology.Business.Test
 
         public AccessionOrder(string masterAccessionNo, string objectId)
         {
+            this.m_AccessionLock = new AccessionLock();
             this.m_MasterAccessionNo = masterAccessionNo;
 			this.m_ObjectId = objectId;
 			this.m_AccessionDate = DateTime.Today;
@@ -128,6 +126,11 @@ namespace YellowstonePathology.Business.Test
 			this.m_ICD9BillingCodeCollection = new Billing.ICD9BillingCodeCollection();
 			this.m_TaskOrderCollection = new YellowstonePathology.Business.Task.Model.TaskOrderCollection();
         }        
+
+        public AccessionLock AccessionLock
+        {
+            get { return this.m_AccessionLock; }
+        }
 
 		[PersistentDocumentIdProperty()]
 		public string ObjectId
@@ -156,82 +159,7 @@ namespace YellowstonePathology.Business.Test
 				}
 			}
 		}        
-
-        [PersistentProperty()]
-        public Nullable<int> LockAquiredById
-        {
-            get { return this.m_LockAquiredById; }
-            set
-            {
-                if (this.m_LockAquiredById != value)
-                {
-                    this.m_LockAquiredById = value;
-                    this.NotifyPropertyChanged("LockAquiredById");                    
-                }
-            }
-        }
-
-        [PersistentProperty()]
-        public string LockAquiredByUserName
-        {
-            get { return this.m_LockAquiredByUserName; }
-            set
-            {
-                if (this.m_LockAquiredByUserName != value)
-                {
-                    this.m_LockAquiredByUserName = value;
-                    this.NotifyPropertyChanged("LockAquiredByUserName");
-                    this.NotifyPropertyChanged("LockStatus");
-                }
-            }
-        }
         
-        [PersistentProperty()]
-        public string LockAquiredByHostName
-        {
-            get { return this.m_LockAquiredByHostName; }
-            set
-            {
-                if (this.m_LockAquiredByHostName != value)
-                {
-                    this.m_LockAquiredByHostName = value;
-                    this.NotifyPropertyChanged("LockAquiredByHostName");
-                    this.NotifyPropertyChanged("LockStatus");
-                }
-            }
-        }
-
-        [PersistentProperty()]
-        public Nullable<DateTime> TimeLockAquired
-        {
-            get { return this.m_TimeLockAquired; }
-            set
-            {
-                if (this.m_TimeLockAquired != value)
-                {
-                    this.m_TimeLockAquired = value;
-                    this.NotifyPropertyChanged("TimeLockAquired");
-                    this.NotifyPropertyChanged("LockStatus");
-                }
-            }
-        }
-
-        [PersistentProperty()]
-        public bool LockAquired
-        {
-            get { return this.m_LockAquired; }
-            set
-            {
-                if (this.m_LockAquired != value)
-                {
-                    this.m_LockAquired = value;
-                    this.NotifyPropertyChanged("LockAquired");
-                    this.NotifyPropertyChanged("LockStatus");
-                    this.NotifyPropertyChanged("IsLockAquiredByMe");
-                }
-            }
-        }
-
         [PersistentProperty()]
         public string ClientAccessionNo
         {
@@ -1716,41 +1644,7 @@ namespace YellowstonePathology.Business.Test
 			result.AppendLine("Report for: " + panelSetOrder.PanelSetName);
             result.AppendLine(panelSetOrder.ToResultString(this));
             return result.ToString();
-        }   
-        
-        public bool IsLockAquiredByMe
-        {
-            get
-            {
-                bool result = false;
-                if (this.m_LockAquired == true)
-                {
-                    if (this.m_LockAquiredByHostName == Environment.MachineName)
-                    {
-                        result = true;
-                    }
-                }
-                return result;
-            }            
-        }
-
-        public void ReleaseLock()
-        {            
-            this.LockAquired = false;
-            this.LockAquiredByHostName = null;
-            this.LockAquiredById = null;
-            this.LockAquiredByUserName = null;
-            this.TimeLockAquired = null;            
-        }
-
-        public void SetLock(User.SystemIdentity systemIdentity)
-        {
-            this.LockAquired = true;
-            this.LockAquiredByHostName = Environment.MachineName;
-            this.LockAquiredById = systemIdentity.User.UserId;
-            this.LockAquiredByUserName = systemIdentity.User.UserName;
-            this.TimeLockAquired = DateTime.Now;
-        }
+        }                          
 
         public void OnMessageRecieved(string message)
         {
@@ -1758,19 +1652,6 @@ namespace YellowstonePathology.Business.Test
             {
                 this.MessageRecieved(message);
             }
-        }
-
-        public string LockStatus
-        {
-            get
-            {
-                string result = null;
-                if(this.m_LockAquired == true)
-                {
-                    result = this.m_LockAquiredByHostName + "\\" + this.m_LockAquiredByUserName + " at " + this.m_TimeLockAquired.Value.ToString("MM/dd/yyyy HH:mm");
-                }
-                return result;
-            }
-        }
+        }        
     }
 }

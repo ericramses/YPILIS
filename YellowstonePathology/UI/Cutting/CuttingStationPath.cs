@@ -139,7 +139,7 @@ namespace YellowstonePathology.UI.Cutting
         {
             this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, m_CuttingWorkspaceWindow);			
 
-            if(this.m_AccessionOrder.IsLockAquiredByMe == true)
+            if(this.m_AccessionOrder.AccessionLock.IsLockAquiredByMe == true)
             {
                 this.ShowAliquotOrderSelectionPage();
             }
@@ -200,7 +200,7 @@ namespace YellowstonePathology.UI.Cutting
 
                 if (this.m_AccessionOrder != null)
                 {
-                    if (this.m_AccessionOrder.IsLockAquiredByMe == true)
+                    if (this.m_AccessionOrder.AccessionLock.IsLockAquiredByMe == true)
                     {
                         this.HandleLockAquiredByMe();     
                     }

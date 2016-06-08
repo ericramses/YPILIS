@@ -127,7 +127,7 @@ namespace YellowstonePathology.UI.Test
             {
                 MainWindow.MoveKeyboardFocusNextThenBack();
                 YellowstonePathology.Business.Persistence.DocumentGateway.Instance.ReleaseLock(this.m_LabUI.AccessionOrder, this.m_Writer);
-                if (this.m_LabUI.AccessionOrder.IsLockAquiredByMe == false)
+                if (this.m_LabUI.AccessionOrder.AccessionLock.IsLockAquiredByMe == false)
                 {
                     this.m_LabUI.RunWorkspaceEnableRules();
                     this.m_LabUI.NotifyPropertyChanged(string.Empty);
@@ -164,7 +164,7 @@ namespace YellowstonePathology.UI.Test
 
         private void MainWindowCommandButtonHandler_ShowMessagingDialog(object sender, EventArgs e)
         {
-            if (this.m_LabUI.AccessionOrder != null && this.m_LabUI.AccessionOrder.IsLockAquiredByMe == false && this.m_LabUI.AccessionOrder.LockAquired == true)
+            if (this.m_LabUI.AccessionOrder != null && this.m_LabUI.AccessionOrder.AccessionLock.IsLockAquiredByMe == false && this.m_LabUI.AccessionOrder.AccessionLock.IsLockAquired == true)
             {
                 AppMessaging.MessagingPath.Instance.Start(this.m_LabUI.AccessionOrder);
             }
@@ -193,7 +193,7 @@ namespace YellowstonePathology.UI.Test
                 {
                     MainWindow.MoveKeyboardFocusNextThenBack();
                     YellowstonePathology.Business.Persistence.DocumentGateway.Instance.ReleaseLock(this.m_LabUI.AccessionOrder, this.m_Writer);
-                    if (this.m_LabUI.AccessionOrder.IsLockAquiredByMe == false)
+                    if (this.m_LabUI.AccessionOrder.AccessionLock.IsLockAquiredByMe == false)
                     {
                         this.m_LabUI.RunWorkspaceEnableRules();
                         this.m_LabUI.NotifyPropertyChanged(string.Empty);
@@ -250,7 +250,7 @@ namespace YellowstonePathology.UI.Test
         private void ItemIsSelected(object sender, CanExecuteRoutedEventArgs e)
 		{
 			e.CanExecute = false;
-			if (((TabItem)this.Parent).IsSelected && this.ListViewCaseList.SelectedItem != null && this.m_LabUI.AccessionOrder.IsLockAquiredByMe == true && this.m_SystemIdentity.User.UserName != null)
+			if (((TabItem)this.Parent).IsSelected && this.ListViewCaseList.SelectedItem != null && this.m_LabUI.AccessionOrder.AccessionLock.IsLockAquiredByMe == true && this.m_SystemIdentity.User.UserName != null)
 			{
 				e.CanExecute = true;
 			}
@@ -273,7 +273,7 @@ namespace YellowstonePathology.UI.Test
 
 		public void ShowPatientEditDialog(object target, ExecutedRoutedEventArgs args)
 		{			
-			if (this.m_LabUI.AccessionOrder.IsLockAquiredByMe == true)
+			if (this.m_LabUI.AccessionOrder.AccessionLock.IsLockAquiredByMe == true)
 			{
 				YellowstonePathology.UI.Common.PatientEditDialog patientEditDialog = new YellowstonePathology.UI.Common.PatientEditDialog(this.m_LabUI.AccessionOrder);
 				patientEditDialog.ShowDialog();
@@ -331,11 +331,11 @@ namespace YellowstonePathology.UI.Test
 		private void RefreshWorkspaces()
 		{
 			this.m_TreeViewWorkspace = new Common.TreeViewWorkspace(this.m_LabUI.AccessionOrder, this.m_SystemIdentity);
-            this.m_TreeViewWorkspace.IsEnabled = this.m_LabUI.AccessionOrder.IsLockAquiredByMe;
+            this.m_TreeViewWorkspace.IsEnabled = this.m_LabUI.AccessionOrder.AccessionLock.IsLockAquiredByMe;
 			this.TabItemTreeView.Content = this.m_TreeViewWorkspace;
 
 			this.m_AmendmentControl = new AmendmentControlV2(this.m_SystemIdentity, this.m_LabUI.PanelSetOrder.ReportNo, this.m_LabUI.AccessionOrder);
-            this.m_AmendmentControl.IsEnabled = this.m_LabUI.AccessionOrder.IsLockAquiredByMe;
+            this.m_AmendmentControl.IsEnabled = this.m_LabUI.AccessionOrder.AccessionLock.IsLockAquiredByMe;
             this.TabItemAmendment.Content = this.m_AmendmentControl;			
 		}
 
@@ -824,7 +824,7 @@ namespace YellowstonePathology.UI.Test
 
         private void SvhMedicalRecordNoReceived(string scanData)
         {
-            if (this.m_LabUI.AccessionOrder.IsLockAquiredByMe == true)
+            if (this.m_LabUI.AccessionOrder.AccessionLock.IsLockAquiredByMe == true)
             {
                 if (string.IsNullOrEmpty(this.m_LabUI.AccessionOrder.SvhMedicalRecord) == true)
                 {
@@ -845,7 +845,7 @@ namespace YellowstonePathology.UI.Test
 
         private void SvhAccountNoReceived(string scanData)
         {
-            if (this.m_LabUI.AccessionOrder.IsLockAquiredByMe == true)
+            if (this.m_LabUI.AccessionOrder.AccessionLock.IsLockAquiredByMe == true)
             {
                 if (string.IsNullOrEmpty(this.m_LabUI.AccessionOrder.SvhAccount) == true)
                 {

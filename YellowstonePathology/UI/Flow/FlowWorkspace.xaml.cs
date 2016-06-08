@@ -102,7 +102,7 @@ namespace YellowstonePathology.UI.Flow
             {
                 MainWindow.MoveKeyboardFocusNextThenBack();
                 YellowstonePathology.Business.Persistence.DocumentGateway.Instance.ReleaseLock(this.m_FlowUI.AccessionOrder, this.m_Writer);
-                if (this.m_FlowUI.AccessionOrder.IsLockAquiredByMe == false)
+                if (this.m_FlowUI.AccessionOrder.AccessionLock.IsLockAquiredByMe == false)
                 {
                     this.m_FlowUI.SetAccess();
                     this.m_FlowUI.NotifyPropertyChanged(string.Empty);
@@ -145,7 +145,7 @@ namespace YellowstonePathology.UI.Flow
 
         private void MainWindowCommandButtonHandler_ShowMessagingDialog(object sender, EventArgs e)
         {
-            if (this.m_FlowUI.AccessionOrder != null && this.m_FlowUI.AccessionOrder.IsLockAquiredByMe == false && this.m_FlowUI.AccessionOrder.LockAquired == true)
+            if (this.m_FlowUI.AccessionOrder != null && this.m_FlowUI.AccessionOrder.AccessionLock.IsLockAquiredByMe == false && this.m_FlowUI.AccessionOrder.AccessionLock.IsLockAquired == true)
             {
                 AppMessaging.MessagingPath.Instance.Start(this.m_FlowUI.AccessionOrder);
             }
@@ -168,7 +168,7 @@ namespace YellowstonePathology.UI.Flow
             {
                 MainWindow.MoveKeyboardFocusNextThenBack();
                 YellowstonePathology.Business.Persistence.DocumentGateway.Instance.ReleaseLock(this.m_FlowUI.AccessionOrder, this.m_Writer);
-                if (this.m_FlowUI.AccessionOrder.IsLockAquiredByMe == false)
+                if (this.m_FlowUI.AccessionOrder.AccessionLock.IsLockAquiredByMe == false)
                 {
                     this.m_FlowUI.SetAccess();
                     this.m_FlowUI.NotifyPropertyChanged(string.Empty);

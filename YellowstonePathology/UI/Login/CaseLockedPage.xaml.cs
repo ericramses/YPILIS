@@ -36,7 +36,7 @@ namespace YellowstonePathology.UI.Login
         public CaseLockedPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{            
             this.m_AccessionOrder = accessionOrder;
-            this.m_PageMessage = "This case is locked by: " + this.m_AccessionOrder.LockAquiredByHostName + " \\ " + this.m_AccessionOrder.LockAquiredByUserName;                
+            this.m_PageMessage = "This case is locked by: " + this.m_AccessionOrder.AccessionLock.HostName + " \\ " + this.m_AccessionOrder.AccessionLock.UserName;                
 
 			InitializeComponent();
 

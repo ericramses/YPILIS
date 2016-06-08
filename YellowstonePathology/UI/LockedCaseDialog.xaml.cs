@@ -55,9 +55,9 @@ namespace YellowstonePathology.UI
                     {
                         YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(lockItem.KeyString, this);
 
-                        if (accessionOrder.IsLockAquiredByMe == false)
+                        if (accessionOrder.AccessionLock.IsLockAquiredByMe == false)
                         {
-                            accessionOrder.ReleaseLock();
+                            accessionOrder.AccessionLock.ReleaseLock();
                             YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
 
                             System.Net.Mail.MailMessage message = new System.Net.Mail.MailMessage("support@ypii.com", "Sid.Harder@ypii.com", System.Windows.Forms.SystemInformation.UserName, "A lock wash cleared on case: " + accessionOrder.MasterAccessionNo + " by " + YellowstonePathology.Business.User.SystemIdentity.Instance.User.DisplayName);

@@ -84,7 +84,7 @@ namespace YellowstonePathology.UI
             {
                 Business.Persistence.DocumentGateway.Instance.ReleaseLock(this.m_ClientOrderUI.AccessionOrder, this.m_Writer);
 
-                if (this.m_ClientOrderUI.AccessionOrder.IsLockAquiredByMe == true)
+                if (this.m_ClientOrderUI.AccessionOrder.AccessionLock.IsLockAquiredByMe == true)
                 {
                     this.TabControlRightSide.SelectedIndex = 1;
                 }
@@ -92,8 +92,6 @@ namespace YellowstonePathology.UI
                 {
                     this.TabControlRightSide.SelectedIndex = 0;
                 }
-
-                //this.m_ClientOrderUI.SetLockIsAquiredByMe(this.m_ClientOrderUI.AccessionOrder);
             }
         }
 

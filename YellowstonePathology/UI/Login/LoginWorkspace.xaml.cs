@@ -107,7 +107,7 @@ namespace YellowstonePathology.UI.Login
             {
                 Business.Persistence.DocumentGateway.Instance.ReleaseLock(this.m_LoginUI.AccessionOrder, this.m_Writer);
 
-                if (this.m_LoginUI.AccessionOrder.IsLockAquiredByMe == true)
+                if (this.m_LoginUI.AccessionOrder.AccessionLock.IsLockAquiredByMe == true)
                 {
                     this.TabControlRightSide.SelectedIndex = 1;
                     this.TabItemTasks.IsEnabled = true;
@@ -253,7 +253,7 @@ namespace YellowstonePathology.UI.Login
             {
                 this.m_LoginUI.SelectedItemCount = "Selected Items: " + this.ListViewAccessionOrders.SelectedItems.Count.ToString();
 
-                if (this.m_LoginUI.AccessionOrder.IsLockAquiredByMe == true)
+                if (this.m_LoginUI.AccessionOrder.AccessionLock.IsLockAquiredByMe == true)
                 {
                     this.TabControlRightSide.SelectedIndex = 1;
                     this.TabItemTasks.IsEnabled = true;

@@ -91,7 +91,7 @@ namespace YellowstonePathology.UI.Surgical
 
         private void MainWindowCommandButtonHandler_ShowMessagingDialog(object sender, EventArgs e)
         {            
-            if (this.m_PathologistUI.AccessionOrder != null && this.m_PathologistUI.AccessionOrder.IsLockAquiredByMe == false && this.PathologistUI.AccessionOrder.LockAquired == true)
+            if (this.m_PathologistUI.AccessionOrder != null && this.m_PathologistUI.AccessionOrder.AccessionLock.IsLockAquiredByMe == false && this.PathologistUI.AccessionOrder.AccessionLock.IsLockAquired == true)
             {
                 AppMessaging.MessagingPath.Instance.Start(this.m_PathologistUI.AccessionOrder);
             }            
@@ -168,7 +168,7 @@ namespace YellowstonePathology.UI.Surgical
 
         private void PassOnPropertyChanged()
         {
-            if (this.m_PathologistUI.AccessionOrder.IsLockAquiredByMe == false)
+            if (this.m_PathologistUI.AccessionOrder.AccessionLock.IsLockAquiredByMe == false)
             {
                 this.m_PathologistUI.RunWorkspaceEnableRules();
             }
@@ -218,7 +218,7 @@ namespace YellowstonePathology.UI.Surgical
 
 		private void MainWindowCommandButtonHandler_ShowAmendmentDialog(object sender, EventArgs e)
 		{
-			if (this.m_PathologistUI.AccessionOrder.IsLockAquiredByMe == true)
+			if (this.m_PathologistUI.AccessionOrder.AccessionLock.IsLockAquiredByMe == true)
 			{
 				this.m_PathologistUI.ShowAmendmentDialog();
             }

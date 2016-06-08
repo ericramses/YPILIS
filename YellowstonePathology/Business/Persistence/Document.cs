@@ -57,7 +57,7 @@ namespace YellowstonePathology.Business.Persistence
             if (this.m_Value is YellowstonePathology.Business.Test.AccessionOrder)
             {
                 YellowstonePathology.Business.Test.AccessionOrder accessionOrder = (YellowstonePathology.Business.Test.AccessionOrder)this.m_Value;
-                this.m_IsLockAquiredByMe = accessionOrder.IsLockAquiredByMe;
+                this.m_IsLockAquiredByMe = accessionOrder.AccessionLock.IsLockAquiredByMe;
             }
         }
 
@@ -66,9 +66,9 @@ namespace YellowstonePathology.Business.Persistence
             if (this.m_Value is YellowstonePathology.Business.Test.AccessionOrder)
             {                
                 YellowstonePathology.Business.Test.AccessionOrder accessionOrder = (YellowstonePathology.Business.Test.AccessionOrder)this.m_Value;
-                if(accessionOrder.IsLockAquiredByMe == true)
+                if(accessionOrder.AccessionLock.IsLockAquiredByMe == true)
                 {
-                    accessionOrder.ReleaseLock();
+                    accessionOrder.AccessionLock.ReleaseLock();
                 }                
             }
         }
@@ -77,12 +77,11 @@ namespace YellowstonePathology.Business.Persistence
         {
             if (this.m_Value is YellowstonePathology.Business.Test.AccessionOrder)
             {
-                YellowstonePathology.Business.Test.AccessionOrder accessionOrder = (YellowstonePathology.Business.Test.AccessionOrder)this.m_Value;
-                accessionOrder.LockAquired = true;
-                accessionOrder.LockAquiredByHostName = Environment.MachineName;
-                accessionOrder.LockAquiredById = Business.User.SystemIdentity.Instance.User.UserId;
-                accessionOrder.LockAquiredByUserName = Business.User.SystemIdentity.Instance.User.UserName;
-                accessionOrder.TimeLockAquired = DateTime.Now;             
+                YellowstonePathology.Business.Test.AccessionOrder accessionOrder = (YellowstonePathology.Business.Test.AccessionOrder)this.m_Value;                
+                accessionOrder.AccessionLock.HostName = Environment.MachineName;
+                accessionOrder.AccessionLock.UserId = Business.User.SystemIdentity.Instance.User.UserId;
+                accessionOrder.AccessionLock.UserName = Business.User.SystemIdentity.Instance.User.UserName;
+                accessionOrder.AccessionLock.TimeAquired = DateTime.Now;             
             }
         } 
         

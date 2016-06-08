@@ -1791,6 +1791,7 @@
     <Compile Include="Business\Test\ABL1KinaseDomainMutation\ABL1KinaseDomainMutationTestOrder.cs" />
     <Compile Include="Business\Test\ABL1KinaseDomainMutation\ABL1KinaseDomainMutationWordDocument.cs" />
     <Compile Include="Business\Test\AbsoluteCD4CountTestOrder.cs" />
+    <Compile Include="Business\Test\AccessionLock.cs" />
     <Compile Include="Business\Test\AccessionOrder.cs" />
     <Compile Include="Business\Test\AccessionOrder.Validation.cs" />
     <Compile Include="Business\Test\AccessionOrderCollection.cs" />
