@@ -347,6 +347,27 @@ namespace YellowstonePathology.UI.Billing
                     panelSetOrderCPTCode.ClientId = AccessionOrder.ClientId;
                 }
             }
-        }             
-	}
+        }
+        
+        private void ButtonSendFT1_Click(object sender, RoutedEventArgs e)
+        {
+            this.SendFT1ForPanelSet();
+        }
+
+        private void SendFT1ForPanelSet()
+        {
+            foreach( Business.Test.PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill in this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection)
+            {
+                Business.HL7View.EPIC.EPICFT1ResultView epicFT1ResultView = new Business.HL7View.EPIC.EPICFT1ResultView(this.m_AccessionOrder, panelSetOrderCPTCodeBill, true);
+                Business.Rules.MethodResult methodResult = new Business.Rules.MethodResult();
+                epicFT1ResultView.CanSend(methodResult);
+                if (methodResult.Success == true)
+                {
+                    Business.Billing.Model.CptCode cptCode = Business.Billing.Model.CptCodeCollection.Instance.GetCptCode(panelSetOrderCPTCodeBill.CPTCode);
+                    Business.Rules.MethodResult sendResult = new Business.Rules.MethodResult();
+                    epicFT1ResultView.Send(sendResult);
+                }
+            }
+        }
+    }
 }

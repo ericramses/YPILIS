@@ -882,6 +882,7 @@
     <Compile Include="Business\HL7View\CMMC\CMMCOrcView.cs" />
     <Compile Include="Business\HL7View\CMMC\CMMCPidView.cs" />
     <Compile Include="Business\HL7View\CMMC\CMMCResultView.cs" />
+    <Compile Include="Business\HL7View\DFTP03.cs" />
     <Compile Include="Business\HL7View\ECW\ECWHl7Client.cs" />
     <Compile Include="Business\HL7View\ECW\ECWMSHView.cs" />
     <Compile Include="Business\HL7View\ECW\ECWOBRView.cs" />
@@ -891,6 +892,7 @@
     <Compile Include="Business\HL7View\ECW\ECWPIDView.cs" />
     <Compile Include="Business\HL7View\ECW\ECWResultView.cs" />
     <Compile Include="Business\HL7View\EPIC\AllResultTypeTest.cs" />
+    <Compile Include="Business\HL7View\EPIC\EPICFT1ResultView.cs" />
     <Compile Include="Business\HL7View\EPIC\EPICFT1View.cs" />
     <Compile Include="Business\HL7View\EPIC\EpicHl7Client.cs" />
     <Compile Include="Business\HL7View\EPIC\EpicMshView.cs" />
