@@ -8,6 +8,25 @@ namespace YellowstonePathology.Business.Persistence
 {
     public class DocumentCollection : ObservableCollection<Document>
     {
+        public bool DoIHaveTheLock(string masterAccessionNo)
+        {
+            bool result = false;
+            foreach(Document document in this)
+            {
+                if(document.Value is YellowstonePathology.Business.Test.AccessionOrder)
+                {                    
+                    YellowstonePathology.Business.Test.AccessionOrder accessionOrder = (YellowstonePathology.Business.Test.AccessionOrder)document.Value;
+                    if(accessionOrder.MasterAccessionNo == masterAccessionNo)
+                    {
+                        result = accessionOrder.IsLockAquiredByMe;
+                        break;
+                    }                    
+                }
+            }
+
+            return result;
+        }
+
         public void Remove(DocumentId documentId)
         {
             for(int i=0; i< this.Count; i++)

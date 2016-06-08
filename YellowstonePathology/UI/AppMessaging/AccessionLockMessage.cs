@@ -12,28 +12,14 @@ namespace YellowstonePathology.UI.AppMessaging
         private string m_MasterAccessionNo;
         private string m_ComputerName;
         private string m_UserName;
-        private AccessionLockMessageIdEnum m_MessageId;
-        private string m_Message;
+        private AccessionLockMessageIdEnum m_MessageId;        
 
         public AccessionLockMessage(string masterAccessionNo, string computerName, string userName, AccessionLockMessageIdEnum messageId)
         {
             this.m_MasterAccessionNo = masterAccessionNo;
             this.m_ComputerName = computerName;
             this.m_UserName = userName;
-            this.m_MessageId = messageId;
-
-            switch(messageId)
-            {
-                case AccessionLockMessageIdEnum.ASK:
-                    this.m_Message = "Give me the case.";
-                    break;
-                case AccessionLockMessageIdEnum.GIVE:
-                    this.m_Message = "OK you can have it.";
-                    break;
-                case AccessionLockMessageIdEnum.HOLD:
-                    this.m_Message = "Hold your horses!";
-                    break;
-            }
+            this.m_MessageId = messageId;            
         }
 
         public string MasterAccessionNo
@@ -54,12 +40,7 @@ namespace YellowstonePathology.UI.AppMessaging
         public AccessionLockMessageIdEnum MessageId
         {
             get { return this.m_MessageId; }
-        }
-
-        public string Message
-        {
-            get { return this.m_Message; }
-        }        
+        }           
 
         public string ToJSON()
         {
