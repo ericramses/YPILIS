@@ -3128,34 +3128,34 @@
     <Compile Include="UI\Login\FinalizeAccession\SpecimenMappingPage.xaml.cs">
       <DependentUpon>SpecimenMappingPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Login\ReceiveSpecimen\BarcodeManualEntryPage.xaml.cs">
-      <DependentUpon>BarcodeManualEntryPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Login\ReceiveSpecimen\BarcodeReassignmentPath.cs" />
-    <Compile Include="UI\Login\ReceiveSpecimen\ClientOrderLookupPathCommandTypeEnum.cs" />
-    <Compile Include="UI\Login\ReceiveSpecimen\ClientOrderShortDetailsPage.xaml.cs">
-      <DependentUpon>ClientOrderShortDetailsPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Login\ReceiveSpecimen\FlowCytometryOrderFinishPage.xaml.cs">
-      <DependentUpon>FlowCytometryOrderFinishPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Login\ReceiveSpecimen\IFoundAContainerResult.cs" />
-    <Compile Include="UI\Login\ReceiveSpecimen\ReceiveSpecimenCommandTypeEnum.cs" />
-    <Compile Include="UI\Login\ReceiveSpecimen\ReportOrderInfoPage.xaml.cs">
-      <DependentUpon>ReportOrderInfoPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Login\ReceiveSpecimen\FlowSpecimenSelectionPage.xaml.cs">
-      <DependentUpon>FlowSpecimenSelectionPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Login\ReceiveSpecimen\SurgicalDiagnosisPage.xaml.cs">
-      <DependentUpon>SurgicalDiagnosisPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UI\Login\Receiving\AcknowledgeDailyTaskOrderPath.cs" />
     <Compile Include="UI\Converter\CollectionDateTimeBackgroundConverter.cs" />
     <Compile Include="UI\Login\Receiving\AdditionalTestingEMailPage.xaml.cs">
       <DependentUpon>AdditionalTestingEMailPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Login\Receiving\AdditionalTestingEmailPathWithSecurity.cs" />
+    <Compile Include="UI\Login\Receiving\BarcodeManualEntryPage.xaml.cs">
+      <DependentUpon>BarcodeManualEntryPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Login\Receiving\BarcodeReassignmentPath.cs" />
+    <Compile Include="UI\Login\Receiving\ClientOrderLookupPathCommandTypeEnum.cs" />
+    <Compile Include="UI\Login\Receiving\ClientOrderShortDetailsPage.xaml.cs">
+      <DependentUpon>ClientOrderShortDetailsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Login\Receiving\FlowCytometryOrderFinishPage.xaml.cs">
+      <DependentUpon>FlowCytometryOrderFinishPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Login\Receiving\FlowSpecimenSelectionPage.xaml.cs">
+      <DependentUpon>FlowSpecimenSelectionPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Login\Receiving\IFoundAContainerResult.cs" />
+    <Compile Include="UI\Login\Receiving\ReceiveSpecimenCommandTypeEnum.cs" />
+    <Compile Include="UI\Login\Receiving\ReportOrderInfoPage.xaml.cs">
+      <DependentUpon>ReportOrderInfoPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Login\Receiving\SurgicalDiagnosisPage.xaml.cs">
+      <DependentUpon>SurgicalDiagnosisPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Login\Receiving\TumorNucleiPercentageEntryPage.xaml.cs">
       <DependentUpon>TumorNucleiPercentageEntryPage.xaml</DependentUpon>
     </Compile>
@@ -4975,33 +4975,33 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\Login\ReceiveSpecimen\BarcodeManualEntryPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\Login\ReceiveSpecimen\ClientOrderShortDetailsPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\Login\ReceiveSpecimen\FlowCytometryOrderFinishPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\Login\ReceiveSpecimen\ReportOrderInfoPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\Login\ReceiveSpecimen\FlowSpecimenSelectionPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\Login\ReceiveSpecimen\SurgicalDiagnosisPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="UI\Login\Receiving\AdditionalTestingEMailPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Login\Receiving\BarcodeManualEntryPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Login\Receiving\ClientOrderShortDetailsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Login\Receiving\FlowCytometryOrderFinishPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Login\Receiving\FlowSpecimenSelectionPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Login\Receiving\ReportOrderInfoPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Login\Receiving\SurgicalDiagnosisPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\Login\Receiving\TumorNucleiPercentageEntryPage.xaml">
       <Generator>MSBuild:Compile</Generator>
