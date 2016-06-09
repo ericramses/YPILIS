@@ -13,7 +13,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.ComponentModel;
 
-namespace YellowstonePathology.UI.Login.ReceiveSpecimen
+namespace YellowstonePathology.UI.Login.Receiving
 {
 	/// <summary>
 	/// Interaction logic for CreateClientOrderPage.xaml

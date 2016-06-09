@@ -13,12 +13,12 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.ComponentModel;
 
-namespace YellowstonePathology.UI.Login.ReceiveSpecimen
+namespace YellowstonePathology.UI.Login.Receiving
 {
     /// <summary>
     /// 
     /// </summary>
-    public partial class SpecimenSelectionPage : UserControl, INotifyPropertyChanged 
+    public partial class FlowSpecimenSelectionPage : UserControl, INotifyPropertyChanged 
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -30,7 +30,7 @@ namespace YellowstonePathology.UI.Login.ReceiveSpecimen
 
 		private YellowstonePathology.Business.Specimen.Model.SpecimenOrderCollection m_SpecimenOrderCollection;
 
-		public SpecimenSelectionPage(YellowstonePathology.Business.Specimen.Model.SpecimenOrderCollection specimenOrderCollection)
+		public FlowSpecimenSelectionPage(YellowstonePathology.Business.Specimen.Model.SpecimenOrderCollection specimenOrderCollection)
         {
             this.m_SpecimenOrderCollection = specimenOrderCollection;
             InitializeComponent();

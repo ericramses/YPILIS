@@ -529,7 +529,7 @@ namespace YellowstonePathology.UI.Login
         private void TileBarcodeReassignment_MouseUp(object sender, MouseButtonEventArgs e)
         {
             this.m_BarcodeScanPort.ContainerScanReceived -= ContainerScanReceived;
-            ReceiveSpecimen.BarcodeReassignmentPath assignBarcodePath = new ReceiveSpecimen.BarcodeReassignmentPath();
+            Receiving.BarcodeReassignmentPath assignBarcodePath = new Receiving.BarcodeReassignmentPath();
             assignBarcodePath.Start();
             this.m_BarcodeScanPort.ContainerScanReceived += ContainerScanReceived;
         }

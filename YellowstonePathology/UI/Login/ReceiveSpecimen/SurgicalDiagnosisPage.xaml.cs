@@ -15,7 +15,7 @@ using System.ComponentModel;
 using System.Xml;
 using System.Xml.Linq;
 
-namespace YellowstonePathology.UI.Login.ReceiveSpecimen
+namespace YellowstonePathology.UI.Login.Receiving
 {
     /// <summary>
     /// 
