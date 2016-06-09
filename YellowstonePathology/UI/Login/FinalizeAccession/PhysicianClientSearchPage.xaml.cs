@@ -29,7 +29,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
         public event NextEventHandler Next;
 
 		private YellowstonePathology.Business.Interface.IOrder m_AccessionOrder;
-        private YellowstonePathology.Business.Client.PhysicianClientDistributionCollection m_PhysicianClientDistributionCollection;
+        private YellowstonePathology.Business.Client.Model.PhysicianClientDistributionList m_PhysicianClientDistributionCollection;
 		
 		private bool m_ShowNavigationButtons;
 		private string m_PageHeaderText = "Provider Lookup";
@@ -38,7 +38,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 		{
 			this.m_AccessionOrder = accessionOrder;
 			this.m_ShowNavigationButtons = showNavigationButtons;
-            this.m_PhysicianClientDistributionCollection = new Business.Client.PhysicianClientDistributionCollection();
+            this.m_PhysicianClientDistributionCollection = new Business.Client.Model.PhysicianClientDistributionList();
 
 			InitializeComponent();
 
@@ -68,7 +68,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 			}
 		}
 
-        public YellowstonePathology.Business.Client.PhysicianClientDistributionCollection PhysicianClientDistributionCollection
+        public YellowstonePathology.Business.Client.Model.PhysicianClientDistributionList PhysicianClientDistributionCollection
 		{
             get { return this.m_PhysicianClientDistributionCollection; }
 		}
@@ -101,7 +101,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 		{
             if (this.listViewPhysicianClient.SelectedItem != null)
             {
-                Business.Client.PhysicianClientDistribution item = (Business.Client.PhysicianClientDistribution)this.listViewPhysicianClient.SelectedItem;
+                Business.Client.Model.PhysicianClientDistributionListItem item = (Business.Client.Model.PhysicianClientDistributionListItem)this.listViewPhysicianClient.SelectedItem;
                 if (this.Next != null) this.Next(this, new CustomEventArgs.PhysicianClientDistributionReturnEventArgs(item));
             }
             else

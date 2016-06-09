@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace YellowstonePathology.Business.Client
+namespace YellowstonePathology.Business.Client.Model
 {
-    public class AthenaPhysicianClientDistribution : PhysicianClientDistribution
+    public class AthenaPhysicianClientDistribution : PhysicianClientDistributionListItem
     {
-        public override void From(PhysicianClientDistribution physicianClientDistribution)
+        public override void From(PhysicianClientDistributionListItem physicianClientDistribution)
         {
             base.From(physicianClientDistribution);
             this.m_DistributionType = YellowstonePathology.Business.ReportDistribution.Model.DistributionType.ATHENA;

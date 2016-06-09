@@ -6,7 +6,7 @@ using System.Web;
 using System.Data;
 using System.Data.SqlClient;
 
-namespace YellowstonePathology.Business.Client
+namespace YellowstonePathology.Business.Client.Model
 {
     public class PhysicianClientCollection : ObservableCollection<PhysicianClient>
     {

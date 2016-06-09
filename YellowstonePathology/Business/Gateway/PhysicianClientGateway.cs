@@ -1098,9 +1098,9 @@ namespace YellowstonePathology.Business.Gateway
 			return BuildPhysicianClientView(cmd);
 		}
 
-		public static YellowstonePathology.Business.Client.PhysicianClientCollection GetPhysicianClientListByPhysicianLastNameV2(string physicianLastName)
+		public static YellowstonePathology.Business.Client.Model.PhysicianClientCollection GetPhysicianClientListByPhysicianLastNameV2(string physicianLastName)
 		{
-			YellowstonePathology.Business.Client.PhysicianClientCollection result = new Client.PhysicianClientCollection();
+			YellowstonePathology.Business.Client.Model.PhysicianClientCollection result = new Client.Model.PhysicianClientCollection();
 			SqlCommand cmd = new SqlCommand();
 			cmd.CommandText = "Select pp.PhysicianClientId, c.ClientId, c.ClientName, ph.PhysicianId, ph.ObjectId [ProviderId], ph.DisplayName [PhysicianName], c.DistributionType, c.Fax [FaxNumber], c.Telephone, c.LongDistance, c.FacilityType, ph.NPI " +
 				 "from tblClient c " +
@@ -1118,7 +1118,7 @@ namespace YellowstonePathology.Business.Gateway
 				{
 					while (dr.Read())
 					{
-						YellowstonePathology.Business.Client.PhysicianClient physicianClient = new Client.PhysicianClient();
+						YellowstonePathology.Business.Client.Model.PhysicianClient physicianClient = new Client.Model.PhysicianClient();
 						YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(physicianClient, dr);
 						sqlDataReaderPropertyWriter.WriteProperties();
 						result.Add(physicianClient);
@@ -1128,9 +1128,9 @@ namespace YellowstonePathology.Business.Gateway
 			return result;
 		}
 
-		public static YellowstonePathology.Business.Client.PhysicianClientCollection GetPhysicianClientListByClientPhysicianLastNameV2(string clientName, string physicianLastName)
+		public static YellowstonePathology.Business.Client.Model.PhysicianClientCollection GetPhysicianClientListByClientPhysicianLastNameV2(string clientName, string physicianLastName)
 		{
-			YellowstonePathology.Business.Client.PhysicianClientCollection result = new Client.PhysicianClientCollection();
+			YellowstonePathology.Business.Client.Model.PhysicianClientCollection result = new Client.Model.PhysicianClientCollection();
 			SqlCommand cmd = new SqlCommand();
 			cmd.CommandText = "Select pp.PhysicianClientId, c.ClientId, c.ClientName, ph.PhysicianId, ph.ObjectId [ProviderId], ph.DisplayName [PhysicianName], c.DistributionType, c.Fax [FaxNumber], c.Telephone, c.LongDistance, c.FacilityType, ph.NPI " +
 				 "from tblClient c " +
@@ -1149,7 +1149,7 @@ namespace YellowstonePathology.Business.Gateway
 				{
 					while (dr.Read())
 					{
-						YellowstonePathology.Business.Client.PhysicianClient physicianClient = new Client.PhysicianClient();
+						YellowstonePathology.Business.Client.Model.PhysicianClient physicianClient = new Client.Model.PhysicianClient();
 						YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(physicianClient, dr);
 						sqlDataReaderPropertyWriter.WriteProperties();
 						result.Add(physicianClient);
@@ -1159,9 +1159,9 @@ namespace YellowstonePathology.Business.Gateway
 			return result;
 		}
 
-		public static YellowstonePathology.Business.Client.PhysicianClientCollection GetPhysicianClientListByClientIdV2(int clientId)
+		public static YellowstonePathology.Business.Client.Model.PhysicianClientCollection GetPhysicianClientListByClientIdV2(int clientId)
 		{
-			YellowstonePathology.Business.Client.PhysicianClientCollection result = new Client.PhysicianClientCollection();
+			YellowstonePathology.Business.Client.Model.PhysicianClientCollection result = new Client.Model.PhysicianClientCollection();
 			SqlCommand cmd = new SqlCommand();
 			cmd.CommandText = "Select pp.PhysicianClientId, c.ClientId, c.ClientName, ph.PhysicianId, ph.ObjectId [ProviderId], ph.DisplayName [PhysicianName], c.FacilityType, c.DistributionType, c.Fax [FaxNumber], c.Telephone, c.LongDistance, ph.NPI " +
 				 "from tblClient c " +
@@ -1179,7 +1179,7 @@ namespace YellowstonePathology.Business.Gateway
 				{
 					while (dr.Read())
 					{
-						YellowstonePathology.Business.Client.PhysicianClient physicianClient = new Client.PhysicianClient();
+						YellowstonePathology.Business.Client.Model.PhysicianClient physicianClient = new Client.Model.PhysicianClient();
 						YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(physicianClient, dr);
 						sqlDataReaderPropertyWriter.WriteProperties();
 						result.Add(physicianClient);
@@ -1189,9 +1189,9 @@ namespace YellowstonePathology.Business.Gateway
 			return result;
 		}
 
-		public static Business.Client.PhysicianClientDistributionCollection GetPhysicianClientDistributionByClientIdV2(int clientId)
+		public static Business.Client.Model.PhysicianClientDistributionList GetPhysicianClientDistributionByClientIdV2(int clientId)
 		{
-			Business.Client.PhysicianClientDistributionCollection result = new Client.PhysicianClientDistributionCollection();
+			Business.Client.Model.PhysicianClientDistributionList result = new Client.Model.PhysicianClientDistributionList();
 			SqlCommand cmd = new SqlCommand();
 			cmd.CommandText = "Select c.ClientId, c.ClientName, ph.PhysicianId, ph.DisplayName [PhysicianName], c.DistributionType, c.Fax [FaxNumber], c.LongDistance " +
 				 "from tblClient c " +
@@ -1209,7 +1209,7 @@ namespace YellowstonePathology.Business.Gateway
 				{
 					while (dr.Read())
 					{
-						Business.Client.PhysicianClientDistribution physicianClientDistribution = new Client.PhysicianClientDistribution();
+						Business.Client.Model.PhysicianClientDistributionListItem physicianClientDistribution = new Client.Model.PhysicianClientDistributionListItem();
 						YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(physicianClientDistribution, dr);
 						sqlDataReaderPropertyWriter.WriteProperties();
 						result.Add(physicianClientDistribution);
@@ -1219,9 +1219,9 @@ namespace YellowstonePathology.Business.Gateway
 			return result;
 		}
 
-		public static Business.Client.PhysicianClientDistributionCollection GetPhysicianClientDistributionByClientPhysicianLastNameV2(string clientName, string physicianLastName)
+		public static Business.Client.Model.PhysicianClientDistributionList GetPhysicianClientDistributionByClientPhysicianLastNameV2(string clientName, string physicianLastName)
 		{
-			Business.Client.PhysicianClientDistributionCollection result = new Client.PhysicianClientDistributionCollection();
+			Business.Client.Model.PhysicianClientDistributionList result = new Client.Model.PhysicianClientDistributionList();
 			SqlCommand cmd = new SqlCommand();
 			cmd.CommandText = "Select c.ClientId, c.ClientName, ph.PhysicianId, ph.DisplayName [PhysicianName], c.DistributionType, c.Fax [FaxNumber], c.LongDistance " +
 				 "from tblClient c " +
@@ -1240,7 +1240,7 @@ namespace YellowstonePathology.Business.Gateway
 				{
 					while (dr.Read())
 					{
-						Business.Client.PhysicianClientDistribution physicianClientDistribution = new Business.Client.PhysicianClientDistribution();
+						Business.Client.Model.PhysicianClientDistributionListItem physicianClientDistribution = new Business.Client.Model.PhysicianClientDistributionListItem();
 						YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(physicianClientDistribution, dr);
 						sqlDataReaderPropertyWriter.WriteProperties();
 						result.Add(physicianClientDistribution);
@@ -1250,9 +1250,9 @@ namespace YellowstonePathology.Business.Gateway
 			return result;
 		}
 
-		public static Business.Client.PhysicianClientDistributionCollection GetPhysicianClientDistributionByPhysicianFirstLastNameV2(string firstName, string lastName)
+		public static Business.Client.Model.PhysicianClientDistributionList GetPhysicianClientDistributionByPhysicianFirstLastNameV2(string firstName, string lastName)
 		{
-			Business.Client.PhysicianClientDistributionCollection result = new Client.PhysicianClientDistributionCollection();
+			Business.Client.Model.PhysicianClientDistributionList result = new Client.Model.PhysicianClientDistributionList();
 			SqlCommand cmd = new SqlCommand();
 			cmd.CommandText = "Select c.ClientId, c.ClientName, ph.PhysicianId, ph.DisplayName [PhysicianName], c.DistributionType, c.Fax [FaxNumber], c.LongDistance " +
 				 "from tblClient c " +
@@ -1271,7 +1271,7 @@ namespace YellowstonePathology.Business.Gateway
 				{
 					while (dr.Read())
 					{
-						Business.Client.PhysicianClientDistribution physicianClientDistribution = new Business.Client.PhysicianClientDistribution();
+						Business.Client.Model.PhysicianClientDistributionListItem physicianClientDistribution = new Business.Client.Model.PhysicianClientDistributionListItem();
 						YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(physicianClientDistribution, dr);
 						sqlDataReaderPropertyWriter.WriteProperties();
 						result.Add(physicianClientDistribution);
@@ -1281,9 +1281,9 @@ namespace YellowstonePathology.Business.Gateway
 			return result;
 		}
 
-		public static Business.Client.PhysicianClientDistributionCollection GetPhysicianClientDistributionByPhysicianLastNameV2(string lastName)
+		public static Business.Client.Model.PhysicianClientDistributionList GetPhysicianClientDistributionByPhysicianLastNameV2(string lastName)
 		{
-			Business.Client.PhysicianClientDistributionCollection result = new Client.PhysicianClientDistributionCollection();
+			Business.Client.Model.PhysicianClientDistributionList result = new Client.Model.PhysicianClientDistributionList();
 			SqlCommand cmd = new SqlCommand();
 			cmd.CommandText = "Select c.ClientId, c.ClientName, ph.PhysicianId, ph.DisplayName [PhysicianName], c.DistributionType, c.Fax [FaxNumber], c.LongDistance " +
 				 "from tblClient c " +
@@ -1301,7 +1301,7 @@ namespace YellowstonePathology.Business.Gateway
 				{
 					while (dr.Read())
 					{
-						Business.Client.PhysicianClientDistribution physicianClientDistribution = new Business.Client.PhysicianClientDistribution();
+						Business.Client.Model.PhysicianClientDistributionListItem physicianClientDistribution = new Business.Client.Model.PhysicianClientDistributionListItem();
 						YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(physicianClientDistribution, dr);
 						sqlDataReaderPropertyWriter.WriteProperties();
 						result.Add(physicianClientDistribution);

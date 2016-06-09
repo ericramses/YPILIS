@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace YellowstonePathology.Business.Client
+namespace YellowstonePathology.Business.Client.Model
 {
     public class PhysicianClientDistributionFactory
     {
-        public static PhysicianClientDistribution GetPhysicianClientDistribution(string distributionType)
+        public static PhysicianClientDistributionListItem GetPhysicianClientDistribution(string distributionType)
         {
-            PhysicianClientDistribution physicianClientDistribution = null;
+            PhysicianClientDistributionListItem physicianClientDistribution = null;
             switch (distributionType)
             {
                 case YellowstonePathology.Business.ReportDistribution.Model.DistributionType.FAX:
@@ -31,7 +31,7 @@ namespace YellowstonePathology.Business.Client
                     physicianClientDistribution = new EPICAndFaxPhysicianClientDistribution();
                     break;                                                
                 default:
-                    physicianClientDistribution = new PhysicianClientDistribution();
+                    physicianClientDistribution = new PhysicianClientDistributionListItem();
                     break;
             }
             return physicianClientDistribution;

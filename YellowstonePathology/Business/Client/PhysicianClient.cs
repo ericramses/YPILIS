@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using YellowstonePathology.Business.Persistence;
 
-namespace YellowstonePathology.Business.Client
+namespace YellowstonePathology.Business.Client.Model
 {
     public class PhysicianClient
     {

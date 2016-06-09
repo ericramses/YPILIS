@@ -5,9 +5,9 @@ using System.Text;
 using YellowstonePathology.Business.Persistence;
 using System.Text.RegularExpressions;
 
-namespace YellowstonePathology.Business.Client
+namespace YellowstonePathology.Business.Client.Model
 {
-    public class PhysicianClientDistribution
+    public class PhysicianClientDistributionListItem
     {
 		protected int m_PhysicianId;
         protected string m_PhysicianName;
@@ -17,12 +17,12 @@ namespace YellowstonePathology.Business.Client
         protected string m_FaxNumber;
         protected bool m_LongDistance;        
 
-        public PhysicianClientDistribution()
+        public PhysicianClientDistributionListItem()
         {
 
         }
 
-        public virtual void From(PhysicianClientDistribution physicianClientDistribution)
+        public virtual void From(PhysicianClientDistributionListItem physicianClientDistribution)
         {
             this.m_ClientId = physicianClientDistribution.m_ClientId;
             this.m_ClientName = physicianClientDistribution.m_ClientName;

@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Collections.ObjectModel;
 
-namespace YellowstonePathology.Business.Client
+namespace YellowstonePathology.Business.Client.Model
 {
-    public class PhysicianClientDistributionCollection : ObservableCollection<PhysicianClientDistribution>
+    public class PhysicianClientDistributionList : ObservableCollection<PhysicianClientDistributionListItem>
     {
-        public PhysicianClientDistributionCollection()
+        public PhysicianClientDistributionList()
         {
 
         }
@@ -16,7 +16,7 @@ namespace YellowstonePathology.Business.Client
         public void SetDistribution(YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {
             this.HandleReferringProvider(accessionOrder);
-            foreach (PhysicianClientDistribution physicianClientDistribution in this)
+            foreach (PhysicianClientDistributionListItem physicianClientDistribution in this)
             {
                 physicianClientDistribution.SetDistribution(panelSetOrder, accessionOrder);
             }            
@@ -27,7 +27,7 @@ namespace YellowstonePathology.Business.Client
             YellowstonePathology.Business.Client.Model.Client client = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientByClientId(accessionOrder.ClientId);
             if(client.HasReferringProvider == true)
             {
-                PhysicianClientDistribution physicianClientDistribution = YellowstonePathology.Business.Gateway.ReportDistributionGateway.GetPhysicianClientDistributionCollection(client.ReferringProviderClientId);
+                PhysicianClientDistributionListItem physicianClientDistribution = YellowstonePathology.Business.Gateway.ReportDistributionGateway.GetPhysicianClientDistributionCollection(client.ReferringProviderClientId);
                 this.Add(physicianClientDistribution);
             }
         }    

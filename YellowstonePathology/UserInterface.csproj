@@ -455,12 +455,7 @@
     <Compile Include="Business\ClientOrder.Model\UniversalServiceCollection.cs" />
     <Compile Include="Business\ClientOrder.Model\UniversalServiceDefinitions.cs" />
     <Compile Include="Business\ClientOrder.Model\WestGrandFamilyOrderTest.cs" />
-    <Compile Include="Business\Client\AllClientGroup.cs" />
     <Compile Include="Business\Client\AthenaPhysicianClientDistribution.cs" />
-    <Compile Include="Business\Client\ClientGroup.cs" />
-    <Compile Include="Business\Client\ClientGroupCollection.cs" />
-    <Compile Include="Business\Client\ClientList.cs" />
-    <Compile Include="Business\Client\ClientListItem.cs" />
     <Compile Include="Business\Client\ECWPhysicianClientDistribution.cs" />
     <Compile Include="Business\Client\EPICAndFaxPhysicianClientDistribution.cs" />
     <Compile Include="Business\Client\EPICPhysicianClientDistribution.cs" />
@@ -507,8 +502,8 @@
     <Compile Include="Business\Client\NoHPVStandingOrder.cs" />
     <Compile Include="Business\Client\PhysicianClient.cs" />
     <Compile Include="Business\Client\PhysicianClientCollection.cs" />
-    <Compile Include="Business\Client\PhysicianClientDistribution.cs" />
-    <Compile Include="Business\Client\PhysicianClientDistributionCollection.cs" />
+    <Compile Include="Business\Client\PhysicianClientDistributionListItem.cs" />
+    <Compile Include="Business\Client\PhysicianClientDistributionList.cs" />
     <Compile Include="Business\Client\PhysicianClientDistributionFactory.cs" />
     <Compile Include="Business\Client\ReflexOrder.cs" />
     <Compile Include="Business\Client\ReflexOrderCollection.cs" />

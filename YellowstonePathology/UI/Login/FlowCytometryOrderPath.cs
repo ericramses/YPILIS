@@ -160,8 +160,8 @@ namespace YellowstonePathology.UI.Login
 
             if (this.m_AccessionOrder.ClientId != 0 && this.m_AccessionOrder.PhysicianId != 0)
             {
-                YellowstonePathology.Business.Client.PhysicianClientDistributionCollection physicianClientDistributionCollection = YellowstonePathology.Business.Gateway.ReportDistributionGateway.GetPhysicianClientDistributionCollection(this.m_AccessionOrder.PhysicianId, this.m_AccessionOrder.ClientId);
-                foreach (YellowstonePathology.Business.Client.PhysicianClientDistribution physicianClientDistribution in physicianClientDistributionCollection)
+                YellowstonePathology.Business.Client.Model.PhysicianClientDistributionList physicianClientDistributionCollection = YellowstonePathology.Business.Gateway.ReportDistributionGateway.GetPhysicianClientDistributionCollection(this.m_AccessionOrder.PhysicianId, this.m_AccessionOrder.ClientId);
+                foreach (YellowstonePathology.Business.Client.Model.PhysicianClientDistributionListItem physicianClientDistribution in physicianClientDistributionCollection)
                 {
                     physicianClientDistribution.SetDistribution(panelSetOrderLeukemiaLymphoma, this.m_AccessionOrder);
                 }

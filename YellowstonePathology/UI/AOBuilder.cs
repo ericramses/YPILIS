@@ -69,7 +69,7 @@ namespace YellowstonePathology.UI
 
         private void SetProvider()
         {
-            YellowstonePathology.Business.Client.PhysicianClientDistributionCollection physicianClientDistributionCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClientDistributionByClientPhysicianLastNameV2("Yellowstone Pathologists, P.C.", "Schultz");
+            YellowstonePathology.Business.Client.Model.PhysicianClientDistributionList physicianClientDistributionCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClientDistributionByClientPhysicianLastNameV2("Yellowstone Pathologists, P.C.", "Schultz");
             this.m_ClientOrderReceivingHandler.AccessionOrder.SetPhysicianClient(physicianClientDistributionCollection[0]);
         }
 

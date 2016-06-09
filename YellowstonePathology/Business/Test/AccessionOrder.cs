@@ -1471,7 +1471,7 @@ namespace YellowstonePathology.Business.Test
 			}
 		}
 
-        public void SetPhysicianClient(Business.Client.PhysicianClientDistribution physicianClientDistribution)
+        public void SetPhysicianClient(Business.Client.Model.PhysicianClientDistributionListItem physicianClientDistribution)
 		{
             this.ClientId = physicianClientDistribution.ClientId;
             this.PhysicianId = physicianClientDistribution.PhysicianId;
