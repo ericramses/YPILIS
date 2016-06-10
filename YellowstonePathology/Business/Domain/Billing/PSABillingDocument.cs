@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 
-namespace YellowstonePathology.Business.Domain.Billing
+namespace YellowstonePathology.Business.Billing.Model
 {
 	public class PSABillingDocument : XElement
 	{

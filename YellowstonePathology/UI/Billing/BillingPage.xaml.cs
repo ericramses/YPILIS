@@ -176,7 +176,7 @@ namespace YellowstonePathology.UI.Billing
             {
                 if (this.IsProfessionalBillingFacilityValid() == true)
                 {
-                    YellowstonePathology.Business.Domain.Billing.BillableObject billableObject = Business.Domain.Billing.BillableObjectFactory.GetBillableObject(this.m_AccessionOrder, this.m_ReportNo);
+                    YellowstonePathology.Business.Billing.Model.BillableObject billableObject = Business.Billing.Model.BillableObjectFactory.GetBillableObject(this.m_AccessionOrder, this.m_ReportNo);
                     YellowstonePathology.Business.Rules.MethodResult methodResult = billableObject.Set();
                     if (methodResult.Success == false)
                     {
@@ -232,7 +232,7 @@ namespace YellowstonePathology.UI.Billing
 
         private void ButtonPost_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Domain.Billing.BillableObject billableObject = Business.Domain.Billing.BillableObjectFactory.GetBillableObject(this.m_AccessionOrder, this.m_ReportNo);
+            YellowstonePathology.Business.Billing.Model.BillableObject billableObject = Business.Billing.Model.BillableObjectFactory.GetBillableObject(this.m_AccessionOrder, this.m_ReportNo);
             YellowstonePathology.Business.Rules.MethodResult methodResult = billableObject.Post();                        
             if (methodResult.Success == false)
             {
@@ -242,13 +242,13 @@ namespace YellowstonePathology.UI.Billing
 
         private void ButtonUnpost_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Domain.Billing.BillableObject billableObject = Business.Domain.Billing.BillableObjectFactory.GetBillableObject(this.m_AccessionOrder, this.m_ReportNo);
+            YellowstonePathology.Business.Billing.Model.BillableObject billableObject = Business.Billing.Model.BillableObjectFactory.GetBillableObject(this.m_AccessionOrder, this.m_ReportNo);
             billableObject.Unpost();
         }
 
         private void ButtonUnset_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Domain.Billing.BillableObject billableObject = Business.Domain.Billing.BillableObjectFactory.GetBillableObject(this.m_AccessionOrder, this.m_ReportNo);
+            YellowstonePathology.Business.Billing.Model.BillableObject billableObject = Business.Billing.Model.BillableObjectFactory.GetBillableObject(this.m_AccessionOrder, this.m_ReportNo);
             billableObject.Unset();
         }
 

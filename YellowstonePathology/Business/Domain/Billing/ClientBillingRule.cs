@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace YellowstonePathology.Business.Domain.Billing
+namespace YellowstonePathology.Business.Billing.Model
 {
-    public class ClientBillingRule : BillingRule
+    public class ClientBillingRule : DomainBillingRule
     {
         YellowstonePathology.Business.Billing.Model.CptCodeCollection m_AllCptCodes;        
 
@@ -14,7 +14,7 @@ namespace YellowstonePathology.Business.Domain.Billing
             this.m_AllCptCodes = YellowstonePathology.Business.Billing.Model.CptCodeCollection.GetAll();            
         }
 
-        public override void Run(CptBillingCode cptBillingCode)
+        public override void Run(Domain.CptBillingCode cptBillingCode)
         {
             YellowstonePathology.Business.Billing.Model.CptCode cptCode = this.m_AllCptCodes.GetCptCode(cptBillingCode.CptCode);
             if (cptCode.FeeSchedule == YellowstonePathology.Business.Billing.Model.FeeScheduleEnum.Clinical)
@@ -28,7 +28,7 @@ namespace YellowstonePathology.Business.Domain.Billing
             this.SetModifier(cptBillingCode);
         }
 
-        private void SetModifier(CptBillingCode cptBillingCode)
+        private void SetModifier(Domain.CptBillingCode cptBillingCode)
         {
             YellowstonePathology.Business.Billing.Model.CptCode cptCode = this.m_AllCptCodes.GetCptCode(cptBillingCode.CptCode);
             if (cptBillingCode.BillTo == YellowstonePathology.Business.Billing.Model.BillingTypeEnum.Client.ToString())

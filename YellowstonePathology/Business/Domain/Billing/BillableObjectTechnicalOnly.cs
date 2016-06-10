@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace YellowstonePathology.Business.Domain.Billing
+namespace YellowstonePathology.Business.Billing.Model
 {
     public class BillableObjectTechnicalOnly : BillableObject
     {

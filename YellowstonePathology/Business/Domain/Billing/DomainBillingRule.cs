@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace YellowstonePathology.Business.Domain.Billing
+namespace YellowstonePathology.Business.Billing.Model
 {
-    public class BillingRule
+    public class DomainBillingRule
     {
-        public BillingRule()
+        public DomainBillingRule()
         {
 
         }
 
-        public virtual void Run(CptBillingCode cptBillingCode)
+        public virtual void Run(Domain.CptBillingCode cptBillingCode)
         {
             throw new Exception("Not Implemented Here");
         }        

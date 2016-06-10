@@ -184,7 +184,7 @@ namespace YellowstonePathology.UI.Billing
 
         private void CreateXmlBillingDocument(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo)
         {
-            YellowstonePathology.Business.Domain.Billing.PSABillingDocument psaBillingDocument = new YellowstonePathology.Business.Domain.Billing.PSABillingDocument(accessionOrder, reportNo);
+            YellowstonePathology.Business.Billing.Model.PSABillingDocument psaBillingDocument = new YellowstonePathology.Business.Billing.Model.PSABillingDocument(accessionOrder, reportNo);
             psaBillingDocument.Build();
 
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(reportNo);
