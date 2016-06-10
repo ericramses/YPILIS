@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace YellowstonePathology.Business.Test.TCellClonalityByPCR
+namespace YellowstonePathology.Business.Test.TCellRecepterGammaGeneRearrangement
 {
-	public class TCellClonalityByPCRWordDocument : YellowstonePathology.Business.Document.CaseReportV2
+	public class TCellRecepterGammaGeneRearrangementWordDocument : YellowstonePathology.Business.Document.CaseReportV2
 	{
-        public TCellClonalityByPCRWordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+        public TCellRecepterGammaGeneRearrangementWordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
             : base(accessionOrder, panelSetOrder, reportSaveMode)
         {
 
         }
 
         public override void Render()
-		{			
-			PanelSetOrderTCellClonalityByPCR panelSetOrderTCellClonalityByPCR = (PanelSetOrderTCellClonalityByPCR)this.m_PanelSetOrder;
+		{
+            TCellRecepterGammaGeneRearrangementTestOrder tCellRecepterGammaGeneRearrangementTestOrder = (TCellRecepterGammaGeneRearrangementTestOrder)this.m_PanelSetOrder;
 
 			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\TCellClonalityByPCR.xml";
 			base.OpenTemplate();
@@ -27,10 +27,10 @@ namespace YellowstonePathology.Business.Test.TCellClonalityByPCR
 			YellowstonePathology.Business.Document.AmendmentSection amendmentSection = new YellowstonePathology.Business.Document.AmendmentSection();
 			amendmentSection.SetAmendment(m_PanelSetOrder.AmendmentCollection, this.m_ReportXml, this.m_NameSpaceManager, true);
 
-			this.ReplaceText("report_result", panelSetOrderTCellClonalityByPCR.Result);
-			this.ReplaceText("report_interpretation", panelSetOrderTCellClonalityByPCR.Interpretation);
-			this.ReplaceText("report_method", panelSetOrderTCellClonalityByPCR.Method);
-			this.ReplaceText("report_references", panelSetOrderTCellClonalityByPCR.References);
+			this.ReplaceText("report_result", tCellRecepterGammaGeneRearrangementTestOrder.Result);
+			this.ReplaceText("report_interpretation", tCellRecepterGammaGeneRearrangementTestOrder.Interpretation);
+			this.ReplaceText("report_method", tCellRecepterGammaGeneRearrangementTestOrder.Method);
+			this.ReplaceText("report_references", tCellRecepterGammaGeneRearrangementTestOrder.References);
 
 			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrder.OrderedOn, this.m_PanelSetOrder.OrderedOnId);
 			base.ReplaceText("specimen_description", specimenOrder.Description);

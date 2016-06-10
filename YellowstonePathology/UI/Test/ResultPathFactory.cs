@@ -136,7 +136,7 @@ namespace YellowstonePathology.UI.Test
 					result = new CLLByFishResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
 				case 152:
-					result = new TCellClonalityByPCRResultPath(reportNo, accessionOrder, pageNavigator, window);
+					result = new TCellRecepterGammaGeneRearrangementResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
 				case 153:
 					result = new FLT3ResultPath(reportNo, accessionOrder, pageNavigator, window);

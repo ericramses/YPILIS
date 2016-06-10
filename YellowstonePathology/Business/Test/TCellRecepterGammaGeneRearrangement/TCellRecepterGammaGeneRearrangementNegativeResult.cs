@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace YellowstonePathology.Business.Test.TCellClonalityByPCR
+namespace YellowstonePathology.Business.Test.TCellRecepterGammaGeneRearrangement
 {
-	public class TCellClonalityByPCRNegativeResult : TCellClonalityByPCRResult
-	{
-		public TCellClonalityByPCRNegativeResult()
+	public class TCellRecepterGammaGeneRearrangementNegativeResult : TCellRecepterGammaGeneRearrangementResult
+    {
+		public TCellRecepterGammaGeneRearrangementNegativeResult()
 		{
 			this.m_Result = "Negative";
 			this.m_Interpretation = "Polymerase chain reaction (PCR) assays are routinely used for the identification of clonal T-cell populations. Clonal T cell populations are " +

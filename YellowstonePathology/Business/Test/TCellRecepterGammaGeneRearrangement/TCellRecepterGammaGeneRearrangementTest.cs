@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace YellowstonePathology.Business.Test.TCellClonalityByPCR
+namespace YellowstonePathology.Business.Test.TCellRecepterGammaGeneRearrangement
 {
-	public class TCellClonalityByPCRTest : YellowstonePathology.Business.PanelSet.Model.PanelSet
+	public class TCellRecepterGammaGeneRearrangementTest : YellowstonePathology.Business.PanelSet.Model.PanelSet
 	{
-		public TCellClonalityByPCRTest()
+		public TCellRecepterGammaGeneRearrangementTest()
 		{
 			this.m_PanelSetId = 152;
-			this.m_PanelSetName = "T-Cell Gene Rearrangement";
+			this.m_PanelSetName = "T-Cell Recepter Gamma Gene Rearrangement";
             this.m_CaseType = YellowstonePathology.Business.CaseType.Molecular;
 			this.m_HasTechnicalComponent = true;			
             this.m_HasProfessionalComponent = false;
@@ -18,7 +18,7 @@ namespace YellowstonePathology.Business.Test.TCellClonalityByPCR
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterR();
             this.m_Active = true;
 
-			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.TCellClonalityByPCR.PanelSetOrderTCellClonalityByPCR).AssemblyQualifiedName;
+			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.TCellRecepterGammaGeneRearrangement.TCellRecepterGammaGeneRearrangementTestOrder).AssemblyQualifiedName;
             
 			this.m_AllowMultiplePerAccession = true;
             //Changed by MS and TK;

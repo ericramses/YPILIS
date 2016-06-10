@@ -2525,12 +2525,12 @@
     <Compile Include="Business\Test\Surgical\SurgicalTest.cs" />
     <Compile Include="Business\Test\Surgical\SurgicalTestOrder.cs" />
     <Compile Include="Business\Test\Surgical\SurgicalWordDocument.cs" />
-    <Compile Include="Business\Test\TCellClonalityByPCR\PanelSetOrderTCellClonalityByPCR.cs" />
-    <Compile Include="Business\Test\TCellClonalityByPCR\TCellClonalityByPCREpicObxView.cs" />
-    <Compile Include="Business\Test\TCellClonalityByPCR\TCellClonalityByPCRNegativeResult.cs" />
-    <Compile Include="Business\Test\TCellClonalityByPCR\TCellClonalityByPCRResult.cs" />
-    <Compile Include="Business\Test\TCellClonalityByPCR\TCellClonalityByPCRTest.cs" />
-    <Compile Include="Business\Test\TCellClonalityByPCR\TCellClonalityByPCRWordDocument.cs" />
+    <Compile Include="Business\Test\TCellRecepterGammaGeneRearrangement\TCellRecepterGammaGeneRearrangementTestOrder.cs" />
+    <Compile Include="Business\Test\TCellRecepterGammaGeneRearrangement\TCellRecepterGammaGeneRearrangementEPICOBXView.cs" />
+    <Compile Include="Business\Test\TCellRecepterGammaGeneRearrangement\TCellRecepterGammaGeneRearrangementNegativeResult.cs" />
+    <Compile Include="Business\Test\TCellRecepterGammaGeneRearrangement\TCellRecepterGammaGeneRearrangementResult.cs" />
+    <Compile Include="Business\Test\TCellRecepterGammaGeneRearrangement\TCellRecepterGammaGeneRearrangementTest.cs" />
+    <Compile Include="Business\Test\TCellRecepterGammaGeneRearrangement\TCellRecepterGammaGeneRearrangementWordDocument.cs" />
     <Compile Include="Business\Test\TCellSubsetAnalysis\TCellSubsetAnalysisEpicObxView.cs" />
     <Compile Include="Business\Test\TCellSubsetAnalysis\TCellSubsetAnalysisTest.cs" />
     <Compile Include="Business\Test\TCellSubsetAnalysis\TCellSubsetAnalysisTestOrder.cs" />
@@ -3671,10 +3671,10 @@
     <Compile Include="UI\Test\TecanImportExportPage.xaml.cs">
       <DependentUpon>TecanImportExportPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Test\TCellClonalityByPCRResultPage.xaml.cs">
-      <DependentUpon>TCellClonalityByPCRResultPage.xaml</DependentUpon>
+    <Compile Include="UI\Test\TCellRecepterGammaGeneRearrangementResultPage.xaml.cs">
+      <DependentUpon>TCellRecepterGammaGeneRearrangementResultPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Test\TCellClonalityByPCRResultPath.cs" />
+    <Compile Include="UI\Test\TCellRecepterGammaGeneRearrangementResultPath.cs" />
     <Compile Include="UI\Test\TecanSamplePlacementQueue.cs" />
     <Compile Include="UI\Test\TecanSample.cs" />
     <Compile Include="UI\Test\TechInitiatedPeripheralSmearResultPage.xaml.cs">
@@ -5499,7 +5499,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\Test\TCellClonalityByPCRResultPage.xaml">
+    <Page Include="UI\Test\TCellRecepterGammaGeneRearrangementResultPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

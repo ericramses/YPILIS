@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace YellowstonePathology.Business.Test.TCellClonalityByPCR
+namespace YellowstonePathology.Business.Test.TCellRecepterGammaGeneRearrangement
 {
-	public class TCellClonalityByPCRResult
-	{
+	public class TCellRecepterGammaGeneRearrangementResult
+    {
 		public static string Method = "Patient DNA was isolated, purified and subjected to PCR amplification using oligonucleotide consensus primers specific for the T-cell receptor " +
 			"gamma gene variable and joining regions.  PCR products are separated by capillary gel electrophoresis and detected by fluorescence.  " +
 			"Typically PCR can detect clonal populations present in the 5-10% range. Various factors including quantity and quality of nucleic acid, " +
@@ -17,16 +17,16 @@ namespace YellowstonePathology.Business.Test.TCellClonalityByPCR
 		protected string m_Result;
 		protected string m_Interpretation;
 
-		public TCellClonalityByPCRResult()
+		public TCellRecepterGammaGeneRearrangementResult()
 		{
 		}
 
-		public void SetResults(PanelSetOrderTCellClonalityByPCR panelSetOrderTCellClonalityByPCR)
+		public void SetResults(TCellRecepterGammaGeneRearrangementTestOrder tCellRecepterGammaGeneRearrangementTestOrder)
 		{
-			panelSetOrderTCellClonalityByPCR.Result = this.m_Result;
-			panelSetOrderTCellClonalityByPCR.Interpretation = this.m_Interpretation;
-			panelSetOrderTCellClonalityByPCR.Method = TCellClonalityByPCRResult.Method;
-			panelSetOrderTCellClonalityByPCR.References = TCellClonalityByPCRResult.References;
+            tCellRecepterGammaGeneRearrangementTestOrder.Result = this.m_Result;
+            tCellRecepterGammaGeneRearrangementTestOrder.Interpretation = this.m_Interpretation;
+            tCellRecepterGammaGeneRearrangementTestOrder.Method = TCellRecepterGammaGeneRearrangementResult.Method;
+            tCellRecepterGammaGeneRearrangementTestOrder.References = TCellRecepterGammaGeneRearrangementResult.References;
 		}
 	}
 }

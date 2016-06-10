@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Test
 	/// <summary>
 	/// Interaction logic for TCellClonalityByPCRREsultPage.xaml
 	/// </summary>
-	public partial class TCellClonalityByPCRResultPage : ResultControl, INotifyPropertyChanged 
+	public partial class TCellRecepterGammaGeneRearrangementResultPage : ResultControl, INotifyPropertyChanged 
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -29,18 +29,18 @@ namespace YellowstonePathology.UI.Test
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         private string m_PageHeaderText;
 
-		private YellowstonePathology.Business.Test.TCellClonalityByPCR.PanelSetOrderTCellClonalityByPCR m_PanelSetOrder;
+		private YellowstonePathology.Business.Test.TCellRecepterGammaGeneRearrangement.TCellRecepterGammaGeneRearrangementTestOrder m_PanelSetOrder;
         private string m_OrderedOnDescription;        
 
-		public TCellClonalityByPCRResultPage(YellowstonePathology.Business.Test.TCellClonalityByPCR.PanelSetOrderTCellClonalityByPCR panelSetOrderTCellClonalityByPCR,
+		public TCellRecepterGammaGeneRearrangementResultPage(YellowstonePathology.Business.Test.TCellRecepterGammaGeneRearrangement.TCellRecepterGammaGeneRearrangementTestOrder tCellRecepterGammaGeneRearrangementTestOrder,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.User.SystemIdentity systemIdentity) : base(panelSetOrderTCellClonalityByPCR, accessionOrder)
+			YellowstonePathology.Business.User.SystemIdentity systemIdentity) : base(tCellRecepterGammaGeneRearrangementTestOrder, accessionOrder)
 		{
-			this.m_PanelSetOrder = panelSetOrderTCellClonalityByPCR;
+			this.m_PanelSetOrder = tCellRecepterGammaGeneRearrangementTestOrder;
 			this.m_AccessionOrder = accessionOrder;			
 			this.m_SystemIdentity = systemIdentity;
 
-			this.m_PageHeaderText = "T-Cell Clonality by PCR Results For: " + this.m_AccessionOrder.PatientDisplayName;
+			this.m_PageHeaderText = "T-Cell Recepter Gamma Gene Rearrangement Results For: " + this.m_AccessionOrder.PatientDisplayName;
 
 			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByOrderTarget(this.m_PanelSetOrder.OrderedOnId);
 			YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetAliquotOrder(this.m_PanelSetOrder.OrderedOnId);
@@ -61,7 +61,7 @@ namespace YellowstonePathology.UI.Test
             get { return this.m_OrderedOnDescription; }
         }
 
-		public YellowstonePathology.Business.Test.TCellClonalityByPCR.PanelSetOrderTCellClonalityByPCR PanelSetOrder
+		public YellowstonePathology.Business.Test.TCellRecepterGammaGeneRearrangement.TCellRecepterGammaGeneRearrangementTestOrder PanelSetOrder
         {
 			get { return this.m_PanelSetOrder; }
         }
@@ -86,14 +86,14 @@ namespace YellowstonePathology.UI.Test
 
         private void HyperLinkNegative_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Test.TCellClonalityByPCR.TCellClonalityByPCRNegativeResult result = new Business.Test.TCellClonalityByPCR.TCellClonalityByPCRNegativeResult();
+            YellowstonePathology.Business.Test.TCellRecepterGammaGeneRearrangement.TCellRecepterGammaGeneRearrangementNegativeResult result = new Business.Test.TCellRecepterGammaGeneRearrangement.TCellRecepterGammaGeneRearrangementNegativeResult();
 			result.SetResults(this.m_PanelSetOrder);
 			this.NotifyPropertyChanged("PanelSetOrder");
         }
 
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
 		{
-			YellowstonePathology.Business.Test.TCellClonalityByPCR.TCellClonalityByPCRWordDocument report = new Business.Test.TCellClonalityByPCR.TCellClonalityByPCRWordDocument(this.m_AccessionOrder, this.m_PanelSetOrder, Business.Document.ReportSaveModeEnum.Draft);
+			YellowstonePathology.Business.Test.TCellRecepterGammaGeneRearrangement.TCellRecepterGammaGeneRearrangementWordDocument report = new Business.Test.TCellRecepterGammaGeneRearrangement.TCellRecepterGammaGeneRearrangementWordDocument(this.m_AccessionOrder, this.m_PanelSetOrder, Business.Document.ReportSaveModeEnum.Draft);
 			report.Render();
 
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);

@@ -4,19 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 
-namespace YellowstonePathology.Business.Test.TCellClonalityByPCR
+namespace YellowstonePathology.Business.Test.TCellRecepterGammaGeneRearrangement
 {
-	class TCellClonalityByPCREPICObxView : YellowstonePathology.Business.HL7View.EPIC.EPICObxView
+	class TCellRecepterGammaGeneRearrangementEPICOBXView : YellowstonePathology.Business.HL7View.EPIC.EPICObxView
 	{
-		public TCellClonalityByPCREPICObxView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount)
+		public TCellRecepterGammaGeneRearrangementEPICOBXView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount)
 			: base(accessionOrder, reportNo, obxCount)
 		{
 		}
 
 		public override void ToXml(XElement document)
 		{
-			PanelSetOrderTCellClonalityByPCR panelSetOrder = (PanelSetOrderTCellClonalityByPCR)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
-			this.AddHeader(document, panelSetOrder, "T-Cell Gene Rearrangement by PCR");
+            TCellRecepterGammaGeneRearrangementTestOrder panelSetOrder = (TCellRecepterGammaGeneRearrangementTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
+			this.AddHeader(document, panelSetOrder, "T-Cell Recepter Gamma Gene Rearrangement");
 
 			this.AddNextObxElement("", document, "F");
 			string result = "Result: " + panelSetOrder.Result;
