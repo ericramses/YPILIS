@@ -6,7 +6,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Xml.Serialization;
 
-namespace YellowstonePathology.Business.Billing
+namespace YellowstonePathology.Business.Billing.Model
 {
 	public class CptBillingCodeItemCollection : ObservableCollection<CptBillingCodeItem>
 	{
@@ -53,7 +53,7 @@ namespace YellowstonePathology.Business.Billing
 
         public void ReplaceCode(string codeToReplace, string newCode)
         {
-            foreach (YellowstonePathology.Business.Billing.CptBillingCodeItem cptBillingCode in this)
+            foreach (CptBillingCodeItem cptBillingCode in this)
             {
                 if (cptBillingCode.CptCode.ToUpper() == codeToReplace.ToUpper())
                 {
@@ -89,9 +89,9 @@ namespace YellowstonePathology.Business.Billing
 			}
 		}
 
-        public void LoadFromAccessionOrder(YellowstonePathology.Business.Billing.CptBillingCodeItemCollection cptBillingCodeCollection, string reportNo)
+        public void LoadFromAccessionOrder(CptBillingCodeItemCollection cptBillingCodeCollection, string reportNo)
         {
-            foreach (YellowstonePathology.Business.Billing.CptBillingCodeItem cptBillingCode in cptBillingCodeCollection)
+            foreach (CptBillingCodeItem cptBillingCode in cptBillingCodeCollection)
             {
                 if (cptBillingCode.ReportNo == reportNo)
                 {
@@ -196,7 +196,7 @@ namespace YellowstonePathology.Business.Billing
         public bool DoesCollectionHaveCodes(List<string> cptCodeList)
         {
             bool result = false;
-            foreach (YellowstonePathology.Business.Billing.CptBillingCodeItem item in this)
+            foreach (CptBillingCodeItem item in this)
             {
                 foreach (string cptCode in cptCodeList)
                 {
@@ -210,10 +210,10 @@ namespace YellowstonePathology.Business.Billing
             return result;
         }
 
-        public YellowstonePathology.Business.Billing.CptBillingCodeItemCollection GetCollectionBySurgicalSpecimenId(string surgicalSpecimenId)
+        public CptBillingCodeItemCollection GetCollectionBySurgicalSpecimenId(string surgicalSpecimenId)
         {
-            YellowstonePathology.Business.Billing.CptBillingCodeItemCollection result = new CptBillingCodeItemCollection();
-            foreach (YellowstonePathology.Business.Billing.CptBillingCodeItem item in this)
+            CptBillingCodeItemCollection result = new CptBillingCodeItemCollection();
+            foreach (CptBillingCodeItem item in this)
             {
                 if (item.SurgicalSpecimenId == surgicalSpecimenId)
                 {
@@ -223,10 +223,10 @@ namespace YellowstonePathology.Business.Billing
             return result;
         }
 
-        public YellowstonePathology.Business.Billing.CptBillingCodeItemCollection GetCollectionByTestOrderId(string testOrderId)
+        public CptBillingCodeItemCollection GetCollectionByTestOrderId(string testOrderId)
         {
-            YellowstonePathology.Business.Billing.CptBillingCodeItemCollection result = new CptBillingCodeItemCollection();
-            foreach (YellowstonePathology.Business.Billing.CptBillingCodeItem item in this)
+            CptBillingCodeItemCollection result = new CptBillingCodeItemCollection();
+            foreach (CptBillingCodeItem item in this)
             {
                 if (item.TestOrderId == testOrderId)
                 {
@@ -236,10 +236,10 @@ namespace YellowstonePathology.Business.Billing
             return result;
         }
 
-        public YellowstonePathology.Business.Billing.CptBillingCodeItemCollection GetCollectionByReportNo(string reportNo)
+        public CptBillingCodeItemCollection GetCollectionByReportNo(string reportNo)
         {
-            YellowstonePathology.Business.Billing.CptBillingCodeItemCollection result = new CptBillingCodeItemCollection();
-            foreach (YellowstonePathology.Business.Billing.CptBillingCodeItem item in this)
+            CptBillingCodeItemCollection result = new CptBillingCodeItemCollection();
+            foreach (CptBillingCodeItem item in this)
             {
                 if (item.ReportNo == reportNo)
                 {
@@ -249,9 +249,9 @@ namespace YellowstonePathology.Business.Billing
             return result;
         }
 
-        public YellowstonePathology.Business.Billing.CptBillingCodeItem GetCptCodeItem(string cptBillingCodeId)
+        public CptBillingCodeItem GetCptCodeItem(string cptBillingCodeId)
         {
-            foreach (YellowstonePathology.Business.Billing.CptBillingCodeItem item in this)
+            foreach (CptBillingCodeItem item in this)
             {
                 if (item.CptBillingId == cptBillingCodeId)
                 {
@@ -295,7 +295,7 @@ namespace YellowstonePathology.Business.Billing
 			}
 		}
 
-		public void Add(int testId, YellowstonePathology.Business.Billing.CptBillingCodeItem cptBillingCodeItem)
+		public void Add(int testId, CptBillingCodeItem cptBillingCodeItem)
 		{
 			YellowstonePathology.Business.Test.Model.StainTest stainTest = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetStainTestByTestId(testId);
 			if (stainTest != null)
@@ -331,7 +331,7 @@ namespace YellowstonePathology.Business.Billing
         public bool Exists(string cptCode, string reportNo)
         {
             bool result = false;
-            foreach (Billing.CptBillingCodeItem cptBillingCode in this)
+            foreach (CptBillingCodeItem cptBillingCode in this)
             {
                 if (cptBillingCode.CptCode == cptCode && cptBillingCode.ReportNo == reportNo)
                 {
@@ -357,7 +357,7 @@ namespace YellowstonePathology.Business.Billing
         public bool CodeExistsWithTestOrderId(string cptCode, string testOrderId)
         {
             bool result = false;
-            foreach (YellowstonePathology.Business.Billing.CptBillingCodeItem cptBillingCode in this)
+            foreach (CptBillingCodeItem cptBillingCode in this)
             {
                 if (cptBillingCode.TestOrderId == testOrderId)
                 {
@@ -458,7 +458,7 @@ namespace YellowstonePathology.Business.Billing
 		{
             if (this.Exists(cptCode, reportNo) == false)
             {
-                Billing.CptBillingCodeItem cptBillingCodeItem = this.GetNextItem(masterAccessionNo, specimenOrderId, reportNo, string.Empty, panelSetId, string.Empty, string.Empty,
+                CptBillingCodeItem cptBillingCodeItem = this.GetNextItem(masterAccessionNo, specimenOrderId, reportNo, string.Empty, panelSetId, string.Empty, string.Empty,
                     clientId, primaryInsurance, secondaryInsurance, patientType, cptCode, quantity, dateOfService, professionalComponentFacilityId, technicalComponentFacilityId);
                 cptBillingCodeItem.NoCharge = noCharge;
                 this.Add(cptBillingCodeItem);

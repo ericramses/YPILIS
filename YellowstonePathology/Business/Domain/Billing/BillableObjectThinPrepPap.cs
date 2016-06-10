@@ -148,7 +148,7 @@ namespace YellowstonePathology.Business.Domain.Billing
             {
                 if (this.m_AccessionOrder.ICD9BillingCodeCollection.CodeExists(icd9Code) == false)
                 {
-                    YellowstonePathology.Business.Billing.ICD9BillingCode icd9BillingCode = this.m_AccessionOrder.ICD9BillingCodeCollection.GetNextItem(this.m_PanelSetOrder.ReportNo,
+                    YellowstonePathology.Business.Billing.Model.ICD9BillingCode icd9BillingCode = this.m_AccessionOrder.ICD9BillingCodeCollection.GetNextItem(this.m_PanelSetOrder.ReportNo,
                         this.m_AccessionOrder.MasterAccessionNo, this.m_AccessionOrder.SpecimenOrderCollection[0].SpecimenOrderId, icd9Code, icd10Code, 1);
                     icd9BillingCode.DesignatedFor = "Signing Physician";
                     icd9BillingCode.Source = "Cytology";

@@ -35,14 +35,14 @@ namespace YellowstonePathology.Business.Domain.Billing
             {
                 if (cptCode.HasTechnicalComponent == true)
                 {
-                    cptBillingCode.Modifier = YellowstonePathology.Business.Billing.CptCodeModifier.TechnicalComponent;
+                    cptBillingCode.Modifier = YellowstonePathology.Business.Billing.Model.CptCodeModifier.TechnicalComponent;
                 }
             }
             else if (cptBillingCode.BillTo == YellowstonePathology.Business.Billing.Model.BillingTypeEnum.Global.ToString())
             {
                 if (cptCode.HasProfessionalComponent == true)
                 {
-                    cptBillingCode.Modifier = YellowstonePathology.Business.Billing.CptCodeModifier.TwentySix;
+                    cptBillingCode.Modifier = YellowstonePathology.Business.Billing.Model.CptCodeModifier.TwentySix;
                 }
             }
         }

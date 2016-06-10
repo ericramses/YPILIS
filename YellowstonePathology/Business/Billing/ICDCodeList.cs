@@ -5,7 +5,7 @@ using System.Text;
 using System.Data;
 using System.Data.SqlClient;
 
-namespace YellowstonePathology.Business.Billing
+namespace YellowstonePathology.Business.Billing.Model
 {
     public class  ICDCodeList : ObservableCollection<ICDCode>
     {

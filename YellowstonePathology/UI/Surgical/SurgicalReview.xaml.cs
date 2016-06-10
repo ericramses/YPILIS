@@ -143,7 +143,7 @@ namespace YellowstonePathology.UI.Surgical
         private void ButtonAddIcd9Code_Click(object sender, RoutedEventArgs args)
         {
 			YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen = (YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen)((Button)sender).Tag;
-			YellowstonePathology.Business.Billing.ICD9BillingCode icd9BillingCode = this.AccessionOrder.ICD9BillingCodeCollection.GetNextItem(this.PanelSetOrderSurgical.ReportNo,
+			YellowstonePathology.Business.Billing.Model.ICD9BillingCode icd9BillingCode = this.AccessionOrder.ICD9BillingCodeCollection.GetNextItem(this.PanelSetOrderSurgical.ReportNo,
 				this.AccessionOrder.MasterAccessionNo, surgicalSpecimen.SpecimenOrderId, null, null, 1);
 			icd9BillingCode.SurgicalSpecimenId = surgicalSpecimen.SurgicalSpecimenId;
 			this.AccessionOrder.ICD9BillingCodeCollection.Add(icd9BillingCode);			
@@ -152,8 +152,8 @@ namespace YellowstonePathology.UI.Surgical
 
         private void ButtonDeleteIcd9Code_Click(object sender, RoutedEventArgs args)
         {            			
-			string icd9BillingId = ((YellowstonePathology.Business.Billing.ICD9BillingCode)((Button)sender).Tag).Icd9BillingId;
-			YellowstonePathology.Business.Billing.ICD9BillingCode icd9BillingCode = this.AccessionOrder.ICD9BillingCodeCollection.GetCurrent(icd9BillingId);
+			string icd9BillingId = ((YellowstonePathology.Business.Billing.Model.ICD9BillingCode)((Button)sender).Tag).Icd9BillingId;
+			YellowstonePathology.Business.Billing.Model.ICD9BillingCode icd9BillingCode = this.AccessionOrder.ICD9BillingCodeCollection.GetCurrent(icd9BillingId);
 			this.AccessionOrder.ICD9BillingCodeCollection.Remove(icd9BillingCode);
 			this.RefreshBillingSpecimenViewCollection();
 		}

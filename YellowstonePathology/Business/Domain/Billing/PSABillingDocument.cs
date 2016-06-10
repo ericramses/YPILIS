@@ -119,7 +119,7 @@ namespace YellowstonePathology.Business.Domain.Billing
         protected void SetICD10CodeNodes()
         {
             XElement icd10ListElement = new XElement("ICD10Codes");
-            foreach (YellowstonePathology.Business.Billing.ICD9BillingCode icd10BillingCode in this.m_AccessionOrder.ICD9BillingCodeCollection)
+            foreach (YellowstonePathology.Business.Billing.Model.ICD9BillingCode icd10BillingCode in this.m_AccessionOrder.ICD9BillingCodeCollection)
             {
                 XElement icd10Element = new XElement("ICD10Code",
                     new XElement("Code", icd10BillingCode.ICD10Code),

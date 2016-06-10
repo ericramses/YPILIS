@@ -8,7 +8,7 @@ using System.Xml.Serialization;
 using System.Xml.Linq;
 using YellowstonePathology.Business.Persistence;
 
-namespace YellowstonePathology.Business.Billing
+namespace YellowstonePathology.Business.Billing.Model
 {	
 	public class CptBillingCodeItem : INotifyPropertyChanged
 	{
@@ -16,7 +16,7 @@ namespace YellowstonePathology.Business.Billing
 
 		private bool m_BillingIsOpen;
 
-		private YellowstonePathology.Business.Billing.ICD9BillingCodeCollection m_ICD9BillingCodeCollection;
+		private ICD9BillingCodeCollection m_ICD9BillingCodeCollection;
 
 		private string m_CptBillingId;
 		private string m_ReportNo;
@@ -56,10 +56,10 @@ namespace YellowstonePathology.Business.Billing
 
 		public CptBillingCodeItem()
         {
-			this.m_ICD9BillingCodeCollection = new YellowstonePathology.Business.Billing.ICD9BillingCodeCollection();
+			this.m_ICD9BillingCodeCollection = new ICD9BillingCodeCollection();
 		}		
 		
-		public YellowstonePathology.Business.Billing.ICD9BillingCodeCollection ICD9BillingCodeCollection
+		public ICD9BillingCodeCollection ICD9BillingCodeCollection
         {
             get { return this.m_ICD9BillingCodeCollection; }
         }

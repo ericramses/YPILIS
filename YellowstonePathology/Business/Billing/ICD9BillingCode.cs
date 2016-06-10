@@ -7,7 +7,7 @@ using System.Data.SqlClient;
 using System.Xml.Serialization;
 using YellowstonePathology.Business.Persistence;
 
-namespace YellowstonePathology.Business.Billing
+namespace YellowstonePathology.Business.Billing.Model
 {
 	[PersistentClass("tblICD9BillingCode", "YPIDATA")]
 	public class ICD9BillingCode : INotifyPropertyChanged

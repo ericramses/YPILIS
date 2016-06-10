@@ -951,17 +951,17 @@ namespace YellowstonePathology.Business
 			}
 		}
 
-		public static string GetNextCptBillingCodeId(Billing.CptBillingCodeItemCollection cptBillingCodeItemCollection, string masterAccessionNo)
+		public static string GetNextCptBillingCodeId(Billing.Model.CptBillingCodeItemCollection cptBillingCodeItemCollection, string masterAccessionNo)
 		{
 			string result = string.Empty;
 			int largestId = 0;
-			foreach (Billing.CptBillingCodeItem cptBillingCodeItem in cptBillingCodeItemCollection)
+			foreach (Billing.Model.CptBillingCodeItem cptBillingCodeItem in cptBillingCodeItemCollection)
 			{
 				OrderIdParser orderIdParser = new OrderIdParser(cptBillingCodeItem.CptBillingId);
 				int? cptBillingCodeNo = orderIdParser.CptBillingCodeNo;
 				if (cptBillingCodeNo == null)
 				{
-					int currentId = GetIdNumber(cptBillingCodeItem.CptBillingId, Billing.CptBillingCodeItemCollection.PREFIXID);
+					int currentId = GetIdNumber(cptBillingCodeItem.CptBillingId, Billing.Model.CptBillingCodeItemCollection.PREFIXID);
 					if (currentId > largestId) largestId = currentId;
 				}
 				else
@@ -969,7 +969,7 @@ namespace YellowstonePathology.Business
 					if (cptBillingCodeNo.Value > largestId) largestId = cptBillingCodeNo.Value;
 				}
 			}
-			return masterAccessionNo + "." + Billing.CptBillingCodeItemCollection.PREFIXID + (largestId + 1).ToString();
+			return masterAccessionNo + "." + Billing.Model.CptBillingCodeItemCollection.PREFIXID + (largestId + 1).ToString();
 		}
 		#endregion
 
@@ -999,17 +999,17 @@ namespace YellowstonePathology.Business
 			}
 		}
 
-		public static string GetNextICD9BillingCodeId(Billing.ICD9BillingCodeCollection icd9BillingCodeCollection, string masterAccessionNo)
+		public static string GetNextICD9BillingCodeId(Billing.Model.ICD9BillingCodeCollection icd9BillingCodeCollection, string masterAccessionNo)
 		{
 			string result = string.Empty;
 			int largestId = 0;
-			foreach (Billing.ICD9BillingCode icd9BillingCode in icd9BillingCodeCollection)
+			foreach (Billing.Model.ICD9BillingCode icd9BillingCode in icd9BillingCodeCollection)
 			{
 				OrderIdParser orderIdParser = new OrderIdParser(icd9BillingCode.Icd9BillingId);
 				int? icd9BillingCodeNo = orderIdParser.Icd9BillingCodeNo;
 				if (icd9BillingCodeNo == null)
 				{
-                    int currentId = GetIdNumber(icd9BillingCode.Icd9BillingId, Billing.ICD9BillingCodeCollection.PREFIXID);
+                    int currentId = GetIdNumber(icd9BillingCode.Icd9BillingId, Billing.Model.ICD9BillingCodeCollection.PREFIXID);
 					if (currentId > largestId) largestId = currentId;
 				}
 				else
@@ -1017,7 +1017,7 @@ namespace YellowstonePathology.Business
 					if (icd9BillingCodeNo.Value > largestId) largestId = icd9BillingCodeNo.Value;
 				}
 			}
-			return masterAccessionNo + "." + Billing.ICD9BillingCodeCollection.PREFIXID + (largestId + 1).ToString();
+			return masterAccessionNo + "." + Billing.Model.ICD9BillingCodeCollection.PREFIXID + (largestId + 1).ToString();
 		}
 		#endregion
 

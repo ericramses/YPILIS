@@ -945,16 +945,16 @@ namespace YellowstonePathology.UI
 			YellowstonePathology.Business.SpecialStain.StainResultItemCollection sric = new Business.SpecialStain.StainResultItemCollection();
 			Console.WriteLine(sric.GetType().AssemblyQualifiedName);
 
-			YellowstonePathology.Business.Billing.ICD9BillingCode icd = new Business.Billing.ICD9BillingCode();
+			YellowstonePathology.Business.Billing.Model.ICD9BillingCode icd = new Business.Billing.Model.ICD9BillingCode();
 			Console.WriteLine(icd.GetType().AssemblyQualifiedName);
 
-			YellowstonePathology.Business.Billing.ICD9BillingCodeCollection icdc = new Business.Billing.ICD9BillingCodeCollection();
+			YellowstonePathology.Business.Billing.Model.ICD9BillingCodeCollection icdc = new Business.Billing.Model.ICD9BillingCodeCollection();
 			Console.WriteLine(icdc.GetType().AssemblyQualifiedName);
 
-			YellowstonePathology.Business.Billing.CptBillingCodeItem cpt = new Business.Billing.CptBillingCodeItem();
+			YellowstonePathology.Business.Billing.Model.CptBillingCodeItem cpt = new Business.Billing.Model.CptBillingCodeItem();
 			Console.WriteLine(cpt.GetType().AssemblyQualifiedName);
 
-			YellowstonePathology.Business.Billing.CptBillingCodeItemCollection cptc = new Business.Billing.CptBillingCodeItemCollection();
+			YellowstonePathology.Business.Billing.Model.CptBillingCodeItemCollection cptc = new Business.Billing.Model.CptBillingCodeItemCollection();
 			Console.WriteLine(cptc.GetType().AssemblyQualifiedName);
 
             //foreach (YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet in panelSetCollection)

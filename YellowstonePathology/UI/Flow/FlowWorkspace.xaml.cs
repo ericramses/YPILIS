@@ -215,7 +215,7 @@ namespace YellowstonePathology.UI.Flow
         {
             if (this.ListViewICDCodes.SelectedItem != null)
             {
-                YellowstonePathology.Business.Billing.ICDCode item = (YellowstonePathology.Business.Billing.ICDCode)ListViewICDCodes.SelectedItem;                
+                YellowstonePathology.Business.Billing.Model.ICDCode item = (YellowstonePathology.Business.Billing.Model.ICDCode)ListViewICDCodes.SelectedItem;                
                 this.m_FlowUI.AddICD9Code(item.ICD9Code, item.ICD10Code);
             }
         }
@@ -242,7 +242,7 @@ namespace YellowstonePathology.UI.Flow
         {
             if (this.ListViewICD9BillingCodeCollection.SelectedItems.Count != 0)
             {
-                YellowstonePathology.Business.Billing.ICD9BillingCode item = (YellowstonePathology.Business.Billing.ICD9BillingCode)this.ListViewICD9BillingCodeCollection.SelectedItem;
+                YellowstonePathology.Business.Billing.Model.ICD9BillingCode item = (YellowstonePathology.Business.Billing.Model.ICD9BillingCode)this.ListViewICD9BillingCodeCollection.SelectedItem;
                 MessageBoxResult result = MessageBox.Show("Delete ICD9 " + item.ICD9Code, "Delete Marker", MessageBoxButton.OKCancel);
                 if (result == MessageBoxResult.OK)
                 {
@@ -638,7 +638,7 @@ namespace YellowstonePathology.UI.Flow
         {
             if (this.ListViewICD9BillingCodeCollection.SelectedItem != null)
             {
-                YellowstonePathology.Business.Billing.ICD9BillingCode item = (YellowstonePathology.Business.Billing.ICD9BillingCode)this.ListViewICD9BillingCodeCollection.SelectedItem;
+                YellowstonePathology.Business.Billing.Model.ICD9BillingCode item = (YellowstonePathology.Business.Billing.Model.ICD9BillingCode)this.ListViewICD9BillingCodeCollection.SelectedItem;
                 this.m_FlowUI.RemoveICD9Code(item);
             }
         }

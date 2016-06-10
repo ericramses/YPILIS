@@ -20,7 +20,7 @@ namespace YellowstonePathology.UI
 		YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder m_SurgicalTestOrder;
 		YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen m_SurgicalSpecimen;
-		YellowstonePathology.Business.Billing.TypingCptCodeList m_TypingCptCodeList;
+		YellowstonePathology.Business.Billing.Model.TypingCptCodeList m_TypingCptCodeList;
 
 		public CodeSelectionV2(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
 			YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen)
@@ -28,7 +28,7 @@ namespace YellowstonePathology.UI
 			this.m_AccessionOrder = accessionOrder;
             this.m_SurgicalSpecimen = surgicalSpecimen;
 			this.m_SurgicalTestOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetSurgical();
-			this.m_TypingCptCodeList = new YellowstonePathology.Business.Billing.TypingCptCodeList();
+			this.m_TypingCptCodeList = new YellowstonePathology.Business.Billing.Model.TypingCptCodeList();
 
             InitializeComponent();
 
@@ -83,7 +83,7 @@ namespace YellowstonePathology.UI
         {
 			if (this.ListViewCptCodes.SelectedItems.Count > 0)
 			{
-				foreach (YellowstonePathology.Business.Billing.TypingCptCodeListItem cptItem in this.ListViewCptCodes.SelectedItems)
+				foreach (YellowstonePathology.Business.Billing.Model.TypingCptCodeListItem cptItem in this.ListViewCptCodes.SelectedItems)
 				{
 					if (this.CheckBoxAddToAllSpecimen.IsChecked == true)
 					{
@@ -121,7 +121,7 @@ namespace YellowstonePathology.UI
 			}
 		}
 
-		private void AddCode(YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder, YellowstonePathology.Business.Billing.TypingCptCodeListItem cptItem)
+		private void AddCode(YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder, YellowstonePathology.Business.Billing.Model.TypingCptCodeListItem cptItem)
 		{
 			YellowstonePathology.Business.Test.PanelSetOrderCPTCode panelSetOrderCPTCode = this.m_SurgicalTestOrder.PanelSetOrderCPTCodeCollection.GetNextItem(this.m_SurgicalTestOrder.ReportNo);
 			panelSetOrderCPTCode.Quantity = cptItem.Quantity;
@@ -138,7 +138,7 @@ namespace YellowstonePathology.UI
 
 		public void AddICDCode(string icd9Code, string icd10Code, YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen)
 		{
-			YellowstonePathology.Business.Billing.ICD9BillingCode icd9BillingCode = this.m_AccessionOrder.ICD9BillingCodeCollection.GetNextItem(this.m_SurgicalTestOrder.ReportNo,
+			YellowstonePathology.Business.Billing.Model.ICD9BillingCode icd9BillingCode = this.m_AccessionOrder.ICD9BillingCodeCollection.GetNextItem(this.m_SurgicalTestOrder.ReportNo,
 							this.m_AccessionOrder.MasterAccessionNo, surgicalSpecimen.SpecimenOrderId, icd9Code, icd10Code, 1);
 			icd9BillingCode.SurgicalSpecimenId = surgicalSpecimen.SurgicalSpecimenId;
 			this.m_AccessionOrder.ICD9BillingCodeCollection.Add(icd9BillingCode);

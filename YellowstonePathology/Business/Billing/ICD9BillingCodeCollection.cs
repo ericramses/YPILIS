@@ -7,7 +7,7 @@ using System.Data.SqlClient;
 using System.Xml.Serialization;
 using System.Xml.Linq;
 
-namespace YellowstonePathology.Business.Billing
+namespace YellowstonePathology.Business.Billing.Model
 {
 	[XmlType("ICD9BillingCodeCollection")]
     public class ICD9BillingCodeCollection : ObservableCollection<ICD9BillingCode>

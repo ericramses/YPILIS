@@ -25,14 +25,14 @@ namespace YellowstonePathology.Business.Domain.Billing
         private bool m_HasTechnicalComponent;
         private string m_TechnicalComponentFacilityId;        
         
-        private YellowstonePathology.Business.Billing.CptBillingCodeItemCollection m_CptBillingCodeCollection;       
+        private YellowstonePathology.Business.Billing.Model.CptBillingCodeItemCollection m_CptBillingCodeCollection;       
 
         public BillingReport()
         {
-            this.m_CptBillingCodeCollection = new Business.Billing.CptBillingCodeItemCollection();            
+            this.m_CptBillingCodeCollection = new Business.Billing.Model.CptBillingCodeItemCollection();            
         }        
 
-        public YellowstonePathology.Business.Billing.CptBillingCodeItemCollection CptBillingCodeCollection
+        public YellowstonePathology.Business.Billing.Model.CptBillingCodeItemCollection CptBillingCodeCollection
         {
             get { return this.m_CptBillingCodeCollection; }
         }

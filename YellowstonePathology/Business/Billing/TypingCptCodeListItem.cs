@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.Text;
 using System.ComponentModel;
 
-namespace YellowstonePathology.Business.Billing
+namespace YellowstonePathology.Business.Billing.Model
 {
 	public class TypingCptCodeListItem : INotifyPropertyChanged
     {

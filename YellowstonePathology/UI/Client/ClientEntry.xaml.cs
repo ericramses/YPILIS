@@ -22,7 +22,7 @@ namespace YellowstonePathology.UI.Client
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 		private YellowstonePathology.Business.Client.Model.Client m_Client;
-		private YellowstonePathology.Business.Billing.InsuranceTypeCollection m_InsuranceTypeCollection;
+		private YellowstonePathology.Business.Billing.Model.InsuranceTypeCollection m_InsuranceTypeCollection;
 		private List<string> m_FacilityTypes;
 		private YellowstonePathology.Business.ReportDistribution.Model.DistributionTypeList m_DistributionTypeList;
 		private YellowstonePathology.Business.View.ClientPhysicianView m_ClientPhysicianView;
@@ -45,7 +45,7 @@ namespace YellowstonePathology.UI.Client
                 this.m_ClientPhysicianView = new Business.View.ClientPhysicianView();
             }
 
-            this.m_InsuranceTypeCollection = new Business.Billing.InsuranceTypeCollection(true);
+            this.m_InsuranceTypeCollection = new Business.Billing.Model.InsuranceTypeCollection(true);
 
             this.m_FacilityTypes = new List<string>();
             this.m_FacilityTypes.Add("Hospital");
@@ -91,7 +91,7 @@ namespace YellowstonePathology.UI.Client
             get { return this.m_DistributionTypeList; }
 		}
 
-		public YellowstonePathology.Business.Billing.InsuranceTypeCollection InsuranceTypeCollection
+		public YellowstonePathology.Business.Billing.Model.InsuranceTypeCollection InsuranceTypeCollection
 		{
 			get { return this.m_InsuranceTypeCollection; }
 		}

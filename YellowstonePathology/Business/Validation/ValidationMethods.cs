@@ -7,7 +7,7 @@ namespace YellowstonePathology.Business.Validation
 {
     class ValidationMethods
     {
-		public static void AreCodesSet(YellowstonePathology.Business.Billing.CptBillingCodeItemCollection cptBillingCodes, BrokenRuleCollection brokenRules)
+		public static void AreCodesSet(YellowstonePathology.Business.Billing.Model.CptBillingCodeItemCollection cptBillingCodes, BrokenRuleCollection brokenRules)
         {            
             if (cptBillingCodes.Count == 0)
             {
