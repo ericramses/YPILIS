@@ -176,7 +176,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             this.m_PageNavigator.Navigate(this);         
         }
 
-        private void SetPhysicianClient(Business.Client.PhysicianClientDistribution physicianClientDistribution)
+        private void SetPhysicianClient(Business.Client.Model.PhysicianClientDistributionListItem physicianClientDistribution)
         {
             if (physicianClientDistribution != null)
             {
@@ -311,7 +311,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
         private void HyperLinkPhysicianNotFound_Click(object sender, RoutedEventArgs e)
         {
-            Business.Client.PhysicianClientDistribution physicianClientDistribution = new Business.Client.PhysicianClientDistribution();
+            Business.Client.Model.PhysicianClientDistributionListItem physicianClientDistribution = new Business.Client.Model.PhysicianClientDistributionListItem();
             physicianClientDistribution.PhysicianId = 2371;
             physicianClientDistribution.PhysicianName = "*** Physician Not Found *** *** Physician Not Found ***";
             physicianClientDistribution.ClientId = 1007;
@@ -325,7 +325,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
         {
             if (this.m_PanelSetOrder.Distribute == true)
             {
-                YellowstonePathology.Business.Client.PhysicianClientDistributionCollection physicianClientDistributionCollection = YellowstonePathology.Business.Gateway.ReportDistributionGateway.GetPhysicianClientDistributionCollection(this.m_AccessionOrder.PhysicianId, this.m_AccessionOrder.ClientId);
+                YellowstonePathology.Business.Client.Model.PhysicianClientDistributionList physicianClientDistributionCollection = YellowstonePathology.Business.Gateway.ReportDistributionGateway.GetPhysicianClientDistributionCollection(this.m_AccessionOrder.PhysicianId, this.m_AccessionOrder.ClientId);
                 physicianClientDistributionCollection.SetDistribution(this.m_PanelSetOrder, this.m_AccessionOrder);                
                 this.NotifyPropertyChanged("");
             }            

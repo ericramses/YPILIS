@@ -199,9 +199,9 @@ namespace YellowstonePathology.UI.Gross
 
         private void ScanContainerPage_BarcodeWontScan(object sender, EventArgs e)
         {
-            Login.ReceiveSpecimen.BarcodeManualEntryPage containerManualEntryPage = new Login.ReceiveSpecimen.BarcodeManualEntryPage();
-            containerManualEntryPage.Return += new Login.ReceiveSpecimen.BarcodeManualEntryPage.ReturnEventHandler(BarcodeManualEntryPage_Return);
-            containerManualEntryPage.Back += new Login.ReceiveSpecimen.BarcodeManualEntryPage.BackEventHandler(ContainerManualEntryPage_Back);
+            Login.Receiving.BarcodeManualEntryPage containerManualEntryPage = new Login.Receiving.BarcodeManualEntryPage();
+            containerManualEntryPage.Return += new Login.Receiving.BarcodeManualEntryPage.ReturnEventHandler(BarcodeManualEntryPage_Return);
+            containerManualEntryPage.Back += new Login.Receiving.BarcodeManualEntryPage.BackEventHandler(ContainerManualEntryPage_Back);
             this.m_HistologyGrossDialog.PageNavigator.Navigate(containerManualEntryPage);			
 		}
 

@@ -280,7 +280,25 @@
     <Compile Include="Business\BaseData.cs" />
     <Compile Include="Business\BaseItem.cs" />
     <Compile Include="Business\BaseListItem.cs" />
+    <Compile Include="Business\Billing.Model\BillableObject.cs" />
+    <Compile Include="Business\Billing.Model\BillableObjectFactory.cs" />
+    <Compile Include="Business\Billing.Model\BillableObjectInHouseMolecular.cs" />
+    <Compile Include="Business\Billing.Model\BillableObjectKRASWithBRAFReflex.cs" />
+    <Compile Include="Business\Billing.Model\BillableObjectLeukemiaLymphoma.cs" />
+    <Compile Include="Business\Billing.Model\BillableObjectMedicareProstateNeedleBiopsy.cs" />
+    <Compile Include="Business\Billing.Model\BillableObjectMountainViewNeo.cs" />
+    <Compile Include="Business\Billing.Model\BillableObjectStains.cs" />
+    <Compile Include="Business\Billing.Model\BillableObjectSurgicalPathology.cs" />
+    <Compile Include="Business\Billing.Model\BillableObjectTechnicalOnly.cs" />
+    <Compile Include="Business\Billing.Model\BillableObjectTechnicalOnlyAutopsy.cs" />
+    <Compile Include="Business\Billing.Model\BillableObjectThinPrepPap.cs" />
+    <Compile Include="Business\Billing.Model\BillableObjectThinPrepPapMedicare.cs" />
+    <Compile Include="Business\Billing.Model\BillingComponent.cs" />
     <Compile Include="Business\Billing.Model\BillingComponentEnum.cs" />
+    <Compile Include="Business\Billing.Model\BillingComponentGlobal.cs" />
+    <Compile Include="Business\Billing.Model\BillingComponentNoBilling.cs" />
+    <Compile Include="Business\Billing.Model\BillingComponentProfessionalOnly.cs" />
+    <Compile Include="Business\Billing.Model\BillingComponentTechnicalOnly.cs" />
     <Compile Include="Business\Billing.Model\BillingRule.cs" />
     <Compile Include="Business\Billing.Model\BillingRuleCollection.cs" />
     <Compile Include="Business\Billing.Model\BillingRuleMatch.cs" />
@@ -288,8 +306,12 @@
     <Compile Include="Business\Billing.Model\BillingRuleSet.cs" />
     <Compile Include="Business\Billing.Model\BillingRuleSetCollection.cs" />
     <Compile Include="Business\Billing.Model\BillingTypeEnum.cs" />
+    <Compile Include="Business\Billing.Model\BillToEnum.cs" />
+    <Compile Include="Business\Billing.Model\ClientBillingRule.cs" />
     <Compile Include="Business\Billing.Model\ClientBillingRuleSet.cs" />
     <Compile Include="Business\Billing.Model\CodeableType.cs" />
+    <Compile Include="Business\Billing.Model\CptBillingCodeItem.cs" />
+    <Compile Include="Business\Billing.Model\CptBillingCodeItemCollection.cs" />
     <Compile Include="Business\Billing.Model\CptCode.cs" />
     <Compile Include="Business\Billing.Model\CPTCodeBigHornPrice.cs" />
     <Compile Include="Business\Billing.Model\CPTCodeBZPrice.cs" />
@@ -302,6 +324,7 @@
     <Compile Include="Business\Billing.Model\CPTCodeHRPrice.cs" />
     <Compile Include="Business\Billing.Model\CPTCodeLibPrice.cs" />
     <Compile Include="Business\Billing.Model\CPTCodeMMPrice.cs" />
+    <Compile Include="Business\Billing.Model\CptCodeModifier.cs" />
     <Compile Include="Business\Billing.Model\CPTCodeModifierEnum.cs" />
     <Compile Include="Business\Billing.Model\CPTCodeMVPrice.cs" />
     <Compile Include="Business\Billing.Model\CPTCodeNVPrice.cs" />
@@ -316,15 +339,23 @@
     <Compile Include="Business\Billing.Model\CPTCodeWPPrice.cs" />
     <Compile Include="Business\Billing.Model\CPTCodeWYPrice.cs" />
     <Compile Include="Business\Billing.Model\CPTYPPrice.cs" />
+    <Compile Include="Business\Billing.Model\DomainBillingRule.cs" />
     <Compile Include="Business\Billing.Model\FeeSchedule.cs" />
     <Compile Include="Business\Billing.Model\FeeScheduleCollection.cs" />
     <Compile Include="Business\Billing.Model\FeeScheduleCosmetic.cs" />
     <Compile Include="Business\Billing.Model\FeeScheduleEnum.cs" />
     <Compile Include="Business\Billing.Model\GCodeDefinitions.cs" />
+    <Compile Include="Business\Billing.Model\GlobalBillingRule.cs" />
     <Compile Include="Business\Billing.Model\GlobalBillingRuleSet.cs" />
     <Compile Include="Business\Billing.Model\HospitalGlobalBillingRuleSet.cs" />
     <Compile Include="Business\Billing.Model\HospitalSplitAllBillingRuleSet.cs" />
     <Compile Include="Business\Billing.Model\HospitalSplitProfessionalBillingRuleSet.cs" />
+    <Compile Include="Business\Billing.Model\ICD9BillingCode.cs" />
+    <Compile Include="Business\Billing.Model\ICD9BillingCodeCollection.cs" />
+    <Compile Include="Business\Billing.Model\ICDCodeList.cs" />
+    <Compile Include="Business\Billing.Model\InsuranceType.cs" />
+    <Compile Include="Business\Billing.Model\InsuranceTypeCollection.cs" />
+    <Compile Include="Business\Billing.Model\LSEIHCStainSpecimen.cs" />
     <Compile Include="Business\Billing.Model\MedicareCodeCollection.cs" />
     <Compile Include="Business\Billing.Model\NonProviderBasedClinicBillingRuleSet.cs" />
     <Compile Include="Business\Billing.Model\PanelSetCptCode.cs" />
@@ -334,51 +365,24 @@
     <Compile Include="Business\Billing.Model\PQRSCode.cs" />
     <Compile Include="Business\Billing.Model\PQRSCodeCollection.cs" />
     <Compile Include="Business\Billing.Model\PQRSCodeDefinitions.cs" />
+    <Compile Include="Business\Billing.Model\PSABillingDocument.cs" />
     <Compile Include="Business\Billing.Model\RuleValue.cs" />
     <Compile Include="Business\Billing.Model\RuleValueAny.cs" />
     <Compile Include="Business\Billing.Model\RuleValueBoolean.cs" />
     <Compile Include="Business\Billing.Model\RuleValueString.cs" />
+    <Compile Include="Business\Billing.Model\StainSpecimen.cs" />
+    <Compile Include="Business\Billing.Model\StainSpecimenCollection.cs" />
+    <Compile Include="Business\Billing.Model\SurgicalStainSpecimen.cs" />
+    <Compile Include="Business\Billing.Model\TypingCptCodeList.cs" />
+    <Compile Include="Business\Billing.Model\TypingCptCodeListItem.cs" />
     <Compile Include="Business\Billing.Model\YellowstoneParkBillingRuleSet.cs" />
-    <Compile Include="Business\Billing\BillingCodeSummaryList.cs" />
-    <Compile Include="Business\Billing\BillingCodeSummaryListItem.cs" />
-    <Compile Include="Business\Billing\BillingItem.cs" />
-    <Compile Include="Business\Billing\BillingItemList.cs" />
-    <Compile Include="Business\Billing\BillingRuleMatch.cs" />
-    <Compile Include="Business\Billing\BillingRuleMatchList.cs" />
-    <Compile Include="Business\Billing\BillingScanningList.cs" />
-    <Compile Include="Business\Billing\BillingSpecimenList.cs" />
-    <Compile Include="Business\Billing\BillingSpecimenListItem.cs" />
-    <Compile Include="Business\Billing\CptBillingCodeItem.cs" />
-    <Compile Include="Business\Billing\CptBillingCodeItemCollection.cs" />
-    <Compile Include="Business\Billing\CptBillingCodeList.cs" />
-    <Compile Include="Business\Billing\CptBillingCodeListItem.cs" />
-    <Compile Include="Business\Billing\CptCodeGroup.cs" />
-    <Compile Include="Business\Billing\CptCodeGroupCode.cs" />
-    <Compile Include="Business\Billing\CptCodeGroupCodeCollection.cs" />
-    <Compile Include="Business\Billing\CptCodeGroupCollection.cs" />
-    <Compile Include="Business\Billing\CptCodeList.cs" />
-    <Compile Include="Business\Billing\CptCodeListItem.cs" />
-    <Compile Include="Business\Billing\CptCodeModifier.cs" />
-    <Compile Include="Business\Billing\ICD9BillingCode.cs" />
-    <Compile Include="Business\Billing\ICD9BillingCodeCollection.cs" />
-    <Compile Include="Business\Billing\Icd9BillingCodeList.cs" />
-    <Compile Include="Business\Billing\Icd9BillingCodeListItem.cs" />
-    <Compile Include="Business\Billing\ICDCodeList.cs" />
-    <Compile Include="Business\Billing\InsuranceType.cs" />
-    <Compile Include="Business\Billing\InsuranceTypeCollection.cs" />
-    <Compile Include="Business\Billing\PatientFaceSheet.cs" />
-    <Compile Include="Business\Billing\PQRIBarrettsEsophagus.cs" />
-    <Compile Include="Business\Billing\PQRIBreastCancer.cs" />
-    <Compile Include="Business\Billing\PQRIColorectalCancer.cs" />
-    <Compile Include="Business\Billing\PQRIRadicalProstatectomy.cs" />
-    <Compile Include="Business\Billing\TypingCptCodeList.cs" />
-    <Compile Include="Business\Billing\TypingCptCodeListItem.cs" />
     <Compile Include="Business\Builder\PanelSetOrderBuilder.cs" />
     <Compile Include="Business\Builder\PanelSetOrderBuilderEgfr.cs" />
     <Compile Include="Business\Builder\PanelSetOrderBuilderFactory.cs" />
     <Compile Include="Business\Builder\PanelSetOrderBuilderLeukemiaLymphoma.cs" />
     <Compile Include="Business\Builder\PanelSetOrderBuilderSummaryReport.cs" />
     <Compile Include="Business\CaseType.cs" />
+    <Compile Include="Business\Client.Model\AthenaPhysicianClientDistribution.cs" />
     <Compile Include="Business\Client.Model\Client.cs" />
     <Compile Include="Business\Client.Model\ClientCollection.cs" />
     <Compile Include="Business\Client.Model\ClientCommunication.cs" />
@@ -395,10 +399,59 @@
     <Compile Include="Business\Client.Model\ClientSupplyOrderCollection.cs" />
     <Compile Include="Business\Client.Model\ClientSupplyOrderDetail.cs" />
     <Compile Include="Business\Client.Model\ClientSupplyOrderDetailCollection.cs" />
+    <Compile Include="Business\Client.Model\ECWPhysicianClientDistribution.cs" />
+    <Compile Include="Business\Client.Model\EPICAndFaxPhysicianClientDistribution.cs" />
+    <Compile Include="Business\Client.Model\EPICPhysicianClientDistribution.cs" />
+    <Compile Include="Business\Client.Model\FaxPhysicianClientDistribution.cs" />
+    <Compile Include="Business\Client.Model\HPV1618ReflexOrderHPVPositive.cs" />
+    <Compile Include="Business\Client.Model\HPV1618ReflexOrderPAPNormalHPVPositive.cs" />
+    <Compile Include="Business\Client.Model\HPV1618StandingOrderHPVPositive.cs" />
+    <Compile Include="Business\Client.Model\HPV1618StandingOrderPAPNormalHPVPositive.cs" />
+    <Compile Include="Business\Client.Model\HPVCompoundStandingOrderRule1.cs" />
+    <Compile Include="Business\Client.Model\HPVCompoundStandingOrderRule2.cs" />
+    <Compile Include="Business\Client.Model\HPVCompoundStandingOrderRule3.cs" />
+    <Compile Include="Business\Client.Model\HPVCompoundStandingOrderRule4.cs" />
+    <Compile Include="Business\Client.Model\HPVCompoundStandingOrderRule5.cs" />
+    <Compile Include="Business\Client.Model\HPVReflexOrderRule1.cs" />
+    <Compile Include="Business\Client.Model\HPVReflexOrderRule10.cs" />
+    <Compile Include="Business\Client.Model\HPVReflexOrderRule11.cs" />
+    <Compile Include="Business\Client.Model\HPVReflexOrderRule12.cs" />
+    <Compile Include="Business\Client.Model\HPVReflexOrderRule13.cs" />
+    <Compile Include="Business\Client.Model\HPVReflexOrderRule14.cs" />
+    <Compile Include="Business\Client.Model\HPVReflexOrderRule15.cs" />
+    <Compile Include="Business\Client.Model\HPVReflexOrderRule16.cs" />
+    <Compile Include="Business\Client.Model\HPVReflexOrderRule2.cs" />
+    <Compile Include="Business\Client.Model\HPVReflexOrderRule3.cs" />
+    <Compile Include="Business\Client.Model\HPVReflexOrderRule4.cs" />
+    <Compile Include="Business\Client.Model\HPVReflexOrderRule5.cs" />
+    <Compile Include="Business\Client.Model\HPVReflexOrderRule6.cs" />
+    <Compile Include="Business\Client.Model\HPVReflexOrderRule7.cs" />
+    <Compile Include="Business\Client.Model\HPVReflexOrderRule8.cs" />
+    <Compile Include="Business\Client.Model\HPVReflexOrderRule9.cs" />
+    <Compile Include="Business\Client.Model\HPVStandingOrderRule1.cs" />
+    <Compile Include="Business\Client.Model\HPVStandingOrderRule10.cs" />
+    <Compile Include="Business\Client.Model\HPVStandingOrderRule11.cs" />
+    <Compile Include="Business\Client.Model\HPVStandingOrderRule12.cs" />
+    <Compile Include="Business\Client.Model\HPVStandingOrderRule13.cs" />
+    <Compile Include="Business\Client.Model\HPVStandingOrderRule2.cs" />
+    <Compile Include="Business\Client.Model\HPVStandingOrderRule3.cs" />
+    <Compile Include="Business\Client.Model\HPVStandingOrderRule4.cs" />
+    <Compile Include="Business\Client.Model\HPVStandingOrderRule5.cs" />
+    <Compile Include="Business\Client.Model\HPVStandingOrderRule6.cs" />
+    <Compile Include="Business\Client.Model\HPVStandingOrderRule7.cs" />
+    <Compile Include="Business\Client.Model\HPVStandingOrderRule8.cs" />
+    <Compile Include="Business\Client.Model\HPVStandingOrderRule9.cs" />
     <Compile Include="Business\Client.Model\LocalPhonePrefix.cs" />
+    <Compile Include="Business\Client.Model\MediTechPhysicianClientDistribution.cs" />
+    <Compile Include="Business\Client.Model\NoHPVStandingOrder.cs" />
     <Compile Include="Business\Client.Model\Physician.cs" />
+    <Compile Include="Business\Client.Model\PhysicianClient.cs" />
+    <Compile Include="Business\Client.Model\PhysicianClientCollection.cs" />
     <Compile Include="Business\Client.Model\PhysicianClientDistribution.cs" />
     <Compile Include="Business\Client.Model\PhysicianClientDistributionCollection.cs" />
+    <Compile Include="Business\Client.Model\PhysicianClientDistributionFactory.cs" />
+    <Compile Include="Business\Client.Model\PhysicianClientDistributionList.cs" />
+    <Compile Include="Business\Client.Model\PhysicianClientDistributionListItem.cs" />
     <Compile Include="Business\Client.Model\PhysicianClientDistributionView.cs" />
     <Compile Include="Business\Client.Model\PhysicianClientName.cs" />
     <Compile Include="Business\Client.Model\PhysicianClientNameCollection.cs" />
@@ -409,6 +462,14 @@
     <Compile Include="Business\Client.Model\PhysicianNameViewCollection.cs" />
     <Compile Include="Business\Client.Model\ProviderClient.cs" />
     <Compile Include="Business\Client.Model\ProviderClientCollection.cs" />
+    <Compile Include="Business\Client.Model\ReflexOrder.cs" />
+    <Compile Include="Business\Client.Model\ReflexOrderCollection.cs" />
+    <Compile Include="Business\Client.Model\ReflexOrderNone.cs" />
+    <Compile Include="Business\Client.Model\ReflexOrderStatus.cs" />
+    <Compile Include="Business\Client.Model\StandingOrder.cs" />
+    <Compile Include="Business\Client.Model\StandingOrderCollection.cs" />
+    <Compile Include="Business\Client.Model\StandingOrderNone.cs" />
+    <Compile Include="Business\Client.Model\StandingOrderNotSet.cs" />
     <Compile Include="Business\ClientOrder.Model\ClientOrder.cs" />
     <Compile Include="Business\ClientOrder.Model\ClientOrder.Validation.cs" />
     <Compile Include="Business\ClientOrder.Model\ClientOrderCollection.cs" />
@@ -455,69 +516,6 @@
     <Compile Include="Business\ClientOrder.Model\UniversalServiceCollection.cs" />
     <Compile Include="Business\ClientOrder.Model\UniversalServiceDefinitions.cs" />
     <Compile Include="Business\ClientOrder.Model\WestGrandFamilyOrderTest.cs" />
-    <Compile Include="Business\Client\AllClientGroup.cs" />
-    <Compile Include="Business\Client\AthenaPhysicianClientDistribution.cs" />
-    <Compile Include="Business\Client\ClientGroup.cs" />
-    <Compile Include="Business\Client\ClientGroupCollection.cs" />
-    <Compile Include="Business\Client\ClientList.cs" />
-    <Compile Include="Business\Client\ClientListItem.cs" />
-    <Compile Include="Business\Client\ECWPhysicianClientDistribution.cs" />
-    <Compile Include="Business\Client\EPICAndFaxPhysicianClientDistribution.cs" />
-    <Compile Include="Business\Client\EPICPhysicianClientDistribution.cs" />
-    <Compile Include="Business\Client\FaxPhysicianClientDistribution.cs" />
-    <Compile Include="Business\Client\HPV1618ReflexOrderHPVPositive.cs" />
-    <Compile Include="Business\Client\HPV1618ReflexOrderPAPNormalHPVPositive.cs" />
-    <Compile Include="Business\Client\HPV1618StandingOrderHPVPositive.cs" />
-    <Compile Include="Business\Client\HPV1618StandingOrderPAPNormalHPVPositive.cs" />
-    <Compile Include="Business\Client\HPVCompoundStandingOrderRule1.cs" />
-    <Compile Include="Business\Client\HPVCompoundStandingOrderRule2.cs" />
-    <Compile Include="Business\Client\HPVCompoundStandingOrderRule3.cs" />
-    <Compile Include="Business\Client\HPVCompoundStandingOrderRule5.cs" />
-    <Compile Include="Business\Client\HPVCompoundStandingOrderRule4.cs" />
-    <Compile Include="Business\Client\HPVReflexOrderRule1.cs" />
-    <Compile Include="Business\Client\HPVReflexOrderRule16.cs" />
-    <Compile Include="Business\Client\HPVReflexOrderRule10.cs" />
-    <Compile Include="Business\Client\HPVReflexOrderRule11.cs" />
-    <Compile Include="Business\Client\HPVReflexOrderRule12.cs" />
-    <Compile Include="Business\Client\HPVReflexOrderRule13.cs" />
-    <Compile Include="Business\Client\HPVReflexOrderRule14.cs" />
-    <Compile Include="Business\Client\HPVReflexOrderRule2.cs" />
-    <Compile Include="Business\Client\HPVReflexOrderRule15.cs" />
-    <Compile Include="Business\Client\HPVReflexOrderRule3.cs" />
-    <Compile Include="Business\Client\HPVReflexOrderRule4.cs" />
-    <Compile Include="Business\Client\HPVReflexOrderRule5.cs" />
-    <Compile Include="Business\Client\HPVReflexOrderRule6.cs" />
-    <Compile Include="Business\Client\HPVReflexOrderRule7.cs" />
-    <Compile Include="Business\Client\HPVReflexOrderRule8.cs" />
-    <Compile Include="Business\Client\HPVReflexOrderRule9.cs" />
-    <Compile Include="Business\Client\HPVStandingOrderRule1.cs" />
-    <Compile Include="Business\Client\HPVStandingOrderRule10.cs" />
-    <Compile Include="Business\Client\HPVStandingOrderRule11.cs" />
-    <Compile Include="Business\Client\HPVStandingOrderRule12.cs" />
-    <Compile Include="Business\Client\HPVStandingOrderRule13.cs" />
-    <Compile Include="Business\Client\HPVStandingOrderRule2.cs" />
-    <Compile Include="Business\Client\HPVStandingOrderRule3.cs" />
-    <Compile Include="Business\Client\HPVStandingOrderRule4.cs" />
-    <Compile Include="Business\Client\HPVStandingOrderRule5.cs" />
-    <Compile Include="Business\Client\HPVStandingOrderRule6.cs" />
-    <Compile Include="Business\Client\HPVStandingOrderRule7.cs" />
-    <Compile Include="Business\Client\HPVStandingOrderRule8.cs" />
-    <Compile Include="Business\Client\HPVStandingOrderRule9.cs" />
-    <Compile Include="Business\Client\MediTechPhysicianClientDistribution.cs" />
-    <Compile Include="Business\Client\NoHPVStandingOrder.cs" />
-    <Compile Include="Business\Client\PhysicianClient.cs" />
-    <Compile Include="Business\Client\PhysicianClientCollection.cs" />
-    <Compile Include="Business\Client\PhysicianClientDistribution.cs" />
-    <Compile Include="Business\Client\PhysicianClientDistributionCollection.cs" />
-    <Compile Include="Business\Client\PhysicianClientDistributionFactory.cs" />
-    <Compile Include="Business\Client\ReflexOrder.cs" />
-    <Compile Include="Business\Client\ReflexOrderCollection.cs" />
-    <Compile Include="Business\Client\ReflexOrderNone.cs" />
-    <Compile Include="Business\Client\ReflexOrderStatus.cs" />
-    <Compile Include="Business\Client\StandingOrder.cs" />
-    <Compile Include="Business\Client\StandingOrderCollection.cs" />
-    <Compile Include="Business\Client\StandingOrderNone.cs" />
-    <Compile Include="Business\Client\StandingOrderNotSet.cs" />
     <Compile Include="Business\Common\AmendmentSpellCheckList.cs" />
     <Compile Include="Business\Common\Block.cs" />
     <Compile Include="Business\Common\BlockCollection.cs" />
@@ -635,43 +633,6 @@
     <Compile Include="Business\Document\WordDocDocument.cs" />
     <Compile Include="Business\Document\XpsCaseDocument.cs" />
     <Compile Include="Business\Domain\AccessionDate.cs" />
-    <Compile Include="Business\Domain\Billing\BillableObject.cs" />
-    <Compile Include="Business\Domain\Billing\BillableObjectFactory.cs" />
-    <Compile Include="Business\Domain\Billing\BillableObjectInHouseMolecular.cs" />
-    <Compile Include="Business\Domain\Billing\BillableObjectKRASWithBRAFReflex.cs" />
-    <Compile Include="Business\Domain\Billing\BillableObjectLeukemiaLymphoma.cs" />
-    <Compile Include="Business\Domain\Billing\BillableObjectMedicareProstateNeedleBiopsy.cs" />
-    <Compile Include="Business\Domain\Billing\BillableObjectMountainViewNeo.cs" />
-    <Compile Include="Business\Domain\Billing\BillableObjectStains.cs" />
-    <Compile Include="Business\Domain\Billing\BillableObjectSurgicalPathology.cs" />
-    <Compile Include="Business\Domain\Billing\BillableObjectTechnicalOnly.cs" />
-    <Compile Include="Business\Domain\Billing\BillableObjectTechnicalOnlyAutopsy.cs" />
-    <Compile Include="Business\Domain\Billing\BillableObjectThinPrepPap.cs" />
-    <Compile Include="Business\Domain\Billing\BillableObjectThinPrepPapMedicare.cs" />
-    <Compile Include="Business\Domain\Billing\BillingChangeResult.cs" />
-    <Compile Include="Business\Domain\Billing\BillingComponent.cs" />
-    <Compile Include="Business\Domain\Billing\BillingComponentGlobal.cs" />
-    <Compile Include="Business\Domain\Billing\BillingComponentNoBilling.cs" />
-    <Compile Include="Business\Domain\Billing\BillingComponentProfessionalOnly.cs" />
-    <Compile Include="Business\Domain\Billing\BillingComponentTechnicalOnly.cs" />
-    <Compile Include="Business\Domain\Billing\BillingReport.cs" />
-    <Compile Include="Business\Domain\Billing\BillingReportCollection.cs" />
-    <Compile Include="Business\Domain\Billing\BillingRule.cs" />
-    <Compile Include="Business\Domain\Billing\BillingSpecimen.cs" />
-    <Compile Include="Business\Domain\Billing\BillingSpecimenCollection.cs" />
-    <Compile Include="Business\Domain\Billing\BillToEnum.cs" />
-    <Compile Include="Business\Domain\Billing\ClientBillingRule.cs" />
-    <Compile Include="Business\Domain\Billing\FeeTypeLinq.cs" />
-    <Compile Include="Business\Domain\Billing\GlobalBillingRule.cs" />
-    <Compile Include="Business\Domain\Billing\InsuranceTypeLinq.cs" />
-    <Compile Include="Business\Domain\Billing\LSEIHCStainSpecimen.cs" />
-    <Compile Include="Business\Domain\Billing\PatientType.cs" />
-    <Compile Include="Business\Domain\Billing\ProfessionalCharge.cs" />
-    <Compile Include="Business\Domain\Billing\PSABillingDocument.cs" />
-    <Compile Include="Business\Domain\Billing\StainSpecimen.cs" />
-    <Compile Include="Business\Domain\Billing\StainSpecimenCollection.cs" />
-    <Compile Include="Business\Domain\Billing\SurgicalStainSpecimen.cs" />
-    <Compile Include="Business\Domain\Billing\TypingCptCode.cs" />
     <Compile Include="Business\Domain\CaseNotesKey.cs" />
     <Compile Include="Business\Domain\CaseNotesKeyCollection.cs" />
     <Compile Include="Business\Domain\CaseNotesKeyNameEnum.cs" />
@@ -882,6 +843,7 @@
     <Compile Include="Business\HL7View\CMMC\CMMCOrcView.cs" />
     <Compile Include="Business\HL7View\CMMC\CMMCPidView.cs" />
     <Compile Include="Business\HL7View\CMMC\CMMCResultView.cs" />
+    <Compile Include="Business\HL7View\DFTP03.cs" />
     <Compile Include="Business\HL7View\ECW\ECWHl7Client.cs" />
     <Compile Include="Business\HL7View\ECW\ECWMSHView.cs" />
     <Compile Include="Business\HL7View\ECW\ECWOBRView.cs" />
@@ -891,6 +853,7 @@
     <Compile Include="Business\HL7View\ECW\ECWPIDView.cs" />
     <Compile Include="Business\HL7View\ECW\ECWResultView.cs" />
     <Compile Include="Business\HL7View\EPIC\AllResultTypeTest.cs" />
+    <Compile Include="Business\HL7View\EPIC\EPICFT1ResultView.cs" />
     <Compile Include="Business\HL7View\EPIC\EPICFT1View.cs" />
     <Compile Include="Business\HL7View\EPIC\EpicHl7Client.cs" />
     <Compile Include="Business\HL7View\EPIC\EpicMshView.cs" />
@@ -1353,7 +1316,6 @@
     <Compile Include="Business\ReportNoCollection.cs" />
     <Compile Include="Business\ReportNoLetter.cs" />
     <Compile Include="Business\ReportNoLetterDefinitions.cs" />
-    <Compile Include="Business\Reports\CptBillingCodesByClientSql.cs" />
     <Compile Include="Business\Reports\CreateExcelSpreadSheet.cs" />
     <Compile Include="Business\Reports\CytologySlideDisposalReport.xaml.cs">
       <DependentUpon>CytologySlideDisposalReport.xaml</DependentUpon>
@@ -2565,12 +2527,12 @@
     <Compile Include="Business\Test\Surgical\SurgicalTest.cs" />
     <Compile Include="Business\Test\Surgical\SurgicalTestOrder.cs" />
     <Compile Include="Business\Test\Surgical\SurgicalWordDocument.cs" />
-    <Compile Include="Business\Test\TCellClonalityByPCR\PanelSetOrderTCellClonalityByPCR.cs" />
-    <Compile Include="Business\Test\TCellClonalityByPCR\TCellClonalityByPCREpicObxView.cs" />
-    <Compile Include="Business\Test\TCellClonalityByPCR\TCellClonalityByPCRNegativeResult.cs" />
-    <Compile Include="Business\Test\TCellClonalityByPCR\TCellClonalityByPCRResult.cs" />
-    <Compile Include="Business\Test\TCellClonalityByPCR\TCellClonalityByPCRTest.cs" />
-    <Compile Include="Business\Test\TCellClonalityByPCR\TCellClonalityByPCRWordDocument.cs" />
+    <Compile Include="Business\Test\TCellRecepterGammaGeneRearrangement\TCellRecepterGammaGeneRearrangementTestOrder.cs" />
+    <Compile Include="Business\Test\TCellRecepterGammaGeneRearrangement\TCellRecepterGammaGeneRearrangementEPICOBXView.cs" />
+    <Compile Include="Business\Test\TCellRecepterGammaGeneRearrangement\TCellRecepterGammaGeneRearrangementNegativeResult.cs" />
+    <Compile Include="Business\Test\TCellRecepterGammaGeneRearrangement\TCellRecepterGammaGeneRearrangementResult.cs" />
+    <Compile Include="Business\Test\TCellRecepterGammaGeneRearrangement\TCellRecepterGammaGeneRearrangementTest.cs" />
+    <Compile Include="Business\Test\TCellRecepterGammaGeneRearrangement\TCellRecepterGammaGeneRearrangementWordDocument.cs" />
     <Compile Include="Business\Test\TCellSubsetAnalysis\TCellSubsetAnalysisEpicObxView.cs" />
     <Compile Include="Business\Test\TCellSubsetAnalysis\TCellSubsetAnalysisTest.cs" />
     <Compile Include="Business\Test\TCellSubsetAnalysis\TCellSubsetAnalysisTestOrder.cs" />
@@ -3140,6 +3102,28 @@
       <DependentUpon>AdditionalTestingEMailPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Login\Receiving\AdditionalTestingEmailPathWithSecurity.cs" />
+    <Compile Include="UI\Login\Receiving\BarcodeManualEntryPage.xaml.cs">
+      <DependentUpon>BarcodeManualEntryPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Login\Receiving\BarcodeReassignmentPath.cs" />
+    <Compile Include="UI\Login\Receiving\ClientOrderLookupPathCommandTypeEnum.cs" />
+    <Compile Include="UI\Login\Receiving\ClientOrderShortDetailsPage.xaml.cs">
+      <DependentUpon>ClientOrderShortDetailsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Login\Receiving\FlowCytometryOrderFinishPage.xaml.cs">
+      <DependentUpon>FlowCytometryOrderFinishPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Login\Receiving\FlowSpecimenSelectionPage.xaml.cs">
+      <DependentUpon>FlowSpecimenSelectionPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Login\Receiving\IFoundAContainerResult.cs" />
+    <Compile Include="UI\Login\Receiving\ReceiveSpecimenCommandTypeEnum.cs" />
+    <Compile Include="UI\Login\Receiving\ReportOrderInfoPage.xaml.cs">
+      <DependentUpon>ReportOrderInfoPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Login\Receiving\SurgicalDiagnosisPage.xaml.cs">
+      <DependentUpon>SurgicalDiagnosisPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Login\Receiving\TumorNucleiPercentageEntryPage.xaml.cs">
       <DependentUpon>TumorNucleiPercentageEntryPage.xaml</DependentUpon>
     </Compile>
@@ -3691,10 +3675,10 @@
     <Compile Include="UI\Test\TecanImportExportPage.xaml.cs">
       <DependentUpon>TecanImportExportPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Test\TCellClonalityByPCRResultPage.xaml.cs">
-      <DependentUpon>TCellClonalityByPCRResultPage.xaml</DependentUpon>
+    <Compile Include="UI\Test\TCellRecepterGammaGeneRearrangementResultPage.xaml.cs">
+      <DependentUpon>TCellRecepterGammaGeneRearrangementResultPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Test\TCellClonalityByPCRResultPath.cs" />
+    <Compile Include="UI\Test\TCellRecepterGammaGeneRearrangementResultPath.cs" />
     <Compile Include="UI\Test\TecanSamplePlacementQueue.cs" />
     <Compile Include="UI\Test\TecanSample.cs" />
     <Compile Include="UI\Test\TechInitiatedPeripheralSmearResultPage.xaml.cs">
@@ -3907,35 +3891,11 @@
     </Compile>
     <Compile Include="UI\Login\FinalizeAccession\SpecimenAdequacyTypes.cs" />
     <Compile Include="UI\Login\FlowCytometryOrderPath.cs" />
-    <Compile Include="UI\Login\ReceiveSpecimen\ARUPOrderPage.xaml.cs">
-      <DependentUpon>ARUPOrderPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UI\Login\Receiving\SpecimenSelectionPage.xaml.cs">
       <DependentUpon>SpecimenSelectionPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Login\Receiving\ViewAccessionOrderPage.xaml.cs">
       <DependentUpon>ViewAccessionOrderPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Login\ReceiveSpecimen\SurgicalDiagnosisPage.xaml.cs">
-      <DependentUpon>SurgicalDiagnosisPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Login\ReceiveSpecimen\TherapthOrderPage.xaml.cs">
-      <DependentUpon>TherapthOrderPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Login\ReceiveSpecimen\UWOrderPage.xaml.cs">
-      <DependentUpon>UWOrderPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Login\ReceiveSpecimen\ReportOrderInfoPage.xaml.cs">
-      <DependentUpon>ReportOrderInfoPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Login\ReceiveSpecimen\FlowCytometryOrderFinishPage.xaml.cs">
-      <DependentUpon>FlowCytometryOrderFinishPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Login\ReceiveSpecimen\SpecimenSelectionPage.xaml.cs">
-      <DependentUpon>SpecimenSelectionPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Login\ReceiveSpecimen\FlowCytometryOrderPage.xaml.cs">
-      <DependentUpon>FlowCytometryOrderPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Login\Receiving\ClientOrderLookupPage.xaml.cs">
       <DependentUpon>ClientOrderLookupPage.xaml</DependentUpon>
@@ -4041,17 +4001,6 @@
     <Compile Include="UI\Login\FinalizeAccession\AliquotAndStainOrderPath.cs" />
     <Compile Include="UI\Login\FinalizeAccession\PatientDemographicsPath.cs" />
     <Compile Include="UI\Login\FinalizeAccession\PatientLinkingPath.cs" />
-    <Compile Include="UI\Login\ReceiveSpecimen\BarcodeReassignmentPath.cs" />
-    <Compile Include="UI\Login\ReceiveSpecimen\BillingsClinicOrderPage.xaml.cs">
-      <DependentUpon>BillingsClinicOrderPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Login\ReceiveSpecimen\OrderSelectionPage.xaml.cs">
-      <DependentUpon>OrderSelectionPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Login\ReceiveSpecimen\IFoundAContainerResult.cs" />
-    <Compile Include="UI\Login\ReceiveSpecimen\YpiMolecularOrderPage.xaml.cs">
-      <DependentUpon>YpiMolecularOrderPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UI\Login\CytologyDummySlideLabel.xaml.cs">
       <DependentUpon>CytologyDummySlideLabel.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -4120,27 +4069,9 @@
     <Compile Include="UI\Login\PatientNameLookupPage.xaml.cs">
       <DependentUpon>PatientNameLookupPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Login\ReceiveSpecimen\BarcodeManualEntryPage.xaml.cs">
-      <DependentUpon>BarcodeManualEntryPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UI\Login\Receiving\ClientOrderDetailsPage.xaml.cs">
       <DependentUpon>ClientOrderDetailsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Login\ReceiveSpecimen\ClientOrderLookupPathCommandTypeEnum.cs" />
-    <Compile Include="UI\Login\ReceiveSpecimen\ClientOrderShortDetailsPage.xaml.cs">
-      <DependentUpon>ClientOrderShortDetailsPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Login\ReceiveSpecimen\ContainerMatchingPage.xaml.cs">
-      <DependentUpon>ContainerMatchingPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Login\ReceiveSpecimen\ContainerMatchingStatusEnum.cs" />
-    <Compile Include="UI\Login\ReceiveSpecimen\DocumentMatchingWizardPage.xaml.cs">
-      <DependentUpon>DocumentMatchingWizardPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Login\ReceiveSpecimen\PlacentaPathologyPage.xaml.cs">
-      <DependentUpon>PlacentaPathologyPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Login\ReceiveSpecimen\ReceiveSpecimenCommandTypeEnum.cs" />
     <Compile Include="UI\Client\StandardRequisition.cs" />
     <Compile Include="UI\Login\ScanPage.xaml.cs">
       <DependentUpon>ScanPage.xaml</DependentUpon>
@@ -4801,10 +4732,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Business\Document\SVHBillingDocument.xaml">
+    <EmbeddedResource Include="Business\Document\SVHBillingDocument.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
+    </EmbeddedResource>
     <Page Include="Business\Reports\CytologySlideDisposalReport.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -5016,6 +4947,30 @@
     <Page Include="UI\Login\Receiving\AdditionalTestingEMailPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Login\Receiving\BarcodeManualEntryPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Login\Receiving\ClientOrderShortDetailsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Login\Receiving\FlowCytometryOrderFinishPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Login\Receiving\FlowSpecimenSelectionPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Login\Receiving\ReportOrderInfoPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Login\Receiving\SurgicalDiagnosisPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\Login\Receiving\TumorNucleiPercentageEntryPage.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -5548,7 +5503,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\Test\TCellClonalityByPCRResultPage.xaml">
+    <Page Include="UI\Test\TCellRecepterGammaGeneRearrangementResultPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -5764,39 +5719,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\Login\ReceiveSpecimen\ARUPOrderPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="UI\Login\Receiving\SpecimenSelectionPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\Login\ReceiveSpecimen\SurgicalDiagnosisPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\Login\ReceiveSpecimen\TherapthOrderPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\Login\ReceiveSpecimen\UWOrderPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\Login\ReceiveSpecimen\ReportOrderInfoPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\Login\ReceiveSpecimen\FlowCytometryOrderFinishPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\Login\ReceiveSpecimen\SpecimenSelectionPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\Login\ReceiveSpecimen\FlowCytometryOrderPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -5964,18 +5887,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Login\ReceiveSpecimen\BillingsClinicOrderPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\Login\ReceiveSpecimen\OrderSelectionPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\Login\ReceiveSpecimen\YpiMolecularOrderPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="UI\Login\CytologyDummySlideLabel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -6054,27 +5965,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Login\ReceiveSpecimen\BarcodeManualEntryPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="UI\Login\Receiving\ClientOrderDetailsPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\Login\ReceiveSpecimen\ClientOrderShortDetailsPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\Login\ReceiveSpecimen\ContainerMatchingPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\Login\ReceiveSpecimen\DocumentMatchingWizardPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\Login\ReceiveSpecimen\PlacentaPathologyPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

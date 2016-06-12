@@ -47,7 +47,7 @@ namespace YellowstonePathology.UI
         private void BuildClientOrderDetail()
         {
             YellowstonePathology.Business.BarcodeScanning.ContainerBarcode containerBarcode = YellowstonePathology.Business.BarcodeScanning.ContainerBarcode.Parse();
-            YellowstonePathology.UI.Login.ReceiveSpecimen.IFoundAContainerResult result = this.m_ClientOrderReceivingHandler.IFoundAContainer(containerBarcode.ToString());
+            YellowstonePathology.UI.Login.Receiving.IFoundAContainerResult result = this.m_ClientOrderReceivingHandler.IFoundAContainer(containerBarcode.ToString());
 
             result.ClientOrderDetail.DescriptionToAccessionBinding = "Speciment 1";
             result.ClientOrderDetail.FixationStartTimeBinding = DateTime.Now.AddHours(-3).ToString("dd/MM/yyyy HH:mm");
@@ -69,7 +69,7 @@ namespace YellowstonePathology.UI
 
         private void SetProvider()
         {
-            YellowstonePathology.Business.Client.PhysicianClientDistributionCollection physicianClientDistributionCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClientDistributionByClientPhysicianLastNameV2("Yellowstone Pathologists, P.C.", "Schultz");
+            YellowstonePathology.Business.Client.Model.PhysicianClientDistributionList physicianClientDistributionCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClientDistributionByClientPhysicianLastNameV2("Yellowstone Pathologists, P.C.", "Schultz");
             this.m_ClientOrderReceivingHandler.AccessionOrder.SetPhysicianClient(physicianClientDistributionCollection[0]);
         }
 

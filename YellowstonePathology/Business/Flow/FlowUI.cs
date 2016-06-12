@@ -25,7 +25,7 @@ namespace YellowstonePathology.Business.Flow
         private Flow.Marker m_Marker;
         
         private Flow.FlowCaseValidation m_FlowCaseValidation;
-        private Billing.ICDCodeList m_ICDCodeList;
+        private Billing.Model.ICDCodeList m_ICDCodeList;
         private Flow.FlowPanelList m_FlowPanelList;
 		private bool m_IsEnabled = true;
 		private string m_ReportNo;
@@ -36,7 +36,7 @@ namespace YellowstonePathology.Business.Flow
 		private YellowstonePathology.Business.Document.CaseDocumentCollection m_CaseDocumentCollection;
 		private YellowstonePathology.Business.Patient.Model.PatientHistoryList m_PatientHistoryList;
 		private YellowstonePathology.Business.PanelSet.Model.PanelSetCollection m_PanelSets;
-        private YellowstonePathology.Business.Billing.ICD9BillingCodeCollection m_ICD9BillingCodeCollection;
+        private YellowstonePathology.Business.Billing.Model.ICD9BillingCodeCollection m_ICD9BillingCodeCollection;
         private object m_Writer;
 
         public FlowUI(object writer)
@@ -69,7 +69,7 @@ namespace YellowstonePathology.Business.Flow
 
             this.m_FlowCaseValidation = new FlowCaseValidation();
 
-            this.m_ICDCodeList = new YellowstonePathology.Business.Billing.ICDCodeList();
+            this.m_ICDCodeList = new YellowstonePathology.Business.Billing.Model.ICDCodeList();
             this.m_ICDCodeList.SetFillCommandByFlowCodes();
             this.m_ICDCodeList.Fill();           
 
@@ -91,7 +91,7 @@ namespace YellowstonePathology.Business.Flow
 			this.m_FlowLogSearch.Search();
         }		
 
-        public YellowstonePathology.Business.Billing.ICDCodeList ICDCodeList
+        public YellowstonePathology.Business.Billing.Model.ICDCodeList ICDCodeList
         {
             get { return this.m_ICDCodeList; }
         }
@@ -146,7 +146,7 @@ namespace YellowstonePathology.Business.Flow
 			get { return this.m_PatientHistoryList; }
 		}
 
-		public YellowstonePathology.Business.Billing.ICD9BillingCodeCollection ICD9BillingCodeCollection
+		public YellowstonePathology.Business.Billing.Model.ICD9BillingCodeCollection ICD9BillingCodeCollection
 		{
 			get	{ return this.m_ICD9BillingCodeCollection; }
             set 
@@ -410,14 +410,14 @@ namespace YellowstonePathology.Business.Flow
             int quantity = 1;
             string specimenOrderId = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.PanelSetOrderLeukemiaLymphoma.OrderedOn, this.PanelSetOrderLeukemiaLymphoma.OrderedOnId).SpecimenOrderId;
 
-			YellowstonePathology.Business.Billing.ICD9BillingCode icd9BillingCode = this.m_AccessionOrder.ICD9BillingCodeCollection.GetNextItem(this.PanelSetOrderLeukemiaLymphoma.ReportNo,
+			YellowstonePathology.Business.Billing.Model.ICD9BillingCode icd9BillingCode = this.m_AccessionOrder.ICD9BillingCodeCollection.GetNextItem(this.PanelSetOrderLeukemiaLymphoma.ReportNo,
                 this.m_AccessionOrder.MasterAccessionNo, specimenOrderId, icd9Code, icd10Code, quantity);
 			this.m_AccessionOrder.ICD9BillingCodeCollection.Add(icd9BillingCode);
             this.m_ICD9BillingCodeCollection = this.m_AccessionOrder.ICD9BillingCodeCollection.GetReportCollection(this.PanelSetOrderLeukemiaLymphoma.ReportNo);
 			this.NotifyPropertyChanged("ICD9BillingCodeCollection");
 		}
 
-		public void RemoveICD9Code(YellowstonePathology.Business.Billing.ICD9BillingCode item)
+		public void RemoveICD9Code(YellowstonePathology.Business.Billing.Model.ICD9BillingCode item)
 		{
 			this.m_AccessionOrder.ICD9BillingCodeCollection.Remove(item);
             this.m_ICD9BillingCodeCollection = this.m_AccessionOrder.ICD9BillingCodeCollection.GetReportCollection(this.PanelSetOrderLeukemiaLymphoma.ReportNo);

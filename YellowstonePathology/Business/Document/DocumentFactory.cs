@@ -182,7 +182,7 @@ namespace YellowstonePathology.Business.Document
 						document = new YellowstonePathology.Business.Test.CLLByFish.CLLByFishWordDocument(accessionOrder, panelSetOrder, reportSaveMode);
 						break;
 					case 152: // T Cell Clonality By PCR
-						document = new YellowstonePathology.Business.Test.TCellClonalityByPCR.TCellClonalityByPCRWordDocument(accessionOrder, panelSetOrder, reportSaveMode);
+						document = new YellowstonePathology.Business.Test.TCellRecepterGammaGeneRearrangement.TCellRecepterGammaGeneRearrangementWordDocument(accessionOrder, panelSetOrder, reportSaveMode);
 						break;
 					case 153: // FLT3
 						document = new YellowstonePathology.Business.Test.FLT3.FLT3WordDocument(accessionOrder, panelSetOrder, reportSaveMode);

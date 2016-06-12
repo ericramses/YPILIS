@@ -239,7 +239,7 @@ namespace YellowstonePathology.UI.AppMessaging
 
         private void LockRequestResponseReceivedPage_HoldYourHorses(object sender, EventArgs e)
         {
-            this.HoldYourHorses(this, new EventArgs());
+            if(this.HoldYourHorses != null) this.HoldYourHorses(this, new EventArgs());
         }
 
         private void LockRequestResponseReceivedPage_LockWasReleased(object sender, EventArgs e)

@@ -140,7 +140,7 @@ namespace YellowstonePathology.Business.HL7View.EPIC
 					view = new YellowstonePathology.Business.Test.CLLByFish.CLLByFishEPICObxView(accessionOrder, reportNo, obxCount);
 					break;
 				case 152:
-					view = new YellowstonePathology.Business.Test.TCellClonalityByPCR.TCellClonalityByPCREPICObxView(accessionOrder, reportNo, obxCount);
+					view = new YellowstonePathology.Business.Test.TCellRecepterGammaGeneRearrangement.TCellRecepterGammaGeneRearrangementEPICOBXView(accessionOrder, reportNo, obxCount);
 					break;
 				case 153:
 					view = new YellowstonePathology.Business.Test.FLT3.FLT3EPICObxView(accessionOrder, reportNo, obxCount);

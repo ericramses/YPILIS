@@ -18,16 +18,16 @@ namespace YellowstonePathology.Business.Gateway
 {
 	public class PhysicianClientGatewayMongo
 	{        
-        public static YellowstonePathology.Business.Client.ClientGroupCollection GetClientGroupCollection()
+        public static YellowstonePathology.Business.Client.Model.ClientGroupCollection GetClientGroupCollection()
         {
-            YellowstonePathology.Business.Client.ClientGroupCollection result = new Client.ClientGroupCollection();
+            YellowstonePathology.Business.Client.Model.ClientGroupCollection result = new Client.Model.ClientGroupCollection();
 
             YellowstonePathology.Business.Mongo.Server server = new Business.Mongo.TestServer(YellowstonePathology.Business.Mongo.MongoTestServer.LISDatabaseName);
             MongoCollection collection = server.Database.GetCollection<BsonDocument>("ClientGroup");
             MongoCursor cursor = collection.FindAllAs<BsonDocument>();
             foreach (BsonDocument bsonDocument in cursor)
             {
-                YellowstonePathology.Business.Client.ClientGroup clientGroup = new Client.ClientGroup();
+                YellowstonePathology.Business.Client.Model.ClientGroup clientGroup = new Client.Model.ClientGroup();
                 YellowstonePathology.Business.Mongo.BSONPropertyWriter.Write(bsonDocument, clientGroup);
                 result.Add(clientGroup);
             }
@@ -382,9 +382,9 @@ namespace YellowstonePathology.Business.Gateway
 			return result;
 		}
 
-		public static YellowstonePathology.Business.Client.PhysicianClientCollection GetPhysicianClientListByPhysicianLastName(string physicianLastName)
+		public static YellowstonePathology.Business.Client.Model.PhysicianClientCollection GetPhysicianClientListByPhysicianLastName(string physicianLastName)
 		{
-			YellowstonePathology.Business.Client.PhysicianClientCollection result = new Client.PhysicianClientCollection();
+			YellowstonePathology.Business.Client.Model.PhysicianClientCollection result = new Client.Model.PhysicianClientCollection();
 			YellowstonePathology.Business.Mongo.Server server = new Business.Mongo.TestServer(YellowstonePathology.Business.Mongo.MongoTestServer.LISDatabaseName);
 			MongoCollection physicianClientCollection = server.Database.GetCollection<BsonDocument>("PhysicianClient");
 			MongoCollection physicianCollection = server.Database.GetCollection<BsonDocument>("Physician");
@@ -414,16 +414,16 @@ namespace YellowstonePathology.Business.Gateway
 						}
 					}
 
-					YellowstonePathology.Business.Client.PhysicianClient physicianClient = BuildPhysicianClient(clientDocument, physicianDocument, physicianClientId);
+					YellowstonePathology.Business.Client.Model.PhysicianClient physicianClient = BuildPhysicianClient(clientDocument, physicianDocument, physicianClientId);
 					result.Add(physicianClient);
 				}
 			}
 			return result;
 		}
 
-		public static YellowstonePathology.Business.Client.PhysicianClientCollection GetPhysicianClientListByClientPhysicianLastName(string clientName, string physicianLastName)
+		public static YellowstonePathology.Business.Client.Model.PhysicianClientCollection GetPhysicianClientListByClientPhysicianLastName(string clientName, string physicianLastName)
 		{
-			YellowstonePathology.Business.Client.PhysicianClientCollection result = new Client.PhysicianClientCollection();
+			YellowstonePathology.Business.Client.Model.PhysicianClientCollection result = new Client.Model.PhysicianClientCollection();
 			YellowstonePathology.Business.Mongo.Server server = new Business.Mongo.TestServer(YellowstonePathology.Business.Mongo.MongoTestServer.LISDatabaseName);
 			MongoCollection physicianClientCollection = server.Database.GetCollection<BsonDocument>("PhysicianClient");
 			MongoCollection physicianCollection = server.Database.GetCollection<BsonDocument>("Physician");
@@ -454,16 +454,16 @@ namespace YellowstonePathology.Business.Gateway
 						}
 					}
 
-					YellowstonePathology.Business.Client.PhysicianClient physicianClient = BuildPhysicianClient(clientDocument, physicianDocument, physicianClientId);
+					YellowstonePathology.Business.Client.Model.PhysicianClient physicianClient = BuildPhysicianClient(clientDocument, physicianDocument, physicianClientId);
 					result.Add(physicianClient);
 				}
 			}
 			return result;
 		}
 
-		public static YellowstonePathology.Business.Client.PhysicianClientCollection GetPhysicianClientListByClientId(int clientId)
+		public static YellowstonePathology.Business.Client.Model.PhysicianClientCollection GetPhysicianClientListByClientId(int clientId)
 		{
-			YellowstonePathology.Business.Client.PhysicianClientCollection result = new Client.PhysicianClientCollection();
+			YellowstonePathology.Business.Client.Model.PhysicianClientCollection result = new Client.Model.PhysicianClientCollection();
 			BsonValue bsonClientId = BsonValue.Create(clientId);
 			YellowstonePathology.Business.Mongo.Server server = new Business.Mongo.TestServer(YellowstonePathology.Business.Mongo.MongoTestServer.LISDatabaseName);
 			MongoCollection physicianClientCollection = server.Database.GetCollection<BsonDocument>("PhysicianClient");
@@ -492,15 +492,15 @@ namespace YellowstonePathology.Business.Gateway
 					}
 				}
 
-				YellowstonePathology.Business.Client.PhysicianClient physicianClient = BuildPhysicianClient(clientDocument, physicianDocument, bsonPhysicianClientId);
+				YellowstonePathology.Business.Client.Model.PhysicianClient physicianClient = BuildPhysicianClient(clientDocument, physicianDocument, bsonPhysicianClientId);
 				result.Add(physicianClient);
 			}
 			return result;
 		}
 
-		private static YellowstonePathology.Business.Client.PhysicianClient BuildPhysicianClient(BsonDocument clientDocument, BsonDocument physicianDocument, BsonValue physicianClientId)
+		private static YellowstonePathology.Business.Client.Model.PhysicianClient BuildPhysicianClient(BsonDocument clientDocument, BsonDocument physicianDocument, BsonValue physicianClientId)
 		{
-			YellowstonePathology.Business.Client.PhysicianClient result = new Client.PhysicianClient();
+			YellowstonePathology.Business.Client.Model.PhysicianClient result = new Client.Model.PhysicianClient();
 			result.ClientId = clientDocument.GetValue("ClientId").AsInt32;
 			result.ClientName = Mongo.ValueHelper.GetStringValue(clientDocument.GetValue("ClientName"));
 			result.DistributionType = Mongo.ValueHelper.GetStringValue(clientDocument.GetValue("DistributionType"));
@@ -565,9 +565,9 @@ namespace YellowstonePathology.Business.Gateway
 			return result;
 		}
 
-		public static YellowstonePathology.Business.Client.PhysicianClientDistributionCollection GetPhysicianClientDistributionByClientId(int clientId)
+		public static YellowstonePathology.Business.Client.Model.PhysicianClientDistributionList GetPhysicianClientDistributionByClientId(int clientId)
 		{
-			Business.Client.PhysicianClientDistributionCollection result = new Client.PhysicianClientDistributionCollection();
+			Business.Client.Model.PhysicianClientDistributionList result = new Client.Model.PhysicianClientDistributionList();
 			YellowstonePathology.Business.Mongo.Server server = new Business.Mongo.TestServer(YellowstonePathology.Business.Mongo.MongoTestServer.LISDatabaseName);
 			MongoCollection physicianClientCollection = server.Database.GetCollection<BsonDocument>("PhysicianClient");
 			MongoCollection physicianCollection = server.Database.GetCollection<BsonDocument>("Physician");
@@ -585,16 +585,16 @@ namespace YellowstonePathology.Business.Gateway
 
 			foreach (BsonDocument physicianDocument in physicianCursor)
 			{
-				YellowstonePathology.Business.Client.PhysicianClientDistribution physicianClientDistribution = BuildPhysicianClientDistribution(clientDocument, physicianDocument);
+				YellowstonePathology.Business.Client.Model.PhysicianClientDistributionListItem physicianClientDistribution = BuildPhysicianClientDistribution(clientDocument, physicianDocument);
 				result.Add(physicianClientDistribution);
 			}
 
 			return result;
 		}
 
-		public static Business.Client.PhysicianClientDistributionCollection GetPhysicianClientDistributionByClientPhysicianLastName(string clientName, string physicianLastName)
+		public static Business.Client.Model.PhysicianClientDistributionList GetPhysicianClientDistributionByClientPhysicianLastName(string clientName, string physicianLastName)
 		{
-			Business.Client.PhysicianClientDistributionCollection result = new Client.PhysicianClientDistributionCollection();
+			Business.Client.Model.PhysicianClientDistributionList result = new Client.Model.PhysicianClientDistributionList();
 			YellowstonePathology.Business.Mongo.Server server = new Business.Mongo.TestServer(YellowstonePathology.Business.Mongo.MongoTestServer.LISDatabaseName);
 			MongoCollection physicianClientCollection = server.Database.GetCollection<BsonDocument>("PhysicianClient");
 			MongoCollection physicianCollection = server.Database.GetCollection<BsonDocument>("Physician");
@@ -615,7 +615,7 @@ namespace YellowstonePathology.Business.Gateway
 					Query.Matches("ClientName", BsonRegularExpression.Create("^" + clientName + ".*", "i")))).SetSortOrder(SortBy.Ascending("ClientName"));
 				foreach (BsonDocument clientDocument in clientCursor)
 				{
-					YellowstonePathology.Business.Client.PhysicianClientDistribution physicianClientDistribution = BuildPhysicianClientDistribution(clientDocument, physicianDocument);
+					YellowstonePathology.Business.Client.Model.PhysicianClientDistributionListItem physicianClientDistribution = BuildPhysicianClientDistribution(clientDocument, physicianDocument);
 					result.Add(physicianClientDistribution);
 				}
 			}
@@ -623,9 +623,9 @@ namespace YellowstonePathology.Business.Gateway
 			return result;
 		}
 
-		public static Business.Client.PhysicianClientDistributionCollection GetPhysicianClientDistributionByPhysicianFirstLastName(string firstName, string lastName)
+		public static Business.Client.Model.PhysicianClientDistributionList GetPhysicianClientDistributionByPhysicianFirstLastName(string firstName, string lastName)
 		{
-			Business.Client.PhysicianClientDistributionCollection result = new Client.PhysicianClientDistributionCollection();
+			Business.Client.Model.PhysicianClientDistributionList result = new Client.Model.PhysicianClientDistributionList();
 			YellowstonePathology.Business.Mongo.Server server = new Business.Mongo.TestServer(YellowstonePathology.Business.Mongo.MongoTestServer.LISDatabaseName);
 			MongoCollection physicianClientCollection = server.Database.GetCollection<BsonDocument>("PhysicianClient");
 			MongoCollection physicianCollection = server.Database.GetCollection<BsonDocument>("Physician");
@@ -646,7 +646,7 @@ namespace YellowstonePathology.Business.Gateway
 				MongoCursor clientCursor = clientCollection.FindAs<BsonDocument>(Query.In("ClientId", clientIdList)).SetSortOrder(SortBy.Ascending("ClientName"));
 				foreach (BsonDocument clientDocument in clientCursor)
 				{
-					YellowstonePathology.Business.Client.PhysicianClientDistribution physicianClientDistribution = BuildPhysicianClientDistribution(clientDocument, physicianDocument);
+					YellowstonePathology.Business.Client.Model.PhysicianClientDistributionListItem physicianClientDistribution = BuildPhysicianClientDistribution(clientDocument, physicianDocument);
 					result.Add(physicianClientDistribution);
 				}
 			}
@@ -654,9 +654,9 @@ namespace YellowstonePathology.Business.Gateway
 			return result;
 		}
 
-		public static Business.Client.PhysicianClientDistributionCollection GetPhysicianClientDistributionByPhysicianLastName(string lastName)
+		public static Business.Client.Model.PhysicianClientDistributionList GetPhysicianClientDistributionByPhysicianLastName(string lastName)
 		{
-			Business.Client.PhysicianClientDistributionCollection result = new Client.PhysicianClientDistributionCollection();
+			Business.Client.Model.PhysicianClientDistributionList result = new Client.Model.PhysicianClientDistributionList();
 			YellowstonePathology.Business.Mongo.Server server = new Business.Mongo.TestServer(YellowstonePathology.Business.Mongo.MongoTestServer.LISDatabaseName);
 			MongoCollection physicianClientCollection = server.Database.GetCollection<BsonDocument>("PhysicianClient");
 			MongoCollection physicianCollection = server.Database.GetCollection<BsonDocument>("Physician");
@@ -676,7 +676,7 @@ namespace YellowstonePathology.Business.Gateway
 				MongoCursor clientCursor = clientCollection.FindAs<BsonDocument>(Query.In("ClientId", clientIdList)).SetSortOrder(SortBy.Ascending("ClientName"));
 				foreach (BsonDocument clientDocument in clientCursor)
 				{
-					YellowstonePathology.Business.Client.PhysicianClientDistribution physicianClientDistribution = BuildPhysicianClientDistribution(clientDocument, physicianDocument);
+					YellowstonePathology.Business.Client.Model.PhysicianClientDistributionListItem physicianClientDistribution = BuildPhysicianClientDistribution(clientDocument, physicianDocument);
 					result.Add(physicianClientDistribution);
 				}
 			}
@@ -684,9 +684,9 @@ namespace YellowstonePathology.Business.Gateway
 			return result;
 		}
 
-		private static YellowstonePathology.Business.Client.PhysicianClientDistribution BuildPhysicianClientDistribution(BsonDocument clientDocument, BsonDocument physicianDocument)
+		private static YellowstonePathology.Business.Client.Model.PhysicianClientDistributionListItem BuildPhysicianClientDistribution(BsonDocument clientDocument, BsonDocument physicianDocument)
 		{
-			YellowstonePathology.Business.Client.PhysicianClientDistribution result = new YellowstonePathology.Business.Client.PhysicianClientDistribution();
+			YellowstonePathology.Business.Client.Model.PhysicianClientDistributionListItem result = new YellowstonePathology.Business.Client.Model.PhysicianClientDistributionListItem();
 			result.ClientId = clientDocument.GetValue("ClientId").AsInt32;
 			result.ClientName = Mongo.ValueHelper.GetStringValue(clientDocument.GetValue("ClientName"));
 			result.LongDistance = clientDocument.GetValue("LongDistance").AsBoolean;

@@ -19,7 +19,7 @@ namespace YellowstonePathology.UI.Common
 	public partial class PhysicianClientSearchDialog : Window
 	{
 		private Login.FinalizeAccession.PhysicianClientSearchPage m_PhysicianClientSearchPage;
-		private YellowstonePathology.Business.Client.PhysicianClient m_PhysicianClient;
+		private YellowstonePathology.Business.Client.Model.PhysicianClient m_PhysicianClient;
 
 		public PhysicianClientSearchDialog(YellowstonePathology.Business.Interface.IOrder accessionOrder)
 		{
@@ -41,7 +41,7 @@ namespace YellowstonePathology.UI.Common
 			//this.MainContent.Content = this.m_PhysicianClientSearchPage;
 		}
 
-		public YellowstonePathology.Business.Client.PhysicianClient PhysicianClient
+		public YellowstonePathology.Business.Client.Model.PhysicianClient PhysicianClient
 		{
 			get { return this.m_PhysicianClient; }
 		}
@@ -54,7 +54,7 @@ namespace YellowstonePathology.UI.Common
 					this.DialogResult = false;
 					break;
 				case UI.Navigation.PageNavigationDirectionEnum.Next:
-					this.m_PhysicianClient = (YellowstonePathology.Business.Client.PhysicianClient)e.Data;
+					this.m_PhysicianClient = (YellowstonePathology.Business.Client.Model.PhysicianClient)e.Data;
 					if (this.m_PhysicianClient == null)
 					{
 						this.DialogResult = false;
