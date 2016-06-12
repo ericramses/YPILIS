@@ -7,7 +7,6 @@ using System.Xml.Serialization;
 
 namespace YellowstonePathology.Business.Domain
 {
-	[XmlType("LockItemCollection")]
 	public class LockItemCollection : ObservableCollection<LockItem>
 	{
 		public LockItemCollection()

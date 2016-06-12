@@ -147,7 +147,7 @@ namespace YellowstonePathology.UI.Flow
         {
             if (this.m_FlowUI.AccessionOrder != null && this.m_FlowUI.AccessionOrder.AccessionLock.IsLockAquiredByMe == false && this.m_FlowUI.AccessionOrder.AccessionLock.IsLockAquired == true)
             {
-                AppMessaging.MessagingPath.Instance.Start(this.m_FlowUI.AccessionOrder);
+                UI.AppMessaging.MessagingPath.Instance.Start(this.m_FlowUI.AccessionOrder);
             }
         }
 

@@ -28,7 +28,7 @@ namespace YellowstonePathology.UI.AppMessaging
         public LockRequestPage(Business.Test.AccessionOrder accessionOrder)
         {
             this.m_AccessionOrder = accessionOrder;
-            this.m_DisplayMessage = "Ask " + accessionOrder.AccessionLock.UserName + "\\" + accessionOrder.AccessionLock.HostName + " for the lock on " + accessionOrder.MasterAccessionNo + ".";
+            this.m_DisplayMessage = "Ask " + accessionOrder.AccessionLock.Address + " for the lock on " + accessionOrder.MasterAccessionNo + ".";
 
             InitializeComponent();
             DataContext = this;

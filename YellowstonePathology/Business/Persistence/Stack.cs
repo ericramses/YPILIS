@@ -107,12 +107,8 @@ namespace YellowstonePathology.Business.Persistence
                 document.RemoveWriter(writer);
 
                 if (document.Writers.Count == 0)
-                {
-                    if(document.IsLockAquiredByMe == true)
-                    {
-                        document.ReleaseLock();
-                    }
-                    
+                {                    
+                    document.ReleaseLock();                    
                     if (document.IsGlobal == false)
                     {
                         this.m_Documents.Remove(document);
@@ -165,6 +161,7 @@ namespace YellowstonePathology.Business.Persistence
                         {
                             documentBuilder.Refresh(document.Value);
                             document.Refresh();
+                            this.HandleAccessionLock(document);
                         }
                     }                    
                 }                
@@ -177,7 +174,7 @@ namespace YellowstonePathology.Business.Persistence
                 object value = documentBuilder.BuildNew();
                 documentId.Value = value;
                 document = new DocumentUpdate(documentId);
-                this.SubscribeToChannel(document);
+                this.HandleAccessionLock(document);
                 this.m_Documents.Add(document);                
             }           
             else
@@ -188,37 +185,45 @@ namespace YellowstonePathology.Business.Persistence
                 document = new DocumentUpdate(documentId);
                 this.m_Documents.Add(document);
 
-                if (document.Value is YellowstonePathology.Business.Test.AccessionOrder)
-                {
-                    Business.Test.AccessionOrder accessionOrder = (Business.Test.AccessionOrder)document.Value;
-                    document.IsLockAquiredByMe = accessionOrder.AccessionLock.IsLockAquiredByMe;
-                    this.SubscribeToChannel(document);                    
-                }
+                this.HandleAccessionLock(document);
             }
 
             return document;
-        }  
+        } 
         
-        private void SubscribeToChannel(Document document)
+        private void HandleAccessionLock(Document document)
         {
             if (document.Value is YellowstonePathology.Business.Test.AccessionOrder)
             {
                 Business.Test.AccessionOrder accessionOrder = (Business.Test.AccessionOrder)document.Value;
-                ISubscriber subscriber = Business.RedisConnection.Instance.GetSubscriber();
-                
-                subscriber.Subscribe(accessionOrder.MasterAccessionNo, (channel, message) =>
-                {                    
-                    System.Windows.Application.Current.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
+                document.IsLockAquiredByMe = accessionOrder.AccessionLock.IsLockAquiredByMe;
+                this.SubscribeToChannel(accessionOrder);
+                accessionOrder.AccessionLock.RefreshLock();
+            }
+        }
+
+        public void SubscribeToChannel(Business.Test.AccessionOrder accessionOrder)
+        {
+            ISubscriber subscriber = Business.RedisConnection.Instance.GetSubscriber();
+            subscriber.Subscribe(accessionOrder.MasterAccessionNo, (channel, message) =>
+            {
+                System.Windows.Application.Current.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
+                {
+                    UI.AppMessaging.AccessionLockMessage accessionLockMessage = JsonConvert.DeserializeObject<UI.AppMessaging.AccessionLockMessage>(message);
+
+                    if (accessionLockMessage.To == UI.AppMessaging.AccessionLockMessage.GetMyAddress())
                     {
-                        UI.AppMessaging.AccessionLockMessage accessionLockMessage = JsonConvert.DeserializeObject<UI.AppMessaging.AccessionLockMessage>(message);
-                        YellowstonePathology.UI.AppMessaging.MessagingPath.Instance.HandleMessageRecieved(channel, accessionLockMessage);
+                        if(accessionLockMessage.MessageId == UI.AppMessaging.AccessionLockMessageIdEnum.GIVE)
+                        {
+                            accessionOrder.AccessionLock.RefreshLock();
+                            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.RefreshAccessionOrder(accessionLockMessage.MasterAccessionNo);
+                        }
+                        UI.AppMessaging.MessagingPath.Instance.HandleMessageReceived(accessionLockMessage, accessionOrder);
                     }
-                    ));                    
-                });
-
-
-            }            
-        }             
+                }
+                ));
+            });
+        }
 
         public void InsertDocument(object o, object writer)
         {

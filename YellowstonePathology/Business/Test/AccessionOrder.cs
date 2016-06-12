@@ -105,7 +105,7 @@ namespace YellowstonePathology.Business.Test
 		public AccessionOrder()
         {
             this.m_AccessionLock = new AccessionLock();
-			this.m_SpecimenOrderCollection = new YellowstonePathology.Business.Specimen.Model.SpecimenOrderCollection();
+            this.m_SpecimenOrderCollection = new YellowstonePathology.Business.Specimen.Model.SpecimenOrderCollection();
 			this.m_PanelSetOrderCollection = new YellowstonePathology.Business.Test.PanelSetOrderCollection();
 			this.m_SpecimenOrderDataTemplate = YellowstonePathology.Business.DataTemplateSpecimenOrderEnum.DataTemplateAccessionTreeView;			
 			this.m_ICD9BillingCodeCollection = new Billing.ICD9BillingCodeCollection();
@@ -113,10 +113,10 @@ namespace YellowstonePathology.Business.Test
 		}
 
         public AccessionOrder(string masterAccessionNo, string objectId)
-        {
-            this.m_AccessionLock = new AccessionLock();
+        {            
             this.m_MasterAccessionNo = masterAccessionNo;
-			this.m_ObjectId = objectId;
+            this.m_AccessionLock = new AccessionLock();
+            this.m_ObjectId = objectId;
 			this.m_AccessionDate = DateTime.Today;
 			this.m_AccessionTime = DateTime.Now;            
             this.m_AccessioningFacilityId = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId;

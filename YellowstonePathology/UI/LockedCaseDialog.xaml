@@ -15,13 +15,12 @@
 
         <TabControl Grid.Row="0">
             <TabItem Header="Locked Accession Orders">
-                <ListView Name="ListViewLockedAccessionOrders" Grid.Column="0" Grid.Row="0" Margin="2" ItemsSource="{Binding Path=LockItemCollection}">
+                <ListView Name="ListViewLockedAccessionOrders" Grid.Column="0" Grid.Row="0" Margin="2" ItemsSource="{Binding Path=AccessionLockCollection}">
                     <ListView.View>
                         <GridView AllowsColumnReorder="True">
-                            <GridViewColumn DisplayMemberBinding="{Binding Path=LockedBy}" Header="Locked By" Width="120"/>
-                            <GridViewColumn DisplayMemberBinding="{Binding Path=KeyString}" Header="Master Accession No" Width="120"/>
-                            <GridViewColumn DisplayMemberBinding="{Binding Path=LockDate, Converter={StaticResource ShortDateTimeConverter}}" Header="Time" Width="120"/>
-                            <GridViewColumn DisplayMemberBinding="{Binding Path=ComputerName}" Header="Computer" Width="120"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=Address}" Header="Locked By" Width="200"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=MasterAccessionNo}" Header="Master Accession No" Width="120"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=TimeAquired, Converter={StaticResource ShortDateTimeConverter}}" Header="Time" Width="120"/>
                         </GridView>
                     </ListView.View>
                 </ListView>

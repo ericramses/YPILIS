@@ -77,10 +77,8 @@ namespace YellowstonePathology.Business.Persistence
         {
             if (this.m_Value is YellowstonePathology.Business.Test.AccessionOrder)
             {
-                YellowstonePathology.Business.Test.AccessionOrder accessionOrder = (YellowstonePathology.Business.Test.AccessionOrder)this.m_Value;                
-                accessionOrder.AccessionLock.HostName = Environment.MachineName;
-                accessionOrder.AccessionLock.UserId = Business.User.SystemIdentity.Instance.User.UserId;
-                accessionOrder.AccessionLock.UserName = Business.User.SystemIdentity.Instance.User.UserName;
+                YellowstonePathology.Business.Test.AccessionOrder accessionOrder = (YellowstonePathology.Business.Test.AccessionOrder)this.m_Value;
+                accessionOrder.AccessionLock.Address = UI.AppMessaging.AccessionLockMessage.GetMyAddress();                
                 accessionOrder.AccessionLock.TimeAquired = DateTime.Now;             
             }
         } 

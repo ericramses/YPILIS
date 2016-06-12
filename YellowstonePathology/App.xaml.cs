@@ -37,17 +37,15 @@ namespace YellowstonePathology.UI
 				return;
 			}
 
-            try
-            {
-                //UI.AppMessaging.MessageQueues.Instance.CreateMessageQueuesIfNotExist();
-            }
-            catch
-            {
-                //do nothing
-            }
-
+            this.Exit += App_Exit;
             this.DispatcherUnhandledException += new System.Windows.Threading.DispatcherUnhandledExceptionEventHandler(YellowstonePathology.Business.Logging.EmailExceptionHandler.HandleException);
-		}        
+		}
+
+        private void App_Exit(object sender, ExitEventArgs e)
+        {
+            Business.Test.AccessionLockCollection accessionLockCollection = new Business.Test.AccessionLockCollection();
+            accessionLockCollection.ClearLocks();
+        }
 
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
         {
@@ -58,8 +56,9 @@ namespace YellowstonePathology.UI
         protected override void OnStartup(StartupEventArgs e)
         {
             //this.HandledictionarySetup();
-            this.ReleaseLocksOnStartup();            
-            
+            Business.Test.AccessionLockCollection accessionLockCollection = new Business.Test.AccessionLockCollection();
+            accessionLockCollection.ClearLocks();
+
             string startUpWindow = string.Empty;
 
 			if (System.Environment.MachineName.ToUpper() == "CUTTINGA" || System.Environment.MachineName.ToUpper() == "CUTTINGB" ) //|| System.Environment.MachineName.ToUpper() == "COMPILE")
@@ -97,20 +96,7 @@ namespace YellowstonePathology.UI
                 System.Windows.MessageBox.Show(e.Message);
                 return false;
             }            
-        }
-
-        private void ReleaseLocksOnStartup()
-        {
-            Business.Domain.LockItemCollection lockItemCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetLockedAccessionOrders();
-            foreach(Business.Domain.LockItem lockItem in lockItemCollection)
-            {
-                if(lockItem.ComputerName == Environment.MachineName)
-                {
-                    Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(lockItem.KeyString, this);                    
-                }
-            }
-            Business.Persistence.DocumentGateway.Instance.Push(this);
-        }
+        }        
 
 		protected override void OnExit(ExitEventArgs e)
 		{

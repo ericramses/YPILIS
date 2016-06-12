@@ -15,29 +15,36 @@ using System.ComponentModel;
 
 namespace YellowstonePathology.UI.AppMessaging
 {	
-	public partial class LockRequestSentPage : UserControl, INotifyPropertyChanged
+	public partial class LockRequestSentPage : UI.PageControl, INotifyPropertyChanged
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
-        public delegate void NextEventHandler(object sender, UI.CustomEventArgs.AccessionLockMessageReturnEventArgs e);
-        public event NextEventHandler Next;        
+        public delegate void NevermindEventHandler(object sender, EventArgs e);
+        public event NevermindEventHandler Nevermind;
 
-        private System.Windows.Threading.DispatcherTimer m_DispatchTimer;
+        
         private string m_CountDownMessage;
         private int m_CurrentCountDown;        
         private string m_DisplayMessage;
+        private bool m_StopTimerOnNextTick;
 
-        public LockRequestSentPage(string username, string computerName, string masterAccessionNo, System.Windows.Visibility closeButtonVisibility, System.Windows.Visibility nextButtonVisibility)
+        public LockRequestSentPage(string address, string masterAccessionNo, System.Windows.Visibility closeButtonVisibility, System.Windows.Visibility nevermindButtonVisibility)
 		{
-            this.m_DisplayMessage = "A resquest was sent to " + computerName + "\\" + username + " for the lock on " + masterAccessionNo + ".";
+            this.m_DisplayMessage = "A resquest was sent to " + address + " for the lock on " + masterAccessionNo + ".";
+            this.m_StopTimerOnNextTick = false;
 
             InitializeComponent();
 
             DataContext = this;
             this.ButtonClose.Visibility = closeButtonVisibility;
-            this.ButtonNext.Visibility = nextButtonVisibility;
+            this.ButtonNevermind.Visibility = nevermindButtonVisibility;
             this.StartCountDownTimer();        
 		}
+
+        public override void BeforeNavigatingAway()
+        {
+            this.m_StopTimerOnNextTick = true;
+        }
 
         public string DisplayMessage
         {
@@ -46,12 +53,14 @@ namespace YellowstonePathology.UI.AppMessaging
 
         private void StartCountDownTimer()
         {
+            System.Windows.Threading.DispatcherTimer dispatchTimer;
+
             this.m_CurrentCountDown = 15;
 
-            this.m_DispatchTimer = new System.Windows.Threading.DispatcherTimer();
-            this.m_DispatchTimer.Interval = new TimeSpan(0, 0, 1);
-            this.m_DispatchTimer.Tick += DispatchTimer_Tick;
-            this.m_DispatchTimer.Start();
+            dispatchTimer = new System.Windows.Threading.DispatcherTimer();
+            dispatchTimer.Interval = new TimeSpan(0, 0, 1);
+            dispatchTimer.Tick += DispatchTimer_Tick;
+            dispatchTimer.Start();
         }        
 
         public string CountDownMessage
@@ -62,25 +71,31 @@ namespace YellowstonePathology.UI.AppMessaging
         private void DispatchTimer_Tick(object sender, EventArgs e)
         {
             this.m_CurrentCountDown -= 1;
-            this.m_CountDownMessage = "Please wait " + this.m_CurrentCountDown ;
+            this.m_CountDownMessage = "Please wait " + this.m_CurrentCountDown;
 
-            if(this.m_CurrentCountDown == 0)
+            Console.WriteLine("Request Sent Tick: " + this.m_CurrentCountDown);
+
+            System.Windows.Threading.DispatcherTimer dispatchTimer = (System.Windows.Threading.DispatcherTimer)sender;
+
+            if (this.m_StopTimerOnNextTick == true || this.m_CurrentCountDown == 0)
             {
+                dispatchTimer.Stop();
                 this.m_CountDownMessage = string.Empty;
-                this.m_DispatchTimer.Stop();                                
-            }
+            }            
 
             this.NotifyPropertyChanged("CountDownMessage");
         }                               		                           
 
         private void ButtonClose_Click(object sender, RoutedEventArgs e)
         {
+            this.m_StopTimerOnNextTick = true;
         	Window.GetWindow(this).Close();
         }
 
-        private void ButtonNext_Click(object sender, RoutedEventArgs e)
+        private void ButtonNevermind_Click(object sender, RoutedEventArgs e)
         {
-            //if (this.Next != null) this.Next(this, new CustomEventArgs.AccessionLockMessageReturnEventArgs()
+            this.m_StopTimerOnNextTick = true;
+            if (this.Nevermind != null) this.Nevermind(this, new EventArgs());
         }
 
         public void NotifyPropertyChanged(String info)

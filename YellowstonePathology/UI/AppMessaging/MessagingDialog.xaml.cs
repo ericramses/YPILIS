@@ -26,7 +26,12 @@ namespace YellowstonePathology.UI.AppMessaging
 
             this.m_PageNavigator = new UI.Navigation.PageNavigator(this.MainContent);
             this.m_PageNavigator.PrimaryMonitorWindow = this;
-            this.Closing += new System.ComponentModel.CancelEventHandler(LoginPageWindow_Closing);
+            this.Closing += MessagingDialog_Closing;
+        }
+
+        private void MessagingDialog_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            
         }
 
         public YellowstonePathology.UI.Navigation.PageNavigator PageNavigator

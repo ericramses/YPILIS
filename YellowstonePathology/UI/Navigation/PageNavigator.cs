@@ -48,6 +48,12 @@ namespace YellowstonePathology.UI.Navigation
 
         public void Navigate(UserControl page)
         {            
+
+            if(this.m_CurrentPage is UI.PageControl)
+            {
+                ((UI.PageControl)this.m_CurrentPage).BeforeNavigatingAway();                
+            }           
+
             YellowstonePathology.UI.Navigation.NavigatingEventArgs eventArgs = new NavigatingEventArgs(this.m_CurrentPage, page);			
 
             this.m_CurrentPage = page;

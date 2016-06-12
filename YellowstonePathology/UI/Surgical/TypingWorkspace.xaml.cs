@@ -100,7 +100,7 @@ namespace YellowstonePathology.UI.Surgical
         {
             if (this.m_TypingUI.AccessionOrder != null)
             {
-                AppMessaging.MessagingPath.Instance.Start(this.m_TypingUI.AccessionOrder);
+                AppMessaging.MessagingPath.Instance.Start(this.m_TypingUI.AccessionOrder);                
             }
         }                
 

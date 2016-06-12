@@ -7,7 +7,6 @@ using YellowstonePathology.Business.Persistence;
 
 namespace YellowstonePathology.Business.Domain
 {
-	[XmlType("LockItem")]
 	public class LockItem
 	{
 		private string m_KeyString;

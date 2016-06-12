@@ -157,7 +157,8 @@ namespace YellowstonePathology.UI.Test
         {
             this.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
             {
-                //AppMessaging.MessagingPath.Instance.StartRequestReceived(e.Message);
+                //AppMessaging.MessagingPath messagingPath = new AppMessaging.MessagingPath();
+                //messagingPath.Start(e.Message);
             }
             ));
         }
@@ -166,7 +167,7 @@ namespace YellowstonePathology.UI.Test
         {
             if (this.m_LabUI.AccessionOrder != null && this.m_LabUI.AccessionOrder.AccessionLock.IsLockAquiredByMe == false && this.m_LabUI.AccessionOrder.AccessionLock.IsLockAquired == true)
             {
-                AppMessaging.MessagingPath.Instance.Start(this.m_LabUI.AccessionOrder);
+                UI.AppMessaging.MessagingPath.Instance.Start(this.m_LabUI.AccessionOrder);
             }
         }
 

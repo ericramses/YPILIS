@@ -85,6 +85,7 @@ namespace YellowstonePathology.Business.Persistence
                 Document document = this.m_Stack.Documents.Get(masterAccessionNo);
                 YellowstonePathology.Business.Test.AccessionOrder accessionOrder = (YellowstonePathology.Business.Test.AccessionOrder)document.Value;
                 documentBuilder.Refresh(accessionOrder);
+                document.ResetClone();
             }
         }
 

@@ -37,6 +37,7 @@ namespace YellowstonePathology.Business.Gateway
 				YellowstonePathology.Business.Persistence.XmlPropertyWriter xmlPropertyWriter = new YellowstonePathology.Business.Persistence.XmlPropertyWriter(document, accessionOrder);
 				xmlPropertyWriter.Write();
 
+                accessionOrder.AccessionLock.MasterAccessionNo = accessionOrder.MasterAccessionNo;
                 BuildSpecimenOrder(accessionOrder, document);                
 				BuildTaskOrder(accessionOrder, document);
 				BuildIcdBillingCode(accessionOrder, document);

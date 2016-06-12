@@ -44,11 +44,11 @@ namespace YellowstonePathology.UI.AppMessaging
         {
             if(message.MessageId == AccessionLockMessageIdEnum.GIVE)
             {
-                this.m_DisplayMessage = this.m_Message.ComputerName + "\\" + this.m_Message.UserName + " says " + this.m_Message.MasterAccessionNo + " is all yours.";
+                this.m_DisplayMessage = this.m_Message.From + " says " + this.m_Message.MasterAccessionNo + " is all yours.";
             }
             else if (message.MessageId == AccessionLockMessageIdEnum.HOLD)
             {
-                this.m_DisplayMessage = this.m_Message.ComputerName + "\\" + this.m_Message.UserName + " says hold your horses I'm working on " + this.m_Message.MasterAccessionNo + ".";
+                this.m_DisplayMessage = this.m_Message.From + " says hold your horses I'm working on " + this.m_Message.MasterAccessionNo + ".";
             }
         }
         

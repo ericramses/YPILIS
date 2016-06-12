@@ -17,34 +17,51 @@ using StackExchange.Redis;
 
 namespace YellowstonePathology.UI.AppMessaging
 {	
-	public partial class LockRequestReceivedPage : UserControl, INotifyPropertyChanged
+	public partial class LockRequestReceivedPage : UI.PageControl, INotifyPropertyChanged
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
-        public delegate void TakeHandler(object sender, UI.CustomEventArgs.AccessionLockMessageReturnEventArgs e);
+        public delegate void TakeHandler(object sender, UI.CustomEventArgs.AOAccessionLockMessageReturnEventArgs e);
         public event TakeHandler Take;
 
         public delegate void HoldHandler(object sender, UI.CustomEventArgs.AccessionLockMessageReturnEventArgs e);
         public event HoldHandler Hold;
 
+        //public delegate void CloseHandler(object sender, EventArgs e);
+        //public event CloseHandler Close;
+
+        private Business.Test.AccessionOrder m_AccessionOrder;
         private AccessionLockMessage m_Message;
         private string m_DisplayMessage;
 
-        private System.Windows.Threading.DispatcherTimer m_DispatchTimer;
         private string m_CountDownMessage;
-        private int m_CurrentCountDown;        
+        private int m_CurrentCountDown;
 
-        public LockRequestReceivedPage(AccessionLockMessage message)
+        private bool m_StopTimerOnNextTick;   
+
+        public LockRequestReceivedPage(Business.Test.AccessionOrder accessionOrder, AccessionLockMessage message)
         {
-            this.m_Message = message;
+            this.m_CurrentCountDown = 15;
+            this.m_AccessionOrder = accessionOrder;
+            this.m_Message = message;            
+            this.m_DisplayMessage = this.m_Message.From + " is asking for the lock on " + this.m_Message.MasterAccessionNo + ".";
+            this.m_StopTimerOnNextTick = false;
 
-            this.m_DisplayMessage = this.m_Message.ComputerName + "\\" + this.m_Message.UserName + " is asking for the lock on " + this.m_Message.MasterAccessionNo + ".";
+            System.Windows.Threading.DispatcherTimer dispatchTimer = new System.Windows.Threading.DispatcherTimer();
+            dispatchTimer.Interval = new TimeSpan(0, 0, 1);            
+            dispatchTimer.Tick += DispatchTimer_Tick;
+            dispatchTimer.Start();
+
             InitializeComponent();
-            DataContext = this;            
-            
-            this.StartCountDownTimer();
-        }                  
-        
+
+            DataContext = this;                                
+        }
+
+        public override void BeforeNavigatingAway()
+        {
+            this.m_StopTimerOnNextTick = true;
+        }
+
         public string DisplayMessage
         {
             get { return this.m_DisplayMessage; }
@@ -52,12 +69,7 @@ namespace YellowstonePathology.UI.AppMessaging
 
         private void StartCountDownTimer()
         {
-            this.m_CurrentCountDown = 15;
-
-            this.m_DispatchTimer = new System.Windows.Threading.DispatcherTimer();
-            this.m_DispatchTimer.Interval = new TimeSpan(0, 0, 1);
-            this.m_DispatchTimer.Tick += DispatchTimer_Tick;
-            this.m_DispatchTimer.Start();
+            
         }
 
         public string CountDownMessage
@@ -65,37 +77,46 @@ namespace YellowstonePathology.UI.AppMessaging
             get { return this.m_CountDownMessage; }            
         }
 
-        private void DispatchTimer_Tick(object sender, EventArgs e)
+        public void DispatchTimer_Tick(object sender, EventArgs e)
         {
             this.m_CurrentCountDown -= 1;
             this.m_CountDownMessage = "You have " + this.m_CurrentCountDown + " seconds to respond.";
 
-            if(this.m_CurrentCountDown == 0)
+            System.Windows.Threading.DispatcherTimer dispatchTimer = (System.Windows.Threading.DispatcherTimer)sender;
+
+            Console.WriteLine("Request Received Tick: " + this.m_CurrentCountDown);
+
+            if(this.m_StopTimerOnNextTick == true)
             {
-                this.m_CountDownMessage = string.Empty;
-                this.m_DispatchTimer.Stop();
-                this.Take(this, new CustomEventArgs.AccessionLockMessageReturnEventArgs(this.m_Message));
+                dispatchTimer.Stop();
+            }
+            else if (this.m_CurrentCountDown == 0)
+            {
+                dispatchTimer.Stop();
+                this.m_CountDownMessage = string.Empty;                
+                this.Take(this, new CustomEventArgs.AOAccessionLockMessageReturnEventArgs(this.m_AccessionOrder, this.m_Message));
             }
 
             this.NotifyPropertyChanged("CountDownMessage");
-        }                       		                       
+        }
 
         private void ButtonRespondTakeIt_Click(object sender, RoutedEventArgs e)
-        {            
-            this.m_DispatchTimer.Stop();
-            this.Take(this, new CustomEventArgs.AccessionLockMessageReturnEventArgs(this.m_Message));
+        {
+            this.m_StopTimerOnNextTick = true;
+            this.Take(this, new CustomEventArgs.AOAccessionLockMessageReturnEventArgs(this.m_AccessionOrder, this.m_Message));            
         }
 
         private void ButtonRespondHoldYourHorses_Click(object sender, RoutedEventArgs e)
         {
-            this.m_DispatchTimer.Stop();
-            this.Hold(this, new CustomEventArgs.AccessionLockMessageReturnEventArgs(this.m_Message));
+            this.m_StopTimerOnNextTick = true;
+            this.Hold(this, new CustomEventArgs.AccessionLockMessageReturnEventArgs(this.m_Message));            
         }
 
-        private void ButtonClose_Click(object sender, RoutedEventArgs e)
-        {
-            Window.GetWindow(this).Close();
-        }
+        //private void ButtonClose_Click(object sender, RoutedEventArgs e)
+        //{
+        //    this.m_StopTimerOnNextTick = true;
+        //    this.Close(this, new EventArgs());
+        //}        
 
         public void NotifyPropertyChanged(String info)
         {

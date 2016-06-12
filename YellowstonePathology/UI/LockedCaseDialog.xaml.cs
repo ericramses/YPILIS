@@ -21,21 +21,14 @@ namespace YellowstonePathology.UI
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private const string LockReleaseRequestQueueName = "lockreleaserequests";
-        private const string LockReleaseResponseQueueName = "lockreleaseresponses";
-
-        private YellowstonePathology.Business.Domain.LockItemCollection m_LockItemCollection;
-        
+        private Business.Test.AccessionLockCollection m_AccessionLockCollection;
 
         public LockedCaseDialog()
 		{
-            this.m_LockItemCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetLockedAccessionOrders();
+            this.m_AccessionLockCollection = new Business.Test.AccessionLockCollection();
             InitializeComponent();            
-
             DataContext = this;
-		}
-
-        
+		}        
 
         public void NotifyPropertyChanged(String info)
         {
@@ -51,27 +44,23 @@ namespace YellowstonePathology.UI
             {
                 MessageBoxResult result = MessageBox.Show("Clearing a lock may cause data loss.  Are you sure you want to unlock this case?", "Possible data loss", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
                 {
-                    foreach(YellowstonePathology.Business.Domain.LockItem lockItem in this.ListViewLockedAccessionOrders.SelectedItems)
+                    foreach(YellowstonePathology.Business.Test.AccessionLock accessionLock in this.ListViewLockedAccessionOrders.SelectedItems)
                     {
-                        YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(lockItem.KeyString, this);
+                        YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(accessionLock.MasterAccessionNo, this);                        
+                        accessionOrder.AccessionLock.ReleaseLock();
+                        YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
 
-                        if (accessionOrder.AccessionLock.IsLockAquiredByMe == false)
-                        {
-                            accessionOrder.AccessionLock.ReleaseLock();
-                            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
+                        System.Net.Mail.MailMessage message = new System.Net.Mail.MailMessage("support@ypii.com", "Sid.Harder@ypii.com", System.Windows.Forms.SystemInformation.UserName, "A lock wash cleared on case: " + accessionOrder.MasterAccessionNo + " by " + YellowstonePathology.Business.User.SystemIdentity.Instance.User.DisplayName);
+                        System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient("10.1.2.111");
 
-                            System.Net.Mail.MailMessage message = new System.Net.Mail.MailMessage("support@ypii.com", "Sid.Harder@ypii.com", System.Windows.Forms.SystemInformation.UserName, "A lock wash cleared on case: " + accessionOrder.MasterAccessionNo + " by " + YellowstonePathology.Business.User.SystemIdentity.Instance.User.DisplayName);
-                            System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient("10.1.2.111");
+                        Uri uri = new Uri("http://tempuri.org/");
+                        System.Net.ICredentials credentials = System.Net.CredentialCache.DefaultCredentials;
+                        System.Net.NetworkCredential credential = credentials.GetCredential(uri, "Basic");
 
-                            Uri uri = new Uri("http://tempuri.org/");
-                            System.Net.ICredentials credentials = System.Net.CredentialCache.DefaultCredentials;
-                            System.Net.NetworkCredential credential = credentials.GetCredential(uri, "Basic");
-
-                            client.Credentials = credential;
-                            client.Send(message);
-                        }
+                        client.Credentials = credential;
+                        client.Send(message);                        
                     }
-                    this.m_LockItemCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetLockedAccessionOrders();
+                    this.m_AccessionLockCollection.Refresh();
                     this.NotifyPropertyChanged(string.Empty);
                 }
             }
@@ -84,13 +73,13 @@ namespace YellowstonePathology.UI
 
 		private void ButtonRefresh_Click(object sender, RoutedEventArgs e)
 		{
-            this.m_LockItemCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetLockedAccessionOrders();
+            this.m_AccessionLockCollection.Refresh();
             this.NotifyPropertyChanged(string.Empty);
 		}
 
-        public YellowstonePathology.Business.Domain.LockItemCollection LockItemCollection
+        public Business.Test.AccessionLockCollection AccessionLockCollection
         {
-            get { return this.m_LockItemCollection; }
+            get { return this.m_AccessionLockCollection; }
         }
 
         public YellowstonePathology.Business.Persistence.DocumentCollection Documents

@@ -72,11 +72,11 @@ namespace YellowstonePathology.UI.Cutting
         }
 
         private void CaseLockedPage_AskForLock(object sender, CustomEventArgs.AccessionOrderReturnEventArgs e)
-        {
-            AppMessaging.MessagingPath.Instance.StartSendRequest(e.AccessionOrder, this.m_CuttingWorkspaceWindow.PageNavigator);
-            AppMessaging.MessagingPath.Instance.LockWasReleased += MessageQueuePath_LockWasReleased;
-            AppMessaging.MessagingPath.Instance.HoldYourHorses += Instance_HoldYourHorses;
-            AppMessaging.MessagingPath.Instance.Next += MessageQueuePath_Next;
+        {            
+            UI.AppMessaging.MessagingPath.Instance.StartSendRequest(e.AccessionOrder, this.m_CuttingWorkspaceWindow.PageNavigator);
+            UI.AppMessaging.MessagingPath.Instance.LockWasReleased += MessageQueuePath_LockWasReleased;
+            UI.AppMessaging.MessagingPath.Instance.HoldYourHorses += Instance_HoldYourHorses;
+            UI.AppMessaging.MessagingPath.Instance.Nevermind += MessageQueuePath_Nevermind;
         }
 
         private void Instance_HoldYourHorses(object sender, EventArgs e)
@@ -84,9 +84,9 @@ namespace YellowstonePathology.UI.Cutting
             this.ShowScanAliquotPage(this.m_AccessionOrder.MasterAccessionNo);
         }
 
-        private void MessageQueuePath_Next(object sender, UI.CustomEventArgs.AccessionOrderReturnEventArgs e)
+        private void MessageQueuePath_Nevermind(object sender, EventArgs e)
         {
-            this.ShowScanAliquotPage(e.AccessionOrder.MasterAccessionNo);
+            this.ShowScanAliquotPage(null);
         }
 
         private void MessageQueuePath_LockWasReleased(object sender, EventArgs e)
@@ -158,11 +158,11 @@ namespace YellowstonePathology.UI.Cutting
         }
 
         private void CaseLockedPage_AskForLockManualMA(object sender, CustomEventArgs.AccessionOrderReturnEventArgs e)
-        {
-            AppMessaging.MessagingPath.Instance.StartSendRequest(e.AccessionOrder, this.m_CuttingWorkspaceWindow.PageNavigator);
+        {            
+            UI.AppMessaging.MessagingPath.Instance.StartSendRequest(e.AccessionOrder, this.m_CuttingWorkspaceWindow.PageNavigator);
             //AppMessaging.MessagingPath.Instance.LockWasReleased += MessageQueuePath_LockWasReleasedManualMA;
             //AppMessaging.MessagingPath.Instance.HoldYourHorses += Instance_HoldYourHorses;
-            AppMessaging.MessagingPath.Instance.Next += MessageQueuePath_Next;
+            UI.AppMessaging.MessagingPath.Instance.Nevermind += MessageQueuePath_Nevermind;
         }
 
         private void MessageQueuePath_LockWasReleasedManualMA(object sender, EventArgs e)

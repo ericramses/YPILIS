@@ -91,8 +91,8 @@ namespace YellowstonePathology.UI.Cytology
             this.m_MainWindowCommandButtonHandler.RemoveTab -= MainWindowCommandButtonHandler_RemoveTab;
             this.m_MainWindowCommandButtonHandler.ShowMessagingDialog -= MainWindowCommandButtonHandler_ShowMessagingDialog;
 
-            UI.AppMessaging.MessagingPath.Instance.LockReleasedActionList.Remove(this.ReleaseLock);
-            UI.AppMessaging.MessagingPath.Instance.LockAquiredActionList.Remove(this.m_CytologyUI.DataLoaded);
+            //UI.AppMessaging.MessagingPath.Instance.LockReleasedActionList.Remove(this.ReleaseLock);
+            //UI.AppMessaging.MessagingPath.Instance.LockAquiredActionList.Remove(this.m_CytologyUI.DataLoaded);
 
             YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
         }
@@ -133,8 +133,8 @@ namespace YellowstonePathology.UI.Cytology
             this.m_MainWindowCommandButtonHandler.RemoveTab += MainWindowCommandButtonHandler_RemoveTab;
             this.m_MainWindowCommandButtonHandler.ShowMessagingDialog += new MainWindowCommandButtonHandler.ShowMessagingDialogEventHandler(MainWindowCommandButtonHandler_ShowMessagingDialog);
 
-            UI.AppMessaging.MessagingPath.Instance.LockReleasedActionList.Add(this.ReleaseLock);
-            UI.AppMessaging.MessagingPath.Instance.LockAquiredActionList.Add(this.m_CytologyUI.DataLoaded);
+            //UI.AppMessaging.MessagingPath.Instance.LockReleasedActionList.Add(this.ReleaseLock);
+            //UI.AppMessaging.MessagingPath.Instance.LockAquiredActionList.Add(this.m_CytologyUI.DataLoaded);
 
             this.ListViewSearchResults.SelectedIndex = -1;
 
@@ -165,8 +165,8 @@ namespace YellowstonePathology.UI.Cytology
         private void MainWindowCommandButtonHandler_ShowMessagingDialog(object sender, EventArgs e)
         {
             if (this.m_CytologyUI.AccessionOrder != null)
-            {
-                AppMessaging.MessagingPath.Instance.Start(this.m_CytologyUI.AccessionOrder);
+            {                
+                UI.AppMessaging.MessagingPath.Instance.Start(this.m_CytologyUI.AccessionOrder);
             }
         }
 

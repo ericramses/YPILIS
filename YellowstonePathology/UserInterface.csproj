@@ -40,7 +40,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>32</ApplicationRevision>
+    <ApplicationRevision>64</ApplicationRevision>
     <ApplicationVersion>10.1.5.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -1792,6 +1792,7 @@
     <Compile Include="Business\Test\ABL1KinaseDomainMutation\ABL1KinaseDomainMutationWordDocument.cs" />
     <Compile Include="Business\Test\AbsoluteCD4CountTestOrder.cs" />
     <Compile Include="Business\Test\AccessionLock.cs" />
+    <Compile Include="Business\Test\AccessionLockCollection.cs" />
     <Compile Include="Business\Test\AccessionOrder.cs" />
     <Compile Include="Business\Test\AccessionOrder.Validation.cs" />
     <Compile Include="Business\Test\AccessionOrderCollection.cs" />
@@ -3024,6 +3025,7 @@
     <Compile Include="UI\Converter\NullableDoubleConverter.cs" />
     <Compile Include="UI\Converter\PanelSetIdConverter.cs" />
     <Compile Include="UI\Converter\ResultCodeResultConverter.cs" />
+    <Compile Include="UI\CustomEventArgs\AOAccessionLockMessageReturnEventArgs.cs" />
     <Compile Include="UI\CustomEventArgs\AcknowledgeStainOrderEventArgs.cs" />
     <Compile Include="UI\CustomEventArgs\AddPQRSCodeReturnEventArgs.cs" />
     <Compile Include="UI\CustomEventArgs\AliquotOrderAccessionOrderReturnEventArgs.cs" />
@@ -3168,6 +3170,7 @@
     <Compile Include="UI\NHunspell.xaml.cs">
       <DependentUpon>NHunspell.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\PageControl.cs" />
     <Compile Include="UI\PageNavigationWindow.xaml.cs">
       <DependentUpon>PageNavigationWindow.xaml</DependentUpon>
     </Compile>

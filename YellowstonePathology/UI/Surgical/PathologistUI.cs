@@ -25,7 +25,6 @@ namespace YellowstonePathology.UI.Surgical
 		private YellowstonePathology.Business.Document.CaseDocumentCollection m_CaseDocumentCollection;
 		private YellowstonePathology.Business.User.SystemUserCollection m_PathologistUsers;
 		private YellowstonePathology.Business.User.SystemUserCollection m_AmendmentUsers;
-		private YellowstonePathology.Business.Test.PanelSetOrderCollection m_PathologistOrderCollection;
 		private YellowstonePathology.Business.Common.FieldEnabler m_FieldEnabler;
         private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 

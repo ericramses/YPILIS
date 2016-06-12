@@ -12,8 +12,8 @@ namespace YellowstonePathology.UI.AppMessaging
         private static volatile MessagingPath instance;
         private static object syncRoot = new Object();
 
-        public delegate void NextEventHandler(object sender, UI.CustomEventArgs.AccessionOrderReturnEventArgs e);
-        public event NextEventHandler Next;
+        public delegate void NevermindEventHandler(object sender, EventArgs e);
+        public event NevermindEventHandler Nevermind;
 
         public delegate void LockWasReleasedEventHandler(object sender, EventArgs e);
         public event LockWasReleasedEventHandler LockWasReleased;
@@ -32,11 +32,13 @@ namespace YellowstonePathology.UI.AppMessaging
 
         static MessagingPath()
         {
-            
-        }        
+
+        }
 
         private MessagingPath()
-        {                        
+        {
+            this.m_PageNavigatorWasPassedIn = false;
+
             this.m_PageNavigatorWasPassedIn = false;
             this.m_LockAquiredActionList = new List<Action>();
             this.m_LockReleasedActionList = new List<Action>();
@@ -48,7 +50,41 @@ namespace YellowstonePathology.UI.AppMessaging
             this.m_AlwaysHoldList.Add("GROSSB-PC");
             this.m_AlwaysHoldList.Add("GROSS2-PC");
             this.m_AlwaysHoldList.Add("CODYHISTOLOGY01");
-            this.m_AlwaysHoldList.Add("COMPILE");
+            //this.m_AlwaysHoldList.Add("COMPILE");          
+        }
+
+        public static MessagingPath Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    lock (syncRoot)
+                    {
+                        if (instance == null)
+                            instance = new MessagingPath();
+                    }
+                }
+
+                return instance;
+            }
+        }
+
+        public void HandleMessageReceived(AccessionLockMessage message, Business.Test.AccessionOrder accessionOrder)
+        {
+            switch (message.MessageId)
+            {
+                case UI.AppMessaging.AccessionLockMessageIdEnum.ASK:
+                    HandleASKRecieved(accessionOrder, message);
+                    break;
+                case UI.AppMessaging.AccessionLockMessageIdEnum.HOLD:
+                    ShowResponseReceivedPage(message);
+                    break;
+                case UI.AppMessaging.AccessionLockMessageIdEnum.GIVE:
+                    ShowResponseReceivedPage(message);
+                    RunLockAquiredActionList();
+                    break;
+            }
         }
 
         public List<Action> LockAquiredActionList
@@ -59,30 +95,9 @@ namespace YellowstonePathology.UI.AppMessaging
         public List<Action> LockReleasedActionList
         {
             get { return this.m_LockReleasedActionList; }
-        }
-
-        public void HandleMessageRecieved(string channel, AccessionLockMessage message)
-        {            
-            if(message.DidISendThis() == false)
-            {
-                switch (message.MessageId)
-                {
-                    case AccessionLockMessageIdEnum.ASK:
-                        this.HandleASKRecieved(message);
-                        break;
-                    case AccessionLockMessageIdEnum.HOLD:
-                        this.ShowResponseReceivedPage(message);
-                        break;
-                    case AccessionLockMessageIdEnum.GIVE:
-                        YellowstonePathology.Business.Persistence.DocumentGateway.Instance.RefreshAccessionOrder(message.MasterAccessionNo);
-                        this.ShowResponseReceivedPage(message);
-                        this.RunLockAquiredActionList();
-                        break;
-                }
-            }            
-        }     
+        }           
         
-        private void RunLockReleasedActionList()
+        public void RunLockReleasedActionList()
         {
             foreach(Action action in this.m_LockReleasedActionList)
             {
@@ -90,7 +105,7 @@ namespace YellowstonePathology.UI.AppMessaging
             }
         }
 
-        private void RunLockAquiredActionList()
+        public void RunLockAquiredActionList()
         {
             foreach (Action action in this.m_LockAquiredActionList)
             {
@@ -98,42 +113,46 @@ namespace YellowstonePathology.UI.AppMessaging
             }
         }
 
-        public void HandleASKRecieved(AccessionLockMessage message)
+        public void HandleASKRecieved(Business.Test.AccessionOrder accessionOrder, AccessionLockMessage message)
         {
             if (this.m_AlwaysHoldList.Exists(e => e == System.Environment.MachineName.ToUpper()))
             {
-                UI.AppMessaging.AccessionLockMessage holdMessage = new AccessionLockMessage(message.MasterAccessionNo, System.Environment.MachineName, Business.User.SystemIdentity.Instance.User.UserName, AccessionLockMessageIdEnum.HOLD);
+                UI.AppMessaging.AccessionLockMessage holdMessage = new AccessionLockMessage(message.MasterAccessionNo, AccessionLockMessage.GetMyAddress(), message.From, AccessionLockMessageIdEnum.HOLD);
                 ISubscriber subscriber = Business.RedisConnection.Instance.GetSubscriber();
                 subscriber.Publish(holdMessage.MasterAccessionNo, JsonConvert.SerializeObject(holdMessage));
             }
             else
             {
-                this.m_MessagingDialog = new MessagingDialog();
+                if(this.m_MessagingDialog == null) this.m_MessagingDialog = new MessagingDialog();
                 this.m_PageNavigator = this.m_MessagingDialog.PageNavigator;
                 this.m_MessagingDialog.Closed += MessagingDialog_Closed;
 
-                AppMessaging.LockRequestReceivedPage lockRequestReceivedPage = new AppMessaging.LockRequestReceivedPage(message);
+                AppMessaging.LockRequestReceivedPage lockRequestReceivedPage = new AppMessaging.LockRequestReceivedPage(accessionOrder, message);
                 lockRequestReceivedPage.Take += LockRequestReceivedPage_Take;
-                lockRequestReceivedPage.Hold += LockRequestReceivedPage_Hold;
+                lockRequestReceivedPage.Hold += LockRequestReceivedPage_Hold;         
+
                 this.m_MessagingDialog.PageNavigator.Navigate(lockRequestReceivedPage);
                 this.m_MessagingDialog.Show();
             }           
-        }
+        }        
 
         private void LockRequestReceivedPage_Hold(object sender, CustomEventArgs.AccessionLockMessageReturnEventArgs e)
         {
-            UI.AppMessaging.AccessionLockMessage message = new AccessionLockMessage(e.Message.MasterAccessionNo, System.Environment.MachineName, Business.User.SystemIdentity.Instance.User.UserName, AccessionLockMessageIdEnum.HOLD);
+            UI.AppMessaging.AccessionLockMessage message = new AccessionLockMessage(e.Message.MasterAccessionNo, AccessionLockMessage.GetMyAddress(), e.Message.From, AccessionLockMessageIdEnum.HOLD);
             ISubscriber subscriber = Business.RedisConnection.Instance.GetSubscriber();
             subscriber.Publish(message.MasterAccessionNo, JsonConvert.SerializeObject(message));
             this.m_MessagingDialog.Close();
         }
 
-        private void LockRequestReceivedPage_Take(object sender, CustomEventArgs.AccessionLockMessageReturnEventArgs e)
+        private void LockRequestReceivedPage_Take(object sender, CustomEventArgs.AOAccessionLockMessageReturnEventArgs e)
         {            
             this.RunLockReleasedActionList();
             this.m_MessagingDialog.Close();
 
-            UI.AppMessaging.AccessionLockMessage message = new AccessionLockMessage(e.Message.MasterAccessionNo, System.Environment.MachineName, Business.User.SystemIdentity.Instance.User.UserName, AccessionLockMessageIdEnum.GIVE);
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
+            e.AccessionOrder.AccessionLock.TransferLock(e.Message.From);
+
+            UI.AppMessaging.AccessionLockMessage message = new AccessionLockMessage(e.Message.MasterAccessionNo, AccessionLockMessage.GetMyAddress(), e.Message.From, AccessionLockMessageIdEnum.GIVE);
             ISubscriber subscriber = Business.RedisConnection.Instance.GetSubscriber();
             subscriber.Publish(message.MasterAccessionNo, JsonConvert.SerializeObject(message));
         }
@@ -143,7 +162,7 @@ namespace YellowstonePathology.UI.AppMessaging
             this.m_PageNavigator = pageNavigator;
             this.m_PageNavigatorWasPassedIn = true;
 
-            UI.AppMessaging.AccessionLockMessage message = new AccessionLockMessage(accessionOrder.MasterAccessionNo, System.Environment.MachineName, Business.User.SystemIdentity.Instance.User.UserName, AccessionLockMessageIdEnum.ASK);
+            UI.AppMessaging.AccessionLockMessage message = new AccessionLockMessage(accessionOrder.MasterAccessionNo, AccessionLockMessage.GetMyAddress(), accessionOrder.AccessionLock.Address, AccessionLockMessageIdEnum.ASK);
             ISubscriber subscriber = Business.RedisConnection.Instance.GetSubscriber();
             subscriber.Publish(message.MasterAccessionNo, JsonConvert.SerializeObject(message));
 
@@ -152,26 +171,29 @@ namespace YellowstonePathology.UI.AppMessaging
 
         public void Start(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {                        
-            MessagingDialog messagingDialog = new MessagingDialog();
-            this.m_PageNavigator = messagingDialog.PageNavigator;
-            messagingDialog.Closed += MessagingDialog_Closed;
+            if(accessionOrder.AccessionLock.IsLockAquiredByMe == false)
+            {
+                if(this.m_MessagingDialog == null) this.m_MessagingDialog = new MessagingDialog();
+                this.m_PageNavigator = this.m_MessagingDialog.PageNavigator;
+                this.m_MessagingDialog.Closed += MessagingDialog_Closed;
 
-            UI.AppMessaging.AccessionLockMessage message = new AccessionLockMessage(accessionOrder.MasterAccessionNo, accessionOrder.AccessionLock.HostName, accessionOrder.AccessionLock.UserName, AccessionLockMessageIdEnum.ASK);
-            AppMessaging.LockRequestPage lockRequestPage = new AppMessaging.LockRequestPage(accessionOrder);                
-            lockRequestPage.RequestLock += LockRequestPage_RequestLock;
+                UI.AppMessaging.AccessionLockMessage message = new AccessionLockMessage(accessionOrder.MasterAccessionNo, AccessionLockMessage.GetMyAddress(), accessionOrder.AccessionLock.Address, AccessionLockMessageIdEnum.ASK);
+                AppMessaging.LockRequestPage lockRequestPage = new AppMessaging.LockRequestPage(accessionOrder);
+                lockRequestPage.RequestLock += LockRequestPage_RequestLock;
 
-            messagingDialog.PageNavigator.Navigate(lockRequestPage);
-            messagingDialog.Show();            
+                this.m_MessagingDialog.PageNavigator.Navigate(lockRequestPage);
+                this.m_MessagingDialog.Show();
+            }            
         }
 
         private void MessagingDialog_Closed(object sender, EventArgs e)
-        {
-            
+        {            
+            this.m_MessagingDialog = null;
         }
 
         private void LockRequestPage_RequestLock(object sender, CustomEventArgs.AccessionOrderReturnEventArgs e)
         {
-            UI.AppMessaging.AccessionLockMessage message = new AccessionLockMessage(e.AccessionOrder.MasterAccessionNo, System.Environment.MachineName, Business.User.SystemIdentity.Instance.User.UserName, AccessionLockMessageIdEnum.ASK);
+            UI.AppMessaging.AccessionLockMessage message = new AccessionLockMessage(e.AccessionOrder.MasterAccessionNo, AppMessaging.AccessionLockMessage.GetMyAddress(), e.AccessionOrder.AccessionLock.Address, AccessionLockMessageIdEnum.ASK);
             ISubscriber subscriber = Business.RedisConnection.Instance.GetSubscriber();
             subscriber.Publish(message.MasterAccessionNo, JsonConvert.SerializeObject(message));
             this.ShowLockRequestSentPage(e.AccessionOrder);
@@ -182,23 +204,23 @@ namespace YellowstonePathology.UI.AppMessaging
             LockRequestSentPage lockRequestSentPage = null;
             if(this.m_PageNavigatorWasPassedIn == true)
             {
-                lockRequestSentPage = new LockRequestSentPage(accessionOrder.AccessionLock.UserName, accessionOrder.AccessionLock.HostName, accessionOrder.MasterAccessionNo, System.Windows.Visibility.Collapsed, System.Windows.Visibility.Visible);
+                lockRequestSentPage = new LockRequestSentPage(accessionOrder.AccessionLock.Address, accessionOrder.MasterAccessionNo, System.Windows.Visibility.Collapsed, System.Windows.Visibility.Visible);
             }
             else
             {
-                lockRequestSentPage = new LockRequestSentPage(accessionOrder.AccessionLock.UserName, accessionOrder.AccessionLock.HostName, accessionOrder.MasterAccessionNo, System.Windows.Visibility.Visible, System.Windows.Visibility.Collapsed);
+                lockRequestSentPage = new LockRequestSentPage(accessionOrder.AccessionLock.Address, accessionOrder.MasterAccessionNo, System.Windows.Visibility.Visible, System.Windows.Visibility.Collapsed);
             }
 
-            //lockRequestSentPage.Next += LockRequestSentPage_Next;
+            lockRequestSentPage.Nevermind += LockRequestSentPage_Nevermind;
             this.m_PageNavigator.Navigate(lockRequestSentPage);
         }
 
-        private void LockRequestSentPage_Next(object sender, CustomEventArgs.AccessionOrderReturnEventArgs e)
+        private void LockRequestSentPage_Nevermind(object sender, EventArgs e)
         {
-            if (this.Next != null) this.Next(this, e);
+            if (this.Nevermind != null) this.Nevermind(this, e);
         }        
 
-        private void ShowResponseReceivedPage(AccessionLockMessage message)
+        public void ShowResponseReceivedPage(AccessionLockMessage message)
         {
             LockRequestResponseReceivedPage lockRequestResponseReceivedPage = null;
             if(this.m_PageNavigatorWasPassedIn == false)
@@ -223,23 +245,6 @@ namespace YellowstonePathology.UI.AppMessaging
         private void LockRequestResponseReceivedPage_LockWasReleased(object sender, EventArgs e)
         {
             this.LockWasReleased(this, new EventArgs());
-        }
-
-        public static MessagingPath Instance
-        {
-            get
-            {
-                if (instance == null)
-                {
-                    lock (syncRoot)
-                    {
-                        if (instance == null)
-                            instance = new MessagingPath();
-                    }
-                }
-
-                return instance;
-            }
-        }
+        }        
     }
 }

@@ -10,30 +10,16 @@ namespace YellowstonePathology.UI.AppMessaging
     public class AccessionLockMessage
     {        
         private string m_MasterAccessionNo;
-        private string m_ComputerName;
-        private string m_UserName;
-        private AccessionLockMessageIdEnum m_MessageId;
-        private string m_Message;
+        private string m_From;
+        private string m_To;
+        private AccessionLockMessageIdEnum m_MessageId;        
 
-        public AccessionLockMessage(string masterAccessionNo, string computerName, string userName, AccessionLockMessageIdEnum messageId)
+        public AccessionLockMessage(string masterAccessionNo, string from, string to, AccessionLockMessageIdEnum messageId)
         {
             this.m_MasterAccessionNo = masterAccessionNo;
-            this.m_ComputerName = computerName;
-            this.m_UserName = userName;
-            this.m_MessageId = messageId;
-
-            switch(messageId)
-            {
-                case AccessionLockMessageIdEnum.ASK:
-                    this.m_Message = "Give me the case.";
-                    break;
-                case AccessionLockMessageIdEnum.GIVE:
-                    this.m_Message = "OK you can have it.";
-                    break;
-                case AccessionLockMessageIdEnum.HOLD:
-                    this.m_Message = "Hold your horses!";
-                    break;
-            }
+            this.m_From = from;
+            this.m_To = to;
+            this.m_MessageId = messageId;            
         }
 
         public string MasterAccessionNo
@@ -41,39 +27,29 @@ namespace YellowstonePathology.UI.AppMessaging
             get { return this.m_MasterAccessionNo; }
         }
 
-        public string ComputerName
+        public string From
         {
-            get { return this.m_ComputerName; }
+            get { return this.m_From; }
         }
 
-        public string UserName
+        public string To
         {
-            get { return this.m_UserName; }
+            get { return this.m_To; }
         }
 
         public AccessionLockMessageIdEnum MessageId
         {
             get { return this.m_MessageId; }
-        }
-
-        public string Message
-        {
-            get { return this.m_Message; }
-        }        
+        }            
 
         public string ToJSON()
         {
             return JsonConvert.SerializeObject(this);
-        }
+        }               
         
-        public bool DidISendThis()
+        public static string GetMyAddress()
         {
-            bool result = false;
-            if(this.m_ComputerName == System.Environment.MachineName)
-            {
-                result = true;
-            }
-            return result;
-        }        
+            return System.Environment.MachineName + "\\" + Business.User.SystemIdentity.Instance.User.UserName;
+        }       
     }
 }
