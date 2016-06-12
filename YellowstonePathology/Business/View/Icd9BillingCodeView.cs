@@ -7,14 +7,14 @@ namespace YellowstonePathology.Business.View
 {
 	public class ICD9BillingCodeView
 	{
-		private YellowstonePathology.Business.Billing.ICD9BillingCode m_ICD9BillingCode;
+		private YellowstonePathology.Business.Billing.Model.ICD9BillingCode m_ICD9BillingCode;
 
-        public ICD9BillingCodeView(YellowstonePathology.Business.Billing.ICD9BillingCode icd9BillingCode)
+        public ICD9BillingCodeView(YellowstonePathology.Business.Billing.Model.ICD9BillingCode icd9BillingCode)
 		{
 			this.m_ICD9BillingCode = icd9BillingCode;
 		}
 
-		public YellowstonePathology.Business.Billing.ICD9BillingCode ICD9BillingCode
+		public YellowstonePathology.Business.Billing.Model.ICD9BillingCode ICD9BillingCode
 		{
 			get { return this.m_ICD9BillingCode; }
 		}

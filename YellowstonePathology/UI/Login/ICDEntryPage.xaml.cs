@@ -117,7 +117,7 @@ namespace YellowstonePathology.UI.Login
 		private void AddICD9Code(string icd9Code, string icd10Code, int quantity)
 		{
 			string specimenOrderId = this.m_AccessionOrder.SpecimenOrderCollection[0].SpecimenOrderId;
-			YellowstonePathology.Business.Billing.ICD9BillingCode icd9BillingCode = this.m_AccessionOrder.ICD9BillingCodeCollection.GetNextItem(this.m_ReportNo,
+			YellowstonePathology.Business.Billing.Model.ICD9BillingCode icd9BillingCode = this.m_AccessionOrder.ICD9BillingCodeCollection.GetNextItem(this.m_ReportNo,
                 this.m_AccessionOrder.MasterAccessionNo, specimenOrderId, icd9Code, icd10Code, quantity);
 			this.m_AccessionOrder.ICD9BillingCodeCollection.Add(icd9BillingCode);
 		}		
@@ -134,7 +134,7 @@ namespace YellowstonePathology.UI.Login
         {
             if (this.ListViewICD9BillingCodes.SelectedItem != null)
             {
-                YellowstonePathology.Business.Billing.ICD9BillingCode icd9BillingCode = (YellowstonePathology.Business.Billing.ICD9BillingCode)this.ListViewICD9BillingCodes.SelectedItem;
+                YellowstonePathology.Business.Billing.Model.ICD9BillingCode icd9BillingCode = (YellowstonePathology.Business.Billing.Model.ICD9BillingCode)this.ListViewICD9BillingCodes.SelectedItem;
                 this.m_AccessionOrder.ICD9BillingCodeCollection.Remove(icd9BillingCode);
             }
         }          

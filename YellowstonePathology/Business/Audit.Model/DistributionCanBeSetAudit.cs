@@ -16,7 +16,7 @@ namespace YellowstonePathology.Business.Audit.Model
             this.m_Status = AuditStatusEnum.OK;
             this.m_Message.Clear();
 
-            YellowstonePathology.Business.Client.PhysicianClientDistributionCollection physicianClientDistributionCollection = Gateway.ReportDistributionGateway.GetPhysicianClientDistributionCollection(this.m_AccessionOrder.PhysicianId, this.m_AccessionOrder.ClientId);
+            YellowstonePathology.Business.Client.Model.PhysicianClientDistributionList physicianClientDistributionCollection = Gateway.ReportDistributionGateway.GetPhysicianClientDistributionCollection(this.m_AccessionOrder.PhysicianId, this.m_AccessionOrder.ClientId);
             if(physicianClientDistributionCollection.Count == 0)
             {
                 this.m_Status = AuditStatusEnum.Failure;

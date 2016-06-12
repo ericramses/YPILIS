@@ -40,11 +40,11 @@ namespace YellowstonePathology.Business.Test.CSF3RMutationAnalysis
 
             if (string.IsNullOrEmpty(testOrder.Comment) == true)
             {
-                this.SetXMLNodeParagraphData("report_comment", testOrder.Comment);
+                this.DeleteRow("report_comment");
             }
             else
             {
-                this.DeleteRow("report_comment");
+                this.SetXMLNodeParagraphData("report_comment", testOrder.Comment);
             }
 
             this.SetXMLNodeParagraphData("report_result", testOrder.Result);

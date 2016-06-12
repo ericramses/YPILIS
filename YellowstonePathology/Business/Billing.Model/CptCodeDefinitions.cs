@@ -55,7 +55,8 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
             this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.Global;
-            this.m_SVHCDM = "760803367";
+            this.m_SVHCDMCode = "760803367";
+            this.m_SVHCDMDescription = "CYTP URNE 3-5 PROBES EA SPEC";
         }
     }
 
@@ -69,7 +70,8 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
             this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.Global;
-            this.m_SVHCDM = "760806281";
+            this.m_SVHCDMCode = "760806281";
+            this.m_SVHCDMDescription = "M/PHMTRC ANALYS ISH QUANT/SEMIQ MANUAL EACH ADDTL";
         }
     }
 
@@ -96,7 +98,8 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
             this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.Global;
-            this.m_SVHCDM = "760806282";
+            this.m_SVHCDMCode = "760806282";
+            this.m_SVHCDMDescription = "M/PHMTRC ANALYS ISH QUANT/SEMIQ COMPUTER-ASSIST ";
         }
     }
 
@@ -110,7 +113,8 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
             this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.Global;
-            this.m_SVHCDM = "760806283";
+            this.m_SVHCDMCode = "760806283";
+            this.m_SVHCDMDescription = "M/PHMTRC ANALYS ISH QUANT/SEMIQ COMPUTR-ASSIST EA";
         }
     }
 
@@ -124,7 +128,8 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
             this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.Global;
-            this.m_SVHCDM = "760806277";
+            this.m_SVHCDMCode = "760806277";
+            this.m_SVHCDMDescription = "IMMUNOHISTO AB SLIDE; PER SPEC; SINGLE STAIN";
         }
     }
 
@@ -294,7 +299,8 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
             this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.TechnicalOnly;
-            this.m_SVHCDM = "760806446";
+            this.m_SVHCDMCode = "760806446";
+            this.m_SVHCDMDescription = "MOLECULAR PATHOLOGY PROC LEVEL 8";
         }
     }
 
@@ -321,7 +327,8 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
             this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.TechnicalOnly;
-            this.m_SVHCDM = "760805571";
+            this.m_SVHCDMCode = "760805571";
+            this.m_SVHCDMDescription = "MOLECULAR PATHOLOGY PROC LEVEL 2";
         }
     }
 
@@ -361,7 +368,8 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
             this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.TechnicalOnly;
-            this.m_SVHCDM = "760805684";
+            this.m_SVHCDMCode = "760805684";
+            this.m_SVHCDMDescription = "HIGH VARI REGIONAL MUTATION";
         }
     }
 
@@ -388,7 +396,8 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
             this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.TechnicalOnly;
-            this.m_SVHCDM = "760805723";
+            this.m_SVHCDMCode = "760805723";
+            this.m_SVHCDMDescription = "TRG GENE REARRANGEMENT ANAL";
         }
     }
 
@@ -402,7 +411,8 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
             this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.TechnicalOnly;
-            this.m_SVHCDM = "760804017";
+            this.m_SVHCDMCode = "760804017";
+            this.m_SVHCDMDescription = "CHROMOSOME ANALYSIS 20 25";
         }
     }
 
@@ -442,7 +452,8 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
             this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.TechnicalOnly;
-            this.m_SVHCDM = "760805647";
+            this.m_SVHCDMCode = "760805647";
+            this.m_SVHCDMDescription = "MOLECULAR PATHOLOGY PROC LEVEL 5";
         }
     }
 
@@ -469,7 +480,8 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
             this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.TechnicalOnly;
-            this.m_SVHCDM = "760805645";
+            this.m_SVHCDMCode = "760805645";
+            this.m_SVHCDMDescription = "MOLECULAR PATHOLOGY PROC LEVEL 3";
         }
     }
 
@@ -483,7 +495,8 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
             this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.TechnicalOnly;
-            this.m_SVHCDM = "760805646";
+            this.m_SVHCDMCode = "760805646";
+            this.m_SVHCDMDescription = "MOLECULAR PATHOLOGY PROC LEVEL 4";
         }
     }
 
@@ -497,7 +510,8 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
             this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.Global;
-            this.m_SVHCDM = "760805629";
+            this.m_SVHCDMCode = "760805629";
+            this.m_SVHCDMDescription = "FLT3 GENE";
         }
     }
 
@@ -877,7 +891,8 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
 			this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.Global;
-            this.m_SVHCDM = "760805885";
+            this.m_SVHCDMCode = "760805885";
+            this.m_SVHCDMDescription = "SVHR-CYTOPATH FLUIDS NONGYN SMEARS";
 		}
 	}
 
@@ -904,7 +919,8 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
 			this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.Global;
-            this.m_SVHCDM = "760402247";
+            this.m_SVHCDMCode = "760402247";
+            this.m_SVHCDMDescription = "CYTOPATH CELL ENHANCE TECH";
 		}
 	}
 
@@ -972,7 +988,8 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
 			this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.Global;
-            this.m_SVHCDM = "760402250";
+            this.m_SVHCDMCode = "760402250";
+            this.m_SVHCDMDescription = "TOUCH PREP";
 		}
 	}	
 
@@ -986,7 +1003,8 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
 			this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.Global;
-            this.m_SVHCDM = "760402253";
+            this.m_SVHCDMCode = "760402253";
+            this.m_SVHCDMDescription = "EVAL OF FNA; INTERP & REPORT";
         }
     }
 
@@ -1001,7 +1019,8 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
             this.m_IsBillable = true;
             this.m_GCode = "G0145";
             this.m_CodeType = CPTCodeTypeEnum.TechnicalOnly;
-            this.m_SVHCDM = "760403862";
+            this.m_SVHCDMCode = "760403862";
+            this.m_SVHCDMDescription = "THIN PREP AUTO DIAGNOSTIC";
         }
     }
 
@@ -1119,7 +1138,8 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
 			this.m_HasTechnicalComponent = true;
 			this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.TechnicalOnly;
-            this.m_SVHCDM = "760802264";
+            this.m_SVHCDMCode = "760802264";
+            this.m_SVHCDMDescription = "TISSUE CULTURE BLOOD CELSS";
 		}
 	}
 
@@ -1133,7 +1153,8 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
             this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.TechnicalOnly;
-            this.m_SVHCDM = "760802727";
+            this.m_SVHCDMCode = "760802727";
+            this.m_SVHCDMDescription = "TISSUE CULTRE SOLID TUMOR";
         }
     }
 
@@ -1147,7 +1168,8 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
 			this.m_HasTechnicalComponent = true;
 			this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.TechnicalOnly;
-            this.m_SVHCDM = "760803848";
+            this.m_SVHCDMCode = "760803848";
+            this.m_SVHCDMDescription = "CHROMOSOME ANALYSIS; 15-20 CELLS";
         }
     }
 
@@ -1161,7 +1183,8 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
             this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.TechnicalOnly;
-            this.m_SVHCDM = "760802263";
+            this.m_SVHCDMCode = "760802263";
+            this.m_SVHCDMDescription = "CULTURE TISSUE SKIN";
         }
     }
 
@@ -1201,7 +1224,8 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
 			this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.Global;
-            this.m_SVHCDM = "760402279";
+            this.m_SVHCDMCode = "760402279";
+            this.m_SVHCDMDescription = "SURG PATH LEVEL-I GROSS EXAM ONLY";
 		}
 	}
 
@@ -1215,7 +1239,8 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
 			this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.Global;
-            this.m_SVHCDM = "760402280";
+            this.m_SVHCDMCode = "760402280";
+            this.m_SVHCDMDescription = "LEVEL II SURG PATH GROSS/MICRO";
         }
     }
 
@@ -1229,7 +1254,8 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
 			this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.Global;
-            this.m_SVHCDM = "760402281";
+            this.m_SVHCDMCode = "760402281";
+            this.m_SVHCDMDescription = "SURG PATH LEVEL-III GROSS & MICRO";
         }
     }
 
@@ -1243,7 +1269,8 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
 			this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.Global;
-            this.m_SVHCDM = "760402282";
+            this.m_SVHCDMCode = "760402282";
+            this.m_SVHCDMDescription = "SURG PATH LEVEL-IV GROSS & MICRO";
         }
     }
 
@@ -1257,7 +1284,8 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
 			this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.Global;
-            this.m_SVHCDM = "760402283";
+            this.m_SVHCDMCode = "760402283";
+            this.m_SVHCDMDescription = "SURG PATH LEVEL-V GROSS & MICRO";
         }
     }
 
@@ -1271,7 +1299,8 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
 			this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.Global;
-            this.m_SVHCDM = "760402284";
+            this.m_SVHCDMCode = "760402284";
+            this.m_SVHCDMDescription = "SURG PATH LEVEL-VI GROSS & MICRO";
         }
     }
 
@@ -1285,7 +1314,8 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
 			this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.Global;
-            this.m_SVHCDM = "760402285";
+            this.m_SVHCDMCode = "760402285";
+            this.m_SVHCDMDescription = " DECALCIFICATION PROCEDURE";
         }
     }
 
@@ -1299,7 +1329,8 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
 			this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.Global;
-            this.m_SVHCDM = "760402286";
+            this.m_SVHCDMCode = "760402286";
+            this.m_SVHCDMDescription = "SPECIAL STAINS; GROUP 1, EACH";
         }
     }
 
@@ -1313,7 +1344,8 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
 			this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.Global;
-            this.m_SVHCDM = "760402287";
+            this.m_SVHCDMCode = "760402287";
+            this.m_SVHCDMDescription = "SPECIAL STAINS; GROUP 2, EACH";
         }
     }
 
@@ -1405,9 +1437,10 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
 			this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.Global;
-            this.m_SVHCDM = "760402292";
-		}
-	}
+            this.m_SVHCDMCode = "760402292";
+            this.m_SVHCDMDescription = "TISSUE 1ST FROZEN SECTION EXAM";
+        }
+    }
 
 	public class CPT88332 : CptCode
 	{
@@ -1419,7 +1452,8 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
 			this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.Global;
-            this.m_SVHCDM = "760402293";
+            this.m_SVHCDMCode = "760402293";
+            this.m_SVHCDMDescription = "TISSUE ADDL FROZEN SECT EXAM";
         }
     }
 
@@ -1459,9 +1493,10 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
 			this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.Global;
-            this.m_SVHCDM = "760402296";
-		}
-	}
+            this.m_SVHCDMCode = "760402296";
+            this.m_SVHCDMDescription = " IMMUNO; PER SPEC INIT SGLE AB";
+        }
+    }
 
     public class CPT88364 : CptCode
     {
@@ -1486,9 +1521,10 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
 			this.m_HasTechnicalComponent = true;
 			this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.Global;
-            this.m_SVHCDM = "760805981";
-		}
-	}
+            this.m_SVHCDMCode = "760805981";
+            this.m_SVHCDMDescription = "IMMUNOHISTO/CYTO CHEM, EACH ADDITIONAL AB";
+        }
+    }
 
 	public class CPT88360 : CptCode
 	{
@@ -1500,7 +1536,8 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
 			this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.Global;
-            this.m_SVHCDM = "760402732";
+            this.m_SVHCDMCode = "760402732";
+            this.m_SVHCDMDescription = "TUMOR IMM MAN PER SPEC/EA AB";
         }
     }
 
@@ -1514,7 +1551,8 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
             this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.Global;
-            this.m_SVHCDM = "760802301";
+            this.m_SVHCDMCode = "760802301";
+            this.m_SVHCDMDescription = "TISSUE ISH SNGL PROBE PER SPEC";
         }
     }
 
@@ -1530,7 +1568,8 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
             this.m_HasMedicareQuantityLimit = true;
             this.m_MedicareQuantityLimit = 1;
             this.m_CodeType = CPTCodeTypeEnum.Global;
-            this.m_SVHCDM = "760802268";
+            this.m_SVHCDMCode = "760802268";
+            this.m_SVHCDMDescription = "CHROMOSOME ANALYSIS TISSUE";
         }
     }
 
@@ -1560,7 +1599,8 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
             this.m_IsBillable = true;
             this.m_HasMedicareQuantityLimit = false;            
             this.m_CodeType = CPTCodeTypeEnum.Global;
-            this.m_SVHCDM = "760806284";
+            this.m_SVHCDMCode = "760806284";
+            this.m_SVHCDMDescription = "M/PHMTRC ANALYS ISH QUANT/SEMIQ; MANUAL EA MULTIPLEX PROBE";
         }
     }
 
@@ -1613,9 +1653,10 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
 			this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.TechnicalOnly;
-            this.m_SVHCDM = "760805576";
-		}
-	}
+            this.m_SVHCDMCode = "760805576";
+            this.m_SVHCDMDescription = "JAK2 GENE";
+        }
+    }
 
 	public class CPT81220 : CptCode
 	{
@@ -1640,9 +1681,10 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
 			this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.TechnicalOnly;
-            this.m_SVHCDM = "760805634";
-		}
-	}
+            this.m_SVHCDMCode = "760805634";
+            this.m_SVHCDMDescription = "KRAS GENE";
+        }
+    }
 
 	public class CPT81210 : CptCode
 	{
@@ -1654,9 +1696,10 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
 			this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.TechnicalOnly;
-            this.m_SVHCDM = "760805628";
-		}
-	}
+            this.m_SVHCDMCode = "760805628";
+            this.m_SVHCDMDescription = "BRAF GENE";
+        }
+    }
 
 	public class CPT81240 : CptCode
 	{

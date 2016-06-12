@@ -59,9 +59,9 @@ namespace YellowstonePathology.UI.Login.Receiving
 
         private void ItemsReceivedPage_BarcodeWontScan(object sender, EventArgs e)
         {
-            YellowstonePathology.UI.Login.ReceiveSpecimen.BarcodeManualEntryPage containerManualEntryPage = new YellowstonePathology.UI.Login.ReceiveSpecimen.BarcodeManualEntryPage();
-            containerManualEntryPage.Return += new ReceiveSpecimen.BarcodeManualEntryPage.ReturnEventHandler(ContainerManualEntryPage_Return);
-            containerManualEntryPage.Back += new ReceiveSpecimen.BarcodeManualEntryPage.BackEventHandler(ContainerManualEntryPage_Back);
+            BarcodeManualEntryPage containerManualEntryPage = new BarcodeManualEntryPage();
+            containerManualEntryPage.Return += new BarcodeManualEntryPage.ReturnEventHandler(ContainerManualEntryPage_Return);
+            containerManualEntryPage.Back += new BarcodeManualEntryPage.BackEventHandler(ContainerManualEntryPage_Back);
             this.m_LoginPageWindow.PageNavigator.Navigate(containerManualEntryPage);						
         }
 
@@ -92,7 +92,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 
 		private void ReceiveContainerScan(string containerId)
 		{
-            YellowstonePathology.UI.Login.ReceiveSpecimen.IFoundAContainerResult result = this.m_ClientOrderReceivingHandler.IFoundAContainer(containerId);
+            YellowstonePathology.UI.Login.Receiving.IFoundAContainerResult result = this.m_ClientOrderReceivingHandler.IFoundAContainer(containerId);
 			if (result.OkToReceive == true)
 			{
 				this.ShowClientOrderDetailsPage();
@@ -129,9 +129,9 @@ namespace YellowstonePathology.UI.Login.Receiving
 
 		private void HandleCommand(UI.Navigation.PageNavigationReturnEventArgs e)
 		{
-			switch ((ReceiveSpecimen.ReceiveSpecimenCommandTypeEnum)e.Data)
+			switch ((ReceiveSpecimenCommandTypeEnum)e.Data)
 			{
-				case ReceiveSpecimen.ReceiveSpecimenCommandTypeEnum.Finalize:
+				case ReceiveSpecimenCommandTypeEnum.Finalize:
                     this.m_LoginPageWindow.Close();
 					break;
 			}

@@ -1252,7 +1252,7 @@ namespace YellowstonePathology.Business.Test
 				this.m_AcceptedBy = Business.User.SystemIdentity.Instance.User.DisplayName;
 			}
 
-            YellowstonePathology.Business.Client.PhysicianClientDistributionCollection physicianClientDistributionCollection = YellowstonePathology.Business.Gateway.ReportDistributionGateway.GetPhysicianClientDistributionCollection(accessionOrder.PhysicianId, accessionOrder.ClientId);
+            YellowstonePathology.Business.Client.Model.PhysicianClientDistributionList physicianClientDistributionCollection = YellowstonePathology.Business.Gateway.ReportDistributionGateway.GetPhysicianClientDistributionCollection(accessionOrder.PhysicianId, accessionOrder.ClientId);
             physicianClientDistributionCollection.SetDistribution(this, accessionOrder);
 
             this.NotifyPropertyChanged(string.Empty);

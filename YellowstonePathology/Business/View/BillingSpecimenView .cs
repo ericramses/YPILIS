@@ -10,13 +10,13 @@ namespace YellowstonePathology.Business.View
 		private YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen m_SurgicalSpecimen;
 		private YellowstonePathology.Business.Specimen.Model.SpecimenOrder m_SpecimenOrder;
 		private YellowstonePathology.Business.Test.PanelSetOrderCPTCodeCollection m_PanelSetOrderCPTCodeCollection;
-		private YellowstonePathology.Business.Billing.ICD9BillingCodeCollection m_ICD9BillingCodeCollection;
+		private YellowstonePathology.Business.Billing.Model.ICD9BillingCodeCollection m_ICD9BillingCodeCollection;
         private YellowstonePathology.Business.Specimen.Model.SpecimenCollection m_SpecimenCollection;
 
 		public BillingSpecimenView(YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen,
 			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder,
 			YellowstonePathology.Business.Test.PanelSetOrderCPTCodeCollection panelSetOrderCPTCodeCollection,
-			YellowstonePathology.Business.Billing.ICD9BillingCodeCollection icd9BillingCodeCollection)
+			YellowstonePathology.Business.Billing.Model.ICD9BillingCodeCollection icd9BillingCodeCollection)
 		{
 			this.m_SurgicalSpecimen = surgicalSpecimen;
 			this.m_SpecimenOrder = specimenOrder;
@@ -45,7 +45,7 @@ namespace YellowstonePathology.Business.View
 			get { return this.m_PanelSetOrderCPTCodeCollection; }
 		}
 
-		public YellowstonePathology.Business.Billing.ICD9BillingCodeCollection ICD9BillingCodeCollection
+		public YellowstonePathology.Business.Billing.Model.ICD9BillingCodeCollection ICD9BillingCodeCollection
 		{
 			get { return this.m_ICD9BillingCodeCollection; }
 		}

@@ -247,7 +247,7 @@ namespace YellowstonePathology.Business.Typing
 
 		public void DeleteIcd9Code(string icd9BillingId)
 		{
-			YellowstonePathology.Business.Billing.ICD9BillingCode icd9BillingCode = this.m_AccessionOrder.ICD9BillingCodeCollection.GetCurrent(icd9BillingId);
+			YellowstonePathology.Business.Billing.Model.ICD9BillingCode icd9BillingCode = this.m_AccessionOrder.ICD9BillingCodeCollection.GetCurrent(icd9BillingId);
 			this.m_AccessionOrder.ICD9BillingCodeCollection.Remove(icd9BillingCode);
 			this.RefreshBillingSpecimenViewCollection();
 		}

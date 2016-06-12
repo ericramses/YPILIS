@@ -7,14 +7,14 @@ namespace YellowstonePathology.UI.CustomEventArgs
 {
     public class PhysicianClientDistributionReturnEventArgs : System.EventArgs
     {
-        private Business.Client.PhysicianClientDistribution m_PhysicianClientDistribution;
+        private Business.Client.Model.PhysicianClientDistributionListItem m_PhysicianClientDistribution;
 
-        public PhysicianClientDistributionReturnEventArgs(Business.Client.PhysicianClientDistribution physicianClientDistribution)
+        public PhysicianClientDistributionReturnEventArgs(Business.Client.Model.PhysicianClientDistributionListItem physicianClientDistribution)
         {
             this.m_PhysicianClientDistribution = physicianClientDistribution;
         }
 
-        public Business.Client.PhysicianClientDistribution PhysicianClientDistribution
+        public Business.Client.Model.PhysicianClientDistributionListItem PhysicianClientDistribution
         {
             get { return this.m_PhysicianClientDistribution; }
         }

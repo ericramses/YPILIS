@@ -81,8 +81,8 @@ namespace YellowstonePathology.UI.Login.Receiving
 
         private void ShowClientOrderShortDetailsPage(YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder)
         {            
-            YellowstonePathology.UI.Login.ReceiveSpecimen.ClientOrderShortDetailsPage clientOrderShortDetailsPage = new ReceiveSpecimen.ClientOrderShortDetailsPage(clientOrder);
-            clientOrderShortDetailsPage.Return += new ReceiveSpecimen.ClientOrderShortDetailsPage.ReturnEventHandler(ClientOrderShortDetailsPage_Return);
+            ClientOrderShortDetailsPage clientOrderShortDetailsPage = new ClientOrderShortDetailsPage(clientOrder);
+            clientOrderShortDetailsPage.Return += new ClientOrderShortDetailsPage.ReturnEventHandler(ClientOrderShortDetailsPage_Return);
             this.m_PageNavigator.Navigate(clientOrderShortDetailsPage);
         }
 

@@ -560,14 +560,14 @@ namespace YellowstonePathology.Business.Gateway
 			foreach (XElement icd9BillingCodeElement in icd9BillingCodeElements.Elements("ICD9BillingCode"))
 			{
                 string icd9BillingCodeId = icd9BillingCodeElement.Element("Icd9BillingId").Value;
-                YellowstonePathology.Business.Billing.ICD9BillingCode icd9BillingCode = null;
+                YellowstonePathology.Business.Billing.Model.ICD9BillingCode icd9BillingCode = null;
                 if (accessionOrder.ICD9BillingCodeCollection.Exists(icd9BillingCodeId) == true)
                 {
                     icd9BillingCode = accessionOrder.ICD9BillingCodeCollection.Get(icd9BillingCodeId);
                 }
                 else
                 {
-                    icd9BillingCode = new Billing.ICD9BillingCode();
+                    icd9BillingCode = new Billing.Model.ICD9BillingCode();
                     accessionOrder.ICD9BillingCodeCollection.Add(icd9BillingCode);
                 }
 				
@@ -678,14 +678,14 @@ namespace YellowstonePathology.Business.Gateway
 			foreach (XElement icd9BillingElement in collectionElements.Elements("ICD9BillingCode"))
 			{
                 string icd9BillingId = icd9BillingElement.Element("Icd9BillingId").Value;
-                YellowstonePathology.Business.Billing.ICD9BillingCode icd9Billing = null;
+                YellowstonePathology.Business.Billing.Model.ICD9BillingCode icd9Billing = null;
                 if (surgicalSpecimen.ICD9BillingCodeCollection.Exists(icd9BillingId) == true)
                 {
                     surgicalSpecimen.ICD9BillingCodeCollection.Get(icd9BillingId);
                 }
                 else
                 {
-                    icd9Billing = new YellowstonePathology.Business.Billing.ICD9BillingCode();
+                    icd9Billing = new YellowstonePathology.Business.Billing.Model.ICD9BillingCode();
                     surgicalSpecimen.ICD9BillingCodeCollection.Add(icd9Billing);
                 }
 

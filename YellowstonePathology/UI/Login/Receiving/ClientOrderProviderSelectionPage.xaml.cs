@@ -29,7 +29,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 		private string m_PageHeaderText = "Provider Selection";
 		private Brush m_ProviderStatusColor;
 
-		YellowstonePathology.Business.Client.PhysicianClientCollection m_PhysicianClientCollection;
+		YellowstonePathology.Business.Client.Model.PhysicianClientCollection m_PhysicianClientCollection;
 
         public ClientOrderProviderSelectionPage(YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder)
 		{
@@ -73,7 +73,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 			get { return this.m_ClientOrder; }
 		}
 
-		public YellowstonePathology.Business.Client.PhysicianClientCollection PhysicianClientCollection
+		public YellowstonePathology.Business.Client.Model.PhysicianClientCollection PhysicianClientCollection
 		{
 			get { return this.m_PhysicianClientCollection; }
 		}
@@ -83,7 +83,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 			get { return this.m_PageHeaderText; }
 		}
 
-		private void SetPhysician(YellowstonePathology.Business.Client.PhysicianClient physicianClient)
+		private void SetPhysician(YellowstonePathology.Business.Client.Model.PhysicianClient physicianClient)
 		{
 			YellowstonePathology.Business.Domain.Physician physician = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianByPhysicianId(physicianClient.PhysicianId);
 			if (physician != null)
@@ -98,7 +98,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 		{
 			if (this.listViewPhysicianClient.SelectedItem != null)
 			{
-				this.SetPhysician((YellowstonePathology.Business.Client.PhysicianClient)this.listViewPhysicianClient.SelectedItem);
+				this.SetPhysician((YellowstonePathology.Business.Client.Model.PhysicianClient)this.listViewPhysicianClient.SelectedItem);
 			}
 		}
 
@@ -118,7 +118,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 		{
             if (this.listViewPhysicianClient.SelectedItem != null)
             {
-                YellowstonePathology.Business.Client.PhysicianClient physicianClient = (YellowstonePathology.Business.Client.PhysicianClient)this.listViewPhysicianClient.SelectedItem;
+                YellowstonePathology.Business.Client.Model.PhysicianClient physicianClient = (YellowstonePathology.Business.Client.Model.PhysicianClient)this.listViewPhysicianClient.SelectedItem;
                 this.ProviderSelected(this, new YellowstonePathology.UI.CustomEventArgs.PhysicianClientReturnEventArgs(physicianClient));
             }
             else
