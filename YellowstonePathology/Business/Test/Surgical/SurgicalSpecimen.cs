@@ -32,14 +32,14 @@ namespace YellowstonePathology.Business.Test.Surgical
 
 		private YellowstonePathology.Business.Specimen.Model.SpecimenOrder m_SpecimenOrder;
 		private YellowstonePathology.Business.SpecialStain.StainResultItemCollection m_StainResultItemCollection;		
-		private YellowstonePathology.Business.Billing.ICD9BillingCodeCollection m_ICD9BillingCodeCollection;
+		private YellowstonePathology.Business.Billing.Model.ICD9BillingCodeCollection m_ICD9BillingCodeCollection;
 		private IntraoperativeConsultationResultCollection m_IntraoperativeConsultationResultCollection;
 
 		public SurgicalSpecimen()
         {
 			this.m_StainResultItemCollection = new YellowstonePathology.Business.SpecialStain.StainResultItemCollection();
 			this.m_IntraoperativeConsultationResultCollection = new IntraoperativeConsultationResultCollection();			
-			this.m_ICD9BillingCodeCollection = new YellowstonePathology.Business.Billing.ICD9BillingCodeCollection();
+			this.m_ICD9BillingCodeCollection = new YellowstonePathology.Business.Billing.Model.ICD9BillingCodeCollection();
 		}
 
 		public SurgicalSpecimen(string reportNo, string objectId, string surgicalSpecimenId)
@@ -49,7 +49,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			this.m_SurgicalSpecimenId = surgicalSpecimenId;
 			this.m_StainResultItemCollection = new YellowstonePathology.Business.SpecialStain.StainResultItemCollection();
 			this.m_IntraoperativeConsultationResultCollection = new IntraoperativeConsultationResultCollection();
-			this.m_ICD9BillingCodeCollection = new YellowstonePathology.Business.Billing.ICD9BillingCodeCollection();
+			this.m_ICD9BillingCodeCollection = new YellowstonePathology.Business.Billing.Model.ICD9BillingCodeCollection();
 		}
 
 		public void FromSpecimenOrder(YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder)
@@ -86,7 +86,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 		}		
 
 		[PersistentCollection()]
-		public YellowstonePathology.Business.Billing.ICD9BillingCodeCollection ICD9BillingCodeCollection
+		public YellowstonePathology.Business.Billing.Model.ICD9BillingCodeCollection ICD9BillingCodeCollection
 		{
 			get { return m_ICD9BillingCodeCollection; }
             set { this.m_ICD9BillingCodeCollection = value; }

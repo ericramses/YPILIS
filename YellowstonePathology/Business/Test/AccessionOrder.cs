@@ -21,7 +21,7 @@ namespace YellowstonePathology.Business.Test
 		private YellowstonePathology.Business.Specimen.Model.SpecimenOrderCollection m_SpecimenOrderCollection;
 		private YellowstonePathology.Business.Test.PanelSetOrderCollection m_PanelSetOrderCollection;
 		private YellowstonePathology.Business.Task.Model.TaskOrderCollection m_TaskOrderCollection;
-		private YellowstonePathology.Business.Billing.ICD9BillingCodeCollection m_ICD9BillingCodeCollection;			
+		private YellowstonePathology.Business.Billing.Model.ICD9BillingCodeCollection m_ICD9BillingCodeCollection;			
 
 		private XElement m_OrderInstructionsUpdate;
 
@@ -111,7 +111,7 @@ namespace YellowstonePathology.Business.Test
 			this.m_SpecimenOrderCollection = new YellowstonePathology.Business.Specimen.Model.SpecimenOrderCollection();
 			this.m_PanelSetOrderCollection = new YellowstonePathology.Business.Test.PanelSetOrderCollection();
 			this.m_SpecimenOrderDataTemplate = YellowstonePathology.Business.DataTemplateSpecimenOrderEnum.DataTemplateAccessionTreeView;			
-			this.m_ICD9BillingCodeCollection = new Billing.ICD9BillingCodeCollection();
+			this.m_ICD9BillingCodeCollection = new Billing.Model.ICD9BillingCodeCollection();
 			this.m_TaskOrderCollection = new YellowstonePathology.Business.Task.Model.TaskOrderCollection();
 		}
 
@@ -125,7 +125,7 @@ namespace YellowstonePathology.Business.Test
 			this.m_SpecimenOrderCollection = new YellowstonePathology.Business.Specimen.Model.SpecimenOrderCollection();
             this.m_PanelSetOrderCollection = new YellowstonePathology.Business.Test.PanelSetOrderCollection();
 			this.m_SpecimenOrderDataTemplate = YellowstonePathology.Business.DataTemplateSpecimenOrderEnum.DataTemplateAccessionTreeView;            
-			this.m_ICD9BillingCodeCollection = new Billing.ICD9BillingCodeCollection();
+			this.m_ICD9BillingCodeCollection = new Billing.Model.ICD9BillingCodeCollection();
 			this.m_TaskOrderCollection = new YellowstonePathology.Business.Task.Model.TaskOrderCollection();
         }        
 
@@ -1438,7 +1438,7 @@ namespace YellowstonePathology.Business.Test
 		}		
 
         [PersistentCollection()]
-		public YellowstonePathology.Business.Billing.ICD9BillingCodeCollection ICD9BillingCodeCollection
+		public YellowstonePathology.Business.Billing.Model.ICD9BillingCodeCollection ICD9BillingCodeCollection
 		{
 			get { return this.m_ICD9BillingCodeCollection; }
 			set { this.m_ICD9BillingCodeCollection = value; }
@@ -1471,7 +1471,7 @@ namespace YellowstonePathology.Business.Test
 			}
 		}
 
-        public void SetPhysicianClient(Business.Client.PhysicianClientDistribution physicianClientDistribution)
+        public void SetPhysicianClient(Business.Client.Model.PhysicianClientDistributionListItem physicianClientDistribution)
 		{
             this.ClientId = physicianClientDistribution.ClientId;
             this.PhysicianId = physicianClientDistribution.PhysicianId;

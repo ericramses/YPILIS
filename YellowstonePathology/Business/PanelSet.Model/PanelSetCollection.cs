@@ -46,7 +46,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
             panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetPDGFRb());  
             panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetFIP1L1());  
             panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetTCellClonalityByPCRRetired());  
-			panelSetCollection.Add(new YellowstonePathology.Business.Test.TCellClonalityByPCR.TCellClonalityByPCRTest());  
+			panelSetCollection.Add(new YellowstonePathology.Business.Test.TCellRecepterGammaGeneRearrangement.TCellRecepterGammaGeneRearrangementTest());  
 			panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetMDSByFishRetired());  
 			panelSetCollection.Add(new YellowstonePathology.Business.Test.MDSByFish.MDSByFishTest());
 			panelSetCollection.Add(new YellowstonePathology.Business.Test.MDSExtendedByFish.MDSExtendedByFishTest());

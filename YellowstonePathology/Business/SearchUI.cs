@@ -16,8 +16,8 @@ namespace YellowstonePathology.Business
 
         private SearchList m_SearchList;
         private ListCollectionView m_SearchListCollectionView;
-        private Client.PhysicianClientCollection m_PhysicianClientCollection;
-        private Client.PhysicianClientCollection m_RDPhysicianClientCollection;
+        private Client.Model.PhysicianClientCollection m_PhysicianClientCollection;
+        private Client.Model.PhysicianClientCollection m_RDPhysicianClientCollection;
 
         private SearchResultList m_ResultList;
         private Document.CaseDocumentCollection m_CaseDocumentCollection;
@@ -29,8 +29,8 @@ namespace YellowstonePathology.Business
         {
             this.m_SearchList = new SearchList();            
             this.m_SearchListCollectionView = new ListCollectionView(this.m_SearchList);
-            this.m_PhysicianClientCollection = new Client.PhysicianClientCollection();
-            this.m_RDPhysicianClientCollection = new Client.PhysicianClientCollection();
+            this.m_PhysicianClientCollection = new Client.Model.PhysicianClientCollection();
+            this.m_RDPhysicianClientCollection = new Client.Model.PhysicianClientCollection();
             this.m_PatientHistoryList = new YellowstonePathology.Business.Patient.Model.PatientHistoryList();
 
             this.m_ResultList = new SearchResultList();			            
@@ -95,7 +95,7 @@ namespace YellowstonePathology.Business
             get { return this.m_SearchListCollectionView; }
         }
         
-        public Client.PhysicianClientCollection PhysicianClientCollection
+        public Client.Model.PhysicianClientCollection PhysicianClientCollection
         {
             get { return this.m_PhysicianClientCollection; }
             set 
@@ -105,7 +105,7 @@ namespace YellowstonePathology.Business
             }
         }
 
-        public Client.PhysicianClientCollection RDPhysicianClientCollection
+        public Client.Model.PhysicianClientCollection RDPhysicianClientCollection
         {
             get { return this.m_RDPhysicianClientCollection; }
             set 

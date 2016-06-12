@@ -139,7 +139,7 @@ namespace YellowstonePathology.UI.ReportDistribution
                     {
                         if(panelSetOrder.TestOrderReportDistributionCollection.Count == 0)
                         {                            
-                            YellowstonePathology.Business.Client.PhysicianClientDistributionCollection physicianClientDistributionCollection = YellowstonePathology.Business.Gateway.ReportDistributionGateway.GetPhysicianClientDistributionCollection(accessionOrder.PhysicianId, accessionOrder.ClientId);
+                            YellowstonePathology.Business.Client.Model.PhysicianClientDistributionList physicianClientDistributionCollection = YellowstonePathology.Business.Gateway.ReportDistributionGateway.GetPhysicianClientDistributionCollection(accessionOrder.PhysicianId, accessionOrder.ClientId);
 
                             if (physicianClientDistributionCollection.Count != 0)
                             {

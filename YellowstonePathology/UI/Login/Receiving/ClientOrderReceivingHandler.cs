@@ -140,10 +140,10 @@ namespace YellowstonePathology.UI.Login.Receiving
 			}
 		}
 
-		public ReceiveSpecimen.IFoundAContainerResult IFoundAContainer(string containerId)
+		public IFoundAContainerResult IFoundAContainer(string containerId)
 		{			
             YellowstonePathology.Business.ClientOrder.Model.ClientOrderDetail clientOrderDetail = this.FindOrCreateNewClientOrderDetail(containerId);
-            ReceiveSpecimen.IFoundAContainerResult result = new ReceiveSpecimen.IFoundAContainerResult(clientOrderDetail);
+            IFoundAContainerResult result = new IFoundAContainerResult(clientOrderDetail);
 
 			if (string.IsNullOrEmpty(clientOrderDetail.ClientOrderId) == false)
 			{

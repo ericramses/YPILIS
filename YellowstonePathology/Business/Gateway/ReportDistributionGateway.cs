@@ -41,9 +41,9 @@ namespace YellowstonePathology.Business.Gateway
             return result;
         }
 
-        public static YellowstonePathology.Business.Client.PhysicianClientDistributionCollection GetPhysicianClientDistributionCollection(int physicianId, int clientId)
+        public static YellowstonePathology.Business.Client.Model.PhysicianClientDistributionList GetPhysicianClientDistributionCollection(int physicianId, int clientId)
         {
-            YellowstonePathology.Business.Client.PhysicianClientDistributionCollection result = new Client.PhysicianClientDistributionCollection();
+            YellowstonePathology.Business.Client.Model.PhysicianClientDistributionList result = new Client.Model.PhysicianClientDistributionList();
             string sql = "Select c.ClientId, c.ClientName, ph.PhysicianId, ph.DisplayName [PhysicianName], c.DistributionType, c.Fax [FaxNumber], c.LongDistance " +
                 "from tblPhysicianClient pc " +
 	            "join tblPhysicianClientDistribution pcd on pc.PhysicianClientId = pcd.PhysicianClientId " +
@@ -67,7 +67,7 @@ namespace YellowstonePathology.Business.Gateway
                     while (dr.Read())
                     {
                         string distributionType = dr["DistributionType"].ToString();
-                        YellowstonePathology.Business.Client.PhysicianClientDistribution physicianClientDistribution = YellowstonePathology.Business.Client.PhysicianClientDistributionFactory.GetPhysicianClientDistribution(distributionType);
+                        YellowstonePathology.Business.Client.Model.PhysicianClientDistributionListItem physicianClientDistribution = YellowstonePathology.Business.Client.Model.PhysicianClientDistributionFactory.GetPhysicianClientDistribution(distributionType);
                         YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(physicianClientDistribution, dr);
                         sqlDataReaderPropertyWriter.WriteProperties();
                         result.Add(physicianClientDistribution);
@@ -77,9 +77,9 @@ namespace YellowstonePathology.Business.Gateway
             return result;
         }
 
-        public static YellowstonePathology.Business.Client.PhysicianClientDistribution GetPhysicianClientDistributionCollection(string physicianClientId)
+        public static YellowstonePathology.Business.Client.Model.PhysicianClientDistributionListItem GetPhysicianClientDistributionCollection(string physicianClientId)
         {
-            YellowstonePathology.Business.Client.PhysicianClientDistribution result = null;
+            YellowstonePathology.Business.Client.Model.PhysicianClientDistributionListItem result = null;
             string sql = "Select c.ClientId, c.ClientName, ph.PhysicianId, ph.DisplayName [PhysicianName], c.DistributionType, c.Fax [FaxNumber], c.LongDistance " +
                 "from tblPhysicianClient pc " +
                 "join tblPhysicianClientDistribution pcd on pc.PhysicianClientId = pcd.PhysicianClientId " +
@@ -102,7 +102,7 @@ namespace YellowstonePathology.Business.Gateway
                     while (dr.Read())
                     {
                         string distributionType = dr["DistributionType"].ToString();
-                        result = YellowstonePathology.Business.Client.PhysicianClientDistributionFactory.GetPhysicianClientDistribution(distributionType);
+                        result = YellowstonePathology.Business.Client.Model.PhysicianClientDistributionFactory.GetPhysicianClientDistribution(distributionType);
                         YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(result, dr);
                         sqlDataReaderPropertyWriter.WriteProperties();                        
                     }

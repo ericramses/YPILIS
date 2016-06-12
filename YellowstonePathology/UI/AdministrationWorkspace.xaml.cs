@@ -77,7 +77,14 @@ namespace YellowstonePathology.UI
 
         private void ButtonBuildJson_Click(object sender, RoutedEventArgs e)
         {
-            string filePath = "YellowstonePathology.Business.Billing.Model.JSONCPTCodes.txt";
+            Business.Billing.Model.CptCodeCollection cptCodes = YellowstonePathology.Business.Billing.Model.CptCodeCollection.GetAll();
+            string resultString = cptCodes.ToJSON();
+            using (StreamWriter sw = new StreamWriter(@"C:\Temp\JSONCPTCodes.txt", false))
+            {
+                sw.Write(resultString);
+            }
+
+            /*string filePath = "YellowstonePathology.Business.Billing.Model.JSONCPTCodes.txt";
             string jsonString = string.Empty;
             Assembly assembly = Assembly.GetExecutingAssembly();
             using (StreamReader sr = new StreamReader(assembly.GetManifestResourceStream(filePath)))
@@ -94,7 +101,7 @@ namespace YellowstonePathology.UI
             else
             {
                 MessageBox.Show("Not Matched");
-            }
+            }*/
         }
 
         private void ButtonPOCRetension_Click(object sender, RoutedEventArgs e)
@@ -938,16 +945,16 @@ namespace YellowstonePathology.UI
 			YellowstonePathology.Business.SpecialStain.StainResultItemCollection sric = new Business.SpecialStain.StainResultItemCollection();
 			Console.WriteLine(sric.GetType().AssemblyQualifiedName);
 
-			YellowstonePathology.Business.Billing.ICD9BillingCode icd = new Business.Billing.ICD9BillingCode();
+			YellowstonePathology.Business.Billing.Model.ICD9BillingCode icd = new Business.Billing.Model.ICD9BillingCode();
 			Console.WriteLine(icd.GetType().AssemblyQualifiedName);
 
-			YellowstonePathology.Business.Billing.ICD9BillingCodeCollection icdc = new Business.Billing.ICD9BillingCodeCollection();
+			YellowstonePathology.Business.Billing.Model.ICD9BillingCodeCollection icdc = new Business.Billing.Model.ICD9BillingCodeCollection();
 			Console.WriteLine(icdc.GetType().AssemblyQualifiedName);
 
-			YellowstonePathology.Business.Billing.CptBillingCodeItem cpt = new Business.Billing.CptBillingCodeItem();
+			YellowstonePathology.Business.Billing.Model.CptBillingCodeItem cpt = new Business.Billing.Model.CptBillingCodeItem();
 			Console.WriteLine(cpt.GetType().AssemblyQualifiedName);
 
-			YellowstonePathology.Business.Billing.CptBillingCodeItemCollection cptc = new Business.Billing.CptBillingCodeItemCollection();
+			YellowstonePathology.Business.Billing.Model.CptBillingCodeItemCollection cptc = new Business.Billing.Model.CptBillingCodeItemCollection();
 			Console.WriteLine(cptc.GetType().AssemblyQualifiedName);
 
             //foreach (YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet in panelSetCollection)

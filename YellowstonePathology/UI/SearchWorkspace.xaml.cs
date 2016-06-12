@@ -155,7 +155,7 @@ namespace YellowstonePathology.UI
         {
             if (this.listViewPhysicianClient.SelectedItem != null)
             {
-                YellowstonePathology.Business.Client.PhysicianClient physicianClient = (YellowstonePathology.Business.Client.PhysicianClient)this.listViewPhysicianClient.SelectedItem;
+                YellowstonePathology.Business.Client.Model.PhysicianClient physicianClient = (YellowstonePathology.Business.Client.Model.PhysicianClient)this.listViewPhysicianClient.SelectedItem;
                 this.textBoxSearchCriteria.Text = "PH " + physicianClient.PhysicianClientId;
                 this.DoSearch();
             }

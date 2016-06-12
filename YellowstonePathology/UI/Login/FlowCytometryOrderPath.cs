@@ -43,9 +43,9 @@ namespace YellowstonePathology.UI.Login
 
         private void ShowSpecimenSelectionPage()
         {
-            YellowstonePathology.UI.Login.ReceiveSpecimen.SpecimenSelectionPage specimenSelectionPage = new ReceiveSpecimen.SpecimenSelectionPage(this.m_AccessionOrder.SpecimenOrderCollection);
-            specimenSelectionPage.Back += new ReceiveSpecimen.SpecimenSelectionPage.BackEventHandler(SpecimenSelectionPage_Back);
-            specimenSelectionPage.UseThisSpecimen += new ReceiveSpecimen.SpecimenSelectionPage.UseThisSpecimenEventHandler(SpecimenSelectionPage_UseThisSpecimen);
+            YellowstonePathology.UI.Login.Receiving.FlowSpecimenSelectionPage specimenSelectionPage = new Receiving.FlowSpecimenSelectionPage(this.m_AccessionOrder.SpecimenOrderCollection);
+            specimenSelectionPage.Back += new Receiving.FlowSpecimenSelectionPage.BackEventHandler(SpecimenSelectionPage_Back);
+            specimenSelectionPage.UseThisSpecimen += new Receiving.FlowSpecimenSelectionPage.UseThisSpecimenEventHandler(SpecimenSelectionPage_UseThisSpecimen);
             this.m_PageNavigator.Navigate(specimenSelectionPage);
         }
 
@@ -62,8 +62,8 @@ namespace YellowstonePathology.UI.Login
 
         private void ShowFinishPage()
         {            
-            YellowstonePathology.UI.Login.ReceiveSpecimen.FlowCytometryOrderFinishPage finishPage = new ReceiveSpecimen.FlowCytometryOrderFinishPage(this.m_AccessionOrder, this.m_SpecimenOrder, this.m_PanelSet);
-            finishPage.Return += new ReceiveSpecimen.FlowCytometryOrderFinishPage.ReturnEventHandler(FinishPage_Return);
+            YellowstonePathology.UI.Login.Receiving.FlowCytometryOrderFinishPage finishPage = new Receiving.FlowCytometryOrderFinishPage(this.m_AccessionOrder, this.m_SpecimenOrder, this.m_PanelSet);
+            finishPage.Return += new Receiving.FlowCytometryOrderFinishPage.ReturnEventHandler(FinishPage_Return);
             this.m_PageNavigator.Navigate(finishPage);
         }
 
@@ -83,8 +83,8 @@ namespace YellowstonePathology.UI.Login
 
         private void ShowReportNumberPage()
         {            
-			YellowstonePathology.UI.Login.ReceiveSpecimen.ReportOrderInfoPage reportOrderInfoPage = new ReceiveSpecimen.ReportOrderInfoPage(this.m_AccessionOrder, this.m_AddedPanelSetOrder);
-            reportOrderInfoPage.Return += new ReceiveSpecimen.ReportOrderInfoPage.ReturnEventHandler(ReportOrderInfoPage_Return);
+			YellowstonePathology.UI.Login.Receiving.ReportOrderInfoPage reportOrderInfoPage = new Receiving.ReportOrderInfoPage(this.m_AccessionOrder, this.m_AddedPanelSetOrder);
+            reportOrderInfoPage.Return += new Receiving.ReportOrderInfoPage.ReturnEventHandler(ReportOrderInfoPage_Return);
             this.m_PageNavigator.Navigate(reportOrderInfoPage);
         }
 
@@ -101,8 +101,8 @@ namespace YellowstonePathology.UI.Login
             bool result = false;
             if (this.m_AccessionOrder.PanelSetOrderCollection.HasSurgical() == true)
             {
-                YellowstonePathology.UI.Login.ReceiveSpecimen.SurgicalDiagnosisPage surgicalDiagnosisPage = new ReceiveSpecimen.SurgicalDiagnosisPage(this.m_AccessionOrder);
-                surgicalDiagnosisPage.Return += new ReceiveSpecimen.SurgicalDiagnosisPage.ReturnEventHandler(SurgicalDiagnosisPage_Return);
+                YellowstonePathology.UI.Login.Receiving.SurgicalDiagnosisPage surgicalDiagnosisPage = new Receiving.SurgicalDiagnosisPage(this.m_AccessionOrder);
+                surgicalDiagnosisPage.Return += new Receiving.SurgicalDiagnosisPage.ReturnEventHandler(SurgicalDiagnosisPage_Return);
                 this.m_PageNavigator.Navigate(surgicalDiagnosisPage);
                 result = true;
             }
@@ -160,8 +160,8 @@ namespace YellowstonePathology.UI.Login
 
             if (this.m_AccessionOrder.ClientId != 0 && this.m_AccessionOrder.PhysicianId != 0)
             {
-                YellowstonePathology.Business.Client.PhysicianClientDistributionCollection physicianClientDistributionCollection = YellowstonePathology.Business.Gateway.ReportDistributionGateway.GetPhysicianClientDistributionCollection(this.m_AccessionOrder.PhysicianId, this.m_AccessionOrder.ClientId);
-                foreach (YellowstonePathology.Business.Client.PhysicianClientDistribution physicianClientDistribution in physicianClientDistributionCollection)
+                YellowstonePathology.Business.Client.Model.PhysicianClientDistributionList physicianClientDistributionCollection = YellowstonePathology.Business.Gateway.ReportDistributionGateway.GetPhysicianClientDistributionCollection(this.m_AccessionOrder.PhysicianId, this.m_AccessionOrder.ClientId);
+                foreach (YellowstonePathology.Business.Client.Model.PhysicianClientDistributionListItem physicianClientDistribution in physicianClientDistributionCollection)
                 {
                     physicianClientDistribution.SetDistribution(panelSetOrderLeukemiaLymphoma, this.m_AccessionOrder);
                 }

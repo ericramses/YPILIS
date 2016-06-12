@@ -66,7 +66,7 @@ namespace YellowstonePathology.UI.Login
 
 		private void ButtonCreateClientOrder_Click(object sender, RoutedEventArgs e)
 		{
-			UI.Navigation.PageNavigationReturnEventArgs args = new UI.Navigation.PageNavigationReturnEventArgs(UI.Navigation.PageNavigationDirectionEnum.Command, ReceiveSpecimen.ClientOrderLookupPathCommandTypeEnum.CreateClientOrder);
+			UI.Navigation.PageNavigationReturnEventArgs args = new UI.Navigation.PageNavigationReturnEventArgs(UI.Navigation.PageNavigationDirectionEnum.Command, Receiving.ClientOrderLookupPathCommandTypeEnum.CreateClientOrder);
 			this.Return(this, args);
 		}
 

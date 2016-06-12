@@ -168,8 +168,8 @@ namespace YellowstonePathology.UI.Login.Receiving
 
 		private void AccessionOrderPage_ShowSurgicalDiagnosis(object sender, EventArgs e)
         {
-            YellowstonePathology.UI.Login.ReceiveSpecimen.SurgicalDiagnosisPage surgicalDiagnosisPage = new ReceiveSpecimen.SurgicalDiagnosisPage(this.m_AccessionOrder);
-            surgicalDiagnosisPage.Return += new ReceiveSpecimen.SurgicalDiagnosisPage.ReturnEventHandler(SurgicalDiagnosisPage_Return);
+            SurgicalDiagnosisPage surgicalDiagnosisPage = new SurgicalDiagnosisPage(this.m_AccessionOrder);
+            surgicalDiagnosisPage.Return += new SurgicalDiagnosisPage.ReturnEventHandler(SurgicalDiagnosisPage_Return);
             this.m_PageNavigator.Navigate(surgicalDiagnosisPage);
         }
 
