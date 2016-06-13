@@ -18,7 +18,7 @@ namespace YellowstonePathology.Business.Persistence
                     YellowstonePathology.Business.Test.AccessionOrder accessionOrder = (YellowstonePathology.Business.Test.AccessionOrder)document.Value;
                     if(accessionOrder.MasterAccessionNo == masterAccessionNo)
                     {
-                        result = accessionOrder.IsLockAquiredByMe;
+                        result = accessionOrder.AccessionLock.IsLockAquiredByMe;
                         break;
                     }                    
                 }
