@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Test.TCellRecepterGammaGeneRearrangement
 		{
             TCellRecepterGammaGeneRearrangementTestOrder tCellRecepterGammaGeneRearrangementTestOrder = (TCellRecepterGammaGeneRearrangementTestOrder)this.m_PanelSetOrder;
 
-			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\TCellClonalityByPCR.xml";
+			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\TCellRecepterGammaGeneRearrangement.xml";
 			base.OpenTemplate();
 
 			this.SetDemographicsV2();
