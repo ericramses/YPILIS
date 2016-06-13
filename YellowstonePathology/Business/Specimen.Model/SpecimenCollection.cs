@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using Newtonsoft.Json;
+using StackExchange.Redis;
 
 namespace YellowstonePathology.Business.Specimen.Model
 {
@@ -100,6 +102,56 @@ namespace YellowstonePathology.Business.Specimen.Model
             result.Add(new SpecimenDefinition.FluidWithCellBlock());
             result.Add(new SpecimenDefinition.Urine());
             return Sort(result);
+        }
+
+        public string ToJSON()
+        {
+            string result = JsonConvert.SerializeObject(this, Newtonsoft.Json.Formatting.Indented, new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.All
+            });
+
+            return result;
+        }
+
+        public void WriteToRedis()
+        {
+            IDatabase db = Business.RedisConnection.Instance.GetDatabase();
+            db.KeyDelete("specimens");
+
+            foreach (Specimen specimen in this)
+            {
+                db.KeyDelete("specimen:" + specimen.SpecimenId);
+
+                string result = JsonConvert.SerializeObject(specimen, Newtonsoft.Json.Formatting.Indented, new JsonSerializerSettings
+                {
+                    TypeNameHandling = TypeNameHandling.All
+                });
+
+                db.ListRightPush("specimens", "specimen:" + specimen.SpecimenId);
+                db.StringSet("specimen:" + specimen.SpecimenId, result);
+            }
+        }
+
+        public static SpecimenCollection BuildFromRedis()
+        {
+            SpecimenCollection result = new SpecimenCollection();
+            IDatabase db = Business.RedisConnection.Instance.GetDatabase();
+            RedisValue[] items = db.ListRange("specimens", 0, -1);
+
+            for (int i = 0; i < items.Length; i++)
+            {
+                RedisValue json = db.StringGet(items[i].ToString());
+                Business.Specimen.Model.Specimen specimen = JsonConvert.DeserializeObject<Business.Specimen.Model.Specimen>(json, new JsonSerializerSettings
+                {
+                    TypeNameHandling = TypeNameHandling.All,
+                    ObjectCreationHandling = ObjectCreationHandling.Replace
+                });
+
+                result.Add(specimen);
+            }
+
+            return result;
         }
     }
 }
