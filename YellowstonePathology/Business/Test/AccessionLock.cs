@@ -72,8 +72,9 @@ namespace YellowstonePathology.Business.Test
         {
             get
             {
-                bool result = false;                
-                if (this.m_Address == UI.AppMessaging.AccessionLockMessage.GetMyAddress())
+                bool result = false;
+                string[] splitString = this.m_Address.Split(new char[] { '\\' });
+                if (splitString[0] == System.Environment.MachineName)
                 {
                     result = true;
                 }                
@@ -92,8 +93,8 @@ namespace YellowstonePathology.Business.Test
                 }
                 return result;
             }
-        } 
-        
+        }         
+
         private string HashKey
         {
             get {  return "AccessionLock:" + this.m_MasterAccessionNo; }
