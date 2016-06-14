@@ -73,10 +73,13 @@ namespace YellowstonePathology.Business.Test
             get
             {
                 bool result = false;
-                string[] splitString = this.m_Address.Split(new char[] { '\\' });
-                if (splitString[0] == System.Environment.MachineName)
+                if(string.IsNullOrEmpty(this.m_Address) == false)
                 {
-                    result = true;
+                    string[] splitString = this.m_Address.Split(new char[] { '\\' });
+                    if (splitString[0] == System.Environment.MachineName)
+                    {
+                        result = true;
+                    }
                 }                
                 return result;
             }
@@ -113,6 +116,8 @@ namespace YellowstonePathology.Business.Test
             transaction.KeyDeleteAsync(this.HashKey);
             transaction.SetRemoveAsync("AccessionLocks", this.HashKey);
             bool committed = transaction.Execute();
+
+            this.NotifyPropertyChanged(string.Empty);
         }
 
         public void TransferLock(string address)
@@ -131,7 +136,7 @@ namespace YellowstonePathology.Business.Test
 
         public void RefreshLock()
         {
-            this.TryHasSet();
+            this.TryHashSet();
             this.GetHash();
         }
 
@@ -146,7 +151,13 @@ namespace YellowstonePathology.Business.Test
             this.NotifyPropertyChanged(string.Empty);
         }
 
-        private void TryHasSet()
+        public bool IsLockStillAquired()
+        {
+            IDatabase db = Business.RedisConnection.Instance.GetDatabase();
+            return db.KeyExists(this.HashKey);
+        }
+
+        private void TryHashSet()
         {
             IDatabase db = Business.RedisConnection.Instance.GetDatabase();
             HashEntry[] hashFields = new HashEntry[3];

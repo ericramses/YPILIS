@@ -211,7 +211,7 @@ namespace YellowstonePathology.Business.Persistence
                 {
                     UI.AppMessaging.AccessionLockMessage accessionLockMessage = JsonConvert.DeserializeObject<UI.AppMessaging.AccessionLockMessage>(message);
 
-                    if (accessionLockMessage.To == UI.AppMessaging.AccessionLockMessage.GetMyAddress())
+                    if (accessionLockMessage.ToMachineName == System.Environment.MachineName)
                     {
                         if(accessionLockMessage.MessageId == UI.AppMessaging.AccessionLockMessageIdEnum.GIVE)
                         {

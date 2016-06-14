@@ -40,7 +40,16 @@ namespace YellowstonePathology.UI.AppMessaging
         public AccessionLockMessageIdEnum MessageId
         {
             get { return this.m_MessageId; }
-        }            
+        } 
+        
+        public string ToMachineName
+        {
+            get
+            {
+                string[] splitString = this.m_To.Split(new char[] { '\\' });
+                return splitString[0];
+            }
+        }           
 
         public string ToJSON()
         {
@@ -50,6 +59,6 @@ namespace YellowstonePathology.UI.AppMessaging
         public static string GetMyAddress()
         {
             return System.Environment.MachineName + "\\" + Business.User.SystemIdentity.Instance.User.UserName;
-        }       
+        }                
     }
 }

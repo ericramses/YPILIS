@@ -159,14 +159,24 @@ namespace YellowstonePathology.UI.AppMessaging
 
         public void StartSendRequest(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, Navigation.PageNavigator pageNavigator)
         {
-            this.m_PageNavigator = pageNavigator;
-            this.m_PageNavigatorWasPassedIn = true;
+            if (accessionOrder.AccessionLock.IsLockStillAquired() == true)
+            {
+                this.m_PageNavigator = pageNavigator;
+                this.m_PageNavigatorWasPassedIn = true;
 
-            UI.AppMessaging.AccessionLockMessage message = new AccessionLockMessage(accessionOrder.MasterAccessionNo, AccessionLockMessage.GetMyAddress(), accessionOrder.AccessionLock.Address, AccessionLockMessageIdEnum.ASK);
-            ISubscriber subscriber = Business.RedisConnection.Instance.GetSubscriber();
-            subscriber.Publish(message.MasterAccessionNo, JsonConvert.SerializeObject(message));
+                UI.AppMessaging.AccessionLockMessage message = new AccessionLockMessage(accessionOrder.MasterAccessionNo, AccessionLockMessage.GetMyAddress(), accessionOrder.AccessionLock.Address, AccessionLockMessageIdEnum.ASK);
+                ISubscriber subscriber = Business.RedisConnection.Instance.GetSubscriber();
+                subscriber.Publish(message.MasterAccessionNo, JsonConvert.SerializeObject(message));
 
-            this.ShowLockRequestSentPage(accessionOrder);
+                this.ShowLockRequestSentPage(accessionOrder);
+            }
+            else
+            {
+                accessionOrder.AccessionLock.RefreshLock();
+                this.RunLockAquiredActionList();
+                this.m_MessagingDialog.Close();
+                this.m_MessagingDialog = null;
+            }            
         }
 
         public void Start(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
@@ -192,11 +202,21 @@ namespace YellowstonePathology.UI.AppMessaging
         }
 
         private void LockRequestPage_RequestLock(object sender, CustomEventArgs.AccessionOrderReturnEventArgs e)
-        {
-            UI.AppMessaging.AccessionLockMessage message = new AccessionLockMessage(e.AccessionOrder.MasterAccessionNo, AppMessaging.AccessionLockMessage.GetMyAddress(), e.AccessionOrder.AccessionLock.Address, AccessionLockMessageIdEnum.ASK);
-            ISubscriber subscriber = Business.RedisConnection.Instance.GetSubscriber();
-            subscriber.Publish(message.MasterAccessionNo, JsonConvert.SerializeObject(message));
-            this.ShowLockRequestSentPage(e.AccessionOrder);
+        {            
+            if(e.AccessionOrder.AccessionLock.IsLockStillAquired() == true)
+            {
+                UI.AppMessaging.AccessionLockMessage message = new AccessionLockMessage(e.AccessionOrder.MasterAccessionNo, AppMessaging.AccessionLockMessage.GetMyAddress(), e.AccessionOrder.AccessionLock.Address, AccessionLockMessageIdEnum.ASK);
+                ISubscriber subscriber = Business.RedisConnection.Instance.GetSubscriber();
+                subscriber.Publish(message.MasterAccessionNo, JsonConvert.SerializeObject(message));
+                this.ShowLockRequestSentPage(e.AccessionOrder);
+            }
+            else
+            {
+                e.AccessionOrder.AccessionLock.RefreshLock();
+                this.RunLockAquiredActionList();
+                this.m_MessagingDialog.Close();
+                this.m_MessagingDialog = null;
+            }            
         }
 
         private void ShowLockRequestSentPage(Business.Test.AccessionOrder accessionOrder)
