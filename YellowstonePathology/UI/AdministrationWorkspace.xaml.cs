@@ -78,7 +78,7 @@ namespace YellowstonePathology.UI
         private void ButtonBuildJson_Click(object sender, RoutedEventArgs e)
         {
             string resultString = Business.Specimen.Model.SpecimenCollection.GetAll().ToJSON();
-            using (StreamWriter sw = new StreamWriter(@"C:\ProgramData\YellowstonePathologyInstitute\config\Specimen.json", false))
+            using (StreamWriter sw = new StreamWriter(@"C:\ProgramData\ypi\lisdata\YellowstonePathology.Business.Specimen.Model.SpecimenCollection.json", false))
             {
                 sw.Write(resultString);
             }

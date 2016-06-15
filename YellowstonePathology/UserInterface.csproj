@@ -4578,6 +4578,9 @@
     <EmbeddedResource Include="DomainPersistence\Schema\WebServiceAccountSchema.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <None Include="PullLisData.bat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="UI\CEFSharp\CefSharp.WinForms.Example.exe.config" />
     <None Include="UI\CEFSharp\CefSharp.WinForms.Example.vshost.exe.config" />
     <None Include="UI\CEFSharp\CefSharp.WinForms.Example.vshost.exe.manifest" />
