@@ -57,7 +57,7 @@ namespace YellowstonePathology.UI
         protected override void OnStartup(StartupEventArgs e)
         {
             //this.HandledictionarySetup();
-            //this.PullLisData();
+            this.PullLisData();
 
             Business.Test.AccessionLockCollection accessionLockCollection = new Business.Test.AccessionLockCollection();
             accessionLockCollection.ClearLocks();
@@ -164,11 +164,15 @@ namespace YellowstonePathology.UI
         
         private void PullLisData()
         {
-            Process p = new Process();
-            ProcessStartInfo info = new ProcessStartInfo(@"C:\Users\william.copland\AppData\Local\Programs\Git\git-cmd.exe", "PullLisData.bat");
-            info.WindowStyle = ProcessWindowStyle.Hidden;
-            p.StartInfo = info;
-            p.Start();
+            string cmd = Environment.GetEnvironmentVariable("GitCmdPath");
+            if (string.IsNullOrEmpty(cmd) == false)
+            {
+                Process p = new Process();
+                ProcessStartInfo info = new ProcessStartInfo(cmd, "PullLisData.bat");
+                info.WindowStyle = ProcessWindowStyle.Hidden;
+                p.StartInfo = info;
+                p.Start();
+            }
         }
     }
 }

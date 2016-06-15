@@ -1,4 +1,4 @@
 C:
 cd \programdata\ypi\lisdata
-git pull lisdata master
+git pull -q lisdata master
 exit
