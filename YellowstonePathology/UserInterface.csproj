@@ -2527,6 +2527,12 @@
     <Compile Include="Business\Test\Surgical\SurgicalTest.cs" />
     <Compile Include="Business\Test\Surgical\SurgicalTestOrder.cs" />
     <Compile Include="Business\Test\Surgical\SurgicalWordDocument.cs" />
+    <Compile Include="Business\Test\TCellRecepterBetaGeneRearrangement\TCellRecepterBetaGeneRearrangementEPICOBXView.cs" />
+    <Compile Include="Business\Test\TCellRecepterBetaGeneRearrangement\TCellRecepterBetaGeneRearrangementNegativeResult.cs" />
+    <Compile Include="Business\Test\TCellRecepterBetaGeneRearrangement\TCellRecepterBetaGeneRearrangementResult.cs" />
+    <Compile Include="Business\Test\TCellRecepterBetaGeneRearrangement\TCellRecepterBetaGeneRearrangementTest.cs" />
+    <Compile Include="Business\Test\TCellRecepterBetaGeneRearrangement\TCellRecepterBetaGeneRearrangementTestOrder.cs" />
+    <Compile Include="Business\Test\TCellRecepterBetaGeneRearrangement\TCellRecepterBetaGeneRearrangementWordDocument.cs" />
     <Compile Include="Business\Test\TCellRecepterGammaGeneRearrangement\TCellRecepterGammaGeneRearrangementTestOrder.cs" />
     <Compile Include="Business\Test\TCellRecepterGammaGeneRearrangement\TCellRecepterGammaGeneRearrangementEPICOBXView.cs" />
     <Compile Include="Business\Test\TCellRecepterGammaGeneRearrangement\TCellRecepterGammaGeneRearrangementNegativeResult.cs" />
@@ -3667,6 +3673,8 @@
       <DependentUpon>RUNX1RUNX1T1AML1ETOTranslocationResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Test\RUNX1RUNX1T1AML1ETOTranslocationResultPath.cs" />
+    <Compile Include="UI\Test\TCellRecepterBetaGeneRearrangementResultPage.xaml.cs" />
+    <Compile Include="UI\Test\TCellRecepterBetaGeneRearrangementResultPath.cs" />
     <Compile Include="UI\Test\TCellSubsetAnalysisResultPage.xaml.cs">
       <DependentUpon>TCellSubsetAnalysisResultPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -5500,6 +5508,10 @@
     <Page Include="UI\Test\RUNX1RUNX1T1AML1ETOTranslocationResultPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Test\TCellRecepterBetaGeneRearrangementResultPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\Test\TCellSubsetAnalysisResultPage.xaml" />
     <Page Include="UI\Test\TecanImportExportPage.xaml">
