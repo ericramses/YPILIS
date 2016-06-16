@@ -285,6 +285,9 @@ namespace YellowstonePathology.UI.Test
                 case 233:
                     result = new CSF3RMutationAnalysisResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
+                case 234:
+                    result = new TCellRecepterBetaGeneRearrangementResultPath(reportNo, accessionOrder, pageNavigator, window);
+                    break;
             }
             return result;
         }
