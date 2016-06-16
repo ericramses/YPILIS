@@ -10,8 +10,8 @@ namespace YellowstonePathology.Business.Surgical
     {
         public ProcessorCollection()
         {
-            this.Add(new BigBirtha());
-            this.Add(new DrFez());            
+            this.Add(new Cheech());
+            this.Add(new Chong());            
         }
     }
 }

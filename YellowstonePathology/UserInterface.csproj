@@ -40,7 +40,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>73</ApplicationRevision>
+    <ApplicationRevision>77</ApplicationRevision>
     <ApplicationVersion>10.1.5.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -1467,8 +1467,8 @@
     <Compile Include="Business\Specimen.Model\ThinPrepSlide.cs" />
     <Compile Include="Business\Specimen.Model\TimeToFixationType.cs" />
     <Compile Include="Business\SpellCheck.cs" />
-    <Compile Include="Business\Surgical\BigBirtha.cs" />
-    <Compile Include="Business\Surgical\DrFez.cs" />
+    <Compile Include="Business\Surgical\Cheech.cs" />
+    <Compile Include="Business\Surgical\Chong.cs" />
     <Compile Include="Business\Surgical\HoldProcessor.cs" />
     <Compile Include="Business\Surgical\KeyWordCollection.cs" />
     <Compile Include="Business\Surgical\NullProcessor.cs" />
@@ -2519,6 +2519,7 @@
     <Compile Include="Business\Test\Surgical\SurgicalAuditCollection.cs" />
     <Compile Include="Business\Test\Surgical\SurgicalCMMCNteView.cs" />
     <Compile Include="Business\Test\Surgical\SurgicalECWOBXView.cs" />
+    <Compile Include="Business\Test\Surgical\SurgicalWPHObxView.cs" />
     <Compile Include="Business\Test\Surgical\SurgicalEpicObxView.cs" />
     <Compile Include="Business\Test\Surgical\SurgicalSpecimen.cs" />
     <Compile Include="Business\Test\Surgical\SurgicalSpecimenAudit.cs" />

@@ -63,14 +63,14 @@ namespace YellowstonePathology.Business.Surgical
                 }
             }
 
-            BigBirtha bigBirtha = new BigBirtha();
-            foreach (ProcessorRun processorRun in bigBirtha.ProcessorRunCollection)
+            Cheech cheech = new Cheech();
+            foreach (ProcessorRun processorRun in cheech.ProcessorRunCollection)
             {
                 result.Add(processorRun);
             }
 
-            DrFez drFez = new DrFez();
-            foreach (ProcessorRun processorRun in drFez.ProcessorRunCollection)
+            Chong chong = new Chong();
+            foreach (ProcessorRun processorRun in chong.ProcessorRunCollection)
             {
                 result.Add(processorRun);
             }

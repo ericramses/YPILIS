@@ -27,9 +27,6 @@ namespace YellowstonePathology.UI.AppMessaging
         public delegate void HoldHandler(object sender, UI.CustomEventArgs.AccessionLockMessageReturnEventArgs e);
         public event HoldHandler Hold;
 
-        //public delegate void CloseHandler(object sender, EventArgs e);
-        //public event CloseHandler Close;
-
         private Business.Test.AccessionOrder m_AccessionOrder;
         private AccessionLockMessage m_Message;
         private string m_DisplayMessage;
@@ -84,8 +81,6 @@ namespace YellowstonePathology.UI.AppMessaging
 
             System.Windows.Threading.DispatcherTimer dispatchTimer = (System.Windows.Threading.DispatcherTimer)sender;
 
-            Console.WriteLine("Request Received Tick: " + this.m_CurrentCountDown);
-
             if(this.m_StopTimerOnNextTick == true)
             {
                 dispatchTimer.Stop();
@@ -111,12 +106,6 @@ namespace YellowstonePathology.UI.AppMessaging
             this.m_StopTimerOnNextTick = true;
             this.Hold(this, new CustomEventArgs.AccessionLockMessageReturnEventArgs(this.m_Message));            
         }
-
-        //private void ButtonClose_Click(object sender, RoutedEventArgs e)
-        //{
-        //    this.m_StopTimerOnNextTick = true;
-        //    this.Close(this, new EventArgs());
-        //}        
 
         public void NotifyPropertyChanged(String info)
         {

@@ -23,7 +23,7 @@ namespace YellowstonePathology.Business.HL7View.WPH
                     break;
                 case 13:
                 case 128:
-					//view = new YellowstonePathology.Business.Test.Surgical.SurgicalWPHOBXView(accessionOrder, reportNo, obxCount);
+					view = new YellowstonePathology.Business.Test.Surgical.SurgicalWPHObxView(accessionOrder, reportNo, obxCount);
                     break;
                 case 14:
 					//view = new YellowstonePathology.Business.Test.HPV.HPVWPHOBXView(accessionOrder, reportNo, obxCount);

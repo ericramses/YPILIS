@@ -1068,15 +1068,15 @@ namespace YellowstonePathology.Business.Specimen.Model
         }
 
         public void SetProcessor(YellowstonePathology.Business.Surgical.ProcessorRun processorRun)
-        {
+        {            
             this.m_ProcessorRun = processorRun.Name;
             this.m_ProcessorRunId = processorRun.ProcessorRunId;
             this.m_ProcessorFixationTime = Convert.ToInt32(processorRun.FixationTime.TotalMinutes);
             this.m_ProcessorStartTime = processorRun.GetProcessorStartTime(this.m_DateReceived);
-            
+
             this.SetFixationEndTime();
             this.SetFixationDuration();
-            this.NotifyPropertyChanged(string.Empty);
+            this.NotifyPropertyChanged(string.Empty);            
         }
 
         public string TimeToFixationString

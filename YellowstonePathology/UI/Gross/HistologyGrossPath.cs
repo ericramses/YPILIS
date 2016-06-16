@@ -139,8 +139,11 @@ namespace YellowstonePathology.UI.Gross
             {
                 YellowstonePathology.Business.Surgical.ProcessorRunCollection processorRunCollection = YellowstonePathology.Business.Surgical.ProcessorRunCollection.GetAll(false);
                 YellowstonePathology.Business.Surgical.ProcessorRun processorRun = processorRunCollection.Get(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference);
-                specimenOrder.SetProcessor(processorRun);
-                specimenOrder.SetFixationDuration();
+                if(processorRun != null)
+                {
+                    specimenOrder.SetProcessor(processorRun);
+                    specimenOrder.SetFixationDuration();
+                }                
             }
 
             if (this.m_AccessionOrder.PrintMateColumnNumber == 0 && this.m_AccessionOrder.PanelSetOrderCollection.HasTestBeenOrdered(48) == false)

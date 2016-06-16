@@ -23,20 +23,7 @@ namespace YellowstonePathology.Business.BarcodeScanning
 		public delegate void HistologySlideScanReceivedHandler(Barcode barcode);
 
         public event ThinPrepSlideScanReceivedHandler ThinPrepSlideScanReceived;
-		public delegate void ThinPrepSlideScanReceivedHandler(Barcode barcode);
-
-        //private EventHandler ContainerScanReceivedHandler;        
-        //public event EventHandler ContainerScanReceived
-        //{
-        //    add
-        //    {
-        //        ContainerScanReceived += value;
-        //    }
-        //    remove
-        //    {
-        //        ContainerScanReceived -= value;
-        //    }
-        //}        
+		public delegate void ThinPrepSlideScanReceivedHandler(Barcode barcode);         
 
         public event ContainerScanReceivedHandler ContainerScanReceived;
         public delegate void ContainerScanReceivedHandler(ContainerBarcode containerBarcode);
