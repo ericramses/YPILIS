@@ -77,31 +77,13 @@ namespace YellowstonePathology.UI
 
         private void ButtonBuildJson_Click(object sender, RoutedEventArgs e)
         {
-            Business.Billing.Model.CptCodeCollection cptCodes = YellowstonePathology.Business.Billing.Model.CptCodeCollection.GetAll();
-            string resultString = cptCodes.ToJSON();
-            using (StreamWriter sw = new StreamWriter(@"C:\Temp\JSONCPTCodes.txt", false))
+            string resultString = Business.Specimen.Model.SpecimenCollection.GetAll().ToJSON();
+            using (StreamWriter sw = new StreamWriter(@"C:\ProgramData\ypi\lisdata\YellowstonePathology.Business.Specimen.Model.SpecimenCollection.json", false))
             {
                 sw.Write(resultString);
             }
 
-            /*string filePath = "YellowstonePathology.Business.Billing.Model.JSONCPTCodes.txt";
-            string jsonString = string.Empty;
-            Assembly assembly = Assembly.GetExecutingAssembly();
-            using (StreamReader sr = new StreamReader(assembly.GetManifestResourceStream(filePath)))
-            {
-                jsonString = sr.ReadToEnd();
-            }
-
-            YellowstonePathology.Business.Billing.Model.CptCodeCollection cptCodes = YellowstonePathology.Business.Billing.Model.CptCodeCollection.FromJSON();
-            string resultString = cptCodes.ToJSON();
-            if (jsonString == resultString)
-            {
-                MessageBox.Show("Matches");
-            }
-            else
-            {
-                MessageBox.Show("Not Matched");
-            }*/
+            MessageBox.Show("Done");
         }
 
         private void ButtonPOCRetension_Click(object sender, RoutedEventArgs e)

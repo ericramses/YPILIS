@@ -331,6 +331,9 @@ namespace YellowstonePathology.Business.Document
                     case 233:
                         document = new YellowstonePathology.Business.Test.CSF3RMutationAnalysis.CSF3RMutationAnalysisWordDocument(accessionOrder, panelSetOrder, reportSaveMode);
                         break;
+                    case 234:
+                        document = new YellowstonePathology.Business.Test.TCellRecepterBetaGeneRearrangement.TCellRecepterBetaGeneRearrangementWordDocument(accessionOrder, panelSetOrder, reportSaveMode);
+                        break;
                     default:
 						break;
 				}
