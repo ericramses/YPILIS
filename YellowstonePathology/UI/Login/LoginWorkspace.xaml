@@ -224,8 +224,10 @@
                             <CustomControls:Tile x:Name="TileICD" Grid.Column="1" Grid.Row="6" Title="ICD Codes" Background="#FF6666" Margin="2,2,2,2" MouseUp="TileICDCodes_MouseUp"/>
                             <CustomControls:Tile x:Name="TileTasks" Grid.Column="2" Grid.Row="6" Title="Tasks" Background="#006666" Margin="2,2,2,2" MouseUp="TileTasks_MouseUp"/>
                             <CustomControls:Tile x:Name="TileGrossEntry" Grid.Column="3" Grid.ColumnSpan="2" Grid.Row="6" Title="Gross Entry" Background="#003333" Margin="2,2,2,2" MouseUp="TileGrossEntry_MouseUp"/>
-						    
-					    </Grid>
+
+                            <CustomControls:Tile x:Name="TileDeleteAccession" Grid.Column="0" Grid.Row="7" Title="Delete" Background="#660000" Margin="2,2,2,2" MouseUp="TileDelete_MouseUp"/>
+                        
+                        </Grid>
                     </ScrollViewer>
                 </TabItem>
 			</TabControl>
