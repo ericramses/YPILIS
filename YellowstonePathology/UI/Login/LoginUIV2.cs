@@ -244,7 +244,7 @@ namespace YellowstonePathology.UI.Login
 			return result;
 		}		
 
-        public void GetAccessionOrderBySlideOrderId(string slideOrderId)
+        /*public void GetAccessionOrderBySlideOrderId(string slideOrderId)
         {
             this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderBySlideOrderId(slideOrderId);
             if (this.m_AccessionOrder != null)
@@ -253,7 +253,7 @@ namespace YellowstonePathology.UI.Login
                 this.GetReportSearchListByReportNo(reportNo);
                 this.NotifyPropertyChanged("ReportSearchList");
             }
-        }
+        }*/
 
 		public void NotifyPropertyChanged(String info)
 		{

@@ -544,63 +544,11 @@ namespace YellowstonePathology.Business.Gateway
             return result;
         }
 
-        /*
-		public static Test.AccessionOrder GetAccessionOrderByAliquotOrderId(string aliquotOrderId)
-		{
-			SqlCommand cmd = new SqlCommand();
-			cmd.CommandText = "gwGetAccessionByAliquotOrderId_A7";
-			cmd.CommandType = CommandType.StoredProcedure;
-			cmd.Parameters.Add("@AliquotOrderId", SqlDbType.VarChar).Value = aliquotOrderId;
-			AccessionOrderBuilder accessionOrderBuilder = new AccessionOrderBuilder();
-			XElement document = AccessionOrderGateway.GetAccessionOrderElement(cmd);
-			accessionOrderBuilder.Build(document);
-			return accessionOrderBuilder.AccessionOrder;
-		} 
-        */       
-
-		/*public static Test.AccessionOrder GetAccessionOrderByContainerId(string containerId)
-		{
-			SqlCommand cmd = new SqlCommand();
-			cmd.CommandText = "gwGetAccessionByContainerId_A7";
-			cmd.CommandType = CommandType.StoredProcedure;
-			cmd.Parameters.Add("@ContainerId", SqlDbType.VarChar).Value = containerId;
-			AccessionOrderBuilder accessionOrderBuilder = new AccessionOrderBuilder();
-			XElement document = AccessionOrderGateway.GetAccessionOrderElement(cmd);
-			accessionOrderBuilder.Build(document);
-			return accessionOrderBuilder.AccessionOrder;
-		}*/
-
-		//public static Test.AccessionOrder GetAccessionOrderByMasterAccessionNo(string masterAccessionNo)
-		//{
-		//	SqlCommand cmd = new SqlCommand();
-		//	cmd.CommandText = "gwGetAccessionByMasterAccessionNo_A7";
-		//	cmd.CommandType = CommandType.StoredProcedure;
-		//	cmd.Parameters.Add("@MasterAccessionNo", SqlDbType.VarChar).Value = masterAccessionNo;
-		//	AccessionOrderBuilder accessionOrderBuilder = new AccessionOrderBuilder();
-		//	XElement document = AccessionOrderGateway.GetAccessionOrderElement(cmd);
-		//	accessionOrderBuilder.Build(document);
-		//	return accessionOrderBuilder.AccessionOrder;
-		//}
-
-        /*
-		public static Test.AccessionOrder GetAccessionOrderByReportNo(string reportNo)
-		{
-			SqlCommand cmd = new SqlCommand();
-			cmd.CommandText = "gwGetAccessionByReportNo_A7";
-			cmd.CommandType = CommandType.StoredProcedure;
-			cmd.Parameters.Add("@ReportNo", SqlDbType.VarChar).Value = reportNo;
-			AccessionOrderBuilder accessionOrderBuilder = new AccessionOrderBuilder();
-			XElement document = AccessionOrderGateway.GetAccessionOrderElement(cmd);
-			accessionOrderBuilder.Build(document);
-			return accessionOrderBuilder.AccessionOrder;
-		}
-        */
-
+            /*
 		public static Test.AccessionOrder GetAccessionOrderBySlideOrderId(string slideOrderId)
 		{
             throw new Exception("Not Implemented");            
 
-            /*
 			SqlCommand cmd = new SqlCommand();
 			cmd.CommandText = "gwGetAccessionBySlideOrderId_A7";
 			cmd.CommandType = CommandType.StoredProcedure;
@@ -609,13 +557,13 @@ namespace YellowstonePathology.Business.Gateway
 			XElement document = AccessionOrderGateway.GetAccessionOrderElement(cmd);
 			accessionOrderBuilder.Build(document);
 			return accessionOrderBuilder.AccessionOrder;
-            */
 		}
+            */
 
 		public static XElement GetAccessionOrderDocumentByReportNo(string reportNo)
 		{
 			SqlCommand cmd = new SqlCommand();
-			cmd.CommandText = "gwGetAccessionByReportNo_A7";
+			cmd.CommandText = "gwGetAccessionByReportNo_A8";
 			cmd.CommandType = CommandType.StoredProcedure;
 			cmd.Parameters.Add("@ReportNo", SqlDbType.VarChar).Value = reportNo;
 			XElement document = AccessionOrderGateway.GetAccessionOrderElement(cmd);
