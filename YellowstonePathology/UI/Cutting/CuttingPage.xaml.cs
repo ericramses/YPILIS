@@ -73,6 +73,7 @@ namespace YellowstonePathology.UI.Cutting
 
             this.m_PageTimeoutTimer = new System.Windows.Threading.DispatcherTimer();
             this.m_PageTimeoutTimer.Interval = TimeSpan.FromMinutes(15);
+            //this.m_PageTimeoutTimer.Interval = TimeSpan.FromMinutes(2);
             this.m_PageTimeoutTimer.Tick += new EventHandler(PageTimeoutTimer_Tick);
             this.m_PageTimeoutTimer.Start();
 

@@ -21,7 +21,6 @@ namespace YellowstonePathology.UI.AppMessaging
 
         public delegate void NevermindEventHandler(object sender, EventArgs e);
         public event NevermindEventHandler Nevermind;
-
         
         private string m_CountDownMessage;
         private int m_CurrentCountDown;        
@@ -71,9 +70,7 @@ namespace YellowstonePathology.UI.AppMessaging
         private void DispatchTimer_Tick(object sender, EventArgs e)
         {
             this.m_CurrentCountDown -= 1;
-            this.m_CountDownMessage = "Please wait " + this.m_CurrentCountDown;
-
-            Console.WriteLine("Request Sent Tick: " + this.m_CurrentCountDown);
+            this.m_CountDownMessage = "Please wait " + this.m_CurrentCountDown;            
 
             System.Windows.Threading.DispatcherTimer dispatchTimer = (System.Windows.Threading.DispatcherTimer)sender;
 
