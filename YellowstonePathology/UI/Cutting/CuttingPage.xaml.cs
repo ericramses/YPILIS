@@ -15,7 +15,7 @@ using System.ComponentModel;
 
 namespace YellowstonePathology.UI.Cutting
 {    
-	public partial class CuttingPage : UserControl, INotifyPropertyChanged 
+	public partial class CuttingPage : UI.PageControl, INotifyPropertyChanged 
 	{            
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -288,5 +288,10 @@ namespace YellowstonePathology.UI.Cutting
             histologySlidePaperLabelPrinter.Queue.Enqueue(histologySlidePaperLabel);
             histologySlidePaperLabelPrinter.Print();
         }
-	}
+
+        public override void BeforeNavigatingAway()
+        {
+            this.m_PageTimeoutTimer.Stop();
+        }
+    }
 }
