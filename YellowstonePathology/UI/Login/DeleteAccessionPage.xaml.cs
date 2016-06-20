@@ -58,7 +58,7 @@ namespace YellowstonePathology.UI.Login
         private void HyperLinkDeletePanelSet_Click(object sender, RoutedEventArgs e)
         {
             Business.Test.PanelSetOrder panelSetOrder = ((Hyperlink)sender).Tag as Business.Test.PanelSetOrder;
-            MessageBoxResult result = MessageBox.Show("Are you sure you want to delete report " + panelSetOrder.ReportNo + "?", "Delete Report", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to permanently delete report " + panelSetOrder.ReportNo + "?", "Delete Report", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
             if(result == MessageBoxResult.Yes)
             {
                 Business.Rules.MethodResult methodResult = AORemover.RemovePanelSet(panelSetOrder.ReportNo, this.m_AccessionOrder, this.m_Writer);

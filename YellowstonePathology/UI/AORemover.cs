@@ -24,8 +24,17 @@ namespace YellowstonePathology.UI
             if(accessionOrder.PanelSetOrderCollection.Count > 1)
             {
                 Business.Test.PanelSetOrder panelSetOrder = accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
-                accessionOrder.PanelSetOrderCollection.Remove(panelSetOrder);
-                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(accessionOrder, writer);
+                if ((accessionOrder.PLastName.ToUpper() == "MOUSE" && accessionOrder.PFirstName.ToUpper() == "MICKEY") ||
+                    panelSetOrder.Final == false)
+                {
+                    accessionOrder.PanelSetOrderCollection.Remove(panelSetOrder);
+                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(accessionOrder, writer);
+                }
+                else
+                {
+                    methodResult.Success = false;
+                    methodResult.Message = "Unable to remove a Panel Set that has been finaled.";
+                }
             }
             else
             {
