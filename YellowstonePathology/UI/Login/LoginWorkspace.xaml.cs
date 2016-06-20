@@ -704,41 +704,48 @@ namespace YellowstonePathology.UI.Login
         {                        
             if (this.ListViewAccessionOrders.SelectedItem != null)
             {
-                MessageBoxResult messageBoxResult = MessageBox.Show("Are you sure you want to cancel this test?", "Cancel Test", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes);
-                if (messageBoxResult == MessageBoxResult.Yes)
+                if(this.m_LoginUI.AccessionOrder.AccessionLock.IsLockAquiredByMe == true)
                 {
-
-                    YellowstonePathology.Business.Search.ReportSearchItem reportSearchItem = (YellowstonePathology.Business.Search.ReportSearchItem)this.ListViewAccessionOrders.SelectedItem;
-                    YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_LoginUI.AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportSearchItem.ReportNo);
-
-                    if (panelSetOrder.Final == false)
-                    {                        
-                        string reportNo = panelSetOrder.ReportNo;
-                        string testName = panelSetOrder.PanelSetName;
-                        int panelSetId = panelSetOrder.PanelSetId;                                           
-
-                        YellowstonePathology.Business.Interface.IOrderTarget orderTarget = this.m_LoginUI.AccessionOrder.SpecimenOrderCollection.GetOrderTarget(panelSetOrder.OrderedOnId);
-                        Business.Test.TestCancelled.TestCancelledTest cancelledTest = new Business.Test.TestCancelled.TestCancelledTest();
-                        YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new Business.Test.TestOrderInfo(cancelledTest, orderTarget, true);
-                        YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Business.Visitor.OrderTestOrderVisitor(testOrderInfo);
-
-                        this.m_LoginUI.AccessionOrder.PanelSetOrderCollection.Remove(panelSetOrder);
-                        YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
-
-                        this.m_LoginUI.AccessionOrder.TakeATrip(orderTestOrderVisitor);
-                        Business.Test.TestCancelled.TestCancelledTestOrder testCancelledTestOrder = (Business.Test.TestCancelled.TestCancelledTestOrder)orderTestOrderVisitor.PanelSetOrder;
-                        testCancelledTestOrder.Comment = testName + " has been cancelled.";
-                        testCancelledTestOrder.CancelledTestId = panelSetId;
-                        testCancelledTestOrder.CancelledTestName = testName;
-
-                        YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
-
-                        this.m_LoginUI.GetReportSearchListByReportNo(panelSetOrder.ReportNo);
-                    }
-                    else
+                MessageBoxResult messageBoxResult = MessageBox.Show("Are you sure you want to cancel this test?", "Cancel Test", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes);
+                    if (messageBoxResult == MessageBoxResult.Yes)
                     {
-                        MessageBox.Show("Cannot cancel a test that has been finalized.");
+
+                        YellowstonePathology.Business.Search.ReportSearchItem reportSearchItem = (YellowstonePathology.Business.Search.ReportSearchItem)this.ListViewAccessionOrders.SelectedItem;
+                        YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_LoginUI.AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportSearchItem.ReportNo);
+
+                        if (panelSetOrder.Final == false)
+                        {
+                            string reportNo = panelSetOrder.ReportNo;
+                            string testName = panelSetOrder.PanelSetName;
+                            int panelSetId = panelSetOrder.PanelSetId;
+
+                            YellowstonePathology.Business.Interface.IOrderTarget orderTarget = this.m_LoginUI.AccessionOrder.SpecimenOrderCollection.GetOrderTarget(panelSetOrder.OrderedOnId);
+                            Business.Test.TestCancelled.TestCancelledTest cancelledTest = new Business.Test.TestCancelled.TestCancelledTest();
+                            YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new Business.Test.TestOrderInfo(cancelledTest, orderTarget, true);
+                            YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Business.Visitor.OrderTestOrderVisitor(testOrderInfo);
+
+                            this.m_LoginUI.AccessionOrder.PanelSetOrderCollection.Remove(panelSetOrder);
+                            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
+
+                            this.m_LoginUI.AccessionOrder.TakeATrip(orderTestOrderVisitor);
+                            Business.Test.TestCancelled.TestCancelledTestOrder testCancelledTestOrder = (Business.Test.TestCancelled.TestCancelledTestOrder)orderTestOrderVisitor.PanelSetOrder;
+                            testCancelledTestOrder.Comment = testName + " has been cancelled.";
+                            testCancelledTestOrder.CancelledTestId = panelSetId;
+                            testCancelledTestOrder.CancelledTestName = testName;
+
+                            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
+
+                            this.m_LoginUI.GetReportSearchListByReportNo(panelSetOrder.ReportNo);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Cannot cancel a test that has been finalized.");
+                        }
                     }
+                }
+                else
+                {
+                    MessageBox.Show("Cannot cancel this test because the case is locked by someone else.");
                 }
             }            
         }
@@ -910,6 +917,25 @@ namespace YellowstonePathology.UI.Login
                 YellowstonePathology.UI.Login.Receiving.AdditionalTestingEmailPathWithSecurity additionalTestingEmailPath = new Receiving.AdditionalTestingEmailPathWithSecurity(this.m_LoginUI.AccessionOrder, panelSetOrder);
                 additionalTestingEmailPath.Start();
             }
+        }
+
+        private void TileDelete_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            if (this.ListViewAccessionOrders.SelectedItem != null)
+            {
+                this.m_LoginPageWindow = new Login.Receiving.LoginPageWindow();
+                this.m_LoginPageWindow.Height = 500;
+                this.m_LoginPageWindow.Width = 500;
+                this.m_LoginPageWindow.Show();
+                DeleteAccessionPage deletePage = new DeleteAccessionPage(this.m_LoginUI.AccessionOrder, this.m_Writer);
+                deletePage.Close += DeletePage_Close;
+                this.m_LoginPageWindow.PageNavigator.Navigate(deletePage);
+            }
+        }
+
+        private void DeletePage_Close(object sender, EventArgs e)
+        {
+            this.m_LoginPageWindow.Close();
         }
     }
 }

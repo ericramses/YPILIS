@@ -16,14 +16,14 @@ namespace YellowstonePathology.Business.Persistence
             YellowstonePathology.Business.User.SystemIdentity systemIdentity = YellowstonePathology.Business.User.SystemIdentity.Instance;
 
             this.m_SQLCommand = new SqlCommand();
-            m_SQLCommand.CommandText = "AOGWGetByMasterAccessionNo";
+            m_SQLCommand.CommandText = "gwGetAccessionByMasterAccessionNo_A8";
             m_SQLCommand.CommandType = CommandType.StoredProcedure;
             m_SQLCommand.Parameters.Add("@MasterAccessionNo", SqlDbType.VarChar).Value = masterAccessionNo;
-            m_SQLCommand.Parameters.Add("@AquireLock", SqlDbType.Bit).Value = obtainLock;
-            m_SQLCommand.Parameters.Add("@LockAquiredById", SqlDbType.VarChar).Value = systemIdentity.User.UserId;
-            m_SQLCommand.Parameters.Add("@LockAquiredByUserName", SqlDbType.VarChar).Value = systemIdentity.User.UserName;
-            m_SQLCommand.Parameters.Add("@LockAquiredByHostName", SqlDbType.VarChar).Value = System.Environment.MachineName;
-            m_SQLCommand.Parameters.Add("@TimeLockAquired", SqlDbType.DateTime).Value = DateTime.Now;
+            //m_SQLCommand.Parameters.Add("@AquireLock", SqlDbType.Bit).Value = obtainLock;
+            //m_SQLCommand.Parameters.Add("@LockAquiredById", SqlDbType.VarChar).Value = systemIdentity.User.UserId;
+            //m_SQLCommand.Parameters.Add("@LockAquiredByUserName", SqlDbType.VarChar).Value = systemIdentity.User.UserName;
+            //m_SQLCommand.Parameters.Add("@LockAquiredByHostName", SqlDbType.VarChar).Value = System.Environment.MachineName;
+            //m_SQLCommand.Parameters.Add("@TimeLockAquired", SqlDbType.DateTime).Value = DateTime.Now;
         }
 
         public override object BuildNew()
