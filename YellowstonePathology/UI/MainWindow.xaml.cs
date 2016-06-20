@@ -558,7 +558,7 @@ namespace YellowstonePathology.UI
                 this.TabControlLeftWorkspace.Items.Add(this.m_TabItemLab);
                 this.m_TabItemLab.Focus();
                 this.m_LabWorkspace.Loaded += new RoutedEventHandler(m_LabWorkspace_Loaded);
-				this.CommandBindings.Add(m_LabWorkspace.CommandBindingRemoveTab);
+				//this.CommandBindings.Add(m_LabWorkspace.CommandBindingRemoveTab);
 			}            
         }
 
