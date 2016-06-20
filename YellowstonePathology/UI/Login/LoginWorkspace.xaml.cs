@@ -923,7 +923,7 @@ namespace YellowstonePathology.UI.Login
         {
             if (this.ListViewAccessionOrders.SelectedItem != null)
             {
-                if (this.m_LoginUI.AccessionOrder.PanelSetOrderCollection.Count > 1)
+                if (this.m_LoginUI.AccessionOrder.AccessionLock.IsLockAquiredByMe == true)
                 {
                     this.m_LoginPageWindow = new Login.Receiving.LoginPageWindow();
                     this.m_LoginPageWindow.Height = 500;
@@ -931,11 +931,8 @@ namespace YellowstonePathology.UI.Login
                     this.m_LoginPageWindow.Show();
                     DeleteAccessionPage deletePage = new DeleteAccessionPage(this.m_LoginUI.AccessionOrder, this.m_Writer);
                     deletePage.Close += DeletePage_Close;
+                    deletePage.AccessionDeleted += DeletePage_AccessionDeleted;
                     this.m_LoginPageWindow.PageNavigator.Navigate(deletePage);
-                }
-                else
-                {
-                    MessageBox.Show("Unable to remove the only Panel Set for the Accession.") ;
                 }
             }
         }
@@ -944,6 +941,13 @@ namespace YellowstonePathology.UI.Login
         {
             this.m_LoginPageWindow.Close();
             this.m_LoginUI.GetReportSearchListByMasterAccessionNo(this.m_LoginUI.AccessionOrder.MasterAccessionNo);
+        }
+
+        private void DeletePage_AccessionDeleted(object sender, EventArgs e)
+        {
+            this.m_LoginPageWindow.Close();
+            this.m_LoginUI.AccessionOrder = null;
+            this.m_LoginUI.GetReportSearchList();
         }
     }
 }

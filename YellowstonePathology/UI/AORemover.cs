@@ -11,11 +11,21 @@ namespace YellowstonePathology.UI
         public AORemover()
         { }
 
-        public static void Remove(Business.Test.AccessionOrder accessionOrder, object writer)
+        public static Business.Rules.MethodResult Remove(Business.Test.AccessionOrder accessionOrder, object writer)
         {
-            YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullClientOrder(accessionOrder.ClientOrderId, writer);
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.DeleteDocument(clientOrder, writer);
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.DeleteDocument(accessionOrder, writer);
+            YellowstonePathology.Business.Rules.MethodResult methodResult = new Business.Rules.MethodResult();
+            if (accessionOrder.PLastName.ToUpper() == "MOUSE" && accessionOrder.PFirstName.ToUpper() == "MICKEY")
+            {
+                YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullClientOrder(accessionOrder.ClientOrderId, writer);
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.DeleteDocument(clientOrder, writer);
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.DeleteDocument(accessionOrder, writer);
+            }
+            else
+            {
+                methodResult.Success = false;
+                methodResult.Message = "Unable to remove an accession that is not for Mickey Mouse.";
+            }
+            return methodResult;
         }
 
         public static Business.Rules.MethodResult RemovePanelSet(string reportNo, Business.Test.AccessionOrder accessionOrder, object writer)
