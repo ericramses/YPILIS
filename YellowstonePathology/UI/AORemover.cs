@@ -30,7 +30,7 @@ namespace YellowstonePathology.UI
             else
             {
                 methodResult.Success = false;
-                methodResult.Message = "Unable to remove the only Panel Set for the Accessoin.";
+                methodResult.Message = "Unable to remove the only Panel Set for the Accession.";
             }
 
             return methodResult;
