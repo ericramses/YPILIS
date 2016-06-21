@@ -40,7 +40,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>83</ApplicationRevision>
+    <ApplicationRevision>84</ApplicationRevision>
     <ApplicationVersion>10.1.5.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -1033,6 +1033,7 @@
     <Compile Include="Business\Monitor.Model\MonitorStateEnum.cs" />
     <Compile Include="Business\Monitor.Model\PendingTest.cs" />
     <Compile Include="Business\Monitor.Model\PendingTestCollection.cs" />
+    <Compile Include="Business\MySQLDatabaseBuilder.cs" />
     <Compile Include="Business\NeogenomicsResult.cs" />
     <Compile Include="Business\NeogenomicsResultCollection.cs" />
     <Compile Include="Business\nodejs\HelloWorld.cs" />
@@ -2182,6 +2183,7 @@
     <Compile Include="Business\Test\JAK2V617F\JAK2V617FTest.cs" />
     <Compile Include="Business\Test\JAK2V617F\JAK2V617FTestOrder.cs" />
     <Compile Include="Business\Test\JAK2V617F\JAK2V617FWordDocument.cs" />
+    <Compile Include="Business\Test\KappaLambdaByISH\KappaLambdaByISHTest.cs" />
     <Compile Include="Business\Test\KRASExon23Mutation\KRASExon23MutationEpicObxView.cs" />
     <Compile Include="Business\Test\KRASExon23Mutation\KRASExon23MutationResult.cs" />
     <Compile Include="Business\Test\KRASExon23Mutation\KRASExon23MutationTest.cs" />
