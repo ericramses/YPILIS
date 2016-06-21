@@ -954,5 +954,11 @@ namespace YellowstonePathology.UI
             TestWindow window = new TestWindow();
             window.Show();
         }
-    }    
+
+        private void MenuItemDelete_Click(object sender, RoutedEventArgs e)
+        {
+            Login.DeleteAccessionPath deleteAccessionPath = new Login.DeleteAccessionPath();
+            deleteAccessionPath.Start();
+        }
+    }
 }

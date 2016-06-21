@@ -25,8 +25,6 @@ namespace YellowstonePathology.UI.Login
 
         public delegate void CloseEventHandler(object sender, EventArgs e);
         public event CloseEventHandler Close;
-        public delegate void AccessionDeletedEventHandler(object sender, EventArgs e);
-        public event AccessionDeletedEventHandler AccessionDeleted;
 
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         private object m_Writer;
@@ -77,7 +75,7 @@ namespace YellowstonePathology.UI.Login
                 }
                 else
                 {
-                    this.AccessionDeleted(this, new EventArgs());
+                    this.Close(this, new EventArgs());
                 }
             }
         }
