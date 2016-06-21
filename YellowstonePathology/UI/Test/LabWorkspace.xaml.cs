@@ -27,7 +27,7 @@ namespace YellowstonePathology.UI.Test
         public CommandBinding CommandBindingShowCaseDocument;
         public CommandBinding CommandBindingShowOrderForm;		
 		public CommandBinding CommandBindingPatientLinking;        
-		public CommandBinding CommandBindingRemoveTab;		
+		//public CommandBinding CommandBindingRemoveTab;		
 		public CommandBinding CommandBindingShowPatientEditDialog;
         
         private YellowstonePathology.UI.AmendmentControlV2 m_AmendmentControl;
@@ -59,14 +59,14 @@ namespace YellowstonePathology.UI.Test
             this.CommandBindingShowCaseDocument = new CommandBinding(MainWindow.ShowCaseDocumentCommand, ShowCaseDocument);
 			this.CommandBindingShowOrderForm = new CommandBinding(MainWindow.ShowOrderFormCommand, this.ShowOrderForm, ItemIsSelected);			
 			this.CommandBindingPatientLinking = new CommandBinding(MainWindow.PatientLinkingCommand, this.LinkPatient, ItemIsSelected);            
-			this.CommandBindingRemoveTab = new CommandBinding(MainWindow.RemoveTabCommand, RemoveTab);
+			//this.CommandBindingRemoveTab = new CommandBinding(MainWindow.RemoveTabCommand, RemoveTab);
 			this.CommandBindingShowPatientEditDialog = new CommandBinding(MainWindow.ShowPatientEditDialogCommand, this.ShowPatientEditDialog);
 
             this.CommandBindings.Add(this.CommandBindingApplicationClosing);            
             this.CommandBindings.Add(this.CommandBindingShowCaseDocument);
             this.CommandBindings.Add(this.CommandBindingShowOrderForm);            
             this.CommandBindings.Add(this.CommandBindingPatientLinking);            
-			this.CommandBindings.Add(this.CommandBindingRemoveTab);			
+			//this.CommandBindings.Add(this.CommandBindingRemoveTab);			
 			this.CommandBindings.Add(this.CommandBindingShowPatientEditDialog);
 						
 			this.m_LabUI = new LabUI(this.m_SystemIdentity, writer);
@@ -101,11 +101,13 @@ namespace YellowstonePathology.UI.Test
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath -= MainWindowCommandButtonHandler_StartProviderDistributionPath;
             this.m_MainWindowCommandButtonHandler.Save -= MainWindowCommandButtonHandler_Save;
             this.m_MainWindowCommandButtonHandler.Refresh -= MainWindowCommandButtonHandler_Refresh;
+            this.m_MainWindowCommandButtonHandler.RemoveTab -= MainWindowCommandButtonHandler_RemoveTab;
 
             this.m_BarcodeScanPort.ClientScanReceived += ClientScanReceived;
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath += new MainWindowCommandButtonHandler.StartProviderDistributionPathEventHandler(MainWindowCommandButtonHandler_StartProviderDistributionPath);
             this.m_MainWindowCommandButtonHandler.Save += new MainWindowCommandButtonHandler.SaveEventHandler(MainWindowCommandButtonHandler_Save);
             this.m_MainWindowCommandButtonHandler.Refresh += MainWindowCommandButtonHandler_Refresh;
+            this.m_MainWindowCommandButtonHandler.RemoveTab += MainWindowCommandButtonHandler_RemoveTab;
 
             UI.AppMessaging.MessagingPath.Instance.LockReleasedActionList.Add(this.Save);
             UI.AppMessaging.MessagingPath.Instance.LockAquiredActionList.Add(this.m_LabUI.RunWorkspaceEnableRules);
@@ -119,6 +121,11 @@ namespace YellowstonePathology.UI.Test
         private void MainWindowCommandButtonHandler_Save(object sender, EventArgs e)
         {
             this.Save();
+        }
+
+        private void MainWindowCommandButtonHandler_RemoveTab(object sender, EventArgs e)
+        {
+            Business.Persistence.DocumentGateway.Instance.Push(this.m_Writer);
         }
 
         private void Save()
@@ -219,10 +226,10 @@ namespace YellowstonePathology.UI.Test
             YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
         }
 
-        public void RemoveTab(object target, ExecutedRoutedEventArgs args)
+        /*public void RemoveTab(object target, ExecutedRoutedEventArgs args)
 		{
-
-		}
+            Business.Persistence.DocumentGateway.Instance.Push(this.m_Writer);
+        }*/
 
         private void ShowOrderForm(object target, ExecutedRoutedEventArgs args)
         {

@@ -918,32 +918,5 @@ namespace YellowstonePathology.UI.Login
                 additionalTestingEmailPath.Start();
             }
         }
-
-        private void TileDelete_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            if (this.ListViewAccessionOrders.SelectedItem != null)
-            {
-                if (this.m_LoginUI.AccessionOrder.PanelSetOrderCollection.Count > 1)
-                {
-                    this.m_LoginPageWindow = new Login.Receiving.LoginPageWindow();
-                    this.m_LoginPageWindow.Height = 500;
-                    this.m_LoginPageWindow.Width = 500;
-                    this.m_LoginPageWindow.Show();
-                    DeleteAccessionPage deletePage = new DeleteAccessionPage(this.m_LoginUI.AccessionOrder, this.m_Writer);
-                    deletePage.Close += DeletePage_Close;
-                    this.m_LoginPageWindow.PageNavigator.Navigate(deletePage);
-                }
-                else
-                {
-                    MessageBox.Show("Unable to remove the only Panel Set for the Accession.") ;
-                }
-            }
-        }
-
-        private void DeletePage_Close(object sender, EventArgs e)
-        {
-            this.m_LoginPageWindow.Close();
-            this.m_LoginUI.GetReportSearchListByMasterAccessionNo(this.m_LoginUI.AccessionOrder.MasterAccessionNo);
-        }
     }
 }

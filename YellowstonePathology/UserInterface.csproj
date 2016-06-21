@@ -3095,9 +3095,13 @@
     <Compile Include="UI\AppMessaging\MessagingDialog.xaml.cs">
       <DependentUpon>MessagingDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Login\DeleteAccessionLookupPage.xaml.cs">
+      <DependentUpon>DeleteAccessionLookupPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Login\DeleteAccessionPage.xaml.cs">
       <DependentUpon>DeleteAccessionPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Login\DeleteAccessionPath.cs" />
     <Compile Include="UI\Login\MissingInformationPage.xaml.cs">
       <DependentUpon>MissingInformationPage.xaml</DependentUpon>
     </Compile>
@@ -4950,6 +4954,10 @@
     <Page Include="UI\AppMessaging\MessagingDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Login\DeleteAccessionLookupPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\Login\DeleteAccessionPage.xaml">
       <SubType>Designer</SubType>

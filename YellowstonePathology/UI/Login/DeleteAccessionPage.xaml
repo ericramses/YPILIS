@@ -16,7 +16,7 @@
                     <TextBlock Margin="2" VerticalAlignment="Center" Text="{Binding Path=OrderDate, Converter={StaticResource ShortDateConverter}}" FontSize="14"/>
                     <TextBlock Margin="2" VerticalAlignment="Center" Text="{Binding Path=FinalDate, Converter={StaticResource ShortDateConverter}}" FontSize="14"/>
                     <TextBlock Margin="2" VerticalAlignment="Center">
-                        <Hyperlink Tag="{Binding}" Click="HyperLinkDeletePanelSet_Click">Delete</Hyperlink>
+                        <Hyperlink Tag="{Binding}" Click="HyperLinkDeletePanelSetOrder_Click">Delete</Hyperlink>
                     </TextBlock>
                 </StackPanel>
             </DataTemplate>
@@ -50,8 +50,12 @@
             <TextBlock Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" Text="{Binding Path=AccessionOrder.AccessioningFacilityId}" HorizontalAlignment="Stretch" />
 
             <TextBlock Grid.Column="0" Grid.Row="1" FontSize="12" Margin="2,2,2,2" HorizontalAlignment="Right" FontWeight="Bold">Master Accession No:</TextBlock>
-            <TextBlock Grid.Column="1" Grid.Row="1" Margin="2,2,2,2" Text="{Binding Path=AccessionOrder.MasterAccessionNo}" FontSize="12" FontWeight="Black"/>
-
+            <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal">
+                <TextBlock  Margin="2,2,2,2" Text="{Binding Path=AccessionOrder.MasterAccessionNo}" FontSize="12" FontWeight="Black"/>
+                <TextBlock Margin="5,2,2,2">
+                        <Hyperlink Click="HyperLinkDeleteAccessionOrder_Click">Delete</Hyperlink>
+                </TextBlock>
+            </StackPanel>
             <TextBlock Grid.Column="0" Grid.Row="2" FontSize="12" Margin="2,2,2,2" HorizontalAlignment="Right" FontWeight="Bold">Patient:</TextBlock>
             <TextBlock Grid.Column="1" Grid.Row="2" Margin="2,2,2,2" MinWidth="200" Text="{Binding Path=AccessionOrder.PatientName}" FontSize="12" />
 
