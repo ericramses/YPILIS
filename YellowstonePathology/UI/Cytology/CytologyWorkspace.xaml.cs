@@ -79,6 +79,24 @@ namespace YellowstonePathology.UI.Cytology
             this.TabControlLeft.Items.Add(this.m_LabEventsControlTab);
         }
 
+        private void CytologyWorkspace_Loaded(object sender, RoutedEventArgs e)
+        {
+            this.ComboBoxSearchType.SelectedIndex = 0;
+            this.ComboBoxScreenerSelection.SelectedIndex = this.m_CytologyUI.GetScreenerIndex();
+
+            this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath += new MainWindowCommandButtonHandler.StartProviderDistributionPathEventHandler(MainWindowCommandButtonHandler_StartProviderDistributionPath);
+            this.m_MainWindowCommandButtonHandler.Save += new MainWindowCommandButtonHandler.SaveEventHandler(MainWindowCommandButtonHandler_Save);
+            this.m_MainWindowCommandButtonHandler.ShowAmendmentDialog += this.m_CytologyResultsWorkspace.CytologyUI.ShowAmendmentDialog;
+            this.m_MainWindowCommandButtonHandler.Refresh += MainWindowCommandButtonHandler_Refresh;
+            this.m_MainWindowCommandButtonHandler.RemoveTab += MainWindowCommandButtonHandler_RemoveTab;
+            this.m_MainWindowCommandButtonHandler.ShowMessagingDialog += new MainWindowCommandButtonHandler.ShowMessagingDialogEventHandler(MainWindowCommandButtonHandler_ShowMessagingDialog);
+            this.m_MainWindowCommandButtonHandler.ShowCaseDocument += MainWindowCommandButtonHandler_ShowCaseDocument;
+
+            this.ListViewSearchResults.SelectedIndex = -1;
+
+            Keyboard.Focus(this.m_CytologyResultsWorkspace.TextBoxReportNoSearch);
+        }
+
         private void CytologyWorkspace_Unloaded(object sender, RoutedEventArgs e)
         {
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath -= MainWindowCommandButtonHandler_StartProviderDistributionPath;
@@ -114,25 +132,7 @@ namespace YellowstonePathology.UI.Cytology
                             }
                         }
                     }));     
-        }
-
-        private void CytologyWorkspace_Loaded(object sender, RoutedEventArgs e)
-        {            
-            this.ComboBoxSearchType.SelectedIndex = 0;
-            this.ComboBoxScreenerSelection.SelectedIndex = this.m_CytologyUI.GetScreenerIndex();
-
-            this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath += new MainWindowCommandButtonHandler.StartProviderDistributionPathEventHandler(MainWindowCommandButtonHandler_StartProviderDistributionPath);
-            this.m_MainWindowCommandButtonHandler.Save += new MainWindowCommandButtonHandler.SaveEventHandler(MainWindowCommandButtonHandler_Save);
-            this.m_MainWindowCommandButtonHandler.ShowAmendmentDialog += this.m_CytologyResultsWorkspace.CytologyUI.ShowAmendmentDialog;
-            this.m_MainWindowCommandButtonHandler.Refresh += MainWindowCommandButtonHandler_Refresh;
-            this.m_MainWindowCommandButtonHandler.RemoveTab += MainWindowCommandButtonHandler_RemoveTab;
-            this.m_MainWindowCommandButtonHandler.ShowMessagingDialog += new MainWindowCommandButtonHandler.ShowMessagingDialogEventHandler(MainWindowCommandButtonHandler_ShowMessagingDialog);
-            this.m_MainWindowCommandButtonHandler.ShowCaseDocument += MainWindowCommandButtonHandler_ShowCaseDocument;            
-
-            this.ListViewSearchResults.SelectedIndex = -1;
-
-            Keyboard.Focus(this.m_CytologyResultsWorkspace.TextBoxReportNoSearch);
-        }
+        }        
 
         private void MainWindowCommandButtonHandler_ShowCaseDocument(object sender, EventArgs e)
         {
