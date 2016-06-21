@@ -432,27 +432,12 @@ namespace YellowstonePathology.UI
                 this.m_TabItemCytology.Content = this.m_CytologyWorkspace;
                 
                 this.TabControlLeftWorkspace.Items.Add(this.m_TabItemCytology);
-                this.CommandBindings.Add(this.m_CytologyWorkspace.CommandBindingShowCaseDocument);                
+                //this.CommandBindings.Add(this.m_CytologyWorkspace.CommandBindingShowCaseDocument);                
 
                 this.m_TabItemCytology.Focus();
             }         
             this.m_TabItemCytology.Focus();
-       }
-        
-        /*public void AddScanProcessingWorkspace()
-        {
-            if (this.m_TabItemScanning.Parent != null)
-            {
-                this.m_TabItemScanning.Focus();
-            }
-            else
-            {
-                this.m_ScanProcessingWorkspace = UI.Scanning.ScanProcessingWorkspace.Instance;
-                this.m_TabItemScanning.Content = this.m_ScanProcessingWorkspace;
-                this.TabControlLeftWorkspace.Items.Add(this.m_TabItemScanning);
-                this.m_TabItemScanning.Focus();                
-            }
-        }*/                
+       }                             
 
         public void AddPathologistWorkspace()
         {            

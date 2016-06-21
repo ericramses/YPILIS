@@ -47,13 +47,10 @@ namespace YellowstonePathology.Business.HL7View.WPH
             XElement obr01Element = new XElement("OBR.1");
             YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("OBR.1.1", "1", obr01Element);            
             obrElement.Add(obr01Element);
-
-            if (this.m_SendUnsolicited == false)
-            {
-                XElement obr02Element = new XElement("OBR.2");
-                YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("OBR.2.1", this.m_ExternalOrderId, obr02Element);
-                obrElement.Add(obr02Element);                
-            }
+            
+            XElement obr02Element = new XElement("OBR.2");
+            YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("OBR.2.1", this.m_ExternalOrderId, obr02Element);
+            obrElement.Add(obr02Element);                
 
             XElement obr03Element = new XElement("OBR.3");
             YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("OBR.3.1", this.m_ReportNo, obr03Element);

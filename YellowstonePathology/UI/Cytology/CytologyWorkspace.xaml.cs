@@ -22,8 +22,7 @@ namespace YellowstonePathology.UI.Cytology
     {                
 		public delegate void CytologyReportNoChanged();
         
-        public CommandBinding CommandBindingPatientLinking;
-        public CommandBinding CommandBindingShowCaseDocument;        
+        public CommandBinding CommandBindingPatientLinking;        
 		public CommandBinding CommandBindingApplicationClosing;
 		public CommandBinding CommandBindingShowPatientEditDialog;
 		public CommandBinding CommandBindingShowBillingEditDialog;
@@ -55,12 +54,10 @@ namespace YellowstonePathology.UI.Cytology
             this.m_CytologyUI.WHPOpened += CytologyUI_WHPOpened;
             this.m_CytologyUI.WHPClosed += CytologyUI_WHPClosed;
 
-            this.CommandBindingShowCaseDocument = new CommandBinding(MainWindow.ShowCaseDocumentCommand, this.m_CytologyUI.ShowCaseDocument);            
 			this.CommandBindingApplicationClosing = new CommandBinding(MainWindow.ApplicationClosingCommand, this.CloseWorkspace);
 			this.CommandBindingShowPatientEditDialog = new CommandBinding(MainWindow.ShowPatientEditDialogCommand, this.m_CytologyUI.ShowPatientEditDialog);
 			this.CommandBindingShowAmendmentDialog = new CommandBinding(MainWindow.ShowAmendmentDialogCommand, this.m_CytologyUI.ShowAmendmentDialog, ItemIsSelected);
 
-            this.CommandBindings.Add(this.CommandBindingShowCaseDocument);			
 			this.CommandBindings.Add(this.CommandBindingApplicationClosing);
 			this.CommandBindings.Add(this.CommandBindingShowPatientEditDialog);
 			this.CommandBindings.Add(this.CommandBindingShowAmendmentDialog);
@@ -90,9 +87,7 @@ namespace YellowstonePathology.UI.Cytology
             this.m_MainWindowCommandButtonHandler.Refresh -= MainWindowCommandButtonHandler_Refresh;
             this.m_MainWindowCommandButtonHandler.RemoveTab -= MainWindowCommandButtonHandler_RemoveTab;
             this.m_MainWindowCommandButtonHandler.ShowMessagingDialog -= MainWindowCommandButtonHandler_ShowMessagingDialog;
-
-            //UI.AppMessaging.MessagingPath.Instance.LockReleasedActionList.Remove(this.ReleaseLock);
-            //UI.AppMessaging.MessagingPath.Instance.LockAquiredActionList.Remove(this.m_CytologyUI.DataLoaded);
+            this.m_MainWindowCommandButtonHandler.ShowCaseDocument -= MainWindowCommandButtonHandler_ShowCaseDocument;
 
             YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
         }
@@ -132,13 +127,16 @@ namespace YellowstonePathology.UI.Cytology
             this.m_MainWindowCommandButtonHandler.Refresh += MainWindowCommandButtonHandler_Refresh;
             this.m_MainWindowCommandButtonHandler.RemoveTab += MainWindowCommandButtonHandler_RemoveTab;
             this.m_MainWindowCommandButtonHandler.ShowMessagingDialog += new MainWindowCommandButtonHandler.ShowMessagingDialogEventHandler(MainWindowCommandButtonHandler_ShowMessagingDialog);
-
-            //UI.AppMessaging.MessagingPath.Instance.LockReleasedActionList.Add(this.ReleaseLock);
-            //UI.AppMessaging.MessagingPath.Instance.LockAquiredActionList.Add(this.m_CytologyUI.DataLoaded);
+            this.m_MainWindowCommandButtonHandler.ShowCaseDocument += MainWindowCommandButtonHandler_ShowCaseDocument;            
 
             this.ListViewSearchResults.SelectedIndex = -1;
 
             Keyboard.Focus(this.m_CytologyResultsWorkspace.TextBoxReportNoSearch);
+        }
+
+        private void MainWindowCommandButtonHandler_ShowCaseDocument(object sender, EventArgs e)
+        {
+            this.m_CytologyUI.ShowCaseDocument();
         }
 
         private void MainWindowCommandButtonHandler_Refresh(object sender, EventArgs e)

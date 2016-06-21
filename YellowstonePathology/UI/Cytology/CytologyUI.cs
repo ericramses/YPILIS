@@ -112,7 +112,7 @@ namespace YellowstonePathology.UI.Cytology
 			}			
         }
 
-        public void ShowCaseDocument(object target, ExecutedRoutedEventArgs args)
+        public void ShowCaseDocument()
         {			
 			YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapWordDocument report = new YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapWordDocument(this.m_AccessionOrder, this.m_PanelSetOrderCytology, Business.Document.ReportSaveModeEnum.Draft);
 			report.Render();
