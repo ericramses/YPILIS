@@ -2175,8 +2175,8 @@ namespace YellowstonePathology.Business.Gateway
 	            "from tblAccessionOrder ao " +
 		        "join tblPanelSetOrder pso on ao.MasterAccessionNo = pso.MasterAccessionNo " +
 		        "join tblTestOrderReportDistribution trd on pso.ReportNo = trd.ReportNo " +
-			    "where pso.Distribute = 1 and pso.Final = 1 and trd.[Distributed] = 0 " +
-				"Order By datediff(mi, pso.FinalTime, getdate()) desc";
+                "where pso.Distribute = 1 and pso.Final = 1 and pso.finalTime < dateAdd(mi, -15, getdate()) and trd.[Distributed] = 0 and trd.ScheduledDistributionTime is not null " +
+				"Order By trd.ScheduledDistributionTime";
 
 			cmd.CommandType = CommandType.Text;
 

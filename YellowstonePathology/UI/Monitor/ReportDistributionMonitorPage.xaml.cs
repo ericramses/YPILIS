@@ -20,7 +20,7 @@ namespace YellowstonePathology.UI.Monitor
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
-        private YellowstonePathology.Business.Monitor.Model.DistributionCollection m_DistributionCollection;
+        private YellowstonePathology.Business.Monitor.Model.DistributionCollection m_DistributionCollection;        
 
         public ReportDistributionMonitorPage()
 		{            
