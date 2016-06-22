@@ -20,11 +20,12 @@ namespace YellowstonePathology.Business.HL7View.WPH
         private Nullable<DateTime> m_FinalTime;
         private bool m_SendUnsolicited;
 
-        YellowstonePathology.Business.Domain.Physician m_OrderingPhysician;
-        YellowstonePathology.Business.ClientOrder.Model.UniversalService m_UniversalService;
+        private YellowstonePathology.Business.Domain.Physician m_OrderingPhysician;
+        private YellowstonePathology.Business.ClientOrder.Model.UniversalService m_UniversalService;
+        private YellowstonePathology.Business.User.SystemUser m_SigningPathologist;
 
         public WPHOBRView(string externalOrderId, string masterAccessionNo, string reportNo, Nullable<DateTime> collectionDate, Nullable<DateTime> collectionTime, Nullable<DateTime> accessionTime, Nullable<DateTime> finalTime,
-            YellowstonePathology.Business.Domain.Physician orderingPhysician, string observationResultStatus, YellowstonePathology.Business.ClientOrder.Model.UniversalService universalService, bool sendUnsolicited)
+            YellowstonePathology.Business.Domain.Physician orderingPhysician, YellowstonePathology.Business.User.SystemUser signingPathologist, string observationResultStatus, YellowstonePathology.Business.ClientOrder.Model.UniversalService universalService, bool sendUnsolicited)
         {         
             this.m_ExternalOrderId = externalOrderId;
             this.m_MasterAccessionNo = masterAccessionNo;
@@ -34,6 +35,7 @@ namespace YellowstonePathology.Business.HL7View.WPH
             this.m_AccessionTime = accessionTime;
             this.m_FinalTime = finalTime;
             this.m_OrderingPhysician = orderingPhysician;
+            this.m_SigningPathologist = signingPathologist;
             this.m_ObservationResultStatus = observationResultStatus;
             this.m_UniversalService = universalService;
             this.m_SendUnsolicited = sendUnsolicited;
@@ -58,8 +60,9 @@ namespace YellowstonePathology.Business.HL7View.WPH
             obrElement.Add(obr03Element);            
 
             XElement obr04Element = new XElement("OBR.4");                        
-            YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("OBR.4.1", this.m_UniversalService.UniversalServiceId, obr04Element);
-            YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("OBR.4.2", this.m_UniversalService.ServiceName, obr04Element);            
+            YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("OBR.4.1", "PATH", obr04Element);
+            YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("OBR.4.2", "PATH", obr04Element);
+            YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("OBR.4.3", "Pathology", obr04Element);
 
             obrElement.Add(obr04Element);
 
@@ -94,7 +97,28 @@ namespace YellowstonePathology.Business.HL7View.WPH
 
             XElement obr25Element = new XElement("OBR.25");
             YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("OBR.25.1", this.m_ObservationResultStatus, obr25Element);
-            obrElement.Add(obr25Element);            
+            obrElement.Add(obr25Element);
+
+            XElement obr32Element = new XElement("OBR.32");
+            YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("OBR.32.1", this.m_SigningPathologist.NationalProviderId.ToString(), obr32Element);
+            YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("OBR.32.2", this.m_SigningPathologist.LastName, obr32Element);
+            YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("OBR.32.3", this.m_SigningPathologist.FirstName, obr32Element);
+            YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("OBR.32.4", this.m_SigningPathologist.MiddleInitial, obr32Element);
+            YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("OBR.32.5", string.Empty, obr32Element);
+            YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("OBR.32.6", string.Empty, obr32Element);
+            YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("OBR.32.7", string.Empty, obr32Element);
+            YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("OBR.32.8", string.Empty, obr32Element);
+            YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("OBR.32.9", "NPI", obr32Element);
+            YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("OBR.32.10", string.Empty, obr32Element);
+            YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("OBR.32.11", string.Empty, obr32Element);
+            YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("OBR.326.12", string.Empty, obr32Element);
+            YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("OBR.32.13", "NPI", obr32Element);
+            obrElement.Add(obr32Element);
+
+            XElement obr35Element = new XElement("OBR.35");
+            YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("OBR.35.1", "RRD", obr35Element);
+            obrElement.Add(obr35Element);
+
         }
 
         public void WriteUniversalServiceId(XElement obr04Element, int panelSetId)

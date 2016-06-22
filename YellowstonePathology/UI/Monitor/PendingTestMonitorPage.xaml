@@ -4,30 +4,30 @@
     xmlns:sys="clr-namespace:System;assembly=mscorlib" 
     x:Class="YellowstonePathology.UI.Monitor.PendingTestMonitorPage"	
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:my="clr-namespace:YellowstonePathology.Business.Document;assembly=BusinessObjects">    
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:my="clr-namespace:YellowstonePathology.Business.Document;assembly=BusinessObjects">
 
-	<Grid>        
+    <Grid>
         <Grid.Resources>
             <Color x:Key="NormalColor">#e5fee7</Color>
             <SolidColorBrush x:Key="NormalBrush" Color="{StaticResource NormalColor}" />
 
             <Color x:Key="WarningColor">#fff697</Color>
             <SolidColorBrush x:Key="WarningBrush" Color="{StaticResource WarningColor}" />
-            
+
             <Color x:Key="CriticalColor">#f8b3be</Color>
             <SolidColorBrush x:Key="CriticalBrush" Color="{StaticResource CriticalColor}" />
         </Grid.Resources>
-        
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        
+
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>            
+            <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Column="0" Grid.Row="0" Margin="10,10,10,10" FontSize="24">Pending Test Monitor</TextBlock>                
+        <TextBlock Grid.Column="0" Grid.Row="0" Margin="10,10,10,10" FontSize="24">Pending Test Monitor</TextBlock>
 
         <ListView Name="ListViewPendingTests" Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" ItemsSource="{Binding Path=PendingTestCollection}" HorizontalAlignment="Stretch" FontSize="14">
             <ListView.ContextMenu>
@@ -61,10 +61,10 @@
                                 </Setter.Value>
                             </Setter>
                         </DataTrigger>
-                    </Style.Triggers>                    
+                    </Style.Triggers>
                 </Style>
             </ListView.ItemContainerStyle>
-            <ListView.View>                
+            <ListView.View>
                 <GridView>
                     <GridViewColumn>
                         <GridViewColumn.HeaderTemplate>
@@ -80,7 +80,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn>                        
+                    <GridViewColumn>
                         <GridViewColumn.HeaderTemplate>
                             <DataTemplate>
                                 <TextBlock Text="Ordered" HorizontalAlignment="Stretch" Width="200" Margin="2,2,2,2"/>
@@ -107,7 +107,7 @@
                                 </Grid>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
-                    </GridViewColumn>                    
+                    </GridViewColumn>
                     <GridViewColumn>
                         <GridViewColumn.HeaderTemplate>
                             <DataTemplate>
@@ -121,7 +121,7 @@
                                 </Grid>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
-                    </GridViewColumn>                    
+                    </GridViewColumn>
                     <GridViewColumn>
                         <GridViewColumn.HeaderTemplate>
                             <DataTemplate>
@@ -179,7 +179,7 @@
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                 </GridView>
-            </ListView.View>            
-        </ListView>                 
+            </ListView.View>
+        </ListView>
     </Grid>
 </UserControl>

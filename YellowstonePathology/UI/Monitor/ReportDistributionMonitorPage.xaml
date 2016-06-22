@@ -114,7 +114,7 @@
                     <GridViewColumn>
                         <GridViewColumn.HeaderTemplate>
                             <DataTemplate>
-                                <TextBlock Text="Minutes Since Final" HorizontalAlignment="Stretch" Width="150" Margin="2,2,2,2"/>
+                                <TextBlock Text="Delayed" HorizontalAlignment="Stretch" Width="150" Margin="2,2,2,2"/>
                             </DataTemplate>
                         </GridViewColumn.HeaderTemplate>
                         <GridViewColumn.CellTemplate>

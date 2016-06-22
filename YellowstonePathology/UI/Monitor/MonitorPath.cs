@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Office.Interop.Outlook;
+using StackExchange.Redis;
 
 namespace YellowstonePathology.UI.Monitor
 {
@@ -19,8 +20,10 @@ namespace YellowstonePathology.UI.Monitor
 		private Microsoft.Office.Interop.Outlook.Application m_OutlookApp;
         private Microsoft.Office.Interop.Outlook._NameSpace m_OutlookNameSpace;
         private Microsoft.Office.Interop.Outlook.MAPIFolder m_MAPIFolder;
-        private Microsoft.Office.Interop.Outlook._Explorer m_Explorer;		
-		
+        private Microsoft.Office.Interop.Outlook._Explorer m_Explorer;
+
+        private DateTime m_LastReportDistributionHeartBeat;
+
         public MonitorPath()
 		{        				
         	this.m_OutlookApp = new Microsoft.Office.Interop.Outlook.Application();
@@ -28,7 +31,15 @@ namespace YellowstonePathology.UI.Monitor
             this.m_MAPIFolder = this.m_OutlookNameSpace.GetDefaultFolder(Microsoft.Office.Interop.Outlook.OlDefaultFolders.olFolderInbox);
             this.m_Explorer = this.m_MAPIFolder.GetExplorer(false);
             this.m_OutlookNameSpace.Logon(System.Reflection.Missing.Value, System.Reflection.Missing.Value, false, true);
-            
+
+            this.m_LastReportDistributionHeartBeat = DateTime.Now.AddMinutes(-5);
+
+            ISubscriber subscriber = Business.RedisConnection.Instance.GetSubscriber();
+            subscriber.Subscribe("ReportDistributionHeartBeat", (channel, message) =>
+            {
+                this.m_LastReportDistributionHeartBeat = DateTime.Now;
+            });
+
             this.m_PageQueue = new Queue<System.Windows.Controls.UserControl>();            
             this.m_MonitorPageWindow = new MonitorPageWindow();            
 		}               
@@ -104,14 +115,19 @@ namespace YellowstonePathology.UI.Monitor
                         if (DateTime.Now >= timerDailyStartTime && DateTime.Now <= timerDailyEndTime)
                         {
                         	this.m_Timer.Interval = TimerInterval;
-                        	if(this.UnreadAutopsyRequestExist() == false)
+                        	if(this.UnreadAutopsyRequestExist() == true)
                         	{
-                            	this.ShowNextPage();
+                                this.ShowUnhandledAutopsyRequestPage();
+                                
                         	}
+                            else if(this.m_LastReportDistributionHeartBeat < DateTime.Now.AddMinutes(-15))
+                            {
+                                this.ShowReportDistributionDownPage();
+                            }
                         	else
-                        	{                                
-                        		this.ShowUnhandledAutopsyRequestPage();
-                        	}
+                        	{
+                                this.ShowNextPage();
+                            }
                         }
                         else
                         {
@@ -123,7 +139,7 @@ namespace YellowstonePathology.UI.Monitor
                         }
 
                     })); 
-        }
+        }        
 
         private void ShowNextPage()
         {
@@ -168,5 +184,12 @@ namespace YellowstonePathology.UI.Monitor
         	this.m_MonitorPageWindow.PageNavigator.Navigate(autopsyRequestMonitorPage);
             this.m_Timer.Start();
         }
-	}
+
+        private void ShowReportDistributionDownPage()
+        {
+            ReportDistributionDownMonitorPage reportDistributionDownMonitorPage = new ReportDistributionDownMonitorPage();
+            this.m_MonitorPageWindow.PageNavigator.Navigate(reportDistributionDownMonitorPage);
+            this.m_Timer.Start();
+        }
+    }
 }

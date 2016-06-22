@@ -40,7 +40,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>84</ApplicationRevision>
+    <ApplicationRevision>88</ApplicationRevision>
     <ApplicationVersion>10.1.5.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -917,6 +917,7 @@
     <Compile Include="Business\HL7View\WPH\WPHOBXViewFactory.cs" />
     <Compile Include="Business\HL7View\WPH\WPHORCView.cs" />
     <Compile Include="Business\HL7View\WPH\WPHPIDView.cs" />
+    <Compile Include="Business\HL7View\WPH\WPHResultStatsusEnum.cs" />
     <Compile Include="Business\HL7View\WPH\WPHResultView.cs" />
     <Compile Include="Business\HL7View\WYDOH\WYDOHClient.cs" />
     <Compile Include="Business\HL7View\WYDOH\WYDOHMSHView.cs" />
@@ -3167,6 +3168,9 @@
     <Compile Include="UI\Monitor\MissingInformationMonitorPage.xaml.cs">
       <DependentUpon>MissingInformationMonitorPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Monitor\ReportDistributionDownMonitorPage.xaml.cs">
+      <DependentUpon>ReportDistributionDownMonitorPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\NHunspell.xaml.cs">
       <DependentUpon>NHunspell.xaml</DependentUpon>
     </Compile>
@@ -5023,6 +5027,10 @@
     </Page>
     <Page Include="UI\Monitor\AutopsyRequestMonitorPage.xaml" />
     <Page Include="UI\Monitor\MissingInformationMonitorPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Monitor\ReportDistributionDownMonitorPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
