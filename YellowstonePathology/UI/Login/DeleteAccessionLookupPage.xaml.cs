@@ -72,25 +72,30 @@ namespace YellowstonePathology.UI.Login
         {
             if (e.Key == Key.Enter)
             {
-                if (this.TextBoxMasterAccessionNo.Text.Length >= 1)
+                this.DoSearch();
+            }
+        }
+
+        public void DoSearch()
+        {
+            if (this.TextBoxMasterAccessionNo.Text.Length >= 1)
+            {
+                Surgical.TextSearchHandler textSearchHandler = new Surgical.TextSearchHandler(this.TextBoxMasterAccessionNo.Text);
+                object textSearchObject = textSearchHandler.GetSearchObject();
+                if (textSearchObject is YellowstonePathology.Business.ReportNo)
                 {
-                    Surgical.TextSearchHandler textSearchHandler = new Surgical.TextSearchHandler(this.TextBoxMasterAccessionNo.Text);
-                    object textSearchObject = textSearchHandler.GetSearchObject();
-                    if (textSearchObject is YellowstonePathology.Business.ReportNo)
-                    {
-                        YellowstonePathology.Business.ReportNo reportNo = (YellowstonePathology.Business.ReportNo)textSearchObject;
-                        this.GetReportSearchListByReportNo(reportNo.Value);
-                    }
-                    else if (textSearchObject is YellowstonePathology.Business.MasterAccessionNo)
-                    {
-                        YellowstonePathology.Business.MasterAccessionNo masterAccessionNo = (YellowstonePathology.Business.MasterAccessionNo)textSearchObject;
-                        this.GetReportSearchListByMasterAccessionNo(masterAccessionNo.Value);
-                    }
-                    else if (textSearchObject is YellowstonePathology.Business.PatientName)
-                    {
-                        YellowstonePathology.Business.PatientName patientName = (YellowstonePathology.Business.PatientName)textSearchObject;
-                        this.GetReportSearchListByPatientName(patientName);
-                    }
+                    YellowstonePathology.Business.ReportNo reportNo = (YellowstonePathology.Business.ReportNo)textSearchObject;
+                    this.GetReportSearchListByReportNo(reportNo.Value);
+                }
+                else if (textSearchObject is YellowstonePathology.Business.MasterAccessionNo)
+                {
+                    YellowstonePathology.Business.MasterAccessionNo masterAccessionNo = (YellowstonePathology.Business.MasterAccessionNo)textSearchObject;
+                    this.GetReportSearchListByMasterAccessionNo(masterAccessionNo.Value);
+                }
+                else if (textSearchObject is YellowstonePathology.Business.PatientName)
+                {
+                    YellowstonePathology.Business.PatientName patientName = (YellowstonePathology.Business.PatientName)textSearchObject;
+                    this.GetReportSearchListByPatientName(patientName);
                 }
             }
         }

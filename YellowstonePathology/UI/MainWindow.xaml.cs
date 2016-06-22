@@ -942,8 +942,21 @@ namespace YellowstonePathology.UI
 
         private void MenuItemDelete_Click(object sender, RoutedEventArgs e)
         {
-            Login.DeleteAccessionPath deleteAccessionPath = new Login.DeleteAccessionPath();
+            Login.DeleteAccessionPath deleteAccessionPath = new Login.DeleteAccessionPath(this.TabControlLeftWorkspace.Items.Count);
+            deleteAccessionPath.CloseOpenTabs += DeleteAccessionPath_CloseOpenTabs;
             deleteAccessionPath.Start();
+        }
+
+        private void DeleteAccessionPath_CloseOpenTabs(object sender, EventArgs e)
+        {
+            this.m_MainWindowCommandButtonHandler.OnRemoveTab();
+            for (int idx = this.TabControlLeftWorkspace.Items.Count; idx > 0; idx--)
+            {
+                TabItem tabItem = (TabItem)this.TabControlLeftWorkspace.Items[idx - 1];
+                tabItem.Focus();
+                RemoveTabCommand.Execute(null, null);
+                this.TabControlLeftWorkspace.Items.Remove(tabItem);
+            }
         }
     }
 }

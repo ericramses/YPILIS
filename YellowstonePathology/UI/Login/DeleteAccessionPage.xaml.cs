@@ -23,6 +23,8 @@ namespace YellowstonePathology.UI.Login
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
+        public delegate void BackEventHandler(object sender, EventArgs e);
+        public event BackEventHandler Back;
         public delegate void CloseEventHandler(object sender, EventArgs e);
         public event CloseEventHandler Close;
 
@@ -46,6 +48,11 @@ namespace YellowstonePathology.UI.Login
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
+        }
+
+        private void ButtonBack_Click(object sender, RoutedEventArgs e)
+        {
+            this.Back(this, new EventArgs());
         }
 
         private void ButtonClose_Click(object sender, RoutedEventArgs e)
