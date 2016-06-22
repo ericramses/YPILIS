@@ -8,9 +8,11 @@ namespace YellowstonePathology.UI
     public class MainWindowCommandButtonHandler
     {
         private readonly object m_EventLockObject = new object();
-        
-		private EventHandler m_ShowCaseDocumentEventHandler;
-		private EventHandler m_ShowOrderFormEventHandler;
+
+        public delegate void ShowCaseDocumentEventHandler(object sender, EventArgs e);
+        public event ShowCaseDocumentEventHandler ShowCaseDocument;
+
+        private EventHandler m_ShowOrderFormEventHandler;
 		private EventHandler m_AssignCaseEventHandler;		
 		private EventHandler m_ApplicationClosingEventHandler;
 
@@ -49,8 +51,7 @@ namespace YellowstonePathology.UI
 
 		public void OnShowCaseDocument()
 		{
-            if (this.m_ShowCaseDocumentEventHandler != null)
-                this.m_ShowCaseDocumentEventHandler.Invoke(this, EventArgs.Empty);
+            if (this.ShowCaseDocument != null) this.ShowCaseDocument(this, EventArgs.Empty);
 		}
 
         public void OnRemoveTab()
@@ -90,20 +91,6 @@ namespace YellowstonePathology.UI
         {
             if (this.ShowAmendmentDialog != null) this.ShowAmendmentDialog(this, EventArgs.Empty);
         }                
-
-		public event EventHandler ShowCaseDocument
-		{
-			add
-			{
-				lock (this.m_EventLockObject)
-					this.m_ShowCaseDocumentEventHandler = value;
-			}
-			remove
-			{
-				lock (this.m_EventLockObject)
-					this.m_ShowCaseDocumentEventHandler = null;
-			}
-		}
 
 		public event EventHandler ShowOrderForm
 		{
