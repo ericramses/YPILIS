@@ -29,7 +29,7 @@ namespace YellowstonePathology.UI.Login
         {
             this.ShowDeleteAccessionLookupPage();
             this.m_LoginPageWindow.Height = 500;
-            this.m_LoginPageWindow.Width = 500;
+            this.m_LoginPageWindow.Width = 650;
             this.m_LoginPageWindow.ShowDialog();
         }
 

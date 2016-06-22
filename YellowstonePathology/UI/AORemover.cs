@@ -14,6 +14,7 @@ namespace YellowstonePathology.UI
         public static Business.Rules.MethodResult Remove(Business.Test.AccessionOrder accessionOrder, object writer)
         {
             YellowstonePathology.Business.Rules.MethodResult methodResult = new Business.Rules.MethodResult();
+            accessionOrder.AccessionLock.ReleaseLock();
             if (accessionOrder.PLastName.ToUpper() == "MOUSE" && accessionOrder.PFirstName.ToUpper() == "MICKEY")
             {
                 YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullClientOrder(accessionOrder.ClientOrderId, writer);
@@ -51,7 +52,6 @@ namespace YellowstonePathology.UI
                 methodResult.Success = false;
                 methodResult.Message = "Unable to remove the only Panel Set for the Accession.";
             }
-
             return methodResult;
         }
     }

@@ -29,12 +29,19 @@ namespace YellowstonePathology.UI.Login
         public event BackEventHandler Back;
 
         private YellowstonePathology.Business.Search.ReportSearchList m_ReportSearchList;
+        private string m_PageHeaderText = "Lookup Accession to Delete";
 
         public DeleteAccessionLookupPage()
         {
             InitializeComponent();
 
             DataContext = this;
+            Loaded += DeleteAccessionLookupPage_Loaded;
+        }
+
+        private void DeleteAccessionLookupPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            this.TextBoxMasterAccessionNo.Focus();
         }
 
         public void NotifyPropertyChanged(String info)
@@ -61,6 +68,11 @@ namespace YellowstonePathology.UI.Login
             {
                 MessageBox.Show("Select an item.");
             }
+        }
+
+        public string PageHeaderText
+        {
+            get { return this.m_PageHeaderText; }
         }
 
         public YellowstonePathology.Business.Search.ReportSearchList ReportSearchList

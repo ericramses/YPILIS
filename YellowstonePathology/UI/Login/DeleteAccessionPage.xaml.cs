@@ -52,11 +52,13 @@ namespace YellowstonePathology.UI.Login
 
         private void ButtonBack_Click(object sender, RoutedEventArgs e)
         {
+            Business.Persistence.DocumentGateway.Instance.Push(this.m_Writer);
             this.Back(this, new EventArgs());
         }
 
         private void ButtonClose_Click(object sender, RoutedEventArgs e)
         {
+            Business.Persistence.DocumentGateway.Instance.Push(this.m_Writer);
             this.Close(this, new EventArgs());
         }
 
