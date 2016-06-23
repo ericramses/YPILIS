@@ -19,8 +19,6 @@ namespace YellowstonePathology.UI
     /// </summary>
     public partial class TaskWorkspace : UserControl
     {
-        public CommandBinding CommandBindingRemoveTab;
-
         private TaskUI m_TaskUI;
         private bool m_LoadedHasRun;
         private MainWindowCommandButtonHandler m_MainWindowCommandButtonHandler;
@@ -33,9 +31,6 @@ namespace YellowstonePathology.UI
             this.m_MainWindowCommandButtonHandler = mainWindowCommandButtonHandler;
             this.m_LoadedHasRun = false;
             this.m_Writer = writer;
-
-            this.CommandBindingRemoveTab = new CommandBinding(MainWindow.RemoveTabCommand, RemoveTab);
-            this.CommandBindings.Add(this.CommandBindingRemoveTab);
 
             this.m_TaskUI = new TaskUI(this.m_Writer);
 
@@ -87,11 +82,6 @@ namespace YellowstonePathology.UI
             this.m_MainWindowCommandButtonHandler.RemoveTab -= MainWindowCommandButtonHandler_RemoveTab;
 
             YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
-        }
-
-        public void RemoveTab(object target, ExecutedRoutedEventArgs args)
-        {
-
         }
 
         private void ButtonViewDailyLog_Click(object sender, RoutedEventArgs e)

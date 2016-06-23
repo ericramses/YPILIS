@@ -20,8 +20,6 @@ namespace YellowstonePathology.UI.Login
     /// </summary>
     public partial class LoginWorkspace : UserControl
     {
-        public CommandBinding CommandBindingRemoveTab;
-
         private YellowstonePathology.UI.DocumentWorkspace m_DocumentViewer;
 
         private LoginUIV2 m_LoginUI;
@@ -37,9 +35,6 @@ namespace YellowstonePathology.UI.Login
             this.m_MainWindowCommandButtonHandler = mainWindowCommandButtonHandler;
             this.m_LoadedHasRun = false;
             this.m_Writer = writer;
-
-            this.CommandBindingRemoveTab = new CommandBinding(MainWindow.RemoveTabCommand, RemoveTab);
-            this.CommandBindings.Add(this.CommandBindingRemoveTab);
 
             this.m_LoginUI = new LoginUIV2(this.m_Writer);
             this.m_DocumentViewer = new DocumentWorkspace();
@@ -175,11 +170,6 @@ namespace YellowstonePathology.UI.Login
             UI.AppMessaging.MessagingPath.Instance.LockAquiredActionList.Remove(this.HandleAccessionOrderListChange);
 
             YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
-        }
-
-        public void RemoveTab(object target, ExecutedRoutedEventArgs args)
-        {
-
         }
 
         private void ButtonSearch_Click(object sender, RoutedEventArgs e)

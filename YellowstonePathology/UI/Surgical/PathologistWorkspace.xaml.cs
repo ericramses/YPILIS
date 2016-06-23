@@ -73,8 +73,8 @@ namespace YellowstonePathology.UI.Surgical
 		private void PathologistWorkspace_Loaded(object sender, RoutedEventArgs e)
 		{
 			this.m_MainWindowCommandButtonHandler.Save += new MainWindowCommandButtonHandler.SaveEventHandler(MainWindowCommandButtonHandler_Save);
-			this.m_MainWindowCommandButtonHandler.ShowCaseDocument += new MainWindowCommandButtonHandler.ShowCaseDocumentEventHandler(MainWindowCommandButtonHandler_ShowCaseDocument);
-			this.m_MainWindowCommandButtonHandler.ShowOrderForm += new EventHandler(MainWindowCommandButtonHandler_ShowOrderForm);			
+			this.m_MainWindowCommandButtonHandler.ShowCaseDocument += MainWindowCommandButtonHandler_ShowCaseDocument;
+            this.m_MainWindowCommandButtonHandler.ShowOrderForm += new EventHandler(MainWindowCommandButtonHandler_ShowOrderForm);			
 			this.m_MainWindowCommandButtonHandler.AssignCase += new EventHandler(MainWindowCommandButtonHandler_AssignCase);			
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath += new MainWindowCommandButtonHandler.StartProviderDistributionPathEventHandler(MainWindowCommandButtonHandler_StartProviderDistributionPath);
             this.m_MainWindowCommandButtonHandler.ShowAmendmentDialog += MainWindowCommandButtonHandler_ShowAmendmentDialog;
@@ -278,10 +278,10 @@ namespace YellowstonePathology.UI.Surgical
 
 		public void ShowCaseDocument()
 		{
-			//this.Save();
-			if (this.ListViewSearchResults.SelectedItem != null)
-			{
-				YellowstonePathology.Business.Search.PathologistSearchResult item = (YellowstonePathology.Business.Search.PathologistSearchResult)this.ListViewSearchResults.SelectedItem;
+            //this.Save();
+            if (this.ListViewSearchResults.SelectedItem != null)
+            {
+                YellowstonePathology.Business.Search.PathologistSearchResult item = (YellowstonePathology.Business.Search.PathologistSearchResult)this.ListViewSearchResults.SelectedItem;
 				YellowstonePathology.UI.CaseDocumentViewer caseDocumentViewer = new CaseDocumentViewer();				
                 caseDocumentViewer.View(this.m_PathologistUI.AccessionOrder, this.m_PathologistUI.PanelSetOrder);
             }

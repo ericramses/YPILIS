@@ -26,7 +26,7 @@ namespace YellowstonePathology.UI.Cytology
 		public CommandBinding CommandBindingApplicationClosing;
 		public CommandBinding CommandBindingShowPatientEditDialog;
 		public CommandBinding CommandBindingShowBillingEditDialog;
-		public CommandBinding CommandBindingShowAmendmentDialog;
+		//public CommandBinding CommandBindingShowAmendmentDialog;
         
 		private UI.Cytology.CytologyResultsWorkspace m_CytologyResultsWorkspace;
 
@@ -56,11 +56,11 @@ namespace YellowstonePathology.UI.Cytology
 
 			this.CommandBindingApplicationClosing = new CommandBinding(MainWindow.ApplicationClosingCommand, this.CloseWorkspace);
 			this.CommandBindingShowPatientEditDialog = new CommandBinding(MainWindow.ShowPatientEditDialogCommand, this.m_CytologyUI.ShowPatientEditDialog);
-			this.CommandBindingShowAmendmentDialog = new CommandBinding(MainWindow.ShowAmendmentDialogCommand, this.m_CytologyUI.ShowAmendmentDialog, ItemIsSelected);
+			//this.CommandBindingShowAmendmentDialog = new CommandBinding(MainWindow.ShowAmendmentDialogCommand, this.m_CytologyUI.ShowAmendmentDialog, ItemIsSelected);
 
 			this.CommandBindings.Add(this.CommandBindingApplicationClosing);
 			this.CommandBindings.Add(this.CommandBindingShowPatientEditDialog);
-			this.CommandBindings.Add(this.CommandBindingShowAmendmentDialog);
+			//this.CommandBindings.Add(this.CommandBindingShowAmendmentDialog);
 
             this.m_DocumentViewer = new DocumentWorkspace();
             

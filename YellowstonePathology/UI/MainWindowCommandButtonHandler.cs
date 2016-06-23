@@ -47,12 +47,12 @@ namespace YellowstonePathology.UI
         public void OnRefresh()
         {
             if (this.Refresh != null) this.Refresh(this, EventArgs.Empty);
-        }                
+        }
 
-		public void OnShowCaseDocument()
+        public void OnShowCaseDocument()
 		{
             if (this.ShowCaseDocument != null) this.ShowCaseDocument(this, EventArgs.Empty);
-		}
+        }
 
         public void OnRemoveTab()
         {
