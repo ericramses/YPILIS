@@ -23,16 +23,6 @@ namespace YellowstonePathology.UI
     {
 		//System.Timers.Timer m_Timer;
 		System.Media.SoundPlayer m_WavPlayer;        
-        
-        public static RoutedCommand ApplicationClosingCommand = new RoutedCommand();
-        public static RoutedCommand AssignCommand = new RoutedCommand();
-        public static RoutedCommand ShowOrderFormCommand = new RoutedCommand();
-        public static RoutedCommand ShowWizardListCommand = new RoutedCommand();        
-		public static RoutedCommand PatientLinkingCommand = new RoutedCommand();		
-		public static RoutedCommand RemoveTabCommand = new RoutedCommand();		        
-		public static RoutedCommand ShowPatientEditDialogCommand = new RoutedCommand();
-		public static RoutedCommand ShowBillingEditDialogCommand = new RoutedCommand();
-		public static RoutedCommand ShowAmendmentDialogCommand = new RoutedCommand();        
 
         TabItem m_TabItemFlow;                
         TabItem m_TabItemPathologist;      
@@ -372,7 +362,6 @@ namespace YellowstonePathology.UI
 					{
 						((TabItem)TabControlLeftWorkspace.Items[idx]).Focus();
 						this.m_MainWindowCommandButtonHandler.OnRemoveTab();
-						RemoveTabCommand.Execute(sender, (IInputElement)((TabItem)TabControlLeftWorkspace.Items[idx]).Content);
 						TabControlLeftWorkspace.Items.RemoveAt(idx);
 						break;
 					}
@@ -385,7 +374,6 @@ namespace YellowstonePathology.UI
 			this.m_MainWindowCommandButtonHandler.OnRemoveTab();            
             UI.CustomControls.CloseableTabItem tabItem = (UI.CustomControls.CloseableTabItem)args.OriginalSource;
             tabItem.Focus();
-			RemoveTabCommand.Execute(null, null);
             if (tabItem != null)
             {
                 TabControl tabControl = tabItem.Parent as TabControl;
@@ -398,13 +386,7 @@ namespace YellowstonePathology.UI
 
         public void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs args)
         {
-			this.m_MainWindowCommandButtonHandler.OnApplicationClosing();			
-			MainWindow.ApplicationClosingCommand.Execute(null, null);
-			if (this.m_CytologyWorkspace != null)
-			{
-				this.m_CytologyWorkspace.CloseWorkspace(null, null);
-			}
-			
+			this.m_MainWindowCommandButtonHandler.OnApplicationClosing();						
 			App.Current.Shutdown();
         }
                 
@@ -638,13 +620,11 @@ namespace YellowstonePathology.UI
         public void ToolBarButtonOrderForm_Click(object sender, RoutedEventArgs args)
         {
 			this.m_MainWindowCommandButtonHandler.OnShowOrderForm();
-            ShowOrderFormCommand.Execute(null, null);
         }        
 
         public void ToolBarButtonAssign_Click(object sender, RoutedEventArgs args)
         {
 			this.m_MainWindowCommandButtonHandler.OnAssignCase();
-            AssignCommand.Execute(null, null);
         }        
         
         public void MenuItemLabWorkspace_Click(object sender, RoutedEventArgs args)
@@ -689,7 +669,7 @@ namespace YellowstonePathology.UI
 
 		public void ToolBarButtonPatientLink_Click(object sender, RoutedEventArgs e)
 		{
-			PatientLinkingCommand.Execute(null, null);
+            this.m_MainWindowCommandButtonHandler.OnLinkPatient();
 		}		
 
         private void ToolBarButtonProviderDistribution_Click(object sender, RoutedEventArgs e)
@@ -765,7 +745,6 @@ namespace YellowstonePathology.UI
                 this.m_TabItemClientOrder.Content = this.m_ClientOrderWorkspace;
                 this.TabControlLeftWorkspace.Items.Add(this.m_TabItemClientOrder);
                 this.m_TabItemClientOrder.Focus();
-                this.CommandBindings.Add(m_ClientOrderWorkspace.CommandBindingRemoveTab);
             }
         }
 
@@ -943,12 +922,11 @@ namespace YellowstonePathology.UI
 
         private void DeleteAccessionPath_CloseOpenTabs(object sender, EventArgs e)
         {
-            this.m_MainWindowCommandButtonHandler.OnRemoveTab();
             for (int idx = this.TabControlLeftWorkspace.Items.Count; idx > 0; idx--)
             {
                 TabItem tabItem = (TabItem)this.TabControlLeftWorkspace.Items[idx - 1];
                 tabItem.Focus();
-                RemoveTabCommand.Execute(null, null);
+                this.m_MainWindowCommandButtonHandler.OnRemoveTab();
                 this.TabControlLeftWorkspace.Items.Remove(tabItem);
             }
         }

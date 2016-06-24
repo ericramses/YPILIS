@@ -43,14 +43,14 @@ namespace YellowstonePathology.UI
             this.Unloaded += new RoutedEventHandler(SearchWorkspace_Unloaded);
         }
 
-        private void SearchWorkspace_Unloaded(object sender, RoutedEventArgs e)
-        {
-            this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath -= MainWindowCommandButtonHandler_StartProviderDistributionPath;
-        }
-
         private void SearchWorkspace_Loaded(object sender, RoutedEventArgs e)
         {
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath += new MainWindowCommandButtonHandler.StartProviderDistributionPathEventHandler(MainWindowCommandButtonHandler_StartProviderDistributionPath);
+        }
+
+        private void SearchWorkspace_Unloaded(object sender, RoutedEventArgs e)
+        {
+            this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath -= MainWindowCommandButtonHandler_StartProviderDistributionPath;
         }
 
         private void MainWindowCommandButtonHandler_StartProviderDistributionPath(object sender, EventArgs e)

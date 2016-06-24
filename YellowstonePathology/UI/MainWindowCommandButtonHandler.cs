@@ -12,9 +12,14 @@ namespace YellowstonePathology.UI
         public delegate void ShowCaseDocumentEventHandler(object sender, EventArgs e);
         public event ShowCaseDocumentEventHandler ShowCaseDocument;
 
-        private EventHandler m_ShowOrderFormEventHandler;
-		private EventHandler m_AssignCaseEventHandler;		
-		private EventHandler m_ApplicationClosingEventHandler;
+        public delegate void ShowOrderFormEventHandler(object sender, EventArgs e);
+        public event ShowOrderFormEventHandler ShowOrderForm;
+
+        public delegate void AssignCaseEventHandler(object sender, EventArgs e);
+        public event AssignCaseEventHandler AssignCase;
+
+        public delegate void ApplicationClosingEventHandler(object sender, EventArgs e);
+        public event ApplicationClosingEventHandler ApplicationClosing;
 
         public delegate void StartProviderDistributionPathEventHandler(object sender, EventArgs e);
         public event StartProviderDistributionPathEventHandler StartProviderDistributionPath;
@@ -33,6 +38,9 @@ namespace YellowstonePathology.UI
 
         public delegate void ShowMessagingDialogEventHandler(object sender, EventArgs e);
         public event ShowMessagingDialogEventHandler ShowMessagingDialog;
+
+        public delegate void LinkPatientDialogEventHandler(object sender, EventArgs e);
+        public event LinkPatientDialogEventHandler LinkPatient;
 
         public MainWindowCommandButtonHandler()
         {
@@ -66,20 +74,17 @@ namespace YellowstonePathology.UI
 
         public void OnShowOrderForm()
 		{
-			if (this.m_ShowOrderFormEventHandler != null)
-				this.m_ShowOrderFormEventHandler.Invoke(this, EventArgs.Empty);
+			if (this.ShowOrderForm != null) this.ShowOrderForm(this, EventArgs.Empty);
 		}		
 
 		public void OnAssignCase()
 		{
-			if (this.m_AssignCaseEventHandler != null)
-				this.m_AssignCaseEventHandler.Invoke(this, EventArgs.Empty);
+			if (this.AssignCase != null) this.AssignCase(this, EventArgs.Empty);
 		}		
 
 		public void OnApplicationClosing()
 		{
-			if (this.m_ApplicationClosingEventHandler != null)
-				this.m_ApplicationClosingEventHandler.Invoke(this, EventArgs.Empty);
+			if (this.ApplicationClosing != null) this.ApplicationClosing(this, EventArgs.Empty);
 		}
 
         public void OnStartProviderDistributionPath()
@@ -90,48 +95,11 @@ namespace YellowstonePathology.UI
         public void OnShowAmendmentDialog()
         {
             if (this.ShowAmendmentDialog != null) this.ShowAmendmentDialog(this, EventArgs.Empty);
-        }                
+        }
 
-		public event EventHandler ShowOrderForm
-		{
-			add
-			{
-				lock (this.m_EventLockObject)
-					this.m_ShowOrderFormEventHandler = value;
-			}
-			remove
-			{
-				lock (this.m_EventLockObject)
-					this.m_ShowOrderFormEventHandler = null;
-			}
-		}		
-
-		public event EventHandler AssignCase
-		{
-			add
-			{
-				lock (this.m_EventLockObject)
-					this.m_AssignCaseEventHandler = value;
-			}
-			remove
-			{
-				lock (this.m_EventLockObject)
-					this.m_AssignCaseEventHandler = null;
-			}
-		}		
-
-		public event EventHandler ApplicationClosing
-		{
-			add
-			{
-				lock (this.m_EventLockObject)
-					this.m_ApplicationClosingEventHandler = value;
-			}
-			remove
-			{
-				lock (this.m_EventLockObject)
-					this.m_ApplicationClosingEventHandler = null;
-			}
-		}        
-	}
+        public void OnLinkPatient()
+        {
+            if (this.LinkPatient != null) this.LinkPatient(this, EventArgs.Empty);
+        }
+    }
 }

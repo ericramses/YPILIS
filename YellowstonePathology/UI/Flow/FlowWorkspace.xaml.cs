@@ -22,9 +22,6 @@ namespace YellowstonePathology.UI.Flow
 
     public partial class FlowWorkspace : System.Windows.Controls.UserControl
     {        
-        public CommandBinding CommandBindingApplicationClosing;                
-        public CommandBinding CommandBindingRemoveTab;        
-
         private YellowstonePathology.Business.Flow.FlowUI m_FlowUI;        
         private UI.DocumentWorkspace m_DocumentViewer;
 
@@ -39,9 +36,6 @@ namespace YellowstonePathology.UI.Flow
             this.m_Writer = writer;
             this.m_SystemIdentity = YellowstonePathology.Business.User.SystemIdentity.Instance;
 
-            this.CommandBindingApplicationClosing = new CommandBinding(MainWindow.ApplicationClosingCommand, this.ApplicationClosing);                                    
-            this.CommandBindings.Add(this.CommandBindingApplicationClosing);                                    
-
             this.m_DocumentViewer = new DocumentWorkspace();
 
             this.m_FlowUI = new YellowstonePathology.Business.Flow.FlowUI(this.m_Writer);
@@ -52,7 +46,8 @@ namespace YellowstonePathology.UI.Flow
 
             this.tabItemDocumentViewer.Content = this.m_DocumentViewer;            
             this.tabControlFlow.SelectionChanged += new SelectionChangedEventHandler(tabControlFlow_SelectionChanged);
-            
+
+            this.Loaded += new RoutedEventHandler(FlowWorkspace_Loaded);
             this.Unloaded += new RoutedEventHandler(FlowWorkspace_Unloaded);
             this.PreviewLostKeyboardFocus += FlowWorkspace_PreviewLostKeyboardFocus;            
         }
@@ -64,18 +59,12 @@ namespace YellowstonePathology.UI.Flow
 
         private void FlowWorkspace_Loaded(object sender, RoutedEventArgs e)
         {
-            this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath -= new MainWindowCommandButtonHandler.StartProviderDistributionPathEventHandler(MainWindowCommandButtonHandler_StartProviderDistributionPath);
-            this.m_MainWindowCommandButtonHandler.ShowAmendmentDialog -= new MainWindowCommandButtonHandler.ShowAmendmentDialogEventHandler(MainWindowCommandButtonHandler_ShowAmendmentDialog);
-            this.m_MainWindowCommandButtonHandler.Save -= new MainWindowCommandButtonHandler.SaveEventHandler(MainWindowCommandButtonHandler_Save);
-            this.m_MainWindowCommandButtonHandler.RemoveTab -= new MainWindowCommandButtonHandler.RemoveTabEventHandler(MainWindowCommandButtonHandler_RemoveTab);
-            this.m_MainWindowCommandButtonHandler.Refresh -= MainWindowCommandButtonHandler_Refresh;
-
-            this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath += new MainWindowCommandButtonHandler.StartProviderDistributionPathEventHandler(MainWindowCommandButtonHandler_StartProviderDistributionPath);
-            this.m_MainWindowCommandButtonHandler.ShowAmendmentDialog += new MainWindowCommandButtonHandler.ShowAmendmentDialogEventHandler(MainWindowCommandButtonHandler_ShowAmendmentDialog);
-            this.m_MainWindowCommandButtonHandler.Save += new MainWindowCommandButtonHandler.SaveEventHandler(MainWindowCommandButtonHandler_Save);
-            this.m_MainWindowCommandButtonHandler.RemoveTab += new MainWindowCommandButtonHandler.RemoveTabEventHandler(MainWindowCommandButtonHandler_RemoveTab);
+            this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath += MainWindowCommandButtonHandler_StartProviderDistributionPath;
+            this.m_MainWindowCommandButtonHandler.ShowAmendmentDialog += MainWindowCommandButtonHandler_ShowAmendmentDialog;
+            this.m_MainWindowCommandButtonHandler.Save += MainWindowCommandButtonHandler_Save;
+            this.m_MainWindowCommandButtonHandler.RemoveTab += MainWindowCommandButtonHandler_RemoveTab;
             this.m_MainWindowCommandButtonHandler.Refresh += MainWindowCommandButtonHandler_Refresh;
-            this.m_MainWindowCommandButtonHandler.ShowMessagingDialog += new MainWindowCommandButtonHandler.ShowMessagingDialogEventHandler(MainWindowCommandButtonHandler_ShowMessagingDialog);
+            this.m_MainWindowCommandButtonHandler.ShowMessagingDialog += MainWindowCommandButtonHandler_ShowMessagingDialog;
 
             UI.AppMessaging.MessagingPath.Instance.LockReleasedActionList.Add(this.Save);
             UI.AppMessaging.MessagingPath.Instance.LockAquiredActionList.Add(this.m_FlowUI.SetAccess);
@@ -183,8 +172,8 @@ namespace YellowstonePathology.UI.Flow
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath -= MainWindowCommandButtonHandler_StartProviderDistributionPath;
             this.m_MainWindowCommandButtonHandler.ShowAmendmentDialog -= MainWindowCommandButtonHandler_ShowAmendmentDialog;
             this.m_MainWindowCommandButtonHandler.Save -= MainWindowCommandButtonHandler_Save;
-            this.m_MainWindowCommandButtonHandler.Refresh -= MainWindowCommandButtonHandler_Refresh;
             this.m_MainWindowCommandButtonHandler.RemoveTab -= MainWindowCommandButtonHandler_RemoveTab;
+            this.m_MainWindowCommandButtonHandler.Refresh -= MainWindowCommandButtonHandler_Refresh;
             this.m_MainWindowCommandButtonHandler.ShowMessagingDialog -= MainWindowCommandButtonHandler_ShowMessagingDialog;
 
             UI.AppMessaging.MessagingPath.Instance.LockReleasedActionList.Remove(this.Save);
@@ -192,10 +181,6 @@ namespace YellowstonePathology.UI.Flow
 
             YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
         }        
-
-        private void ApplicationClosing(object target, ExecutedRoutedEventArgs args)
-        {
-        }
 
         public void GatingCount_LostFocus(object sender, RoutedEventArgs args)
         {

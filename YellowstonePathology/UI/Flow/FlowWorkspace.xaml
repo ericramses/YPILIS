@@ -6,8 +6,7 @@
 			 xmlns:RadioButtonGroups="clr-namespace:YellowstonePathology.UI.RadioButtonGroups"
 			 xmlns:validationRules="clr-namespace:YellowstonePathology.UI.ValidationRules"
 			 xmlns:converter="clr-namespace:YellowstonePathology.UI.Converter"
-             xmlns:CustomControls="clr-namespace:YellowstonePathology.UI.CustomControls"
-			 Loaded="FlowWorkspace_Loaded">	
+             xmlns:CustomControls="clr-namespace:YellowstonePathology.UI.CustomControls">	
     <UserControl.Resources>
         <XmlDataProvider x:Key="ICDCodes" XPath="/ICDCodeCollection">
             <x:XData>

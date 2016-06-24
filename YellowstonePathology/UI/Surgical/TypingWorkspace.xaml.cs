@@ -19,10 +19,6 @@ namespace YellowstonePathology.UI.Surgical
 {
 	public partial class TypingWorkspace : UserControl
     {        
-        public CommandBinding CommandBindingClose;        
-		public CommandBinding CommandBindingShowOrderForm;
-		public CommandBinding CommandBindingShowAmendmentDialog;
-
         private YellowstonePathology.Business.Typing.TypingUIV2 m_TypingUI;        
         private YellowstonePathology.UI.AmendmentControlV2 m_AmendmentControl;
         private YellowstonePathology.UI.TypingShortcutUserControl m_TypingShortcutUserControl;
@@ -49,14 +45,6 @@ namespace YellowstonePathology.UI.Surgical
             }
 
             this.m_SystemIdentity = YellowstonePathology.Business.User.SystemIdentity.Instance;
-
-            this.CommandBindingClose = new CommandBinding(MainWindow.ApplicationClosingCommand, HandleAppClosing);            
-			this.CommandBindingShowOrderForm = new CommandBinding(MainWindow.ShowOrderFormCommand, this.ShowOrderForm, ItemIsSelected);
-			this.CommandBindingShowAmendmentDialog = new CommandBinding(MainWindow.ShowAmendmentDialogCommand, this.ShowAmendmentDialog, ItemIsSelected);			
-
-            this.CommandBindings.Add(this.CommandBindingClose);            
-			this.CommandBindings.Add(this.CommandBindingShowOrderForm);
-			this.CommandBindings.Add(this.CommandBindingShowAmendmentDialog);                        	
             
 			this.m_TypingUI = new YellowstonePathology.Business.Typing.TypingUIV2(this.m_Writer);									
 			this.m_AmendmentControl = new AmendmentControlV2(this.m_SystemIdentity, string.Empty, this.m_TypingUI.AccessionOrder);			
@@ -81,16 +69,35 @@ namespace YellowstonePathology.UI.Surgical
 
         private void TypingWorkspace_Loaded(object sender, RoutedEventArgs e)
 		{
-            this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath += new MainWindowCommandButtonHandler.StartProviderDistributionPathEventHandler(MainWindowCommandButtonHandler_StartProviderDistributionPath);
-            this.m_MainWindowCommandButtonHandler.Save += new MainWindowCommandButtonHandler.SaveEventHandler(MainWindowCommandButtonHandler_Save);
-            this.m_MainWindowCommandButtonHandler.Refresh += new MainWindowCommandButtonHandler.RefreshEventHandler(MainWindowCommandButtonHandler_Refresh);
-            this.m_MainWindowCommandButtonHandler.RemoveTab += new MainWindowCommandButtonHandler.RemoveTabEventHandler(MainWindowCommandButtonHandler_RemoveTab);
-            this.m_MainWindowCommandButtonHandler.ShowMessagingDialog += new MainWindowCommandButtonHandler.ShowMessagingDialogEventHandler(MainWindowCommandButtonHandler_ShowMessagingDialog);
+            this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath += MainWindowCommandButtonHandler_StartProviderDistributionPath;
+            this.m_MainWindowCommandButtonHandler.Save += MainWindowCommandButtonHandler_Save;
+            this.m_MainWindowCommandButtonHandler.Refresh += MainWindowCommandButtonHandler_Refresh;
+            this.m_MainWindowCommandButtonHandler.RemoveTab += MainWindowCommandButtonHandler_RemoveTab;
+            this.m_MainWindowCommandButtonHandler.ShowMessagingDialog += MainWindowCommandButtonHandler_ShowMessagingDialog;
             this.m_MainWindowCommandButtonHandler.ShowCaseDocument += MainWindowCommandButtonHandler_ShowCaseDocument;
+            this.m_MainWindowCommandButtonHandler.ShowOrderForm += MainWindowCommandButtonHandler_ShowOrderForm;
+            this.m_MainWindowCommandButtonHandler.ApplicationClosing += MainWindowCommandButtonHandler_ApplicationClosing;
+            this.m_MainWindowCommandButtonHandler.ShowAmendmentDialog += MainWindowCommandButtonHandler_ShowAmendmentDialog;
+
             if (this.m_TypingUI.SurgicalTestOrder != null) this.m_TypingUI.RunWorkspaceEnableRules();
 
             UI.AppMessaging.MessagingPath.Instance.LockReleasedActionList.Add(this.Save);
             UI.AppMessaging.MessagingPath.Instance.LockAquiredActionList.Add(this.m_TypingUI.RunWorkspaceEnableRules);
+        }
+
+        private void MainWindowCommandButtonHandler_ShowAmendmentDialog(object sender, EventArgs e)
+        {
+            this.ShowAmendmentDialog();
+        }
+
+        private void MainWindowCommandButtonHandler_ApplicationClosing(object sender, EventArgs e)
+        {
+            this.HandleAppClosing();
+        }
+
+        private void MainWindowCommandButtonHandler_ShowOrderForm(object sender, EventArgs e)
+        {
+            this.ShowOrderForm();
         }
 
         private void MainWindowCommandButtonHandler_ShowCaseDocument(object sender, EventArgs e)
@@ -161,6 +168,9 @@ namespace YellowstonePathology.UI.Surgical
             this.m_MainWindowCommandButtonHandler.RemoveTab -= MainWindowCommandButtonHandler_RemoveTab;
             this.m_MainWindowCommandButtonHandler.ShowMessagingDialog -= MainWindowCommandButtonHandler_ShowMessagingDialog;
             this.m_MainWindowCommandButtonHandler.ShowCaseDocument -= MainWindowCommandButtonHandler_ShowCaseDocument;
+            this.m_MainWindowCommandButtonHandler.ShowOrderForm -= MainWindowCommandButtonHandler_ShowOrderForm;
+            this.m_MainWindowCommandButtonHandler.ApplicationClosing -= MainWindowCommandButtonHandler_ApplicationClosing;
+            this.m_MainWindowCommandButtonHandler.ShowAmendmentDialog -= MainWindowCommandButtonHandler_ShowAmendmentDialog;
 
             UI.AppMessaging.MessagingPath.Instance.LockReleasedActionList.Remove(this.Save);
             UI.AppMessaging.MessagingPath.Instance.LockAquiredActionList.Remove(this.m_TypingUI.RunWorkspaceEnableRules);
@@ -178,7 +188,7 @@ namespace YellowstonePathology.UI.Surgical
             this.TabControlRightMain.SelectedIndex = 1;
         }		
 
-        public void HandleAppClosing(object target, ExecutedRoutedEventArgs args)
+        public void HandleAppClosing()
         {
             if (this.m_TypingUI.SurgicalTestOrder != null)
             {
@@ -625,38 +635,41 @@ namespace YellowstonePathology.UI.Surgical
 			}
 		}
 
-		private void ShowOrderForm(object target, ExecutedRoutedEventArgs args)
+		private void ShowOrderForm()
 		{
-			this.Save(false);
-			YellowstonePathology.UI.Common.OrderDialog frm = new YellowstonePathology.UI.Common.OrderDialog(this.m_TypingUI.AccessionOrder, this.m_TypingUI.SurgicalTestOrder);
-			frm.ShowDialog();
+            if (this.HaveAvaliableItem() == true)
+            {
+                this.Save(false);
+                YellowstonePathology.UI.Common.OrderDialog frm = new YellowstonePathology.UI.Common.OrderDialog(this.m_TypingUI.AccessionOrder, this.m_TypingUI.SurgicalTestOrder);
+                frm.ShowDialog();
 
-            string reportNo = this.m_TypingUI.AccessionOrder.PanelSetOrderCollection.GetItem(13).ReportNo;
-            this.m_TypingUI.GetAccessionOrder(reportNo);
-            this.RefreshWorkspaces();
+                string reportNo = this.m_TypingUI.AccessionOrder.PanelSetOrderCollection.GetItem(13).ReportNo;
+                this.m_TypingUI.GetAccessionOrder(reportNo);
+                this.RefreshWorkspaces();
+            }
 		}
 
-		private void ItemIsSelected(object sender, CanExecuteRoutedEventArgs e)
-		{
-			e.CanExecute = false;
-			if (((TabItem)this.Parent).IsSelected &&
-				this.m_TypingUI.AccessionOrder != null &&
-				this.m_TypingUI.SurgicalTestOrder != null &&
-				this.m_TypingUI.SurgicalTestOrder.ReportNo != string.Empty &&
-				this.m_TypingUI.AccessionOrder.AccessionLock.IsLockAquiredByMe)
-			{
-				e.CanExecute = true;
-			}
-		}
+        private bool HaveAvaliableItem()
+        {
+            bool result = false;
+            if (this.m_TypingUI.AccessionOrder != null &&
+                this.m_TypingUI.SurgicalTestOrder != null &&
+                this.m_TypingUI.SurgicalTestOrder.ReportNo != string.Empty &&
+                this.m_TypingUI.AccessionOrder.AccessionLock.IsLockAquiredByMe)
+            {
+                result = true;
+            }
+            return result;
+        }
 
         private void ListBoxSpecimen_Click(object sender, SelectionChangedEventArgs e)
         {
             
         }
 
-        private void ShowAmendmentDialog(object target, ExecutedRoutedEventArgs args)
+        private void ShowAmendmentDialog()
         {
-            if (this.m_TypingUI.AccessionOrder != null)
+            if (this.HaveAvaliableItem() == true)
             {
                 this.Save(false);
                 YellowstonePathology.UI.AmendmentPageController amendmentPageController = new AmendmentPageController(this.m_TypingUI.AccessionOrder, this.m_TypingUI.SurgicalTestOrder);

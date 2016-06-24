@@ -22,12 +22,6 @@ namespace YellowstonePathology.UI.Cytology
     {                
 		public delegate void CytologyReportNoChanged();
         
-        public CommandBinding CommandBindingPatientLinking;        
-		public CommandBinding CommandBindingApplicationClosing;
-		public CommandBinding CommandBindingShowPatientEditDialog;
-		public CommandBinding CommandBindingShowBillingEditDialog;
-		//public CommandBinding CommandBindingShowAmendmentDialog;
-        
 		private UI.Cytology.CytologyResultsWorkspace m_CytologyResultsWorkspace;
 
         private CytologyUI m_CytologyUI;
@@ -54,14 +48,6 @@ namespace YellowstonePathology.UI.Cytology
             this.m_CytologyUI.WHPOpened += CytologyUI_WHPOpened;
             this.m_CytologyUI.WHPClosed += CytologyUI_WHPClosed;
 
-			this.CommandBindingApplicationClosing = new CommandBinding(MainWindow.ApplicationClosingCommand, this.CloseWorkspace);
-			this.CommandBindingShowPatientEditDialog = new CommandBinding(MainWindow.ShowPatientEditDialogCommand, this.m_CytologyUI.ShowPatientEditDialog);
-			//this.CommandBindingShowAmendmentDialog = new CommandBinding(MainWindow.ShowAmendmentDialogCommand, this.m_CytologyUI.ShowAmendmentDialog, ItemIsSelected);
-
-			this.CommandBindings.Add(this.CommandBindingApplicationClosing);
-			this.CommandBindings.Add(this.CommandBindingShowPatientEditDialog);
-			//this.CommandBindings.Add(this.CommandBindingShowAmendmentDialog);
-
             this.m_DocumentViewer = new DocumentWorkspace();
             
             InitializeComponent();
@@ -84,12 +70,12 @@ namespace YellowstonePathology.UI.Cytology
             this.ComboBoxSearchType.SelectedIndex = 0;
             this.ComboBoxScreenerSelection.SelectedIndex = this.m_CytologyUI.GetScreenerIndex();
 
-            this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath += new MainWindowCommandButtonHandler.StartProviderDistributionPathEventHandler(MainWindowCommandButtonHandler_StartProviderDistributionPath);
-            this.m_MainWindowCommandButtonHandler.Save += new MainWindowCommandButtonHandler.SaveEventHandler(MainWindowCommandButtonHandler_Save);
+            this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath += MainWindowCommandButtonHandler_StartProviderDistributionPath;
+            this.m_MainWindowCommandButtonHandler.Save += MainWindowCommandButtonHandler_Save;
             this.m_MainWindowCommandButtonHandler.ShowAmendmentDialog += this.m_CytologyResultsWorkspace.CytologyUI.ShowAmendmentDialog;
             this.m_MainWindowCommandButtonHandler.Refresh += MainWindowCommandButtonHandler_Refresh;
             this.m_MainWindowCommandButtonHandler.RemoveTab += MainWindowCommandButtonHandler_RemoveTab;
-            this.m_MainWindowCommandButtonHandler.ShowMessagingDialog += new MainWindowCommandButtonHandler.ShowMessagingDialogEventHandler(MainWindowCommandButtonHandler_ShowMessagingDialog);
+            this.m_MainWindowCommandButtonHandler.ShowMessagingDialog += MainWindowCommandButtonHandler_ShowMessagingDialog;
             this.m_MainWindowCommandButtonHandler.ShowCaseDocument += MainWindowCommandButtonHandler_ShowCaseDocument;
 
             this.ListViewSearchResults.SelectedIndex = -1;
@@ -298,11 +284,6 @@ namespace YellowstonePathology.UI.Cytology
                 this.TextBlockCount.Text = "Count: " + this.m_CytologyUI.Search.Results.Count.ToString();                
             }
         }		
-
-		public void CloseWorkspace(object target, ExecutedRoutedEventArgs args)
-		{
-			
-        }
 
         private void ButtonAssignTo_Click(object sender, RoutedEventArgs e)
         {
