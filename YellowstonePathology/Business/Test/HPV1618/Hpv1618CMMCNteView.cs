@@ -35,9 +35,9 @@ namespace YellowstonePathology.Business.Test.HPV1618
 			this.AddNextNteElement("HPV-16 Reference: Negative", document);
 			this.AddBlankNteElement(document);
 
-			string hpv18ResultText = "HPV-18 Result: " + panelSetOrder.HPV18Result;
+			string hpv18ResultText = "HPV-18/45 Result: " + panelSetOrder.HPV18Result;
 			this.AddNextNteElement(hpv18ResultText, document);
-			this.AddNextNteElement("HPV-18 Reference: Negative", document);
+			this.AddNextNteElement("HPV-18/45 Reference: Negative", document);
 			this.AddBlankNteElement(document);
 
 			YellowstonePathology.Business.Interface.IOrderTarget orderTarget = this.m_AccessionOrder.SpecimenOrderCollection.GetOrderTarget(panelSetOrder.OrderedOnId);
