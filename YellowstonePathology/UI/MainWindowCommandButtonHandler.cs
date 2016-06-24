@@ -18,9 +18,6 @@ namespace YellowstonePathology.UI
         public delegate void AssignCaseEventHandler(object sender, EventArgs e);
         public event AssignCaseEventHandler AssignCase;
 
-        public delegate void ApplicationClosingEventHandler(object sender, EventArgs e);
-        public event ApplicationClosingEventHandler ApplicationClosing;
-
         public delegate void StartProviderDistributionPathEventHandler(object sender, EventArgs e);
         public event StartProviderDistributionPathEventHandler StartProviderDistributionPath;
 
@@ -30,17 +27,11 @@ namespace YellowstonePathology.UI
         public delegate void SaveEventHandler(object sender, EventArgs e);
         public event SaveEventHandler Save;
 
-        public delegate void RefreshEventHandler(object sender, EventArgs e);
-        public event RefreshEventHandler Refresh;
-
         public delegate void RemoveTabEventHandler(object sender, EventArgs e);
         public event RemoveTabEventHandler RemoveTab;
 
         public delegate void ShowMessagingDialogEventHandler(object sender, EventArgs e);
         public event ShowMessagingDialogEventHandler ShowMessagingDialog;
-
-        public delegate void LinkPatientDialogEventHandler(object sender, EventArgs e);
-        public event LinkPatientDialogEventHandler LinkPatient;
 
         public MainWindowCommandButtonHandler()
         {
@@ -50,11 +41,6 @@ namespace YellowstonePathology.UI
         public void OnSave()
         {
             if (this.Save != null) this.Save(this, EventArgs.Empty);
-        }
-
-        public void OnRefresh()
-        {
-            if (this.Refresh != null) this.Refresh(this, EventArgs.Empty);
         }
 
         public void OnShowCaseDocument()
@@ -82,11 +68,6 @@ namespace YellowstonePathology.UI
 			if (this.AssignCase != null) this.AssignCase(this, EventArgs.Empty);
 		}		
 
-		public void OnApplicationClosing()
-		{
-			if (this.ApplicationClosing != null) this.ApplicationClosing(this, EventArgs.Empty);
-		}
-
         public void OnStartProviderDistributionPath()
         {
             if (this.StartProviderDistributionPath != null) this.StartProviderDistributionPath(this, EventArgs.Empty);
@@ -95,11 +76,6 @@ namespace YellowstonePathology.UI
         public void OnShowAmendmentDialog()
         {
             if (this.ShowAmendmentDialog != null) this.ShowAmendmentDialog(this, EventArgs.Empty);
-        }
-
-        public void OnLinkPatient()
-        {
-            if (this.LinkPatient != null) this.LinkPatient(this, EventArgs.Empty);
         }
     }
 }

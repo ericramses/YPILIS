@@ -395,9 +395,12 @@ namespace YellowstonePathology.UI.Cytology
 		}
 
 		public void ShowAmendmentDialog(object sender, EventArgs e)
-		{			
-            YellowstonePathology.UI.AmendmentPageController amendmentPageController = new AmendmentPageController(this.m_AccessionOrder, this.m_PanelSetOrderCytology);
-			amendmentPageController.ShowDialog();
+		{
+            if (this.m_AccessionOrder != null)
+            {
+                YellowstonePathology.UI.AmendmentPageController amendmentPageController = new AmendmentPageController(this.m_AccessionOrder, this.m_PanelSetOrderCytology);
+                amendmentPageController.ShowDialog();
+            }
 		}
 
         public YellowstonePathology.Business.Domain.HpvRequisitionInstructionCollection HpvRequisitionInstructions

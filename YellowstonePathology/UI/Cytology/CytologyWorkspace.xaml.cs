@@ -73,7 +73,6 @@ namespace YellowstonePathology.UI.Cytology
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath += MainWindowCommandButtonHandler_StartProviderDistributionPath;
             this.m_MainWindowCommandButtonHandler.Save += MainWindowCommandButtonHandler_Save;
             this.m_MainWindowCommandButtonHandler.ShowAmendmentDialog += this.m_CytologyResultsWorkspace.CytologyUI.ShowAmendmentDialog;
-            this.m_MainWindowCommandButtonHandler.Refresh += MainWindowCommandButtonHandler_Refresh;
             this.m_MainWindowCommandButtonHandler.RemoveTab += MainWindowCommandButtonHandler_RemoveTab;
             this.m_MainWindowCommandButtonHandler.ShowMessagingDialog += MainWindowCommandButtonHandler_ShowMessagingDialog;
             this.m_MainWindowCommandButtonHandler.ShowCaseDocument += MainWindowCommandButtonHandler_ShowCaseDocument;
@@ -88,7 +87,6 @@ namespace YellowstonePathology.UI.Cytology
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath -= MainWindowCommandButtonHandler_StartProviderDistributionPath;
             this.m_MainWindowCommandButtonHandler.Save -= MainWindowCommandButtonHandler_Save;
             this.m_MainWindowCommandButtonHandler.ShowAmendmentDialog -= this.m_CytologyResultsWorkspace.CytologyUI.ShowAmendmentDialog;
-            this.m_MainWindowCommandButtonHandler.Refresh -= MainWindowCommandButtonHandler_Refresh;
             this.m_MainWindowCommandButtonHandler.RemoveTab -= MainWindowCommandButtonHandler_RemoveTab;
             this.m_MainWindowCommandButtonHandler.ShowMessagingDialog -= MainWindowCommandButtonHandler_ShowMessagingDialog;
             this.m_MainWindowCommandButtonHandler.ShowCaseDocument -= MainWindowCommandButtonHandler_ShowCaseDocument;
@@ -123,11 +121,6 @@ namespace YellowstonePathology.UI.Cytology
         private void MainWindowCommandButtonHandler_ShowCaseDocument(object sender, EventArgs e)
         {
             this.m_CytologyUI.ShowCaseDocument();
-        }
-
-        private void MainWindowCommandButtonHandler_Refresh(object sender, EventArgs e)
-        {
-
         }
 
         private void MainWindowCommandButtonHandler_Save(object sender, EventArgs e)
@@ -341,15 +334,6 @@ namespace YellowstonePathology.UI.Cytology
                 MessageBox.Show("Fill the list or select list entries", "Nothing to report.");
             }
         }       
-
-        public void ItemIsSelected(object sender, CanExecuteRoutedEventArgs e)
-		{
-			e.CanExecute = false;
-			if (((TabItem)this.Parent).IsSelected)
-			{
-				e.CanExecute = true;
-			}
-		}
 
         private void CytologyUI_WHPOpened(object sender, EventArgs e)
         {

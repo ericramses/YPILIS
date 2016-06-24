@@ -71,12 +71,10 @@ namespace YellowstonePathology.UI.Surgical
 		{
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath += MainWindowCommandButtonHandler_StartProviderDistributionPath;
             this.m_MainWindowCommandButtonHandler.Save += MainWindowCommandButtonHandler_Save;
-            this.m_MainWindowCommandButtonHandler.Refresh += MainWindowCommandButtonHandler_Refresh;
             this.m_MainWindowCommandButtonHandler.RemoveTab += MainWindowCommandButtonHandler_RemoveTab;
             this.m_MainWindowCommandButtonHandler.ShowMessagingDialog += MainWindowCommandButtonHandler_ShowMessagingDialog;
             this.m_MainWindowCommandButtonHandler.ShowCaseDocument += MainWindowCommandButtonHandler_ShowCaseDocument;
             this.m_MainWindowCommandButtonHandler.ShowOrderForm += MainWindowCommandButtonHandler_ShowOrderForm;
-            this.m_MainWindowCommandButtonHandler.ApplicationClosing += MainWindowCommandButtonHandler_ApplicationClosing;
             this.m_MainWindowCommandButtonHandler.ShowAmendmentDialog += MainWindowCommandButtonHandler_ShowAmendmentDialog;
 
             if (this.m_TypingUI.SurgicalTestOrder != null) this.m_TypingUI.RunWorkspaceEnableRules();
@@ -88,11 +86,6 @@ namespace YellowstonePathology.UI.Surgical
         private void MainWindowCommandButtonHandler_ShowAmendmentDialog(object sender, EventArgs e)
         {
             this.ShowAmendmentDialog();
-        }
-
-        private void MainWindowCommandButtonHandler_ApplicationClosing(object sender, EventArgs e)
-        {
-            this.HandleAppClosing();
         }
 
         private void MainWindowCommandButtonHandler_ShowOrderForm(object sender, EventArgs e)
@@ -121,11 +114,6 @@ namespace YellowstonePathology.UI.Surgical
         private void MainWindowCommandButtonHandler_RemoveTab(object sender, EventArgs e)
         {
             Business.Persistence.DocumentGateway.Instance.Push(this.m_Writer);
-        }
-
-        private void MainWindowCommandButtonHandler_Refresh(object sender, EventArgs e)
-        {
-
         }
 
         private void MainWindowCommandButtonHandler_Save(object sender, EventArgs e)
@@ -164,12 +152,10 @@ namespace YellowstonePathology.UI.Surgical
             this.Save(false);
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath -= MainWindowCommandButtonHandler_StartProviderDistributionPath;
             this.m_MainWindowCommandButtonHandler.Save -= MainWindowCommandButtonHandler_Save;
-            this.m_MainWindowCommandButtonHandler.Refresh -= MainWindowCommandButtonHandler_Refresh;
             this.m_MainWindowCommandButtonHandler.RemoveTab -= MainWindowCommandButtonHandler_RemoveTab;
             this.m_MainWindowCommandButtonHandler.ShowMessagingDialog -= MainWindowCommandButtonHandler_ShowMessagingDialog;
             this.m_MainWindowCommandButtonHandler.ShowCaseDocument -= MainWindowCommandButtonHandler_ShowCaseDocument;
             this.m_MainWindowCommandButtonHandler.ShowOrderForm -= MainWindowCommandButtonHandler_ShowOrderForm;
-            this.m_MainWindowCommandButtonHandler.ApplicationClosing -= MainWindowCommandButtonHandler_ApplicationClosing;
             this.m_MainWindowCommandButtonHandler.ShowAmendmentDialog -= MainWindowCommandButtonHandler_ShowAmendmentDialog;
 
             UI.AppMessaging.MessagingPath.Instance.LockReleasedActionList.Remove(this.Save);
@@ -187,15 +173,6 @@ namespace YellowstonePathology.UI.Surgical
         {
             this.TabControlRightMain.SelectedIndex = 1;
         }		
-
-        public void HandleAppClosing()
-        {
-            if (this.m_TypingUI.SurgicalTestOrder != null)
-            {
-                YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.LastReportNo = this.m_TypingUI.SurgicalTestOrder.ReportNo;
-                YellowstonePathology.Business.User.UserPreferenceInstance.Instance.Save();
-            }            
-        }        		
 
 		public void ShowCaseDocument()
 		{

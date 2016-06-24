@@ -386,7 +386,6 @@ namespace YellowstonePathology.UI
 
         public void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs args)
         {
-			this.m_MainWindowCommandButtonHandler.OnApplicationClosing();						
 			App.Current.Shutdown();
         }
                 
@@ -667,11 +666,6 @@ namespace YellowstonePathology.UI
             report.PrintReport();
 		}		
 
-		public void ToolBarButtonPatientLink_Click(object sender, RoutedEventArgs e)
-		{
-            this.m_MainWindowCommandButtonHandler.OnLinkPatient();
-		}		
-
         private void ToolBarButtonProviderDistribution_Click(object sender, RoutedEventArgs e)
         {
             this.m_MainWindowCommandButtonHandler.OnStartProviderDistributionPath();
@@ -869,11 +863,6 @@ namespace YellowstonePathology.UI
         {
             Test.AcidWashOrdersDialog acidWashOrdersDialog = new Test.AcidWashOrdersDialog();
             acidWashOrdersDialog.ShowDialog();
-        }
-
-        private void ToolBarButtonRefresh_Click(object sender, RoutedEventArgs e)
-        {
-            this.m_MainWindowCommandButtonHandler.OnRefresh();
         }
 
         private void MenuItemLockedCases_Click(object sender, RoutedEventArgs e)

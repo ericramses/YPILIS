@@ -79,21 +79,14 @@ namespace YellowstonePathology.UI.Test
             this.m_BarcodeScanPort.ClientScanReceived += ClientScanReceived;
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath += MainWindowCommandButtonHandler_StartProviderDistributionPath;
             this.m_MainWindowCommandButtonHandler.Save += MainWindowCommandButtonHandler_Save;
-            this.m_MainWindowCommandButtonHandler.Refresh += MainWindowCommandButtonHandler_Refresh;
             this.m_MainWindowCommandButtonHandler.RemoveTab += MainWindowCommandButtonHandler_RemoveTab;
             this.m_MainWindowCommandButtonHandler.ShowCaseDocument += MainWindowCommandButtonHandler_ShowCaseDocument;
             this.m_MainWindowCommandButtonHandler.ShowOrderForm += MainWindowCommandButtonHandler_ShowOrderForm;
-            this.m_MainWindowCommandButtonHandler.LinkPatient += MainWindowCommandButtonHandler_LinkPatient;
 
             UI.AppMessaging.MessagingPath.Instance.LockReleasedActionList.Add(this.Save);
             UI.AppMessaging.MessagingPath.Instance.LockAquiredActionList.Add(this.m_LabUI.RunWorkspaceEnableRules);
 
             this.TabItemCaseList.Focus();
-        }
-
-        private void MainWindowCommandButtonHandler_LinkPatient(object sender, EventArgs e)
-        {
-            this.LinkPatient();
         }
 
         private void MainWindowCommandButtonHandler_ShowOrderForm(object sender, EventArgs e)
@@ -104,11 +97,6 @@ namespace YellowstonePathology.UI.Test
         private void MainWindowCommandButtonHandler_ShowCaseDocument(object sender, EventArgs e)
         {
             this.ShowCaseDocument();
-        }
-
-        private void MainWindowCommandButtonHandler_Refresh(object sender, EventArgs e)
-        {
-
         }
 
         private void MainWindowCommandButtonHandler_Save(object sender, EventArgs e)
@@ -206,11 +194,9 @@ namespace YellowstonePathology.UI.Test
 			this.m_BarcodeScanPort.ClientScanReceived -= this.ClientScanReceived;
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath -= MainWindowCommandButtonHandler_StartProviderDistributionPath;
             this.m_MainWindowCommandButtonHandler.Save -= MainWindowCommandButtonHandler_Save;
-            this.m_MainWindowCommandButtonHandler.Refresh -= MainWindowCommandButtonHandler_Refresh;
             this.m_MainWindowCommandButtonHandler.RemoveTab -= MainWindowCommandButtonHandler_RemoveTab;
             this.m_MainWindowCommandButtonHandler.ShowCaseDocument -= MainWindowCommandButtonHandler_ShowCaseDocument;
             this.m_MainWindowCommandButtonHandler.ShowOrderForm -= MainWindowCommandButtonHandler_ShowOrderForm;
-            this.m_MainWindowCommandButtonHandler.LinkPatient -= MainWindowCommandButtonHandler_LinkPatient;
 
             UI.AppMessaging.MessagingPath.Instance.LockReleasedActionList.Remove(this.Save);
             UI.AppMessaging.MessagingPath.Instance.LockAquiredActionList.Remove(this.m_LabUI.RunWorkspaceEnableRules);
@@ -264,7 +250,7 @@ namespace YellowstonePathology.UI.Test
             return result;
         }
 
-        public void LinkPatient()
+        private void LinkPatient()
 		{
             if (HaveAvailableItem() == true)
             {

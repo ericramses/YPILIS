@@ -78,7 +78,6 @@ namespace YellowstonePathology.UI.Surgical
 			this.m_MainWindowCommandButtonHandler.AssignCase += MainWindowCommandButtonHandler_AssignCase;			
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath += MainWindowCommandButtonHandler_StartProviderDistributionPath;
             this.m_MainWindowCommandButtonHandler.ShowAmendmentDialog += MainWindowCommandButtonHandler_ShowAmendmentDialog;
-            this.m_MainWindowCommandButtonHandler.Refresh += MainWindowCommandButtonHandler_Refresh;
             this.m_MainWindowCommandButtonHandler.RemoveTab += MainWindowCommandButtonHandler_RemoveTab;
             this.m_MainWindowCommandButtonHandler.ShowMessagingDialog += MainWindowCommandButtonHandler_ShowMessagingDialog;
 
@@ -132,7 +131,6 @@ namespace YellowstonePathology.UI.Surgical
 			this.m_MainWindowCommandButtonHandler.AssignCase -= MainWindowCommandButtonHandler_AssignCase;						
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath -= MainWindowCommandButtonHandler_StartProviderDistributionPath;
             this.m_MainWindowCommandButtonHandler.ShowAmendmentDialog -= MainWindowCommandButtonHandler_ShowAmendmentDialog;
-            this.m_MainWindowCommandButtonHandler.Refresh -= MainWindowCommandButtonHandler_Refresh;
             this.m_MainWindowCommandButtonHandler.RemoveTab -= MainWindowCommandButtonHandler_RemoveTab;
             this.m_MainWindowCommandButtonHandler.ShowMessagingDialog -= MainWindowCommandButtonHandler_ShowMessagingDialog;
 
@@ -142,11 +140,6 @@ namespace YellowstonePathology.UI.Surgical
             this.m_PathologistUI.PropertyChanged -= PathologistUI_PropertyChanged;
 
             YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
-        }
-
-        private void MainWindowCommandButtonHandler_Refresh(object sender, EventArgs e)
-        {
-
         }
 
         private void MainWindowCommandButtonHandler_Save(object sender, EventArgs e)
@@ -219,7 +212,7 @@ namespace YellowstonePathology.UI.Surgical
 
 		private void MainWindowCommandButtonHandler_ShowAmendmentDialog(object sender, EventArgs e)
 		{
-			if (this.m_PathologistUI.AccessionOrder.AccessionLock.IsLockAquiredByMe == true)
+			if (this.m_PathologistUI.AccessionOrder != null && this.m_PathologistUI.AccessionOrder.AccessionLock.IsLockAquiredByMe == true)
 			{
 				this.m_PathologistUI.ShowAmendmentDialog();
             }
