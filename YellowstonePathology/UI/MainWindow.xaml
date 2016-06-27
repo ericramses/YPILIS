@@ -31,7 +31,7 @@
                     <MenuItem Header="Application Validation" Click="MenuItemValidate_Click"></MenuItem>
                     <MenuItem Header="Locked Cases" Click="MenuItemLockedCases_Click"></MenuItem>
                     <MenuItem Header="Update Spelling Dictionary" Click="MenuItemUpdateSpellDictionary_Click"></MenuItem>
-                    <MenuItem Header="Permanent Irrevocable Delete" Click="MenuItemDelete_Click"></MenuItem>
+                    <MenuItem Header="Delete Test" Click="MenuItemDelete_Click"></MenuItem>
                 </MenuItem>			
         
 			<MenuItem Header="_Surgical" Name="MenuItemSurgical">

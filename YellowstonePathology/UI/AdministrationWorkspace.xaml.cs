@@ -1000,7 +1000,7 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
-            Business.MySQLDatabaseBuilder builder = new Business.MySQLDatabaseBuilder();
+            YellowstonePathology.MySQLMigration.MySQLDatabaseBuilder builder = new MySQLMigration.MySQLDatabaseBuilder();
             builder.Build();
         }        
 
