@@ -96,11 +96,11 @@
 				<Button Click="ButtonViewDocument_Click" KeyboardNavigation.IsTabStop="False" Width="25" Height="25">
                     <Image Source="/Resources/Document.jpg"></Image>
 				</Button>				
-			<StackPanel Orientation="Horizontal">
+			    <StackPanel Orientation="Horizontal">
                     <TextBlock Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.ReportNo}" VerticalAlignment="Center" Margin="2,2,2,2" FontWeight="Bold"></TextBlock>
                     <TextBlock Text=":" VerticalAlignment="Center" Margin="2,2,2,2" FontWeight="Bold"></TextBlock>
                     <TextBlock Text="{Binding Path=AccessionOrder.PatientDisplayName}" VerticalAlignment="Center" Margin="2,2,2,2" FontWeight="Bold"></TextBlock>
-            </StackPanel>
+                </StackPanel>
 			</StackPanel>
 			<TabControl Grid.Column="0" Grid.Row="1" Name="tabControlFlow">
 				<TabItem Header="General" Name="TabItemGeneral">					
@@ -111,18 +111,21 @@
 						</StackPanel>
 						<StackPanel Orientation="Horizontal">
 							<TextBlock Style="{StaticResource HeadingTextBlock}">Accession Date:</TextBlock>
-							<TextBox Name="textBoxAccessionDate" IsEnabled="{Binding Path=IsWorkspaceEnabled}" Style="{StaticResource BoundTextBox}" Text="{Binding Path=AccessionOrder.AccessionDate, Converter={StaticResource ShortDateConverter}}"></TextBox>
+                            <TextBox Name="textBoxAccessionDate" IsEnabled="{Binding Path=IsWorkspaceEnabled}" Style="{StaticResource BoundTextBox}"
+                                     Text="{Binding Path=AccessionOrder.AccessionDate, Converter={StaticResource ShortDateConverter}, UpdateSourceTrigger=PropertyChanged}"></TextBox>
 						</StackPanel>
 						<StackPanel Orientation="Horizontal">
-							<TextBlock Style="{StaticResource HeadingTextBlock}">Date Of Service:</TextBlock>                            
-                            <TextBox Name="TextBoxCollectionDate" Style="{StaticResource BoundTextBox}" IsEnabled="{Binding Path=IsWorkspaceEnabled}" Text="{Binding Path=AccessionOrder.CollectionDate, Converter={StaticResource ShortDateConverter}}"
+							<TextBlock Style="{StaticResource HeadingTextBlock}">Date Of Service:</TextBlock>
+                            <TextBox Name="TextBoxCollectionDate" Style="{StaticResource BoundTextBox}" IsEnabled="{Binding Path=IsWorkspaceEnabled}"
+                                     Text="{Binding Path=AccessionOrder.CollectionDate, Converter={StaticResource ShortDateConverter}, UpdateSourceTrigger=PropertyChanged}"
                                      HorizontalAlignment="Stretch" KeyUp="TextBoxCollectionDate_KeyUp" ToolTip="Please enter the Date Of Service for this specimen.">								
 							</TextBox>
                             
 						</StackPanel>                        
 						<StackPanel Orientation="Horizontal">
 							<TextBlock Style="{StaticResource HeadingTextBlock}">Date/Time Received:</TextBlock>
-                            <TextBox Name="textBoxDateTimeReceived" Text="{Binding Path=AccessionOrder.SpecimenOrderCollection[0].DateReceived, Converter={StaticResource MilitaryDateTimeConverter}}" Style="{StaticResource BoundTextBox}" IsEnabled="{Binding Path=IsWorkspaceEnabled}"></TextBox>
+                            <TextBox Name="textBoxDateTimeReceived" IsEnabled="{Binding Path=IsWorkspaceEnabled}" Style="{StaticResource BoundTextBox}"
+                                     Text="{Binding Path=AccessionOrder.SpecimenOrderCollection[0].DateReceived, Converter={StaticResource MilitaryDateTimeConverter}, UpdateSourceTrigger=PropertyChanged}"></TextBox>
 						</StackPanel>                        
                         <StackPanel Orientation="Horizontal">
                             
@@ -136,7 +139,8 @@
                         
 						<StackPanel Orientation="Horizontal">
 							<TextBlock Style="{StaticResource HeadingTextBlock}">Clinical History:</TextBlock>
-							<TextBox Style="{StaticResource BoundTextBox}" Text="{Binding Path=AccessionOrder.ClinicalHistory}" Height="30" IsEnabled="{Binding Path=IsWorkspaceEnabled}"></TextBox>
+							<TextBox Style="{StaticResource BoundTextBox}" Height="30" IsEnabled="{Binding Path=IsWorkspaceEnabled}"
+                                     Text="{Binding Path=AccessionOrder.ClinicalHistory, UpdateSourceTrigger=PropertyChanged}"></TextBox>
 						</StackPanel>
 						<StackPanel Orientation="Horizontal">
 							<TextBlock Style="{StaticResource HeadingTextBlock}">Test Performed:</TextBlock>
@@ -188,7 +192,7 @@
 
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Style="{StaticResource HeadingTextBlock}">Date Audited:</TextBlock>
-							<TextBox Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.AuditedDate}" Width="150" Margin="2,2,2,2"></TextBox>
+                            <TextBox Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.AuditedDate, UpdateSourceTrigger=PropertyChanged}" Width="150" Margin="2,2,2,2"></TextBox>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" Margin="20,5,5,5">							
@@ -245,22 +249,24 @@
 						<TextBlock Grid.Column="0" Grid.Row="8" Style="{StaticResource TextBlockHeaderRight}">Patient Type:</TextBlock>
 						<TextBlock Grid.Column="0" Grid.Row="9" Style="{StaticResource TextBlockHeaderRight}">Insurance:</TextBlock>
 						<TextBlock Grid.Column="0" Grid.Row="10" Style="{StaticResource TextBlockHeaderRight}">MR/Acct:</TextBlock>
-						<TextBlock Grid.Column="0" Grid.Row="11" Style="{StaticResource TextBlockHeaderRight}">Patient ID:</TextBlock>						
+						<TextBlock Grid.Column="0" Grid.Row="11" Style="{StaticResource TextBlockHeaderRight}">Patient ID:</TextBlock>
 
-						<TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Path=AccessionOrder.PLastNameProxy, Converter={StaticResource UpperCaseConverter}}" Style="{StaticResource TextBoxInput}" IsEnabled="{Binding Path=IsWorkspaceEnabled}"></TextBox>
-						<TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Path=AccessionOrder.PFirstNameProxy, Converter={StaticResource UpperCaseConverter}}" Style="{StaticResource TextBoxInput}" IsEnabled="{Binding Path=IsWorkspaceEnabled}"></TextBox>
-						<TextBox Grid.Column="1" Grid.Row="4" Text="{Binding Path=AccessionOrder.PMiddleInitial, Converter={StaticResource UpperCaseConverter}}" Style="{StaticResource TextBoxInput}" IsEnabled="{Binding Path=IsWorkspaceEnabled}"></TextBox>
+                        <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Path=AccessionOrder.PLastNameProxy, Converter={StaticResource UpperCaseConverter}, UpdateSourceTrigger=PropertyChanged}"
+                                 Style="{StaticResource TextBoxInput}" IsEnabled="{Binding Path=IsWorkspaceEnabled}"></TextBox>
+                        <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Path=AccessionOrder.PFirstNameProxy, Converter={StaticResource UpperCaseConverter}, UpdateSourceTrigger=PropertyChanged}"
+                                 Style="{StaticResource TextBoxInput}" IsEnabled="{Binding Path=IsWorkspaceEnabled}"></TextBox>
+                        <TextBox Grid.Column="1" Grid.Row="4" Text="{Binding Path=AccessionOrder.PMiddleInitial, Converter={StaticResource UpperCaseConverter}, UpdateSourceTrigger=PropertyChanged}"
+                                 Style="{StaticResource TextBoxInput}" IsEnabled="{Binding Path=IsWorkspaceEnabled}"></TextBox>
                         
-            <TextBox Name="textBoxPBirthdate" Grid.Column="1" 
-               Grid.Row="5" Style="{StaticResource TextBoxInput}" 
-               PreviewLostKeyboardFocus="TextBoxPBirthdate_PreviewLostKeyboardFocus" 
-               Text="{Binding Path=AccessionOrder.PBirthdate, Converter={StaticResource ShortDateConverter}}" IsEnabled="{Binding Path=IsWorkspaceEnabled}">
-            </TextBox>
+                        <TextBox Name="textBoxPBirthdate" Grid.Column="1" Grid.Row="5" Style="{StaticResource TextBoxInput}" 
+                                 PreviewLostKeyboardFocus="TextBoxPBirthdate_PreviewLostKeyboardFocus"  IsEnabled="{Binding Path=IsWorkspaceEnabled}"
+                                 Text="{Binding Path=AccessionOrder.PBirthdate, Converter={StaticResource ShortDateConverter}, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                         <ComboBox Grid.Column="1" Grid.Row="6" Text="{Binding Path=AccessionOrder.PSex}" Margin="3" Width="50" HorizontalAlignment="Left" IsEnabled="{Binding Path=IsWorkspaceEnabled}" IsEditable="True">
 							<ComboBoxItem>F</ComboBoxItem>
 							<ComboBoxItem>M</ComboBoxItem>
 						</ComboBox>
-                        <TextBox Grid.Column="1" Grid.Row="7" Text="{Binding Path=AccessionOrder.PSSN, Converter={StaticResource SocialSecurityNumberConverter}}" Style="{StaticResource TextBoxInput}" IsEnabled="{Binding Path=IsWorkspaceEnabled}"></TextBox>
+                        <TextBox Grid.Column="1" Grid.Row="7" Style="{StaticResource TextBoxInput}" IsEnabled="{Binding Path=IsWorkspaceEnabled}"
+                                 Text="{Binding Path=AccessionOrder.PSSN, Converter={StaticResource SocialSecurityNumberConverter}, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                         <ComboBox Grid.Column="1" Grid.Row="8" Text="{Binding Path=AccessionOrder.PatientType}" Margin="3" Width="100" HorizontalAlignment="Left" IsEnabled="{Binding Path=IsWorkspaceEnabled}" IsEditable="True">
 							<ComboBoxItem>IP</ComboBoxItem>
 							<ComboBoxItem>OP</ComboBoxItem>
@@ -276,8 +282,10 @@
                             <ComboBoxItem Content="Commercial"></ComboBoxItem>
                         </ComboBox>
 						<StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="10">
-                            <TextBox Text="{Binding Path=AccessionOrder.SvhMedicalRecord}" Style="{StaticResource TextBoxInput}" Width="75" IsEnabled="{Binding Path=IsWorkspaceEnabled}"></TextBox>
-                            <TextBox Text="{Binding Path=AccessionOrder.SvhAccount}" Style="{StaticResource TextBoxInput}" Width="75" IsEnabled="{Binding Path=IsWorkspaceEnabled}"></TextBox>
+                            <TextBox Text="{Binding Path=AccessionOrder.SvhMedicalRecord, UpdateSourceTrigger=PropertyChanged}"
+                                     Style="{StaticResource TextBoxInput}" Width="75" IsEnabled="{Binding Path=IsWorkspaceEnabled}"></TextBox>
+                            <TextBox Text="{Binding Path=AccessionOrder.SvhAccount, UpdateSourceTrigger=PropertyChanged}"
+                                     Style="{StaticResource TextBoxInput}" Width="75" IsEnabled="{Binding Path=IsWorkspaceEnabled}"></TextBox>
 						</StackPanel>
 						
 						<TextBlock Grid.Column="1" Grid.Row="11" Margin="3" Width="100" Text="{Binding Path=AccessionOrder.PatientId}" Style="{StaticResource TextBoxInput}"></TextBlock>
@@ -316,70 +324,77 @@
 
                 </TabItem>                
 				<TabItem Header="Gating" Name="tabItemFlowGating">
-                  <Grid>            
-                    <Grid.ColumnDefinitions>
-                      <ColumnDefinition></ColumnDefinition>
-                      <ColumnDefinition></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                      <RowDefinition Height="200"></RowDefinition>
-                      <RowDefinition Height="*"></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <StackPanel Grid.Column="0" Grid.Row="0">
-                      <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="10">
-                        <TextBlock VerticalAlignment="Top" FontWeight="Bold">Gating Population:</TextBlock>
-								<ComboBox Name="comboBoxGatingPopulation" Width="150" Height="20" IsEditable="True" Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.GatingPopulationV2}" VerticalAlignment="Top" IsEnabled="{Binding Path=IsWorkspaceEnabled}">
-                          <ComboBoxItem>leukocytes</ComboBoxItem>
-                          <ComboBoxItem>nucleated cells</ComboBoxItem>
-                        </ComboBox>
-                      </StackPanel>
-                    </StackPanel>
-                    <StackPanel HorizontalAlignment="Left" Name="stackPanelGatginPopulation" Grid.Column="0" Grid.Row="1">
-                      <TextBlock Style="{StaticResource GatingTextBlock}" Width="200">E-Gate: (Blast marker percentages)</TextBlock>
-                      <StackPanel Orientation="Horizontal">
-                        <TextBlock Style="{StaticResource GatingTextBlock}">CD34</TextBlock>
-								<TextBox Width="50" Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.EGateCD34Percent}" 
-                                 IsEnabled="{Binding Path=IsWorkspaceEnabled}" GotFocus="TextBoxSelect_GotFocus"></TextBox>
-                      </StackPanel>
-                      <StackPanel Orientation="Horizontal">
-                        <TextBlock Style="{StaticResource GatingTextBlock}">CD117</TextBlock>
-								<TextBox Width="50" Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.EGateCD117Percent}" 
-                                 IsEnabled="{Binding Path=IsWorkspaceEnabled}" GotFocus="TextBoxSelect_GotFocus"></TextBox>
-                      </StackPanel>
-                    </StackPanel>
-                    <StackPanel Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left">
-                      <StackPanel Orientation="Horizontal">
-                        <TextBlock Style="{StaticResource GatingTextBlock}">Cell Type</TextBlock>
-                        <TextBlock Style="{StaticResource GatingTextBlock}">Cell Count</TextBlock>
-                      </StackPanel>
-                      <StackPanel Orientation="Horizontal">
-                        <TextBlock Style="{StaticResource GatingTextBlock}">Lymphocytes</TextBlock>
-								<TextBox Width="50" IsEnabled="{Binding Path=IsWorkspaceEnabled}" Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.LymphocyteCount, Converter={StaticResource NumberConverter}}" GotFocus="TextBoxSelect_GotFocus"></TextBox>
-								<TextBlock Style="{StaticResource GatingTextBox}" Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.LymphocyteCountPercent, Converter={StaticResource GatingPercentConverter}}"></TextBlock>
-                      </StackPanel>
-                      <StackPanel Orientation="Horizontal">
-                        <TextBlock Style="{StaticResource GatingTextBlock}">Monocytes</TextBlock>
-								<TextBox Width="50" IsEnabled="{Binding Path=IsWorkspaceEnabled}" Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.MonocyteCount, Converter={StaticResource NumberConverter}}" GotFocus="TextBoxSelect_GotFocus"></TextBox>
-								<TextBlock Style="{StaticResource GatingTextBox}" Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.MonocyteCountPercent, Converter={StaticResource GatingPercentConverter}}"></TextBlock>
-                      </StackPanel>
-                      <StackPanel Orientation="Horizontal">
-                        <TextBlock Style="{StaticResource GatingTextBlock}">Myeloid</TextBlock>
-								<TextBox Width="50" IsEnabled="{Binding Path=IsWorkspaceEnabled}" Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.MyeloidCount, Converter={StaticResource NumberConverter}}" GotFocus="TextBoxSelect_GotFocus"></TextBox>
-								<TextBlock Style="{StaticResource GatingTextBox}" Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.MyeloidCountPercent, Converter={StaticResource GatingPercentConverter}}"></TextBlock>
-                      </StackPanel>
-                      <StackPanel Orientation="Horizontal">
-                        <TextBlock Style="{StaticResource GatingTextBlock}">Dim CD45/Mod SS</TextBlock>
-								<TextBox Width="50" IsEnabled="{Binding Path=IsWorkspaceEnabled}" Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.DimCD45ModSSCount, Converter={StaticResource NumberConverter}}" GotFocus="TextBoxSelect_GotFocus"></TextBox>
-								<TextBlock Style="{StaticResource GatingTextBox}" Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.DimCD45ModSSCountPercent, Converter={StaticResource GatingPercentConverter}}"></TextBlock>
-                      </StackPanel>
-                      <StackPanel Orientation="Horizontal">
-								<TextBox Width="120" Style="{StaticResource GatingTextBox}" Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.OtherName}" IsEnabled="{Binding Path=IsWorkspaceEnabled}"></TextBox>
-								<TextBox Width="50" IsEnabled="{Binding Path=IsWorkspaceEnabled}" Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.OtherCount, Converter={StaticResource NumberConverter}}" GotFocus="TextBoxSelect_GotFocus"></TextBox>
-								<TextBlock Style="{StaticResource GatingTextBox}" Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.OtherCountPercent, Converter={StaticResource PercentConverter}}"></TextBlock>
-                      </StackPanel>
-                    </StackPanel>
-                  </Grid>
-        </TabItem>
+                    <Grid>            
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="200"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.Column="0" Grid.Row="0">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="10">
+                                <TextBlock VerticalAlignment="Top" FontWeight="Bold">Gating Population:</TextBlock>
+							    <ComboBox Name="comboBoxGatingPopulation" Width="150" Height="20" IsEditable="True" Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.GatingPopulationV2}" VerticalAlignment="Top" IsEnabled="{Binding Path=IsWorkspaceEnabled}">
+                                    <ComboBoxItem>leukocytes</ComboBoxItem>
+                                    <ComboBoxItem>nucleated cells</ComboBoxItem>
+                                </ComboBox>
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel HorizontalAlignment="Left" Name="stackPanelGatginPopulation" Grid.Column="0" Grid.Row="1">
+                            <TextBlock Style="{StaticResource GatingTextBlock}" Width="200">E-Gate: (Blast marker percentages)</TextBlock>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Style="{StaticResource GatingTextBlock}">CD34</TextBlock>
+						        <TextBox Width="50" IsEnabled="{Binding Path=IsWorkspaceEnabled}" GotFocus="TextBoxSelect_GotFocus"
+                                            Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.EGateCD34Percent, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Style="{StaticResource GatingTextBlock}">CD117</TextBlock>
+						        <TextBox Width="50" IsEnabled="{Binding Path=IsWorkspaceEnabled}" GotFocus="TextBoxSelect_GotFocus"
+                                         Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.EGateCD117Percent, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Style="{StaticResource GatingTextBlock}">Cell Type</TextBlock>
+                                <TextBlock Style="{StaticResource GatingTextBlock}">Cell Count</TextBlock>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Style="{StaticResource GatingTextBlock}">Lymphocytes</TextBlock>
+					            <TextBox Width="50" IsEnabled="{Binding Path=IsWorkspaceEnabled}" GotFocus="TextBoxSelect_GotFocus"
+                                         Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.LymphocyteCount, Converter={StaticResource NumberConverter}, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+					            <TextBlock Style="{StaticResource GatingTextBox}"
+                                           Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.LymphocyteCountPercent, Converter={StaticResource GatingPercentConverter}}"></TextBlock>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Style="{StaticResource GatingTextBlock}">Monocytes</TextBlock>
+					            <TextBox Width="50" IsEnabled="{Binding Path=IsWorkspaceEnabled}" GotFocus="TextBoxSelect_GotFocus"
+                                         Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.MonocyteCount, Converter={StaticResource NumberConverter}, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+					            <TextBlock Style="{StaticResource GatingTextBox}" Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.MonocyteCountPercent, Converter={StaticResource GatingPercentConverter}}"></TextBlock>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Style="{StaticResource GatingTextBlock}">Myeloid</TextBlock>
+					            <TextBox Width="50" IsEnabled="{Binding Path=IsWorkspaceEnabled}" GotFocus="TextBoxSelect_GotFocus"
+                                         Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.MyeloidCount, Converter={StaticResource NumberConverter}, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+					            <TextBlock Style="{StaticResource GatingTextBox}" Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.MyeloidCountPercent, Converter={StaticResource GatingPercentConverter}}"></TextBlock>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Style="{StaticResource GatingTextBlock}">Dim CD45/Mod SS</TextBlock>
+                                <TextBox Width="50" IsEnabled="{Binding Path=IsWorkspaceEnabled}" GotFocus="TextBoxSelect_GotFocus"
+                                         Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.DimCD45ModSSCount, Converter={StaticResource NumberConverter}, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+						        <TextBlock Style="{StaticResource GatingTextBox}" Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.DimCD45ModSSCountPercent, Converter={StaticResource GatingPercentConverter}}"></TextBlock>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+    					        <TextBox Width="120" Style="{StaticResource GatingTextBox}" IsEnabled="{Binding Path=IsWorkspaceEnabled}"
+                                         Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.OtherName, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+    					        <TextBox Width="50" IsEnabled="{Binding Path=IsWorkspaceEnabled}" GotFocus="TextBoxSelect_GotFocus"
+                                         Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.OtherCount, Converter={StaticResource NumberConverter}, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+    					        <TextBlock Style="{StaticResource GatingTextBox}" Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.OtherCountPercent, Converter={StaticResource PercentConverter}}"></TextBlock>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                </TabItem>
 				<TabItem Header="Markers" Name="tabItemFlowCaseMarkers">
 					<Grid Background="White">
                         <Grid.ContextMenu>
@@ -417,72 +432,72 @@
 							<StackPanel Orientation="Horizontal" Margin="5">
 								<TextBlock VerticalAlignment="Center" Width="200" Style="{StaticResource GatingTextBlock}" TextAlignment="Right" Margin="2,2,2,2">Marker Panel:</TextBlock>                
 								<ComboBox Name="comboBoxMarkerPanel" Width="150" ItemsSource="{Binding Path=FlowPanelList}" Margin="2,2,2,2"
-                  DisplayMemberPath="PanelName" SelectedValuePath="PanelId" IsEnabled="{Binding Path=IsWorkspaceEnabled}">                  
-                </ComboBox>
-                <Button Name="ButtonSetMarkerPanel" Height="20" Width="100" Click="ButtonSetMarkerPanel_Click" IsEnabled="{Binding Path=IsWorkspaceEnabled}" Margin="2,2,2,2">Set Marker Panel</Button>
+                                          DisplayMemberPath="PanelName" SelectedValuePath="PanelId" IsEnabled="{Binding Path=IsWorkspaceEnabled}">                  
+                                </ComboBox>
+                                <Button Name="ButtonSetMarkerPanel" Height="20" Width="100" Click="ButtonSetMarkerPanel_Click" IsEnabled="{Binding Path=IsWorkspaceEnabled}" Margin="2,2,2,2">Set Marker Panel</Button>
 								<Button Height="20" Width="100" Click="ButtonRemoveMarker_Click" IsEnabled="{Binding Path=IsWorkspaceEnabled}" Margin="2,2,2,2">Remove Marker</Button>
 							</StackPanel>
 						</StackPanel>
 
-							<ListView Name="listViewMarkers" Grid.Column="0" Grid.Row="1" ItemsSource="{Binding Path=PanelSetOrderLeukemiaLymphoma.FlowMarkerCollection}" ScrollViewer.CanContentScroll="True" 
-								ScrollViewer.VerticalScrollBarVisibility="Visible">
-								<ListView.View>
-									<GridView AllowsColumnReorder="true">
-										<GridViewColumn Width="60" DisplayMemberBinding="{Binding Path=Name}" Header="Marker"/>
-										<GridViewColumn Header="Interpretation">
-											<GridViewColumn.CellTemplate>
-												<DataTemplate>
-													<StackPanel Orientation="Horizontal">
-														<ComboBox Width="110" Margin="3" IsEditable="True" Text="{Binding Path=InterpretationProxy}">
-															<ComboBoxItem>Normal</ComboBoxItem>
-															<ComboBoxItem>Aberrant</ComboBoxItem>
-															<ComboBoxItem>Equivocal</ComboBoxItem>
-															<ComboBoxItem>Positive</ComboBoxItem>
-															<ComboBoxItem>Negative</ComboBoxItem>
-															<ComboBoxItem>Abnormal</ComboBoxItem>
-															<ComboBoxItem>Partially Positive</ComboBoxItem>
-															<ComboBoxItem>See comment</ComboBoxItem>
-															<ComboBoxItem>???</ComboBoxItem>
-														</ComboBox>
-													</StackPanel>
-												</DataTemplate>
-											</GridViewColumn.CellTemplate>
-										</GridViewColumn>
-										<GridViewColumn Header="Intensity">
-											<GridViewColumn.CellTemplate>
-												<DataTemplate>
-													<StackPanel Orientation="Horizontal">
-														<ComboBox Width="130"  Margin="3" IsEditable="True" Text="{Binding Path=Intensity}">
-															<ComboBoxItem>Dim</ComboBoxItem>
-															<ComboBoxItem>Moderate</ComboBoxItem>
-															<ComboBoxItem>Bright</ComboBoxItem>
-															<ComboBoxItem>Heterogeneous</ComboBoxItem>
-															<ComboBoxItem>Dimmer than expected</ComboBoxItem>
-															<ComboBoxItem>Brighter than expected</ComboBoxItem>
-															<ComboBoxItem>See Comment</ComboBoxItem>
-															<ComboBoxItem>???</ComboBoxItem>
-														</ComboBox>
-													</StackPanel>
-												</DataTemplate>
-											</GridViewColumn.CellTemplate>
-										</GridViewColumn>
-										<GridViewColumn Header="Expr Yes/No/=">
-											<GridViewColumn.CellTemplate>
-												<DataTemplate>
-													<RadioButtonGroups:RadioButtonGroupMarkerExpression SelectedItem="{Binding Path=Expresses}"/>
-												</DataTemplate>
-											</GridViewColumn.CellTemplate>
-										</GridViewColumn>
-										<GridViewColumn Header="Predictive">
-											<GridViewColumn.CellTemplate>
-												<DataTemplate>
-													<CheckBox IsChecked="{Binding Path=Predictive}" Width="50" HorizontalAlignment="Center"></CheckBox>
-												</DataTemplate>
-											</GridViewColumn.CellTemplate>
-										</GridViewColumn>
-									</GridView>
-								</ListView.View>
-							</ListView>
+						<ListView Name="listViewMarkers" Grid.Column="0" Grid.Row="1" ItemsSource="{Binding Path=PanelSetOrderLeukemiaLymphoma.FlowMarkerCollection}" ScrollViewer.CanContentScroll="True" 
+							ScrollViewer.VerticalScrollBarVisibility="Visible">
+							<ListView.View>
+								<GridView AllowsColumnReorder="true">
+									<GridViewColumn Width="60" DisplayMemberBinding="{Binding Path=Name}" Header="Marker"/>
+									<GridViewColumn Header="Interpretation">
+										<GridViewColumn.CellTemplate>
+											<DataTemplate>
+												<StackPanel Orientation="Horizontal">
+													<ComboBox Width="110" Margin="3" IsEditable="True" Text="{Binding Path=InterpretationProxy}">
+														<ComboBoxItem>Normal</ComboBoxItem>
+														<ComboBoxItem>Aberrant</ComboBoxItem>
+														<ComboBoxItem>Equivocal</ComboBoxItem>
+														<ComboBoxItem>Positive</ComboBoxItem>
+														<ComboBoxItem>Negative</ComboBoxItem>
+														<ComboBoxItem>Abnormal</ComboBoxItem>
+														<ComboBoxItem>Partially Positive</ComboBoxItem>
+														<ComboBoxItem>See comment</ComboBoxItem>
+														<ComboBoxItem>???</ComboBoxItem>
+													</ComboBox>
+												</StackPanel>
+											</DataTemplate>
+										</GridViewColumn.CellTemplate>
+									</GridViewColumn>
+									<GridViewColumn Header="Intensity">
+										<GridViewColumn.CellTemplate>
+											<DataTemplate>
+												<StackPanel Orientation="Horizontal">
+													<ComboBox Width="130"  Margin="3" IsEditable="True" Text="{Binding Path=Intensity}">
+														<ComboBoxItem>Dim</ComboBoxItem>
+														<ComboBoxItem>Moderate</ComboBoxItem>
+														<ComboBoxItem>Bright</ComboBoxItem>
+														<ComboBoxItem>Heterogeneous</ComboBoxItem>
+														<ComboBoxItem>Dimmer than expected</ComboBoxItem>
+														<ComboBoxItem>Brighter than expected</ComboBoxItem>
+														<ComboBoxItem>See Comment</ComboBoxItem>
+														<ComboBoxItem>???</ComboBoxItem>
+													</ComboBox>
+												</StackPanel>
+											</DataTemplate>
+										</GridViewColumn.CellTemplate>
+									</GridViewColumn>
+									<GridViewColumn Header="Expr Yes/No/=">
+										<GridViewColumn.CellTemplate>
+											<DataTemplate>
+												<RadioButtonGroups:RadioButtonGroupMarkerExpression SelectedItem="{Binding Path=Expresses}"/>
+											</DataTemplate>
+										</GridViewColumn.CellTemplate>
+									</GridViewColumn>
+									<GridViewColumn Header="Predictive">
+										<GridViewColumn.CellTemplate>
+											<DataTemplate>
+												<CheckBox IsChecked="{Binding Path=Predictive}" Width="50" HorizontalAlignment="Center"></CheckBox>
+											</DataTemplate>
+										</GridViewColumn.CellTemplate>
+									</GridViewColumn>
+								</GridView>
+							</ListView.View>
+						</ListView>
 
 					</Grid>		
 				</TabItem>				
@@ -514,9 +529,9 @@
 							</ComboBox>
 						</StackPanel>
 						<TextBlock FontWeight="Bold" Margin="5">Interpretive Comment:</TextBlock>
-						<TextBox Name="textBoxInteretiveComment" Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.InterpretiveComment}" TextWrapping="Wrap" MinHeight="100" AcceptsReturn="True" IsEnabled="{Binding Path=IsWorkspaceEnabled}"></TextBox>
+                        <TextBox Name="textBoxInteretiveComment" Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.InterpretiveComment, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" MinHeight="100" AcceptsReturn="True" IsEnabled="{Binding Path=IsWorkspaceEnabled}"></TextBox>
 						<TextBlock FontWeight="Bold" Margin="5">Impression:</TextBlock>
-						<TextBox Name="textBoxImpression" Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.Impression}" TextWrapping="Wrap" MinHeight="100" AcceptsReturn="True" IsEnabled="{Binding Path=IsWorkspaceEnabled}"></TextBox>
+                        <TextBox Name="textBoxImpression" Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.Impression, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" MinHeight="100" AcceptsReturn="True" IsEnabled="{Binding Path=IsWorkspaceEnabled}"></TextBox>
                         
 						<StackPanel Orientation="Horizontal" HorizontalAlignment="Left">							
 							<Button Height="25" VerticalAlignment="Top" Click="ButtonCreateComment_Click" IsEnabled="{Binding Path=IsWorkspaceEnabled}" Margin="2,2,2,2">Create Comment</Button>
@@ -541,30 +556,30 @@
 							<RowDefinition Height="80"></RowDefinition>
 						</Grid.RowDefinitions>
 
-            <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
-            <ListView Name="ListViewICD9BillingCodeCollection" ItemsSource="{Binding Path=ICD9BillingCodeCollection}" IsSynchronizedWithCurrentItem="True">
-                <ListView.View>
-                  <GridView>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=ICD9Code}" Header="ICD9 Code" Width="100"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=ICD10Code}" Header="ICD10 Code" Width="100"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Quantity}" Header="Quantity" Width="100"/>
-                  </GridView>
-                </ListView.View>
-              </ListView>
-              <ListView Name="ListViewICDCodes" ItemsSource="{Binding Source={StaticResource ICDCodes}, XPath=ICDCode}" MouseDoubleClick="ListICDCode_MouseDoubleClick">
-                <ListView.View>
-                  <GridView>
-                    <GridViewColumn DisplayMemberBinding="{Binding XPath=@ICD9}" Header="ICD9 Code" Width="100"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding XPath=@ICD10}" Header="ICD10 Code" Width="100"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding XPath=@Description}" Header="Description" Width="400"/>                  
-                  </GridView>
-                </ListView.View>
-              </ListView>
-            </StackPanel>
+                        <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
+                            <ListView Name="ListViewICD9BillingCodeCollection" ItemsSource="{Binding Path=ICD9BillingCodeCollection}" IsSynchronizedWithCurrentItem="True">
+                                <ListView.View>
+                                  <GridView>
+                                    <GridViewColumn DisplayMemberBinding="{Binding Path=ICD9Code}" Header="ICD9 Code" Width="100"/>
+                                    <GridViewColumn DisplayMemberBinding="{Binding Path=ICD10Code}" Header="ICD10 Code" Width="100"/>
+                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Quantity}" Header="Quantity" Width="100"/>
+                                  </GridView>
+                                </ListView.View>
+                              </ListView>
+                              <ListView Name="ListViewICDCodes" ItemsSource="{Binding Source={StaticResource ICDCodes}, XPath=ICDCode}" MouseDoubleClick="ListICDCode_MouseDoubleClick">
+                                <ListView.View>
+                                  <GridView>
+                                    <GridViewColumn DisplayMemberBinding="{Binding XPath=@ICD9}" Header="ICD9 Code" Width="100"/>
+                                    <GridViewColumn DisplayMemberBinding="{Binding XPath=@ICD10}" Header="ICD10 Code" Width="100"/>
+                                    <GridViewColumn DisplayMemberBinding="{Binding XPath=@Description}" Header="Description" Width="400"/>                  
+                                  </GridView>
+                                </ListView.View>
+                              </ListView>
+                        </StackPanel>
             
-            <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Horizontal">              
-              <Button VerticalAlignment="Top" Width="200" Style="{StaticResource NormalButton}" Click="ButtonRemoveICDCode_Click">Remove ICD Code</Button>
-            </StackPanel>
+                        <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Horizontal">              
+                          <Button VerticalAlignment="Top" Width="200" Style="{StaticResource NormalButton}" Click="ButtonRemoveICDCode_Click">Remove ICD Code</Button>
+                        </StackPanel>
 					</Grid>
 				</TabItem>								
                 <TabItem Header="Tech Final">
@@ -602,7 +617,7 @@
                     <TextBlock HorizontalAlignment="Right" Grid.Column="0" Grid.Row="5" Style="{StaticResource HeadingTextBlock}">Test Canceled:</TextBlock>
 						<CheckBox Name="CheckBoxTestCancelled" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="5" IsChecked="{Binding Path=PanelSetOrderLeukemiaLymphoma.TestCancelled}"></CheckBox>
 						<TextBlock HorizontalAlignment="Right" Grid.Column="0" Grid.Row="6" Style="{StaticResource HeadingTextBlock}">Comment:</TextBlock>
-						<TextBox HorizontalAlignment="Left" Grid.Column="1" Grid.Row="6" Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.TestCancelledComment}" Width="400" TextWrapping="Wrap" TextAlignment="Left"                                   
+                        <TextBox HorizontalAlignment="Left" Grid.Column="1" Grid.Row="6" Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.TestCancelledComment, UpdateSourceTrigger=PropertyChanged}" Width="400" TextWrapping="Wrap" TextAlignment="Left"                                   
                                  IsEnabled="{Binding Path=IsWorkspaceEnabled}"></TextBox>
                     <StackPanel Grid.Column="1" Grid.Row="7" Orientation="Horizontal">
                         
@@ -610,7 +625,7 @@
                       <Button HorizontalAlignment="Left" Name="buttonTechUnfinal" Click="ButtonTechUnfinal_Click" Height="25" Width="100" Margin="2,2,2,2">Tech Unfinal</Button>                            
                         </StackPanel>
 
-						<TextBox Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.ReportComment}" TextWrapping="Wrap" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></TextBox>
+                        <TextBox Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.ReportComment, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></TextBox>
               
                   </Grid>
                 </TabItem>
@@ -642,7 +657,7 @@
             <TextBlock HorizontalAlignment="Right" Grid.Column="0" Grid.Row="5" Style="{StaticResource HeadingTextBlock}">Test Canceled:</TextBlock>
 						<CheckBox HorizontalAlignment="Left" Grid.Column="1" Grid.Row="5" IsChecked="{Binding Path=PanelSetOrderLeukemiaLymphoma.TestCancelled}" IsEnabled="{Binding Path=IsWorkspaceEnabled}"></CheckBox>
             <TextBlock HorizontalAlignment="Right" Grid.Column="0" Grid.Row="6" Style="{StaticResource HeadingTextBlock}">Comment:</TextBlock>
-						<TextBox HorizontalAlignment="Left" Grid.Column="1" Grid.Row="6" Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.TestCancelledComment}" Width="400" TextWrapping="Wrap" TextAlignment="Left" IsEnabled="{Binding Path=IsWorkspaceEnabled}"></TextBox>
+                        <TextBox HorizontalAlignment="Left" Grid.Column="1" Grid.Row="6" Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.TestCancelledComment, UpdateSourceTrigger=PropertyChanged}" Width="400" TextWrapping="Wrap" TextAlignment="Left" IsEnabled="{Binding Path=IsWorkspaceEnabled}"></TextBox>
             
             <StackPanel Grid.Column="1" Grid.Row="4" Orientation="Horizontal">
 							<TextBlock Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.Signature}" Style="{StaticResource HeadingTextBlock}" TextAlignment="Left" Width="200"></TextBlock>
@@ -696,7 +711,7 @@
                     </ListView>
 
                         <TextBlock Grid.Column="0" Grid.Row="2" FontWeight="Bold" Margin="2,2,2,2">Report Comment:</TextBlock>
-						<TextBox Name="TextBoxReportComment" Grid.Column="0" Grid.Row="3" Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.ReportComment}" 
+                        <TextBox Name="TextBoxReportComment" Grid.Column="0" Grid.Row="3" Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.ReportComment, UpdateSourceTrigger=PropertyChanged}" 
                                  HorizontalAlignment="Stretch" Height="100" AcceptsReturn="True" Margin="2,2,2,2"></TextBox>
                     </Grid>          
                 </TabItem>
