@@ -25,6 +25,7 @@
                     <ICDCode ICD9="206.10" ICD10="C93.10" Description="Chronic myelomonocytic leukemia not having achieved remission" />
                     <ICDCode ICD9="238.76" ICD10="D47.1" Description="Chronic myeloproliferative disease" />
                     <ICDCode ICD9="204.10" ICD10="C91.10" Description="Chronic lymphocytic leukemia of B-cell type not having achieved remission" />
+                    <ICDCode ICD9="" ICD10="C91.40" Description="Harry cell leukemia not having achieved remission" />
                     <ICDCode ICD9="288.50" ICD10="D74.819" Description="Decreased white blood cell count, unspecified" /> ease" />
                     <ICDCode ICD9="200.70" ICD10="C83.39" Description="Diffuse large B-cell lymphoma, extranodal and solid organ sites" />
                     <ICDCode ICD9="288.60" ICD10="D72.829" Description="Elevated white blood cell count, unspecified" />

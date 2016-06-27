@@ -1000,10 +1000,8 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
-            Business.Billing.Model.CptCodeCollection result = Business.Billing.Model.CptCodeCollection.Instance;
-            result.WriteToRedis();
-
-            Business.Billing.Model.CptCodeCollection result1 = Business.Billing.Model.CptCodeCollection.BuildFromRedis();
+            Business.MySQLDatabaseBuilder builder = new Business.MySQLDatabaseBuilder();
+            builder.Build();
         }        
 
         private string CallBackOne(string x)

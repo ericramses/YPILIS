@@ -307,9 +307,9 @@ namespace YellowstonePathology.Business.Gateway
 #else
 			List<YellowstonePathology.Business.Test.PanelSetOrderView> result = new List<Test.PanelSetOrderView>();
 			SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "Select * from tblPanelSetOrder pso where pso.Final = 1 and pso.ScheduledPublishTime <= getdate() union " +
+            cmd.CommandText = "Select * from tblPanelSetOrder pso where pso.Final = 1 and pso.finalTime < dateAdd(mi, -15, getdate()) and pso.ScheduledPublishTime <= getdate() union " +
                 "Select pso.* from tblPanelSetOrder pso join tblTestOrderReportDistribution trd on pso.ReportNo = trd.ReportNo " +
-		        "where pso.Final = 1 and trd.ScheduledDistributionTime <= getdate() and pso.Distribute = 1";
+                "where pso.Final = 1 and pso.finalTime < dateAdd(mi, -15, getdate()) and trd.ScheduledDistributionTime <= getdate() and pso.Distribute = 1";
 			cmd.CommandType = CommandType.Text;
 
 			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
@@ -2175,8 +2175,8 @@ namespace YellowstonePathology.Business.Gateway
 	            "from tblAccessionOrder ao " +
 		        "join tblPanelSetOrder pso on ao.MasterAccessionNo = pso.MasterAccessionNo " +
 		        "join tblTestOrderReportDistribution trd on pso.ReportNo = trd.ReportNo " +
-			    "where pso.Distribute = 1 and pso.Final = 1 and trd.[Distributed] = 0 " +
-				"Order By datediff(mi, pso.FinalTime, getdate()) desc";
+                "where pso.Distribute = 1 and pso.Final = 1 and pso.finalTime < dateAdd(mi, -15, getdate()) and trd.[Distributed] = 0 and trd.ScheduledDistributionTime is not null " +
+				"Order By trd.ScheduledDistributionTime";
 
 			cmd.CommandType = CommandType.Text;
 
@@ -2734,7 +2734,7 @@ namespace YellowstonePathology.Business.Gateway
                 "from tblAmendment a " +
                 "join tblTestOrderReportDistribution trd on a.ReportNo = trd.ReportNo " +
                 "join tblPanelSetOrder pso on trd.ReportNo = pso.ReportNo " +
-                "where trd.TimeOfLastDistribution < a.finalTime and trd.ScheduledDistributionTime is null";
+                "where trd.TimeOfLastDistribution < a.finalTime and trd.ScheduledDistributionTime is null and a.finalTime < dateAdd(mi, -15, getdate())";
 
             cmd.CommandType = CommandType.Text;
             using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
@@ -2758,9 +2758,10 @@ namespace YellowstonePathology.Business.Gateway
             List<Business.MasterAccessionNo> result = new List<Business.MasterAccessionNo>();
 
             SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "Select distinct MasterAccessionNo from tblPanelSetOrder pso where final = 1 and distribute = 1 and not exists (Select * from tblTestOrderReportDistribution where reportNo = pso.ReportNo)";
-
+            //cmd.CommandText = "Select distinct MasterAccessionNo from tblPanelSetOrder pso where final = 1 and distribute = 1 and not exists (Select * from tblTestOrderReportDistribution where reportNo = pso.ReportNo)";
+            cmd.CommandText = "Select distinct MasterAccessionNo from tblPanelSetOrder pso where final = 1 and pso.finalTime < dateAdd(mi, -15, getdate()) and distribute = 1 and not exists (Select * from tblTestOrderReportDistribution where reportNo = pso.ReportNo)";
             cmd.CommandType = CommandType.Text;
+
             using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
@@ -2784,7 +2785,7 @@ namespace YellowstonePathology.Business.Gateway
             SqlCommand cmd = new SqlCommand();
             cmd.CommandText = "Select distinct pso.MasterAccessionNo from tblTestOrderReportDistribution tor	" +
                 "join tblPanelSetOrder pso on tor.ReportNo = pso.ReportNo " +
-                "where tor.[Distributed] = 0 and tor.ScheduledDistributionTime is null and pso.Final = 1 and pso.Distribute = 1 and pso.HoldDistribution = 0";
+                "where tor.[Distributed] = 0 and tor.ScheduledDistributionTime is null and pso.Final = 1 and pso.finalTime < dateAdd(mi, -15, getdate()) and pso.Distribute = 1 and pso.HoldDistribution = 0";
 
             cmd.CommandType = CommandType.Text;
             using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
@@ -2808,7 +2809,7 @@ namespace YellowstonePathology.Business.Gateway
             List<Business.MasterAccessionNo> result = new List<Business.MasterAccessionNo>();
 
             SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "Select Distinct MasterAccessionNo from tblPanelSetOrder pso where pso.Final = 1 and pso.ScheduledPublishTime is null and pso.Published = 0";
+            cmd.CommandText = "Select Distinct MasterAccessionNo from tblPanelSetOrder pso where pso.Final = 1 and pso.finalTime < dateAdd(mi, -15, getdate()) and pso.ScheduledPublishTime is null and pso.Published = 0";
 
             cmd.CommandType = CommandType.Text;
             using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))

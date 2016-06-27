@@ -161,7 +161,7 @@ namespace YellowstonePathology.Business.Monitor.Model
             if (this.Distributed == true)
             {
                 this.m_State = "Normal";
-            }
+            }            
             else if (this.m_MinutesSinceScheduled < MinutesSinceScheduledThreshold)
             {
                 this.m_State = "Warning";

@@ -23,7 +23,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         public AccessionLock(HashEntry[] hashEntries)
-        {
+        {            
             this.m_MasterAccessionNo = hashEntries[0].Value;
             this.m_Address = hashEntries[1].Value;
             this.m_TimeAquired = DateTime.Parse(hashEntries[2].Value);            

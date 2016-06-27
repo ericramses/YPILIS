@@ -167,6 +167,7 @@ namespace YellowstonePathology.UI.Surgical
 
         private void ButtonSignature_Click(object sender, RoutedEventArgs args)
         {
+            /*
             if ((Business.User.SystemIdentity.Instance.User.UserId == 5102 ||
                 Business.User.SystemIdentity.Instance.User.UserId == 5111 ||
                 Business.User.SystemIdentity.Instance.User.UserId == 5129 ||
@@ -175,6 +176,11 @@ namespace YellowstonePathology.UI.Surgical
             {
                 this.TestSignout();
             }
+            */
+
+            this.TestSignout();
+
+            /*
             else
             {
                 if (this.FindNonASCIICharacters().Length == 0)
@@ -208,6 +214,7 @@ namespace YellowstonePathology.UI.Surgical
                     MessageBox.Show("The cancer case summary contains special characters.  These must be removed before signing.");
                 }
             }
+            */
         }        
 
         private void ButtonSignAmendment_Click(object sender, RoutedEventArgs args)

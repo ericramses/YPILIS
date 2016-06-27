@@ -19,13 +19,14 @@ namespace YellowstonePathology.Business.User
 		int m_UserId;
 		string m_FirstName;
 		string m_LastName;
+        string m_MiddleInitial;
 		string m_DisplayName;
 		string m_UserName;
 		bool m_Active;
 		private string m_Signature;
 		string m_Initials;
         string m_NationalProviderId;
-        string m_EmailAddress;
+        string m_EmailAddress;        
 
 		SystemUserRoleCollection m_SystemUserRoleCollection;
 
@@ -83,7 +84,21 @@ namespace YellowstonePathology.Business.User
 			}
 		}
 
-		[PersistentProperty()]
+        [PersistentProperty()]
+        public string MiddleInitial
+        {
+            get { return this.m_MiddleInitial; }
+            set
+            {
+                if (this.m_MiddleInitial != value)
+                {
+                    this.m_MiddleInitial = value;
+                    this.NotifyPropertyChanged("MiddleInitial");
+                }
+            }
+        }
+
+        [PersistentProperty()]
 		public string DisplayName
 		{
 			get { return this.m_DisplayName; }
