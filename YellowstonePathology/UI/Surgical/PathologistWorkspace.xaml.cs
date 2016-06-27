@@ -72,15 +72,14 @@ namespace YellowstonePathology.UI.Surgical
 
 		private void PathologistWorkspace_Loaded(object sender, RoutedEventArgs e)
 		{
-			this.m_MainWindowCommandButtonHandler.Save += new MainWindowCommandButtonHandler.SaveEventHandler(MainWindowCommandButtonHandler_Save);
-			this.m_MainWindowCommandButtonHandler.ShowCaseDocument += new MainWindowCommandButtonHandler.ShowCaseDocumentEventHandler(MainWindowCommandButtonHandler_ShowCaseDocument);
-			this.m_MainWindowCommandButtonHandler.ShowOrderForm += new EventHandler(MainWindowCommandButtonHandler_ShowOrderForm);			
-			this.m_MainWindowCommandButtonHandler.AssignCase += new EventHandler(MainWindowCommandButtonHandler_AssignCase);			
-            this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath += new MainWindowCommandButtonHandler.StartProviderDistributionPathEventHandler(MainWindowCommandButtonHandler_StartProviderDistributionPath);
+			this.m_MainWindowCommandButtonHandler.Save += MainWindowCommandButtonHandler_Save;
+			this.m_MainWindowCommandButtonHandler.ShowCaseDocument += MainWindowCommandButtonHandler_ShowCaseDocument;
+            this.m_MainWindowCommandButtonHandler.ShowOrderForm += MainWindowCommandButtonHandler_ShowOrderForm;			
+			this.m_MainWindowCommandButtonHandler.AssignCase += MainWindowCommandButtonHandler_AssignCase;			
+            this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath += MainWindowCommandButtonHandler_StartProviderDistributionPath;
             this.m_MainWindowCommandButtonHandler.ShowAmendmentDialog += MainWindowCommandButtonHandler_ShowAmendmentDialog;
-            this.m_MainWindowCommandButtonHandler.Refresh += MainWindowCommandButtonHandler_Refresh;
-            this.m_MainWindowCommandButtonHandler.RemoveTab += new MainWindowCommandButtonHandler.RemoveTabEventHandler(MainWindowCommandButtonHandler_RemoveTab);
-            this.m_MainWindowCommandButtonHandler.ShowMessagingDialog += new MainWindowCommandButtonHandler.ShowMessagingDialogEventHandler(MainWindowCommandButtonHandler_ShowMessagingDialog);
+            this.m_MainWindowCommandButtonHandler.RemoveTab += MainWindowCommandButtonHandler_RemoveTab;
+            this.m_MainWindowCommandButtonHandler.ShowMessagingDialog += MainWindowCommandButtonHandler_ShowMessagingDialog;
 
             UI.AppMessaging.MessagingPath.Instance.LockReleasedActionList.Add(this.ReleaseLock);
             UI.AppMessaging.MessagingPath.Instance.LockAquiredActionList.Add(this.m_PathologistUI.RunWorkspaceEnableRules);
@@ -130,10 +129,8 @@ namespace YellowstonePathology.UI.Surgical
 			this.m_MainWindowCommandButtonHandler.ShowCaseDocument -= MainWindowCommandButtonHandler_ShowCaseDocument;
 			this.m_MainWindowCommandButtonHandler.ShowOrderForm -= MainWindowCommandButtonHandler_ShowOrderForm;
 			this.m_MainWindowCommandButtonHandler.AssignCase -= MainWindowCommandButtonHandler_AssignCase;						
-
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath -= MainWindowCommandButtonHandler_StartProviderDistributionPath;
             this.m_MainWindowCommandButtonHandler.ShowAmendmentDialog -= MainWindowCommandButtonHandler_ShowAmendmentDialog;
-            this.m_MainWindowCommandButtonHandler.Refresh -= MainWindowCommandButtonHandler_Refresh;
             this.m_MainWindowCommandButtonHandler.RemoveTab -= MainWindowCommandButtonHandler_RemoveTab;
             this.m_MainWindowCommandButtonHandler.ShowMessagingDialog -= MainWindowCommandButtonHandler_ShowMessagingDialog;
 
@@ -143,11 +140,6 @@ namespace YellowstonePathology.UI.Surgical
             this.m_PathologistUI.PropertyChanged -= PathologistUI_PropertyChanged;
 
             YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
-        }
-
-        private void MainWindowCommandButtonHandler_Refresh(object sender, EventArgs e)
-        {
-
         }
 
         private void MainWindowCommandButtonHandler_Save(object sender, EventArgs e)
@@ -220,7 +212,7 @@ namespace YellowstonePathology.UI.Surgical
 
 		private void MainWindowCommandButtonHandler_ShowAmendmentDialog(object sender, EventArgs e)
 		{
-			if (this.m_PathologistUI.AccessionOrder.AccessionLock.IsLockAquiredByMe == true)
+			if (this.m_PathologistUI.AccessionOrder != null && this.m_PathologistUI.AccessionOrder.AccessionLock.IsLockAquiredByMe == true)
 			{
 				this.m_PathologistUI.ShowAmendmentDialog();
             }
@@ -278,10 +270,10 @@ namespace YellowstonePathology.UI.Surgical
 
 		public void ShowCaseDocument()
 		{
-			//this.Save();
-			if (this.ListViewSearchResults.SelectedItem != null)
-			{
-				YellowstonePathology.Business.Search.PathologistSearchResult item = (YellowstonePathology.Business.Search.PathologistSearchResult)this.ListViewSearchResults.SelectedItem;
+            //this.Save();
+            if (this.ListViewSearchResults.SelectedItem != null)
+            {
+                YellowstonePathology.Business.Search.PathologistSearchResult item = (YellowstonePathology.Business.Search.PathologistSearchResult)this.ListViewSearchResults.SelectedItem;
 				YellowstonePathology.UI.CaseDocumentViewer caseDocumentViewer = new CaseDocumentViewer();				
                 caseDocumentViewer.View(this.m_PathologistUI.AccessionOrder, this.m_PathologistUI.PanelSetOrder);
             }

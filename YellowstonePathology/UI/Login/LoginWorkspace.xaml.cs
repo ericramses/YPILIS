@@ -20,8 +20,6 @@ namespace YellowstonePathology.UI.Login
     /// </summary>
     public partial class LoginWorkspace : UserControl
     {
-        public CommandBinding CommandBindingRemoveTab;
-
         private YellowstonePathology.UI.DocumentWorkspace m_DocumentViewer;
 
         private LoginUIV2 m_LoginUI;
@@ -37,9 +35,6 @@ namespace YellowstonePathology.UI.Login
             this.m_MainWindowCommandButtonHandler = mainWindowCommandButtonHandler;
             this.m_LoadedHasRun = false;
             this.m_Writer = writer;
-
-            this.CommandBindingRemoveTab = new CommandBinding(MainWindow.RemoveTabCommand, RemoveTab);
-            this.CommandBindings.Add(this.CommandBindingRemoveTab);
 
             this.m_LoginUI = new LoginUIV2(this.m_Writer);
             this.m_DocumentViewer = new DocumentWorkspace();
@@ -64,12 +59,11 @@ namespace YellowstonePathology.UI.Login
                 this.m_BarcodeScanPort.HistologySlideScanReceived += new Business.BarcodeScanning.BarcodeScanPort.HistologySlideScanReceivedHandler(BarcodeScanPort_HistologySlideScanReceived);
                 this.m_BarcodeScanPort.AliquotOrderIdReceived += BarcodeScanPort_AliquotOrderIdReceived;
 
-                this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath += new MainWindowCommandButtonHandler.StartProviderDistributionPathEventHandler(MainWindowCommandButtonHandler_StartProviderDistributionPath);
-                this.m_MainWindowCommandButtonHandler.Save += new MainWindowCommandButtonHandler.SaveEventHandler(MainWindowCommandButtonHandler_Save);
+                this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath += MainWindowCommandButtonHandler_StartProviderDistributionPath;
+                this.m_MainWindowCommandButtonHandler.Save += MainWindowCommandButtonHandler_Save;
                 this.m_MainWindowCommandButtonHandler.ShowAmendmentDialog += MainWindowCommandButtonHandler_ShowAmendmentDialog;
-                this.m_MainWindowCommandButtonHandler.Refresh += new MainWindowCommandButtonHandler.RefreshEventHandler(MainWindowCommandButtonHandler_Refresh);
-                this.m_MainWindowCommandButtonHandler.RemoveTab += new MainWindowCommandButtonHandler.RemoveTabEventHandler(MainWindowCommandButtonHandler_RemoveTab);
-                this.m_MainWindowCommandButtonHandler.ShowMessagingDialog += new MainWindowCommandButtonHandler.ShowMessagingDialogEventHandler(MainWindowCommandButtonHandler_ShowMessagingDialog);
+                this.m_MainWindowCommandButtonHandler.RemoveTab += MainWindowCommandButtonHandler_RemoveTab;
+                this.m_MainWindowCommandButtonHandler.ShowMessagingDialog += MainWindowCommandButtonHandler_ShowMessagingDialog;
 
                 UI.AppMessaging.MessagingPath.Instance.LockReleasedActionList.Add(this.Save);
                 UI.AppMessaging.MessagingPath.Instance.LockAquiredActionList.Add(this.HandleAccessionOrderListChange);
@@ -81,11 +75,6 @@ namespace YellowstonePathology.UI.Login
         private void MainWindowCommandButtonHandler_RemoveTab(object sender, EventArgs e)
         {
             Business.Persistence.DocumentGateway.Instance.Push(this.m_Writer);            
-        }
-
-        private void MainWindowCommandButtonHandler_Refresh(object sender, EventArgs e)
-        {
-
         }
 
         private void MainWindowCommandButtonHandler_ShowMessagingDialog(object sender, EventArgs e)
@@ -167,7 +156,6 @@ namespace YellowstonePathology.UI.Login
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath -= MainWindowCommandButtonHandler_StartProviderDistributionPath;
             this.m_MainWindowCommandButtonHandler.Save -= MainWindowCommandButtonHandler_Save;
             this.m_MainWindowCommandButtonHandler.ShowAmendmentDialog -= MainWindowCommandButtonHandler_ShowAmendmentDialog;
-            this.m_MainWindowCommandButtonHandler.Refresh -= MainWindowCommandButtonHandler_Refresh;
             this.m_MainWindowCommandButtonHandler.RemoveTab -= MainWindowCommandButtonHandler_RemoveTab;
             this.m_MainWindowCommandButtonHandler.ShowMessagingDialog -= MainWindowCommandButtonHandler_ShowMessagingDialog;
 
@@ -175,11 +163,6 @@ namespace YellowstonePathology.UI.Login
             UI.AppMessaging.MessagingPath.Instance.LockAquiredActionList.Remove(this.HandleAccessionOrderListChange);
 
             YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
-        }
-
-        public void RemoveTab(object target, ExecutedRoutedEventArgs args)
-        {
-
         }
 
         private void ButtonSearch_Click(object sender, RoutedEventArgs e)

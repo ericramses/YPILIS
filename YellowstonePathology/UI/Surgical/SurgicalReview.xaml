@@ -117,7 +117,7 @@
 				</StackPanel>
 
 				<TextBox Name="TextBoxAmendment" Grid.Row="1" Grid.Column="0" Margin="2" TextWrapping="Wrap" AcceptsReturn="True" RequestBringIntoView="Any_RequestBringIntoView"
-						 FontSize="12" Text="{Binding Path=Text}" KeyUp="TextBox_KeyUp" IsEnabled="{Binding ElementName=SurgicalReviewControl, Path=DataContext.FieldEnabler.IsProtectedEnabled}">
+						 FontSize="12" Text="{Binding Path=Text, UpdateSourceTrigger=PropertyChanged}" KeyUp="TextBox_KeyUp" IsEnabled="{Binding ElementName=SurgicalReviewControl, Path=DataContext.FieldEnabler.IsProtectedEnabled}">
 				</TextBox>
 
 				<Button Margin="2,2,2,2" Height="24" Width="200" HorizontalAlignment="Left" ToolTip="Delete Amendment"  Grid.Column="0" Grid.Row="2"
@@ -158,9 +158,9 @@
 						  Text="{Binding Path=Result}" Margin="3" HorizontalAlignment="Stretch"
 						  IsEnabled="{Binding ElementName=SurgicalReviewControl, Path=DataContext.FieldEnabler.IsProtectedEnabled}" IsEditable="True" >
                 </ComboBox>
-				<TextBox Grid.Column="3" Margin="2,2,2,2" VerticalAlignment="Center" Text="{Binding Path=ReportComment}" HorizontalAlignment="Stretch"
+                <TextBox Grid.Column="3" Margin="2,2,2,2" VerticalAlignment="Center" Text="{Binding Path=ReportComment, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch"
 						 IsEnabled="{Binding ElementName=SurgicalReviewControl, Path=DataContext.FieldEnabler.IsProtectedEnabled}" KeyUp="TextBox_KeyUp"></TextBox>
-                <TextBox  Grid.Column="4" Margin="2,2,2,2" Width="100" VerticalAlignment="Center" Text="{Binding Path=ProcedureComment}" HorizontalAlignment="Stretch"
+                <TextBox  Grid.Column="4" Margin="2,2,2,2" Width="100" VerticalAlignment="Center" Text="{Binding Path=ProcedureComment, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch"
 						 IsEnabled="{Binding ElementName=SurgicalReviewControl, Path=DataContext.FieldEnabler.IsProtectedEnabled}"></TextBox>
                                 
                 <CheckBox Grid.Column="5" Margin="2,2,2,2" VerticalAlignment="Center" IsChecked="{Binding Path=NoCharge}" ToolTip="No Charge"></CheckBox>
@@ -196,10 +196,10 @@
 
 				<StackPanel Grid.Column="1" Grid.Row="0">
 					<StackPanel Orientation="Horizontal">
-						<TextBox Margin="2,0,2,0" Width="20" MinWidth="20" MaxWidth="20" HorizontalAlignment="Left" Text="{Binding Path=Quantity}"
+                        <TextBox Margin="2,0,2,0" Width="20" MinWidth="20" MaxWidth="20" HorizontalAlignment="Left" Text="{Binding Path=Quantity, UpdateSourceTrigger=PropertyChanged}"
 								 IsEnabled="{Binding ElementName=SurgicalReviewControl, Path=DataContext.FieldEnabler.IsUnprotectedEnabled}">
 						</TextBox>
-						<TextBox Margin="2,0,2,0" Width="50" MinWidth="50" MaxWidth="50" HorizontalAlignment="Left" Text="{Binding Path=CPTCode}"
+                        <TextBox Margin="2,0,2,0" Width="50" MinWidth="50" MaxWidth="50" HorizontalAlignment="Left" Text="{Binding Path=CPTCode, UpdateSourceTrigger=PropertyChanged}"
 								 IsEnabled="{Binding ElementName=SurgicalReviewControl, Path=DataContext.FieldEnabler.IsUnprotectedEnabled}">
 						</TextBox>						
 						<Button Margin="2,0,2,0" Height="15" Width="15" HorizontalAlignment="Left" ToolTip="Delete Code"
@@ -225,10 +225,10 @@
 				</Grid.RowDefinitions>
 
 				<StackPanel Grid.Column="1" Grid.Row="0" Orientation="Horizontal">
-					<TextBox Margin="2,0,2,0" Width="20" MinWidth="20" MaxWidth="20" HorizontalAlignment="Left" Text="{Binding Path=Quantity}"
+                    <TextBox Margin="2,0,2,0" Width="20" MinWidth="20" MaxWidth="20" HorizontalAlignment="Left" Text="{Binding Path=Quantity, UpdateSourceTrigger=PropertyChanged}"
 						 IsEnabled="{Binding ElementName=SurgicalReviewControl, Path=DataContext.FieldEnabler.IsUnprotectedEnabled}">
 					</TextBox>
-					<TextBox Margin="2,0,2,0" Width="50" MinWidth="50" MaxWidth="50" Text="{Binding Path=ICD9Code}" HorizontalAlignment="Left"
+                    <TextBox Margin="2,0,2,0" Width="50" MinWidth="50" MaxWidth="50" Text="{Binding Path=ICD9Code, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"
 						IsEnabled="{Binding ElementName=SurgicalReviewControl, Path=DataContext.FieldEnabler.IsUnprotectedEnabled}">
 					</TextBox>
 					<Button Margin="2,0,2,0" Height="15" Width="15" HorizontalAlignment="Left" ToolTip="Delete Code"
@@ -305,7 +305,7 @@
 				</TextBlock>
 
 				<TextBox Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch" Height="75" Margin="2,2,2,2" AcceptsReturn="True" TextWrapping="Wrap" KeyUp="TextBox_KeyUp"
-						 Text="{Binding Path=Result}" 
+						 Text="{Binding Path=Result, UpdateSourceTrigger=PropertyChanged}" 
 						 IsEnabled="{Binding ElementName=SurgicalReviewControl, Path=DataContext.FieldEnabler.IsProtectedEnabled}">
 				</TextBox>
 
@@ -318,11 +318,11 @@
 							  IsEnabled="{Binding ElementName=SurgicalReviewControl, Path=DataContext.FieldEnabler.IsUnprotectedEnabled}">
 					</ComboBox>
 
-					<TextBox Text="{Binding Path=StartDate, Converter={StaticResource MilitaryDateTimeConverter}}" Width="125" HorizontalAlignment="Stretch" Height="20" Margin="2,2,2,2"
+                    <TextBox Text="{Binding Path=StartDate, Converter={StaticResource MilitaryDateTimeConverter}, UpdateSourceTrigger=PropertyChanged}" Width="125" HorizontalAlignment="Stretch" Height="20" Margin="2,2,2,2"
 							 IsEnabled="{Binding ElementName=SurgicalReviewControl, Path=DataContext.FieldEnabler.IsProtectedEnabled}">
 					</TextBox>
 
-					<TextBox Text="{Binding Path=EndDate, Converter={StaticResource MilitaryDateTimeConverter}}" Width="125" HorizontalAlignment="Stretch" Height="20" Margin="2,2,2,2"
+                    <TextBox Text="{Binding Path=EndDate, Converter={StaticResource MilitaryDateTimeConverter}, UpdateSourceTrigger=PropertyChanged}" Width="125" HorizontalAlignment="Stretch" Height="20" Margin="2,2,2,2"
 							 IsEnabled="{Binding ElementName=SurgicalReviewControl, Path=DataContext.FieldEnabler.IsProtectedEnabled}">
 					</TextBox>
 
@@ -370,12 +370,12 @@
 
 				<TextBox Name="TextBoxSpecimenType" Grid.Row="0" Grid.Column="1" Margin="2" TextWrapping="Wrap" AcceptsReturn="True"
 						 FontSize="12" FontWeight="Bold" MinWidth="300"  RequestBringIntoView="Any_RequestBringIntoView"
-						 Text="{Binding Path=SpecimenOrder.Description}"  KeyUp="TextBox_KeyUp"
+						 Text="{Binding Path=SpecimenOrder.Description, UpdateSourceTrigger=PropertyChanged}"  KeyUp="TextBox_KeyUp"
 						 IsEnabled="{Binding ElementName=SurgicalReviewControl, Path=DataContext.FieldEnabler.IsProtectedEnabled}">
 				</TextBox>
                 <TextBox Name="TextBoxDiagnosis" Grid.Row="1" Grid.Column="1" Margin="2" TextWrapping="Wrap" AcceptsReturn="True"
 						 FontSize="12" MinWidth="300" SpellCheck.IsEnabled="False" KeyUp="TextBox_KeyUp"
-						 Text="{Binding Path=SurgicalSpecimen.Diagnosis}" RequestBringIntoView="Any_RequestBringIntoView"
+						 Text="{Binding Path=SurgicalSpecimen.Diagnosis, UpdateSourceTrigger=PropertyChanged}" RequestBringIntoView="Any_RequestBringIntoView"
 						 IsEnabled="{Binding ElementName=SurgicalReviewControl, Path=DataContext.FieldEnabler.IsProtectedEnabled}">
                     <!--
                     <SpellCheck.CustomDictionaries>
@@ -558,7 +558,7 @@
 						<StackPanel Grid.Column="0" Grid.Row="2">
 							<TextBlock Margin="2, 2, 2, 2" FontWeight="Bold" TextAlignment="Left">Comment:</TextBlock>
 							<TextBox Name="textBoxComment" Margin="2, 2, 2, 2" TextWrapping="Wrap" AcceptsReturn="True" FontSize="12" RequestBringIntoView="Any_RequestBringIntoView"
-										Text="{Binding Path=PanelSetOrderSurgical.Comment}"
+										Text="{Binding Path=PanelSetOrderSurgical.Comment, UpdateSourceTrigger=PropertyChanged}"
 										IsEnabled="{Binding Path=FieldEnabler.IsProtectedEnabled}" KeyUp="TextBox_KeyUp" SpellCheck.IsEnabled="False">
                                 <SpellCheck.CustomDictionaries>
                                     <system:Uri>pack://application:,,,/ypi-custom.lex</system:Uri>
@@ -602,7 +602,7 @@
                         </StackPanel>
 						
 						<TextBox Name="TextBoxCancerSummary" TextWrapping="Wrap" AcceptsReturn="True" FontSize="12" MinWidth="500" RequestBringIntoView="Any_RequestBringIntoView"
-							Text="{Binding Path=PanelSetOrderSurgical.CancerSummary}"							
+							Text="{Binding Path=PanelSetOrderSurgical.CancerSummary, UpdateSourceTrigger=PropertyChanged}"							
 							IsEnabled="{Binding Path=FieldEnabler.IsUnprotectedEnabled}" KeyUp="TextBox_KeyUp">
 						</TextBox>
 					</StackPanel>
@@ -617,7 +617,7 @@
 
 					<TextBlock Margin="2,2,2,2" FontWeight="Bold">Microscopic Description:</TextBlock>
                     <TextBox Name="TextBoxMicroscopic" TextWrapping="Wrap" AcceptsReturn="True" FontSize="12" MinWidth="200" KeyUp="TextBox_KeyUp"
-						Text="{Binding Path=PanelSetOrderSurgical.MicroscopicX}" RequestBringIntoView="Any_RequestBringIntoView"
+						Text="{Binding Path=PanelSetOrderSurgical.MicroscopicX, UpdateSourceTrigger=PropertyChanged}" RequestBringIntoView="Any_RequestBringIntoView"
 						IsEnabled="{Binding Path=FieldEnabler.IsProtectedEnabled}">
 					</TextBox>
 
@@ -654,13 +654,13 @@
 
 					<TextBlock Margin="2,2,2,2" FontWeight="Bold">Clinical Information:</TextBlock>
                     <TextBox Name="TextBoxClinical" TextWrapping="Wrap" AcceptsReturn="True" FontSize="12" RequestBringIntoView="Any_RequestBringIntoView" KeyUp="TextBox_KeyUp"
-						Text="{Binding Path=AccessionOrder.ClinicalHistory}" 
+						Text="{Binding Path=AccessionOrder.ClinicalHistory, UpdateSourceTrigger=PropertyChanged}" 
 						IsEnabled="{Binding Path=FieldEnabler.IsProtectedEnabled}">
 					</TextBox>
 
 					<TextBlock Margin="2,2,2,2" FontWeight="Bold">Gross Description:</TextBlock>
                     <TextBox Name="TextBoxGross" TextWrapping="Wrap" AcceptsReturn="True" FontSize="12" RequestBringIntoView="Any_RequestBringIntoView" KeyUp="TextBox_KeyUp"
-						Text="{Binding Path=PanelSetOrderSurgical.GrossX}" 
+						Text="{Binding Path=PanelSetOrderSurgical.GrossX, UpdateSourceTrigger=PropertyChanged}" 
 						IsEnabled="{Binding Path=FieldEnabler.IsProtectedEnabled}"></TextBox>
 
 					<StackPanel Visibility="{Binding Path=PanelSetOrderSurgical.PapCorrelationRequired, Converter={StaticResource BooleanVisibilityConverter}}">
@@ -695,7 +695,7 @@
 						<StackPanel Orientation="Horizontal">
 							<TextBlock Margin="2,2,2,2">Pap Accession:</TextBlock>
 							<TextBox Width="300" RequestBringIntoView="Any_RequestBringIntoView"
-								Text="{Binding Path=PanelSetOrderSurgical.PapCorrelationAccessionNo}"
+								Text="{Binding Path=PanelSetOrderSurgical.PapCorrelationAccessionNo, UpdateSourceTrigger=PropertyChanged}"
 								IsEnabled="{Binding Path=FieldEnabler.IsUnprotectedEnabled}"></TextBox>
 							<Button Name="ButtonPapAccession" Margin="10, 2, 2, 2" Height="20" ToolTip="Choose Accession" Click="ButtonPapAccession_Click" VerticalAlignment="Center">
 								<Image Source="/Resources/Magnify.ico" Height="10"></Image>
@@ -703,7 +703,7 @@
 						</StackPanel>
 						<StackPanel Orientation="Horizontal">
 							<TextBlock Margin="2,2,2,2">Comment:</TextBlock>
-							<TextBox Width="300" Text="{Binding Path=PanelSetOrderSurgical.PapCorrelationComment}" 
+                            <TextBox Width="300" Text="{Binding Path=PanelSetOrderSurgical.PapCorrelationComment, UpdateSourceTrigger=PropertyChanged}" 
 									 RequestBringIntoView="Any_RequestBringIntoView" 
 									 IsEnabled="{Binding Path=FieldEnabler.IsUnprotectedEnabled}"></TextBox>
 						</StackPanel>

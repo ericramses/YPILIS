@@ -121,15 +121,6 @@ namespace YellowstonePathology.UI.Cytology
             YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(fileName);
         }        
 
-		public void ShowPatientEditDialog(object target, ExecutedRoutedEventArgs args)
-		{
-			if (this.m_AccessionOrder != null)
-			{
-				YellowstonePathology.UI.Common.PatientEditDialog patientEditDialog = new YellowstonePathology.UI.Common.PatientEditDialog(this.m_AccessionOrder);
-				patientEditDialog.ShowDialog();
-			}
-		}		
-
         public YellowstonePathology.Business.Search.CytologyScreeningSearch Search
         {
             get { return this.m_Search; }
@@ -404,9 +395,12 @@ namespace YellowstonePathology.UI.Cytology
 		}
 
 		public void ShowAmendmentDialog(object sender, EventArgs e)
-		{			
-            YellowstonePathology.UI.AmendmentPageController amendmentPageController = new AmendmentPageController(this.m_AccessionOrder, this.m_PanelSetOrderCytology);
-			amendmentPageController.ShowDialog();
+		{
+            if (this.m_AccessionOrder != null)
+            {
+                YellowstonePathology.UI.AmendmentPageController amendmentPageController = new AmendmentPageController(this.m_AccessionOrder, this.m_PanelSetOrderCytology);
+                amendmentPageController.ShowDialog();
+            }
 		}
 
         public YellowstonePathology.Business.Domain.HpvRequisitionInstructionCollection HpvRequisitionInstructions

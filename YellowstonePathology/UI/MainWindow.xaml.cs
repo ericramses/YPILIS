@@ -23,17 +23,6 @@ namespace YellowstonePathology.UI
     {
 		//System.Timers.Timer m_Timer;
 		System.Media.SoundPlayer m_WavPlayer;        
-        
-        public static RoutedCommand ApplicationClosingCommand = new RoutedCommand();
-        public static RoutedCommand AssignCommand = new RoutedCommand();
-        public static RoutedCommand ShowOrderFormCommand = new RoutedCommand();
-        public static RoutedCommand ShowWizardListCommand = new RoutedCommand();        
-        public static RoutedCommand ShowCaseDocumentCommand = new RoutedCommand();
-		public static RoutedCommand PatientLinkingCommand = new RoutedCommand();		
-		public static RoutedCommand RemoveTabCommand = new RoutedCommand();		        
-		public static RoutedCommand ShowPatientEditDialogCommand = new RoutedCommand();
-		public static RoutedCommand ShowBillingEditDialogCommand = new RoutedCommand();
-		public static RoutedCommand ShowAmendmentDialogCommand = new RoutedCommand();        
 
         TabItem m_TabItemFlow;                
         TabItem m_TabItemPathologist;      
@@ -373,7 +362,6 @@ namespace YellowstonePathology.UI
 					{
 						((TabItem)TabControlLeftWorkspace.Items[idx]).Focus();
 						this.m_MainWindowCommandButtonHandler.OnRemoveTab();
-						RemoveTabCommand.Execute(sender, (IInputElement)((TabItem)TabControlLeftWorkspace.Items[idx]).Content);
 						TabControlLeftWorkspace.Items.RemoveAt(idx);
 						break;
 					}
@@ -386,7 +374,6 @@ namespace YellowstonePathology.UI
 			this.m_MainWindowCommandButtonHandler.OnRemoveTab();            
             UI.CustomControls.CloseableTabItem tabItem = (UI.CustomControls.CloseableTabItem)args.OriginalSource;
             tabItem.Focus();
-			RemoveTabCommand.Execute(null, null);
             if (tabItem != null)
             {
                 TabControl tabControl = tabItem.Parent as TabControl;
@@ -399,13 +386,6 @@ namespace YellowstonePathology.UI
 
         public void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs args)
         {
-			this.m_MainWindowCommandButtonHandler.OnApplicationClosing();			
-			MainWindow.ApplicationClosingCommand.Execute(null, null);
-			if (this.m_CytologyWorkspace != null)
-			{
-				this.m_CytologyWorkspace.CloseWorkspace(null, null);
-			}
-			
 			App.Current.Shutdown();
         }
                 
@@ -432,7 +412,6 @@ namespace YellowstonePathology.UI
                 this.m_TabItemCytology.Content = this.m_CytologyWorkspace;
                 
                 this.TabControlLeftWorkspace.Items.Add(this.m_TabItemCytology);
-                //this.CommandBindings.Add(this.m_CytologyWorkspace.CommandBindingShowCaseDocument);                
 
                 this.m_TabItemCytology.Focus();
             }         
@@ -542,8 +521,7 @@ namespace YellowstonePathology.UI
                 this.m_TabItemLab.Content = this.m_LabWorkspace;
                 this.TabControlLeftWorkspace.Items.Add(this.m_TabItemLab);
                 this.m_TabItemLab.Focus();
-                this.m_LabWorkspace.Loaded += new RoutedEventHandler(m_LabWorkspace_Loaded);
-				//this.CommandBindings.Add(m_LabWorkspace.CommandBindingRemoveTab);
+                //this.m_LabWorkspace.Loaded += new RoutedEventHandler(m_LabWorkspace_Loaded);
 			}            
         }
 
@@ -553,10 +531,10 @@ namespace YellowstonePathology.UI
             this.m_LabWorkspace.GetCase(masterAccessionNo, reportNo);
         }
 
-        private void m_LabWorkspace_Loaded(object sender, RoutedEventArgs e)
+        /*private void m_LabWorkspace_Loaded(object sender, RoutedEventArgs e)
         {
             this.m_LabWorkspace.TabItemCaseList.Focus();
-        }        
+        }*/        
 
         private void ToolBarButtonSearchWorkspace_Click(object sender, RoutedEventArgs args)
         {
@@ -629,7 +607,6 @@ namespace YellowstonePathology.UI
 		public void ToolBarButtonViewDocument_Click(object sender, RoutedEventArgs args)
 		{            
             this.m_MainWindowCommandButtonHandler.OnShowCaseDocument();
-            MainWindow.ShowCaseDocumentCommand.Execute(null, null);                        
         }
 
         private void ToolBarButtonViewDocument_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -642,13 +619,11 @@ namespace YellowstonePathology.UI
         public void ToolBarButtonOrderForm_Click(object sender, RoutedEventArgs args)
         {
 			this.m_MainWindowCommandButtonHandler.OnShowOrderForm();
-            ShowOrderFormCommand.Execute(null, null);
         }        
 
         public void ToolBarButtonAssign_Click(object sender, RoutedEventArgs args)
         {
 			this.m_MainWindowCommandButtonHandler.OnAssignCase();
-            AssignCommand.Execute(null, null);
         }        
         
         public void MenuItemLabWorkspace_Click(object sender, RoutedEventArgs args)
@@ -689,11 +664,6 @@ namespace YellowstonePathology.UI
 			YellowstonePathology.Business.Reports.Surgical.SurgicalMasterLog report = new YellowstonePathology.Business.Reports.Surgical.SurgicalMasterLog();
 			report.CreateReport(DateTime.Today);
             report.PrintReport();
-		}		
-
-		public void ToolBarButtonPatientLink_Click(object sender, RoutedEventArgs e)
-		{
-			PatientLinkingCommand.Execute(null, null);
 		}		
 
         private void ToolBarButtonProviderDistribution_Click(object sender, RoutedEventArgs e)
@@ -754,7 +724,6 @@ namespace YellowstonePathology.UI
                 this.m_TabItemLogin.Content = this.m_LoginWorkspace;
                 this.TabControlLeftWorkspace.Items.Add(this.m_TabItemLogin);
                 this.m_TabItemLogin.Focus();
-                this.CommandBindings.Add(m_LoginWorkspace.CommandBindingRemoveTab);
             }
         }
 
@@ -770,7 +739,6 @@ namespace YellowstonePathology.UI
                 this.m_TabItemClientOrder.Content = this.m_ClientOrderWorkspace;
                 this.TabControlLeftWorkspace.Items.Add(this.m_TabItemClientOrder);
                 this.m_TabItemClientOrder.Focus();
-                this.CommandBindings.Add(m_ClientOrderWorkspace.CommandBindingRemoveTab);
             }
         }
 
@@ -786,7 +754,6 @@ namespace YellowstonePathology.UI
                 this.m_TabItemTask.Content = this.m_TaskWorkspace;
                 this.TabControlLeftWorkspace.Items.Add(this.m_TabItemTask);
                 this.m_TabItemTask.Focus();
-                this.CommandBindings.Add(m_TaskWorkspace.CommandBindingRemoveTab);
             }
         }
 
@@ -898,11 +865,6 @@ namespace YellowstonePathology.UI
             acidWashOrdersDialog.ShowDialog();
         }
 
-        private void ToolBarButtonRefresh_Click(object sender, RoutedEventArgs e)
-        {
-            this.m_MainWindowCommandButtonHandler.OnRefresh();
-        }
-
         private void MenuItemLockedCases_Click(object sender, RoutedEventArgs e)
         {
             UI.LockedCaseDialog lockedCaseDialog = new LockedCaseDialog();
@@ -949,12 +911,11 @@ namespace YellowstonePathology.UI
 
         private void DeleteAccessionPath_CloseOpenTabs(object sender, EventArgs e)
         {
-            this.m_MainWindowCommandButtonHandler.OnRemoveTab();
             for (int idx = this.TabControlLeftWorkspace.Items.Count; idx > 0; idx--)
             {
                 TabItem tabItem = (TabItem)this.TabControlLeftWorkspace.Items[idx - 1];
                 tabItem.Focus();
-                RemoveTabCommand.Execute(null, null);
+                this.m_MainWindowCommandButtonHandler.OnRemoveTab();
                 this.TabControlLeftWorkspace.Items.Remove(tabItem);
             }
         }
