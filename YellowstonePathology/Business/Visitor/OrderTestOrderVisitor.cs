@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using YellowstonePathology.Business.Test;
 
 namespace YellowstonePathology.Business.Visitor
 {
@@ -139,7 +140,7 @@ namespace YellowstonePathology.Business.Visitor
 
             this.m_AccessionOrder.PanelSetOrderCollection.Add(this.m_PanelSetOrder);
             this.m_AccessionOrder.UpdateCaseAssignment(this.m_PanelSetOrder);
-			this.m_TestOrderInfo.PanelSetOrder = this.m_PanelSetOrder;
+			this.m_TestOrderInfo.PanelSetOrder = this.m_PanelSetOrder;            
         }
 
         public virtual void HandlePanelOrders()
@@ -224,6 +225,6 @@ namespace YellowstonePathology.Business.Visitor
                     }
                 }
             }
-        }
+        }        
     }
 }

@@ -57,6 +57,7 @@ namespace YellowstonePathology.Business.Visitor
                 this.HandlePanelOrder();
                 this.HandleTestOrder();                
                 this.HandleSlideOrder();
+                this.m_PanelSetOrder.IsPosted = false;
             }
         }
 
