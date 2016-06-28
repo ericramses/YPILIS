@@ -123,45 +123,27 @@ namespace YellowstonePathology.UI.Login.Receiving
 		private void ButtonClose_Click(object sender, RoutedEventArgs e)
 		{
 			if (this.Close != null) this.Close(this, new EventArgs());
-		}        
+		}        				
 
-		private void HyperLinkAfterSlidePreparation_Click(object sender, RoutedEventArgs e)
-		{
-			YellowstonePathology.Business.Task.Model.TaskAfterSlidePreparation task = new Business.Task.Model.TaskAfterSlidePreparation();
-			this.HandleAddTask(task);
-		}
-
-		private void HyperLinkParaffinCurlPreparation_Click(object sender, RoutedEventArgs e)
-		{
-			YellowstonePathology.Business.Task.Model.TaskParaffinCurlPreparation task = new Business.Task.Model.TaskParaffinCurlPreparation();
-			this.HandleAddTask(task);			
-		}
-
-		private void HyperLinkUnstainedSlidePreparation_Click(object sender, RoutedEventArgs e)
-		{
-			YellowstonePathology.Business.Task.Model.TaskUnstainedSlideWithAfterSlidePreparation task = new Business.Task.Model.TaskUnstainedSlideWithAfterSlidePreparation();
-			this.HandleAddTask(task);
-		}
-
-		private void HyperLinkMicrodissectionForMolecular_Click(object sender, RoutedEventArgs e)
-		{
-			YellowstonePathology.Business.Task.Model.TaskMicrodissectionForMolecular task = new Business.Task.Model.TaskMicrodissectionForMolecular();
-			this.HandleAddTask(task);			
-		}
-
-        private void HyperLinkSendBlockToNeogenomics_Click(object sender, RoutedEventArgs e)
+        private void HyperLinkSendToNeogenomics_Click(object sender, RoutedEventArgs e)
         {
-			YellowstonePathology.Business.Task.Model.TaskSendBlockToNeogenomics task = new Business.Task.Model.TaskSendBlockToNeogenomics();
-            this.HandleAddTask(task);
-        }
+            YellowstonePathology.Business.Facility.Model.NeogenomicsIrvine neo = new YellowstonePathology.Business.Facility.Model.NeogenomicsIrvine();
+            YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings ypi = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings();
 
-		private void HandleAddTask(YellowstonePathology.Business.Task.Model.Task task)
-		{
-			string taskOrderDetailId = YellowstonePathology.Business.OrderIdParser.GetNextTaskOrderDetailId(this.m_TaskOrder.TaskOrderDetailCollection, this.m_TaskOrder.TaskOrderId);
-			string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-			YellowstonePathology.Business.Task.Model.TaskOrderDetail taskOrderDetail = new Business.Task.Model.TaskOrderDetail(taskOrderDetailId, this.m_TaskOrder.TaskOrderId, objectId, task);
-            this.m_TaskOrder.TaskOrderDetailCollection.Add(taskOrderDetail);                            
-		}        
+            this.m_TaskOrder.TaskOrderDetailCollection.Clear();
+            YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_TaskOrder.ReportNo);
+            panelSetOrder.TechnicalComponentBillingFacilityId = ypi.FacilityId;
+            panelSetOrder.TechnicalComponentFacilityId = neo.FacilityId;
+
+            panelSetOrder.ProfessionalComponentBillingFacilityId = neo.FacilityId;
+            panelSetOrder.ProfessionalComponentFacilityId = neo.FacilityId;
+
+            YellowstonePathology.Business.Task.Model.TaskSendBlockToNeogenomics task = new Business.Task.Model.TaskSendBlockToNeogenomics();
+            string taskOrderDetailId = YellowstonePathology.Business.OrderIdParser.GetNextTaskOrderDetailId(this.m_TaskOrder.TaskOrderDetailCollection, this.m_TaskOrder.TaskOrderId);
+            string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
+            YellowstonePathology.Business.Task.Model.TaskOrderDetail taskOrderDetail = new Business.Task.Model.TaskOrderDetail(taskOrderDetailId, this.m_TaskOrder.TaskOrderId, objectId, task);
+            this.m_TaskOrder.TaskOrderDetailCollection.Add(taskOrderDetail);
+        }		      
 
         private void HyperlingPrintTaskOrder_Click(object sender, RoutedEventArgs e)
         {
