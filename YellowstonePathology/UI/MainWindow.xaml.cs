@@ -17,7 +17,6 @@ using System.Data.SqlClient;
 using System.ComponentModel;
 using Microsoft.Win32;
 
-
 namespace YellowstonePathology.UI
 {    
     public partial class MainWindow : System.Windows.Window
