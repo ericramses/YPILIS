@@ -8,7 +8,7 @@ namespace YellowstonePathology.UI.Login
 {
     public class DeleteAccessionPath
     {
-        public delegate void CloseOpenTabsEventHandler(object sender, EventArgs e);
+        public delegate bool CloseOpenTabsEventHandler(object sender, EventArgs e);
         public event CloseOpenTabsEventHandler CloseOpenTabs;
 
         private YellowstonePathology.UI.Login.Receiving.LoginPageWindow m_LoginPageWindow;
@@ -41,33 +41,15 @@ namespace YellowstonePathology.UI.Login
 
         private void DeleteAccessionLookupPage_Next(object sender, CustomEventArgs.MasterAccessionNoReturnEventArgs e)
         {
-            if (this.AccessionIsAvailableForDeletion(e.MasterAccessionNo) == true)
+            Business.Test.AccessionOrder accessionOrder = Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(e.MasterAccessionNo, this);
+            if (accessionOrder.AccessionLock.IsLockAquiredByMe == true)
             {
-                Business.Test.AccessionOrder accessionOrder = Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(e.MasterAccessionNo, this);
-                if (accessionOrder.AccessionLock.IsLockAquiredByMe == true)
-                {
-                    this.ShowDeleteAccessionPage(accessionOrder);
-                }
-                else
-                {
-                    System.Windows.MessageBox.Show("Unable to delete as the case is locked.", "Case is locked");
-                }
+                this.ShowDeleteAccessionPage(accessionOrder);
             }
-        }
-
-        private bool AccessionIsAvailableForDeletion(string masterAccessionNo)
-        {
-            bool result = false;
-            if (this.m_OpenTabCount > 0)
+            else
             {
-                System.Windows.MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("All open tabs will be closed and you work saved.  Do you wish to continue", "Open tabs", System.Windows.MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Question, System.Windows.MessageBoxResult.No);
-                if (messageBoxResult == System.Windows.MessageBoxResult.Yes)
-                {
-                    this.CloseOpenTabs(this, new EventArgs());
-                    result = true;
-                }
+                System.Windows.MessageBox.Show("Unable to delete as the case is locked by another user.", "Case is locked");
             }
-            return result;
         }
 
         private void DeleteAccessionLookupPage_Back(object sender, EventArgs e)
@@ -80,7 +62,24 @@ namespace YellowstonePathology.UI.Login
             DeleteAccessionPage deleteAccessionPage = new DeleteAccessionPage(accessionOrder, this);
             deleteAccessionPage.Back += DeleteAccessionPage_Back;
             deleteAccessionPage.Close += DeleteAccessionPage_Close;
+            deleteAccessionPage.CloseTabs += DeleteAccessionPage_CloseTabs;
             this.m_LoginPageWindow.PageNavigator.Navigate(deleteAccessionPage);
+        }
+
+        private bool DeleteAccessionPage_CloseTabs(object sender, EventArgs e)
+        {
+            bool result = true;
+            if (this.m_OpenTabCount > 0)
+            {
+                result = false;
+                System.Windows.MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("All open tabs will be closed and you work saved.  Do you wish to continue", "Open tabs", System.Windows.MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Question, System.Windows.MessageBoxResult.No);
+                if (messageBoxResult == System.Windows.MessageBoxResult.Yes)
+                {
+                    result = this.CloseOpenTabs(this, new EventArgs());
+                    this.m_OpenTabCount = 0;
+                }
+            }
+            return result;
         }
 
         private void DeleteAccessionPage_Back(object sender, EventArgs e)
