@@ -1381,7 +1381,6 @@
     <Compile Include="Business\Rules\RuleSet.cs" />
     <Compile Include="Business\Rules\SimpleMessageRule.cs" />
     <Compile Include="Business\Rules\SimpleRule.cs" />
-    <Compile Include="Business\Rules\Surgical\PathologistFinalRules.cs" />
     <Compile Include="Business\Rules\Surgical\PatientRecentAccessions.cs" />
     <Compile Include="Business\Rules\Surgical\PatientRecentAccessionSelectionEnum.cs" />
     <Compile Include="Business\Rules\Surgical\RulesAssignPathologistId.cs" />
@@ -4734,7 +4733,6 @@
     <Resource Include="Business\Rules\Billing\RulesSetBillingType.xml" />
     <Resource Include="Business\Rules\PanelOrder\RulesAcceptPeerReviewResults.xml" />
     <Resource Include="Business\Rules\PanelSetOrder\RulesSignatureButtonText.xml" />
-    <Resource Include="Business\Rules\Surgical\PathologistFinalRules.xml" />
     <EmbeddedResource Include="Business\Rules\Surgical\RulesAssignPathologistId.xml" />
     <Resource Include="Business\XMLTemplates\AccessionSummaryBreastCancer.xml" />
     <Resource Include="Business\XMLTemplates\AccessionSummaryColorectalCancer.xml" />

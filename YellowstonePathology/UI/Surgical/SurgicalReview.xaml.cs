@@ -167,54 +167,24 @@ namespace YellowstonePathology.UI.Surgical
 
         private void ButtonSignature_Click(object sender, RoutedEventArgs args)
         {
-            /*
-            if ((Business.User.SystemIdentity.Instance.User.UserId == 5102 ||
-                Business.User.SystemIdentity.Instance.User.UserId == 5111 ||
-                Business.User.SystemIdentity.Instance.User.UserId == 5129 ||
-                Business.User.SystemIdentity.Instance.User.UserId == 5088 ||
-                Business.User.SystemIdentity.Instance.User.UserId == 5091) && this.PanelSetOrderSurgical.Final == false) //Dr. Durden only and only if signing
+            if (this.PanelSetOrderSurgical.Final == false)
             {
-                this.TestSignout();
+                this.Signout();
             }
-            */
-
-            this.TestSignout();
-
-            /*
             else
             {
-                if (this.FindNonASCIICharacters().Length == 0)
+                if(this.PanelSetOrderSurgical.TestOrderReportDistributionCollection.HasDistributedItems() == false)
                 {
-                    this.CheckPendingStudies(this.PanelSetOrderSurgical.Final);
-
-                    if (this.PanelSetOrderSurgical.Final == false)
-                    {
-                        PQRSMeasurePath pQRSMeasurePath = new PQRSMeasurePath(this.AccessionOrder, this.PanelSetOrderSurgical);
-                        pQRSMeasurePath.HandlePQRS();
-                        this.RefreshBillingSpecimenViewCollection();
-                    }
-
-                    YellowstonePathology.Business.Rules.ExecutionStatus executionStatus = new YellowstonePathology.Business.Rules.ExecutionStatus();
-                    YellowstonePathology.Business.Rules.Surgical.PathologistFinalRules rules = new YellowstonePathology.Business.Rules.Surgical.PathologistFinalRules();
-                    rules.Execute(this.AccessionOrder, this.PanelSetOrderSurgical, Business.User.SystemIdentity.Instance, executionStatus);
-
-                    if (executionStatus.Halted == true && string.IsNullOrEmpty(executionStatus.ExecutionMessagesString) == false)
-                    {
-                        MessageBox.Show(executionStatus.ExecutionMessagesString, "Unable to final");
-                    }
-
-                    this.m_PathologistUI.SetSignatureButtonProperties();
-                    this.NotifyPropertyChanged(string.Empty);
-
-                    this.m_PathologistUI.RunWorkspaceEnableRules();
-                    this.m_PathologistUI.RunPathologistEnableRules();
+                    this.PanelSetOrderSurgical.Unfinalize();
                 }
-                else
-                {
-                    MessageBox.Show("The cancer case summary contains special characters.  These must be removed before signing.");
-                }
+                this.PanelSetOrderSurgical.TestOrderReportDistributionCollection.UnscheduleDistributions();
+
+                this.m_PathologistUI.SetSignatureButtonProperties();
+                this.NotifyPropertyChanged(string.Empty);
+
+                this.m_PathologistUI.RunWorkspaceEnableRules();
+                this.m_PathologistUI.RunPathologistEnableRules();
             }
-            */
         }        
 
         private void ButtonSignAmendment_Click(object sender, RoutedEventArgs args)
@@ -480,7 +450,7 @@ namespace YellowstonePathology.UI.Surgical
             return result;
         }
 
-        private void TestSignout()
+        private void Signout()
         {
             MainWindow.MoveKeyboardFocusNextThenBack();
             if (this.PanelSetOrderSurgical.Final == false)
