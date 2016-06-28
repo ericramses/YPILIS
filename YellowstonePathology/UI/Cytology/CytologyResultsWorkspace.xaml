@@ -158,7 +158,7 @@
 								<Button Grid.Column="2" Grid.Row="4" Height="20" Width="20" VerticalAlignment="Top" Margin="2,5,2,2" Content="..." Click="ButtonShowReportComment_Click" Tag="{Binding ElementName=ReportCommentSelection}" HorizontalAlignment="Right"></Button>
 
 								<TextBlock Grid.Column="0" Grid.Row="5" FontWeight="Bold" Margin="2,2,2,2" HorizontalAlignment="Right" VerticalAlignment="Center">Screeners Comment:</TextBlock>
-								<TextBox Grid.Column="1" Grid.Row="5" HorizontalAlignment="Stretch" Margin="2,2,2,2" Text="{Binding Path=ScreenerComment}" TextWrapping="Wrap" AcceptsReturn="True"></TextBox>
+								<TextBox Grid.Column="1" Grid.Row="5" HorizontalAlignment="Stretch" Margin="2,2,2,2" Text="{Binding Path=ScreenerComment, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" AcceptsReturn="True"></TextBox>
 
 								<TextBlock Grid.Column="0" Grid.Row="6" FontWeight="Bold" Margin="2,2,2,2" HorizontalAlignment="Right" VerticalAlignment="Center">Imager Error:</TextBlock>
 								<CheckBox Grid.Column="1" Grid.Row="6" Margin="2,2,2,2" IsChecked="{Binding Path=ImagerError}"></CheckBox>
@@ -229,7 +229,7 @@
 								</Grid.RowDefinitions>
 
 								<TextBlock Grid.Column="0" Grid.Row="0" Text="Comment:" Margin="2" FontWeight="Bold" HorizontalAlignment="Right"/>
-								<TextBox Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="4" TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding Path=Comment}" Margin="2"/>
+                                <TextBox Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="4" TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding Path=Comment, UpdateSourceTrigger=PropertyChanged}" Margin="2"/>
 								<TextBlock Grid.Column="0" Grid.Row="1" Text="Accepted Date:" Margin="2" FontWeight="Bold"/>
 								<TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Path=AcceptedTime, Converter={StaticResource ShortDateTimeConverter}}" Margin="2" FontWeight="Bold"/>
 
@@ -308,7 +308,7 @@
                                 <TextBlock Grid.Column="1" Grid.Row="1" Margin="2,2,2,2" Text="{Binding Path=OrderComment}" VerticalAlignment="Center" TextWrapping="Wrap"/>
 
                                 <TextBlock Grid.Column="0" Grid.Row="2" Text="Screeners Comment:" Margin="2,2,2,2" FontWeight="Bold" VerticalAlignment="Center"/>
-								<TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Path=ScreenerComment}" Margin="2,2,2,2" TextWrapping="Wrap"/>
+                                <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Path=ScreenerComment, UpdateSourceTrigger=PropertyChanged}" Margin="2,2,2,2" TextWrapping="Wrap"/>
 
 							</Grid>
 						</Border>
@@ -432,7 +432,9 @@
 					<TextBlock Grid.Column="1" Grid.Row="7" Margin="2,2,2,2" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Text="{Binding Path=ReportComment}" TextWrapping="Wrap"></TextBlock>
 
 					<TextBlock Grid.Column="0" Grid.Row="8" Margin="2,2,2,2" VerticalAlignment="Top" HorizontalAlignment="Right">Clinical History:</TextBlock>
-					<TextBox Grid.Column="1" Grid.Row="8" Margin="2,2,2,2" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Text="{Binding ElementName=CytologyResultUserControl, Path=DataContext.AccessionOrder.ClinicalHistory}"  TextWrapping="Wrap"></TextBox>
+					<TextBox Grid.Column="1" Grid.Row="8" Margin="2,2,2,2" HorizontalAlignment="Stretch" VerticalAlignment="Bottom"
+                             Text="{Binding ElementName=CytologyResultUserControl, Path=DataContext.AccessionOrder.ClinicalHistory, UpdateSourceTrigger=PropertyChanged}"
+                             TextWrapping="Wrap"></TextBox>
 
 				</Grid>
 			</Border>
@@ -479,10 +481,11 @@
                             </Grid.RowDefinitions>
                             
                             <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" HorizontalAlignment="Right">Specimen Source:</TextBlock>
-                            <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Path=SpecimenOrder.SpecimenSource}" Margin="2,2,2,2"></TextBox>
+                            <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Path=SpecimenOrder.SpecimenSource, UpdateSourceTrigger=PropertyChanged}" Margin="2,2,2,2"></TextBox>
 
                             <TextBlock Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" HorizontalAlignment="Right">Collection Time:</TextBlock>
-                            <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Path=SpecimenOrder.CollectionTime, Converter={StaticResource ShortDateTimeConverter}}" Margin="2,2,2,2"></TextBox>
+                            <TextBox Grid.Column="1" Grid.Row="1" Margin="2,2,2,2"
+                                     Text="{Binding Path=SpecimenOrder.CollectionTime, Converter={StaticResource ShortDateTimeConverter}, UpdateSourceTrigger=PropertyChanged}"></TextBox>
 
                         </Grid>                       
                     </Expander>

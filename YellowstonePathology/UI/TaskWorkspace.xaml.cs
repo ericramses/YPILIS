@@ -19,8 +19,6 @@ namespace YellowstonePathology.UI
     /// </summary>
     public partial class TaskWorkspace : UserControl
     {
-        public CommandBinding CommandBindingRemoveTab;
-
         private TaskUI m_TaskUI;
         private bool m_LoadedHasRun;
         private MainWindowCommandButtonHandler m_MainWindowCommandButtonHandler;
@@ -33,9 +31,6 @@ namespace YellowstonePathology.UI
             this.m_MainWindowCommandButtonHandler = mainWindowCommandButtonHandler;
             this.m_LoadedHasRun = false;
             this.m_Writer = writer;
-
-            this.CommandBindingRemoveTab = new CommandBinding(MainWindow.RemoveTabCommand, RemoveTab);
-            this.CommandBindings.Add(this.CommandBindingRemoveTab);
 
             this.m_TaskUI = new TaskUI(this.m_Writer);
 
@@ -52,9 +47,8 @@ namespace YellowstonePathology.UI
         {
             if (this.m_LoadedHasRun == false)
             {
-                this.m_MainWindowCommandButtonHandler.Save += new MainWindowCommandButtonHandler.SaveEventHandler(MainWindowCommandButtonHandler_Save);
-                this.m_MainWindowCommandButtonHandler.Refresh += new MainWindowCommandButtonHandler.RefreshEventHandler(MainWindowCommandButtonHandler_Refresh);
-                this.m_MainWindowCommandButtonHandler.RemoveTab += new MainWindowCommandButtonHandler.RemoveTabEventHandler(MainWindowCommandButtonHandler_RemoveTab);
+                this.m_MainWindowCommandButtonHandler.Save += MainWindowCommandButtonHandler_Save;
+                this.m_MainWindowCommandButtonHandler.RemoveTab += MainWindowCommandButtonHandler_RemoveTab;
             }
 
 
@@ -64,11 +58,6 @@ namespace YellowstonePathology.UI
         private void MainWindowCommandButtonHandler_RemoveTab(object sender, EventArgs e)
         {
             Business.Persistence.DocumentGateway.Instance.Push(this.m_Writer);
-        }
-
-        private void MainWindowCommandButtonHandler_Refresh(object sender, EventArgs e)
-        {
-
         }
 
         private void MainWindowCommandButtonHandler_Save(object sender, EventArgs e)
@@ -83,15 +72,9 @@ namespace YellowstonePathology.UI
         {
             this.m_LoadedHasRun = false;
             this.m_MainWindowCommandButtonHandler.Save -= MainWindowCommandButtonHandler_Save;
-            this.m_MainWindowCommandButtonHandler.Refresh -= MainWindowCommandButtonHandler_Refresh;
             this.m_MainWindowCommandButtonHandler.RemoveTab -= MainWindowCommandButtonHandler_RemoveTab;
 
             YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
-        }
-
-        public void RemoveTab(object target, ExecutedRoutedEventArgs args)
-        {
-
         }
 
         private void ButtonViewDailyLog_Click(object sender, RoutedEventArgs e)

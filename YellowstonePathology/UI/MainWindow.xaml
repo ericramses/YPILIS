@@ -174,12 +174,6 @@
 						<TextBlock Margin="2,0,0,0">Assignment</TextBlock>
 					</StackPanel>
 				</Button>
-				<Button Click="ToolBarButtonPatientLink_Click" ToolTip="Link Patient" Margin="0,0,2,0">
-					<StackPanel Orientation="Horizontal">
-						<Image Margin="2" Height="16" Source="/UserInterface;component/Resources/Linking.ico"></Image>
-						<TextBlock Margin="2" VerticalAlignment="Center">Link ...</TextBlock>
-					</StackPanel>
-				</Button>
 				<Button Click="ToolBarButtonProviderDistribution_Click" ToolTip="Provider/Distribution" Margin="0,0,2,0">
 					<StackPanel Orientation="Horizontal">
 						<Image Margin="2" Height="16" Source="/UserInterface;component/Resources/Magnify.ico"></Image>

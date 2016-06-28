@@ -19,8 +19,6 @@ namespace YellowstonePathology.UI
     /// </summary>
     public partial class ClientOrderWorkspace : UserControl
     {
-        public CommandBinding CommandBindingRemoveTab;
-
         private YellowstonePathology.UI.DocumentWorkspace m_DocumentViewer;
 
         private ClientOrderUI m_ClientOrderUI;
@@ -34,9 +32,6 @@ namespace YellowstonePathology.UI
             this.m_MainWindowCommandButtonHandler = mainWindowCommandButtonHandler;
             this.m_LoadedHasRun = false;
             this.m_Writer = writer;
-
-            this.CommandBindingRemoveTab = new CommandBinding(MainWindow.RemoveTabCommand, RemoveTab);
-            this.CommandBindings.Add(this.CommandBindingRemoveTab);
 
             this.m_ClientOrderUI = new ClientOrderUI(this.m_Writer);
             this.m_DocumentViewer = new DocumentWorkspace();
@@ -56,26 +51,22 @@ namespace YellowstonePathology.UI
         {
             if (this.m_LoadedHasRun == false)
             {
-                this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath += new MainWindowCommandButtonHandler.StartProviderDistributionPathEventHandler(MainWindowCommandButtonHandler_StartProviderDistributionPath);
-                this.m_MainWindowCommandButtonHandler.Save += new MainWindowCommandButtonHandler.SaveEventHandler(MainWindowCommandButtonHandler_Save);
-                this.m_MainWindowCommandButtonHandler.Refresh += MainWindowCommandButtonHandler_Refresh;
+                this.m_MainWindowCommandButtonHandler.Save += MainWindowCommandButtonHandler_Save;
             }
             this.m_LoadedHasRun = true;
+        }
+
+        private void MainWindowCommandButtonHandler_RemoveTab(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         private void ClientOrderWorkspace_Unloaded(object sender, RoutedEventArgs e)
         {
             this.m_LoadedHasRun = false;
-            this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath -= MainWindowCommandButtonHandler_StartProviderDistributionPath;
             this.m_MainWindowCommandButtonHandler.Save -= MainWindowCommandButtonHandler_Save;
-            this.m_MainWindowCommandButtonHandler.Refresh -= MainWindowCommandButtonHandler_Refresh;
 
             YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
-        }
-
-        private void MainWindowCommandButtonHandler_Refresh(object sender, EventArgs e)
-        {
-
         }
 
         private void MainWindowCommandButtonHandler_Save(object sender, EventArgs e)
@@ -93,19 +84,6 @@ namespace YellowstonePathology.UI
                     this.TabControlRightSide.SelectedIndex = 0;
                 }
             }
-        }
-
-        private void MainWindowCommandButtonHandler_StartProviderDistributionPath(object sender, EventArgs e)
-        {
-        }
-
-        private void MainWindowCommandButtonHandler_ShowAmendmentDialog(object sender, EventArgs e)
-        {
-        }
-
-        public void RemoveTab(object target, ExecutedRoutedEventArgs args)
-        {
-
         }
 
         private void ListViewClientOrders_SelectionChanged(object sender, SelectionChangedEventArgs e)

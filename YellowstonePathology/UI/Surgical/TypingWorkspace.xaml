@@ -93,7 +93,7 @@
                 </Button>
             </StackPanel>
 
-            <TextBox Grid.Column="3" Grid.Row="1" Text="{Binding Path=AccessionOrder.CollectionDate, Converter={StaticResource ShortDateConverter}}" VerticalAlignment="Center" Margin="2,2,30,2"/>
+            <TextBox Grid.Column="3" Grid.Row="1" Text="{Binding Path=AccessionOrder.CollectionDate, Converter={StaticResource ShortDateConverter}, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Margin="2,2,30,2"/>
 			<TextBlock Grid.Column="3" Grid.Row="2" Text="{Binding Path=AccessionOrder.AccessionDate, Converter={StaticResource ShortDateConverter}}" VerticalAlignment="Center" Margin="2,2,2,2"></TextBlock>
 
 			<ComboBox Name="ComboBoxAcceptingUsers" VerticalContentAlignment="Center" IsEnabled="{Binding Path=FieldEnabler.IsUnprotectedEnabled}" VerticalAlignment="Center"
@@ -175,10 +175,10 @@
 					<Button Grid.Column="1" Grid.Row="15" Margin="2" Click="ButtonPatientLinking_Click" Width="200" HorizontalAlignment="Left" IsEnabled="True">Patient Linking</Button>
 
 
-					<TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Path=AccessionOrder.PLastName, Converter={StaticResource UpperCaseConverter}}" IsEnabled="{Binding Path=FieldEnabler.IsProtectedEnabled}" Style="{StaticResource NewTextBox}" Width="200" HorizontalAlignment="Left"></TextBox>
-					<TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Path=AccessionOrder.PFirstName, Converter={StaticResource UpperCaseConverter}}" IsEnabled="{Binding Path=FieldEnabler.IsProtectedEnabled}" Style="{StaticResource NewTextBox}" Width="200" HorizontalAlignment="Left"></TextBox>
-					<TextBox Grid.Column="1" Grid.Row="4" Text="{Binding Path=AccessionOrder.PMiddleInitial, Converter={StaticResource UpperCaseConverter}}" IsEnabled="{Binding Path=FieldEnabler.IsProtectedEnabled}" Style="{StaticResource NewTextBox}" Width="200" HorizontalAlignment="Left"></TextBox>
-					<TextBox Grid.Column="1" Grid.Row="5" Text="{Binding Path=AccessionOrder.PBirthdate, Converter={StaticResource ShortDateConverter}}" IsEnabled="{Binding Path=FieldEnabler.IsProtectedEnabled}" Style="{StaticResource NewTextBox}" Width="200" HorizontalAlignment="Left"></TextBox>
+                    <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Path=AccessionOrder.PLastName, Converter={StaticResource UpperCaseConverter}, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding Path=FieldEnabler.IsProtectedEnabled}" Style="{StaticResource NewTextBox}" Width="200" HorizontalAlignment="Left"></TextBox>
+                    <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Path=AccessionOrder.PFirstName, Converter={StaticResource UpperCaseConverter}, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding Path=FieldEnabler.IsProtectedEnabled}" Style="{StaticResource NewTextBox}" Width="200" HorizontalAlignment="Left"></TextBox>
+                    <TextBox Grid.Column="1" Grid.Row="4" Text="{Binding Path=AccessionOrder.PMiddleInitial, Converter={StaticResource UpperCaseConverter}, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding Path=FieldEnabler.IsProtectedEnabled}" Style="{StaticResource NewTextBox}" Width="200" HorizontalAlignment="Left"></TextBox>
+                    <TextBox Grid.Column="1" Grid.Row="5" Text="{Binding Path=AccessionOrder.PBirthdate, Converter={StaticResource ShortDateConverter}, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding Path=FieldEnabler.IsProtectedEnabled}" Style="{StaticResource NewTextBox}" Width="200" HorizontalAlignment="Left"></TextBox>
 
 					<ComboBox Grid.Column="1" Grid.Row="6" Text="{Binding Path=AccessionOrder.PSex}" Width="50" 
 							Style="{StaticResource NewComboBox}" IsEnabled="{Binding Path=FieldEnabler.IsUnprotectedEnabled}">
@@ -186,7 +186,7 @@
 						<ComboBoxItem>M</ComboBoxItem>
 					</ComboBox>
 
-					<TextBox Grid.Column="1" Grid.Row="7" Text="{Binding Path=AccessionOrder.PSSN, Converter={StaticResource SocialSecurityNumberConverter}}" 
+                    <TextBox Grid.Column="1" Grid.Row="7" Text="{Binding Path=AccessionOrder.PSSN, Converter={StaticResource SocialSecurityNumberConverter}, UpdateSourceTrigger=PropertyChanged}" 
                    Style="{StaticResource NewTextBox}" Width="200" HorizontalAlignment="Left" IsEnabled="{Binding Path=FieldEnabler.IsUnprotectedEnabled}"></TextBox>
 
 					<ComboBox Grid.Column="1" Grid.Row="8" Width="100" Style="{StaticResource NewComboBox}" IsEnabled="{Binding Path=FieldEnabler.IsBillingAuditEnabled}">
@@ -220,8 +220,8 @@
 					</ComboBox>
 
 					<StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="10">
-						<TextBox Text="{Binding Path=AccessionOrder.SvhMedicalRecord}" Style="{StaticResource NewTextBox}" Width="75" IsEnabled="{Binding Path=FieldEnabler.IsUnprotectedEnabled}"></TextBox>
-						<TextBox Text="{Binding Path=AccessionOrder.SvhAccount}" Style="{StaticResource NewTextBox}" Width="75" IsEnabled="{Binding Path=FieldEnabler.IsUnprotectedEnabled}"></TextBox>
+                        <TextBox Text="{Binding Path=AccessionOrder.SvhMedicalRecord, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource NewTextBox}" Width="75" IsEnabled="{Binding Path=FieldEnabler.IsUnprotectedEnabled}"></TextBox>
+                        <TextBox Text="{Binding Path=AccessionOrder.SvhAccount, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource NewTextBox}" Width="75" IsEnabled="{Binding Path=FieldEnabler.IsUnprotectedEnabled}"></TextBox>
 					</StackPanel>
 
 					<TextBlock Grid.Column="1" Grid.Row="11" Text="{Binding Path=AccessionOrder.PatientId}" HorizontalAlignment="Left" Width="200" Margin="2"></TextBlock>
@@ -229,23 +229,23 @@
 					<CheckBox Grid.Column="1" Grid.Row="12" IsChecked="{Binding Path=SurgicalTestOrder.NoCharge}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2"></CheckBox>
 
 					<TextBlock Grid.Column="2" Grid.Row="2" Style="{StaticResource TextBlockHeaderRight}">Address 1:</TextBlock>
-					<TextBox Grid.Column="3" Grid.Row="2" Text="{Binding Path=AccessionOrder.PAddress1}"
+					<TextBox Grid.Column="3" Grid.Row="2" Text="{Binding Path=AccessionOrder.PAddress1, UpdateSourceTrigger=PropertyChanged}"
 							 Style="{StaticResource NewTextBox}" Width="200" HorizontalAlignment="Left" IsEnabled="{Binding Path=FieldEnabler.IsUnprotectedEnabled}"></TextBox>
 
 					<TextBlock Grid.Column="2" Grid.Row="3" Style="{StaticResource TextBlockHeaderRight}">Address 2:</TextBlock>
-					<TextBox Name="TextBoxAddress2" Grid.Column="3" Grid.Row="3" Text="{Binding Path=AccessionOrder.PAddress2}"
+                    <TextBox Name="TextBoxAddress2" Grid.Column="3" Grid.Row="3" Text="{Binding Path=AccessionOrder.PAddress2, UpdateSourceTrigger=PropertyChanged}"
 							 Style="{StaticResource NewTextBox}" Width="200" HorizontalAlignment="Left" IsEnabled="{Binding Path=FieldEnabler.IsUnprotectedEnabled}"></TextBox>
 
 					<TextBlock Grid.Column="2" Grid.Row="4" Style="{StaticResource TextBlockHeaderRight}">City:</TextBlock>
-					<TextBox Grid.Column="3" Grid.Row="4" Text="{Binding Path=AccessionOrder.PCity}"
+                    <TextBox Grid.Column="3" Grid.Row="4" Text="{Binding Path=AccessionOrder.PCity, UpdateSourceTrigger=PropertyChanged}"
 							 Style="{StaticResource NewTextBox}" Width="200" HorizontalAlignment="Left" IsEnabled="{Binding Path=FieldEnabler.IsUnprotectedEnabled}"></TextBox>
 
 					<TextBlock Grid.Column="2" Grid.Row="5" Style="{StaticResource TextBlockHeaderRight}">State:</TextBlock>
-					<TextBox Grid.Column="3" Grid.Row="5" Text="{Binding Path=AccessionOrder.PState}"
+                    <TextBox Grid.Column="3" Grid.Row="5" Text="{Binding Path=AccessionOrder.PState, UpdateSourceTrigger=PropertyChanged}"
 							 Style="{StaticResource NewTextBox}" Width="200" HorizontalAlignment="Left" IsEnabled="{Binding Path=FieldEnabler.IsUnprotectedEnabled}"></TextBox>
 
 					<TextBlock Grid.Column="2" Grid.Row="6" Style="{StaticResource TextBlockHeaderRight}">Zip Code:</TextBlock>
-					<TextBox Grid.Column="3" Grid.Row="6" Text="{Binding Path=AccessionOrder.PZipCode}"
+                    <TextBox Grid.Column="3" Grid.Row="6" Text="{Binding Path=AccessionOrder.PZipCode, UpdateSourceTrigger=PropertyChanged}"
 							 Style="{StaticResource NewTextBox}" Width="200" HorizontalAlignment="Left" IsEnabled="{Binding Path=FieldEnabler.IsUnprotectedEnabled}"></TextBox>
 				</Grid>
 			</TabItem>
@@ -277,7 +277,7 @@
                         </TextBlock>
 
                         <TextBox Name="TextBoxClinical"  Grid.Column="0" Grid.Row="1" TextWrapping="Wrap" AcceptsReturn="True"
-									Text="{Binding Path=AccessionOrder.ClinicalHistory}"
+									Text="{Binding Path=AccessionOrder.ClinicalHistory, UpdateSourceTrigger=PropertyChanged}"
 									KeyUp="TextBox_KeyUp" FontSize="12" IsEnabled="{Binding Path=FieldEnabler.IsProtectedEnabled}" 
 									Style="{StaticResource NewTextBox}" SpellCheck.IsEnabled="False">
 							<TextBox.ContextMenu>
@@ -297,7 +297,7 @@
 
                         <TextBlock  Grid.Column="0" Grid.Row="4" FontWeight="Bold">Microscopic Description:</TextBlock>
                         <TextBox Name="TextBoxMicroscopic"  Grid.Column="0" Grid.Row="5" TextWrapping="Wrap" AcceptsReturn="True"
-									Text="{Binding Path=SurgicalTestOrder.MicroscopicX}"
+									Text="{Binding Path=SurgicalTestOrder.MicroscopicX, UpdateSourceTrigger=PropertyChanged}"
 									KeyUp="TextBox_KeyUp" FontSize="12" IsEnabled="{Binding Path=FieldEnabler.IsProtectedEnabled}"
 									MinWidth="200" Style="{StaticResource NewTextBox}" SpellCheck.IsEnabled="False"></TextBox>
 
@@ -314,12 +314,12 @@
 							<StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
 								<TextBlock VerticalAlignment="Center" Margin="2,2,2,2">AJCC Stage:</TextBlock>
 								<TextBox Width="200" IsEnabled="{Binding Path=FieldEnabler.IsProtectedEnabled}" Margin="2,2,2,2"
-											Text="{Binding Path=SurgicalTestOrder.AJCCStage}"></TextBox>
+											Text="{Binding Path=SurgicalTestOrder.AJCCStage, UpdateSourceTrigger=PropertyChanged}"></TextBox>
 							</StackPanel>
 						</Grid>
 
                         <TextBox Name="TextBoxCancerSummary"  Grid.Column="0" Grid.Row="7" TextWrapping="Wrap" AcceptsReturn="True"
-									Text="{Binding Path=SurgicalTestOrder.CancerSummary}" 
+									Text="{Binding Path=SurgicalTestOrder.CancerSummary, UpdateSourceTrigger=PropertyChanged}" 
 									KeyUp="TextBox_KeyUp" FontSize="12" IsEnabled="{Binding Path=FieldEnabler.IsProtectedEnabled}"
 									MinWidth="200" Style="{StaticResource NewTextBox}" SpellCheck.IsEnabled="False"></TextBox>
 
@@ -366,7 +366,7 @@
 											</TextBlock.ContextMenu>
 										</TextBlock>
 
-										<TextBox Name="TextBoxSpecimenType" Text="{Binding Path=SpecimenOrder.Description}" TextWrapping="Wrap"
+                                        <TextBox Name="TextBoxSpecimenType" Text="{Binding Path=SpecimenOrder.Description, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap"
 													AcceptsReturn="True" Margin="2" Grid.Row="0" Grid.Column="1" 
 													KeyUp="TextBox_KeyUp" FontSize="12" FontWeight="Bold"
 													IsEnabled="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.FieldEnabler.IsProtectedEnabled}" 
@@ -375,7 +375,7 @@
 										<ComboBox Grid.Column="1" Grid.Row="1" Margin="2,2,2,2" HorizontalAlignment="Stretch" ItemsSource="{Binding Path=SpecimenCollection}" 
                                                     SelectedValuePath="SpecimenId" DisplayMemberPath="SpecimenName" SelectedValue="{Binding Path=SpecimenOrder.SpecimenId}" />
 
-										<TextBox Name="TextBoxDiagnosis" Text="{Binding Path=SurgicalSpecimen.Diagnosis}" TextWrapping="Wrap" AcceptsReturn="True"
+                                        <TextBox Name="TextBoxDiagnosis" Text="{Binding Path=SurgicalSpecimen.Diagnosis, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" AcceptsReturn="True"
 													Margin="2" Grid.Row="2" Grid.Column="1"  MinWidth="300"
 													KeyUp="TextBox_KeyUp" FontSize="12" IsEnabled="{Binding ElementName=TextBoxClinical, Path=IsEnabled}" 
 													Style="{StaticResource NewTextBox}" SpellCheck.IsEnabled="False"/>
@@ -417,7 +417,7 @@
 														<TextBlock Grid.Column="0" Grid.Row="0" Margin="0,3,0,0">Fs:</TextBlock>
 
 														<TextBox HorizontalAlignment="Stretch" Height="75" Margin="2,2,2,2" AcceptsReturn="True"
-																	Text="{Binding Path=Result}"
+																	Text="{Binding Path=Result, UpdateSourceTrigger=PropertyChanged}"
 																	KeyUp="TextBox_KeyUp" TextWrapping="Wrap" Grid.Column="1" Grid.Row="0">
 															<TextBox.Style>
 																<Style TargetType="TextBox">
@@ -446,7 +446,7 @@
 																		Margin="3" MinWidth="150">
 															</ComboBox>
 
-															<TextBox Text="{Binding Path=StartDate}" Width="120" HorizontalAlignment="Stretch"
+                                                            <TextBox Text="{Binding Path=StartDate, UpdateSourceTrigger=PropertyChanged}" Width="120" HorizontalAlignment="Stretch"
 																		Height="20" Margin="2,2,2,2">
 																<TextBox.Style>
 																	<Style TargetType="TextBox">
@@ -465,7 +465,7 @@
 																</TextBox.Style>
 															</TextBox>
 
-															<TextBox Text="{Binding Path=EndDate}" Width="120" HorizontalAlignment="Stretch"
+                                                            <TextBox Text="{Binding Path=EndDate, UpdateSourceTrigger=PropertyChanged}" Width="120" HorizontalAlignment="Stretch"
 																		Height="20" Margin="2,2,2,2">
 																<TextBox.Style>
 																	<Style TargetType="TextBox">
@@ -508,10 +508,10 @@
 																<MenuItem Tag="{Binding Path=PanelSetOrderCPTCodeId}" Header="Delete CPT Code" Click="ContextMenuDeleteCptCode_Click"></MenuItem>
 															</ContextMenu>
 														</StackPanel.ContextMenu>
-														<TextBox Width="20" Text="{Binding Path=Quantity}" Margin="2"
+                                                        <TextBox Width="20" Text="{Binding Path=Quantity, UpdateSourceTrigger=PropertyChanged}" Margin="2"
 																	HorizontalAlignment="Left" KeyboardNavigation.IsTabStop="False" FontWeight="Bold" ToolTip="Quantity">
 														</TextBox>
-														<TextBox Text="{Binding Path=CPTCode}" VerticalAlignment="Center" FontWeight="Bold" Margin="2" Width="70"
+                                                        <TextBox Text="{Binding Path=CPTCode, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" FontWeight="Bold" Margin="2" Width="70"
 																	ToolTip="CPT Code"></TextBox>
 														<TextBlock Text="{Binding Path=PostDateProxy}" VerticalAlignment="Center" Margin="2" Width="80" ToolTip="Post Date"/>
 
@@ -552,7 +552,7 @@
 						</ItemsControl>
 
                         <TextBlock  Grid.Column="0" Grid.Row="10" FontWeight="Bold">Comment:</TextBlock>
-                        <TextBox Name="textBoxComment"  Grid.Column="0" Grid.Row="11" TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding Path=SurgicalTestOrder.Comment}"
+                        <TextBox Name="textBoxComment"  Grid.Column="0" Grid.Row="11" TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding Path=SurgicalTestOrder.Comment, UpdateSourceTrigger=PropertyChanged}"
 									KeyUp="TextBox_KeyUp" FontSize="12" IsEnabled="{Binding Path=FieldEnabler.IsProtectedEnabled}" MinWidth="200"
 									Style="{StaticResource NewTextBox}" SpellCheck.IsEnabled="False"></TextBox>
 
@@ -595,7 +595,7 @@
 										Margin="3" Width="200" HorizontalAlignment="Left" IsEnabled="{Binding ElementName=PathologistUserControl, Path=DataContext.FieldEnabler.IsProtectedEnabled}">
 										</ComboBox>
 
-										<TextBox Text="{Binding Path=ReportComment}" AcceptsReturn="True" TextWrapping="Wrap" Style="{StaticResource NewTextBox}" Width="200"
+                                        <TextBox Text="{Binding Path=ReportComment, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" TextWrapping="Wrap" Style="{StaticResource NewTextBox}" Width="200"
 											 IsEnabled="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.FieldEnabler.IsProtectedEnabled}"/>
 										<CheckBox Margin="2,2,2,2" VerticalAlignment="Center" IsChecked="{Binding Path=OrderedAsDual}" ToolTip="Ordered As Dual" Width="75"></CheckBox>
 										<CheckBox Margin="2,2,2,2" VerticalAlignment="Center" IsChecked="{Binding Path=IsGraded}" ToolTip="Graded" Width="75"></CheckBox>

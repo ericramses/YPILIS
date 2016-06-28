@@ -23,13 +23,6 @@ namespace YellowstonePathology.UI.Test
 
     public partial class LabWorkspace : System.Windows.Controls.UserControl
     {        
-        public CommandBinding CommandBindingApplicationClosing;        
-        public CommandBinding CommandBindingShowCaseDocument;
-        public CommandBinding CommandBindingShowOrderForm;		
-		public CommandBinding CommandBindingPatientLinking;        
-		//public CommandBinding CommandBindingRemoveTab;		
-		public CommandBinding CommandBindingShowPatientEditDialog;
-        
         private YellowstonePathology.UI.AmendmentControlV2 m_AmendmentControl;
         private YellowstonePathology.UI.DocumentWorkspace m_DocumentViewer;
 		private YellowstonePathology.UI.Common.TreeViewWorkspace m_TreeViewWorkspace;        
@@ -54,20 +47,6 @@ namespace YellowstonePathology.UI.Test
             this.m_MainWindowCommandButtonHandler = mainWindowCommandButtonHandler;
             this.m_Writer = writer;
             this.m_SystemIdentity = YellowstonePathology.Business.User.SystemIdentity.Instance;
-
-            this.CommandBindingApplicationClosing = new CommandBinding(MainWindow.ApplicationClosingCommand, CloseWorkspace);            
-            this.CommandBindingShowCaseDocument = new CommandBinding(MainWindow.ShowCaseDocumentCommand, ShowCaseDocument);
-			this.CommandBindingShowOrderForm = new CommandBinding(MainWindow.ShowOrderFormCommand, this.ShowOrderForm, ItemIsSelected);			
-			this.CommandBindingPatientLinking = new CommandBinding(MainWindow.PatientLinkingCommand, this.LinkPatient, ItemIsSelected);            
-			//this.CommandBindingRemoveTab = new CommandBinding(MainWindow.RemoveTabCommand, RemoveTab);
-			this.CommandBindingShowPatientEditDialog = new CommandBinding(MainWindow.ShowPatientEditDialogCommand, this.ShowPatientEditDialog);
-
-            this.CommandBindings.Add(this.CommandBindingApplicationClosing);            
-            this.CommandBindings.Add(this.CommandBindingShowCaseDocument);
-            this.CommandBindings.Add(this.CommandBindingShowOrderForm);            
-            this.CommandBindings.Add(this.CommandBindingPatientLinking);            
-			//this.CommandBindings.Add(this.CommandBindingRemoveTab);			
-			this.CommandBindings.Add(this.CommandBindingShowPatientEditDialog);
 						
 			this.m_LabUI = new LabUI(this.m_SystemIdentity, writer);
 
@@ -97,25 +76,27 @@ namespace YellowstonePathology.UI.Test
 
         private void LabWorkspace_Loaded(object sender, RoutedEventArgs args)
         {
-            this.m_BarcodeScanPort.ClientScanReceived -= ClientScanReceived;
-            this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath -= MainWindowCommandButtonHandler_StartProviderDistributionPath;
-            this.m_MainWindowCommandButtonHandler.Save -= MainWindowCommandButtonHandler_Save;
-            this.m_MainWindowCommandButtonHandler.Refresh -= MainWindowCommandButtonHandler_Refresh;
-            this.m_MainWindowCommandButtonHandler.RemoveTab -= MainWindowCommandButtonHandler_RemoveTab;
-
             this.m_BarcodeScanPort.ClientScanReceived += ClientScanReceived;
-            this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath += new MainWindowCommandButtonHandler.StartProviderDistributionPathEventHandler(MainWindowCommandButtonHandler_StartProviderDistributionPath);
-            this.m_MainWindowCommandButtonHandler.Save += new MainWindowCommandButtonHandler.SaveEventHandler(MainWindowCommandButtonHandler_Save);
-            this.m_MainWindowCommandButtonHandler.Refresh += MainWindowCommandButtonHandler_Refresh;
+            this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath += MainWindowCommandButtonHandler_StartProviderDistributionPath;
+            this.m_MainWindowCommandButtonHandler.Save += MainWindowCommandButtonHandler_Save;
             this.m_MainWindowCommandButtonHandler.RemoveTab += MainWindowCommandButtonHandler_RemoveTab;
+            this.m_MainWindowCommandButtonHandler.ShowCaseDocument += MainWindowCommandButtonHandler_ShowCaseDocument;
+            this.m_MainWindowCommandButtonHandler.ShowOrderForm += MainWindowCommandButtonHandler_ShowOrderForm;
 
             UI.AppMessaging.MessagingPath.Instance.LockReleasedActionList.Add(this.Save);
             UI.AppMessaging.MessagingPath.Instance.LockAquiredActionList.Add(this.m_LabUI.RunWorkspaceEnableRules);
+
+            this.TabItemCaseList.Focus();
         }
 
-        private void MainWindowCommandButtonHandler_Refresh(object sender, EventArgs e)
+        private void MainWindowCommandButtonHandler_ShowOrderForm(object sender, EventArgs e)
         {
+            this.ShowOrderForm();
+        }
 
+        private void MainWindowCommandButtonHandler_ShowCaseDocument(object sender, EventArgs e)
+        {
+            this.ShowCaseDocument();
         }
 
         private void MainWindowCommandButtonHandler_Save(object sender, EventArgs e)
@@ -143,11 +124,6 @@ namespace YellowstonePathology.UI.Test
                 this.m_LabUI.CaseList.SetLockIsAquiredByMe(this.m_LabUI.AccessionOrder);
             }
         }
-
-        public void CloseWorkspace(object target, ExecutedRoutedEventArgs args)
-        {
-                                    
-		}
 
         private void MainWindowCommandButtonHandler_StartProviderDistributionPath(object sender, EventArgs e)
         {
@@ -218,7 +194,9 @@ namespace YellowstonePathology.UI.Test
 			this.m_BarcodeScanPort.ClientScanReceived -= this.ClientScanReceived;
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath -= MainWindowCommandButtonHandler_StartProviderDistributionPath;
             this.m_MainWindowCommandButtonHandler.Save -= MainWindowCommandButtonHandler_Save;
-            this.m_MainWindowCommandButtonHandler.Refresh -= MainWindowCommandButtonHandler_Refresh;
+            this.m_MainWindowCommandButtonHandler.RemoveTab -= MainWindowCommandButtonHandler_RemoveTab;
+            this.m_MainWindowCommandButtonHandler.ShowCaseDocument -= MainWindowCommandButtonHandler_ShowCaseDocument;
+            this.m_MainWindowCommandButtonHandler.ShowOrderForm -= MainWindowCommandButtonHandler_ShowOrderForm;
 
             UI.AppMessaging.MessagingPath.Instance.LockReleasedActionList.Remove(this.Save);
             UI.AppMessaging.MessagingPath.Instance.LockAquiredActionList.Remove(this.m_LabUI.RunWorkspaceEnableRules);
@@ -226,16 +204,14 @@ namespace YellowstonePathology.UI.Test
             YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
         }
 
-        /*public void RemoveTab(object target, ExecutedRoutedEventArgs args)
-		{
-            Business.Persistence.DocumentGateway.Instance.Push(this.m_Writer);
-        }*/
-
-        private void ShowOrderForm(object target, ExecutedRoutedEventArgs args)
+        private void ShowOrderForm()
         {
-			YellowstonePathology.UI.Common.OrderDialog frm = new YellowstonePathology.UI.Common.OrderDialog(this.m_LabUI.AccessionOrder, this.m_LabUI.PanelSetOrder);			
-            frm.ShowDialog();
-			this.GetAccessionOrder();			
+            if (HaveAvailableItem() == true)
+            {
+                YellowstonePathology.UI.Common.OrderDialog frm = new YellowstonePathology.UI.Common.OrderDialog(this.m_LabUI.AccessionOrder, this.m_LabUI.PanelSetOrder);
+                frm.ShowDialog();
+                this.GetAccessionOrder();
+            }			
 		}
 
 		private void ButtonOrder_Click(object sender, RoutedEventArgs e)
@@ -264,10 +240,38 @@ namespace YellowstonePathology.UI.Test
 			}
 		}
 
-		public void LinkPatient(object target, ExecutedRoutedEventArgs args)
+        private bool HaveAvailableItem()
+        {
+            bool result = false;
+            if (this.ListViewCaseList.SelectedItem != null && this.m_LabUI.AccessionOrder.AccessionLock.IsLockAquiredByMe == true)
+            {
+                result = true;
+            }
+            return result;
+        }
+
+        private void LinkPatient()
 		{
-			this.ButtonLinkPatient_Click(null, null);
-		}
+            if (HaveAvailableItem() == true)
+            {
+                YellowstonePathology.Business.Patient.Model.PatientLinker patientLinker = new Business.Patient.Model.PatientLinker(this.m_LabUI.AccessionOrder.MasterAccessionNo,
+                    this.m_LabUI.PanelSetOrder.ReportNo,
+                    this.m_LabUI.AccessionOrder.PFirstName,
+                    this.m_LabUI.AccessionOrder.PLastName,
+                    this.m_LabUI.AccessionOrder.PMiddleInitial,
+                    this.m_LabUI.AccessionOrder.PSSN,
+                    this.m_LabUI.AccessionOrder.PatientId, this.m_LabUI.AccessionOrder.PBirthdate);
+                if (patientLinker.IsOkToLink.IsValid == true)
+                {
+                    YellowstonePathology.UI.Common.PatientLinkingDialog patientLinkingDialog = new Common.PatientLinkingDialog(this.m_LabUI.AccessionOrder, Business.Patient.Model.PatientLinkingListModeEnum.AccessionOrder, patientLinker);
+                    patientLinkingDialog.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show(patientLinker.IsOkToLink.Message, "Missing Information");
+                }
+            }
+        }
 
         public void StartProviderDistributionPath(object target, ExecutedRoutedEventArgs args)
         {
@@ -279,16 +283,7 @@ namespace YellowstonePathology.UI.Test
             }
         }		
 
-		public void ShowPatientEditDialog(object target, ExecutedRoutedEventArgs args)
-		{			
-			if (this.m_LabUI.AccessionOrder.AccessionLock.IsLockAquiredByMe == true)
-			{
-				YellowstonePathology.UI.Common.PatientEditDialog patientEditDialog = new YellowstonePathology.UI.Common.PatientEditDialog(this.m_LabUI.AccessionOrder);
-				patientEditDialog.ShowDialog();
-			}
-		}                        
-
-        public void  ShowCaseDocument(object target, ExecutedRoutedEventArgs args)
+        public void  ShowCaseDocument()
         {
             if(this.ListViewCaseList.SelectedItem != null)
             {
@@ -627,22 +622,7 @@ namespace YellowstonePathology.UI.Test
 		
 		private void ButtonLinkPatient_Click(object sender, RoutedEventArgs e)
 		{
-			YellowstonePathology.Business.Patient.Model.PatientLinker patientLinker = new Business.Patient.Model.PatientLinker(this.m_LabUI.AccessionOrder.MasterAccessionNo,
-				this.m_LabUI.PanelSetOrder.ReportNo, 
-                this.m_LabUI.AccessionOrder.PFirstName, 
-                this.m_LabUI.AccessionOrder.PLastName,
-                this.m_LabUI.AccessionOrder.PMiddleInitial,
-				this.m_LabUI.AccessionOrder.PSSN, 
-                this.m_LabUI.AccessionOrder.PatientId, this.m_LabUI.AccessionOrder.PBirthdate);
-			if (patientLinker.IsOkToLink.IsValid == true)
-			{
-				YellowstonePathology.UI.Common.PatientLinkingDialog patientLinkingDialog = new Common.PatientLinkingDialog(this.m_LabUI.AccessionOrder, Business.Patient.Model.PatientLinkingListModeEnum.AccessionOrder, patientLinker);
-                patientLinkingDialog.ShowDialog();
-            }
-            else
-			{
-				MessageBox.Show(patientLinker.IsOkToLink.Message, "Missing Information");
-			}
+            this.LinkPatient();
 		}
 
 		private void ButtonScan_Click(object sender, RoutedEventArgs e)

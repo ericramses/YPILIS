@@ -9,8 +9,7 @@
 			 xmlns:converter="clr-namespace:YellowstonePathology.UI.Converter"
 			 xmlns:customControls="clr-namespace:YellowstonePathology.UI.CustomControls"
 			 xmlns:diagnostics="clr-namespace:System.Diagnostics;assembly=WindowsBase"
-			 Name="LabUserControl"
-             Loaded="LabWorkspace_Loaded">
+			 Name="LabUserControl">
 
 	<UserControl.Resources>
 		<Style TargetType="TreeViewItem" x:Key="TreeViewItemIsExpanded">
