@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Login
 {
     /// <summary>
     /// Interaction logic for DeleteAccessionPage.xaml
-    /// </summary>
+    /// </summary>   
     public partial class DeleteAccessionPage : UserControl, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
