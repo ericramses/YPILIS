@@ -91,7 +91,7 @@ namespace YellowstonePathology.Business
         public ReportNoLetterI()
         {
             this.m_Letter = "I";
-            this.m_AllowMultipleInSameAccession = false;
+            this.m_AllowMultipleInSameAccession = true;
         }
     }
 }
