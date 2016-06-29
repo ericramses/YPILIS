@@ -318,11 +318,11 @@
 							  IsEnabled="{Binding ElementName=SurgicalReviewControl, Path=DataContext.FieldEnabler.IsUnprotectedEnabled}">
 					</ComboBox>
 
-                    <TextBox Text="{Binding Path=StartDate, Converter={StaticResource MilitaryDateTimeConverter}, UpdateSourceTrigger=PropertyChanged}" Width="125" HorizontalAlignment="Stretch" Height="20" Margin="2,2,2,2"
+                    <TextBox Text="{Binding Path=StartDate, Converter={StaticResource MilitaryDateTimeConverter}}" Width="125" HorizontalAlignment="Stretch" Height="20" Margin="2,2,2,2"
 							 IsEnabled="{Binding ElementName=SurgicalReviewControl, Path=DataContext.FieldEnabler.IsProtectedEnabled}">
 					</TextBox>
 
-                    <TextBox Text="{Binding Path=EndDate, Converter={StaticResource MilitaryDateTimeConverter}, UpdateSourceTrigger=PropertyChanged}" Width="125" HorizontalAlignment="Stretch" Height="20" Margin="2,2,2,2"
+                    <TextBox Text="{Binding Path=EndDate, Converter={StaticResource MilitaryDateTimeConverter}}" Width="125" HorizontalAlignment="Stretch" Height="20" Margin="2,2,2,2"
 							 IsEnabled="{Binding ElementName=SurgicalReviewControl, Path=DataContext.FieldEnabler.IsProtectedEnabled}">
 					</TextBox>
 

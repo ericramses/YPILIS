@@ -111,7 +111,7 @@ namespace YellowstonePathology.Business.Billing.Model
                 {
                     result += perSpecimenCount - 1;
                 }
-            }
+            }                       
             return result;
         }
        

@@ -46,6 +46,7 @@ namespace YellowstonePathology.Business.Client.Model
             result.Add(new HPVStandingOrderRule11());
             result.Add(new HPVStandingOrderRule12());
             result.Add(new HPVStandingOrderRule13());
+            result.Add(new HPVStandingOrderRule14());
             result.Add(new HPVCompoundStandingOrderRule1());
             result.Add(new HPVCompoundStandingOrderRule2());
             result.Add(new HPVCompoundStandingOrderRule3());
@@ -74,6 +75,7 @@ namespace YellowstonePathology.Business.Client.Model
             result.Add(new HPVStandingOrderRule11());
             result.Add(new HPVStandingOrderRule12());
             result.Add(new HPVStandingOrderRule13());
+            result.Add(new HPVStandingOrderRule14());
             result.Add(new HPVCompoundStandingOrderRule1());
             result.Add(new HPVCompoundStandingOrderRule2());
             result.Add(new HPVCompoundStandingOrderRule3());

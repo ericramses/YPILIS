@@ -67,12 +67,12 @@ namespace YellowstonePathology.Business.Billing.Model
         public void Post88360(YellowstonePathology.Business.Billing.Model.BillingComponentEnum billingComponent, string billTo, string billBy)
         {
             YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88360 cpt88360 = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88360();
-            int cpt88360Count = this.m_StainSpecimenCollection.GetBillable88360Count();
+            int cpt88360Count = this.m_StainSpecimenCollection.GetBillable88360Count() - this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.GetBilledCount(cpt88360.Code);
             if (cpt88360Count > 0)
             {
                 string modifier = cpt88360.GetModifier(billingComponent);
-                if (this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.Exists(cpt88360.Code, modifier) == false)
-                {
+                //if (this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.Exists(cpt88360.Code, modifier) == false)
+                //{
                     YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill = this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.GetNextItem(this.m_PanelSetOrder.ReportNo);
                     panelSetOrderCPTCodeBill.ClientId = this.m_AccessionOrder.ClientId;                    
                     panelSetOrderCPTCodeBill.BillTo = billTo;
@@ -82,19 +82,19 @@ namespace YellowstonePathology.Business.Billing.Model
                     panelSetOrderCPTCodeBill.Modifier = modifier;
                     panelSetOrderCPTCodeBill.Quantity = cpt88360Count;
                     this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.Add(panelSetOrderCPTCodeBill);
-                }
+                //}
             }
         }
 
         public void Post88313(YellowstonePathology.Business.Billing.Model.BillingComponentEnum billingComponent, string billTo, string billBy)
         {
             YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88313 cpt88313 = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88313();
-            int cpt88313Count = this.m_StainSpecimenCollection.GetBillable88313Count();
+            int cpt88313Count = this.m_StainSpecimenCollection.GetBillable88313Count() - this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.GetBilledCount(cpt88313.Code);
             if (cpt88313Count > 0)
             {
                 string modifier = cpt88313.GetModifier(billingComponent);
-                if (this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.Exists(cpt88313.Code, modifier) == false)
-                {
+                //if (this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.Exists(cpt88313.Code, modifier) == false)
+                //{
                     YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill = this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.GetNextItem(this.m_PanelSetOrder.ReportNo);
                     panelSetOrderCPTCodeBill.ClientId = this.m_AccessionOrder.ClientId;
                     panelSetOrderCPTCodeBill.BillTo = billTo;
@@ -104,19 +104,19 @@ namespace YellowstonePathology.Business.Billing.Model
                     panelSetOrderCPTCodeBill.Modifier = modifier;
                     panelSetOrderCPTCodeBill.Quantity = cpt88313Count;
                     this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.Add(panelSetOrderCPTCodeBill);
-                }
+                //}
             }
         }
 
         public void Post88312(YellowstonePathology.Business.Billing.Model.BillingComponentEnum billingComponent, string billTo, string billBy)
         {
             YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88312 cpt88312 = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88312();
-            int cpt88312Count = this.m_StainSpecimenCollection.GetBillable88312Count();
+            int cpt88312Count = this.m_StainSpecimenCollection.GetBillable88312Count() - this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.GetBilledCount(cpt88312.Code);
             if (cpt88312Count > 0)
             {
                 string modifier = cpt88312.GetModifier(billingComponent);
-                if (this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.Exists(cpt88312.Code, modifier) == false)
-                {
+                //if (this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.Exists(cpt88312.Code, modifier) == false)
+                //{
                     YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill = this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.GetNextItem(this.m_PanelSetOrder.ReportNo);
                     panelSetOrderCPTCodeBill.ClientId = this.m_AccessionOrder.ClientId;
                     panelSetOrderCPTCodeBill.BillTo = billTo;
@@ -126,19 +126,20 @@ namespace YellowstonePathology.Business.Billing.Model
                     panelSetOrderCPTCodeBill.Modifier = modifier;
                     panelSetOrderCPTCodeBill.Quantity = cpt88312Count;
                     this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.Add(panelSetOrderCPTCodeBill);
-                }
+                //}
             }
         }
 
         public void Post88342(YellowstonePathology.Business.Billing.Model.BillingComponentEnum billingComponent, string billTo, string billBy)
         {
             YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88342 cpt88342 = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88342();
-            int cpt88342Count = this.m_StainSpecimenCollection.GetBillable88342Count();
+            
+            int cpt88342Count = this.m_StainSpecimenCollection.GetBillable88342Count() - this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.GetBilledCount(cpt88342.Code);
             if (cpt88342Count > 0)
             {
                 string modifier = cpt88342.GetModifier(billingComponent);
-                if (this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.Exists(cpt88342.Code, modifier) == false)
-                {
+                //if (this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.Exists(cpt88342.Code, modifier) == false)
+                //{
                     YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill = this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.GetNextItem(this.m_PanelSetOrder.ReportNo);
                     panelSetOrderCPTCodeBill.ClientId = this.m_AccessionOrder.ClientId;
                     panelSetOrderCPTCodeBill.BillTo = billTo;
@@ -148,19 +149,20 @@ namespace YellowstonePathology.Business.Billing.Model
                     panelSetOrderCPTCodeBill.Modifier = modifier;
                     panelSetOrderCPTCodeBill.Quantity = cpt88342Count;
                     this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.Add(panelSetOrderCPTCodeBill);
-                }
+                //}
             }
         }
 
         public void Post88341(YellowstonePathology.Business.Billing.Model.BillingComponentEnum billingComponent, string billTo, string billBy)
         {
             YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88341 cpt88341 = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88341();
-            int cpt88341Count = this.m_StainSpecimenCollection.GetBillable88341Count();
+            int cpt88341Count = this.m_StainSpecimenCollection.GetBillable88341Count() - this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.GetBilledCount(cpt88341.Code);            
+
             if (cpt88341Count > 0)
             {
                 string modifier = cpt88341.GetModifier(billingComponent);
-                if (this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.Exists(cpt88341.Code, modifier) == false)
-                {
+                //if (this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.Exists(cpt88341.Code, modifier) == false)
+                //{
                     YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill = this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.GetNextItem(this.m_PanelSetOrder.ReportNo);
                     panelSetOrderCPTCodeBill.ClientId = this.m_AccessionOrder.ClientId;
                     panelSetOrderCPTCodeBill.BillTo = billTo;
@@ -170,7 +172,7 @@ namespace YellowstonePathology.Business.Billing.Model
                     panelSetOrderCPTCodeBill.Modifier = modifier;
                     panelSetOrderCPTCodeBill.Quantity = cpt88341Count;
                     this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.Add(panelSetOrderCPTCodeBill);
-                }
+                //}
             }
         }
 

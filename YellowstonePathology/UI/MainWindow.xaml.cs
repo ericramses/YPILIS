@@ -909,7 +909,7 @@ namespace YellowstonePathology.UI
             deleteAccessionPath.Start();
         }
 
-        private void DeleteAccessionPath_CloseOpenTabs(object sender, EventArgs e)
+        private bool DeleteAccessionPath_CloseOpenTabs(object sender, EventArgs e)
         {
             for (int idx = this.TabControlLeftWorkspace.Items.Count; idx > 0; idx--)
             {
@@ -918,6 +918,7 @@ namespace YellowstonePathology.UI
                 this.m_MainWindowCommandButtonHandler.OnRemoveTab();
                 this.TabControlLeftWorkspace.Items.Remove(tabItem);
             }
+            return true;
         }
     }
 }

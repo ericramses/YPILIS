@@ -23,6 +23,9 @@ namespace YellowstonePathology.UI.Login
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
+        public delegate bool CloseTabsEventHandler(object sender, EventArgs e);
+        public event CloseTabsEventHandler CloseTabs;
+
         public delegate void BackEventHandler(object sender, EventArgs e);
         public event BackEventHandler Back;
         public delegate void CloseEventHandler(object sender, EventArgs e);
@@ -74,17 +77,21 @@ namespace YellowstonePathology.UI.Login
 
         private void HyperLinkDeleteAccessionOrder_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show("Are you sure you want to permanently delete Accession " + this.m_AccessionOrder.MasterAccessionNo + " for " + this.m_AccessionOrder.PatientDisplayName + "?", "Delete Accession", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
-            if (result == MessageBoxResult.Yes)
+            bool tabsClosedResult = this.CloseTabs(this, EventArgs.Empty);
+            if (tabsClosedResult == true)
             {
-                Business.Rules.MethodResult methodResult = AORemover.Remove(this.m_AccessionOrder, this.m_Writer);
-                if (methodResult.Success == false)
+                MessageBoxResult result = MessageBox.Show("Are you sure you want to permanently delete Accession " + this.m_AccessionOrder.MasterAccessionNo + " for " + this.m_AccessionOrder.PatientDisplayName + "?", "Delete Accession", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+                if (result == MessageBoxResult.Yes)
                 {
-                    MessageBox.Show(methodResult.Message);
-                }
-                else
-                {
-                    this.Close(this, new EventArgs());
+                    Business.Rules.MethodResult methodResult = AORemover.Remove(this.m_AccessionOrder, this.m_Writer);
+                    if (methodResult.Success == false)
+                    {
+                        MessageBox.Show(methodResult.Message);
+                    }
+                    else
+                    {
+                        this.Back(this, new EventArgs());
+                    }
                 }
             }
         }
@@ -97,14 +104,23 @@ namespace YellowstonePathology.UI.Login
             }
             else
             {
-                Business.Test.PanelSetOrder panelSetOrder = ((Hyperlink)sender).Tag as Business.Test.PanelSetOrder;
-                MessageBoxResult result = MessageBox.Show("Are you sure you want to permanently delete report " + panelSetOrder.ReportNo + " for " + this.m_AccessionOrder.PatientDisplayName + "?", "Delete Report", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
-                if (result == MessageBoxResult.Yes)
+                bool tabsClosedResult = this.CloseTabs(this, EventArgs.Empty);
+                if (tabsClosedResult == true)
                 {
-                    Business.Rules.MethodResult methodResult = AORemover.RemovePanelSet(panelSetOrder.ReportNo, this.m_AccessionOrder, this.m_Writer);
-                    if (methodResult.Success == false)
+                    Business.Test.PanelSetOrder panelSetOrder = ((Hyperlink)sender).Tag as Business.Test.PanelSetOrder;
+                    MessageBoxResult result = MessageBox.Show("Are you sure you want to permanently delete report " + panelSetOrder.ReportNo + " for " + this.m_AccessionOrder.PatientDisplayName + "?", "Delete Report", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+                    if (result == MessageBoxResult.Yes)
                     {
-                        MessageBox.Show(methodResult.Message);
+                        Business.Rules.MethodResult methodResult = AORemover.RemovePanelSet(panelSetOrder.ReportNo, this.m_AccessionOrder, this.m_Writer);
+                        if (methodResult.Success == false)
+                        {
+                            MessageBox.Show(methodResult.Message);
+                        }
+                        else
+                        {
+                            this.m_AccessionOrder = Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(this.m_AccessionOrder.MasterAccessionNo, this.m_Writer);
+                            this.NotifyPropertyChanged("AccessionOrder");
+                        }
                     }
                 }
             }

@@ -86,6 +86,19 @@ namespace YellowstonePathology.Business.Test
             return result;
         }
 
+        public int GetBilledCount(string cptCode)
+        {
+            int result = 0;
+            foreach (PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill in this)
+            {
+                if (panelSetOrderCPTCodeBill.CPTCode == cptCode)
+                {
+                    result += panelSetOrderCPTCodeBill.Quantity;                    
+                }
+            }
+            return result;
+        }
+
         public YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill Get(string panelSetOrderCPTCodeBillId)
         {
             YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill result = null;

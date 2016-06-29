@@ -11,7 +11,7 @@ namespace YellowstonePathology.Business.Client.Model
         {
             this.m_RuleNumber = 14;
             this.m_ReflexOrderCode = "RFLXHPVRL14";
-            this.m_Description = "Perform reflex HPV testing on patients who are reported with ASCUS or higher results";
+            this.m_Description = "Perform reflex HPV testing on patients who are reported with ASCUS or higher results and have not had an HPV in the last year.";
 			this.m_PanelSet = new YellowstonePathology.Business.Test.HPV.HPVTest();
         }
 
@@ -26,7 +26,20 @@ namespace YellowstonePathology.Business.Client.Model
                 {
 					if (YellowstonePathology.Business.Cytology.Model.CytologyResultCode.IsDiagnosisThreeOrBetter(panelSetOrderCytology.ResultCode) == true)
                     {
-                        result = true;
+                        YellowstonePathology.Business.Domain.PatientHistory patientHistory = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPatientHistory(accessionOrder.PatientId);
+                        Nullable<DateTime> dateOfLastHPV = patientHistory.GetDateOfPreviousHpv(accessionOrder.AccessionDate.Value);
+
+                        if (dateOfLastHPV.HasValue == true)
+                        {
+                            if (dateOfLastHPV < DateTime.Today.AddDays(-330))
+                            {
+                                result = true;
+                            }
+                        }
+                        else
+                        {
+                            result = true;
+                        }
                     }
                 }
             }
