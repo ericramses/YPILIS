@@ -432,6 +432,7 @@
     <Compile Include="Business\Client.Model\HPVStandingOrderRule10.cs" />
     <Compile Include="Business\Client.Model\HPVStandingOrderRule11.cs" />
     <Compile Include="Business\Client.Model\HPVStandingOrderRule12.cs" />
+    <Compile Include="Business\Client.Model\HPVStandingOrderRule14.cs" />
     <Compile Include="Business\Client.Model\HPVStandingOrderRule13.cs" />
     <Compile Include="Business\Client.Model\HPVStandingOrderRule2.cs" />
     <Compile Include="Business\Client.Model\HPVStandingOrderRule3.cs" />
