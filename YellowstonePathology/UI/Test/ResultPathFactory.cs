@@ -288,6 +288,9 @@ namespace YellowstonePathology.UI.Test
                 case 234:
                     result = new TCellRecepterBetaGeneRearrangementResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
+                case 235:
+                    result = new TechnicalOnlyResultPath(reportNo, accessionOrder, pageNavigator, window);
+                    break;
             }
             return result;
         }
