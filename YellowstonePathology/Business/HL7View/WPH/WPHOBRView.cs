@@ -89,7 +89,15 @@ namespace YellowstonePathology.Business.HL7View.WPH
             YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("OBR.16.11", string.Empty, obr16Element);
             YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("OBR.16.12", string.Empty, obr16Element);
             YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("OBR.16.13", "NPI", obr16Element);                                    
-            obrElement.Add(obr16Element);            
+            obrElement.Add(obr16Element);
+
+            XElement obr20Element = new XElement("OBR.20");
+            YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("OBR.20.1", "OM", obr20Element);
+            obrElement.Add(obr20Element);
+
+            XElement obr21Element = new XElement("OBR.21");
+            YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("OBR.21.1", "PATH", obr21Element);
+            obrElement.Add(obr21Element);
 
             XElement obr22Element = new XElement("OBR.22");
             YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("OBR.22.1", DateTime.Now.ToString(m_DateFormat), obr22Element);                                                
