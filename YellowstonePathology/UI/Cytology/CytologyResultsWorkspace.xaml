@@ -485,7 +485,7 @@
 
                             <TextBlock Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" HorizontalAlignment="Right">Collection Time:</TextBlock>
                             <TextBox Grid.Column="1" Grid.Row="1" Margin="2,2,2,2"
-                                     Text="{Binding Path=SpecimenOrder.CollectionTime, Converter={StaticResource ShortDateTimeConverter}, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                     Text="{Binding Path=SpecimenOrder.CollectionTime, Converter={StaticResource ShortDateTimeConverter}}"></TextBox>
 
                         </Grid>                       
                     </Expander>

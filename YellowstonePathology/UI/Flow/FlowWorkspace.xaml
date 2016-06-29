@@ -112,12 +112,12 @@
 						<StackPanel Orientation="Horizontal">
 							<TextBlock Style="{StaticResource HeadingTextBlock}">Accession Date:</TextBlock>
                             <TextBox Name="textBoxAccessionDate" IsEnabled="{Binding Path=IsWorkspaceEnabled}" Style="{StaticResource BoundTextBox}"
-                                     Text="{Binding Path=AccessionOrder.AccessionDate, Converter={StaticResource ShortDateConverter}, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                     Text="{Binding Path=AccessionOrder.AccessionDate, Converter={StaticResource ShortDateConverter}}"></TextBox>
 						</StackPanel>
 						<StackPanel Orientation="Horizontal">
 							<TextBlock Style="{StaticResource HeadingTextBlock}">Date Of Service:</TextBlock>
                             <TextBox Name="TextBoxCollectionDate" Style="{StaticResource BoundTextBox}" IsEnabled="{Binding Path=IsWorkspaceEnabled}"
-                                     Text="{Binding Path=AccessionOrder.CollectionDate, Converter={StaticResource ShortDateConverter}, UpdateSourceTrigger=PropertyChanged}"
+                                     Text="{Binding Path=AccessionOrder.CollectionDate, Converter={StaticResource ShortDateConverter}}"
                                      HorizontalAlignment="Stretch" KeyUp="TextBoxCollectionDate_KeyUp" ToolTip="Please enter the Date Of Service for this specimen.">								
 							</TextBox>
                             
@@ -125,7 +125,7 @@
 						<StackPanel Orientation="Horizontal">
 							<TextBlock Style="{StaticResource HeadingTextBlock}">Date/Time Received:</TextBlock>
                             <TextBox Name="textBoxDateTimeReceived" IsEnabled="{Binding Path=IsWorkspaceEnabled}" Style="{StaticResource BoundTextBox}"
-                                     Text="{Binding Path=AccessionOrder.SpecimenOrderCollection[0].DateReceived, Converter={StaticResource MilitaryDateTimeConverter}, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                     Text="{Binding Path=AccessionOrder.SpecimenOrderCollection[0].DateReceived, Converter={StaticResource MilitaryDateTimeConverter}}"></TextBox>
 						</StackPanel>                        
                         <StackPanel Orientation="Horizontal">
                             
@@ -192,7 +192,7 @@
 
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Style="{StaticResource HeadingTextBlock}">Date Audited:</TextBlock>
-                            <TextBox Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.AuditedDate, UpdateSourceTrigger=PropertyChanged}" Width="150" Margin="2,2,2,2"></TextBox>
+                            <TextBox Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.AuditedDate}" Width="150" Margin="2,2,2,2"></TextBox>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" Margin="20,5,5,5">							
@@ -260,13 +260,13 @@
                         
                         <TextBox Name="textBoxPBirthdate" Grid.Column="1" Grid.Row="5" Style="{StaticResource TextBoxInput}" 
                                  PreviewLostKeyboardFocus="TextBoxPBirthdate_PreviewLostKeyboardFocus"  IsEnabled="{Binding Path=IsWorkspaceEnabled}"
-                                 Text="{Binding Path=AccessionOrder.PBirthdate, Converter={StaticResource ShortDateConverter}, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                 Text="{Binding Path=AccessionOrder.PBirthdate, Converter={StaticResource ShortDateConverter}}"></TextBox>
                         <ComboBox Grid.Column="1" Grid.Row="6" Text="{Binding Path=AccessionOrder.PSex}" Margin="3" Width="50" HorizontalAlignment="Left" IsEnabled="{Binding Path=IsWorkspaceEnabled}" IsEditable="True">
 							<ComboBoxItem>F</ComboBoxItem>
 							<ComboBoxItem>M</ComboBoxItem>
 						</ComboBox>
                         <TextBox Grid.Column="1" Grid.Row="7" Style="{StaticResource TextBoxInput}" IsEnabled="{Binding Path=IsWorkspaceEnabled}"
-                                 Text="{Binding Path=AccessionOrder.PSSN, Converter={StaticResource SocialSecurityNumberConverter}, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                 Text="{Binding Path=AccessionOrder.PSSN, Converter={StaticResource SocialSecurityNumberConverter}}"></TextBox>
                         <ComboBox Grid.Column="1" Grid.Row="8" Text="{Binding Path=AccessionOrder.PatientType}" Margin="3" Width="100" HorizontalAlignment="Left" IsEnabled="{Binding Path=IsWorkspaceEnabled}" IsEditable="True">
 							<ComboBoxItem>IP</ComboBoxItem>
 							<ComboBoxItem>OP</ComboBoxItem>
