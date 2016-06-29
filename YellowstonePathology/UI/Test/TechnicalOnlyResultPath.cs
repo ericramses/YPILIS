@@ -9,7 +9,7 @@ namespace YellowstonePathology.UI.Test
     {
         YellowstonePathology.UI.Surgical.PublishedDocumentFinalPage m_ResultPage;
         YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-		private YellowstonePathology.Business.Test.TechnicalOnly.TechnicalOnlyTestOrder m_TestOrder;
+		private YellowstonePathology.Business.Test.PanelSetOrder m_TestOrder;
 
         public TechnicalOnlyResultPath(string reportNo, YellowstonePathology.Business.Test.AccessionOrder accessionOrder, 
             YellowstonePathology.UI.Navigation.PageNavigator pageNavigator,
@@ -17,7 +17,7 @@ namespace YellowstonePathology.UI.Test
             : base(pageNavigator, window)
         {
             this.m_AccessionOrder = accessionOrder;
-			this.m_TestOrder = (YellowstonePathology.Business.Test.TechnicalOnly.TechnicalOnlyTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
+			this.m_TestOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 		}
 
         protected override void ShowResultPage()
