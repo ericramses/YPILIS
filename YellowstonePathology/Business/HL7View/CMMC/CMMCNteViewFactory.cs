@@ -99,6 +99,9 @@ namespace YellowstonePathology.Business.HL7View.CMMC
                 case 186:
                     view = new YellowstonePathology.Business.Test.API2MALT1ByFISH.API2MALT1ByFISHCMMCNteView(accessionOrder, reportNo);
                     break;
+                case 211:
+                    view = new YellowstonePathology.Business.Test.HoldForFlow.HoldForFlowCMMCView(accessionOrder, reportNo);
+                    break;
                 case 213:
                     view = new YellowstonePathology.Business.Test.HPV1618ByPCR.HPV1618ByPCRCMMCView(accessionOrder, reportNo);
                     break;
