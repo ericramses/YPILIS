@@ -37,10 +37,14 @@ namespace YellowstonePathology.Business.Test.FetalHemoglobin
             this.SetCaseHistory();                
 
 			string collectionDate = this.m_AccessionOrder.CollectionDate.Value.ToShortDateString();
-            this.SetXmlNodeData("collection_date", collectionDate);            
-            
-			this.SetXmlNodeData("specimen_type", this.m_AccessionOrder.SpecimenOrderCollection[0].Description);
-            
+            this.SetXmlNodeData("collection_date", collectionDate);
+
+            YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByOrderTarget(this.m_PanelSetOrder.OrderedOnId);
+            this.ReplaceText("specimen_description", specimenOrder.Description);
+
+            string collectionDateTimeString = YellowstonePathology.Business.Helper.DateTimeExtensions.CombineDateAndTime(specimenOrder.CollectionDate, specimenOrder.CollectionTime);
+            this.SetXmlNodeData("date_time_collected", collectionDateTimeString);
+
             foreach (YellowstonePathology.Business.Flow.FlowMarkerItem markerItem in panelSetOrderLeukemiaLymphoma.FlowMarkerCollection)
             {
                 switch(markerItem.Name.ToUpper())
@@ -50,8 +54,7 @@ namespace YellowstonePathology.Business.Test.FetalHemoglobin
                         break;                    
                 }
             }
-
-			this.SetXmlNodeData("specimen_type", this.m_AccessionOrder.SpecimenOrderCollection[0].Description);
+			
 			this.SetXmlNodeData("report_comment", panelSetOrderLeukemiaLymphoma.ReportComment);
 
 			YellowstonePathology.Business.Document.AmendmentSection amendmentSection = new YellowstonePathology.Business.Document.AmendmentSection();

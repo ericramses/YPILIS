@@ -334,6 +334,9 @@ namespace YellowstonePathology.Business.Document
                     case 234:
                         document = new YellowstonePathology.Business.Test.TCellRecepterBetaGeneRearrangement.TCellRecepterBetaGeneRearrangementWordDocument(accessionOrder, panelSetOrder, reportSaveMode);
                         break;
+                    case 235:
+                        document = new YellowstonePathology.Business.Test.MultipleMyelomaMGUSByFish.MultipleMyelomaMGUSByFishWordDocument(accessionOrder, panelSetOrder, reportSaveMode);
+                        break;
                     default:
 						break;
 				}

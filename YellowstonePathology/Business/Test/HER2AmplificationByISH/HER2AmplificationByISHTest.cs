@@ -44,6 +44,9 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
             string task2Description = "Recieve materials from histology and run test.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, task2Description));
 
+            string task3Description = "Please check to make sure the Fixation is entered correctly for this case.";
+            this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.Task(YellowstonePathology.Business.Task.Model.TaskAssignment.Flow, task3Description));
+
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceMiscellaneous());
 
             HER2AmplificationByISHPanel her2AmplificationByISHPanel = new HER2AmplificationByISHPanel();

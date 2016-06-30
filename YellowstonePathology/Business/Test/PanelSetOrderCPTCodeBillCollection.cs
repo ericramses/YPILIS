@@ -86,12 +86,12 @@ namespace YellowstonePathology.Business.Test
             return result;
         }
 
-        public int GetBilledCount(string cptCode)
+        public int GetBilledCount(string cptCode, string modifier)
         {
             int result = 0;
             foreach (PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill in this)
             {
-                if (panelSetOrderCPTCodeBill.CPTCode == cptCode)
+                if (panelSetOrderCPTCodeBill.CPTCode == cptCode && panelSetOrderCPTCodeBill.Modifier == modifier)
                 {
                     result += panelSetOrderCPTCodeBill.Quantity;                    
                 }
