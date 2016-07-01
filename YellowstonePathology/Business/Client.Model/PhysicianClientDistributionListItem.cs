@@ -231,7 +231,7 @@ namespace YellowstonePathology.Business.Client.Model
         private bool HandleAddWebServiceDistribution(YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder)
         {
             bool result = true;
-            if (panelSetOrder.TestOrderReportDistributionCollection.Exists(this.m_PhysicianId, this.m_ClientId, this.m_DistributionType) == false)
+            if (panelSetOrder.TestOrderReportDistributionCollection.Exists(this.m_PhysicianId, this.m_ClientId, YellowstonePathology.Business.ReportDistribution.Model.DistributionType.WEBSERVICE) == false)
             {
                 this.AddTestOrderReportDistribution(panelSetOrder, this.m_PhysicianId, this.m_PhysicianName, this.m_ClientId, this.m_ClientName, YellowstonePathology.Business.ReportDistribution.Model.DistributionType.WEBSERVICE, this.FaxNumber, this.LongDistance);
             }
