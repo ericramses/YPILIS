@@ -70,6 +70,9 @@ namespace YellowstonePathology.Business.HL7View.EPIC
                 case 62:
 					view = new YellowstonePathology.Business.Test.HPV1618.HPV1618EPICObxView(accessionOrder, reportNo, obxCount);
                     break;
+                case 211:
+                    view = new YellowstonePathology.Business.Test.HoldForFlow.HoldForFlowEPICOBXView(accessionOrder, reportNo, obxCount);
+                    break;
                 case 213:
                     view = new YellowstonePathology.Business.Test.HPV1618ByPCR.HPV1618ByPCREPICOBXView(accessionOrder, reportNo, obxCount);
                     break;

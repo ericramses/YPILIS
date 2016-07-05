@@ -745,7 +745,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
                         result = timeSpan.Hours + "hrs ";
                         if (timeSpan.Minutes > 0)
                         {
-                            result += timeSpan.Minutes + "min";
+                            result += timeSpan.Minutes.ToString() + "min";
                         }
                     }
                 }
@@ -776,7 +776,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
                 }
                 else
                 {
-                    result = "Unknown";
+                    result = "< 1 hr"; // "Unknown";
                 }
                 return result;
             }
