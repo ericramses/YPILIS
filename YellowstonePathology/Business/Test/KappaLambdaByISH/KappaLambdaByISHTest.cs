@@ -14,13 +14,13 @@ namespace YellowstonePathology.Business.Test.KappaLambdaByISH
             this.m_CaseType = YellowstonePathology.Business.CaseType.FISH;
 			this.m_HasTechnicalComponent = true;			
 			this.m_HasProfessionalComponent = true;
-			this.m_ResultDocumentSource = YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.YPIDatabase;
+			this.m_ResultDocumentSource = YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.PublishedDocument;
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterR();
             this.m_Active = true;
 
-			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.MultipleMyelomaMGUSByFish.MultipleMyelomaMGUSByFishTestOrder).AssemblyQualifiedName;
+			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.PanelSetOrder).AssemblyQualifiedName;
 			this.m_AllowMultiplePerAccession = true;
-            this.m_EpicDistributionIsImplemented = true;
+            this.m_NeverDistribute = true;
 
             string taskDescription = "Gather materials (Bone Marrow Aspirate: 1-2 mL sodium heparin tube. EDTA tube is acceptable. " +
                 "Peripheral Blood: 2-5 mL sodium heparin tube. EDTA tube is acceptable." +
