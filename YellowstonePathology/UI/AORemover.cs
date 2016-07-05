@@ -15,17 +15,11 @@ namespace YellowstonePathology.UI
         {
             YellowstonePathology.Business.Rules.MethodResult methodResult = new Business.Rules.MethodResult();
             accessionOrder.AccessionLock.ReleaseLock();
-            if (accessionOrder.PLastName.ToUpper() == "MOUSE" && accessionOrder.PFirstName.ToUpper() == "MICKEY")
-            {
-                YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullClientOrder(accessionOrder.ClientOrderId, writer);
-                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.DeleteDocument(clientOrder, writer);
-                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.DeleteDocument(accessionOrder, writer);
-            }
-            else
-            {
-                methodResult.Success = false;
-                methodResult.Message = "Unable to remove an accession that is not for Mickey Mouse.";
-            }
+            
+            YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullClientOrder(accessionOrder.ClientOrderId, writer);
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.DeleteDocument(clientOrder, writer);
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.DeleteDocument(accessionOrder, writer);
+            
             return methodResult;
         }
 

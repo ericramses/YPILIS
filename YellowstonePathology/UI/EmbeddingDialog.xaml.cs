@@ -107,26 +107,7 @@ namespace YellowstonePathology.UI
                 this.ListViewEmbeddingScans.SelectedIndex = 0;
             }
             ));
-        }
-
-        /*
-        private void HandleVerification(string aliquotOrderId)
-        {            
-            YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAliquotOrder(aliquotOrderId, this);            
-            aliquotOrder.EmbeddingVerify(YellowstonePathology.Business.User.SystemIdentity.Instance.User);            
-
-            YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullSpecimenOrder(aliquotOrderId, this);
-            YellowstonePathology.Business.Surgical.ProcessorRun processorRun = (YellowstonePathology.Business.Surgical.ProcessorRun)this.ComboBoxProcessorRuns.SelectedItem;
-            specimenOrder.ProcessorRun = processorRun.Name;
-            specimenOrder.ProcessorRunId = processorRun.ProcessorRunId;
-
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
-            
-            this.m_SpecimenOrderHoldCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetSpecimenOrderHoldCollection();
-
-            this.NotifyPropertyChanged(string.Empty);
-        }
-        */
+        }        
 
         public YellowstonePathology.Business.Surgical.ProcessorRunCollection ProcessorRunCollection
         {
@@ -180,6 +161,8 @@ namespace YellowstonePathology.UI
 
         private void ButtonUpdate_Click(object sender, RoutedEventArgs e)
         {
+            YellowstonePathology.Business.Surgical.ProcessorRunCollection processorRunCollection = Business.Surgical.ProcessorRunCollection.GetAll(false);
+
             foreach (YellowstonePathology.Business.BarcodeScanning.EmbeddingScan embeddingScan in this.ListViewEmbeddingScans.Items)
             {
                 if(embeddingScan.Updated == false)
@@ -187,10 +170,12 @@ namespace YellowstonePathology.UI
                     YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAliquotOrder(embeddingScan.AliquotOrderId, this);
                     aliquotOrder.EmbeddingVerify(YellowstonePathology.Business.User.SystemIdentity.Instance.User);
 
-                    YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullSpecimenOrder(embeddingScan.AliquotOrderId, this);
-                    YellowstonePathology.Business.Surgical.ProcessorRun processorRun = (YellowstonePathology.Business.Surgical.ProcessorRun)this.ComboBoxProcessorRuns.SelectedItem;
-                    specimenOrder.ProcessorRun = processorRun.Name;
-                    specimenOrder.ProcessorRunId = processorRun.ProcessorRunId;
+                    YellowstonePathology.Business.Surgical.ProcessorRun processorRun = processorRunCollection.Get(embeddingScan.ProcessorRunId);
+                    YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullSpecimenOrder(embeddingScan.AliquotOrderId, this);                    
+                    specimenOrder.ProcessorRun = embeddingScan.ProcessorRun;
+                    specimenOrder.ProcessorRunId = embeddingScan.ProcessorRunId;
+                    specimenOrder.FixationEndTime = processorRun.GetFixationEndTime(specimenOrder.FixationStartTime);
+                    specimenOrder.SetFixationDuration();
 
                     YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
 

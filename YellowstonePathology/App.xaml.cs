@@ -57,7 +57,7 @@ namespace YellowstonePathology.UI
         protected override void OnStartup(StartupEventArgs e)
         {
             //this.HandledictionarySetup();
-            this.PullLisData();
+            //this.PullLisData();
 
             Business.Test.AccessionLockCollection accessionLockCollection = new Business.Test.AccessionLockCollection();
             accessionLockCollection.ClearLocks();

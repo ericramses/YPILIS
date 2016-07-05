@@ -40,9 +40,12 @@ namespace YellowstonePathology.Business.Test
             List<AccessionLock> list = new List<AccessionLock>();
             for (int i = 0; i < members.Length; i++)
             {
-                HashEntry[] hashEntries = db.HashGetAll(members[i].ToString());
-                AccessionLock item = new AccessionLock(hashEntries);
-                list.Add(item);
+                if(db.KeyExists(members[i].ToString()) == true)
+                {
+                    HashEntry[] hashEntries = db.HashGetAll(members[i].ToString());
+                    AccessionLock item = new AccessionLock(hashEntries);
+                    list.Add(item);
+                }                
             }
 
             list.Sort(delegate(AccessionLock x, AccessionLock y) 
