@@ -275,7 +275,6 @@ namespace YellowstonePathology.Business.Document
                     case 197:
                     case 201:
                     case 208:
-                    case 211:
                     case 212:                    
                     case 230:            
                         document = new YellowstonePathology.Business.Document.NothingToPublishReport(accessionOrder, panelSetOrder, reportSaveMode);                    
@@ -288,6 +287,9 @@ namespace YellowstonePathology.Business.Document
                         break;
                     case 204:
                         document = new YellowstonePathology.Business.Test.ROS1ByFISH.ROS1ByFISHWordDocument(accessionOrder, panelSetOrder, reportSaveMode);
+                        break;
+                    case 211:
+                        document = new YellowstonePathology.Business.Test.HoldForFlow.HoldForFlowWordDocument(accessionOrder, panelSetOrder, reportSaveMode);
                         break;
                     case 214:
                         document = new YellowstonePathology.Business.Test.TechInitiatedPeripheralSmear.TechInitiatedPeripheralSmearWordDocument(accessionOrder, panelSetOrder, reportSaveMode);

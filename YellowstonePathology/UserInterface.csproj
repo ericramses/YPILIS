@@ -2110,8 +2110,11 @@
     <Compile Include="Business\Test\HighGradeLargeBCellLymphoma\HighGradeLargeBCellLymphomaResult.cs" />
     <Compile Include="Business\Test\HighGradeLargeBCellLymphoma\HighGradeLargeBCellLymphomaWordDocument.cs" />
     <Compile Include="Business\Test\HighGradeLargeBCellLymphoma\PanelSetOrderHighGradeLargeBCellLymphoma.cs" />
+    <Compile Include="Business\Test\HoldForFlow\HoldForFlowCMMCView.cs" />
+    <Compile Include="Business\Test\HoldForFlow\HoldForFlowEPICOBXView.cs" />
     <Compile Include="Business\Test\HoldForFlow\HoldForFlowTest.cs" />
     <Compile Include="Business\Test\HoldForFlow\HoldForFlowTestOrder.cs" />
+    <Compile Include="Business\Test\HoldForFlow\HoldForFlowWordDocument.cs" />
     <Compile Include="Business\Test\HPV1618ByPCR\HPV1618BothNegativeResult.cs" />
     <Compile Include="Business\Test\HPV1618ByPCR\HPV1618BothPositiveResult.cs" />
     <Compile Include="Business\Test\HPV1618ByPCR\HPV1618ByPCRCMMCView.cs" />
