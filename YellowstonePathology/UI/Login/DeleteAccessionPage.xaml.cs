@@ -77,12 +77,12 @@ namespace YellowstonePathology.UI.Login
 
         private void HyperLinkDeleteAccessionOrder_Click(object sender, RoutedEventArgs e)
         {
-            bool tabsClosedResult = this.CloseTabs(this, EventArgs.Empty);
-            if (tabsClosedResult == true)
+            if (this.m_AccessionOrder.AccessionLock.IsLockAquiredByMe == true)
             {
-                MessageBoxResult result = MessageBox.Show("Are you sure you want to permanently delete Accession " + this.m_AccessionOrder.MasterAccessionNo + " for " + this.m_AccessionOrder.PatientDisplayName + "?", "Delete Accession", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+                MessageBoxResult result = MessageBox.Show("All open tabs will be closed and your work saved.  Are you sure you want to permanently delete Accession " + this.m_AccessionOrder.MasterAccessionNo + " for " + this.m_AccessionOrder.PatientDisplayName + "?", "Delete Accession", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
                 if (result == MessageBoxResult.Yes)
                 {
+                    bool tabsClosedResult = this.CloseTabs(this, EventArgs.Empty);
                     Business.Rules.MethodResult methodResult = AORemover.Remove(this.m_AccessionOrder, this.m_Writer);
                     if (methodResult.Success == false)
                     {
@@ -94,23 +94,27 @@ namespace YellowstonePathology.UI.Login
                     }
                 }
             }
+            else
+            {
+                System.Windows.MessageBox.Show("Unable to delete as the case is locked by " + this.m_AccessionOrder.AccessionLock.Address + ".", "Case is locked");
+            }
         }
 
         private void HyperLinkDeletePanelSetOrder_Click(object sender, RoutedEventArgs e)
         {
-            if (this.m_AccessionOrder.PanelSetOrderCollection.Count == 1)
+            if (this.m_AccessionOrder.AccessionLock.IsLockAquiredByMe == true)
             {
-                MessageBox.Show("Unable to remove the only Panel Set for the Accession.");
-            }
-            else
-            {
-                bool tabsClosedResult = this.CloseTabs(this, EventArgs.Empty);
-                if (tabsClosedResult == true)
+                if (this.m_AccessionOrder.PanelSetOrderCollection.Count == 1)
+                {
+                    MessageBox.Show("Unable to remove the only Panel Set for the Accession.");
+                }
+                else
                 {
                     Business.Test.PanelSetOrder panelSetOrder = ((Hyperlink)sender).Tag as Business.Test.PanelSetOrder;
-                    MessageBoxResult result = MessageBox.Show("Are you sure you want to permanently delete report " + panelSetOrder.ReportNo + " for " + this.m_AccessionOrder.PatientDisplayName + "?", "Delete Report", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+                    MessageBoxResult result = MessageBox.Show("All open tabs will be closed and your work saved.  Are you sure you want to permanently delete report " + panelSetOrder.ReportNo + " for " + this.m_AccessionOrder.PatientDisplayName + "?", "Delete Report", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
                     if (result == MessageBoxResult.Yes)
                     {
+                        bool closeResult = this.CloseTabs(this, EventArgs.Empty);
                         Business.Rules.MethodResult methodResult = AORemover.RemovePanelSet(panelSetOrder.ReportNo, this.m_AccessionOrder, this.m_Writer);
                         if (methodResult.Success == false)
                         {
@@ -123,6 +127,10 @@ namespace YellowstonePathology.UI.Login
                         }
                     }
                 }
+            }
+            else
+            {
+                System.Windows.MessageBox.Show("Unable to delete as the case is locked by " + this.m_AccessionOrder.AccessionLock.Address + ".", "Case is locked");
             }
         }
     }
