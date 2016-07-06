@@ -92,8 +92,6 @@ namespace YellowstonePathology.UI.Surgical
         {            
             if (this.m_PathologistUI.AccessionOrder != null && this.m_PathologistUI.AccessionOrder.AccessionLock.IsLockAquiredByMe == false && this.PathologistUI.AccessionOrder.AccessionLock.IsLockAquired == true)
             {                
-                UI.AppMessaging.MessagingPath.Instance.LockReleasedActionList.Add(this.ReleaseLock);
-                UI.AppMessaging.MessagingPath.Instance.LockAquiredActionList.Add(this.m_PathologistUI.RunWorkspaceEnableRules);
                 UI.AppMessaging.MessagingPath.Instance.Start(this.m_PathologistUI.AccessionOrder);
             }            
         }                
