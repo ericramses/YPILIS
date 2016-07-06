@@ -4,11 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using StackExchange.Redis;
+using System.ComponentModel;
 
 namespace YellowstonePathology.Business.BarcodeScanning
 {
-    public class EmbeddingScan
+    public class EmbeddingScan: INotifyPropertyChanged 
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
         private string m_AliquotOrderId;
         private string m_ProcessorRunId;
         private string m_ProcessorRun;
@@ -82,6 +85,14 @@ namespace YellowstonePathology.Business.BarcodeScanning
         public bool Updated
         {
             get { return this.m_Updated; }
+            set
+            {
+                if(this.m_Updated != value)
+                {
+                    this.m_Updated = true;
+                    this.NotifyPropertyChanged("Updated");
+                }                
+            }
         }
 
         public string HashKey
@@ -100,6 +111,14 @@ namespace YellowstonePathology.Business.BarcodeScanning
             hashEntries[5] = new HashEntry("ScannedBy", this.m_ScannedBy);
             hashEntries[6] = new HashEntry("Updated", this.m_Updated.ToString());
             return hashEntries;
-        }        
+        }
+
+        public void NotifyPropertyChanged(String info)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
+        }
     }
 }

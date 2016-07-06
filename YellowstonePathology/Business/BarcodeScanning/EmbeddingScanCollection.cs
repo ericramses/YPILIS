@@ -15,6 +15,16 @@ namespace YellowstonePathology.Business.BarcodeScanning
 
         }
 
+        public void UpdateStatus(EmbeddingScan scan)
+        {
+            IDatabase db = Business.RedisConnection.Instance.GetDatabase();
+            if (db.KeyExists(scan.HashKey) == true)
+            {
+                HashEntry[] hashEntries = scan.GetHasEntries();
+                db.HashSet(scan.HashKey, "Updated", scan.Updated.ToString());
+            }
+        }
+
         public EmbeddingScan HandleScan(string aliquotOrderId, string processorRunId, string processorRun)
         {            
             IDatabase db = Business.RedisConnection.Instance.GetDatabase();

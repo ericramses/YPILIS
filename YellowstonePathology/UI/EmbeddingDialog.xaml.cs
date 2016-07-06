@@ -180,6 +180,9 @@ namespace YellowstonePathology.UI
                     YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
 
                     this.m_SpecimenOrderHoldCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetSpecimenOrderHoldCollection();
+
+                    embeddingScan.Updated = true;
+                    this.m_EmbeddingScanCollection.UpdateStatus(embeddingScan);
                 }
             }
 
