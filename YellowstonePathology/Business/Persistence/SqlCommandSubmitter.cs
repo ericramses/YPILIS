@@ -9,6 +9,7 @@ namespace YellowstonePathology.Business.Persistence
 {	
 	public class SqlCommandSubmitter
     {
+
         private Queue<SqlCommand> m_SqlInsertCommands;
         private Queue<SqlCommand> m_SqlInsertLastCommands;
         private Stack<SqlCommand> m_SqlDeleteFirstCommands;
@@ -74,19 +75,38 @@ namespace YellowstonePathology.Business.Persistence
             result.HasDeleteFirstCommands = this.m_SqlDeleteFirstCommands.Count > 0;
             result.HasDeleteCommands = this.m_SqlDeleteCommands.Count > 0;
             result.HasInsertCommands = this.m_SqlInsertCommands.Count > 0;
-            result.HasInsertLastCommands = this.m_SqlInsertLastCommands.Count > 0;            
+            result.HasInsertLastCommands = this.m_SqlInsertLastCommands.Count > 0;
 
-            this.RunSqlCommands(this.m_SqlUpdateCommands);
-            this.RunSqlCommands(this.m_SqlDeleteFirstCommands);
-            this.RunSqlCommands(this.m_SqlDeleteCommands);
-            this.RunSqlCommands(this.m_SqlInsertCommands);
-            this.RunSqlCommands(this.m_SqlInsertLastCommands);            
+            if (result.HasUpdateCommands || result.HasDeleteCommands || result.HasInsertCommands || result.HasInsertLastCommands)
+            {
+                using (SqlConnection cn = new SqlConnection(this.m_ConnectionString))
+                {
+                    cn.Open();
+
+                    SqlTransaction trans = cn.BeginTransaction();
+                    try
+                    {
+                        this.RunSqlCommands(this.m_SqlUpdateCommands, cn, trans);
+                        this.RunSqlCommands(this.m_SqlDeleteFirstCommands, cn, trans);
+                        this.RunSqlCommands(this.m_SqlDeleteCommands, cn, trans);
+                        this.RunSqlCommands(this.m_SqlInsertCommands, cn, trans);
+                        this.RunSqlCommands(this.m_SqlInsertLastCommands, cn, trans);
+                        trans.Commit();
+                    }
+                    catch (Exception ex) //error occurred
+                    {
+                        trans.Rollback();
+                        cn.Close();
+                        throw(ex);
+                    }
+                }
+            }
             return result;
         }
 
-        private void RunSqlCommands(Queue<SqlCommand> sqlCommandQueue)
+        private void RunSqlCommands(Queue<SqlCommand> sqlCommandQueue, SqlConnection cn, SqlTransaction trans)
         {
-            while (sqlCommandQueue.Count != 0)
+            /*while (sqlCommandQueue.Count != 0)
             {
                 SqlCommand cmd = sqlCommandQueue.Dequeue();
                 using (SqlConnection cn = new SqlConnection(this.m_ConnectionString))
@@ -95,12 +115,20 @@ namespace YellowstonePathology.Business.Persistence
                     cmd.Connection = cn;                    
                     cmd.ExecuteNonQuery();                    
                 }
-            }
-        }        
+            }*/
 
-        private void RunSqlCommands(Stack<SqlCommand> sqlCommandStack)
+            while (sqlCommandQueue.Count != 0)
+            {
+                SqlCommand cmd = sqlCommandQueue.Dequeue();
+                cmd.Connection = cn;
+                cmd.Transaction = trans;
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        private void RunSqlCommands(Stack<SqlCommand> sqlCommandStack, SqlConnection cn, SqlTransaction trans)
         {
-            while (sqlCommandStack.Count != 0)
+            /*while (sqlCommandStack.Count != 0)
             {
                 SqlCommand cmd = sqlCommandStack.Pop();
                 using (SqlConnection cn = new SqlConnection(this.m_ConnectionString))
@@ -109,6 +137,14 @@ namespace YellowstonePathology.Business.Persistence
                     cmd.Connection = cn;
                     cmd.ExecuteNonQuery();                    
                 }
+            }*/
+
+            while (sqlCommandStack.Count != 0)
+            {
+                SqlCommand cmd = sqlCommandStack.Pop();
+                cmd.Connection = cn;
+                cmd.Transaction = trans;
+                cmd.ExecuteNonQuery();
             }
         }
 
