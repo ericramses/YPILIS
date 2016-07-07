@@ -31,8 +31,8 @@ namespace YellowstonePathology.UI.Cutting
         public delegate void ShowMasterAccessionNoEntryPageEventHandler(object sender, EventArgs eventArgs);
         public event ShowMasterAccessionNoEntryPageEventHandler ShowMasterAccessionNoEntryPage;
 
-        public delegate void PageTimedOutEventHandler(object sender, EventArgs eventArgs);
-        public event PageTimedOutEventHandler PageTimedOut;
+        //public delegate void PageTimedOutEventHandler(object sender, EventArgs eventArgs);
+        //public event PageTimedOutEventHandler PageTimedOut;
 
         public delegate void PrintImmunosEventHandler(object sender, EventArgs eventArgs);
         public event PrintImmunosEventHandler PrintImmunos;        
@@ -41,7 +41,7 @@ namespace YellowstonePathology.UI.Cutting
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;        
 
         private string m_LastMasterAccessionNo;
-        private System.Windows.Threading.DispatcherTimer m_PageTimeoutTimer;
+        //private System.Windows.Threading.DispatcherTimer m_PageTimeoutTimer;
 
 		public ScanAliquotPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string lastMasterAccessionNo)
         {
@@ -53,10 +53,10 @@ namespace YellowstonePathology.UI.Cutting
 
 			DataContext = this;
 
-            this.m_PageTimeoutTimer = new System.Windows.Threading.DispatcherTimer();
+            /*this.m_PageTimeoutTimer = new System.Windows.Threading.DispatcherTimer();
             this.m_PageTimeoutTimer.Interval = TimeSpan.FromMinutes(15);
             this.m_PageTimeoutTimer.Tick += new EventHandler(PageTimeoutTimer_Tick);
-            this.m_PageTimeoutTimer.Start();
+            this.m_PageTimeoutTimer.Start();*/
 
             this.Loaded += new RoutedEventHandler(ScanBlockPage_Loaded);
             this.Unloaded += new RoutedEventHandler(ScanBlockPage_Unloaded);            
@@ -64,7 +64,7 @@ namespace YellowstonePathology.UI.Cutting
 
         private void PageTimeoutTimer_Tick(object sender, EventArgs e)
         {            
-            this.PageTimedOut(this, new EventArgs());
+            //this.PageTimedOut(this, new EventArgs());
         } 
         
         private void ScanBlockPage_Loaded(object sender, RoutedEventArgs e)
@@ -76,7 +76,7 @@ namespace YellowstonePathology.UI.Cutting
         private void ScanBlockPage_Unloaded(object sender, RoutedEventArgs e)
         {
             this.m_BarcodeScanPort.HistologyBlockScanReceived -= BarcodeScanPort_HistologyBlockScanReceived;
-            this.m_PageTimeoutTimer.Stop();
+            //this.m_PageTimeoutTimer.Stop();
         }
 
 		private void BarcodeScanPort_HistologyBlockScanReceived(Business.BarcodeScanning.Barcode barcode)

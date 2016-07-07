@@ -24,29 +24,17 @@
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Column="0" Grid.Row="0" Margin="2" Text="Search" />
-            <TextBox Name="TextBoxMasterAccessionNo" Grid.Column="1" Grid.Row="0" Margin="2" KeyUp="TextBoxMasterAccessionNo_KeyUp" Width="150" BorderBrush="AliceBlue" BorderThickness="1" HorizontalAlignment="Left" />
-
-            <ListView Name="ListViewAccessionOrders" Margin="3" Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding Path=ReportSearchList}">
-                <ListView.View>
-                    <GridView AllowsColumnReorder="True" ColumnHeaderToolTip="Case List">
-                        <GridViewColumn DisplayMemberBinding="{Binding Path=ReportNo}" Header="Report No" Width="85"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding Path=PatientName}" Header="Patient Name" Width="150"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding Path=PanelSetName}" Header="Report" Width="170"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding Path=ClientName}" Header="Client" Width="200"/>
-                    </GridView>
-                </ListView.View>
-            </ListView>
+            <TextBlock Grid.Column="0" Grid.Row="0" Margin="2" Text="Master Accession No:" />
+            <TextBox Name="TextBoxMasterAccessionNo" Grid.Column="1" Grid.Row="0" Margin="2" Width="150" BorderBrush="AliceBlue" BorderThickness="1" HorizontalAlignment="Left" />
         </Grid>
 
         <Border Grid.Row="2" BorderBrush="Transparent" BorderThickness="0" Background="{DynamicResource {x:Static SystemColors.InactiveCaptionBrushKey}}"></Border>
         <Button Name="ButtonBack" Grid.Row="2" Margin="5,5,5,5" HorizontalAlignment="Left" Click="ButtonBack_Click" Width="100" Height="40">Back</Button>
 
         <StackPanel Grid.Row="2" HorizontalAlignment="Right" Orientation="Horizontal">
-            <Button Name="ButtonClose" Margin="5,5,5,5" Click="ButtonNext_Click" Width="100" Height="40">Next</Button>
+            <Button Name="ButtonNext" Margin="5,5,5,5" Click="ButtonNext_Click" Width="100" Height="40">Next</Button>
         </StackPanel>
 
     </Grid>

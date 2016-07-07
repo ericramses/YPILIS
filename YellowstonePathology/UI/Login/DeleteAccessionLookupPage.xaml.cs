@@ -28,7 +28,6 @@ namespace YellowstonePathology.UI.Login
         public delegate void BackEventHandler(object sender, EventArgs e);
         public event BackEventHandler Back;
 
-        private YellowstonePathology.Business.Search.ReportSearchList m_ReportSearchList;
         private string m_PageHeaderText = "Lookup Accession to Delete";
 
         public DeleteAccessionLookupPage()
@@ -59,75 +58,38 @@ namespace YellowstonePathology.UI.Login
 
         private void ButtonNext_Click(object sender, RoutedEventArgs e)
         {
-            if(this.ListViewAccessionOrders.SelectedItem != null)
+            if (this.TextBoxMasterAccessionNo.Text.Length >= 1)
             {
-                Business.Search.ReportSearchItem reportSearchItem = (Business.Search.ReportSearchItem)this.ListViewAccessionOrders.SelectedItem;
-                this.Next(this, new CustomEventArgs.MasterAccessionNoReturnEventArgs(reportSearchItem.MasterAccessionNo));
+                Surgical.TextSearchHandler textSearchHandler = new Surgical.TextSearchHandler(this.TextBoxMasterAccessionNo.Text);
+                object textSearchObject = textSearchHandler.GetSearchObject();
+                if (textSearchObject is YellowstonePathology.Business.MasterAccessionNo)
+                {
+                    YellowstonePathology.Business.MasterAccessionNo masterAccessionNo = (YellowstonePathology.Business.MasterAccessionNo)textSearchObject;
+                    YellowstonePathology.Business.Search.ReportSearchList reportSearchList = YellowstonePathology.Business.Gateway.ReportSearchGateway.GetReportSearchListByMasterAccessionNo(masterAccessionNo.Value);
+
+                    if (reportSearchList.Count > 0)
+                    {
+                        this.Next(this, new CustomEventArgs.MasterAccessionNoReturnEventArgs(masterAccessionNo.Value));
+                    }
+                    else
+                    {
+                        MessageBox.Show("Unable to find the Accession.");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Enter a Master Accession Number.");
+                }
             }
             else
             {
-                MessageBox.Show("Select an item.");
+                MessageBox.Show("Enter a Master Accession Number.");
             }
         }
 
         public string PageHeaderText
         {
             get { return this.m_PageHeaderText; }
-        }
-
-        public YellowstonePathology.Business.Search.ReportSearchList ReportSearchList
-        {
-            get { return this.m_ReportSearchList; }
-        }
-
-        private void TextBoxMasterAccessionNo_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter)
-            {
-                this.DoSearch();
-            }
-        }
-
-        public void DoSearch()
-        {
-            if (this.TextBoxMasterAccessionNo.Text.Length >= 1)
-            {
-                Surgical.TextSearchHandler textSearchHandler = new Surgical.TextSearchHandler(this.TextBoxMasterAccessionNo.Text);
-                object textSearchObject = textSearchHandler.GetSearchObject();
-                if (textSearchObject is YellowstonePathology.Business.ReportNo)
-                {
-                    YellowstonePathology.Business.ReportNo reportNo = (YellowstonePathology.Business.ReportNo)textSearchObject;
-                    this.GetReportSearchListByReportNo(reportNo.Value);
-                }
-                else if (textSearchObject is YellowstonePathology.Business.MasterAccessionNo)
-                {
-                    YellowstonePathology.Business.MasterAccessionNo masterAccessionNo = (YellowstonePathology.Business.MasterAccessionNo)textSearchObject;
-                    this.GetReportSearchListByMasterAccessionNo(masterAccessionNo.Value);
-                }
-                else if (textSearchObject is YellowstonePathology.Business.PatientName)
-                {
-                    YellowstonePathology.Business.PatientName patientName = (YellowstonePathology.Business.PatientName)textSearchObject;
-                    this.GetReportSearchListByPatientName(patientName);
-                }
-            }
-        }
-
-        public void GetReportSearchListByReportNo(string reportNo)
-        {
-            this.m_ReportSearchList = YellowstonePathology.Business.Gateway.ReportSearchGateway.GetReportSearchListByReportNo(reportNo);
-            this.NotifyPropertyChanged("ReportSearchList");
-        }
-
-        public void GetReportSearchListByMasterAccessionNo(string masterAccessionNo)
-        {
-            this.m_ReportSearchList = YellowstonePathology.Business.Gateway.ReportSearchGateway.GetReportSearchListByMasterAccessionNo(masterAccessionNo);
-            this.NotifyPropertyChanged("ReportSearchList");
-        }
-
-        public void GetReportSearchListByPatientName(YellowstonePathology.Business.PatientName patientName)
-        {
-            this.m_ReportSearchList = YellowstonePathology.Business.Gateway.ReportSearchGateway.GetReportSearchListByPatientName(new List<object>() { patientName.LastName, patientName.FirstName });
-            this.NotifyPropertyChanged("ReportSearchList");
         }
     }
 }
