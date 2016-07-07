@@ -696,5 +696,13 @@ namespace YellowstonePathology.Business.Test
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
         }
+
+        public void HandleAddFrozen(YellowstonePathology.Business.Test.Model.TestOrder testOrder)
+        {
+            if (testOrder.TestId == 45)
+            {
+                this.AliquotType = "FrozenBlock";
+            }
+        }
     }
 }
