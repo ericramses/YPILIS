@@ -243,7 +243,7 @@ namespace YellowstonePathology.Business.Persistence
                 Document document = this.m_Stack.Pull(documentId, specimenOrderDocumentBuilder);
                 return (YellowstonePathology.Business.Specimen.Model.SpecimenOrder)document.Value;
             }
-        }
+        }        
 
         public YellowstonePathology.Business.User.UserPreference PullUserPreference(object writer)
         {

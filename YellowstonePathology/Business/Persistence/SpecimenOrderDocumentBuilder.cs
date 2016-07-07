@@ -25,6 +25,13 @@ namespace YellowstonePathology.Business.Persistence
             this.m_SQLCommand.Parameters.Add("@ContainerId", SqlDbType.VarChar).Value = containerId;
         }
 
+        public void SetSqlByAliquotOrderId(string aliquotOrderId)
+        {
+            this.m_SQLCommand = new SqlCommand("select * from tblSpecimenOrder where SpecimenOrderId in (Select SpecimenOrderId from tblAliquotOrder where aliquotOrderId = @AliquotOrderId)");
+            this.m_SQLCommand.CommandType = CommandType.Text;
+            this.m_SQLCommand.Parameters.Add("@AliquotOrderId", SqlDbType.VarChar).Value = aliquotOrderId;
+        }
+
         public void SetSqlBySpecimenOrderId(string specimenOrderId)
         {
             this.m_SQLCommand = new SqlCommand("select * from tblSpecimenOrder where SpecimenOrderId = @SpecimenOrderId");

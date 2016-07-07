@@ -23,7 +23,7 @@ namespace YellowstonePathology.UI.ReportDistribution
         public event PropertyChangedEventHandler PropertyChanged;        
 
         private System.Windows.Threading.DispatcherTimer m_Timer;
-        private TimeSpan m_TimerIntervalFast = new TimeSpan(0, 0, 10);
+        private TimeSpan m_TimerIntervalFast = new TimeSpan(0, 1, 0);
         private TimeSpan m_TimerIntervalSlow = new TimeSpan(1, 0, 0);
 
         private DateTime m_PublishClock;
@@ -137,34 +137,38 @@ namespace YellowstonePathology.UI.ReportDistribution
             foreach (YellowstonePathology.Business.MasterAccessionNo masterAccessionNo in caseList)
             {
 				YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo.Value, this);				
-                foreach(YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder in accessionOrder.PanelSetOrderCollection)
+
+                if(accessionOrder.AccessionLock.IsLockAquiredByMe == true)
                 {
-                    if(panelSetOrder.Final == true && panelSetOrder.Distribute == true)
+                    foreach (YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder in accessionOrder.PanelSetOrderCollection)
                     {
-                        if(panelSetOrder.TestOrderReportDistributionCollection.Count == 0)
-                        {                            
-                            YellowstonePathology.Business.Client.Model.PhysicianClientDistributionList physicianClientDistributionCollection = YellowstonePathology.Business.Gateway.ReportDistributionGateway.GetPhysicianClientDistributionCollection(accessionOrder.PhysicianId, accessionOrder.ClientId);
-
-                            if (physicianClientDistributionCollection.Count != 0)
+                        if (panelSetOrder.Final == true && panelSetOrder.Distribute == true)
+                        {
+                            if (panelSetOrder.TestOrderReportDistributionCollection.Count == 0)
                             {
-                                physicianClientDistributionCollection.SetDistribution(panelSetOrder, accessionOrder);
-                                this.m_ReportDistributionLogEntryCollection.AddEntry("INFO", "Handle Unset Distribution", null, panelSetOrder.ReportNo, panelSetOrder.MasterAccessionNo,
-                                    accessionOrder.PhysicianName, accessionOrder.ClientName, "Distribution Set");
-                            }
-                            else
-                            {
-                                this.m_ReportDistributionLogEntryCollection.AddEntry("ERROR", "Handle Unset Distribution", null, panelSetOrder.ReportNo, panelSetOrder.MasterAccessionNo,
-                                    accessionOrder.PhysicianName, accessionOrder.ClientName, "No Distribution Defined");
+                                YellowstonePathology.Business.Client.Model.PhysicianClientDistributionList physicianClientDistributionCollection = YellowstonePathology.Business.Gateway.ReportDistributionGateway.GetPhysicianClientDistributionCollection(accessionOrder.PhysicianId, accessionOrder.ClientId);
 
-                                System.Net.Mail.MailMessage message = new System.Net.Mail.MailMessage("Support@ypii.com", "Support@ypii.com", System.Windows.Forms.SystemInformation.UserName, "No Distribution Defined: " + panelSetOrder.ReportNo);
-                                System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient("10.1.2.111");
+                                if (physicianClientDistributionCollection.Count != 0)
+                                {
+                                    physicianClientDistributionCollection.SetDistribution(panelSetOrder, accessionOrder);
+                                    this.m_ReportDistributionLogEntryCollection.AddEntry("INFO", "Handle Unset Distribution", null, panelSetOrder.ReportNo, panelSetOrder.MasterAccessionNo,
+                                        accessionOrder.PhysicianName, accessionOrder.ClientName, "Distribution Set");
+                                }
+                                else
+                                {
+                                    this.m_ReportDistributionLogEntryCollection.AddEntry("ERROR", "Handle Unset Distribution", null, panelSetOrder.ReportNo, panelSetOrder.MasterAccessionNo,
+                                        accessionOrder.PhysicianName, accessionOrder.ClientName, "No Distribution Defined");
 
-                                Uri uri = new Uri("http://tempuri.org/");
-                                System.Net.ICredentials credentials = System.Net.CredentialCache.DefaultCredentials;
-                                System.Net.NetworkCredential credential = credentials.GetCredential(uri, "Basic");
+                                    System.Net.Mail.MailMessage message = new System.Net.Mail.MailMessage("Support@ypii.com", "Support@ypii.com", System.Windows.Forms.SystemInformation.UserName, "No Distribution Defined: " + panelSetOrder.ReportNo);
+                                    System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient("10.1.2.111");
 
-                                client.Credentials = credential;
-                                client.Send(message);
+                                    Uri uri = new Uri("http://tempuri.org/");
+                                    System.Net.ICredentials credentials = System.Net.CredentialCache.DefaultCredentials;
+                                    System.Net.NetworkCredential credential = credentials.GetCredential(uri, "Basic");
+
+                                    client.Credentials = credential;
+                                    client.Send(message);
+                                }
                             }
                         }
                     }
@@ -180,19 +184,22 @@ namespace YellowstonePathology.UI.ReportDistribution
             foreach (YellowstonePathology.Business.MasterAccessionNo masterAccessionNo in caseList)
             {
                 YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo.Value, this);
-                foreach (YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder in accessionOrder.PanelSetOrderCollection)
+                if(accessionOrder.AccessionLock.IsLockAquiredByMe == true)
                 {
-                    if(panelSetOrder.Final == true && panelSetOrder.Distribute == true && panelSetOrder.HoldDistribution == false)
+                    foreach (YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder in accessionOrder.PanelSetOrderCollection)
                     {
-                        foreach(YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution testOrderReportDistribution in panelSetOrder.TestOrderReportDistributionCollection)
+                        if (panelSetOrder.Final == true && panelSetOrder.Distribute == true && panelSetOrder.HoldDistribution == false)
                         {
-                            if(testOrderReportDistribution.Distributed == false && testOrderReportDistribution.ScheduledDistributionTime == null)
+                            foreach (YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution testOrderReportDistribution in panelSetOrder.TestOrderReportDistributionCollection)
                             {
-                                this.ScheduleDistribution(testOrderReportDistribution, panelSetOrder);                    
+                                if (testOrderReportDistribution.Distributed == false && testOrderReportDistribution.ScheduledDistributionTime == null)
+                                {
+                                    this.ScheduleDistribution(testOrderReportDistribution, panelSetOrder);
+                                }
                             }
                         }
-                    }                                        
-                }
+                    }
+                }                
             }
 
             YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
@@ -216,35 +223,38 @@ namespace YellowstonePathology.UI.ReportDistribution
             foreach (YellowstonePathology.Business.MasterAccessionNo masterAccessionNo in caseList)
             {                
                 YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo.Value, this);
-                foreach (YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder in accessionOrder.PanelSetOrderCollection)
+                if(accessionOrder.AccessionLock.IsLockAquiredByMe == true)
                 {
-                    if(panelSetOrder.Final == true && panelSetOrder.ScheduledPublishTime == null && panelSetOrder.Published == false)
+                    foreach (YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder in accessionOrder.PanelSetOrderCollection)
                     {
-                        DateTime scheduleTime = DateTime.Now;
-                        if (panelSetOrder.FinalTime > DateTime.Now.AddMinutes(-15))
+                        if (panelSetOrder.Final == true && panelSetOrder.ScheduledPublishTime == null && panelSetOrder.Published == false)
                         {
-                            scheduleTime = panelSetOrder.FinalTime.Value.AddMinutes(15);
-                        }
-
-                        panelSetOrder.ScheduledPublishTime = scheduleTime;
-
-                        this.m_ReportDistributionLogEntryCollection.AddEntry("INFO", "Handle Unschedule Publish", null, panelSetOrder.ReportNo,
-                        panelSetOrder.MasterAccessionNo, null, null, "PanelSet Publish Sceduled");
-
-                        if (panelSetOrder.Distribute == true)
-                        {                            
-                            foreach (YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution testOrderReportDistribution in panelSetOrder.TestOrderReportDistributionCollection)
+                            DateTime scheduleTime = DateTime.Now;
+                            if (panelSetOrder.FinalTime > DateTime.Now.AddMinutes(-15))
                             {
-                                if(testOrderReportDistribution.Distributed == false && testOrderReportDistribution.ScheduledDistributionTime == null)
-                                {
-                                    this.m_ReportDistributionLogEntryCollection.AddEntry("INFO", "Handle Unschedule Publish", testOrderReportDistribution.DistributionType, panelSetOrder.ReportNo,
-                                    panelSetOrder.MasterAccessionNo, testOrderReportDistribution.PhysicianName, testOrderReportDistribution.ClientName, "TestOrderReportDistribution Sceduled");
+                                scheduleTime = panelSetOrder.FinalTime.Value.AddMinutes(15);
+                            }
 
-                                    testOrderReportDistribution.ScheduledDistributionTime = scheduleTime;
-                                }                                
+                            panelSetOrder.ScheduledPublishTime = scheduleTime;
+
+                            this.m_ReportDistributionLogEntryCollection.AddEntry("INFO", "Handle Unschedule Publish", null, panelSetOrder.ReportNo,
+                            panelSetOrder.MasterAccessionNo, null, null, "PanelSet Publish Sceduled");
+
+                            if (panelSetOrder.Distribute == true)
+                            {
+                                foreach (YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution testOrderReportDistribution in panelSetOrder.TestOrderReportDistributionCollection)
+                                {
+                                    if (testOrderReportDistribution.Distributed == false && testOrderReportDistribution.ScheduledDistributionTime == null)
+                                    {
+                                        this.m_ReportDistributionLogEntryCollection.AddEntry("INFO", "Handle Unschedule Publish", testOrderReportDistribution.DistributionType, panelSetOrder.ReportNo,
+                                        panelSetOrder.MasterAccessionNo, testOrderReportDistribution.PhysicianName, testOrderReportDistribution.ClientName, "TestOrderReportDistribution Sceduled");
+
+                                        testOrderReportDistribution.ScheduledDistributionTime = scheduleTime;
+                                    }
+                                }
                             }
                         }
-                    }                                                            
+                    }
                 }                
             }
 

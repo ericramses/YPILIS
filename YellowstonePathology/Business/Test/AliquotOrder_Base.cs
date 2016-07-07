@@ -687,7 +687,27 @@ namespace YellowstonePathology.Business.Test
                 }
             }
             return result;
-        }		
+        }	
+        
+        public ParseSpecimenOrderIdResult ParseSpecimenOrderIdFromBlock()
+        {
+            ParseSpecimenOrderIdResult result = new ParseSpecimenOrderIdResult();
+            System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex(@"^\d\d-\d+\.\d+");
+            System.Text.RegularExpressions.Match match = regex.Match(this.m_AliquotOrderId);
+
+            if (match.Captures.Count != 0)
+            {
+                result.ParsedSuccessfully = true;
+                result.SpecimenOrderId = match.Value;
+            }
+            else
+            {
+                result.ParsedSuccessfully = false;
+                result.SpecimenOrderId = null;
+            }
+
+            return result;
+        }
 
         public void NotifyPropertyChanged(String info)
         {
