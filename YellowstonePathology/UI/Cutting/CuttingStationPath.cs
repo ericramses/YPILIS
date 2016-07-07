@@ -53,7 +53,7 @@ namespace YellowstonePathology.UI.Cutting
             scanAliquotPage.SignOut += new ScanAliquotPage.SignOutEventHandler(ScanAliquotPage_SignOut);
             scanAliquotPage.ShowMasterAccessionNoEntryPage += new ScanAliquotPage.ShowMasterAccessionNoEntryPageEventHandler(ScanAliquotPage_ShowMasterAccessionNoEntryPage);
             scanAliquotPage.UseLastMasterAccessionNo += new ScanAliquotPage.UseLastMasterAccessionNoEventHandler(ScanAliquotPage_UseLastMasterAccessionNo);
-            scanAliquotPage.PageTimedOut += new ScanAliquotPage.PageTimedOutEventHandler(PageTimedOut);
+            //scanAliquotPage.PageTimedOut += new ScanAliquotPage.PageTimedOutEventHandler(PageTimedOut);
             scanAliquotPage.PrintImmunos += ScanAliquotPage_PrintImmunos;            
             this.m_CuttingWorkspaceWindow.PageNavigator.Navigate(scanAliquotPage);
         }
@@ -292,7 +292,7 @@ namespace YellowstonePathology.UI.Cutting
             this.m_CuttingPage = new CuttingPage(aliquotOrder, testOrder, this.m_AccessionOrder, this.m_HistologySlidePaperLabelPrinter, this.m_CuttingWorkspaceWindow.PageNavigator);
             this.m_CuttingPage.Finished += new CuttingPage.FinishedEventHandler(CuttingPage_Finished);            
             this.m_CuttingPage.ShowTestOrderSelectionPage += new CuttingPage.ShowTestOrderSelectionPageEventHandler(CuttingPage_ShowTestOrderSelectionPage);
-            this.m_CuttingPage.PageTimedOut += new CuttingPage.PageTimedOutEventHandler(PageTimedOut);
+            //this.m_CuttingPage.PageTimedOut += new CuttingPage.PageTimedOutEventHandler(PageTimedOut);
             this.m_CuttingWorkspaceWindow.PageNavigator.Navigate(this.m_CuttingPage);
         }
 

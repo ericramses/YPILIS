@@ -145,9 +145,10 @@ namespace YellowstonePathology.Business.Visitor
             this.m_PanelOrder.TestOrderCollection.Add(testOrder);
             this.m_TestOrder = testOrder;
 
-			this.m_AliquotOrder.TestOrderCollection.Add(this.m_TestOrder);
 			this.m_AliquotOrder.SetLabelPrefix(testOrder, true);
-		}        
+            this.m_AliquotOrder.HandleAddFrozen(testOrder);
+			this.m_AliquotOrder.TestOrderCollection.Add(this.m_TestOrder);
+        }        
 
         private void HandleSlideOrder()
         {
