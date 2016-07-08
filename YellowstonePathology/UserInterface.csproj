@@ -1042,6 +1042,7 @@
     <Compile Include="Business\Monitor.Model\PendingTest.cs" />
     <Compile Include="Business\Monitor.Model\PendingTestCollection.cs" />
     <Compile Include="Business\ParseSpecimenOrderIdResult.cs" />
+    <Compile Include="Business\Test\MUM1ByIHC\MUM1ByIHCTest.cs" />
     <Compile Include="MySQLMigration\MySQLDatabaseBuilder.cs" />
     <Compile Include="Business\NeogenomicsResult.cs" />
     <Compile Include="Business\NeogenomicsResultCollection.cs" />
