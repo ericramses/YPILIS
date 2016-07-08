@@ -1844,7 +1844,7 @@ namespace YellowstonePathology.Business.Gateway
 			XElement collectionElement = new XElement("Document");
 			SqlCommand cmd = new SqlCommand(" select tsk.*,  ( select tskd.* from tblTaskOrderDetail tskd where tskd.TaskOrderId = tsk.TaskOrderId " +
 				"for xml Path('TaskOrderDetail'), type) [TaskOrderDetailCollection] " +
-				"from tblTaskOrder tsk where tsk.AcknowledgementType = @AcknowledgementType and tsk.OrderDate between dateadd(dd, -30, GetDate()) and GetDate() " +
+				"from tblTaskOrder tsk where tsk.AcknowledgementType = @AcknowledgementType and tsk.OrderDate between dateadd(dd, -15, GetDate()) and GetDate() " +
 				"order by tsk.OrderDate desc for xml Path('TaskOrder'), type, root('TaskOrderCollection')");
 			cmd.CommandType = CommandType.Text;
 			cmd.Parameters.Add("@AcknowledgementType", SqlDbType.VarChar).Value = acknowledgementType;

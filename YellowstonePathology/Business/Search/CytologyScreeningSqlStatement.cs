@@ -18,9 +18,11 @@ namespace YellowstonePathology.Business.Search
 				"cpo.ScreenedByName, " +
 				"su1.DisplayName [AssignedToName], " +
 				"po.AcceptedTime [ScreeningFinalTime], " +
-				"pso.FinalTime [CaseFinalTime] ";
+				"pso.FinalTime [CaseFinalTime], " +
+                "cpo.Reconciled ";
 
-			this.m_FromClause = "from tblAccessionOrder ao join tblPanelSetOrder pso on ao.MasterAccessionNo = pso.MasterAccessionNo " +
+
+            this.m_FromClause = "from tblAccessionOrder ao join tblPanelSetOrder pso on ao.MasterAccessionNo = pso.MasterAccessionNo " +
 				"join tblPanelOrder po on pso.ReportNo = po.ReportNo " +
 				"join tblPanelOrderCytology cpo on po.PanelOrderId = cpo.PanelORderId " +
 				"left outer join tblSystemUser su on po.OrderedById = su.UserId " +

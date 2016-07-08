@@ -33,6 +33,7 @@ namespace YellowstonePathology.Business.Search
             this.m_SearchTypes.Add("Final");
             this.m_SearchTypes.Add("Pending");
 			this.m_SearchTypes.Add("Not Final");
+            this.m_SearchTypes.Add("At Loggerheads");
         }
 
         public List<string> SearchTypes
@@ -105,6 +106,12 @@ namespace YellowstonePathology.Business.Search
             sqlStatement.SearchFields.Add(reportNoField);
 			this.m_Results = YellowstonePathology.Business.Gateway.CytologyScreeningSearchGateway.GetCytologyScreeningSearchResults(sqlStatement.ToString());
 			this.NotifyPropertyChanged("Results");
+        }
+
+        public void ExecuteAtLoggerheadSearch(int assignedToId)
+        {            
+            this.m_Results = YellowstonePathology.Business.Gateway.CytologyScreeningSearchGateway.GetCytologyScreeningSearchResultsByAtLoggerheads(assignedToId);
+            this.NotifyPropertyChanged("Results");
         }
 
         public List<YellowstonePathology.Business.Search.CytologyScreeningSearchResult> Results

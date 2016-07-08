@@ -93,6 +93,7 @@
                                 <GridViewColumn DisplayMemberBinding="{Binding Path=AssignedToName}" Header="Assigned To" Width="150"/>
                                 <GridViewColumn DisplayMemberBinding="{Binding Path=ScreeningFinalTime, Converter={StaticResource ShortDateConverter}}" Header="Screened" Width="75"/>
                                 <GridViewColumn DisplayMemberBinding="{Binding Path=OrderedByName}" Header="Ordered By" Width="150"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Path=Reconciled}" Header="Reconciled" Width="120"/>
                             </GridView>
                         </ListView.View>
                     </ListView>
