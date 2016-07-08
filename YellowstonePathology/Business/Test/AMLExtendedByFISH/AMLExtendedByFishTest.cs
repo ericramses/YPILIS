@@ -20,8 +20,9 @@ namespace YellowstonePathology.Business.Test.AMLExtendedByFish
 
 
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.AMLStandardByFish.AMLStandardByFishTestOrder).AssemblyQualifiedName;
-            
-			this.m_AllowMultiplePerAccession = true;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Document.ReferenceLabReport).AssemblyQualifiedName;
+
+            this.m_AllowMultiplePerAccession = true;
 
             string taskDescription = "Gather materials (Peripheral blood: 2-5 mL in sodium heparin tube and 2x5 mL in EDTA tube or " +
                 "Bone marrow: 1-2 mL in sodium heparin tube and 2 mL in EDTA tube) and send out to Neo.";

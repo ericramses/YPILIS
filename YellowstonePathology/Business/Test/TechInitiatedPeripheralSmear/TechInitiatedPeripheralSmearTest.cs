@@ -20,6 +20,7 @@ namespace YellowstonePathology.Business.Test.TechInitiatedPeripheralSmear
             this.m_Active = true;            
 			                    
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.TechInitiatedPeripheralSmear.TechInitiatedPeripheralSmearTestOrder).AssemblyQualifiedName;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.TechInitiatedPeripheralSmear.TechInitiatedPeripheralSmearWordDocument).AssemblyQualifiedName;
 			this.m_AllowMultiplePerAccession = true;
             this.m_NeverDistribute = false;            
 			this.m_AcceptOnFinal = true;

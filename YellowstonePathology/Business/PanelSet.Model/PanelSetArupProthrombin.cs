@@ -17,10 +17,10 @@ namespace YellowstonePathology.Business.PanelSet.Model
 			this.m_ResultDocumentSource = ResultDocumentSourceEnum.PublishedDocument;
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterM();
             this.m_Active = true;
-            
-			
-            
-			this.m_AllowMultiplePerAccession = true;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Document.ReferenceLabReport).AssemblyQualifiedName;
+
+
+            this.m_AllowMultiplePerAccession = true;
             this.m_HasSplitCPTCode = true;
 
             string taskDescription = "Gather materials and send to ARUP.";

@@ -19,6 +19,7 @@ namespace YellowstonePathology.Business.Test.InvasiveBreastPanel
 			this.m_Active = true;
 
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.InvasiveBreastPanel.InvasiveBreastPanel).AssemblyQualifiedName;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.InvasiveBreastPanel.InvasiveBreastPanelWordDocument).AssemblyQualifiedName;
 			
 			this.m_ReflexTestingComment = string.Empty;
 			this.m_EnforceOrderTarget = false;

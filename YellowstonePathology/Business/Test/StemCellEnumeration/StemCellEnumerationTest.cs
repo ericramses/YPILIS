@@ -14,6 +14,7 @@ namespace YellowstonePathology.Business.Test.StemCellEnumeration
             //this.m_TestId = 12;
 			this.m_AllowMultiplePerAccession = true;
             this.m_ExpectedDuration = new TimeSpan(24, 0, 0);
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.StemCellEnumeration.StemCellEnumerationWordDocument).AssemblyQualifiedName;
 
             string taskDescription = "Perform stem cell enum. testing.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Flow, taskDescription));

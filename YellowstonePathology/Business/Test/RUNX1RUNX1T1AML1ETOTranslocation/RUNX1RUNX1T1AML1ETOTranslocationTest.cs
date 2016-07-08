@@ -21,6 +21,7 @@ namespace YellowstonePathology.Business.Test.RUNX1RUNX1T1AML1ETOTranslocation
             this.m_Active = true;
 
             this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.RUNX1RUNX1T1AML1ETOTranslocation.RUNX1RUNX1T1AML1ETOTranslocationTestOrder).AssemblyQualifiedName;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.RUNX1RUNX1T1AML1ETOTranslocation.RUNX1RUNX1T1AML1ETOTranslocationWordDocument).AssemblyQualifiedName;
             this.m_AllowMultiplePerAccession = true;
 
             this.m_EpicDistributionIsImplemented = true;

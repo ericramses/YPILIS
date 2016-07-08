@@ -17,6 +17,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
             this.m_ResultDocumentSource = ResultDocumentSourceEnum.PublishedDocument;
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterM();
             this.m_Active = false;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Document.ReferenceLabReport).AssemblyQualifiedName;
             
 			this.m_SurgicalAmendmentRequired = true;
 			            

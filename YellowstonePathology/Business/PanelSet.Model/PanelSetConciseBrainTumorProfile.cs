@@ -17,9 +17,9 @@ namespace YellowstonePathology.Business.PanelSet.Model
 			this.m_ResultDocumentSource = ResultDocumentSourceEnum.PublishedDocument;
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterR();
             this.m_Active = true;
-			
-            
-			this.m_AllowMultiplePerAccession = true;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Document.ReferenceLabReport).AssemblyQualifiedName;
+
+            this.m_AllowMultiplePerAccession = true;
 
             string task1Description = "Gather materials (FFPE tissue: Paraffin block preferred or Fresh tissue: 1 cm3 fresh tissue that is mostly tumor in RPMI)" +
             "and take materials to transcription for send out to Neo.";

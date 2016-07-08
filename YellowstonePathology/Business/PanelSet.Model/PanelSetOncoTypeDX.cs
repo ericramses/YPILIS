@@ -20,6 +20,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
             this.m_ExpectedDuration = new TimeSpan(10, 0, 0, 0);            			
             
 			this.m_AllowMultiplePerAccession = true;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Document.ReferenceLabReport).AssemblyQualifiedName;
 
             string taskDescription = "Gather materials and send to Genomic Health.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Transcription, taskDescription));

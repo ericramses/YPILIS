@@ -20,6 +20,7 @@ namespace YellowstonePathology.Business.Test.NGCT
             this.m_Active = true;
             this.m_AttemptOrderTargetLookup = true;
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.NGCT.NGCTTestOrder).AssemblyQualifiedName;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.NGCT.NGCTWordDocument).AssemblyQualifiedName;
 			this.m_AllowMultiplePerAccession = true;
             this.m_ExpectedDuration = new TimeSpan(4, 0, 0, 0);
 

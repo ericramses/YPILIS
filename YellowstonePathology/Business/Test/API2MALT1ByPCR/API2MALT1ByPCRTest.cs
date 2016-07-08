@@ -21,6 +21,7 @@ namespace YellowstonePathology.Business.Test.API2MALT1ByPCR
 
 
             this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.API2MALT1ByPCR.API2MALT1ByPCRTestOrder).AssemblyQualifiedName;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.API2MALT1ByPCR.API2MALT1ByPCRWordDocument).AssemblyQualifiedName;
 
             this.m_AllowMultiplePerAccession = true;
             //Changed by MS and TK;

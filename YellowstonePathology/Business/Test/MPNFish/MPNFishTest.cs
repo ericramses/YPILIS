@@ -20,6 +20,7 @@ namespace YellowstonePathology.Business.Test.MPNFish
 
 
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.MPNFish.PanelSetOrderMPNFish).AssemblyQualifiedName;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.MPNFish.MPNFishWordDocument).AssemblyQualifiedName;
             
 			this.m_AllowMultiplePerAccession = true;
             //changed by MS and TK

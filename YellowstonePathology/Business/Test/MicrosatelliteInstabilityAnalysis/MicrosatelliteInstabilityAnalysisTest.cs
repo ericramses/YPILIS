@@ -19,6 +19,7 @@ namespace YellowstonePathology.Business.Test.MicrosatelliteInstabilityAnalysis
             this.m_Active = true;
 
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.MicrosatelliteInstabilityAnalysis.MicrosatelliteInstabilityAnalysisTestOrder).AssemblyQualifiedName;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.MicrosatelliteInstabilityAnalysis.MicrosatelliteInstabilityAnalysisWordDocument).AssemblyQualifiedName;
 			this.m_AllowMultiplePerAccession = true;
             //Changed by MS and MM
             this.m_EpicDistributionIsImplemented = true;

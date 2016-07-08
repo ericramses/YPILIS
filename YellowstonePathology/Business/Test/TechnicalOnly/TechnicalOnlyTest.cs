@@ -20,6 +20,7 @@ namespace YellowstonePathology.Business.Test.TechnicalOnly
             this.m_Active = true;            
 			                    
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.TechnicalOnly.TechnicalOnlyTestOrder).AssemblyQualifiedName;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.TechnicalOnly.TechnicalOnlyWordDocument).AssemblyQualifiedName;
 			this.m_AllowMultiplePerAccession = true;
             this.m_NeverDistribute = true;            
 			this.m_AcceptOnFinal = true;

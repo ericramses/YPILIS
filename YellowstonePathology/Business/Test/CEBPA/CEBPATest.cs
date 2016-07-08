@@ -19,6 +19,7 @@ namespace YellowstonePathology.Business.Test.CEBPA
             this.m_Active = true;
 
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.CEBPA.PanelSetOrderCEBPA).AssemblyQualifiedName;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.CEBPA.CEBPAWordDocument).AssemblyQualifiedName;
             
 			this.m_AllowMultiplePerAccession = true;
             //Changed by MS and TK;

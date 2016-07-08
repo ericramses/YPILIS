@@ -21,6 +21,7 @@ namespace YellowstonePathology.Business.Test.KRASStandard
             
 			this.m_SurgicalAmendmentRequired = true;
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.KRASStandard.KRASStandardTestOrder).AssemblyQualifiedName;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.KRASStandard.KRASStandardWordDocument).AssemblyQualifiedName;
             
 			this.m_AllowMultiplePerAccession = true;
             this.m_ExpectedDuration = new TimeSpan(120, 0, 0);

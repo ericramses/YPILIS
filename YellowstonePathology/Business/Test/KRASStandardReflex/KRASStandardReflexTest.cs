@@ -22,6 +22,7 @@ namespace YellowstonePathology.Business.Test.KRASStandardReflex
 			this.m_SurgicalAmendmentRequired = true;
 
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.KRASStandardReflex.KRASStandardReflexTestOrder).AssemblyQualifiedName;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.KRASStandardReflex.KRASStandardReflexWordDocument).AssemblyQualifiedName;
 			this.m_AllowMultiplePerAccession = true;
 			this.m_AcceptOnFinal = true;
             this.m_ExpectedDuration = new TimeSpan(120, 0, 0);

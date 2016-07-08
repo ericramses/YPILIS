@@ -19,6 +19,7 @@ namespace YellowstonePathology.Business.Test.MPNExtendedReflex
 			this.m_Active = true;
 
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.MPNExtendedReflex.PanelSetOrderMPNExtendedReflex).AssemblyQualifiedName;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.MPNExtendedReflex.MPNExtendedReflexWordDocument).AssemblyQualifiedName;
 			
 			this.m_ReflexTestingComment = string.Empty;
 			this.m_EnforceOrderTarget = false;

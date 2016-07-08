@@ -19,6 +19,7 @@ namespace YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile
 			this.m_Active = true;
 
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile.ComprehensiveColonCancerProfile).AssemblyQualifiedName;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile.ComprehensiveColonCancerProfileWordDocument).AssemblyQualifiedName;
 			
 			this.m_ReflexTestingComment = string.Empty;
 			this.m_EnforceOrderTarget = false;
