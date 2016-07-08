@@ -27,6 +27,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 		private int m_SlideCount;
 		private bool m_ECCCheckPerformed;
 		private bool m_ScreeningError;
+        private bool m_Reconciled;
 
 		public PanelOrderCytology()
 		{
@@ -337,6 +338,20 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 				}
 			}
 		}
+
+        [PersistentProperty()]
+        public bool Reconciled
+        {
+            get { return this.m_Reconciled; }
+            set
+            {
+                if (this.m_Reconciled != value)
+                {
+                    this.m_Reconciled = value;
+                    this.NotifyPropertyChanged("Reconciled");
+                }
+            }
+        }
 
         public void AppendReportComment(string comment)
         {

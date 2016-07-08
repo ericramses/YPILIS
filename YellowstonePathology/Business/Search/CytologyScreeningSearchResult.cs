@@ -18,6 +18,7 @@ namespace YellowstonePathology.Business.Search
         DateTime m_AccessionTime;
         Nullable<DateTime> m_ScreeningFinalTime;
         Nullable<DateTime> m_CaseFinalTime;
+        bool m_Reconciled;
 
         public CytologyScreeningSearchResult()
         {
@@ -84,7 +85,13 @@ namespace YellowstonePathology.Business.Search
             set { this.m_ScreeningType = value; }
         }
 
-		public void WriteProperties(YellowstonePathology.Business.Domain.Persistence.IPropertyWriter propertyWriter)
+        public bool Reconciled
+        {
+            get { return this.m_Reconciled; }
+            set { this.m_Reconciled = value; }
+        }
+
+        public void WriteProperties(YellowstonePathology.Business.Domain.Persistence.IPropertyWriter propertyWriter)
 		{
 			this.m_MasterAccessionNo = propertyWriter.WriteString("MasterAccessionNo");
 			this.m_ReportNo = propertyWriter.WriteString("ReportNo");
@@ -96,7 +103,8 @@ namespace YellowstonePathology.Business.Search
 			this.m_AccessionTime = propertyWriter.WriteDateTime("AccessionTime");
 			this.m_ScreeningFinalTime = propertyWriter.WriteNullableDateTime("ScreeningFinalTime");
 			this.m_CaseFinalTime = propertyWriter.WriteNullableDateTime("CaseFinalTime");
-		}
+            this.m_Reconciled = propertyWriter.WriteBoolean("Reconciled");
+        }
 
         public void ToXml(XElement listElement)
         {
@@ -115,6 +123,7 @@ namespace YellowstonePathology.Business.Search
                 new XElement("AssignedToName", this.m_AssignedToName),
                 new XElement("AccessionTime", this.m_AccessionTime.ToString("MM/dd/yyy HH:mm")),
                 new XElement("ScreeningFinalTime", screeningFinalTime),
+                new XElement("Reconciled", this.Reconciled),
                 new XElement("CaseFinalTime", caseFinalTime));
 
             listElement.Add(resultElement);

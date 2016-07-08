@@ -118,6 +118,7 @@
 									<RowDefinition></RowDefinition>
 									<RowDefinition></RowDefinition>
 									<RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
 								</Grid.RowDefinitions>
 
 								<TextBlock Grid.Column="0" Grid.Row="0" FontWeight="Bold" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Right">Result Code:</TextBlock>
@@ -169,7 +170,10 @@
 								<TextBlock Grid.Column="0" Grid.Row="8" FontWeight="Bold" Margin="2,2,2,2" HorizontalAlignment="Right" VerticalAlignment="Center">ECC Check Performed:</TextBlock>
 								<CheckBox Grid.Column="1" Grid.Row="8" Margin="2,2,2,2" IsChecked="{Binding Path=ECCCheckPerformed}"></CheckBox>
 
-							</Grid>
+                                <TextBlock Grid.Column="0" Grid.Row="9" FontWeight="Bold" Margin="2,2,2,2" HorizontalAlignment="Right" VerticalAlignment="Center">Reconciled:</TextBlock>
+                                <CheckBox Grid.Column="1" Grid.Row="9" Margin="2,2,2,2" IsChecked="{Binding Path=Reconciled}"></CheckBox>
+
+                            </Grid>
 						</Border>
 
 					</Grid>

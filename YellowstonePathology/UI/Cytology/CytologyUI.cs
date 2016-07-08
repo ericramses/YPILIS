@@ -335,7 +335,10 @@ namespace YellowstonePathology.UI.Cytology
 				case "Not Final":
 					this.Search.ExecuteNotFinaledSearch(screenedById);
 					break;
-			}
+                case "At Loggerheads":
+                    this.Search.ExecuteAtLoggerheadSearch(screenedById);
+                    break;
+            }
         }
 
         public void ShowHistoryReport(string reportNo)
