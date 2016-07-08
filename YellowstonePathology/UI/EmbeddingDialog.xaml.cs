@@ -171,15 +171,21 @@ namespace YellowstonePathology.UI
                     aliquotOrder.EmbeddingVerify(YellowstonePathology.Business.User.SystemIdentity.Instance.User);
 
                     YellowstonePathology.Business.Surgical.ProcessorRun processorRun = processorRunCollection.Get(embeddingScan.ProcessorRunId);
-                    YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullSpecimenOrder(embeddingScan.AliquotOrderId, this);                    
-                    specimenOrder.ProcessorRun = embeddingScan.ProcessorRun;
-                    specimenOrder.ProcessorRunId = embeddingScan.ProcessorRunId;
-                    specimenOrder.FixationEndTime = processorRun.GetFixationEndTime(specimenOrder.FixationStartTime);
-                    specimenOrder.SetFixationDuration();
+
+                    Business.ParseSpecimenOrderIdResult parseSpecimenOrderIdResult = aliquotOrder.ParseSpecimenOrderIdFromBlock();
+                    if(parseSpecimenOrderIdResult.ParsedSuccessfully == true)
+                    {
+                        YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullSpecimenOrder(parseSpecimenOrderIdResult.SpecimenOrderId, this);
+                        specimenOrder.ProcessorRun = embeddingScan.ProcessorRun;
+                        specimenOrder.ProcessorRunId = embeddingScan.ProcessorRunId;
+                        specimenOrder.FixationEndTime = processorRun.GetFixationEndTime(specimenOrder.FixationStartTime);
+                        specimenOrder.SetFixationDuration();
+                    }                    
 
                     YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
-
                     this.m_SpecimenOrderHoldCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetSpecimenOrderHoldCollection();
+                    embeddingScan.Updated = true;
+                    this.m_EmbeddingScanCollection.UpdateStatus(embeddingScan);
                 }
             }
 

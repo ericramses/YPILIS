@@ -21,7 +21,7 @@ namespace YellowstonePathology.Business
 
         private RedisConnection()
         {
-            this.m_Connection = ConnectionMultiplexer.Connect("10.1.2.25");
+            this.m_Connection = ConnectionMultiplexer.Connect("10.1.2.25, ConnectTimeout=5000, SyncTimeout=5000");            
         }
 
         public IDatabase GetDatabase()

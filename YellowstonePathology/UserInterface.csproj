@@ -40,7 +40,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>3</ApplicationRevision>
+    <ApplicationRevision>10</ApplicationRevision>
     <ApplicationVersion>10.1.6.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -1041,6 +1041,7 @@
     <Compile Include="Business\Monitor.Model\MonitorStateEnum.cs" />
     <Compile Include="Business\Monitor.Model\PendingTest.cs" />
     <Compile Include="Business\Monitor.Model\PendingTestCollection.cs" />
+    <Compile Include="Business\ParseSpecimenOrderIdResult.cs" />
     <Compile Include="MySQLMigration\MySQLDatabaseBuilder.cs" />
     <Compile Include="Business\NeogenomicsResult.cs" />
     <Compile Include="Business\NeogenomicsResultCollection.cs" />

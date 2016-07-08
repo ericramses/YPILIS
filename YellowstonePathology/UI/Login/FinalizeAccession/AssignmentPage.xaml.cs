@@ -141,9 +141,10 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                     panelSetOrder.ProfessionalComponentBillingFacilityId = buttePathology.FacilityId;
                 }
                 else
-                {                                        
-                    panelSetOrder.TechnicalComponentFacilityId = ypiBLGS.FacilityId;
-                    panelSetOrder.TechnicalComponentBillingFacilityId = ypiBLGS.FacilityId;
+                {     
+                    //Taken out by SH on 7/7/2016.                                   
+                    //panelSetOrder.TechnicalComponentFacilityId = ypiBLGS.FacilityId;
+                    //panelSetOrder.TechnicalComponentBillingFacilityId = ypiBLGS.FacilityId;
 
                     if(systemUser.UserId == 5061) //Dr Clegg
                     {
