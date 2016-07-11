@@ -62,10 +62,10 @@ namespace YellowstonePathology.Business.BarcodeScanning
 
             List<EmbeddingScan> list = new List<EmbeddingScan>();
             for (int i = 0; i < members.Length; i++)
-            {
-                HashEntry[] hashEntries = db.HashGetAll(members[i].ToString());
+            {                
+                HashEntry[] hashEntries = db.HashGetAll(members[i].ToString());                                    
                 EmbeddingScan item = new EmbeddingScan(hashEntries);
-                list.Add(item);
+                list.Add(item);                    
             }
 
             list.Sort(delegate (EmbeddingScan x, EmbeddingScan y)
