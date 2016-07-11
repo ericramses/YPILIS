@@ -20,6 +20,7 @@ namespace YellowstonePathology.Business.Test.MGMTPromoterMethylationAnalysis
             this.m_Active = true;
 
             this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.PanelSetOrder).AssemblyQualifiedName;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Document.ReferenceLabReport).AssemblyQualifiedName;
             this.m_AllowMultiplePerAccession = true;
 			//Changed by MS and TK;
 

@@ -19,6 +19,7 @@ namespace YellowstonePathology.Business.Test.BCellClonalityByPCR
             this.m_Active = true;
 
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.BCellClonalityByPCR.BCellClonalityByPCRTestOrder).AssemblyQualifiedName;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.BCellClonalityByPCR.BCellClonalityByPCRWordDocument).AssemblyQualifiedName;
             
 			this.m_AllowMultiplePerAccession = true;
             this.m_ExpectedDuration = new TimeSpan(5, 0, 0, 0);

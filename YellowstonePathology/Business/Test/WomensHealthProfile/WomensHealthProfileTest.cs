@@ -32,6 +32,7 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
             this.m_CMMCDistributionIsImplemented = true;
 
             this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder).AssemblyQualifiedName;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileWordDocument).AssemblyQualifiedName;
 
 			this.m_TechnicalComponentFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings();
             this.m_TechnicalComponentBillingFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings();

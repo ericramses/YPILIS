@@ -15,11 +15,11 @@ namespace YellowstonePathology.Business.PanelSet.Model
 			this.m_HasTechnicalComponent = true;			
             this.m_HasProfessionalComponent = true;
 			this.m_ResultDocumentSource = ResultDocumentSourceEnum.PublishedDocument;
-            this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterR();            
-			
-			
-            
-			this.m_AllowMultiplePerAccession = true;
+            this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterR();
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Document.ReferenceLabReport).AssemblyQualifiedName;
+
+
+            this.m_AllowMultiplePerAccession = true;
             this.m_Active = false;
 
             string taskDescription = "Gather materials (Peripheral blood: 5 mL in EDTA tube. Bone marrow: 2 mL in EDTA tube. " +

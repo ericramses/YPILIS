@@ -19,8 +19,9 @@ namespace YellowstonePathology.Business.Test.CD1a
             this.m_Active = true;
 
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.PanelSetOrder).AssemblyQualifiedName;
-            
-			this.m_AllowMultiplePerAccession = true;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Document.ReferenceLabReport).AssemblyQualifiedName;
+
+            this.m_AllowMultiplePerAccession = true;
 
             string taskDescription = "Gather materials and send to Billings Clinic.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Histology, taskDescription));

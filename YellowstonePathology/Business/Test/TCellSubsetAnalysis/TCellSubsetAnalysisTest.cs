@@ -27,6 +27,7 @@ namespace YellowstonePathology.Business.Test.TCellSubsetAnalysis
             this.m_Active = true;
 
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.TCellSubsetAnalysis.TCellSubsetAnalysisTestOrder).AssemblyQualifiedName;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.TCellSubsetAnalysis.TCellSubsetAnalysisWordDocument).AssemblyQualifiedName;
             
 			this.m_AllowMultiplePerAccession = true;
             this.m_EpicDistributionIsImplemented = true;

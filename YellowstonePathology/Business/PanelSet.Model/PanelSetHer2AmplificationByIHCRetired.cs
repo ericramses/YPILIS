@@ -15,11 +15,11 @@ namespace YellowstonePathology.Business.PanelSet.Model
 			this.m_HasTechnicalComponent = true;			
 			this.m_HasProfessionalComponent = true;
 			this.m_ResultDocumentSource = ResultDocumentSourceEnum.PublishedDocument;
-            this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterR();            
-            
-			
-            
-			this.m_AllowMultiplePerAccession = true;
+            this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterR();
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Document.ReferenceLabReport).AssemblyQualifiedName;
+
+
+            this.m_AllowMultiplePerAccession = true;
             this.m_Active = false;
 
             string taskDescription = "Gather materials (Cut Slides: 3 cut slides. Cut sections at 3-4 microns, and place tissue at the center bottom of the slide" +

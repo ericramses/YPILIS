@@ -21,6 +21,7 @@ namespace YellowstonePathology.Business.Test.BCellGeneRearrangement
 
 
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.BCellGeneRearrangement.BCellGeneRearrangementTestOrder).AssemblyQualifiedName;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.BCellGeneRearrangement.BCellGeneRearrangementWordDocument).AssemblyQualifiedName;
             
 			this.m_AllowMultiplePerAccession = true;
             //Changed by MS and TK;

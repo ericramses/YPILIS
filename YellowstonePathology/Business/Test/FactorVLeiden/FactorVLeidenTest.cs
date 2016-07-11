@@ -20,6 +20,7 @@ namespace YellowstonePathology.Business.Test.FactorVLeiden
             this.m_Active = true;
 
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.FactorVLeiden.FactorVLeidenTestOrder).AssemblyQualifiedName;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.FactorVLeiden.FactorVLeidenWordDocument).AssemblyQualifiedName;
 			this.m_AllowMultiplePerAccession = true;
             this.m_EpicDistributionIsImplemented = true;
 

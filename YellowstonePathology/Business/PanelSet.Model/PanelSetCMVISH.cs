@@ -17,9 +17,9 @@ namespace YellowstonePathology.Business.PanelSet.Model
 			this.m_ResultDocumentSource = ResultDocumentSourceEnum.PublishedDocument;
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterR();
             this.m_Active = true;
-				
-            
-			this.m_AllowMultiplePerAccession = true;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Document.ReferenceLabReport).AssemblyQualifiedName;
+
+            this.m_AllowMultiplePerAccession = true;
 
             string task1Description = "Gather materials (Cut Slides: 4 cut slides. Cut sections at 3-4 microns, and place tissue at the center bottom of a positively charged slide." +
             "Paraffin block: Formalin-fixed paraffin-embedded tissue. NOTE: Please also send one H&E slide with global testing and consult requests.) Take Materials to Transcription" +

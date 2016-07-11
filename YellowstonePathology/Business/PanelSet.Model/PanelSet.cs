@@ -44,7 +44,10 @@ namespace YellowstonePathology.Business.PanelSet.Model
         protected bool m_IsClientAccessioned;
         protected bool m_AddAliquotOnOrder;
         protected bool m_SendOrderToPanther;
-        
+        protected string m_WordDocumentClassName;
+        protected string m_EPICOBXViewClassName;
+        protected string m_CMMCNTEViewClassName;
+
         protected YellowstonePathology.Business.Specimen.Model.Aliquot m_AliquotToAddOnOrder;        
 
         protected YellowstonePathology.Business.OrderTargetTypeCollection m_OrderTargetTypeCollectionExclusions;
@@ -91,6 +94,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
             this.m_OrderTargetTypeCollectionRestrictions = new YellowstonePathology.Business.OrderTargetTypeCollection();
 
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.PanelSetOrder).AssemblyQualifiedName;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Document.NothingToPublishReport).AssemblyQualifiedName;
 		}        
 
         public YellowstonePathology.Business.OrderTargetTypeCollection OrderTargetTypeCollectionExclusions
@@ -558,6 +562,20 @@ namespace YellowstonePathology.Business.PanelSet.Model
                 {
                     this.m_SendOrderToPanther = value;
                     this.NotifyPropertyChanged("SendOrderToPanther");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string WordDocumentClassName
+        {
+            get { return this.m_WordDocumentClassName; }
+            set
+            {
+                if (this.m_WordDocumentClassName != value)
+                {
+                    this.m_WordDocumentClassName = value;
+                    this.NotifyPropertyChanged("WordDocumentClassName");
                 }
             }
         }

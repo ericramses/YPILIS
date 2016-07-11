@@ -20,6 +20,7 @@ namespace YellowstonePathology.Business.Test.ALLAdultByFISH
 
 
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.ALLAdultByFISH.ALLAdultByFISHTestOrder).AssemblyQualifiedName;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.ALLAdultByFISH.ALLAdultByFISHWordDocument).AssemblyQualifiedName;
             
 			this.m_AllowMultiplePerAccession = true;
             //changed by MS and Tk;

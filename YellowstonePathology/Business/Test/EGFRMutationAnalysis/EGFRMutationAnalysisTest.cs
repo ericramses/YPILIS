@@ -20,6 +20,7 @@ namespace YellowstonePathology.Business.Test.EGFRMutationAnalysis
             this.m_Active = true;
 
             this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisTestOrder).AssemblyQualifiedName;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisWordDocument).AssemblyQualifiedName;
             
 			this.m_AllowMultiplePerAccession = true;
             this.m_ExpectedDuration = new TimeSpan(5, 0, 0, 0);

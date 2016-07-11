@@ -18,6 +18,7 @@ namespace YellowstonePathology.Business.Test.CKIT
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterR();
             this.m_Active = true;
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.CKIT.CKITTestOrder).AssemblyQualifiedName;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.CKIT.CKITWordDocument).AssemblyQualifiedName;
             
 			this.m_AllowMultiplePerAccession = true;
             //Changed by MS and TK;

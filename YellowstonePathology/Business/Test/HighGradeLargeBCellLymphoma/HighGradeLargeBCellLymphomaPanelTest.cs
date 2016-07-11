@@ -19,6 +19,7 @@ namespace YellowstonePathology.Business.Test.HighGradeLargeBCellLymphoma
             this.m_Active = true;
 
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.HighGradeLargeBCellLymphoma.PanelSetOrderHighGradeLargeBCellLymphoma).AssemblyQualifiedName;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.HighGradeLargeBCellLymphoma.HighGradeLargeBCellLymphomaWordDocument).AssemblyQualifiedName;
             
 			this.m_AllowMultiplePerAccession = true;
             //Changed by MS and TK;

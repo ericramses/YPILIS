@@ -21,7 +21,8 @@ namespace YellowstonePathology.Business.PanelSet.Model
 			this.m_SurgicalAmendmentRequired = true;
 			
             this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.PanelSetOrder).AssemblyQualifiedName;
-			this.m_AllowMultiplePerAccession = true;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Document.DoNotPublishReport).AssemblyQualifiedName;
+            this.m_AllowMultiplePerAccession = true;
 
             string taskDescription = "Perform HPV16 testing.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, taskDescription));

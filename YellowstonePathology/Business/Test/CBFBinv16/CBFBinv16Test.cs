@@ -19,8 +19,9 @@ namespace YellowstonePathology.Business.Test.CBFBinv16
             this.m_Active = true;
             this.m_ExpectedDuration = TimeSpan.FromDays(4);
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.PanelSetOrder).AssemblyQualifiedName;
-            
-			this.m_AllowMultiplePerAccession = true;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Document.ReferenceLabReport).AssemblyQualifiedName;
+
+            this.m_AllowMultiplePerAccession = true;
 			//Changed by MS and TK;
 
             string taskDescription2 = "Collect (Peripheral blood: 2-5 mL in sodium heparin tube, 2x5 mL in EDTA tube; " +

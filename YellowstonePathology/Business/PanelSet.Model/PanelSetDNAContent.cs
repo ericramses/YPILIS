@@ -19,6 +19,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
             this.Active = true;			
             
 			this.m_AllowMultiplePerAccession = true;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Document.ReferenceLabReport).AssemblyQualifiedName;
 
             string taskDescription = "Gather materials and send to ARUP.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, taskDescription));

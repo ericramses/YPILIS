@@ -16,9 +16,10 @@ namespace YellowstonePathology.Business.PanelSet.Model
 			this.m_HasProfessionalComponent = true;
 			this.m_ResultDocumentSource = ResultDocumentSourceEnum.PublishedDocument;
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterR();
-            this.m_Active = false;            			
-            
-			this.m_AllowMultiplePerAccession = true;
+            this.m_Active = false;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Document.ReferenceLabReport).AssemblyQualifiedName;
+
+            this.m_AllowMultiplePerAccession = true;
             string taskDescription = "Gather materials (Paraffin or Cut Slides: H&E slide (required) plus paraffin block " +
                 "OR 4 unstained slides cut at 5 microns. Circle H&E slide for tech-only.) and give to Molecular for send out to Neo.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Histology, taskDescription));

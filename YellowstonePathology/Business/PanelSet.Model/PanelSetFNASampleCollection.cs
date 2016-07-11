@@ -19,7 +19,8 @@ namespace YellowstonePathology.Business.PanelSet.Model
             this.m_Active = true;            
 			
             this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.FNAAdequacyAssessment.FNAAdequacyAssessmentTestOrder).AssemblyQualifiedName;
-			this.m_AllowMultiplePerAccession = true;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Document.NothingToPublishReport).AssemblyQualifiedName;
+            this.m_AllowMultiplePerAccession = true;
             this.IsBillable = false;
             this.m_NeverDistribute = true;
             this.m_ShowResultPageOnOrder = true;

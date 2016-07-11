@@ -7,6 +7,9 @@ namespace YellowstonePathology.UI.Billing
 {
     public class BillingPath
     {
+        public delegate void FinishEventHandler(object sender, EventArgs e);
+        public event FinishEventHandler Finish;
+
         private BillingWindowPrimary m_BillingWindowPrimary;
         private BillingWindowSecondary m_BillingWindowSecondary;
 		private TifDocumentViewer m_TifDocumentViewer;
@@ -27,6 +30,7 @@ namespace YellowstonePathology.UI.Billing
             if (this.m_ReportSearchList.CurrentReportSearchItem != null)
             {
                 this.m_BillingWindowPrimary = new BillingWindowPrimary();
+                this.m_BillingWindowPrimary.Closed += BillingWindowPrimary_Closed;
                 this.m_Writer = this.m_BillingWindowPrimary;
                 this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(accessionOrder.MasterAccessionNo, this.m_Writer);
                 this.m_BillingWindowPrimary.Show();
@@ -39,7 +43,7 @@ namespace YellowstonePathology.UI.Billing
 
 				this.ShowBillingPage(this.m_AccessionOrder);                
 			}
-        }        
+        }
 
         private void ShowBillingPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {            
@@ -232,6 +236,16 @@ namespace YellowstonePathology.UI.Billing
             {
                 System.Windows.MessageBox.Show("You have reached the end of the list.");
             }
-        }        
+        }
+
+        public void BringPageToFore(object sender, EventArgs e)
+        {
+            this.m_BillingWindowPrimary.Activate();
+        }
+
+        private void BillingWindowPrimary_Closed(object sender, EventArgs e)
+        {
+            this.Finish(this.Finish, EventArgs.Empty);
+        }
     }
 }

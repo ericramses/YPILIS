@@ -19,7 +19,8 @@ namespace YellowstonePathology.Business.Test.CysticFibrosis
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterM();
             this.m_Active = true;
 
-			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.CysticFibrosis.CysticFibrosisTestOrder).AssemblyQualifiedName;            
+			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.CysticFibrosis.CysticFibrosisTestOrder).AssemblyQualifiedName;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.CysticFibrosis.CysticFibrosisWordDocument).AssemblyQualifiedName;
 			this.m_AllowMultiplePerAccession = true;
             this.m_EpicDistributionIsImplemented = true;
 

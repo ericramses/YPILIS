@@ -23,8 +23,9 @@ namespace YellowstonePathology.Business.Test.IHCQC
             this.m_ExpectedDuration = TimeSpan.FromDays(1);
             this.m_IsClientAccessioned = true;
 
-			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.IHCQC.IHCQCTestOrder).AssemblyQualifiedName;            
-			this.m_AllowMultiplePerAccession = true;
+			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.IHCQC.IHCQCTestOrder).AssemblyQualifiedName;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Document.NothingToPublishReport).AssemblyQualifiedName;
+            this.m_AllowMultiplePerAccession = true;
 
             this.m_TechnicalComponentFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings();
             this.m_TechnicalComponentBillingFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings();

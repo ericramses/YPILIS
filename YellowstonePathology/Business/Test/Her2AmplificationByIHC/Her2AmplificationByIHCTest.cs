@@ -21,6 +21,7 @@ namespace YellowstonePathology.Business.Test.Her2AmplificationByIHC
 
 
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.Her2AmplificationByIHC.PanelSetOrderHer2AmplificationByIHC).AssemblyQualifiedName;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.Her2AmplificationByIHC.Her2AmplificationByIHCWordDocument).AssemblyQualifiedName;
             
 			this.m_AllowMultiplePerAccession = true;
             //Changed by MS and Tk;

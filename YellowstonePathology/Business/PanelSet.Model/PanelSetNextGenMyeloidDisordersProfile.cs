@@ -17,10 +17,10 @@ namespace YellowstonePathology.Business.PanelSet.Model
 			this.m_ResultDocumentSource = ResultDocumentSourceEnum.PublishedDocument;
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterR();
             this.m_Active = true;
-			
-			
-            
-			this.m_AllowMultiplePerAccession = true;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Document.ReferenceLabReport).AssemblyQualifiedName;
+
+
+            this.m_AllowMultiplePerAccession = true;
 
             string task1Description = "Gather materials (FFPE solid tumor tissue: Paraffin block is preferred. " +
                 "Alternatively, send 1 H&E slide plus 5-10 unstained slides cut at 5 or more microns.Take materials to transcription for send out to Neo";

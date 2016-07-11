@@ -20,6 +20,7 @@ namespace YellowstonePathology.Business.Test.FLT3
 
 
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.FLT3.PanelSetOrderFLT3).AssemblyQualifiedName;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.FLT3.FLT3WordDocument).AssemblyQualifiedName;
             
 			this.m_AllowMultiplePerAccession = true;
             //Changed by MS and TK;

@@ -20,6 +20,7 @@ namespace YellowstonePathology.Business.Test.FishAnalysis
 			
 			this.m_AllowMultiplePerAccession = true;
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.FishAnalysis.FishAnalysisTestOrder).AssemblyQualifiedName;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Document.ReferenceLabReport).AssemblyQualifiedName;
             string taskDescription = "Gather materials and send to Neo.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, taskDescription));
 

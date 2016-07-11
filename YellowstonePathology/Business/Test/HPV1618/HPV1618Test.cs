@@ -24,6 +24,7 @@ namespace YellowstonePathology.Business.Test.HPV1618
             this.m_SendOrderToPanther = true;
 
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.HPV1618.PanelSetOrderHPV1618).AssemblyQualifiedName;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.HPV1618.HPV1618WordDocument).AssemblyQualifiedName;
             this.m_RequiresPathologistSignature = false;
             this.m_AcceptOnFinal = false;
 			this.m_AllowMultiplePerAccession = true;

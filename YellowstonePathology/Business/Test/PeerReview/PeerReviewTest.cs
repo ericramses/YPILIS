@@ -22,7 +22,8 @@ namespace YellowstonePathology.Business.Test.PeerReview
 			this.m_AllowMultiplePerAccession = true;
 
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.PeerReview.PeerReviewTestOrder).AssemblyQualifiedName;
-			
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Document.NothingToPublishReport).AssemblyQualifiedName;
+
             this.m_ExpectedDuration = new TimeSpan(3, 0, 0, 0);
             this.m_NeverDistribute = true;
             this.m_IsBillable = false;

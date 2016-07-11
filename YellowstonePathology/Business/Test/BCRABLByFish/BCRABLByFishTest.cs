@@ -18,7 +18,8 @@ namespace YellowstonePathology.Business.Test.BCRABLByFish
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterR();
             this.m_Active = true;
 
-			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.BCRABLByFish.BCRABLByFishTestOrder).AssemblyQualifiedName;            
+			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.BCRABLByFish.BCRABLByFishTestOrder).AssemblyQualifiedName;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.BCRABLByFish.BCRABLByFishWordDocument).AssemblyQualifiedName;
 			this.m_AllowMultiplePerAccession = true;            
             this.m_EpicDistributionIsImplemented = true;
 
