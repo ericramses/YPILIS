@@ -24,6 +24,7 @@ namespace YellowstonePathology.Business.Test.PDL1
             this.m_EpicDistributionIsImplemented = true;
 
             this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.PDL1.PDL1TestOrder).AssemblyQualifiedName;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.PDL1.PDL1WordDocument).AssemblyQualifiedName;
 			//changed by MS and TK;
 
             string taskDescription = "Give block to Flow for sendout.";

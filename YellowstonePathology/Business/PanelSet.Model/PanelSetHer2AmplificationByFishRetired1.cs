@@ -17,8 +17,9 @@ namespace YellowstonePathology.Business.PanelSet.Model
 			this.m_ResultDocumentSource = ResultDocumentSourceEnum.RetiredTestDocument;
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterM();
             this.m_Active = false;
-            
-			this.m_SurgicalAmendmentRequired = true;		            
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Document.DoNotPublishReport).AssemblyQualifiedName;
+
+            this.m_SurgicalAmendmentRequired = true;		            
 			this.m_AllowMultiplePerAccession = true;            			
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceMiscellaneous());
 		}

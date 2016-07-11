@@ -20,6 +20,9 @@ namespace YellowstonePathology.UI.Login
     /// </summary>
     public partial class LoginWorkspace : UserControl
     {
+        public delegate void BringPageToForeEventHandler(object sender, EventArgs e);
+        public event BringPageToForeEventHandler BringPageToFore;
+
         private YellowstonePathology.UI.DocumentWorkspace m_DocumentViewer;
 
         private LoginUIV2 m_LoginUI;
@@ -27,6 +30,8 @@ namespace YellowstonePathology.UI.Login
         private bool m_LoadedHasRun;
         private MainWindowCommandButtonHandler m_MainWindowCommandButtonHandler;
         private TabItem m_Writer;
+
+        private Billing.BillingPath m_BillingPath;
 
         private Login.Receiving.LoginPageWindow m_LoginPageWindow;        
 
@@ -662,11 +667,27 @@ namespace YellowstonePathology.UI.Login
         {
             if (this.ListViewAccessionOrders.SelectedItem != null)
             {
-                YellowstonePathology.Business.Search.ReportSearchItem reportSearchItem = (YellowstonePathology.Business.Search.ReportSearchItem)this.ListViewAccessionOrders.SelectedItem;
-                this.m_LoginUI.ReportSearchList.SetCurrentReportSearchItem(reportSearchItem.ReportNo);
-                Billing.BillingPath billingPath = new Billing.BillingPath(this.m_LoginUI.ReportSearchList);
-                billingPath.Start(this.m_LoginUI.AccessionOrder);
+                if (this.BringPageToFore != null)
+                {
+                    this.BringPageToFore(this, EventArgs.Empty);
+                }
+                else
+                {
+                    YellowstonePathology.Business.Search.ReportSearchItem reportSearchItem = (YellowstonePathology.Business.Search.ReportSearchItem)this.ListViewAccessionOrders.SelectedItem;
+                    this.m_LoginUI.ReportSearchList.SetCurrentReportSearchItem(reportSearchItem.ReportNo);
+                    this.m_BillingPath = new Billing.BillingPath(this.m_LoginUI.ReportSearchList);
+                    this.m_BillingPath.Finish += BillingPath_Finish;
+                    this.BringPageToFore += this.m_BillingPath.BringPageToFore;
+                    this.m_BillingPath.Start(this.m_LoginUI.AccessionOrder);
+                    //this.m_BillingPathStarted = true;
+                }
             }
+        }
+
+        private void BillingPath_Finish(object sender, EventArgs e)
+        {
+            this.BringPageToFore -= this.m_BillingPath.BringPageToFore;
+            //this.m_BillingPathStarted = false;
         }
 
         private void TileICDCodes_MouseUp(object sender, MouseButtonEventArgs e)

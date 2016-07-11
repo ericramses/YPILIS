@@ -20,6 +20,7 @@ namespace YellowstonePathology.Business.Test.PlasmaCellMyelomaRiskStratification
 
 
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.PlasmaCellMyelomaRiskStratification.PlasmaCellMyelomaRiskStratificationTestOrder).AssemblyQualifiedName;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.PlasmaCellMyelomaRiskStratification.PlasmaCellMyelomaRiskStratificationWordDocument).AssemblyQualifiedName;
             
 			this.m_AllowMultiplePerAccession = true;
             //changed by MS and Tk;

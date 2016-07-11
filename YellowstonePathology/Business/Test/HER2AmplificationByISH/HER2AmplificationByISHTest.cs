@@ -20,6 +20,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
             
 			this.m_SurgicalAmendmentRequired = true;
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHTestOrder).AssemblyQualifiedName;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHWordDocument).AssemblyQualifiedName;
             
 			this.m_AllowMultiplePerAccession = true;
             this.m_ExpectedDuration = new TimeSpan(4, 0, 0, 0);

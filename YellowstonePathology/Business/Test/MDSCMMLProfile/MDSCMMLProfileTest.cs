@@ -20,7 +20,8 @@ namespace YellowstonePathology.Business.Test.MDSCMMLProfile
             this.m_Active = true;
             this.m_AttemptOrderTargetLookup = true;
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.PanelSetOrder).AssemblyQualifiedName;
-			this.m_AllowMultiplePerAccession = true;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Document.ReferenceLabReport).AssemblyQualifiedName;
+            this.m_AllowMultiplePerAccession = true;
             this.m_ExpectedDuration = new TimeSpan(5, 0, 0, 0);
             //changed by MS and TK
 

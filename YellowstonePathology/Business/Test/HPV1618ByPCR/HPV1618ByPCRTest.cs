@@ -20,6 +20,7 @@ namespace YellowstonePathology.Business.Test.HPV1618ByPCR
             this.m_Active = true;            
 
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.HPV1618ByPCR.HPV1618ByPCRTestOrder).AssemblyQualifiedName;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.HPV1618ByPCR.HPV1618ByPCRWordDocument).AssemblyQualifiedName;
             this.m_RequiresPathologistSignature = false;
             this.m_AcceptOnFinal = false;
 			this.m_AllowMultiplePerAccession = true;

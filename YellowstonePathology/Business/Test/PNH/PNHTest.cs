@@ -20,6 +20,7 @@ namespace YellowstonePathology.Business.Test.PNH
             this.m_Active = true;
 
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.PNH.PNHTestOrder).AssemblyQualifiedName;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.PNH.PNHWordDocument).AssemblyQualifiedName;
 			this.m_AllowMultiplePerAccession = true;
             this.m_EpicDistributionIsImplemented = true;
             this.m_CMMCDistributionIsImplemented = true;

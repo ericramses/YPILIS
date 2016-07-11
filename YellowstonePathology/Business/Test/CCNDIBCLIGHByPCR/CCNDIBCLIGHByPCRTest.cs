@@ -20,6 +20,7 @@ namespace YellowstonePathology.Business.Test.CCNDIBCLIGHByPCR
             this.m_Active = true;
 
             this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.CCNDIBCLIGHByPCR.CCNDIBCLIGHByPCRTestOrder).AssemblyQualifiedName;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.CCNDIBCLIGHByPCR.CCNDIBCLIGHByPCRWordDocument).AssemblyQualifiedName;
 
             this.m_AllowMultiplePerAccession = true;
             this.m_EpicDistributionIsImplemented = true;

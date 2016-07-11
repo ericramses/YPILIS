@@ -20,6 +20,8 @@ namespace YellowstonePathology.Business.Test.Autopsy
 			
 			this.m_AllowMultiplePerAccession = false;
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.Autopsy.AutopsyTestOrder).AssemblyQualifiedName;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Document.ReferenceLabReport).AssemblyQualifiedName;
+            //this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.Autopsy.AutopsyWordDocument).AssemblyQualifiedName;
 
             this.m_TechnicalComponentFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings();
             this.m_TechnicalComponentBillingFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings();

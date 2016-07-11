@@ -15,6 +15,7 @@ namespace YellowstonePathology.Business.Test.ReticulatedPlateletAnalysis
 			this.m_AllowMultiplePerAccession = true;
             this.m_ExpectedDuration = new TimeSpan(24, 0, 0);
             this.m_EpicDistributionIsImplemented = true;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.ReticulatedPlateletAnalysis.ReticulatedPlateletAnalysisWordDocument).AssemblyQualifiedName;
 
             string taskDescription = "Perform reticulated platelet testing.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Flow, taskDescription));

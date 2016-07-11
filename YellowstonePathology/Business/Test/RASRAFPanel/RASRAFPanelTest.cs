@@ -20,6 +20,7 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
             this.m_Active = true;
 
             this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelTestOrder).AssemblyQualifiedName;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelWordDocument).AssemblyQualifiedName;
 
             this.m_AllowMultiplePerAccession = true;
             this.m_ExpectedDuration = TimeSpan.FromDays(10);

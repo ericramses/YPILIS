@@ -24,6 +24,7 @@ namespace YellowstonePathology.Business.Test.Prothrombin
             this.m_EpicDistributionIsImplemented = true;
 
             this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.Prothrombin.ProthrombinTestOrder).AssemblyQualifiedName;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.Prothrombin.ProthrombinWordDocument).AssemblyQualifiedName;
 			
             string taskDescription = "Gather materials and send to St. Vincent Healthcare for testing";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, taskDescription));

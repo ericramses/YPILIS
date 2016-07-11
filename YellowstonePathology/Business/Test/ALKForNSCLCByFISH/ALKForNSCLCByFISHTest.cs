@@ -23,6 +23,7 @@ namespace YellowstonePathology.Business.Test.ALKForNSCLCByFISH
             this.m_EpicDistributionIsImplemented = true;
 
             this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.ALKForNSCLCByFISH.ALKForNSCLCByFISHTestOrder).AssemblyQualifiedName;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.ALKForNSCLCByFISH.ALKForNSCLCByFISHWordDocument).AssemblyQualifiedName;
 			//Changed by MS and TK;
 
             string taskDescription1 = "Cut H&E slide and give to pathologist to circle tumor for tech only. Give the paraffin block to Flow so they can send to NEO.";

@@ -20,6 +20,7 @@ namespace YellowstonePathology.Business.Test.Her2AmplificationByFish
             this.m_Active = true;
 
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.Her2AmplificationByFish.PanelSetOrderHer2AmplificationByFish).AssemblyQualifiedName;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.Her2AmplificationByFish.Her2AmplificationByFishWordDocument).AssemblyQualifiedName;
             
 			this.m_AllowMultiplePerAccession = true;            
             this.m_EpicDistributionIsImplemented = true;

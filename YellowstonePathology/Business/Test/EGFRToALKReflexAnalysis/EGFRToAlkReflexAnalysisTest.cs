@@ -20,6 +20,7 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
 			this.m_Active = true;
 
             this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisTestOrder).AssemblyQualifiedName;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisWordDocument).AssemblyQualifiedName;
 			this.m_RequiresPathologistSignature = true;
 			this.m_AcceptOnFinal = true;
 			this.m_IsReflexPanel = true;

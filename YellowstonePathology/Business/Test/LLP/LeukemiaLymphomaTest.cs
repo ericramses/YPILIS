@@ -16,6 +16,7 @@ namespace YellowstonePathology.Business.Test.LLP
             this.m_CMMCDistributionIsImplemented = true;
 
             this.m_EpicDistributionIsImplemented = true;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.LLP.LeukemiaLymphomaWordDocument).AssemblyQualifiedName;
 
             string taskDescription = "Leukemia/Lymphoma Phenotyping.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Flow, taskDescription));

@@ -17,6 +17,7 @@ namespace YellowstonePathology.Business.Test.FetalHemoglobin
             this.m_HasProfessionalComponent = false;
             this.m_ProfessionalComponentFacility = null;
             this.m_ExpectedDuration = new TimeSpan(24, 0, 0);
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.FetalHemoglobin.FetalHemoglobinWordDocument).AssemblyQualifiedName;
 
             string taskDescription = "Perform fetal hemoglobin testing.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Flow, taskDescription));

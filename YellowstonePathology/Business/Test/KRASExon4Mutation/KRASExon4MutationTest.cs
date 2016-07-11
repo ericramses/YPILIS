@@ -21,6 +21,7 @@ namespace YellowstonePathology.Business.Test.KRASExon4Mutation
 
 
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.KRASExon4Mutation.KRASExon4MutationTestOrder).AssemblyQualifiedName;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.KRASExon4Mutation.KRASExon4MutationWordDocument).AssemblyQualifiedName;
 			
 			this.m_AllowMultiplePerAccession = true;
             this.m_EpicDistributionIsImplemented = true;

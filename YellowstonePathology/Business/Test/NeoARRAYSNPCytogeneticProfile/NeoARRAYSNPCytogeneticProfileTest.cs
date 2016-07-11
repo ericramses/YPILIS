@@ -22,6 +22,7 @@ namespace YellowstonePathology.Business.Test.NeoARRAYSNPCytogeneticProfileTest
             this.m_EpicDistributionIsImplemented = true;
 
             this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.NeoARRAYSNPCytogeneticProfile.NeoARRAYSNPCytogeneticProfileTestOrder).AssemblyQualifiedName;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.NeoARRAYSNPCytogeneticProfile.NeoARRAYSNPCytogeneticProfileWordDocument).AssemblyQualifiedName;
 			//Changed by MS and TK;
 
             string taskDescription2 = "Collect (Peripheral blood: 2-5 mL in EDTA tube ONLY; " +

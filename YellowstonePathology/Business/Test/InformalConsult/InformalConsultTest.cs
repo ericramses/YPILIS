@@ -20,6 +20,7 @@ namespace YellowstonePathology.Business.Test.InformalConsult
             this.m_Active = true;            
 			                    
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.InformalConsult.InformalConsultTestOrder).AssemblyQualifiedName;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.InformalConsult.InformalConsultWordDocument).AssemblyQualifiedName;
 			this.m_AllowMultiplePerAccession = true;
             this.m_NeverDistribute = false;            
 			this.m_AcceptOnFinal = true;

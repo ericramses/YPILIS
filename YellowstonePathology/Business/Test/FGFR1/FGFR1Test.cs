@@ -20,6 +20,7 @@ namespace YellowstonePathology.Business.Test.FGFR1
             this.m_Active = true;
 
             this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.FGFR1.FGFR1TestOrder).AssemblyQualifiedName;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.FGFR1.FGFR1WordDocument).AssemblyQualifiedName;
             this.m_AllowMultiplePerAccession = true;
 
             this.m_EpicDistributionIsImplemented = true;

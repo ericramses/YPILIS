@@ -19,7 +19,7 @@ namespace YellowstonePathology.Business.Test.ABL1KinaseDomainMutation
             this.m_Active = true;
 
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.ABL1KinaseDomainMutation.ABL1KinaseDomainMutationTestOrder).AssemblyQualifiedName;
-            
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.ABL1KinaseDomainMutation.ABL1KinaseDomainMutationWordDocument).AssemblyQualifiedName;
             this.m_AllowMultiplePerAccession = true;
             //Changed by MS and TK;
             this.m_EpicDistributionIsImplemented = true;

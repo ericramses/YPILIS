@@ -17,10 +17,10 @@ namespace YellowstonePathology.Business.PanelSet.Model
 			this.m_ResultDocumentSource = YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.RetiredTestDocument;
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterM();
             this.m_Active = false;
-            
-			
-            
-			this.m_AllowMultiplePerAccession = true;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Document.DoNotPublishReport).AssemblyQualifiedName;
+
+
+            this.m_AllowMultiplePerAccession = true;
 
             string taskDescription = "This is not to be ordered.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskInternalDelivery(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, taskDescription));

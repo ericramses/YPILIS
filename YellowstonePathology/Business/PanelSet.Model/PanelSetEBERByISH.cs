@@ -16,9 +16,10 @@ namespace YellowstonePathology.Business.PanelSet.Model
             this.m_HasProfessionalComponent = false;
 			this.m_ResultDocumentSource = ResultDocumentSourceEnum.PublishedDocument;
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterR();
-            this.m_Active = true;           			
-            
-			this.m_AllowMultiplePerAccession = true;
+            this.m_Active = true;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Document.ReferenceLabReport).AssemblyQualifiedName;
+
+            this.m_AllowMultiplePerAccession = true;
             this.m_NeverDistribute = true;
 
             string taskDescription1 = "Cut H&E slide and give to pathologist to circle tumor for tech only. Give the paraffin block to Flow so they can send to NEO.";

@@ -23,7 +23,8 @@ namespace YellowstonePathology.Business.Test.ReviewForAdditionalTesting
             this.m_ExpectedDuration = new TimeSpan(1, 0, 0, 0);
             this.m_IsClientAccessioned = true;
 
-			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.ReviewForAdditionalTesting.ReviewForAdditionalTestingTestOrder).AssemblyQualifiedName;            
+			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.ReviewForAdditionalTesting.ReviewForAdditionalTestingTestOrder).AssemblyQualifiedName;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.ReviewForAdditionalTesting.ReviewForAdditionalTestingWordDocument).AssemblyQualifiedName;
 			this.m_AllowMultiplePerAccession = true;
 
             this.m_TechnicalComponentFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings();
