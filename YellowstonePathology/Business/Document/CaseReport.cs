@@ -88,6 +88,7 @@ namespace YellowstonePathology.Business.Document
             this.SetXmlNodeData("page2_header_patient_name", this.m_AccessionOrder.PatientName);
             this.SetXmlNodeData("page2_header_accessionno", this.m_PanelSetOrder.ReportNo);
             this.SetXmlNodeData("location_performed", this.m_PanelSetOrder.GetLocationPerformedComment());
+            this.SetClientReportNo();
 		}
 
         public void SetDemographicsV2()
@@ -158,8 +159,20 @@ namespace YellowstonePathology.Business.Document
             }
 
             this.SetXmlNodeData("location_performed", this.m_PanelSetOrder.GetLocationPerformedComment());
+            this.SetClientReportNo();
 		}
 
+        private void SetClientReportNo()
+        {
+            if (this.m_AccessionOrder.ClientAccessioned == true)
+            {
+                this.ReplaceText("client_report_no", this.m_AccessionOrder.ClientAccessionNo);
+            }
+            else
+            {
+                this.DeleteRow("client_report_no");
+            }
+        }
 
         public void SetReportDistribution()
         {
