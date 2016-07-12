@@ -119,7 +119,7 @@ namespace YellowstonePathology.Business.HL7View.WPH
             YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("OBR.32.9", "NPI", obr32Element);
             YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("OBR.32.10", string.Empty, obr32Element);
             YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("OBR.32.11", string.Empty, obr32Element);
-            YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("OBR.326.12", string.Empty, obr32Element);
+            YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("OBR.32.12", string.Empty, obr32Element);
             YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("OBR.32.13", "NPI", obr32Element);
             obrElement.Add(obr32Element);
 
