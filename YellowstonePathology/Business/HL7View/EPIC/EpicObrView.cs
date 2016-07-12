@@ -96,8 +96,8 @@ namespace YellowstonePathology.Business.HL7View.EPIC
             obrElement.Add(obr22Element);            
 
             XElement obr25Element = new XElement("OBR.25");
-            YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("OBR.25.1", this.m_ObservationResultStatus, obr25Element);
-            //YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("OBR.25.1", "P", obr25Element);
+            //YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("OBR.25.1", this.m_ObservationResultStatus, obr25Element);
+            YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("OBR.25.1", "P", obr25Element);
             obrElement.Add(obr25Element);            
         }
 

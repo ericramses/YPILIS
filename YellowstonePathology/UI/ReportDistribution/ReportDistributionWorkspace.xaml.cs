@@ -266,34 +266,19 @@ namespace YellowstonePathology.UI.ReportDistribution
         {
             bool result = true;
 
-            //try
-            //{
+            try
+            {
                 caseDocument.Render();
                 caseDocument.Publish();
 
                 this.m_ReportDistributionLogEntryCollection.AddEntry("INFO", "Publish Next", null, panelSetOrder.ReportNo, panelSetOrder.MasterAccessionNo, null, null, "PanelSetOrder Published");
-            //}                        
-            /*
+            }                                    
             catch (Exception publishException)
             {
-                this.m_ReportDistributionLogEntryCollection.AddEntry("ERROR", "Publish Next", null, panelSetOrder.ReportNo, panelSetOrder.MasterAccessionNo,
-                null, null, publishException.Message);
-
-                System.Net.Mail.MailMessage message = new System.Net.Mail.MailMessage("Support@ypii.com", "Support@ypii.com", System.Windows.Forms.SystemInformation.UserName, publishException.Message);
-                System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient("10.1.2.111");
-
-                Uri uri = new Uri("http://tempuri.org/");
-                System.Net.ICredentials credentials = System.Net.CredentialCache.DefaultCredentials;
-                System.Net.NetworkCredential credential = credentials.GetCredential(uri, "Basic");
-
-                client.Credentials = credential;
-                client.Send(message);
-
+                this.m_ReportDistributionLogEntryCollection.AddEntry("ERROR", "Publish Next", null, panelSetOrder.ReportNo, panelSetOrder.MasterAccessionNo, null, null, publishException.Message);                
                 this.DelayPublishAndDistribution(15, publishException.Message, panelSetOrder);
-
                 result = false;
-            }                        
-            */
+            }                                    
 
             return result;
         }
