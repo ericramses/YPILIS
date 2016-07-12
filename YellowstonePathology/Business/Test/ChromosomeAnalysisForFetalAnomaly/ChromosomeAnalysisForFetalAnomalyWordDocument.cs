@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Test.ChromosomeAnalysisForFetalAnomaly
 		{			
 			ChromosomeAnalysisForFetalAnomalyTestOrder testOrder = (ChromosomeAnalysisForFetalAnomalyTestOrder)this.m_PanelSetOrder;
 
-			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\ChromosomeAnalysisForFetalAnomaly.xml";
+			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\ChromosomeAnalysisForFetalAnomaly.1.xml";
 			base.OpenTemplate();
 
 			this.SetDemographicsV2();

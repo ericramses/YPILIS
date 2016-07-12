@@ -7,7 +7,7 @@ namespace YellowstonePathology.Business.Test.PlateletAssociatedAntibodies
 {
 	public class PlateletAssociatedAntibodiesWordDocument : YellowstonePathology.Business.Document.CaseReport
     {        
-        string m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\PlateletAssociatedAntibodies.6.xml";        
+        string m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\PlateletAssociatedAntibodies.7.xml";        
 		YellowstonePathology.Business.Flow.FlowMarkerPanelList m_PanelList;
 
         public PlateletAssociatedAntibodiesWordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 

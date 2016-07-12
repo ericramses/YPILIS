@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Test.KRASExon23Mutation
         {            
             KRASExon23MutationTestOrder testOrder = (KRASExon23MutationTestOrder)this.m_PanelSetOrder;
 
-            this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\KRASExon23Mutation.xml";
+            this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\KRASExon23Mutation.1.xml";
             base.OpenTemplate();
 
             this.SetDemographicsV2();

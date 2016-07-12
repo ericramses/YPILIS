@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Test.NRASMutationAnalysis
 		{			
 			NRASMutationAnalysisTestOrder testOrder = (YellowstonePathology.Business.Test.NRASMutationAnalysis.NRASMutationAnalysisTestOrder)this.m_PanelSetOrder;
 
-			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\NRASMutationAnalysis.xml";
+			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\NRASMutationAnalysis.1.xml";
 			base.OpenTemplate();
 
 			this.SetDemographicsV2();

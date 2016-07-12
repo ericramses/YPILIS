@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
 
         public override void Render()
         {            
-            this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\EGFRToALKReflexAnalysis.6.xml";
+            this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\EGFRToALKReflexAnalysis.7.xml";
             this.OpenTemplate();
             this.SetDemographicsV2();
             this.SetReportDistribution();

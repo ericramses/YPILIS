@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Test.MultipleMyelomaIgHByFish
 		{			
 			PanelSetOrderMultipleMyelomaIgHComplexByFish panelSetOrderMultipleMyelomaIgHByFish = (PanelSetOrderMultipleMyelomaIgHComplexByFish)this.m_PanelSetOrder;
 
-			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\MultipleMyelomaIgHComplexByFish.xml";
+			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\MultipleMyelomaIgHComplexByFish.1.xml";
 			base.OpenTemplate();
 
 			this.SetDemographicsV2();

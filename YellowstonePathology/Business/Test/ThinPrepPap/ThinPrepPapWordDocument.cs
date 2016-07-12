@@ -16,8 +16,8 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
         public const string NoAdditionalTestingOrderedComment = "No additional testing has been ordered.";
         public const string HPVHasBeenOrderedAndHasBeenResulted = "High Risk HPV testing (YPI report #*REPORTNO*): *RESULT*";
 
-        const string m_ThinPrepTemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\CytologyThinPrep.6.xml";
-        const string m_RegularTemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\CytologyRegular.5.xml";
+        const string m_ThinPrepTemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\CytologyThinPrep.7.xml";
+        const string m_RegularTemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\CytologyRegular.6.xml";
 
         protected string m_TemplateName;
         protected XmlDocument m_ReportXml;
@@ -267,6 +267,19 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
             this.ReplaceText("physician_name", this.m_AccessionOrder.PhysicianName);
             this.ReplaceText("client_name", this.m_AccessionOrder.ClientName);
             this.ReplaceText("page2_header", this.m_AccessionOrder.PatientName + ", " + this.m_PanelSetOrderCytology.ReportNo);
+            this.SetClientReportNo();
+        }
+
+        private void SetClientReportNo()
+        {
+            if (this.m_AccessionOrder.ClientAccessioned == true)
+            {
+                this.ReplaceText("client_rpt_no", this.m_AccessionOrder.ClientAccessionNo);
+            }
+            else
+            {
+                this.DeleteRow("client_rpt_no");
+            }
         }
 
         public void SetReportDistribution(YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistributionCollection testOrderReportDistributionCollection)

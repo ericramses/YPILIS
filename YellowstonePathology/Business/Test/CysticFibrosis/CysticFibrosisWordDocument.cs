@@ -18,11 +18,11 @@ namespace YellowstonePathology.Business.Test.CysticFibrosis
 
 			if (panelSetOrderCF.TemplateId == 1)
 			{
-				this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\CysticFibrosisCarrierScreening.xml";
+				this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\CysticFibrosisCarrierScreening.1.xml";
 			}
 			else if (panelSetOrderCF.TemplateId == 2)
 			{
-				this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\CysticFibrosisCarrierScreeningUnknownEthnicGroup.xml";
+				this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\CysticFibrosisCarrierScreeningUnknownEthnicGroup.1.xml";
 			}
 			else
 			{

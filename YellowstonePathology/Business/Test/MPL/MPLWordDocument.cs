@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Test.MPL
 		{			
 			PanelSetOrderMPL panelSetOrderMPL = (PanelSetOrderMPL)this.m_PanelSetOrder;
 
-			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\MPL.xml";
+			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\MPL.1.xml";
 			base.OpenTemplate();
 
 			this.SetDemographicsV2();

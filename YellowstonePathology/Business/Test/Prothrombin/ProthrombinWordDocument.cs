@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Test.Prothrombin
 		{            
 			ProthrombinTestOrder testOrder = (ProthrombinTestOrder)this.m_PanelSetOrder;
 
-			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\Prothrombin.6.xml";
+			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\Prothrombin.7.xml";
 
 			this.OpenTemplate();
 			this.SetDemographicsV2();
