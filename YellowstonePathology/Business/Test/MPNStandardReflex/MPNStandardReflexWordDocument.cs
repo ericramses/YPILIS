@@ -22,7 +22,7 @@ namespace YellowstonePathology.Business.Test.MPNStandardReflex
 			YellowstonePathology.Business.Test.MPNStandardReflex.MPNStandardReflexTest mpnStandardReflex = new YellowstonePathology.Business.Test.MPNStandardReflex.MPNStandardReflexTest();
 			YellowstonePathology.Business.Test.MPNStandardReflex.PanelSetOrderMPNStandardReflex panelSetOrderMPNStandardReflex = (YellowstonePathology.Business.Test.MPNStandardReflex.PanelSetOrderMPNStandardReflex)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(mpnStandardReflex.PanelSetId);
 
-			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\MPNStandardReflex.2.xml";
+			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\MPNStandardReflex.3.xml";
 			base.OpenTemplate();            
 
 			this.SetDemographicsV2();

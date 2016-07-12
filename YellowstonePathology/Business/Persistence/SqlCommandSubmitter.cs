@@ -77,7 +77,7 @@ namespace YellowstonePathology.Business.Persistence
             result.HasInsertCommands = this.m_SqlInsertCommands.Count > 0;
             result.HasInsertLastCommands = this.m_SqlInsertLastCommands.Count > 0;
 
-            if (result.HasUpdateCommands || result.HasDeleteCommands || result.HasInsertCommands || result.HasInsertLastCommands)
+            if (result.HasUpdateCommands || result.HasDeleteFirstCommands || result.HasDeleteCommands || result.HasInsertCommands || result.HasInsertLastCommands)
             {
                 using (SqlConnection cn = new SqlConnection(this.m_ConnectionString))
                 {

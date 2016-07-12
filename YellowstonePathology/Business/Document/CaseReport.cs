@@ -166,11 +166,11 @@ namespace YellowstonePathology.Business.Document
         {
             if (this.m_AccessionOrder.ClientAccessioned == true)
             {
-                this.ReplaceText("client_report_no", this.m_AccessionOrder.ClientAccessionNo);
+                this.ReplaceText("client_rpt_no", this.m_AccessionOrder.ClientAccessionNo);
             }
             else
             {
-                this.DeleteRow("client_report_no");
+                this.DeleteRow("client_rpt_no");
             }
         }
 

@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Test.MPNFish
 		{			
 			PanelSetOrderMPNFish panelSetOrderMPNFish = (PanelSetOrderMPNFish)this.m_PanelSetOrder;
 
-			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\MPNFish.xml";
+			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\MPNFish.1.xml";
 			base.OpenTemplate();
 
 			this.SetDemographicsV2();

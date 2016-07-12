@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Test.CLLByFish
 		{			
 			CLLByFishTestOrder testOrder = (CLLByFishTestOrder)this.m_PanelSetOrder;
 
-			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\CLLByFish.xml";
+			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\CLLByFish.1.xml";
 			base.OpenTemplate();
 
 			this.SetDemographicsV2();
