@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Test.BladderCancerFISHUrovysion
 		{			
 			BladderCancerFISHUrovysionTestOrder testOrder = (BladderCancerFISHUrovysionTestOrder)this.m_PanelSetOrder;
 
-			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\BladderCancerFISHUrovysion.xml";
+			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\BladderCancerFISHUrovysion.1.xml";
 			base.OpenTemplate();
 
 			this.SetDemographicsV2();

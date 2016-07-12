@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
 
         public override void Render()
 		{			
-			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\WomensHealthProfile.2.xml";
+			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\WomensHealthProfile.3.xml";
 			this.OpenTemplate();
 
 			this.SetCurrentPapResults();

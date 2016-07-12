@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Test.Trichomonas
 		{            
 			TrichomonasTestOrder reportOrderTrichomonas = (TrichomonasTestOrder)this.m_PanelSetOrder;            
 
-			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\Trichomonas.5.xml";
+			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\Trichomonas.6.xml";
 			base.OpenTemplate();
 
             this.SetDemographicsV2();

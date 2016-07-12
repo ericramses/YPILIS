@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Test.KRASStandard
 		{		
 			KRASStandardTestOrder panelSetOrder = (KRASStandardTestOrder)this.m_PanelSetOrder;
 
-			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\KRASStandard.1.xml";
+			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\KRASStandard.2.xml";
 			base.OpenTemplate();
 
 			this.SetDemographicsV2();

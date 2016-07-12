@@ -16,7 +16,7 @@ namespace YellowstonePathology.Business.Test.RUNX1RUNX1T1AML1ETOTranslocation
 
         public override void Render()
         {
-            this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\RUNX1RUNX1T1AML1ETOTranslocation.xml";
+            this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\RUNX1RUNX1T1AML1ETOTranslocation.1.xml";
             base.OpenTemplate();
 
             this.SetDemographicsV2();

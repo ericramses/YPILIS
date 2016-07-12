@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Test.NGCT
 		{            
             YellowstonePathology.Business.Test.NGCT.NGCTTestOrder testOrder = (YellowstonePathology.Business.Test.NGCT.NGCTTestOrder)this.m_PanelSetOrder;
 
-			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\NGCT.6.xml";
+			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\NGCT.7.xml";
 			base.OpenTemplate();
 
             this.SetDemographicsV2();

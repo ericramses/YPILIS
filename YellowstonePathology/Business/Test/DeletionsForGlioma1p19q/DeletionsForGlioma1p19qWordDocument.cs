@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Test.DeletionsForGlioma1p19q
 		{			
 			DeletionsForGlioma1p19qTestOrder testOrder = (DeletionsForGlioma1p19qTestOrder)this.m_PanelSetOrder;
 
-			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\DeletionsForGlioma1p19q.xml";
+			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\DeletionsForGlioma1p19q.1.xml";
 			base.OpenTemplate();
 
 			this.SetDemographicsV2();

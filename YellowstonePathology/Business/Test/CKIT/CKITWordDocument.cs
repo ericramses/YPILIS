@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Test.CKIT
 		{			
 			CKITTestOrder ckitTestOrder = (YellowstonePathology.Business.Test.CKIT.CKITTestOrder)this.m_PanelSetOrder;
 
-			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\CKIT.xml";
+			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\CKIT.1.xml";
 			base.OpenTemplate();
 
 			this.SetDemographicsV2();

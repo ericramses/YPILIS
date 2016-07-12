@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Test.PlasmaCellMyelomaRiskStratification
 		{			
 			YellowstonePathology.Business.Test.PlasmaCellMyelomaRiskStratification.PlasmaCellMyelomaRiskStratificationTestOrder testOrder = (YellowstonePathology.Business.Test.PlasmaCellMyelomaRiskStratification.PlasmaCellMyelomaRiskStratificationTestOrder)this.m_PanelSetOrder;
 
-			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\PlasmaCellMyelomaRiskStratification.xml";
+			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\PlasmaCellMyelomaRiskStratification.1.xml";
 			base.OpenTemplate();
 
 			this.SetDemographicsV2();

@@ -16,7 +16,7 @@ namespace YellowstonePathology.Business.Test.AMLNonFavorableRisk
 
         public override void Render()
         {
-            this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\AMLNonFavorableRisk.xml";
+            this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\AMLNonFavorableRisk.1.xml";
             base.OpenTemplate();
 
             this.SetDemographicsV2();

@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Test.CEBPA
 		{			
 			PanelSetOrderCEBPA panelSetOrderCEBPA = (PanelSetOrderCEBPA)this.m_PanelSetOrder;
 
-			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\CEBPA.xml";
+			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\CEBPA.1.xml";
 			base.OpenTemplate();
 
 			this.SetDemographicsV2();

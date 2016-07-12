@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Test.TCellRecepterBetaGeneRearrangement
 		{
             TCellRecepterBetaGeneRearrangementTestOrder tCellRecepterGammaGeneRearrangementTestOrder = (TCellRecepterBetaGeneRearrangementTestOrder)this.m_PanelSetOrder;
 
-			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\TCellRecepterBetaGeneRearrangement.xml";
+			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\TCellRecepterBetaGeneRearrangement.1.xml";
 			base.OpenTemplate();
 
 			this.SetDemographicsV2();

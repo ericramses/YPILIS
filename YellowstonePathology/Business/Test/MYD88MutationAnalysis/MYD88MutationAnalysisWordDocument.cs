@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Test.MYD88MutationAnalysis
 		{			
 			MYD88MutationAnalysisTestOrder testOrder = (YellowstonePathology.Business.Test.MYD88MutationAnalysis.MYD88MutationAnalysisTestOrder)this.m_PanelSetOrder;
 
-			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\MYD88MutationAnalysis.xml";
+			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\MYD88MutationAnalysis.1.xml";
 			base.OpenTemplate();
 
 			this.SetDemographicsV2();
