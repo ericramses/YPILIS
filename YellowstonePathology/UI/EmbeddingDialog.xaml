@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YellowstonePathology.UI"
         mc:Ignorable="d"
-        Title="Embedding Dialog" WindowStyle="ToolWindow" WindowStartupLocation="CenterScreen" WindowState="Maximized">
+        Title="Embedding Dialog" WindowStyle="ToolWindow" WindowStartupLocation="CenterScreen">
     <Grid>
                 
         <Grid.ColumnDefinitions>
@@ -15,6 +15,7 @@
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="2*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
@@ -65,6 +66,12 @@
                 </GridView>
             </ListView.View>
         </ListView>
+
+        <StatusBar Grid.Column="0" Grid.Row="3">
+            <StatusBarItem>
+                <TextBlock Name="TextBlockStatus" Margin="2,2,2,2" TextAlignment="Left" VerticalAlignment="Center" Width="300" Text="{Binding Path=StatusMessage}"></TextBlock>
+            </StatusBarItem>
+        </StatusBar>
 
     </Grid>
 </Window>
