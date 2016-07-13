@@ -50,6 +50,8 @@ namespace YellowstonePathology.Business.HL7View.WPH
             YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("OBR.1.1", "1", obr01Element);            
             obrElement.Add(obr01Element);
             
+
+            //If this is an add on test then do not write this element.
             XElement obr02Element = new XElement("OBR.2");
             YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("OBR.2.1", this.m_ExternalOrderId, obr02Element);
             obrElement.Add(obr02Element);                
@@ -108,7 +110,7 @@ namespace YellowstonePathology.Business.HL7View.WPH
             obrElement.Add(obr25Element);
 
             XElement obr32Element = new XElement("OBR.32");
-            YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("OBR.32.1", this.m_SigningPathologist.NationalProviderId.ToString(), obr32Element);
+            YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("OBR.32.1", this.m_SigningPathologist.GetWPHMneumonic(), obr32Element);
             YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("OBR.32.2", this.m_SigningPathologist.LastName, obr32Element);
             YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("OBR.32.3", this.m_SigningPathologist.FirstName, obr32Element);
             YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("OBR.32.4", this.m_SigningPathologist.MiddleInitial, obr32Element);

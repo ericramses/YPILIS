@@ -206,6 +206,13 @@ namespace YellowstonePathology.Business.User
 			return SystemUserRoleCollection.IsUserInRole(systemUserRoleDescriptionList);
 		}
 
+        public string GetWPHMneumonic()
+        {
+            string result = null;
+            result = this.m_LastName.Substring(0, 3) + this.m_FirstName.Substring(0, 2);
+            return result.ToUpper();
+        }
+
         public void NotifyPropertyChanged(String info)
         {
             if (PropertyChanged != null)

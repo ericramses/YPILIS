@@ -13,7 +13,7 @@ namespace YellowstonePathology.Business.HL7View.WPH
             switch (panelSetId)
             {
                 case 1:
-					//view = new YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FWPHOBXView(accessionOrder, reportNo, obxCount);
+					view = new YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FWPHOBXView(accessionOrder, reportNo, obxCount);
                     break;                
                 case 3:
                     //view = new YellowstonePathology.Business.Test.NGCT.NGCTWPHOBXView(accessionOrder, reportNo, obxCount);

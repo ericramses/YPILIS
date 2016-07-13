@@ -266,19 +266,19 @@ namespace YellowstonePathology.UI.ReportDistribution
         {
             bool result = true;
 
-            try
-            {
+            //try
+            //{
                 caseDocument.Render();
                 caseDocument.Publish();
 
                 this.m_ReportDistributionLogEntryCollection.AddEntry("INFO", "Publish Next", null, panelSetOrder.ReportNo, panelSetOrder.MasterAccessionNo, null, null, "PanelSetOrder Published");
-            }                                    
-            catch (Exception publishException)
-            {
-                this.m_ReportDistributionLogEntryCollection.AddEntry("ERROR", "Publish Next", null, panelSetOrder.ReportNo, panelSetOrder.MasterAccessionNo, null, null, publishException.Message);                
-                this.DelayPublishAndDistribution(15, publishException.Message, panelSetOrder);
-                result = false;
-            }                                    
+            //}                                    
+            //catch (Exception publishException)
+            //{
+            //    this.m_ReportDistributionLogEntryCollection.AddEntry("ERROR", "Publish Next", null, panelSetOrder.ReportNo, panelSetOrder.MasterAccessionNo, null, null, publishException.Message);                
+            //    this.DelayPublishAndDistribution(15, publishException.Message, panelSetOrder);
+            //    result = false;
+            //}                                    
 
             return result;
         }
@@ -333,6 +333,8 @@ namespace YellowstonePathology.UI.ReportDistribution
             List<YellowstonePathology.Business.Test.PanelSetOrderView> caseList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetNextCasesToPublish();            
 
             int maxProcessCount = 2;
+            if (caseList.Count >= 10) maxProcessCount = 10;
+
             int processCount = 0;
 
             foreach (YellowstonePathology.Business.Test.PanelSetOrderView view in caseList)

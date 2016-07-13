@@ -67,9 +67,11 @@ namespace YellowstonePathology.Business.BarcodeScanning
                 EmbeddingScan item = new EmbeddingScan(hashEntries);
                 list.Add(item);                    
             }
-
+            
+           
             list.Sort(delegate (EmbeddingScan x, EmbeddingScan y)
             {
+                if (x.DateScanned == y.DateScanned) return 0;
                 if (x.DateScanned > y.DateScanned)
                 {
                     return 1;
@@ -79,6 +81,7 @@ namespace YellowstonePathology.Business.BarcodeScanning
                     return -1;
                 }
             });
+           
 
             foreach (EmbeddingScan item in list)
             {
