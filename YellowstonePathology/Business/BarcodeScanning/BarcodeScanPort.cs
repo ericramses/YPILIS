@@ -81,16 +81,21 @@ namespace YellowstonePathology.Business.BarcodeScanning
 		private void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
 		{                        
             string scanData = this.m_SerialPort.ReadExisting();
-            BarcodeScanVersionEnum version = BarcodeScan.GetVersion(scanData);
+            string[] scans = scanData.Trim().Split('\r');
 
-            switch (version)
+            foreach (string scan in scans)
             {
-                case BarcodeScanVersionEnum.V1:
-                    this.HandleVersion1Scans(scanData.Trim());
-                    break;
-                case BarcodeScanVersionEnum.V2:
-                    this.HandleVersion2Scans(scanData.Trim());
-                    break;
+                BarcodeScanVersionEnum version = BarcodeScan.GetVersion(scan);
+
+                switch (version)
+                {
+                    case BarcodeScanVersionEnum.V1:
+                        this.HandleVersion1Scans(scan.Trim());
+                        break;
+                    case BarcodeScanVersionEnum.V2:
+                        this.HandleVersion2Scans(scan.Trim());
+                        break;
+                }
             }                        
 		}
 
