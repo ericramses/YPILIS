@@ -9,9 +9,9 @@ namespace YellowstonePathology.Business.Surgical
     public class ProcessorCollection : ObservableCollection<Processor>
     {
         public ProcessorCollection()
-        {
+        {            
+            this.Add(new Chong());
             this.Add(new Cheech());
-            this.Add(new Chong());            
         }
     }
 }
