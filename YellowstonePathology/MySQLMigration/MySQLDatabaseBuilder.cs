@@ -13,6 +13,8 @@ namespace YellowstonePathology.MySQLMigration
 {
     public class MySQLDatabaseBuilder
     {
+        private const string ConnectionString = "Server = 10.1.2.26; Uid = sqldude; Pwd = 123Whatsup; Database = lis;";
+
         public MySQLDatabaseBuilder()
         {
 
@@ -20,9 +22,9 @@ namespace YellowstonePathology.MySQLMigration
 
         public void Build()
         {
-            ///this.BuildCreateTableCommand(typeof(YellowstonePathology.Business.Client.Model.Client));
+            this.BuildCreateTableCommand(typeof(YellowstonePathology.Business.Client.Model.PhysicianClient));
             //this.UpdateTableSchema(typeof(YellowstonePathology.Business.Client.Model.Client));
-            this.MoveData(typeof(YellowstonePathology.Business.Client.Model.Client));
+            //this.MoveData(typeof(YellowstonePathology.Business.Client.Model.Client));
         }
 
         private void UpdateTableSchema(Type type)
@@ -38,7 +40,7 @@ namespace YellowstonePathology.MySQLMigration
                 string sqlCommand = "ALTER TABLE " + tableName + " ADD column " + property.Name + " " + this.GetMySQLDataType(property.PropertyType) + "; ";                    
                 MySqlCommand cmd = new MySqlCommand();
                 cmd.CommandText = sqlCommand;
-                cmd.Connection = new MySqlConnection("Server = 10.1.2.26; Uid = sid; Pwd = ctlnbr4760; Database = lis;");
+                cmd.Connection = new MySqlConnection(ConnectionString);
                 cmd.Connection.Open();                
                 
                 try
@@ -77,7 +79,7 @@ namespace YellowstonePathology.MySQLMigration
 
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandText = sqlCommand;
-            cmd.Connection = new MySqlConnection("Server = 10.1.2.26; Uid = sid; Pwd = ctlnbr4760; Database = lis;");
+            cmd.Connection = new MySqlConnection(ConnectionString);
             cmd.Connection.Open();
             cmd.ExecuteNonQuery();            
         }
@@ -140,7 +142,7 @@ namespace YellowstonePathology.MySQLMigration
                 {
                     MySqlCommand mysqlCmd = new MySqlCommand();
                     
-                    mysqlCmd.Connection = new MySqlConnection("Server = 10.1.2.26; Uid = sid; Pwd = ctlnbr4760; Database = lis;");
+                    mysqlCmd.Connection = new MySqlConnection(ConnectionString);
                     mysqlCmd.Connection.Open();
 
                     while (dr.Read())
