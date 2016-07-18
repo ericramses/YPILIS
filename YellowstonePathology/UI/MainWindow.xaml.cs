@@ -131,7 +131,7 @@ namespace YellowstonePathology.UI
             this.AddHandler(UI.CustomControls.CloseableTabItem.CloseTabEvent, new RoutedEventHandler(this.CloseTab));            
 
 			this.TabControlLeftWorkspace.SelectionChanged += new SelectionChangedEventHandler(TabControlLeftWorkspace_SelectionChanged);
-			if (this.m_SystemIdentity.User.UserId != 5001 && this.m_SystemIdentity.User.UserId != 5051 && this.m_SystemIdentity.User.UserId != 5126)
+			if (this.m_SystemIdentity.User.UserId != 5001 && this.m_SystemIdentity.User.UserId != 5051 && this.m_SystemIdentity.User.UserId != 5126 && this.m_SystemIdentity.User.UserId != 5091)
 			{                
                 this.MenuItemReportDistribution.IsEnabled = false;
             }

@@ -226,5 +226,49 @@ namespace YellowstonePathology.MySQLMigration
             result = result + ")";
             return result;
         }
+
+        public List<string> GetPersistenceClassNames()
+        {
+            List<string> result = new List<string>();
+            string assemblyName = @"C:\GIT\William\YPILIS\YellowstonePathology\bin\Debug\UserInterface.exe";
+            Assembly assembly = Assembly.LoadFile(assemblyName);
+            Type[] types = assembly.GetTypes();
+
+            foreach (Type type in types)
+            {
+                object[] customAttributes = type.GetCustomAttributes(typeof(YellowstonePathology.Business.Persistence.PersistentClass), false);
+                if (customAttributes.Length > 0)
+                {
+                    foreach (object o in customAttributes)
+                    {
+                        if (o is YellowstonePathology.Business.Persistence.PersistentClass)
+                        {
+                            YellowstonePathology.Business.Persistence.PersistentClass persistentClass = (YellowstonePathology.Business.Persistence.PersistentClass)o;
+                            //if (string.IsNullOrEmpty(persistentClass.StorageName) == false)
+                            //{
+                                //if (persistentClass.BaseStorageName == "tblPanelSetOrder" && string.IsNullOrEmpty(persistentClass.StorageName) == false)
+                                //{
+                                string collectionName = type.Name; // persistentClass.StorageName.Substring(3);
+                                    result.Add(collectionName);
+                                //}
+                            //}
+                        }
+                    }
+                }
+            }
+            return result;
+        }
+
+        private string CreateIndex(string tableName, string columnName)
+        {
+            string result = "Create INDEX idx_" + columnName + " on " + tableName + " (" + columnName + ");";
+            return result;
+        }
+
+        private string CreatePrimaryKey(string tableName, string columnName)
+        {
+            string result = "";
+            return result;
+        }
     }
 }
