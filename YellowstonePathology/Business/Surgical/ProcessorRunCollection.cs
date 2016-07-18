@@ -61,16 +61,16 @@ namespace YellowstonePathology.Business.Surgical
                 {
                     result.Add(processorRun);
                 }
-            }
+            }            
 
-            Cheech cheech = new Cheech();
-            foreach (ProcessorRun processorRun in cheech.ProcessorRunCollection)
+            Chong chong = new Chong();
+            foreach (ProcessorRun processorRun in chong.ProcessorRunCollection)
             {
                 result.Add(processorRun);
             }
 
-            Chong chong = new Chong();
-            foreach (ProcessorRun processorRun in chong.ProcessorRunCollection)
+            Cheech cheech = new Cheech();
+            foreach (ProcessorRun processorRun in cheech.ProcessorRunCollection)
             {
                 result.Add(processorRun);
             }
