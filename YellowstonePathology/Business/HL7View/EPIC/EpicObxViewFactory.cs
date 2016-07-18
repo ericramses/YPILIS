@@ -37,17 +37,20 @@ namespace YellowstonePathology.Business.HL7View.EPIC
                 case 19:
 					view = new YellowstonePathology.Business.Test.PNH.PNHEPICObxView(accessionOrder, reportNo, obxCount);
                     break;
-                case 27:
-					view = new YellowstonePathology.Business.Test.KRASStandard.KRASStandardEPICObxView(accessionOrder, reportNo, obxCount);
-                    break;
                 case 20:
 					view = new YellowstonePathology.Business.Test.LLP.LLPEPICObxView(accessionOrder, reportNo, obxCount);
                     break;
                 case 21:
 					view = new YellowstonePathology.Business.Test.ThrombocytopeniaProfile.ThrombocytopeniaProfileEPICObxView(accessionOrder, reportNo, obxCount);
                     break;
+                case 22:
+                    view = new YellowstonePathology.Business.Test.PlateletAssociatedAntibodies.PlateletAssociatedAntibodiesEPICOBXView(accessionOrder, reportNo, obxCount);
+                    break;
                 case 23:
 					view = new YellowstonePathology.Business.Test.ReticulatedPlateletAnalysis.RPAEPICObxView(accessionOrder, reportNo, obxCount);
+                    break;
+                case 27:
+					view = new YellowstonePathology.Business.Test.KRASStandard.KRASStandardEPICObxView(accessionOrder, reportNo, obxCount);
                     break;
 				case 30:
 					view = new YellowstonePathology.Business.Test.KRASStandardReflex.KRASStandardReflexEPICObxView(accessionOrder, reportNo, obxCount);

@@ -1001,8 +1001,18 @@ namespace YellowstonePathology.UI
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
             YellowstonePathology.MySQLMigration.MySQLDatabaseBuilder builder = new MySQLMigration.MySQLDatabaseBuilder();
-            builder.Build();
-        }        
+            List<string> classes = builder.GetPersistenceClassNames();
+            using (StreamWriter sw = new StreamWriter(@"C:\WCTMP\PersistentClasses1.txt", false))
+            {
+                foreach (string name in classes)
+                {
+                    sw.WriteLine(name);
+                }
+            }
+
+            MessageBox.Show("Done");
+            //builder.Build();
+        }
 
         private string CallBackOne(string x)
         {

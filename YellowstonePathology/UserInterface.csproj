@@ -1044,6 +1044,7 @@
     <Compile Include="Business\ParseSpecimenOrderIdResult.cs" />
     <Compile Include="Business\Test\JAK2V617F\JAK2V617FWPHObxView.cs" />
     <Compile Include="Business\Test\MUM1ByIHC\MUM1ByIHCTest.cs" />
+    <Compile Include="Business\Test\PlateletAssociatedAntibodies\PlateletAssociatedAntibodiesEPICOBXView.cs" />
     <Compile Include="MySQLMigration\MySQLDatabaseBuilder.cs" />
     <Compile Include="Business\NeogenomicsResult.cs" />
     <Compile Include="Business\NeogenomicsResultCollection.cs" />
