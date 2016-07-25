@@ -15,7 +15,7 @@ using YellowstonePathology.Business.Persistence;
 
 namespace YellowstonePathology.Business.Test
 {
-    [PersistentClass("tblPanelSetOrder", "YPIDATA")]
+    //[PersistentClass("tblPanelSetOrder", "YPIDATA")]
     public class PanelSetOrderView : INotifyPropertyChanged
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
