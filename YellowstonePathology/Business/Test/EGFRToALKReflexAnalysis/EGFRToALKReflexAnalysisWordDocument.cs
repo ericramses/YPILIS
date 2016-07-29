@@ -34,11 +34,6 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
             amendmentSection.SetAmendment(egfrToALKReflexAnalysisTestOrder.AmendmentCollection, this.m_ReportXml, this.m_NameSpaceManager, true);
 
             YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisDetectedResult egfrMutationAnalysisDetectedResult = new EGFRMutationAnalysis.EGFRMutationAnalysisDetectedResult();
-            if (egfrMutationAnalysisTestOrder.ResultCode == egfrMutationAnalysisDetectedResult.ResultCode)
-            {
-                base.ReplaceText("alk_result", "Not Indicated");
-                base.ReplaceText("ros1_result", "Not Indicated");
-            }
 
             if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(131) == true)
             {
@@ -55,6 +50,10 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
                 base.ReplaceText("alk_result", "Quantity not sufficient to perform ALK");
                 base.ReplaceText("ros1_result", "Quantity not sufficient to perform ROS1");
             }
+            else if (egfrMutationAnalysisTestOrder.ResultCode == egfrMutationAnalysisDetectedResult.ResultCode)
+            {
+                base.ReplaceText("alk_result", "Not Indicated");
+            }
             else
             {
                 base.ReplaceText("alk_result", "ALK not performed");
@@ -64,6 +63,14 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
             {                
                 YellowstonePathology.Business.Test.ROS1ByFISH.ROS1ByFISHTestOrder ros1ByFISHTestOrder = (YellowstonePathology.Business.Test.ROS1ByFISH.ROS1ByFISHTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(204);
                 base.ReplaceText("ros1_result", ros1ByFISHTestOrder.Result);
+            }
+            else if (egfrMutationAnalysisTestOrder.ResultCode == egfrMutationAnalysisDetectedResult.ResultCode)
+            {
+                base.ReplaceText("ros1_result", "Not Indicated");
+            }
+            else
+            {
+                base.ReplaceText("ros1_result", "ROS1 not performed");
             }
 
             base.SetXMLNodeParagraphData("report_interpretation", egfrToALKReflexAnalysisTestOrder.Interpretation);

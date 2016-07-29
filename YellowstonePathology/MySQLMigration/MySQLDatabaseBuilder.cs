@@ -21,7 +21,7 @@ namespace YellowstonePathology.MySQLMigration
 
         public MySQLDatabaseBuilder()
         {
-
+            this.BuildForbiddenWordLists();
         }
 
         public void Build()
@@ -36,7 +36,7 @@ namespace YellowstonePathology.MySQLMigration
         }
 
         private void UpdateTableSchema(Type type)
-        {             
+        {
             PropertyInfo[] properties = type.GetProperties().
                 Where(prop => Attribute.IsDefined(prop, typeof(Business.Persistence.PersistentProperty)) || Attribute.IsDefined(prop, typeof(Business.Persistence.PersistentPrimaryKeyProperty))).ToArray();
 
@@ -45,29 +45,29 @@ namespace YellowstonePathology.MySQLMigration
                 PropertyInfo property = properties[i];
 
                 string tableName = "tbl" + type.Name;
-                string sqlCommand = "ALTER TABLE " + tableName + " ADD column " + property.Name + " " + this.GetMySQLDataType(property.PropertyType) + "; ";                    
+                string sqlCommand = "ALTER TABLE " + tableName + " ADD column " + property.Name + " " + this.GetMySQLDataType(property.PropertyType) + "; ";
                 MySqlCommand cmd = new MySqlCommand();
                 cmd.CommandText = sqlCommand;
                 cmd.Connection = new MySqlConnection(ConnectionString);
-                cmd.Connection.Open();                
-                
+                cmd.Connection.Open();
+
                 try
                 {
                     cmd.ExecuteNonQuery();
                     Console.WriteLine("Column Added: " + property.Name);
                 }
-                catch(Exception)
+                catch (Exception)
                 {
                     Console.WriteLine("Column Exists");
                 }
 
-            }                       
-        }        
+            }
+        }
 
         private void BuildCreateTableCommand(Type type)
         {
             string tableName = "tbl" + type.Name;
-            string sqlCommand ="Create Table If Not Exists " + tableName + "(";
+            string sqlCommand = "Create Table If Not Exists " + tableName + "(";
 
             string primaryKeyName = string.Empty;
             string primaryKeyType = string.Empty;
@@ -86,7 +86,7 @@ namespace YellowstonePathology.MySQLMigration
             {
                 PropertyInfo property = properties[i];
                 sqlCommand = sqlCommand + property.Name + " ";
-                sqlCommand = sqlCommand + this.GetMySQLDataType(property.PropertyType) + ", ";                
+                sqlCommand = sqlCommand + this.GetMySQLDataType(property.PropertyType) + ", ";
             }
 
             if (sqlCommand.Length != 0)
@@ -110,8 +110,8 @@ namespace YellowstonePathology.MySQLMigration
 
         private string GetMySQLDataType(Type type)
         {
-            string result = null;    
-                    
+            string result = null;
+
             if (type == typeof(string))
             {
                 result = "TEXT";
@@ -138,7 +138,7 @@ namespace YellowstonePathology.MySQLMigration
             }
             else if (type == typeof(Nullable<bool>))
             {
-                result =  "BIT";
+                result = "BIT";
             }
             else if (type == typeof(Nullable<DateTime>))
             {
@@ -156,8 +156,8 @@ namespace YellowstonePathology.MySQLMigration
             return result;
         }
 
-        private void MoveData(Type type)
-        {            
+        public void MoveData(Type type)
+        {
             SqlCommand cmd = new SqlCommand();
             cmd.CommandText = this.GetSelectStatement(type);
             cmd.CommandType = CommandType.Text;
@@ -169,7 +169,7 @@ namespace YellowstonePathology.MySQLMigration
                 using (SqlDataReader dr = cmd.ExecuteReader())
                 {
                     MySqlCommand mysqlCmd = new MySqlCommand();
-                    
+
                     mysqlCmd.Connection = new MySqlConnection(ConnectionString);
                     mysqlCmd.Connection.Open();
 
@@ -179,7 +179,7 @@ namespace YellowstonePathology.MySQLMigration
                         mysqlCmd.ExecuteNonQuery();
                     }
                 }
-            }            
+            }
         }
 
         private string GetSelectStatement(Type type)
@@ -189,7 +189,7 @@ namespace YellowstonePathology.MySQLMigration
             PropertyInfo[] properties = type.GetProperties().
                Where(prop => Attribute.IsDefined(prop, typeof(Business.Persistence.PersistentProperty)) || Attribute.IsDefined(prop, typeof(Business.Persistence.PersistentPrimaryKeyProperty))).ToArray();
 
-            for (int i = 0; i < properties.Length - 1; i++)
+            for (int i = 0; i < properties.Length; i++)
             {
                 PropertyInfo property = properties[i];
                 result = result + property.Name + ", ";
@@ -206,15 +206,17 @@ namespace YellowstonePathology.MySQLMigration
 
         private string GetInsertStatement(Type type, SqlDataReader dr)
         {
-            string result = "Insert tbl" + type.Name + "(";
+            string tableName = this.GetTableName(type);
+            string result = "Insert " + tableName + "(";
 
             PropertyInfo[] properties = type.GetProperties().
                Where(prop => Attribute.IsDefined(prop, typeof(Business.Persistence.PersistentProperty)) || Attribute.IsDefined(prop, typeof(Business.Persistence.PersistentPrimaryKeyProperty))).ToArray();
 
-            for (int i = 0; i < properties.Length - 1; i++)
+            for (int i = 0; i < properties.Length; i++)
             {
                 PropertyInfo property = properties[i];
-                result = result + property.Name + ", ";
+                string name = this.GetDataColumnName(property);
+                result = result + name + ", ";
             }
 
             if (result.Length != 0)
@@ -228,22 +230,22 @@ namespace YellowstonePathology.MySQLMigration
             {
                 PropertyInfo property = properties[i];
                 string dataType = this.GetMySQLDataType(property.PropertyType);
-                if(dataType == "TEXT")
+                if (dataType == "TEXT")
                 {
                     string text = dr[i].ToString().Replace("'", "''");
-                    if(string.IsNullOrEmpty(text))
+                    if (string.IsNullOrEmpty(text))
                     {
                         result = result + "NULL, ";
                     }
                     else
                     {
                         result = result + "'" + text + "', ";
-                    }                    
+                    }
                 }
                 else
                 {
                     result = result + dr[i] + ", ";
-                }                
+                }
             }
 
             if (result.Length != 0)
@@ -276,7 +278,7 @@ namespace YellowstonePathology.MySQLMigration
                             {
                                 //if (persistentClass.BaseStorageName == "tblPanelSetOrder" && string.IsNullOrEmpty(persistentClass.StorageName) == false)
                                 //{
-                                    result.Add(type);
+                                result.Add(type);
                                 //}
                             }
                         }
@@ -314,7 +316,7 @@ namespace YellowstonePathology.MySQLMigration
         {
             string result = "Primary Key created.";
             string command = "alter table " + tableName + " add constraint pk_" + tableName + " primary key(" + columnName;
-            if(keyType == "TEXT")
+            if (keyType == "TEXT")
             {
                 command += "(50)";
             }
@@ -988,9 +990,9 @@ namespace YellowstonePathology.MySQLMigration
             m_ForbiddenWords.Add("YEAR_MONTH(R)");
             m_ForbiddenWords.Add("ZEROFILL(R)");
 
-            foreach(string word in m_ForbiddenWords)
+            foreach (string word in m_ForbiddenWords)
             {
-                if(word.Contains("(R)") == true)
+                if (word.Contains("(R)") == true)
                 {
                     m_ReservedWords.Add(word.Substring(0, word.Length - 3));
                 }
@@ -1003,7 +1005,7 @@ namespace YellowstonePathology.MySQLMigration
 
         private bool IsForbiddenWord(string name, StringBuilder result)
         {
-            if(this.m_ReservedWords.Contains(name.ToUpper()))
+            if (this.m_ReservedWords.Contains(name.ToUpper()))
             {
                 result.AppendLine("   *** " + name + " is a reserved word. Modifying to Report" + name);
                 return true;
@@ -1016,13 +1018,24 @@ namespace YellowstonePathology.MySQLMigration
             return false;
         }
 
+        private bool IsReservedWord(string name)
+        {
+            bool result = false;
+
+            if (this.m_ReservedWords.Contains(name.ToUpper()))
+            {
+                result = true;
+            }
+            return result;
+        }
+
         private void GetClassPersistentProperties(Type type, Type baseType, List<PropertyInfo> tableProperties)
         {
             PropertyInfo[] baseProperties = baseType.GetProperties().
                 Where(prop => Attribute.IsDefined(prop, typeof(Business.Persistence.PersistentProperty))).ToArray();
             PropertyInfo[] classProperties = type.GetProperties().
                 Where(prop => Attribute.IsDefined(prop, typeof(Business.Persistence.PersistentProperty))).ToArray();
-            foreach(PropertyInfo property in classProperties)
+            foreach (PropertyInfo property in classProperties)
             {
                 bool matched = false;
                 foreach (PropertyInfo baseProperty in baseProperties)
@@ -1033,7 +1046,7 @@ namespace YellowstonePathology.MySQLMigration
                         break;
                     }
                 }
-                if(matched == false)
+                if (matched == false)
                 {
                     tableProperties.Add(property);
                 }
@@ -1103,19 +1116,20 @@ namespace YellowstonePathology.MySQLMigration
 
             if (properties.Count == 1 && primaryKeyProperties.Length > 0)
             {
-                return;
-            //    result.AppendLine("   No Persistent Data.");
+                //return;
+                result.AppendLine("   No Persistent Data.");
             }
             else
             {
-                this.CreateTableCommand(type, properties, result);
-                this.CreatePrimaryKeyCommand(tableName, primaryKeyName, primaryKeyType, result);
+                foreach (PropertyInfo property in properties)
+                {
+                    IsForbiddenWord(property.Name, result);
+                }
             }
         }
 
         public void CreatePersistentClassDetails()
         {
-            this.BuildForbiddenWordLists();
             StringBuilder result = new StringBuilder();
             List<Type> persistentTypes = this.GetPersistenceClasses();
             foreach (Type persistentType in persistentTypes)
@@ -1133,6 +1147,352 @@ namespace YellowstonePathology.MySQLMigration
                     outputFile.Write(result);
                 }
             }
+        }
+
+        private string GetTableName(Type type)
+        {
+            string typeName = type.Name;
+            if (typeName.Contains("_Base")) typeName = typeName.Substring(0, typeName.Length - 5);
+            string tableName = "tbl" + typeName;
+            return tableName;
+        }
+
+        private string GetDataColumnName(PropertyInfo propertyInfo)
+        {
+            string result = propertyInfo.Name;
+            if (this.IsReservedWord(result) == true)
+            {
+                result = "Report" + result;
+            }
+            return result;
+        }
+
+        private PropertyInfo GetPrimaryKey(Type type)
+        {
+            PropertyInfo result = null;
+            PropertyInfo[] primaryKeyProperties = type.GetProperties().
+                Where(prop => Attribute.IsDefined(prop, typeof(Business.Persistence.PersistentPrimaryKeyProperty))).ToArray();
+
+            if (primaryKeyProperties.Length > 0)
+            {
+                result = primaryKeyProperties[0];
+            }
+            return result;
+        }
+
+        private List<PropertyInfo> GetPresistentProperties(Type type)
+        {
+            List<PropertyInfo> result = new List<PropertyInfo>();
+            PropertyInfo[] baseProperties;
+            PropertyInfo[] classProperties;
+            Type baseType = type.BaseType;
+
+            baseProperties = baseType.GetProperties().Where(prop => Attribute.IsDefined(prop, typeof(Business.Persistence.PersistentProperty))).ToArray();
+            classProperties = type.GetProperties().Where(prop => Attribute.IsDefined(prop, typeof(Business.Persistence.PersistentProperty))).ToArray();
+
+            foreach (PropertyInfo property in classProperties)
+            {
+                bool matched = false;
+                foreach (PropertyInfo baseProperty in baseProperties)
+                {
+                    if (property.Name == baseProperty.Name)
+                    {
+                        matched = true;
+                        break;
+                    }
+                }
+                if (matched == false)
+                {
+                    result.Add(property);
+                }
+            }
+
+            if (result.Count > 0)
+            {
+                PropertyInfo primaryKeyPropertyInfo = this.GetPrimaryKey(type);
+                if (result.Contains(primaryKeyPropertyInfo) == false)
+                {
+                    result.Insert(0, primaryKeyPropertyInfo);
+                }
+
+                if (this.HasObjectId(result) == false)
+                {
+                    PropertyInfo objectIdPropertyInfo = this.GetObjectIdProperty(type);
+                    if (objectIdPropertyInfo != null)
+                    {
+                        result.Add(objectIdPropertyInfo);
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        private PropertyInfo GetObjectIdProperty(Type type)
+        {
+            PropertyInfo result = null;
+            PropertyInfo[] properties = type.GetProperties().Where(prop => Attribute.IsDefined(prop, typeof(Business.Persistence.PersistentDocumentIdProperty))).ToArray();
+            if (properties.Length > 0) result = properties[0];
+            return result;
+        }
+
+        private string GetCreateTableCommand(string tableName, List<PropertyInfo> tableProperties)
+        {
+            string sqlCommand = "Create Table If Not Exists " + tableName + "(";
+
+            for (int i = 0; i < tableProperties.Count; i++)
+            {
+                PropertyInfo columnProperty = tableProperties[i];
+                string columnName = this.GetDataColumnName(columnProperty);
+                sqlCommand += columnName + " ";
+                sqlCommand += this.GetMySQLDataType(columnProperty.PropertyType) + ", ";
+            }
+
+            sqlCommand = sqlCommand.Remove(sqlCommand.Length - 2, 2);
+            sqlCommand += ");";
+            return sqlCommand;
+        }
+
+        private string GetCreatePrimaryKeyCommand(string tableName, string columnName, string keyType)
+        {
+            string result = "alter table " + tableName + " add constraint pk_" + tableName + " primary key(" + columnName;
+            if (keyType == "TEXT")
+            {
+                result += "(50)";
+            }
+            result += ")";
+            return result;
+        }
+
+        private string GetAddColumnCommand(string tableName, string columnName, string columnDataType)
+        {
+            string result = "ALTER TABLE " + tableName + " ADD COLUMN " + columnName + " " + columnDataType + ";";
+            return result;
+        }
+
+        private void RunCommand(string command)
+        {
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = command;
+            cmd.Connection = new MySqlConnection(ConnectionString);
+            cmd.Connection.Open();
+
+            try
+            {
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("MySQL error executing " + command);
+            }
+        }
+
+        public void LoadData(Type type)
+        {
+            List<PropertyInfo> properties = this.GetPresistentProperties(type);
+            string tableName = this.GetTableName(type);
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = this.GetSelectStatement(tableName, properties);
+            cmd.CommandType = CommandType.Text;
+
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        string commandText = this.GetInsertStatement(tableName, properties, dr);
+                        this.RunCommand(commandText);
+                    }
+                }
+            }
+        }
+
+        private string GetSelectStatement(string tableName, List<PropertyInfo> properties)
+        {
+            string result = "Select ";
+
+            for (int i = 0; i < properties.Count; i++)
+            {
+                PropertyInfo property = properties[i];
+                result = result + property.Name + ", ";
+            }
+
+            result = result.Remove(result.Length - 2, 2);
+
+            result = result + " from " + tableName;
+            return result;
+        }
+
+        private string GetInsertStatement(string tableName, List<PropertyInfo> properties, SqlDataReader dr)
+        {
+            string result = "Insert " + tableName + "(";
+            bool hasObjectId = this.HasObjectId(properties);
+
+            for (int i = 0; i < properties.Count; i++)
+            {
+                PropertyInfo property = properties[i];
+                string name = this.GetDataColumnName(property);
+                result = result + name + ", ";
+            }
+
+            /*if(hasObjectId)
+            {
+                result += "Timestamp";                
+            }
+            else
+            {*/
+                result = result.Remove(result.Length - 2, 2);
+            //}
+
+            result = result + ") values (";
+
+            for (int i = 0; i < properties.Count; i++)
+            {
+                PropertyInfo property = properties[i];
+                string dataType = this.GetMySQLDataType(property.PropertyType);
+                if (dataType == "TEXT")
+                {
+                    string text = dr[i].ToString().Replace("'", "''");
+                    if (string.IsNullOrEmpty(text))
+                    {
+                        result = result + "NULL, ";
+                    }
+                    else
+                    {
+                        result = result + "'" + text + "', ";
+                    }
+                }
+                else
+                {
+                    result = result + dr[i] + ", ";
+                }
+            }
+
+            /*if(hasObjectId)
+            {
+                string s = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.ffff");
+                result = result + "'" + s + "'";
+            }
+            else
+            {*/
+                result = result.Remove(result.Length - 2, 2);
+            //}
+
+            result = result + ")";
+            return result;
+        }
+
+        private bool HasObjectId(List<PropertyInfo> properties)
+        {
+            bool result = false;
+            foreach(PropertyInfo property in properties)
+            {
+                if(property.Name =="ObjectId")
+                {
+                    result = true;
+                    break;
+                }
+            }
+            return result;
+        }
+
+        public void BuildDataBase()
+        {
+            List<Type> persistentClasses = this.GetPersistenceClasses();
+            foreach (Type type in persistentClasses)
+            {
+                this.BuildTable(type);
+            }
+        }
+
+        public void BuildTable(Type type)
+        {
+            string tableName = this.GetTableName(type);
+            PropertyInfo primaryKeyPropertyInfo = this.GetPrimaryKey(type);
+            string primaryKeyName = this.GetDataColumnName(primaryKeyPropertyInfo);
+            string primaryKeyType = this.GetMySQLDataType(primaryKeyPropertyInfo.PropertyType);
+            List<PropertyInfo> persistentProperties = this.GetPresistentProperties(type);
+            if (persistentProperties.Count > 0)
+            {
+                string createTableCommand = this.GetCreateTableCommand(tableName, persistentProperties);
+                string createPrimaryKeyCommand = this.GetCreatePrimaryKeyCommand(tableName, primaryKeyName, primaryKeyType);
+                string createTimeStampColumn = this.GetAddColumnCommand(tableName, "Timestamp", "Timestamp");
+
+                this.RunCommand(createTableCommand);
+                this.RunCommand(createPrimaryKeyCommand);
+
+                if (this.HasObjectId(persistentProperties))
+                {
+                    this.RunCommand(createTimeStampColumn);
+                }
+            }
+        }
+
+        public void CreateBulkLoadBatchFile(Type type)
+        {
+            string filename = @"c:\WCTMP\Bulk";
+            string tableName = this.GetTableName(type);
+            filename += tableName + ".bat";
+
+            string bpcString = "bcp \"" + CreateBulkLoadQuery(type) + "\"" + @" queryout C:\WCTMP\" + tableName + ".txt -c -T";
+            using (StreamWriter outputFile = new StreamWriter(filename))
+            {
+                    outputFile.WriteLine(bpcString);
+            }
+        }
+
+        public string CreateBulkLoadQuery(Type type)
+        {
+            string result = string.Empty;
+            string tableName = this.GetTableName(type);
+            List<PropertyInfo> persistentProperties = this.GetPresistentProperties(type);
+            if (persistentProperties.Count > 0)
+            {
+                result = "Select ";
+                for (int idx = 0; idx < persistentProperties.Count; idx++)
+                {
+                    string propertyMySqlType = this.GetMySQLDataType(persistentProperties[idx].PropertyType);
+                    switch(propertyMySqlType)
+                    {
+                        case "TEXT":
+                            result += this.GetTextTypeBulkQueryString(persistentProperties[idx].Name);
+                            break;
+                        case "DOUBLE":
+                        case "INT":
+                        case "BIT":
+                            result += this.GetCastTypeBulkQueryString(persistentProperties[idx].Name);
+                            break;
+                        case "DATETIME":
+                            result += this.GetConvertTypeBulkQueryString(persistentProperties[idx].Name);
+                            break;
+                    }
+                }
+
+                result = result.Remove(result.Length - 9, 9);
+                result += " from TestSql.YPIDATA.dbo." + tableName;
+            }
+            return result;
+        }
+
+        private string GetTextTypeBulkQueryString(string name)
+        {
+            string result = "isnull(" + name + ", '') + '|' + ";
+            return result;
+        }
+
+        private string GetCastTypeBulkQueryString(string name)
+        {
+            string result = "isnull(cast(" + name + " as varchar(10)), '') + '|' + ";
+            return result;
+        }
+
+        private string GetConvertTypeBulkQueryString(string name)
+        {
+            string result = "isnull(convert(varchar(20), " + name + ", 101), '') + '|' + ";
+            return result;
         }
     }
 }
