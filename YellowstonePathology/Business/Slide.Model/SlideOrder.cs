@@ -11,7 +11,7 @@ using YellowstonePathology.Business.Persistence;
 
 namespace YellowstonePathology.Business.Slide.Model
 {
-	[PersistentClass("tblSlideOrder", "YPIDATA")]
+	[PersistentClass(true, "tblSlideOrder", "YPIDATA")]
 	public class SlideOrder : SlideOrder_Base
 	{        		        
         private YellowstonePathology.Business.Test.Model.TestOrder_Base m_TestOrder;        

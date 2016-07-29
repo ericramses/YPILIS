@@ -23,7 +23,27 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
                     YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisDetectedResult egfrMutationAnalysisDetectedResult = new EGFRMutationAnalysis.EGFRMutationAnalysisDetectedResult();
                     if (egfrMutationAnalysisResult.ResultCode == egfrMutationAnalysisDetectedResult.ResultCode)
                     {
-                        this.m_Status = EGFRToALKReflexAnalysisElementStatusEnum.NotIndicated;
+
+                        if (this.m_Ordered == true)
+                        {
+                            if (this.m_Final == true)
+                            {
+                                YellowstonePathology.Business.Test.ALKForNSCLCByFISH.ALKForNSCLCByFISHResultCollection alkForNSCLCByFISHResultCollection = new ALKForNSCLCByFISH.ALKForNSCLCByFISHResultCollection();
+                                YellowstonePathology.Business.Test.ALKForNSCLCByFISH.ALKForNSCLCByFISHTestOrder alkForNSCLCByFISHTestOrder = (YellowstonePathology.Business.Test.ALKForNSCLCByFISH.ALKForNSCLCByFISHTestOrder)this.m_PanelSetOrder;
+                                this.m_ResultAbbreviation = alkForNSCLCByFISHResultCollection.GetByResultCode(alkForNSCLCByFISHTestOrder.ResultCode).ResultAbbreviation;
+                                this.m_Status = EGFRToALKReflexAnalysisElementStatusEnum.Final;
+                            }
+                            else
+                            {
+                                this.m_Status = EGFRToALKReflexAnalysisElementStatusEnum.Pending;
+                            }
+                        }
+                        else
+                        {
+                            this.m_Status = EGFRToALKReflexAnalysisElementStatusEnum.NotIndicated;
+                        }
+
+                        //this.m_Status = EGFRToALKReflexAnalysisElementStatusEnum.NotIndicated;
                     }
                     else
                     {
