@@ -12,7 +12,7 @@ using YellowstonePathology.Business.Persistence;
 
 namespace YellowstonePathology.Business.Test.Model
 {
-	[PersistentClass("tblTestOrder", "YPIDATA")]
+	[PersistentClass(true, "tblTestOrder", "YPIDATA")]
 	public class TestOrder : TestOrder_Base
 	{		
         private YellowstonePathology.Business.Test.AliquotOrder_Base m_AliquotOrder_Base;

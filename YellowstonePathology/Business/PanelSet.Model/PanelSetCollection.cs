@@ -126,6 +126,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
             panelSetCollection.Add(new YellowstonePathology.Business.Test.TCellRecepterBetaGeneRearrangement.TCellRecepterBetaGeneRearrangementTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.KappaLambdaByISH.KappaLambdaByISHTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.MUM1ByIHC.MUM1ByIHCTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.AMLPrognosticProfile.AMLPrognosticProfileTest());
 
             //ARUP
             panelSetCollection.Add(new YellowstonePathology.Business.Test.HPV1618.HPV1618Test());

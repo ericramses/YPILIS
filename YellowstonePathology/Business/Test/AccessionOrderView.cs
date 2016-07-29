@@ -7,7 +7,7 @@ using YellowstonePathology.Business.Persistence;
 
 namespace YellowstonePathology.Business.Test
 {
-    [PersistentClass("tblAccessionOrder", "YPIDATA")]
+    //[PersistentClass("tblAccessionOrder", "YPIDATA")]
     public class AccessionOrderView : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
