@@ -1002,9 +1002,9 @@ namespace YellowstonePathology.UI
         {
             string result = "Done";
             YellowstonePathology.MySQLMigration.MySQLDatabaseBuilder builder = new MySQLMigration.MySQLDatabaseBuilder();
-            //builder.CreatePersistentClassDetails();
-            //builder.BuildDataBase();
-            Type type = typeof(YellowstonePathology.Business.Typing.TypingShortcut);
+            Type type = typeof(YellowstonePathology.Business.Amendment.Model.Amendment);
+            string tableName = builder.GetTableName(type);
+            //builder.AddTransferColumnCommand(tableName);
             builder.LoadData(type);
 
             MessageBox.Show(result);
