@@ -42,7 +42,7 @@ namespace YellowstonePathology.Business.Test.KRASStandardReflex
         {
             this.m_KRASStandardReflexTestOrder.Comment = this.m_Comment;
             this.m_KRASStandardReflexTestOrder.Method = this.m_Method;
-            this.m_KRASStandardReflexTestOrder.References = this.m_References;
+            this.m_KRASStandardReflexTestOrder.ReportReferences = this.m_References;
             this.m_KRASStandardReflexTestOrder.Interpretation = this.m_Interpretation;
             this.m_KRASStandardReflexTestOrder.ReportDisclaimer = this.m_ReportDisclaimer;
 

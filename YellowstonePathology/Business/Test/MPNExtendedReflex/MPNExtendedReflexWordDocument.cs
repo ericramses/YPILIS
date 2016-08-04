@@ -37,7 +37,7 @@ namespace YellowstonePathology.Business.Test.MPNExtendedReflex
             base.ReplaceText("specimen_description", mpnExtendedReflexResult.SpecimenOrder.Description);
             this.ReplaceText("report_interpretation", mpnExtendedReflexResult.PanelSetOrderMPNExtendedReflex.Interpretation);
             this.ReplaceText("report_method", mpnExtendedReflexResult.PanelSetOrderMPNExtendedReflex.Method);
-            this.ReplaceText("report_reference", mpnExtendedReflexResult.PanelSetOrderMPNExtendedReflex.References);
+            this.ReplaceText("report_reference", mpnExtendedReflexResult.PanelSetOrderMPNExtendedReflex.ReportReferences);
 
             string collectionDateTimeString = YellowstonePathology.Business.Helper.DateTimeExtensions.CombineDateAndTime(mpnExtendedReflexResult.SpecimenOrder.CollectionDate, mpnExtendedReflexResult.SpecimenOrder.CollectionTime);
 			this.SetXmlNodeData("date_time_collected", collectionDateTimeString);

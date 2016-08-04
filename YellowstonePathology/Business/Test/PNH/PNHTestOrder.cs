@@ -19,7 +19,6 @@ namespace YellowstonePathology.Business.Test.PNH
 		private string m_TypeIIGranulocytes;
 		private string m_TypeIIIGranulocytes;
 		private string m_Method;
-		private string m_References;
 		private string m_ASRComment;
 		
 		public PNHTestOrder()
@@ -208,20 +207,6 @@ namespace YellowstonePathology.Business.Test.PNH
 				{
 					this.m_Method = value;
 					this.NotifyPropertyChanged("Method");
-				}
-			}
-		}
-
-		[PersistentProperty()]
-		public string References
-		{
-			get { return this.m_References; }
-			set
-			{
-				if (this.m_References != value)
-				{
-					this.m_References = value;
-					this.NotifyPropertyChanged("References");
 				}
 			}
 		}

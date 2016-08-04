@@ -12,7 +12,6 @@ namespace YellowstonePathology.Business.Test.MPL
 		private string m_Result;
 		private string m_Interpretation;
 		private string m_Method;
-		private string m_References;
 		
 		public PanelSetOrderMPL()
         {
@@ -64,20 +63,6 @@ namespace YellowstonePathology.Business.Test.MPL
 				{
 					this.m_Method = value;
 					this.NotifyPropertyChanged("Method");
-				}
-			}
-		}
-
-		[PersistentProperty()]
-		public string References
-		{
-			get { return this.m_References; }
-			set
-			{
-				if (this.m_References != value)
-				{
-					this.m_References = value;
-					this.NotifyPropertyChanged("References");
 				}
 			}
 		}

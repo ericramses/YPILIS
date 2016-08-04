@@ -50,7 +50,7 @@ namespace YellowstonePathology.Business.Test.API2MALT1ByFISH
 
             this.AddBlankNteElement(document);
             this.AddNextNteElement("References:", document);
-            this.HandleLongString(panelSetOrder.References, document);
+            this.HandleLongString(panelSetOrder.ReportReferences, document);
         }
     }
 }

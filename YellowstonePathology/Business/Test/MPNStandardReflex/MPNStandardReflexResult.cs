@@ -126,7 +126,7 @@ namespace YellowstonePathology.Business.Test.MPNStandardReflex
             panelSetOrder.Comment = this.m_Comment;
             panelSetOrder.Interpretation = this.m_Interpretation;
             panelSetOrder.Method = this.m_Method;
-            panelSetOrder.References = this.m_References;
+            panelSetOrder.ReportReferences = this.m_References;
         }
 
 		public string JAK2V617FResult

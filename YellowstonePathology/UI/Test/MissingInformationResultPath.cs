@@ -10,7 +10,7 @@ namespace YellowstonePathology.UI.Test
     {        
         private MissingInformationResultPage m_ResultPage;
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-		private YellowstonePathology.Business.Test.MissingInformation.MissingInformtionTestOrder m_MissingInformationTestOrder;
+		private YellowstonePathology.Business.Test.MissingInformation.MissingInformationTestOrder m_MissingInformationTestOrder;
 
         public MissingInformationResultPath(string reportNo, YellowstonePathology.Business.Test.AccessionOrder accessionOrder,            
             YellowstonePathology.UI.Navigation.PageNavigator pageNavigator,
@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Test
             : base(pageNavigator, window)
         {
             this.m_AccessionOrder = accessionOrder;
-			this.m_MissingInformationTestOrder = (YellowstonePathology.Business.Test.MissingInformation.MissingInformtionTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
+			this.m_MissingInformationTestOrder = (YellowstonePathology.Business.Test.MissingInformation.MissingInformationTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
         }
 
         protected override void ShowResultPage()

@@ -30,7 +30,7 @@ namespace YellowstonePathology.Business.Test.BCL2t1418ByPCR
 		public void SetResults(BCL2t1418ByPCRTestOrder panelSetOrder)
 		{
 			panelSetOrder.Method = Method;
-			panelSetOrder.References = References;
+			panelSetOrder.ReportReferences = References;
 
 			StringBuilder disclaimer = new StringBuilder();
             disclaimer.AppendLine(panelSetOrder.GetLocationPerformedComment() + Environment.NewLine);

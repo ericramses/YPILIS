@@ -30,7 +30,7 @@ namespace YellowstonePathology.Business.Test.JAK2Exon1214
 			this.ReplaceText("report_result", panelSetOrder.Result);
 			this.ReplaceText("report_interpretation", panelSetOrder.Interpretation);
 			this.ReplaceText("report_method", panelSetOrder.Method);
-			this.ReplaceText("report_references", panelSetOrder.References);
+			this.ReplaceText("report_references", panelSetOrder.ReportReferences);
 			this.ReplaceText("asr_comment", panelSetOrder.ASRComment);
 
 			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrder.OrderedOn, this.m_PanelSetOrder.OrderedOnId);

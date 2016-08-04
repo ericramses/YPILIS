@@ -25,7 +25,7 @@ namespace YellowstonePathology.Business.Test.KRASExon4Mutation
 
 		public void SetResults(KRASExon4MutationTestOrder testOrder)
 		{
-			testOrder.References = m_References;
+			testOrder.ReportReferences = m_References;
 
 			StringBuilder disclaimer = new StringBuilder();
             disclaimer.AppendLine(testOrder.GetLocationPerformedComment());

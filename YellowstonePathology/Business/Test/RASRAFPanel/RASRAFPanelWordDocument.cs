@@ -55,7 +55,7 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
             this.ReplaceText("report_interpretation", testOrder.Interpretation);
             this.ReplaceText("report_comment", testOrder.Comment);
             this.ReplaceText("report_method", testOrder.Method);
-            this.ReplaceText("report_references", testOrder.References);
+            this.ReplaceText("report_references", testOrder.ReportReferences);
             this.ReplaceText("report_disclaimer", testOrder.ReportDisclaimer);
 
             YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrder.OrderedOn, this.m_PanelSetOrder.OrderedOnId);

@@ -100,7 +100,7 @@ namespace YellowstonePathology.Business.Test.CysticFibrosis
 
 			this.AddNextObxElement("", document, "F");
 			this.AddNextObxElement("References:", document, "F");
-			this.HandleLongString(panelSetOrder.References, document, "F");
+			this.HandleLongString(panelSetOrder.ReportReferences, document, "F");
 
             string locationPerformed = panelSetOrder.GetLocationPerformedComment();
 			this.AddNextObxElement("", document, "F");

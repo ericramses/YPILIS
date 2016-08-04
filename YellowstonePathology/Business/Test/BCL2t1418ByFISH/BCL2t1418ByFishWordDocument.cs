@@ -31,7 +31,7 @@ namespace YellowstonePathology.Business.Test.BCL2t1418ByFISH
             this.ReplaceText("report_result", panelSetOrder.Result);
             this.ReplaceText("report_interpretation", panelSetOrder.Interpretation);
             this.ReplaceText("report_method", panelSetOrder.Method);
-            this.ReplaceText("report_reference", panelSetOrder.References);
+            this.ReplaceText("report_reference", panelSetOrder.ReportReferences);
             this.ReplaceText("report_disclaimer", panelSetOrder.ReportDisclaimer);
 
             YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrder.OrderedOn, this.m_PanelSetOrder.OrderedOnId);

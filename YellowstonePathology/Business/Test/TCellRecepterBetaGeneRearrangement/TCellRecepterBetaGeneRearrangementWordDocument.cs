@@ -30,7 +30,7 @@ namespace YellowstonePathology.Business.Test.TCellRecepterBetaGeneRearrangement
 			this.ReplaceText("report_result", tCellRecepterGammaGeneRearrangementTestOrder.Result);
 			this.ReplaceText("report_interpretation", tCellRecepterGammaGeneRearrangementTestOrder.Interpretation);
 			this.ReplaceText("report_method", tCellRecepterGammaGeneRearrangementTestOrder.Method);
-			this.ReplaceText("report_references", tCellRecepterGammaGeneRearrangementTestOrder.References);
+			this.ReplaceText("report_references", tCellRecepterGammaGeneRearrangementTestOrder.ReportReferences);
 
 			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrder.OrderedOn, this.m_PanelSetOrder.OrderedOnId);
 			base.ReplaceText("specimen_description", specimenOrder.Description);

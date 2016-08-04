@@ -27,7 +27,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             panelSetOrderLynchSyndromEvaluation.Comment = this.m_Comment;
             panelSetOrderLynchSyndromEvaluation.BRAFIsIndicated = this.m_BRAFIsIndicated;
             panelSetOrderLynchSyndromEvaluation.Method = "IHC: " + IHCMethod;
-            panelSetOrderLynchSyndromEvaluation.References = "IHC: " + LSEGYNReferences;
+            panelSetOrderLynchSyndromEvaluation.ReportReferences = "IHC: " + LSEGYNReferences;
         }
 	}
 }

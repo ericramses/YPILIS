@@ -53,7 +53,7 @@ namespace YellowstonePathology.Business.Test.CysticFibrosis
 			base.ReplaceText("report_interpretation", panelSetOrderCF.Interpretation);
 			base.ReplaceText("mutations_tested", panelSetOrderCF.MutationsTested);
 			base.ReplaceText("report_method", panelSetOrderCF.Method);
-			base.ReplaceText("report_references", panelSetOrderCF.References);
+			base.ReplaceText("report_references", panelSetOrderCF.ReportReferences);
 
 			this.ReplaceText("pathologist_signature", this.m_PanelSetOrder.Signature);
 

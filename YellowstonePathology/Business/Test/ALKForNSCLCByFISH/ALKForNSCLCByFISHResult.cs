@@ -85,7 +85,7 @@ namespace YellowstonePathology.Business.Test.ALKForNSCLCByFISH
 			testOrder.Interpretation = null;
 			testOrder.ReferenceRange = null;
             testOrder.Method = null;
-			testOrder.References = null;
+			testOrder.ReportReferences = null;
 			testOrder.ProbeSetDetail = null;
             testOrder.ReportDisclaimer = null;
 		}
@@ -97,7 +97,7 @@ namespace YellowstonePathology.Business.Test.ALKForNSCLCByFISH
 			testOrder.Interpretation = this.m_Interpretation;
             testOrder.Method = this.m_Method;
 			testOrder.ReferenceRange = this.m_ReferenceRange;
-			testOrder.References = this.m_References;
+			testOrder.ReportReferences = this.m_References;
 			testOrder.ProbeSetDetail = this.m_ProbeSetDetail;
             testOrder.ReportDisclaimer = testOrder.GetLocationPerformedComment();
 		}

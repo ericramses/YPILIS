@@ -920,5 +920,11 @@ namespace YellowstonePathology.UI
             }
             return true;
         }
+
+        private void MenuItemMySqlMigration_Click(object sender, RoutedEventArgs e)
+        {
+            UI.MySql.MySqlMigrationDialog mySqlMigrationDialog = new MySql.MySqlMigrationDialog();
+            mySqlMigrationDialog.ShowDialog();
+        }
     }
 }

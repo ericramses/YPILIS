@@ -239,7 +239,7 @@
 				<TextBox Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="2" Margin="2,2,2,2" Text="{Binding Path=EGFRToALKReflexAnalysisTestOrder.Method}" TextWrapping="Wrap" AcceptsReturn="True" />
 
 				<TextBlock Grid.Column="0" Grid.Row="11" FontWeight="Bold" Margin="2,2,2,2">References:</TextBlock>
-				<TextBox Grid.Column="0" Grid.Row="12" Grid.ColumnSpan="2" Margin="2,2,2,2" Text="{Binding Path=EGFRToALKReflexAnalysisTestOrder.References}" TextWrapping="Wrap" AcceptsReturn="True" />
+                <TextBox Grid.Column="0" Grid.Row="12" Grid.ColumnSpan="2" Margin="2,2,2,2" Text="{Binding Path=EGFRToALKReflexAnalysisTestOrder.ReportReferences}" TextWrapping="Wrap" AcceptsReturn="True" />
 
 				<TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="13" FontWeight="Bold" Margin="2,2,2,2">Current Orders</TextBlock>
 				<ListView Name="ListBoxPanelSetOrders" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="14" Margin="2,2,2,2" HorizontalAlignment="Stretch"

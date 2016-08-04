@@ -52,7 +52,7 @@ namespace YellowstonePathology.Business.Test.MPNExtendedReflex
 			this.AddNextObxElement("", document, "F");
 
 			this.AddNextObxElement("References: ", document, "F");
-			this.HandleLongString(mpnExtendedReflexResult.PanelSetOrderMPNExtendedReflex.References, document, "F");
+			this.HandleLongString(mpnExtendedReflexResult.PanelSetOrderMPNExtendedReflex.ReportReferences, document, "F");
 			this.AddNextObxElement("", document, "F");			
 
             string locationPerformed = mpnExtendedReflexResult.PanelSetOrderMPNExtendedReflex.GetLocationPerformedComment();

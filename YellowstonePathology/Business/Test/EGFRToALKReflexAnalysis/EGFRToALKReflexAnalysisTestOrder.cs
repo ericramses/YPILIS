@@ -11,7 +11,6 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
 	{
 		private string m_Method;
 		private string m_Interpretation;
-        private string m_References;
         private string m_TumorNucleiPercentage;
         private bool m_QNSForALK;
         private bool m_QNSForROS1;
@@ -48,7 +47,7 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
             {
                 YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisTestOrder egfrMutationAnalysisTestOrder = (YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(60);
                 interpretation.AppendLine("EGFR: " + egfrMutationAnalysisTestOrder.Interpretation);                
-                references.AppendLine("EGFR: " + egfrMutationAnalysisTestOrder.References);                
+                references.AppendLine("EGFR: " + egfrMutationAnalysisTestOrder.ReportReferences);                
                 method.AppendLine("EGFR: " + egfrMutationAnalysisTestOrder.Method);
             }
 
@@ -57,7 +56,7 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
                 YellowstonePathology.Business.Test.ALKForNSCLCByFISH.ALKForNSCLCByFISHTestOrder alkForNSCLCByFISHTestOrder = (YellowstonePathology.Business.Test.ALKForNSCLCByFISH.ALKForNSCLCByFISHTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(131);
 
                 references.AppendLine();
-                references.AppendLine("ALK: " + alkForNSCLCByFISHTestOrder.References);
+                references.AppendLine("ALK: " + alkForNSCLCByFISHTestOrder.ReportReferences);
 
                 interpretation.AppendLine();
                 interpretation.AppendLine("ALK: " + alkForNSCLCByFISHTestOrder.Interpretation);
@@ -82,7 +81,7 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
             char[] lineFeedCharacters = { '\r', '\n' };            
             this.Interpretation = interpretation.ToString().TrimEnd(lineFeedCharacters);
             this.Method = method.ToString().TrimEnd(lineFeedCharacters);
-            this.References = references.ToString().TrimEnd(lineFeedCharacters);
+            this.ReportReferences = references.ToString().TrimEnd(lineFeedCharacters);
         }		
 
 		[PersistentProperty]
@@ -106,17 +105,6 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
 				NotifyPropertyChanged("Interpretation");
 			}
 		}
-
-        [PersistentProperty]
-        public string References
-        {
-            get { return this.m_References; }
-            set
-            {
-                this.m_References = value;
-                NotifyPropertyChanged("References");
-            }
-        }
 
         [PersistentProperty()]
         public string TumorNucleiPercentage

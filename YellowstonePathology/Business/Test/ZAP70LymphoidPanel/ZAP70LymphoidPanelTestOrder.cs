@@ -14,7 +14,6 @@ namespace YellowstonePathology.Business.Test.ZAP70LymphoidPanel
 		private string m_Lymphocytes;
 		private string m_PopulationAnalysis;
 		private string m_MarkersPerformed;
-		private string m_References;
 
 		public ZAP70LymphoidPanelTestOrder()
 		{
@@ -94,20 +93,6 @@ namespace YellowstonePathology.Business.Test.ZAP70LymphoidPanel
 				{
 					this.m_MarkersPerformed = value;
 					this.NotifyPropertyChanged("MarkersPerformed");
-				}
-			}
-		}
-
-		[PersistentProperty()]
-		public string References
-		{
-			get { return this.m_References; }
-			set
-			{
-				if (this.m_References != value)
-				{
-					this.m_References = value;
-					this.NotifyPropertyChanged("References");
 				}
 			}
 		}

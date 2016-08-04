@@ -93,7 +93,7 @@ namespace YellowstonePathology.Business.Test.EGFRMutationAnalysis
             egfrMutationAnalysisTestOrder.Comment = null;
             egfrMutationAnalysisTestOrder.Indication = null;
             egfrMutationAnalysisTestOrder.Method = null;
-            egfrMutationAnalysisTestOrder.References = null;
+            egfrMutationAnalysisTestOrder.ReportReferences = null;
             egfrMutationAnalysisTestOrder.TumorNucleiPercentage = null;
             egfrMutationAnalysisTestOrder.MicrodissectionPerformed = false;
             egfrMutationAnalysisTestOrder.Interpretation = null;
@@ -107,7 +107,7 @@ namespace YellowstonePathology.Business.Test.EGFRMutationAnalysis
             egfrMutationAnalysisTestOrder.Comment = this.m_Comment;
             egfrMutationAnalysisTestOrder.Indication = this.m_Indication;
             egfrMutationAnalysisTestOrder.Method = this.m_Method;
-            egfrMutationAnalysisTestOrder.References = this.m_References;
+            egfrMutationAnalysisTestOrder.ReportReferences = this.m_References;
             egfrMutationAnalysisTestOrder.Interpretation = this.m_Interpretation;
             egfrMutationAnalysisTestOrder.ResultCode = this.m_ResultCode;            
         }        

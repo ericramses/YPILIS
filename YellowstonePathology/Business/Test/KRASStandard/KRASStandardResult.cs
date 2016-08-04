@@ -88,7 +88,7 @@ namespace YellowstonePathology.Business.Test.KRASStandard
 			testOrder.Method = this.m_Method;			
 			testOrder.Interpretation = this.m_Interpretation;
 			testOrder.Comment = this.m_Comment;
-			testOrder.References = this.m_References;			
+			testOrder.ReportReferences = this.m_References;			
 		}
 	}
 }

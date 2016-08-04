@@ -12,7 +12,6 @@ namespace YellowstonePathology.Business.Test.MPNStandardReflex
         private string m_Comment;
         private string m_Interpretation;
         private string m_Method;
-        private string m_References;
 
 		public PanelSetOrderMPNStandardReflex()
 		{
@@ -66,20 +65,6 @@ namespace YellowstonePathology.Business.Test.MPNStandardReflex
                 {
                     this.m_Method = value;
                     this.NotifyPropertyChanged("Method");
-                }
-            }
-        }
-
-        [PersistentProperty]
-        public string References
-        {
-            get { return this.m_References; }
-            set
-            {
-                if (this.m_References != value)
-                {
-                    this.m_References = value;
-                    this.NotifyPropertyChanged("References");
                 }
             }
         }

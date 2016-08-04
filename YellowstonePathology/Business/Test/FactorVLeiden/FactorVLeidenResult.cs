@@ -26,7 +26,7 @@ namespace YellowstonePathology.Business.Test.FactorVLeiden
 			testOrder.ResultDescription = this.m_ResultDescription;
 			testOrder.Interpretation = this.m_Interpretation;
 			testOrder.Method = this.m_Method;
-			testOrder.References = this.m_References;
+			testOrder.ReportReferences = this.m_References;
 			testOrder.TestDevelopment = this.m_TestDevelopment;
 		}
 	}

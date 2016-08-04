@@ -31,7 +31,7 @@ namespace YellowstonePathology.Business.Test.CEBPA
 			this.ReplaceText("report_snp_result", panelSetOrderCEBPA.SNPResult);
 			this.ReplaceText("report_interpretation", panelSetOrderCEBPA.Interpretation);
 			this.ReplaceText("report_method", panelSetOrderCEBPA.Method);
-			this.ReplaceText("report_references", panelSetOrderCEBPA.References);
+			this.ReplaceText("report_references", panelSetOrderCEBPA.ReportReferences);
 
 			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrder.OrderedOn, this.m_PanelSetOrder.OrderedOnId);
 			base.ReplaceText("specimen_description", specimenOrder.Description);

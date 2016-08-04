@@ -50,7 +50,7 @@ namespace YellowstonePathology.Business.Test.HPV
             this.ReplaceText("additional_testing", additionalTestingComment);    
 
 			base.ReplaceText("test_information", panelSetOrder.TestInformation);
-			base.ReplaceText("report_references", panelSetOrder.References);
+			base.ReplaceText("report_references", panelSetOrder.ReportReferences);
             base.ReplaceText("asr_comment", panelSetOrder.ASRComment);
 
             this.SetReportDistribution();

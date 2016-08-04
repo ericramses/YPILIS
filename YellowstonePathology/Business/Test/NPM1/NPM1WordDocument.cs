@@ -31,7 +31,7 @@ namespace YellowstonePathology.Business.Test.NPM1
 			this.ReplaceText("percentage_npm1_mutation", panelSetOrderNPM1.PercentageNPM1Mutation);
 			this.ReplaceText("report_interpretation", panelSetOrderNPM1.Interpretation);
 			this.ReplaceText("report_method", panelSetOrderNPM1.Method);
-			this.ReplaceText("report_references", panelSetOrderNPM1.References);
+			this.ReplaceText("report_references", panelSetOrderNPM1.ReportReferences);
 
 			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrder.OrderedOn, this.m_PanelSetOrder.OrderedOnId);
 			base.ReplaceText("specimen_description", specimenOrder.Description);

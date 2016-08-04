@@ -42,7 +42,7 @@ namespace YellowstonePathology.Business.Test.FGFR1
             this.SetXMLNodeParagraphData("report_comment", testOrder.Comment);
             this.SetXMLNodeParagraphData("report_interpretation", testOrder.Interpretation);
             this.SetXMLNodeParagraphData("report_method", testOrder.Method);
-            this.SetXMLNodeParagraphData("report_references", testOrder.References);
+            this.SetXMLNodeParagraphData("report_references", testOrder.ReportReferences);
 
             this.ReplaceText("report_date", BaseData.GetShortDateString(this.m_PanelSetOrder.FinalDate));
             this.ReplaceText("pathologist_signature", this.m_PanelSetOrder.Signature);

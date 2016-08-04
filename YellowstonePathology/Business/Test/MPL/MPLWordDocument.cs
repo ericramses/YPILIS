@@ -30,7 +30,7 @@ namespace YellowstonePathology.Business.Test.MPL
 			this.ReplaceText("report_result", panelSetOrderMPL.Result);
 			this.ReplaceText("report_interpretation", panelSetOrderMPL.Interpretation);
 			this.ReplaceText("report_method", panelSetOrderMPL.Method);
-			this.ReplaceText("report_references", panelSetOrderMPL.References);
+			this.ReplaceText("report_references", panelSetOrderMPL.ReportReferences);
 
 			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrder.OrderedOn, this.m_PanelSetOrder.OrderedOnId);
 			base.ReplaceText("specimen_description", specimenOrder.Description);

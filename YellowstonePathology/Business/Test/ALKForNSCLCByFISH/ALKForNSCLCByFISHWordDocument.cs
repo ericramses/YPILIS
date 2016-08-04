@@ -39,7 +39,7 @@ namespace YellowstonePathology.Business.Test.ALKForNSCLCByFISH
 
 			this.SetXMLNodeParagraphData("report_result", alkForNSCLCByFISHTestOrder.Result);
 			this.SetXMLNodeParagraphData("report_interpretation", alkForNSCLCByFISHTestOrder.Interpretation);
-			this.SetXMLNodeParagraphData("report_references", alkForNSCLCByFISHTestOrder.References);
+			this.SetXMLNodeParagraphData("report_references", alkForNSCLCByFISHTestOrder.ReportReferences);
 			this.SetXMLNodeParagraphData("reference_range", alkForNSCLCByFISHTestOrder.ReferenceRange);
 			this.SetXMLNodeParagraphData("nuclei_scored", alkForNSCLCByFISHTestOrder.NucleiScored);
             this.SetXMLNodeParagraphData("tumor_nuclei_percentage", alkForNSCLCByFISHTestOrder.TumorNucleiPercentage);

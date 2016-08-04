@@ -12,7 +12,6 @@ namespace YellowstonePathology.Business.Test.HPV1618ByPCR
         private string m_Indication;
 		private string m_HPV16Result;
 		private string m_HPV18Result;
-        private string m_References;
 		private string m_Method;		
         private string m_Interpretation;
         private string m_Comment;
@@ -69,20 +68,6 @@ namespace YellowstonePathology.Business.Test.HPV1618ByPCR
 				{
 					this.m_HPV18Result = value;
 					this.NotifyPropertyChanged("HPV18Result");
-				}
-			}
-		}
-
-		[PersistentProperty()]
-		public string References
-		{
-            get { return this.m_References; }
-			set
-			{
-                if (this.m_References != value)
-				{
-                    this.m_References = value;
-                    this.NotifyPropertyChanged("References");
 				}
 			}
 		}

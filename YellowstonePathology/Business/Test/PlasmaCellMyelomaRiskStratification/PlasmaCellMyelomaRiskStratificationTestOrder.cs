@@ -13,7 +13,6 @@ namespace YellowstonePathology.Business.Test.PlasmaCellMyelomaRiskStratification
 		private string m_Interpretation;
 		private string m_ProbeSetDetail;
 		private string m_NucleiScored;
-		private string m_References;
 		private string m_ReportDisclaimer;
 
         public PlasmaCellMyelomaRiskStratificationTestOrder()
@@ -80,20 +79,6 @@ namespace YellowstonePathology.Business.Test.PlasmaCellMyelomaRiskStratification
 				{
 					this.m_NucleiScored = value;
 					this.NotifyPropertyChanged("NucleiScored");
-				}
-			}
-		}
-
-		[PersistentProperty()]
-		public string References
-		{
-			get { return this.m_References; }
-			set
-			{
-				if (this.m_References != value)
-				{
-					this.m_References = value;
-					this.NotifyPropertyChanged("References");
 				}
 			}
 		}

@@ -14,7 +14,6 @@ namespace YellowstonePathology.Business.Test.CalreticulinMutationAnalysis
         private string m_Mutations;
         private string m_Interpretation;
         private string m_Method;
-        private string m_References;
 
         public CalreticulinMutationAnalysisTestOrder()
         {
@@ -96,20 +95,6 @@ namespace YellowstonePathology.Business.Test.CalreticulinMutationAnalysis
                 {
                     this.m_Method = value;
                     this.NotifyPropertyChanged("Method");
-                }
-            }
-        }
-
-        [PersistentProperty()]
-        public string References
-        {
-            get { return this.m_References; }
-            set
-            {
-                if (this.m_References != value)
-                {
-                    this.m_References = value;
-                    this.NotifyPropertyChanged("References");
                 }
             }
         }

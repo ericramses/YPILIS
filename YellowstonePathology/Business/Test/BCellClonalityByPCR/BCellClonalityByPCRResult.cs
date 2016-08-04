@@ -35,7 +35,7 @@ namespace YellowstonePathology.Business.Test.BCellClonalityByPCR
 			testOrder.ResultCode = this.m_ResultCode;
 			testOrder.Interpretation = this.m_Interpretation;
 			testOrder.Method = this.m_Method;
-			testOrder.References = this.m_References;
+			testOrder.ReportReferences = this.m_References;
 			testOrder.ASRComment = this.m_ASRComment;
 		}
 	}

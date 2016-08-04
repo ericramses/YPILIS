@@ -14,7 +14,6 @@ namespace YellowstonePathology.Business.Test.MultipleMyelomaMGUSByFish
 		private string m_Interpretation;
 		private string m_ProbeSetDetail;
 		private string m_NucleiScored;
-        private string m_References;
 		
 		public MultipleMyelomaMGUSByFishTestOrder()
         {
@@ -97,20 +96,6 @@ namespace YellowstonePathology.Business.Test.MultipleMyelomaMGUSByFish
 				}
 			}
 		}
-
-        [PersistentProperty()]
-        public string References
-        {
-            get { return this.m_References; }
-            set
-            {
-                if (this.m_References != value)
-                {
-                    this.m_References = value;
-                    this.NotifyPropertyChanged("References");
-                }
-            }
-        }
 
 		public override string ToResultString(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{
