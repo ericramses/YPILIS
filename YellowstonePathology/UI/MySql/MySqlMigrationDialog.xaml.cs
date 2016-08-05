@@ -47,13 +47,13 @@ namespace YellowstonePathology.UI.MySql
         {
             foreach(MySQLMigration.MigrationStatus migrationStatus in this.m_MigrationStatusCollection)
             {
-                if(migrationStatus.Name == "FNAAdequacyAssessmentTestOrder" ||
+                /*if(migrationStatus.Name == "FNAAdequacyAssessmentTestOrder" ||
                     migrationStatus.Name == "MissingInformtionTestOrder" ||
                     migrationStatus.Name == "PanelSetOrderHer2AmplificationByFishRetired2" ||
                     migrationStatus.Name == "PanelSetOrderLeukemiaLymphoma")
                 {
                     continue;
-                }
+                }*/
                 this.m_MySQLDatabaseBuilder.GetStatus(migrationStatus);
             }
         }
@@ -107,10 +107,14 @@ namespace YellowstonePathology.UI.MySql
 
         private void MenuItemGetStatus_Click(object sender, RoutedEventArgs e)
         {
-            if (this.ListViewMigrationStatus.SelectedItem != null)
+            if (this.ListViewMigrationStatus.SelectedItems.Count > 0)
             {
-                MySQLMigration.MigrationStatus migrationStatus = (MySQLMigration.MigrationStatus)this.ListViewMigrationStatus.SelectedItem;
-                this.m_MySQLDatabaseBuilder.GetStatus(migrationStatus);
+                this.StatusMessage = "Working on it.";
+                foreach (MySQLMigration.MigrationStatus migrationStatus in this.ListViewMigrationStatus.SelectedItems)
+                {
+                    this.m_MySQLDatabaseBuilder.GetStatus(migrationStatus);
+                    this.StatusMessage = "Got Status for " + migrationStatus.Name;
+                }
             }
             else
             {
@@ -120,11 +124,14 @@ namespace YellowstonePathology.UI.MySql
 
         private void MenuItemCreateTable_Click(object sender, RoutedEventArgs e)
         {
-            if(this.ListViewMigrationStatus.SelectedItem != null)
+            if(this.ListViewMigrationStatus.SelectedItems.Count > 0)
             {
-                MySQLMigration.MigrationStatus migrationStatus = (MySQLMigration.MigrationStatus)this.ListViewMigrationStatus.SelectedItem;
-                Business.Rules.MethodResult methodResult = m_MySQLDatabaseBuilder.BuildTable(migrationStatus);
-                this.SetStatusMessage(methodResult);
+                this.StatusMessage = "Working on it.";
+                foreach (MySQLMigration.MigrationStatus migrationStatus in this.ListViewMigrationStatus.SelectedItems)
+                {
+                    Business.Rules.MethodResult methodResult = m_MySQLDatabaseBuilder.BuildTable(migrationStatus);
+                    this.SetStatusMessage(methodResult);
+                }
             }
             else
             {
@@ -134,11 +141,36 @@ namespace YellowstonePathology.UI.MySql
 
         private void MenuItemAddTransferColumn_Click(object sender, RoutedEventArgs e)
         {
-            if (this.ListViewMigrationStatus.SelectedItem != null)
+            if (this.ListViewMigrationStatus.SelectedItems.Count > 0)
             {
-                MySQLMigration.MigrationStatus migrationStatus = (MySQLMigration.MigrationStatus)this.ListViewMigrationStatus.SelectedItem;
-                Business.Rules.MethodResult methodResult = m_MySQLDatabaseBuilder.AddTransferColumn(migrationStatus.TableName);
-                this.SetStatusMessage(methodResult);
+                this.StatusMessage = "Working on it.";
+                foreach (MySQLMigration.MigrationStatus migrationStatus in this.ListViewMigrationStatus.SelectedItems)
+                {
+                    Business.Rules.MethodResult methodResult = m_MySQLDatabaseBuilder.AddTransferColumn(migrationStatus.TableName);
+                    this.SetStatusMessage(methodResult);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Select a class.");
+            }
+        }
+
+        private void MenuItemAddTimestampColumn_Click(object sender, RoutedEventArgs e)
+        {
+            this.StatusMessage = "Working on it.";
+            if (this.ListViewMigrationStatus.SelectedItems.Count > 0)
+            {
+                foreach (MySQLMigration.MigrationStatus migrationStatus in this.ListViewMigrationStatus.SelectedItems)
+                {
+                    if(migrationStatus.HasTimestampColumn == false)
+                    {
+                        Business.Mongo.Gateway.AddSQLTimestampColumn(migrationStatus.TableName);
+                        Business.Mongo.Gateway.AddTransferDBTSAttribute(migrationStatus.TableName);
+                        Business.Mongo.Gateway.AddTransferStraightAcrossAttribute(migrationStatus.TableName, false);
+                    }
+                    this.StatusMessage = "Timestamp Column added.";
+                }
             }
             else
             {
@@ -166,6 +198,7 @@ namespace YellowstonePathology.UI.MySql
                     return;
                 }
 
+                this.StatusMessage = "Working on it.";
                 MySQLMigration.MigrationStatus migrationStatus = (MySQLMigration.MigrationStatus)this.ListViewMigrationStatus.SelectedItem;
                 Business.Rules.MethodResult methodResult = m_MySQLDatabaseBuilder.LoadData(migrationStatus, countToMove, numberofReps);
                 this.SetStatusMessage(methodResult);
@@ -178,11 +211,14 @@ namespace YellowstonePathology.UI.MySql
 
         private void MenuItemSynchronizeData_Click(object sender, RoutedEventArgs e)
         {
-            if (this.ListViewMigrationStatus.SelectedItem != null)
+            if (this.ListViewMigrationStatus.SelectedItems.Count > 0)
             {
-                MySQLMigration.MigrationStatus migrationStatus = (MySQLMigration.MigrationStatus)this.ListViewMigrationStatus.SelectedItem;
-                Business.Rules.MethodResult methodResult = m_MySQLDatabaseBuilder.Synchronize(migrationStatus);
-                this.SetStatusMessage(methodResult);
+                this.StatusMessage = "Working on it.";
+                foreach (MySQLMigration.MigrationStatus migrationStatus in this.ListViewMigrationStatus.SelectedItems)
+                {
+                    Business.Rules.MethodResult methodResult = m_MySQLDatabaseBuilder.Synchronize(migrationStatus);
+                    this.SetStatusMessage(methodResult);
+                }
             }
             else
             {

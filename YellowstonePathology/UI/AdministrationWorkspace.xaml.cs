@@ -1005,11 +1005,10 @@ namespace YellowstonePathology.UI
             StringBuilder stringBuilder = new StringBuilder();
             foreach(MySQLMigration.MigrationStatus migrationStatus in migrationStatusCollection)
             {
-                stringBuilder.AppendLine(migrationStatus.Name);
-                builder.Issues(migrationStatus, stringBuilder);
+                stringBuilder.AppendLine("update " + migrationStatus.TableName + " set transferred = 0 where transferred = 1");
             }
 
-            using (StreamWriter writer = new StreamWriter(@"C:\TEMP\ReservedWords.txt", false))
+            using (StreamWriter writer = new StreamWriter(@"C:\TEMP\DropColumn.txt", false))
             {
                 writer.Write(stringBuilder);
             }*/

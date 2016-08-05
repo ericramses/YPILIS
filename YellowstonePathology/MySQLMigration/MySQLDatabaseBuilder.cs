@@ -787,18 +787,17 @@ namespace YellowstonePathology.MySQLMigration
             }
         }
 
-        private bool IsForbiddenWord(string name, StringBuilder result)
+        private bool IsForbiddenWord(string name)
         {
             if (this.m_ReservedWords.Contains(name.ToUpper()))
             {
-                result.AppendLine("   *** " + name + " is a reserved word.");
                 return true;
             }
 
-            //if (this.m_KeyWords.Contains(name.ToUpper()))
-            //{
-            //    result.AppendLine("   " + name + " is a key word.");
-            //}
+            if (this.m_KeyWords.Contains(name.ToUpper()))
+            {
+                return true;
+            }
             return false;
         }
 
@@ -1203,6 +1202,7 @@ namespace YellowstonePathology.MySQLMigration
 
         public void GetStatus(MigrationStatus migrationStatus)
         {
+            migrationStatus.HasTimestampColumn = Business.Mongo.Gateway.HasSQLTimestamp(migrationStatus.TableName);
             migrationStatus.HasTransferredColumn = this.TableHasTransferColumn(migrationStatus.TableName);
             migrationStatus.HasTable = this.HasMySqlTable(migrationStatus.TableName);
             if (migrationStatus.HasTransferredColumn && migrationStatus.HasTable)
@@ -1321,10 +1321,14 @@ namespace YellowstonePathology.MySQLMigration
 
         public void Issues(MigrationStatus migrationStatus, StringBuilder result)
         {
-            foreach(PropertyInfo property in migrationStatus.PersistentProperties)
+            /*foreach(PropertyInfo property in migrationStatus.PersistentProperties)
             {
-                this.IsForbiddenWord(property.Name, result);
-            }
+                if(this.IsReservedWord(property.Name))
+                {
+                    result.AppendLine("update tblPanelSetOrder set ReportReferences = spso.[" + property.Name + "] from " + migrationStatus.TableName + " spso join tblPanelSetOrder pso on spso.ReportNo = pso.ReportNo");
+                    result.AppendLine("ALTER TABLE " + migrationStatus.TableName + " DROP COLUMN " + property.Name);
+                }
+            }*/
         }
     }
 }

@@ -18,6 +18,7 @@ namespace YellowstonePathology.MySQLMigration
         private string m_TableName;
         private bool m_HasTable;
         private bool m_HasTransferredColumn;
+        private bool m_HasTimestampColumn;
         private int m_OutOfSyncCount;
         private int m_UnLoadedDataCount;
 
@@ -81,6 +82,17 @@ namespace YellowstonePathology.MySQLMigration
                 NotifyPropertyChanged("HasTransferredColumn");
             }
         }
+
+        public bool HasTimestampColumn
+        {
+            get { return this.m_HasTimestampColumn; }
+            set
+            {
+                this.m_HasTimestampColumn = value;
+                NotifyPropertyChanged("HasTimestampColumn");
+            }
+        }
+
         public int OutOfSyncCount
         {
             get { return this.m_OutOfSyncCount; }
@@ -101,11 +113,29 @@ namespace YellowstonePathology.MySQLMigration
         }
         private void GetTableName()
         {
-            string typeName = this.m_Type.Name;
-            if (typeName == "FlowMarkerItem") typeName = "FlowMarkers";
-            typeName = typeName.Replace("_Base", "");
-            typeName = typeName.Replace("Item", "");
-            this.m_TableName = "tbl" + typeName;
+            //string typeName = this.m_Type.Name;
+            //if (typeName == "FlowMarkerItem") typeName = "FlowMarkers";
+            //typeName = typeName.Replace("_Base", "");
+            //typeName = typeName.Replace("Item", "");
+            //this.m_TableName = "tbl" + typeName;
+
+
+            object[] customAttributes = this.m_Type.GetCustomAttributes(typeof(YellowstonePathology.Business.Persistence.PersistentClass), false);
+            if (customAttributes.Length > 0)
+            {
+                foreach (object o in customAttributes)
+                {
+                    if (o is YellowstonePathology.Business.Persistence.PersistentClass)
+                    {
+                        YellowstonePathology.Business.Persistence.PersistentClass persistentClass = (YellowstonePathology.Business.Persistence.PersistentClass)o;
+                        if (string.IsNullOrEmpty(persistentClass.StorageName) == false)
+                        {
+                            this.m_TableName = persistentClass.StorageName;
+                        }
+                    }
+                }
+            }
+
         }
 
         private void GetPrimaryKey()
