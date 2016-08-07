@@ -76,7 +76,7 @@ namespace YellowstonePathology.Business.Test.PNH
             this.AddBlankNteElement(document);
 
             this.AddNextNteElement("References: ", document);
-            this.HandleLongString(testOrder.References, document);
+            this.HandleLongString(testOrder.ReportReferences, document);
             this.AddBlankNteElement(document);
 
             this.HandleLongString(testOrder.ASRComment, document);
@@ -167,7 +167,7 @@ namespace YellowstonePathology.Business.Test.PNH
             }
 
             this.AddNextNteElement("References: ", document);
-            this.HandleLongString(testOrder.References, document);
+            this.HandleLongString(testOrder.ReportReferences, document);
 
             this.AddBlankNteElement(document);
             this.HandleLongString(testOrder.ASRComment, document);

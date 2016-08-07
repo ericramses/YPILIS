@@ -42,7 +42,7 @@ namespace YellowstonePathology.Business.Test.CalreticulinMutationAnalysis
 
             this.ReplaceText("report_interpretation", reportOrderCalreticulinMutationAnalysis.Interpretation);
             this.ReplaceText("report_method", reportOrderCalreticulinMutationAnalysis.Method);
-            this.ReplaceText("report_references", reportOrderCalreticulinMutationAnalysis.References);
+            this.ReplaceText("report_references", reportOrderCalreticulinMutationAnalysis.ReportReferences);
 
 			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrder.OrderedOn, this.m_PanelSetOrder.OrderedOnId);
 			base.ReplaceText("specimen_description", specimenOrder.Description);

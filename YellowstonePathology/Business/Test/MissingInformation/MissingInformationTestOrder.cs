@@ -8,7 +8,7 @@ using YellowstonePathology.Business.Persistence;
 namespace YellowstonePathology.Business.Test.MissingInformation
 {
 	[PersistentClass("tblMissingInformationTestOrder", "tblPanelSetOrder", "YPIDATA")]
-	public class MissingInformtionTestOrder : YellowstonePathology.Business.Test.PanelSetOrder
+	public class MissingInformationTestOrder : YellowstonePathology.Business.Test.PanelSetOrder
 	{
 		private string m_MissingInformation;
         private string m_CallComments;
@@ -38,12 +38,12 @@ namespace YellowstonePathology.Business.Test.MissingInformation
 
         
 
-        public MissingInformtionTestOrder()
+        public MissingInformationTestOrder()
 		{
 
 		}
 
-        public MissingInformtionTestOrder(string masterAccessionNo, string reportNo, string objectId,
+        public MissingInformationTestOrder(string masterAccessionNo, string reportNo, string objectId,
             YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
             bool distribute)
             : base(masterAccessionNo, reportNo, objectId, panelSet, distribute)

@@ -42,7 +42,7 @@ namespace YellowstonePathology.Business.Test.MPNStandardReflex
 			this.SetXmlNodeData("date_time_collected", collectionDateTimeString);
 
             this.ReplaceText("report_interpretation", panelSetOrderMPNStandardReflex.Interpretation);
-            this.ReplaceText("report_reference", panelSetOrderMPNStandardReflex.References);
+            this.ReplaceText("report_reference", panelSetOrderMPNStandardReflex.ReportReferences);
             this.ReplaceText("report_method", panelSetOrderMPNStandardReflex.Method);
 
 			this.ReplaceText("report_date", BaseData.GetShortDateString(this.m_PanelSetOrder.FinalDate));

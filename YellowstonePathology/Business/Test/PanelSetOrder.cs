@@ -81,7 +81,7 @@ namespace YellowstonePathology.Business.Test
         protected string m_ReferenceLabSignature;
         protected Nullable<DateTime> m_ReferenceLabFinalDate;
         protected Nullable<DateTime> m_ExpectedFinalTime;
-        protected bool m_Delayed;
+        protected bool m_IsDelayed;
         protected string m_DelayedBy;
         protected Nullable<DateTime> m_DelayedDate;
         protected string m_DelayComment;
@@ -97,6 +97,7 @@ namespace YellowstonePathology.Business.Test
         private Nullable<DateTime> m_TimeAdditionalTestingEmailSent;
         private string m_AdditionalTestingEmailMessage;
         private string m_AdditionalTestingEmailAddress;
+        protected string m_ReportReferences;
 
         protected YellowstonePathology.Business.Document.CaseDocumentCollection m_CaseDocumentCollection;
 
@@ -977,15 +978,15 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
-        public bool Delayed
+        public bool IsDelayed
         {
-            get { return this.m_Delayed; }
+            get { return this.m_IsDelayed; }
             set
             {
-                if (this.m_Delayed != value)
+                if (this.m_IsDelayed != value)
                 {
-                    this.m_Delayed = value;
-                    this.NotifyPropertyChanged("Delayed");
+                    this.m_IsDelayed = value;
+                    this.NotifyPropertyChanged("IsDelayed");
                 }
             }
         }
@@ -1168,6 +1169,20 @@ namespace YellowstonePathology.Business.Test
                 {
                     this.m_AdditionalTestingEmailAddress = value;
                     this.NotifyPropertyChanged("AdditionalTestingEmailAddress");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string ReportReferences
+        {
+            get { return this.m_ReportReferences; }
+            set
+            {
+                if (this.m_ReportReferences != value)
+                {
+                    this.m_ReportReferences = value;
+                    this.NotifyPropertyChanged("ReportReferences");
                 }
             }
         }

@@ -49,7 +49,7 @@ namespace YellowstonePathology.Business.Test.BCL2t1418ByFISH
 
             this.AddNextObxElement("", document, "F");
             this.AddNextObxElement("References:", document, "F");
-            this.HandleLongString(panelSetOrder.References, document, "F");
+            this.HandleLongString(panelSetOrder.ReportReferences, document, "F");
 
             this.AddNextObxElement("", document, "F");
             this.AddNextObxElement(panelSetOrder.ReportDisclaimer, document, "F");

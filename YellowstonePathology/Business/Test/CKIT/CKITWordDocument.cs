@@ -31,7 +31,7 @@ namespace YellowstonePathology.Business.Test.CKIT
 			this.ReplaceText("report_comment", ckitTestOrder.Comment);
 			this.ReplaceText("report_interpretation", ckitTestOrder.Interpretation);
 			this.ReplaceText("report_method", ckitTestOrder.Method);
-			this.ReplaceText("report_references", ckitTestOrder.References);
+			this.ReplaceText("report_references", ckitTestOrder.ReportReferences);
 
 			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrder.OrderedOn, this.m_PanelSetOrder.OrderedOnId);
 			base.ReplaceText("specimen_description", specimenOrder.Description);

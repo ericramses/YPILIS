@@ -186,7 +186,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
             this.SetXmlNodeData("clinical_history", clinicalHistory);
 
             this.SetXmlNodeData("screening_method", this.m_PanelSetOrderCytology.Method);
-            this.SetXmlNodeData("report_references", this.m_PanelSetOrderCytology.References);
+            this.SetXmlNodeData("report_references", this.m_PanelSetOrderCytology.ReportReferences);
 
             string collectionDateTimeString = this.m_AccessionOrder.SpecimenOrderCollection[0].GetCollectionDateTimeString();
             this.SetXmlNodeData("date_time_collected", collectionDateTimeString);

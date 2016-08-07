@@ -30,7 +30,7 @@ namespace YellowstonePathology.Business.Test.NRASMutationAnalysis
 			this.ReplaceText("report_result", testOrder.Result);
 			this.ReplaceText("report_interpretation", testOrder.Interpretation);
 			this.ReplaceText("report_method", testOrder.Method);
-			this.ReplaceText("report_references", testOrder.References);
+			this.ReplaceText("report_references", testOrder.ReportReferences);
 			this.ReplaceText("test_developed_comment", testOrder.TestDevelopment);
 
 			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrder.OrderedOn, this.m_PanelSetOrder.OrderedOnId);

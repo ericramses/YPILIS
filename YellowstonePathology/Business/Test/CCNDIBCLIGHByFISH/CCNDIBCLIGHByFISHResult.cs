@@ -22,7 +22,7 @@ namespace YellowstonePathology.Business.Test.CCNDIBCLIGHByFISH
 			panelSetOrder.Result = this.m_Result;
 			panelSetOrder.Interpretation = this.m_Interpretation;
 			panelSetOrder.ProbeSetDetail = this.m_ProbeSetDetail;
-			panelSetOrder.References = this.m_References;
+			panelSetOrder.ReportReferences = this.m_References;
 			panelSetOrder.NucleiScored = CCNDIBCLIGHByFISHResult.NucleiScored;
 		}
 	}

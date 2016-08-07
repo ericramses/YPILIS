@@ -34,7 +34,7 @@ namespace YellowstonePathology.Business.Test.FLT3
 			panelSetOrderFLT3.TKDMutation = this.m_TKDMutation;
 			panelSetOrderFLT3.Interpretation = this.m_Interpretation;
 			panelSetOrderFLT3.Method = FLT3Result.Method;
-			panelSetOrderFLT3.References = FLT3Result.References;
+			panelSetOrderFLT3.ReportReferences = FLT3Result.References;
 		}
 	}
 }

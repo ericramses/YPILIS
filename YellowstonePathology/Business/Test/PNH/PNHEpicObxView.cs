@@ -68,7 +68,7 @@ namespace YellowstonePathology.Business.Test.PNH
             this.AddNextObxElement("", document, "F");
 
             this.AddNextObxElement("References: ", document, "F");
-            this.HandleLongString(testOrder.References, document, "F");
+            this.HandleLongString(testOrder.ReportReferences, document, "F");
             this.AddNextObxElement("", document, "F");
             
             this.HandleLongString(testOrder.ASRComment, document, "F");
@@ -159,7 +159,7 @@ namespace YellowstonePathology.Business.Test.PNH
 
 
             this.AddNextObxElement("References: ", document, "F");
-            this.HandleLongString(testOrder.References, document, "F");
+            this.HandleLongString(testOrder.ReportReferences, document, "F");
 
             this.AddNextObxElement("", document, "F");
             this.HandleLongString(testOrder.ASRComment, document, "F");

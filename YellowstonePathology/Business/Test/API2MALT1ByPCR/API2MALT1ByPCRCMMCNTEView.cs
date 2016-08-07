@@ -51,7 +51,7 @@ namespace YellowstonePathology.Business.Test.API2MALT1ByPCR
 
             this.AddBlankNteElement(document);
             this.AddNextNteElement("References:", document);
-            this.HandleLongString(panelSetOrder.References, document);
+            this.HandleLongString(panelSetOrder.ReportReferences, document);
         }
     }
 }

@@ -17,7 +17,6 @@ namespace YellowstonePathology.Business.Test.CysticFibrosis
 		private string m_Method;
 		private string m_MutationsTested;
 		private string m_MutationsDetected;
-		private string m_References;
 		private string m_Result1898Plus1GtoA;
 		private string m_ResultR117H;
 		private string m_Result621Plus1GtoT;
@@ -208,20 +207,6 @@ namespace YellowstonePathology.Business.Test.CysticFibrosis
 				{
 					this.m_MutationsDetected = value;
 					this.NotifyPropertyChanged("MutationsDetected");
-				}
-			}
-		}
-
-		[PersistentProperty()]
-		public string References
-		{
-			get { return this.m_References; }
-			set
-			{
-				if (this.m_References != value)
-				{
-					this.m_References = value;
-					this.NotifyPropertyChanged("References");
 				}
 			}
 		}

@@ -61,7 +61,7 @@ namespace YellowstonePathology.Business.Test.BRAFV600EK
             brafv600ekTestOrder.IndicationComment = this.m_IndicationComment;
             brafv600ekTestOrder.Comment = this.m_Comment;
             brafv600ekTestOrder.Method = this.m_Method;
-            brafv600ekTestOrder.References = this.m_References;
+            brafv600ekTestOrder.ReportReferences = this.m_References;
         }
 
 		public virtual void FinalizeResults(YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTestOrder panelSetOrder, Business.Test.AccessionOrder accessionOrder)

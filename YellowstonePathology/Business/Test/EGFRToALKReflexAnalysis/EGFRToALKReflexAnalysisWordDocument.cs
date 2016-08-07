@@ -79,7 +79,7 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
 			this.ReplaceText("pathologist_signature", egfrToALKReflexAnalysisTestOrder.Signature);
 
 			this.SetXMLNodeParagraphData("report_method", egfrToALKReflexAnalysisTestOrder.Method);
-			this.SetXMLNodeParagraphData("report_references", egfrToALKReflexAnalysisTestOrder.References);
+			this.SetXMLNodeParagraphData("report_references", egfrToALKReflexAnalysisTestOrder.ReportReferences);
 
             YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetAliquotOrder(egfrToALKReflexAnalysisTestOrder.OrderedOnId);
 			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(egfrToALKReflexAnalysisTestOrder.OrderedOn, egfrMutationAnalysisTestOrder.OrderedOnId);

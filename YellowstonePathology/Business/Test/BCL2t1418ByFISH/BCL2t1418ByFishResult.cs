@@ -31,7 +31,7 @@ namespace YellowstonePathology.Business.Test.BCL2t1418ByFISH
         public void SetResults(BCL2t1418ByFISHTestOrder panelSetOrder)
         {
             panelSetOrder.Method = Method;
-            panelSetOrder.References = References;
+            panelSetOrder.ReportReferences = References;
 
             StringBuilder disclaimer = new StringBuilder();
             disclaimer.AppendLine(panelSetOrder.GetLocationPerformedComment() + Environment.NewLine);

@@ -228,7 +228,7 @@ namespace YellowstonePathology.Business.Test.MPNExtendedReflex
             this.m_PanelSetOrderMPNExtendedReflex.Comment = this.m_Comment;
             this.m_PanelSetOrderMPNExtendedReflex.Interpretation = this.m_Interpretation;
             this.m_PanelSetOrderMPNExtendedReflex.Method = this.m_Method;
-            this.m_PanelSetOrderMPNExtendedReflex.References = this.m_References;
+            this.m_PanelSetOrderMPNExtendedReflex.ReportReferences = this.m_References;
         }
 
         public MPNExtendedReflexJAK2Result JAK2V617FResult

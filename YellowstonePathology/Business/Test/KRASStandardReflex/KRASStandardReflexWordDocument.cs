@@ -67,7 +67,7 @@ namespace YellowstonePathology.Business.Test.KRASStandardReflex
             this.SetXMLNodeParagraphData("tumor_nuclei_percent", krasStandardReflexResult.KRASStandardReflexTestOrder.TumorNucleiPercentage);
             this.SetXMLNodeParagraphData("report_indication_comment", krasStandardReflexResult.KRASStandardReflexTestOrder.IndicationComment);
             this.SetXMLNodeParagraphData("report_interpretation", krasStandardReflexResult.KRASStandardReflexTestOrder.Interpretation);
-            this.SetXMLNodeParagraphData("report_references", krasStandardReflexResult.KRASStandardReflexTestOrder.References);
+            this.SetXMLNodeParagraphData("report_references", krasStandardReflexResult.KRASStandardReflexTestOrder.ReportReferences);
             this.SetXMLNodeParagraphData("report_method", krasStandardReflexResult.KRASStandardReflexTestOrder.Method);
             this.SetXMLNodeParagraphData("report_disclaimer", krasStandardReflexResult.KRASStandardReflexTestOrder.GetLocationPerformedComment());
 

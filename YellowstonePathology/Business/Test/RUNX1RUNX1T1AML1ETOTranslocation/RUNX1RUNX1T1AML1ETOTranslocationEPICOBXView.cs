@@ -53,7 +53,7 @@ namespace YellowstonePathology.Business.Test.RUNX1RUNX1T1AML1ETOTranslocation
 
             this.AddNextObxElement("", document, "F");
             this.AddNextObxElement("References:", document, "F");
-            this.HandleLongString(testOrder.References, document, "F");
+            this.HandleLongString(testOrder.ReportReferences, document, "F");
 
             this.AddNextObxElement("", document, "F");
             this.HandleLongString(testOrder.ASR, document, "F");

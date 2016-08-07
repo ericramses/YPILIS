@@ -52,7 +52,7 @@ namespace YellowstonePathology.Business.Test.KRASStandard
 			this.ReplaceText("report_indication_comment", panelSetOrder.IndicationComment);
 			this.ReplaceText("tumor_nuclei_percent", panelSetOrder.TumorNucleiPercentage);
 			this.ReplaceText("report_method", panelSetOrder.Method);
-			this.ReplaceText("report_reference", panelSetOrder.References);
+			this.ReplaceText("report_reference", panelSetOrder.ReportReferences);
 
 			if (this.m_PanelSetOrder.ProfessionalComponentFacilityId == "YPBLGS" && this.m_PanelSetOrder.TechnicalComponentFacilityId == "YPIBLGS")
 			{

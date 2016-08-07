@@ -33,7 +33,7 @@ namespace YellowstonePathology.Business.Test.API2MALT1ByFISH
 			this.SetXMLNodeParagraphData("report_interpretation", testOrder.Interpretation);
 			this.SetXMLNodeParagraphData("probe_set_detail", testOrder.ProbeSetDetail);
 			this.ReplaceText("nuclei_scored", testOrder.NucleiScored);
-			this.SetXMLNodeParagraphData("report_references", testOrder.References);
+			this.SetXMLNodeParagraphData("report_references", testOrder.ReportReferences);
 
 			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrder.OrderedOn, this.m_PanelSetOrder.OrderedOnId);
 			base.ReplaceText("specimen_description", specimenOrder.Description);

@@ -14,7 +14,6 @@ namespace YellowstonePathology.Business.Test.ROS1ByFISH
         private string m_ReferenceRange;
         private string m_ProbeSetDetail;
         private string m_NucleiScored;
-        private string m_References;        
         private string m_Method;
         private string m_ReportDisclaimer;        
         private string m_TumorNucleiPercentage;
@@ -108,20 +107,6 @@ namespace YellowstonePathology.Business.Test.ROS1ByFISH
                 }
             }
         }
-
-        [PersistentProperty()]
-        public string References
-        {
-            get { return this.m_References; }
-            set
-            {
-                if (this.m_References != value)
-                {
-                    this.m_References = value;
-                    this.NotifyPropertyChanged("References");
-                }
-            }
-        }        
 
         [PersistentProperty()]
         public string Method

@@ -13,7 +13,6 @@ namespace YellowstonePathology.Business.Test.CCNDIBCLIGHByFISH
 		private string m_Interpretation;
 		private string m_ProbeSetDetail;
 		private string m_NucleiScored;
-		private string m_References;
 
 		public CCNDIBCLIGHByFISHTestOrder()
 		{
@@ -79,20 +78,6 @@ namespace YellowstonePathology.Business.Test.CCNDIBCLIGHByFISH
 				{
 					this.m_NucleiScored = value;
 					this.NotifyPropertyChanged("NucleiScored");
-				}
-			}
-		}
-
-		[PersistentProperty()]
-		public string References
-		{
-			get { return this.m_References; }
-			set
-			{
-				if (this.m_References != value)
-				{
-					this.m_References = value;
-					this.NotifyPropertyChanged("References");
 				}
 			}
 		}

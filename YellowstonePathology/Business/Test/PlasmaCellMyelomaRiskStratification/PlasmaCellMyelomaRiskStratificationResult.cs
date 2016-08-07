@@ -30,7 +30,7 @@ namespace YellowstonePathology.Business.Test.PlasmaCellMyelomaRiskStratification
 
 		public void SetResults(PlasmaCellMyelomaRiskStratificationTestOrder testOrder)
 		{
-			testOrder.References = this.m_References;
+			testOrder.ReportReferences = this.m_References;
 
 			StringBuilder disclaimer = new StringBuilder();
             disclaimer.AppendLine(testOrder.GetLocationPerformedComment());

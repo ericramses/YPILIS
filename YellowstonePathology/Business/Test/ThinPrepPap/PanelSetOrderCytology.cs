@@ -28,7 +28,6 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 		private bool m_ECCCheckPerformed;
 		private bool m_ScreeningError;
         private string m_Method;
-        private string m_References;
 
 		public PanelSetOrderCytology()
 		{
@@ -45,7 +44,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
             this.ProfessionalComponentFacilityId = null;
             this.ScreeningType = "Final Result";
 
-            this.m_References = YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapResult.References;
+            this.m_ReportReferences = YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapResult.References;
             this.m_Method = YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapResult.Method;			
 		}
 
@@ -399,20 +398,6 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
                 {
                     this.m_Method = value;
                     this.NotifyPropertyChanged("Method");
-                }
-            }
-        }
-
-        [PersistentProperty()]
-        public string References
-        {
-            get { return this.m_References; }
-            set
-            {
-                if (this.m_References != value)
-                {
-                    this.m_References = value;
-                    this.NotifyPropertyChanged("References");
                 }
             }
         }

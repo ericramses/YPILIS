@@ -48,7 +48,7 @@ namespace YellowstonePathology.Business.Test.MYD88MutationAnalysis
 
 			this.AddNextObxElement("", document, "F");
 			this.AddNextObxElement("References:", document, "F");
-			this.HandleLongString(testOrder.References, document, "F");			
+			this.HandleLongString(testOrder.ReportReferences, document, "F");			
 		}
 	}
 }

@@ -43,7 +43,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             panelSetOrderMLH1MethylationAnalysis.ResultCode = this.m_ResultCode;
 			panelSetOrderMLH1MethylationAnalysis.Interpretation = Interpretation;
 			panelSetOrderMLH1MethylationAnalysis.Method = Method;
-			panelSetOrderMLH1MethylationAnalysis.References = References;
+			panelSetOrderMLH1MethylationAnalysis.ReportReferences = References;
 		}
 	}
 }

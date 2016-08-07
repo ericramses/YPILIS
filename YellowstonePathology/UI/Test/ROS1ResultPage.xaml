@@ -124,7 +124,7 @@
                     <TextBox Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="2" Margin="2,2,2,2" Text="{Binding Path=ROS1ByFISHTestOrder.ProbeSetDetail}" TextWrapping="Wrap" AcceptsReturn="True"></TextBox>
 
                     <TextBlock Grid.Column="0" Grid.Row="10" Margin="2,2,2,2" FontWeight="Bold">References:</TextBlock>
-                    <TextBox Grid.Column="0" Grid.Row="11" Grid.ColumnSpan="2" Margin="2,2,2,2" Text="{Binding Path=ROS1ByFISHTestOrder.References}" TextWrapping="Wrap" AcceptsReturn="True"></TextBox>
+                    <TextBox Grid.Column="0" Grid.Row="11" Grid.ColumnSpan="2" Margin="2,2,2,2" Text="{Binding Path=ROS1ByFISHTestOrder.ReportReferences}" TextWrapping="Wrap" AcceptsReturn="True"></TextBox>
 
                     <TextBlock Grid.Column="0" Grid.Row="12" Margin="2,2,2,2" FontWeight="Bold">Method:</TextBlock>
                     <TextBox Grid.Column="0" Grid.Row="13" Grid.ColumnSpan="2" Margin="2,2,2,2" Text="{Binding Path=ROS1ByFISHTestOrder.Method}" TextWrapping="Wrap" AcceptsReturn="True"></TextBox>

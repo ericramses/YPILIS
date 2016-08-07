@@ -47,7 +47,7 @@ namespace YellowstonePathology.Business.Test.HPV1618
             this.AddNextObxElement("", document, "F");
 
             this.AddNextObxElement("References:", document, "F");            
-            this.AddNextObxElement(panelSetOrder.References, document, "F");
+            this.AddNextObxElement(panelSetOrder.ReportReferences, document, "F");
             this.AddNextObxElement("", document, "F");            
 
             string locationPerformed = panelSetOrder.GetLocationPerformedComment();

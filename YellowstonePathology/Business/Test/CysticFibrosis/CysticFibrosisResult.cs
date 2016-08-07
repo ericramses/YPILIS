@@ -29,7 +29,7 @@ namespace YellowstonePathology.Business.Test.CysticFibrosis
 			testOrder.Method = CysticFibrosisResult.Method;
 			testOrder.MutationsTested = m_MutationsTested;
 			testOrder.MutationsDetected = m_MutationsDetected;
-			testOrder.References = CysticFibrosisResult.Reference;
+			testOrder.ReportReferences = CysticFibrosisResult.Reference;
             testOrder.TemplateId = cysticFibrosisEthnicGroup.TemplateId;
 		}		
 	}

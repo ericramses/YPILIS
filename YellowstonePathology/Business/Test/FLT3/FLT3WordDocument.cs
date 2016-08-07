@@ -33,7 +33,7 @@ namespace YellowstonePathology.Business.Test.FLT3
 			this.ReplaceText("tkd_mutation", panelSetOrderFLT3.TKDMutation);
 			this.ReplaceText("report_interpretation", panelSetOrderFLT3.Interpretation);
 			this.ReplaceText("report_method", panelSetOrderFLT3.Method);
-			this.ReplaceText("report_references", panelSetOrderFLT3.References);
+			this.ReplaceText("report_references", panelSetOrderFLT3.ReportReferences);
 
 			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrder.OrderedOn, this.m_PanelSetOrder.OrderedOnId);
 			base.ReplaceText("specimen_description", specimenOrder.Description);

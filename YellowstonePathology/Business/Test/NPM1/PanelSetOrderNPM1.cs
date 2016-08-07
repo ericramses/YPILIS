@@ -13,7 +13,6 @@ namespace YellowstonePathology.Business.Test.NPM1
 		private string m_PercentageNPM1Mutation;
 		private string m_Interpretation;
 		private string m_Method;
-		private string m_References;
 		
 		public PanelSetOrderNPM1()
         {
@@ -79,20 +78,6 @@ namespace YellowstonePathology.Business.Test.NPM1
 				{
 					this.m_Method = value;
 					this.NotifyPropertyChanged("Method");
-				}
-			}
-		}
-
-		[PersistentProperty()]
-		public string References
-		{
-			get { return this.m_References; }
-			set
-			{
-				if (this.m_References != value)
-				{
-					this.m_References = value;
-					this.NotifyPropertyChanged("References");
 				}
 			}
 		}

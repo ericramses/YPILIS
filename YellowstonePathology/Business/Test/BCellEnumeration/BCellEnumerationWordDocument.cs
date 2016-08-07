@@ -34,7 +34,7 @@ namespace YellowstonePathology.Business.Test.BCellEnumeration
 			this.ReplaceText("cd20_absolute_count", testOrder.CD20AbsoluteCount.ToString());
 
 			this.ReplaceText("report_method", testOrder.Method);
-			this.ReplaceText("report_references", testOrder.References);
+			this.ReplaceText("report_references", testOrder.ReportReferences);
 			this.ReplaceText("asr_comment", testOrder.ASRComment);
 
 			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrder.OrderedOn, this.m_PanelSetOrder.OrderedOnId);

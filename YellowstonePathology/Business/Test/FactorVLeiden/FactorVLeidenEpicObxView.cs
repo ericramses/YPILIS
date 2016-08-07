@@ -52,7 +52,7 @@ namespace YellowstonePathology.Business.Test.FactorVLeiden
 			this.HandleLongString("Method: " + testOrder.Method, document, "F");
 			this.AddNextObxElement("", document, "F");
 
-			this.HandleLongString("References: " + testOrder.References, document, "F");
+			this.HandleLongString("References: " + testOrder.ReportReferences, document, "F");
 			this.AddNextObxElement("", document, "F");
 
 			this.HandleLongString(testOrder.TestDevelopment, document, "F");

@@ -66,7 +66,7 @@ namespace YellowstonePathology.Business.Test.TCellSubsetAnalysis
 
 			this.AddNextObxElement("", document, "F");
 			this.AddNextObxElement("References:", document, "F");
-			this.HandleLongString(panelSetOrder.References, document, "F");
+			this.HandleLongString(panelSetOrder.ReportReferences, document, "F");
 			this.AddNextObxElement("", document, "F");
 
             this.AddNextObxElement(panelSetOrder.Disclosure, document, "F");

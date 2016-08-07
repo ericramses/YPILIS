@@ -234,7 +234,7 @@ namespace YellowstonePathology.Business.Test.PNH
 			testOrder.ResultCode = this.m_ResultCode;
 			testOrder.Comment = this.m_Comment;
 			testOrder.Method = this.m_Method;
-			testOrder.References = this.m_References;
+			testOrder.ReportReferences = this.m_References;
 			testOrder.ASRComment = this.m_ASRComment;
 		}
 	}

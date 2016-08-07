@@ -115,7 +115,7 @@
 					<TextBox Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.Interpretation}" TextWrapping="Wrap" AcceptsReturn="True"></TextBox>
 
 					<TextBlock Grid.Column="0" Grid.Row="6" Margin="2,2,2,2" FontWeight="Bold">References:</TextBlock>
-					<TextBox Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.References}" TextWrapping="Wrap" AcceptsReturn="True"></TextBox>
+					<TextBox Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.ReportReferences}" TextWrapping="Wrap" AcceptsReturn="True"></TextBox>
 
 					<TextBlock Grid.Column="0" Grid.Row="8" Margin="2,2,2,2" FontWeight="Bold">Method:</TextBlock>
 					<TextBox Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="2" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.Method}" TextWrapping="Wrap" AcceptsReturn="True"></TextBox>

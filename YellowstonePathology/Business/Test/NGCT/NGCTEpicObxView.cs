@@ -39,7 +39,7 @@ namespace YellowstonePathology.Business.Test.NGCT
             this.AddNextObxElement("", document, "F");
 
             this.AddNextObxElement("References:", document, "F");
-            this.AddNextObxElement(testOrder.References, document, "F");
+            this.AddNextObxElement(testOrder.ReportReferences, document, "F");
             this.AddNextObxElement("", document, "F");
 
             this.AddNextObxElement(testOrder.TestInformation, document, "F");

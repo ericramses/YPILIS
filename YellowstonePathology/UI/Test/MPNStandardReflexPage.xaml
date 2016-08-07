@@ -120,7 +120,7 @@
                 <TextBox Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrderMPNStandardReflex.Method}" TextWrapping="Wrap" />
 
 		        <TextBlock Grid.Column="0" Grid.Row="8" FontWeight="Bold" Margin="2,2,2,2">References:</TextBlock>
-                <TextBox Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="2" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrderMPNStandardReflex.References}" TextWrapping="Wrap" />
+                <TextBox Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="2" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrderMPNStandardReflex.ReportReferences}" TextWrapping="Wrap" />
 
 		        <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="10" FontWeight="Bold" Margin="2,2,2,2">Current Orders</TextBlock>
 		        <ListView Name="ListBoxPanelSetOrders" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="11" Margin="2,2,2,2" HorizontalAlignment="Stretch"

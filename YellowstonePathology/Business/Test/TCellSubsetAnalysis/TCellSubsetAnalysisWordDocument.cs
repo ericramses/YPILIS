@@ -45,7 +45,7 @@ namespace YellowstonePathology.Business.Test.TCellSubsetAnalysis
             this.ReplaceText("report_reference_range", testOrder.ReferenceRange);
             this.ReplaceText("report_interpretation", testOrder.Interpretation);
             this.ReplaceText("report_method", testOrder.Method);
-			this.ReplaceText("report_references", testOrder.References);
+			this.ReplaceText("report_references", testOrder.ReportReferences);
             this.ReplaceText("report_disclosure", testOrder.Disclosure);
             this.ReplaceText("asr_comment", testOrder.ASRComment);
 

@@ -15,7 +15,6 @@ namespace YellowstonePathology.Business.Test.KRASStandardReflex
         protected string m_Indication;
         protected string m_IndicationComment;
         protected string m_Method;
-        protected string m_References;
         protected string m_ReportDisclaimer;        
 
         public KRASStandardReflexTestOrder()
@@ -122,20 +121,6 @@ namespace YellowstonePathology.Business.Test.KRASStandardReflex
 				{
 					this.m_Method = value;
 					this.NotifyPropertyChanged("Method");
-				}
-			}
-		}
-
-		[PersistentProperty()]
-		public string References
-		{
-			get { return this.m_References; }
-			set
-			{
-				if (this.m_References != value)
-				{
-					this.m_References = value;
-					this.NotifyPropertyChanged("References");
 				}
 			}
 		}

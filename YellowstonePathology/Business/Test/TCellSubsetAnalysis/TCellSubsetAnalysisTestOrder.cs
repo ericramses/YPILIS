@@ -20,7 +20,6 @@ namespace YellowstonePathology.Business.Test.TCellSubsetAnalysis
 	public class TCellSubsetAnalysisTestOrder : PanelSetOrder
 	{
 		private string m_Method;
-		private string m_References;
 		private string m_ASRComment;
 		private double? m_CD3Percent;
 		private double? m_CD4Percent;
@@ -46,7 +45,7 @@ namespace YellowstonePathology.Business.Test.TCellSubsetAnalysis
 				"investigational or for research.  This laboratory is certified under the Clinical Laboratory Improvement Amendments of 1988 (CLIA-88) " +
 				"as qualified to perform high complexity clinical laboratory testing.";
 			this.m_Method = "Quantitative Flow Cytometry.";
-            this.m_References = "1. Meyer, K. C., Raghu, G., Baughman, R. P., Brown, K. K., Costabel, U., du Bois, R. M., Drent, M., Haslam, P. L., Soon Kim, D., Nagai, S., Rottoli, P., Saltini, C., Selman, M., Strange, C., Wood, B. An Official American Thoracic Society Clinical Practice Guideline: The Clinical Utility of Bronchoalveolar Lavage Cellular Analysis in Interstitial Lung Disease. American Journal of Respiratory Critical Care. May 2012. 185:9 (1004-1014)." + Environment.NewLine +
+            this.m_ReportReferences = "1. Meyer, K. C., Raghu, G., Baughman, R. P., Brown, K. K., Costabel, U., du Bois, R. M., Drent, M., Haslam, P. L., Soon Kim, D., Nagai, S., Rottoli, P., Saltini, C., Selman, M., Strange, C., Wood, B. An Official American Thoracic Society Clinical Practice Guideline: The Clinical Utility of Bronchoalveolar Lavage Cellular Analysis in Interstitial Lung Disease. American Journal of Respiratory Critical Care. May 2012. 185:9 (1004-1014)." + Environment.NewLine +
                 "2. Drent, M., Mansour, K., Linssen, C.Bronchoalveolar Lavage in Sarcoidosis.Seminars in Respiratory and Critical Care Medicine. 2007. 28:5. (486 - 495).";
             this.m_ReferenceRange = "Normal non-smoker 0.9-2.5";
             this.m_Interpretation = "A CD4/CD8 ratio greater or equal to 3.5 is supportive of a diagnosis of Sarcoidosis.";
@@ -64,20 +63,6 @@ namespace YellowstonePathology.Business.Test.TCellSubsetAnalysis
 				{
 					this.m_Method = value;
 					this.NotifyPropertyChanged("Method");
-				}
-			}
-		}
-
-		[PersistentProperty()]
-		public string References
-		{
-			get { return this.m_References; }
-			set
-			{
-				if (this.m_References != value)
-				{
-					this.m_References = value;
-					this.NotifyPropertyChanged("References");
 				}
 			}
 		}

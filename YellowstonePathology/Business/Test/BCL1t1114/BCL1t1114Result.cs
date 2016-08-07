@@ -25,7 +25,7 @@ namespace YellowstonePathology.Business.Test.BCL1t1114
 		public void SetResults(BCL1t1114TestOrder panelSetOrder)
 		{
 			panelSetOrder.Method = Method;
-			panelSetOrder.References = References;
+			panelSetOrder.ReportReferences = References;
 
 			StringBuilder disclaimer = new StringBuilder();
             disclaimer.AppendLine(panelSetOrder.GetLocationPerformedComment() + Environment.NewLine);

@@ -31,7 +31,7 @@ namespace YellowstonePathology.Business.Test.PlasmaCellMyelomaRiskStratification
 			this.ReplaceText("report_interpretation", testOrder.Interpretation);
 			this.ReplaceText("probe_set_detail", testOrder.ProbeSetDetail);
 			this.ReplaceText("nuclei_scored", testOrder.NucleiScored);
-			this.ReplaceText("report_reference", testOrder.References);
+			this.ReplaceText("report_reference", testOrder.ReportReferences);
 			this.ReplaceText("report_disclaimer", testOrder.ReportDisclaimer);
 
 			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrder.OrderedOn, this.m_PanelSetOrder.OrderedOnId);
