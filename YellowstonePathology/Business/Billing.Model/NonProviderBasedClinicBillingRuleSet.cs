@@ -25,7 +25,8 @@ namespace YellowstonePathology.Business.Billing.Model
             billingRule0.SecondaryInsurance = new RuleValueAny();
             billingRule0.PostDischarge = new RuleValueAny();
             billingRule0.BillingType = BillingTypeEnum.Split;
-            billingRule0.PanelSetIncludeOnlyList.Add(13); 
+            billingRule0.PanelSetIncludeOnlyList.Add(13);
+            billingRule0.PanelSetIncludeOnlyList.Add(138);
             this.m_BillingRuleCollection.Add(billingRule0);
 
             BillingRule billingRule1 = new BillingRule();
@@ -68,6 +69,7 @@ namespace YellowstonePathology.Business.Billing.Model
             billingRule4.PostDischarge = new RuleValueAny();
             billingRule4.BillingType = BillingTypeEnum.Split;
             billingRule4.PanelSetIncludeOnlyList.Add(13);
+            billingRule4.PanelSetIncludeOnlyList.Add(138);
             this.m_BillingRuleCollection.Add(billingRule4);            
 
             BillingRule billingRule5 = new BillingRule();
@@ -79,6 +81,7 @@ namespace YellowstonePathology.Business.Billing.Model
             billingRule5.PostDischarge = new RuleValueAny();
             billingRule5.BillingType = BillingTypeEnum.Split;
             billingRule5.PanelSetIncludeOnlyList.Add(13);
+            billingRule4.PanelSetIncludeOnlyList.Add(138);
             this.m_BillingRuleCollection.Add(billingRule5);
 
             BillingRule billingRule9 = new BillingRule();

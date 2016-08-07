@@ -7,12 +7,17 @@ namespace YellowstonePathology.Business.Surgical
 {
     public class ProcessorRun
     {
-        private string m_ProcessorRunId;
-        private string m_Name;
-        private TimeSpan m_StartTime;
-        private TimeSpan m_FixationTime;
-        private string m_FixationTimeString;
-        private ProcessorRunDayEnum m_ProcessorRunDay;
+        protected string m_ProcessorRunId;
+        protected string m_Name;
+        protected TimeSpan m_StartTime;
+        protected TimeSpan m_FixationTime;
+        protected string m_FixationTimeString;
+        protected ProcessorRunDayEnum m_ProcessorRunDay;
+
+        public ProcessorRun()
+        {
+
+        }
 
         public ProcessorRun(string processorRunId, string name, TimeSpan startTime, TimeSpan fixationTime, string fixationTimeString, ProcessorRunDayEnum processorRunDay)
         {
@@ -49,13 +54,13 @@ namespace YellowstonePathology.Business.Surgical
             return result;
         }
 
-        public Nullable<DateTime> GetFixationEndTime(Nullable<DateTime> fixationStartTime)
+        public Nullable<DateTime> GetFixationEndTime(Nullable<DateTime> fixationStartTime, DateTime dateReceived)
         {
             Nullable<DateTime> result = null;
 
             if (fixationStartTime.HasValue == true)
             {
-                Nullable<DateTime> processorStartTime = this.GetProcessorStartTime(fixationStartTime);
+                Nullable<DateTime> processorStartTime = this.GetProcessorStartTime(dateReceived);
                 if (processorStartTime.HasValue == true)
                 {
                     result = processorStartTime + this.m_FixationTime;
@@ -63,7 +68,7 @@ namespace YellowstonePathology.Business.Surgical
             }
 
             return result;
-        }        
+        }                    
 
         public string ProcessorRunId
         {

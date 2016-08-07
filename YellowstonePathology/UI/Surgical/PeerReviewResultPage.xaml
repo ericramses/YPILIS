@@ -106,12 +106,8 @@
                     <Hyperlink Click="HyperLinkAddDrDurden_Click">Dr. Durden</Hyperlink>
 				</TextBlock>
 
-				<TextBlock Grid.Column="0" Grid.Row="3" Margin="5,3,0,0">
+                <TextBlock Grid.Column="0" Grid.Row="3" Margin="5,3,0,0">
 					<Hyperlink Click="HyperLinkAddDrEmerick_Click">Dr. Emerick</Hyperlink>
-				</TextBlock>
-
-                <TextBlock Grid.Column="0" Grid.Row="4" Margin="5,3,0,0">
-					<Hyperlink Click="HyperLinkAddDrGallager_Click">Dr. Gallager</Hyperlink>
                 </TextBlock>
 
                 <TextBlock Grid.Column="0" Grid.Row="5" Margin="5,3,0,0">                    

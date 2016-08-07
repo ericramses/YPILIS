@@ -85,7 +85,7 @@ namespace YellowstonePathology.Business.BarcodeScanning
 
             foreach (EmbeddingScan item in list)
             {
-                result.Add(item);
+                result.InsertItem(0, item);
             }
 
             return result;

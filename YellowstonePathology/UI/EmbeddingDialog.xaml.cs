@@ -25,16 +25,22 @@ namespace YellowstonePathology.UI
         private DateTime m_WorkDate;
 
         private YellowstonePathology.Business.BarcodeScanning.EmbeddingScanCollection m_EmbeddingScanCollection;
-        private YellowstonePathology.Business.Specimen.Model.SpecimenOrderCollection m_SpecimenOrderHoldCollection;        
+        private YellowstonePathology.Business.Specimen.Model.SpecimenOrderCollection m_SpecimenOrderHoldCollection;
+        private EmbeddingNotScannedList m_EmbeddingNotScannedList;
         private YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort m_BarcodeScanPort;
         private YellowstonePathology.Business.Surgical.ProcessorRunCollection m_ProcessorRunCollection;
         private string m_StatusMessage;
+
+        private BackgroundWorker m_BackgroundWorker;
 
         public EmbeddingDialog()
         {            
             this.m_BarcodeScanPort = YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort.Instance;
             this.m_WorkDate = DateTime.Today;
             this.m_EmbeddingScanCollection = Business.BarcodeScanning.EmbeddingScanCollection.GetByScanDate(this.m_WorkDate);
+
+            
+            this.m_EmbeddingNotScannedList = Business.Gateway.AccessionOrderGateway.GetEmbeddingNotScannedCollection(this.GetWorkingAccessionDate());
             this.m_StatusMessage = "OK";
 
             InitializeComponent();
@@ -49,6 +55,12 @@ namespace YellowstonePathology.UI
         {
             this.m_BarcodeScanPort.HistologyBlockScanReceived -= this.HistologyBlockScanReceived;
             this.m_BarcodeScanPort.ContainerScanReceived -= this.BarcodeScanPort_ContainerScanReceived;            
+        }
+
+        private DateTime GetWorkingAccessionDate()
+        {
+            DateTime accessionDate = this.m_WorkDate.AddDays(-1);
+            return accessionDate;
         }
 
         private void EmbeddingDialog_Loaded(object sender, RoutedEventArgs e)
@@ -123,6 +135,11 @@ namespace YellowstonePathology.UI
             get { return this.m_StatusMessage; }
         }     
 
+        public YellowstonePathology.UI.EmbeddingNotScannedList EmbeddingNotScannedList
+        {
+            get { return this.m_EmbeddingNotScannedList; }
+        }
+
         public YellowstonePathology.Business.Surgical.ProcessorRunCollection ProcessorRunCollection
         {
             get { return this.m_ProcessorRunCollection; }
@@ -155,6 +172,9 @@ namespace YellowstonePathology.UI
         {
             this.WorkDate = this.WorkDate.AddDays(-1);
             this.m_EmbeddingScanCollection = YellowstonePathology.Business.BarcodeScanning.EmbeddingScanCollection.GetByScanDate(this.m_WorkDate);
+            this.m_EmbeddingNotScannedList = Business.Gateway.AccessionOrderGateway.GetEmbeddingNotScannedCollection(this.GetWorkingAccessionDate());
+
+            this.NotifyPropertyChanged("EmbeddingNotScannedList");
             this.NotifyPropertyChanged("EmbeddingScanCollection");
         }
 
@@ -162,6 +182,9 @@ namespace YellowstonePathology.UI
         {
             this.WorkDate = this.WorkDate.AddDays(1);
             this.m_EmbeddingScanCollection = YellowstonePathology.Business.BarcodeScanning.EmbeddingScanCollection.GetByScanDate(this.m_WorkDate);
+            this.m_EmbeddingNotScannedList = Business.Gateway.AccessionOrderGateway.GetEmbeddingNotScannedCollection(this.GetWorkingAccessionDate());
+
+            this.NotifyPropertyChanged("EmbeddingNotScannedList");
             this.NotifyPropertyChanged("EmbeddingScanCollection");
         }
 
@@ -174,44 +197,70 @@ namespace YellowstonePathology.UI
         }
 
         private void ButtonUpdate_Click(object sender, RoutedEventArgs e)
-        {            
-            this.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
+        {
+
+            this.m_BackgroundWorker = new BackgroundWorker();
+            this.m_BackgroundWorker.WorkerReportsProgress = true;
+            this.m_BackgroundWorker.DoWork += Bgw_DoWork;
+            this.m_BackgroundWorker.ProgressChanged += Bgw_ProgressChanged;
+            this.m_BackgroundWorker.RunWorkerCompleted += Bgw_RunWorkerCompleted;
+            this.m_BackgroundWorker.RunWorkerAsync();            
+        }
+
+        private void Bgw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
             {
-                YellowstonePathology.Business.Surgical.ProcessorRunCollection processorRunCollection = Business.Surgical.ProcessorRunCollection.GetAll(false);
-
-                foreach (YellowstonePathology.Business.BarcodeScanning.EmbeddingScan embeddingScan in this.ListViewEmbeddingScans.Items)
-                {
-                    this.m_StatusMessage = "Updating: " + embeddingScan.AliquotOrderId;
-                    this.NotifyPropertyChanged("StatusMessage");
-
-                    if (embeddingScan.Updated == false)
-                    {                        
-                        YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAliquotOrder(embeddingScan.AliquotOrderId, this);
-                        aliquotOrder.EmbeddingVerify(YellowstonePathology.Business.User.SystemIdentity.Instance.User);
-
-                        YellowstonePathology.Business.Surgical.ProcessorRun processorRun = processorRunCollection.Get(embeddingScan.ProcessorRunId);
-
-                        Business.ParseSpecimenOrderIdResult parseSpecimenOrderIdResult = aliquotOrder.ParseSpecimenOrderIdFromBlock();
-                        if (parseSpecimenOrderIdResult.ParsedSuccessfully == true)
-                        {
-                            YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullSpecimenOrder(parseSpecimenOrderIdResult.SpecimenOrderId, this);
-                            specimenOrder.ProcessorRun = embeddingScan.ProcessorRun;
-                            specimenOrder.ProcessorRunId = embeddingScan.ProcessorRunId;
-                            specimenOrder.FixationEndTime = processorRun.GetFixationEndTime(specimenOrder.FixationStartTime);
-                            specimenOrder.SetFixationDuration();
-                        }
-
-                        YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
-                        this.m_SpecimenOrderHoldCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetSpecimenOrderHoldCollection();
-                        embeddingScan.Updated = true;
-                        this.m_EmbeddingScanCollection.UpdateStatus(embeddingScan);
-                    }
-                }
-
-                this.m_StatusMessage = "Update complete.";
+                this.m_StatusMessage = "Update complete";
                 this.NotifyPropertyChanged("StatusMessage");
-            }
-            ));
+            }));
+        }
+
+        private void Bgw_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
+            {
+                this.m_StatusMessage = "Updating: " + e.UserState;
+                this.NotifyPropertyChanged("StatusMessage");
+            }));            
+        }
+
+        private void Bgw_DoWork(object sender, DoWorkEventArgs e)
+        {            
+            YellowstonePathology.Business.Surgical.ProcessorRunCollection processorRunCollection = Business.Surgical.ProcessorRunCollection.GetAll(false);
+
+            foreach (YellowstonePathology.Business.BarcodeScanning.EmbeddingScan embeddingScan in this.ListViewEmbeddingScans.Items)
+            {
+                this.m_BackgroundWorker.ReportProgress(0, embeddingScan.AliquotOrderId);
+
+                if (embeddingScan.Updated == false)
+                {
+                    YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAliquotOrder(embeddingScan.AliquotOrderId, this);
+                    aliquotOrder.EmbeddingVerify(YellowstonePathology.Business.User.SystemIdentity.Instance.User);
+
+                    YellowstonePathology.Business.Surgical.ProcessorRun processorRun = processorRunCollection.Get(embeddingScan.ProcessorRunId);
+
+                    Business.ParseSpecimenOrderIdResult parseSpecimenOrderIdResult = aliquotOrder.ParseSpecimenOrderIdFromBlock();
+                    if (parseSpecimenOrderIdResult.ParsedSuccessfully == true)
+                    {
+                        YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullSpecimenOrder(parseSpecimenOrderIdResult.SpecimenOrderId, this);
+                        specimenOrder.ProcessorRun = embeddingScan.ProcessorRun;
+                        specimenOrder.ProcessorRunId = embeddingScan.ProcessorRunId;
+                        specimenOrder.ProcessorStartTime = processorRun.GetProcessorStartTime(specimenOrder.DateReceived);                        
+                        specimenOrder.ProcessorFixationTime = Convert.ToInt32(processorRun.FixationTime.TotalMinutes);
+                        specimenOrder.SetFixationEndTime();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Unable to parse the Block Id. Please tell Sid.");
+                    }
+
+                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
+                    this.m_SpecimenOrderHoldCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetSpecimenOrderHoldCollection();
+                    embeddingScan.Updated = true;
+                    this.m_EmbeddingScanCollection.UpdateStatus(embeddingScan);
+                }
+            }            
         }
     }
 }

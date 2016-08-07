@@ -210,11 +210,23 @@ namespace YellowstonePathology.UI.Login.Receiving
                         MessageBoxResult collectionDateResult = MessageBox.Show("This case appears to be a breast case and there is no Collection Time. Are you sure you want to continue?", "Continue?", MessageBoxButton.YesNo);
                         if (collectionDateResult == MessageBoxResult.No) result = false;
                     }
-                    else if (YellowstonePathology.Business.Helper.DateTimeExtensions.DoesDateHaveTime(this.m_ClientOrderDetail.FixationStartTime) == false)
+                    else
                     {
-                        MessageBoxResult fixationStartTimeResult = MessageBox.Show("This case appears to be a breast case and there is no Fixation Start Time. Please contact IT.", "Continue?", MessageBoxButton.YesNo);
-                        if (fixationStartTimeResult == MessageBoxResult.No) result = false;
-                    }
+                        if(this.m_ClientOrderDetail.FixationStartTime.HasValue == true)
+                        {
+                            YellowstonePathology.Business.Surgical.CheechTodayOvernight cheechTodayOvernight = new Business.Surgical.CheechTodayOvernight();
+                            Nullable<DateTime> fixationEndTime = cheechTodayOvernight.GetFixationEndTime(this.m_ClientOrderDetail.FixationStartTime, this.m_ClientOrderDetail.DateReceived.Value);
+                            TimeSpan fixationDuration = fixationEndTime.Value - this.m_ClientOrderDetail.FixationStartTime.Value;
+                            if(fixationDuration.TotalHours < 6)
+                            {
+                                MessageBox.Show("Warning! Fixation duration will be under 6 hours unless this specimen is held.");
+                            }
+                            else if(fixationDuration.TotalHours > 72)
+                            {
+                                MessageBox.Show("Warning! Fixation duration will be over 72 hours if processed normally.");
+                            }
+                        }                        
+                    }                    
                 }
             }
             return result;

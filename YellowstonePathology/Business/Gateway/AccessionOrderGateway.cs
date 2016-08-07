@@ -14,6 +14,39 @@ namespace YellowstonePathology.Business.Gateway
 {
 	public class AccessionOrderGateway
 	{
+        public static YellowstonePathology.UI.EmbeddingNotScannedList GetEmbeddingNotScannedCollection(DateTime accessionDate)
+        {
+            YellowstonePathology.UI.EmbeddingNotScannedList result = new UI.EmbeddingNotScannedList();
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "select a.AliquotOrderId, pso.PanelSetName, so.Description " +
+                "from tblAccessionOrder ao " +
+                "join tblPanelSetOrder pso on ao.MasterAccessionNo = pso.MasterAccessionNo " +
+                "join tblSpecimenOrder so on ao.MasterAccessionno = so.MasterAccessionNo " +
+                "join tblAliquotOrder a on so.SpecimenOrderId = a.SpecimenOrderId " +
+                "where ao.AccessionDate = @AccessionDate and aliquotType = 'Block' and embeddingVerified = 0" +
+                "and so.RequiresGrossExamination = 1 and so.ProcessorRunId <> 'HOLD'";
+
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.Add("@AccessionDate", SqlDbType.DateTime).Value = accessionDate;            
+
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        YellowstonePathology.UI.EmbeddingNotScannedListItem item = new UI.EmbeddingNotScannedListItem();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(item, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Add(item);
+                    }
+                }
+            }
+            return result;
+        }
+
         public static YellowstonePathology.Business.Test.AliquotOrderCollection GetEmbeddingCollection(DateTime embeddingVerifiedDate)
         {
             YellowstonePathology.Business.Test.AliquotOrderCollection result = new Test.AliquotOrderCollection();
@@ -2761,20 +2794,38 @@ namespace YellowstonePathology.Business.Gateway
             //cmd.CommandText = "Select distinct MasterAccessionNo from tblPanelSetOrder pso where final = 1 and distribute = 1 and not exists (Select * from tblTestOrderReportDistribution where reportNo = pso.ReportNo)";
             cmd.CommandText = "Select distinct MasterAccessionNo from tblPanelSetOrder pso where final = 1 and pso.finalTime < dateAdd(mi, -15, getdate()) and distribute = 1 and not exists (Select * from tblTestOrderReportDistribution where reportNo = pso.ReportNo)";
             cmd.CommandType = CommandType.Text;
+            SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString);       
+            cn.Open();
+            cmd.Connection = cn;
+            SqlDataReader dr = null;
 
-            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            try
             {
-                cn.Open();
-                cmd.Connection = cn;
-                using (SqlDataReader dr = cmd.ExecuteReader())
+                dr = cmd.ExecuteReader();
+                while (dr.Read())
                 {
-                    while (dr.Read())
-                    {
-                        Business.MasterAccessionNo man = Business.MasterAccessionNo.Parse(dr[0].ToString(), true);
-                        result.Add(man);
-                    }
+                    Business.MasterAccessionNo man = Business.MasterAccessionNo.Parse(dr[0].ToString(), true);
+                    result.Add(man);
                 }
             }
+            catch(System.Data.SqlClient.SqlException e)
+            {
+                if(e.Number == 1205) //1205 is an sql deadlock
+                {
+                    System.Threading.Thread.Sleep(5000);
+                    GetCasesWithUnsetDistributions();
+                }
+                else
+                {
+                    throw;
+                }
+            }   
+            finally
+            {
+                dr.Close();
+                cn.Close();
+            }         
+            
             return result;
         }
 

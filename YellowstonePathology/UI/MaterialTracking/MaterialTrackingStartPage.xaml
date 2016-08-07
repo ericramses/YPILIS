@@ -56,6 +56,7 @@
                     <RowDefinition Height="*"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
                 </Grid.RowDefinitions>
 
                 <TextBlock Grid.Column="0" Grid.Row="0" FontWeight="Bold">New Batch Options</TextBlock>
@@ -106,9 +107,12 @@
                 </TextBlock>
 
                 <TextBlock Grid.Column="0" Grid.Row="21" Margin="2,2,2,2">
-				    <Hyperlink Click="HyperlinkViewSelectedBatch_Click">View Selected Batch</Hyperlink>
+				    <Hyperlink Click="HyperlinkViewFedXTrackingPage_Click">FedX Tracking Page</Hyperlink>
                 </TextBlock>
                 <TextBlock Grid.Column="0" Grid.Row="22" Margin="2,2,2,2">
+				    <Hyperlink Click="HyperlinkViewSelectedBatch_Click">View Selected Batch</Hyperlink>
+                </TextBlock>
+                <TextBlock Grid.Column="0" Grid.Row="23" Margin="2,2,2,2">
 				    <Hyperlink Click="HyperlinkDeleteSelectedBatch_Click">Delete Selected Batch</Hyperlink>
                 </TextBlock>
 

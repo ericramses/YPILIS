@@ -41,15 +41,13 @@ namespace YellowstonePathology.UI.MaterialTracking
         public MaterialTrackingPath(string masterAccessionNo)
         {
             this.m_UseMasterAccessionNo = true;            
-            this.m_MasterAccessionNo = masterAccessionNo;
-            //this.ShowMaterialTrackingStartPage();
+            this.m_MasterAccessionNo = masterAccessionNo;            
         }
 
 		public MaterialTrackingPath(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{
 			this.m_AccessionOrder = accessionOrder;
-			this.m_StartNew = true;
-            //this.ShowMaterialTrackingCasePage();
+			this.m_StartNew = true;            
         }				
 
 		private void ShowMaterialTrackingCasePage()
@@ -75,9 +73,16 @@ namespace YellowstonePathology.UI.MaterialTracking
                 materialTrackingStartPage = new MaterialTrackingStartPage(materialTrackingBatchCollection);            
             }
             
-            materialTrackingStartPage.ViewBatch += new MaterialTrackingStartPage.ViewBatchEventHandler(MaterialTrackingStartPage_ViewBatch);                        
+            materialTrackingStartPage.ViewBatch += new MaterialTrackingStartPage.ViewBatchEventHandler(MaterialTrackingStartPage_ViewBatch);
+            materialTrackingStartPage.ShowFedXTrackingPage += MaterialTrackingStartPage_ShowFedXTrackingPage;
             this.m_LoginPageWindow.PageNavigator.Navigate(materialTrackingStartPage);
-		}        
+		}
+
+        private void MaterialTrackingStartPage_ShowFedXTrackingPage(object sender, EventArgs e)
+        {
+            FedXTrackingPage fedXTrackingPage = new FedXTrackingPage();
+            this.m_LoginPageWindow.PageNavigator.Navigate(fedXTrackingPage);
+        }
 
         private void MaterialTrackingStartPage_ViewBatch(object sender, YellowstonePathology.UI.CustomEventArgs.MaterialTrackingBatchEventArgs e)
         {            
@@ -86,8 +91,7 @@ namespace YellowstonePathology.UI.MaterialTracking
 
 		private void ShowMaterialBatchPage(YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch materialTrackingBatch,
 			YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogCollection materialTrackingLogCollection)
-        {
-            //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullMaterialTrackingBatch(materialTrackingBatch.MaterialTrackingBatchId, m_LoginPageWindow);
+        {            
             this.m_MaterialBatchPage = new MaterialBatchPage(materialTrackingBatch, materialTrackingLogCollection, true, true, false, this.m_UseMasterAccessionNo, this.m_MasterAccessionNo, this.m_LoginPageWindow.PageNavigator);
             this.m_MaterialBatchPage.Back += new MaterialBatchPage.BackEventHandler(MaterialBatchPage_Back);
             this.m_MaterialBatchPage.Next += new MaterialBatchPage.NextEventHandler(MaterialBatchPage_Next);
