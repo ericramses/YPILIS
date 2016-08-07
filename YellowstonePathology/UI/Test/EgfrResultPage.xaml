@@ -168,7 +168,7 @@
                     <TextBox Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="2" Margin="2,2,2,2" Text="{Binding Path=EGFRMutationAnalysisTestOrder.Interpretation}" TextWrapping="Wrap" AcceptsReturn="True"></TextBox>
 
                     <TextBlock Grid.Column="0" Grid.Row="10" Margin="2,2,2,2" FontWeight="Bold">References:</TextBlock>
-                    <TextBox Grid.Column="0" Grid.Row="11" Grid.ColumnSpan="2" Margin="2,2,2,2" Text="{Binding Path=EGFRMutationAnalysisTestOrder.References}" TextWrapping="Wrap" AcceptsReturn="True"></TextBox>
+                    <TextBox Grid.Column="0" Grid.Row="11" Grid.ColumnSpan="2" Margin="2,2,2,2" Text="{Binding Path=EGFRMutationAnalysisTestOrder.ReportReferences}" TextWrapping="Wrap" AcceptsReturn="True"></TextBox>
 
                     <TextBlock Grid.Column="0" Grid.Row="12" Margin="2,2,2,2" FontWeight="Bold">Method:</TextBlock>
                     <TextBox Grid.Column="0" Grid.Row="13" Grid.ColumnSpan="2" Margin="2,2,2,2" Text="{Binding Path=EGFRMutationAnalysisTestOrder.Method}" TextWrapping="Wrap" AcceptsReturn="True"></TextBox>

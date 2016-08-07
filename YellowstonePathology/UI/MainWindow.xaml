@@ -86,6 +86,7 @@
 				<MenuItem Name="MenuItemRuleBrowser" Header="Rule Browser" Click="MenuItemRuleBrowser_Click"></MenuItem>                
                 <MenuItem Name="MenuItemValidationTesting" Header="Validation Testing" Click="MenuItemValidationTesting_Click"></MenuItem>
                 <MenuItem Name="MenuItemMongoMigration" Header="Mongo Migration" Click="MenuItemMongoMigration_Click"></MenuItem>
+                <MenuItem Name="MenuItemMySqlMigration" Header="MySql Migration" Click="MenuItemMySqlMigration_Click"></MenuItem>
                 <MenuItem Name="MenuItemTesting" Header="Testing" Click="MenuItemTesting_Click"></MenuItem>
             </MenuItem>
 

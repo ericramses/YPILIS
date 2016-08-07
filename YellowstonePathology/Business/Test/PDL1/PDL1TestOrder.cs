@@ -14,7 +14,6 @@ namespace YellowstonePathology.Business.Test.PDL1
         private string m_Method;
         private string m_Comment;
         private string m_Interpretation;
-        private string m_References;
 
         public PDL1TestOrder()
         {
@@ -37,7 +36,7 @@ namespace YellowstonePathology.Business.Test.PDL1
                 "non-hematopoietic cells following cellspecific stimulation and plays a role in maintenance of peripheral tolerance.  PD - L1 " +
                 "expression has been linked to poorer prognosis and shorter survival in some tumor types.  On - going clinical trials are " +
                 "evaluating the efficacy of inhibition of PD - L1 in various tumors.";
-            this.m_References = "1. Ohaegbulam KC, Assal A, Lazar-Molnar E, et al. Human cancer immunotherapy with antibodies to the PD-1 and " +
+            this.m_ReportReferences = "1. Ohaegbulam KC, Assal A, Lazar-Molnar E, et al. Human cancer immunotherapy with antibodies to the PD-1 and " +
                 "PD-L1 pathway. Trends Mol Med. 2015; 21(1):24 - 33." + Environment.NewLine +
                 "2. D'Incecco A, Andreozzi M, et al.PD - 1 and PD - L1 expression in molecularly selected non - small - cell lung cancer " +
                 "patients.Br J Cancer. 2015; 112(1):95 - 102." + Environment.NewLine +
@@ -117,20 +116,6 @@ namespace YellowstonePathology.Business.Test.PDL1
                 {
                     this.m_Interpretation = value;
                     this.NotifyPropertyChanged("Interpretation");
-                }
-            }
-        }
-
-        [PersistentProperty()]
-        public string References
-        {
-            get { return this.m_References; }
-            set
-            {
-                if (this.m_References != value)
-                {
-                    this.m_References = value;
-                    this.NotifyPropertyChanged("References");
                 }
             }
         }

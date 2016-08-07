@@ -51,7 +51,7 @@ namespace YellowstonePathology.Business.Test.FactorVLeiden
 			this.ReplaceText("report_indication", testOrder.Indication);
 			this.ReplaceText("report_method", testOrder.Method);
 			this.ReplaceText("test_development", testOrder.TestDevelopment);
-			this.ReplaceText("report_references", testOrder.References);
+			this.ReplaceText("report_references", testOrder.ReportReferences);
 
 			YellowstonePathology.Business.Document.AmendmentSection amendment = new YellowstonePathology.Business.Document.AmendmentSection();
 			amendment.SetAmendment(m_PanelSetOrder.AmendmentCollection, this.m_ReportXml, this.m_NameSpaceManager, true);

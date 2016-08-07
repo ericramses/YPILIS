@@ -25,7 +25,7 @@ namespace YellowstonePathology.Business.Test.CCNDIBCLIGHByPCR
             testOrder.ResultCode = this.m_ResultCode;
             testOrder.Interpretation = this.m_Interpretation;
             testOrder.Method = this.m_Method;
-            testOrder.References = this.m_References;
+            testOrder.ReportReferences = this.m_References;
         }
     }
 }

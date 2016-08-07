@@ -12,7 +12,6 @@ namespace YellowstonePathology.Business.Test.BRAFV600EK
 		private string m_Result;
 		private string m_Interpretation;
 		private string m_Comment;
-		private string m_References;
 		private string m_Indication;
         private string m_IndicationComment;
 		private string m_TumorNucleiPercentage;
@@ -130,20 +129,6 @@ namespace YellowstonePathology.Business.Test.BRAFV600EK
 				{
 					this.m_Method = value;
 					this.NotifyPropertyChanged("Method");
-				}
-			}
-		}
-
-		[PersistentProperty()]
-		public string References
-		{
-			get { return this.m_References; }
-			set
-			{
-				if (this.m_References != value)
-				{
-					this.m_References = value;
-					this.NotifyPropertyChanged("References");
 				}
 			}
 		}

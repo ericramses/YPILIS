@@ -45,7 +45,7 @@ namespace YellowstonePathology.Business.Test.KRASStandardReflex
             this.m_KRASStandardReflexTestOrder.Interpretation = this.m_KRASStandardTestOrder.Interpretation;
             this.m_KRASStandardReflexTestOrder.Indication = this.m_KRASStandardTestOrder.Indication;
             this.m_KRASStandardReflexTestOrder.Method = this.m_KRASStandardTestOrder.Method;
-            this.m_KRASStandardReflexTestOrder.References = this.m_KRASStandardTestOrder.References;
+            this.m_KRASStandardReflexTestOrder.ReportReferences = this.m_KRASStandardTestOrder.ReportReferences;
             this.m_KRASStandardReflexTestOrder.ReportDisclaimer = this.m_KRASStandardTestOrder.ReportDisclaimer;			
         }
     }

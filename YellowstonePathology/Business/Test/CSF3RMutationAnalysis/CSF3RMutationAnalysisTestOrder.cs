@@ -14,7 +14,6 @@ namespace YellowstonePathology.Business.Test.CSF3RMutationAnalysis
         private string m_Interpretation;
         private string m_Comment;
         private string m_Method;
-        private string m_References;
         private string m_ASR;
 
         public CSF3RMutationAnalysisTestOrder()
@@ -29,7 +28,7 @@ namespace YellowstonePathology.Business.Test.CSF3RMutationAnalysis
                 "patients with severe congenital neutropenia.  It has also been reported in 4 % of colon cancer and 3 % of small cell / squamous " +
                 "cell lung cancer.  The presence of CSF3R mutation is important for diagnosis, classification, and prognosis of chronic " +
                 "myeloproliferative neoplasms.";
-            this.m_References = "1.Maxson JE, Gotlib J, Pollyea DA, et al. Oncogenic CSF3R mutations in chronic neutrophilic leukemia and " +
+            this.m_ReportReferences = "1.Maxson JE, Gotlib J, Pollyea DA, et al. Oncogenic CSF3R mutations in chronic neutrophilic leukemia and " +
                 "atypical CML. N Engl J Med. 2013; 368(19):1781 - 90." + Environment.NewLine + Environment.NewLine +
                 "2.Pardanani A, Lasho TL, Laborde RR, et al. CSF3R T618I is a highly prevalent and specific mutation in chronic neutrophilic " +
                 "leukemia. Leukemia. 2013; 27(9):1873 - 3.";
@@ -98,20 +97,6 @@ namespace YellowstonePathology.Business.Test.CSF3RMutationAnalysis
                 {
                     this.m_Method = value;
                     this.NotifyPropertyChanged("Method");
-                }
-            }
-        }
-
-        [PersistentProperty()]
-        public string References
-        {
-            get { return this.m_References; }
-            set
-            {
-                if (this.m_References != value)
-                {
-                    this.m_References = value;
-                    this.NotifyPropertyChanged("References");
                 }
             }
         }

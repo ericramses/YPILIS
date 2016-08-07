@@ -85,7 +85,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
                 this.DeleteRow("molecular_analysis_header");
             }
 
-            base.ReplaceText("report_references", panelSetOrderLynchSyndromeEvaluation.References);            
+            base.ReplaceText("report_references", panelSetOrderLynchSyndromeEvaluation.ReportReferences);            
 			base.ReplaceText("report_method", panelSetOrderLynchSyndromeEvaluation.Method);
             base.ReplaceText("pathologist_signature", panelSetOrderLynchSyndromeEvaluation.Signature);
 

@@ -16,7 +16,6 @@ namespace YellowstonePathology.Business.Test.KRASStandard
         private string m_IndicationComment;
         private string m_TumorNucleiPercentage;
         private string m_Method;
-        private string m_References;
         private string m_ReportDisclaimer;
         private string m_MutationDetected;
 
@@ -129,20 +128,6 @@ namespace YellowstonePathology.Business.Test.KRASStandard
                 {
                     this.m_Method = value;
                     this.NotifyPropertyChanged("Method");
-                }
-            }
-        }
-
-        [PersistentProperty()]
-        public string References
-        {
-            get { return this.m_References; }
-            set
-            {
-                if (this.m_References != value)
-                {
-                    this.m_References = value;
-                    this.NotifyPropertyChanged("References");
                 }
             }
         }

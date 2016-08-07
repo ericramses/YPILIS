@@ -30,7 +30,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             panelSetOrderLynchSyndromEvaluation.Comment = this.m_Comment;
             panelSetOrderLynchSyndromEvaluation.BRAFIsIndicated = this.m_BRAFIsIndicated;
             panelSetOrderLynchSyndromEvaluation.Method = "IHC: " + IHCMethod + Environment.NewLine + Environment.NewLine + "MLH1: " + panelSetOrderMLH1MethylationAnalysis.Method;
-            panelSetOrderLynchSyndromEvaluation.References = "IHC: " + LSEGYNReferences + Environment.NewLine + Environment.NewLine + "MLH1: " + panelSetOrderMLH1MethylationAnalysis.References;
+            panelSetOrderLynchSyndromEvaluation.ReportReferences = "IHC: " + LSEGYNReferences + Environment.NewLine + Environment.NewLine + "MLH1: " + panelSetOrderMLH1MethylationAnalysis.ReportReferences;
         }
 	}
 }

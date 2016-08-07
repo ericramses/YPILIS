@@ -21,7 +21,7 @@ namespace YellowstonePathology.Business.Test.NonHodgkinsLymphomaFISHPanel
 
         public void SetResults(NonHodgkinsLymphomaFISHPanelTestOrder testOrder)
 		{
-			testOrder.References = References;
+			testOrder.ReportReferences = References;
 
 			StringBuilder disclaimer = new StringBuilder();
 			disclaimer.AppendLine(TestDevelopment + Environment.NewLine);

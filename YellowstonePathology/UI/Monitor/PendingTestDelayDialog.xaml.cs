@@ -55,7 +55,7 @@ namespace YellowstonePathology.UI.Monitor
         private bool IsOKToClose()
         {
             bool result = true;
-            if (this.m_PanelSetOrder.Delayed == true)
+            if (this.m_PanelSetOrder.IsDelayed == true)
             {
                 if (string.IsNullOrEmpty(this.m_PanelSetOrder.DelayComment) == true)
                 {
@@ -71,7 +71,7 @@ namespace YellowstonePathology.UI.Monitor
             ComboBoxItem comboBoxItem = (ComboBoxItem)this.ComboBoxDelayDays.SelectedItem;
             int daysToDelay = Convert.ToInt32(comboBoxItem.Tag.ToString());
             TimeSpan timeSpanDelay = new TimeSpan(daysToDelay,0,0,0);
-            this.m_PanelSetOrder.Delayed = true;
+            this.m_PanelSetOrder.IsDelayed = true;
             this.m_PanelSetOrder.DelayedBy = YellowstonePathology.Business.User.SystemIdentity.Instance.User.DisplayName;
             this.m_PanelSetOrder.DelayedDate = DateTime.Now;
 

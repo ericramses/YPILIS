@@ -76,7 +76,7 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
 			this.AddNextObxElement("", document, "F");
 
 			this.AddNextObxElement("References: ", document, "F");
-			this.HandleLongString(egfrToALKReflexAnalysisTestOrder.References, document, "F");
+			this.HandleLongString(egfrToALKReflexAnalysisTestOrder.ReportReferences, document, "F");
 			this.AddNextObxElement("", document, "F");
 
             this.AddNextObxElement(egfrToALKReflexAnalysisTestOrder.GetLocationPerformedComment(), document, "F");

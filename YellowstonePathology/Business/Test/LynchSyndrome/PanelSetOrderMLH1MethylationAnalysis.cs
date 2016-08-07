@@ -12,7 +12,6 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
         private string m_Result;
 		private string m_Interpretation;
 		private string m_Method;
-		private string m_References;
 		private string m_MLH1MethylationPercent;
 
         public PanelSetOrderMLH1MethylationAnalysis()
@@ -67,20 +66,6 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 				{
 					this.m_Method = value;
 					this.NotifyPropertyChanged("Method");
-				}
-			}
-		}
-
-		[PersistentProperty()]
-		public string References
-		{
-			get { return this.m_References; }
-			set
-			{
-				if (this.m_References != value)
-				{
-					this.m_References = value;
-					this.NotifyPropertyChanged("References");
 				}
 			}
 		}

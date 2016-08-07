@@ -65,7 +65,7 @@ namespace YellowstonePathology.Business.Test.BCellEnumeration
 
 			this.AddNextObxElement("", document, "F");
 			this.AddNextObxElement("References:", document, "F");
-			this.HandleLongString(panelSetOrder.References, document, "F");
+			this.HandleLongString(panelSetOrder.ReportReferences, document, "F");
 			this.AddNextObxElement("", document, "F");
 
 			this.AddNextObxElement(panelSetOrder.ASRComment, document, "F");

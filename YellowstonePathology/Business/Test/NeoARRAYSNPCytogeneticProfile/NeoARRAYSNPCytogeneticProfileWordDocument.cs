@@ -33,7 +33,7 @@ namespace YellowstonePathology.Business.Test.NeoARRAYSNPCytogeneticProfile
 			this.ReplaceText("report_microarray_results", testOrder.MicroarrayResults);
 			this.ReplaceText("report_interpretation", testOrder.Interpretation);
 			this.ReplaceText("report_method", testOrder.Method);
-			this.ReplaceText("report_references", testOrder.References);
+			this.ReplaceText("report_references", testOrder.ReportReferences);
 
 			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrder.OrderedOn, this.m_PanelSetOrder.OrderedOnId);
 			base.ReplaceText("specimen_description", specimenOrder.Description);

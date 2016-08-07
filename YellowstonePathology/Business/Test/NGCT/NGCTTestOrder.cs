@@ -16,7 +16,6 @@ namespace YellowstonePathology.Business.Test.NGCT
 		private string m_CTResultCode;
 		private string m_Comment;
 		private string m_Method;
-		private string m_References;		
         private string m_TestInformation;
 
 		public NGCTTestOrder()
@@ -31,7 +30,7 @@ namespace YellowstonePathology.Business.Test.NGCT
 			: base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute)
 		{
             this.m_Method = NGCTResult.Method;
-            this.m_References = NGCTResult.References;
+            this.m_ReportReferences = NGCTResult.References;
             this.m_TestInformation = NGCTResult.TestInformation;
             this.m_TechnicalComponentInstrumentId = Instrument.HOLOGICPANTHERID;
         }		
@@ -158,20 +157,6 @@ namespace YellowstonePathology.Business.Test.NGCT
 				}
 			}
 		}
-
-		[PersistentProperty()]
-		public string References
-		{
-			get { return this.m_References; }
-			set
-			{
-				if (this.m_References != value)
-				{
-					this.m_References = value;
-					this.NotifyPropertyChanged("References");
-				}
-			}
-		}		
 
         [PersistentProperty()]
         public string TestInformation

@@ -55,7 +55,7 @@ namespace YellowstonePathology.Business.Test.MPNStandardReflex
 			this.AddNextObxElement("", document, "F");
 
 			this.AddNextObxElement("References: ", document, "F");
-			this.HandleLongString(mpnStandardReflexResult.PanelSetOrderMPNStandardReflex.References, document, "F");
+			this.HandleLongString(mpnStandardReflexResult.PanelSetOrderMPNStandardReflex.ReportReferences, document, "F");
 			this.AddNextObxElement("", document, "F");
 
             string locationPerformed = mpnStandardReflexResult.PanelSetOrderMPNStandardReflex.GetLocationPerformedComment();

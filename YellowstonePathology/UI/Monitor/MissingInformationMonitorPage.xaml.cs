@@ -66,7 +66,7 @@ namespace YellowstonePathology.UI.Monitor
                 this.m_LoginPageWindow = new Login.Receiving.LoginPageWindow();
                 this.m_LoginPageWindow.Show();
 
-                YellowstonePathology.Business.Test.MissingInformation.MissingInformtionTestOrder missingInformationTestOrder = (YellowstonePathology.Business.Test.MissingInformation.MissingInformtionTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(missingInformation.ReportNo);
+                YellowstonePathology.Business.Test.MissingInformation.MissingInformationTestOrder missingInformationTestOrder = (YellowstonePathology.Business.Test.MissingInformation.MissingInformationTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(missingInformation.ReportNo);
                 YellowstonePathology.UI.Test.ResultPathFactory resultPathFactory = new Test.ResultPathFactory();
                 resultPathFactory.Start(missingInformationTestOrder, accessionOrder, this.m_LoginPageWindow.PageNavigator, System.Windows.Window.GetWindow(this), Visibility.Collapsed);
                 resultPathFactory.Finished += ResultPathFactory_Finished;

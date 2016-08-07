@@ -39,7 +39,7 @@ namespace YellowstonePathology.Business.Test.HPV1618ByPCR
             panelSetOrder.HPV16Result = this.m_HPV16Result;
             panelSetOrder.HPV18Result = this.m_HPV18Result;
             panelSetOrder.Method = this.m_Method;
-            panelSetOrder.References = this.m_References;            
+            panelSetOrder.ReportReferences = this.m_References;            
             panelSetOrder.Interpretation = this.m_SquamousCellCarcinomaInterpretation;            
 		}
 
@@ -54,7 +54,7 @@ namespace YellowstonePathology.Business.Test.HPV1618ByPCR
 		public void Clear(HPV1618ByPCRTestOrder hpv1618ByPCRTestOrder)
         {
             hpv1618ByPCRTestOrder.Method = null;
-            hpv1618ByPCRTestOrder.References = null;
+            hpv1618ByPCRTestOrder.ReportReferences = null;
             hpv1618ByPCRTestOrder.Interpretation = null;
             hpv1618ByPCRTestOrder.HPV16Result = null;
             hpv1618ByPCRTestOrder.HPV18Result = null;

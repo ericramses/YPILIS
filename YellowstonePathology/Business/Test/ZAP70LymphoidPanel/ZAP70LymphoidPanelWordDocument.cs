@@ -33,7 +33,7 @@ namespace YellowstonePathology.Business.Test.ZAP70LymphoidPanel
 			this.ReplaceText("report_lymphocytes", panelSetOrderZap70.Lymphocytes);
 			this.ReplaceText("report_population_analysis", panelSetOrderZap70.PopulationAnalysis);
 			this.ReplaceText("report_markers_performed", panelSetOrderZap70.MarkersPerformed);
-			this.SetXMLNodeParagraphData("report_references", panelSetOrderZap70.References);
+			this.SetXMLNodeParagraphData("report_references", panelSetOrderZap70.ReportReferences);
 
 			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrder.OrderedOn, this.m_PanelSetOrder.OrderedOnId);
 			base.ReplaceText("specimen_description", specimenOrder.Description);

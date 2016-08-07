@@ -50,7 +50,7 @@ namespace YellowstonePathology.Business.Test.CKIT
 
 			this.AddNextObxElement("", document, "F");
 			this.AddNextObxElement("References:", document, "F");
-			this.HandleLongString(panelSetOrder.References, document, "F");			
+			this.HandleLongString(panelSetOrder.ReportReferences, document, "F");			
 		}
 	}
 }

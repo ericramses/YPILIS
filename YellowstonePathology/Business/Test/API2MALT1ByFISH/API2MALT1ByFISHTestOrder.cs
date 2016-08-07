@@ -14,7 +14,6 @@ namespace YellowstonePathology.Business.Test.API2MALT1ByFISH
 		private string m_Interpretation;
 		private string m_ProbeSetDetail;
 		private string m_NucleiScored;
-		private string m_References;
 
 		public API2MALT1ByFISHTestOrder()
 		{
@@ -95,20 +94,6 @@ namespace YellowstonePathology.Business.Test.API2MALT1ByFISH
 				{
 					this.m_NucleiScored = value;
 					this.NotifyPropertyChanged("NucleiScored");
-				}
-			}
-		}
-
-		[PersistentProperty()]
-		public string References
-		{
-			get { return this.m_References; }
-			set
-			{
-				if (this.m_References != value)
-				{
-					this.m_References = value;
-					this.NotifyPropertyChanged("References");
 				}
 			}
 		}

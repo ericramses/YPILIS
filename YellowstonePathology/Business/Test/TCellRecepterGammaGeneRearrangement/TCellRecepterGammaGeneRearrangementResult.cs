@@ -26,7 +26,7 @@ namespace YellowstonePathology.Business.Test.TCellRecepterGammaGeneRearrangement
             tCellRecepterGammaGeneRearrangementTestOrder.Result = this.m_Result;
             tCellRecepterGammaGeneRearrangementTestOrder.Interpretation = this.m_Interpretation;
             tCellRecepterGammaGeneRearrangementTestOrder.Method = TCellRecepterGammaGeneRearrangementResult.Method;
-            tCellRecepterGammaGeneRearrangementTestOrder.References = TCellRecepterGammaGeneRearrangementResult.References;
+            tCellRecepterGammaGeneRearrangementTestOrder.ReportReferences = TCellRecepterGammaGeneRearrangementResult.References;
 		}
 	}
 }

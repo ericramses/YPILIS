@@ -1046,6 +1046,8 @@
     <Compile Include="Business\Test\JAK2V617F\JAK2V617FWPHObxView.cs" />
     <Compile Include="Business\Test\MUM1ByIHC\MUM1ByIHCTest.cs" />
     <Compile Include="Business\Test\PlateletAssociatedAntibodies\PlateletAssociatedAntibodiesEPICOBXView.cs" />
+    <Compile Include="MySQLMigration\MigrationStatus.cs" />
+    <Compile Include="MySQLMigration\MigrationStatusCollection.cs" />
     <Compile Include="MySQLMigration\MySQLDatabaseBuilder.cs" />
     <Compile Include="Business\NeogenomicsResult.cs" />
     <Compile Include="Business\NeogenomicsResultCollection.cs" />
@@ -3185,6 +3187,9 @@
     <Compile Include="UI\Monitor\ReportDistributionDownMonitorPage.xaml.cs">
       <DependentUpon>ReportDistributionDownMonitorPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\MySql\MySqlMigrationDialog.xaml.cs">
+      <DependentUpon>MySqlMigrationDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\NHunspell.xaml.cs">
       <DependentUpon>NHunspell.xaml</DependentUpon>
     </Compile>
@@ -5046,6 +5051,10 @@
     <Page Include="UI\Monitor\ReportDistributionDownMonitorPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\MySql\MySqlMigrationDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\NHunspell.xaml">
       <SubType>Designer</SubType>

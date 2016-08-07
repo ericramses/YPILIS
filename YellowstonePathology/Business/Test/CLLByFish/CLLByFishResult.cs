@@ -21,7 +21,7 @@ namespace YellowstonePathology.Business.Test.CLLByFish
 			testOrder.Result = this.m_Result;
 			testOrder.Interpretation = this.m_Interpretation;
 			testOrder.ProbeSetDetail = this.m_ProbeSetDetail;
-			testOrder.References = this.m_References;
+			testOrder.ReportReferences = this.m_References;
 		}
 	}
 }

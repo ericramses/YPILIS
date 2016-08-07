@@ -49,7 +49,7 @@ namespace YellowstonePathology.Business.Test.HPV1618
             this.AddBlankNteElement(document);
 
 			this.AddNextNteElement("References:", document);
-			this.HandleLongString(panelSetOrder.References, document);
+			this.HandleLongString(panelSetOrder.ReportReferences, document);
 			this.AddBlankNteElement(document);
 
 			this.AddNextNteElement("This test was developed and its performance characteristics determined by Yellowstone Pathology Institute, Inc.  It has not been cleared or approved by the U.S. Food and Drug Administration. The FDA has determined that such clearance or approval is not necessary.  This test is used for clinical purposes.  It should not be regarded as investigational or for research.  This laboratory is certified under the Clinical Laboratory Improvement Amendments of 1988 (CLIA-88) as qualified to perform high complexity clinical laboratory testing.", document);

@@ -26,7 +26,7 @@ namespace YellowstonePathology.Business.Test.TCellRecepterBetaGeneRearrangement
             tCellRecepterBetaGeneRearrangementTestOrder.Result = this.m_Result;
             tCellRecepterBetaGeneRearrangementTestOrder.Interpretation = this.m_Interpretation;
             tCellRecepterBetaGeneRearrangementTestOrder.Method = TCellRecepterBetaGeneRearrangementResult.Method;
-            tCellRecepterBetaGeneRearrangementTestOrder.References = TCellRecepterBetaGeneRearrangementResult.References;
+            tCellRecepterBetaGeneRearrangementTestOrder.ReportReferences = TCellRecepterBetaGeneRearrangementResult.References;
 		}
 	}
 }

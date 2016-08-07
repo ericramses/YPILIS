@@ -89,7 +89,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
             this.AddNextObxElement(string.Empty, document, "F");
 
             this.AddNextObxElement("References: ", document, "F");
-            this.AddNextObxElement(panelSetOrderCytology.References, document, "F");
+            this.AddNextObxElement(panelSetOrderCytology.ReportReferences, document, "F");
             this.AddNextObxElement(string.Empty, document, "F");
 
             string disclaimer = "This Pap test is only a screening test. A negative result does not definitively rule out the presence of disease. Women should, therefore, in consultation with their physician, have this test performed at mutually agreed intervals.";            

@@ -13,7 +13,6 @@ namespace YellowstonePathology.Business.Test.HPV1618
 		private string m_HPV16ResultCode;
         private string m_HPV18Result;
         private string m_HPV18ResultCode;
-        private string m_References;
 		private string m_Method;		        
         private string m_Comment;
 
@@ -30,7 +29,7 @@ namespace YellowstonePathology.Business.Test.HPV1618
 		{
             this.m_TechnicalComponentInstrumentId = Instrument.HOLOGICPANTHERID;
             this.m_Method = HPV1618Result.Method;
-            this.m_References = HPV1618Result.References;
+            this.m_ReportReferences = HPV1618Result.References;
         }               
 
 		[PersistentProperty()]
@@ -88,20 +87,6 @@ namespace YellowstonePathology.Business.Test.HPV1618
                 }
             }
         }
-
-        [PersistentProperty()]
-		public string References
-		{
-            get { return this.m_References; }
-			set
-			{
-                if (this.m_References != value)
-				{
-                    this.m_References = value;
-                    this.NotifyPropertyChanged("References");
-				}
-			}
-		}
 
 		[PersistentProperty()]
 		public string Method

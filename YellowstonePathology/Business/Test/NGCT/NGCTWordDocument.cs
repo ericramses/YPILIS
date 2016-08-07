@@ -48,7 +48,7 @@ namespace YellowstonePathology.Business.Test.NGCT
 			}
 
 			base.ReplaceText("report_method", testOrder.Method);
-			base.ReplaceText("report_references", testOrder.References);
+			base.ReplaceText("report_references", testOrder.ReportReferences);
 			base.ReplaceText("test_information", testOrder.TestInformation);
 				
             this.SaveReport();

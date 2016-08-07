@@ -31,7 +31,6 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
         private string m_BRAFConsequence;
         private string m_BRAFPredictedEffectOnProtein;
         private string m_Method;
-        private string m_References;
         private string m_ReportDisclaimer;
         private string m_Interpretation;
         private string m_Comment;
@@ -48,7 +47,7 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
 			: base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute)
 		{
         	this.m_Method = RASRAFPanelResult.Method;
-        	this.m_References = RASRAFPanelResult.References;
+        	this.m_ReportReferences = RASRAFPanelResult.References;
         }
 
         [PersistentProperty()]
@@ -61,20 +60,6 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
                 {
                     this.m_Method = value;
                     this.NotifyPropertyChanged("Method");
-                }
-            }
-        }
-
-        [PersistentProperty()]
-        public string References
-        {
-            get { return this.m_References; }
-            set
-            {
-                if (this.m_References != value)
-                {
-                    this.m_References = value;
-                    this.NotifyPropertyChanged("References");
                 }
             }
         }

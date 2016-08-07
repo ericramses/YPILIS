@@ -54,7 +54,7 @@ namespace YellowstonePathology.Business.Test.API2MALT1ByPCR
 
             this.AddNextObxElement("", document, "F");
             this.AddNextObxElement("References:", document, "F");
-            this.HandleLongString(testOrder.References, document, "F");
+            this.HandleLongString(testOrder.ReportReferences, document, "F");
 
             this.AddNextObxElement("", document, "F");
             string locationPerformed = testOrder.GetLocationPerformedComment();

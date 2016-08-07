@@ -14,7 +14,6 @@ namespace YellowstonePathology.Business.Test.CLLByFish
 		private string m_Interpretation;
 		private string m_ProbeSetDetail;
 		private string m_NucleiScored;
-		private string m_References;
 
 		public CLLByFishTestOrder()
 		{
@@ -26,7 +25,7 @@ namespace YellowstonePathology.Business.Test.CLLByFish
 			bool distribute)
 			: base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute)
 		{
-            this.m_References = "1. Dohner H, et al. N Engl J Med 2000; 343:1910-6." + Environment.NewLine +
+            this.m_ReportReferences = "1. Dohner H, et al. N Engl J Med 2000; 343:1910-6." + Environment.NewLine +
                 "2.Hamblin TJ.Best Practice &Research Clinical Haematology. 2007; 20(3):455 - 68." + Environment.NewLine +
                 "3.Nowakowski GS, et al. Br J Hematol. 2005; 130:36 - 42." + Environment.NewLine +
                 "4.Atlas of Genetics and Cytogenetics in Oncology and Hematology http://atlasgeneticsoncology.org/";
@@ -98,20 +97,6 @@ namespace YellowstonePathology.Business.Test.CLLByFish
 				{
 					this.m_NucleiScored = value;
 					this.NotifyPropertyChanged("NucleiScored");
-				}
-			}
-		}
-
-		[PersistentProperty()]
-		public string References
-		{
-			get { return this.m_References; }
-			set
-			{
-				if (this.m_References != value)
-				{
-					this.m_References = value;
-					this.NotifyPropertyChanged("References");
 				}
 			}
 		}

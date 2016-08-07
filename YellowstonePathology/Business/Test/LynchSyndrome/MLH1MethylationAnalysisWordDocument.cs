@@ -30,7 +30,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 			this.ReplaceText("report_result", panelSetOrderMLH1MethylationAnalysis.Result);
 			this.ReplaceText("report_interpretation", panelSetOrderMLH1MethylationAnalysis.Interpretation);
 			this.ReplaceText("report_method", panelSetOrderMLH1MethylationAnalysis.Method);
-			this.ReplaceText("report_references", panelSetOrderMLH1MethylationAnalysis.References);
+			this.ReplaceText("report_references", panelSetOrderMLH1MethylationAnalysis.ReportReferences);
 			this.ReplaceText("mlh1_methylation_percent", panelSetOrderMLH1MethylationAnalysis.MLH1MethylationPercent);
 
 			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrder.OrderedOn, this.m_PanelSetOrder.OrderedOnId);

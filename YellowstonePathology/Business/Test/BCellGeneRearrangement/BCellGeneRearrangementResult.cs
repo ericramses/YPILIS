@@ -22,7 +22,7 @@ namespace YellowstonePathology.Business.Test.BCellGeneRearrangement
 		public void SetResults(BCellGeneRearrangementTestOrder testOrder)
 		{
 			testOrder.Method = m_Method;
-			testOrder.References = m_References;
+			testOrder.ReportReferences = m_References;
 
 			StringBuilder disclaimer = new StringBuilder();
             disclaimer.AppendLine(testOrder.GetLocationPerformedComment());

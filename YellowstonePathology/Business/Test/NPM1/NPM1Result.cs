@@ -28,7 +28,7 @@ namespace YellowstonePathology.Business.Test.NPM1
 			panelSetOrderNPM1.PercentageNPM1Mutation = this.m_PercentageNPM1Mutation;
 			panelSetOrderNPM1.Interpretation = this.m_Interpretation;
 			panelSetOrderNPM1.Method = NPM1Result.Method;
-			panelSetOrderNPM1.References = NPM1Result.References;
+			panelSetOrderNPM1.ReportReferences = NPM1Result.References;
 		}
 	}
 }

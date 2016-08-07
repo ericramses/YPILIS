@@ -41,7 +41,7 @@ namespace YellowstonePathology.Business.Test.NonHodgkinsLymphomaFISHPanel
 			this.SetXMLNodeParagraphData("report_interpretation", nonHodgkinsLymphomaFISHPanelTestOrder.Interpretation);
 			this.SetXMLNodeParagraphData("nuclei_scored", nonHodgkinsLymphomaFISHPanelTestOrder.NucleiScored);
 			this.SetXMLNodeParagraphData("probeset_details", nonHodgkinsLymphomaFISHPanelTestOrder.ProbeSetDetail);
-			this.SetXMLNodeParagraphData("report_reference", nonHodgkinsLymphomaFISHPanelTestOrder.References);
+			this.SetXMLNodeParagraphData("report_reference", nonHodgkinsLymphomaFISHPanelTestOrder.ReportReferences);
 			this.ReplaceText("report_disclaimer", nonHodgkinsLymphomaFISHPanelTestOrder.ReportDisclaimer);
 
 			this.ReplaceText("report_date", BaseData.GetShortDateString(this.m_PanelSetOrder.ReferenceLabFinalDate));

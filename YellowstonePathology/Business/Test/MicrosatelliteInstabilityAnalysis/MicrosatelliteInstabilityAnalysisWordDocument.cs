@@ -36,7 +36,7 @@ namespace YellowstonePathology.Business.Test.MicrosatelliteInstabilityAnalysis
 			this.ReplaceText("report_d2s123_instability", testOrder.D2S123Instability);
 			this.ReplaceText("report_interpretation", testOrder.Interpretation);
 			this.ReplaceText("report_method", testOrder.Method);
-			this.ReplaceText("report_references", testOrder.References);
+			this.ReplaceText("report_references", testOrder.ReportReferences);
 			this.ReplaceText("test_development", testOrder.TestDevelopment);
 
 			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrder.OrderedOn, this.m_PanelSetOrder.OrderedOnId);

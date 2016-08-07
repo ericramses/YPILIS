@@ -52,7 +52,7 @@ namespace YellowstonePathology.Business.Test.CCNDIBCLIGHByFISH
 
 			this.AddNextObxElement("", document, "F");
 			this.AddNextObxElement("References:", document, "F");
-			this.HandleLongString(panelSetOrder.References, document, "F");
+			this.HandleLongString(panelSetOrder.ReportReferences, document, "F");
 
 			this.AddNextObxElement("", document, "F");
             string locationPerformed = panelSetOrder.GetLocationPerformedComment();

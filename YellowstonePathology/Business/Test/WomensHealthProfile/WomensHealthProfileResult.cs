@@ -38,7 +38,7 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
             {
 				YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology panelSetOrderCytology = (YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_PanelSetThinPrepPap.PanelSetId);
                 this.m_Method.Append("Thin Prep Pap: " + panelSetOrderCytology.Method);                
-                this.m_References.Append("Thin Prep Pap: " + panelSetOrderCytology.References);
+                this.m_References.Append("Thin Prep Pap: " + panelSetOrderCytology.ReportReferences);
             }
 
             if (this.m_HasHighRiskHPV == true)
@@ -53,7 +53,7 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
                     this.m_References.AppendLine();
                 }
                 this.m_Method.AppendLine("High Risk HPV: " + hpvTestOrder.TestInformation);
-                this.m_References.AppendLine("High Risk HPV: " + hpvTestOrder.References);
+                this.m_References.AppendLine("High Risk HPV: " + hpvTestOrder.ReportReferences);
             }            
         }       
 

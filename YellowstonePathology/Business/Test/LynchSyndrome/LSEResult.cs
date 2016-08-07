@@ -102,7 +102,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             panelSetOrderLynchSyndromEvaluation.Comment = this.m_Comment;
             panelSetOrderLynchSyndromEvaluation.BRAFIsIndicated = this.m_BRAFIsIndicated;
             panelSetOrderLynchSyndromEvaluation.Method = this.m_Method;
-            panelSetOrderLynchSyndromEvaluation.References = this.m_References;			
+            panelSetOrderLynchSyndromEvaluation.ReportReferences = this.m_References;			
         }
 
 		public static LSEResult GetResult(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromEvaluation)

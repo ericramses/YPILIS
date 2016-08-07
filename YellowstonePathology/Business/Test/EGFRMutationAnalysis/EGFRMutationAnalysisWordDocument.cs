@@ -53,7 +53,7 @@ namespace YellowstonePathology.Business.Test.EGFRMutationAnalysis
             }
 
             this.SetXMLNodeParagraphData("report_method", egfrMutationAnalysisTestOrder.Method);
-            this.SetXMLNodeParagraphData("report_references", egfrMutationAnalysisTestOrder.References);
+            this.SetXMLNodeParagraphData("report_references", egfrMutationAnalysisTestOrder.ReportReferences);
             this.SetXMLNodeParagraphData("report_disclaimer", egfrMutationAnalysisTestOrder.ReportDisclaimer);
 
             this.ReplaceText("report_date", BaseData.GetShortDateString(this.m_PanelSetOrder.FinalDate));			

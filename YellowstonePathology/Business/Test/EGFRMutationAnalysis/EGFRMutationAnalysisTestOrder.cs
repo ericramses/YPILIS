@@ -13,7 +13,6 @@ namespace YellowstonePathology.Business.Test.EGFRMutationAnalysis
         private string m_Result;
         private string m_Mutation;
         private string m_Method;
-        private string m_References;
         private string m_Indication;
         private string m_Interpretation;
         private bool m_MicrodissectionPerformed;
@@ -101,20 +100,6 @@ namespace YellowstonePathology.Business.Test.EGFRMutationAnalysis
                 {
                     this.m_Interpretation = value;
                     this.NotifyPropertyChanged("Interpretation");
-                }
-            }
-        }
-
-		[PersistentProperty()]
-		public string References
-        {
-            get { return this.m_References; }
-            set
-            {
-                if (this.m_References != value)
-                {
-                    this.m_References = value;
-                    this.NotifyPropertyChanged("References");
                 }
             }
         }

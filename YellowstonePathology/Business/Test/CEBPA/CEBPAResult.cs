@@ -23,7 +23,7 @@ namespace YellowstonePathology.Business.Test.CEBPA
 			panelSetOrderCEBPA.SNPResult = this.m_SNPResult;
 			panelSetOrderCEBPA.Interpretation = this.m_Interpretation;
 			panelSetOrderCEBPA.Method = this.m_Method;
-			panelSetOrderCEBPA.References = this.m_References;
+			panelSetOrderCEBPA.ReportReferences = this.m_References;
 		}
 	}
 }

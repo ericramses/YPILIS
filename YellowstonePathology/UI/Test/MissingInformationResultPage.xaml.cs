@@ -29,14 +29,14 @@ namespace YellowstonePathology.UI.Test
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         private string m_PageHeaderText;
 
-        private YellowstonePathology.Business.Test.MissingInformation.MissingInformtionTestOrder m_MissingInformtionTestOrder;
+        private YellowstonePathology.Business.Test.MissingInformation.MissingInformationTestOrder m_MissingInformationTestOrder;
 
-        public MissingInformationResultPage(YellowstonePathology.Business.Test.MissingInformation.MissingInformtionTestOrder missingInformationTestOrder,
+        public MissingInformationResultPage(YellowstonePathology.Business.Test.MissingInformation.MissingInformationTestOrder missingInformationTestOrder,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder) : base(missingInformationTestOrder, accessionOrder)
 		{            
 			this.m_AccessionOrder = accessionOrder;						             
 
-			this.m_MissingInformtionTestOrder = missingInformationTestOrder;
+			this.m_MissingInformationTestOrder = missingInformationTestOrder;
             this.m_PageHeaderText = "Missing Information For: " + this.m_AccessionOrder.PatientDisplayName;
 
 			InitializeComponent();            
@@ -52,9 +52,9 @@ namespace YellowstonePathology.UI.Test
             get { return this.m_AccessionOrder; }
         }
 
-		public YellowstonePathology.Business.Test.MissingInformation.MissingInformtionTestOrder MissingInformtionTestOrder
+		public YellowstonePathology.Business.Test.MissingInformation.MissingInformationTestOrder MissingInformtionTestOrder
         {
-            get { return this.m_MissingInformtionTestOrder; }
+            get { return this.m_MissingInformationTestOrder; }
         }        
 
         public void NotifyPropertyChanged(String info)
@@ -77,9 +77,9 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkFinalize_Click(object sender, RoutedEventArgs e)
 		{
-			if (this.m_MissingInformtionTestOrder.Final == false)
+			if (this.m_MissingInformationTestOrder.Final == false)
 			{				
-				this.m_MissingInformtionTestOrder.Finish(this.m_AccessionOrder);				
+				this.m_MissingInformationTestOrder.Finish(this.m_AccessionOrder);				
 			}
 			else
 			{
@@ -89,9 +89,9 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkUnfinalResults_Click(object sender, RoutedEventArgs e)
 		{
-			if (this.m_MissingInformtionTestOrder.Final == true)
+			if (this.m_MissingInformationTestOrder.Final == true)
 			{
-				this.m_MissingInformtionTestOrder.Unfinalize();
+				this.m_MissingInformationTestOrder.Unfinalize();
 			}
 			else
 			{
@@ -101,9 +101,9 @@ namespace YellowstonePathology.UI.Test
 
         private void HyperLinkFirstCall_Click(object sender, RoutedEventArgs e)
         {            
-            if (this.m_MissingInformtionTestOrder.FirstCall == false)
+            if (this.m_MissingInformationTestOrder.FirstCall == false)
             {
-                this.m_MissingInformtionTestOrder.SetFirstCall();
+                this.m_MissingInformationTestOrder.SetFirstCall();
             }
             else
             {
@@ -113,9 +113,9 @@ namespace YellowstonePathology.UI.Test
 
         private void HyperLinkSecondCall_Click(object sender, RoutedEventArgs e)
         {
-            if (this.m_MissingInformtionTestOrder.SecondCall == false)
+            if (this.m_MissingInformationTestOrder.SecondCall == false)
             {
-                this.m_MissingInformtionTestOrder.SetSecondCall();
+                this.m_MissingInformationTestOrder.SetSecondCall();
             }
             else
             {
@@ -125,9 +125,9 @@ namespace YellowstonePathology.UI.Test
 
         private void HyperLinkThirdCall_Click(object sender, RoutedEventArgs e)
         {
-            if (this.m_MissingInformtionTestOrder.ThirdCall == false)
+            if (this.m_MissingInformationTestOrder.ThirdCall == false)
             {
-                this.m_MissingInformtionTestOrder.SetThirdCall();
+                this.m_MissingInformationTestOrder.SetThirdCall();
             }
             else
             {
@@ -137,11 +137,11 @@ namespace YellowstonePathology.UI.Test
 
         private void HyperLinkFax_Click(object sender, RoutedEventArgs e)
         {
-            if (this.m_MissingInformtionTestOrder.Fax == false)
+            if (this.m_MissingInformationTestOrder.Fax == false)
             {
-                this.m_MissingInformtionTestOrder.Fax = true;
-                this.m_MissingInformtionTestOrder.FaxSentBy = Business.User.SystemIdentity.Instance.User.DisplayName;
-                this.m_MissingInformtionTestOrder.TimeFaxSent = DateTime.Now;
+                this.m_MissingInformationTestOrder.Fax = true;
+                this.m_MissingInformationTestOrder.FaxSentBy = Business.User.SystemIdentity.Instance.User.DisplayName;
+                this.m_MissingInformationTestOrder.TimeFaxSent = DateTime.Now;
                 this.NotifyPropertyChanged("FaxDisplayString");
             }
             else
@@ -152,11 +152,11 @@ namespace YellowstonePathology.UI.Test
 
         private void HyperLinkClientSystemLookup_Click(object sender, RoutedEventArgs e)
         {
-            if (this.m_MissingInformtionTestOrder.ClientSystemLookup == false)
+            if (this.m_MissingInformationTestOrder.ClientSystemLookup == false)
             {
-                this.m_MissingInformtionTestOrder.ClientSystemLookup = true;
-                this.m_MissingInformtionTestOrder.ClientSystemLookupBy = Business.User.SystemIdentity.Instance.User.DisplayName;
-                this.m_MissingInformtionTestOrder.TimeOfClientSystemLookup = DateTime.Now;
+                this.m_MissingInformationTestOrder.ClientSystemLookup = true;
+                this.m_MissingInformationTestOrder.ClientSystemLookupBy = Business.User.SystemIdentity.Instance.User.DisplayName;
+                this.m_MissingInformationTestOrder.TimeOfClientSystemLookup = DateTime.Now;
                 this.NotifyPropertyChanged("ClientSystemLookupDisplayString");
             }
             else
@@ -167,28 +167,28 @@ namespace YellowstonePathology.UI.Test
 
         private void HyperLinkClearResults_Click(object sender, RoutedEventArgs e)
         {
-            this.m_MissingInformtionTestOrder.FirstCall = false;
-            this.m_MissingInformtionTestOrder.FirstCallMadeBy = null;
-            this.m_MissingInformtionTestOrder.TimeOfFirstCall = null;
-            this.m_MissingInformtionTestOrder.FirstCallComment = null;
+            this.m_MissingInformationTestOrder.FirstCall = false;
+            this.m_MissingInformationTestOrder.FirstCallMadeBy = null;
+            this.m_MissingInformationTestOrder.TimeOfFirstCall = null;
+            this.m_MissingInformationTestOrder.FirstCallComment = null;
 
-            this.m_MissingInformtionTestOrder.SecondCall = false;
-            this.m_MissingInformtionTestOrder.SecondCallMadeBy = null;
-            this.m_MissingInformtionTestOrder.TimeOfSecondCall = null;
-            this.m_MissingInformtionTestOrder.SecondCallComment = null;
+            this.m_MissingInformationTestOrder.SecondCall = false;
+            this.m_MissingInformationTestOrder.SecondCallMadeBy = null;
+            this.m_MissingInformationTestOrder.TimeOfSecondCall = null;
+            this.m_MissingInformationTestOrder.SecondCallComment = null;
 
-            this.m_MissingInformtionTestOrder.ThirdCall = false;
-            this.m_MissingInformtionTestOrder.ThirdCallMadeBy = null;
-            this.m_MissingInformtionTestOrder.TimeOfThirdCall = null;
-            this.m_MissingInformtionTestOrder.ThirdCallComment = null;
+            this.m_MissingInformationTestOrder.ThirdCall = false;
+            this.m_MissingInformationTestOrder.ThirdCallMadeBy = null;
+            this.m_MissingInformationTestOrder.TimeOfThirdCall = null;
+            this.m_MissingInformationTestOrder.ThirdCallComment = null;
 
-            this.m_MissingInformtionTestOrder.Fax = false;
-            this.m_MissingInformtionTestOrder.FaxSentBy = null;
-            this.m_MissingInformtionTestOrder.TimeFaxSent = null;
+            this.m_MissingInformationTestOrder.Fax = false;
+            this.m_MissingInformationTestOrder.FaxSentBy = null;
+            this.m_MissingInformationTestOrder.TimeFaxSent = null;
 
-            this.m_MissingInformtionTestOrder.ClientSystemLookup = false;
-            this.m_MissingInformtionTestOrder.ClientSystemLookupBy = null;
-            this.m_MissingInformtionTestOrder.TimeOfClientSystemLookup = null;
+            this.m_MissingInformationTestOrder.ClientSystemLookup = false;
+            this.m_MissingInformationTestOrder.ClientSystemLookupBy = null;
+            this.m_MissingInformationTestOrder.TimeOfClientSystemLookup = null;
 
             this.NotifyPropertyChanged("*");
         }

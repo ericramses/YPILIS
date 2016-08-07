@@ -7,7 +7,7 @@ using YellowstonePathology.Business.Persistence;
 
 namespace YellowstonePathology.Business.PanelSet.Model
 {
-	[PersistentClass("tblAutopsyResult", "YPIDATA")]
+	//[PersistentClass("tblAutopsyResult", "YPIDATA")]
 	public class AutopsyResult : INotifyPropertyChanged
 	{
 		public event PropertyChangedEventHandler PropertyChanged;

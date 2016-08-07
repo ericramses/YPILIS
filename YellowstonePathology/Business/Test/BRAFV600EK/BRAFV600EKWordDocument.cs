@@ -46,7 +46,7 @@ namespace YellowstonePathology.Business.Test.BRAFV600EK
 			this.ReplaceText("report_indication_comment", panelSetOrder.IndicationComment);
 			this.ReplaceText("tumor_nuclei_percent", panelSetOrder.TumorNucleiPercentage);
 			this.ReplaceText("report_method", panelSetOrder.Method);
-			this.ReplaceText("report_reference", panelSetOrder.References);
+			this.ReplaceText("report_reference", panelSetOrder.ReportReferences);
             this.ReplaceText("report_disclaimer", panelSetOrder.ReportDisclaimer);
 
             YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrder.OrderedOn, this.m_PanelSetOrder.OrderedOnId);

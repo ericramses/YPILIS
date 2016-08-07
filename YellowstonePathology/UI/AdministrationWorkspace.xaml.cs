@@ -1000,14 +1000,18 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
-            string result = "Done";
-            YellowstonePathology.MySQLMigration.MySQLDatabaseBuilder builder = new MySQLMigration.MySQLDatabaseBuilder();
-            //builder.CreatePersistentClassDetails();
-            //builder.BuildDataBase();
-            Type type = typeof(YellowstonePathology.Business.Typing.TypingShortcut);
-            builder.LoadData(type);
+            /*MySQLMigration.MySQLDatabaseBuilder builder = new MySQLMigration.MySQLDatabaseBuilder();
+            MySQLMigration.MigrationStatusCollection migrationStatusCollection = MySQLMigration.MigrationStatusCollection.GetAll();
+            StringBuilder stringBuilder = new StringBuilder();
+            foreach(MySQLMigration.MigrationStatus migrationStatus in migrationStatusCollection)
+            {
+                stringBuilder.AppendLine("update " + migrationStatus.TableName + " set transferred = 0 where transferred = 1");
+            }
 
-            MessageBox.Show(result);
+            using (StreamWriter writer = new StreamWriter(@"C:\TEMP\DropColumn.txt", false))
+            {
+                writer.Write(stringBuilder);
+            }*/
         }
 
         private string CallBackOne(string x)

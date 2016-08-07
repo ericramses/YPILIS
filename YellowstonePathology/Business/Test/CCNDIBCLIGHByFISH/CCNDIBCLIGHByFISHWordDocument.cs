@@ -31,7 +31,7 @@ namespace YellowstonePathology.Business.Test.CCNDIBCLIGHByFISH
             this.SetXmlNodeData("report_interpretation", panelSetOrderCCNDIBCLIGH.Interpretation);
             this.SetXmlNodeData("probe_set_detail", panelSetOrderCCNDIBCLIGH.ProbeSetDetail);
 			this.ReplaceText("nuclei_scored", panelSetOrderCCNDIBCLIGH.NucleiScored);
-            this.SetXmlNodeData("report_references", panelSetOrderCCNDIBCLIGH.References);
+            this.SetXmlNodeData("report_references", panelSetOrderCCNDIBCLIGH.ReportReferences);
 
 			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrder.OrderedOn, this.m_PanelSetOrder.OrderedOnId);
 			base.ReplaceText("specimen_description", specimenOrder.Description);

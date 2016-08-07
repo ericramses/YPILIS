@@ -47,7 +47,7 @@ namespace YellowstonePathology.Business.Test.BCellClonalityByPCR
 			this.ReplaceText("report_interpretation", testOrder.Interpretation);
 			this.ReplaceText("tumor_nuclei_percent", testOrder.TumorNucleiPercent);
 			this.ReplaceText("report_method", testOrder.Method);
-			this.ReplaceText("report_references", testOrder.References);
+			this.ReplaceText("report_references", testOrder.ReportReferences);
 			this.ReplaceText("asr_comment", testOrder.ASRComment);
 
 			YellowstonePathology.Business.Document.AmendmentSection amendment = new YellowstonePathology.Business.Document.AmendmentSection();

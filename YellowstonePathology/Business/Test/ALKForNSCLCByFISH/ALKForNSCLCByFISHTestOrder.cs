@@ -14,7 +14,6 @@ namespace YellowstonePathology.Business.Test.ALKForNSCLCByFISH
 		private string m_ReferenceRange;
 		private string m_ProbeSetDetail;
 		private string m_NucleiScored;
-		private string m_References;
 		private string m_NucleiPercent;
 		private string m_Fusions;
         private string m_Method;
@@ -103,20 +102,6 @@ namespace YellowstonePathology.Business.Test.ALKForNSCLCByFISH
 				{
 					this.m_NucleiScored = value;
 					this.NotifyPropertyChanged("NucleiScored");
-				}
-			}
-		}
-
-		[PersistentProperty()]
-		public string References
-		{
-			get { return this.m_References; }
-			set
-			{
-				if (this.m_References != value)
-				{
-					this.m_References = value;
-					this.NotifyPropertyChanged("References");
 				}
 			}
 		}

@@ -12,7 +12,6 @@ namespace YellowstonePathology.Business.Test.HPV
 
 		private string m_Result;
 		private string m_Comment;
-		private string m_References;
 		private string m_TestInformation;
         private string m_ASRComment;
 
@@ -28,7 +27,7 @@ namespace YellowstonePathology.Business.Test.HPV
 			: base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute)
 		{
             this.m_TestInformation = HPVResult.TestInformation;
-            this.m_References = HPVResult.References;
+            this.m_ReportReferences = HPVResult.References;
             this.m_ASRComment = HPVResult.ASRComment;
             this.m_TechnicalComponentInstrumentId = Instrument.HOLOGICPANTHERID;
 		}        
@@ -57,20 +56,6 @@ namespace YellowstonePathology.Business.Test.HPV
 				{
 					this.m_Comment = value;
 					this.NotifyPropertyChanged("Comment");
-				}
-			}
-		}
-
-		[PersistentProperty()]
-		public string References
-		{
-			get { return this.m_References; }
-			set
-			{
-				if (this.m_References != value)
-				{
-					this.m_References = value;
-					this.NotifyPropertyChanged("References");
 				}
 			}
 		}
