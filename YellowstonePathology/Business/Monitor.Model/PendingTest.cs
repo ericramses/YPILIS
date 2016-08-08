@@ -28,7 +28,7 @@ namespace YellowstonePathology.Business.Monitor.Model
         private string m_GoalTimeString;
         private TimeSpan m_Difference;
         private string m_DifferenceString;
-        private bool m_Delayed;
+        private bool m_IsDelayed;
 
         public PendingTest()
         {
@@ -134,15 +134,15 @@ namespace YellowstonePathology.Business.Monitor.Model
         }
 
         [PersistentProperty()]
-        public bool Delayed
+        public bool IsDelayed
         {
-            get { return this.m_Delayed; }
+            get { return this.m_IsDelayed; }
             set
             {
-                if (this.m_Delayed != value)
+                if (this.m_IsDelayed != value)
                 {
-                    this.m_Delayed = value;
-                    this.NotifyPropertyChanged("Delayed");
+                    this.m_IsDelayed = value;
+                    this.NotifyPropertyChanged("IsDelayed");
                 }
             }
         }        
@@ -170,7 +170,7 @@ namespace YellowstonePathology.Business.Monitor.Model
             {
                 this.m_State = MonitorStateEnum.Critical;
             }
-            else if (this.m_Delayed == true)
+            else if (this.m_IsDelayed == true)
             {
                 this.m_State = MonitorStateEnum.Warning;
             }

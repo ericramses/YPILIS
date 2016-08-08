@@ -2270,7 +2270,7 @@ namespace YellowstonePathology.Business.Gateway
 		{
 			YellowstonePathology.Business.Monitor.Model.PendingTestCollection result = new YellowstonePathology.Business.Monitor.Model.PendingTestCollection();
 			SqlCommand cmd = new SqlCommand();
-			cmd.CommandText = "select pso.ReportNo, pso.PanelSetName [TestName], pso.ExpectedFinalTime, pso.OrderTime, ao.ClientName, ao.PhysicianName [ProviderName], su.DisplayName [AssignedTo], pso.Delayed " +
+			cmd.CommandText = "select pso.ReportNo, pso.PanelSetName [TestName], pso.ExpectedFinalTime, pso.OrderTime, ao.ClientName, ao.PhysicianName [ProviderName], su.DisplayName [AssignedTo], pso.IsDelayed " +
 				"from tblPanelSetOrder pso " +
 				"join tblAccessionOrder ao on pso.MasterAccessionNo = ao.MasterAccessionNo	" +
 				"join tblSystemUser su on pso.AssignedToId = su.UserId " +
