@@ -35,6 +35,7 @@ using MongoDB.Driver.Linq;
 using MongoDB.Driver.Builders;
 using MongoDB.Driver.GridFS;
 using Newtonsoft.Json;
+using MySql.Data.MySqlClient;
 
 namespace YellowstonePathology.UI
 {    
@@ -1000,18 +1001,28 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
-            /*MySQLMigration.MySQLDatabaseBuilder builder = new MySQLMigration.MySQLDatabaseBuilder();
-            MySQLMigration.MigrationStatusCollection migrationStatusCollection = MySQLMigration.MigrationStatusCollection.GetAll();
-            StringBuilder stringBuilder = new StringBuilder();
-            foreach(MySQLMigration.MigrationStatus migrationStatus in migrationStatusCollection)
+            Business.Domain.Physician result = null;
+            string ConnectionString = "Server = 10.1.2.26; Uid = sqldude; Pwd = 123Whatsup; Database = lis;";
+            using (MySqlConnection cn = new MySqlConnection(ConnectionString))
             {
-                stringBuilder.AppendLine("update " + migrationStatus.TableName + " set transferred = 0 where transferred = 1");
+                cn.Open();
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.CommandText = "SELECT * FROM tblPhysician where Npi = @Npi";
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("@Npi", "1942295134");
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        result = new Business.Domain.Physician();
+                        YellowstonePathology.MySQLMigration.MySqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new MySQLMigration.MySqlDataReaderPropertyWriter(result, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                    }
+                    dr.Close();
+                }
             }
-
-            using (StreamWriter writer = new StreamWriter(@"C:\TEMP\DropColumn.txt", false))
-            {
-                writer.Write(stringBuilder);
-            }*/
+            MessageBox.Show(result.DisplayName);
         }
 
         private string CallBackOne(string x)

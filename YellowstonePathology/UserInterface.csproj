@@ -2953,6 +2953,7 @@
     <Compile Include="DomainPersistence\SqlXmlPropertyWriter.cs" />
     <Compile Include="DomainPersistence\XmlPropertyReader.cs" />
     <Compile Include="DomainPersistence\XmlPropertyWriter.cs" />
+    <Compile Include="MySQLMigration\MySqlDataReaderPropertyWriter.cs" />
     <Compile Include="UI\AmendmentPage.xaml.cs">
       <DependentUpon>AmendmentPage.xaml</DependentUpon>
     </Compile>
