@@ -849,6 +849,17 @@ namespace YellowstonePathology.MySQLMigration
             return methodResult;
         }
 
+        public Business.Rules.MethodResult AddDBTS(string tableName)
+        {
+            Business.Rules.MethodResult methodResult = new Business.Rules.MethodResult();
+            bool hasDBTS = Business.Mongo.Gateway.HasTransferDBTSAttribute(tableName);
+            bool hasTSA = Business.Mongo.Gateway.HasTransferTransferStraightAcrossAttribute(tableName);
+
+            if (hasDBTS == false) Business.Mongo.Gateway.AddTransferDBTSAttribute(tableName);
+            if (hasTSA == false) Business.Mongo.Gateway.AddTransferStraightAcrossAttribute(tableName, false);
+            return methodResult;
+        }
+
         private string GetDataColumnName(PropertyInfo propertyInfo)
         {
             string result = propertyInfo.Name;
@@ -1204,6 +1215,10 @@ namespace YellowstonePathology.MySQLMigration
         {
             migrationStatus.HasTimestampColumn = Business.Mongo.Gateway.HasSQLTimestamp(migrationStatus.TableName);
             migrationStatus.HasTransferredColumn = this.TableHasTransferColumn(migrationStatus.TableName);
+            bool hasDBTS = Business.Mongo.Gateway.HasTransferDBTSAttribute(migrationStatus.TableName);
+            bool hasTSA = Business.Mongo.Gateway.HasTransferTransferStraightAcrossAttribute(migrationStatus.TableName);
+            migrationStatus.HasDBTS = hasDBTS && hasTSA;
+
             migrationStatus.HasTable = this.HasMySqlTable(migrationStatus.TableName);
             if (migrationStatus.HasTransferredColumn && migrationStatus.HasTable)
             {
