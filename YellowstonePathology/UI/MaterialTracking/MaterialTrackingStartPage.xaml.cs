@@ -23,10 +23,7 @@ namespace YellowstonePathology.UI.MaterialTracking
 		public event FacilitySelectionEventHandler FacilitySelection;
 
 		public delegate void ViewBatchEventHandler(object sender, YellowstonePathology.UI.CustomEventArgs.MaterialTrackingBatchEventArgs e);
-        public event ViewBatchEventHandler ViewBatch;
-
-        public delegate void ShowFedXTrackingPageEventHandler(object sender, EventArgs e);
-        public event ShowFedXTrackingPageEventHandler ShowFedXTrackingPage;
+        public event ViewBatchEventHandler ViewBatch;        
 
         private YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatchCollection m_MaterialTrackingBatchCollection;
         private bool m_UseMasterAccessionNo;
@@ -343,12 +340,6 @@ namespace YellowstonePathology.UI.MaterialTracking
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
-        }
-
-        private void HyperlinkViewFedXTrackingPage_Click(object sender, RoutedEventArgs e)
-        {
-            FedXTrackingPage trackingPage = new FedXTrackingPage();
-            this.ShowFedXTrackingPage(this, new EventArgs());
-        }
+        }        
     }
 }

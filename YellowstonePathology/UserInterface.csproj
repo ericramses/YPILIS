@@ -40,7 +40,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>48</ApplicationRevision>
+    <ApplicationRevision>53</ApplicationRevision>
     <ApplicationVersion>10.1.6.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -792,6 +792,7 @@
     <Compile Include="Business\Flow\MarkerItem.Generated.cs" />
     <Compile Include="Business\FtpTransfer.cs" />
     <Compile Include="Business\Gateway\AccessionOrderBuilder.cs" />
+    <Compile Include="Business\Gateway\AccessionOrderBuilderV2.cs" />
     <Compile Include="Business\Gateway\AccessionOrderGateway.cs" />
     <Compile Include="Business\Gateway\AccessionOrderGatewayMongo.cs" />
     <Compile Include="Business\Gateway\AccessionSlideOrderViewBuilder.cs" />
@@ -4759,6 +4760,7 @@
     <Compile Include="UI\ValidationRules\IntValidation.cs" />
     <Compile Include="UI\ValidationRules\SSNValidRule.cs" />
     <AppDesigner Include="Properties\" />
+    <EmbeddedResource Include="UI\MaterialTracking\FedXTrackingRequest.json" />
     <Resource Include="Business\Document\CaseHeader.xml" />
     <Resource Include="Business\Document\DnaReport.xml" />
     <Resource Include="Business\Document\SharedHeaderFooter.xml">

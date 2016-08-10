@@ -80,6 +80,9 @@
                 <TextBlock Grid.Column="0" Grid.Row="9" Margin="5,3,0,0">
                     <Hyperlink Click="HyperlinkClearContainerId_Click">Clear Container ID</Hyperlink>
                 </TextBlock>
+                <TextBlock Grid.Column="0" Grid.Row="10" Margin="5,3,0,0">
+                    <Hyperlink Click="HyperlinkHoldSpecimen_Click">Hold</Hyperlink>
+                </TextBlock>
 
             </Grid>
 

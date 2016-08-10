@@ -70,7 +70,7 @@ namespace YellowstonePathology.Business.Test
         protected string m_ReferenceLabSignature;
         protected Nullable<DateTime> m_ReferenceLabFinalDate;
         protected Nullable<DateTime> m_ExpectedFinalTime;
-        protected bool m_Delayed;
+        protected bool m_IsDelayed;
         protected string m_DelayedBy;
         protected Nullable<DateTime> m_DelayedDate;
         protected string m_DelayComment;
@@ -812,15 +812,15 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
-        public bool Delayed
+        public bool IsDelayed
         {
-            get { return this.m_Delayed; }
+            get { return this.m_IsDelayed; }
             set
             {
-                if (this.m_Delayed != value)
+                if (this.m_IsDelayed != value)
                 {
-                    this.m_Delayed = value;
-                    this.NotifyPropertyChanged("Delayed");
+                    this.m_IsDelayed = value;
+                    this.NotifyPropertyChanged("IsDelayed");
                 }
             }
         }

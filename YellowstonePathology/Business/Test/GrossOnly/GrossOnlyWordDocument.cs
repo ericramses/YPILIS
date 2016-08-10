@@ -15,7 +15,7 @@ namespace YellowstonePathology.Business.Test.GrossOnly
 
         }
 
-        public void Render()
+        public override void Render()
         {
             YellowstonePathology.Business.Test.GrossOnly.GrossOnlyTestOrder grossOnlyTestOrder = (YellowstonePathology.Business.Test.GrossOnly.GrossOnlyTestOrder)this.m_PanelSetOrder;
             this.m_PanelSetOrder = grossOnlyTestOrder;
@@ -37,7 +37,7 @@ namespace YellowstonePathology.Business.Test.GrossOnly
             this.SaveReport();
         }
 
-        public void Publish()
+        public override void Publish()
         {
             base.Publish();
         }
