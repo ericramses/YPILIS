@@ -273,12 +273,20 @@ namespace YellowstonePathology.UI.Login
             }
         }
 
+        private void HyperlinkHoldSpecimen_Click(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Surgical.HoldProcessor holdProcessor = new Business.Surgical.HoldProcessor();            
+            this.m_SpecimenOrder.ProcessorRun = holdProcessor.ProcessorRunCollection[0].Name;
+            this.m_SpecimenOrder.ProcessorRunId = holdProcessor.ProcessorRunCollection[0].ProcessorRunId;
+        }
+
         public void NotifyPropertyChanged(String info)
         {
             if (PropertyChanged != null)
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
-        }        
-	}
+        }
+        
+    }
 }

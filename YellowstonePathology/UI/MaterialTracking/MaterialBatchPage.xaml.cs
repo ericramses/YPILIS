@@ -29,6 +29,9 @@ namespace YellowstonePathology.UI.MaterialTracking
         public delegate void FinishEventHandler(object sender, EventArgs e);
         public event FinishEventHandler Finish;
 
+        public delegate void ShowFedXTrackingPageEventHandler(object sender, EventArgs e);
+        public event ShowFedXTrackingPageEventHandler ShowFedXTrackingPage;
+
         public delegate void ShowTrackingDocumentEventHandler(object sender, YellowstonePathology.UI.CustomEventArgs.MaterialTrackingBatchEventArgs e);
         public event ShowTrackingDocumentEventHandler ShowTrackingDocument;
 
@@ -416,6 +419,21 @@ namespace YellowstonePathology.UI.MaterialTracking
             {
                 MessageBox.Show("One or more scanned items could not be found in the database.");
             }
-        }        	     
-	}
+        }
+
+        private void HyperlinkViewFedXTrackingPage_Click(object sender, RoutedEventArgs e)
+        {
+            if(string.IsNullOrEmpty(this.m_MaterialTrackingBatch.TrackingInformation) == false)
+            {
+                FedXTrackingPage fedXTrackingPage = new FedXTrackingPage(this.m_MaterialTrackingBatch.TrackingInformation.Replace(" ", string.Empty));
+                fedXTrackingPage.Next += FedXTrackingPage_Next;
+                this.m_PageNavigator.Navigate(fedXTrackingPage);
+            }            
+        }
+
+        private void FedXTrackingPage_Next(object sender, EventArgs e)
+        {
+            this.m_PageNavigator.Navigate(this);
+        }
+    }
 }

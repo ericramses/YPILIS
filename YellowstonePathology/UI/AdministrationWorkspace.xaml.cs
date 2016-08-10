@@ -1000,18 +1000,9 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
-            /*MySQLMigration.MySQLDatabaseBuilder builder = new MySQLMigration.MySQLDatabaseBuilder();
-            MySQLMigration.MigrationStatusCollection migrationStatusCollection = MySQLMigration.MigrationStatusCollection.GetAll();
-            StringBuilder stringBuilder = new StringBuilder();
-            foreach(MySQLMigration.MigrationStatus migrationStatus in migrationStatusCollection)
-            {
-                stringBuilder.AppendLine("update " + migrationStatus.TableName + " set transferred = 0 where transferred = 1");
-            }
-
-            using (StreamWriter writer = new StreamWriter(@"C:\TEMP\DropColumn.txt", false))
-            {
-                writer.Write(stringBuilder);
-            }*/
+            Business.Gateway.AccessionOrderBuilderV2 gw = new Business.Gateway.AccessionOrderBuilderV2();
+            YellowstonePathology.Business.Test.AccessionOrder ao = new Business.Test.AccessionOrder();
+            gw.Build(ao);
         }
 
         private string CallBackOne(string x)

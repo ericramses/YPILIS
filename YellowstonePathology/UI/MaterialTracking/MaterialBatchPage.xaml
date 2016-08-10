@@ -68,7 +68,11 @@
 
 
                 <TextBlock Grid.Column="2" Grid.Row="0" Margin="2,2,2,2" TextAlignment="Left" FontWeight="Bold">Tracking Information:</TextBlock>
-                <TextBox Grid.Column="2" Grid.Row="1" Grid.RowSpan="5" Margin="2,2,2,2" Text="{Binding Path=MaterialTrackingBatch.TrackingInformation}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextWrapping="Wrap" AcceptsReturn="True"></TextBox>
+                <TextBox Grid.Column="2" Grid.Row="1" Grid.RowSpan="4" Margin="2,2,2,2" Text="{Binding Path=MaterialTrackingBatch.TrackingInformation}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextWrapping="Wrap" AcceptsReturn="True"></TextBox>
+
+                <TextBlock Grid.Column="2" Grid.Row="5" Margin="2,2,2,2">
+				    <Hyperlink Click="HyperlinkViewFedXTrackingPage_Click">FedX Tracking Page</Hyperlink>
+                </TextBlock>
 
 
             </Grid>

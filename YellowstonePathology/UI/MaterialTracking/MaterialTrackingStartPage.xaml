@@ -105,10 +105,7 @@
                 <TextBlock Grid.Column="0" Grid.Row="19" Margin="2,2,2,2">
 				    <Hyperlink Click="HyperlinkReceiveMaterialFromBillings_Click">Receive Material From Billings</Hyperlink>
                 </TextBlock>
-
-                <TextBlock Grid.Column="0" Grid.Row="21" Margin="2,2,2,2">
-				    <Hyperlink Click="HyperlinkViewFedXTrackingPage_Click">FedX Tracking Page</Hyperlink>
-                </TextBlock>
+                
                 <TextBlock Grid.Column="0" Grid.Row="22" Margin="2,2,2,2">
 				    <Hyperlink Click="HyperlinkViewSelectedBatch_Click">View Selected Batch</Hyperlink>
                 </TextBlock>

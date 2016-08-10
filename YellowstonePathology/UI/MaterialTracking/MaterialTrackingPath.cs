@@ -73,16 +73,9 @@ namespace YellowstonePathology.UI.MaterialTracking
                 materialTrackingStartPage = new MaterialTrackingStartPage(materialTrackingBatchCollection);            
             }
             
-            materialTrackingStartPage.ViewBatch += new MaterialTrackingStartPage.ViewBatchEventHandler(MaterialTrackingStartPage_ViewBatch);
-            materialTrackingStartPage.ShowFedXTrackingPage += MaterialTrackingStartPage_ShowFedXTrackingPage;
+            materialTrackingStartPage.ViewBatch += new MaterialTrackingStartPage.ViewBatchEventHandler(MaterialTrackingStartPage_ViewBatch);            
             this.m_LoginPageWindow.PageNavigator.Navigate(materialTrackingStartPage);
-		}
-
-        private void MaterialTrackingStartPage_ShowFedXTrackingPage(object sender, EventArgs e)
-        {
-            FedXTrackingPage fedXTrackingPage = new FedXTrackingPage();
-            this.m_LoginPageWindow.PageNavigator.Navigate(fedXTrackingPage);
-        }
+		}        
 
         private void MaterialTrackingStartPage_ViewBatch(object sender, YellowstonePathology.UI.CustomEventArgs.MaterialTrackingBatchEventArgs e)
         {            
@@ -95,7 +88,7 @@ namespace YellowstonePathology.UI.MaterialTracking
             this.m_MaterialBatchPage = new MaterialBatchPage(materialTrackingBatch, materialTrackingLogCollection, true, true, false, this.m_UseMasterAccessionNo, this.m_MasterAccessionNo, this.m_LoginPageWindow.PageNavigator);
             this.m_MaterialBatchPage.Back += new MaterialBatchPage.BackEventHandler(MaterialBatchPage_Back);
             this.m_MaterialBatchPage.Next += new MaterialBatchPage.NextEventHandler(MaterialBatchPage_Next);
-            this.m_MaterialBatchPage.ShowTrackingDocument += new MaterialBatchPage.ShowTrackingDocumentEventHandler(MaterialBatchPage_ShowTrackingDocument);
+            this.m_MaterialBatchPage.ShowTrackingDocument += new MaterialBatchPage.ShowTrackingDocumentEventHandler(MaterialBatchPage_ShowTrackingDocument);            
             this.m_LoginPageWindow.PageNavigator.Navigate(this.m_MaterialBatchPage);
         }
 

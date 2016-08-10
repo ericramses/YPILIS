@@ -198,7 +198,6 @@ namespace YellowstonePathology.UI
 
         private void ButtonUpdate_Click(object sender, RoutedEventArgs e)
         {
-
             this.m_BackgroundWorker = new BackgroundWorker();
             this.m_BackgroundWorker.WorkerReportsProgress = true;
             this.m_BackgroundWorker.DoWork += Bgw_DoWork;
@@ -247,8 +246,9 @@ namespace YellowstonePathology.UI
                         specimenOrder.ProcessorRun = embeddingScan.ProcessorRun;
                         specimenOrder.ProcessorRunId = embeddingScan.ProcessorRunId;
                         specimenOrder.ProcessorStartTime = processorRun.GetProcessorStartTime(specimenOrder.DateReceived);                        
-                        specimenOrder.ProcessorFixationTime = Convert.ToInt32(processorRun.FixationTime.TotalMinutes);
+                        specimenOrder.ProcessorFixationTime = Convert.ToInt32(processorRun.FixationTime.TotalMinutes);                        
                         specimenOrder.SetFixationEndTime();
+                        specimenOrder.SetFixationDuration();
                     }
                     else
                     {
