@@ -1345,5 +1345,35 @@ namespace YellowstonePathology.MySQLMigration
                 }
             }*/
         }
+
+        public void MoveStoredProcedure(string name, string definition)
+        {
+            string def = this.CleanUpProcedureDefinition(definition);
+            string cmd = "Insert StoredProceduresFromSQLServer (SPName, SPText) values ('" + name + "', '" + def + "')";
+            this.RunCommand(cmd);
+        }
+
+        private string CleanUpProcedureDefinition(string definition)
+        {
+            string result = definition.Trim();                
+
+            int idx = result.IndexOf("CREATE PROCEDURE");
+            if (idx > -1) result = result.Substring(idx);
+
+            idx = result.IndexOf("CREATE FUNCTION");
+            if (idx > -1) result = result.Substring(idx);
+
+            idx = result.IndexOf("AS");
+            if (idx > -1) result = result.Remove(idx, 2);
+
+            result = result.Replace("[", string.Empty);
+            result = result.Replace("]", string.Empty);
+            result = result.Replace("dbo.", string.Empty);
+            result = result.Replace("SET NOCOUNT ON;", string.Empty);
+            result = result.Replace("@", "$");
+            result.Replace("VarChar(max)", "Text");
+
+            return result;
+        }
     }
 }

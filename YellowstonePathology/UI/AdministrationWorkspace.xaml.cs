@@ -1001,7 +1001,7 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
-            Business.Domain.Physician result = null;
+            /*Business.Domain.Physician result = null;
             string ConnectionString = "Server = 10.1.2.26; Uid = sqldude; Pwd = 123Whatsup; Database = lis;";
             using (MySqlConnection cn = new MySqlConnection(ConnectionString))
             {
@@ -1022,7 +1022,32 @@ namespace YellowstonePathology.UI
                     dr.Close();
                 }
             }
-            MessageBox.Show(result.DisplayName);
+            MessageBox.Show(result.DisplayName);*/
+            Business.ReportNoCollection routines = new Business.ReportNoCollection();
+            SqlCommand cmd = new SqlCommand("SELECT ROUTINE_NAME, ROUTINE_DEFINITION FROM INFORMATION_SCHEMA.ROUTINES WHERE SPECIFIC_SCHEMA = 'dbo' order by ROUTINE_NAME");
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.BaseData.SqlConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        Business.ReportNo routine = new Business.ReportNo();
+                        routine.MasterAccessionNo = dr[0].ToString();
+                        routine.Value = dr[1].ToString();
+                        routines.Add(routine);
+                    }
+                }
+            }
+
+            MySQLMigration.MySQLDatabaseBuilder builder = new MySQLMigration.MySQLDatabaseBuilder();
+            foreach(Business.ReportNo routine in routines)
+            {
+                builder.MoveStoredProcedure(routine.MasterAccessionNo, routine.Value);
+            }
+
+            MessageBox.Show("Done");
         }
 
         private string CallBackOne(string x)
