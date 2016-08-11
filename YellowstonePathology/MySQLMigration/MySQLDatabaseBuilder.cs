@@ -849,6 +849,17 @@ namespace YellowstonePathology.MySQLMigration
             return methodResult;
         }
 
+        public Business.Rules.MethodResult AddDBTS(string tableName)
+        {
+            Business.Rules.MethodResult methodResult = new Business.Rules.MethodResult();
+            bool hasDBTS = Business.Mongo.Gateway.HasTransferDBTSAttribute(tableName);
+            bool hasTSA = Business.Mongo.Gateway.HasTransferTransferStraightAcrossAttribute(tableName);
+
+            if (hasDBTS == false) Business.Mongo.Gateway.AddTransferDBTSAttribute(tableName);
+            if (hasTSA == false) Business.Mongo.Gateway.AddTransferStraightAcrossAttribute(tableName, false);
+            return methodResult;
+        }
+
         private string GetDataColumnName(PropertyInfo propertyInfo)
         {
             string result = propertyInfo.Name;
@@ -1204,6 +1215,10 @@ namespace YellowstonePathology.MySQLMigration
         {
             migrationStatus.HasTimestampColumn = Business.Mongo.Gateway.HasSQLTimestamp(migrationStatus.TableName);
             migrationStatus.HasTransferredColumn = this.TableHasTransferColumn(migrationStatus.TableName);
+            bool hasDBTS = Business.Mongo.Gateway.HasTransferDBTSAttribute(migrationStatus.TableName);
+            bool hasTSA = Business.Mongo.Gateway.HasTransferTransferStraightAcrossAttribute(migrationStatus.TableName);
+            migrationStatus.HasDBTS = hasDBTS && hasTSA;
+
             migrationStatus.HasTable = this.HasMySqlTable(migrationStatus.TableName);
             if (migrationStatus.HasTransferredColumn && migrationStatus.HasTable)
             {
@@ -1329,6 +1344,36 @@ namespace YellowstonePathology.MySQLMigration
                     result.AppendLine("ALTER TABLE " + migrationStatus.TableName + " DROP COLUMN " + property.Name);
                 }
             }*/
+        }
+
+        public void MoveStoredProcedure(string name, string definition)
+        {
+            string def = this.CleanUpProcedureDefinition(definition);
+            string cmd = "Insert StoredProceduresFromSQLServer (SPName, SPText) values ('" + name + "', '" + def + "')";
+            this.RunCommand(cmd);
+        }
+
+        private string CleanUpProcedureDefinition(string definition)
+        {
+            string result = definition.Trim();                
+
+            int idx = result.IndexOf("CREATE PROCEDURE");
+            if (idx > -1) result = result.Substring(idx);
+
+            idx = result.IndexOf("CREATE FUNCTION");
+            if (idx > -1) result = result.Substring(idx);
+
+            idx = result.IndexOf("AS");
+            if (idx > -1) result = result.Remove(idx, 2);
+
+            result = result.Replace("[", string.Empty);
+            result = result.Replace("]", string.Empty);
+            result = result.Replace("dbo.", string.Empty);
+            result = result.Replace("SET NOCOUNT ON;", string.Empty);
+            result = result.Replace("@", "$");
+            result.Replace("VarChar(max)", "Text");
+
+            return result;
         }
     }
 }

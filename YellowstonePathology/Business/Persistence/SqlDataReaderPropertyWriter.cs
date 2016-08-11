@@ -27,43 +27,59 @@ namespace YellowstonePathology.Business.Persistence
                 Where(prop => Attribute.IsDefined(prop, typeof(PersistentProperty)) || Attribute.IsDefined(prop, typeof(PersistentPrimaryKeyProperty))).ToArray();
             foreach (PropertyInfo property in properties)
             {
-                Type dataType = property.PropertyType;
-                if (dataType == typeof(string))
+                if (this.ColumnExists(property.Name))
                 {
-                    this.WriteString(property);
+                    Type dataType = property.PropertyType;
+                    if (dataType == typeof(string))
+                    {
+                        this.WriteString(property);
+                    }
+                    else if (dataType == typeof(int))
+                    {
+                        this.WriteInt(property);
+                    }
+                    else if (dataType == typeof(double))
+                    {
+                        this.WriteDouble(property);
+                    }
+                    else if (dataType == typeof(Nullable<int>))
+                    {
+                        this.WriteNullableInt(property);
+                    }
+                    else if (dataType == typeof(DateTime))
+                    {
+                        this.WriteDateTime(property);
+                    }
+                    else if (dataType == typeof(bool))
+                    {
+                        this.WriteBoolean(property);
+                    }
+                    else if (dataType == typeof(Nullable<bool>))
+                    {
+                        this.WriteNullableBoolean(property);
+                    }
+                    else if (dataType == typeof(Nullable<DateTime>))
+                    {
+                        this.WriteNullableDateTime(property);
+                    }
+                    else
+                    {
+                        throw new Exception("This Data Type is Not Implemented: " + dataType.Name);
+                    }
                 }
-                else if (dataType == typeof(int))
-                {
-                    this.WriteInt(property);
-                }
-                else if (dataType == typeof(double))
-                {
-                    this.WriteDouble(property);
-                }
-                else if (dataType == typeof(Nullable<int>))
-                {
-                    this.WriteNullableInt(property);
-                }
-                else if (dataType == typeof(DateTime))
-                {
-                    this.WriteDateTime(property);
-                }
-                else if (dataType == typeof(bool))
-                {
-                    this.WriteBoolean(property);
-                }
-                else if (dataType == typeof(Nullable<bool>))
-                {
-                    this.WriteNullableBoolean(property);
-                }
-                else if (dataType == typeof(Nullable<DateTime>))
-                {
-                    this.WriteNullableDateTime(property);
-                }
-                else
-                {
-                    throw new Exception("This Data Type is Not Implemented: " + dataType.Name);
-                }
+            }
+        }
+
+        private bool ColumnExists(string name)
+        {
+            try
+            {
+                this.m_SqlDataReader.GetOrdinal(name);
+                return true;
+            }
+            catch
+            {
+                return false;
             }
         }
 

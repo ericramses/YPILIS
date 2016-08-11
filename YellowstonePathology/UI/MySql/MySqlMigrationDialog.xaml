@@ -20,6 +20,7 @@
             <MenuItem Header="Create Table" Click="MenuItemCreateTable_Click" Margin="5"></MenuItem>
             <MenuItem Header="Add Transfer Column" Click="MenuItemAddTransferColumn_Click" Margin="5"></MenuItem>
             <MenuItem Header="Add Timestamp Column" Click="MenuItemAddTimestampColumn_Click" Margin="5"></MenuItem>
+            <MenuItem Header="Add DBTS Attribute" Click="MenuItemAddDBTS_Click" Margin="5"></MenuItem>
             <MenuItem Header="Load Data" Click="MenuItemLoadData_Click" Margin="5"></MenuItem>
             <MenuItem Header="Synchronize Data" Click="MenuItemSynchronizeData_Click" Margin="5"></MenuItem>
         </Menu>
@@ -41,6 +42,7 @@
                     <GridViewColumn DisplayMemberBinding="{Binding Path=HasTable}" Header="Has MySql Table" Width="100"/>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=HasTransferredColumn}" Header="Has Transferred Col" Width="130"/>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=HasTimestampColumn}" Header="Has Timestamp Col" Width="130"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=HasDBTS}" Header="Has DBTS Attribute" Width="130"/>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=UnLoadedDataCount}" Header="Unmigrated Count" Width="120"/>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=OutOfSyncCount}" Header="Unsynced Count" Width="100"/>
                 </GridView>
