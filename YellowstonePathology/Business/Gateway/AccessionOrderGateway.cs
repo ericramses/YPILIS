@@ -14,6 +14,36 @@ namespace YellowstonePathology.Business.Gateway
 {
 	public class AccessionOrderGateway
 	{
+        public static YellowstonePathology.UI.EmbeddingBreastCaseList GetEmbeddingBreastCasesCollection()
+        {
+            YellowstonePathology.UI.EmbeddingBreastCaseList result = new UI.EmbeddingBreastCaseList();
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "select ao.MasterAccessionNo, ao.PFirstName, ao.PLastName, so.Collectiontime, so.ProcessorRun, so.FixationStartTime, so.FixationEndTime, datediff(hh, fixationstarttime, fixationendtime) [FixationDuration] " + 
+                "from tblAccessionOrder ao " +
+                "join tblspecimenOrder so on ao.masterAccessionNo = so.MasterAccessionNo " +
+                "where charindex('Breast', so.Description) > 0 " +
+                "and ao.AccessionDate >= dateadd(d, -30, getdate()) " +
+                "order by ao.AccessionTime desc";
+            cmd.CommandType = CommandType.Text;            
+
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        YellowstonePathology.UI.EmbeddingBreastCaseListItem item = new UI.EmbeddingBreastCaseListItem();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(item, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Add(item);
+                    }
+                }
+            }
+            return result;
+        }
+
         public static YellowstonePathology.UI.EmbeddingNotScannedList GetEmbeddingNotScannedCollection(DateTime accessionDate)
         {
             YellowstonePathology.UI.EmbeddingNotScannedList result = new UI.EmbeddingNotScannedList();

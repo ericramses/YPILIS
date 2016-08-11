@@ -29,6 +29,7 @@ namespace YellowstonePathology.UI
         private EmbeddingNotScannedList m_EmbeddingNotScannedList;
         private YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort m_BarcodeScanPort;
         private YellowstonePathology.Business.Surgical.ProcessorRunCollection m_ProcessorRunCollection;
+        private EmbeddingBreastCaseList m_EmbeddingBreastCaseList;
         private string m_StatusMessage;
 
         private BackgroundWorker m_BackgroundWorker;
@@ -37,10 +38,8 @@ namespace YellowstonePathology.UI
         {            
             this.m_BarcodeScanPort = YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort.Instance;
             this.m_WorkDate = DateTime.Today;
-            this.m_EmbeddingScanCollection = Business.BarcodeScanning.EmbeddingScanCollection.GetByScanDate(this.m_WorkDate);
-
+            this.m_EmbeddingScanCollection = Business.BarcodeScanning.EmbeddingScanCollection.GetByScanDate(this.m_WorkDate);                       
             
-            this.m_EmbeddingNotScannedList = Business.Gateway.AccessionOrderGateway.GetEmbeddingNotScannedCollection(this.GetWorkingAccessionDate());
             this.m_StatusMessage = "OK";
 
             InitializeComponent();
@@ -72,6 +71,9 @@ namespace YellowstonePathology.UI
                 
                 this.m_SpecimenOrderHoldCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetSpecimenOrderHoldCollection();                
                 this.m_ProcessorRunCollection = YellowstonePathology.Business.Surgical.ProcessorRunCollection.GetAll(false);
+
+                this.m_EmbeddingNotScannedList = Business.Gateway.AccessionOrderGateway.GetEmbeddingNotScannedCollection(this.GetWorkingAccessionDate());
+                this.m_EmbeddingBreastCaseList = Business.Gateway.AccessionOrderGateway.GetEmbeddingBreastCasesCollection();
 
                 this.NotifyPropertyChanged(string.Empty);
             }
@@ -138,6 +140,11 @@ namespace YellowstonePathology.UI
         public YellowstonePathology.UI.EmbeddingNotScannedList EmbeddingNotScannedList
         {
             get { return this.m_EmbeddingNotScannedList; }
+        }
+
+        public YellowstonePathology.UI.EmbeddingBreastCaseList EmbeddingBreastCaseList
+        {
+            get { return this.m_EmbeddingBreastCaseList; }
         }
 
         public YellowstonePathology.Business.Surgical.ProcessorRunCollection ProcessorRunCollection

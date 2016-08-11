@@ -81,8 +81,25 @@
                 </ListView>
             </TabItem>
 
+            <TabItem Header="Breast Cases">
+                <ListView Name="ListViewBreastCases" Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" ItemsSource="{Binding Path=EmbeddingBreastCaseList}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Master Accession No" Width="100" DisplayMemberBinding="{Binding Path=MasterAccessionNo}" />
+                            <GridViewColumn Header="First" Width="100" DisplayMemberBinding="{Binding Path=PFirstName}" />
+                            <GridViewColumn Header="Last" Width="100" DisplayMemberBinding="{Binding Path=PLastName}" />
+                            <GridViewColumn Header="Collected" Width="130" DisplayMemberBinding="{Binding Path=CollectionTime}" />
+                            <GridViewColumn Header="Processor" Width="200" DisplayMemberBinding="{Binding Path=ProcessorRun}" />
+                            <GridViewColumn Header="Start" Width="150" DisplayMemberBinding="{Binding Path=FixationStartTime}" />
+                            <GridViewColumn Header="End" Width="150" DisplayMemberBinding="{Binding Path=FixationEndTime}" />
+                            <GridViewColumn Header="Duration" Width="120" DisplayMemberBinding="{Binding Path=FixationDuration}" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </TabItem>
+
         </TabControl>
-        
+
         <StatusBar Grid.Column="0" Grid.Row="3">
             <StatusBarItem>
                 <TextBlock Name="TextBlockStatus" Margin="2,2,2,2" TextAlignment="Left" VerticalAlignment="Center" Width="300" Text="{Binding Path=StatusMessage}"></TextBlock>

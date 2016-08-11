@@ -40,7 +40,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>53</ApplicationRevision>
+    <ApplicationRevision>56</ApplicationRevision>
     <ApplicationVersion>10.1.6.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -3065,7 +3065,9 @@
     <Compile Include="UI\EmbeddingDialog.xaml.cs">
       <DependentUpon>EmbeddingDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\EmbeddingBreastCaseList.cs" />
     <Compile Include="UI\EmbeddingNotScannedList.cs" />
+    <Compile Include="UI\EmbeddingBreastCaseListItem.cs" />
     <Compile Include="UI\EmbeddingNotScannedListItem.cs" />
     <Compile Include="UI\FaxTesting.cs" />
     <Compile Include="UI\Gross\BlankPage.xaml.cs">
