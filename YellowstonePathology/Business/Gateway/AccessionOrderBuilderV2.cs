@@ -124,7 +124,7 @@ namespace YellowstonePathology.Business.Gateway
         } 
         
         private void HandleAccessionOrder(SqlDataReader dr)
-        {
+        {                        
             Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(this.m_AccessionOrder, dr);
             sqlDataReaderPropertyWriter.WriteProperties();
         }

@@ -11,8 +11,7 @@ using System.Xml.Linq;
 using YellowstonePathology.Business.Persistence;
 
 namespace YellowstonePathology.Business.ClientOrder.Model
-{
-	[PersistentClass("tblClientOrderMedia", "YPIDATA")]
+{	
 	public class ClientOrderMedia : INotifyPropertyChanged
 	{
         protected delegate void PropertyChangedNotificationHandler(String info);

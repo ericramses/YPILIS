@@ -483,6 +483,20 @@ namespace YellowstonePathology.Business.Test
             return result;
         }
 
+        public bool HasCellBlock()
+        {
+            bool result = false;
+            foreach (AliquotOrder aliquotOrder in this)
+            {
+                if (aliquotOrder.AliquotType == "CellBlock")
+                {
+                    result = true;
+                    break;
+                }
+            }
+            return result;
+        }
+
         public bool HasThinPrepSlide()
         {
             YellowstonePathology.Business.Specimen.Model.ThinPrepSlide thinPrepSlide = new Specimen.Model.ThinPrepSlide();

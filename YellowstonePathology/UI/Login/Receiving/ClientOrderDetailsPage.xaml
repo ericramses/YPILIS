@@ -132,10 +132,7 @@
 				        SelectedValue="{Binding Path=ClientOrderDetail.SpecimenId}" IsEditable="True"/>
 
                 <TextBlock Grid.Column="0" Grid.Row="4" Margin="2,2,2,2" FontSize="14" HorizontalAlignment="Right">Accession As:</TextBlock>
-                <TextBox Name="TextBoxAccessionAs" Grid.Column="1" Grid.Row="4" Margin="2,2,2,2" Text="{Binding Path=ClientOrderDetail.DescriptionToAccessionBinding, ValidatesOnDataErrors=True}" TextWrapping="Wrap" FontSize="14" AcceptsReturn="True" GotFocus="TextBoxAccessionAs_GotFocus" SpellCheck.IsEnabled="True">
-                    <SpellCheck.CustomDictionaries>
-                        <system:Uri>pack://application:,,,/ypi-custom.lex</system:Uri>
-                    </SpellCheck.CustomDictionaries>
+                <TextBox Name="TextBoxAccessionAs" Grid.Column="1" Grid.Row="4" Margin="2,2,2,2" Text="{Binding Path=ClientOrderDetail.DescriptionToAccessionBinding, ValidatesOnDataErrors=True}" TextWrapping="Wrap" FontSize="14" AcceptsReturn="True" GotFocus="TextBoxAccessionAs_GotFocus">
                     <TextBox.Style>
                         <Style TargetType="{x:Type Control}">
                             <Setter Property="Validation.ErrorTemplate">

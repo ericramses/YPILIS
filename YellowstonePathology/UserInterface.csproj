@@ -40,7 +40,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>56</ApplicationRevision>
+    <ApplicationRevision>61</ApplicationRevision>
     <ApplicationVersion>10.1.6.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -4780,9 +4780,6 @@
     <Resource Include="Business\XPSDocument\Xps\ReportLogo.jpg" />
     <EmbeddedResource Include="Business\Billing.Model\JSONCPTCodes.txt" />
     <Content Include="dll\Interop.FAXCOMEXLib.dll" />
-    <Content Include="ypi-custom.lex">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Page Include="Business\Document\CaseReportFooter.xaml">

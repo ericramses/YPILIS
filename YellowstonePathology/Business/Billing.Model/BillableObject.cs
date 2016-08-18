@@ -39,6 +39,7 @@ namespace YellowstonePathology.Business.Billing.Model
             if (this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.PostedItemsExist() == false)
             {
                 this.m_PanelSetOrder.IsPosted = false;
+                this.m_PanelSetOrder.ResultStatus = "P";
             }
         }
 
@@ -317,6 +318,7 @@ namespace YellowstonePathology.Business.Billing.Model
                 this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.SetPostDate(DateTime.Today);
                 this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.SetPostDate(DateTime.Today);
                 this.m_PanelSetOrder.IsPosted = true;
+                this.m_PanelSetOrder.ResultStatus = "F";
                 methodResult.Success = true;
             }
             else
