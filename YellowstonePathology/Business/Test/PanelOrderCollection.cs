@@ -337,5 +337,57 @@ namespace YellowstonePathology.Business.Test
         {
             accessionTreeVisitor.Visit(this);
         }
-	}
+
+        public void Sync(DataTable dataTable, string reportNo)
+        {
+            this.RemoveDeleted(dataTable);
+            DataTableReader dataTableReader = new DataTableReader(dataTable);
+            while (dataTableReader.Read())
+            {
+                string panelOrderId = dataTableReader["PanelOrderId"].ToString();
+                string panelReportNo = dataTableReader["ReportNo"].ToString();
+
+                PanelOrder panelOrder = null;
+
+                if (this.Exists(panelOrderId) == true)
+                {
+                    panelOrder = this.GetByPanelOrderId(panelOrderId);
+                }
+                else if (panelReportNo == reportNo)
+                {
+                    int panelId = (int)dataTableReader["PanelId"];
+                    Panel.Model.Panel panel = Panel.Model.PanelCollection.GetAll().GetPanel(panelId);
+                    panelOrder = Test.PanelOrderFactory.GetPanelOrder(panel);
+                    this.Add(panelOrder);
+                }
+
+                if (panelOrder != null)
+                {
+                    YellowstonePathology.Business.Persistence.SqlDataTableReaderPropertyWriter sqlDataTableReaderPropertyWriter = new Persistence.SqlDataTableReaderPropertyWriter(panelOrder, dataTableReader);
+                    sqlDataTableReaderPropertyWriter.WriteProperties();
+                }
+            }
+        }
+
+        public void RemoveDeleted(DataTable dataTable)
+        {
+            for (int i = this.Count - 1; i > -1; i--)
+            {
+                bool found = false;
+                for (int idx = 0; idx < dataTable.Rows.Count; idx++)
+                {
+                    string panelOrderId = dataTable.Rows[idx]["PanelOrderId"].ToString();
+                    if (this[i].PanelOrderId == panelOrderId)
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+                if (found == false)
+                {
+                    this.RemoveItem(i);
+                }
+            }
+        }
+    }
 }

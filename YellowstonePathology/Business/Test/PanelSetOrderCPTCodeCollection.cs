@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
+using System.Data;
 
 namespace YellowstonePathology.Business.Test
 {    
@@ -368,5 +369,55 @@ namespace YellowstonePathology.Business.Test
         {
 
         }
-	}
+
+        public void Sync(DataTable dataTable, string reportNo)
+        {
+            this.RemoveDeleted(dataTable);
+            DataTableReader dataTableReader = new DataTableReader(dataTable);
+            while (dataTableReader.Read())
+            {
+                string panelSetOrderCPTCodeId = dataTableReader["PanelSetOrderCPTCodeId"].ToString();
+                string cptCodeReportNo = dataTableReader["ReportNo"].ToString();
+
+                PanelSetOrderCPTCode panelSetOrderCPTCode = null;
+
+                if (this.Exists(panelSetOrderCPTCodeId) == true)
+                {
+                    panelSetOrderCPTCode = this.Get(panelSetOrderCPTCodeId);
+                }
+                else if (reportNo == cptCodeReportNo)
+                {
+                    panelSetOrderCPTCode = new PanelSetOrderCPTCode();
+                    this.Add(panelSetOrderCPTCode);
+                }
+
+                if (panelSetOrderCPTCode != null)
+                {
+                    YellowstonePathology.Business.Persistence.SqlDataTableReaderPropertyWriter sqlDataTableReaderPropertyWriter = new Persistence.SqlDataTableReaderPropertyWriter(panelSetOrderCPTCode, dataTableReader);
+                    sqlDataTableReaderPropertyWriter.WriteProperties();
+                }
+            }
+        }
+
+        public void RemoveDeleted(DataTable dataTable)
+        {
+            for (int i = this.Count - 1; i > -1; i--)
+            {
+                bool found = false;
+                for (int idx = 0; idx < dataTable.Rows.Count; idx++)
+                {
+                    string panelSetOrderCPTCodeId = dataTable.Rows[idx]["PanelSetOrderCPTCodeId"].ToString();
+                    if (this[i].PanelSetOrderCPTCodeId == panelSetOrderCPTCodeId)
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+                if (found == false)
+                {
+                    this.RemoveItem(i);
+                }
+            }
+        }
+    }
 }

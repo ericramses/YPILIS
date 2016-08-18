@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Collections.ObjectModel;
 using System.Xml.Linq;
+using System.Data;
 
 namespace YellowstonePathology.Business.Task.Model
 {
@@ -93,5 +94,54 @@ namespace YellowstonePathology.Business.Task.Model
 			return result;
 		}
 
-	}
+        public void Sync(DataTable dataTable, string taskOrderId)
+        {
+            this.RemoveDeleted(dataTable);
+            DataTableReader dataTableReader = new DataTableReader(dataTable);
+            while (dataTableReader.Read())
+            {
+                string taskOrderDetailId = dataTableReader["TaskOrderDetailId"].ToString();
+                string taskOrderDetailTaskOrderId = dataTableReader["TaskOrderId"].ToString();
+
+                TaskOrderDetail taskOrderDetail = null;
+
+                if (this.Exists(taskOrderDetailId) == true)
+                {
+                    taskOrderDetail = this.Get(taskOrderDetailId);
+                }
+                else if (taskOrderId == taskOrderDetailTaskOrderId)
+                {
+                    taskOrderDetail = new TaskOrderDetail();
+                    this.Add(taskOrderDetail);
+                }
+
+                if (taskOrderDetail != null)
+                {
+                    YellowstonePathology.Business.Persistence.SqlDataTableReaderPropertyWriter sqlDataTableReaderPropertyWriter = new Persistence.SqlDataTableReaderPropertyWriter(taskOrderDetail, dataTableReader);
+                    sqlDataTableReaderPropertyWriter.WriteProperties();
+                }
+            }
+        }
+
+        public void RemoveDeleted(DataTable dataTable)
+        {
+            for (int i = this.Count - 1; i > -1; i--)
+            {
+                bool found = false;
+                for (int idx = 0; idx < dataTable.Rows.Count; idx++)
+                {
+                    string taskOrderDetailId = dataTable.Rows[idx]["TaskOrderDetailId"].ToString();
+                    if (this[i].TaskOrderDetailId == taskOrderDetailId)
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+                if (found == false)
+                {
+                    this.RemoveItem(i);
+                }
+            }
+        }
+    }
 }
