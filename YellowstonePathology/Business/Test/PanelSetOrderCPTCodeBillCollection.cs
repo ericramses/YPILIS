@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
+using System.Data;
 
 namespace YellowstonePathology.Business.Test
 {    
@@ -402,6 +403,56 @@ namespace YellowstonePathology.Business.Test
                 }
             }
             return result;
+        }
+
+        public void Sync(DataTable dataTable, string reportNo)
+        {
+            this.RemoveDeleted(dataTable);
+            DataTableReader dataTableReader = new DataTableReader(dataTable);
+            while (dataTableReader.Read())
+            {
+                string panelSetOrderCPTCodeBillId = dataTableReader["PanelSetOrderCPTCodeBillId"].ToString();
+                string cptCodeReportBillNo = dataTableReader["ReportNo"].ToString();
+
+                PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill = null;
+
+                if (this.Exists(panelSetOrderCPTCodeBillId) == true)
+                {
+                    panelSetOrderCPTCodeBill = this.Get(panelSetOrderCPTCodeBillId);
+                }
+                else if (reportNo == cptCodeReportBillNo)
+                {
+                    panelSetOrderCPTCodeBill = new PanelSetOrderCPTCodeBill();
+                    this.Add(panelSetOrderCPTCodeBill);
+                }
+
+                if (panelSetOrderCPTCodeBill != null)
+                {
+                    YellowstonePathology.Business.Persistence.SqlDataTableReaderPropertyWriter sqlDataTableReaderPropertyWriter = new Persistence.SqlDataTableReaderPropertyWriter(panelSetOrderCPTCodeBill, dataTableReader);
+                    sqlDataTableReaderPropertyWriter.WriteProperties();
+                }
+            }
+        }
+
+        public void RemoveDeleted(DataTable dataTable)
+        {
+            for (int i = this.Count - 1; i > -1; i--)
+            {
+                bool found = false;
+                for (int idx = 0; idx < dataTable.Rows.Count; idx++)
+                {
+                    string panelSetOrderCPTCodeBillId = dataTable.Rows[idx]["PanelSetOrderCPTCodeBillId"].ToString();
+                    if (this[i].PanelSetOrderCPTCodeBillId == panelSetOrderCPTCodeBillId)
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+                if (found == false)
+                {
+                    this.RemoveItem(i);
+                }
+            }
         }
     }
 }

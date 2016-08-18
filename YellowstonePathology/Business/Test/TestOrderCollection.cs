@@ -265,6 +265,56 @@ namespace YellowstonePathology.Business.Test.Model
             }
 
             return result;
-        }     
-	}
+        }
+        
+        public override void Sync(DataTable dataTable, string panelOrderId)
+        {
+            this.RemoveDeleted(dataTable);
+            DataTableReader dataTableReader = new DataTableReader(dataTable);
+            while (dataTableReader.Read())
+            {
+                string testOrderId = dataTableReader["TestOrderId"].ToString();
+                string testPanelOrderId = dataTableReader["PanelOrderId"].ToString();
+
+                TestOrder testOrder = null;
+
+                if (this.Exists(testOrderId) == true)
+                {
+                    testOrder = this.Get(testOrderId);
+                }
+                else if (testPanelOrderId == panelOrderId)
+                {
+                    testOrder = new TestOrder();
+                    this.Add(testOrder);
+                }
+
+                if (testOrder != null)
+                {
+                    YellowstonePathology.Business.Persistence.SqlDataTableReaderPropertyWriter sqlDataTableReaderPropertyWriter = new Persistence.SqlDataTableReaderPropertyWriter(testOrder, dataTableReader);
+                    sqlDataTableReaderPropertyWriter.WriteProperties();
+                }
+            }
+        }
+
+        public override void RemoveDeleted(DataTable dataTable)
+        {
+            for (int i = this.Count - 1; i > -1; i--)
+            {
+                bool found = false;
+                for (int idx = 0; idx < dataTable.Rows.Count; idx++)
+                {
+                    string testOrderId = dataTable.Rows[idx]["TestOrderId"].ToString();
+                    if (this[i].TestOrderId == testOrderId)
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+                if (found == false)
+                {
+                    this.RemoveItem(i);
+                }
+            }
+        }
+    }
 }

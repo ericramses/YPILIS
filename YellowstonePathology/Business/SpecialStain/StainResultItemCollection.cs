@@ -253,5 +253,55 @@ namespace YellowstonePathology.Business.SpecialStain
         {
             accessionTreeVisitor.Visit(this);
         }
-	}
+
+        public void Sync(DataTable dataTable, string surgicalSpecimenId)
+        {
+            this.RemoveDeleted(dataTable);
+            DataTableReader dataTableReader = new DataTableReader(dataTable);
+            while (dataTableReader.Read())
+            {
+                string stainResultId = dataTableReader["StainResultId"].ToString();
+                string stainResultSurgicalSpecimenId = dataTableReader["SurgicalSpecimenId"].ToString();
+
+                StainResultItem stainResult = null;
+
+                if (this.Exists(stainResultId) == true)
+                {
+                    stainResult = this.Get(stainResultId);
+                }
+                else if (surgicalSpecimenId == stainResultSurgicalSpecimenId)
+                {
+                    stainResult = new StainResultItem();
+                    this.Add(stainResult);
+                }
+
+                if (stainResult != null)
+                {
+                    YellowstonePathology.Business.Persistence.SqlDataTableReaderPropertyWriter sqlDataTableReaderPropertyWriter = new Persistence.SqlDataTableReaderPropertyWriter(stainResult, dataTableReader);
+                    sqlDataTableReaderPropertyWriter.WriteProperties();
+                }
+            }
+        }
+
+        public void RemoveDeleted(DataTable dataTable)
+        {
+            for (int i = this.Count - 1; i > -1; i--)
+            {
+                bool found = false;
+                for (int idx = 0; idx < dataTable.Rows.Count; idx++)
+                {
+                    string stainResultId = dataTable.Rows[idx]["StainResultId"].ToString();
+                    if (this[i].StainResultId == stainResultId)
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+                if (found == false)
+                {
+                    this.RemoveItem(i);
+                }
+            }
+        }
+    }
 }

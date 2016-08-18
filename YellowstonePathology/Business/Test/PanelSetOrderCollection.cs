@@ -907,5 +907,54 @@ namespace YellowstonePathology.Business.Test
         {
             accessionTreeVisitor.Visit(this);
         }
-	}
+
+        public void Sync(DataTable dataTable)
+        {
+            this.RemoveDeleted(dataTable);
+            DataTableReader dataTableReader = new DataTableReader(dataTable);
+            while (dataTableReader.Read())
+            {
+                string reportNo = dataTableReader["ReportNo"].ToString();
+
+                PanelSetOrder panelSetOrder = null;
+
+                if (this.Exists(reportNo) == true)
+                {
+                    panelSetOrder = this.GetPanelSetOrder(reportNo);
+                }
+                else
+                {
+                    int panelSetId = (int)dataTableReader["PanelSetId"];
+                    PanelSet.Model.PanelSet panelSet = PanelSet.Model.PanelSetCollection.GetAll().GetPanelSet(panelSetId);
+                    panelSetOrder = Test.PanelSetOrderFactory.CreatePanelSetOrder(panelSet);
+                    this.Add(panelSetOrder);
+                }
+
+                YellowstonePathology.Business.Persistence.SqlDataTableReaderPropertyWriter sqlDataTableReaderPropertyWriter = new Persistence.SqlDataTableReaderPropertyWriter(panelSetOrder, dataTableReader);
+                sqlDataTableReaderPropertyWriter.WriteProperties();
+
+            }
+        }
+
+        public void RemoveDeleted(DataTable dataTable)
+        {
+            for (int i = this.Count - 1; i > -1; i--)
+            {
+                bool found = false;
+                for (int idx = 0; idx < dataTable.Rows.Count; idx++)
+                {
+                    string reportNo = dataTable.Rows[idx]["ReportNo"].ToString();
+                    if (this[i].ReportNo == reportNo)
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+                if (found == false)
+                {
+                    this.RemoveItem(i);
+                }
+            }
+        }
+    }
 }

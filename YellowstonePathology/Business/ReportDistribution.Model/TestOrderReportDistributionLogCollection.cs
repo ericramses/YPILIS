@@ -68,5 +68,55 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
             }
             return result;
         }
+
+        public void Sync(DataTable dataTable, string reportNo)
+        {
+            this.RemoveDeleted(dataTable);
+            DataTableReader dataTableReader = new DataTableReader(dataTable);
+            while (dataTableReader.Read())
+            {
+                string testOrderReportDistributionLogId = dataTableReader["TestOrderReportDistributionLogId"].ToString();
+                string distributionReportNo = dataTableReader["ReportNo"].ToString();
+
+                TestOrderReportDistributionLog testOrderReportDistributionLog = null;
+
+                if (this.Exists(testOrderReportDistributionLogId) == true)
+                {
+                    testOrderReportDistributionLog = this.Get(testOrderReportDistributionLogId);
+                }
+                else if (reportNo == distributionReportNo)
+                {
+                    testOrderReportDistributionLog = new TestOrderReportDistributionLog();
+                    this.Add(testOrderReportDistributionLog);
+                }
+
+                if (testOrderReportDistributionLog != null)
+                {
+                    YellowstonePathology.Business.Persistence.SqlDataTableReaderPropertyWriter sqlDataTableReaderPropertyWriter = new Persistence.SqlDataTableReaderPropertyWriter(testOrderReportDistributionLog, dataTableReader);
+                    sqlDataTableReaderPropertyWriter.WriteProperties();
+                }
+            }
+        }
+
+        public void RemoveDeleted(DataTable dataTable)
+        {
+            for (int i = this.Count - 1; i > -1; i--)
+            {
+                bool found = false;
+                for (int idx = 0; idx < dataTable.Rows.Count; idx++)
+                {
+                    string testOrderReportDistributionLogId = dataTable.Rows[idx]["TestOrderReportDistributionLogId"].ToString();
+                    if (this[i].TestOrderReportDistributionLogId == testOrderReportDistributionLogId)
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+                if (found == false)
+                {
+                    this.RemoveItem(i);
+                }
+            }
+        }
     }
 }

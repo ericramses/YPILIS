@@ -169,5 +169,80 @@ namespace YellowstonePathology.Business.Billing.Model
 
 			return result;
 		}
-	}
+
+        public void Sync(DataTable dataTable)
+        {
+            this.RemoveDeleted(dataTable);
+            DataTableReader dataTableReader = new DataTableReader(dataTable);
+            while (dataTableReader.Read())
+            {
+                string icd9BillingId = dataTableReader["Icd9BillingId"].ToString();
+
+                ICD9BillingCode icd9BillingCode = null;
+
+                if (this.Exists(icd9BillingId) == true)
+                {
+                    icd9BillingCode = this.Get(icd9BillingId);
+                }
+                else
+                {
+                    icd9BillingCode = new ICD9BillingCode();
+                    this.Add(icd9BillingCode);
+                }
+
+                YellowstonePathology.Business.Persistence.SqlDataTableReaderPropertyWriter sqlDataTableReaderPropertyWriter = new Persistence.SqlDataTableReaderPropertyWriter(icd9BillingCode, dataTableReader);
+                sqlDataTableReaderPropertyWriter.WriteProperties();
+            }
+        }
+
+        public void Sync(DataTable dataTable, string surgicalSpecimenId)
+        {
+            this.RemoveDeleted(dataTable);
+            DataTableReader dataTableReader = new DataTableReader(dataTable);
+            while (dataTableReader.Read())
+            {
+                string icd9BillingId = dataTableReader["Icd9BillingId"].ToString();
+                string icd9SurgicalSpecimenId = dataTableReader["SurgicalSpecimenId"].ToString();
+
+                ICD9BillingCode icd9BillingCode = null;
+
+                if (this.Exists(icd9BillingId) == true)
+                {
+                    icd9BillingCode = this.Get(icd9BillingId);
+                }
+                else if (surgicalSpecimenId == icd9SurgicalSpecimenId)
+                {
+                    icd9BillingCode = new ICD9BillingCode();
+                    this.Add(icd9BillingCode);
+                }
+
+                if (icd9BillingCode != null)
+                {
+                    YellowstonePathology.Business.Persistence.SqlDataTableReaderPropertyWriter sqlDataTableReaderPropertyWriter = new Persistence.SqlDataTableReaderPropertyWriter(icd9BillingCode, dataTableReader);
+                    sqlDataTableReaderPropertyWriter.WriteProperties();
+                }
+            }
+        }
+
+        public void RemoveDeleted(DataTable dataTable)
+        {
+            for (int i = this.Count - 1; i > -1; i--)
+            {
+                bool found = false;
+                for (int idx = 0; idx < dataTable.Rows.Count; idx++)
+                {
+                    string icd9BillingId = dataTable.Rows[idx]["Icd9BillingId"].ToString();
+                    if (this[i].Icd9BillingId == icd9BillingId)
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+                if (found == false)
+                {
+                    this.RemoveItem(i);
+                }
+            }
+        }
+    }
 }
