@@ -173,5 +173,55 @@ namespace YellowstonePathology.Business.Amendment.Model
             }
             return result;
         }
+
+        public void Sync(DataTable dataTable, string reportNo)
+        {
+            this.RemoveDeleted(dataTable);
+            DataTableReader dataTableReader = new DataTableReader(dataTable);
+            while (dataTableReader.Read())
+            {
+                string amendmentId = dataTableReader["AmendmentId"].ToString();
+                string amendmentReportNo = dataTableReader["ReportNo"].ToString();
+
+                Amendment amendment = null;
+
+                if (this.Exists(amendmentId) == true)
+                {
+                    amendment = this.GetAmendment(amendmentId);
+                }
+                else if (reportNo == amendmentReportNo)
+                {
+                    amendment = new Amendment();
+                    this.Add(amendment);
+                }
+
+                if (amendment != null)
+                {
+                    YellowstonePathology.Business.Persistence.SqlDataTableReaderPropertyWriter sqlDataTableReaderPropertyWriter = new Persistence.SqlDataTableReaderPropertyWriter(amendment, dataTableReader);
+                    sqlDataTableReaderPropertyWriter.WriteProperties();
+                }
+            }
+        }
+
+        public void RemoveDeleted(DataTable dataTable)
+        {
+            for (int i = this.Count - 1; i > -1; i--)
+            {
+                bool found = false;
+                for (int idx = 0; idx < dataTable.Rows.Count; idx++)
+                {
+                    string amendmentId = dataTable.Rows[idx]["AmendmentId"].ToString();
+                    if (this[i].AmendmentId == amendmentId)
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+                if (found == false)
+                {
+                    this.RemoveItem(i);
+                }
+            }
+        }
     }
 }

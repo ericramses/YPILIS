@@ -1003,6 +1003,7 @@ namespace YellowstonePathology.UI
         {
             Business.Gateway.AccessionOrderBuilderV2 gw = new Business.Gateway.AccessionOrderBuilderV2();
             YellowstonePathology.Business.Test.AccessionOrder ao = new Business.Test.AccessionOrder();
+            ao.MasterAccessionNo = "16-19507"; // 19382  20207 19507 20178 19328
             gw.Build(ao);
         }
 

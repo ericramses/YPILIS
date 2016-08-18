@@ -156,5 +156,55 @@ namespace YellowstonePathology.Business.Flow
 			}
 			return result;
 		}
-	}
+
+        public void Sync(DataTable dataTable, string reportNo)
+        {
+            this.RemoveDeleted(dataTable);
+            DataTableReader dataTableReader = new DataTableReader(dataTable);
+            while (dataTableReader.Read())
+            {
+                string flowMarkerId = dataTableReader["FlowMarkerId"].ToString();
+                string markerReportNo = dataTableReader["ReportNo"].ToString();
+
+                FlowMarkerItem flowMarkerItem = null;
+
+                if (this.Exists(flowMarkerId) == true)
+                {
+                    flowMarkerItem = this.Get(flowMarkerId);
+                }
+                else if (reportNo == markerReportNo)
+                {
+                    flowMarkerItem = new FlowMarkerItem();
+                    this.Add(flowMarkerItem);
+                }
+
+                if (flowMarkerItem != null)
+                {
+                    YellowstonePathology.Business.Persistence.SqlDataTableReaderPropertyWriter sqlDataTableReaderPropertyWriter = new Persistence.SqlDataTableReaderPropertyWriter(flowMarkerItem, dataTableReader);
+                    sqlDataTableReaderPropertyWriter.WriteProperties();
+                }
+            }
+        }
+
+        public void RemoveDeleted(DataTable dataTable)
+        {
+            for (int i = this.Count - 1; i > -1; i--)
+            {
+                bool found = false;
+                for (int idx = 0; idx < dataTable.Rows.Count; idx++)
+                {
+                    string flowMarkerId = dataTable.Rows[idx]["FlowMarkerId"].ToString();
+                    if (this[i].FlowMarkerId == flowMarkerId)
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+                if (found == false)
+                {
+                    this.RemoveItem(i);
+                }
+            }
+        }
+    }
 }

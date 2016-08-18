@@ -5,6 +5,7 @@ using System.Text;
 using System.Xml.Serialization;
 using System.Collections.ObjectModel;
 using System.Xml.Linq;
+using System.Data;
 
 namespace YellowstonePathology.Business.Test
 {
@@ -600,5 +601,55 @@ namespace YellowstonePathology.Business.Test
         {
             accessionTreeVisitor.Visit(this);
         }
-	}
+
+        public void Sync(DataTable dataTable, string specimenOrderId)
+        {
+            this.RemoveDeleted(dataTable);
+            DataTableReader dataTableReader = new DataTableReader(dataTable);
+            while (dataTableReader.Read())
+            {
+                string aliquotOrderId = dataTableReader["AliquotOrderId"].ToString();
+                string aliquotSpecimenOrderId = dataTableReader["SpecimenOrderId"].ToString();
+
+                Business.Test.AliquotOrder aliquotOrder = null;
+
+                if (this.Exists(aliquotOrderId) == true)
+                {
+                    aliquotOrder = this.GetByAliquotOrderId(aliquotOrderId);
+                }
+                else if (aliquotSpecimenOrderId == specimenOrderId)
+                {
+                    aliquotOrder = new Business.Test.AliquotOrder();
+                    this.Add(aliquotOrder);
+                }
+
+                if (aliquotOrder != null)
+                {
+                    YellowstonePathology.Business.Persistence.SqlDataTableReaderPropertyWriter sqlDataTableReaderPropertyWriter = new Persistence.SqlDataTableReaderPropertyWriter(aliquotOrder, dataTableReader);
+                    sqlDataTableReaderPropertyWriter.WriteProperties();
+                }
+            }
+        }
+
+        public void RemoveDeleted(DataTable dataTable)
+        {
+            for (int i = this.Count - 1; i > -1; i--)
+            {
+                bool found = false;
+                for (int idx = 0; idx < dataTable.Rows.Count; idx++)
+                {
+                    string aliquotOrderId = dataTable.Rows[idx]["AliquotOrderId"].ToString();
+                    if (this[i].AliquotOrderId == aliquotOrderId)
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+                if (found == false)
+                {
+                    this.RemoveItem(i);
+                }
+            }
+        }
+    }
 }

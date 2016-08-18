@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Collections.ObjectModel;
 using System.Xml.Linq;
+using System.Data;
 
 namespace YellowstonePathology.Business.Task.Model
 {
@@ -180,5 +181,51 @@ namespace YellowstonePathology.Business.Task.Model
 			result.Message = "Daily Task Order POC Report have been added through " + actionDate.ToString("MM/dd/yyyy");
 			return result;
 		}
-	}
+
+        public void Sync(DataTable dataTable)
+        {
+            this.RemoveDeleted(dataTable);
+            DataTableReader dataTableReader = new DataTableReader(dataTable);
+            while (dataTableReader.Read())
+            {
+                string taskOrderId = dataTableReader["TaskOrderId"].ToString();
+
+                TaskOrder taskOrder = null;
+
+                if (this.Exists(taskOrderId) == true)
+                {
+                    taskOrder = this.GetTaskOrder(taskOrderId);
+                }
+                else
+                {
+                    taskOrder = new TaskOrder();
+                    this.Add(taskOrder);
+                }
+
+                YellowstonePathology.Business.Persistence.SqlDataTableReaderPropertyWriter sqlDataTableReaderPropertyWriter = new Persistence.SqlDataTableReaderPropertyWriter(taskOrder, dataTableReader);
+                sqlDataTableReaderPropertyWriter.WriteProperties();
+            }
+        }
+
+        public void RemoveDeleted(DataTable dataTable)
+        {
+            for (int i = this.Count - 1; i > -1; i--)
+            {
+                bool found = false;
+                for (int idx = 0; idx < dataTable.Rows.Count; idx++)
+                {
+                    string taskOrderId = dataTable.Rows[idx]["TaskOrderId"].ToString();
+                    if (this[i].TaskOrderId == taskOrderId)
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+                if (found == false)
+                {
+                    this.RemoveItem(i);
+                }
+            }
+        }
+    }
 }

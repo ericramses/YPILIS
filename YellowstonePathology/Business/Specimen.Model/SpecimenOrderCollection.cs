@@ -5,6 +5,7 @@ using System.Text;
 using System.Xml.Serialization;
 using System.Collections.ObjectModel;
 using System.Xml.Linq;
+using System.Data;
 
 namespace YellowstonePathology.Business.Specimen.Model
 {
@@ -837,5 +838,54 @@ namespace YellowstonePathology.Business.Specimen.Model
         {
             accessionTreeVisitor.Visit(this);
         }
-	}
+
+        public void Sync(DataTable dataTable)
+        {
+            this.IsLoading = true;
+            this.RemoveDeleted(dataTable);
+            DataTableReader dataTableReader = new DataTableReader(dataTable);
+            while(dataTableReader.Read())
+            {
+                string specimenOrderId = dataTableReader["SpecimenOrderId"].ToString();
+
+                Business.Specimen.Model.SpecimenOrder specimenOrder = null;
+
+                if (this.Exists(specimenOrderId) == true)
+                {
+                    specimenOrder = this.GetSpecimenOrder(specimenOrderId);
+                }
+                else
+                {
+                    specimenOrder = new Business.Specimen.Model.SpecimenOrder();
+                    this.Add(specimenOrder);
+                }
+
+                YellowstonePathology.Business.Persistence.SqlDataTableReaderPropertyWriter sqlDataTableReaderPropertyWriter = new Persistence.SqlDataTableReaderPropertyWriter(specimenOrder, dataTableReader);
+                sqlDataTableReaderPropertyWriter.WriteProperties();
+
+            }
+            this.IsLoading = false;
+        }
+
+        public void RemoveDeleted(DataTable dataTable)
+        {
+            for (int i = this.Count - 1; i > -1; i--)
+            {
+                bool found = false;
+                for (int idx = 0; idx < dataTable.Rows.Count; idx++)
+                {
+                    string specimenOrderId = dataTable.Rows[idx]["SpecimenOrderId"].ToString();
+                    if (this[i].SpecimenOrderId == specimenOrderId)
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+                if (found == false)
+                {
+                    this.RemoveItem(i);
+                }
+            }
+        }
+    }
 }

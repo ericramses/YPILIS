@@ -122,5 +122,55 @@ namespace YellowstonePathology.Business.Test.Surgical
         {
             accessionTreeVisitor.Visit(this);
         }
-	}
+
+        public void Sync(DataTable dataTable, string surgicalSpecimenId)
+        {
+            this.RemoveDeleted(dataTable);
+            DataTableReader dataTableReader = new DataTableReader(dataTable);
+            while (dataTableReader.Read())
+            {
+                string icd9BillingId = dataTableReader["IntraoperativeConsultationResultId"].ToString();
+                string icSurgicalSpecimenId = dataTableReader["SurgicalSpecimenId"].ToString();
+
+                IntraoperativeConsultationResult intraoperativeConsultationResult = null;
+
+                if (this.Exists(icd9BillingId) == true)
+                {
+                    intraoperativeConsultationResult = this.Get(icd9BillingId);
+                }
+                else if (surgicalSpecimenId == icSurgicalSpecimenId)
+                {
+                    intraoperativeConsultationResult = new IntraoperativeConsultationResult();
+                    this.Add(intraoperativeConsultationResult);
+                }
+
+                if (intraoperativeConsultationResult != null)
+                {
+                    YellowstonePathology.Business.Persistence.SqlDataTableReaderPropertyWriter sqlDataTableReaderPropertyWriter = new Persistence.SqlDataTableReaderPropertyWriter(intraoperativeConsultationResult, dataTableReader);
+                    sqlDataTableReaderPropertyWriter.WriteProperties();
+                }
+            }
+        }
+
+        public void RemoveDeleted(DataTable dataTable)
+        {
+            for (int i = this.Count - 1; i > -1; i--)
+            {
+                bool found = false;
+                for (int idx = 0; idx < dataTable.Rows.Count; idx++)
+                {
+                    string intraoperativeConsultationResultId = dataTable.Rows[idx]["IntraoperativeConsultationResultId"].ToString();
+                    if (this[i].IntraoperativeConsultationResultId == intraoperativeConsultationResultId)
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+                if (found == false)
+                {
+                    this.RemoveItem(i);
+                }
+            }
+        }
+    }
 }
