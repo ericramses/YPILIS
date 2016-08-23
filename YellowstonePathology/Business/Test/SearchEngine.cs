@@ -34,12 +34,6 @@ namespace YellowstonePathology.Business.Test
 		{
 			switch (this.m_SearchFillEnum)
 			{
-				case YellowstonePathology.Business.Search.ReportSearchFillEnum.ByAccessionDate:
-					this.m_ReportSearchList = Gateway.ReportSearchGateway.GetReportSearchListByAccessionDate(m_Parameters);
-					break;
-				case YellowstonePathology.Business.Search.ReportSearchFillEnum.ByDateRangeBatchLocation:
-					this.m_ReportSearchList = Gateway.ReportSearchGateway.GetReportSearchListByDateRangeBatchLocation(m_Parameters);
-					break;
 				case YellowstonePathology.Business.Search.ReportSearchFillEnum.ByDateRange:
 					this.m_ReportSearchList = Gateway.ReportSearchGateway.GetReportSearchListByDateRange(m_Parameters);
 					break;
@@ -52,21 +46,12 @@ namespace YellowstonePathology.Business.Test
 				case YellowstonePathology.Business.Search.ReportSearchFillEnum.ByNotDistributed:
 					this.m_ReportSearchList = Gateway.ReportSearchGateway.GetReportSearchListByNotDistributed(m_Parameters);
 					break;
-				case YellowstonePathology.Business.Search.ReportSearchFillEnum.ByNotFinalLoacation:
-					this.m_ReportSearchList = Gateway.ReportSearchGateway.GetReportSearchListByNotFinalLocation(m_Parameters);
-					break;
 				case YellowstonePathology.Business.Search.ReportSearchFillEnum.ByNotFinalPanelId:
 					this.m_ReportSearchList = Gateway.ReportSearchGateway.GetReportSearchListByNotFinalPanelId(m_Parameters);
 					break;
 				case YellowstonePathology.Business.Search.ReportSearchFillEnum.ByInHouseMolecularPending:
                     this.m_ReportSearchList = Gateway.ReportSearchGateway.GetReportSearchListByInHouseMolecularPending();
                     break;
-				case YellowstonePathology.Business.Search.ReportSearchFillEnum.ByUnBatchedBatchTypeId:
-					this.m_ReportSearchList = Gateway.ReportSearchGateway.GetReportSearchListByUnBatchedBatchTypeId(m_Parameters);
-					break;
-				case YellowstonePathology.Business.Search.ReportSearchFillEnum.ByBatchId:
-					this.m_ReportSearchList = Gateway.ReportSearchGateway.GetReportSearchListByBatchId(m_Parameters);
-					break;
 				case YellowstonePathology.Business.Search.ReportSearchFillEnum.ByPatientName:
 					this.m_ReportSearchList = Gateway.ReportSearchGateway.GetReportSearchListByPatientName(m_Parameters);
 					break;
@@ -79,9 +64,6 @@ namespace YellowstonePathology.Business.Test
 				case YellowstonePathology.Business.Search.ReportSearchFillEnum.ByPatientId:
 					this.m_ReportSearchList = Gateway.ReportSearchGateway.GetReportSearchListByPatientId(m_Parameters);
 					break;
-				case YellowstonePathology.Business.Search.ReportSearchFillEnum.ByNotVerified:
-					this.m_ReportSearchList = Gateway.ReportSearchGateway.GetReportSearchListByNotVerified(m_Parameters);
-					break;
                 case YellowstonePathology.Business.Search.ReportSearchFillEnum.ByPanelSetId:
                     this.m_ReportSearchList = Gateway.ReportSearchGateway.GetReportSearchListByPanelSetId(m_Parameters);
                     break;
@@ -91,34 +73,7 @@ namespace YellowstonePathology.Business.Test
 			if (this.m_ReportSearchList == null) this.m_ReportSearchList = new YellowstonePathology.Business.Search.ReportSearchList();
 		}
 
-		public void SetFillByAccessionDate(DateTime accessionDate, int batchTypeId, string facilityId)
-		{
-			this.m_Parameters.Clear();
-			this.m_Parameters.Add(accessionDate);
-			this.m_Parameters.Add(batchTypeId);
-			this.m_Parameters.Add(facilityId);
-			this.m_SearchFillEnum = YellowstonePathology.Business.Search.ReportSearchFillEnum.ByAccessionDate;
-		}
-
-        public void SetFillByAccessionDate(DateTime accessionDate, string originatingLocation)
-        {
-            this.m_Parameters.Clear();
-            this.m_Parameters.Add(accessionDate);            
-            this.m_Parameters.Add(originatingLocation);
-			this.m_SearchFillEnum = YellowstonePathology.Business.Search.ReportSearchFillEnum.ByAccessionDate;
-        }        
-
-		public void SetFillByAccessionDateRange(DateTime startDate, DateTime endDate, int batchTypeId, string originatingLocation)
-		{
-			this.m_Parameters.Clear();
-			this.m_Parameters.Add(startDate);
-			this.m_Parameters.Add(endDate);
-			this.m_Parameters.Add(batchTypeId);
-			this.m_Parameters.Add(originatingLocation);
-			this.m_SearchFillEnum = YellowstonePathology.Business.Search.ReportSearchFillEnum.ByDateRangeBatchLocation;
-		}
-
-		public void SetFillByThisMonth(int panelSetId)
+        public void SetFillByThisMonth(int panelSetId)
 		{
 			DateTime startDate = DateTime.Today;
 			startDate = startDate.AddDays(-startDate.Day + 1);
@@ -190,13 +145,6 @@ namespace YellowstonePathology.Business.Test
 			this.m_SearchFillEnum = YellowstonePathology.Business.Search.ReportSearchFillEnum.ByNotDistributed;
 		}
 
-		public void SetFillByNotFinal(string originatingLocation)
-		{
-			this.m_Parameters.Clear();
-			this.m_Parameters.Add(originatingLocation);
-			this.m_SearchFillEnum = YellowstonePathology.Business.Search.ReportSearchFillEnum.ByNotFinalLoacation;
-		}
-
 		public void SetFillByNotFinal(int panelId)
 		{
 			this.m_Parameters.Clear();
@@ -209,20 +157,6 @@ namespace YellowstonePathology.Business.Test
             this.m_Parameters.Clear();
 			this.m_SearchFillEnum = YellowstonePathology.Business.Search.ReportSearchFillEnum.ByInHouseMolecularPending;
         }
-
-		public void SetFillByUnBatchedBatchTypeId(int batchTypeId)
-		{
-			this.m_Parameters.Clear();
-			this.m_Parameters.Add(batchTypeId);
-			this.m_SearchFillEnum = YellowstonePathology.Business.Search.ReportSearchFillEnum.ByUnBatchedBatchTypeId;
-		}
-
-		public void SetFillByBatchId(int panelOrderBatchId)
-		{
-			this.m_Parameters.Clear();
-			this.m_Parameters.Add(panelOrderBatchId);
-			this.m_SearchFillEnum = YellowstonePathology.Business.Search.ReportSearchFillEnum.ByBatchId;
-		}
 
 		public void SetFillByPatientName(YellowstonePathology.Business.PatientName patientName)
 		{
@@ -259,13 +193,6 @@ namespace YellowstonePathology.Business.Test
 			this.m_Parameters.Clear();
 			this.m_Parameters.Add(patientId);
 			this.m_SearchFillEnum = YellowstonePathology.Business.Search.ReportSearchFillEnum.ByPatientId;
-		}
-
-		public void SetFillByNotVerified(int panelSetId)
-		{
-			this.m_Parameters.Clear();
-			this.m_Parameters.Add(panelSetId);
-			this.m_SearchFillEnum = YellowstonePathology.Business.Search.ReportSearchFillEnum.ByNotVerified;
 		}
 
         public YellowstonePathology.Business.AutomatedOrderList AutomatedOrderList
