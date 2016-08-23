@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Data.Linq;
 using System.Xml.Linq;
-using System.Data;
+
 
 namespace YellowstonePathology.Business.Slide.Model
 {
@@ -101,56 +101,8 @@ namespace YellowstonePathology.Business.Slide.Model
                 }
             }
             return result;
-        }
+        }        
 
-        public void Sync(DataTable dataTable, string aliquotOrderId)
-        {
-            this.RemoveDeleted(dataTable);
-            DataTableReader dataTableReader = new DataTableReader(dataTable);
-            while (dataTableReader.Read())
-            {
-                string slideOrderId = dataTableReader["SlideOrderId"].ToString();
-                string slideAliquotOrderId = dataTableReader["AliquotOrderId"].ToString();
-
-                SlideOrder slideOrder = null;
-
-                if (this.Exists(slideOrderId) == true)
-                {
-                    slideOrder = this.Get(slideOrderId);
-                }
-                else if (slideAliquotOrderId == aliquotOrderId)
-                {
-                    slideOrder = new SlideOrder();
-                    this.Add(slideOrder);
-                }
-
-                if (slideOrder != null)
-                {
-                    YellowstonePathology.Business.Persistence.SqlDataTableReaderPropertyWriter sqlDataTableReaderPropertyWriter = new Persistence.SqlDataTableReaderPropertyWriter(slideOrder, dataTableReader);
-                    sqlDataTableReaderPropertyWriter.WriteProperties();
-                }
-            }
-        }
-
-        public void RemoveDeleted(DataTable dataTable)
-        {
-            for (int i = this.Count - 1; i > -1; i--)
-            {
-                bool found = false;
-                for (int idx = 0; idx < dataTable.Rows.Count; idx++)
-                {
-                    string slideOrderId = dataTable.Rows[idx]["SlideOrderId"].ToString();
-                    if (this[i].SlideOrderId == slideOrderId)
-                    {
-                        found = true;
-                        break;
-                    }
-                }
-                if (found == false)
-                {
-                    this.RemoveItem(i);
-                }
-            }
-        }
+        
     }
 }

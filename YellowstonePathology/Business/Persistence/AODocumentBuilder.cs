@@ -17,19 +17,16 @@ namespace YellowstonePathology.Business.Persistence
 
             this.m_SQLCommand = new SqlCommand();
             m_SQLCommand.CommandText = "gwGetAccessionByMasterAccessionNo_A8";
+            //this.m_SQLCommand.CommandText = "whctest";
             m_SQLCommand.CommandType = CommandType.StoredProcedure;
-            m_SQLCommand.Parameters.Add("@MasterAccessionNo", SqlDbType.VarChar).Value = masterAccessionNo;
-            //m_SQLCommand.Parameters.Add("@AquireLock", SqlDbType.Bit).Value = obtainLock;
-            //m_SQLCommand.Parameters.Add("@LockAquiredById", SqlDbType.VarChar).Value = systemIdentity.User.UserId;
-            //m_SQLCommand.Parameters.Add("@LockAquiredByUserName", SqlDbType.VarChar).Value = systemIdentity.User.UserName;
-            //m_SQLCommand.Parameters.Add("@LockAquiredByHostName", SqlDbType.VarChar).Value = System.Environment.MachineName;
-            //m_SQLCommand.Parameters.Add("@TimeLockAquired", SqlDbType.DateTime).Value = DateTime.Now;
+            m_SQLCommand.Parameters.Add("@MasterAccessionNo", SqlDbType.VarChar).Value = masterAccessionNo;            
         }
 
         public override object BuildNew()
         {         
             YellowstonePathology.Business.Test.AccessionOrder result = new Test.AccessionOrder();
             YellowstonePathology.Business.Gateway.AccessionOrderBuilder builder = new YellowstonePathology.Business.Gateway.AccessionOrderBuilder();
+            //YellowstonePathology.Business.Gateway.AccessionOrderBuilderV2 builder = new YellowstonePathology.Business.Gateway.AccessionOrderBuilderV2();
             builder.Build(this.m_SQLCommand, result);
             return result;            
         }
@@ -38,6 +35,7 @@ namespace YellowstonePathology.Business.Persistence
         {
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder = (YellowstonePathology.Business.Test.AccessionOrder)o;
             YellowstonePathology.Business.Gateway.AccessionOrderBuilder builder = new YellowstonePathology.Business.Gateway.AccessionOrderBuilder();
+            //YellowstonePathology.Business.Gateway.AccessionOrderBuilderV2 builder = new YellowstonePathology.Business.Gateway.AccessionOrderBuilderV2();
             builder.Build(this.m_SQLCommand, accessionOrder);
         }
     }
