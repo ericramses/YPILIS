@@ -1657,39 +1657,6 @@ namespace YellowstonePathology.Business.Test
             dataTableReader.Read();
             Persistence.SqlDataTableReaderPropertyWriter sqlDataTableReaderPropertyWriter = new SqlDataTableReaderPropertyWriter(this, dataTableReader);
             sqlDataTableReaderPropertyWriter.WriteProperties();
-        }
-
-        public void SyncTestOrders(DataTable dataTable)
-        {
-            DataTableReader dataTableReader = new DataTableReader(dataTable);
-            while (dataTableReader.Read())
-            {
-                string testOrderId = dataTableReader["TestOrderId"].ToString();
-                string aliquorOrderId = dataTableReader["AliquotOrderId"].ToString();
-                string panelOrderId = dataTableReader["PanelOrderId"].ToString();
-
-                Test.Model.TestOrder testOrder = this.PanelSetOrderCollection.GetPanelOrder(panelOrderId).TestOrderCollection.Get(testOrderId);
-                AliquotOrder aliquotOrder = this.SpecimenOrderCollection.GetAliquotOrder(aliquorOrderId);
-                Persistence.ObjectCloner objectCloner = new Persistence.ObjectCloner();
-                Test.AliquotOrder_Base cloneAliquotOrder = (Test.AliquotOrder_Base)objectCloner.Clone(aliquotOrder);
-                testOrder.AliquotOrder = cloneAliquotOrder;
-
-                Slide.Model.SlideOrder slideOrder = aliquotOrder.SlideOrderCollection.GetSlideOrderByTestOrderId(testOrderId);
-                if (slideOrder != null)
-                {
-                    slideOrder.TestOrder = testOrder;
-                }
-
-                List<Slide.Model.SlideOrder_Base> slideOrders = (from so in this.SpecimenOrderCollection
-                                                                 from ao in so.AliquotOrderCollection
-                                                                 from slo in ao.SlideOrderCollection
-                                                                 where slo.TestOrderId == testOrder.TestOrderId
-                                                                 select slo).ToList<Slide.Model.SlideOrder_Base>();
-                foreach (Slide.Model.SlideOrder_Base slide in slideOrders)
-                {
-                    testOrder.SlideOrderCollection.Add(slide);
-                }
-            }
-        }
+        }        
     }
 }

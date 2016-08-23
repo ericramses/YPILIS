@@ -46,6 +46,14 @@ namespace YellowstonePathology.Business.Persistence
                     {
                         this.WriteNullableInt(property);
                     }
+                    else if (dataType == typeof(Nullable<float>))
+                    {
+                        this.WriteNullableDouble(property);
+                    }
+                    else if (dataType == typeof(Nullable<double>))
+                    {
+                        this.WriteNullableDouble(property);
+                    }
                     else if (dataType == typeof(DateTime))
                     {
                         this.WriteDateTime(property);
@@ -110,6 +118,16 @@ namespace YellowstonePathology.Business.Persistence
             if (this.m_DataTableReader[property.Name] != DBNull.Value)
             {
                 sqlValue = Convert.ToInt32(this.m_DataTableReader[property.Name].ToString());
+            }
+            property.SetValue(this.m_ObjectToWriteTo, sqlValue, null);
+        }        
+
+        private void WriteNullableDouble(PropertyInfo property)
+        {
+            Nullable<double> sqlValue = null;
+            if (this.m_DataTableReader[property.Name] != DBNull.Value)
+            {
+                sqlValue = Convert.ToDouble(this.m_DataTableReader[property.Name].ToString());
             }
             property.SetValue(this.m_ObjectToWriteTo, sqlValue, null);
         }

@@ -98,6 +98,7 @@ namespace YellowstonePathology.Business.Test
         private string m_AdditionalTestingEmailMessage;
         private string m_AdditionalTestingEmailAddress;
         protected string m_ReportReferences;
+        protected string m_ResultStatus;
 
         protected YellowstonePathology.Business.Document.CaseDocumentCollection m_CaseDocumentCollection;
 
@@ -1183,6 +1184,20 @@ namespace YellowstonePathology.Business.Test
                 {
                     this.m_ReportReferences = value;
                     this.NotifyPropertyChanged("ReportReferences");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string ResultStatus
+        {
+            get { return this.m_ResultStatus; }
+            set
+            {
+                if (this.m_ResultStatus != value)
+                {
+                    this.m_ResultStatus = value;
+                    this.NotifyPropertyChanged("ResultStatus");
                 }
             }
         }

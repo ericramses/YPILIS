@@ -47,6 +47,26 @@ namespace YellowstonePathology.Business.Test
             }
         }
 
+        public void RemoveDeleted(IEnumerable<string> reportNoList)
+        {
+            for (int i = this.Count - 1; i > -1; i--)
+            {
+                bool found = false;
+                foreach (string reportNo in reportNoList)
+                {                    
+                    if (this[i].ReportNo == reportNo)
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+                if (found == false)
+                {
+                    this.RemoveItem(i);
+                }
+            }
+        }
+
         public string FromClientOrder(YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder, 
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,                         
             YellowstonePathology.Business.User.SystemIdentity systemIdentity)
@@ -909,8 +929,9 @@ namespace YellowstonePathology.Business.Test
         }
 
         public void Sync(DataTable dataTable)
-        {
-            this.RemoveDeleted(dataTable);
+        {            
+            //this.RemoveDeleted(dataTable);
+
             DataTableReader dataTableReader = new DataTableReader(dataTable);
             while (dataTableReader.Read())
             {

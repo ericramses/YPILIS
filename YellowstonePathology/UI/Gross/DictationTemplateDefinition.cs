@@ -40,8 +40,8 @@ namespace YellowstonePathology.UI.Gross
         public ProstateTURTemplate()
         {
             this.m_TemplateName = "Prostate TUR";
-            this.m_Text = "[identifier] and consists of [number] irregular ragged tan-pink tissue fragments " +
-                "weighing [weight] and measuring [measurement] in aggregate.  [representativesections].  ";                
+            this.m_Text = "[identifier] and consists of [number] irregular ragged tan-pink tissue fragment[?s?] " +
+                "weighing [weight] grams and measuring [measurement] [? in aggregate?].  [representativesections].  ";                
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ProstateTUR tur = new Business.Specimen.Model.SpecimenDefinition.ProstateTUR();
             this.m_SpecimenCollection.Add(tur);
@@ -80,7 +80,7 @@ namespace YellowstonePathology.UI.Gross
         public BXTemplate()
         {
             this.m_TemplateName = "Biopsy Specimen";
-            this.m_Text = "[identifier] and consists of [number] tan-pink tissue fragments measuring [measurement] in aggregate.  " +
+            this.m_Text = "[identifier] and consists of [number] tan-pink tissue fragment[?s?] measuring [measurement] [? in aggregate?].  " +
                 "The specimen is filtered through a fine mesh bag and entirely submitted in cassette [cassettelabel].  ";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Biopsy bx = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Biopsy();
@@ -100,16 +100,22 @@ namespace YellowstonePathology.UI.Gross
         public FluidTemplate()
         {
             this.m_TemplateName = "Fluid Specimen";
-            this.m_Text = "The specimen is received in CytoLyt in a container labeled \"[description]\" and consists of [Quantity] ml of [Color] fluid.The specimen is submitted for selective cellular enhancement processing.";
-
+            this.m_Text = "The specimen is received in CytoLyt in a container labeled \"[identifier]\" and consists of [Quantity] ml of [Color] fluid. The specimen is submitted for selective cellular enhancement processing.";
+            
+            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Fluid fluid = new Business.Specimen.Model.SpecimenDefinition.Fluid();
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Urine urine = new Business.Specimen.Model.SpecimenDefinition.Urine();
+            this.m_SpecimenCollection.Add(fluid);
             this.m_SpecimenCollection.Add(urine);
         }
 
         public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
-            string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
-            return result;
+            string identifier = accessionOrder.PatientDisplayName;            
+            if(specimenOrder.AliquotOrderCollection.HasCellBlock() == true)
+            {
+                this.m_Text += " A cell block was made.";
+            }
+            return this.m_Text.Replace("[identifier]", identifier);
         }
     }
 
@@ -363,7 +369,7 @@ namespace YellowstonePathology.UI.Gross
             this.m_Text = "[identifier]." + Environment.NewLine +
                 "Tonsils:  Two tan-pink, lobular, palatine tonsils." + Environment.NewLine +
                 "Adenoids:  [description]" + Environment.NewLine +
-                "Weight:  [weight]" + Environment.NewLine +
+                "Weight:  [weight] grams" + Environment.NewLine +
                 "Measurement Tonsil 1:  [measurement]" + Environment.NewLine +
                 "Measurement Tonsil 2:  [measurement]" + Environment.NewLine +
                 "Measurement Adenoids:  [measurement]" + Environment.NewLine +
@@ -389,7 +395,7 @@ namespace YellowstonePathology.UI.Gross
             this.m_TemplateName = "Tonsil Excision";
             this.m_Text = "[identifier]." + Environment.NewLine +
                 "Gross Description:  [quantity] tan-pink, lobular, palatine [tonsils]." + Environment.NewLine +
-                "Weight:  [weight]" + Environment.NewLine +
+                "Weight:  [weight] grams" + Environment.NewLine +
                 "[measurementstring]" + Environment.NewLine +                
                 "Cut Surface:  [description]" + Environment.NewLine +
                 "Submitted:  [representativesectionsagerestricted].  ";
@@ -428,7 +434,7 @@ namespace YellowstonePathology.UI.Gross
             this.m_TemplateName = "Adenoid Excision";
             this.m_Text = "[identifier]." + Environment.NewLine +
                 "Gross Description:  [description]" + Environment.NewLine +
-                "Weight:  [weight]" + Environment.NewLine +
+                "Weight:  [weight] grams" + Environment.NewLine +
                 "Measurement Adenoids:  [measurement]" + Environment.NewLine +
                 "Cut Surface:  [description]" + Environment.NewLine +
                 "Submitted:  [representativesectionsagerestricted].  ";
@@ -455,7 +461,7 @@ namespace YellowstonePathology.UI.Gross
                 "Measurement:  [measurement]" + Environment.NewLine +
                 "Villi:  [description]" + Environment.NewLine +
                 "Fetal Parts:  [description]" + Environment.NewLine +
-                "Submitted:  [submitted].  ";            
+                "Submitted:  [representativesections].  ";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.POC poc = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.POC();
             this.m_SpecimenCollection.Add(poc);
@@ -476,7 +482,7 @@ namespace YellowstonePathology.UI.Gross
             this.m_TemplateName = "BreastReduction";
             this.m_Text = "[identifier]." + Environment.NewLine +
                 "Gross Description:  [description]" + Environment.NewLine +
-                "Weight:  [weight]" + Environment.NewLine +
+                "Weight:  [weight] grams" + Environment.NewLine +
                 "Measurement:  [measurement]" + Environment.NewLine +
                 "Cut Surface:  [description]" + Environment.NewLine +
                 "Submitted:  [representativesections].  ";            
@@ -654,7 +660,7 @@ namespace YellowstonePathology.UI.Gross
                 "   Point of Rupture:  [description]" + Environment.NewLine +
                 Environment.NewLine +
                 "Placental Disc:" + Environment.NewLine +
-                "   Weight:  [weight]" + Environment.NewLine +
+                "   Weight:  [weight] grams" + Environment.NewLine +
                 "   Shape:  [shape]" + Environment.NewLine +
                 "   Measurements:  [measurement]" + Environment.NewLine +
                 "   Fetal Surface:" + Environment.NewLine +
@@ -727,7 +733,7 @@ namespace YellowstonePathology.UI.Gross
             	"      Twin B:  [description]" + Environment.NewLine +
                 Environment.NewLine +
             	"Placental Disc:" + Environment.NewLine +
-                "   Weight:  [weight]" + Environment.NewLine +
+                "   Weight:  [weight] grams" + Environment.NewLine +
                 "   Shape:  [shape]" + Environment.NewLine +
                 "   Measurements:  [measurement]" + Environment.NewLine +
                 "   Fetal Surface:" + Environment.NewLine +
@@ -802,7 +808,7 @@ namespace YellowstonePathology.UI.Gross
             	"      Twin B:  [description]" + Environment.NewLine +
                 Environment.NewLine +
             	"Placental Disc:" + Environment.NewLine +
-                "   Weight:  [weight]" + Environment.NewLine +
+                "   Weight:  [weight] grams" + Environment.NewLine +
                 "   Shape:  [shape]" + Environment.NewLine +
                 "   Measurements:  [measurement]" + Environment.NewLine +
                 "   Fetal Surface:" + Environment.NewLine +
@@ -844,7 +850,7 @@ namespace YellowstonePathology.UI.Gross
             this.m_Text = "[identifier]." + Environment.NewLine +                
                 Environment.NewLine +
                 "Uterine Corpus:" + Environment.NewLine +
-                "   Weight:  [weight]" + Environment.NewLine +
+                "   Weight:  [weight] grams" + Environment.NewLine +
                 "   Dimensions:  [measurements]" + Environment.NewLine +
                 "Serosa:" + Environment.NewLine +
                 "   Uterine Serosa:  [color], [description]" + Environment.NewLine +
@@ -904,7 +910,7 @@ namespace YellowstonePathology.UI.Gross
                 "      Surface:  [description]" + Environment.NewLine +
                 "      Cut Surface:  [description]" + Environment.NewLine +
                 "Uterine Corpus:" + Environment.NewLine +
-                "   Weight:  [weight]" + Environment.NewLine +
+                "   Weight:  [weight] grams" + Environment.NewLine +
                 "   Dimensions: [measurements]" + Environment.NewLine +
                 "   Serosa:" + Environment.NewLine +
                 "      Uterine Serosa Description:  [description]" + Environment.NewLine +

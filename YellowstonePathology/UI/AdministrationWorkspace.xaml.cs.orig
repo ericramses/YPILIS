@@ -1001,6 +1001,7 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
+<<<<<<< HEAD
             //Business.Gateway.AccessionOrderBuilderV2 gw = new Business.Gateway.AccessionOrderBuilderV2();
             //YellowstonePathology.Business.Test.AccessionOrder ao = new Business.Test.AccessionOrder();
             //gw.Build(ao);
@@ -1010,6 +1011,12 @@ namespace YellowstonePathology.UI
             Business.Persistence.JSONObjectWriter.WriteV2(result, ao);
 
             string x = result.ToString();
+=======
+            Business.Gateway.AccessionOrderBuilderV2 gw = new Business.Gateway.AccessionOrderBuilderV2();
+            YellowstonePathology.Business.Test.AccessionOrder ao = new Business.Test.AccessionOrder();
+            ao.MasterAccessionNo = "16-19507"; // 19382  20207 19507 20178 19328
+            gw.Build(ao);
+>>>>>>> 78ecec8deddeeb8fc1e159d06792d3e34dbc9450
         }
 
         private string CallBackOne(string x)

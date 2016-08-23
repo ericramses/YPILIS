@@ -67,13 +67,13 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
         }
     }
 
-    public class FluidWithCellBlock : Specimen
+    public class Fluid : Specimen
     {
-        public FluidWithCellBlock()
+        public Fluid()
         {
-            this.m_SpecimenId = "SPCMFLUIDCB";
-            this.m_SpecimenName = "Fluid With Cell Block";
-            this.m_Description = "Fluid With Cell Block";
+            this.m_SpecimenId = "SPCMFLUID";
+            this.m_SpecimenName = "Fluid";
+            this.m_Description = "Fluid";
             this.m_LabFixation = null;
             this.m_ClientFixation = null;
             this.m_RequiresGrossExamination = true;

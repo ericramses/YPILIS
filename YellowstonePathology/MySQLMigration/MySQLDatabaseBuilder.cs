@@ -1157,7 +1157,7 @@ namespace YellowstonePathology.MySQLMigration
 
             SqlCommand cmd = new SqlCommand();
             string select = this.GetSelectStatement(tableName, properties, rowsToUse);
-            cmd.CommandText = select + " where [TimeStamp] > " +
+            cmd.CommandText = select + " and [TimeStamp] > " +
                 "(SELECT convert(int, ep.value) " +
                 "FROM sys.extended_properties AS ep " +
                 "INNER JOIN sys.tables AS t ON ep.major_id = t.object_id " +

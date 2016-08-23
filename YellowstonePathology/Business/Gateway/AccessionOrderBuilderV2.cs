@@ -10,8 +10,11 @@ namespace YellowstonePathology.Business.Gateway
 {
     public class AccessionOrderBuilderV2
     {
-        Test.AccessionOrder m_AccessionOrder;
-        PanelSet.Model.PanelSetCollection m_PanelSetCollection;
+        private Test.AccessionOrder m_AccessionOrder;
+        private PanelSet.Model.PanelSetCollection m_PanelSetCollection;
+        private List<string> m_PanelSetOrderReportNumbers;
+        private DataTable m_TestOrderDataTable;
+        private DataTable m_AliquotOrderDataTable;    
 
         public AccessionOrderBuilderV2()
         {
@@ -19,35 +22,32 @@ namespace YellowstonePathology.Business.Gateway
 
         }
 
-        public void Build(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
+        public void Build(SqlCommand cmd, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {
+            this.m_PanelSetOrderReportNumbers = new List<string>();
             this.m_AccessionOrder = accessionOrder;
-
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "whctest";
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.Add("@MasterAccessionNo", SqlDbType.VarChar).Value = accessionOrder.MasterAccessionNo;
+                        
             using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 cmd.Connection = cn;
                 using (SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.KeyInfo))
                 {
-                    HandleDataSets(dr);  
+                    HandleDataSets(dr);
                 }
             }
 
-            if (this.m_AccessionOrder.PanelSetOrderCollection.HasSurgical() == true)
-            {
-                this.BuildSurgicalObjects();
-            }
+            this.m_AccessionOrder.AccessionLock.MasterAccessionNo = accessionOrder.MasterAccessionNo;
+            this.m_AccessionOrder.PanelSetOrderCollection.RemoveDeleted(this.m_PanelSetOrderReportNumbers);
+            if(this.m_TestOrderDataTable != null) this.HandleSlideOrderTestOrder(this.m_TestOrderDataTable);
+            if(this.m_AliquotOrderDataTable != null) this.HandleTestOrderAliquotOrder(this.m_AliquotOrderDataTable);
         }
 
         private void HandleDataSets(SqlDataReader dr)
         {
             DataTable dataTable = new DataTable();
             dataTable.Load(dr, LoadOption.OverwriteChanges);
-            if(dataTable.Rows.Count > 0)
+            if (dataTable.Rows.Count > 0)
             {
                 string tablename = dataTable.Rows[0][0].ToString();
                 switch (tablename)
@@ -120,13 +120,13 @@ namespace YellowstonePathology.Business.Gateway
                         break;
                 }
             }
-
+            
             if (dr.IsClosed == false)
             {
                 HandleDataSets(dr);
             }
-        } 
-        
+        }
+
         private void HandleAccessionOrder(DataTable dataTable)
         {
             this.m_AccessionOrder.Sync(dataTable);
@@ -139,7 +139,8 @@ namespace YellowstonePathology.Business.Gateway
 
         private void HandleAliquotOrder(DataTable dataTable)
         {
-            foreach(Business.Specimen.Model.SpecimenOrder specimenOrder in this.m_AccessionOrder.SpecimenOrderCollection)
+            this.m_AliquotOrderDataTable = dataTable;
+            foreach (Business.Specimen.Model.SpecimenOrder specimenOrder in this.m_AccessionOrder.SpecimenOrderCollection)
             {
                 specimenOrder.AliquotOrderCollection.Sync(dataTable, specimenOrder.SpecimenOrderId);
             }
@@ -149,7 +150,7 @@ namespace YellowstonePathology.Business.Gateway
         {
             foreach (Business.Specimen.Model.SpecimenOrder specimenOrder in this.m_AccessionOrder.SpecimenOrderCollection)
             {
-                foreach(Business.Test.AliquotOrder aliquotOrder in specimenOrder.AliquotOrderCollection)
+                foreach (Business.Test.AliquotOrder aliquotOrder in specimenOrder.AliquotOrderCollection)
                 {
                     aliquotOrder.SlideOrderCollection.Sync(dataTable, aliquotOrder.AliquotOrderId);
                 }
@@ -158,12 +159,14 @@ namespace YellowstonePathology.Business.Gateway
 
         private void HandlePanelSetOrder(DataTable dataTable)
         {
+            string reportNo = dataTable.Rows[0]["ReportNo"].ToString();            
+            this.m_PanelSetOrderReportNumbers.Add(reportNo);
             this.m_AccessionOrder.PanelSetOrderCollection.Sync(dataTable);
         }
 
         private void HandlePanelOrder(DataTable dataTable)
         {
-            foreach(Test.PanelSetOrder panelSetOrder in this.m_AccessionOrder.PanelSetOrderCollection)
+            foreach (Test.PanelSetOrder panelSetOrder in this.m_AccessionOrder.PanelSetOrderCollection)
             {
                 panelSetOrder.PanelOrderCollection.Sync(dataTable, panelSetOrder.ReportNo);
             }
@@ -171,48 +174,100 @@ namespace YellowstonePathology.Business.Gateway
 
         private void HandleTestOrder(DataTable dataTable)
         {
+            this.m_TestOrderDataTable = dataTable;
             foreach (Test.PanelSetOrder panelSetOrder in this.m_AccessionOrder.PanelSetOrderCollection)
             {
-                foreach(Test.PanelOrder panelOrder in panelSetOrder.PanelOrderCollection)
+                foreach (Test.PanelOrder panelOrder in panelSetOrder.PanelOrderCollection)
                 {
                     panelOrder.TestOrderCollection.Sync(dataTable, panelOrder.PanelOrderId);
                 }
-            }
+            }            
+        }
 
+        private void HandlAliquotOrderTestOrder(DataTable dataTable)
+        {
             foreach (Business.Specimen.Model.SpecimenOrder specimenOrder in this.m_AccessionOrder.SpecimenOrderCollection)
             {
-                foreach (Business.Test.AliquotOrder aliquotOrder in specimenOrder.AliquotOrderCollection)
+                foreach(Business.Test.AliquotOrder aliquotOrder in specimenOrder.AliquotOrderCollection)
                 {
-                    aliquotOrder.TestOrderCollection.Sync(dataTable, aliquotOrder.AliquotOrderId);
+                    aliquotOrder.TestOrderCollection.Sync(dataTable, aliquotOrder.AliquotOrderId);                    
                 }
             }
-
-            this.m_AccessionOrder.SyncTestOrders(dataTable);
-
-            /*-int testId = (int)dr["TestId"];
-            -Test.Model.TestOrder poTestOrder = new Test.Model.TestOrder();
-            -Persistence.SqlDataReaderPropertyWriter poSqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(poTestOrder, dr);
-            -poSqlDataReaderPropertyWriter.WriteProperties();
-            -this.m_AccessionOrder.PanelSetOrderCollection.GetPanelOrder(poTestOrder.PanelOrderId).TestOrderCollection.Add(poTestOrder);
-
-            -Test.Model.TestOrder aoTestOrder = new Test.Model.TestOrder();
-            -Persistence.SqlDataReaderPropertyWriter aoSqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(aoTestOrder, dr);
-            -aoSqlDataReaderPropertyWriter.WriteProperties();
-            -Test.AliquotOrder aliquotOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetAliquotOrder(aoTestOrder.AliquotOrderId);
-            -aliquotOrder.TestOrderCollection.Add(aoTestOrder);
-            -this.BuildTestOrderAliquotOrder(poTestOrder, aliquotOrder);
-
-
-            -Test.Model.TestOrder soTestOrder = new Test.Model.TestOrder();
-            -Persistence.SqlDataReaderPropertyWriter soSqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(soTestOrder, dr);
-            -soSqlDataReaderPropertyWriter.WriteProperties();
-            Slide.Model.SlideOrder slideOrder = aliquotOrder.SlideOrderCollection.GetSlideOrderByTestOrderId(soTestOrder.TestOrderId);
-            if (slideOrder != null)
-            {
-                slideOrder.TestOrder = soTestOrder;
-            }
-            this.BuildTestOrderSlideOrderCollection(poTestOrder);*/
         }
+
+        private void HandlTestOrderSlideOrderCollection(DataTable dataTable)
+        {
+            foreach (Business.Test.PanelSetOrder panelSetOrder in this.m_AccessionOrder.PanelSetOrderCollection)
+            {
+                foreach (Business.Test.PanelOrder panelOrder in panelSetOrder.PanelOrderCollection)
+                {
+                    foreach (Business.Test.Model.TestOrder testOrder in panelOrder.TestOrderCollection)
+                    {
+                        //stOrder.SlideOrderCollection.sy
+                    }
+                }
+            }
+        }
+
+        private void HandleSlideOrderTestOrder(DataTable dataTable)
+        {
+            DataTableReader dataTableReader = new DataTableReader(dataTable);
+            while (dataTableReader.Read())
+            {
+                YellowstonePathology.Business.Test.Model.TestOrder_Base testOrder = null;
+                foreach (Business.Specimen.Model.SpecimenOrder specimenOrder in this.m_AccessionOrder.SpecimenOrderCollection)
+                {
+                    foreach (Business.Test.AliquotOrder aliquotOrder in specimenOrder.AliquotOrderCollection)
+                    {
+                        foreach (Business.Slide.Model.SlideOrder slideOrder in aliquotOrder.SlideOrderCollection)
+                        {
+                            if(slideOrder.TestOrder == null)
+                            {
+                                testOrder = new Test.Model.TestOrder();
+                            }
+                            else
+                            {
+                                testOrder = slideOrder.TestOrder;
+                            }
+
+                            YellowstonePathology.Business.Persistence.SqlDataTableReaderPropertyWriter sqlDataTableReaderPropertyWriter = new Persistence.SqlDataTableReaderPropertyWriter(testOrder, dataTableReader);
+                            sqlDataTableReaderPropertyWriter.WriteProperties();
+                        }
+                    }
+                }
+            }            
+        }
+
+        private void HandleTestOrderAliquotOrder(DataTable dataTable)
+        {
+            DataTableReader dataTableReader = new DataTableReader(dataTable);
+            while (dataTableReader.Read())
+            {
+                YellowstonePathology.Business.Test.AliquotOrder_Base aliquotOrder = null;
+                foreach(Business.Test.PanelSetOrder panelSetOrder in this.m_AccessionOrder.PanelSetOrderCollection)
+                {
+                    foreach(Business.Test.PanelOrder panelOrder in panelSetOrder.PanelOrderCollection)
+                    {
+                        foreach(Business.Test.Model.TestOrder testOrder in panelOrder.TestOrderCollection)
+                        {
+                            if(testOrder.AliquotOrder == null)
+                            {
+                                aliquotOrder = new Test.AliquotOrder_Base();
+                            }
+                            else
+                            {
+                                aliquotOrder = testOrder.AliquotOrder;
+                            }
+
+                            YellowstonePathology.Business.Persistence.SqlDataTableReaderPropertyWriter sqlDataTableReaderPropertyWriter = new Persistence.SqlDataTableReaderPropertyWriter(aliquotOrder, dataTableReader);
+                            sqlDataTableReaderPropertyWriter.WriteProperties();
+                        }
+                    }
+                }
+                
+            }
+        }
+
         private void HandleTaskOrder(DataTable dataTable)
         {
             this.m_AccessionOrder.TaskOrderCollection.Sync(dataTable);
@@ -233,7 +288,7 @@ namespace YellowstonePathology.Business.Gateway
 
         private void HandleAmendment(DataTable dataTable)
         {
-            foreach(Test.PanelSetOrder panelSetOrder in this.m_AccessionOrder.PanelSetOrderCollection)
+            foreach (Test.PanelSetOrder panelSetOrder in this.m_AccessionOrder.PanelSetOrderCollection)
             {
                 panelSetOrder.AmendmentCollection.Sync(dataTable, panelSetOrder.ReportNo);
             }
@@ -277,7 +332,7 @@ namespace YellowstonePathology.Business.Gateway
         private void HandleICD9Code(DataTable dataTable)
         {
             Test.Surgical.SurgicalTestOrder surgicalTestOrder = (Test.Surgical.SurgicalTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetSurgical();
-            foreach(Test.Surgical.SurgicalSpecimen surgicalSpecimen in surgicalTestOrder.SurgicalSpecimenCollection)
+            foreach (Test.Surgical.SurgicalSpecimen surgicalSpecimen in surgicalTestOrder.SurgicalSpecimenCollection)
             {
                 surgicalSpecimen.ICD9BillingCodeCollection.Sync(dataTable, surgicalSpecimen.SurgicalSpecimenId);
             }
@@ -317,19 +372,14 @@ namespace YellowstonePathology.Business.Gateway
 
         private void HandleFlowMarker(DataTable dataTable)
         {
-            foreach(Test.PanelSetOrder panelSetOrder in this.m_AccessionOrder.PanelSetOrderCollection)
+            foreach (Test.PanelSetOrder panelSetOrder in this.m_AccessionOrder.PanelSetOrderCollection)
             {
-                if(panelSetOrder is Test.LLP.PanelSetOrderLeukemiaLymphoma)
+                if (panelSetOrder is Test.LLP.PanelSetOrderLeukemiaLymphoma)
                 {
                     Test.LLP.PanelSetOrderLeukemiaLymphoma llpPanelSetOrder = (Test.LLP.PanelSetOrderLeukemiaLymphoma)panelSetOrder;
                     llpPanelSetOrder.FlowMarkerCollection.Sync(dataTable, llpPanelSetOrder.ReportNo);
                 }
             }
-        }
-
-        private void BuildSurgicalObjects()
-        {
-
-        }
+        }       
     }
 }

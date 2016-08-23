@@ -844,6 +844,7 @@ namespace YellowstonePathology.Business.Specimen.Model
             this.IsLoading = true;
             this.RemoveDeleted(dataTable);
             DataTableReader dataTableReader = new DataTableReader(dataTable);
+
             while(dataTableReader.Read())
             {
                 string specimenOrderId = dataTableReader["SpecimenOrderId"].ToString();
@@ -864,6 +865,7 @@ namespace YellowstonePathology.Business.Specimen.Model
                 sqlDataTableReaderPropertyWriter.WriteProperties();
 
             }
+
             this.IsLoading = false;
         }
 
