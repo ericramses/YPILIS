@@ -60,7 +60,6 @@ namespace YellowstonePathology.UI.Surgical
 
         private void PapCorrelationPage_Loaded(object sender, RoutedEventArgs e)
         {
-             
         }
 
         private void PapCorrelationPage_Unloaded(object sender, RoutedEventArgs e)
@@ -98,7 +97,10 @@ namespace YellowstonePathology.UI.Surgical
 
         private void ButtonNext_Click(object sender, RoutedEventArgs e)
         {
-            this.Next(this, new EventArgs());
+            if (this.OkToMoveOn() == true)
+            {
+                this.Next(this, new EventArgs());
+            }
         }
 
         private void ButtonBack_Click(object sender, RoutedEventArgs e)
@@ -108,7 +110,10 @@ namespace YellowstonePathology.UI.Surgical
 
         private void ButtonClose_Click(object sender, RoutedEventArgs e)
         {
-            this.Close(this, new EventArgs());
+            if (this.OkToMoveOn() == true)
+            {
+                this.Close(this, new EventArgs());
+            }
         }
 
         public string PageHeaderText
@@ -148,12 +153,19 @@ namespace YellowstonePathology.UI.Surgical
             }
         }
 
-        private void ListViewAccessions_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private bool OkToMoveOn()
         {
-            if(this.ListViewAccessions.SelectedItem != null)
+            bool result = true;
+
+            if(this.m_SurgicalTestOrder.PapCorrelation == 1 || this.m_SurgicalTestOrder.PapCorrelation == 2)
             {
-                this.m_SurgicalTestOrder.PapCorrelationAccessionNo = ((YellowstonePathology.Business.Patient.Model.PatientHistoryListItem)this.ListViewAccessions.SelectedItem).ReportNo;
+                if(string.IsNullOrEmpty(this.m_SurgicalTestOrder.PapCorrelationAccessionNo) == true)
+                {
+                    result = false;
+                    MessageBox.Show("A selection of 'Correlates' or 'Does Not Correlate' requires a Correlation Report Number.");
+                }
             }
+            return result;
         }
     }
 }
