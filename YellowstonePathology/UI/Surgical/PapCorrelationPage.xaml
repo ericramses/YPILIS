@@ -44,7 +44,12 @@
                     <RowDefinition Height="Auto"></RowDefinition>
                 </Grid.RowDefinitions>
 
-                <ListBox Grid.Column="0" Grid.Row="0" Name="RadioButtonListPapCorrelation" BorderThickness="0" Margin="2" SelectedIndex="{Binding Path=SurgicalTestOrder.PapCorrelation}">
+                <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2">PAP Accession:</TextBlock>
+                <ComboBox Name="ComboBoxPatientHistory" Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" ItemsSource="{Binding Path=PatientHistoryList}"
+                          SelectedValuePath="ReportNo" SelectedValue="{Binding Path=SurgicalTestOrder.PapCorrelationAccessionNo}"
+                          DisplayMemberPath="ReportNo" />
+
+                <ListBox Grid.Column="0" Grid.Row="1" Name="RadioButtonListPapCorrelation" BorderThickness="0" Margin="2" SelectedIndex="{Binding Path=SurgicalTestOrder.PapCorrelation}">
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="{x:Type ListBoxItem}">
                             <Setter Property="Template">
@@ -69,18 +74,6 @@
                         <RadioButton GroupName="GroupPapCorrelation" Margin="2,2,2,2" IsChecked="{Binding IsSelected, ElementName=ListBoxItemPapCorrelation4}">Not Applicable.</RadioButton>
                     </ListBoxItem>
                 </ListBox>
-
-                <ListView Name="ListViewAccessions" Grid.Column="1" Grid.Row="0" ItemsSource="{Binding Path=PatientHistoryList}" MouseDoubleClick="ListViewAccessions_MouseDoubleClick" Margin="2,2,2,2">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn Header="Report No" DisplayMemberBinding="{Binding Path=ReportNo}"></GridViewColumn>
-                            <GridViewColumn Header="Accession Date" DisplayMemberBinding="{Binding Path=AccessionDate, Converter={StaticResource ShortDateConverter}}"></GridViewColumn>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-                    
-                <TextBlock Grid.Column="0" Grid.Row="1" Margin="2,2,2,2">Pap Accession:</TextBlock>
-                <TextBox Grid.Column="1" Grid.Row="1" Margin="2,2,2,2" Text="{Binding Path=SurgicalTestOrder.PapCorrelationAccessionNo}"></TextBox>
                     
                 <TextBlock Grid.Column="0" Grid.Row="2" Margin="2,2,2,2">Comment:</TextBlock>
                 <TextBox Grid.Column="1" Grid.Row="2" Margin="2,2,2,2" Text="{Binding Path=SurgicalTestOrder.PapCorrelationComment}"></TextBox>

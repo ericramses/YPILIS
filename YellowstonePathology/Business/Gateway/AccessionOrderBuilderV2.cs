@@ -41,6 +41,15 @@ namespace YellowstonePathology.Business.Gateway
             this.m_AccessionOrder.PanelSetOrderCollection.RemoveDeleted(this.m_PanelSetOrderReportNumbers);
             if(this.m_TestOrderDataTable != null) this.HandleSlideOrderTestOrder(this.m_TestOrderDataTable);
             if(this.m_AliquotOrderDataTable != null) this.HandleTestOrderAliquotOrder(this.m_AliquotOrderDataTable);
+
+            if (this.m_AccessionOrder.PanelSetOrderCollection.HasSurgical() == true)
+            {
+                Test.Surgical.SurgicalTestOrder surgicalTestOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetSurgical();
+                this.SetSurgicalAuditAmendment(surgicalTestOrder);
+                this.SetSurgicalSpecimenSpecimenOrder(surgicalTestOrder);
+                this.SetSurgicalSpecimenAuditSpecimenOrder(surgicalTestOrder);
+                this.SetSurgicalSpecimenOrderItemCollection(surgicalTestOrder);
+            }
         }
 
         private void HandleDataSets(SqlDataReader dr)
@@ -380,6 +389,62 @@ namespace YellowstonePathology.Business.Gateway
                     llpPanelSetOrder.FlowMarkerCollection.Sync(dataTable, llpPanelSetOrder.ReportNo);
                 }
             }
-        }       
+        }
+
+
+
+        private void SetSurgicalAuditAmendment(YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder)
+        {
+            foreach (YellowstonePathology.Business.Amendment.Model.Amendment amendment in surgicalTestOrder.AmendmentCollection)
+            {
+                surgicalTestOrder.SurgicalAuditCollection.SetAmendmentReference(amendment);
+            }
+        }
+
+        private void SetSurgicalSpecimenSpecimenOrder(YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder)
+        {
+            foreach (YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen in surgicalTestOrder.SurgicalSpecimenCollection)
+            {
+                foreach (Specimen.Model.SpecimenOrder specimenOrder in this.m_AccessionOrder.SpecimenOrderCollection)
+                {
+                    if (specimenOrder.SpecimenOrderId == surgicalSpecimen.SpecimenOrderId)
+                    {
+                        surgicalSpecimen.SpecimenOrder = specimenOrder;
+                        break;
+                    }
+                }
+            }
+        }
+
+        private void SetSurgicalSpecimenAuditSpecimenOrder(YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder)
+        {
+            foreach (YellowstonePathology.Business.Test.Surgical.SurgicalAudit surgicalAudit in surgicalTestOrder.SurgicalAuditCollection)
+            {
+                foreach (YellowstonePathology.Business.Test.Surgical.SurgicalSpecimenAudit surgicalSpecimenAudit in surgicalAudit.SurgicalSpecimenAuditCollection)
+                {
+                    Specimen.Model.SpecimenOrder specimenOrder = (from so in this.m_AccessionOrder.SpecimenOrderCollection
+                                                                  where so.SpecimenOrderId == surgicalSpecimenAudit.SpecimenOrderId
+                                                                  select so).Single<Specimen.Model.SpecimenOrder>();
+                    surgicalSpecimenAudit.SpecimenOrder = specimenOrder;
+                }
+            }
+        }
+
+        private void SetSurgicalSpecimenOrderItemCollection(YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder)
+        {
+
+            foreach (YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen in surgicalTestOrder.SurgicalSpecimenCollection)
+            {
+                foreach (Specimen.Model.SpecimenOrder specimenOrder in this.m_AccessionOrder.SpecimenOrderCollection)
+                {
+                    if (specimenOrder.SpecimenOrderId == surgicalSpecimen.SpecimenOrderId)
+                    {
+                        surgicalTestOrder.SpecimenOrderCollection.IsLoading = true;
+                        surgicalTestOrder.SpecimenOrderCollection.Add(specimenOrder);
+                        surgicalTestOrder.SpecimenOrderCollection.IsLoading = false;
+                    }
+                }
+            }
+        }
     }
 }

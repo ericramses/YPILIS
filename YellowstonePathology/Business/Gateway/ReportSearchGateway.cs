@@ -253,41 +253,6 @@ namespace YellowstonePathology.Business.Gateway
             return reportSearchList;
         }
 
-		public static YellowstonePathology.Business.Search.ReportSearchList GetReportSearchListByBatchId(List<object> parameters)
-		{
-			SqlCommand cmd = new SqlCommand();
-			cmd.CommandType = CommandType.StoredProcedure;
-			cmd.CommandText = "gwAccessionOrderListByBatchIdFill";
-			cmd.Parameters.Add("@PanelOrderBatchId", SqlDbType.Int).Value = parameters[0];
-			YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd);
-			return reportSearchList;
-		}
-
-		public static YellowstonePathology.Business.Search.ReportSearchList GetReportSearchListByAccessionDate(List<object> parameters)
-		{
-			SqlCommand cmd = new SqlCommand();
-			cmd.CommandType = CommandType.StoredProcedure;
-			cmd.CommandText = "gwAccessionOrderListByAccessionDateBatchTypeIdFillV2";
-			cmd.Parameters.Add("@AccessionDate", SqlDbType.VarChar).Value = ((DateTime)parameters[0]).ToShortDateString();
-			cmd.Parameters.Add("@BatchTypeId", SqlDbType.Int).Value = parameters[1];
-			cmd.Parameters.Add("@FacilityId", SqlDbType.VarChar).Value = parameters[2];
-			YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd);
-			return reportSearchList;
-		}
-
-		public static YellowstonePathology.Business.Search.ReportSearchList GetReportSearchListByDateRangeBatchLocation(List<object> parameters)
-		{
-			SqlCommand cmd = new SqlCommand();
-			cmd.CommandType = CommandType.StoredProcedure;
-			cmd.CommandText = "gwAccessionOrderListByBatchTypeDateRangeFill";
-			cmd.Parameters.Add("@StartDate", SqlDbType.DateTime).Value = parameters[0];
-			cmd.Parameters.Add("@EndDate", SqlDbType.DateTime).Value = parameters[1];
-			cmd.Parameters.Add("@BatchTypeId", SqlDbType.VarChar).Value = parameters[2];
-			cmd.Parameters.Add("@OriginatingLocation", SqlDbType.VarChar).Value = parameters[3];
-			YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd);
-			return reportSearchList;
-		}
-
 		public static YellowstonePathology.Business.Search.ReportSearchList GetReportSearchListByDateRange(List<object> parameters)
 		{
 			SqlCommand cmd = new SqlCommand();
@@ -333,16 +298,6 @@ namespace YellowstonePathology.Business.Gateway
 			return reportSearchList;
 		}
 
-		public static YellowstonePathology.Business.Search.ReportSearchList GetReportSearchListByNotFinalLocation(List<object> parameters)
-		{
-			SqlCommand cmd = new SqlCommand();
-			cmd.CommandType = CommandType.StoredProcedure;
-			cmd.CommandText = "gwAccessionOrderListByNotFinalFillAll";
-			cmd.Parameters.Add("@OriginatingLocation", SqlDbType.VarChar).Value = parameters[0];
-			YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd);
-			return reportSearchList;
-		}
-
 		public static YellowstonePathology.Business.Search.ReportSearchList GetReportSearchListByNotFinalPanelId(List<object> parameters)
 		{
 			SqlCommand cmd = new SqlCommand();
@@ -361,16 +316,6 @@ namespace YellowstonePathology.Business.Gateway
 			YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd);
             return reportSearchList;
         }
-
-		public static YellowstonePathology.Business.Search.ReportSearchList GetReportSearchListByUnBatchedBatchTypeId(List<object> parameters)
-		{
-			SqlCommand cmd = new SqlCommand();
-			cmd.CommandType = CommandType.StoredProcedure;
-			cmd.CommandText = "gwAccessionOrderListByUnBatchedBatchTypeIdFill";
-			cmd.Parameters.Add("@BatchTypeId", SqlDbType.Int).Value = parameters[0];
-			YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd);
-			return reportSearchList;
-		}
 
 		public static YellowstonePathology.Business.Search.ReportSearchList GetReportSearchListByPatientName(List<object> parameters)
 		{
@@ -410,36 +355,6 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.CommandType = CommandType.StoredProcedure;
 			cmd.CommandText = "gwAccessionOrderListByPatientId";
 			cmd.Parameters.Add("@PatientId", SqlDbType.VarChar).Value = parameters[0].ToString();
-			YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd);
-			return reportSearchList;
-		}
-
-		public static YellowstonePathology.Business.Search.ReportSearchList GetReportSearchListByKutsch(List<object> parameters)
-        {
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.CommandText = "gwAccessionOrderListByKutsch";
-            cmd.Parameters.Add("@AccessionDate", SqlDbType.DateTime).Value = parameters[0].ToString();
-			YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd);
-            return reportSearchList;
-        }
-
-		public static YellowstonePathology.Business.Search.ReportSearchList GetReportSearchListByEmerick(List<object> parameters)
-        {
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.CommandText = "gwAccessionOrderListByEmerick";
-            cmd.Parameters.Add("@AccessionDate", SqlDbType.DateTime).Value = parameters[0].ToString();
-			YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd);
-            return reportSearchList;
-        }
-
-		public static YellowstonePathology.Business.Search.ReportSearchList GetReportSearchListByNotVerified(List<object> parameters)
-		{
-			SqlCommand cmd = new SqlCommand();
-			cmd.CommandType = CommandType.StoredProcedure;
-			cmd.CommandText = "gwAccessionOrderListByNotVerified";
-			cmd.Parameters.Add("@PanelSetId", SqlDbType.Int).Value = parameters[0];
 			YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd);
 			return reportSearchList;
 		}
