@@ -340,7 +340,7 @@ namespace YellowstonePathology.Business.Test
 
         public void Sync(DataTable dataTable, string reportNo)
         {
-            this.RemoveDeleted(dataTable);
+            //this.RemoveDeleted(dataTable);
             DataTableReader dataTableReader = new DataTableReader(dataTable);
             while (dataTableReader.Read())
             {
@@ -369,14 +369,13 @@ namespace YellowstonePathology.Business.Test
             }
         }
 
-        public void RemoveDeleted(DataTable dataTable)
+        public void RemoveDeleted(List<string> panelOrderIds)
         {
             for (int i = this.Count - 1; i > -1; i--)
             {
                 bool found = false;
-                for (int idx = 0; idx < dataTable.Rows.Count; idx++)
+                foreach (string panelOrderId in panelOrderIds)
                 {
-                    string panelOrderId = dataTable.Rows[idx]["PanelOrderId"].ToString();
                     if (this[i].PanelOrderId == panelOrderId)
                     {
                         found = true;

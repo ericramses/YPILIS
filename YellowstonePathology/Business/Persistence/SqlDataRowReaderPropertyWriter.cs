@@ -159,7 +159,7 @@ namespace YellowstonePathology.Business.Persistence
             Nullable<DateTime> sqlValue = null;
             if (this.m_DataTableReader[property.Name] != DBNull.Value)
             {
-                sqlValue = DateTime.Parse(this.m_DataTableReader[property.Name].ToString());
+                sqlValue = (DateTime)this.m_DataTableReader[property.Name];
             }
             property.SetValue(this.m_ObjectToWriteTo, sqlValue, null);
         }
