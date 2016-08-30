@@ -26,6 +26,7 @@ namespace YellowstonePathology.MySQLMigration
 
         private string GetMySQLDataType(Type type)
         {
+
             string result = null;
 
             if (type == typeof(string))
@@ -46,19 +47,19 @@ namespace YellowstonePathology.MySQLMigration
             }
             else if (type == typeof(DateTime))
             {
-                result = "DATETIME";
+                result = "DATETIME(3)";
             }
             else if (type == typeof(bool))
             {
-                result = "BIT";
+                result = "BIT(1)";
             }
             else if (type == typeof(Nullable<bool>))
             {
-                result = "BIT";
+                result = "BIT(1)";
             }
             else if (type == typeof(Nullable<DateTime>))
             {
-                result = "DATETIME";
+                result = "DATETIME(3)";
             }
             else if (type == typeof(double?))
             {
@@ -145,6 +146,636 @@ namespace YellowstonePathology.MySQLMigration
 
             return result;
         }
+
+        private void CreatePrimaryKeyCommand(string tableName, string columnName, string keyType, StringBuilder result)
+        {
+            string command = "alter table " + tableName + " add constraint pk_" + tableName + " primary key(" + columnName;
+            if (keyType == "TEXT")
+            {
+                command += "(50)";
+            }
+            command += ")";
+            result.AppendLine(command);
+        }
+
+        public Business.Rules.MethodResult AddTransferColumn(string tableName)
+        {
+            Business.Rules.MethodResult methodResult = new Business.Rules.MethodResult();
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "alter table " + tableName + " add Transferred bit NULL";
+            cmd.CommandType = CommandType.Text;
+
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                try
+                {
+                    cn.Open();
+                    cmd.Connection = cn;
+                    cmd.ExecuteNonQuery();
+                }
+                catch (Exception e)
+                {
+                    string s = e.Message;
+                    methodResult.Message = cmd.CommandText;
+                    methodResult.Success = false;
+                }
+            }
+
+            return methodResult;
+        }
+
+        public Business.Rules.MethodResult AddDBTS(string tableName)
+        {
+            Business.Rules.MethodResult methodResult = new Business.Rules.MethodResult();
+            bool hasDBTS = Business.Mongo.Gateway.HasTransferDBTSAttribute(tableName);
+            bool hasTSA = Business.Mongo.Gateway.HasTransferTransferStraightAcrossAttribute(tableName);
+
+            if (hasDBTS == false) Business.Mongo.Gateway.AddTransferDBTSAttribute(tableName);
+            if (hasTSA == false) Business.Mongo.Gateway.AddTransferStraightAcrossAttribute(tableName, false);
+            return methodResult;
+        }
+
+        private PropertyInfo GetPrimaryKey(Type type)
+        {
+            PropertyInfo result = null;
+            PropertyInfo[] primaryKeyProperties = type.GetProperties().
+                Where(prop => Attribute.IsDefined(prop, typeof(Business.Persistence.PersistentPrimaryKeyProperty))).ToArray();
+
+            if (primaryKeyProperties.Length > 0)
+            {
+                result = primaryKeyProperties[0];
+            }
+            return result;
+        }
+
+        private string GetCreateTableCommand(string tableName, List<PropertyInfo> tableProperties)
+        {
+            string sqlCommand = "Create Table If Not Exists " + tableName + "(";
+
+            for (int i = 0; i < tableProperties.Count; i++)
+            {
+                PropertyInfo columnProperty = tableProperties[i];
+                sqlCommand += this.GetDataColumnDefinition(tableName, columnProperty);
+            }
+
+            sqlCommand = sqlCommand.Remove(sqlCommand.Length - 2, 2);
+            sqlCommand += ");";
+            return sqlCommand;
+        }
+
+        private string GetCreatePrimaryKeyCommand(string tableName, string columnName, string keyType)
+        {
+            string result = "alter table " + tableName + " add constraint pk_" + tableName + " primary key(" + columnName;
+            if (keyType == "LONGTEXT")
+            {
+                result += "(50)";
+            }
+            result += ")";
+            return result;
+        }
+
+        private string GetAddColumnCommand(string tableName, string columnName, string columnDataType)
+        {
+            string result = "ALTER TABLE " + tableName + " ADD COLUMN " + columnName + " " + columnDataType + ";";
+            return result;
+        }
+
+        private Business.Rules.MethodResult RunCommand(string command)
+        {
+            Business.Rules.MethodResult methodResult = new Business.Rules.MethodResult();
+            using (MySqlConnection cn = new MySqlConnection(ConnectionString))
+            {
+                cn.Open();
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.Connection = cn;
+                cmd.CommandText = command;
+
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                }
+                catch (Exception e)
+                {
+                    string s = e.Message;
+                    methodResult.Message += "MySQL error executing " + command;
+                    methodResult.Success = false;
+                }
+            }
+            return methodResult;
+        }
+
+        public Business.Rules.MethodResult LoadData(MigrationStatus migrationSatus, int numberOfObjectsToMove, int whenToStop)
+        {
+            Business.Rules.MethodResult methodResult = new Business.Rules.MethodResult();
+
+            string countToMove = numberOfObjectsToMove.ToString();
+           
+            int repetitions = this.GetTableRepeatCount(migrationSatus.TableName, countToMove);
+            if(repetitions > 0)
+            {
+                if(whenToStop <= repetitions)
+                {
+                    repetitions = whenToStop;
+                }
+            }
+
+            for (int idx = 0; idx < repetitions; idx++)
+            {
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandText = this.GetSelectStatement(migrationSatus.TableName, migrationSatus.PersistentProperties, countToMove);
+                cmd.CommandType = CommandType.Text;
+
+                using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+                {
+                    cn.Open();
+                    cmd.Connection = cn;
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            string commandText = this.GetInsertStatement(migrationSatus.TableName, migrationSatus.PersistentProperties, dr);
+                            Business.Rules.MethodResult result = this.RunCommand(commandText);
+                            if(result.Success == false)
+                            {
+                                methodResult.Message = "Error in Loading Data";
+                                methodResult.Success = false;
+                            }
+                        }
+                    }
+                }
+
+                this.SetTransfered(migrationSatus.TableName, migrationSatus.KeyFieldName, countToMove);
+            }
+
+            YellowstonePathology.Business.Mongo.Gateway.SetTransferDBTS(migrationSatus.TableName);
+            return methodResult;
+        }
+
+        private int GetTableRepeatCount(string TableName, string rowsToUse)
+        {
+            int rows = Convert.ToInt32(rowsToUse);
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "Select count(*) from " + TableName + " where Transferred is null or Transferred = 0";
+
+            int result = 0;
+            int count = 0;
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        count = (int)dr[0];
+                    }
+                }
+            }
+
+            if (count > 0)
+            {
+                result = count / rows;
+                if (count % rows > 0) result++;
+            }
+            return result;
+        }
+        private void SetTransfered(string tableName, string keyName, string rowsToUse)
+        {
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "update " + tableName + " set Transferred = 1 where  " + keyName + " in (Select top (" + rowsToUse + ") " + keyName + " from " + tableName + " where Transferred is null or Transferred = 0)";
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        private string GetSelectStatement(string tableName, List<PropertyInfo> properties, string rowsToUSe)
+        {
+            string result = "Select top(" + rowsToUSe + ") ";
+
+            for (int i = 0; i < properties.Count; i++)
+            {
+                PropertyInfo property = properties[i];
+                result = result + property.Name + ", ";
+            }
+
+            result = result.Remove(result.Length - 2, 2);
+
+            result = result + " from " + tableName + " Where Transferred is null or Transferred = 0 Order By " + properties[0].Name;
+            return result;
+        }
+
+        private string GetInsertStatement(string tableName, List<PropertyInfo> properties, SqlDataReader dr)
+        {
+            string result = "Insert " + tableName + "(";
+
+            for (int i = 0; i < properties.Count; i++)
+            {
+                PropertyInfo property = properties[i];
+                string name = properties[i].Name;
+                result = result + name + ", ";
+            }
+
+            result = result.Remove(result.Length - 2, 2);
+
+            result = result + ") values (";
+
+            for (int i = 0; i < properties.Count; i++)
+            {
+                PropertyInfo property = properties[i];
+                if (dr[i] == DBNull.Value)
+                {
+                    result = result + "NULL, ";
+                }
+                else
+                {
+                    string dataType = this.GetMySQLDataType(property.PropertyType);
+                    if (dataType == "TEXT")
+                    {
+                        string text = dr[i].ToString().Replace("'", "''");
+                        if (string.IsNullOrEmpty(text))
+                        {
+                            result = result + "NULL, ";
+                        }
+                        else
+                        {
+                            result = result + "'" + text + "', ";
+                        }
+                    }
+                    else if (dataType == "DATETIME(3)")
+                    {
+                        DateTime dt = (DateTime)dr[i];
+                        result = result + "'" + dt.ToString("yyyy-MM-dd HH:mm:ss.ffffff") + "', ";
+                    }
+                    else
+                    {
+                        result = result + dr[i] + ", ";
+                    }
+                }
+            }
+
+            result = result.Remove(result.Length - 2, 2);
+
+            result = result + ")";
+            return result;
+        }
+
+        public Business.Rules.MethodResult BuildTable(MigrationStatus migrationSatus)
+        {
+            Business.Rules.MethodResult methodResult = new Business.Rules.MethodResult();
+            methodResult.Message = string.Empty;
+            string primaryKeyType = this.GetDataColumnDefinition(migrationSatus.TableName, migrationSatus.KeyFieldProperty);
+            if (migrationSatus.PersistentProperties.Count > 0)
+            {
+                string createTableCommand = this.GetCreateTableCommand(migrationSatus.TableName, migrationSatus.PersistentProperties);
+                string createPrimaryKeyCommand = this.GetCreatePrimaryKeyCommand(migrationSatus.TableName, migrationSatus.KeyFieldName, primaryKeyType);
+                string createTimeStampColumn = this.GetAddColumnCommand(migrationSatus.TableName, "Timestamp", "Timestamp");
+
+                Business.Rules.MethodResult result = this.RunCommand(createTableCommand);
+                if(result.Success == false)
+                {
+                    methodResult.Success = false;
+                    methodResult.Message += result.Message;
+                }
+
+                result = this.RunCommand(createPrimaryKeyCommand);
+                if (result.Success == false)
+                {
+                    methodResult.Success = false;
+                    methodResult.Message += result.Message;
+                }
+
+                result = this.RunCommand(createTimeStampColumn);
+                if (result.Success == false)
+                {
+                    methodResult.Success = false;
+                    methodResult.Message += result.Message;
+                }
+            }
+
+            return methodResult;
+        }
+
+        public Business.Rules.MethodResult Synchronize(MigrationStatus migrationSatus)
+        {
+            Business.Rules.MethodResult methodResult = new Business.Rules.MethodResult();
+            methodResult.Message = string.Empty;
+            string rowsToUse = "1000";
+            string primaryKeyType = this.GetMySQLDataType(migrationSatus.KeyFieldProperty.PropertyType);
+            if (migrationSatus.PersistentProperties.Count > 0)
+            {
+                methodResult = this.UpdateTable(migrationSatus.TableName, migrationSatus.PersistentProperties, migrationSatus.KeyFieldName, primaryKeyType, rowsToUse);
+                YellowstonePathology.Business.Mongo.Gateway.SetTransferDBTS(migrationSatus.TableName);
+            }
+
+            return methodResult;
+        }
+
+        private Business.Rules.MethodResult UpdateTable(string tableName, List<PropertyInfo> properties, string keyName, string keyType, string rowsToUse)
+        {
+            Business.Rules.MethodResult methodResult = new Business.Rules.MethodResult();
+            methodResult.Message = string.Empty;
+
+            SqlCommand cmd = new SqlCommand();
+            string select = this.GetUpdateSelectStatement(tableName, properties, rowsToUse);
+            cmd.CommandText = select + " and [TimeStamp] > " +
+                "(SELECT convert(int, ep.value) " +
+                "FROM sys.extended_properties AS ep " +
+                "INNER JOIN sys.tables AS t ON ep.major_id = t.object_id " +
+                "INNER JOIN sys.columns AS c ON ep.major_id = c.object_id AND ep.minor_id = c.column_id " +
+                "WHERE class = 1 and t.Name = '" + tableName + "' and c.Name = 'TimeStamp' and ep.Name = 'TransferDBTS') order by " + properties[0].Name;
+
+            cmd.CommandType = CommandType.Text;
+
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        string removeStatement = this.GetDeleteStatement(tableName, keyName, keyType, dr);
+                        Business.Rules.MethodResult result = this.RunCommand(removeStatement);
+                        if (result.Success == false)
+                        {
+                            methodResult.Success = false;
+                            methodResult.Message = "Error in Sync.";
+                        }
+
+                        string syncStatement = this.GetInsertStatement(tableName, properties, dr);
+                        result = this.RunCommand(syncStatement);
+                        if (result.Success == false)
+                        {
+                            methodResult.Success = false;
+                            methodResult.Message = "Error in Sync.";
+                        }
+                    }
+                }
+            }
+            return methodResult;
+        }
+
+        private string GetUpdateSelectStatement(string tableName, List<PropertyInfo> properties, string rowsToUSe)
+        {
+            string result = "Select top(" + rowsToUSe + ") ";
+
+            for (int i = 0; i < properties.Count; i++)
+            {
+                PropertyInfo property = properties[i];
+                result = result + property.Name + ", ";
+            }
+
+            result = result.Remove(result.Length - 2, 2);
+
+            result = result + " from " + tableName + " Where Transferred = 1";
+            return result;
+        }
+
+        private string GetDeleteStatement(string tableName, string keyName, string keyType, SqlDataReader dr)
+        {
+            string result = "Delete from " + tableName + " Where " + keyName + " = ";
+            if (keyType == "TEXT")
+            {
+                string text = dr[0].ToString().Replace("'", "''");
+                result = result + "'" + text + "'";
+            }
+            else
+            {
+                result = result + dr[0];
+            }
+
+            return result;
+        }
+
+        public void GetStatus(MigrationStatus migrationStatus)
+        {
+            migrationStatus.HasTimestampColumn = Business.Mongo.Gateway.HasSQLTimestamp(migrationStatus.TableName);
+            migrationStatus.HasTransferredColumn = this.TableHasTransferColumn(migrationStatus.TableName);
+            bool hasDBTS = Business.Mongo.Gateway.HasTransferDBTSAttribute(migrationStatus.TableName);
+            bool hasTSA = Business.Mongo.Gateway.HasTransferTransferStraightAcrossAttribute(migrationStatus.TableName);
+            migrationStatus.HasDBTS = hasDBTS && hasTSA;
+
+            migrationStatus.HasTable = this.HasMySqlTable(migrationStatus.TableName);
+            if (migrationStatus.HasTransferredColumn && migrationStatus.HasTable)
+            {
+                migrationStatus.UnLoadedDataCount = this.GetUnloadedDataCount(migrationStatus.TableName);
+                migrationStatus.OutOfSyncCount = this.GetOutOfSyncCount(migrationStatus.TableName);
+            }
+            else
+            {
+                migrationStatus.UnLoadedDataCount = this.GetDataCount(migrationStatus.TableName);
+                migrationStatus.OutOfSyncCount = migrationStatus.UnLoadedDataCount;
+            }
+        }
+
+        private bool TableHasTransferColumn(string tableName)
+        {
+            bool result = false;
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "select * from sys.columns where Name = N'Transferred' and Object_ID = Object_ID(N'" + tableName + "')";
+            cmd.CommandType = CommandType.Text;
+
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                var value = cmd.ExecuteScalar();
+                if (value != null) result = true;
+            }
+
+            return result;
+        }
+
+        private bool HasMySqlTable(string tableName)
+        {
+            bool result = false;
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "SELECT table_name FROM INFORMATION_SCHEMA.TABLES WHERE table_schema = 'lis' AND table_name = '" + tableName + "'";
+
+            using (MySqlConnection cn = new MySqlConnection(ConnectionString))
+            {
+                string mySqlTableName = string.Empty;
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        mySqlTableName = dr.GetValue(0).ToString();
+                        if (string.IsNullOrEmpty(mySqlTableName) == false) result = true;
+                    }
+                    dr.Close();
+                }
+            }
+
+            return result;
+        }
+
+        private int GetUnloadedDataCount(string tableName)
+        {
+            int result = 0;
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "select count(*) from " + tableName + " where [Transferred] is null or [Transferred] = 0 ";
+            cmd.CommandType = CommandType.Text;
+
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                var value = cmd.ExecuteScalar();
+                if (value != null) result = (int)value;
+            }
+
+            return result;
+        }
+
+        private int GetDataCount(string tableName)
+        {
+            int result = 0;
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "select count(*) from " + tableName;
+            cmd.CommandType = CommandType.Text;
+
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                var value = cmd.ExecuteScalar();
+                if (value != null) result = (int)value;
+            }
+
+            return result;
+        }
+
+        private int GetOutOfSyncCount(string tableName)
+        {
+            int result = 0;
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "select count(*) from " + tableName + " where Transferred = 1 and [TimeStamp] > " +
+                "(SELECT convert(int, ep.value) " +
+                "FROM sys.extended_properties AS ep " +
+                "INNER JOIN sys.tables AS t ON ep.major_id = t.object_id " +
+                "INNER JOIN sys.columns AS c ON ep.major_id = c.object_id AND ep.minor_id = c.column_id " +
+                "WHERE class = 1 and t.Name = '" + tableName + "' and c.Name = 'TimeStamp' and ep.Name = 'TransferDBTS')";
+            cmd.CommandType = CommandType.Text;
+
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                var value = cmd.ExecuteScalar();
+                if (value != null) result = (int)value;
+            }
+
+            return result;
+        }
+
+        private string GetDataColumnDefinition(string tableName, PropertyInfo propertyInfo)
+        {
+            string result = propertyInfo.Name + " ";
+            if (propertyInfo.PropertyType == typeof(string))
+            {
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandText = "select data_type, character_maximum_length from INFORMATION_SCHEMA.COLUMNS where table_name = '" +
+                    tableName + "' and Column_name = '" + propertyInfo.Name + "'";
+                cmd.CommandType = CommandType.Text;
+
+                string dataType = string.Empty;
+                int dataLength = 0;
+                using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+                {
+                    cn.Open();
+                    cmd.Connection = cn;
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                             dataType = dr[0].ToString();
+                             dataLength = (int)dr[1];
+                        }
+                    }
+                }
+
+                if (dataLength == -1)
+                    dataLength = 8000;
+
+                switch(dataType)
+                {
+                    case "varchar":
+                        result += "VARCHAR(" + dataLength.ToString() + ")";
+                        break;
+                    case "char":
+                        result += "CHAR(" + dataLength.ToString() + ")";
+                        break;
+                    case "text":
+                        result += "LONGTEXT";
+                        break;
+                    case "ntext":
+                        result += "LONGTEXT";
+                        break;
+                    case "nchar":
+                        result += "CHAR(" + (dataLength * 2).ToString() + ")";
+                        break;
+                    case "nvarchar":
+                        result += "CHAR(" + (dataLength * 2).ToString() + ")";
+                        break;
+                    case "varbinary":
+                        result += "VARBINARY(" + dataLength.ToString() + ")";
+                        break;
+                }
+                result += ", ";
+            }
+            else result += this.GetMySQLDataType(propertyInfo.PropertyType) + ", ";
+
+            return result;
+        }
+
+        public void Issues(MigrationStatus migrationStatus, StringBuilder result)
+        {
+            /*foreach(PropertyInfo property in migrationStatus.PersistentProperties)
+            {
+                if(this.IsReservedWord(property.Name))
+                {
+                    result.AppendLine("update tblPanelSetOrder set ReportReferences = spso.[" + property.Name + "] from " + migrationStatus.TableName + " spso join tblPanelSetOrder pso on spso.ReportNo = pso.ReportNo");
+                    result.AppendLine("ALTER TABLE " + migrationStatus.TableName + " DROP COLUMN " + property.Name);
+                }
+            }*/
+        }
+
+        public void MoveStoredProcedure(string name, string definition)
+        {
+            string def = this.CleanUpProcedureDefinition(definition);
+            string cmd = "Insert StoredProceduresFromSQLServer (SPName, SPText) values ('" + name + "', '" + def + "')";
+            this.RunCommand(cmd);
+        }
+
+        private string CleanUpProcedureDefinition(string definition)
+        {
+            string result = definition.Trim();                
+
+            int idx = result.IndexOf("CREATE PROCEDURE");
+            if (idx > -1) result = result.Substring(idx);
+
+            idx = result.IndexOf("CREATE FUNCTION");
+            if (idx > -1) result = result.Substring(idx);
+
+            idx = result.IndexOf("AS");
+            if (idx > -1) result = result.Remove(idx, 2);
+
+            result = result.Replace("[", string.Empty);
+            result = result.Replace("]", string.Empty);
+            result = result.Replace("dbo.", string.Empty);
+            result = result.Replace("SET NOCOUNT ON;", string.Empty);
+            result = result.Replace("@", "$");
+            result.Replace("VarChar(max)", "Text");
+
+            return result;
+        }
+
+        #region ReservedWords
 
         private void BuildForbiddenWordLists()
         {
@@ -811,569 +1442,6 @@ namespace YellowstonePathology.MySQLMigration
             }
             return result;
         }
-
-        private void CreatePrimaryKeyCommand(string tableName, string columnName, string keyType, StringBuilder result)
-        {
-            string command = "alter table " + tableName + " add constraint pk_" + tableName + " primary key(" + columnName;
-            if (keyType == "TEXT")
-            {
-                command += "(50)";
-            }
-            command += ")";
-            result.AppendLine(command);
-        }
-
-        public Business.Rules.MethodResult AddTransferColumn(string tableName)
-        {
-            Business.Rules.MethodResult methodResult = new Business.Rules.MethodResult();
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "alter table " + tableName + " add Transferred bit NULL";
-            cmd.CommandType = CommandType.Text;
-
-            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
-            {
-                try
-                {
-                    cn.Open();
-                    cmd.Connection = cn;
-                    cmd.ExecuteNonQuery();
-                }
-                catch (Exception e)
-                {
-                    string s = e.Message;
-                    methodResult.Message = cmd.CommandText;
-                    methodResult.Success = false;
-                }
-            }
-
-            return methodResult;
-        }
-
-        public Business.Rules.MethodResult AddDBTS(string tableName)
-        {
-            Business.Rules.MethodResult methodResult = new Business.Rules.MethodResult();
-            bool hasDBTS = Business.Mongo.Gateway.HasTransferDBTSAttribute(tableName);
-            bool hasTSA = Business.Mongo.Gateway.HasTransferTransferStraightAcrossAttribute(tableName);
-
-            if (hasDBTS == false) Business.Mongo.Gateway.AddTransferDBTSAttribute(tableName);
-            if (hasTSA == false) Business.Mongo.Gateway.AddTransferStraightAcrossAttribute(tableName, false);
-            return methodResult;
-        }
-
-        private string GetDataColumnName(PropertyInfo propertyInfo)
-        {
-            string result = propertyInfo.Name;
-            if (this.IsReservedWord(result) == true)
-            {
-                result = "Report" + result;
-            }
-            return result;
-        }
-
-        private PropertyInfo GetPrimaryKey(Type type)
-        {
-            PropertyInfo result = null;
-            PropertyInfo[] primaryKeyProperties = type.GetProperties().
-                Where(prop => Attribute.IsDefined(prop, typeof(Business.Persistence.PersistentPrimaryKeyProperty))).ToArray();
-
-            if (primaryKeyProperties.Length > 0)
-            {
-                result = primaryKeyProperties[0];
-            }
-            return result;
-        }
-
-        private string GetCreateTableCommand(string tableName, List<PropertyInfo> tableProperties)
-        {
-            string sqlCommand = "Create Table If Not Exists " + tableName + "(";
-
-            for (int i = 0; i < tableProperties.Count; i++)
-            {
-                PropertyInfo columnProperty = tableProperties[i];
-                string columnName = this.GetDataColumnName(columnProperty);
-                sqlCommand += columnName + " ";
-                sqlCommand += this.GetMySQLDataType(columnProperty.PropertyType) + ", ";
-            }
-
-            sqlCommand = sqlCommand.Remove(sqlCommand.Length - 2, 2);
-            sqlCommand += ");";
-            return sqlCommand;
-        }
-
-        private string GetCreatePrimaryKeyCommand(string tableName, string columnName, string keyType)
-        {
-            string result = "alter table " + tableName + " add constraint pk_" + tableName + " primary key(" + columnName;
-            if (keyType == "TEXT")
-            {
-                result += "(50)";
-            }
-            result += ")";
-            return result;
-        }
-
-        private string GetAddColumnCommand(string tableName, string columnName, string columnDataType)
-        {
-            string result = "ALTER TABLE " + tableName + " ADD COLUMN " + columnName + " " + columnDataType + ";";
-            return result;
-        }
-
-        private Business.Rules.MethodResult RunCommand(string command)
-        {
-            Business.Rules.MethodResult methodResult = new Business.Rules.MethodResult();
-            using (MySqlConnection cn = new MySqlConnection(ConnectionString))
-            {
-                cn.Open();
-                MySqlCommand cmd = new MySqlCommand();
-                cmd.Connection = cn;
-                cmd.CommandText = command;
-
-                try
-                {
-                    cmd.ExecuteNonQuery();
-                }
-                catch (Exception e)
-                {
-                    string s = e.Message;
-                    methodResult.Message += "MySQL error executing " + command;
-                    methodResult.Success = false;
-                }
-            }
-            return methodResult;
-        }
-
-        public Business.Rules.MethodResult LoadData(MigrationStatus migrationSatus, int numberOfObjectsToMove, int whenToStop)
-        {
-            Business.Rules.MethodResult methodResult = new Business.Rules.MethodResult();
-
-            string countToMove = numberOfObjectsToMove.ToString();
-           
-            int repetitions = this.GetTableRepeatCount(migrationSatus.TableName, countToMove);
-            if(repetitions > 0)
-            {
-                if(whenToStop <= repetitions)
-                {
-                    repetitions = whenToStop;
-                }
-            }
-
-            for (int idx = 0; idx < repetitions; idx++)
-            {
-                SqlCommand cmd = new SqlCommand();
-                cmd.CommandText = this.GetSelectStatement(migrationSatus.TableName, migrationSatus.PersistentProperties, countToMove);
-                cmd.CommandType = CommandType.Text;
-
-                using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
-                {
-                    cn.Open();
-                    cmd.Connection = cn;
-                    using (SqlDataReader dr = cmd.ExecuteReader())
-                    {
-                        while (dr.Read())
-                        {
-                            string commandText = this.GetInsertStatement(migrationSatus.TableName, migrationSatus.PersistentProperties, dr);
-                            Business.Rules.MethodResult result = this.RunCommand(commandText);
-                            if(result.Success == false)
-                            {
-                                methodResult.Message = "Error in Loading Data";
-                                methodResult.Success = false;
-                            }
-                        }
-                    }
-                }
-
-                this.SetTransfered(migrationSatus.TableName, migrationSatus.KeyFieldName, countToMove);
-            }
-
-            YellowstonePathology.Business.Mongo.Gateway.SetTransferDBTS(migrationSatus.TableName);
-            return methodResult;
-        }
-
-        private int GetTableRepeatCount(string TableName, string rowsToUse)
-        {
-            int rows = Convert.ToInt32(rowsToUse);
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "Select count(*) from " + TableName + " where Transferred is null or Transferred = 0";
-
-            int result = 0;
-            int count = 0;
-            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
-            {
-                cn.Open();
-                cmd.Connection = cn;
-                using (SqlDataReader dr = cmd.ExecuteReader())
-                {
-                    while (dr.Read())
-                    {
-                        count = (int)dr[0];
-                    }
-                }
-            }
-
-            if (count > 0)
-            {
-                result = count / rows;
-                if (count % rows > 0) result++;
-            }
-            return result;
-        }
-        private void SetTransfered(string tableName, string keyName, string rowsToUse)
-        {
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "update " + tableName + " set Transferred = 1 where  " + keyName + " in (Select top (" + rowsToUse + ") " + keyName + " from " + tableName + " where Transferred is null or Transferred = 0)";
-            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
-            {
-                cn.Open();
-                cmd.Connection = cn;
-                cmd.ExecuteNonQuery();
-            }
-        }
-
-        private string GetSelectStatement(string tableName, List<PropertyInfo> properties, string rowsToUSe)
-        {
-            string result = "Select top(" + rowsToUSe + ") ";
-
-            for (int i = 0; i < properties.Count; i++)
-            {
-                PropertyInfo property = properties[i];
-                result = result + property.Name + ", ";
-            }
-
-            result = result.Remove(result.Length - 2, 2);
-
-            result = result + " from " + tableName + " Where Transferred is null or Transferred = 0";
-            return result;
-        }
-
-        private string GetInsertStatement(string tableName, List<PropertyInfo> properties, SqlDataReader dr)
-        {
-            string result = "Insert " + tableName + "(";
-
-            for (int i = 0; i < properties.Count; i++)
-            {
-                PropertyInfo property = properties[i];
-                string name = this.GetDataColumnName(property);
-                result = result + name + ", ";
-            }
-
-            result = result.Remove(result.Length - 2, 2);
-
-            result = result + ") values (";
-
-            for (int i = 0; i < properties.Count; i++)
-            {
-                PropertyInfo property = properties[i];
-                if (dr[i] == DBNull.Value)
-                {
-                    result = result + "NULL, ";
-                }
-                else
-                {
-                    string dataType = this.GetMySQLDataType(property.PropertyType);
-                    if (dataType == "TEXT")
-                    {
-                        string text = dr[i].ToString().Replace("'", "''");
-                        if (string.IsNullOrEmpty(text))
-                        {
-                            result = result + "NULL, ";
-                        }
-                        else
-                        {
-                            result = result + "'" + text + "', ";
-                        }
-                    }
-                    else if (dataType == "DATETIME")
-                    {
-                        DateTime dt = (DateTime)dr[i];
-                        result = result + "'" + dt.ToString("yyyy-MM-dd HH:mm:ss") + "', ";
-                    }
-                    else
-                    {
-                        result = result + dr[i] + ", ";
-                    }
-                }
-            }
-
-            result = result.Remove(result.Length - 2, 2);
-
-            result = result + ")";
-            return result;
-        }
-
-        public Business.Rules.MethodResult BuildTable(MigrationStatus migrationSatus)
-        {
-            Business.Rules.MethodResult methodResult = new Business.Rules.MethodResult();
-            methodResult.Message = string.Empty;
-            string primaryKeyType = this.GetMySQLDataType(migrationSatus.KeyFieldProperty.PropertyType);
-            if (migrationSatus.PersistentProperties.Count > 0)
-            {
-                string createTableCommand = this.GetCreateTableCommand(migrationSatus.TableName, migrationSatus.PersistentProperties);
-                string createPrimaryKeyCommand = this.GetCreatePrimaryKeyCommand(migrationSatus.TableName, migrationSatus.KeyFieldName, primaryKeyType);
-                string createTimeStampColumn = this.GetAddColumnCommand(migrationSatus.TableName, "Timestamp", "Timestamp");
-
-                Business.Rules.MethodResult result = this.RunCommand(createTableCommand);
-                if(result.Success == false)
-                {
-                    methodResult.Success = false;
-                    methodResult.Message += result.Message;
-                }
-
-                result = this.RunCommand(createPrimaryKeyCommand);
-                if (result.Success == false)
-                {
-                    methodResult.Success = false;
-                    methodResult.Message += result.Message;
-                }
-
-                result = this.RunCommand(createTimeStampColumn);
-                if (result.Success == false)
-                {
-                    methodResult.Success = false;
-                    methodResult.Message += result.Message;
-                }
-            }
-
-            return methodResult;
-        }
-
-        public Business.Rules.MethodResult Synchronize(MigrationStatus migrationSatus)
-        {
-            Business.Rules.MethodResult methodResult = new Business.Rules.MethodResult();
-            methodResult.Message = string.Empty;
-            string rowsToUse = "1000";
-            string primaryKeyType = this.GetMySQLDataType(migrationSatus.KeyFieldProperty.PropertyType);
-            if (migrationSatus.PersistentProperties.Count > 0)
-            {
-                methodResult = this.UpdateTable(migrationSatus.TableName, migrationSatus.PersistentProperties, migrationSatus.KeyFieldName, primaryKeyType, rowsToUse);
-                YellowstonePathology.Business.Mongo.Gateway.SetTransferDBTS(migrationSatus.TableName);
-            }
-
-            return methodResult;
-        }
-
-        private Business.Rules.MethodResult UpdateTable(string tableName, List<PropertyInfo> properties, string keyName, string keyType, string rowsToUse)
-        {
-            Business.Rules.MethodResult methodResult = new Business.Rules.MethodResult();
-            methodResult.Message = string.Empty;
-
-            SqlCommand cmd = new SqlCommand();
-            string select = this.GetSelectStatement(tableName, properties, rowsToUse);
-            cmd.CommandText = select + " and [TimeStamp] > " +
-                "(SELECT convert(int, ep.value) " +
-                "FROM sys.extended_properties AS ep " +
-                "INNER JOIN sys.tables AS t ON ep.major_id = t.object_id " +
-                "INNER JOIN sys.columns AS c ON ep.major_id = c.object_id AND ep.minor_id = c.column_id " +
-                "WHERE class = 1 and t.Name = '" + tableName + "' and c.Name = 'TimeStamp' and ep.Name = 'TransferDBTS')";
-
-            cmd.CommandType = CommandType.Text;
-
-            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
-            {
-                cn.Open();
-                cmd.Connection = cn;
-                using (SqlDataReader dr = cmd.ExecuteReader())
-                {
-                    while (dr.Read())
-                    {
-                        string removeStatement = this.GetDeleteStatement(tableName, keyName, keyType, dr);
-                        Business.Rules.MethodResult result = this.RunCommand(removeStatement);
-                        if (result.Success == false)
-                        {
-                            methodResult.Success = false;
-                            methodResult.Message = "Error in Sync.";
-                        }
-
-                        string syncStatement = this.GetInsertStatement(tableName, properties, dr);
-                        result = this.RunCommand(syncStatement);
-                        if (result.Success == false)
-                        {
-                            methodResult.Success = false;
-                            methodResult.Message = "Error in Sync.";
-                        }
-                    }
-                }
-            }
-            return methodResult;
-        }
-
-        private string GetDeleteStatement(string tableName, string keyName, string keyType, SqlDataReader dr)
-        {
-            string result = "Delete from " + tableName + " Where " + keyName + " = ";
-            if (keyType == "TEXT")
-            {
-                string text = dr[0].ToString().Replace("'", "''");
-                result = result + "'" + text + "'";
-            }
-            else
-            {
-                result = result + dr[0];
-            }
-
-            return result;
-        }
-
-        public void GetStatus(MigrationStatus migrationStatus)
-        {
-            migrationStatus.HasTimestampColumn = Business.Mongo.Gateway.HasSQLTimestamp(migrationStatus.TableName);
-            migrationStatus.HasTransferredColumn = this.TableHasTransferColumn(migrationStatus.TableName);
-            bool hasDBTS = Business.Mongo.Gateway.HasTransferDBTSAttribute(migrationStatus.TableName);
-            bool hasTSA = Business.Mongo.Gateway.HasTransferTransferStraightAcrossAttribute(migrationStatus.TableName);
-            migrationStatus.HasDBTS = hasDBTS && hasTSA;
-
-            migrationStatus.HasTable = this.HasMySqlTable(migrationStatus.TableName);
-            if (migrationStatus.HasTransferredColumn && migrationStatus.HasTable)
-            {
-                migrationStatus.UnLoadedDataCount = this.GetUnloadedDataCount(migrationStatus.TableName);
-                migrationStatus.OutOfSyncCount = this.GetOutOfSyncCount(migrationStatus.TableName);
-            }
-            else
-            {
-                migrationStatus.UnLoadedDataCount = this.GetDataCount(migrationStatus.TableName);
-                migrationStatus.OutOfSyncCount = migrationStatus.UnLoadedDataCount;
-            }
-        }
-
-        private bool TableHasTransferColumn(string tableName)
-        {
-            bool result = false;
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "select * from sys.columns where Name = N'Transferred' and Object_ID = Object_ID(N'" + tableName + "')";
-            cmd.CommandType = CommandType.Text;
-
-            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
-            {
-                cn.Open();
-                cmd.Connection = cn;
-                var value = cmd.ExecuteScalar();
-                if (value != null) result = true;
-            }
-
-            return result;
-        }
-
-        private bool HasMySqlTable(string tableName)
-        {
-            bool result = false;
-            MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText = "SELECT table_name FROM INFORMATION_SCHEMA.TABLES WHERE table_schema = 'lis' AND table_name = '" + tableName + "'";
-
-            using (MySqlConnection cn = new MySqlConnection(ConnectionString))
-            {
-                string mySqlTableName = string.Empty;
-                cn.Open();
-                cmd.Connection = cn;
-                using (MySqlDataReader dr = cmd.ExecuteReader())
-                {
-                    while (dr.Read())
-                    {
-                        mySqlTableName = dr.GetValue(0).ToString();
-                        if (string.IsNullOrEmpty(mySqlTableName) == false) result = true;
-                    }
-                    dr.Close();
-                }
-            }
-
-            return result;
-        }
-
-        private int GetUnloadedDataCount(string tableName)
-        {
-            int result = 0;
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "select count(*) from " + tableName + " where [Transferred] is null or [Transferred] = 0 ";
-            cmd.CommandType = CommandType.Text;
-
-            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
-            {
-                cn.Open();
-                cmd.Connection = cn;
-                var value = cmd.ExecuteScalar();
-                if (value != null) result = (int)value;
-            }
-
-            return result;
-        }
-
-        private int GetDataCount(string tableName)
-        {
-            int result = 0;
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "select count(*) from " + tableName;
-            cmd.CommandType = CommandType.Text;
-
-            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
-            {
-                cn.Open();
-                cmd.Connection = cn;
-                var value = cmd.ExecuteScalar();
-                if (value != null) result = (int)value;
-            }
-
-            return result;
-        }
-
-        private int GetOutOfSyncCount(string tableName)
-        {
-            int result = 0;
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "select count(*) from " + tableName + " where [TimeStamp] > " +
-                "(SELECT convert(int, ep.value) " +
-                "FROM sys.extended_properties AS ep " +
-                "INNER JOIN sys.tables AS t ON ep.major_id = t.object_id " +
-                "INNER JOIN sys.columns AS c ON ep.major_id = c.object_id AND ep.minor_id = c.column_id " +
-                "WHERE class = 1 and t.Name = '" + tableName + "' and c.Name = 'TimeStamp' and ep.Name = 'TransferDBTS')";
-            cmd.CommandType = CommandType.Text;
-
-            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
-            {
-                cn.Open();
-                cmd.Connection = cn;
-                var value = cmd.ExecuteScalar();
-                if (value != null) result = (int)value;
-            }
-
-            return result;
-        }
-
-        public void Issues(MigrationStatus migrationStatus, StringBuilder result)
-        {
-            /*foreach(PropertyInfo property in migrationStatus.PersistentProperties)
-            {
-                if(this.IsReservedWord(property.Name))
-                {
-                    result.AppendLine("update tblPanelSetOrder set ReportReferences = spso.[" + property.Name + "] from " + migrationStatus.TableName + " spso join tblPanelSetOrder pso on spso.ReportNo = pso.ReportNo");
-                    result.AppendLine("ALTER TABLE " + migrationStatus.TableName + " DROP COLUMN " + property.Name);
-                }
-            }*/
-        }
-
-        public void MoveStoredProcedure(string name, string definition)
-        {
-            string def = this.CleanUpProcedureDefinition(definition);
-            string cmd = "Insert StoredProceduresFromSQLServer (SPName, SPText) values ('" + name + "', '" + def + "')";
-            this.RunCommand(cmd);
-        }
-
-        private string CleanUpProcedureDefinition(string definition)
-        {
-            string result = definition.Trim();                
-
-            int idx = result.IndexOf("CREATE PROCEDURE");
-            if (idx > -1) result = result.Substring(idx);
-
-            idx = result.IndexOf("CREATE FUNCTION");
-            if (idx > -1) result = result.Substring(idx);
-
-            idx = result.IndexOf("AS");
-            if (idx > -1) result = result.Remove(idx, 2);
-
-            result = result.Replace("[", string.Empty);
-            result = result.Replace("]", string.Empty);
-            result = result.Replace("dbo.", string.Empty);
-            result = result.Replace("SET NOCOUNT ON;", string.Empty);
-            result = result.Replace("@", "$");
-            result.Replace("VarChar(max)", "Text");
-
-            return result;
-        }
+        #endregion
     }
 }

@@ -9,7 +9,7 @@ using YellowstonePathology.Business.Persistence;
 
 namespace YellowstonePathology.Business
 {
-    [PersistentClass("tblNeogenomicsResult", "YPIDATA")]
+    //[PersistentClass("tblNeogenomicsResult", "YPIDATA")]
     public class NeogenomicsResult : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;

@@ -105,8 +105,7 @@ namespace YellowstonePathology.UI.MySql
                 this.StatusMessage = "Working on it.";
                 foreach (MySQLMigration.MigrationStatus migrationStatus in this.ListViewMigrationStatus.SelectedItems)
                 {
-                    this.m_MySQLDatabaseBuilder.GetStatus(migrationStatus);
-                    this.StatusMessage = "Got Status for " + migrationStatus.Name;
+                    this.GetStatus(migrationStatus);
                 }
             }
             else
@@ -124,6 +123,7 @@ namespace YellowstonePathology.UI.MySql
                 {
                     Business.Rules.MethodResult methodResult = m_MySQLDatabaseBuilder.BuildTable(migrationStatus);
                     this.SetStatusMessage(methodResult);
+                    this.GetStatus(migrationStatus);
                 }
             }
             else
@@ -236,6 +236,12 @@ namespace YellowstonePathology.UI.MySql
             {
                 MessageBox.Show("Select a class to Sync.");
             }
+        }
+
+        private void GetStatus(MySQLMigration.MigrationStatus migrationStatus)
+        {
+            this.m_MySQLDatabaseBuilder.GetStatus(migrationStatus);
+            this.StatusMessage = "Got Status for " + migrationStatus.Name;
         }
     }
 }
