@@ -39,6 +39,7 @@ namespace YellowstonePathology.Business.Client.Model
         private bool m_HasReferringProvider;
         private string m_ReferringProviderClientId;
         private string m_ReferringProviderClientName;
+        private string m_AdditionalTestingNotificationEmail;
 
         public Client()
         {
@@ -352,6 +353,20 @@ namespace YellowstonePathology.Business.Client.Model
                 {
                     this.m_ReferringProviderClientName = value;
                     this.NotifyPropertyChanged("ReferringProviderClientName");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string AdditionalTestingNotificationEmail
+        {
+            get { return this.m_AdditionalTestingNotificationEmail; }
+            set
+            {
+                if (this.m_AdditionalTestingNotificationEmail != value)
+                {
+                    this.m_AdditionalTestingNotificationEmail = value;
+                    this.NotifyPropertyChanged("AdditionalTestingNotificationEmail");
                 }
             }
         }

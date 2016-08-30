@@ -129,7 +129,7 @@ namespace YellowstonePathology.UI.Gross
                 "Fimbriated Ends:  [description]" + Environment.NewLine +
             	"Fallopian Tube 1:  [description], [measurement], [inked]" + Environment.NewLine +                          
 				"Fallopian Tube 2:  [description], [measurement], [inked]" + Environment.NewLine +
-                "Submitted:  Serially sectioned with representative sections submitted into cassette [cassettelabel].  ";
+                "Submitted:  [representativesections].  ";
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.FallopianTube fallopianTube = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.FallopianTube();
             this.m_SpecimenCollection.Add(fallopianTube);
@@ -138,7 +138,7 @@ namespace YellowstonePathology.UI.Gross
         public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
-            result = this.ReplaceCassetteLabel(result, specimenOrder);
+            result = this.ReplaceRepresentativeSections(result, specimenOrder);
             return result;
         }
     }

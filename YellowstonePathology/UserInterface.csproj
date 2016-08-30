@@ -40,7 +40,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>61</ApplicationRevision>
+    <ApplicationRevision>65</ApplicationRevision>
     <ApplicationVersion>10.1.6.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -985,6 +985,7 @@
     <Compile Include="Business\Label.Model\MolecularLabelPrinter.cs" />
     <Compile Include="Business\Label.Model\MolecularLabelZebra.cs" />
     <Compile Include="Business\Label.Model\PantherLabel.cs" />
+    <Compile Include="Business\Label.Model\PantherZPLLabel.cs" />
     <Compile Include="Business\Label.Model\PAPSlideLabel.cs" />
     <Compile Include="Business\Label.Model\PAPSlideLabelPrinter.cs" />
     <Compile Include="Business\Label.Model\SlideLabel.cs" />
@@ -996,6 +997,7 @@
     <Compile Include="Business\Label.Model\ThinPrepSlide.cs" />
     <Compile Include="Business\Label.Model\ThinPrepSlideDirectPrintLabel.cs" />
     <Compile Include="Business\Label.Model\ThinPrepSlidePrinter.cs" />
+    <Compile Include="Business\Label.Model\ZPLPrinter.cs" />
     <Compile Include="Business\LevenshteinDistance.cs" />
     <Compile Include="Business\ListItem.cs" />
     <Compile Include="Business\Logging\EmailExceptionHandler.cs" />
@@ -1053,6 +1055,7 @@
     <Compile Include="Business\Test\JAK2V617F\JAK2V617FWPHObxView.cs" />
     <Compile Include="Business\Test\MUM1ByIHC\MUM1ByIHCTest.cs" />
     <Compile Include="Business\Test\PlateletAssociatedAntibodies\PlateletAssociatedAntibodiesEPICOBXView.cs" />
+    <Compile Include="Business\Test\ROS1ByFISH\ROS1ByFISHPositiveResult.cs" />
     <Compile Include="MySQLMigration\MigrationStatus.cs" />
     <Compile Include="MySQLMigration\MigrationStatusCollection.cs" />
     <Compile Include="MySQLMigration\MySQLDatabaseBuilder.cs" />
