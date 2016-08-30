@@ -222,11 +222,16 @@ namespace YellowstonePathology.UI.Cytology
                 }
                 else if (aliquotOrder.AliquotType == pantherAliquot.AliquotType)
                 {
-                    YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByAliquotOrderId(aliquotOrder.AliquotOrderId);
-                    YellowstonePathology.Business.Label.Model.PantherLabel pantherLabel = new Business.Label.Model.PantherLabel(aliquotOrder.AliquotOrderId, this.m_AccessionOrder.PatientDisplayName, this.m_AccessionOrder.PBirthdate.Value, specimenOrder.Description);
-                    YellowstonePathology.Business.Label.Model.MolecularLabelPrinter molecularLabelPrinter = new Business.Label.Model.MolecularLabelPrinter();
-                    molecularLabelPrinter.Queue.Enqueue(pantherLabel);
-                    molecularLabelPrinter.Print();
+                    YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByAliquotOrderId(aliquotOrder.AliquotOrderId);                    
+                    string zplCommands = Business.Label.Model.PantherZPLLabel.GetCommands(aliquotOrder.AliquotOrderId, this.m_AccessionOrder.PBirthdate.Value, this.m_AccessionOrder.PatientDisplayName, specimenOrder.Description);
+
+                    Business.Label.Model.ZPLPrinter zplPrinter = new Business.Label.Model.ZPLPrinter();
+                    zplPrinter.Print(zplCommands);
+
+                    //YellowstonePathology.Business.Label.Model.PantherLabel pantherLabel = new Business.Label.Model.PantherLabel(aliquotOrder.AliquotOrderId, this.m_AccessionOrder.PatientDisplayName, this.m_AccessionOrder.PBirthdate.Value, specimenOrder.Description);
+                    //YellowstonePathology.Business.Label.Model.MolecularLabelPrinter molecularLabelPrinter = new Business.Label.Model.MolecularLabelPrinter();
+                    //molecularLabelPrinter.Queue.Enqueue(pantherLabel);
+                    //molecularLabelPrinter.Print();
                 }
             }
         }

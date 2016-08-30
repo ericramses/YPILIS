@@ -25,7 +25,8 @@ namespace YellowstonePathology.UI.Test
 
         public AcidWashOrdersDialog()
         {
-            this.m_AcidWashList = Business.Gateway.ReportSearchGateway.GetAcidWashList(DateTime.Today.AddMonths(-3));
+            this.m_AcidWashList = Business.Gateway.ReportSearchGateway.GetAcidWashList(DateTime.Today.AddMonths(-3));            
+
             InitializeComponent();
             DataContext = this;            
         }        

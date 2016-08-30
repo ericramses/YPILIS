@@ -699,5 +699,12 @@ namespace YellowstonePathology.UI.Cytology
 		{
 			this.TextBoxReportNoSearch.Text = reportNo;
 		}
+
+        private void ButtonAcidWashQNS_Click(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderAcidWash panelOrderAcidWash = (Business.Test.ThinPrepPap.PanelOrderAcidWash)this.ListBoxResults.SelectedItem;
+            Business.Rules.MethodResult methodResult = panelOrderAcidWash.IsOkToAccept();
+            panelOrderAcidWash.Comment = "QNS";
+        }
     }
 }

@@ -6,7 +6,7 @@ using System.Text;
 namespace YellowstonePathology.Business.Persistence
 {    
     public class PersistentProperty : System.Attribute
-    {
+    {        
         private bool m_IsInheritingClassKey;        
 
         public PersistentProperty()

@@ -397,8 +397,8 @@ namespace YellowstonePathology.Business.Gateway
             Test.ThinPrepPap.AcidWashList result = new Test.ThinPrepPap.AcidWashList();
             SqlCommand cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "Select pso.MasterAccessionNo, po.ReportNo, po.OrderDate, po.Accepted, a.PLastName, a.PFirstName, a.PMiddleInitial from tblPanelOrder po join tblPanelSetOrder pso on po.ReportNo = pso.ReportNo " +
-                " join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo where po.PanelId = 39 and po.OrderDate >= @StartDate  order by po.OrderDate Desc";
+            cmd.CommandText = "Select pso.MasterAccessionNo, po.ReportNo, po.OrderTime, po.Accepted, a.PLastName, a.PFirstName, a.PMiddleInitial, po.Comment from tblPanelOrder po join tblPanelSetOrder pso on po.ReportNo = pso.ReportNo " +
+                " join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo where po.PanelId = 39 and po.OrderTime >= @StartDate  order by po.OrderTime Desc";
             cmd.Parameters.Add("@StartDate", SqlDbType.DateTime).Value = startDate;
 
             using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
@@ -416,6 +416,8 @@ namespace YellowstonePathology.Business.Gateway
                     }
                 }
             }
+
+            result.SetState();
             return result;
         }
     }

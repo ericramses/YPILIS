@@ -12,5 +12,27 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
         {
 
         }
+
+        public void SetState()
+        {
+            foreach(AcidWashListItem item in this)
+            {
+                if(item.Accepted == false)
+                {
+                    if(item.OrderTime.AddHours(4) > DateTime.Now)
+                    {
+                        item.State = Monitor.Model.MonitorStateEnum.Critical;
+                    }
+                    else
+                    {
+                        item.State = Monitor.Model.MonitorStateEnum.Warning;
+                    }
+                }
+                else
+                {
+                    item.State = Monitor.Model.MonitorStateEnum.Normal;
+                }
+            }
+        }
     }
 }

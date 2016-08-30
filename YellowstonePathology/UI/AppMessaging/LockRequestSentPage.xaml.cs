@@ -29,7 +29,7 @@ namespace YellowstonePathology.UI.AppMessaging
 
         public LockRequestSentPage(string address, string masterAccessionNo, System.Windows.Visibility closeButtonVisibility, System.Windows.Visibility nevermindButtonVisibility)
 		{
-            this.m_DisplayMessage = "A resquest was sent to " + address + " for the lock on " + masterAccessionNo + ".";
+            this.m_DisplayMessage = "A request was sent to " + address + " for the lock on " + masterAccessionNo + ".";
             this.m_StopTimerOnNextTick = false;
 
             InitializeComponent();

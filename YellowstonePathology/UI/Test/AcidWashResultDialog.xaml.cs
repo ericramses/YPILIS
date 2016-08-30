@@ -90,5 +90,10 @@ namespace YellowstonePathology.UI.Test
             printDialog.PrintQueue = printQueue;            
             printDialog.PrintDocument(cytologySlideLabelDocument.DocumentPaginator, "Slide Labels");
         }
+
+        private void HyperLinkQNS_Click(object sender, RoutedEventArgs e)
+        {
+            this.m_PanelOrderAcidWash.Comment = "QNS";
+        }
     }
 }
